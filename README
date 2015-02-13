@@ -1,0 +1,26 @@
+ring-client-gnome
+*****************
+
+Ring-client-gnome is a Ring client written in GTK+3. It uses libRingClient to
+communicate with the Ring daemon and for all of the underlying models and their
+logic. Ideally ring-client-gnome should only contain UI related code and any
+wrappers necessary for interacting with libRingClient.
+
+Requirements
+==================
+
+- Ring daemon
+- libRingClient (Qt5 version)
+- GTK+3 (3.10 or higher)
+- Qt5 Core
+
+Compiling
+==================
+
+In the project root dir:
+	mkdir build
+	cd build
+	cmake ..
+	make
+
+Then simply run ./ring-client-gnome
