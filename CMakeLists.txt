@@ -102,6 +102,10 @@ ENDIF()
 # source files to compile
 SET( SRC_FILES
    src/main.cpp
+   src/ring_client.h
+   src/ring_client.cpp
+   src/ring_client_options.h
+   src/ring_client_options.c
 )
 
 # IF(${ENABLE_TEST} MATCHES true)
@@ -112,6 +116,6 @@ SET( SRC_FILES
 # FIND_PACKAGE ( Gettext REQUIRED )
 # ADD_SUBDIRECTORY( po )
 
-ADD_EXECUTABLE(ring-client-gnome ${SRC_FILES})
+ADD_EXECUTABLE(ring-gnome ${SRC_FILES})
 
-TARGET_LINK_LIBRARIES(ring-client-gnome ${LIB_RING_CLIENT_LIBRARY} ${GTK3_LIBRARIES} Qt5::Core)
+TARGET_LINK_LIBRARIES(ring-gnome ${LIB_RING_CLIENT_LIBRARY} ${GTK3_LIBRARIES} Qt5::Core)
