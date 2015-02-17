@@ -28,11 +28,33 @@
  *  as that of the covered work.
  */
 
-#include <gtk/gtk.h>
-#include "ring_client.h"
+#ifndef RING_CLIENT_H_
+#define RING_CLIENT_H_
 
-int
-main(int argc, char *argv[])
+#include <gtk/gtk.h>
+
+// #define RING_GSETTINGS_SCHEMA "cx.ring.RingGnome"
+#define RING_CLIENT_TYPE (ring_client_get_type())
+#define RING_CLIENT(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), RING_CLIENT_TYPE, RingClient))
+
+typedef struct _RingClientPrivate RingClientPrivate;
+typedef struct _RingClientClass RingClientClass;
+typedef struct _RingClient RingClient;
+
+struct _RingClientClass
 {
-    return g_application_run(G_APPLICATION(ring_client_new()), argc, argv);
-}
+  GtkApplicationClass parent_class;
+};
+
+struct _RingClient
+{
+    GtkApplication parent;
+    /* Private */
+    RingClientPrivate *priv;
+};
+
+/* Public interface */
+GType       ring_client_get_type(void) G_GNUC_CONST;
+RingClient *ring_client_new(void);
+
+#endif /* RING_CLIENT_H_ */

@@ -1,6 +1,6 @@
 /*
- *  Copyright (C) 2015 Savoir-Faire Linux Inc.
- *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Copyright (C) 2013-2015 Savoir-Faire Linux Inc.
+ *  Author: Tristan Matthews <tristan.matthews@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,11 +28,19 @@
  *  as that of the covered work.
  */
 
-#include <gtk/gtk.h>
-#include "ring_client.h"
+#ifndef RING_CLIENT_OPTIONS_H_
+#define RING_CLIENT_OPTIONS_H_
 
-int
-main(int argc, char *argv[])
-{
-    return g_application_run(G_APPLICATION(ring_client_new()), argc, argv);
+#include <glib.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+GOptionContext *ring_client_options_get_context(void);
+
+#ifdef __cplusplus
 }
+#endif /* __cplusplus */
+
+#endif /* RING_CLIENT_OPTIONS_H_ */
