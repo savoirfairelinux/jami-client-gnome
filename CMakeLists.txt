@@ -15,8 +15,10 @@ ADD_DEFINITIONS("-std=c++1y")
 
 PROJECT(ring-client-gnome)
 
-SET(LOCAL_CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${LOCAL_CMAKE_MODULE_PATH})
+LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
+# the GResources.cmake module isn't automatically detected
+INCLUDE(${CMAKE_SOURCE_DIR}/cmake/GResources.cmake)
 
 # make sure we're using Qt5
 SET(ENABLE_QT5 true)
@@ -108,6 +110,12 @@ SET( SRC_FILES
    src/ring_client_options.c
 )
 
+# compile glib resource files to c code
+GLIB_COMPILE_RESOURCES( GLIB_RESOURCES_RING
+   SOURCE
+      pixmaps/pixmaps.gresource.xml
+)
+
 # IF(${ENABLE_TEST} MATCHES true)
 #    ADD_SUBDIRECTORY( src/test)
 # ENDIF()
@@ -116,6 +124,6 @@ SET( SRC_FILES
 # FIND_PACKAGE ( Gettext REQUIRED )
 # ADD_SUBDIRECTORY( po )
 
-ADD_EXECUTABLE(ring-gnome ${SRC_FILES})
+ADD_EXECUTABLE(ring-gnome ${GLIB_RESOURCES_RING} ${SRC_FILES})
 
 TARGET_LINK_LIBRARIES(ring-gnome ${LIB_RING_CLIENT_LIBRARY} ${GTK3_LIBRARIES} Qt5::Core)
