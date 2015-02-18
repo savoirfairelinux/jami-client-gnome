@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/cx/ring/RingGnome">
+	<file alias="ring-symbol-blue">symbole-ring-coul.svg</file>
+	<file alias="ring-logo-blue">logo-ring-standard-coul.svg</file>
+  </gresource>
+</gresources>

@@ -107,6 +107,15 @@ ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
 
     /* create an empty window */
     priv->win = gtk_application_window_new(GTK_APPLICATION(app));
+
+    /* test gresources */
+    GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/cx/ring/RingGnome/ring-symbol-blue", &error);
+    if (icon == NULL) {
+        g_debug("Could not load icon: %s", error->message);
+        g_error_free(error);
+    } else
+        gtk_window_set_icon(GTK_WINDOW(priv->win), icon);
+
     gtk_window_present(GTK_WINDOW(priv->win));
 
     return 0;
