@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/cx/ring/RingGnome">
+	<file preprocess="xml-stripblanks">ringmainwindow.ui</file>
+	<file preprocess="xml-stripblanks">ringgearsmenu.ui</file>
+  </gresource>
+</gresources>

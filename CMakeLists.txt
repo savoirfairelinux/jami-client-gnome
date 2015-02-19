@@ -108,12 +108,15 @@ SET( SRC_FILES
    src/ring_client.cpp
    src/ring_client_options.h
    src/ring_client_options.c
+   src/ringmainwindow.h
+   src/ringmainwindow.cpp
 )
 
 # compile glib resource files to c code
 GLIB_COMPILE_RESOURCES( GLIB_RESOURCES_RING
    SOURCE
       pixmaps/pixmaps.gresource.xml
+      ui/ui.gresource.xml
 )
 
 # IF(${ENABLE_TEST} MATCHES true)
