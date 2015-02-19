@@ -3,5 +3,9 @@
   <gresource prefix="/cx/ring/RingGnome">
 	<file alias="ring-symbol-blue">symbole-ring-coul.svg</file>
 	<file alias="ring-logo-blue">logo-ring-standard-coul.svg</file>
+	<file alias="addressbook_small">addressbook.svg</file>
+	<file alias="history_small">history.svg</file>
+	<file alias="users_small">users.svg</file>
+	<file alias="dial">dial.svg</file>
   </gresource>
 </gresources>
