@@ -38,6 +38,19 @@
 #include <callmodel.h>
 
 #include "ring_client_options.h"
+#include "ringmainwindow.h"
+
+struct _RingClientClass
+{
+  GtkApplicationClass parent_class;
+};
+
+struct _RingClient
+{
+    GtkApplication parent;
+};
+
+typedef struct _RingClientPrivate RingClientPrivate;
 
 struct _RingClientPrivate {
     /* main window */
@@ -46,7 +59,7 @@ struct _RingClientPrivate {
     QCoreApplication *qtapp;
 };
 
-G_DEFINE_TYPE(RingClient, ring_client, GTK_TYPE_APPLICATION);
+G_DEFINE_TYPE_WITH_PRIVATE(RingClient, ring_client, GTK_TYPE_APPLICATION);
 
 #define RING_CLIENT_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_CLIENT_TYPE, RingClientPrivate))
 
@@ -88,6 +101,9 @@ ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
     GtkSettings *gtk_settings = gtk_settings_get_default();
     g_object_set(G_OBJECT(gtk_settings), "gtk-application-prefer-dark-theme",
                  FALSE, NULL);
+    /* enable button icons */
+    g_object_set(G_OBJECT(gtk_settings), "gtk-button-images",
+                 TRUE, NULL);
 
     /* init libRingClient and make sure its connected to the dbus */
     try {
@@ -106,15 +122,9 @@ ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
     }
 
     /* create an empty window */
-    priv->win = gtk_application_window_new(GTK_APPLICATION(app));
-
-    /* test gresources */
-    GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/cx/ring/RingGnome/ring-symbol-blue", &error);
-    if (icon == NULL) {
-        g_debug("Could not load icon: %s", error->message);
-        g_error_free(error);
-    } else
-        gtk_window_set_icon(GTK_WINDOW(priv->win), icon);
+    if (priv->win == NULL) {
+        priv->win = ring_main_window_new(GTK_APPLICATION(app));
+    }
 
     gtk_window_present(GTK_WINDOW(priv->win));
 
@@ -148,10 +158,6 @@ ring_client_init(RingClient *self)
 static void
 ring_client_class_init(RingClientClass *klass)
 {
-    g_debug("ring_client_class_init()");
-
-    g_type_class_add_private(klass, sizeof(RingClientPrivate));
-
     G_APPLICATION_CLASS(klass)->command_line = ring_client_command_line;
     G_APPLICATION_CLASS(klass)->shutdown = ring_client_shutdown;
 }
@@ -160,6 +166,6 @@ RingClient *
 ring_client_new()
 {
     return (RingClient *)g_object_new(ring_client_get_type(),
-            "application-id", "cx.ring.RingGnome",
-            "flags", G_APPLICATION_HANDLES_COMMAND_LINE, NULL);
+                                      "application-id", "cx.ring.RingGnome",
+                                      "flags", G_APPLICATION_HANDLES_COMMAND_LINE, NULL);
 }
