@@ -110,6 +110,10 @@ SET( SRC_FILES
    src/ring_client_options.c
    src/ringmainwindow.h
    src/ringmainwindow.cpp
+   src/models/gtkaccessproxymodel.h
+   src/models/gtkaccessproxymodel.cpp
+   src/models/gtkqtreemodel.h
+   src/models/gtkqtreemodel.cpp
 )
 
 # compile glib resource files to c code
