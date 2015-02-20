@@ -22,8 +22,9 @@ struct _RingMainWindowPrivate
     GtkWidget *gears;
     GtkWidget *gears_image;
 
-    /* models */
     GtkWidget *treeview_call;
+
+    GtkWidget *search_entry;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -113,20 +114,12 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 
-    // gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, treeview_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, treeview_call);
-    // gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, treeview_accounts);
-    // gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_call);
+
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, gears);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, gears_image);
 
-    /* TODO: remove after doing this with GAction */
-    // gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), RingMainWindow, toolbutton_pickup);
-    // gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass), RingMainWindow, toolbutton_hangup);
-
-    /* bind handlers from template */
-    // gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), search_text_changed);
-    // gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (klass), visible_child_changed);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, search_entry);
 }
 
 GtkWidget *
