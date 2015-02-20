@@ -2,6 +2,8 @@
 #include "ringmainwindow.h"
 
 #include <gtk/gtk.h>
+#include "models/gtkqtreemodel.h"
+#include <callmodel.h>
 
 struct _RingMainWindow
 {
@@ -19,6 +21,9 @@ struct _RingMainWindowPrivate
 {
     GtkWidget *gears;
     GtkWidget *gears_image;
+
+    /* models */
+    GtkWidget *treeview_call;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -56,6 +61,34 @@ ring_main_window_init(RingMainWindow *win)
     GMenuModel *menu = G_MENU_MODEL(gtk_builder_get_object(builder, "menu"));
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(priv->gears), menu);
     g_object_unref(builder);
+
+    /* call model */
+    GtkQTreeModel *model;
+    GtkCellRenderer *renderer;
+    GtkTreeViewColumn *column;
+
+    model = gtk_q_tree_model_new(CallModel::instance(), 4,
+        Call::Role::Name, G_TYPE_STRING,
+        Call::Role::Number, G_TYPE_STRING,
+        Call::Role::Length, G_TYPE_STRING,
+        Call::Role::CallState, G_TYPE_STRING);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_call), GTK_TREE_MODEL(model) );
+
+    renderer = gtk_cell_renderer_text_new();
+    column = gtk_tree_view_column_new_with_attributes("Name", renderer, "text", 0, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW (priv->treeview_call), column);
+
+    renderer = gtk_cell_renderer_text_new();
+    column = gtk_tree_view_column_new_with_attributes("Number", renderer, "text", 1, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
+
+    renderer = gtk_cell_renderer_text_new();
+    column = gtk_tree_view_column_new_with_attributes("Duration", renderer, "text", 2, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
+
+    renderer = gtk_cell_renderer_text_new();
+    column = gtk_tree_view_column_new_with_attributes("State", renderer, "text", 3, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
 }
 
 static void
@@ -81,7 +114,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 
     // gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, treeview_history);
-    // gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, treeview_calls);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, treeview_call);
     // gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, treeview_accounts);
     // gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, gears);
