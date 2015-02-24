@@ -3,5 +3,6 @@
   <gresource prefix="/cx/ring/RingGnome">
 	<file preprocess="xml-stripblanks">ringmainwindow.ui</file>
 	<file preprocess="xml-stripblanks">ringgearsmenu.ui</file>
+	<file preprocess="xml-stripblanks">incomingcallview.ui</file>
   </gresource>
 </gresources>

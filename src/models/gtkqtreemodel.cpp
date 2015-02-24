@@ -197,10 +197,9 @@ gtk_q_tree_model_get_source_idx(GtkQTreeModel *q_tree_model, GtkTreeIter *iter)
     QModelIndex proxy_idx = proxy_model->indexFromId(qiter->row.value, qiter->column.value, qiter->id);
     if (proxy_idx.isValid()) {
         /* we have the proxy model idx, now get the actual idx so we can get the call object */
-        g_debug("got valid model index");
         return proxy_model->mapToSource(proxy_idx);
     } else {
-        g_debug("returning invlaid model index");
+        g_warning("could not get valid QModelIndex from given GtkTreeIter");
         return QModelIndex();
     }
 }
@@ -214,14 +213,13 @@ gtk_q_tree_model_source_index_to_iter(GtkQTreeModel *q_tree_model, const QModelI
 {
     GtkQTreeModelPrivate *priv = GTK_Q_TREEMODEL_GET_PRIVATE(q_tree_model);
 
-    /* make sure its an iter from the right model */
-    g_return_val_if_fail(idx.model() == priv->model->sourceModel(), FALSE);
+    /* the the proxy_idx from the source idx */
+    QModelIndex proxy_idx = priv->model->mapFromSource(idx);
+    if (!proxy_idx.isValid())
+        return FALSE;
 
     /* make sure iter is valid */
     iter->stamp = priv->stamp;
-
-    /* the the proxy_idx from the source idx */
-    QModelIndex proxy_idx = priv->model->mapFromSource(idx);
 
     /* map the proxy idx to iter */
     Q_ITER(iter)->row.value = proxy_idx.row();
@@ -303,8 +301,8 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
     QObject::connect(
         model,
         &QAbstractItemModel::rowsAboutToBeMoved,
-        [=](const QModelIndex & sourceParent, int sourceStart, int sourceEnd, G_GNUC_UNUSED const QModelIndex & destinationParent, int destinationRow) {
-            g_debug("rows about to be moved, start: %d, end: %d, moved to: %d", sourceStart, sourceEnd, destinationRow);
+        [=](const QModelIndex & sourceParent, int sourceStart, int sourceEnd,
+            G_GNUC_UNUSED const QModelIndex & destinationParent, G_GNUC_UNUSED int destinationRow) {
             /* first remove the row from old location
              * then insert them at the new location on the "rowsMoved signal */
             for( int row = sourceStart; row <= sourceEnd; row++) {
@@ -320,8 +318,8 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
     QObject::connect(
         model,
         &QAbstractItemModel::rowsMoved,
-        [=](G_GNUC_UNUSED const QModelIndex & sourceParent, int sourceStart, int sourceEnd, const QModelIndex & destinationParent, int destinationRow) {
-            g_debug("rows moved, start: %d, end: %d, moved to: %d", sourceStart, sourceEnd, destinationRow);
+        [=](G_GNUC_UNUSED const QModelIndex & sourceParent, int sourceStart, int sourceEnd,
+            const QModelIndex & destinationParent, int destinationRow) {
             /* these rows should have been removed in the "rowsAboutToBeMoved" handler
              * now insert them in the new location */
             for( int row = sourceStart; row <= sourceEnd; row++) {
@@ -354,7 +352,8 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
     QObject::connect(
         model,
         &QAbstractItemModel::dataChanged,
-        [=](const QModelIndex & topLeft, const QModelIndex & bottomRight, G_GNUC_UNUSED const QVector<int> & roles = QVector<int> ()) {
+        [=](const QModelIndex & topLeft, const QModelIndex & bottomRight,
+            G_GNUC_UNUSED const QVector<int> & roles = QVector<int> ()) {
             /* we have to assume only one column */
             int first = topLeft.row();
             int last = bottomRight.row();
@@ -662,8 +661,11 @@ gtk_q_tree_model_get_value(GtkTreeModel *tree_model,
         //   g_value_set_double (value, (gdouble) list->data.v_double);
         //   break;
         case G_TYPE_STRING:
-            g_value_set_string(value, (gchar *)var.toString().toLocal8Bit().data());
-            break;
+        {
+            QByteArray ba = var.toString().toLocal8Bit();
+            g_value_set_string(value, (gchar *)ba.data());
+        }
+        break;
         // case G_TYPE_POINTER:
         //   g_value_set_pointer (value, (gpointer) list->data.v_pointer);
         //   break;

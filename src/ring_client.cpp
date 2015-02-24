@@ -36,6 +36,7 @@
 #include <QString>
 #include <QByteArray>
 #include <callmodel.h>
+#include <QItemSelectionModel>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
@@ -132,6 +133,57 @@ ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
 }
 
 static void
+call_accept(G_GNUC_UNUSED GSimpleAction *action, G_GNUC_UNUSED GVariant *param, G_GNUC_UNUSED gpointer client)
+{
+    g_debug("call accpet action");
+
+    /* TODO: implement using UserActionModel once its fixed
+     * UserActionModel action_model = UserActionModel(CallModel::instance());
+     * if (action_model.isActionEnabled())
+     */
+
+    QModelIndex idx = CallModel::instance()->selectionModel()->currentIndex();
+    if (idx.isValid()) {
+        Call *call = CallModel::instance()->getCall(idx);
+        call->performAction(Call::Action::ACCEPT);
+    }
+}
+
+static void
+call_hangup(G_GNUC_UNUSED GSimpleAction *action, G_GNUC_UNUSED GVariant *param, G_GNUC_UNUSED gpointer client)
+{
+    g_debug("call hangup action");
+
+    /* TODO: implement using UserActionModel once its fixed
+     * UserActionModel action_model = UserActionModel(CallModel::instance());
+     * if (action_model.isActionEnabled())
+     */
+
+    QModelIndex idx = CallModel::instance()->selectionModel()->currentIndex();
+    if (idx.isValid()) {
+        Call *call = CallModel::instance()->getCall(idx);
+        call->performAction(Call::Action::REFUSE);
+    }
+}
+
+static const GActionEntry ring_actions[] =
+{
+    { "accept", call_accept, NULL, NULL, NULL, {0} },
+    { "reject", call_hangup, NULL, NULL, NULL, {0} }
+};
+
+static void
+ring_client_startup(GApplication *app)
+{
+    G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
+
+    RingClient *client = RING_CLIENT(app);
+
+    g_action_map_add_action_entries(
+        G_ACTION_MAP(app), ring_actions, G_N_ELEMENTS(ring_actions), client);
+}
+
+static void
 ring_client_shutdown(GApplication *app)
 {
     RingClient *self = RING_CLIENT(app);
@@ -158,6 +210,7 @@ ring_client_init(RingClient *self)
 static void
 ring_client_class_init(RingClientClass *klass)
 {
+    G_APPLICATION_CLASS(klass)->startup = ring_client_startup;
     G_APPLICATION_CLASS(klass)->command_line = ring_client_command_line;
     G_APPLICATION_CLASS(klass)->shutdown = ring_client_shutdown;
 }
