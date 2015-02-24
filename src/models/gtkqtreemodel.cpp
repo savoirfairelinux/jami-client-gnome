@@ -662,8 +662,11 @@ gtk_q_tree_model_get_value(GtkTreeModel *tree_model,
         //   g_value_set_double (value, (gdouble) list->data.v_double);
         //   break;
         case G_TYPE_STRING:
-            g_value_set_string(value, (gchar *)var.toString().toLocal8Bit().data());
-            break;
+        {
+            QByteArray ba = var.toString().toLocal8Bit();
+            g_value_set_string(value, (gchar *)ba.data());
+        }
+        break;
         // case G_TYPE_POINTER:
         //   g_value_set_pointer (value, (gpointer) list->data.v_pointer);
         //   break;
