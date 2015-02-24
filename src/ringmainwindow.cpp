@@ -4,6 +4,7 @@
 #include <gtk/gtk.h>
 #include "models/gtkqtreemodel.h"
 #include <callmodel.h>
+#include "incomingcallview.h"
 
 struct _RingMainWindow
 {
@@ -25,11 +26,49 @@ struct _RingMainWindowPrivate
     GtkWidget *treeview_call;
 
     GtkWidget *search_entry;
+
+    GtkWidget *stack_main_view;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
 
 #define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
+
+static QModelIndex
+get_index_from_selection(GtkTreeSelection *selection)
+{
+    GtkTreeIter iter;
+    GtkTreeModel *model = NULL;
+
+    if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+        return gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
+    } else {
+        return QModelIndex();
+    }
+}
+
+static void
+call_selection_changed(GtkTreeSelection *selection, gpointer win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    Call *call = NULL;
+    // Call::State state;
+
+    QModelIndex idx = get_index_from_selection(selection);
+    if (idx.isValid()) {
+        // state = call->state();
+        // if (state == Call::State::INCOMING) {
+            GtkWidget *new_call_view = incoming_call_view_new();
+            incoming_call_view_set_call_info(INCOMING_CALL_VIEW(new_call_view), idx);
+            gtk_stack_add_named(GTK_STACK(priv->stack_main_view), new_call_view, "new call");
+            gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+            gtk_stack_set_transition_duration (GTK_STACK(priv->stack_main_view), 300);
+            gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), new_call_view);
+        // }
+    } else {
+        g_debug("could not get call from selection");
+    }
+}
 
 static void
 ring_main_window_init(RingMainWindow *win)
@@ -79,17 +118,26 @@ ring_main_window_init(RingMainWindow *win)
     column = gtk_tree_view_column_new_with_attributes("Name", renderer, "text", 0, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW (priv->treeview_call), column);
 
-    renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("Number", renderer, "text", 1, NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
+    // renderer = gtk_cell_renderer_text_new();
+    // column = gtk_tree_view_column_new_with_attributes("Number", renderer, "text", 1, NULL);
+    // gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes("Duration", renderer, "text", 2, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
 
-    renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("State", renderer, "text", 3, NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
+    // renderer = gtk_cell_renderer_text_new();
+    // column = gtk_tree_view_column_new_with_attributes("State", renderer, "text", 3, NULL);
+    // gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
+
+    /* stack paceholder view */
+    GtkWidget *placeholder_view = gtk_tree_view_new();
+    gtk_widget_show(placeholder_view);
+    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), placeholder_view, "placeholder");
+
+    /* connect signals */
+    GtkTreeSelection *call_selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_call));
+    g_signal_connect(call_selection, "changed", G_CALLBACK(call_selection_changed), win);
 }
 
 static void
@@ -120,6 +168,8 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, gears_image);
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, search_entry);
+
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_main_view);
 }
 
 GtkWidget *
