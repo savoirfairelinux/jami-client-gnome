@@ -5,7 +5,7 @@
   <template class="RingMainWindow" parent="GtkApplicationWindow">
     <property name="can_focus">False</property>
     <property name="show_menubar">False</property>
-    <property name="default-width">840</property>
+    <property name="default-width">960</property>
     <property name="default-height">640</property>
     <property name="border_width">5</property>
     <!-- header definition -->
@@ -48,7 +48,8 @@
               <object class="GtkSearchEntry" id="search_entry">
                 <property name="visible">True</property>
                 <property name="height-request">43</property>
-                <property name="width-request">400</property>
+                <property name="width-request">500</property>
+                <property name="xalign">0.5</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -96,7 +97,8 @@
                   <object class="GtkScrolledWindow" id="scrolledwindow_calls">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <!-- <property name="hscrollbar_policy">never</property> -->
+                    <property name="vscrollbar_policy">never</property>
+                    <property name="height-request">100</property>
                     <!-- <property name="shadow_type">in</property> -->
                     <child>
                       <object class="GtkTreeView" id="treeview_call">

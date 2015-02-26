@@ -12,7 +12,9 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="shadow_type">none</property>
-        <property name="min-content-height">250</property>
+        <!-- <property name="min-content-height">250</property> -->
+        <!-- for now, disable scrolling, display everything -->
+        <property name="vscrollbar_policy">never</property>
         <property name="hscrollbar_policy">never</property>
         <!-- info viewport -->
         <child>
@@ -59,8 +61,16 @@
                   </packing>
                 </child>
                 <!-- end name or other identity of contact -->
+                <!-- call state info -->
                 <child>
-                  <placeholder/>
+                  <object class="GtkLabel" id="label_status">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Incoming...</property>
+                    <attributes>
+                      <attribute name="foreground" value="#88888a8a8585"/>
+                    </attributes>
+                  </object>
                 </child>
               </object>
             </child>
@@ -114,6 +124,21 @@
           </packing>
         </child>
         <!-- end reject button -->
+        <!-- end button -->
+        <child>
+          <object class="GtkButton" id="button_end_call">
+            <property name="visible">False</property>
+            <property name="can_focus">True</property>
+            <property name="label" translatable="yes">   Hang-up</property>
+            <property name="image">image_hangup</property>
+            <property name="action-name">app.reject</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <!-- end end button -->
       </object>
     </child>
     <!-- end hbox action bar -->
@@ -123,6 +148,10 @@
     <property name="resource">/cx/ring/RingGnome/accept</property>
   </object>
   <object class="GtkImage" id="image_reject">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/reject</property>
+  </object>
+  <object class="GtkImage" id="image_hangup">
     <property name="visible">True</property>
     <property name="resource">/cx/ring/RingGnome/reject</property>
   </object>

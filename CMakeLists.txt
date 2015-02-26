@@ -116,6 +116,8 @@ SET( SRC_FILES
    src/models/gtkaccessproxymodel.cpp
    src/models/gtkqtreemodel.h
    src/models/gtkqtreemodel.cpp
+   src/utils/drawing.h
+   src/utils/drawing.c
 )
 
 # compile glib resource files to c code

@@ -31,8 +31,9 @@
 #include "incomingcallview.h"
 
 #include <gtk/gtk.h>
-#include <math.h>
 #include <call.h>
+#include "utils/drawing.h"
+#include <callmodel.h>
 
 struct _IncomingCallView
 {
@@ -50,11 +51,31 @@ struct _IncomingCallViewPrivate
 {
     GtkWidget *image_incoming;
     GtkWidget *label_identity;
+    GtkWidget *label_status;
+    GtkWidget *button_accept_incoming;
+    GtkWidget *button_reject_incoming;
+    GtkWidget *button_end_call;
+
+    QMetaObject::Connection state_change_connection;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(IncomingCallView, incoming_call_view, GTK_TYPE_BOX);
 
 #define INCOMING_CALL_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), INCOMING_CALL_VIEW_TYPE, IncomingCallViewPrivate))
+
+static void
+incoming_call_dispose(GObject *object)
+{
+    IncomingCallView *view;
+    IncomingCallViewPrivate *priv;
+
+    view = INCOMING_CALL_VIEW(object);
+    priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+
+    QObject::disconnect(priv->state_change_connection);
+
+    G_OBJECT_CLASS(incoming_call_view_parent_class)->dispose(object);
+}
 
 static void
 incoming_call_view_init(IncomingCallView *view)
@@ -65,98 +86,115 @@ incoming_call_view_init(IncomingCallView *view)
 static void
 incoming_call_view_class_init(IncomingCallViewClass *klass)
 {
+    G_OBJECT_CLASS(klass)->dispose = incoming_call_dispose;
+
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/incomingcallview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_identity);
-}
-
-static GdkPixbuf *
-draw_fallback_avatar(int size) {
-    cairo_surface_t *surface;
-    cairo_t *cr;
-
-    surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, size, size);
-    cr = cairo_create(surface);
-
-    cairo_pattern_t *linpat = cairo_pattern_create_linear(0, 0, 0, size);
-    cairo_pattern_add_color_stop_rgb(linpat, 0, 0.937, 0.937, 0.937);
-    cairo_pattern_add_color_stop_rgb(linpat, 1, 0.969, 0.969, 0.969);
-
-    cairo_set_source(cr, linpat);
-    cairo_paint(cr);
-
-    int avatar_size = size * 0.3;
-    GtkIconInfo *icon_info = gtk_icon_theme_lookup_icon(gtk_icon_theme_get_default(), "avatar-default-symbolic",
-                                                        avatar_size, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-    GdkPixbuf *pixbuf_icon = gtk_icon_info_load_icon(icon_info, NULL);
-    g_object_unref(icon_info);
-
-    if (pixbuf_icon != NULL) {
-        gdk_cairo_set_source_pixbuf(cr, pixbuf_icon, (size - avatar_size) / 2, (size - avatar_size) / 2);
-        g_object_unref(pixbuf_icon);
-        cairo_rectangle(cr, (size - avatar_size) / 2, (size - avatar_size) / 2, avatar_size, avatar_size);
-        cairo_fill(cr);
-    }
-
-    GdkPixbuf *pixbuf = gdk_pixbuf_get_from_surface(surface, 0, 0, size, size);
-
-    /* free resources */
-    cairo_destroy(cr);
-    cairo_surface_destroy(surface);
-
-    return pixbuf;
-}
-
-static GdkPixbuf *
-frame_avatar(GdkPixbuf *avatar) {
-    int extra_space = 10;
-    int offset = extra_space/2;
-    int w = gdk_pixbuf_get_width(avatar);
-    int h = gdk_pixbuf_get_height(avatar);
-    int w_surface = w + extra_space;
-    int h_surface = h + extra_space;
-    cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w_surface, h_surface);
-    cairo_t *cr = cairo_create(surface);
-
-    cairo_set_source_rgba(cr, 0, 0, 0, 0);
-    cairo_rectangle(cr, 0, 0, w_surface, h_surface);
-    cairo_fill(cr);
-
-    gdk_cairo_set_source_pixbuf(cr, avatar, offset, offset);
-
-    double aspect = (double)w/(double)h;
-    double corner_radius = 5;
-    double radius = corner_radius/aspect;
-    double degrees = M_PI / 180.0;
-
-    cairo_new_sub_path (cr);
-    cairo_arc (cr, offset + w - radius, offset + radius, radius, -90 * degrees, 0 * degrees);
-    cairo_arc (cr, offset + w - radius, offset + h - radius, radius, 0 * degrees, 90 * degrees);
-    cairo_arc (cr, offset + radius, offset + h - radius, radius, 90 * degrees, 180 * degrees);
-    cairo_arc (cr, offset + radius, offset + radius, radius, 180 * degrees, 270 * degrees);
-    cairo_close_path (cr);
-
-    cairo_fill_preserve(cr);
-
-    cairo_set_source_rgba (cr, 58.0/256.0, 191/256.0, 210/256.0, 1.0);
-    cairo_set_line_width (cr, 2.0);
-    cairo_stroke (cr);
-
-    GdkPixbuf *pixbuf = gdk_pixbuf_get_from_surface(surface, 0, 0, w_surface, h_surface);
-
-    /* free resources */
-    cairo_destroy(cr);
-    cairo_surface_destroy(surface);
-
-    return pixbuf;
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_status);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_reject_incoming);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_end_call);
 }
 
 GtkWidget *
 incoming_call_view_new(void)
 {
     return (GtkWidget *)g_object_new(INCOMING_CALL_VIEW_TYPE, NULL);
+}
+
+static void
+update_state(IncomingCallView *view, Call *call)
+{
+    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+
+    /* change state label */
+    Call::State state = call->state();
+
+    switch(state) {
+        case Call::State::INCOMING:
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Incoming...");
+            break;
+        case Call::State::RINGING:
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Ringing...");
+            break;
+        case Call::State::CURRENT:
+            /* note: shouldn't be displayed, as the view should change */
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "In progress.");
+            break;
+        case Call::State::DIALING:
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Dialing...");
+            break;
+        case Call::State::HOLD:
+            /* note: shouldn't be displayed, as the view should change */
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "On hold.");
+            break;
+        case Call::State::FAILURE:
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Failed.");
+            break;
+        case Call::State::BUSY:
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Busy.");
+            break;
+        case Call::State::TRANSFERRED:
+            /* note: shouldn't be displayed, as the view should change */
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Transfered.");
+            break;
+        case Call::State::TRANSF_HOLD:
+            /* note: shouldn't be displayed, as the view should change */
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Transfer hold.");
+            break;
+        case Call::State::OVER:
+            /* note: shouldn't be displayed, as the view should change */
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Over.");
+            break;
+        case Call::State::ERROR:
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Error.");
+            break;
+        case Call::State::CONFERENCE:
+            /* note: shouldn't be displayed, as the view should change */
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Conference.");
+            break;
+        case Call::State::CONFERENCE_HOLD:
+            /* note: shouldn't be displayed, as the view should change */
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Conference hold.");
+            break;
+        case Call::State::INITIALIZATION:
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Initialization...");
+            break;
+        case Call::State::COUNT__:
+        break;
+    }
+
+    /* change button(s) displayed */
+    gtk_widget_hide(priv->button_accept_incoming);
+    gtk_widget_hide(priv->button_reject_incoming);
+    gtk_widget_hide(priv->button_end_call);
+
+    switch(state) {
+        case Call::State::INCOMING:
+            gtk_widget_show(priv->button_accept_incoming);
+            gtk_widget_show(priv->button_reject_incoming);
+            break;
+        case Call::State::RINGING:
+        case Call::State::CURRENT:
+        case Call::State::DIALING:
+        case Call::State::HOLD:
+        case Call::State::FAILURE:
+        case Call::State::BUSY:
+        case Call::State::TRANSFERRED:
+        case Call::State::TRANSF_HOLD:
+        case Call::State::OVER:
+        case Call::State::ERROR:
+        case Call::State::CONFERENCE:
+        case Call::State::CONFERENCE_HOLD:
+        case Call::State::INITIALIZATION:
+            gtk_widget_show(priv->button_end_call);
+            break;
+        case Call::State::COUNT__:
+            break;
+    }
 }
 
 void
@@ -167,12 +205,23 @@ incoming_call_view_set_call_info(IncomingCallView *view, const QModelIndex& idx)
     QByteArray ba_name = var.toString().toLocal8Bit();
 
     /* get image and frame it */
-    GdkPixbuf *avatar = draw_fallback_avatar(100);
-    GdkPixbuf *framed_avatar = frame_avatar(avatar);
+    GdkPixbuf *avatar = ring_draw_fallback_avatar(100);
+    GdkPixbuf *framed_avatar = ring_frame_avatar(avatar);
     g_object_unref(avatar);
 
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), framed_avatar);
     g_object_unref(framed_avatar);
 
     gtk_label_set_text(GTK_LABEL(priv->label_identity), ba_name.data());
+
+    /* change some things depending on call state */
+    Call *call = CallModel::instance()->getCall(idx);
+
+    update_state(view, call);
+
+    priv->state_change_connection = QObject::connect(
+        call,
+        &Call::stateChanged,
+        [=]() { update_state(view, call); }
+    );
 }

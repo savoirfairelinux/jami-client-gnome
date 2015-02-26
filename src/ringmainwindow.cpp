@@ -36,6 +36,7 @@
 #include <call.h>
 #include <QItemSelectionModel>
 #include "incomingcallview.h"
+#include <string.h>
 
 #define DEFAULT_VIEW_NAME "placeholder"
 
@@ -58,6 +59,7 @@ struct _RingMainWindowPrivate
     GtkWidget *treeview_call;
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
+    GtkWidget *button_placecall;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -78,16 +80,13 @@ get_index_from_selection(GtkTreeSelection *selection)
 }
 
 static void
-update_call_model_selection(GtkTreeSelection *selection, gpointer win)
+update_call_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer user_data)
 {
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
-    GtkQTreeModel *call_model = GTK_Q_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(priv->treeview_call)));
-    CallModel *call_qmodel = (CallModel *)gtk_q_tree_model_get_qmodel(call_model);
     QModelIndex current = get_index_from_selection(selection);
     if (current.isValid())
-        call_qmodel->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
+        CallModel::instance()->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
     else
-       call_qmodel->selectionModel()->clearCurrentIndex();
+       CallModel::instance()->selectionModel()->clearCurrentIndex();
 }
 
 static void
@@ -101,16 +100,15 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
     QModelIndex idx = get_index_from_selection(selection);
     if (idx.isValid()) {
         QVariant state = idx.model()->data(idx, Call::Role::CallState);
+        QVariant name = idx.model()->data(idx, Call::Role::Name);
+        QByteArray ba_name = name.toString().toLocal8Bit();
+        GtkWidget *new_call_view = NULL;
 
         switch(state.value<Call::State>()) {
             case Call::State::INCOMING:
             {
-                QVariant name = idx.model()->data(idx, Call::Role::Name);
-                QByteArray ba_name = name.toString().toLocal8Bit();
-                GtkWidget *new_call_view = incoming_call_view_new();
+                new_call_view = incoming_call_view_new();
                 incoming_call_view_set_call_info(INCOMING_CALL_VIEW(new_call_view), idx);
-                gtk_stack_add_named(GTK_STACK(priv->stack_main_view), new_call_view, ba_name.data());
-                gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), new_call_view);
             }
             break;
 
@@ -129,8 +127,16 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
             case Call::State::CONFERENCE_HOLD:
             case Call::State::INITIALIZATION:
             case Call::State::COUNT__:
+            {
+                new_call_view = incoming_call_view_new();
+                incoming_call_view_set_call_info(INCOMING_CALL_VIEW(new_call_view), idx);
+            }
             break;
         }
+
+        gtk_stack_add_named(GTK_STACK(priv->stack_main_view), new_call_view, ba_name.constData());
+        gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), new_call_view);
+
     } else {
         /* nothing selected in the call model, so show the default screen */
 
@@ -150,6 +156,26 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
         if (IS_INCOMING_CALL_VIEW(child_old)) {
             gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), child_old);
         }
+    }
+}
+
+static void
+search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+
+    const gchar *number = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
+
+    if (number && strlen(number) > 0) {
+        g_debug("dialing to number: %s", number);
+        Call *call = CallModel::instance()->dialingCall();
+        call->setDialNumber(number);
+
+        call->performAction(Call::Action::ACCEPT);
+
+        /* make this the currently selected call */
+        QModelIndex idx = CallModel::instance()->getIndex(call);
+        CallModel::instance()->selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -205,10 +231,8 @@ ring_main_window_init(RingMainWindow *win)
 
     /* connect signals to and from UserActionModel to sync selection betwee
      * the QModel and the GtkTreeView */
-    CallModel *call_qmodel = (CallModel *)gtk_q_tree_model_get_qmodel(call_model);
-
     QObject::connect(
-        call_qmodel->selectionModel(),
+        CallModel::instance()->selectionModel(),
         &QItemSelectionModel::currentChanged,
         [=](const QModelIndex & current, const QModelIndex & previous) {
             GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_call));
@@ -236,7 +260,7 @@ ring_main_window_init(RingMainWindow *win)
     );
 
     GtkTreeSelection *call_selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_call));
-    g_signal_connect(call_selection, "changed", G_CALLBACK(update_call_model_selection), win);
+    g_signal_connect(call_selection, "changed", G_CALLBACK(update_call_model_selection), NULL);
 
     /* TODO: replace stack paceholder view */
     GtkWidget *placeholder_view = gtk_tree_view_new();
@@ -245,6 +269,11 @@ ring_main_window_init(RingMainWindow *win)
 
     /* connect signals */
     g_signal_connect(call_selection, "changed", G_CALLBACK(call_selection_changed), win);
+    g_signal_connect(priv->button_placecall, "clicked", G_CALLBACK(search_entry_placecall), win);
+    g_signal_connect(priv->search_entry, "activate", G_CALLBACK(search_entry_placecall), win);
+
+    /* style of search entry */
+    gtk_widget_override_font(priv->search_entry, pango_font_description_from_string("monospace 15"));
 }
 
 static void
@@ -258,6 +287,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, gears_image);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, search_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_main_view);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_placecall);
 }
 
 GtkWidget *
