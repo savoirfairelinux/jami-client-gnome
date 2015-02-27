@@ -32,11 +32,11 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <QCoreApplication>
-#include <QString>
-#include <QByteArray>
+#include <QtCore/QCoreApplication>
+#include <QtCore/QString>
+#include <QtCore/QByteArray>
 #include <callmodel.h>
-#include <QItemSelectionModel>
+#include <QtCore/QItemSelectionModel>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"

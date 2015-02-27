@@ -37,14 +37,14 @@
 typedef union _int_ptr_t
 {
     gint value;
-    gpointer ptr;
+    void *ptr;
 } int_ptr_t;
 
 typedef struct _QIter {
     gint stamp;
     int_ptr_t row;
     int_ptr_t column;
-    quintptr id;
+    void *id;
     gpointer user_data;
 } QIter;
 
@@ -224,7 +224,7 @@ gtk_q_tree_model_source_index_to_iter(GtkQTreeModel *q_tree_model, const QModelI
     /* map the proxy idx to iter */
     Q_ITER(iter)->row.value = proxy_idx.row();
     Q_ITER(iter)->column.value = proxy_idx.row();
-    Q_ITER(iter)->id = proxy_idx.internalId();
+    Q_ITER(iter)->id = proxy_idx.internalPointer();
     return TRUE;
 }
 
@@ -460,7 +460,7 @@ qmodelindex_to_iter(const QModelIndex &idx, GtkTreeIter *iter)
 {
     Q_ITER(iter)->row.value = idx.row();
     Q_ITER(iter)->column.value = idx.row();
-    Q_ITER(iter)->id = idx.internalId();
+    Q_ITER(iter)->id = idx.internalPointer();
 }
 
 static gboolean

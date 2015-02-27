@@ -34,7 +34,7 @@
 #include "models/gtkqtreemodel.h"
 #include <callmodel.h>
 #include <call.h>
-#include <QItemSelectionModel>
+#include <QtCore/QItemSelectionModel>
 #include "incomingcallview.h"
 #include <string.h>
 

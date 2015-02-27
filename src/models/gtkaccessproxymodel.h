@@ -36,7 +36,7 @@
 class GtkAccessProxyModel : public QIdentityProxyModel
 {
 public:
-    QModelIndex indexFromId(int row, int column, quintptr id) const;
+    QModelIndex indexFromId(int row, int column, void *ptr) const;
 };
 
 #endif /* GTK_ACCESS_PROXY_MODEL_H_ */
