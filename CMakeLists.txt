@@ -113,6 +113,8 @@ SET( SRC_FILES
    src/ringmainwindow.cpp
    src/incomingcallview.h
    src/incomingcallview.cpp
+   src/currentcallview.h
+   src/currentcallview.cpp
    src/models/gtkaccessproxymodel.h
    src/models/gtkaccessproxymodel.cpp
    src/models/gtkqtreemodel.h
