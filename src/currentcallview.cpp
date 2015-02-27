@@ -28,87 +28,85 @@
  *  as that of the covered work.
  */
 
-#include "incomingcallview.h"
+#include "currentcallview.h"
 
 #include <gtk/gtk.h>
 #include <call.h>
 #include "utils/drawing.h"
 #include <callmodel.h>
 
-struct _IncomingCallView
+struct _CurrentCallView
 {
     GtkBox parent;
 };
 
-struct _IncomingCallViewClass
+struct _CurrentCallViewClass
 {
     GtkBoxClass parent_class;
 };
 
-typedef struct _IncomingCallViewPrivate IncomingCallViewPrivate;
+typedef struct _CurrentCallViewPrivate CurrentCallViewPrivate;
 
-struct _IncomingCallViewPrivate
+struct _CurrentCallViewPrivate
 {
-    GtkWidget *image_incoming;
+    GtkWidget *image_peer;
     GtkWidget *label_identity;
     GtkWidget *label_status;
-    GtkWidget *button_accept_incoming;
-    GtkWidget *button_reject_incoming;
-    GtkWidget *button_end_call;
+    GtkWidget *label_duration;
 
     QMetaObject::Connection state_change_connection;
+    QMetaObject::Connection call_details_connection;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(IncomingCallView, incoming_call_view, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE(CurrentCallView, current_call_view, GTK_TYPE_BOX);
 
-#define INCOMING_CALL_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), INCOMING_CALL_VIEW_TYPE, IncomingCallViewPrivate))
+#define CURRENT_CALL_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CURRENT_CALL_VIEW_TYPE, CurrentCallViewPrivate))
 
 static void
-incoming_call_dispose(GObject *object)
+current_call_view_dispose(GObject *object)
 {
-    IncomingCallView *view;
-    IncomingCallViewPrivate *priv;
+    CurrentCallView *view;
+    CurrentCallViewPrivate *priv;
 
-    view = INCOMING_CALL_VIEW(object);
-    priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    view = CURRENT_CALL_VIEW(object);
+    priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
     QObject::disconnect(priv->state_change_connection);
+    QObject::disconnect(priv->call_details_connection);
 
-    G_OBJECT_CLASS(incoming_call_view_parent_class)->dispose(object);
+    G_OBJECT_CLASS(current_call_view_parent_class)->dispose(object);
 }
 
 static void
-incoming_call_view_init(IncomingCallView *view)
+current_call_view_init(CurrentCallView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
 }
 
 static void
-incoming_call_view_class_init(IncomingCallViewClass *klass)
+current_call_view_class_init(CurrentCallViewClass *klass)
 {
-    G_OBJECT_CLASS(klass)->dispose = incoming_call_dispose;
+    G_OBJECT_CLASS(klass)->dispose = current_call_view_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/cx/ring/RingGnome/incomingcallview.ui");
+                                                "/cx/ring/RingGnome/currentcallview.ui");
 
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_incoming);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_identity);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_status);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_reject_incoming);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_end_call);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, image_peer);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_identity);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_status);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_duration);
 }
 
 GtkWidget *
-incoming_call_view_new(void)
+current_call_view_new(void)
 {
-    return (GtkWidget *)g_object_new(INCOMING_CALL_VIEW_TYPE, NULL);
+    return (GtkWidget *)g_object_new(CURRENT_CALL_VIEW_TYPE, NULL);
 }
 
 static void
-update_state(IncomingCallView *view, Call *call)
+update_state(CurrentCallView *view, Call *call)
 {
-    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
     /* change state label */
     Call::State state = call->state();
@@ -166,46 +164,27 @@ update_state(IncomingCallView *view, Call *call)
         case Call::State::COUNT__:
         break;
     }
+}
 
-    /* change button(s) displayed */
-    gtk_widget_hide(priv->button_accept_incoming);
-    gtk_widget_hide(priv->button_reject_incoming);
-    gtk_widget_hide(priv->button_end_call);
+static void
+update_details(CurrentCallView *view, Call *call)
+{
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    switch(state) {
-        case Call::State::INCOMING:
-            gtk_widget_show(priv->button_accept_incoming);
-            gtk_widget_show(priv->button_reject_incoming);
-            break;
-        case Call::State::RINGING:
-        case Call::State::CURRENT:
-        case Call::State::DIALING:
-        case Call::State::HOLD:
-        case Call::State::FAILURE:
-        case Call::State::BUSY:
-        case Call::State::TRANSFERRED:
-        case Call::State::TRANSF_HOLD:
-        case Call::State::OVER:
-        case Call::State::ERROR:
-        case Call::State::CONFERENCE:
-        case Call::State::CONFERENCE_HOLD:
-        case Call::State::INITIALIZATION:
-            gtk_widget_show(priv->button_end_call);
-            break;
-        case Call::State::COUNT__:
-            break;
-    }
+    /* update call duration */
+    QByteArray ba_length = call->length().toLocal8Bit();
+    gtk_label_set_text(GTK_LABEL(priv->label_duration), ba_length.constData());
 }
 
 void
-incoming_call_view_set_call_info(IncomingCallView *view, const QModelIndex& idx) {
-    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
     /* get image and frame it */
-    GdkPixbuf *avatar = ring_draw_fallback_avatar(100);
+    GdkPixbuf *avatar = ring_draw_fallback_avatar(50);
     GdkPixbuf *framed_avatar = ring_frame_avatar(avatar);
     g_object_unref(avatar);
-    gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), framed_avatar);
+    gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), framed_avatar);
     g_object_unref(framed_avatar);
 
     /* get name */
@@ -217,10 +196,17 @@ incoming_call_view_set_call_info(IncomingCallView *view, const QModelIndex& idx)
     Call *call = CallModel::instance()->getCall(idx);
 
     update_state(view, call);
+    update_details(view, call);
 
     priv->state_change_connection = QObject::connect(
         call,
         &Call::stateChanged,
         [=]() { update_state(view, call); }
+    );
+
+    priv->call_details_connection = QObject::connect(
+        call,
+        static_cast<void (Call::*)(void)>(&Call::changed),
+        [=]() { update_details(view, call); }
     );
 }

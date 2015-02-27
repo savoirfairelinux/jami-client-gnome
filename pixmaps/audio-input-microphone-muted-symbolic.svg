@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg7384" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <metadata id="metadata90">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>Gnome Symbolic Icon Theme</dc:title>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <title id="title9167">Gnome Symbolic Icon Theme</title>
+ <defs id="defs7386">
+  <clipPath id="clipPath6810-7-0-7-1" clipPathUnits="userSpaceOnUse">
+   <rect id="rect6812-2-2-4-8" style="stroke-linejoin:round;color:#bebebe;stroke:#fff;stroke-linecap:round;stroke-width:2;fill:none" height="11" width="14" y="281" x="21"/>
+  </clipPath>
+ </defs>
+ <g id="layer9" transform="translate(-101 -177)">
+  <path id="path3761-2-3-5-4-8-9-8-0-1-7" style="color:#bebebe;fill:#bebebe" d="m112 188h1.375l1.125 1.0938 1.0938-1.0938h1.4062v1.4688l-1.0938 1.0625 1.0938 1.0625v1.4062h-1.4375l-1.0625-1.0625-1.0625 1.0625h-1.4375v-1.4062l1.0625-1.0625-1.0625-1.0625v-1.4688z"/>
+  <g id="g14804" style="opacity:.25" transform="translate(81 -40)">
+   <rect id="rect13968-5" style="color:#bebebe;fill:#bebebe" rx="2.5" ry="2.5" height="10.013" width="5" y="217.99" x="24"/>
+   <rect id="rect13970-1" ry="4.0313" style="color:#bebebe;stroke:#bebebe;stroke-width:1.003;fill:none" clip-path="url(#clipPath6810-7-0-7-1)" rx="4.0313" transform="matrix(.99397 0 0 1 -1.2933 -58.486)" height="13.869" width="8.0625" y="274.13" x="23.938"/>
+   <path id="path13972-1" style="color:#bebebe;fill:#bebebe" d="m24 361c0 0.55228-0.44772 1-1 1s-1-0.44772-1-1 0.44772-1 1-1 1 0.44772 1 1z" transform="matrix(.5 0 0 .5 11 42)"/>
+   <path id="path13974-3" style="color:#bebebe;fill:#bebebe" d="m24 361c0 0.55228-0.44772 1-1 1s-1-0.44772-1-1 0.44772-1 1-1 1 0.44772 1 1z" transform="matrix(.5 0 0 .5 19 42)"/>
+   <path id="path13976-0" style="color:#bebebe;stroke:#bebebe;stroke-linecap:round;stroke-width:2;fill:none" d="m22.987 232h6.0125"/>
+   <rect id="rect13978-6" style="color:#bebebe;fill:#bebebe" height="1" width="1" y="232" x="22"/>
+   <rect id="rect13980-4" style="color:#bebebe;fill:#bebebe" height="4" width="3" y="229" x="25"/>
+   <rect id="rect14813" style="color:#bebebe;fill:#bebebe" height="2" width="1" y="231" x="29"/>
+  </g>
+ </g>
+</svg>

@@ -37,6 +37,7 @@
 #include <QtCore/QByteArray>
 #include <callmodel.h>
 #include <QtCore/QItemSelectionModel>
+#include <useractionmodel.h>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
@@ -137,10 +138,7 @@ call_accept(G_GNUC_UNUSED GSimpleAction *action, G_GNUC_UNUSED GVariant *param, 
 {
     g_debug("call accpet action");
 
-    /* TODO: implement using UserActionModel once its fixed
-     * UserActionModel action_model = UserActionModel(CallModel::instance());
-     * if (action_model.isActionEnabled())
-     */
+    /* TODO: implement using UserActionModel once its fixed */
 
     QModelIndex idx = CallModel::instance()->selectionModel()->currentIndex();
     if (idx.isValid()) {
@@ -154,10 +152,7 @@ call_hangup(G_GNUC_UNUSED GSimpleAction *action, G_GNUC_UNUSED GVariant *param, 
 {
     g_debug("call hangup action");
 
-    /* TODO: implement using UserActionModel once its fixed
-     * UserActionModel action_model = UserActionModel(CallModel::instance());
-     * if (action_model.isActionEnabled())
-     */
+    /* TODO: implement using UserActionModel once its fixed */
 
     QModelIndex idx = CallModel::instance()->selectionModel()->currentIndex();
     if (idx.isValid()) {
@@ -166,11 +161,57 @@ call_hangup(G_GNUC_UNUSED GSimpleAction *action, G_GNUC_UNUSED GVariant *param, 
     }
 }
 
+static void
+call_hold(GSimpleAction *action, GVariant *state, G_GNUC_UNUSED gpointer data)
+{
+    g_debug("call hold action");
+
+    /* TODO: implement using UserActionModel once its fixed */
+
+    /* get the requested state and apply it */
+    gboolean requested = g_variant_get_boolean(state);
+    g_simple_action_set_state(action, g_variant_new_boolean(requested));
+
+    QModelIndex idx = CallModel::instance()->selectionModel()->currentIndex();
+    if (idx.isValid()) {
+        Call *call = CallModel::instance()->getCall(idx);
+        call->performAction(Call::Action::HOLD);
+    }
+}
+
+
 static const GActionEntry ring_actions[] =
 {
-    { "accept", call_accept, NULL, NULL, NULL, {0} },
-    { "reject", call_hangup, NULL, NULL, NULL, {0} }
+    { "accept",     call_accept, NULL, NULL,    NULL, {0} },
+    { "hangup",     call_hangup, NULL, NULL,    NULL, {0} },
+    { "hold",       NULL,        NULL, "false", call_hold, {0} },
+    /* TODO implement the other actions */
+    // { "mute_audio", NULL,        NULL, "false", NULL, {0} },
+    // { "mute_video", NULL,        NULL, "false", NULL, {0} },
+    // { "transfer",   NULL,        NULL, "flase", NULL, {0} },
+    // { "record",     NULL,        NULL, "false", NULL, {0} }
 };
+
+/* TODO: uncomment when UserActionModel is fixed and used
+typedef union _int_ptr_t
+{
+    int value;
+    gpointer ptr;
+} int_ptr_t;
+
+static void
+activate_action(GSimpleAction *action, G_GNUC_UNUSED GVariant *parameter, gpointer user_data)
+{
+    g_debug("activating action: %s", g_action_get_name(G_ACTION(action)));
+
+    int_ptr_t key;
+    key.ptr = user_data;
+    UserActionModel::Action a = static_cast<UserActionModel::Action>(key.value);
+    UserActionModel* uam = CallModel::instance()->userActionModel();
+
+    uam << a;
+}
+*/
 
 static void
 ring_client_startup(GApplication *app)
@@ -181,6 +222,44 @@ ring_client_startup(GApplication *app)
 
     g_action_map_add_action_entries(
         G_ACTION_MAP(app), ring_actions, G_N_ELEMENTS(ring_actions), client);
+
+    /* TODO: Bind actions to the useractionmodel once it is working */
+    // UserActionModel* uam = CallModel::instance()->userActionModel();
+    // QHash<int, GSimpleAction*> actionHash;
+    // actionHash[ (int)UserActionModel::Action::ACCEPT          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "accept"));
+    // actionHash[ (int)UserActionModel::Action::HOLD            ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "hold"));
+    // // actionHash[ (int)UserActionModel::Action::MUTE_AUDIO      ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "mute_audio"));
+    // // actionHash[ (int)UserActionModel::Action::SERVER_TRANSFER ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "transfer"));
+    // // actionHash[ (int)UserActionModel::Action::RECORD          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "record"));
+    // actionHash[ (int)UserActionModel::Action::HANGUP          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "hangup"));
+
+    // for (QHash<int,GSimpleAction*>::const_iterator i = actionHash.begin(); i != actionHash.end(); ++i) {
+    //    GSimpleAction* sa = i.value();
+    //    // UserActionModel::Action a = static_cast<UserActionModel::Action>(i.key());
+    //    // connect(ea, &QAction::triggered, [uam,a](bool) {uam << a;});
+    //    int_ptr_t user_data;
+    //    user_data.value = i.key();
+    //    g_signal_connect(G_OBJECT(sa), "activate", G_CALLBACK(activate_action), user_data.ptr);
+
+    // }
+
+    // QObject::connect(uam,&UserActionModel::dataChanged, [actionHash,uam](const QModelIndex& tl, const QModelIndex& br) {
+    //    const int first(tl.row()),last(br.row());
+    //    for(int i = first; i <= last;i++) {
+    //       const QModelIndex& idx = uam->index(i,0);
+    //       GSimpleAction* sa = actionHash[(int)qvariant_cast<UserActionModel::Action>(idx.data(UserActionModel::Role::ACTION))];
+    //       if (sa) {
+    //          // a->setText   ( idx.data(Qt::DisplayRole).toString()                 );
+    //          // a->setEnabled( idx.flags() & Qt::ItemIsEnabled                      );
+    //          g_simple_action_set_enabled(sa, idx.flags() & Qt::ItemIsEnabled);
+    //          // a->setChecked( idx.data(Qt::CheckStateRole) == Qt::Checked          );
+    //          /* check if statefull action */
+    //          if (g_action_get_state_type(G_ACTION(sa)) != NULL)
+    //             g_simple_action_set_state(sa, g_variant_new_boolean(idx.data(Qt::CheckStateRole) == Qt::Checked));
+    //          // a->setAltIcon( qvariant_cast<QPixmap>(idx.data(Qt::DecorationRole)) );
+    //       }
+    //    }
+    // });
 }
 
 static void

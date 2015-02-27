@@ -116,7 +116,7 @@
             <property name="can_focus">True</property>
             <property name="label" translatable="yes">   Reject</property>
             <property name="image">image_reject</property>
-            <property name="action-name">app.reject</property>
+            <property name="action-name">app.hangup</property>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -131,7 +131,7 @@
             <property name="can_focus">True</property>
             <property name="label" translatable="yes">   Hang-up</property>
             <property name="image">image_hangup</property>
-            <property name="action-name">app.reject</property>
+            <property name="action-name">app.hangup</property>
           </object>
           <packing>
             <property name="expand">True</property>

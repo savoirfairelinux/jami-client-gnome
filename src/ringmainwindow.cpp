@@ -36,6 +36,7 @@
 #include <call.h>
 #include <QtCore/QItemSelectionModel>
 #include "incomingcallview.h"
+#include "currentcallview.h"
 #include <string.h>
 
 #define DEFAULT_VIEW_NAME "placeholder"
@@ -95,47 +96,40 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
     /* get the current visible stack child */
-    GtkWidget *child_old = gtk_stack_get_visible_child(GTK_STACK(priv->stack_main_view));
+    GtkWidget *old_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_main_view));
 
     QModelIndex idx = get_index_from_selection(selection);
     if (idx.isValid()) {
-        QVariant state = idx.model()->data(idx, Call::Role::CallState);
-        QVariant name = idx.model()->data(idx, Call::Role::Name);
-        QByteArray ba_name = name.toString().toLocal8Bit();
+        QVariant state = CallModel::instance()->data(idx, Call::Role::CallLifeCycleState);
+        // QByteArray mime = CallModel::instance()->getMime(CallModel::instance()->getCall(idx));
         GtkWidget *new_call_view = NULL;
+        char* new_call_view_name = NULL;
 
-        switch(state.value<Call::State>()) {
-            case Call::State::INCOMING:
-            {
+        /* FIXME: change when fixed
+         * switch(state.value<Call::LifeCycleState>()) { */
+        Call::LifeCycleState lifecyclestate = (Call::LifeCycleState)state.toUInt();
+        switch(lifecyclestate) {
+            case Call::LifeCycleState::INITIALIZATION:
+            case Call::LifeCycleState::FINISHED:
                 new_call_view = incoming_call_view_new();
                 incoming_call_view_set_call_info(INCOMING_CALL_VIEW(new_call_view), idx);
-            }
-            break;
-
-            /* TODO: implement view(s) for other call states */
-            case Call::State::RINGING:
-            case Call::State::CURRENT:
-            case Call::State::DIALING:
-            case Call::State::HOLD:
-            case Call::State::FAILURE:
-            case Call::State::BUSY:
-            case Call::State::TRANSFERRED:
-            case Call::State::TRANSF_HOLD:
-            case Call::State::OVER:
-            case Call::State::ERROR:
-            case Call::State::CONFERENCE:
-            case Call::State::CONFERENCE_HOLD:
-            case Call::State::INITIALIZATION:
-            case Call::State::COUNT__:
-            {
-                new_call_view = incoming_call_view_new();
-                incoming_call_view_set_call_info(INCOMING_CALL_VIEW(new_call_view), idx);
-            }
-            break;
+                /* use the pointer of the call as a unique name */
+                new_call_view_name = g_strdup_printf("%p_incoming", (void *)CallModel::instance()->getCall(idx));
+                break;
+            case Call::LifeCycleState::PROGRESS:
+                new_call_view = current_call_view_new();
+                current_call_view_set_call_info(CURRENT_CALL_VIEW(new_call_view), idx);
+                /* use the pointer of the call as a unique name */
+                new_call_view_name = g_strdup_printf("%p_current", (void *)CallModel::instance()->getCall(idx));
+                break;
+            case Call::LifeCycleState::COUNT__:
+                g_warning("LifeCycleState should never be COUNT");
+                break;
         }
 
-        gtk_stack_add_named(GTK_STACK(priv->stack_main_view), new_call_view, ba_name.constData());
+        gtk_stack_add_named(GTK_STACK(priv->stack_main_view), new_call_view, new_call_view_name);
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), new_call_view);
+        g_free(new_call_view_name);
 
     } else {
         /* nothing selected in the call model, so show the default screen */
@@ -147,14 +141,80 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
 
     }
 
-     /* check if we changed the visible child */
-    GtkWidget *child_current = gtk_stack_get_visible_child(GTK_STACK(priv->stack_main_view));
-    if (child_current != child_old && child_old != NULL) {
-        /* if the previous child was an "incoming call", then remove it from
+    /* check if we changed the visible child */
+    GtkWidget *current_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_main_view));
+    if (current_call_view != old_call_view && old_call_view != NULL) {
+        /* if the previous child was a call view, then remove it from
          * the stack; removing it should destory it since there should not
          * be any other references to it */
-        if (IS_INCOMING_CALL_VIEW(child_old)) {
-            gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), child_old);
+        if (IS_INCOMING_CALL_VIEW(old_call_view) || IS_CURRENT_CALL_VIEW(old_call_view)) {
+            gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), old_call_view);
+        }
+    }
+}
+
+static void
+call_state_changed(Call *call, gpointer win)
+{
+    g_debug("call state changed");
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+
+    /* check if the call that changed state is the same as the selected call */
+    QModelIndex idx_selected = CallModel::instance()->selectionModel()->currentIndex();
+
+    if( idx_selected.isValid() && call == CallModel::instance()->getCall(idx_selected)) {
+        g_debug("selected call state changed");
+        /* check if we need to change the view */
+        GtkWidget *old_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_main_view));
+        GtkWidget *new_call_view = NULL;
+        QVariant state = CallModel::instance()->data(idx_selected, Call::Role::CallLifeCycleState);
+        // QByteArray mime = CallModel::instance()->getMime(CallModel::instance()->getCall(idx_selected));
+
+        /* check what the current state is vs what is displayed */
+
+        /* FIXME: change when fixed
+         * switch(state.value<Call::LifeCycleState>()) { */
+        Call::LifeCycleState lifecyclestate = (Call::LifeCycleState)state.toUInt();
+        switch(lifecyclestate) {
+            case Call::LifeCycleState::INITIALIZATION:
+                /* LifeCycleState cannot go backwards, so it should not be possible
+                 * that the call is displayed as current (meaning that its in progress)
+                 * but have the state 'initialization' */
+                if (IS_CURRENT_CALL_VIEW(old_call_view))
+                    g_warning("call displayed as current, but is in state of initialization");
+                break;
+            case Call::LifeCycleState::PROGRESS:
+                if (IS_INCOMING_CALL_VIEW(old_call_view)) {
+                    /* change from incoming to current */
+                    new_call_view = current_call_view_new();
+                    current_call_view_set_call_info(CURRENT_CALL_VIEW(new_call_view), idx_selected);
+                    /* use the pointer of the call as a unique name */
+                    char* new_call_view_name = NULL;
+                    new_call_view_name = g_strdup_printf("%p_current", (void *)CallModel::instance()->getCall(idx_selected));
+                    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), new_call_view, new_call_view_name);
+                    g_free(new_call_view_name);
+                    gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_UP);
+                    gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), new_call_view);
+                    gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+                }
+                break;
+            case Call::LifeCycleState::FINISHED:
+                /* do nothing, either call view is valid for this state */
+                break;
+            case Call::LifeCycleState::COUNT__:
+                g_warning("LifeCycleState should never be COUNT");
+                break;
+        }
+
+        /* check if we changed the visible child */
+        GtkWidget *current_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_main_view));
+        if (current_call_view != old_call_view && old_call_view != NULL) {
+            /* if the previous child was a call view, then remove it from
+             * the stack; removing it should destory it since there should not
+             * be any other references to it */
+            if (IS_INCOMING_CALL_VIEW(old_call_view) || IS_CURRENT_CALL_VIEW(old_call_view)) {
+                gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), old_call_view);
+            }
         }
     }
 }
@@ -261,6 +321,15 @@ ring_main_window_init(RingMainWindow *win)
 
     GtkTreeSelection *call_selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_call));
     g_signal_connect(call_selection, "changed", G_CALLBACK(update_call_model_selection), NULL);
+
+    /* connect to call state changes to update relevant view(s) */
+    QObject::connect(
+        CallModel::instance(),
+        &CallModel::callStateChanged,
+        [=](Call* call, G_GNUC_UNUSED Call::State previousState) {
+            call_state_changed(call, win);
+        }
+    );
 
     /* TODO: replace stack paceholder view */
     GtkWidget *placeholder_view = gtk_tree_view_new();
