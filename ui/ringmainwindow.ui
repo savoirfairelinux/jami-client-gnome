@@ -142,7 +142,6 @@
                     <property name="homogeneous">True</property>
                     <style>
                       <class name="linked"/>
-                      <class name="raised"/>
                     </style>
                     <child>
                       <object class="GtkRadioButton" id="radiobutton_contacts">
