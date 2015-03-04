@@ -38,6 +38,8 @@
 #include "incomingcallview.h"
 #include "currentcallview.h"
 #include <string.h>
+#include <video/manager.h>
+#include <video/renderer.h>
 
 #define DEFAULT_VIEW_NAME "placeholder"
 
@@ -87,7 +89,7 @@ update_call_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer 
     if (current.isValid())
         CallModel::instance()->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
     else
-       CallModel::instance()->selectionModel()->clearCurrentIndex();
+        CallModel::instance()->selectionModel()->clearCurrentIndex();
 }
 
 static void
@@ -341,6 +343,27 @@ ring_main_window_init(RingMainWindow *win)
 
     /* style of search entry */
     gtk_widget_override_font(priv->search_entry, pango_font_description_from_string("monospace 15"));
+
+    /* connect to video manager */
+    QObject::connect(
+        Video::Manager::instance(),
+        &Video::Manager::videoCallInitiated,
+        [](Video::Renderer *renderer) {
+            g_warning("\ngot signal for video renderer, id: %s\n", renderer->id().toLocal8Bit().constData());
+
+            if (Video::Manager::instance()->previewRenderer() == renderer) {
+                g_warning("\n got local video\n");
+            }
+            QObject::connect(
+                renderer,
+                &Video::Renderer::frameUpdated,
+                [renderer]() {
+                    g_debug("got updated frame from %s", renderer->id().toLocal8Bit().constData());
+                    g_debug("frame size: %d x %d", renderer->size().width(), renderer->size().height());
+                }
+            );
+        }
+    );
 }
 
 static void
