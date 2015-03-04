@@ -38,6 +38,7 @@
 #include <callmodel.h>
 #include <QtCore/QItemSelectionModel>
 #include <useractionmodel.h>
+#include <clutter/clutter.h>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
@@ -106,6 +107,12 @@ ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
     /* enable button icons */
     g_object_set(G_OBJECT(gtk_settings), "gtk-button-images",
                  TRUE, NULL);
+
+    /* clutter */
+    if (clutter_init(&argc, &argv) != CLUTTER_INIT_SUCCESS) {
+        g_critical("could not initialize clutter");
+        return 1;
+    }
 
     /* init libRingClient and make sure its connected to the dbus */
     try {

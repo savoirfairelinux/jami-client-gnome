@@ -1,6 +1,6 @@
 /*
- *  Copyright (C) 2015 Savoir-Faire Linux Inc.
- *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Copyright (C) 2004-2013 Savoir-Faire Linux Inc.
+ *  Author: Sebastien Bourdelin <sebastien.bourdelin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,28 +28,37 @@
  *  as that of the covered work.
  */
 
-#ifndef _CURRENTCALLVIEW_H
-#define _CURRENTCALLVIEW_H
+#ifndef __VIDEO_ASPECT_FRAME_H__
+#define __VIDEO_ASPECT_FRAME_H__
 
-#include <gtk/gtk.h>
-#include <call.h>
+#include <glib-object.h>
+#include <clutter/clutter.h>
 
 G_BEGIN_DECLS
 
-#define CURRENT_CALL_VIEW_TYPE            (current_call_view_get_type ())
-#define CURRENT_CALL_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CURRENT_CALL_VIEW_TYPE, CurrentCallView))
-#define CURRENT_CALL_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), CURRENT_CALL_VIEW_TYPE, CurrentCallViewClass))
-#define IS_CURRENT_CALL_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), CURRENT_CALL_VIEW_TYPE))
-#define IS_CURRENT_CALL_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), CURRENT_CALL_VIEW_TYPE))
+#define VIDEO_ASPECT_FRAME_TYPE			video_aspect_frame_get_type()
+#define VIDEO_ASPECT_FRAME(obj)			(G_TYPE_CHECK_INSTANCE_CAST((obj), VIDEO_ASPECT_FRAME_TYPE, VideoAspectFrame))
+#define VIDEO_ASPECT_FRAME_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST((klass),  VIDEO_ASPECT_FRAME_TYPE, VideoAspectFrameClass))
+#define IS_VIDEO_ASPECT_FRAME(obj)		(G_TYPE_CHECK_INSTANCE_TYPE((obj), VIDEO_ASPECT_FRAME_TYPE))
+#define IS_VIDEO_ASPECT_FRAME_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE((klass),  VIDEO_ASPECT_FRAME_TYPE))
 
-typedef struct _CurrentCallView      CurrentCallView;
-typedef struct _CurrentCallViewClass CurrentCallViewClass;
+typedef struct _VideoAspectFrameClass VideoAspectFrameClass;
+typedef struct _VideoAspectFrame VideoAspectFrame;
 
+struct _VideoAspectFrameClass
+{
+    ClutterActorClass parent_class;
+};
 
-GType      current_call_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *current_call_view_new           (void);
-void       current_call_view_set_call_info (CurrentCallView *view, const QModelIndex& idx, GtkWidget* video_widget);
+struct _VideoAspectFrame
+{
+    ClutterActor parent;
+};
+
+/* Public interface */
+GType           video_aspect_frame_get_type     (void) G_GNUC_CONST;
+ClutterActor*   video_aspect_frame_new          (void);
 
 G_END_DECLS
 
-#endif /* _CURRENTCALLVIEW_H */
+#endif // __VIDEO_ASPECT_FRAME_H__
