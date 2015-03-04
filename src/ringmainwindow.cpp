@@ -87,7 +87,7 @@ update_call_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer 
     if (current.isValid())
         CallModel::instance()->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
     else
-       CallModel::instance()->selectionModel()->clearCurrentIndex();
+        CallModel::instance()->selectionModel()->clearCurrentIndex();
 }
 
 static void
@@ -344,8 +344,16 @@ ring_main_window_init(RingMainWindow *win)
 }
 
 static void
+ring_main_window_finalize(GObject *object)
+{
+    G_OBJECT_CLASS(ring_main_window_parent_class)->finalize(object);
+}
+
+static void
 ring_main_window_class_init(RingMainWindowClass *klass)
 {
+    G_OBJECT_CLASS(klass)->finalize = ring_main_window_finalize;
+
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 
