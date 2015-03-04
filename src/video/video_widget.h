@@ -1,5 +1,6 @@
 /*
- *  Copyright (C) 2015 Savoir-Faire Linux Inc.
+ *  Copyright (C) 2004-2015 Savoir-Faire Linux Inc.
+ *  Author: Sebastien Bourdelin <sebastien.bourdelin@savoirfairelinux.com>
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -28,27 +29,28 @@
  *  as that of the covered work.
  */
 
-#ifndef _RINGMAINWINDOW_H
-#define _RINGMAINWINDOW_H
+#ifndef __VIDEO_WIDGET_H__
+#define __VIDEO_WIDGET_H__
 
 #include <gtk/gtk.h>
+#include <video/renderer.h>
 
 G_BEGIN_DECLS
 
-#define RING_MAIN_WINDOW_TYPE (ring_main_window_get_type ())
-#define RING_MAIN_WINDOW(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindow))
-#define RING_MAIN_WINDOW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), RING_MAIN_WINDOW_TYPE, RingMainWindowClass))
-#define IS_RING_MAIN_WINDOW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), RING_MAIN_WINDOW_TYPE))
-#define IS_RING_MAIN_WINDOW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), RING_MAIN_WINDOW_TYPE))
+#define VIDEO_WIDGET_TYPE              (video_widget_get_type())
+#define VIDEO_WIDGET(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), VIDEO_WIDGET_TYPE, VideoWidget))
+#define VIDEO_WIDGET_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), VIDEO_WIDGET_TYPE, VideoWidgetClass))
+#define IS_VIDEO_WIDGET(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), VIDEO_WIDGET_TYPE))
+#define IS_VIDEO_WIDGET_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass), VIDEO_WIDGET_TYPE))
 
+typedef struct _VideoWidgetClass VideoWidgetClass;
+typedef struct _VideoWidget VideoWidget;
 
-typedef struct _RingMainWindow      RingMainWindow;
-typedef struct _RingMainWindowClass RingMainWindowClass;
-
-
-GType      ring_main_window_get_type (void) G_GNUC_CONST;
-GtkWidget *ring_main_window_new      (GtkApplication *app);
+/* Public interface */
+GType           video_widget_get_type           (void) G_GNUC_CONST;
+GtkWidget*      video_widget_new                (void);
+void            video_widget_set_remote_renderer(VideoWidget *self, Video::Renderer *renderer_remote_new);
 
 G_END_DECLS
 
-#endif /* _RINGMAINWINDOW_H */
+#endif /* __VIDEO_WIDGET_H__ */
