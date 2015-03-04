@@ -53,6 +53,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *label_identity;
     GtkWidget *label_status;
     GtkWidget *label_duration;
+    GtkWidget *frame_video;
 
     QMetaObject::Connection state_change_connection;
     QMetaObject::Connection call_details_connection;
@@ -95,6 +96,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_identity);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_duration);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
 }
 
 GtkWidget *
@@ -177,7 +179,7 @@ update_details(CurrentCallView *view, Call *call)
 }
 
 void
-current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
+current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx, GtkWidget* video_widget) {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
     /* get image and frame it */
@@ -209,4 +211,14 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
         static_cast<void (Call::*)(void)>(&Call::changed),
         [=]() { update_details(view, call); }
     );
+
+    /* add video widget if we have video */
+    // if (call->hasVideo()) {
+        GtkWidget *video_parent = gtk_widget_get_parent(video_widget);
+        if (video_parent)
+            gtk_container_remove(GTK_CONTAINER(video_parent), video_widget);
+        gtk_container_add(GTK_CONTAINER(priv->frame_video), video_widget);
+        gtk_widget_show(priv->frame_video);
+        gtk_widget_show(video_widget);
+    // }
 }

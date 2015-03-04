@@ -38,6 +38,12 @@
 #include "incomingcallview.h"
 #include "currentcallview.h"
 #include <string.h>
+#include <video/manager.h>
+#include <video/renderer.h>
+#include "video/video_widget.h"
+
+#include <clutter/clutter.h>
+#include <clutter-gtk/clutter-gtk.h>
 
 #define DEFAULT_VIEW_NAME "placeholder"
 
@@ -61,6 +67,10 @@ struct _RingMainWindowPrivate
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
     GtkWidget *button_placecall;
+
+    GtkWidget *video_widget;
+    Video::Renderer *renderer;
+    QMetaObject::Connection frame_updated_connection;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -87,7 +97,7 @@ update_call_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer 
     if (current.isValid())
         CallModel::instance()->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
     else
-       CallModel::instance()->selectionModel()->clearCurrentIndex();
+        CallModel::instance()->selectionModel()->clearCurrentIndex();
 }
 
 static void
@@ -117,7 +127,7 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
                 break;
             case Call::LifeCycleState::PROGRESS:
                 new_call_view = current_call_view_new();
-                current_call_view_set_call_info(CURRENT_CALL_VIEW(new_call_view), idx);
+                current_call_view_set_call_info(CURRENT_CALL_VIEW(new_call_view), idx, priv->video_widget);
                 /* use the pointer of the call as a unique name */
                 new_call_view_name = g_strdup_printf("%p_current", (void *)CallModel::instance()->getCall(idx));
                 break;
@@ -185,7 +195,7 @@ call_state_changed(Call *call, gpointer win)
                 if (IS_INCOMING_CALL_VIEW(old_call_view)) {
                     /* change from incoming to current */
                     new_call_view = current_call_view_new();
-                    current_call_view_set_call_info(CURRENT_CALL_VIEW(new_call_view), idx_selected);
+                    current_call_view_set_call_info(CURRENT_CALL_VIEW(new_call_view), idx_selected, priv->video_widget);
                     /* use the pointer of the call as a unique name */
                     char* new_call_view_name = NULL;
                     new_call_view_name = g_strdup_printf("%p_current", (void *)CallModel::instance()->getCall(idx_selected));
@@ -341,11 +351,147 @@ ring_main_window_init(RingMainWindow *win)
 
     /* style of search entry */
     gtk_widget_override_font(priv->search_entry, pango_font_description_from_string("monospace 15"));
+
+    /* video */
+    // priv->has_renderer = FALSE;
+    // priv->video_widget = video_widget_new();
+    // priv->video_widget = gtk_image_new();
+    if (clutter_init (NULL, NULL) != CLUTTER_INIT_SUCCESS) {
+        g_critical("could not initialize clutter");
+        return;
+    }
+    priv->video_widget = gtk_clutter_embed_new();
+    gtk_clutter_embed_set_use_layout_size(GTK_CLUTTER_EMBED(priv->video_widget), TRUE);
+    g_object_ref(priv->video_widget);
+
+    /* connect to video manager */
+    QObject::connect(
+        Video::Manager::instance(),
+        &Video::Manager::videoCallInitiated,
+        [=](Video::Renderer *renderer) {
+            g_warning("\ngot signal for video renderer, id: %s\n", renderer->id().toLocal8Bit().constData());
+
+            ClutterActor *stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
+
+            if (clutter_actor_get_content(stage) == NULL) {
+                clutter_actor_set_content_scaling_filters (stage,
+                                             CLUTTER_SCALING_FILTER_TRILINEAR,
+                                             CLUTTER_SCALING_FILTER_LINEAR);
+                ClutterContent *image = clutter_image_new ();
+                clutter_actor_set_content (stage, image);
+            }
+
+
+            if (priv->renderer)
+                QObject::disconnect(priv->frame_updated_connection);
+            priv->renderer = renderer;
+
+            priv->frame_updated_connection = QObject::connect(
+                renderer,
+                &Video::Renderer::frameUpdated,
+                [=]() {
+                    ClutterActor *stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
+                    ClutterContent *image = clutter_image_new ();
+
+                    const QByteArray& data = renderer->currentFrame();
+                    QSize res = renderer->size();
+
+                    GdkPixbuf *pixbuf = gdk_pixbuf_new_from_data(
+                            (guchar *)data.constData(),
+                            GDK_COLORSPACE_RGB,
+                            TRUE,
+                            8,
+                            res.width(),
+                            res.height(),
+                            4*res.width(),
+                            NULL,
+                            NULL);
+
+                    gdk_pixbuf_fill(pixbuf, 0);
+
+                    GError *error = NULL;
+                    clutter_image_set_data (CLUTTER_IMAGE (image),
+                            gdk_pixbuf_get_pixels (pixbuf),
+                            gdk_pixbuf_get_has_alpha (pixbuf)
+                              ? COGL_PIXEL_FORMAT_RGBA_8888
+                              : COGL_PIXEL_FORMAT_RGB_888,
+                            gdk_pixbuf_get_width (pixbuf),
+                            gdk_pixbuf_get_height (pixbuf),
+                            gdk_pixbuf_get_rowstride (pixbuf),
+                            &error);
+
+                    g_object_unref(pixbuf);
+
+                    if (error) {
+                        g_warning("error rendering texture to clutter: %s", error->message);
+                        g_error_free(error);
+                    } else {
+                        clutter_actor_set_content (stage, image);
+                    }
+
+                    g_object_unref (image);
+                }
+            );
+
+            // GtkWidget* image = gtk_image_new(); 
+            
+            // QObject::connect(
+            //     renderer,
+            //     &Video::Renderer::frameUpdated,
+            //     [=]() {
+            //         const QByteArray& data = renderer->currentFrame();
+            //         QSize res = renderer->size();
+
+            //         GdkPixbuf *pixbuf = gdk_pixbuf_new_from_data(
+            //                                 (guchar *)data.constData(),
+            //                                 GDK_COLORSPACE_RGB,
+            //                                 TRUE,
+            //                                 8,
+            //                                 res.width(),
+            //                                 res.height(),
+            //                                 4*res.width(),
+            //                                 NULL,
+            //                                 NULL);
+
+            //         gtk_image_set_from_pixbuf(GTK_IMAGE(priv->video_widget), pixbuf);
+
+            //         g_object_unref(pixbuf);
+            //     }
+            // );
+                    
+            // if (!priv->has_renderer) {
+                // priv->has_renderer = true;
+                // video_widget_camera_start(priv->video_widget, VIDEO_AREA_REMOTE, renderer, false);
+
+                // QObject::connect(
+                //     renderer,
+                //     &Video::Renderer::stopped,
+                //     [=]() {
+                //         video_widget_camera_stop(priv->video_widget, VIDEO_AREA_REMOTE, renderer);
+                //     }
+                // );
+            // }
+        }
+    );
+}
+
+static void
+ring_main_window_finalize(GObject *object)
+{
+    RingMainWindow *self = RING_MAIN_WINDOW(object);
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+
+    /* unref video widget */
+    g_object_unref(priv->video_widget);
+
+    G_OBJECT_CLASS(ring_main_window_parent_class)->finalize(object);
 }
 
 static void
 ring_main_window_class_init(RingMainWindowClass *klass)
 {
+    G_OBJECT_CLASS(klass)->finalize = ring_main_window_finalize;
+
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 

@@ -28,28 +28,28 @@
  *  as that of the covered work.
  */
 
-#ifndef _CURRENTCALLVIEW_H
-#define _CURRENTCALLVIEW_H
+#ifndef CLUTTER_RENDERER_H__
+#define CLUTTER_RENDERER_H__
 
 #include <gtk/gtk.h>
-#include <call.h>
+#include <clutter/clutter.h>
+#include <video/renderer.h>
 
 G_BEGIN_DECLS
 
-#define CURRENT_CALL_VIEW_TYPE            (current_call_view_get_type ())
-#define CURRENT_CALL_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CURRENT_CALL_VIEW_TYPE, CurrentCallView))
-#define CURRENT_CALL_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), CURRENT_CALL_VIEW_TYPE, CurrentCallViewClass))
-#define IS_CURRENT_CALL_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), CURRENT_CALL_VIEW_TYPE))
-#define IS_CURRENT_CALL_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), CURRENT_CALL_VIEW_TYPE))
+#define CLUTTER_RENDERER_TYPE              (clutter_renderer_get_type())
+#define CLUTTER_RENDERER(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), CLUTTER_RENDERER_TYPE, ClutterRenderer))
+#define CLUTTER_RENDERER_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), CLUTTER_RENDERER_TYPE, ClutterRendererClass))
+#define IS_CLUTTER_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), CLUTTER_RENDERER_TYPE))
+#define IS_CLUTTER_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass), CLUTTER_RENDERER_TYPE))
 
-typedef struct _CurrentCallView      CurrentCallView;
-typedef struct _CurrentCallViewClass CurrentCallViewClass;
+typedef struct _ClutterRenderer      ClutterRenderer;
+typedef struct _ClutterRendererClass ClutterRendererClass;
 
-
-GType      current_call_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *current_call_view_new           (void);
-void       current_call_view_set_call_info (CurrentCallView *view, const QModelIndex& idx, GtkWidget* video_widget);
+/* Public interface */
+GType            clutter_renderer_get_type (void) G_GNUC_CONST;
+ClutterRenderer *clutter_renderer_new       (ClutterActor *texture, Video::Renderer *renderer);
 
 G_END_DECLS
 
-#endif /* _CURRENTCALLVIEW_H */
+#endif /* __CLUTTER_RENDERER_H__ */
