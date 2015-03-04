@@ -73,6 +73,7 @@ ring_client_options_get_context()
      * when '--help' is invoked... possibly a GTK bug.
      */
     GOptionContext *context = g_option_context_new("- GNOME client for Ring");
+    g_option_context_set_ignore_unknown_options(context, TRUE);
 
     /* TODO: add translation domain */
     g_option_context_add_main_entries(context, all_options, NULL);

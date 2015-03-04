@@ -32,8 +32,10 @@
 
 #include <gtk/gtk.h>
 #include <call.h>
-#include "utils/drawing.h"
 #include <callmodel.h>
+#include "utils/drawing.h"
+#include "video/video_widget.h"
+#include <video/manager.h>
 
 struct _CurrentCallView
 {
@@ -53,9 +55,14 @@ struct _CurrentCallViewPrivate
     GtkWidget *label_identity;
     GtkWidget *label_status;
     GtkWidget *label_duration;
+    GtkWidget *frame_video;
+    GtkWidget *video_widget;
+    
+    Video::Renderer *remote_renderer;
 
     QMetaObject::Connection state_change_connection;
     QMetaObject::Connection call_details_connection;
+    QMetaObject::Connection renderer_connection;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(CurrentCallView, current_call_view, GTK_TYPE_BOX);
@@ -73,6 +80,7 @@ current_call_view_dispose(GObject *object)
 
     QObject::disconnect(priv->state_change_connection);
     QObject::disconnect(priv->call_details_connection);
+    QObject::disconnect(priv->renderer_connection);
 
     G_OBJECT_CLASS(current_call_view_parent_class)->dispose(object);
 }
@@ -95,6 +103,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_identity);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_duration);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
 }
 
 GtkWidget *
@@ -176,6 +185,16 @@ update_details(CurrentCallView *view, Call *call)
     gtk_label_set_text(GTK_LABEL(priv->label_duration), ba_length.constData());
 }
 
+static void
+set_remote_renderer(gpointer data)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(data));
+
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(data);
+
+    video_widget_set_remote_renderer(VIDEO_WIDGET(priv->video_widget), priv->remote_renderer);
+}
+
 void
 current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
@@ -208,5 +227,38 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
         call,
         static_cast<void (Call::*)(void)>(&Call::changed),
         [=]() { update_details(view, call); }
+    );
+
+    /* video widget */
+    priv->video_widget = video_widget_new();
+    gtk_container_add(GTK_CONTAINER(priv->frame_video), priv->video_widget);
+    gtk_widget_show_all(priv->frame_video);
+
+    /* check if we already have a renderer */
+    priv->remote_renderer = Video::Manager::instance()->getRenderer(call);
+    video_widget_set_remote_renderer(VIDEO_WIDGET(priv->video_widget), priv->remote_renderer);
+
+    /* callback for video renderer */
+    priv->renderer_connection = QObject::connect(
+        Video::Manager::instance(),
+        &Video::Manager::videoCallInitiated,
+        [=](Video::Renderer *renderer) {
+            /* check if the renderer is for this call */
+            const char* id_call = CallModel::instance()->getMime(call).constData();
+            const char* id_video = renderer->id().toLocal8Bit().constData();
+
+            g_debug("got signal for video renderer, id: %s", id_video);
+
+            if (strcmp(id_call, id_video) == 0) {
+                g_debug("matches call id");
+
+                priv->remote_renderer = renderer;
+
+                g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,
+                                (GSourceFunc)set_remote_renderer,
+                                view,
+                                NULL);
+            }
+        }
     );
 }

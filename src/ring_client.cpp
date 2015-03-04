@@ -38,6 +38,7 @@
 #include <callmodel.h>
 #include <QtCore/QItemSelectionModel>
 #include <useractionmodel.h>
+#include <clutter-gtk/clutter-gtk.h>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
@@ -99,13 +100,12 @@ ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
     }
     g_option_context_free(context);
 
-    /* Override theme since we don't have appropriate icons for a dark them (yet) */
-    GtkSettings *gtk_settings = gtk_settings_get_default();
-    g_object_set(G_OBJECT(gtk_settings), "gtk-application-prefer-dark-theme",
-                 FALSE, NULL);
-    /* enable button icons */
-    g_object_set(G_OBJECT(gtk_settings), "gtk-button-images",
-                 TRUE, NULL);
+    /* init clutter */
+    int clutter_error;
+    if ((clutter_error = gtk_clutter_init(&argc, &argv)) != CLUTTER_INIT_SUCCESS) {
+        g_critical("Could not init clutter : %d\n", clutter_error);
+        return 1;
+    }
 
     /* init libRingClient and make sure its connected to the dbus */
     try {
@@ -122,6 +122,14 @@ ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
         init_exception_dialog(c_str);
         return 1;
     }
+
+    /* Override theme since we don't have appropriate icons for a dark them (yet) */
+    GtkSettings *gtk_settings = gtk_settings_get_default();
+    g_object_set(G_OBJECT(gtk_settings), "gtk-application-prefer-dark-theme",
+                 FALSE, NULL);
+    /* enable button icons */
+    g_object_set(G_OBJECT(gtk_settings), "gtk-button-images",
+                 TRUE, NULL);
 
     /* create an empty window */
     if (priv->win == NULL) {
