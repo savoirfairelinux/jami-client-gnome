@@ -87,7 +87,7 @@ update_call_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer 
     if (current.isValid())
         CallModel::instance()->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
     else
-       CallModel::instance()->selectionModel()->clearCurrentIndex();
+        CallModel::instance()->selectionModel()->clearCurrentIndex();
 }
 
 static void
@@ -341,11 +341,28 @@ ring_main_window_init(RingMainWindow *win)
 
     /* style of search entry */
     gtk_widget_override_font(priv->search_entry, pango_font_description_from_string("monospace 15"));
+
+    /* connect to incoming call and focus */
+    QObject::connect(
+        CallModel::instance(),
+        &CallModel::incomingCall,
+        [=](Call* call) {
+            CallModel::instance()->selectionModel()->setCurrentIndex(CallModel::instance()->getIndex(call), QItemSelectionModel::ClearAndSelect);
+        }
+    );
+}
+
+static void
+ring_main_window_finalize(GObject *object)
+{
+    G_OBJECT_CLASS(ring_main_window_parent_class)->finalize(object);
 }
 
 static void
 ring_main_window_class_init(RingMainWindowClass *klass)
 {
+    G_OBJECT_CLASS(klass)->finalize = ring_main_window_finalize;
+
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 
