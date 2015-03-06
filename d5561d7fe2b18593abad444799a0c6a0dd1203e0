@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a3291f1_0cf96cc8",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-03-06T22:26:14Z",
+      "side": 1,
+      "message": "white space",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 4
+      },
+      "revId": "d5561d7fe2b18593abad444799a0c6a0dd1203e0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
