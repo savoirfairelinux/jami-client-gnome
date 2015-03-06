@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a3291f1_0c4bac2c",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-03-06T22:21:25Z",
+      "side": 1,
+      "message": "remove white space !",
+      "range": {
+        "startLine": 158,
+        "startChar": 32,
+        "endLine": 158,
+        "endChar": 33
+      },
+      "revId": "0bce62bf21be63503b4421d2a568a71037929ea8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a3291f1_ec47401c",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-03-06T22:21:25Z",
+      "side": 1,
+      "message": "remove white space",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 4
+      },
+      "revId": "0bce62bf21be63503b4421d2a568a71037929ea8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a3291f1_cc5484cc",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-03-06T22:21:25Z",
+      "side": 1,
+      "message": "could you split in two lines ? (if you can)",
+      "range": {
+        "startLine": 350,
+        "startChar": 49,
+        "endLine": 350,
+        "endChar": 53
+      },
+      "revId": "0bce62bf21be63503b4421d2a568a71037929ea8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a3291f1_ac5138da",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-03-06T22:21:25Z",
+      "side": 1,
+      "message": "clean dead code",
+      "range": {
+        "startLine": 144,
+        "startChar": 7,
+        "endLine": 144,
+        "endChar": 44
+      },
+      "revId": "0bce62bf21be63503b4421d2a568a71037929ea8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a3291f1_8c5e7ce8",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-03-06T22:21:25Z",
+      "side": 1,
+      "message": "white space",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 4
+      },
+      "revId": "0bce62bf21be63503b4421d2a568a71037929ea8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a3291f1_6c6350b2",
+        "filename": "src/video/video_widget.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-03-06T22:21:25Z",
+      "side": 1,
+      "message": "space issues ?",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 8
+      },
+      "revId": "0bce62bf21be63503b4421d2a568a71037929ea8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
