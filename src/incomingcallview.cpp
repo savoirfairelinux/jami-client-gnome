@@ -209,7 +209,7 @@ incoming_call_view_set_call_info(IncomingCallView *view, const QModelIndex& idx)
     g_object_unref(framed_avatar);
 
     /* get name */
-    QVariant var = idx.model()->data(idx, Call::Role::Name);
+    QVariant var = idx.model()->data(idx, static_cast<int>(Call::Role::Name));
     QByteArray ba_name = var.toString().toLocal8Bit();
     gtk_label_set_text(GTK_LABEL(priv->label_identity), ba_name.constData());
 

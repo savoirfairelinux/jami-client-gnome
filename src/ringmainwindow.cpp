@@ -100,7 +100,7 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
 
     QModelIndex idx = get_index_from_selection(selection);
     if (idx.isValid()) {
-        QVariant state = CallModel::instance()->data(idx, Call::Role::CallLifeCycleState);
+        QVariant state = CallModel::instance()->data(idx, static_cast<int>(Call::Role::LifeCycleState));
         GtkWidget *new_call_view = NULL;
         char* new_call_view_name = NULL;
 
@@ -166,7 +166,7 @@ call_state_changed(Call *call, gpointer win)
         /* check if we need to change the view */
         GtkWidget *old_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_main_view));
         GtkWidget *new_call_view = NULL;
-        QVariant state = CallModel::instance()->data(idx_selected, Call::Role::CallLifeCycleState);
+        QVariant state = CallModel::instance()->data(idx_selected, static_cast<int>(Call::Role::LifeCycleState));
 
         /* check what the current state is vs what is displayed */
 
@@ -276,7 +276,7 @@ ring_main_window_init(RingMainWindow *win)
         Call::Role::Name, G_TYPE_STRING,
         Call::Role::Number, G_TYPE_STRING,
         Call::Role::Length, G_TYPE_STRING,
-        Call::Role::CallState, G_TYPE_STRING);
+        Call::Role::State, G_TYPE_STRING);
     gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_call), GTK_TREE_MODEL(call_model));
 
     renderer = gtk_cell_renderer_text_new();
