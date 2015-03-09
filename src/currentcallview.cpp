@@ -35,7 +35,6 @@
 #include <callmodel.h>
 #include "utils/drawing.h"
 #include "video/video_widget.h"
-#include <video/manager.h>
 
 struct _CurrentCallView
 {
@@ -186,11 +185,11 @@ update_details(CurrentCallView *view, Call *call)
 }
 
 static gboolean
-set_remote_renderer(gpointer data)
+set_remote_renderer(CurrentCallView *view)
 {
-    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(data), FALSE);
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), FALSE);
 
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(data);
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
     video_widget_set_remote_renderer(VIDEO_WIDGET(priv->video_widget), priv->remote_renderer);
 
@@ -209,7 +208,7 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     g_object_unref(framed_avatar);
 
     /* get name */
-    QVariant var = idx.model()->data(idx, Call::Role::Name);
+    QVariant var = idx.model()->data(idx, static_cast<int>(Call::Role::Name));
     QByteArray ba_name = var.toString().toLocal8Bit();
     gtk_label_set_text(GTK_LABEL(priv->label_identity), ba_name.constData());
 
@@ -237,30 +236,20 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     gtk_widget_show_all(priv->frame_video);
 
     /* check if we already have a renderer */
-    priv->remote_renderer = Video::Manager::instance()->getRenderer(call);
-    video_widget_set_remote_renderer(VIDEO_WIDGET(priv->video_widget), priv->remote_renderer);
+    priv->remote_renderer = call->videoRenderer();
+    set_remote_renderer(view);
 
     /* callback for video renderer */
     priv->renderer_connection = QObject::connect(
-        Video::Manager::instance(),
-        &Video::Manager::videoCallInitiated,
+        call,
+        &Call::videoStarted,
         [=](Video::Renderer *renderer) {
-            /* check if the renderer is for this call */
-            const char* id_call = CallModel::instance()->getMime(call).constData();
-            const char* id_video = renderer->id().toLocal8Bit().constData();
+            priv->remote_renderer = renderer;
 
-            g_debug("got signal for video renderer, id: %s", id_video);
-
-            if (strcmp(id_call, id_video) == 0) {
-                g_debug("matches call id");
-
-                priv->remote_renderer = renderer;
-
-                g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,
-                                (GSourceFunc)set_remote_renderer,
-                                view,
-                                NULL);
-            }
+            g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,
+                            (GSourceFunc)set_remote_renderer,
+                            view,
+                            NULL);
         }
     );
 }
