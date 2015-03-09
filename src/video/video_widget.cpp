@@ -51,7 +51,6 @@ struct _VideoWidgetPrivate {
     ClutterActor            *video_container;
 
     /* remote peer data */
-    ClutterContent          *image_remote;
     ClutterActor            *actor_remote;
     Video::Renderer         *renderer_remote;
     QMetaObject::Connection  remote_frame_update;
@@ -59,7 +58,6 @@ struct _VideoWidgetPrivate {
     QMetaObject::Connection  remote_render_start;
 
     /* local peer data */
-    ClutterContent          *image_local;
     ClutterActor            *actor_local;
     Video::Renderer         *renderer_local;
     QMetaObject::Connection  local_frame_update;
@@ -168,7 +166,7 @@ video_widget_init(VideoWidget *self)
 }
 
 static FrameInfo *
-prepare_framedata(Video::Renderer *renderer, ClutterContent* image, ClutterActor* image_actor)
+prepare_framedata(Video::Renderer *renderer, ClutterActor* image_actor)
 {
     const QByteArray& data = renderer->currentFrame();
     QSize res = renderer->size();
@@ -178,7 +176,6 @@ prepare_framedata(Video::Renderer *renderer, ClutterContent* image, ClutterActor
 
     FrameInfo *frame = g_new0(FrameInfo, 1);
 
-    frame->image = image;
     frame->image_actor = image_actor;
     frame->data = (guchar *)frame_data;
     frame->data_size = data.size();
@@ -201,14 +198,11 @@ clutter_render_image(FrameInfo *frame)
 {
     g_return_val_if_fail(CLUTTER_IS_ACTOR(frame->image_actor), FALSE);
 
-    ClutterContent *image_new = frame->image;
-    if (image_new == NULL)
-        image_new = clutter_image_new();
+    ClutterContent * image_new = clutter_image_new();
 
     const gint BPP = 4;
     const gint ROW_STRIDE = BPP * frame->width;
 
-    /* update the clutter image */
     GError *error = NULL;
     clutter_image_set_data(
             CLUTTER_IMAGE(image_new),
@@ -223,14 +217,12 @@ clutter_render_image(FrameInfo *frame)
         g_error_free(error);
     }
 
-    if (frame->image == NULL) {
-        frame->image = image_new;
-        clutter_actor_set_content(frame->image_actor, frame->image);
-        /* note: we must set the content gravity be "resize aspect" after setting the image data to make sure
-         * that the aspect ratio is correct
-         */
-        clutter_actor_set_content_gravity(frame->image_actor, CLUTTER_CONTENT_GRAVITY_RESIZE_ASPECT);
-    }
+    clutter_actor_set_content(frame->image_actor, image_new);
+    g_object_unref (image_new);
+    /* note: we must set the content gravity be "resize aspect" after setting the image data to make sure
+     * that the aspect ratio is correct
+     */
+    clutter_actor_set_content_gravity(frame->image_actor, CLUTTER_CONTENT_GRAVITY_RESIZE_ASPECT);
 
     return FALSE; /* we do not want this function to be called again */
 }
@@ -266,7 +258,6 @@ renderer_start(VideoWidget *self)
 
             /* for now use the video container for the remote image */
             FrameInfo *frame = prepare_framedata(priv->renderer_remote,
-                                                 priv->image_remote,
                                                  priv->video_container);
 
             g_idle_add_full(G_PRIORITY_HIGH_IDLE,
