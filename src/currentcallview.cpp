@@ -35,6 +35,7 @@
 #include <callmodel.h>
 #include "utils/drawing.h"
 #include "video/video_widget.h"
+#include <video/previewmanager.h>
 
 struct _CurrentCallView
 {
@@ -56,6 +57,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *label_duration;
     GtkWidget *frame_video;
     GtkWidget *video_widget;
+    GtkWidget *button_hangup;
 
     Video::Renderer *remote_renderer;
 
@@ -103,6 +105,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
 }
 
 GtkWidget *
@@ -252,4 +255,8 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
                             NULL);
         }
     );
+
+    /* preview renderer */
+    video_widget_set_local_renderer(VIDEO_WIDGET(priv->video_widget),
+                                    Video::PreviewManager::instance()->previewRenderer());
 }

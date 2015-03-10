@@ -35,6 +35,9 @@
 #include <clutter-gtk/clutter-gtk.h>
 #include <video/renderer.h>
 
+#define VIDEO_LOCAL_SIZE            150
+#define VIDEO_LOCAL_OPACITY_DEFAULT 150 /* out of 255 */
+
 struct _VideoWidgetClass {
     GtkBinClass parent_class;
 };
@@ -45,22 +48,27 @@ struct _VideoWidget {
 
 typedef struct _VideoWidgetPrivate VideoWidgetPrivate;
 
+typedef struct _VideoWidgetRenderer VideoWidgetRenderer;
+
 struct _VideoWidgetPrivate {
     GtkWidget               *clutter_widget;
     ClutterActor            *stage;
     ClutterActor            *video_container;
 
     /* remote peer data */
-    ClutterActor            *actor_remote;
-    Video::Renderer         *renderer_remote;
-    QMetaObject::Connection  remote_frame_update;
-    QMetaObject::Connection  remote_render_stop;
-    QMetaObject::Connection  remote_render_start;
+    VideoWidgetRenderer     *remote;
 
     /* local peer data */
-    ClutterActor            *actor_local;
-    Video::Renderer         *renderer_local;
-    QMetaObject::Connection  local_frame_update;
+    VideoWidgetRenderer     *local;
+};
+
+struct _VideoWidgetRenderer {
+    gboolean                 show;
+    ClutterActor            *actor;
+    Video::Renderer         *renderer;
+    QMetaObject::Connection  frame_update;
+    QMetaObject::Connection  render_stop;
+    QMetaObject::Connection  render_start;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(VideoWidget, video_widget, GTK_TYPE_BIN);
@@ -83,16 +91,20 @@ typedef struct _FrameInfo
  * The dispose function for the video_widget class.
  */
 static void
-video_widget_dispose(GObject *gobject)
+video_widget_dispose(GObject *object)
 {
-    VideoWidget *self = VIDEO_WIDGET(gobject);
+    VideoWidget *self = VIDEO_WIDGET(object);
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
-    QObject::disconnect(priv->remote_frame_update);
-    QObject::disconnect(priv->remote_render_stop);
-    QObject::disconnect(priv->remote_render_start);
+    QObject::disconnect(priv->remote->frame_update);
+    QObject::disconnect(priv->remote->render_stop);
+    QObject::disconnect(priv->remote->render_start);
 
-    G_OBJECT_CLASS(video_widget_parent_class)->dispose(gobject);
+    QObject::disconnect(priv->local->frame_update);
+    QObject::disconnect(priv->local->render_stop);
+    QObject::disconnect(priv->local->render_start);
+
+    G_OBJECT_CLASS(video_widget_parent_class)->dispose(object);
 }
 
 
@@ -104,6 +116,12 @@ video_widget_dispose(GObject *gobject)
 static void
 video_widget_finalize(GObject *object)
 {
+    VideoWidget *self = VIDEO_WIDGET(object);
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    g_free(priv->remote);
+    g_free(priv->local);
+
     G_OBJECT_CLASS(video_widget_parent_class)->finalize(object);
 }
 
@@ -152,6 +170,30 @@ video_widget_init(VideoWidget *self)
     priv->video_container = clutter_actor_new();
     clutter_actor_set_background_color(priv->video_container, CLUTTER_COLOR_Black);
     clutter_actor_add_child(priv->stage, priv->video_container);
+
+    /* init the remote and local structs */
+    priv->remote = g_new0(VideoWidgetRenderer, 1);
+    priv->local = g_new0(VideoWidgetRenderer, 1);
+
+    /* arrange remote actors */
+    priv->remote->actor = clutter_actor_new();
+    clutter_actor_insert_child_below(priv->video_container, priv->remote->actor, NULL);
+    /* the remote camera must always fill the container size */
+    ClutterConstraint *constraint = clutter_bind_constraint_new(priv->video_container,
+                                                                CLUTTER_BIND_SIZE, 0);
+    clutter_actor_add_constraint(priv->remote->actor, constraint);
+
+    /* arrange local actor */
+    priv->local->actor = clutter_actor_new();
+    clutter_actor_insert_child_above(priv->video_container, priv->local->actor, NULL);
+    /* set size to square, but it will stay the aspect ratio when the image is rendered */
+    clutter_actor_set_size(priv->local->actor, VIDEO_LOCAL_SIZE, VIDEO_LOCAL_SIZE);
+    /* set position constraint to right cornder */
+    constraint = clutter_align_constraint_new(priv->video_container,
+                                              CLUTTER_ALIGN_BOTH, 0.99);
+    clutter_actor_add_constraint(priv->local->actor, constraint);
+    clutter_actor_set_opacity(priv->local->actor,
+                              VIDEO_LOCAL_OPACITY_DEFAULT);
 
     /* TODO: handle button event in screen */
     // g_signal_connect(screen, "button-press-event",
@@ -227,27 +269,20 @@ clutter_render_image(FrameInfo *frame)
     return FALSE; /* we do not want this function to be called again */
 }
 
-static gboolean
-renderer_stop(VideoWidget *self)
+static void
+renderer_stop(VideoWidgetRenderer *renderer)
 {
-    g_return_val_if_fail(IS_VIDEO_WIDGET(self), FALSE);
-
-    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
-
-    QObject::disconnect(priv->remote_frame_update);
-
-    return FALSE; /* don't call again */
+    QObject::disconnect(renderer->frame_update);
+    renderer->show = FALSE;
 }
 
-static gboolean
-renderer_start(VideoWidget *self)
+static void
+renderer_start(VideoWidgetRenderer *renderer)
 {
-    g_return_val_if_fail(IS_VIDEO_WIDGET(self), FALSE);
+    renderer->show = TRUE;
 
-    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
-
-    priv->remote_frame_update = QObject::connect(
-        priv->renderer_remote,
+    renderer->frame_update = QObject::connect(
+        renderer->renderer,
         &Video::Renderer::frameUpdated,
         [=]() {
 
@@ -257,8 +292,8 @@ renderer_start(VideoWidget *self)
              */
 
             /* for now use the video container for the remote image */
-            FrameInfo *frame = prepare_framedata(priv->renderer_remote,
-                                                 priv->video_container);
+            FrameInfo *frame = prepare_framedata(renderer->renderer,
+                                                 renderer->actor);
 
             g_idle_add_full(G_PRIORITY_HIGH_IDLE,
                             (GSourceFunc)clutter_render_image,
@@ -266,10 +301,36 @@ renderer_start(VideoWidget *self)
                             (GDestroyNotify)free_framedata);
         }
     );
-
-    return FALSE; /* don't call again */
 }
 
+static void
+video_widget_set_renderer(VideoWidgetRenderer *renderer)
+{
+    if (renderer == NULL) return;
+
+    /* update the renderer */
+    QObject::disconnect(renderer->frame_update);
+    QObject::disconnect(renderer->render_stop);
+    QObject::disconnect(renderer->render_start);
+
+    renderer_start(renderer);
+
+    renderer->render_stop = QObject::connect(
+        renderer->renderer,
+        &Video::Renderer::stopped,
+        [=]() {
+            renderer_stop(renderer);
+        }
+    );
+
+    renderer->render_start = QObject::connect(
+        renderer->renderer,
+        &Video::Renderer::started,
+        [=]() {
+            renderer_start(renderer);
+        }
+    );
+}
 
 /*
  * video_widget_new()
@@ -292,32 +353,19 @@ video_widget_set_remote_renderer(VideoWidget *self, Video::Renderer *renderer_re
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
     /* update the renderer */
-    QObject::disconnect(priv->remote_frame_update);
-    QObject::disconnect(priv->remote_render_stop);
-    QObject::disconnect(priv->remote_render_start);
-    priv->renderer_remote = renderer_remote_new;
+    priv->remote->renderer = renderer_remote_new;
+    video_widget_set_renderer(priv->remote);
+}
 
-    renderer_start(self);
+void
+video_widget_set_local_renderer(VideoWidget *self, Video::Renderer *renderer_local_new)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    if (renderer_local_new == NULL) return;
 
-    priv->remote_render_stop = QObject::connect(
-        renderer_remote_new,
-        &Video::Renderer::stopped,
-        [=]() {
-            g_idle_add_full(G_PRIORITY_HIGH_IDLE,
-                            (GSourceFunc)renderer_stop,
-                            self,
-                            NULL);
-        }
-    );
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
-    priv->remote_render_start = QObject::connect(
-        renderer_remote_new,
-        &Video::Renderer::started,
-        [=]() {
-            g_idle_add_full(G_PRIORITY_HIGH_IDLE,
-                            (GSourceFunc)renderer_start,
-                            self,
-                            NULL);
-        }
-    );
+    /* update the renderer */
+    priv->local->renderer = renderer_local_new;
+    video_widget_set_renderer(priv->local);
 }
