@@ -50,7 +50,7 @@ typedef struct _VideoWidget VideoWidget;
 GType           video_widget_get_type           (void) G_GNUC_CONST;
 GtkWidget*      video_widget_new                (void);
 void            video_widget_set_remote_renderer(VideoWidget *self, Video::Renderer *renderer_remote_new);
-
+void            video_widget_set_local_renderer (VideoWidget *self, Video::Renderer *renderer_local_new);
 G_END_DECLS
 
 #endif /* __VIDEO_WIDGET_H__ */
