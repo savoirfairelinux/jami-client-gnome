@@ -60,6 +60,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *button_hangup;
 
     Video::Renderer *remote_renderer;
+    Video::Renderer *local_renderer;
 
     QMetaObject::Connection state_change_connection;
     QMetaObject::Connection call_details_connection;
@@ -199,6 +200,18 @@ set_remote_renderer(CurrentCallView *view)
     return FALSE; /* do not call again */
 }
 
+static gboolean
+set_local_renderer(CurrentCallView *view)
+{
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), FALSE);
+
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    video_widget_set_local_renderer(VIDEO_WIDGET(priv->video_widget), priv->local_renderer);
+
+    return FALSE; /* do not call again */
+}
+
 static void
 fullscreen_destroy(CurrentCallView *view)
 {
@@ -311,7 +324,7 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     priv->remote_renderer = call->videoRenderer();
     set_remote_renderer(view);
 
-    /* callback for video renderer */
+    /* callback for remote renderer */
     priv->renderer_connection = QObject::connect(
         call,
         &Call::videoStarted,
@@ -325,9 +338,23 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
         }
     );
 
-    /* preview renderer */
-    video_widget_set_local_renderer(VIDEO_WIDGET(priv->video_widget),
-                                    Video::PreviewManager::instance()->previewRenderer());
+    /* local renderer */
+    priv->local_renderer = Video::PreviewManager::instance()->previewRenderer();
+    set_local_renderer(view);
+
+    /* callback for local renderer */
+    priv->renderer_connection = QObject::connect(
+        Video::PreviewManager::instance(),
+        &Video::PreviewManager::previewStarted,
+        [=](Video::Renderer *renderer) {
+            priv->local_renderer = renderer;
+
+            g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,
+                            (GSourceFunc)set_local_renderer,
+                            view,
+                            NULL);
+        }
+    );
 
     /* catch double click to make full screen */
     g_signal_connect(priv->video_widget, "button-press-event",
