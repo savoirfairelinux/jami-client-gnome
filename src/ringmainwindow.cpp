@@ -38,6 +38,8 @@
 #include "incomingcallview.h"
 #include "currentcallview.h"
 #include <string.h>
+#include <historymodel.h>
+#include <contactmethod.h>
 
 #define DEFAULT_VIEW_NAME "placeholder"
 
@@ -58,6 +60,7 @@ struct _RingMainWindowPrivate
     GtkWidget *gears;
     GtkWidget *gears_image;
     GtkWidget *treeview_call;
+    GtkWidget *treeview_placeholder;
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
     GtkWidget *button_placecall;
@@ -228,12 +231,39 @@ search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
         g_debug("dialing to number: %s", number);
         Call *call = CallModel::instance()->dialingCall();
         call->setDialNumber(number);
-
         call->performAction(Call::Action::ACCEPT);
 
         /* make this the currently selected call */
         QModelIndex idx = CallModel::instance()->getIndex(call);
         CallModel::instance()->selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
+    }
+}
+
+static void
+call_history_item(GtkTreeView *tree_view,
+                  GtkTreePath *path,
+                  G_GNUC_UNUSED GtkTreeViewColumn *column,
+                  G_GNUC_UNUSED gpointer user_data)
+{
+    GtkTreeModel *model = gtk_tree_view_get_model(tree_view);
+
+    /* get iter */
+    GtkTreeIter iter;
+    if (gtk_tree_model_get_iter(model, &iter, path)) {
+        QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
+
+        QVariant contact_method = idx.data(static_cast<int>(Call::Role::ContactMethod));
+        /* create new call */
+        if (contact_method.value<ContactMethod*>()) {
+            Call *call = CallModel::instance()->dialingCall();
+            call->setDialNumber(contact_method.value<ContactMethod*>());
+            call->performAction(Call::Action::ACCEPT);
+
+            /* make this the currently selected call */
+            QModelIndex call_idx = CallModel::instance()->getIndex(call);
+            CallModel::instance()->selectionModel()->setCurrentIndex(call_idx, QItemSelectionModel::ClearAndSelect);
+        } else
+            g_warning("contact method is empty");
     }
 }
 
@@ -329,6 +359,48 @@ ring_main_window_init(RingMainWindow *win)
         }
     );
 
+    /* history model */
+    GtkQTreeModel *history_model;
+
+    history_model = gtk_q_tree_model_new(HistoryModel::instance(), 4,
+        Qt::DisplayRole, G_TYPE_STRING,
+        Call::Role::Number, G_TYPE_STRING,
+        Call::Role::FormattedDate, G_TYPE_STRING,
+        Call::Role::Direction, G_TYPE_INT);
+    gtk_tree_view_set_model( GTK_TREE_VIEW(priv->treeview_placeholder), GTK_TREE_MODEL(history_model) );
+
+    GtkCellArea *cellarea_name = gtk_cell_area_box_new();
+    gtk_orientable_set_orientation(GTK_ORIENTABLE(cellarea_name), GTK_ORIENTATION_HORIZONTAL);
+    GtkCellRenderer *cellrenderer_name = gtk_cell_renderer_text_new();
+    GtkCellRenderer *cellrenderer_number = gtk_cell_renderer_text_new();
+
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(cellarea_name),
+                                 cellrenderer_name,
+                                 FALSE, /* expand */
+                                 FALSE,  /* align in adjacent rows */
+                                 FALSE); /* fixed size in all rows */
+
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(cellarea_name),
+                                 cellrenderer_number,
+                                 FALSE, /* expand */
+                                 FALSE,  /* align in adjacent rows */
+                                 FALSE); /* fixed size in all rows */
+
+    column = gtk_tree_view_column_new_with_area(cellarea_name);
+    g_object_set(G_OBJECT(column), "max-width", 250, NULL);
+
+    gtk_tree_view_column_add_attribute(column, cellrenderer_name, "text", 0);
+    gtk_tree_view_column_add_attribute(column, cellrenderer_number, "text", 1);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_placeholder), column);
+
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Date", renderer, "text", 2, NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (priv->treeview_placeholder), column);
+
+    gtk_tree_view_expand_all(GTK_TREE_VIEW(priv->treeview_placeholder));
+
+    g_signal_connect(priv->treeview_placeholder, "row-activated", G_CALLBACK(call_history_item), NULL);
+
     /* TODO: replace stack paceholder view */
     GtkWidget *placeholder_view = gtk_tree_view_new();
     gtk_widget_show(placeholder_view);
@@ -368,6 +440,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, treeview_call);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, treeview_placeholder);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, gears);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, gears_image);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, search_entry);

@@ -159,6 +159,7 @@
                         <property name="image">image_history</property>
                         <property name="draw_indicator">False</property>
                         <property name="group">radiobutton_contacts</property>
+                        <property name="active">True</property>
                       </object>
                       <packing></packing>
                     </child>
