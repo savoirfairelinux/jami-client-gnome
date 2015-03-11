@@ -39,9 +39,11 @@
 #include <QtCore/QItemSelectionModel>
 #include <useractionmodel.h>
 #include <clutter-gtk/clutter-gtk.h>
+#include <historymodel.h>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
+#include "backends/minimalhistorybackend.h"
 
 struct _RingClientClass
 {
@@ -122,6 +124,9 @@ ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
         init_exception_dialog(c_str);
         return 1;
     }
+
+    /* add backends */
+    HistoryModel::instance()->addCollection<MinimalHistoryBackend>(LoadOptions::FORCE_ENABLED);
 
     /* Override theme since we don't have appropriate icons for a dark them (yet) */
     GtkSettings *gtk_settings = gtk_settings_get_default();
