@@ -199,6 +199,75 @@ set_remote_renderer(CurrentCallView *view)
     return FALSE; /* do not call again */
 }
 
+static void
+fullscreen_destroy(CurrentCallView *view)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    /* check if the video widgets parent is the the fullscreen window */
+    GtkWidget *parent = gtk_widget_get_parent(priv->video_widget);
+    if (parent != NULL && parent != priv->frame_video) {
+        /* put the videw widget back in the call view */
+        g_object_ref(priv->video_widget);
+        gtk_container_remove(GTK_CONTAINER(parent), priv->video_widget);
+        gtk_container_add(GTK_CONTAINER(priv->frame_video), priv->video_widget);
+        g_object_unref(priv->video_widget);
+        /* destory the fullscreen window */
+        gtk_widget_destroy(parent);
+    }
+}
+
+static gboolean
+fullscreen_handle_keys(GtkWidget *self, GdkEventKey *event, G_GNUC_UNUSED gpointer user_data)
+{
+    if (event->keyval == GDK_KEY_Escape)
+        gtk_widget_destroy(self);
+
+    /* the event has been fully handled */
+    return TRUE;
+}
+
+static gboolean
+on_button_press_in_video_event(GtkWidget *self, GdkEventButton *event, CurrentCallView *view)
+{
+    g_return_val_if_fail(IS_VIDEO_WIDGET(self), FALSE);
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), FALSE);
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    /* on double click */
+    if (event->type == GDK_2BUTTON_PRESS) {
+
+        /* get the parent to check if its in fullscreen widnow or not */
+        GtkWidget *parent = gtk_widget_get_parent(GTK_WIDGET(self));
+        if (parent == priv->frame_video){
+            /* not fullscreen, so put it in a separate widget and make it so */
+            GtkWidget *fullscreen_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+            gtk_window_set_decorated(GTK_WINDOW(fullscreen_window), FALSE);
+            gtk_window_set_transient_for(GTK_WINDOW(fullscreen_window),
+                                         GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))));
+            g_object_ref(self);
+            gtk_container_remove(GTK_CONTAINER(priv->frame_video), self);
+            gtk_container_add(GTK_CONTAINER(fullscreen_window), self);
+            g_object_unref(self);
+            /* connect signals to make sure we can un-fullscreen */
+            g_signal_connect_swapped(fullscreen_window, "destroy", G_CALLBACK(fullscreen_destroy), view);
+            g_signal_connect(view, "destroy", G_CALLBACK(fullscreen_destroy), NULL);
+            g_signal_connect(fullscreen_window, "key_press_event", G_CALLBACK(fullscreen_handle_keys), NULL);
+            /* present the fullscreen widnow */
+            gtk_window_present(GTK_WINDOW(fullscreen_window));
+            gtk_window_fullscreen(GTK_WINDOW(fullscreen_window));
+        } else {
+            /* put it back in the call view */
+            fullscreen_destroy(view);
+        }
+    }
+
+    /* the event has been fully handled */
+    return TRUE;
+}
+
+
 void
 current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
@@ -259,4 +328,9 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     /* preview renderer */
     video_widget_set_local_renderer(VIDEO_WIDGET(priv->video_widget),
                                     Video::PreviewManager::instance()->previewRenderer());
+
+    /* catch double click to make full screen */
+    g_signal_connect(priv->video_widget, "button-press-event",
+                     G_CALLBACK(on_button_press_in_video_event),
+                     view);
 }

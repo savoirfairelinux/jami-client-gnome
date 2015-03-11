@@ -63,7 +63,6 @@ struct _VideoWidgetPrivate {
 };
 
 struct _VideoWidgetRenderer {
-    gboolean                 show;
     ClutterActor            *actor;
     Video::Renderer         *renderer;
     QMetaObject::Connection  frame_update;
@@ -272,15 +271,14 @@ clutter_render_image(FrameInfo *frame)
 static void
 renderer_stop(VideoWidgetRenderer *renderer)
 {
+    g_return_if_fail(CLUTTER_IS_ACTOR(renderer->actor));
     QObject::disconnect(renderer->frame_update);
-    renderer->show = FALSE;
 }
 
 static void
 renderer_start(VideoWidgetRenderer *renderer)
 {
-    renderer->show = TRUE;
-
+    g_return_if_fail(CLUTTER_IS_ACTOR(renderer->actor));
     renderer->frame_update = QObject::connect(
         renderer->renderer,
         &Video::Renderer::frameUpdated,
