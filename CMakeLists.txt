@@ -136,6 +136,8 @@ SET( SRC_FILES
    src/utils/drawing.c
    src/video/video_widget.h
    src/video/video_widget.cpp
+   src/backends/minimalhistorybackend.h
+   src/backends/minimalhistorybackend.cpp
 )
 
 # compile glib resource files to c code

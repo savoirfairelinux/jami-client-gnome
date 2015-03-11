@@ -119,13 +119,10 @@
                 <!-- end current calls view -->
                 <!-- contacts/history/presence view -->
                 <child>
-                  <object class="GtkTreeView" id="treeview_placeholder">
+                  <object class="GtkStack" id="stack_contacts_history_presence">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="headers_visible">False</property>
-                    <child internal-child="selection">
-                      <object class="GtkTreeSelection" id="treeview-selection-placehodler"/>
-                    </child>
+                    <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
+                    <property name="transition-duration">300</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -159,6 +156,7 @@
                         <property name="image">image_history</property>
                         <property name="draw_indicator">False</property>
                         <property name="group">radiobutton_contacts</property>
+                        <property name="active">True</property>
                       </object>
                       <packing></packing>
                     </child>
