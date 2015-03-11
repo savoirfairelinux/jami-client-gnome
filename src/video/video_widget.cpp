@@ -64,6 +64,7 @@ struct _VideoWidgetPrivate {
 
 struct _VideoWidgetRenderer {
     gboolean                 show;
+    gboolean                 local;
     ClutterActor            *actor;
     Video::Renderer         *renderer;
     QMetaObject::Connection  frame_update;
@@ -173,7 +174,9 @@ video_widget_init(VideoWidget *self)
 
     /* init the remote and local structs */
     priv->remote = g_new0(VideoWidgetRenderer, 1);
+    priv->remote->local = FALSE;
     priv->local = g_new0(VideoWidgetRenderer, 1);
+    priv->local->local = TRUE;
 
     /* arrange remote actors */
     priv->remote->actor = clutter_actor_new();
@@ -272,15 +275,28 @@ clutter_render_image(FrameInfo *frame)
 static void
 renderer_stop(VideoWidgetRenderer *renderer)
 {
+    if (renderer->local)
+        g_debug("\nstop local\n");
+    else
+        g_debug("\nstop remote\n");
+
+    g_return_if_fail(CLUTTER_IS_ACTOR(renderer->actor));
     QObject::disconnect(renderer->frame_update);
+    // clutter_actor_hide(renderer->actor);
     renderer->show = FALSE;
 }
 
 static void
 renderer_start(VideoWidgetRenderer *renderer)
 {
-    renderer->show = TRUE;
+    if (renderer->local)
+        g_debug("\nstart local\n");
+    else
+        g_debug("\nstart remote\n");
 
+    g_return_if_fail(CLUTTER_IS_ACTOR(renderer->actor));
+    // clutter_actor_show(renderer->actor);
+    renderer->show = TRUE;
     renderer->frame_update = QObject::connect(
         renderer->renderer,
         &Video::Renderer::frameUpdated,
