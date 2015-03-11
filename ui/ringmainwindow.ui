@@ -119,6 +119,17 @@
                 <!-- end current calls view -->
                 <!-- contacts/history/presence view -->
                 <child>
+                  <object class="GtkStack" id="stack_contacts_history_presence">
+                    <property name="visible">True</property>
+                    <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
+                    <property name="transition-duration">300</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
+<!--                 <child>
                   <object class="GtkTreeView" id="treeview_placeholder">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -131,7 +142,7 @@
                     <property name="expand">True</property>
                     <property name="fill">True</property>
                   </packing>
-                </child>
+                </child> -->
                 <!-- end contacts/history/presence view -->
                 <!-- nav buttons -->
                 <child>
@@ -159,6 +170,7 @@
                         <property name="image">image_history</property>
                         <property name="draw_indicator">False</property>
                         <property name="group">radiobutton_contacts</property>
+                        <property name="active">True</property>
                       </object>
                       <packing></packing>
                     </child>

@@ -38,8 +38,13 @@
 #include "incomingcallview.h"
 #include "currentcallview.h"
 #include <string.h>
+#include <historymodel.h>
+#include <contactmethod.h>
 
 #define DEFAULT_VIEW_NAME "placeholder"
+#define VIEW_CONTACTS "contacts"
+#define VIEW_HISTORY "history"
+#define VIEW_PRESENCE "presence"
 
 struct _RingMainWindow
 {
@@ -57,6 +62,10 @@ struct _RingMainWindowPrivate
 {
     GtkWidget *gears;
     GtkWidget *gears_image;
+    GtkWidget *stack_contacts_history_presence;
+    GtkWidget *radiobutton_contacts;
+    GtkWidget *radiobutton_history;
+    GtkWidget *radiobutton_presence;
     GtkWidget *treeview_call;
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
@@ -228,12 +237,109 @@ search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
         g_debug("dialing to number: %s", number);
         Call *call = CallModel::instance()->dialingCall();
         call->setDialNumber(number);
-
         call->performAction(Call::Action::ACCEPT);
 
         /* make this the currently selected call */
         QModelIndex idx = CallModel::instance()->getIndex(call);
         CallModel::instance()->selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
+    }
+}
+
+static void
+call_history_item(GtkTreeView *tree_view,
+                  GtkTreePath *path,
+                  G_GNUC_UNUSED GtkTreeViewColumn *column,
+                  G_GNUC_UNUSED gpointer user_data)
+{
+    GtkTreeModel *model = gtk_tree_view_get_model(tree_view);
+
+    /* get iter */
+    GtkTreeIter iter;
+    if (gtk_tree_model_get_iter(model, &iter, path)) {
+        QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
+
+        QVariant contact_method = idx.data(static_cast<int>(Call::Role::ContactMethod));
+        /* create new call */
+        if (contact_method.value<ContactMethod*>()) {
+            Call *call = CallModel::instance()->dialingCall();
+            call->setDialNumber(contact_method.value<ContactMethod*>());
+            call->performAction(Call::Action::ACCEPT);
+
+            /* make this the currently selected call */
+            QModelIndex call_idx = CallModel::instance()->getIndex(call);
+            CallModel::instance()->selectionModel()->setCurrentIndex(call_idx, QItemSelectionModel::ClearAndSelect);
+        } else
+            g_warning("contact method is empty");
+    }
+}
+
+static void
+navbutton_contacts_toggled(GtkToggleButton *navbutton, RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (gtk_toggle_button_get_active(navbutton)) {
+
+        const gchar *visible = gtk_stack_get_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence));
+        
+        if (visible) {
+            /* contacts is left of both history and presence, so always slide right to show it */
+            gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+            gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_CONTACTS);
+        } else {
+            g_warning("should always have a visible child in the nav stack");
+            gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_NONE);
+            gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_CONTACTS);
+        }
+    }
+}
+
+static void
+navbutton_presence_toggled(GtkToggleButton *navbutton, RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (gtk_toggle_button_get_active(navbutton)) {
+
+        const gchar *visible = gtk_stack_get_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence));
+        if (visible) {
+            /* presence is right of both history and contacts, so always slide left to show it */
+            gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
+            gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_PRESENCE);
+        } else {
+            g_warning("should always have a visible child in the nav stack");
+            gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_NONE);
+            gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_PRESENCE);
+        }
+    }
+}
+
+static void
+navbutton_history_toggled(GtkToggleButton *navbutton, RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (gtk_toggle_button_get_active(navbutton)) {
+
+        const gchar *visible = gtk_stack_get_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence));
+        if (visible) {
+            if (strcmp(visible, VIEW_CONTACTS) == 0) {
+                /* history is right of contacts, so slide left to show it */
+                gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
+                gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_HISTORY);
+            } else if (strcmp(visible, VIEW_PRESENCE) == 0) {
+                /* history is left of presence, so slide right to show it */
+                gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+                gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_HISTORY);
+            }
+        } else {
+            g_warning("should always have a visible child in the nav stack");
+            gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_NONE);
+            gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_HISTORY);
+        }
     }
 }
 
@@ -281,6 +387,7 @@ ring_main_window_init(RingMainWindow *win)
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes("Name", renderer, "text", 0, NULL);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
 
     renderer = gtk_cell_renderer_text_new();
@@ -329,6 +436,85 @@ ring_main_window_init(RingMainWindow *win)
         }
     );
 
+    /* contacts view/model */
+    GtkWidget *scrolled_window = gtk_scrolled_window_new(NULL, NULL);
+    GtkWidget *treeview_contacts = gtk_tree_view_new();
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_contacts), FALSE);
+    gtk_container_add(GTK_CONTAINER(scrolled_window), treeview_contacts);
+    gtk_widget_show_all(scrolled_window);
+    gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
+                        scrolled_window,
+                        VIEW_CONTACTS);
+
+    /* history view/model */
+    scrolled_window = gtk_scrolled_window_new(NULL, NULL);
+    GtkWidget *treeview_history = gtk_tree_view_new();
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_history), FALSE);
+    gtk_container_add(GTK_CONTAINER(scrolled_window), treeview_history);
+    gtk_widget_show_all(scrolled_window);
+    gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
+                        scrolled_window,
+                        VIEW_HISTORY);
+    /* TODO: make this linked to the client settings so that the last shown view is the same on startup */
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_contacts_history_presence),
+                                scrolled_window);
+
+    GtkQTreeModel *history_model;
+
+    history_model = gtk_q_tree_model_new(HistoryModel::instance(), 4,
+        Qt::DisplayRole, G_TYPE_STRING,
+        Call::Role::Number, G_TYPE_STRING,
+        Call::Role::FormattedDate, G_TYPE_STRING,
+        Call::Role::Direction, G_TYPE_INT);
+    gtk_tree_view_set_model( GTK_TREE_VIEW(treeview_history), GTK_TREE_MODEL(history_model) );
+
+    GtkCellArea *cellarea_name = gtk_cell_area_box_new();
+    gtk_orientable_set_orientation(GTK_ORIENTABLE(cellarea_name), GTK_ORIENTATION_HORIZONTAL);
+    GtkCellRenderer *cellrenderer_name = gtk_cell_renderer_text_new();
+    GtkCellRenderer *cellrenderer_number = gtk_cell_renderer_text_new();
+
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(cellarea_name),
+                                 cellrenderer_name,
+                                 FALSE, /* expand */
+                                 FALSE,  /* align in adjacent rows */
+                                 FALSE); /* fixed size in all rows */
+
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(cellarea_name),
+                                 cellrenderer_number,
+                                 FALSE, /* expand */
+                                 FALSE,  /* align in adjacent rows */
+                                 FALSE); /* fixed size in all rows */
+
+    column = gtk_tree_view_column_new_with_area(cellarea_name);
+    g_object_set(G_OBJECT(column), "max-width", 250, NULL);
+
+    gtk_tree_view_column_add_attribute(column, cellrenderer_name, "text", 0);
+    gtk_tree_view_column_add_attribute(column, cellrenderer_number, "text", 1);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
+
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Date", renderer, "text", 2, NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (treeview_history), column);
+
+    gtk_tree_view_expand_all(GTK_TREE_VIEW(treeview_history));
+
+    g_signal_connect(treeview_history, "row-activated", G_CALLBACK(call_history_item), NULL);
+
+    /* presence view/model */
+    scrolled_window = gtk_scrolled_window_new(NULL, NULL);
+    GtkWidget *treeview_presence = gtk_tree_view_new();
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_presence), FALSE);
+    gtk_container_add(GTK_CONTAINER(scrolled_window), treeview_presence);
+    gtk_widget_show_all(scrolled_window);
+    gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
+                        scrolled_window,
+                        VIEW_PRESENCE);
+
+    /* connect signals to change the contacts/history/presence stack view */
+    g_signal_connect(priv->radiobutton_contacts, "toggled", G_CALLBACK(navbutton_contacts_toggled), win);
+    g_signal_connect(priv->radiobutton_history, "toggled", G_CALLBACK(navbutton_history_toggled), win);
+    g_signal_connect(priv->radiobutton_presence, "toggled", G_CALLBACK(navbutton_presence_toggled), win);
+
     /* TODO: replace stack paceholder view */
     GtkWidget *placeholder_view = gtk_tree_view_new();
     gtk_widget_show(placeholder_view);
@@ -368,6 +554,10 @@ ring_main_window_class_init(RingMainWindowClass *klass)
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, treeview_call);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_contacts_history_presence);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_contacts);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_history);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_presence);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, gears);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, gears_image);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, search_entry);
