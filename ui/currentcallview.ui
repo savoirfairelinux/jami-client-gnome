@@ -57,6 +57,7 @@
         <child>
           <object class="GtkFrame" id="frame_video">
             <property name="visible">False</property>
+            <property name="shadow-type">GTK_SHADOW_NONE</property>
           </object>
         </child>
         <!-- end of video widget -->
