@@ -37,6 +37,7 @@
 
 #define VIDEO_LOCAL_SIZE            150
 #define VIDEO_LOCAL_OPACITY_DEFAULT 150 /* out of 255 */
+#define FRAME_RATE_PERIOD           30  /* ms */
 
 struct _VideoWidgetClass {
     GtkBinClass parent_class;
@@ -63,6 +64,8 @@ struct _VideoWidgetPrivate {
 };
 
 struct _VideoWidgetRenderer {
+    GAsyncQueue             *frame_queue;
+    guint                    timeout_source;
     ClutterActor            *actor;
     Video::Renderer         *renderer;
     QMetaObject::Connection  frame_update;
@@ -84,6 +87,15 @@ typedef struct _FrameInfo
     gint            height;
 } FrameInfo;
 
+/* static prototypes */
+static FrameInfo *prepare_framedata(Video::Renderer *renderer, ClutterActor* image_actor);
+static void free_framedata(gpointer data);
+static gboolean clutter_render_image(FrameInfo *frame);
+static gboolean check_frame_queue(VideoWidgetRenderer *renderer);
+static void renderer_stop(VideoWidgetRenderer *renderer);
+static void renderer_start(VideoWidgetRenderer *renderer);
+static void video_widget_set_renderer(VideoWidgetRenderer *renderer);
+
 /*
  * video_widget_dispose()
  *
@@ -102,6 +114,12 @@ video_widget_dispose(GObject *object)
     QObject::disconnect(priv->local->frame_update);
     QObject::disconnect(priv->local->render_stop);
     QObject::disconnect(priv->local->render_start);
+
+    g_source_remove(priv->remote->timeout_source);
+    g_source_remove(priv->local->timeout_source);
+
+    g_async_queue_unref(priv->remote->frame_queue);
+    g_async_queue_unref(priv->local->frame_queue);
 
     G_OBJECT_CLASS(video_widget_parent_class)->dispose(object);
 }
@@ -171,8 +189,14 @@ video_widget_init(VideoWidget *self)
     clutter_actor_add_child(priv->stage, priv->video_container);
 
     /* init the remote and local structs */
-    priv->remote = g_new0(VideoWidgetRenderer, 1);
+    priv->remote = g_new0(VideoWidgetRenderer, 1);    
     priv->local = g_new0(VideoWidgetRenderer, 1);
+
+    /* init frame queues and timeout sources to chekc them */
+    priv->remote->frame_queue = g_async_queue_new_full((GDestroyNotify)free_framedata);
+    priv->remote->timeout_source = g_timeout_add(FRAME_RATE_PERIOD, (GSourceFunc)check_frame_queue, priv->remote);
+    priv->local->frame_queue = g_async_queue_new_full((GDestroyNotify)free_framedata);
+    priv->local->timeout_source = g_timeout_add(FRAME_RATE_PERIOD, (GSourceFunc)check_frame_queue, priv->local);
 
     /* arrange remote actors */
     priv->remote->actor = clutter_actor_new();
@@ -268,6 +292,19 @@ clutter_render_image(FrameInfo *frame)
     return FALSE; /* we do not want this function to be called again */
 }
 
+static gboolean
+check_frame_queue(VideoWidgetRenderer *renderer)
+{
+    gpointer data = g_async_queue_try_pop(renderer->frame_queue);
+    while(data != NULL) {
+        /* display frame and get the next one */
+        clutter_render_image((FrameInfo *)data);
+        free_framedata(data);
+        data = g_async_queue_try_pop(renderer->frame_queue);
+    }
+    return TRUE; /* keep going */
+}
+
 static void
 renderer_stop(VideoWidgetRenderer *renderer)
 {
@@ -286,17 +323,11 @@ renderer_start(VideoWidgetRenderer *renderer)
 
             /* this callback comes from another thread;
              * rendering must be done in the main loop;
-             * copy the frame and add it as a task on the main loop
+             * copy the frame and add it to the frame queue
              */
-
-            /* for now use the video container for the remote image */
             FrameInfo *frame = prepare_framedata(renderer->renderer,
                                                  renderer->actor);
-
-            g_idle_add_full(G_PRIORITY_HIGH_IDLE,
-                            (GSourceFunc)clutter_render_image,
-                            frame,
-                            (GDestroyNotify)free_framedata);
+            g_async_queue_push(renderer->frame_queue, frame);
         }
     );
 }
