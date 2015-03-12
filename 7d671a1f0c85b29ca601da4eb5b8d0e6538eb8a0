@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a3291f1_226d4f33",
+        "filename": "src/backends/minimalhistorybackend.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-03-12T18:55:20Z",
+      "side": 1,
+      "message": "clean up here",
+      "revId": "7d671a1f0c85b29ca601da4eb5b8d0e6538eb8a0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a3291f1_628357cd",
+        "filename": "src/backends/minimalhistorybackend.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-03-12T18:55:20Z",
+      "side": 1,
+      "message": "clean up the dead code before merging it",
+      "revId": "7d671a1f0c85b29ca601da4eb5b8d0e6538eb8a0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a3291f1_42885be7",
+        "filename": "src/backends/minimalhistorybackend.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-03-12T18:55:20Z",
+      "side": 1,
+      "message": "clean up here too",
+      "range": {
+        "startLine": 52,
+        "startChar": 19,
+        "endLine": 52,
+        "endChar": 22
+      },
+      "revId": "7d671a1f0c85b29ca601da4eb5b8d0e6538eb8a0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
