@@ -192,6 +192,10 @@ call_hold(GSimpleAction *action, GVariant *state, G_GNUC_UNUSED gpointer data)
     }
 }
 
+/* starting glib 2.40 the action() parameter in the action entry (the second one)
+ * can be left NULL for stateful boolean actions and they will automatically be
+ * toggled; for older versions of glib we must explicitly set a handler to toggle them */
+#if GLIB_CHECK_VERSION(2,40,0)
 
 static const GActionEntry ring_actions[] =
 {
@@ -204,6 +208,75 @@ static const GActionEntry ring_actions[] =
     // { "transfer",   NULL,        NULL, "flase", NULL, {0} },
     // { "record",     NULL,        NULL, "false", NULL, {0} }
 };
+
+#else
+
+/* adapted from glib 2.40, gsimpleaction.c */
+static void
+g_simple_action_change_state(GSimpleAction *simple, GVariant *value)
+{
+    GAction *action = G_ACTION(simple);
+
+    guint change_state_id = g_signal_lookup("change-state", G_OBJECT_TYPE(simple));
+
+    /* If the user connected a signal handler then they are responsible
+    * for handling state changes.
+    */
+    if (g_signal_has_handler_pending(action, change_state_id, 0, TRUE))
+        g_signal_emit(action, change_state_id, 0, value);
+
+    /* If not, then the default behaviour is to just set the state. */
+    else
+        g_simple_action_set_state(simple, value);
+}
+
+/* define activate handler for simple toggle actions for glib < 2.40
+ * adapted from glib 2.40, gsimpleaction.c */
+static void
+g_simple_action_toggle(GSimpleAction *action, GVariant *parameter, G_GNUC_UNUSED gpointer user_data)
+{
+    const GVariantType *parameter_type = g_action_get_parameter_type(G_ACTION(action));
+    g_return_if_fail(parameter_type == NULL ?
+                    parameter == NULL :
+                    (parameter != NULL &&
+                    g_variant_is_of_type(parameter, parameter_type)));
+
+    if (parameter != NULL)
+        g_variant_ref_sink(parameter);
+
+    if (g_action_get_enabled(G_ACTION(action))) {
+        /* make sure it is a stateful action and toggle it */
+        GVariant *state = g_action_get_state(G_ACTION(action));
+        if (state) {
+            /* If we have no parameter and this is a boolean action, toggle. */
+            if (parameter == NULL && g_variant_is_of_type(state, G_VARIANT_TYPE_BOOLEAN)) {
+                gboolean was_enabled = g_variant_get_boolean(state);
+                g_simple_action_change_state(action, g_variant_new_boolean(!was_enabled));
+            }
+            /* else, if the parameter and state type are the same, do a change-state */
+            else if (g_variant_is_of_type (state, g_variant_get_type(parameter)))
+                g_simple_action_change_state(action, parameter);
+        }
+        g_variant_unref(state);
+    }
+
+    if (parameter != NULL)
+        g_variant_unref (parameter);
+}
+
+static const GActionEntry ring_actions[] =
+{
+    { "accept",     call_accept,            NULL, NULL,    NULL, {0} },
+    { "hangup",     call_hangup,            NULL, NULL,    NULL, {0} },
+    { "hold",       g_simple_action_toggle, NULL, "false", call_hold, {0} },
+    /* TODO implement the other actions */
+    // { "mute_audio", NULL,        NULL, "false", NULL, {0} },
+    // { "mute_video", NULL,        NULL, "false", NULL, {0} },
+    // { "transfer",   NULL,        NULL, "flase", NULL, {0} },
+    // { "record",     NULL,        NULL, "false", NULL, {0} }
+};
+
+#endif
 
 /* TODO: uncomment when UserActionModel is fixed and used
 typedef union _int_ptr_t
