@@ -6,6 +6,7 @@ communicate with the Ring daemon and for all of the underlying models and their
 logic. Ideally ring-client-gnome should only contain UI related code and any
 wrappers necessary for interacting with libRingClient.
 
+
 Requirements
 ==================
 
@@ -13,6 +14,7 @@ Requirements
 - libRingClient (Qt5 version)
 - GTK+3 (3.10 or higher)
 - Qt5 Core
+
 
 Compiling
 ==================
@@ -24,3 +26,33 @@ In the project root dir:
 	make
 
 Then simply run ./ring-client-gnome
+
+
+Building without installing Ring daemon and libRingClient
+==================
+
+It is possible to build ring-client-gnome without installing the deamon and
+libRingClient on your system (eg: in /usr or /usr/local):
+
+1. build the daemon
+2. when building libRingClient, specify the location of the daemon lib in the
+   cmake options with -DRING_BUILD_DIR=, eg:
+   -DRING_BUILD_DIR=/home/user/ring/daemon/src
+3. to get the proper headers, we still need to 'make install' libRingClient, but
+   we don't have to install it in /usr, so just specify another location for the
+   install prefix in the cmake options, eg:
+   -DCMAKE_INSTALL_PREFIX=/home/user/ringinstall
+4. now compile libRingClient and do 'make install', everything will be installed
+   in the dir specified by the prefix
+4. now we just have to give the same install prefix to the cmake options of the
+   client and it will find libRingClient:
+   -DCMAKE_INSTALL_PREFIX=/home/user/ringinstall
+
+
+Debugging
+==================
+
+For now, the build type of the client is "Debug" by default, however it is
+useful to also have the debug symbols of libRingClient. To do this, specify this
+when compiling libRingClient with '-DCMAKE_BUILD_TYPE=Debug' in the cmake
+options.
