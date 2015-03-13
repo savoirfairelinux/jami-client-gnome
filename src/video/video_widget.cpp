@@ -120,10 +120,22 @@ video_widget_dispose(GObject *object)
     QObject::disconnect(priv->local->render_stop);
     QObject::disconnect(priv->local->render_start);
 
-    g_source_remove(priv->frame_timeout_source);
+    /* dispose may be called multiple times, make sure
+     * not to call g_source_remove more than once */
+    if (priv->frame_timeout_source) {
+        g_source_remove(priv->frame_timeout_source);
+        priv->frame_timeout_source = 0;
+    }
 
-    g_async_queue_unref(priv->remote->frame_queue);
-    g_async_queue_unref(priv->local->frame_queue);
+    if (priv->remote->frame_queue) {
+        g_async_queue_unref(priv->remote->frame_queue);
+        priv->remote->frame_queue = NULL;
+    }
+
+    if (priv->local->frame_queue) {
+        g_async_queue_unref(priv->local->frame_queue);
+        priv->local->frame_queue = NULL;
+    }
 
     G_OBJECT_CLASS(video_widget_parent_class)->dispose(object);
 }
