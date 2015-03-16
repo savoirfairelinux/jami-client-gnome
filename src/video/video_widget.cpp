@@ -357,6 +357,7 @@ static void
 renderer_start(VideoWidgetRenderer *renderer)
 {
     g_return_if_fail(CLUTTER_IS_ACTOR(renderer->actor));
+    QObject::disconnect(renderer->frame_update);
     renderer->frame_update = QObject::connect(
         renderer->renderer,
         &Video::Renderer::frameUpdated,
