@@ -231,7 +231,7 @@ gtk_q_sort_filter_tree_model_source_index_to_iter(GtkQSortFilterTreeModel *q_tre
 
     /* map the proxy idx to iter */
     Q_ITER(iter)->row.value = access_idx.row();
-    Q_ITER(iter)->column.value = access_idx.row();
+    Q_ITER(iter)->column.value = access_idx.column();
     Q_ITER(iter)->id = access_idx.internalPointer();
     return TRUE;
 }
