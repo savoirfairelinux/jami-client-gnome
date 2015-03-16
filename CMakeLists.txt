@@ -140,6 +140,8 @@ SET( SRC_FILES
    src/backends/minimalhistorybackend.cpp
    src/models/gtkqsortfiltertreemodel.h
    src/models/gtkqsortfiltertreemodel.cpp
+   src/accountview.h
+   src/accountview.cpp
 )
 
 # compile glib resource files to c code

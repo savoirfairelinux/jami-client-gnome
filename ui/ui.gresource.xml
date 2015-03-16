@@ -5,5 +5,6 @@
 	<file preprocess="xml-stripblanks">ringgearsmenu.ui</file>
 	<file preprocess="xml-stripblanks">incomingcallview.ui</file>
 	<file preprocess="xml-stripblanks">currentcallview.ui</file>
+	<file preprocess="xml-stripblanks">accountview.ui</file>
   </gresource>
 </gresources>

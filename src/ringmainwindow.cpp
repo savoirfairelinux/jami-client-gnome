@@ -42,8 +42,10 @@
 #include <contactmethod.h>
 #include <QtCore/QSortFilterProxyModel>
 #include "models/gtkqsortfiltertreemodel.h"
+#include "accountview.h"
 
 #define DEFAULT_VIEW_NAME "placeholder"
+#define ACCOUNT_VIEW_NAME "account"
 #define VIEW_CONTACTS "contacts"
 #define VIEW_HISTORY "history"
 #define VIEW_PRESENCE "presence"
@@ -72,6 +74,7 @@ struct _RingMainWindowPrivate
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
     GtkWidget *button_placecall;
+    GtkWidget *account_view;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -224,6 +227,27 @@ call_state_changed(Call *call, gpointer win)
             if (IS_INCOMING_CALL_VIEW(old_call_view) || IS_CURRENT_CALL_VIEW(old_call_view)) {
                 gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), old_call_view);
             }
+        }
+    }
+}
+
+static void
+show_account_view(G_GNUC_UNUSED GSimpleAction *action, G_GNUC_UNUSED GVariant *param, gpointer win)
+{
+    g_debug("show account view");
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+
+    GtkWidget *old_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_main_view));
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_VIEW_NAME);
+
+    /* check if we changed the visible child */
+    GtkWidget *current_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_main_view));
+    if (current_call_view != old_call_view && old_call_view != NULL) {
+        /* if the previous child was a call view, then remove it from
+         * the stack; removing it should destory it since there should not
+         * be any other references to it */
+        if (IS_INCOMING_CALL_VIEW(old_call_view) || IS_CURRENT_CALL_VIEW(old_call_view)) {
+            gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), old_call_view);
         }
     }
 }
@@ -544,6 +568,10 @@ ring_main_window_init(RingMainWindow *win)
                 CallModel::instance()->getIndex(call), QItemSelectionModel::ClearAndSelect);
         }
     );
+
+    /* init the account view */
+    priv->account_view = account_view_new();
+    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->account_view, ACCOUNT_VIEW_NAME);
 }
 
 static void
@@ -572,8 +600,20 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_placecall);
 }
 
+static const GActionEntry ring_actions[] =
+{
+    { "accountview", show_account_view, NULL, NULL, NULL, {0} },
+    // { "accountview", show_preferences_view, NULL, NULL, NULL, {0} },
+};
+
 GtkWidget *
 ring_main_window_new (GtkApplication *app)
 {
-    return (GtkWidget *)g_object_new(RING_MAIN_WINDOW_TYPE, "application", app, NULL);
+    gpointer win = g_object_new(RING_MAIN_WINDOW_TYPE, "application", app, NULL);
+
+    /* map actions */
+    g_action_map_add_action_entries(
+        G_ACTION_MAP(app), ring_actions, G_N_ELEMENTS(ring_actions), win);
+
+    return (GtkWidget *)win;
 }

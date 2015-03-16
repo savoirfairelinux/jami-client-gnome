@@ -9,7 +9,7 @@
       </item>
       <item>
         <attribute name="label" translatable="yes">_Account Settings</attribute>
-        <attribute name="action">app.accountsettings</attribute>
+        <attribute name="action">app.accountview</attribute>
       </item>
     </section>
     <section>
