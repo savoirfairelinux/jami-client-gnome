@@ -40,6 +40,9 @@
 #include <string.h>
 #include <historymodel.h>
 #include <contactmethod.h>
+#include <QtCore/QSortFilterProxyModel>
+#include "models/historysortfilterproxymodel.h"
+#include "models/gtkqsortfiltertreemodel.h"
 
 #define DEFAULT_VIEW_NAME "placeholder"
 #define VIEW_CONTACTS "contacts"
@@ -256,7 +259,7 @@ call_history_item(GtkTreeView *tree_view,
     /* get iter */
     GtkTreeIter iter;
     if (gtk_tree_model_get_iter(model, &iter, path)) {
-        QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
+        QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
 
         QVariant contact_method = idx.data(static_cast<int>(Call::Role::ContactMethod));
         /* create new call */
@@ -459,9 +462,14 @@ ring_main_window_init(RingMainWindow *win)
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_contacts_history_presence),
                                 scrolled_window);
 
-    GtkQTreeModel *history_model;
 
-    history_model = gtk_q_tree_model_new(HistoryModel::instance(), 4,
+    /* sort the history in descending order by date */
+    QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel(HistoryModel::instance());
+    proxyModel->setSourceModel(HistoryModel::instance());
+    proxyModel->setSortRole(static_cast<int>(Call::Role::Date));
+    proxyModel->sort(0,Qt::DescendingOrder);
+
+    GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new((QSortFilterProxyModel *)proxyModel, 4,
         Qt::DisplayRole, G_TYPE_STRING,
         Call::Role::Number, G_TYPE_STRING,
         Call::Role::FormattedDate, G_TYPE_STRING,
