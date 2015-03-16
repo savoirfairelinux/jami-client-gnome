@@ -223,7 +223,7 @@ gtk_q_tree_model_source_index_to_iter(GtkQTreeModel *q_tree_model, const QModelI
 
     /* map the proxy idx to iter */
     Q_ITER(iter)->row.value = proxy_idx.row();
-    Q_ITER(iter)->column.value = proxy_idx.row();
+    Q_ITER(iter)->column.value = proxy_idx.column();
     Q_ITER(iter)->id = proxy_idx.internalPointer();
     return TRUE;
 }
@@ -459,7 +459,7 @@ static void
 qmodelindex_to_iter(const QModelIndex &idx, GtkTreeIter *iter)
 {
     Q_ITER(iter)->row.value = idx.row();
-    Q_ITER(iter)->column.value = idx.row();
+    Q_ITER(iter)->column.value = idx.column();
     Q_ITER(iter)->id = idx.internalPointer();
 }
 

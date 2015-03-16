@@ -138,6 +138,8 @@ SET( SRC_FILES
    src/video/video_widget.cpp
    src/backends/minimalhistorybackend.h
    src/backends/minimalhistorybackend.cpp
+   src/models/gtkqsortfiltertreemodel.h
+   src/models/gtkqsortfiltertreemodel.cpp
 )
 
 # compile glib resource files to c code
