@@ -357,10 +357,13 @@ static void
 renderer_start(VideoWidgetRenderer *renderer)
 {
     g_return_if_fail(CLUTTER_IS_ACTOR(renderer->actor));
+    QObject::disconnect(renderer->frame_update);
     renderer->frame_update = QObject::connect(
         renderer->renderer,
         &Video::Renderer::frameUpdated,
         [=]() {
+            if (!renderer->renderer->isRendering())
+                g_warning("got frame but not rendering!");
 
             /* this callback comes from another thread;
              * rendering must be done in the main loop;
@@ -415,27 +418,24 @@ video_widget_new(void)
 }
 
 void
-video_widget_set_remote_renderer(VideoWidget *self, Video::Renderer *renderer_remote_new)
+video_widget_add_renderer(VideoWidget *self, const VideoRenderer *new_renderer)
 {
     g_return_if_fail(IS_VIDEO_WIDGET(self));
-    if (renderer_remote_new == NULL) return;
+    if (new_renderer == NULL) return;
 
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
     /* update the renderer */
-    priv->remote->renderer = renderer_remote_new;
-    video_widget_set_renderer(priv->remote);
-}
-
-void
-video_widget_set_local_renderer(VideoWidget *self, Video::Renderer *renderer_local_new)
-{
-    g_return_if_fail(IS_VIDEO_WIDGET(self));
-    if (renderer_local_new == NULL) return;
-
-    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
-
-    /* update the renderer */
-    priv->local->renderer = renderer_local_new;
-    video_widget_set_renderer(priv->local);
+    switch(new_renderer->type) {
+        case VIDEO_RENDERER_REMOTE:
+            priv->remote->renderer = new_renderer->renderer;
+            video_widget_set_renderer(priv->remote);
+            break;
+        case VIDEO_RENDERER_LOCAL:
+            priv->local->renderer = new_renderer->renderer;
+            video_widget_set_renderer(priv->local);
+            break;
+        case VIDEO_RENDERER_COUNT:
+            break;
+    }
 }
