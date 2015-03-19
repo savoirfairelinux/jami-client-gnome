@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3a3291f1_8409ac2e",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-03-19T22:15:25Z",
+      "side": 1,
+      "message": "talk to libRingClient master",
+      "parentUuid": "3a3291f1_813bdeea",
+      "revId": "b4d463aff3e69dc509e6084f4b1f166b1c1adca2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a3291f1_2122eab9",
         "filename": "src/ringmainwindow.cpp",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2015-03-19T22:03:14Z",
       "side": 1,
       "message": "please comment why code commented or remove it",
+      "revId": "b4d463aff3e69dc509e6084f4b1f166b1c1adca2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a3291f1_a404a815",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-03-19T22:15:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a3291f1_2122eab9",
       "revId": "b4d463aff3e69dc509e6084f4b1f166b1c1adca2",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
