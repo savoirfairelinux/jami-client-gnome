@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a3291f1_813bdeea",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-03-19T22:03:14Z",
+      "side": 1,
+      "message": "for the moment daemon does not support anymore IAX. Shall we comment this code ?",
+      "revId": "b4d463aff3e69dc509e6084f4b1f166b1c1adca2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a3291f1_2122eab9",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-03-19T22:03:14Z",
+      "side": 1,
+      "message": "please comment why code commented or remove it",
+      "revId": "b4d463aff3e69dc509e6084f4b1f166b1c1adca2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
