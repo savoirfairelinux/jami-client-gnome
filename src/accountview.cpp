@@ -33,7 +33,11 @@
 #include <gtk/gtk.h>
 #include <accountmodel.h>
 #include <audio/codecmodel.h>
+#include <protocolmodel.h>
+#include <QtCore/QItemSelectionModel>
 #include "models/gtkqtreemodel.h"
+#include "models/gtkqsortfiltertreemodel.h"
+#include "models/activeitemproxymodel.h"
 #include "accountgeneraltab.h"
 #include "accountaudiotab.h"
 #include "accountvideotab.h"
@@ -55,11 +59,16 @@ struct _AccountViewPrivate
     GtkWidget *treeview_account_list;
     GtkWidget *stack_account;
     GtkWidget *current_account_notebook;
+    GtkWidget *button_remove_account;
+    GtkWidget *button_add_account;
+    GtkWidget *combobox_account_type;
 
-    gint current_page; /* keeps track of current notebook page displayed */
+    gint current_page; /* keeps tr#include "activeitemproxymodel.h"ack of current notebook page displayed */
 
     QMetaObject::Connection account_changed;
     QMetaObject::Connection codecs_changed;
+
+    ActiveItemProxyModel *active_protocols;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AccountView, account_view, GTK_TYPE_BOX);
@@ -131,6 +140,16 @@ apply_account_changes(G_GNUC_UNUSED GtkButton *button, Account *account)
     account->performAction(Account::EditAction::SAVE);
     /* TODO: save the codecModel changes once the method to clear them is added */
     // account->codecModel()->save();
+}
+
+static void
+update_account_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer user_data)
+{
+    QModelIndex current = get_index_from_selection(selection);
+    if (current.isValid())
+        AccountModel::instance()->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
+    else
+        AccountModel::instance()->selectionModel()->clearCurrentIndex();
 }
 
 static void
@@ -271,6 +290,71 @@ account_active_toggled(GtkCellRendererToggle *renderer, gchar *path, AccountView
     }
 }
 
+static gboolean
+remove_account_dialog(Account *account)
+{
+    gboolean response = FALSE;
+    GtkWidget *dialog = gtk_message_dialog_new(NULL,
+                            (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
+                            GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
+                            "Are you sure you want to delete account \"%s\"?",
+                            account->alias().toLocal8Bit().constData());
+
+    // gtk_window_set_title(GTK_WINDOW(dialog), _("Ring delete account"));
+    switch (gtk_dialog_run(GTK_DIALOG(dialog))) {
+        case GTK_RESPONSE_OK:
+            response = TRUE;
+            break;
+        default:
+            response = FALSE;
+            break;
+    }
+
+    gtk_widget_destroy(dialog);
+
+    return response;
+}
+
+static void
+remove_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
+{
+    g_return_if_fail(IS_ACCOUNT_VIEW(view));
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
+
+    GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
+    QModelIndex idx = get_index_from_selection(selection);
+
+    if (idx.isValid()) {
+        /* this is a destructive operation, ask the user if they are sure */
+        Account *account = AccountModel::instance()->getAccountByModelIndex(idx);
+        if (remove_account_dialog(account)) {
+            AccountModel::instance()->remove(idx);
+            AccountModel::instance()->save();
+        }
+    }
+}
+
+static void
+add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
+{
+    g_return_if_fail(IS_ACCOUNT_VIEW(view));
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
+
+    GtkTreeIter protocol_iter;
+    if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(priv->combobox_account_type), &protocol_iter)) {
+        /* get the qmodelindex of the protocol */
+        GtkTreeModel *protocol_model = gtk_combo_box_get_model(GTK_COMBO_BOX(priv->combobox_account_type));
+        QModelIndex protocol_idx = gtk_q_sort_filter_tree_model_get_source_idx(
+                                    GTK_Q_SORT_FILTER_TREE_MODEL(protocol_model),
+                                    &protocol_iter);
+        if (protocol_idx.isValid()) {
+            protocol_idx = priv->active_protocols->mapToSource(protocol_idx);
+            AccountModel::instance()->add(QString("New Account"), protocol_idx);
+            AccountModel::instance()->save();
+        }
+    }
+}
+
 static void
 account_view_init(AccountView *view)
 {
@@ -304,16 +388,78 @@ account_view_init(AccountView *view)
     column = gtk_tree_view_column_new_with_attributes("Status", renderer, "text", 3, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_account_list), column);
 
-    /* connect to selection signal */
-    GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
-    g_signal_connect(selection, "changed", G_CALLBACK(account_selection_changed), view);
-
     /* add an empty box to the account stack initially, otherwise there will
      * be no cool animation when the first account is selected */
     GtkWidget *empty_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_widget_show(empty_box);
     gtk_stack_add_named(GTK_STACK(priv->stack_account), empty_box, "placeholder");
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), empty_box);
+
+    /* populate account type combo box */
+    /* TODO: when to delete this model? */
+    priv->active_protocols = new ActiveItemProxyModel((QAbstractItemModel *)AccountModel::instance()->protocolModel());
+
+    GtkQSortFilterTreeModel *protocol_model = gtk_q_sort_filter_tree_model_new(
+                                                (QSortFilterProxyModel *)priv->active_protocols,
+                                                1,
+                                                Qt::DisplayRole, G_TYPE_STRING);
+
+    gtk_combo_box_set_model(GTK_COMBO_BOX(priv->combobox_account_type), GTK_TREE_MODEL(protocol_model));
+
+    renderer = gtk_cell_renderer_text_new();
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_account_type), renderer, FALSE);
+    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(priv->combobox_account_type), renderer,
+                                   "text", 0, NULL);
+
+    /* connect signals to and from the selection model of the account model */
+    QObject::connect(
+        AccountModel::instance()->selectionModel(),
+        &QItemSelectionModel::currentChanged,
+        [=](const QModelIndex & current, const QModelIndex & previous) {
+            GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
+
+            /* first unselect the previous */
+            if (previous.isValid()) {
+                GtkTreeIter old_iter;
+                if (gtk_q_tree_model_source_index_to_iter(account_model, previous, &old_iter)) {
+                    gtk_tree_selection_unselect_iter(selection, &old_iter);
+                } else {
+                    g_warning("Trying to unselect invalid GtkTreeIter");
+                }
+            }
+
+            /* select the current */
+            if (current.isValid()) {
+                GtkTreeIter new_iter;
+                if (gtk_q_tree_model_source_index_to_iter(account_model, current, &new_iter)) {
+                    gtk_tree_selection_select_iter(selection, &new_iter);
+                } else {
+                    g_warning("SelectionModel of CallModel changed to invalid QModelIndex?");
+                }
+            }
+        }
+    );
+
+    GtkTreeSelection *account_selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
+    g_signal_connect(account_selection, "changed", G_CALLBACK(update_account_model_selection), NULL);
+    g_signal_connect(account_selection, "changed", G_CALLBACK(account_selection_changed), view);
+
+    /* select the default protocol */
+    QModelIndex protocol_idx = AccountModel::instance()->protocolModel()->selectionModel()->currentIndex();
+    if (protocol_idx.isValid()) {
+        protocol_idx = priv->active_protocols->mapFromSource(protocol_idx);
+        GtkTreeIter protocol_iter;
+        if (gtk_q_sort_filter_tree_model_source_index_to_iter(
+                (GtkQSortFilterTreeModel *)protocol_model,
+                protocol_idx,
+                &protocol_iter)) {
+            gtk_combo_box_set_active_iter(GTK_COMBO_BOX(priv->combobox_account_type), &protocol_iter);
+        }
+    }
+
+    /* connect signals to add/remove accounts */
+    g_signal_connect(priv->button_remove_account, "clicked", G_CALLBACK(remove_account), view);
+    g_signal_connect(priv->button_add_account, "clicked", G_CALLBACK(add_account), view);
 }
 
 static void
@@ -326,6 +472,9 @@ account_view_class_init(AccountViewClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountView, treeview_account_list);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountView, stack_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountView, button_remove_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountView, button_add_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountView, combobox_account_type);
 }
 
 GtkWidget *

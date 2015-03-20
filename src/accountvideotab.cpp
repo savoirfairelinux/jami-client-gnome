@@ -149,7 +149,7 @@ move_selected_codec(AccountVideoTab *view, int position_diff)
                                                     idx.row() + position_diff,
                                                     0,
                                                     QModelIndex());
-    priv->account->saveCodecs();
+    priv->account->codecModel()->save();
 
     /* now make sure to select the same codec which was moved
      * TODO: UGLY! this should be somehow done in the qt modle bindings,

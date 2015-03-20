@@ -16,6 +16,8 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
+            <property name="spacing">10</property>
+            <!-- list of accounts -->
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindow_account_list">
                 <property name="visible">True</property>
@@ -36,12 +38,67 @@
                 <property name="position">0</property>
               </packing>
             </child>
+            <!-- end list of accounts -->
+            <!-- add remove accounts -->
             <child>
-              <placeholder/>
+              <object class="GtkBox" id="hbox_addremove_account">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">5</property>
+                <property name="halign">GTK_ALIGN_END</property>
+                <!-- remove account -->
+                <child>
+                  <object class="GtkButton" id="button_remove_account">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <child>
+                      <object class="GtkLabel" id="label_remove_account">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">&lt;b&gt;&amp;#8722;&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <!-- end remove account -->
+                <!-- add account and type -->
+                <child>
+                  <object class="GtkBox" id="hbox_add_account">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">horizontal</property>
+                    <style>
+                      <class name="linked"/>
+                    </style>
+                    <child>
+                      <object class="GtkButton" id="button_add_account">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <child>
+                          <object class="GtkLabel" id="label_add_account">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">&lt;b&gt;+&lt;/b&gt;</property>
+                            <property name="use_markup">True</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="combobox_account_type">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="active">0</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <!-- end add account type -->
+              </object>
             </child>
-            <child>
-              <placeholder/>
-            </child>
+            <!-- end add remove accounts -->
           </object>
           <packing>
             <property name="expand">False</property>
