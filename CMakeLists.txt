@@ -197,6 +197,6 @@ TARGET_LINK_LIBRARIES(ring-gnome
    )
 ENDIF()
 
-INSTALL(TARGETS ring-gnome
+INSTALL(TARGETS gnome-ring
    RUNTIME DESTINATION bin
 )
