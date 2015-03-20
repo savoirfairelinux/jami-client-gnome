@@ -38,7 +38,7 @@
 #include "incomingcallview.h"
 #include "currentcallview.h"
 #include <string.h>
-#include <historymodel.h>
+#include <categorizedhistorymodel.h>
 #include <contactmethod.h>
 #include <QtCore/QSortFilterProxyModel>
 #include "models/gtkqsortfiltertreemodel.h"
@@ -463,8 +463,8 @@ ring_main_window_init(RingMainWindow *win)
 
 
     /* sort the history in descending order by date */
-    QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel(HistoryModel::instance());
-    proxyModel->setSourceModel(HistoryModel::instance());
+    QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel(CategorizedHistoryModel::instance());
+    proxyModel->setSourceModel(CategorizedHistoryModel::instance());
     proxyModel->setSortRole(static_cast<int>(Call::Role::Date));
     proxyModel->sort(0,Qt::DescendingOrder);
 
