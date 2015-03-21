@@ -35,7 +35,9 @@
 #include <clutter-gtk/clutter-gtk.h>
 #include <video/renderer.h>
 #include <video/sourcesmodel.h>
- #include <QtCore/QUrl>
+#include <video/devicemodel.h>
+#include <QtCore/QUrl>
+#include "../defines.h"
 
 #define VIDEO_LOCAL_SIZE            150
 #define VIDEO_LOCAL_OPACITY_DEFAULT 150 /* out of 255 */
@@ -103,6 +105,7 @@ static void renderer_stop(VideoWidgetRenderer *renderer);
 static void renderer_start(VideoWidgetRenderer *renderer);
 static void video_widget_set_renderer(VideoWidgetRenderer *renderer);
 static void on_drag_data_received(GtkWidget *, GdkDragContext *, gint, gint, GtkSelectionData *, guint, guint32, gpointer);
+static gboolean on_button_press_in_screen_event(GtkWidget *, GdkEventButton *, gpointer);
 
 /*
  * video_widget_dispose()
@@ -236,12 +239,10 @@ video_widget_init(VideoWidget *self)
     priv->local->frame_queue = g_async_queue_new_full((GDestroyNotify)free_framedata);
     priv->frame_timeout_source = g_timeout_add(FRAME_RATE_PERIOD, (GSourceFunc)check_frame_queue, self);
 
-    /* TODO: handle button event in screen */
-    // g_signal_connect(screen, "button-press-event",
-    //         G_CALLBACK(on_button_press_in_screen_event_cb),
-    //         self);
+    /* handle button event */
+    g_signal_connect(GTK_WIDGET(self), "button-press-event", G_CALLBACK(on_button_press_in_screen_event), NULL);
 
-    /* TODO: init drag & drop images */
+    /* drag & drop files as video sources */
     gtk_drag_dest_set(GTK_WIDGET(self), GTK_DEST_DEFAULT_ALL, NULL, 0, (GdkDragAction)(GDK_ACTION_COPY | GDK_ACTION_PRIVATE));
     gtk_drag_dest_add_uri_targets(GTK_WIDGET(self));
     g_signal_connect(GTK_WIDGET(self), "drag-data-received", G_CALLBACK(on_drag_data_received), NULL);
@@ -270,6 +271,46 @@ on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
         Video::SourcesModel::instance()->setFile(QUrl(*uris));
 
     g_strfreev(uris);
+}
+
+static void
+switch_video_input(G_GNUC_UNUSED GtkWidget *widget, Video::Device *device)
+{
+    Video::SourcesModel::instance()->switchTo(device);
+}
+
+/*
+ * on_button_press_in_screen_event()
+ *
+ * Handle button event in the video screen.
+ */
+static gboolean
+on_button_press_in_screen_event(G_GNUC_UNUSED GtkWidget *widget,
+                                GdkEventButton *event,
+                                G_GNUC_UNUSED gpointer data)
+{
+    /* check for right click */
+    if (event->button != BUTTON_RIGHT_CLICK || event->type != GDK_BUTTON_PRESS)
+        return FALSE;
+
+    /* create menu with available video sources */
+    GtkWidget *menu = gtk_menu_new();
+
+    /* list available devices and check off the active device */
+    auto device_list = Video::DeviceModel::instance()->devices();
+
+    for( auto device: device_list) {
+        GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(device->name().toLocal8Bit().constData());
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device->isActive());
+        g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
+    }
+
+    /* show menu */
+    gtk_widget_show_all(menu);
+    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+
+    return TRUE; /* event has been fully handled */
 }
 
 static FrameInfo *

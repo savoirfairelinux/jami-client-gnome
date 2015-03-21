@@ -159,6 +159,7 @@ SET( SRC_FILES
    src/accountvideotab.cpp
    src/models/activeitemproxymodel.h
    src/models/activeitemproxymodel.cpp
+   src/defines.h
 )
 
 # compile glib resource files to c code
