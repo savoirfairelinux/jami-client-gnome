@@ -34,6 +34,8 @@
 #include <clutter/clutter.h>
 #include <clutter-gtk/clutter-gtk.h>
 #include <video/renderer.h>
+#include <video/sourcesmodel.h>
+ #include <QtCore/QUrl>
 
 #define VIDEO_LOCAL_SIZE            150
 #define VIDEO_LOCAL_OPACITY_DEFAULT 150 /* out of 255 */
@@ -100,6 +102,7 @@ static gboolean check_frame_queue(VideoWidget *self);
 static void renderer_stop(VideoWidgetRenderer *renderer);
 static void renderer_start(VideoWidgetRenderer *renderer);
 static void video_widget_set_renderer(VideoWidgetRenderer *renderer);
+static void on_drag_data_received(GtkWidget *, GdkDragContext *, gint, gint, GtkSelectionData *, guint, guint32, gpointer);
 
 /*
  * video_widget_dispose()
@@ -239,10 +242,34 @@ video_widget_init(VideoWidget *self)
     //         self);
 
     /* TODO: init drag & drop images */
-    // gtk_drag_dest_set(GTK_WIDGET(self), GTK_DEST_DEFAULT_ALL, NULL, 0, (GdkDragAction)(GDK_ACTION_COPY | GDK_ACTION_PRIVATE));
-    // gtk_drag_dest_add_uri_targets(GTK_WIDGET(self));
-    // g_signal_connect(GTK_WIDGET(self), "drag-data-received",
-    //                  G_CALLBACK(on_drag_data_received_cb), NULL);
+    gtk_drag_dest_set(GTK_WIDGET(self), GTK_DEST_DEFAULT_ALL, NULL, 0, (GdkDragAction)(GDK_ACTION_COPY | GDK_ACTION_PRIVATE));
+    gtk_drag_dest_add_uri_targets(GTK_WIDGET(self));
+    g_signal_connect(GTK_WIDGET(self), "drag-data-received", G_CALLBACK(on_drag_data_received), NULL);
+}
+
+/*
+ * on_drag_data_received()
+ *
+ * Handle dragged data in the video widget window.
+ * Dropping an image causes the client to switch the video input to that image.
+ */
+static void
+on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
+                      G_GNUC_UNUSED GdkDragContext *context,
+                      G_GNUC_UNUSED gint x,
+                      G_GNUC_UNUSED gint y,
+                      GtkSelectionData *selection_data,
+                      G_GNUC_UNUSED guint info,
+                      G_GNUC_UNUSED guint32 time,
+                      G_GNUC_UNUSED gpointer data)
+{
+    gchar **uris = gtk_selection_data_get_uris(selection_data);
+
+    /* only play the first selection */
+    if (uris && *uris)
+        Video::SourcesModel::instance()->setFile(QUrl(*uris));
+
+    g_strfreev(uris);
 }
 
 static FrameInfo *
