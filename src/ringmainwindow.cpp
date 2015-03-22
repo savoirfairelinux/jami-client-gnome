@@ -403,12 +403,14 @@ ring_main_window_init(RingMainWindow *win)
     gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_call), GTK_TREE_MODEL(call_model));
 
     renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     column = gtk_tree_view_column_new_with_attributes("Name", renderer, "text", 0, NULL);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes("Duration", renderer, "text", 2, NULL);
+    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
 
     /* connect signals to and from UserActionModel to sync selection betwee
@@ -466,7 +468,8 @@ ring_main_window_init(RingMainWindow *win)
     /* history view/model */
     scrolled_window = gtk_scrolled_window_new(NULL, NULL);
     GtkWidget *treeview_history = gtk_tree_view_new();
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_history), FALSE);
+    /* make headers visible to allow column resizing */
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_history), TRUE);
     gtk_container_add(GTK_CONTAINER(scrolled_window), treeview_history);
     gtk_widget_show_all(scrolled_window);
     gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
@@ -490,35 +493,31 @@ ring_main_window_init(RingMainWindow *win)
         Call::Role::Direction, G_TYPE_INT);
     gtk_tree_view_set_model( GTK_TREE_VIEW(treeview_history), GTK_TREE_MODEL(history_model) );
 
-    GtkCellArea *cellarea_name = gtk_cell_area_box_new();
-    gtk_orientable_set_orientation(GTK_ORIENTABLE(cellarea_name), GTK_ORIENTATION_HORIZONTAL);
-    GtkCellRenderer *cellrenderer_name = gtk_cell_renderer_text_new();
-    GtkCellRenderer *cellrenderer_number = gtk_cell_renderer_text_new();
-
-    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(cellarea_name),
-                                 cellrenderer_name,
-                                 FALSE, /* expand */
-                                 FALSE,  /* align in adjacent rows */
-                                 FALSE); /* fixed size in all rows */
-
-    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(cellarea_name),
-                                 cellrenderer_number,
-                                 FALSE, /* expand */
-                                 FALSE,  /* align in adjacent rows */
-                                 FALSE); /* fixed size in all rows */
-
-    column = gtk_tree_view_column_new_with_area(cellarea_name);
-    g_object_set(G_OBJECT(column), "max-width", 250, NULL);
-
-    gtk_tree_view_column_add_attribute(column, cellrenderer_name, "text", 0);
-    gtk_tree_view_column_add_attribute(column, cellrenderer_number, "text", 1);
+    /* name or time category column */
+    renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+    column = gtk_tree_view_column_new_with_attributes("Name", renderer, "text", 0, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
+    gtk_tree_view_column_set_resizable(column, TRUE);
 
+    /* "number" column */
+    renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+    column = gtk_tree_view_column_new_with_attributes("Number", renderer, "text", 1, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+
+    /* date column */
     renderer = gtk_cell_renderer_text_new ();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     column = gtk_tree_view_column_new_with_attributes ("Date", renderer, "text", 2, NULL);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (treeview_history), column);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
+    gtk_tree_view_column_set_resizable(column, TRUE);
 
-    gtk_tree_view_expand_all(GTK_TREE_VIEW(treeview_history));
+    /* expand the first row, which should be the most recent calls */
+    gtk_tree_view_expand_row(GTK_TREE_VIEW(treeview_history),
+                             gtk_tree_path_new_from_string("0"),
+                             FALSE);
 
     g_signal_connect(treeview_history, "row-activated", G_CALLBACK(call_history_item), NULL);
 
