@@ -38,6 +38,8 @@
 #include <video/devicemodel.h>
 #include <QtCore/QUrl>
 #include "../defines.h"
+#include <stdlib.h>
+#include "xrectsel.h"
 
 #define VIDEO_LOCAL_SIZE            150
 #define VIDEO_LOCAL_OPACITY_DEFAULT 150 /* out of 255 */
@@ -279,6 +281,38 @@ switch_video_input(G_GNUC_UNUSED GtkWidget *widget, Video::Device *device)
     Video::SourcesModel::instance()->switchTo(device);
 }
 
+static void
+switch_video_input_screen(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED gpointer user_data)
+{
+    unsigned x, y;
+    unsigned width, height;
+
+    /* try to get the dispaly or default to 0 */
+    QString display_env{getenv("DISPLAY")};
+    int display = 0;
+
+    if (!display_env.isEmpty()) {
+        auto list = display_env.split(":", QString::SkipEmptyParts);
+        /* should only be one display, so get the first one */
+        if (list.size() > 0) {
+            display = list.at(0).toInt();
+            g_debug("sharing screen from DISPLAY %d", display);
+        }
+    }
+
+    x = y = width = height = 0;
+
+    xrectsel(&x, &y, &width, &height);
+
+    if (!width || !height) {
+        x = y = 0;
+        width = gdk_screen_width();
+        height = gdk_screen_height();
+    }
+
+    Video::SourcesModel::instance()->setDisplay(display, QRect(x,y,width,height));
+}
+
 /*
  * on_button_press_in_screen_event()
  *
@@ -305,6 +339,11 @@ on_button_press_in_screen_event(G_GNUC_UNUSED GtkWidget *widget,
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device->isActive());
         g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
     }
+
+    /* add screen area as an input */
+    GtkWidget *item = gtk_check_menu_item_new_with_mnemonic("Share screen area");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen), NULL);
 
     /* show menu */
     gtk_widget_show_all(menu);

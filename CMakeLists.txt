@@ -160,6 +160,8 @@ SET( SRC_FILES
    src/models/activeitemproxymodel.h
    src/models/activeitemproxymodel.cpp
    src/defines.h
+   src/video/xrectsel.h
+   src/video/xrectsel.c
 )
 
 # compile glib resource files to c code
