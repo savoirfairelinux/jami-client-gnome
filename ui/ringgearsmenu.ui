@@ -3,23 +3,22 @@
   <!-- interface-requires gtk+ 3.0 -->
   <menu id="menu">
     <section>
-      <item>
-        <attribute name="label" translatable="yes">_Preferences</attribute>
-        <attribute name="action">app.preferences</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Account Settings</attribute>
-        <attribute name="action">app.accountview</attribute>
-      </item>
-    </section>
-    <section>
+      <!-- TODO: add help
       <item>
         <attribute name="label" translatable="yes">_Help</attribute>
         <attribute name="action">app.help</attribute>
       </item>
+      -->
       <item>
         <attribute name="label" translatable="yes">_About</attribute>
         <attribute name="action">app.about</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Quit</attribute>
+        <attribute name="action">app.quit</attribute>
+        <attribute name="accel">&lt;Ctrl&gt;Q</attribute>
       </item>
     </section>
   </menu>

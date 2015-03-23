@@ -15,16 +15,15 @@
         <property name="show-close-button">True</property>
         <!-- main menu button -->
         <child>
-          <object class="GtkMenuButton" id="gears">
+          <object class="GtkMenuButton" id="ring_menu">
             <property name="visible">True</property>
             <property name="direction">none</property>
-            <!-- <property name="use-popover">True</property> -->
-            <property name="tooltip_text" translatable="yes">Menu</property>
+            <property name="tooltip_text" translatable="yes">menu</property>
             <style>
               <class name="image-button"/>
             </style>
             <child>
-              <object class="GtkImage" id="gears_image">
+              <object class="GtkImage" id="image_ring">
                 <property name="visible">True</property>
               </object>
             </child>

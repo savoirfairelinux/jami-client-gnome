@@ -64,8 +64,8 @@ typedef struct _RingMainWindowPrivate RingMainWindowPrivate;
 
 struct _RingMainWindowPrivate
 {
-    GtkWidget *gears;
-    GtkWidget *gears_image;
+    GtkWidget *ring_menu;
+    GtkWidget *image_ring;
     GtkWidget *stack_contacts_history_presence;
     GtkWidget *radiobutton_contacts;
     GtkWidget *radiobutton_history;
@@ -376,18 +376,18 @@ ring_main_window_init(RingMainWindow *win)
         gtk_window_set_icon(GTK_WINDOW(win), icon);
 
     /* set menu icon */
-    GdkPixbuf* ring_gears = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/ring-logo-blue",
+    GdkPixbuf* image_ring = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/ring-logo-blue",
                                                                   -1, 22, TRUE, &error);
-    if (ring_gears == NULL) {
+    if (image_ring == NULL) {
         g_debug("Could not load icon: %s", error->message);
         g_error_free(error);
     } else
-        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->gears_image), ring_gears);
+        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring), image_ring);
 
     /* gears menu */
     GtkBuilder *builder = gtk_builder_new_from_resource("/cx/ring/RingGnome/ringgearsmenu.ui");
     GMenuModel *menu = G_MENU_MODEL(gtk_builder_get_object(builder, "menu"));
-    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(priv->gears), menu);
+    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(priv->ring_menu), menu);
     g_object_unref(builder);
 
     /* call model */
@@ -584,8 +584,8 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_contacts);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_presence);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, gears);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, gears_image);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_menu);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_ring);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, search_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_main_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_placecall);
