@@ -34,7 +34,7 @@
 #include <clutter/clutter.h>
 #include <clutter-gtk/clutter-gtk.h>
 #include <video/renderer.h>
-#include <video/sourcesmodel.h>
+#include <video/sourcemodel.h>
 #include <video/devicemodel.h>
 #include <QtCore/QUrl>
 #include "../defines.h"
@@ -270,7 +270,7 @@ on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
 
     /* only play the first selection */
     if (uris && *uris)
-        Video::SourcesModel::instance()->setFile(QUrl(*uris));
+        Video::SourceModel::instance()->setFile(QUrl(*uris));
 
     g_strfreev(uris);
 }
@@ -278,7 +278,7 @@ on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
 static void
 switch_video_input(G_GNUC_UNUSED GtkWidget *widget, Video::Device *device)
 {
-    Video::SourcesModel::instance()->switchTo(device);
+    Video::SourceModel::instance()->switchTo(device);
 }
 
 static void
@@ -310,7 +310,7 @@ switch_video_input_screen(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED gpointe
         height = gdk_screen_height();
     }
 
-    Video::SourcesModel::instance()->setDisplay(display, QRect(x,y,width,height));
+    Video::SourceModel::instance()->setDisplay(display, QRect(x,y,width,height));
 }
 
 /*
