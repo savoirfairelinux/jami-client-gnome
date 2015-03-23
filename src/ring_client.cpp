@@ -62,6 +62,8 @@ struct _RingClientPrivate {
     GtkWidget        *win;
     /* for libRingclient */
     QCoreApplication *qtapp;
+    /* UAM */
+    QMetaObject::Connection uam_updated;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingClient, ring_client, GTK_TYPE_APPLICATION);
@@ -81,69 +83,6 @@ init_exception_dialog(const char* msg)
     gtk_window_set_title(GTK_WINDOW(dialog), _("Ring Error"));
     gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
-}
-
-static int
-ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
-{
-    RingClient *client = RING_CLIENT(app);
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
-
-    gint argc;
-    gchar **argv = g_application_command_line_get_arguments(cmdline, &argc);
-    GOptionContext *context = ring_client_options_get_context();
-    GError *error = NULL;
-    if (g_option_context_parse(context, &argc, &argv, &error) == FALSE) {
-        g_print(_("%s\nRun '%s --help' to see a full list of available command line options.\n"),
-                error->message, argv[0]);
-        g_error_free(error);
-        g_option_context_free(context);
-        return 1;
-    }
-    g_option_context_free(context);
-
-    /* init clutter */
-    int clutter_error;
-    if ((clutter_error = gtk_clutter_init(&argc, &argv)) != CLUTTER_INIT_SUCCESS) {
-        g_critical("Could not init clutter : %d\n", clutter_error);
-        return 1;
-    }
-
-    /* init libRingClient and make sure its connected to the dbus */
-    try {
-        /* TODO: do we care about passing the cmd line arguments here? */
-        priv->qtapp = new QCoreApplication(argc, argv);
-        /* the call model will try to connect to dring via dbus */
-        CallModel::instance();
-    } catch (const char * msg) {
-        init_exception_dialog(msg);
-        return 1;
-    } catch(QString& msg) {
-        QByteArray ba = msg.toLocal8Bit();
-        const char *c_str = ba.data();
-        init_exception_dialog(c_str);
-        return 1;
-    }
-
-    /* add backends */
-    CategorizedHistoryModel::instance()->addCollection<MinimalHistoryBackend>(LoadOptions::FORCE_ENABLED);
-
-    /* Override theme since we don't have appropriate icons for a dark them (yet) */
-    GtkSettings *gtk_settings = gtk_settings_get_default();
-    g_object_set(G_OBJECT(gtk_settings), "gtk-application-prefer-dark-theme",
-                 FALSE, NULL);
-    /* enable button icons */
-    g_object_set(G_OBJECT(gtk_settings), "gtk-button-images",
-                 TRUE, NULL);
-
-    /* create an empty window */
-    if (priv->win == NULL) {
-        priv->win = ring_main_window_new(GTK_APPLICATION(app));
-    }
-
-    gtk_window_present(GTK_WINDOW(priv->win));
-
-    return 0;
 }
 
 static const GActionEntry ring_actions[] =
@@ -178,13 +117,50 @@ activate_action(GSimpleAction *action, G_GNUC_UNUSED GVariant *parameter, gpoint
     uam << a;
 }
 
-static void
-ring_client_startup(GApplication *app)
+static int
+ring_client_startup(GApplication *app, gint argc, gchar **argv)
 {
     G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
 
     RingClient *client = RING_CLIENT(app);
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
+    /* init clutter */
+    int clutter_error;
+    if ((clutter_error = gtk_clutter_init(&argc, &argv)) != CLUTTER_INIT_SUCCESS) {
+        g_critical("Could not init clutter : %d\n", clutter_error);
+        return 1;
+    }
+
+    /* init libRingClient and make sure its connected to the dbus */
+    try {
+        priv->qtapp = new QCoreApplication(argc, argv);
+        /* the call model will try to connect to dring via dbus */
+        CallModel::instance();
+    } catch (const char * msg) {
+        init_exception_dialog(msg);
+        g_critical("%s", msg);
+        return 1;
+    } catch(QString& msg) {
+        QByteArray ba = msg.toLocal8Bit();
+        const char *c_str = ba.data();
+        init_exception_dialog(c_str);
+        g_critical("%s", c_str);
+        return 1;
+    }
+
+    /* add backends */
+    CategorizedHistoryModel::instance()->addCollection<MinimalHistoryBackend>(LoadOptions::FORCE_ENABLED);
+
+    /* Override theme since we don't have appropriate icons for a dark them (yet) */
+    GtkSettings *gtk_settings = gtk_settings_get_default();
+    g_object_set(G_OBJECT(gtk_settings), "gtk-application-prefer-dark-theme",
+                 FALSE, NULL);
+    /* enable button icons */
+    g_object_set(G_OBJECT(gtk_settings), "gtk-button-images",
+                 TRUE, NULL);
+
+    /* add GActions */
     g_action_map_add_action_entries(
         G_ACTION_MAP(app), ring_actions, G_N_ELEMENTS(ring_actions), client);
 
@@ -207,7 +183,7 @@ ring_client_startup(GApplication *app)
     }
 
     /* change the state of the GActions based on the UserActionModel */
-    QObject::connect(uam,&UserActionModel::dataChanged, [actionHash,uam](const QModelIndex& tl, const QModelIndex& br) {
+    priv->uam_updated = QObject::connect(uam,&UserActionModel::dataChanged, [actionHash,uam](const QModelIndex& tl, const QModelIndex& br) {
        const int first(tl.row()),last(br.row());
        for(int i = first; i <= last;i++) {
           const QModelIndex& idx = uam->index(i,0);
@@ -221,6 +197,39 @@ ring_client_startup(GApplication *app)
           }
        }
     });
+
+    return 0;
+}
+
+static int
+ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
+{
+    RingClient *client = RING_CLIENT(app);
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    gint argc;
+    gchar **argv = g_application_command_line_get_arguments(cmdline, &argc);
+    GOptionContext *context = ring_client_options_get_context();
+    GError *error = NULL;
+    if (g_option_context_parse(context, &argc, &argv, &error) == FALSE) {
+        g_print(_("%s\nRun '%s --help' to see a full list of available command line options.\n"),
+                error->message, argv[0]);
+        g_error_free(error);
+        g_option_context_free(context);
+        return 1;
+    }
+    g_option_context_free(context);
+
+    /* init libs and create main window only once */
+    if (priv->win == NULL) {
+        if (ring_client_startup(app, argc, argv) != 0)
+            return 1;
+        priv->win = ring_main_window_new(GTK_APPLICATION(app));
+    }
+
+    gtk_window_present(GTK_WINDOW(priv->win));
+
+    return 0;
 }
 
 static void
@@ -228,6 +237,8 @@ ring_client_shutdown(GApplication *app)
 {
     RingClient *self = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
+
+    QObject::disconnect(priv->uam_updated);
 
     /* free the QCoreApplication, which will destroy all libRingClient models
      * and thus send the Unregister signal over dbus to dring */
@@ -250,7 +261,6 @@ ring_client_init(RingClient *self)
 static void
 ring_client_class_init(RingClientClass *klass)
 {
-    G_APPLICATION_CLASS(klass)->startup = ring_client_startup;
     G_APPLICATION_CLASS(klass)->command_line = ring_client_command_line;
     G_APPLICATION_CLASS(klass)->shutdown = ring_client_shutdown;
 }
