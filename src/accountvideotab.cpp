@@ -113,7 +113,6 @@ codec_active_toggled(GtkCellRendererToggle *renderer, gchar *path, AccountVideoT
     QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
     if (idx.isValid()) {
         priv->account->codecModel()->videoCodecs()->setData(idx, QVariant(toggle), Qt::CheckStateRole);
-        priv->account->codecModel()->save();
     }
 }
 
@@ -149,7 +148,6 @@ move_selected_codec(AccountVideoTab *view, int position_diff)
                                                     idx.row() + position_diff,
                                                     0,
                                                     QModelIndex());
-    priv->account->codecModel()->save();
 
     /* now make sure to select the same codec which was moved
      * TODO: UGLY! this should be somehow done in the qt modle bindings,
