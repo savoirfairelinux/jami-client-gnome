@@ -85,11 +85,38 @@ init_exception_dialog(const char* msg)
     gtk_widget_destroy(dialog);
 }
 
+static void
+ring_accelerators(RingClient *client)
+{
+#if GTK_CHECK_VERSION(3,10,0)
+    const gchar *quit_accels[2] = { "<Ctrl>Q", NULL };
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.quit", quit_accels);
+#else
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>Q", "win.quit", NULL);
+#endif
+}
+
+static void
+action_quit(G_GNUC_UNUSED GSimpleAction *simple,
+            G_GNUC_UNUSED GVariant      *parameter,
+            gpointer user_data)
+{
+    g_return_if_fail(G_IS_APPLICATION(user_data));
+
+#if GLIB_CHECK_VERSION(2,32,0)
+    g_application_quit(G_APPLICATION(user_data));
+#else
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
+    gtk_widget_destroy(priv->win);
+#endif
+}
+
 static const GActionEntry ring_actions[] =
 {
-    { "accept",     NULL, NULL, NULL,    NULL, {0} },
-    { "hangup",     NULL, NULL, NULL,    NULL, {0} },
-    { "hold",       NULL, NULL, "false", NULL, {0} },
+    { "accept", NULL,        NULL, NULL,    NULL, {0} },
+    { "hangup", NULL,        NULL, NULL,    NULL, {0} },
+    { "hold",   NULL,        NULL, "false", NULL, {0} },
+    { "quit",   action_quit, NULL, NULL,    NULL, {0} }
     /* TODO implement the other actions */
     // { "mute_audio", NULL,        NULL, "false", NULL, {0} },
     // { "mute_video", NULL,        NULL, "false", NULL, {0} },
@@ -162,7 +189,10 @@ ring_client_startup(GApplication *app, gint argc, gchar **argv)
 
     /* add GActions */
     g_action_map_add_action_entries(
-        G_ACTION_MAP(app), ring_actions, G_N_ELEMENTS(ring_actions), client);
+        G_ACTION_MAP(app), ring_actions, G_N_ELEMENTS(ring_actions), app);
+
+    /* add accelerators */
+    ring_accelerators(RING_CLIENT(app));
 
     /* Bind GActions to the UserActionModel */
     UserActionModel* uam = CallModel::instance()->userActionModel();
@@ -237,6 +267,8 @@ ring_client_shutdown(GApplication *app)
 {
     RingClient *self = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
+
+    g_debug("quitting");
 
     QObject::disconnect(priv->uam_updated);
 

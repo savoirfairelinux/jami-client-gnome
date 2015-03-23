@@ -69,6 +69,7 @@ struct _AccountViewPrivate
     QMetaObject::Connection codecs_changed;
 
     ActiveItemProxyModel *active_protocols;
+    QMetaObject::Connection protocol_selection_changed;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AccountView, account_view, GTK_TYPE_BOX);
@@ -83,8 +84,20 @@ account_view_dispose(GObject *object)
 
     QObject::disconnect(priv->account_changed);
     QObject::disconnect(priv->codecs_changed);
+    QObject::disconnect(priv->protocol_selection_changed);
 
     G_OBJECT_CLASS(account_view_parent_class)->dispose(object);
+}
+
+static void
+account_view_finalize(GObject *object)
+{
+    AccountView *view = ACCOUNT_VIEW(object);
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
+
+    delete priv->active_protocols;
+
+    G_OBJECT_CLASS(account_view_parent_class)->finalize(object);
 }
 
 static QModelIndex
@@ -412,7 +425,7 @@ account_view_init(AccountView *view)
                                    "text", 0, NULL);
 
     /* connect signals to and from the selection model of the account model */
-    QObject::connect(
+    priv->protocol_selection_changed = QObject::connect(
         AccountModel::instance()->selectionModel(),
         &QItemSelectionModel::currentChanged,
         [=](const QModelIndex & current, const QModelIndex & previous) {
@@ -466,6 +479,7 @@ static void
 account_view_class_init(AccountViewClass *klass)
 {
     G_OBJECT_CLASS(klass)->dispose = account_view_dispose;
+    G_OBJECT_CLASS(klass)->finalize = account_view_finalize;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/accountview.ui");
