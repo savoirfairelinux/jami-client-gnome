@@ -63,12 +63,10 @@ struct _AccountViewPrivate
     GtkWidget *button_add_account;
     GtkWidget *combobox_account_type;
 
-    gint current_page; /* keeps tr#include "activeitemproxymodel.h"ack of current notebook page displayed */
-
-    QMetaObject::Connection account_changed;
-    QMetaObject::Connection codecs_changed;
+    gint current_page; /* keeps track of current notebook page displayed */
 
     ActiveItemProxyModel *active_protocols;
+    QMetaObject::Connection protocol_selection_changed;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AccountView, account_view, GTK_TYPE_BOX);
@@ -81,10 +79,20 @@ account_view_dispose(GObject *object)
     AccountView *view = ACCOUNT_VIEW(object);
     AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
 
-    QObject::disconnect(priv->account_changed);
-    QObject::disconnect(priv->codecs_changed);
+    QObject::disconnect(priv->protocol_selection_changed);
 
     G_OBJECT_CLASS(account_view_parent_class)->dispose(object);
+}
+
+static void
+account_view_finalize(GObject *object)
+{
+    AccountView *view = ACCOUNT_VIEW(object);
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
+
+    delete priv->active_protocols;
+
+    G_OBJECT_CLASS(account_view_parent_class)->finalize(object);
 }
 
 static QModelIndex
@@ -98,48 +106,6 @@ get_index_from_selection(GtkTreeSelection *selection)
     } else {
         return QModelIndex();
     }
-}
-
-static void
-cancel_account_changes(G_GNUC_UNUSED GtkButton *button, AccountView *view)
-{
-    g_debug("cancel changes");
-
-    g_return_if_fail(IS_ACCOUNT_VIEW(view));
-    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
-
-    GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
-    QModelIndex account_idx = get_index_from_selection(selection);
-    g_return_if_fail(account_idx.isValid());
-
-
-    /* reload the current account view unselectin and re-selecting it */
-    GtkTreeIter iter;
-    gtk_q_tree_model_source_index_to_iter(
-        GTK_Q_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(priv->treeview_account_list))),
-        account_idx,
-        &iter);
-
-    QObject::disconnect(priv->account_changed);
-    QObject::disconnect(priv->codecs_changed);
-    gtk_tree_selection_unselect_all(selection);
-
-    /* reload account */
-    Account *account = AccountModel::instance()->getAccountByModelIndex(account_idx);
-    account->performAction(Account::EditAction::CANCEL);
-    /* TODO: clear the codecModel changes once this method is added */
-    // account->codecModel()->cancel();
-
-    /* re-select same item */
-    gtk_tree_selection_select_iter(selection, &iter);
-}
-
-static void
-apply_account_changes(G_GNUC_UNUSED GtkButton *button, Account *account)
-{
-    account->performAction(Account::EditAction::SAVE);
-    /* TODO: save the codecModel changes once the method to clear them is added */
-    // account->codecModel()->save();
 }
 
 static void
@@ -202,55 +168,6 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *view)
         /* set the tab displayed to the same as the prev account selected */
         gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->current_account_notebook), priv->current_page);
 
-        /* button box with cancel and apply buttons */
-        GtkWidget *account_button_box = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
-        GtkWidget *account_change_cancel = gtk_button_new_with_label("Cancel");
-        GtkWidget *account_change_apply = gtk_button_new_with_label("Apply");
-
-        if (account->editState() != Account::EditState::MODIFIED) {
-            gtk_widget_set_sensitive(account_change_cancel, FALSE);
-            gtk_widget_set_sensitive(account_change_apply, FALSE);
-        }
-
-        gtk_box_pack_end(GTK_BOX(account_button_box), account_change_cancel, FALSE, FALSE, 0);
-        gtk_box_pack_end(GTK_BOX(account_button_box), account_change_apply, FALSE, FALSE, 0);
-        gtk_widget_set_halign(account_button_box, GTK_ALIGN_END);
-        gtk_box_set_spacing(GTK_BOX(account_button_box), 10);
-        gtk_box_pack_start(GTK_BOX(hbox_account), account_button_box, FALSE, FALSE, 0);
-
-        /* connect signals to buttons */
-        QObject::disconnect(priv->account_changed);
-        priv->account_changed = QObject::connect(
-            account,
-            &Account::changed,
-            [=](Account* a) {
-                if (a->editState() == Account::EditState::MODIFIED) {
-                    /* account has been modified, enable buttons */
-                    gtk_widget_set_sensitive(account_change_cancel, TRUE);
-                    gtk_widget_set_sensitive(account_change_apply, TRUE);
-                } else {
-                    gtk_widget_set_sensitive(account_change_cancel, FALSE);
-                    gtk_widget_set_sensitive(account_change_apply, FALSE);
-                }
-            }
-        );
-
-        /* add the following signal once the 'cancel' method is added to the contactModel */
-        // QObject::disconnect(priv->codecs_changed);
-        // priv->codecs_changed = QObject::connect(
-        //     account->codecModel(),
-        //     &CodecModel::dataChanged,
-        //     [=]() {
-        //         /* data changed in codec model, this probably happened because
-        //          * codecs were (de)selected */
-        //         gtk_widget_set_sensitive(account_change_cancel, TRUE);
-        //         gtk_widget_set_sensitive(account_change_apply, TRUE);
-        //     }
-        // );
-
-        g_signal_connect(account_change_cancel, "clicked", G_CALLBACK(cancel_account_changes), view);
-        g_signal_connect(account_change_apply, "clicked", G_CALLBACK(apply_account_changes), account);
-
         gtk_widget_show_all(hbox_account);
 
         /* set the new account view as visible */
@@ -300,7 +217,6 @@ remove_account_dialog(Account *account)
                             "Are you sure you want to delete account \"%s\"?",
                             account->alias().toLocal8Bit().constData());
 
-    // gtk_window_set_title(GTK_WINDOW(dialog), _("Ring delete account"));
     switch (gtk_dialog_run(GTK_DIALOG(dialog))) {
         case GTK_RESPONSE_OK:
             response = TRUE;
@@ -329,7 +245,6 @@ remove_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
         Account *account = AccountModel::instance()->getAccountByModelIndex(idx);
         if (remove_account_dialog(account)) {
             AccountModel::instance()->remove(idx);
-            AccountModel::instance()->save();
         }
     }
 }
@@ -350,7 +265,6 @@ add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
         if (protocol_idx.isValid()) {
             protocol_idx = priv->active_protocols->mapToSource(protocol_idx);
             AccountModel::instance()->add(QString("New Account"), protocol_idx);
-            AccountModel::instance()->save();
         }
     }
 }
@@ -412,7 +326,7 @@ account_view_init(AccountView *view)
                                    "text", 0, NULL);
 
     /* connect signals to and from the selection model of the account model */
-    QObject::connect(
+    priv->protocol_selection_changed = QObject::connect(
         AccountModel::instance()->selectionModel(),
         &QItemSelectionModel::currentChanged,
         [=](const QModelIndex & current, const QModelIndex & previous) {
@@ -466,6 +380,7 @@ static void
 account_view_class_init(AccountViewClass *klass)
 {
     G_OBJECT_CLASS(klass)->dispose = account_view_dispose;
+    G_OBJECT_CLASS(klass)->finalize = account_view_finalize;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/accountview.ui");
