@@ -15,210 +15,300 @@
         <property name="show-close-button">True</property>
         <!-- main menu button -->
         <child>
-          <object class="GtkMenuButton" id="gears">
+          <object class="GtkMenuButton" id="ring_menu">
             <property name="visible">True</property>
             <property name="direction">none</property>
-            <!-- <property name="use-popover">True</property> -->
             <property name="tooltip_text" translatable="yes">Menu</property>
             <style>
               <class name="image-button"/>
             </style>
             <child>
-              <object class="GtkImage" id="gears_image">
+              <object class="GtkImage" id="image_ring">
                 <property name="visible">True</property>
               </object>
             </child>
           </object>
           <packing>
-            <property name="pack-type">start</property>
+            <property name="pack-type">GTK_PACK_START</property>
           </packing>
         </child>
         <!-- end main menu button -->
-        <!-- hbox search -->
+        <!-- title box with search or settings -->
         <child type="title">
-          <object class="GtkBox" id="hbox_search">
+          <object class="GtkBox" id="hbox_title">
             <property name="visible">True</property>
             <property name="orientation">horizontal</property>
             <property name="can_focus">False</property>
-            <!-- <property name="halign">center</property> -->
-            <style>
-              <class name="linked"/>
-            </style>
+            <!-- hbox search -->
             <child>
-              <object class="GtkSearchEntry" id="search_entry">
+              <object class="GtkBox" id="hbox_search">
                 <property name="visible">True</property>
-                <property name="height-request">43</property>
-                <property name="width-request">500</property>
-                <property name="xalign">0.5</property>
+                <property name="orientation">horizontal</property>
+                <property name="can_focus">False</property>
+                <!-- <property name="halign">center</property> -->
+                <style>
+                  <class name="linked"/>
+                </style>
+                <child>
+                  <object class="GtkSearchEntry" id="search_entry">
+                    <property name="visible">True</property>
+                    <property name="height-request">43</property>
+                    <property name="width-request">500</property>
+                    <property name="xalign">0.5</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_placecall">
+                    <property name="image">image_call</property>
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_addcontact">
+                    <property name="image">image_contact</property>
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <!-- end hbox search -->
+            <!-- hbox settings -->
+            <child>
+              <object class="GtkBox" id="hbox_settings">
+                <!-- start out as being not visible -->
+                <property name="visible">False</property>
+                <property name="orientation">horizontal</property>
+                <property name="can_focus">False</property>
+                <style>
+                  <class name="linked"/>
+                </style>
+                <!-- general settings -->
+                <child>
+                  <object class="GtkRadioButton" id="radiobutton_general_settings">
+                    <property name="label" translatable="yes">General</property>
+                    <!-- TODO make visible when feature added -->
+                    <!-- <property name="visible">True</property> -->
+                    <property name="image">image_general_settings</property>
+                    <property name="draw_indicator">False</property>
+                  </object>
+                </child>
+                <!-- end general settings -->
+                <!-- audio settings -->
+                <child>
+                  <object class="GtkRadioButton" id="radiobutton_audio_settings">
+                    <property name="label" translatable="yes">Audio</property>
+                    <!-- TODO make visible when feature added -->
+                    <!-- <property name="visible">True</property> -->
+                    <property name="image">image_audio_settings</property>
+                    <property name="draw_indicator">False</property>
+                    <property name="group">radiobutton_general_settings</property>
+                  </object>
+                </child>
+                <!-- end audio settings -->
+                <!-- video settings -->
+                <child>
+                  <object class="GtkRadioButton" id="radiobutton_video_settings">
+                    <property name="label" translatable="yes">Video</property>
+                    <!-- TODO make visible when feature added -->
+                    <!-- <property name="visible">True</property> -->
+                    <property name="image">image_video_settings</property>
+                    <property name="draw_indicator">False</property>
+                    <property name="group">radiobutton_general_settings</property>
+                  </object>
+                </child>
+                <!-- end video settings -->
+                <!-- account settings -->
+                <child>
+                  <object class="GtkRadioButton" id="radiobutton_account_settings">
+                    <property name="label" translatable="yes">Accounts</property>
+                    <property name="visible">True</property>
+                    <property name="image">image_account_settings</property>
+                    <property name="draw_indicator">False</property>
+                    <property name="group">radiobutton_general_settings</property>
+                  </object>
+                </child>
+                <!-- end account settings -->
+              </object>
+            </child>
+            <!-- end hbox settings -->
+          </object>
+        </child>
+        <!-- end titel box with search or settings -->
+        <!-- button settings -->
+        <child>
+          <object class="GtkButton" id="ring_settings">
+            <property name="visible">True</property>
+            <property name="tooltip_text" translatable="yes">Settings</property>
+            <child>
+              <object class="GtkImage" id="image_settings">
+                <property name="visible">True</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack-type">GTK_PACK_END</property>
+          </packing>
+        </child>
+        <!-- end button settings -->
+      </object>
+    </child>
+    <!-- end header definition -->
+    <child>
+      <object class="GtkStack" id="stack_main_view">
+        <property name="visible">True</property>
+        <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_UP</property>
+        <property name="transition-duration">400</property>
+      </object>
+    </child>
+  </template>
+  <!-- main call view -->
+  <object class="GtkBox" id="vbox_call_view">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <!-- <property name="border_width">5</property> -->
+    <property name="orientation">vertical</property>
+    <child>
+      <!-- start of Paned container -->
+      <object class="GtkPaned" id="paned_main">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="position">250</property>
+        <child>
+          <object class="GtkBox" id="vbox_left">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">5</property>
+            <!-- current calls view -->
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindow_calls">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="vscrollbar_policy">never</property>
+                <property name="height-request">100</property>
+                <!-- <property name="shadow_type">in</property> -->
+                <child>
+                  <object class="GtkTreeView" id="treeview_call">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="headers_visible">False</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="treeview-selection1"/>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <!-- end current calls view -->
+            <!-- contacts/history/presence view -->
+            <child>
+              <object class="GtkStack" id="stack_contacts_history_presence">
+                <property name="visible">True</property>
+                <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
+                <property name="transition-duration">300</property>
               </object>
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
               </packing>
             </child>
+            <!-- end contacts/history/presence view -->
+            <!-- nav buttons -->
             <child>
-              <object class="GtkButton" id="button_placecall">
-                <property name="image">image_call</property>
-                <property name="visible">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="button_addcontact">
-                <property name="image">image_contact</property>
-                <property name="visible">True</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <!-- end hbox search -->
-      </object>
-    </child>
-    <!-- end header definition -->
-    <child>
-      <object class="GtkBox" id="vbox_main">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <!-- <property name="border_width">5</property> -->
-        <property name="orientation">vertical</property>
-        <child>
-          <!-- start of Paned container -->
-          <object class="GtkPaned" id="paned_main">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="position">250</property>
-            <child>
-              <object class="GtkBox" id="vbox_left">
+              <object class="GtkBox" id="hbox_navbuttons">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">5</property>
-                <!-- current calls view -->
+                <property name="halign">center</property>
+                <property name="homogeneous">True</property>
+                <style>
+                  <class name="linked"/>
+                </style>
                 <child>
-                  <object class="GtkScrolledWindow" id="scrolledwindow_calls">
+                  <object class="GtkRadioButton" id="radiobutton_contacts">
+                    <property name="label" translatable="yes">contacts</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="vscrollbar_policy">never</property>
-                    <property name="height-request">100</property>
-                    <!-- <property name="shadow_type">in</property> -->
-                    <child>
-                      <object class="GtkTreeView" id="treeview_call">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="headers_visible">False</property>
-                        <child internal-child="selection">
-                          <object class="GtkTreeSelection" id="treeview-selection1"/>
-                        </child>
-                      </object>
-                    </child>
+                    <property name="image">image_contacts</property>
+                    <property name="draw_indicator">False</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                  </packing>
+                  <packing></packing>
                 </child>
-                <!-- end current calls view -->
-                <!-- contacts/history/presence view -->
                 <child>
-                  <object class="GtkStack" id="stack_contacts_history_presence">
+                  <object class="GtkRadioButton" id="radiobutton_history">
+                    <property name="label" translatable="yes">history</property>
                     <property name="visible">True</property>
-                    <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
-                    <property name="transition-duration">300</property>
+                    <property name="image">image_history</property>
+                    <property name="draw_indicator">False</property>
+                    <property name="group">radiobutton_contacts</property>
+                    <property name="active">True</property>
                   </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                  </packing>
+                  <packing></packing>
                 </child>
-                <!-- end contacts/history/presence view -->
-                <!-- nav buttons -->
                 <child>
-                  <object class="GtkBox" id="hbox_navbuttons">
+                  <object class="GtkRadioButton" id="radiobutton_presence">
+                    <property name="label" translatable="yes">online</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">center</property>
-                    <property name="homogeneous">True</property>
-                    <style>
-                      <class name="linked"/>
-                    </style>
-                    <child>
-                      <object class="GtkRadioButton" id="radiobutton_contacts">
-                        <property name="label" translatable="yes">contacts</property>
-                        <property name="visible">True</property>
-                        <property name="image">image_contacts</property>
-                        <property name="draw_indicator">False</property>
-                      </object>
-                      <packing></packing>
-                    </child>
-                    <child>
-                      <object class="GtkRadioButton" id="radiobutton_history">
-                        <property name="label" translatable="yes">history</property>
-                        <property name="visible">True</property>
-                        <property name="image">image_history</property>
-                        <property name="draw_indicator">False</property>
-                        <property name="group">radiobutton_contacts</property>
-                        <property name="active">True</property>
-                      </object>
-                      <packing></packing>
-                    </child>
-                    <child>
-                      <object class="GtkRadioButton" id="radiobutton_presence">
-                        <property name="label" translatable="yes">online</property>
-                        <property name="visible">True</property>
-                        <property name="image">image_presence</property>
-                        <property name="draw_indicator">False</property>
-                        <property name="group">radiobutton_contacts</property>
-                      </object>
-                      <packing></packing>
-                    </child>
+                    <property name="image">image_presence</property>
+                    <property name="draw_indicator">False</property>
+                    <property name="group">radiobutton_contacts</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                  </packing>
+                  <packing></packing>
                 </child>
-                <!-- end nav buttons -->
               </object>
               <packing>
-                <property name="resize">False</property>
-                <property name="shrink">False</property>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
               </packing>
             </child>
-            <!-- right side of pane -->
-            <child>
-              <object class="GtkBox" id="vbox_right">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <!-- main display object -->
-                <child>
-                  <object class="GtkStack" id="stack_main_view">
-                    <property name="visible">True</property>
-                    <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
-                    <property name="transition-duration">300</property>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                  </packing>
-                </child>
-                <!-- end of main display object -->
-              </object>
-              <packing>
-                <property name="shrink">False</property>
-              </packing>
-            </child>
-            <!-- end of right side of pane -->
+            <!-- end nav buttons -->
           </object>
-          <!-- end of Paned container -->
           <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="resize">False</property>
+            <property name="shrink">False</property>
           </packing>
         </child>
+        <!-- right side of pane -->
+        <child>
+          <object class="GtkBox" id="vbox_right">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <!-- main display object -->
+            <child>
+              <object class="GtkStack" id="stack_call_view">
+                <property name="visible">True</property>
+                <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
+                <property name="transition-duration">300</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <!-- end of main display object -->
+          </object>
+          <packing>
+            <property name="shrink">False</property>
+          </packing>
+        </child>
+        <!-- end of right side of pane -->
       </object>
+      <!-- end of Paned container -->
+      <packing>
+        <property name="expand">True</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
+      </packing>
     </child>
-  </template>
+  </object>
+  <!-- end main call view -->
   <!-- some images -->
   <object class="GtkImage" id="image_contacts">
     <property name="visible">True</property>
@@ -234,10 +324,32 @@
   </object>
   <object class="GtkImage" id="image_call">
     <property name="visible">True</property>
-    <property name="resource">/cx/ring/RingGnome/call</property>
+    <property name="icon-name">call-start-symbolic</property>
+    <property name="icon-size">3</property>
   </object>
   <object class="GtkImage" id="image_contact">
     <property name="visible">True</property>
-    <property name="resource">/cx/ring/RingGnome/contact</property>
+    <property name="icon-name">avatar-default-symbolic</property>
+    <property name="icon-size">3</property>
+  </object>
+  <object class="GtkImage" id="image_general_settings">
+    <property name="visible">True</property>
+    <property name="icon-name">preferences-system-symbolic</property>
+    <property name="icon-size">3</property>
+  </object>
+  <object class="GtkImage" id="image_audio_settings">
+    <property name="visible">True</property>
+    <property name="icon-name">audio-headset-symbolic</property>
+    <property name="icon-size">3</property>
+  </object>
+  <object class="GtkImage" id="image_video_settings">
+    <property name="visible">True</property>
+    <property name="icon-name">camera-video-symbolic</property>
+    <property name="icon-size">3</property>
+  </object>
+  <object class="GtkImage" id="image_account_settings">
+    <property name="visible">True</property>
+    <property name="icon-name">user-info-symbolic</property>
+    <property name="icon-size">3</property>
   </object>
 </interface>
