@@ -41,6 +41,7 @@
 #include "accountgeneraltab.h"
 #include "accountaudiotab.h"
 #include "accountvideotab.h"
+#include "dialogs.h"
 
 struct _AccountView
 {
@@ -208,7 +209,7 @@ account_active_toggled(GtkCellRendererToggle *renderer, gchar *path, AccountView
 }
 
 static gboolean
-remove_account_dialog(Account *account)
+remove_account_dialog(AccountView *view, Account *account)
 {
     gboolean response = FALSE;
     GtkWidget *dialog = gtk_message_dialog_new(NULL,
@@ -216,6 +217,15 @@ remove_account_dialog(Account *account)
                             GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
                             "Are you sure you want to delete account \"%s\"?",
                             account->alias().toLocal8Bit().constData());
+
+    gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
+
+    /* get parent window so we can center on it */
+    GtkWidget *parent = gtk_widget_get_toplevel(GTK_WIDGET(view));
+    if (gtk_widget_is_toplevel(parent)) {
+        gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(parent));
+        gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
+    }
 
     switch (gtk_dialog_run(GTK_DIALOG(dialog))) {
         case GTK_RESPONSE_OK:
@@ -231,6 +241,16 @@ remove_account_dialog(Account *account)
     return response;
 }
 
+static gboolean
+save_account(GtkWidget *working_dialog)
+{
+    AccountModel::instance()->save();
+    if (working_dialog)
+        gtk_widget_destroy(working_dialog);
+
+    return G_SOURCE_REMOVE;
+}
+
 static void
 remove_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
 {
@@ -243,8 +263,18 @@ remove_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
     if (idx.isValid()) {
         /* this is a destructive operation, ask the user if they are sure */
         Account *account = AccountModel::instance()->getAccountByModelIndex(idx);
-        if (remove_account_dialog(account)) {
+        if (remove_account_dialog(view, account)) {
+            /* show working dialog in case save operation takes time */
+            GtkWidget *working = ring_dialog_working(GTK_WIDGET(view), NULL);
+            gtk_window_present(GTK_WINDOW(working));
+
             AccountModel::instance()->remove(idx);
+
+            /* now save the time it takes to transition the account view to the new account (300ms)
+             * the save doesn't happen before the "working" dialog is presented
+             * the timeout function should destroy the "working" dialog when done saving
+             */
+            g_timeout_add_full(G_PRIORITY_LOW, 300, (GSourceFunc)save_account, working, NULL);
         }
     }
 }
@@ -264,7 +294,18 @@ add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
                                     &protocol_iter);
         if (protocol_idx.isValid()) {
             protocol_idx = priv->active_protocols->mapToSource(protocol_idx);
+
+            /* show working dialog in case save operation takes time */
+            GtkWidget *working = ring_dialog_working(GTK_WIDGET(view), NULL);
+            gtk_window_present(GTK_WINDOW(working));
+
             AccountModel::instance()->add(QString("New Account"), protocol_idx);
+
+            /* now save after a short timeout to make sure that
+             * the save doesn't happen before the "working" dialog is presented
+             * the timeout function should destroy the "working" dialog when done saving
+             */
+            g_timeout_add_full(G_PRIORITY_LOW, 300, (GSourceFunc)save_account, working, NULL);
         }
     }
 }

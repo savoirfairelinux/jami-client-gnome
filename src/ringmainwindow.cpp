@@ -45,6 +45,7 @@
 #include "accountview.h"
 #include <accountmodel.h>
 #include <audio/codecmodel.h>
+#include "dialogs.h"
 
 #define CALL_VIEW_NAME "calls"
 #define GENERAL_SETTINGS_VIEW_NAME "general"
@@ -366,6 +367,23 @@ navbutton_history_toggled(GtkToggleButton *navbutton, RingMainWindow *win)
     }
 }
 
+static gboolean
+save_accounts(GtkWidget *working_dialog)
+{
+    /* save changes to accounts */
+    AccountModel::instance()->save();
+    /* save changes to codecs */
+    for (int i = 0; i < AccountModel::instance()->rowCount(); i++) {
+        QModelIndex idx = AccountModel::instance()->index(i, 0);
+        AccountModel::instance()->getAccountByModelIndex(idx)->codecModel()->save();
+    }
+
+    if (working_dialog)
+        gtk_widget_destroy(working_dialog);
+
+    return G_SOURCE_REMOVE;
+}
+
 static void
 settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
 {
@@ -386,6 +404,16 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_UP);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_SETTINGS_VIEW_NAME);
     } else {
+        /* show working dialog in case save operation takes time */
+        GtkWidget *working = ring_dialog_working(GTK_WIDGET(win), NULL);
+        gtk_window_present(GTK_WINDOW(working));
+
+        /* now save after the time it takes to transition back to the call view (400ms)
+         * the save doesn't happen before the "working" dialog is presented
+         * the timeout function should destroy the "working" dialog when done saving
+         */
+        g_timeout_add_full(G_PRIORITY_LOW, 400, (GSourceFunc)save_accounts, working, NULL);
+
         /* show calls */
         gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
 
@@ -394,14 +422,6 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
 
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
-
-        /* save changes to accounts */
-        AccountModel::instance()->save();
-        /* save changes to codecs */
-        for (int i = 0; i < AccountModel::instance()->rowCount(); i++) {
-            QModelIndex idx = AccountModel::instance()->index(i, 0);
-            AccountModel::instance()->getAccountByModelIndex(idx)->codecModel()->save();
-        }
     }
 }
 
