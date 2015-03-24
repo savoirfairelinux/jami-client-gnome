@@ -88,7 +88,7 @@ init_exception_dialog(const char* msg)
 static void
 ring_accelerators(RingClient *client)
 {
-#if GTK_CHECK_VERSION(3,10,0)
+#if GTK_CHECK_VERSION(3,12,0)
     const gchar *quit_accels[2] = { "<Ctrl>Q", NULL };
     gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.quit", quit_accels);
 #else
