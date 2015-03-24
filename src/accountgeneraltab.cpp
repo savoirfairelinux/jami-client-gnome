@@ -50,6 +50,8 @@ struct _AccountGeneralTabPrivate
     Account   *account;
     GtkWidget *grid_account;
     GtkWidget *grid_parameters;
+
+    QMetaObject::Connection account_updated;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AccountGeneralTab, account_general_tab, GTK_TYPE_BOX);
@@ -59,6 +61,11 @@ G_DEFINE_TYPE_WITH_PRIVATE(AccountGeneralTab, account_general_tab, GTK_TYPE_BOX)
 static void
 account_general_tab_dispose(GObject *object)
 {
+    AccountGeneralTab *view = ACCOUNT_GENERAL_TAB(object);
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+
+    QObject::disconnect(priv->account_updated);
+
     G_OBJECT_CLASS(account_general_tab_parent_class)->dispose(object);
 }
 
@@ -159,8 +166,16 @@ build_tab_view(AccountGeneralTab *view)
 
     int grid_row = 0;
     GtkWidget *label = NULL;
-    GtkWidget *entry = NULL;
-    GtkWidget *checkbutton = NULL;
+
+    /* separate pointers for each so that we reference them in the account changed callback */
+    GtkWidget *entry_alias = NULL;
+    GtkWidget *entry_username = NULL;
+    GtkWidget *entry_hostname = NULL;
+    GtkWidget *entry_password = NULL;
+    GtkWidget *entry_proxy = NULL;
+    GtkWidget *entry_voicemail = NULL;
+    GtkWidget *checkbutton_autoanswer = NULL;
+    GtkWidget *checkbutton_upnp = NULL;
 
     /* build account grid */
 
@@ -177,11 +192,11 @@ build_tab_view(AccountGeneralTab *view)
         label = gtk_label_new("Alias");
         gtk_widget_set_halign(label, GTK_ALIGN_START);
         gtk_grid_attach(GTK_GRID(priv->grid_account), label, 0, grid_row, 1, 1);
-        entry = gtk_entry_new();
-        gtk_entry_set_text(GTK_ENTRY(entry), alias.constData());
-        gtk_widget_set_halign(entry, GTK_ALIGN_START);
-        g_signal_connect(entry, "changed", G_CALLBACK(account_alias_changed), view);
-        gtk_grid_attach(GTK_GRID(priv->grid_account), entry, 1, grid_row, 1, 1);
+        entry_alias = gtk_entry_new();
+        gtk_entry_set_text(GTK_ENTRY(entry_alias), alias.constData());
+        gtk_widget_set_halign(entry_alias, GTK_ALIGN_START);
+        g_signal_connect(entry_alias, "changed", G_CALLBACK(account_alias_changed), view);
+        gtk_grid_attach(GTK_GRID(priv->grid_account), entry_alias, 1, grid_row, 1, 1);
         ++grid_row;
 
         /* account type */
@@ -213,13 +228,14 @@ build_tab_view(AccountGeneralTab *view)
         label = gtk_label_new("Hash");
         gtk_widget_set_halign(label, GTK_ALIGN_START);
         gtk_grid_attach(GTK_GRID(priv->grid_account), label, 0, grid_row, 1, 1);
-        entry = gtk_entry_new();
-        gtk_entry_set_text(GTK_ENTRY(entry), priv->account->username().toLocal8Bit().constData());
-        g_object_set(G_OBJECT(entry), "editable", FALSE, NULL);
-        g_object_set(G_OBJECT(entry), "max-width-chars", 50, NULL);
-        gtk_widget_override_font(entry, pango_font_description_from_string("monospace"));
-        gtk_entry_set_alignment(GTK_ENTRY(entry), 0.5);
-        gtk_grid_attach(GTK_GRID(priv->grid_account), entry, 1, grid_row, 1, 1);
+        entry_username = gtk_entry_new();
+        gtk_entry_set_placeholder_text(GTK_ENTRY(entry_username), "auto-generating...");
+        gtk_entry_set_text(GTK_ENTRY(entry_username), priv->account->username().toLocal8Bit().constData());
+        g_object_set(G_OBJECT(entry_username), "editable", FALSE, NULL);
+        g_object_set(G_OBJECT(entry_username), "max-width-chars", 50, NULL);
+        gtk_widget_override_font(entry_username, pango_font_description_from_string("monospace"));
+        gtk_entry_set_alignment(GTK_ENTRY(entry_username), 0.5);
+        gtk_grid_attach(GTK_GRID(priv->grid_account), entry_username, 1, grid_row, 1, 1);
         ++grid_row;
     }
 
@@ -235,59 +251,59 @@ build_tab_view(AccountGeneralTab *view)
             label = gtk_label_new("Host name");
             gtk_widget_set_halign(label, GTK_ALIGN_START);
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
-            entry = gtk_entry_new();
-            gtk_entry_set_text(GTK_ENTRY(entry), priv->account->hostname().toLocal8Bit().constData());
-            g_signal_connect(entry, "changed", G_CALLBACK(account_hostname_changed), view);
-            gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry, 1, grid_row, 1, 1);
+            entry_hostname = gtk_entry_new();
+            gtk_entry_set_text(GTK_ENTRY(entry_hostname), priv->account->hostname().toLocal8Bit().constData());
+            g_signal_connect(entry_hostname, "changed", G_CALLBACK(account_hostname_changed), view);
+            gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry_hostname, 1, grid_row, 1, 1);
             ++grid_row;
 
             /* user name */
             label = gtk_label_new("User name");
             gtk_widget_set_halign(label, GTK_ALIGN_START);
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
-            entry = gtk_entry_new();
-            gtk_entry_set_text(GTK_ENTRY(entry), priv->account->username().toLocal8Bit().constData());
-            g_signal_connect(entry, "changed", G_CALLBACK(account_username_changed), view);
-            gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry, 1, grid_row, 1, 1);
+            entry_username = gtk_entry_new();
+            gtk_entry_set_text(GTK_ENTRY(entry_username), priv->account->username().toLocal8Bit().constData());
+            g_signal_connect(entry_username, "changed", G_CALLBACK(account_username_changed), view);
+            gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry_username, 1, grid_row, 1, 1);
             ++grid_row;
 
             /* password */
             label = gtk_label_new("Password");
             gtk_widget_set_halign(label, GTK_ALIGN_START);
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
-            entry = gtk_entry_new();
-            gtk_entry_set_input_purpose(GTK_ENTRY(entry), GTK_INPUT_PURPOSE_PASSWORD);
-            gtk_entry_set_icon_from_icon_name(GTK_ENTRY(entry), GTK_ENTRY_ICON_PRIMARY, "dialog-password");
-            gtk_entry_set_visibility(GTK_ENTRY(entry), FALSE);
-            gtk_entry_set_text(GTK_ENTRY(entry), priv->account->username().toLocal8Bit().constData());
-            g_signal_connect(entry, "changed", G_CALLBACK(account_password_changed), view);
-            gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry, 1, grid_row, 1, 1);
+            entry_password = gtk_entry_new();
+            gtk_entry_set_input_purpose(GTK_ENTRY(entry_password), GTK_INPUT_PURPOSE_PASSWORD);
+            gtk_entry_set_icon_from_icon_name(GTK_ENTRY(entry_password), GTK_ENTRY_ICON_PRIMARY, "dialog-password");
+            gtk_entry_set_visibility(GTK_ENTRY(entry_password), FALSE);
+            gtk_entry_set_text(GTK_ENTRY(entry_password), priv->account->password().toLocal8Bit().constData());
+            g_signal_connect(entry_password, "changed", G_CALLBACK(account_password_changed), view);
+            gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry_password, 1, grid_row, 1, 1);
             ++grid_row;
 
             /* show password */
-            checkbutton = gtk_check_button_new_with_label("Show password");
+            GtkWidget *checkbutton = gtk_check_button_new_with_label("Show password");
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton, 1, grid_row, 1, 1);
-            g_signal_connect(checkbutton, "toggled", G_CALLBACK(show_password), entry);
+            g_signal_connect(checkbutton, "toggled", G_CALLBACK(show_password), entry_password);
             ++grid_row;
 
             /* proxy */
             label = gtk_label_new("Proxy");
             gtk_widget_set_halign(label, GTK_ALIGN_START);
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
-            entry = gtk_entry_new();
-            gtk_entry_set_text(GTK_ENTRY(entry), priv->account->proxy().toLocal8Bit().constData());
-            g_signal_connect(entry, "changed", G_CALLBACK(account_proxy_changed), view);
-            gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry, 1, grid_row, 1, 1);
+            entry_proxy = gtk_entry_new();
+            gtk_entry_set_text(GTK_ENTRY(entry_proxy), priv->account->proxy().toLocal8Bit().constData());
+            g_signal_connect(entry_proxy, "changed", G_CALLBACK(account_proxy_changed), view);
+            gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry_proxy, 1, grid_row, 1, 1);
             ++grid_row;
 
             /* voicemail number */
             label = gtk_label_new("Voicemail number");
             gtk_widget_set_halign(label, GTK_ALIGN_START);
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
-            entry = gtk_entry_new();
-            gtk_entry_set_text(GTK_ENTRY(entry), priv->account->mailbox().toLocal8Bit().constData());
-            g_signal_connect(entry, "changed", G_CALLBACK(account_mailbox_changed), view);
-            gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry, 1, grid_row, 1, 1);
+            entry_voicemail = gtk_entry_new();
+            gtk_entry_set_text(GTK_ENTRY(entry_voicemail), priv->account->mailbox().toLocal8Bit().constData());
+            g_signal_connect(entry_voicemail, "changed", G_CALLBACK(account_mailbox_changed), view);
+            gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry_voicemail, 1, grid_row, 1, 1);
             ++grid_row;
         } else {
             /* RING accoutn */
@@ -296,29 +312,51 @@ build_tab_view(AccountGeneralTab *view)
             label = gtk_label_new("Bootstrap");
             gtk_widget_set_halign(label, GTK_ALIGN_START);
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
-            entry = gtk_entry_new();
-            gtk_entry_set_text(GTK_ENTRY(entry), priv->account->hostname().toLocal8Bit().constData());
-            g_signal_connect(entry, "changed", G_CALLBACK(account_hostname_changed), view);
-            gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry, 1, grid_row, 1, 1);
+            entry_hostname = gtk_entry_new();
+            gtk_entry_set_text(GTK_ENTRY(entry_hostname), priv->account->hostname().toLocal8Bit().constData());
+            g_signal_connect(entry_hostname, "changed", G_CALLBACK(account_hostname_changed), view);
+            gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry_hostname, 1, grid_row, 1, 1);
             ++grid_row;
         }
     }
 
     /* auto answer */
-    checkbutton = gtk_check_button_new_with_label("Auto-answer calls");
-    gtk_widget_set_halign(checkbutton, GTK_ALIGN_START);
-    gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton, 0, grid_row, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton), priv->account->isAutoAnswer());
-    g_signal_connect(checkbutton, "toggled", G_CALLBACK(auto_answer), view);
+    checkbutton_autoanswer = gtk_check_button_new_with_label("Auto-answer calls");
+    gtk_widget_set_halign(checkbutton_autoanswer, GTK_ALIGN_START);
+    gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_autoanswer, 0, grid_row, 1, 1);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_autoanswer), priv->account->isAutoAnswer());
+    g_signal_connect(checkbutton_autoanswer, "toggled", G_CALLBACK(auto_answer), view);
     ++grid_row;
 
     /* upnp */
-    checkbutton = gtk_check_button_new_with_label("UPnP enabled");
-    gtk_widget_set_halign(checkbutton, GTK_ALIGN_START);
-    gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton, 0, grid_row, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton), priv->account->isUpnpEnabled());
-    g_signal_connect(checkbutton, "toggled", G_CALLBACK(upnp_enabled), view);
+    checkbutton_upnp = gtk_check_button_new_with_label("UPnP enabled");
+    gtk_widget_set_halign(checkbutton_upnp, GTK_ALIGN_START);
+    gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_upnp, 0, grid_row, 1, 1);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_upnp), priv->account->isUpnpEnabled());
+    g_signal_connect(checkbutton_upnp, "toggled", G_CALLBACK(upnp_enabled), view);
     ++grid_row;
+
+    /* update account parameters if model is updated */
+    priv->account_updated = QObject::connect(
+        priv->account,
+        &Account::changed,
+        [=] () {
+            if (strcmp(alias.constData(), "IP2IP") != 0) {
+                gtk_entry_set_text(GTK_ENTRY(entry_alias), priv->account->alias().toLocal8Bit().constData());
+                gtk_entry_set_text(GTK_ENTRY(entry_username), priv->account->username().toLocal8Bit().constData());
+                gtk_entry_set_text(GTK_ENTRY(entry_hostname), priv->account->hostname().toLocal8Bit().constData());
+                
+                if (priv->account->protocol() != Account::Protocol::RING) {
+                    gtk_entry_set_text(GTK_ENTRY(entry_password), priv->account->password().toLocal8Bit().constData());
+                    gtk_entry_set_text(GTK_ENTRY(entry_proxy), priv->account->proxy().toLocal8Bit().constData());
+                    gtk_entry_set_text(GTK_ENTRY(entry_voicemail), priv->account->mailbox().toLocal8Bit().constData());
+                }
+            }
+
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_autoanswer), priv->account->isAutoAnswer());
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_upnp), priv->account->isUpnpEnabled());
+        }
+    );
 
     gtk_widget_show_all(priv->grid_parameters);
 
