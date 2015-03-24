@@ -45,6 +45,7 @@
 #include "accountview.h"
 #include <accountmodel.h>
 #include <audio/codecmodel.h>
+#include "dialogs.h"
 
 #define CALL_VIEW_NAME "calls"
 #define GENERAL_SETTINGS_VIEW_NAME "general"
@@ -366,6 +367,23 @@ navbutton_history_toggled(GtkToggleButton *navbutton, RingMainWindow *win)
     }
 }
 
+static gboolean
+save_accounts(GtkWidget *working_dialog)
+{
+    /* save changes to accounts */
+    AccountModel::instance()->save();
+    /* save changes to codecs */
+    for (int i = 0; i < AccountModel::instance()->rowCount(); i++) {
+        QModelIndex idx = AccountModel::instance()->index(i, 0);
+        AccountModel::instance()->getAccountByModelIndex(idx)->codecModel()->save();
+    }
+
+    if (working_dialog)
+        gtk_widget_destroy(working_dialog);
+
+    return G_SOURCE_REMOVE;
+}
+
 static void
 settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
 {
@@ -395,13 +413,15 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
 
-        /* save changes to accounts */
-        AccountModel::instance()->save();
-        /* save changes to codecs */
-        for (int i = 0; i < AccountModel::instance()->rowCount(); i++) {
-            QModelIndex idx = AccountModel::instance()->index(i, 0);
-            AccountModel::instance()->getAccountByModelIndex(idx)->codecModel()->save();
-        }
+        /* show working dialog in case save operation takes time */
+        GtkWidget *working = ring_dialog_working(GTK_WIDGET(win), NULL);
+        gtk_window_present(GTK_WINDOW(working));
+
+        /* now save in a g_idle function with low priority, to make sure that
+         * the save doesn't happen before the "working" dialog is presented
+         * the idle function should destroy the "working" dialog when done saving
+         */
+        g_idle_add_full(G_PRIORITY_LOW, (GSourceFunc)save_accounts, working, NULL);
     }
 }
 
