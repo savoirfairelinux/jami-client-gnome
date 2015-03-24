@@ -163,6 +163,8 @@ SET( SRC_FILES
    src/defines.h
    src/video/xrectsel.h
    src/video/xrectsel.c
+   src/dialogs.h
+   src/dialogs.c
 )
 
 # compile glib resource files to c code
