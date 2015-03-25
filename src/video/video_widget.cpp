@@ -469,8 +469,10 @@ renderer_start(VideoWidgetRenderer *renderer)
         renderer->renderer,
         &Video::Renderer::frameUpdated,
         [=]() {
-            if (!renderer->renderer->isRendering())
-                g_warning("got frame but not rendering!");
+            if (!renderer->renderer->isRendering()) {
+                g_debug("got frame but not rendering");
+                return;
+            }
 
             /* this callback comes from another thread;
              * rendering must be done in the main loop;
@@ -488,12 +490,16 @@ video_widget_set_renderer(VideoWidgetRenderer *renderer)
 {
     if (renderer == NULL) return;
 
+    /* reset the content gravity so that the aspect ratio gets properly set if it chagnes */
+    clutter_actor_set_content_gravity(renderer->actor, CLUTTER_CONTENT_GRAVITY_RESIZE_FILL);
+
     /* update the renderer */
     QObject::disconnect(renderer->frame_update);
     QObject::disconnect(renderer->render_stop);
     QObject::disconnect(renderer->render_start);
 
-    renderer_start(renderer);
+    if (renderer->renderer->isRendering())
+        renderer_start(renderer);
 
     renderer->render_stop = QObject::connect(
         renderer->renderer,

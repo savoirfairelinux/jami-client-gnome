@@ -370,7 +370,8 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     );
 
     /* local renderer */
-    push_new_renderer(view, Video::PreviewManager::instance()->previewRenderer(), VIDEO_RENDERER_LOCAL);
+    if (Video::PreviewManager::instance()->isPreviewing())
+        push_new_renderer(view, Video::PreviewManager::instance()->previewRenderer(), VIDEO_RENDERER_LOCAL);
 
     /* callback for local renderer */
     priv->local_renderer_connection = QObject::connect(
