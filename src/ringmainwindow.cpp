@@ -45,6 +45,8 @@
 #include "accountview.h"
 #include <accountmodel.h>
 #include <audio/codecmodel.h>
+#include "videosettingsview.h"
+#include <video/previewmanager.h>
 
 #define CALL_VIEW_NAME "calls"
 #define GENERAL_SETTINGS_VIEW_NAME "general"
@@ -87,6 +89,8 @@ struct _RingMainWindowPrivate
     GtkWidget *stack_call_view;
     GtkWidget *button_placecall;
     GtkWidget *account_settings_view;
+    GtkWidget *video_settings_view;
+    GtkWidget *last_settings_view;
     GtkWidget *radiobutton_audio_settings;
     GtkWidget *radiobutton_general_settings;
     GtkWidget *radiobutton_video_settings;
@@ -384,7 +388,7 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         gtk_widget_show(priv->hbox_settings);
 
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_UP);
-        gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_SETTINGS_VIEW_NAME);
+        gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->last_settings_view);
     } else {
         /* show calls */
         gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
@@ -395,6 +399,9 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
 
+        /* make sure video preview is stopped, in case it was started */
+        Video::PreviewManager::instance()->stopPreview();
+
         /* save changes to accounts */
         AccountModel::instance()->save();
         /* save changes to codecs */
@@ -402,6 +409,32 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
             QModelIndex idx = AccountModel::instance()->index(i, 0);
             AccountModel::instance()->getAccountByModelIndex(idx)->codecModel()->save();
         }
+    }
+}
+
+static void
+show_video_settings(GtkToggleButton *navbutton, RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (gtk_toggle_button_get_active(navbutton)) {
+        gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+        gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), VIDEO_SETTINGS_VIEW_NAME);
+        priv->last_settings_view = priv->video_settings_view;
+    }
+}
+
+static void
+show_account_settings(GtkToggleButton *navbutton, RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (gtk_toggle_button_get_active(navbutton)) {
+        gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+        gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_SETTINGS_VIEW_NAME);
+        priv->last_settings_view = priv->account_settings_view;
     }
 }
 
@@ -449,11 +482,19 @@ ring_main_window_init(RingMainWindow *win)
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
 
     /* init the settings views */
-    /* make the setting we will show first the active one */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_account_settings), TRUE);
-
     priv->account_settings_view = account_view_new();
     gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->account_settings_view, ACCOUNT_SETTINGS_VIEW_NAME);
+
+    priv->video_settings_view = video_settings_view_new();
+    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->video_settings_view, VIDEO_SETTINGS_VIEW_NAME);
+
+    /* make the setting we will show first the active one */
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_video_settings), TRUE);
+    priv->last_settings_view = priv->video_settings_view;
+
+    /* connect the settings button signals to switch settings views */
+    g_signal_connect(priv->radiobutton_video_settings, "toggled", G_CALLBACK(show_video_settings), win);
+    g_signal_connect(priv->radiobutton_account_settings, "toggled", G_CALLBACK(show_account_settings), win);
 
     /* call model */
     GtkQTreeModel *call_model;
