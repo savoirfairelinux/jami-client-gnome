@@ -412,7 +412,7 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
          * the save doesn't happen before the "working" dialog is presented
          * the timeout function should destroy the "working" dialog when done saving
          */
-        g_timeout_add_full(G_PRIORITY_LOW, 400, (GSourceFunc)save_accounts, working, NULL);
+        g_timeout_add_full(G_PRIORITY_DEFAULT, 400, (GSourceFunc)save_accounts, working, NULL);
 
         /* show calls */
         gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
