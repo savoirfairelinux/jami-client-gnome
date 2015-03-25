@@ -310,7 +310,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
         retval->priv->given_model,
         &QAbstractItemModel::rowsInserted,
         [=](const QModelIndex & parent, int first, int last) {
-            for( int row = first; row <= last; row++) {
+            for( int row = first; row <= last; ++row) {
                 // g_debug("inserted row %d", row);
                 GtkTreeIter *iter = g_new0(GtkTreeIter, 1);
                 QModelIndex idx_given = retval->priv->given_model->index(row, 0, parent);
@@ -331,7 +331,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
             G_GNUC_UNUSED const QModelIndex & destinationParent, G_GNUC_UNUSED int destinationRow) {
             /* first remove the row from old location
              * then insert them at the new location on the "rowsMoved signal */
-            for( int row = sourceStart; row <= sourceEnd; row++) {
+            for( int row = sourceEnd; row >= sourceStart; --row) {
                 // g_debug("row about to be moved: %d", row);
                 QModelIndex idx_given = retval->priv->given_model->index(row, 0, sourceParent);
                 QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
@@ -351,7 +351,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
             const QModelIndex & destinationParent, int destinationRow) {
             /* these rows should have been removed in the "rowsAboutToBeMoved" handler
              * now insert them in the new location */
-            for( int row = sourceStart; row <= sourceEnd; row++) {
+            for( int row = sourceStart; row <= sourceEnd; ++row) {
                 // g_debug("row moved %d", row);
                 GtkTreeIter *iter_new = g_new0(GtkTreeIter, 1);
                 QModelIndex idx_given = retval->priv->given_model->index(destinationRow, 0, destinationParent);
@@ -370,7 +370,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
         retval->priv->given_model,
         &QAbstractItemModel::rowsAboutToBeRemoved,
         [=](const QModelIndex & parent, int first, int last) {
-            for( int row = first; row <= last; row++) {
+            for( int row = last; row >= first; --row) {
                 // g_debug("row about to be deleted %d", row);
                 QModelIndex idx_given = retval->priv->given_model->index(row, 0, parent);
                 QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
@@ -415,6 +415,50 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
                 qmodelindex_to_iter(idx_access, iter);
                 path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
                 gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, iter);
+            }
+        }
+    );
+
+    QObject::connect(
+        retval->priv->given_model,
+        &QAbstractItemModel::modelAboutToBeReset,
+        [=] () {
+            // g_debug("model about to be reset");
+            /* nothing equvivalent eixists in GtkTreeModel, so simply delete all
+             * rows, and add all rows when the model is reset;
+             * we must delete the rows in ascending order */
+            int row_count = retval->priv->given_model->rowCount();
+            for (int row = row_count; row > 0; --row) {
+                // g_debug("deleting row %d", row -1);
+                QModelIndex idx_given = retval->priv->given_model->index(row - 1, 0);
+                QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
+                QModelIndex idx_access = retval->priv->access_model->mapFromSource(idx_original);
+                GtkTreeIter iter;
+                iter.stamp = stamp;
+                qmodelindex_to_iter(idx_access, &iter);
+                GtkTreePath *path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
+                gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path);
+            }
+        }
+    );
+
+    QObject::connect(
+        retval->priv->given_model,
+        &QAbstractItemModel::modelReset,
+        [=] () {
+            // g_debug("model reset");
+            /* now add all the (new) rows */
+            int row_count = retval->priv->given_model->rowCount();
+            for (int row = 0; row < row_count; ++row) {
+                // g_debug("adding row %d", row);
+                GtkTreeIter *iter_new = g_new0(GtkTreeIter, 1);
+                QModelIndex idx_given = retval->priv->given_model->index(row, 0);
+                QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
+                QModelIndex idx_access = retval->priv->access_model->mapFromSource(idx_original);
+                iter_new->stamp = stamp;
+                qmodelindex_to_iter(idx_access, iter_new);
+                GtkTreePath *path_new = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
+                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, iter_new);
             }
         }
     );

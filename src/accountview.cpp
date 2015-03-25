@@ -389,7 +389,7 @@ account_view_init(AccountView *view)
                 if (gtk_q_tree_model_source_index_to_iter(account_model, current, &new_iter)) {
                     gtk_tree_selection_select_iter(selection, &new_iter);
                 } else {
-                    g_warning("SelectionModel of CallModel changed to invalid QModelIndex?");
+                    g_warning("SelectionModel of AccountModel changed to invalid QModelIndex?");
                 }
             }
         }
