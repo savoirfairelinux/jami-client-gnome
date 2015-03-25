@@ -274,7 +274,7 @@ remove_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
              * the save doesn't happen before the "working" dialog is presented
              * the timeout function should destroy the "working" dialog when done saving
              */
-            g_timeout_add_full(G_PRIORITY_LOW, 300, (GSourceFunc)save_account, working, NULL);
+            g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)save_account, working, NULL);
         }
     }
 }
@@ -305,7 +305,7 @@ add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
              * the save doesn't happen before the "working" dialog is presented
              * the timeout function should destroy the "working" dialog when done saving
              */
-            g_timeout_add_full(G_PRIORITY_LOW, 300, (GSourceFunc)save_account, working, NULL);
+            g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)save_account, working, NULL);
         }
     }
 }
