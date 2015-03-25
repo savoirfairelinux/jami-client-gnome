@@ -1,6 +1,5 @@
 /*
  *  Copyright (C) 2004-2015 Savoir-Faire Linux Inc.
- *  Author: Sebastien Bourdelin <sebastien.bourdelin@savoirfairelinux.com>
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
