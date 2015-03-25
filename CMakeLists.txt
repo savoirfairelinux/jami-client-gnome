@@ -13,7 +13,21 @@ ENDIF()
 
 ADD_DEFINITIONS("-std=c++1y")
 
+# set project name and version
 PROJECT(ring-client-gnome)
+SET(PROJECT_VERSION_MAJOR 0)
+SET(PROJECT_VERSION_MINOR 1)
+SET(PROJECT_VERSION_PATCH 0)
+
+# create config header file to pass cmake settings to source code
+CONFIGURE_FILE (
+   "${PROJECT_SOURCE_DIR}/src/config.h.in"
+   "${PROJECT_BINARY_DIR}/config.h"
+)
+
+# add the binary tree to the search path for include files
+# so that we will find config.h
+INCLUDE_DIRECTORIES("${PROJECT_BINARY_DIR}")
 
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
