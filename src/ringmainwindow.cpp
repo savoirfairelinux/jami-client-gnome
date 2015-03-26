@@ -49,6 +49,12 @@
 #include "videosettingsview.h"
 #include <video/previewmanager.h>
 #include "defines.h"
+#include <categorizedcontactmodel.h>
+#include <personmodel.h>
+#include "utils/drawing.h"
+#include <memory>
+#include "delegates/pixbufdelegate.h"
+#include "models/activeitemproxymodel.h"
 
 #define CALL_VIEW_NAME "calls"
 #define CREATE_ACCOUNT_1_VIEW_NAME "create1"
@@ -119,6 +125,10 @@ struct _RingMainWindowPrivate
     GtkWidget *button_account_creation_done;
 
     QMetaObject::Connection hash_updated;
+
+    /* allocd qmodels */
+    ActiveItemProxyModel *q_contact_model;
+    QSortFilterProxyModel *q_history_model;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -280,6 +290,18 @@ call_state_changed(Call *call, gpointer win)
 }
 
 static void
+place_new_call(const ContactMethod *n)
+{
+    Call *call = CallModel::instance()->dialingCall();
+    call->setDialNumber(n);
+    call->performAction(Call::Action::ACCEPT);
+
+    /* make this the currently selected call */
+    QModelIndex call_idx = CallModel::instance()->getIndex(call);
+    CallModel::instance()->selectionModel()->setCurrentIndex(call_idx, QItemSelectionModel::ClearAndSelect);
+}
+
+static void
 search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
@@ -315,12 +337,18 @@ search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
 }
 
 static void
-call_history_item(GtkTreeView *tree_view,
-                  GtkTreePath *path,
-                  G_GNUC_UNUSED GtkTreeViewColumn *column,
-                  G_GNUC_UNUSED gpointer user_data)
+activate_history_item(GtkTreeView *tree_view,
+                      GtkTreePath *path,
+                      G_GNUC_UNUSED GtkTreeViewColumn *column,
+                      G_GNUC_UNUSED gpointer user_data)
 {
     GtkTreeModel *model = gtk_tree_view_get_model(tree_view);
+
+    /* expand / collapse row */
+    if (gtk_tree_view_row_expanded(tree_view, path))
+        gtk_tree_view_collapse_row(tree_view, path);
+    else
+        gtk_tree_view_expand_row(tree_view, path, FALSE);
 
     /* get iter */
     GtkTreeIter iter;
@@ -330,15 +358,8 @@ call_history_item(GtkTreeView *tree_view,
         QVariant contact_method = idx.data(static_cast<int>(Call::Role::ContactMethod));
         /* create new call */
         if (contact_method.value<ContactMethod*>()) {
-            Call *call = CallModel::instance()->dialingCall();
-            call->setDialNumber(contact_method.value<ContactMethod*>());
-            call->performAction(Call::Action::ACCEPT);
-
-            /* make this the currently selected call */
-            QModelIndex call_idx = CallModel::instance()->getIndex(call);
-            CallModel::instance()->selectionModel()->setCurrentIndex(call_idx, QItemSelectionModel::ClearAndSelect);
-        } else
-            g_warning("contact method is empty");
+            place_new_call(contact_method.value<ContactMethod*>());
+        }
     }
 }
 
@@ -819,6 +840,174 @@ history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTr
 }
 
 static void
+render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                     GtkCellRenderer *cell,
+                     GtkTreeModel *tree_model,
+                     GtkTreeIter *iter,
+                     G_GNUC_UNUSED gpointer data)
+{
+    /* check if this is a top level item (category),
+     * or a bottom level item (contact method)
+     * in this case we don't want to show a photo */
+    GtkTreePath *path = gtk_tree_model_get_path(tree_model, iter);
+    int depth = gtk_tree_path_get_depth(path);
+    gtk_tree_path_free(path);
+    if (depth == 2) {
+        /* get person */
+        QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
+        if (idx.isValid()) {
+            QVariant var_c = idx.data(static_cast<int>(Person::Role::Object));
+            Person *c = var_c.value<Person *>();
+            /* get photo */
+            QVariant var_p = PixbufDelegate::instance()->contactPhoto(c, QSize(50, 50), false);
+            std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
+            g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
+            return;
+        }
+    }
+
+    /* otherwise, make sure its an empty pixbuf */
+    g_object_set(G_OBJECT(cell), "pixbuf", NULL, NULL);
+}
+
+static void
+expand_if_child(G_GNUC_UNUSED GtkTreeModel *tree_model,
+                GtkTreePath  *path,
+                G_GNUC_UNUSED GtkTreeIter  *iter,
+                GtkTreeView  *treeview)
+{
+    if (gtk_tree_path_get_depth(path) == 2)
+        gtk_tree_view_expand_to_path(treeview, path);
+}
+
+static void
+activate_contact_item(GtkTreeView *tree_view,
+                      GtkTreePath *path,
+                      G_GNUC_UNUSED GtkTreeViewColumn *column,
+                      G_GNUC_UNUSED gpointer user_data)
+{
+    /* expand / contract row */
+    if (gtk_tree_view_row_expanded(tree_view, path))
+        gtk_tree_view_collapse_row(tree_view, path);
+    else
+        gtk_tree_view_expand_row(tree_view, path, FALSE);
+
+    GtkTreeModel *model = gtk_tree_view_get_model(tree_view);
+
+    /* get iter */
+    GtkTreeIter iter;
+    if (gtk_tree_model_get_iter(model, &iter, path)) {
+        QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
+        if (idx.isValid()) {
+            int depth = gtk_tree_path_get_depth(path);
+            switch (depth) {
+                case 0:
+                case 1:
+                    /* category, nothing to do */
+                    break;
+                case 2:
+                {
+                    /* contact (person), use contact method if there is only one */
+                    QVariant var_c = idx.data(static_cast<int>(Person::Role::Object));
+                    if (var_c.isValid()) {
+                        Person *c = var_c.value<Person *>();
+                        if (c->phoneNumbers().size() == 1) {
+                            /* call with contact method */
+                            place_new_call(c->phoneNumbers().first());
+                        }
+                    }
+                    break;
+                }
+                default:
+                {
+                    /* contact method (or deeper) */
+                    QVariant var_n = idx.data(static_cast<int>(ContactMethod::Role::Object));
+                    if (var_n.isValid()) {
+                        /* call with contat method */
+                        place_new_call(var_n.value<ContactMethod *>());
+                    }
+                    break;
+                }
+            }
+        }
+    }
+}
+
+static void
+render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                               GtkCellRenderer *cell,
+                               GtkTreeModel *tree_model,
+                               GtkTreeIter *iter,
+                               G_GNUC_UNUSED gpointer data)
+{
+    /**
+     * If contact (person), show the name and the contact method (number)
+     * underneath; if multiple contact methods, then indicate as such
+     *
+     * Otherwise just display the category or contact method
+     */
+    GtkTreePath *path = gtk_tree_model_get_path(tree_model, iter);
+    int depth = gtk_tree_path_get_depth(path);
+    gtk_tree_path_free(path);
+
+    gchar *text = NULL;
+
+    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
+    if (idx.isValid()) {
+        QVariant var = idx.data(Qt::DisplayRole);
+        if (depth == 1) {
+            /* category */
+            text = g_strdup_printf("<b>%s</b>", var.value<QString>().toUtf8().constData());
+        } else if (depth == 2) {
+            /* contact, check for contact methods */
+            QVariant var_c = idx.data(static_cast<int>(Person::Role::Object));
+            if (var_c.isValid()) {
+                Person *c = var_c.value<Person *>();
+                switch (c->phoneNumbers().size()) {
+                    case 0:
+                        text = g_strdup_printf("%s\n", c->formattedName().toUtf8().constData());
+                        break;
+                    case 1:
+                    {
+                        QString number;
+                        QVariant var_n = c->phoneNumbers().first()->roleData(Qt::DisplayRole);
+                        if (var_n.isValid())
+                            number = var_n.value<QString>();
+
+                        text = g_strdup_printf("%s\n <span fgcolor=\"gray\">%s</span>",
+                                               c->formattedName().toUtf8().constData(),
+                                               number.toUtf8().constData());
+                        break;
+                    }
+                    default:
+                        /* more than one, for now don't show any of the contact methods */
+                        text = g_strdup_printf("%s\n", c->formattedName().toUtf8().constData());
+                        break;
+                }
+            } else {
+                /* should never happen since depth 2 should always be a contact (person) */
+                text = g_strdup_printf("%s", var.value<QString>().toUtf8().constData());
+            }
+        } else {
+            /* contact method (or deeper??) */
+            text = g_strdup_printf("%s", var.value<QString>().toUtf8().constData());
+        }
+    }
+
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_free(text);
+
+    /* set the colour */
+    if ( depth == 1) {
+        /* nice blue taken from the ring logo */
+        GdkRGBA rgba = {0.2, 0.75294117647, 0.82745098039, 0.1};
+        g_object_set(G_OBJECT(cell), "cell-background-rgba", &rgba, NULL);
+    } else {
+        g_object_set(G_OBJECT(cell), "cell-background", NULL, NULL);
+    }
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -957,6 +1146,54 @@ ring_main_window_init(RingMainWindow *win)
                         scrolled_window,
                         VIEW_CONTACTS);
 
+    CategorizedContactModel::instance()->setUnreachableHidden(true);
+    priv->q_contact_model = new ActiveItemProxyModel(CategorizedContactModel::instance());
+    priv->q_contact_model->setSortRole(Qt::DisplayRole);
+    priv->q_contact_model->setSortLocaleAware(true);
+    priv->q_contact_model->setSortCaseSensitivity(Qt::CaseInsensitive);
+    priv->q_contact_model->sort(0);
+
+    GtkQSortFilterTreeModel *contact_model = gtk_q_sort_filter_tree_model_new(
+        (QSortFilterProxyModel *)priv->q_contact_model,
+        1,
+        Qt::DisplayRole, G_TYPE_STRING);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_contacts), GTK_TREE_MODEL(contact_model));
+
+    /* photo and name/contact method column */
+    GtkCellArea *area = gtk_cell_area_box_new();
+    column = gtk_tree_view_column_new_with_area(area);
+    gtk_tree_view_column_set_title(column, "Name");
+
+    /* photo renderer */
+    renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
+
+    /* get the photo */
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)render_contact_photo,
+        NULL,
+        NULL);
+
+    /* name and contact method renderer */
+    renderer = gtk_cell_renderer_text_new();
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
+
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)render_name_and_contact_method,
+        NULL,
+        NULL);
+
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_contacts), column);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+
+    gtk_tree_view_expand_all(GTK_TREE_VIEW(treeview_contacts));
+    g_signal_connect(contact_model, "row-inserted", G_CALLBACK(expand_if_child), treeview_contacts);
+    g_signal_connect(treeview_contacts, "row-activated", G_CALLBACK(activate_contact_item), NULL);
+
     /* history view/model */
     scrolled_window = gtk_scrolled_window_new(NULL, NULL);
     GtkWidget *treeview_history = gtk_tree_view_new();
@@ -967,19 +1204,15 @@ ring_main_window_init(RingMainWindow *win)
     gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
                         scrolled_window,
                         VIEW_HISTORY);
-    /* TODO: make this linked to the client settings so that the last shown view is the same on startup */
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_contacts_history_presence),
-                                scrolled_window);
-
 
     /* sort the history in descending order by date */
-    QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel(CategorizedHistoryModel::instance());
-    proxyModel->setSourceModel(CategorizedHistoryModel::instance());
-    proxyModel->setSortRole(static_cast<int>(Call::Role::Date));
-    proxyModel->sort(0,Qt::DescendingOrder);
+    priv->q_history_model = new QSortFilterProxyModel();
+    priv->q_history_model->setSourceModel(CategorizedHistoryModel::instance());
+    priv->q_history_model->setSortRole(static_cast<int>(Call::Role::Date));
+    priv->q_history_model->sort(0,Qt::DescendingOrder);
 
     GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new(
-        (QSortFilterProxyModel *)proxyModel,
+        priv->q_history_model,
         5,
         Qt::DisplayRole, G_TYPE_STRING,
         Call::Role::Number, G_TYPE_STRING,
@@ -1031,8 +1264,9 @@ ring_main_window_init(RingMainWindow *win)
                              gtk_tree_path_new_from_string("0"),
                              FALSE);
 
-    g_signal_connect(treeview_history, "row-activated", G_CALLBACK(call_history_item), NULL);
+    g_signal_connect(treeview_history, "row-activated", G_CALLBACK(activate_history_item), NULL);
     g_signal_connect(treeview_history, "button-press-event", G_CALLBACK(history_popup_menu), treeview_history);
+    g_signal_connect(history_model, "row-inserted", G_CALLBACK(expand_if_child), treeview_history);
 
     /* presence view/model */
     scrolled_window = gtk_scrolled_window_new(NULL, NULL);
@@ -1048,6 +1282,9 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect(priv->radiobutton_contacts, "toggled", G_CALLBACK(navbutton_contacts_toggled), win);
     g_signal_connect(priv->radiobutton_history, "toggled", G_CALLBACK(navbutton_history_toggled), win);
     g_signal_connect(priv->radiobutton_presence, "toggled", G_CALLBACK(navbutton_presence_toggled), win);
+
+    /* TODO: make this linked to the client settings so that the last shown view is the same on startup */
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_contacts), TRUE);
 
     /* TODO: replace stack paceholder view */
     GtkWidget *placeholder_view = gtk_tree_view_new();
@@ -1088,8 +1325,20 @@ ring_main_window_init(RingMainWindow *win)
 }
 
 static void
+ring_main_window_dispose(GObject *object)
+{
+    G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
+}
+
+static void
 ring_main_window_finalize(GObject *object)
 {
+    RingMainWindow *self = RING_MAIN_WINDOW(object);
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+
+    delete priv->q_contact_model;
+    delete priv->q_history_model;
+
     G_OBJECT_CLASS(ring_main_window_parent_class)->finalize(object);
 }
 
@@ -1097,6 +1346,7 @@ static void
 ring_main_window_class_init(RingMainWindowClass *klass)
 {
     G_OBJECT_CLASS(klass)->finalize = ring_main_window_finalize;
+    G_OBJECT_CLASS(klass)->dispose = ring_main_window_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");

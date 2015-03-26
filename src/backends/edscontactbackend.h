@@ -28,10 +28,50 @@
  *  as that of the covered work.
  */
 
-#include "activeitemproxymodel.h"
+#ifndef EDSCONTACTBACKEND_H
+#define EDSCONTACTBACKEND_H
 
-//Do not display disabled items
-bool ActiveItemProxyModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+/**
+ * QT_NO_KEYWORDS is needed to resolve the conflict between the symbols used
+ * in this C library (ie: signals) and Qt keywords
+ */
+#define QT_NO_KEYWORDS
+#include <libebook/libebook.h>
+#undef QT_NO_KEYWORDS
+
+#include <collectioninterface.h>
+#include <memory>
+
+class Person;
+
+template<typename T> class CollectionMediator;
+
+void load_eds_sources();
+
+class EdsContactBackend : public CollectionInterface
 {
-    return sourceModel()->index(source_row,0,source_parent).flags() & Qt::ItemIsEnabled;
-}
+public:
+    explicit EdsContactBackend(CollectionMediator<Person>* mediator, EClient *client, CollectionInterface* parent = nullptr);
+    virtual ~EdsContactBackend();
+
+    virtual bool load() override;
+    virtual bool reload() override;
+    virtual bool clear() override;
+    virtual QString    name     () const override;
+    virtual QString    category () const override;
+    virtual bool       isEnabled() const override;
+    virtual QByteArray id       () const override;
+    virtual SupportedFeatures  supportedFeatures() const override;
+
+    void parseContacts(GSList *contacts);
+
+private:
+   CollectionMediator<Person>*  mediator_;
+   std::unique_ptr<EClient, decltype(g_object_unref)&> client_;
+   std::unique_ptr<GCancellable, decltype(g_object_unref)&> cancellable_;
+
+   static void free_contact_list(GSList *list) { g_slist_free_full(list, g_object_unref); };
+   std::unique_ptr<GSList, decltype(free_contact_list)&> contacts_;
+};
+
+#endif /* EDSCONTACTBACKEND_H */

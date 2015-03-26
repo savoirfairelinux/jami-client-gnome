@@ -40,11 +40,16 @@
 #include <useractionmodel.h>
 #include <clutter-gtk/clutter-gtk.h>
 #include <categorizedhistorymodel.h>
+#include <personmodel.h>
+#include <fallbackpersoncollection.h>
+#include <QtCore/QStandardPaths>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
 #include "backends/minimalhistorybackend.h"
 #include "dialogs.h"
+#include "backends/edscontactbackend.h"
+#include "delegates/pixbufdelegate.h"
 
 struct _RingClientClass
 {
@@ -189,8 +194,23 @@ ring_client_startup(GApplication *app, gint argc, gchar **argv)
         return 1;
     }
 
+    /* init delegates */
+    /* FIXME: put in smart pointer? */
+    new PixbufDelegate();
+
     /* add backends */
     CategorizedHistoryModel::instance()->addCollection<MinimalHistoryBackend>(LoadOptions::FORCE_ENABLED);
+
+    PersonModel::instance()->addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
+
+    /* TODO: should a local vcard location be added ?
+     * PersonModel::instance()->addCollection<FallbackPersonCollection, QString>(
+     *    QStandardPaths::writableLocation(QStandardPaths::DataLocation)+QLatin1Char('/')+"vcard",
+     *    LoadOptions::FORCE_ENABLED);
+     */
+
+    /* EDS backend */
+    load_eds_sources();
 
     /* Override theme since we don't have appropriate icons for a dark them (yet) */
     GtkSettings *gtk_settings = gtk_settings_get_default();
