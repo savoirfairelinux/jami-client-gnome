@@ -313,13 +313,41 @@ switch_video_input_screen(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED gpointe
     Video::SourceModel::instance()->setDisplay(display, QRect(x,y,width,height));
 }
 
+static void
+switch_video_input_file(GtkWidget *parent)
+{
+    if (parent && GTK_IS_WIDGET(parent)) {
+        /* get parent window */
+        parent = gtk_widget_get_toplevel(GTK_WIDGET(parent));
+    }
+
+    gchar *uri = NULL;
+    GtkWidget *dialog = gtk_file_chooser_dialog_new(
+            "Choose File",
+            GTK_WINDOW(parent),
+            GTK_FILE_CHOOSER_ACTION_OPEN,
+            "_Cancel", GTK_RESPONSE_CANCEL,
+            "_Open", GTK_RESPONSE_ACCEPT,
+            NULL);
+
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+        uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+    }
+
+    gtk_widget_destroy(dialog);
+
+    Video::SourceModel::instance()->setFile(QUrl(uri));
+
+    g_free(uri);
+}
+
 /*
  * on_button_press_in_screen_event()
  *
  * Handle button event in the video screen.
  */
 static gboolean
-on_button_press_in_screen_event(G_GNUC_UNUSED GtkWidget *widget,
+on_button_press_in_screen_event(GtkWidget *parent,
                                 GdkEventButton *event,
                                 G_GNUC_UNUSED gpointer data)
 {
@@ -347,6 +375,11 @@ on_button_press_in_screen_event(G_GNUC_UNUSED GtkWidget *widget,
     GtkWidget *item = gtk_check_menu_item_new_with_mnemonic("Share screen area");
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen), NULL);
+
+    /* add file as an input */
+    item = gtk_check_menu_item_new_with_mnemonic("Share file");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), parent);
 
     /* show menu */
     gtk_widget_show_all(menu);
