@@ -40,11 +40,17 @@
 #include <useractionmodel.h>
 #include <clutter-gtk/clutter-gtk.h>
 #include <categorizedhistorymodel.h>
+#include <personmodel.h>
+#include <fallbackpersoncollection.h>
+#include <QtCore/QStandardPaths>
+#include <libebook/libebook.h>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
 #include "backends/minimalhistorybackend.h"
 #include "dialogs.h"
+#include "backends/edscontactbackend.h"
+#include "delegates/pixbufdelegate.h"
 
 struct _RingClientClass
 {
@@ -188,9 +194,43 @@ ring_client_startup(GApplication *app, gint argc, gchar **argv)
         g_critical("%s", c_str);
         return 1;
     }
+    
+    /* init delegates */
+//     PixbufDelegate::instance();
+    new PixbufDelegate();
 
     /* add backends */
     CategorizedHistoryModel::instance()->addCollection<MinimalHistoryBackend>(LoadOptions::FORCE_ENABLED);
+//     PersonModel::instance()->addCollection<FallbackPersonCollection, QString>(
+//         QStandardPaths::writableLocation(QStandardPaths::DataLocation)+QLatin1Char('/')+"vcard",
+//         LoadOptions::FORCE_ENABLED);
+    
+    /* EDS backend */
+    GError  *error = NULL;
+    ESourceRegistry *registry = e_source_registry_new_sync (NULL, &error);
+    if (!registry) {
+        g_critical("Unable to create the registry: %s", error->message);
+    } else {
+        GList *list = e_source_registry_list_sources(registry, E_SOURCE_EXTENSION_ADDRESS_BOOK);
+
+        for (GList *l = list ; l; l = l->next) {
+            ESource *source = E_SOURCE(l->data);
+            EClient *client = e_book_client_connect_sync(source, NULL, &error);
+            if (!client) {
+                g_warning("%s", error->message);
+                g_error_free(error);
+                error = NULL;
+            } else {
+                /* got a client for this addressbook, create backend */
+                PersonModel::instance()->addCollection<EdsContactBackend, EClient *>(
+                    client,
+                    LoadOptions::FORCE_ENABLED);
+            }
+        }
+        
+        /* Free each source in the list and the list itself */
+        g_list_free_full(list, g_object_unref);
+    }
 
     /* Override theme since we don't have appropriate icons for a dark them (yet) */
     GtkSettings *gtk_settings = gtk_settings_get_default();

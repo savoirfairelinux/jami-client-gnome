@@ -49,6 +49,11 @@
 #include "videosettingsview.h"
 #include <video/previewmanager.h>
 #include "defines.h"
+#include <categorizedcontactmodel.h>
+#include <personmodel.h>
+#include "utils/drawing.h"
+#include <memory>
+#include "delegates/pixbufdelegate.h"
 
 #define CALL_VIEW_NAME "calls"
 #define CREATE_ACCOUNT_1_VIEW_NAME "create1"
@@ -819,6 +824,39 @@ history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTr
 }
 
 static void
+render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                     GtkCellRenderer *cell,
+                     GtkTreeModel *tree_model,
+                     GtkTreeIter *iter,
+                     G_GNUC_UNUSED gpointer data)
+{
+    /* check if this is a top level item (category),
+     * or a bottom level item (contact method)
+     * in this case we don't want to show a photo */
+//     GdkPixbuf *contact_photo = NULL;
+    GtkTreePath *path = gtk_tree_model_get_path(tree_model, iter);
+    int depth = gtk_tree_path_get_depth(path);
+    gtk_tree_path_free(path);
+    if (depth == 2) {
+        /* get person */
+        QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
+        if (idx.isValid()) {
+            QVariant var = idx.data(static_cast<int>(Person::Role::Object));
+            Person *p = var.value<Person *>();
+            /* get photo */
+            if (p->photo().isValid()) {
+                std::shared_ptr<GdkPixbuf> photo = p->photo().value<std::shared_ptr<GdkPixbuf>>();
+                g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
+                return;
+            }
+        }
+    }
+    
+    /* otherwise, make sure its an empty pixbuf */
+    g_object_set(G_OBJECT(cell), "pixbuf", NULL, NULL);
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -950,12 +988,42 @@ ring_main_window_init(RingMainWindow *win)
     /* contacts view/model */
     GtkWidget *scrolled_window = gtk_scrolled_window_new(NULL, NULL);
     GtkWidget *treeview_contacts = gtk_tree_view_new();
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_contacts), FALSE);
+    // gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_contacts), FALSE);
     gtk_container_add(GTK_CONTAINER(scrolled_window), treeview_contacts);
     gtk_widget_show_all(scrolled_window);
     gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
                         scrolled_window,
                         VIEW_CONTACTS);
+
+    GtkQTreeModel *contact_model = gtk_q_tree_model_new(
+        (QAbstractItemModel *)new CategorizedContactModel(),
+        1,
+        Qt::DisplayRole, G_TYPE_STRING);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_contacts), GTK_TREE_MODEL(contact_model));
+
+    /* photo and name column */
+    column = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(column, "Name");
+    
+    /* photo renderer */
+    renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    
+    /* get the photo */
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)render_contact_photo,
+        NULL,
+        NULL);
+    
+    /* name renderer */
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    
+    gtk_tree_view_column_set_attributes(column, renderer, "text", 0, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_contacts), column);
+    gtk_tree_view_column_set_resizable(column, TRUE);
 
     /* history view/model */
     scrolled_window = gtk_scrolled_window_new(NULL, NULL);
