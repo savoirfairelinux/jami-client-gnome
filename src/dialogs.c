@@ -31,6 +31,8 @@
 #include "dialogs.h"
 
 #include <gtk/gtk.h>
+#include <glib/gprintf.h>
+#include "config.h"
 
 GtkWidget *
 ring_dialog_working(GtkWidget *parent, const gchar *msg)
@@ -70,4 +72,54 @@ ring_dialog_working(GtkWidget *parent, const gchar *msg)
     gtk_widget_show_all(content_area);
 
     return dialog;
+}
+
+void
+ring_about_dialog(GtkWidget *parent)
+{
+    /* get parent window */
+    if (parent && GTK_IS_WIDGET(parent))
+        parent = gtk_widget_get_toplevel(GTK_WIDGET(parent));
+
+    /* get logo */
+    GError *error = NULL;
+    GdkPixbuf* logo = gdk_pixbuf_new_from_resource("/cx/ring/RingGnome/ring-logo-blue", &error);
+    if (logo == NULL) {
+        g_debug("Could not load logo: %s", error->message);
+        g_error_free(error);
+    }
+
+    gchar *version = g_strdup_printf("%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+
+    const gchar *authors[] = {
+        [0] = "Stepan Salenikovich",
+        [1] = "Éloi Bail",
+        [2] = "Guillaume Roguez",
+        [3] = "Emmanuel Lepage",
+        [4] = "Alexandre Lision",
+        [5] = "Thibault Cohen",
+        [6] = NULL,
+    };
+
+    const gchar *artists[] = {
+        [0] = "Marianne Forget",
+        [1] = NULL,
+    };
+
+    gtk_show_about_dialog(
+        GTK_WINDOW(parent),
+        "program-name", "Gnome Ring",
+        "copyright", "© 2015 Savoir-faire Linux",
+        "license-type", GTK_LICENSE_GPL_3_0,
+        "logo", logo,
+        "version", version,
+        "comments", "The GNOME client for Ring.\nRing is a Voice-over-IP software phone.",
+        "authors", authors,
+        "website", "http://www.ring.cx/",
+        "website-label", "www.ring.cx",
+        "artists", artists,
+        NULL
+    );
+
+    g_free(version);
 }
