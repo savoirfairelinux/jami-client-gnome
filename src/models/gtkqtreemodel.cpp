@@ -704,8 +704,13 @@ gtk_q_tree_model_get_value(GtkTreeModel *tree_model,
         //   break;
         case G_TYPE_STRING:
         {
-            QByteArray ba = var.toString().toLocal8Bit();
-            g_value_set_string(value, (gchar *)ba.constData());
+            QByteArray ba = var.toString().toUtf8();
+//             if (!g_utf8_validate(var.toByteArray().constData(), -1, NULL)) {
+//                 g_debug("not a valid utf8 string!");
+//             } else {
+//               g_debug("valid utf8: %s", var.toByteArray().constData());
+//             }
+            g_value_set_string(value, (gchar *)var.toByteArray().constData());
         }
         break;
         // case G_TYPE_POINTER:

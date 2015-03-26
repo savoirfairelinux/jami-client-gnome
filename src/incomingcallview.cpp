@@ -34,6 +34,9 @@
 #include <call.h>
 #include "utils/drawing.h"
 #include <callmodel.h>
+#include <contactmethod.h>
+#include <person.h>
+#include "delegates/pixbufdelegate.h"
 
 struct _IncomingCallView
 {
@@ -209,12 +212,12 @@ void
 incoming_call_view_set_call_info(IncomingCallView *view, const QModelIndex& idx) {
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
-    /* get image and frame it */
-    GdkPixbuf *avatar = ring_draw_fallback_avatar(100);
-    GdkPixbuf *framed_avatar = ring_frame_avatar(avatar);
-    g_object_unref(avatar);
-    gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), framed_avatar);
-    g_object_unref(framed_avatar);
+    Call *call = CallModel::instance()->getCall(idx);
+    
+    /* get call image */
+    QVariant var_i = PixbufDelegate::instance()->callPhoto(call, QSize(80, 80), false);
+    std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
+    gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), image.get());
 
     /* get name */
     QVariant var = idx.model()->data(idx, static_cast<int>(Call::Role::Name));
@@ -222,8 +225,6 @@ incoming_call_view_set_call_info(IncomingCallView *view, const QModelIndex& idx)
     gtk_label_set_text(GTK_LABEL(priv->label_identity), ba_name.constData());
 
     /* change some things depending on call state */
-    Call *call = CallModel::instance()->getCall(idx);
-
     update_state(view, call);
 
     priv->state_change_connection = QObject::connect(

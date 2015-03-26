@@ -30,8 +30,10 @@
 
 #include "activeitemproxymodel.h"
 
+#include <QtCore/QDebug>
+
 //Do not display disabled items
 bool ActiveItemProxyModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
-   return sourceModel()->index(source_row,0,source_parent).flags() & Qt::ItemIsEnabled;
+    return sourceModel()->index(source_row,0,source_parent).flags() & Qt::ItemIsEnabled;
 }
