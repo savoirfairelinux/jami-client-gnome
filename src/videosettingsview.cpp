@@ -237,9 +237,11 @@ video_settings_view_init(VideoSettingsView *view)
 
     /* init new renderer queue */
     priv->new_renderer_queue = g_async_queue_new_full((GDestroyNotify)g_free);
-    /* check new render queue when idle */
-    priv->renderer_idle_source = g_idle_add_full(
+    /* check new render every 30 ms (30ms is "fast enough");
+     * we don't use an idle function so it doesn't consume cpu needlessly */
+    priv->renderer_idle_source = g_timeout_add_full(
                                     G_PRIORITY_DEFAULT_IDLE,
+                                    30,
                                     (GSourceFunc)check_renderer_queue,
                                     view,
                                     NULL);
