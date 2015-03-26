@@ -277,6 +277,7 @@ on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
 static void
 switch_video_input(G_GNUC_UNUSED GtkWidget *widget, Video::Device *device)
 {
+    Video::DeviceModel::instance()->setActive(device);
     Video::SourceModel::instance()->switchTo(device);
 }
 
@@ -338,6 +339,9 @@ on_button_press_in_screen_event(G_GNUC_UNUSED GtkWidget *widget,
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device->isActive());
         g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
     }
+
+    /* add separator */
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
     /* add screen area as an input */
     GtkWidget *item = gtk_check_menu_item_new_with_mnemonic("Share screen area");
