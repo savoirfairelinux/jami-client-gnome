@@ -1,0 +1,7 @@
+Verified+1: Jenkins CI
+Code-Review+2: Eloi Bail <eloi.bail@savoirfairelinux.com>
+Submitted-by: Eloi Bail <eloi.bail@savoirfairelinux.com>
+Submitted-at: Thu, 26 Mar 2015 14:25:46 -0400
+Reviewed-on: https://gerrit-sflphone.savoirfairelinux.com/1558
+Project: ring-client-gnome
+Branch: refs/heads/release-0.1.x
