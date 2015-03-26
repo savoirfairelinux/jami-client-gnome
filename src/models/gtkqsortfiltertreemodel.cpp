@@ -462,6 +462,50 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
             }
         }
     );
+    
+//     QObject::connect(
+//         retval->priv->given_model,
+//         &QAbstractItemModel::layoutAboutToBeChanged,
+//         [=] () {
+//             g_debug("layoutabout to be changed");
+//             /* nothing equvivalent eixists in GtkTreeModel, so simply delete all
+//              * rows, and add all rows when the model is reset;
+//              * we must delete the rows in ascending order */
+//             int row_count = retval->priv->given_model->rowCount();
+//             for (int row = row_count; row > 0; --row) {
+//                 // g_debug("deleting row %d", row -1);
+//                 QModelIndex idx_given = retval->priv->given_model->index(row - 1, 0);
+//                 QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
+//                 QModelIndex idx_access = retval->priv->access_model->mapFromSource(idx_original);
+//                 GtkTreeIter iter;
+//                 iter.stamp = stamp;
+//                 qmodelindex_to_iter(idx_access, &iter);
+//                 GtkTreePath *path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
+//                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path);
+//             }
+//         }
+//     );
+// 
+//     QObject::connect(
+//         retval->priv->given_model,
+//         &QAbstractItemModel::layoutChanged,
+//         [=] () {
+//             g_debug("layout changed");
+//             /* now add all the (new) rows */
+//             int row_count = retval->priv->given_model->rowCount();
+//             for (int row = 0; row < row_count; ++row) {
+//                 // g_debug("adding row %d", row);
+//                 GtkTreeIter *iter_new = g_new0(GtkTreeIter, 1);
+//                 QModelIndex idx_given = retval->priv->given_model->index(row, 0);
+//                 QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
+//                 QModelIndex idx_access = retval->priv->access_model->mapFromSource(idx_original);
+//                 iter_new->stamp = stamp;
+//                 qmodelindex_to_iter(idx_access, iter_new);
+//                 GtkTreePath *path_new = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
+//                 gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, iter_new);
+//             }
+//         }
+//     );
 
     return retval;
 }

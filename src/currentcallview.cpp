@@ -339,7 +339,7 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
 
     /* get name */
     QVariant var = idx.model()->data(idx, static_cast<int>(Call::Role::Name));
-    QByteArray ba_name = var.toString().toLocal8Bit();
+    QByteArray ba_name = var.toString().toUtf8();
     gtk_label_set_text(GTK_LABEL(priv->label_identity), ba_name.constData());
 
     /* change some things depending on call state */
