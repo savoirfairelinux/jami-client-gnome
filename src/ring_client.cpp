@@ -40,11 +40,16 @@
 #include <useractionmodel.h>
 #include <clutter-gtk/clutter-gtk.h>
 #include <categorizedhistorymodel.h>
+#include <personmodel.h>
+#include <fallbackpersoncollection.h>
+#include <QtCore/QStandardPaths>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
 #include "backends/minimalhistorybackend.h"
 #include "dialogs.h"
+#include "backends/edscontactbackend.h"
+#include "delegates/pixbufdelegate.h"
 
 struct _RingClientClass
 {
@@ -65,6 +70,8 @@ struct _RingClientPrivate {
     QCoreApplication *qtapp;
     /* UAM */
     QMetaObject::Connection uam_updated;
+
+    GCancellable *cancellable;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingClient, ring_client, GTK_TYPE_APPLICATION);
@@ -189,8 +196,23 @@ ring_client_startup(GApplication *app, gint argc, gchar **argv)
         return 1;
     }
 
+    /* init delegates */
+    /* FIXME: put in smart pointer? */
+    new PixbufDelegate();
+
     /* add backends */
     CategorizedHistoryModel::instance()->addCollection<MinimalHistoryBackend>(LoadOptions::FORCE_ENABLED);
+
+    PersonModel::instance()->addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
+
+    /* TODO: should a local vcard location be added ?
+     * PersonModel::instance()->addCollection<FallbackPersonCollection, QString>(
+     *    QStandardPaths::writableLocation(QStandardPaths::DataLocation)+QLatin1Char('/')+"vcard",
+     *    LoadOptions::FORCE_ENABLED);
+     */
+
+    /* EDS backend */
+    load_eds_sources(priv->cancellable);
 
     /* Override theme since we don't have appropriate icons for a dark them (yet) */
     GtkSettings *gtk_settings = gtk_settings_get_default();
@@ -283,6 +305,10 @@ ring_client_shutdown(GApplication *app)
 
     g_debug("quitting");
 
+    /* cancel any pending cancellable operations */
+    g_cancellable_cancel(priv->cancellable);
+    g_object_unref(priv->cancellable);
+
     QObject::disconnect(priv->uam_updated);
 
     /* free the QCoreApplication, which will destroy all libRingClient models
@@ -301,6 +327,7 @@ ring_client_init(RingClient *self)
     /* init widget */
     priv->win = NULL;
     priv->qtapp = NULL;
+    priv->cancellable = g_cancellable_new();
 }
 
 static void

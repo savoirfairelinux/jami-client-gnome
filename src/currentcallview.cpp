@@ -36,6 +36,9 @@
 #include "utils/drawing.h"
 #include "video/video_widget.h"
 #include <video/previewmanager.h>
+#include <contactmethod.h>
+#include <person.h>
+#include "delegates/pixbufdelegate.h"
 
 struct _CurrentCallView
 {
@@ -330,21 +333,19 @@ void
 current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    /* get image and frame it */
-    GdkPixbuf *avatar = ring_draw_fallback_avatar(50);
-    GdkPixbuf *framed_avatar = ring_frame_avatar(avatar);
-    g_object_unref(avatar);
-    gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), framed_avatar);
-    g_object_unref(framed_avatar);
+    Call *call = CallModel::instance()->getCall(idx);
+
+    /* get call image */
+    QVariant var_i = PixbufDelegate::instance()->callPhoto(call, QSize(60, 60), false);
+    std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
+    gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
 
     /* get name */
     QVariant var = idx.model()->data(idx, static_cast<int>(Call::Role::Name));
-    QByteArray ba_name = var.toString().toLocal8Bit();
+    QByteArray ba_name = var.toString().toUtf8();
     gtk_label_set_text(GTK_LABEL(priv->label_identity), ba_name.constData());
 
     /* change some things depending on call state */
-    Call *call = CallModel::instance()->getCall(idx);
-
     update_state(view, call);
     update_details(view, call);
 
