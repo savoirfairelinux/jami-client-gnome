@@ -37,6 +37,7 @@ ring_dialog_working(GtkWidget *parent, const gchar *msg)
 {
     GtkWidget *dialog = gtk_dialog_new();
     gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
+    gtk_window_set_resizable(GTK_WINDOW(dialog), FALSE);
 
     if (parent && GTK_IS_WIDGET(parent)) {
         /* get parent window so we can center on it */
@@ -49,6 +50,8 @@ ring_dialog_working(GtkWidget *parent, const gchar *msg)
 
     GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
     gtk_box_set_spacing(GTK_BOX(content_area), 10);
+    gtk_widget_set_size_request(content_area, 250, -1);
+    gtk_widget_set_margin_top(content_area, 25);
 
     GtkWidget *message = NULL;
     if (msg) {
