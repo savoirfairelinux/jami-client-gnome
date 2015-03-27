@@ -44,6 +44,7 @@
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
 #include "backends/minimalhistorybackend.h"
+#include "dialogs.h"
 
 struct _RingClientClass
 {
@@ -111,12 +112,24 @@ action_quit(G_GNUC_UNUSED GSimpleAction *simple,
 #endif
 }
 
+static void
+action_about(G_GNUC_UNUSED GSimpleAction *simple,
+            G_GNUC_UNUSED GVariant      *parameter,
+            gpointer user_data)
+{
+    g_return_if_fail(G_IS_APPLICATION(user_data));
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
+
+    ring_about_dialog(priv->win);
+}
+
 static const GActionEntry ring_actions[] =
 {
-    { "accept", NULL,        NULL, NULL,    NULL, {0} },
-    { "hangup", NULL,        NULL, NULL,    NULL, {0} },
-    { "hold",   NULL,        NULL, "false", NULL, {0} },
-    { "quit",   action_quit, NULL, NULL,    NULL, {0} }
+    { "accept", NULL,         NULL, NULL,    NULL, {0} },
+    { "hangup", NULL,         NULL, NULL,    NULL, {0} },
+    { "hold",   NULL,         NULL, "false", NULL, {0} },
+    { "quit",   action_quit,  NULL, NULL,    NULL, {0} },
+    { "about",  action_about, NULL, NULL,    NULL, {0} }
     /* TODO implement the other actions */
     // { "mute_audio", NULL,        NULL, "false", NULL, {0} },
     // { "mute_video", NULL,        NULL, "false", NULL, {0} },

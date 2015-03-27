@@ -45,8 +45,13 @@
 #include "accountview.h"
 #include <accountmodel.h>
 #include <audio/codecmodel.h>
+#include "dialogs.h"
+#include "videosettingsview.h"
+#include <video/previewmanager.h>
 
 #define CALL_VIEW_NAME "calls"
+#define CREATE_ACCOUNT_1_VIEW_NAME "create1"
+#define CREATE_ACCOUNT_2_VIEW_NAME "create2"
 #define GENERAL_SETTINGS_VIEW_NAME "general"
 #define AUDIO_SETTINGS_VIEW_NAME "audio"
 #define VIDEO_SETTINGS_VIEW_NAME "video"
@@ -87,12 +92,28 @@ struct _RingMainWindowPrivate
     GtkWidget *stack_call_view;
     GtkWidget *button_placecall;
     GtkWidget *account_settings_view;
+    GtkWidget *video_settings_view;
+    GtkWidget *last_settings_view;
     GtkWidget *radiobutton_audio_settings;
     GtkWidget *radiobutton_general_settings;
     GtkWidget *radiobutton_video_settings;
     GtkWidget *radiobutton_account_settings;
 
     gboolean   show_settings;
+
+    /* account creation */
+    GtkWidget *account_creation_1;
+    GtkWidget *image_ring_logo;
+    GtkWidget *label_enter_alias;
+    GtkWidget *entry_alias;
+    GtkWidget *label_generating_account;
+    GtkWidget *spinner_generating_account;
+    GtkWidget *button_account_creation_next;
+    GtkWidget *account_creation_2;
+    GtkWidget *entry_hash;
+    GtkWidget *button_account_creation_done;
+
+    QMetaObject::Connection hash_updated;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -366,6 +387,23 @@ navbutton_history_toggled(GtkToggleButton *navbutton, RingMainWindow *win)
     }
 }
 
+static gboolean
+save_accounts(GtkWidget *working_dialog)
+{
+    /* save changes to accounts */
+    AccountModel::instance()->save();
+    /* save changes to codecs */
+    for (int i = 0; i < AccountModel::instance()->rowCount(); i++) {
+        QModelIndex idx = AccountModel::instance()->index(i, 0);
+        AccountModel::instance()->getAccountByModelIndex(idx)->codecModel()->save();
+    }
+
+    if (working_dialog)
+        gtk_widget_destroy(working_dialog);
+
+    return G_SOURCE_REMOVE;
+}
+
 static void
 settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
 {
@@ -384,8 +422,18 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         gtk_widget_show(priv->hbox_settings);
 
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_UP);
-        gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_SETTINGS_VIEW_NAME);
+        gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->last_settings_view);
     } else {
+        /* show working dialog in case save operation takes time */
+        GtkWidget *working = ring_dialog_working(GTK_WIDGET(win), NULL);
+        gtk_window_present(GTK_WINDOW(working));
+
+        /* now save after the time it takes to transition back to the call view (400ms)
+         * the save doesn't happen before the "working" dialog is presented
+         * the timeout function should destroy the "working" dialog when done saving
+         */
+        g_timeout_add_full(G_PRIORITY_DEFAULT, 400, (GSourceFunc)save_accounts, working, NULL);
+
         /* show calls */
         gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
 
@@ -395,14 +443,189 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
 
-        /* save changes to accounts */
-        AccountModel::instance()->save();
-        /* save changes to codecs */
-        for (int i = 0; i < AccountModel::instance()->rowCount(); i++) {
-            QModelIndex idx = AccountModel::instance()->index(i, 0);
-            AccountModel::instance()->getAccountByModelIndex(idx)->codecModel()->save();
-        }
+        /* make sure video preview is stopped, in case it was started */
+        Video::PreviewManager::instance()->stopPreview();
     }
+}
+
+static void
+show_video_settings(GtkToggleButton *navbutton, RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (gtk_toggle_button_get_active(navbutton)) {
+        gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+        gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), VIDEO_SETTINGS_VIEW_NAME);
+        priv->last_settings_view = priv->video_settings_view;
+    }
+}
+
+static void
+show_account_settings(GtkToggleButton *navbutton, RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (gtk_toggle_button_get_active(navbutton)) {
+        gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+        gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_SETTINGS_VIEW_NAME);
+        priv->last_settings_view = priv->account_settings_view;
+    }
+}
+
+static gboolean
+has_ring_account()
+{
+    /* check if a Ring account exists */
+    int a_count = AccountModel::instance()->rowCount();
+    for (int i = 0; i < a_count; ++i) {
+        QModelIndex idx = AccountModel::instance()->index(i, 0);
+        QVariant protocol = idx.data(static_cast<int>(Account::Role::Proto));
+        if ((Account::Protocol)protocol.toUInt() == Account::Protocol::RING)
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+static gboolean
+create_ring_account(RingMainWindow *win)
+{
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(win), G_SOURCE_REMOVE);
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    /* create account and set UPnP enabled, as its not by default in the daemon */
+    const gchar *alias = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
+    Account *account = AccountModel::instance()->add(alias, Account::Protocol::RING);
+    account->setUpnpEnabled(TRUE);
+
+    /* wait for hash to be generated to show the next view */
+    priv->hash_updated = QObject::connect(
+        account,
+        &Account::changed,
+        [=] (Account *a) {
+            QString hash = a->username();
+            if (!hash.isEmpty()) {
+                /* set the hash */
+                gtk_entry_set_text(GTK_ENTRY(priv->entry_hash), hash.toUtf8().constData());
+
+                /* show the next accont creation view */
+                gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
+                gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CREATE_ACCOUNT_2_VIEW_NAME);
+
+                /* select the hash text */
+                gtk_widget_grab_focus(priv->entry_hash);
+                gtk_editable_select_region(GTK_EDITABLE(priv->entry_hash), 0, -1);
+            }
+        }
+    );
+
+    account->performAction(Account::EditAction::SAVE);
+
+    return G_SOURCE_REMOVE;
+}
+
+static void
+alias_entry_changed(GtkEditable *entry, RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    const gchar *alias = gtk_entry_get_text(GTK_ENTRY(entry));
+    if (strlen(alias) > 0) {
+        /* enable "next" button */
+        gtk_widget_set_sensitive(priv->button_account_creation_next, TRUE);
+    } else {
+        /* disable "next" button, as we require an alias */
+        gtk_widget_set_sensitive(priv->button_account_creation_next, FALSE);
+    }
+}
+
+static void
+account_creation_next_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    /* show/hide relevant widgets */
+    gtk_widget_hide(priv->label_enter_alias);
+    gtk_widget_hide(priv->entry_alias);
+    gtk_widget_hide(priv->button_account_creation_next);
+    gtk_widget_show(priv->label_generating_account);
+    gtk_widget_show(priv->spinner_generating_account);
+
+    /* now create account after a short timeout so that the the save doesn't
+     * happen freeze the client before the widget changes happen;
+     * the timeout function should then display the next step in account creation
+     */
+    g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)create_ring_account, win, NULL);
+}
+
+static void
+account_creation_done_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    QObject::disconnect(priv->hash_updated);
+
+    /* show the call view */
+    gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
+
+    /* show the search bar and settings */
+    gtk_widget_show(priv->hbox_search);
+    gtk_widget_show(priv->ring_settings);
+
+}
+
+static void
+entry_alias_activated(GtkEntry *entry, RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    const gchar *alias = gtk_entry_get_text(GTK_ENTRY(entry));
+    if (strlen(alias) > 0)
+        gtk_button_clicked(GTK_BUTTON(priv->button_account_creation_next));
+}
+
+static void
+show_account_creation(RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
+                        priv->account_creation_1,
+                        CREATE_ACCOUNT_1_VIEW_NAME);
+
+    gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
+                        priv->account_creation_2,
+                        CREATE_ACCOUNT_2_VIEW_NAME);
+
+    /* hide search bar and settings until account creation is complete */
+    gtk_widget_hide(priv->hbox_search);
+    gtk_widget_hide(priv->ring_settings);
+
+    /* set ring logo */
+    GError *error = NULL;
+    GdkPixbuf* logo_ring = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/ring-logo-blue",
+                                                                  -1, 75, TRUE, &error);
+    if (logo_ring == NULL) {
+        g_debug("Could not load logo: %s", error->message);
+        g_error_free(error);
+    } else
+        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring_logo), logo_ring);
+
+    /* style of alias and hash entry; give them a larger font */
+    gtk_widget_override_font(priv->entry_alias, pango_font_description_from_string("15"));
+    gtk_widget_override_font(priv->entry_hash, pango_font_description_from_string("monospace 15"));
+
+    /* connect signals */
+    g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(alias_entry_changed), win);
+    g_signal_connect(priv->button_account_creation_next, "clicked", G_CALLBACK(account_creation_next_clicked), win);
+    g_signal_connect(priv->button_account_creation_done, "clicked", G_CALLBACK(account_creation_done_clicked), win);
+    g_signal_connect(priv->entry_alias, "activate", G_CALLBACK(entry_alias_activated), win);
+    g_signal_connect_swapped(priv->entry_hash, "activate", G_CALLBACK(gtk_button_clicked), priv->button_account_creation_done);
+
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CREATE_ACCOUNT_1_VIEW_NAME);
 }
 
 static void
@@ -446,14 +669,28 @@ ring_main_window_init(RingMainWindow *win)
                         priv->vbox_call_view,
                         CALL_VIEW_NAME);
 
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
+    if (has_ring_account()) {
+        /* user has ring account, so show the call view right away */
+        gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
+    } else {
+        /* user has to create the ring account */
+        show_account_creation(win);
+    }
 
     /* init the settings views */
-    /* make the setting we will show first the active one */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_account_settings), TRUE);
-
     priv->account_settings_view = account_view_new();
     gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->account_settings_view, ACCOUNT_SETTINGS_VIEW_NAME);
+
+    priv->video_settings_view = video_settings_view_new();
+    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->video_settings_view, VIDEO_SETTINGS_VIEW_NAME);
+
+    /* make the setting we will show first the active one */
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_video_settings), TRUE);
+    priv->last_settings_view = priv->video_settings_view;
+
+    /* connect the settings button signals to switch settings views */
+    g_signal_connect(priv->radiobutton_video_settings, "toggled", G_CALLBACK(show_video_settings), win);
+    g_signal_connect(priv->radiobutton_account_settings, "toggled", G_CALLBACK(show_account_settings), win);
 
     /* call model */
     GtkQTreeModel *call_model;
@@ -659,6 +896,19 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_video_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
+
+    /* account creation */
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, account_creation_1);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_ring_logo);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_enter_alias);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_alias);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_generating_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, spinner_generating_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_account_creation_next);
+
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, account_creation_2);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_hash);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_account_creation_done);
 }
 
 GtkWidget *

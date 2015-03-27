@@ -30,10 +30,7 @@
 
 #include "ring_client_options.h"
 
-/* TODO: add header for auto generated config
- * #include "config.h"
- */
-
+#include "config.h"
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <stdlib.h>
@@ -45,7 +42,7 @@ option_version_cb(G_GNUC_UNUSED const gchar *option_name,
                   G_GNUC_UNUSED GError **error)
 {
     /* TODO: replace with auto generated version */
-    g_print("%s\n", "0.1");
+    g_print("%d.%d.%d\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
     exit(EXIT_SUCCESS);
 }
 

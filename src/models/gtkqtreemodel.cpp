@@ -284,12 +284,12 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
 
     /* connect signals */
     QObject::connect(
-        model,
+        proxy_model,
         &QAbstractItemModel::rowsInserted,
         [=](const QModelIndex & parent, int first, int last) {
             for( int row = first; row <= last; row++) {
                 GtkTreeIter *iter = g_new0(GtkTreeIter, 1);
-                QModelIndex idx = retval->priv->model->index(row, 0, parent);
+                QModelIndex idx = proxy_model->index(row, 0, parent);
                 iter->stamp = stamp;
                 qmodelindex_to_iter(idx, iter);
                 GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
@@ -299,14 +299,14 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
     );
 
     QObject::connect(
-        model,
+        proxy_model,
         &QAbstractItemModel::rowsAboutToBeMoved,
         [=](const QModelIndex & sourceParent, int sourceStart, int sourceEnd,
             G_GNUC_UNUSED const QModelIndex & destinationParent, G_GNUC_UNUSED int destinationRow) {
             /* first remove the row from old location
              * then insert them at the new location on the "rowsMoved signal */
             for( int row = sourceStart; row <= sourceEnd; row++) {
-                QModelIndex idx = retval->priv->model->index(row, 0, sourceParent);
+                QModelIndex idx = proxy_model->index(row, 0, sourceParent);
                 GtkTreeIter iter_old;
                 qmodelindex_to_iter(idx, &iter_old);
                 GtkTreePath *path_old = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_old);
@@ -316,7 +316,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
     );
 
     QObject::connect(
-        model,
+        proxy_model,
         &QAbstractItemModel::rowsMoved,
         [=](G_GNUC_UNUSED const QModelIndex & sourceParent, int sourceStart, int sourceEnd,
             const QModelIndex & destinationParent, int destinationRow) {
@@ -324,7 +324,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
              * now insert them in the new location */
             for( int row = sourceStart; row <= sourceEnd; row++) {
                 GtkTreeIter *iter_new = g_new0(GtkTreeIter, 1);
-                QModelIndex idx = retval->priv->model->index(destinationRow, 0, destinationParent);
+                QModelIndex idx = proxy_model->index(destinationRow, 0, destinationParent);
                 iter_new->stamp = stamp;
                 qmodelindex_to_iter(idx, iter_new);
                 GtkTreePath *path_new = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
@@ -335,11 +335,13 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
     );
 
     QObject::connect(
-        model,
+        proxy_model,
         &QAbstractItemModel::rowsAboutToBeRemoved,
         [=](const QModelIndex & parent, int first, int last) {
-            for( int row = first; row <= last; row++) {
-                QModelIndex idx = retval->priv->model->index(row, 0, parent);
+            /* go last to first, since the rows are being deleted */
+            for( int row = last; row >= first; --row) {
+                // g_debug("deleting row: %d", row);
+                QModelIndex idx = proxy_model->index(row, 0, parent);
                 GtkTreeIter iter;
                 iter.stamp = stamp;
                 qmodelindex_to_iter(idx, &iter);
@@ -350,7 +352,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
     );
 
     QObject::connect(
-        model,
+        proxy_model,
         &QAbstractItemModel::dataChanged,
         [=](const QModelIndex & topLeft, const QModelIndex & bottomRight,
             G_GNUC_UNUSED const QVector<int> & roles = QVector<int> ()) {
@@ -374,6 +376,46 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                 qmodelindex_to_iter(idx, iter);
                 path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
                 gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, iter);
+            }
+        }
+    );
+
+    QObject::connect(
+        proxy_model,
+        &QAbstractItemModel::modelAboutToBeReset,
+        [=] () {
+            // g_debug("model about to be reset");
+            /* nothing equvivalent eixists in GtkTreeModel, so simply delete all
+             * rows, and add all rows when the model is reset;
+             * we must delete the rows in ascending order */
+            int row_count = proxy_model->rowCount();
+            for (int row = row_count; row > 0; --row) {
+                // g_debug("deleting row %d", row -1);
+                QModelIndex idx = proxy_model->index(row - 1, 0);
+                GtkTreeIter iter;
+                iter.stamp = stamp;
+                qmodelindex_to_iter(idx, &iter);
+                GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
+                gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path);
+            }
+        }
+    );
+
+    QObject::connect(
+        proxy_model,
+        &QAbstractItemModel::modelReset,
+        [=] () {
+            // g_debug("model reset");
+            /* now add all the (new) rows */
+            int row_count = proxy_model->rowCount();
+            for (int row = 0; row < row_count; row++) {
+                // g_debug("adding row %d", row);
+                GtkTreeIter *iter_new = g_new0(GtkTreeIter, 1);
+                QModelIndex idx = proxy_model->index(row, 0);
+                iter_new->stamp = stamp;
+                qmodelindex_to_iter(idx, iter_new);
+                GtkTreePath *path_new = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
+                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, iter_new);
             }
         }
     );
