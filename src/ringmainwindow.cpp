@@ -275,10 +275,26 @@ search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
-    const gchar *number = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
+    const gchar *number_entered = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
 
-    if (number && strlen(number) > 0) {
-        g_debug("dialing to number: %s", number);
+    if (number_entered && strlen(number_entered) > 0) {
+        /* detect Ring hash */
+        gboolean is_ring_hash = FALSE;
+        if (strlen(number_entered) == 40) {
+            is_ring_hash = TRUE;
+            /* must be 40 chars long and alphanumeric */
+            for (int i = 0; i < 40 && is_ring_hash; ++i) {
+                if (!g_ascii_isalnum(number_entered[i]))
+                    is_ring_hash = FALSE;
+            }
+        }
+
+        QString number = QString{number_entered};
+
+        if (is_ring_hash)
+            number = "ring:" + number;
+
+        g_debug("dialing to number: %s", number.toUtf8().constData());
         Call *call = CallModel::instance()->dialingCall();
         call->setDialNumber(number);
         call->performAction(Call::Action::ACCEPT);
