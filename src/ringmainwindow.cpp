@@ -98,6 +98,10 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_general_settings;
     GtkWidget *radiobutton_video_settings;
     GtkWidget *radiobutton_account_settings;
+    GtkWidget *entry_ring_id;
+
+    Account *active_ring_account;
+    QMetaObject::Connection active_ring_account_updates;
 
     gboolean   show_settings;
 
@@ -645,6 +649,69 @@ show_account_creation(RingMainWindow *win)
 }
 
 static void
+show_ring_id(RingMainWindow *win, Account *account) {
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    /* display the ring id, if we found a ring account */
+    if (account) {
+        if (!account->username().isEmpty()) {
+            gtk_entry_set_text(GTK_ENTRY(priv->entry_ring_id), account->username().toUtf8().constData());
+        } else {
+            g_warning("got ring account, but Ring id is empty");
+            gtk_entry_set_text(GTK_ENTRY(priv->entry_ring_id), "");
+            gtk_entry_set_placeholder_text(GTK_ENTRY(priv->entry_ring_id), "fetching Ring ID...");
+        }
+    } else {
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_ring_id), "");
+        gtk_entry_set_placeholder_text(GTK_ENTRY(priv->entry_ring_id), "no Ring account found");
+    }
+
+}
+
+static void
+get_active_ring_account(RingMainWindow *win)
+{
+    /* get the users Ring account
+     * if multiple accounts exist, get the first one which is registered,
+     * if none, then the first one which is enabled,
+     * if none, then the first one in the list of ring accounts
+     */
+    Account *registered_account = NULL;
+    Account *enabled_account = NULL;
+    Account *ring_account = NULL;
+    int a_count = AccountModel::instance()->rowCount();
+    for (int i = 0; i < a_count && !registered_account; ++i) {
+        QModelIndex idx = AccountModel::instance()->index(i, 0);
+        Account *account = AccountModel::instance()->getAccountByModelIndex(idx);
+        if (account->protocol() == Account::Protocol::RING) {
+            /* got RING account, check if active */
+            if (account->isEnabled()) {
+                /* got enabled account, check if connected */
+                if (account->registrationState() == Account::RegistrationState::READY) {
+                    /* got registered account, use this one */
+                    registered_account = enabled_account = ring_account = account;
+                    // g_debug("got registered account: %s", ring_account->alias().toUtf8().constData());
+                } else {
+                    /* not registered, but enabled, use if its the first one */
+                    if (!enabled_account) {
+                        enabled_account = ring_account = account;
+                        // g_debug("got enabled ring accout: %s", ring_account->alias().toUtf8().constData());
+                    }
+                }
+            } else {
+                /* not enabled, but a Ring account, use if its the first one */
+                if (!ring_account) {
+                    ring_account = account;
+                    // g_debug("got ring account: %s", ring_account->alias().toUtf8().constData());
+                }
+            }
+        }
+    }
+
+    show_ring_id(win, ring_account);
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -876,6 +943,20 @@ ring_main_window_init(RingMainWindow *win)
                 CallModel::instance()->getIndex(call), QItemSelectionModel::ClearAndSelect);
         }
     );
+
+    /* display ring id by first getting the active ring account */
+    gtk_widget_override_font(priv->entry_ring_id, pango_font_description_from_string("monospace"));
+    gtk_widget_set_size_request(priv->entry_ring_id, 400, 35);
+    get_active_ring_account(win);
+    QObject::connect(
+        AccountModel::instance(),
+        &AccountModel::dataChanged,
+        [=] () {
+            /* check if the active ring account has changed,
+             * eg: if it was deleted */
+            get_active_ring_account(win);
+        }
+    );
 }
 
 static void
@@ -912,6 +993,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_video_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_ring_id);
 
     /* account creation */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, account_creation_1);
