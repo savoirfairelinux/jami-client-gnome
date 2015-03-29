@@ -712,6 +712,47 @@ get_active_ring_account(RingMainWindow *win)
 }
 
 static void
+render_call_direction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                      GtkCellRenderer *cell,
+                      GtkTreeModel *tree_model,
+                      GtkTreeIter *iter,
+                      G_GNUC_UNUSED gpointer data)
+{
+    /* check if this is a top level item (the fuzzy date item),
+     * in this case we don't want to show a call direction */
+    gchar *render_direction = NULL;
+    GtkTreeIter parent;
+    if (gtk_tree_model_iter_parent(tree_model, &parent, iter)) {
+        /* get direction and missed values */
+        GValue value = G_VALUE_INIT;
+        gtk_tree_model_get_value(tree_model, iter, 3, &value);
+        Call::Direction direction = (Call::Direction)g_value_get_int(&value);
+        g_value_unset(&value);
+
+        gtk_tree_model_get_value(tree_model, iter, 4, &value);
+        gboolean missed = g_value_get_boolean(&value);
+        g_value_unset(&value);
+
+        switch (direction) {
+            case Call::Direction::INCOMING:
+                if (missed)
+                    render_direction = g_strdup_printf("<span fgcolor=\"red\" font=\"monospace\">&#8601;</span>");
+                else
+                    render_direction = g_strdup_printf("<span fgcolor=\"green\" font=\"monospace\">&#8601;</span>");
+            break;
+            case Call::Direction::OUTGOING:
+                if (missed)
+                    render_direction = g_strdup_printf("<span fgcolor=\"red\" font=\"monospace\">&#8599;</span>");
+                else
+                    render_direction = g_strdup_printf("<span fgcolor=\"green\" font=\"monospace\">&#8599;</span>");
+            break;
+        }
+    }
+    g_object_set(G_OBJECT(cell), "markup", render_direction, NULL);
+    g_free(render_direction);
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -871,17 +912,41 @@ ring_main_window_init(RingMainWindow *win)
     proxyModel->setSortRole(static_cast<int>(Call::Role::Date));
     proxyModel->sort(0,Qt::DescendingOrder);
 
-    GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new((QSortFilterProxyModel *)proxyModel, 4,
+    GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new(
+        (QSortFilterProxyModel *)proxyModel,
+        5,
         Qt::DisplayRole, G_TYPE_STRING,
         Call::Role::Number, G_TYPE_STRING,
         Call::Role::FormattedDate, G_TYPE_STRING,
-        Call::Role::Direction, G_TYPE_INT);
+        Call::Role::Direction, G_TYPE_INT,
+        Call::Role::Missed, G_TYPE_BOOLEAN);
     gtk_tree_view_set_model( GTK_TREE_VIEW(treeview_history), GTK_TREE_MODEL(history_model) );
+
+    /* name column, also used for call direction and fuzzy date for top level items */
+    column = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(column, "Name");
+
+    /* call direction */
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    // gtk_tree_view_column_set_attributes(column, renderer, "text", 0, NULL);
+    // column = gtk_tree_view_column_new_with_attributes("", renderer, "text", 0, NULL);
+    // gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
+
+    /* display the call direction with arrows */
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)render_call_direction,
+        NULL,
+        NULL);
 
     /* name or time category column */
     renderer = gtk_cell_renderer_text_new();
     g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    column = gtk_tree_view_column_new_with_attributes("Name", renderer, "text", 0, NULL);
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(column, renderer, "text", 0, NULL);
+    // column = gtk_tree_view_column_new_with_attributes("Name", renderer, "text", 0, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
     gtk_tree_view_column_set_resizable(column, TRUE);
 
