@@ -42,6 +42,7 @@
 #include "accountaudiotab.h"
 #include "accountvideotab.h"
 #include "dialogs.h"
+#include <glib/gprintf.h>
 
 struct _AccountView
 {
@@ -311,6 +312,40 @@ add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
 }
 
 static void
+state_to_string(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                GtkCellRenderer *cell,
+                GtkTreeModel *tree_model,
+                GtkTreeIter *iter,
+                G_GNUC_UNUSED gpointer data)
+{
+    GValue value = G_VALUE_INIT;
+    gtk_tree_model_get_value(tree_model, iter, 3, &value);
+    Account::RegistrationState state = (Account::RegistrationState)g_value_get_uint(&value);
+    g_value_unset(&value);
+
+    gchar *display_state = NULL;
+    switch (state) {
+        case Account::RegistrationState::READY:
+            display_state = g_strdup_printf("<span fgcolor=\"green\">ready</span>");
+        break;
+        case Account::RegistrationState::UNREGISTERED:
+            display_state = g_strdup_printf("<span fgcolor=\"gray\">unregistered</span>");
+        break;
+        case Account::RegistrationState::TRYING:
+            display_state = g_strdup_printf("<span fgcolor=\"orange\">trying</span>");
+        break;
+        case Account::RegistrationState::ERROR:
+            display_state = g_strdup_printf("<span fgcolor=\"red\">error</span>");
+        break;
+        case Account::RegistrationState::COUNT__:
+            g_warning("registration state should never be \"count\"");
+        break;
+    }
+    g_object_set(G_OBJECT(cell), "markup", display_state, NULL);
+    g_free(display_state);
+}
+
+static void
 account_view_init(AccountView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
@@ -325,8 +360,8 @@ account_view_init(AccountView *view)
     account_model = gtk_q_tree_model_new(AccountModel::instance(), 4,
         Account::Role::Enabled, G_TYPE_BOOLEAN,
         Account::Role::Alias, G_TYPE_STRING,
-        Account::Role::Proto, G_TYPE_INT,
-        Account::Role::RegistrationState, G_TYPE_STRING);
+        Account::Role::Proto, G_TYPE_STRING,
+        Account::Role::RegistrationState, G_TYPE_UINT);
     gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_account_list), GTK_TREE_MODEL(account_model));
 
     renderer = gtk_cell_renderer_toggle_new();
@@ -342,6 +377,14 @@ account_view_init(AccountView *view)
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes("Status", renderer, "text", 3, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_account_list), column);
+
+    /* the registration state is an enum, we want to display it as a string */
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)state_to_string,
+        NULL,
+        NULL);
 
     /* add an empty box to the account stack initially, otherwise there will
      * be no cool animation when the first account is selected */
