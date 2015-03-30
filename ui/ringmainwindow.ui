@@ -69,7 +69,8 @@
                 <child>
                   <object class="GtkButton" id="button_addcontact">
                     <property name="image">image_contact</property>
-                    <property name="visible">True</property>
+                    <!-- TODO: make visible when feature ready -->
+                    <property name="visible">False</property>
                   </object>
                 </child>
               </object>
@@ -232,7 +233,8 @@
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_contacts">
                     <property name="label" translatable="yes">contacts</property>
-                    <property name="visible">True</property>
+                    <!-- TODO: make visible when feature ready -->
+                    <property name="visible">False</property>
                     <property name="image">image_contacts</property>
                     <property name="draw_indicator">False</property>
                   </object>
@@ -252,7 +254,8 @@
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_presence">
                     <property name="label" translatable="yes">online</property>
-                    <property name="visible">True</property>
+                     <!-- TODO: make visible when feature ready -->
+                    <property name="visible">False</property>
                     <property name="image">image_presence</property>
                     <property name="draw_indicator">False</property>
                     <property name="group">radiobutton_contacts</property>
