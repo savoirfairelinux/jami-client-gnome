@@ -48,6 +48,7 @@
 #include "dialogs.h"
 #include "videosettingsview.h"
 #include <video/previewmanager.h>
+#include "defines.h"
 
 #define CALL_VIEW_NAME "calls"
 #define CREATE_ACCOUNT_1_VIEW_NAME "create1"
@@ -98,6 +99,10 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_general_settings;
     GtkWidget *radiobutton_video_settings;
     GtkWidget *radiobutton_account_settings;
+    GtkWidget *entry_ring_id;
+
+    Account *active_ring_account;
+    QMetaObject::Connection active_ring_account_updates;
 
     gboolean   show_settings;
 
@@ -127,10 +132,12 @@ get_index_from_selection(GtkTreeSelection *selection)
     GtkTreeModel *model = NULL;
 
     if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-        return gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
-    } else {
-        return QModelIndex();
+        if (GTK_IS_Q_TREE_MODEL(model))
+            return gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
+        else if (GTK_IS_Q_SORT_FILTER_TREE_MODEL(model))
+            return gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
     }
+    return QModelIndex();
 }
 
 static void
@@ -275,10 +282,26 @@ search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
-    const gchar *number = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
+    const gchar *number_entered = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
 
-    if (number && strlen(number) > 0) {
-        g_debug("dialing to number: %s", number);
+    if (number_entered && strlen(number_entered) > 0) {
+        /* detect Ring hash */
+        gboolean is_ring_hash = FALSE;
+        if (strlen(number_entered) == 40) {
+            is_ring_hash = TRUE;
+            /* must be 40 chars long and alphanumeric */
+            for (int i = 0; i < 40 && is_ring_hash; ++i) {
+                if (!g_ascii_isalnum(number_entered[i]))
+                    is_ring_hash = FALSE;
+            }
+        }
+
+        QString number = QString{number_entered};
+
+        if (is_ring_hash)
+            number = "ring:" + number;
+
+        g_debug("dialing to number: %s", number.toUtf8().constData());
         Call *call = CallModel::instance()->dialingCall();
         call->setDialNumber(number);
         call->performAction(Call::Action::ACCEPT);
@@ -629,6 +652,172 @@ show_account_creation(RingMainWindow *win)
 }
 
 static void
+show_ring_id(RingMainWindow *win, Account *account) {
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    /* display the ring id, if we found a ring account */
+    if (account) {
+        if (!account->username().isEmpty()) {
+            gtk_entry_set_text(GTK_ENTRY(priv->entry_ring_id), account->username().toUtf8().constData());
+        } else {
+            g_warning("got ring account, but Ring id is empty");
+            gtk_entry_set_text(GTK_ENTRY(priv->entry_ring_id), "");
+            gtk_entry_set_placeholder_text(GTK_ENTRY(priv->entry_ring_id), "fetching Ring ID...");
+        }
+    } else {
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_ring_id), "");
+        gtk_entry_set_placeholder_text(GTK_ENTRY(priv->entry_ring_id), "no Ring account found");
+    }
+
+}
+
+static void
+get_active_ring_account(RingMainWindow *win)
+{
+    /* get the users Ring account
+     * if multiple accounts exist, get the first one which is registered,
+     * if none, then the first one which is enabled,
+     * if none, then the first one in the list of ring accounts
+     */
+    Account *registered_account = NULL;
+    Account *enabled_account = NULL;
+    Account *ring_account = NULL;
+    int a_count = AccountModel::instance()->rowCount();
+    for (int i = 0; i < a_count && !registered_account; ++i) {
+        QModelIndex idx = AccountModel::instance()->index(i, 0);
+        Account *account = AccountModel::instance()->getAccountByModelIndex(idx);
+        if (account->protocol() == Account::Protocol::RING) {
+            /* got RING account, check if active */
+            if (account->isEnabled()) {
+                /* got enabled account, check if connected */
+                if (account->registrationState() == Account::RegistrationState::READY) {
+                    /* got registered account, use this one */
+                    registered_account = enabled_account = ring_account = account;
+                    // g_debug("got registered account: %s", ring_account->alias().toUtf8().constData());
+                } else {
+                    /* not registered, but enabled, use if its the first one */
+                    if (!enabled_account) {
+                        enabled_account = ring_account = account;
+                        // g_debug("got enabled ring accout: %s", ring_account->alias().toUtf8().constData());
+                    }
+                }
+            } else {
+                /* not enabled, but a Ring account, use if its the first one */
+                if (!ring_account) {
+                    ring_account = account;
+                    // g_debug("got ring account: %s", ring_account->alias().toUtf8().constData());
+                }
+            }
+        }
+    }
+
+    show_ring_id(win, ring_account);
+}
+
+static void
+render_call_direction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                      GtkCellRenderer *cell,
+                      GtkTreeModel *tree_model,
+                      GtkTreeIter *iter,
+                      G_GNUC_UNUSED gpointer data)
+{
+    /* check if this is a top level item (the fuzzy date item),
+     * in this case we don't want to show a call direction */
+    gchar *render_direction = NULL;
+    GtkTreeIter parent;
+    if (gtk_tree_model_iter_parent(tree_model, &parent, iter)) {
+        /* get direction and missed values */
+        GValue value = G_VALUE_INIT;
+        gtk_tree_model_get_value(tree_model, iter, 3, &value);
+        Call::Direction direction = (Call::Direction)g_value_get_int(&value);
+        g_value_unset(&value);
+
+        gtk_tree_model_get_value(tree_model, iter, 4, &value);
+        gboolean missed = g_value_get_boolean(&value);
+        g_value_unset(&value);
+
+        switch (direction) {
+            case Call::Direction::INCOMING:
+                if (missed)
+                    render_direction = g_strdup_printf("<span fgcolor=\"red\" font=\"monospace\">&#8601;</span>");
+                else
+                    render_direction = g_strdup_printf("<span fgcolor=\"green\" font=\"monospace\">&#8601;</span>");
+            break;
+            case Call::Direction::OUTGOING:
+                if (missed)
+                    render_direction = g_strdup_printf("<span fgcolor=\"red\" font=\"monospace\">&#8599;</span>");
+                else
+                    render_direction = g_strdup_printf("<span fgcolor=\"green\" font=\"monospace\">&#8599;</span>");
+            break;
+        }
+    }
+    g_object_set(G_OBJECT(cell), "markup", render_direction, NULL);
+    g_free(render_direction);
+}
+
+static void
+copy_history_item(G_GNUC_UNUSED GtkWidget *item, GtkTreeView *treeview)
+{
+    GtkTreeSelection *selection = gtk_tree_view_get_selection(treeview);
+    QModelIndex idx = get_index_from_selection(selection);
+
+    if (idx.isValid()) {
+        GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+
+        const gchar* number = idx.data(static_cast<int>(Call::Role::Number)).toString().toUtf8().constData();
+        gtk_clipboard_set_text(clip, number, -1);
+    }
+}
+
+/* TODO: can't seem to delete just one item for now, add when supported in backend
+ * static void
+ * delete_history_item(G_GNUC_UNUSED GtkWidget *item, GtkTreeView *treeview)
+ * {
+ *     GtkTreeSelection *selection = gtk_tree_view_get_selection(treeview);
+ *     QModelIndex idx = get_index_from_selection(selection);
+ *
+ *     if (idx.isValid()) {
+ *         g_debug("deleting history item");
+ *         CategorizedHistoryModel::instance()->removeRow(idx.row(), idx.parent());
+ *     }
+ * }
+ */
+
+static gboolean
+history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTreeView *treeview)
+{
+    /* build popup menu when right clicking on history item
+     * user should be able to copy the "number",
+     * delete history item or all of the history,
+     * and eventualy add the number to a contact
+     */
+
+    /* check for right click */
+    if (event->button != BUTTON_RIGHT_CLICK || event->type != GDK_BUTTON_PRESS)
+        return FALSE;
+
+    GtkWidget *menu = gtk_menu_new();
+
+    /* copy */
+    GtkWidget *item = gtk_menu_item_new_with_mnemonic("_Copy");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    g_signal_connect(item, "activate", G_CALLBACK(copy_history_item), treeview);
+
+    /* TODO: delete history entry
+     * gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+     * item = gtk_menu_item_new_with_mnemonic("_Delete entry");
+     * gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+     * g_signal_connect(item, "activate", G_CALLBACK(delete_history_item), treeview);
+     */
+
+    /* show menu */
+    gtk_widget_show_all(menu);
+    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+
+    return FALSE; /* continue to default handler */
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -788,17 +977,37 @@ ring_main_window_init(RingMainWindow *win)
     proxyModel->setSortRole(static_cast<int>(Call::Role::Date));
     proxyModel->sort(0,Qt::DescendingOrder);
 
-    GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new((QSortFilterProxyModel *)proxyModel, 4,
+    GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new(
+        (QSortFilterProxyModel *)proxyModel,
+        5,
         Qt::DisplayRole, G_TYPE_STRING,
         Call::Role::Number, G_TYPE_STRING,
         Call::Role::FormattedDate, G_TYPE_STRING,
-        Call::Role::Direction, G_TYPE_INT);
+        Call::Role::Direction, G_TYPE_INT,
+        Call::Role::Missed, G_TYPE_BOOLEAN);
     gtk_tree_view_set_model( GTK_TREE_VIEW(treeview_history), GTK_TREE_MODEL(history_model) );
+
+    /* name column, also used for call direction and fuzzy date for top level items */
+    column = gtk_tree_view_column_new();
+    gtk_tree_view_column_set_title(column, "Name");
+
+    /* call direction */
+    renderer = gtk_cell_renderer_text_new();
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+
+    /* display the call direction with arrows */
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)render_call_direction,
+        NULL,
+        NULL);
 
     /* name or time category column */
     renderer = gtk_cell_renderer_text_new();
     g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    column = gtk_tree_view_column_new_with_attributes("Name", renderer, "text", 0, NULL);
+    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_tree_view_column_set_attributes(column, renderer, "text", 0, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
     gtk_tree_view_column_set_resizable(column, TRUE);
 
@@ -822,6 +1031,7 @@ ring_main_window_init(RingMainWindow *win)
                              FALSE);
 
     g_signal_connect(treeview_history, "row-activated", G_CALLBACK(call_history_item), NULL);
+    g_signal_connect(treeview_history, "button-press-event", G_CALLBACK(history_popup_menu), treeview_history);
 
     /* presence view/model */
     scrolled_window = gtk_scrolled_window_new(NULL, NULL);
@@ -860,6 +1070,20 @@ ring_main_window_init(RingMainWindow *win)
                 CallModel::instance()->getIndex(call), QItemSelectionModel::ClearAndSelect);
         }
     );
+
+    /* display ring id by first getting the active ring account */
+    gtk_widget_override_font(priv->entry_ring_id, pango_font_description_from_string("monospace"));
+    gtk_widget_set_size_request(priv->entry_ring_id, 400, 35);
+    get_active_ring_account(win);
+    QObject::connect(
+        AccountModel::instance(),
+        &AccountModel::dataChanged,
+        [=] () {
+            /* check if the active ring account has changed,
+             * eg: if it was deleted */
+            get_active_ring_account(win);
+        }
+    );
 }
 
 static void
@@ -896,6 +1120,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_video_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_ring_id);
 
     /* account creation */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, account_creation_1);

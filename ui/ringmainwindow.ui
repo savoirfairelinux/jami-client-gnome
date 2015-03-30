@@ -45,7 +45,6 @@
                 <property name="visible">True</property>
                 <property name="orientation">horizontal</property>
                 <property name="can_focus">False</property>
-                <!-- <property name="halign">center</property> -->
                 <style>
                   <class name="linked"/>
                 </style>
@@ -70,7 +69,8 @@
                 <child>
                   <object class="GtkButton" id="button_addcontact">
                     <property name="image">image_contact</property>
-                    <property name="visible">True</property>
+                    <!-- TODO: make visible when feature ready -->
+                    <property name="visible">False</property>
                   </object>
                 </child>
               </object>
@@ -233,7 +233,8 @@
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_contacts">
                     <property name="label" translatable="yes">contacts</property>
-                    <property name="visible">True</property>
+                    <!-- TODO: make visible when feature ready -->
+                    <property name="visible">False</property>
                     <property name="image">image_contacts</property>
                     <property name="draw_indicator">False</property>
                   </object>
@@ -253,7 +254,8 @@
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_presence">
                     <property name="label" translatable="yes">online</property>
-                    <property name="visible">True</property>
+                     <!-- TODO: make visible when feature ready -->
+                    <property name="visible">False</property>
                     <property name="image">image_presence</property>
                     <property name="draw_indicator">False</property>
                     <property name="group">radiobutton_contacts</property>
@@ -292,6 +294,42 @@
               </packing>
             </child>
             <!-- end of main display object -->
+            <!-- ring hash location -->
+            <child>
+              <object class="GtkBox" id="hbox_ring_hash">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">horizontal</property>
+                <property name="margin_left">25</property>
+                <property name="margin_right">25</property>
+                <property name="margin_top">5</property>
+                <property name="halign">center</property>
+                <child>
+                  <object class="GtkLabel" id="label_your_ring_id">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Your Ring ID: </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="entry_ring_id">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="editable">False</property>
+                    <property name="xalign">0.5</property>
+                    <property name="placeholder-text" translatable="yes">fetching Ring ID...</property>
+                  </object>
+                  <packing>
+                    <!-- <property name="expand">True</property> -->
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <!-- end ring hash location -->
           </object>
           <packing>
             <property name="shrink">False</property>

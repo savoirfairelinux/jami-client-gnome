@@ -25,6 +25,12 @@ CONFIGURE_FILE (
    "${PROJECT_BINARY_DIR}/config.h"
 )
 
+# generate .desktop file
+CONFIGURE_FILE (
+   "${PROJECT_SOURCE_DIR}/gnome-ring.desktop.in"
+   "${PROJECT_BINARY_DIR}/gnome-ring.desktop"
+)
+
 # add the binary tree to the search path for include files
 # so that we will find config.h
 INCLUDE_DIRECTORIES("${PROJECT_BINARY_DIR}")
@@ -223,4 +229,16 @@ ENDIF()
 
 INSTALL(TARGETS gnome-ring
    RUNTIME DESTINATION bin
+)
+
+INSTALL(FILES ${PROJECT_BINARY_DIR}/gnome-ring.desktop
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications
+)
+
+INSTALL(FILES pixmaps/ring.svg
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps
+)
+
+INSTALL(FILES gnome-ring.appdata.xml
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/appdata/
 )

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Savoir-faire Linux -->
+<component type="desktop">
+ <id>gnome-ring.desktop</id>
+ <metadata_license>CC-BY-SA-3.0</metadata_license>
+ <project_license>GPL-3.0+</project_license>
+ <name>Ring</name>
+ <summary>Gnome client for Ring</summary>
+ <description>
+  <p>
+   Ring allows for secure and distributed communication using DHT. It also
+   supports the SIP protocol.
+  </p>
+ </description>
+ <url type="homepage">http://www.ring.cx</url>
+</component>
