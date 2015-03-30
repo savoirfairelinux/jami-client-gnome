@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a3291f1_537384b1",
+        "filename": "gnome-ring.appdata.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-03-30T17:38:39Z",
+      "side": 1,
+      "message": "just Ring?",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "b465c0e6843dfa38cb7523daf223096a959ee8e2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a3291f1_3341183a",
         "filename": "gnome-ring.desktop",
         "patchSetId": 1
