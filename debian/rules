@@ -1,0 +1,68 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+PKD  = $(abspath $(dir $(MAKEFILE_LIST)))
+#PKG  = $(word 2,$(shell dpkg-parsechangelog -l$(PKD)/changelog --show-field=Source))
+PKG  = $(shell dpkg-parsechangelog -l$(PKD)/changelog --show-field=Source)
+VER ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog | perl -ne 'print $$1 if m{^Version:\s+(?:\d+:)?(\d.*)(?:\-\d+.*)};')
+DISTRIB_RELEASE = $(shell grep -hPo "DISTRIB_RELEASE=\K.*" /etc/*ease)
+
+ifeq ($(DISTRIB_RELEASE),14.04)
+	GCC = CC=gcc-4.9 CXX=g++-4.9
+else
+	GCC =
+endif
+
+.PHONY: get-orig-source
+
+%:
+	dh $@ 
+
+override_dh_auto_clean:
+	# [ -d daemon/contrib/native ] && cd daemon/contrib/native && $(MAKE) distclean
+	[ ! -f Makefile ] || $(MAKE) distclean
+	dh_auto_clean
+
+override_dh_auto_configure:
+	cd libringclient && mkdir -p build && mkdir -p install && cd build && $(GCC) cmake -DRING_BUILD_DIR=$(PWD)/daemon/src -DCMAKE_INSTALL_PREFIX=$(PWD)/libringclient/install -DENABLE_VIDEO=true -DENABLE_STATIC=true .. && make -j 2 && make install
+	mkdir -p build && mkdir -p install && cd build && $(GCC) cmake -DCMAKE_INSTALL_PREFIX=$(PWD)/libringclient/install -DLIB_RING_CLIENT_LIBRARY=$(PWD)/libringclient/install/lib/libringclient_static.a -DENABLE_STATIC=true ..
+
+override_dh_auto_build:
+	cd build && LDFLAGS="-lpthread" make -j 2
+
+override_dh_auto_install:
+	# RING gnome
+	cd build && make DESTDIR=$(CURDIR)/debian/ring-gnome install
+	mkdir -p $(CURDIR)/debian/ring-gnome/usr/bin
+	## FIXME: bad install path from make ...
+	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/bin/* $(CURDIR)/debian/ring-gnome/usr/bin
+	mkdir -p $(CURDIR)/debian/ring-gnome/usr/share/icons/hicolor/scalable/apps/
+	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/icons/hicolor/scalable/apps/ring.svg $(CURDIR)/debian/ring-gnome/usr/share/icons/hicolor/scalable/apps/
+	mkdir -p $(CURDIR)/debian/ring-gnome/usr/share/appdata
+	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/appdata/gnome-ring.appdata.xml $(CURDIR)/debian/ring-gnome/usr/share/appdata
+	mkdir -p $(CURDIR)/debian/ring-gnome/usr/share/applications
+	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/applications/gnome-ring.desktop $(CURDIR)/debian/ring-gnome/usr/share/applications
+	sed -i "s#Icon=.*#Icon=/usr/share/icons/hicolor/scalable/apps/ring.svg#g" $(CURDIR)/debian/ring-gnome/usr/share/applications/gnome-ring.desktop
+	rm -rf $(CURDIR)/debian/ring-gnome/sources
+	dh_auto_install
+
+get-orig-source:
+	# Daemon
+	@echo "# Downloading Ring Daemon ..."
+	rm -rf ring
+	mkdir -p ring
+	git clone https://gerrit-ring.savoirfairelinux.com/ring daemon
+	cd daemon && git checkout master
+	cd daemon && $(RM) -rf .git
+	# LibRingClient
+	@echo "# Downloading Lib Ring Client ..."
+	rm -rf libringclient
+	mkdir -p libringclient
+	git clone git://anongit.kde.org/libringclient.git libringclient
+	cd libringclient && git checkout master
+	cd libringclient && $(RM) -rf .git
+	# Packing
+	@echo "# Packing ... "
+	find . | sort \
+	| XZ_OPT="-6v" tar -caf "../$(PKG)_$(VER)$(DTYPE).orig.tar.xz" -T- --owner=root --group=root --mode=a+rX

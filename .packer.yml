@@ -1,0 +1,22 @@
+ubuntu_14.04:
+    debian: debian
+    ccache: true
+    ppa:
+        - ppa:ubuntu-toolchain-r/test
+    deps:
+        - g++-4.9
+ubuntu_14.10:
+    debian: debian
+    ccache: true
+ubuntu_15.04:
+    debian: debian
+    ccache: true
+fedora_20:
+    spec: ring-gnome.spec
+    ccache: true
+fedora_21:
+    spec: ring-gnome.spec
+    ccache: true
+debian_8:
+    debian: debian
+    ccache: true
