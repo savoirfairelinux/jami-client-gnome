@@ -48,6 +48,7 @@
 #include "dialogs.h"
 #include "videosettingsview.h"
 #include <video/previewmanager.h>
+#include "defines.h"
 
 #define CALL_VIEW_NAME "calls"
 #define CREATE_ACCOUNT_1_VIEW_NAME "create1"
@@ -131,10 +132,12 @@ get_index_from_selection(GtkTreeSelection *selection)
     GtkTreeModel *model = NULL;
 
     if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-        return gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
-    } else {
-        return QModelIndex();
+        if (GTK_IS_Q_TREE_MODEL(model))
+            return gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
+        else if (GTK_IS_Q_SORT_FILTER_TREE_MODEL(model))
+            return gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
     }
+    return QModelIndex();
 }
 
 static void
@@ -753,6 +756,68 @@ render_call_direction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 }
 
 static void
+copy_history_item(G_GNUC_UNUSED GtkWidget *item, GtkTreeView *treeview)
+{
+    GtkTreeSelection *selection = gtk_tree_view_get_selection(treeview);
+    QModelIndex idx = get_index_from_selection(selection);
+
+    if (idx.isValid()) {
+        GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+
+        const gchar* number = idx.data(static_cast<int>(Call::Role::Number)).toString().toUtf8().constData();
+        gtk_clipboard_set_text(clip, number, -1);
+    }
+}
+
+/* TODO: can't seem to delete just one item for now, add when supported in backend
+ * static void
+ * delete_history_item(G_GNUC_UNUSED GtkWidget *item, GtkTreeView *treeview)
+ * {
+ *     GtkTreeSelection *selection = gtk_tree_view_get_selection(treeview);
+ *     QModelIndex idx = get_index_from_selection(selection);
+ *
+ *     if (idx.isValid()) {
+ *         g_debug("deleting history item");
+ *         CategorizedHistoryModel::instance()->removeRow(idx.row(), idx.parent());
+ *     }
+ * }
+ */
+
+static gboolean
+history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTreeView *treeview)
+{
+    /* build popup menu when right clicking on history item
+     * user should be able to copy the "number",
+     * delete history item or all of the history,
+     * and eventualy add the number to a contact
+     */
+
+    /* check for right click */
+    if (event->button != BUTTON_RIGHT_CLICK || event->type != GDK_BUTTON_PRESS)
+        return FALSE;
+
+    GtkWidget *menu = gtk_menu_new();
+
+    /* copy */
+    GtkWidget *item = gtk_menu_item_new_with_mnemonic("_Copy");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    g_signal_connect(item, "activate", G_CALLBACK(copy_history_item), treeview);
+
+    /* TODO: delete history entry
+     * gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+     * item = gtk_menu_item_new_with_mnemonic("_Delete entry");
+     * gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+     * g_signal_connect(item, "activate", G_CALLBACK(delete_history_item), treeview);
+     */
+
+    /* show menu */
+    gtk_widget_show_all(menu);
+    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+
+    return FALSE; /* continue to default handler */
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -966,6 +1031,7 @@ ring_main_window_init(RingMainWindow *win)
                              FALSE);
 
     g_signal_connect(treeview_history, "row-activated", G_CALLBACK(call_history_item), NULL);
+    g_signal_connect(treeview_history, "button-press-event", G_CALLBACK(history_popup_menu), treeview_history);
 
     /* presence view/model */
     scrolled_window = gtk_scrolled_window_new(NULL, NULL);

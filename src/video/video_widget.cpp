@@ -282,7 +282,7 @@ switch_video_input(G_GNUC_UNUSED GtkWidget *widget, Video::Device *device)
 }
 
 static void
-switch_video_input_screen(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED gpointer user_data)
+switch_video_input_screen(G_GNUC_UNUSED GtkWidget *item, G_GNUC_UNUSED gpointer user_data)
 {
     unsigned x, y;
     unsigned width, height;
@@ -314,7 +314,7 @@ switch_video_input_screen(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED gpointe
 }
 
 static void
-switch_video_input_file(GtkWidget *parent)
+switch_video_input_file(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
 {
     if (parent && GTK_IS_WIDGET(parent)) {
         /* get parent window */
