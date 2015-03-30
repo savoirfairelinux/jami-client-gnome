@@ -224,3 +224,15 @@ ENDIF()
 INSTALL(TARGETS gnome-ring
    RUNTIME DESTINATION bin
 )
+
+INSTALL(FIlES gnome-ring.desktop
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications
+)
+
+INSTALL(FIlES pixmaps/symbole-ring-coul.svg
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps
+)
+
+INSTALL(FIlES gnome-ring.appdata.xml
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/appdata/
+)
