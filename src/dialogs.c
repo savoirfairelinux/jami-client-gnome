@@ -89,16 +89,18 @@ ring_about_dialog(GtkWidget *parent)
         g_error_free(error);
     }
 
-    gchar *version = g_strdup_printf("%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+    gchar *name = g_strdup_printf("Gnome Ring v%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
     const gchar *authors[] = {
-        [0] = "Stepan Salenikovich",
-        [1] = "Éloi Bail",
-        [2] = "Guillaume Roguez",
-        [3] = "Emmanuel Lepage",
-        [4] = "Alexandre Lision",
-        [5] = "Thibault Cohen",
-        [6] = NULL,
+        [0] = "Adrien Béraud",
+        [1] = "Alexandre Lision",
+        [2] = "Edric Milaret",
+        [3] = "Éloi Bail",
+        [4] = "Emmanuel Lepage-Vallée",
+        [5] = "Guillaume Roguez",
+        [6] = "Stepan Salenikovich",
+        [7] = "Based on the SFLPhone project",
+        [8] = NULL,
     };
 
     const gchar *artists[] = {
@@ -108,12 +110,12 @@ ring_about_dialog(GtkWidget *parent)
 
     gtk_show_about_dialog(
         GTK_WINDOW(parent),
-        "program-name", "Gnome Ring",
+        "program-name", name,
         "copyright", "© 2015 Savoir-faire Linux",
         "license-type", GTK_LICENSE_GPL_3_0,
         "logo", logo,
-        "version", version,
-        "comments", "The GNOME client for Ring.\nRing is a Voice-over-IP software phone.",
+        "version", "release: Samuel de Champlain",
+        "comments", "The GNOME client for Ring.\nRing is a secured and distributed communication software.",
         "authors", authors,
         "website", "http://www.ring.cx/",
         "website-label", "www.ring.cx",
@@ -121,5 +123,5 @@ ring_about_dialog(GtkWidget *parent)
         NULL
     );
 
-    g_free(version);
+    g_free(name);
 }
