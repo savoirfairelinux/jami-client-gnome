@@ -91,35 +91,23 @@
                   <object class="GtkRadioButton" id="radiobutton_general_settings">
                     <property name="label" translatable="yes">General</property>
                     <!-- TODO make visible when feature added -->
-                    <!-- <property name="visible">True</property> -->
+                    <property name="visible">False</property>
                     <property name="image">image_general_settings</property>
                     <property name="draw_indicator">False</property>
                   </object>
                 </child>
                 <!-- end general settings -->
-                <!-- audio settings -->
+                <!-- media settings -->
                 <child>
-                  <object class="GtkRadioButton" id="radiobutton_audio_settings">
-                    <property name="label" translatable="yes">Audio</property>
-                    <!-- TODO make visible when feature added -->
-                    <!-- <property name="visible">True</property> -->
-                    <property name="image">image_audio_settings</property>
-                    <property name="draw_indicator">False</property>
-                    <property name="group">radiobutton_general_settings</property>
-                  </object>
-                </child>
-                <!-- end audio settings -->
-                <!-- video settings -->
-                <child>
-                  <object class="GtkRadioButton" id="radiobutton_video_settings">
-                    <property name="label" translatable="yes">Video</property>
+                  <object class="GtkRadioButton" id="radiobutton_media_settings">
+                    <property name="label" translatable="yes">Media</property>
                     <property name="visible">True</property>
-                    <property name="image">image_video_settings</property>
+                    <property name="image">image_media_settings</property>
                     <property name="draw_indicator">False</property>
                     <property name="group">radiobutton_general_settings</property>
                   </object>
                 </child>
-                <!-- end video settings -->
+                <!-- end media settings -->
                 <!-- account settings -->
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_account_settings">
@@ -490,14 +478,9 @@
     <property name="icon-name">preferences-system-symbolic</property>
     <property name="icon-size">3</property>
   </object>
-  <object class="GtkImage" id="image_audio_settings">
+  <object class="GtkImage" id="image_media_settings">
     <property name="visible">True</property>
-    <property name="icon-name">audio-headset-symbolic</property>
-    <property name="icon-size">3</property>
-  </object>
-  <object class="GtkImage" id="image_video_settings">
-    <property name="visible">True</property>
-    <property name="icon-name">camera-video-symbolic</property>
+    <property name="icon-name">applications-multimedia-symbolic</property>
     <property name="icon-size">3</property>
   </object>
   <object class="GtkImage" id="image_account_settings">

@@ -47,11 +47,11 @@ G_BEGIN_DECLS
 typedef struct _GtkQSortFilterTreeModel        GtkQSortFilterTreeModel;
 typedef struct _GtkQSortFilterTreeModelClass   GtkQSortFilterTreeModelClass;
 
-GType                  gtk_q_sort_filter_tree_model_get_type            (void) G_GNUC_CONST;
-GtkQSortFilterTreeModel         *gtk_q_sort_filter_tree_model_new                 (QSortFilterProxyModel *, size_t, ...);
-QSortFilterProxyModel *gtk_q_sort_filter_tree_model_get_qmodel          (GtkQSortFilterTreeModel *);
-QModelIndex            gtk_q_sort_filter_tree_model_get_source_idx      (GtkQSortFilterTreeModel *, GtkTreeIter *);
-gboolean               gtk_q_sort_filter_tree_model_source_index_to_iter(GtkQSortFilterTreeModel *, const QModelIndex &, GtkTreeIter *);
+GType                    gtk_q_sort_filter_tree_model_get_type            (void) G_GNUC_CONST;
+GtkQSortFilterTreeModel *gtk_q_sort_filter_tree_model_new                 (QSortFilterProxyModel *, size_t, ...);
+QSortFilterProxyModel   *gtk_q_sort_filter_tree_model_get_qmodel          (GtkQSortFilterTreeModel *);
+QModelIndex              gtk_q_sort_filter_tree_model_get_source_idx      (GtkQSortFilterTreeModel *, GtkTreeIter *);
+gboolean                 gtk_q_sort_filter_tree_model_source_index_to_iter(GtkQSortFilterTreeModel *, const QModelIndex &, GtkTreeIter *);
 
 G_END_DECLS
 
