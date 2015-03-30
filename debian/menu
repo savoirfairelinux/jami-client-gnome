@@ -1,0 +1,2 @@
+?package(ring-gnome):needs="X11" section="Applications/Network/Communication"\
+  title="Ring" command="/usr/bin/gnome-ring"
