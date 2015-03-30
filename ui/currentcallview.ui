@@ -146,7 +146,8 @@
         <child>
           <object class="GtkToggleButton" id="togglebutton_muteaudio">
             <property name="label" translatable="yes">Mute audio</property>
-            <property name="visible">True</property>
+            <!-- TODO: set visible when feature enabled -->
+            <property name="visible">False</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="action-name">app.mute_audio</property>
@@ -159,7 +160,8 @@
         <child>
           <object class="GtkToggleButton" id="togglebutton_mutevideo">
             <property name="label" translatable="yes">Mute video</property>
-            <property name="visible">True</property>
+            <!-- TODO: set visible when feature enabled -->
+            <property name="visible">False</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="action-name">app.mute_video</property>
@@ -172,7 +174,8 @@
         <child>
           <object class="GtkToggleButton" id="togglebutton_record">
             <property name="label" translatable="yes">Record</property>
-            <property name="visible">True</property>
+            <!-- TODO: set visible when feature enabled -->
+            <property name="visible">False</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="action-name">app.record</property>
