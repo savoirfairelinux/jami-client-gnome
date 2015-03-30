@@ -420,6 +420,46 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
         }
     );
 
+//     QObject::connect(
+//         proxy_model,
+//         &QAbstractItemModel::layoutAboutToBeChanged,
+//         [=] () {
+//             // g_debug("layout about to be changed");
+//             /* nothing equvivalent eixists in GtkTreeModel, so simply delete all
+//              * rows, and add all rows when the model is reset;
+//              * we must delete the rows in ascending order */
+//             int row_count = proxy_model->rowCount();
+//             for (int row = row_count; row > 0; --row) {
+//                 // g_debug("deleting row %d", row -1);
+//                 QModelIndex idx = proxy_model->index(row - 1, 0);
+//                 GtkTreeIter iter;
+//                 iter.stamp = stamp;
+//                 qmodelindex_to_iter(idx, &iter);
+//                 GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
+//                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path);
+//             }
+//         }
+//     );
+//
+//     QObject::connect(
+//         proxy_model,
+//         &QAbstractItemModel::layoutChanged,
+//         [=] () {
+//             // g_debug("layout changed");
+//             /* now add all the (new) rows */
+//             int row_count = proxy_model->rowCount();
+//             for (int row = 0; row < row_count; row++) {
+//                 // g_debug("adding row %d", row);
+//                 GtkTreeIter *iter_new = g_new0(GtkTreeIter, 1);
+//                 QModelIndex idx = proxy_model->index(row, 0);
+//                 iter_new->stamp = stamp;
+//                 qmodelindex_to_iter(idx, iter_new);
+//                 GtkTreePath *path_new = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
+//                 gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, iter_new);
+//             }
+//         }
+//     );
+
     return retval;
 }
 

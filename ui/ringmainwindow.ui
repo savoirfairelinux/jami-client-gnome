@@ -90,26 +90,22 @@
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_general_settings">
                     <property name="label" translatable="yes">General</property>
-                    <!-- TODO make visible when feature added -->
-                    <!-- <property name="visible">True</property> -->
+                    <property name="visible">True</property>
                     <property name="image">image_general_settings</property>
                     <property name="draw_indicator">False</property>
                   </object>
                 </child>
                 <!-- end general settings -->
-                <!-- audio settings -->
+                <!-- all settings going into general settings for now
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_audio_settings">
                     <property name="label" translatable="yes">Audio</property>
-                    <!-- TODO make visible when feature added -->
-                    <!-- <property name="visible">True</property> -->
+                    <property name="visible">True</property>
                     <property name="image">image_audio_settings</property>
                     <property name="draw_indicator">False</property>
                     <property name="group">radiobutton_general_settings</property>
                   </object>
                 </child>
-                <!-- end audio settings -->
-                <!-- video settings -->
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_video_settings">
                     <property name="label" translatable="yes">Video</property>
@@ -119,7 +115,7 @@
                     <property name="group">radiobutton_general_settings</property>
                   </object>
                 </child>
-                <!-- end video settings -->
+                -->
                 <!-- account settings -->
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_account_settings">

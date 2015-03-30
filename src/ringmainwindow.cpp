@@ -103,9 +103,7 @@ struct _RingMainWindowPrivate
     GtkWidget *account_settings_view;
     GtkWidget *video_settings_view;
     GtkWidget *last_settings_view;
-    GtkWidget *radiobutton_audio_settings;
     GtkWidget *radiobutton_general_settings;
-    GtkWidget *radiobutton_video_settings;
     GtkWidget *radiobutton_account_settings;
     GtkWidget *label_ring_id;
 
@@ -947,11 +945,11 @@ ring_main_window_init(RingMainWindow *win)
     gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->video_settings_view, VIDEO_SETTINGS_VIEW_NAME);
 
     /* make the setting we will show first the active one */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_video_settings), TRUE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_general_settings), TRUE);
     priv->last_settings_view = priv->video_settings_view;
 
     /* connect the settings button signals to switch settings views */
-    g_signal_connect(priv->radiobutton_video_settings, "toggled", G_CALLBACK(show_video_settings), win);
+    g_signal_connect(priv->radiobutton_general_settings, "toggled", G_CALLBACK(show_video_settings), win);
     g_signal_connect(priv->radiobutton_account_settings, "toggled", G_CALLBACK(show_account_settings), win);
 
     /* call model */
@@ -1211,9 +1209,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_call_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_call_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_placecall);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_audio_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_video_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_ring_id);
 

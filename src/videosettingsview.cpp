@@ -36,6 +36,12 @@
 #include <video/previewmanager.h>
 #include <video/configurationproxy.h>
 #include <QtCore/QItemSelectionModel>
+#include <audio/settings.h>
+#include <audio/managermodel.h>
+#include <audio/alsapluginmodel.h>
+#include <audio/outputdevicemodel.h>
+#include <audio/inputdevicemodel.h>
+#include <audio/ringtonedevicemodel.h>
 
 struct _VideoSettingsView
 {
@@ -51,12 +57,23 @@ typedef struct _VideoSettingsViewPrivate VideoSettingsViewPrivate;
 
 struct _VideoSettingsViewPrivate
 {
+    /* audio settings */
+    GtkWidget *combobox_manager;
+    GtkWidget *combobox_ringtone;
+    GtkWidget *combobox_output;
+    GtkWidget *combobox_input;
+
+    QMetaObject::Connection manager_selection;
+    QMetaObject::Connection ringtone_selection;
+    QMetaObject::Connection output_selection;
+    QMetaObject::Connection input_selection;
+
+    /* camera settings */
     GtkWidget *combobox_device;
     GtkWidget *combobox_channel;
     GtkWidget *combobox_resolution;
     GtkWidget *combobox_framerate;
-    GtkWidget *button_startstop;
-    GtkWidget *vbox_camera_preview;
+    GtkWidget *hbox_camera;
     GtkWidget *video_widget;
 
     /* this is used to keep track of the state of the preview when the settings
@@ -81,6 +98,17 @@ video_settings_view_dispose(GObject *object)
 {
     VideoSettingsView *view = VIDEO_SETTINGS_VIEW(object);
     VideoSettingsViewPrivate *priv = VIDEO_SETTINGS_VIEW_GET_PRIVATE(view);
+
+    /* make sure to stop the preview if this view is getting destroyed */
+    if (priv->video_started_by_settings) {
+        Video::PreviewManager::instance()->stopPreview();
+        priv->video_started_by_settings = FALSE;
+    }
+
+    QObject::disconnect(priv->manager_selection);
+    QObject::disconnect(priv->ringtone_selection);
+    QObject::disconnect(priv->output_selection);
+    QObject::disconnect(priv->input_selection);
 
     QObject::disconnect(priv->local_renderer_connection);
     QObject::disconnect(priv->device_selection);
@@ -135,7 +163,7 @@ connect_combo_box_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
             if (current.isValid()) {
                 GtkTreeIter new_iter;
                 GtkTreeModel *model = gtk_combo_box_get_model(box);
-                g_return_if_fail(model != NULL);
+                g_return_if_fail(model);
                 if (gtk_q_tree_model_source_index_to_iter(GTK_Q_TREE_MODEL(model), current, &new_iter)) {
                     gtk_combo_box_set_active_iter(box, &new_iter);
                 } else {
@@ -179,6 +207,27 @@ video_settings_view_init(VideoSettingsView *view)
     priv->rate_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_framerate),
                                                     Video::ConfigurationProxy::rateModel(),
                                                     Video::ConfigurationProxy::rateSelectionModel());
+
+    /* audio settings */
+    /* instantiate all the models before the manager model first */
+    Audio::Settings::instance()->alsaPluginModel();
+    Audio::Settings::instance()->ringtoneDeviceModel();
+    Audio::Settings::instance()->inputDeviceModel();
+    Audio::Settings::instance()->outputDeviceModel();
+    priv->manager_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_manager),
+                                                       Audio::Settings::instance()->managerModel(),
+                                                       Audio::Settings::instance()->managerModel()->selectionModel());
+    priv->ringtone_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_ringtone),
+                                                        Audio::Settings::instance()->ringtoneDeviceModel(),
+                                                        Audio::Settings::instance()->ringtoneDeviceModel()->selectionModel());
+    priv->input_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_input),
+                                                     Audio::Settings::instance()->inputDeviceModel(),
+                                                     Audio::Settings::instance()->inputDeviceModel()->selectionModel());
+    priv->output_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_output),
+                                                      Audio::Settings::instance()->outputDeviceModel(),
+                                                      Audio::Settings::instance()->outputDeviceModel()->selectionModel());
+
+
 }
 
 static void
@@ -189,11 +238,15 @@ video_settings_view_class_init(VideoSettingsViewClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/videosettingsview.ui");
 
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_manager);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_ringtone);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_output);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_device);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_channel);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_resolution);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_framerate);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, vbox_camera_preview);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, hbox_camera);
 }
 
 GtkWidget *
@@ -220,7 +273,7 @@ video_settings_show_preview(VideoSettingsView *self, gboolean show_preview)
         /* put video widget in */
         priv->video_widget = video_widget_new();
         gtk_widget_show_all(priv->video_widget);
-        gtk_box_pack_start(GTK_BOX(priv->vbox_camera_preview), priv->video_widget, TRUE, TRUE, 0);
+        gtk_box_pack_start(GTK_BOX(priv->hbox_camera), priv->video_widget, TRUE, TRUE, 0);
 
         if (Video::PreviewManager::instance()->isPreviewing()) {
             priv->video_started_by_settings = FALSE;
@@ -250,7 +303,7 @@ video_settings_show_preview(VideoSettingsView *self, gboolean show_preview)
         }
 
         if (priv->video_widget && IS_VIDEO_WIDGET(priv->video_widget))
-            gtk_container_remove(GTK_CONTAINER(priv->vbox_camera_preview), priv->video_widget);
+            gtk_container_remove(GTK_CONTAINER(priv->hbox_camera), priv->video_widget);
         priv->video_widget = NULL;
     }
 
