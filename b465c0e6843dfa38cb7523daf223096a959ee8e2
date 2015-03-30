@@ -22,6 +22,29 @@
       "revId": "b465c0e6843dfa38cb7523daf223096a959ee8e2",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a3291f1_f34a7054",
+        "filename": "gnome-ring.desktop",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2015-03-30T17:30:33Z",
+      "side": 1,
+      "message": "You may add categories \"GTK\" and \"GNOME\" to specify the app was made for GTK/GNOME.\nhttps://developer.gnome.org/integration-guide/stable/desktop-files.html.en",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 10
+      },
+      "revId": "b465c0e6843dfa38cb7523daf223096a959ee8e2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
