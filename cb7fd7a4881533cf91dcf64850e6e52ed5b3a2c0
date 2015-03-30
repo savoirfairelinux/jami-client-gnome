@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a3291f1_53cf04b1",
+        "filename": "gnome-ring.appdata.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2015-03-30T17:51:00Z",
+      "side": 1,
+      "message": "That will define the name of the app in Software Centers. I think it should be just \"Ring\", or something like \"Ring (gnome client)\".",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "cb7fd7a4881533cf91dcf64850e6e52ed5b3a2c0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
