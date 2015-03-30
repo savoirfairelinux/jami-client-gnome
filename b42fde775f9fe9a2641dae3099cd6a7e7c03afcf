@@ -1,0 +1,7 @@
+Code-Review+2: Adrien Béraud <adrien.beraud@savoirfairelinux.com>
+Verified+1: Jenkins CI
+Submitted-by: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+Submitted-at: Mon, 30 Mar 2015 13:56:00 -0400
+Reviewed-on: https://gerrit-sflphone.savoirfairelinux.com/1595
+Project: ring-client-gnome
+Branch: refs/heads/release-0.1.x
