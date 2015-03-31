@@ -312,12 +312,13 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkEntry" id="entry_ring_id">
+                  <object class="GtkLabel" id="label_ring_id">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="editable">False</property>
                     <property name="xalign">0.5</property>
-                    <property name="placeholder-text" translatable="yes">fetching Ring ID...</property>
+                    <property name="use-markup">True</property>
+                    <property name="selectable">True</property>
+                    <property name="label" translatable="yes">&lt;span fgcolor="gray"&gt;fetching Ring ID...&lt;/span&gt;</property>
                   </object>
                   <packing>
                     <!-- <property name="expand">True</property> -->

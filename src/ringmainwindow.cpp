@@ -99,7 +99,7 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_general_settings;
     GtkWidget *radiobutton_video_settings;
     GtkWidget *radiobutton_account_settings;
-    GtkWidget *entry_ring_id;
+    GtkWidget *label_ring_id;
 
     Account *active_ring_account;
     QMetaObject::Connection active_ring_account_updates;
@@ -658,15 +658,14 @@ show_ring_id(RingMainWindow *win, Account *account) {
     /* display the ring id, if we found a ring account */
     if (account) {
         if (!account->username().isEmpty()) {
-            gtk_entry_set_text(GTK_ENTRY(priv->entry_ring_id), account->username().toUtf8().constData());
+            QString hash = "<span fgcolor=\"black\">" + account->username() + "</span>";
+            gtk_label_set_label(GTK_LABEL(priv->label_ring_id), hash.toUtf8().constData());
         } else {
             g_warning("got ring account, but Ring id is empty");
-            gtk_entry_set_text(GTK_ENTRY(priv->entry_ring_id), "");
-            gtk_entry_set_placeholder_text(GTK_ENTRY(priv->entry_ring_id), "fetching Ring ID...");
+            gtk_label_set_label(GTK_LABEL(priv->label_ring_id), "<span fgcolor=\"gray\">fetching Ring ID...</span>");
         }
     } else {
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_ring_id), "");
-        gtk_entry_set_placeholder_text(GTK_ENTRY(priv->entry_ring_id), "no Ring account found");
+        gtk_label_set_label(GTK_LABEL(priv->label_ring_id), "<span fgcolor=\"gray\">no Ring account</span>");
     }
 
 }
@@ -1072,8 +1071,8 @@ ring_main_window_init(RingMainWindow *win)
     );
 
     /* display ring id by first getting the active ring account */
-    gtk_widget_override_font(priv->entry_ring_id, pango_font_description_from_string("monospace"));
-    gtk_widget_set_size_request(priv->entry_ring_id, 400, 35);
+    gtk_widget_override_font(priv->label_ring_id, pango_font_description_from_string("monospace"));
+    gtk_widget_set_size_request(priv->label_ring_id, 400, 35);
     get_active_ring_account(win);
     QObject::connect(
         AccountModel::instance(),
@@ -1120,7 +1119,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_video_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_ring_id);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_ring_id);
 
     /* account creation */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, account_creation_1);
