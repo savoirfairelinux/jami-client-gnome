@@ -168,6 +168,7 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
          * switch(state.value<Call::LifeCycleState>()) { */
         Call::LifeCycleState lifecyclestate = (Call::LifeCycleState)state.toUInt();
         switch(lifecyclestate) {
+            case Call::LifeCycleState::CREATION:
             case Call::LifeCycleState::INITIALIZATION:
             case Call::LifeCycleState::FINISHED:
                 new_call_view = incoming_call_view_new();
@@ -234,6 +235,7 @@ call_state_changed(Call *call, gpointer win)
          * switch(state.value<Call::LifeCycleState>()) { */
         Call::LifeCycleState lifecyclestate = (Call::LifeCycleState)state.toUInt();
         switch(lifecyclestate) {
+            case Call::LifeCycleState::CREATION:
             case Call::LifeCycleState::INITIALIZATION:
                 /* LifeCycleState cannot go backwards, so it should not be possible
                  * that the call is displayed as current (meaning that its in progress)
