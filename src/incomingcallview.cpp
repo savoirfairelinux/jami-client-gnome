@@ -114,6 +114,12 @@ update_state(IncomingCallView *view, Call *call)
     Call::State state = call->state();
 
     switch(state) {
+        case Call::State::NEW:
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "New.");
+            break;
+        case Call::State::ABORTED:
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Aborted.");
+            break;
         case Call::State::INCOMING:
             gtk_label_set_text(GTK_LABEL(priv->label_status), "Incoming...");
             break;
@@ -177,6 +183,8 @@ update_state(IncomingCallView *view, Call *call)
             gtk_widget_show(priv->button_accept_incoming);
             gtk_widget_show(priv->button_reject_incoming);
             break;
+        case Call::State::NEW:
+        case Call::State::ABORTED:
         case Call::State::RINGING:
         case Call::State::CURRENT:
         case Call::State::DIALING:
