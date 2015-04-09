@@ -37,7 +37,10 @@
 #include <video/devicemodel.h>
 #include <QtCore/QUrl>
 #include "../defines.h"
+
 #include <stdlib.h>
+#include <atomic>
+
 #include "xrectsel.h"
 
 #define VIDEO_LOCAL_SIZE            150
@@ -75,9 +78,10 @@ struct _VideoWidgetPrivate {
 };
 
 struct _VideoWidgetRenderer {
-    GAsyncQueue             *frame_queue;
     ClutterActor            *actor;
     Video::Renderer         *renderer;
+    bool                     running;
+    std::atomic_bool         dirty;
     QMetaObject::Connection  frame_update;
     QMetaObject::Connection  render_stop;
     QMetaObject::Connection  render_start;
@@ -87,20 +91,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(VideoWidget, video_widget, GTK_TYPE_BIN);
 
 #define VIDEO_WIDGET_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), VIDEO_WIDGET_TYPE, VideoWidgetPrivate))
 
-typedef struct _FrameInfo
-{
-    ClutterActor   *image_actor;
-    ClutterContent *image;
-    guchar         *data;
-    gint            data_size;
-    gint            width;
-    gint            height;
-} FrameInfo;
-
 /* static prototypes */
-static FrameInfo *prepare_framedata(Video::Renderer *renderer, ClutterActor* image_actor);
-static void free_framedata(gpointer data);
-static void clutter_render_image(FrameInfo *frame);
 static gboolean check_frame_queue(VideoWidget *self);
 static void renderer_stop(VideoWidgetRenderer *renderer);
 static void renderer_start(VideoWidgetRenderer *renderer);
@@ -132,16 +123,6 @@ video_widget_dispose(GObject *object)
     if (priv->frame_timeout_source) {
         g_source_remove(priv->frame_timeout_source);
         priv->frame_timeout_source = 0;
-    }
-
-    if (priv->remote->frame_queue) {
-        g_async_queue_unref(priv->remote->frame_queue);
-        priv->remote->frame_queue = NULL;
-    }
-
-    if (priv->local->frame_queue) {
-        g_async_queue_unref(priv->local->frame_queue);
-        priv->local->frame_queue = NULL;
     }
 
     G_OBJECT_CLASS(video_widget_parent_class)->dispose(object);
@@ -236,8 +217,6 @@ video_widget_init(VideoWidget *self)
                               VIDEO_LOCAL_OPACITY_DEFAULT);
 
     /* init frame queues and the timeout sources to check them */
-    priv->remote->frame_queue = g_async_queue_new_full((GDestroyNotify)free_framedata);
-    priv->local->frame_queue = g_async_queue_new_full((GDestroyNotify)free_framedata);
     priv->frame_timeout_source = g_timeout_add(FRAME_RATE_PERIOD, (GSourceFunc)check_frame_queue, self);
 
     /* handle button event */
@@ -388,66 +367,55 @@ on_button_press_in_screen_event(GtkWidget *parent,
     return TRUE; /* event has been fully handled */
 }
 
-static FrameInfo *
-prepare_framedata(Video::Renderer *renderer, ClutterActor* image_actor)
-{
-    const QByteArray& data = renderer->currentFrame();
-    QSize res = renderer->size();
-
-    /* copy frame data */
-    gpointer frame_data = g_memdup((gconstpointer)data.constData(), data.size());
-
-    FrameInfo *frame = g_new0(FrameInfo, 1);
-
-    frame->image_actor = image_actor;
-    frame->data = (guchar *)frame_data;
-    frame->data_size = data.size();
-    frame->width = res.width();
-    frame->height = res.height();
-
-    return frame;
-}
-
 static void
-free_framedata(gpointer data)
+clutter_render_image(VideoWidgetRenderer* wg_renderer)
 {
-    if (data == NULL) return;
-    FrameInfo *frame = (FrameInfo *)data;
-    g_free(frame->data);
-    g_free(frame);
-}
+    if (!wg_renderer->running)
+        return;
 
-static void
-clutter_render_image(FrameInfo *frame)
-{
-    if (frame == NULL) return;
-    g_return_if_fail(CLUTTER_IS_ACTOR(frame->image_actor));
+    auto renderer = wg_renderer->renderer;
+    if (renderer == nullptr)
+        return;
 
-    ClutterContent * image_new = clutter_image_new();
+    auto actor = wg_renderer->actor;
+    g_return_if_fail(CLUTTER_IS_ACTOR(actor));
 
+    const auto frameData = (const guint8*)renderer->currentFrame().constData();
+    if (!frameData or !wg_renderer->dirty)
+        return;
+
+    wg_renderer->dirty = false;
+
+    auto image_new = clutter_image_new();
+    g_return_if_fail(image_new);
+
+    const auto& res = renderer->size();
     const gint BPP = 4;
-    const gint ROW_STRIDE = BPP * frame->width;
+    const gint ROW_STRIDE = BPP * res.width();
 
-    GError *error = NULL;
+    GError *error = nullptr;
     clutter_image_set_data(
-            CLUTTER_IMAGE(image_new),
-            frame->data,
-            COGL_PIXEL_FORMAT_BGRA_8888,
-            frame->width,
-            frame->height,
-            ROW_STRIDE,
-            &error);
+        CLUTTER_IMAGE(image_new),
+        frameData,
+        COGL_PIXEL_FORMAT_BGRA_8888,
+        res.width(),
+        res.height(),
+        ROW_STRIDE,
+        &error);
     if (error) {
         g_warning("error rendering image to clutter: %s", error->message);
         g_error_free(error);
+        g_object_unref (image_new);
+        return;
     }
 
-    clutter_actor_set_content(frame->image_actor, image_new);
+    clutter_actor_set_content(actor, image_new);
     g_object_unref (image_new);
+
     /* note: we must set the content gravity be "resize aspect" after setting the image data to make sure
      * that the aspect ratio is correct
      */
-    clutter_actor_set_content_gravity(frame->image_actor, CLUTTER_CONTENT_GRAVITY_RESIZE_ASPECT);
+    clutter_actor_set_content_gravity(actor, CLUTTER_CONTENT_GRAVITY_RESIZE_ASPECT);
 }
 
 static gboolean
@@ -456,35 +424,9 @@ check_frame_queue(VideoWidget *self)
     g_return_val_if_fail(IS_VIDEO_WIDGET(self), FALSE);
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
-    /* get the latest frame in the queue */
-    gpointer local_data_last = NULL;
-    gpointer local_data_next = g_async_queue_try_pop(priv->local->frame_queue);
-    while(local_data_next != NULL) {
-        // if (local_data_last != NULL) g_debug("skipping local frame");
-        /* make sure to free the frame we're skipping */
-        free_framedata(local_data_last);
-        local_data_last = local_data_next;
-        local_data_next = g_async_queue_try_pop(priv->local->frame_queue);
-    }
-
-    /* display the frame */
-    clutter_render_image((FrameInfo *)local_data_last);
-    free_framedata(local_data_last);
-
-    /* get the latest frame in the queue */
-    gpointer remote_data_last = NULL;
-    gpointer remote_data_next = g_async_queue_try_pop(priv->remote->frame_queue);
-    while(remote_data_next != NULL) {
-        // if (remote_data_last != NULL) g_debug("skipping remote frame");
-        /* make sure to free the frame we're skipping */
-        free_framedata(remote_data_last);
-        remote_data_last = remote_data_next;
-        remote_data_next = g_async_queue_try_pop(priv->remote->frame_queue);
-    }
-
-    /* display the frame */
-    clutter_render_image((FrameInfo *)remote_data_last);
-    free_framedata(remote_data_last);
+    /* display renderer's frames */
+    clutter_render_image(priv->local);
+    clutter_render_image(priv->remote);
 
     return TRUE; /* keep going */
 }
@@ -494,6 +436,7 @@ renderer_stop(VideoWidgetRenderer *renderer)
 {
     g_return_if_fail(CLUTTER_IS_ACTOR(renderer->actor));
     QObject::disconnect(renderer->frame_update);
+    renderer->running = false;
 }
 
 static void
@@ -501,30 +444,24 @@ renderer_start(VideoWidgetRenderer *renderer)
 {
     g_return_if_fail(CLUTTER_IS_ACTOR(renderer->actor));
     QObject::disconnect(renderer->frame_update);
+
+    renderer->running = true;
+
     renderer->frame_update = QObject::connect(
         renderer->renderer,
         &Video::Renderer::frameUpdated,
-        [=]() {
-            if (!renderer->renderer->isRendering()) {
-                g_debug("got frame but not rendering");
-                return;
-            }
-
-            /* this callback comes from another thread;
-             * rendering must be done in the main loop;
-             * copy the frame and add it to the frame queue
-             */
-            FrameInfo *frame = prepare_framedata(renderer->renderer,
-                                                 renderer->actor);
-            g_async_queue_push(renderer->frame_queue, frame);
+        [renderer]() {
+            // WARNING: this lambda is called in LRC renderer thread,
+            // but check_frame_queue() is in mainloop!
+            renderer->dirty = true;
         }
-    );
+        );
 }
 
 static void
 video_widget_set_renderer(VideoWidgetRenderer *renderer)
 {
-    if (renderer == NULL) return;
+    if (renderer == nullptr) return;
 
     /* reset the content gravity so that the aspect ratio gets properly set if it chagnes */
     clutter_actor_set_content_gravity(renderer->actor, CLUTTER_CONTENT_GRAVITY_RESIZE_FILL);
