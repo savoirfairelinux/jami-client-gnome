@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a3291f1_7eb9a4e8",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-04-10T19:54:53Z",
+      "side": 1,
+      "message": "should be a mutexed bool, since it is set from 2 different threads",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 35
+      },
+      "revId": "e8793be6179499c6482c8f43010b042c1380e301",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a3291f1_9eb450f3",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-04-10T19:54:53Z",
+      "side": 1,
+      "message": "do not unref here as it is used right after and then unrefed; or else put the next 2 lines in an \"else\"",
+      "range": {
+        "startLine": 405,
+        "startChar": 8,
+        "endLine": 405,
+        "endChar": 35
+      },
+      "revId": "e8793be6179499c6482c8f43010b042c1380e301",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
