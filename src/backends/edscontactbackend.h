@@ -51,6 +51,15 @@ void load_eds_sources(GCancellable *cancellable);
 class EdsContactBackend : public CollectionInterface
 {
 public:
+    /* load 300 contacts every 10ms; this is fast enough to load
+     * 1M contacts in about 30s, but can be increased if need be
+     */
+    /* this sets how many contacts will be added at a time */
+    constexpr static int CONTACT_ADD_LIMIT {300};
+    /* this sets the interval in miliseconds to wait before adding
+     * more contacts */
+    constexpr static int CONTACT_ADD_INTERVAL {10};
+
     explicit EdsContactBackend(CollectionMediator<Person>* mediator, EClient *client, CollectionInterface* parent = nullptr);
     virtual ~EdsContactBackend();
 
@@ -63,7 +72,9 @@ public:
     virtual QByteArray id       () const override;
     virtual SupportedFeatures  supportedFeatures() const override;
 
-    void parseContacts(GSList *contacts);
+    void addContacts(GSList *contacts);
+    void parseContact(EContact *contact);
+    void lastContactAdded();
 
 private:
    CollectionMediator<Person>*  mediator_;
@@ -72,6 +83,8 @@ private:
 
    static void free_contact_list(GSList *list) { g_slist_free_full(list, g_object_unref); };
    std::unique_ptr<GSList, decltype(free_contact_list)&> contacts_;
+
+   guint add_contacts_source_id {0};
 };
 
 #endif /* EDSCONTACTBACKEND_H */
