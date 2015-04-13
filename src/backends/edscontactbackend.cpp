@@ -158,6 +158,10 @@ EdsContactBackend::~EdsContactBackend()
 {
     /* cancel any cancellable operations */
     g_cancellable_cancel(cancellable_.get());
+
+    /* cancel contact loading timeout source, if its not finished */
+    if (add_contacts_source_id != 0)
+        g_source_remove(add_contacts_source_id);
 }
 
 QString EdsContactBackend::name() const
@@ -186,43 +190,79 @@ contacts_cb(EBookClient *client, GAsyncResult *result, EdsContactBackend *self)
         g_error_free(error);
         return;
     } else {
-        self->parseContacts(contacts);
+        self->addContacts(contacts);
     }
 }
 
-void EdsContactBackend::parseContacts(GSList *contacts)
+void EdsContactBackend::parseContact(EContact *contact)
+{
+    /* Check if the photo is in-line or a URI, in the case that it is a URI,
+     * try to make it inline so that the lrc vcard parser is able to get the
+     * photo. Note that this will only work on local URIs
+     */
+    EContactPhoto *photo = (EContactPhoto *)e_contact_get(contact, E_CONTACT_PHOTO);
+    if (photo) {
+        if (photo->type == E_CONTACT_PHOTO_TYPE_URI) {
+            GError *error = NULL;
+            if (!e_contact_inline_local_photos(contact, &error)) {
+                g_warning("could not inline photo from vcard URI: %s", error->message);
+                g_error_free(error);
+            }
+        }
+    }
+    e_contact_photo_free(photo);
+
+    EVCard *vcard = E_VCARD(contact);
+    gchar *vcard_str = e_vcard_to_string(vcard, EVC_FORMAT_VCARD_30);
+    Person *p = new Person(vcard_str, Person::Encoding::vCard, this);
+    g_free(vcard_str);
+    editor<Person>()->addExisting(p);
+}
+
+typedef struct AddContactsData_
+{
+    EdsContactBackend* backend;
+    GSList *next;
+} AddContactsData;
+
+static gboolean
+add_contacts(AddContactsData *data)
+{
+    for (int i = 0; i < data->backend->CONTACT_ADD_LIMIT && data->next; i++) {
+        data->backend->parseContact(E_CONTACT(data->next->data));
+        data->next = data->next->next;
+    }
+
+    if (!data->next) {
+        data->backend->lastContactAdded();
+        return G_SOURCE_REMOVE;
+    }
+
+    return G_SOURCE_CONTINUE;
+}
+
+void EdsContactBackend::lastContactAdded()
+{
+    /* Sets the source id to 0 to make sure we don't try to remove this source
+     * after it has already finished */
+    add_contacts_source_id = 0;
+}
+
+
+void EdsContactBackend::addContacts(GSList *contacts)
 {
     contacts_.reset(contacts);
 
-    /**
-     * parse each contact and create a person
-     *
-     * TODO: add only X at a time via a timeout function to reduce the load
-     */
+    /* add CONTACT_ADD_LIMIT # of contacts every CONTACT_ADD_INTERVAL miliseconds */
+    AddContactsData *data = g_new0(AddContactsData, 1);
+    data->backend = this;
+    data->next = contacts_.get();
 
-    for (GSList *l = contacts_.get(); l; l = l->next) {
-        EContact *contact = E_CONTACT(l->data);
-
-        /* Check if the photo is in-line or a URI, in the case that it is a URI,
-         * try to make it inline so that the lrc vcard parser is able to get the
-         * photo. Note that this will only work on local URIs
-         */
-        EContactPhoto *photo = (EContactPhoto *)e_contact_get(contact, E_CONTACT_PHOTO);
-        if (photo) {
-            if (photo->type == E_CONTACT_PHOTO_TYPE_URI) {
-                GError *error = NULL;
-                if (!e_contact_inline_local_photos(contact, &error)) {
-                    g_warning("could not inline photo from vcard URI: %s", error->message);
-                    g_error_free(error);
-                }
-            }
-        }
-        e_contact_photo_free(photo);
-
-        EVCard *vcard = E_VCARD(l->data);
-        Person *p = new Person(e_vcard_to_string(vcard, EVC_FORMAT_VCARD_30), Person::Encoding::vCard, this);
-        editor<Person>()->addExisting(p);
-    }
+    g_timeout_add_full(G_PRIORITY_DEFAULT,
+                       CONTACT_ADD_INTERVAL,
+                       (GSourceFunc)add_contacts,
+                       data,
+                       (GDestroyNotify)g_free);
 }
 
 bool EdsContactBackend::load()
