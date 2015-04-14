@@ -116,10 +116,7 @@ account_password_changed(GtkEditable *entry, AccountGeneralTab *view)
 {
     g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
     AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
-    g_debug("old password: %s", priv->account->password().toUtf8().constData());
-    g_debug("new password: %s", gtk_editable_get_chars(entry, 0, -1));
     priv->account->setPassword(QString(gtk_editable_get_chars(entry, 0, -1)));
-    g_debug("password now: %s", priv->account->password().toUtf8().constData());
 }
 
 static void
@@ -350,7 +347,6 @@ build_tab_view(AccountGeneralTab *view)
                 gtk_entry_set_text(GTK_ENTRY(entry_hostname), priv->account->hostname().toLocal8Bit().constData());
 
                 if (priv->account->protocol() != Account::Protocol::RING) {
-                    g_debug("model updated, password: %s", priv->account->password().toUtf8().constData());
                     gtk_entry_set_text(GTK_ENTRY(entry_password), priv->account->password().toLocal8Bit().constData());
                     gtk_entry_set_text(GTK_ENTRY(entry_proxy), priv->account->proxy().toLocal8Bit().constData());
                     gtk_entry_set_text(GTK_ENTRY(entry_voicemail), priv->account->mailbox().toLocal8Bit().constData());
