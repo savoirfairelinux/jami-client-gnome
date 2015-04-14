@@ -1,5 +1,5 @@
 %define name        ring-gnome
-%define version     0.1.0
+%define version     0.2.0
 %define release     1
 
 Name:               %{name}
@@ -28,7 +28,7 @@ echo "# Downloading Ring Daemon ..."
 rm -rf ring
 git clone https://gerrit-ring.savoirfairelinux.com/ring daemon
 cd daemon 
-git checkout master
+git checkout release-2.1.x
 rm -rf .git
 cd ..
 # LibRingClient
@@ -36,7 +36,7 @@ echo "# Downloading Lib Ring Client ..."
 rm -rf libringclient
 git clone git://anongit.kde.org/libringclient.git libringclient
 cd libringclient
-git checkout master
+git checkout release-0.2.x
 rm -rf .git
 cd ..
 
@@ -83,5 +83,8 @@ sed -i "s#Icon=.*#Icon=%{_datadir}/icons/hicolor/scalable/apps/ring.svg#g" %{bui
 
 
 %changelog
+* Tue Apr 14 2015 Thibault Cohen <thibault.cohen@savoirfairelinux.com> - 0.2.0-1
+- New upstream version
+
 * Fri Mar 27 2015 Thibault Cohen <thibault.cohen@savoirfairelinux.com> - 0.1.0-1
 - New upstream version

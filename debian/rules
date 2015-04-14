@@ -53,14 +53,14 @@ get-orig-source:
 	rm -rf ring
 	mkdir -p ring
 	git clone https://gerrit-ring.savoirfairelinux.com/ring daemon
-	cd daemon && git checkout master
+	cd daemon && git checkout release-2.1.x
 	cd daemon && $(RM) -rf .git
 	# LibRingClient
 	@echo "# Downloading Lib Ring Client ..."
 	rm -rf libringclient
 	mkdir -p libringclient
 	git clone git://anongit.kde.org/libringclient.git libringclient
-	cd libringclient && git checkout master
+	cd libringclient && git checkout release-0.2.x
 	cd libringclient && $(RM) -rf .git
 	# Packing
 	@echo "# Packing ... "
