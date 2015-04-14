@@ -17,7 +17,7 @@ ADD_DEFINITIONS("-std=c++1y")
 PROJECT(ring-client-gnome)
 SET(PROJECT_VERSION_MAJOR 0)
 SET(PROJECT_VERSION_MINOR 2)
-SET(PROJECT_VERSION_PATCH 0)
+SET(PROJECT_VERSION_PATCH 1)
 
 # create config header file to pass cmake settings to source code
 CONFIGURE_FILE (
