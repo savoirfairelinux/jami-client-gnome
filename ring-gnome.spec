@@ -13,8 +13,8 @@ Source:             ring-gnome
 BuildRequires:      autoconf automake libtool dbus-devel pcre-devel yaml-cpp-devel gcc-c++
 BuildRequires:      boost-devel dbus-c++-devel dbus-devel libupnp-devel qt5-qtbase-devel
 BuildRequires:      gnome-icon-theme-symbolic chrpath check astyle gnutls-devel yasm git
-BuildRequires:      cmake clutter-gtk-devel clutter-devel glib2-devel gtk3-devel
-Requires:           gnome-icon-theme-symbolic
+BuildRequires:      cmake clutter-gtk-devel clutter-devel glib2-devel gtk3-devel evolution-data-server-devel
+Requires:           gnome-icon-theme-symbolic evolution-data-server
 
 %description
 Ring GNOME client
