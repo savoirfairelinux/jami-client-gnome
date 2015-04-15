@@ -252,3 +252,21 @@ INSTALL(FILES pixmaps/ring.svg
 INSTALL(FILES gnome-ring.appdata.xml
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/appdata/
 )
+
+# add a target to generate API documentation with Doxygen
+FIND_PACKAGE(Doxygen)
+IF(DOXYGEN_FOUND)
+    CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in ${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile @ONLY)
+    ADD_CUSTOM_TARGET(doc
+        COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc
+        COMMENT "Generating API documentation with Doxygen" VERBATIM
+    )
+
+    # create doc/README.md symlink to README since Doxygen doesn't understand file with no extension
+    ADD_CUSTOM_COMMAND(
+        TARGET doc
+        PRE_BUILD
+        COMMAND ln -sf ${CMAKE_CURRENT_SOURCE_DIR}/README ${CMAKE_CURRENT_SOURCE_DIR}/doc/README.md
+    )
+ENDIF(DOXYGEN_FOUND)
