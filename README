@@ -6,24 +6,43 @@ communicate with the Ring daemon and for all of the underlying models and their
 logic. Ideally ring-client-gnome should only contain UI related code and any
 wrappers necessary for interacting with libRingClient.
 
+Packages for Debian/Ubuntu/Fedora can be found on http://ring.cx
+
+More info about the Ring project or this client can be found on their respective wiki pages:
+- https://projects.savoirfairelinux.com/projects/ring/wiki
+- https://projects.savoirfairelinux.com/projects/ring-gnome-client/wiki
+
 
 Requirements
 ==================
 
 - Ring daemon
-- libRingClient (Qt5 version)
+- libRingClient
 - GTK+3 (3.10 or higher)
 - Qt5 Core
+- X11
+- gnome-icon-theme-symbolic (certain icons are used which other themes might be missing)
+- libebook1.2 / evolution-data-server (3.10 or higher)
+
+On Debian/Ubuntu these can be installed by:
+    sudo apt-get install g++ cmake libgtk-3-dev qtbase5-dev libclutter-gtk-1.0-dev gnome-icon-theme-symbolic libebook-1.2-dev
+
+On Fedora:
+    yum install gcc-c++ cmake gtk3-devel qt5-qtbase-devel clutter-gtk-devel gnome-icon-theme-symbolic evolution-data-server-devel
+
+The build instruction for the daemon and libRingClient can be found on their respective wiki pages:
+- https://projects.savoirfairelinux.com/projects/ring-daemon/wiki
+- https://projects.savoirfairelinux.com/projects/libringclient/wiki/Wiki
 
 
 Compiling
 ==================
 
 In the project root dir:
-	mkdir build
-	cd build
-	cmake ..
-	make
+    mkdir build
+    cd build
+    cmake ..
+    make
 
 Then simply run ./ring-client-gnome
 
