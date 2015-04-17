@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a2f8d8d_eb405137",
+        "filename": "README",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 25
+      },
+      "writtenOn": "2015-04-17T20:13:09Z",
+      "side": 1,
+      "message": "Are you sure build type is Debug by default ?",
+      "revId": "529ee5b86e561de6da825e2933af827f0899e192",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
