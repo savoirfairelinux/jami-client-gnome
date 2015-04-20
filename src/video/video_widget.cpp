@@ -216,8 +216,16 @@ video_widget_init(VideoWidget *self)
     clutter_actor_set_opacity(priv->local->actor,
                               VIDEO_LOCAL_OPACITY_DEFAULT);
 
-    /* init frame queues and the timeout sources to check them */
-    priv->frame_timeout_source = g_timeout_add(FRAME_RATE_PERIOD, (GSourceFunc)check_frame_queue, self);
+    /* Init the timeout source which will check the for new frames.
+     * The priority must be lower than GTK drawing events
+     * (G_PRIORITY_HIGH_IDLE + 20) so that this timeout source doesn't choke
+     * the main loop on slower machines.
+     */
+    priv->frame_timeout_source = g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,
+                                                    FRAME_RATE_PERIOD,
+                                                    (GSourceFunc)check_frame_queue,
+                                                    self,
+                                                    NULL);
 
     /* handle button event */
     g_signal_connect(GTK_WIDGET(self), "button-press-event", G_CALLBACK(on_button_press_in_screen_event), NULL);
