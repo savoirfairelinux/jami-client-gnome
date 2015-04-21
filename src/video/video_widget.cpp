@@ -37,10 +37,8 @@
 #include <video/devicemodel.h>
 #include <QtCore/QUrl>
 #include "../defines.h"
-
 #include <stdlib.h>
 #include <atomic>
-
 #include "xrectsel.h"
 
 #define VIDEO_LOCAL_SIZE            150
@@ -86,6 +84,7 @@ struct _VideoWidgetPrivate {
 };
 
 struct _VideoWidgetRenderer {
+    VideoRendererType        type;
     ClutterActor            *actor;
     Video::Renderer         *renderer;
     std::atomic_bool         running;
@@ -100,13 +99,14 @@ G_DEFINE_TYPE_WITH_PRIVATE(VideoWidget, video_widget, GTK_TYPE_BIN);
 #define VIDEO_WIDGET_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), VIDEO_WIDGET_TYPE, VideoWidgetPrivate))
 
 /* static prototypes */
-static gboolean check_frame_queue(VideoWidget *self);
-static void renderer_stop(VideoWidgetRenderer *renderer);
-static void renderer_start(VideoWidgetRenderer *renderer);
-static void video_widget_set_renderer(VideoWidgetRenderer *renderer);
-static void on_drag_data_received(GtkWidget *, GdkDragContext *, gint, gint, GtkSelectionData *, guint, guint32, gpointer);
+static gboolean check_frame_queue              (VideoWidget *);
+static void     renderer_stop                  (VideoWidgetRenderer *);
+static void     renderer_start                 (VideoWidgetRenderer *);
+static void     on_drag_data_received          (GtkWidget *, GdkDragContext *, gint, gint, GtkSelectionData *, guint, guint32, gpointer);
 static gboolean on_button_press_in_screen_event(GtkWidget *, GdkEventButton *, gpointer);
-static gboolean check_renderer_queue(VideoWidget *);
+static gboolean check_renderer_queue           (VideoWidget *);
+static void     free_video_widget_renderer     (VideoWidgetRenderer *);
+static void     video_widget_add_renderer      (VideoWidget *, VideoWidgetRenderer *);
 
 /*
  * video_widget_dispose()
@@ -118,14 +118,6 @@ video_widget_dispose(GObject *object)
 {
     VideoWidget *self = VIDEO_WIDGET(object);
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
-
-    QObject::disconnect(priv->remote->frame_update);
-    QObject::disconnect(priv->remote->render_stop);
-    QObject::disconnect(priv->remote->render_start);
-
-    QObject::disconnect(priv->local->frame_update);
-    QObject::disconnect(priv->local->render_stop);
-    QObject::disconnect(priv->local->render_start);
 
     /* dispose may be called multiple times, make sure
      * not to call g_source_remove more than once */
@@ -159,8 +151,8 @@ video_widget_finalize(GObject *object)
     VideoWidget *self = VIDEO_WIDGET(object);
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
-    g_free(priv->remote);
-    g_free(priv->local);
+    free_video_widget_renderer(priv->local);
+    free_video_widget_renderer(priv->remote);
 
     G_OBJECT_CLASS(video_widget_parent_class)->finalize(object);
 }
@@ -247,7 +239,7 @@ video_widget_init(VideoWidget *self)
                                                     NULL);
 
     /* init new renderer queue */
-    priv->new_renderer_queue = g_async_queue_new_full((GDestroyNotify)g_free);
+    priv->new_renderer_queue = g_async_queue_new_full((GDestroyNotify)free_video_widget_renderer);
     /* check new render every 30 ms (30ms is "fast enough");
      * we don't use an idle function so it doesn't consume cpu needlessly */
     priv->renderer_timeout_source= g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,
@@ -471,7 +463,6 @@ check_frame_queue(VideoWidget *self)
 static void
 renderer_stop(VideoWidgetRenderer *renderer)
 {
-    g_return_if_fail(CLUTTER_IS_ACTOR(renderer->actor));
     QObject::disconnect(renderer->frame_update);
     renderer->running = false;
 }
@@ -479,7 +470,6 @@ renderer_stop(VideoWidgetRenderer *renderer)
 static void
 renderer_start(VideoWidgetRenderer *renderer)
 {
-    g_return_if_fail(CLUTTER_IS_ACTOR(renderer->actor));
     QObject::disconnect(renderer->frame_update);
 
     renderer->running = true;
@@ -496,56 +486,44 @@ renderer_start(VideoWidgetRenderer *renderer)
 }
 
 static void
-video_widget_set_renderer(VideoWidgetRenderer *renderer)
+free_video_widget_renderer(VideoWidgetRenderer *renderer)
 {
-    if (renderer == nullptr) return;
-
-    /* reset the content gravity so that the aspect ratio gets properly set if it chagnes */
-    clutter_actor_set_content_gravity(renderer->actor, CLUTTER_CONTENT_GRAVITY_RESIZE_FILL);
-
-    /* update the renderer */
     QObject::disconnect(renderer->frame_update);
     QObject::disconnect(renderer->render_stop);
     QObject::disconnect(renderer->render_start);
-
-    if (renderer->renderer->isRendering())
-        renderer_start(renderer);
-
-    renderer->render_stop = QObject::connect(
-        renderer->renderer,
-        &Video::Renderer::stopped,
-        [=]() {
-            renderer_stop(renderer);
-        }
-    );
-
-    renderer->render_start = QObject::connect(
-        renderer->renderer,
-        &Video::Renderer::started,
-        [=]() {
-            renderer_start(renderer);
-        }
-    );
+    g_free(renderer);
 }
 
 static void
-video_widget_add_renderer(VideoWidget *self, const VideoRenderer *new_renderer)
+video_widget_add_renderer(VideoWidget *self, VideoWidgetRenderer *new_video_renderer)
 {
     g_return_if_fail(IS_VIDEO_WIDGET(self));
-    if (new_renderer == NULL || new_renderer->renderer == NULL)
-        return;
+    g_return_if_fail(new_video_renderer);
+    g_return_if_fail(new_video_renderer->renderer);
 
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
     /* update the renderer */
-    switch(new_renderer->type) {
+    switch(new_video_renderer->type) {
         case VIDEO_RENDERER_REMOTE:
-            priv->remote->renderer = new_renderer->renderer;
-            video_widget_set_renderer(priv->remote);
+            /* swap the remote renderer */
+            new_video_renderer->actor = priv->remote->actor;
+            free_video_widget_renderer(priv->remote);
+            priv->remote = new_video_renderer;
+            /* reset the content gravity so that the aspect ratio gets properly
+             * reset if it chagnes */
+            clutter_actor_set_content_gravity(priv->remote->actor,
+                                              CLUTTER_CONTENT_GRAVITY_RESIZE_FILL);
             break;
         case VIDEO_RENDERER_LOCAL:
-            priv->local->renderer = new_renderer->renderer;
-            video_widget_set_renderer(priv->local);
+            /* swap the remote renderer */
+            new_video_renderer->actor = priv->local->actor;
+            free_video_widget_renderer(priv->local);
+            priv->local = new_video_renderer;
+            /* reset the content gravity so that the aspect ratio gets properly
+             * reset if it chagnes */
+            clutter_actor_set_content_gravity(priv->local->actor,
+                                              CLUTTER_CONTENT_GRAVITY_RESIZE_FILL);
             break;
         case VIDEO_RENDERER_COUNT:
             break;
@@ -559,11 +537,10 @@ check_renderer_queue(VideoWidget *self)
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
     /* get all the renderers in the queue */
-    gpointer new_video_renderer = g_async_queue_try_pop(priv->new_renderer_queue);
+    VideoWidgetRenderer *new_video_renderer = (VideoWidgetRenderer *)g_async_queue_try_pop(priv->new_renderer_queue);
     while (new_video_renderer) {
-        video_widget_add_renderer(self, (const VideoRenderer *)new_video_renderer);
-        g_free(new_video_renderer);
-        new_video_renderer = g_async_queue_try_pop(priv->new_renderer_queue);
+        video_widget_add_renderer(self, new_video_renderer);
+        new_video_renderer = (VideoWidgetRenderer *)g_async_queue_try_pop(priv->new_renderer_queue);
     }
 
     return G_SOURCE_CONTINUE;
@@ -593,9 +570,31 @@ video_widget_push_new_renderer(VideoWidget *self, Video::Renderer *renderer, Vid
     g_return_if_fail(IS_VIDEO_WIDGET(self));
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
-    VideoRenderer *new_video_renderer = g_new0(VideoRenderer, 1);
+    /* if the renderer is nullptr, there is nothing to be done */
+    if (!renderer) return;
+
+    VideoWidgetRenderer *new_video_renderer = g_new0(VideoWidgetRenderer, 1);
     new_video_renderer->renderer = renderer;
     new_video_renderer->type = type;
+
+    if (new_video_renderer->renderer->isRendering())
+        renderer_start(new_video_renderer);
+
+    new_video_renderer->render_stop = QObject::connect(
+        new_video_renderer->renderer,
+        &Video::Renderer::stopped,
+        [=]() {
+            renderer_stop(new_video_renderer);
+        }
+    );
+
+    new_video_renderer->render_start = QObject::connect(
+        new_video_renderer->renderer,
+        &Video::Renderer::started,
+        [=]() {
+            renderer_start(new_video_renderer);
+        }
+    );
 
     g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
 }
