@@ -37,10 +37,9 @@
 #include <video/devicemodel.h>
 #include <QtCore/QUrl>
 #include "../defines.h"
-
 #include <stdlib.h>
 #include <atomic>
-
+#include <mutex>
 #include "xrectsel.h"
 
 #define VIDEO_LOCAL_SIZE            150
@@ -75,6 +74,14 @@ struct _VideoWidgetPrivate {
     VideoWidgetRenderer     *local;
 
     guint                    frame_timeout_source;
+
+    /* new renderers should be put into the queue for processing by a g_timeout
+     * functions whose id should be saved into renderer_timeout_source;
+     * this way when the VideoWidget object is destroyed, we do not try
+     * to process any new renderers by stoping the g_timeout function.
+     */
+    guint        renderer_timeout_source;
+    GAsyncQueue *new_renderer_queue;
 };
 
 struct _VideoWidgetRenderer {
@@ -85,6 +92,14 @@ struct _VideoWidgetRenderer {
     QMetaObject::Connection  frame_update;
     QMetaObject::Connection  render_stop;
     QMetaObject::Connection  render_start;
+};
+
+struct _VideoRenderer
+{
+    VideoRendererType       type;
+    Video::Renderer        *renderer;
+    std::mutex              stopped_mutex;
+    QMetaObject::Connection stopped_connection;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(VideoWidget, video_widget, GTK_TYPE_BIN);
@@ -98,6 +113,8 @@ static void renderer_start(VideoWidgetRenderer *renderer);
 static void video_widget_set_renderer(VideoWidgetRenderer *renderer);
 static void on_drag_data_received(GtkWidget *, GdkDragContext *, gint, gint, GtkSelectionData *, guint, guint32, gpointer);
 static gboolean on_button_press_in_screen_event(GtkWidget *, GdkEventButton *, gpointer);
+static void free_video_renderer(VideoRenderer *renderer);
+static gboolean check_renderer_queue(VideoWidget *self);
 
 /*
  * video_widget_dispose()
@@ -123,6 +140,16 @@ video_widget_dispose(GObject *object)
     if (priv->frame_timeout_source) {
         g_source_remove(priv->frame_timeout_source);
         priv->frame_timeout_source = 0;
+    }
+
+    if (priv->renderer_timeout_source) {
+        g_source_remove(priv->renderer_timeout_source);
+        priv->renderer_timeout_source = 0;
+    }
+
+    if (priv->new_renderer_queue) {
+        g_async_queue_unref(priv->new_renderer_queue);
+        priv->new_renderer_queue = NULL;
     }
 
     G_OBJECT_CLASS(video_widget_parent_class)->dispose(object);
@@ -226,6 +253,16 @@ video_widget_init(VideoWidget *self)
                                                     (GSourceFunc)check_frame_queue,
                                                     self,
                                                     NULL);
+
+    /* init new renderer queue */
+    priv->new_renderer_queue = g_async_queue_new_full((GDestroyNotify)free_video_renderer);
+    /* check new render every 30 ms (30ms is "fast enough");
+     * we don't use an idle function so it doesn't consume cpu needlessly */
+    priv->renderer_timeout_source= g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,
+                                                      30,
+                                                      (GSourceFunc)check_renderer_queue,
+                                                      self,
+                                                      NULL);
 
     /* handle button event */
     g_signal_connect(GTK_WIDGET(self), "button-press-event", G_CALLBACK(on_button_press_in_screen_event), NULL);
@@ -533,4 +570,63 @@ video_widget_add_renderer(VideoWidget *self, const VideoRenderer *new_renderer)
         case VIDEO_RENDERER_COUNT:
             break;
     }
+}
+
+static void free_video_renderer(VideoRenderer *renderer)
+{
+    QObject::disconnect(renderer->stopped_connection);
+    g_free(renderer);
+}
+
+static gboolean
+check_renderer_queue(VideoWidget *self)
+{
+    g_return_val_if_fail(IS_VIDEO_WIDGET(self), FALSE);
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    /* get all the renderers in the queue */
+    VideoRenderer *new_video_renderer = (VideoRenderer *)g_async_queue_try_pop(priv->new_renderer_queue);
+    while (new_video_renderer) {
+        {
+            /* we must perform the following operations in the lock guard to make
+             * sure that the Video::Renderer is not stopped and thus invalidated
+             * from another thread
+             */
+            std::lock_guard<std::mutex> lock(new_video_renderer->stopped_mutex);
+            video_widget_add_renderer(self, new_video_renderer);
+            QObject::disconnect(new_video_renderer->stopped_connection);
+        }
+        g_free(new_video_renderer);
+        new_video_renderer = (VideoRenderer *)g_async_queue_try_pop(priv->new_renderer_queue);
+    }
+
+    return TRUE; /* keep going */
+}
+
+void
+video_widget_push_new_renderer(VideoWidget *self, Video::Renderer *renderer, VideoRendererType type)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    VideoRenderer *new_video_renderer = g_new0(VideoRenderer, 1);
+    new_video_renderer->renderer = renderer;
+    new_video_renderer->type = type;
+
+    new_video_renderer->stopped_connection = QObject::connect(
+        renderer,
+        &Video::Renderer::stopped,
+        [=]() {
+            /* if this connection is still valid, it means the given Video::Renderer
+             * has not yet been added as a srouce of frames to the video widget,
+             * we set the pointer to the Video::Renderer to NULL as it is no longer
+             * valid and no functions should be called on it after this pointer
+             */
+            g_warning("Video::Renderer stopped before any frames have been processed");
+            std::lock_guard<std::mutex> lock(new_video_renderer->stopped_mutex);
+            new_video_renderer->renderer = nullptr;
+        }
+    );
+
+    g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
 }
