@@ -37,10 +37,9 @@
 #include <video/devicemodel.h>
 #include <QtCore/QUrl>
 #include "../defines.h"
-
 #include <stdlib.h>
 #include <atomic>
-
+#include <mutex>
 #include "xrectsel.h"
 
 #define VIDEO_LOCAL_SIZE            150
@@ -95,6 +94,14 @@ struct _VideoWidgetRenderer {
     QMetaObject::Connection  render_start;
 };
 
+struct _VideoRenderer
+{
+    VideoRendererType       type;
+    Video::Renderer        *renderer;
+    std::mutex              stopped_mutex;
+    QMetaObject::Connection stopped_connection;
+};
+
 G_DEFINE_TYPE_WITH_PRIVATE(VideoWidget, video_widget, GTK_TYPE_BIN);
 
 #define VIDEO_WIDGET_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), VIDEO_WIDGET_TYPE, VideoWidgetPrivate))
@@ -107,6 +114,7 @@ static void video_widget_set_renderer(VideoWidgetRenderer *renderer);
 static void on_drag_data_received(GtkWidget *, GdkDragContext *, gint, gint, GtkSelectionData *, guint, guint32, gpointer);
 static gboolean on_button_press_in_screen_event(GtkWidget *, GdkEventButton *, gpointer);
 static gboolean check_renderer_queue(VideoWidget *);
+static void free_video_renderer(VideoRenderer *);
 
 /*
  * video_widget_dispose()
@@ -247,7 +255,7 @@ video_widget_init(VideoWidget *self)
                                                     NULL);
 
     /* init new renderer queue */
-    priv->new_renderer_queue = g_async_queue_new_full((GDestroyNotify)g_free);
+    priv->new_renderer_queue = g_async_queue_new_full((GDestroyNotify)free_video_renderer);
     /* check new render every 30 ms (30ms is "fast enough");
      * we don't use an idle function so it doesn't consume cpu needlessly */
     priv->renderer_timeout_source= g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,
@@ -552,21 +560,35 @@ video_widget_add_renderer(VideoWidget *self, const VideoRenderer *new_renderer)
     }
 }
 
+static void free_video_renderer(VideoRenderer *renderer)
+{
+    QObject::disconnect(renderer->stopped_connection);
+    g_free(renderer);
+}
+
 static gboolean
 check_renderer_queue(VideoWidget *self)
 {
-    g_return_val_if_fail(IS_VIDEO_WIDGET(self), G_SOURCE_REMOVE);
+    g_return_val_if_fail(IS_VIDEO_WIDGET(self), FALSE);
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
     /* get all the renderers in the queue */
-    gpointer new_video_renderer = g_async_queue_try_pop(priv->new_renderer_queue);
+    VideoRenderer *new_video_renderer = (VideoRenderer *)g_async_queue_try_pop(priv->new_renderer_queue);
     while (new_video_renderer) {
-        video_widget_add_renderer(self, (const VideoRenderer *)new_video_renderer);
+        {
+            /* we must perform the following operations in the lock guard to make
+             * sure that the Video::Renderer is not stopped and thus invalidated
+             * from another thread
+             */
+            std::lock_guard<std::mutex> lock(new_video_renderer->stopped_mutex);
+            video_widget_add_renderer(self, new_video_renderer);
+            QObject::disconnect(new_video_renderer->stopped_connection);
+        }
         g_free(new_video_renderer);
-        new_video_renderer = g_async_queue_try_pop(priv->new_renderer_queue);
+        new_video_renderer = (VideoRenderer *)g_async_queue_try_pop(priv->new_renderer_queue);
     }
 
-    return G_SOURCE_CONTINUE;
+    return TRUE; /* keep going */
 }
 
 /*
@@ -596,6 +618,21 @@ video_widget_push_new_renderer(VideoWidget *self, Video::Renderer *renderer, Vid
     VideoRenderer *new_video_renderer = g_new0(VideoRenderer, 1);
     new_video_renderer->renderer = renderer;
     new_video_renderer->type = type;
+
+    new_video_renderer->stopped_connection = QObject::connect(
+        renderer,
+        &Video::Renderer::stopped,
+        [=]() {
+            /* if this connection is still valid, it means the given Video::Renderer
+             * has not yet been added as a srouce of frames to the video widget,
+             * we set the pointer to the Video::Renderer to NULL as it is no longer
+             * valid and no functions should be called on it after this pointer
+             */
+            g_warning("Video::Renderer stopped before any frames have been processed");
+            std::lock_guard<std::mutex> lock(new_video_renderer->stopped_mutex);
+            new_video_renderer->renderer = nullptr;
+        }
+    );
 
     g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
 }
