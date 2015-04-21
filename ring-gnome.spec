@@ -1,6 +1,9 @@
 %define name        ring-gnome
 %define version     0.2.0
 %define release     1
+%define daemon_tag  2.1.0
+%define lrc_tag     0.2.0
+%define gnome_tag   %{version}
 
 Name:               %{name}
 Version:            %{version}
@@ -23,12 +26,22 @@ Ring is a secured and distributed communication software.
 
 %prep
 %setup -q
+# Gnome
+echo "# Get gnome client"
+git init
+git remote add origin https://gerrit-ring.savoirfairelinux.com/ring-gnome
+git fetch --all
+git checkout packaging-releases -f
+git config user.name "joulupukki"
+git config user.email "joulupukki@localhost"
+git merge %{gnome_tag} --no-edit
+rm -rf .git
 # Daemon
 echo "# Downloading Ring Daemon ..."
 rm -rf ring
-git clone https://gerrit-ring.savoirfairelinux.com/ring daemon
+git clone https://gerrit-ring.savoirfairelinux.com/ring-daemon daemon
 cd daemon 
-git checkout release-2.1.x
+git checkout %{daemon_tag}
 rm -rf .git
 cd ..
 # LibRingClient
@@ -36,10 +49,9 @@ echo "# Downloading Lib Ring Client ..."
 rm -rf libringclient
 git clone git://anongit.kde.org/libringclient.git libringclient
 cd libringclient
-git checkout release-0.2.x
+git checkout %{lrc_tag}
 rm -rf .git
 cd ..
-
 
 %build
 rm -rf %{buildroot}
