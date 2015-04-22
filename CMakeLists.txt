@@ -195,6 +195,14 @@ SET( SRC_FILES
    src/backends/edscontactbackend.cpp
    src/delegates/pixbufdelegate.h
    src/delegates/pixbufdelegate.cpp
+   src/contactsview.h
+   src/contactsview.cpp
+   src/historyview.h
+   src/historyview.cpp
+   src/utils/models.h
+   src/utils/models.cpp
+   src/utils/calling.h
+   src/utils/calling.cpp
 )
 
 # compile glib resource files to c code

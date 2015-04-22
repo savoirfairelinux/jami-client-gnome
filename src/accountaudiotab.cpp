@@ -34,6 +34,7 @@
 #include <account.h>
 #include <audio/codecmodel.h>
 #include "models/gtkqsortfiltertreemodel.h"
+#include "utils/models.h"
 
 struct _AccountAudioTab
 {
@@ -103,19 +104,6 @@ codec_active_toggled(GtkCellRendererToggle *renderer, gchar *path, AccountAudioT
     QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
     if (idx.isValid()) {
         priv->account->codecModel()->audioCodecs()->setData(idx, QVariant(toggle), Qt::CheckStateRole);
-    }
-}
-
-static QModelIndex
-get_index_from_selection(GtkTreeSelection *selection)
-{
-    GtkTreeIter iter;
-    GtkTreeModel *model = NULL;
-
-    if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-        return gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
-    } else {
-        return QModelIndex();
     }
 }
 

@@ -43,6 +43,7 @@
 #include "accountvideotab.h"
 #include "dialogs.h"
 #include <glib/gprintf.h>
+#include "utils/models.h"
 
 struct _AccountView
 {
@@ -95,19 +96,6 @@ account_view_finalize(GObject *object)
     delete priv->active_protocols;
 
     G_OBJECT_CLASS(account_view_parent_class)->finalize(object);
-}
-
-static QModelIndex
-get_index_from_selection(GtkTreeSelection *selection)
-{
-    GtkTreeIter iter;
-    GtkTreeModel *model = NULL;
-
-    if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-        return gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
-    } else {
-        return QModelIndex();
-    }
 }
 
 static void
