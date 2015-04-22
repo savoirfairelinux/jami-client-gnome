@@ -29,7 +29,7 @@ Ring is a secured and distributed communication software.
 # Gnome
 echo "# Get gnome client"
 git init
-git remote add origin https://gerrit-ring.savoirfairelinux.com/ring-gnome
+git remote add origin https://gerrit-ring.savoirfairelinux.com/ring-client-gnome
 git fetch --all
 git checkout packaging-releases -f
 git config user.name "joulupukki"

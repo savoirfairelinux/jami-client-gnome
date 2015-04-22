@@ -53,7 +53,7 @@ override_dh_auto_install:
 get-orig-source:
 	# Gnome
 	git init
-	git remote add origin https://gerrit-ring.savoirfairelinux.com/ring-gnome
+	git remote add origin https://gerrit-ring.savoirfairelinux.com/ring-client-gnome
 	git fetch --all
 	git checkout packaging-releases -f
 	git config user.name "joulupukki"
