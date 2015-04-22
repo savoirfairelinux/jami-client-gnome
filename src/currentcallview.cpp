@@ -62,14 +62,6 @@ struct _CurrentCallViewPrivate
     GtkWidget *video_widget;
     GtkWidget *button_hangup;
 
-    /* new renderers should be put into the queue for processing by a g_idle
-     * functions whose id should be saved into renderer_idle_source;
-     * this way when the CurrentCallView object is destroyed, we do not try
-     * to process any new renderers by stoping the g_idle function.
-     */
-    guint        renderer_idle_source;
-    GAsyncQueue *new_renderer_queue;
-
     QMetaObject::Connection state_change_connection;
     QMetaObject::Connection call_details_connection;
     QMetaObject::Connection local_renderer_connection;
@@ -94,55 +86,13 @@ current_call_view_dispose(GObject *object)
     QObject::disconnect(priv->local_renderer_connection);
     QObject::disconnect(priv->remote_renderer_connection);
 
-    /* dispose may be called multiple times, make sure
-     * not to call g_source_remove more than once */
-    if (priv->renderer_idle_source) {
-        g_source_remove(priv->renderer_idle_source);
-        priv->renderer_idle_source = 0;
-    }
-
-    if (priv->new_renderer_queue) {
-        g_async_queue_unref(priv->new_renderer_queue);
-        priv->new_renderer_queue = NULL;
-    }
-
     G_OBJECT_CLASS(current_call_view_parent_class)->dispose(object);
-}
-
-static gboolean
-check_renderer_queue(CurrentCallView *self)
-{
-    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), FALSE);
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-
-    /* get all the renderers in the queue */
-    gpointer new_video_renderer = g_async_queue_try_pop(priv->new_renderer_queue);
-    while (new_video_renderer) {
-        video_widget_add_renderer(VIDEO_WIDGET(priv->video_widget), (const VideoRenderer *)new_video_renderer);
-        g_free(new_video_renderer);
-        new_video_renderer = g_async_queue_try_pop(priv->new_renderer_queue);
-    }
-
-    return TRUE; /* keep going */
 }
 
 static void
 current_call_view_init(CurrentCallView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
-
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-
-    /* init new renderer queue */
-    priv->new_renderer_queue = g_async_queue_new_full((GDestroyNotify)g_free);
-    /* check new render every 30 ms (30ms is "fast enough");
-     * we don't use an idle function so it doesn't consume cpu needlessly */
-    priv->renderer_idle_source = g_timeout_add_full(
-                                    G_PRIORITY_DEFAULT_IDLE,
-                                    30,
-                                    (GSourceFunc)check_renderer_queue,
-                                    view,
-                                    NULL);
 }
 
 static void
@@ -244,20 +194,6 @@ update_details(CurrentCallView *view, Call *call)
     /* update call duration */
     QByteArray ba_length = call->length().toLocal8Bit();
     gtk_label_set_text(GTK_LABEL(priv->label_duration), ba_length.constData());
-}
-
-static void
-push_new_renderer(CurrentCallView *self, Video::Renderer *renderer, VideoRendererType type)
-{
-    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
-
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-
-    VideoRenderer *new_video_renderer = g_new0(VideoRenderer, 1);
-    new_video_renderer->renderer = renderer;
-    new_video_renderer->type = type;
-
-    g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
 }
 
 static void
@@ -367,27 +303,35 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     gtk_widget_show_all(priv->frame_video);
 
     /* check if we already have a renderer */
-    push_new_renderer(view, call->videoRenderer(), VIDEO_RENDERER_REMOTE);
+    video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                   call->videoRenderer(),
+                                   VIDEO_RENDERER_REMOTE);
 
     /* callback for remote renderer */
     priv->remote_renderer_connection = QObject::connect(
         call,
         &Call::videoStarted,
         [=](Video::Renderer *renderer) {
-            push_new_renderer(view, renderer, VIDEO_RENDERER_REMOTE);
+            video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                           renderer,
+                                           VIDEO_RENDERER_REMOTE);
         }
     );
 
     /* local renderer */
     if (Video::PreviewManager::instance()->isPreviewing())
-        push_new_renderer(view, Video::PreviewManager::instance()->previewRenderer(), VIDEO_RENDERER_LOCAL);
+        video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                       Video::PreviewManager::instance()->previewRenderer(),
+                                       VIDEO_RENDERER_LOCAL);
 
     /* callback for local renderer */
     priv->local_renderer_connection = QObject::connect(
         Video::PreviewManager::instance(),
         &Video::PreviewManager::previewStarted,
         [=](Video::Renderer *renderer) {
-            push_new_renderer(view, renderer, VIDEO_RENDERER_LOCAL);
+            video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                           renderer,
+                                           VIDEO_RENDERER_LOCAL);
         }
     );
 

@@ -59,15 +59,7 @@ struct _VideoSettingsViewPrivate
     GtkWidget *vbox_camera_preview;
     GtkWidget *video_widget;
 
-    /* new renderers should be put into the queue for processing by a g_idle
-     * functions whose id should be saved into renderer_idle_source;
-     * this way when the CurrentCallView object is destroyed, we do not try
-     * to process any new renderers by stoping the g_idle function.
-     */
-    guint        renderer_idle_source;
-    GAsyncQueue *new_renderer_queue;
     QMetaObject::Connection local_renderer_connection;
-
     QMetaObject::Connection device_selection;
     QMetaObject::Connection channel_selection;
     QMetaObject::Connection resolution_selection;
@@ -90,18 +82,6 @@ video_settings_view_dispose(GObject *object)
     QObject::disconnect(priv->resolution_selection);
     QObject::disconnect(priv->rate_selection);
 
-    /* dispose may be called multiple times, make sure
-     * not to call g_source_remove more than once */
-    if (priv->renderer_idle_source) {
-        g_source_remove(priv->renderer_idle_source);
-        priv->renderer_idle_source = 0;
-    }
-
-    if (priv->new_renderer_queue) {
-        g_async_queue_unref(priv->new_renderer_queue);
-        priv->new_renderer_queue = NULL;
-    }
-
     G_OBJECT_CLASS(video_settings_view_parent_class)->dispose(object);
 }
 
@@ -115,36 +95,6 @@ preview_toggled(GtkToggleButton *togglebutton, G_GNUC_UNUSED gpointer user_data)
         Video::PreviewManager::instance()->stopPreview();
         gtk_button_set_label(GTK_BUTTON(togglebutton), "start");
     }
-}
-
-static void
-push_new_renderer(VideoSettingsView *self, Video::Renderer *renderer, VideoRendererType type)
-{
-    g_return_if_fail(IS_VIDEO_SETTINGS_VIEW(self));
-    VideoSettingsViewPrivate *priv = VIDEO_SETTINGS_VIEW_GET_PRIVATE(self);
-
-    VideoRenderer *new_video_renderer = g_new0(VideoRenderer, 1);
-    new_video_renderer->renderer = renderer;
-    new_video_renderer->type = type;
-
-    g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
-}
-
-static gboolean
-check_renderer_queue(VideoSettingsView *self)
-{
-    g_return_val_if_fail(IS_VIDEO_SETTINGS_VIEW(self), FALSE);
-    VideoSettingsViewPrivate *priv = VIDEO_SETTINGS_VIEW_GET_PRIVATE(self);
-
-    /* get all the renderers in the queue */
-    gpointer new_video_renderer = g_async_queue_try_pop(priv->new_renderer_queue);
-    while (new_video_renderer) {
-        video_widget_add_renderer(VIDEO_WIDGET(priv->video_widget), (const VideoRenderer *)new_video_renderer);
-        g_free(new_video_renderer);
-        new_video_renderer = g_async_queue_try_pop(priv->new_renderer_queue);
-    }
-
-    return G_SOURCE_CONTINUE;
 }
 
 static QModelIndex
@@ -235,27 +185,20 @@ video_settings_view_init(VideoSettingsView *view)
     }
     g_signal_connect(priv->button_startstop, "toggled", G_CALLBACK(preview_toggled), NULL);
 
-    /* init new renderer queue */
-    priv->new_renderer_queue = g_async_queue_new_full((GDestroyNotify)g_free);
-    /* check new render every 30 ms (30ms is "fast enough");
-     * we don't use an idle function so it doesn't consume cpu needlessly */
-    priv->renderer_idle_source = g_timeout_add_full(
-                                    G_PRIORITY_DEFAULT_IDLE,
-                                    30,
-                                    (GSourceFunc)check_renderer_queue,
-                                    view,
-                                    NULL);
-
     /* local renderer, but set as "remote" so that it takes up the whole screen */
     /* check to see if the renderere is running first */
     if (Video::PreviewManager::instance()->isPreviewing())
-        push_new_renderer(view, Video::PreviewManager::instance()->previewRenderer(), VIDEO_RENDERER_REMOTE);
+        video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                       Video::PreviewManager::instance()->previewRenderer(),
+                                       VIDEO_RENDERER_REMOTE);
 
     priv->local_renderer_connection = QObject::connect(
         Video::PreviewManager::instance(),
         &Video::PreviewManager::previewStarted,
         [=](Video::Renderer *renderer) {
-            push_new_renderer(view, renderer, VIDEO_RENDERER_REMOTE);
+            video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                           renderer,
+                                           VIDEO_RENDERER_REMOTE);
         }
     );
 

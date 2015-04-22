@@ -54,15 +54,14 @@ typedef enum {
 
 struct _VideoRenderer
 {
-	VideoRendererType  type;
-	Video::Renderer   *renderer;
+    VideoRendererType  type;
+    Video::Renderer   *renderer;
 };
 
 /* Public interface */
-GType           video_widget_get_type    (void) G_GNUC_CONST;
-GtkWidget*      video_widget_new         (void);
-void            video_widget_add_renderer(VideoWidget *self, const VideoRenderer *new_renderer);
-
+GType           video_widget_get_type          (void) G_GNUC_CONST;
+GtkWidget*      video_widget_new               (void);
+void            video_widget_push_new_renderer (VideoWidget *, Video::Renderer *, VideoRendererType);
 G_END_DECLS
 
 #endif /* __VIDEO_WIDGET_H__ */

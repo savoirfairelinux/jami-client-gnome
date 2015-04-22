@@ -75,6 +75,14 @@ struct _VideoWidgetPrivate {
     VideoWidgetRenderer     *local;
 
     guint                    frame_timeout_source;
+
+    /* new renderers should be put into the queue for processing by a g_timeout
+     * function whose id should be saved into renderer_timeout_source;
+     * this way when the VideoWidget object is destroyed, we do not try
+     * to process any new renderers by stoping the g_timeout function.
+     */
+    guint                    renderer_timeout_source;
+    GAsyncQueue             *new_renderer_queue;
 };
 
 struct _VideoWidgetRenderer {
@@ -98,6 +106,7 @@ static void renderer_start(VideoWidgetRenderer *renderer);
 static void video_widget_set_renderer(VideoWidgetRenderer *renderer);
 static void on_drag_data_received(GtkWidget *, GdkDragContext *, gint, gint, GtkSelectionData *, guint, guint32, gpointer);
 static gboolean on_button_press_in_screen_event(GtkWidget *, GdkEventButton *, gpointer);
+static gboolean check_renderer_queue(VideoWidget *);
 
 /*
  * video_widget_dispose()
@@ -123,6 +132,16 @@ video_widget_dispose(GObject *object)
     if (priv->frame_timeout_source) {
         g_source_remove(priv->frame_timeout_source);
         priv->frame_timeout_source = 0;
+    }
+
+    if (priv->renderer_timeout_source) {
+        g_source_remove(priv->renderer_timeout_source);
+        priv->renderer_timeout_source = 0;
+    }
+
+    if (priv->new_renderer_queue) {
+        g_async_queue_unref(priv->new_renderer_queue);
+        priv->new_renderer_queue = NULL;
     }
 
     G_OBJECT_CLASS(video_widget_parent_class)->dispose(object);
@@ -226,6 +245,16 @@ video_widget_init(VideoWidget *self)
                                                     (GSourceFunc)check_frame_queue,
                                                     self,
                                                     NULL);
+
+    /* init new renderer queue */
+    priv->new_renderer_queue = g_async_queue_new_full((GDestroyNotify)g_free);
+    /* check new render every 30 ms (30ms is "fast enough");
+     * we don't use an idle function so it doesn't consume cpu needlessly */
+    priv->renderer_timeout_source= g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,
+                                                      30,
+                                                      (GSourceFunc)check_renderer_queue,
+                                                      self,
+                                                      NULL);
 
     /* handle button event */
     g_signal_connect(GTK_WIDGET(self), "button-press-event", G_CALLBACK(on_button_press_in_screen_event), NULL);
@@ -499,19 +528,7 @@ video_widget_set_renderer(VideoWidgetRenderer *renderer)
     );
 }
 
-/*
- * video_widget_new()
- *
- * The function use to create a new video_widget
- */
-GtkWidget*
-video_widget_new(void)
-{
-    GtkWidget *self = (GtkWidget *)g_object_new(VIDEO_WIDGET_TYPE, NULL);
-    return self;
-}
-
-void
+static void
 video_widget_add_renderer(VideoWidget *self, const VideoRenderer *new_renderer)
 {
     g_return_if_fail(IS_VIDEO_WIDGET(self));
@@ -533,4 +550,52 @@ video_widget_add_renderer(VideoWidget *self, const VideoRenderer *new_renderer)
         case VIDEO_RENDERER_COUNT:
             break;
     }
+}
+
+static gboolean
+check_renderer_queue(VideoWidget *self)
+{
+    g_return_val_if_fail(IS_VIDEO_WIDGET(self), G_SOURCE_REMOVE);
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    /* get all the renderers in the queue */
+    gpointer new_video_renderer = g_async_queue_try_pop(priv->new_renderer_queue);
+    while (new_video_renderer) {
+        video_widget_add_renderer(self, (const VideoRenderer *)new_video_renderer);
+        g_free(new_video_renderer);
+        new_video_renderer = g_async_queue_try_pop(priv->new_renderer_queue);
+    }
+
+    return G_SOURCE_CONTINUE;
+}
+
+/*
+ * video_widget_new()
+ *
+ * The function use to create a new video_widget
+ */
+GtkWidget*
+video_widget_new(void)
+{
+    GtkWidget *self = (GtkWidget *)g_object_new(VIDEO_WIDGET_TYPE, NULL);
+    return self;
+}
+
+/**
+ * video_widget_push_new_renderer()
+ *
+ * This function is used add a new Video::Renderer to the VideoWidget in a
+ * thread-safe manner.
+ */
+void
+video_widget_push_new_renderer(VideoWidget *self, Video::Renderer *renderer, VideoRendererType type)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    VideoRenderer *new_video_renderer = g_new0(VideoRenderer, 1);
+    new_video_renderer->renderer = renderer;
+    new_video_renderer->type = type;
+
+    g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
 }
