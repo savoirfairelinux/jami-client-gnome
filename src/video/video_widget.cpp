@@ -89,6 +89,13 @@ struct _VideoWidgetRenderer {
     Video::Renderer         *renderer;
     std::atomic_bool         running;
     std::atomic_bool         dirty;
+
+    /* show_black_frame is used to request the actor to render a black image;
+     * this will take over 'running' and 'dirty', ie: a black frame will be
+     * rendered even if the Video::Renderer is not running, or has a frame available.
+     * this will be set back to false once the black frame is rendered
+     */
+    std::atomic_bool         show_black_frame;
     QMetaObject::Connection  frame_update;
     QMetaObject::Connection  render_stop;
     QMetaObject::Connection  render_start;
@@ -399,15 +406,26 @@ on_button_press_in_screen_event(GtkWidget *parent,
 static void
 clutter_render_image(VideoWidgetRenderer* wg_renderer)
 {
+    auto actor = wg_renderer->actor;
+    g_return_if_fail(CLUTTER_IS_ACTOR(actor));
+
+    if (wg_renderer->show_black_frame) {
+        /* render a black frame set the bool back to false, this is likely done
+         * when the renderer is stopped so we ignore whether or not it is running
+         */
+        auto iamge_empty = clutter_image_new();
+        clutter_actor_set_content(actor, iamge_empty);
+        g_object_unref (iamge_empty);
+        wg_renderer->show_black_frame = false;
+        return;
+    }
+
     if (!wg_renderer->running)
         return;
 
     auto renderer = wg_renderer->renderer;
     if (renderer == nullptr)
         return;
-
-    auto actor = wg_renderer->actor;
-    g_return_if_fail(CLUTTER_IS_ACTOR(actor));
 
     const auto frameData = (const guint8*)renderer->currentFrame().constData();
     if (!frameData or !wg_renderer->dirty)
@@ -465,6 +483,8 @@ renderer_stop(VideoWidgetRenderer *renderer)
 {
     QObject::disconnect(renderer->frame_update);
     renderer->running = false;
+    /* ask to show a black frame */
+    renderer->show_black_frame = true;
 }
 
 static void
@@ -480,6 +500,10 @@ renderer_start(VideoWidgetRenderer *renderer)
         [renderer]() {
             // WARNING: this lambda is called in LRC renderer thread,
             // but check_frame_queue() is in mainloop!
+
+            /* make sure show_black_frame is false since it will take priority
+             * over a new frame from the Video::Renderer */
+            renderer->show_black_frame = false;
             renderer->dirty = true;
         }
         );
