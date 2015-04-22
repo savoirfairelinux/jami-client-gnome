@@ -64,7 +64,7 @@ get-orig-source:
 	@echo "# Downloading Ring Daemon ..."
 	rm -rf ring
 	mkdir -p ring
-	git clone https://gerrit-ring.savoirfairelinux.com/ring daemon
+	git clone https://gerrit-ring.savoirfairelinux.com/ring-daemon daemon
 	cd daemon && git checkout $(DAEMON_TAG)
 	cd daemon && $(RM) -rf .git
 	# LibRingClient
