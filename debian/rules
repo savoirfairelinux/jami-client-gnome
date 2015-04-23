@@ -8,7 +8,7 @@ VER ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog | perl -ne 'print $$1 if m
 DISTRIB_RELEASE = $(shell grep -hPo "DISTRIB_RELEASE=\K.*" /etc/*ease)
 
 DAEMON_TAG = 2.1.0
-LRC_TAG = 0.2.0
+LRC_TAG = 0.2.1
 GNOME_TAG = $(VER)
 
 ifeq ($(DISTRIB_RELEASE),14.04)

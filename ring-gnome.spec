@@ -95,7 +95,7 @@ sed -i "s#Icon=.*#Icon=%{_datadir}/icons/hicolor/scalable/apps/ring.svg#g" %{bui
 
 
 %changelog
-* Tue Apr 14 2015 Guillaume Roguez <guillaume.roguez@savoirfairelinux.com> - 0.2.1-1
+* Thu Apr 23 2015 Guillaume Roguez <guillaume.roguez@savoirfairelinux.com> - 0.2.1-1
 - New upstream version
 
 * Tue Apr 14 2015 Thibault Cohen <thibault.cohen@savoirfairelinux.com> - 0.2.0-1
