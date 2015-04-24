@@ -40,7 +40,7 @@ public:
     virtual QVariant   icon     () const override;
     virtual bool       isEnabled() const override;
     virtual QByteArray id       () const override;
-    virtual SupportedFeatures  supportedFeatures() const override;
+    virtual FlagPack<SupportedFeatures>  supportedFeatures() const override;
 
 private:
    CollectionMediator<Call>*  m_pMediator;

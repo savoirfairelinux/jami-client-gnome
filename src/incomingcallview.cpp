@@ -172,6 +172,9 @@ update_state(IncomingCallView *view, Call *call)
         case Call::State::INITIALIZATION:
             gtk_label_set_text(GTK_LABEL(priv->label_status), "Initialization...");
             break;
+        case Call::State::CONNECTED:
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Connected.");
+            break;
         case Call::State::COUNT__:
         break;
     }
@@ -201,6 +204,7 @@ update_state(IncomingCallView *view, Call *call)
         case Call::State::CONFERENCE:
         case Call::State::CONFERENCE_HOLD:
         case Call::State::INITIALIZATION:
+        case Call::State::CONNECTED:
             gtk_widget_show(priv->button_end_call);
             break;
         case Call::State::COUNT__:
