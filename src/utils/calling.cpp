@@ -35,10 +35,12 @@
 #include <QtCore/QItemSelectionModel>
 
 void
-place_new_call(const ContactMethod *n)
+place_new_call(const ContactMethod *n, Account *acc)
 {
     Call *call = CallModel::instance()->dialingCall();
     call->setDialNumber(n);
+    if (acc)
+        call->setAccount(acc);
     call->performAction(Call::Action::ACCEPT);
 
     /* make this the currently selected call */
