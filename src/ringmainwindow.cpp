@@ -688,10 +688,12 @@ search_entry_text_changed(GtkEditable *search_entry, RingMainWindow *win)
     /* get the text from the entry */
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(search_entry));
 
-    if (text)
-        priv->q_completion_model->setPrefix(text);
-    else
-        priv->q_completion_model->setPrefix(QString());
+    if (text) {
+        /* edit the the dialing call (or create a new one) */
+        Call *call = CallModel::instance()->dialingCall();
+        call->setDialNumber(text);
+        priv->q_completion_model->setCall(call);
+    }
 }
 
 static gboolean
@@ -818,7 +820,13 @@ select_autocompletion(G_GNUC_UNUSED GtkEntryCompletion *widget,
     QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
     if (idx.isValid()) {
         ContactMethod *n = priv->q_completion_model->number(idx);
-        place_new_call(n);
+        /* check if using a specific account */
+        QVariant var_acc = idx.data(NumberCompletionModel::Role::ACCOUNT);
+        Account *acc = var_acc.value<Account *>();
+        if (acc) {
+            g_debug("using account: %s", acc->alias().toUtf8().constData());
+        }
+        place_new_call(n, acc);
 
         /* clear the entry */
         gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");

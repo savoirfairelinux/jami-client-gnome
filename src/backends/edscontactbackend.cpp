@@ -299,10 +299,9 @@ bool EdsContactBackend::reload()
     return false;
 }
 
-CollectionInterface::SupportedFeatures EdsContactBackend::supportedFeatures() const
+FlagPack<CollectionInterface::SupportedFeatures> EdsContactBackend::supportedFeatures() const
 {
-    return (CollectionInterface::SupportedFeatures)(
-            CollectionInterface::SupportedFeatures::NONE |
+    return (CollectionInterface::SupportedFeatures::NONE |
             CollectionInterface::SupportedFeatures::LOAD);
 }
 

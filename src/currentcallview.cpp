@@ -181,6 +181,9 @@ update_state(CurrentCallView *view, Call *call)
         case Call::State::INITIALIZATION:
             gtk_label_set_text(GTK_LABEL(priv->label_status), "Initialization...");
             break;
+        case Call::State::CONNECTED:
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "Connected.");
+            break;
         case Call::State::COUNT__:
         break;
     }

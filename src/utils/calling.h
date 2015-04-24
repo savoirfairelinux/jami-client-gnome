@@ -32,8 +32,9 @@
 #define _CALLING_H
 
 class ContactMethod;
+class Account;
 
 void
-place_new_call(const ContactMethod *n);
+place_new_call(const ContactMethod *n, Account *acc = nullptr);
 
 #endif /* _CALLING_H */
