@@ -249,6 +249,8 @@ SET( SRC_FILES
    src/recentcontactsview.cpp
    src/chatview.h
    src/chatview.cpp
+   src/debug/phonedirectoryview.h
+   src/debug/phonedirectoryview.cpp
 )
 
 # compile glib resource files to c code
