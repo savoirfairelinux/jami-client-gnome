@@ -69,6 +69,7 @@
 #include "revision.h"
 #include "utils/accounts.h"
 #include "utils/calling.h"
+#include "debug/phonedirectoryview.h"
 
 #if HAVE_APPINDICATOR
 #include <libappindicator/app-indicator.h>
@@ -122,6 +123,9 @@ struct _RingClientPrivate {
     /* notifications */
     QMetaObject::Connection call_notification;
     QMetaObject::Connection chat_notification;
+
+    /* phone directory model view for debugging */
+    GtkWidget *debug;
 };
 
 /* this union is used to pass ints as pointers and vice versa for GAction parameters*/
@@ -157,8 +161,11 @@ ring_accelerators(RingClient *client)
 #if GTK_CHECK_VERSION(3,12,0)
     const gchar *quit_accels[2] = { "<Ctrl>Q", NULL };
     gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.quit", quit_accels);
+    const gchar *debug_accels[2] = { "<Ctrl>D", NULL };
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.debug", debug_accels);
 #else
     gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>Q", "app.quit", NULL);
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>D", "app.debug", NULL);
 #endif
 }
 
@@ -199,6 +206,30 @@ toggle_smartinfo(GSimpleAction *action, GVariant *parameter, gpointer)
     }
 }
 
+static void
+action_debug(G_GNUC_UNUSED GSimpleAction *simple,
+             G_GNUC_UNUSED GVariant      *parameter,
+             gpointer user_data)
+{
+    g_return_if_fail(G_IS_APPLICATION(user_data));
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
+
+    if (!priv->debug) {
+        priv->debug = gtk_application_window_new(GTK_APPLICATION(user_data));
+        GtkWidget *phonedirectory = phonedirectory_view_new();
+        gtk_container_add(GTK_CONTAINER(priv->debug), phonedirectory);
+
+        // just hide the debug window on cose
+        g_signal_connect(priv->debug, "delete-event", G_CALLBACK(gtk_widget_hide), nullptr);
+    }
+
+    if (gtk_widget_is_visible(priv->debug)) {
+        gtk_widget_hide(priv->debug);
+    } else {
+        gtk_window_present(GTK_WINDOW(priv->debug));
+    }
+}
+
 static const GActionEntry ring_actions[] =
 {
     { "accept",             NULL,         NULL, NULL,    NULL, {0} },
@@ -210,6 +241,7 @@ static const GActionEntry ring_actions[] =
     { "mute_video",         NULL,         NULL, "false", NULL, {0} },
     { "record",             NULL,         NULL, "false", NULL, {0} },
     { "display-smartinfo",  NULL,         NULL, "false", toggle_smartinfo, {0} },
+    { "debug",  action_debug, NULL, NULL,    NULL, {0} },
     /* TODO implement the other actions */
     // { "transfer",   NULL,        NULL, "flase", NULL, {0} },
 };
@@ -622,15 +654,15 @@ ring_client_startup(GApplication *app)
     NumberCategoryModel::instance().addCategory("home", QVariant());
 
     /* add backends */
-    CategorizedHistoryModel::instance().addCollection<LocalHistoryCollection>(LoadOptions::FORCE_ENABLED);
+    // CategorizedHistoryModel::instance().addCollection<LocalHistoryCollection>(LoadOptions::FORCE_ENABLED);
     PersonModel::instance().addCollection<PeerProfileCollection>(LoadOptions::FORCE_ENABLED);
     ProfileModel::instance().addCollection<LocalProfileCollection>(LoadOptions::FORCE_ENABLED);
 
     /* fallback backend for vcards */
-    PersonModel::instance().addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
+    // PersonModel::instance().addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
 
     /* EDS backend(s) */
-    load_eds_sources(priv->cancellable);
+    // load_eds_sources(priv->cancellable);
 
     /* Override theme since we don't have appropriate icons for a dark them (yet) */
     GtkSettings *gtk_settings = gtk_settings_get_default();
