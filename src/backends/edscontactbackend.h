@@ -83,7 +83,7 @@ public:
     virtual QString    category () const override;
     virtual bool       isEnabled() const override;
     virtual QByteArray id       () const override;
-    virtual SupportedFeatures  supportedFeatures() const override;
+    virtual FlagPack<SupportedFeatures>  supportedFeatures() const override;
 
     void addContacts(GSList *contacts);
     void parseContact(EContact *contact);
