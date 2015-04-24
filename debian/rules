@@ -1,12 +1,15 @@
 #!/usr/bin/make -f
 
 # Uncomment this to turn on verbose mode.
-export DH_VERBOSE=1
+#export DH_VERBOSE=1
 PKD  = $(abspath $(dir $(MAKEFILE_LIST)))
-#PKG  = $(word 2,$(shell dpkg-parsechangelog -l$(PKD)/changelog --show-field=Source))
 PKG  = $(shell dpkg-parsechangelog -l$(PKD)/changelog --show-field=Source)
 VER ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog | perl -ne 'print $$1 if m{^Version:\s+(?:\d+:)?(\d.*)(?:\-\d+.*)};')
 DISTRIB_RELEASE = $(shell grep -hPo "DISTRIB_RELEASE=\K.*" /etc/*ease)
+
+DAEMON_TAG = 2.1.0
+LRC_TAG = 0.2.1
+GNOME_TAG = origin/master
 
 ifeq ($(DISTRIB_RELEASE),14.04)
 	GCC = CC=gcc-4.9 CXX=g++-4.9
@@ -48,19 +51,28 @@ override_dh_auto_install:
 	dh_auto_install
 
 get-orig-source:
+	# Gnome
+	git init
+	git remote add origin https://gerrit-ring.savoirfairelinux.com/ring-client-gnome
+	git fetch --all
+	git checkout packaging -f
+	git config user.name "joulupukki"
+	git config user.email "joulupukki@localhost"
+	git merge $(GNOME_TAG) --no-edit
+	rm -rf .git
 	# Daemon
 	@echo "# Downloading Ring Daemon ..."
 	rm -rf ring
 	mkdir -p ring
-	git clone https://gerrit-ring.savoirfairelinux.com/ring daemon
-	cd daemon && git checkout master
+	git clone https://gerrit-ring.savoirfairelinux.com/ring-daemon daemon
+	cd daemon && git checkout $(DAEMON_TAG)
 	cd daemon && $(RM) -rf .git
 	# LibRingClient
 	@echo "# Downloading Lib Ring Client ..."
 	rm -rf libringclient
 	mkdir -p libringclient
 	git clone git://anongit.kde.org/libringclient.git libringclient
-	cd libringclient && git checkout master
+	cd libringclient && git checkout $(LRC_TAG)
 	cd libringclient && $(RM) -rf .git
 	# Packing
 	@echo "# Packing ... "
