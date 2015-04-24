@@ -1,6 +1,20 @@
+ring-gnome (0.2.1-1) unstable; urgency=medium
+
+  [ Guillaume Roguez ]
+  * New Upstream version
+
+ -- Guillaume Roguez <guillaume.roguez@savoirfairelinux.com> Thu, 23 Apr 2015 14:13:40 -0400
+
+ring-gnome (0.2.0-1) unstable; urgency=medium
+
+  [ Thibault Cohen ]
+  * New Upstream version
+
+ -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Tue, 14 Apr 2015 13:16:38 -0400
+
 ring-gnome (0.1.0-1) unstable; urgency=medium
 
-  [ Thibault Cohen]
+  [ Thibault Cohen ]
   * First release
 
  -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Tue, 17 Mar 2015 10:50:19 -0400
