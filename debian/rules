@@ -7,8 +7,8 @@ PKG  = $(shell dpkg-parsechangelog -l$(PKD)/changelog --show-field=Source)
 VER ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog | perl -ne 'print $$1 if m{^Version:\s+(?:\d+:)?(\d.*)(?:\-\d+.*)};')
 DISTRIB_RELEASE = $(shell grep -hPo "DISTRIB_RELEASE=\K.*" /etc/*ease)
 
-DAEMON_TAG = 2.1.0
-LRC_TAG = 0.2.1
+DAEMON_TAG = origin/master
+LRC_TAG = origin/master
 GNOME_TAG = origin/master
 
 ifeq ($(DISTRIB_RELEASE),14.04)

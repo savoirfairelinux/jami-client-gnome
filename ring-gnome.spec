@@ -1,8 +1,8 @@
 %define name        ring-gnome
 %define version     0.2.1
 %define release     1
-%define daemon_tag  2.1.0
-%define lrc_tag     0.2.1
+%define daemon_tag  origin/master
+%define lrc_tag     origin/master
 %define gnome_tag   origin/master
 
 Name:               %{name}
