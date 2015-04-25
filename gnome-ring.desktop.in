@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Ring
-GenericName=Ring Client
-X-GNOME-FullName=Ring Gnome client
+GenericName=Ring
+X-GNOME-FullName=Ring
 Comment=Ring is a secured and distributed communication software.
 Exec=gnome-ring
 Icon=@CMAKE_INSTALL_PREFIX@/share/icons/hicolor/scalable/apps/ring.svg
