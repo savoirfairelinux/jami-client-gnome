@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba57610f_0e5ccf24",
+        "filename": "gnome-ring.desktop.in",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-04-27T14:09:45Z",
+      "side": 1,
+      "message": "The \"GenericName\" should be a \"generic name of the application, for example \"Web Browser\".\n\nhttp://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html",
+      "range": {
+        "startLine": 3,
+        "startChar": 12,
+        "endLine": 3,
+        "endChar": 16
+      },
+      "revId": "b8ad003a7ff5bab5ed22724ab2fdc5505ee8b678",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba57610f_ee405b37",
+        "filename": "gnome-ring.desktop.in",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-04-27T14:09:45Z",
+      "side": 1,
+      "message": "I\u0027m not sure if we should even have this property at all... its not specified in the spec, and from what I have noticed, only GNOME applications (as in, apps which are hosted by GNOME use this property... firefox, wiresharks, etc don\u0027t use it.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 21
+      },
+      "revId": "b8ad003a7ff5bab5ed22724ab2fdc5505ee8b678",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
