@@ -84,6 +84,7 @@ static void
 incoming_call_view_init(IncomingCallView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
+    gtk_widget_add_events(GTK_WIDGET(view), GDK_KEY_PRESS_MASK);
 }
 
 static void

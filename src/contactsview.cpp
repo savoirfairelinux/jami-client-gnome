@@ -338,6 +338,10 @@ contacts_view_init(ContactsView *self)
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_contacts), FALSE);
     gtk_container_add(GTK_CONTAINER(self), treeview_contacts);
 
+    /* disable default search, we will handle it ourselves via LRC;
+     * otherwise the search steals input focus on key presses */
+    gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_contacts), FALSE);
+
     CategorizedContactModel::instance()->setUnreachableHidden(true);
     priv->q_contact_model = new ActiveItemProxyModel(CategorizedContactModel::instance());
     priv->q_contact_model->setSortRole(Qt::DisplayRole);
