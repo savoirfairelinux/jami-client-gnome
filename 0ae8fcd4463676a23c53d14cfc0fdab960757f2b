@@ -16,6 +16,24 @@
       "revId": "0ae8fcd4463676a23c53d14cfc0fdab960757f2b",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba57610f_aefb8346",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-04-28T13:36:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba57610f_0ed60fc6",
+      "revId": "0ae8fcd4463676a23c53d14cfc0fdab960757f2b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
