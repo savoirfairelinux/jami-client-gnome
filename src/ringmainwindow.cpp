@@ -185,7 +185,6 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
         gtk_stack_add_named(GTK_STACK(priv->stack_call_view), new_call_view, new_call_view_name);
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_call_view), new_call_view);
         g_free(new_call_view_name);
-
     } else {
         /* nothing selected in the call model, so show the default screen */
 
@@ -823,6 +822,46 @@ select_autocompletion(G_GNUC_UNUSED GtkEntryCompletion *widget,
     return TRUE;
 }
 
+static gboolean
+digit_pressed(RingMainWindow *win,
+              GdkEventKey *event,
+              G_GNUC_UNUSED gpointer user_data)
+{
+    g_return_val_if_fail(event->type == GDK_KEY_PRESS, GDK_EVENT_PROPAGATE);
+
+    /* we want to react to digit key presses, as long as a GtkEntry is not the
+     * input focus
+     */
+    GtkWidget *focus = gtk_window_get_focus(GTK_WINDOW(win));
+    if (GTK_IS_ENTRY(focus))
+        return GDK_EVENT_PROPAGATE;
+
+    /* make sure that a call is selected*/
+    QItemSelectionModel *selection = CallModel::instance()->selectionModel();
+    QModelIndex idx = selection->currentIndex();
+    if (!idx.isValid())
+        return GDK_EVENT_PROPAGATE;
+
+    /* make sure that the selected call is in progress */
+    Call *call = CallModel::instance()->getCall(idx);
+    Call::LifeCycleState state = call->lifeCycleState();
+    if (state != Call::LifeCycleState::PROGRESS)
+        return GDK_EVENT_PROPAGATE;
+
+    /* make sure the key pressed is a digit;
+     * if so, convert to unicode and play DTMF tone
+     */
+    if (event->keyval >= GDK_KEY_0 && event->keyval <= GDK_KEY_9) {
+        guint32 unicode_val = gdk_keyval_to_unicode(event->keyval);
+        QString val = QString::fromUcs4(&unicode_val, 1);
+        call->playDTMF(val);
+        g_debug("playing DTMF tone during ongoing call: %s", val.toUtf8().constData());
+        return GDK_EVENT_STOP;
+    }
+
+    return GDK_EVENT_PROPAGATE;
+}
+
 static void
 ring_main_window_init(RingMainWindow *win)
 {
@@ -1095,6 +1134,9 @@ ring_main_window_init(RingMainWindow *win)
             get_active_ring_account(win);
         }
     );
+
+    /* react to digit key press events */
+    g_signal_connect(win, "key-press-event", G_CALLBACK(digit_pressed), NULL);
 }
 
 static void
