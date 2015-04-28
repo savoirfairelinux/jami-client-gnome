@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba57610f_0ed60fc6",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 8
+      },
+      "writtenOn": "2015-04-28T12:20:11Z",
+      "side": 1,
+      "message": "DTMF also includes keys from A to E (upper or lower case) if I remember correctly",
+      "revId": "0ae8fcd4463676a23c53d14cfc0fdab960757f2b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
