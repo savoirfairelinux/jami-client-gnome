@@ -214,6 +214,10 @@ history_view_init(HistoryView *self)
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_history), TRUE);
     gtk_container_add(GTK_CONTAINER(self), treeview_history);
 
+    /* disable default search, we will handle it ourselves via LRC;
+     * otherwise the saerch steals input focus on key presses */
+    gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_history), FALSE);
+
     /* sort the history in descending order by date */
     priv->q_history_model = new QSortFilterProxyModel();
     priv->q_history_model->setSourceModel(CategorizedHistoryModel::instance());
