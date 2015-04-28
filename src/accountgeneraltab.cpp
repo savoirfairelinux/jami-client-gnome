@@ -157,6 +157,19 @@ upnp_enabled(GtkToggleButton *checkbutton, AccountGeneralTab *view)
     priv->account->setUpnpEnabled(gtk_toggle_button_get_active(checkbutton));
 }
 
+static void
+dtmf_set_rtp(GtkToggleButton *toggle_rtp, AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+    if (gtk_toggle_button_get_active(toggle_rtp)) {
+        g_debug("set DTMF over RTP");
+        priv->account->setDTMFType(DtmfType::OverRtp);
+    } else {
+        g_debug("set DTMF over SIP");
+        priv->account->setDTMFType(DtmfType::OverSip);
+    }
+}
 
 static void
 build_tab_view(AccountGeneralTab *view)
@@ -176,6 +189,8 @@ build_tab_view(AccountGeneralTab *view)
     GtkWidget *entry_voicemail = NULL;
     GtkWidget *checkbutton_autoanswer = NULL;
     GtkWidget *checkbutton_upnp = NULL;
+    GtkWidget *radiobutton_dtmf_rtp = NULL;
+    GtkWidget *radiobutton_dtmf_sip = NULL;
 
     /* build account grid */
 
@@ -336,6 +351,33 @@ build_tab_view(AccountGeneralTab *view)
     g_signal_connect(checkbutton_upnp, "toggled", G_CALLBACK(upnp_enabled), view);
     ++grid_row;
 
+    /* DTMF tone type */
+    label = gtk_label_new("DTMF tone type:");
+    gtk_widget_set_halign(label, GTK_ALIGN_START);
+    gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
+//     ++grid_row;
+
+    GtkWidget *dtmf_box = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
+    gtk_button_box_set_layout(GTK_BUTTON_BOX(dtmf_box), GTK_BUTTONBOX_START);
+    gtk_box_set_spacing(GTK_BOX(dtmf_box), 10);
+    radiobutton_dtmf_rtp = gtk_radio_button_new_with_label(NULL, "RTP");
+    radiobutton_dtmf_sip = gtk_radio_button_new_with_label_from_widget(
+        GTK_RADIO_BUTTON(radiobutton_dtmf_rtp),
+        "SIP");
+    gtk_toggle_button_set_active(
+        priv->account->DTMFType() == DtmfType::OverRtp ?
+            GTK_TOGGLE_BUTTON(radiobutton_dtmf_rtp) : GTK_TOGGLE_BUTTON(radiobutton_dtmf_sip),
+        TRUE);
+    g_signal_connect(radiobutton_dtmf_rtp, "toggled", G_CALLBACK(dtmf_set_rtp), view);
+    gtk_box_pack_start(GTK_BOX(dtmf_box),
+                       radiobutton_dtmf_rtp,
+                       FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(dtmf_box),
+                       radiobutton_dtmf_sip,
+                       FALSE, TRUE, 0);
+    gtk_grid_attach(GTK_GRID(priv->grid_parameters), dtmf_box, 1, grid_row, 1, 1);
+    ++grid_row;
+
     /* update account parameters if model is updated */
     priv->account_updated = QObject::connect(
         priv->account,
@@ -355,6 +397,10 @@ build_tab_view(AccountGeneralTab *view)
 
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_autoanswer), priv->account->isAutoAnswer());
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_upnp), priv->account->isUpnpEnabled());
+             gtk_toggle_button_set_active(
+                priv->account->DTMFType() == DtmfType::OverRtp ?
+                    GTK_TOGGLE_BUTTON(radiobutton_dtmf_rtp) : GTK_TOGGLE_BUTTON(radiobutton_dtmf_sip),
+                TRUE);
         }
     );
 
