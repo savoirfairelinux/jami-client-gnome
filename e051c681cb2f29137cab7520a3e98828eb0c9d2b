@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba57610f_4e4f6793",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-04-28T15:25:38Z",
+      "side": 1,
+      "message": "client shall not filter key codes, the daemon does it.... example you missed \u0027!\u0027",
+      "range": {
+        "startLine": 851,
+        "startChar": 1,
+        "endLine": 865,
+        "endChar": 5
+      },
+      "revId": "e051c681cb2f29137cab7520a3e98828eb0c9d2b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
