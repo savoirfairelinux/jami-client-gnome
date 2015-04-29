@@ -302,6 +302,9 @@ search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
         QModelIndex idx = CallModel::instance()->getIndex(call);
         CallModel::instance()->selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
     }
+
+    /* move focus away from entry so that DTMF tones can be entered via the keyboard */
+    gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
 }
 
 static void
@@ -816,6 +819,12 @@ select_autocompletion(G_GNUC_UNUSED GtkEntryCompletion *widget,
     if (idx.isValid()) {
         ContactMethod *n = priv->q_completion_model->number(idx);
         place_new_call(n);
+
+        /* clear the entry */
+        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+
+        /* move focus away from entry so that DTMF tones can be entered via the keyboard */
+        gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
     } else {
         g_warning("autocompletion selection is not a valid index!");
     }
