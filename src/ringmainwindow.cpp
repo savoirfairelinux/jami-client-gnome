@@ -848,13 +848,22 @@ dtmf_pressed(RingMainWindow *win,
     if (state != Call::LifeCycleState::PROGRESS)
         return GDK_EVENT_PROPAGATE;
 
+    /* filter out cretain MOD masked key presses so that, for example, 'Ctrl+c'
+     * does not result in a 'c' being played.
+     * we filter Ctrl, Alt, and SUPER/HYPER/META keys */
+    if ( event->state
+        & ( GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK ))
+        return GDK_EVENT_PROPAGATE;
+
     /* pass the character that was entered to be played by the daemon;
      * the daemon will filter out invalid DTMF characters */
     guint32 unicode_val = gdk_keyval_to_unicode(event->keyval);
     QString val = QString::fromUcs4(&unicode_val, 1);
     call->playDTMF(val);
     g_debug("attemptingto play DTMF tone during ongoing call: %s", val.toUtf8().constData());
-    return GDK_EVENT_STOP;
+
+    /* always propogate the key, so we don't steal accelerators/shortcuts */
+    return GDK_EVENT_PROPAGATE;
 }
 
 static void
