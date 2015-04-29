@@ -49,7 +49,7 @@
                 <child>
                   <object class="GtkLabel" id="label_identity">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
                     <property name="halign">center</property>
                     <property name="selectable">True</property>
                     <attributes>
