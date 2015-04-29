@@ -39,6 +39,7 @@
 #include "../defines.h"
 #include <stdlib.h>
 #include <atomic>
+#include <mutex>
 #include "xrectsel.h"
 
 #define VIDEO_LOCAL_SIZE            150
@@ -87,7 +88,8 @@ struct _VideoWidgetRenderer {
     VideoRendererType        type;
     ClutterActor            *actor;
     Video::Renderer         *renderer;
-    std::atomic_bool         running;
+    std::mutex               run_mutex;
+    bool                     running;
     std::atomic_bool         dirty;
 
     /* show_black_frame is used to request the actor to render a black image;
@@ -420,40 +422,48 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         return;
     }
 
-    if (!wg_renderer->running)
-        return;
+    ClutterContent *image_new = nullptr;
 
-    auto renderer = wg_renderer->renderer;
-    if (renderer == nullptr)
-        return;
+    {
+        /* the following must be done under lock in case a 'stopped' signal is
+         * received during rendering; otherwise the mem could become invalid */
+        std::lock_guard<std::mutex> lock(wg_renderer->run_mutex);
 
-    const auto frameData = (const guint8*)renderer->currentFrame().constData();
-    if (!frameData or !wg_renderer->dirty)
-        return;
+        if (!wg_renderer->running)
+            return;
 
-    wg_renderer->dirty = false;
+        auto renderer = wg_renderer->renderer;
+        if (renderer == nullptr)
+            return;
 
-    auto image_new = clutter_image_new();
-    g_return_if_fail(image_new);
+        const auto frameData = (const guint8*)renderer->currentFrame().constData();
+        if (!frameData or !wg_renderer->dirty)
+            return;
 
-    const auto& res = renderer->size();
-    const gint BPP = 4;
-    const gint ROW_STRIDE = BPP * res.width();
+        wg_renderer->dirty = false;
 
-    GError *error = nullptr;
-    clutter_image_set_data(
-        CLUTTER_IMAGE(image_new),
-        frameData,
-        COGL_PIXEL_FORMAT_BGRA_8888,
-        res.width(),
-        res.height(),
-        ROW_STRIDE,
-        &error);
-    if (error) {
-        g_warning("error rendering image to clutter: %s", error->message);
-        g_error_free(error);
-        g_object_unref (image_new);
-        return;
+        image_new = clutter_image_new();
+        g_return_if_fail(image_new);
+
+        const auto& res = renderer->size();
+        const gint BPP = 4;
+        const gint ROW_STRIDE = BPP * res.width();
+
+        GError *error = nullptr;
+        clutter_image_set_data(
+            CLUTTER_IMAGE(image_new),
+            frameData,
+            COGL_PIXEL_FORMAT_BGRA_8888,
+            res.width(),
+            res.height(),
+            ROW_STRIDE,
+            &error);
+        if (error) {
+            g_warning("error rendering image to clutter: %s", error->message);
+            g_error_free(error);
+            g_object_unref (image_new);
+            return;
+        }
     }
 
     clutter_actor_set_content(actor, image_new);
@@ -482,7 +492,12 @@ static void
 renderer_stop(VideoWidgetRenderer *renderer)
 {
     QObject::disconnect(renderer->frame_update);
-    renderer->running = false;
+    {
+        /* must do this under lock, in case the rendering is taking place when
+         * this signal is received */
+        std::lock_guard<std::mutex> lock(renderer->run_mutex);
+        renderer->running = false;
+    }
     /* ask to show a black frame */
     renderer->show_black_frame = true;
 }
@@ -491,9 +506,10 @@ static void
 renderer_start(VideoWidgetRenderer *renderer)
 {
     QObject::disconnect(renderer->frame_update);
-
-    renderer->running = true;
-
+    {
+        std::lock_guard<std::mutex> lock(renderer->run_mutex);
+        renderer->running = true;
+    }
     renderer->frame_update = QObject::connect(
         renderer->renderer,
         &Video::Renderer::frameUpdated,
