@@ -1,5 +1,5 @@
 %define name        ring-gnome
-%define version     0.2.1
+%define version     0.4.0
 %define release     1
 %define daemon_tag  origin/master
 %define lrc_tag     origin/master
@@ -95,6 +95,9 @@ sed -i "s#Icon=.*#Icon=%{_datadir}/icons/hicolor/scalable/apps/ring.svg#g" %{bui
 
 
 %changelog
+* Fri May  1 2015 Guillaume Roguez <guillaume.roguez@savoirfairelinux.com> - 0.4.0-1
+- New upstream version
+
 * Thu Apr 23 2015 Guillaume Roguez <guillaume.roguez@savoirfairelinux.com> - 0.2.1-1
 - New upstream version
 
