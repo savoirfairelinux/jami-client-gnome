@@ -11,7 +11,7 @@ Build-Depends: debhelper (>= 9),
  autoconf, automake, libtool, libdbus-1-dev,
  libpcre3-dev, libyaml-cpp-dev, libboost-dev,
  libdbus-c++-dev, libupnp-dev, qtbase5-dev,
- yasm, autopoint, unbound-anchor, git-core, gnome-icon-theme-symbolic,
+ yasm, autopoint, unbound-anchor, git-core,
  autotools-dev, autoconf, automake, libtool, chrpath, check, astyle,
  libgnutls28-dev, cmake, libebook1.2-dev,
  libclutter-gtk-1.0-dev, libclutter-1.0-dev, libglib2.0-dev, libgtk-3-dev,
@@ -20,6 +20,6 @@ Package: ring-gnome
 Architecture: any
 Section: gnome
 Depends: ${shlibs:Depends}, ${misc:Depends}, ring-daemon, libebook-1.2-14,
- librsvg2-2
+ librsvg2-2, gnome-icon-theme-symbolic
 Description: Ring GNOME client
  Ring is a secured and distributed communication software.
