@@ -137,8 +137,7 @@ QVariant PixbufDelegate::personPhoto(const QByteArray& data, const QString& type
 
     if (!pixbuf) {
         // g_debug("failed decoding person photo using base64: %s", error->message);
-        g_error_free(error);
-        error = NULL;
+        g_clear_error(&error);
 
         /* failed with base64, try hex */
         QByteArray baHex = QByteArray::fromHex(data);
@@ -152,8 +151,7 @@ QVariant PixbufDelegate::personPhoto(const QByteArray& data, const QString& type
 
         if (!pixbuf) {
             // g_debug("failed decoding person photo using hex (ASCII): %s", error->message);
-            g_error_free(error);
-            error = NULL;
+            g_clear_error(&error);
         }
     }
 

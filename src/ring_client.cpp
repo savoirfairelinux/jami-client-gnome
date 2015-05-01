@@ -279,7 +279,7 @@ ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
     if (g_option_context_parse(context, &argc, &argv, &error) == FALSE) {
         g_print(_("%s\nRun '%s --help' to see a full list of available command line options.\n"),
                 error->message, argv[0]);
-        g_error_free(error);
+        g_clear_error(&error);
         g_option_context_free(context);
         return 1;
     }
