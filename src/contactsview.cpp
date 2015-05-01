@@ -32,6 +32,7 @@
 
 #include <gtk/gtk.h>
 #include "models/gtkqsortfiltertreemodel.h"
+#include "models/gtkqtreemodel.h"
 #include "models/activeitemproxymodel.h"
 #include <categorizedcontactmodel.h>
 #include <personmodel.h>
@@ -41,6 +42,7 @@
 #include <contactmethod.h>
 #include "defines.h"
 #include "utils/models.h"
+#include <categorizedbookmarkmodel.h>
 
 #define COPY_DATA_KEY "copy_data"
 
@@ -332,11 +334,44 @@ static void
 contacts_view_init(ContactsView *self)
 {
     ContactsViewPrivate *priv = CONTACTS_VIEW_GET_PRIVATE(self);
+    
+    GtkWidget *vbox_main = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+    gtk_container_add(GTK_CONTAINER(self), vbox_main);
+    
+    /* frequent contacts/numbers */
+    GtkWidget *label_frequent = gtk_label_new("Frequent Contacts");
+    gtk_box_pack_start(GTK_BOX(vbox_main), label_frequent, FALSE, TRUE, 0);
+    
+    GtkWidget *treeview_frequent = gtk_tree_view_new();
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_frequent), FALSE);
+    gtk_box_pack_start(GTK_BOX(vbox_main), treeview_frequent, FALSE, TRUE, 0);
+    /* no need to show the expander since it will always be expanded */
+    gtk_tree_view_set_show_expanders(GTK_TREE_VIEW(treeview_frequent), FALSE);
+    /* disable default search, we will handle it ourselves via LRC;
+     * otherwise the search steals input focus on key presses */
+    gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_frequent), FALSE);
+    
+    GtkQTreeModel *frequent_model = gtk_q_tree_model_new(
+        (QAbstractItemModel *)CategorizedBookmarkModel::instance(),
+        1,
+        Qt::DisplayRole, G_TYPE_STRING);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_frequent), GTK_TREE_MODEL(frequent_model));
+    
+    GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+    GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes("Number", renderer, "text", 0, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_frequent), column);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+    
+    gtk_tree_view_expand_all(GTK_TREE_VIEW(treeview_frequent));
 
-    /* contacts view/model */
+    /* contacts */
+    GtkWidget *label_contacts = gtk_label_new("Contacts");
+    gtk_box_pack_start(GTK_BOX(vbox_main), label_contacts, FALSE, TRUE, 10);
+    
     GtkWidget *treeview_contacts = gtk_tree_view_new();
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_contacts), FALSE);
-    gtk_container_add(GTK_CONTAINER(self), treeview_contacts);
+    gtk_box_pack_start(GTK_BOX(vbox_main), treeview_contacts, FALSE, TRUE, 0);
 
     /* disable default search, we will handle it ourselves via LRC;
      * otherwise the search steals input focus on key presses */
@@ -357,11 +392,11 @@ contacts_view_init(ContactsView *self)
 
     /* photo and name/contact method column */
     GtkCellArea *area = gtk_cell_area_box_new();
-    GtkTreeViewColumn *column = gtk_tree_view_column_new_with_area(area);
+    column = gtk_tree_view_column_new_with_area(area);
     gtk_tree_view_column_set_title(column, "Name");
 
     /* photo renderer */
-    GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
+    renderer = gtk_cell_renderer_pixbuf_new();
     gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
 
     /* get the photo */
@@ -374,6 +409,7 @@ contacts_view_init(ContactsView *self)
 
     /* name and contact method renderer */
     renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
 
     gtk_tree_view_column_set_cell_data_func(
