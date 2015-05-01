@@ -46,6 +46,7 @@ typedef struct _VideoSettingsViewClass VideoSettingsViewClass;
 
 GType      video_settings_view_get_type      (void) G_GNUC_CONST;
 GtkWidget *video_settings_view_new           (void);
+void       video_settings_show_preview       (VideoSettingsView *self, gboolean show_preview);
 
 G_END_DECLS
 

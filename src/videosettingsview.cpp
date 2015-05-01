@@ -59,6 +59,12 @@ struct _VideoSettingsViewPrivate
     GtkWidget *vbox_camera_preview;
     GtkWidget *video_widget;
 
+    /* this is used to keep track of the state of the preview when the settings
+     * are opened; if a call is in progress, then the preview should already be
+     * started and we don't want to stop it when the settings are closed, in this
+     * case */
+    gboolean video_started_by_settings;
+
     QMetaObject::Connection local_renderer_connection;
     QMetaObject::Connection device_selection;
     QMetaObject::Connection channel_selection;
@@ -83,18 +89,6 @@ video_settings_view_dispose(GObject *object)
     QObject::disconnect(priv->rate_selection);
 
     G_OBJECT_CLASS(video_settings_view_parent_class)->dispose(object);
-}
-
-static void
-preview_toggled(GtkToggleButton *togglebutton, G_GNUC_UNUSED gpointer user_data)
-{
-    if (gtk_toggle_button_get_active(togglebutton)) {
-        Video::PreviewManager::instance()->startPreview();
-        gtk_button_set_label(GTK_BUTTON(togglebutton), "stop");
-    } else {
-        Video::PreviewManager::instance()->stopPreview();
-        gtk_button_set_label(GTK_BUTTON(togglebutton), "start");
-    }
 }
 
 static QModelIndex
@@ -173,35 +167,6 @@ video_settings_view_init(VideoSettingsView *view)
 
     VideoSettingsViewPrivate *priv = VIDEO_SETTINGS_VIEW_GET_PRIVATE(view);
 
-    /* put video widget in */
-    priv->video_widget = video_widget_new();
-    gtk_widget_show_all(priv->video_widget);
-    gtk_box_pack_start(GTK_BOX(priv->vbox_camera_preview), priv->video_widget, TRUE, TRUE, 0);
-
-    /* if preview is already started, toggle start/stop button */
-    if (Video::PreviewManager::instance()->isPreviewing()) {
-        gtk_button_set_label(GTK_BUTTON(priv->button_startstop), "stop");
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->button_startstop), TRUE);
-    }
-    g_signal_connect(priv->button_startstop, "toggled", G_CALLBACK(preview_toggled), NULL);
-
-    /* local renderer, but set as "remote" so that it takes up the whole screen */
-    /* check to see if the renderere is running first */
-    if (Video::PreviewManager::instance()->isPreviewing())
-        video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                       Video::PreviewManager::instance()->previewRenderer(),
-                                       VIDEO_RENDERER_REMOTE);
-
-    priv->local_renderer_connection = QObject::connect(
-        Video::PreviewManager::instance(),
-        &Video::PreviewManager::previewStarted,
-        [=](Video::Renderer *renderer) {
-            video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                           renderer,
-                                           VIDEO_RENDERER_REMOTE);
-        }
-    );
-
     priv->device_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_device),
                                                       Video::ConfigurationProxy::deviceModel(),
                                                       Video::ConfigurationProxy::deviceSelectionModel());
@@ -228,7 +193,6 @@ video_settings_view_class_init(VideoSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_channel);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_resolution);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_framerate);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, button_startstop);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, vbox_camera_preview);
 }
 
@@ -238,4 +202,56 @@ video_settings_view_new()
     gpointer view = g_object_new(VIDEO_SETTINGS_VIEW_TYPE, NULL);
 
     return (GtkWidget *)view;
+}
+
+void
+video_settings_show_preview(VideoSettingsView *self, gboolean show_preview)
+{
+    g_return_if_fail(IS_VIDEO_SETTINGS_VIEW(self));
+    VideoSettingsViewPrivate *priv = VIDEO_SETTINGS_VIEW_GET_PRIVATE(self);
+
+    /* if TRUE, create a VideoWidget, then check if the preview has already been
+     * started (because a call was in progress); if not, then start it.
+     * if FALSE, check if the preview was started by this function, if so
+     * then stop the preview; then destroy the VideoWidget to make sure we don't
+     * get useless frame updates */
+
+    if (show_preview) {
+        /* put video widget in */
+        priv->video_widget = video_widget_new();
+        gtk_widget_show_all(priv->video_widget);
+        gtk_box_pack_start(GTK_BOX(priv->vbox_camera_preview), priv->video_widget, TRUE, TRUE, 0);
+
+        if (Video::PreviewManager::instance()->isPreviewing()) {
+            priv->video_started_by_settings = FALSE;
+
+            /* local renderer, but set as "remote" so that it takes up the whole screen */
+            video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                           Video::PreviewManager::instance()->previewRenderer(),
+                                           VIDEO_RENDERER_REMOTE);
+        } else {
+            priv->video_started_by_settings = TRUE;
+            priv->local_renderer_connection = QObject::connect(
+                Video::PreviewManager::instance(),
+                &Video::PreviewManager::previewStarted,
+                [=](Video::Renderer *renderer) {
+                    video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                                renderer,
+                                                VIDEO_RENDERER_REMOTE);
+                }
+            );
+            Video::PreviewManager::instance()->startPreview();
+        }
+    } else {
+        if (priv->video_started_by_settings) {
+            Video::PreviewManager::instance()->stopPreview();
+            QObject::disconnect(priv->local_renderer_connection);
+            priv->video_started_by_settings = FALSE;
+        }
+
+        if (priv->video_widget && IS_VIDEO_WIDGET(priv->video_widget))
+            gtk_container_remove(GTK_CONTAINER(priv->vbox_camera_preview), priv->video_widget);
+        priv->video_widget = NULL;
+    }
+
 }
