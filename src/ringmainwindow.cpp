@@ -601,6 +601,7 @@ show_account_creation(RingMainWindow *win)
     if (logo_ring == NULL) {
         g_debug("Could not load logo: %s", error->message);
         g_error_free(error);
+        error = NULL;
     } else
         gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring_logo), logo_ring);
 
@@ -895,6 +896,7 @@ ring_main_window_init(RingMainWindow *win)
     if (icon == NULL) {
         g_debug("Could not load icon: %s", error->message);
         g_error_free(error);
+        error = NULL;
     } else
         gtk_window_set_icon(GTK_WINDOW(win), icon);
 
@@ -904,6 +906,7 @@ ring_main_window_init(RingMainWindow *win)
     if (image_ring == NULL) {
         g_debug("Could not load icon: %s", error->message);
         g_error_free(error);
+        error = NULL;
     } else
         gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring), image_ring);
 

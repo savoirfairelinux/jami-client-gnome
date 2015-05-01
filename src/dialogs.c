@@ -87,6 +87,7 @@ ring_about_dialog(GtkWidget *parent)
     if (logo == NULL) {
         g_debug("Could not load logo: %s", error->message);
         g_error_free(error);
+        error = NULL;
     }
 
     gchar *name = g_strdup_printf("Gnome Ring v%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
