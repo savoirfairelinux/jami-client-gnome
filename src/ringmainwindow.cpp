@@ -411,6 +411,10 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         gtk_widget_hide(priv->hbox_search);
         gtk_widget_show(priv->hbox_settings);
 
+        /* make sure to start preview if we're showing the video settings */
+        if (priv->last_settings_view == priv->video_settings_view)
+            video_settings_show_preview(VIDEO_SETTINGS_VIEW(priv->video_settings_view), TRUE);
+
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_UP);
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->last_settings_view);
     } else {
@@ -434,7 +438,7 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
 
         /* make sure video preview is stopped, in case it was started */
-        Video::PreviewManager::instance()->stopPreview();
+        video_settings_show_preview(VIDEO_SETTINGS_VIEW(priv->video_settings_view), FALSE);
     }
 }
 
@@ -445,9 +449,12 @@ show_video_settings(GtkToggleButton *navbutton, RingMainWindow *win)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
     if (gtk_toggle_button_get_active(navbutton)) {
+        video_settings_show_preview(VIDEO_SETTINGS_VIEW(priv->video_settings_view), TRUE);
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), VIDEO_SETTINGS_VIEW_NAME);
         priv->last_settings_view = priv->video_settings_view;
+    } else {
+        video_settings_show_preview(VIDEO_SETTINGS_VIEW(priv->video_settings_view), FALSE);
     }
 }
 
