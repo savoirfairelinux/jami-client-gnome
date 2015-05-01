@@ -43,7 +43,7 @@ client_cb(G_GNUC_UNUSED ESource *source, GAsyncResult *result, G_GNUC_UNUSED gpo
     EClient *client = e_book_client_connect_finish(result, &error);
     if (!client) {
         g_warning("%s", error->message);
-        g_error_free(error);
+        g_clear_error(&error);
     } else {
         /* got a client for this addressbook, add as backend */
         PersonModel::instance()->addCollection<EdsContactBackend, EClient *>(
@@ -58,7 +58,7 @@ registry_cb(G_GNUC_UNUSED GObject *source, GAsyncResult *result, GCancellable *c
     ESourceRegistry *registry = e_source_registry_new_finish(result, &error);
     if(!registry) {
         g_critical("Unable to create EDS registry: %s", error->message);
-        g_error_free(error);
+        g_clear_error(&error);
         return;
     } else {
         GList *list = e_source_registry_list_enabled(registry, E_SOURCE_EXTENSION_ADDRESS_BOOK);
@@ -190,7 +190,7 @@ contacts_cb(EBookClient *client, GAsyncResult *result, EdsContactBackend *self)
     GError *error = NULL;
     if(!e_book_client_get_contacts_finish(client, result, &contacts, &error)) {
         g_critical("Unable to get contacts: %s", error->message);
-        g_error_free(error);
+        g_clear_error(&error);
         return;
     } else {
         self->addContacts(contacts);
@@ -209,7 +209,7 @@ void EdsContactBackend::parseContact(EContact *contact)
             GError *error = NULL;
             if (!e_contact_inline_local_photos(contact, &error)) {
                 g_warning("could not inline photo from vcard URI: %s", error->message);
-                g_error_free(error);
+                g_clear_error(&error);
             }
         }
     }

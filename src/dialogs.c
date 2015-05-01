@@ -86,7 +86,7 @@ ring_about_dialog(GtkWidget *parent)
     GdkPixbuf* logo = gdk_pixbuf_new_from_resource("/cx/ring/RingGnome/ring-logo-blue", &error);
     if (logo == NULL) {
         g_debug("Could not load logo: %s", error->message);
-        g_error_free(error);
+        g_clear_error(&error);
     }
 
     gchar *name = g_strdup_printf("Gnome Ring v%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);

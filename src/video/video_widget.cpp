@@ -460,7 +460,7 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
             &error);
         if (error) {
             g_warning("error rendering image to clutter: %s", error->message);
-            g_error_free(error);
+            g_clear_error(&error);
             g_object_unref (image_new);
             return;
         }
