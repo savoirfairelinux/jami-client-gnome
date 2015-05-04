@@ -17,7 +17,7 @@ BuildRequires:      autoconf automake libtool dbus-devel pcre-devel yaml-cpp-dev
 BuildRequires:      boost-devel dbus-c++-devel dbus-devel libupnp-devel qt5-qtbase-devel
 BuildRequires:      gnome-icon-theme-symbolic chrpath check astyle gnutls-devel yasm git
 BuildRequires:      cmake clutter-gtk-devel clutter-devel glib2-devel gtk3-devel evolution-data-server-devel
-Requires:           gnome-icon-theme-symbolic evolution-data-server
+Requires:           gnome-icon-theme-symbolic evolution-data-server ring-daemon librsvg2
 
 %description
 Ring GNOME client
