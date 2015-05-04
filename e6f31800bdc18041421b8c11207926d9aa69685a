@@ -22,6 +22,30 @@
       "revId": "e6f31800bdc18041421b8c11207926d9aa69685a",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba57610f_9c4a35ab",
+        "filename": "src/dialogs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-05-04T18:02:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba57610f_1cb525cd",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 21
+      },
+      "revId": "e6f31800bdc18041421b8c11207926d9aa69685a",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
