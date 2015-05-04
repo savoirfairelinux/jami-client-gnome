@@ -182,6 +182,8 @@ SET( SRC_FILES
    src/accountaudiotab.cpp
    src/accountvideotab.h
    src/accountvideotab.cpp
+   src/accountadvancedtab.h
+   src/accountadvancedtab.cpp
    src/models/activeitemproxymodel.h
    src/models/activeitemproxymodel.cpp
    src/defines.h
