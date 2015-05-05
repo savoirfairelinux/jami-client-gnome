@@ -415,9 +415,40 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         /* render a black frame set the bool back to false, this is likely done
          * when the renderer is stopped so we ignore whether or not it is running
          */
-        auto image_empty = clutter_image_new();
-        clutter_actor_set_content(actor, image_empty);
-        g_object_unref (image_empty);
+        auto image_old = clutter_actor_get_content(actor);
+        if (image_old) {
+            gfloat width;
+            gfloat height;
+            if (clutter_content_get_preferred_size(image_old, &width, &height)) {
+                /* NOTE: this is a workaround for #72531, a crash which occurs
+                 * in cogl < 1.18. We allocate a black frame of the same size
+                 * as the previous image, instead of simply setting an empty or
+                 * a NULL ClutterImage.
+                 */
+                auto image_empty = clutter_image_new();
+                guint8 *empty_data = (guint8 *)g_malloc0((gsize)width * height * 4);
+                GError *error = NULL;
+                clutter_image_set_data(
+                        CLUTTER_IMAGE(image_empty),
+                        empty_data,
+                        COGL_PIXEL_FORMAT_BGRA_8888,
+                        (guint)width,
+                        (guint)height,
+                        (guint)width*4,
+                        &error);
+                if (error) {
+                    g_warning("error rendering empty iamge to clutter: %s", error->message);
+                    g_clear_error(&error);
+                    g_object_unref (image_empty);
+                    return;
+                }
+                clutter_actor_set_content(actor, image_empty);
+                g_object_unref (image_empty);
+                g_free(empty_data);
+            } else {
+                clutter_actor_set_content(actor, NULL);
+            }
+        }
         wg_renderer->show_black_frame = false;
         return;
     }
