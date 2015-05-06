@@ -67,9 +67,14 @@ registry_cb(G_GNUC_UNUSED GObject *source, GAsyncResult *result, GCancellable *c
             ESource *source = E_SOURCE(l->data);
             /* try to connect to each source ansynch */
 #if EDS_CHECK_VERSION(3,16,0)
-                e_book_client_connect(source, WAIT_FOR_CONNECTED_SECONDS, cancellable, (GAsyncReadyCallback)client_cb, NULL);
+            e_book_client_connect(source,
+                                  EdsContactBackend::WAIT_FOR_CONNECTED_SECONDS,
+                                  cancellable,
+                                  (GAsyncReadyCallback)client_cb,
+                                  NULL);
+#else
+            e_book_client_connect(source, cancellable, (GAsyncReadyCallback)client_cb, NULL);
 #endif
-                e_book_client_connect(source, cancellable, (GAsyncReadyCallback)client_cb, NULL);
         }
 
         g_list_free_full(list, g_object_unref);
