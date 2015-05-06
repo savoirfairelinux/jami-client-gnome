@@ -48,18 +48,6 @@ template<typename T> class CollectionMediator;
 
 void load_eds_sources(GCancellable *cancellable);
 
-class EdsContactBackend : public CollectionInterface
-{
-public:
-    /* load 300 contacts every 10ms; this is fast enough to load
-     * 1M contacts in about 30s, but can be increased if need be
-     */
-    /* this sets how many contacts will be added at a time */
-    constexpr static int CONTACT_ADD_LIMIT {300};
-    /* this sets the interval in miliseconds to wait before adding
-     * more contacts */
-    constexpr static int CONTACT_ADD_INTERVAL {10};
-
 #if EDS_CHECK_VERSION(3,16,0)
     /* The wait_for_connected_seconds argument had been added since 3.16, to let
      * the caller decide how long to wait for the backend to fully connect to
@@ -72,6 +60,18 @@ public:
      * */
     constexpr static guint32 WAIT_FOR_CONNECTED_SECONDS {5};
 #endif
+
+class EdsContactBackend : public CollectionInterface
+{
+public:
+    /* load 300 contacts every 10ms; this is fast enough to load
+     * 1M contacts in about 30s, but can be increased if need be
+     */
+    /* this sets how many contacts will be added at a time */
+    constexpr static int CONTACT_ADD_LIMIT {300};
+    /* this sets the interval in miliseconds to wait before adding
+     * more contacts */
+    constexpr static int CONTACT_ADD_INTERVAL {10};
 
     explicit EdsContactBackend(CollectionMediator<Person>* mediator, EClient *client, CollectionInterface* parent = nullptr);
     virtual ~EdsContactBackend();
