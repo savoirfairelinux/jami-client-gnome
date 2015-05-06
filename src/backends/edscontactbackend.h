@@ -69,7 +69,7 @@ public:
      * authentication requests. In case the backend will not connect within the
      * set interval, then it is opened in an offline mode. A special value -1
      * can be used to not wait for the connected state at all.
-     * */
+     */
     constexpr static guint32 WAIT_FOR_CONNECTED_SECONDS {5};
 #endif
 
