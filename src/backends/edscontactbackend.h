@@ -48,6 +48,19 @@ template<typename T> class CollectionMediator;
 
 void load_eds_sources(GCancellable *cancellable);
 
+#if EDS_CHECK_VERSION(3,16,0)
+/* The wait_for_connected_seconds argument had been added since 3.16, to let
+ * the caller decide how long to wait for the backend to fully connect to
+ * its (possibly remote) data store. This is required due to a change in the
+ * authentication process, which is fully asynchronous and done on the
+ * client side, while not every client is supposed to response to
+ * authentication requests. In case the backend will not connect within the
+ * set interval, then it is opened in an offline mode. A special value -1
+ * can be used to not wait for the connected state at all.
+ */
+constexpr static guint32 WAIT_FOR_CONNECTED_SECONDS {5};
+#endif
+
 class EdsContactBackend : public CollectionInterface
 {
 public:
@@ -59,19 +72,6 @@ public:
     /* this sets the interval in miliseconds to wait before adding
      * more contacts */
     constexpr static int CONTACT_ADD_INTERVAL {10};
-
-#if EDS_CHECK_VERSION(3,16,0)
-    /* The wait_for_connected_seconds argument had been added since 3.16, to let
-     * the caller decide how long to wait for the backend to fully connect to
-     * its (possibly remote) data store. This is required due to a change in the
-     * authentication process, which is fully asynchronous and done on the
-     * client side, while not every client is supposed to response to
-     * authentication requests. In case the backend will not connect within the
-     * set interval, then it is opened in an offline mode. A special value -1
-     * can be used to not wait for the connected state at all.
-     * */
-    constexpr static guint32 WAIT_FOR_CONNECTED_SECONDS {5};
-#endif
 
     explicit EdsContactBackend(CollectionMediator<Person>* mediator, EClient *client, CollectionInterface* parent = nullptr);
     virtual ~EdsContactBackend();
