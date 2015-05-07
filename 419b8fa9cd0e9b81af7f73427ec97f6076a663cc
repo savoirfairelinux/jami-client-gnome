@@ -22,6 +22,30 @@
       "revId": "419b8fa9cd0e9b81af7f73427ec97f6076a663cc",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba57610f_b74d12c7",
+        "filename": "src/accountadvancedtab.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-05-07T19:46:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba57610f_97c44e60",
+      "range": {
+        "startLine": 384,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 70
+      },
+      "revId": "419b8fa9cd0e9b81af7f73427ec97f6076a663cc",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
