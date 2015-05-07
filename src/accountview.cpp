@@ -42,6 +42,7 @@
 #include "accountaudiotab.h"
 #include "accountvideotab.h"
 #include "accountadvancedtab.h"
+#include "accountsecuritytab.h"
 #include "dialogs.h"
 #include <glib/gprintf.h>
 #include "utils/models.h"
@@ -159,6 +160,10 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *view)
         gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
                                  advanced_tab,
                                  gtk_label_new("Advanced"));
+        GtkWidget *security_tab = account_security_tab_new(account);
+        gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
+                                 security_tab,
+                                 gtk_label_new("Security"));
 
         /* set the tab displayed to the same as the prev account selected */
         gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->current_account_notebook), priv->current_page);
