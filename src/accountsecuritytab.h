@@ -28,23 +28,27 @@
  *  as that of the covered work.
  */
 
-#ifndef _MODELS_H
-#define _MODELS_H
+#ifndef _ACCOUNTSECURITYTAB_H
+#define _ACCOUNTSECURITYTAB_H
 
 #include <gtk/gtk.h>
-#include <QtCore/QMetaObject>
 
-class QModelIndex;
-class QAbstractItemModel;
-class QItemSelectionModel;
+class Account;
 
-QModelIndex
-get_index_from_selection(GtkTreeSelection *selection);
+G_BEGIN_DECLS
 
-QModelIndex
-gtk_combo_box_get_index(GtkComboBox *box);
+#define ACCOUNT_SECURITY_TAB_TYPE            (account_security_tab_get_type ())
+#define ACCOUNT_SECURITY_TAB(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), ACCOUNT_SECURITY_TAB_TYPE, AccountSecurityTab))
+#define ACCOUNT_SECURITY_TAB_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), ACCOUNT_SECURITY_TAB_TYPE, AccountSecurityTabClass))
+#define IS_ACCOUNT_SECURITY_TAB(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), ACCOUNT_SECURITY_TAB_TYPE))
+#define IS_ACCOUNT_SECURITY_TAB_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), ACCOUNT_SECURITY_TAB_TYPE))
 
-QMetaObject::Connection
-gtk_combo_box_set_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSelectionModel *selection_model);
+typedef struct _AccountSecurityTab      AccountSecurityTab;
+typedef struct _AccountSecurityTabClass AccountSecurityTabClass;
 
-#endif /* _MODELS_H */
+GType      account_security_tab_get_type      (void) G_GNUC_CONST;
+GtkWidget *account_security_tab_new           (Account *account);
+
+G_END_DECLS
+
+#endif /* _ACCOUNTSECURITYTAB_H */
