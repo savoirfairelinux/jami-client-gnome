@@ -294,17 +294,20 @@ search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
             number = "ring:" + number;
 
         g_debug("dialing to number: %s", number.toUtf8().constData());
-        Call *call = CallModel::instance()->dialingCall();
+
+        Call *call = priv->q_completion_model->call();
         call->setDialNumber(number);
         call->performAction(Call::Action::ACCEPT);
 
         /* make this the currently selected call */
         QModelIndex idx = CallModel::instance()->getIndex(call);
         CallModel::instance()->selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
-    }
 
-    /* move focus away from entry so that DTMF tones can be entered via the keyboard */
-    gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
+        /* move focus away from entry so that DTMF tones can be entered via the keyboard */
+        gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
+        /* clear the entry */
+        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+    }
 }
 
 static void
@@ -688,11 +691,15 @@ search_entry_text_changed(GtkEditable *search_entry, RingMainWindow *win)
     /* get the text from the entry */
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(search_entry));
 
-    if (text) {
+    if (text && strlen(text) > 0) {
         /* edit the the dialing call (or create a new one) */
         Call *call = CallModel::instance()->dialingCall();
         call->setDialNumber(text);
         priv->q_completion_model->setCall(call);
+    } else {
+        Call *call = priv->q_completion_model->call();
+        if (call->lifeCycleState() == Call::LifeCycleState::CREATION)
+            call->performAction(Call::Action::REFUSE);
     }
 }
 
@@ -819,20 +826,19 @@ select_autocompletion(G_GNUC_UNUSED GtkEntryCompletion *widget,
 
     QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
     if (idx.isValid()) {
-        ContactMethod *n = priv->q_completion_model->number(idx);
-        /* check if using a specific account */
-        QVariant var_acc = idx.data(NumberCompletionModel::Role::ACCOUNT);
-        Account *acc = var_acc.value<Account *>();
-        if (acc) {
-            g_debug("using account: %s", acc->alias().toUtf8().constData());
-        }
-        place_new_call(n, acc);
+        priv->q_completion_model->selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
+        Call *call = priv->q_completion_model->call();
+        priv->q_completion_model->callSelectedNumber();
 
-        /* clear the entry */
-        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+        /* make this the currently selected call */
+        QModelIndex idx = CallModel::instance()->getIndex(call);
+        CallModel::instance()->selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
 
         /* move focus away from entry so that DTMF tones can be entered via the keyboard */
         gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
+
+        /* clear the entry */
+        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
     } else {
         g_warning("autocompletion selection is not a valid index!");
     }
