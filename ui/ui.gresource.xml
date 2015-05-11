@@ -11,5 +11,6 @@
     <file preprocess="xml-stripblanks">accountvideotab.ui</file>
     <file preprocess="xml-stripblanks">mediasettingsview.ui</file>
     <file preprocess="xml-stripblanks">accountadvancedtab.ui</file>
+    <file preprocess="xml-stripblanks">generalsettingsview.ui</file>
   </gresource>
 </gresources>

@@ -193,6 +193,8 @@ SET( SRC_FILES
    src/dialogs.c
    src/mediasettingsview.h
    src/mediasettingsview.cpp
+   src/generalsettingsview.h
+   src/generalsettingsview.cpp
    src/backends/edscontactbackend.h
    src/backends/edscontactbackend.cpp
    src/delegates/pixbufdelegate.h

@@ -90,8 +90,7 @@
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_general_settings">
                     <property name="label" translatable="yes">General</property>
-                    <!-- TODO make visible when feature added -->
-                    <property name="visible">False</property>
+                    <property name="visible">True</property>
                     <property name="image">image_general_settings</property>
                     <property name="draw_indicator">False</property>
                   </object>
