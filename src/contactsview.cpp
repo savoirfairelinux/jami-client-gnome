@@ -357,13 +357,13 @@ render_frequen_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         }
 
         /* set height to default */
-        g_object_set(G_OBJECT(cell), "height", -1, NULL);
+//         g_object_set(G_OBJECT(cell), "height", -1, NULL);
     } else {
         /* set height to 0 to hide categories
          * TODO: this is a hack because flat versions of this mdoel doesn't exist
          * yet in LRC
          */
-        g_object_set(G_OBJECT(cell), "height", 0, NULL);
+//         g_object_set(G_OBJECT(cell), "height", 0, NULL);
     }
 
     /* otherwise, make sure its an empty pixbuf */
@@ -397,13 +397,13 @@ render_frequent_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_co
         }
 
         /* set height to default */
-        g_object_set(G_OBJECT(cell), "height", -1, NULL);
+//         g_object_set(G_OBJECT(cell), "height", -1, NULL);
     } else {
         /* set height to 0 to hide categories
          * TODO: this is a hack because flat versions of this mdoel doesn't exist
          * yet in LRC
          */
-        g_object_set(G_OBJECT(cell), "height", 0, NULL);
+//         g_object_set(G_OBJECT(cell), "height", 0, NULL);
     }
 
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
