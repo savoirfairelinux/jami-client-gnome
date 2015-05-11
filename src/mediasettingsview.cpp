@@ -28,7 +28,7 @@
  *  as that of the covered work.
  */
 
-#include "videosettingsview.h"
+#include "mediasettingsview.h"
 
 #include <gtk/gtk.h>
 #include "models/gtkqtreemodel.h"
@@ -43,19 +43,19 @@
 #include <audio/inputdevicemodel.h>
 #include <audio/ringtonedevicemodel.h>
 
-struct _VideoSettingsView
+struct _MediaSettingsView
 {
     GtkBox parent;
 };
 
-struct _VideoSettingsViewClass
+struct _MediaSettingsViewClass
 {
     GtkBoxClass parent_class;
 };
 
-typedef struct _VideoSettingsViewPrivate VideoSettingsViewPrivate;
+typedef struct _MediaSettingsViewPrivate MediaSettingsViewPrivate;
 
-struct _VideoSettingsViewPrivate
+struct _MediaSettingsViewPrivate
 {
     /* audio settings */
     GtkWidget *combobox_manager;
@@ -89,15 +89,15 @@ struct _VideoSettingsViewPrivate
     QMetaObject::Connection rate_selection;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(VideoSettingsView, video_settings_view, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE(MediaSettingsView, media_settings_view, GTK_TYPE_BOX);
 
-#define VIDEO_SETTINGS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), VIDEO_SETTINGS_VIEW_TYPE, VideoSettingsViewPrivate))
+#define MEDIA_SETTINGS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), MEDIA_SETTINGS_VIEW_TYPE, MediaSettingsViewPrivate))
 
 static void
-video_settings_view_dispose(GObject *object)
+media_settings_view_dispose(GObject *object)
 {
-    VideoSettingsView *view = VIDEO_SETTINGS_VIEW(object);
-    VideoSettingsViewPrivate *priv = VIDEO_SETTINGS_VIEW_GET_PRIVATE(view);
+    MediaSettingsView *view = MEDIA_SETTINGS_VIEW(object);
+    MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(view);
 
     /* make sure to stop the preview if this view is getting destroyed */
     if (priv->video_started_by_settings) {
@@ -116,7 +116,7 @@ video_settings_view_dispose(GObject *object)
     QObject::disconnect(priv->resolution_selection);
     QObject::disconnect(priv->rate_selection);
 
-    G_OBJECT_CLASS(video_settings_view_parent_class)->dispose(object);
+    G_OBJECT_CLASS(media_settings_view_parent_class)->dispose(object);
 }
 
 static QModelIndex
@@ -189,11 +189,11 @@ connect_combo_box_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
 }
 
 static void
-video_settings_view_init(VideoSettingsView *view)
+media_settings_view_init(MediaSettingsView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
 
-    VideoSettingsViewPrivate *priv = VIDEO_SETTINGS_VIEW_GET_PRIVATE(view);
+    MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(view);
 
     priv->device_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_device),
                                                       Video::ConfigurationProxy::deviceModel(),
@@ -231,37 +231,37 @@ video_settings_view_init(VideoSettingsView *view)
 }
 
 static void
-video_settings_view_class_init(VideoSettingsViewClass *klass)
+media_settings_view_class_init(MediaSettingsViewClass *klass)
 {
-    G_OBJECT_CLASS(klass)->dispose = video_settings_view_dispose;
+    G_OBJECT_CLASS(klass)->dispose = media_settings_view_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/cx/ring/RingGnome/videosettingsview.ui");
+                                                "/cx/ring/RingGnome/mediasettingsview.ui");
 
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_manager);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_ringtone);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_output);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_input);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_device);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_channel);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_resolution);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, combobox_framerate);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), VideoSettingsView, hbox_camera);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_manager);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_ringtone);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_output);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_input);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_device);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_channel);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_resolution);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_framerate);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, hbox_camera);
 }
 
 GtkWidget *
-video_settings_view_new()
+media_settings_view_new()
 {
-    gpointer view = g_object_new(VIDEO_SETTINGS_VIEW_TYPE, NULL);
+    gpointer view = g_object_new(MEDIA_SETTINGS_VIEW_TYPE, NULL);
 
     return (GtkWidget *)view;
 }
 
 void
-video_settings_show_preview(VideoSettingsView *self, gboolean show_preview)
+media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
 {
-    g_return_if_fail(IS_VIDEO_SETTINGS_VIEW(self));
-    VideoSettingsViewPrivate *priv = VIDEO_SETTINGS_VIEW_GET_PRIVATE(self);
+    g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
+    MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
 
     /* if TRUE, create a VideoWidget, then check if the preview has already been
      * started (because a call was in progress); if not, then start it.

@@ -191,8 +191,8 @@ SET( SRC_FILES
    src/video/xrectsel.c
    src/dialogs.h
    src/dialogs.c
-   src/videosettingsview.h
-   src/videosettingsview.cpp
+   src/mediasettingsview.h
+   src/mediasettingsview.cpp
    src/backends/edscontactbackend.h
    src/backends/edscontactbackend.cpp
    src/delegates/pixbufdelegate.h
