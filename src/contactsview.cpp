@@ -334,36 +334,27 @@ contacts_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkT
 static void
 render_frequen_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                              GtkCellRenderer *cell,
-                             GtkTreeModel *tree_model,
-                             GtkTreeIter *iter,
+                             GtkTreeModel *filter_model,
+                             GtkTreeIter *filter_iter,
                              G_GNUC_UNUSED gpointer data)
 {
-    /* check if this is a top level item (category),
-     * or a bottom level item (contact method)
-     * in this case we don't want to show a photo */
-    GtkTreePath *path = gtk_tree_model_get_path(tree_model, iter);
-    int depth = gtk_tree_path_get_depth(path);
-    gtk_tree_path_free(path);
-    if (depth == 2) {
-        /* get contact method */
-        QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
-        if (idx.isValid()) {
-            auto n = CategorizedBookmarkModel::instance()->getNumber(idx);
-            /* get photo */
-            QVariant var_p = PixbufDelegate::instance()->callPhoto(n, QSize(50, 50), false);
-            std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
-            g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
-            return;
-        }
+    /* convert to original model */
+    GtkTreeIter iter;
+    GtkTreeModel *model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(filter_model));
+    gtk_tree_model_filter_convert_iter_to_child_iter(
+        GTK_TREE_MODEL_FILTER(filter_model),
+        &iter,
+        filter_iter);
 
-        /* set height to default */
-        g_object_set(G_OBJECT(cell), "height", -1, NULL);
-    } else {
-        /* set height to 0 to hide categories
-         * TODO: this is a hack because flat versions of this mdoel doesn't exist
-         * yet in LRC
-         */
-        g_object_set(G_OBJECT(cell), "height", 0, NULL);
+    /* get contact method */
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
+    if (idx.isValid()) {
+        auto n = CategorizedBookmarkModel::instance()->getNumber(idx);
+        /* get photo */
+        QVariant var_p = PixbufDelegate::instance()->callPhoto(n, QSize(50, 50), false);
+        std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
+        g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
+        return;
     }
 
     /* otherwise, make sure its an empty pixbuf */
@@ -373,38 +364,32 @@ render_frequen_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 static void
 render_frequent_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                                         GtkCellRenderer *cell,
-                                        GtkTreeModel *tree_model,
-                                        GtkTreeIter *iter,
+                                        GtkTreeModel *filter_model,
+                                        GtkTreeIter *filter_iter,
                                         G_GNUC_UNUSED gpointer data)
 {
-    GtkTreePath *path = gtk_tree_model_get_path(tree_model, iter);
-    int depth = gtk_tree_path_get_depth(path);
-    gtk_tree_path_free(path);
-
     gchar *text = NULL;
 
-    if (depth == 2) {
-        /* get contact method */
-        QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
-        if (idx.isValid()) {
-            /* get name and number */
-            QVariant c = idx.data(static_cast<int>(Call::Role::Name));
-            QVariant n = idx.data(static_cast<int>(Call::Role::Number));
+    /* convert to original model */
+    GtkTreeIter iter;
+    GtkTreeModel *model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(filter_model));
+    gtk_tree_model_filter_convert_iter_to_child_iter(
+        GTK_TREE_MODEL_FILTER(filter_model),
+        &iter,
+        filter_iter);
 
-            text = g_strdup_printf("%s\n <span fgcolor=\"gray\">%s</span>",
-                                   c.value<QString>().toUtf8().constData(),
-                                   n.value<QString>().toUtf8().constData());
-        }
+    /* get contact method */
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
+    if (idx.isValid()) {
+        /* get name and number */
+        QVariant c = idx.data(static_cast<int>(Call::Role::Name));
+        QVariant n = idx.data(static_cast<int>(Call::Role::Number));
 
-        /* set height to default */
-        g_object_set(G_OBJECT(cell), "height", -1, NULL);
-    } else {
-        /* set height to 0 to hide categories
-         * TODO: this is a hack because flat versions of this mdoel doesn't exist
-         * yet in LRC
-         */
-        g_object_set(G_OBJECT(cell), "height", 0, NULL);
+        text = g_strdup_printf("%s\n <span fgcolor=\"gray\">%s</span>",
+                                c.value<QString>().toUtf8().constData(),
+                                n.value<QString>().toUtf8().constData());
     }
+
 
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
     g_free(text);
@@ -416,17 +401,21 @@ activate_frequent_item(GtkTreeView *tree_view,
                        G_GNUC_UNUSED GtkTreeViewColumn *column,
                        G_GNUC_UNUSED gpointer user_data)
 {
-    GtkTreeModel *model = gtk_tree_view_get_model(tree_view);
-    GtkTreeIter iter;
-    if (gtk_tree_model_get_iter(model, &iter, path)) {
+    GtkTreeModel *filter_model = gtk_tree_view_get_model(tree_view);
+    GtkTreeIter filter_iter;
+    if (gtk_tree_model_get_iter(filter_model, &filter_iter, path)) {
+        /* convert to original model */
+        GtkTreeIter iter;
+        GtkTreeModel *model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(filter_model));
+        gtk_tree_model_filter_convert_iter_to_child_iter(
+            GTK_TREE_MODEL_FILTER(filter_model),
+            &iter,
+            &filter_iter);
         QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
         if (idx.isValid()) {
-            int depth = gtk_tree_path_get_depth(path);
-            if (depth == 2) {
-                QVariant var_n = idx.data(static_cast<int>(Call::Role::ContactMethod));
-                if (var_n.isValid())
-                    place_new_call(var_n.value<ContactMethod *>());
-            }
+            QVariant var_n = idx.data(static_cast<int>(Call::Role::ContactMethod));
+            if (var_n.isValid())
+                place_new_call(var_n.value<ContactMethod *>());
         }
     }
 }
@@ -445,22 +434,23 @@ frequent_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED 
 
     /* we don't want a popup menu for categories for now, so everything deeper
      * than one */
-    GtkTreeIter iter;
-    GtkTreeModel *model;
+    GtkTreeIter filter_iter;
+    GtkTreeModel *filter_model;
     GtkTreeSelection *selection = gtk_tree_view_get_selection(treeview);
-    if (!gtk_tree_selection_get_selected(selection, &model, &iter))
+    if (!gtk_tree_selection_get_selected(selection, &filter_model, &filter_iter))
         return FALSE;
 
-    GtkTreePath *path = gtk_tree_model_get_path(model, &iter);
-    int depth = gtk_tree_path_get_depth(path);
-    gtk_tree_path_free(path);
-
-    if (depth != 2)
-        return FALSE;
+    /* convert to original model */
+    GtkTreeIter iter;
+    GtkTreeModel *model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(filter_model));
+    gtk_tree_model_filter_convert_iter_to_child_iter(
+        GTK_TREE_MODEL_FILTER(filter_model),
+        &iter,
+        &filter_iter);
 
     /* deeper than a category, so create a menu */
     GtkWidget *menu = gtk_menu_new();
-    QModelIndex idx = get_index_from_selection(selection);
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
 
     /* get name and number */
     QVariant c = idx.data(static_cast<int>(Call::Role::Name));
@@ -513,11 +503,19 @@ contacts_view_init(ContactsView *self)
      * otherwise the search steals input focus on key presses */
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_frequent), FALSE);
     
-    GtkQTreeModel *frequent_model = gtk_q_tree_model_new(
+    GtkQTreeModel *bookmark_model = gtk_q_tree_model_new(
         (QAbstractItemModel *)CategorizedBookmarkModel::instance(),
         1,
         Qt::DisplayRole, G_TYPE_STRING);
-    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_frequent), GTK_TREE_MODEL(frequent_model));
+
+    /* create filter to only show the children of the popular contacts item */
+    GtkTreePath *popular_contact_parent_path = gtk_tree_path_new_from_indices(0, -1);
+    GtkTreeModel *frequent_model = gtk_tree_model_filter_new(
+                                    GTK_TREE_MODEL(bookmark_model),
+                                    popular_contact_parent_path);
+    gtk_tree_path_free(popular_contact_parent_path);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_frequent),
+                            GTK_TREE_MODEL(frequent_model));
     
     /* photo and name/contact method column */
     GtkCellArea *area = gtk_cell_area_box_new();
