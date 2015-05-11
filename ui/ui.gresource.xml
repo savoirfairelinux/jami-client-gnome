@@ -9,6 +9,6 @@
 	<file preprocess="xml-stripblanks">accountgeneraltab.ui</file>
 	<file preprocess="xml-stripblanks">accountaudiotab.ui</file>
 	<file preprocess="xml-stripblanks">accountvideotab.ui</file>
-	<file preprocess="xml-stripblanks">videosettingsview.ui</file>
+	<file preprocess="xml-stripblanks">mediasettingsview.ui</file>
   </gresource>
 </gresources>
