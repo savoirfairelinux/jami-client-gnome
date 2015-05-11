@@ -28,26 +28,26 @@
  *  as that of the covered work.
  */
 
-#ifndef _VIDEOSETTINGSVIEW_H
-#define _VIDEOSETTINGSVIEW_H
+#ifndef _MEDIASETTINGSVIEW_H
+#define _MEDIASETTINGSVIEW_H
 
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-#define VIDEO_SETTINGS_VIEW_TYPE            (video_settings_view_get_type ())
-#define VIDEO_SETTINGS_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), VIDEO_SETTINGS_VIEW_TYPE, VideoSettingsView))
-#define VIDEO_SETTINGS_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), VIDEO_SETTINGS_VIEW_TYPE, VideoSettingsViewClass))
-#define IS_VIDEO_SETTINGS_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), VIDEO_SETTINGS_VIEW_TYPE))
-#define IS_VIDEO_SETTINGS_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), VIDEO_SETTINGS_VIEW_TYPE))
+#define MEDIA_SETTINGS_VIEW_TYPE            (media_settings_view_get_type ())
+#define MEDIA_SETTINGS_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), MEDIA_SETTINGS_VIEW_TYPE, MediaSettingsView))
+#define MEDIA_SETTINGS_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), MEDIA_SETTINGS_VIEW_TYPE, MediaSettingsViewClass))
+#define IS_MEDIA_SETTINGS_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), MEDIA_SETTINGS_VIEW_TYPE))
+#define IS_MEDIA_SETTINGS_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), MEDIA_SETTINGS_VIEW_TYPE))
 
-typedef struct _VideoSettingsView      VideoSettingsView;
-typedef struct _VideoSettingsViewClass VideoSettingsViewClass;
+typedef struct _MediaSettingsView      MediaSettingsView;
+typedef struct _MediaSettingsViewClass MediaSettingsViewClass;
 
-GType      video_settings_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *video_settings_view_new           (void);
-void       video_settings_show_preview       (VideoSettingsView *self, gboolean show_preview);
+GType      media_settings_view_get_type      (void) G_GNUC_CONST;
+GtkWidget *media_settings_view_new           (void);
+void       media_settings_view_show_preview  (MediaSettingsView *self, gboolean show_preview);
 
 G_END_DECLS
 
-#endif /* _VIDEOSETTINGSVIEW_H */
+#endif /* _MEDIASETTINGSVIEW_H */
