@@ -57,6 +57,7 @@
 #include "contactsview.h"
 #include "historyview.h"
 #include "utils/models.h"
+#include "generalsettingsview.h"
 
 #define CALL_VIEW_NAME "calls"
 #define CREATE_ACCOUNT_1_VIEW_NAME "create1"
@@ -102,6 +103,7 @@ struct _RingMainWindowPrivate
     GtkWidget *button_placecall;
     GtkWidget *account_settings_view;
     GtkWidget *media_settings_view;
+    GtkWidget *general_settings_view;
     GtkWidget *last_settings_view;
     GtkWidget *radiobutton_general_settings;
     GtkWidget *radiobutton_media_settings;
@@ -467,6 +469,19 @@ show_account_settings(GtkToggleButton *navbutton, RingMainWindow *win)
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_SETTINGS_VIEW_NAME);
         priv->last_settings_view = priv->account_settings_view;
+    }
+}
+
+static void
+show_general_settings(GtkToggleButton *navbutton, RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (gtk_toggle_button_get_active(navbutton)) {
+        gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+        gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), GENERAL_SETTINGS_VIEW_NAME);
+        priv->last_settings_view = priv->general_settings_view;
     }
 }
 
@@ -945,13 +960,17 @@ ring_main_window_init(RingMainWindow *win)
     priv->media_settings_view = media_settings_view_new();
     gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->media_settings_view, MEDIA_SETTINGS_VIEW_NAME);
 
+    priv->general_settings_view = general_settings_view_new();
+    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->general_settings_view, GENERAL_SETTINGS_VIEW_NAME);
+
     /* make the setting we will show first the active one */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_media_settings), TRUE);
-    priv->last_settings_view = priv->media_settings_view;
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_general_settings), TRUE);
+    priv->last_settings_view = priv->general_settings_view;
 
     /* connect the settings button signals to switch settings views */
     g_signal_connect(priv->radiobutton_media_settings, "toggled", G_CALLBACK(show_media_settings), win);
     g_signal_connect(priv->radiobutton_account_settings, "toggled", G_CALLBACK(show_account_settings), win);
+    g_signal_connect(priv->radiobutton_general_settings, "toggled", G_CALLBACK(show_general_settings), win);
 
     /* call model */
     GtkQTreeModel *call_model;
