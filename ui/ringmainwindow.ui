@@ -162,7 +162,9 @@
       <object class="GtkPaned" id="paned_main">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="position">250</property>
+        <property name="position-set">True</property>
+        <!-- TODO: save the user set position of the pane -->
+        <property name="position">350</property>
         <child>
           <object class="GtkBox" id="vbox_left">
             <property name="visible">True</property>
