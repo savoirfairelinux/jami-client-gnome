@@ -41,6 +41,7 @@
 #include "defines.h"
 #include "utils/models.h"
 #include <contactmethod.h>
+#include <QtCore/QDateTime> // for date time formatting
 
 struct _HistoryView
 {
@@ -204,6 +205,131 @@ expand_if_child(G_GNUC_UNUSED GtkTreeModel *tree_model,
 }
 
 static void
+render_call_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                     GtkCellRenderer *cell,
+                     GtkTreeModel *tree_model,
+                     GtkTreeIter *iter,
+                     G_GNUC_UNUSED gpointer data)
+{
+    /* check if this is a top level item (category),
+     * in this case we don't want to show a photo */
+    GtkTreePath *path = gtk_tree_model_get_path(tree_model, iter);
+    int depth = gtk_tree_path_get_depth(path);
+    gtk_tree_path_free(path);
+    if (depth == 2) {
+        /* get person */
+        QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
+        if (idx.isValid()) {
+            QVariant var_c = idx.data(static_cast<int>(Call::Role::Object));
+            Call *c = var_c.value<Call *>();
+            /* get photo */
+            QVariant var_p = PixbufDelegate::instance()->callPhoto(c, QSize(50, 50), false);
+            std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
+            g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
+            return;
+        }
+    }
+
+    /* otherwise, make sure its an empty pixbuf */
+    g_object_set(G_OBJECT(cell), "pixbuf", NULL, NULL);
+}
+
+static void
+render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                               GtkCellRenderer *cell,
+                               GtkTreeModel *tree_model,
+                               GtkTreeIter *iter,
+                               G_GNUC_UNUSED gpointer data)
+{
+    /**
+     * If call, show the name and the contact method (number) underneath;
+     * otherwise just display the category.
+     */
+    GtkTreePath *path = gtk_tree_model_get_path(tree_model, iter);
+    int depth = gtk_tree_path_get_depth(path);
+    gtk_tree_path_free(path);
+
+    gchar *text = NULL;
+
+    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
+    if (idx.isValid()) {
+        QVariant var = idx.data(Qt::DisplayRole);
+        if (depth == 1) {
+            /* category */
+            text = g_strdup_printf("<b>%s</b>", var.value<QString>().toUtf8().constData());
+        } else if (depth == 2) {
+            /* call item */
+            QVariant var_name = idx.data(static_cast<int>(Call::Role::Name));
+            QVariant var_number = idx.data(static_cast<int>(Call::Role::Number));
+            text = g_strdup_printf("%s\n <span fgcolor=\"gray\">%s</span>",
+                                   var_name.value<QString>().toUtf8().constData(),
+                                   var_number.value<QString>().toUtf8().constData());
+        }
+    }
+
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_free(text);
+}
+
+static void
+render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+            GtkCellRenderer *cell,
+            GtkTreeModel *tree_model,
+            GtkTreeIter *iter,
+            G_GNUC_UNUSED gpointer data)
+{
+    /**
+     * If call, show the the time;
+     * if category, don't show anything.
+     */
+    GtkTreePath *path = gtk_tree_model_get_path(tree_model, iter);
+    int depth = gtk_tree_path_get_depth(path);
+    gtk_tree_path_free(path);
+
+    gchar *text = NULL;
+
+    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
+    if (idx.isValid() && depth == 2) {
+        QVariant var_d = idx.data(static_cast<int>(Call::Role::Date));
+        time_t time = var_d.value<time_t>();
+        QDateTime date_time = QDateTime::fromTime_t(time);
+        text = g_strdup_printf("%s", date_time.time().toString().toUtf8().constData());
+    }
+
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_free(text);
+}
+
+static void
+render_date(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+            GtkCellRenderer *cell,
+            GtkTreeModel *tree_model,
+            GtkTreeIter *iter,
+            G_GNUC_UNUSED gpointer data)
+{
+    /**
+     * If call, show the date;
+     * if category, don't show anything.
+     */
+    GtkTreePath *path = gtk_tree_model_get_path(tree_model, iter);
+    int depth = gtk_tree_path_get_depth(path);
+    gtk_tree_path_free(path);
+
+    gchar *text = NULL;
+
+    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
+    if (idx.isValid() && depth == 2) {
+        QVariant var_d = idx.data(static_cast<int>(Call::Role::Date));
+        time_t time = var_d.value<time_t>();
+        QDateTime date_time = QDateTime::fromTime_t(time);
+        text = g_strdup_printf("%s", date_time.date().toString().toUtf8().constData());
+    }
+
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_free(text);
+}
+
+static void
 history_view_init(HistoryView *self)
 {
     HistoryViewPrivate *priv = HISTORY_VIEW_GET_PRIVATE(self);
@@ -234,13 +360,14 @@ history_view_init(HistoryView *self)
         Call::Role::Missed, G_TYPE_BOOLEAN);
     gtk_tree_view_set_model( GTK_TREE_VIEW(treeview_history), GTK_TREE_MODEL(history_model) );
 
-    /* name column, also used for call direction and fuzzy date for top level items */
-    GtkTreeViewColumn *column = gtk_tree_view_column_new();
-    gtk_tree_view_column_set_title(column, "Name");
+    /* call direction, photo, name/number column */
+    GtkCellArea *area = gtk_cell_area_box_new();
+    GtkTreeViewColumn *column = gtk_tree_view_column_new_with_area(area);
+    gtk_tree_view_column_set_title(column, "Call");
 
     /* call direction */
     GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
 
     /* display the call direction with arrows */
     gtk_tree_view_column_set_cell_data_func(
@@ -250,25 +377,61 @@ history_view_init(HistoryView *self)
         NULL,
         NULL);
 
-    /* name or time category column */
-    renderer = gtk_cell_renderer_text_new();
-    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    gtk_tree_view_column_pack_start(column, renderer, FALSE);
-    gtk_tree_view_column_set_attributes(column, renderer, "text", 0, NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
-    gtk_tree_view_column_set_resizable(column, TRUE);
+    /* photo renderer */
+    renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
 
-    /* "number" column */
+    /* get the photo */
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)render_call_photo,
+        NULL,
+        NULL);
+
+    /* name and contact method renderer */
     renderer = gtk_cell_renderer_text_new();
     g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    column = gtk_tree_view_column_new_with_attributes("Number", renderer, "text", 1, NULL);
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
+
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)render_name_and_contact_method,
+        NULL,
+        NULL);
+
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
     gtk_tree_view_column_set_resizable(column, TRUE);
 
     /* date column */
+    area = gtk_cell_area_box_new();
+    column = gtk_tree_view_column_new_with_area(area);
+    gtk_tree_view_column_set_title(column, "Date");
+
+    /* time renderer */
     renderer = gtk_cell_renderer_text_new ();
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
+    /* format the time*/
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)render_time,
+        NULL,
+        NULL);
+
+    /* date renderer */
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
     g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    column = gtk_tree_view_column_new_with_attributes ("Date", renderer, "text", 2, NULL);
+    /* format the date */
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)render_date,
+        NULL,
+        NULL);
+
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
     gtk_tree_view_column_set_resizable(column, TRUE);
 
