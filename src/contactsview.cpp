@@ -486,14 +486,16 @@ static void
 contacts_view_init(ContactsView *self)
 {
     ContactsViewPrivate *priv = CONTACTS_VIEW_GET_PRIVATE(self);
-    
-    GtkWidget *vbox_main = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+
+    gtk_widget_set_margin_bottom(GTK_WIDGET(self), 5);
+
+    GtkWidget *vbox_main = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add(GTK_CONTAINER(self), vbox_main);
-    
+
     /* frequent contacts/numbers */
     GtkWidget *label_frequent = gtk_label_new("Frequent Contacts");
-    gtk_box_pack_start(GTK_BOX(vbox_main), label_frequent, FALSE, TRUE, 0);
-    
+    gtk_box_pack_start(GTK_BOX(vbox_main), label_frequent, FALSE, TRUE, 10);
+
     GtkWidget *treeview_frequent = gtk_tree_view_new();
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_frequent), FALSE);
     gtk_box_pack_start(GTK_BOX(vbox_main), treeview_frequent, FALSE, TRUE, 0);
@@ -502,7 +504,7 @@ contacts_view_init(ContactsView *self)
     /* disable default search, we will handle it ourselves via LRC;
      * otherwise the search steals input focus on key presses */
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_frequent), FALSE);
-    
+
     GtkQTreeModel *bookmark_model = gtk_q_tree_model_new(
         (QAbstractItemModel *)CategorizedBookmarkModel::instance(),
         1,
@@ -556,8 +558,8 @@ contacts_view_init(ContactsView *self)
 
     /* contacts */
     GtkWidget *label_contacts = gtk_label_new("Contacts");
-    gtk_box_pack_start(GTK_BOX(vbox_main), label_contacts, FALSE, TRUE, 0);
-    
+    gtk_box_pack_start(GTK_BOX(vbox_main), label_contacts, FALSE, TRUE, 10);
+
     GtkWidget *treeview_contacts = gtk_tree_view_new();
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_contacts), FALSE);
     gtk_box_pack_start(GTK_BOX(vbox_main), treeview_contacts, FALSE, TRUE, 0);
