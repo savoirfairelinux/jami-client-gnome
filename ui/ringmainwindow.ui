@@ -179,37 +179,12 @@
         <!-- TODO: save the user set position of the pane -->
         <property name="position">350</property>
         <child>
-          <object class="GtkBox" id="vbox_left">
+          <object class="GtkBox" id="vbox_left_pane">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
-            <property name="spacing">5</property>
-            <!-- current calls view -->
-            <child>
-              <object class="GtkScrolledWindow" id="scrolledwindow_calls">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="vscrollbar_policy">never</property>
-                <property name="height-request">100</property>
-                <!-- <property name="shadow_type">in</property> -->
-                <child>
-                  <object class="GtkTreeView" id="treeview_call">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="headers_visible">False</property>
-                    <property name="enable-search">False</property>
-                    <child internal-child="selection">
-                      <object class="GtkTreeSelection" id="treeview-selection1"/>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-            <!-- end current calls view -->
+            <property name="spacing">10</property>
+            <!-- calls view goes here -->
             <!-- contacts/history/presence view -->
             <child>
               <object class="GtkStack" id="stack_contacts_history_presence">
