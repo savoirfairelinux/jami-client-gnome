@@ -40,12 +40,12 @@
 
 struct _CallsView
 {
-    GtkScrolledWindow parent;
+    GtkRevealer parent;
 };
 
 struct _CallsViewClass
 {
-    GtkScrolledWindowClass parent_class;
+    GtkRevealerClass parent_class;
 };
 
 typedef struct _CallsViewPrivate CallsViewPrivate;
@@ -54,9 +54,11 @@ struct _CallsViewPrivate
 {
     GtkWidget *treeview_calls;
     QMetaObject::Connection selection_updated;
+    QMetaObject::Connection calls_added;
+    QMetaObject::Connection calls_removed;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(CallsView, calls_view, GTK_TYPE_SCROLLED_WINDOW);
+G_DEFINE_TYPE_WITH_PRIVATE(CallsView, calls_view, GTK_TYPE_REVEALER);
 
 #define CALLS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CALLS_VIEW_TYPE, CallsViewPrivate))
 
@@ -131,11 +133,48 @@ calls_view_init(CallsView *self)
 {
     CallsViewPrivate *priv = CALLS_VIEW_GET_PRIVATE(self);
 
+    /* hide if there are no calls */
+    gtk_revealer_set_reveal_child(GTK_REVEALER(self),
+                                  CallModel::instance()->rowCount());
+    priv->calls_added = QObject::connect(
+        CallModel::instance(),
+        &QAbstractItemModel::rowsInserted,
+        [=] (G_GNUC_UNUSED const QModelIndex &parent,
+             G_GNUC_UNUSED int first,
+             G_GNUC_UNUSED int last)
+        {
+            gtk_revealer_set_reveal_child(GTK_REVEALER(self),
+                                          CallModel::instance()->rowCount());
+        }
+    );
+
+    priv->calls_removed = QObject::connect(
+        CallModel::instance(),
+        &QAbstractItemModel::rowsRemoved,
+        [=] (G_GNUC_UNUSED const QModelIndex &parent,
+             G_GNUC_UNUSED int first,
+             G_GNUC_UNUSED int last)
+        {
+            gtk_revealer_set_reveal_child(GTK_REVEALER(self),
+                                          CallModel::instance()->rowCount());
+        }
+    );
+
+    GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    gtk_widget_set_margin_bottom(box, 10);
+    gtk_container_add(GTK_CONTAINER(self), box);
+
+    /* current calls label */
+    GtkWidget *label = gtk_label_new("Current Calls");
+    gtk_box_pack_start(GTK_BOX(box), label, FALSE, TRUE, 10);
+
+    GtkWidget *scrolled_window = gtk_scrolled_window_new(NULL, NULL);
+    gtk_box_pack_start(GTK_BOX(box), scrolled_window, FALSE, TRUE, 0);
+
     /* disable vertical scroll... we always want all the calls to be visible */
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(self),
-                                   GTK_POLICY_AUTOMATIC,
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window),
+                                   GTK_POLICY_NEVER,
                                    GTK_POLICY_NEVER);
-    g_object_set(self, "height-request", 100, NULL);
 
     priv->treeview_calls = gtk_tree_view_new();
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(priv->treeview_calls), FALSE);
@@ -143,7 +182,7 @@ calls_view_init(CallsView *self)
      * otherwise the search steals input focus on key presses */
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(priv->treeview_calls), FALSE);
     gtk_tree_view_set_show_expanders(GTK_TREE_VIEW(priv->treeview_calls), FALSE);
-    gtk_container_add(GTK_CONTAINER(self), priv->treeview_calls);
+    gtk_container_add(GTK_CONTAINER(scrolled_window), priv->treeview_calls);
 
     /* call model */
     GtkQTreeModel *call_model;
@@ -238,6 +277,8 @@ calls_view_dispose(GObject *object)
     CallsViewPrivate *priv = CALLS_VIEW_GET_PRIVATE(self);
 
     QObject::disconnect(priv->selection_updated);
+    QObject::disconnect(priv->calls_added);
+    QObject::disconnect(priv->calls_removed);
 
     G_OBJECT_CLASS(calls_view_parent_class)->dispose(object);
 }
