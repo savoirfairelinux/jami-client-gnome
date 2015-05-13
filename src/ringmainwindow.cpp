@@ -57,6 +57,7 @@
 #include "contactsview.h"
 #include "historyview.h"
 #include "utils/models.h"
+#include "callsview.h"
 
 #define CALL_VIEW_NAME "calls"
 #define CREATE_ACCOUNT_1_VIEW_NAME "create1"
@@ -94,7 +95,7 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_contacts;
     GtkWidget *radiobutton_history;
     GtkWidget *radiobutton_presence;
-    GtkWidget *treeview_call;
+    GtkWidget *vbox_left_pane;
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
     GtkWidget *vbox_call_view;
@@ -109,8 +110,7 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_account_settings;
     GtkWidget *label_ring_id;
 
-    Account *active_ring_account;
-    QMetaObject::Connection active_ring_account_updates;
+    QMetaObject::Connection selection_updated;
 
     gboolean   show_settings;
 
@@ -139,16 +139,6 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATIO
 #define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
 
 static void
-update_call_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer user_data)
-{
-    QModelIndex current = get_index_from_selection(selection);
-    if (current.isValid())
-        CallModel::instance()->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
-    else
-        CallModel::instance()->selectionModel()->clearCurrentIndex();
-}
-
-static void
 call_selection_changed(GtkTreeSelection *selection, gpointer win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
@@ -158,7 +148,7 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
 
     QModelIndex idx = get_index_from_selection(selection);
     if (idx.isValid()) {
-        QVariant state = CallModel::instance()->data(idx, static_cast<int>(Call::Role::LifeCycleState));
+        QVariant state =  idx.data(static_cast<int>(Call::Role::LifeCycleState));
         GtkWidget *new_call_view = NULL;
         char* new_call_view_name = NULL;
 
@@ -947,61 +937,12 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect(priv->radiobutton_video_settings, "toggled", G_CALLBACK(show_video_settings), win);
     g_signal_connect(priv->radiobutton_account_settings, "toggled", G_CALLBACK(show_account_settings), win);
 
-    /* call model */
-    GtkQTreeModel *call_model;
-    GtkCellRenderer *renderer;
-    GtkTreeViewColumn *column;
-
-    call_model = gtk_q_tree_model_new(CallModel::instance(), 4,
-        Call::Role::Name, G_TYPE_STRING,
-        Call::Role::Number, G_TYPE_STRING,
-        Call::Role::Length, G_TYPE_STRING,
-        Call::Role::State, G_TYPE_STRING);
-    gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_call), GTK_TREE_MODEL(call_model));
-
-    renderer = gtk_cell_renderer_text_new();
-    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    column = gtk_tree_view_column_new_with_attributes("Name", renderer, "text", 0, NULL);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
-
-    renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("Duration", renderer, "text", 2, NULL);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_call), column);
-
-    /* connect signals to and from UserActionModel to sync selection betwee
-     * the QModel and the GtkTreeView */
-    QObject::connect(
-        CallModel::instance()->selectionModel(),
-        &QItemSelectionModel::currentChanged,
-        [=](const QModelIndex & current, const QModelIndex & previous) {
-            GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_call));
-
-            /* first unselect the previous */
-            if (previous.isValid()) {
-                GtkTreeIter old_iter;
-                if (gtk_q_tree_model_source_index_to_iter(call_model, previous, &old_iter)) {
-                    gtk_tree_selection_unselect_iter(selection, &old_iter);
-                } else {
-                    g_warning("Trying to unselect invalid GtkTreeIter");
-                }
-            }
-
-            /* select the current */
-            if (current.isValid()) {
-                GtkTreeIter new_iter;
-                if (gtk_q_tree_model_source_index_to_iter(call_model, current, &new_iter)) {
-                    gtk_tree_selection_select_iter(selection, &new_iter);
-                } else {
-                    g_warning("SelectionModel of CallModel changed to invalid QModelIndex?");
-                }
-            }
-        }
-    );
-
-    GtkTreeSelection *call_selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_call));
-    g_signal_connect(call_selection, "changed", G_CALLBACK(update_call_model_selection), NULL);
+    /* calls view */
+    GtkWidget *calls_view = calls_view_new();
+    gtk_box_pack_start(GTK_BOX(priv->vbox_left_pane),
+                       calls_view,
+                       FALSE, TRUE, 0);
+    gtk_box_reorder_child(GTK_BOX(priv->vbox_left_pane), calls_view, 0);
 
     /* connect to call state changes to update relevant view(s) */
     QObject::connect(
@@ -1048,12 +989,13 @@ ring_main_window_init(RingMainWindow *win)
     gtk_stack_add_named(GTK_STACK(priv->stack_call_view), placeholder_view, DEFAULT_VIEW_NAME);
 
     /* connect signals */
+    GtkTreeSelection *call_selection = calls_view_get_selection(CALLS_VIEW(calls_view));
     g_signal_connect(call_selection, "changed", G_CALLBACK(call_selection_changed), win);
     g_signal_connect(priv->button_placecall, "clicked", G_CALLBACK(search_entry_placecall), win);
     g_signal_connect(priv->search_entry, "activate", G_CALLBACK(search_entry_placecall), win);
 
     /* style of search entry */
-    gtk_widget_override_font(priv->search_entry, pango_font_description_from_string("15")); //"monospace 15"));
+    gtk_widget_override_font(priv->search_entry, pango_font_description_from_string("15"));
 
     /* autocompletion */
     priv->q_completion_model = new NumberCompletionModel();
@@ -1062,7 +1004,7 @@ ring_main_window_init(RingMainWindow *win)
     GtkCellArea *completion_area = gtk_cell_area_box_new();
 
     /* photo renderer */
-    renderer = gtk_cell_renderer_pixbuf_new();
+    GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
     gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(completion_area),
                                  renderer,
                                  TRUE,  /* expand */
@@ -1163,6 +1105,11 @@ ring_main_window_init(RingMainWindow *win)
 static void
 ring_main_window_dispose(GObject *object)
 {
+    RingMainWindow *self = RING_MAIN_WINDOW(object);
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+
+    QObject::disconnect(priv->selection_updated);
+
     G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
 }
 
@@ -1188,7 +1135,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, treeview_call);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_left_pane);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_contacts_history_presence);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_contacts);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_history);

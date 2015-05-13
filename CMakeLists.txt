@@ -195,6 +195,8 @@ SET( SRC_FILES
    src/backends/edscontactbackend.cpp
    src/delegates/pixbufdelegate.h
    src/delegates/pixbufdelegate.cpp
+   src/callsview.h
+   src/callsview.cpp
    src/contactsview.h
    src/contactsview.cpp
    src/historyview.h
