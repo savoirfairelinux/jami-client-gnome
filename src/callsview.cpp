@@ -35,6 +35,8 @@
 #include <callmodel.h>
 #include <QtCore/QItemSelectionModel>
 #include "utils/models.h"
+#include "delegates/pixbufdelegate.h"
+#include <QtCore/QSize>
 
 struct _CallsView
 {
@@ -69,6 +71,62 @@ update_call_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer 
 }
 
 static void
+render_call_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                  GtkCellRenderer *cell,
+                  GtkTreeModel *tree_model,
+                  GtkTreeIter *iter,
+                  G_GNUC_UNUSED gpointer data)
+{
+    /* get call */
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
+    if (idx.isValid()) {
+        QVariant var_c = idx.data(static_cast<int>(Call::Role::Object));
+        Call *c = var_c.value<Call *>();
+
+        /* we only want to show the photo once the call is past creation
+         * since before then we likely don't know the contact yet anyways */
+        if (c->lifeCycleState() != Call::LifeCycleState::CREATION) {
+            /* get photo */
+            QVariant var_p = PixbufDelegate::instance()->callPhoto(c, QSize(50, 50), false);
+            std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
+            g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
+            return;
+        }
+    }
+
+    /* otherwise, make sure its an empty pixbuf */
+    g_object_set(G_OBJECT(cell), "pixbuf", NULL, NULL);
+}
+
+static void
+render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                               GtkCellRenderer *cell,
+                               GtkTreeModel *tree_model,
+                               GtkTreeIter *iter,
+                               G_GNUC_UNUSED gpointer data)
+{
+    gchar *text = NULL;
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
+    if (idx.isValid()) {
+        QVariant state = idx.data(static_cast<int>(Call::Role::LifeCycleState));
+        QVariant name = idx.data(static_cast<int>(Call::Role::Name));
+        QVariant number = idx.data(static_cast<int>(Call::Role::Number));
+
+        /* only show the number being entered while in creation state */
+        if (state.value<Call::LifeCycleState>() == Call::LifeCycleState::CREATION) {
+            text = g_strdup_printf("%s", number.value<QString>().toUtf8().constData());
+        } else {
+            text = g_strdup_printf("%s\n <span fgcolor=\"gray\">%s</span>",
+                                   name.value<QString>().toUtf8().constData(),
+                                   number.value<QString>().toUtf8().constData());
+        }
+    }
+
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_free(text);
+}
+
+static void
 calls_view_init(CallsView *self)
 {
     CallsViewPrivate *priv = CALLS_VIEW_GET_PRIVATE(self);
@@ -81,6 +139,7 @@ calls_view_init(CallsView *self)
 
     priv->treeview_calls = gtk_tree_view_new();
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(priv->treeview_calls), FALSE);
+    gtk_tree_view_set_show_expanders(GTK_TREE_VIEW(priv->treeview_calls), FALSE);
     gtk_container_add(GTK_CONTAINER(self), priv->treeview_calls);
 
     /* call model */
@@ -97,11 +156,37 @@ calls_view_init(CallsView *self)
         Call::Role::State, G_TYPE_STRING);
     gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_calls), GTK_TREE_MODEL(call_model));
 
+    /* call photo, name/number column */
+    GtkCellArea *area = gtk_cell_area_box_new();
+    column = gtk_tree_view_column_new_with_area(area);
+    gtk_tree_view_column_set_title(column, "Call");
+
+    /* photo renderer */
+    renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
+
+    /* get the photo */
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)render_call_photo,
+        NULL,
+        NULL);
+
+    /* name and contact method renderer */
     renderer = gtk_cell_renderer_text_new();
     g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    column = gtk_tree_view_column_new_with_attributes("Name", renderer, "text", 0, NULL);
-    gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
+
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)render_name_and_contact_method,
+        NULL,
+        NULL);
+
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_calls), column);
+    gtk_tree_view_column_set_resizable(column, TRUE);
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes("Duration", renderer, "text", 2, NULL);
