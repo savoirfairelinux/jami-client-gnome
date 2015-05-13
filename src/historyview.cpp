@@ -45,12 +45,12 @@
 
 struct _HistoryView
 {
-    GtkScrolledWindow parent;
+    GtkBox parent;
 };
 
 struct _HistoryViewClass
 {
-    GtkScrolledWindowClass parent_class;
+    GtkBoxClass parent_class;
 };
 
 typedef struct _HistoryViewPrivate HistoryViewPrivate;
@@ -60,7 +60,7 @@ struct _HistoryViewPrivate
     QSortFilterProxyModel *q_history_model;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(HistoryView, history_view, GTK_TYPE_SCROLLED_WINDOW);
+G_DEFINE_TYPE_WITH_PRIVATE(HistoryView, history_view, GTK_TYPE_BOX);
 
 #define HISTORY_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), HISTORY_VIEW_TYPE, HistoryViewPrivate))
 
@@ -334,13 +334,18 @@ history_view_init(HistoryView *self)
 {
     HistoryViewPrivate *priv = HISTORY_VIEW_GET_PRIVATE(self);
 
-    gtk_widget_set_margin_bottom(GTK_WIDGET(self), 5);
+    gtk_orientable_set_orientation(GTK_ORIENTABLE(self), GTK_ORIENTATION_VERTICAL);
 
-    /* history view/model */
+    GtkWidget *label_history = gtk_label_new("History");
+    gtk_box_pack_start(GTK_BOX(self), label_history, FALSE, TRUE, 10);
+
     GtkWidget *treeview_history = gtk_tree_view_new();
+    /* set can-focus to false so that the scrollwindow doesn't jump to try to
+     * contain the top of the treeview */
+    gtk_widget_set_can_focus(treeview_history, FALSE);
     /* make headers visible to allow column resizing */
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_history), TRUE);
-    gtk_container_add(GTK_CONTAINER(self), treeview_history);
+    gtk_box_pack_start(GTK_BOX(self), treeview_history, FALSE, FALSE, 0);
 
     /* disable default search, we will handle it ourselves via LRC;
      * otherwise the search steals input focus on key presses */
