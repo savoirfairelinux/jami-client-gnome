@@ -54,6 +54,7 @@
 #include "models/activeitemproxymodel.h"
 #include <numbercompletionmodel.h>
 #include "utils/calling.h"
+#include "frequentcontactsview.h"
 #include "contactsview.h"
 #include "historyview.h"
 #include "utils/models.h"
@@ -97,6 +98,7 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_history;
     GtkWidget *radiobutton_presence;
     GtkWidget *vbox_left_pane;
+    GtkWidget *vbox_contacts;
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
     GtkWidget *vbox_call_view;
@@ -302,73 +304,42 @@ search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
 }
 
 static void
-navbutton_contacts_toggled(GtkToggleButton *navbutton, RingMainWindow *win)
+navbutton_contacts_toggled(G_GNUC_UNUSED GtkToggleButton *navbutton, RingMainWindow *win)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(win));
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
-    if (gtk_toggle_button_get_active(navbutton)) {
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence),
+                                     VIEW_CONTACTS);
 
-        const gchar *visible = gtk_stack_get_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence));
-
-        if (visible) {
-            /* contacts is left of both history and presence, so always slide right to show it */
-            gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
-            gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_CONTACTS);
-        } else {
-            g_warning("should always have a visible child in the nav stack");
-            gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_NONE);
-            gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_CONTACTS);
-        }
-    }
+    /* setting the focus on the newly visible widget will auto-scroll to the top of it */
+    gtk_widget_grab_focus(gtk_stack_get_visible_child(GTK_STACK(priv->stack_contacts_history_presence)));
 }
 
 static void
-navbutton_presence_toggled(GtkToggleButton *navbutton, RingMainWindow *win)
+navbutton_presence_toggled(G_GNUC_UNUSED GtkToggleButton *navbutton, RingMainWindow *win)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(win));
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
-    if (gtk_toggle_button_get_active(navbutton)) {
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence),
+                                     VIEW_PRESENCE);
 
-        const gchar *visible = gtk_stack_get_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence));
-        if (visible) {
-            /* presence is right of both history and contacts, so always slide left to show it */
-            gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
-            gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_PRESENCE);
-        } else {
-            g_warning("should always have a visible child in the nav stack");
-            gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_NONE);
-            gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_PRESENCE);
-        }
-    }
+    /* setting the focus on the newly visible widget will auto-scroll to the top of it */
+    gtk_widget_grab_focus(gtk_stack_get_visible_child(GTK_STACK(priv->stack_contacts_history_presence)));
 }
 
 static void
-navbutton_history_toggled(GtkToggleButton *navbutton, RingMainWindow *win)
+navbutton_history_toggled(G_GNUC_UNUSED GtkToggleButton *navbutton, RingMainWindow *win)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(win));
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
-    if (gtk_toggle_button_get_active(navbutton)) {
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence),
+                                     VIEW_HISTORY);
 
-        const gchar *visible = gtk_stack_get_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence));
-        if (visible) {
-            if (strcmp(visible, VIEW_CONTACTS) == 0) {
-                /* history is right of contacts, so slide left to show it */
-                gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
-                gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_HISTORY);
-            } else if (strcmp(visible, VIEW_PRESENCE) == 0) {
-                /* history is left of presence, so slide right to show it */
-                gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
-                gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_HISTORY);
-            }
-        } else {
-            g_warning("should always have a visible child in the nav stack");
-            gtk_stack_set_transition_type(GTK_STACK(priv->stack_contacts_history_presence), GTK_STACK_TRANSITION_TYPE_NONE);
-            gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence), VIEW_HISTORY);
-        }
-    }
+    /* setting the focus on the newly visible widget will auto-scroll to the top of it */
+    gtk_widget_grab_focus(gtk_stack_get_visible_child(GTK_STACK(priv->stack_contacts_history_presence)));
 }
 
 static gboolean
@@ -986,13 +957,20 @@ ring_main_window_init(RingMainWindow *win)
         }
     );
 
-    /* contacts view/model */
+    /* frequent contacts view */
+    GtkWidget *frequent_view = frequent_contacts_view_new();
+    gtk_box_pack_start(GTK_BOX(priv->vbox_contacts),
+                       frequent_view,
+                       FALSE, TRUE, 0);
+    gtk_box_reorder_child(GTK_BOX(priv->vbox_contacts), frequent_view, 0);
+
+    /* contacts view */
     GtkWidget *contacts_view = contacts_view_new();
     gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
                         contacts_view,
                         VIEW_CONTACTS);
 
-    /* history view/model */
+    /* history view */
     GtkWidget *history_view = history_view_new();
     gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
                         history_view,
@@ -1169,6 +1147,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_left_pane);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_contacts);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_contacts_history_presence);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_contacts);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_history);
