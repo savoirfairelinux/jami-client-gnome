@@ -184,19 +184,39 @@
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <!-- calls view goes here -->
-            <!-- contacts/history/presence view -->
+            <!-- scrollwindow for favorites, contacts, history -->
             <child>
-              <object class="GtkStack" id="stack_contacts_history_presence">
+              <object class="GtkScrolledWindow" id="scrolledwindow_contacts">
                 <property name="visible">True</property>
-                <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
-                <property name="transition-duration">300</property>
+                <property name="can_focus">True</property>
+                <child>
+                  <object class="GtkBox" id="vbox_contacts">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="orientation">vertical</property>
+                    <!-- frequent/favorites view goes here -->
+                    <!-- contacts/history/presence stack -->
+                    <child>
+                      <object class="GtkStack" id="stack_contacts_history_presence">
+                        <property name="visible">True</property>
+                        <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
+                        <property name="transition-duration">300</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                    <!-- end contacts/history/presence stack -->
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
               </packing>
             </child>
-            <!-- end contacts/history/presence view -->
+            <!-- end scrollwindow for favorites, contacts, history -->
             <!-- nav buttons -->
             <child>
               <object class="GtkBox" id="hbox_navbuttons">

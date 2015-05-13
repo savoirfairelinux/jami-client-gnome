@@ -54,6 +54,7 @@
 #include "models/activeitemproxymodel.h"
 #include <numbercompletionmodel.h>
 #include "utils/calling.h"
+#include "frequentcontactsview.h"
 #include "contactsview.h"
 #include "historyview.h"
 #include "utils/models.h"
@@ -96,6 +97,7 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_history;
     GtkWidget *radiobutton_presence;
     GtkWidget *vbox_left_pane;
+    GtkWidget *vbox_contacts;
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
     GtkWidget *vbox_call_view;
@@ -953,13 +955,20 @@ ring_main_window_init(RingMainWindow *win)
         }
     );
 
-    /* contacts view/model */
+    /* frequent contacts view */
+    GtkWidget *frequent_view = frequent_contacts_view_new();
+    gtk_box_pack_start(GTK_BOX(priv->vbox_contacts),
+                       frequent_view,
+                       FALSE, TRUE, 0);
+    gtk_box_reorder_child(GTK_BOX(priv->vbox_contacts), frequent_view, 0);
+
+    /* contacts view */
     GtkWidget *contacts_view = contacts_view_new();
     gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
                         contacts_view,
                         VIEW_CONTACTS);
 
-    /* history view/model */
+    /* history view */
     GtkWidget *history_view = history_view_new();
     gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
                         history_view,
@@ -1136,6 +1145,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_left_pane);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_contacts);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_contacts_history_presence);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_contacts);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_history);
