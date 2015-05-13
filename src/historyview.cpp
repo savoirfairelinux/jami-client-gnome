@@ -334,6 +334,8 @@ history_view_init(HistoryView *self)
 {
     HistoryViewPrivate *priv = HISTORY_VIEW_GET_PRIVATE(self);
 
+    gtk_widget_set_margin_bottom(GTK_WIDGET(self), 5);
+
     /* history view/model */
     GtkWidget *treeview_history = gtk_tree_view_new();
     /* make headers visible to allow column resizing */
