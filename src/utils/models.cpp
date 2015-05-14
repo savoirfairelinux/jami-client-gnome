@@ -181,11 +181,14 @@ gtk_combo_box_set_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
     gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(box), renderer,
                                    "text", 0, NULL);
 
+   /* sync the initial selection */
+   gtk_combo_box_set_active_index(box, selection_model->currentIndex());
+
     /* connect signals to and from the selection model */
     connection = QObject::connect(
         selection_model,
         &QItemSelectionModel::currentChanged,
-        [=](const QModelIndex & current, G_GNUC_UNUSED const QModelIndex & previous) {
+        [=](const QModelIndex current, G_GNUC_UNUSED const QModelIndex & previous) {
             gtk_combo_box_set_active_index(box, current);
         }
     );
@@ -193,9 +196,6 @@ gtk_combo_box_set_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
                      "changed",
                      G_CALLBACK(update_selection),
                      selection_model);
-
-    /* sync the initial selection */
-    gtk_combo_box_set_active_index(box, selection_model->currentIndex());
 
     return connection;
 }
