@@ -42,6 +42,7 @@
 #include "utils/models.h"
 #include <contactmethod.h>
 #include <QtCore/QDateTime> // for date time formatting
+#include <QtCore/QItemSelectionModel>
 
 struct _HistoryView
 {
@@ -57,7 +58,8 @@ typedef struct _HistoryViewPrivate HistoryViewPrivate;
 
 struct _HistoryViewPrivate
 {
-    QSortFilterProxyModel *q_history_model;
+    CategorizedHistoryModel::SortedProxy *q_sorted_proxy;
+    QMetaObject::Connection category_changed;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(HistoryView, history_view, GTK_TYPE_BOX);
@@ -192,16 +194,6 @@ history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTr
     gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 
     return FALSE; /* continue to default handler */
-}
-
-static void
-expand_if_child(G_GNUC_UNUSED GtkTreeModel *tree_model,
-                GtkTreePath  *path,
-                G_GNUC_UNUSED GtkTreeIter  *iter,
-                GtkTreeView  *treeview)
-{
-    if (gtk_tree_path_get_depth(path) == 2)
-        gtk_tree_view_expand_to_path(treeview, path);
 }
 
 static void
@@ -353,14 +345,35 @@ history_view_init(HistoryView *self)
      * otherwise the search steals input focus on key presses */
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_history), FALSE);
 
-    /* sort the history in descending order by date */
-    priv->q_history_model = new QSortFilterProxyModel();
-    priv->q_history_model->setSourceModel(CategorizedHistoryModel::instance());
-    priv->q_history_model->setSortRole(static_cast<int>(Call::Role::Date));
-    priv->q_history_model->sort(0,Qt::DescendingOrder);
+    /* instantiate history proxy model */
+    priv->q_sorted_proxy = CategorizedHistoryModel::SortedProxy::instance();
+
+    /* for now there is no way in the UI to pick whether sorting is ascending
+     * or descending, so we do it in the code when the category changes */
+    priv->category_changed = QObject::connect(
+        priv->q_sorted_proxy->categorySelectionModel(),
+        &QItemSelectionModel::currentChanged,
+        [=] (const QModelIndex &current, G_GNUC_UNUSED const QModelIndex &previous)
+        {
+            if (current.isValid()) {
+                if (current.row() == 0) {
+                    /* sort in descending order for the date */
+                    priv->q_sorted_proxy->model()->sort(0, Qt::DescendingOrder);
+                } else {
+                    /* ascending order for verything else */
+                    priv->q_sorted_proxy->model()->sort(0);
+                }
+            }
+        }
+    );
+
+    /* select default category (the first one, which is by date) */
+    priv->q_sorted_proxy->categorySelectionModel()->setCurrentIndex(
+        priv->q_sorted_proxy->categoryModel()->index(0, 0),
+        QItemSelectionModel::ClearAndSelect);
 
     GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new(
-        priv->q_history_model,
+        priv->q_sorted_proxy->model(),
         5,
         Qt::DisplayRole, G_TYPE_STRING,
         Call::Role::Number, G_TYPE_STRING,
@@ -444,14 +457,8 @@ history_view_init(HistoryView *self)
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
     gtk_tree_view_column_set_resizable(column, TRUE);
 
-    /* expand the first row, which should be the most recent calls */
-    gtk_tree_view_expand_row(GTK_TREE_VIEW(treeview_history),
-                             gtk_tree_path_new_from_string("0"),
-                             FALSE);
-
     g_signal_connect(treeview_history, "row-activated", G_CALLBACK(activate_history_item), NULL);
     g_signal_connect(treeview_history, "button-press-event", G_CALLBACK(history_popup_menu), treeview_history);
-    g_signal_connect(history_model, "row-inserted", G_CALLBACK(expand_if_child), treeview_history);
 
     gtk_widget_show_all(GTK_WIDGET(self));
 }
@@ -459,17 +466,16 @@ history_view_init(HistoryView *self)
 static void
 history_view_dispose(GObject *object)
 {
+    HistoryViewPrivate *priv = HISTORY_VIEW_GET_PRIVATE(object);
+
+    QObject::disconnect(priv->category_changed);
+
     G_OBJECT_CLASS(history_view_parent_class)->dispose(object);
 }
 
 static void
 history_view_finalize(GObject *object)
 {
-    HistoryView *self = HISTORY_VIEW(object);
-    HistoryViewPrivate *priv = HISTORY_VIEW_GET_PRIVATE(self);
-
-    delete priv->q_history_model;
-
     G_OBJECT_CLASS(history_view_parent_class)->finalize(object);
 }
 
