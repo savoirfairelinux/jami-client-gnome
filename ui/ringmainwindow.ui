@@ -211,15 +211,15 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">center</property>
-                <property name="homogeneous">True</property>
+<!--                 <property name="homogeneous">True</property> -->
                 <property name="margin-top">5</property>
                 <style>
                   <class name="linked"/>
                 </style>
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_contacts">
-                    <property name="label" translatable="yes">contacts</property>
-                    <!-- TODO: make visible when feature ready -->
+<!--                     <property name="label" translatable="yes">contacts</property> -->
+                    <property name="tooltip-text">Contacts</property>
                     <property name="visible">True</property>
                     <property name="image">image_contacts</property>
                     <property name="draw_indicator">False</property>
@@ -228,7 +228,8 @@
                 </child>
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_history">
-                    <property name="label" translatable="yes">history</property>
+<!--                     <property name="label" translatable="yes">history</property> -->
+                    <property name="tooltip-text">History</property>
                     <property name="visible">True</property>
                     <property name="image">image_history</property>
                     <property name="draw_indicator">False</property>
@@ -238,12 +239,33 @@
                 </child>
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_presence">
-                    <property name="label" translatable="yes">online</property>
+<!--                     <property name="label" translatable="yes">online</property> -->
+                    <property name="tooltip-text">Presence</property>
                      <!-- TODO: make visible when feature ready -->
                     <property name="visible">False</property>
                     <property name="image">image_presence</property>
                     <property name="draw_indicator">False</property>
                     <property name="group">radiobutton_contacts</property>
+                  </object>
+                  <packing></packing>
+                </child>
+                <child>
+                  <object class="GtkComboBox" id="combobox_history_sort">
+                    <!-- set to visible when showing history view -->
+                    <property name="visible">False</property>
+                    <property name="can_focus">True</property>
+                    <!-- TODO: save the selected sorting in settings -->
+                    <property name="active">0</property>
+                  </object>
+                  <packing></packing>
+                </child>
+                <child>
+                  <object class="GtkComboBox" id="combobox_contacts_sort">
+                    <!-- set to visible when showing contacts view -->
+                    <property name="visible">False</property>
+                    <property name="can_focus">True</property>
+                    <!-- TODO: save the selected sorting in settings -->
+                    <property name="active">0</property>
                   </object>
                   <packing></packing>
                 </child>
