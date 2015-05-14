@@ -56,6 +56,7 @@
 #include "utils/calling.h"
 #include "frequentcontactsview.h"
 #include "contactsview.h"
+#include <categorizedcontactmodel.h>
 #include "historyview.h"
 #include "utils/models.h"
 #include "generalsettingsview.h"
@@ -97,6 +98,8 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_contacts;
     GtkWidget *radiobutton_history;
     GtkWidget *radiobutton_presence;
+    GtkWidget *combobox_history_sort;
+    GtkWidget *combobox_contacts_sort;
     GtkWidget *vbox_left_pane;
     GtkWidget *vbox_contacts;
     GtkWidget *search_entry;
@@ -311,6 +314,10 @@ navbutton_contacts_toggled(G_GNUC_UNUSED GtkToggleButton *navbutton, RingMainWin
 
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence),
                                      VIEW_CONTACTS);
+
+    /* show the correct sorting combobox */
+    gtk_widget_show(priv->combobox_contacts_sort);
+    gtk_widget_hide(priv->combobox_history_sort);
 }
 
 static void
@@ -321,6 +328,10 @@ navbutton_presence_toggled(G_GNUC_UNUSED GtkToggleButton *navbutton, RingMainWin
 
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence),
                                      VIEW_PRESENCE);
+
+    /* show the correct sorting combobox */
+    gtk_widget_hide(priv->combobox_contacts_sort);
+    gtk_widget_hide(priv->combobox_history_sort);
 }
 
 static void
@@ -331,6 +342,10 @@ navbutton_history_toggled(G_GNUC_UNUSED GtkToggleButton *navbutton, RingMainWind
 
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence),
                                      VIEW_HISTORY);
+
+    /* show the correct sorting combobox */
+    gtk_widget_hide(priv->combobox_contacts_sort);
+    gtk_widget_show(priv->combobox_history_sort);
 }
 
 static gboolean
@@ -958,12 +973,18 @@ ring_main_window_init(RingMainWindow *win)
     gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
                         contacts_view,
                         VIEW_CONTACTS);
+    gtk_combo_box_set_qmodel(GTK_COMBO_BOX(priv->combobox_contacts_sort),
+                             (QAbstractItemModel *)CategorizedContactModel::SortedProxy::instance()->categoryModel(),
+                             CategorizedContactModel::SortedProxy::instance()->categorySelectionModel());
 
     /* history view */
     GtkWidget *history_view = history_view_new();
     gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
                         history_view,
                         VIEW_HISTORY);
+    gtk_combo_box_set_qmodel(GTK_COMBO_BOX(priv->combobox_history_sort),
+                             (QAbstractItemModel *)CategorizedHistoryModel::SortedProxy::instance()->categoryModel(),
+                             CategorizedHistoryModel::SortedProxy::instance()->categorySelectionModel());
 
     /* presence view/model */
     GtkWidget *scrolled_window = gtk_scrolled_window_new(NULL, NULL);
@@ -982,6 +1003,8 @@ ring_main_window_init(RingMainWindow *win)
 
     /* TODO: make this linked to the client settings so that the last shown view is the same on startup */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_contacts), TRUE);
+    gtk_widget_show(priv->combobox_contacts_sort);
+    gtk_widget_hide(priv->combobox_history_sort);
 
     /* TODO: replace stack paceholder view */
     GtkWidget *placeholder_view = gtk_tree_view_new();
@@ -1141,6 +1164,8 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_contacts);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_presence);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_history_sort);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_contacts_sort);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_menu);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_ring);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_settings);
