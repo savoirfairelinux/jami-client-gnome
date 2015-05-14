@@ -32,7 +32,6 @@
 
 #include <gtk/gtk.h>
 #include "models/gtkqsortfiltertreemodel.h"
-#include "models/activeitemproxymodel.h"
 #include <categorizedcontactmodel.h>
 #include <personmodel.h>
 #include "utils/calling.h"
@@ -41,6 +40,7 @@
 #include <contactmethod.h>
 #include "defines.h"
 #include "utils/models.h"
+#include <QtCore/QItemSelectionModel>
 
 #define COPY_DATA_KEY "copy_data"
 
@@ -58,7 +58,7 @@ typedef struct _ContactsViewPrivate ContactsViewPrivate;
 
 struct _ContactsViewPrivate
 {
-    ActiveItemProxyModel *q_contact_model;
+    CategorizedContactModel::SortedProxy *q_sorted_proxy;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ContactsView, contacts_view, GTK_TYPE_BOX);
@@ -351,15 +351,20 @@ contacts_view_init(ContactsView *self)
      * otherwise the search steals input focus on key presses */
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_contacts), FALSE);
 
+    /* initial set up to be categorized by name and sorted alphabetically */
+    priv->q_sorted_proxy = CategorizedContactModel::SortedProxy::instance();
     CategorizedContactModel::instance()->setUnreachableHidden(true);
-    priv->q_contact_model = new ActiveItemProxyModel(CategorizedContactModel::instance());
-    priv->q_contact_model->setSortRole(Qt::DisplayRole);
-    priv->q_contact_model->setSortLocaleAware(true);
-    priv->q_contact_model->setSortCaseSensitivity(Qt::CaseInsensitive);
-    priv->q_contact_model->sort(0);
+
+    /* for now we always want to sort by ascending order */
+    priv->q_sorted_proxy->model()->sort(0);
+
+    /* select default category (the first one, which is by name) */
+    priv->q_sorted_proxy->categorySelectionModel()->setCurrentIndex(
+        priv->q_sorted_proxy->categoryModel()->index(0, 0),
+        QItemSelectionModel::ClearAndSelect);
 
     GtkQSortFilterTreeModel *contact_model = gtk_q_sort_filter_tree_model_new(
-        (QSortFilterProxyModel *)priv->q_contact_model,
+        priv->q_sorted_proxy->model(),
         1,
         Qt::DisplayRole, G_TYPE_STRING);
     gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_contacts), GTK_TREE_MODEL(contact_model));
@@ -413,11 +418,6 @@ contacts_view_dispose(GObject *object)
 static void
 contacts_view_finalize(GObject *object)
 {
-    ContactsView *self = CONTACTS_VIEW(object);
-    ContactsViewPrivate *priv = CONTACTS_VIEW_GET_PRIVATE(self);
-
-    delete priv->q_contact_model;
-
     G_OBJECT_CLASS(contacts_view_parent_class)->finalize(object);
 }
 
