@@ -57,7 +57,7 @@ typedef struct _HistoryViewPrivate HistoryViewPrivate;
 
 struct _HistoryViewPrivate
 {
-    QSortFilterProxyModel *q_history_model;
+    CategorizedHistoryModel::SortedProxy *q_sorted_proxy;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(HistoryView, history_view, GTK_TYPE_BOX);
@@ -200,8 +200,8 @@ expand_if_child(G_GNUC_UNUSED GtkTreeModel *tree_model,
                 G_GNUC_UNUSED GtkTreeIter  *iter,
                 GtkTreeView  *treeview)
 {
-    if (gtk_tree_path_get_depth(path) == 2)
-        gtk_tree_view_expand_to_path(treeview, path);
+//     if (gtk_tree_path_get_depth(path) == 2)
+//         gtk_tree_view_expand_to_path(treeview, path);
 }
 
 static void
@@ -354,13 +354,17 @@ history_view_init(HistoryView *self)
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_history), FALSE);
 
     /* sort the history in descending order by date */
-    priv->q_history_model = new QSortFilterProxyModel();
-    priv->q_history_model->setSourceModel(CategorizedHistoryModel::instance());
-    priv->q_history_model->setSortRole(static_cast<int>(Call::Role::Date));
-    priv->q_history_model->sort(0,Qt::DescendingOrder);
+    priv->q_sorted_proxy = CategorizedHistoryModel::SortedProxy::instance();
+    priv->q_sorted_proxy->model()->sort(0); //, Qt::DescendingOrder);
+//     priv->q_history_model = new QSortFilterProxyModel();
+//     priv->q_history_model->setSourceModel(CategorizedHistoryModel::instance());
+//     priv->q_history_model->setSortRole(static_cast<int>(Call::Role::Date));
+//     priv->q_history_model->setSortLocaleAware(true);
+//     priv->q_history_model->setSortCaseSensitivity(Qt::CaseInsensitive);
+//     priv->q_history_model->sort(0,Qt::DescendingOrder);
 
     GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new(
-        priv->q_history_model,
+        priv->q_sorted_proxy->model(),
         5,
         Qt::DisplayRole, G_TYPE_STRING,
         Call::Role::Number, G_TYPE_STRING,
@@ -465,11 +469,6 @@ history_view_dispose(GObject *object)
 static void
 history_view_finalize(GObject *object)
 {
-    HistoryView *self = HISTORY_VIEW(object);
-    HistoryViewPrivate *priv = HISTORY_VIEW_GET_PRIVATE(self);
-
-    delete priv->q_history_model;
-
     G_OBJECT_CLASS(history_view_parent_class)->finalize(object);
 }
 
@@ -487,3 +486,29 @@ history_view_new()
 
     return (GtkWidget *)self;
 }
+
+// void
+// history_view_set_sorting(HistoryView *self, int sort) {
+//     g_return_if_fail(IS_HISTORY_VIEW(self));
+//     HistoryViewPrivate *priv = HISTORY_VIEW_GET_PRIVATE(self);
+//
+//     switch (sort) {
+//         case static_cast<int>(Call::Role::FuzzyDate):
+//             priv->q_history_model->setSortRole(static_cast<int>(Call::Role::Date));
+//             priv->q_history_model->sort(0,Qt::DescendingOrder);
+//             break;
+// //         case static_cast<int>(Call::Role::CallCount):
+// //             priv->q_history_model->setSortRole(Qt::DisplayRole);
+// //             break;
+//
+//         case static_cast<int>(Call::Role::Name):
+//             priv->q_history_model->setSortRole(Qt::DisplayRole);
+//             priv->q_history_model->sort(0, Qt::AscendingOrder);
+//             break;
+//         default:
+//             priv->q_history_model->setSortRole(sort);
+//             priv->q_history_model->sort(0, Qt::AscendingOrder);
+//             break;
+//     }
+//     CategorizedHistoryModel::instance()->setCategoryRole(sort);
+// }

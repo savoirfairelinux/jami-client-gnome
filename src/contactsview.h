@@ -44,8 +44,9 @@ G_BEGIN_DECLS
 typedef struct _ContactsView      ContactsView;
 typedef struct _ContactsViewClass ContactsViewClass;
 
-GType      contacts_view_get_type (void) G_GNUC_CONST;
-GtkWidget *contacts_view_new      (void);
+GType      contacts_view_get_type  (void) G_GNUC_CONST;
+GtkWidget *contacts_view_new       (void);
+// void       contact_view_set_sorting(ContactsView *self, int sort);
 
 G_END_DECLS
 
