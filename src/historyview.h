@@ -44,8 +44,9 @@ G_BEGIN_DECLS
 typedef struct _HistoryView      HistoryView;
 typedef struct _HistoryViewClass HistoryViewClass;
 
-GType      history_view_get_type (void) G_GNUC_CONST;
-GtkWidget *history_view_new      (void);
+GType      history_view_get_type   (void) G_GNUC_CONST;
+GtkWidget *history_view_new        (void);
+void       history_view_set_sorting(HistoryView *self, int sort);
 
 G_END_DECLS
 

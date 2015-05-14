@@ -96,6 +96,8 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_contacts;
     GtkWidget *radiobutton_history;
     GtkWidget *radiobutton_presence;
+    GtkWidget *combobox_history_sort;
+    GtkWidget *combobox_contacts_sort;
     GtkWidget *vbox_left_pane;
     GtkWidget *vbox_contacts;
     GtkWidget *search_entry;
@@ -307,6 +309,10 @@ navbutton_contacts_toggled(G_GNUC_UNUSED GtkToggleButton *navbutton, RingMainWin
 
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence),
                                      VIEW_CONTACTS);
+
+    /* show the correct sorting combobox */
+    gtk_widget_show(priv->combobox_contacts_sort);
+    gtk_widget_hide(priv->combobox_history_sort);
 }
 
 static void
@@ -317,6 +323,10 @@ navbutton_presence_toggled(G_GNUC_UNUSED GtkToggleButton *navbutton, RingMainWin
 
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence),
                                      VIEW_PRESENCE);
+
+    /* show the correct sorting combobox */
+    gtk_widget_hide(priv->combobox_contacts_sort);
+    gtk_widget_hide(priv->combobox_history_sort);
 }
 
 static void
@@ -327,6 +337,10 @@ navbutton_history_toggled(G_GNUC_UNUSED GtkToggleButton *navbutton, RingMainWind
 
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence),
                                      VIEW_HISTORY);
+
+    /* show the correct sorting combobox */
+    gtk_widget_hide(priv->combobox_contacts_sort);
+    gtk_widget_show(priv->combobox_history_sort);
 }
 
 static gboolean
@@ -836,6 +850,72 @@ dtmf_pressed(RingMainWindow *win,
 }
 
 static void
+contact_sorting_changed(GtkComboBoxText *widget, ContactsView *view)
+{
+    g_return_if_fail(IS_CONTACTS_VIEW(view));
+    g_return_if_fail(GTK_IS_COMBO_BOX_TEXT(widget));
+    
+    switch (gtk_combo_box_get_active(GTK_COMBO_BOX(widget))) {
+        case 0: /* name */
+            contact_view_set_sorting(view, static_cast<int>(Qt::DisplayRole));
+            break;
+        case 1: /* department */
+            contact_view_set_sorting(view, static_cast<int>(Person::Role::Department));
+            break;
+        case 2: /* org */
+            contact_view_set_sorting(view, static_cast<int>(Person::Role::Organization));
+            break;
+        case 3: /* last used */
+            contact_view_set_sorting(view, static_cast<int>(Person::Role::FormattedLastUsed));
+            break;
+        default:
+            g_warning("unknown sorting selection");
+            contact_view_set_sorting(view, static_cast<int>(Qt::DisplayRole));
+            break;
+    }
+}
+
+static void
+history_sorting_changed(GtkComboBoxText *widget, HistoryView *view)
+{
+    g_return_if_fail(IS_HISTORY_VIEW(view));
+    g_return_if_fail(GTK_IS_COMBO_BOX_TEXT(widget));
+    
+    switch (gtk_combo_box_get_active(GTK_COMBO_BOX(widget))) {
+        case 0: /* fuzzy date */
+            history_view_set_sorting(view, static_cast<int>(Call::Role::FuzzyDate));
+            break;
+        case 1: /* date */
+            history_view_set_sorting(view, static_cast<int>(Call::Role::Date));
+            break;
+        case 2: /* name */
+            history_view_set_sorting(view, static_cast<int>(Call::Role::Name));
+            break;
+        case 3: /* number */
+            history_view_set_sorting(view, static_cast<int>(Call::Role::Number));
+            break;
+        case 4: /* dep */
+            history_view_set_sorting(view, static_cast<int>(Call::Role::Department));
+            break;
+        case 5: /* org */
+            history_view_set_sorting(view, static_cast<int>(Call::Role::Organisation));
+            break;
+        case 6: /*call count */
+            history_view_set_sorting(view, static_cast<int>(Call::Role::CallCount));
+            break;
+        case 7: /* duration */
+            history_view_set_sorting(view, static_cast<int>(Call::Role::Length));
+            break;
+        case 8: /*total time */
+            history_view_set_sorting(view, static_cast<int>(Call::Role::TotalSpentTime));
+            break;
+        default:
+            g_warning("unknown sorting selection");
+            break;
+    }
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -951,6 +1031,11 @@ ring_main_window_init(RingMainWindow *win)
 
     /* TODO: make this linked to the client settings so that the last shown view is the same on startup */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_contacts), TRUE);
+    gtk_widget_show(priv->combobox_contacts_sort);
+    gtk_widget_hide(priv->combobox_history_sort);
+    
+    g_signal_connect(priv->combobox_contacts_sort, "changed", G_CALLBACK(contact_sorting_changed), contacts_view);
+    g_signal_connect(priv->combobox_history_sort, "changed", G_CALLBACK(history_sorting_changed), history_view);
 
     /* TODO: replace stack paceholder view */
     GtkWidget *placeholder_view = gtk_tree_view_new();
@@ -1110,6 +1195,8 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_contacts);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_presence);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_history_sort);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_contacts_sort);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_menu);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_ring);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_settings);

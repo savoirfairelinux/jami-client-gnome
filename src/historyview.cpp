@@ -200,8 +200,8 @@ expand_if_child(G_GNUC_UNUSED GtkTreeModel *tree_model,
                 G_GNUC_UNUSED GtkTreeIter  *iter,
                 GtkTreeView  *treeview)
 {
-    if (gtk_tree_path_get_depth(path) == 2)
-        gtk_tree_view_expand_to_path(treeview, path);
+//     if (gtk_tree_path_get_depth(path) == 2)
+//         gtk_tree_view_expand_to_path(treeview, path);
 }
 
 static void
@@ -355,6 +355,8 @@ history_view_init(HistoryView *self)
     priv->q_history_model = new QSortFilterProxyModel();
     priv->q_history_model->setSourceModel(CategorizedHistoryModel::instance());
     priv->q_history_model->setSortRole(static_cast<int>(Call::Role::Date));
+    priv->q_history_model->setSortLocaleAware(true);
+    priv->q_history_model->setSortCaseSensitivity(Qt::CaseInsensitive);
     priv->q_history_model->sort(0,Qt::DescendingOrder);
 
     GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new(
@@ -484,4 +486,30 @@ history_view_new()
     gpointer self = g_object_new(HISTORY_VIEW_TYPE, NULL);
 
     return (GtkWidget *)self;
+}
+
+void
+history_view_set_sorting(HistoryView *self, int sort) {
+    g_return_if_fail(IS_HISTORY_VIEW(self));
+    HistoryViewPrivate *priv = HISTORY_VIEW_GET_PRIVATE(self);
+
+    switch (sort) {
+        case static_cast<int>(Call::Role::FuzzyDate):
+            priv->q_history_model->setSortRole(static_cast<int>(Call::Role::Date));
+            priv->q_history_model->sort(0,Qt::DescendingOrder);
+            break;
+//         case static_cast<int>(Call::Role::CallCount):
+//             priv->q_history_model->setSortRole(Qt::DisplayRole);
+//             break;
+            
+        case static_cast<int>(Call::Role::Name):
+            priv->q_history_model->setSortRole(Qt::DisplayRole);
+            priv->q_history_model->sort(0, Qt::AscendingOrder);
+            break;
+        default:
+            priv->q_history_model->setSortRole(sort);
+            priv->q_history_model->sort(0, Qt::AscendingOrder);
+            break;
+    }
+    CategorizedHistoryModel::instance()->setCategoryRole(sort);
 }

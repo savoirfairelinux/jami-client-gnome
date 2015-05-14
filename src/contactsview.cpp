@@ -349,8 +349,10 @@ contacts_view_init(ContactsView *self)
      * otherwise the search steals input focus on key presses */
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_contacts), FALSE);
 
+    /* initial set up to be categorized by name and sorted alphabetically */
     CategorizedContactModel::instance()->setUnreachableHidden(true);
     priv->q_contact_model = new ActiveItemProxyModel(CategorizedContactModel::instance());
+//     priv->q_contact_model->setDynamicSortFilter(false);
     priv->q_contact_model->setSortRole(Qt::DisplayRole);
     priv->q_contact_model->setSortLocaleAware(true);
     priv->q_contact_model->setSortCaseSensitivity(Qt::CaseInsensitive);
@@ -432,4 +434,37 @@ contacts_view_new()
     gpointer self = g_object_new(CONTACTS_VIEW_TYPE, NULL);
 
     return (GtkWidget *)self;
+}
+
+void
+contact_view_set_sorting(ContactsView *self, int sort) {
+    g_return_if_fail(IS_CONTACTS_VIEW(self));
+    ContactsViewPrivate *priv = CONTACTS_VIEW_GET_PRIVATE(self);
+
+    /* change the sorting settings for what makes sense for the role; then
+     * chagne the role */
+    
+    switch (sort) {
+        case static_cast<int>(Person::Role::Department):
+        case static_cast<int>(Person::Role::Organization):
+            CategorizedContactModel::instance()->setSortAlphabetical(false);
+            priv->q_contact_model->setSortRole(sort);
+            priv->q_contact_model->sort(0);
+            break;
+        case static_cast<int>(Person::Role::FormattedLastUsed):
+            CategorizedContactModel::instance()->setSortAlphabetical(false);
+            priv->q_contact_model->setSortRole(static_cast<int>(Person::Role::IndexedLastUsed));
+//             priv->q_contact_model->sort(0, Qt::DescendingOrder);
+//             priv->q_contact_model->setSortRole(Qt::InitialSortOrderRole);
+//             priv->q_contact_model->invalidate();
+            priv->q_contact_model->sort(0);
+            break;
+        default: /* by name, and everything else */
+            CategorizedContactModel::instance()->setSortAlphabetical(true);
+            priv->q_contact_model->setSortRole(Qt::DisplayRole);
+            priv->q_contact_model->sort(0);
+            break;
+    }
+    
+    CategorizedContactModel::instance()->setRole(sort);
 }
