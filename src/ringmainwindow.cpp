@@ -86,6 +86,8 @@ typedef struct _RingMainWindowPrivate RingMainWindowPrivate;
 
 struct _RingMainWindowPrivate
 {
+    GtkApplication *app;
+
     GtkWidget *ring_menu;
     GtkWidget *image_ring;
     GtkWidget *ring_settings;
@@ -195,6 +197,39 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
         if (IS_INCOMING_CALL_VIEW(old_call_view) || IS_CURRENT_CALL_VIEW(old_call_view)) {
             gtk_container_remove(GTK_CONTAINER(priv->stack_call_view), old_call_view);
         }
+
+        gchar *title = g_strdup_printf("Test");
+        gchar *body = g_strdup_printf("%s", "asdfasdfasdf");
+        GNotification *notification = g_notification_new(title);
+        g_notification_set_body(notification, body);
+        /* the doc sites phone calls as an example of urgent notifications */
+        // g_notification_set_priority(notification, G_NOTIFICATION_PRIORITY_URGENT);
+        // int_ptr_t call_ptr;
+        // call_ptr.ptr = (gpointer)call;
+        // g_notification_add_button_with_target_value(notification,
+        //                                             "Accept",
+        //                                             "accept_call",
+        //                                             g_variant_new_int64(call_ptr.value64));
+        //
+        // g_notification_add_button_with_target_value(notification,
+        //                                             "Reject",
+        //                                             "reject_call",
+        //                                              g_variant_new_int64(call_ptr.value64));
+        // g_notification_add_button(notification, "Accept", "app.accept");
+
+        GdkPixbuf *pixbuf = gdk_pixbuf_new_from_resource("/cx/ring/RingGnome/ring-symbol-blue", nullptr);
+        GBytes *pixbuf_bytes = NULL;
+        g_object_get(pixbuf, "pixel-bytes", &pixbuf_bytes, NULL);
+        if (pixbuf_bytes) {
+            GIcon *icon = g_bytes_icon_new(pixbuf_bytes);
+            g_notification_set_icon(notification, icon);
+        }
+
+
+        g_application_send_notification(G_APPLICATION(priv->app), NULL, notification);
+        g_object_unref(notification);
+        g_free(title);
+        g_free(body);
     }
 }
 
@@ -1207,6 +1242,8 @@ GtkWidget *
 ring_main_window_new (GtkApplication *app)
 {
     gpointer win = g_object_new(RING_MAIN_WINDOW_TYPE, "application", app, NULL);
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+    priv->app = app;
 
     return (GtkWidget *)win;
 }
