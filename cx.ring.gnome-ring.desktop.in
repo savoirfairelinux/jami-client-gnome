@@ -7,3 +7,4 @@ StartupNotify=true
 Terminal=false
 Type=Application
 Categories=GNOME;GTK;Network;Telephony;
+DBusActivatable=true

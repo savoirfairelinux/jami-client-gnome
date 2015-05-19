@@ -27,9 +27,16 @@ CONFIGURE_FILE (
 
 # generate .desktop file
 CONFIGURE_FILE (
-   "${PROJECT_SOURCE_DIR}/gnome-ring.desktop.in"
-   "${PROJECT_BINARY_DIR}/gnome-ring.desktop"
+   "${PROJECT_SOURCE_DIR}/cx.ring.gnome-ring.desktop.in"
+   "${PROJECT_BINARY_DIR}/cx.ring.gnome-ring.desktop"
 )
+
+# generate .service file
+CONFIGURE_FILE (
+   "${PROJECT_SOURCE_DIR}/cx.ring.gnome-ring.service.in"
+   "${PROJECT_BINARY_DIR}/cx.ring.gnome-ring.service"
+)
+
 
 # add the binary tree to the search path for include files
 # so that we will find config.h
@@ -257,7 +264,7 @@ INSTALL(TARGETS gnome-ring
    RUNTIME DESTINATION bin
 )
 
-INSTALL(FILES ${PROJECT_BINARY_DIR}/gnome-ring.desktop
+INSTALL(FILES ${PROJECT_BINARY_DIR}/cx.ring.gnome-ring.desktop
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications
 )
 
@@ -265,8 +272,12 @@ INSTALL(FILES pixmaps/ring.svg
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps
 )
 
-INSTALL(FILES gnome-ring.appdata.xml
+INSTALL(FILES cx.ring.gnome-ring.appdata.xml
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/appdata/
+)
+
+INSTALL(FILES ${PROJECT_BINARY_DIR}/cx.ring.gnome-ring.service
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/dbus-1/services/
 )
 
 # add a target to generate API documentation with Doxygen

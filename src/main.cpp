@@ -34,5 +34,6 @@
 int
 main(int argc, char *argv[])
 {
-    return g_application_run(G_APPLICATION(ring_client_new()), argc, argv);
+    RingClient *client = ring_client_new(argc, argv);
+    return g_application_run(G_APPLICATION(client), argc, argv);
 }

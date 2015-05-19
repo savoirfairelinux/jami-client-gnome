@@ -31,11 +31,12 @@
 #ifndef RING_CLIENT_OPTIONS_H_
 #define RING_CLIENT_OPTIONS_H_
 
-#include <glib.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
 GOptionContext *ring_client_options_get_context(void);
+void ring_client_add_options(GApplication *app);
 
 G_END_DECLS
 
