@@ -63,6 +63,13 @@ static const GOptionEntry all_options[] = {
     {NULL} /* list must be NULL-terminated */
 };
 
+#if GLIB_CHECK_VERSION(2,40,0)
+void
+ring_client_add_options(GApplication *app) {
+    g_application_add_main_option_entries(app, all_options);
+}
+
+#else
 GOptionContext *
 ring_client_options_get_context()
 {
@@ -77,3 +84,4 @@ ring_client_options_get_context()
     g_option_context_add_group(context, gtk_get_option_group(TRUE));
     return context;
 }
+#endif
