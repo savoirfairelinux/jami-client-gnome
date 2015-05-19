@@ -64,6 +64,9 @@ struct _RingClient
 typedef struct _RingClientPrivate RingClientPrivate;
 
 struct _RingClientPrivate {
+    /* args */
+    int    argc;
+    char **argv;
     /* main window */
     GtkWidget        *win;
     /* for libRingclient */
@@ -73,6 +76,14 @@ struct _RingClientPrivate {
 
     GCancellable *cancellable;
 };
+
+/* this union is used to pass ints as pointers and vice versa for GAction parameters*/
+typedef union _int_ptr_t
+{
+    int value;
+    gint64 value64;
+    gpointer ptr;
+} int_ptr_t;
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingClient, ring_client, GTK_TYPE_APPLICATION);
 
@@ -130,26 +141,70 @@ action_about(G_GNUC_UNUSED GSimpleAction *simple,
     ring_about_dialog(priv->win);
 }
 
+static void
+action_accept_call(G_GNUC_UNUSED GSimpleAction *simple,
+                   GVariant *parameter,
+                   gpointer  user_data)
+{
+    g_return_if_fail(G_IS_APPLICATION(user_data));
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
+
+    /* the parameter should store the pointer of the Call* object */
+    int_ptr_t call_ptr;
+    call_ptr.value64 = g_variant_get_int64(parameter);
+
+    g_return_if_fail(call_ptr.ptr != nullptr);
+
+    /* check if this call exists */
+    CallList list = CallModel::instance()->getActiveCalls();
+
+    for (int i = 0; i < list.size(); ++i) {
+        if ((gpointer)list.at(i) == call_ptr.ptr)
+            ((Call*)call_ptr.ptr)->performAction(Call::Action::ACCEPT);
+    }
+    g_warning("Could not find call with pointer %p to accept", call_ptr.ptr);
+}
+
+static void
+action_reject_call(G_GNUC_UNUSED GSimpleAction *simple,
+                   GVariant *parameter,
+                   gpointer  user_data)
+{
+    g_return_if_fail(G_IS_APPLICATION(user_data));
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
+
+    /* the parameter should store the pointer of the Call* object */
+    int_ptr_t call_ptr;
+    call_ptr.value64 = g_variant_get_int64(parameter);
+
+    g_return_if_fail(call_ptr.ptr != nullptr);
+
+    /* check if this call exists */
+    CallList list = CallModel::instance()->getActiveCalls();
+
+    for (int i = 0; i < list.size(); ++i) {
+        if ((gpointer)list.at(i) == call_ptr.ptr)
+            ((Call*)call_ptr.ptr)->performAction(Call::Action::REFUSE);
+    }
+    g_warning("Could not find call with pointer %p to reject", call_ptr.ptr);
+}
+
 static const GActionEntry ring_actions[] =
 {
     { "accept", NULL,         NULL, NULL,    NULL, {0} },
     { "hangup", NULL,         NULL, NULL,    NULL, {0} },
     { "hold",   NULL,         NULL, "false", NULL, {0} },
     { "quit",   action_quit,  NULL, NULL,    NULL, {0} },
-    { "about",  action_about, NULL, NULL,    NULL, {0} }
+    { "about",  action_about, NULL, NULL,    NULL, {0} },
     /* TODO implement the other actions */
     // { "mute_audio", NULL,        NULL, "false", NULL, {0} },
     // { "mute_video", NULL,        NULL, "false", NULL, {0} },
     // { "transfer",   NULL,        NULL, "flase", NULL, {0} },
     // { "record",     NULL,        NULL, "false", NULL, {0} }
+    /* actions for specific calls (for notifications) */
+    { "accept_call", action_accept_call, (const gchar*)G_VARIANT_TYPE_INT64, NULL, NULL, {0} },
+    { "reject_call", action_reject_call, (const gchar*)G_VARIANT_TYPE_INT64, NULL, NULL, {0} },
 };
-
-/* this union is used to pass the int refering to the Action as a parameter to the GAction callback */
-typedef union _int_ptr_t
-{
-    int value;
-    gpointer ptr;
-} int_ptr_t;
 
 static void
 activate_action(GSimpleAction *action, G_GNUC_UNUSED GVariant *parameter, gpointer user_data)
@@ -157,6 +212,7 @@ activate_action(GSimpleAction *action, G_GNUC_UNUSED GVariant *parameter, gpoint
     g_debug("activating action: %s", g_action_get_name(G_ACTION(action)));
 
     int_ptr_t key;
+
     key.ptr = user_data;
     UserActionModel::Action a = static_cast<UserActionModel::Action>(key.value);
     UserActionModel* uam = CallModel::instance()->userActionModel();
@@ -164,36 +220,39 @@ activate_action(GSimpleAction *action, G_GNUC_UNUSED GVariant *parameter, gpoint
     uam << a;
 }
 
-static int
-ring_client_startup(GApplication *app, gint argc, gchar **argv)
+static void
+ring_client_startup(GApplication *app)
 {
-    G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
 
+    g_debug("startup");
     RingClient *client = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
     /* init clutter */
     int clutter_error;
-    if ((clutter_error = gtk_clutter_init(&argc, &argv)) != CLUTTER_INIT_SUCCESS) {
-        g_critical("Could not init clutter : %d\n", clutter_error);
-        return 1;
+    if ((clutter_error = gtk_clutter_init(&priv->argc, &priv->argv)) != CLUTTER_INIT_SUCCESS) {
+        g_error("Could not init clutter : %d\n", clutter_error);
+        return;
+        // return 1;
     }
 
     /* init libRingClient and make sure its connected to the dbus */
     try {
-        priv->qtapp = new QCoreApplication(argc, argv);
+        priv->qtapp = new QCoreApplication(priv->argc, priv->argv);
         /* the call model will try to connect to dring via dbus */
         CallModel::instance();
     } catch (const char * msg) {
         init_exception_dialog(msg);
-        g_critical("%s", msg);
-        return 1;
+        g_error("%s", msg);
+        return;
+        // return 1;
     } catch(QString& msg) {
         QByteArray ba = msg.toLocal8Bit();
         const char *c_str = ba.data();
         init_exception_dialog(c_str);
-        g_critical("%s", c_str);
-        return 1;
+        g_error("%s", c_str);
+        return;
+        // return 1;
     }
 
     /* init delegates */
@@ -263,38 +322,100 @@ ring_client_startup(GApplication *app, gint argc, gchar **argv)
        }
     });
 
-    return 0;
+    /* add call notifications */
+    // QObject::connect(
+    //     CallModel::instance(),
+    //     &CallModel::incomingCall,
+    //     [=] (Call* call) {
+    //         g_return_if_fail(call);
+    //         g_debug("incoming call notification for call pointer %p", (gpointer)call);
+    //
+    //         if (!g_action_map_lookup_action(G_ACTION_MAP(app), "accept_call"))
+    //             g_warning("action doesn't exist");
+    //
+    //         gchar *title = g_strdup_printf("Incoming call");
+    //         gchar *body = g_strdup_printf("%s", call->formattedName().toUtf8().constData());
+    //         GNotification *notification = g_notification_new(title);
+    //         // g_notification_set_body(notification, body);
+    //         /* the doc sites phone calls as an example of urgent notifications */
+    //         // g_notification_set_priority(notification, G_NOTIFICATION_PRIORITY_URGENT);
+    //         // int_ptr_t call_ptr;
+    //         // call_ptr.ptr = (gpointer)call;
+    //         // g_notification_add_button_with_target_value(notification,
+    //         //                                             "Accept",
+    //         //                                             "accept_call",
+    //         //                                             g_variant_new_int64(call_ptr.value64));
+    //         //
+    //         // g_notification_add_button_with_target_value(notification,
+    //         //                                             "Reject",
+    //         //                                             "reject_call",
+    //         //                                              g_variant_new_int64(call_ptr.value64));
+    //         g_notification_add_button(notification, "Accept", "app.accept");
+    //
+    //         GdkPixbuf *pixbuf = gdk_pixbuf_new_from_resource("/cx/ring/RingGnome/ring-symbol-blue", nullptr);
+    //         GBytes *pixbuf_bytes = NULL;
+    //         g_object_get(pixbuf, "pixel-bytes", &pixbuf_bytes, NULL);
+    //         if (pixbuf_bytes) {
+    //             GIcon *icon = g_bytes_icon_new(pixbuf_bytes);
+    //             g_notification_set_icon(notification, icon);
+    //         }
+    //
+    //
+    //         g_application_send_notification(app, "test", notification);
+    //         // g_object_unref(notification);
+    //         // g_free(title);
+    //         // g_free(body);
+    //     }
+    // );
+
+    // return 0;
+
+    G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
 }
 
-static int
-ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
+// static int
+// ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
+// {
+//     RingClient *client = RING_CLIENT(app);
+//     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+//
+//     gint argc;
+//     gchar **argv = g_application_command_line_get_arguments(cmdline, &argc);
+//     GOptionContext *context = ring_client_options_get_context();
+//     GError *error = NULL;
+//     if (g_option_context_parse(context, &argc, &argv, &error) == FALSE) {
+//         g_print(_("%s\nRun '%s --help' to see a full list of available command line options.\n"),
+//                 error->message, argv[0]);
+//         g_clear_error(&error);
+//         g_option_context_free(context);
+//         return 1;
+//     }
+//     g_option_context_free(context);
+//
+//     /* init libs and create main window only once */
+//     if (priv->win == NULL) {
+//         if (ring_client_startup(app, argc, argv) != 0)
+//             return 1;
+//         priv->win = ring_main_window_new(GTK_APPLICATION(app));
+//     }
+//
+//     gtk_window_present(GTK_WINDOW(priv->win));
+//
+//     return 0;
+// }
+
+static void
+ring_client_activate(GApplication *app)
 {
+    g_debug("activate");
     RingClient *client = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
-    gint argc;
-    gchar **argv = g_application_command_line_get_arguments(cmdline, &argc);
-    GOptionContext *context = ring_client_options_get_context();
-    GError *error = NULL;
-    if (g_option_context_parse(context, &argc, &argv, &error) == FALSE) {
-        g_print(_("%s\nRun '%s --help' to see a full list of available command line options.\n"),
-                error->message, argv[0]);
-        g_clear_error(&error);
-        g_option_context_free(context);
-        return 1;
-    }
-    g_option_context_free(context);
-
-    /* init libs and create main window only once */
     if (priv->win == NULL) {
-        if (ring_client_startup(app, argc, argv) != 0)
-            return 1;
         priv->win = ring_main_window_new(GTK_APPLICATION(app));
     }
 
     gtk_window_present(GTK_WINDOW(priv->win));
-
-    return 0;
 }
 
 static void
@@ -315,6 +436,9 @@ ring_client_shutdown(GApplication *app)
      * and thus send the Unregister signal over dbus to dring */
     delete priv->qtapp;
 
+    /* free the copied cmd line args */
+    g_strfreev(priv->argv);
+
     /* Chain up to the parent class */
     G_APPLICATION_CLASS(ring_client_parent_class)->shutdown(app);
 }
@@ -328,19 +452,29 @@ ring_client_init(RingClient *self)
     priv->win = NULL;
     priv->qtapp = NULL;
     priv->cancellable = g_cancellable_new();
+
+    ring_client_add_options(G_APPLICATION(self));
 }
 
 static void
 ring_client_class_init(RingClientClass *klass)
 {
-    G_APPLICATION_CLASS(klass)->command_line = ring_client_command_line;
+    G_APPLICATION_CLASS(klass)->startup = ring_client_startup;
+    G_APPLICATION_CLASS(klass)->activate = ring_client_activate;
     G_APPLICATION_CLASS(klass)->shutdown = ring_client_shutdown;
 }
 
 RingClient *
-ring_client_new()
+ring_client_new(int argc, char *argv[])
 {
-    return (RingClient *)g_object_new(ring_client_get_type(),
-                                      "application-id", "cx.ring.RingGnome",
-                                      "flags", G_APPLICATION_HANDLES_COMMAND_LINE, NULL);
+    RingClient *client = (RingClient *)g_object_new(ring_client_get_type(),
+                                                    "application-id", "cx.ring.gnome-ring", NULL);
+                                    //   "flags", G_APPLICATION_HANDLES_COMMAND_LINE, NULL);
+
+    /* copy the cmd line args before they get processed by the GApplication*/
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    priv->argc = argc;
+    priv->argv = g_strdupv((gchar **)argv);
+
+    return client;
 }

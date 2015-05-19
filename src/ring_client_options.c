@@ -63,17 +63,22 @@ static const GOptionEntry all_options[] = {
     {NULL} /* list must be NULL-terminated */
 };
 
-GOptionContext *
-ring_client_options_get_context()
-{
-    /* TODO: for some reason the given description and added options aren't printed
-     * when '--help' is invoked... possibly a GTK bug.
-     */
-    GOptionContext *context = g_option_context_new("- GNOME client for Ring");
-    g_option_context_set_ignore_unknown_options(context, TRUE);
+// GOptionContext *
+// ring_client_options_get_context()
+// {
+//     /* TODO: for some reason the given description and added options aren't printed
+//      * when '--help' is invoked... possibly a GTK bug.
+//      */
+//     GOptionContext *context = g_option_context_new("- GNOME client for Ring");
+//     g_option_context_set_ignore_unknown_options(context, TRUE);
+//
+//     /* TODO: add translation domain */
+//     g_option_context_add_main_entries(context, all_options, NULL);
+//     g_option_context_add_group(context, gtk_get_option_group(TRUE));
+//     return context;
+// }
 
-    /* TODO: add translation domain */
-    g_option_context_add_main_entries(context, all_options, NULL);
-    g_option_context_add_group(context, gtk_get_option_group(TRUE));
-    return context;
+void
+ring_client_add_options(GApplication *app) {
+    g_application_add_main_option_entries(app, all_options);
 }
