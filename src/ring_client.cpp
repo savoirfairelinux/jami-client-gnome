@@ -64,6 +64,9 @@ struct _RingClient
 typedef struct _RingClientPrivate RingClientPrivate;
 
 struct _RingClientPrivate {
+    /* args */
+    int    argc;
+    char **argv;
     /* main window */
     GtkWidget        *win;
     /* for libRingclient */
@@ -73,6 +76,14 @@ struct _RingClientPrivate {
 
     GCancellable *cancellable;
 };
+
+/* this union is used to pass ints as pointers and vice versa for GAction parameters*/
+typedef union _int_ptr_t
+{
+    int value;
+    gint64 value64;
+    gpointer ptr;
+} int_ptr_t;
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingClient, ring_client, GTK_TYPE_APPLICATION);
 
@@ -136,7 +147,7 @@ static const GActionEntry ring_actions[] =
     { "hangup", NULL,         NULL, NULL,    NULL, {0} },
     { "hold",   NULL,         NULL, "false", NULL, {0} },
     { "quit",   action_quit,  NULL, NULL,    NULL, {0} },
-    { "about",  action_about, NULL, NULL,    NULL, {0} }
+    { "about",  action_about, NULL, NULL,    NULL, {0} },
     /* TODO implement the other actions */
     // { "mute_audio", NULL,        NULL, "false", NULL, {0} },
     // { "mute_video", NULL,        NULL, "false", NULL, {0} },
@@ -144,19 +155,13 @@ static const GActionEntry ring_actions[] =
     // { "record",     NULL,        NULL, "false", NULL, {0} }
 };
 
-/* this union is used to pass the int refering to the Action as a parameter to the GAction callback */
-typedef union _int_ptr_t
-{
-    int value;
-    gpointer ptr;
-} int_ptr_t;
-
 static void
 activate_action(GSimpleAction *action, G_GNUC_UNUSED GVariant *parameter, gpointer user_data)
 {
     g_debug("activating action: %s", g_action_get_name(G_ACTION(action)));
 
     int_ptr_t key;
+
     key.ptr = user_data;
     UserActionModel::Action a = static_cast<UserActionModel::Action>(key.value);
     UserActionModel* uam = CallModel::instance()->userActionModel();
@@ -164,36 +169,34 @@ activate_action(GSimpleAction *action, G_GNUC_UNUSED GVariant *parameter, gpoint
     uam << a;
 }
 
-static int
-ring_client_startup(GApplication *app, gint argc, gchar **argv)
+static void
+ring_client_startup(GApplication *app)
 {
-    G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
-
     RingClient *client = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
     /* init clutter */
     int clutter_error;
-    if ((clutter_error = gtk_clutter_init(&argc, &argv)) != CLUTTER_INIT_SUCCESS) {
-        g_critical("Could not init clutter : %d\n", clutter_error);
-        return 1;
+    if ((clutter_error = gtk_clutter_init(&priv->argc, &priv->argv)) != CLUTTER_INIT_SUCCESS) {
+        g_error("Could not init clutter : %d\n", clutter_error);
+        exit(1); /* the g_error above should normally cause the applicaiton to exit */
     }
 
     /* init libRingClient and make sure its connected to the dbus */
     try {
-        priv->qtapp = new QCoreApplication(argc, argv);
+        priv->qtapp = new QCoreApplication(priv->argc, priv->argv);
         /* the call model will try to connect to dring via dbus */
         CallModel::instance();
     } catch (const char * msg) {
         init_exception_dialog(msg);
-        g_critical("%s", msg);
-        return 1;
+        g_error("%s", msg);
+        exit(1); /* the g_error above should normally cause the applicaiton to exit */
     } catch(QString& msg) {
         QByteArray ba = msg.toLocal8Bit();
         const char *c_str = ba.data();
         init_exception_dialog(c_str);
-        g_critical("%s", c_str);
-        return 1;
+        g_error("%s", c_str);
+        exit(1); /* the g_error above should normally cause the applicaiton to exit */
     }
 
     /* init delegates */
@@ -263,9 +266,10 @@ ring_client_startup(GApplication *app, gint argc, gchar **argv)
        }
     });
 
-    return 0;
+    G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
 }
 
+#if !GLIB_CHECK_VERSION(2,40,0)
 static int
 ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
 {
@@ -281,20 +285,29 @@ ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
                 error->message, argv[0]);
         g_clear_error(&error);
         g_option_context_free(context);
+        g_strfreev(argv);
         return 1;
     }
     g_option_context_free(context);
+    g_strfreev(argv);
 
-    /* init libs and create main window only once */
+    g_application_activate(app);
+
+    return 0;
+}
+#endif
+
+static void
+ring_client_activate(GApplication *app)
+{
+    RingClient *client = RING_CLIENT(app);
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
     if (priv->win == NULL) {
-        if (ring_client_startup(app, argc, argv) != 0)
-            return 1;
         priv->win = ring_main_window_new(GTK_APPLICATION(app));
     }
 
     gtk_window_present(GTK_WINDOW(priv->win));
-
-    return 0;
 }
 
 static void
@@ -315,6 +328,9 @@ ring_client_shutdown(GApplication *app)
      * and thus send the Unregister signal over dbus to dring */
     delete priv->qtapp;
 
+    /* free the copied cmd line args */
+    g_strfreev(priv->argv);
+
     /* Chain up to the parent class */
     G_APPLICATION_CLASS(ring_client_parent_class)->shutdown(app);
 }
@@ -328,19 +344,44 @@ ring_client_init(RingClient *self)
     priv->win = NULL;
     priv->qtapp = NULL;
     priv->cancellable = g_cancellable_new();
+
+#if GLIB_CHECK_VERSION(2,40,0)
+    /* add custom cmd line options */
+    ring_client_add_options(G_APPLICATION(self));
+#endif
 }
 
 static void
 ring_client_class_init(RingClientClass *klass)
 {
+    G_APPLICATION_CLASS(klass)->startup = ring_client_startup;
+#if !GLIB_CHECK_VERSION(2,40,0)
     G_APPLICATION_CLASS(klass)->command_line = ring_client_command_line;
+#endif
+    G_APPLICATION_CLASS(klass)->activate = ring_client_activate;
     G_APPLICATION_CLASS(klass)->shutdown = ring_client_shutdown;
 }
 
 RingClient *
-ring_client_new()
+ring_client_new(int argc, char *argv[])
 {
-    return (RingClient *)g_object_new(ring_client_get_type(),
-                                      "application-id", "cx.ring.RingGnome",
-                                      "flags", G_APPLICATION_HANDLES_COMMAND_LINE, NULL);
+    /* because the g_application_add_main_option_entries was only added in
+     * glib 2.40, for lower versions we must handle the command line options
+     * ourselves
+     */
+    RingClient *client = (RingClient *)g_object_new(ring_client_get_type(),
+                                                    "application-id", "cx.ring.RingGnome",
+#if GLIB_CHECK_VERSION(2,40,0)
+                                                    NULL);
+#else
+                                                    "flags", G_APPLICATION_HANDLES_COMMAND_LINE,
+                                                    NULL);
+#endif
+
+    /* copy the cmd line args before they get processed by the GApplication*/
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    priv->argc = argc;
+    priv->argv = g_strdupv((gchar **)argv);
+
+    return client;
 }
