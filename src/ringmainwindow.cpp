@@ -704,13 +704,15 @@ search_entry_text_changed(GtkEditable *search_entry, RingMainWindow *win)
 
     if (text && strlen(text) > 0) {
         /* edit the the dialing call (or create a new one) */
-        Call *call = CallModel::instance()->dialingCall();
-        call->setDialNumber(text);
-        priv->q_completion_model->setCall(call);
+        if (auto call = CallModel::instance()->dialingCall()) {
+            call->setDialNumber(text);
+            priv->q_completion_model->setCall(call);
+        }
     } else {
-        Call *call = priv->q_completion_model->call();
-        if (call->lifeCycleState() == Call::LifeCycleState::CREATION)
-            call->performAction(Call::Action::REFUSE);
+        if (auto call = priv->q_completion_model->call()) {
+            if (call->lifeCycleState() == Call::LifeCycleState::CREATION)
+                call->performAction(Call::Action::REFUSE);
+        }
     }
 }
 
