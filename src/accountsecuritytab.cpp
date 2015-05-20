@@ -417,7 +417,7 @@ build_tab_view(AccountSecurityTab *self)
         gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_certificate),
                                       user_cert->path().toDisplayString().toUtf8().constData());
     }
-    g_signal_connect(priv->filechooserbutton_ca_list, "file-set", G_CALLBACK(user_cert_file_set), self);
+    g_signal_connect(priv->filechooserbutton_certificate, "file-set", G_CALLBACK(user_cert_file_set), self);
 
     /* private key */
     Certificate *private_key = priv->account->tlsPrivateKeyCertificate();
@@ -425,7 +425,7 @@ build_tab_view(AccountSecurityTab *self)
         gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_private_key),
                                       private_key->path().toDisplayString().toUtf8().constData());
     }
-    g_signal_connect(priv->filechooserbutton_ca_list, "file-set", G_CALLBACK(private_key_file_set), self);
+    g_signal_connect(priv->filechooserbutton_private_key, "file-set", G_CALLBACK(private_key_file_set), self);
 
     /* password */
     if (private_key && private_key->requirePrivateKeyPassword()) {
