@@ -19,18 +19,6 @@ SET(PROJECT_VERSION_MAJOR 0)
 SET(PROJECT_VERSION_MINOR 4)
 SET(PROJECT_VERSION_PATCH 0)
 
-# create config header file to pass cmake settings to source code
-CONFIGURE_FILE (
-   "${PROJECT_SOURCE_DIR}/src/config.h.in"
-   "${PROJECT_BINARY_DIR}/config.h"
-)
-
-# generate .desktop file
-CONFIGURE_FILE (
-   "${PROJECT_SOURCE_DIR}/gnome-ring.desktop.in"
-   "${PROJECT_BINARY_DIR}/gnome-ring.desktop"
-)
-
 # add the binary tree to the search path for include files
 # so that we will find config.h
 INCLUDE_DIRECTORIES("${PROJECT_BINARY_DIR}")
@@ -55,6 +43,7 @@ PKG_CHECK_MODULES(CLUTTER REQUIRED clutter-1.0)
 PKG_CHECK_MODULES(CLUTTERGTK REQUIRED clutter-gtk-1.0)
 PKG_CHECK_MODULES(ICONSYMBLIC REQUIRED gnome-icon-theme-symbolic)
 PKG_CHECK_MODULES(EBOOK REQUIRED libebook-1.2>=3.10)
+PKG_CHECK_MODULES(LIBNOTIFY libnotify>=0.7.6) #optional
 
 # include libs
 INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
@@ -63,6 +52,7 @@ INCLUDE_DIRECTORIES(SYSTEM ${Qt5Core_INCLUDE_DIRS} )
 INCLUDE_DIRECTORIES(${CLUTTER_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${CLUTTERGTK_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${EBOOK_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(${LIBNOTIFY_INCLUDE_DIRS})
 
 # link libs
 LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
@@ -71,6 +61,7 @@ LINK_DIRECTORIES(${Qt5Core_LIBRARY_DIRS} )
 LINK_DIRECTORIES(${CLUTTER_LIBRARY_DIRS})
 LINK_DIRECTORIES(${CLUTTERGTK_LIBRARY_DIRS})
 LINK_DIRECTORIES(${EBOOK_LIBRARY_DIRS})
+LINK_DIRECTORIES(${LIBNOTIFY_LIBRARY_DIRS})
 
 # lib compiler flags
 ADD_DEFINITIONS(${GTK3_CFLAGS})
@@ -80,6 +71,7 @@ ADD_DEFINITIONS(${Qt5Core_CFLAGS})
 ADD_DEFINITIONS(${CLUTTER_CFLAGS})
 ADD_DEFINITIONS(${CLUTTERGTK_CFLAGS})
 ADD_DEFINITIONS(${EBOOK_CFLAGS})
+ADD_DEFINITIONS(${LIBNOTIFY_CFLAGS})
 
 IF(NOT ${ENABLE_STATIC} MATCHES false)
   SET(QT5_MODULE_PATH ${QT5_PATH}/lib/cmake)
@@ -211,6 +203,8 @@ SET( SRC_FILES
    src/utils/models.cpp
    src/utils/calling.h
    src/utils/calling.cpp
+   src/ringnotify.h
+   src/ringnotify.cpp
 )
 
 # compile glib resource files to c code
@@ -239,6 +233,7 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${CLUTTER_LIBRARIES}
    ${CLUTTERGTK_LIBRARIES}
    ${EBOOK_LIBRARIES}
+   ${LIBNOTIFY_LIBRARIES}
    -lpthread
    -lrt
    )
@@ -250,8 +245,27 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${CLUTTER_LIBRARIES}
    ${CLUTTERGTK_LIBRARIES}
    ${EBOOK_LIBRARIES}
+   ${LIBNOTIFY_LIBRARIES}
    )
 ENDIF()
+
+# create config header file to pass cmake settings to source code
+IF( LIBNOTIFY_FOUND MATCHES 0)
+   SET(USE_LIBNOTIFY "TRUE")
+ELSE()
+   SET(USE_LIBNOTIFY "FALSE")
+ENDIF()
+
+CONFIGURE_FILE (
+   "${PROJECT_SOURCE_DIR}/src/config.h.in"
+   "${PROJECT_BINARY_DIR}/config.h"
+)
+
+# generate .desktop file
+CONFIGURE_FILE (
+   "${PROJECT_SOURCE_DIR}/gnome-ring.desktop.in"
+   "${PROJECT_BINARY_DIR}/gnome-ring.desktop"
+)
 
 INSTALL(TARGETS gnome-ring
    RUNTIME DESTINATION bin
