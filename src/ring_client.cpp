@@ -50,6 +50,7 @@
 #include "dialogs.h"
 #include "backends/edscontactbackend.h"
 #include "delegates/pixbufdelegate.h"
+#include "ringnotify.h"
 
 struct _RingClientClass
 {
@@ -266,6 +267,12 @@ ring_client_startup(GApplication *app)
        }
     });
 
+    /* send call notifications */
+    ring_notify_init();
+    QObject::connect(CallModel::instance(), &CallModel::incomingCall,
+        [=] (Call *call) { ring_notify_incoming_call(call);}
+    );
+
 #if GLIB_CHECK_VERSION(2,40,0)
     G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
 #else
@@ -337,6 +344,8 @@ ring_client_shutdown(GApplication *app)
 
     /* free the copied cmd line args */
     g_strfreev(priv->argv);
+
+    ring_notify_uninit();
 
     /* Chain up to the parent class */
     G_APPLICATION_CLASS(ring_client_parent_class)->shutdown(app);
