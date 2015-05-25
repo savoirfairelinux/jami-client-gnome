@@ -28,25 +28,17 @@
  *  as that of the covered work.
  */
 
-#ifndef RING_CLIENT_H_
-#define RING_CLIENT_H_
+#ifndef _FILES_H
+#define _FILES_H
 
-#include <gtk/gtk.h>
-#include "config.h"
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
-#define RING_GSETTINGS_SCHEMA RING_CLIENT_APP_ID
-#define RING_CLIENT_TYPE (ring_client_get_type())
-#define RING_CLIENT(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), RING_CLIENT_TYPE, RingClient))
+void autostart_symlink(gboolean autostart);
 
-typedef struct _RingClientClass   RingClientClass;
-typedef struct _RingClient        RingClient;
-
-/* Public interface */
-GType       ring_client_get_type (void) G_GNUC_CONST;
-RingClient *ring_client_new      (int argc, char *argv[]);
+GSettingsSchema *get_ring_schema();
 
 G_END_DECLS
 
-#endif /* RING_CLIENT_H_ */
+#endif /* _FILES_H */
