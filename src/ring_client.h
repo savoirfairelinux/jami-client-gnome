@@ -35,7 +35,6 @@
 
 G_BEGIN_DECLS
 
-// #define RING_GSETTINGS_SCHEMA "cx.ring.RingGnome"
 #define RING_CLIENT_TYPE (ring_client_get_type())
 #define RING_CLIENT(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), RING_CLIENT_TYPE, RingClient))
 

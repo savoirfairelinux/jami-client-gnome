@@ -51,6 +51,7 @@
 #include "backends/edscontactbackend.h"
 #include "delegates/pixbufdelegate.h"
 #include "ringnotify.h"
+#include "config.h"
 
 struct _RingClientClass
 {
@@ -387,7 +388,7 @@ ring_client_new(int argc, char *argv[])
      * ourselves
      */
     RingClient *client = (RingClient *)g_object_new(ring_client_get_type(),
-                                                    "application-id", "cx.ring.RingGnome",
+                                                    "application-id", RING_CLIENT_APP_ID,
 #if GLIB_CHECK_VERSION(2,40,0)
                                                     NULL);
 #else

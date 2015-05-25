@@ -5,3 +5,5 @@
 #define VERSION_PATCH @PROJECT_VERSION_PATCH@
 
 #define USE_LIBNOTIFY @USE_LIBNOTIFY@
+
+#define RING_CLIENT_APP_ID "cx.ring.RingGnome"
