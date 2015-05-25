@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/cx/ring/RingGnome/" id="cx.ring.RingGnome">
+    <key name="start-on-login" type="b">
+        <default>true</default>
+        <summary>Start Ring on login.</summary>
+        <description>Start Ring on login. Only supported on XDG compliant desktop environments.</description>
+    </key>
+  </schema>
+</schemalist>
