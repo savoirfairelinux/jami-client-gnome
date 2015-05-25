@@ -52,10 +52,11 @@
 #include "delegates/pixbufdelegate.h"
 #include "ringnotify.h"
 #include "config.h"
+#include "utils/files.h"
 
 struct _RingClientClass
 {
-  GtkApplicationClass parent_class;
+    GtkApplicationClass parent_class;
 };
 
 struct _RingClient
@@ -69,6 +70,9 @@ struct _RingClientPrivate {
     /* args */
     int    argc;
     char **argv;
+
+    GSettings *settings;
+
     /* main window */
     GtkWidget        *win;
     /* for libRingclient */
@@ -172,10 +176,20 @@ activate_action(GSimpleAction *action, G_GNUC_UNUSED GVariant *parameter, gpoint
 }
 
 static void
+autostart_toggled(GSettings *settings, G_GNUC_UNUSED gchar *key, G_GNUC_UNUSED gpointer user_data)
+{
+    autostart_symlink(g_settings_get_boolean(settings, "start-on-login"));
+}
+
+static void
 ring_client_startup(GApplication *app)
 {
     RingClient *client = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    /* make sure that the system corresponds to the autostart setting */
+    autostart_symlink(g_settings_get_boolean(priv->settings, "start-on-login"));
+    g_signal_connect(priv->settings, "changed::start-on-login", G_CALLBACK(autostart_toggled), NULL);
 
     /* init clutter */
     int clutter_error;
@@ -346,6 +360,8 @@ ring_client_shutdown(GApplication *app)
     /* free the copied cmd line args */
     g_strfreev(priv->argv);
 
+    g_clear_object(&priv->settings);
+
     ring_notify_uninit();
 
     /* Chain up to the parent class */
@@ -357,10 +373,10 @@ ring_client_init(RingClient *self)
 {
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
 
-    /* init widget */
     priv->win = NULL;
     priv->qtapp = NULL;
     priv->cancellable = g_cancellable_new();
+    priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
 
 #if GLIB_CHECK_VERSION(2,40,0)
     /* add custom cmd line options */

@@ -7,3 +7,6 @@
 #define USE_LIBNOTIFY @USE_LIBNOTIFY@
 
 #define RING_CLIENT_APP_ID "cx.ring.RingGnome"
+
+#define RING_CLIENT_INSTALL "@CMAKE_INSTALL_PREFIX@"
+#define RING_DATA_DIR "/share/gnome-ring"
