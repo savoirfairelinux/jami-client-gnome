@@ -272,8 +272,21 @@ INSTALL(TARGETS gnome-ring
    RUNTIME DESTINATION bin
 )
 
+# install .desktop in XDG desktop dir so that it is recognized by the system
 INSTALL(FILES ${PROJECT_BINARY_DIR}/gnome-ring.desktop
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications
+)
+
+# install .desktop in the gnome-ring data dir, so that it can be copied to the
+# autostart dir by the client
+INSTALL(FILES ${PROJECT_BINARY_DIR}/gnome-ring.desktop
+   DESTINATION
+      ${CMAKE_INSTALL_PREFIX}/share/gnome-ring/
+   PERMISSIONS
+      WORLD_READ
+      OWNER_WRITE
+      OWNER_READ
+      GROUP_READ
 )
 
 INSTALL(FILES pixmaps/ring.svg
@@ -300,6 +313,11 @@ INSTALL(
       WORLD_EXECUTE
 )
 
+# install and compile glib gsettings schema
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/data/cx.ring.RingGnome.gschema.xml
+   DESTINATION ${CMAKE_INSTALL_PREFIX}/share/glib-2.0/schemas
+)
+INSTALL(SCRIPT ${PROJECT_SOURCE_DIR}/cmake/compile-schemas.cmake)
 
 # add a target to generate API documentation with Doxygen
 FIND_PACKAGE(Doxygen)
