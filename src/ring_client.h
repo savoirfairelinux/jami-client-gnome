@@ -32,9 +32,11 @@
 #define RING_CLIENT_H_
 
 #include <gtk/gtk.h>
+#include "config.h"
 
 G_BEGIN_DECLS
 
+#define RING_GSETTINGS_SCHEMA RING_CLIENT_APP_ID
 #define RING_CLIENT_TYPE (ring_client_get_type())
 #define RING_CLIENT(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), RING_CLIENT_TYPE, RingClient))
 
