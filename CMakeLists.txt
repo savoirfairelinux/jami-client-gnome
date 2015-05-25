@@ -25,8 +25,9 @@ INCLUDE_DIRECTORIES("${PROJECT_BINARY_DIR}")
 
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-# the GResources.cmake module isn't automatically detected
+# include custom cmake modules
 INCLUDE(${CMAKE_SOURCE_DIR}/cmake/GResources.cmake)
+INCLUDE(${CMAKE_SOURCE_DIR}/cmake/GSettings.cmake)
 
 # make sure we're using Qt5
 SET(ENABLE_QT5 true)
@@ -207,6 +208,8 @@ SET( SRC_FILES
    src/ringnotify.cpp
    src/video/videowindow.h
    src/video/videowindow.cpp
+   src/utils/files.h
+   src/utils/files.cpp
 )
 
 # compile glib resource files to c code
@@ -224,7 +227,10 @@ GLIB_COMPILE_RESOURCES( GLIB_RESOURCES_RING
 # FIND_PACKAGE ( Gettext REQUIRED )
 # ADD_SUBDIRECTORY( po )
 
-ADD_EXECUTABLE(gnome-ring ${GLIB_RESOURCES_RING} ${SRC_FILES})
+# install and compile glib gsettings schema
+add_schema("cx.ring.RingGnome.gschema.xml" GSCHEMA_RING)
+
+ADD_EXECUTABLE(gnome-ring ${GLIB_RESOURCES_RING} ${GSCHEMA_RING} ${SRC_FILES})
 
 IF(NOT ${ENABLE_STATIC} MATCHES false)
 TARGET_LINK_LIBRARIES(gnome-ring
@@ -274,8 +280,21 @@ INSTALL(TARGETS gnome-ring
    RUNTIME DESTINATION bin
 )
 
+# install .desktop in XDG desktop dir so that it is recognized by the system
 INSTALL(FILES ${PROJECT_BINARY_DIR}/gnome-ring.desktop
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications
+)
+
+# install .desktop in the gnome-ring data dir, so that it can be copied to the
+# autostart dir by the client
+INSTALL(FILES ${PROJECT_BINARY_DIR}/gnome-ring.desktop
+   DESTINATION
+      ${CMAKE_INSTALL_PREFIX}/share/gnome-ring/
+   PERMISSIONS
+      WORLD_READ
+      OWNER_WRITE
+      OWNER_READ
+      GROUP_READ
 )
 
 INSTALL(FILES pixmaps/ring.svg
@@ -301,7 +320,6 @@ INSTALL(
       GROUP_EXECUTE
       WORLD_EXECUTE
 )
-
 
 # add a target to generate API documentation with Doxygen
 FIND_PACKAGE(Doxygen)
