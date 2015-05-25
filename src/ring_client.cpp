@@ -44,6 +44,9 @@
 #include <fallbackpersoncollection.h>
 #include <QtCore/QStandardPaths>
 #include <localhistorycollection.h>
+#include <unistd.h> // to create symlinks
+#include <errno.h>
+#include <glib/gstdio.h> // for glib file utils
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
@@ -55,7 +58,7 @@
 
 struct _RingClientClass
 {
-  GtkApplicationClass parent_class;
+    GtkApplicationClass parent_class;
 };
 
 struct _RingClient
@@ -69,6 +72,9 @@ struct _RingClientPrivate {
     /* args */
     int    argc;
     char **argv;
+
+    GSettings *settings;
+
     /* main window */
     GtkWidget        *win;
     /* for libRingclient */
@@ -172,10 +178,93 @@ activate_action(GSimpleAction *action, G_GNUC_UNUSED GVariant *parameter, gpoint
 }
 
 static void
+enable_autostart_system(gboolean autostart)
+{
+    /* autostart is enabled by creating a symlink to gnome-ring.desktop in
+     * $XDG_CONFIG_HOME/autostart (by default ~/.config/autostart)
+     * and removing it to disable autostart
+     */
+
+    GError *error = NULL;
+    gchar *autostart_path = g_strconcat(g_get_user_config_dir(), "/autostart/gnome-ring.desktop", NULL);
+
+    if (autostart) {
+        g_debug("enabling autostart");
+        gchar *desktop_path = g_strconcat(RING_CLIENT_DATA_LOCATION, "gnome-ring.desktop", NULL);
+
+        /* we want autostart_path to be a symlink to the current desktop_path
+         * if it is not, delete it and create one */
+
+        if (!g_file_test(desktop_path, G_FILE_TEST_IS_REGULAR))
+            g_warning("cannot locate '%s', will try to create a symlink to it anyways", desktop_path);
+
+        gboolean symlink_to_desktop = FALSE;
+        if (g_file_test(autostart_path, G_FILE_TEST_IS_SYMLINK)) {
+            /* is symlink, check if its to the right file */
+            gchar *current_link = g_file_read_link(autostart_path, &error);
+            if (error) {
+                g_warning("could not read contents of symlink '%s': %s",autostart_path, error->message);
+                g_clear_error(&error);
+            }
+
+            /* compare even if error occurs, as function handles nullptr */
+            if (g_strcmp0(current_link, desktop_path) == 0) {
+                g_debug("'%s' is already a symlink to '%s'", autostart_path, desktop_path);
+                symlink_to_desktop = TRUE;
+            } else {
+                g_debug("'%s' exists but does not point to '%s', instead: '%s'", autostart_path, desktop_path, current_link);
+
+                /* we need to delete it */
+                if (g_remove(autostart_path) != 0) {
+                    g_warning("could not remove '%s'", autostart_path);
+                }
+            }
+            g_free(current_link);
+        }
+
+        if (!symlink_to_desktop) {
+            g_debug("creating symlink");
+
+            if (symlink(desktop_path, autostart_path) != 0) {
+                g_warning("could not create symlink: %s", strerror(errno));
+            }
+        }
+
+        g_free(desktop_path);
+    } else {
+        g_debug("disabling autostart");
+        /* need to remove symlink or .desktop, if it exists
+         * G_FILE_TEST_IS_REGULAR will test for both file and symlink, since it
+         * follows symlinks */
+        if (g_file_test(autostart_path, G_FILE_TEST_IS_REGULAR)) {
+            g_debug("'%s' exists, removing", autostart_path);
+
+            if (g_remove(autostart_path) != 0) {
+                g_warning("could not remove '%s'", autostart_path);
+            }
+        } else {
+            g_debug("'%s' doesn't exist, nothing to do", autostart_path);
+        }
+
+    }
+    g_free(autostart_path);
+}
+
+static void
+autostart_toggled(GSettings *settings, G_GNUC_UNUSED gchar *key, G_GNUC_UNUSED gpointer user_data)
+{
+    enable_autostart_system(g_settings_get_boolean(settings, "start-on-login"));
+}
+
+static void
 ring_client_startup(GApplication *app)
 {
     RingClient *client = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    /* make sure that the system corresponds to the autostart setting */
+    enable_autostart_system(g_settings_get_boolean(priv->settings, "start-on-login"));
+    g_signal_connect(priv->settings, "changed::start-on-login", G_CALLBACK(autostart_toggled), NULL);
 
     /* init clutter */
     int clutter_error;
@@ -346,6 +435,8 @@ ring_client_shutdown(GApplication *app)
     /* free the copied cmd line args */
     g_strfreev(priv->argv);
 
+    g_clear_object(&priv->settings);
+
     ring_notify_uninit();
 
     /* Chain up to the parent class */
@@ -361,6 +452,7 @@ ring_client_init(RingClient *self)
     priv->win = NULL;
     priv->qtapp = NULL;
     priv->cancellable = g_cancellable_new();
+    priv->settings = g_settings_new(RING_CLIENT_APP_ID);
 
 #if GLIB_CHECK_VERSION(2,40,0)
     /* add custom cmd line options */
