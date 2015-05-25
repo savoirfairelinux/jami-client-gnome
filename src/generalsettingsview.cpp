@@ -32,6 +32,7 @@
 
 #include <gtk/gtk.h>
 #include <categorizedhistorymodel.h>
+#include "config.h"
 
 struct _GeneralSettingsView
 {
@@ -47,6 +48,11 @@ typedef struct _GeneralSettingsViewPrivate GeneralSettingsViewPrivate;
 
 struct _GeneralSettingsViewPrivate
 {
+    GSettings *settings;
+
+    /* Rint settings */
+    GtkWidget *checkbutton_autostart;
+
     /* history settings */
     GtkWidget *adjustment_history_duration;
     GtkWidget *button_clear_history;
@@ -59,6 +65,10 @@ G_DEFINE_TYPE_WITH_PRIVATE(GeneralSettingsView, general_settings_view, GTK_TYPE_
 static void
 general_settings_view_dispose(GObject *object)
 {
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(object);
+
+    g_clear_object(&priv->settings);
+
     G_OBJECT_CLASS(general_settings_view_parent_class)->dispose(object);
 }
 
@@ -118,6 +128,13 @@ general_settings_view_init(GeneralSettingsView *self)
 
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
 
+    priv->settings = g_settings_new(RING_CLIENT_APP_ID);
+
+    /* bind auto startup option to gsettings */
+    g_settings_bind(priv->settings, "start-on-login",
+                    priv->checkbutton_autostart, "active",
+                    G_SETTINGS_BIND_DEFAULT);
+
     /* history limit */
     gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_history_duration),
                              CategorizedHistoryModel::instance()->historyLimit());
@@ -136,6 +153,7 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/generalsettingsview.ui");
 
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_autostart);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_history_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_clear_history);
 }
