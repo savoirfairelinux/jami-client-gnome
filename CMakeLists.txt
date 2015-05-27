@@ -162,8 +162,6 @@ SET( SRC_FILES
    src/utils/drawing.c
    src/video/video_widget.h
    src/video/video_widget.cpp
-   src/backends/minimalhistorybackend.h
-   src/backends/minimalhistorybackend.cpp
    src/models/gtkqsortfiltertreemodel.h
    src/models/gtkqsortfiltertreemodel.cpp
    src/accountview.h

@@ -43,10 +43,10 @@
 #include <personmodel.h>
 #include <fallbackpersoncollection.h>
 #include <QtCore/QStandardPaths>
+#include <localhistorycollection.h>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
-#include "backends/minimalhistorybackend.h"
 #include "dialogs.h"
 #include "backends/edscontactbackend.h"
 #include "delegates/pixbufdelegate.h"
@@ -206,7 +206,7 @@ ring_client_startup(GApplication *app)
     new PixbufDelegate();
 
     /* add backends */
-    CategorizedHistoryModel::instance()->addCollection<MinimalHistoryBackend>(LoadOptions::FORCE_ENABLED);
+    CategorizedHistoryModel::instance()->addCollection<LocalHistoryCollection>(LoadOptions::FORCE_ENABLED);
 
     PersonModel::instance()->addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
 
