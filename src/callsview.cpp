@@ -239,7 +239,7 @@ calls_view_init(CallsView *self)
     priv->selection_updated = QObject::connect(
         CallModel::instance()->selectionModel(),
         &QItemSelectionModel::currentChanged,
-        [=](const QModelIndex & current, const QModelIndex & previous) {
+        [=](const QModelIndex current, const QModelIndex & previous) {
             GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_calls));
 
             /* first unselect the previous */

@@ -85,7 +85,8 @@ public:
     virtual QByteArray id       () const override;
     virtual FlagPack<SupportedFeatures>  supportedFeatures() const override;
 
-    void addContacts(GSList *contacts);
+    void addClientView(std::unique_ptr<EBookClientView, void(*)(EBookClientView *)> client_view);
+    void addContacts(std::unique_ptr<GSList, void(*)(GSList *)> contacts);
     void parseContact(EContact *contact);
     void lastContactAdded();
 
@@ -93,9 +94,7 @@ private:
    CollectionMediator<Person>*  mediator_;
    std::unique_ptr<EClient, decltype(g_object_unref)&> client_;
    std::unique_ptr<GCancellable, decltype(g_object_unref)&> cancellable_;
-
-   static void free_contact_list(GSList *list) { g_slist_free_full(list, g_object_unref); };
-   std::unique_ptr<GSList, decltype(free_contact_list)&> contacts_;
+   std::unique_ptr<EBookClientView, void(*)(EBookClientView *)> client_view_;
 
    guint add_contacts_source_id {0};
 };

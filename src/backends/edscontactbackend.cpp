@@ -153,12 +153,29 @@ QVector<Person*> EdsContactEditor::items() const
     return items_;
 }
 
+static void free_client_view(EBookClientView *client_view) {
+    g_return_if_fail(client_view);
+    GError *error = NULL;
+    e_book_client_view_stop(client_view, &error);
+    if (error) {
+        g_warning("error stopping EBookClientView: %s", error->message);
+        g_clear_error(&error);
+    }
+    g_object_unref(client_view);
+}
+
+static void
+free_contact_list(GSList *list)
+{
+    g_slist_free_full(list, g_object_unref);
+};
+
 EdsContactBackend::EdsContactBackend(CollectionMediator<Person>* mediator, EClient *client, CollectionInterface* parent)
     : CollectionInterface(new EdsContactEditor(mediator,this), parent)
     , mediator_(mediator)
     , client_(client, g_object_unref)
     , cancellable_(g_cancellable_new(), g_object_unref)
-    , contacts_(nullptr, free_contact_list)
+    , client_view_(nullptr, &free_client_view)
 {
 }
 
@@ -188,17 +205,28 @@ bool EdsContactBackend::isEnabled() const
 }
 
 static void
-contacts_cb(EBookClient *client, GAsyncResult *result, EdsContactBackend *self)
+contacts_added(G_GNUC_UNUSED EBookClientView *client_view, const GSList *objects, EdsContactBackend *self)
+{
+    std::unique_ptr<GSList,void(*)(GSList *)> contacts(
+        g_slist_copy_deep((GSList *)objects, (GCopyFunc)g_object_ref, NULL ), &free_contact_list);
+    self->addContacts(std::move(contacts));
+}
+
+static void
+client_view_cb(EBookClient *client, GAsyncResult *result, EdsContactBackend *self)
 {
     g_return_if_fail(E_IS_BOOK_CLIENT(client));
-    GSList *contacts = NULL;
+    EBookClientView *client_view = NULL;
     GError *error = NULL;
-    if(!e_book_client_get_contacts_finish(client, result, &contacts, &error)) {
-        g_critical("Unable to get contacts: %s", error->message);
+    if(!e_book_client_get_view_finish(client, result, &client_view, &error)) {
+        g_critical("Unable to get client view: %s", error->message);
         g_clear_error(&error);
         return;
     } else {
-        self->addContacts(contacts);
+        /* we want the EBookClientView to have the same life cycle as the backend */
+        std::unique_ptr<EBookClientView, void(*)(EBookClientView *)> client_view_ptr(
+            client_view, &free_client_view);
+        self->addClientView(std::move(client_view_ptr));
     }
 }
 
@@ -231,7 +259,16 @@ typedef struct AddContactsData_
 {
     EdsContactBackend* backend;
     GSList *next;
+    std::unique_ptr<GSList, void(*)(GSList *)> contacts;
 } AddContactsData;
+
+void
+free_add_contacts_data(AddContactsData *data)
+{
+    g_return_if_fail(data && data->contacts);
+    data->contacts.reset();
+    g_free(data);
+}
 
 static gboolean
 add_contacts(AddContactsData *data)
@@ -256,21 +293,35 @@ void EdsContactBackend::lastContactAdded()
     add_contacts_source_id = 0;
 }
 
-
-void EdsContactBackend::addContacts(GSList *contacts)
+void EdsContactBackend::addClientView(std::unique_ptr<EBookClientView, void(*)(EBookClientView *)> client_view)
 {
-    contacts_.reset(contacts);
+    client_view_ = std::move(client_view);
 
+    /* connect signals for adding, removing, and modifying contacts */
+    g_signal_connect(client_view_.get(), "objects-added", G_CALLBACK(contacts_added), this);
+
+    /* start processing the signals */
+    GError *error = NULL;
+    e_book_client_view_start(client_view_.get(), &error);
+    if (error) {
+        g_critical("Unable to get start client view: %s", error->message);
+        g_clear_error(&error);
+    }
+}
+
+void EdsContactBackend::addContacts(std::unique_ptr<GSList, void(*)(GSList *)> contacts)
+{
     /* add CONTACT_ADD_LIMIT # of contacts every CONTACT_ADD_INTERVAL miliseconds */
     AddContactsData *data = g_new0(AddContactsData, 1);
     data->backend = this;
-    data->next = contacts_.get();
+    data->contacts = std::move(contacts);
+    data->next = data->contacts.get();
 
     g_timeout_add_full(G_PRIORITY_DEFAULT,
                        CONTACT_ADD_INTERVAL,
                        (GSourceFunc)add_contacts,
                        data,
-                       (GDestroyNotify)g_free);
+                       (GDestroyNotify)free_add_contacts_data);
 }
 
 bool EdsContactBackend::load()
@@ -289,11 +340,13 @@ bool EdsContactBackend::load()
     EBookQuery *name_query = e_book_query_or(idx, queries, TRUE);
     gchar *query_str = e_book_query_to_string(name_query);
     e_book_query_unref(name_query);
-    e_book_client_get_contacts(E_BOOK_CLIENT(client_.get()),
-                               query_str,
-                               cancellable_.get(),
-                               (GAsyncReadyCallback)contacts_cb,
-                               this);
+
+    /* test */
+    e_book_client_get_view(E_BOOK_CLIENT(client_.get()),
+                           query_str,
+                           cancellable_.get(),
+                           (GAsyncReadyCallback)client_view_cb,
+                           this);
     g_free(query_str);
 
     return true;
