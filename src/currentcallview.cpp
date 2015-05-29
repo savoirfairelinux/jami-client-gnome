@@ -39,6 +39,10 @@
 #include <contactmethod.h>
 #include <person.h>
 #include "delegates/pixbufdelegate.h"
+#include <media/media.h>
+#include <media/text.h>
+#include <media/textrecording.h>
+#include "models/gtkqtreemodel.h"
 
 struct _CurrentCallView
 {
@@ -60,12 +64,20 @@ struct _CurrentCallViewPrivate
     GtkWidget *label_duration;
     GtkWidget *frame_video;
     GtkWidget *video_widget;
-    GtkWidget *button_hangup;
+    GtkWidget *revealer_chat;
+    GtkWidget *togglebutton_chat;
+    GtkWidget *treeview_chat;
+    GtkWidget *button_chat_input;
+    GtkWidget *entry_chat_input;
+    GtkWidget *scrolledwindow_chat;
+
+    Call *call;
 
     QMetaObject::Connection state_change_connection;
     QMetaObject::Connection call_details_connection;
     QMetaObject::Connection local_renderer_connection;
     QMetaObject::Connection remote_renderer_connection;
+    QMetaObject::Connection media_added_connection;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(CurrentCallView, current_call_view, GTK_TYPE_BOX);
@@ -85,14 +97,51 @@ current_call_view_dispose(GObject *object)
     QObject::disconnect(priv->call_details_connection);
     QObject::disconnect(priv->local_renderer_connection);
     QObject::disconnect(priv->remote_renderer_connection);
+    QObject::disconnect(priv->media_added_connection);
 
     G_OBJECT_CLASS(current_call_view_parent_class)->dispose(object);
+}
+
+static void
+chat_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    gtk_revealer_set_reveal_child(GTK_REVEALER(priv->revealer_chat),
+                                  gtk_toggle_button_get_active(togglebutton));
+
+    if (gtk_toggle_button_get_active(togglebutton)) {
+        /* create an outgoing media to bring up chat history, if any */
+        priv->call->addOutgoingMedia<Media::Text>();
+    }
+}
+
+static void
+send_chat(G_GNUC_UNUSED GtkWidget *widget, CurrentCallView *self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    /* make sure there is text to send */
+    const gchar *text = gtk_entry_get_text(GTK_ENTRY(priv->entry_chat_input));
+    if (text && strlen(text) > 0) {
+        priv->call->addOutgoingMedia<Media::Text>()->send(text);
+        /* clear the entry */
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_chat_input), "");
+    }
 }
 
 static void
 current_call_view_init(CurrentCallView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
+
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    g_signal_connect(priv->togglebutton_chat, "toggled", G_CALLBACK(chat_toggled), view);
+    g_signal_connect(priv->button_chat_input, "clicked", G_CALLBACK(send_chat), view);
+    g_signal_connect(priv->entry_chat_input, "activate", G_CALLBACK(send_chat), view);
 }
 
 static void
@@ -108,7 +157,12 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, revealer_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, treeview_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_chat_input);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, entry_chat_input);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scrolledwindow_chat);
 }
 
 GtkWidget *
@@ -267,15 +321,65 @@ on_button_press_in_video_event(GtkWidget *self, GdkEventButton *event, CurrentCa
     return TRUE;
 }
 
+static gboolean
+scroll_to_bottom(CurrentCallView *self)
+{
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    GtkAdjustment *adjustment = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(priv->scrolledwindow_chat));
+    gtk_adjustment_set_value(adjustment, gtk_adjustment_get_upper(adjustment) - gtk_adjustment_get_page_size(adjustment));
+
+    return G_SOURCE_REMOVE;
+}
+
+static void
+new_chat_inserted(G_GNUC_UNUSED GtkTreeModel *tree_model,
+                  G_GNUC_UNUSED GtkTreePath  *path,
+                  G_GNUC_UNUSED GtkTreeIter  *iter,
+                  gpointer self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+
+    g_idle_add((GSourceFunc)scroll_to_bottom, self);
+}
+
+static void
+add_chat_model(QAbstractItemModel *model, CurrentCallView *self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    /* first check if a model has already been added */
+    if (gtk_tree_view_get_model(GTK_TREE_VIEW(priv->treeview_chat)))
+        return;
+
+    GtkQTreeModel *chat_model = gtk_q_tree_model_new(
+        model,
+        1,
+        Qt::DisplayRole, G_TYPE_STRING);
+
+    gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_chat), GTK_TREE_MODEL(chat_model));
+
+    GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
+    GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes("Chat", renderer, "text", 0, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_chat), column);
+
+    /* scroll to the bottom when the model is first added */
+    g_idle_add((GSourceFunc)scroll_to_bottom, self);
+
+    /* we want to make sure to scroll to the bottom of the treeview when a new
+     * chat is added */
+    g_signal_connect_after(chat_model, "row-inserted", G_CALLBACK(new_chat_inserted), self);
+}
 
 void
 current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    Call *call = CallModel::instance()->getCall(idx);
+    priv->call = CallModel::instance()->getCall(idx);
 
     /* get call image */
-    QVariant var_i = PixbufDelegate::instance()->callPhoto(call, QSize(60, 60), false);
+    QVariant var_i = PixbufDelegate::instance()->callPhoto(priv->call, QSize(60, 60), false);
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
 
@@ -285,19 +389,19 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     gtk_label_set_text(GTK_LABEL(priv->label_identity), ba_name.constData());
 
     /* change some things depending on call state */
-    update_state(view, call);
-    update_details(view, call);
+    update_state(view, priv->call);
+    update_details(view, priv->call);
 
     priv->state_change_connection = QObject::connect(
-        call,
+        priv->call,
         &Call::stateChanged,
-        [=]() { update_state(view, call); }
+        [=]() { update_state(view, priv->call); }
     );
 
     priv->call_details_connection = QObject::connect(
-        call,
+        priv->call,
         static_cast<void (Call::*)(void)>(&Call::changed),
-        [=]() { update_details(view, call); }
+        [=]() { update_details(view, priv->call); }
     );
 
     /* video widget */
@@ -307,12 +411,12 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
 
     /* check if we already have a renderer */
     video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                   call->videoRenderer(),
+                                   priv->call->videoRenderer(),
                                    VIDEO_RENDERER_REMOTE);
 
     /* callback for remote renderer */
     priv->remote_renderer_connection = QObject::connect(
-        call,
+        priv->call,
         &Call::videoStarted,
         [=](Video::Renderer *renderer) {
             video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
@@ -342,4 +446,26 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     g_signal_connect(priv->video_widget, "button-press-event",
                      G_CALLBACK(on_button_press_in_video_event),
                      view);
+
+    /* check if text media is already present */
+    if (priv->call->hasMedia(Media::Media::Type::TEXT, Media::Media::Direction::IN)) {
+        Media::Text *text = priv->call->firstMedia<Media::Text>(Media::Media::Direction::IN);
+        add_chat_model(text->recording()->instantMessagingModel(), view);
+    } else if (priv->call->hasMedia(Media::Media::Type::TEXT, Media::Media::Direction::OUT)) {
+        Media::Text *text = priv->call->firstMedia<Media::Text>(Media::Media::Direction::OUT);
+        add_chat_model(text->recording()->instantMessagingModel(), view);
+    } else {
+        /* monitor media for messaging text messaging */
+        priv->media_added_connection = QObject::connect(
+            priv->call,
+            &Call::mediaAdded,
+            [=] (Media::Media* media) {
+                g_debug("media added");
+                if (media->type() == Media::Media::Type::TEXT) {
+                    g_debug("text media added");
+                    add_chat_model(((Media::Text*)media)->recording()->instantMessagingModel(), view);
+                }
+            }
+        );
+    }
 }
