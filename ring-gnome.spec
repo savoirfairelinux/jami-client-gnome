@@ -20,6 +20,7 @@ BuildRequires:      cmake clutter-gtk-devel clutter-devel glib2-devel gtk3-devel
 BuildRequires:      libnotify-devel
 Requires:           gnome-icon-theme-symbolic evolution-data-server ring-daemon librsvg2
 Requires:           libnotify
+Conflicts:          ring-kde
 
 %description
 Ring GNOME client
@@ -94,6 +95,7 @@ sed -i "s#Icon=.*#Icon=%{_datadir}/icons/hicolor/scalable/apps/ring.svg#g" %{bui
 %{_datadir}/applications/gnome-ring.desktop
 %{_datadir}/icons/hicolor/scalable/apps/ring.svg
 %{_datadir}/appdata/gnome-ring.appdata.xml
+%{_bindir}/ring
 
 
 %changelog
