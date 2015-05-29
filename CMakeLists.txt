@@ -284,6 +284,11 @@ INSTALL(FILES gnome-ring.appdata.xml
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/appdata/
 )
 
+# install shell script which will launch "ring"
+INSTALL(PROGRAMS ring
+    DESTINATION bin
+)
+
 # add a target to generate API documentation with Doxygen
 FIND_PACKAGE(Doxygen)
 IF(DOXYGEN_FOUND)
