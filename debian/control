@@ -3,7 +3,6 @@ Section: comm
 Priority: extra
 Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
 Standards-Version: 3.9.6
-Replaces: ring-kde
 Homepage: http://ring.cx
 Vcs-Git: https://gerrit-ring.savoirfairelinux.com/ring
 Vcs-Browser: https://gerrit-ring.savoirfairelinux.com/#/admin/projects/ring
@@ -21,6 +20,7 @@ Build-Depends: debhelper (>= 9),
 Package: ring-gnome
 Architecture: any
 Section: gnome
+Replaces: ring-kde
 Depends: ${shlibs:Depends}, ${misc:Depends}, ring-daemon, libebook-1.2-14,
  librsvg2-2, gnome-icon-theme-symbolic, libnotify4
 Description: Ring GNOME client
