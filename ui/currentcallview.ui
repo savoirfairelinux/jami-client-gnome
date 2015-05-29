@@ -60,8 +60,82 @@
             <property name="visible">False</property>
             <property name="shadow-type">GTK_SHADOW_NONE</property>
           </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
         </child>
         <!-- end of video widget -->
+        <!-- start of text message area -->
+        <child>
+          <object class="GtkRevealer" id="revealer_chat">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkBox" id="vbox_chat">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">5</property>
+                <property name="margin-start">5</property>
+                <!-- start of chat text view -->
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolledwindow_chat">
+                    <property name="visible">True</property>
+                    <property name="hscrollbar_policy">never</property>
+                    <property name="min-content-height">150</property>
+                    <child>
+                      <object class="GtkTreeView" id="treeview_chat">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="headers-visible">False</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
+                <!-- end of chat text view -->
+                <!-- start of chat entry -->
+                <child>
+                  <object class="GtkBox" id="hbox_chat_input">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">0</property>
+                    <style>
+                      <class name="linked"/>
+                    </style>
+                    <child>
+                      <object class="GtkEntry" id="entry_chat_input">
+                        <property name="visible">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="button_chat_input">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Send</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
+                <!-- end of chat entry -->
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <!-- end of text message area -->
         <!-- call status box -->
         <child>
           <object class="GtkBox" id="hbox_call_status">
@@ -109,83 +183,106 @@
 
     <!-- box which contains the control buttons -->
     <child>
-      <object class="GtkBox" id="hbox_call_controls">
+      <object class="GtkBox" id="hbox_controls">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="halign">center</property>
-        <property name="valign">start</property>
         <property name="border_width">10</property>
-        <style>
-          <class name="linked"/>
-        </style>
+        <!-- call conrol button box -->
         <child>
-          <object class="GtkButton" id="button_hangup">
-            <property name="label" translatable="yes">Hang-up</property>
+          <object class="GtkButtonBox" id="buttonbox_call_controls">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="action-name">app.hangup</property>
+            <property name="can_focus">False</property>
+            <property name="halign">center</property>
+            <property name="valign">start</property>
+            <style>
+              <class name="linked"/>
+            </style>
+            <child>
+              <object class="GtkButton" id="button_hangup">
+                <property name="label" translatable="yes">Hang-up</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="action-name">app.hangup</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="togglebutton_hold">
+                <property name="label" translatable="yes">Hold</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="action-name">app.hold</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="togglebutton_muteaudio">
+                <property name="label" translatable="yes">Mute audio</property>
+                <!-- TODO: set visible when feature enabled -->
+                <property name="visible">False</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="action-name">app.mute_audio</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="togglebutton_mutevideo">
+                <property name="label" translatable="yes">Mute video</property>
+                <!-- TODO: set visible when feature enabled -->
+                <property name="visible">False</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="action-name">app.mute_video</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="togglebutton_record">
+                <property name="label" translatable="yes">Record</property>
+                <!-- TODO: set visible when feature enabled -->
+                <property name="visible">False</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="action-name">app.record</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="togglebutton_chat">
+                <property name="label" translatable="yes">Chat</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
           </packing>
         </child>
-        <child>
-          <object class="GtkToggleButton" id="togglebutton_hold">
-            <property name="label" translatable="yes">Hold</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="action-name">app.hold</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkToggleButton" id="togglebutton_muteaudio">
-            <property name="label" translatable="yes">Mute audio</property>
-            <!-- TODO: set visible when feature enabled -->
-            <property name="visible">False</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="action-name">app.mute_audio</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkToggleButton" id="togglebutton_mutevideo">
-            <property name="label" translatable="yes">Mute video</property>
-            <!-- TODO: set visible when feature enabled -->
-            <property name="visible">False</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="action-name">app.mute_video</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkToggleButton" id="togglebutton_record">
-            <property name="label" translatable="yes">Record</property>
-            <!-- TODO: set visible when feature enabled -->
-            <property name="visible">False</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="action-name">app.record</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-          </packing>
-        </child>
+        <!-- end of call control button box -->
       </object>
       <packing>
         <property name="expand">False</property>
