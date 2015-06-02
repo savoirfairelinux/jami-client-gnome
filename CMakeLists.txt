@@ -287,7 +287,7 @@ INSTALL(FILES gnome-ring.appdata.xml
 # install shell script which will launch "ring"
 INSTALL(
    FILES
-      ring
+      "${PROJECT_SOURCE_DIR}/src/ring"
    DESTINATION
       ${CMAKE_INSTALL_PREFIX}/bin
    PERMISSIONS
