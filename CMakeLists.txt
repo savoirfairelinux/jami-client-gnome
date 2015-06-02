@@ -205,6 +205,8 @@ SET( SRC_FILES
    src/utils/calling.cpp
    src/ringnotify.h
    src/ringnotify.cpp
+   src/video/videowindow.h
+   src/video/videowindow.cpp
 )
 
 # compile glib resource files to c code
