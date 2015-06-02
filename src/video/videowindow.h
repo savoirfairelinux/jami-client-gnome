@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2004-2015 Savoir-Faire Linux Inc.
+ *  Copyright (C) 2015 Savoir-Faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -28,35 +28,28 @@
  *  as that of the covered work.
  */
 
-#ifndef __VIDEO_WIDGET_H__
-#define __VIDEO_WIDGET_H__
+#ifndef _VIDEOWINDOW_H
+#define _VIDEOWINDOW_H
 
 #include <gtk/gtk.h>
-#include <video/renderer.h>
+
+class Call;
 
 G_BEGIN_DECLS
 
-#define VIDEO_WIDGET_TYPE              (video_widget_get_type())
-#define VIDEO_WIDGET(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), VIDEO_WIDGET_TYPE, VideoWidget))
-#define VIDEO_WIDGET_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), VIDEO_WIDGET_TYPE, VideoWidgetClass))
-#define IS_VIDEO_WIDGET(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), VIDEO_WIDGET_TYPE))
-#define IS_VIDEO_WIDGET_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass), VIDEO_WIDGET_TYPE))
+#define VIDEO_WINDOW_TYPE            (video_window_get_type ())
+#define VIDEO_WINDOW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), VIDEO_WINDOW_TYPE, VideoWindow))
+#define VIDEO_WINDOW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), VIDEO_WINDOW_TYPE, VideoWindowClass))
+#define IS_VIDEO_WINDOW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), VIDEO_WINDOW_TYPE))
+#define IS_VIDEO_WINDOW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), VIDEO_WINDOW_TYPE))
 
-typedef struct _VideoWidgetClass VideoWidgetClass;
-typedef struct _VideoWidget VideoWidget;
+typedef struct _VideoWindow      VideoWindow;
+typedef struct _VideoWindowClass VideoWindowClass;
 
-typedef enum {
-    VIDEO_RENDERER_REMOTE,
-    VIDEO_RENDERER_LOCAL,
-    VIDEO_RENDERER_COUNT
-} VideoRendererType;
 
-/* Public interface */
-GType           video_widget_get_type          (void) G_GNUC_CONST;
-GtkWidget*      video_widget_new               (void);
-void            video_widget_push_new_renderer (VideoWidget *, Video::Renderer *, VideoRendererType);
-void            video_widget_pause_rendering   (VideoWidget *self, gboolean pause);
+GType      video_window_get_type      (void) G_GNUC_CONST;
+GtkWidget *video_window_new           (Call *call, GtkWindow *parent);
 
 G_END_DECLS
 
-#endif /* __VIDEO_WIDGET_H__ */
+#endif /* _VIDEOWINDOW_H */
