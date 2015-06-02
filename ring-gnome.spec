@@ -80,6 +80,7 @@ make install
 # TODO clean this by a better cmake command
 mkdir -p %{buildroot}/%{_bindir}
 mv ../libringclient/install/bin/gnome-ring %{buildroot}/%{_bindir}
+mv ../libringclient/install/bin/ring %{buildroot}/%{_bindir}
 mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/scalable/apps/
 mv ../libringclient/install/share/icons/hicolor/scalable/apps/ring.svg %{buildroot}/%{_datadir}/icons/hicolor/scalable/apps/ring.svg
 mkdir -p %{buildroot}/%{_datadir}/appdata
@@ -92,10 +93,10 @@ sed -i "s#Icon=.*#Icon=%{_datadir}/icons/hicolor/scalable/apps/ring.svg#g" %{bui
 %files
 %defattr(-,root,root,-)
 %{_bindir}/gnome-ring
+%{_bindir}/ring
 %{_datadir}/applications/gnome-ring.desktop
 %{_datadir}/icons/hicolor/scalable/apps/ring.svg
 %{_datadir}/appdata/gnome-ring.appdata.xml
-%{_bindir}/ring
 
 
 %changelog
