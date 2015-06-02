@@ -98,6 +98,7 @@ struct _VideoWidgetRenderer {
      * this will be set back to false once the black frame is rendered
      */
     std::atomic_bool         show_black_frame;
+    std::atomic_bool         pause_rendering;
     QMetaObject::Connection  frame_update;
     QMetaObject::Connection  render_stop;
     QMetaObject::Connection  render_start;
@@ -411,6 +412,9 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
     auto actor = wg_renderer->actor;
     g_return_if_fail(CLUTTER_IS_ACTOR(actor));
 
+    if (wg_renderer->pause_rendering)
+        return;
+
     if (wg_renderer->show_black_frame) {
         /* render a black frame set the bool back to false, this is likely done
          * when the renderer is stopped so we ignore whether or not it is running
@@ -670,4 +674,14 @@ video_widget_push_new_renderer(VideoWidget *self, Video::Renderer *renderer, Vid
     );
 
     g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
+}
+
+void
+video_widget_pause_rendering(VideoWidget *self, gboolean pause)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    priv->local->pause_rendering = pause;
+    priv->remote->pause_rendering = pause; 
 }

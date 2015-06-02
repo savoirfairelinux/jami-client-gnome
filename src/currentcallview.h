@@ -32,7 +32,8 @@
 #define _CURRENTCALLVIEW_H
 
 #include <gtk/gtk.h>
-#include <call.h>
+
+class QModelIndex;
 
 G_BEGIN_DECLS
 
