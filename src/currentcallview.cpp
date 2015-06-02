@@ -122,71 +122,11 @@ update_state(CurrentCallView *view, Call *call)
 {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    /* change state label */
-    Call::State state = call->state();
+    gchar *status = g_strdup_printf("%s", call->toHumanStateName().toUtf8().constData());
 
-    switch(state) {
-        case Call::State::NEW:
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "New.");
-            break;
-        case Call::State::ABORTED:
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Aborted.");
-            break;
-        case Call::State::INCOMING:
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Incoming...");
-            break;
-        case Call::State::RINGING:
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Ringing...");
-            break;
-        case Call::State::CURRENT:
-            /* note: shouldn't be displayed, as the view should change */
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "In progress.");
-            break;
-        case Call::State::DIALING:
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Dialing...");
-            break;
-        case Call::State::HOLD:
-            /* note: shouldn't be displayed, as the view should change */
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "On hold.");
-            break;
-        case Call::State::FAILURE:
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Failed.");
-            break;
-        case Call::State::BUSY:
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Busy.");
-            break;
-        case Call::State::TRANSFERRED:
-            /* note: shouldn't be displayed, as the view should change */
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Transfered.");
-            break;
-        case Call::State::TRANSF_HOLD:
-            /* note: shouldn't be displayed, as the view should change */
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Transfer hold.");
-            break;
-        case Call::State::OVER:
-            /* note: shouldn't be displayed, as the view should change */
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Over.");
-            break;
-        case Call::State::ERROR:
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Error.");
-            break;
-        case Call::State::CONFERENCE:
-            /* note: shouldn't be displayed, as the view should change */
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Conference.");
-            break;
-        case Call::State::CONFERENCE_HOLD:
-            /* note: shouldn't be displayed, as the view should change */
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Conference hold.");
-            break;
-        case Call::State::INITIALIZATION:
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Initialization...");
-            break;
-        case Call::State::CONNECTED:
-            gtk_label_set_text(GTK_LABEL(priv->label_status), "Connected.");
-            break;
-        case Call::State::COUNT__:
-        break;
-    }
+    gtk_label_set_text(GTK_LABEL(priv->label_status), status);
+
+    g_free(status);
 }
 
 static void
