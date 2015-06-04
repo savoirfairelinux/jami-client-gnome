@@ -38,7 +38,7 @@
 #include <contactmethod.h>
 #include "defines.h"
 #include "utils/models.h"
-#include <categorizedbookmarkmodel.h>
+#include <phonedirectorymodel.h>
 #include <call.h>
 
 #define COPY_DATA_KEY "copy_data"
@@ -77,27 +77,21 @@ copy_contact_info(GtkWidget *item, G_GNUC_UNUSED gpointer user_data)
 static void
 render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                      GtkCellRenderer *cell,
-                     GtkTreeModel *filter_model,
-                     GtkTreeIter *filter_iter,
+                     GtkTreeModel *model,
+                     GtkTreeIter *iter,
                      G_GNUC_UNUSED gpointer data)
 {
-    /* convert to original model */
-    GtkTreeIter iter;
-    GtkTreeModel *model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(filter_model));
-    gtk_tree_model_filter_convert_iter_to_child_iter(
-        GTK_TREE_MODEL_FILTER(filter_model),
-        &iter,
-        filter_iter);
-
     /* get contact method */
-    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
     if (idx.isValid()) {
-        auto n = CategorizedBookmarkModel::instance()->getNumber(idx);
-        /* get photo */
-        QVariant var_p = PixbufDelegate::instance()->callPhoto(n, QSize(50, 50), false);
-        std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
-        g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
-        return;
+        auto n = idx.data(static_cast<int>(Call::Role::ContactMethod)).value<ContactMethod *>();
+        if (n) {
+            /* get photo */
+            QVariant var_p = PixbufDelegate::instance()->callPhoto(n, QSize(50, 50), false);
+            std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
+            g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
+            return;
+        }
     }
 
     /* otherwise, make sure its an empty pixbuf */
@@ -107,22 +101,14 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 static void
 render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                                GtkCellRenderer *cell,
-                               GtkTreeModel *filter_model,
-                               GtkTreeIter *filter_iter,
+                               GtkTreeModel *model,
+                               GtkTreeIter *iter,
                                G_GNUC_UNUSED gpointer data)
 {
     gchar *text = NULL;
 
-    /* convert to original model */
-    GtkTreeIter iter;
-    GtkTreeModel *model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(filter_model));
-    gtk_tree_model_filter_convert_iter_to_child_iter(
-        GTK_TREE_MODEL_FILTER(filter_model),
-        &iter,
-        filter_iter);
-
     /* get contact method */
-    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
     if (idx.isValid()) {
         /* get name and number */
         QVariant c = idx.data(static_cast<int>(Call::Role::Name));
@@ -144,16 +130,9 @@ activate_item(GtkTreeView *tree_view,
               G_GNUC_UNUSED GtkTreeViewColumn *column,
               G_GNUC_UNUSED gpointer user_data)
 {
-    GtkTreeModel *filter_model = gtk_tree_view_get_model(tree_view);
-    GtkTreeIter filter_iter;
-    if (gtk_tree_model_get_iter(filter_model, &filter_iter, path)) {
-        /* convert to original model */
-        GtkTreeIter iter;
-        GtkTreeModel *model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(filter_model));
-        gtk_tree_model_filter_convert_iter_to_child_iter(
-            GTK_TREE_MODEL_FILTER(filter_model),
-            &iter,
-            &filter_iter);
+    GtkTreeModel *model = gtk_tree_view_get_model(tree_view);
+    GtkTreeIter iter;
+    if (gtk_tree_model_get_iter(model, &iter, path)) {
         QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
         if (idx.isValid()) {
             QVariant var_n = idx.data(static_cast<int>(Call::Role::ContactMethod));
@@ -175,23 +154,12 @@ popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gpointer 
     if (event->button != BUTTON_RIGHT_CLICK || event->type != GDK_BUTTON_PRESS)
         return FALSE;
 
-    /* we don't want a popup menu for categories for now, so everything deeper
-     * than one */
-    GtkTreeIter filter_iter;
-    GtkTreeModel *filter_model;
+    GtkTreeIter iter;
+    GtkTreeModel *model;
     GtkTreeSelection *selection = gtk_tree_view_get_selection(treeview);
-    if (!gtk_tree_selection_get_selected(selection, &filter_model, &filter_iter))
+    if (!gtk_tree_selection_get_selected(selection, &model, &iter))
         return FALSE;
 
-    /* convert to original model */
-    GtkTreeIter iter;
-    GtkTreeModel *model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(filter_model));
-    gtk_tree_model_filter_convert_iter_to_child_iter(
-        GTK_TREE_MODEL_FILTER(filter_model),
-        &iter,
-        &filter_iter);
-
-    /* deeper than a category, so create a menu */
     GtkWidget *menu = gtk_menu_new();
     QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
 
@@ -247,18 +215,12 @@ frequent_contacts_view_init(FrequentContactsView *self)
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_frequent), FALSE);
 
     GtkQTreeModel *bookmark_model = gtk_q_tree_model_new(
-        (QAbstractItemModel *)CategorizedBookmarkModel::instance(),
+        PhoneDirectoryModel::instance()->mostPopularNumberModel(),
         1,
         Qt::DisplayRole, G_TYPE_STRING);
 
-    /* create filter to only show the children of the popular contacts item */
-    GtkTreePath *popular_contact_parent_path = gtk_tree_path_new_from_indices(0, -1);
-    GtkTreeModel *frequent_model = gtk_tree_model_filter_new(
-                                    GTK_TREE_MODEL(bookmark_model),
-                                    popular_contact_parent_path);
-    gtk_tree_path_free(popular_contact_parent_path);
     gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_frequent),
-                            GTK_TREE_MODEL(frequent_model));
+                            GTK_TREE_MODEL(bookmark_model));
 
     /* photo and name/contact method column */
     GtkCellArea *area = gtk_cell_area_box_new();
@@ -273,7 +235,7 @@ frequent_contacts_view_init(FrequentContactsView *self)
     gtk_tree_view_column_set_cell_data_func(
         column,
         renderer,
-        (GtkTreeCellDataFunc) render_contact_photo,
+        (GtkTreeCellDataFunc)render_contact_photo,
         NULL,
         NULL);
 
