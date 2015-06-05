@@ -20,7 +20,7 @@ endif
 .PHONY: get-orig-source
 
 %:
-	dh $@ 
+	dh $@
 
 override_dh_auto_clean:
 	# [ -d daemon/contrib/native ] && cd daemon/contrib/native && $(MAKE) distclean
@@ -29,7 +29,7 @@ override_dh_auto_clean:
 
 override_dh_auto_configure:
 	cd libringclient && mkdir -p build && mkdir -p install && cd build && $(GCC) cmake -DRING_BUILD_DIR=$(PWD)/daemon/src -DCMAKE_INSTALL_PREFIX=$(PWD)/libringclient/install -DENABLE_VIDEO=true -DENABLE_STATIC=true .. && make -j 2 && make install
-	mkdir -p build && mkdir -p install && cd build && $(GCC) cmake -DCMAKE_INSTALL_PREFIX=$(PWD)/libringclient/install -DLIB_RING_CLIENT_LIBRARY=$(PWD)/libringclient/install/lib/libringclient_static.a -DENABLE_STATIC=true ..
+	mkdir -p build && mkdir -p install && cd build && $(GCC) cmake -DCMAKE_INSTALL_PREFIX=$(PWD)/libringclient/install -DLIB_RING_CLIENT_LIBRARY=$(PWD)/libringclient/install/lib/libringclient_static.a -DENABLE_STATIC=true -DGSETTINGS_LOCALCOMPILE=OFF ..
 
 override_dh_auto_build:
 	cd build && LDFLAGS="-lpthread" make -j 2

@@ -69,7 +69,7 @@ cd ../..
 mkdir -p build
 mkdir -p install
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=$(pwd)/../libringclient/install -DLIB_RING_CLIENT_LIBRARY=$(pwd)/../libringclient/install/lib/libringclient_static.a -DENABLE_STATIC=true ..
+cmake -DCMAKE_INSTALL_PREFIX=$(pwd)/../libringclient/install -DLIB_RING_CLIENT_LIBRARY=$(pwd)/../libringclient/install/lib/libringclient_static.a -DENABLE_STATIC=true -DGSETTINGS_LOCALCOMPILE=OFF ..
 # TODO test this
 #cmake -DCMAKE_INSTALL_PREFIX=%{buildroot} -DLIB_RING_CLIENT_LIBRARY=$(pwd)/../libringclient/install/lib/libringclient_static.a -DENABLE_STATIC=true ..
 LDFLAGS="-lpthread" make -j 2
@@ -85,16 +85,29 @@ mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/scalable/apps/
 mv ../libringclient/install/share/icons/hicolor/scalable/apps/ring.svg %{buildroot}/%{_datadir}/icons/hicolor/scalable/apps/ring.svg
 mkdir -p %{buildroot}/%{_datadir}/appdata
 mv ../libringclient/install/share/appdata/gnome-ring.appdata.xml %{buildroot}/%{_datadir}/appdata/gnome-ring.appdata.xml
+mkdir -p %{buildroot}/%{_datadir}/glib-2.0/schemas
+mv ./libringclient/install/share/glib-2.0/schemas/cx.ring.RingGnome.gschema.xml %{buildroot}/%{_datadir}/glib-2.0/schemas/cx.ring.RingGnome.gschema.xml
+mkdir -p %{buildroot}/%{_datadir}/gnome-ring
+mv ../libringclient/install/share/gnome-ring/gnome-ring.desktop %{buildroot}/%{_datadir}/gnome-ring/gnome-ring.desktop
 mkdir -p %{buildroot}/%{_datadir}/applications
 mv ../libringclient/install/share/applications/gnome-ring.desktop %{buildroot}/%{_datadir}/applications/gnome-ring.desktop
 sed -i "s#Icon=.*#Icon=%{_datadir}/icons/hicolor/scalable/apps/ring.svg#g" %{buildroot}/%{_datadir}/applications/gnome-ring.desktop
 
+%postun
+if [ $1 -eq 0 ] ; then
+    /usr/bin/glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
+fi
+
+%posttrans
+    /usr/bin/glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 %files
 %defattr(-,root,root,-)
 %{_bindir}/gnome-ring
 %{_bindir}/ring
+%{_datadir}/glib-2.0/schemas/cx.ring.RingGnome.gschema.xml
 %{_datadir}/applications/gnome-ring.desktop
+%{_datadir}/gnome-ring/gnome-ring.desktop
 %{_datadir}/icons/hicolor/scalable/apps/ring.svg
 %{_datadir}/appdata/gnome-ring.appdata.xml
 
