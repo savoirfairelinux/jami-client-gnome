@@ -86,7 +86,7 @@ mv ../libringclient/install/share/icons/hicolor/scalable/apps/ring.svg %{buildro
 mkdir -p %{buildroot}/%{_datadir}/appdata
 mv ../libringclient/install/share/appdata/gnome-ring.appdata.xml %{buildroot}/%{_datadir}/appdata/gnome-ring.appdata.xml
 mkdir -p %{buildroot}/%{_datadir}/glib-2.0/schemas
-mv ./libringclient/install/share/glib-2.0/schemas/cx.ring.RingGnome.gschema.xml %{buildroot}/%{_datadir}/glib-2.0/schemas/cx.ring.RingGnome.gschema.xml
+mv ../libringclient/install/share/glib-2.0/schemas/cx.ring.RingGnome.gschema.xml %{buildroot}/%{_datadir}/glib-2.0/schemas/cx.ring.RingGnome.gschema.xml
 mkdir -p %{buildroot}/%{_datadir}/gnome-ring
 mv ../libringclient/install/share/gnome-ring/gnome-ring.desktop %{buildroot}/%{_datadir}/gnome-ring/gnome-ring.desktop
 mkdir -p %{buildroot}/%{_datadir}/applications
