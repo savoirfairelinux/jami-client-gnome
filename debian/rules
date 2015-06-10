@@ -47,6 +47,11 @@ override_dh_auto_install:
 	mkdir -p $(CURDIR)/debian/ring-gnome/usr/share/applications
 	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/applications/gnome-ring.desktop $(CURDIR)/debian/ring-gnome/usr/share/applications
 	sed -i "s#Icon=.*#Icon=/usr/share/icons/hicolor/scalable/apps/ring.svg#g" $(CURDIR)/debian/ring-gnome/usr/share/applications/gnome-ring.desktop
+	mkdir -p $(CURDIR)/debian/ring-gnome/usr/share/gnome-ring
+	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/gnome-ring/gnome-ring.desktop $(CURDIR)/debian/ring-gnome/usr/share/gnome-ring
+	sed -i "s#Icon=.*#Icon=/usr/share/icons/hicolor/scalable/apps/ring.svg#g" $(CURDIR)/debian/ring-gnome/usr/share/gnome-ring/gnome-ring.desktop
+	mkdir -p $(CURDIR)/debian/ring-gnome/usr/share/glib-2.0/schemas
+	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/glib-2.0/schemas/cx.ring.RingGnome.gschema.xml $(CURDIR)/debian/ring-gnome/usr/share/glib-2.0/schemas
 	rm -rf $(CURDIR)/debian/ring-gnome/sources
 	dh_auto_install
 
