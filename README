@@ -23,12 +23,13 @@ Requirements
 - X11
 - gnome-icon-theme-symbolic (certain icons are used which other themes might be missing)
 - libebook1.2 / evolution-data-server (3.10 or higher)
+- libnotify (optional, if you wish to receive desktop notifications of incoming calls, etc)
 
 On Debian/Ubuntu these can be installed by:
-    sudo apt-get install g++ cmake libgtk-3-dev qtbase5-dev libclutter-gtk-1.0-dev gnome-icon-theme-symbolic libebook-1.2-dev
+    sudo apt-get install g++ cmake libgtk-3-dev qtbase5-dev libclutter-gtk-1.0-dev gnome-icon-theme-symbolic libebook1.2-dev libnotify-dev
 
 On Fedora:
-    yum install gcc-c++ cmake gtk3-devel qt5-qtbase-devel clutter-gtk-devel gnome-icon-theme-symbolic evolution-data-server-devel
+    yum install gcc-c++ cmake gtk3-devel qt5-qtbase-devel clutter-gtk-devel gnome-icon-theme-symbolic evolution-data-server-devel libnotify-devel
 
 The build instruction for the daemon and libRingClient can be found on their respective wiki pages:
 - https://projects.savoirfairelinux.com/projects/ring-daemon/wiki
@@ -44,7 +45,16 @@ In the project root dir:
     cmake ..
     make
 
-Then simply run ./ring-client-gnome
+You can then simply run ./gnome-ring from the build directory
+
+Installing
+==================
+
+If you're building the client for use (rather than testing of packaging), it is
+recommended that you install it on your system, eg: in '/usr', '/usr/local', or
+'/opt', depending on your distro's preference to get full functionality such as
+desktop integration. In this case you should perform a 'make install' after
+building the client.
 
 
 Building without installing Ring daemon and libRingClient
