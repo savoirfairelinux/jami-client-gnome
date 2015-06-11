@@ -425,6 +425,7 @@ history_view_init(HistoryView *self)
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
     gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_expand(column, TRUE);
 
     /* date column */
     area = gtk_cell_area_box_new();
@@ -456,6 +457,7 @@ history_view_init(HistoryView *self)
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
     gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_expand(column, FALSE);
 
     g_signal_connect(treeview_history, "row-activated", G_CALLBACK(activate_history_item), NULL);
     g_signal_connect(treeview_history, "button-press-event", G_CALLBACK(history_popup_menu), treeview_history);

@@ -229,11 +229,13 @@ calls_view_init(CallsView *self)
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_calls), column);
     gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_expand(column, TRUE);
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes("Duration", renderer, "text", 2, NULL);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_calls), column);
+    gtk_tree_view_column_set_expand(column, FALSE);
 
     /* connect signals to and from the slection model of the call model */
     priv->selection_updated = QObject::connect(
