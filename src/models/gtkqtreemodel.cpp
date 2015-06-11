@@ -336,18 +336,27 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
 
     QObject::connect(
         proxy_model,
-        &QAbstractItemModel::rowsAboutToBeRemoved,
+        &QAbstractItemModel::rowsRemoved,
         [=](const QModelIndex & parent, int first, int last) {
+            GtkTreePath *parent_path = NULL;
+            if (parent.isValid()) {
+                GtkTreeIter iter_parent;
+                iter_parent.stamp = stamp;
+                qmodelindex_to_iter(parent, &iter_parent);
+                parent_path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_parent);
+            } else {
+                parent_path = gtk_tree_path_new();
+            }
+
             /* go last to first, since the rows are being deleted */
             for( int row = last; row >= first; --row) {
                 // g_debug("deleting row: %d", row);
-                QModelIndex idx = proxy_model->index(row, 0, parent);
-                GtkTreeIter iter;
-                iter.stamp = stamp;
-                qmodelindex_to_iter(idx, &iter);
-                GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
+                GtkTreePath *path = gtk_tree_path_copy(parent_path);
+                gtk_tree_path_append_index(path, row);
                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path);
             }
+
+            gtk_tree_path_free(parent_path);
         }
     );
 
