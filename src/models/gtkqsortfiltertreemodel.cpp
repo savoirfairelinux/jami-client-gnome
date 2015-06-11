@@ -368,19 +368,30 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
 
     QObject::connect(
         retval->priv->given_model,
-        &QAbstractItemModel::rowsAboutToBeRemoved,
+        &QAbstractItemModel::rowsRemoved,
         [=](const QModelIndex & parent, int first, int last) {
+
+            GtkTreePath *parent_path = NULL;
+            if (parent.isValid()) {
+                QModelIndex parent_original = retval->priv->given_model->mapToSource(parent);
+                QModelIndex parent_access = retval->priv->access_model->mapFromSource(parent_original);
+                GtkTreeIter iter_parent;
+                iter_parent.stamp = stamp;
+                qmodelindex_to_iter(parent_access, &iter_parent);
+                parent_path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_parent);
+            } else {
+                parent_path = gtk_tree_path_new();
+            }
+
+            /* go last to first, since the rows are being deleted */
             for( int row = last; row >= first; --row) {
-                // g_debug("row about to be deleted %d", row);
-                QModelIndex idx_given = retval->priv->given_model->index(row, 0, parent);
-                QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
-                QModelIndex idx_access = retval->priv->access_model->mapFromSource(idx_original);
-                GtkTreeIter iter;
-                iter.stamp = stamp;
-                qmodelindex_to_iter(idx_access, &iter);
-                GtkTreePath *path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
+                // g_debug("deleting row: %d", row);
+                GtkTreePath *path = gtk_tree_path_copy(parent_path);
+                gtk_tree_path_append_index(path, row);
                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path);
             }
+
+            gtk_tree_path_free(parent_path);
         }
     );
 
