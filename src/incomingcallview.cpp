@@ -54,6 +54,8 @@ struct _IncomingCallViewPrivate
 {
     GtkWidget *image_incoming;
     GtkWidget *label_identity;
+    GtkWidget *spinner_status;
+    GtkWidget *placeholder;
     GtkWidget *label_status;
     GtkWidget *button_accept_incoming;
     GtkWidget *button_reject_incoming;
@@ -97,6 +99,8 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_identity);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, spinner_status);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, placeholder);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_reject_incoming);
@@ -151,6 +155,14 @@ update_state(IncomingCallView *view, Call *call)
             break;
         case Call::State::COUNT__:
             break;
+    }
+
+    if (call->lifeCycleState() == Call::LifeCycleState::INITIALIZATION) {
+        gtk_widget_show(priv->spinner_status);
+        gtk_widget_hide(priv->placeholder);
+    } else {
+        gtk_widget_show(priv->placeholder);
+        gtk_widget_hide(priv->spinner_status);
     }
 }
 
