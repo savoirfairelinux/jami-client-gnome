@@ -263,6 +263,14 @@ calls_view_init(CallsView *self)
                     g_warning("SelectionModel of CallModel changed to invalid QModelIndex?");
                 }
             }
+
+            /* if the call is on hold, we want to put it off hold automatically
+             * when switching to it */
+            if (current.isValid()) {
+                Call *call = CallModel::instance()->getCall(current);
+                if (call->state() == Call::State::HOLD)
+                    call << Call::Action::HOLD;
+            }
         }
     );
 
