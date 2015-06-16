@@ -127,3 +127,52 @@ ring_notify_incoming_call(
 #endif
     return success;
 }
+
+gboolean
+ring_notify_message_received(
+#if !USE_LIBNOTIFY
+    G_GNUC_UNUSED
+#endif
+    Call* call,
+#if !USE_LIBNOTIFY
+    G_GNUC_UNUSED
+#endif
+    const QString& msg)
+{
+    gboolean success = FALSE;
+#if USE_LIBNOTIFY
+    g_return_val_if_fail(call, FALSE);
+
+    gchar *title = g_strdup_printf("%s says:", call->formattedName().toUtf8().constData());
+    gchar *body = g_strdup_printf("%s", msg.toUtf8().constData());
+    NotifyNotification *notification = notify_notification_new(title, body, NULL);
+    g_free(title);
+    g_free(body);
+
+    /* get photo */
+    QVariant var_p = PixbufDelegate::instance()->callPhoto(
+        call->peerContactMethod(), QSize(50, 50), false);
+    std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
+    notify_notification_set_image_from_pixbuf(notification, photo.get());
+
+    /* normal priority for messages */
+    notify_notification_set_urgency(notification, NOTIFY_URGENCY_NORMAL);
+
+    /* set the notification pointer to NULL once it is destroyed so that we don't
+     * try to use the pointer elsewhere */
+    g_object_add_weak_pointer(G_OBJECT(notification), (gpointer *)&notification);
+
+    GError *error = NULL;
+    success = notify_notification_show(notification, &error);
+
+    if (success) {
+        /* unref the notification once its closed */
+        g_signal_connect(notification, "closed", G_CALLBACK(g_object_unref), NULL);
+    } else {
+        g_warning("failed to send notification: %s", error->message);
+        g_clear_error(&error);
+        g_object_unref(notification);
+    }
+#endif
+    return success;
+}

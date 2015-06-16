@@ -44,6 +44,7 @@
 #include <fallbackpersoncollection.h>
 #include <QtCore/QStandardPaths>
 #include <localhistorycollection.h>
+#include <media/text.h>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
@@ -182,6 +183,28 @@ autostart_toggled(GSettings *settings, G_GNUC_UNUSED gchar *key, G_GNUC_UNUSED g
 }
 
 static void
+notify_new_messages(Call *call, Media::Text *media, RingClient *self)
+{
+    QObject::connect(
+        media,
+        &Media::Text::messageReceived,
+        [call, self] (const QString& message) {
+            g_return_if_fail(call && self);
+            RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
+            if (priv->win && gtk_window_is_active(GTK_WINDOW(priv->win))) {
+                /* only notify about messages not in the currently selected call */
+                if (CallModel::instance()->selectedCall() != call) {
+                    ring_notify_message_received(call, message);
+                }
+            } else {
+                /* send notifications for all messages if the window is not visibles*/
+                ring_notify_message_received(call, message);
+            }
+        }
+    );
+}
+
+static void
 ring_client_startup(GApplication *app)
 {
     RingClient *client = RING_CLIENT(app);
@@ -286,8 +309,43 @@ ring_client_startup(GApplication *app)
     /* send call notifications */
     ring_notify_init();
     QObject::connect(CallModel::instance(), &CallModel::incomingCall,
-        [=] (Call *call) { ring_notify_incoming_call(call);}
+        [] (Call *call) { ring_notify_incoming_call(call);}
     );
+
+    /* chat notifications for incoming messages on all calls which are not the
+     * currently selected call */
+    QObject::connect(
+        CallModel::instance(),
+        &QAbstractItemModel::rowsInserted,
+        [client] (const QModelIndex &parent, int first, int last)
+        {
+            for (int row = first; row <= last; ++row) {
+                QModelIndex idx = CallModel::instance()->index(row, 0, parent);
+                auto call = CallModel::instance()->getCall(idx);
+                if (call) {
+                    /* check if text media is already present */
+                    if (call->hasMedia(Media::Media::Type::TEXT, Media::Media::Direction::IN)) {
+                        Media::Text *text = call->firstMedia<Media::Text>(Media::Media::Direction::IN);
+                        notify_new_messages(call, text, client);
+                    } else if (call->hasMedia(Media::Media::Type::TEXT, Media::Media::Direction::OUT)) {
+                        Media::Text *text = call->firstMedia<Media::Text>(Media::Media::Direction::OUT);
+                        notify_new_messages(call, text, client);
+                    } else {
+                        /* monitor media for messaging text messaging */
+                        QObject::connect(
+                            call,
+                            &Call::mediaAdded,
+                            [client, call] (Media::Media* media) {
+                                if (media->type() == Media::Media::Type::TEXT) {
+                                    notify_new_messages(call, (Media::Text *)media, client);
+                                }
+                            }
+                        );
+                    }
+                }
+            }
+        }
+     );
 
 #if GLIB_CHECK_VERSION(2,40,0)
     G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);

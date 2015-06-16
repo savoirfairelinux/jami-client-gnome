@@ -34,6 +34,7 @@
 #include <glib.h>
 
 class Call;
+class QString;
 
 G_BEGIN_DECLS
 
@@ -41,6 +42,7 @@ void     ring_notify_init();
 void     ring_notify_uninit();
 gboolean ring_notify_is_initted();
 gboolean ring_notify_incoming_call(Call *call);
+gboolean ring_notify_message_received(Call* call, const QString& msg);
 
 G_END_DECLS
 
