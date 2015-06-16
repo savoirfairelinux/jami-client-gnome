@@ -44,6 +44,7 @@
 #include <media/textrecording.h>
 #include "models/gtkqtreemodel.h"
 #include "video/videowindow.h"
+#include "ringnotify.h"
 
 struct _CurrentCallView
 {
@@ -430,4 +431,8 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
             }
         );
     }
+
+    /* check if there were any chat notifications and open the chat view if so */
+    if (ring_notify_close_chat_notification(priv->call))
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
 }

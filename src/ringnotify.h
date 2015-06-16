@@ -31,9 +31,11 @@
 #ifndef RING_NOTIFY_H_
 #define RING_NOTIFY_H_
 
-#include <glib.h>
+#include <gtk/gtk.h>
+#include "ring_client.h"
 
 class Call;
+class QString;
 
 G_BEGIN_DECLS
 
@@ -41,6 +43,8 @@ void     ring_notify_init();
 void     ring_notify_uninit();
 gboolean ring_notify_is_initted();
 gboolean ring_notify_incoming_call(Call *call);
+void     ring_notify_monitor_chat_notifications(RingClient *client);
+gboolean ring_notify_close_chat_notification(Call *call);
 
 G_END_DECLS
 
