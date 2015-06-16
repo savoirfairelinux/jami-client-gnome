@@ -81,6 +81,7 @@ struct _CurrentCallViewPrivate
     QMetaObject::Connection remote_renderer_connection;
     QMetaObject::Connection media_added_connection;
     QMetaObject::Connection new_message_connection;
+    QMetaObject::Connection incoming_msg_connection;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(CurrentCallView, current_call_view, GTK_TYPE_BOX);
@@ -102,6 +103,7 @@ current_call_view_dispose(GObject *object)
     QObject::disconnect(priv->remote_renderer_connection);
     QObject::disconnect(priv->media_added_connection);
     QObject::disconnect(priv->new_message_connection);
+    QObject::disconnect(priv->incoming_msg_connection);
 
     if (priv->fullscreen_window) {
         gtk_widget_destroy(priv->fullscreen_window);
@@ -314,6 +316,23 @@ parse_chat_model(QAbstractItemModel *model, CurrentCallView *self)
 }
 
 void
+monitor_incoming_message(CurrentCallView *self, Media::Text *media)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    /* connect to incoming chat messages to open the chat view */
+    QObject::disconnect(priv->incoming_msg_connection);
+    priv->incoming_msg_connection = QObject::connect(
+        media,
+        &Media::Text::messageReceived,
+        [priv] (G_GNUC_UNUSED const QString& message) {
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
+        }
+    );
+}
+
+void
 current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
@@ -392,9 +411,11 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     if (priv->call->hasMedia(Media::Media::Type::TEXT, Media::Media::Direction::IN)) {
         Media::Text *text = priv->call->firstMedia<Media::Text>(Media::Media::Direction::IN);
         parse_chat_model(text->recording()->instantMessagingModel(), view);
+        monitor_incoming_message(view, text);
     } else if (priv->call->hasMedia(Media::Media::Type::TEXT, Media::Media::Direction::OUT)) {
         Media::Text *text = priv->call->firstMedia<Media::Text>(Media::Media::Direction::OUT);
         parse_chat_model(text->recording()->instantMessagingModel(), view);
+        monitor_incoming_message(view, text);
     } else {
         /* monitor media for messaging text messaging */
         priv->media_added_connection = QObject::connect(
@@ -403,6 +424,7 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
             [view, priv] (Media::Media* media) {
                 if (media->type() == Media::Media::Type::TEXT) {
                     parse_chat_model(((Media::Text*)media)->recording()->instantMessagingModel(), view);
+                    monitor_incoming_message(view, (Media::Text*)media);
                     QObject::disconnect(priv->media_added_connection);
                 }
             }
