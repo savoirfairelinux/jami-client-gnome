@@ -73,33 +73,56 @@ ring_notify_incoming_call(
 #endif
     Call* call)
 {
+    gboolean success = FALSE;
 #if USE_LIBNOTIFY
     g_return_val_if_fail(call, FALSE);
 
     gchar *body = g_strdup_printf("%s", call->formattedName().toUtf8().constData());
-    NotifyNotification *notification = notify_notification_new("Incoming call", body, NULL);
+    std::shared_ptr<NotifyNotification> notification(
+        notify_notification_new("Incoming call", body, NULL), g_object_unref);
     g_free(body);
 
     /* get photo */
     QVariant var_p = PixbufDelegate::instance()->callPhoto(
         call->peerContactMethod(), QSize(50, 50), false);
     std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
-    notify_notification_set_image_from_pixbuf(notification, photo.get());
+    notify_notification_set_image_from_pixbuf(notification.get(), photo.get());
 
     /* calls have highest urgency */
-    notify_notification_set_urgency(notification, NOTIFY_URGENCY_CRITICAL);
-
-    notify_notification_set_timeout(notification, NOTIFY_EXPIRES_DEFAULT);
+    notify_notification_set_urgency(notification.get(), NOTIFY_URGENCY_CRITICAL);
+    notify_notification_set_timeout(notification.get(), NOTIFY_EXPIRES_DEFAULT);
 
     GError *error = NULL;
-    if (notify_notification_show(notification, &error)) {
-        return TRUE;
+    success = notify_notification_show(notification.get(), &error);
+
+    if (success) {
+        /* monitor the life cycle of the call and try to close the notification
+         * once the call has been aswered */
+        auto state_changed_conn = std::make_shared<QMetaObject::Connection>();
+        *state_changed_conn = QObject::connect(
+            call,
+            &Call::lifeCycleStateChanged,
+            [notification, state_changed_conn] (Call::LifeCycleState newState, G_GNUC_UNUSED Call::LifeCycleState previousState)
+                {
+                    g_return_if_fail(NOTIFY_IS_NOTIFICATION(notification.get()));
+                    if (newState > Call::LifeCycleState::INITIALIZATION) {
+                        /* note: not all systems will actually close the notification
+                         * even if the above function returns as true */
+                        if (!notify_notification_close(notification.get(), NULL))
+                            g_warning("could not close notification");
+
+                        /* once we (try to) close the notification, we can
+                         * disconnect from this signal; this should also destroy
+                         * the notification shared_ptr as its ref count will
+                         * drop to 0 */
+                        QObject::disconnect(*state_changed_conn);
+                    }
+                }
+            );
     } else {
         g_warning("failed to send notification: %s", error->message);
         g_clear_error(&error);
-        return FALSE;
     }
-#else
-    return FALSE;
 #endif
+    return success;
 }
