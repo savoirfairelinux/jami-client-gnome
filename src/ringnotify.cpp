@@ -37,6 +37,8 @@
 #include "delegates/pixbufdelegate.h"
 #include <call.h>
 #include <QtCore/QSize>
+#include <media/text.h>
+#include <callmodel.h>
 #endif
 
 void
@@ -120,9 +122,204 @@ ring_notify_incoming_call(
                 }
             );
     } else {
-        g_warning("failed to send notification: %s", error->message);
+        g_warning("failed to show notification: %s", error->message);
         g_clear_error(&error);
     }
 #endif
     return success;
+}
+
+#if USE_LIBNOTIFY
+
+GHashTable *
+ring_notify_get_chat_table()
+{
+    static std::unique_ptr<GHashTable, decltype(g_hash_table_destroy)&> chat_table(
+        nullptr, g_hash_table_destroy);
+
+    if (chat_table.get() == nullptr)
+        chat_table.reset(g_hash_table_new_full(NULL, NULL, NULL, g_object_unref));
+
+    return chat_table.get();
+}
+
+static void
+notification_closed(NotifyNotification *notification, Call *call)
+{
+    g_return_if_fail(call);
+
+    if (!g_hash_table_remove(ring_notify_get_chat_table(), call)) {
+        g_warning("could not find notification associated with the given call");
+        /* normally removing the notification from the hash table will unref it,
+         * but if it was not found we should do it here */
+        g_object_unref(notification);
+    }
+}
+
+static gboolean
+ring_notify_message_recieved(Call *call, const QString& msg)
+{
+    g_return_val_if_fail(call, FALSE);
+    gboolean success = FALSE;
+
+    GHashTable *chat_table = ring_notify_get_chat_table();
+
+    gchar *title = g_strdup_printf("%s says:", call->formattedName().toUtf8().constData());
+    gchar *body = g_strdup_printf("%s", msg.toUtf8().constData());
+
+    /* check if a notification already exists for this call */
+    NotifyNotification *notification = (NotifyNotification *)g_hash_table_lookup(chat_table, call);
+    if (notification) {
+        /* update notification; append the new message to the old */
+        GValue body_value = G_VALUE_INIT;
+        g_value_init(&body_value, G_TYPE_STRING);
+        g_object_get_property(G_OBJECT(notification), "body", &body_value);
+        const gchar* body_old = g_value_get_string(&body_value);
+        if (body_old && (strlen(body_old) > 0)) {
+            gchar *body_new = g_strconcat(body_old, "\n", body, NULL);
+            g_free(body);
+            body = body_new;
+        }
+        notify_notification_update(notification, title, body, NULL);
+    } else {
+        /* create new notification object and associate it with the call in the
+         * hash table; also store the pointer of the call in the notification
+         * object so that it knows it's key in the hash table */
+        notification = notify_notification_new(title, body, NULL);
+        g_hash_table_insert(chat_table, call, notification);
+        g_object_set_data(G_OBJECT(notification), "call", call);
+
+        /* get photo */
+        QVariant var_p = PixbufDelegate::instance()->callPhoto(
+            call->peerContactMethod(), QSize(50, 50), false);
+        std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
+        notify_notification_set_image_from_pixbuf(notification, photo.get());
+
+        /* normal priority for messages */
+        notify_notification_set_urgency(notification, NOTIFY_URGENCY_NORMAL);
+
+        /* remove the key and value from the hash table once the notification is
+         * closed; note that this will also unref the notification */
+        g_signal_connect(notification, "closed", G_CALLBACK(notification_closed), call);
+    }
+
+    g_free(title);
+    g_free(body);
+
+    GError *error = NULL;
+    success = notify_notification_show(notification, &error);
+    if (!success) {
+        g_warning("failed to show notification: %s", error->message);
+        g_clear_error(&error);
+        g_hash_table_remove(chat_table, call);
+    }
+
+    return success;
+}
+
+static void
+ring_notify_call_messages(Call *call, Media::Text *media, RingClient *client)
+{
+    QObject::connect(
+        media,
+        &Media::Text::messageReceived,
+        [call, client] (const QString& message) {
+            g_return_if_fail(call && client);
+            GtkWindow *main_window = ring_client_get_main_windw(client);
+            if ( main_window && gtk_window_is_active(main_window)) {
+                /* only notify about messages not in the currently selected call */
+                if (CallModel::instance()->selectedCall() != call) {
+                    ring_notify_message_recieved(call, message);
+                }
+            } else {
+                /* send notifications for all messages if the window is not visibles*/
+                ring_notify_message_recieved(call, message);
+            }
+        }
+    );
+}
+#endif
+
+void
+ring_notify_monitor_chat_notifications(
+#if !USE_LIBNOTIFY
+    G_GNUC_UNUSED
+#endif
+    RingClient *client)
+{
+#if USE_LIBNOTIFY
+
+    QObject::connect(
+        CallModel::instance(),
+        &QAbstractItemModel::rowsInserted,
+        [client] (const QModelIndex &parent, int first, int last)
+        {
+            g_return_if_fail(client);
+
+            for (int row = first; row <= last; ++row) {
+                QModelIndex idx = CallModel::instance()->index(row, 0, parent);
+                auto call = CallModel::instance()->getCall(idx);
+                if (call) {
+
+                    /* check if text media is already present */
+                    if (call->hasMedia(Media::Media::Type::TEXT, Media::Media::Direction::IN)) {
+                        Media::Text *media = call->firstMedia<Media::Text>(Media::Media::Direction::IN);
+                        ring_notify_call_messages(call, media, client);
+                    } else if (call->hasMedia(Media::Media::Type::TEXT, Media::Media::Direction::OUT)) {
+                        Media::Text *media = call->firstMedia<Media::Text>(Media::Media::Direction::OUT);
+                        ring_notify_call_messages(call, media, client);
+                    } else {
+                        /* monitor media for messaging text messaging */
+                        QObject::connect(
+                            call,
+                            &Call::mediaAdded,
+                            [call, client] (Media::Media* media) {
+                                if (media->type() == Media::Media::Type::TEXT)
+                                    ring_notify_call_messages(call, (Media::Text *)media, client);
+                            }
+                        );
+                    }
+                }
+            }
+        }
+     );
+#endif
+ }
+
+gboolean
+ring_notify_close_chat_notification(
+#if !USE_LIBNOTIFY
+    G_GNUC_UNUSED
+#endif
+    Call *call)
+{
+    gboolean notification_existed = FALSE;
+
+#if USE_LIBNOTIFY
+    /* checks if there exists a chat notification associated with the given call
+     * and tries to close it; if it did exist, then the function returns TRUE */
+    g_return_val_if_fail(call, FALSE);
+
+
+    GHashTable *chat_table = ring_notify_get_chat_table();
+
+    NotifyNotification *notification = (NotifyNotification *)g_hash_table_lookup(chat_table, call);
+
+    if (notification) {
+        notification_existed = TRUE;
+
+        GError *error = NULL;
+        if (!notify_notification_close(notification, &error)) {
+            g_warning("could not close notification: %s", error->message);
+            g_clear_error(&error);
+
+            /* closing should remove and free the notification from the hash table
+             * since it failed to close, try to remove the notification from the
+             * table manually */
+            g_hash_table_remove(chat_table, call);
+        }
+    }
+#endif
+
+    return notification_existed;
 }

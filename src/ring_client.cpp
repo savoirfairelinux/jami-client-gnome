@@ -44,6 +44,7 @@
 #include <fallbackpersoncollection.h>
 #include <QtCore/QStandardPaths>
 #include <localhistorycollection.h>
+#include <media/text.h>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
@@ -286,8 +287,12 @@ ring_client_startup(GApplication *app)
     /* send call notifications */
     ring_notify_init();
     QObject::connect(CallModel::instance(), &CallModel::incomingCall,
-        [=] (Call *call) { ring_notify_incoming_call(call);}
+        [] (Call *call) { ring_notify_incoming_call(call);}
     );
+
+    /* chat notifications for incoming messages on all calls which are not the
+     * currently selected call */
+     ring_notify_monitor_chat_notifications(client);
 
 #if GLIB_CHECK_VERSION(2,40,0)
     G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
@@ -419,4 +424,13 @@ ring_client_new(int argc, char *argv[])
     priv->argv = g_strdupv((gchar **)argv);
 
     return client;
+}
+
+GtkWindow  *
+ring_client_get_main_windw(RingClient *client)
+{
+    g_return_val_if_fail(IS_RING_CLIENT(client), NULL);
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    return (GtkWindow *)priv->win;
 }
