@@ -78,6 +78,7 @@ ring_notify_incoming_call(
 
     gchar *body = g_strdup_printf("%s", call->formattedName().toUtf8().constData());
     NotifyNotification *notification = notify_notification_new("Incoming call", body, NULL);
+    g_free(body);
 
     /* get photo */
     QVariant var_p = PixbufDelegate::instance()->callPhoto(
