@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_fc1fed07",
+        "filename": "src/callsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 32
+      },
+      "writtenOn": "2015-06-16T16:29:50Z",
+      "side": 1,
+      "message": "auto ?",
+      "range": {
+        "startLine": 270,
+        "startChar": 16,
+        "endLine": 270,
+        "endChar": 20
+      },
+      "revId": "bd7868c2e25a8244f6b84b8df23fff8f9817910a",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
