@@ -66,6 +66,19 @@ ring_notify_is_initted()
 #endif
 }
 
+void
+notification_destroyed(G_GNUC_UNUSED gpointer data, G_GNUC_UNUSED GObject *object_ptr)
+{
+    g_warning("notification destroyed");
+}
+
+void
+notification_closed(NotifyNotification *notification, G_GNUC_UNUSED gpointer user_data)
+{
+    g_warning("notification closed");
+    g_object_unref(notification);
+}
+
 gboolean
 ring_notify_incoming_call(
 #if !USE_LIBNOTIFY
@@ -73,6 +86,7 @@ ring_notify_incoming_call(
 #endif
     Call* call)
 {
+    gboolean success = FALSE;
 #if USE_LIBNOTIFY
     g_return_val_if_fail(call, FALSE);
 
@@ -91,15 +105,38 @@ ring_notify_incoming_call(
 
     notify_notification_set_timeout(notification, NOTIFY_EXPIRES_DEFAULT);
 
+    g_object_weak_ref(G_OBJECT(notification), (GWeakNotify)notification_destroyed, NULL);
+
+    g_object_add_weak_pointer(G_OBJECT(notification), (gpointer *)&notification);
+
+    g_signal_connect(notification, "closed", G_CALLBACK(notification_closed), NULL);
+
     GError *error = NULL;
-    if (notify_notification_show(notification, &error)) {
-        return TRUE;
+    success = notify_notification_show(notification, &error);
+
+    if (success) {
+        QObject::connect(
+            call,
+            &Call::lifeCycleStateChanged,
+            [notification] (Call::LifeCycleState newState, G_GNUC_UNUSED Call::LifeCycleState previousState)
+            {
+                if (!notification) return;
+                g_warning("trying to close notification");
+                g_return_if_fail(NOTIFY_IS_NOTIFICATION(notification));
+                if (newState > Call::LifeCycleState::INITIALIZATION) {
+                    /* close the notification and unref it */
+                    if (!notify_notification_close(notification, NULL))
+                        g_warning("could not destroy notification");
+                }
+            }
+        );
+
     } else {
         g_warning("failed to send notification: %s", error->message);
         g_clear_error(&error);
+        g_object_unref(notification);
         return FALSE;
     }
-#else
-    return FALSE;
 #endif
+    return success;
 }
