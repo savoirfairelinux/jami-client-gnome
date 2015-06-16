@@ -73,6 +73,7 @@ ring_notify_incoming_call(
 #endif
     Call* call)
 {
+    gboolean success = FALSE;
 #if USE_LIBNOTIFY
     g_return_val_if_fail(call, FALSE);
 
@@ -88,18 +89,42 @@ ring_notify_incoming_call(
 
     /* calls have highest urgency */
     notify_notification_set_urgency(notification, NOTIFY_URGENCY_CRITICAL);
-
     notify_notification_set_timeout(notification, NOTIFY_EXPIRES_DEFAULT);
 
+    /* set the notification pointer to NULL once it is destroyed so that we don't
+     * try to use the pointer elsewhere */
+    g_object_add_weak_pointer(G_OBJECT(notification), (gpointer *)&notification);
+
     GError *error = NULL;
-    if (notify_notification_show(notification, &error)) {
-        return TRUE;
+    success = notify_notification_show(notification, &error);
+
+    if (success) {
+        /* unref the notification once its closed */
+        g_signal_connect(notification, "closed", G_CALLBACK(g_object_unref), NULL);
+        /* monitor the life cycle of the call and try to close the notification
+         * once the call has been aswered */
+        QObject::connect(
+            call,
+            &Call::lifeCycleStateChanged,
+            [notification] (Call::LifeCycleState newState, G_GNUC_UNUSED Call::LifeCycleState previousState)
+            {
+                if (!notification) return;
+                g_return_if_fail(NOTIFY_IS_NOTIFICATION(notification));
+                if (newState > Call::LifeCycleState::INITIALIZATION) {
+                    if (!notify_notification_close(notification, NULL))
+                        g_warning("could not close notification");
+                    /* note: not all systems will actually close the notification
+                     * even if the above function returns as true */
+                }
+            }
+        );
+
     } else {
         g_warning("failed to send notification: %s", error->message);
         g_clear_error(&error);
+        g_object_unref(notification);
         return FALSE;
     }
-#else
-    return FALSE;
 #endif
+    return success;
 }
