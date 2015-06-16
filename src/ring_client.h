@@ -37,8 +37,12 @@
 G_BEGIN_DECLS
 
 #define RING_GSETTINGS_SCHEMA RING_CLIENT_APP_ID
+
 #define RING_CLIENT_TYPE (ring_client_get_type())
 #define RING_CLIENT(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), RING_CLIENT_TYPE, RingClient))
+#define RING_CLIENT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), RING_CLIENT_TYPE, RingClientClass))
+#define IS_RING_CLIENT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), RING_CLIENT_TYPE))
+#define IS_RING_CLIENT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), RING_CLIENT_TYPE))
 
 typedef struct _RingClientClass   RingClientClass;
 typedef struct _RingClient        RingClient;
@@ -46,6 +50,7 @@ typedef struct _RingClient        RingClient;
 /* Public interface */
 GType       ring_client_get_type (void) G_GNUC_CONST;
 RingClient *ring_client_new      (int argc, char *argv[]);
+GtkWindow  *ring_client_get_main_windw(RingClient *client);
 
 G_END_DECLS
 
