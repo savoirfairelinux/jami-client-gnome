@@ -54,6 +54,7 @@
                     <property name="height-request">43</property>
                     <property name="width-request">500</property>
                     <property name="xalign">0.5</property>
+                    <property name="truncate-multiline">True</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
