@@ -1077,6 +1077,7 @@ ring_main_window_init(RingMainWindow *win)
 
     /* name renderer */
     renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(completion_area),
                                  renderer,
                                  TRUE,  /* expand */
@@ -1090,6 +1091,7 @@ ring_main_window_init(RingMainWindow *win)
 
     /* number renderer */
     renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(completion_area),
                                  renderer,
                                  TRUE,  /* expand */
@@ -1102,6 +1104,7 @@ ring_main_window_init(RingMainWindow *win)
                                        NULL, NULL);
     /* account renderer */
     renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(completion_area),
                                  renderer,
                                  TRUE,  /* expand */
