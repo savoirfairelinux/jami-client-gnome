@@ -55,6 +55,7 @@
                     <property name="width-request">500</property>
                     <property name="xalign">0.5</property>
                     <property name="truncate-multiline">True</property>
+                    <property name="max-length">256</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
