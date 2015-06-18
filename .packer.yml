@@ -20,3 +20,22 @@ fedora_21:
 debian_8:
     debian: debian
     ccache: true
+ubuntu_14.04_i386:
+    debian: debian
+    ccache: true
+    ppa:
+        - ppa:ubuntu-toolchain-r/test
+    deps:
+        - g++-4.9
+ubuntu_14.10_i386:
+    debian: debian
+    ccache: true
+ubuntu_15.04_i386:
+    debian: debian
+    ccache: true
+fedora_21_i386:
+    spec: ring-daemon.spec
+    ccache: true
+debian_8_i386:
+    debian: debian
+    ccache: true
