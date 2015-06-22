@@ -34,7 +34,7 @@ ubuntu_15.04_i386:
     debian: debian
     ccache: true
 fedora_21_i386:
-    spec: ring-daemon.spec
+    spec: ring-gnome.spec
     ccache: true
 debian_8_i386:
     debian: debian
