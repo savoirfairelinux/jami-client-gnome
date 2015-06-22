@@ -269,15 +269,33 @@ static void
 print_message_to_buffer(const QModelIndex &idx, GtkTextBuffer *buffer)
 {
     if (idx.isValid()) {
-        QVariant message = idx.data();
-
-        gchar *text = g_strdup_printf("%s\n", message.value<QString>().toUtf8().constData());
+        auto message = idx.data().value<QString>().toUtf8();
+        auto sender = idx.data(static_cast<int>(Media::TextRecording::Role::AuthorDisplayname)).value<QString>().toUtf8();
 
         GtkTextIter iter;
-        gtk_text_buffer_get_end_iter(buffer, &iter);
-        gtk_text_buffer_insert(buffer, &iter, text, -1);
 
-        g_free(text);
+        /* unless its the very first message, insert a new line */
+        if (idx.row() != 0) {
+            gtk_text_buffer_get_end_iter(buffer, &iter);
+            gtk_text_buffer_insert(buffer, &iter, "\n", -1);
+        }
+
+        auto format_sender = g_strconcat(sender.constData(), ": ", NULL);
+        gtk_text_buffer_get_end_iter(buffer, &iter);
+        gtk_text_buffer_insert_with_tags_by_name(buffer, &iter,
+                                                 format_sender, -1,
+                                                 "bold", NULL);
+        g_free(format_sender);
+
+        /* if the sender name is too long, insert a new line after it */
+        if (sender.length() > 20) {
+            gtk_text_buffer_get_end_iter(buffer, &iter);
+            gtk_text_buffer_insert(buffer, &iter, "\n", -1);
+        }
+
+        gtk_text_buffer_get_end_iter(buffer, &iter);
+        gtk_text_buffer_insert(buffer, &iter, message.constData(), -1);
+
     } else {
         g_warning("QModelIndex in im model is not valid");
     }
@@ -294,6 +312,10 @@ parse_chat_model(QAbstractItemModel *model, CurrentCallView *self)
 
     GtkTextBuffer *new_buffer = gtk_text_buffer_new(NULL);
     gtk_text_view_set_buffer(GTK_TEXT_VIEW(priv->textview_chat), new_buffer);
+
+    /* add tags to the buffer */
+    gtk_text_buffer_create_tag(new_buffer, "bold", "weight", PANGO_WEIGHT_BOLD, NULL);
+
     g_object_unref(new_buffer);
 
     /* put all the messages in the im model into the text view */
