@@ -125,6 +125,8 @@ chat_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
     if (gtk_toggle_button_get_active(togglebutton)) {
         /* create an outgoing media to bring up chat history, if any */
         priv->call->addOutgoingMedia<Media::Text>();
+        /* change focus to the chat entry */
+        gtk_widget_grab_focus(priv->entry_chat_input);
     }
 }
 
