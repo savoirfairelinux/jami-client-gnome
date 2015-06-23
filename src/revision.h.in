@@ -1,0 +1,3 @@
+/* cmake will generate revision.h with a define containing the git revision (if found) */
+
+#define RING_CLIENT_REVISION "@RING_CLIENT_REVISION@"
