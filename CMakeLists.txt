@@ -142,6 +142,19 @@ IF (CMAKE_COMPILER_IS_GNUCC)
 
 ENDIF()
 
+# get git version on every build
+SET(GIT_REVISION_INPUT_FILE ${PROJECT_SOURCE_DIR}/src/revision.h.in)
+SET(GIT_REVISION_OUTPUT_FILE ${PROJECT_BINARY_DIR}/revision.h)
+
+ADD_CUSTOM_TARGET(
+   git_revision ALL
+   COMMAND ${CMAKE_COMMAND}
+      -DGIT_REVISION_INPUT_FILE=${GIT_REVISION_INPUT_FILE}
+      -DGIT_REVISION_OUTPUT_FILE=${GIT_REVISION_OUTPUT_FILE}
+      -P ${CMAKE_SOURCE_DIR}/cmake/GitRevision.cmake
+   COMMENT "generating ${GIT_REVISION_OUTPUT_FILE}"
+)
+
 # source files to compile
 SET( SRC_FILES
    src/main.cpp
@@ -210,6 +223,7 @@ SET( SRC_FILES
    src/video/videowindow.cpp
    src/utils/files.h
    src/utils/files.cpp
+   ${GIT_REVISION_OUTPUT_FILE}
 )
 
 # compile glib resource files to c code
