@@ -54,6 +54,7 @@
 #include "ringnotify.h"
 #include "config.h"
 #include "utils/files.h"
+#include "revision.h"
 
 struct _RingClientClass
 {
@@ -187,6 +188,9 @@ ring_client_startup(GApplication *app)
 {
     RingClient *client = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    g_debug("Ring GNOME client version: %d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+    g_debug("git ref: %s", RING_CLIENT_REVISION);
 
     /* make sure that the system corresponds to the autostart setting */
     autostart_symlink(g_settings_get_boolean(priv->settings, "start-on-login"));
