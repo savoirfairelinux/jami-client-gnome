@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_5f0ca694",
+        "filename": "cmake/GitRevision.cmake",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-06-25T13:57:37Z",
+      "side": 1,
+      "message": "OK, but I\u0027ve been copying this since sflphone, so this error is in all the files. Its the same in the daemon and LRC.",
+      "parentUuid": "9a5c5d37_1fd18efb",
+      "range": {
+        "startLine": 1,
+        "startChar": 29,
+        "endLine": 1,
+        "endChar": 30
+      },
+      "revId": "a3d3e57f3c2aee0272cb43f49344a031e0ee5da6",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_ffcd9a5e",
         "filename": "cmake/GitRevision.cmake",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-06-24T02:37:22Z",
       "side": 1,
       "message": "minus \u0027f\u0027",
+      "range": {
+        "startLine": 23,
+        "startChar": 51,
+        "endLine": 23,
+        "endChar": 52
+      },
+      "revId": "a3d3e57f3c2aee0272cb43f49344a031e0ee5da6",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_3f11f2ac",
+        "filename": "cmake/GitRevision.cmake",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-06-25T13:57:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5c5d37_ffcd9a5e",
       "range": {
         "startLine": 23,
         "startChar": 51,
