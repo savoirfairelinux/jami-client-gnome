@@ -165,9 +165,15 @@ static void free_client_view(EBookClientView *client_view) {
 }
 
 static void
-free_contact_list(GSList *list)
+free_object_list(GSList *list)
 {
     g_slist_free_full(list, g_object_unref);
+};
+
+static void
+free_string_list(GSList *list)
+{
+    g_slist_free_full(list, g_free);
 };
 
 EdsContactBackend::EdsContactBackend(CollectionMediator<Person>* mediator, EClient *client, CollectionInterface* parent)
@@ -208,7 +214,7 @@ static void
 contacts_added(G_GNUC_UNUSED EBookClientView *client_view, const GSList *objects, EdsContactBackend *self)
 {
     std::unique_ptr<GSList,void(*)(GSList *)> contacts(
-        g_slist_copy_deep((GSList *)objects, (GCopyFunc)g_object_ref, NULL ), &free_contact_list);
+        g_slist_copy_deep((GSList *)objects, (GCopyFunc)g_object_ref, NULL ), &free_object_list);
     self->addContacts(std::move(contacts));
 }
 
@@ -218,6 +224,14 @@ contacts_modified(EBookClientView *client_view, const GSList *objects, EdsContac
     /* The parseContact function will check if the contacts we're "adding" have
      * the same URI as any existing ones and if so will update those instead */
     contacts_added(client_view, objects, self);
+}
+
+static void
+contacts_removed(G_GNUC_UNUSED EBookClientView *client_view, const GSList *uids, EdsContactBackend *self)
+{
+    std::unique_ptr<GSList,void(*)(GSList *)> contact_uids(
+        g_slist_copy_deep((GSList *)uids, (GCopyFunc)g_strdup, NULL ), &free_string_list);
+    self->removeContacts(std::move(contact_uids));
 }
 
 static void
@@ -327,6 +341,7 @@ void EdsContactBackend::addClientView(std::unique_ptr<EBookClientView, void(*)(E
     /* connect signals for adding, removing, and modifying contacts */
     g_signal_connect(client_view_.get(), "objects-added", G_CALLBACK(contacts_added), this);
     g_signal_connect(client_view_.get(), "objects-modified", G_CALLBACK(contacts_modified), this);
+    g_signal_connect(client_view_.get(), "objects-removed", G_CALLBACK(contacts_removed), this);
 
     /* start processing the signals */
     GError *error = NULL;
@@ -350,6 +365,26 @@ void EdsContactBackend::addContacts(std::unique_ptr<GSList, void(*)(GSList *)> c
                        (GSourceFunc)add_contacts,
                        data,
                        (GDestroyNotify)free_add_contacts_data);
+}
+
+void EdsContactBackend::removeContacts(std::unique_ptr<GSList, void(*)(GSList *)> contact_uids)
+{
+    GSList *next = contact_uids.get();
+    while(next) {
+        gchar *uid = (gchar *)next->data;
+        if (uid) {
+            Person *p = PersonModel::instance()->getPersonByUid(uid);
+            if (p) {
+                g_debug("removing: %s", p->formattedName().toUtf8().constData());
+                deactivate(p);
+            } else {
+                g_warning("person with given UID doesn't exist: %s", uid);
+            }
+        } else {
+            g_warning("null UID in list");
+        }
+        next = g_slist_next(next);
+    }
 }
 
 bool EdsContactBackend::load()

@@ -87,6 +87,7 @@ public:
 
     void addClientView(std::unique_ptr<EBookClientView, void(*)(EBookClientView *)> client_view);
     void addContacts(std::unique_ptr<GSList, void(*)(GSList *)> contacts);
+    void removeContacts(std::unique_ptr<GSList, void(*)(GSList *)> contacts);
     void parseContact(EContact *contact);
     void lastContactAdded();
 
