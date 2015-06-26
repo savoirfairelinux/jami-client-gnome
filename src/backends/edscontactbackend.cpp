@@ -213,6 +213,14 @@ contacts_added(G_GNUC_UNUSED EBookClientView *client_view, const GSList *objects
 }
 
 static void
+contacts_modified(EBookClientView *client_view, const GSList *objects, EdsContactBackend *self)
+{
+    /* The parseContact function will check if the contacts we're "adding" have
+     * the same URI as any existing ones and if so will update those instead */
+    contacts_added(client_view, objects, self);
+}
+
+static void
 client_view_cb(EBookClient *client, GAsyncResult *result, EdsContactBackend *self)
 {
     g_return_if_fail(E_IS_BOOK_CLIENT(client));
@@ -252,7 +260,26 @@ void EdsContactBackend::parseContact(EContact *contact)
     gchar *vcard_str = e_vcard_to_string(vcard, EVC_FORMAT_VCARD_30);
     Person *p = new Person(vcard_str, Person::Encoding::vCard, this);
     g_free(vcard_str);
-    editor<Person>()->addExisting(p);
+
+    /* check if this person already exists */
+    Person *existing = PersonModel::instance()->getPersonByUid(p->uid());
+    if (existing) {
+        /* update existing person */
+        existing->setContactMethods ( p->phoneNumbers()   );
+        existing->setNickName       ( p->nickName()       );
+        existing->setFirstName      ( p->firstName()      );
+        existing->setFamilyName     ( p->secondName()     );
+        existing->setFormattedName  ( p->formattedName()  );
+        existing->setOrganization   ( p->organization()   );
+        existing->setPreferredEmail ( p->preferredEmail() );
+        existing->setGroup          ( p->group()          );
+        existing->setDepartment     ( p->department()     );
+        existing->setPhoto          ( p->photo()          );
+
+        delete p;
+    } else {
+        editor<Person>()->addExisting(p);
+    }
 }
 
 typedef struct AddContactsData_
@@ -299,6 +326,7 @@ void EdsContactBackend::addClientView(std::unique_ptr<EBookClientView, void(*)(E
 
     /* connect signals for adding, removing, and modifying contacts */
     g_signal_connect(client_view_.get(), "objects-added", G_CALLBACK(contacts_added), this);
+    g_signal_connect(client_view_.get(), "objects-modified", G_CALLBACK(contacts_modified), this);
 
     /* start processing the signals */
     GError *error = NULL;
