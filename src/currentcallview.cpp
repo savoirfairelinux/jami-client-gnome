@@ -73,6 +73,8 @@ struct _CurrentCallViewPrivate
     GtkWidget *entry_chat_input;
     GtkWidget *scrolledwindow_chat;
     GtkWidget *fullscreen_window;
+    GtkWidget *buttonbox_call_controls;
+    GtkWidget *button_hangup;
 
     Call *call;
 
@@ -169,6 +171,18 @@ current_call_view_init(CurrentCallView *view)
      * the chat treeview */
     GtkAdjustment *adjustment = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(priv->scrolledwindow_chat));
     g_signal_connect(adjustment, "changed", G_CALLBACK(scroll_to_bottom), NULL);
+
+    GtkCssProvider *provider = gtk_css_provider_new();
+    GdkDisplay *display = gdk_display_get_default();
+    GdkScreen *screen = gdk_display_get_default_screen(display);
+    gtk_css_provider_load_from_data(provider,
+        "GtkBox#call-controls GtkButton {\n"
+        "   border-radius: 21px;\n"
+        "}\n"
+        , -1, NULL);
+    gtk_style_context_add_provider_for_screen(screen,
+        GTK_STYLE_PROVIDER(provider),
+        GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 static void
@@ -190,6 +204,8 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, entry_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scrolledwindow_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, buttonbox_call_controls);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
 }
 
 GtkWidget *

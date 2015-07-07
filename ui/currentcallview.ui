@@ -191,21 +191,24 @@
         <property name="border_width">10</property>
         <!-- call conrol button box -->
         <child>
-          <object class="GtkButtonBox" id="buttonbox_call_controls">
+          <object class="GtkBox" id="buttonbox_call_controls">
+            <property name="name">call-controls</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">center</property>
             <property name="valign">start</property>
-            <style>
-              <class name="linked"/>
-            </style>
+            <property name="spacing">15</property>
             <child>
               <object class="GtkButton" id="button_hangup">
-                <property name="label" translatable="yes">Hang-up</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="width-request">42</property>
+                <property name="height-request">42</property>
                 <property name="action-name">app.hangup</property>
+                <property name="has_tooltip">True</property>
+                <property name="tooltip-text" translatable="yes">End this call</property>
+                <property name="image">image_end</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -214,11 +217,15 @@
             </child>
             <child>
               <object class="GtkToggleButton" id="togglebutton_hold">
-                <property name="label" translatable="yes">Hold</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="width-request">42</property>
+                <property name="height-request">42</property>
                 <property name="action-name">app.hold</property>
+                <property name="has_tooltip">True</property>
+                <property name="tooltip-text" translatable="yes">Toggle hold</property>
+                <property name="image">image_pause</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -227,11 +234,15 @@
             </child>
             <child>
               <object class="GtkToggleButton" id="togglebutton_muteaudio">
-                <property name="label" translatable="yes">Mute audio</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="width-request">42</property>
+                <property name="height-request">42</property>
                 <property name="action-name">app.mute_audio</property>
+                <property name="has_tooltip">True</property>
+                <property name="tooltip-text" translatable="yes">Toggle mute audio</property>
+                <property name="image">image_mute_audio</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -240,11 +251,15 @@
             </child>
             <child>
               <object class="GtkToggleButton" id="togglebutton_mutevideo">
-                <property name="label" translatable="yes">Mute video</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="width-request">42</property>
+                <property name="height-request">42</property>
                 <property name="action-name">app.mute_video</property>
+                <property name="has_tooltip">True</property>
+                <property name="tooltip-text" translatable="yes">Toggle mute video</property>
+                <property name="image">image_mute_video</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -253,11 +268,14 @@
             </child>
             <child>
               <object class="GtkToggleButton" id="togglebutton_record">
-                <property name="label" translatable="yes">Record</property>
                 <!-- TODO: set visible when feature enabled -->
                 <property name="visible">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="width-request">42</property>
+                <property name="height-request">42</property>
+                <property name="has_tooltip">True</property>
+                <property name="tooltip-text" translatable="yes">Toggle record</property>
                 <property name="action-name">app.record</property>
               </object>
               <packing>
@@ -267,9 +285,13 @@
             </child>
             <child>
               <object class="GtkToggleButton" id="togglebutton_chat">
-                <property name="label" translatable="yes">Chat</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="width-request">42</property>
+                <property name="height-request">42</property>
+                <property name="has_tooltip">True</property>
+                <property name="tooltip-text" translatable="yes">Toggle show chat</property>
+                <property name="image">image_chat</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -279,7 +301,7 @@
           </object>
           <packing>
             <property name="expand">True</property>
-            <property name="fill">True</property>
+            <property name="fill">False</property>
           </packing>
         </child>
         <!-- end of call control button box -->
@@ -291,4 +313,24 @@
     </child>
     <!-- end of box which contains the control buttons -->
   </template>
+  <object class="GtkImage" id="image_chat">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/chat</property>
+  </object>
+  <object class="GtkImage" id="image_mute_audio">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/mute_audio</property>
+  </object>
+  <object class="GtkImage" id="image_mute_video">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/mute_video</property>
+  </object>
+  <object class="GtkImage" id="image_pause">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/pause</property>
+  </object>
+  <object class="GtkImage" id="image_end">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/end</property>
+  </object>
 </interface>
