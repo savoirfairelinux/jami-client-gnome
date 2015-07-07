@@ -11,5 +11,10 @@
 	<file alias="contact">contact.svg</file>
 	<file alias="accept">accept.svg</file>
 	<file alias="reject">hang_up.svg</file>
+	<file alias="chat">ic_chat_black_24px.svg</file>
+	<file alias="mute_audio">ic_mic_off_black_24px.svg</file>
+	<file alias="mute_video">ic_videocam_off_black_24px.svg</file>
+	<file alias="pause">ic_pause_black_24px.svg</file>
+	<file alias="end">ic_clear_black_24px.svg</file>
   </gresource>
 </gresources>
