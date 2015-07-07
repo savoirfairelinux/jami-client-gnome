@@ -209,6 +209,11 @@
                 <property name="has_tooltip">True</property>
                 <property name="tooltip-text" translatable="yes">End this call</property>
                 <property name="image">image_end</property>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="button_hangup-atkobject">
+                    <property name="AtkObject::accessible-name" translatable="yes">End call</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -226,6 +231,11 @@
                 <property name="has_tooltip">True</property>
                 <property name="tooltip-text" translatable="yes">Toggle hold</property>
                 <property name="image">image_pause</property>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="togglebutton_hold-atkobject">
+                    <property name="AtkObject::accessible-name" translatable="yes">Hold</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -243,6 +253,11 @@
                 <property name="has_tooltip">True</property>
                 <property name="tooltip-text" translatable="yes">Toggle mute audio</property>
                 <property name="image">image_mute_audio</property>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="togglebutton_muteaudio-atkobject">
+                    <property name="AtkObject::accessible-name" translatable="yes">Hold</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -260,6 +275,11 @@
                 <property name="has_tooltip">True</property>
                 <property name="tooltip-text" translatable="yes">Toggle mute video</property>
                 <property name="image">image_mute_video</property>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="togglebutton_mutevideo-atkobject">
+                    <property name="AtkObject::accessible-name" translatable="yes">Mute video</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -274,9 +294,14 @@
                 <property name="receives_default">True</property>
                 <property name="width-request">42</property>
                 <property name="height-request">42</property>
+                <property name="action-name">app.record</property>
                 <property name="has_tooltip">True</property>
                 <property name="tooltip-text" translatable="yes">Toggle record</property>
-                <property name="action-name">app.record</property>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="togglebutton_record-atkobject">
+                    <property name="AtkObject::accessible-name" translatable="yes">Record</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -292,6 +317,11 @@
                 <property name="has_tooltip">True</property>
                 <property name="tooltip-text" translatable="yes">Toggle show chat</property>
                 <property name="image">image_chat</property>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="togglebutton_chat-atkobject">
+                    <property name="AtkObject::accessible-name" translatable="yes">Chat</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -316,21 +346,46 @@
   <object class="GtkImage" id="image_chat">
     <property name="visible">True</property>
     <property name="resource">/cx/ring/RingGnome/chat</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_chat-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Chat</property>
+      </object>
+    </child>
   </object>
   <object class="GtkImage" id="image_mute_audio">
     <property name="visible">True</property>
     <property name="resource">/cx/ring/RingGnome/mute_audio</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_mute_audio-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Mute audio</property>
+      </object>
+    </child>
   </object>
   <object class="GtkImage" id="image_mute_video">
     <property name="visible">True</property>
     <property name="resource">/cx/ring/RingGnome/mute_video</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_mute_video-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Mute video</property>
+      </object>
+    </child>
   </object>
   <object class="GtkImage" id="image_pause">
     <property name="visible">True</property>
     <property name="resource">/cx/ring/RingGnome/pause</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_pause-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Hold</property>
+      </object>
+    </child>
   </object>
   <object class="GtkImage" id="image_end">
     <property name="visible">True</property>
     <property name="resource">/cx/ring/RingGnome/end</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_end-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">End call</property>
+      </object>
+    </child>
   </object>
 </interface>
