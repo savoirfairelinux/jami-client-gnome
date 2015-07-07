@@ -66,10 +66,18 @@ static void
 update_call_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer user_data)
 {
     QModelIndex current = get_index_from_selection(selection);
-    if (current.isValid())
+    if (current.isValid()) {
+
+        /* if the call is on hold, we want to put it off hold automatically
+         * when switching to it */
+        auto call = CallModel::instance()->getCall(current);
+        if (call->state() == Call::State::HOLD)
+            call << Call::Action::HOLD;
+
         CallModel::instance()->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
-    else
+    } else {
         CallModel::instance()->selectionModel()->clearCurrentIndex();
+    }
 }
 
 static void
@@ -262,14 +270,6 @@ calls_view_init(CallsView *self)
                 } else {
                     g_warning("SelectionModel of CallModel changed to invalid QModelIndex?");
                 }
-            }
-
-            /* if the call is on hold, we want to put it off hold automatically
-             * when switching to it */
-            if (current.isValid()) {
-                auto call = CallModel::instance()->getCall(current);
-                if (call->state() == Call::State::HOLD)
-                    call << Call::Action::HOLD;
             }
         }
     );
