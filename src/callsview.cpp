@@ -68,13 +68,19 @@ update_call_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer 
     QModelIndex current = get_index_from_selection(selection);
     if (current.isValid()) {
 
-        /* if the call is on hold, we want to put it off hold automatically
-         * when switching to it */
-        auto call = CallModel::instance()->getCall(current);
-        if (call->state() == Call::State::HOLD)
-            call << Call::Action::HOLD;
+        /* make sure we don't call HOLD more than once on the same index, by
+         * checking which one is currently selected */
+        auto current_selection = CallModel::instance()->selectionModel()->currentIndex();
+        if (current != current_selection) {
+            /* if the call is on hold, we want to put it off hold automatically
+             * when switching to it */
+            auto call = CallModel::instance()->getCall(current);
+            if (call->state() == Call::State::HOLD) {
+                call << Call::Action::HOLD;
+            }
 
-        CallModel::instance()->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
+            CallModel::instance()->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
+        }
     } else {
         CallModel::instance()->selectionModel()->clearCurrentIndex();
     }
@@ -267,6 +273,14 @@ calls_view_init(CallsView *self)
                 GtkTreeIter new_iter;
                 if (gtk_q_tree_model_source_index_to_iter(call_model, current, &new_iter)) {
                     gtk_tree_selection_select_iter(selection, &new_iter);
+
+                    // /* if the call is on hold, we want to put it off hold automatically
+                    //  * when switching to it */
+                    // auto call = CallModel::instance()->getCall(current);
+                    // if (call->state() == Call::State::HOLD) {
+                    //     g_warning("\ntrying to put off hold\n");
+                    //     call << Call::Action::HOLD;
+                    // }
                 } else {
                     g_warning("SelectionModel of CallModel changed to invalid QModelIndex?");
                 }
