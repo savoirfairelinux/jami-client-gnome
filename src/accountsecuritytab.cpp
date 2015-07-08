@@ -494,7 +494,7 @@ build_tab_view(AccountSecurityTab *self)
     /* server certs */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_verify_certs_server),
                                  priv->account->isTlsVerifyServer());
-    g_signal_connect(priv->checkbutton_require_incoming_tls_certs,
+    g_signal_connect(priv->checkbutton_verify_certs_server,
                      "toggled", G_CALLBACK(verify_certs_server_toggled), self);
 
     /* client certs */
