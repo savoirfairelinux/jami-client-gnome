@@ -61,6 +61,7 @@
 #include "utils/models.h"
 #include "generalsettingsview.h"
 #include "callsview.h"
+#include "utils/accounts.h"
 
 #define CALL_VIEW_NAME "calls"
 #define CREATE_ACCOUNT_1_VIEW_NAME "create1"
@@ -485,21 +486,6 @@ show_general_settings(GtkToggleButton *navbutton, RingMainWindow *win)
 }
 
 static gboolean
-has_ring_account()
-{
-    /* check if a Ring account exists */
-    int a_count = AccountModel::instance()->rowCount();
-    for (int i = 0; i < a_count; ++i) {
-        QModelIndex idx = AccountModel::instance()->index(i, 0);
-        QVariant protocol = idx.data(static_cast<int>(Account::Role::Proto));
-        if ((Account::Protocol)protocol.toUInt() == Account::Protocol::RING)
-            return TRUE;
-    }
-
-    return FALSE;
-}
-
-static gboolean
 create_ring_account(RingMainWindow *win)
 {
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(win), G_SOURCE_REMOVE);
@@ -508,6 +494,7 @@ create_ring_account(RingMainWindow *win)
     /* create account and set UPnP enabled, as its not by default in the daemon */
     const gchar *alias = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
     Account *account = AccountModel::instance()->add(alias, Account::Protocol::RING);
+    account->setDisplayName(alias); // set the display name to the same as the alias
     account->setUpnpEnabled(TRUE);
 
     /* wait for hash to be generated to show the next view */

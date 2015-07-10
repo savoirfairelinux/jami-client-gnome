@@ -233,6 +233,8 @@ SET( SRC_FILES
    src/createcontactdialog.cpp
    src/utils/menus.h
    src/utils/menus.cpp
+   src/utils/accounts.h
+   src/utils/accounts.cpp
 )
 
 # compile glib resource files to c code

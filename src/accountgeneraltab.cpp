@@ -93,6 +93,8 @@ account_alias_changed(GtkEditable *entry, AccountGeneralTab *view)
     g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
     AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
     priv->account->setAlias(QString(gtk_editable_get_chars(entry, 0, -1)));
+    if (priv->account->protocol() == Account::Protocol::RING)
+        priv->account->setDisplayName(gtk_entry_get_text(GTK_ENTRY(entry)));
 }
 
 static void
