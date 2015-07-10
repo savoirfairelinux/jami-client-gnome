@@ -125,8 +125,8 @@ bool EdsContactEditor::save(const Person* item)
 
 bool EdsContactEditor::remove(const Person* item)
 {
-    Q_UNUSED(item)
-    return false;
+    mediator()->removeItem(item);
+    return true;
 }
 
 bool EdsContactEditor::edit( Person* item)
@@ -377,6 +377,7 @@ void EdsContactBackend::removeContacts(std::unique_ptr<GSList, void(*)(GSList *)
             if (p) {
                 g_debug("removing: %s", p->formattedName().toUtf8().constData());
                 deactivate(p);
+                editor<Person>()->remove(p);
             } else {
                 g_warning("person with given UID doesn't exist: %s", uid);
             }
