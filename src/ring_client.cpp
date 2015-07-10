@@ -56,6 +56,7 @@
 #include "config.h"
 #include "utils/files.h"
 #include "revision.h"
+#include "utils/accounts.h"
 
 struct _RingClientClass
 {
@@ -224,6 +225,11 @@ ring_client_startup(GApplication *app)
     /* init delegates */
     /* FIXME: put in smart pointer? */
     new PixbufDelegate();
+
+    /* make sure all RING accounts have a display name... this basically makes sure
+     * that all accounts created before the display name patch have a display name
+     * set... a bit of a hack as this should maybe be done in LRC */
+    force_ring_display_name();
 
     /* make sure basic number categories exist, in case user has no contacts
      * from which these would be automatically created
