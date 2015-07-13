@@ -272,28 +272,25 @@ void EdsContactBackend::parseContact(EContact *contact)
 
     EVCard *vcard = E_VCARD(contact);
     gchar *vcard_str = e_vcard_to_string(vcard, EVC_FORMAT_VCARD_30);
-    Person *p = new Person(vcard_str, Person::Encoding::vCard, this);
-    g_free(vcard_str);
 
     /* check if this person already exists */
-    Person *existing = PersonModel::instance()->getPersonByUid(p->uid());
+    Person *existing = nullptr;
+
+    gchar *uid = (gchar *)e_contact_get(contact, E_CONTACT_UID);
+    if (uid) {
+        existing = PersonModel::instance()->getPersonByUid(uid);
+        g_free(uid);
+    }
+
     if (existing) {
         /* update existing person */
-        existing->setContactMethods ( p->phoneNumbers()   );
-        existing->setNickName       ( p->nickName()       );
-        existing->setFirstName      ( p->firstName()      );
-        existing->setFamilyName     ( p->secondName()     );
-        existing->setFormattedName  ( p->formattedName()  );
-        existing->setOrganization   ( p->organization()   );
-        existing->setPreferredEmail ( p->preferredEmail() );
-        existing->setGroup          ( p->group()          );
-        existing->setDepartment     ( p->department()     );
-        existing->setPhoto          ( p->photo()          );
-
-        delete p;
+        existing->updateFromVCard(vcard_str);
     } else {
+        Person *p = new Person(vcard_str, Person::Encoding::vCard, this);
         editor<Person>()->addExisting(p);
     }
+
+    g_free(vcard_str);
 }
 
 typedef struct AddContactsData_
