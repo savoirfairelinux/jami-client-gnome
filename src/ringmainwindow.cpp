@@ -387,11 +387,6 @@ save_accounts(GtkWidget *working_dialog)
 {
     /* save changes to accounts */
     AccountModel::instance()->save();
-    /* save changes to codecs */
-    for (int i = 0; i < AccountModel::instance()->rowCount(); i++) {
-        QModelIndex idx = AccountModel::instance()->index(i, 0);
-        AccountModel::instance()->getAccountByModelIndex(idx)->codecModel()->save();
-    }
 
     if (working_dialog)
         gtk_widget_destroy(working_dialog);
