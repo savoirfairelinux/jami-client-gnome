@@ -566,7 +566,7 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
             return;
 
         const auto frameData = (const guint8*)renderer->currentFrame().constData();
-        if (!frameData or !wg_renderer->dirty)
+        if (renderer->currentFrame().isEmpty() or !frameData or !wg_renderer->dirty)
             return;
 
         wg_renderer->dirty = false;
