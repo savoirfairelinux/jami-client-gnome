@@ -45,6 +45,8 @@
 #include "models/gtkqtreemodel.h"
 #include "video/videowindow.h"
 #include "ringnotify.h"
+#include <audio/codecmodel.h>
+#include <account.h>
 
 struct _CurrentCallView
 {
@@ -75,6 +77,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *fullscreen_window;
     GtkWidget *buttonbox_call_controls;
     GtkWidget *button_hangup;
+    GtkWidget *scalebutton_quality;
 
     Call *call;
 
@@ -156,6 +159,22 @@ scroll_to_bottom(GtkAdjustment *adjustment, G_GNUC_UNUSED gpointer user_data)
 }
 
 static void
+quality_changed(GtkScaleButton *button, gdouble value, CurrentCallView *self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    if (const auto& codecModel = priv->call->account()->codecModel()) {
+        const auto& videoCodecs = codecModel->videoCodecs();
+        for (int i=0; i < videoCodecs->rowCount();i++) {
+            const auto& idx = videoCodecs->index(i,0);
+            videoCodecs->setData(idx, QString::number((unsigned int)value), CodecModel::Role::BITRATE);
+        }
+        codecModel << CodecModel::EditAction::SAVE;
+    }
+}
+
+static void
 current_call_view_init(CurrentCallView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
@@ -206,6 +225,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scrolledwindow_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, buttonbox_call_controls);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scalebutton_quality);
 }
 
 GtkWidget *
@@ -475,4 +495,16 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     /* check if there were any chat notifications and open the chat view if so */
     if (ring_notify_close_chat_notification(priv->call))
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
+
+    /* get the current codec quality and set that as the initial slider value
+     * for now we assume that all codecs have the same quality */
+    if (const auto& codecModel = priv->call->account()->codecModel()) {
+        const auto& videoCodecs = codecModel->videoCodecs();
+        if (videoCodecs->rowCount() > 0) {
+            const auto& idx = videoCodecs->index(0,0);
+            double value = idx.data(static_cast<int>(CodecModel::Role::BITRATE)).toDouble();
+            gtk_scale_button_set_value(GTK_SCALE_BUTTON(priv->scalebutton_quality), value);
+        }
+    }
+    g_signal_connect(priv->scalebutton_quality, "value-changed", G_CALLBACK(quality_changed), view);
 }
