@@ -183,6 +183,18 @@ EdsContactBackend::EdsContactBackend(CollectionMediator<Person>* mediator, EClie
     , cancellable_(g_cancellable_new(), g_object_unref)
     , client_view_(nullptr, &free_client_view)
 {
+    // cache the name
+    if (client_) {
+        auto source = e_client_get_source(client_.get());
+        auto extension = (ESourceAddressBook *)e_source_get_extension(source, E_SOURCE_EXTENSION_ADDRESS_BOOK);
+        auto backend = e_source_backend_get_backend_name(E_SOURCE_BACKEND(extension));
+        auto addressbook = e_source_get_display_name(source);
+
+        gchar *name = g_strdup_printf("%s (%s)", addressbook, backend);
+        name_ = QObject::tr(name);
+        g_free(name);
+    } else
+        name_ = QObject::tr("Unknown EDS addressbook");
 }
 
 EdsContactBackend::~EdsContactBackend()
@@ -197,7 +209,7 @@ EdsContactBackend::~EdsContactBackend()
 
 QString EdsContactBackend::name() const
 {
-    return QObject::tr("Evolution-data-server backend");
+    return name_;
 }
 
 QString EdsContactBackend::category() const
@@ -434,5 +446,7 @@ bool EdsContactBackend::clear()
 
 QByteArray EdsContactBackend::id() const
 {
-   return "edscb";
+    if (client_)
+        return e_source_get_uid(e_client_get_source(client_.get()));
+    return "edscb";
 }

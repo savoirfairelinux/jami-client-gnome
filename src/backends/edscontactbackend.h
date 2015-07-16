@@ -98,6 +98,8 @@ private:
    std::unique_ptr<EBookClientView, void(*)(EBookClientView *)> client_view_;
 
    guint add_contacts_source_id {0};
+
+   QString name_;
 };
 
 #endif /* EDSCONTACTBACKEND_H */
