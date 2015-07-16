@@ -178,6 +178,10 @@ gtk_scale_button_get_scale(GtkScaleButton *button)
     // which contains the + button, scale, and - button
     // we want to get the scale
     if (GtkWidget *box = gtk_bin_get_child(GTK_BIN(dock))) {
+        if (GTK_IS_FRAME(box)) {
+            // support older versions of gtk; the box used to be in a frame
+            box = gtk_bin_get_child(GTK_BIN(box));
+        }
         GList *children = gtk_container_get_children(GTK_CONTAINER(box));
         for (GList *c = children; c && !scale; c = c->next) {
             if (GTK_IS_SCALE(c->data))
