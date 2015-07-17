@@ -40,6 +40,7 @@
 #include "utils/models.h"
 #include <phonedirectorymodel.h>
 #include <call.h>
+#include "utils/menus.h"
 
 #define COPY_DATA_KEY "copy_data"
 
@@ -147,7 +148,7 @@ popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gpointer 
 {
     /* build popup menu when right clicking on contact item
      * user should be able to copy the contact's name or "number".
-     * other functionality may be added later.
+     * or add the "number" to his contact list, if not already so
      */
 
     /* check for right click */
@@ -185,6 +186,19 @@ popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gpointer 
                      "activate",
                      G_CALLBACK(copy_contact_info),
                      NULL);
+
+     /* get the call object from the selected item
+      * check if it is already linked to a person, if not, then offer to either
+      * add to a new or existing contact */
+     const auto& var_cm = idx.data(static_cast<int>(Call::Role::ContactMethod));
+     if (idx.isValid() && var_cm.isValid()) {
+         if (auto contactmethod = var_cm.value<ContactMethod *>()) {
+             if (!contact_method_has_contact(contactmethod)) {
+                 auto add_to = menu_item_contact_add_to(contactmethod, GTK_WIDGET(treeview));
+                 gtk_menu_shell_append(GTK_MENU_SHELL(menu), add_to);
+             }
+         }
+     }
 
     /* show menu */
     gtk_widget_show_all(menu);
