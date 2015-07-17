@@ -137,8 +137,7 @@ bool EdsContactEditor::edit( Person* item)
 
 bool EdsContactEditor::addNew(const Person* item)
 {
-    Q_UNUSED(item)
-    return false;
+    return collection_->addNewPerson(item);
 }
 
 bool EdsContactEditor::addExisting(const Person* item)
@@ -285,11 +284,14 @@ void EdsContactBackend::parseContact(EContact *contact)
     EVCard *vcard = E_VCARD(contact);
     gchar *vcard_str = e_vcard_to_string(vcard, EVC_FORMAT_VCARD_30);
 
+    g_debug("got vcard:\n%s", vcard_str);
+
     /* check if this person already exists */
     Person *existing = nullptr;
 
     gchar *uid = (gchar *)e_contact_get(contact, E_CONTACT_UID);
     if (uid) {
+        g_warning("got uid: %s", uid);
         existing = PersonModel::instance()->getPersonByUid(uid);
         g_free(uid);
     }
@@ -433,7 +435,8 @@ bool EdsContactBackend::reload()
 FlagPack<CollectionInterface::SupportedFeatures> EdsContactBackend::supportedFeatures() const
 {
     return (CollectionInterface::SupportedFeatures::NONE |
-            CollectionInterface::SupportedFeatures::LOAD);
+            CollectionInterface::SupportedFeatures::LOAD |
+            CollectionInterface::SupportedFeatures::SAVE );
 }
 
 bool EdsContactBackend::clear()
@@ -446,4 +449,36 @@ QByteArray EdsContactBackend::id() const
     if (client_)
         return e_source_get_uid(e_client_get_source(client_.get()));
     return "edscb";
+}
+
+bool EdsContactBackend::addNewPerson(const Person *item)
+{
+    if (!client_) return false;
+
+
+    g_debug("new vcard:\n%s", item->toVCard().constData());
+
+    auto contact = e_contact_new_from_vcard(item->toVCard().constData());
+    gchar *uid = NULL;
+    GError *error = NULL;
+
+    bool ret = e_book_client_add_contact_sync(
+        E_BOOK_CLIENT(client_.get()),
+        contact,
+        &uid,
+        cancellable_.get(),
+        &error
+    );
+
+    if (error) {
+        g_warning("could not add contact to collection: %s", error->message);
+        g_clear_error(&error);
+    } else {
+        // item->setUid(uid);
+    }
+
+    g_free(uid);
+    g_object_unref(contact);
+
+    return ret;
 }

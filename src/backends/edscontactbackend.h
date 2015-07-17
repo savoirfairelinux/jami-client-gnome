@@ -90,6 +90,7 @@ public:
     void removeContacts(std::unique_ptr<GSList, void(*)(GSList *)> contacts);
     void parseContact(EContact *contact);
     void lastContactAdded();
+    bool addNewPerson(const Person *item);
 
 private:
    CollectionMediator<Person>*  mediator_;

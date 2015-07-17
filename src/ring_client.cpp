@@ -227,7 +227,7 @@ ring_client_startup(GApplication *app)
     /* add backends */
     CategorizedHistoryModel::instance()->addCollection<LocalHistoryCollection>(LoadOptions::FORCE_ENABLED);
 
-    PersonModel::instance()->addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
+    // PersonModel::instance()->addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
 
     /* TODO: should a local vcard location be added ?
      * PersonModel::instance()->addCollection<FallbackPersonCollection, QString>(

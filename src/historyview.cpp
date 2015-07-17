@@ -43,6 +43,7 @@
 #include <contactmethod.h>
 #include <QtCore/QDateTime> // for date time formatting
 #include <QtCore/QItemSelectionModel>
+#include "createcontactdialog.h"
 
 struct _HistoryView
 {
@@ -162,6 +163,16 @@ copy_history_item(G_GNUC_UNUSED GtkWidget *item, GtkTreeView *treeview)
  * }
  */
 
+static void
+create_new_contact(GtkWidget *item, ContactMethod *contactmethod)
+{
+    // we get the parent widget which should be stored in the item object
+    GtkWidget *parent = GTK_WIDGET(g_object_get_data(G_OBJECT(item), "parent-widget"));
+    auto dialog = create_contact_dialog_new(contactmethod, parent);
+    gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
+}
+
 static gboolean
 history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTreeView *treeview)
 {
@@ -189,11 +200,44 @@ history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTr
      * g_signal_connect(item, "activate", G_CALLBACK(delete_history_item), treeview);
      */
 
+    /* check if the selected item is a call, if so get the contact method and
+     * check if it is already linked to a person, if not, then offer to either
+     * add to a new or existing contact */
+    auto selection = gtk_tree_view_get_selection(treeview);
+    const auto& idx = get_index_from_selection(selection);
+    const auto& var_c = idx.data(static_cast<int>(Call::Role::Object));
+    if (idx.isValid() && var_c.isValid()) {
+        if (auto call = var_c.value<Call *>()) {
+            auto contactmethod = call->peerContactMethod();
+            if (!contactmethod->contact()) {
+                // contact method has no person associated with it
+                g_debug("no contact associated with contact method");
+
+                auto add_to = gtk_menu_item_new_with_mnemonic("_Add to");
+                gtk_menu_shell_append(GTK_MENU_SHELL(menu), add_to);
+
+                auto add_to_menu = gtk_menu_new();
+                gtk_menu_item_set_submenu(GTK_MENU_ITEM(add_to), add_to_menu);
+
+                auto existing = gtk_menu_item_new_with_mnemonic("_Existing contact");
+                gtk_menu_shell_append(GTK_MENU_SHELL(add_to_menu), existing);
+
+                auto new_contact = gtk_menu_item_new_with_mnemonic("_New contact");
+                gtk_menu_shell_append(GTK_MENU_SHELL(add_to_menu), new_contact);
+
+                /* save the parent treeview in the item object, so we can retrieve
+                 * it in the callback */
+                g_object_set_data(G_OBJECT(new_contact), "parent-widget", treeview);
+                g_signal_connect(new_contact, "activate", G_CALLBACK(create_new_contact), contactmethod);
+            }
+        }
+    }
+
     /* show menu */
     gtk_widget_show_all(menu);
     gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 
-    return FALSE; /* continue to default handler */
+    return TRUE;
 }
 
 static void
