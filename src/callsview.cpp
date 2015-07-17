@@ -37,6 +37,8 @@
 #include "utils/models.h"
 #include "delegates/pixbufdelegate.h"
 #include <QtCore/QSize>
+#include "defines.h"
+#include "utils/menus.h"
 
 struct _CallsView
 {
@@ -140,6 +142,44 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
     g_free(text);
+}
+
+static gboolean
+popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gpointer user_data)
+{
+    /* build popup menu when right clicking on a call
+     * user should be able to add the "number" to their contacts if it is not already so
+     */
+
+    /* check for right click */
+    if (event->button != BUTTON_RIGHT_CLICK || event->type != GDK_BUTTON_PRESS)
+        return FALSE;
+
+    GtkWidget *menu = gtk_menu_new();
+
+    /* get the call object from the selected item
+     * check if it is already linked to a person, if not, then offer to either
+     * add to a new or existing contact */
+    auto selection = gtk_tree_view_get_selection(treeview);
+    const auto& idx = get_index_from_selection(selection);
+    const auto& var_c = idx.data(static_cast<int>(Call::Role::Object));
+    if (idx.isValid() && var_c.isValid()) {
+        if (auto call = var_c.value<Call *>()) {
+            auto contactmethod = call->peerContactMethod();
+            if (!contact_method_has_contact(contactmethod)) {
+                auto add_to = menu_item_contact_add_to(contactmethod, GTK_WIDGET(treeview));
+                gtk_menu_shell_append(GTK_MENU_SHELL(menu), add_to);
+
+                /* no other items, so show menu here */
+                gtk_widget_show_all(menu);
+                gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+
+                return TRUE;
+            }
+        }
+    }
+
+    return FALSE;
 }
 
 static void
@@ -282,6 +322,8 @@ calls_view_init(CallsView *self)
 
     GtkTreeSelection *call_selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_calls));
     g_signal_connect(call_selection, "changed", G_CALLBACK(update_call_model_selection), NULL);
+
+    g_signal_connect(priv->treeview_calls, "button-press-event", G_CALLBACK(popup_menu), NULL);
 
     gtk_widget_show_all(GTK_WIDGET(self));
 }
