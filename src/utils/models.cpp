@@ -181,6 +181,8 @@ gtk_combo_box_set_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
     gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(box), renderer,
                                    "text", 0, NULL);
 
+    if (!selection_model) return connection;
+
    /* sync the initial selection */
    gtk_combo_box_set_active_index(box, selection_model->currentIndex());
 
