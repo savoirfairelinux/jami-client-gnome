@@ -157,7 +157,7 @@ notification_closed(NotifyNotification *notification, Call *call)
 }
 
 static gboolean
-ring_notify_message_recieved(Call *call, const QString& msg)
+ring_notify_message_recieved(Call *call, const QMap<QString,QString>& msg)
 {
     g_return_val_if_fail(call, FALSE);
     gboolean success = FALSE;
@@ -165,7 +165,7 @@ ring_notify_message_recieved(Call *call, const QString& msg)
     GHashTable *chat_table = ring_notify_get_chat_table();
 
     gchar *title = g_strdup_printf("%s says:", call->formattedName().toUtf8().constData());
-    gchar *body = g_strdup_printf("%s", msg.toUtf8().constData());
+    gchar *body = g_strdup_printf("%s", msg["text/plain"].toUtf8().constData());
 
     /* check if a notification already exists for this call */
     NotifyNotification *notification = (NotifyNotification *)g_hash_table_lookup(chat_table, call);
@@ -223,7 +223,7 @@ ring_notify_call_messages(Call *call, Media::Text *media, RingClient *client)
     QObject::connect(
         media,
         &Media::Text::messageReceived,
-        [call, client] (const QString& message) {
+        [call, client] (const QMap<QString,QString>& message) {
             g_return_if_fail(call && client);
             GtkWindow *main_window = ring_client_get_main_windw(client);
             if ( main_window && gtk_window_is_active(main_window)) {
