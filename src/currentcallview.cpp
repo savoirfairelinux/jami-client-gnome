@@ -150,7 +150,9 @@ send_chat(G_GNUC_UNUSED GtkWidget *widget, CurrentCallView *self)
     /* make sure there is text to send */
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(priv->entry_chat_input));
     if (text && strlen(text) > 0) {
-        priv->call->addOutgoingMedia<Media::Text>()->send(text);
+        QMap<QString, QString> messages;
+        messages["text/plain"] = text;
+        priv->call->addOutgoingMedia<Media::Text>()->send(messages);
         /* clear the entry */
         gtk_entry_set_text(GTK_ENTRY(priv->entry_chat_input), "");
     }
@@ -460,7 +462,7 @@ monitor_incoming_message(CurrentCallView *self, Media::Text *media)
     priv->incoming_msg_connection = QObject::connect(
         media,
         &Media::Text::messageReceived,
-        [priv] (G_GNUC_UNUSED const QString& message) {
+        [priv] (G_GNUC_UNUSED const QMap<QString,QString>& m) {
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
         }
     );
