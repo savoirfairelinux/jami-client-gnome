@@ -137,8 +137,17 @@ bool EdsContactEditor::edit( Person* item)
 
 bool EdsContactEditor::addNew(const Person* item)
 {
-    Q_UNUSED(item)
-    return false;
+    /* the const_cast is used here because the API of
+     * CollectionEditor::addNew takes a const item... but in this case the
+     * uid of the Person is determined by the backend, after it is saved
+     * and thus needs to be set by the backend
+     */
+    bool ret = collection_->addNewPerson(const_cast<Person *>(item));
+    if (ret) {
+        items_ << const_cast<Person*>(item);
+        mediator()->addItem(item);
+    }
+    return ret;
 }
 
 bool EdsContactEditor::addExisting(const Person* item)
@@ -290,6 +299,7 @@ void EdsContactBackend::parseContact(EContact *contact)
 
     gchar *uid = (gchar *)e_contact_get(contact, E_CONTACT_UID);
     if (uid) {
+        // g_warning("got uid: %s", uid);
         existing = PersonModel::instance()->getPersonByUid(uid);
         g_free(uid);
     }
@@ -433,7 +443,8 @@ bool EdsContactBackend::reload()
 FlagPack<CollectionInterface::SupportedFeatures> EdsContactBackend::supportedFeatures() const
 {
     return (CollectionInterface::SupportedFeatures::NONE |
-            CollectionInterface::SupportedFeatures::LOAD);
+            CollectionInterface::SupportedFeatures::LOAD |
+            CollectionInterface::SupportedFeatures::ADD  );
 }
 
 bool EdsContactBackend::clear()
@@ -446,4 +457,37 @@ QByteArray EdsContactBackend::id() const
     if (client_)
         return e_source_get_uid(e_client_get_source(client_.get()));
     return "edscb";
+}
+
+bool EdsContactBackend::addNewPerson(Person *item)
+{
+    if (!client_) return false;
+
+    auto contact = e_contact_new_from_vcard(item->toVCard().constData());
+    gchar *uid = NULL;
+    GError *error = NULL;
+
+    bool ret = e_book_client_add_contact_sync(
+        E_BOOK_CLIENT(client_.get()),
+        contact,
+        &uid,
+        cancellable_.get(),
+        &error
+    );
+
+    if (!ret) {
+        if (error) {
+            g_warning("could not add contact to collection: %s", error->message);
+            g_clear_error(&error);
+        } else {
+            g_warning("could not add contact to collection");
+        }
+    } else {
+        item->setUid(uid);
+    }
+
+    g_free(uid);
+    g_object_unref(contact);
+
+    return ret;
 }

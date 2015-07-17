@@ -13,5 +13,6 @@
     <file preprocess="xml-stripblanks">accountadvancedtab.ui</file>
     <file preprocess="xml-stripblanks">generalsettingsview.ui</file>
     <file preprocess="xml-stripblanks">accountsecuritytab.ui</file>
+    <file preprocess="xml-stripblanks">createcontactdialog.ui</file>
   </gresource>
 </gresources>

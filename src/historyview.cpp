@@ -43,6 +43,7 @@
 #include <contactmethod.h>
 #include <QtCore/QDateTime> // for date time formatting
 #include <QtCore/QItemSelectionModel>
+#include "utils/menus.h"
 
 struct _HistoryView
 {
@@ -189,11 +190,27 @@ history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTr
      * g_signal_connect(item, "activate", G_CALLBACK(delete_history_item), treeview);
      */
 
+    /* check if the selected item is a call, if so get the contact method and
+     * check if it is already linked to a person, if not, then offer to either
+     * add to a new or existing contact */
+    auto selection = gtk_tree_view_get_selection(treeview);
+    const auto& idx = get_index_from_selection(selection);
+    const auto& var_c = idx.data(static_cast<int>(Call::Role::Object));
+    if (idx.isValid() && var_c.isValid()) {
+        if (auto call = var_c.value<Call *>()) {
+            auto contactmethod = call->peerContactMethod();
+            if (!contact_method_has_contact(contactmethod)) {
+                auto add_to = menu_item_contact_add_to(contactmethod, GTK_WIDGET(treeview));
+                gtk_menu_shell_append(GTK_MENU_SHELL(menu), add_to);
+            }
+        }
+    }
+
     /* show menu */
     gtk_widget_show_all(menu);
     gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 
-    return FALSE; /* continue to default handler */
+    return TRUE;
 }
 
 static void

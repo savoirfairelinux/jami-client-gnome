@@ -45,6 +45,7 @@
 #include <QtCore/QStandardPaths>
 #include <localhistorycollection.h>
 #include <media/text.h>
+#include <numbercategorymodel.h>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
@@ -224,18 +225,19 @@ ring_client_startup(GApplication *app)
     /* FIXME: put in smart pointer? */
     new PixbufDelegate();
 
+    /* make sure basic number categories exist, in case user has no contacts
+     * from which these would be automatically created
+     */
+    NumberCategoryModel::instance()->addCategory("work", QVariant());
+    NumberCategoryModel::instance()->addCategory("home", QVariant());
+
     /* add backends */
     CategorizedHistoryModel::instance()->addCollection<LocalHistoryCollection>(LoadOptions::FORCE_ENABLED);
 
+    /* fallback backend for vcards */
     PersonModel::instance()->addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
 
-    /* TODO: should a local vcard location be added ?
-     * PersonModel::instance()->addCollection<FallbackPersonCollection, QString>(
-     *    QStandardPaths::writableLocation(QStandardPaths::DataLocation)+QLatin1Char('/')+"vcard",
-     *    LoadOptions::FORCE_ENABLED);
-     */
-
-    /* EDS backend */
+    /* EDS backend(s) */
     load_eds_sources(priv->cancellable);
 
     /* Override theme since we don't have appropriate icons for a dark them (yet) */
