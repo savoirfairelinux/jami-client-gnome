@@ -20,6 +20,9 @@ fedora_21:
 debian_8:
     debian: debian
     ccache: true
+debian_9:
+    debian: debian
+    ccache: true
 ubuntu_14.04_i386:
     debian: debian
     ccache: true
