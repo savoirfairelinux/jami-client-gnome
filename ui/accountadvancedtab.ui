@@ -68,28 +68,77 @@
                 <property name="margin_left">10</property>
                 <property name="margin_top">10</property>
                 <property name="spacing">10</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkLabel" id="label_registration_expire">
+                  <object class="GtkBox" id="box_registration_expire">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Registration expire timeout (seconds):</property>
+                    <property name="spacing">10</property>
+                    <child>
+                      <object class="GtkLabel" id="label_registration_expire">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Registration expire timeout (seconds):</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinButton" id="spinbutton_registration_expire">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="adjustment">adjustment_registration_timeout</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
                   </object>
-                  <packing>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="checkbutton_allow_incoming_unknown">
+                    <property name="label" translatable="yes">Allow calls from unknown peers</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="xalign">0</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                    <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkSpinButton" id="spinbutton_registration_expire">
+                  <object class="GtkCheckButton" id="checkbutton_allow_incoming_history">
+                    <property name="label" translatable="yes">Allow calls from peers in your call history</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="adjustment">adjustment_registration_timeout</property>
+                    <property name="receives_default">False</property>
+                    <property name="xalign">0</property>
+                    <property name="draw_indicator">True</property>
                   </object>
-                  <packing>
+                    <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="checkbutton_allow_incoming_contacts">
+                    <property name="label" translatable="yes">Allow calls from peers in your contacts list</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="xalign">0</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                    <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
                   </packing>
                 </child>
               </object>

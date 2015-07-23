@@ -50,7 +50,12 @@ struct _AccountAdvancedTabPrivate
     Account   *account;
     GtkWidget *vbox_main;
     GtkWidget *frame_registration;
+    GtkWidget *box_registration;
+    GtkWidget *box_registration_expire;
     GtkWidget *adjustment_registration_timeout;
+    GtkWidget *checkbutton_allow_incoming_unknown;
+    GtkWidget *checkbutton_allow_incoming_history;
+    GtkWidget *checkbutton_allow_incoming_contacts;
     GtkWidget *frame_network_interface;
     GtkWidget *box_network_interface;
     GtkWidget *checkbutton_use_random_port;
@@ -105,7 +110,12 @@ account_advanced_tab_class_init(AccountAdvancedTabClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, vbox_main);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, frame_registration);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, box_registration);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, box_registration_expire);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_registration_timeout);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, checkbutton_allow_incoming_unknown);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, checkbutton_allow_incoming_history);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, checkbutton_allow_incoming_contacts);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, frame_network_interface);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, box_network_interface);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, checkbutton_use_random_port);
@@ -272,6 +282,39 @@ video_port_max_changed(GtkAdjustment *adjustment, AccountAdvancedTab *self)
 }
 
 static void
+allow_from_unknown_toggled(GtkToggleButton *toggle_button, AccountAdvancedTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(self));
+    AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
+
+    gboolean allow = gtk_toggle_button_get_active(toggle_button);
+
+    priv->account->setAllowIncomingFromUnknown(allow);
+}
+
+static void
+allow_from_history_toggled(GtkToggleButton *toggle_button, AccountAdvancedTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(self));
+    AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
+
+    gboolean allow = gtk_toggle_button_get_active(toggle_button);
+
+    priv->account->setAllowIncomingFromHistory(allow);
+}
+
+static void
+allow_from_contacts_toggled(GtkToggleButton *toggle_button, AccountAdvancedTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(self));
+    AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
+
+    gboolean allow = gtk_toggle_button_get_active(toggle_button);
+
+    priv->account->setAllowIncomingFromContact(allow);
+}
+
+static void
 build_tab_view(AccountAdvancedTab *self)
 {
     g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(self));
@@ -280,16 +323,49 @@ build_tab_view(AccountAdvancedTab *self)
     /* check if its ip2ip account */
     const QByteArray& alias = priv->account->alias().toUtf8();
 
-    /* only show registration timeout for SIP account */
-    if ( (priv->account->protocol() != Account::Protocol::SIP)
-        || (strcmp(alias.constData(), "IP2IP") == 0) ) {
+    /* if account is IP2IP we don't need the registration box */
+    if (strcmp(alias.constData(), "IP2IP") == 0) {
         gtk_container_remove(GTK_CONTAINER(priv->vbox_main), priv->frame_registration);
         priv->frame_registration = NULL;
+        priv->box_registration = NULL;
+        priv->box_registration_expire = NULL;
+        priv->checkbutton_allow_incoming_unknown = NULL;
+        priv->checkbutton_allow_incoming_history = NULL;
+        priv->checkbutton_allow_incoming_contacts = NULL;
     } else {
-        gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_registration_timeout),
-                                 priv->account->registrationExpire());
-        g_signal_connect(priv->adjustment_registration_timeout,
-                         "value-changed", G_CALLBACK(registration_expire_changed), self);
+        /* only show registration timeout for SIP account */
+        if (priv->account->protocol() != Account::Protocol::SIP) {
+            gtk_container_remove(GTK_CONTAINER(priv->box_registration), priv->box_registration_expire);
+            priv->box_registration_expire = NULL;
+        } else {
+            gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_registration_timeout),
+                                     priv->account->registrationExpire());
+            g_signal_connect(priv->adjustment_registration_timeout,
+                             "value-changed", G_CALLBACK(registration_expire_changed), self);
+        }
+
+        /* only show allow call options for Ring accounts */
+        if (priv->account->protocol() != Account::Protocol::RING) {
+            gtk_container_remove(GTK_CONTAINER(priv->box_registration), priv->checkbutton_allow_incoming_unknown);
+            priv->checkbutton_allow_incoming_unknown = NULL;
+            gtk_container_remove(GTK_CONTAINER(priv->box_registration), priv->checkbutton_allow_incoming_history);
+            priv->checkbutton_allow_incoming_history = NULL;
+            gtk_container_remove(GTK_CONTAINER(priv->box_registration), priv->checkbutton_allow_incoming_contacts);
+            priv->checkbutton_allow_incoming_contacts = NULL;
+        } else {
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_allow_incoming_unknown),
+                                         priv->account->allowIncomingFromUnknown());
+            g_signal_connect(priv->checkbutton_allow_incoming_unknown,
+                             "toggled", G_CALLBACK(allow_from_unknown_toggled), self);
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_allow_incoming_history),
+                                         priv->account->allowIncomingFromHistory());
+            g_signal_connect(priv->checkbutton_allow_incoming_history,
+                             "toggled", G_CALLBACK(allow_from_history_toggled), self);
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_allow_incoming_contacts),
+                                         priv->account->allowIncomingFromContact());
+            g_signal_connect(priv->checkbutton_allow_incoming_contacts,
+                             "toggled", G_CALLBACK(allow_from_contacts_toggled), self);
+        }
     }
 
     /* local port */
@@ -381,10 +457,22 @@ build_tab_view(AccountAdvancedTab *self)
         &Account::changed,
         [=] () {
             /* only show registration timeout for SIP account */
-            if ( priv->frame_registration ) {
+            if ( priv->box_registration_expire ) {
                 gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_registration_timeout),
                                         priv->account->registrationExpire());
             }
+
+            if (priv->checkbutton_allow_incoming_unknown)
+                gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_allow_incoming_unknown),
+                                             priv->account->allowIncomingFromUnknown());
+
+            if (priv->checkbutton_allow_incoming_history)
+                gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_allow_incoming_history),
+                                             priv->account->allowIncomingFromHistory());
+
+            if (priv->checkbutton_allow_incoming_contacts)
+                gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_allow_incoming_contacts),
+                                             priv->account->allowIncomingFromContact());
 
             /* local port */
             if (priv->account->protocol() != Account::Protocol::RING) {
