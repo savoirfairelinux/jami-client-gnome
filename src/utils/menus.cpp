@@ -31,7 +31,7 @@
 #include "menus.h"
 
 #include <contactmethod.h>
-#include "../createcontactdialog.h"
+#include "../choosecontactdialog.h"
 
 /**
  * checks if the given contact method is already associated with a contact
@@ -49,7 +49,7 @@ create_new_contact(GtkWidget *item, ContactMethod *contactmethod)
 {
     // we get the parent widget which should be stored in the item object
     GtkWidget *parent = GTK_WIDGET(g_object_get_data(G_OBJECT(item), "parent-widget"));
-    auto dialog = create_contact_dialog_new(contactmethod, parent);
+    auto dialog = choose_contact_dialog_new(contactmethod, parent);
     gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
 }
