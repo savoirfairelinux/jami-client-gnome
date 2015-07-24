@@ -194,7 +194,7 @@ create_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gp
      if (idx.isValid() && var_cm.isValid()) {
          if (auto contactmethod = var_cm.value<ContactMethod *>()) {
              if (!contact_method_has_contact(contactmethod)) {
-                 auto add_to = menu_item_contact_add_to(contactmethod, GTK_WIDGET(treeview));
+                 auto add_to = menu_item_add_to_contact(contactmethod, GTK_WIDGET(treeview));
                  gtk_menu_shell_append(GTK_MENU_SHELL(menu), add_to);
              }
          }

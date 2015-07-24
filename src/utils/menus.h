@@ -43,11 +43,9 @@ class ContactMethod;
 gboolean    contact_method_has_contact(ContactMethod *cm);
 
 /**
- * creates a menu item with 2 options:
- *  - create a new contact with the given contact method
- *  TODO: - add given contact method to existing contact
+ * creates a menu item allowing the adition of a contact method to a contact
  */
-GtkWidget * menu_item_contact_add_to(ContactMethod *cm, GtkWidget *parent);
+GtkWidget * menu_item_add_to_contact(ContactMethod *cm, GtkWidget *parent);
 
 G_END_DECLS
 
