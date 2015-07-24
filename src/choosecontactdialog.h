@@ -28,46 +28,27 @@
  *  as that of the covered work.
  */
 
-#include "menus.h"
+#ifndef _CHOOSECONTACTDIALOG_H
+#define _CHOOSECONTACTDIALOG_H
 
-#include <contactmethod.h>
-#include "../choosecontactdialog.h"
+#include <gtk/gtk.h>
 
-/**
- * checks if the given contact method is already associated with a contact
- */
-gboolean
-contact_method_has_contact(ContactMethod *cm)
-{
-    g_return_val_if_fail(cm, FALSE);
+G_BEGIN_DECLS
 
-    return cm->contact() != NULL;
-}
+class ContactMethod;
 
-static void
-choose_contact(GtkWidget *item, ContactMethod *contactmethod)
-{
-    // we get the parent widget which should be stored in the item object
-    GtkWidget *parent = GTK_WIDGET(g_object_get_data(G_OBJECT(item), "parent-widget"));
-    auto dialog = choose_contact_dialog_new(contactmethod, parent);
-    gtk_dialog_run(GTK_DIALOG(dialog));
-    gtk_widget_destroy(dialog);
-}
+#define CHOOSE_CONTACT_DIALOG_TYPE            (choose_contact_dialog_get_type ())
+#define CHOOSE_CONTACT_DIALOG(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CHOOSE_CONTACT_DIALOG_TYPE, ChooseContactDialog))
+#define CHOOSE_CONTACT_DIALOG_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), CHOOSE_CONTACT_DIALOG_TYPE, ChooseContactDialogClass))
+#define IS_CHOOSE_CONTACT_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), CHOOSE_CONTACT_DIALOG_TYPE))
+#define IS_CHOOSE_CONTACT_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), CHOOSE_CONTACT_DIALOG_TYPE))
 
-/**
- * creates a menu item allowing the adition of a contact method to a contact
- */
-GtkWidget * menu_item_add_to_contact(ContactMethod *cm, GtkWidget *parent)
-{
-    g_return_val_if_fail(cm, NULL);
+typedef struct _ChooseContactDialog      ChooseContactDialog;
+typedef struct _ChooseContactDialogClass ChooseContactDialogClass;
 
-    auto add_to = gtk_menu_item_new_with_mnemonic("_Add to contact");
+GType      choose_contact_dialog_get_type  (void) G_GNUC_CONST;
+GtkWidget *choose_contact_dialog_new       (ContactMethod *cm, GtkWidget *parent);
 
-    /* save the parent widget in the item object, so we can retrieve
-     * it in the callback */
-    g_object_set_data(G_OBJECT(add_to), "parent-widget", parent);
+G_END_DECLS
 
-    g_signal_connect(add_to, "activate", G_CALLBACK(choose_contact), cm);
-
-    return add_to;
-}
+#endif /* _CHOOSECONTACTDIALOG_H */
