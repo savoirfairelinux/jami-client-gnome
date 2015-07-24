@@ -28,8 +28,8 @@
  *  as that of the covered work.
  */
 
-#ifndef _MENUS_H
-#define _MENUS_H
+#ifndef _CONTACTPOPOVER_H
+#define _CONTACTPOPOVER_H
 
 #include <gtk/gtk.h>
 
@@ -37,16 +37,25 @@ G_BEGIN_DECLS
 
 class ContactMethod;
 
-/**
- * checks if the given contact method is already associated with a contact
- */
-gboolean    contact_method_has_contact(ContactMethod *cm);
+#define CONTACT_POPOVER_TYPE            (contact_popover_get_type ())
+#define CONTACT_POPOVER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CONTACT_POPOVER_TYPE, ContactPopover))
+#define CONTACT_POPOVER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), CONTACT_POPOVER_TYPE, ContactPopoverClass))
+#define IS_CONTACT_POPOVER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), CONTACT_POPOVER_TYPE))
+#define IS_CONTACT_POPOVER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), CONTACT_POPOVER_TYPE))
+
+typedef struct _ContactPopover      ContactPopover;
+typedef struct _ContactPopoverClass ContactPopoverClass;
+
+GType      contact_popover_get_type  (void) G_GNUC_CONST;
 
 /**
- * creates a menu item allowing the adition of a contact method to a contact
+ * For gtk+ >= 3.12 this will create a GtkPopover pointing to the parent and if
+ * given, the GdkRectangle. Otherwise, this will create a GtkWindow of type
+ * "popup" which will be centered on the toplevel window of the given parent.
+ * This is to ensure cmpatibility with gtk+3.10.
  */
-GtkWidget * menu_item_add_to_contact(ContactMethod *cm, GtkWidget *parent, const GdkRectangle *rect);
+GtkWidget *contact_popover_new       (ContactMethod *cm, GtkWidget *parent, GdkRectangle *rect);
 
 G_END_DECLS
 
-#endif /* _MENUS_H */
+#endif /* _CONTACTPOPOVER_H */
