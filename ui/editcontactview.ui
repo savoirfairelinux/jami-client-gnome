@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.10"/>
+  <template class="EditContactView" parent="GtkGrid">
+    <property name="visible">True</property>
+    <property name="row-spacing">10</property>
+    <property name="column-spacing">10</property>
+    <child>
+      <object class="GtkComboBox" id="combobox_addressbook">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text" translatable="yes">Select addressbook</property>
+        <child internal-child="accessible">
+          <object class="AtkObject" id="combobox_addressbook-atkobject">
+            <property name="AtkObject::accessible-name" translatable="yes">Addressbook</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">0</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="entry_name">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="placeholder-text" translatable="yes">Name</property>
+        <child internal-child="accessible">
+          <object class="AtkObject" id="entry_name-atkobject">
+            <property name="AtkObject::accessible-name" translatable="yes">Contact name</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">1</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkComboBox" id="combobox_detail">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="has_tooltip">True</property>
+        <property name="tooltip_text" translatable="yes">Select how this number will be categorized</property>
+        <child internal-child="accessible">
+          <object class="AtkObject" id="comboboxtext_detail-atkobject">
+            <property name="AtkObject::accessible-name" translatable="yes">Number category</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_uri">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="ellipsize">PANGO_ELLIPSIZE_END</property>
+        <property name="halign">start</property>
+        <property name="selectable">True</property>
+        <property name="tooltip_text" translatable="yes">Number or Ring ID to be added</property>
+        <property name="width-chars">20</property>
+        <property name="max-width-chars">20</property>
+        <property name="xalign">0.5</property>
+        <child internal-child="accessible">
+          <object class="AtkObject" id="label_uri-atkobject">
+            <property name="AtkObject::accessible-name" translatable="yes">Number or Ring ID</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left-attach">1</property>
+        <property name="top-attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="button_save">
+        <property name="label" translatable="yes">Save</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">3</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+  </template>
+</interface>

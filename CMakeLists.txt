@@ -229,12 +229,16 @@ SET( SRC_FILES
    src/utils/files.h
    src/utils/files.cpp
    ${GIT_REVISION_OUTPUT_FILE}
-   src/createcontactdialog.h
-   src/createcontactdialog.cpp
    src/utils/menus.h
    src/utils/menus.cpp
    src/utils/accounts.h
    src/utils/accounts.cpp
+   src/contactpopover.h
+   src/contactpopover.cpp
+   src/choosecontactview.h
+   src/choosecontactview.cpp
+   src/editcontactview.h
+   src/editcontactview.cpp
 )
 
 # compile glib resource files to c code
