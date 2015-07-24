@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_bb0a88d0",
+        "filename": "src/callsview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 32
+      },
+      "writtenOn": "2015-07-24T13:41:50Z",
+      "side": 1,
+      "message": "Wouldnt it be better to name it contact_popup_menu(..) ?",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 10
+      },
+      "revId": "66bf05de1a98f40b667fae3b5858be93e6f60d05",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_7b1410f5",
+        "filename": "src/frequentcontactsview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 32
+      },
+      "writtenOn": "2015-07-24T13:41:50Z",
+      "side": 1,
+      "message": "same ?",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 10
+      },
+      "revId": "66bf05de1a98f40b667fae3b5858be93e6f60d05",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_5bf94cc7",
+        "filename": "src/ring_client.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 32
+      },
+      "writtenOn": "2015-07-24T13:41:50Z",
+      "side": 1,
+      "message": "crEated (i can be a typo nazi too :)",
+      "range": {
+        "startLine": 229,
+        "startChar": 47,
+        "endLine": 229,
+        "endChar": 53
+      },
+      "revId": "66bf05de1a98f40b667fae3b5858be93e6f60d05",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
