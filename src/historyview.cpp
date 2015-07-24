@@ -200,7 +200,16 @@ history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTr
         if (auto call = var_c.value<Call *>()) {
             auto contactmethod = call->peerContactMethod();
             if (!contact_method_has_contact(contactmethod)) {
-                auto add_to = menu_item_contact_add_to(contactmethod, GTK_WIDGET(treeview));
+                GtkTreeIter iter;
+                GtkTreeModel *model;
+                gtk_tree_selection_get_selected(selection, &model, &iter);
+                auto path = gtk_tree_model_get_path(model, &iter);
+                auto column = gtk_tree_view_get_column(treeview, 0);
+                GdkRectangle rect;
+                gtk_tree_view_get_cell_area(treeview, path, column, &rect);
+                gtk_tree_view_convert_bin_window_to_widget_coords(treeview, rect.x, rect.y, &rect.x, &rect.y);
+                gtk_tree_path_free(path);
+                auto add_to = menu_item_add_to_contact(contactmethod, GTK_WIDGET(treeview), &rect);
                 gtk_menu_shell_append(GTK_MENU_SHELL(menu), add_to);
             }
         }

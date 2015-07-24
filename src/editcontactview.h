@@ -28,25 +28,34 @@
  *  as that of the covered work.
  */
 
-#ifndef _MENUS_H
-#define _MENUS_H
+#ifndef _EDITCONTACTVIEW_H
+#define _EDITCONTACTVIEW_H
 
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
 class ContactMethod;
+class Person;
+
+#define EDIT_CONTACT_VIEW_TYPE            (edit_contact_view_get_type ())
+#define EDIT_CONTACT_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EDIT_CONTACT_VIEW_TYPE, EditContactView))
+#define EDIT_CONTACT_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), EDIT_CONTACT_VIEW_TYPE, EditContactViewClass))
+#define IS_EDIT_CONTACT_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), EDIT_CONTACT_VIEW_TYPE))
+#define IS_EDIT_CONTACT_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), EDIT_CONTACT_VIEW_TYPE))
+
+typedef struct _EditContactView      EditContactView;
+typedef struct _EditContactViewClass EditContactViewClass;
+
+GType      edit_contact_view_get_type(void) G_GNUC_CONST;
 
 /**
- * checks if the given contact method is already associated with a contact
+ * If a Person is specified, a view to edit the given Person will be created;
+ * if no Person is given (NULL), then a new Person object will be created when
+ * 'save' is clicked
  */
-gboolean    contact_method_has_contact(ContactMethod *cm);
-
-/**
- * creates a menu item allowing the adition of a contact method to a contact
- */
-GtkWidget * menu_item_add_to_contact(ContactMethod *cm, GtkWidget *parent, const GdkRectangle *rect);
+GtkWidget *edit_contact_view_new     (ContactMethod *cm, Person *p);
 
 G_END_DECLS
 
-#endif /* _MENUS_H */
+#endif /* _EDITCONTACTVIEW_H */
