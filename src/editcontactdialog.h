@@ -28,27 +28,29 @@
  *  as that of the covered work.
  */
 
-#ifndef _CREATECONTACTDIALOG_H
-#define _CREATECONTACTDIALOG_H
+#ifndef _EDITCONTACTDIALOG_H
+#define _EDITCONTACTDIALOG_H
 
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
 class ContactMethod;
+class Person;
 
-#define CREATE_CONTACT_DIALOG_TYPE            (create_contact_dialog_get_type ())
-#define CREATE_CONTACT_DIALOG(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CREATE_CONTACT_DIALOG_TYPE, CreateContactDialog))
-#define CREATE_CONTACT_DIALOG_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), CREATE_CONTACT_DIALOG_TYPE, CreateContactDialogClass))
-#define IS_CREATE_CONTACT_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), CREATE_CONTACT_DIALOG_TYPE))
-#define IS_CREATE_CONTACT_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), CREATE_CONTACT_DIALOG_TYPE))
+#define EDIT_CONTACT_DIALOG_TYPE            (edit_contact_dialog_get_type ())
+#define EDIT_CONTACT_DIALOG(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EDIT_CONTACT_DIALOG_TYPE, EditContactDialog))
+#define EDIT_CONTACT_DIALOG_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), EDIT_CONTACT_DIALOG_TYPE, EditContactDialogClass))
+#define IS_EDIT_CONTACT_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), EDIT_CONTACT_DIALOG_TYPE))
+#define IS_EDIT_CONTACT_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), EDIT_CONTACT_DIALOG_TYPE))
 
-typedef struct _CreateContactDialog      CreateContactDialog;
-typedef struct _CreateContactDialogClass CreateContactDialogClass;
+typedef struct _EditContactDialog      EditContactDialog;
+typedef struct _EditContactDialogClass EditContactDialogClass;
 
-GType      create_contact_dialog_get_type  (void) G_GNUC_CONST;
-GtkWidget *create_contact_dialog_new       (ContactMethod *cm, GtkWidget *parent);
+GType      edit_contact_dialog_get_type(void) G_GNUC_CONST;
+GtkWidget *create_contact_dialog_new   (ContactMethod *cm, GtkWidget *parent);
+GtkWidget *edit_contact_dialog_new     (ContactMethod *cm, Person *p, GtkWidget *parent);
 
 G_END_DECLS
 
-#endif /* _CREATECONTACTDIALOG_H */
+#endif /* _EDITCONTACTDIALOG_H */
