@@ -28,8 +28,8 @@
  *  as that of the covered work.
  */
 
-#ifndef _CREATECONTACTDIALOG_H
-#define _CREATECONTACTDIALOG_H
+#ifndef _CHOOSECONTACTVIEW_H
+#define _CHOOSECONTACTVIEW_H
 
 #include <gtk/gtk.h>
 
@@ -37,18 +37,18 @@ G_BEGIN_DECLS
 
 class ContactMethod;
 
-#define CREATE_CONTACT_DIALOG_TYPE            (create_contact_dialog_get_type ())
-#define CREATE_CONTACT_DIALOG(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CREATE_CONTACT_DIALOG_TYPE, CreateContactDialog))
-#define CREATE_CONTACT_DIALOG_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), CREATE_CONTACT_DIALOG_TYPE, CreateContactDialogClass))
-#define IS_CREATE_CONTACT_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), CREATE_CONTACT_DIALOG_TYPE))
-#define IS_CREATE_CONTACT_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), CREATE_CONTACT_DIALOG_TYPE))
+#define CHOOSE_CONTACT_VIEW_TYPE            (choose_contact_view_get_type ())
+#define CHOOSE_CONTACT_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CHOOSE_CONTACT_VIEW_TYPE, ChooseContactView))
+#define CHOOSE_CONTACT_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), CHOOSE_CONTACT_VIEW_TYPE, ChooseContactViewClass))
+#define IS_CHOOSE_CONTACT_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), CHOOSE_CONTACT_VIEW_TYPE))
+#define IS_CHOOSE_CONTACT_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), CHOOSE_CONTACT_VIEW_TYPE))
 
-typedef struct _CreateContactDialog      CreateContactDialog;
-typedef struct _CreateContactDialogClass CreateContactDialogClass;
+typedef struct _ChooseContactView      ChooseContactView;
+typedef struct _ChooseContactViewClass ChooseContactViewClass;
 
-GType      create_contact_dialog_get_type  (void) G_GNUC_CONST;
-GtkWidget *create_contact_dialog_new       (ContactMethod *cm, GtkWidget *parent);
+GType      choose_contact_view_get_type  (void) G_GNUC_CONST;
+GtkWidget *choose_contact_view_new       (ContactMethod *cm);
 
 G_END_DECLS
 
-#endif /* _CREATECONTACTDIALOG_H */
+#endif /* _CHOOSECONTACTVIEW_H */

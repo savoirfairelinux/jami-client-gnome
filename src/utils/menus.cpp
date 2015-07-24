@@ -31,7 +31,7 @@
 #include "menus.h"
 
 #include <contactmethod.h>
-#include "../createcontactdialog.h"
+#include "../contactpopover.h"
 
 /**
  * checks if the given contact method is already associated with a contact
@@ -45,41 +45,38 @@ contact_method_has_contact(ContactMethod *cm)
 }
 
 static void
-create_new_contact(GtkWidget *item, ContactMethod *contactmethod)
+choose_contact(GtkWidget *item, ContactMethod *contactmethod)
 {
     // we get the parent widget which should be stored in the item object
-    GtkWidget *parent = GTK_WIDGET(g_object_get_data(G_OBJECT(item), "parent-widget"));
-    auto dialog = create_contact_dialog_new(contactmethod, parent);
-    gtk_dialog_run(GTK_DIALOG(dialog));
-    gtk_widget_destroy(dialog);
+    auto parent = g_object_get_data(G_OBJECT(item), "parent-widget");
+    auto rect = g_object_get_data(G_OBJECT(item), "parent-rectangle");
+
+    auto popover = contact_popover_new(contactmethod, GTK_WIDGET(parent), (GdkRectangle *)rect);
+
+    gtk_widget_show(popover);
 }
 
 /**
- * creates a menu item with 2 options:
- *  - create a new contact with the given contact method
- *  TODO: - add given contact method to existing contact
+ * creates a menu item allowing the adition of a contact method to a contact
  */
-GtkWidget * menu_item_contact_add_to(ContactMethod *cm, GtkWidget *parent)
+GtkWidget * menu_item_add_to_contact(ContactMethod *cm, GtkWidget *parent, const GdkRectangle *rect)
 {
     g_return_val_if_fail(cm, NULL);
 
-    auto add_to = gtk_menu_item_new_with_mnemonic("_Add to");
-
-    auto add_to_menu = gtk_menu_new();
-    gtk_menu_item_set_submenu(GTK_MENU_ITEM(add_to), add_to_menu);
-
-    /* TODO: uncomment when feature added */
-    // auto existing = gtk_menu_item_new_with_mnemonic("_Existing contact");
-    // gtk_menu_shell_append(GTK_MENU_SHELL(add_to_menu), existing);
-
-    auto new_contact = gtk_menu_item_new_with_mnemonic("_New contact");
-    gtk_menu_shell_append(GTK_MENU_SHELL(add_to_menu), new_contact);
+    auto add_to = gtk_menu_item_new_with_mnemonic("_Add to contact");
 
     /* save the parent widget in the item object, so we can retrieve
      * it in the callback */
-    g_object_set_data(G_OBJECT(new_contact), "parent-widget", parent);
+    g_object_set_data(G_OBJECT(add_to), "parent-widget", parent);
 
-    g_signal_connect(new_contact, "activate", G_CALLBACK(create_new_contact), cm);
+    GdkRectangle *copy_rect = NULL;
+    if (rect) {
+        copy_rect = g_new0(GdkRectangle, 1);
+        memcpy(copy_rect, rect, sizeof(GdkRectangle));
+    }
+    g_object_set_data_full(G_OBJECT(add_to), "parent-rectangle", copy_rect, (GDestroyNotify)g_free);
+
+    g_signal_connect(add_to, "activate", G_CALLBACK(choose_contact), cm);
 
     return add_to;
 }
