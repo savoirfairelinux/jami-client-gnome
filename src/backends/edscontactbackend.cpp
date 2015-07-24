@@ -119,8 +119,7 @@ EdsContactEditor::~EdsContactEditor()
 
 bool EdsContactEditor::save(const Person* item)
 {
-    Q_UNUSED(item)
-    return false;
+    return collection_->savePerson(item);
 }
 
 bool EdsContactEditor::remove(const Person* item)
@@ -439,7 +438,8 @@ FlagPack<CollectionInterface::SupportedFeatures> EdsContactBackend::supportedFea
 {
     return (CollectionInterface::SupportedFeatures::NONE |
             CollectionInterface::SupportedFeatures::LOAD |
-            CollectionInterface::SupportedFeatures::ADD  );
+            CollectionInterface::SupportedFeatures::ADD  |
+            CollectionInterface::SupportedFeatures::SAVE );
 }
 
 bool EdsContactBackend::clear()
@@ -456,12 +456,14 @@ QByteArray EdsContactBackend::id() const
 
 bool EdsContactBackend::addNewPerson(Person *item)
 {
-    if (!client_) return false;
+    g_return_val_if_fail(client_.get(), false);
 
     auto contact = e_contact_new_from_vcard(item->toVCard().constData());
     gchar *uid = NULL;
     GError *error = NULL;
 
+    /* FIXME: this methods returns True for a google addressbook, but it never
+     * actually adds the new contact... not clear if this is possible */
     bool ret = e_book_client_add_contact_sync(
         E_BOOK_CLIENT(client_.get()),
         contact,
@@ -482,6 +484,39 @@ bool EdsContactBackend::addNewPerson(Person *item)
     }
 
     g_free(uid);
+    g_object_unref(contact);
+
+    return ret;
+}
+
+bool EdsContactBackend::savePerson(const Person *item)
+{
+    g_return_val_if_fail(client_.get(), false);
+
+    g_debug("saving person");
+
+    auto contact = e_contact_new_from_vcard(item->toVCard().constData());
+    GError *error = NULL;
+
+    /* FIXME: this methods fails for a google addressbook, not clear if it is
+     * possible to edit a google address book... gnome contacts simply creates
+     * a local contact with the same uid */
+    bool ret = e_book_client_modify_contact_sync(
+        E_BOOK_CLIENT(client_.get()),
+        contact,
+        cancellable_.get(),
+        &error
+    );
+
+    if (!ret) {
+        if (error) {
+            g_warning("could not modify contact: %s", error->message);
+            g_clear_error(&error);
+        } else {
+            g_warning("could not modify contact");
+        }
+    }
+
     g_object_unref(contact);
 
     return ret;
