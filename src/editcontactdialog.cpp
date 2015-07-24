@@ -28,26 +28,26 @@
  *  as that of the covered work.
  */
 
-#include "createcontactdialog.h"
+#include "editcontactdialog.h"
 
 #include <contactmethod.h>
 #include <personmodel.h>
 #include <numbercategorymodel.h>
 #include "utils/models.h"
 
-struct _CreateContactDialog
+struct _EditContactDialog
 {
     GtkDialog parent;
 };
 
-struct _CreateContactDialogClass
+struct _EditContactDialogClass
 {
     GtkDialogClass parent_class;
 };
 
-typedef struct _CreateContactDialogPrivate CreateContactDialogPrivate;
+typedef struct _EditContactDialogPrivate EditContactDialogPrivate;
 
-struct _CreateContactDialogPrivate
+struct _EditContactDialogPrivate
 {
     GtkWidget *button_save;
     GtkWidget *button_cancel;
@@ -57,33 +57,28 @@ struct _CreateContactDialogPrivate
     GtkWidget *entry_contactmethod;
 
     ContactMethod *cm;
+    Person        *person;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(CreateContactDialog, create_contact_dialog, GTK_TYPE_DIALOG);
+G_DEFINE_TYPE_WITH_PRIVATE(EditContactDialog, edit_contact_dialog, GTK_TYPE_DIALOG);
 
-#define CREATE_CONTACT_DIALOG_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CREATE_CONTACT_DIALOG_TYPE, CreateContactDialogPrivate))
+#define EDIT_CONTACT_DIALOG_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), EDIT_CONTACT_DIALOG_TYPE, EditContactDialogPrivate))
 
 static void
-save_cb(G_GNUC_UNUSED GtkButton *button, CreateContactDialog *self)
+save_cb(G_GNUC_UNUSED GtkButton *button, EditContactDialog *self)
 {
-    g_return_if_fail(IS_CREATE_CONTACT_DIALOG(self));
-    CreateContactDialogPrivate *priv = CREATE_CONTACT_DIALOG_GET_PRIVATE(self);
+    g_return_if_fail(IS_EDIT_CONTACT_DIALOG(self));
+    EditContactDialogPrivate *priv = EDIT_CONTACT_DIALOG_GET_PRIVATE(self);
 
-    /* make sure that the entry is not empty */
     auto name = gtk_entry_get_text(GTK_ENTRY(priv->entry_name));
-    if (!name or strlen(name) == 0) {
-        g_warning("new contact must have a name");
-        gtk_widget_grab_focus(priv->entry_name);
-        return;
+    if (!priv->person) {
+        /* make sure that the entry is not empty */
+        if (!name or strlen(name) == 0) {
+            g_warning("new contact must have a name");
+            gtk_widget_grab_focus(priv->entry_name);
+            return;
+        }
     }
-
-    /* get the selected collection */
-    GtkTreeIter iter;
-    gtk_combo_box_get_active_iter(GTK_COMBO_BOX(priv->combobox_addressbook), &iter);
-    auto addressbook_model = gtk_combo_box_get_model(GTK_COMBO_BOX(priv->combobox_addressbook));
-    GValue value = G_VALUE_INIT;
-    gtk_tree_model_get_value(addressbook_model, &iter, 1, &value);
-    auto collection = (CollectionInterface *)g_value_get_pointer(&value);
 
     /* get the selected number category */
     const auto& idx = gtk_combo_box_get_index(GTK_COMBO_BOX(priv->combobox_detail));
@@ -92,32 +87,47 @@ save_cb(G_GNUC_UNUSED GtkButton *button, CreateContactDialog *self)
         priv->cm->setCategory(category);
     }
 
-    /* create a new person */
-    Person *p = new Person(collection);
-    p->setFormattedName(name);
+    if (!priv->person) {
+        /* get the selected collection */
+        GtkTreeIter iter;
+        gtk_combo_box_get_active_iter(GTK_COMBO_BOX(priv->combobox_addressbook), &iter);
+        auto addressbook_model = gtk_combo_box_get_model(GTK_COMBO_BOX(priv->combobox_addressbook));
+        GValue value = G_VALUE_INIT;
+        gtk_tree_model_get_value(addressbook_model, &iter, 1, &value);
+        auto collection = (CollectionInterface *)g_value_get_pointer(&value);
 
-    /* associate the new person with the contact method */
-    Person::ContactMethods numbers;
-    numbers << priv->cm;
-    p->setContactMethods(numbers);
+        /* create a new person */
+        priv->person = new Person(collection);
+        priv->person->setFormattedName(name);
 
-    PersonModel::instance()->addNewPerson(p, collection);
+        /* associate the new person with the contact method */
+        Person::ContactMethods numbers;
+        numbers << priv->cm;
+        priv->person->setContactMethods(numbers);
+
+        PersonModel::instance()->addNewPerson(priv->person, collection);
+    } else {
+        auto numbers = priv->person->phoneNumbers();
+        numbers << priv->cm;
+        priv->person->setContactMethods(numbers);
+        priv->person->save();
+    }
 
     gtk_dialog_response(GTK_DIALOG(self), GTK_RESPONSE_OK);
 }
 
 static void
-cancel_cb(G_GNUC_UNUSED GtkButton *button, CreateContactDialog *self)
+cancel_cb(G_GNUC_UNUSED GtkButton *button, EditContactDialog *self)
 {
     gtk_dialog_response(GTK_DIALOG(self), GTK_RESPONSE_CANCEL);
 }
 
 static void
-create_contact_dialog_init(CreateContactDialog *self)
+edit_contact_dialog_init(EditContactDialog *self)
 {
     gtk_widget_init_template(GTK_WIDGET(self));
 
-    CreateContactDialogPrivate *priv = CREATE_CONTACT_DIALOG_GET_PRIVATE(self);
+    EditContactDialogPrivate *priv = EDIT_CONTACT_DIALOG_GET_PRIVATE(self);
 
     /* model for the combobox for the choice of addressbooks */
     auto addressbook_model = gtk_list_store_new(
@@ -166,32 +176,32 @@ create_contact_dialog_init(CreateContactDialog *self)
 }
 
 static void
-create_contact_dialog_dispose(GObject *object)
+edit_contact_dialog_dispose(GObject *object)
 {
-    G_OBJECT_CLASS(create_contact_dialog_parent_class)->dispose(object);
+    G_OBJECT_CLASS(edit_contact_dialog_parent_class)->dispose(object);
 }
 
 static void
-create_contact_dialog_finalize(GObject *object)
+edit_contact_dialog_finalize(GObject *object)
 {
-    G_OBJECT_CLASS(create_contact_dialog_parent_class)->finalize(object);
+    G_OBJECT_CLASS(edit_contact_dialog_parent_class)->finalize(object);
 }
 
 static void
-create_contact_dialog_class_init(CreateContactDialogClass *klass)
+edit_contact_dialog_class_init(EditContactDialogClass *klass)
 {
-    G_OBJECT_CLASS(klass)->finalize = create_contact_dialog_finalize;
-    G_OBJECT_CLASS(klass)->dispose = create_contact_dialog_dispose;
+    G_OBJECT_CLASS(klass)->finalize = edit_contact_dialog_finalize;
+    G_OBJECT_CLASS(klass)->dispose = edit_contact_dialog_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS(klass),
-                                                "/cx/ring/RingGnome/createcontactdialog.ui");
+                                                "/cx/ring/RingGnome/editcontactdialog.ui");
 
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), CreateContactDialog, button_save);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), CreateContactDialog, button_cancel);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), CreateContactDialog, combobox_addressbook);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), CreateContactDialog, entry_name);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), CreateContactDialog, combobox_detail);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), CreateContactDialog, entry_contactmethod);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), EditContactDialog, button_save);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), EditContactDialog, button_cancel);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), EditContactDialog, combobox_addressbook);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), EditContactDialog, entry_name);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), EditContactDialog, combobox_detail);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), EditContactDialog, entry_contactmethod);
 }
 
 GtkWidget *
@@ -208,13 +218,49 @@ create_contact_dialog_new(ContactMethod *cm, GtkWidget *parent)
         }
     }
 
-    gpointer self = g_object_new(CREATE_CONTACT_DIALOG_TYPE, "transient-for", parent, NULL);
+    gpointer self = g_object_new(EDIT_CONTACT_DIALOG_TYPE, "transient-for", parent, NULL);
 
-    CreateContactDialogPrivate *priv = CREATE_CONTACT_DIALOG_GET_PRIVATE(self);
+    EditContactDialogPrivate *priv = EDIT_CONTACT_DIALOG_GET_PRIVATE(self);
 
     priv->cm = cm;
     gtk_entry_set_text(GTK_ENTRY(priv->entry_contactmethod), cm->uri().toUtf8().constData());
     gtk_entry_set_width_chars(GTK_ENTRY(priv->entry_contactmethod), cm->uri().toUtf8().size());
+
+    return (GtkWidget *)self;
+}
+
+GtkWidget *
+edit_contact_dialog_new(ContactMethod *cm, Person *p, GtkWidget *parent)
+{
+    g_return_val_if_fail(cm && p, NULL);
+
+    auto self = create_contact_dialog_new(cm, parent);
+    EditContactDialogPrivate *priv = EDIT_CONTACT_DIALOG_GET_PRIVATE(self);
+
+    priv->person = p;
+
+    /* select the proper addressbook and prevent it from being modified */
+    if (p->collection() != NULL) {
+        auto model = gtk_combo_box_get_model(GTK_COMBO_BOX(priv->combobox_addressbook));
+        GtkTreeIter iter;
+        if (gtk_tree_model_get_iter_first(model, &iter)) {
+            GValue value = G_VALUE_INIT;
+            gtk_tree_model_get_value(model, &iter, 1, &value);
+            auto collection = (CollectionInterface *)g_value_get_pointer(&value);
+            while (collection != p->collection() && gtk_tree_model_iter_next(model, &iter)) {
+                value = G_VALUE_INIT;
+                gtk_tree_model_get_value(model, &iter, 1, &value);
+                collection = (CollectionInterface *)g_value_get_pointer(&value);
+            }
+        }
+
+        gtk_combo_box_set_active_iter(GTK_COMBO_BOX(priv->combobox_addressbook), &iter);
+    }
+    gtk_widget_set_sensitive(priv->combobox_addressbook, FALSE);
+
+    /* set the name of the person, and prevent it from being edited */
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_name), p->formattedName().toUtf8().constData());
+    g_object_set(G_OBJECT(priv->entry_name), "editable", FALSE, NULL);
 
     return (GtkWidget *)self;
 }

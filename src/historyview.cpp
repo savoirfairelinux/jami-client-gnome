@@ -200,7 +200,7 @@ history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTr
         if (auto call = var_c.value<Call *>()) {
             auto contactmethod = call->peerContactMethod();
             if (!contact_method_has_contact(contactmethod)) {
-                auto add_to = menu_item_contact_add_to(contactmethod, GTK_WIDGET(treeview));
+                auto add_to = menu_item_add_to_contact(contactmethod, GTK_WIDGET(treeview));
                 gtk_menu_shell_append(GTK_MENU_SHELL(menu), add_to);
             }
         }

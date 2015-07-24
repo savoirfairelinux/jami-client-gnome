@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="3.10"/>
-  <template class="CreateContactDialog" parent="GtkDialog">
-    <property name="title" translatable="yes">Create New Contact</property>
+  <template class="EditContactDialog" parent="GtkDialog">
+    <property name="title" translatable="yes">Edit Contact</property>
     <property name="type_hint">dialog</property>
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
