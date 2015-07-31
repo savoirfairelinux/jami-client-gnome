@@ -52,6 +52,8 @@ struct _GeneralSettingsViewPrivate
 
     /* Rint settings */
     GtkWidget *checkbutton_autostart;
+    GtkWidget *checkbutton_hideonclose;
+    GtkWidget *checkbutton_bringtofront;
 
     /* history settings */
     GtkWidget *adjustment_history_duration;
@@ -130,9 +132,15 @@ general_settings_view_init(GeneralSettingsView *self)
 
     priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
 
-    /* bind auto startup option to gsettings */
+    /* bind client option to gsettings */
     g_settings_bind(priv->settings, "start-on-login",
                     priv->checkbutton_autostart, "active",
+                    G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind(priv->settings, "hide-on-close",
+                    priv->checkbutton_hideonclose, "active",
+                    G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind(priv->settings, "bring-window-to-front",
+                    priv->checkbutton_bringtofront, "active",
                     G_SETTINGS_BIND_DEFAULT);
 
     /* history limit */
@@ -154,6 +162,8 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
                                                 "/cx/ring/RingGnome/generalsettingsview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_autostart);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_hideonclose);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_bringtofront);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_history_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_clear_history);
 }

@@ -6,5 +6,15 @@
         <summary>Start Ring on login.</summary>
         <description>Start Ring on login. Only supported on XDG compliant desktop environments.</description>
     </key>
+    <key name="hide-on-close" type="b">
+        <default>true</default>
+        <summary>Hide on close instead of quitting.</summary>
+        <description>Hide the main window on close instead of quitting the application. If set to true, Ring will continue to run and be able to receive calls and messages if the main window is closed.</description>
+    </key>
+    <key name="bring-window-to-front" type="b">
+        <default>true</default>
+        <summary>Bring window to foreground on incoming calls.</summary>
+        <description>Bring window to foreground on incoming calls.</description>
+    </key>
   </schema>
 </schemalist>

@@ -46,7 +46,24 @@
                     <property name="label" translatable="yes">Start Ring on login</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
+                    <property name="xalign">0</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="checkbutton_hideonclose">
+                    <property name="label" translatable="yes">Hide Ring on close instead of quitting.</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="xalign">0</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="checkbutton_bringtofront">
+                    <property name="label" translatable="yes">Bring Ring to the foreground on incoming calls.</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
                     <property name="xalign">0</property>
                     <property name="draw_indicator">True</property>
                   </object>

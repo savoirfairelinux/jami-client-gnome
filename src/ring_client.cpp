@@ -185,6 +185,44 @@ autostart_toggled(GSettings *settings, G_GNUC_UNUSED gchar *key, G_GNUC_UNUSED g
     autostart_symlink(g_settings_get_boolean(settings, "start-on-login"));
 }
 
+static gboolean
+on_close_window(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, RingClient *client)
+{
+    g_return_val_if_fail(GTK_IS_WINDOW(window) && IS_RING_CLIENT(client), FALSE);
+
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    if (g_settings_get_boolean(priv->settings, "hide-on-close")) {
+        /* we want to simply hide the window and keep the client running */
+        g_debug("hiding main window");
+        gtk_widget_hide(window);
+        return TRUE; /* do not propogate event */
+    } else {
+        /* we want to quit the application, so just propogate the event */
+        return FALSE;
+    }
+}
+
+static void
+ring_client_activate(GApplication *app)
+{
+    RingClient *client = RING_CLIENT(app);
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    if (priv->win == NULL) {
+        priv->win = ring_main_window_new(GTK_APPLICATION(app));
+
+        /* make sure win is set to NULL when the window is destroyed */
+        g_object_add_weak_pointer(G_OBJECT(priv->win), (gpointer *)&priv->win);
+
+        /* check if the window should be destoryed or not on close */
+        g_signal_connect(priv->win, "delete-event", G_CALLBACK(on_close_window), client);
+    }
+
+    g_debug("show window");
+    gtk_window_present(GTK_WINDOW(priv->win));
+}
+
 static void
 ring_client_startup(GApplication *app)
 {
@@ -296,6 +334,16 @@ ring_client_startup(GApplication *app)
        }
     });
 
+    /* show window on incoming calls (if the option is set)*/
+    QObject::connect(CallModel::instance(), &CallModel::incomingCall,
+        [app] (G_GNUC_UNUSED Call *call) {
+            RingClient *client = RING_CLIENT(app);
+            RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+            if (g_settings_get_boolean(priv->settings, "bring-window-to-front"))
+                ring_client_activate(app);
+        }
+    );
+
     /* send call notifications */
     ring_notify_init();
     QObject::connect(CallModel::instance(), &CallModel::incomingCall,
@@ -343,19 +391,6 @@ ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
     return 0;
 }
 #endif
-
-static void
-ring_client_activate(GApplication *app)
-{
-    RingClient *client = RING_CLIENT(app);
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
-
-    if (priv->win == NULL) {
-        priv->win = ring_main_window_new(GTK_APPLICATION(app));
-    }
-
-    gtk_window_present(GTK_WINDOW(priv->win));
-}
 
 static void
 ring_client_shutdown(GApplication *app)
