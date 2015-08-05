@@ -98,7 +98,7 @@ public:
     virtual bool save       ( const Person* item ) override;
     virtual bool remove     ( const Person* item ) override;
     virtual bool edit       ( Person*       item ) override;
-    virtual bool addNew     ( const Person* item ) override;
+    virtual bool addNew     ( Person*       item ) override;
     virtual bool addExisting( const Person* item ) override;
 
 private:
@@ -135,16 +135,16 @@ bool EdsContactEditor::edit( Person* item)
     return false;
 }
 
-bool EdsContactEditor::addNew(const Person* item)
+bool EdsContactEditor::addNew(Person* item)
 {
     /* the const_cast is used here because the API of
      * CollectionEditor::addNew takes a const item... but in this case the
      * uid of the Person is determined by the backend, after it is saved
      * and thus needs to be set by the backend
      */
-    bool ret = collection_->addNewPerson(const_cast<Person *>(item));
+    bool ret = collection_->addNewPerson(item);
     if (ret) {
-        items_ << const_cast<Person*>(item);
+        items_ << item;
         mediator()->addItem(item);
     }
     return ret;
