@@ -68,9 +68,14 @@ struct _AccountAdvancedTabPrivate
     GtkWidget *spinbutton_published_port;
     GtkWidget *adjustment_published_port;
     GtkWidget *checkbutton_use_stun;
-    GtkWidget *entry_stun_server;
+    GtkWidget *grid_stun;
+    GtkWidget *entry_stunserver;
     GtkWidget *checkbutton_use_turn;
-    GtkWidget *entry_turn_server;
+    GtkWidget *grid_turn;
+    GtkWidget *entry_turnserver;
+    GtkWidget *entry_turnusername;
+    GtkWidget *entry_turnpassword;
+    GtkWidget *entry_turnrealm;
     GtkWidget *adjustment_audio_port_min;
     GtkWidget *adjustment_audio_port_max;
     GtkWidget *adjustment_video_port_min;
@@ -128,9 +133,14 @@ account_advanced_tab_class_init(AccountAdvancedTabClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, spinbutton_published_port);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_published_port);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, checkbutton_use_stun);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_stun_server);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, grid_stun);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_stunserver);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, checkbutton_use_turn);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turn_server);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, grid_turn);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnserver);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnusername);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnpassword);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnrealm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_audio_port_min);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_audio_port_max);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_video_port_min);
@@ -206,7 +216,7 @@ stun_enabled_toggled(GtkToggleButton *toggle_button, AccountAdvancedTab *self)
     priv->account->setSipStunEnabled(use_stun);
 
     /* disactivate the stun server entry if stun is disabled */
-    gtk_widget_set_sensitive(priv->entry_stun_server, use_stun);
+    gtk_widget_set_sensitive(priv->grid_stun, use_stun);
 }
 
 static void
@@ -229,7 +239,7 @@ turn_enabled_toggled(GtkToggleButton *toggle_button, AccountAdvancedTab *self)
     priv->account->setTurnEnabled(use_turn);
 
     /* disactivate the turn server entry if turn is disabled */
-    gtk_widget_set_sensitive(priv->entry_turn_server, use_turn);
+    gtk_widget_set_sensitive(priv->grid_turn, use_turn);
 }
 
 static void
@@ -239,6 +249,33 @@ turn_server_changed(GtkEntry *entry, AccountAdvancedTab *self)
     AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
 
     priv->account->setTurnServer(gtk_entry_get_text(entry));
+}
+
+static void
+turn_serverusername_changed(GtkEntry *entry, AccountAdvancedTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(self));
+    AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
+
+    priv->account->setTurnServerUsername(gtk_entry_get_text(entry));
+}
+
+static void
+turn_serverpassword_changed(GtkEntry *entry, AccountAdvancedTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(self));
+    AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
+
+    priv->account->setTurnServerPassword(gtk_entry_get_text(entry));
+}
+
+static void
+turn_serverrealm_changed(GtkEntry *entry, AccountAdvancedTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(self));
+    AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
+
+    priv->account->setTurnServerRealm(gtk_entry_get_text(entry));
 }
 
 static void
@@ -412,26 +449,38 @@ build_tab_view(AccountAdvancedTab *self)
     /* STUN */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_use_stun),
                                  priv->account->isSipStunEnabled());
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_stun_server),
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_stunserver),
                        priv->account->sipStunServer().toUtf8().constData());
-    gtk_widget_set_sensitive(priv->entry_stun_server,
+    gtk_widget_set_sensitive(priv->grid_stun,
                              priv->account->isSipStunEnabled());
     g_signal_connect(priv->checkbutton_use_stun,
                      "toggled", G_CALLBACK(stun_enabled_toggled), self);
-    g_signal_connect(priv->entry_stun_server,
+    g_signal_connect(priv->entry_stunserver,
                      "changed", G_CALLBACK(stun_server_changed), self);
 
     /* TURN */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_use_turn),
                                  priv->account->isTurnEnabled());
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_turn_server),
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_turnserver),
                        priv->account->turnServer().toUtf8().constData());
-    gtk_widget_set_sensitive(priv->entry_turn_server,
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_turnusername),
+                       priv->account->turnServerUsername().toUtf8().constData());
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_turnpassword),
+                       priv->account->turnServerPassword().toUtf8().constData());
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_turnrealm),
+                       priv->account->turnServerRealm().toUtf8().constData());
+    gtk_widget_set_sensitive(priv->grid_turn,
                              priv->account->isTurnEnabled());
     g_signal_connect(priv->checkbutton_use_turn,
                      "toggled", G_CALLBACK(turn_enabled_toggled), self);
-    g_signal_connect(priv->entry_turn_server,
+    g_signal_connect(priv->entry_turnserver,
                      "changed", G_CALLBACK(turn_server_changed), self);
+    g_signal_connect(priv->entry_turnusername,
+                     "changed", G_CALLBACK(turn_serverusername_changed), self);
+    g_signal_connect(priv->entry_turnpassword,
+                     "changed", G_CALLBACK(turn_serverpassword_changed), self);
+    g_signal_connect(priv->entry_turnrealm,
+                     "changed", G_CALLBACK(turn_serverrealm_changed), self);
 
     /* audio/video rtp port range */
     gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_audio_port_min),
@@ -496,14 +545,22 @@ build_tab_view(AccountAdvancedTab *self)
             /* STUN */
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_use_stun),
                                         priv->account->isSipStunEnabled());
-            gtk_entry_set_text(GTK_ENTRY(priv->entry_stun_server),
+            gtk_widget_set_sensitive(priv->grid_stun, priv->account->isSipStunEnabled());
+            gtk_entry_set_text(GTK_ENTRY(priv->entry_stunserver),
                                priv->account->sipStunServer().toUtf8().constData());
 
             /* TURN */
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_use_turn),
                                         priv->account->isTurnEnabled());
-            gtk_entry_set_text(GTK_ENTRY(priv->entry_turn_server),
+            gtk_widget_set_sensitive(priv->grid_turn, priv->account->isTurnEnabled());
+            gtk_entry_set_text(GTK_ENTRY(priv->entry_turnserver),
                                priv->account->turnServer().toUtf8().constData());
+            gtk_entry_set_text(GTK_ENTRY(priv->entry_turnusername),
+                               priv->account->turnServerUsername().toUtf8().constData());
+            gtk_entry_set_text(GTK_ENTRY(priv->entry_turnpassword),
+                               priv->account->turnServerPassword().toUtf8().constData());
+            gtk_entry_set_text(GTK_ENTRY(priv->entry_turnrealm),
+                               priv->account->turnServerRealm().toUtf8().constData());
 
             /* audio/video rtp port range */
             gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_audio_port_min),
