@@ -14,6 +14,9 @@ ubuntu_15.04:
 fedora_21:
     spec: ring-gnome.spec
     ccache: true
+fedora_22:
+    spec: ring-gnome.spec
+    ccache: true
 debian_8:
     debian: debian
     ccache: true
