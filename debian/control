@@ -21,7 +21,8 @@ Package: ring-gnome
 Architecture: any
 Section: gnome
 Replaces: ring-kde
-Depends: ${shlibs:Depends}, ${misc:Depends}, ring-daemon, libebook-1.2-14,
- librsvg2-2, gnome-icon-theme-symbolic, libnotify4
+Depends: ${shlibs:Depends}, ${misc:Depends}, ring-daemon,
+ libebook-1.2-14|libebook-1.2-16, librsvg2-2, gnome-icon-theme-symbolic,
+ libnotify4
 Description: Ring GNOME client
  Ring is a secured and distributed communication software.
