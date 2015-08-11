@@ -5,8 +5,8 @@
   <template class="RingMainWindow" parent="GtkApplicationWindow">
     <property name="can_focus">False</property>
     <property name="show_menubar">False</property>
-    <property name="default-width">960</property>
-    <property name="default-height">640</property>
+    <property name="default-width">400</property>
+    <property name="default-height">300</property>
     <property name="border_width">5</property>
     <!-- header definition -->
     <child type="titlebar">
