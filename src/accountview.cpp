@@ -329,29 +329,35 @@ state_to_string(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                 GtkTreeIter *iter,
                 G_GNUC_UNUSED gpointer data)
 {
-    GValue value = G_VALUE_INIT;
-    gtk_tree_model_get_value(tree_model, iter, 3, &value);
-    Account::RegistrationState state = (Account::RegistrationState)g_value_get_uint(&value);
-    g_value_unset(&value);
-
     gchar *display_state = NULL;
-    switch (state) {
-        case Account::RegistrationState::READY:
-            display_state = g_strdup_printf("<span fgcolor=\"green\">ready</span>");
-        break;
-        case Account::RegistrationState::UNREGISTERED:
-            display_state = g_strdup_printf("<span fgcolor=\"gray\">unregistered</span>");
-        break;
-        case Account::RegistrationState::TRYING:
-            display_state = g_strdup_printf("<span fgcolor=\"orange\">trying</span>");
-        break;
-        case Account::RegistrationState::ERROR:
-            display_state = g_strdup_printf("<span fgcolor=\"red\">error</span>");
-        break;
-        case Account::RegistrationState::COUNT__:
-            g_warning("registration state should never be \"count\"");
-        break;
+
+    /* get account */
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
+    if (idx.isValid()) {
+
+        auto account = AccountModel::instance()->getAccountByModelIndex(idx);
+        auto humanState = account->toHumanStateName();
+
+        switch (account->registrationState()) {
+            case Account::RegistrationState::READY:
+                display_state = g_strdup_printf("<span fgcolor=\"green\">%s</span>", humanState.toUtf8().constData());
+            break;
+            case Account::RegistrationState::UNREGISTERED:
+                display_state = g_strdup_printf("<span fgcolor=\"gray\">%s</span>", humanState.toUtf8().constData());
+            break;
+            case Account::RegistrationState::TRYING:
+                display_state = g_strdup_printf("<span fgcolor=\"orange\">%s</span>", humanState.toUtf8().constData());
+            break;
+            case Account::RegistrationState::ERROR:
+                display_state = g_strdup_printf("<span fgcolor=\"red\">%s</span>", humanState.toUtf8().constData());
+            break;
+            case Account::RegistrationState::COUNT__:
+                g_warning("registration state should never be \"count\"");
+                display_state = g_strdup_printf("<span fgcolor=\"red\">%s</span>", humanState.toUtf8().constData());
+            break;
+        }
     }
+
     g_object_set(G_OBJECT(cell), "markup", display_state, NULL);
     g_free(display_state);
 }
