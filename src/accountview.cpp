@@ -110,6 +110,14 @@ update_account_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpoint
         AccountModel::instance()->selectionModel()->clearCurrentIndex();
 }
 
+static GtkWidget *
+create_scrolled_account_view(GtkWidget *account_view)
+{
+    auto scrolled = gtk_scrolled_window_new(NULL, NULL);
+    gtk_container_add(GTK_CONTAINER(scrolled), account_view);
+    return scrolled;
+}
+
 static void
 account_selection_changed(GtkTreeSelection *selection, AccountView *view)
 {
@@ -144,23 +152,23 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *view)
         gtk_box_pack_start(GTK_BOX(hbox_account), priv->current_account_notebook, TRUE, TRUE, 0);
 
         /* customize account view based on account */
-        GtkWidget *general_tab = account_general_tab_new(account);
+        auto general_tab = create_scrolled_account_view(account_general_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
                                  general_tab,
                                  gtk_label_new("General"));
-        GtkWidget *audio_tab = account_audio_tab_new(account);
+        auto audio_tab = create_scrolled_account_view(account_audio_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
                                  audio_tab,
                                  gtk_label_new("Audio"));
-        GtkWidget *video_tab = account_video_tab_new(account);
+        auto video_tab = create_scrolled_account_view(account_video_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
                                  video_tab,
                                  gtk_label_new("Video"));
-        GtkWidget *advanced_tab = account_advanced_tab_new(account);
+        auto advanced_tab = create_scrolled_account_view(account_advanced_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
                                  advanced_tab,
                                  gtk_label_new("Advanced"));
-        GtkWidget *security_tab = account_security_tab_new(account);
+        auto security_tab = create_scrolled_account_view(account_security_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
                                  security_tab,
                                  gtk_label_new("Security"));
