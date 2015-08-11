@@ -1130,7 +1130,6 @@ ring_main_window_init(RingMainWindow *win)
 
     /* display ring id by first getting the active ring account */
     gtk_widget_override_font(priv->label_ring_id, pango_font_description_from_string("monospace"));
-    gtk_widget_set_size_request(priv->label_ring_id, 400, 35);
     get_active_ring_account(win);
     QObject::connect(
         AccountModel::instance(),
