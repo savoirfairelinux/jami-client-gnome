@@ -39,6 +39,10 @@
 #include <QtCore/QSize>
 #include "defines.h"
 #include "utils/menus.h"
+#include <QtCore/QMimeData>
+
+#define CALL_TARGET "CALL_TARGET"
+#define CALL_TARGET_ID 0
 
 struct _CallsView
 {
@@ -192,6 +196,125 @@ create_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gp
 }
 
 static void
+on_drag_data_get(GtkWidget        *treeview,
+                 GdkDragContext   *context,
+                 GtkSelectionData *data,
+                 guint             info,
+                 guint             time,
+                 gpointer          user_data)
+{
+    g_debug("on custon drag data get");
+
+    /* we always drag the selected row */
+    auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+    GtkTreeModel *model = NULL;
+    GtkTreeIter iter;
+
+    if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+        auto path_str = gtk_tree_model_get_string_from_iter(model, &iter);
+
+        gtk_selection_data_set(data,
+                               gdk_atom_intern_static_string(CALL_TARGET),
+                               8, /* bytes */
+                               (guchar *)path_str,
+                               strlen(path_str) + 1);
+
+        g_free(path_str);
+    } else {
+        g_warning("drag selection not valid");
+    }
+}
+
+static gboolean
+on_drag_drop(GtkWidget      *widget,
+             GdkDragContext *context,
+             gint            x,
+             gint            y,
+             guint           time,
+             CallsView      *self)
+{
+    g_return_val_if_fail(IS_CALLS_VIEW(self), FALSE);
+    CallsViewPrivate *priv = CALLS_VIEW_GET_PRIVATE(self);
+
+    g_debug("on custom drag drop");
+
+    GtkTreePath *path = NULL;
+    GtkTreeViewDropPosition drop_pos;
+
+    if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(priv->treeview_calls),
+                                          x, y, &path, &drop_pos)) {
+
+        GdkAtom target_type = gtk_drag_dest_find_target(widget, context, NULL);
+
+        if (target_type != GDK_NONE) {
+            g_debug("can drop");
+            gtk_drag_get_data(widget, context, target_type, time);
+            return TRUE;
+        }
+
+        gtk_tree_path_free(path);
+    }
+
+    return FALSE;
+}
+
+
+static void
+on_drag_data_received(GtkWidget        *treeview,
+                      GdkDragContext   *context,
+                      gint              x,
+                      gint              y,
+                      GtkSelectionData *data,
+                      guint             info,
+                      guint             time,
+                      CallsView        *self)
+{
+    g_debug("drag custom data received");
+
+    gboolean success = FALSE;
+
+    /* get the source and destination calls */
+    auto path_str_source = (gchar *)gtk_selection_data_get_data(data);
+    auto type = gtk_selection_data_get_data_type(data);
+    g_debug("data type: %s", gdk_atom_name(type));
+    if (path_str_source && strlen(path_str_source) > 0) {
+        g_debug("source path: %s", path_str_source);
+
+        /* get the destination path */
+        GtkTreePath *dest_path = NULL;
+        if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(treeview), x, y, &dest_path, NULL)) {
+            auto model = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+
+            GtkTreeIter source;
+            gtk_tree_model_get_iter_from_string(model, &source, path_str_source);
+            auto idx_source = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &source);
+
+            GtkTreeIter dest;
+            gtk_tree_model_get_iter(model, &dest, dest_path);
+            auto idx_dest = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &dest);
+
+            if (idx_source.isValid() && idx_dest.isValid()) {
+                QModelIndexList source_list;
+                source_list << idx_source;
+                auto mimeData = CallModel::instance()->mimeData(source_list);
+                auto action = Call::DropAction::Conference;
+                mimeData->setProperty("dropAction", action);
+
+                if (CallModel::instance()->dropMimeData(mimeData, Qt::MoveAction, idx_dest.row(), idx_dest.column(), idx_dest.parent())) {
+                    success = TRUE;
+                } else {
+                    g_warning("could not drop mime data");
+                }
+            }
+
+            gtk_tree_path_free(dest_path);
+        }
+    }
+
+    gtk_drag_finish(context, success, FALSE, time);
+}
+
+static void
 calls_view_init(CallsView *self)
 {
     CallsViewPrivate *priv = CALLS_VIEW_GET_PRIVATE(self);
@@ -244,7 +367,7 @@ calls_view_init(CallsView *self)
     /* disable default search, we will handle it ourselves via LRC;
      * otherwise the search steals input focus on key presses */
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(priv->treeview_calls), FALSE);
-    gtk_tree_view_set_show_expanders(GTK_TREE_VIEW(priv->treeview_calls), FALSE);
+    gtk_tree_view_set_show_expanders(GTK_TREE_VIEW(priv->treeview_calls), TRUE);
     gtk_container_add(GTK_CONTAINER(scrolled_window), priv->treeview_calls);
 
     /* call model */
@@ -333,6 +456,32 @@ calls_view_init(CallsView *self)
     g_signal_connect(call_selection, "changed", G_CALLBACK(update_call_model_selection), NULL);
 
     g_signal_connect(priv->treeview_calls, "button-press-event", G_CALLBACK(create_popup_menu), NULL);
+
+    /* drag and drop */
+    static GtkTargetEntry targetentries[] = {
+        { CALL_TARGET, GTK_TARGET_SAME_WIDGET, CALL_TARGET_ID },
+    };
+
+    // gtk_drag_source_set(priv->treeview_calls, GDK_BUTTON1_MASK, targetentries, 1,
+    //                     GDK_ACTION_PRIVATE);
+
+    gtk_tree_view_enable_model_drag_source(GTK_TREE_VIEW(priv->treeview_calls),
+        GDK_BUTTON1_MASK, targetentries, 1, (GdkDragAction)(GDK_ACTION_DEFAULT | GDK_ACTION_MOVE)); //GDK_ACTION_PRIVATE);
+
+    gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(priv->treeview_calls),
+        targetentries, 1, GDK_ACTION_DEFAULT); //GDK_ACTION_PRIVATE);
+
+    // gtk_drag_dest_set(priv->treeview_calls, GTK_DEST_DEFAULT_ALL, targetentries, 1,
+    //                   GDK_ACTION_PRIVATE);
+
+    g_signal_connect(priv->treeview_calls, "drag-data-get",
+                     G_CALLBACK(on_drag_data_get), self);
+
+    g_signal_connect(priv->treeview_calls, "drag_drop",
+                     G_CALLBACK(on_drag_drop), self);
+
+    g_signal_connect(priv->treeview_calls, "drag_data_received",
+                     G_CALLBACK(on_drag_data_received), self);
 
     gtk_widget_show_all(GTK_WIDGET(self));
 }
