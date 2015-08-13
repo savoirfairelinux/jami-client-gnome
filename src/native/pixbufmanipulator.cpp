@@ -42,6 +42,7 @@ namespace Interfaces {
 
 PixbufManipulator::PixbufManipulator()
     : fallbackAvatar_{ring_draw_fallback_avatar(FALLBACK_AVATAR_SIZE), g_object_unref}
+    , conferenceAvatar_{ring_draw_conference_avatar(FALLBACK_AVATAR_SIZE), g_object_unref}
 {
 }
 
@@ -79,6 +80,8 @@ PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo, const QSize& size)
 QVariant
 PixbufManipulator::callPhoto(Call* c, const QSize& size, bool displayPresence)
 {
+    if (c->type() == Call::Type::CONFERENCE)
+        return QVariant::fromValue(scaleAndFrame(conferenceAvatar_.get(), size));
     return callPhoto(c->peerContactMethod(), size, displayPresence);
 }
 

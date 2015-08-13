@@ -63,6 +63,7 @@ public:
 private:
     std::shared_ptr<GdkPixbuf> scaleAndFrame(const GdkPixbuf *photo, const QSize& size);
     std::shared_ptr<GdkPixbuf> fallbackAvatar_;
+    std::shared_ptr<GdkPixbuf> conferenceAvatar_;
 };
 
 } // namespace Interfaces
