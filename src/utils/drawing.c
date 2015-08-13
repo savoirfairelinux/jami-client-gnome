@@ -71,6 +71,43 @@ ring_draw_fallback_avatar(int size) {
 }
 
 GdkPixbuf *
+ring_draw_conference_avatar(int size) {
+    cairo_surface_t *surface;
+    cairo_t *cr;
+
+    surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, size, size);
+    cr = cairo_create(surface);
+
+    cairo_pattern_t *linpat = cairo_pattern_create_linear(0, 0, 0, size);
+    cairo_pattern_add_color_stop_rgb(linpat, 0, 0.937, 0.937, 0.937);
+    cairo_pattern_add_color_stop_rgb(linpat, 1, 0.969, 0.969, 0.969);
+
+    cairo_set_source(cr, linpat);
+    cairo_paint(cr);
+
+    int avatar_size = size * 0.5;
+    GtkIconInfo *icon_info = gtk_icon_theme_lookup_icon(gtk_icon_theme_get_default(), "system-users-symbolic",
+                                                        avatar_size, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+    GdkPixbuf *pixbuf_icon = gtk_icon_info_load_icon(icon_info, NULL);
+    g_object_unref(icon_info);
+
+    if (pixbuf_icon != NULL) {
+        gdk_cairo_set_source_pixbuf(cr, pixbuf_icon, (size - avatar_size) / 2, (size - avatar_size) / 2);
+        g_object_unref(pixbuf_icon);
+        cairo_rectangle(cr, (size - avatar_size) / 2, (size - avatar_size) / 2, avatar_size, avatar_size);
+        cairo_fill(cr);
+    }
+
+    GdkPixbuf *pixbuf = gdk_pixbuf_get_from_surface(surface, 0, 0, size, size);
+
+    /* free resources */
+    cairo_destroy(cr);
+    cairo_surface_destroy(surface);
+
+    return pixbuf;
+}
+
+GdkPixbuf *
 ring_frame_avatar(GdkPixbuf *avatar) {
     int extra_space = 10;
     int offset = extra_space/2;
