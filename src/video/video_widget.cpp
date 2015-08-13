@@ -387,7 +387,6 @@ on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
 static void
 switch_video_input(G_GNUC_UNUSED GtkWidget *widget, Video::Device *device)
 {
-    Video::DeviceModel::instance()->setActive(device);
     Video::SourceModel::instance()->switchTo(device);
 }
 
@@ -467,13 +466,16 @@ on_button_press_in_screen_event(GtkWidget *parent,
     /* create menu with available video sources */
     GtkWidget *menu = gtk_menu_new();
 
+    auto active = Video::SourceModel::instance()->activeIndex();
+
     /* list available devices and check off the active device */
     auto device_list = Video::DeviceModel::instance()->devices();
 
     for( auto device: device_list) {
         GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(device->name().toLocal8Bit().constData());
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device->isActive());
+        auto device_idx =  Video::SourceModel::instance()->getDeviceIndex(device);
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device_idx == active);
         g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
     }
 
@@ -483,11 +485,13 @@ on_button_press_in_screen_event(GtkWidget *parent,
     /* add screen area as an input */
     GtkWidget *item = gtk_check_menu_item_new_with_mnemonic("Share screen area");
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen), NULL);
 
     /* add file as an input */
     item = gtk_check_menu_item_new_with_mnemonic("Share file");
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), parent);
 
     /* show menu */
