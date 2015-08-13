@@ -442,11 +442,10 @@ switch_video_input_file(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
         uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+        Video::SourceModel::instance()->setFile(QUrl(uri));
     }
 
     gtk_widget_destroy(dialog);
-
-    Video::SourceModel::instance()->setFile(QUrl(uri));
 
     g_free(uri);
 }
