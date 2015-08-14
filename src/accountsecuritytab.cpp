@@ -69,6 +69,7 @@ struct _AccountSecurityTabPrivate
     GtkWidget *filechooserbutton_certificate;
     GtkWidget *filechooserbutton_private_key;
     GtkWidget *entry_password;
+    GtkWidget *label_password_matches;
     GtkWidget *grid_tls_settings_1;
     GtkWidget *combobox_tls_protocol_method;
     GtkWidget *entry_tls_server_name;
@@ -85,6 +86,7 @@ struct _AccountSecurityTabPrivate
     QMetaObject::Connection account_updated;
     QMetaObject::Connection key_exchange_selection;
     QMetaObject::Connection tls_method_selection;
+    QMetaObject::Connection cert_changed;
 
     ActiveItemProxyModel *qmodel_key_exchange;
 };
@@ -104,6 +106,7 @@ account_security_tab_dispose(GObject *object)
     QObject::disconnect(priv->account_updated);
     QObject::disconnect(priv->key_exchange_selection);
     QObject::disconnect(priv->tls_method_selection);
+    QObject::disconnect(priv->cert_changed);
 
     G_OBJECT_CLASS(account_security_tab_parent_class)->dispose(object);
 }
@@ -148,6 +151,7 @@ account_security_tab_class_init(AccountSecurityTabClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountSecurityTab, filechooserbutton_certificate);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountSecurityTab, filechooserbutton_private_key);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountSecurityTab, entry_password);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountSecurityTab, label_password_matches);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountSecurityTab, grid_tls_settings_1);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountSecurityTab, combobox_tls_protocol_method);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountSecurityTab, entry_tls_server_name);
@@ -347,8 +351,43 @@ private_key_file_set(GtkFileChooser *file_chooser, AccountSecurityTab *self)
     AccountSecurityTabPrivate *priv = ACCOUNT_SECURITY_TAB_GET_PRIVATE(self);
 
     gchar *filename = gtk_file_chooser_get_filename(file_chooser);
-    priv->account->setTlsPrivateKeyCertificate(filename);
+    priv->account->setTlsPrivateKey(filename);
     g_free(filename);
+}
+
+static void
+private_key_password_changed(GtkEntry *entry,  AccountSecurityTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_SECURITY_TAB(self));
+    AccountSecurityTabPrivate *priv = ACCOUNT_SECURITY_TAB_GET_PRIVATE(self);
+
+    Certificate *user_cert = priv->account->tlsCertificate();
+    if (user_cert && user_cert->requirePrivateKeyPassword())
+        user_cert->setPrivateKeyPassword(gtk_entry_get_text(entry));
+}
+
+static void
+user_cert_changed(AccountSecurityTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_SECURITY_TAB(self));
+    AccountSecurityTabPrivate *priv = ACCOUNT_SECURITY_TAB_GET_PRIVATE(self);
+
+    auto user_cert = priv->account->tlsCertificate();
+    if (user_cert && user_cert->requirePrivateKeyPassword()) {
+        if (user_cert->privateKeyMatch() == Certificate::CheckValues::PASSED) {
+            gtk_label_set_markup(
+                GTK_LABEL(priv->label_password_matches),
+                "<span fgcolor=\"green\">&#x2713;</span>"
+            );
+        } else {
+            gtk_label_set_markup(
+                GTK_LABEL(priv->label_password_matches),
+                "<span fgcolor=\"red\">&#x2717;</span>"
+            );
+        }
+    } else {
+        gtk_label_set_text(GTK_LABEL(priv->label_password_matches), "");
+    }
 }
 
 static void
@@ -407,7 +446,7 @@ build_tab_view(AccountSecurityTab *self)
     Certificate *ca_cert = priv->account->tlsCaListCertificate();
     if (ca_cert) {
         gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_ca_list),
-                                      ca_cert->path().toDisplayString().toUtf8().constData());
+                                      ca_cert->path().toUtf8().constData());
     }
     g_signal_connect(priv->filechooserbutton_ca_list, "file-set", G_CALLBACK(ca_cert_file_set), self);
 
@@ -415,27 +454,40 @@ build_tab_view(AccountSecurityTab *self)
     Certificate *user_cert = priv->account->tlsCertificate();
     if (user_cert) {
         gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_certificate),
-                                      user_cert->path().toDisplayString().toUtf8().constData());
+            user_cert->path().toUtf8().constData()
+        );
+
+        priv->cert_changed = QObject::connect(
+            user_cert,
+            &Certificate::changed,
+            [self] () { user_cert_changed(self); }
+        );
     }
     g_signal_connect(priv->filechooserbutton_certificate, "file-set", G_CALLBACK(user_cert_file_set), self);
 
     /* private key */
-    Certificate *private_key = priv->account->tlsPrivateKeyCertificate();
-    if (private_key) {
-        gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_private_key),
-                                      private_key->path().toDisplayString().toUtf8().constData());
+    if (!priv->account->tlsPrivateKey().isEmpty()) {
+        gtk_file_chooser_set_filename(
+            GTK_FILE_CHOOSER(priv->filechooserbutton_private_key),
+            priv->account->tlsPrivateKey().toUtf8().constData()
+        );
     }
+
     g_signal_connect(priv->filechooserbutton_private_key, "file-set", G_CALLBACK(private_key_file_set), self);
 
+    user_cert_changed(self);
+
     /* password */
-    if (private_key && private_key->requirePrivateKeyPassword()) {
+    if (user_cert && user_cert->requirePrivateKeyPassword()) {
         gtk_entry_set_text(GTK_ENTRY(priv->entry_password),
-                           priv->account->tlsPassword().toUtf8().constData());
+                           user_cert->privateKeyPassword().toUtf8().constData());
         gtk_widget_set_sensitive(priv->entry_password, TRUE);
     } else {
         /* private key not chosen, or password not required, so disactivate the entry */
         gtk_widget_set_sensitive(priv->entry_password, FALSE);
     }
+
+    g_signal_connect(priv->entry_password, "changed", G_CALLBACK(private_key_password_changed), self);
 
     /* TLS protocol method */
     priv->tls_method_selection = gtk_combo_box_set_qmodel(GTK_COMBO_BOX(priv->combobox_tls_protocol_method),
@@ -529,27 +581,48 @@ build_tab_view(AccountSecurityTab *self)
             Certificate *ca_cert = priv->account->tlsCaListCertificate();
             if (ca_cert) {
                 gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_ca_list),
-                                              ca_cert->path().toDisplayString().toUtf8().constData());
+                                              ca_cert->path().toUtf8().constData());
+            } else {
+                /* make sure nothing is selected */
+                gtk_file_chooser_unselect_all(GTK_FILE_CHOOSER(priv->filechooserbutton_ca_list));
             }
 
+
             /* user certificate */
+            QObject::disconnect(priv->cert_changed);
             Certificate *user_cert = priv->account->tlsCertificate();
             if (user_cert) {
                 gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_certificate),
-                                              user_cert->path().toDisplayString().toUtf8().constData());
+                    user_cert->path().toUtf8().constData()
+                );
+
+                priv->cert_changed = QObject::connect(
+                    user_cert,
+                    &Certificate::changed,
+                    [self] () { user_cert_changed(self); }
+                );
+            } else {
+                /* make sure nothing is selected */
+                gtk_file_chooser_unselect_all(GTK_FILE_CHOOSER(priv->filechooserbutton_certificate));
             }
 
             /* private key */
-            Certificate *private_key = priv->account->tlsPrivateKeyCertificate();
-            if (private_key) {
-                gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_private_key),
-                                              private_key->path().toDisplayString().toUtf8().constData());
+            if (!priv->account->tlsPrivateKey().isEmpty()) {
+                gtk_file_chooser_set_filename(
+                    GTK_FILE_CHOOSER(priv->filechooserbutton_private_key),
+                    priv->account->tlsPrivateKey().toUtf8().constData()
+                );
+            } else {
+                /* make sure nothing is selected */
+                gtk_file_chooser_unselect_all(GTK_FILE_CHOOSER(priv->filechooserbutton_private_key));
             }
 
+            user_cert_changed(self);
+
             /* password */
-            if (private_key && private_key->requirePrivateKeyPassword()) {
+            if (user_cert && user_cert->requirePrivateKeyPassword()) {
                 gtk_entry_set_text(GTK_ENTRY(priv->entry_password),
-                                   priv->account->tlsPassword().toUtf8().constData());
+                                  user_cert->privateKeyPassword().toUtf8().constData());
                 gtk_widget_set_sensitive(priv->entry_password, TRUE);
             } else {
                 /* private key not chosen, or password not required, so disactivate the entry */
