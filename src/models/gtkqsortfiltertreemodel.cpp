@@ -320,6 +320,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
                 qmodelindex_to_iter(idx_access, iter);
                 GtkTreePath *path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
                 gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path, iter);
+                gtk_tree_path_free(path);
             }
         }
     );
@@ -340,6 +341,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
                 qmodelindex_to_iter(idx_access, &iter_old);
                 GtkTreePath *path_old = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_old);
                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path_old);
+                gtk_tree_path_free(path_old);
             }
         }
     );
@@ -361,6 +363,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
                 qmodelindex_to_iter(idx_access, iter_new);
                 GtkTreePath *path_new = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
                 gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, iter_new);
+                gtk_tree_path_free(path_new);
                 destinationRow++;
             }
         }
@@ -389,6 +392,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
                 GtkTreePath *path = gtk_tree_path_copy(parent_path);
                 gtk_tree_path_append_index(path, row);
                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path);
+                gtk_tree_path_free(path);
             }
 
             gtk_tree_path_free(parent_path);
@@ -416,6 +420,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
             qmodelindex_to_iter(idx_access, iter);
             GtkTreePath *path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
             gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, iter);
+            gtk_tree_path_free(path);
             for( int row = first + 1; row <= last; row++) {
                 // g_debug("data changed on row: %d", row);
                 iter = g_new0(GtkTreeIter, 1);
@@ -426,6 +431,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
                 qmodelindex_to_iter(idx_access, iter);
                 path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
                 gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, iter);
+                gtk_tree_path_free(path);
             }
         }
     );
@@ -449,6 +455,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
                 qmodelindex_to_iter(idx_access, &iter);
                 GtkTreePath *path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path);
+                gtk_tree_path_free(path);
             }
         }
     );
@@ -470,6 +477,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
                 qmodelindex_to_iter(idx_access, iter_new);
                 GtkTreePath *path_new = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
                 gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, iter_new);
+                gtk_tree_path_free(path_new);
             }
         }
     );

@@ -294,6 +294,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                 qmodelindex_to_iter(idx, iter);
                 GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
                 gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path, iter);
+                gtk_tree_path_free(path);
             }
         }
     );
@@ -311,6 +312,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                 qmodelindex_to_iter(idx, &iter_old);
                 GtkTreePath *path_old = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_old);
                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path_old);
+                gtk_tree_path_free(path_old);
             }
         }
     );
@@ -329,6 +331,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                 qmodelindex_to_iter(idx, iter_new);
                 GtkTreePath *path_new = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
                 gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, iter_new);
+                gtk_tree_path_free(path_new);
                 destinationRow++;
             }
         }
@@ -354,6 +357,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                 GtkTreePath *path = gtk_tree_path_copy(parent_path);
                 gtk_tree_path_append_index(path, row);
                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path);
+                gtk_tree_path_free(path);
             }
 
             gtk_tree_path_free(parent_path);
@@ -378,6 +382,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
             qmodelindex_to_iter(idx, iter);
             GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
             gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, iter);
+            gtk_tree_path_free(path);
             for( int row = first + 1; row <= last; row++) {
                 iter = g_new0(GtkTreeIter, 1);
                 idx = topLeft.sibling(row, 0);
@@ -385,6 +390,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                 qmodelindex_to_iter(idx, iter);
                 path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
                 gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, iter);
+                gtk_tree_path_free(path);
             }
         }
     );
@@ -406,6 +412,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                 qmodelindex_to_iter(idx, &iter);
                 GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path);
+                gtk_tree_path_free(path);
             }
         }
     );
@@ -425,6 +432,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                 qmodelindex_to_iter(idx, iter_new);
                 GtkTreePath *path_new = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
                 gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, iter_new);
+                gtk_tree_path_free(path_new);
             }
         }
     );
