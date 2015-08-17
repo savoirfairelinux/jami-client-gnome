@@ -48,6 +48,8 @@ ring_draw_fallback_avatar(int size) {
     cairo_set_source(cr, linpat);
     cairo_paint(cr);
 
+    cairo_pattern_destroy(linpat);
+
     int avatar_size = size * 0.3;
     GtkIconInfo *icon_info = gtk_icon_theme_lookup_icon(gtk_icon_theme_get_default(), "avatar-default-symbolic",
                                                         avatar_size, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
