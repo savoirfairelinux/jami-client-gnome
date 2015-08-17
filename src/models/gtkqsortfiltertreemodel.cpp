@@ -312,14 +312,14 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
         [=](const QModelIndex & parent, int first, int last) {
             for( int row = first; row <= last; ++row) {
                 // g_debug("inserted row %d", row);
-                GtkTreeIter *iter = g_new0(GtkTreeIter, 1);
+                GtkTreeIter iter;
                 QModelIndex idx_given = retval->priv->given_model->index(row, 0, parent);
                 QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
                 QModelIndex idx_access = retval->priv->access_model->mapFromSource(idx_original);
-                iter->stamp = stamp;
-                qmodelindex_to_iter(idx_access, iter);
-                GtkTreePath *path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
-                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path, iter);
+                iter.stamp = stamp;
+                qmodelindex_to_iter(idx_access, &iter);
+                GtkTreePath *path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
+                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path, &iter);
                 gtk_tree_path_free(path);
             }
         }
@@ -355,14 +355,14 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
              * now insert them in the new location */
             for( int row = sourceStart; row <= sourceEnd; ++row) {
                 // g_debug("row moved %d", row);
-                GtkTreeIter *iter_new = g_new0(GtkTreeIter, 1);
+                GtkTreeIter iter_new;
                 QModelIndex idx_given = retval->priv->given_model->index(destinationRow, 0, destinationParent);
                 QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
                 QModelIndex idx_access = retval->priv->access_model->mapFromSource(idx_original);
-                iter_new->stamp = stamp;
-                qmodelindex_to_iter(idx_access, iter_new);
-                GtkTreePath *path_new = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
-                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, iter_new);
+                iter_new.stamp = stamp;
+                qmodelindex_to_iter(idx_access, &iter_new);
+                GtkTreePath *path_new = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_new);
+                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, &iter_new);
                 gtk_tree_path_free(path_new);
                 destinationRow++;
             }
@@ -412,25 +412,23 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
                 // g_warning("more than one column is not supported!");
             }
             /* the first idx IS topLeft, the reset are his siblings */
-            GtkTreeIter *iter = g_new0(GtkTreeIter, 1);
+            GtkTreeIter iter;
             QModelIndex idx_given = topLeft;
             QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
             QModelIndex idx_access = retval->priv->access_model->mapFromSource(idx_original);
-            iter->stamp = stamp;
-            qmodelindex_to_iter(idx_access, iter);
-            GtkTreePath *path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
-            gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, iter);
+            iter.stamp = stamp;
+            qmodelindex_to_iter(idx_access, &iter);
+            GtkTreePath *path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
+            gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, &iter);
             gtk_tree_path_free(path);
             for( int row = first + 1; row <= last; row++) {
                 // g_debug("data changed on row: %d", row);
-                iter = g_new0(GtkTreeIter, 1);
                 idx_given = topLeft.sibling(row, 0);
                 idx_original = retval->priv->given_model->mapToSource(idx_given);
                 idx_access = retval->priv->access_model->mapFromSource(idx_original);
-                iter->stamp = stamp;
-                qmodelindex_to_iter(idx_access, iter);
-                path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
-                gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, iter);
+                qmodelindex_to_iter(idx_access, &iter);
+                path = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
+                gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, &iter);
                 gtk_tree_path_free(path);
             }
         }
@@ -469,14 +467,14 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
             int row_count = retval->priv->given_model->rowCount();
             for (int row = 0; row < row_count; ++row) {
                 // g_debug("adding row %d", row);
-                GtkTreeIter *iter_new = g_new0(GtkTreeIter, 1);
+                GtkTreeIter iter_new;
                 QModelIndex idx_given = retval->priv->given_model->index(row, 0);
                 QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
                 QModelIndex idx_access = retval->priv->access_model->mapFromSource(idx_original);
-                iter_new->stamp = stamp;
-                qmodelindex_to_iter(idx_access, iter_new);
-                GtkTreePath *path_new = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
-                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, iter_new);
+                iter_new.stamp = stamp;
+                qmodelindex_to_iter(idx_access, &iter_new);
+                GtkTreePath *path_new = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_new);
+                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, &iter_new);
                 gtk_tree_path_free(path_new);
             }
         }

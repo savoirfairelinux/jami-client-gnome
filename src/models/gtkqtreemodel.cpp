@@ -288,12 +288,12 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
         &QAbstractItemModel::rowsInserted,
         [=](const QModelIndex & parent, int first, int last) {
             for( int row = first; row <= last; row++) {
-                GtkTreeIter *iter = g_new0(GtkTreeIter, 1);
+                GtkTreeIter iter;
                 QModelIndex idx = proxy_model->index(row, 0, parent);
-                iter->stamp = stamp;
-                qmodelindex_to_iter(idx, iter);
-                GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
-                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path, iter);
+                iter.stamp = stamp;
+                qmodelindex_to_iter(idx, &iter);
+                GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
+                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path, &iter);
                 gtk_tree_path_free(path);
             }
         }
@@ -325,12 +325,12 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
             /* these rows should have been removed in the "rowsAboutToBeMoved" handler
              * now insert them in the new location */
             for( int row = sourceStart; row <= sourceEnd; row++) {
-                GtkTreeIter *iter_new = g_new0(GtkTreeIter, 1);
+                GtkTreeIter iter_new;
                 QModelIndex idx = proxy_model->index(destinationRow, 0, destinationParent);
-                iter_new->stamp = stamp;
-                qmodelindex_to_iter(idx, iter_new);
-                GtkTreePath *path_new = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
-                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, iter_new);
+                iter_new.stamp = stamp;
+                qmodelindex_to_iter(idx, &iter_new);
+                GtkTreePath *path_new = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_new);
+                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, &iter_new);
                 gtk_tree_path_free(path_new);
                 destinationRow++;
             }
@@ -376,20 +376,18 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                 g_warning("more than one column is not supported!");
             }
             /* the first idx IS topLeft, the reset are his siblings */
-            GtkTreeIter *iter = g_new0(GtkTreeIter, 1);
+            GtkTreeIter iter;
             QModelIndex idx = topLeft;
-            iter->stamp = stamp;
-            qmodelindex_to_iter(idx, iter);
-            GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
-            gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, iter);
+            iter.stamp = stamp;
+            qmodelindex_to_iter(idx, &iter);
+            GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
+            gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, &iter);
             gtk_tree_path_free(path);
             for( int row = first + 1; row <= last; row++) {
-                iter = g_new0(GtkTreeIter, 1);
                 idx = topLeft.sibling(row, 0);
-                iter->stamp = stamp;
-                qmodelindex_to_iter(idx, iter);
-                path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter);
-                gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, iter);
+                qmodelindex_to_iter(idx, &iter);
+                path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
+                gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, &iter);
                 gtk_tree_path_free(path);
             }
         }
@@ -426,12 +424,12 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
             int row_count = proxy_model->rowCount();
             for (int row = 0; row < row_count; row++) {
                 // g_debug("adding row %d", row);
-                GtkTreeIter *iter_new = g_new0(GtkTreeIter, 1);
+                GtkTreeIter iter_new;
                 QModelIndex idx = proxy_model->index(row, 0);
-                iter_new->stamp = stamp;
-                qmodelindex_to_iter(idx, iter_new);
-                GtkTreePath *path_new = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter_new);
-                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, iter_new);
+                iter_new.stamp = stamp;
+                qmodelindex_to_iter(idx, &iter_new);
+                GtkTreePath *path_new = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_new);
+                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, &iter_new);
                 gtk_tree_path_free(path_new);
             }
         }
