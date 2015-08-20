@@ -46,12 +46,14 @@
 #include <localhistorycollection.h>
 #include <media/text.h>
 #include <numbercategorymodel.h>
+#include <globalinstances.h>
+#include <memory>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
 #include "dialogs.h"
 #include "backends/edscontactbackend.h"
-#include "delegates/pixbufdelegate.h"
+#include "native/pixbufmanipulator.h"
 #include "ringnotify.h"
 #include "config.h"
 #include "utils/files.h"
@@ -261,8 +263,7 @@ ring_client_startup(GApplication *app)
     }
 
     /* init delegates */
-    /* FIXME: put in smart pointer? */
-    new PixbufDelegate();
+    GlobalInstances::setPixmapManipulator(std::unique_ptr<Interfaces::PixbufManipulator>(new Interfaces::PixbufManipulator()));
 
     /* make sure all RING accounts have a display name... this basically makes sure
      * that all accounts created before the display name patch have a display name

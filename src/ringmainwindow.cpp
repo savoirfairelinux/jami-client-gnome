@@ -50,7 +50,8 @@
 #include <personmodel.h>
 #include "utils/drawing.h"
 #include <memory>
-#include "delegates/pixbufdelegate.h"
+#include <globalinstances.h>
+#include "native/pixbufmanipulator.h"
 #include "models/activeitemproxymodel.h"
 #include <numbercompletionmodel.h>
 #include "utils/calling.h"

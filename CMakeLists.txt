@@ -208,8 +208,8 @@ SET( SRC_FILES
    src/generalsettingsview.cpp
    src/backends/edscontactbackend.h
    src/backends/edscontactbackend.cpp
-   src/delegates/pixbufdelegate.h
-   src/delegates/pixbufdelegate.cpp
+   src/native/pixbufmanipulator.h
+   src/native/pixbufmanipulator.cpp
    src/callsview.h
    src/callsview.cpp
    src/contactsview.h
