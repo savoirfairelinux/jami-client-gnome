@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015 Savoir-Faire Linux Inc.
+ *  Copyright (C) 2015 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -21,7 +21,7 @@
  *  If you modify this program, or any covered work, by linking or
  *  combining it with the OpenSSL project's OpenSSL library (or a
  *  modified version of that library), containing parts covered by the
- *  terms of the OpenSSL or SSLeay licenses, Savoir-Faire Linux Inc.
+ *  terms of the OpenSSL or SSLeay licenses, Savoir-faire Linux Inc.
  *  grants you additional permission to convey the resulting work.
  *  Corresponding Source for a non-source form of such a combination
  *  shall include the source code for the parts of OpenSSL used as well
@@ -50,7 +50,8 @@
 #include <personmodel.h>
 #include "utils/drawing.h"
 #include <memory>
-#include "delegates/pixbufdelegate.h"
+#include <globalinstances.h>
+#include "native/pixbufmanipulator.h"
 #include "models/activeitemproxymodel.h"
 #include <numbercompletionmodel.h>
 #include "utils/calling.h"

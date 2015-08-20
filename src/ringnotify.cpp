@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015 Savoir-Faire Linux Inc.
+ *  Copyright (C) 2015 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -21,7 +21,7 @@
  *  If you modify this program, or any covered work, by linking or
  *  combining it with the OpenSSL project's OpenSSL library (or a
  *  modified version of that library), containing parts covered by the
- *  terms of the OpenSSL or SSLeay licenses, Savoir-Faire Linux Inc.
+ *  terms of the OpenSSL or SSLeay licenses, Savoir-faire Linux Inc.
  *  grants you additional permission to convey the resulting work.
  *  Corresponding Source for a non-source form of such a combination
  *  shall include the source code for the parts of OpenSSL used as well
@@ -34,7 +34,8 @@
 #if USE_LIBNOTIFY
 #include <libnotify/notify.h>
 #include <memory>
-#include "delegates/pixbufdelegate.h"
+#include <globalinstances.h>
+#include "native/pixbufmanipulator.h"
 #include <call.h>
 #include <QtCore/QSize>
 #include <media/text.h>
@@ -85,7 +86,7 @@ ring_notify_incoming_call(
     g_free(body);
 
     /* get photo */
-    QVariant var_p = PixbufDelegate::instance()->callPhoto(
+    QVariant var_p = GlobalInstances::pixmapManipulator().callPhoto(
         call->peerContactMethod(), QSize(50, 50), false);
     std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
     notify_notification_set_image_from_pixbuf(notification.get(), photo.get());
@@ -190,7 +191,7 @@ ring_notify_message_recieved(Call *call, const QMap<QString,QString>& msg)
         g_object_set_data(G_OBJECT(notification), "call", call);
 
         /* get photo */
-        QVariant var_p = PixbufDelegate::instance()->callPhoto(
+        QVariant var_p = GlobalInstances::pixmapManipulator().callPhoto(
             call->peerContactMethod(), QSize(50, 50), false);
         std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
         notify_notification_set_image_from_pixbuf(notification, photo.get());

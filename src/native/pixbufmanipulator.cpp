@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015 Savoir-Faire Linux Inc.
+ *  Copyright (C) 2015 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -21,14 +21,14 @@
  *  If you modify this program, or any covered work, by linking or
  *  combining it with the OpenSSL project's OpenSSL library (or a
  *  modified version of that library), containing parts covered by the
- *  terms of the OpenSSL or SSLeay licenses, Savoir-Faire Linux Inc.
+ *  terms of the OpenSSL or SSLeay licenses, Savoir-faire Linux Inc.
  *  grants you additional permission to convey the resulting work.
  *  Corresponding Source for a non-source form of such a combination
  *  shall include the source code for the parts of OpenSSL used as well
  *  as that of the covered work.
  */
 
-#include "pixbufdelegate.h"
+#include "pixbufmanipulator.h"
 
 #include "../utils/drawing.h"
 #include <QtCore/QSize>
@@ -38,14 +38,15 @@
 #include <call.h>
 #include <contactmethod.h>
 
-PixbufDelegate::PixbufDelegate()
-    : PixmapManipulationDelegate()
-    , fallbackAvatar_{ring_draw_fallback_avatar(FALLBACK_AVATAR_SIZE), g_object_unref}
+namespace Interfaces {
+
+PixbufManipulator::PixbufManipulator()
+    : fallbackAvatar_{ring_draw_fallback_avatar(FALLBACK_AVATAR_SIZE), g_object_unref}
 {
 }
 
 std::shared_ptr<GdkPixbuf>
-PixbufDelegate::scaleAndFrame(const GdkPixbuf *photo, const QSize& size)
+PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo, const QSize& size)
 {
     /**
      * for now, respect the height requested
@@ -76,13 +77,13 @@ PixbufDelegate::scaleAndFrame(const GdkPixbuf *photo, const QSize& size)
 }
 
 QVariant
-PixbufDelegate::callPhoto(Call* c, const QSize& size, bool displayPresence)
+PixbufManipulator::callPhoto(Call* c, const QSize& size, bool displayPresence)
 {
     return callPhoto(c->peerContactMethod(), size, displayPresence);
 }
 
 QVariant
-PixbufDelegate::callPhoto(const ContactMethod* n, const QSize& size, bool displayPresence)
+PixbufManipulator::callPhoto(const ContactMethod* n, const QSize& size, bool displayPresence)
 {
     if (n->contact()) {
         return contactPhoto(n->contact(), size, displayPresence);
@@ -92,7 +93,7 @@ PixbufDelegate::callPhoto(const ContactMethod* n, const QSize& size, bool displa
 }
 
 QVariant
-PixbufDelegate::contactPhoto(Person* c, const QSize& size, bool displayPresence)
+PixbufManipulator::contactPhoto(Person* c, const QSize& size, bool displayPresence)
 {
     Q_UNUSED(displayPresence);
 
@@ -111,7 +112,7 @@ PixbufDelegate::contactPhoto(Person* c, const QSize& size, bool displayPresence)
     return QVariant::fromValue(scaleAndFrame(photo.get(), size));
 }
 
-QVariant PixbufDelegate::personPhoto(const QByteArray& data, const QString& type)
+QVariant PixbufManipulator::personPhoto(const QByteArray& data, const QString& type)
 {
     Q_UNUSED(type);
     /* Try to load the image from the data provided by lrc vcard utils;
@@ -163,3 +164,61 @@ QVariant PixbufDelegate::personPhoto(const QByteArray& data, const QString& type
     /* could not load image, return emtpy QVariant */
     return QVariant();
 }
+
+QVariant
+PixbufManipulator::numberCategoryIcon(const QVariant& p, const QSize& size, bool displayPresence, bool isPresent)
+{
+    Q_UNUSED(p)
+    Q_UNUSED(size)
+    Q_UNUSED(displayPresence)
+    Q_UNUSED(isPresent)
+    return QVariant();
+}
+
+QVariant
+PixbufManipulator::securityIssueIcon(const QModelIndex& index)
+{
+    Q_UNUSED(index)
+    return QVariant();
+}
+
+QByteArray
+PixbufManipulator::toByteArray(const QVariant& pxm)
+{
+    Q_UNUSED(pxm);
+    return QByteArray();
+}
+
+QVariant
+PixbufManipulator::collectionIcon(const CollectionInterface* interface, PixmapManipulatorI::CollectionIconHint hint) const
+{
+    Q_UNUSED(interface)
+    Q_UNUSED(hint)
+    return QVariant();
+}
+QVariant
+PixbufManipulator::securityLevelIcon(const SecurityEvaluationModel::SecurityLevel level) const
+{
+    Q_UNUSED(level)
+    return QVariant();
+}
+QVariant
+PixbufManipulator::historySortingCategoryIcon(const CategorizedHistoryModel::SortedProxy::Categories cat) const
+{
+    Q_UNUSED(cat)
+    return QVariant();
+}
+QVariant
+PixbufManipulator::contactSortingCategoryIcon(const CategorizedContactModel::SortedProxy::Categories cat) const
+{
+    Q_UNUSED(cat)
+    return QVariant();
+}
+QVariant
+PixbufManipulator::userActionIcon(const UserActionElement& state) const
+{
+    Q_UNUSED(state)
+    return QVariant();
+}
+
+} // namespace Interfaces

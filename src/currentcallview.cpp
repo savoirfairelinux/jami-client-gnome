@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015 Savoir-Faire Linux Inc.
+ *  Copyright (C) 2015 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -21,7 +21,7 @@
  *  If you modify this program, or any covered work, by linking or
  *  combining it with the OpenSSL project's OpenSSL library (or a
  *  modified version of that library), containing parts covered by the
- *  terms of the OpenSSL or SSLeay licenses, Savoir-Faire Linux Inc.
+ *  terms of the OpenSSL or SSLeay licenses, Savoir-faire Linux Inc.
  *  grants you additional permission to convey the resulting work.
  *  Corresponding Source for a non-source form of such a combination
  *  shall include the source code for the parts of OpenSSL used as well
@@ -38,7 +38,8 @@
 #include <video/previewmanager.h>
 #include <contactmethod.h>
 #include <person.h>
-#include "delegates/pixbufdelegate.h"
+#include <globalinstances.h>
+#include "native/pixbufmanipulator.h"
 #include <media/media.h>
 #include <media/text.h>
 #include <media/textrecording.h>
@@ -479,7 +480,7 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     priv->call = CallModel::instance()->getCall(idx);
 
     /* get call image */
-    QVariant var_i = PixbufDelegate::instance()->callPhoto(priv->call, QSize(60, 60), false);
+    QVariant var_i = GlobalInstances::pixmapManipulator().callPhoto(priv->call, QSize(60, 60), false);
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
 

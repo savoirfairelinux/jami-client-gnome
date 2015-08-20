@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015 Savoir-Faire Linux Inc.
+ *  Copyright (C) 2015 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -21,37 +21,48 @@
  *  If you modify this program, or any covered work, by linking or
  *  combining it with the OpenSSL project's OpenSSL library (or a
  *  modified version of that library), containing parts covered by the
- *  terms of the OpenSSL or SSLeay licenses, Savoir-Faire Linux Inc.
+ *  terms of the OpenSSL or SSLeay licenses, Savoir-faire Linux Inc.
  *  grants you additional permission to convey the resulting work.
  *  Corresponding Source for a non-source form of such a combination
  *  shall include the source code for the parts of OpenSSL used as well
  *  as that of the covered work.
  */
 
-#ifndef PIXBUFDELEGATE_H
-#define PIXBUFDELEGATE_H
+#pragma once
 
 #include <gtk/gtk.h>
 #include <memory>
-#include <delegates/pixmapmanipulationdelegate.h>
+#include <interfaces/pixmapmanipulatori.h>
 
 Q_DECLARE_METATYPE(std::shared_ptr<GdkPixbuf>);
 
 class Person;
 
-class PixbufDelegate : public PixmapManipulationDelegate {
+namespace Interfaces {
+
+class PixbufManipulator : public PixmapManipulatorI {
     constexpr static int FALLBACK_AVATAR_SIZE {100};
 public:
-    PixbufDelegate();
+    PixbufManipulator();
 
     QVariant callPhoto(Call* c, const QSize& size, bool displayPresence = true) override;
     QVariant callPhoto(const ContactMethod* n, const QSize& size, bool displayPresence = true) override;
     QVariant contactPhoto(Person* c, const QSize& size, bool displayPresence = true) override;
     QVariant personPhoto(const QByteArray& data, const QString& type = "PNG") override;
 
+    /* TODO: the following methods return an empty QVariant/QByteArray */
+    QVariant   numberCategoryIcon(const QVariant& p, const QSize& size, bool displayPresence = false, bool isPresent = false) override;
+    QVariant   securityIssueIcon(const QModelIndex& index) override;
+    QByteArray toByteArray(const QVariant& pxm) override;
+    QVariant   collectionIcon(const CollectionInterface* interface, PixmapManipulatorI::CollectionIconHint hint = PixmapManipulatorI::CollectionIconHint::NONE) const override;
+    QVariant   securityLevelIcon(const SecurityEvaluationModel::SecurityLevel level) const override;
+    QVariant   historySortingCategoryIcon(const CategorizedHistoryModel::SortedProxy::Categories cat) const override;
+    QVariant   contactSortingCategoryIcon(const CategorizedContactModel::SortedProxy::Categories cat) const override;
+    QVariant   userActionIcon(const UserActionElement& state) const override;
+
 private:
     std::shared_ptr<GdkPixbuf> scaleAndFrame(const GdkPixbuf *photo, const QSize& size);
     std::shared_ptr<GdkPixbuf> fallbackAvatar_;
 };
 
-#endif /* PIXBUFDELEGATE_H */
+} // namespace Interfaces
