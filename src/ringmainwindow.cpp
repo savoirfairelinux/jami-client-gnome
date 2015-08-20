@@ -50,6 +50,7 @@
 #include <personmodel.h>
 #include "utils/drawing.h"
 #include <memory>
+#include <delegates/delegatemanager.h>
 #include "delegates/pixbufdelegate.h"
 #include "models/activeitemproxymodel.h"
 #include <numbercompletionmodel.h>

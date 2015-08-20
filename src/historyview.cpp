@@ -37,6 +37,7 @@
 #include <personmodel.h>
 #include "utils/calling.h"
 #include <memory>
+#include <delegates/delegatemanager.h>
 #include "delegates/pixbufdelegate.h"
 #include "defines.h"
 #include "utils/models.h"
@@ -241,7 +242,7 @@ render_call_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             QVariant var_c = idx.data(static_cast<int>(Call::Role::Object));
             Call *c = var_c.value<Call *>();
             /* get photo */
-            QVariant var_p = PixbufDelegate::instance()->callPhoto(c, QSize(50, 50), false);
+            QVariant var_p = getDelegateManager()->getPixmapManipulationDelegate()->callPhoto(c, QSize(50, 50), false);
             std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
             g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
             return;

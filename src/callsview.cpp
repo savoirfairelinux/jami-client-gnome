@@ -35,6 +35,7 @@
 #include <callmodel.h>
 #include <QtCore/QItemSelectionModel>
 #include "utils/models.h"
+#include <delegates/delegatemanager.h>
 #include "delegates/pixbufdelegate.h"
 #include <QtCore/QSize>
 #include "defines.h"
@@ -105,7 +106,7 @@ render_call_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
          * since before then we likely don't know the contact yet anyways */
         if (c->lifeCycleState() != Call::LifeCycleState::CREATION) {
             /* get photo */
-            QVariant var_p = PixbufDelegate::instance()->callPhoto(c, QSize(50, 50), false);
+            QVariant var_p = getDelegateManager()->getPixmapManipulationDelegate()->callPhoto(c, QSize(50, 50), false);
             std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
             g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
             return;

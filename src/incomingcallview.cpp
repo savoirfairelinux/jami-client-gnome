@@ -36,6 +36,7 @@
 #include <callmodel.h>
 #include <contactmethod.h>
 #include <person.h>
+#include <delegates/delegatemanager.h>
 #include "delegates/pixbufdelegate.h"
 
 struct _IncomingCallView
@@ -173,7 +174,7 @@ incoming_call_view_set_call_info(IncomingCallView *view, const QModelIndex& idx)
     Call *call = CallModel::instance()->getCall(idx);
 
     /* get call image */
-    QVariant var_i = PixbufDelegate::instance()->callPhoto(call, QSize(110, 110), false);
+    QVariant var_i = getDelegateManager()->getPixmapManipulationDelegate()->callPhoto(call, QSize(110, 110), false);
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), image.get());
 

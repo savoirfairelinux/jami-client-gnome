@@ -34,6 +34,7 @@
 #include "models/gtkqtreemodel.h"
 #include "utils/calling.h"
 #include <memory>
+#include <delegates/delegatemanager.h>
 #include "delegates/pixbufdelegate.h"
 #include <contactmethod.h>
 #include "defines.h"
@@ -88,7 +89,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         auto n = idx.data(static_cast<int>(Call::Role::ContactMethod)).value<ContactMethod *>();
         if (n) {
             /* get photo */
-            QVariant var_p = PixbufDelegate::instance()->callPhoto(n, QSize(50, 50), false);
+            QVariant var_p = getDelegateManager()->getPixmapManipulationDelegate()->callPhoto(n, QSize(50, 50), false);
             std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
             g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
             return;

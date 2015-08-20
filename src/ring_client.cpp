@@ -46,6 +46,7 @@
 #include <localhistorycollection.h>
 #include <media/text.h>
 #include <numbercategorymodel.h>
+#include <delegates/delegatemanager.h>
 
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
@@ -261,8 +262,7 @@ ring_client_startup(GApplication *app)
     }
 
     /* init delegates */
-    /* FIXME: put in smart pointer? */
-    new PixbufDelegate();
+    getDelegateManager()->setPixmapManipulationDelegate(new PixbufDelegate());
 
     /* make sure all RING accounts have a display name... this basically makes sure
      * that all accounts created before the display name patch have a display name

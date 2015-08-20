@@ -34,6 +34,7 @@
 #if USE_LIBNOTIFY
 #include <libnotify/notify.h>
 #include <memory>
+#include <delegates/delegatemanager.h>
 #include "delegates/pixbufdelegate.h"
 #include <call.h>
 #include <QtCore/QSize>
@@ -85,7 +86,7 @@ ring_notify_incoming_call(
     g_free(body);
 
     /* get photo */
-    QVariant var_p = PixbufDelegate::instance()->callPhoto(
+    QVariant var_p = getDelegateManager()->getPixmapManipulationDelegate()->callPhoto(
         call->peerContactMethod(), QSize(50, 50), false);
     std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
     notify_notification_set_image_from_pixbuf(notification.get(), photo.get());
@@ -190,7 +191,7 @@ ring_notify_message_recieved(Call *call, const QMap<QString,QString>& msg)
         g_object_set_data(G_OBJECT(notification), "call", call);
 
         /* get photo */
-        QVariant var_p = PixbufDelegate::instance()->callPhoto(
+        QVariant var_p = getDelegateManager()->getPixmapManipulationDelegate()->callPhoto(
             call->peerContactMethod(), QSize(50, 50), false);
         std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
         notify_notification_set_image_from_pixbuf(notification, photo.get());

@@ -35,6 +35,7 @@
 #include <QtCore/QSortFilterProxyModel>
 #include <memory>
 #include "models/gtkqsortfiltertreemodel.h"
+#include <delegates/delegatemanager.h>
 #include "delegates/pixbufdelegate.h"
 #include "utils/models.h"
 
@@ -92,7 +93,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             QVariant var_c = idx.data(static_cast<int>(Person::Role::Object));
             Person *c = var_c.value<Person *>();
             /* get photo */
-            QVariant var_p = PixbufDelegate::instance()->contactPhoto(c, QSize(50, 50), false);
+            QVariant var_p = getDelegateManager()->getPixmapManipulationDelegate()->contactPhoto(c, QSize(50, 50), false);
             std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
             g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
             return;

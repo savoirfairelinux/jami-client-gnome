@@ -38,6 +38,7 @@
 #include <video/previewmanager.h>
 #include <contactmethod.h>
 #include <person.h>
+#include <delegates/delegatemanager.h>
 #include "delegates/pixbufdelegate.h"
 #include <media/media.h>
 #include <media/text.h>
@@ -479,7 +480,7 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     priv->call = CallModel::instance()->getCall(idx);
 
     /* get call image */
-    QVariant var_i = PixbufDelegate::instance()->callPhoto(priv->call, QSize(60, 60), false);
+    QVariant var_i = getDelegateManager()->getPixmapManipulationDelegate()->callPhoto(priv->call, QSize(60, 60), false);
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
 
