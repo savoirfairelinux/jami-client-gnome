@@ -50,7 +50,7 @@ typedef struct _RingClient        RingClient;
 /* Public interface */
 GType       ring_client_get_type (void) G_GNUC_CONST;
 RingClient *ring_client_new      (int argc, char *argv[]);
-GtkWindow  *ring_client_get_main_windw(RingClient *client);
+GtkWindow  *ring_client_get_main_window(RingClient *client);
 
 G_END_DECLS
 
