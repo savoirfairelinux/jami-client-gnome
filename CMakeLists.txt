@@ -240,6 +240,8 @@ SET( SRC_FILES
    src/choosecontactview.cpp
    src/editcontactview.h
    src/editcontactview.cpp
+   src/native/dbuserrorhandler.h
+   src/native/dbuserrorhandler.cpp
 )
 
 # compile glib resource files to c code

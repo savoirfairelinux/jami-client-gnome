@@ -227,7 +227,7 @@ ring_notify_call_messages(Call *call, Media::Text *media, RingClient *client)
         &Media::Text::messageReceived,
         [call, client] (const QMap<QString,QString>& message) {
             g_return_if_fail(call && client);
-            GtkWindow *main_window = ring_client_get_main_windw(client);
+            GtkWindow *main_window = ring_client_get_main_window(client);
             if ( main_window && gtk_window_is_active(main_window)) {
                 /* only notify about messages not in the currently selected call */
                 if (CallModel::instance()->selectedCall() != call) {

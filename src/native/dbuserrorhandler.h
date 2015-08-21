@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015 Savoir-Faire Linux Inc.
+ *  Copyright (C) 2015 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -21,37 +21,34 @@
  *  If you modify this program, or any covered work, by linking or
  *  combining it with the OpenSSL project's OpenSSL library (or a
  *  modified version of that library), containing parts covered by the
- *  terms of the OpenSSL or SSLeay licenses, Savoir-Faire Linux Inc.
+ *  terms of the OpenSSL or SSLeay licenses, Savoir-faire Linux Inc.
  *  grants you additional permission to convey the resulting work.
  *  Corresponding Source for a non-source form of such a combination
  *  shall include the source code for the parts of OpenSSL used as well
  *  as that of the covered work.
  */
 
-#ifndef RING_CLIENT_H_
-#define RING_CLIENT_H_
+#ifndef DBUSERRORHANDLER_H
+#define DBUSERRORHANDLER_H
 
 #include <gtk/gtk.h>
-#include "config.h"
+#include <interfaces/dbuserrorhandleri.h>
+#include <atomic>
 
-G_BEGIN_DECLS
+namespace Interfaces {
 
-#define RING_GSETTINGS_SCHEMA RING_CLIENT_APP_ID
+class DBusErrorHandler : public DBusErrorHandlerI {
+public:
+    void connectionError(const QString& error) override;
+    void invalidInterfaceError(const QString& error) override;
 
-#define RING_CLIENT_TYPE (ring_client_get_type())
-#define RING_CLIENT(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), RING_CLIENT_TYPE, RingClient))
-#define RING_CLIENT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), RING_CLIENT_TYPE, RingClientClass))
-#define IS_RING_CLIENT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), RING_CLIENT_TYPE))
-#define IS_RING_CLIENT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), RING_CLIENT_TYPE))
+    void finishedHandlingError();
+private:
+    /* keeps track if we're in the process of handling an error already, so that we don't keep
+     * displaying error dialogs; we use an atomic in case the errors come from multiple threads */
+    std::atomic_bool handlingError{false};
+};
 
-typedef struct _RingClientClass   RingClientClass;
-typedef struct _RingClient        RingClient;
+} // namespace Interfaces
 
-/* Public interface */
-GType       ring_client_get_type (void) G_GNUC_CONST;
-RingClient *ring_client_new      (int argc, char *argv[]);
-GtkWindow  *ring_client_get_main_window(RingClient *client);
-
-G_END_DECLS
-
-#endif /* RING_CLIENT_H_ */
+#endif /* DBUSERRORHANDLER_H */
