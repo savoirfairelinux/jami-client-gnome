@@ -53,6 +53,7 @@
 #include "dialogs.h"
 #include "backends/edscontactbackend.h"
 #include "delegates/pixbufdelegate.h"
+#include "delegates/dbuserrorhandler.h"
 #include "ringnotify.h"
 #include "config.h"
 #include "utils/files.h"
@@ -263,6 +264,7 @@ ring_client_startup(GApplication *app)
 
     /* init delegates */
     getDelegateManager()->setPixmapManipulationDelegate(new PixbufDelegate());
+    getDelegateManager()->setDBusErrorDelegate(new DBusErrorHandler());
 
     /* make sure all RING accounts have a display name... this basically makes sure
      * that all accounts created before the display name patch have a display name
@@ -474,7 +476,7 @@ ring_client_new(int argc, char *argv[])
 }
 
 GtkWindow  *
-ring_client_get_main_windw(RingClient *client)
+ring_client_get_main_window(RingClient *client)
 {
     g_return_val_if_fail(IS_RING_CLIENT(client), NULL);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
