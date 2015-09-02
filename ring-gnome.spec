@@ -34,10 +34,11 @@ echo "# Get gnome client"
 git init
 git remote add origin https://gerrit-ring.savoirfairelinux.com/ring-client-gnome
 git fetch --all
-git checkout packaging -f
+git checkout %{gnome_tag} -f
 git config user.name "joulupukki"
 git config user.email "joulupukki@localhost"
-git merge %{gnome_tag} --no-edit
+git merge origin/packaging --no-commit
+git reset HEAD
 rm -rf .git
 # Daemon
 echo "# Downloading Ring Daemon ..."
