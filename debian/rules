@@ -60,11 +60,11 @@ get-orig-source:
 	git init
 	git remote add origin https://gerrit-ring.savoirfairelinux.com/ring-client-gnome
 	git fetch --all
-	git checkout packaging -f
+	git checkout $(GNOME_TAG) -f
 	git config user.name "joulupukki"
 	git config user.email "joulupukki@localhost"
-	git merge $(GNOME_TAG) --no-edit
-	rm -rf .git
+	git merge origin/packaging --no-commit
+	git reset HEAD
 	# Daemon
 	@echo "# Downloading Ring Daemon ..."
 	rm -rf ring
@@ -82,4 +82,4 @@ get-orig-source:
 	# Packing
 	@echo "# Packing ... "
 	find . | sort \
-	| XZ_OPT="-6v" tar -caf "../$(PKG)_$(VER)$(DTYPE).orig.tar.xz" -T- --owner=root --group=root --mode=a+rX
+	| XZ_OPT="-6v" tar -caf "../$(PKG)_$(VER)$(DTYPE).orig.tar.xz" --exclude=".git" -T- --owner=root --group=root --mode=a+rX
