@@ -5,9 +5,9 @@
             "mkdir -p /sources",
             "cd /ring-client-gnome",
             "cp ring-gnome.spec ..",
+            "git archive --format=tar --prefix=ring-client-gnome/ -o /sources/ring-gnome origin/master",
             "cd ..",
             "sed -i 's/%setup -q/%setup -n ring-client-gnome/' ring-gnome.spec",
-            "tar -cf /sources/ring-gnome /ring-client-gnome --exclude=\".git\"",
             "rpmbuild -ba ring-gnome.spec --define \"_sourcedir /sources\"",
             "cp -R /root/rpmbuild/RPMS/x86_64/* /output"
         ],
@@ -15,9 +15,9 @@
             "mkdir -p /sources",
             "cd /ring-client-gnome",
             "cp ring-gnome.spec ..",
+            "git archive --format=tar --prefix=ring-client-gnome/ -o /sources/ring-gnome origin/master",
             "cd ..",
             "sed -i 's/%setup -q/%setup -n ring-client-gnome/' ring-gnome.spec",
-            "tar -cf /sources/ring-gnome /ring-client-gnome --exclude=\".git\"",
             "rpmbuild -ba ring-gnome.spec --define \"_sourcedir /sources\"",
             "cp -R /root/rpmbuild/RPMS/i686/* /output"
         ],
@@ -25,9 +25,9 @@
             "mkdir -p /sources",
             "cd /ring-client-gnome",
             "cp ring-gnome.spec ..",
+            "git archive --format=tar --prefix=ring-client-gnome/ -o /sources/ring-gnome origin/master",
             "cd ..",
             "sed -i 's/%setup -q/%setup -n ring-client-gnome/' ring-gnome.spec",
-            "tar -cf /sources/ring-gnome /ring-client-gnome --exclude=\".git\"",
             "rpmbuild -ba ring-gnome.spec --define \"_sourcedir /sources\"",
             "cp -R /root/rpmbuild/RPMS/x86_64/* /output"
         ],
