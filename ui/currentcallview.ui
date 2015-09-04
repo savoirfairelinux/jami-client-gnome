@@ -288,18 +288,18 @@
             </child>
             <child>
               <object class="GtkToggleButton" id="togglebutton_record">
-                <!-- TODO: set visible when feature enabled -->
-                <property name="visible">False</property>
+                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="width-request">42</property>
                 <property name="height-request">42</property>
                 <property name="action-name">app.record</property>
                 <property name="has_tooltip">True</property>
-                <property name="tooltip-text" translatable="yes">Toggle record</property>
+                <property name="image">image_record</property>
+                <property name="tooltip-text" translatable="yes">Toggle record audio</property>
                 <child internal-child="accessible">
                   <object class="AtkObject" id="togglebutton_record-atkobject">
-                    <property name="AtkObject::accessible-name" translatable="yes">Record</property>
+                    <property name="AtkObject::accessible-name" translatable="yes">Record audio</property>
                   </object>
                 </child>
               </object>
@@ -415,6 +415,15 @@
     <child internal-child="accessible">
       <object class="AtkObject" id="image_quality-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Video quality</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkImage" id="image_record">
+    <property name="visible">True</property>
+    <property name="icon_name">media-record</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_record-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Record</property>
       </object>
     </child>
   </object>

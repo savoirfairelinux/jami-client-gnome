@@ -160,11 +160,11 @@ static const GActionEntry ring_actions[] =
     { "hold",   NULL,         NULL, "false", NULL, {0} },
     { "quit",   action_quit,  NULL, NULL,    NULL, {0} },
     { "about",  action_about, NULL, NULL,    NULL, {0} },
-    { "mute_audio", NULL,        NULL, "false", NULL, {0} },
-    { "mute_video", NULL,        NULL, "false", NULL, {0} },
+    { "mute_audio", NULL,     NULL, "false", NULL, {0} },
+    { "mute_video", NULL,     NULL, "false", NULL, {0} },
+    { "record",     NULL,     NULL, "false", NULL, {0} },
     /* TODO implement the other actions */
     // { "transfer",   NULL,        NULL, "flase", NULL, {0} },
-    // { "record",     NULL,        NULL, "false", NULL, {0} }
 };
 
 static void
@@ -309,7 +309,7 @@ ring_client_startup(GApplication *app)
     actionHash[ (int)UserActionModel::Action::MUTE_VIDEO      ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "mute_video"));
     /* TODO: add commented actions when ready */
     // actionHash[ (int)UserActionModel::Action::SERVER_TRANSFER ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "transfer"));
-    // actionHash[ (int)UserActionModel::Action::RECORD          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "record"));
+    actionHash[ (int)UserActionModel::Action::RECORD          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "record"));
     actionHash[ (int)UserActionModel::Action::HANGUP          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "hangup"));
 
     for (QHash<int,GSimpleAction*>::const_iterator i = actionHash.begin(); i != actionHash.end(); ++i) {
