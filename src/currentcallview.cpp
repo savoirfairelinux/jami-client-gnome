@@ -264,18 +264,6 @@ current_call_view_init(CurrentCallView *view)
     GtkAdjustment *adjustment = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(priv->scrolledwindow_chat));
     g_signal_connect(adjustment, "changed", G_CALLBACK(scroll_to_bottom), NULL);
 
-    GtkCssProvider *provider = gtk_css_provider_new();
-    GdkDisplay *display = gdk_display_get_default();
-    GdkScreen *screen = gdk_display_get_default_screen(display);
-    gtk_css_provider_load_from_data(provider,
-        "GtkBox#call-controls GtkButton {\n"
-        "   border-radius: 21px;\n"
-        "}\n"
-        , -1, NULL);
-    gtk_style_context_add_provider_for_screen(screen,
-        GTK_STYLE_PROVIDER(provider),
-        GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
     /* customize the quality button scale */
     if (GtkScale *scale = gtk_scale_button_get_scale(GTK_SCALE_BUTTON(priv->scalebutton_quality))) {
         gtk_scale_set_draw_value(scale, TRUE);
