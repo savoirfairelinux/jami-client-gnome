@@ -335,6 +335,7 @@
                 <property name="width-request">42</property>
                 <property name="height-request">42</property>
                 <property name="has_tooltip">True</property>
+                <property name="relief">normal</property>
                 <property name="tooltip-text" translatable="yes">Adjust outgoing video quality (bit/s)</property>
                 <property name="image">image_quality</property>
                 <property name="adjustment">adjustment_quality</property>
