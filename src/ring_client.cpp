@@ -123,7 +123,7 @@ ring_accelerators(RingClient *client)
     const gchar *quit_accels[2] = { "<Ctrl>Q", NULL };
     gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.quit", quit_accels);
 #else
-    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>Q", "win.quit", NULL);
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>Q", "app.quit", NULL);
 #endif
 }
 
