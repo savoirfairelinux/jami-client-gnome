@@ -262,6 +262,11 @@ edit_contact_view_new(ContactMethod *cm, Person *p)
         (QString("<b>") + cm->uri() + QString("</b>")).toUtf8().constData()
     );
 
+    /* use the primaryName as the suggested name (usually the display name), unless it is the same
+     * as the uri */
+    if (cm->primaryName() != cm->uri())
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_name), cm->primaryName().toUtf8().constData());
+
     if (p) {
         priv->person = p;
 
