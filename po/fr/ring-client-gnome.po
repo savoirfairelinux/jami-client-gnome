@@ -1,0 +1,488 @@
+# Gettext PO translation template file for the GNOME client of the Ring project.
+# Copyright (C) 2015 Savoir-faire Linux Inc.
+# This file is distributed under the same license as the Ring package.
+#
+# Translators:
+# Alexandre Lision <alexandre.lision@gmail.com>, 2015
+# Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>, 2015
+# Guillaume Roguez, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Ring\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-10 17:56-0400\n"
+"PO-Revision-Date: 2015-09-11 12:21+0000\n"
+"Last-Translator: Alexandre Lision <alexandre.lision@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ui/accountadvancedtab.ui:81
+msgid "Registration expire timeout (seconds):"
+msgstr "Temps d'expiration de l'enregistrement (en secondes):"
+
+#: ui/accountadvancedtab.ui:103
+msgid "Allow calls from unknown peers"
+msgstr "Autoriser les appels de personnes inconnues"
+
+#: ui/accountadvancedtab.ui:117
+msgid "Allow calls from peers in your call history"
+msgstr "Permettre les appels des correspondants enregistrés dans l'historique des appels"
+
+#: ui/accountadvancedtab.ui:131
+msgid "Allow calls from peers in your contacts list"
+msgstr "Permettre les appels des correspondants de votre liste de contacts"
+
+#: ui/accountadvancedtab.ui:149
+msgid "<b>Registration</b>"
+msgstr "<b>Enregistrement</b>"
+
+#: ui/accountadvancedtab.ui:176
+msgid "Use random port"
+msgstr "Utiliser un port aléatoire"
+
+#: ui/accountadvancedtab.ui:197
+msgid "Local port:"
+msgstr "Port local:"
+
+#: ui/accountadvancedtab.ui:223
+msgid "<b>Network Interface</b>"
+msgstr "<b>Interface Réseau</b>"
+
+#: ui/accountadvancedtab.ui:249
+msgid "Same as local parameters"
+msgstr "Identique aux paramètres locaux"
+
+#: ui/accountadvancedtab.ui:264
+msgid "Set published address and port:"
+msgstr "Indiquer l'adresse publiée et le port:"
+
+#: ui/accountadvancedtab.ui:288
+msgid "Address"
+msgstr "Adresse"
+
+#: ui/accountadvancedtab.ui:310
+msgid "Port"
+msgstr "Port"
+
+#: ui/accountadvancedtab.ui:336
+msgid "Use STUN"
+msgstr "Utiliser STUN"
+
+#: ui/accountadvancedtab.ui:359 ui/accountadvancedtab.ui:408
+msgid "server URL"
+msgstr "URL du serveur"
+
+#: ui/accountadvancedtab.ui:385
+msgid "Use TURN"
+msgstr "Utiliser TURN"
+
+#: ui/accountadvancedtab.ui:430
+msgid "username"
+msgstr "nom d'utilisateur"
+
+#: ui/accountadvancedtab.ui:451
+msgid "password"
+msgstr "mot-de-passe"
+
+#: ui/accountadvancedtab.ui:475
+msgid "realm"
+msgstr "domaine"
+
+#: ui/accountadvancedtab.ui:504
+msgid "<b>Published Address</b>"
+msgstr "<b>Adresse publiée</b>"
+
+#: ui/accountadvancedtab.ui:533
+msgid ""
+"These settings are only used during SDP session negotiation in case ICE is "
+"not supported by the server or peer."
+msgstr "Ces paramètres sont uniquement utilisés durant la négociation de la session SDP au cas où ICE ne serait pas supporté par le serveur ou le correspondant."
+
+#: ui/accountadvancedtab.ui:558 ui/accountadvancedtab.ui:632
+msgid "Min"
+msgstr "Minimum"
+
+#: ui/accountadvancedtab.ui:581 ui/accountadvancedtab.ui:655
+msgid "Max"
+msgstr "Maximum"
+
+#: ui/accountadvancedtab.ui:605
+msgid "<b>Audio RTP Port Range</b>"
+msgstr "<b>Plage des ports Audio RTP</b>"
+
+#: ui/accountadvancedtab.ui:679
+msgid "<b>Video RTP Port Range</b>"
+msgstr "<b>Plage des ports Vidéo RTP</b>"
+
+#: ui/accountadvancedtab.ui:695
+msgid "<b>SDP Session Negotiation (ICE Fallback)</b>"
+msgstr ""
+
+#: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
+msgid "Up"
+msgstr "Haut"
+
+#: ui/accountaudiotab.ui:66 ui/accountvideotab.ui:66
+msgid "Down"
+msgstr "Bas"
+
+#: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
+msgid "<b>Codecs</b>"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:42
+msgid "<b>Account</b>"
+msgstr "<b>Compte</b>"
+
+#: ui/accountgeneraltab.ui:80
+msgid "<b>Parameters</b>"
+msgstr "<b>Paramètres</b>"
+
+#: ui/accountsecuritytab.ui:37
+msgid "Encrypt media streams (SRTP)"
+msgstr ""
+
+#: ui/accountsecuritytab.ui:58
+msgid "Key exchange protocol"
+msgstr "Protocole d'échange de clé"
+
+#: ui/accountsecuritytab.ui:76
+msgid "Fallback on RTP on encryption failure"
+msgstr ""
+
+#: ui/accountsecuritytab.ui:94
+msgid "<b>Media Stream Encryption</b>"
+msgstr ""
+
+#: ui/accountsecuritytab.ui:121
+msgid "Encrypt negotiation (TLS)"
+msgstr ""
+
+#: ui/accountsecuritytab.ui:146
+msgid "CA certificate"
+msgstr "Certificat CA"
+
+#: ui/accountsecuritytab.ui:183
+msgid "User certificate"
+msgstr "Certificat utilisateur"
+
+#: ui/accountsecuritytab.ui:220
+msgid "Private key"
+msgstr "Clés privée"
+
+#: ui/accountsecuritytab.ui:243
+msgid "Private key password"
+msgstr "Mot-de-passe clés privée"
+
+#: ui/accountsecuritytab.ui:290
+msgid "TLS protocol method"
+msgstr "Méthode du protocole TLS"
+
+#: ui/accountsecuritytab.ui:313
+msgid "Outgoing TLS server name"
+msgstr ""
+
+#: ui/accountsecuritytab.ui:335
+msgid "Negotiation timeout (seconds)"
+msgstr ""
+
+#: ui/accountsecuritytab.ui:369
+msgid "Use default ciphers"
+msgstr ""
+
+#: ui/accountsecuritytab.ui:385
+msgid "Use custom cipher list"
+msgstr ""
+
+#: ui/accountsecuritytab.ui:442
+msgid "Verify incoming certificates (server side)"
+msgstr ""
+
+#: ui/accountsecuritytab.ui:457
+msgid "Verify answer certificates (client side)"
+msgstr ""
+
+#: ui/accountsecuritytab.ui:472
+msgid "Require a certificate for incoming TLS connections"
+msgstr "Nécessite un certificat pour les connexions TLS entrantes"
+
+#: ui/accountsecuritytab.ui:491
+msgid "<b>Negotiation Encryption</b>"
+msgstr ""
+
+#: ui/accountvideotab.ui:90
+msgid "Enable Video"
+msgstr "Activer la vidéo"
+
+#: ui/accountview.ui:59
+msgid "<b>&#8722;</b>"
+msgstr ""
+
+#: ui/accountview.ui:83
+msgid "<b>+</b>"
+msgstr ""
+
+#: ui/choosecontactview.ui:34
+msgid "Create New"
+msgstr "Créer Nouveau"
+
+#: ui/currentcallview.ui:122
+msgid "Send"
+msgstr "Envoyer"
+
+#: ui/currentcallview.ui:210
+msgid "End this call"
+msgstr "Terminer cet appel"
+
+#: ui/currentcallview.ui:214 ui/currentcallview.ui:408
+msgid "End call"
+msgstr "Fin d'appel"
+
+#: ui/currentcallview.ui:232
+msgid "Toggle hold"
+msgstr "Basculer la pause"
+
+#: ui/currentcallview.ui:236 ui/currentcallview.ui:258
+#: ui/currentcallview.ui:399
+msgid "Hold"
+msgstr "Pause"
+
+#: ui/currentcallview.ui:254
+msgid "Toggle mute audio"
+msgstr ""
+
+#: ui/currentcallview.ui:276
+msgid "Toggle mute video"
+msgstr ""
+
+#: ui/currentcallview.ui:280 ui/currentcallview.ui:390
+msgid "Mute video"
+msgstr "Désactiver la vidéo"
+
+#: ui/currentcallview.ui:299
+msgid "Toggle record"
+msgstr ""
+
+#: ui/currentcallview.ui:302
+msgid "Record"
+msgstr "Enregistrer"
+
+#: ui/currentcallview.ui:318
+msgid "Toggle show chat"
+msgstr ""
+
+#: ui/currentcallview.ui:322 ui/currentcallview.ui:372
+msgid "Chat"
+msgstr "Chat"
+
+#: ui/currentcallview.ui:338
+msgid "Adjust outgoing video quality (bit/s)"
+msgstr ""
+
+#: ui/currentcallview.ui:343 ui/currentcallview.ui:417
+msgid "Video quality"
+msgstr "Qualité vidéo"
+
+#: ui/currentcallview.ui:381
+msgid "Mute audio"
+msgstr "Désactiver l'audio"
+
+#: ui/editcontactview.ui:12
+msgid "Select addressbook"
+msgstr "Choisir le carnet d'adresses"
+
+#: ui/editcontactview.ui:15
+msgid "Addressbook"
+msgstr "Carnet d'adresses"
+
+#: ui/editcontactview.ui:29
+msgid "Name"
+msgstr "Nom"
+
+#: ui/editcontactview.ui:32
+msgid "Contact name"
+msgstr "Nom du contact"
+
+#: ui/editcontactview.ui:47
+msgid "Select how this number will be categorized"
+msgstr ""
+
+#: ui/editcontactview.ui:50
+msgid "Number category"
+msgstr ""
+
+#: ui/editcontactview.ui:66
+msgid "Number or Ring ID to be added"
+msgstr ""
+
+#: ui/editcontactview.ui:72
+msgid "Number or Ring ID"
+msgstr "Numéro ou Ring ID"
+
+#: ui/editcontactview.ui:83
+msgid "Save"
+msgstr "Sauver"
+
+#: ui/generalsettingsview.ui:32
+msgid "<b>Ring Settings</b>"
+msgstr "<b>Paramètres Ring</b>"
+
+#: ui/generalsettingsview.ui:46
+msgid "Start Ring on login"
+msgstr "Lancer Ring à l'ouverture de session"
+
+#: ui/generalsettingsview.ui:55
+msgid "Hide Ring on close instead of quitting."
+msgstr "Cacher Ring à la fermeture au lieu de quitter."
+
+#: ui/generalsettingsview.ui:64
+msgid "Bring Ring to the foreground on incoming calls."
+msgstr "Ramener Ring à l'avant-plan à l'arrivé d'appels entrants."
+
+#: ui/generalsettingsview.ui:87
+msgid "<b>History Settings</b>"
+msgstr "<b>Paramètres de l'historique</b>"
+
+#: ui/generalsettingsview.ui:105
+msgid "Keep history for (days):"
+msgstr "Garder l'historique pendant (jours):"
+
+#: ui/generalsettingsview.ui:128
+msgid "(set to 0 for unlimited history)"
+msgstr ""
+
+#: ui/generalsettingsview.ui:137
+msgid "Clear all history"
+msgstr "Effacer tout l'historique"
+
+#: ui/incomingcallview.ui:87
+msgid "Incoming..."
+msgstr ""
+
+#: ui/incomingcallview.ui:120
+msgid "   Accept"
+msgstr "Accepter"
+
+#: ui/incomingcallview.ui:135
+msgid "   Reject"
+msgstr "Rejeter"
+
+#: ui/incomingcallview.ui:150
+msgid "   Hang-up"
+msgstr "Raccrocher"
+
+#: ui/mediasettingsview.ui:36
+msgid "Audio manager:"
+msgstr "Gestionnaire audio:"
+
+#: ui/mediasettingsview.ui:48
+msgid "Ringtone device:"
+msgstr "Périphérique de sortie pour la sonnerie"
+
+#: ui/mediasettingsview.ui:60
+msgid "Output device:"
+msgstr "Appareil de sortie:"
+
+#: ui/mediasettingsview.ui:72
+msgid "Input device:"
+msgstr "Appareil d'entrée:"
+
+#: ui/mediasettingsview.ui:127
+msgid "<b>Audio Settings</b>"
+msgstr "<b>Paramètres Audio</b>"
+
+#: ui/mediasettingsview.ui:163
+msgid "Device:"
+msgstr "Appareil:"
+
+#: ui/mediasettingsview.ui:175
+msgid "Channel:"
+msgstr "Canal:"
+
+#: ui/mediasettingsview.ui:187
+msgid "Resolution:"
+msgstr ""
+
+#: ui/mediasettingsview.ui:199
+msgid "Frame rate:"
+msgstr "Vitesse d'image:"
+
+#: ui/mediasettingsview.ui:258
+msgid "<b>Camera Settings</b>"
+msgstr "<b>Paramètres Caméra</b>"
+
+#: ui/ringgearsmenu.ui:13
+msgid "_About"
+msgstr ""
+
+#: ui/ringgearsmenu.ui:19
+msgid "_Quit"
+msgstr "_Quitter"
+
+#: ui/ringmainwindow.ui:21
+msgid "Menu"
+msgstr "Menu"
+
+#: ui/ringmainwindow.ui:94
+msgid "General"
+msgstr "Généralités"
+
+#: ui/ringmainwindow.ui:104
+msgid "Media"
+msgstr "Médias"
+
+#: ui/ringmainwindow.ui:115
+msgid "Accounts"
+msgstr "Comptes"
+
+#: ui/ringmainwindow.ui:133
+msgid "Settings"
+msgstr "Paramètres"
+
+#: ui/ringmainwindow.ui:222
+msgid "Contacts"
+msgstr "Contacts"
+
+#: ui/ringmainwindow.ui:232
+msgid "History"
+msgstr "Historique"
+
+#: ui/ringmainwindow.ui:320
+msgid "Your Ring ID: "
+msgstr "Votre Ring ID:"
+
+#: ui/ringmainwindow.ui:330
+msgid "<span fgcolor=\"gray\">fetching Ring ID...</span>"
+msgstr ""
+
+#: ui/ringmainwindow.ui:375
+msgid "Welcome to  "
+msgstr "Bienvenue à"
+
+#: ui/ringmainwindow.ui:392
+msgid "Enter your alias to get started:"
+msgstr "Entrez votre pseudonyme pour commencer:"
+
+#: ui/ringmainwindow.ui:409
+msgid "Generating your Ring account..."
+msgstr "Génération de votre compte Ring..."
+
+#: ui/ringmainwindow.ui:423
+msgid "Next"
+msgstr "Suivant"
+
+#: ui/ringmainwindow.ui:445
+msgid "Your Ring account has been created with the following Ring ID:"
+msgstr "Votre compte Ring a été créé avec le Ring ID suivant:"
+
+#: ui/ringmainwindow.ui:460
+msgid "Share it with your friends so they can contact you via Ring!"
+msgstr "Partagé le avec vos amis pour qu'ils puissent vous joindre avec Ring!"
+
+#: ui/ringmainwindow.ui:465
+msgid "Done"
+msgstr "Effectué"

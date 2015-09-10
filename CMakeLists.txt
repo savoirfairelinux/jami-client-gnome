@@ -45,6 +45,7 @@ PKG_CHECK_MODULES(CLUTTERGTK REQUIRED clutter-gtk-1.0)
 PKG_CHECK_MODULES(ICONSYMBLIC REQUIRED gnome-icon-theme-symbolic)
 PKG_CHECK_MODULES(EBOOK REQUIRED libebook-1.2>=3.10)
 PKG_CHECK_MODULES(LIBNOTIFY libnotify>=0.7.6) #optional
+FIND_PACKAGE(Gettext) #optional for translations
 
 # include libs
 INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
@@ -253,8 +254,14 @@ GLIB_COMPILE_RESOURCES( GLIB_RESOURCES_RING
 # ENDIF()
 
 # for translations
-# FIND_PACKAGE ( Gettext REQUIRED )
-# ADD_SUBDIRECTORY( po )
+IF ( GETTEXT_FOUND )
+   FOREACH (lang fr)
+      GETTEXT_PROCESS_PO_FILES( ${lang} ALL
+         INSTALL_DESTINATION ${CMAKE_INSTALL_PREFIX}/share/locale
+         PO_FILES po/${lang}/ring-client-gnome.po
+      )
+   ENDFOREACH(lang)
+ENDIF( GETTEXT_FOUND )
 
 # install and compile glib gsettings schema
 add_schema("cx.ring.RingGnome.gschema.xml" GSCHEMA_RING)
