@@ -29,11 +29,18 @@
  */
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
+#include "config.h"
 #include "ring_client.h"
 
 int
 main(int argc, char *argv[])
 {
+    /* Internationalization; localization is done automatically by gtk during init */
+    bindtextdomain(PACKAGE_NAME, LOCALEDIR);
+    bind_textdomain_codeset(PACKAGE_NAME, "UTF-8");
+    textdomain(PACKAGE_NAME);
+
     RingClient *client = ring_client_new(argc, argv);
     return g_application_run(G_APPLICATION(client), argc, argv);
 }

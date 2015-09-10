@@ -45,6 +45,7 @@ PKG_CHECK_MODULES(CLUTTERGTK REQUIRED clutter-gtk-1.0)
 PKG_CHECK_MODULES(ICONSYMBLIC REQUIRED gnome-icon-theme-symbolic)
 PKG_CHECK_MODULES(EBOOK REQUIRED libebook-1.2>=3.10)
 PKG_CHECK_MODULES(LIBNOTIFY libnotify>=0.7.6) #optional
+FIND_PACKAGE(Gettext) #optional for translations
 
 # include libs
 INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
@@ -253,8 +254,30 @@ GLIB_COMPILE_RESOURCES( GLIB_RESOURCES_RING
 # ENDIF()
 
 # for translations
-# FIND_PACKAGE ( Gettext REQUIRED )
-# ADD_SUBDIRECTORY( po )
+IF (GETTEXT_FOUND)
+
+  # get all translation files; they're expected to be named using the following convention:
+  # '<lang code>[_<country code].po'
+  # eg: fr_CA.po (the country code is optional)
+  FILE(GLOB PO_FILES ${CMAKE_SOURCE_DIR}/po/*.po)
+
+  # Install each of the translation files
+  FOREACH(PO_FILE IN LISTS PO_FILES)
+    # extract the language (and optional country code) from the filename
+    GET_FILENAME_COMPONENT(LANG ${PO_FILE} NAME_WE)
+    GETTEXT_PROCESS_PO_FILES(${LANG} ALL PO_FILES ${PO_FILE})
+
+    SET(TRANSLATIONS_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/share/locale/${LANG}/LC_MESSAGES)
+
+    # install to share/locale and rename each to ring-client-gnome.mo
+    INSTALL(
+      FILES ${PROJECT_BINARY_DIR}/${LANG}.gmo
+      DESTINATION ${TRANSLATIONS_INSTALL_DIR}
+      RENAME ${PROJECT_NAME}.mo
+    )
+  ENDFOREACH(PO_FILE)
+
+ENDIF(GETTEXT_FOUND)
 
 # install and compile glib gsettings schema
 add_schema("cx.ring.RingGnome.gschema.xml" GSCHEMA_RING)

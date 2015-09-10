@@ -1,0 +1,18 @@
+Translation guide:
+
+The client uses gettext for translations, for a comprehensive guide see:
+http://www.gnu.org/software/gettext/manual/gettext.htm
+
+In order to generate the .pot (template) file with all the translation strings,
+append all the filenames that require translation to POTFILES.in, then run the
+following command:
+xgettext -d ring-client-gnome -o ring-client-gnome.pot -k_ -D .. -f POTFILES.in
+
+The translation files are expected to be located in the /po dir using the
+following naming convention:
+<language code>[_<country code>].po
+for example: fr_CA.po, lt.po
+
+The Ring project uses Transifex.com to facilitate the translation process. The
+project page can be found here:
+https://www.transifex.com/savoirfairelinux/ring
