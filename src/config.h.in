@@ -10,3 +10,6 @@
 
 #define RING_CLIENT_INSTALL "@CMAKE_INSTALL_PREFIX@"
 #define RING_DATA_DIR "/share/gnome-ring"
+
+#define PACKAGE_NAME "@PROJECT@"
+#define LOCALEDIR    "@CMAKE_INSTALL_PREFIX@/share/locale"
