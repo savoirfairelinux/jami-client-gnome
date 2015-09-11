@@ -30,6 +30,7 @@
 
 #include "menus.h"
 
+#include <glib/gi18n.h>
 #include <contactmethod.h>
 #include "../contactpopover.h"
 
@@ -63,7 +64,7 @@ GtkWidget * menu_item_add_to_contact(ContactMethod *cm, GtkWidget *parent, const
 {
     g_return_val_if_fail(cm, NULL);
 
-    auto add_to = gtk_menu_item_new_with_mnemonic("_Add to contact");
+    auto add_to = gtk_menu_item_new_with_mnemonic(_("_Add to contact"));
 
     /* save the parent widget in the item object, so we can retrieve
      * it in the callback */

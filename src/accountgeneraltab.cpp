@@ -31,6 +31,7 @@
 #include "accountgeneraltab.h"
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include <account.h>
 
 struct _AccountGeneralTab
@@ -206,7 +207,7 @@ build_tab_view(AccountGeneralTab *view)
         ++grid_row;
     } else {
         /* account alias */
-        label = gtk_label_new("Alias");
+        label = gtk_label_new(_("Alias"));
         gtk_widget_set_halign(label, GTK_ALIGN_START);
         gtk_grid_attach(GTK_GRID(priv->grid_account), label, 0, grid_row, 1, 1);
         entry_alias = gtk_entry_new();
@@ -217,7 +218,7 @@ build_tab_view(AccountGeneralTab *view)
         ++grid_row;
 
         /* account type */
-        label = gtk_label_new("Type");
+        label = gtk_label_new(_("Type"));
         gtk_widget_set_halign(label, GTK_ALIGN_START);
         gtk_grid_attach(GTK_GRID(priv->grid_account), label, 0, grid_row, 1, 1);
 
@@ -242,11 +243,11 @@ build_tab_view(AccountGeneralTab *view)
     }
 
     if (priv->account->protocol() == Account::Protocol::RING) {
-        label = gtk_label_new("Hash");
+        label = gtk_label_new("RingID");
         gtk_widget_set_halign(label, GTK_ALIGN_START);
         gtk_grid_attach(GTK_GRID(priv->grid_account), label, 0, grid_row, 1, 1);
         entry_username = gtk_entry_new();
-        gtk_entry_set_placeholder_text(GTK_ENTRY(entry_username), "auto-generating...");
+        gtk_entry_set_placeholder_text(GTK_ENTRY(entry_username), _("auto-generating..."));
         gtk_entry_set_text(GTK_ENTRY(entry_username), priv->account->username().toLocal8Bit().constData());
         g_object_set(G_OBJECT(entry_username), "editable", FALSE, NULL);
         g_object_set(G_OBJECT(entry_username), "max-width-chars", 50, NULL);
@@ -265,7 +266,7 @@ build_tab_view(AccountGeneralTab *view)
             /* SIP and IAX have the same params */
 
             /* host name */
-            label = gtk_label_new("Host name");
+            label = gtk_label_new(_("Hostname"));
             gtk_widget_set_halign(label, GTK_ALIGN_START);
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
             entry_hostname = gtk_entry_new();
@@ -275,7 +276,7 @@ build_tab_view(AccountGeneralTab *view)
             ++grid_row;
 
             /* user name */
-            label = gtk_label_new("User name");
+            label = gtk_label_new(_("Username"));
             gtk_widget_set_halign(label, GTK_ALIGN_START);
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
             entry_username = gtk_entry_new();
@@ -285,7 +286,7 @@ build_tab_view(AccountGeneralTab *view)
             ++grid_row;
 
             /* password */
-            label = gtk_label_new("Password");
+            label = gtk_label_new(_("Password"));
             gtk_widget_set_halign(label, GTK_ALIGN_START);
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
             entry_password = gtk_entry_new();
@@ -298,13 +299,13 @@ build_tab_view(AccountGeneralTab *view)
             ++grid_row;
 
             /* show password */
-            GtkWidget *checkbutton = gtk_check_button_new_with_label("Show password");
+            GtkWidget *checkbutton = gtk_check_button_new_with_label(_("Show password"));
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton, 1, grid_row, 1, 1);
             g_signal_connect(checkbutton, "toggled", G_CALLBACK(show_password), entry_password);
             ++grid_row;
 
             /* proxy */
-            label = gtk_label_new("Proxy");
+            label = gtk_label_new(_("Proxy"));
             gtk_widget_set_halign(label, GTK_ALIGN_START);
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
             entry_proxy = gtk_entry_new();
@@ -314,7 +315,7 @@ build_tab_view(AccountGeneralTab *view)
             ++grid_row;
 
             /* voicemail number */
-            label = gtk_label_new("Voicemail number");
+            label = gtk_label_new(_("Voicemail number"));
             gtk_widget_set_halign(label, GTK_ALIGN_START);
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
             entry_voicemail = gtk_entry_new();
@@ -326,7 +327,7 @@ build_tab_view(AccountGeneralTab *view)
             /* RING accoutn */
 
             /* bootstrap */
-            label = gtk_label_new("Bootstrap");
+            label = gtk_label_new(C_("The DHT bootstrap server url", "Bootstrap"));
             gtk_widget_set_halign(label, GTK_ALIGN_START);
             gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
             entry_hostname = gtk_entry_new();
@@ -338,7 +339,7 @@ build_tab_view(AccountGeneralTab *view)
     }
 
     /* auto answer */
-    checkbutton_autoanswer = gtk_check_button_new_with_label("Auto-answer calls");
+    checkbutton_autoanswer = gtk_check_button_new_with_label(_("Auto-answer calls"));
     gtk_widget_set_halign(checkbutton_autoanswer, GTK_ALIGN_START);
     gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_autoanswer, 0, grid_row, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_autoanswer), priv->account->isAutoAnswer());
@@ -346,7 +347,7 @@ build_tab_view(AccountGeneralTab *view)
     ++grid_row;
 
     /* upnp */
-    checkbutton_upnp = gtk_check_button_new_with_label("UPnP enabled");
+    checkbutton_upnp = gtk_check_button_new_with_label(_("UPnP enabled"));
     gtk_widget_set_halign(checkbutton_upnp, GTK_ALIGN_START);
     gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_upnp, 0, grid_row, 1, 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_upnp), priv->account->isUpnpEnabled());
@@ -354,7 +355,7 @@ build_tab_view(AccountGeneralTab *view)
     ++grid_row;
 
     /* DTMF tone type */
-    label = gtk_label_new("DTMF tone type:");
+    label = gtk_label_new(_("DTMF tone type:"));
     gtk_widget_set_halign(label, GTK_ALIGN_START);
     gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
 
