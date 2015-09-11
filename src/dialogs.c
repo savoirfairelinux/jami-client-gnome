@@ -31,6 +31,7 @@
 #include "dialogs.h"
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include <glib/gprintf.h>
 #include "config.h"
 
@@ -59,7 +60,7 @@ ring_dialog_working(GtkWidget *parent, const gchar *msg)
     if (msg) {
         message = gtk_label_new(msg);
     } else {
-        message = gtk_label_new("Working...");
+        message = gtk_label_new(_("Working..."));
     }
 
     gtk_box_pack_start(GTK_BOX(content_area), message, FALSE, TRUE, 0);
@@ -89,7 +90,7 @@ ring_about_dialog(GtkWidget *parent)
         g_clear_error(&error);
     }
 
-    gchar *name = g_strdup_printf("Gnome Ring v%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+    gchar *name = g_strdup_printf(_("Gnome Ring v%d.%d.%d"), VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
     const gchar *authors[] = {
         [0] = "Adrien Béraud",
@@ -114,8 +115,8 @@ ring_about_dialog(GtkWidget *parent)
         "copyright", "© 2015 Savoir-faire Linux",
         "license-type", GTK_LICENSE_GPL_3_0,
         "logo", logo,
-        "version", "release: Samuel de Champlain",
-        "comments", "The GNOME client for Ring.\nRing is a secured and distributed communication software.",
+        "version", C_("Do not translate the release name", "release: Samuel de Champlain"),
+        "comments", _("The GNOME client for Ring.\nRing is a secured and distributed communication software."),
         "authors", authors,
         "website", "http://www.ring.cx/",
         "website-label", "www.ring.cx",
