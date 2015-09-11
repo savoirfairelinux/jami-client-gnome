@@ -152,7 +152,6 @@ choose_contact_view_init(ChooseContactView *self)
     /* photo and name/contact method colparentumn */
     GtkCellArea *area = gtk_cell_area_box_new();
     GtkTreeViewColumn *column = gtk_tree_view_column_new_with_area(area);
-    gtk_tree_view_column_set_title(column, "Name");
 
     /* photo renderer */
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();

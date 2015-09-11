@@ -30,6 +30,7 @@
 
 #include "edscontactbackend.h"
 
+#include <glib/gi18n.h>
 #include <person.h>
 #include <personmodel.h>
 #include <contactmethod.h>
@@ -194,10 +195,10 @@ EdsContactBackend::EdsContactBackend(CollectionMediator<Person>* mediator, EClie
         auto addressbook = e_source_get_display_name(source);
 
         gchar *name = g_strdup_printf("%s (%s)", addressbook, backend);
-        name_ = QObject::tr(name);
+        name_ = name;
         g_free(name);
     } else
-        name_ = QObject::tr("Unknown EDS addressbook");
+        name_ = _("Unknown EDS addressbook");
 }
 
 EdsContactBackend::~EdsContactBackend()
@@ -217,7 +218,7 @@ QString EdsContactBackend::name() const
 
 QString EdsContactBackend::category() const
 {
-    return QObject::tr("Contacts");
+    return Q_("Backend category|Contacts");
 }
 
 bool EdsContactBackend::isEnabled() const
