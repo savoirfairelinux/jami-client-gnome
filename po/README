@@ -6,7 +6,12 @@ http://www.gnu.org/software/gettext/manual/gettext.htm
 In order to generate the .pot (template) file with all the translation strings,
 append all the filenames that require translation to POTFILES.in, then run the
 following command:
-xgettext -d ring-client-gnome -o ring-client-gnome.pot -k_ -D .. -f POTFILES.in
+xgettext -o ring-client-gnome.pot --keyword=_ --keyword=Q_:1g --keyword=N_ -D .. -f POTFILES.in
+
+Replace the first 3 lines of the generated header with:
+# Gettext PO translation template file for the GNOME client of the Ring project.
+# Copyright (C) 2015 Savoir-faire Linux Inc.
+# This file is distributed under the same license as the Ring package.
 
 Then upload the generate file (ring-client-gnome.pot) to Transifex.com for
 translating.

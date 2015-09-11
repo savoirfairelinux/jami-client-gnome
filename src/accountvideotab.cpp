@@ -31,6 +31,7 @@
 #include "accountvideotab.h"
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include <account.h>
 #include <audio/codecmodel.h>
 #include "models/gtkqsortfiltertreemodel.h"
@@ -190,17 +191,17 @@ build_tab_view(AccountVideoTab *view)
     gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_codecs), GTK_TREE_MODEL(codec_model));
 
     renderer = gtk_cell_renderer_toggle_new();
-    column = gtk_tree_view_column_new_with_attributes("Enabled", renderer, "active", 0, NULL);
+    column = gtk_tree_view_column_new_with_attributes(_("Enabled"), renderer, "active", 0, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_codecs), column);
 
     g_signal_connect(renderer, "toggled", G_CALLBACK(codec_active_toggled), view);
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("Name", renderer, "text", 1, NULL);
+    column = gtk_tree_view_column_new_with_attributes(Q_("Codec|Name"), renderer, "text", 1, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_codecs), column);
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("Bitrate", renderer, "text", 2, NULL);
+    column = gtk_tree_view_column_new_with_attributes(_("Bitrate"), renderer, "text", 2, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_codecs), column);
 
     /* enable video checkbutton */
