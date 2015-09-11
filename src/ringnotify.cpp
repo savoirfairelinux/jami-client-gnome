@@ -32,6 +32,7 @@
 #include "config.h"
 
 #if USE_LIBNOTIFY
+#include <glib/gi18n.h>
 #include <libnotify/notify.h>
 #include <memory>
 #include <globalinstances.h>
@@ -82,7 +83,7 @@ ring_notify_incoming_call(
 
     gchar *body = g_strdup_printf("%s", call->formattedName().toUtf8().constData());
     std::shared_ptr<NotifyNotification> notification(
-        notify_notification_new("Incoming call", body, NULL), g_object_unref);
+        notify_notification_new(_("Incoming call"), body, NULL), g_object_unref);
     g_free(body);
 
     /* get photo */
@@ -165,7 +166,7 @@ ring_notify_message_recieved(Call *call, const QMap<QString,QString>& msg)
 
     GHashTable *chat_table = ring_notify_get_chat_table();
 
-    gchar *title = g_strdup_printf("%s says:", call->formattedName().toUtf8().constData());
+    gchar *title = g_strdup_printf(Q_("Text message notification|%s says:"), call->formattedName().toUtf8().constData());
     gchar *body = g_strdup_printf("%s", msg["text/plain"].toUtf8().constData());
 
     /* check if a notification already exists for this call */

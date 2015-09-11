@@ -31,6 +31,7 @@
 #include "historyview.h"
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include "models/gtkqsortfiltertreemodel.h"
 #include <categorizedhistorymodel.h>
 #include <QtCore/QSortFilterProxyModel>
@@ -180,7 +181,7 @@ history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTr
     GtkWidget *menu = gtk_menu_new();
 
     /* copy */
-    GtkWidget *item = gtk_menu_item_new_with_mnemonic("_Copy");
+    GtkWidget *item = gtk_menu_item_new_with_mnemonic(_("_Copy"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     g_signal_connect(item, "activate", G_CALLBACK(copy_history_item), treeview);
 
@@ -357,7 +358,7 @@ history_view_init(HistoryView *self)
     /* need to be able to focus on widget so that we can auto-scroll to it */
     gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
 
-    GtkWidget *label_history = gtk_label_new("History");
+    GtkWidget *label_history = gtk_label_new(Q_("Call history|History"));
     gtk_box_pack_start(GTK_BOX(self), label_history, FALSE, TRUE, 10);
 
     GtkWidget *treeview_history = gtk_tree_view_new();
@@ -412,7 +413,7 @@ history_view_init(HistoryView *self)
     /* call direction, photo, name/number column */
     GtkCellArea *area = gtk_cell_area_box_new();
     GtkTreeViewColumn *column = gtk_tree_view_column_new_with_area(area);
-    gtk_tree_view_column_set_title(column, "Call");
+    gtk_tree_view_column_set_title(column, Q_("Call history|Call"));
 
     /* call direction */
     GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
@@ -457,7 +458,7 @@ history_view_init(HistoryView *self)
     /* date column */
     area = gtk_cell_area_box_new();
     column = gtk_tree_view_column_new_with_area(area);
-    gtk_tree_view_column_set_title(column, "Date");
+    gtk_tree_view_column_set_title(column, Q_("Call history|Date"));
 
     /* time renderer */
     renderer = gtk_cell_renderer_text_new ();
