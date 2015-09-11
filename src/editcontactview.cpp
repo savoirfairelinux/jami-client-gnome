@@ -30,6 +30,7 @@
 
 #include "editcontactview.h"
 
+#include <glib/gi18n.h>
 #include <contactmethod.h>
 #include <personmodel.h>
 #include <numbercategorymodel.h>
@@ -192,7 +193,7 @@ edit_contact_view_init(EditContactView *self)
                              (QAbstractItemModel *)NumberCategoryModel::instance(), NULL);
 
     /* set "home" as the default number category */
-    const auto& idx = NumberCategoryModel::instance()->nameToIndex("home");
+    const auto& idx = NumberCategoryModel::instance()->nameToIndex(C_("Phone number category", "home"));
     if (idx.isValid())
         gtk_combo_box_set_active_index(GTK_COMBO_BOX(priv->combobox_detail), idx);
 
