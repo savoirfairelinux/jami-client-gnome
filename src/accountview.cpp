@@ -31,6 +31,7 @@
 #include "accountview.h"
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include <accountmodel.h>
 #include <audio/codecmodel.h>
 #include <protocolmodel.h>
@@ -155,23 +156,23 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *view)
         auto general_tab = create_scrolled_account_view(account_general_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
                                  general_tab,
-                                 gtk_label_new("General"));
+                                 gtk_label_new(C_("Account settings", "General")));
         auto audio_tab = create_scrolled_account_view(account_audio_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
                                  audio_tab,
-                                 gtk_label_new("Audio"));
+                                 gtk_label_new(C_("Account settings", "Audio")));
         auto video_tab = create_scrolled_account_view(account_video_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
                                  video_tab,
-                                 gtk_label_new("Video"));
+                                 gtk_label_new(C_("Account settings", "Video")));
         auto advanced_tab = create_scrolled_account_view(account_advanced_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
                                  advanced_tab,
-                                 gtk_label_new("Advanced"));
+                                 gtk_label_new(C_("Account settings", "Advanced")));
         auto security_tab = create_scrolled_account_view(account_security_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
                                  security_tab,
-                                 gtk_label_new("Security"));
+                                 gtk_label_new(C_("Account settings", "Security")));
 
         /* set the tab displayed to the same as the prev account selected */
         gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->current_account_notebook), priv->current_page);
@@ -225,7 +226,7 @@ remove_account_dialog(AccountView *view, Account *account)
     GtkWidget *dialog = gtk_message_dialog_new(NULL,
                             (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
                             GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
-                            "Are you sure you want to delete account \"%s\"?",
+                            _("Are you sure you want to delete account \"%s\"?"),
                             account->alias().toLocal8Bit().constData());
 
     gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
@@ -309,9 +310,9 @@ add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
             GtkWidget *working = ring_dialog_working(GTK_WIDGET(view), NULL);
             gtk_window_present(GTK_WINDOW(working));
 
-            auto account = AccountModel::instance()->add(QString("New Account"), protocol_idx);
+            auto account = AccountModel::instance()->add(QString(_("New Account")), protocol_idx);
             if (account->protocol() == Account::Protocol::RING)
-                account->setDisplayName("New Account");
+                account->setDisplayName(_("New Account"));
 
             /* now save after a short timeout to make sure that
              * the save doesn't happen before the "working" dialog is presented
@@ -382,17 +383,17 @@ account_view_init(AccountView *view)
     gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_account_list), GTK_TREE_MODEL(account_model));
 
     renderer = gtk_cell_renderer_toggle_new();
-    column = gtk_tree_view_column_new_with_attributes("Enabled", renderer, "active", 0, NULL);
+    column = gtk_tree_view_column_new_with_attributes(C_("Account state column", "Enabled"), renderer, "active", 0, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_account_list), column);
 
     g_signal_connect(renderer, "toggled", G_CALLBACK(account_active_toggled), view);
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("Alias", renderer, "text", 1, NULL);
+    column = gtk_tree_view_column_new_with_attributes(C_("Account alias (name) column", "Alias"), renderer, "text", 1, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_account_list), column);
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("Status", renderer, "text", 3, NULL);
+    column = gtk_tree_view_column_new_with_attributes(C_("Account status column", "Status"), renderer, "text", 3, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_account_list), column);
 
     /* the registration state is an enum, we want to display it as a string */

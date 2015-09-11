@@ -31,6 +31,7 @@
 #include "ringmainwindow.h"
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include "models/gtkqtreemodel.h"
 #include <callmodel.h>
 #include <call.h>
@@ -637,10 +638,14 @@ show_ring_id(RingMainWindow *win, Account *account) {
             gtk_label_set_label(GTK_LABEL(priv->label_ring_id), hash.toUtf8().constData());
         } else {
             g_warning("got ring account, but Ring id is empty");
-            gtk_label_set_label(GTK_LABEL(priv->label_ring_id), "<span fgcolor=\"gray\">fetching Ring ID...</span>");
+            gtk_label_set_label(GTK_LABEL(priv->label_ring_id),
+                                g_strdup_printf("<span fgcolor=\"gray\">%s</span>",
+                                                _("fetching RingID...")));
         }
     } else {
-        gtk_label_set_label(GTK_LABEL(priv->label_ring_id), "<span fgcolor=\"gray\">no Ring account</span>");
+        gtk_label_set_label(GTK_LABEL(priv->label_ring_id),
+                            g_strdup_printf("<span fgcolor=\"gray\">%s</span>",
+                                            _("no Ring account")));
     }
 
 }

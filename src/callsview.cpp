@@ -31,6 +31,7 @@
 #include "callsview.h"
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include "models/gtkqtreemodel.h"
 #include <callmodel.h>
 #include <QtCore/QItemSelectionModel>
@@ -229,7 +230,7 @@ calls_view_init(CallsView *self)
     gtk_container_add(GTK_CONTAINER(self), box);
 
     /* current calls label */
-    GtkWidget *label = gtk_label_new("Current Calls");
+    GtkWidget *label = gtk_label_new(_("Current Calls"));
     gtk_box_pack_start(GTK_BOX(box), label, FALSE, TRUE, 10);
 
     GtkWidget *scrolled_window = gtk_scrolled_window_new(NULL, NULL);
