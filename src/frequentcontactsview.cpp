@@ -31,6 +31,7 @@
 #include "frequentcontactsview.h"
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include "models/gtkqtreemodel.h"
 #include "utils/calling.h"
 #include <memory>
@@ -171,7 +172,7 @@ create_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gp
 
     /* copy name */
     gchar *name = g_strdup_printf("%s", c.value<QString>().toUtf8().constData());
-    GtkWidget *item = gtk_menu_item_new_with_mnemonic("_Copy name");
+    GtkWidget *item = gtk_menu_item_new_with_mnemonic(_("_Copy name"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, name, (GDestroyNotify)g_free);
     g_signal_connect(item,
@@ -180,7 +181,7 @@ create_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gp
                      NULL);
 
     gchar *number = g_strdup_printf("%s", n.value<QString>().toUtf8().constData());
-    item = gtk_menu_item_new_with_mnemonic("_Copy number");
+    item = gtk_menu_item_new_with_mnemonic(_("_Copy number"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, number, (GDestroyNotify)g_free);
     g_signal_connect(item,
@@ -221,7 +222,7 @@ frequent_contacts_view_init(FrequentContactsView *self)
     gtk_orientable_set_orientation(GTK_ORIENTABLE(self), GTK_ORIENTATION_VERTICAL);
 
     /* frequent contacts/numbers */
-    GtkWidget *label_frequent = gtk_label_new("Frequent Contacts");
+    GtkWidget *label_frequent = gtk_label_new(_("Frequent Contacts"));
     gtk_box_pack_start(GTK_BOX(self), label_frequent, FALSE, TRUE, 10);
 
     GtkWidget *treeview_frequent = gtk_tree_view_new();
@@ -247,7 +248,6 @@ frequent_contacts_view_init(FrequentContactsView *self)
     /* photo and name/contact method column */
     GtkCellArea *area = gtk_cell_area_box_new();
     GtkTreeViewColumn *column = gtk_tree_view_column_new_with_area(area);
-    gtk_tree_view_column_set_title(column, "Name");
 
     /* photo renderer */
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();

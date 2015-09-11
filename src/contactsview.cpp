@@ -31,6 +31,7 @@
 #include "contactsview.h"
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include "models/gtkqsortfiltertreemodel.h"
 #include <categorizedcontactmodel.h>
 #include <personmodel.h>
@@ -286,7 +287,7 @@ contacts_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkT
 
             /* copy name */
             gchar *name = g_strdup_printf("%s", c->formattedName().toUtf8().constData());
-            GtkWidget *item = gtk_menu_item_new_with_mnemonic("_Copy name");
+            GtkWidget *item = gtk_menu_item_new_with_mnemonic(_("_Copy name"));
             gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
             g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, name, (GDestroyNotify)g_free);
             g_signal_connect(item,
@@ -297,7 +298,7 @@ contacts_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkT
             /* copy number if there is only one */
             if (c->phoneNumbers().size() == 1) {
                 gchar *number = g_strdup_printf("%s",c->phoneNumbers().first()->uri().toUtf8().constData());
-                GtkWidget *item = gtk_menu_item_new_with_mnemonic("_Copy number");
+                GtkWidget *item = gtk_menu_item_new_with_mnemonic(_("_Copy number"));
                 gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
                 g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, number, (GDestroyNotify)g_free);
                 g_signal_connect(item,
@@ -312,7 +313,7 @@ contacts_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkT
         if (var_n.isValid()) {
             ContactMethod *n = var_n.value<ContactMethod *>();
             gchar *number = g_strdup_printf("%s",n->uri().toUtf8().constData());
-            GtkWidget *item = gtk_menu_item_new_with_mnemonic("_Copy number");
+            GtkWidget *item = gtk_menu_item_new_with_mnemonic(_("_Copy number"));
             gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
             g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, number, (GDestroyNotify)g_free);
             g_signal_connect(item,
@@ -338,7 +339,7 @@ contacts_view_init(ContactsView *self)
     /* need to be able to focus on widget so that we can auto-scroll to it */
     gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
 
-    GtkWidget *label_contacts = gtk_label_new("Contacts");
+    GtkWidget *label_contacts = gtk_label_new(_("Contacts"));
     gtk_box_pack_start(GTK_BOX(self), label_contacts, FALSE, TRUE, 10);
 
     GtkWidget *treeview_contacts = gtk_tree_view_new();
@@ -373,7 +374,6 @@ contacts_view_init(ContactsView *self)
     /* photo and name/contact method column */
     GtkCellArea *area = gtk_cell_area_box_new();
     GtkTreeViewColumn *column = gtk_tree_view_column_new_with_area(area);
-    gtk_tree_view_column_set_title(column, "Name");
 
     /* photo renderer */
     GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();

@@ -31,6 +31,7 @@
 #include "generalsettingsview.h"
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include <categorizedhistorymodel.h>
 #include "utils/files.h"
 
@@ -88,8 +89,7 @@ clear_history_dialog(GeneralSettingsView *self)
     GtkWidget *dialog = gtk_message_dialog_new(NULL,
                             (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
                             GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
-                            "Are you sure you want to clear all your history?\n" \
-                            "This operation will also reset the Frequen Contacts list");
+                            _("Are you sure you want to clear all your history?\nThis operation will also reset the Frequent Contacts list"));
 
     gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
 
