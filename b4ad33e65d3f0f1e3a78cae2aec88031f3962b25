@@ -22,6 +22,30 @@
       "revId": "b4ad33e65d3f0f1e3a78cae2aec88031f3962b25",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a96c907_9e9edd62",
+        "filename": "src/ring_client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-09-14T17:48:46Z",
+      "side": 1,
+      "message": "this is based on where the translations will be installed due to the cmake rules in this patch:\nhttps://gerrit-ring.savoirfairelinux.com/#/c/2696\n\nwe can modify that patch and put a special rules for windows if you want...",
+      "parentUuid": "7a96c907_1eabad8a",
+      "range": {
+        "startLine": 268,
+        "startChar": 74,
+        "endLine": 268,
+        "endChar": 110
+      },
+      "revId": "b4ad33e65d3f0f1e3a78cae2aec88031f3962b25",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
