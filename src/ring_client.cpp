@@ -32,6 +32,7 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+#include <QtCore/QTranslator>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QString>
 #include <QtCore/QByteArray>
@@ -260,6 +261,17 @@ ring_client_startup(GApplication *app)
         init_exception_dialog(c_str);
         g_error("%s", c_str);
         exit(1); /* the g_error above should normally cause the applicaiton to exit */
+    }
+
+    /* load translations from LRC */
+    QTranslator translator;
+    if (translator.load(QLocale::system(), "lrc", "_", RING_CLIENT_INSTALL "/share/libringclient/translations")) {
+        priv->qtapp->installTranslator(&translator);
+    } else {
+        g_debug("could not load LRC translations for %s, %s",
+            QLocale::languageToString(QLocale::system().language()).toUtf8().constData(),
+            QLocale::countryToString(QLocale::system().country()).toUtf8().constData()
+        );
     }
 
     /* init delegates */
