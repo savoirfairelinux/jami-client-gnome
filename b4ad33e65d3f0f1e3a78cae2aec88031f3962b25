@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a96c907_1eabad8a",
+        "filename": "src/ring_client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 32
+      },
+      "writtenOn": "2015-09-14T17:43:04Z",
+      "side": 1,
+      "message": "I don\u0027t think this is Windows compatible :p",
+      "range": {
+        "startLine": 268,
+        "startChar": 74,
+        "endLine": 268,
+        "endChar": 110
+      },
+      "revId": "b4ad33e65d3f0f1e3a78cae2aec88031f3962b25",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
