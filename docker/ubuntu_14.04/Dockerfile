@@ -9,7 +9,7 @@ RUN apt-get install -y  autoconf devscripts debianutils debhelper build-essentia
     autotools-dev chrpath check astyle \
     libgnutls28-dev cmake libebook1.2-dev gnome-icon-theme-symbolic \
     libclutter-gtk-1.0-dev libclutter-1.0-dev libglib2.0-dev libgtk-3-dev \
-    libnotify-dev software-properties-common --fix-missing
+    libnotify-dev software-properties-common qttools5-dev-tools gettext --fix-missing
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test
 RUN apt-get update -y
 RUN apt-get install gcc-4.9 g++-4.9 cpp-4.9 -y

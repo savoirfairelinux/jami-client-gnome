@@ -17,7 +17,7 @@ BuildRequires:      autoconf automake libtool dbus-devel pcre-devel yaml-cpp-dev
 BuildRequires:      boost-devel dbus-c++-devel dbus-devel libupnp-devel qt5-qtbase-devel
 BuildRequires:      gnome-icon-theme-symbolic chrpath check astyle gnutls-devel yasm git
 BuildRequires:      cmake clutter-gtk-devel clutter-devel glib2-devel gtk3-devel evolution-data-server-devel
-BuildRequires:      libnotify-devel
+BuildRequires:      libnotify-devel qt5-qttools-devel
 Requires:           gnome-icon-theme-symbolic evolution-data-server ring-daemon librsvg2
 Requires:           libnotify
 Conflicts:          ring-kde
@@ -92,6 +92,9 @@ mkdir -p %{buildroot}/%{_datadir}/gnome-ring
 mv ../libringclient/install/share/gnome-ring/gnome-ring.desktop %{buildroot}/%{_datadir}/gnome-ring/gnome-ring.desktop
 mkdir -p %{buildroot}/%{_datadir}/applications
 mv ../libringclient/install/share/applications/gnome-ring.desktop %{buildroot}/%{_datadir}/applications/gnome-ring.desktop
+mv ../libringclient/install/share/locale %{buildroot}/%{_datadir}/.
+mkdir -p %{buildroot}/%{_datadir}/libringclient
+mv ../libringclient/install/share/libringclient/translations %{buildroot}/%{_datadir}/libringclient/.
 sed -i "s#Icon=.*#Icon=%{_datadir}/icons/hicolor/scalable/apps/ring.svg#g" %{buildroot}/%{_datadir}/applications/gnome-ring.desktop
 
 %postun
