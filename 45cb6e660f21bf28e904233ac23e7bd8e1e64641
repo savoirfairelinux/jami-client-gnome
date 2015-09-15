@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a96c907_417394b1",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-09-15T15:33:31Z",
+      "side": 1,
+      "message": "no i18n for protocoles",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 56
+      },
+      "revId": "45cb6e660f21bf28e904233ac23e7bd8e1e64641",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a96c907_c15ec412",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-09-15T15:33:31Z",
+      "side": 1,
+      "message": "no i18n for protocoles",
+      "range": {
+        "startLine": 229,
+        "startChar": 70,
+        "endLine": 229,
+        "endChar": 73
+      },
+      "revId": "45cb6e660f21bf28e904233ac23e7bd8e1e64641",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a96c907_01658ce0",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-09-15T15:33:31Z",
+      "side": 1,
+      "message": "no i18n for protocoles",
+      "range": {
+        "startLine": 232,
+        "startChar": 70,
+        "endLine": 232,
+        "endChar": 73
+      },
+      "revId": "45cb6e660f21bf28e904233ac23e7bd8e1e64641",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a96c907_a16138d5",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-09-15T15:33:31Z",
+      "side": 1,
+      "message": "no i18n for protocoles",
+      "range": {
+        "startLine": 235,
+        "startChar": 70,
+        "endLine": 235,
+        "endChar": 74
+      },
+      "revId": "45cb6e660f21bf28e904233ac23e7bd8e1e64641",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a96c907_619b30ca",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-09-15T15:33:31Z",
+      "side": 1,
+      "message": "no i18n for protocoles",
+      "range": {
+        "startLine": 365,
+        "startChar": 84,
+        "endLine": 365,
+        "endChar": 87
+      },
+      "revId": "45cb6e660f21bf28e904233ac23e7bd8e1e64641",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a96c907_81a0bcf5",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-09-15T15:33:31Z",
+      "side": 1,
+      "message": "no i18n for protocoles",
+      "range": {
+        "startLine": 368,
+        "startChar": 27,
+        "endLine": 368,
+        "endChar": 30
+      },
+      "revId": "45cb6e660f21bf28e904233ac23e7bd8e1e64641",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a96c907_21a52804",
+        "filename": "src/dialogs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-09-15T15:33:31Z",
+      "side": 1,
+      "message": "comment that Samuel de Champlain must not be changed",
+      "range": {
+        "startLine": 118,
+        "startChar": 20,
+        "endLine": 118,
+        "endChar": 53
+      },
+      "revId": "45cb6e660f21bf28e904233ac23e7bd8e1e64641",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
