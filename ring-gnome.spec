@@ -92,7 +92,9 @@ mkdir -p %{buildroot}/%{_datadir}/gnome-ring
 mv ../libringclient/install/share/gnome-ring/gnome-ring.desktop %{buildroot}/%{_datadir}/gnome-ring/gnome-ring.desktop
 mkdir -p %{buildroot}/%{_datadir}/applications
 mv ../libringclient/install/share/applications/gnome-ring.desktop %{buildroot}/%{_datadir}/applications/gnome-ring.desktop
+mkdir -p ../libringclient/install/share/locale
 mv ../libringclient/install/share/locale %{buildroot}/%{_datadir}/.
+mkdir -p ../libringclient/install/share/libringclient/translations
 mkdir -p %{buildroot}/%{_datadir}/libringclient
 mv ../libringclient/install/share/libringclient/translations %{buildroot}/%{_datadir}/libringclient/.
 sed -i "s#Icon=.*#Icon=%{_datadir}/icons/hicolor/scalable/apps/ring.svg#g" %{buildroot}/%{_datadir}/applications/gnome-ring.desktop
