@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015 Savoir-Faire Linux Inc.
+ *  Copyright (C) 2015 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -15,17 +15,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
- *
- *  Additional permission under GNU GPL version 3 section 7:
- *
- *  If you modify this program, or any covered work, by linking or
- *  combining it with the OpenSSL project's OpenSSL library (or a
- *  modified version of that library), containing parts covered by the
- *  terms of the OpenSSL or SSLeay licenses, Savoir-Faire Linux Inc.
- *  grants you additional permission to convey the resulting work.
- *  Corresponding Source for a non-source form of such a combination
- *  shall include the source code for the parts of OpenSSL used as well
- *  as that of the covered work.
  */
 
 #ifndef RING_CLIENT_H_
@@ -51,6 +40,13 @@ typedef struct _RingClient        RingClient;
 GType       ring_client_get_type (void) G_GNUC_CONST;
 RingClient *ring_client_new      (int argc, char *argv[]);
 GtkWindow  *ring_client_get_main_window(RingClient *client);
+
+/**
+ * Sets if the client should attempt to restore the main window state (hidden or not) to what it was
+ * when it was last quit (stored by the "window-state-hidden" gsetting). This function must be
+ * called before the main window is created for the first time for it to have an effect.
+ */
+void        ring_client_set_restore_main_window_state(RingClient *client, gboolean restore);
 
 G_END_DECLS
 
