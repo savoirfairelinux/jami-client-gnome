@@ -87,6 +87,8 @@ struct _RingClientPrivate {
     /* UAM */
     QMetaObject::Connection uam_updated;
 
+    std::unique_ptr<QTranslator> translator;
+
     GCancellable *cancellable;
 };
 
@@ -264,9 +266,9 @@ ring_client_startup(GApplication *app)
     }
 
     /* load translations from LRC */
-    QTranslator translator;
-    if (translator.load(QLocale::system(), "lrc", "_", RING_CLIENT_INSTALL "/share/libringclient/translations")) {
-        priv->qtapp->installTranslator(&translator);
+    priv->translator.reset(new QTranslator);
+    if (priv->translator->load(QLocale::system(), "lrc", "_", RING_CLIENT_INSTALL "/share/libringclient/translations")) {
+        priv->qtapp->installTranslator(priv->translator.get());
     } else {
         g_debug("could not load LRC translations for %s, %s",
             QLocale::languageToString(QLocale::system().language()).toUtf8().constData(),
