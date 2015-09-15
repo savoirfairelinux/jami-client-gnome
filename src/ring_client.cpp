@@ -91,6 +91,8 @@ struct _RingClientPrivate {
     std::unique_ptr<QTranslator> translator;
 
     GCancellable *cancellable;
+
+    gboolean restore_window_state;
 };
 
 /* this union is used to pass ints as pointers and vice versa for GAction parameters*/
@@ -191,17 +193,41 @@ autostart_toggled(GSettings *settings, G_GNUC_UNUSED gchar *key, G_GNUC_UNUSED g
     autostart_symlink(g_settings_get_boolean(settings, "start-on-login"));
 }
 
+static void
+ring_window_show(RingClient *client)
+{
+    g_return_if_fail(IS_RING_CLIENT(client));
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    g_return_if_fail(priv->win);
+
+    g_debug("showing main window");
+    gtk_window_present(GTK_WINDOW(priv->win));
+    g_settings_set_boolean(priv->settings, "window-state-hidden", FALSE);
+}
+
+static void
+ring_window_hide(RingClient *client)
+{
+    g_return_if_fail(IS_RING_CLIENT(client));
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    g_return_if_fail(priv->win);
+
+    g_debug("hiding main window");
+    gtk_widget_hide(priv->win);
+    g_settings_set_boolean(priv->settings, "window-state-hidden", TRUE);
+}
+
 static gboolean
 on_close_window(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, RingClient *client)
 {
     g_return_val_if_fail(GTK_IS_WINDOW(window) && IS_RING_CLIENT(client), FALSE);
-
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
     if (g_settings_get_boolean(priv->settings, "hide-on-close")) {
         /* we want to simply hide the window and keep the client running */
-        g_debug("hiding main window");
-        gtk_widget_hide(window);
+        ring_window_hide(client);
         return TRUE; /* do not propogate event */
     } else {
         /* we want to quit the application, so just propogate the event */
@@ -215,6 +241,8 @@ ring_client_activate(GApplication *app)
     RingClient *client = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
+    gboolean show_window = TRUE;
+
     if (priv->win == NULL) {
         priv->win = ring_main_window_new(GTK_APPLICATION(app));
 
@@ -223,10 +251,17 @@ ring_client_activate(GApplication *app)
 
         /* check if the window should be destoryed or not on close */
         g_signal_connect(priv->win, "delete-event", G_CALLBACK(on_close_window), client);
+
+        /* the only case in which we don't want to show the main window is we're launching the
+         * primary instance of the application with the '-r' (--restore-last-window-state) option
+         * and the window was hidden when the application last quit
+         */
+        if ( priv->restore_window_state && g_settings_get_boolean(priv->settings, "window-state-hidden") )
+            show_window = FALSE;
     }
 
-    g_debug("show window");
-    gtk_window_present(GTK_WINDOW(priv->win));
+    if (show_window)
+        ring_window_show(client);
 }
 
 static void
@@ -357,7 +392,7 @@ ring_client_startup(GApplication *app)
             RingClient *client = RING_CLIENT(app);
             RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
             if (g_settings_get_boolean(priv->settings, "bring-window-to-front"))
-                ring_client_activate(app);
+                ring_window_show(client);
         }
     );
 
@@ -497,4 +532,13 @@ ring_client_get_main_window(RingClient *client)
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
     return (GtkWindow *)priv->win;
+}
+
+void
+ring_client_set_restore_main_window_state(RingClient *client, gboolean restore)
+{
+    g_return_if_fail(IS_RING_CLIENT(client));
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    priv->restore_window_state = restore;
 }
