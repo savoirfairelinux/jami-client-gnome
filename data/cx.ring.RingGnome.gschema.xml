@@ -16,5 +16,10 @@
         <summary>Bring window to foreground on incoming calls.</summary>
         <description>Bring window to foreground on incoming calls.</description>
     </key>
+    <key name="window-state-hidden" type="b">
+        <default>false</default>
+        <summary>Saves whether or not the main window is currently hidden or not.</summary>
+        <description>This is used when launching the application with the '--restore-last-window-state' option, which will launch the application with the main window in the same state as when it was last quit.</description>
+    </key>
   </schema>
 </schemalist>
