@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a96c907_de2465c8",
+        "filename": "po/README",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-09-15T13:59:32Z",
+      "side": 1,
+      "message": "translation",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "992e153933e2e17de2ff9d945517927017ad5a30",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a96c907_9e2edda4",
+        "filename": "po/README",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-09-15T13:59:32Z",
+      "side": 1,
+      "message": "Transifex is not mandatory to translate our strings: let user\nchoose that and just say that we provide a service throught transifex (add the ring tx projet url)",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 34
+      },
+      "revId": "992e153933e2e17de2ff9d945517927017ad5a30",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a96c907_be2b9993",
+        "filename": "po/README",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-09-15T13:59:32Z",
+      "side": 1,
+      "message": "that\u0027s to be changed for automation",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "992e153933e2e17de2ff9d945517927017ad5a30",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a96c907_5e185584",
+        "filename": "po/fr/ring-client-gnome.po",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-09-15T13:59:32Z",
+      "side": 1,
+      "message": "remove this file from the patch, this to be added by another one",
+      "revId": "992e153933e2e17de2ff9d945517927017ad5a30",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
