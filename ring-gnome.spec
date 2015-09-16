@@ -116,6 +116,8 @@ fi
 %{_datadir}/gnome-ring/gnome-ring.desktop
 %{_datadir}/icons/hicolor/scalable/apps/ring.svg
 %{_datadir}/appdata/gnome-ring.appdata.xml
+%{_datadir}/libringclient/*
+%{_datadir}/locale/*
 
 
 %changelog
