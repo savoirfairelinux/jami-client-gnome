@@ -2,7 +2,7 @@
 Name=Ring
 Comment=Ring is a secured and distributed communication software.
 Exec=gnome-ring
-Icon=@CMAKE_INSTALL_PREFIX@/share/icons/hicolor/scalable/apps/ring.svg
+Icon=@RING_INSTALL_PREFIX@/share/icons/hicolor/scalable/apps/ring.svg
 StartupNotify=true
 Terminal=false
 Type=Application
