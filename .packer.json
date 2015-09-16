@@ -7,6 +7,7 @@
             "cp ring-gnome.spec ..",
             "git archive --format=tar --prefix=ring-client-gnome/ -o /sources/ring-gnome origin/master",
             "cd ..",
+            "sed -i 's/define release .*/define release {{RELEASE_NUMBER}}/g' ring-gnome.spec",
             "sed -i 's/%setup -q/%setup -n ring-client-gnome/' ring-gnome.spec",
             "rpmbuild -ba ring-gnome.spec --define \"_sourcedir /sources\"",
             "cp -R /root/rpmbuild/RPMS/x86_64/* /output"
@@ -17,6 +18,7 @@
             "cp ring-gnome.spec ..",
             "git archive --format=tar --prefix=ring-client-gnome/ -o /sources/ring-gnome origin/master",
             "cd ..",
+            "sed -i 's/define release .*/define release {{RELEASE_NUMBER}}/g' ring-gnome.spec",
             "sed -i 's/%setup -q/%setup -n ring-client-gnome/' ring-gnome.spec",
             "rpmbuild -ba ring-gnome.spec --define \"_sourcedir /sources\"",
             "cp -R /root/rpmbuild/RPMS/i686/* /output"
@@ -27,6 +29,7 @@
             "cp ring-gnome.spec ..",
             "git archive --format=tar --prefix=ring-client-gnome/ -o /sources/ring-gnome origin/master",
             "cd ..",
+            "sed -i 's/define release .*/define release {{RELEASE_NUMBER}}/g' ring-gnome.spec",
             "sed -i 's/%setup -q/%setup -n ring-client-gnome/' ring-gnome.spec",
             "rpmbuild -ba ring-gnome.spec --define \"_sourcedir /sources\"",
             "cp -R /root/rpmbuild/RPMS/x86_64/* /output"
@@ -35,6 +38,7 @@
             "mkdir -p /sources/ring-gnome",
             "cd /sources/ring-gnome",
             "/ring-client-gnome/debian/rules get-orig-source",
+            "dch --newversion $(dpkg-parsechangelog | perl -ne 'print $1 if m{^Version:\\s+([\\d\\.]+)};')-{{RELEASE_NUMBER}} \"Automatic nightly release\"",
             "dch --release --distribution \"unstable\" debian/changelog",
             "dpkg-buildpackage -uc -us",
             "cd .. ",
@@ -44,6 +48,7 @@
             "mkdir -p /sources/ring-gnome",
             "cd /sources/ring-gnome",
             "/ring-client-gnome/debian/rules get-orig-source",
+            "dch --newversion $(dpkg-parsechangelog | perl -ne 'print $1 if m{^Version:\\s+([\\d\\.]+)};')-{{RELEASE_NUMBER}} \"Automatic nightly release\"",
             "dch --release --distribution \"unstable\" debian/changelog",
             "dpkg-buildpackage -uc -us",
             "cd .. ",
@@ -53,6 +58,7 @@
             "mkdir -p /sources/ring-gnome",
             "cd /sources/ring-gnome",
             "/ring-client-gnome/debian/rules get-orig-source",
+            "dch --newversion $(dpkg-parsechangelog | perl -ne 'print $1 if m{^Version:\\s+([\\d\\.]+)};')-{{RELEASE_NUMBER}} \"Automatic nightly release\"",
             "dch --release --distribution \"unstable\" debian/changelog",
             "dpkg-buildpackage -uc -us",
             "cd .. ",
@@ -62,6 +68,7 @@
             "mkdir -p /sources/ring-gnome",
             "cd /sources/ring-gnome",
             "/ring-client-gnome/debian/rules get-orig-source",
+            "dch --newversion $(dpkg-parsechangelog | perl -ne 'print $1 if m{^Version:\\s+([\\d\\.]+)};')-{{RELEASE_NUMBER}} \"Automatic nightly release\"",
             "dch --release --distribution \"unstable\" debian/changelog",
             "dpkg-buildpackage -uc -us",
             "cd .. ",
@@ -71,6 +78,7 @@
             "mkdir -p /sources/ring-gnome",
             "cd /sources/ring-gnome",
             "/ring-client-gnome/debian/rules get-orig-source",
+            "dch --newversion $(dpkg-parsechangelog | perl -ne 'print $1 if m{^Version:\\s+([\\d\\.]+)};')-{{RELEASE_NUMBER}} \"Automatic nightly release\"",
             "dch --release --distribution \"unstable\" debian/changelog",
             "dpkg-buildpackage -uc -us",
             "cd .. ",
@@ -80,6 +88,7 @@
             "mkdir -p /sources/ring-gnome",
             "cd /sources/ring-gnome",
             "/ring-client-gnome/debian/rules get-orig-source",
+            "dch --newversion $(dpkg-parsechangelog | perl -ne 'print $1 if m{^Version:\\s+([\\d\\.]+)};')-{{RELEASE_NUMBER}} \"Automatic nightly release\"",
             "dch --release --distribution \"unstable\" debian/changelog",
             "dpkg-buildpackage -uc -us",
             "cd .. ",
@@ -89,6 +98,7 @@
             "mkdir -p /sources/ring-gnome",
             "cd /sources/ring-gnome",
             "/ring-client-gnome/debian/rules get-orig-source",
+            "dch --newversion $(dpkg-parsechangelog | perl -ne 'print $1 if m{^Version:\\s+([\\d\\.]+)};')-{{RELEASE_NUMBER}} \"Automatic nightly release\"",
             "dch --release --distribution \"unstable\" debian/changelog",
             "dpkg-buildpackage -uc -us",
             "cd .. ",
@@ -98,6 +108,7 @@
             "mkdir -p /sources/ring-gnome",
             "cd /sources/ring-gnome",
             "/ring-client-gnome/debian/rules get-orig-source",
+            "dch --newversion $(dpkg-parsechangelog | perl -ne 'print $1 if m{^Version:\\s+([\\d\\.]+)};')-{{RELEASE_NUMBER}} \"Automatic nightly release\"",
             "dch --release --distribution \"unstable\" debian/changelog",
             "dpkg-buildpackage -uc -us",
             "cd .. ",
@@ -107,6 +118,7 @@
             "mkdir -p /sources/ring-gnome",
             "cd /sources/ring-gnome",
             "/ring-client-gnome/debian/rules get-orig-source",
+            "dch --newversion $(dpkg-parsechangelog | perl -ne 'print $1 if m{^Version:\\s+([\\d\\.]+)};')-{{RELEASE_NUMBER}} \"Automatic nightly release\"",
             "dch --release --distribution \"unstable\" debian/changelog",
             "dpkg-buildpackage -uc -us",
             "cd .. ",
@@ -163,5 +175,5 @@
         "ubuntu_15.04_i386": "@midnight"
     },
     "DeployScript": "ring-nightly-sign-deploy.sh",
-    "NotificationMailAdress": ["Awesome Ring Team", "edric.ladent-milaret@savoirfairelinux.com"]
+    "NotificationMailAdress": ["Awesome Ring Team", "ring-dev@lists.savoirfairelinux.net"]
 }
