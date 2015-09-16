@@ -70,12 +70,12 @@ cd ../..
 mkdir -p build
 mkdir -p install
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=%{buildroot} -DLibRingClient_DIR=$(pwd)/../libringclient/install/lib/cmake/LibRingClient -DENABLE_STATIC=true -DGSETTINGS_LOCALCOMPILE=OFF ..
+cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DLibRingClient_DIR=$(pwd)/../libringclient/install/lib/cmake/LibRingClient -DENABLE_STATIC=true -DGSETTINGS_LOCALCOMPILE=OFF ..
 LDFLAGS="-lpthread" make -j 2
 
 %install
 cd build
-make install
+make DESTDIR=%{buildroot} install
 # move lrc translations (if they exist) from lrc install dir to gnome client install dir
 mkdir -p ../libringclient/install/share/libringclient/translations
 mkdir -p %{buildroot}/%{_datadir}/libringclient
