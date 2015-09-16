@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 
 RUN apt-get update && ( apt-get upgrade -y || apt-get upgrade -y || apt-get upgrade -y )
 RUN apt-get install -y autoconf devscripts debianutils debhelper build-essential tar rsync \
