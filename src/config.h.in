@@ -8,8 +8,8 @@
 
 #define RING_CLIENT_APP_ID "cx.ring.RingGnome"
 
-#define RING_CLIENT_INSTALL "@CMAKE_INSTALL_PREFIX@"
+#define RING_CLIENT_INSTALL "@RING_INSTALL_PREFIX@"
 #define RING_DATA_DIR "/share/gnome-ring"
 
 #define PACKAGE_NAME "@PROJECT_NAME@"
-#define LOCALEDIR    "@CMAKE_INSTALL_PREFIX@/share/locale"
+#define LOCALEDIR    "@RING_INSTALL_PREFIX@/share/locale"

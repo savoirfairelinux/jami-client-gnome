@@ -35,6 +35,13 @@ SET(ENABLE_QT5 true)
 # for now, set debug as default
 SET(CMAKE_BUILD_TYPE Debug)
 
+# during packaging the CMAKE_INSTALL_PREFIX is used to specify where to install the files, but it
+# may not be the same as where the package will put them, use RING_INSTALL_PREFIX to let the client
+# know at runtime where to expect installed files to be located
+SET(RING_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}
+  CACHE PATH "prefix where the package will be installed on the user's system (eg: /usr/local); defaults to the CMAKE_INSTALL_PREFIX"
+)
+
 # find packages
 FIND_PACKAGE(PkgConfig REQUIRED)
 PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0>=3.10)
