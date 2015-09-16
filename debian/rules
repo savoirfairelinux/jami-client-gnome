@@ -29,7 +29,7 @@ override_dh_auto_clean:
 
 override_dh_auto_configure:
 	cd libringclient && mkdir -p build && mkdir -p install && cd build && $(GCC) cmake -DRING_BUILD_DIR=$(PWD)/daemon/src -DCMAKE_INSTALL_PREFIX=$(PWD)/libringclient/install -DENABLE_VIDEO=true -DENABLE_STATIC=true .. && make -j 2 && make install
-	mkdir -p build && mkdir -p install && cd build && $(GCC) cmake -DCMAKE_INSTALL_PREFIX=$(PWD)/libringclient/install -DLIB_RING_CLIENT_LIBRARY=$(PWD)/libringclient/install/lib/libringclient_static.a -DENABLE_STATIC=true -DGSETTINGS_LOCALCOMPILE=OFF ..
+	mkdir -p build && mkdir -p install && cd build && $(GCC) cmake -DCMAKE_INSTALL_PREFIX=/usr -DLibRingClient_DIR=$(PWD)/libringclient/install/lib/cmake/LibRingClient -DENABLE_STATIC=true -DGSETTINGS_LOCALCOMPILE=OFF ..
 
 override_dh_auto_build:
 	cd build && LDFLAGS="-lpthread" make -j 2
@@ -37,23 +37,8 @@ override_dh_auto_build:
 override_dh_auto_install:
 	# RING gnome
 	cd build && make DESTDIR=$(CURDIR)/debian/ring-gnome install
-	mkdir -p $(CURDIR)/debian/ring-gnome/usr/bin
-	## FIXME: bad install path from make ...
-	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/bin/* $(CURDIR)/debian/ring-gnome/usr/bin
-	mkdir -p $(CURDIR)/debian/ring-gnome/usr/share/icons/hicolor/scalable/apps/
-	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/icons/hicolor/scalable/apps/ring.svg $(CURDIR)/debian/ring-gnome/usr/share/icons/hicolor/scalable/apps/
-	mkdir -p $(CURDIR)/debian/ring-gnome/usr/share/appdata
-	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/appdata/gnome-ring.appdata.xml $(CURDIR)/debian/ring-gnome/usr/share/appdata
-	mkdir -p $(CURDIR)/debian/ring-gnome/usr/share/applications
-	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/applications/gnome-ring.desktop $(CURDIR)/debian/ring-gnome/usr/share/applications
-	sed -i "s#Icon=.*#Icon=/usr/share/icons/hicolor/scalable/apps/ring.svg#g" $(CURDIR)/debian/ring-gnome/usr/share/applications/gnome-ring.desktop
-	mkdir -p $(CURDIR)/debian/ring-gnome/usr/share/gnome-ring
-	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/gnome-ring/gnome-ring.desktop $(CURDIR)/debian/ring-gnome/usr/share/gnome-ring
-	sed -i "s#Icon=.*#Icon=/usr/share/icons/hicolor/scalable/apps/ring.svg#g" $(CURDIR)/debian/ring-gnome/usr/share/gnome-ring/gnome-ring.desktop
-	mkdir -p $(CURDIR)/debian/ring-gnome/usr/share/glib-2.0/schemas
-	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/glib-2.0/schemas/cx.ring.RingGnome.gschema.xml $(CURDIR)/debian/ring-gnome/usr/share/glib-2.0/schemas
-	mkdir -p $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/locale
-	mv $(CURDIR)/debian/ring-gnome/sources/ring-gnome/libringclient/install/share/locale $(CURDIR)/debian/ring-gnome/usr/share/.
+
+	# move lrc translations (if they exist) from lrc install dir to gnome client install dir
 	mkdir -p $(CURDIR)/libringclient/install/share/libringclient/translations
 	mkdir -p $(CURDIR)/debian/ring-gnome/usr/share/libringclient
 	mv $(CURDIR)/libringclient/install/share/libringclient/translations $(CURDIR)/debian/ring-gnome/usr/share/libringclient/.
