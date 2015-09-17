@@ -21,6 +21,7 @@
 #include "ring_client_options.h"
 
 #include "config.h"
+#include "revision.h"
 #include "ring_client.h"
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
@@ -32,8 +33,8 @@ option_version_cb(G_GNUC_UNUSED const gchar *option_name,
                   G_GNUC_UNUSED gpointer data,
                   G_GNUC_UNUSED GError **error)
 {
-    /* TODO: replace with auto generated version */
     g_print("%d.%d.%d\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+    g_print("git ref: %s\n", RING_CLIENT_REVISION);
     exit(EXIT_SUCCESS);
 }
 
