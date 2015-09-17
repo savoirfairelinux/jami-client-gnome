@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Alexandre Lision <alexandre.lision@gmail.com>, 2015
+# Alexandre Lision, 2015
 # Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>, 2015
 # Guillaume Roguez, 2015
 msgid ""
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-15 15:16-0400\n"
-"PO-Revision-Date: 2015-09-15 20:52+0000\n"
+"PO-Revision-Date: 2015-09-15 21:57+0000\n"
 "Last-Translator: Guillaume Roguez\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr "Type"
 
 #: src/accountgeneraltab.cpp:250
 msgid "auto-generating..."
-msgstr "Génération automatique ..."
+msgstr "Génération automatique…"
 
 #: src/accountgeneraltab.cpp:269
 msgid "Hostname"
@@ -59,11 +59,11 @@ msgstr "Nom d'utilisateur"
 
 #: src/accountgeneraltab.cpp:289
 msgid "Password"
-msgstr "Mot de passe"
+msgstr "Mot-de-passe"
 
 #: src/accountgeneraltab.cpp:302
 msgid "Show password"
-msgstr "Afficher le mot de passe"
+msgstr "Afficher le mot-de-passe"
 
 #: src/accountgeneraltab.cpp:308
 msgid "Proxy"
@@ -163,7 +163,7 @@ msgstr "Contacts"
 
 #: src/dialogs.c:63
 msgid "Working..."
-msgstr "Traitement en cours ..."
+msgstr "Traitement en cours…"
 
 #: src/dialogs.c:93
 #, c-format
@@ -276,7 +276,7 @@ msgstr "Utiliser un port aléatoire"
 
 #: ui/accountadvancedtab.ui:197
 msgid "Local port:"
-msgstr "Port local:"
+msgstr "Port local"
 
 #: ui/accountadvancedtab.ui:223
 msgid "<b>Network Interface</b>"
@@ -382,7 +382,7 @@ msgstr "Protocole d'échange de clé"
 
 #: ui/accountsecuritytab.ui:76
 msgid "Fallback on RTP on encryption failure"
-msgstr "Basculer en mode RTP si le chiffrement échoue."
+msgstr "Basculer en mode RTP si le chiffrement échoue"
 
 #: ui/accountsecuritytab.ui:94
 msgid "<b>Media Stream Encryption</b>"
@@ -402,11 +402,11 @@ msgstr "Certificat utilisateur"
 
 #: ui/accountsecuritytab.ui:220
 msgid "Private key"
-msgstr "Clés privée"
+msgstr "Clé privée"
 
 #: ui/accountsecuritytab.ui:243
 msgid "Private key password"
-msgstr "Mot-de-passe clés privée"
+msgstr "Mot-de-passe clé privée"
 
 #: ui/accountsecuritytab.ui:290
 msgid "TLS protocol method"
@@ -571,7 +571,7 @@ msgstr "Lancer Ring à l'ouverture de session"
 
 #: ui/generalsettingsview.ui:55
 msgid "Hide Ring on close instead of quitting."
-msgstr "Cacher Ring à la fermeture au lieu de quitter."
+msgstr "Cacher Ring à la fermeture au lieu de quitter"
 
 #: ui/generalsettingsview.ui:64
 msgid "Bring Ring to the foreground on incoming calls."
@@ -583,7 +583,7 @@ msgstr "<b>Paramètres de l'historique</b>"
 
 #: ui/generalsettingsview.ui:105
 msgid "Keep history for (days):"
-msgstr "Garder l'historique pendant (jours):"
+msgstr "Garder l'historique pendant (jours)"
 
 #: ui/generalsettingsview.ui:128
 msgid "(set to 0 for unlimited history)"
@@ -595,7 +595,7 @@ msgstr "Effacer tout l'historique"
 
 #: ui/incomingcallview.ui:87
 msgid "Incoming..."
-msgstr "Appel entrant ..."
+msgstr "Appel entrant…"
 
 #: ui/incomingcallview.ui:120
 msgid "   Accept"
@@ -611,7 +611,7 @@ msgstr "Raccrocher"
 
 #: ui/mediasettingsview.ui:36
 msgid "Audio manager:"
-msgstr "Gestionnaire audio:"
+msgstr "Gestionnaire audio"
 
 #: ui/mediasettingsview.ui:48
 msgid "Ringtone device:"
@@ -619,11 +619,11 @@ msgstr "Périphérique de sortie pour la sonnerie"
 
 #: ui/mediasettingsview.ui:60
 msgid "Output device:"
-msgstr "Appareil de sortie:"
+msgstr "Périphérique de sortie"
 
 #: ui/mediasettingsview.ui:72
 msgid "Input device:"
-msgstr "Appareil d'entrée:"
+msgstr "Périphérique d'entrée"
 
 #: ui/mediasettingsview.ui:127
 msgid "<b>Audio Settings</b>"
@@ -631,15 +631,15 @@ msgstr "<b>Paramètres Audio</b>"
 
 #: ui/mediasettingsview.ui:163
 msgid "Device:"
-msgstr "Appareil:"
+msgstr "Périphérique"
 
 #: ui/mediasettingsview.ui:175
 msgid "Channel:"
-msgstr "Canal:"
+msgstr "Canal"
 
 #: ui/mediasettingsview.ui:187
 msgid "Resolution:"
-msgstr "Résolution:"
+msgstr "Résolution"
 
 #: ui/mediasettingsview.ui:199
 msgid "Frame rate:"
@@ -683,11 +683,11 @@ msgstr "Historique"
 
 #: ui/ringmainwindow.ui:320
 msgid "Your Ring ID: "
-msgstr "Votre Ring ID:"
+msgstr "Votre RingID est "
 
 #: ui/ringmainwindow.ui:330
 msgid "<span fgcolor=\"gray\">fetching Ring ID...</span>"
-msgstr "Extraction de l'identifiant Ring"
+msgstr "Extraction de l'identifiant Ring…"
 
 #: ui/ringmainwindow.ui:375
 msgid "Welcome to  "
@@ -695,11 +695,11 @@ msgstr "Bienvenue à"
 
 #: ui/ringmainwindow.ui:392
 msgid "Enter your alias to get started:"
-msgstr "Entrez votre pseudonyme pour commencer:"
+msgstr "Entrez votre pseudonyme pour commencer"
 
 #: ui/ringmainwindow.ui:409
 msgid "Generating your Ring account..."
-msgstr "Génération de votre compte Ring..."
+msgstr "Génération de votre compte Ring…"
 
 #: ui/ringmainwindow.ui:423
 msgid "Next"
@@ -707,7 +707,7 @@ msgstr "Suivant"
 
 #: ui/ringmainwindow.ui:445
 msgid "Your Ring account has been created with the following Ring ID:"
-msgstr "Votre compte Ring a été créé avec le Ring ID suivant:"
+msgstr "Votre compte Ring a été créé avec le RingID suivant"
 
 #: ui/ringmainwindow.ui:460
 msgid "Share it with your friends so they can contact you via Ring!"
