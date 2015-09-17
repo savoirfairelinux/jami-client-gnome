@@ -15,17 +15,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
- *
- *  Additional permission under GNU GPL version 3 section 7:
- *
- *  If you modify this program, or any covered work, by linking or
- *  combining it with the OpenSSL project's OpenSSL library (or a
- *  modified version of that library), containing parts covered by the
- *  terms of the OpenSSL or SSLeay licenses, Savoir-Faire Linux Inc.
- *  grants you additional permission to convey the resulting work.
- *  Corresponding Source for a non-source form of such a combination
- *  shall include the source code for the parts of OpenSSL used as well
- *  as that of the covered work.
  */
 
 #include "dialogs.h"
@@ -34,6 +23,7 @@
 #include <glib/gi18n.h>
 #include <glib/gprintf.h>
 #include "config.h"
+#include "revision.h"
 
 GtkWidget *
 ring_dialog_working(GtkWidget *parent, const gchar *msg)
@@ -90,7 +80,9 @@ ring_about_dialog(GtkWidget *parent)
         g_clear_error(&error);
     }
 
-    gchar *name = g_strdup_printf(_("Gnome Ring v%d.%d.%d"), VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+    gchar *name = g_strdup_printf("Gnome Ring");
+    gchar *version = g_strdup_printf(C_("Do not translate the release name", "release: Samuel de Champlain\nv%d.%d.%d - %.10s"),
+                                     VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, RING_CLIENT_REVISION);
 
     const gchar *authors[] = {
         [0] = "Adrien Béraud",
@@ -115,7 +107,7 @@ ring_about_dialog(GtkWidget *parent)
         "copyright", "© 2015 Savoir-faire Linux",
         "license-type", GTK_LICENSE_GPL_3_0,
         "logo", logo,
-        "version", C_("Do not translate the release name", "release: Samuel de Champlain"),
+        "version", version,
         "comments", _("The GNOME client for Ring.\nRing is a secured and distributed communication software."),
         "authors", authors,
         "website", "http://www.ring.cx/",
@@ -125,4 +117,5 @@ ring_about_dialog(GtkWidget *parent)
     );
 
     g_free(name);
+    g_free(version);
 }

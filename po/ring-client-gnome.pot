@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-17 17:11-0400\n"
+"POT-Creation-Date: 2015-09-21 10:12-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -158,21 +158,19 @@ msgstr ""
 msgid "Contacts"
 msgstr ""
 
-#: src/dialogs.c:63
+#: src/dialogs.c:53
 msgid "Working..."
 msgstr ""
 
-#: src/dialogs.c:93
+#: src/dialogs.c:84
 #, c-format
-msgid "Gnome Ring v%d.%d.%d"
-msgstr ""
-
-#: src/dialogs.c:118
 msgctxt "Do not translate the release name"
-msgid "release: Samuel de Champlain"
+msgid ""
+"release: Samuel de Champlain\n"
+"v%d.%d.%d - %.10s"
 msgstr ""
 
-#: src/dialogs.c:119
+#: src/dialogs.c:111
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is a secured and distributed communication software."
