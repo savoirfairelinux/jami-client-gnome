@@ -62,15 +62,18 @@ option_restore_cb(G_GNUC_UNUSED const gchar *option_name,
 
 static const GOptionEntry all_options[] = {
     {"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, option_version_cb, NULL, NULL},
-    {"debug", 'd', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, option_debug_cb, "Enable debug", NULL},
+    {"debug", 'd', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, option_debug_cb, N_("Enable debug"), NULL},
     {"restore-last-window-state", 'r', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, option_restore_cb,
-     "Restores the hidden state of the main window (only applicable to the primary instance)", NULL},
+     N_("Restores the hidden state of the main window (only applicable to the primary instance)"), NULL},
     {NULL} /* list must be NULL-terminated */
 };
 
 #if GLIB_CHECK_VERSION(2,40,0)
 void
 ring_client_add_options(GApplication *app) {
+    /* NOTE: using this function, the options do not get translated in glib versions <2.45 due to
+     * bug 750322: https://bugzilla.gnome.org/show_bug.cgi?id=750322
+     */
     g_application_add_main_option_entries(app, all_options);
 }
 
@@ -78,14 +81,9 @@ ring_client_add_options(GApplication *app) {
 GOptionContext *
 ring_client_options_get_context()
 {
-    /* TODO: for some reason the given description and added options aren't printed
-     * when '--help' is invoked... possibly a GTK bug.
-     */
     GOptionContext *context = g_option_context_new(_("- GNOME client for Ring"));
     g_option_context_set_ignore_unknown_options(context, TRUE);
-
-    /* TODO: add translation domain */
-    g_option_context_add_main_entries(context, all_options, NULL);
+    g_option_context_add_main_entries(context, all_options, PACKAGE_NAME);
     g_option_context_add_group(context, gtk_get_option_group(TRUE));
     return context;
 }
