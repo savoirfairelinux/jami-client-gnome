@@ -337,6 +337,12 @@ CONFIGURE_FILE (
    "${PROJECT_BINARY_DIR}/gnome-ring.desktop"
 )
 
+# generate .desktop file for autostart
+CONFIGURE_FILE (
+   "${PROJECT_SOURCE_DIR}/gnome-ring.desktop.autostart.in"
+   "${PROJECT_BINARY_DIR}/gnome-ring.desktop.autostart"
+)
+
 INSTALL(TARGETS gnome-ring
    RUNTIME DESTINATION bin
 )
@@ -348,7 +354,7 @@ INSTALL(FILES ${PROJECT_BINARY_DIR}/gnome-ring.desktop
 
 # install .desktop in the gnome-ring data dir, so that it can be copied to the
 # autostart dir by the client
-INSTALL(FILES ${PROJECT_BINARY_DIR}/gnome-ring.desktop
+INSTALL(FILES ${PROJECT_BINARY_DIR}/gnome-ring.desktop.autostart
    DESTINATION
       ${CMAKE_INSTALL_PREFIX}/share/gnome-ring/
    PERMISSIONS
@@ -356,6 +362,8 @@ INSTALL(FILES ${PROJECT_BINARY_DIR}/gnome-ring.desktop
       OWNER_WRITE
       OWNER_READ
       GROUP_READ
+   RENAME
+      gnome-ring.desktop
 )
 
 INSTALL(FILES pixmaps/ring.svg

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Ring
+Comment=Ring is a secured and distributed communication software.
+Exec=gnome-ring --restore-last-window-state
+Icon=@RING_INSTALL_PREFIX@/share/icons/hicolor/scalable/apps/ring.svg
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;Network;Telephony;
