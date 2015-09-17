@@ -24,12 +24,13 @@ Requirements
 - gnome-icon-theme-symbolic (certain icons are used which other themes might be missing)
 - libebook1.2 / evolution-data-server (3.10 or higher)
 - libnotify (optional, if you wish to receive desktop notifications of incoming calls, etc)
+- gettext (optional to compile translations)
 
 On Debian/Ubuntu these can be installed by:
-    sudo apt-get install g++ cmake libgtk-3-dev qtbase5-dev libclutter-gtk-1.0-dev gnome-icon-theme-symbolic libebook1.2-dev libnotify-dev
+    sudo apt-get install g++ cmake libgtk-3-dev qtbase5-dev libclutter-gtk-1.0-dev gnome-icon-theme-symbolic libebook1.2-dev libnotify-dev gettext
 
 On Fedora:
-    yum install gcc-c++ cmake gtk3-devel qt5-qtbase-devel clutter-gtk-devel gnome-icon-theme-symbolic evolution-data-server-devel libnotify-devel
+    yum install gcc-c++ cmake gtk3-devel qt5-qtbase-devel clutter-gtk-devel gnome-icon-theme-symbolic evolution-data-server-devel libnotify-devel gettext
 
 The build instruction for the daemon and libRingClient can be found on their respective wiki pages:
 - https://projects.savoirfairelinux.com/projects/ring-daemon/wiki
