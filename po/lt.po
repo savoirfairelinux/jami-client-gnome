@@ -1,6 +1,6 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Gettext PO translation template file for the GNOME client of the Ring project.
+# Copyright (C) 2015 Savoir-faire Linux Inc.
+# This file is distributed under the same license as the Ring package.
 # 
 # Translators:
 # Moo, 2015
@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-15 15:16-0400\n"
-"PO-Revision-Date: 2015-09-15 20:49+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"POT-Creation-Date: 2015-09-17 18:36-0400\n"
+"PO-Revision-Date: 2015-09-18 21:17+0000\n"
+"Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -144,7 +144,7 @@ msgstr "Būsena"
 
 #: src/callsview.cpp:233
 msgid "Current Calls"
-msgstr ""
+msgstr "Esami Skambučiai"
 
 #: src/contactsview.cpp:290 src/frequentcontactsview.cpp:175
 msgid "_Copy name"
@@ -159,21 +159,20 @@ msgstr "_Kopijuoti numerį"
 msgid "Contacts"
 msgstr "Kontaktai"
 
-#: src/dialogs.c:63
+#: src/dialogs.c:64
 msgid "Working..."
 msgstr "Dirbama..."
 
-#: src/dialogs.c:93
+#: src/dialogs.c:95
 #, c-format
-msgid "Gnome Ring v%d.%d.%d"
-msgstr "Gnome Ring v%d.%d.%d"
-
-#: src/dialogs.c:118
 msgctxt "Do not translate the release name"
-msgid "release: Samuel de Champlain"
-msgstr "laida: Samuel de Champlain"
+msgid ""
+"release: Samuel de Champlain\n"
+"v%d.%d.%d\n"
+"git ref: %s"
+msgstr ""
 
-#: src/dialogs.c:119
+#: src/dialogs.c:122
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is a secured and distributed communication software."
@@ -223,7 +222,17 @@ msgctxt "Text message notification"
 msgid "%s says:"
 msgstr "%s sako:"
 
-#: src/ring_client_options.c:79
+#: src/ring_client_options.c:66
+msgid "Enable debug"
+msgstr "Įjungti derinimą"
+
+#: src/ring_client_options.c:68
+msgid ""
+"Restores the hidden state of the main window (only applicable to the primary"
+" instance)"
+msgstr ""
+
+#: src/ring_client_options.c:85
 msgid "- GNOME client for Ring"
 msgstr "- GNOME kliento programa, skirta Ring"
 
