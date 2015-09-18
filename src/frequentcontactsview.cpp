@@ -60,6 +60,12 @@ typedef struct _FrequentContactsViewPrivate FrequentContactsViewPrivate;
 
 struct _FrequentContactsViewPrivate
 {
+    GtkWidget *treeview_frequent;
+    GtkWidget *overlay_button;
+
+    /* signal handler ids */
+    gulong handler_enter;
+    gulong handler_leave;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(FrequentContactsView, frequent_contacts_view, GTK_TYPE_BOX);
@@ -216,21 +222,160 @@ create_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gp
     return TRUE; /* we handled the event */
 }
 
+static gboolean
+motion_event_cb(GtkWidget *treeview,
+                GdkEvent  *event,
+                FrequentContactsView *self)
+{
+    g_return_val_if_fail(IS_FREQUENT_CONTACTS_VIEW(self), FALSE);
+    FrequentContactsViewPrivate *priv = FREQUENT_CONTACTS_VIEW_GET_PRIVATE(self);
+
+    g_return_val_if_fail(event->type == GDK_MOTION_NOTIFY, FALSE);
+
+    GdkEventMotion *motion = (GdkEventMotion*)event;
+
+    g_return_val_if_fail(motion->window == gtk_tree_view_get_bin_window(GTK_TREE_VIEW(treeview)), FALSE);
+
+    /* convert, in case headers are show */
+    gint bx, by;
+    gtk_tree_view_convert_widget_to_bin_window_coords(
+        GTK_TREE_VIEW(treeview),
+        (gint)motion->x, (gint)motion->y,
+        &bx, &by
+    );
+
+    // g_debug("got pointer position: %d, %d", bx, by);
+
+    GtkTreePath *path = NULL;
+    if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(treeview), bx, by, &path, NULL, NULL, NULL)) {
+
+        GdkRectangle rect;
+        gtk_tree_view_get_cell_area(GTK_TREE_VIEW(treeview), path, NULL, &rect);
+        gtk_tree_view_convert_bin_window_to_widget_coords(GTK_TREE_VIEW(treeview), rect.x, rect.y, &rect.x, &rect.y);
+
+        gtk_widget_set_margin_top(priv->overlay_button, rect.y);
+
+        gtk_tree_path_free(path);
+    }
+
+
+    return FALSE;
+}
+
+static gboolean
+crossing_event_cb(GtkWidget *treeview,
+                GdkEvent  *event,
+                FrequentContactsView *self)
+{
+    g_return_val_if_fail(IS_FREQUENT_CONTACTS_VIEW(self), FALSE);
+    FrequentContactsViewPrivate *priv = FREQUENT_CONTACTS_VIEW_GET_PRIVATE(self);
+
+    g_return_val_if_fail(event->type == GDK_ENTER_NOTIFY || event->type == GDK_LEAVE_NOTIFY, FALSE);
+
+    GdkEventCrossing *crossing = (GdkEventCrossing*)event;
+
+    g_return_val_if_fail(crossing->window == gtk_tree_view_get_bin_window(GTK_TREE_VIEW(treeview)), FALSE);
+
+    if (crossing->type == GDK_ENTER_NOTIFY)
+        gtk_widget_show(priv->overlay_button);
+    else {
+        gboolean inside_button = FALSE;
+        gint wx, wy;
+        if (gtk_widget_translate_coordinates(priv->overlay_button, priv->treeview_frequent, 0, 0, &wx, &wy)) {
+            GtkAllocation allocation;
+            gtk_widget_get_allocation(priv->overlay_button, &allocation);
+            g_debug("pointer position: %lf, %lf", crossing->x, crossing->y);
+            g_debug("button pos: %d, %d, size: %d, %d", wx, wy, allocation.width, allocation.height);
+
+            gdouble p_x = crossing->x;
+            gdouble p_y = crossing->y;
+
+            gdouble b_x = (gdouble)wx;
+            gdouble b_y = (gdouble)wy;
+            gdouble b_xw = b_x + allocation.width;
+            gdouble b_yh = b_y + allocation.height;
+
+            if (p_x >= b_x && p_x <= b_xw && p_y >= b_y && p_y <= b_yh )
+                inside_button = TRUE;
+        }
+
+        if (!inside_button)
+            gtk_widget_hide(priv->overlay_button);
+    }
+
+    return FALSE;
+}
+
+static gboolean
+crossing_event_button_cb(GtkWidget *button,
+                         GdkEvent  *event,
+                         FrequentContactsView *self)
+{
+    g_return_val_if_fail(IS_FREQUENT_CONTACTS_VIEW(self), FALSE);
+    FrequentContactsViewPrivate *priv = FREQUENT_CONTACTS_VIEW_GET_PRIVATE(self);
+
+    g_return_val_if_fail(event->type == GDK_ENTER_NOTIFY || event->type == GDK_LEAVE_NOTIFY, FALSE);
+
+    GdkEventCrossing *crossing = (GdkEventCrossing*)event;
+
+    // if (event->type == GDK_ENTER_NOTIFY) {
+    //     g_debug("block");
+    //     g_signal_handler_block(priv->treeview_frequent, priv->handler_enter);
+    //     g_signal_handler_block(priv->treeview_frequent, priv->handler_leave);
+    // } else {
+    //     g_signal_handler_unblock(priv->treeview_frequent, priv->handler_enter);
+    //     g_signal_handler_unblock(priv->treeview_frequent, priv->handler_leave);
+    // }
+    if (crossing->type == GDK_LEAVE_NOTIFY)
+        gtk_widget_hide(priv->overlay_button);
+
+    return FALSE;
+}
+
 static void
 frequent_contacts_view_init(FrequentContactsView *self)
 {
+    FrequentContactsViewPrivate *priv = FREQUENT_CONTACTS_VIEW_GET_PRIVATE(self);
+
     gtk_orientable_set_orientation(GTK_ORIENTABLE(self), GTK_ORIENTATION_VERTICAL);
 
     /* frequent contacts/numbers */
     GtkWidget *label_frequent = gtk_label_new(_("Frequent Contacts"));
     gtk_box_pack_start(GTK_BOX(self), label_frequent, FALSE, TRUE, 10);
 
+    /* test overlay */
+    GtkWidget *overlay = gtk_overlay_new();
+    gtk_box_pack_start(GTK_BOX(self), overlay, TRUE, TRUE, 0);
+
     GtkWidget *treeview_frequent = gtk_tree_view_new();
+    priv->treeview_frequent = treeview_frequent;
+    gtk_container_add(GTK_CONTAINER(overlay), treeview_frequent);
+
+    /* overlay button test */
+    priv->overlay_button = gtk_button_new();
+    gtk_widget_set_no_show_all(priv->overlay_button, TRUE);
+    GError *error = NULL;
+    GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/cx/ring/RingGnome/video_call", &error);
+    if (icon == NULL) {
+        g_debug("Could not load icon: %s", error->message);
+        g_clear_error(&error);
+    } else {
+        auto image = gtk_image_new_from_pixbuf(icon);
+        gtk_button_set_image(GTK_BUTTON(priv->overlay_button), image);
+    }
+    gtk_widget_set_halign(priv->overlay_button, GTK_ALIGN_END);
+    gtk_widget_set_valign(priv->overlay_button, GTK_ALIGN_START);
+    gtk_overlay_add_overlay(GTK_OVERLAY(overlay), priv->overlay_button);
+    g_signal_connect(treeview_frequent, "motion-notify-event", G_CALLBACK(motion_event_cb), self);
+    priv->handler_enter = g_signal_connect(treeview_frequent, "enter-notify-event", G_CALLBACK(crossing_event_cb), self);
+    priv->handler_leave = g_signal_connect(treeview_frequent, "leave-notify-event", G_CALLBACK(crossing_event_cb), self);
+    // g_signal_connect(priv->overlay_button, "enter-notify-event", G_CALLBACK(crossing_event_button_cb), self);
+    g_signal_connect(priv->overlay_button, "leave-notify-event", G_CALLBACK(crossing_event_button_cb), self);
+
     /* set can-focus to false so that the scrollwindow doesn't jump to try to
      * contain the top of the treeview */
     gtk_widget_set_can_focus(treeview_frequent, FALSE);
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_frequent), FALSE);
-    gtk_box_pack_start(GTK_BOX(self), treeview_frequent, TRUE, TRUE, 0);
     /* no need to show the expander since it will always be expanded */
     gtk_tree_view_set_show_expanders(GTK_TREE_VIEW(treeview_frequent), FALSE);
     /* disable default search, we will handle it ourselves via LRC;
