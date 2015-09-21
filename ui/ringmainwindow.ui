@@ -182,13 +182,32 @@
                 <property name="can_focus">True</property>
                 <property name="show-border">False</property>
                 <property name="tab-pos">bottom</property>
+                <!-- "smart view" -->
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolled_window_smartview">
+                    <property name="visible">True</property>
+                  </object>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child type="tab">
+                  <object class="GtkLabel" id="tab_label_smartview">
+                    <property name="label" translatable="yes">Conversations</property>
+                    <property name="hexpand">True</property>
+                  </object>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <!-- end "smart view" -->
                 <!-- frequent contacts -->
                 <child>
                   <object class="GtkScrolledWindow" id="scrolled_window_frequent">
                     <property name="visible">True</property>
                   </object>
                   <packing>
-                    <property name="position">0</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child type="tab">
@@ -197,7 +216,7 @@
                     <property name="hexpand">True</property>
                   </object>
                   <packing>
-                    <property name="position">0</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <!-- end frequent contacts -->
@@ -207,7 +226,7 @@
                     <property name="visible">True</property>
                   </object>
                   <packing>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
                 <child type="tab">
@@ -216,7 +235,7 @@
                     <property name="hexpand">True</property>
                   </object>
                   <packing>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
                 <!-- end contacts list -->
@@ -226,7 +245,7 @@
                     <property name="visible">True</property>
                   </object>
                   <packing>
-                    <property name="position">2</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
                 <child type="tab">
@@ -235,7 +254,7 @@
                     <property name="hexpand">True</property>
                   </object>
                   <packing>
-                    <property name="position">2</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
                 <!-- end history -->
