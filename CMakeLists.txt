@@ -251,6 +251,8 @@ SET( SRC_FILES
    src/native/dbuserrorhandler.cpp
    src/ringwelcomeview.h
    src/ringwelcomeview.cpp
+   src/recentcontactsview.h
+   src/recentcontactsview.cpp
 )
 
 # compile glib resource files to c code
