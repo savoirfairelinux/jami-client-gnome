@@ -65,6 +65,7 @@
 #include "callsview.h"
 #include "utils/accounts.h"
 #include "ringwelcomeview.h"
+#include "recentcontactsview.h"
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* CREATE_ACCOUNT_1_VIEW_NAME = "create1";
@@ -99,7 +100,7 @@ struct _RingMainWindowPrivate
     GtkWidget *ring_settings;
     GtkWidget *image_settings;
     GtkWidget *hbox_settings;
-    GtkWidget *scrolled_window_frequent;
+    GtkWidget *scrolled_window_smartview;
     GtkWidget *scrolled_window_contacts;
     GtkWidget *scrolled_window_history;
     GtkWidget *vbox_left_pane;
@@ -148,14 +149,14 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATIO
 #define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
 
 static void
-call_selection_changed(GtkTreeSelection *selection, gpointer win)
+call_selection_changed(const QModelIndex& idx, gpointer win)
 {
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
     /* get the current visible stack child */
     GtkWidget *old_call_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
 
-    QModelIndex idx = get_index_from_selection(selection);
     if (idx.isValid()) {
         QVariant state =  idx.data(static_cast<int>(Call::Role::LifeCycleState));
         GtkWidget *new_call_view = NULL;
@@ -829,25 +830,9 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect(priv->radiobutton_account_settings, "toggled", G_CALLBACK(show_account_settings), win);
     g_signal_connect(priv->radiobutton_general_settings, "toggled", G_CALLBACK(show_general_settings), win);
 
-    /* calls view */
-    GtkWidget *calls_view = calls_view_new();
-    gtk_box_pack_start(GTK_BOX(priv->vbox_left_pane),
-                       calls_view,
-                       FALSE, TRUE, 0);
-    gtk_box_reorder_child(GTK_BOX(priv->vbox_left_pane), calls_view, 1);
-
-    /* connect to call state changes to update relevant view(s) */
-    QObject::connect(
-        CallModel::instance(),
-        &CallModel::callStateChanged,
-        [=](Call* call, G_GNUC_UNUSED Call::State previousState) {
-            call_state_changed(call, win);
-        }
-    );
-
     /* populate the notebook */
-    auto frequent_view = frequent_contacts_view_new();
-    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_frequent), frequent_view);
+    auto smart_view = recent_contacts_view_new();
+    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), smart_view);
 
     auto contacts_view = contacts_view_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contacts), contacts_view);
@@ -862,9 +847,34 @@ ring_main_window_init(RingMainWindow *win)
     gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
     gtk_widget_show(priv->welcome_view);
 
-    /* connect signals */
-    GtkTreeSelection *call_selection = calls_view_get_selection(CALLS_VIEW(calls_view));
-    g_signal_connect(call_selection, "changed", G_CALLBACK(call_selection_changed), win);
+    /* call selection */
+    QObject::connect(
+       CallModel::instance()->selectionModel(),
+       &QItemSelectionModel::currentChanged,
+       [win](const QModelIndex current, G_GNUC_UNUSED const QModelIndex & previous) {
+            if (auto call = CallModel::instance()->getCall(current)) {
+                /* if the call is on hold, we want to put it off hold automatically
+                 * when switching to it */
+                if (call->state() == Call::State::HOLD)
+                    call << Call::Action::HOLD;
+
+                /* this is a bit of a hack, as for some reason the call is not in the correct
+                 * state in the UserActionModel when the selection model switches calls by itself */
+                CallModel::instance()->selectCall(call);
+            }
+            call_selection_changed(current, win);
+        }
+    );
+
+    /* connect to call state changes to update relevant view(s) */
+    QObject::connect(
+        CallModel::instance(),
+        &CallModel::callStateChanged,
+        [=](Call* call, G_GNUC_UNUSED Call::State previousState) {
+            call_state_changed(call, win);
+        }
+    );
+
     g_signal_connect(priv->button_placecall, "clicked", G_CALLBACK(search_entry_placecall), win);
     g_signal_connect(priv->search_entry, "activate", G_CALLBACK(search_entry_placecall), win);
 
@@ -1019,7 +1029,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_left_pane);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_frequent);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_smartview);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contacts);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_menu);
