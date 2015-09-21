@@ -65,6 +65,7 @@
 #include "callsview.h"
 #include "utils/accounts.h"
 #include "ringwelcomeview.h"
+#include "recentcontactsview.h"
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* CREATE_ACCOUNT_1_VIEW_NAME = "create1";
@@ -99,6 +100,7 @@ struct _RingMainWindowPrivate
     GtkWidget *ring_settings;
     GtkWidget *image_settings;
     GtkWidget *hbox_settings;
+    GtkWidget *scrolled_window_smartview;
     GtkWidget *scrolled_window_frequent;
     GtkWidget *scrolled_window_contacts;
     GtkWidget *scrolled_window_history;
@@ -868,6 +870,9 @@ ring_main_window_init(RingMainWindow *win)
     );
 
     /* populate the notebook */
+    auto smart_view = recent_contacts_view_new();
+    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), smart_view);
+
     auto frequent_view = frequent_contacts_view_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_frequent), frequent_view);
 
@@ -1038,6 +1043,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_left_pane);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_smartview);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_frequent);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contacts);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_history);
