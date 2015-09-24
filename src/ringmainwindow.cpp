@@ -95,7 +95,6 @@ struct _RingMainWindowPrivate
     GtkWidget *image_ring;
     GtkWidget *ring_settings;
     GtkWidget *image_settings;
-    GtkWidget *hbox_search;
     GtkWidget *hbox_settings;
     GtkWidget *stack_contacts_history_presence;
     GtkWidget *radiobutton_contacts;
@@ -411,7 +410,6 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         /* show settings */
         gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-ok-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
 
-        gtk_widget_hide(priv->hbox_search);
         gtk_widget_show(priv->hbox_settings);
 
         /* make sure to start preview if we're showing the video settings */
@@ -434,7 +432,6 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         /* show calls */
         gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
 
-        gtk_widget_show(priv->hbox_search);
         gtk_widget_hide(priv->hbox_settings);
 
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN);
@@ -570,8 +567,7 @@ account_creation_done_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *w
     gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
 
-    /* show the search bar and settings */
-    gtk_widget_show(priv->hbox_search);
+    /* show the settings button*/
     gtk_widget_show(priv->ring_settings);
 
 }
@@ -599,8 +595,7 @@ show_account_creation(RingMainWindow *win)
                         priv->account_creation_2,
                         CREATE_ACCOUNT_2_VIEW_NAME);
 
-    /* hide search bar and settings until account creation is complete */
-    gtk_widget_hide(priv->hbox_search);
+    /* hide settings button until account creation is complete */
     gtk_widget_hide(priv->ring_settings);
 
     /* set ring logo */
@@ -974,7 +969,7 @@ ring_main_window_init(RingMainWindow *win)
     gtk_box_pack_start(GTK_BOX(priv->vbox_left_pane),
                        calls_view,
                        FALSE, TRUE, 0);
-    gtk_box_reorder_child(GTK_BOX(priv->vbox_left_pane), calls_view, 0);
+    gtk_box_reorder_child(GTK_BOX(priv->vbox_left_pane), calls_view, 1);
 
     /* connect to call state changes to update relevant view(s) */
     QObject::connect(
@@ -1196,7 +1191,6 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_ring);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_settings);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, hbox_search);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, hbox_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, search_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_main_view);

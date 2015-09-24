@@ -33,51 +33,12 @@
           </packing>
         </child>
         <!-- end main menu button -->
-        <!-- title box with search or settings -->
+        <!-- title box with where settings appear -->
         <child type="title">
           <object class="GtkBox" id="hbox_title">
             <property name="visible">True</property>
             <property name="orientation">horizontal</property>
             <property name="can_focus">False</property>
-            <!-- hbox search -->
-            <child>
-              <object class="GtkBox" id="hbox_search">
-                <property name="visible">True</property>
-                <property name="orientation">horizontal</property>
-                <property name="can_focus">False</property>
-                <style>
-                  <class name="linked"/>
-                </style>
-                <child>
-                  <object class="GtkSearchEntry" id="search_entry">
-                    <property name="visible">True</property>
-                    <property name="height-request">43</property>
-                    <property name="width-request">500</property>
-                    <property name="xalign">0.5</property>
-                    <property name="truncate-multiline">True</property>
-                    <property name="max-length">256</property>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="button_placecall">
-                    <property name="image">image_call</property>
-                    <property name="visible">True</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkButton" id="button_addcontact">
-                    <property name="image">image_contact</property>
-                    <!-- TODO: make visible when feature ready -->
-                    <property name="visible">False</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <!-- end hbox search -->
             <!-- hbox settings -->
             <child>
               <object class="GtkBox" id="hbox_settings">
@@ -172,7 +133,48 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
-            <!-- calls view goes here -->
+            <!-- hbox search -->
+            <child>
+              <object class="GtkBox" id="hbox_search">
+                <property name="visible">True</property>
+                <property name="orientation">horizontal</property>
+                <property name="can_focus">False</property>
+                <property name="margin-right">5</property>
+                <style>
+                  <class name="linked"/>
+                </style>
+                <child>
+                  <object class="GtkSearchEntry" id="search_entry">
+                    <property name="visible">True</property>
+                    <property name="xalign">0.5</property>
+                    <property name="truncate-multiline">True</property>
+                    <property name="max-length">256</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_placecall">
+                    <property name="image">image_call</property>
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_addcontact">
+                    <property name="image">image_contact</property>
+                    <!-- TODO: make visible when feature ready -->
+                    <property name="visible">False</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <!-- end hbox search -->
             <!-- scrollwindow for favorites, contacts, history -->
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindow_contacts">
@@ -486,12 +488,10 @@
   <object class="GtkImage" id="image_call">
     <property name="visible">True</property>
     <property name="icon-name">call-start-symbolic</property>
-    <property name="icon-size">3</property>
   </object>
   <object class="GtkImage" id="image_contact">
     <property name="visible">True</property>
     <property name="icon-name">avatar-default-symbolic</property>
-    <property name="icon-size">3</property>
   </object>
   <object class="GtkImage" id="image_general_settings">
     <property name="visible">True</property>
