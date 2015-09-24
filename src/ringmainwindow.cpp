@@ -770,7 +770,7 @@ autocompletion_name_render(G_GNUC_UNUSED GtkCellLayout *cell_layout,
     QModelIndex idx = get_qidx_from_filter_model(GTK_TREE_MODEL_FILTER(model), iter);
     if (idx.isValid()) {
         QVariant name = idx.sibling(idx.row(), 1).data(Qt::DisplayRole);
-        gchar *text = g_strdup_printf("<span font=\"12\" weight=\"bold\">%s</span>",
+        gchar *text = g_strdup_printf("<span weight=\"bold\">%s</span>",
                                       name.value<QString>().toUtf8().constData());
 
         g_object_set(G_OBJECT(cell), "markup", text, NULL);
@@ -791,8 +791,7 @@ autocompletion_number_render(G_GNUC_UNUSED GtkCellLayout *cell_layout,
     QModelIndex idx = get_qidx_from_filter_model(GTK_TREE_MODEL_FILTER(model), iter);
     if (idx.isValid()) {
         QVariant uri = idx.data(Qt::DisplayRole);
-        gchar *text = g_strdup_printf("<span font=\"12\">%s</span>",
-                                      uri.value<QString>().toUtf8().constData());
+        gchar *text = g_strdup_printf("%s", uri.value<QString>().toUtf8().constData());
 
         g_object_set(G_OBJECT(cell), "markup", text, NULL);
         g_free(text);
@@ -812,7 +811,7 @@ autocompletion_account_render(G_GNUC_UNUSED GtkCellLayout *cell_layout,
     QModelIndex idx = get_qidx_from_filter_model(GTK_TREE_MODEL_FILTER(model), iter);
     if (idx.isValid()) {
         QVariant alias = idx.sibling(idx.row(), 2).data(Qt::DisplayRole);
-        gchar *text = g_strdup_printf("<span font=\"12\" color=\"gray\">%s</span>",
+        gchar *text = g_strdup_printf("<span color=\"gray\">%s</span>",
                                       alias.value<QString>().toUtf8().constData());
 
         g_object_set(G_OBJECT(cell), "markup", text, NULL);
