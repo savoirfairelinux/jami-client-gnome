@@ -358,9 +358,6 @@ history_view_init(HistoryView *self)
     /* need to be able to focus on widget so that we can auto-scroll to it */
     gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
 
-    GtkWidget *label_history = gtk_label_new(C_("Call history", "History"));
-    gtk_box_pack_start(GTK_BOX(self), label_history, FALSE, TRUE, 10);
-
     GtkWidget *treeview_history = gtk_tree_view_new();
     /* set can-focus to false so that the scrollwindow doesn't jump to try to
      * contain the top of the treeview */

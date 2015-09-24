@@ -222,9 +222,6 @@ frequent_contacts_view_init(FrequentContactsView *self)
     gtk_orientable_set_orientation(GTK_ORIENTABLE(self), GTK_ORIENTATION_VERTICAL);
 
     /* frequent contacts/numbers */
-    GtkWidget *label_frequent = gtk_label_new(_("Frequent Contacts"));
-    gtk_box_pack_start(GTK_BOX(self), label_frequent, FALSE, TRUE, 10);
-
     GtkWidget *treeview_frequent = gtk_tree_view_new();
     /* set can-focus to false so that the scrollwindow doesn't jump to try to
      * contain the top of the treeview */
