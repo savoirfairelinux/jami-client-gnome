@@ -1036,9 +1036,6 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect(priv->button_placecall, "clicked", G_CALLBACK(search_entry_placecall), win);
     g_signal_connect(priv->search_entry, "activate", G_CALLBACK(search_entry_placecall), win);
 
-    /* style of search entry */
-    gtk_widget_override_font(priv->search_entry, pango_font_description_from_string("15"));
-
     /* autocompletion */
     priv->q_completion_model = new NumberCompletionModel();
 
