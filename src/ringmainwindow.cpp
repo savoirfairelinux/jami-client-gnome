@@ -96,14 +96,10 @@ struct _RingMainWindowPrivate
     GtkWidget *ring_settings;
     GtkWidget *image_settings;
     GtkWidget *hbox_settings;
-    GtkWidget *stack_contacts_history_presence;
-    GtkWidget *radiobutton_contacts;
-    GtkWidget *radiobutton_history;
-    GtkWidget *radiobutton_presence;
-    GtkWidget *combobox_history_sort;
-    GtkWidget *combobox_contacts_sort;
+    GtkWidget *scrolled_window_frequent;
+    GtkWidget *scrolled_window_contacts;
+    GtkWidget *scrolled_window_history;
     GtkWidget *vbox_left_pane;
-    GtkWidget *vbox_contacts;
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
     GtkWidget *vbox_call_view;
@@ -313,75 +309,6 @@ grab_focus_on_widget(GtkWidget *widget)
 {
     gtk_widget_grab_focus(widget);
     return G_SOURCE_REMOVE;
-}
-
-static void
-navbutton_contacts_toggled(G_GNUC_UNUSED GtkToggleButton *navbutton, RingMainWindow *win)
-{
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-
-    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence),
-                                     VIEW_CONTACTS);
-
-    /* if the stack transition is animated, it will take a few miliseconds;
-     * we want to grab focus of the newly displayed treeview only after the
-     * animation, to make sure we scroll to the top of the new view */
-    g_timeout_add_full(G_PRIORITY_DEFAULT,
-                       gtk_stack_get_transition_duration(GTK_STACK(priv->stack_contacts_history_presence)),
-                       (GSourceFunc)grab_focus_on_widget,
-                       gtk_stack_get_visible_child(GTK_STACK(priv->stack_contacts_history_presence)),
-                       NULL);
-
-    /* show the correct sorting combobox */
-    gtk_widget_show(priv->combobox_contacts_sort);
-    gtk_widget_hide(priv->combobox_history_sort);
-}
-
-static void
-navbutton_presence_toggled(G_GNUC_UNUSED GtkToggleButton *navbutton, RingMainWindow *win)
-{
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-
-    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence),
-                                     VIEW_PRESENCE);
-
-    /* if the stack transition is animated, it will take a few miliseconds;
-     * we want to grab focus of the newly displayed treeview only after the
-     * animation, to make sure we scroll to the top of the new view */
-    g_timeout_add_full(G_PRIORITY_DEFAULT,
-                       gtk_stack_get_transition_duration(GTK_STACK(priv->stack_contacts_history_presence)),
-                       (GSourceFunc)grab_focus_on_widget,
-                       gtk_stack_get_visible_child(GTK_STACK(priv->stack_contacts_history_presence)),
-                       NULL);
-
-    /* show the correct sorting combobox */
-    gtk_widget_hide(priv->combobox_contacts_sort);
-    gtk_widget_hide(priv->combobox_history_sort);
-}
-
-static void
-navbutton_history_toggled(G_GNUC_UNUSED GtkToggleButton *navbutton, RingMainWindow *win)
-{
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-
-    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_contacts_history_presence),
-                                     VIEW_HISTORY);
-
-    /* if the stack transition is animated, it will take a few miliseconds;
-     * we want to grab focus of the newly displayed treeview only after the
-     * animation, to make sure we scroll to the top of the new view */
-    g_timeout_add_full(G_PRIORITY_DEFAULT,
-                       gtk_stack_get_transition_duration(GTK_STACK(priv->stack_contacts_history_presence)),
-                       (GSourceFunc)grab_focus_on_widget,
-                       gtk_stack_get_visible_child(GTK_STACK(priv->stack_contacts_history_presence)),
-                       NULL);
-
-    /* show the correct sorting combobox */
-    gtk_widget_hide(priv->combobox_contacts_sort);
-    gtk_widget_show(priv->combobox_history_sort);
 }
 
 static gboolean
@@ -979,50 +906,15 @@ ring_main_window_init(RingMainWindow *win)
         }
     );
 
-    /* frequent contacts view */
-    GtkWidget *frequent_view = frequent_contacts_view_new();
-    gtk_box_pack_start(GTK_BOX(priv->vbox_contacts),
-                       frequent_view,
-                       FALSE, TRUE, 0);
-    gtk_box_reorder_child(GTK_BOX(priv->vbox_contacts), frequent_view, 0);
+    /* populate the notebook */
+    auto frequent_view = frequent_contacts_view_new();
+    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_frequent), frequent_view);
 
-    /* contacts view */
-    GtkWidget *contacts_view = contacts_view_new();
-    gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
-                        contacts_view,
-                        VIEW_CONTACTS);
-    gtk_combo_box_set_qmodel(GTK_COMBO_BOX(priv->combobox_contacts_sort),
-                             (QAbstractItemModel *)CategorizedContactModel::SortedProxy::instance()->categoryModel(),
-                             CategorizedContactModel::SortedProxy::instance()->categorySelectionModel());
+    auto contacts_view = contacts_view_new();
+    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contacts), contacts_view);
 
-    /* history view */
-    GtkWidget *history_view = history_view_new();
-    gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
-                        history_view,
-                        VIEW_HISTORY);
-    gtk_combo_box_set_qmodel(GTK_COMBO_BOX(priv->combobox_history_sort),
-                             (QAbstractItemModel *)CategorizedHistoryModel::SortedProxy::instance()->categoryModel(),
-                             CategorizedHistoryModel::SortedProxy::instance()->categorySelectionModel());
-
-    /* presence view/model */
-    GtkWidget *scrolled_window = gtk_scrolled_window_new(NULL, NULL);
-    GtkWidget *treeview_presence = gtk_tree_view_new();
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_presence), FALSE);
-    gtk_container_add(GTK_CONTAINER(scrolled_window), treeview_presence);
-    gtk_widget_show_all(scrolled_window);
-    gtk_stack_add_named(GTK_STACK(priv->stack_contacts_history_presence),
-                        scrolled_window,
-                        VIEW_PRESENCE);
-
-    /* connect signals to change the contacts/history/presence stack view */
-    g_signal_connect(priv->radiobutton_contacts, "toggled", G_CALLBACK(navbutton_contacts_toggled), win);
-    g_signal_connect(priv->radiobutton_history, "toggled", G_CALLBACK(navbutton_history_toggled), win);
-    g_signal_connect(priv->radiobutton_presence, "toggled", G_CALLBACK(navbutton_presence_toggled), win);
-
-    /* TODO: make this linked to the client settings so that the last shown view is the same on startup */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_contacts), TRUE);
-    gtk_widget_show(priv->combobox_contacts_sort);
-    gtk_widget_hide(priv->combobox_history_sort);
+    auto history_view = history_view_new();
+    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_history), history_view);
 
     /* TODO: replace stack paceholder view */
     GtkWidget *placeholder_view = gtk_tree_view_new();
@@ -1176,13 +1068,9 @@ ring_main_window_class_init(RingMainWindowClass *klass)
                                                 "/cx/ring/RingGnome/ringmainwindow.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_left_pane);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_contacts);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_contacts_history_presence);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_contacts);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_history);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_presence);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_history_sort);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_contacts_sort);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_frequent);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contacts);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_menu);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_ring);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_settings);
