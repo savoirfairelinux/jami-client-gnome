@@ -65,17 +65,17 @@
 #include "callsview.h"
 #include "utils/accounts.h"
 
-#define CALL_VIEW_NAME "calls"
-#define CREATE_ACCOUNT_1_VIEW_NAME "create1"
-#define CREATE_ACCOUNT_2_VIEW_NAME "create2"
-#define GENERAL_SETTINGS_VIEW_NAME "general"
-#define AUDIO_SETTINGS_VIEW_NAME "audio"
-#define MEDIA_SETTINGS_VIEW_NAME "media"
-#define ACCOUNT_SETTINGS_VIEW_NAME "accounts"
-#define DEFAULT_VIEW_NAME "placeholder"
-#define VIEW_CONTACTS "contacts"
-#define VIEW_HISTORY "history"
-#define VIEW_PRESENCE "presence"
+constexpr static const char* CALL_VIEW_NAME             = "calls";
+constexpr static const char* CREATE_ACCOUNT_1_VIEW_NAME = "create1";
+constexpr static const char* CREATE_ACCOUNT_2_VIEW_NAME = "create2";
+constexpr static const char* GENERAL_SETTINGS_VIEW_NAME = "general";
+constexpr static const char* AUDIO_SETTINGS_VIEW_NAME   = "audio";
+constexpr static const char* MEDIA_SETTINGS_VIEW_NAME   = "media";
+constexpr static const char* ACCOUNT_SETTINGS_VIEW_NAME = "accounts";
+constexpr static const char* DEFAULT_VIEW_NAME          = "placeholder";
+constexpr static const char* VIEW_CONTACTS              = "contacts";
+constexpr static const char* VIEW_HISTORY               = "history";
+constexpr static const char* VIEW_PRESENCE              = "presence";
 
 struct _RingMainWindow
 {

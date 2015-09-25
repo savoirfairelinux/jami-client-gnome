@@ -44,7 +44,7 @@
 #include <call.h>
 #include "utils/menus.h"
 
-#define COPY_DATA_KEY "copy_data"
+constexpr static const char* COPY_DATA_KEY = "copy_data";
 
 struct _FrequentContactsView
 {
