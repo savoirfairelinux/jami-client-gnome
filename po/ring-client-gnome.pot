@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 11:25-0400\n"
+"POT-Creation-Date: 2015-09-30 17:31-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,7 +141,7 @@ msgctxt "Account status column"
 msgid "Status"
 msgstr ""
 
-#: src/callsview.cpp:356
+#: src/callsview.cpp:233
 msgid "Current Calls"
 msgstr ""
 
@@ -234,12 +234,33 @@ msgstr ""
 msgid "_Add to contact"
 msgstr ""
 
-#: src/ringmainwindow.cpp:568
+#: src/ringmainwindow.cpp:570 src/ringwelcomeview.cpp:61
 msgid "fetching RingID..."
 msgstr ""
 
-#: src/ringmainwindow.cpp:573
+#: src/ringmainwindow.cpp:575
 msgid "no Ring account"
+msgstr ""
+
+#: src/ringmainwindow.cpp:998
+msgctxt ""
+"Please try to make the translation 50 chars or less so that it fits into the "
+"layout"
+msgid "Search contacts or enter number"
+msgstr ""
+
+#: src/ringwelcomeview.cpp:92
+msgid ""
+"Ring is a secure and distributed voice, video, and chat communication "
+"platform that requires no centralized server and leaves the power of privacy "
+"in the hands of the user."
+msgstr ""
+
+#: src/ringwelcomeview.cpp:103
+msgctxt "Do not translate \"RingID\""
+msgid ""
+"This is your RingID.\n"
+"Copy and share it with your friends!"
 msgstr ""
 
 #: ui/accountadvancedtab.ui:81
@@ -669,11 +690,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: ui/ringmainwindow.ui:151
-msgid "Search contacts or enter number"
-msgstr ""
-
-#: ui/ringmainwindow.ui:197
+#: ui/ringmainwindow.ui:196
 msgid "Frequent"
 msgstr ""
 
@@ -681,42 +698,42 @@ msgstr ""
 msgid "Contacts"
 msgstr ""
 
-#: ui/ringmainwindow.ui:233
+#: ui/ringmainwindow.ui:234
 msgid "History"
 msgstr ""
 
-#: ui/ringmainwindow.ui:289
+#: ui/ringmainwindow.ui:291
 msgid "Your Ring ID: "
 msgstr ""
 
-#: ui/ringmainwindow.ui:299
+#: ui/ringmainwindow.ui:301
 msgid "<span fgcolor=\"gray\">fetching Ring ID...</span>"
 msgstr ""
 
-#: ui/ringmainwindow.ui:344
+#: ui/ringmainwindow.ui:346
 msgid "Welcome to  "
 msgstr ""
 
-#: ui/ringmainwindow.ui:361
+#: ui/ringmainwindow.ui:363
 msgid "Enter your alias to get started:"
 msgstr ""
 
-#: ui/ringmainwindow.ui:378
+#: ui/ringmainwindow.ui:380
 msgid "Generating your Ring account..."
 msgstr ""
 
-#: ui/ringmainwindow.ui:392
+#: ui/ringmainwindow.ui:394
 msgid "Next"
 msgstr ""
 
-#: ui/ringmainwindow.ui:414
+#: ui/ringmainwindow.ui:416
 msgid "Your Ring account has been created with the following Ring ID:"
 msgstr ""
 
-#: ui/ringmainwindow.ui:429
+#: ui/ringmainwindow.ui:431
 msgid "Share it with your friends so they can contact you via Ring!"
 msgstr ""
 
-#: ui/ringmainwindow.ui:434
+#: ui/ringmainwindow.ui:436
 msgid "Done"
 msgstr ""
