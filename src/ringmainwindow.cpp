@@ -569,50 +569,6 @@ show_ring_id(RingMainWindow *win, Account *account) {
                             g_strdup_printf("<span fgcolor=\"gray\">%s</span>",
                                             _("no Ring account")));
     }
-
-}
-
-static void
-get_active_ring_account(RingMainWindow *win)
-{
-    /* get the users Ring account
-     * if multiple accounts exist, get the first one which is registered,
-     * if none, then the first one which is enabled,
-     * if none, then the first one in the list of ring accounts
-     */
-    Account *registered_account = NULL;
-    Account *enabled_account = NULL;
-    Account *ring_account = NULL;
-    int a_count = AccountModel::instance()->rowCount();
-    for (int i = 0; i < a_count && !registered_account; ++i) {
-        QModelIndex idx = AccountModel::instance()->index(i, 0);
-        Account *account = AccountModel::instance()->getAccountByModelIndex(idx);
-        if (account->protocol() == Account::Protocol::RING) {
-            /* got RING account, check if active */
-            if (account->isEnabled()) {
-                /* got enabled account, check if connected */
-                if (account->registrationState() == Account::RegistrationState::READY) {
-                    /* got registered account, use this one */
-                    registered_account = enabled_account = ring_account = account;
-                    // g_debug("got registered account: %s", ring_account->alias().toUtf8().constData());
-                } else {
-                    /* not registered, but enabled, use if its the first one */
-                    if (!enabled_account) {
-                        enabled_account = ring_account = account;
-                        // g_debug("got enabled ring accout: %s", ring_account->alias().toUtf8().constData());
-                    }
-                }
-            } else {
-                /* not enabled, but a Ring account, use if its the first one */
-                if (!ring_account) {
-                    ring_account = account;
-                    // g_debug("got ring account: %s", ring_account->alias().toUtf8().constData());
-                }
-            }
-        }
-    }
-
-    show_ring_id(win, ring_account);
 }
 
 static void
@@ -1019,14 +975,14 @@ ring_main_window_init(RingMainWindow *win)
 
     /* display ring id by first getting the active ring account */
     gtk_widget_override_font(priv->label_ring_id, pango_font_description_from_string("monospace"));
-    get_active_ring_account(win);
+    show_ring_id(win, get_active_ring_account());
     QObject::connect(
         AccountModel::instance(),
         &AccountModel::dataChanged,
-        [=] () {
+        [win] () {
             /* check if the active ring account has changed,
              * eg: if it was deleted */
-            get_active_ring_account(win);
+            show_ring_id(win, get_active_ring_account());
         }
     );
 
