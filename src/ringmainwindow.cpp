@@ -64,6 +64,7 @@
 #include "generalsettingsview.h"
 #include "callsview.h"
 #include "utils/accounts.h"
+#include "ringwelcomeview.h"
 
 #define CALL_VIEW_NAME "calls"
 #define CREATE_ACCOUNT_1_VIEW_NAME "create1"
@@ -72,7 +73,7 @@
 #define AUDIO_SETTINGS_VIEW_NAME "audio"
 #define MEDIA_SETTINGS_VIEW_NAME "media"
 #define ACCOUNT_SETTINGS_VIEW_NAME "accounts"
-#define DEFAULT_VIEW_NAME "placeholder"
+#define DEFAULT_VIEW_NAME "welcome"
 #define VIEW_CONTACTS "contacts"
 #define VIEW_HISTORY "history"
 #define VIEW_PRESENCE "presence"
@@ -181,8 +182,6 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
         g_free(new_call_view_name);
     } else {
         /* nothing selected in the call model, so show the default screen */
-
-        /* TODO: replace stack paceholder view */
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_call_view), DEFAULT_VIEW_NAME);
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
@@ -872,10 +871,9 @@ ring_main_window_init(RingMainWindow *win)
     auto history_view = history_view_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_history), history_view);
 
-    /* TODO: replace stack paceholder view */
-    GtkWidget *placeholder_view = gtk_tree_view_new();
-    gtk_widget_show(placeholder_view);
-    gtk_stack_add_named(GTK_STACK(priv->stack_call_view), placeholder_view, DEFAULT_VIEW_NAME);
+    /* welcome/default view */
+    auto welcome_view = ring_welcome_view_new();
+    gtk_stack_add_named(GTK_STACK(priv->stack_call_view), welcome_view, DEFAULT_VIEW_NAME);
 
     /* connect signals */
     GtkTreeSelection *call_selection = calls_view_get_selection(CALLS_VIEW(calls_view));
