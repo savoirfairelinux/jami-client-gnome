@@ -195,6 +195,7 @@
                 <child type="tab">
                   <object class="GtkLabel" id="tab_label_frequent">
                     <property name="label" translatable="yes">Frequent</property>
+                    <property name="hexpand">True</property>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -213,6 +214,7 @@
                 <child type="tab">
                   <object class="GtkLabel" id="tab_label_contacts">
                     <property name="label" translatable="yes">Contacts</property>
+                    <property name="hexpand">True</property>
                   </object>
                   <packing>
                     <property name="position">1</property>
@@ -231,6 +233,7 @@
                 <child type="tab">
                   <object class="GtkLabel" id="tab_label_history">
                     <property name="label" translatable="yes">History</property>
+                    <property name="hexpand">True</property>
                   </object>
                   <packing>
                     <property name="position">2</property>
