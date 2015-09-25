@@ -64,6 +64,7 @@
 #include "generalsettingsview.h"
 #include "callsview.h"
 #include "utils/accounts.h"
+#include "ringwelcomeview.h"
 
 constexpr static const char* CALL_VIEW_NAME             = "calls";
 constexpr static const char* CREATE_ACCOUNT_1_VIEW_NAME = "create1";
@@ -72,7 +73,7 @@ constexpr static const char* GENERAL_SETTINGS_VIEW_NAME = "general";
 constexpr static const char* AUDIO_SETTINGS_VIEW_NAME   = "audio";
 constexpr static const char* MEDIA_SETTINGS_VIEW_NAME   = "media";
 constexpr static const char* ACCOUNT_SETTINGS_VIEW_NAME = "accounts";
-constexpr static const char* DEFAULT_VIEW_NAME          = "placeholder";
+constexpr static const char* DEFAULT_VIEW_NAME          = "welcome";
 constexpr static const char* VIEW_CONTACTS              = "contacts";
 constexpr static const char* VIEW_HISTORY               = "history";
 constexpr static const char* VIEW_PRESENCE              = "presence";
@@ -186,8 +187,6 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
         g_free(new_call_view_name);
     } else {
         /* nothing selected in the call model, so show the default screen */
-
-        /* TODO: replace stack paceholder view */
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_call_view), DEFAULT_VIEW_NAME);
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
@@ -986,10 +985,9 @@ ring_main_window_init(RingMainWindow *win)
     gtk_widget_show(priv->combobox_contacts_sort);
     gtk_widget_hide(priv->combobox_history_sort);
 
-    /* TODO: replace stack paceholder view */
-    GtkWidget *placeholder_view = gtk_tree_view_new();
-    gtk_widget_show(placeholder_view);
-    gtk_stack_add_named(GTK_STACK(priv->stack_call_view), placeholder_view, DEFAULT_VIEW_NAME);
+    /* welcome/default view */
+    auto welcome_view = ring_welcome_view_new();
+    gtk_stack_add_named(GTK_STACK(priv->stack_call_view), welcome_view, DEFAULT_VIEW_NAME);
 
     /* connect signals */
     GtkTreeSelection *call_selection = calls_view_get_selection(CALLS_VIEW(calls_view));
