@@ -118,6 +118,7 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_general_settings;
     GtkWidget *radiobutton_media_settings;
     GtkWidget *radiobutton_account_settings;
+    GtkWidget *hbox_ring_hash;
     GtkWidget *label_ring_id;
 
     QMetaObject::Connection selection_updated;
@@ -185,12 +186,15 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
         gtk_stack_add_named(GTK_STACK(priv->stack_call_view), new_call_view, new_call_view_name);
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_call_view), new_call_view);
         g_free(new_call_view_name);
+        /* show ringID at the bottom */
+        gtk_widget_show(priv->hbox_ring_hash);
     } else {
         /* nothing selected in the call model, so show the default screen */
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_call_view), DEFAULT_VIEW_NAME);
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
-
+        /* hide ringID at the bottom */
+        gtk_widget_hide(priv->hbox_ring_hash);
     }
 
     /* check if we changed the visible child */
@@ -1160,6 +1164,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_media_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, hbox_ring_hash);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_ring_id);
 
     /* account creation */
