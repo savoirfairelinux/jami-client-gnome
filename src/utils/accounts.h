@@ -33,6 +33,8 @@
 
 #include <gtk/gtk.h>
 
+class Account;
+
 /**
  * returns TRUE if a RING account exists; FALSE otherwise
  */
@@ -40,11 +42,22 @@ gboolean
 has_ring_account();
 
 /**
- * itterates through all existing accounts and make sure all RING accounts have
+ * iterates through all existing accounts and make sure all RING accounts have
  * a display name set; if a display name is empty, it is set to the alias of the
  * account
  */
 void
 force_ring_display_name();
+
+/**
+ * Finds and returns the first RING account, in order of priority:
+ * 1. registered
+ * 2. enabled
+ * 3. existing
+ *
+ * Returns a nullptr if no RING acconts exist
+ */
+Account*
+get_active_ring_account();
 
 #endif /* _ACCOUNTS_H */
