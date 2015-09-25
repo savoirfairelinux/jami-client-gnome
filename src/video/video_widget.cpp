@@ -42,13 +42,13 @@
 #include <mutex>
 #include "xrectsel.h"
 
-#define VIDEO_LOCAL_SIZE            150
-#define VIDEO_LOCAL_OPACITY_DEFAULT 255 /* out of 255 */
+static constexpr int VIDEO_LOCAL_SIZE            = 150;
+static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
 
 /* check video frame queues at this rate;
  * use 30 ms (about 30 fps) since we don't expect to
  * receive video frames faster than that */
-#define FRAME_RATE_PERIOD           30
+static constexpr int FRAME_RATE_PERIOD           = 30;
 
 struct _VideoWidgetClass {
     GtkBinClass parent_class;
