@@ -44,7 +44,7 @@
 #include "utils/models.h"
 #include <QtCore/QItemSelectionModel>
 
-#define COPY_DATA_KEY "copy_data"
+static constexpr const char* COPY_DATA_KEY = "copy_data";
 
 struct _ContactsView
 {
