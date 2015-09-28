@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
+# Guillaume Roguez, 2015
 # Moo, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-17 17:11-0400\n"
-"PO-Revision-Date: 2015-09-18 21:22+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"POT-Creation-Date: 2015-09-21 10:12-0400\n"
+"PO-Revision-Date: 2015-09-26 18:16+0000\n"
+"Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -159,21 +160,19 @@ msgstr "_Kopijuoti numerį"
 msgid "Contacts"
 msgstr "Kontaktai"
 
-#: src/dialogs.c:63
+#: src/dialogs.c:53
 msgid "Working..."
 msgstr "Dirbama..."
 
-#: src/dialogs.c:93
+#: src/dialogs.c:84
 #, c-format
-msgid "Gnome Ring v%d.%d.%d"
-msgstr "Gnome Ring v%d.%d.%d"
-
-#: src/dialogs.c:118
 msgctxt "Do not translate the release name"
-msgid "release: Samuel de Champlain"
-msgstr "laida: Samuel de Champlain"
+msgid ""
+"release: Samuel de Champlain\n"
+"v%d.%d.%d - %.10s"
+msgstr "laida : Samuel de Champlain\nv%d.%d.%d - %.10s"
 
-#: src/dialogs.c:119
+#: src/dialogs.c:111
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is a secured and distributed communication software."
@@ -252,7 +251,7 @@ msgstr "Pridėti prie kont_aktų"
 
 #: src/ringmainwindow.cpp:643
 msgid "fetching RingID..."
-msgstr ""
+msgstr "gaunamas RingID..."
 
 #: src/ringmainwindow.cpp:648
 msgid "no Ring account"
@@ -503,7 +502,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:299
 msgid "Toggle record audio"
-msgstr ""
+msgstr "Perjungti garso įrašymą"
 
 #: ui/currentcallview.ui:302
 msgid "Record audio"
@@ -515,7 +514,7 @@ msgstr "Perjungti pokalbių rodymą"
 
 #: ui/currentcallview.ui:322 ui/currentcallview.ui:373
 msgid "Chat"
-msgstr ""
+msgstr "Pokalbis"
 
 #: ui/currentcallview.ui:339
 msgid "Adjust outgoing video quality (bit/s)"
