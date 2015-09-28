@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-21 10:12-0400\n"
+"POT-Creation-Date: 2015-09-28 11:25-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,7 +141,7 @@ msgctxt "Account status column"
 msgid "Status"
 msgstr ""
 
-#: src/callsview.cpp:233
+#: src/callsview.cpp:356
 msgid "Current Calls"
 msgstr ""
 
@@ -152,10 +152,6 @@ msgstr ""
 #: src/contactsview.cpp:301 src/contactsview.cpp:316
 #: src/frequentcontactsview.cpp:184
 msgid "_Copy number"
-msgstr ""
-
-#: src/contactsview.cpp:342 ui/ringmainwindow.ui:222
-msgid "Contacts"
 msgstr ""
 
 #: src/dialogs.c:53
@@ -181,10 +177,6 @@ msgctxt "Phone number category"
 msgid "home"
 msgstr ""
 
-#: src/frequentcontactsview.cpp:225
-msgid "Frequent Contacts"
-msgstr ""
-
 #: src/generalsettingsview.cpp:92
 msgid ""
 "Are you sure you want to clear all your history?\n"
@@ -195,17 +187,12 @@ msgstr ""
 msgid "_Copy"
 msgstr ""
 
-#: src/historyview.cpp:361
-msgctxt "Call history"
-msgid "History"
-msgstr ""
-
-#: src/historyview.cpp:416
+#: src/historyview.cpp:413
 msgctxt "Call history"
 msgid "Call"
 msgstr ""
 
-#: src/historyview.cpp:461
+#: src/historyview.cpp:458
 msgctxt "Call history"
 msgid "Date"
 msgstr ""
@@ -247,11 +234,11 @@ msgstr ""
 msgid "_Add to contact"
 msgstr ""
 
-#: src/ringmainwindow.cpp:643
+#: src/ringmainwindow.cpp:568
 msgid "fetching RingID..."
 msgstr ""
 
-#: src/ringmainwindow.cpp:648
+#: src/ringmainwindow.cpp:573
 msgid "no Ring account"
 msgstr ""
 
@@ -662,62 +649,74 @@ msgstr ""
 msgid "_Quit"
 msgstr ""
 
-#: ui/ringmainwindow.ui:21
+#: ui/ringmainwindow.ui:20
 msgid "Menu"
 msgstr ""
 
-#: ui/ringmainwindow.ui:94
+#: ui/ringmainwindow.ui:54
 msgid "General"
 msgstr ""
 
-#: ui/ringmainwindow.ui:104
+#: ui/ringmainwindow.ui:64
 msgid "Media"
 msgstr ""
 
-#: ui/ringmainwindow.ui:115
+#: ui/ringmainwindow.ui:75
 msgid "Accounts"
 msgstr ""
 
-#: ui/ringmainwindow.ui:133
+#: ui/ringmainwindow.ui:93
 msgid "Settings"
 msgstr ""
 
-#: ui/ringmainwindow.ui:232
+#: ui/ringmainwindow.ui:151
+msgid "Search contacts or enter number"
+msgstr ""
+
+#: ui/ringmainwindow.ui:197
+msgid "Frequent"
+msgstr ""
+
+#: ui/ringmainwindow.ui:215
+msgid "Contacts"
+msgstr ""
+
+#: ui/ringmainwindow.ui:233
 msgid "History"
 msgstr ""
 
-#: ui/ringmainwindow.ui:320
+#: ui/ringmainwindow.ui:289
 msgid "Your Ring ID: "
 msgstr ""
 
-#: ui/ringmainwindow.ui:330
+#: ui/ringmainwindow.ui:299
 msgid "<span fgcolor=\"gray\">fetching Ring ID...</span>"
 msgstr ""
 
-#: ui/ringmainwindow.ui:375
+#: ui/ringmainwindow.ui:344
 msgid "Welcome to  "
 msgstr ""
 
-#: ui/ringmainwindow.ui:392
+#: ui/ringmainwindow.ui:361
 msgid "Enter your alias to get started:"
 msgstr ""
 
-#: ui/ringmainwindow.ui:409
+#: ui/ringmainwindow.ui:378
 msgid "Generating your Ring account..."
 msgstr ""
 
-#: ui/ringmainwindow.ui:423
+#: ui/ringmainwindow.ui:392
 msgid "Next"
 msgstr ""
 
-#: ui/ringmainwindow.ui:445
+#: ui/ringmainwindow.ui:414
 msgid "Your Ring account has been created with the following Ring ID:"
 msgstr ""
 
-#: ui/ringmainwindow.ui:460
+#: ui/ringmainwindow.ui:429
 msgid "Share it with your friends so they can contact you via Ring!"
 msgstr ""
 
-#: ui/ringmainwindow.ui:465
+#: ui/ringmainwindow.ui:434
 msgid "Done"
 msgstr ""

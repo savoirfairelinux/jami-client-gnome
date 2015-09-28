@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-17 17:11-0400\n"
-"PO-Revision-Date: 2015-09-18 21:23+0000\n"
+"POT-Creation-Date: 2015-09-28 11:25-0400\n"
+"PO-Revision-Date: 2015-09-28 15:26+0000\n"
 "Last-Translator: Guillaume Roguez\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -144,7 +144,7 @@ msgctxt "Account status column"
 msgid "Status"
 msgstr "État"
 
-#: src/callsview.cpp:233
+#: src/callsview.cpp:356
 msgid "Current Calls"
 msgstr "Appels courants"
 
@@ -157,25 +157,19 @@ msgstr "Copier le nom"
 msgid "_Copy number"
 msgstr "Copier le numéro ou identifiant Ring"
 
-#: src/contactsview.cpp:342 ui/ringmainwindow.ui:222
-msgid "Contacts"
-msgstr "Contacts"
-
-#: src/dialogs.c:63
+#: src/dialogs.c:53
 msgid "Working..."
 msgstr "Traitement en cours…"
 
-#: src/dialogs.c:93
+#: src/dialogs.c:84
 #, c-format
-msgid "Gnome Ring v%d.%d.%d"
-msgstr "Gnome Ring v%d.%d.%d"
-
-#: src/dialogs.c:118
 msgctxt "Do not translate the release name"
-msgid "release: Samuel de Champlain"
-msgstr "Version: Samuel de Champlain"
+msgid ""
+"release: Samuel de Champlain\n"
+"v%d.%d.%d - %.10s"
+msgstr "version : Samuel de Champlain\nv%d.%d.%d - %.10s"
 
-#: src/dialogs.c:119
+#: src/dialogs.c:111
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is a secured and distributed communication software."
@@ -185,10 +179,6 @@ msgstr "Le client GNOME de Ring\nRing est un logiciel de communication sécuris�
 msgctxt "Phone number category"
 msgid "home"
 msgstr "Local"
-
-#: src/frequentcontactsview.cpp:225
-msgid "Frequent Contacts"
-msgstr "Contacts fréquents"
 
 #: src/generalsettingsview.cpp:92
 msgid ""
@@ -200,17 +190,12 @@ msgstr "Êtes-vous certain de vouloir effacer l'historique ?\nCette opération r
 msgid "_Copy"
 msgstr "Copier"
 
-#: src/historyview.cpp:361
-msgctxt "Call history"
-msgid "History"
-msgstr "Historique"
-
-#: src/historyview.cpp:416
+#: src/historyview.cpp:413
 msgctxt "Call history"
 msgid "Call"
 msgstr "Appel"
 
-#: src/historyview.cpp:461
+#: src/historyview.cpp:458
 msgctxt "Call history"
 msgid "Date"
 msgstr "Date"
@@ -252,11 +237,11 @@ msgstr "Contacts"
 msgid "_Add to contact"
 msgstr "Ajouter dans vos carnets d'adresse"
 
-#: src/ringmainwindow.cpp:643
+#: src/ringmainwindow.cpp:568
 msgid "fetching RingID..."
 msgstr "récupération du RingID…"
 
-#: src/ringmainwindow.cpp:648
+#: src/ringmainwindow.cpp:573
 msgid "no Ring account"
 msgstr "aucun compte Ring"
 
@@ -667,62 +652,74 @@ msgstr "À propos"
 msgid "_Quit"
 msgstr "_Quitter"
 
-#: ui/ringmainwindow.ui:21
+#: ui/ringmainwindow.ui:20
 msgid "Menu"
 msgstr "Menu"
 
-#: ui/ringmainwindow.ui:94
+#: ui/ringmainwindow.ui:54
 msgid "General"
 msgstr "Généralités"
 
-#: ui/ringmainwindow.ui:104
+#: ui/ringmainwindow.ui:64
 msgid "Media"
 msgstr "Médias"
 
-#: ui/ringmainwindow.ui:115
+#: ui/ringmainwindow.ui:75
 msgid "Accounts"
 msgstr "Comptes"
 
-#: ui/ringmainwindow.ui:133
+#: ui/ringmainwindow.ui:93
 msgid "Settings"
 msgstr "Paramètres"
 
-#: ui/ringmainwindow.ui:232
+#: ui/ringmainwindow.ui:151
+msgid "Search contacts or enter number"
+msgstr ""
+
+#: ui/ringmainwindow.ui:197
+msgid "Frequent"
+msgstr ""
+
+#: ui/ringmainwindow.ui:215
+msgid "Contacts"
+msgstr "Contacts"
+
+#: ui/ringmainwindow.ui:233
 msgid "History"
 msgstr "Historique"
 
-#: ui/ringmainwindow.ui:320
+#: ui/ringmainwindow.ui:289
 msgid "Your Ring ID: "
 msgstr "Votre RingID est "
 
-#: ui/ringmainwindow.ui:330
+#: ui/ringmainwindow.ui:299
 msgid "<span fgcolor=\"gray\">fetching Ring ID...</span>"
 msgstr "Extraction de l'identifiant Ring…"
 
-#: ui/ringmainwindow.ui:375
+#: ui/ringmainwindow.ui:344
 msgid "Welcome to  "
 msgstr "Bienvenue à"
 
-#: ui/ringmainwindow.ui:392
+#: ui/ringmainwindow.ui:361
 msgid "Enter your alias to get started:"
 msgstr "Entrez votre pseudonyme pour commencer"
 
-#: ui/ringmainwindow.ui:409
+#: ui/ringmainwindow.ui:378
 msgid "Generating your Ring account..."
 msgstr "Génération de votre compte Ring…"
 
-#: ui/ringmainwindow.ui:423
+#: ui/ringmainwindow.ui:392
 msgid "Next"
 msgstr "Suivant"
 
-#: ui/ringmainwindow.ui:445
+#: ui/ringmainwindow.ui:414
 msgid "Your Ring account has been created with the following Ring ID:"
 msgstr "Votre compte Ring a été créé avec le RingID suivant"
 
-#: ui/ringmainwindow.ui:460
+#: ui/ringmainwindow.ui:429
 msgid "Share it with your friends so they can contact you via Ring!"
 msgstr "Partagé le avec vos amis pour qu'ils puissent vous joindre avec Ring!"
 
-#: ui/ringmainwindow.ui:465
+#: ui/ringmainwindow.ui:434
 msgid "Done"
 msgstr "Effectué"
