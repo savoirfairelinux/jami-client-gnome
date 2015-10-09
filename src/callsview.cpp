@@ -99,8 +99,8 @@ render_call_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 {
     /* get call */
     QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
-    if (idx.isValid()) {
-        QVariant var_c = idx.data(static_cast<int>(Call::Role::Object));
+    QVariant var_c = idx.data(static_cast<int>(Call::Role::Object));
+    if (idx.isValid() && var_c.isValid()) {
         Call *c = var_c.value<Call *>();
 
         /* we only want to show the photo once the call is past creation

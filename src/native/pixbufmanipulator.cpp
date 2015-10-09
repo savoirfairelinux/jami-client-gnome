@@ -80,7 +80,7 @@ PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo, const QSize& size)
 QVariant
 PixbufManipulator::callPhoto(Call* c, const QSize& size, bool displayPresence)
 {
-    if (c->type() == Call::Type::CONFERENCE)
+    if (c && c->type() == Call::Type::CONFERENCE)
         return QVariant::fromValue(scaleAndFrame(conferenceAvatar_.get(), size));
     return callPhoto(c->peerContactMethod(), size, displayPresence);
 }
@@ -88,7 +88,7 @@ PixbufManipulator::callPhoto(Call* c, const QSize& size, bool displayPresence)
 QVariant
 PixbufManipulator::callPhoto(const ContactMethod* n, const QSize& size, bool displayPresence)
 {
-    if (n->contact()) {
+    if (n && n->contact()) {
         return contactPhoto(n->contact(), size, displayPresence);
     } else {
         return QVariant::fromValue(scaleAndFrame(fallbackAvatar_.get(), size));
@@ -107,7 +107,7 @@ PixbufManipulator::contactPhoto(Person* c, const QSize& size, bool displayPresen
 
     std::shared_ptr<GdkPixbuf> photo;
 
-    if (c->photo().isValid())
+    if (c && c->photo().isValid())
         photo = c->photo().value<std::shared_ptr<GdkPixbuf>>();
     else
         photo = fallbackAvatar_;
