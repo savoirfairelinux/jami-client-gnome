@@ -147,7 +147,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATIO
 #define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
 
 static void
-call_selection_changed(GtkTreeSelection *selection, gpointer win)
+call_selection_changed(const QModelIndex idx, gpointer win)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(win));
 
@@ -156,7 +156,6 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
     /* get the current visible stack child */
     GtkWidget *old_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_call_view));
 
-    QModelIndex idx = get_index_from_selection(selection);
     QVariant state =  idx.data(static_cast<int>(Call::Role::LifeCycleState));
     if (idx.isValid() && state.isValid()) {
         GtkWidget *new_call_view = NULL;
@@ -864,6 +863,16 @@ ring_main_window_init(RingMainWindow *win)
     gtk_box_reorder_child(GTK_BOX(priv->vbox_left_pane), calls_view, 1);
 
     /* connect to call state changes to update relevant view(s) */
+
+    QObject::connect(
+        CallModel::instance()->selectionModel(),
+        &QItemSelectionModel::currentChanged,
+        [win](const QModelIndex current, const QModelIndex previous) {
+            /* select the current */
+            call_selection_changed(CallModel::instance()->selectionModel()->currentIndex(), win);
+        }
+    );
+
     QObject::connect(
         CallModel::instance(),
         &CallModel::callStateChanged,
@@ -888,7 +897,7 @@ ring_main_window_init(RingMainWindow *win)
 
     /* connect signals */
     GtkTreeSelection *call_selection = calls_view_get_selection(CALLS_VIEW(calls_view));
-    g_signal_connect(call_selection, "changed", G_CALLBACK(call_selection_changed), win);
+    // g_signal_connect(call_selection, "changed", G_CALLBACK(call_selection_changed), win);
     g_signal_connect(priv->button_placecall, "clicked", G_CALLBACK(search_entry_placecall), win);
     g_signal_connect(priv->search_entry, "activate", G_CALLBACK(search_entry_placecall), win);
 
