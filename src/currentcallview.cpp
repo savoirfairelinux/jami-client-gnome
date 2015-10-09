@@ -467,6 +467,8 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
 
     priv->call = CallModel::instance()->getCall(idx);
 
+    g_return_if_fail(idx.isValid() && priv->call);
+
     /* get call image */
     QVariant var_i = GlobalInstances::pixmapManipulator().callPhoto(priv->call, QSize(60, 60), false);
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();

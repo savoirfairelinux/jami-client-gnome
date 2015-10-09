@@ -86,15 +86,14 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 {
     /* get contact method */
     QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
-    if (idx.isValid()) {
-        auto n = idx.data(static_cast<int>(Call::Role::ContactMethod)).value<ContactMethod *>();
-        if (n) {
-            /* get photo */
-            QVariant var_p = GlobalInstances::pixmapManipulator().callPhoto(n, QSize(50, 50), false);
-            std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
-            g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
-            return;
-        }
+    auto var_n = idx.data(static_cast<int>(Call::Role::ContactMethod));
+    if (idx.isValid() && var_n.isValid()) {
+        auto n = var_n.value<ContactMethod *>();
+        /* get photo */
+        QVariant var_p = GlobalInstances::pixmapManipulator().callPhoto(n, QSize(50, 50), false);
+        std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
+        g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
+        return;
     }
 
     /* otherwise, make sure its an empty pixbuf */

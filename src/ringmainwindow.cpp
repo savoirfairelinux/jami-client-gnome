@@ -149,14 +149,16 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATIO
 static void
 call_selection_changed(GtkTreeSelection *selection, gpointer win)
 {
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
     /* get the current visible stack child */
     GtkWidget *old_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_call_view));
 
     QModelIndex idx = get_index_from_selection(selection);
-    if (idx.isValid()) {
-        QVariant state =  idx.data(static_cast<int>(Call::Role::LifeCycleState));
+    QVariant state =  idx.data(static_cast<int>(Call::Role::LifeCycleState));
+    if (idx.isValid() && state.isValid()) {
         GtkWidget *new_call_view = NULL;
         char* new_call_view_name = NULL;
 
@@ -210,7 +212,10 @@ static void
 call_state_changed(Call *call, gpointer win)
 {
     g_debug("call state changed");
+    g_return_if_fail(call && IS_RING_MAIN_WINDOW(win));
+
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+
 
     /* check if the call that changed state is the same as the selected call */
     QModelIndex idx_selected = CallModel::instance()->selectionModel()->currentIndex();

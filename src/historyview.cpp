@@ -239,8 +239,8 @@ render_call_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     if (depth == 2) {
         /* get person */
         QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
-        if (idx.isValid()) {
-            QVariant var_c = idx.data(static_cast<int>(Call::Role::Object));
+        QVariant var_c = idx.data(static_cast<int>(Call::Role::Object));
+        if (idx.isValid() && var_c.isValid()) {
             Call *c = var_c.value<Call *>();
             /* get photo */
             QVariant var_p = GlobalInstances::pixmapManipulator().callPhoto(c, QSize(50, 50), false);
