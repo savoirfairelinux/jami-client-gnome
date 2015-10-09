@@ -260,11 +260,21 @@
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <!-- main display object -->
-            <child>
+            <!-- <child>
               <object class="GtkStack" id="stack_call_view">
                 <property name="visible">True</property>
                 <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
                 <property name="transition-duration">300</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+              </packing>
+            </child> -->
+            <child>
+              <object class="GtkFrame" id="frame_call">
+                <property name="visible">True</property>
+                <property name="shadow-type">GTK_SHADOW_NONE</property>
               </object>
               <packing>
                 <property name="expand">True</property>

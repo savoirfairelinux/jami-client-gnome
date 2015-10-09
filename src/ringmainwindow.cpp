@@ -106,7 +106,8 @@ struct _RingMainWindowPrivate
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
     GtkWidget *vbox_call_view;
-    GtkWidget *stack_call_view;
+    GtkWidget *frame_call;
+    GtkWidget *welcome_view;
     GtkWidget *button_placecall;
     GtkWidget *account_settings_view;
     GtkWidget *media_settings_view;
@@ -152,7 +153,8 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
     /* get the current visible stack child */
-    GtkWidget *old_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_call_view));
+    // GtkWidget *old_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_call_view));
+    GtkWidget *old_call_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
 
     QModelIndex idx = get_index_from_selection(selection);
     if (idx.isValid()) {
@@ -180,30 +182,35 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
                 break;
         }
 
-        gtk_stack_add_named(GTK_STACK(priv->stack_call_view), new_call_view, new_call_view_name);
-        gtk_stack_set_visible_child(GTK_STACK(priv->stack_call_view), new_call_view);
+        gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
+        gtk_container_add(GTK_CONTAINER(priv->frame_call), new_call_view);
+        gtk_widget_show(new_call_view);
+        // gtk_stack_add_named(GTK_STACK(priv->stack_call_view), new_call_view, new_call_view_name);
+        // gtk_stack_set_visible_child(GTK_STACK(priv->stack_call_view), new_call_view);
         g_free(new_call_view_name);
         /* show ringID at the bottom */
         gtk_widget_show(priv->hbox_ring_hash);
     } else {
         /* nothing selected in the call model, so show the default screen */
-        gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
-        gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_call_view), DEFAULT_VIEW_NAME);
-        gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+        // gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
+        // gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_call_view), DEFAULT_VIEW_NAME);
+        // gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+        gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
+        gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
         /* hide ringID at the bottom */
         gtk_widget_hide(priv->hbox_ring_hash);
     }
 
-    /* check if we changed the visible child */
-    GtkWidget *current_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_call_view));
-    if (current_call_view != old_call_view && old_call_view != NULL) {
-        /* if the previous child was a call view, then remove it from
-         * the stack; removing it should destory it since there should not
-         * be any other references to it */
-        if (IS_INCOMING_CALL_VIEW(old_call_view) || IS_CURRENT_CALL_VIEW(old_call_view)) {
-            gtk_container_remove(GTK_CONTAINER(priv->stack_call_view), old_call_view);
-        }
-    }
+    // /* check if we changed the visible child */
+    // GtkWidget *current_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_call_view));
+    // if (current_call_view != old_call_view && old_call_view != NULL) {
+    //     /* if the previous child was a call view, then remove it from
+    //      * the stack; removing it should destory it since there should not
+    //      * be any other references to it */
+    //     if (IS_INCOMING_CALL_VIEW(old_call_view) || IS_CURRENT_CALL_VIEW(old_call_view)) {
+    //         gtk_container_remove(GTK_CONTAINER(priv->stack_call_view), old_call_view);
+    //     }
+    // }
 }
 
 static void
@@ -218,7 +225,8 @@ call_state_changed(Call *call, gpointer win)
     if( idx_selected.isValid() && call == CallModel::instance()->getCall(idx_selected)) {
         g_debug("selected call state changed");
         /* check if we need to change the view */
-        GtkWidget *old_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_call_view));
+        // GtkWidget *old_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_call_view));
+        GtkWidget *old_call_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
         GtkWidget *new_call_view = NULL;
         QVariant state = CallModel::instance()->data(idx_selected, static_cast<int>(Call::Role::LifeCycleState));
 
@@ -240,11 +248,14 @@ call_state_changed(Call *call, gpointer win)
                     /* use the pointer of the call as a unique name */
                     char* new_call_view_name = NULL;
                     new_call_view_name = g_strdup_printf("%p_current", (void *)CallModel::instance()->getCall(idx_selected));
-                    gtk_stack_add_named(GTK_STACK(priv->stack_call_view), new_call_view, new_call_view_name);
+                    // gtk_stack_add_named(GTK_STACK(priv->stack_call_view), new_call_view, new_call_view_name);
                     g_free(new_call_view_name);
-                    gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_UP);
-                    gtk_stack_set_visible_child(GTK_STACK(priv->stack_call_view), new_call_view);
-                    gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+                    // gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_UP);
+                    // gtk_stack_set_visible_child(GTK_STACK(priv->stack_call_view), new_call_view);
+                    // gtk_stack_set_transition_type(GTK_STACK(priv->stack_call_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
+                    gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
+                    gtk_container_add(GTK_CONTAINER(priv->frame_call), new_call_view);
+                    gtk_widget_show(new_call_view);
                 }
                 break;
             case Call::LifeCycleState::FINISHED:
@@ -255,16 +266,16 @@ call_state_changed(Call *call, gpointer win)
                 break;
         }
 
-        /* check if we changed the visible child */
-        GtkWidget *current_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_call_view));
-        if (current_call_view != old_call_view && old_call_view != NULL) {
-            /* if the previous child was a call view, then remove it from
-             * the stack; removing it should destory it since there should not
-             * be any other references to it */
-            if (IS_INCOMING_CALL_VIEW(old_call_view) || IS_CURRENT_CALL_VIEW(old_call_view)) {
-                gtk_container_remove(GTK_CONTAINER(priv->stack_call_view), old_call_view);
-            }
-        }
+        // /* check if we changed the visible child */
+        // GtkWidget *current_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_call_view));
+        // if (current_call_view != old_call_view && old_call_view != NULL) {
+        //     /* if the previous child was a call view, then remove it from
+        //      * the stack; removing it should destory it since there should not
+        //      * be any other references to it */
+        //     if (IS_INCOMING_CALL_VIEW(old_call_view) || IS_CURRENT_CALL_VIEW(old_call_view)) {
+        //         gtk_container_remove(GTK_CONTAINER(priv->stack_call_view), old_call_view);
+        //     }
+        // }
     }
 }
 
@@ -878,8 +889,11 @@ ring_main_window_init(RingMainWindow *win)
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_history), history_view);
 
     /* welcome/default view */
-    auto welcome_view = ring_welcome_view_new();
-    gtk_stack_add_named(GTK_STACK(priv->stack_call_view), welcome_view, DEFAULT_VIEW_NAME);
+    priv->welcome_view = ring_welcome_view_new();
+    g_object_ref(priv->welcome_view);
+    // gtk_stack_add_named(GTK_STACK(priv->stack_call_view), welcome_view, DEFAULT_VIEW_NAME);
+    gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
+    gtk_widget_show(priv->welcome_view);
 
     /* connect signals */
     GtkTreeSelection *call_selection = calls_view_get_selection(CALLS_VIEW(calls_view));
@@ -1049,7 +1063,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, search_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_main_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_call_view);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_call_view);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, frame_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_placecall);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_media_settings);
