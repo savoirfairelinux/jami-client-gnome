@@ -156,7 +156,11 @@ call_selection_changed(GtkTreeSelection *selection, gpointer win)
     /* get the current visible stack child */
     GtkWidget *old_call_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_call_view));
 
-    QModelIndex idx = get_index_from_selection(selection);
+    auto idx = get_index_from_selection(selection);
+    auto current_idx = CallModel::instance()->selectionModel()->currentIndex();
+    if (idx == current_idx)
+        return; // nothing to do
+
     QVariant state =  idx.data(static_cast<int>(Call::Role::LifeCycleState));
     if (idx.isValid() && state.isValid()) {
         GtkWidget *new_call_view = NULL;
