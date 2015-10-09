@@ -261,10 +261,9 @@
             <property name="orientation">vertical</property>
             <!-- main display object -->
             <child>
-              <object class="GtkStack" id="stack_call_view">
+              <object class="GtkFrame" id="frame_call">
                 <property name="visible">True</property>
-                <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
-                <property name="transition-duration">300</property>
+                <property name="shadow-type">GTK_SHADOW_NONE</property>
               </object>
               <packing>
                 <property name="expand">True</property>
