@@ -309,24 +309,17 @@ calls_view_init(CallsView *self)
         [=](const QModelIndex current, const QModelIndex & previous) {
             GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_calls));
 
-            /* first unselect the previous */
-            if (previous.isValid()) {
-                GtkTreeIter old_iter;
-                if (gtk_q_tree_model_source_index_to_iter(call_model, previous, &old_iter)) {
-                    gtk_tree_selection_unselect_iter(selection, &old_iter);
-                } else {
-                    g_warning("Trying to unselect invalid GtkTreeIter");
-                }
-            }
-
             /* select the current */
-            if (current.isValid()) {
+            auto new_idx = CallModel::instance()->selectionModel()->currentIndex();
+            if (new_idx.isValid()) {
                 GtkTreeIter new_iter;
-                if (gtk_q_tree_model_source_index_to_iter(call_model, current, &new_iter)) {
+                if (gtk_q_tree_model_source_index_to_iter(call_model, new_idx, &new_iter)) {
                     gtk_tree_selection_select_iter(selection, &new_iter);
                 } else {
                     g_warning("SelectionModel of CallModel changed to invalid QModelIndex?");
                 }
+            } else {
+                gtk_tree_selection_unselect_all(selection);
             }
         }
     );
