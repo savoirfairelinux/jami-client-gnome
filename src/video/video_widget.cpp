@@ -568,8 +568,9 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         if (renderer == nullptr)
             return;
 
-        const auto frameData = (const guint8*)renderer->currentFrame().constData();
-        if (renderer->currentFrame().isEmpty() or !frameData or !wg_renderer->dirty)
+        auto frame_ptr = renderer->currentFrame();
+        auto frame_data = frame_ptr.ptr;
+        if (!frame_data or !wg_renderer->dirty)
             return;
 
         wg_renderer->dirty = false;
@@ -584,7 +585,7 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         GError *error = nullptr;
         clutter_image_set_data(
             CLUTTER_IMAGE(image_new),
-            frameData,
+            frame_data,
             COGL_PIXEL_FORMAT_BGRA_8888,
             res.width(),
             res.height(),
