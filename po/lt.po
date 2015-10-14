@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Guillaume Roguez, 2015
+# Mantas Kriaučiūnas <mantas@akl.lt>, 2015
 # Moo, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-30 17:31-0400\n"
-"PO-Revision-Date: 2015-09-30 21:34+0000\n"
-"Last-Translator: Stepan Salenikovich\n"
+"PO-Revision-Date: 2015-10-13 12:19+0000\n"
+"Last-Translator: Mantas Kriaučiūnas <mantas@akl.lt>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,11 +47,11 @@ msgstr "Tipas"
 
 #: src/accountgeneraltab.cpp:250
 msgid "auto-generating..."
-msgstr ""
+msgstr "automatiškai kuriama..."
 
 #: src/accountgeneraltab.cpp:269
 msgid "Hostname"
-msgstr ""
+msgstr "Kompiuterio vardas"
 
 #: src/accountgeneraltab.cpp:279
 msgid "Username"
@@ -183,7 +184,7 @@ msgstr "namai"
 msgid ""
 "Are you sure you want to clear all your history?\n"
 "This operation will also reset the Frequent Contacts list"
-msgstr "Ar tikrai norite išvalyti visą savo istoriją?\nŠi operacija taip pat atstatys į pradinę būseną Dažnų Kontaktų sąrašą"
+msgstr "Ar tikrai norite išvalyti visą savo istoriją?\nŠi operacija taip pat atstatys į pradinę būseną Dažnų Adresatų sąrašą"
 
 #: src/historyview.cpp:184
 msgid "_Copy"
@@ -217,7 +218,7 @@ msgstr "Įjungti derinimą"
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr ""
+msgstr "Atkuria pagrindinio lango paslėptą būseną (pritaikoma tik pirminiam egzemplioriui)"
 
 #: src/ring_client_options.c:84
 msgid "- GNOME client for Ring"
@@ -230,11 +231,11 @@ msgstr "Nežinoma EDS adresų knyga"
 #: src/backends/edscontactbackend.cpp:221
 msgctxt "Backend type"
 msgid "Contacts"
-msgstr "Kontaktai"
+msgstr "Adresatai"
 
 #: src/utils/menus.cpp:67
 msgid "_Add to contact"
-msgstr "Pridėti prie kont_aktų"
+msgstr "Pridėti prie _adresatų"
 
 #: src/ringmainwindow.cpp:570 src/ringwelcomeview.cpp:61
 msgid "fetching RingID..."
@@ -249,21 +250,21 @@ msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr ""
+msgstr "Ieškoti adresatų arba įvesti numerį"
 
 #: src/ringwelcomeview.cpp:92
 msgid ""
 "Ring is a secure and distributed voice, video, and chat communication "
 "platform that requires no centralized server and leaves the power of privacy"
 " in the hands of the user."
-msgstr ""
+msgstr "Ring yra saugi ir paskirstytoji balso, vaizdo ir pokalbių susisiekimo platforma, kuri nereikalauja centralizuoto serverio ir palieka visą privatumo galią naudotojo rankose."
 
 #: src/ringwelcomeview.cpp:103
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Tai yra jūsų RingID.\nNukopijuokite ir dalinkitės juo su savo draugais!"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
@@ -271,15 +272,15 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:103
 msgid "Allow calls from unknown peers"
-msgstr ""
+msgstr "Leisti skambučius nuo nežinomų naudotojų"
 
 #: ui/accountadvancedtab.ui:117
 msgid "Allow calls from peers in your call history"
-msgstr ""
+msgstr "Leisti skambučius nuo jūsų skambučių istorijoje esančių naudotojų"
 
 #: ui/accountadvancedtab.ui:131
 msgid "Allow calls from peers in your contacts list"
-msgstr ""
+msgstr "Leisti skambučius nuo jūsų kontaktų sąraše esančių naudotojų"
 
 #: ui/accountadvancedtab.ui:149
 msgid "<b>Registration</b>"
@@ -299,11 +300,11 @@ msgstr "<b>Tinklo Sąsaja</b>"
 
 #: ui/accountadvancedtab.ui:249
 msgid "Same as local parameters"
-msgstr ""
+msgstr "Toks pats kaip vietiniai parametrai"
 
 #: ui/accountadvancedtab.ui:264
 msgid "Set published address and port:"
-msgstr ""
+msgstr "Nustatyti paskelbtą adresą ir prievadą:"
 
 #: ui/accountadvancedtab.ui:288
 msgid "Address"
@@ -335,11 +336,11 @@ msgstr "slaptažodis"
 
 #: ui/accountadvancedtab.ui:475
 msgid "realm"
-msgstr ""
+msgstr "sritis"
 
 #: ui/accountadvancedtab.ui:504
 msgid "<b>Published Address</b>"
-msgstr ""
+msgstr "<b>Paskelbtas Adresas</b>"
 
 #: ui/accountadvancedtab.ui:533
 msgid ""
@@ -393,7 +394,7 @@ msgstr "Šifruoti medija srautus (SRTP)"
 
 #: ui/accountsecuritytab.ui:58
 msgid "Key exchange protocol"
-msgstr ""
+msgstr "Rakto mainų protokolas"
 
 #: ui/accountsecuritytab.ui:76
 msgid "Fallback on RTP on encryption failure"
@@ -409,11 +410,11 @@ msgstr ""
 
 #: ui/accountsecuritytab.ui:146
 msgid "CA certificate"
-msgstr ""
+msgstr "LĮ liudijimas"
 
 #: ui/accountsecuritytab.ui:183
 msgid "User certificate"
-msgstr ""
+msgstr "Naudotojo liudijimas"
 
 #: ui/accountsecuritytab.ui:220
 msgid "Private key"
@@ -506,7 +507,7 @@ msgstr "Perjungti vaizdo išjungimą"
 
 #: ui/currentcallview.ui:280 ui/currentcallview.ui:391
 msgid "Mute video"
-msgstr ""
+msgstr "Išjungti vaizdą"
 
 #: ui/currentcallview.ui:299
 msgid "Toggle record audio"
@@ -514,7 +515,7 @@ msgstr "Perjungti garso įrašymą"
 
 #: ui/currentcallview.ui:302
 msgid "Record audio"
-msgstr ""
+msgstr "Įrašyti pokalbį (garsą)"
 
 #: ui/currentcallview.ui:318
 msgid "Toggle show chat"
@@ -534,11 +535,11 @@ msgstr "Vaizdo kokybė"
 
 #: ui/currentcallview.ui:382
 msgid "Mute audio"
-msgstr ""
+msgstr "Išjungti garsą"
 
 #: ui/currentcallview.ui:427
 msgid "Record"
-msgstr ""
+msgstr "Įrašyti"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
@@ -554,7 +555,7 @@ msgstr "Vardas"
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
-msgstr "Kontakto vardas"
+msgstr "Adresato vardas"
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
@@ -694,11 +695,11 @@ msgstr "Nustatymai"
 
 #: ui/ringmainwindow.ui:196
 msgid "Frequent"
-msgstr ""
+msgstr "Dažni"
 
 #: ui/ringmainwindow.ui:215
 msgid "Contacts"
-msgstr "Kontaktai"
+msgstr "Adresatai"
 
 #: ui/ringmainwindow.ui:234
 msgid "History"
@@ -714,7 +715,7 @@ msgstr "<span fgcolor=\"gray\">gaunamas Ring ID...</span>"
 
 #: ui/ringmainwindow.ui:346
 msgid "Welcome to  "
-msgstr "Sveiki atvykę į"
+msgstr "Sveikiname"
 
 #: ui/ringmainwindow.ui:363
 msgid "Enter your alias to get started:"

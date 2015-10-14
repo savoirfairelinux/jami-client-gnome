@@ -3,161 +3,167 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
-# Stefan Langenmaier <stefan.langenmaier@gmail.com>, 2015
+# Marat Gubaidullin <marat.gubaidullin@savoirfairelinux.com>, 2015
+# Natalia <sonaux@gmail.com>, 2015
+# Viktor Filinkov <bruteforce@sigil.tk>, 2015
+# Yaroslav Molochko <onorua@gmail.com>, 2015
+# Александр <suslikkreal@gmail.com>, 2015
+# Александр Асланьян <asl174@yandex.ru>, 2015
+# Чураков Александр, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-30 17:31-0400\n"
-"PO-Revision-Date: 2015-10-05 13:57+0000\n"
-"Last-Translator: Stefan Langenmaier <stefan.langenmaier@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/savoirfairelinux/ring/language/de/)\n"
+"PO-Revision-Date: 2015-10-14 14:43+0000\n"
+"Last-Translator: Чураков Александр\n"
+"Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
 msgid "Enabled"
-msgstr "Aktiviert"
+msgstr "Разрешен"
 
 #: src/accountaudiotab.cpp:191
 msgctxt "Name of the codec"
 msgid "Name"
-msgstr "Name"
+msgstr "Имя"
 
 #: src/accountaudiotab.cpp:195 src/accountvideotab.cpp:204
 msgid "Bitrate"
-msgstr "Bitrate"
+msgstr "Битрейт"
 
 #: src/accountaudiotab.cpp:199
 msgid "Samplerate"
-msgstr "Samplerate"
+msgstr "Частота дискретизации"
 
 #: src/accountgeneraltab.cpp:210
 msgid "Alias"
-msgstr "Aliasname"
+msgstr "Псевдоним "
 
 #: src/accountgeneraltab.cpp:221
 msgid "Type"
-msgstr "Typ"
+msgstr "Тип"
 
 #: src/accountgeneraltab.cpp:250
 msgid "auto-generating..."
-msgstr "Automatische Erstellung..."
+msgstr "авто-генерация..."
 
 #: src/accountgeneraltab.cpp:269
 msgid "Hostname"
-msgstr "Rechnername"
+msgstr "Имя компьютера"
 
 #: src/accountgeneraltab.cpp:279
 msgid "Username"
-msgstr "Benutzername"
+msgstr "Имя пользователя"
 
 #: src/accountgeneraltab.cpp:289
 msgid "Password"
-msgstr "Passwort"
+msgstr "Пароль"
 
 #: src/accountgeneraltab.cpp:302
 msgid "Show password"
-msgstr "Passwort anzeigen"
+msgstr "Показать пароль"
 
 #: src/accountgeneraltab.cpp:308
 msgid "Proxy"
-msgstr "Proxy"
+msgstr "Прокси"
 
 #: src/accountgeneraltab.cpp:318
 msgid "Voicemail number"
-msgstr "Nummer für Sprachnachrichten"
+msgstr "Номер голосовой почты"
 
 #: src/accountgeneraltab.cpp:330
 msgctxt "The DHT bootstrap server url"
 msgid "Bootstrap"
-msgstr "Aktivierung"
+msgstr "Начальная загрузка"
 
 #: src/accountgeneraltab.cpp:342
 msgid "Auto-answer calls"
-msgstr "Anrufe automatisch beantworten"
+msgstr "Автоответчик"
 
 #: src/accountgeneraltab.cpp:350
 msgid "UPnP enabled"
-msgstr "UPnP aktiviert"
+msgstr "UPnP разрешен"
 
 #: src/accountgeneraltab.cpp:358
 msgid "DTMF tone type:"
-msgstr "DTMF Tontyp:"
+msgstr "Тип DTMF"
 
 #: src/accountvideotab.cpp:200
 msgctxt "The name of the codec"
 msgid "Name"
-msgstr "Name"
+msgstr "Имя"
 
 #: src/accountview.cpp:159
 msgctxt "Account settings"
 msgid "General"
-msgstr "Allgemein"
+msgstr "Общий"
 
 #: src/accountview.cpp:163
 msgctxt "Account settings"
 msgid "Audio"
-msgstr "Audio"
+msgstr "Голосовой"
 
 #: src/accountview.cpp:167
 msgctxt "Account settings"
 msgid "Video"
-msgstr "Video"
+msgstr "Видео"
 
 #: src/accountview.cpp:171
 msgctxt "Account settings"
 msgid "Advanced"
-msgstr "Erweitert"
+msgstr "Дополнительно"
 
 #: src/accountview.cpp:175
 msgctxt "Account settings"
 msgid "Security"
-msgstr "Sicherheit"
+msgstr "Безопасность"
 
 #: src/accountview.cpp:229
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
-msgstr "Sind sie sich sicher den Account \"%s\" löschen zu wollen?"
+msgstr "Вы уверены что хотите удалить учетную запись \"%s\"?"
 
 #: src/accountview.cpp:313 src/accountview.cpp:315
 msgid "New Account"
-msgstr "Neues Konto"
+msgstr "Новая учетная запись"
 
 #: src/accountview.cpp:386
 msgctxt "Account state column"
 msgid "Enabled"
-msgstr "Aktiviert"
+msgstr "Разрешен"
 
 #: src/accountview.cpp:392
 msgctxt "Account alias (name) column"
 msgid "Alias"
-msgstr "Aliasname"
+msgstr "Псевдоним"
 
 #: src/accountview.cpp:396
 msgctxt "Account status column"
 msgid "Status"
-msgstr "Status"
+msgstr "Состояние"
 
 #: src/callsview.cpp:233
 msgid "Current Calls"
-msgstr "Aktuelle Anrufe"
+msgstr "Текущие звонки"
 
 #: src/contactsview.cpp:290 src/frequentcontactsview.cpp:175
 msgid "_Copy name"
-msgstr "Name _kopieren"
+msgstr "_Копировать имя"
 
 #: src/contactsview.cpp:301 src/contactsview.cpp:316
 #: src/frequentcontactsview.cpp:184
 msgid "_Copy number"
-msgstr "Nummer _kopieren"
+msgstr "_Копировать номер"
 
 #: src/dialogs.c:53
 msgid "Working..."
-msgstr "Arbeitend..."
+msgstr "Выполняю..."
 
 #: src/dialogs.c:84
 #, c-format
@@ -165,302 +171,302 @@ msgctxt "Do not translate the release name"
 msgid ""
 "release: Samuel de Champlain\n"
 "v%d.%d.%d - %.10s"
-msgstr "release: Samuel de Champlain\nv%d.%d.%d - %.10s"
+msgstr "автор: Samuel de Champlain\n v%d.%d.%d - %.10s"
 
 #: src/dialogs.c:111
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is a secured and distributed communication software."
-msgstr "The GNOME client for Ring.\nRing is a secured and distributed communication software."
+msgstr "Клиент Ring для GNOME.\nRing это приложение для безопасного и распределенного общения. "
 
 #: src/editcontactview.cpp:196
 msgctxt "Phone number category"
 msgid "home"
-msgstr "home"
+msgstr "дом"
 
 #: src/generalsettingsview.cpp:92
 msgid ""
 "Are you sure you want to clear all your history?\n"
 "This operation will also reset the Frequent Contacts list"
-msgstr "Sind sie sicher, das sie ihren gesamten Verlauf leeren möchten?\nDies setzt auch die Liste Häufige Kontakte zurück."
+msgstr "Вы уверены что хотите удалить всю историю?\nЭта операция так же обнулит список Частых Контактов"
 
 #: src/historyview.cpp:184
 msgid "_Copy"
-msgstr "_Kopieren"
+msgstr "_Копировать"
 
 #: src/historyview.cpp:413
 msgctxt "Call history"
 msgid "Call"
-msgstr "Anruf"
+msgstr "Звонок"
 
 #: src/historyview.cpp:458
 msgctxt "Call history"
 msgid "Date"
-msgstr "Datum"
+msgstr "Дата"
 
 #: src/ringnotify.cpp:86
 msgid "Incoming call"
-msgstr "Eingehender Anruf"
+msgstr "Входящий звонок"
 
 #: src/ringnotify.cpp:169
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
-msgstr "%s sagt:"
+msgstr "%s сказал:"
 
 #: src/ring_client_options.c:65
 msgid "Enable debug"
-msgstr "Debugoption aktivieren"
+msgstr "Включить отладку"
 
 #: src/ring_client_options.c:67
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr "Stellt den versteckten Zustand des Hauptfensters her (nur bezüglich der Hauptinstanz)"
+msgstr "Восстанавливает скрытую форму главного окна (только для первого образца)"
 
 #: src/ring_client_options.c:84
 msgid "- GNOME client for Ring"
-msgstr "- GNOME Oberfläche für Ring"
+msgstr "GNOME клиент для Ring"
 
 #: src/backends/edscontactbackend.cpp:201
 msgid "Unknown EDS addressbook"
-msgstr "Unbekanntes EDS Adressbuch"
+msgstr "Неизвестная адресная книга EDS"
 
 #: src/backends/edscontactbackend.cpp:221
 msgctxt "Backend type"
 msgid "Contacts"
-msgstr "Kontakte"
+msgstr "Контакты"
 
 #: src/utils/menus.cpp:67
 msgid "_Add to contact"
-msgstr "Zu Kont_akt hinzufügen"
+msgstr "Добавить в контакт"
 
 #: src/ringmainwindow.cpp:570 src/ringwelcomeview.cpp:61
 msgid "fetching RingID..."
-msgstr "beziehe RingID..."
+msgstr "получение RingID..."
 
 #: src/ringmainwindow.cpp:575
 msgid "no Ring account"
-msgstr "kein Ring Konto"
+msgstr "Отсутствует аккаунт Ring"
 
 #: src/ringmainwindow.cpp:998
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr "Kontakte suchen oder Nummer eingeben"
+msgstr "Найдите контакты или введите номер"
 
 #: src/ringwelcomeview.cpp:92
 msgid ""
 "Ring is a secure and distributed voice, video, and chat communication "
 "platform that requires no centralized server and leaves the power of privacy"
 " in the hands of the user."
-msgstr "Ring ist eine sichere und verteile Kommunikationsplattform für Sprach-, Video- und Textnachrichten, die keine zentralen Server benötigt und die Kontrolle der Privatsphäre in der Hand des Benutzers lässt."
+msgstr "Ring - это распределенная и безопасная платформа для передачи голоса, видео и текстовых сообщений, которая не нуждается в централизованном сервере и оставляет мощь секретности в руках пользователя."
 
 #: src/ringwelcomeview.cpp:103
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr "Dies ist ihre RingID.\nKopieren sie sie und teilen sie sie mit ihren Freunden!"
+msgstr "Это ваш RingID.\nСкопируйте и поделитесь им с вашими друзьями!"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
-msgstr "Registrierungsverfallzeitüberschreitung (Sekunden):"
+msgstr "Регистрация истекает через (секунды):"
 
 #: ui/accountadvancedtab.ui:103
 msgid "Allow calls from unknown peers"
-msgstr "Anrufe von unbekannte Teilnehmern erlauben"
+msgstr "Разрешить вызовы от неизвестных участников"
 
 #: ui/accountadvancedtab.ui:117
 msgid "Allow calls from peers in your call history"
-msgstr "Anrufe von Teilnehmern im Anrufverlauf erlauben"
+msgstr "Разрешить вызовы от участников из вашей истории звонков"
 
 #: ui/accountadvancedtab.ui:131
 msgid "Allow calls from peers in your contacts list"
-msgstr "Anrufe von Teilnehmern in ihrer Kontaktliste erlauben"
+msgstr "Разрешить звонки от пиров из вашего списка контактов"
 
 #: ui/accountadvancedtab.ui:149
 msgid "<b>Registration</b>"
-msgstr "<b>Registrierung</b>"
+msgstr "<b>Регистрация</b>"
 
 #: ui/accountadvancedtab.ui:176
 msgid "Use random port"
-msgstr "Zufälligen Port verwenden"
+msgstr "Использовать случайный порт"
 
 #: ui/accountadvancedtab.ui:197
 msgid "Local port:"
-msgstr "Lokaler port:"
+msgstr "Локальный порт:"
 
 #: ui/accountadvancedtab.ui:223
 msgid "<b>Network Interface</b>"
-msgstr "<b>Netzwerkschnittstelle</b>"
+msgstr "<b>Сетевой интерфейс</b>"
 
 #: ui/accountadvancedtab.ui:249
 msgid "Same as local parameters"
-msgstr "Identisch zu den lokalen Parametern"
+msgstr "Такие же, как и локальные параметры"
 
 #: ui/accountadvancedtab.ui:264
 msgid "Set published address and port:"
-msgstr "Veröffentlichte Adresse und Port setzen:"
+msgstr "Установить опубликованный адрес как порт"
 
 #: ui/accountadvancedtab.ui:288
 msgid "Address"
-msgstr "Adresse"
+msgstr "Адрес"
 
 #: ui/accountadvancedtab.ui:310
 msgid "Port"
-msgstr "Port"
+msgstr "Порт"
 
 #: ui/accountadvancedtab.ui:336
 msgid "Use STUN"
-msgstr "STUN benutzen"
+msgstr "Использовать STUN "
 
 #: ui/accountadvancedtab.ui:359 ui/accountadvancedtab.ui:408
 msgid "server URL"
-msgstr "Server URL"
+msgstr "URL сервера"
 
 #: ui/accountadvancedtab.ui:385
 msgid "Use TURN"
-msgstr "Turn benutzen"
+msgstr "Использовать TURN "
 
 #: ui/accountadvancedtab.ui:430
 msgid "username"
-msgstr "Benutzername"
+msgstr "имя пользователя"
 
 #: ui/accountadvancedtab.ui:451
 msgid "password"
-msgstr "Passwort"
+msgstr "пароль"
 
 #: ui/accountadvancedtab.ui:475
 msgid "realm"
-msgstr "Bereich"
+msgstr "область "
 
 #: ui/accountadvancedtab.ui:504
 msgid "<b>Published Address</b>"
-msgstr "<b>Veröffentlichte Adresse</b>"
+msgstr "<b>Опубликованный Адрес</b>"
 
 #: ui/accountadvancedtab.ui:533
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
-msgstr "Diese Einstellungen werden nur benutzt während einer SDP Sitzungsverhandlung, im Falle das ICE ist vom Server oder vom Teilnehmer nicht unterstützt wird."
+msgstr "Данные параметры используются только во время SDP согласования сессии в случае, если ICE не поддерживается сервером или пиром."
 
 #: ui/accountadvancedtab.ui:558 ui/accountadvancedtab.ui:632
 msgid "Min"
-msgstr "Min"
+msgstr "Минимум"
 
 #: ui/accountadvancedtab.ui:581 ui/accountadvancedtab.ui:655
 msgid "Max"
-msgstr "Max"
+msgstr "Максимум"
 
 #: ui/accountadvancedtab.ui:605
 msgid "<b>Audio RTP Port Range</b>"
-msgstr "<b>Audio RTP Portbereich</b>"
+msgstr "<b>диапазон аудио RTP портов</b>"
 
 #: ui/accountadvancedtab.ui:679
 msgid "<b>Video RTP Port Range</b>"
-msgstr "<b>Video RTP Portbereich</b>"
+msgstr "<b>диапазон видео RTP портов</b>"
 
 #: ui/accountadvancedtab.ui:695
 msgid "<b>SDP Session Negotiation (ICE Fallback)</b>"
-msgstr "<b>SDP Sitzungsverhandlung (ICE Fallback)</b>"
+msgstr "<b>SDP согласование сесии (резерв ICE)</b>"
 
 #: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
 msgid "Up"
-msgstr "Hoch"
+msgstr "Вверх"
 
 #: ui/accountaudiotab.ui:66 ui/accountvideotab.ui:66
 msgid "Down"
-msgstr "Rutner"
+msgstr "Вниз"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
 msgid "<b>Codecs</b>"
-msgstr "<b>Codecs</b>"
+msgstr "<b>Кодеки</b>"
 
 #: ui/accountgeneraltab.ui:42
 msgid "<b>Account</b>"
-msgstr "<b>Konto</b>"
+msgstr "<b>Аккаунт</b>"
 
 #: ui/accountgeneraltab.ui:80
 msgid "<b>Parameters</b>"
-msgstr "<b>Parameter</b>"
+msgstr "<b>Параметры</b>"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
-msgstr "Medienströme verschlüsseln (SRTP)"
+msgstr "Шифровать медиа потоки (SRTP)"
 
 #: ui/accountsecuritytab.ui:58
 msgid "Key exchange protocol"
-msgstr "Schlüsselaustauschprotokoll"
+msgstr "Протокол обмена ключами "
 
 #: ui/accountsecuritytab.ui:76
 msgid "Fallback on RTP on encryption failure"
-msgstr "Auf RTP zurückfallen wenn die Verschlüsselung fehlschlägt"
+msgstr "Использовать RTP, если шифрование отсутствует "
 
 #: ui/accountsecuritytab.ui:94
 msgid "<b>Media Stream Encryption</b>"
-msgstr "<b>Medienstromverschlüsselung</b>"
+msgstr "<b>Шифрование медиа потока</b>"
 
 #: ui/accountsecuritytab.ui:121
 msgid "Encrypt negotiation (TLS)"
-msgstr "Verhandlung verschlüsseln (TLS)"
+msgstr "Шифровать разговор (TLS)"
 
 #: ui/accountsecuritytab.ui:146
 msgid "CA certificate"
-msgstr "CA Zertifikat"
+msgstr "CA сертификат "
 
 #: ui/accountsecuritytab.ui:183
 msgid "User certificate"
-msgstr "Benutzerzertifikat"
+msgstr "Пользовательский сертификат"
 
 #: ui/accountsecuritytab.ui:220
 msgid "Private key"
-msgstr "Privater Schlüssel"
+msgstr "Приватный ключ"
 
 #: ui/accountsecuritytab.ui:243
 msgid "Private key password"
-msgstr "Passwort für den privaten Schlüssel"
+msgstr "Пароль к приватному ключу"
 
 #: ui/accountsecuritytab.ui:290
 msgid "TLS protocol method"
-msgstr "TLS Protokollmethode"
+msgstr "Метод протокола TSL"
 
 #: ui/accountsecuritytab.ui:313
 msgid "Outgoing TLS server name"
-msgstr "Ausgehender TLS Servername"
+msgstr "Исходящее имя сервера TLS"
 
 #: ui/accountsecuritytab.ui:335
 msgid "Negotiation timeout (seconds)"
-msgstr "Verhandlungstimeout (Sekunden)"
+msgstr "Ожидание разговора (секунд)"
 
 #: ui/accountsecuritytab.ui:369
 msgid "Use default ciphers"
-msgstr "Standardcipher verwenden"
+msgstr "Использовать шифрование по-умолчанию"
 
 #: ui/accountsecuritytab.ui:385
 msgid "Use custom cipher list"
-msgstr "Benutzerdefinierte Cipherliste verwenden"
+msgstr "Использовать пользовательский список шифров"
 
 #: ui/accountsecuritytab.ui:442
 msgid "Verify incoming certificates (server side)"
-msgstr "Eingehende Zertifikate überprüfen (serverseitig)"
+msgstr "Проверять входящие сертификаты (сервер)"
 
 #: ui/accountsecuritytab.ui:457
 msgid "Verify answer certificates (client side)"
-msgstr "Antwortzertifikate überprüfen (clientseitig)"
+msgstr "Проверять исходящие сертификаты (клиент)"
 
 #: ui/accountsecuritytab.ui:472
 msgid "Require a certificate for incoming TLS connections"
-msgstr "Ein Zertifikat für eingehende TLS-Verbindungen fordern"
+msgstr "Требует сертификат для входящих TLS соединений"
 
 #: ui/accountsecuritytab.ui:491
 msgid "<b>Negotiation Encryption</b>"
-msgstr "<b>Verhandlungsverschlüsselung</b>"
+msgstr "<b>Шифрование разговора</b>"
 
 #: ui/accountvideotab.ui:90
 msgid "Enable Video"
-msgstr "Video aktivieren"
+msgstr "Включить видео"
 
 #: ui/accountview.ui:59
 msgid "<b>&#8722;</b>"
@@ -472,269 +478,269 @@ msgstr "<b>+</b>"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
-msgstr "Neues erstellen"
+msgstr "Создать новый"
 
 #: ui/currentcallview.ui:122
 msgid "Send"
-msgstr "Senden"
+msgstr "Отправить"
 
 #: ui/currentcallview.ui:210
 msgid "End this call"
-msgstr "Diesen Anruf beenden"
+msgstr "Завершить этот звонок"
 
 #: ui/currentcallview.ui:214 ui/currentcallview.ui:409
 msgid "End call"
-msgstr "Anruf beenden"
+msgstr "Закончить звонок"
 
 #: ui/currentcallview.ui:232
 msgid "Toggle hold"
-msgstr "Halten wechseln"
+msgstr "Переключить и удерживать"
 
 #: ui/currentcallview.ui:236 ui/currentcallview.ui:258
 #: ui/currentcallview.ui:400
 msgid "Hold"
-msgstr "Halten"
+msgstr "Удержать"
 
 #: ui/currentcallview.ui:254
 msgid "Toggle mute audio"
-msgstr "Audiostummschaltung umschalten"
+msgstr "Заглушить звук"
 
 #: ui/currentcallview.ui:276
 msgid "Toggle mute video"
-msgstr "Videostummschaltung umschalten"
+msgstr "Выключить видео"
 
 #: ui/currentcallview.ui:280 ui/currentcallview.ui:391
 msgid "Mute video"
-msgstr "Video stummschalten"
+msgstr "Отключить видео"
 
 #: ui/currentcallview.ui:299
 msgid "Toggle record audio"
-msgstr "Audioaufzeichnung umschalten"
+msgstr "Запись звука"
 
 #: ui/currentcallview.ui:302
 msgid "Record audio"
-msgstr "Ton aufzeichnen"
+msgstr "Запись аудио"
 
 #: ui/currentcallview.ui:318
 msgid "Toggle show chat"
-msgstr "Chatanzeige umschalten"
+msgstr "Показать чат"
 
 #: ui/currentcallview.ui:322 ui/currentcallview.ui:373
 msgid "Chat"
-msgstr "Chat"
+msgstr "Чат"
 
 #: ui/currentcallview.ui:339
 msgid "Adjust outgoing video quality (bit/s)"
-msgstr "Ausgehende Videoqualität anpassen (bit/s)"
+msgstr "Настройка качества передачи видео (бит/с)"
 
 #: ui/currentcallview.ui:344 ui/currentcallview.ui:418
 msgid "Video quality"
-msgstr "Videoqualität"
+msgstr "Качество видео"
 
 #: ui/currentcallview.ui:382
 msgid "Mute audio"
-msgstr "Audio stumm schalten"
+msgstr "Приглушить звук"
 
 #: ui/currentcallview.ui:427
 msgid "Record"
-msgstr "Aufzeichnen"
+msgstr "Запись"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
-msgstr "Adressbuch auswählen"
+msgstr "Выберите адресную книгу"
 
 #: ui/editcontactview.ui:15
 msgid "Addressbook"
-msgstr "Adressbuch"
+msgstr "Адресная книга"
 
 #: ui/editcontactview.ui:29
 msgid "Name"
-msgstr "Name"
+msgstr "Имя"
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
-msgstr "Kontaktname"
+msgstr "Имя контакта"
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
-msgstr "Auswählen wie diese Nummer kategorisiert werden soll"
+msgstr "Выберете, как этот номер будет категоризирован"
 
 #: ui/editcontactview.ui:50
 msgid "Number category"
-msgstr "Nummerkategorie"
+msgstr "Категория номера"
 
 #: ui/editcontactview.ui:66
 msgid "Number or Ring ID to be added"
-msgstr "Nummer oder Rind ID, die hinzugefügt werden soll"
+msgstr "Номер или Ring ID для добавления"
 
 #: ui/editcontactview.ui:72
 msgid "Number or Ring ID"
-msgstr "Nummer oder Ring ID"
+msgstr "Номер или Ring ID"
 
 #: ui/editcontactview.ui:83
 msgid "Save"
-msgstr "Speichern"
+msgstr "Сохранить"
 
 #: ui/generalsettingsview.ui:32
 msgid "<b>Ring Settings</b>"
-msgstr "<b>Ring Einstellungen</b>"
+msgstr "<b>Настройки Ring</b>"
 
 #: ui/generalsettingsview.ui:46
 msgid "Start Ring on login"
-msgstr "Ring beim Anmelden starten"
+msgstr "Автоматически запускать Ring при входе в систему"
 
 #: ui/generalsettingsview.ui:55
 msgid "Hide Ring on close instead of quitting."
-msgstr "Beim Schließen Ring verstecken an Stelle es zu beenden."
+msgstr "Сворачивать Ring вместо закрытия"
 
 #: ui/generalsettingsview.ui:64
 msgid "Bring Ring to the foreground on incoming calls."
-msgstr "Bei eingehenden Anrufen Ring in den Vordergrund bringen."
+msgstr "Выводить Ring на передний план при входящем звонке."
 
 #: ui/generalsettingsview.ui:87
 msgid "<b>History Settings</b>"
-msgstr "<b>Verlaufseinstellungen</b>"
+msgstr "<b>Настройки истории</b>"
 
 #: ui/generalsettingsview.ui:105
 msgid "Keep history for (days):"
-msgstr "Verlauf behalten für (Tage)"
+msgstr "Хранить историю (дней):"
 
 #: ui/generalsettingsview.ui:128
 msgid "(set to 0 for unlimited history)"
-msgstr "(auf 0 setzen für einen unbegrenzten Verlauf)"
+msgstr "(Поставьте 0 для хранения всей истории)"
 
 #: ui/generalsettingsview.ui:137
 msgid "Clear all history"
-msgstr "Kompletten Verlauf leer"
+msgstr "Удалить историю сообщений"
 
 #: ui/incomingcallview.ui:87
 msgid "Incoming..."
-msgstr "Eingehend..."
+msgstr "Входящий…"
 
 #: ui/incomingcallview.ui:120
 msgid "   Accept"
-msgstr "Akzeptieren"
+msgstr "Принять"
 
 #: ui/incomingcallview.ui:135
 msgid "   Reject"
-msgstr "Verweigern"
+msgstr "Отклонить "
 
 #: ui/incomingcallview.ui:150
 msgid "   Hang-up"
-msgstr "Auflegen"
+msgstr "Положить трубку"
 
 #: ui/mediasettingsview.ui:36
 msgid "Audio manager:"
-msgstr "Audiomanager"
+msgstr "Менеджер звука: "
 
 #: ui/mediasettingsview.ui:48
 msgid "Ringtone device:"
-msgstr "Klingeltongerät"
+msgstr "Устройство для звонка:"
 
 #: ui/mediasettingsview.ui:60
 msgid "Output device:"
-msgstr "Ausgabegerät:"
+msgstr "Устройство воспроизведения: "
 
 #: ui/mediasettingsview.ui:72
 msgid "Input device:"
-msgstr "Eingabegerät:"
+msgstr "Устройство для записи:"
 
 #: ui/mediasettingsview.ui:127
 msgid "<b>Audio Settings</b>"
-msgstr "<b>Audioeinstellungen</b>"
+msgstr "<b>Настройки аудио</b>"
 
 #: ui/mediasettingsview.ui:163
 msgid "Device:"
-msgstr "Gerät:"
+msgstr "Устройство:"
 
 #: ui/mediasettingsview.ui:175
 msgid "Channel:"
-msgstr "Kanal:"
+msgstr "Канал:"
 
 #: ui/mediasettingsview.ui:187
 msgid "Resolution:"
-msgstr "Auflösung:"
+msgstr "Разрешение:"
 
 #: ui/mediasettingsview.ui:199
 msgid "Frame rate:"
-msgstr "Bildwiederholrate:"
+msgstr "Частота кадров: "
 
 #: ui/mediasettingsview.ui:258
 msgid "<b>Camera Settings</b>"
-msgstr "<b>Kameraeinstellungen</b>"
+msgstr "<b>Настройки камеры</b>"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr "_Über"
+msgstr "_О Ring"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr "_Beenden"
+msgstr "_Выход"
 
 #: ui/ringmainwindow.ui:20
 msgid "Menu"
-msgstr "Menü"
+msgstr "Меню"
 
 #: ui/ringmainwindow.ui:54
 msgid "General"
-msgstr "Allgemein"
+msgstr "Общий"
 
 #: ui/ringmainwindow.ui:64
 msgid "Media"
-msgstr "Medium"
+msgstr "Медиа"
 
 #: ui/ringmainwindow.ui:75
 msgid "Accounts"
-msgstr "Konten"
+msgstr "Учетные записи"
 
 #: ui/ringmainwindow.ui:93
 msgid "Settings"
-msgstr "Einstellungen"
+msgstr "Настройки"
 
 #: ui/ringmainwindow.ui:196
 msgid "Frequent"
-msgstr "Häufig"
+msgstr "Частые"
 
 #: ui/ringmainwindow.ui:215
 msgid "Contacts"
-msgstr "Kontakte"
+msgstr "Контакты"
 
 #: ui/ringmainwindow.ui:234
 msgid "History"
-msgstr "Verlauf"
+msgstr "История"
 
 #: ui/ringmainwindow.ui:291
 msgid "Your Ring ID: "
-msgstr "Ihre Ring ID:"
+msgstr "Ваш Ring ID:"
 
 #: ui/ringmainwindow.ui:301
 msgid "<span fgcolor=\"gray\">fetching Ring ID...</span>"
-msgstr "<span fgcolor=\"gray\">Ring ID beziehen...</span>"
+msgstr "<span fgcolor=\"gray\">получение Ring ID...</span> "
 
 #: ui/ringmainwindow.ui:346
 msgid "Welcome to  "
-msgstr "Willkommen bei"
+msgstr "Добро пожаловать в"
 
 #: ui/ringmainwindow.ui:363
 msgid "Enter your alias to get started:"
-msgstr "Geben sie ihren Aliasnamen ein um zu beginnen:"
+msgstr "Укажите Ваш ник, чтобы начать: "
 
 #: ui/ringmainwindow.ui:380
 msgid "Generating your Ring account..."
-msgstr "Ihr Ring-Konto wird generiert..."
+msgstr "Создание вашего аккаунта Ring..."
 
 #: ui/ringmainwindow.ui:394
 msgid "Next"
-msgstr "Weiter"
+msgstr "Далее"
 
 #: ui/ringmainwindow.ui:416
 msgid "Your Ring account has been created with the following Ring ID:"
-msgstr "Ihr Ring-Konto wurde mit der folgenden Ring ID erstellt:"
+msgstr "Ваш аккаунт Ring был создан со следующим Ring ID:"
 
 #: ui/ringmainwindow.ui:431
 msgid "Share it with your friends so they can contact you via Ring!"
-msgstr "Teilen sie sie mit ihren Freunden, damit sie sie über Ring erreichen können!"
+msgstr "Поделитесь с вашими друзьями, чтобы они смогли связаться с вами через Ring!"
 
 #: ui/ringmainwindow.ui:436
 msgid "Done"
-msgstr "Erledigt"
+msgstr "Готово"
