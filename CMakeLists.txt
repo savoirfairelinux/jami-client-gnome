@@ -11,7 +11,7 @@ IF (CMAKE_COMPILER_IS_GNUCC)
    ENDIF()
 ENDIF()
 
-ADD_DEFINITIONS("-std=c++1y")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-reorder -Woverloaded-virtual -std=c++1y")
 
 # set project name and version
 PROJECT(ring-client-gnome)
@@ -107,10 +107,8 @@ ADD_DEFINITIONS(
    -Wmissing-include-dirs
    -Wundef
    -Wmissing-format-attribute
-   -Wno-reorder
    -Wunused
    -Wuninitialized
-   -Woverloaded-virtual
    -Wsuggest-attribute=const
    -Wunused-value
    -Wdouble-promotion
