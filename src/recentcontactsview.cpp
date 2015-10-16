@@ -465,6 +465,18 @@ expand_if_child(G_GNUC_UNUSED GtkTreeModel *tree_model,
 }
 
 static void
+scroll_to_selection(GtkTreeSelection *selection)
+{
+    GtkTreeModel *model = nullptr;
+    GtkTreeIter iter;
+    if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+        auto path = gtk_tree_model_get_path(model, &iter);
+        auto treeview = gtk_tree_selection_get_tree_view(selection);
+        gtk_tree_view_scroll_to_cell(treeview, path, nullptr, FALSE, 0.0, 0.0);
+    }
+}
+
+static void
 recent_contacts_view_init(RecentContactsView *self)
 {
     RecentContactsViewPrivate *priv = RECENT_CONTACTS_VIEW_GET_PRIVATE(self);
@@ -535,6 +547,8 @@ recent_contacts_view_init(RecentContactsView *self)
 
     GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
     g_signal_connect(selection, "changed", G_CALLBACK(update_call_model_selection), NULL);
+    g_signal_connect(selection, "changed", G_CALLBACK(scroll_to_selection), NULL);
+    g_signal_connect_swapped(recent_model, "rows-reordered", G_CALLBACK(scroll_to_selection), selection);
 
     /* try to select the same call as the call model */
     priv->selection_updated = QObject::connect(
