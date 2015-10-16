@@ -54,8 +54,9 @@ typedef struct _RecentContactsViewPrivate RecentContactsViewPrivate;
 
 struct _RecentContactsViewPrivate
 {
-    // GtkWidget *treeview_recent;
     GtkWidget *overlay_button;
+
+    QMetaObject::Connection selection_updated;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RecentContactsView, recent_contacts_view, GTK_TYPE_TREE_VIEW);
@@ -478,6 +479,8 @@ expand_if_child(G_GNUC_UNUSED GtkTreeModel *tree_model,
 static void
 recent_contacts_view_init(RecentContactsView *self)
 {
+    RecentContactsViewPrivate *priv = RECENT_CONTACTS_VIEW_GET_PRIVATE(self);
+
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(self), FALSE);
     /* no need to show the expander since it will always be expanded */
     gtk_tree_view_set_show_expanders(GTK_TREE_VIEW(self), FALSE);
@@ -552,12 +555,44 @@ recent_contacts_view_init(RecentContactsView *self)
     GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
     g_signal_connect(selection, "changed", G_CALLBACK(update_call_model_selection), NULL);
 
+    /* try to select the same call as the call model */
+    priv->selection_updated = QObject::connect(
+        CallModel::instance()->selectionModel(),
+        &QItemSelectionModel::currentChanged,
+        [self, recent_model](const QModelIndex current, G_GNUC_UNUSED const QModelIndex & previous) {
+            GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
+
+            /* select the current */
+            auto call = CallModel::instance()->getCall(current);
+            auto recent_idx = RecentModel::instance()->getIndex(call);
+            if (recent_idx.isValid()) {
+                QModelIndex proxy_selection; // the index to select in the peopleProxy
+                if (RecentModel::instance()->rowCount(recent_idx.parent()) > 1) {
+                    proxy_selection = RecentModel::instance()->peopleProxy()->mapFromSource(recent_idx);
+                } else {
+                    // if single call, select the parent
+                    proxy_selection = RecentModel::instance()->peopleProxy()->mapFromSource(recent_idx.parent());
+                }
+
+                GtkTreeIter new_iter;
+                if (gtk_q_sort_filter_tree_model_source_index_to_iter(recent_model, proxy_selection, &new_iter)) {
+                    gtk_tree_selection_select_iter(selection, &new_iter);
+                }
+            }
+        }
+    );
+
     gtk_widget_show_all(GTK_WIDGET(self));
 }
 
 static void
 recent_contacts_view_dispose(GObject *object)
 {
+    RecentContactsView *self = RECENT_CONTACTS_VIEW(object);
+    RecentContactsViewPrivate *priv = RECENT_CONTACTS_VIEW_GET_PRIVATE(self);
+
+    QObject::disconnect(priv->selection_updated);
+
     G_OBJECT_CLASS(recent_contacts_view_parent_class)->dispose(object);
 }
 
