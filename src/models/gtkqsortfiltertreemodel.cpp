@@ -338,6 +338,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
                 QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
                 QModelIndex idx_access = retval->priv->access_model->mapFromSource(idx_original);
                 GtkTreeIter iter_old;
+                iter_old.stamp = stamp;
                 qmodelindex_to_iter(idx_access, &iter_old);
                 GtkTreePath *path_old = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_old);
                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path_old);
