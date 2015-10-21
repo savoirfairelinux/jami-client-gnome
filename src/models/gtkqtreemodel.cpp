@@ -371,7 +371,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                  * i.e. new_order [newpos] = oldpos
                  */
                 const auto rows = proxy_model->rowCount(sourceParent);
-                gint new_order[rows] = {};
+                gint new_order[rows];
                 const auto destinationRowLast = destinationRow + (sourceEnd - sourceStart);
                 for (int row = 0; row < rows; ++row ) {
                     if ( (row < sourceStart && row < destinationRow)
