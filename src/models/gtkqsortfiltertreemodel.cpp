@@ -237,6 +237,30 @@ gtk_q_sort_filter_tree_model_source_index_to_iter(GtkQSortFilterTreeModel *q_tre
 }
 
 /**
+ * helper method which recursively adds all the children of the given QModelIndex
+ */
+static void
+insert_children(const QModelIndex &idx_given, GtkQSortFilterTreeModel *gtk_model)
+{
+    const auto children = gtk_model->priv->given_model->rowCount(idx_given);
+    for (int i = 0; i < children; ++i) {
+        GtkTreeIter iter_child;
+        QModelIndex idx_child_given = gtk_model->priv->given_model->index(i, 0, idx_given);
+        if (idx_child_given.isValid()) {
+            QModelIndex idx_child_original = gtk_model->priv->given_model->mapToSource(idx_child_given);
+            QModelIndex idx_child_access = gtk_model->priv->access_model->mapFromSource(idx_child_original);
+            iter_child.stamp = gtk_model->priv->stamp;
+            qmodelindex_to_iter(idx_child_access, &iter_child);
+            if (auto path_child = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(gtk_model), &iter_child)) {
+                gtk_tree_model_row_inserted(GTK_TREE_MODEL(gtk_model), path_child, &iter_child);
+                gtk_tree_path_free(path_child);
+            }
+            insert_children(idx_child_given, gtk_model);
+        }
+    }
+}
+
+/**
  * gtk_q_sort_filter_tree_model_new:
  * @model: QAbstractItemModel to which this model will bind.
  * @n_columns: number of columns in the list store
@@ -365,6 +389,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
                 GtkTreePath *path_new = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_new);
                 gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, &iter_new);
                 gtk_tree_path_free(path_new);
+                insert_children(idx_given, retval);
                 destinationRow++;
             }
         }
@@ -464,20 +489,8 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
         &QAbstractItemModel::modelReset,
         [=] () {
             // g_debug("model reset");
-            /* now add all the (new) rows */
-            int row_count = retval->priv->given_model->rowCount();
-            for (int row = 0; row < row_count; ++row) {
-                // g_debug("adding row %d", row);
-                GtkTreeIter iter_new;
-                QModelIndex idx_given = retval->priv->given_model->index(row, 0);
-                QModelIndex idx_original = retval->priv->given_model->mapToSource(idx_given);
-                QModelIndex idx_access = retval->priv->access_model->mapFromSource(idx_original);
-                iter_new.stamp = stamp;
-                qmodelindex_to_iter(idx_access, &iter_new);
-                GtkTreePath *path_new = gtk_q_sort_filter_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_new);
-                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, &iter_new);
-                gtk_tree_path_free(path_new);
-            }
+            /* now recursively add all the (new) rows */
+            insert_children(QModelIndex(), retval);
         }
     );
 
