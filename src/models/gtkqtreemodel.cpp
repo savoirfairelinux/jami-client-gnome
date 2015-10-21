@@ -325,7 +325,13 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
         proxy_model,
         &QAbstractItemModel::rowsAboutToBeMoved,
         [=](const QModelIndex & sourceParent, int sourceStart, int sourceEnd,
-            G_GNUC_UNUSED const QModelIndex & destinationParent, G_GNUC_UNUSED int destinationRow) {
+            const QModelIndex & destinationParent, G_GNUC_UNUSED int destinationRow) {
+            /* if the sourceParent and the destinationParent are the same, then we can use the
+             * GtkTreeModel API to move the rows, otherwise we must first delete them and then
+             * re-insert them under the new parent */
+            if (sourceParent == destinationParent)
+                return;
+
             /* first remove the row from old location
              * then insert them at the new location on the "rowsMoved signal */
             for( int row = sourceStart; row <= sourceEnd; row++) {
@@ -343,20 +349,66 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
     QObject::connect(
         proxy_model,
         &QAbstractItemModel::rowsMoved,
-        [=](G_GNUC_UNUSED const QModelIndex & sourceParent, int sourceStart, int sourceEnd,
+        [=](const QModelIndex & sourceParent, int sourceStart, int sourceEnd,
             const QModelIndex & destinationParent, int destinationRow) {
-            /* these rows should have been removed in the "rowsAboutToBeMoved" handler
-             * now insert them in the new location */
-            for( int row = sourceStart; row <= sourceEnd; row++) {
-                GtkTreeIter iter_new;
-                QModelIndex idx = proxy_model->index(destinationRow, 0, destinationParent);
-                iter_new.stamp = stamp;
-                qmodelindex_to_iter(idx, &iter_new);
-                GtkTreePath *path_new = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_new);
-                gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, &iter_new);
-                gtk_tree_path_free(path_new);
-                insert_children(idx, retval);
-                destinationRow++;
+            /* if the sourceParent and the destinationParent are the same, then we can use the
+             * GtkTreeModel API to move the rows, otherwise we must first delete them and then
+             * re-insert them under the new parent */
+            if (sourceParent == destinationParent) {
+                GtkTreeIter *iter_parent = nullptr;
+                GtkTreePath *path_parent = nullptr;
+                if (sourceParent.isValid()) {
+                    iter_parent = g_new0(GtkTreeIter, 1);
+                    iter_parent->stamp = stamp;
+                    qmodelindex_to_iter(sourceParent, iter_parent);
+                    path_parent = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), iter_parent);
+                } else {
+                    path_parent = gtk_tree_path_new();
+                }
+
+                /* gtk_tree_model_rows_reordered takes an array of integers mapping the current
+                 * position of each child to its old position before the re-ordering,
+                 * i.e. new_order [newpos] = oldpos
+                 */
+                const auto rows = proxy_model->rowCount(sourceParent);
+                gint new_order[rows] = {};
+                const auto destinationRowLast = destinationRow + (sourceEnd - sourceStart);
+                for (int row = 0; row < rows; ++row ) {
+                    if ( (row < sourceStart && row < destinationRow)
+                         || (row > sourceEnd && row > destinationRowLast) ) {
+                        // if the row is outside of the bounds of change, then it stayed in the same place
+                        new_order[row] = row;
+                    } else {
+                        if (row < destinationRow) {
+                            // in front of the destination, so it used to be behind the rows that moved
+                            new_order[row] = row + (destinationRow - sourceStart);
+                        } else if (row >= destinationRow && row <= destinationRowLast) {
+                            // within the destination, so it was within the rows that moved
+                            new_order[row] = sourceStart + (row - destinationRow);
+                        } else {
+                            // behind the destination, so it used to be in front of the rows that moved
+                            new_order[row] = row - (sourceEnd - sourceStart + 1);
+                        }
+                    }
+                }
+                gtk_tree_model_rows_reordered(GTK_TREE_MODEL(retval), path_parent, iter_parent, new_order);
+
+                g_free(iter_parent);
+                gtk_tree_path_free(path_parent);
+            } else {
+                /* these rows should have been removed in the "rowsAboutToBeMoved" handler
+                 * now insert them in the new location */
+                for( int row = sourceStart; row <= sourceEnd; row++) {
+                    GtkTreeIter iter_new;
+                    QModelIndex idx = proxy_model->index(destinationRow, 0, destinationParent);
+                    iter_new.stamp = stamp;
+                    qmodelindex_to_iter(idx, &iter_new);
+                    GtkTreePath *path_new = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_new);
+                    gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path_new, &iter_new);
+                    gtk_tree_path_free(path_new);
+                    insert_children(idx, retval);
+                    destinationRow++;
+                }
             }
         }
     );
