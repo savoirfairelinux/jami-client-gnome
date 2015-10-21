@@ -309,6 +309,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
             for( int row = sourceStart; row <= sourceEnd; row++) {
                 QModelIndex idx = proxy_model->index(row, 0, sourceParent);
                 GtkTreeIter iter_old;
+                iter_old.stamp = stamp;
                 qmodelindex_to_iter(idx, &iter_old);
                 GtkTreePath *path_old = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter_old);
                 gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path_old);
