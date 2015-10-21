@@ -218,8 +218,6 @@ SET( SRC_FILES
    src/backends/edscontactbackend.cpp
    src/native/pixbufmanipulator.h
    src/native/pixbufmanipulator.cpp
-   src/callsview.h
-   src/callsview.cpp
    src/contactsview.h
    src/contactsview.cpp
    src/frequentcontactsview.h

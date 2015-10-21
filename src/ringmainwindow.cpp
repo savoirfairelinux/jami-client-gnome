@@ -62,7 +62,6 @@
 #include "historyview.h"
 #include "utils/models.h"
 #include "generalsettingsview.h"
-#include "callsview.h"
 #include "utils/accounts.h"
 #include "ringwelcomeview.h"
 #include "recentcontactsview.h"
