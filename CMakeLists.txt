@@ -220,8 +220,6 @@ SET( SRC_FILES
    src/native/pixbufmanipulator.cpp
    src/contactsview.h
    src/contactsview.cpp
-   src/frequentcontactsview.h
-   src/frequentcontactsview.cpp
    src/historyview.h
    src/historyview.cpp
    src/utils/models.h

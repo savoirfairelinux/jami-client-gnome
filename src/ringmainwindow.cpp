@@ -56,7 +56,6 @@
 #include "models/activeitemproxymodel.h"
 #include <numbercompletionmodel.h>
 #include "utils/calling.h"
-#include "frequentcontactsview.h"
 #include "contactsview.h"
 #include <categorizedcontactmodel.h>
 #include "historyview.h"
