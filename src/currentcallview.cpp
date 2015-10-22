@@ -425,6 +425,9 @@ on_button_press_in_video_event(GtkWidget *self, GdkEventButton *event, CurrentCa
             priv->fullscreen_window = video_window_new(priv->call,
                 GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))));
 
+            /* handle button event */
+            g_signal_connect(priv->fullscreen_window, "button-press-event", G_CALLBACK(video_widget_on_button_press_in_screen_event), priv->call);
+
             /* connect to destruction of fullscreen so we know when to un-pause
              * the rendering in thiw window */
             g_signal_connect_swapped(priv->fullscreen_window,
@@ -596,10 +599,16 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
         }
     );
 
+    /* handle button event */
+    g_signal_connect(priv->video_widget, "button-press-event", G_CALLBACK(video_widget_on_button_press_in_screen_event), priv->call);
+
     /* catch double click to make full screen */
     g_signal_connect(priv->video_widget, "button-press-event",
                      G_CALLBACK(on_button_press_in_video_event),
                      view);
+
+    /* Drag and drop*/
+    g_signal_connect(priv->video_widget, "drag-data-received", G_CALLBACK(video_widget_on_drag_data_received), priv->call);
 
     /* check if text media is already present */
     if (priv->call->hasMedia(Media::Media::Type::TEXT, Media::Media::Direction::IN)) {
