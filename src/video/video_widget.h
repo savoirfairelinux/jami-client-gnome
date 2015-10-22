@@ -34,6 +34,8 @@
 #include <gtk/gtk.h>
 #include <video/renderer.h>
 
+class Call;
+
 G_BEGIN_DECLS
 
 #define VIDEO_WIDGET_TYPE              (video_widget_get_type())
@@ -56,6 +58,17 @@ GType           video_widget_get_type          (void) G_GNUC_CONST;
 GtkWidget*      video_widget_new               (void);
 void            video_widget_push_new_renderer (VideoWidget *, Video::Renderer *, VideoRendererType);
 void            video_widget_pause_rendering   (VideoWidget *self, gboolean pause);
+void            video_widget_on_drag_data_received (GtkWidget *self,
+                                                    GdkDragContext *context,
+                                                    gint x,
+                                                    gint y,
+                                                    GtkSelectionData *selection_data,
+                                                    guint info,
+                                                    guint32 time,
+                                                    Call* call);
+gboolean        video_widget_on_button_press_in_screen_event (GtkWidget *parent,
+                                                              GdkEventButton *event,
+                                                              Call* call);
 
 G_END_DECLS
 
