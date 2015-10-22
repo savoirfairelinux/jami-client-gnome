@@ -46,8 +46,11 @@
 #include "models/gtkqtreemodel.h"
 #include "video/videowindow.h"
 #include "ringnotify.h"
+#include <video/sourcemodel.h>
 #include <audio/codecmodel.h>
+#include <video/devicemodel.h>
 #include <account.h>
+#include "defines.h"
 
 struct _CurrentCallView
 {
@@ -99,6 +102,10 @@ struct _CurrentCallViewPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(CurrentCallView, current_call_view, GTK_TYPE_BOX);
 
 #define CURRENT_CALL_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CURRENT_CALL_VIEW_TYPE, CurrentCallViewPrivate))
+
+//private prototypes
+static gboolean on_button_press_in_current_call_view_event(GtkWidget *parent, GdkEventButton *event, CurrentCallView *view);
+static void video_widget_switch_video_input_file(G_GNUC_UNUSED GtkWidget *item, CurrentCallView *view);
 
 static void
 current_call_view_dispose(GObject *object)
@@ -531,10 +538,16 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
         }
     );
 
+	 /* handle button event */
+    g_signal_connect(priv->video_widget, "button-press-event", G_CALLBACK(on_button_press_in_current_call_view_event), view);
+
     /* catch double click to make full screen */
     g_signal_connect(priv->video_widget, "button-press-event",
                      G_CALLBACK(on_button_press_in_video_event),
                      view);
+
+    /* Drag and drop*/
+    g_signal_connect(priv->video_widget, "drag-data-received", G_CALLBACK(video_widget_on_drag_data_received), priv->call);
 
     /* check if text media is already present */
     if (priv->call->hasMedia(Media::Media::Type::TEXT, Media::Media::Direction::IN)) {
@@ -580,3 +593,96 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     g_signal_connect(gtk_scale_button_get_scale(GTK_SCALE_BUTTON(priv->scalebutton_quality)),
                      "button-release-event", G_CALLBACK(quality_button_released), view);
 }
+
+static void
+switch_video_input(G_GNUC_UNUSED GtkWidget *widget, Video::Device *device)
+{
+    //CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    //priv->call->sourcemodel()->switchTo(device);
+    Video::SourceModel::currentModel()->switchTo(device);
+}
+
+/*
+ * on_button_press_in_screen_event()
+ *
+ * Handle button event in the video screen.
+ */
+static gboolean
+on_button_press_in_current_call_view_event(G_GNUC_UNUSED GtkWidget *parent,
+                                GdkEventButton *event,
+                                CurrentCallView *view)
+{
+    /* check for right click */
+    if (event->button != BUTTON_RIGHT_CLICK || event->type != GDK_BUTTON_PRESS)
+        return FALSE;
+
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    /* create menu with available video sources */
+    GtkWidget *menu = gtk_menu_new();
+
+    auto active = priv->call->sourceModel()->activeIndex();
+
+    /* list available devices and check off the active device */
+    auto device_list = Video::DeviceModel::instance()->devices();
+
+    for( auto device: device_list) {
+        GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(device->name().toLocal8Bit().constData());
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+        auto device_idx = priv->call->sourceModel()->getDeviceIndex(device);
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device_idx == active);
+        g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
+    }
+
+    /* add separator */
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+
+    /* add screen area as an input */
+    GtkWidget *item = gtk_check_menu_item_new_with_mnemonic("Share screen area");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
+    g_signal_connect(item, "activate", G_CALLBACK(video_widget_switch_video_input_screen), priv->call);
+
+    /* add file as an input */
+    item = gtk_check_menu_item_new_with_mnemonic("Share file");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
+    g_signal_connect(item, "activate", G_CALLBACK(video_widget_switch_video_input_file), view);
+
+    /* show menu */
+    gtk_widget_show_all(menu);
+    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+
+    return TRUE; /* event has been fully handled */
+}
+
+static void video_widget_switch_video_input_file(G_GNUC_UNUSED GtkWidget *item, CurrentCallView *view)
+{
+    GtkWidget* parent;
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    Call *call = priv->call;
+    if (view && GTK_IS_WIDGET(view)) {
+        /* get parent window */
+         parent = gtk_widget_get_toplevel(GTK_WIDGET(view));
+    }
+
+    gchar *uri = NULL;
+    GtkWidget *dialog = gtk_file_chooser_dialog_new(
+            "Choose File",
+            GTK_WINDOW(parent),
+            GTK_FILE_CHOOSER_ACTION_OPEN,
+            "_Cancel", GTK_RESPONSE_CANCEL,
+            "_Open", GTK_RESPONSE_ACCEPT,
+            NULL);
+
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+        uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+        call->sourceModel()->setFile(QUrl(uri));
+    }
+
+    gtk_widget_destroy(dialog);
+
+    g_free(uri);
+}
+
+
