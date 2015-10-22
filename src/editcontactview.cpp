@@ -92,7 +92,7 @@ save_cb(EditContactView *self)
     /* get the selected number category */
     const auto& idx = gtk_combo_box_get_index(GTK_COMBO_BOX(priv->combobox_detail));
     if (idx.isValid()) {
-        auto category = NumberCategoryModel::instance()->getCategory(idx.data().toString());
+        auto category = NumberCategoryModel::instance().getCategory(idx.data().toString());
         priv->cm->setCategory(category);
     }
 
@@ -114,7 +114,7 @@ save_cb(EditContactView *self)
         numbers << priv->cm;
         priv->person->setContactMethods(numbers);
 
-        PersonModel::instance()->addNewPerson(priv->person, collection);
+        PersonModel::instance().addNewPerson(priv->person, collection);
     } else {
         auto numbers = priv->person->phoneNumbers();
         numbers << priv->cm;
@@ -161,7 +161,7 @@ edit_contact_view_init(EditContactView *self)
                                    renderer, "text", 0, NULL);
 
     /* get all the available contact backends (addressbooks) */
-    const auto& collections = PersonModel::instance()->enabledCollections();
+    const auto& collections = PersonModel::instance().enabledCollections();
     for (int i = 0; i < collections.size(); ++i) {
         GtkTreeIter iter;
         gtk_list_store_append(addressbook_model, &iter);
@@ -190,10 +190,10 @@ edit_contact_view_init(EditContactView *self)
 
     /* model for the available details to choose from */
     gtk_combo_box_set_qmodel(GTK_COMBO_BOX(priv->combobox_detail),
-                             (QAbstractItemModel *)NumberCategoryModel::instance(), NULL);
+                             (QAbstractItemModel *)&NumberCategoryModel::instance(), NULL);
 
     /* set "home" as the default number category */
-    const auto& idx = NumberCategoryModel::instance()->nameToIndex(C_("Phone number category", "home"));
+    const auto& idx = NumberCategoryModel::instance().nameToIndex(C_("Phone number category", "home"));
     if (idx.isValid())
         gtk_combo_box_set_active_index(GTK_COMBO_BOX(priv->combobox_detail), idx);
 

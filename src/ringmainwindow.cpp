@@ -169,13 +169,13 @@ call_selection_changed(const QModelIndex& idx, gpointer win)
                 new_call_view = incoming_call_view_new();
                 incoming_call_view_set_call_info(INCOMING_CALL_VIEW(new_call_view), idx);
                 /* use the pointer of the call as a unique name */
-                new_call_view_name = g_strdup_printf("%p_incoming", (void *)CallModel::instance()->getCall(idx));
+                new_call_view_name = g_strdup_printf("%p_incoming", (void *)CallModel::instance().getCall(idx));
                 break;
             case Call::LifeCycleState::PROGRESS:
                 new_call_view = current_call_view_new();
                 current_call_view_set_call_info(CURRENT_CALL_VIEW(new_call_view), idx);
                 /* use the pointer of the call as a unique name */
-                new_call_view_name = g_strdup_printf("%p_current", (void *)CallModel::instance()->getCall(idx));
+                new_call_view_name = g_strdup_printf("%p_current", (void *)CallModel::instance().getCall(idx));
                 break;
             case Call::LifeCycleState::COUNT__:
                 g_warning("LifeCycleState should never be COUNT");
@@ -204,14 +204,14 @@ call_state_changed(Call *call, gpointer win)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
     /* check if the call that changed state is the same as the selected call */
-    QModelIndex idx_selected = CallModel::instance()->selectionModel()->currentIndex();
+    QModelIndex idx_selected = CallModel::instance().selectionModel()->currentIndex();
 
-    if( idx_selected.isValid() && call == CallModel::instance()->getCall(idx_selected)) {
+    if( idx_selected.isValid() && call == CallModel::instance().getCall(idx_selected)) {
         g_debug("selected call state changed");
         /* check if we need to change the view */
         GtkWidget *old_call_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
         GtkWidget *new_call_view = NULL;
-        QVariant state = CallModel::instance()->data(idx_selected, static_cast<int>(Call::Role::LifeCycleState));
+        QVariant state = CallModel::instance().data(idx_selected, static_cast<int>(Call::Role::LifeCycleState));
 
         /* check what the current state is vs what is displayed */
         switch(state.value<Call::LifeCycleState>()) {
@@ -230,7 +230,7 @@ call_state_changed(Call *call, gpointer win)
                     current_call_view_set_call_info(CURRENT_CALL_VIEW(new_call_view), idx_selected);
                     /* use the pointer of the call as a unique name */
                     char* new_call_view_name = NULL;
-                    new_call_view_name = g_strdup_printf("%p_current", (void *)CallModel::instance()->getCall(idx_selected));
+                    new_call_view_name = g_strdup_printf("%p_current", (void *)CallModel::instance().getCall(idx_selected));
                     g_free(new_call_view_name);
                     gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
                     gtk_container_add(GTK_CONTAINER(priv->frame_call), new_call_view);
@@ -278,8 +278,8 @@ search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
         call->performAction(Call::Action::ACCEPT);
 
         /* make this the currently selected call */
-        QModelIndex idx = CallModel::instance()->getIndex(call);
-        CallModel::instance()->selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
+        QModelIndex idx = CallModel::instance().getIndex(call);
+        CallModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
 
         /* move focus away from entry so that DTMF tones can be entered via the keyboard */
         gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
@@ -299,7 +299,7 @@ static gboolean
 save_accounts(GtkWidget *working_dialog)
 {
     /* save changes to accounts */
-    AccountModel::instance()->save();
+    AccountModel::instance().save();
 
     if (working_dialog)
         gtk_widget_destroy(working_dialog);
@@ -403,7 +403,7 @@ create_ring_account(RingMainWindow *win)
 
     /* create account and set UPnP enabled, as its not by default in the daemon */
     const gchar *alias = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
-    Account *account = AccountModel::instance()->add(alias, Account::Protocol::RING);
+    Account *account = AccountModel::instance().add(alias, Account::Protocol::RING);
     account->setDisplayName(alias); // set the display name to the same as the alias
     account->setUpnpEnabled(TRUE);
 
@@ -565,7 +565,7 @@ search_entry_text_changed(GtkEditable *search_entry, RingMainWindow *win)
 
     if (text && strlen(text) > 0) {
         /* edit the the dialing call (or create a new one) */
-        if (auto call = CallModel::instance()->dialingCall()) {
+        if (auto call = CallModel::instance().dialingCall()) {
             call->setDialNumber(text);
             priv->q_completion_model->setCall(call);
         }
@@ -704,8 +704,8 @@ select_autocompletion(G_GNUC_UNUSED GtkEntryCompletion *widget,
         priv->q_completion_model->callSelectedNumber();
 
         /* make this the currently selected call */
-        QModelIndex idx = CallModel::instance()->getIndex(call);
-        CallModel::instance()->selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
+        QModelIndex idx = CallModel::instance().getIndex(call);
+        CallModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
 
         /* move focus away from entry so that DTMF tones can be entered via the keyboard */
         gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
@@ -733,13 +733,13 @@ dtmf_pressed(RingMainWindow *win,
         return GDK_EVENT_PROPAGATE;
 
     /* make sure that a call is selected*/
-    QItemSelectionModel *selection = CallModel::instance()->selectionModel();
+    QItemSelectionModel *selection = CallModel::instance().selectionModel();
     QModelIndex idx = selection->currentIndex();
     if (!idx.isValid())
         return GDK_EVENT_PROPAGATE;
 
     /* make sure that the selected call is in progress */
-    Call *call = CallModel::instance()->getCall(idx);
+    Call *call = CallModel::instance().getCall(idx);
     Call::LifeCycleState state = call->lifeCycleState();
     if (state != Call::LifeCycleState::PROGRESS)
         return GDK_EVENT_PROPAGATE;
@@ -849,10 +849,10 @@ ring_main_window_init(RingMainWindow *win)
 
     /* call selection */
     QObject::connect(
-       CallModel::instance()->selectionModel(),
+       CallModel::instance().selectionModel(),
        &QItemSelectionModel::currentChanged,
        [win](const QModelIndex current, G_GNUC_UNUSED const QModelIndex & previous) {
-            if (auto call = CallModel::instance()->getCall(current)) {
+            if (auto call = CallModel::instance().getCall(current)) {
                 /* if the call is on hold, we want to put it off hold automatically
                  * when switching to it */
                 if (call->state() == Call::State::HOLD)
@@ -860,7 +860,7 @@ ring_main_window_init(RingMainWindow *win)
 
                 /* this is a bit of a hack, as for some reason the call is not in the correct
                  * state in the UserActionModel when the selection model switches calls by itself */
-                CallModel::instance()->selectCall(call);
+                CallModel::instance().selectCall(call);
             }
             call_selection_changed(current, win);
         }
@@ -868,7 +868,7 @@ ring_main_window_init(RingMainWindow *win)
 
     /* connect to call state changes to update relevant view(s) */
     QObject::connect(
-        CallModel::instance(),
+        &CallModel::instance(),
         &CallModel::callStateChanged,
         [=](Call* call, G_GNUC_UNUSED Call::State previousState) {
             call_state_changed(call, win);
@@ -960,11 +960,11 @@ ring_main_window_init(RingMainWindow *win)
 
     /* connect to incoming call and focus */
     QObject::connect(
-        CallModel::instance(),
+        &CallModel::instance(),
         &CallModel::incomingCall,
         [=](Call* call) {
-            CallModel::instance()->selectionModel()->setCurrentIndex(
-                CallModel::instance()->getIndex(call), QItemSelectionModel::ClearAndSelect);
+            CallModel::instance().selectionModel()->setCurrentIndex(
+                CallModel::instance().getIndex(call), QItemSelectionModel::ClearAndSelect);
         }
     );
 
@@ -972,7 +972,7 @@ ring_main_window_init(RingMainWindow *win)
     gtk_widget_override_font(priv->label_ring_id, pango_font_description_from_string("monospace"));
     show_ring_id(win, get_active_ring_account());
     QObject::connect(
-        AccountModel::instance(),
+        &AccountModel::instance(),
         &AccountModel::dataChanged,
         [win] () {
             /* check if the active ring account has changed,

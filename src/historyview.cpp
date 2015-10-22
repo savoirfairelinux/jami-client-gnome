@@ -160,7 +160,7 @@ copy_history_item(G_GNUC_UNUSED GtkWidget *item, GtkTreeView *treeview)
  *
  *     if (idx.isValid()) {
  *         g_debug("deleting history item");
- *         CategorizedHistoryModel::instance()->removeRow(idx.row(), idx.parent());
+ *         CategorizedHistoryModel::instance().removeRow(idx.row(), idx.parent());
  *     }
  * }
  */
@@ -371,7 +371,7 @@ history_view_init(HistoryView *self)
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_history), FALSE);
 
     /* instantiate history proxy model */
-    priv->q_sorted_proxy = CategorizedHistoryModel::SortedProxy::instance();
+    priv->q_sorted_proxy = &CategorizedHistoryModel::SortedProxy::instance();
 
     /* for now there is no way in the UI to pick whether sorting is ascending
      * or descending, so we do it in the code when the category changes */

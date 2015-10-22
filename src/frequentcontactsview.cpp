@@ -235,7 +235,7 @@ frequent_contacts_view_init(FrequentContactsView *self)
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_frequent), FALSE);
 
     GtkQTreeModel *bookmark_model = gtk_q_tree_model_new(
-        PhoneDirectoryModel::instance()->mostPopularNumberModel(),
+        PhoneDirectoryModel::instance().mostPopularNumberModel(),
         1,
         Qt::DisplayRole, G_TYPE_STRING);
 

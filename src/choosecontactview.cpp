@@ -137,8 +137,8 @@ choose_contact_view_init(ChooseContactView *self)
 
     ChooseContactViewPrivate *priv = CHOOSE_CONTACT_VIEW_GET_PRIVATE(self);
 
-    priv->sorted_contacts = new QSortFilterProxyModel(PersonModel::instance());
-    priv->sorted_contacts->setSourceModel(PersonModel::instance());
+    priv->sorted_contacts = new QSortFilterProxyModel(&PersonModel::instance());
+    priv->sorted_contacts->setSourceModel(&PersonModel::instance());
     priv->sorted_contacts->setSortCaseSensitivity(Qt::CaseInsensitive);
     priv->sorted_contacts->sort(0);
 

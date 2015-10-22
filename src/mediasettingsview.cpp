@@ -101,7 +101,7 @@ media_settings_view_dispose(GObject *object)
 
     /* make sure to stop the preview if this view is getting destroyed */
     if (priv->video_started_by_settings) {
-        Video::PreviewManager::instance()->stopPreview();
+        Video::PreviewManager::instance().stopPreview();
         priv->video_started_by_settings = FALSE;
     }
 
@@ -196,36 +196,36 @@ media_settings_view_init(MediaSettingsView *view)
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(view);
 
     priv->device_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_device),
-                                                      Video::ConfigurationProxy::deviceModel(),
-                                                      Video::ConfigurationProxy::deviceSelectionModel());
+                                                      &Video::ConfigurationProxy::deviceModel(),
+                                                      &Video::ConfigurationProxy::deviceSelectionModel());
     priv->channel_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_channel),
-                                                       Video::ConfigurationProxy::channelModel(),
-                                                       Video::ConfigurationProxy::channelSelectionModel());
+                                                       &Video::ConfigurationProxy::channelModel(),
+                                                       &Video::ConfigurationProxy::channelSelectionModel());
     priv->resolution_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_resolution),
-                                                          Video::ConfigurationProxy::resolutionModel(),
-                                                          Video::ConfigurationProxy::resolutionSelectionModel());
+                                                          &Video::ConfigurationProxy::resolutionModel(),
+                                                          &Video::ConfigurationProxy::resolutionSelectionModel());
     priv->rate_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_framerate),
-                                                    Video::ConfigurationProxy::rateModel(),
-                                                    Video::ConfigurationProxy::rateSelectionModel());
+                                                    &Video::ConfigurationProxy::rateModel(),
+                                                    &Video::ConfigurationProxy::rateSelectionModel());
 
     /* audio settings */
     /* instantiate all the models before the manager model first */
-    Audio::Settings::instance()->alsaPluginModel();
-    Audio::Settings::instance()->ringtoneDeviceModel();
-    Audio::Settings::instance()->inputDeviceModel();
-    Audio::Settings::instance()->outputDeviceModel();
+    Audio::Settings::instance().alsaPluginModel();
+    Audio::Settings::instance().ringtoneDeviceModel();
+    Audio::Settings::instance().inputDeviceModel();
+    Audio::Settings::instance().outputDeviceModel();
     priv->manager_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_manager),
-                                                       Audio::Settings::instance()->managerModel(),
-                                                       Audio::Settings::instance()->managerModel()->selectionModel());
+                                                       Audio::Settings::instance().managerModel(),
+                                                       Audio::Settings::instance().managerModel()->selectionModel());
     priv->ringtone_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_ringtone),
-                                                        Audio::Settings::instance()->ringtoneDeviceModel(),
-                                                        Audio::Settings::instance()->ringtoneDeviceModel()->selectionModel());
+                                                        Audio::Settings::instance().ringtoneDeviceModel(),
+                                                        Audio::Settings::instance().ringtoneDeviceModel()->selectionModel());
     priv->input_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_input),
-                                                     Audio::Settings::instance()->inputDeviceModel(),
-                                                     Audio::Settings::instance()->inputDeviceModel()->selectionModel());
+                                                     Audio::Settings::instance().inputDeviceModel(),
+                                                     Audio::Settings::instance().inputDeviceModel()->selectionModel());
     priv->output_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_output),
-                                                      Audio::Settings::instance()->outputDeviceModel(),
-                                                      Audio::Settings::instance()->outputDeviceModel()->selectionModel());
+                                                      Audio::Settings::instance().outputDeviceModel(),
+                                                      Audio::Settings::instance().outputDeviceModel()->selectionModel());
 
 
 }
@@ -275,17 +275,17 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
         gtk_widget_show_all(priv->video_widget);
         gtk_box_pack_start(GTK_BOX(priv->hbox_camera), priv->video_widget, TRUE, TRUE, 0);
 
-        if (Video::PreviewManager::instance()->isPreviewing()) {
+        if (Video::PreviewManager::instance().isPreviewing()) {
             priv->video_started_by_settings = FALSE;
 
             /* local renderer, but set as "remote" so that it takes up the whole screen */
             video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                           Video::PreviewManager::instance()->previewRenderer(),
+                                           Video::PreviewManager::instance().previewRenderer(),
                                            VIDEO_RENDERER_REMOTE);
         } else {
             priv->video_started_by_settings = TRUE;
             priv->local_renderer_connection = QObject::connect(
-                Video::PreviewManager::instance(),
+                &Video::PreviewManager::instance(),
                 &Video::PreviewManager::previewStarted,
                 [=](Video::Renderer *renderer) {
                     video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
@@ -293,11 +293,11 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
                                                 VIDEO_RENDERER_REMOTE);
                 }
             );
-            Video::PreviewManager::instance()->startPreview();
+            Video::PreviewManager::instance().startPreview();
         }
     } else {
         if (priv->video_started_by_settings) {
-            Video::PreviewManager::instance()->stopPreview();
+            Video::PreviewManager::instance().stopPreview();
             QObject::disconnect(priv->local_renderer_connection);
             priv->video_started_by_settings = FALSE;
         }

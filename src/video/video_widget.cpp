@@ -379,7 +379,7 @@ on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
 
     /* only play the first selection */
     if (uris && *uris)
-        Video::SourceModel::instance()->setFile(QUrl(*uris));
+        Video::SourceModel::instance().setFile(QUrl(*uris));
 
     g_strfreev(uris);
 }
@@ -387,7 +387,7 @@ on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
 static void
 switch_video_input(G_GNUC_UNUSED GtkWidget *widget, Video::Device *device)
 {
-    Video::SourceModel::instance()->switchTo(device);
+    Video::SourceModel::instance().switchTo(device);
 }
 
 static void
@@ -419,7 +419,7 @@ switch_video_input_screen(G_GNUC_UNUSED GtkWidget *item, G_GNUC_UNUSED gpointer 
         height = gdk_screen_height();
     }
 
-    Video::SourceModel::instance()->setDisplay(display, QRect(x,y,width,height));
+    Video::SourceModel::instance().setDisplay(display, QRect(x,y,width,height));
 }
 
 static void
@@ -441,7 +441,7 @@ switch_video_input_file(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
         uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
-        Video::SourceModel::instance()->setFile(QUrl(uri));
+        Video::SourceModel::instance().setFile(QUrl(uri));
     }
 
     gtk_widget_destroy(dialog);
@@ -466,15 +466,15 @@ on_button_press_in_screen_event(GtkWidget *parent,
     /* create menu with available video sources */
     GtkWidget *menu = gtk_menu_new();
 
-    auto active = Video::SourceModel::instance()->activeIndex();
+    auto active = Video::SourceModel::instance().activeIndex();
 
     /* list available devices and check off the active device */
-    auto device_list = Video::DeviceModel::instance()->devices();
+    auto device_list = Video::DeviceModel::instance().devices();
 
     for( auto device: device_list) {
         GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(device->name().toLocal8Bit().constData());
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-        auto device_idx =  Video::SourceModel::instance()->getDeviceIndex(device);
+        auto device_idx =  Video::SourceModel::instance().getDeviceIndex(device);
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device_idx == active);
         g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
     }

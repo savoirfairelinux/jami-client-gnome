@@ -67,11 +67,11 @@ static void
 update_call_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer user_data)
 {
     auto current_proxy = get_index_from_selection(selection);
-    auto current = RecentModel::instance()->peopleProxy()->mapToSource(current_proxy);
-    if (auto call_to_select = RecentModel::instance()->getActiveCall(current)) {
-        CallModel::instance()->selectCall(call_to_select);
+    auto current = RecentModel::instance().peopleProxy()->mapToSource(current_proxy);
+    if (auto call_to_select = RecentModel::instance().getActiveCall(current)) {
+        CallModel::instance().selectCall(call_to_select);
     } else {
-        CallModel::instance()->selectionModel()->clearCurrentIndex();
+        CallModel::instance().selectionModel()->clearCurrentIndex();
     }
 }
 
@@ -216,7 +216,7 @@ render_call_duration(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             {
                 // check if there are any children (calls); we need to convert to source model in
                 // case there is only one
-                auto idx_source = RecentModel::instance()->peopleProxy()->mapToSource(idx);
+                auto idx_source = RecentModel::instance().peopleProxy()->mapToSource(idx);
                 auto duration = idx.data(static_cast<int>(Ring::Role::Length));
                 if (idx_source.isValid()
                     && (idx_source.model()->rowCount(idx_source) == 1)
@@ -477,7 +477,7 @@ recent_contacts_view_init(RecentContactsView *self)
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(self), FALSE);
 
     GtkQSortFilterTreeModel *recent_model = gtk_q_sort_filter_tree_model_new(
-        RecentModel::instance()->peopleProxy(),
+        RecentModel::instance().peopleProxy(),
         1,
         Qt::DisplayRole, G_TYPE_STRING);
 
@@ -538,21 +538,21 @@ recent_contacts_view_init(RecentContactsView *self)
 
     /* try to select the same call as the call model */
     priv->selection_updated = QObject::connect(
-        CallModel::instance()->selectionModel(),
+        CallModel::instance().selectionModel(),
         &QItemSelectionModel::currentChanged,
         [self, recent_model](const QModelIndex current, G_GNUC_UNUSED const QModelIndex & previous) {
             GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
 
             /* select the current */
-            auto call = CallModel::instance()->getCall(current);
-            auto recent_idx = RecentModel::instance()->getIndex(call);
+            auto call = CallModel::instance().getCall(current);
+            auto recent_idx = RecentModel::instance().getIndex(call);
             if (recent_idx.isValid()) {
                 QModelIndex proxy_selection; // the index to select in the peopleProxy
-                if (RecentModel::instance()->rowCount(recent_idx.parent()) > 1) {
-                    proxy_selection = RecentModel::instance()->peopleProxy()->mapFromSource(recent_idx);
+                if (RecentModel::instance().rowCount(recent_idx.parent()) > 1) {
+                    proxy_selection = RecentModel::instance().peopleProxy()->mapFromSource(recent_idx);
                 } else {
                     // if single call, select the parent
-                    proxy_selection = RecentModel::instance()->peopleProxy()->mapFromSource(recent_idx.parent());
+                    proxy_selection = RecentModel::instance().peopleProxy()->mapFromSource(recent_idx.parent());
                 }
 
                 GtkTreeIter new_iter;

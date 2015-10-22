@@ -38,7 +38,7 @@
 gboolean
 has_ring_account()
 {
-    return !AccountModel::instance()->getAccountsByProtocol(Account::Protocol::RING).isEmpty();
+    return !AccountModel::instance().getAccountsByProtocol(Account::Protocol::RING).isEmpty();
 }
 
 /**
@@ -49,7 +49,7 @@ has_ring_account()
 void
 force_ring_display_name()
 {
-    auto ringaccounts = AccountModel::instance()->getAccountsByProtocol(Account::Protocol::RING);
+    auto ringaccounts = AccountModel::instance().getAccountsByProtocol(Account::Protocol::RING);
     for (int i = 0; i < ringaccounts.size(); ++i) {
         auto account = ringaccounts.at(i);
         if (account->displayName().isEmpty()) {
@@ -79,10 +79,10 @@ get_active_ring_account()
     Account *registered_account = nullptr;
     Account *enabled_account = nullptr;
     Account *ring_account = nullptr;
-    int a_count = AccountModel::instance()->rowCount();
+    int a_count = AccountModel::instance().rowCount();
     for (int i = 0; i < a_count && !registered_account; ++i) {
-        QModelIndex idx = AccountModel::instance()->index(i, 0);
-        Account *account = AccountModel::instance()->getAccountByModelIndex(idx);
+        QModelIndex idx = AccountModel::instance().index(i, 0);
+        Account *account = AccountModel::instance().getAccountByModelIndex(idx);
         if (account->protocol() == Account::Protocol::RING) {
             /* got RING account, check if active */
             if (account->isEnabled()) {

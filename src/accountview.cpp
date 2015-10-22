@@ -106,9 +106,9 @@ update_account_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpoint
 {
     QModelIndex current = get_index_from_selection(selection);
     if (current.isValid())
-        AccountModel::instance()->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
+        AccountModel::instance().selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
     else
-        AccountModel::instance()->selectionModel()->clearCurrentIndex();
+        AccountModel::instance().selectionModel()->clearCurrentIndex();
 }
 
 static GtkWidget *
@@ -143,7 +143,7 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *view)
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), empty_box);
         priv->current_account_notebook = NULL;
     } else {
-        Account *account = AccountModel::instance()->getAccountByModelIndex(account_idx);
+        Account *account = AccountModel::instance().getAccountByModelIndex(account_idx);
 
         /* build new account view */
         GtkWidget *hbox_account = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
@@ -212,9 +212,9 @@ account_active_toggled(GtkCellRendererToggle *renderer, gchar *path, AccountView
         /* check if it is the IP2IP account, as we don't want to be able to disable it */
         QVariant alias = idx.data(static_cast<int>(Account::Role::Alias));
         if (strcmp(alias.value<QString>().toLocal8Bit().constData(), "IP2IP") != 0) {
-            AccountModel::instance()->setData(idx, QVariant(toggle), Qt::CheckStateRole);
+            AccountModel::instance().setData(idx, QVariant(toggle), Qt::CheckStateRole);
             /* save the account to apply the changed state right away */
-            AccountModel::instance()->getAccountByModelIndex(idx)->performAction(Account::EditAction::SAVE);
+            AccountModel::instance().getAccountByModelIndex(idx)->performAction(Account::EditAction::SAVE);
         }
     }
 }
@@ -255,7 +255,7 @@ remove_account_dialog(AccountView *view, Account *account)
 static gboolean
 save_account(GtkWidget *working_dialog)
 {
-    AccountModel::instance()->save();
+    AccountModel::instance().save();
     if (working_dialog)
         gtk_widget_destroy(working_dialog);
 
@@ -273,13 +273,13 @@ remove_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
 
     if (idx.isValid()) {
         /* this is a destructive operation, ask the user if they are sure */
-        Account *account = AccountModel::instance()->getAccountByModelIndex(idx);
+        Account *account = AccountModel::instance().getAccountByModelIndex(idx);
         if (remove_account_dialog(view, account)) {
             /* show working dialog in case save operation takes time */
             GtkWidget *working = ring_dialog_working(GTK_WIDGET(view), NULL);
             gtk_window_present(GTK_WINDOW(working));
 
-            AccountModel::instance()->remove(idx);
+            AccountModel::instance().remove(idx);
 
             /* now save the time it takes to transition the account view to the new account (300ms)
              * the save doesn't happen before the "working" dialog is presented
@@ -310,7 +310,7 @@ add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
             GtkWidget *working = ring_dialog_working(GTK_WIDGET(view), NULL);
             gtk_window_present(GTK_WINDOW(working));
 
-            auto account = AccountModel::instance()->add(QString(_("New Account")), protocol_idx);
+            auto account = AccountModel::instance().add(QString(_("New Account")), protocol_idx);
             if (account->protocol() == Account::Protocol::RING)
                 account->setDisplayName(_("New Account"));
 
@@ -336,7 +336,7 @@ state_to_string(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
     if (idx.isValid()) {
 
-        auto account = AccountModel::instance()->getAccountByModelIndex(idx);
+        auto account = AccountModel::instance().getAccountByModelIndex(idx);
         auto humanState = account->toHumanStateName();
 
         switch (account->registrationState()) {
@@ -375,7 +375,7 @@ account_view_init(AccountView *view)
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;
 
-    account_model = gtk_q_tree_model_new(AccountModel::instance(), 4,
+    account_model = gtk_q_tree_model_new(&AccountModel::instance(), 4,
         Account::Role::Enabled, G_TYPE_BOOLEAN,
         Account::Role::Alias, G_TYPE_STRING,
         Account::Role::Proto, G_TYPE_STRING,
@@ -413,7 +413,7 @@ account_view_init(AccountView *view)
 
     /* populate account type combo box */
     /* TODO: when to delete this model? */
-    priv->active_protocols = new ActiveItemProxyModel((QAbstractItemModel *)AccountModel::instance()->protocolModel());
+    priv->active_protocols = new ActiveItemProxyModel((QAbstractItemModel *)AccountModel::instance().protocolModel());
 
     GtkQSortFilterTreeModel *protocol_model = gtk_q_sort_filter_tree_model_new(
                                                 (QSortFilterProxyModel *)priv->active_protocols,
@@ -429,7 +429,7 @@ account_view_init(AccountView *view)
 
     /* connect signals to and from the selection model of the account model */
     priv->protocol_selection_changed = QObject::connect(
-        AccountModel::instance()->selectionModel(),
+        AccountModel::instance().selectionModel(),
         &QItemSelectionModel::currentChanged,
         [=](const QModelIndex & current, const QModelIndex & previous) {
             GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
@@ -461,7 +461,7 @@ account_view_init(AccountView *view)
     g_signal_connect(account_selection, "changed", G_CALLBACK(account_selection_changed), view);
 
     /* select the default protocol */
-    QModelIndex protocol_idx = AccountModel::instance()->protocolModel()->selectionModel()->currentIndex();
+    QModelIndex protocol_idx = AccountModel::instance().protocolModel()->selectionModel()->currentIndex();
     if (protocol_idx.isValid()) {
         protocol_idx = priv->active_protocols->mapFromSource(protocol_idx);
         GtkTreeIter protocol_iter;

@@ -74,19 +74,19 @@ update_call_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer 
 
         /* make sure we don't call HOLD more than once on the same index, by
          * checking which one is currently selected */
-        auto current_selection = CallModel::instance()->selectionModel()->currentIndex();
+        auto current_selection = CallModel::instance().selectionModel()->currentIndex();
         if (current != current_selection) {
             /* if the call is on hold, we want to put it off hold automatically
              * when switching to it */
-            auto call = CallModel::instance()->getCall(current);
+            auto call = CallModel::instance().getCall(current);
             if (call->state() == Call::State::HOLD) {
                 call << Call::Action::HOLD;
             }
 
-            CallModel::instance()->selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
+            CallModel::instance().selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
         }
     } else {
-        CallModel::instance()->selectionModel()->clearCurrentIndex();
+        CallModel::instance().selectionModel()->clearCurrentIndex();
     }
 }
 
@@ -200,28 +200,28 @@ calls_view_init(CallsView *self)
 
     /* hide if there are no calls */
     gtk_revealer_set_reveal_child(GTK_REVEALER(self),
-                                  CallModel::instance()->rowCount());
+                                  CallModel::instance().rowCount());
     priv->calls_added = QObject::connect(
-        CallModel::instance(),
+        &CallModel::instance(),
         &QAbstractItemModel::rowsInserted,
         [=] (G_GNUC_UNUSED const QModelIndex &parent,
              G_GNUC_UNUSED int first,
              G_GNUC_UNUSED int last)
         {
             gtk_revealer_set_reveal_child(GTK_REVEALER(self),
-                                          CallModel::instance()->rowCount());
+                                          CallModel::instance().rowCount());
         }
     );
 
     priv->calls_removed = QObject::connect(
-        CallModel::instance(),
+        &CallModel::instance(),
         &QAbstractItemModel::rowsRemoved,
         [=] (G_GNUC_UNUSED const QModelIndex &parent,
              G_GNUC_UNUSED int first,
              G_GNUC_UNUSED int last)
         {
             gtk_revealer_set_reveal_child(GTK_REVEALER(self),
-                                          CallModel::instance()->rowCount());
+                                          CallModel::instance().rowCount());
         }
     );
 
@@ -255,7 +255,7 @@ calls_view_init(CallsView *self)
     GtkTreeViewColumn *column;
 
     call_model = gtk_q_tree_model_new(
-        CallModel::instance(),
+        &CallModel::instance(),
         4,
         Call::Role::Name, G_TYPE_STRING,
         Call::Role::Number, G_TYPE_STRING,
@@ -304,7 +304,7 @@ calls_view_init(CallsView *self)
 
     /* connect signals to and from the slection model of the call model */
     priv->selection_updated = QObject::connect(
-        CallModel::instance()->selectionModel(),
+        CallModel::instance().selectionModel(),
         &QItemSelectionModel::currentChanged,
         [=](const QModelIndex current, const QModelIndex & previous) {
             GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_calls));

@@ -37,13 +37,13 @@
 void
 place_new_call(const ContactMethod *n, Account *acc)
 {
-    Call *call = CallModel::instance()->dialingCall();
+    Call *call = CallModel::instance().dialingCall();
     call->setDialNumber(n);
     if (acc)
         call->setAccount(acc);
     call->performAction(Call::Action::ACCEPT);
 
     /* make this the currently selected call */
-    QModelIndex call_idx = CallModel::instance()->getIndex(call);
-    CallModel::instance()->selectionModel()->setCurrentIndex(call_idx, QItemSelectionModel::ClearAndSelect);
+    QModelIndex call_idx = CallModel::instance().getIndex(call);
+    CallModel::instance().selectionModel()->setCurrentIndex(call_idx, QItemSelectionModel::ClearAndSelect);
 }
