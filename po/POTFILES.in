@@ -18,6 +18,7 @@ src/backends/edscontactbackend.cpp
 src/utils/menus.cpp
 src/ringmainwindow.cpp
 src/ringwelcomeview.cpp
+src/video/video_widget.cpp
 ui/accountadvancedtab.ui
 ui/accountaudiotab.ui
 ui/accountgeneraltab.ui
