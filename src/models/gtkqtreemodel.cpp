@@ -373,6 +373,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                 const auto rows = proxy_model->rowCount(sourceParent);
                 gint new_order[rows];
                 const auto destinationRowLast = destinationRow + (sourceEnd - sourceStart);
+                const auto totalMoved = sourceEnd - sourceStart + 1;
                 for (int row = 0; row < rows; ++row ) {
                     if ( (row < sourceStart && row < destinationRow)
                          || (row > sourceEnd && row > destinationRowLast) ) {
@@ -381,13 +382,13 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                     } else {
                         if (row < destinationRow) {
                             // in front of the destination, so it used to be behind the rows that moved
-                            new_order[row] = row + (destinationRow - sourceStart);
+                            new_order[row] = row + totalMoved;
                         } else if (row >= destinationRow && row <= destinationRowLast) {
                             // within the destination, so it was within the rows that moved
                             new_order[row] = sourceStart + (row - destinationRow);
                         } else {
                             // behind the destination, so it used to be in front of the rows that moved
-                            new_order[row] = row - (sourceEnd - sourceStart + 1);
+                            new_order[row] = row - totalMoved;
                         }
                     }
                 }
