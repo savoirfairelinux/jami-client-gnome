@@ -47,7 +47,7 @@ client_cb(G_GNUC_UNUSED ESource *source, GAsyncResult *result, G_GNUC_UNUSED gpo
         g_clear_error(&error);
     } else {
         /* got a client for this addressbook, add as backend */
-        PersonModel::instance()->addCollection<EdsContactBackend, EClient *>(
+        PersonModel::instance().addCollection<EdsContactBackend, EClient *>(
             client, LoadOptions::FORCE_ENABLED);
     }
 }
@@ -295,7 +295,7 @@ void EdsContactBackend::parseContact(EContact *contact)
     gchar *uid = (gchar *)e_contact_get(contact, E_CONTACT_UID);
     if (uid) {
         // g_warning("got uid: %s", uid);
-        existing = PersonModel::instance()->getPersonByUid(uid);
+        existing = PersonModel::instance().getPersonByUid(uid);
         g_free(uid);
     }
 
@@ -387,7 +387,7 @@ void EdsContactBackend::removeContacts(std::unique_ptr<GSList, void(*)(GSList *)
     while(next) {
         gchar *uid = (gchar *)next->data;
         if (uid) {
-            Person *p = PersonModel::instance()->getPersonByUid(uid);
+            Person *p = PersonModel::instance().getPersonByUid(uid);
             if (p) {
                 g_debug("removing: %s", p->formattedName().toUtf8().constData());
                 deactivate(p);

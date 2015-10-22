@@ -182,7 +182,7 @@ activate_action(GSimpleAction *action, G_GNUC_UNUSED GVariant *parameter, gpoint
 
     key.ptr = user_data;
     UserActionModel::Action a = static_cast<UserActionModel::Action>(key.value);
-    UserActionModel* uam = CallModel::instance()->userActionModel();
+    UserActionModel* uam = CallModel::instance().userActionModel();
 
     uam << a;
 }
@@ -324,14 +324,14 @@ ring_client_startup(GApplication *app)
     /* make sure basic number categories exist, in case user has no contacts
      * from which these would be automatically created
      */
-    NumberCategoryModel::instance()->addCategory("work", QVariant());
-    NumberCategoryModel::instance()->addCategory("home", QVariant());
+    NumberCategoryModel::instance().addCategory("work", QVariant());
+    NumberCategoryModel::instance().addCategory("home", QVariant());
 
     /* add backends */
-    CategorizedHistoryModel::instance()->addCollection<LocalHistoryCollection>(LoadOptions::FORCE_ENABLED);
+    CategorizedHistoryModel::instance().addCollection<LocalHistoryCollection>(LoadOptions::FORCE_ENABLED);
 
     /* fallback backend for vcards */
-    PersonModel::instance()->addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
+    PersonModel::instance().addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
 
     /* EDS backend(s) */
     load_eds_sources(priv->cancellable);
@@ -352,7 +352,7 @@ ring_client_startup(GApplication *app)
     ring_accelerators(RING_CLIENT(app));
 
     /* Bind GActions to the UserActionModel */
-    UserActionModel* uam = CallModel::instance()->userActionModel();
+    UserActionModel* uam = CallModel::instance().userActionModel();
     QHash<int, GSimpleAction*> actionHash;
     actionHash[ (int)UserActionModel::Action::ACCEPT          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "accept"));
     actionHash[ (int)UserActionModel::Action::HOLD            ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "hold"));
@@ -387,7 +387,7 @@ ring_client_startup(GApplication *app)
     });
 
     /* show window on incoming calls (if the option is set)*/
-    QObject::connect(CallModel::instance(), &CallModel::incomingCall,
+    QObject::connect(&CallModel::instance(), &CallModel::incomingCall,
         [app] (G_GNUC_UNUSED Call *call) {
             RingClient *client = RING_CLIENT(app);
             RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
@@ -398,7 +398,7 @@ ring_client_startup(GApplication *app)
 
     /* send call notifications */
     ring_notify_init();
-    QObject::connect(CallModel::instance(), &CallModel::incomingCall,
+    QObject::connect(&CallModel::instance(), &CallModel::incomingCall,
         [] (Call *call) { ring_notify_incoming_call(call);}
     );
 

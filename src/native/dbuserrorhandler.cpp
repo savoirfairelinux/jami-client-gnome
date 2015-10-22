@@ -107,7 +107,7 @@ check_connection_cb(GtkWidget *warning_dialog)
 
     gtk_widget_destroy(warning_dialog);
 
-    if ((!CallModel::instance()->isConnected()) || (!CallModel::instance()->isValid())) {
+    if ((!CallModel::instance().isConnected()) || (!CallModel::instance().isValid())) {
         g_warning("could not reconnect to the daemon");
 
         auto quit_dialog = ring_quitting_dialog();

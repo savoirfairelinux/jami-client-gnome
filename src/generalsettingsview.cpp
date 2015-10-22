@@ -79,7 +79,7 @@ static void
 history_limit_changed(GtkAdjustment *adjustment, G_GNUC_UNUSED gpointer user_data)
 {
     int limit = (int)gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
-    CategorizedHistoryModel::instance()->setHistoryLimit(limit);
+    CategorizedHistoryModel::instance().setHistoryLimit(limit);
 }
 
 static gboolean
@@ -120,7 +120,7 @@ clear_history(G_GNUC_UNUSED GtkWidget *button, GeneralSettingsView *self)
     g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
 
     if (clear_history_dialog(self) )
-        CategorizedHistoryModel::instance()->clearAllCollections();
+        CategorizedHistoryModel::instance().clearAllCollections();
 }
 
 static void
@@ -145,7 +145,7 @@ general_settings_view_init(GeneralSettingsView *self)
 
     /* history limit */
     gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_history_duration),
-                             CategorizedHistoryModel::instance()->historyLimit());
+                             CategorizedHistoryModel::instance().historyLimit());
     g_signal_connect(priv->adjustment_history_duration,
                      "value-changed", G_CALLBACK(history_limit_changed), NULL);
 

@@ -230,7 +230,7 @@ ring_notify_call_messages(Call *call, Media::Text *media, RingClient *client)
             GtkWindow *main_window = ring_client_get_main_window(client);
             if ( main_window && gtk_window_is_active(main_window)) {
                 /* only notify about messages not in the currently selected call */
-                if (CallModel::instance()->selectedCall() != call) {
+                if (CallModel::instance().selectedCall() != call) {
                     ring_notify_message_recieved(call, message);
                 }
             } else {
@@ -252,15 +252,15 @@ ring_notify_monitor_chat_notifications(
 #if USE_LIBNOTIFY
 
     QObject::connect(
-        CallModel::instance(),
+        &CallModel::instance(),
         &QAbstractItemModel::rowsInserted,
         [client] (const QModelIndex &parent, int first, int last)
         {
             g_return_if_fail(client);
 
             for (int row = first; row <= last; ++row) {
-                QModelIndex idx = CallModel::instance()->index(row, 0, parent);
-                auto call = CallModel::instance()->getCall(idx);
+                QModelIndex idx = CallModel::instance().index(row, 0, parent);
+                auto call = CallModel::instance().getCall(idx);
                 if (call) {
 
                     /* check if text media is already present */

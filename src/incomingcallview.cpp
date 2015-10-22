@@ -171,7 +171,7 @@ void
 incoming_call_view_set_call_info(IncomingCallView *view, const QModelIndex& idx) {
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
-    Call *call = CallModel::instance()->getCall(idx);
+    Call *call = CallModel::instance().getCall(idx);
 
     /* get call image */
     QVariant var_i = GlobalInstances::pixmapManipulator().callPhoto(call, QSize(110, 110), false);

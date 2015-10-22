@@ -366,8 +366,8 @@ contacts_view_init(ContactsView *self)
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_contacts), FALSE);
 
     /* initial set up to be categorized by name and sorted alphabetically */
-    priv->q_sorted_proxy = CategorizedContactModel::SortedProxy::instance();
-    CategorizedContactModel::instance()->setUnreachableHidden(true);
+    priv->q_sorted_proxy = &CategorizedContactModel::SortedProxy::instance();
+    CategorizedContactModel::instance().setUnreachableHidden(true);
 
     /* for now we always want to sort by ascending order */
     priv->q_sorted_proxy->model()->sort(0);

@@ -465,7 +465,7 @@ void
 current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    priv->call = CallModel::instance()->getCall(idx);
+    priv->call = CallModel::instance().getCall(idx);
 
     /* get call image */
     QVariant var_i = GlobalInstances::pixmapManipulator().callPhoto(priv->call, QSize(60, 60), false);
@@ -515,14 +515,14 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     );
 
     /* local renderer */
-    if (Video::PreviewManager::instance()->isPreviewing())
+    if (Video::PreviewManager::instance().isPreviewing())
         video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                       Video::PreviewManager::instance()->previewRenderer(),
+                                       Video::PreviewManager::instance().previewRenderer(),
                                        VIDEO_RENDERER_LOCAL);
 
     /* callback for local renderer */
     priv->local_renderer_connection = QObject::connect(
-        Video::PreviewManager::instance(),
+        &Video::PreviewManager::instance(),
         &Video::PreviewManager::previewStarted,
         [priv](Video::Renderer *renderer) {
             video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),

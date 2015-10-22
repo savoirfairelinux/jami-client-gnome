@@ -123,7 +123,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     }
 
     priv-> ringaccount_updated = QObject::connect(
-        AccountModel::instance(),
+        &AccountModel::instance(),
         &AccountModel::dataChanged,
         [label_explanation, label_ringid] () {
             /* check if the active ring account has changed,
