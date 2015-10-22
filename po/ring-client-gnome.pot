@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-30 17:31-0400\n"
+"POT-Creation-Date: 2015-10-22 15:37-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,15 +234,15 @@ msgstr ""
 msgid "_Add to contact"
 msgstr ""
 
-#: src/ringmainwindow.cpp:570 src/ringwelcomeview.cpp:61
+#: src/ringmainwindow.cpp:548 src/ringwelcomeview.cpp:61
 msgid "fetching RingID..."
 msgstr ""
 
-#: src/ringmainwindow.cpp:575
+#: src/ringmainwindow.cpp:553
 msgid "no Ring account"
 msgstr ""
 
-#: src/ringmainwindow.cpp:998
+#: src/ringmainwindow.cpp:979
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the "
 "layout"
@@ -261,6 +261,14 @@ msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
+msgstr ""
+
+#: src/video/video_widget.cpp:486
+msgid "Share screen area"
+msgstr ""
+
+#: src/video/video_widget.cpp:492
+msgid "Share file"
 msgstr ""
 
 #: ui/accountadvancedtab.ui:81
@@ -702,38 +710,38 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-#: ui/ringmainwindow.ui:291
+#: ui/ringmainwindow.ui:290
 msgid "Your Ring ID: "
 msgstr ""
 
-#: ui/ringmainwindow.ui:301
+#: ui/ringmainwindow.ui:300
 msgid "<span fgcolor=\"gray\">fetching Ring ID...</span>"
 msgstr ""
 
-#: ui/ringmainwindow.ui:346
+#: ui/ringmainwindow.ui:345
 msgid "Welcome to  "
 msgstr ""
 
-#: ui/ringmainwindow.ui:363
+#: ui/ringmainwindow.ui:362
 msgid "Enter your alias to get started:"
 msgstr ""
 
-#: ui/ringmainwindow.ui:380
+#: ui/ringmainwindow.ui:379
 msgid "Generating your Ring account..."
 msgstr ""
 
-#: ui/ringmainwindow.ui:394
+#: ui/ringmainwindow.ui:393
 msgid "Next"
 msgstr ""
 
-#: ui/ringmainwindow.ui:416
+#: ui/ringmainwindow.ui:415
 msgid "Your Ring account has been created with the following Ring ID:"
 msgstr ""
 
-#: ui/ringmainwindow.ui:431
+#: ui/ringmainwindow.ui:430
 msgid "Share it with your friends so they can contact you via Ring!"
 msgstr ""
 
-#: ui/ringmainwindow.ui:436
+#: ui/ringmainwindow.ui:435
 msgid "Done"
 msgstr ""
