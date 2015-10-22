@@ -41,10 +41,12 @@
 #include <stdlib.h>
 #include <atomic>
 #include <mutex>
+#include <call.h>
 #include "xrectsel.h"
 
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
+static constexpr const char* JOIN_CALL_KEY = "call_data";
 
 /* check video frame queues at this rate;
  * use 30 ms (about 30 fps) since we don't expect to
@@ -351,48 +353,50 @@ video_widget_init(VideoWidget *self)
                                                       self,
                                                       NULL);
 
-    /* handle button event */
-    g_signal_connect(GTK_WIDGET(self), "button-press-event", G_CALLBACK(on_button_press_in_screen_event), NULL);
 
     /* drag & drop files as video sources */
     gtk_drag_dest_set(GTK_WIDGET(self), GTK_DEST_DEFAULT_ALL, NULL, 0, (GdkDragAction)(GDK_ACTION_COPY | GDK_ACTION_PRIVATE));
     gtk_drag_dest_add_uri_targets(GTK_WIDGET(self));
-    g_signal_connect(GTK_WIDGET(self), "drag-data-received", G_CALLBACK(on_drag_data_received), NULL);
 }
 
 /*
- * on_drag_data_received()
+ * video_widget_on_drag_data_received()
  *
  * Handle dragged data in the video widget window.
  * Dropping an image causes the client to switch the video input to that image.
  */
-static void
-on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
+void video_widget_on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
                       G_GNUC_UNUSED GdkDragContext *context,
                       G_GNUC_UNUSED gint x,
                       G_GNUC_UNUSED gint y,
                       GtkSelectionData *selection_data,
                       G_GNUC_UNUSED guint info,
                       G_GNUC_UNUSED guint32 time,
-                      G_GNUC_UNUSED gpointer data)
+                      Call *call)
 {
+    g_return_if_fail(call);
     gchar **uris = gtk_selection_data_get_uris(selection_data);
 
     /* only play the first selection */
-    if (uris && *uris)
-        Video::SourceModel::instance().setFile(QUrl(*uris));
+    if (uris && *uris){
+        call->sourceModel()->setFile(QUrl(*uris));
+    }
 
     g_strfreev(uris);
 }
 
 static void
-switch_video_input(G_GNUC_UNUSED GtkWidget *widget, Video::Device *device)
+switch_video_input(GtkWidget *widget, Video::Device *device)
 {
-    Video::SourceModel::instance().switchTo(device);
+    gpointer data = g_object_get_data(G_OBJECT(widget),JOIN_CALL_KEY );
+    g_return_if_fail(data);
+    Call *call = (Call*)data;
+
+    call->sourceModel()->switchTo(device);
 }
 
 static void
-switch_video_input_screen(G_GNUC_UNUSED GtkWidget *item, G_GNUC_UNUSED gpointer user_data)
+switch_video_input_screen(G_GNUC_UNUSED GtkWidget *item, Call* call)
 {
     unsigned x, y;
     unsigned width, height;
@@ -420,11 +424,11 @@ switch_video_input_screen(G_GNUC_UNUSED GtkWidget *item, G_GNUC_UNUSED gpointer 
         height = gdk_screen_height();
     }
 
-    Video::SourceModel::instance().setDisplay(display, QRect(x,y,width,height));
+    call->sourceModel()->setDisplay(display, QRect(x,y,width,height));
 }
 
 static void
-switch_video_input_file(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
+switch_video_input_file(GtkWidget *item, GtkWidget *parent)
 {
     if (parent && GTK_IS_WIDGET(parent)) {
         /* get parent window */
@@ -441,24 +445,28 @@ switch_video_input_file(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
             NULL);
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+        Call *call;
+        gpointer data = g_object_get_data(G_OBJECT(item),JOIN_CALL_KEY );
+        g_return_if_fail(data);
+        call = (Call*)data;
+
         uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
-        Video::SourceModel::instance().setFile(QUrl(uri));
+        call->sourceModel()->setFile(QUrl(uri));
     }
 
     gtk_widget_destroy(dialog);
-
     g_free(uri);
 }
 
 /*
- * on_button_press_in_screen_event()
+ * video_widget_on_button_press_in_screen_event()
  *
  * Handle button event in the video screen.
  */
-static gboolean
-on_button_press_in_screen_event(GtkWidget *parent,
+gboolean
+video_widget_on_button_press_in_screen_event(GtkWidget *parent,
                                 GdkEventButton *event,
-                                G_GNUC_UNUSED gpointer data)
+                                Call* call)
 {
     /* check for right click */
     if (event->button != BUTTON_RIGHT_CLICK || event->type != GDK_BUTTON_PRESS)
@@ -467,7 +475,7 @@ on_button_press_in_screen_event(GtkWidget *parent,
     /* create menu with available video sources */
     GtkWidget *menu = gtk_menu_new();
 
-    auto active = Video::SourceModel::instance().activeIndex();
+    auto active = call->sourceModel()->activeIndex();
 
     /* list available devices and check off the active device */
     auto device_list = Video::DeviceModel::instance().devices();
@@ -475,8 +483,9 @@ on_button_press_in_screen_event(GtkWidget *parent,
     for( auto device: device_list) {
         GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(device->name().toLocal8Bit().constData());
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-        auto device_idx =  Video::SourceModel::instance().getDeviceIndex(device);
+        auto device_idx = call->sourceModel()->getDeviceIndex(device);
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device_idx == active);
+        g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY,call);
         g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
     }
 
@@ -487,12 +496,13 @@ on_button_press_in_screen_event(GtkWidget *parent,
     GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(_("Share screen area"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
-    g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen), NULL);
+    g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen), call);
 
     /* add file as an input */
     item = gtk_check_menu_item_new_with_mnemonic(_("Share file"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
+    g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), parent);
 
     /* show menu */
