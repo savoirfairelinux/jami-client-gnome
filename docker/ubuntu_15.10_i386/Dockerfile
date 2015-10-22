@@ -1,4 +1,4 @@
-FROM savoirfairelinux/ring-ubuntu32:14.10
+FROM savoirfairelinux/ring-ubuntu32:15.10
 
 RUN apt-get update && ( apt-get upgrade -y || apt-get upgrade -y || apt-get upgrade -y )
 RUN apt-get install -y  autoconf devscripts debianutils debhelper build-essential tar rsync \
