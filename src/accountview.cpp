@@ -328,8 +328,15 @@ state_to_string(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                 GtkCellRenderer *cell,
                 GtkTreeModel *tree_model,
                 GtkTreeIter *iter,
-                G_GNUC_UNUSED gpointer data)
+                GtkTreeView *treeview)
 {
+    // check if this iter is selected
+    gboolean is_selected = FALSE;
+    if (GTK_IS_TREE_VIEW(treeview)) {
+        auto selection = gtk_tree_view_get_selection(treeview);
+        is_selected = gtk_tree_selection_iter_is_selected(selection, iter);
+    }
+
     gchar *display_state = NULL;
 
     /* get account */
@@ -339,23 +346,29 @@ state_to_string(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         auto account = AccountModel::instance()->getAccountByModelIndex(idx);
         auto humanState = account->toHumanStateName();
 
-        switch (account->registrationState()) {
-            case Account::RegistrationState::READY:
-                display_state = g_strdup_printf("<span fgcolor=\"green\">%s</span>", humanState.toUtf8().constData());
-            break;
-            case Account::RegistrationState::UNREGISTERED:
-                display_state = g_strdup_printf("<span fgcolor=\"gray\">%s</span>", humanState.toUtf8().constData());
-            break;
-            case Account::RegistrationState::TRYING:
-                display_state = g_strdup_printf("<span fgcolor=\"orange\">%s</span>", humanState.toUtf8().constData());
-            break;
-            case Account::RegistrationState::ERROR:
-                display_state = g_strdup_printf("<span fgcolor=\"red\">%s</span>", humanState.toUtf8().constData());
-            break;
-            case Account::RegistrationState::COUNT__:
-                g_warning("registration state should never be \"count\"");
-                display_state = g_strdup_printf("<span fgcolor=\"red\">%s</span>", humanState.toUtf8().constData());
-            break;
+        /* we want the color of the status text to be the default color if this iter is
+         * selected so that the treeview is able to invert it against the selection color */
+        if (is_selected) {
+            display_state = g_strdup_printf("%s", humanState.toUtf8().constData());
+        } else {
+            switch (account->registrationState()) {
+                case Account::RegistrationState::READY:
+                    display_state = g_strdup_printf("<span fgcolor=\"green\">%s</span>", humanState.toUtf8().constData());
+                break;
+                case Account::RegistrationState::UNREGISTERED:
+                    display_state = g_strdup_printf("<span fgcolor=\"gray\">%s</span>", humanState.toUtf8().constData());
+                break;
+                case Account::RegistrationState::TRYING:
+                    display_state = g_strdup_printf("<span fgcolor=\"orange\">%s</span>", humanState.toUtf8().constData());
+                break;
+                case Account::RegistrationState::ERROR:
+                    display_state = g_strdup_printf("<span fgcolor=\"red\">%s</span>", humanState.toUtf8().constData());
+                break;
+                case Account::RegistrationState::COUNT__:
+                    g_warning("registration state should never be \"count\"");
+                    display_state = g_strdup_printf("<span fgcolor=\"red\">%s</span>", humanState.toUtf8().constData());
+                break;
+            }
         }
     }
 
@@ -401,7 +414,7 @@ account_view_init(AccountView *view)
         column,
         renderer,
         (GtkTreeCellDataFunc)state_to_string,
-        NULL,
+        priv->treeview_account_list,
         NULL);
 
     /* add an empty box to the account stack initially, otherwise there will

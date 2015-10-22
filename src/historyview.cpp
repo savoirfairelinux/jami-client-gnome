@@ -259,8 +259,15 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                                GtkCellRenderer *cell,
                                GtkTreeModel *tree_model,
                                GtkTreeIter *iter,
-                               G_GNUC_UNUSED gpointer data)
+                               GtkTreeView *treeview)
 {
+    // check if this iter is selected
+    gboolean is_selected = FALSE;
+    if (GTK_IS_TREE_VIEW(treeview)) {
+        auto selection = gtk_tree_view_get_selection(treeview);
+        is_selected = gtk_tree_selection_iter_is_selected(selection, iter);
+    }
+
     /**
      * If call, show the name and the contact method (number) underneath;
      * otherwise just display the category.
@@ -281,9 +288,18 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             /* call item */
             QVariant var_name = idx.data(static_cast<int>(Call::Role::Name));
             QVariant var_number = idx.data(static_cast<int>(Call::Role::Number));
-            text = g_strdup_printf("%s\n <span fgcolor=\"gray\">%s</span>",
-                                   var_name.value<QString>().toUtf8().constData(),
-                                   var_number.value<QString>().toUtf8().constData());
+
+            /* we want the color of the status text to be the default color if this iter is
+             * selected so that the treeview is able to invert it against the selection color */
+            if (is_selected) {
+                text = g_strdup_printf("%s\n %s",
+                                       var_name.value<QString>().toUtf8().constData(),
+                                       var_number.value<QString>().toUtf8().constData());
+            } else {
+                text = g_strdup_printf("%s\n <span fgcolor=\"gray\">%s</span>",
+                                       var_name.value<QString>().toUtf8().constData(),
+                                       var_number.value<QString>().toUtf8().constData());
+            }
         }
     }
 
@@ -445,7 +461,7 @@ history_view_init(HistoryView *self)
         column,
         renderer,
         (GtkTreeCellDataFunc)render_name_and_contact_method,
-        NULL,
+        treeview_history,
         NULL);
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);

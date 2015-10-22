@@ -130,11 +130,18 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                      GtkCellRenderer *cell,
                      GtkTreeModel *model,
                      GtkTreeIter *iter,
-                     G_GNUC_UNUSED gpointer data)
+                     GtkTreeView *treeview)
 {
     gchar *text = NULL;
 
     QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), iter);
+
+    // check if this iter is selected
+    gboolean is_selected = FALSE;
+    if (GTK_IS_TREE_VIEW(treeview)) {
+        auto selection = gtk_tree_view_get_selection(treeview);
+        is_selected = gtk_tree_selection_iter_is_selected(selection, iter);
+    }
 
     auto type = idx.data(static_cast<int>(Ring::Role::ObjectType));
     if (idx.isValid() && type.isValid()) {
@@ -170,9 +177,17 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                     }
                 }
 
-                text = g_strdup_printf("%s\n<span size=\"smaller\" color=\"gray\">%s</span>",
-                                       name.toUtf8().constData(),
-                                       status.toUtf8().constData());
+                /* we want the color of the status text to be the default color if this iter is
+                 * selected so that the treeview is able to invert it against the selection color */
+                if (is_selected) {
+                    text = g_strdup_printf("%s\n<span size=\"smaller\">%s</span>",
+                                           name.toUtf8().constData(),
+                                           status.toUtf8().constData());
+                } else {
+                    text = g_strdup_printf("%s\n<span size=\"smaller\" color=\"gray\">%s</span>",
+                                           name.toUtf8().constData(),
+                                           status.toUtf8().constData());
+                }
             }
             break;
             case Ring::ObjectType::Call:
@@ -184,7 +199,12 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                 if (var_status.isValid())
                     status += var_status.value<QString>();
 
-                text = g_strdup_printf("<span size=\"smaller\" color=\"gray\">%s</span>", status.toUtf8().constData());
+                /* we want the color of the status text to be the default color if this iter is
+                 * selected so that the treeview is able to invert it against the selection color */
+                if (is_selected)
+                    text = g_strdup_printf("<span size=\"smaller\">%s</span>", status.toUtf8().constData());
+                else
+                    text = g_strdup_printf("<span size=\"smaller\" color=\"gray\">%s</span>", status.toUtf8().constData());
             }
             break;
             case Ring::ObjectType::Media:
@@ -521,7 +541,7 @@ recent_contacts_view_init(RecentContactsView *self)
         column,
         renderer,
         (GtkTreeCellDataFunc)render_name_and_info,
-        NULL,
+        self,
         NULL);
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);

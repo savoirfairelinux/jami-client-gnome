@@ -103,8 +103,15 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                                GtkCellRenderer *cell,
                                GtkTreeModel *tree_model,
                                GtkTreeIter *iter,
-                               G_GNUC_UNUSED gpointer data)
+                               GtkTreeView *treeview)
 {
+    // check if this iter is selected
+    gboolean is_selected = FALSE;
+    if (GTK_IS_TREE_VIEW(treeview)) {
+        auto selection = gtk_tree_view_get_selection(treeview);
+        is_selected = gtk_tree_selection_iter_is_selected(selection, iter);
+    }
+
     /**
      * If contact (person), show the name and the contact method (number)
      * underneath; if multiple contact methods, then indicate as such
@@ -139,9 +146,17 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                         if (var_n.isValid())
                             number = var_n.value<QString>();
 
-                        text = g_strdup_printf("%s\n <span fgcolor=\"gray\">%s</span>",
-                                               c->formattedName().toUtf8().constData(),
-                                               number.toUtf8().constData());
+                        /* we want the color of the status text to be the default color if this iter is
+                         * selected so that the treeview is able to invert it against the selection color */
+                        if (is_selected) {
+                            text = g_strdup_printf("%s\n %s",
+                                                   c->formattedName().toUtf8().constData(),
+                                                   number.toUtf8().constData());
+                        } else {
+                            text = g_strdup_printf("%s\n <span fgcolor=\"gray\">%s</span>",
+                                                   c->formattedName().toUtf8().constData(),
+                                                   number.toUtf8().constData());
+                        }
                         break;
                     }
                     default:
@@ -393,7 +408,7 @@ contacts_view_init(ContactsView *self)
         column,
         renderer,
         (GtkTreeCellDataFunc)render_name_and_contact_method,
-        NULL,
+        treeview_contacts,
         NULL);
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_contacts), column);
