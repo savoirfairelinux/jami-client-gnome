@@ -536,6 +536,9 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
                      G_CALLBACK(on_button_press_in_video_event),
                      view);
 
+    /* Drag and drop*/
+    g_signal_connect(priv->video_widget, "drag-data-received", G_CALLBACK(video_widget_on_drag_data_received), priv->call);
+
     /* check if text media is already present */
     if (priv->call->hasMedia(Media::Media::Type::TEXT, Media::Media::Direction::IN)) {
         Media::Text *text = priv->call->firstMedia<Media::Text>(Media::Media::Direction::IN);

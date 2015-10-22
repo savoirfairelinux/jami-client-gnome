@@ -57,6 +57,15 @@ GtkWidget*      video_widget_new               (void);
 void            video_widget_push_new_renderer (VideoWidget *, Video::Renderer *, VideoRendererType);
 void            video_widget_pause_rendering   (VideoWidget *self, gboolean pause);
 
+void video_widget_on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
+                      G_GNUC_UNUSED GdkDragContext *context,
+                      G_GNUC_UNUSED gint x,
+                      G_GNUC_UNUSED gint y,
+                      GtkSelectionData *selection_data,
+                      G_GNUC_UNUSED guint info,
+                      G_GNUC_UNUSED guint32 time,
+                      gpointer data);
+
 G_END_DECLS
 
 #endif /* __VIDEO_WIDGET_H__ */
