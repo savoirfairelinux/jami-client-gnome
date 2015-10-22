@@ -99,14 +99,12 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_box_pack_start(GTK_BOX(self), label_welcome_text, FALSE, TRUE, 0);
 
     /* RingID explanation */
-    auto explanation = g_strdup_printf("<span fgcolor=\"gray\">%s</span>",
-                                       C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!"));
-    auto label_explanation = gtk_label_new(NULL);
-    gtk_label_set_markup(GTK_LABEL(label_explanation), explanation);
+    auto label_explanation = gtk_label_new(C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!"));
+    auto context = gtk_widget_get_style_context(label_explanation);
+    gtk_style_context_add_class(context, GTK_STYLE_CLASS_DIM_LABEL);
     gtk_label_set_justify(GTK_LABEL(label_explanation), GTK_JUSTIFY_CENTER);
     gtk_label_set_selectable(GTK_LABEL(label_explanation), TRUE);
     gtk_widget_set_margin_top(label_explanation, 20);
-    g_free(explanation);
     /* we migth need to hide the label if a RING account doesn't exist */
     gtk_widget_set_no_show_all(label_explanation, TRUE);
     gtk_box_pack_start(GTK_BOX(self), label_explanation, FALSE, TRUE, 0);
