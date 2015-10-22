@@ -531,10 +531,16 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
         }
     );
 
+	/* handle button event */
+    g_signal_connect(priv->video_widget, "button-press-event", G_CALLBACK(video_widget_on_button_press_in_screen_event), priv->call);
+
     /* catch double click to make full screen */
     g_signal_connect(priv->video_widget, "button-press-event",
                      G_CALLBACK(on_button_press_in_video_event),
                      view);
+
+    /* Drag and drop*/
+    g_signal_connect(priv->video_widget, "drag-data-received", G_CALLBACK(video_widget_on_drag_data_received), priv->call);
 
     /* check if text media is already present */
     if (priv->call->hasMedia(Media::Media::Type::TEXT, Media::Media::Direction::IN)) {
