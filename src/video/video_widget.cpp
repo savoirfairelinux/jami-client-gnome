@@ -483,13 +483,13 @@ on_button_press_in_screen_event(GtkWidget *parent,
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
     /* add screen area as an input */
-    GtkWidget *item = gtk_check_menu_item_new_with_mnemonic("Share screen area");
+    GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(_("Share screen area"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen), NULL);
 
     /* add file as an input */
-    item = gtk_check_menu_item_new_with_mnemonic("Share file");
+    item = gtk_check_menu_item_new_with_mnemonic(_("Share file"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), parent);
