@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_61d33239",
+        "filename": "docker/ubuntu_14.04/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 32
+      },
+      "writtenOn": "2015-10-23T19:40:58Z",
+      "side": 1,
+      "message": "This was used to install gcc 4.9 you can safely suppress that",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "819d7a4bafc3685cd075d0917a07ca4b4c826bf0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_81d8be54",
+        "filename": "docker/ubuntu_14.04_i386/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 32
+      },
+      "writtenOn": "2015-10-23T19:40:58Z",
+      "side": 1,
+      "message": "Same as other file",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "819d7a4bafc3685cd075d0917a07ca4b4c826bf0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
