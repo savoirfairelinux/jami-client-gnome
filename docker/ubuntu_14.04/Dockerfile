@@ -12,4 +12,4 @@ RUN apt-get install -y  autoconf devscripts debianutils debhelper build-essentia
     libnotify-dev software-properties-common qttools5-dev qttools5-dev-tools gettext --fix-missing
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test
 RUN apt-get update -y
-RUN apt-get install gcc-4.9 g++-4.9 cpp-4.9 -y
+RUN apt-get install gcc g++ cpp -y
