@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a9dcd25_e11f4208",
+        "filename": "docker/ubuntu_14.04/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-10-23T19:31:59Z",
+      "side": 1,
+      "message": "oups, cpp does exist, but its part of g++ package which is part of build-essential",
+      "parentUuid": "1a9dcd25_a1029ab2",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 34
+      },
+      "revId": "dae1678a99db61de5c1e355b3a319475a54be89d",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a9dcd25_21268a69",
         "filename": "docker/ubuntu_14.04_i386/Dockerfile",
         "patchSetId": 1
