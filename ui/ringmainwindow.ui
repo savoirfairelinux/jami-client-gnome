@@ -5,7 +5,7 @@
   <template class="RingMainWindow" parent="GtkApplicationWindow">
     <property name="can_focus">False</property>
     <property name="show_menubar">False</property>
-    <property name="default-width">400</property>
+    <property name="default-width">600</property>
     <property name="default-height">300</property>
     <!-- header definition -->
     <child type="titlebar">
@@ -124,9 +124,7 @@
       <object class="GtkPaned" id="paned_main">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="position-set">True</property>
         <!-- TODO: save the user set position of the pane -->
-        <property name="position">350</property>
         <child>
           <object class="GtkBox" id="vbox_left_pane">
             <property name="visible">True</property>
@@ -251,7 +249,7 @@
           </object>
           <packing>
             <property name="resize">False</property>
-            <property name="shrink">False</property>
+            <property name="shrink">True</property>
           </packing>
         </child>
         <!-- right side of pane -->
@@ -312,7 +310,8 @@
             <!-- end ring hash location -->
           </object>
           <packing>
-            <property name="shrink">False</property>
+            <property name="shrink">True</property>
+            <property name="resize">True</property>
           </packing>
         </child>
         <!-- end of right side of pane -->
@@ -321,7 +320,6 @@
       <packing>
         <property name="expand">True</property>
         <property name="fill">True</property>
-        <property name="position">1</property>
       </packing>
     </child>
   </object>
