@@ -544,14 +544,10 @@ recent_contacts_view_init(RecentContactsView *self)
         self,
         NULL);
 
-    gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
-    gtk_tree_view_column_set_resizable(column, TRUE);
-    gtk_tree_view_column_set_expand(column, TRUE);
-
-    /* call duration column */
+    /* call duration */
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("Duration", renderer, NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
+    g_object_set(G_OBJECT(renderer), "xalign", 1.0, NULL);
+    gtk_cell_area_box_pack_end(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
     gtk_tree_view_column_set_cell_data_func(
         column,
         renderer,
@@ -559,6 +555,9 @@ recent_contacts_view_init(RecentContactsView *self)
         NULL,
         NULL);
 
+    gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
+    gtk_tree_view_column_set_resizable(column, TRUE);
+    gtk_tree_view_column_set_expand(column, TRUE);
     gtk_tree_view_expand_all(GTK_TREE_VIEW(self));
 
     g_signal_connect(self, "button-press-event", G_CALLBACK(create_popup_menu), NULL);
