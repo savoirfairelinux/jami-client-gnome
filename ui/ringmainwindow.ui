@@ -182,6 +182,7 @@
                 <property name="can_focus">True</property>
                 <property name="show-border">False</property>
                 <property name="tab-pos">bottom</property>
+                <property name="scrollable">True</property>
                 <!-- "smart view" -->
                 <child>
                   <object class="GtkScrolledWindow" id="scrolled_window_smartview">
