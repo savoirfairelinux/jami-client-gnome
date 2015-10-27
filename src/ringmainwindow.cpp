@@ -77,8 +77,6 @@ static constexpr const char* VIEW_CONTACTS              = "contacts";
 static constexpr const char* VIEW_HISTORY               = "history";
 static constexpr const char* VIEW_PRESENCE              = "presence";
 
-static constexpr int SEARCH_ENTRY_WIDTH_CHARS_MAX = 50;
-
 struct _RingMainWindow
 {
     GtkApplicationWindow parent;
@@ -985,12 +983,6 @@ ring_main_window_init(RingMainWindow *win)
     /* set the search entry placeholder text */
     gtk_entry_set_placeholder_text(GTK_ENTRY(priv->search_entry),
                                    C_("Please try to make the translation 50 chars or less so that it fits into the layout", "Search contacts or enter number"));
-    if (const auto placeholder = gtk_entry_get_placeholder_text(GTK_ENTRY(priv->search_entry))) {
-        auto len = strlen(placeholder);
-        if (len > SEARCH_ENTRY_WIDTH_CHARS_MAX)
-            len = SEARCH_ENTRY_WIDTH_CHARS_MAX;
-        gtk_entry_set_width_chars(GTK_ENTRY(priv->search_entry), len);
-    }
 }
 
 static void
