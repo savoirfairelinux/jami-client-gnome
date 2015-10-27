@@ -116,6 +116,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     show_ring_id(GTK_LABEL(label_ringid), get_active_ring_account());
     gtk_widget_set_no_show_all(label_ringid, TRUE);
     gtk_box_pack_start(GTK_BOX(self), label_ringid, FALSE, TRUE, 0);
+    gtk_label_set_ellipsize(GTK_LABEL(label_ringid), PANGO_ELLIPSIZE_END);
 
     if (get_active_ring_account()) {
         gtk_widget_show(label_explanation);
