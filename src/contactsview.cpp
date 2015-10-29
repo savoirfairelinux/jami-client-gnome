@@ -48,12 +48,12 @@ static constexpr const char* COPY_DATA_KEY = "copy_data";
 
 struct _ContactsView
 {
-    GtkBox parent;
+    GtkTreeView parent;
 };
 
 struct _ContactsViewClass
 {
-    GtkBoxClass parent_class;
+    GtkTreeViewClass parent_class;
 };
 
 typedef struct _ContactsViewPrivate ContactsViewPrivate;
@@ -63,7 +63,7 @@ struct _ContactsViewPrivate
     CategorizedContactModel::SortedProxy *q_sorted_proxy;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(ContactsView, contacts_view, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE(ContactsView, contacts_view, GTK_TYPE_TREE_VIEW);
 
 #define CONTACTS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CONTACTS_VIEW_TYPE, ContactsViewPrivate))
 
@@ -350,20 +350,11 @@ contacts_view_init(ContactsView *self)
 {
     ContactsViewPrivate *priv = CONTACTS_VIEW_GET_PRIVATE(self);
 
-    gtk_orientable_set_orientation(GTK_ORIENTABLE(self), GTK_ORIENTATION_VERTICAL);
-    /* need to be able to focus on widget so that we can auto-scroll to it */
-    gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(self), FALSE);
 
-    GtkWidget *treeview_contacts = gtk_tree_view_new();
-    /* set can-focus to false so that the scrollwindow doesn't jump to try to
-     * contain the top of the treeview */
-    gtk_widget_set_can_focus(treeview_contacts, FALSE);
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_contacts), FALSE);
-    gtk_box_pack_start(GTK_BOX(self), treeview_contacts, TRUE, TRUE, 0);
-
-    /* disable default search, we will handle it ourselves via LRC;
+    /* disable default search, we will handle it ourselves;
      * otherwise the search steals input focus on key presses */
-    gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_contacts), FALSE);
+    gtk_tree_view_set_enable_search(GTK_TREE_VIEW(self), FALSE);
 
     /* initial set up to be categorized by name and sorted alphabetically */
     priv->q_sorted_proxy = &CategorizedContactModel::SortedProxy::instance();
@@ -381,7 +372,7 @@ contacts_view_init(ContactsView *self)
         priv->q_sorted_proxy->model(),
         1,
         Qt::DisplayRole, G_TYPE_STRING);
-    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_contacts), GTK_TREE_MODEL(contact_model));
+    gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(contact_model));
 
     /* photo and name/contact method column */
     GtkCellArea *area = gtk_cell_area_box_new();
@@ -408,16 +399,16 @@ contacts_view_init(ContactsView *self)
         column,
         renderer,
         (GtkTreeCellDataFunc)render_name_and_contact_method,
-        treeview_contacts,
+        self,
         NULL);
 
-    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_contacts), column);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
     gtk_tree_view_column_set_resizable(column, TRUE);
 
-    gtk_tree_view_expand_all(GTK_TREE_VIEW(treeview_contacts));
-    g_signal_connect(contact_model, "row-inserted", G_CALLBACK(expand_if_child), treeview_contacts);
-    g_signal_connect(treeview_contacts, "button-press-event", G_CALLBACK(contacts_popup_menu), treeview_contacts);
-    g_signal_connect(treeview_contacts, "row-activated", G_CALLBACK(activate_contact_item), NULL);
+    gtk_tree_view_expand_all(GTK_TREE_VIEW(self));
+    g_signal_connect(contact_model, "row-inserted", G_CALLBACK(expand_if_child), self);
+    g_signal_connect(self, "button-press-event", G_CALLBACK(contacts_popup_menu), self);
+    g_signal_connect(self, "row-activated", G_CALLBACK(activate_contact_item), NULL);
 
     gtk_widget_show_all(GTK_WIDGET(self));
 }
