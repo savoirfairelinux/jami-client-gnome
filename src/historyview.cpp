@@ -49,12 +49,12 @@
 
 struct _HistoryView
 {
-    GtkBox parent;
+    GtkTreeView parent;
 };
 
 struct _HistoryViewClass
 {
-    GtkBoxClass parent_class;
+    GtkTreeViewClass parent_class;
 };
 
 typedef struct _HistoryViewPrivate HistoryViewPrivate;
@@ -65,7 +65,7 @@ struct _HistoryViewPrivate
     QMetaObject::Connection category_changed;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(HistoryView, history_view, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE(HistoryView, history_view, GTK_TYPE_TREE_VIEW);
 
 #define HISTORY_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), HISTORY_VIEW_TYPE, HistoryViewPrivate))
 
@@ -370,48 +370,21 @@ history_view_init(HistoryView *self)
 {
     HistoryViewPrivate *priv = HISTORY_VIEW_GET_PRIVATE(self);
 
-    gtk_orientable_set_orientation(GTK_ORIENTABLE(self), GTK_ORIENTATION_VERTICAL);
-    /* need to be able to focus on widget so that we can auto-scroll to it */
-    gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
-
-    GtkWidget *treeview_history = gtk_tree_view_new();
-    /* set can-focus to false so that the scrollwindow doesn't jump to try to
-     * contain the top of the treeview */
-    gtk_widget_set_can_focus(treeview_history, FALSE);
     /* make headers visible to allow column resizing */
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview_history), TRUE);
-    gtk_box_pack_start(GTK_BOX(self), treeview_history, TRUE, TRUE, 0);
-
-    /* disable default search, we will handle it ourselves via LRC;
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(self), TRUE);
+    /* disable default search, we will handle it ourselves;
      * otherwise the search steals input focus on key presses */
-    gtk_tree_view_set_enable_search(GTK_TREE_VIEW(treeview_history), FALSE);
+    gtk_tree_view_set_enable_search(GTK_TREE_VIEW(self), FALSE);
 
     /* instantiate history proxy model */
     priv->q_sorted_proxy = &CategorizedHistoryModel::SortedProxy::instance();
-
-    /* for now there is no way in the UI to pick whether sorting is ascending
-     * or descending, so we do it in the code when the category changes */
-    priv->category_changed = QObject::connect(
-        priv->q_sorted_proxy->categorySelectionModel(),
-        &QItemSelectionModel::currentChanged,
-        [=] (const QModelIndex &current, G_GNUC_UNUSED const QModelIndex &previous)
-        {
-            if (current.isValid()) {
-                if (current.row() == 0) {
-                    /* sort in descending order for the date */
-                    priv->q_sorted_proxy->model()->sort(0, Qt::DescendingOrder);
-                } else {
-                    /* ascending order for verything else */
-                    priv->q_sorted_proxy->model()->sort(0);
-                }
-            }
-        }
-    );
 
     /* select default category (the first one, which is by date) */
     priv->q_sorted_proxy->categorySelectionModel()->setCurrentIndex(
         priv->q_sorted_proxy->categoryModel()->index(0, 0),
         QItemSelectionModel::ClearAndSelect);
+    /* make sure it is sorted in descending order */
+    priv->q_sorted_proxy->model()->sort(0, Qt::DescendingOrder);
 
     GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new(
         priv->q_sorted_proxy->model(),
@@ -421,7 +394,7 @@ history_view_init(HistoryView *self)
         Call::Role::FormattedDate, G_TYPE_STRING,
         Call::Role::Direction, G_TYPE_INT,
         Call::Role::Missed, G_TYPE_BOOLEAN);
-    gtk_tree_view_set_model( GTK_TREE_VIEW(treeview_history), GTK_TREE_MODEL(history_model) );
+    gtk_tree_view_set_model( GTK_TREE_VIEW(self), GTK_TREE_MODEL(history_model) );
 
     /* call direction, photo, name/number column */
     GtkCellArea *area = gtk_cell_area_box_new();
@@ -461,10 +434,10 @@ history_view_init(HistoryView *self)
         column,
         renderer,
         (GtkTreeCellDataFunc)render_name_and_contact_method,
-        treeview_history,
+        self,
         NULL);
 
-    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_expand(column, TRUE);
 
@@ -496,12 +469,12 @@ history_view_init(HistoryView *self)
         NULL,
         NULL);
 
-    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_history), column);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_expand(column, FALSE);
 
-    g_signal_connect(treeview_history, "row-activated", G_CALLBACK(activate_history_item), NULL);
-    g_signal_connect(treeview_history, "button-press-event", G_CALLBACK(history_popup_menu), treeview_history);
+    g_signal_connect(self, "row-activated", G_CALLBACK(activate_history_item), NULL);
+    g_signal_connect(self, "button-press-event", G_CALLBACK(history_popup_menu), self);
 
     gtk_widget_show_all(GTK_WIDGET(self));
 }
