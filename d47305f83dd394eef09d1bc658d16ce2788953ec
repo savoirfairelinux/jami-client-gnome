@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_6f9559e3",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-10-29T22:47:20Z",
+      "side": 1,
+      "message": "tab",
+      "range": {
+        "startLine": 534,
+        "startChar": 0,
+        "endLine": 534,
+        "endChar": 1
+      },
+      "revId": "d47305f83dd394eef09d1bc658d16ce2788953ec",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_af9281f4",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-10-29T22:47:20Z",
+      "side": 1,
+      "message": "empty space... if you go here:\nhttps://gerrit-ring.savoirfairelinux.com/#/admin/projects/ring-client-gnome\n\nand then click on \"clone with commit msg-hook\" you can get the git hook which should automatically check for this when you try to commit\n\notherwise  you can do a \"git rebase --whitespace\u003dfix\" to automatically get rid of this",
+      "range": {
+        "startLine": 356,
+        "startChar": 0,
+        "endLine": 356,
+        "endChar": 4
+      },
+      "revId": "d47305f83dd394eef09d1bc658d16ce2788953ec",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_8fc1c5e6",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-10-29T22:47:20Z",
+      "side": 1,
+      "message": "you can just change this part to be \"Call *call\"",
+      "range": {
+        "startLine": 375,
+        "startChar": 22,
+        "endLine": 375,
+        "endChar": 35
+      },
+      "revId": "d47305f83dd394eef09d1bc658d16ce2788953ec",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_cf8fcdcb",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-10-29T22:47:20Z",
+      "side": 1,
+      "message": "tabs!",
+      "range": {
+        "startLine": 377,
+        "startChar": 0,
+        "endLine": 377,
+        "endChar": 1
+      },
+      "revId": "d47305f83dd394eef09d1bc658d16ce2788953ec",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_2fb6718b",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-10-29T22:47:20Z",
+      "side": 1,
+      "message": "this can be \"g_return_if_fail(call);\"",
+      "range": {
+        "startLine": 378,
+        "startChar": 1,
+        "endLine": 378,
+        "endChar": 36
+      },
+      "revId": "d47305f83dd394eef09d1bc658d16ce2788953ec",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_4fbbbd72",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-10-29T22:47:20Z",
+      "side": 1,
+      "message": "spaaace",
+      "range": {
+        "startLine": 455,
+        "startChar": 0,
+        "endLine": 455,
+        "endChar": 8
+      },
+      "revId": "d47305f83dd394eef09d1bc658d16ce2788953ec",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_4fa41d57",
+        "filename": "src/video/video_widget.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-10-29T22:47:20Z",
+      "side": 1,
+      "message": "G_GNUC_UNUSED only needs to go in the implementation (definition)... the called doesn\u0027t need to know these are unused",
+      "range": {
+        "startLine": 61,
+        "startChar": 40,
+        "endLine": 61,
+        "endChar": 53
+      },
+      "revId": "d47305f83dd394eef09d1bc658d16ce2788953ec",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
