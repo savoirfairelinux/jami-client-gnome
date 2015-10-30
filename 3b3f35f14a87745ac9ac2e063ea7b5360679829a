@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_aa610fd5",
+        "filename": "src/video/video_widget.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2015-10-30T20:46:28Z",
+      "side": 1,
+      "message": "remove these G_GNUC_UNUSED from the function declaration",
+      "range": {
+        "startLine": 61,
+        "startChar": 40,
+        "endLine": 61,
+        "endChar": 53
+      },
+      "revId": "3b3f35f14a87745ac9ac2e063ea7b5360679829a",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
