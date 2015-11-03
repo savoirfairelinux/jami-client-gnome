@@ -114,6 +114,24 @@ static gboolean          gtk_q_sort_filter_tree_model_iter_parent     (GtkTreeMo
                                                                        GtkTreeIter *,
                                                                        GtkTreeIter *       );
 
+/* Drag and Drop */
+static void     gtk_q_sort_filter_tree_model_drag_source_init (GtkTreeDragSourceIface *iface);
+static void     gtk_q_sort_filter_tree_model_drag_dest_init   (GtkTreeDragDestIface   *iface);
+static gboolean gtk_q_sort_filter_tree_model_row_draggable         (GtkTreeDragSource *drag_source,
+                                                       GtkTreePath       *path);
+static gboolean gtk_q_sort_filter_tree_model_drag_data_delete      (GtkTreeDragSource *drag_source,
+                                                       GtkTreePath       *path);
+static gboolean gtk_q_sort_filter_tree_model_drag_data_get         (GtkTreeDragSource *drag_source,
+                                                       GtkTreePath       *path,
+                                                       GtkSelectionData  *selection_data);
+static gboolean gtk_q_sort_filter_tree_model_drag_data_received    (GtkTreeDragDest   *drag_dest,
+                                                       GtkTreePath       *dest,
+                                                       GtkSelectionData  *selection_data);
+static gboolean gtk_q_sort_filter_tree_model_row_drop_possible     (GtkTreeDragDest   *drag_dest,
+                                                       GtkTreePath       *dest_path,
+                                                       GtkSelectionData  *selection_data);
+
+
 /* implementation prototypes */
 static void qmodelindex_to_iter              (const QModelIndex &,
                                               GtkTreeIter *        );
@@ -133,8 +151,12 @@ static void gtk_q_sort_filter_tree_model_set_column_type (GtkQSortFilterTreeMode
 /* define type, inherit from GObject, define implemented interface(s) */
 G_DEFINE_TYPE_WITH_CODE (GtkQSortFilterTreeModel, gtk_q_sort_filter_tree_model, G_TYPE_OBJECT,
                          G_ADD_PRIVATE (GtkQSortFilterTreeModel)
-       G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_MODEL,
-            gtk_q_sort_filter_tree_model_tree_model_init))
+        G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_MODEL,
+            gtk_q_sort_filter_tree_model_tree_model_init)
+        G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_DRAG_SOURCE,
+            gtk_q_sort_filter_tree_model_drag_source_init)
+        G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_DRAG_DEST,
+            gtk_q_sort_filter_tree_model_drag_dest_init))
 
 #define GTK_Q_SORT_FILTER_TREE_MODEL_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), GTK_TYPE_Q_SORT_FILTER_TREE_MODEL, GtkQSortFilterTreeModelPrivate))
 
@@ -162,6 +184,21 @@ gtk_q_sort_filter_tree_model_tree_model_init(GtkTreeModelIface *iface)
     iface->iter_n_children = gtk_q_sort_filter_tree_model_iter_n_children;
     iface->iter_nth_child = gtk_q_sort_filter_tree_model_iter_nth_child;
     iface->iter_parent = gtk_q_sort_filter_tree_model_iter_parent;
+}
+
+static void
+gtk_q_sort_filter_tree_model_drag_source_init(GtkTreeDragSourceIface *iface)
+{
+    iface->row_draggable = gtk_q_sort_filter_tree_model_row_draggable;
+    iface->drag_data_delete = gtk_q_sort_filter_tree_model_drag_data_delete;
+    iface->drag_data_get = gtk_q_sort_filter_tree_model_drag_data_get;
+}
+
+static void
+gtk_q_sort_filter_tree_model_drag_dest_init(GtkTreeDragDestIface *iface)
+{
+    iface->drag_data_received = gtk_q_sort_filter_tree_model_drag_data_received;
+    iface->row_drop_possible = gtk_q_sort_filter_tree_model_row_drop_possible;
 }
 
 static void
@@ -1150,3 +1187,47 @@ gtk_q_sort_filter_tree_model_iter_parent(GtkTreeModel *tree_model,
 }
 
 /* End Fulfill the GtkTreeModel requirements */
+
+/* Drag and Drop Source Interface */
+static gboolean
+gtk_q_sort_filter_tree_model_row_draggable(G_GNUC_UNUSED GtkTreeDragSource *drag_source,
+                                           G_GNUC_UNUSED GtkTreePath       *path)
+{
+    // g_debug("row draggable");
+    return TRUE;
+}
+static gboolean
+gtk_q_sort_filter_tree_model_drag_data_delete(G_GNUC_UNUSED GtkTreeDragSource *drag_source,
+                                              G_GNUC_UNUSED GtkTreePath       *path)
+{
+    /* we don't want to delete any data by dragging for now */
+    // g_debug("drag data delete");
+    return FALSE;
+}
+
+static gboolean
+gtk_q_sort_filter_tree_model_drag_data_get(G_GNUC_UNUSED GtkTreeDragSource *drag_source,
+                                           G_GNUC_UNUSED GtkTreePath       *path,
+                                           G_GNUC_UNUSED GtkSelectionData  *selection_data)
+{
+    // g_debug("drag data get");
+    return FALSE;
+}
+
+static gboolean
+gtk_q_sort_filter_tree_model_drag_data_received(G_GNUC_UNUSED GtkTreeDragDest   *drag_dest,
+                                                G_GNUC_UNUSED GtkTreePath       *dest,
+                                                G_GNUC_UNUSED GtkSelectionData  *selection_data)
+{
+    // g_debug("drag data received");
+    return FALSE;
+}
+
+static gboolean
+gtk_q_sort_filter_tree_model_row_drop_possible(G_GNUC_UNUSED GtkTreeDragDest   *drag_dest,
+                                               G_GNUC_UNUSED GtkTreePath       *dest_path,
+                                               G_GNUC_UNUSED GtkSelectionData  *selection_data)
+{
+    // g_debug("row drop possible");
+    return FALSE;
+}
