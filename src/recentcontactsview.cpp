@@ -37,8 +37,12 @@
 #include <QtCore/QItemSelectionModel>
 #include <historytimecategorymodel.h>
 #include <QtCore/QDateTime>
+#include <QtCore/QMimeData>
 
 static constexpr const char* COPY_DATA_KEY = "copy_data";
+
+static constexpr const char* CALL_TARGET    = "CALL_TARGET";
+static constexpr int         CALL_TARGET_ID = 0;
 
 struct _RecentContactsView
 {
@@ -112,6 +116,10 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             /* get photo, note that this should in all cases be the fallback avatar, since there
              * shouldn't be a person associated with this contact method */
             var_photo = GlobalInstances::pixmapManipulator().callPhoto(cm, QSize(50, 50), false);
+        } else if (auto call = object.value<Call *>()) {
+            if (call->type() == Call::Type::CONFERENCE) {
+                var_photo = GlobalInstances::pixmapManipulator().callPhoto(call, QSize(50, 50), false);
+            }
         }
         if (var_photo.isValid())
             photo = var_photo.value<std::shared_ptr<GdkPixbuf>>();
@@ -192,19 +200,42 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             break;
             case Ring::ObjectType::Call:
             {
-                auto var_status = idx.data(static_cast<int>(Ring::Role::FormattedState));
+                // check if it is a conference
+                auto idx_source = RecentModel::instance().peopleProxy()->mapToSource(idx);
+                auto is_conference = RecentModel::instance().isConference(idx_source);
 
-                QString status;
+                if (is_conference) {
+                    auto var_name = idx.data(static_cast<int>(Ring::Role::Name));
+                    text = g_markup_printf_escaped("%s", var_name.value<QString>().toUtf8().constData());
+                } else {
+                    auto parent_source = RecentModel::instance().peopleProxy()->mapToSource(idx.parent());
+                    if (RecentModel::instance().isConference(parent_source)) {
+                        // part of conference, simply display the name
+                        auto var_name = idx.data(static_cast<int>(Ring::Role::Name));
 
-                if (var_status.isValid())
-                    status += var_status.value<QString>();
+                        /* we want the color of the name text to be the default color if this iter is
+                         * selected so that the treeview is able to invert it against the selection color */
+                        if (is_selected)
+                            text = g_strdup_printf("<span size=\"smaller\">%s</span>", var_name.value<QString>().toUtf8().constData());
+                        else
+                            text = g_strdup_printf("<span size=\"smaller\" color=\"gray\">%s</span>", var_name.value<QString>().toUtf8().constData());
+                    } else {
+                        // just a call, so display the state
+                        auto var_status = idx.data(static_cast<int>(Ring::Role::FormattedState));
 
-                /* we want the color of the status text to be the default color if this iter is
-                 * selected so that the treeview is able to invert it against the selection color */
-                if (is_selected)
-                    text = g_strdup_printf("<span size=\"smaller\">%s</span>", status.toUtf8().constData());
-                else
-                    text = g_strdup_printf("<span size=\"smaller\" color=\"gray\">%s</span>", status.toUtf8().constData());
+                        QString status;
+
+                        if (var_status.isValid())
+                            status += var_status.value<QString>();
+
+                        /* we want the color of the status text to be the default color if this iter is
+                         * selected so that the treeview is able to invert it against the selection color */
+                        if (is_selected)
+                            text = g_strdup_printf("<span size=\"smaller\">%s</span>", status.toUtf8().constData());
+                        else
+                            text = g_strdup_printf("<span size=\"smaller\" color=\"gray\">%s</span>", status.toUtf8().constData());
+                    }
+                }
             }
             break;
             case Ring::ObjectType::Media:
@@ -248,10 +279,16 @@ render_call_duration(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             break;
             case Ring::ObjectType::Call:
             {
-                auto duration = idx.data(static_cast<int>(Ring::Role::Length));
+                // do not display the duration if the call is part of a conference
+                auto parent_source = RecentModel::instance().peopleProxy()->mapToSource(idx.parent());
+                auto in_conference = RecentModel::instance().isConference(parent_source);
 
-                if (duration.isValid())
-                    text = g_strdup_printf("%s", duration.value<QString>().toUtf8().constData());
+                if (!in_conference) {
+                    auto duration = idx.data(static_cast<int>(Ring::Role::Length));
+
+                    if (duration.isValid())
+                        text = g_strdup_printf("%s", duration.value<QString>().toUtf8().constData());
+                }
             }
             break;
             case Ring::ObjectType::Media:
@@ -497,6 +534,160 @@ scroll_to_selection(GtkTreeSelection *selection)
 }
 
 static void
+on_drag_data_get(GtkWidget        *treeview,
+                 G_GNUC_UNUSED GdkDragContext *context,
+                 GtkSelectionData *data,
+                 G_GNUC_UNUSED guint info,
+                 G_GNUC_UNUSED guint time,
+                 G_GNUC_UNUSED gpointer user_data)
+{
+    g_return_if_fail(IS_RECENT_CONTACTS_VIEW(treeview));
+
+    /* we always drag the selected row */
+    auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+    GtkTreeModel *model = NULL;
+    GtkTreeIter iter;
+
+    if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+        auto path_str = gtk_tree_model_get_string_from_iter(model, &iter);
+
+        gtk_selection_data_set(data,
+                               gdk_atom_intern_static_string(CALL_TARGET),
+                               8, /* bytes */
+                               (guchar *)path_str,
+                               strlen(path_str) + 1);
+
+        g_free(path_str);
+    } else {
+        g_warning("drag selection not valid");
+    }
+}
+
+static gboolean
+on_drag_drop(GtkWidget      *treeview,
+             GdkDragContext *context,
+             gint            x,
+             gint            y,
+             guint           time,
+             G_GNUC_UNUSED gpointer user_data)
+{
+    g_return_val_if_fail(IS_RECENT_CONTACTS_VIEW(treeview), FALSE);
+
+    GtkTreePath *path = NULL;
+    GtkTreeViewDropPosition drop_pos;
+
+    if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(treeview),
+                                          x, y, &path, &drop_pos)) {
+
+        GdkAtom target_type = gtk_drag_dest_find_target(treeview, context, NULL);
+
+        if (target_type != GDK_NONE) {
+            g_debug("can drop");
+            gtk_drag_get_data(treeview, context, target_type, time);
+            return TRUE;
+        }
+
+        gtk_tree_path_free(path);
+    }
+
+    return FALSE;
+}
+
+static gboolean
+on_drag_motion(GtkWidget      *treeview,
+               GdkDragContext *context,
+               gint            x,
+               gint            y,
+               guint           time,
+               G_GNUC_UNUSED gpointer user_data)
+{
+    g_return_val_if_fail(IS_RECENT_CONTACTS_VIEW(treeview), FALSE);
+
+    GtkTreePath *path = NULL;
+    GtkTreeViewDropPosition drop_pos;
+
+    if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(treeview),
+                                          x, y, &path, &drop_pos)) {
+        // we only want to drop on a row, not before or after
+        if (drop_pos == GTK_TREE_VIEW_DROP_BEFORE) {
+            gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(treeview), path, GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
+        } else if (drop_pos == GTK_TREE_VIEW_DROP_AFTER) {
+            gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(treeview), path, GTK_TREE_VIEW_DROP_INTO_OR_AFTER);
+        }
+        gdk_drag_status(context, gdk_drag_context_get_suggested_action(context), time);
+        return TRUE;
+    } else {
+        // not a row in the treeview, so we cannot drop
+        return FALSE;
+    }
+}
+
+static void
+on_drag_data_received(GtkWidget        *treeview,
+                      GdkDragContext   *context,
+                      gint              x,
+                      gint              y,
+                      GtkSelectionData *data,
+                      G_GNUC_UNUSED guint info,
+                      guint             time,
+                      G_GNUC_UNUSED gpointer user_data)
+{
+    g_return_if_fail(IS_RECENT_CONTACTS_VIEW(treeview));
+
+    gboolean success = FALSE;
+
+    /* get the source and destination calls */
+    auto path_str_source = (gchar *)gtk_selection_data_get_data(data);
+    auto type = gtk_selection_data_get_data_type(data);
+    g_debug("data type: %s", gdk_atom_name(type));
+    if (path_str_source && strlen(path_str_source) > 0) {
+        g_debug("source path: %s", path_str_source);
+
+        /* get the destination path */
+        GtkTreePath *dest_path = NULL;
+        if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(treeview), x, y, &dest_path, NULL)) {
+            auto model = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+
+            GtkTreeIter source;
+            gtk_tree_model_get_iter_from_string(model, &source, path_str_source);
+            auto idx_source_proxy = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &source);
+
+            GtkTreeIter dest;
+            gtk_tree_model_get_iter(model, &dest, dest_path);
+            auto idx_dest_proxy = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &dest);
+
+            // get call objects and indeces from RecentModel indeces being drag and dropped
+            auto idx_source = RecentModel::instance().peopleProxy()->mapToSource(idx_source_proxy);
+            auto idx_dest = RecentModel::instance().peopleProxy()->mapToSource(idx_dest_proxy);
+            auto call_source = RecentModel::instance().getActiveCall(idx_source);
+            auto call_dest = RecentModel::instance().getActiveCall(idx_dest);
+            auto idx_call_source = CallModel::instance().getIndex(call_source);
+            auto idx_call_dest = CallModel::instance().getIndex(call_dest);
+
+            if (idx_call_source.isValid() && idx_call_dest.isValid()) {
+                QModelIndexList source_list;
+                source_list << idx_call_source;
+                auto mimeData = CallModel::instance().mimeData(source_list);
+                auto action = Call::DropAction::Conference;
+                mimeData->setProperty("dropAction", action);
+
+                if (CallModel::instance().dropMimeData(mimeData, Qt::MoveAction, idx_call_dest.row(), idx_call_dest.column(), idx_call_dest.parent())) {
+                    success = TRUE;
+                } else {
+                    g_warning("could not drop mime data");
+                }
+            } else {
+                g_warning("source or dest call not valid");
+            }
+
+            gtk_tree_path_free(dest_path);
+        }
+    }
+
+    gtk_drag_finish(context, success, FALSE, time);
+}
+
+static void
 recent_contacts_view_init(RecentContactsView *self)
 {
     RecentContactsViewPrivate *priv = RECENT_CONTACTS_VIEW_GET_PRIVATE(self);
@@ -595,6 +786,22 @@ recent_contacts_view_init(RecentContactsView *self)
             }
         }
     );
+
+    /* drag and drop */
+    static GtkTargetEntry targetentries[] = {
+        { (gchar *)CALL_TARGET, GTK_TARGET_SAME_WIDGET, CALL_TARGET_ID },
+    };
+
+    gtk_tree_view_enable_model_drag_source(GTK_TREE_VIEW(self),
+        GDK_BUTTON1_MASK, targetentries, 1, (GdkDragAction)(GDK_ACTION_DEFAULT | GDK_ACTION_MOVE));
+
+    gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(self),
+        targetentries, 1, GDK_ACTION_DEFAULT);
+
+    g_signal_connect(self, "drag-data-get", G_CALLBACK(on_drag_data_get), nullptr);
+    g_signal_connect(self, "drag-drop", G_CALLBACK(on_drag_drop), nullptr);
+    g_signal_connect(self, "drag-motion", G_CALLBACK(on_drag_motion), nullptr);
+    g_signal_connect(self, "drag_data_received", G_CALLBACK(on_drag_data_received), nullptr);
 
     gtk_widget_show_all(GTK_WIDGET(self));
 }
