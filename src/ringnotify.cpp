@@ -258,6 +258,12 @@ ring_notify_monitor_chat_notifications(
         {
             g_return_if_fail(client);
 
+            // don't add notifications for children of conferences
+            // this also prevents a weird crash because the parent is determined as invalid when
+            // calling CallModel::index(row, 0, parent)
+            if (parent.isValid())
+                return;
+
             for (int row = first; row <= last; ++row) {
                 QModelIndex idx = CallModel::instance().index(row, 0, parent);
                 auto call = CallModel::instance().getCall(idx);
