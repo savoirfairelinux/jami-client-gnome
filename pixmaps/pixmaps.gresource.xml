@@ -16,6 +16,5 @@
 	<file alias="mute_video">ic_videocam_off_black_24px.svg</file>
 	<file alias="pause">ic_pause_black_24px.svg</file>
 	<file alias="end">ic_clear_black_24px.svg</file>
-	<file alias="quality">ic_high_quality_black_24px.svg</file>
   </gresource>
 </gresources>

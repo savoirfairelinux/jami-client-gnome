@@ -78,12 +78,6 @@ struct _CurrentCallViewPrivate
     GtkWidget *fullscreen_window;
     GtkWidget *buttonbox_call_controls;
     GtkWidget *button_hangup;
-    GtkWidget *scalebutton_quality;
-
-    /* flag used to keep track of the video quality scale pressed state;
-     * we do not want to update the codec bitrate until the user releases the
-     * scale button */
-    gboolean quality_scale_pressed;
 
     Call *call;
 
@@ -166,87 +160,6 @@ scroll_to_bottom(GtkAdjustment *adjustment, G_GNUC_UNUSED gpointer user_data)
         gtk_adjustment_get_upper(adjustment) - gtk_adjustment_get_page_size(adjustment));
 }
 
-/**
- * This gets the GtkScaleButtonScale widget (which is a GtkScale) from the
- * given GtkScaleButton in order to be able to modify its properties and connect
- * to its signals
- */
-static GtkScale *
-gtk_scale_button_get_scale(GtkScaleButton *button)
-{
-    GtkScale *scale = NULL;
-    GtkWidget *dock = gtk_scale_button_get_popup(button);
-
-    // the dock is a popover which contains a box
-    // which contains the + button, scale, and - button
-    // we want to get the scale
-    if (GtkWidget *box = gtk_bin_get_child(GTK_BIN(dock))) {
-        if (GTK_IS_FRAME(box)) {
-            // support older versions of gtk; the box used to be in a frame
-            box = gtk_bin_get_child(GTK_BIN(box));
-        }
-        GList *children = gtk_container_get_children(GTK_CONTAINER(box));
-        for (GList *c = children; c && !scale; c = c->next) {
-            if (GTK_IS_SCALE(c->data))
-                scale = GTK_SCALE(c->data);
-        }
-        g_list_free(children);
-    }
-
-    return scale;
-}
-
-static void
-quality_changed(GtkScaleButton *button, G_GNUC_UNUSED gdouble value, CurrentCallView *self)
-{
-    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-
-    /* only update if the scale button is released, to reduce the number of updates */
-    if (priv->quality_scale_pressed) return;
-
-    /* we get the value directly from the widget, in case this function is not
-     * called from the event */
-    unsigned int bitrate = (unsigned int)gtk_scale_button_get_value(button);
-
-    if (const auto& codecModel = priv->call->account()->codecModel()) {
-        const auto& videoCodecs = codecModel->videoCodecs();
-        for (int i=0; i < videoCodecs->rowCount();i++) {
-            const auto& idx = videoCodecs->index(i,0);
-            g_debug("setting codec bitrate to %u", bitrate);
-            videoCodecs->setData(idx, QString::number(bitrate), CodecModel::Role::BITRATE);
-        }
-        codecModel << CodecModel::EditAction::SAVE;
-    }
-}
-
-static gboolean
-quality_button_pressed(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent *event, CurrentCallView *self)
-{
-    g_debug("button pressed");
-    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), FALSE);
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-
-    priv->quality_scale_pressed = TRUE;
-
-    return FALSE; // propogate the event
-}
-
-static gboolean
-quality_button_released(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent *event, CurrentCallView *self)
-{
-    g_debug("button released");
-    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), FALSE);
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-
-    priv->quality_scale_pressed = FALSE;
-
-    /* now make sure the quality gets updated */
-    quality_changed(GTK_SCALE_BUTTON(priv->scalebutton_quality), 0, self);
-
-    return FALSE; // propogate the event
-}
-
 static void
 current_call_view_init(CurrentCallView *view)
 {
@@ -263,13 +176,6 @@ current_call_view_init(CurrentCallView *view)
      * the chat treeview */
     GtkAdjustment *adjustment = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(priv->scrolledwindow_chat));
     g_signal_connect(adjustment, "changed", G_CALLBACK(scroll_to_bottom), NULL);
-
-    /* customize the quality button scale */
-    if (GtkScale *scale = gtk_scale_button_get_scale(GTK_SCALE_BUTTON(priv->scalebutton_quality))) {
-        gtk_scale_set_draw_value(scale, TRUE);
-        gtk_scale_set_value_pos(scale, GTK_POS_RIGHT);
-        gtk_scale_set_digits(scale, 0);
-    }
 }
 
 static void
@@ -293,7 +199,6 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scrolledwindow_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, buttonbox_call_controls);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scalebutton_quality);
 }
 
 GtkWidget *
@@ -563,20 +468,4 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     /* check if there were any chat notifications and open the chat view if so */
     if (ring_notify_close_chat_notification(priv->call))
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
-
-    /* get the current codec quality and set that as the initial slider value
-     * for now we assume that all codecs have the same quality */
-    if (const auto& codecModel = priv->call->account()->codecModel()) {
-        const auto& videoCodecs = codecModel->videoCodecs();
-        if (videoCodecs->rowCount() > 0) {
-            const auto& idx = videoCodecs->index(0,0);
-            double value = idx.data(static_cast<int>(CodecModel::Role::BITRATE)).toDouble();
-            gtk_scale_button_set_value(GTK_SCALE_BUTTON(priv->scalebutton_quality), value);
-        }
-    }
-    g_signal_connect(priv->scalebutton_quality, "value-changed", G_CALLBACK(quality_changed), view);
-    g_signal_connect(gtk_scale_button_get_scale(GTK_SCALE_BUTTON(priv->scalebutton_quality)),
-                     "button-press-event", G_CALLBACK(quality_button_pressed), view);
-    g_signal_connect(gtk_scale_button_get_scale(GTK_SCALE_BUTTON(priv->scalebutton_quality)),
-                     "button-release-event", G_CALLBACK(quality_button_released), view);
 }
