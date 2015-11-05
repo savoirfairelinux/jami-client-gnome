@@ -48,6 +48,7 @@
 #include "ringnotify.h"
 #include <audio/codecmodel.h>
 #include <account.h>
+#include "utils/files.h"
 
 struct _CurrentCallView
 {
@@ -69,6 +70,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *label_duration;
     GtkWidget *frame_video;
     GtkWidget *video_widget;
+    GtkWidget *paned_chat;
     GtkWidget *vbox_chat;
     GtkWidget *togglebutton_chat;
     GtkWidget *textview_chat;
@@ -88,6 +90,8 @@ struct _CurrentCallViewPrivate
     QMetaObject::Connection media_added_connection;
     QMetaObject::Connection new_message_connection;
     QMetaObject::Connection incoming_msg_connection;
+
+    GSettings *settings;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(CurrentCallView, current_call_view, GTK_TYPE_BOX);
@@ -115,6 +119,8 @@ current_call_view_dispose(GObject *object)
         gtk_widget_destroy(priv->fullscreen_window);
         priv->fullscreen_window = NULL;
     }
+
+    g_clear_object(&priv->settings);
 
     G_OBJECT_CLASS(current_call_view_parent_class)->dispose(object);
 }
@@ -160,6 +166,22 @@ scroll_to_bottom(GtkAdjustment *adjustment, G_GNUC_UNUSED gpointer user_data)
         gtk_adjustment_get_upper(adjustment) - gtk_adjustment_get_page_size(adjustment));
 }
 
+gboolean
+map_boolean_to_orientation(GValue *value, GVariant *variant, G_GNUC_UNUSED gpointer user_data)
+{
+    if (g_variant_is_of_type(variant, G_VARIANT_TYPE_BOOLEAN)) {
+        if (g_variant_get_boolean(variant)) {
+            // true, chat should be horizontal (to the right)
+            g_value_set_enum(value, GTK_ORIENTATION_HORIZONTAL);
+        } else {
+            // false, chat should be vertical (at the bottom)
+            g_value_set_enum(value, GTK_ORIENTATION_VERTICAL);
+        }
+        return TRUE;
+    }
+    return FALSE;
+}
+
 static void
 current_call_view_init(CurrentCallView *view)
 {
@@ -176,6 +198,15 @@ current_call_view_init(CurrentCallView *view)
      * the chat treeview */
     GtkAdjustment *adjustment = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(priv->scrolledwindow_chat));
     g_signal_connect(adjustment, "changed", G_CALLBACK(scroll_to_bottom), NULL);
+
+    // bind the chat location to the gsetting
+    priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
+    g_settings_bind_with_mapping(priv->settings, "chat-pane-horizontal",
+                                 priv->paned_chat, "orientation",
+                                 G_SETTINGS_BIND_GET,
+                                 map_boolean_to_orientation,
+                                 nullptr, nullptr, nullptr);
+
 }
 
 static void
@@ -191,6 +222,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, paned_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, textview_chat);
