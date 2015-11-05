@@ -52,11 +52,11 @@ static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
 static constexpr int FRAME_RATE_PERIOD           = 30;
 
 struct _VideoWidgetClass {
-    GtkBinClass parent_class;
+    GtkClutterEmbedClass parent_class;
 };
 
 struct _VideoWidget {
-    GtkBin parent;
+    GtkClutterEmbed parent;
 };
 
 typedef struct _VideoWidgetPrivate VideoWidgetPrivate;
@@ -64,7 +64,7 @@ typedef struct _VideoWidgetPrivate VideoWidgetPrivate;
 typedef struct _VideoWidgetRenderer VideoWidgetRenderer;
 
 struct _VideoWidgetPrivate {
-    GtkWidget               *clutter_widget;
+    // GtkWidget               *clutter_widget;
     ClutterActor            *stage;
     ClutterActor            *video_container;
 
@@ -106,7 +106,7 @@ struct _VideoWidgetRenderer {
     QMetaObject::Connection  render_start;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(VideoWidget, video_widget, GTK_TYPE_BIN);
+G_DEFINE_TYPE_WITH_PRIVATE(VideoWidget, video_widget, GTK_CLUTTER_TYPE_EMBED);
 
 #define VIDEO_WIDGET_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), VIDEO_WIDGET_TYPE, VideoWidgetPrivate))
 
@@ -277,11 +277,11 @@ video_widget_init(VideoWidget *self)
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
     /* init clutter widget */
-    priv->clutter_widget = gtk_clutter_embed_new();
+    // priv->clutter_widget = gtk_clutter_embed_new();
     /* add it to the video_widget */
-    gtk_container_add(GTK_CONTAINER(self), priv->clutter_widget);
+    // gtk_container_add(GTK_CONTAINER(self), priv->clutter_widget);
     /* get the stage */
-    priv->stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->clutter_widget));
+    priv->stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(self));
 
     /* layout manager is used to arrange children in space, here we ask clutter
      * to align children to fill the space when resizing the window */
