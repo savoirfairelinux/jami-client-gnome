@@ -52,11 +52,11 @@ static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
 static constexpr int FRAME_RATE_PERIOD           = 30;
 
 struct _VideoWidgetClass {
-    GtkBinClass parent_class;
+    GtkClutterEmbedClass parent_class;
 };
 
 struct _VideoWidget {
-    GtkBin parent;
+    GtkClutterEmbed parent;
 };
 
 typedef struct _VideoWidgetPrivate VideoWidgetPrivate;
@@ -64,8 +64,6 @@ typedef struct _VideoWidgetPrivate VideoWidgetPrivate;
 typedef struct _VideoWidgetRenderer VideoWidgetRenderer;
 
 struct _VideoWidgetPrivate {
-    GtkWidget               *clutter_widget;
-    ClutterActor            *stage;
     ClutterActor            *video_container;
 
     /* remote peer data */
@@ -106,7 +104,7 @@ struct _VideoWidgetRenderer {
     QMetaObject::Connection  render_start;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(VideoWidget, video_widget, GTK_TYPE_BIN);
+G_DEFINE_TYPE_WITH_PRIVATE(VideoWidget, video_widget, GTK_CLUTTER_TYPE_EMBED);
 
 #define VIDEO_WIDGET_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), VIDEO_WIDGET_TYPE, VideoWidgetPrivate))
 
@@ -276,22 +274,17 @@ video_widget_init(VideoWidget *self)
 {
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
-    /* init clutter widget */
-    priv->clutter_widget = gtk_clutter_embed_new();
-    /* add it to the video_widget */
-    gtk_container_add(GTK_CONTAINER(self), priv->clutter_widget);
-    /* get the stage */
-    priv->stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->clutter_widget));
+    auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(self));
 
     /* layout manager is used to arrange children in space, here we ask clutter
      * to align children to fill the space when resizing the window */
-    clutter_actor_set_layout_manager(priv->stage,
+    clutter_actor_set_layout_manager(stage,
         clutter_bin_layout_new(CLUTTER_BIN_ALIGNMENT_FILL, CLUTTER_BIN_ALIGNMENT_FILL));
 
     /* add a scene container where we can add and remove our actors */
     priv->video_container = clutter_actor_new();
     clutter_actor_set_background_color(priv->video_container, CLUTTER_COLOR_Black);
-    clutter_actor_add_child(priv->stage, priv->video_container);
+    clutter_actor_add_child(stage, priv->video_container);
 
     /* init the remote and local structs */
     priv->remote = g_new0(VideoWidgetRenderer, 1);
@@ -325,10 +318,10 @@ video_widget_init(VideoWidget *self)
     clutter_actor_add_action(priv->local->actor, priv->local->drag_action);
 
     g_signal_connect(priv->local->drag_action, "drag-begin", G_CALLBACK(on_drag_begin), NULL);
-    g_signal_connect_after(priv->local->drag_action, "drag-end", G_CALLBACK(on_drag_end), priv->stage);
+    g_signal_connect_after(priv->local->drag_action, "drag-end", G_CALLBACK(on_drag_end), stage);
 
     /* make sure the actor stays within the bounds of the stage */
-    g_signal_connect(priv->stage, "notify::allocation", G_CALLBACK(on_allocation_changed), self);
+    g_signal_connect(stage, "notify::allocation", G_CALLBACK(on_allocation_changed), self);
 
     /* Init the timeout source which will check the for new frames.
      * The priority must be lower than GTK drawing events
