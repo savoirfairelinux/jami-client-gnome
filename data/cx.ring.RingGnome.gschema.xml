@@ -21,5 +21,10 @@
         <summary>Saves whether or not the main window is currently hidden or not.</summary>
         <description>This is used when launching the application with the '--restore-last-window-state' option, which will launch the application with the main window in the same state as when it was last quit.</description>
     </key>
+    <key name="chat-pane-horizontal" type="b">
+        <default>true</default>
+        <summary>Display the chat to the rigth (default) or at the bottom.</summary>
+        <description>If the chat pane is horizontal then the chat is displayed to the right of the video; otherwise it will be displayed bellow it.</description>
+    </key>
   </schema>
 </schemalist>

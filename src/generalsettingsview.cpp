@@ -55,6 +55,8 @@ struct _GeneralSettingsViewPrivate
     GtkWidget *checkbutton_autostart;
     GtkWidget *checkbutton_hideonclose;
     GtkWidget *checkbutton_bringtofront;
+    GtkWidget *radiobutton_chatright;
+    GtkWidget *radiobutton_chatbottom;
 
     /* history settings */
     GtkWidget *adjustment_history_duration;
@@ -142,6 +144,12 @@ general_settings_view_init(GeneralSettingsView *self)
     g_settings_bind(priv->settings, "bring-window-to-front",
                     priv->checkbutton_bringtofront, "active",
                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind(priv->settings, "chat-pane-horizontal",
+                    priv->radiobutton_chatright, "active",
+                    G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind(priv->settings, "chat-pane-horizontal",
+                    priv->radiobutton_chatbottom, "active",
+                    (GSettingsBindFlags) (G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_INVERT_BOOLEAN));
 
     /* history limit */
     gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_history_duration),
@@ -164,6 +172,8 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_autostart);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_hideonclose);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_bringtofront);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, radiobutton_chatright);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, radiobutton_chatbottom);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_history_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_clear_history);
 }

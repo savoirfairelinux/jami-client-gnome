@@ -68,6 +68,29 @@
                     <property name="draw_indicator">True</property>
                   </object>
                 </child>
+                <child>
+                  <object class="GtkButtonBox" id="buttonbox_chatposition">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="layout-style">start</property>
+                    <child>
+                      <object class="GtkRadioButton" id="radiobutton_chatright">
+                        <property name="label" translatable="yes">Show chat on the right.</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="radiobutton_chatbottom">
+                        <property name="label" translatable="yes">Show chat on the bottom.</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="group">radiobutton_chatright</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </child>
             <!-- end box ring settings -->

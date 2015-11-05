@@ -9,7 +9,6 @@
       <object class="GtkPaned" id="paned_chat">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="orientation">vertical</property>
 
         <!-- box which shows all the call info,
              name, the video, status, etc -->
