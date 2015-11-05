@@ -3,348 +3,344 @@
   <requires lib="gtk+" version="3.10"/>
   <template class="CurrentCallView" parent="GtkBox">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="orientation">vertical</property>
-    <!-- <property name="spacing">10</property> -->
-    <!-- box which shows all the call info,
-         name, the video, status, etc -->
+
+    <!-- start of Paned container which splits the call and the chat -->
     <child>
-      <object class="GtkBox" id="vbox_call_contents">
+      <object class="GtkPaned" id="paned_chat">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">10</property>
-        <!-- box which contains peer image and name -->
+
+        <!-- box which shows all the call info,
+             name, the video, status, etc -->
         <child>
-          <object class="GtkBox" id="hbox_peer_identity">
+          <object class="GtkBox" id="vbox_call_contents">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">center</property>
+            <property name="orientation">vertical</property>
             <property name="spacing">10</property>
+            <!-- box which contains peer image and name -->
             <child>
-              <object class="GtkImage" id="image_peer">
+              <object class="GtkBox" id="hbox_peer_identity">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xpad">10</property>
-                <property name="ypad">10</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_identity">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="selectable">True</property>
-                <property name="ellipsize">end</property>
-                <attributes>
-                  <attribute name="scale" value="1.25"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-          </packing>
-        </child>
-        <!-- end of box which contains peer image and name -->
-        <!-- video widget should go here -->
-        <child>
-          <object class="GtkFrame" id="frame_video">
-            <property name="visible">False</property>
-            <property name="shadow-type">GTK_SHADOW_NONE</property>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-          </packing>
-        </child>
-        <!-- end of video widget -->
-        <!-- start of text message area -->
-        <child>
-          <object class="GtkRevealer" id="revealer_chat">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkBox" id="vbox_chat">
-                <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">5</property>
-                <property name="margin-start">5</property>
-                <!-- start of chat text view -->
+                <property name="halign">center</property>
+                <property name="spacing">10</property>
                 <child>
-                  <object class="GtkScrolledWindow" id="scrolledwindow_chat">
+                  <object class="GtkImage" id="image_peer">
                     <property name="visible">True</property>
-                    <property name="min-content-height">150</property>
-                    <child>
-                      <object class="GtkTextView" id="textview_chat">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="editable">False</property>
-                        <property name="wrap-mode">word-char</property>
-                        <property name="left-margin">5</property>
-                        <property name="right-margin">5</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                  </packing>
-                </child>
-                <!-- end of chat text view -->
-                <!-- start of chat entry -->
-                <child>
-                  <object class="GtkBox" id="hbox_chat_input">
-                    <property name="visible">True</property>
-                    <property name="orientation">horizontal</property>
-                    <property name="spacing">0</property>
-                    <style>
-                      <class name="linked"/>
-                    </style>
-                    <child>
-                      <object class="GtkEntry" id="entry_chat_input">
-                        <property name="visible">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_chat_input">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Send</property>
-                      </object>
-                    </child>
+                    <property name="xpad">10</property>
+                    <property name="ypad">10</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                   </packing>
                 </child>
-                <!-- end of chat entry -->
+                <child>
+                  <object class="GtkLabel" id="label_identity">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="selectable">True</property>
+                    <property name="ellipsize">end</property>
+                    <attributes>
+                      <attribute name="scale" value="1.25"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
             </child>
+            <!-- end of box which contains peer image and name -->
+            <!-- video widget should go here -->
+            <child>
+              <object class="GtkFrame" id="frame_video">
+                <property name="visible">False</property>
+                <property name="shadow-type">GTK_SHADOW_NONE</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <!-- end of video widget -->
+
+            <!-- call status box -->
+            <child>
+              <object class="GtkBox" id="hbox_call_status">
+                <property name="visible">True</property>
+                <property name="halign">center</property>
+                <property name="spacing">10</property>
+                <child>
+                  <object class="GtkLabel" id="label_status">
+                    <property name="visible">True</property>
+                    <property name="ellipsize">end</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_duration">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="selectable">True</property>
+                    <property name="ellipsize">end</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <!-- end of call status box -->
+
+            <!-- box which contains the control buttons -->
+            <child>
+              <object class="GtkBox" id="hbox_controls">
+                <property name="visible">True</property>
+                <property name="border_width">10</property>
+                <!-- call conrol button box -->
+                <child>
+                  <object class="GtkBox" id="buttonbox_call_controls">
+                    <property name="name">call-controls</property>
+                    <property name="visible">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">start</property>
+                    <property name="spacing">15</property>
+                    <child>
+                      <object class="GtkButton" id="button_hangup">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="width-request">42</property>
+                        <property name="height-request">42</property>
+                        <property name="action-name">app.hangup</property>
+                        <property name="has_tooltip">True</property>
+                        <property name="tooltip-text" translatable="yes">End this call</property>
+                        <property name="image">image_end</property>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="button_hangup-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">End call</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="togglebutton_hold">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="width-request">42</property>
+                        <property name="height-request">42</property>
+                        <property name="action-name">app.hold</property>
+                        <property name="has_tooltip">True</property>
+                        <property name="tooltip-text" translatable="yes">Toggle hold</property>
+                        <property name="image">image_pause</property>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="togglebutton_hold-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">Hold</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="togglebutton_muteaudio">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="width-request">42</property>
+                        <property name="height-request">42</property>
+                        <property name="action-name">app.mute_audio</property>
+                        <property name="has_tooltip">True</property>
+                        <property name="tooltip-text" translatable="yes">Toggle mute audio</property>
+                        <property name="image">image_mute_audio</property>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="togglebutton_muteaudio-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">Hold</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="togglebutton_mutevideo">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="width-request">42</property>
+                        <property name="height-request">42</property>
+                        <property name="action-name">app.mute_video</property>
+                        <property name="has_tooltip">True</property>
+                        <property name="tooltip-text" translatable="yes">Toggle mute video</property>
+                        <property name="image">image_mute_video</property>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="togglebutton_mutevideo-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">Mute video</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="togglebutton_record">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="width-request">42</property>
+                        <property name="height-request">42</property>
+                        <property name="action-name">app.record</property>
+                        <property name="has_tooltip">True</property>
+                        <property name="image">image_record</property>
+                        <property name="tooltip-text" translatable="yes">Toggle record audio</property>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="togglebutton_record-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">Record audio</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="togglebutton_chat">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="width-request">42</property>
+                        <property name="height-request">42</property>
+                        <property name="has_tooltip">True</property>
+                        <property name="tooltip-text" translatable="yes">Toggle show chat</property>
+                        <property name="image">image_chat</property>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="togglebutton_chat-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">Chat</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">False</property>
+                  </packing>
+                </child>
+                <!-- end of call control button box -->
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <!-- end of box which contains the control buttons -->
           </object>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
+            <property name="shrink">False</property>
+            <property name="resize">True</property>
           </packing>
         </child>
-        <!-- end of text message area -->
-        <!-- call status box -->
+        <!-- end of box which shows all the call info,
+             name, the video, status, etc -->
+
+        <!-- chat container -->
         <child>
-          <object class="GtkBox" id="hbox_call_status">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">center</property>
-            <property name="spacing">10</property>
+          <object class="GtkBox" id="vbox_chat">
+            <property name="visible">False</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">5</property>
+            <!-- start of chat text view -->
             <child>
-              <object class="GtkLabel" id="label_status">
+              <object class="GtkScrolledWindow" id="scrolledwindow_chat">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="ellipsize">end</property>
+                <child>
+                  <object class="GtkTextView" id="textview_chat">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="editable">False</property>
+                    <property name="wrap-mode">word-char</property>
+                    <property name="left-margin">5</property>
+                    <property name="right-margin">5</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+            <!-- end of chat text view -->
+            <!-- start of chat entry -->
+            <child>
+              <object class="GtkBox" id="hbox_chat_input">
+                <property name="visible">True</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">5</property>
+                <child>
+                  <object class="GtkEntry" id="entry_chat_input">
+                    <property name="visible">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_chat_input">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Send</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkLabel" id="label_duration">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="selectable">True</property>
-                <property name="ellipsize">end</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
+            <!-- end of chat entry -->
           </object>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
+            <property name="shrink">False</property>
+            <property name="resize">True</property>
           </packing>
         </child>
-        <!-- end of call status box -->
+        <!-- end of chat container -->
       </object>
       <packing>
         <property name="expand">True</property>
         <property name="fill">True</property>
       </packing>
     </child>
-    <!-- end of box which shows all the call info,
-         name, the video, status, etc -->
-
-    <!-- box which contains the control buttons -->
-    <child>
-      <object class="GtkBox" id="hbox_controls">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="border_width">10</property>
-        <!-- call conrol button box -->
-        <child>
-          <object class="GtkBox" id="buttonbox_call_controls">
-            <property name="name">call-controls</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">center</property>
-            <property name="valign">start</property>
-            <property name="spacing">15</property>
-            <child>
-              <object class="GtkButton" id="button_hangup">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="width-request">42</property>
-                <property name="height-request">42</property>
-                <property name="action-name">app.hangup</property>
-                <property name="has_tooltip">True</property>
-                <property name="tooltip-text" translatable="yes">End this call</property>
-                <property name="image">image_end</property>
-                <child internal-child="accessible">
-                  <object class="AtkObject" id="button_hangup-atkobject">
-                    <property name="AtkObject::accessible-name" translatable="yes">End call</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton" id="togglebutton_hold">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="width-request">42</property>
-                <property name="height-request">42</property>
-                <property name="action-name">app.hold</property>
-                <property name="has_tooltip">True</property>
-                <property name="tooltip-text" translatable="yes">Toggle hold</property>
-                <property name="image">image_pause</property>
-                <child internal-child="accessible">
-                  <object class="AtkObject" id="togglebutton_hold-atkobject">
-                    <property name="AtkObject::accessible-name" translatable="yes">Hold</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton" id="togglebutton_muteaudio">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="width-request">42</property>
-                <property name="height-request">42</property>
-                <property name="action-name">app.mute_audio</property>
-                <property name="has_tooltip">True</property>
-                <property name="tooltip-text" translatable="yes">Toggle mute audio</property>
-                <property name="image">image_mute_audio</property>
-                <child internal-child="accessible">
-                  <object class="AtkObject" id="togglebutton_muteaudio-atkobject">
-                    <property name="AtkObject::accessible-name" translatable="yes">Hold</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton" id="togglebutton_mutevideo">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="width-request">42</property>
-                <property name="height-request">42</property>
-                <property name="action-name">app.mute_video</property>
-                <property name="has_tooltip">True</property>
-                <property name="tooltip-text" translatable="yes">Toggle mute video</property>
-                <property name="image">image_mute_video</property>
-                <child internal-child="accessible">
-                  <object class="AtkObject" id="togglebutton_mutevideo-atkobject">
-                    <property name="AtkObject::accessible-name" translatable="yes">Mute video</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton" id="togglebutton_record">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="width-request">42</property>
-                <property name="height-request">42</property>
-                <property name="action-name">app.record</property>
-                <property name="has_tooltip">True</property>
-                <property name="image">image_record</property>
-                <property name="tooltip-text" translatable="yes">Toggle record audio</property>
-                <child internal-child="accessible">
-                  <object class="AtkObject" id="togglebutton_record-atkobject">
-                    <property name="AtkObject::accessible-name" translatable="yes">Record audio</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton" id="togglebutton_chat">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="width-request">42</property>
-                <property name="height-request">42</property>
-                <property name="has_tooltip">True</property>
-                <property name="tooltip-text" translatable="yes">Toggle show chat</property>
-                <property name="image">image_chat</property>
-                <child internal-child="accessible">
-                  <object class="AtkObject" id="togglebutton_chat-atkobject">
-                    <property name="AtkObject::accessible-name" translatable="yes">Chat</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">False</property>
-          </packing>
-        </child>
-        <!-- end of call control button box -->
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-      </packing>
-    </child>
-    <!-- end of box which contains the control buttons -->
+    <!-- end of Paned container -->
   </template>
   <object class="GtkImage" id="image_chat">
     <property name="visible">True</property>

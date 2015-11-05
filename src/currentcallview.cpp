@@ -69,7 +69,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *label_duration;
     GtkWidget *frame_video;
     GtkWidget *video_widget;
-    GtkWidget *revealer_chat;
+    GtkWidget *vbox_chat;
     GtkWidget *togglebutton_chat;
     GtkWidget *textview_chat;
     GtkWidget *button_chat_input;
@@ -125,14 +125,14 @@ chat_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
-    gtk_revealer_set_reveal_child(GTK_REVEALER(priv->revealer_chat),
-                                  gtk_toggle_button_get_active(togglebutton));
-
     if (gtk_toggle_button_get_active(togglebutton)) {
+        gtk_widget_show_all(priv->vbox_chat);
         /* create an outgoing media to bring up chat history, if any */
         priv->call->addOutgoingMedia<Media::Text>();
         /* change focus to the chat entry */
         gtk_widget_grab_focus(priv->entry_chat_input);
+    } else {
+        gtk_widget_hide(priv->vbox_chat);
     }
 }
 
@@ -191,7 +191,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, revealer_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, textview_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_chat_input);
