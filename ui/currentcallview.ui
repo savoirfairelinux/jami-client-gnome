@@ -178,6 +178,7 @@
   <object class="GtkBox" id="hbox_call_controls">
     <property name="visible">True</property>
     <property name="spacing">15</property>
+    <property name="border-width">10</property>
     <child>
       <object class="GtkButton" id="button_hangup">
         <property name="visible">True</property>
