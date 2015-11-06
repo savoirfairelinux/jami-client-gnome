@@ -51,6 +51,9 @@
 #include "utils/files.h"
 #include <clutter-gtk/clutter-gtk.h>
 
+static constexpr int CONTROLS_FADE_TIMEOUT = 3000000; /* microseconds */
+static constexpr int FADE_DURATION = 1000; /* miliseconds */
+
 struct _CurrentCallView
 {
     GtkBox parent;
@@ -94,6 +97,12 @@ struct _CurrentCallViewPrivate
     QMetaObject::Connection incoming_msg_connection;
 
     GSettings *settings;
+
+    // for clutter animations and to know when to fade in/out the overlays
+    ClutterTransition *fade_info;
+    ClutterTransition *fade_controls;
+    gint64 time_last_mouse_motion;
+    guint timer_fade;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(CurrentCallView, current_call_view, GTK_TYPE_BOX);
@@ -123,6 +132,8 @@ current_call_view_dispose(GObject *object)
     }
 
     g_clear_object(&priv->settings);
+
+    g_source_remove(priv->timer_fade);
 
     G_OBJECT_CLASS(current_call_view_parent_class)->dispose(object);
 }
@@ -184,6 +195,65 @@ map_boolean_to_orientation(GValue *value, GVariant *variant, G_GNUC_UNUSED gpoin
     return FALSE;
 }
 
+static gboolean
+timeout_check_last_motion_event(CurrentCallView *self)
+{
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), G_SOURCE_REMOVE);
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    auto current_time = g_get_monotonic_time();
+    if (current_time - priv->time_last_mouse_motion >= CONTROLS_FADE_TIMEOUT) {
+        // timeout has passed, hide the controls
+        if (clutter_timeline_get_direction(CLUTTER_TIMELINE(priv->fade_info)) == CLUTTER_TIMELINE_BACKWARD) {
+            clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_info), CLUTTER_TIMELINE_FORWARD);
+            clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_controls), CLUTTER_TIMELINE_FORWARD);
+            if (!clutter_timeline_is_playing(CLUTTER_TIMELINE(priv->fade_info))) {
+                clutter_timeline_rewind(CLUTTER_TIMELINE(priv->fade_info));
+                clutter_timeline_rewind(CLUTTER_TIMELINE(priv->fade_controls));
+                clutter_timeline_start(CLUTTER_TIMELINE(priv->fade_info));
+                clutter_timeline_start(CLUTTER_TIMELINE(priv->fade_controls));
+            }
+        }
+    }
+
+    return G_SOURCE_CONTINUE;
+}
+
+static gboolean
+mouse_moved(CurrentCallView *self)
+{
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), FALSE);
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    priv->time_last_mouse_motion = g_get_monotonic_time();
+
+    // since the mouse moved, make sure the controls are shown
+    if (clutter_timeline_get_direction(CLUTTER_TIMELINE(priv->fade_info)) == CLUTTER_TIMELINE_FORWARD) {
+        clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_info), CLUTTER_TIMELINE_BACKWARD);
+        clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_controls), CLUTTER_TIMELINE_BACKWARD);
+        if (!clutter_timeline_is_playing(CLUTTER_TIMELINE(priv->fade_info))) {
+            clutter_timeline_rewind(CLUTTER_TIMELINE(priv->fade_info));
+            clutter_timeline_rewind(CLUTTER_TIMELINE(priv->fade_controls));
+            clutter_timeline_start(CLUTTER_TIMELINE(priv->fade_info));
+            clutter_timeline_start(CLUTTER_TIMELINE(priv->fade_controls));
+        }
+    }
+
+    return FALSE; // propogate event
+}
+
+static ClutterTransition *
+create_fade_out_transition()
+{
+    auto transition  = clutter_property_transition_new("opacity");
+    clutter_transition_set_from(transition, G_TYPE_UINT, 255);
+    clutter_transition_set_to(transition, G_TYPE_UINT, 0);
+    clutter_timeline_set_duration(CLUTTER_TIMELINE(transition), FADE_DURATION);
+    clutter_timeline_set_repeat_count(CLUTTER_TIMELINE(transition), 0);
+    clutter_timeline_set_progress_mode(CLUTTER_TIMELINE(transition), CLUTTER_EASE_IN_OUT_CUBIC);
+    return transition;
+}
+
 static void
 current_call_view_init(CurrentCallView *view)
 {
@@ -207,6 +277,23 @@ current_call_view_init(CurrentCallView *view)
     clutter_actor_add_child(stage, actor_controls);
     clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
     clutter_actor_set_y_align(actor_controls, CLUTTER_ACTOR_ALIGN_END);
+
+    /* add fade in and out states to the info and controls */
+    priv->time_last_mouse_motion = g_get_monotonic_time();
+    priv->fade_info = create_fade_out_transition();
+    priv->fade_controls = create_fade_out_transition();
+    clutter_actor_add_transition(actor_info, "fade_info", priv->fade_info);
+    clutter_actor_add_transition(actor_controls, "fade_controls", priv->fade_controls);
+    clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_info), CLUTTER_TIMELINE_BACKWARD);
+    clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_controls), CLUTTER_TIMELINE_BACKWARD);
+    clutter_timeline_stop(CLUTTER_TIMELINE(priv->fade_info));
+    clutter_timeline_stop(CLUTTER_TIMELINE(priv->fade_controls));
+
+    /* have a timer check every 1 second if the controls should fade out */
+    priv->timer_fade = g_timeout_add(1000, (GSourceFunc)timeout_check_last_motion_event, view);
+
+    /* connect to the mouse motion event to reset the last moved time */
+    g_signal_connect_swapped(priv->video_widget, "motion-notify-event", G_CALLBACK(mouse_moved), view);
 
     g_signal_connect(priv->togglebutton_chat, "toggled", G_CALLBACK(chat_toggled), view);
     g_signal_connect(priv->button_chat_input, "clicked", G_CALLBACK(send_chat), view);
