@@ -49,6 +49,7 @@
 #include <audio/codecmodel.h>
 #include <account.h>
 #include "utils/files.h"
+#include <clutter-gtk/clutter-gtk.h>
 
 struct _CurrentCallView
 {
@@ -64,6 +65,8 @@ typedef struct _CurrentCallViewPrivate CurrentCallViewPrivate;
 
 struct _CurrentCallViewPrivate
 {
+    GtkWidget *hbox_call_info;
+    GtkWidget *hbox_call_controls;
     GtkWidget *image_peer;
     GtkWidget *label_identity;
     GtkWidget *label_status;
@@ -78,7 +81,6 @@ struct _CurrentCallViewPrivate
     GtkWidget *entry_chat_input;
     GtkWidget *scrolledwindow_chat;
     GtkWidget *fullscreen_window;
-    GtkWidget *buttonbox_call_controls;
     GtkWidget *button_hangup;
 
     Call *call;
@@ -189,6 +191,23 @@ current_call_view_init(CurrentCallView *view)
 
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
+    /* create video widget and overlay the call info and controls on it */
+    priv->video_widget = video_widget_new();
+    gtk_container_add(GTK_CONTAINER(priv->frame_video), priv->video_widget);
+    gtk_widget_show_all(priv->frame_video);
+
+    auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
+    auto actor_info = gtk_clutter_actor_new_with_contents(priv->hbox_call_info);
+    auto actor_controls = gtk_clutter_actor_new_with_contents(priv->hbox_call_controls);
+
+    clutter_actor_add_child(stage, actor_info);
+    clutter_actor_set_x_align(actor_info, CLUTTER_ACTOR_ALIGN_FILL);
+    clutter_actor_set_y_align(actor_info, CLUTTER_ACTOR_ALIGN_START);
+
+    clutter_actor_add_child(stage, actor_controls);
+    clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
+    clutter_actor_set_y_align(actor_controls, CLUTTER_ACTOR_ALIGN_END);
+
     g_signal_connect(priv->togglebutton_chat, "toggled", G_CALLBACK(chat_toggled), view);
     g_signal_connect(priv->button_chat_input, "clicked", G_CALLBACK(send_chat), view);
     g_signal_connect(priv->entry_chat_input, "activate", G_CALLBACK(send_chat), view);
@@ -217,6 +236,8 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/currentcallview.ui");
 
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_info);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_controls);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, image_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_identity);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_status);
@@ -229,7 +250,6 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, entry_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scrolledwindow_chat);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, buttonbox_call_controls);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
 }
 
@@ -429,11 +449,6 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
         static_cast<void (Call::*)(void)>(&Call::changed),
         [view, priv]() { update_details(view, priv->call); }
     );
-
-    /* video widget */
-    priv->video_widget = video_widget_new();
-    gtk_container_add(GTK_CONTAINER(priv->frame_video), priv->video_widget);
-    gtk_widget_show_all(priv->frame_video);
 
     /* check if we already have a renderer */
     video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
