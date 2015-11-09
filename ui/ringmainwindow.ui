@@ -249,62 +249,11 @@
             <property name="shrink">True</property>
           </packing>
         </child>
-        <!-- right side of pane -->
+        <!-- right side of pane, where the call will be inserted -->
         <child>
-          <object class="GtkBox" id="vbox_right">
+          <object class="GtkFrame" id="frame_call">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-            <!-- main display object -->
-            <child>
-              <object class="GtkFrame" id="frame_call">
-                <property name="visible">True</property>
-                <property name="shadow-type">GTK_SHADOW_NONE</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-            <!-- end of main display object -->
-            <!-- ring hash location -->
-            <child>
-              <object class="GtkBox" id="hbox_ring_hash">
-                <property name="visible">False</property>
-                <property name="can_focus">False</property>
-                <property name="orientation">horizontal</property>
-                <property name="margin_left">10</property>
-                <property name="margin_right">10</property>
-                <property name="margin_top">10</property>
-                <property name="margin_bottom">5</property>
-                <property name="halign">center</property>
-                <property name="no-show-all">True</property>
-                <child>
-                  <object class="GtkLabel" id="label_your_ring_id">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Your Ring ID: </property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label_ring_id">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="use-markup">True</property>
-                    <property name="selectable">True</property>
-                    <property name="ellipsize">end</property>
-                    <property name="label" translatable="yes">&lt;span fgcolor="gray"&gt;fetching Ring ID...&lt;/span&gt;</property>
-                  </object>
-                  <packing>
-                    <property name="fill">True</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-            <!-- end ring hash location -->
+            <property name="shadow-type">GTK_SHADOW_NONE</property>
           </object>
           <packing>
             <property name="shrink">True</property>
