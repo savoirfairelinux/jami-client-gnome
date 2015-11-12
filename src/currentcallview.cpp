@@ -50,6 +50,7 @@
 #include <account.h>
 #include "utils/files.h"
 #include <clutter-gtk/clutter-gtk.h>
+#include "ringpopupbutton.h"
 
 static constexpr int CONTROLS_FADE_TIMEOUT = 3000000; /* microseconds */
 static constexpr int FADE_DURATION = 500; /* miliseconds */
@@ -85,6 +86,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *scrolledwindow_chat;
     GtkWidget *fullscreen_window;
     GtkWidget *button_hangup;
+    GtkWidget *button_transfer;
 
     Call *call;
 
@@ -314,6 +316,11 @@ current_call_view_init(CurrentCallView *view)
                                  G_SETTINGS_BIND_GET,
                                  map_boolean_to_orientation,
                                  nullptr, nullptr, nullptr);
+
+    priv->button_transfer = ring_popup_button_new(nullptr);
+    gtk_box_pack_start(GTK_BOX(priv->hbox_call_controls), priv->button_transfer, FALSE, TRUE, 0);
+    gtk_box_reorder_child(GTK_BOX(priv->hbox_call_controls), priv->button_transfer, 5);
+    gtk_widget_show(priv->button_transfer);
 
 }
 
