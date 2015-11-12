@@ -90,16 +90,14 @@ struct _VideoWidgetRenderer {
     Video::Renderer         *renderer;
     std::mutex               run_mutex;
     bool                     running;
-    std::atomic_bool         dirty;
 
     /* show_black_frame is used to request the actor to render a black image;
-     * this will take over 'running' and 'dirty', ie: a black frame will be
-     * rendered even if the Video::Renderer is not running, or has a frame available.
+     * this will take over 'running', ie: a black frame will be rendered even if
+     * the Video::Renderer is not running;
      * this will be set back to false once the black frame is rendered
      */
     std::atomic_bool         show_black_frame;
     std::atomic_bool         pause_rendering;
-    QMetaObject::Connection  frame_update;
     QMetaObject::Connection  render_stop;
     QMetaObject::Connection  render_start;
 };
@@ -564,10 +562,8 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
 
         auto frame_ptr = renderer->currentFrame();
         auto frame_data = frame_ptr.ptr;
-        if (!frame_data or !wg_renderer->dirty)
+        if (!frame_data)
             return;
-
-        wg_renderer->dirty = false;
 
         image_new = clutter_image_new();
         g_return_if_fail(image_new);
@@ -618,7 +614,6 @@ check_frame_queue(VideoWidget *self)
 static void
 renderer_stop(VideoWidgetRenderer *renderer)
 {
-    QObject::disconnect(renderer->frame_update);
     {
         /* must do this under lock, in case the rendering is taking place when
          * this signal is received */
@@ -632,30 +627,16 @@ renderer_stop(VideoWidgetRenderer *renderer)
 static void
 renderer_start(VideoWidgetRenderer *renderer)
 {
-    QObject::disconnect(renderer->frame_update);
     {
         std::lock_guard<std::mutex> lock(renderer->run_mutex);
         renderer->running = true;
     }
-    renderer->frame_update = QObject::connect(
-        renderer->renderer,
-        &Video::Renderer::frameUpdated,
-        [renderer]() {
-            // WARNING: this lambda is called in LRC renderer thread,
-            // but check_frame_queue() is in mainloop!
-
-            /* make sure show_black_frame is false since it will take priority
-             * over a new frame from the Video::Renderer */
-            renderer->show_black_frame = false;
-            renderer->dirty = true;
-        }
-        );
+    renderer->show_black_frame = false;
 }
 
 static void
 free_video_widget_renderer(VideoWidgetRenderer *renderer)
 {
-    QObject::disconnect(renderer->frame_update);
     QObject::disconnect(renderer->render_stop);
     QObject::disconnect(renderer->render_start);
     g_free(renderer);
