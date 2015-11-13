@@ -254,6 +254,28 @@ create_fade_out_transition()
     return transition;
 }
 
+static gboolean
+video_widget_focus(GtkWidget *widget, GtkDirectionType direction, CurrentCallView *self)
+{
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), FALSE);
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    // if this widget already has focus, we want the focus to move to the next widget, otherwise we
+    // will get stuck in a focus loop on the buttons
+    if (gtk_widget_has_focus(widget))
+        return FALSE;
+
+    // otherwise we want the focus to go to and change between the call control buttons
+    if (gtk_widget_child_focus(GTK_WIDGET(priv->hbox_call_controls), direction)) {
+        // selected a child, make sure call controls are shown
+        mouse_moved(self);
+        return TRUE;
+    }
+
+    // did not select the next child, propogate the event
+    return FALSE;
+}
+
 static void
 current_call_view_init(CurrentCallView *view)
 {
@@ -297,6 +319,9 @@ current_call_view_init(CurrentCallView *view)
     g_signal_connect_swapped(priv->video_widget, "button-press-event", G_CALLBACK(mouse_moved), view);
     g_signal_connect_swapped(priv->video_widget, "button-release-event", G_CALLBACK(mouse_moved), view);
 
+    /* manually handle the focus of the video widget to be able to focus on the call controls */
+    g_signal_connect(priv->video_widget, "focus", G_CALLBACK(video_widget_focus), view);
+
     g_signal_connect(priv->togglebutton_chat, "toggled", G_CALLBACK(chat_toggled), view);
     g_signal_connect(priv->button_chat_input, "clicked", G_CALLBACK(send_chat), view);
     g_signal_connect(priv->entry_chat_input, "activate", G_CALLBACK(send_chat), view);
@@ -314,7 +339,6 @@ current_call_view_init(CurrentCallView *view)
                                  G_SETTINGS_BIND_GET,
                                  map_boolean_to_orientation,
                                  nullptr, nullptr, nullptr);
-
 }
 
 static void
