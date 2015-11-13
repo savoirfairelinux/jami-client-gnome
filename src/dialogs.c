@@ -85,15 +85,18 @@ ring_about_dialog(GtkWidget *parent)
                                      VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, RING_CLIENT_REVISION);
 
     const gchar *authors[] = {
-        [0] = "Adrien Béraud",
-        [1] = "Alexandre Lision",
-        [2] = "Edric Milaret",
-        [3] = "Éloi Bail",
-        [4] = "Emmanuel Lepage-Vallée",
-        [5] = "Guillaume Roguez",
-        [6] = "Stepan Salenikovich",
-        [7] = "Based on the SFLPhone project",
-        [8] = NULL,
+        [0]  = "Adrien Béraud",
+        [1]  = "Alexandre Lision",
+        [2]  = "Edric Milaret",
+        [3]  = "Éloi Bail",
+        [4]  = "Emmanuel Lepage-Vallée",
+        [5]  = "Guillaume Roguez",
+        [6]  = "Julien Grossholtz",
+        [7]  = "Nicolas Jäger",
+        [8]  = "Simon Désaulniers",
+        [9]  = "Stepan Salenikovich",
+        [10]  = "Based on the SFLPhone project",
+        [11] = NULL,
     };
 
     const gchar *artists[] = {
