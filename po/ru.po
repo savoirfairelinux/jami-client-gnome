@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-30 17:31-0400\n"
-"PO-Revision-Date: 2015-10-14 14:43+0000\n"
+"POT-Creation-Date: 2015-11-13 09:43-0500\n"
+"PO-Revision-Date: 2015-11-13 14:49+0000\n"
 "Last-Translator: Чураков Александр\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -133,31 +133,26 @@ msgstr "Вы уверены что хотите удалить учетную з
 msgid "New Account"
 msgstr "Новая учетная запись"
 
-#: src/accountview.cpp:386
+#: src/accountview.cpp:399
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Разрешен"
 
-#: src/accountview.cpp:392
+#: src/accountview.cpp:405
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Псевдоним"
 
-#: src/accountview.cpp:396
+#: src/accountview.cpp:409
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Состояние"
 
-#: src/callsview.cpp:233
-msgid "Current Calls"
-msgstr "Текущие звонки"
-
-#: src/contactsview.cpp:290 src/frequentcontactsview.cpp:175
+#: src/contactsview.cpp:305
 msgid "_Copy name"
 msgstr "_Копировать имя"
 
-#: src/contactsview.cpp:301 src/contactsview.cpp:316
-#: src/frequentcontactsview.cpp:184
+#: src/contactsview.cpp:316 src/contactsview.cpp:331
 msgid "_Copy number"
 msgstr "_Копировать номер"
 
@@ -184,7 +179,7 @@ msgctxt "Phone number category"
 msgid "home"
 msgstr "дом"
 
-#: src/generalsettingsview.cpp:92
+#: src/generalsettingsview.cpp:94
 msgid ""
 "Are you sure you want to clear all your history?\n"
 "This operation will also reset the Frequent Contacts list"
@@ -194,12 +189,12 @@ msgstr "Вы уверены что хотите удалить всю истор
 msgid "_Copy"
 msgstr "_Копировать"
 
-#: src/historyview.cpp:413
+#: src/historyview.cpp:402
 msgctxt "Call history"
 msgid "Call"
 msgstr "Звонок"
 
-#: src/historyview.cpp:458
+#: src/historyview.cpp:447
 msgctxt "Call history"
 msgid "Date"
 msgstr "Дата"
@@ -241,20 +236,16 @@ msgstr "Контакты"
 msgid "_Add to contact"
 msgstr "Добавить в контакт"
 
-#: src/ringmainwindow.cpp:570 src/ringwelcomeview.cpp:61
-msgid "fetching RingID..."
-msgstr "получение RingID..."
-
-#: src/ringmainwindow.cpp:575
-msgid "no Ring account"
-msgstr "Отсутствует аккаунт Ring"
-
-#: src/ringmainwindow.cpp:998
+#: src/ringmainwindow.cpp:944
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Найдите контакты или введите номер"
+
+#: src/ringwelcomeview.cpp:61
+msgid "fetching RingID..."
+msgstr "получение RingID..."
 
 #: src/ringwelcomeview.cpp:92
 msgid ""
@@ -263,12 +254,20 @@ msgid ""
 " in the hands of the user."
 msgstr "Ring - это распределенная и безопасная платформа для передачи голоса, видео и текстовых сообщений, которая не нуждается в централизованном сервере и оставляет мощь секретности в руках пользователя."
 
-#: src/ringwelcomeview.cpp:103
+#: src/ringwelcomeview.cpp:102
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
 msgstr "Это ваш RingID.\nСкопируйте и поделитесь им с вашими друзьями!"
+
+#: src/video/video_widget.cpp:478
+msgid "Share screen area"
+msgstr "Транслировать область экрана"
+
+#: src/video/video_widget.cpp:484
+msgid "Share file"
+msgstr "Поделиться файлом"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
@@ -480,68 +479,60 @@ msgstr "<b>+</b>"
 msgid "Create New"
 msgstr "Создать новый"
 
-#: ui/currentcallview.ui:122
+#: ui/currentcallview.ui:73
 msgid "Send"
 msgstr "Отправить"
 
-#: ui/currentcallview.ui:210
+#: ui/currentcallview.ui:191
 msgid "End this call"
 msgstr "Завершить этот звонок"
 
-#: ui/currentcallview.ui:214 ui/currentcallview.ui:409
+#: ui/currentcallview.ui:195 ui/currentcallview.ui:356
 msgid "End call"
 msgstr "Закончить звонок"
 
-#: ui/currentcallview.ui:232
+#: ui/currentcallview.ui:213
 msgid "Toggle hold"
 msgstr "Переключить и удерживать"
 
-#: ui/currentcallview.ui:236 ui/currentcallview.ui:258
-#: ui/currentcallview.ui:400
+#: ui/currentcallview.ui:217 ui/currentcallview.ui:239
+#: ui/currentcallview.ui:347
 msgid "Hold"
 msgstr "Удержать"
 
-#: ui/currentcallview.ui:254
+#: ui/currentcallview.ui:235
 msgid "Toggle mute audio"
 msgstr "Заглушить звук"
 
-#: ui/currentcallview.ui:276
+#: ui/currentcallview.ui:257
 msgid "Toggle mute video"
 msgstr "Выключить видео"
 
-#: ui/currentcallview.ui:280 ui/currentcallview.ui:391
+#: ui/currentcallview.ui:261 ui/currentcallview.ui:338
 msgid "Mute video"
 msgstr "Отключить видео"
 
-#: ui/currentcallview.ui:299
+#: ui/currentcallview.ui:280
 msgid "Toggle record audio"
 msgstr "Запись звука"
 
-#: ui/currentcallview.ui:302
+#: ui/currentcallview.ui:283
 msgid "Record audio"
 msgstr "Запись аудио"
 
-#: ui/currentcallview.ui:318
+#: ui/currentcallview.ui:299
 msgid "Toggle show chat"
 msgstr "Показать чат"
 
-#: ui/currentcallview.ui:322 ui/currentcallview.ui:373
+#: ui/currentcallview.ui:303 ui/currentcallview.ui:320
 msgid "Chat"
 msgstr "Чат"
 
-#: ui/currentcallview.ui:339
-msgid "Adjust outgoing video quality (bit/s)"
-msgstr "Настройка качества передачи видео (бит/с)"
-
-#: ui/currentcallview.ui:344 ui/currentcallview.ui:418
-msgid "Video quality"
-msgstr "Качество видео"
-
-#: ui/currentcallview.ui:382
+#: ui/currentcallview.ui:329
 msgid "Mute audio"
 msgstr "Приглушить звук"
 
-#: ui/currentcallview.ui:427
+#: ui/currentcallview.ui:365
 msgid "Record"
 msgstr "Запись"
 
@@ -597,35 +588,43 @@ msgstr "Сворачивать Ring вместо закрытия"
 msgid "Bring Ring to the foreground on incoming calls."
 msgstr "Выводить Ring на передний план при входящем звонке."
 
-#: ui/generalsettingsview.ui:87
+#: ui/generalsettingsview.ui:79
+msgid "Show chat on the right."
+msgstr ""
+
+#: ui/generalsettingsview.ui:86
+msgid "Show chat on the bottom."
+msgstr ""
+
+#: ui/generalsettingsview.ui:110
 msgid "<b>History Settings</b>"
 msgstr "<b>Настройки истории</b>"
 
-#: ui/generalsettingsview.ui:105
+#: ui/generalsettingsview.ui:128
 msgid "Keep history for (days):"
 msgstr "Хранить историю (дней):"
 
-#: ui/generalsettingsview.ui:128
+#: ui/generalsettingsview.ui:151
 msgid "(set to 0 for unlimited history)"
 msgstr "(Поставьте 0 для хранения всей истории)"
 
-#: ui/generalsettingsview.ui:137
+#: ui/generalsettingsview.ui:160
 msgid "Clear all history"
 msgstr "Удалить историю сообщений"
 
-#: ui/incomingcallview.ui:87
+#: ui/incomingcallview.ui:88
 msgid "Incoming..."
 msgstr "Входящий…"
 
-#: ui/incomingcallview.ui:120
+#: ui/incomingcallview.ui:122
 msgid "   Accept"
 msgstr "Принять"
 
-#: ui/incomingcallview.ui:135
+#: ui/incomingcallview.ui:137
 msgid "   Reject"
 msgstr "Отклонить "
 
-#: ui/incomingcallview.ui:150
+#: ui/incomingcallview.ui:152
 msgid "   Hang-up"
 msgstr "Положить трубку"
 
@@ -697,50 +696,42 @@ msgstr "Учетные записи"
 msgid "Settings"
 msgstr "Настройки"
 
-#: ui/ringmainwindow.ui:196
-msgid "Frequent"
-msgstr "Частые"
+#: ui/ringmainwindow.ui:192
+msgid "Conversations"
+msgstr ""
 
-#: ui/ringmainwindow.ui:215
+#: ui/ringmainwindow.ui:211
 msgid "Contacts"
 msgstr "Контакты"
 
-#: ui/ringmainwindow.ui:234
+#: ui/ringmainwindow.ui:230
 msgid "History"
 msgstr "История"
 
-#: ui/ringmainwindow.ui:291
-msgid "Your Ring ID: "
-msgstr "Ваш Ring ID:"
-
-#: ui/ringmainwindow.ui:301
-msgid "<span fgcolor=\"gray\">fetching Ring ID...</span>"
-msgstr "<span fgcolor=\"gray\">получение Ring ID...</span> "
-
-#: ui/ringmainwindow.ui:346
+#: ui/ringmainwindow.ui:290
 msgid "Welcome to  "
 msgstr "Добро пожаловать в"
 
-#: ui/ringmainwindow.ui:363
+#: ui/ringmainwindow.ui:307
 msgid "Enter your alias to get started:"
 msgstr "Укажите Ваш ник, чтобы начать: "
 
-#: ui/ringmainwindow.ui:380
+#: ui/ringmainwindow.ui:324
 msgid "Generating your Ring account..."
 msgstr "Создание вашего аккаунта Ring..."
 
-#: ui/ringmainwindow.ui:394
+#: ui/ringmainwindow.ui:338
 msgid "Next"
 msgstr "Далее"
 
-#: ui/ringmainwindow.ui:416
+#: ui/ringmainwindow.ui:360
 msgid "Your Ring account has been created with the following Ring ID:"
 msgstr "Ваш аккаунт Ring был создан со следующим Ring ID:"
 
-#: ui/ringmainwindow.ui:431
+#: ui/ringmainwindow.ui:375
 msgid "Share it with your friends so they can contact you via Ring!"
 msgstr "Поделитесь с вашими друзьями, чтобы они смогли связаться с вами через Ring!"
 
-#: ui/ringmainwindow.ui:436
+#: ui/ringmainwindow.ui:380
 msgid "Done"
 msgstr "Готово"

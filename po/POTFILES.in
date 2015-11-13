@@ -5,11 +5,9 @@ src/accountaudiotab.cpp
 src/accountgeneraltab.cpp
 src/accountvideotab.cpp
 src/accountview.cpp
-src/callsview.cpp
 src/contactsview.cpp
 src/dialogs.c
 src/editcontactview.cpp
-src/frequentcontactsview.cpp
 src/generalsettingsview.cpp
 src/historyview.cpp
 src/ringnotify.cpp
