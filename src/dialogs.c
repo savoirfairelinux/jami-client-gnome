@@ -116,6 +116,7 @@ ring_about_dialog(GtkWidget *parent)
         "website", "http://www.ring.cx/",
         "website-label", "www.ring.cx",
         "artists", artists,
+        "translator-credits", "https://www.transifex.com/savoirfairelinux/ring",
         NULL
     );
 
