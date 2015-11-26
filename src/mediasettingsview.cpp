@@ -136,7 +136,7 @@ update_selection(GtkComboBox *box, QItemSelectionModel *selection_model)
 {
     QModelIndex idx = get_index_from_combobox(box);
     if (idx.isValid())
-        selection_model->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
+        selection_model->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect); // here
 }
 
 static QMetaObject::Connection
@@ -195,18 +195,31 @@ media_settings_view_init(MediaSettingsView *view)
 
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(view);
 
+    QAbstractItemModel* ptr_m; // initialize these in order before function calls
+    QItemSelectionModel* ptr_s; // c++ doesn't guarantee execution order in func(x(), y()) cases
+
+    ptr_m = &Video::ConfigurationProxy::deviceModel();
+    ptr_s = &Video::ConfigurationProxy::deviceSelectionModel();
     priv->device_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_device),
-                                                      &Video::ConfigurationProxy::deviceModel(),
-                                                      &Video::ConfigurationProxy::deviceSelectionModel());
+                                                      ptr_m,
+                                                      ptr_s);
+
+    ptr_m = &Video::ConfigurationProxy::channelModel();
+    ptr_s = &Video::ConfigurationProxy::channelSelectionModel();
     priv->channel_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_channel),
-                                                       &Video::ConfigurationProxy::channelModel(),
-                                                       &Video::ConfigurationProxy::channelSelectionModel());
+                                                       ptr_m,
+                                                       ptr_s);
+
+    ptr_m = &Video::ConfigurationProxy::resolutionModel();
+    ptr_s = &Video::ConfigurationProxy::resolutionSelectionModel();
     priv->resolution_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_resolution),
-                                                          &Video::ConfigurationProxy::resolutionModel(),
-                                                          &Video::ConfigurationProxy::resolutionSelectionModel());
+                                                          ptr_m,
+                                                          ptr_s);
+    ptr_m = &Video::ConfigurationProxy::rateModel();
+    ptr_s = &Video::ConfigurationProxy::rateSelectionModel();
     priv->rate_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_framerate),
-                                                    &Video::ConfigurationProxy::rateModel(),
-                                                    &Video::ConfigurationProxy::rateSelectionModel());
+                                                    ptr_m,
+                                                    ptr_s);
 
     /* audio settings */
     /* instantiate all the models before the manager model first */
