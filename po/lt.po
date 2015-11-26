@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2015-11-13 14:49+0000\n"
+"PO-Revision-Date: 2015-11-13 19:05+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -586,11 +586,11 @@ msgstr "Esant įeinantiems skambučiams, rodyti Ring priekiniame plane"
 
 #: ui/generalsettingsview.ui:79
 msgid "Show chat on the right."
-msgstr ""
+msgstr "Rodyti pokalbį dešinėje."
 
 #: ui/generalsettingsview.ui:86
 msgid "Show chat on the bottom."
-msgstr ""
+msgstr "Rodyti pokalbį apačioje."
 
 #: ui/generalsettingsview.ui:110
 msgid "<b>History Settings</b>"
@@ -694,7 +694,7 @@ msgstr "Nustatymai"
 
 #: ui/ringmainwindow.ui:192
 msgid "Conversations"
-msgstr ""
+msgstr "Pokalbiai"
 
 #: ui/ringmainwindow.ui:211
 msgid "Contacts"
