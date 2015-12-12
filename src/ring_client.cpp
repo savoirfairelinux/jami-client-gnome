@@ -284,6 +284,19 @@ ring_client_startup(GApplication *app)
         exit(1); /* the g_error above should normally cause the applicaiton to exit */
     }
 
+    /* print supported clutter features */
+    g_debug("NPOTS textures supported - %s", clutter_feature_available(CLUTTER_FEATURE_TEXTURE_NPOT) ? "yes" : "no");
+    g_debug("vblank syncing supported - %s", clutter_feature_available(CLUTTER_FEATURE_SYNC_TO_VBLANK) ? "yes" : "no");
+    g_debug("YUV based textures supported - %s", clutter_feature_available(CLUTTER_FEATURE_TEXTURE_YUV) ? "yes" : "no");
+    g_debug("texture pixels can be read - %s", clutter_feature_available(CLUTTER_FEATURE_TEXTURE_READ_PIXELS) ? "yes" : "no");
+    g_debug("stage size if fixed (i.e framebuffer) - %s", clutter_feature_available(CLUTTER_FEATURE_STAGE_STATIC) ? "yes" : "no");
+    g_debug("stage is able to be user resized - %s", clutter_feature_available(CLUTTER_FEATURE_STAGE_USER_RESIZE) ? "yes" : "no");
+    g_debug("stage has a graphical cursor - %s", clutter_feature_available(CLUTTER_FEATURE_STAGE_CURSOR) ? "yes" : "no");
+    g_debug("the backend supports GLSL shaders - %s", clutter_feature_available(CLUTTER_FEATURE_SHADERS_GLSL) ? "yes" : "no");
+    g_debug("the backend supports offscreen rendering - %s", clutter_feature_available(CLUTTER_FEATURE_OFFSCREEN) ? "yes" : "no");
+    g_debug("multiple stages are supported - %s", clutter_feature_available(CLUTTER_FEATURE_STAGE_MULTIPLE) ? "yes" : "no");
+    g_debug("the GLX_INTEL_swap_event is supported - %s", clutter_feature_available(CLUTTER_FEATURE_SWAP_EVENTS) ? "yes" : "no");
+
     /* init libRingClient and make sure its connected to the dbus */
     try {
         priv->qtapp = new QCoreApplication(priv->argc, priv->argv);
