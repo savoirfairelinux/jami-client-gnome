@@ -190,6 +190,10 @@ call_selection_changed(const QModelIndex& idx, RingMainWindow *win)
     g_return_if_fail(IS_RING_MAIN_WINDOW(win));
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
+    /* if we're showing the settings, then nothing needs to be done as the call
+       view is not shown */
+    if (priv->show_settings) return;
+
     /* get the current visible stack child */
     GtkWidget *old_call_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
 
@@ -238,6 +242,10 @@ call_state_changed(Call *call, RingMainWindow *win)
 {
     g_debug("call state changed");
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+
+    /* if we're showing the settings, then nothing needs to be done as the call
+       view is not shown */
+    if (priv->show_settings) return;
 
     /* check if the call that changed state is the same as the selected call */
     QModelIndex idx_selected = CallModel::instance().selectionModel()->currentIndex();
@@ -351,11 +359,14 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
     g_return_if_fail(IS_RING_MAIN_WINDOW(win));
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
-    /* toggle show settings */
-    priv->show_settings = !priv->show_settings;
-
     /* check which view to show */
-    if (priv->show_settings) {
+    if (!priv->show_settings) {
+        /* show the settings */
+
+        /* destroy the call view by passing an invalid call index, to make sure
+           we don't have more than one clutter stage at a time */
+        call_selection_changed(QModelIndex(), win);
+
         /* show settings */
         gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-ok-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
 
@@ -367,7 +378,12 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
 
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_UP);
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->last_settings_view);
+
+        priv->show_settings = TRUE;
     } else {
+        /* hide the settings */
+        priv->show_settings = FALSE;
+
         /* show working dialog in case save operation takes time */
         GtkWidget *working = ring_dialog_working(GTK_WIDGET(win), NULL);
         gtk_window_present(GTK_WINDOW(working));
@@ -383,11 +399,14 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
 
         gtk_widget_hide(priv->hbox_settings);
 
+        /* make sure video preview is stopped, in case it was started */
+        media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(priv->media_settings_view), FALSE);
+
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
 
-        /* make sure video preview is stopped, in case it was started */
-        media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(priv->media_settings_view), FALSE);
+        /* show the call view, if there is a call in progress */
+        call_selection_changed(CallModel::instance().selectionModel()->currentIndex(), win);
     }
 }
 
