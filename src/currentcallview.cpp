@@ -83,7 +83,6 @@ struct _CurrentCallViewPrivate
     GtkWidget *button_chat_input;
     GtkWidget *entry_chat_input;
     GtkWidget *scrolledwindow_chat;
-    GtkWidget *fullscreen_window;
     GtkWidget *button_hangup;
 
     Call *call;
@@ -109,6 +108,13 @@ G_DEFINE_TYPE_WITH_PRIVATE(CurrentCallView, current_call_view, GTK_TYPE_BOX);
 
 #define CURRENT_CALL_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CURRENT_CALL_VIEW_TYPE, CurrentCallViewPrivate))
 
+enum {
+    VIDEO_DOUBLE_CLICKED,
+    LAST_SIGNAL
+};
+
+static guint current_call_view_signals[LAST_SIGNAL] = { 0 };
+
 static void
 current_call_view_dispose(GObject *object)
 {
@@ -125,11 +131,6 @@ current_call_view_dispose(GObject *object)
     QObject::disconnect(priv->media_added_connection);
     QObject::disconnect(priv->new_message_connection);
     QObject::disconnect(priv->incoming_msg_connection);
-
-    if (priv->fullscreen_window) {
-        gtk_widget_destroy(priv->fullscreen_window);
-        priv->fullscreen_window = NULL;
-    }
 
     g_clear_object(&priv->settings);
 
@@ -364,6 +365,16 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, entry_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scrolledwindow_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
+
+    current_call_view_signals[VIDEO_DOUBLE_CLICKED] = g_signal_new (
+        "video-double-clicked",
+        G_TYPE_FROM_CLASS(klass),
+        (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+        0,
+        nullptr,
+        nullptr,
+        g_cclosure_marshal_VOID__VOID,
+        G_TYPE_NONE, 0);
 }
 
 GtkWidget *
@@ -392,54 +403,6 @@ update_details(CurrentCallView *view, Call *call)
     /* update call duration */
     QByteArray ba_length = call->length().toLocal8Bit();
     gtk_label_set_text(GTK_LABEL(priv->label_duration), ba_length.constData());
-}
-
-static void
-on_fullscreen_destroy(CurrentCallView *view)
-{
-    g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-
-    /* fullscreen is being destroyed, clear the pointer and un-pause the rendering
-     * in this window */
-    priv->fullscreen_window = NULL;
-    video_widget_pause_rendering(VIDEO_WIDGET(priv->video_widget), FALSE);
-}
-
-static gboolean
-on_button_press_in_video_event(GtkWidget *self, GdkEventButton *event, CurrentCallView *view)
-{
-    g_return_val_if_fail(IS_VIDEO_WIDGET(self), FALSE);
-    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), FALSE);
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-
-    /* on double click */
-    if (event->type == GDK_2BUTTON_PRESS) {
-        if (priv->fullscreen_window) {
-            /* destroy the fullscreen */
-            gtk_widget_destroy(priv->fullscreen_window);
-        } else {
-            /* pause rendering in this window and create fullscreen */
-            video_widget_pause_rendering(VIDEO_WIDGET(priv->video_widget), TRUE);
-
-            priv->fullscreen_window = video_window_new(priv->call,
-                GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))));
-
-            /* connect to destruction of fullscreen so we know when to un-pause
-             * the rendering in thiw window */
-            g_signal_connect_swapped(priv->fullscreen_window,
-                                     "destroy",
-                                     G_CALLBACK(on_fullscreen_destroy),
-                                     view);
-
-            /* present the fullscreen widnow */
-            gtk_window_present(GTK_WINDOW(priv->fullscreen_window));
-            gtk_window_fullscreen(GTK_WINDOW(priv->fullscreen_window));
-        }
-    }
-
-    /* the event has been fully handled */
-    return TRUE;
 }
 
 static void
@@ -513,6 +476,22 @@ parse_chat_model(QAbstractItemModel *model, CurrentCallView *self)
         }
     );
 }
+
+static gboolean
+on_button_press_in_video_event(GtkWidget *self, GdkEventButton *event, CurrentCallView *view)
+{
+    g_return_val_if_fail(IS_VIDEO_WIDGET(self), FALSE);
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), FALSE);
+
+    /* on double click */
+    if (event->type == GDK_2BUTTON_PRESS) {
+        g_debug("double click in video");
+        g_signal_emit(G_OBJECT(view), current_call_view_signals[VIDEO_DOUBLE_CLICKED], 0);
+    }
+
+    return GDK_EVENT_PROPAGATE;
+}
+
 
 void
 monitor_incoming_message(CurrentCallView *self, Media::Text *media)
