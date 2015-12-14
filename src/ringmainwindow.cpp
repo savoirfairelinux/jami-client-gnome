@@ -136,6 +136,9 @@ struct _RingMainWindowPrivate
     ActiveItemProxyModel *q_contact_model;
     QSortFilterProxyModel *q_history_model;
     NumberCompletionModel *q_completion_model;
+
+    /* fullscreen */
+    gboolean is_fullscreen;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -143,13 +146,55 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATIO
 #define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
 
 static void
-call_selection_changed(const QModelIndex& idx, gpointer win)
+enter_full_screen(RingMainWindow *self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    if (!priv->is_fullscreen) {
+        gtk_widget_hide(priv->vbox_left_pane);
+        gtk_window_fullscreen(GTK_WINDOW(self));
+        priv->is_fullscreen = TRUE;
+    }
+}
+
+static void
+leave_full_screen(RingMainWindow *self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    if (priv->is_fullscreen) {
+        gtk_widget_show(priv->vbox_left_pane);
+        gtk_window_unfullscreen(GTK_WINDOW(self));
+        priv->is_fullscreen = FALSE;
+    }
+}
+
+static void
+video_double_clicked(CurrentCallView *view, RingMainWindow *self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    if (priv->is_fullscreen) {
+        leave_full_screen(self);
+    } else {
+        enter_full_screen(self);
+    }
+}
+
+static void
+call_selection_changed(const QModelIndex& idx, RingMainWindow *win)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(win));
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
     /* get the current visible stack child */
     GtkWidget *old_call_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+
+    /* make sure we leave full screen, since the call selection is changing */
+    leave_full_screen(win);
 
     if (idx.isValid()) {
         QVariant state =  idx.data(static_cast<int>(Call::Role::LifeCycleState));
@@ -179,6 +224,7 @@ call_selection_changed(const QModelIndex& idx, gpointer win)
         gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
         gtk_container_add(GTK_CONTAINER(priv->frame_call), new_call_view);
         gtk_widget_show(new_call_view);
+        g_signal_connect(new_call_view, "video-double-clicked", G_CALLBACK(video_double_clicked), win);
         g_free(new_call_view_name);
     } else {
         /* nothing selected in the call model, so show the default screen */
@@ -188,7 +234,7 @@ call_selection_changed(const QModelIndex& idx, gpointer win)
 }
 
 static void
-call_state_changed(Call *call, gpointer win)
+call_state_changed(Call *call, RingMainWindow *win)
 {
     g_debug("call state changed");
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
@@ -225,10 +271,12 @@ call_state_changed(Call *call, gpointer win)
                     gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
                     gtk_container_add(GTK_CONTAINER(priv->frame_call), new_call_view);
                     gtk_widget_show(new_call_view);
+                    g_signal_connect(new_call_view, "video-double-clicked", G_CALLBACK(video_double_clicked), win);
                 }
                 break;
             case Call::LifeCycleState::FINISHED:
-                /* do nothing, either call view is valid for this state */
+                /* leave fullscreen if call is over */
+                leave_full_screen(win);
                 break;
             case Call::LifeCycleState::COUNT__:
                 g_warning("LifeCycleState should never be COUNT");
