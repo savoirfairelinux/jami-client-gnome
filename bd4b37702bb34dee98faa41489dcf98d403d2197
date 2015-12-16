@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_61124064",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2015-12-16T15:06:56Z",
+      "side": 1,
+      "message": "I found the method a bit hacky...",
+      "range": {
+        "startLine": 368,
+        "startChar": 8,
+        "endLine": 368,
+        "endChar": 51
+      },
+      "revId": "bd4b37702bb34dee98faa41489dcf98d403d2197",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
