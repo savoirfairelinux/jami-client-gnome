@@ -31,6 +31,7 @@
 #include "currentcallview.h"
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include <call.h>
 #include <callmodel.h>
 #include "utils/drawing.h"
@@ -83,6 +84,13 @@ struct _CurrentCallViewPrivate
     GtkWidget *entry_chat_input;
     GtkWidget *scrolledwindow_chat;
     GtkWidget *button_hangup;
+    GtkWidget *scalebutton_quality;
+    GtkWidget *checkbutton_autoquality;
+
+    /* flag used to keep track of the video quality scale pressed state;
+     * we do not want to update the codec bitrate until the user releases the
+     * scale button */
+    gboolean quality_scale_pressed;
 
     Call *call;
 
@@ -276,6 +284,152 @@ video_widget_focus(GtkWidget *widget, GtkDirectionType direction, CurrentCallVie
     return FALSE;
 }
 
+static GtkBox *
+gtk_scale_button_get_box(GtkScaleButton *button)
+{
+    GtkWidget *box = NULL;
+    if (auto dock = gtk_scale_button_get_popup(button)) {
+        // the dock is a popover which contains the box
+        box = gtk_bin_get_child(GTK_BIN(dock));
+        if (box) {
+            if (GTK_IS_FRAME(box)) {
+                // support older versions of gtk; the box used to be in a frame
+                box = gtk_bin_get_child(GTK_BIN(box));
+            }
+        }
+    }
+
+    return GTK_BOX(box);
+}
+
+/**
+ * This gets the GtkScaleButtonScale widget (which is a GtkScale) from the
+ * given GtkScaleButton in order to be able to modify its properties and connect
+ * to its signals
+ */
+static GtkScale *
+gtk_scale_button_get_scale(GtkScaleButton *button)
+{
+    GtkScale *scale = NULL;
+
+    if (auto box = gtk_scale_button_get_box(button)) {
+        GList *children = gtk_container_get_children(GTK_CONTAINER(box));
+        for (GList *c = children; c && !scale; c = c->next) {
+            if (GTK_IS_SCALE(c->data))
+                scale = GTK_SCALE(c->data);
+        }
+        g_list_free(children);
+    }
+
+    return scale;
+}
+
+static void
+set_quality(Call *call, gboolean auto_quality_on, double desired_quality)
+{
+    /* set auto quality true or false, also set the bitrate and quality values;
+     * the slider is from 0 to 100, use the min and max vals to scale each value accordingly */
+    if (const auto& codecModel = call->account()->codecModel()) {
+        const auto& videoCodecs = codecModel->videoCodecs();
+
+        for (int i=0; i < videoCodecs->rowCount();i++) {
+            const auto& idx = videoCodecs->index(i,0);
+
+            if (auto_quality_on) {
+                g_debug("enable auto quality");
+                videoCodecs->setData(idx, "true", CodecModel::Role::AUTO_QUALITY_ENABLED);
+            } else {
+                auto min_bitrate = idx.data(static_cast<int>(CodecModel::Role::MIN_BITRATE)).toInt();
+                auto max_bitrate = idx.data(static_cast<int>(CodecModel::Role::MAX_BITRATE)).toInt();
+                auto min_quality = idx.data(static_cast<int>(CodecModel::Role::MIN_QUALITY)).toInt();
+                auto max_quality = idx.data(static_cast<int>(CodecModel::Role::MAX_QUALITY)).toInt();
+
+                g_debug("bitrate min: %d, max: %d, quality min: %d, max: %d", min_bitrate, max_bitrate, min_quality, max_quality);
+
+                double bitrate;
+                bitrate = min_bitrate + (double)(max_bitrate - min_bitrate)*(desired_quality/100.0);
+                if (bitrate < 0) bitrate = 0;
+
+                double quality;
+                // note: a lower value means higher quality
+                quality = (double)min_quality - (min_quality - max_quality)*(desired_quality/100.0);
+                if (quality < 0) quality = 0;
+
+                g_debug("disable auto quality; %% quality: %d; bitrate: %d; quality: %d", (int)desired_quality, (int)bitrate, (int)quality);
+                videoCodecs->setData(idx, "false", CodecModel::Role::AUTO_QUALITY_ENABLED);
+                videoCodecs->setData(idx, QString::number((int)bitrate), CodecModel::Role::BITRATE);
+                videoCodecs->setData(idx, QString::number((int)quality), CodecModel::Role::QUALITY);
+            }
+        }
+        codecModel << CodecModel::EditAction::SAVE;
+    }
+}
+
+static void
+autoquality_toggled(GtkToggleButton *button, CurrentCallView *self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    gboolean auto_quality_on = gtk_toggle_button_get_active(button);
+
+    auto scale = gtk_scale_button_get_scale(GTK_SCALE_BUTTON(priv->scalebutton_quality));
+    auto plus_button = gtk_scale_button_get_plus_button(GTK_SCALE_BUTTON(priv->scalebutton_quality));
+    auto minus_button = gtk_scale_button_get_minus_button(GTK_SCALE_BUTTON(priv->scalebutton_quality));
+
+    gtk_widget_set_sensitive(GTK_WIDGET(scale), !auto_quality_on);
+    gtk_widget_set_sensitive(plus_button, !auto_quality_on);
+    gtk_widget_set_sensitive(minus_button, !auto_quality_on);
+
+    double desired_quality = gtk_scale_button_get_value(GTK_SCALE_BUTTON(priv->scalebutton_quality));
+
+    if (priv->call)
+        set_quality(priv->call, auto_quality_on, desired_quality);
+}
+
+static void
+quality_changed(GtkScaleButton *button, G_GNUC_UNUSED gdouble value, CurrentCallView *self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    /* no need to upate quality if auto quality is enabled */
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality))) return;
+
+    /* only update if the scale button is released, to reduce the number of updates */
+    if (priv->quality_scale_pressed) return;
+
+    /* we get the value directly from the widget, in case this function is not
+     * called from the event */
+    if (priv->call)
+        set_quality(priv->call, FALSE, gtk_scale_button_get_value(button));
+}
+
+static gboolean
+quality_button_pressed(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent *event, CurrentCallView *self)
+{
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), FALSE);
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    priv->quality_scale_pressed = TRUE;
+
+    return GDK_EVENT_PROPAGATE;
+}
+
+static gboolean
+quality_button_released(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent *event, CurrentCallView *self)
+{
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), FALSE);
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    priv->quality_scale_pressed = FALSE;
+
+    /* now make sure the quality gets updated */
+    quality_changed(GTK_SCALE_BUTTON(priv->scalebutton_quality), 0, self);
+
+    return GDK_EVENT_PROPAGATE;
+}
+
 static void
 current_call_view_init(CurrentCallView *view)
 {
@@ -339,6 +493,22 @@ current_call_view_init(CurrentCallView *view)
                                  G_SETTINGS_BIND_GET,
                                  map_boolean_to_orientation,
                                  nullptr, nullptr, nullptr);
+
+    g_signal_connect(priv->scalebutton_quality, "value-changed", G_CALLBACK(quality_changed), view);
+    /* customize the quality button scale */
+    if (auto scale_box = gtk_scale_button_get_box(GTK_SCALE_BUTTON(priv->scalebutton_quality))) {
+        priv->checkbutton_autoquality = gtk_check_button_new_with_label(C_("Enable automatic video quality", "Auto"));
+        gtk_widget_show(priv->checkbutton_autoquality);
+        gtk_box_pack_start(GTK_BOX(scale_box), priv->checkbutton_autoquality, FALSE, TRUE, 0);
+        g_signal_connect(priv->checkbutton_autoquality, "toggled", G_CALLBACK(autoquality_toggled), view);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality), TRUE);
+    }
+    if (auto scale = gtk_scale_button_get_scale(GTK_SCALE_BUTTON(priv->scalebutton_quality))) {
+        g_signal_connect(scale, "button-press-event", G_CALLBACK(quality_button_pressed), view);
+        g_signal_connect(scale, "button-release-event", G_CALLBACK(quality_button_released), view);
+    }
+
+
 }
 
 static void
@@ -364,6 +534,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, entry_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scrolledwindow_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scalebutton_quality);
 
     current_call_view_signals[VIDEO_DOUBLE_CLICKED] = g_signal_new (
         "video-double-clicked",
@@ -606,4 +777,28 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     /* check if there were any chat notifications and open the chat view if so */
     if (ring_notify_close_chat_notification(priv->call))
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
+
+    /* check if auto quality is enabled or not;
+     * if it is disabled, assume that the bitrate has been manually set previously (so use the
+     * bitrate value of the first codec to set the current quality value)
+     */
+    if (const auto& codecModel = priv->call->account()->codecModel()) {
+        const auto& videoCodecs = codecModel->videoCodecs();
+        if (videoCodecs->rowCount() > 0) {
+            const auto& idx = videoCodecs->index(0,0);
+            auto auto_quality_enabled = idx.data(static_cast<int>(CodecModel::Role::AUTO_QUALITY_ENABLED)).toString() == "true";
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality), auto_quality_enabled);
+
+            if (!auto_quality_enabled) {
+                auto min_bitrate = idx.data(static_cast<int>(CodecModel::Role::MIN_BITRATE)).toDouble();
+                auto max_bitrate = idx.data(static_cast<int>(CodecModel::Role::MAX_BITRATE)).toDouble();
+                auto bitrate = idx.data(static_cast<int>(CodecModel::Role::BITRATE)).toDouble();
+
+
+                double value = ((bitrate - min_bitrate) / (max_bitrate - min_bitrate)) * 100.0;
+                g_debug("bitrate min: %lf, max: %lf, current: %lf, setting quality scale: %lf", min_bitrate, max_bitrate, bitrate, value);
+                gtk_scale_button_set_value(GTK_SCALE_BUTTON(priv->scalebutton_quality), value);
+            }
+        }
+    }
 }
