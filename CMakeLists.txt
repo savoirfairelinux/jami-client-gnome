@@ -228,8 +228,6 @@ SET( SRC_FILES
    src/utils/calling.cpp
    src/ringnotify.h
    src/ringnotify.cpp
-   src/video/videowindow.h
-   src/video/videowindow.cpp
    src/utils/files.h
    src/utils/files.cpp
    ${GIT_REVISION_OUTPUT_FILE}
