@@ -44,7 +44,6 @@
 #include <media/text.h>
 #include <media/textrecording.h>
 #include "models/gtkqtreemodel.h"
-#include "video/videowindow.h"
 #include "ringnotify.h"
 #include <audio/codecmodel.h>
 #include <account.h>
