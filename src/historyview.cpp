@@ -308,55 +308,39 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 }
 
 static void
-render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
-            GtkCellRenderer *cell,
-            GtkTreeModel *tree_model,
-            GtkTreeIter *iter,
-            G_GNUC_UNUSED gpointer data)
+render_date_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                 GtkCellRenderer *cell,
+                 GtkTreeModel *tree_model,
+                 GtkTreeIter *iter,
+                 GtkTreeView *treeview)
 {
-    /**
-     * If call, show the the time;
-     * if category, don't show anything.
-     */
-    GtkTreePath *path = gtk_tree_model_get_path(tree_model, iter);
-    int depth = gtk_tree_path_get_depth(path);
-    gtk_tree_path_free(path);
-
-    gchar *text = NULL;
-
-    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
-    if (idx.isValid() && depth == 2) {
-        QVariant var_d = idx.data(static_cast<int>(Call::Role::DateTime));
-        QDateTime date_time = var_d.value<QDateTime>();
-        text = g_strdup_printf("%s", date_time.time().toString().toUtf8().constData());
+    // check if this iter is selected
+    gboolean is_selected = FALSE;
+    if (GTK_IS_TREE_VIEW(treeview)) {
+        auto selection = gtk_tree_view_get_selection(treeview);
+        is_selected = gtk_tree_selection_iter_is_selected(selection, iter);
     }
 
-    g_object_set(G_OBJECT(cell), "markup", text, NULL);
-    g_free(text);
-}
-
-static void
-render_date(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
-            GtkCellRenderer *cell,
-            GtkTreeModel *tree_model,
-            GtkTreeIter *iter,
-            G_GNUC_UNUSED gpointer data)
-{
-    /**
-     * If call, show the date;
-     * if category, don't show anything.
-     */
-    GtkTreePath *path = gtk_tree_model_get_path(tree_model, iter);
-    int depth = gtk_tree_path_get_depth(path);
-    gtk_tree_path_free(path);
-
     gchar *text = NULL;
 
     QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
-    if (idx.isValid() && depth == 2) {
-        QVariant var_d = idx.data(static_cast<int>(Call::Role::DateTime));
+    QVariant var_d = idx.data(static_cast<int>(Call::Role::DateTime));
+    if (idx.isValid() && var_d.isValid()) {
         QDateTime date_time = var_d.value<QDateTime>();
-        text = g_strdup_printf("%s", date_time.date().toString().toUtf8().constData());
+
+        /* we want the color of the text to be the default color if this iter is
+         * selected so that the treeview is able to invert it against the selection color */
+        if (is_selected) {
+            text = g_strdup_printf("%s\n%s",
+                                   date_time.time().toString().toUtf8().constData(),
+                                   date_time.date().toString().toUtf8().constData()
+            );
+        } else {
+            text = g_strdup_printf("%s\n<span fgcolor=\"gray\">%s</span>",
+                                   date_time.time().toString().toUtf8().constData(),
+                                   date_time.date().toString().toUtf8().constData()
+            );
+        }
     }
 
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
@@ -439,32 +423,20 @@ history_view_init(HistoryView *self)
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_expand(column, TRUE);
 
-    /* date column */
+    /* date time column */
     area = gtk_cell_area_box_new();
     column = gtk_tree_view_column_new_with_area(area);
     gtk_tree_view_column_set_title(column, C_("Call history", "Date"));
 
-    /* time renderer */
+    /* date time renderer */
     renderer = gtk_cell_renderer_text_new ();
     gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
     /* format the time*/
     gtk_tree_view_column_set_cell_data_func(
         column,
         renderer,
-        (GtkTreeCellDataFunc)render_time,
-        NULL,
-        NULL);
-
-    /* date renderer */
-    renderer = gtk_cell_renderer_text_new ();
-    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
-    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    /* format the date */
-    gtk_tree_view_column_set_cell_data_func(
-        column,
-        renderer,
-        (GtkTreeCellDataFunc)render_date,
-        NULL,
+        (GtkTreeCellDataFunc)render_date_time,
+        self,
         NULL);
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
