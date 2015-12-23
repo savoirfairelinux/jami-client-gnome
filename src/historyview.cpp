@@ -326,9 +326,8 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
     QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
     if (idx.isValid() && depth == 2) {
-        QVariant var_d = idx.data(static_cast<int>(Call::Role::Date));
-        time_t time = var_d.value<time_t>();
-        QDateTime date_time = QDateTime::fromTime_t(time);
+        QVariant var_d = idx.data(static_cast<int>(Call::Role::DateTime));
+        QDateTime date_time = var_d.value<QDateTime>();
         text = g_strdup_printf("%s", date_time.time().toString().toUtf8().constData());
     }
 
@@ -355,9 +354,8 @@ render_date(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
     QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
     if (idx.isValid() && depth == 2) {
-        QVariant var_d = idx.data(static_cast<int>(Call::Role::Date));
-        time_t time = var_d.value<time_t>();
-        QDateTime date_time = QDateTime::fromTime_t(time);
+        QVariant var_d = idx.data(static_cast<int>(Call::Role::DateTime));
+        QDateTime date_time = var_d.value<QDateTime>();
         text = g_strdup_printf("%s", date_time.date().toString().toUtf8().constData());
     }
 
@@ -383,8 +381,8 @@ history_view_init(HistoryView *self)
     priv->q_sorted_proxy->categorySelectionModel()->setCurrentIndex(
         priv->q_sorted_proxy->categoryModel()->index(0, 0),
         QItemSelectionModel::ClearAndSelect);
-    /* make sure it is sorted in descending order */
-    priv->q_sorted_proxy->model()->sort(0, Qt::DescendingOrder);
+    /* make sure it is sorted so that newest calls are at the top */
+    priv->q_sorted_proxy->model()->sort(0, Qt::AscendingOrder);
 
     GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new(
         priv->q_sorted_proxy->model(),
