@@ -240,6 +240,7 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             break;
             case Ring::ObjectType::Media:
             // nothing to do for now
+            case Ring::ObjectType::COUNT__:
             break;
         }
     }
@@ -293,6 +294,7 @@ render_call_duration(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             break;
             case Ring::ObjectType::Media:
             // nothing to do for now
+            case Ring::ObjectType::COUNT__:
             break;
         }
     }
@@ -347,6 +349,7 @@ activate_item(GtkTreeView *tree_view,
                 case Ring::ObjectType::Call:
                 case Ring::ObjectType::Media:
                 // nothing to do for now
+                case Ring::ObjectType::COUNT__:
                 break;
             }
         }
@@ -420,6 +423,7 @@ create_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gp
             case Ring::ObjectType::Call:
             case Ring::ObjectType::Media:
             // nothing to do for now
+            case Ring::ObjectType::COUNT__:
             break;
         }
     }
@@ -474,6 +478,7 @@ create_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gp
             case Ring::ObjectType::ContactMethod:
             case Ring::ObjectType::Call:
             case Ring::ObjectType::Media:
+            {
                 QVariant number_var = idx.data(static_cast<int>(Ring::Role::Number));
                 if (number_var.isValid()) {
                     gchar *number = g_strdup_printf("%s", number_var.value<QString>().toUtf8().constData());
@@ -485,6 +490,9 @@ create_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gp
                                      G_CALLBACK(copy_contact_info),
                                      NULL);
                 }
+            }
+            break;
+            case Ring::ObjectType::COUNT__:
             break;
         }
     }
