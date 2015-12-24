@@ -119,7 +119,7 @@ gtk_combo_box_set_active_index(GtkComboBox *box, const QModelIndex& idx)
         if (GTK_IS_TREE_MODEL_FILTER(filter_model))
             model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(filter_model));
 
-        gboolean valid;
+        gboolean valid = FALSE;
         if (GTK_IS_Q_TREE_MODEL(model)) {
             valid = gtk_q_tree_model_source_index_to_iter(
                 GTK_Q_TREE_MODEL(model), idx, &new_iter);
