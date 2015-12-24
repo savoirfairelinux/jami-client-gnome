@@ -172,7 +172,7 @@ leave_full_screen(RingMainWindow *self)
 }
 
 static void
-video_double_clicked(CurrentCallView *view, RingMainWindow *self)
+video_double_clicked(G_GNUC_UNUSED CurrentCallView *view, RingMainWindow *self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
@@ -216,6 +216,7 @@ call_selection_changed(const QModelIndex& idx, RingMainWindow *win)
                 break;
             case Call::LifeCycleState::PROGRESS:
                 new_call_view = current_call_view_new();
+                g_signal_connect(new_call_view, "video-double-clicked", G_CALLBACK(video_double_clicked), win);
                 current_call_view_set_call_info(CURRENT_CALL_VIEW(new_call_view), idx);
                 /* use the pointer of the call as a unique name */
                 new_call_view_name = g_strdup_printf("%p_current", (void *)CallModel::instance().getCall(idx));
@@ -228,7 +229,6 @@ call_selection_changed(const QModelIndex& idx, RingMainWindow *win)
         gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
         gtk_container_add(GTK_CONTAINER(priv->frame_call), new_call_view);
         gtk_widget_show(new_call_view);
-        g_signal_connect(new_call_view, "video-double-clicked", G_CALLBACK(video_double_clicked), win);
         g_free(new_call_view_name);
     } else {
         /* nothing selected in the call model, so show the default screen */
