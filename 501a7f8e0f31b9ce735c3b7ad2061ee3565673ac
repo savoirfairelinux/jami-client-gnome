@@ -22,6 +22,30 @@
       "revId": "501a7f8e0f31b9ce735c3b7ad2061ee3565673ac",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_42094230",
+        "filename": "src/historyview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 32
+      },
+      "writtenOn": "2016-01-04T17:18:11Z",
+      "side": 1,
+      "message": "Nevermind that\u0027s overkill",
+      "parentUuid": "1a9dcd25_62123e64",
+      "range": {
+        "startLine": 329,
+        "startChar": 30,
+        "endLine": 329,
+        "endChar": 55
+      },
+      "revId": "501a7f8e0f31b9ce735c3b7ad2061ee3565673ac",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
