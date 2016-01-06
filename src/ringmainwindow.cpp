@@ -64,6 +64,7 @@
 #include "utils/accounts.h"
 #include "ringwelcomeview.h"
 #include "recentcontactsview.h"
+#include <recentmodel.h>
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* CREATE_ACCOUNT_1_VIEW_NAME = "create1";
@@ -200,8 +201,10 @@ call_selection_changed(const QModelIndex& idx, RingMainWindow *win)
     /* make sure we leave full screen, since the call selection is changing */
     leave_full_screen(win);
 
-    if (idx.isValid()) {
-        QVariant state =  idx.data(static_cast<int>(Call::Role::LifeCycleState));
+    /* show the call if there is one associated with this index */
+    auto call_idx = CallModel::instance().getIndex(RecentModel::instance().getActiveCall(idx));
+    if (call_idx.isValid()) {
+        QVariant state =  call_idx.data(static_cast<int>(Call::Role::LifeCycleState));
         GtkWidget *new_call_view = NULL;
         char* new_call_view_name = NULL;
 
@@ -210,16 +213,16 @@ call_selection_changed(const QModelIndex& idx, RingMainWindow *win)
             case Call::LifeCycleState::INITIALIZATION:
             case Call::LifeCycleState::FINISHED:
                 new_call_view = incoming_call_view_new();
-                incoming_call_view_set_call_info(INCOMING_CALL_VIEW(new_call_view), idx);
+                incoming_call_view_set_call_info(INCOMING_CALL_VIEW(new_call_view), call_idx);
                 /* use the pointer of the call as a unique name */
-                new_call_view_name = g_strdup_printf("%p_incoming", (void *)CallModel::instance().getCall(idx));
+                new_call_view_name = g_strdup_printf("%p_incoming", (void *)CallModel::instance().getCall(call_idx));
                 break;
             case Call::LifeCycleState::PROGRESS:
                 new_call_view = current_call_view_new();
                 g_signal_connect(new_call_view, "video-double-clicked", G_CALLBACK(video_double_clicked), win);
-                current_call_view_set_call_info(CURRENT_CALL_VIEW(new_call_view), idx);
+                current_call_view_set_call_info(CURRENT_CALL_VIEW(new_call_view), call_idx);
                 /* use the pointer of the call as a unique name */
-                new_call_view_name = g_strdup_printf("%p_current", (void *)CallModel::instance().getCall(idx));
+                new_call_view_name = g_strdup_printf("%p_current", (void *)CallModel::instance().getCall(call_idx));
                 break;
             case Call::LifeCycleState::COUNT__:
                 g_warning("LifeCycleState should never be COUNT");
@@ -406,7 +409,8 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
 
         /* show the call view, if there is a call in progress */
-        call_selection_changed(CallModel::instance().selectionModel()->currentIndex(), win);
+        // call_selection_changed(CallModel::instance().selectionModel()->currentIndex(), win);
+        call_selection_changed(RecentModel::instance().selectionModel()->currentIndex(), win);
     }
 }
 
@@ -883,11 +887,28 @@ ring_main_window_init(RingMainWindow *win)
     gtk_widget_show(priv->welcome_view);
 
     /* call selection */
+    // QObject::connect(
+    //    CallModel::instance().selectionModel(),
+    //    &QItemSelectionModel::currentChanged,
+    //    [win](const QModelIndex current, G_GNUC_UNUSED const QModelIndex & previous) {
+    //         if (auto call = CallModel::instance().getCall(current)) {
+    //             /* if the call is on hold, we want to put it off hold automatically
+    //              * when switching to it */
+    //             if (call->state() == Call::State::HOLD)
+    //                 call << Call::Action::HOLD;
+    //
+    //             /* this is a bit of a hack, as for some reason the call is not in the correct
+    //              * state in the UserActionModel when the selection model switches calls by itself */
+    //             CallModel::instance().selectCall(call);
+    //         }
+    //         call_selection_changed(current, win);
+    //     }
+    // );
     QObject::connect(
-       CallModel::instance().selectionModel(),
+       RecentModel::instance().selectionModel(),
        &QItemSelectionModel::currentChanged,
        [win](const QModelIndex current, G_GNUC_UNUSED const QModelIndex & previous) {
-            if (auto call = CallModel::instance().getCall(current)) {
+            if (auto call = RecentModel::instance().getActiveCall(current)) {
                 /* if the call is on hold, we want to put it off hold automatically
                  * when switching to it */
                 if (call->state() == Call::State::HOLD)
@@ -895,8 +916,9 @@ ring_main_window_init(RingMainWindow *win)
 
                 /* this is a bit of a hack, as for some reason the call is not in the correct
                  * state in the UserActionModel when the selection model switches calls by itself */
-                CallModel::instance().selectCall(call);
+                // CallModel::instance().selectCall(call);
             }
+            // auto current_proxy = RecentModel::instance().peopleProxy()->mapFromSource(current);
             call_selection_changed(current, win);
         }
     );
