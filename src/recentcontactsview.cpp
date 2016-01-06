@@ -68,10 +68,15 @@ G_DEFINE_TYPE_WITH_PRIVATE(RecentContactsView, recent_contacts_view, GTK_TYPE_TR
 #define RECENT_CONTACTS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RECENT_CONTACTS_VIEW_TYPE, RecentContactsViewPrivate))
 
 static void
-update_call_model_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer user_data)
+update_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer user_data)
 {
+    g_debug("Recent tree view selection updated");
     auto current_proxy = get_index_from_selection(selection);
     auto current = RecentModel::instance().peopleProxy()->mapToSource(current_proxy);
+
+    RecentModel::instance().selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
+
+    // update the CallModel selection since we rely on the UserActionModel
     if (auto call_to_select = RecentModel::instance().getActiveCall(current)) {
         CallModel::instance().selectCall(call_to_select);
     } else {
@@ -764,33 +769,27 @@ recent_contacts_view_init(RecentContactsView *self)
     g_signal_connect(recent_model, "row-inserted", G_CALLBACK(expand_if_child), self);
 
     GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
-    g_signal_connect(selection, "changed", G_CALLBACK(update_call_model_selection), NULL);
+    // g_signal_connect(selection, "changed", G_CALLBACK(update_call_model_selection), NULL);
+    g_signal_connect(selection, "changed", G_CALLBACK(update_selection), NULL);
     g_signal_connect(selection, "changed", G_CALLBACK(scroll_to_selection), NULL);
     g_signal_connect_swapped(recent_model, "rows-reordered", G_CALLBACK(scroll_to_selection), selection);
 
-    /* try to select the same call as the call model */
+    /* update the selection based on the RecentModel */
     priv->selection_updated = QObject::connect(
-        CallModel::instance().selectionModel(),
+        RecentModel::instance().selectionModel(),
         &QItemSelectionModel::currentChanged,
         [self, recent_model](const QModelIndex current, G_GNUC_UNUSED const QModelIndex & previous) {
+
+            g_debug("Recent Model selection updated\n");
+
             GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
 
-            /* select the current */
-            auto call = CallModel::instance().getCall(current);
-            auto recent_idx = RecentModel::instance().getIndex(call);
-            if (recent_idx.isValid()) {
-                QModelIndex proxy_selection; // the index to select in the peopleProxy
-                if (RecentModel::instance().rowCount(recent_idx.parent()) > 1) {
-                    proxy_selection = RecentModel::instance().peopleProxy()->mapFromSource(recent_idx);
-                } else {
-                    // if single call, select the parent
-                    proxy_selection = RecentModel::instance().peopleProxy()->mapFromSource(recent_idx.parent());
-                }
+            auto current_proxy = RecentModel::instance().peopleProxy()->mapFromSource(current);
 
-                GtkTreeIter new_iter;
-                if (gtk_q_sort_filter_tree_model_source_index_to_iter(recent_model, proxy_selection, &new_iter)) {
-                    gtk_tree_selection_select_iter(selection, &new_iter);
-                }
+            /* select the current */
+            GtkTreeIter new_iter;
+            if (gtk_q_sort_filter_tree_model_source_index_to_iter(recent_model, current_proxy, &new_iter)) {
+                gtk_tree_selection_select_iter(selection, &new_iter);
             }
         }
     );
