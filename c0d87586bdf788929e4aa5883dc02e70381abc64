@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_cc4d8474",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 32
+      },
+      "writtenOn": "2016-01-08T15:04:12Z",
+      "side": 1,
+      "message": "Since their is no way to know which codec is effectively in use taking the first one seems wrong.",
+      "range": {
+        "startLine": 785,
+        "startChar": 5,
+        "endLine": 802,
+        "endChar": 5
+      },
+      "revId": "c0d87586bdf788929e4aa5883dc02e70381abc64",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
