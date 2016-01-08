@@ -59,6 +59,10 @@ public:
     QVariant   historySortingCategoryIcon(const CategorizedHistoryModel::SortedProxy::Categories cat) const override;
     QVariant   contactSortingCategoryIcon(const CategorizedContactModel::SortedProxy::Categories cat) const override;
     QVariant   userActionIcon(const UserActionElement& state) const override;
+    QVariant   decorationRole(const QModelIndex& index) override;
+    QVariant   decorationRole(const Call* c) override;
+    QVariant   decorationRole(const ContactMethod* cm) override;
+    QVariant   decorationRole(const Person* p) override;
 
 private:
     std::shared_ptr<GdkPixbuf> scaleAndFrame(const GdkPixbuf *photo, const QSize& size);

@@ -224,4 +224,28 @@ PixbufManipulator::userActionIcon(const UserActionElement& state) const
     return QVariant();
 }
 
+QVariant PixbufManipulator::decorationRole(const QModelIndex& index)
+{
+    Q_UNUSED(index)
+    return QVariant();
+}
+
+QVariant PixbufManipulator::decorationRole(const Call* c)
+{
+    Q_UNUSED(c)
+    return QVariant();
+}
+
+QVariant PixbufManipulator::decorationRole(const ContactMethod* cm)
+{
+    Q_UNUSED(cm)
+    return QVariant();
+}
+
+QVariant PixbufManipulator::decorationRole(const Person* p)
+{
+    Q_UNUSED(p)
+    return QVariant();
+}
+
 } // namespace Interfaces
