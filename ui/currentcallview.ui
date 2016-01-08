@@ -6,7 +6,7 @@
 
     <!-- start of Paned container which splits the video/controls and the chat -->
     <child>
-      <object class="GtkPaned" id="paned_chat">
+      <object class="GtkPaned" id="paned_call">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
 
@@ -23,70 +23,21 @@
             <property name="resize">True</property>
           </packing>
         </child>
-        <!-- end of video widget -->
+        <!-- end of video widget frame -->
 
-        <!-- chat container -->
+        <!-- chat widget goes in this frame -->
         <child>
-          <object class="GtkBox" id="vbox_chat">
+          <object class="GtkFrame" id="frame_chat">
             <property name="visible">False</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">5</property>
-            <!-- start of chat text view -->
-            <child>
-              <object class="GtkScrolledWindow" id="scrolledwindow_chat">
-                <property name="visible">True</property>
-                <child>
-                  <object class="GtkTextView" id="textview_chat">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="editable">False</property>
-                    <property name="wrap-mode">word-char</property>
-                    <property name="left-margin">5</property>
-                    <property name="right-margin">5</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-            <!-- end of chat text view -->
-            <!-- start of chat entry -->
-            <child>
-              <object class="GtkBox" id="hbox_chat_input">
-                <property name="visible">True</property>
-                <property name="orientation">horizontal</property>
-                <property name="spacing">5</property>
-                <child>
-                  <object class="GtkEntry" id="entry_chat_input">
-                    <property name="visible">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="button_chat_input">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">Send</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-              </packing>
-            </child>
-            <!-- end of chat entry -->
+            <property name="shadow-type">GTK_SHADOW_NONE</property>
           </object>
           <packing>
             <property name="shrink">False</property>
-            <property name="resize">False</property>
+            <property name="resize">True</property>
           </packing>
         </child>
-        <!-- end of chat container -->
+        <!-- end of chat frame -->
+
       </object>
       <packing>
         <property name="expand">True</property>
