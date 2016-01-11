@@ -3,7 +3,47 @@
   <requires lib="gtk+" version="3.10"/>
   <template class="ChatView" parent="GtkBox">
     <property name="orientation">vertical</property>
-    <property name="spacing">5</property>
+
+    <!-- chat info (only show for out of call conversations) -->
+    <child>
+      <object class="GtkBox" id="hbox_chat_info">
+        <property name="visible">False</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">5</property>
+        <property name="border-width">5</property>
+        <child>
+          <object class="GtkLabel" id="label_peer">
+            <property name="visible">True</property>
+            <property name="selectable">True</property>
+            <property name="ellipsize">end</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBox" id="combobox_cm">
+            <property name="visible">False</property>
+            <property name="popup-fixed-width">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack-type">end</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <!-- end of chat info -->
+
     <!-- start of chat text view -->
     <child>
       <object class="GtkScrolledWindow" id="scrolledwindow_chat">
@@ -26,12 +66,12 @@
       </packing>
     </child>
     <!-- end of chat text view -->
+
     <!-- start of chat entry -->
     <child>
       <object class="GtkBox" id="hbox_chat_input">
         <property name="visible">True</property>
         <property name="orientation">horizontal</property>
-        <property name="spacing">5</property>
         <child>
           <object class="GtkEntry" id="entry_chat_input">
             <property name="visible">True</property>
@@ -53,5 +93,7 @@
         <property name="fill">True</property>
       </packing>
     </child>
+    <!-- end of chat entry -->
+
   </template>
 </interface>

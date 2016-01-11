@@ -153,7 +153,7 @@ chat_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
     if (gtk_toggle_button_get_active(togglebutton)) {
-        gtk_widget_show_all(priv->frame_chat);
+        gtk_widget_show(priv->frame_chat);
         gtk_widget_grab_focus(priv->frame_chat);
     } else {
         gtk_widget_hide(priv->frame_chat);
@@ -637,7 +637,7 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     }
 
     /* init chat view */
-    auto chat_view = chat_view_new(priv->call);
+    auto chat_view = chat_view_new_call(priv->call);
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
 
     /* check if there were any chat notifications and open the chat view if so */
