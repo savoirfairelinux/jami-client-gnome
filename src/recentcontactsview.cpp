@@ -782,7 +782,7 @@ recent_contacts_view_init(RecentContactsView *self)
 
             g_debug("Recent Model selection updated\n");
 
-            GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
+            auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
 
             auto current_proxy = RecentModel::instance().peopleProxy()->mapFromSource(current);
 
@@ -790,6 +790,9 @@ recent_contacts_view_init(RecentContactsView *self)
             GtkTreeIter new_iter;
             if (gtk_q_sort_filter_tree_model_source_index_to_iter(recent_model, current_proxy, &new_iter)) {
                 gtk_tree_selection_select_iter(selection, &new_iter);
+            } else {
+                g_debug("RecentModel peopleProxy selection is not valid");
+                gtk_tree_selection_unselect_all(selection);
             }
         }
     );
