@@ -4,6 +4,40 @@
   <template class="ChatView" parent="GtkBox">
     <property name="orientation">vertical</property>
     <property name="spacing">5</property>
+
+    <!-- chat info (only show for out of call conversations) -->
+    <child>
+      <object class="GtkBox" id="hbox_chat_info">
+        <property name="visible">False</property>
+        <property name="orientation">horizontal</property>
+        <!-- <property name="spacing">5</property> -->
+        <child>
+          <object class="GtkLabel" id="label_peer">
+            <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBox" id="combobox_cm">
+            <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack-type">end</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <!-- end of chat info -->
+
     <!-- start of chat text view -->
     <child>
       <object class="GtkScrolledWindow" id="scrolledwindow_chat">
@@ -26,6 +60,7 @@
       </packing>
     </child>
     <!-- end of chat text view -->
+
     <!-- start of chat entry -->
     <child>
       <object class="GtkBox" id="hbox_chat_input">
@@ -53,5 +88,7 @@
         <property name="fill">True</property>
       </packing>
     </child>
+    <!-- end of chat entry -->
+
   </template>
 </interface>

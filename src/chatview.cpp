@@ -47,8 +47,17 @@ struct _ChatViewPrivate
     GtkWidget *button_chat_input;
     GtkWidget *entry_chat_input;
     GtkWidget *scrolledwindow_chat;
+    GtkWidget *hbox_chat_info;
+    GtkWidget *label_peer;
+    GtkWidget *combobox_cm;
 
-    Call *call;
+    /* only one of the three following pointers should be non void;
+     * either this is an in-call chat (and so the in-call chat APIs will be used)
+     * or it is an out of call chat (and so the account chat APIs will be used)
+     */
+    Call          *call;
+    Person        *person;
+    ContactMethod *cm;
 
     QMetaObject::Connection new_message_connection;
 };
@@ -90,7 +99,18 @@ send_chat(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
     if (text && strlen(text) > 0) {
         QMap<QString, QString> messages;
         messages["text/plain"] = text;
-        priv->call->addOutgoingMedia<Media::Text>()->send(messages);
+
+        if (priv->call) {
+            priv->call->addOutgoingMedia<Media::Text>()->send(messages);
+        } else if (priv->person) {
+            // get the chosen cm
+        
+        } else if (priv->cm) {
+
+        } else {
+            g_warning("no Call, Person, or ContactMethod set to send chat");
+        }
+
         /* clear the entry */
         gtk_entry_set_text(GTK_ENTRY(priv->entry_chat_input), "");
     }
@@ -132,6 +152,9 @@ chat_view_class_init(ChatViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, entry_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, scrolledwindow_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, hbox_chat_info);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_peer);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, combobox_cm);
 
     chat_view_signals[NEW_MESSAGES_DISPLAYED] = g_signal_new (
         "new-messages-displayed",
@@ -217,15 +240,112 @@ parse_chat_model(QAbstractItemModel *model, ChatView *self)
     );
 }
 
+static void
+selected_cm_changed(GtkComboBox *box, ChatView *self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    auto cms = priv->person->phoneNumbers();
+    auto active = gtk_combo_box_get_active(box);
+    if (active > 0 && active < cms.size()) {
+        parse_chat_model(cms.at(active)->textRecording()->instantMessagingModel(), self);
+    } else {
+        g_warning("no valid ContactMethod selected to display chat conversation");
+    }
+}
+
+static void
+update_contact_methods(ChatView *self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    g_return_if_fail(priv->person);
+
+    /* model for the combobox for the choice of ContactMethods */
+    auto cm_model = gtk_list_store_new(
+        2, G_TYPE_STRING, G_TYPE_POINTER
+    );
+
+    auto cms = priv->person->phoneNumbers();
+    for (int i = 0; i < cms.size(); ++i) {
+        GtkTreeIter iter;
+        gtk_list_store_append(cm_model, &iter);
+        gtk_list_store_set(cm_model, &iter,
+                           0, cms.at(i)->uri().toUtf8().constData(),
+                           1, cms.at(i),
+                           -1);
+    }
+
+    gtk_combo_box_set_model(GTK_COMBO_BOX(priv->combobox_cm), cm_model);
+    g_object_unref(cm_model);
+
+    /* select the last used cm */
+    if (!cms.isEmpty()) {
+        auto last_used_cm = cms.at(0);
+        int last_used_cm_idx = 0;
+        for (int i = 1; i < cms.size(); ++i) {
+            auto new_cm = cms.at(i);
+            if (difftime(new_cm->lastUsed(), last_used_cm->lastUsed()) > 0) {
+                last_used_cm = new_cm;
+                last_used_cm_idx = i;
+            }
+        }
+
+        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_cm), last_used_cm_idx);
+    }
+
+    /* show the combo box if there is more than one cm to choose from */
+    if (cms.size() > 1)
+        gtk_widget_show_all(priv->hbox_chat_info);
+    else
+        gtk_widget_hide(priv->hbox_chat_info);
+}
+
 GtkWidget *
 chat_view_new(Call *call)
 {
+    g_return_val_if_fail(call, nullptr);
+
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     priv->call = call;
     auto cm = priv->call->peerContactMethod();
     parse_chat_model(cm->textRecording()->instantMessagingModel(), self);
+
+    return (GtkWidget *)self;
+}
+
+GtkWidget *
+chat_view_new(ContactMethod *cm)
+{
+    g_return_val_if_fail(cm, nullptr);
+
+    ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    priv->cm = cm;
+    parse_chat_model(priv->cm->textRecording()->instantMessagingModel(), self);
+
+    return (GtkWidget *)self;
+}
+
+GtkWidget *
+chat_view_new(Person *p)
+{
+    g_return_val_if_fail(p, nullptr);
+
+    ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    priv->person = p;
+
+    /* connect to the changed signal before setting the cm combo box, so that the correct
+     * conversation will get displayed */
+    g_signal_connect(priv->combobox_cm, "changed", G_CALLBACK(selected_cm_changed), self);
+    update_contact_methods(self);
 
     return (GtkWidget *)self;
 }

@@ -240,6 +240,9 @@ selection_changed(const QModelIndex& idx, RingMainWindow *win)
         gtk_container_add(GTK_CONTAINER(priv->frame_call), new_call_view);
         gtk_widget_show(new_call_view);
         g_free(new_call_view_name);
+    } else if (idx.isValid()) {
+        /* offer a chat view */
+        
     } else {
         /* nothing selected in the call model, so show the default screen */
         gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
