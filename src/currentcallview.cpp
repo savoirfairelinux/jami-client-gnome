@@ -637,7 +637,7 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     }
 
     /* init chat view */
-    auto chat_view = chat_view_new(priv->call);
+    auto chat_view = chat_view_new_call(priv->call);
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
 
     /* check if there were any chat notifications and open the chat view if so */

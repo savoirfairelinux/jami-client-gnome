@@ -23,6 +23,8 @@
 #include <gtk/gtk.h>
 
 class Call;
+class ContactMethod;
+class Person;
 
 G_BEGIN_DECLS
 
@@ -36,8 +38,10 @@ typedef struct _ChatView      ChatView;
 typedef struct _ChatViewClass ChatViewClass;
 
 
-GType      chat_view_get_type (void) G_GNUC_CONST;
-GtkWidget *chat_view_new      (Call* call);
+GType      chat_view_get_type   (void) G_GNUC_CONST;
+GtkWidget *chat_view_new_call   (Call* call);
+GtkWidget *chat_view_new_cm     (ContactMethod* cm);
+GtkWidget *chat_view_new_person (Person* p);
 
 G_END_DECLS
 
