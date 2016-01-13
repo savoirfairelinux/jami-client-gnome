@@ -262,21 +262,22 @@ selection_changed(const QModelIndex& recent_idx, RingMainWindow *win)
 }
 
 static void
-call_state_changed(Call *call, RingMainWindow *win)
+item_changed(const QModelIndex& recent_idx, RingMainWindow *win)
 {
-    // g_debug("call state changed");
+    // g_debug("item changed");
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
     /* if we're showing the settings, then nothing needs to be done as the call
        view is not shown */
     if (priv->show_settings) return;
 
-    /* we prioritize showing the call view; but if the call is over we go back to showing the chat view */
-
-    /* check if the call that changed state is the same as the selected call */
+    /* check if the item that changed is the same as the one selected / displayed */
     auto idx_selected = RecentModel::instance().selectionModel()->currentIndex();
 
-    if(call == RecentModel::instance().getActiveCall(idx_selected)) {
+    if (idx_selected != recent_idx) return;
+
+    /* we prioritize showing the call view; but if the call is over we go back to showing the chat view */
+    if(auto call = RecentModel::instance().getActiveCall(idx_selected)) {
         /* check if we need to change the view */
         auto current_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
         QVariant state = CallModel::instance().data(idx_selected, static_cast<int>(Call::Role::LifeCycleState));
@@ -950,21 +951,12 @@ ring_main_window_init(RingMainWindow *win)
         }
     );
 
-    /* connect to call state changes to update relevant view(s) */
+    /* connect to dataChanged of the RecentModel to see if we need to change the view */
     QObject::connect(
-        &CallModel::instance(),
-        &CallModel::callStateChanged,
-        [win](Call* call, G_GNUC_UNUSED Call::State previousState) {
-            call_state_changed(call, win);
-        }
-    );
-
-    /* also connect to the incoming call, in case the RecentModel item we already selected gets a call */
-    QObject::connect(
-        &CallModel::instance(),
-        &CallModel::incomingCall,
-        [win](Call* call) {
-            call_state_changed(call, win);
+        &RecentModel::instance(),
+        &RecentModel::dataChanged,
+        [win](const QModelIndex & topLeft, G_GNUC_UNUSED const QModelIndex & bottomRight, G_GNUC_UNUSED const QVector<int> & roles) {
+            item_changed(topLeft, win);
         }
     );
 
