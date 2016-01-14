@@ -233,6 +233,12 @@ parse_chat_model(QAbstractItemModel *model, ChatView *self)
     for (int row = 0; row < model->rowCount(); ++row) {
         QModelIndex idx = model->index(row, 0);
         print_message_to_buffer(idx, new_buffer);
+        /* make sure these messages are marked as read */
+        auto is_read = idx.data(static_cast<int>(Media::TextRecording::Role::IsRead)).toBool();
+        if (!is_read) {
+            g_debug("marking message as read");
+            model->setData(idx, true, static_cast<int>(Media::TextRecording::Role::IsRead));
+        }
     }
 
     /* append new messages */
@@ -243,6 +249,12 @@ parse_chat_model(QAbstractItemModel *model, ChatView *self)
             for (int row = first; row <= last; ++row) {
                 QModelIndex idx = model->index(row, 0, parent);
                 print_message_to_buffer(idx, gtk_text_view_get_buffer(GTK_TEXT_VIEW(priv->textview_chat)));
+                /* make sure these messages are marked as read */
+                auto is_read = idx.data(static_cast<int>(Media::TextRecording::Role::IsRead)).toBool();
+                if (!is_read) {
+                    g_debug("marking message as read");
+                    model->setData(idx, true, static_cast<int>(Media::TextRecording::Role::IsRead));
+                }
                 g_signal_emit(G_OBJECT(self), chat_view_signals[NEW_MESSAGES_DISPLAYED], 0);
             }
         }

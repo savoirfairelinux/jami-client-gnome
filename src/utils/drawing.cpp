@@ -33,6 +33,11 @@
 #include <gtk/gtk.h>
 #include <math.h>
 
+static constexpr const char* MSG_COUNT_FONT        = "Sans";
+static constexpr int         MSG_COUNT_FONT_SIZE   = 12;
+static constexpr GdkRGBA     MSG_COUNT_FONT_COLOUR = {1.0, 1.0, 1.0, 1.0}; // white
+static constexpr GdkRGBA     MSG_COUNT_BACKGROUND  = {0.984, 0.282, 0.278, 0.9}; // red 251, 72, 71, 0.9
+
 GdkPixbuf *
 ring_draw_fallback_avatar(int size) {
     cairo_surface_t *surface;
@@ -149,6 +154,77 @@ ring_frame_avatar(GdkPixbuf *avatar) {
     /* free resources */
     cairo_destroy(cr);
     cairo_surface_destroy(surface);
+
+    return pixbuf;
+}
+
+static void
+create_rounded_rectangle_path(cairo_t *cr, double corner_radius, double x, double y, double w, double h)
+{
+    double radius = corner_radius;
+    double degrees = M_PI / 180.0;
+
+    cairo_new_sub_path (cr);
+    cairo_arc (cr, x + w - radius, y + radius, radius, -90 * degrees, 0 * degrees);
+    cairo_arc (cr, x + w - radius, y + h - radius, radius, 0 * degrees, 90 * degrees);
+    cairo_arc (cr, x + radius, y + h - radius, radius, 90 * degrees, 180 * degrees);
+    cairo_arc (cr, x + radius, y + radius, radius, 180 * degrees, 270 * degrees);
+    cairo_close_path (cr);
+}
+
+/**
+ * Draws the unread message count in the bottom right corner of the given image.
+ * In the case that the count is less than or equal to 0, nothing is drawn.
+ */
+GdkPixbuf *
+ring_draw_unread_messages(const GdkPixbuf *avatar, int unread_count) {
+    if (unread_count <= 0) {
+        // simply return a copy of the original pixbuf
+        return gdk_pixbuf_copy(avatar);
+    }
+    int w = gdk_pixbuf_get_width(avatar);
+    int h = gdk_pixbuf_get_height(avatar);
+    cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w, h);
+    cairo_t *cr = cairo_create(surface);
+    cairo_surface_destroy(surface);
+
+    /* draw original image */
+    gdk_cairo_set_source_pixbuf(cr, avatar, 0, 0);
+    cairo_paint(cr);
+
+    /* make text */
+    char *text = g_strdup_printf("%d", unread_count);
+    cairo_text_extents_t extents;
+
+    cairo_select_font_face (cr, MSG_COUNT_FONT,
+    CAIRO_FONT_SLANT_NORMAL,
+    CAIRO_FONT_WEIGHT_NORMAL);
+
+    cairo_set_font_size (cr, MSG_COUNT_FONT_SIZE);
+    cairo_text_extents (cr, text, &extents);
+
+    /* draw rounded rectangle around the text, with 3 pixel border
+     * ie: 6 pixels higher, 6 pixels wider */
+    int border_width = 3;
+    double rec_x = w - extents.width - border_width * 2;
+    double rec_y = h - extents.height - border_width * 2;
+    double rec_w = extents.width + border_width * 2;
+    double rec_h = extents.height + border_width * 2;
+    double corner_radius = rec_h/2.5;
+    create_rounded_rectangle_path(cr, corner_radius, rec_x, rec_y, rec_w, rec_h);
+    cairo_set_source_rgba(cr, MSG_COUNT_BACKGROUND.red, MSG_COUNT_BACKGROUND.blue, MSG_COUNT_BACKGROUND.green, MSG_COUNT_BACKGROUND.alpha);
+    cairo_fill(cr);
+
+    /* draw text */
+    cairo_move_to (cr, w-extents.width-border_width, h-border_width);
+    cairo_set_source_rgb(cr, MSG_COUNT_FONT_COLOUR.red, MSG_COUNT_FONT_COLOUR.blue, MSG_COUNT_FONT_COLOUR.green);
+    cairo_show_text (cr, text);
+
+    GdkPixbuf *pixbuf = gdk_pixbuf_get_from_surface(surface, 0, 0, w, h);
+
+    /* free resources */
+    cairo_destroy(cr);
+    g_free(text);
 
     return pixbuf;
 }

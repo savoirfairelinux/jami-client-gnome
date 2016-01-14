@@ -38,6 +38,7 @@
 #include <historytimecategorymodel.h>
 #include <QtCore/QDateTime>
 #include <QtCore/QMimeData>
+#include "utils/drawing.h"
 
 static constexpr const char* COPY_DATA_KEY = "copy_data";
 
@@ -109,7 +110,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 {
     QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), iter);
 
-    std::shared_ptr<GdkPixbuf> photo;
+    std::shared_ptr<GdkPixbuf> image;
     /* we only want to render a photo for the top nodes: Person, ContactMethod (, later Conference) */
     QVariant object = idx.data(static_cast<int>(Ring::Role::Object));
     if (idx.isValid() && object.isValid()) {
@@ -125,16 +126,20 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                 var_photo = GlobalInstances::pixmapManipulator().callPhoto(call, QSize(50, 50), false);
             }
         }
-        if (var_photo.isValid())
-            photo = var_photo.value<std::shared_ptr<GdkPixbuf>>();
-        else {
+        if (var_photo.isValid()) {
+            std::shared_ptr<GdkPixbuf> photo = var_photo.value<std::shared_ptr<GdkPixbuf>>();
+
+            auto unread = idx.data(static_cast<int>(Ring::Role::UnreadTextMessageCount));
+
+            image.reset(ring_draw_unread_messages(photo.get(), unread.toInt()), g_object_unref);
+        } else {
             // set the width of the cell rendered to the with of the photo
             // so that the other renderers are shifted to the right
             g_object_set(G_OBJECT(cell), "width", 50, NULL);
         }
     }
 
-    g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
+    g_object_set(G_OBJECT(cell), "pixbuf", image.get(), NULL);
 }
 
 static void
