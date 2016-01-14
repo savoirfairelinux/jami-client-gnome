@@ -213,10 +213,13 @@ print_message_to_buffer(const QModelIndex &idx, GtkTextBuffer *buffer)
 }
 
 static void
-parse_chat_model(QAbstractItemModel *model, ChatView *self)
+print_text_recording(Media::TextRecording *recording, ChatView *self)
 {
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    /* only text messages are supported for now */
+    auto model = recording->instantTextMessagingModel();
 
     /* new model, disconnect from the old model updates and clear the text buffer */
     QObject::disconnect(priv->new_message_connection);
@@ -234,6 +237,8 @@ parse_chat_model(QAbstractItemModel *model, ChatView *self)
         QModelIndex idx = model->index(row, 0);
         print_message_to_buffer(idx, new_buffer);
     }
+    /* mark all messages as read */
+    recording->setAllRead();
 
     /* append new messages */
     priv->new_message_connection = QObject::connect(
@@ -243,6 +248,8 @@ parse_chat_model(QAbstractItemModel *model, ChatView *self)
             for (int row = first; row <= last; ++row) {
                 QModelIndex idx = model->index(row, 0, parent);
                 print_message_to_buffer(idx, gtk_text_view_get_buffer(GTK_TEXT_VIEW(priv->textview_chat)));
+                /* make sure these messages are marked as read */
+                model->setData(idx, true, static_cast<int>(Media::TextRecording::Role::IsRead));
                 g_signal_emit(G_OBJECT(self), chat_view_signals[NEW_MESSAGES_DISPLAYED], 0);
             }
         }
@@ -258,7 +265,7 @@ selected_cm_changed(GtkComboBox *box, ChatView *self)
     auto cms = priv->person->phoneNumbers();
     auto active = gtk_combo_box_get_active(box);
     if (active >= 0 && active < cms.size()) {
-        parse_chat_model(cms.at(active)->textRecording()->instantMessagingModel(), self);
+        print_text_recording(cms.at(active)->textRecording(), self);
     } else {
         g_warning("no valid ContactMethod selected to display chat conversation");
     }
@@ -344,7 +351,7 @@ chat_view_new_call(Call *call)
 
     priv->call = call;
     auto cm = priv->call->peerContactMethod();
-    parse_chat_model(cm->textRecording()->instantMessagingModel(), self);
+    print_text_recording(cm->textRecording(), self);
 
     return (GtkWidget *)self;
 }
@@ -358,7 +365,7 @@ chat_view_new_cm(ContactMethod *cm)
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     priv->cm = cm;
-    parse_chat_model(priv->cm->textRecording()->instantMessagingModel(), self);
+    print_text_recording(priv->cm->textRecording(), self);
     update_name(self);
 
     gtk_widget_show(priv->hbox_chat_info);

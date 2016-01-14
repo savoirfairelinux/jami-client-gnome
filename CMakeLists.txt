@@ -186,7 +186,7 @@ SET( SRC_FILES
    src/models/gtkqtreemodel.h
    src/models/gtkqtreemodel.cpp
    src/utils/drawing.h
-   src/utils/drawing.c
+   src/utils/drawing.cpp
    src/video/video_widget.h
    src/video/video_widget.cpp
    src/models/gtkqsortfiltertreemodel.h

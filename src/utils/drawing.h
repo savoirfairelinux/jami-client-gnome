@@ -33,14 +33,12 @@
 
 #include <gtk/gtk.h>
 
-G_BEGIN_DECLS
-
 GdkPixbuf *ring_draw_fallback_avatar(int size);
 
 GdkPixbuf *ring_draw_conference_avatar(int size);
 
 GdkPixbuf *ring_frame_avatar(GdkPixbuf *avatar);
 
-G_END_DECLS
+GdkPixbuf *ring_draw_unread_messages(const GdkPixbuf *avatar, int unread_count);
 
 #endif /* _DRAWING */
