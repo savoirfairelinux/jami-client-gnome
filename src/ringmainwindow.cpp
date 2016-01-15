@@ -280,10 +280,10 @@ item_changed(const QModelIndex& recent_idx, RingMainWindow *win)
     if(auto call = RecentModel::instance().getActiveCall(idx_selected)) {
         /* check if we need to change the view */
         auto current_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
-        QVariant state = CallModel::instance().data(idx_selected, static_cast<int>(Call::Role::LifeCycleState));
+        auto state = call->lifeCycleState();
 
         /* check what the current state is vs what is displayed */
-        switch(state.value<Call::LifeCycleState>()) {
+        switch(state) {
             case Call::LifeCycleState::CREATION:
             case Call::LifeCycleState::FINISHED:
             /* go back to incoming call view;
