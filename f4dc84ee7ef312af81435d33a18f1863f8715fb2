@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a9dcd25_205f4910",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-01-19T18:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a9dcd25_a00ef932",
+      "range": {
+        "startLine": 239,
+        "startChar": 12,
+        "endLine": 239,
+        "endChar": 47
+      },
+      "revId": "f4dc84ee7ef312af81435d33a18f1863f8715fb2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a9dcd25_4013755c",
         "filename": "src/chatview.cpp",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a9dcd25_c09b05c8",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-01-19T18:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a9dcd25_4013755c",
+      "range": {
+        "startLine": 255,
+        "startChar": 20,
+        "endLine": 255,
+        "endChar": 55
+      },
+      "revId": "f4dc84ee7ef312af81435d33a18f1863f8715fb2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a9dcd25_6010f14e",
         "filename": "src/recentcontactsview.cpp",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2016-01-19T17:12:19Z",
       "side": 1,
       "message": "Maybe you could use Qt::DecorationRole directly ?",
+      "range": {
+        "startLine": 115,
+        "startChar": 3,
+        "endLine": 127,
+        "endChar": 13
+      },
+      "revId": "f4dc84ee7ef312af81435d33a18f1863f8715fb2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_606551e0",
+        "filename": "src/recentcontactsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-01-19T18:36:53Z",
+      "side": 1,
+      "message": "I should, but I haven\u0027t implemented it yet... will do eventually in another patch...",
+      "parentUuid": "1a9dcd25_6010f14e",
       "range": {
         "startLine": 115,
         "startChar": 3,
