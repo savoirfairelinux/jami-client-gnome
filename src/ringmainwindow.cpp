@@ -261,20 +261,17 @@ selection_changed(const QModelIndex& recent_idx, RingMainWindow *win)
     }
 }
 
-static void
-item_changed(const QModelIndex& recent_idx, RingMainWindow *win)
+static gboolean
+selected_item_changed(RingMainWindow *win)
 {
     // g_debug("item changed");
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
     /* if we're showing the settings, then nothing needs to be done as the call
        view is not shown */
-    if (priv->show_settings) return;
+    if (priv->show_settings) return G_SOURCE_REMOVE;
 
-    /* check if the item that changed is the same as the one selected / displayed */
     auto idx_selected = RecentModel::instance().selectionModel()->currentIndex();
-
-    if (idx_selected != recent_idx) return;
 
     /* we prioritize showing the call view; but if the call is over we go back to showing the chat view */
     if(auto call = RecentModel::instance().getActiveCall(idx_selected)) {
@@ -341,6 +338,8 @@ item_changed(const QModelIndex& recent_idx, RingMainWindow *win)
             }
         }
     }
+
+    return G_SOURCE_REMOVE;
 }
 
 static void
@@ -951,7 +950,13 @@ ring_main_window_init(RingMainWindow *win)
         &RecentModel::instance(),
         &RecentModel::dataChanged,
         [win](const QModelIndex & topLeft, G_GNUC_UNUSED const QModelIndex & bottomRight, G_GNUC_UNUSED const QVector<int> & roles) {
-            item_changed(topLeft, win);
+            /* it is possible for dataChanged to be emitted inside of a dataChanged handler or
+             * some other signal; since the connection is via a lambda, Qt would cause the
+             * handler to be called directly. This is not behaviour we usually want, so we call our
+             * function via g_idle so that it gets called after the initial handler is done.
+             */
+            if (topLeft == RecentModel::instance().selectionModel()->currentIndex())
+                g_idle_add((GSourceFunc)selected_item_changed, win);
         }
     );
 
