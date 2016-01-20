@@ -24,7 +24,7 @@
 #include "ring_client.h"
 
 class Call;
-class QString;
+class ContactMethod;
 
 G_BEGIN_DECLS
 
@@ -33,7 +33,7 @@ void     ring_notify_uninit();
 gboolean ring_notify_is_initted();
 gboolean ring_notify_incoming_call(Call *call);
 void     ring_notify_monitor_chat_notifications(RingClient *client);
-gboolean ring_notify_close_chat_notification(Call *call);
+gboolean ring_notify_close_chat_notification(ContactMethod *cm);
 
 G_END_DECLS
 

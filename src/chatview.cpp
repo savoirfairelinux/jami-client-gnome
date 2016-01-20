@@ -82,6 +82,8 @@ chat_view_dispose(GObject *object)
     view = CHAT_VIEW(object);
     priv = CHAT_VIEW_GET_PRIVATE(view);
 
+    g_debug("disposing chat view");
+
     QObject::disconnect(priv->new_message_connection);
 
     G_OBJECT_CLASS(chat_view_parent_class)->dispose(object);
