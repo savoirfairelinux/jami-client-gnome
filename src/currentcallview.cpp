@@ -636,7 +636,7 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
 
     /* check if there were any chat notifications and open the chat view if so */
-    if (ring_notify_close_chat_notification(priv->call))
+    if (ring_notify_close_chat_notification(priv->call->peerContactMethod()))
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
 
     /* show chat view on any new incoming messages */
