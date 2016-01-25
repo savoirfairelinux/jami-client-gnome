@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015 Savoir-faire Linux Inc.
+ *  Copyright (C) 2015-2016 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -15,8 +15,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
- *
- *  Additional permission under GNU GPL version 3 section 7:
  */
 #include "dbuserrorhandler.h"
 
