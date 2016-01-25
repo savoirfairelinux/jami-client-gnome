@@ -1,7 +1,7 @@
 #  CMake macros adapted from those written for Marlin, released under GPLv3:
 #  https://github.com/ammonkey/marlin/blob/master/cmake/GSettings.cmake
 #
-#  Copyright (C) 2015 Savoir-Faire Linux Inc.
+#  Copyright (C) 2015-2016 Savoir-faire Linux Inc.
 #  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
 #
 #  This program is free software; you can redistribute it and/or modify
@@ -17,17 +17,6 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
-#
-#  Additional permission under GNU GPL version 3 section 7:
-#
-#  If you modify this program, or any covered work, by linking or
-#  combining it with the OpenSSL project's OpenSSL library (or a
-#  modified version of that library), containing parts covered by the
-#  terms of the OpenSSL or SSLeay licenses, Savoir-Faire Linux Inc.
-#  grants you additional permission to convey the resulting work.
-#  Corresponding Source for a non-source form of such a combination
-#  shall include the source code for the parts of OpenSSL used as well
-#  as that of the covered work.
 #
 
 option (GSETTINGS_LOCALCOMPILE "Compile GSettings schemas locally during build to the location of the binary (no need to run 'make install')" ON)
