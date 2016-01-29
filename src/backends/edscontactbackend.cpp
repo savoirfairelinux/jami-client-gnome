@@ -114,8 +114,13 @@ bool EdsContactEditor::save(const Person* item)
 
 bool EdsContactEditor::remove(const Person* item)
 {
-    mediator()->removeItem(item);
-    return true;
+    //This function could be called when the users remove contacts from outside
+    //the client. We may not need to remove the contact ourselves.
+    bool ret = collection_->removePersonIfExists(item);
+    if (ret) {
+        mediator()->removeItem(item);
+    }
+    return ret;
 }
 
 bool EdsContactEditor::edit( Person* item)
@@ -429,6 +434,7 @@ FlagPack<CollectionInterface::SupportedFeatures> EdsContactBackend::supportedFea
     return (CollectionInterface::SupportedFeatures::NONE |
             CollectionInterface::SupportedFeatures::LOAD |
             CollectionInterface::SupportedFeatures::ADD  |
+            CollectionInterface::SupportedFeatures::REMOVE  |
             CollectionInterface::SupportedFeatures::SAVE );
 }
 
@@ -475,6 +481,61 @@ bool EdsContactBackend::addNewPerson(Person *item)
 
     g_free(uid);
     g_object_unref(contact);
+
+    return ret;
+}
+
+bool EdsContactBackend::removePerson(const Person *item)
+{
+    g_return_val_if_fail(client_.get(), false);
+
+    g_debug("removing person");
+
+    GError *error = NULL;
+
+    bool ret = e_book_client_remove_contact_by_uid_sync(
+        E_BOOK_CLIENT(client_.get()),
+        item->uid(),
+        cancellable_.get(),
+        &error
+    );
+
+    if(!ret) {
+        if(error) {
+            g_warning("could not delete contact: %s", error->message);
+            g_clear_error(&error);
+        }
+        else {
+            g_warning("could not delete contact");
+        }
+    }
+
+    return ret;
+}
+
+bool EdsContactBackend::removePersonIfExists(const Person *item)
+{
+    g_return_val_if_fail(client_.get(), false);
+
+    g_debug("removing person if exists");
+
+    EContact *contact;
+
+    bool ret = e_book_client_get_contact_sync(
+        E_BOOK_CLIENT(client_.get()),
+        item->uid(),
+        &contact,
+        cancellable_.get(),
+        NULL
+    );
+
+    if (ret) {
+        g_object_unref(contact);
+        ret = removePerson(item);
+    }
+    else {
+        ret = true;
+    }
 
     return ret;
 }
