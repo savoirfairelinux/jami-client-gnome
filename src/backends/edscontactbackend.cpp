@@ -114,8 +114,12 @@ bool EdsContactEditor::save(const Person* item)
 
 bool EdsContactEditor::remove(const Person* item)
 {
-    mediator()->removeItem(item);
-    return true;
+    bool ret = collection_->removePerson(item);
+    if (ret) {
+        //TODO: remove from _items ?
+        mediator()->removeItem(item);
+    }
+    return ret;
 }
 
 bool EdsContactEditor::edit( Person* item)
@@ -475,6 +479,38 @@ bool EdsContactBackend::addNewPerson(Person *item)
 
     g_free(uid);
     g_object_unref(contact);
+
+    return ret;
+}
+
+bool EdsContactBackend::removePerson(const Person *item)
+{
+    g_return_val_if_fail(client_.get(), false);
+
+    g_debug("removing person");
+
+    //auto contact = e_contact_new_from_vcard(item->toVCard().constData());
+    GError *error = NULL;
+
+    //bool ret = e_book_client_remove_contact_sync(
+    bool ret = e_book_client_remove_contact_by_uid_sync(
+        E_BOOK_CLIENT(client_.get()),
+        item->uid(),
+        cancellable_.get(),
+        &error
+    );
+
+    if(!ret) {
+        if(error) {
+            g_warning("could not delete contact: %s", error->message);
+            g_clear_error(&error);
+        }
+        else {
+            g_warning("could not delete contact");
+        }
+    }
+
+    //g_object_unref(contact);
 
     return ret;
 }
