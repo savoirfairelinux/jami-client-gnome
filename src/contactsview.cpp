@@ -249,6 +249,15 @@ copy_contact_info(GtkWidget *item, G_GNUC_UNUSED gpointer user_data)
     gtk_clipboard_set_text(clip, text, -1);
 }
 
+static void
+remove_contact(GtkWidget *item, G_GNUC_UNUSED gpointer user_data)
+{
+    gpointer data = g_object_get_data(G_OBJECT(item), COPY_DATA_KEY);
+    g_return_if_fail(data);
+    Person* person = (Person *)data;
+    person->remove();
+}
+
 static gboolean
 contacts_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTreeView *treeview)
 {
@@ -291,10 +300,10 @@ contacts_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkT
 
             /* copy name */
             gchar *name = g_strdup_printf("%s", c->formattedName().toUtf8().constData());
-            GtkWidget *item = gtk_menu_item_new_with_mnemonic(_("_Copy name"));
-            gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-            g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, name, (GDestroyNotify)g_free);
-            g_signal_connect(item,
+            GtkWidget *copy_name_item = gtk_menu_item_new_with_mnemonic(_("_Copy name"));
+            gtk_menu_shell_append(GTK_MENU_SHELL(menu), copy_name_item);
+            g_object_set_data_full(G_OBJECT(copy_name_item), COPY_DATA_KEY, name, (GDestroyNotify)g_free);
+            g_signal_connect(copy_name_item,
                              "activate",
                              G_CALLBACK(copy_contact_info),
                              NULL);
@@ -310,6 +319,16 @@ contacts_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkT
                                 G_CALLBACK(copy_contact_info),
                                 NULL);
             }
+
+            /* delete contact */
+            GtkWidget *remove_contact_item = gtk_menu_item_new_with_mnemonic(_("_Remove contact"));
+            gtk_menu_shell_append(GTK_MENU_SHELL(menu), remove_contact_item);
+            g_object_set_data_full(G_OBJECT(remove_contact_item), COPY_DATA_KEY, c, (GDestroyNotify)g_free);
+            g_signal_connect(remove_contact_item,
+                             "activate",
+                             G_CALLBACK(remove_contact),
+                             NULL);
+
         }
     } else if (depth > 2) {
         /* copy number */
