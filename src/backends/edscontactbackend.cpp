@@ -114,8 +114,11 @@ bool EdsContactEditor::save(const Person* item)
 
 bool EdsContactEditor::remove(const Person* item)
 {
-    mediator()->removeItem(item);
-    return true;
+    bool ret = collection_->removePerson(item);
+    if (ret) {
+        mediator()->removeItem(item);
+    }
+    return ret;
 }
 
 bool EdsContactEditor::edit( Person* item)
@@ -380,7 +383,7 @@ void EdsContactBackend::removeContacts(std::unique_ptr<GSList, void(*)(GSList *)
             if (p) {
                 g_debug("removing: %s", p->formattedName().toUtf8().constData());
                 deactivate(p);
-                editor<Person>()->remove(p);
+                mediator_->removeItem(p);
             } else {
                 g_warning("person with given UID doesn't exist: %s", uid);
             }
@@ -429,6 +432,7 @@ FlagPack<CollectionInterface::SupportedFeatures> EdsContactBackend::supportedFea
     return (CollectionInterface::SupportedFeatures::NONE |
             CollectionInterface::SupportedFeatures::LOAD |
             CollectionInterface::SupportedFeatures::ADD  |
+            CollectionInterface::SupportedFeatures::REMOVE  |
             CollectionInterface::SupportedFeatures::SAVE );
 }
 
@@ -475,6 +479,34 @@ bool EdsContactBackend::addNewPerson(Person *item)
 
     g_free(uid);
     g_object_unref(contact);
+
+    return ret;
+}
+
+bool EdsContactBackend::removePerson(const Person *item)
+{
+    g_return_val_if_fail(client_.get(), false);
+
+    g_debug("removing person");
+
+    GError *error = NULL;
+
+    bool ret = e_book_client_remove_contact_by_uid_sync(
+        E_BOOK_CLIENT(client_.get()),
+        item->uid(),
+        cancellable_.get(),
+        &error
+    );
+
+    if(!ret) {
+        if(error) {
+            g_warning("could not delete contact: %s", error->message);
+            g_clear_error(&error);
+        }
+        else {
+            g_warning("could not delete contact");
+        }
+    }
 
     return ret;
 }

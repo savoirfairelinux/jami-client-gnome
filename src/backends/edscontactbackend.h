@@ -80,6 +80,7 @@ public:
     void parseContact(EContact *contact);
     void lastContactAdded();
     bool addNewPerson(Person *item);
+    bool removePerson(const Person *item);
     bool savePerson(const Person *item);
 
 private:
