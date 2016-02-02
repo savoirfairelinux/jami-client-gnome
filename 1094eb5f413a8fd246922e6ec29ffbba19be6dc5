@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa6b99d7_60d00654",
+        "filename": "src/backends/edscontactbackend.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-02-02T23:53:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa6b99d7_e095f688",
+      "range": {
+        "startLine": 388,
+        "startChar": 16,
+        "endLine": 388,
+        "endChar": 44
+      },
+      "revId": "1094eb5f413a8fd246922e6ec29ffbba19be6dc5",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa6b99d7_00934aa4",
         "filename": "src/backends/edscontactbackend.cpp",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fa6b99d7_80d51a45",
+        "filename": "src/backends/edscontactbackend.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-02-02T23:53:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa6b99d7_00934aa4",
+      "range": {
+        "startLine": 516,
+        "startChar": 0,
+        "endLine": 541,
+        "endChar": 1
+      },
+      "revId": "1094eb5f413a8fd246922e6ec29ffbba19be6dc5",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa6b99d7_40814249",
         "filename": "src/contactsview.cpp",
         "patchSetId": 9
@@ -59,6 +107,30 @@
       "writtenOn": "2016-02-02T23:40:38Z",
       "side": 1,
       "message": "maybe just \"addressbook\"?",
+      "range": {
+        "startLine": 261,
+        "startChar": 67,
+        "endLine": 261,
+        "endChar": 79
+      },
+      "revId": "1094eb5f413a8fd246922e6ec29ffbba19be6dc5",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6b99d7_40cf02b1",
+        "filename": "src/contactsview.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-02-02T23:53:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa6b99d7_40814249",
       "range": {
         "startLine": 261,
         "startChar": 67,
