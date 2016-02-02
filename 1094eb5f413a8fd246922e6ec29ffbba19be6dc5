@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa6b99d7_e095f688",
+        "filename": "src/backends/edscontactbackend.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-02-02T23:40:38Z",
+      "side": 1,
+      "message": "I think the simpler solution is to just remove this line, and replace it with \"mediator_-\u003eremoveItem(p);\"\n\nThis was you can get rid of the \"removePersonIfExists\" method... I think this makes more sense as well, otherwise person-\u003eremove() is calling the remove method which deletes the contact which then triggers this callback which then calls the same remove method again.",
+      "range": {
+        "startLine": 388,
+        "startChar": 16,
+        "endLine": 388,
+        "endChar": 44
+      },
+      "revId": "1094eb5f413a8fd246922e6ec29ffbba19be6dc5",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6b99d7_00934aa4",
+        "filename": "src/backends/edscontactbackend.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-02-02T23:40:38Z",
+      "side": 1,
+      "message": "can be removed if you follow above comment",
+      "range": {
+        "startLine": 516,
+        "startChar": 0,
+        "endLine": 541,
+        "endChar": 1
+      },
+      "revId": "1094eb5f413a8fd246922e6ec29ffbba19be6dc5",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6b99d7_40814249",
+        "filename": "src/contactsview.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-02-02T23:40:38Z",
+      "side": 1,
+      "message": "maybe just \"addressbook\"?",
+      "range": {
+        "startLine": 261,
+        "startChar": 67,
+        "endLine": 261,
+        "endChar": 79
+      },
+      "revId": "1094eb5f413a8fd246922e6ec29ffbba19be6dc5",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
