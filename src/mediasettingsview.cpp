@@ -34,12 +34,12 @@
 
 struct _MediaSettingsView
 {
-    GtkBox parent;
+    GtkScrolledWindow parent;
 };
 
 struct _MediaSettingsViewClass
 {
-    GtkBoxClass parent_class;
+    GtkScrolledWindowClass parent_class;
 };
 
 typedef struct _MediaSettingsViewPrivate MediaSettingsViewPrivate;
@@ -78,7 +78,7 @@ struct _MediaSettingsViewPrivate
     QMetaObject::Connection rate_selection;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(MediaSettingsView, media_settings_view, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE(MediaSettingsView, media_settings_view, GTK_TYPE_SCROLLED_WINDOW);
 
 #define MEDIA_SETTINGS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), MEDIA_SETTINGS_VIEW_TYPE, MediaSettingsViewPrivate))
 
@@ -142,6 +142,7 @@ connect_combo_box_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(box), renderer, FALSE);
     gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(box), renderer,
                                    "text", 0, NULL);
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
 
     /* connect signals to and from the selection model */
     connection = QObject::connect(
