@@ -616,6 +616,7 @@ show_account_creation(RingMainWindow *win)
     /* style of alias and hash entry; give them a larger font */
     gtk_widget_override_font(priv->entry_alias, pango_font_description_from_string("15"));
     gtk_widget_override_font(priv->entry_hash, pango_font_description_from_string("monospace 15"));
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), g_get_real_name());
 
     /* connect signals */
     g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(alias_entry_changed), win);
