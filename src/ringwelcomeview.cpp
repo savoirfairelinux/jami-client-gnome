@@ -27,12 +27,12 @@
 
 struct _RingWelcomeView
 {
-    GtkBox parent;
+    GtkScrolledWindow parent;
 };
 
 struct _RingWelcomeViewClass
 {
-    GtkBoxClass parent_class;
+    GtkScrolledWindowClass parent_class;
 };
 
 typedef struct _RingWelcomeViewPrivate RingWelcomeViewPrivate;
@@ -42,7 +42,7 @@ struct _RingWelcomeViewPrivate
     QMetaObject::Connection ringaccount_updated;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_SCROLLED_WINDOW);
 
 #define RING_WELCOME_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_WELCOME_VIEW_TYPE, RingWelcomeViewPrivate))
 
@@ -68,13 +68,15 @@ ring_welcome_view_init(RingWelcomeView *self)
 {
     RingWelcomeViewPrivate *priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
 
-    gtk_orientable_set_orientation(GTK_ORIENTABLE(self), GTK_ORIENTATION_VERTICAL);
-    gtk_box_set_spacing(GTK_BOX(self), 15);
-    gtk_box_set_baseline_position(GTK_BOX(self), GTK_BASELINE_POSITION_CENTER);
-    gtk_widget_set_vexpand(GTK_WIDGET(self), TRUE);
-    gtk_widget_set_hexpand(GTK_WIDGET(self), FALSE);
-    gtk_widget_set_valign(GTK_WIDGET(self), GTK_ALIGN_CENTER);
-    gtk_widget_set_halign(GTK_WIDGET(self), GTK_ALIGN_CENTER);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(self), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+
+    auto box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 15);
+    gtk_container_add(GTK_CONTAINER(self), box);
+    gtk_box_set_baseline_position(GTK_BOX(box), GTK_BASELINE_POSITION_CENTER);
+    gtk_widget_set_vexpand(GTK_WIDGET(box), TRUE);
+    gtk_widget_set_hexpand(GTK_WIDGET(box), FALSE);
+    gtk_widget_set_valign(GTK_WIDGET(box), GTK_ALIGN_CENTER);
+    gtk_widget_set_halign(GTK_WIDGET(box), GTK_ALIGN_CENTER);
 
     /* get logo */
     GError *error = NULL;
@@ -85,7 +87,7 @@ ring_welcome_view_init(RingWelcomeView *self)
         g_clear_error(&error);
     } else {
         auto image_ring_logo = gtk_image_new_from_pixbuf(logo);
-        gtk_box_pack_start(GTK_BOX(self), image_ring_logo, FALSE, TRUE, 0);
+        gtk_box_pack_start(GTK_BOX(box), image_ring_logo, FALSE, TRUE, 0);
     }
 
     /* welcome text */
@@ -96,7 +98,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     /* the max width chars is to limit how much the text expands */
     gtk_label_set_max_width_chars(GTK_LABEL(label_welcome_text), 50);
     gtk_label_set_selectable(GTK_LABEL(label_welcome_text), TRUE);
-    gtk_box_pack_start(GTK_BOX(self), label_welcome_text, FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(box), label_welcome_text, FALSE, TRUE, 0);
 
     /* RingID explanation */
     auto label_explanation = gtk_label_new(C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!"));
@@ -107,7 +109,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_set_margin_top(label_explanation, 20);
     /* we migth need to hide the label if a RING account doesn't exist */
     gtk_widget_set_no_show_all(label_explanation, TRUE);
-    gtk_box_pack_start(GTK_BOX(self), label_explanation, FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(box), label_explanation, FALSE, TRUE, 0);
 
     /* RingID label */
     auto label_ringid = gtk_label_new(NULL);
@@ -115,7 +117,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_override_font(label_ringid, pango_font_description_from_string("monospace 12"));
     show_ring_id(GTK_LABEL(label_ringid), get_active_ring_account());
     gtk_widget_set_no_show_all(label_ringid, TRUE);
-    gtk_box_pack_start(GTK_BOX(self), label_ringid, FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(box), label_ringid, FALSE, TRUE, 0);
     gtk_label_set_ellipsize(GTK_LABEL(label_ringid), PANGO_ELLIPSIZE_END);
 
     if (get_active_ring_account()) {

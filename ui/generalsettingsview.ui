@@ -8,11 +8,8 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <template class="GeneralSettingsView" parent="GtkBox">
+  <template class="GeneralSettingsView" parent="GtkScrolledWindow">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="border_width">10</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkBox" id="vbox_main">
         <property name="visible">True</property>
