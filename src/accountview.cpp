@@ -39,12 +39,12 @@
 
 struct _AccountView
 {
-    GtkBox parent;
+    GtkPaned parent;
 };
 
 struct _AccountViewClass
 {
-    GtkBoxClass parent_class;
+    GtkPanedClass parent_class;
 };
 
 typedef struct _AccountViewPrivate AccountViewPrivate;
@@ -64,7 +64,7 @@ struct _AccountViewPrivate
     QMetaObject::Connection protocol_selection_changed;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(AccountView, account_view, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE(AccountView, account_view, GTK_TYPE_PANED);
 
 #define ACCOUNT_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), ACCOUNT_VIEW_TYPE, AccountViewPrivate))
 
@@ -139,6 +139,8 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *view)
 
         /* create account notebook */
         priv->current_account_notebook = gtk_notebook_new();
+        gtk_notebook_set_scrollable(GTK_NOTEBOOK(priv->current_account_notebook), TRUE);
+        gtk_notebook_set_show_border(GTK_NOTEBOOK(priv->current_account_notebook), FALSE);
         gtk_box_pack_start(GTK_BOX(hbox_account), priv->current_account_notebook, TRUE, TRUE, 0);
 
         /* customize account view based on account */
