@@ -46,6 +46,8 @@ typedef struct _MediaSettingsViewPrivate MediaSettingsViewPrivate;
 
 struct _MediaSettingsViewPrivate
 {
+    GtkWidget *vbox_main;
+
     /* audio settings */
     GtkWidget *combobox_manager;
     GtkWidget *combobox_ringtone;
@@ -62,7 +64,6 @@ struct _MediaSettingsViewPrivate
     GtkWidget *combobox_channel;
     GtkWidget *combobox_resolution;
     GtkWidget *combobox_framerate;
-    GtkWidget *hbox_camera;
     GtkWidget *video_widget;
 
     /* this is used to keep track of the state of the preview when the settings
@@ -228,6 +229,7 @@ media_settings_view_class_init(MediaSettingsViewClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/mediasettingsview.ui");
 
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, vbox_main);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_manager);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_ringtone);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_output);
@@ -236,7 +238,6 @@ media_settings_view_class_init(MediaSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_channel);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_resolution);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_framerate);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, hbox_camera);
 }
 
 GtkWidget *
@@ -263,7 +264,9 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
         /* put video widget in */
         priv->video_widget = video_widget_new();
         gtk_widget_show_all(priv->video_widget);
-        gtk_box_pack_start(GTK_BOX(priv->hbox_camera), priv->video_widget, TRUE, TRUE, 0);
+        gtk_box_pack_start(GTK_BOX(priv->vbox_main), priv->video_widget, TRUE, TRUE, 0);
+        // set minimum size for video so it doesn't shrink too much
+        gtk_widget_set_size_request(priv->video_widget, 300, -1);
 
         if (Video::PreviewManager::instance().isPreviewing()) {
             priv->video_started_by_settings = FALSE;
@@ -293,7 +296,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
         }
 
         if (priv->video_widget && IS_VIDEO_WIDGET(priv->video_widget))
-            gtk_container_remove(GTK_CONTAINER(priv->hbox_camera), priv->video_widget);
+            gtk_container_remove(GTK_CONTAINER(priv->vbox_main), priv->video_widget);
         priv->video_widget = NULL;
     }
 
