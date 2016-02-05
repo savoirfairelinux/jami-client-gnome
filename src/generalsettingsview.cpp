@@ -26,12 +26,12 @@
 
 struct _GeneralSettingsView
 {
-    GtkBox parent;
+    GtkScrolledWindow parent;
 };
 
 struct _GeneralSettingsViewClass
 {
-    GtkBoxClass parent_class;
+    GtkScrolledWindowClass parent_class;
 };
 
 typedef struct _GeneralSettingsViewPrivate GeneralSettingsViewPrivate;
@@ -52,7 +52,7 @@ struct _GeneralSettingsViewPrivate
     GtkWidget *button_clear_history;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(GeneralSettingsView, general_settings_view, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE(GeneralSettingsView, general_settings_view, GTK_TYPE_SCROLLED_WINDOW);
 
 #define GENERAL_SETTINGS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), GENERAL_SETTINGS_VIEW_TYPE, GeneralSettingsViewPrivate))
 

@@ -39,12 +39,12 @@
 
 struct _AccountView
 {
-    GtkBox parent;
+    GtkPaned parent;
 };
 
 struct _AccountViewClass
 {
-    GtkBoxClass parent_class;
+    GtkPanedClass parent_class;
 };
 
 typedef struct _AccountViewPrivate AccountViewPrivate;
@@ -64,7 +64,7 @@ struct _AccountViewPrivate
     QMetaObject::Connection protocol_selection_changed;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(AccountView, account_view, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE(AccountView, account_view, GTK_TYPE_PANED);
 
 #define ACCOUNT_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), ACCOUNT_VIEW_TYPE, AccountViewPrivate))
 
@@ -139,6 +139,8 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *view)
 
         /* create account notebook */
         priv->current_account_notebook = gtk_notebook_new();
+        gtk_notebook_set_scrollable(GTK_NOTEBOOK(priv->current_account_notebook), TRUE);
+        gtk_notebook_set_show_border(GTK_NOTEBOOK(priv->current_account_notebook), FALSE);
         gtk_box_pack_start(GTK_BOX(hbox_account), priv->current_account_notebook, TRUE, TRUE, 0);
 
         /* customize account view based on account */
@@ -393,10 +395,16 @@ account_view_init(AccountView *view)
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(C_("Account alias (name) column", "Alias"), renderer, "text", 1, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_account_list), column);
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+    gtk_tree_view_column_set_expand(column, TRUE);
+    // set a min width so most of the account name is visible
+    g_object_set(G_OBJECT(renderer), "width", 75, NULL);
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(C_("Account status column", "Status"), renderer, "text", 3, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_account_list), column);
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+    gtk_tree_view_column_set_expand(column, TRUE);
 
     /* the registration state is an enum, we want to display it as a string */
     gtk_tree_view_column_set_cell_data_func(

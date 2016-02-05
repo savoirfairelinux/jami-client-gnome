@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="3.10"/>
-  <template class="MediaSettingsView" parent="GtkBox">
+  <template class="MediaSettingsView" parent="GtkScrolledWindow">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="border_width">10</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkBox" id="vbox_main">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">10</property>
+        <property name="border_width">10</property>
         <!-- start audio selection -->
         <child>
           <object class="GtkFrame" id="frame_audio_selection">
@@ -80,6 +78,7 @@
                   <object class="GtkComboBox" id="combobox_manager">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="popup-fixed-width">False</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -90,6 +89,7 @@
                   <object class="GtkComboBox" id="combobox_ringtone">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="popup-fixed-width">False</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -100,6 +100,7 @@
                   <object class="GtkComboBox" id="combobox_output">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="popup-fixed-width">False</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -110,6 +111,7 @@
                   <object class="GtkComboBox" id="combobox_input">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="popup-fixed-width">False</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -207,6 +209,7 @@
                       <object class="GtkComboBox" id="combobox_device">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="popup-fixed-width">False</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -217,6 +220,7 @@
                       <object class="GtkComboBox" id="combobox_channel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="popup-fixed-width">False</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -227,6 +231,7 @@
                       <object class="GtkComboBox" id="combobox_resolution">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="popup-fixed-width">False</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -237,6 +242,7 @@
                       <object class="GtkComboBox" id="combobox_framerate">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="popup-fixed-width">False</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
