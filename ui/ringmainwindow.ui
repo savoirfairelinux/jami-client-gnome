@@ -272,14 +272,14 @@
     </child>
   </object>
   <!-- end main call view -->
-  <!-- account creation 1 -->
-  <object class="GtkBox" id="account_creation_1">
+  <!-- account creation wizard -->
+  <object class="GtkBox" id="account_creation">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="valign">center</property>
     <property name="orientation">vertical</property>
-    <property name="spacing">30</property>
-    <property name="border_width">30</property>
+    <property name="spacing">20</property>
+    <property name="border_width">10</property>
     <child>
       <object class="GtkBox" id="hbox_account_creation_title">
         <property name="visible">True</property>
@@ -289,9 +289,9 @@
           <object class="GtkLabel" id="label_welcome">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Welcome to  </property>
+            <property name="label" translatable="yes">Welcome to </property>
             <attributes>
-              <attribute name="scale" value="4"/>
+              <attribute name="scale" value="2"/>
             </attributes>
           </object>
         </child>
@@ -306,7 +306,7 @@
       <object class="GtkLabel" id="label_enter_alias">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Enter your alias to get started:</property>
+        <property name="label" translatable="yes">Choose your username:</property>
       </object>
     </child>
     <child>
@@ -344,47 +344,7 @@
       </object>
     </child>
   </object>
-  <!-- end account creation step 1 -->
-  <!-- account creation step 2 -->
-  <object class="GtkBox" id="account_creation_2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="valign">center</property>
-    <property name="orientation">vertical</property>
-    <property name="spacing">30</property>
-    <property name="border_width">30</property>
-    <child>
-      <object class="GtkLabel" id="label_account_created">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Your Ring account has been created with the following Ring ID:</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkEntry" id="entry_hash">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="editable">False</property>
-        <property name="xalign">0.5</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label_share_hash">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Share it with your friends so they can contact you via Ring!</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkButton" id="button_account_creation_done">
-        <property name="label" translatable="yes">Done</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="halign">end</property>
-      </object>
-    </child>
-  </object>
-  <!-- end account creation step 2 -->
+  <!-- end account wizard -->
   <!-- some images -->
   <object class="GtkImage" id="image_contacts">
     <property name="visible">True</property>
