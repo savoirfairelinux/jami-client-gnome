@@ -32,6 +32,7 @@
 #include "defines.h"
 #include "utils/models.h"
 #include <QtCore/QItemSelectionModel>
+#include "numbercategory.h"
 
 static constexpr const char* COPY_DATA_KEY = "copy_data";
 
@@ -158,8 +159,18 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                 text = g_strdup_printf("%s", var.value<QString>().toUtf8().constData());
             }
         } else {
-            /* contact method (or deeper??) */
-            text = g_strdup_printf("%s", var.value<QString>().toUtf8().constData());
+            auto var_object = idx.data(static_cast<int>(Ring::Role::Object));
+            auto cm = var_object.value<ContactMethod *>();
+            if (cm && cm->category()) {
+                // try to get the number category, eg: "home"
+                text = g_strdup_printf("(%s) %s", cm->category()->name().toUtf8().constData(),
+                                                  cm->uri().toUtf8().constData());
+            } else if (cm) {
+                text = g_strdup_printf("%s", cm->uri().toUtf8().constData());
+            } else {
+                /* should only ever be a CM, so this should never execute */
+                text = g_strdup_printf("%s", var.value<QString>().toUtf8().constData());
+            }
         }
     }
 
