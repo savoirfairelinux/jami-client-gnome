@@ -28,6 +28,7 @@
 #include <media/text.h>
 #include <media/textrecording.h>
 #include "ringnotify.h"
+#include "numbercategory.h"
 
 struct _ChatView
 {
@@ -272,6 +273,30 @@ selected_cm_changed(GtkComboBox *box, ChatView *self)
 }
 
 static void
+render_contact_method(G_GNUC_UNUSED GtkCellLayout *cell_layout,
+                     GtkCellRenderer *cell,
+                     GtkTreeModel *model,
+                     GtkTreeIter *iter,
+                     G_GNUC_UNUSED gpointer data)
+{
+    GValue value = G_VALUE_INIT;
+    gtk_tree_model_get_value(model, iter, 0, &value);
+    auto cm = (ContactMethod *)g_value_get_pointer(&value);
+
+    gchar *number = nullptr;
+    if (cm && cm->category()) {
+        // try to get the number category, eg: "home"
+        number = g_strdup_printf("(%s) %s", cm->category()->name().toUtf8().constData(),
+                                            cm->uri().toUtf8().constData());
+    } else if (cm) {
+        number = g_strdup_printf("%s", cm->uri().toUtf8().constData());
+    }
+
+    g_object_set(G_OBJECT(cell), "text", number, NULL);
+    g_free(number);
+}
+
+static void
 update_contact_methods(ChatView *self)
 {
     g_return_if_fail(IS_CHAT_VIEW(self));
@@ -281,7 +306,7 @@ update_contact_methods(ChatView *self)
 
     /* model for the combobox for the choice of ContactMethods */
     auto cm_model = gtk_list_store_new(
-        2, G_TYPE_STRING, G_TYPE_POINTER
+        1, G_TYPE_POINTER
     );
 
     auto cms = priv->person->phoneNumbers();
@@ -289,8 +314,7 @@ update_contact_methods(ChatView *self)
         GtkTreeIter iter;
         gtk_list_store_append(cm_model, &iter);
         gtk_list_store_set(cm_model, &iter,
-                           0, cms.at(i)->uri().toUtf8().constData(),
-                           1, cms.at(i),
+                           0, cms.at(i),
                            -1);
     }
 
@@ -300,7 +324,12 @@ update_contact_methods(ChatView *self)
     auto renderer = gtk_cell_renderer_text_new();
     g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_cm), renderer, FALSE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(priv->combobox_cm), renderer, "text", 0, NULL);
+    // gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(priv->combobox_cm), renderer, "text", 0, NULL);
+    gtk_cell_layout_set_cell_data_func(
+        GTK_CELL_LAYOUT(priv->combobox_cm),
+        renderer,
+        (GtkCellLayoutDataFunc)render_contact_method,
+        nullptr, nullptr);
 
     /* select the last used cm */
     if (!cms.isEmpty()) {

@@ -39,6 +39,7 @@
 #include <QtCore/QDateTime>
 #include <QtCore/QMimeData>
 #include "utils/drawing.h"
+#include "numbercategory.h"
 
 static constexpr const char* COPY_DATA_KEY = "copy_data";
 
@@ -408,7 +409,16 @@ create_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gp
                     auto call_menu = gtk_menu_new();
                     gtk_menu_item_set_submenu(GTK_MENU_ITEM(call_item), call_menu);
                     for (int i = 0; i < cms.size(); ++i) {
-                        auto item = gtk_menu_item_new_with_label(cms.at(i)->uri().toUtf8().constData());
+                        gchar *number = nullptr;
+                        if (cms.at(i)->category()) {
+                            // try to get the number category, eg: "home"
+                            number = g_strdup_printf("(%s) %s", cms.at(i)->category()->name().toUtf8().constData(),
+                                                              cms.at(i)->uri().toUtf8().constData());
+                        } else {
+                            number = g_strdup_printf("%s", cms.at(i)->uri().toUtf8().constData());
+                        }
+                        auto item = gtk_menu_item_new_with_label(number);
+                        g_free(number);
                         gtk_menu_shell_append(GTK_MENU_SHELL(call_menu), item);
                         g_signal_connect(item,
                                          "activate",
@@ -472,8 +482,16 @@ create_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gp
                     auto copy_menu = gtk_menu_new();
                     gtk_menu_item_set_submenu(GTK_MENU_ITEM(copy_item), copy_menu);
                     for (int i = 0; i < cms.size(); ++i) {
-                        gchar *number = g_strdup_printf("%s",cms.at(i)->uri().toUtf8().constData());
-                        auto item = gtk_menu_item_new_with_label(cms.at(i)->uri().toUtf8().constData());
+                        gchar *number = nullptr;
+                        if (cms.at(i)->category()) {
+                            // try to get the number category, eg: "home"
+                            number = g_strdup_printf("(%s) %s", cms.at(i)->category()->name().toUtf8().constData(),
+                                                              cms.at(i)->uri().toUtf8().constData());
+                        } else {
+                            number = g_strdup_printf("%s", cms.at(i)->uri().toUtf8().constData());
+                        }
+                        auto item = gtk_menu_item_new_with_label(number);
+                        g_free(number);
                         gtk_menu_shell_append(GTK_MENU_SHELL(copy_menu), item);
                         g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, number, (GDestroyNotify)g_free);
                         g_signal_connect(item,
