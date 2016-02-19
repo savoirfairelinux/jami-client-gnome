@@ -29,6 +29,7 @@
 #include <media/textrecording.h>
 #include "ringnotify.h"
 #include "numbercategory.h"
+#include <QtCore/QDateTime>
 
 struct _ChatView
 {
@@ -183,6 +184,8 @@ print_message_to_buffer(const QModelIndex &idx, GtkTextBuffer *buffer)
     if (idx.isValid()) {
         auto message = idx.data().value<QString>().toUtf8();
         auto sender = idx.data(static_cast<int>(Media::TextRecording::Role::AuthorDisplayname)).value<QString>().toUtf8();
+        auto timestamp = idx.data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
+        auto datetime = QDateTime::fromTime_t(timestamp);
 
         GtkTextIter iter;
 
@@ -192,18 +195,34 @@ print_message_to_buffer(const QModelIndex &idx, GtkTextBuffer *buffer)
             gtk_text_buffer_insert(buffer, &iter, "\n", -1);
         }
 
-        auto format_sender = g_strconcat(sender.constData(), ": ", NULL);
-        gtk_text_buffer_get_end_iter(buffer, &iter);
-        gtk_text_buffer_insert_with_tags_by_name(buffer, &iter,
-                                                 format_sender, -1,
-                                                 "bold", NULL);
-        g_free(format_sender);
-
-        /* if the sender name is too long, insert a new line after it */
-        if (sender.length() > 20) {
-            gtk_text_buffer_get_end_iter(buffer, &iter);
-            gtk_text_buffer_insert(buffer, &iter, "\n", -1);
+        /* if it is the very first row, we print the current date;
+         * otherwise we print the date every time it is different from the previous message */
+        auto date = datetime.date();
+        gchar* new_date = nullptr;
+        if (idx.row() == 0) {
+            new_date = g_strconcat("-- ", date.toString().toUtf8().constData(), " --\n", NULL);
+        } else {
+            auto prev_timestamp = idx.sibling(idx.row() - 1, 0).data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
+            auto prev_date = QDateTime::fromTime_t(prev_timestamp).date();
+            if (date != prev_date) {
+                new_date = g_strconcat("-- ", date.toString().toUtf8().constData(), " --\n", NULL);
+            }
         }
+
+        if (new_date) {
+            gtk_text_buffer_get_end_iter(buffer, &iter);
+            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, new_date, -1, "center", NULL);
+        }
+
+        /* insert time */
+        gtk_text_buffer_get_end_iter(buffer, &iter);
+        gtk_text_buffer_insert(buffer, &iter, datetime.time().toString().toUtf8().constData(), -1);
+
+        /* insert sender */
+        auto format_sender = g_strconcat(" ", sender.constData(), ": ", NULL);
+        gtk_text_buffer_get_end_iter(buffer, &iter);
+        gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, format_sender, -1, "bold", NULL);
+        g_free(format_sender);
 
         gtk_text_buffer_get_end_iter(buffer, &iter);
         gtk_text_buffer_insert(buffer, &iter, message.constData(), -1);
@@ -230,6 +249,7 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
 
     /* add tags to the buffer */
     gtk_text_buffer_create_tag(new_buffer, "bold", "weight", PANGO_WEIGHT_BOLD, NULL);
+    gtk_text_buffer_create_tag(new_buffer, "center", "justification", GTK_JUSTIFY_CENTER, NULL);
 
     g_object_unref(new_buffer);
 
