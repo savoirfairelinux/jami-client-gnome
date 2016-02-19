@@ -22,6 +22,30 @@
       "revId": "1b7100aa02cdd0a71d9ef728f5c39508c31b48e6",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6b99d7_573a6337",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-02-19T16:59:52Z",
+      "side": 1,
+      "message": "Yes, also because I print the date and the time separately... but the formatted date is a QString containing both",
+      "parentUuid": "fa6b99d7_9730fb57",
+      "range": {
+        "startLine": 187,
+        "startChar": 51,
+        "endLine": 187,
+        "endChar": 88
+      },
+      "revId": "1b7100aa02cdd0a71d9ef728f5c39508c31b48e6",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
