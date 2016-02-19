@@ -31,6 +31,8 @@
 #include "numbercategory.h"
 #include <QtCore/QDateTime>
 
+static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
+
 struct _ChatView
 {
     GtkBox parent;
@@ -186,6 +188,7 @@ print_message_to_buffer(const QModelIndex &idx, GtkTextBuffer *buffer)
         auto sender = idx.data(static_cast<int>(Media::TextRecording::Role::AuthorDisplayname)).value<QString>().toUtf8();
         auto timestamp = idx.data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
         auto datetime = QDateTime::fromTime_t(timestamp);
+        auto direction = idx.data(static_cast<int>(Media::TextRecording::Role::Direction)).value<Media::Media::Direction>();
 
         GtkTextIter iter;
 
@@ -221,11 +224,17 @@ print_message_to_buffer(const QModelIndex &idx, GtkTextBuffer *buffer)
         /* insert sender */
         auto format_sender = g_strconcat(" ", sender.constData(), ": ", NULL);
         gtk_text_buffer_get_end_iter(buffer, &iter);
-        gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, format_sender, -1, "bold", NULL);
+        if (direction == Media::Media::Direction::OUT)
+            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, format_sender, -1, "bold-blue", NULL);
+        else
+            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, format_sender, -1, "bold", NULL);
         g_free(format_sender);
 
         gtk_text_buffer_get_end_iter(buffer, &iter);
-        gtk_text_buffer_insert(buffer, &iter, message.constData(), -1);
+        if (direction == Media::Media::Direction::OUT)
+            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, message.constData(), -1, "blue", NULL);
+        else
+            gtk_text_buffer_insert(buffer, &iter, message.constData(), -1);
 
     } else {
         g_warning("QModelIndex in im model is not valid");
@@ -250,6 +259,8 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
     /* add tags to the buffer */
     gtk_text_buffer_create_tag(new_buffer, "bold", "weight", PANGO_WEIGHT_BOLD, NULL);
     gtk_text_buffer_create_tag(new_buffer, "center", "justification", GTK_JUSTIFY_CENTER, NULL);
+    gtk_text_buffer_create_tag(new_buffer, "bold-blue", "weight", PANGO_WEIGHT_BOLD, "foreground-rgba", &RING_BLUE, NULL);
+    gtk_text_buffer_create_tag(new_buffer, "blue", "foreground-rgba", &RING_BLUE, NULL);
 
     g_object_unref(new_buffer);
 
