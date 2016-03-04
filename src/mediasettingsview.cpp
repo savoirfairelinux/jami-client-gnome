@@ -186,6 +186,13 @@ media_settings_view_init(MediaSettingsView *view)
 
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(view);
 
+    /* video settings */
+    /* make sure all the models are instantiated before making a selection */
+    Video::ConfigurationProxy::rateModel();
+    Video::ConfigurationProxy::resolutionModel();
+    Video::ConfigurationProxy::channelModel();
+    Video::ConfigurationProxy::deviceModel();
+
     priv->device_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_device),
                                                       &Video::ConfigurationProxy::deviceModel(),
                                                       &Video::ConfigurationProxy::deviceSelectionModel());
