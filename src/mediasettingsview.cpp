@@ -277,7 +277,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
         gtk_widget_show_all(priv->video_widget);
         gtk_box_pack_start(GTK_BOX(priv->vbox_main), priv->video_widget, TRUE, TRUE, 0);
         // set minimum size for video so it doesn't shrink too much
-        gtk_widget_set_size_request(priv->video_widget, 300, -1);
+        gtk_widget_set_size_request(priv->video_widget, 400, -1);
 
         if (Video::PreviewManager::instance().isPreviewing()) {
             priv->video_started_by_settings = FALSE;

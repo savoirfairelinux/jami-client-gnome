@@ -7,8 +7,6 @@
       <object class="GtkBox" id="vbox_main">
         <property name="visible">True</property>
         <property name="orientation">horizontal</property>
-        <property name="spacing">10</property>
-        <!-- <property name="homogeneous">True</property> -->
         <!-- start audio selection -->
         <child>
           <object class="GtkGrid" id="grid_left">
@@ -24,6 +22,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">Audio Settings</property>
+                <property name="ellipsize">end</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -133,6 +132,7 @@
                 <property name="visible">True</property>
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">Camera Settings</property>
+                <property name="ellipsize">end</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -245,7 +245,7 @@
       </object>
       <packing>
         <property name="expand">False</property>
-        <property name="fill">True</property>
+        <property name="fill">False</property>
       </packing>
     </child>
   </template>
