@@ -186,6 +186,15 @@ media_settings_view_init(MediaSettingsView *view)
 
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(view);
 
+    /* video settings */
+    /* TODO: this is a workaround for a possible LRC issue
+     *       make sure all the models are instantiated before making a selection
+     */
+    Video::ConfigurationProxy::rateModel();
+    Video::ConfigurationProxy::resolutionModel();
+    Video::ConfigurationProxy::channelModel();
+    Video::ConfigurationProxy::deviceModel();
+
     priv->device_selection = connect_combo_box_qmodel(GTK_COMBO_BOX(priv->combobox_device),
                                                       &Video::ConfigurationProxy::deviceModel(),
                                                       &Video::ConfigurationProxy::deviceSelectionModel());
@@ -200,7 +209,9 @@ media_settings_view_init(MediaSettingsView *view)
                                                     &Video::ConfigurationProxy::rateSelectionModel());
 
     /* audio settings */
-    /* instantiate all the models before the manager model first */
+    /* TODO: this is a workaround for a possible LRC issue
+     *       make sure all the models are instantiated before making a selection
+     */
     Audio::Settings::instance().alsaPluginModel();
     Audio::Settings::instance().ringtoneDeviceModel();
     Audio::Settings::instance().inputDeviceModel();
