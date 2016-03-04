@@ -251,6 +251,13 @@ activate_contact_item(GtkTreeView *tree_view,
 }
 
 static void
+call_contactmethod(G_GNUC_UNUSED GtkWidget *item, ContactMethod *cm)
+{
+    g_return_if_fail(cm);
+    place_new_call(cm);
+}
+
+static void
 copy_contact_info(GtkWidget *item, G_GNUC_UNUSED gpointer user_data)
 {
     gpointer data = g_object_get_data(G_OBJECT(item), COPY_DATA_KEY);
@@ -342,9 +349,44 @@ contacts_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkT
      * if depth > 2, then its a contact method, so only offer to copy the number
      */
     if (depth == 2) {
-        QVariant var_c = idx.data(static_cast<int>(Person::Role::Object));
+        QVariant var_c = idx.data(static_cast<int>(Ring::Role::Object));
         if (var_c.isValid()) {
             Person *c = var_c.value<Person *>();
+
+                /* call */
+				/* possiblity for multiple numbers */
+				auto cms = c->phoneNumbers();
+				if (cms.size() == 1) {
+					auto item = gtk_menu_item_new_with_mnemonic(_("_Call"));
+					gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+					g_signal_connect(item,
+									 "activate",
+									 G_CALLBACK(call_contactmethod),
+									 cms.at(0));
+				} else if (cms.size() > 1) {
+					// maybe this is not needed since there is the depth > 2 option
+					auto call_item = gtk_menu_item_new_with_mnemonic(_("_Call"));
+					gtk_menu_shell_append(GTK_MENU_SHELL(menu), call_item);
+					auto call_menu = gtk_menu_new();
+					gtk_menu_item_set_submenu(GTK_MENU_ITEM(call_item), call_menu);
+					for (int i = 0; i < cms.size(); ++i) {
+						gchar *number = nullptr;
+						if (cms.at(i)->category()) {
+							// try to get the number category, eg: "home"
+							number = g_strdup_printf("(%s) %s", cms.at(i)->category()->name().toUtf8().constData(),
+															  cms.at(i)->uri().toUtf8().constData());
+						} else {
+							number = g_strdup_printf("%s", cms.at(i)->uri().toUtf8().constData());
+						}
+						auto item = gtk_menu_item_new_with_label(number);
+						g_free(number);
+						gtk_menu_shell_append(GTK_MENU_SHELL(call_menu), item);
+						g_signal_connect(item,
+										 "activate",
+										 G_CALLBACK(call_contactmethod),
+										 cms.at(i));
+					}
+				}
 
             /* copy name */
             gchar *name = g_strdup_printf("%s", c->formattedName().toUtf8().constData());
@@ -379,11 +421,11 @@ contacts_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkT
 
         }
     } else if (depth > 2) {
-        /* copy number */
         QVariant var_n = idx.data(static_cast<int>(ContactMethod::Role::Object));
         if (var_n.isValid()) {
-            ContactMethod *n = var_n.value<ContactMethod *>();
-            gchar *number = g_strdup_printf("%s",n->uri().toUtf8().constData());
+            /* copy number */
+            ContactMethod *cm = var_n.value<ContactMethod *>();
+            gchar *number = g_strdup_printf("%s",cm->uri().toUtf8().constData());
             GtkWidget *item = gtk_menu_item_new_with_mnemonic(_("_Copy number"));
             gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
             g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, number, (GDestroyNotify)g_free);
@@ -391,6 +433,14 @@ contacts_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkT
                              "activate",
                              G_CALLBACK(copy_contact_info),
                              NULL);
+
+            /* call */
+			item = gtk_menu_item_new_with_mnemonic(_("_Call"));
+			gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+			g_signal_connect(item,
+							 "activate",
+							 G_CALLBACK(call_contactmethod),
+							 cm);
         }
     }
 
