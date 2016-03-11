@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_7288d822",
+        "filename": "src/contactsview.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-03-11T16:50:48Z",
+      "side": 1,
+      "message": "this isn\u0027t necessary here, because you already have the Person object in the line above, so you can get rid of the conditional and then simply do:\nauto cms \u003d c-\u003ephoneNumbers();\n\nnote: Person::Role::Object should give you the same things as Ring::Role::Object, we just added Ring::Role::Object later so that it would be consistent across different models",
+      "range": {
+        "startLine": 357,
+        "startChar": 16,
+        "endLine": 360,
+        "endChar": 72
+      },
+      "revId": "17d556996a638e6f592077f8069f5071b5f95749",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_32826001",
+        "filename": "src/contactsview.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-03-11T16:50:48Z",
+      "side": 1,
+      "message": "same as the previous comment, you already have the ContactMethod on line 430, so you don\u0027t need to extract it again",
+      "range": {
+        "startLine": 441,
+        "startChar": 12,
+        "endLine": 443,
+        "endChar": 58
+      },
+      "revId": "17d556996a638e6f592077f8069f5071b5f95749",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_b2ac308e",
+        "filename": "src/historyview.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-03-11T16:50:48Z",
+      "side": 1,
+      "message": "This is my mistake. Its old code, so I didn\u0027t realize until now, but ASAN detects a free after use here. This is because the pointer that constData() function gives should not be saved and used after the QString object (given by toString()) is freed, but that happens immediately. This stil \"works\" but its not good.\n\nI will fix this in a patch based on this one, and then you can squash them into one patch.",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 47
+      },
+      "revId": "17d556996a638e6f592077f8069f5071b5f95749",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_d2a9a47c",
+        "filename": "src/historyview.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-03-11T16:50:48Z",
+      "side": 1,
+      "message": "actually, its possible for the ContactMethod to have a name even if there is no contact (Person object) associated... this can happen when the CM has a \"display name\" specified.",
+      "range": {
+        "startLine": 219,
+        "startChar": 4,
+        "endLine": 224,
+        "endChar": 64
+      },
+      "revId": "17d556996a638e6f592077f8069f5071b5f95749",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
