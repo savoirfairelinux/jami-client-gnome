@@ -441,7 +441,7 @@ account_view_init(AccountView *view)
     priv->protocol_selection_changed = QObject::connect(
         AccountModel::instance().selectionModel(),
         &QItemSelectionModel::currentChanged,
-        [=](const QModelIndex & current, const QModelIndex & previous) {
+        [=](QModelIndex current, const QModelIndex & previous) {
             GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
 
             /* first unselect the previous */
