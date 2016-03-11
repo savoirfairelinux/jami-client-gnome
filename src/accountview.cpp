@@ -441,18 +441,8 @@ account_view_init(AccountView *view)
     priv->protocol_selection_changed = QObject::connect(
         AccountModel::instance().selectionModel(),
         &QItemSelectionModel::currentChanged,
-        [=](const QModelIndex & current, const QModelIndex & previous) {
+        [=](const QModelIndex & current, G_GNUC_UNUSED const QModelIndex & previous) {
             GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
-
-            /* first unselect the previous */
-            if (previous.isValid()) {
-                GtkTreeIter old_iter;
-                if (gtk_q_tree_model_source_index_to_iter(account_model, previous, &old_iter)) {
-                    gtk_tree_selection_unselect_iter(selection, &old_iter);
-                } else {
-                    g_warning("Trying to unselect invalid GtkTreeIter");
-                }
-            }
 
             /* select the current */
             if (current.isValid()) {
