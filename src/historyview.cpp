@@ -36,6 +36,8 @@
 #include <QtCore/QItemSelectionModel>
 #include "utils/menus.h"
 
+static constexpr const char* COPY_DATA_KEY = "copy_data";
+
 struct _HistoryView
 {
     GtkTreeView parent;
@@ -127,46 +129,20 @@ activate_history_item(GtkTreeView *tree_view,
 }
 
 static void
-call_contactmethod(G_GNUC_UNUSED GtkWidget *item, GtkTreeView *treeview)
+call_contactmethod(G_GNUC_UNUSED GtkWidget *item, ContactMethod *cm)
 {
-    GtkTreeSelection *selection = gtk_tree_view_get_selection(treeview);
-    QModelIndex idx = get_index_from_selection(selection);
-
-    auto object = idx.data(static_cast<int>(Call::Role::ContactMethod));
-    if (object.isValid()) {
-        auto cm = object.value<ContactMethod *>();
-
-        g_return_if_fail(cm);
-        place_new_call(cm);
-    }
+    g_return_if_fail(cm);
+    place_new_call(cm);
 }
 
 static void
-copy_contact_name(G_GNUC_UNUSED GtkWidget *item, GtkTreeView *treeview)
+copy_contact_info(GtkWidget *item, G_GNUC_UNUSED gpointer user_data)
 {
-    GtkTreeSelection *selection = gtk_tree_view_get_selection(treeview);
-    QModelIndex idx = get_index_from_selection(selection);
-
-    if (idx.isValid()) {
-        GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-
-        const gchar* name = idx.data(static_cast<int>(Call::Role::Name)).toString().toUtf8().constData();
-        gtk_clipboard_set_text(clip, name, -1);
-    }
-}
-
-static void
-copy_number(G_GNUC_UNUSED GtkWidget *item, GtkTreeView *treeview)
-{
-    GtkTreeSelection *selection = gtk_tree_view_get_selection(treeview);
-    QModelIndex idx = get_index_from_selection(selection);
-
-    if (idx.isValid()) {
-        GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-
-        const gchar* number = idx.data(static_cast<int>(Call::Role::Number)).toString().toUtf8().constData();
-        gtk_clipboard_set_text(clip, number, -1);
-    }
+    gpointer data = g_object_get_data(G_OBJECT(item), COPY_DATA_KEY);
+    g_return_if_fail(data);
+    gchar* text = (gchar *)data;
+    GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+    gtk_clipboard_set_text(clip, text, -1);
 }
 
 /* TODO: can't seem to delete just one item for now, add when supported in backend
@@ -214,21 +190,32 @@ history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTr
     g_signal_connect(item,
                      "activate",
                      G_CALLBACK(call_contactmethod),
-                     treeview);
+                     call->peerContactMethod());
 
-    /* get the contact method and check if it is already linked to a person,
-     * if so, then offer to copy the name of the contact
-     * if not, then offer to either add to a new or existing contact */
-    auto contactmethod = call->peerContactMethod();
-    if (contact_method_has_contact(contactmethod)) {
+    /* copy name */
+    QVariant name_var = idx.data(static_cast<int>(Ring::Role::Name));
+    if (name_var.isValid()) {
+        gchar *name = g_strdup_printf("%s", name_var.value<QString>().toUtf8().constData());
         item = gtk_menu_item_new_with_mnemonic(_("_Copy name"));
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-        g_signal_connect(item,
-                         "activate",
-                         G_CALLBACK(copy_contact_name),
-                         treeview);
+        g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, name, (GDestroyNotify)g_free);
+        g_signal_connect(item, "activate", G_CALLBACK(copy_contact_info), NULL);
     }
-    else {
+
+     /* copy number */
+     QVariant number_var = idx.data(static_cast<int>(Ring::Role::Number));
+     if (number_var.isValid()) {
+         gchar *number = g_strdup_printf("%s", number_var.value<QString>().toUtf8().constData());
+         item = gtk_menu_item_new_with_mnemonic(_("_Copy number"));
+         gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+         g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, number, (GDestroyNotify)g_free);
+         g_signal_connect(item, "activate", G_CALLBACK(copy_contact_info), NULL);
+     }
+
+    /* get the contact method and check if it is already linked to a person,
+     * if not, then offer to either add to a new or existing contact */
+    auto contactmethod = call->peerContactMethod();
+    if (!contact_method_has_contact(contactmethod)) {
         GtkTreeIter iter;
         GtkTreeModel *model;
         gtk_tree_selection_get_selected(selection, &model, &iter);
@@ -241,14 +228,6 @@ history_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTr
         auto add_to = menu_item_add_to_contact(contactmethod, GTK_WIDGET(treeview), &rect);
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), add_to);
     }
-
-    /* copy number */
-    item = gtk_menu_item_new_with_mnemonic(_("_Copy number"));
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-    g_signal_connect(item,
-                     "activate",
-                     G_CALLBACK(copy_number),
-                     treeview);
 
     /* TODO: delete history entry
      * gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
