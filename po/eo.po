@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
+# Maxime Thiébaut <thi.maxime@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2015-12-23 22:06+0000\n"
-"Last-Translator: Stepan Salenikovich\n"
+"PO-Revision-Date: 2016-02-28 23:08+0000\n"
+"Last-Translator: Maxime Thiébaut <thi.maxime@gmail.com>\n"
 "Language-Team: Esperanto (http://www.transifex.com/savoirfairelinux/ring/language/eo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,12 +20,12 @@ msgstr ""
 
 #: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
 msgid "Enabled"
-msgstr ""
+msgstr "Ŝalti"
 
 #: src/accountaudiotab.cpp:191
 msgctxt "Name of the codec"
 msgid "Name"
-msgstr ""
+msgstr "Nomo"
 
 #: src/accountaudiotab.cpp:195 src/accountvideotab.cpp:204
 msgid "Bitrate"
@@ -60,7 +61,7 @@ msgstr "Pasvorto"
 
 #: src/accountgeneraltab.cpp:302
 msgid "Show password"
-msgstr ""
+msgstr "Montru pasvorton"
 
 #: src/accountgeneraltab.cpp:308
 msgid "Proxy"
@@ -90,7 +91,7 @@ msgstr ""
 #: src/accountvideotab.cpp:200
 msgctxt "The name of the codec"
 msgid "Name"
-msgstr ""
+msgstr "Nomo"
 
 #: src/accountview.cpp:159
 msgctxt "Account settings"
@@ -129,7 +130,7 @@ msgstr "Nova konto"
 #: src/accountview.cpp:399
 msgctxt "Account state column"
 msgid "Enabled"
-msgstr ""
+msgstr "Ŝalti"
 
 #: src/accountview.cpp:405
 msgctxt "Account alias (name) column"
@@ -139,7 +140,7 @@ msgstr "Kromnomo"
 #: src/accountview.cpp:409
 msgctxt "Account status column"
 msgid "Status"
-msgstr ""
+msgstr "Stato"
 
 #: src/contactsview.cpp:305
 msgid "_Copy name"
@@ -170,7 +171,7 @@ msgstr ""
 #: src/editcontactview.cpp:196
 msgctxt "Phone number category"
 msgid "home"
-msgstr ""
+msgstr "hejmo"
 
 #: src/generalsettingsview.cpp:94
 msgid ""
@@ -190,7 +191,7 @@ msgstr "Voki"
 #: src/historyview.cpp:447
 msgctxt "Call history"
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #: src/ringnotify.cpp:86
 msgid "Incoming call"
@@ -223,7 +224,7 @@ msgstr ""
 #: src/backends/edscontactbackend.cpp:221
 msgctxt "Backend type"
 msgid "Contacts"
-msgstr ""
+msgstr "Kontaktoj"
 
 #: src/utils/menus.cpp:67
 msgid "_Add to contact"
@@ -503,7 +504,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:261 ui/currentcallview.ui:338
 msgid "Mute video"
-msgstr ""
+msgstr "Kaŝi videon"
 
 #: ui/currentcallview.ui:280
 msgid "Toggle record audio"
@@ -523,11 +524,11 @@ msgstr "Retbabilo"
 
 #: ui/currentcallview.ui:329
 msgid "Mute audio"
-msgstr ""
+msgstr "Silentigi aŭdion"
 
 #: ui/currentcallview.ui:365
 msgid "Record"
-msgstr ""
+msgstr "Registri"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
@@ -539,7 +540,7 @@ msgstr ""
 
 #: ui/editcontactview.ui:29
 msgid "Name"
-msgstr ""
+msgstr "Nomo"
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
@@ -563,7 +564,7 @@ msgstr ""
 
 #: ui/editcontactview.ui:83
 msgid "Save"
-msgstr ""
+msgstr "Savi"
 
 #: ui/generalsettingsview.ui:32
 msgid "<b>Ring Settings</b>"
@@ -663,7 +664,7 @@ msgstr ""
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr ""
+msgstr "_Pri"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
@@ -683,7 +684,7 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:75
 msgid "Accounts"
-msgstr ""
+msgstr "Kontoj"
 
 #: ui/ringmainwindow.ui:93
 msgid "Settings"
@@ -695,15 +696,15 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:211
 msgid "Contacts"
-msgstr ""
+msgstr "Kontaktoj"
 
 #: ui/ringmainwindow.ui:230
 msgid "History"
-msgstr ""
+msgstr "Historio"
 
 #: ui/ringmainwindow.ui:290
 msgid "Welcome to  "
-msgstr ""
+msgstr "Bonvenon al"
 
 #: ui/ringmainwindow.ui:307
 msgid "Enter your alias to get started:"
@@ -711,19 +712,19 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:324
 msgid "Generating your Ring account..."
-msgstr ""
+msgstr "Generanta vian Ring-an konton..."
 
 #: ui/ringmainwindow.ui:338
 msgid "Next"
-msgstr ""
+msgstr "Sekva"
 
 #: ui/ringmainwindow.ui:360
 msgid "Your Ring account has been created with the following Ring ID:"
-msgstr ""
+msgstr "Via Ring-a konto estas kreita kun la sekva Ring ID:"
 
 #: ui/ringmainwindow.ui:375
 msgid "Share it with your friends so they can contact you via Ring!"
-msgstr ""
+msgstr "Konigu ĝin al viaj geamikoj por ke ili kontaktu vin per Ring!"
 
 #: ui/ringmainwindow.ui:380
 msgid "Done"

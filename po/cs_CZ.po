@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2015-12-23 22:10+0000\n"
+"PO-Revision-Date: 2016-01-26 16:11+0000\n"
 "Last-Translator: Stepan Salenikovich\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/savoirfairelinux/ring/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: src/accountaudiotab.cpp:191
 msgctxt "Name of the codec"
 msgid "Name"
-msgstr ""
+msgstr "Jméno"
 
 #: src/accountaudiotab.cpp:195 src/accountvideotab.cpp:204
 msgid "Bitrate"
@@ -90,7 +90,7 @@ msgstr ""
 #: src/accountvideotab.cpp:200
 msgctxt "The name of the codec"
 msgid "Name"
-msgstr ""
+msgstr "Jméno"
 
 #: src/accountview.cpp:159
 msgctxt "Account settings"
@@ -190,7 +190,7 @@ msgstr "Hoover"
 #: src/historyview.cpp:447
 msgctxt "Call history"
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: src/ringnotify.cpp:86
 msgid "Incoming call"
@@ -223,7 +223,7 @@ msgstr ""
 #: src/backends/edscontactbackend.cpp:221
 msgctxt "Backend type"
 msgid "Contacts"
-msgstr ""
+msgstr "Kontakty"
 
 #: src/utils/menus.cpp:67
 msgid "_Add to contact"
@@ -503,7 +503,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:261 ui/currentcallview.ui:338
 msgid "Mute video"
-msgstr ""
+msgstr "Vypnout obraz"
 
 #: ui/currentcallview.ui:280
 msgid "Toggle record audio"
@@ -523,11 +523,11 @@ msgstr "Chat"
 
 #: ui/currentcallview.ui:329
 msgid "Mute audio"
-msgstr ""
+msgstr "Ztlumit zvuk"
 
 #: ui/currentcallview.ui:365
 msgid "Record"
-msgstr ""
+msgstr "Nahrávat"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
@@ -539,7 +539,7 @@ msgstr ""
 
 #: ui/editcontactview.ui:29
 msgid "Name"
-msgstr ""
+msgstr "Jméno"
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
@@ -695,7 +695,7 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:211
 msgid "Contacts"
-msgstr ""
+msgstr "Kontakty"
 
 #: ui/ringmainwindow.ui:230
 msgid "History"

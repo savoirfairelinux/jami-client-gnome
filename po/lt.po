@@ -5,13 +5,13 @@
 # Translators:
 # Guillaume Roguez, 2015
 # Mantas Kriaučiūnas <mantas@akl.lt>, 2015
-# Moo, 2015
+# Moo, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2015-12-27 19:13+0000\n"
+"PO-Revision-Date: 2016-03-03 22:52+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -127,7 +127,7 @@ msgstr "Ar tikrai norite ištrinti paskyrą \"%s\"?"
 
 #: src/accountview.cpp:313 src/accountview.cpp:315
 msgid "New Account"
-msgstr "Nauja Paskyra"
+msgstr "Nauja paskyra"
 
 #: src/accountview.cpp:399
 msgctxt "Account state column"
@@ -295,7 +295,7 @@ msgstr "Vietinis prievadas:"
 
 #: ui/accountadvancedtab.ui:223
 msgid "<b>Network Interface</b>"
-msgstr "<b>Tinklo Sąsaja</b>"
+msgstr "<b>Tinklo sąsaja</b>"
 
 #: ui/accountadvancedtab.ui:249
 msgid "Same as local parameters"
@@ -339,7 +339,7 @@ msgstr "sritis"
 
 #: ui/accountadvancedtab.ui:504
 msgid "<b>Published Address</b>"
-msgstr "<b>Paskelbtas Adresas</b>"
+msgstr "<b>Paskelbtas adresas</b>"
 
 #: ui/accountadvancedtab.ui:533
 msgid ""
@@ -357,15 +357,15 @@ msgstr "Didž."
 
 #: ui/accountadvancedtab.ui:605
 msgid "<b>Audio RTP Port Range</b>"
-msgstr "<b>Garso RTP Prievadų Rėžis</b>"
+msgstr "<b>Garso RTP prievadų rėžis</b>"
 
 #: ui/accountadvancedtab.ui:679
 msgid "<b>Video RTP Port Range</b>"
-msgstr "<b>Vaizdo RTP Prievadų Rėžis</b>"
+msgstr "<b>Vaizdo RTP prievadų rėžis</b>"
 
 #: ui/accountadvancedtab.ui:695
 msgid "<b>SDP Session Negotiation (ICE Fallback)</b>"
-msgstr "<b>SDP Seanso Derėjimasis (ICE Surogatas)</b>"
+msgstr "<b>SDP seanso derėjimasis (ICE surogatas)</b>"
 
 #: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
 msgid "Up"
@@ -397,11 +397,11 @@ msgstr "Rakto mainų protokolas"
 
 #: ui/accountsecuritytab.ui:76
 msgid "Fallback on RTP on encryption failure"
-msgstr "Nepavykus užšifravimui, pereiti į RTP surogatinę veikseną"
+msgstr "Nepavykus šifravimui, pereiti į RTP surogatinę veikseną"
 
 #: ui/accountsecuritytab.ui:94
 msgid "<b>Media Stream Encryption</b>"
-msgstr "<b>Medija Srauto Šifravimas</b>"
+msgstr "<b>Medija srauto šifravimas</b>"
 
 #: ui/accountsecuritytab.ui:121
 msgid "Encrypt negotiation (TLS)"
@@ -457,11 +457,11 @@ msgstr "Reikalauti liudijimo gaunamiems TLS ryšiams"
 
 #: ui/accountsecuritytab.ui:491
 msgid "<b>Negotiation Encryption</b>"
-msgstr "<b>Derėjimosi Užšifravimas</b>"
+msgstr "<b>Derėjimosi šifravimas</b>"
 
 #: ui/accountvideotab.ui:90
 msgid "Enable Video"
-msgstr "Įjungti Vaizdą"
+msgstr "Įjungti vaizdą"
 
 #: ui/accountview.ui:59
 msgid "<b>&#8722;</b>"
@@ -473,7 +473,7 @@ msgstr "<b>+</b>"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
-msgstr "Kurti Naują"
+msgstr "Kurti naują"
 
 #: ui/currentcallview.ui:73
 msgid "Send"
@@ -570,7 +570,7 @@ msgstr "Įrašyti"
 
 #: ui/generalsettingsview.ui:32
 msgid "<b>Ring Settings</b>"
-msgstr "<b>Ring Nustatymai</b>"
+msgstr "<b>Ring nustatymai</b>"
 
 #: ui/generalsettingsview.ui:46
 msgid "Start Ring on login"
@@ -594,7 +594,7 @@ msgstr "Rodyti pokalbį apačioje."
 
 #: ui/generalsettingsview.ui:110
 msgid "<b>History Settings</b>"
-msgstr "<b>Istorijos Nustatymai</b>"
+msgstr "<b>Istorijos nustatymai</b>"
 
 #: ui/generalsettingsview.ui:128
 msgid "Keep history for (days):"
@@ -642,7 +642,7 @@ msgstr "Įvesties įrenginys:"
 
 #: ui/mediasettingsview.ui:127
 msgid "<b>Audio Settings</b>"
-msgstr "<b>Garso Nustatymai</b>"
+msgstr "<b>Garso nustatymai</b>"
 
 #: ui/mediasettingsview.ui:163
 msgid "Device:"
@@ -662,7 +662,7 @@ msgstr "Kadrų dažnis:"
 
 #: ui/mediasettingsview.ui:258
 msgid "<b>Camera Settings</b>"
-msgstr "<b>Kameros Nustatymai</b>"
+msgstr "<b>Kameros nustatymai</b>"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
@@ -706,7 +706,7 @@ msgstr "Istorija"
 
 #: ui/ringmainwindow.ui:290
 msgid "Welcome to  "
-msgstr "Sveikiname"
+msgstr "Sveiki atvykę į  "
 
 #: ui/ringmainwindow.ui:307
 msgid "Enter your alias to get started:"
