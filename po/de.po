@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Stefan Langenmaier <stefan.langenmaier@gmail.com>, 2015
+# Tobias Schönberg <tobias47n9e@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2015-11-13 14:49+0000\n"
-"Last-Translator: Stepan Salenikovich\n"
+"PO-Revision-Date: 2016-02-27 23:42+0000\n"
+"Last-Translator: Tobias Schönberg <tobias47n9e@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/ring/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -371,7 +372,7 @@ msgstr "Hoch"
 
 #: ui/accountaudiotab.ui:66 ui/accountvideotab.ui:66
 msgid "Down"
-msgstr "Rutner"
+msgstr "Runter"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
 msgid "<b>Codecs</b>"
@@ -584,11 +585,11 @@ msgstr "Bei eingehenden Anrufen Ring in den Vordergrund bringen."
 
 #: ui/generalsettingsview.ui:79
 msgid "Show chat on the right."
-msgstr ""
+msgstr "Chat rechts anzeigen"
 
 #: ui/generalsettingsview.ui:86
 msgid "Show chat on the bottom."
-msgstr ""
+msgstr "Chat unten anzeigen"
 
 #: ui/generalsettingsview.ui:110
 msgid "<b>History Settings</b>"
@@ -692,7 +693,7 @@ msgstr "Einstellungen"
 
 #: ui/ringmainwindow.ui:192
 msgid "Conversations"
-msgstr ""
+msgstr "Unterhaltungen"
 
 #: ui/ringmainwindow.ui:211
 msgid "Contacts"
