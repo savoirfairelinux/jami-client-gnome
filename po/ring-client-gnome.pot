@@ -157,7 +157,7 @@ msgstr ""
 #, c-format
 msgctxt "Do not translate the release name"
 msgid ""
-"release: Samuel de Champlain\n"
+"release: Louis-Joseph Papineau\n"
 "v%d.%d.%d - %.10s"
 msgstr ""
 
