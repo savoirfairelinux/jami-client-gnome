@@ -15,8 +15,8 @@ ADD_DEFINITIONS("-std=c++1y")
 
 # set project name and version
 PROJECT(ring-client-gnome)
-SET(PROJECT_VERSION_MAJOR 0)
-SET(PROJECT_VERSION_MINOR 4)
+SET(PROJECT_VERSION_MAJOR 1)
+SET(PROJECT_VERSION_MINOR 0)
 SET(PROJECT_VERSION_PATCH 0)
 
 # add the binary tree to the search path for include files
