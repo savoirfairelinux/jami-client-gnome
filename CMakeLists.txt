@@ -42,10 +42,27 @@ SET(RING_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}
   CACHE PATH "prefix where the package will be installed on the user's system (eg: /usr/local); defaults to the CMAKE_INSTALL_PREFIX"
 )
 
+# Check if LRC's location is manually specified with -DLibRingClient_PROJECT_DIR
+IF(EXISTS ${LibRingClient_PROJECT_DIR}/src/callmodel.h)
+   SET(LibRingClient_FOUND true)
+
+   SET(LibRingClient_INCLUDE_DIRS ${LibRingClient_PROJECT_DIR}/src)
+   SET(LibRingClient_LIBRARY_DIRS ${LibRingClient_PROJECT_DIR}/build)
+   SET(LIB_RING_CLIENT_LIBRARY ringclient)
+
+   INCLUDE_DIRECTORIES(${LibRingClient_INCLUDE_DIRS})
+   LINK_DIRECTORIES(${LibRingClient_LIBRARY_DIRS})
+
+   MESSAGE("lrc headers are in " ${LibRingClient_INCLUDE_DIRS})
+   MESSAGE("lrc libraries are in " ${LibRingClient_LIBRARY_DIRS})
+ELSE()
+   FIND_PACKAGE(LibRingClient REQUIRED)
+ENDIF()
+
+
 # find packages
 FIND_PACKAGE(PkgConfig REQUIRED)
 PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0>=3.10)
-FIND_PACKAGE(LibRingClient REQUIRED)
 FIND_PACKAGE(Qt5Core REQUIRED)
 PKG_CHECK_MODULES(CLUTTER REQUIRED clutter-1.0)
 PKG_CHECK_MODULES(CLUTTERGTK REQUIRED clutter-gtk-1.0)
