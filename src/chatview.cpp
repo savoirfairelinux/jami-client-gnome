@@ -54,6 +54,7 @@ struct _ChatViewPrivate
     GtkWidget *hbox_chat_info;
     GtkWidget *label_peer;
     GtkWidget *combobox_cm;
+    GtkWidget *button_close_chatview;
 
     /* only one of the three following pointers should be non void;
      * either this is an in-call chat (and so the in-call chat APIs will be used)
@@ -72,6 +73,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(ChatView, chat_view, GTK_TYPE_BOX);
 
 enum {
     NEW_MESSAGES_DISPLAYED,
+    HIDE_VIEW_CLICKED,
     LAST_SIGNAL
 };
 
@@ -137,6 +139,12 @@ scroll_to_bottom(GtkAdjustment *adjustment, G_GNUC_UNUSED gpointer user_data)
 }
 
 static void
+hide_chat_view(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
+{
+    g_signal_emit(G_OBJECT(self), chat_view_signals[HIDE_VIEW_CLICKED], 0);
+}
+
+static void
 chat_view_init(ChatView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
@@ -151,6 +159,8 @@ chat_view_init(ChatView *view)
      * the chat treeview */
     GtkAdjustment *adjustment = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(priv->scrolledwindow_chat));
     g_signal_connect(adjustment, "changed", G_CALLBACK(scroll_to_bottom), NULL);
+
+    g_signal_connect(priv->button_close_chatview, "clicked", G_CALLBACK(hide_chat_view), view);
 }
 
 static void
@@ -168,9 +178,20 @@ chat_view_class_init(ChatViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, hbox_chat_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, combobox_cm);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_close_chatview);
 
     chat_view_signals[NEW_MESSAGES_DISPLAYED] = g_signal_new (
         "new-messages-displayed",
+        G_TYPE_FROM_CLASS(klass),
+        (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+        0,
+        nullptr,
+        nullptr,
+        g_cclosure_marshal_VOID__VOID,
+        G_TYPE_NONE, 0);
+
+    chat_view_signals[HIDE_VIEW_CLICKED] = g_signal_new (
+        "hide-view-clicked",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
         0,
