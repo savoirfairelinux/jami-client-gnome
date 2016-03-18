@@ -393,16 +393,16 @@
   <object class="GtkImage" id="image_general_settings">
     <property name="visible">True</property>
     <property name="icon-name">preferences-system-symbolic</property>
-    <property name="icon-size">3</property>
+    <property name="icon-size">2</property>
   </object>
   <object class="GtkImage" id="image_media_settings">
     <property name="visible">True</property>
     <property name="icon-name">applications-multimedia-symbolic</property>
-    <property name="icon-size">3</property>
+    <property name="icon-size">2</property>
   </object>
   <object class="GtkImage" id="image_account_settings">
     <property name="visible">True</property>
     <property name="icon-name">user-info-symbolic</property>
-    <property name="icon-size">3</property>
+    <property name="icon-size">2</property>
   </object>
 </interface>

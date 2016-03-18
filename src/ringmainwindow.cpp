@@ -403,7 +403,7 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         selection_changed(QModelIndex(), win);
 
         /* show settings */
-        gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-ok-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
+        gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-ok-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
 
         gtk_widget_show(priv->hbox_settings);
 
@@ -430,7 +430,7 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         g_timeout_add_full(G_PRIORITY_DEFAULT, 400, (GSourceFunc)save_accounts, working, NULL);
 
         /* show calls */
-        gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
+        gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
 
         gtk_widget_hide(priv->hbox_settings);
 
@@ -826,7 +826,7 @@ ring_main_window_init(RingMainWindow *win)
 
     /* set menu icon */
     GdkPixbuf* image_ring = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/ring-symbol-blue",
-                                                                  -1, 24, TRUE, &error);
+                                                                  -1, 16, TRUE, &error);
     if (image_ring == NULL) {
         g_debug("Could not load icon: %s", error->message);
         g_clear_error(&error);
@@ -840,7 +840,7 @@ ring_main_window_init(RingMainWindow *win)
     g_object_unref(builder);
 
     /* settings icon */
-    gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
+    gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
 
     /* connect settings button signal */
     g_signal_connect(priv->ring_settings, "clicked", G_CALLBACK(settings_clicked), win);
