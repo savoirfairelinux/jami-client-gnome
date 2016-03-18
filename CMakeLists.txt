@@ -42,10 +42,34 @@ SET(RING_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}
   CACHE PATH "prefix where the package will be installed on the user's system (eg: /usr/local); defaults to the CMAKE_INSTALL_PREFIX"
 )
 
+# Check if LRC's location is manually specified with -DLibRingClient_PROJECT_DIR
+IF(LibRingClient_PROJECT_DIR)
+   SET(LIB_RING_CLIENT_INCLUDE_DIR ${LibRingClient_PROJECT_DIR}/src)
+   # TODO: maybe allow a way to specify a different build dir
+   SET(LIB_RING_LIBRARY_INCLUDE_DIR ${LibRingClient_PROJECT_DIR}/build)
+
+   # check for the existence of the directories;
+   # if the dirs have missing or outdated files then we will just get build/link errors
+   IF(EXISTS "${LIB_RING_CLIENT_INCLUDE_DIR}/")
+      MESSAGE("will expect lrc headers in ${LIB_RING_CLIENT_INCLUDE_DIR}")
+      IF(EXISTS "${LIB_RING_LIBRARY_INCLUDE_DIR}/")
+         MESSAGE("will expect lrc libraries in " ${LIB_RING_LIBRARY_INCLUDE_DIR})
+         SET(LibRingClient_FOUND true)
+         SET(LIB_RING_CLIENT_LIBRARY ringclient)
+      ELSE()
+         MESSAGE( FATAL_ERROR "${LIB_RING_LIBRARY_INCLUDE_DIR} does not exist")
+      ENDIF(EXISTS "${LIB_RING_LIBRARY_INCLUDE_DIR}/")
+   ELSE()
+      MESSAGE( FATAL_ERROR "${LIB_RING_CLIENT_INCLUDE_DIR} does not exist")
+   ENDIF(EXISTS "${LIB_RING_CLIENT_INCLUDE_DIR}/")
+ELSE(LibRingClient_PROJECT_DIR)
+   FIND_PACKAGE(LibRingClient REQUIRED)
+ENDIF(LibRingClient_PROJECT_DIR)
+
+
 # find packages
 FIND_PACKAGE(PkgConfig REQUIRED)
 PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0>=3.10)
-FIND_PACKAGE(LibRingClient REQUIRED)
 FIND_PACKAGE(Qt5Core REQUIRED)
 PKG_CHECK_MODULES(CLUTTER REQUIRED clutter-1.0)
 PKG_CHECK_MODULES(CLUTTERGTK REQUIRED clutter-gtk-1.0)
