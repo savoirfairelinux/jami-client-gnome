@@ -1,5 +1,5 @@
 %define name        ring-gnome
-%define version     0.4.0
+%define version     1.0.0
 %define release     1
 %define daemon_tag  origin/master
 %define lrc_tag     origin/master
