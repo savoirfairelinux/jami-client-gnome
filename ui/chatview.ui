@@ -13,6 +13,18 @@
         <property name="spacing">5</property>
         <property name="border-width">5</property>
         <child>
+          <object class="GtkButton" id="button_close_chatview">
+            <property name="image">image_back_arrow</property>
+            <property name="visible">True</property>
+            <property name="tooltip-text" translatable="yes">Hide chat view</property>
+            <child internal-child="accessible">
+              <object class="AtkObject" id="button_close_chatview-atkobject">
+                <property name="AtkObject::accessible-name" translatable="yes">Hide chat view</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
           <object class="GtkLabel" id="label_peer">
             <property name="visible">True</property>
             <property name="selectable">True</property>
@@ -97,4 +109,9 @@
     <!-- end of chat entry -->
 
   </template>
+
+  <object class="GtkImage" id="image_back_arrow">
+    <property name="visible">True</property>
+    <property name="icon-name">go-previous-symbolic</property>
+  </object>
 </interface>

@@ -173,6 +173,15 @@ video_double_clicked(G_GNUC_UNUSED CurrentCallView *view, RingMainWindow *self)
     }
 }
 
+static void
+hide_view_clicked(G_GNUC_UNUSED GtkWidget *view, RingMainWindow *self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+
+    /* clear selection */
+    RecentModel::instance().selectionModel()->clear();
+}
+
 /**
  * This takes the RecentModel index as the argument and displays the corresponding view:
  * - incoming call view
@@ -232,12 +241,14 @@ selection_changed(const QModelIndex& recent_idx, RingMainWindow *win)
     } else if (type == Ring::ObjectType::Person && object.isValid()) {
         /* show chat view constructed from Person object */
         auto new_chat_view = chat_view_new_person(object.value<Person *>());
+        g_signal_connect(new_chat_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), win);
         gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
         gtk_container_add(GTK_CONTAINER(priv->frame_call), new_chat_view);
         gtk_widget_show(new_chat_view);
     } else if (type == Ring::ObjectType::ContactMethod && object.isValid()) {
         /* show chat view constructed from CM */
         auto new_chat_view = chat_view_new_cm(object.value<ContactMethod *>());
+        g_signal_connect(new_chat_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), win);
         gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
         gtk_container_add(GTK_CONTAINER(priv->frame_call), new_chat_view);
         gtk_widget_show(new_chat_view);
@@ -313,12 +324,14 @@ selected_item_changed(RingMainWindow *win)
             if (type == Ring::ObjectType::Person && object.isValid()) {
                 /* show chat view constructed from Person object */
                 auto new_view = chat_view_new_person(object.value<Person *>());
+                g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), win);
                 gtk_container_remove(GTK_CONTAINER(priv->frame_call), current_view);
                 gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
                 gtk_widget_show(new_view);
             } else if (type == Ring::ObjectType::ContactMethod && object.isValid()) {
                 /* show chat view constructed from CM */
                 auto new_view = chat_view_new_cm(object.value<ContactMethod *>());
+                g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), win);
                 gtk_container_remove(GTK_CONTAINER(priv->frame_call), current_view);
                 gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
                 gtk_widget_show(new_view);

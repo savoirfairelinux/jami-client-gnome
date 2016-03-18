@@ -804,10 +804,14 @@ recent_contacts_view_init(RecentContactsView *self)
 
             auto current_proxy = RecentModel::instance().peopleProxy()->mapFromSource(current);
 
-            /* select the current */
-            GtkTreeIter new_iter;
-            if (gtk_q_sort_filter_tree_model_source_index_to_iter(recent_model, current_proxy, &new_iter)) {
-                gtk_tree_selection_select_iter(selection, &new_iter);
+            if (current.isValid()) {
+                /* select the current */
+                GtkTreeIter new_iter;
+                if (gtk_q_sort_filter_tree_model_source_index_to_iter(recent_model, current_proxy, &new_iter)) {
+                    gtk_tree_selection_select_iter(selection, &new_iter);
+                }
+            } else {
+                gtk_tree_selection_unselect_all(selection);
             }
         }
     );
