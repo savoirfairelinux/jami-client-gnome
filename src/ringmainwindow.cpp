@@ -33,7 +33,7 @@
 #include "models/gtkqsortfiltertreemodel.h"
 #include "accountview.h"
 #include <accountmodel.h>
-#include <audio/codecmodel.h>
+#include <codecmodel.h>
 #include "dialogs.h"
 #include "mediasettingsview.h"
 #include <video/previewmanager.h>

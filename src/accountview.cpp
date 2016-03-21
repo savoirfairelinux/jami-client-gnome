@@ -22,7 +22,7 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <accountmodel.h>
-#include <audio/codecmodel.h>
+#include <codecmodel.h>
 #include <protocolmodel.h>
 #include <QtCore/QItemSelectionModel>
 #include "models/gtkqtreemodel.h"

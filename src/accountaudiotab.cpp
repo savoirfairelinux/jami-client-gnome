@@ -22,7 +22,7 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <account.h>
-#include <audio/codecmodel.h>
+#include <codecmodel.h>
 #include "models/gtkqsortfiltertreemodel.h"
 #include "utils/models.h"
 
