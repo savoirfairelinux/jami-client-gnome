@@ -35,7 +35,7 @@
 #include <media/textrecording.h>
 #include "models/gtkqtreemodel.h"
 #include "ringnotify.h"
-#include <audio/codecmodel.h>
+#include <codecmodel.h>
 #include <account.h>
 #include "utils/files.h"
 #include <clutter-gtk/clutter-gtk.h>
