@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_d3da0317",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-03-28T18:26:33Z",
+      "side": 1,
+      "message": "hmm, if a user specifies a wrong \"LibRingClient_PROJECT_DIR\" this will silently fail over to the ELSE()... I\u0027m thinking this should produce an error message saying the specified dir doesn\u0027t contain the expected source",
+      "range": {
+        "startLine": 46,
+        "startChar": 10,
+        "endLine": 46,
+        "endChar": 54
+      },
+      "revId": "5cc6a27b236b822ee7f963a00f206c0ab8addc7d",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_f3d707ec",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-03-28T18:26:33Z",
+      "side": 1,
+      "message": "since the \"build\" dir is created by the user, it could be called something else, so we should probably also check if it EXISTS",
+      "range": {
+        "startLine": 50,
+        "startChar": 65,
+        "endLine": 50,
+        "endChar": 70
+      },
+      "revId": "5cc6a27b236b822ee7f963a00f206c0ab8addc7d",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
