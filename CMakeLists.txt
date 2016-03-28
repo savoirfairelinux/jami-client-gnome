@@ -43,18 +43,28 @@ SET(RING_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}
 )
 
 # Check if LRC's location is manually specified with -DLibRingClient_PROJECT_DIR
-IF(EXISTS ${LibRingClient_PROJECT_DIR}/src/callmodel.h)
-   SET(LibRingClient_FOUND true)
-
+IF(LibRingClient_PROJECT_DIR)
    SET(LIB_RING_CLIENT_INCLUDE_DIR ${LibRingClient_PROJECT_DIR}/src)
+   # TODO: maybe allow a way to specify a different build dir
    SET(LIB_RING_LIBRARY_INCLUDE_DIR ${LibRingClient_PROJECT_DIR}/build)
-   SET(LIB_RING_CLIENT_LIBRARY ringclient)
 
-   MESSAGE("lrc headers are in " ${LIB_RING_CLIENT_INCLUDE_DIR})
-   MESSAGE("lrc libraries are in " ${LIB_RING_LIBRARY_INCLUDE_DIR})
-ELSE()
+   # check for the existence of the directories;
+   # if the dirs have missing or outdated files then we will just get build/link errors
+   IF(EXISTS "${LIB_RING_CLIENT_INCLUDE_DIR}/")
+      MESSAGE("will expect lrc headers in ${LIB_RING_CLIENT_INCLUDE_DIR}")
+      IF(EXISTS "${LIB_RING_LIBRARY_INCLUDE_DIR}/")
+         MESSAGE("will expect lrc libraries in " ${LIB_RING_LIBRARY_INCLUDE_DIR})
+         SET(LibRingClient_FOUND true)
+         SET(LIB_RING_CLIENT_LIBRARY ringclient)
+      ELSE()
+         MESSAGE( FATAL_ERROR "${LIB_RING_LIBRARY_INCLUDE_DIR} does not exist")
+      ENDIF(EXISTS "${LIB_RING_LIBRARY_INCLUDE_DIR}/")
+   ELSE()
+      MESSAGE( FATAL_ERROR "${LIB_RING_CLIENT_INCLUDE_DIR} does not exist")
+   ENDIF(EXISTS "${LIB_RING_CLIENT_INCLUDE_DIR}/")
+ELSE(LibRingClient_PROJECT_DIR)
    FIND_PACKAGE(LibRingClient REQUIRED)
-ENDIF()
+ENDIF(LibRingClient_PROJECT_DIR)
 
 
 # find packages
