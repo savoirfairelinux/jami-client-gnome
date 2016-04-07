@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: libqrencode
+Description: A QR Code encoding library
+Version: 3.4.4
+Libs: -L${libdir} -lqrencode
+Libs.private: -lpthread
+Cflags: -I${includedir}

@@ -40,6 +40,14 @@ respective repositories. See Gerrit:
 Compiling
 ==================
 
+First compil and install qrencode, see qrencode-3.4.4/README for details.
+   cd qrencode-3.4.4
+   ./configure --libdir=/usr/lib --includedir=/usr/include
+   make
+   sudo make install
+
+   cd ..
+
 In the project root dir:
     mkdir build
     cd build
