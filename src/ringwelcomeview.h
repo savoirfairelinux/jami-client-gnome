@@ -33,6 +33,8 @@ typedef struct _RingWelcomeView      RingWelcomeView;
 typedef struct _RingWelcomeViewClass RingWelcomeViewClass;
 
 GType             ring_welcome_view_get_type (void) G_GNUC_CONST;
-GtkWidget        *ring_welcome_view_new      (void);
+GtkWidget*        ring_welcome_view_new      (void);
+static gboolean   drawQRCode                 (GtkWidget*,cairo_t*,gpointer);
+static void       switchQRCode               (GtkButton* button, gpointer data);
 
 G_END_DECLS
