@@ -76,6 +76,27 @@ PKG_CHECK_MODULES(CLUTTERGTK REQUIRED clutter-gtk-1.0)
 PKG_CHECK_MODULES(EBOOK REQUIRED libebook-1.2>=3.10)
 PKG_CHECK_MODULES(LIBNOTIFY libnotify>=0.7.6) #optional
 FIND_PACKAGE(Gettext) #optional for translations
+PKG_CHECK_MODULES(LIBQRENCODE libqrencode>=3.9.0)
+
+IF( LIBQRENCODE_FOUND )
+    MESSAGE(STATUS "Found libqrencode version >= 3.9.0: " ${LIBQRENCODE_VERSION})
+ELSE()
+    MESSAGE(STATUS "libqrencode supported version NOT found. Will use the repo" )
+
+    INCLUDE(ExternalProject)
+        ExternalProject_Add(libqrencode
+            GIT_SUBMODULES libqrencode
+            SOURCE_DIR ${CMAKE_SOURCE_DIR}/libqrencode
+            BINARY_DIR  ${CMAKE_SOURCE_DIR}/libqrencode
+            INSTALL_DIR ${CMAKE_SOURCE_DIR}/libqrencode
+            CONFIGURE_COMMAND pwd 
+                COMMAND ./autogen.sh 
+                COMMAND ./configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/libqrencode --disable-shared --enable-static
+            BUILD_COMMAND ${MAKE})
+
+    INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/libqrencode)
+    LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/libqrencode/.libs)
+ENDIF()
 
 # include libs
 INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
@@ -328,6 +349,7 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${LIBNOTIFY_LIBRARIES}
    -lpthread
    -lrt
+   -lqrencode
    )
 ELSE()
 TARGET_LINK_LIBRARIES(gnome-ring
@@ -338,6 +360,7 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${CLUTTERGTK_LIBRARIES}
    ${EBOOK_LIBRARIES}
    ${LIBNOTIFY_LIBRARIES}
+   -lqrencode
    )
 ENDIF()
 
