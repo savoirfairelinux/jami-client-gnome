@@ -328,6 +328,7 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${LIBNOTIFY_LIBRARIES}
    -lpthread
    -lrt
+   -lqrencode #requires some check
    )
 ELSE()
 TARGET_LINK_LIBRARIES(gnome-ring
@@ -338,6 +339,7 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${CLUTTERGTK_LIBRARIES}
    ${EBOOK_LIBRARIES}
    ${LIBNOTIFY_LIBRARIES}
+   -lqrencode #requires some check
    )
 ENDIF()
 

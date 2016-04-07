@@ -40,6 +40,14 @@ respective repositories. See Gerrit:
 Compiling
 ==================
 
+First compile and install libqrencode library, see libqrencode/README for details.
+   cd libqrencode
+   ./configure
+   make
+   sudo make install
+
+   cd ..
+
 In the project root dir:
     mkdir build
     cd build

@@ -1,0 +1,3 @@
+[submodule "libqrencode"]
+	path = libqrencode
+	url = https://github.com/EckoEdc/libqrencode.git
