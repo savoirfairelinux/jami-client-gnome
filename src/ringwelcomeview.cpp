@@ -24,6 +24,7 @@
 #include "utils/accounts.h"
 #include <account.h>
 #include <accountmodel.h>
+#include <qrencode.h>
 
 struct _RingWelcomeView
 {
@@ -120,6 +121,23 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_box_pack_start(GTK_BOX(box), label_ringid, FALSE, TRUE, 0);
     gtk_label_set_ellipsize(GTK_LABEL(label_ringid), PANGO_ELLIPSIZE_END);
 
+    /* QR code */
+    QRcode* rcode = QRcode_encodeString(gtk_label_get_text((GtkLabel*)label_ringid),
+                                     0, //Let the version be decided by libqrencode
+                                     QR_ECLEVEL_L, // Lowest level of error correction
+                                     QR_MODE_8, // 8-bit data mode
+                                     1);
+    if (rcode) {
+        auto qr_ringid = gtk_drawing_area_new ();
+        auto qrsize = 200;
+        gtk_widget_set_size_request (qr_ringid, qrsize, qrsize);
+        gtk_box_pack_start(GTK_BOX(box), qr_ringid, FALSE, TRUE, 0);
+        gtk_widget_set_halign (qr_ringid, GTK_ALIGN_CENTER);
+        g_signal_connect (qr_ringid, "draw", G_CALLBACK (drawQRCode), (void*)rcode);
+    } else {
+        g_error("Failed to generate QR code");
+    }  
+
     if (get_active_ring_account()) {
         gtk_widget_show(label_explanation);
         gtk_widget_show(label_ringid);
@@ -176,4 +194,41 @@ ring_welcome_view_new()
     gpointer self = g_object_new(RING_WELCOME_VIEW_TYPE, NULL);
 
     return (GtkWidget *)self;
+}
+
+static gboolean
+drawQRCode(GtkWidget* diese,
+           cairo_t*   cr,
+           gpointer   data)
+{
+    auto rcode = (QRcode*) data;
+    auto margin = 5;
+    auto qrsize = 200;
+    int qrwidth = rcode->width + margin * 2;
+
+    /* scaling */
+    auto scale = qrsize/qrwidth;
+    cairo_scale(cr, scale, scale);
+
+    /* fill the background in white */
+    cairo_set_source_rgb (cr, 1, 1, 1);
+    cairo_rectangle (cr, 0, 0, qrwidth, qrwidth);
+    cairo_fill (cr);
+
+    unsigned char *row, *p;
+    p = rcode->data;
+    cairo_set_source_rgb (cr, 0, 0, 0); // back in black
+    for(int y = 0; y < rcode->width; y++) {
+        row = (p + (y * rcode->width));
+        for(int x = 0; x < rcode->width; x++) {
+            if(*(row + x) & 0x1) {
+                cairo_rectangle (cr, margin + x, margin + y, 1, 1);
+                cairo_fill (cr);
+            }
+        }
+
+    }
+
+    return TRUE;
+
 }
