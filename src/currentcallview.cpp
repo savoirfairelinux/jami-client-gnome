@@ -40,6 +40,7 @@
 #include "utils/files.h"
 #include <clutter-gtk/clutter-gtk.h>
 #include "chatview.h"
+#include "conferencepopover.h"
 
 static constexpr int CONTROLS_FADE_TIMEOUT = 3000000; /* microseconds */
 static constexpr int FADE_DURATION = 500; /* miliseconds */
@@ -72,6 +73,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *button_hangup;
     GtkWidget *scalebutton_quality;
     GtkWidget *checkbutton_autoquality;
+    GtkWidget *button_add_participant;
 
     /* flag used to keep track of the video quality scale pressed state;
      * we do not want to update the codec bitrate until the user releases the
@@ -393,6 +395,17 @@ quality_button_released(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent 
 }
 
 static void
+add_participant_clicked( GtkWidget *widget, CurrentCallView *self)
+{
+    g_return_if_fail(widget && IS_CURRENT_CALL_VIEW(self));
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    auto popover = conference_popover_new(priv->call, widget, nullptr);
+
+    gtk_widget_show(popover);
+}
+
+static void
 current_call_view_init(CurrentCallView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
@@ -441,6 +454,9 @@ current_call_view_init(CurrentCallView *view)
     /* toggle whether or not the chat is displayed */
     g_signal_connect(priv->togglebutton_chat, "toggled", G_CALLBACK(chat_toggled), view);
 
+    /* add participant button */
+    g_signal_connect(priv->button_add_participant, "clicked", G_CALLBACK(add_participant_clicked), view);
+
     /* bind the chat orientation to the gsetting */
     priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
     g_settings_bind_with_mapping(priv->settings, "chat-pane-horizontal",
@@ -484,6 +500,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scalebutton_quality);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_add_participant);
 
     current_call_view_signals[VIDEO_DOUBLE_CLICKED] = g_signal_new (
         "video-double-clicked",

@@ -282,6 +282,26 @@
         <property name="fill">True</property>
       </packing>
     </child>
+    <child>
+      <object class="GtkButton" id="button_add_participant">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="width-request">42</property>
+        <property name="height-request">42</property>
+        <property name="has_tooltip">True</property>
+        <property name="tooltip-text" translatable="yes">Add participant</property>
+        <property name="image">image_chat</property>
+        <child internal-child="accessible">
+          <object class="AtkObject" id="button_add_participant-atkobject">
+            <property name="AtkObject::accessible-name" translatable="yes">Add participant</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
   </object>
   <!-- end of call control button box -->
 
