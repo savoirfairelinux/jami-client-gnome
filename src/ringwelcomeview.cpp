@@ -24,6 +24,7 @@
 #include "utils/accounts.h"
 #include <account.h>
 #include <accountmodel.h>
+#include <qrencode.h>
 
 struct _RingWelcomeView
 {
@@ -45,6 +46,9 @@ struct _RingWelcomeViewPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_SCROLLED_WINDOW);
 
 #define RING_WELCOME_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_WELCOME_VIEW_TYPE, RingWelcomeViewPrivate))
+
+static gboolean   draw_qrcode(GtkWidget*,cairo_t*,gpointer);
+static void       switch_qrcode(GtkButton* button, gpointer data);
 
 static void
 show_ring_id(GtkLabel *label, Account *account) {
@@ -77,6 +81,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_set_hexpand(GTK_WIDGET(box), FALSE);
     gtk_widget_set_valign(GTK_WIDGET(box), GTK_ALIGN_CENTER);
     gtk_widget_set_halign(GTK_WIDGET(box), GTK_ALIGN_CENTER);
+    gtk_widget_set_visible(GTK_WIDGET(box), TRUE);
 
     /* get logo */
     GError *error = NULL;
@@ -88,6 +93,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     } else {
         auto image_ring_logo = gtk_image_new_from_pixbuf(logo);
         gtk_box_pack_start(GTK_BOX(box), image_ring_logo, FALSE, TRUE, 0);
+        gtk_widget_set_visible(GTK_WIDGET(image_ring_logo), TRUE);
     }
 
     /* welcome text */
@@ -99,6 +105,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_label_set_max_width_chars(GTK_LABEL(label_welcome_text), 50);
     gtk_label_set_selectable(GTK_LABEL(label_welcome_text), TRUE);
     gtk_box_pack_start(GTK_BOX(box), label_welcome_text, FALSE, TRUE, 0);
+    gtk_widget_set_visible(GTK_WIDGET(label_welcome_text), TRUE);
 
     /* RingID explanation */
     auto label_explanation = gtk_label_new(C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!"));
@@ -120,6 +127,24 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_box_pack_start(GTK_BOX(box), label_ringid, FALSE, TRUE, 0);
     gtk_label_set_ellipsize(GTK_LABEL(label_ringid), PANGO_ELLIPSIZE_END);
 
+    /* QR drawing area */
+    auto qr_ringid = gtk_drawing_area_new();
+    auto qrsize = 200;
+    gtk_widget_set_size_request (qr_ringid, qrsize, qrsize);
+    gtk_widget_set_halign(qr_ringid, GTK_ALIGN_CENTER);
+    auto signal_id = g_signal_connect(qr_ringid, "draw", G_CALLBACK(draw_qrcode), NULL);
+    gtk_widget_set_visible(qr_ringid, FALSE);
+
+    /* QR code button */
+    auto rcode_button = gtk_button_new_with_label("QR code");
+    gtk_widget_set_hexpand(rcode_button, FALSE);
+    gtk_widget_set_size_request(rcode_button,10,10);
+    g_signal_connect (rcode_button, "clicked", G_CALLBACK(switch_qrcode), qr_ringid);
+    gtk_widget_set_visible(rcode_button, TRUE);
+
+    gtk_box_pack_start(GTK_BOX(box), rcode_button, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(box), qr_ringid, FALSE, TRUE, 0);
+
     if (get_active_ring_account()) {
         gtk_widget_show(label_explanation);
         gtk_widget_show(label_ringid);
@@ -134,8 +159,9 @@ ring_welcome_view_init(RingWelcomeView *self)
             auto account = get_active_ring_account();
             show_ring_id(GTK_LABEL(label_ringid), get_active_ring_account());
             if (account) {
-                 gtk_widget_show(label_explanation);
-                 gtk_widget_show(label_ringid);
+                gtk_widget_show(label_explanation);
+                gtk_widget_show(label_ringid);
+
             } else {
                 gtk_widget_hide(label_explanation);
                 gtk_widget_hide(label_ringid);
@@ -143,7 +169,7 @@ ring_welcome_view_init(RingWelcomeView *self)
         }
     );
 
-    gtk_widget_show_all(GTK_WIDGET(self));
+    gtk_widget_show(GTK_WIDGET(self));
 }
 
 static void
@@ -176,4 +202,58 @@ ring_welcome_view_new()
     gpointer self = g_object_new(RING_WELCOME_VIEW_TYPE, NULL);
 
     return (GtkWidget *)self;
+}
+
+static gboolean
+draw_qrcode(GtkWidget* diese,
+            cairo_t*   cr,
+            gpointer   data)
+{
+    auto rcode = QRcode_encodeString(get_active_ring_account()->username().toStdString().c_str(),
+                                      0, //Let the version be decided by libqrencode
+                                      QR_ECLEVEL_L, // Lowest level of error correction
+                                      QR_MODE_8, // 8-bit data mode
+                                      1);
+
+    if (!rcode) { // no rcode, no draw
+        g_warning("Failed to generate QR code");
+        return TRUE;
+    }
+
+    auto margin = 5;
+    auto qrsize = 200;
+    int qrwidth = rcode->width + margin * 2;
+
+    /* scaling */
+    auto scale = qrsize/qrwidth;
+    cairo_scale(cr, scale, scale);
+
+    /* fill the background in white */
+    cairo_set_source_rgb(cr, 1, 1, 1);
+    cairo_rectangle(cr, 0, 0, qrwidth, qrwidth);
+    cairo_fill (cr);
+
+    unsigned char *row, *p;
+    p = rcode->data;
+    cairo_set_source_rgb(cr, 0, 0, 0); // back in black
+    for(int y = 0; y < rcode->width; y++) {
+        row = (p + (y * rcode->width));
+        for(int x = 0; x < rcode->width; x++) {
+            if(*(row + x) & 0x1) {
+                cairo_rectangle(cr, margin + x, margin + y, 1, 1);
+                cairo_fill(cr);
+            }
+        }
+
+    }
+
+    QRcode_free(rcode);
+    return TRUE;
+
+}
+
+static void
+switch_qrcode(GtkButton* button, gpointer data)
+{
+    gtk_widget_set_visible((GtkWidget*)data, !gtk_widget_get_visible((GtkWidget*)data));
 }
