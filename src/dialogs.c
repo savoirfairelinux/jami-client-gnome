@@ -116,7 +116,13 @@ ring_about_dialog(GtkWidget *parent)
         "website", "http://www.ring.cx/",
         "website-label", "www.ring.cx",
         "artists", artists,
-        "translator-credits", "https://www.transifex.com/savoirfairelinux/ring",
+		/* Translators: This message shouldn't be translated literally.
+		* It is giving credits to the translators in about box.
+		* You should translate it to write your name and email address.
+		* And, you should include other translators.
+		* You can seperate each line by (\n).
+		*/
+        "translator-credits", _("translator-credits"),
         NULL
     );
 

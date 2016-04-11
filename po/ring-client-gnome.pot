@@ -167,6 +167,15 @@ msgid ""
 "Ring is a secured and distributed communication software."
 msgstr ""
 
+#. Translators: This message shouldn't be translated literally.
+#. * It is giving credits to the translators in about box.
+#. * You should translate it to write your name and email address.
+#. * And, you should include other translators.
+#. * You can seperate each line by (\n).
+#: src/dialogs.c:125
+msgid "translator-credits"
+msgstr ""
+
 #: src/editcontactview.cpp:196
 msgctxt "Phone number category"
 msgid "home"
