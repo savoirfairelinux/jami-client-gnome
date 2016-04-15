@@ -45,6 +45,76 @@
       "revId": "358963cf0722c2871f68471b667562528bef8eab",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_fea6e752",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-04-15T18:20:01Z",
+      "side": 1,
+      "message": "Either way works... if you do it this way, then see my other comments about freeing the rcode. If you do it the first way I suggested and generate the code in the show callback, then you can free it right after you draw it.",
+      "parentUuid": "ba65a107_7ea41757",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 39
+      },
+      "revId": "358963cf0722c2871f68471b667562528bef8eab",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_3ead3f32",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-04-15T18:20:01Z",
+      "side": 1,
+      "message": "right before this line, you should add:\nif (priv-\u003ercode)\n    QRcode_free(priv-\u003ercode);\n\nto prevent a mem leak",
+      "range": {
+        "startLine": 175,
+        "startChar": 16,
+        "endLine": 175,
+        "endChar": 94
+      },
+      "revId": "358963cf0722c2871f68471b667562528bef8eab",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_dea9a325",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-04-15T18:20:01Z",
+      "side": 1,
+      "message": "before this line add:\n\nRingWelcomeView *self \u003d RING_WELCOME_VIEW(object);\n    RingWelcomeViewPrivate *priv \u003d RING_WELCOME_VIEW_GET_PRIVATE(self);\n\nif (priv-\u003ercode)\n    QRcode_free(priv-\u003ercode);\n\nthis function is executed right before the WelcomeView object is destroyed, so it should free the last qrcode, if it still remains",
+      "range": {
+        "startLine": 207,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 69
+      },
+      "revId": "358963cf0722c2871f68471b667562528bef8eab",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
