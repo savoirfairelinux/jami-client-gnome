@@ -25,6 +25,53 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_bebb8fc3",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-04-15T17:33:37Z",
+      "side": 1,
+      "message": "Actually I use the version from https://github.com/EckoEdc/libqrencode which says 3.9.0. It was also made on purpose to use something higher than the installed I have to check if the cmake build. I\u0027ll change for 3.4.4",
+      "parentUuid": "ba65a107_bebf0fd0",
+      "range": {
+        "startLine": 79,
+        "startChar": 43,
+        "endLine": 79,
+        "endChar": 48
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_5eb033dd",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-04-15T17:33:37Z",
+      "side": 1,
+      "message": "trailing space",
+      "range": {
+        "startLine": 92,
+        "startChar": 40,
+        "endLine": 92,
+        "endChar": 43
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_1ee71b14",
         "filename": "src/ringwelcomeview.cpp",
         "patchSetId": 15
@@ -36,6 +83,30 @@
       "writtenOn": "2016-04-15T14:20:29Z",
       "side": 1,
       "message": "I don\u0027t think this should be done here, but at the moment that the QR button is pressed. The reason is because the user may have several Ring accounts, and may change the active one, or even delete the one which is active when the wlecome view is drawn. You can use the \u0027get_active_ring_account()\u0027 function to see which Ring account is currently active, this is what is used to determine which RingID to display in the welcome view. The other option is to re-draw when the active accout changes, as is done with the GtkLabel (see lines 160 - 176).",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 40
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_3eff7f36",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-04-15T17:33:37Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "ba65a107_1ee71b14",
       "range": {
         "startLine": 128,
         "startChar": 0,
@@ -71,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_3ec77f47",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-04-15T17:33:37Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "ba65a107_def0c3cb",
+      "range": {
+        "startLine": 152,
+        "startChar": 8,
+        "endLine": 152,
+        "endChar": 46
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_bea62fc0",
         "filename": "src/ringwelcomeview.cpp",
         "patchSetId": 15
@@ -82,6 +177,30 @@
       "writtenOn": "2016-04-15T14:20:29Z",
       "side": 1,
       "message": "not a big deal for me, but I prefer the GTK/C underscore naming convention, for consistency, rather than camel case",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 10
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_dec3e336",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-04-15T17:33:37Z",
+      "side": 1,
+      "message": "I noticed the use of the underscores... I was in my thoughts...",
+      "parentUuid": "ba65a107_bea62fc0",
       "range": {
         "startLine": 214,
         "startChar": 0,
@@ -117,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_fec0272c",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-04-15T17:33:37Z",
+      "side": 1,
+      "message": "yep",
+      "parentUuid": "ba65a107_5eab5389",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 12
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_dec76363",
         "filename": "src/ringwelcomeview.h",
         "patchSetId": 15
@@ -128,6 +271,30 @@
       "writtenOn": "2016-04-15T14:20:29Z",
       "side": 1,
       "message": "these don\u0027t actually need to be \"public\" functions exposed by this interface, since you only use them inside the ring welcome view... if you simply declare or define them in the .cpp file before you use them you don\u0027t need to declare them in the header",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 80
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_7eb5f7cb",
+        "filename": "src/ringwelcomeview.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-04-15T17:33:37Z",
+      "side": 1,
+      "message": "indeed",
+      "parentUuid": "ba65a107_dec76363",
       "range": {
         "startLine": 37,
         "startChar": 0,
