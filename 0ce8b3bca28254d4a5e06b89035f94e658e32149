@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_bebf0fd0",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-04-15T14:20:29Z",
+      "side": 1,
+      "message": "does this need to be 3.9.0? even on Arch linux the latest release seems to be 3.4.4... I think this should be the lower version possible, so that we can use the version provided by the distribution for packaging",
+      "range": {
+        "startLine": 79,
+        "startChar": 43,
+        "endLine": 79,
+        "endChar": 48
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_1ee71b14",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-04-15T14:20:29Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be done here, but at the moment that the QR button is pressed. The reason is because the user may have several Ring accounts, and may change the active one, or even delete the one which is active when the wlecome view is drawn. You can use the \u0027get_active_ring_account()\u0027 function to see which Ring account is currently active, this is what is used to determine which RingID to display in the welcome view. The other option is to re-draw when the active accout changes, as is done with the GtkLabel (see lines 160 - 176).",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 40
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_def0c3cb",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-04-15T14:20:29Z",
+      "side": 1,
+      "message": "the g_error() will cause the application to basically crash (quit with an error exit code), we probably want something less drastic here, maybe just a g_warning",
+      "range": {
+        "startLine": 152,
+        "startChar": 8,
+        "endLine": 152,
+        "endChar": 46
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_bea62fc0",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-04-15T14:20:29Z",
+      "side": 1,
+      "message": "not a big deal for me, but I prefer the GTK/C underscore naming convention, for consistency, rather than camel case",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 10
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_5eab5389",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-04-15T14:20:29Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 12
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_dec76363",
+        "filename": "src/ringwelcomeview.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-04-15T14:20:29Z",
+      "side": 1,
+      "message": "these don\u0027t actually need to be \"public\" functions exposed by this interface, since you only use them inside the ring welcome view... if you simply declare or define them in the .cpp file before you use them you don\u0027t need to declare them in the header",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 80
+      },
+      "revId": "0ce8b3bca28254d4a5e06b89035f94e658e32149",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
