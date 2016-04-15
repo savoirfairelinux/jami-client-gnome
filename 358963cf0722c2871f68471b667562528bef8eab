@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_be9aaf12",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-04-15T17:49:46Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 92,
+        "startChar": 40,
+        "endLine": 92,
+        "endChar": 43
+      },
+      "revId": "358963cf0722c2871f68471b667562528bef8eab",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_7ea41757",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-04-15T17:49:46Z",
+      "side": 1,
+      "message": "I just realise I kept it. I didn\u0027t do exactly the way you suggested, so check if this way is good for you. I can change it. I set a first qr at start and change the qr when  account is changed",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 39
+      },
+      "revId": "358963cf0722c2871f68471b667562528bef8eab",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
