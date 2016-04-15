@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_59092d2b",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-04-15T19:19:20Z",
+      "side": 1,
+      "message": "ok, I move the code in draw callback.",
+      "parentUuid": "ba65a107_fea6e752",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 39
+      },
+      "revId": "358963cf0722c2871f68471b667562528bef8eab",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_3ead3f32",
         "filename": "src/ringwelcomeview.cpp",
         "patchSetId": 16
