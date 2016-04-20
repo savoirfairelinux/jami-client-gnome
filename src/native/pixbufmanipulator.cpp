@@ -237,4 +237,10 @@ QVariant PixbufManipulator::decorationRole(const Person* p)
     return QVariant();
 }
 
+QVariant PixbufManipulator::decorationRole(const Account* p)
+{
+    Q_UNUSED(p)
+    return QVariant();
+}
+
 } // namespace Interfaces
