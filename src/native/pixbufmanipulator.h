@@ -52,6 +52,7 @@ public:
     QVariant   decorationRole(const Call* c) override;
     QVariant   decorationRole(const ContactMethod* cm) override;
     QVariant   decorationRole(const Person* p) override;
+    QVariant   decorationRole(const Account* p) override;
 
 private:
     std::shared_ptr<GdkPixbuf> scaleAndFrame(const GdkPixbuf *photo, const QSize& size);
