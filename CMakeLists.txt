@@ -83,6 +83,7 @@ IF( LIBQRENCODE_FOUND )
 ELSE()
     MESSAGE(STATUS "libqrencode supported version NOT found. Will use the repo" )
 
+    EXECUTE_PROCESS (COMMAND git submodule update --init)
     INCLUDE(ExternalProject)
         ExternalProject_Add(libqrencode
             GIT_SUBMODULES libqrencode
