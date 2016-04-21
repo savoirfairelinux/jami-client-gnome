@@ -17,9 +17,9 @@ BuildRequires:      autoconf automake libtool dbus-devel pcre-devel yaml-cpp-dev
 BuildRequires:      boost-devel dbus-c++-devel dbus-devel libupnp-devel qt5-qtbase-devel
 BuildRequires:      gnome-icon-theme-symbolic chrpath check astyle gnutls-devel yasm git
 BuildRequires:      cmake clutter-gtk-devel clutter-devel glib2-devel gtk3-devel evolution-data-server-devel
-BuildRequires:      libnotify-devel qt5-qttools-devel gettext
+BuildRequires:      libnotify-devel qt5-qttools-devel gettext qrencode-devel
 Requires:           gnome-icon-theme-symbolic evolution-data-server ring-daemon librsvg2
-Requires:           libnotify
+Requires:           libnotify qrencode
 Conflicts:          ring-kde
 
 %description
