@@ -7,13 +7,14 @@
 # Alexandre Lision, 2015
 # Bruno Pagani <bruno.n.pagani@gmail.com>, 2015
 # Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>, 2015
+# Guillaume Roguez, 2016
 # Guillaume Roguez, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2016-03-24 20:09+0000\n"
+"PO-Revision-Date: 2016-04-19 11:16+0000\n"
 "Last-Translator: Guillaume Roguez\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +54,7 @@ msgstr "Génération automatique…"
 
 #: src/accountgeneraltab.cpp:269
 msgid "Hostname"
-msgstr "Nom de machine"
+msgstr "Serveur SIP"
 
 #: src/accountgeneraltab.cpp:279
 msgid "Username"
@@ -164,7 +165,7 @@ msgctxt "Do not translate the release name"
 msgid ""
 "release: Louis-Joseph Papineau\n"
 "v%d.%d.%d - %.10s"
-msgstr ""
+msgstr "version: Louis-Joseph Papineau\nv%d.%d.%d - %.10s"
 
 #: src/dialogs.c:111
 msgid ""

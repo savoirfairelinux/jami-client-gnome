@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2016-03-24 20:09+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"PO-Revision-Date: 2016-03-28 16:48+0000\n"
+"Last-Translator: Любомир Василев\n"
 "Language-Team: Bulgarian (http://www.transifex.com/savoirfairelinux/ring/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -313,15 +313,15 @@ msgstr "Порт"
 
 #: ui/accountadvancedtab.ui:336
 msgid "Use STUN"
-msgstr ""
+msgstr "Използване на STUN"
 
 #: ui/accountadvancedtab.ui:359 ui/accountadvancedtab.ui:408
 msgid "server URL"
-msgstr ""
+msgstr "Адрес на сървъра"
 
 #: ui/accountadvancedtab.ui:385
 msgid "Use TURN"
-msgstr ""
+msgstr "Използване на TURN"
 
 #: ui/accountadvancedtab.ui:430
 msgid "username"
@@ -403,7 +403,7 @@ msgstr "<b>Шифроване на поток</b>"
 
 #: ui/accountsecuritytab.ui:121
 msgid "Encrypt negotiation (TLS)"
-msgstr ""
+msgstr "Шифроване на договарянето (TLS)"
 
 #: ui/accountsecuritytab.ui:146
 msgid "CA certificate"
@@ -423,11 +423,11 @@ msgstr "Парола за частен ключ"
 
 #: ui/accountsecuritytab.ui:290
 msgid "TLS protocol method"
-msgstr ""
+msgstr "Протоколен метод на TLS"
 
 #: ui/accountsecuritytab.ui:313
 msgid "Outgoing TLS server name"
-msgstr ""
+msgstr "Изходящо име на сървъра за TLS"
 
 #: ui/accountsecuritytab.ui:335
 msgid "Negotiation timeout (seconds)"
@@ -451,7 +451,7 @@ msgstr "Проверка на отговарящите сертификатит�
 
 #: ui/accountsecuritytab.ui:472
 msgid "Require a certificate for incoming TLS connections"
-msgstr ""
+msgstr "Изискване на сертификат за входящите връзки чрез TLS"
 
 #: ui/accountsecuritytab.ui:491
 msgid "<b>Negotiation Encryption</b>"

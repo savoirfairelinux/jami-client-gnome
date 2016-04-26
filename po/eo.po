@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Maxime Thiébaut <thi.maxime@gmail.com>, 2016
+# Tirifto <tirifto@openmailbox.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2016-03-24 20:09+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"PO-Revision-Date: 2016-04-15 18:05+0000\n"
+"Last-Translator: Stepan Salenikovich\n"
 "Language-Team: Esperanto (http://www.transifex.com/savoirfairelinux/ring/language/eo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
 msgid "Enabled"
-msgstr "Ŝalti"
+msgstr "Ŝaltita"
 
 #: src/accountaudiotab.cpp:191
 msgctxt "Name of the codec"
@@ -29,11 +30,11 @@ msgstr "Nomo"
 
 #: src/accountaudiotab.cpp:195 src/accountvideotab.cpp:204
 msgid "Bitrate"
-msgstr ""
+msgstr "Bitrapido"
 
 #: src/accountaudiotab.cpp:199
 msgid "Samplerate"
-msgstr ""
+msgstr "Specimenrapido"
 
 #: src/accountgeneraltab.cpp:210
 msgid "Alias"
@@ -45,7 +46,7 @@ msgstr "Tipo"
 
 #: src/accountgeneraltab.cpp:250
 msgid "auto-generating..."
-msgstr ""
+msgstr "aŭtomate generanta..."
 
 #: src/accountgeneraltab.cpp:269
 msgid "Hostname"
@@ -74,7 +75,7 @@ msgstr "Parolita mesaĝo"
 #: src/accountgeneraltab.cpp:330
 msgctxt "The DHT bootstrap server url"
 msgid "Bootstrap"
-msgstr ""
+msgstr "Praŝarĝo"
 
 #: src/accountgeneraltab.cpp:342
 msgid "Auto-answer calls"
@@ -86,7 +87,7 @@ msgstr "UPnP ŝaltita"
 
 #: src/accountgeneraltab.cpp:358
 msgid "DTMF tone type:"
-msgstr ""
+msgstr "Tipo de du-tona multfrekvenco:"
 
 #: src/accountvideotab.cpp:200
 msgctxt "The name of the codec"
@@ -121,7 +122,7 @@ msgstr "Sekurigo"
 #: src/accountview.cpp:229
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
-msgstr ""
+msgstr "Ĉu vi certe volas forigi la konton \"%s\"?"
 
 #: src/accountview.cpp:313 src/accountview.cpp:315
 msgid "New Account"
@@ -130,7 +131,7 @@ msgstr "Nova konto"
 #: src/accountview.cpp:399
 msgctxt "Account state column"
 msgid "Enabled"
-msgstr "Ŝalti"
+msgstr "Ŝaltita"
 
 #: src/accountview.cpp:405
 msgctxt "Account alias (name) column"
@@ -144,15 +145,15 @@ msgstr "Stato"
 
 #: src/contactsview.cpp:305
 msgid "_Copy name"
-msgstr ""
+msgstr "_Kopii nomon"
 
 #: src/contactsview.cpp:316 src/contactsview.cpp:331
 msgid "_Copy number"
-msgstr ""
+msgstr "_Kopii numeron"
 
 #: src/dialogs.c:53
 msgid "Working..."
-msgstr ""
+msgstr "Laboranta..."
 
 #: src/dialogs.c:84
 #, c-format
@@ -160,13 +161,13 @@ msgctxt "Do not translate the release name"
 msgid ""
 "release: Louis-Joseph Papineau\n"
 "v%d.%d.%d - %.10s"
-msgstr ""
+msgstr "eldono: Louis-Joseph Papineau\nv%d.%d.%d - %.10s"
 
 #: src/dialogs.c:111
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is a secured and distributed communication software."
-msgstr ""
+msgstr "La GNOME kliento por Ring.\nRing estas sekura kaj disa komunikprogramo."
 
 #: src/editcontactview.cpp:196
 msgctxt "Phone number category"
@@ -177,11 +178,11 @@ msgstr "hejmo"
 msgid ""
 "Are you sure you want to clear all your history?\n"
 "This operation will also reset the Frequent Contacts list"
-msgstr ""
+msgstr "Ĉu vi certe volas vakigi vian tutan historion?\nTiu ĉi operacio ankaŭ reŝargos vian liston de Oftaj Kontaktoj."
 
 #: src/historyview.cpp:184
 msgid "_Copy"
-msgstr ""
+msgstr "_Kopii"
 
 #: src/historyview.cpp:402
 msgctxt "Call history"
@@ -195,31 +196,31 @@ msgstr "Dato"
 
 #: src/ringnotify.cpp:86
 msgid "Incoming call"
-msgstr ""
+msgstr "Envena alvoko"
 
 #: src/ringnotify.cpp:169
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
-msgstr ""
+msgstr "%s diras:"
 
 #: src/ring_client_options.c:65
 msgid "Enable debug"
-msgstr ""
+msgstr "Ŝalti sencimigon"
 
 #: src/ring_client_options.c:67
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr ""
+msgstr "Restaŭras kaŝecon de la ĉefa fenestro (nur por la ĉefa ekzemplo)"
 
 #: src/ring_client_options.c:84
 msgid "- GNOME client for Ring"
-msgstr ""
+msgstr "- GNOME kliento por Ring"
 
 #: src/backends/edscontactbackend.cpp:201
 msgid "Unknown EDS addressbook"
-msgstr ""
+msgstr "Nekonata EDS adresaro"
 
 #: src/backends/edscontactbackend.cpp:221
 msgctxt "Backend type"
@@ -228,18 +229,18 @@ msgstr "Kontaktoj"
 
 #: src/utils/menus.cpp:67
 msgid "_Add to contact"
-msgstr ""
+msgstr "_Aldoni al kontakto"
 
 #: src/ringmainwindow.cpp:944
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr ""
+msgstr "Serĉu kontaktojn aŭ entajpu numeron"
 
 #: src/ringwelcomeview.cpp:61
 msgid "fetching RingID..."
-msgstr ""
+msgstr "alportanta RingID..."
 
 #: src/ringwelcomeview.cpp:92
 msgid ""
@@ -269,35 +270,35 @@ msgstr "Tempolimo de registriĝo (sekunde):"
 
 #: ui/accountadvancedtab.ui:103
 msgid "Allow calls from unknown peers"
-msgstr ""
+msgstr "Permesi alvokojn de nekonataj samtavolanoj"
 
 #: ui/accountadvancedtab.ui:117
 msgid "Allow calls from peers in your call history"
-msgstr ""
+msgstr "Permesi alvokojn de samtavolanoj en via alvoka historio"
 
 #: ui/accountadvancedtab.ui:131
 msgid "Allow calls from peers in your contacts list"
-msgstr ""
+msgstr "Permesi alvokojn de samtavolanoj en via listo de kontaktoj"
 
 #: ui/accountadvancedtab.ui:149
 msgid "<b>Registration</b>"
-msgstr ""
+msgstr "<b>Registriĝo</b>"
 
 #: ui/accountadvancedtab.ui:176
 msgid "Use random port"
-msgstr ""
+msgstr "Uzi hazardan pordon"
 
 #: ui/accountadvancedtab.ui:197
 msgid "Local port:"
-msgstr ""
+msgstr "Loka pordo:"
 
 #: ui/accountadvancedtab.ui:223
 msgid "<b>Network Interface</b>"
-msgstr ""
+msgstr "<b>Reta Interfaco</b>"
 
 #: ui/accountadvancedtab.ui:249
 msgid "Same as local parameters"
-msgstr "Kiel lokaj parametroj"
+msgstr "Same kiel lokaj parametroj"
 
 #: ui/accountadvancedtab.ui:264
 msgid "Set published address and port:"
@@ -317,7 +318,7 @@ msgstr "Uzi STUN"
 
 #: ui/accountadvancedtab.ui:359 ui/accountadvancedtab.ui:408
 msgid "server URL"
-msgstr ""
+msgstr "URL de servilo"
 
 #: ui/accountadvancedtab.ui:385
 msgid "Use TURN"
@@ -325,19 +326,19 @@ msgstr "Uzi TURN"
 
 #: ui/accountadvancedtab.ui:430
 msgid "username"
-msgstr ""
+msgstr "uzantnomo"
 
 #: ui/accountadvancedtab.ui:451
 msgid "password"
-msgstr ""
+msgstr "pasvorto"
 
 #: ui/accountadvancedtab.ui:475
 msgid "realm"
-msgstr ""
+msgstr "regno"
 
 #: ui/accountadvancedtab.ui:504
 msgid "<b>Published Address</b>"
-msgstr ""
+msgstr "<b>Publikigita Adreso</b>"
 
 #: ui/accountadvancedtab.ui:533
 msgid ""
@@ -355,43 +356,43 @@ msgstr "Maks"
 
 #: ui/accountadvancedtab.ui:605
 msgid "<b>Audio RTP Port Range</b>"
-msgstr ""
+msgstr "<b>Porda Amplekso de Aŭdia RTP</b>"
 
 #: ui/accountadvancedtab.ui:679
 msgid "<b>Video RTP Port Range</b>"
-msgstr ""
+msgstr "<b>Porda Amplekso de Videa RTP</b>"
 
 #: ui/accountadvancedtab.ui:695
 msgid "<b>SDP Session Negotiation (ICE Fallback)</b>"
-msgstr ""
+msgstr "<b>Intertraktado de SDP seanco (ICE retropaŝo)</b>"
 
 #: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
 msgid "Up"
-msgstr ""
+msgstr "Supren"
 
 #: ui/accountaudiotab.ui:66 ui/accountvideotab.ui:66
 msgid "Down"
-msgstr ""
+msgstr "Suben"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
 msgid "<b>Codecs</b>"
-msgstr ""
+msgstr "<b>Kodekoj</b>"
 
 #: ui/accountgeneraltab.ui:42
 msgid "<b>Account</b>"
-msgstr ""
+msgstr "<b>Konto</b>"
 
 #: ui/accountgeneraltab.ui:80
 msgid "<b>Parameters</b>"
-msgstr ""
+msgstr "<b>Parametroj</b>"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
-msgstr ""
+msgstr "Ĉifri aŭdvidfuojn (SRTP)"
 
 #: ui/accountsecuritytab.ui:58
 msgid "Key exchange protocol"
-msgstr "Protokolo de elĉifrigila interŝanĝo"
+msgstr "Protokolo de ŝlosila interŝanĝo"
 
 #: ui/accountsecuritytab.ui:76
 msgid "Fallback on RTP on encryption failure"
@@ -399,7 +400,7 @@ msgstr "Retropaŝo al RTP okaze de ĉifrada fiasko"
 
 #: ui/accountsecuritytab.ui:94
 msgid "<b>Media Stream Encryption</b>"
-msgstr ""
+msgstr "<b>Ĉifrado de Aŭdvidfluoj</b>"
 
 #: ui/accountsecuritytab.ui:121
 msgid "Encrypt negotiation (TLS)"
@@ -415,11 +416,11 @@ msgstr "Uzanta atestilo"
 
 #: ui/accountsecuritytab.ui:220
 msgid "Private key"
-msgstr "Privata elĉifrilo"
+msgstr "Privata ŝlosilo"
 
 #: ui/accountsecuritytab.ui:243
 msgid "Private key password"
-msgstr "Pasvorto de privata elĉifrigilo"
+msgstr "Pasvorto de privata ŝlosilo"
 
 #: ui/accountsecuritytab.ui:290
 msgid "TLS protocol method"
@@ -439,7 +440,7 @@ msgstr "Uzi defaŭltajn ĉifrojn"
 
 #: ui/accountsecuritytab.ui:385
 msgid "Use custom cipher list"
-msgstr ""
+msgstr "Uzi propran listo de ĉifrojn"
 
 #: ui/accountsecuritytab.ui:442
 msgid "Verify incoming certificates (server side)"
@@ -455,7 +456,7 @@ msgstr "Bezoni atestilon por envenaj TLS konektoj"
 
 #: ui/accountsecuritytab.ui:491
 msgid "<b>Negotiation Encryption</b>"
-msgstr ""
+msgstr "<b>Ĉifrado de Intertraktado</b>"
 
 #: ui/accountvideotab.ui:90
 msgid "Enable Video"
@@ -463,15 +464,15 @@ msgstr "Ŝalti videon"
 
 #: ui/accountview.ui:59
 msgid "<b>&#8722;</b>"
-msgstr ""
+msgstr "<b>&#8722;</b>"
 
 #: ui/accountview.ui:83
 msgid "<b>+</b>"
-msgstr ""
+msgstr "<b>+</b>"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
-msgstr ""
+msgstr "Krei Novan"
 
 #: ui/currentcallview.ui:73
 msgid "Send"
@@ -479,15 +480,15 @@ msgstr "Sendi"
 
 #: ui/currentcallview.ui:191
 msgid "End this call"
-msgstr ""
+msgstr "Finigi tiun ĉi alvokon"
 
 #: ui/currentcallview.ui:195 ui/currentcallview.ui:356
 msgid "End call"
-msgstr ""
+msgstr "Finigi alvokon"
 
 #: ui/currentcallview.ui:213
 msgid "Toggle hold"
-msgstr ""
+msgstr "Ŝalti detenon"
 
 #: ui/currentcallview.ui:217 ui/currentcallview.ui:239
 #: ui/currentcallview.ui:347
@@ -496,11 +497,11 @@ msgstr "Deteni"
 
 #: ui/currentcallview.ui:235
 msgid "Toggle mute audio"
-msgstr ""
+msgstr "Ŝalti aŭdion"
 
 #: ui/currentcallview.ui:257
 msgid "Toggle mute video"
-msgstr ""
+msgstr "Ŝalti videon"
 
 #: ui/currentcallview.ui:261 ui/currentcallview.ui:338
 msgid "Mute video"
@@ -508,19 +509,19 @@ msgstr "Kaŝi videon"
 
 #: ui/currentcallview.ui:280
 msgid "Toggle record audio"
-msgstr ""
+msgstr "Ŝalti registradon de aŭdio"
 
 #: ui/currentcallview.ui:283
 msgid "Record audio"
-msgstr ""
+msgstr "Registri aŭdion"
 
 #: ui/currentcallview.ui:299
 msgid "Toggle show chat"
-msgstr ""
+msgstr "Ŝalti babilon"
 
 #: ui/currentcallview.ui:303 ui/currentcallview.ui:320
 msgid "Chat"
-msgstr "Retbabilo"
+msgstr "Babilo"
 
 #: ui/currentcallview.ui:329
 msgid "Mute audio"
@@ -532,11 +533,11 @@ msgstr "Registri"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
-msgstr ""
+msgstr "Elekti adresaron"
 
 #: ui/editcontactview.ui:15
 msgid "Addressbook"
-msgstr ""
+msgstr "Adresaro"
 
 #: ui/editcontactview.ui:29
 msgid "Name"
@@ -544,23 +545,23 @@ msgstr "Nomo"
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
-msgstr ""
+msgstr "Nomo de kontakto"
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
-msgstr ""
+msgstr "Elektu kiel tiu ĉi numero estos ordata"
 
 #: ui/editcontactview.ui:50
 msgid "Number category"
-msgstr ""
+msgstr "Numera kategorio"
 
 #: ui/editcontactview.ui:66
 msgid "Number or Ring ID to be added"
-msgstr ""
+msgstr "Numero aŭ Ring ID por aldono"
 
 #: ui/editcontactview.ui:72
 msgid "Number or Ring ID"
-msgstr ""
+msgstr "Numero aŭ Ring ID"
 
 #: ui/editcontactview.ui:83
 msgid "Save"
@@ -568,99 +569,99 @@ msgstr "Savi"
 
 #: ui/generalsettingsview.ui:32
 msgid "<b>Ring Settings</b>"
-msgstr ""
+msgstr "<b>Ring Agordoj</b>"
 
 #: ui/generalsettingsview.ui:46
 msgid "Start Ring on login"
-msgstr ""
+msgstr "Lanĉi Ring je ensaluto"
 
 #: ui/generalsettingsview.ui:55
 msgid "Hide Ring on close instead of quitting."
-msgstr ""
+msgstr "Kaŝi anstataŭ ĉesi Ring je fermo."
 
 #: ui/generalsettingsview.ui:64
 msgid "Bring Ring to the foreground on incoming calls."
-msgstr ""
+msgstr "Superigi Ring je envenaj alvokoj."
 
 #: ui/generalsettingsview.ui:79
 msgid "Show chat on the right."
-msgstr ""
+msgstr "Montru babilon dekstre."
 
 #: ui/generalsettingsview.ui:86
 msgid "Show chat on the bottom."
-msgstr ""
+msgstr "Montru babilon sube."
 
 #: ui/generalsettingsview.ui:110
 msgid "<b>History Settings</b>"
-msgstr ""
+msgstr "<b>Agordoj de Historio</b>"
 
 #: ui/generalsettingsview.ui:128
 msgid "Keep history for (days):"
-msgstr ""
+msgstr "Konservi historian dum (tagoj):"
 
 #: ui/generalsettingsview.ui:151
 msgid "(set to 0 for unlimited history)"
-msgstr ""
+msgstr "(Agordu 0 por senlima historio)"
 
 #: ui/generalsettingsview.ui:160
 msgid "Clear all history"
-msgstr ""
+msgstr "Vakigi tutan historion"
 
 #: ui/incomingcallview.ui:88
 msgid "Incoming..."
-msgstr ""
+msgstr "Envena..."
 
 #: ui/incomingcallview.ui:122
 msgid "   Accept"
-msgstr ""
+msgstr "   Akcepti"
 
 #: ui/incomingcallview.ui:137
 msgid "   Reject"
-msgstr ""
+msgstr "   Rifuzi"
 
 #: ui/incomingcallview.ui:152
 msgid "   Hang-up"
-msgstr ""
+msgstr "   Fini alvokon"
 
 #: ui/mediasettingsview.ui:36
 msgid "Audio manager:"
-msgstr ""
+msgstr "Aŭdia mastrumilo:"
 
 #: ui/mediasettingsview.ui:48
 msgid "Ringtone device:"
-msgstr ""
+msgstr "Voksona aparato:"
 
 #: ui/mediasettingsview.ui:60
 msgid "Output device:"
-msgstr ""
+msgstr "Eliga aparato:"
 
 #: ui/mediasettingsview.ui:72
 msgid "Input device:"
-msgstr ""
+msgstr "Eniga aparato:"
 
 #: ui/mediasettingsview.ui:127
 msgid "<b>Audio Settings</b>"
-msgstr ""
+msgstr "<b>Agordoj de Aŭdio</b>"
 
 #: ui/mediasettingsview.ui:163
 msgid "Device:"
-msgstr ""
+msgstr "Aparato:"
 
 #: ui/mediasettingsview.ui:175
 msgid "Channel:"
-msgstr ""
+msgstr "Kanalo:"
 
 #: ui/mediasettingsview.ui:187
 msgid "Resolution:"
-msgstr ""
+msgstr "Distingivo:"
 
 #: ui/mediasettingsview.ui:199
 msgid "Frame rate:"
-msgstr ""
+msgstr "Bildrapido:"
 
 #: ui/mediasettingsview.ui:258
 msgid "<b>Camera Settings</b>"
-msgstr ""
+msgstr "<b>Agordoj de Kamerao</b>"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
@@ -668,11 +669,11 @@ msgstr "_Pri"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr ""
+msgstr "_Eliri"
 
 #: ui/ringmainwindow.ui:20
 msgid "Menu"
-msgstr ""
+msgstr "Menuo"
 
 #: ui/ringmainwindow.ui:54
 msgid "General"
@@ -680,7 +681,7 @@ msgstr "Ĝenerala"
 
 #: ui/ringmainwindow.ui:64
 msgid "Media"
-msgstr ""
+msgstr "Aŭdvidaĵo"
 
 #: ui/ringmainwindow.ui:75
 msgid "Accounts"
@@ -692,7 +693,7 @@ msgstr "Agordoj"
 
 #: ui/ringmainwindow.ui:192
 msgid "Conversations"
-msgstr ""
+msgstr "Konversacioj"
 
 #: ui/ringmainwindow.ui:211
 msgid "Contacts"
@@ -708,7 +709,7 @@ msgstr "Bonvenon al"
 
 #: ui/ringmainwindow.ui:307
 msgid "Enter your alias to get started:"
-msgstr ""
+msgstr "Entajpu vian kromnomon por komenco:"
 
 #: ui/ringmainwindow.ui:324
 msgid "Generating your Ring account..."
@@ -720,11 +721,11 @@ msgstr "Sekva"
 
 #: ui/ringmainwindow.ui:360
 msgid "Your Ring account has been created with the following Ring ID:"
-msgstr "Via Ring-a konto estas kreita kun la sekva Ring ID:"
+msgstr "Via Ring konto estas kreita kun la sekva Ring ID:"
 
 #: ui/ringmainwindow.ui:375
 msgid "Share it with your friends so they can contact you via Ring!"
-msgstr "Konigu ĝin al viaj geamikoj por ke ili kontaktu vin per Ring!"
+msgstr "Kunhavu ĝin kun viaj amikoj, por ke ili povu kontakti vin per Ring!"
 
 #: ui/ringmainwindow.ui:380
 msgid "Done"
