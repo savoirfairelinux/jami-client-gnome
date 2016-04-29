@@ -379,30 +379,18 @@ CONFIGURE_FILE (
    "${PROJECT_BINARY_DIR}/config.h"
 )
 
-# generate .desktop file
-CONFIGURE_FILE (
-   "${PROJECT_SOURCE_DIR}/gnome-ring.desktop.in"
-   "${PROJECT_BINARY_DIR}/gnome-ring.desktop"
-)
-
-# generate .desktop file for autostart
-CONFIGURE_FILE (
-   "${PROJECT_SOURCE_DIR}/gnome-ring.desktop.autostart.in"
-   "${PROJECT_BINARY_DIR}/gnome-ring.desktop.autostart"
-)
-
 INSTALL(TARGETS gnome-ring
    RUNTIME DESTINATION bin
 )
 
 # install .desktop in XDG desktop dir so that it is recognized by the system
-INSTALL(FILES ${PROJECT_BINARY_DIR}/gnome-ring.desktop
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/gnome-ring.desktop
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications
 )
 
 # install .desktop in the gnome-ring data dir, so that it can be copied to the
 # autostart dir by the client
-INSTALL(FILES ${PROJECT_BINARY_DIR}/gnome-ring.desktop.autostart
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/gnome-ring.desktop.autostart
    DESTINATION
       ${CMAKE_INSTALL_PREFIX}/share/gnome-ring/
    PERMISSIONS
