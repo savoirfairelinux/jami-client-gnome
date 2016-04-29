@@ -122,8 +122,6 @@ struct _RingMainWindowPrivate
     QMetaObject::Connection hash_updated;
 
     /* allocd qmodels */
-    ActiveItemProxyModel *q_contact_model;
-    QSortFilterProxyModel *q_history_model;
     NumberCompletionModel *q_completion_model;
 
     /* fullscreen */
@@ -1032,6 +1030,21 @@ ring_main_window_init(RingMainWindow *win)
     /* set the search entry placeholder text */
     gtk_entry_set_placeholder_text(GTK_ENTRY(priv->search_entry),
                                    C_("Please try to make the translation 50 chars or less so that it fits into the layout", "Search contacts or enter number"));
+
+    //ConfigurationManagerInterface& configurationManager = ConfigurationManager::instance();
+    Account* main = get_active_ring_account();
+    QMap<QString,QString> autoList = main->getAutodiscoveryList();
+    //QMap<QString,QString> autoList = configurationManager.getAutodiscoveryList();
+    for(auto e : autoList.keys())
+    {
+       g_debug("%s %s",e.toUtf8().constData(),autoList.value(e).toUtf8().constData());
+       std::string s = autoList.value(e).midRef(0,5).toUtf8().constData();
+       if(s == "ring:"){
+          g_debug("Autodiscovered contact added.");
+          auto contact = PhoneDirectoryModel::instance().getNumber(autoList.value(e));
+          contact->setLastUsed(time(NULL));
+       }
+    }
 }
 
 static void
@@ -1050,10 +1063,6 @@ ring_main_window_finalize(GObject *object)
 {
     RingMainWindow *self = RING_MAIN_WINDOW(object);
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-
-    delete priv->q_contact_model;
-    delete priv->q_history_model;
-    delete priv->q_completion_model;
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->finalize(object);
 }
