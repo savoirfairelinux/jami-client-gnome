@@ -55,6 +55,14 @@
 #include "recentcontactsview.h"
 #include <recentmodel.h>
 #include "chatview.h"
+#include "video/video_widget.h"
+
+/* TODO : sort the headers */
+#include "profilemodel.h"
+#include "profile.h"
+#include "peerprofilecollection.h"
+#include "localprofilecollection.h"
+#include <QVariant>
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* CREATE_ACCOUNT_VIEW_NAME   = "wizard";
@@ -66,6 +74,10 @@ static constexpr const char* DEFAULT_VIEW_NAME          = "welcome";
 static constexpr const char* VIEW_CONTACTS              = "contacts";
 static constexpr const char* VIEW_HISTORY               = "history";
 static constexpr const char* VIEW_PRESENCE              = "presence";
+
+/* size of avatar */
+static constexpr int AVATAR_WIDTH  = 100;//px
+static constexpr int AVATAR_HEIGHT = 100;//px
 
 struct _RingMainWindow
 {
@@ -118,6 +130,15 @@ struct _RingMainWindowPrivate
     GtkWidget *label_generating_account;
     GtkWidget *spinner_generating_account;
     GtkWidget *button_account_creation_next;
+    GtkWidget *video_widget;
+    GtkWidget *button_take_a_photo;
+    GtkWidget *button_choose_a_picture;
+    GtkWidget *image_avatar;
+    GtkWidget *button_avatar;
+    GtkWidget *button_choose_an_avatar;
+
+    /* avatar selection */
+    GtkWidget *box_avatar_selection;
 
     QMetaObject::Connection hash_updated;
 
@@ -133,6 +154,13 @@ struct _RingMainWindowPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
 
 #define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
+
+static void take_a_photo(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win);
+static void choose_a_picture(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win);
+static void update_preview_cb(GtkFileChooser *file_chooser, gpointer data);
+static void show_avatar_selection_widget(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win);
+static void avatar_selection_response(GtkDialog *dialog, gint       response_id, RingMainWindow *win);
+static gboolean on_close_avatar_selection(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, RingMainWindow *win);
 
 static void
 enter_full_screen(RingMainWindow *self)
@@ -509,10 +537,17 @@ create_ring_account(RingMainWindow *win)
     /* create account and set UPnP enabled, as its not by default in the daemon */
     const gchar *alias = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
     Account *account = nullptr;
-    if (alias && strlen(alias) > 0)
+
+    /* get profile (if so) */
+    auto profile = ProfileModel::instance().selectedProfile();
+
+    if (alias && strlen(alias) > 0 && profile) {
         account = AccountModel::instance().add(alias, Account::Protocol::RING);
-    else
+        profile->person()->setFormattedName(alias);
+    } else {
         account = AccountModel::instance().add(C_("The default username / account alias, if none is set by the user", "Unknown"), Account::Protocol::RING);
+        profile->person()->setFormattedName("Unknown");
+    }
     account->setDisplayName(alias); // set the display name to the same as the alias
     account->setUpnpEnabled(TRUE);
 
@@ -534,6 +569,8 @@ create_ring_account(RingMainWindow *win)
     );
 
     account->performAction(Account::EditAction::SAVE);
+    profile->save();
+
 
     return G_SOURCE_REMOVE;
 }
@@ -552,6 +589,7 @@ alias_entry_changed(GtkEditable *entry, RingMainWindow *win)
         gtk_widget_hide(priv->label_default_name);
         gtk_widget_show(priv->label_paceholder);
     }
+    Video::PreviewManager::instance().stopPreview();
 }
 
 static void
@@ -608,11 +646,14 @@ show_account_creation(RingMainWindow *win)
     gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), g_get_real_name());
 
     /* connect signals */
+    g_signal_connect(priv->button_avatar, "clicked", G_CALLBACK(show_avatar_selection_widget), win);
     g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(alias_entry_changed), win);
     g_signal_connect(priv->button_account_creation_next, "clicked", G_CALLBACK(account_creation_next_clicked), win);
     g_signal_connect(priv->entry_alias, "activate", G_CALLBACK(entry_alias_activated), win);
+    g_signal_connect(priv->button_choose_an_avatar, "clicked", G_CALLBACK(show_avatar_selection_widget), win);
 
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CREATE_ACCOUNT_VIEW_NAME);
+
 }
 
 static void
@@ -863,6 +904,10 @@ ring_main_window_init(RingMainWindow *win)
                         priv->vbox_call_view,
                         CALL_VIEW_NAME);
 
+    /* add the collection to models */
+    PersonModel::instance().addCollection<PeerProfileCollection>(LoadOptions::FORCE_ENABLED);
+    ProfileModel::instance().addCollection<LocalProfileCollection>(LoadOptions::FORCE_ENABLED);
+
     if (has_ring_account()) {
         /* user has ring account, so show the call view right away */
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
@@ -1036,6 +1081,7 @@ ring_main_window_init(RingMainWindow *win)
     /* set the search entry placeholder text */
     gtk_entry_set_placeholder_text(GTK_ENTRY(priv->search_entry),
                                    C_("Please try to make the translation 50 chars or less so that it fits into the layout", "Search contacts or enter number"));
+
 }
 
 static void
@@ -1099,6 +1145,8 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_generating_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, spinner_generating_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_account_creation_next);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_avatar);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_avatar);
 }
 
 GtkWidget *
@@ -1107,4 +1155,192 @@ ring_main_window_new (GtkApplication *app)
     gpointer win = g_object_new(RING_MAIN_WINDOW_TYPE, "application", app, NULL);
 
     return (GtkWidget *)win;
+}
+
+static void
+take_a_photo(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+    video_widget_take_a_photo(VIDEO_WIDGET(priv->video_widget), true);
+}
+
+static void
+choose_a_picture(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    GtkWidget *dialog;
+    GtkWidget *preview;
+    GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
+    GtkFileFilter *filter = gtk_file_filter_new ();
+    gint res;
+
+    preview = gtk_image_new();
+
+    dialog = gtk_file_chooser_dialog_new ("Open File",
+                                          GTK_WINDOW(win),
+                                          action,
+                                          _("_Cancel"),
+                                          GTK_RESPONSE_CANCEL,
+                                          _("_Open"),
+                                          GTK_RESPONSE_ACCEPT,
+                                          NULL);
+
+    gtk_file_filter_add_pattern (filter,"image/png");
+    gtk_file_filter_add_pattern (filter,"*.png");
+
+    gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER(dialog), preview);
+    gtk_file_chooser_set_filter (GTK_FILE_CHOOSER(dialog),filter);
+
+    g_signal_connect (GTK_FILE_CHOOSER(dialog), "update-preview", G_CALLBACK (update_preview_cb), preview);
+
+    res = gtk_dialog_run (GTK_DIALOG(dialog));
+
+    if (res == GTK_RESPONSE_ACCEPT) {
+        char *filename;
+        GError* error = 0; /* initialising to null avoid trouble... */
+        char* png_buffer;
+        gsize png_buffer_size;
+
+        GtkFileChooser *chooser = GTK_FILE_CHOOSER (dialog);
+
+        filename = gtk_file_chooser_get_filename (chooser);
+
+        GdkPixbuf* picture = gdk_pixbuf_new_from_file_at_size (filename, AVATAR_WIDTH, AVATAR_HEIGHT, &error);
+
+        if(picture) {
+            /* scale it */
+            GdkPixbuf* pixbuf_frame_resized = gdk_pixbuf_scale_simple (picture, AVATAR_WIDTH, AVATAR_HEIGHT
+                                                                      , GDK_INTERP_HYPER);
+
+            /* save the png in memory */
+            gchar* png_buffer_signed = (gchar*)png_buffer;
+            gdk_pixbuf_save_to_buffer(pixbuf_frame_resized, &png_buffer_signed, &png_buffer_size, "png", NULL, NULL);
+
+            /* convert buffer to QByteArray in base 64*/
+            QByteArray png_q_byte_array = QByteArray::fromRawData(png_buffer_signed, png_buffer_size).toBase64();;
+
+            /* save in profile */
+            if(ProfileModel::instance().selectedProfile()) {
+                QVariant photo = GlobalInstances::pixmapManipulator().personPhoto(png_q_byte_array,""/*NOT USED*/);
+                ProfileModel::instance().selectedProfile()->person()->setPhoto(photo);
+            }
+
+            g_object_unref(pixbuf_frame_resized);
+            g_free(png_buffer_signed); // is it required ?
+
+        } else {
+            g_message("error message: %s\n", error->message);
+        }
+
+        g_free (filename);
+        g_object_unref (picture);
+        g_error_free (error);
+
+      }
+
+    g_object_unref (preview);
+    g_object_unref (filter);
+    gtk_widget_destroy (dialog);
+
+}
+
+static void
+update_preview_cb(GtkFileChooser *file_chooser, gpointer data)
+{
+  GtkWidget *preview;
+  char *filename;
+  GdkPixbuf *pixbuf;
+  gboolean have_preview;
+
+  preview = GTK_WIDGET (data);
+  filename = gtk_file_chooser_get_preview_filename (file_chooser);
+
+  pixbuf = gdk_pixbuf_new_from_file_at_size (filename, 128, 128, NULL);
+  have_preview = (pixbuf != NULL);
+  g_free (filename);
+
+  gtk_image_set_from_pixbuf (GTK_IMAGE (preview), pixbuf);
+  if (pixbuf)
+    g_object_unref (pixbuf);
+
+  gtk_file_chooser_set_preview_widget_active (file_chooser, have_preview);
+}
+
+static void
+show_avatar_selection_widget(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    GtkWidget *dialog;
+    GtkWidget *content_area;
+    GtkWidget *action_area;
+    dialog = gtk_dialog_new_with_buttons ("Avatar selection",
+                                       GTK_WINDOW(win),
+                                        GTK_DIALOG_DESTROY_WITH_PARENT,
+                                       _("_OK"),
+                                      GTK_RESPONSE_OK,
+                                      _("_Cancel"),
+                                      GTK_RESPONSE_REJECT,
+                                       NULL);
+
+    gtk_window_set_modal (GTK_WINDOW(dialog), true);
+    content_area = gtk_dialog_get_content_area (GTK_DIALOG(dialog));
+    gtk_box_set_spacing(GTK_BOX(content_area),20);
+
+    action_area = gtk_dialog_get_action_area(GTK_DIALOG(dialog));
+    gtk_button_box_set_layout(GTK_BUTTON_BOX(action_area), GTK_BUTTONBOX_CENTER);
+
+    /* video widget */
+    priv->video_widget = video_widget_new();
+    gtk_container_add (GTK_CONTAINER (content_area), priv->video_widget);
+    gtk_widget_set_size_request(priv->video_widget, 200, 200);
+
+    video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget), Video::PreviewManager::instance().previewRenderer()
+                                  , VIDEO_RENDERER_REMOTE);
+
+    Video::PreviewManager::instance().startPreview();
+
+    /* button take a photo */
+    priv->button_take_a_photo = gtk_button_new_with_label("take a photo");
+    gtk_container_add (GTK_CONTAINER (content_area), priv->button_take_a_photo);
+    g_signal_connect(priv->button_take_a_photo, "clicked", G_CALLBACK(take_a_photo), win);
+
+    /* button choose a picture */
+    priv->button_choose_a_picture = gtk_button_new_with_label("choose a picture");
+    gtk_container_add (GTK_CONTAINER (content_area), priv->button_choose_a_picture);
+    g_signal_connect(priv->button_choose_a_picture, "clicked", G_CALLBACK(choose_a_picture), win);
+
+    /* connect the signal to get the response */
+    g_signal_connect(dialog, "response", G_CALLBACK(avatar_selection_response), win);
+
+    gtk_widget_show_all (dialog);
+
+}
+
+static void
+avatar_selection_response(GtkDialog *dialog, gint response_id, RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    switch (response_id)
+    {
+    case GTK_RESPONSE_OK: {
+    if (ProfileModel::instance().selectedProfile()) {
+        auto photo = ProfileModel::instance().selectedProfile()->person()->photo();
+        std::shared_ptr<GdkPixbuf> pixbuf_photo = photo.value<std::shared_ptr<GdkPixbuf>>();
+
+        if (not photo.isNull())
+            gtk_image_set_from_pixbuf (GTK_IMAGE(priv->image_avatar),  pixbuf_photo.get());
+    }
+    break;
+    }
+    case GTK_RESPONSE_REJECT:
+    default:
+    break;
+    }
+
+    gtk_widget_destroy(GTK_WIDGET(dialog));
+    Video::PreviewManager::instance().stopPreview();
+
 }

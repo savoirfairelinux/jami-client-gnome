@@ -58,7 +58,7 @@ void            video_widget_on_drag_data_received (GtkWidget *self,
 gboolean        video_widget_on_button_press_in_screen_event (GtkWidget *parent,
                                                               GdkEventButton *event,
                                                               Call* call);
-
+void            video_widget_take_a_photo(VideoWidget *self, bool take_it);
 G_END_DECLS
 
 #endif /* __VIDEO_WIDGET_H__ */
