@@ -58,6 +58,8 @@ void            video_widget_on_drag_data_received (GtkWidget *self,
 gboolean        video_widget_on_button_press_in_screen_event (GtkWidget *parent,
                                                               GdkEventButton *event,
                                                               Call* call);
+void            video_widget_take_snapshot (VideoWidget *self, bool take_it);
+GdkPixbuf*      video_widget_get_snapshot  (VideoWidget *self);
 
 G_END_DECLS
 

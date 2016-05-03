@@ -34,6 +34,16 @@
 #include <call.h>
 #include "xrectsel.h"
 
+/* TODO : sort the headers */
+#include "accountmodel.h"
+#include "account.h"
+#include "profilemodel.h"
+#include "profile.h"
+#include "person.h"
+#include "globalinstances.h"
+#include "interfaces/pixmapmanipulatori.h"
+
+
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
 static constexpr const char* JOIN_CALL_KEY = "call_data";
@@ -42,6 +52,10 @@ static constexpr const char* JOIN_CALL_KEY = "call_data";
  * use 30 ms (about 30 fps) since we don't expect to
  * receive video frames faster than that */
 static constexpr int FRAME_RATE_PERIOD           = 30;
+
+/* size of avatar */
+static constexpr int AVATAR_WIDTH  = 100;/* px */
+static constexpr int AVATAR_HEIGHT = 100;/* px */
 
 struct _VideoWidgetClass {
     GtkClutterEmbedClass parent_class;
@@ -73,6 +87,7 @@ struct _VideoWidgetPrivate {
      */
     guint                    renderer_timeout_source;
     GAsyncQueue             *new_renderer_queue;
+
 };
 
 struct _VideoWidgetRenderer {
@@ -82,6 +97,7 @@ struct _VideoWidgetRenderer {
     Video::Renderer         *renderer;
     std::mutex               run_mutex;
     bool                     running;
+    GdkPixbuf*               snapshot;
 
     /* show_black_frame is used to request the actor to render a black image;
      * this will take over 'running', ie: a black frame will be rendered even if
@@ -90,6 +106,7 @@ struct _VideoWidgetRenderer {
      */
     std::atomic_bool         show_black_frame;
     std::atomic_bool         pause_rendering;
+    std::atomic_bool         take_snapshot;
     QMetaObject::Connection  render_stop;
     QMetaObject::Connection  render_start;
 };
@@ -138,7 +155,6 @@ video_widget_dispose(GObject *object)
 
     G_OBJECT_CLASS(video_widget_parent_class)->dispose(object);
 }
-
 
 /*
  * video_widget_finalize()
@@ -579,8 +595,8 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         g_return_if_fail(image_new);
 
         const auto& res = renderer->size();
-        const gint BPP = 4;
-        const gint ROW_STRIDE = BPP * res.width();
+        gint BPP = 4; /* BGRA */
+        gint ROW_STRIDE = BPP * res.width();
 
         GError *error = nullptr;
         clutter_image_set_data(
@@ -596,6 +612,30 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
             g_clear_error(&error);
             g_object_unref (image_new);
             return;
+        }
+
+        if (wg_renderer->take_snapshot) {
+            /* frame_data is BGRA meanwhile pixbuf_frame_data requires RGB */
+            guchar pixbuf_frame_data[res.width() * res.height() * 3];
+
+            BPP = 3; /* RGB */
+            gint ROW_STRIDE = BPP * res.width();
+            guchar* png_buffer;
+            gsize png_buffer_size;
+
+            for(int i = 0, j = 0 ; i < res.width() * res.height() * 4 ; i += 4, j += 3 ) {
+                pixbuf_frame_data[j + 0] = frame_data[i + 2];
+                pixbuf_frame_data[j + 1] = frame_data[i + 1];
+                pixbuf_frame_data[j + 2] = frame_data[i + 0];
+            }
+
+            if (wg_renderer->snapshot)
+                g_object_unref(wg_renderer->snapshot);
+
+            wg_renderer->snapshot = gdk_pixbuf_new_from_data(&pixbuf_frame_data[0], GDK_COLORSPACE_RGB, FALSE, 8
+                                               , res.width(), res.height(), ROW_STRIDE, NULL, NULL);
+
+            wg_renderer->take_snapshot = false;
         }
     }
 
@@ -766,4 +806,20 @@ video_widget_pause_rendering(VideoWidget *self, gboolean pause)
 
     priv->local->pause_rendering = pause;
     priv->remote->pause_rendering = pause;
+}
+
+void
+video_widget_take_snapshot(VideoWidget *self, bool take_it)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    priv->remote->take_snapshot = take_it;
+}
+
+GdkPixbuf*
+video_widget_get_snapshot(VideoWidget *self)
+{
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    return priv->remote->snapshot;
 }
