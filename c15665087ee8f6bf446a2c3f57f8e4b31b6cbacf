@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_2aaad670",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-03T15:59:01Z",
+      "side": 1,
+      "message": "rm me",
+      "revId": "c15665087ee8f6bf446a2c3f57f8e4b31b6cbacf",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_eabb7ec2",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-03T15:59:01Z",
+      "side": 1,
+      "message": "rm me",
+      "range": {
+        "startLine": 814,
+        "startChar": 4,
+        "endLine": 814,
+        "endChar": 19
+      },
+      "revId": "c15665087ee8f6bf446a2c3f57f8e4b31b6cbacf",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
