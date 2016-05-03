@@ -34,6 +34,16 @@
 #include <call.h>
 #include "xrectsel.h"
 
+/* TODO : sort the headers */
+#include "accountmodel.h"
+#include "account.h"
+#include "profilemodel.h"
+#include "profile.h"
+#include "person.h"
+#include "globalinstances.h"
+#include "interfaces/pixmapmanipulatori.h"
+
+
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
 static constexpr const char* JOIN_CALL_KEY = "call_data";
@@ -42,6 +52,10 @@ static constexpr const char* JOIN_CALL_KEY = "call_data";
  * use 30 ms (about 30 fps) since we don't expect to
  * receive video frames faster than that */
 static constexpr int FRAME_RATE_PERIOD           = 30;
+
+/* size of avatar */
+static constexpr int AVATAR_WIDTH  = 100;//px
+static constexpr int AVATAR_HEIGHT = 100;//px
 
 struct _VideoWidgetClass {
     GtkClutterEmbedClass parent_class;
@@ -90,6 +104,7 @@ struct _VideoWidgetRenderer {
      */
     std::atomic_bool         show_black_frame;
     std::atomic_bool         pause_rendering;
+    std::atomic_bool         take_a_photo;
     QMetaObject::Connection  render_stop;
     QMetaObject::Connection  render_start;
 };
@@ -138,7 +153,6 @@ video_widget_dispose(GObject *object)
 
     G_OBJECT_CLASS(video_widget_parent_class)->dispose(object);
 }
-
 
 /*
  * video_widget_finalize()
@@ -579,8 +593,8 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         g_return_if_fail(image_new);
 
         const auto& res = renderer->size();
-        const gint BPP = 4;
-        const gint ROW_STRIDE = BPP * res.width();
+        gint BPP = 4; /* BGRA */
+        gint ROW_STRIDE = BPP * res.width();
 
         GError *error = nullptr;
         clutter_image_set_data(
@@ -596,6 +610,55 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
             g_clear_error(&error);
             g_object_unref (image_new);
             return;
+        }
+
+        if (wg_renderer->take_a_photo) {
+            /* frame_data is BGRA meanwhile pixbuf_frame_data requires RGB */
+            guchar pixbuf_frame_data[res.width() * res.height() * 3];
+
+            BPP = 3; /* RGB */
+            gint ROW_STRIDE = BPP * res.width();
+            guchar* png_buffer;
+            gsize png_buffer_size;
+
+            for(int i = 0, j = 0 ; i < res.width() * res.height() * 4 ; i += 4, j += 3 ) {
+                pixbuf_frame_data[j + 0] = frame_data[i + 2];
+                pixbuf_frame_data[j + 1] = frame_data[i + 1];
+                pixbuf_frame_data[j + 2] = frame_data[i + 0];
+            }
+
+            GdkPixbuf* pixbuf_frame = gdk_pixbuf_new_from_data(&pixbuf_frame_data[0], GDK_COLORSPACE_RGB, FALSE, 8
+                                                              , res.width(), res.height(), ROW_STRIDE, NULL, NULL);
+
+            /* alter the photo */
+            const int square_dim = (res.width() > res.height()) ?  res.height() : res.width();
+            GdkPixbuf* pixbuf_frame_cropped = gdk_pixbuf_new_subpixbuf(pixbuf_frame
+                                                                      , (res.width() - square_dim) / 2
+                                                                      , (res.height() - square_dim) / 2
+                                                                      , square_dim, square_dim);
+
+            /* scale it */
+            GdkPixbuf* pixbuf_frame_resized = gdk_pixbuf_scale_simple (pixbuf_frame_cropped, AVATAR_WIDTH, AVATAR_HEIGHT
+                                                                      , GDK_INTERP_HYPER);
+
+            /* save the png in memory */
+            gchar* png_buffer_signed = (gchar*)png_buffer;
+            gdk_pixbuf_save_to_buffer(pixbuf_frame_resized, &png_buffer_signed, &png_buffer_size, "png", NULL, NULL);
+
+            /* convert buffer to QByteArray in base 64 */
+            QByteArray png_q_byte_array = QByteArray::fromRawData(png_buffer_signed, png_buffer_size).toBase64();
+
+            /* save in profile */
+            if(ProfileModel::instance().selectedProfile()) {
+                QVariant photo = GlobalInstances::pixmapManipulator().personPhoto(png_q_byte_array,""/*NOT USED*/);
+                ProfileModel::instance().selectedProfile()->person()->setPhoto(photo);
+            }
+
+            g_object_unref(pixbuf_frame);
+            g_object_unref(pixbuf_frame_cropped);
+            g_object_unref(pixbuf_frame_resized);
+
+            wg_renderer->take_a_photo = false;
         }
     }
 
@@ -766,4 +829,13 @@ video_widget_pause_rendering(VideoWidget *self, gboolean pause)
 
     priv->local->pause_rendering = pause;
     priv->remote->pause_rendering = pause;
+}
+
+void
+video_widget_take_a_photo(VideoWidget *self, bool take_it)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    priv->remote->take_a_photo = take_it;
 }
