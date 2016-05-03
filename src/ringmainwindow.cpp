@@ -55,6 +55,12 @@
 #include "recentcontactsview.h"
 #include <recentmodel.h>
 #include "chatview.h"
+#include "video/video_widget.h"
+
+#include "profilemodel.h"
+#include "profile.h"
+#include "peerprofilecollection.h"
+#include "localprofilecollection.h"
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* CREATE_ACCOUNT_VIEW_NAME   = "wizard";
@@ -118,6 +124,8 @@ struct _RingMainWindowPrivate
     GtkWidget *label_generating_account;
     GtkWidget *spinner_generating_account;
     GtkWidget *button_account_creation_next;
+    GtkWidget *video_widget;
+    GtkWidget *button_take_a_photo;
 
     QMetaObject::Connection hash_updated;
 
@@ -133,6 +141,8 @@ struct _RingMainWindowPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
 
 #define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
+
+static void take_a_photo(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win);
 
 static void
 enter_full_screen(RingMainWindow *self)
@@ -509,10 +519,17 @@ create_ring_account(RingMainWindow *win)
     /* create account and set UPnP enabled, as its not by default in the daemon */
     const gchar *alias = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
     Account *account = nullptr;
-    if (alias && strlen(alias) > 0)
+
+    /* get profile (if so) */
+    auto profile = ProfileModel::instance().selectedProfile();
+
+    if (alias && strlen(alias) > 0 && profile) {
         account = AccountModel::instance().add(alias, Account::Protocol::RING);
-    else
+        profile->person()->setFormattedName(alias);
+    } else {
         account = AccountModel::instance().add(C_("The default username / account alias, if none is set by the user", "Unknown"), Account::Protocol::RING);
+        profile->person()->setFormattedName("Unknown");
+    }
     account->setDisplayName(alias); // set the display name to the same as the alias
     account->setUpnpEnabled(TRUE);
 
@@ -534,6 +551,8 @@ create_ring_account(RingMainWindow *win)
     );
 
     account->performAction(Account::EditAction::SAVE);
+    profile->save();
+
 
     return G_SOURCE_REMOVE;
 }
@@ -552,6 +571,7 @@ alias_entry_changed(GtkEditable *entry, RingMainWindow *win)
         gtk_widget_hide(priv->label_default_name);
         gtk_widget_show(priv->label_paceholder);
     }
+    Video::PreviewManager::instance().stopPreview();
 }
 
 static void
@@ -604,15 +624,35 @@ show_account_creation(RingMainWindow *win)
     } else
         gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring_logo), logo_ring);
 
+    /* video widget */
+    priv->video_widget = video_widget_new();
+    gtk_widget_show_all(priv->video_widget);
+    gtk_box_pack_start(GTK_BOX(priv->account_creation), priv->video_widget, TRUE, TRUE, 0);
+    gtk_widget_set_size_request(priv->video_widget, 200, 200);
+
+    video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                           Video::PreviewManager::instance().previewRenderer(),
+                                           VIDEO_RENDERER_REMOTE);
+
+    Video::PreviewManager::instance().startPreview();
+
+    /* button take a photo */
+    priv->button_take_a_photo = gtk_button_new_with_label("take a photo");
+    gtk_box_pack_start(GTK_BOX(priv->account_creation), priv->button_take_a_photo, TRUE, TRUE, 0);
+    gtk_widget_show_all(priv->button_take_a_photo);
+
+
     /* use the real name / username of the logged in user as the default */
     gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), g_get_real_name());
 
     /* connect signals */
+    g_signal_connect(priv->button_take_a_photo, "clicked", G_CALLBACK(take_a_photo), win);
     g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(alias_entry_changed), win);
     g_signal_connect(priv->button_account_creation_next, "clicked", G_CALLBACK(account_creation_next_clicked), win);
     g_signal_connect(priv->entry_alias, "activate", G_CALLBACK(entry_alias_activated), win);
 
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CREATE_ACCOUNT_VIEW_NAME);
+
 }
 
 static void
@@ -863,6 +903,10 @@ ring_main_window_init(RingMainWindow *win)
                         priv->vbox_call_view,
                         CALL_VIEW_NAME);
 
+    /* je ne comprends pas ces deux lignes... des expliquations seraient plus que bienvenues */
+    PersonModel::instance().addCollection<PeerProfileCollection>(LoadOptions::FORCE_ENABLED);
+    ProfileModel::instance().addCollection<LocalProfileCollection>(LoadOptions::FORCE_ENABLED);
+
     if (has_ring_account()) {
         /* user has ring account, so show the call view right away */
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
@@ -1036,6 +1080,7 @@ ring_main_window_init(RingMainWindow *win)
     /* set the search entry placeholder text */
     gtk_entry_set_placeholder_text(GTK_ENTRY(priv->search_entry),
                                    C_("Please try to make the translation 50 chars or less so that it fits into the layout", "Search contacts or enter number"));
+
 }
 
 static void
@@ -1107,4 +1152,12 @@ ring_main_window_new (GtkApplication *app)
     gpointer win = g_object_new(RING_MAIN_WINDOW_TYPE, "application", app, NULL);
 
     return (GtkWidget *)win;
+}
+
+static void
+take_a_photo(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+    video_widget_take_a_photo(VIDEO_WIDGET(priv->video_widget), true);
+
 }
