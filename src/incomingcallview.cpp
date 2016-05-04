@@ -27,6 +27,8 @@
 #include <person.h>
 #include <globalinstances.h>
 #include "native/pixbufmanipulator.h"
+#include <itemdataroles.h>
+#include <numbercategory.h>
 
 struct _IncomingCallView
 {
@@ -43,7 +45,8 @@ typedef struct _IncomingCallViewPrivate IncomingCallViewPrivate;
 struct _IncomingCallViewPrivate
 {
     GtkWidget *image_incoming;
-    GtkWidget *label_identity;
+    GtkWidget *label_name;
+    GtkWidget *label_uri;
     GtkWidget *spinner_status;
     GtkWidget *placeholder;
     GtkWidget *label_status;
@@ -88,7 +91,8 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
                                                 "/cx/ring/RingGnome/incomingcallview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_incoming);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_identity);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_name);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_uri);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, spinner_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, placeholder);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_status);
@@ -168,9 +172,19 @@ incoming_call_view_set_call_info(IncomingCallView *view, const QModelIndex& idx)
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), image.get());
 
     /* get name */
-    QVariant var = idx.model()->data(idx, static_cast<int>(Call::Role::Name));
-    QByteArray ba_name = var.toString().toLocal8Bit();
-    gtk_label_set_text(GTK_LABEL(priv->label_identity), ba_name.constData());
+    auto name = idx.model()->data(idx, static_cast<int>(Ring::Role::Name));
+    gtk_label_set_text(GTK_LABEL(priv->label_name), name.toString().toUtf8().constData());
+
+    /* get uri, if different from name */
+    auto uri = idx.model()->data(idx, static_cast<int>(Ring::Role::Number));
+    if (name.toString() != uri.toString()) {
+        auto cat_uri = g_strdup_printf("(%s) %s"
+                                       ,call->peerContactMethod()->category()->name().toUtf8().constData()
+                                       ,uri.toString().toUtf8().constData());
+        gtk_label_set_text(GTK_LABEL(priv->label_uri), cat_uri);
+        g_free(cat_uri);
+        gtk_widget_show(priv->label_uri);
+    }
 
     /* change some things depending on call state */
     update_state(view, call);
