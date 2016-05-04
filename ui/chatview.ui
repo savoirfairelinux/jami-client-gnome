@@ -40,7 +40,7 @@
         </child>
         <child>
           <object class="GtkComboBox" id="combobox_cm">
-            <property name="visible">False</property>
+            <property name="visible">True</property>
             <property name="popup-fixed-width">False</property>
           </object>
           <packing>

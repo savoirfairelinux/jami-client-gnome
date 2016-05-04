@@ -354,14 +354,20 @@ update_contact_methods(ChatView *self)
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    g_return_if_fail(priv->person);
+    g_return_if_fail(priv->person || priv->cm);
 
     /* model for the combobox for the choice of ContactMethods */
     auto cm_model = gtk_list_store_new(
         1, G_TYPE_POINTER
     );
 
-    auto cms = priv->person->phoneNumbers();
+    Person::ContactMethods cms;
+
+    if (priv->person)
+        cms = priv->person->phoneNumbers();
+    else
+        cms << priv->cm;
+
     for (int i = 0; i < cms.size(); ++i) {
         GtkTreeIter iter;
         gtk_list_store_append(cm_model, &iter);
@@ -397,11 +403,9 @@ update_contact_methods(ChatView *self)
         gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_cm), last_used_cm_idx);
     }
 
-    /* show the combo box if there is more than one cm to choose from */
-    if (cms.size() > 1)
-        gtk_widget_show_all(priv->combobox_cm);
-    else
-        gtk_widget_hide(priv->combobox_cm);
+    /* if there is only one CM, make the combo box insensitive */
+    if (cms.size() < 2)
+        gtk_widget_set_sensitive(priv->combobox_cm, FALSE);
 }
 
 static void
@@ -446,6 +450,7 @@ chat_view_new_cm(ContactMethod *cm)
 
     priv->cm = cm;
     print_text_recording(priv->cm->textRecording(), self);
+    update_contact_methods(self);
     update_name(self);
 
     gtk_widget_show(priv->hbox_chat_info);
