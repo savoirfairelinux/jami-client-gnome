@@ -11,11 +11,11 @@
         <property name="no-show-all">True</property>
         <property name="orientation">horizontal</property>
         <property name="spacing">5</property>
-        <property name="border-width">5</property>
         <child>
           <object class="GtkButton" id="button_close_chatview">
             <property name="image">image_back_arrow</property>
             <property name="visible">True</property>
+            <property name="relief">none</property>
             <property name="tooltip-text" translatable="yes">Hide chat view</property>
             <child internal-child="accessible">
               <object class="AtkObject" id="button_close_chatview-atkobject">
