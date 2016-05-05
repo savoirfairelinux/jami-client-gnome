@@ -92,7 +92,7 @@ fi
 %files
 %defattr(-,root,root,-)
 %{_bindir}/gnome-ring
-%{_bindir}/ring
+%{_bindir}/ring.cx
 %{_datadir}/glib-2.0/schemas/cx.ring.RingGnome.gschema.xml
 %{_datadir}/applications/gnome-ring.desktop
 %{_datadir}/gnome-ring/gnome-ring.desktop
