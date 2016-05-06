@@ -40,6 +40,8 @@
 #include "utils/files.h"
 #include <clutter-gtk/clutter-gtk.h>
 #include "chatview.h"
+#include <itemdataroles.h>
+#include <numbercategory.h>
 
 static constexpr int CONTROLS_FADE_TIMEOUT = 3000000; /* microseconds */
 static constexpr int FADE_DURATION = 500; /* miliseconds */
@@ -61,7 +63,8 @@ struct _CurrentCallViewPrivate
     GtkWidget *hbox_call_info;
     GtkWidget *hbox_call_controls;
     GtkWidget *image_peer;
-    GtkWidget *label_identity;
+    GtkWidget *label_name;
+    GtkWidget *label_uri;
     GtkWidget *label_status;
     GtkWidget *label_duration;
     GtkWidget *paned_call;
@@ -475,7 +478,8 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_controls);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, image_peer);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_identity);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_name);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_uri);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, paned_call);
@@ -551,9 +555,19 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
 
     /* get name */
-    QVariant var = idx.model()->data(idx, static_cast<int>(Call::Role::Name));
-    QByteArray ba_name = var.toString().toUtf8();
-    gtk_label_set_text(GTK_LABEL(priv->label_identity), ba_name.constData());
+    auto name = idx.model()->data(idx, static_cast<int>(Ring::Role::Name));
+    gtk_label_set_text(GTK_LABEL(priv->label_name), name.toString().toUtf8().constData());
+
+    /* get uri, if different from name */
+    auto uri = idx.model()->data(idx, static_cast<int>(Ring::Role::Number));
+    if (name.toString() != uri.toString()) {
+        auto cat_uri = g_strdup_printf("(%s) %s"
+                                       ,priv->call->peerContactMethod()->category()->name().toUtf8().constData()
+                                       ,uri.toString().toUtf8().constData());
+        gtk_label_set_text(GTK_LABEL(priv->label_uri), cat_uri);
+        g_free(cat_uri);
+        gtk_widget_show(priv->label_uri);
+    }
 
     /* change some things depending on call state */
     update_state(view, priv->call);
