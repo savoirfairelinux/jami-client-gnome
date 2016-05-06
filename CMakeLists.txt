@@ -293,6 +293,8 @@ SET( SRC_FILES
    src/recentcontactsview.cpp
    src/chatview.h
    src/chatview.cpp
+   src/avatarmanipulation.h
+   src/avatarmanipulation.cpp
 )
 
 # compile glib resource files to c code
