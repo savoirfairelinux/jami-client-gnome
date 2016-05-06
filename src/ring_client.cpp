@@ -50,6 +50,11 @@
 #include "utils/files.h"
 #include "revision.h"
 #include "utils/accounts.h"
+/*lrc*/
+#include "profilemodel.h"
+#include "profile.h"
+#include "peerprofilecollection.h"
+#include "localprofilecollection.h"
 
 struct _RingClientClass
 {
@@ -318,6 +323,8 @@ ring_client_startup(GApplication *app)
 
     /* add backends */
     CategorizedHistoryModel::instance().addCollection<LocalHistoryCollection>(LoadOptions::FORCE_ENABLED);
+    PersonModel::instance().addCollection<PeerProfileCollection>(LoadOptions::FORCE_ENABLED);
+    ProfileModel::instance().addCollection<LocalProfileCollection>(LoadOptions::FORCE_ENABLED);
 
     /* fallback backend for vcards */
     PersonModel::instance().addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
