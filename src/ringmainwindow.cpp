@@ -56,6 +56,13 @@
 #include <recentmodel.h>
 #include "chatview.h"
 
+/*TODO : sorting headers */
+/* client */
+#include "avatarmanipulation.h"
+/* lrc */
+#include "profilemodel.h"
+#include "profile.h"
+
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* CREATE_ACCOUNT_VIEW_NAME   = "wizard";
 static constexpr const char* GENERAL_SETTINGS_VIEW_NAME = "general";
@@ -118,6 +125,8 @@ struct _RingMainWindowPrivate
     GtkWidget *label_generating_account;
     GtkWidget *spinner_generating_account;
     GtkWidget *button_account_creation_next;
+    GtkWidget *avatarmanipuation;
+    GtkWidget *box_avatarselection;
 
     QMetaObject::Connection hash_updated;
 
@@ -502,10 +511,18 @@ create_ring_account(RingMainWindow *win)
     /* create account and set UPnP enabled, as its not by default in the daemon */
     const gchar *alias = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
     Account *account = nullptr;
-    if (alias && strlen(alias) > 0)
+
+    /* get profile (if so) */
+    auto profile = ProfileModel::instance().selectedProfile();
+
+    if (alias && strlen(alias) > 0 && profile) {
         account = AccountModel::instance().add(alias, Account::Protocol::RING);
-    else
+        profile->person()->setFormattedName(alias);
+    } else {
         account = AccountModel::instance().add(C_("The default username / account alias, if none is set by the user", "Unknown"), Account::Protocol::RING);
+        profile->person()->setFormattedName("Unknown");
+    }
+
     account->setDisplayName(alias); // set the display name to the same as the alias
     account->setUpnpEnabled(TRUE);
 
@@ -527,6 +544,7 @@ create_ring_account(RingMainWindow *win)
     );
 
     account->performAction(Account::EditAction::SAVE);
+    profile->save();
 
     return G_SOURCE_REMOVE;
 }
@@ -608,6 +626,10 @@ show_account_creation(RingMainWindow *win)
         gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), real_name);
     else
         gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), user_name);
+
+    /* avatar manipulation widget */
+    priv->avatarmanipuation = avatar_manipulation_new();
+    gtk_box_pack_start(GTK_BOX(priv->box_avatarselection), priv->avatarmanipuation, true, true, 0);
 
     /* connect signals */
     g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(alias_entry_changed), win);
@@ -1101,6 +1123,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_generating_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, spinner_generating_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_account_creation_next);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, box_avatarselection);
 }
 
 GtkWidget *
