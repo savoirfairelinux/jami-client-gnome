@@ -489,6 +489,12 @@
                         <property name="top_attach">3</property>
                       </packing>
                     </child>
+                    <child>
+                      <object class="GtkButton" id="button_testturn">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Test TURN connectivity</property>
+                      </object>
+                    </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>
