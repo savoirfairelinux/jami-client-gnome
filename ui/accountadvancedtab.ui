@@ -518,6 +518,38 @@
           </packing>
         </child>
         <child>
+          <object class="GtkLabel" id="label_test_ice">
+            <property name="label" translatable="yes">&lt;b&gt;Test ICE initialization&lt;/b&gt;</property>
+            <property name="use_markup">True</property>
+            <property name="xalign">0</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_test_ice_explanation">
+            <property name="label" translatable="yes">ICE is the protocol used to initiate an audio/video call with another Ring user. This test can be used to detect issues with creating an ICE transport. It can help debugging things like bad credentials to a TURN server.</property>
+            <property name="wrap">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkGrid" id="grid_ice_init">
+            <property name="visible">True</property>
+            <property name="row_spacing">10</property>
+            <property name="column_spacing">10</property>
+            <property name="margin_left">30</property>
+              <child>
+                <object class="GtkButton" id="button_test_ice_init">
+                  <property name="visible">True</property>
+                  <property name="label" translatable="yes">Test ICE initialization</property>
+                </object>
+              </child>
+              <child>
+                <object class="GtkLabel" id="label_test_ice_result">
+                  <property name="wrap">True</property>
+                </object>
+              </child>
+            </object>
+        </child>
+        <child>
           <object class="GtkFrame" id="frame_ice_fallback">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
