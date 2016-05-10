@@ -65,6 +65,8 @@ struct _AccountAdvancedTabPrivate
     GtkWidget *entry_turnusername;
     GtkWidget *entry_turnpassword;
     GtkWidget *entry_turnrealm;
+    GtkWidget *button_test_ice_init;
+    GtkWidget *label_test_ice_result;
     GtkWidget *adjustment_audio_port_min;
     GtkWidget *adjustment_audio_port_max;
     GtkWidget *adjustment_video_port_min;
@@ -130,6 +132,8 @@ account_advanced_tab_class_init(AccountAdvancedTabClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnusername);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnpassword);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnrealm);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, button_test_ice_init);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, label_test_ice_result);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_audio_port_min);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_audio_port_max);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_video_port_min);
@@ -265,6 +269,23 @@ turn_serverrealm_changed(GtkEntry *entry, AccountAdvancedTab *self)
     AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
 
     priv->account->setTurnServerRealm(gtk_entry_get_text(entry));
+}
+
+static void
+button_test_ice_init_clicked(G_GNUC_UNUSED GtkButton *button, AccountAdvancedTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(self));
+    AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
+
+    priv->account->save();
+    auto output = priv->account->testAccountICEInitialization();
+
+    if (output.first){
+        gtk_label_set_text(GTK_LABEL(priv->label_test_ice_result), "Success!");
+    }
+    else {
+        gtk_label_set_text(GTK_LABEL(priv->label_test_ice_result), ("Failure: " + output.second.toStdString()).c_str());
+    }
 }
 
 static void
@@ -456,6 +477,8 @@ build_tab_view(AccountAdvancedTab *self)
                      "changed", G_CALLBACK(turn_serverpassword_changed), self);
     g_signal_connect(priv->entry_turnrealm,
                      "changed", G_CALLBACK(turn_serverrealm_changed), self);
+    g_signal_connect(priv->button_test_ice_init,
+                     "clicked", G_CALLBACK(button_test_ice_init_clicked), self);
 
     /* audio/video rtp port range */
     gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_audio_port_min),
