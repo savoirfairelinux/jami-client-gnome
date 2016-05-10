@@ -65,12 +65,19 @@ struct _AccountAdvancedTabPrivate
     GtkWidget *entry_turnusername;
     GtkWidget *entry_turnpassword;
     GtkWidget *entry_turnrealm;
+    GtkWidget *button_test_ice_init;
+    GtkWidget *label_test_ice_result;
+    GtkWidget *spinner_test_ice_init;
     GtkWidget *adjustment_audio_port_min;
     GtkWidget *adjustment_audio_port_max;
     GtkWidget *adjustment_video_port_min;
     GtkWidget *adjustment_video_port_max;
 
+
     QMetaObject::Connection account_updated;
+
+    QMetaObject::Connection test_ice_init_result;
+    int last_ice_init_test_id;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AccountAdvancedTab, account_advanced_tab, GTK_TYPE_BOX);
@@ -130,6 +137,9 @@ account_advanced_tab_class_init(AccountAdvancedTabClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnusername);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnpassword);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnrealm);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, button_test_ice_init);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, label_test_ice_result);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, spinner_test_ice_init);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_audio_port_min);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_audio_port_max);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_video_port_min);
@@ -265,6 +275,66 @@ turn_serverrealm_changed(GtkEntry *entry, AccountAdvancedTab *self)
     AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
 
     priv->account->setTurnServerRealm(gtk_entry_get_text(entry));
+}
+
+static void
+button_test_ice_init_clicked(G_GNUC_UNUSED GtkButton *button, AccountAdvancedTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(self));
+    AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
+
+    QObject::disconnect(priv->test_ice_init_result);
+    priv->test_ice_init_result = QObject::connect(
+        account,
+        &Account::iceInitTestResult,
+        [=] (int request_id, bool hasSucceeded, const QString& error) {
+
+            if (request_id != priv->last_ice_init_test_id)
+            {
+                return;
+            }
+
+            QObject::disconnect(priv->test_ice_init_result);
+
+            gtk_widget_hide(priv->spinner_test_ice_init);
+            gtk_spinner_stop(GTK_SPINNER(priv->spinner_test_ice_init));
+
+            if(hasSucceeded)
+            {
+                gtk_label_set_text(
+                    GTK_LABEL(priv->label_test_ice_result),
+                    ("Failure: " + error.toStdString()).c_str()
+                );
+            }
+            else
+            {
+                gtk_label_set_text(
+                    GTK_LABEL(priv->label_test_ice_result),
+                    ("Failure: " + error.toStdString()).c_str()
+                );
+            }
+
+            gtk_widget_show(priv->label_test_ice_result);
+        }
+    );
+
+    priv->account->save();
+    priv->last_ice_init_test_id = priv->account->testAccountICEInitialization();
+
+    // Hide the label
+    gtk_widget_hide(priv->label_test_ice_result);
+
+    // Show the spinner
+    gtk_widget_show(priv->spinner_test_ice_init);
+    gtk_spinner_start(GTK_SPINNER(priv->spinner_test_ice_init));
+
+
+    if (output.first){
+        gtk_label_set_text(GTK_LABEL(priv->label_test_ice_result), "testing...");
+    }
+    else {
+        gtk_label_set_text(GTK_LABEL(priv->label_test_ice_result), ("Failure: " + output.second.toStdString()).c_str());
+    }
 }
 
 static void
@@ -456,6 +526,8 @@ build_tab_view(AccountAdvancedTab *self)
                      "changed", G_CALLBACK(turn_serverpassword_changed), self);
     g_signal_connect(priv->entry_turnrealm,
                      "changed", G_CALLBACK(turn_serverrealm_changed), self);
+    g_signal_connect(priv->button_test_ice_init,
+                     "clicked", G_CALLBACK(button_test_ice_init_clicked), self);
 
     /* audio/video rtp port range */
     gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_audio_port_min),
