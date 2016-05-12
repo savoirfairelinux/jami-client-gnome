@@ -43,6 +43,12 @@ static constexpr const char* JOIN_CALL_KEY = "call_data";
  * receive video frames faster than that */
 static constexpr int FRAME_RATE_PERIOD           = 30;
 
+enum SnapshotStatus {
+    NOTHING,
+    HAS_TO_TAKE_ONE,
+    HAS_A_NEW_ONE
+};
+
 struct _VideoWidgetClass {
     GtkClutterEmbedClass parent_class;
 };
@@ -80,8 +86,10 @@ struct _VideoWidgetRenderer {
     ClutterActor            *actor;
     ClutterAction           *drag_action;
     Video::Renderer         *renderer;
+    GdkPixbuf               *snapshot;
     std::mutex               run_mutex;
     bool                     running;
+    SnapshotStatus           snapshot_status;
 
     /* show_black_frame is used to request the actor to render a black image;
      * this will take over 'running', ie: a black frame will be rendered even if
@@ -107,6 +115,15 @@ static gboolean on_button_press_in_screen_event(GtkWidget *, GdkEventButton *, g
 static gboolean check_renderer_queue           (VideoWidget *);
 static void     free_video_widget_renderer     (VideoWidgetRenderer *);
 static void     video_widget_add_renderer      (VideoWidget *, VideoWidgetRenderer *);
+
+/* signals */
+enum {
+    SNAPSHOT_SIGNAL,
+    LAST_SIGNAL
+};
+
+static guint video_widget_signals[LAST_SIGNAL] = { 0 };
+
 
 /*
  * video_widget_dispose()
@@ -171,6 +188,17 @@ video_widget_class_init(VideoWidgetClass *klass)
     /* override method */
     object_class->dispose = video_widget_dispose;
     object_class->finalize = video_widget_finalize;
+
+    /* add snapshot signal */
+    video_widget_signals[SNAPSHOT_SIGNAL] = g_signal_new("snapshot-taken",
+                 G_TYPE_FROM_CLASS(klass),
+                 (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+                 0,
+                 nullptr,
+                 nullptr,
+                 g_cclosure_marshal_VOID__VOID,
+                 G_TYPE_NONE, 0);
+
 }
 
 static void
@@ -579,8 +607,8 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         g_return_if_fail(image_new);
 
         const auto& res = renderer->size();
-        const gint BPP = 4;
-        const gint ROW_STRIDE = BPP * res.width();
+        gint BPP = 4; /* BGRA */
+        gint ROW_STRIDE = BPP * res.width();
 
         GError *error = nullptr;
         clutter_image_set_data(
@@ -596,6 +624,33 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
             g_clear_error(&error);
             g_object_unref (image_new);
             return;
+        }
+
+        if (wg_renderer->snapshot_status == HAS_TO_TAKE_ONE) {
+            guchar pixbuf_frame_data[res.width() * res.height() * 3];
+
+            BPP = 3; /* RGB */
+            gint ROW_STRIDE = BPP * res.width();
+            guchar* png_buffer;
+            gsize png_buffer_size;
+
+            /* conversion from BGRA to RGB */
+            for(int i = 0, j = 0 ; i < res.width() * res.height() * 4 ; i += 4, j += 3 ) {
+                pixbuf_frame_data[j + 0] = frame_data[i + 2];
+                pixbuf_frame_data[j + 1] = frame_data[i + 1];
+                pixbuf_frame_data[j + 2] = frame_data[i + 0];
+            }
+
+            if(wg_renderer->snapshot)
+                g_clear_object(&wg_renderer->snapshot);
+
+            wg_renderer->snapshot = gdk_pixbuf_new_from_data(&pixbuf_frame_data[0],
+                                                             GDK_COLORSPACE_RGB, FALSE, 8,
+                                                             res.width(), res.height(),
+                                                             ROW_STRIDE, NULL, NULL);
+
+            wg_renderer->snapshot_status = HAS_A_NEW_ONE;
+
         }
     }
 
@@ -617,6 +672,10 @@ check_frame_queue(VideoWidget *self)
     /* display renderer's frames */
     clutter_render_image(priv->local);
     clutter_render_image(priv->remote);
+    if (priv->remote->snapshot_status == HAS_A_NEW_ONE) {
+        priv->remote->snapshot_status = NOTHING;
+        g_signal_emit(G_OBJECT(self), video_widget_signals[SNAPSHOT_SIGNAL], 0);
+    }
 
     return TRUE; /* keep going */
 }
@@ -650,6 +709,8 @@ free_video_widget_renderer(VideoWidgetRenderer *renderer)
     QObject::disconnect(renderer->render_stop);
     QObject::disconnect(renderer->render_start);
     g_free(renderer);
+    if (renderer->snapshot)
+        g_object_unref(renderer->snapshot);
 }
 
 static void
@@ -766,4 +827,20 @@ video_widget_pause_rendering(VideoWidget *self, gboolean pause)
 
     priv->local->pause_rendering = pause;
     priv->remote->pause_rendering = pause;
+}
+
+void
+video_widget_take_snapshot(VideoWidget *self)
+{
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    priv->remote->snapshot_status = HAS_TO_TAKE_ONE;
+}
+
+GdkPixbuf*
+video_widget_get_snapshot(VideoWidget *self)
+{
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    return priv->remote->snapshot;
 }
