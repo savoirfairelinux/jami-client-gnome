@@ -509,6 +509,7 @@ create_ring_account(RingMainWindow *win)
     /* create account and set UPnP enabled, as its not by default in the daemon */
     const gchar *alias = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
     Account *account = nullptr;
+
     if (alias && strlen(alias) > 0)
         account = AccountModel::instance().add(alias, Account::Protocol::RING);
     else
@@ -585,6 +586,7 @@ entry_alias_activated(GtkEntry *entry, RingMainWindow *win)
 static void
 show_account_creation(RingMainWindow *win)
 {
+    
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
     gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
@@ -605,7 +607,15 @@ show_account_creation(RingMainWindow *win)
         gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring_logo), logo_ring);
 
     /* use the real name / username of the logged in user as the default */
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), g_get_real_name());
+    const char* real_name = g_get_real_name();
+    const char* user_name = getlogin();
+
+    /* check if the real user name was determined*/
+    if (g_strcmp0 (real_name,"Unknown")) {
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), real_name);
+    } else {
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), user_name);
+    }
 
     /* connect signals */
     g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(alias_entry_changed), win);
