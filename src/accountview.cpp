@@ -200,13 +200,10 @@ account_active_toggled(GtkCellRendererToggle *renderer, gchar *path, AccountView
     /* get qmodelindex from iter and set the model data */
     QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
     if (idx.isValid()) {
-        /* check if it is the IP2IP account, as we don't want to be able to disable it */
         QVariant alias = idx.data(static_cast<int>(Account::Role::Alias));
-        if (strcmp(alias.value<QString>().toLocal8Bit().constData(), "IP2IP") != 0) {
-            AccountModel::instance().setData(idx, QVariant(toggle), Qt::CheckStateRole);
-            /* save the account to apply the changed state right away */
-            AccountModel::instance().getAccountByModelIndex(idx)->performAction(Account::EditAction::SAVE);
-        }
+        AccountModel::instance().setData(idx, QVariant(toggle), Qt::CheckStateRole);
+        /* save the account to apply the changed state right away */
+        AccountModel::instance().getAccountByModelIndex(idx)->performAction(Account::EditAction::SAVE);
     }
 }
 
