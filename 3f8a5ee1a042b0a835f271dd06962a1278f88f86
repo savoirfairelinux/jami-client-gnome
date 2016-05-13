@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_371a3618",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-13T18:53:03Z",
+      "side": 1,
+      "message": "\u003e have you checked if g_get_user_name() returns the same thing?\n\nNo I haven\u0027t check, I\u0027ll do it.",
+      "parentUuid": "ba65a107_97da2277",
+      "range": {
+        "startLine": 609,
+        "startChar": 28,
+        "endLine": 609,
+        "endChar": 36
+      },
+      "revId": "3f8a5ee1a042b0a835f271dd06962a1278f88f86",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_17d61250",
         "filename": "src/ringmainwindow.cpp",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2016-05-13T17:07:41Z",
       "side": 1,
       "message": "note tat getlogin() might return a nullptr, gtk_entry_set_text() checks for this and won\u0027t crash, but maybe its better to leave \"Unknown\" in that case, instead of empty text?",
+      "range": {
+        "startLine": 615,
+        "startChar": 57,
+        "endLine": 615,
+        "endChar": 66
+      },
+      "revId": "3f8a5ee1a042b0a835f271dd06962a1278f88f86",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_f7d35e36",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-13T18:53:03Z",
+      "side": 1,
+      "message": "hmm... ok I was implicitely thinking this function would always returns the user name. I can\u0027t really understand in wich case this function fails to get the user name, but ok, we have to deal with it.\n\n\u003e but maybe its better to leave \"Unknown\" in that case, instead of empty text?\n\nindeed",
+      "parentUuid": "ba65a107_17d61250",
       "range": {
         "startLine": 615,
         "startChar": 57,
