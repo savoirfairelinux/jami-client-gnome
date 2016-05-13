@@ -605,7 +605,16 @@ show_account_creation(RingMainWindow *win)
         gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring_logo), logo_ring);
 
     /* use the real name / username of the logged in user as the default */
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), g_get_real_name());
+    const char* real_name = g_get_real_name();
+    const char* user_name = g_get_user_name();
+    g_debug("real_name = %s",real_name);
+    g_debug("user_name = %s",user_name);
+
+    /* check first if the real name was determined */
+    if (g_strcmp0 (real_name,"Unknown") != 0)
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), real_name);
+    else
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), user_name);
 
     /* connect signals */
     g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(alias_entry_changed), win);
