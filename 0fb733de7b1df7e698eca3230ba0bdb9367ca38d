@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ba65a107_ba586dfb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-16T19:59:50Z",
+      "side": 1,
+      "message": "oh, also delete this new line please, some tools require the issue id to be in the last paragraph",
+      "revId": "0fb733de7b1df7e698eca3230ba0bdb9367ca38d",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_3a553dc6",
         "filename": "src/ringmainwindow.cpp",
         "patchSetId": 4
