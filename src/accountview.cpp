@@ -377,10 +377,10 @@ account_view_init(AccountView *view)
     GtkTreeViewColumn *column;
 
     account_model = gtk_q_tree_model_new(&AccountModel::instance(), 4,
-        Account::Role::Enabled, G_TYPE_BOOLEAN,
-        Account::Role::Alias, G_TYPE_STRING,
-        Account::Role::Proto, G_TYPE_STRING,
-        Account::Role::RegistrationState, G_TYPE_UINT);
+        0, Account::Role::Enabled, G_TYPE_BOOLEAN,
+        0, Account::Role::Alias, G_TYPE_STRING,
+        0, Account::Role::Proto, G_TYPE_STRING,
+        0, Account::Role::RegistrationState, G_TYPE_UINT);
     gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_account_list), GTK_TREE_MODEL(account_model));
 
     renderer = gtk_cell_renderer_toggle_new();
