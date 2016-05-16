@@ -22,6 +22,29 @@
       "revId": "331d76b4a67eb45c104a80b7f66ae00cce8de926",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_9af6c9d6",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-16T21:29:56Z",
+      "side": 1,
+      "message": "This should probably be in \u0027ring_client.cpp\u0027 where the other backends are loaded... this is probably not why loading the vcard doesn\u0027t work though...",
+      "range": {
+        "startLine": 892,
+        "startChar": 4,
+        "endLine": 893,
+        "endChar": 95
+      },
+      "revId": "331d76b4a67eb45c104a80b7f66ae00cce8de926",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
