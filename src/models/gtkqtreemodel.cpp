@@ -56,6 +56,7 @@ struct _GtkQTreeModelPrivate
 {
     GType *column_headers;
     gint  *column_roles;
+    gint  *column_model_col;
 
     gint stamp;
     gint n_columns;
@@ -110,6 +111,7 @@ static gint gtk_q_tree_model_length          (GtkQTreeModel *      );
 static void gtk_q_tree_model_set_n_columns   (GtkQTreeModel *,
                                               gint                 );
 static void gtk_q_tree_model_set_column_type (GtkQTreeModel *,
+                                              gint,
                                               gint,
                                               gint,
                                               GType                );
@@ -243,7 +245,7 @@ insert_children(const QModelIndex &idx, GtkQTreeModel *gtk_model)
  * gtk_q_tree_model_new:
  * @model: QAbstractItemModel to which this model will bind.
  * @n_columns: number of columns in the list store
- * @...: all #GType follwed by the #Role pair for each column.
+ * @...: model #Column, #GType and #Role each column.
  *
  * Return value: a new #GtkQTreeModel
  */
@@ -265,10 +267,13 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
     retval->priv->model = proxy_model;
     gint stamp = retval->priv->stamp;
 
-    n_columns = 2*n_columns;
+    n_columns = 3*n_columns;
     va_start (args, n_columns);
 
-    for (i = 0; i < (gint)(n_columns/2); i++) {
+    for (i = 0; i < (gint)(n_columns/3); i++) {
+        /* first get the model column */
+        gint model_col = va_arg(args, gint);
+
         /* first get the role of the QModel */
         gint role = va_arg(args, gint);
 
@@ -286,7 +291,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
          *   }
          */
 
-        gtk_q_tree_model_set_column_type (retval, i, role, type);
+        gtk_q_tree_model_set_column_type (retval, i, model_col, role, type);
     }
 
     va_end (args);
@@ -559,11 +564,16 @@ gtk_q_tree_model_set_n_columns(GtkQTreeModel *q_tree_model,
     priv->column_roles = g_renew (gint, priv->column_roles, n_columns);
     for (i = priv->n_columns; i < n_columns; i++)
         priv->column_roles[i] = -1;
+
+    priv->column_model_col = g_renew (gint, priv->column_model_col, n_columns);
+    for (i = priv->n_columns; i < n_columns; i++)
+        priv->column_model_col[i] = 0;
 }
 
 static void
 gtk_q_tree_model_set_column_type(GtkQTreeModel *q_tree_model,
                                  gint          column,
+                                 gint          model_col,
                                  gint          role,
                                  GType         type)
 {
@@ -577,6 +587,7 @@ gtk_q_tree_model_set_column_type(GtkQTreeModel *q_tree_model,
   *   }
   */
 
+  priv->column_model_col[column] = model_col;
   priv->column_headers[column] = type;
   priv->column_roles[column] = role;
 }
@@ -588,6 +599,7 @@ gtk_q_tree_model_finalize(GObject *object)
     GtkQTreeModel *q_tree_model = GTK_Q_TREE_MODEL (object);
     GtkQTreeModelPrivate *priv = q_tree_model->priv;
 
+    g_free(priv->column_model_col);
     g_free(priv->column_headers);
     g_free(priv->column_roles);
 
@@ -763,7 +775,8 @@ gtk_q_tree_model_get_value(GtkTreeModel *tree_model,
 
     /* get the data */
     QIter *qiter = Q_ITER(iter);
-    QModelIndex idx = priv->model->indexFromId(qiter->row.value, qiter->column.value, qiter->id);
+    int model_col = priv->column_model_col[column];
+    QModelIndex idx = priv->model->indexFromId(qiter->row.value, model_col, qiter->id);
     int role = priv->column_roles[column];
     QVariant var = priv->model->data(idx, role);
     GType type = priv->column_headers[column];
