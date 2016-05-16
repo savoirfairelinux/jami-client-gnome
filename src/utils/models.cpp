@@ -155,7 +155,7 @@ gtk_combo_box_set_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
         model = (GtkTreeModel *)gtk_q_tree_model_new(
             qmodel,
             1,
-            Qt::DisplayRole, G_TYPE_STRING);
+            0, Qt::DisplayRole, G_TYPE_STRING);
     }
 
     /* use a filter model to remove disabled items */
