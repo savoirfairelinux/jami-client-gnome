@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_3ab9bd2e",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-16T18:40:09Z",
+      "side": 1,
+      "message": "I don\u0027t think this conversion is necessary. You can simply indicate that the colorspace has an alpha channel by setting the 3rd agrument to \u0027TRUE\u0027, I believe:\nhttps://developer.gnome.org/gdk-pixbuf/unstable/gdk-pixbuf-Image-Data-in-Memory.html#gdk-pixbuf-new-from-data",
+      "range": {
+        "startLine": 637,
+        "startChar": 11,
+        "endLine": 642,
+        "endChar": 13
+      },
+      "revId": "2a1dee27433b2013a8b4ed0588372f8030b77d92",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_fa826551",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-16T18:40:09Z",
+      "side": 1,
+      "message": "You need to free (unref) the previous snapshot first, if it exists. Otherwise if you take multiple snapshots, only the last one will be freed in free_video_widget_renderer(). You can use g_clear_object() to simultaneously free it and set the pointer to null:\nhttps://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-clear-object",
+      "range": {
+        "startLine": 644,
+        "startChar": 12,
+        "endLine": 644,
+        "endChar": 33
+      },
+      "revId": "2a1dee27433b2013a8b4ed0588372f8030b77d92",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
