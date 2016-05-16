@@ -507,8 +507,8 @@ build_tab_view(AccountSecurityTab *self)
     GtkQTreeModel *cipher_model = gtk_q_tree_model_new(
         (QAbstractItemModel *)priv->account->cipherModel(),
         2,
-        Qt::CheckStateRole, G_TYPE_BOOLEAN,
-        Qt::DisplayRole, G_TYPE_STRING);
+        0, Qt::CheckStateRole, G_TYPE_BOOLEAN,
+        0, Qt::DisplayRole, G_TYPE_STRING);
     gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_cipher_list),
                             GTK_TREE_MODEL(cipher_model));
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(priv->treeview_cipher_list),

@@ -1005,7 +1005,7 @@ ring_main_window_init(RingMainWindow *win)
     GtkQTreeModel *completion_model = gtk_q_tree_model_new(
         (QAbstractItemModel *)priv->q_completion_model,
         1,
-        Qt::DisplayRole, G_TYPE_STRING);
+        0, Qt::DisplayRole, G_TYPE_STRING);
 
     gtk_entry_completion_set_model(entry_completion, GTK_TREE_MODEL(completion_model));
 
