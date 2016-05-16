@@ -136,7 +136,7 @@ connect_combo_box_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
     GtkCellRenderer *renderer;
     GtkQTreeModel *model = gtk_q_tree_model_new(qmodel,
                                                 1,
-                                                Qt::DisplayRole, G_TYPE_STRING);
+                                                0, Qt::DisplayRole, G_TYPE_STRING);
 
     gtk_combo_box_set_model(box, GTK_TREE_MODEL(model));
     renderer = gtk_cell_renderer_text_new();
