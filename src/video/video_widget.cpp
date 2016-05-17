@@ -102,8 +102,6 @@ G_DEFINE_TYPE_WITH_PRIVATE(VideoWidget, video_widget, GTK_CLUTTER_TYPE_EMBED);
 static gboolean check_frame_queue              (VideoWidget *);
 static void     renderer_stop                  (VideoWidgetRenderer *);
 static void     renderer_start                 (VideoWidgetRenderer *);
-static void     on_drag_data_received          (GtkWidget *, GdkDragContext *, gint, gint, GtkSelectionData *, guint, guint32, gpointer);
-static gboolean on_button_press_in_screen_event(GtkWidget *, GdkEventButton *, gpointer);
 static gboolean check_renderer_queue           (VideoWidget *);
 static void     free_video_widget_renderer     (VideoWidgetRenderer *);
 static void     video_widget_add_renderer      (VideoWidget *, VideoWidgetRenderer *);

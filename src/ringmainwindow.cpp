@@ -384,13 +384,6 @@ search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
 }
 
 static gboolean
-grab_focus_on_widget(GtkWidget *widget)
-{
-    gtk_widget_grab_focus(widget);
-    return G_SOURCE_REMOVE;
-}
-
-static gboolean
 save_accounts(GtkWidget *working_dialog)
 {
     /* save changes to accounts */

@@ -48,7 +48,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_SCROLLED
 #define RING_WELCOME_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_WELCOME_VIEW_TYPE, RingWelcomeViewPrivate))
 
 static gboolean   draw_qrcode(GtkWidget*,cairo_t*,gpointer);
-static void       switch_qrcode(GtkButton* button, gpointer data);
+static void       switch_qrcode(GtkWidget* qrcode);
 
 static void
 show_ring_id(GtkLabel *label, Account *account) {
@@ -132,14 +132,14 @@ ring_welcome_view_init(RingWelcomeView *self)
     auto qrsize = 200;
     gtk_widget_set_size_request (qr_ringid, qrsize, qrsize);
     gtk_widget_set_halign(qr_ringid, GTK_ALIGN_CENTER);
-    auto signal_id = g_signal_connect(qr_ringid, "draw", G_CALLBACK(draw_qrcode), NULL);
+    g_signal_connect(qr_ringid, "draw", G_CALLBACK(draw_qrcode), NULL);
     gtk_widget_set_visible(qr_ringid, FALSE);
 
     /* QR code button */
     auto rcode_button = gtk_button_new_with_label("QR code");
     gtk_widget_set_hexpand(rcode_button, FALSE);
     gtk_widget_set_size_request(rcode_button,10,10);
-    g_signal_connect (rcode_button, "clicked", G_CALLBACK(switch_qrcode), qr_ringid);
+    g_signal_connect_swapped(rcode_button, "clicked", G_CALLBACK(switch_qrcode), qr_ringid);
     gtk_widget_set_visible(rcode_button, TRUE);
 
     gtk_box_pack_start(GTK_BOX(box), rcode_button, TRUE, TRUE, 0);
@@ -205,9 +205,9 @@ ring_welcome_view_new()
 }
 
 static gboolean
-draw_qrcode(GtkWidget* diese,
+draw_qrcode(G_GNUC_UNUSED GtkWidget* diese,
             cairo_t*   cr,
-            gpointer   data)
+            G_GNUC_UNUSED gpointer   data)
 {
     auto rcode = QRcode_encodeString(get_active_ring_account()->username().toStdString().c_str(),
                                       0, //Let the version be decided by libqrencode
@@ -253,7 +253,7 @@ draw_qrcode(GtkWidget* diese,
 }
 
 static void
-switch_qrcode(GtkButton* button, gpointer data)
+switch_qrcode(GtkWidget* qrcode)
 {
-    gtk_widget_set_visible((GtkWidget*)data, !gtk_widget_get_visible((GtkWidget*)data));
+    gtk_widget_set_visible(qrcode, !gtk_widget_get_visible(qrcode));
 }
