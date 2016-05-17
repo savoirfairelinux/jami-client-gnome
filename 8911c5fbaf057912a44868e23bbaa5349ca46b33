@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_bab06dde",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-17T16:36:39Z",
+      "side": 1,
+      "message": "simplier...",
+      "range": {
+        "startLine": 614,
+        "startChar": 1,
+        "endLine": 617,
+        "endChar": 68
+      },
+      "revId": "8911c5fbaf057912a44868e23bbaa5349ca46b33",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
