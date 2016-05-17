@@ -119,7 +119,7 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         QVariant var = idx.data(Qt::DisplayRole);
         if (depth == 1) {
             /* category */
-            text = g_strdup_printf("<b>%s</b>", var.value<QString>().toUtf8().constData());
+            text = g_markup_printf_escaped("<b>%s</b>", var.value<QString>().toUtf8().constData());
         } else if (depth == 2) {
             /* contact, check for contact methods */
             QVariant var_c = idx.data(static_cast<int>(Person::Role::Object));
@@ -139,37 +139,37 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                         /* we want the color of the status text to be the default color if this iter is
                          * selected so that the treeview is able to invert it against the selection color */
                         if (is_selected) {
-                            text = g_strdup_printf("%s\n %s",
-                                                   c->formattedName().toUtf8().constData(),
-                                                   number.toUtf8().constData());
+                            text = g_markup_printf_escaped("%s\n %s",
+                                                           c->formattedName().toUtf8().constData(),
+                                                           number.toUtf8().constData());
                         } else {
-                            text = g_strdup_printf("%s\n <span fgcolor=\"gray\">%s</span>",
-                                                   c->formattedName().toUtf8().constData(),
-                                                   number.toUtf8().constData());
+                            text = g_markup_printf_escaped("%s\n <span fgcolor=\"gray\">%s</span>",
+                                                            c->formattedName().toUtf8().constData(),
+                                                            number.toUtf8().constData());
                         }
                         break;
                     }
                     default:
                         /* more than one, for now don't show any of the contact methods */
-                        text = g_strdup_printf("%s\n", c->formattedName().toUtf8().constData());
+                        text = g_markup_printf_escaped("%s\n", c->formattedName().toUtf8().constData());
                         break;
                 }
             } else {
                 /* should never happen since depth 2 should always be a contact (person) */
-                text = g_strdup_printf("%s", var.value<QString>().toUtf8().constData());
+                text = g_markup_printf_escaped("%s", var.value<QString>().toUtf8().constData());
             }
         } else {
             auto var_object = idx.data(static_cast<int>(Ring::Role::Object));
             auto cm = var_object.value<ContactMethod *>();
             if (cm && cm->category()) {
                 // try to get the number category, eg: "home"
-                text = g_strdup_printf("(%s) %s", cm->category()->name().toUtf8().constData(),
-                                                  cm->uri().toUtf8().constData());
+                text = g_markup_printf_escaped("(%s) %s", cm->category()->name().toUtf8().constData(),
+                                                          cm->uri().toUtf8().constData());
             } else if (cm) {
-                text = g_strdup_printf("%s", cm->uri().toUtf8().constData());
+                text = g_markup_printf_escaped("%s", cm->uri().toUtf8().constData());
             } else {
                 /* should only ever be a CM, so this should never execute */
-                text = g_strdup_printf("%s", var.value<QString>().toUtf8().constData());
+                text = g_markup_printf_escaped("%s", var.value<QString>().toUtf8().constData());
             }
         }
     }

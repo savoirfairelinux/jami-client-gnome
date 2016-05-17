@@ -696,18 +696,16 @@ autocompletion_name_render(G_GNUC_UNUSED GtkCellLayout *cell_layout,
                            GtkTreeIter *iter,
                            G_GNUC_UNUSED gpointer user_data)
 {
+    gchar *text = nullptr;
     QModelIndex idx = get_qidx_from_filter_model(GTK_TREE_MODEL_FILTER(model), iter);
     if (idx.isValid()) {
         QVariant name = idx.sibling(idx.row(), 1).data(Qt::DisplayRole);
-        gchar *text = g_strdup_printf("<span weight=\"bold\">%s</span>",
-                                      name.value<QString>().toUtf8().constData());
-
-        g_object_set(G_OBJECT(cell), "markup", text, NULL);
-        g_free(text);
-        return;
+        text = g_markup_printf_escaped("<span weight=\"bold\">%s</span>",
+                                       name.value<QString>().toUtf8().constData());
     }
 
-    g_object_set(G_OBJECT(cell), "markup", NULL, NULL);
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_free(text);
 }
 
 static void
@@ -717,17 +715,15 @@ autocompletion_number_render(G_GNUC_UNUSED GtkCellLayout *cell_layout,
                              GtkTreeIter *iter,
                              G_GNUC_UNUSED gpointer user_data)
 {
+    gchar *text = nullptr;
     QModelIndex idx = get_qidx_from_filter_model(GTK_TREE_MODEL_FILTER(model), iter);
     if (idx.isValid()) {
         QVariant uri = idx.data(Qt::DisplayRole);
-        gchar *text = g_strdup_printf("%s", uri.value<QString>().toUtf8().constData());
-
-        g_object_set(G_OBJECT(cell), "markup", text, NULL);
-        g_free(text);
-        return;
+        text = g_markup_escape_text(uri.value<QString>().toUtf8().constData(), -1);
     }
 
-    g_object_set(G_OBJECT(cell), "markup", NULL, NULL);
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_free(text);
 }
 
 static void
@@ -737,18 +733,16 @@ autocompletion_account_render(G_GNUC_UNUSED GtkCellLayout *cell_layout,
                               GtkTreeIter *iter,
                               G_GNUC_UNUSED gpointer user_data)
 {
+    gchar *text = nullptr;
     QModelIndex idx = get_qidx_from_filter_model(GTK_TREE_MODEL_FILTER(model), iter);
     if (idx.isValid()) {
         QVariant alias = idx.sibling(idx.row(), 2).data(Qt::DisplayRole);
-        gchar *text = g_strdup_printf("<span color=\"gray\">%s</span>",
-                                      alias.value<QString>().toUtf8().constData());
-
-        g_object_set(G_OBJECT(cell), "markup", text, NULL);
-        g_free(text);
-        return;
+        text = g_markup_printf_escaped("<span color=\"gray\">%s</span>",
+                                       alias.value<QString>().toUtf8().constData());
     }
 
-    g_object_set(G_OBJECT(cell), "markup", NULL, NULL);
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_free(text);
 }
 
 static gboolean

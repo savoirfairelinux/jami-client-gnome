@@ -302,7 +302,7 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         QVariant var = idx.data(Qt::DisplayRole);
         if (depth == 1) {
             /* category */
-            text = g_strdup_printf("<b>%s</b>", var.value<QString>().toUtf8().constData());
+            text = g_markup_printf_escaped("<b>%s</b>", var.value<QString>().toUtf8().constData());
         } else if (depth == 2) {
             /* call item */
             QVariant var_name = idx.data(static_cast<int>(Call::Role::Name));
@@ -311,13 +311,13 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             /* we want the color of the status text to be the default color if this iter is
              * selected so that the treeview is able to invert it against the selection color */
             if (is_selected) {
-                text = g_strdup_printf("%s\n %s",
-                                       var_name.value<QString>().toUtf8().constData(),
-                                       var_number.value<QString>().toUtf8().constData());
+                text = g_markup_printf_escaped("%s\n %s",
+                                               var_name.value<QString>().toUtf8().constData(),
+                                               var_number.value<QString>().toUtf8().constData());
             } else {
-                text = g_strdup_printf("%s\n <span fgcolor=\"gray\">%s</span>",
-                                       var_name.value<QString>().toUtf8().constData(),
-                                       var_number.value<QString>().toUtf8().constData());
+                text = g_markup_printf_escaped("%s\n <span fgcolor=\"gray\">%s</span>",
+                                                var_name.value<QString>().toUtf8().constData(),
+                                                var_number.value<QString>().toUtf8().constData());
             }
         }
     }
@@ -350,14 +350,14 @@ render_date_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         /* we want the color of the text to be the default color if this iter is
          * selected so that the treeview is able to invert it against the selection color */
         if (is_selected) {
-            text = g_strdup_printf("%s\n%s",
-                                   date_time.time().toString().toUtf8().constData(),
-                                   date_time.date().toString().toUtf8().constData()
+            text = g_markup_printf_escaped("%s\n%s",
+                                           date_time.time().toString().toUtf8().constData(),
+                                           date_time.date().toString().toUtf8().constData()
             );
         } else {
-            text = g_strdup_printf("%s\n<span fgcolor=\"gray\">%s</span>",
-                                   date_time.time().toString().toUtf8().constData(),
-                                   date_time.date().toString().toUtf8().constData()
+            text = g_markup_printf_escaped("%s\n<span fgcolor=\"gray\">%s</span>",
+                                           date_time.time().toString().toUtf8().constData(),
+                                           date_time.date().toString().toUtf8().constData()
             );
         }
     }

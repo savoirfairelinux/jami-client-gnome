@@ -247,10 +247,9 @@ edit_contact_view_new(ContactMethod *cm, Person *p)
     EditContactViewPrivate *priv = EDIT_CONTACT_VIEW_GET_PRIVATE(self);
 
     priv->cm = cm;
-    gtk_label_set_markup(
-        GTK_LABEL(priv->label_uri),
-        (QString("<b>") + cm->uri() + QString("</b>")).toUtf8().constData()
-    );
+    auto uri_escaped = g_markup_printf_escaped("<b>%s</b>", cm->uri().toUtf8().constData());
+    gtk_label_set_markup(GTK_LABEL(priv->label_uri), uri_escaped);
+    g_free(uri_escaped);
 
     /* use the primaryName as the suggested name (usually the display name), unless it is the same
      * as the uri */

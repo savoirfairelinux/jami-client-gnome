@@ -54,17 +54,19 @@ static void
 show_ring_id(GtkLabel *label, Account *account) {
     g_return_if_fail(label);
 
+    gchar *text = nullptr;
     if (account) {
         if (!account->username().isEmpty()) {
-            QString hash = "<span fgcolor=\"black\">" + account->username() + "</span>";
-            gtk_label_set_markup(label, hash.toUtf8().constData());
+            text = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
+                                           account->username().toUtf8().constData());
         } else {
             g_warning("got ring account, but Ring id is empty");
-            gtk_label_set_markup(label,
-                                 g_strdup_printf("<span fgcolor=\"gray\">%s</span>",
-                                                 _("fetching RingID...")));
+            text = g_markup_printf_escaped("<span fgcolor=\"gray\">%s</span>",
+                                           _("fetching RingID..."));
         }
     }
+    gtk_label_set_markup(label, text);
+    g_free(text);
 }
 
 static void
