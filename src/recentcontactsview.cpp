@@ -198,13 +198,13 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                 /* we want the color of the status text to be the default color if this iter is
                  * selected so that the treeview is able to invert it against the selection color */
                 if (is_selected) {
-                    text = g_strdup_printf("%s\n<span size=\"smaller\">%s</span>",
-                                           name.toUtf8().constData(),
-                                           status.toUtf8().constData());
+                    text = g_markup_printf_escaped("%s\n<span size=\"smaller\">%s</span>",
+                                                   name.toUtf8().constData(),
+                                                   status.toUtf8().constData());
                 } else {
-                    text = g_strdup_printf("%s\n<span size=\"smaller\" color=\"gray\">%s</span>",
-                                           name.toUtf8().constData(),
-                                           status.toUtf8().constData());
+                    text = g_markup_printf_escaped("%s\n<span size=\"smaller\" color=\"gray\">%s</span>",
+                                                   name.toUtf8().constData(),
+                                                   status.toUtf8().constData());
                 }
             }
             break;
@@ -216,7 +216,7 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
                 if (is_conference) {
                     auto var_name = idx.data(static_cast<int>(Ring::Role::Name));
-                    text = g_markup_printf_escaped("%s", var_name.value<QString>().toUtf8().constData());
+                    text = g_markup_escape_text(var_name.value<QString>().toUtf8().constData(), -1);
                 } else {
                     auto parent_source = RecentModel::instance().peopleProxy()->mapToSource(idx.parent());
                     if (RecentModel::instance().isConference(parent_source)) {
@@ -225,10 +225,13 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
                         /* we want the color of the name text to be the default color if this iter is
                          * selected so that the treeview is able to invert it against the selection color */
-                        if (is_selected)
-                            text = g_strdup_printf("<span size=\"smaller\">%s</span>", var_name.value<QString>().toUtf8().constData());
-                        else
-                            text = g_strdup_printf("<span size=\"smaller\" color=\"gray\">%s</span>", var_name.value<QString>().toUtf8().constData());
+                        if (is_selected) {
+                            text = g_markup_printf_escaped("<span size=\"smaller\">%s</span>",
+                                                           var_name.value<QString>().toUtf8().constData());
+                        } else {
+                            text = g_markup_printf_escaped("<span size=\"smaller\" color=\"gray\">%s</span>",
+                                                           var_name.value<QString>().toUtf8().constData());
+                        }
                     } else {
                         // just a call, so display the state
                         auto var_status = idx.data(static_cast<int>(Ring::Role::FormattedState));
@@ -240,10 +243,13 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
                         /* we want the color of the status text to be the default color if this iter is
                          * selected so that the treeview is able to invert it against the selection color */
-                        if (is_selected)
-                            text = g_strdup_printf("<span size=\"smaller\">%s</span>", status.toUtf8().constData());
-                        else
-                            text = g_strdup_printf("<span size=\"smaller\" color=\"gray\">%s</span>", status.toUtf8().constData());
+                        if (is_selected) {
+                            text = g_markup_printf_escaped("<span size=\"smaller\">%s</span>",
+                                                           status.toUtf8().constData());
+                        } else {
+                            text = g_markup_printf_escaped("<span size=\"smaller\" color=\"gray\">%s</span>",
+                                                           status.toUtf8().constData());
+                        }
                     }
                 }
             }
@@ -284,7 +290,7 @@ render_call_duration(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                     && (idx_source.model()->rowCount(idx_source) == 1)
                     && duration.isValid())
                 {
-                    text = g_strdup_printf("%s", duration.value<QString>().toUtf8().constData());
+                    text = g_markup_escape_text(duration.value<QString>().toUtf8().constData(), -1);
                 }
             }
             break;
@@ -298,7 +304,7 @@ render_call_duration(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                     auto duration = idx.data(static_cast<int>(Ring::Role::Length));
 
                     if (duration.isValid())
-                        text = g_strdup_printf("%s", duration.value<QString>().toUtf8().constData());
+                        text = g_markup_escape_text(duration.value<QString>().toUtf8().constData(), -1);
                 }
             }
             break;

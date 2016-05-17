@@ -334,29 +334,31 @@ state_to_string(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         auto account = AccountModel::instance().getAccountByModelIndex(idx);
         auto humanState = account->toHumanStateName();
 
+        auto escaped_state = g_markup_escape_text(humanState.toUtf8().constData(), -1);
         /* we want the color of the status text to be the default color if this iter is
          * selected so that the treeview is able to invert it against the selection color */
         if (is_selected) {
-            display_state = g_strdup_printf("%s", humanState.toUtf8().constData());
+            display_state = escaped_state;
         } else {
             switch (account->registrationState()) {
                 case Account::RegistrationState::READY:
-                    display_state = g_strdup_printf("<span fgcolor=\"green\">%s</span>", humanState.toUtf8().constData());
+                    display_state = g_strdup_printf("<span fgcolor=\"green\">%s</span>", escaped_state);
                 break;
                 case Account::RegistrationState::UNREGISTERED:
-                    display_state = g_strdup_printf("<span fgcolor=\"gray\">%s</span>", humanState.toUtf8().constData());
+                    display_state = g_strdup_printf("<span fgcolor=\"gray\">%s</span>", escaped_state);
                 break;
                 case Account::RegistrationState::TRYING:
-                    display_state = g_strdup_printf("<span fgcolor=\"orange\">%s</span>", humanState.toUtf8().constData());
+                    display_state = g_strdup_printf("<span fgcolor=\"orange\">%s</span>", escaped_state);
                 break;
                 case Account::RegistrationState::ERROR:
-                    display_state = g_strdup_printf("<span fgcolor=\"red\">%s</span>", humanState.toUtf8().constData());
+                    display_state = g_strdup_printf("<span fgcolor=\"red\">%s</span>", escaped_state);
                 break;
                 case Account::RegistrationState::COUNT__:
                     g_warning("registration state should never be \"count\"");
-                    display_state = g_strdup_printf("<span fgcolor=\"red\">%s</span>", humanState.toUtf8().constData());
+                    display_state = g_strdup_printf("<span fgcolor=\"red\">%s</span>", escaped_state);
                 break;
             }
+            g_free(escaped_state);
         }
     }
 
