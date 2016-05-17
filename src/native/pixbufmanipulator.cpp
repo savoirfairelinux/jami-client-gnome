@@ -177,8 +177,28 @@ PixbufManipulator::securityIssueIcon(const QModelIndex& index)
 QByteArray
 PixbufManipulator::toByteArray(const QVariant& pxm)
 {
-    Q_UNUSED(pxm);
-    return QByteArray();
+    std::shared_ptr<GdkPixbuf> pixbuf_photo = pxm.value<std::shared_ptr<GdkPixbuf>>();
+
+    if(pixbuf_photo.get()) {
+        gchar* png_buffer = nullptr;
+        gsize png_buffer_size;
+        GError *error = nullptr;
+
+        gdk_pixbuf_save_to_buffer(pixbuf_photo.get(), &png_buffer, &png_buffer_size, "png", &error, NULL);
+        QByteArray array = QByteArray::fromRawData(png_buffer, png_buffer_size);
+
+        g_free(png_buffer);
+
+        if (error != NULL) {
+            g_print("in toByteArray, gdk_pixbuf_save_to_buffer failed : %s\n", error->message);
+            g_clear_error(&error);
+        }
+
+        return array;
+    } else {
+        g_print("in toByteArray, failed to retrieve data from parameter pxm");
+        return QByteArray();
+    }
 }
 
 QVariant
