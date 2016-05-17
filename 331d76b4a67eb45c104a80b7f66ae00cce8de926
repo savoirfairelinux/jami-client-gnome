@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_faa105aa",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-17T14:18:58Z",
+      "side": 1,
+      "message": "moving line 556 inside the lambda gives an inifinite loop at the creation. Moving 557, changes nothing.\nIt seems that the photo is correctly saved, I open the vcard file to check each time.",
+      "parentUuid": "ba65a107_3ac8dd73",
+      "range": {
+        "startLine": 556,
+        "startChar": 4,
+        "endLine": 557,
+        "endChar": 20
+      },
+      "revId": "331d76b4a67eb45c104a80b7f66ae00cce8de926",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_9af6c9d6",
         "filename": "src/ringmainwindow.cpp",
         "patchSetId": 6
