@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_fa2b45e9",
+        "filename": "src/native/pixbufmanipulator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-17T17:49:01Z",
+      "side": 1,
+      "message": "I don\u0027t think you want to use fromRawData() here because it only takes the pointer, but it does not take \"ownership\" of the data, which means that it will not free the data when the QByteArray is destroyed:\nhttp://doc.qt.io/qt-5/qbytearray.html#fromRawData\n\nI think you want to simply do:\nQByteArray(png_buffer, png_buffer_size);\nHowever, since this will copy the png_buffer, you need to g_free(png_buffer) before returning, to prevent a mem leak.",
+      "range": {
+        "startLine": 187,
+        "startChar": 27,
+        "endLine": 187,
+        "endChar": 38
+      },
+      "revId": "076a6592ab6411827fbf63d4ca419923031c247f",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
