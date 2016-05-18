@@ -7,26 +7,22 @@
     <child>
       <object class="GtkBox" id="vbox_account_list">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <!-- list of accounts -->
         <child>
           <object class="GtkScrolledWindow" id="scrolledwindow_account_list">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
             <property name="shadow_type">none</property>
             <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkTreeView" id="treeview_account_list">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
               </object>
             </child>
           </object>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">0</property>
           </packing>
         </child>
         <!-- end list of accounts -->
@@ -34,21 +30,18 @@
         <child>
           <object class="GtkBox" id="hbox_addremove_account">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">horizontal</property>
+s            <property name="orientation">horizontal</property>
             <property name="spacing">5</property>
             <property name="halign">GTK_ALIGN_CENTER</property>
             <!-- remove account -->
             <child>
               <object class="GtkButton" id="button_remove_account">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <child>
-                  <object class="GtkLabel" id="label_remove_account">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">&lt;b&gt;&amp;#8722;&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
+                <property name="image">image_remove</property>
+                <property name="tooltip-text" translatable="yes">Remove selected account</property>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="button_remove_account-atkobject">
+                    <property name="AtkObject::accessible-name" translatable="yes">Remove selected account</property>
                   </object>
                 </child>
               </object>
@@ -58,7 +51,6 @@
             <child>
               <object class="GtkBox" id="hbox_add_account">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="orientation">horizontal</property>
                 <style>
                   <class name="linked"/>
@@ -66,13 +58,11 @@
                 <child>
                   <object class="GtkButton" id="button_add_account">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <child>
-                      <object class="GtkLabel" id="label_add_account">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;b&gt;+&lt;/b&gt;</property>
-                        <property name="use_markup">True</property>
+                    <property name="image">image_add</property>
+                    <property name="tooltip-text" translatable="yes">Add new account</property>
+                    <child internal-child="accessible">
+                      <object class="AtkObject" id="button_add_account-atkobject">
+                        <property name="AtkObject::accessible-name" translatable="yes">Add new account</property>
                       </object>
                     </child>
                   </object>
@@ -80,8 +70,13 @@
                 <child>
                   <object class="GtkComboBox" id="combobox_account_type">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="active">0</property>
+                    <property name="tooltip-text" translatable="yes">Select account type</property>
+                    <child internal-child="accessible">
+                      <object class="AtkObject" id="combobox_account_type-atkobject">
+                        <property name="AtkObject::accessible-name" translatable="yes">Select account type</property>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -106,4 +101,12 @@
       </packing> -->
     </child>
   </template>
+  <object class="GtkImage" id="image_remove">
+    <property name="visible">True</property>
+    <property name="icon-name">list-remove-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_add">
+    <property name="visible">True</property>
+    <property name="icon-name">list-add-symbolic</property>
+  </object>
 </interface>
