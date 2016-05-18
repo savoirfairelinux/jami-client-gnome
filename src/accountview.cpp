@@ -165,10 +165,9 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *view)
                                  security_tab,
                                  gtk_label_new(C_("Account settings", "Security")));
 
+        gtk_widget_show_all(hbox_account);
         /* set the tab displayed to the same as the prev account selected */
         gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->current_account_notebook), priv->current_page);
-
-        gtk_widget_show_all(hbox_account);
 
         /* set the new account view as visible */
         char *account_view_name = g_strdup_printf("%p_account", account);
