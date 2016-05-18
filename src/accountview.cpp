@@ -36,6 +36,7 @@
 #include "dialogs.h"
 #include <glib/gprintf.h>
 #include "utils/models.h"
+#include "accountimportexportview.h"
 
 struct _AccountView
 {
@@ -52,11 +53,14 @@ typedef struct _AccountViewPrivate AccountViewPrivate;
 struct _AccountViewPrivate
 {
     GtkWidget *treeview_account_list;
+    GtkWidget *account_import_view;
+    GtkWidget *account_export_view;
     GtkWidget *stack_account;
-    GtkWidget *current_account_notebook;
     GtkWidget *button_remove_account;
     GtkWidget *button_add_account;
     GtkWidget *combobox_account_type;
+    GtkWidget *button_import_account;
+    GtkWidget *button_export_account;
 
     gint current_page; /* keeps track of current notebook page displayed */
 
@@ -109,19 +113,25 @@ create_scrolled_account_view(GtkWidget *account_view)
 }
 
 static void
-account_selection_changed(GtkTreeSelection *selection, AccountView *view)
+tab_selection_changed(G_GNUC_UNUSED GtkNotebook *notebook,
+                      G_GNUC_UNUSED GtkWidget   *page,
+                                    guint        page_num,
+                                    AccountView *self)
 {
-    g_return_if_fail(IS_ACCOUNT_VIEW(view));
-    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
+    g_return_if_fail(IS_ACCOUNT_VIEW(self));
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(self);
 
-    GtkWidget *old_account_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_account));
+    g_debug("current page number: %d", page_num);
+    priv->current_page = page_num;
+}
 
-    /* keep track of the last tab displayed */
-    if (priv->current_account_notebook)
-        priv->current_page = gtk_notebook_get_current_page(GTK_NOTEBOOK(priv->current_account_notebook));
+static void
+account_selection_changed(GtkTreeSelection *selection, AccountView *self)
+{
+    g_return_if_fail(IS_ACCOUNT_VIEW(self));
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(self);
 
-    if (priv->current_page < 0)
-        priv->current_page = 0;
+    auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_account));
 
     QModelIndex account_idx = get_index_from_selection(selection);
     if (!account_idx.isValid()) {
@@ -130,7 +140,10 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *view)
         gtk_widget_show(empty_box);
         gtk_stack_add_named(GTK_STACK(priv->stack_account), empty_box, "placeholder");
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), empty_box);
-        priv->current_account_notebook = NULL;
+
+        /* cannot delete nor export accounts */
+        gtk_widget_set_sensitive(priv->button_remove_account, FALSE);
+        gtk_widget_set_sensitive(priv->button_export_account, FALSE);
     } else {
         Account *account = AccountModel::instance().getAccountByModelIndex(account_idx);
 
@@ -138,47 +151,53 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *view)
         GtkWidget *hbox_account = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
 
         /* create account notebook */
-        priv->current_account_notebook = gtk_notebook_new();
-        gtk_notebook_set_scrollable(GTK_NOTEBOOK(priv->current_account_notebook), TRUE);
-        gtk_notebook_set_show_border(GTK_NOTEBOOK(priv->current_account_notebook), FALSE);
-        gtk_box_pack_start(GTK_BOX(hbox_account), priv->current_account_notebook, TRUE, TRUE, 0);
+        auto account_notebook = gtk_notebook_new();
+        gtk_notebook_set_scrollable(GTK_NOTEBOOK(account_notebook), TRUE);
+        gtk_notebook_set_show_border(GTK_NOTEBOOK(account_notebook), FALSE);
+        gtk_box_pack_start(GTK_BOX(hbox_account), account_notebook, TRUE, TRUE, 0);
 
         /* customize account view based on account */
         auto general_tab = create_scrolled_account_view(account_general_tab_new(account));
-        gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
+        gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  general_tab,
                                  gtk_label_new(C_("Account settings", "General")));
         auto audio_tab = create_scrolled_account_view(account_audio_tab_new(account));
-        gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
+        gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  audio_tab,
                                  gtk_label_new(C_("Account settings", "Audio")));
         auto video_tab = create_scrolled_account_view(account_video_tab_new(account));
-        gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
+        gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  video_tab,
                                  gtk_label_new(C_("Account settings", "Video")));
         auto advanced_tab = create_scrolled_account_view(account_advanced_tab_new(account));
-        gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
+        gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  advanced_tab,
                                  gtk_label_new(C_("Account settings", "Advanced")));
         auto security_tab = create_scrolled_account_view(account_security_tab_new(account));
-        gtk_notebook_append_page(GTK_NOTEBOOK(priv->current_account_notebook),
+        gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  security_tab,
                                  gtk_label_new(C_("Account settings", "Security")));
 
         gtk_widget_show_all(hbox_account);
         /* set the tab displayed to the same as the prev account selected */
-        gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->current_account_notebook), priv->current_page);
+        gtk_notebook_set_current_page(GTK_NOTEBOOK(account_notebook), priv->current_page);
+        /* now connect to the tab changed signal */
+        g_signal_connect(account_notebook, "switch-page", G_CALLBACK(tab_selection_changed), self);
 
         /* set the new account view as visible */
         char *account_view_name = g_strdup_printf("%p_account", account);
         gtk_stack_add_named(GTK_STACK(priv->stack_account), hbox_account, account_view_name);
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), hbox_account);
         g_free(account_view_name);
+
+        /* can delete and export accounts */
+        gtk_widget_set_sensitive(priv->button_remove_account, TRUE);
+        gtk_widget_set_sensitive(priv->button_export_account, TRUE);
     }
 
-    /* remove the old account view */
-    if (old_account_view)
-        gtk_container_remove(GTK_CONTAINER(priv->stack_account), old_account_view);
+    /* remove the old view */
+    if (old_view)
+        gtk_container_remove(GTK_CONTAINER(priv->stack_account), old_view);
 }
 
 static void
@@ -366,6 +385,65 @@ state_to_string(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 }
 
 static void
+close_import_export_view(AccountView *self)
+{
+    g_return_if_fail(IS_ACCOUNT_VIEW(self));
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(self);
+
+    auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
+    account_selection_changed(selection, self);
+}
+
+static void
+import_account(AccountView* self)
+{
+    g_return_if_fail(IS_ACCOUNT_VIEW(self));
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(self);
+
+    auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_account));
+
+    auto import_account = account_import_view_new();
+    g_signal_connect_swapped(import_account, "import-export-canceled", G_CALLBACK(close_import_export_view), self);
+    g_signal_connect_swapped(import_account, "import-export-completed", G_CALLBACK(close_import_export_view), self);
+    gtk_stack_add_named(GTK_STACK(priv->stack_account), import_account, "import_account");
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), import_account);
+
+    /* remove the old view */
+    if (old_view)
+        gtk_container_remove(GTK_CONTAINER(priv->stack_account), old_view);
+}
+
+static void
+export_account(AccountView* self)
+{
+    g_return_if_fail(IS_ACCOUNT_VIEW(self));
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(self);
+
+    auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
+    auto idx = get_index_from_selection(selection);
+    if (idx.isValid()) {
+        auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_account));
+
+        auto account = AccountModel::instance().getAccountByModelIndex(idx);
+        auto export_account = account_export_view_new();
+        g_signal_connect_swapped(export_account, "import-export-canceled", G_CALLBACK(close_import_export_view), self);
+        g_signal_connect_swapped(export_account, "import-export-completed", G_CALLBACK(close_import_export_view), self);
+        GList *account_list = nullptr;
+        account_list = g_list_append(account_list, account);
+        account_export_view_set_accounts(ACCOUNT_IMPORTEXPORT_VIEW(export_account), account_list);
+        g_list_free(account_list);
+        gtk_stack_add_named(GTK_STACK(priv->stack_account), export_account, "export_account");
+        gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), export_account);
+
+        /* remove the old view */
+        if (old_view)
+            gtk_container_remove(GTK_CONTAINER(priv->stack_account), old_view);
+
+    }
+
+}
+
+static void
 account_view_init(AccountView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
@@ -474,6 +552,10 @@ account_view_init(AccountView *view)
     /* connect signals to add/remove accounts */
     g_signal_connect(priv->button_remove_account, "clicked", G_CALLBACK(remove_account), view);
     g_signal_connect(priv->button_add_account, "clicked", G_CALLBACK(add_account), view);
+
+    /* signals to import/export acounts */
+    g_signal_connect_swapped(priv->button_import_account, "clicked", G_CALLBACK(import_account), view);
+    g_signal_connect_swapped(priv->button_export_account, "clicked", G_CALLBACK(export_account), view);
 }
 
 static void
@@ -490,6 +572,8 @@ account_view_class_init(AccountViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountView, button_remove_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountView, button_add_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountView, combobox_account_type);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountView, button_import_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountView, button_export_account);
 }
 
 GtkWidget *
