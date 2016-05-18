@@ -414,6 +414,9 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
     if (!priv->show_settings) {
         /* show the settings */
 
+        /* update the profile */
+        update_profile(GENERAL_SETTINGS_VIEW(priv->general_settings_view));
+
         /* make sure we are not showing a call view so we don't have more than one clutter stage at a time */
         selection_changed(QModelIndex(), win);
 
@@ -451,6 +454,7 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
 
         /* make sure video preview is stopped, in case it was started */
         media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(priv->media_settings_view), FALSE);
+        stop_avatarmanipulation_video_widget(GENERAL_SETTINGS_VIEW(priv->general_settings_view));
 
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
@@ -499,6 +503,8 @@ show_general_settings(GtkToggleButton *navbutton, RingMainWindow *win)
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), GENERAL_SETTINGS_VIEW_NAME);
         priv->last_settings_view = priv->general_settings_view;
+    } else {
+        stop_avatarmanipulation_video_widget(GENERAL_SETTINGS_VIEW(priv->general_settings_view));
     }
 }
 
