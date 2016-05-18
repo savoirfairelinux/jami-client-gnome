@@ -30,7 +30,7 @@
         <child>
           <object class="GtkBox" id="hbox_addremove_account">
             <property name="visible">True</property>
-s            <property name="orientation">horizontal</property>
+            <property name="orientation">horizontal</property>
             <property name="spacing">5</property>
             <property name="halign">GTK_ALIGN_CENTER</property>
             <!-- remove account -->
@@ -38,6 +38,7 @@ s            <property name="orientation">horizontal</property>
               <object class="GtkButton" id="button_remove_account">
                 <property name="visible">True</property>
                 <property name="image">image_remove</property>
+                <property name="sensitive">False</property>
                 <property name="tooltip-text" translatable="yes">Remove selected account</property>
                 <child internal-child="accessible">
                   <object class="AtkObject" id="button_remove_account-atkobject">
@@ -85,6 +86,31 @@ s            <property name="orientation">horizontal</property>
           </object>
         </child>
         <!-- end add remove accounts -->
+
+        <!-- import/export account -->
+        <child>
+          <object class="GtkButtonBox" id="buttonbox_import_export">
+            <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="layout-style">spread</property>
+            <property name="margin-top">5</property>
+            <child>
+              <object class="GtkButton" id="button_import_account">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Import</property>
+                <property name="tooltip-text" translatable="yes">Import archived account(s)</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="button_export_account">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Export</property>
+                <property name="sensitive">False</property>
+                <property name="tooltip-text" translatable="yes">Export selected account(s)</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
       <!-- <packing>
       </packing> -->

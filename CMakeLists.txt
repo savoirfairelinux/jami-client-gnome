@@ -310,6 +310,8 @@ SET( SRC_FILES
    src/chatview.cpp
    src/avatarmanipulation.h
    src/avatarmanipulation.cpp
+   src/accountimportexportview.h
+   src/accountimportexportview.cpp
 )
 
 # compile glib resource files to c code
