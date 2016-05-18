@@ -414,6 +414,9 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
     if (!priv->show_settings) {
         /* show the settings */
 
+        /* update the profile */
+        update_profile(GENERAL_SETTINGS_VIEW(priv->general_settings_view));
+
         /* make sure we are not showing a call view so we don't have more than one clutter stage at a time */
         selection_changed(QModelIndex(), win);
 
