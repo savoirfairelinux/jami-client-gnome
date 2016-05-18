@@ -23,6 +23,12 @@
 #include <glib/gi18n.h>
 #include <categorizedhistorymodel.h>
 #include "utils/files.h"
+#include "avatarmanipulation.h"
+
+/* lrc */
+#include <person.h>
+#include <profile.h>
+#include <profilemodel.h>
 
 struct _GeneralSettingsView
 {
@@ -46,6 +52,9 @@ struct _GeneralSettingsViewPrivate
     GtkWidget *checkbutton_bringtofront;
     GtkWidget *radiobutton_chatright;
     GtkWidget *radiobutton_chatbottom;
+    GtkWidget *box_profil_settings;
+    GtkWidget *avatarmanipulation;
+    GtkWidget *profil_name;
 
     /* history settings */
     GtkWidget *adjustment_history_duration;
@@ -55,6 +64,8 @@ struct _GeneralSettingsViewPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(GeneralSettingsView, general_settings_view, GTK_TYPE_SCROLLED_WINDOW);
 
 #define GENERAL_SETTINGS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), GENERAL_SETTINGS_VIEW_TYPE, GeneralSettingsViewPrivate))
+
+void change_profil_name(GtkEditable *editable, G_GNUC_UNUSED gpointer user_data);
 
 static void
 general_settings_view_dispose(GObject *object)
@@ -148,6 +159,19 @@ general_settings_view_init(GeneralSettingsView *self)
 
     /* clear history */
     g_signal_connect(priv->button_clear_history, "clicked", G_CALLBACK(clear_history), self);
+
+    /* avatar manipulation widget */
+    priv->avatarmanipulation = avatar_manipulation_new();
+    gtk_box_pack_start(GTK_BOX(priv->box_profil_settings), priv->avatarmanipulation, true, true, 0);
+
+    /* print the profil name. as long as we have only one profil, profil name = person name (a.k.a formatedName) */
+    priv->profil_name = gtk_entry_new();
+    gtk_entry_set_text (GTK_ENTRY(priv->profil_name),
+                        ProfileModel::instance().selectedProfile()->person()->formattedName().toStdString().c_str());
+    gtk_widget_set_visible(priv->profil_name,true);
+    gtk_box_pack_start(GTK_BOX(priv->box_profil_settings), priv->profil_name, true, true, 0);
+    g_signal_connect(priv->profil_name, "changed", G_CALLBACK(change_profil_name), NULL);
+
 }
 
 static void
@@ -165,6 +189,7 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, radiobutton_chatbottom);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_history_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_clear_history);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, box_profil_settings);
 }
 
 GtkWidget *
@@ -173,4 +198,29 @@ general_settings_view_new()
     gpointer view = g_object_new(GENERAL_SETTINGS_VIEW_TYPE, NULL);
 
     return (GtkWidget *)view;
+}
+
+void
+change_profil_name(GtkEditable *editable, G_GNUC_UNUSED gpointer user_data)
+{
+    auto profile = ProfileModel::instance().selectedProfile();
+    profile->person()->setFormattedName(gtk_editable_get_chars(editable,0,-1));
+    profile->save();
+}
+
+void
+update_profile(GeneralSettingsView *self)
+{
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+    avatar_manipulation_state_update(AVATAR_MANIPULATION(priv->avatarmanipulation));
+
+    gtk_entry_set_text (GTK_ENTRY(priv->profil_name),
+                        ProfileModel::instance().selectedProfile()->person()->formattedName().toStdString().c_str());
+}
+
+void
+stop_avatarmanipulation_video_widget(GeneralSettingsView *self)
+{
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+    avatar_manipulation_state_update(AVATAR_MANIPULATION(priv->avatarmanipulation));
 }

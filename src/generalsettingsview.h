@@ -35,6 +35,8 @@ typedef struct _GeneralSettingsViewClass GeneralSettingsViewClass;
 
 GType      general_settings_view_get_type      (void) G_GNUC_CONST;
 GtkWidget *general_settings_view_new           (void);
+void       update_profile                      (GeneralSettingsView *);
+void       stop_avatarmanipulation_video_widget      (GeneralSettingsView *);
 
 G_END_DECLS
 
