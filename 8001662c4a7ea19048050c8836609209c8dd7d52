@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_5dc10b2d",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-18T17:07:41Z",
+      "side": 1,
+      "message": "isValid()...",
+      "range": {
+        "startLine": 220,
+        "startChar": 12,
+        "endLine": 220,
+        "endChar": 30
+      },
+      "revId": "8001662c4a7ea19048050c8836609209c8dd7d52",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_3dc4573f",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-18T17:07:41Z",
+      "side": 1,
+      "message": "isValid()...",
+      "range": {
+        "startLine": 314,
+        "startChar": 11,
+        "endLine": 314,
+        "endChar": 27
+      },
+      "revId": "8001662c4a7ea19048050c8836609209c8dd7d52",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_9dc7a345",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-18T17:07:41Z",
+      "side": 1,
+      "message": "isValid()...",
+      "range": {
+        "startLine": 437,
+        "startChar": 16,
+        "endLine": 437,
+        "endChar": 32
+      },
+      "revId": "8001662c4a7ea19048050c8836609209c8dd7d52",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
