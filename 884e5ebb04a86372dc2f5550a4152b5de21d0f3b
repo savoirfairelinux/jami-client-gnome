@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_9d79e331",
+        "filename": "src/native/pixbufmanipulator.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-18T16:53:16Z",
+      "side": 1,
+      "message": "hmm... I didn\u0027t save the change... Actualy, it can leads to a bug with fromRawData in some case...",
+      "range": {
+        "startLine": 188,
+        "startChar": 39,
+        "endLine": 188,
+        "endChar": 50
+      },
+      "revId": "884e5ebb04a86372dc2f5550a4152b5de21d0f3b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_7dce4f85",
         "filename": "src/native/pixbufmanipulator.cpp",
         "patchSetId": 7
