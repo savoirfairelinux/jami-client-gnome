@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.10"/>
+  <template class="AccountImportExportView" parent="GtkBox">
+    <property name="visible">True</property>
+    <property name="orientation">vertical</property>
+    <property name="spacing">10</property>
+
+    <child>
+      <object class="GtkGrid" id="grid_ipmort_export">
+        <property name="visible">True</property>
+        <property name="column-spacing">10</property>
+        <property name="row-spacing">10</property>
+        <property name="halign">center</property>
+        <property name="valign">center</property>
+
+        <!-- export or import label, depending on whats  being done -->
+        <child>
+          <object class="GtkLabel" id="label_export">
+            <property name="visible">False</property>
+            <property name="label" translatable="yes">Export account</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_import">
+            <property name="visible">False</property>
+            <property name="label" translatable="yes">Import account</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <!-- end import/export label -->
+
+        <!-- location selection row -->
+        <child>
+          <object class="GtkLabel" id="label_location">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Location:</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+
+        <!-- filechooser for export -->
+        <child>
+          <object class="GtkBox" id="hbox_export_location">
+            <property name="visible">False</property>
+            <property name="orientation">horizontal</property>
+            <child>
+              <object class="GtkEntry" id="entry_export_location">
+                <property name="visible">True</property>
+                <property name="tooltip-text" translatable="yes">Export location</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="button_export_location">
+                <property name="visible">True</property>
+                <property name="tooltip-text" translatable="yes">Choose export location</property>
+                <property name="image">image_choose_file</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <!-- end filechooser for export -->
+
+        <!-- filechooser for import -->
+        <child>
+          <object class="GtkFileChooserButton" id="filechooserbutton_import">
+            <property name="visible">False</property>
+            <property name="create_folders">False</property>
+            <property name="action">open</property>
+            <!-- TODO: accessibility -->
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">1</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <!-- end filechooser for import -->
+
+        <!-- end location selection row -->
+
+        <!-- password row -->
+        <child>
+          <object class="GtkLabel" id="label_password">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Password (required):</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">2</property>
+          </packing>
+        </child>
+
+        <child>
+          <object class="GtkEntry" id="entry_password">
+            <property name="visible">True</property>
+            <property name="visibility">False</property>
+            <property name="primary_icon_stock">gtk-dialog-authentication</property>
+            <property name="input_purpose">password</property>
+            <!-- TODO: accessibility -->
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">2</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <!-- end password row -->
+
+      </object>
+      <packing>
+        <property name="fill">True</property>
+        <property name="expand">True</property>
+      </packing>
+    </child>
+
+    <child>
+      <object class="GtkButtonBox" id="buttonbox_confirm">
+        <property name="visible">True</property>
+        <property name="layout-style">edge</property>
+        <property name="valign">end</property>
+        <property name="spacing">10</property>
+        <property name="border-width">10</property>
+
+        <child>
+          <object class="GtkButton" id="button_cancel">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Cancel</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkButton" id="button_export">
+            <property name="visible">False</property>
+            <property name="sensitive">False</property>
+            <property name="label" translatable="yes">Export</property>
+            <style>
+              <class name="suggested-action"/>
+            </style>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkButton" id="button_import">
+            <property name="visible">False</property>
+            <property name="sensitive">False</property>
+            <property name="label" translatable="yes">Import</property>
+            <style>
+              <class name="suggested-action"/>
+            </style>
+          </object>
+        </child>
+
+      </object>
+      <packing>
+        <property name="fill">True</property>
+        <property name="expand">False</property>
+      </packing>
+    </child>
+
+  </template>
+
+  <object class="GtkImage" id="image_choose_file">
+    <property name="visible">True</property>
+    <property name="icon-name">document-new-symbolic</property>
+  </object>
+
+</interface>
