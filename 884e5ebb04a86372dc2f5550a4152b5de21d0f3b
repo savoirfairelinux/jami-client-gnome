@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_7dce4f85",
+        "filename": "src/native/pixbufmanipulator.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-18T15:49:09Z",
+      "side": 1,
+      "message": "g_warning",
+      "range": {
+        "startLine": 193,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 19
+      },
+      "revId": "884e5ebb04a86372dc2f5550a4152b5de21d0f3b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_ddb99bea",
+        "filename": "src/native/pixbufmanipulator.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-18T15:49:09Z",
+      "side": 1,
+      "message": "g_debug (not warning, since its fine if the photo is empty)",
+      "range": {
+        "startLine": 199,
+        "startChar": 8,
+        "endLine": 199,
+        "endChar": 15
+      },
+      "revId": "884e5ebb04a86372dc2f5550a4152b5de21d0f3b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
