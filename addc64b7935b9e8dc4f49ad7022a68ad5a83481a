@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_bdcaa79f",
+        "filename": "src/native/pixbufmanipulator.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-18T14:12:01Z",
+      "side": 1,
+      "message": "1. png_buffer needs to be initialized to \"nullptr\", otherwise it is assigned an arbitrary value, so if gdk_pixbuf_save_to_buffer() fails later and you do a g_free(), you don\u0027t want this arbitrary memory to be freed\n\n2. its not a big deal, but since these are only used inside the if() block, they should only be declared there, to limit the scope of the variables to only whats necessary",
+      "range": {
+        "startLine": 180,
+        "startChar": 4,
+        "endLine": 181,
+        "endChar": 26
+      },
+      "revId": "addc64b7935b9e8dc4f49ad7022a68ad5a83481a",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_1dd63350",
+        "filename": "src/native/pixbufmanipulator.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-18T14:12:01Z",
+      "side": 1,
+      "message": "this argument takes a GError, its probably worth giving it one and printing the error message if there is one to know what failed (grep for GError in the client code to see how its done)",
+      "range": {
+        "startLine": 186,
+        "startChar": 92,
+        "endLine": 186,
+        "endChar": 96
+      },
+      "revId": "addc64b7935b9e8dc4f49ad7022a68ad5a83481a",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_5de4ab3a",
+        "filename": "src/native/pixbufmanipulator.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-18T14:12:01Z",
+      "side": 1,
+      "message": "this check isn\u0027t necessary, as g_free() already performs it:\nhttps://developer.gnome.org/glib/unstable/glib-Memory-Allocation.html#g-free",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 22
+      },
+      "revId": "addc64b7935b9e8dc4f49ad7022a68ad5a83481a",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
