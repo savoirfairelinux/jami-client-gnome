@@ -22,6 +22,30 @@
       "revId": "076a6592ab6411827fbf63d4ca419923031c247f",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_fa9585e4",
+        "filename": "src/native/pixbufmanipulator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-18T13:34:04Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "ba65a107_fa2b45e9",
+      "range": {
+        "startLine": 187,
+        "startChar": 27,
+        "endLine": 187,
+        "endChar": 38
+      },
+      "revId": "076a6592ab6411827fbf63d4ca419923031c247f",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
