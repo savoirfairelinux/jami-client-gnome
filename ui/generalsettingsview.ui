@@ -8,205 +8,223 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <template class="GeneralSettingsView" parent="GtkScrolledWindow">
+    <template class="GeneralSettingsView" parent="GtkScrolledWindow">
     <property name="visible">True</property>
     <child>
-      <object class="GtkBox" id="vbox_main">
+      <object class="GtkBox" id="hbox_main_columns">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">10</property>
         <property name="border_width">10</property>
         <!-- start profil settings -->
         <child>
-          <object class="GtkFrame" id="frame_profile_settings">
+          <object class="GtkBox" id="vbox_main_left">
             <property name="visible">True</property>
-            <property name="label_xalign">0</property>
-            <property name="shadow_type">none</property>
-            <!-- start frame label -->
-            <child type="label">
-              <object class="GtkLabel" id="label_profile_settings">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">&lt;b&gt;Profile Settings&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
-              </object>
-            </child>
-            <!-- end frame label -->
-            <!-- start box ring settings-->
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
             <child>
-              <object class="GtkBox" id="box_profil_settings">
+              <object class="GtkFrame" id="frame_profile_settings">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="valign">end</property>
-                <property name="halign">start</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">10</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <!-- start frame label -->
+                <child type="label">
+                  <object class="GtkLabel" id="label_profile_settings">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">&lt;b&gt;Profile Settings&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                  </object>
+                </child>
+                <!-- end frame label -->
+                <!-- start box ring settings-->
+                <child>
+                  <object class="GtkBox" id="box_profil_settings">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">end</property>
+                    <property name="halign">start</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">10</property>
+                  </object>
+                </child>
+                <!-- end box ring settings-->
+                <!-- end profil settings -->
               </object>
-            </child>
-            <!-- end box ring settings-->
-            <!-- end profil settings -->
+            </child>  
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+          </packing>
         </child>
         <!-- start ring settings -->
         <child>
-          <object class="GtkFrame" id="frame_ring_settings">
+          <object class="GtkBox" id="vbox_main_right">
             <property name="visible">True</property>
-            <property name="label_xalign">0</property>
-            <property name="shadow_type">none</property>
-            <!-- start frame label -->
-            <child type="label">
-              <object class="GtkLabel" id="label_ring_settings">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">&lt;b&gt;Ring Settings&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
-              </object>
-            </child>
-            <!-- end frame label -->
-            <!-- start box ring settings-->
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">12</property>
             <child>
-              <object class="GtkBox" id="box_ring_settings">
+              <object class="GtkFrame" id="frame_ring_settings">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <property name="margin_left">10</property>
-                <property name="margin_top">10</property>
-                <child>
-                  <object class="GtkCheckButton" id="checkbutton_autostart">
-                    <property name="label" translatable="yes">Start Ring on login</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <!-- start frame label -->
+                  <child type="label">
+                    <object class="GtkLabel" id="label_ring_settings">
+                      <property name="visible">True</property>
+                      <property name="label" translatable="yes">&lt;b&gt;Ring Settings&lt;/b&gt;</property>
+                      <property name="use_markup">True</property>
+                    </object>
+                  </child>
+                  <!-- end frame label -->
+                  <!-- start box ring settings-->
+                  <child>
+                    <object class="GtkBox" id="box_ring_settings">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="checkbutton_hideonclose">
-                    <property name="label" translatable="yes">Hide Ring on close instead of quitting.</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="checkbutton_bringtofront">
-                    <property name="label" translatable="yes">Bring Ring to the foreground on incoming calls.</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkButtonBox" id="buttonbox_chatposition">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="orientation">horizontal</property>
-                    <property name="layout-style">start</property>
+                    <property name="orientation">vertical</property>
+                    <property name="margin_left">10</property>
+                    <property name="margin_top">10</property>
                     <child>
-                      <object class="GtkRadioButton" id="radiobutton_chatright">
-                        <property name="label" translatable="yes">Show chat on the right.</property>
+                      <object class="GtkCheckButton" id="checkbutton_autostart">
+                        <property name="label" translatable="yes">Start Ring on login</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="xalign">0</property>
+                        <property name="draw_indicator">True</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkRadioButton" id="radiobutton_chatbottom">
-                        <property name="label" translatable="yes">Show chat on the bottom.</property>
+                      <object class="GtkCheckButton" id="checkbutton_hideonclose">
+                        <property name="label" translatable="yes">Hide Ring on close instead of quitting.</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="group">radiobutton_chatright</property>
+                        <property name="xalign">0</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton_bringtofront">
+                        <property name="label" translatable="yes">Bring Ring to the foreground on incoming calls.</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="xalign">0</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButtonBox" id="buttonbox_chatposition">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="layout-style">start</property>
+                        <child>
+                          <object class="GtkRadioButton" id="radiobutton_chatright">
+                            <property name="label" translatable="yes">Show chat on the right.</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkRadioButton" id="radiobutton_chatbottom">
+                            <property name="label" translatable="yes">Show chat on the bottom.</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="group">radiobutton_chatright</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
                 </child>
+                <!-- end box ring settings -->
               </object>
             </child>
-            <!-- end box ring settings -->
-          </object>
-        </child>
-        <!-- start history settings -->
-        <child>
-          <object class="GtkFrame" id="frame_history_settings">
-            <property name="visible">True</property>
-            <property name="label_xalign">0</property>
-            <property name="shadow_type">none</property>
-            <!-- start frame label -->
-            <child type="label">
-              <object class="GtkLabel" id="label_history_settings">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">&lt;b&gt;History Settings&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
-              </object>
-            </child>
-            <!-- end frame label -->
-            <!-- start grid history settings-->
+            <!-- start history settings -->
             <child>
-              <object class="GtkGrid" id="grid_history_settings">
+              <object class="GtkFrame" id="frame_history_settings">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_left">10</property>
-                <property name="margin_top">10</property>
-                <property name="row_spacing">10</property>
-                <property name="column_spacing">10</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <!-- start frame label -->
+                  <child type="label">
+                    <object class="GtkLabel" id="label_history_settings">
+                      <property name="visible">True</property>
+                      <property name="can_focus">False</property>
+                      <property name="label" translatable="yes">&lt;b&gt;History Settings&lt;/b&gt;</property>
+                      <property name="use_markup">True</property>
+                    </object>
+                  </child>
+                  <!-- end frame label -->
+                  <!-- start grid history settings-->
                 <child>
-                  <object class="GtkLabel" id="label_history_duration">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Keep history for (days):</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSpinButton" id="spinbutton_history_duration">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="value">0</property>
-                    <property name="adjustment">adjustment_history_duration</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label_history_explanation">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">(set to 0 for unlimited history)</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">2</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="button_clear_history">
-                    <property name="label" translatable="yes">Clear all history</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="halign">start</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">1</property>
-                  </packing>
-                </child>
-              </object>
-            </child>
-            <!-- end grid history settings -->
-          </object>
-        </child>
-        <!-- end history settings -->
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-      </packing>
-    </child>
-  </template>
+                  <object class="GtkGrid" id="grid_history_settings">
+                  <property name="visible">True</property>
+                  <property name="can_focus">False</property>
+                  <property name="margin_left">10</property>
+                  <property name="margin_top">10</property>
+                  <property name="row_spacing">10</property>
+                  <property name="column_spacing">10</property>
+                    <child>
+                      <object class="GtkLabel" id="label_history_duration">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Keep history for (days):</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                  <child>
+                    <object class="GtkSpinButton" id="spinbutton_history_duration">
+                      <property name="visible">True</property>
+                      <property name="can_focus">False</property>
+                      <property name="value">0</property>
+                      <property name="adjustment">adjustment_history_duration</property>
+                    </object>
+                    <packing>
+                      <property name="left_attach">1</property>
+                      <property name="top_attach">0</property>
+                    </packing>
+                  </child>
+                  <child>
+                    <object class="GtkLabel" id="label_history_explanation">
+                      <property name="visible">True</property>
+                      <property name="can_focus">False</property>
+                      <property name="label" translatable="yes">(set to 0 for unlimited history)</property>
+                    </object>
+                    <packing>
+                      <property name="left_attach">1</property>
+                      <property name="top_attach">1</property>
+                    </packing>
+                  </child>
+                  <child>
+                    <object class="GtkButton" id="button_clear_history">
+                      <property name="label" translatable="yes">Clear all history</property>
+                      <property name="visible">True</property>
+                      <property name="can_focus">True</property>
+                      <property name="receives_default">True</property>
+                      <property name="halign">start</property>
+                    </object>
+                    <packing>
+                      <property name="left_attach">1</property>
+                      <property name="top_attach">2</property>
+                    </packing>
+                  </child>
+                </object>
+              </child>
+              <!-- end grid history settings -->
+            </object>
+          </child>
+          <!-- end history settings -->
+        </object>
+      </child>
+    </object>
+    <packing>
+      <property name="expand">False</property>
+      <property name="fill">True</property>
+    </packing>
+  </child>
+</template>
 </interface>
