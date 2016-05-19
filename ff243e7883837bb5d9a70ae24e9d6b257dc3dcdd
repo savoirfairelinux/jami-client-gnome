@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_a8aca7ee",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-19T15:56:15Z",
+      "side": 1,
+      "message": "may solve the clutter seg",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 580,
+        "endChar": 46
+      },
+      "revId": "ff243e7883837bb5d9a70ae24e9d6b257dc3dcdd",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
