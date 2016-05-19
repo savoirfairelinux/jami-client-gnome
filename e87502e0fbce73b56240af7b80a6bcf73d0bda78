@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_48f14bcc",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-19T19:29:35Z",
+      "side": 1,
+      "message": "I may have to move that...",
+      "range": {
+        "startLine": 196,
+        "startChar": 4,
+        "endLine": 198,
+        "endChar": 59
+      },
+      "revId": "e87502e0fbce73b56240af7b80a6bcf73d0bda78",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_68ee8fee",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-19T19:29:35Z",
+      "side": 1,
+      "message": "may have to better stop the renderer from here\nAND to remove the renderer",
+      "range": {
+        "startLine": 692,
+        "startChar": 0,
+        "endLine": 692,
+        "endChar": 22
+      },
+      "revId": "e87502e0fbce73b56240af7b80a6bcf73d0bda78",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_08bb53e6",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-19T19:29:35Z",
+      "side": 1,
+      "message": "add the renderer from here",
+      "range": {
+        "startLine": 726,
+        "startChar": 0,
+        "endLine": 726,
+        "endChar": 21
+      },
+      "revId": "e87502e0fbce73b56240af7b80a6bcf73d0bda78",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
