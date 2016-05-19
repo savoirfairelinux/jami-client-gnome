@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_e825bfab",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-19T14:15:51Z",
+      "side": 1,
+      "message": "Have you tried not doing this conversion? I\u0027m pretty sure its not necessary if you just tell gdk_pixbuf_new_from_data() that data contains an alpha channel.",
+      "range": {
+        "startLine": 630,
+        "startChar": 0,
+        "endLine": 638,
+        "endChar": 13
+      },
+      "revId": "94bbb03c781c765c072ea757bd910d78381954eb",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_681a0f70",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-19T14:15:51Z",
+      "side": 1,
+      "message": "hmm, I\u0027m wondering if its better to use g_object_unref() here and set the pointer to nullptr manually instead, because video_widget_get_snapshot() returns wg_renderer-\u003esnapshot directly, so if the user then does a g_object_ref() on it to increase the ref count, he won\u0027t expect it be cleared when another snapshot is taken... ofcourse for now we are the users, but its worth being carefull",
+      "range": {
+        "startLine": 641,
+        "startChar": 16,
+        "endLine": 641,
+        "endChar": 30
+      },
+      "revId": "94bbb03c781c765c072ea757bd910d78381954eb",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
