@@ -11,14 +11,22 @@
   <template class="GeneralSettingsView" parent="GtkScrolledWindow">
     <property name="visible">True</property>
     <child>
-      <object class="GtkBox" id="vbox_main">
+      <object class="GtkBox" id="hbox_main_columns">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="spacing">10</property>
+        <property name="border_width">10</property>
+          <!-- start profil settings -->
+        <child>
+            
+            <object class="GtkBox" id="vbox_main_left">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">10</property>
-        <property name="border_width">10</property>
-        <!-- start profil settings -->
+        
+        
         <child>
+            
           <object class="GtkFrame" id="frame_profile_settings">
             <property name="visible">True</property>
             <property name="label_xalign">0</property>
@@ -46,8 +54,23 @@
             <!-- end box ring settings-->
             <!-- end profil settings -->
           </object>
+      </child>  
+        </object>
+        <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+      
+        
         </child>
         <!-- start ring settings -->
+        <child>
+          <object class="GtkBox" id="vbox_main_right">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        
+        
         <child>
           <object class="GtkFrame" id="frame_ring_settings">
             <property name="visible">True</property>
@@ -100,7 +123,7 @@
                   <object class="GtkButtonBox" id="buttonbox_chatposition">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="orientation">horizontal</property>
+                    <property name="orientation">vertical</property>
                     <property name="layout-style">start</property>
                     <child>
                       <object class="GtkRadioButton" id="radiobutton_chatright">
@@ -179,8 +202,8 @@
                     <property name="label" translatable="yes">(set to 0 for unlimited history)</property>
                   </object>
                   <packing>
-                    <property name="left_attach">2</property>
-                    <property name="top_attach">0</property>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">1</property>
                   </packing>
                 </child>
                 <child>
@@ -193,7 +216,7 @@
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
-                    <property name="top_attach">1</property>
+                    <property name="top_attach">2</property>
                   </packing>
                 </child>
               </object>
@@ -202,6 +225,8 @@
           </object>
         </child>
         <!-- end history settings -->
+      </object>
+        </child>
       </object>
       <packing>
         <property name="expand">False</property>
