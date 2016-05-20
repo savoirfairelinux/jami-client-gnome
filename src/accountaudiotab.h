@@ -21,7 +21,8 @@
 #define _ACCOUNTAUDIOTAB_H
 
 #include <gtk/gtk.h>
-#include <account.h>
+
+class Account;
 
 G_BEGIN_DECLS
 

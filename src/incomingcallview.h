@@ -21,7 +21,8 @@
 #define _INCOMINGCALLVIEW_H
 
 #include <gtk/gtk.h>
-#include <call.h>
+
+class QModelIndex;
 
 G_BEGIN_DECLS
 

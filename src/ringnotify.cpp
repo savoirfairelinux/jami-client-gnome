@@ -19,6 +19,7 @@
 
 #include "ringnotify.h"
 #include "config.h"
+#include "ring_client.h"
 
 #if USE_LIBNOTIFY
 #include <glib/gi18n.h>

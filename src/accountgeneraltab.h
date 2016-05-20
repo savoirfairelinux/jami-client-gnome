@@ -21,7 +21,8 @@
 #define _ACCOUNTGENERALTAB_H
 
 #include <gtk/gtk.h>
-#include <account.h>
+
+class Account;
 
 G_BEGIN_DECLS
 
