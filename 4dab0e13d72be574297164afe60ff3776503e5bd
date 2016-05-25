@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_a3ce0859",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-05-25T21:16:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_83cae44d",
+      "range": {
+        "startLine": 396,
+        "startChar": 95,
+        "endLine": 396,
+        "endChar": 96
+      },
+      "revId": "4dab0e13d72be574297164afe60ff3776503e5bd",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_e3b5e0cd",
         "filename": "src/accountgeneraltab.cpp",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2016-05-25T21:02:20Z",
       "side": 1,
       "message": "this probably needs to be moved to the conditional bellow, or else I get when modifying the account\n(gnome-ring:16544): Gtk-CRITICAL **: gtk_entry_set_text: assertion \u0027GTK_IS_ENTRY (entry)\u0027 failed\n\ncheck for other instances of this, just in case",
+      "range": {
+        "startLine": 475,
+        "startChar": 12,
+        "endLine": 475,
+        "endChar": 111
+      },
+      "revId": "4dab0e13d72be574297164afe60ff3776503e5bd",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_43db6c1b",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-05-25T21:16:12Z",
+      "side": 1,
+      "message": "Oh thats right, thanks.\n\nThe only label we are removing is entry_hostname, so there shouldn\u0027t be another one.",
+      "parentUuid": "ba65a107_e3b5e0cd",
       "range": {
         "startLine": 475,
         "startChar": 12,
