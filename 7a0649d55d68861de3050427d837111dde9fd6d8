@@ -1,0 +1,435 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_233d1890",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "to delete?",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 16
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_c341bc0c",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "maybe should be a \u0027static constexpr int\u0027 since this default value is used more than once",
+      "range": {
+        "startLine": 176,
+        "startChar": 19,
+        "endLine": 176,
+        "endChar": 22
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_035fb4e6",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "maybe should be \u0027static constexpr int\u0027 since this is used as a default value in more than one place",
+      "range": {
+        "startLine": 229,
+        "startChar": 19,
+        "endLine": 229,
+        "endChar": 22
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_635230df",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "init to nullptr",
+      "range": {
+        "startLine": 249,
+        "startChar": 11,
+        "endLine": 249,
+        "endChar": 28
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_236438b8",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "check the error",
+      "range": {
+        "startLine": 261,
+        "startChar": 97,
+        "endLine": 261,
+        "endChar": 101
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_83f984ca",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "1. this could be null if there was an error above, probably want to check for this\n\n2. need to g_free(png_buffer_signed) after you\u0027re done using the png_q_byte_array",
+      "range": {
+        "startLine": 264,
+        "startChar": 58,
+        "endLine": 264,
+        "endChar": 75
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_a3f608d6",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "you can just not pass a variable here, it will just use the default value",
+      "range": {
+        "startLine": 268,
+        "startChar": 91,
+        "endLine": 268,
+        "endChar": 105
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_a348482e",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "see comment above",
+      "range": {
+        "startLine": 280,
+        "startChar": 19,
+        "endLine": 280,
+        "endChar": 22
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_2332f8a7",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "not a big deal, but you don\u0027t need to declare the vars before you use them in this case, since there is only one place where they are being initialized, you can do eg:\nauto preview \u003d gtk_image_new();",
+      "range": {
+        "startLine": 295,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 23
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_e32ba02e",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "needs to be freed:\nhttps://developer.gnome.org/gtk3/stable/GtkFileChooser.html#gtk-file-chooser-get-filename",
+      "range": {
+        "startLine": 332,
+        "startChar": 8,
+        "endLine": 332,
+        "endChar": 16
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_8320a44a",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "1. should also be wrapped in the translation macro: _()\n2. maybe should be more specific, like \"Save Avatar Image\" or something... not a big deal either way",
+      "range": {
+        "startLine": 366,
+        "startChar": 42,
+        "endLine": 366,
+        "endChar": 53
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_23d99857",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "check for null",
+      "range": {
+        "startLine": 384,
+        "startChar": 8,
+        "endLine": 384,
+        "endChar": 16
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_a31da811",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "again, probably worth checking the error here and outputting a g_warning",
+      "range": {
+        "startLine": 390,
+        "startChar": 69,
+        "endLine": 390,
+        "endChar": 73
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_03d4941e",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "you can just declare this as GtkWidget *preview directly",
+      "range": {
+        "startLine": 400,
+        "startChar": 48,
+        "endLine": 400,
+        "endChar": 61
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_a3e4c80d",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "check for null",
+      "range": {
+        "startLine": 408,
+        "startChar": 4,
+        "endLine": 408,
+        "endChar": 12
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_43f12ccc",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "check for error",
+      "range": {
+        "startLine": 410,
+        "startChar": 67,
+        "endLine": 410,
+        "endChar": 71
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_43c84c74",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "the lrc ones should be included with \u003c\u003e, eg: \u003cprofile.h\u003e, since they are external lib includes",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 20
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_03a254ae",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "the profile could be null here, also the \"Unknown\" should be marked for translation, same as above... maybe to avoid duplication, you can reuse the same string.",
+      "range": {
+        "startLine": 523,
+        "startChar": 8,
+        "endLine": 523,
+        "endChar": 55
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_23a758bf",
+        "filename": "ui/ringmainwindow.ui",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T19:03:33Z",
+      "side": 1,
+      "message": "Is it necessary to move all this stuff around... a lot of the line changes is just movement... it makes it hard to see what was actually added or removed in the commit.",
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
