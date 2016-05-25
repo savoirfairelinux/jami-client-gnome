@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_83cae44d",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T21:02:20Z",
+      "side": 1,
+      "message": "maybe make this 2, otherwise the treeview is very narrow",
+      "range": {
+        "startLine": 396,
+        "startChar": 95,
+        "endLine": 396,
+        "endChar": 96
+      },
+      "revId": "4dab0e13d72be574297164afe60ff3776503e5bd",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_e3b5e0cd",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-25T21:02:20Z",
+      "side": 1,
+      "message": "this probably needs to be moved to the conditional bellow, or else I get when modifying the account\n(gnome-ring:16544): Gtk-CRITICAL **: gtk_entry_set_text: assertion \u0027GTK_IS_ENTRY (entry)\u0027 failed\n\ncheck for other instances of this, just in case",
+      "range": {
+        "startLine": 475,
+        "startChar": 12,
+        "endLine": 475,
+        "endChar": 111
+      },
+      "revId": "4dab0e13d72be574297164afe60ff3776503e5bd",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
