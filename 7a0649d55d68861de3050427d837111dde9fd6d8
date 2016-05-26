@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_237f58e2",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_233d1890",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 16
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_c341bc0c",
         "filename": "src/avatarmanipulation.cpp",
         "patchSetId": 23
@@ -36,6 +60,30 @@
       "writtenOn": "2016-05-25T19:03:33Z",
       "side": 1,
       "message": "maybe should be a \u0027static constexpr int\u0027 since this default value is used more than once",
+      "range": {
+        "startLine": 176,
+        "startChar": 19,
+        "endLine": 176,
+        "endChar": 22
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_c383fcca",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_c341bc0c",
       "range": {
         "startLine": 176,
         "startChar": 19,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_e38880e9",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_035fb4e6",
+      "range": {
+        "startLine": 229,
+        "startChar": 19,
+        "endLine": 229,
+        "endChar": 22
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_635230df",
         "filename": "src/avatarmanipulation.cpp",
         "patchSetId": 23
@@ -82,6 +154,30 @@
       "writtenOn": "2016-05-25T19:03:33Z",
       "side": 1,
       "message": "init to nullptr",
+      "range": {
+        "startLine": 249,
+        "startChar": 11,
+        "endLine": 249,
+        "endChar": 28
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_032c9401",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_635230df",
       "range": {
         "startLine": 249,
         "startChar": 11,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_2331985a",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_236438b8",
+      "range": {
+        "startLine": 261,
+        "startChar": 97,
+        "endLine": 261,
+        "endChar": 101
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_83f984ca",
         "filename": "src/avatarmanipulation.cpp",
         "patchSetId": 23
@@ -128,6 +248,30 @@
       "writtenOn": "2016-05-25T19:03:33Z",
       "side": 1,
       "message": "1. this could be null if there was an error above, probably want to check for this\n\n2. need to g_free(png_buffer_signed) after you\u0027re done using the png_q_byte_array",
+      "range": {
+        "startLine": 264,
+        "startChar": 58,
+        "endLine": 264,
+        "endChar": 75
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_c3353c47",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_83f984ca",
       "range": {
         "startLine": 264,
         "startChar": 58,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_e33ac035",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_a3f608d6",
+      "range": {
+        "startLine": 268,
+        "startChar": 91,
+        "endLine": 268,
+        "endChar": 105
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_a348482e",
         "filename": "src/avatarmanipulation.cpp",
         "patchSetId": 23
@@ -174,6 +342,30 @@
       "writtenOn": "2016-05-25T19:03:33Z",
       "side": 1,
       "message": "see comment above",
+      "range": {
+        "startLine": 280,
+        "startChar": 19,
+        "endLine": 280,
+        "endChar": 22
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_836d0435",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_a348482e",
       "range": {
         "startLine": 280,
         "startChar": 19,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_833f4425",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_2332f8a7",
+      "range": {
+        "startLine": 295,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 23
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_e32ba02e",
         "filename": "src/avatarmanipulation.cpp",
         "patchSetId": 23
@@ -220,6 +436,30 @@
       "writtenOn": "2016-05-25T19:03:33Z",
       "side": 1,
       "message": "needs to be freed:\nhttps://developer.gnome.org/gtk3/stable/GtkFileChooser.html#gtk-file-chooser-get-filename",
+      "range": {
+        "startLine": 332,
+        "startChar": 8,
+        "endLine": 332,
+        "endChar": 16
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_a33cc830",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_e32ba02e",
       "range": {
         "startLine": 332,
         "startChar": 8,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_031334b9",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_8320a44a",
+      "range": {
+        "startLine": 366,
+        "startChar": 42,
+        "endLine": 366,
+        "endChar": 53
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_23d99857",
         "filename": "src/avatarmanipulation.cpp",
         "patchSetId": 23
@@ -266,6 +530,30 @@
       "writtenOn": "2016-05-25T19:03:33Z",
       "side": 1,
       "message": "check for null",
+      "range": {
+        "startLine": 384,
+        "startChar": 8,
+        "endLine": 384,
+        "endChar": 16
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_2318b8d2",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_23d99857",
       "range": {
         "startLine": 384,
         "startChar": 8,
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_c30c5c97",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_a31da811",
+      "range": {
+        "startLine": 390,
+        "startChar": 69,
+        "endLine": 390,
+        "endChar": 73
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_03d4941e",
         "filename": "src/avatarmanipulation.cpp",
         "patchSetId": 23
@@ -312,6 +624,30 @@
       "writtenOn": "2016-05-25T19:03:33Z",
       "side": 1,
       "message": "you can just declare this as GtkWidget *preview directly",
+      "range": {
+        "startLine": 400,
+        "startChar": 48,
+        "endLine": 400,
+        "endChar": 61
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_83266415",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_03d4941e",
       "range": {
         "startLine": 400,
         "startChar": 48,
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_631d50bd",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_a3e4c80d",
+      "range": {
+        "startLine": 408,
+        "startChar": 4,
+        "endLine": 408,
+        "endChar": 12
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_43f12ccc",
         "filename": "src/avatarmanipulation.cpp",
         "patchSetId": 23
@@ -358,6 +718,30 @@
       "writtenOn": "2016-05-25T19:03:33Z",
       "side": 1,
       "message": "check for error",
+      "range": {
+        "startLine": 410,
+        "startChar": 67,
+        "endLine": 410,
+        "endChar": 71
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_037a54f1",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_43f12ccc",
       "range": {
         "startLine": 410,
         "startChar": 67,
@@ -393,6 +777,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_a36a8818",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_43c84c74",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 20
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_03a254ae",
         "filename": "src/ringmainwindow.cpp",
         "patchSetId": 23
@@ -416,6 +824,30 @@
     },
     {
       "key": {
+        "uuid": "ba65a107_4377ec02",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "where C_() is defined ? is it a glib function ? I don\u0027t know what this function actually returns... auto keyword saved me there...",
+      "parentUuid": "ba65a107_03a254ae",
+      "range": {
+        "startLine": 523,
+        "startChar": 8,
+        "endLine": 523,
+        "endChar": 55
+      },
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba65a107_23a758bf",
         "filename": "ui/ringmainwindow.ui",
         "patchSetId": 23
@@ -427,6 +859,24 @@
       "writtenOn": "2016-05-25T19:03:33Z",
       "side": 1,
       "message": "Is it necessary to move all this stuff around... a lot of the line changes is just movement... it makes it hard to see what was actually added or removed in the commit.",
+      "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_637470fd",
+        "filename": "ui/ringmainwindow.ui",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2016-05-26T13:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba65a107_23a758bf",
       "revId": "7a0649d55d68861de3050427d837111dde9fd6d8",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
