@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_43fccc3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-26T14:16:22Z",
+      "side": 1,
+      "message": "the commit msg should also mention the changes to the GtkQTreeModel... its probably also worth porting these changes to the GtkQSortFilterTreeModel in another patch eventually, but thats a separate issue",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "50ae15e39601b11ec3d53e60ed25dd7d782aadae",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_e3ede08c",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-26T14:16:22Z",
+      "side": 1,
+      "message": "I think the treeview should be put into a gtkscrolledwindow (https://developer.gnome.org/gtk3/stable/GtkScrolledWindow.html) this way if the bootstrap list gets long, it won\u0027t take up a lot of space in the settings view... also that way you can set a minimum height for the tree view, right now it gets bigger and bigger as you add rows",
+      "range": {
+        "startLine": 387,
+        "startChar": 43,
+        "endLine": 387,
+        "endChar": 60
+      },
+      "revId": "50ae15e39601b11ec3d53e60ed25dd7d782aadae",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
