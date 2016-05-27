@@ -390,11 +390,11 @@ history_view_init(HistoryView *self)
     GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new(
         priv->q_sorted_proxy->model(),
         5,
-        Qt::DisplayRole, G_TYPE_STRING,
-        Call::Role::Number, G_TYPE_STRING,
-        Call::Role::FormattedDate, G_TYPE_STRING,
-        Call::Role::Direction, G_TYPE_INT,
-        Call::Role::Missed, G_TYPE_BOOLEAN);
+        0, Qt::DisplayRole, G_TYPE_STRING,
+        0, Call::Role::Number, G_TYPE_STRING,
+        0, Call::Role::FormattedDate, G_TYPE_STRING,
+        0, Call::Role::Direction, G_TYPE_INT,
+        0, Call::Role::Missed, G_TYPE_BOOLEAN);
     gtk_tree_view_set_model( GTK_TREE_VIEW(self), GTK_TREE_MODEL(history_model) );
 
     /* call direction, photo, name/number column */

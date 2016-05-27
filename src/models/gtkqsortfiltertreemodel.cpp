@@ -57,6 +57,7 @@ struct _GtkQSortFilterTreeModelPrivate
 {
     GType *column_headers;
     gint  *column_roles;
+    gint  *column_model_col;
 
     gint stamp;
     gint n_columns;
@@ -131,6 +132,7 @@ static gint gtk_q_sort_filter_tree_model_length          (GtkQSortFilterTreeMode
 static void gtk_q_sort_filter_tree_model_set_n_columns   (GtkQSortFilterTreeModel *,
                                                           gint                       );
 static void gtk_q_sort_filter_tree_model_set_column_type (GtkQSortFilterTreeModel *,
+                                                          gint,
                                                           gint,
                                                           gint,
                                                           GType                      );
@@ -290,7 +292,7 @@ insert_children(const QModelIndex &idx_given, GtkQSortFilterTreeModel *gtk_model
  * gtk_q_sort_filter_tree_model_new:
  * @model: QAbstractItemModel to which this model will bind.
  * @n_columns: number of columns in the list store
- * @...: all #GType follwed by the #Role pair for each column.
+ * @...: model #Column, #GType and #Role for each column.
  *
  * Return value: a new #GtkQSortFilterTreeModel
  */
@@ -327,11 +329,14 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
     retval->priv->access_model->setSourceModel(retval->priv->original_model);
     gint stamp = retval->priv->stamp;
 
-    n_columns = 2*n_columns;
+    n_columns = 3*n_columns;
     va_start (args, n_columns);
 
-    for (i = 0; i < (gint)(n_columns/2); i++) {
-        /* first get the role of the QModel */
+    for (i = 0; i < (gint)(n_columns/3); i++) {
+        /* first get the model column */
+        gint model_col = va_arg(args, gint);
+
+        /* then get the role of the QModel */
         gint role = va_arg(args, gint);
 
         /* then get the type the role will be interpreted as */
@@ -348,7 +353,7 @@ gtk_q_sort_filter_tree_model_new(QSortFilterProxyModel *model, size_t n_columns,
          *   }
          */
 
-        gtk_q_sort_filter_tree_model_set_column_type (retval, i, role, type);
+        gtk_q_sort_filter_tree_model_set_column_type (retval, i, model_col, role, type);
     }
 
     va_end (args);
@@ -604,11 +609,16 @@ gtk_q_sort_filter_tree_model_set_n_columns(GtkQSortFilterTreeModel *q_tree_model
     priv->column_roles = g_renew (gint, priv->column_roles, n_columns);
     for (i = priv->n_columns; i < n_columns; i++)
         priv->column_roles[i] = -1;
+
+    priv->column_model_col = g_renew (gint, priv->column_model_col, n_columns);
+    for (i = priv->n_columns; i < n_columns; i++)
+        priv->column_model_col[i] = 0;
 }
 
 static void
 gtk_q_sort_filter_tree_model_set_column_type(GtkQSortFilterTreeModel *q_tree_model,
                                  gint          column,
+                                 gint          model_col,
                                  gint          role,
                                  GType         type)
 {
@@ -622,6 +632,7 @@ gtk_q_sort_filter_tree_model_set_column_type(GtkQSortFilterTreeModel *q_tree_mod
   *   }
   */
 
+  priv->column_model_col[column] = model_col;
   priv->column_headers[column] = type;
   priv->column_roles[column] = role;
 }
@@ -633,6 +644,7 @@ gtk_q_sort_filter_tree_model_finalize(GObject *object)
     GtkQSortFilterTreeModel *q_tree_model = GTK_Q_SORT_FILTER_TREE_MODEL (object);
     GtkQSortFilterTreeModelPrivate *priv = q_tree_model->priv;
 
+    g_free(priv->column_model_col);
     g_free(priv->column_headers);
     g_free(priv->column_roles);
 
@@ -827,7 +839,9 @@ gtk_q_sort_filter_tree_model_get_value(GtkTreeModel *tree_model,
 
     /* get the data */
     QIter *qiter = Q_ITER(iter);
-    QModelIndex idx_access = priv->access_model->indexFromId(qiter->row.value, qiter->column.value, qiter->id);
+    int model_col = priv->column_model_col[column];
+
+    QModelIndex idx_access = priv->access_model->indexFromId(qiter->row.value, model_col, qiter->id);
     QModelIndex idx_original = priv->access_model->mapToSource(idx_access);
     QModelIndex idx_given = priv->given_model->mapFromSource(idx_original);
     int role = priv->column_roles[column];

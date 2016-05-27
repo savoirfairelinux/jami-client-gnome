@@ -427,7 +427,7 @@ account_view_init(AccountView *view)
     GtkQSortFilterTreeModel *protocol_model = gtk_q_sort_filter_tree_model_new(
                                                 (QSortFilterProxyModel *)priv->active_protocols,
                                                 1,
-                                                Qt::DisplayRole, G_TYPE_STRING);
+                                                0, Qt::DisplayRole, G_TYPE_STRING);
 
     gtk_combo_box_set_model(GTK_COMBO_BOX(priv->combobox_account_type), GTK_TREE_MODEL(protocol_model));
 

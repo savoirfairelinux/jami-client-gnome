@@ -164,10 +164,10 @@ build_tab_view(AccountAudioTab *view)
     codec_model = gtk_q_sort_filter_tree_model_new(
         priv->account->codecModel()->audioCodecs(),
         4,
-        Qt::CheckStateRole, G_TYPE_BOOLEAN,
-        CodecModel::Role::NAME, G_TYPE_STRING,
-        CodecModel::Role::BITRATE, G_TYPE_STRING,
-        CodecModel::Role::SAMPLERATE, G_TYPE_STRING);
+        0, Qt::CheckStateRole, G_TYPE_BOOLEAN,
+        0, CodecModel::Role::NAME, G_TYPE_STRING,
+        0, CodecModel::Role::BITRATE, G_TYPE_STRING,
+        0, CodecModel::Role::SAMPLERATE, G_TYPE_STRING);
     gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_codecs), GTK_TREE_MODEL(codec_model));
 
     renderer = gtk_cell_renderer_toggle_new();
