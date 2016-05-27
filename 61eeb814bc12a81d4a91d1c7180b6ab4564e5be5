@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba65a107_ce26c368",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-27T19:01:59Z",
+      "side": 1,
+      "message": "could you just add this after this line:\ngtk_tree_view_column_set_expand(column, TRUE);\n\notherwise, by default the last colulmn gets expanded, and it looks a bit weird, esp when the hostname is short, the port colun ends up being wider, see the doc here:\nhttps://developer.gnome.org/gtk3/stable/GtkTreeViewColumn.html#gtk-tree-view-column-set-expand",
+      "range": {
+        "startLine": 415,
+        "startChar": 8,
+        "endLine": 415,
+        "endChar": 100
+      },
+      "revId": "61eeb814bc12a81d4a91d1c7180b6ab4564e5be5",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba65a107_ee2b872e",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-05-27T19:01:59Z",
+      "side": 1,
+      "message": "same as above, add this after this line:\ngtk_tree_view_column_set_expand(column, TRUE);",
+      "range": {
+        "startLine": 422,
+        "startChar": 8,
+        "endLine": 422,
+        "endChar": 96
+      },
+      "revId": "61eeb814bc12a81d4a91d1c7180b6ab4564e5be5",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
