@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a6a9dd7_575eecea",
+        "filename": "ui/ringmainwindow.ui",
+        "patchSetId": 25
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 0,
+      "message": "this comment and all the rest are deleted...",
+      "range": {
+        "startLine": 10,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 30
+      },
+      "revId": "4bb2954ece843bad05d783d92165478346b17067",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_975484cb",
+        "filename": "ui/ringmainwindow.ui",
+        "patchSetId": 25
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 0,
+      "message": "why is this deleted?",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 61
+      },
+      "revId": "4bb2954ece843bad05d783d92165478346b17067",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_f747001c",
+        "filename": "ui/ringmainwindow.ui",
+        "patchSetId": 25
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 0,
+      "message": "why is this deleted?",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 53
+      },
+      "revId": "4bb2954ece843bad05d783d92165478346b17067",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}

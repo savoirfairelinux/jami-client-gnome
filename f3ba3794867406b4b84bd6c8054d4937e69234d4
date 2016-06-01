@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a6a9dd7_57d02c53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 1,
+      "message": "profile",
+      "range": {
+        "startLine": 7,
+        "startChar": 41,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "f3ba3794867406b4b84bd6c8054d4937e69234d4",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_77d53042",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 1,
+      "message": "profile",
+      "range": {
+        "startLine": 9,
+        "startChar": 25,
+        "endLine": 9,
+        "endChar": 31
+      },
+      "revId": "f3ba3794867406b4b84bd6c8054d4937e69234d4",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_d7c3dc88",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 1,
+      "message": "FYI, its not necessary to add this in the declaration of the function, only in the implementation.",
+      "range": {
+        "startLine": 102,
+        "startChar": 25,
+        "endLine": 102,
+        "endChar": 38
+      },
+      "revId": "f3ba3794867406b4b84bd6c8054d4937e69234d4",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_5737ccb0",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 1,
+      "message": "1. mark for translation\n2. maybe change it to \"Select Avatar Image\" or \"Open Avatar Image\" to be consistent with the save dialog.",
+      "range": {
+        "startLine": 311,
+        "startChar": 47,
+        "endLine": 311,
+        "endChar": 58
+      },
+      "revId": "f3ba3794867406b4b84bd6c8054d4937e69234d4",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_175874f9",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 1,
+      "message": "gdk_cursor_new() is deprecated since gtk 3.16 and so this produces compilation warnings, they recommend to use gdk_cursor_new_for_display() instead:\nhttps://developer.gnome.org/gdk3/stable/gdk3-Cursors.html#gdk-cursor-new\n\nif this is a trivial change, could you make it now; if it is non trivial, then we will do it in another patch",
+      "range": {
+        "startLine": 545,
+        "startChar": 32,
+        "endLine": 545,
+        "endChar": 46
+      },
+      "revId": "f3ba3794867406b4b84bd6c8054d4937e69234d4",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_375d78ea",
+        "filename": "src/avatarmanipulation.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 550,
+        "startChar": 32,
+        "endLine": 550,
+        "endChar": 46
+      },
+      "revId": "f3ba3794867406b4b84bd6c8054d4937e69234d4",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_b75188da",
+        "filename": "ui/ringmainwindow.ui",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 1,
+      "message": "so... quickly looking at the changes, I only see about 15 lines of modifications (I have commented those lines below)... the rest of the changes just move properties around, or add the \"\u003cproperty name\u003d\"can_focus\"\u003eFalse\u003c/property\u003e\" line (I don\u0027t know why glade does this, it seems completely unnecessary... I have no idea what effect it has). Additionally, all of the xml comments are deleted as well.\n\nI suggest you manually add the changes that are necessary to the original file, otherwise glade forces lots of line chagnes which are useless and make it hard to read the patch. Additionally I\u0027ve also noticed some introduced bugs, eg: I can\u0027t click on and type in the search entry.",
+      "revId": "f3ba3794867406b4b84bd6c8054d4937e69234d4",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_1741540b",
+        "filename": "ui/ringmainwindow.ui",
+        "patchSetId": 25
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 1,
+      "message": "this is a change",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 100
+      },
+      "revId": "f3ba3794867406b4b84bd6c8054d4937e69234d4",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_3746d824",
+        "filename": "ui/ringmainwindow.ui",
+        "patchSetId": 25
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 1,
+      "message": "this is a change",
+      "range": {
+        "startLine": 359,
+        "startChar": 9,
+        "endLine": 374,
+        "endChar": 20
+      },
+      "revId": "f3ba3794867406b4b84bd6c8054d4937e69234d4",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_d74afc26",
+        "filename": "ui/ringmainwindow.ui",
+        "patchSetId": 25
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-01T18:11:02Z",
+      "side": 1,
+      "message": "this is a change",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 57
+      },
+      "revId": "f3ba3794867406b4b84bd6c8054d4937e69234d4",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
