@@ -122,8 +122,6 @@ struct _RingMainWindowPrivate
     QMetaObject::Connection hash_updated;
 
     /* allocd qmodels */
-    ActiveItemProxyModel *q_contact_model;
-    QSortFilterProxyModel *q_history_model;
     NumberCompletionModel *q_completion_model;
 
     /* fullscreen */
@@ -1050,10 +1048,6 @@ ring_main_window_finalize(GObject *object)
 {
     RingMainWindow *self = RING_MAIN_WINDOW(object);
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-
-    delete priv->q_contact_model;
-    delete priv->q_history_model;
-    delete priv->q_completion_model;
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->finalize(object);
 }
