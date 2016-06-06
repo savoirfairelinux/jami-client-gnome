@@ -118,13 +118,12 @@ ring_frame_avatar(GdkPixbuf *avatar) {
     cairo_rectangle(cr, 0, 0, w_surface, h_surface);
     cairo_fill(cr);
 
-    gdk_cairo_set_source_pixbuf(cr, avatar, offset, offset);
-
     double aspect = (double)w/(double)h;
     double corner_radius = 5;
     double radius = corner_radius/aspect;
     double degrees = M_PI / 180.0;
 
+    // create the square path with ronded corners
     cairo_new_sub_path (cr);
     cairo_arc (cr, offset + w - radius, offset + radius, radius, -90 * degrees, 0 * degrees);
     cairo_arc (cr, offset + w - radius, offset + h - radius, radius, 0 * degrees, 90 * degrees);
@@ -132,8 +131,17 @@ ring_frame_avatar(GdkPixbuf *avatar) {
     cairo_arc (cr, offset + radius, offset + radius, radius, 180 * degrees, 270 * degrees);
     cairo_close_path (cr);
 
+    // in case the image has alpha, we want to first set the background of the part inside the
+    // blue frame to black; otherwise the resulting image will show whatever is in the background,
+    // which can be weird in certain cases (eg: the image displayed over a video)
+    cairo_set_source_rgba(cr, 0, 0, 0, 1);
     cairo_fill_preserve(cr);
 
+    // now draw the image over this black square
+    gdk_cairo_set_source_pixbuf(cr, avatar, offset, offset);
+    cairo_fill_preserve(cr);
+
+    // now draw the blue frame
     cairo_set_source_rgba (cr, 58.0/256.0, 191/256.0, 210/256.0, 1.0);
     cairo_set_line_width (cr, 2.0);
     cairo_stroke (cr);
