@@ -337,12 +337,12 @@ ENDIF(GETTEXT_FOUND)
 # install and compile glib gsettings schema
 add_schema("cx.ring.RingGnome.gschema.xml" GSCHEMA_RING)
 
-ADD_EXECUTABLE(gnome-ring ${GLIB_RESOURCES_RING} ${GSCHEMA_RING} ${SRC_FILES})
+ADD_EXECUTABLE(ring-gnome ${GLIB_RESOURCES_RING} ${GSCHEMA_RING} ${SRC_FILES})
 
-ADD_DEPENDENCIES(gnome-ring libqrencode)
+ADD_DEPENDENCIES(ring-gnome libqrencode)
 
 IF(NOT ${ENABLE_STATIC} MATCHES false)
-TARGET_LINK_LIBRARIES(gnome-ring
+TARGET_LINK_LIBRARIES(ring-gnome
    ${LIB_RING_CLIENT_LIBRARY}
    ${GTK3_LIBRARIES}
    ${Qt5Core_LIBRARIES}
@@ -356,7 +356,7 @@ TARGET_LINK_LIBRARIES(gnome-ring
    -lqrencode
    )
 ELSE()
-TARGET_LINK_LIBRARIES(gnome-ring
+TARGET_LINK_LIBRARIES(ring-gnome
    ${LIB_RING_CLIENT_LIBRARY}
    ${GTK3_LIBRARIES}
    ${Qt5Core_LIBRARIES}
@@ -381,34 +381,34 @@ CONFIGURE_FILE (
    "${PROJECT_BINARY_DIR}/config.h"
 )
 
-INSTALL(TARGETS gnome-ring
+INSTALL(TARGETS ring-gnome
    RUNTIME DESTINATION bin
 )
 
 # install .desktop in XDG desktop dir so that it is recognized by the system
-INSTALL(FILES ${PROJECT_SOURCE_DIR}/gnome-ring.desktop
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/ring-gnome.desktop
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications
 )
 
-# install .desktop in the gnome-ring data dir, so that it can be copied to the
+# install .desktop in the ring-gnome data dir, so that it can be copied to the
 # autostart dir by the client
-INSTALL(FILES ${PROJECT_SOURCE_DIR}/gnome-ring.desktop.autostart
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/ring-gnome.desktop.autostart
    DESTINATION
-      ${CMAKE_INSTALL_PREFIX}/share/gnome-ring/
+      ${CMAKE_INSTALL_PREFIX}/share/ring-gnome/
    PERMISSIONS
       WORLD_READ
       OWNER_WRITE
       OWNER_READ
       GROUP_READ
    RENAME
-      gnome-ring.desktop
+      ring-gnome.desktop
 )
 
 INSTALL(FILES pixmaps/ring.svg
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps
 )
 
-INSTALL(FILES gnome-ring.appdata.xml
+INSTALL(FILES ring-gnome.appdata.xml
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/appdata/
 )
 
