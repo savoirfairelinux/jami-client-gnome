@@ -35,6 +35,7 @@
 
 /* system */
 #include <glib/gi18n.h>
+#include <cmath>
 
 /* size of avatar */
 static constexpr int AVATAR_WIDTH  = 100; /* px */
