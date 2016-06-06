@@ -19,6 +19,7 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+#include <QCoreApplication>
 #include "config.h"
 #include "ring_client.h"
 
@@ -29,6 +30,11 @@ main(int argc, char *argv[])
     bindtextdomain(PACKAGE_NAME, LOCALEDIR);
     bind_textdomain_codeset(PACKAGE_NAME, "UTF-8");
     textdomain(PACKAGE_NAME);
+
+    /* QCore application settings
+       We are intentionally not setting OrganizationName and OrganizationDomain,
+       which would lead to not-so-standard paths when using QStandardPaths */
+    QCoreApplication::setApplicationName("ring");
 
     RingClient *client = ring_client_new(argc, argv);
     return g_application_run(G_APPLICATION(client), argc, argv);
