@@ -89,6 +89,7 @@
                 <property name="valign">center</property>
                 <property name="image">image_camera_photo</property>
                 <property name="always_show_image">True</property>
+                <property name="tooltip-text" translatable="yes">Take photo</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -104,6 +105,7 @@
                 <property name="valign">center</property>
                 <property name="image">image_trash_symbolic</property>
                 <property name="always_show_image">True</property>
+                <property name="tooltip-text" translatable="yes">Delete current image</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -118,6 +120,7 @@
                 <property name="halign">center</property>
                 <property name="valign">center</property>
                 <property name="image">image_select_symbolic</property>
+                <property name="tooltip-text" translatable="yes">Set selection as image</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -133,6 +136,7 @@
                 <property name="halign">center</property>
                 <property name="valign">center</property>
                 <property name="image">image_add_symbolic</property>
+                <property name="tooltip-text" translatable="yes">Choose image from file</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -145,6 +149,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="image">image_save_symbolic</property>
+                <property name="tooltip-text" translatable="yes">Save image to file</property>
               </object>
               <packing>
                 <property name="expand">False</property>
