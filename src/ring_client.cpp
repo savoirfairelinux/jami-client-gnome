@@ -295,6 +295,11 @@ ring_client_startup(GApplication *app)
         exit(1); /* the g_error above should normally cause the applicaiton to exit */
     }
 
+    /* QCore application settings
+       We are intentionally not setting OrganizationName and OrganizationDomain,
+       which would lead to not-so-standard paths when using QStandardPaths */
+    QCoreApplication::setApplicationName("ring");
+
     /* load translations from LRC */
     priv->translator.reset(new QTranslator);
     if (priv->translator->load(QLocale::system(), "lrc", "_", RING_CLIENT_INSTALL "/share/libringclient/translations")) {

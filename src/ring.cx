@@ -26,7 +26,7 @@ if type "ring-kde" > /dev/null 2> /dev/null; then
   HAS_KDE=1
 fi
 
-if type "gnome-ring" > /dev/null 2> /dev/null; then
+if type "ring-gnome" > /dev/null 2> /dev/null; then
   HAS_GNOME=1
 fi
 
@@ -41,14 +41,14 @@ if [ $HAS_KDE == "1" ] && [ $HAS_GNOME == "0" ]; then
   ring-kde $*
   exit $?
 elif [ $HAS_KDE == "0" ] && [ $HAS_GNOME == "1" ]; then
-  gnome-ring $*
+  ring-gnome $*
   exit $?
 fi
 
 # Both clients installed: run KDE client if KDE wm is running
 # else use the Gnome client.
 if [ -z "$(ps aux | grep kwin | grep -v grep)" ]; then
-  gnome-ring $*
+  ring-gnome $*
   exit $?
 else
   ring-kde $*
