@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a6a9dd7_3dec77c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-06T20:52:30Z",
+      "side": 1,
+      "message": "since the binary name is gnome-ring, currently, things like profiles, history, etc usually gets saved to .local/share/gnome-ring/\n\nwe should probably stay consistent with that for now, unless we decide that everything should be under \u0027ring\u0027, but that would mean possibly migrating all local data of the current users...",
+      "range": {
+        "startLine": 15,
+        "startChar": 29,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "cf13529cf2a00f12936f5f26e2999ab4c8f71210",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
