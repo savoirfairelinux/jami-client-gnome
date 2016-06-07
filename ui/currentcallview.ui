@@ -183,6 +183,28 @@
       </packing>
     </child>
     <child>
+      <object class="GtkButton" id="button_launchSmartInfo">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="width-request">42</property>
+        <property name="height-request">42</property>
+        <property name="action-name">app.launchSmartInfo</property>
+        <property name="has_tooltip">True</property>
+        <property name="tooltip-text" translatable="yes">End this call</property>
+        <property name="image">image_end</property>
+        <child internal-child="accessible">
+          <object class="AtkObject" id="button_launchSmartInfo-atkobject">
+            <property name="AtkObject::accessible-name" translatable="yes">End call</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <child>
       <object class="GtkToggleButton" id="togglebutton_hold">
         <property name="visible">True</property>
         <property name="can_focus">True</property>

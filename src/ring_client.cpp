@@ -152,6 +152,7 @@ static const GActionEntry ring_actions[] =
 {
     { "accept", NULL,         NULL, NULL,    NULL, {0} },
     { "hangup", NULL,         NULL, NULL,    NULL, {0} },
+    { "launchSmartInfo", NULL,         NULL, NULL,    NULL, {0} },
     { "hold",   NULL,         NULL, "false", NULL, {0} },
     { "quit",   action_quit,  NULL, NULL,    NULL, {0} },
     { "about",  action_about, NULL, NULL,    NULL, {0} },
@@ -351,7 +352,7 @@ ring_client_startup(GApplication *app)
     // actionHash[ (int)UserActionModel::Action::SERVER_TRANSFER ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "transfer"));
     actionHash[ (int)UserActionModel::Action::RECORD          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "record"));
     actionHash[ (int)UserActionModel::Action::HANGUP          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "hangup"));
-
+    actionHash[ (int)UserActionModel::Action::LAUNCHSMARTINFO ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "launchSmartInfo"));
     for (QHash<int,GSimpleAction*>::const_iterator i = actionHash.begin(); i != actionHash.end(); ++i) {
        GSimpleAction* sa = i.value();
        int_ptr_t user_data;

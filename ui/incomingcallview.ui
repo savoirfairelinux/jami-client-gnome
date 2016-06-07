@@ -176,6 +176,36 @@
           </packing>
         </child>
         <!-- end end button -->
+        <!-- reject button -->
+        <child>
+          <object class="GtkButton" id="button_reject_incoming">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="label" translatable="yes">   Reject</property>
+            <property name="image">image_reject</property>
+            <property name="action-name">app.launchSmartInfo</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <!-- end reject button -->
+        <!-- end button -->
+        <child>
+          <object class="GtkButton" id="button_end_call">
+            <property name="visible">False</property>
+            <property name="can_focus">True</property>
+            <property name="label" translatable="yes">   Hang-up</property>
+            <property name="image">image_hangup</property>
+            <property name="action-name">app.hangup</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <!-- end end button -->
       </object>
     </child>
     <!-- end hbox action bar -->
@@ -185,6 +215,10 @@
     <property name="resource">/cx/ring/RingGnome/accept</property>
   </object>
   <object class="GtkImage" id="image_reject">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/reject</property>
+  </object>
+  <object class="GtkImage" id="image_hangup">
     <property name="visible">True</property>
     <property name="resource">/cx/ring/RingGnome/reject</property>
   </object>

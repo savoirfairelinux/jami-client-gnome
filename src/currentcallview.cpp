@@ -73,6 +73,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *frame_chat;
     GtkWidget *togglebutton_chat;
     GtkWidget *button_hangup;
+    GtkWidget *button_launchSmartInfo;
     GtkWidget *scalebutton_quality;
     GtkWidget *checkbutton_autoquality;
 
@@ -487,6 +488,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_launchSmartInfo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scalebutton_quality);
 
     current_call_view_signals[VIDEO_DOUBLE_CLICKED] = g_signal_new (
