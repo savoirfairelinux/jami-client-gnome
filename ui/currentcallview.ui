@@ -110,6 +110,45 @@
     </child>
     <!-- end of box which contains peer name and uri -->
 
+    <!-- smartInfo -->
+    <child>
+      <object class="GtkBox" id="hbox_call_smartInfo">
+        <property name="visible">True</property>
+        <property name="spacing">5</property>
+        <property name="valign">start</property>
+        <property name="orientation">vertical</property>
+        <child>
+
+        <object class="GtkButton" id="smartInfo">
+          <property name="visible">True</property>
+          <property name="can_focus">True</property>
+          <property name="receives_default">True</property>
+          <property name="width-request">42</property>
+          <property name="height-request">42</property>
+          <property name="action-name">app.hangup</property>
+          <property name="has_tooltip">True</property>
+          <property name="tooltip-text" translatable="yes">test</property>
+          <property name="image">image_end</property>
+          <child internal-child="accessible">
+            <object class="AtkObject" id="information ici-atkobject">
+              <property name="AtkObject::accessible-name" translatable="yes">End call</property>
+            </object>
+          </child>
+        </object>
+        <packing>
+          <property name="expand">False</property>
+          <property name="fill">True</property>
+        </packing>
+      </child>
+
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <!-- end of box smartInfo -->
+
     <!-- call status box -->
     <child>
       <object class="GtkBox" id="hbox_call_status">
@@ -183,6 +222,9 @@
       </packing>
     </child>
     <child>
+
+
+
       <object class="GtkToggleButton" id="togglebutton_hold">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
