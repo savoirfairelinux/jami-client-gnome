@@ -183,6 +183,7 @@
       </packing>
     </child>
     <child>
+
       <object class="GtkToggleButton" id="togglebutton_hold">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
@@ -293,13 +294,33 @@
       </packing>
     </child>
     <child>
+    <object class="GtkToggleButton" id="button_smartInfo">
+      <property name="visible">True</property>
+      <property name="can_focus">True</property>
+      <property name="width-request">42</property>
+      <property name="height-request">42</property>
+      <property name="has_tooltip">True</property>
+      <property name="tooltip-text" translatable="yes">Toggle show chat</property>
+      <property name="image">image_chat</property>
+      <child internal-child="accessible">
+        <object class="AtkObject" id="button_smartInfo-atkobject">
+          <property name="AtkObject::accessible-name" translatable="yes">Chat</property>
+        </object>
+      </child>
+    </object>
+    <packing>
+      <property name="expand">False</property>
+      <property name="fill">True</property>
+    </packing>
+  </child>
+  <child>
       <object class="GtkToggleButton" id="togglebutton_chat">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="width-request">42</property>
         <property name="height-request">42</property>
         <property name="has_tooltip">True</property>
-        <property name="tooltip-text" translatable="yes">Toggle show chat</property>
+        <property name="tooltip-text" translatable="yes">test</property>
         <property name="image">image_chat</property>
         <child internal-child="accessible">
           <object class="AtkObject" id="togglebutton_chat-atkobject">
