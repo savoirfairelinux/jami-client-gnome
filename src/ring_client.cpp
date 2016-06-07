@@ -155,14 +155,16 @@ action_about(G_GNUC_UNUSED GSimpleAction *simple,
 
 static const GActionEntry ring_actions[] =
 {
-    { "accept", NULL,         NULL, NULL,    NULL, {0} },
-    { "hangup", NULL,         NULL, NULL,    NULL, {0} },
-    { "hold",   NULL,         NULL, "false", NULL, {0} },
-    { "quit",   action_quit,  NULL, NULL,    NULL, {0} },
-    { "about",  action_about, NULL, NULL,    NULL, {0} },
-    { "mute_audio", NULL,     NULL, "false", NULL, {0} },
-    { "mute_video", NULL,     NULL, "false", NULL, {0} },
-    { "record",     NULL,     NULL, "false", NULL, {0} },
+    { "smartInfo",  NULL,         NULL,     NULL,    NULL, {0} },
+    { "accept",     NULL,         NULL,     NULL,    NULL, {0} },
+    { "hangup",     NULL,         NULL,     NULL,    NULL, {0} },
+    { "hold",       NULL,         NULL,     "false", NULL, {0} },
+    { "quit",       action_quit,  NULL,     NULL,    NULL, {0} },
+    { "about",      action_about, NULL,     NULL,    NULL, {0} },
+    { "mute_audio", NULL,         NULL,     "false", NULL, {0} },
+    { "mute_video", NULL,         NULL,     "false", NULL, {0} },
+    { "record",     NULL,         NULL,     "false", NULL, {0} },
+
     /* TODO implement the other actions */
     // { "transfer",   NULL,        NULL, "flase", NULL, {0} },
 };
@@ -350,6 +352,7 @@ ring_client_startup(GApplication *app)
     /* Bind GActions to the UserActionModel */
     UserActionModel* uam = CallModel::instance().userActionModel();
     QHash<int, GSimpleAction*> actionHash;
+    //actionHash[ (int)UserActionModel::Action::SMARTINFO      ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "smartInfo"));
     actionHash[ (int)UserActionModel::Action::ACCEPT          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "accept"));
     actionHash[ (int)UserActionModel::Action::HOLD            ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "hold"));
     actionHash[ (int)UserActionModel::Action::MUTE_AUDIO      ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "mute_audio"));

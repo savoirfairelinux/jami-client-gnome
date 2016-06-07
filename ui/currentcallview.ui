@@ -183,6 +183,30 @@
       </packing>
     </child>
     <child>
+    
+    <object class="GtkButton" id="smartInfo">
+      <property name="visible">True</property>
+      <property name="can_focus">True</property>
+      <property name="receives_default">True</property>
+      <property name="width-request">46</property>
+      <property name="height-request">42</property>
+      <property name="action-name">app.hold</property>
+      <property name="has_tooltip">True</property>
+      <property name="tooltip-text" translatable="yes">Advance information</property>
+      <property name="image">image_pause</property>
+      <child internal-child="accessible">
+        <object class="AtkObject" id="smartInfo-atkobject">
+          <property name="AtkObject::accessible-name" translatable="yes">Hold</property>
+        </object>
+      </child>
+    </object>
+    <packing>
+      <property name="expand">False</property>
+      <property name="fill">True</property>
+    </packing>
+  </child>
+  <child>
+
       <object class="GtkToggleButton" id="togglebutton_hold">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
