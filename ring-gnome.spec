@@ -91,13 +91,13 @@ fi
 
 %files
 %defattr(-,root,root,-)
-%{_bindir}/gnome-ring
+%{_bindir}/ring-gnome
 %{_bindir}/ring.cx
 %{_datadir}/glib-2.0/schemas/cx.ring.RingGnome.gschema.xml
-%{_datadir}/applications/gnome-ring.desktop
-%{_datadir}/gnome-ring/gnome-ring.desktop
+%{_datadir}/applications/ring-gnome.desktop
+%{_datadir}/ring-gnome/ring-gnome.desktop
 %{_datadir}/icons/hicolor/scalable/apps/ring.svg
-%{_datadir}/appdata/gnome-ring.appdata.xml
+%{_datadir}/appdata/ring-gnome.appdata.xml
 %{_datadir}/libringclient/*
 %{_datadir}/locale/*
 
