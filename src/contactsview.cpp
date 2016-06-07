@@ -477,7 +477,7 @@ contacts_view_init(ContactsView *self)
     GtkQSortFilterTreeModel *contact_model = gtk_q_sort_filter_tree_model_new(
         priv->q_sorted_proxy->model(),
         1,
-        Qt::DisplayRole, G_TYPE_STRING);
+        0, Qt::DisplayRole, G_TYPE_STRING);
     gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(contact_model));
 
     /* photo and name/contact method column */

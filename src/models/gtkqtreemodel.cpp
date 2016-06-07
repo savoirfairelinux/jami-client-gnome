@@ -245,7 +245,7 @@ insert_children(const QModelIndex &idx, GtkQTreeModel *gtk_model)
  * gtk_q_tree_model_new:
  * @model: QAbstractItemModel to which this model will bind.
  * @n_columns: number of columns in the list store
- * @...: model #Column, #GType and #Role each column.
+ * @...: model #Column, #GType and #Role for each column.
  *
  * Return value: a new #GtkQTreeModel
  */
@@ -274,7 +274,7 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
         /* first get the model column */
         gint model_col = va_arg(args, gint);
 
-        /* first get the role of the QModel */
+        /* then get the role of the QModel */
         gint role = va_arg(args, gint);
 
         /* then get the type the role will be interpreted as */

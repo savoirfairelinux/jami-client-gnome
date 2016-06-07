@@ -23,6 +23,12 @@
 #include <glib/gi18n.h>
 #include <categorizedhistorymodel.h>
 #include "utils/files.h"
+#include "avatarmanipulation.h"
+
+/* lrc */
+#include <person.h>
+#include <profile.h>
+#include <profilemodel.h>
 
 struct _GeneralSettingsView
 {
@@ -46,6 +52,9 @@ struct _GeneralSettingsViewPrivate
     GtkWidget *checkbutton_bringtofront;
     GtkWidget *radiobutton_chatright;
     GtkWidget *radiobutton_chatbottom;
+    GtkWidget *box_profil_settings;
+    GtkWidget *avatarmanipulation;
+    GtkWidget *profile_name;
 
     /* history settings */
     GtkWidget *adjustment_history_duration;
@@ -62,6 +71,9 @@ general_settings_view_dispose(GObject *object)
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(object);
 
     g_clear_object(&priv->settings);
+
+    //make sure the VideoWidget is destroyed
+    general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(object), FALSE);
 
     G_OBJECT_CLASS(general_settings_view_parent_class)->dispose(object);
 }
@@ -165,6 +177,7 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, radiobutton_chatbottom);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_history_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_clear_history);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, box_profil_settings);
 }
 
 GtkWidget *
@@ -173,4 +186,49 @@ general_settings_view_new()
     gpointer view = g_object_new(GENERAL_SETTINGS_VIEW_TYPE, NULL);
 
     return (GtkWidget *)view;
+}
+
+static void
+change_profile_name(GtkEntry *entry)
+{
+    auto profile = ProfileModel::instance().selectedProfile();
+    profile->person()->setFormattedName(gtk_entry_get_text(entry));
+    profile->save();
+}
+
+void
+general_settings_view_show_profile(GeneralSettingsView *self, gboolean show_profile)
+{
+    g_return_if_fail(GENERAL_SETTINGS_VIEW(self));
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+
+    /* We will construct and destroy the profile (AvatarManipulation widget) each time the profile
+     * should be visible and hidden, respectively. It is not the "prettiest" way of doing things,
+     * but this way we ensure 1. that the profile is updated correctly when it is shown and 2. that
+     * the VideoWidget inside is destroyed when it is not being shown.
+     */
+    if (show_profile) {
+        /* avatar manipulation widget */
+        priv->avatarmanipulation = avatar_manipulation_new();
+        gtk_box_pack_start(GTK_BOX(priv->box_profil_settings), priv->avatarmanipulation, true, true, 0);
+        gtk_widget_set_visible(priv->avatarmanipulation, true);
+
+        /* print the profile name. as long as we have only one profil, profil name = person name (a.k.a formatedName) */
+        priv->profile_name = gtk_entry_new();
+        gtk_entry_set_text (GTK_ENTRY(priv->profile_name),
+                            ProfileModel::instance().selectedProfile()->person()->formattedName().toUtf8().constData());
+        gtk_widget_set_visible(priv->profile_name, true);
+        gtk_entry_set_alignment(GTK_ENTRY(priv->profile_name), 0.5);
+        gtk_box_pack_start(GTK_BOX(priv->box_profil_settings), priv->profile_name, true, true, 0);
+        g_signal_connect(priv->profile_name, "changed", G_CALLBACK(change_profile_name), NULL);
+    } else {
+        if (priv->avatarmanipulation) {
+            gtk_container_remove(GTK_CONTAINER(priv->box_profil_settings), priv->avatarmanipulation);
+            priv->avatarmanipulation = nullptr;
+        }
+        if (priv->profile_name) {
+            gtk_container_remove(GTK_CONTAINER(priv->box_profil_settings), priv->profile_name);
+            priv->profile_name = nullptr;
+        }
+    }
 }

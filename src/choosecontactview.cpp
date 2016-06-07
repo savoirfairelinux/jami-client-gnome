@@ -134,7 +134,7 @@ choose_contact_view_init(ChooseContactView *self)
     auto contacts_model = gtk_q_sort_filter_tree_model_new(
         priv->sorted_contacts,
         1,
-        Qt::DisplayRole, G_TYPE_STRING);
+        0, Qt::DisplayRole, G_TYPE_STRING);
     gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_choose_contact), GTK_TREE_MODEL(contacts_model));
     g_object_unref(contacts_model); /* the model should be freed when the view is destroyed */
 

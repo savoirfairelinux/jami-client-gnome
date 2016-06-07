@@ -150,7 +150,7 @@ gtk_combo_box_set_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
         model = (GtkTreeModel *)gtk_q_sort_filter_tree_model_new(
             proxy_qmodel,
             1,
-            Qt::DisplayRole, G_TYPE_STRING);
+            0, Qt::DisplayRole, G_TYPE_STRING);
     } else {
         model = (GtkTreeModel *)gtk_q_tree_model_new(
             qmodel,

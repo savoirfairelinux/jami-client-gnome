@@ -743,7 +743,7 @@ recent_contacts_view_init(RecentContactsView *self)
     GtkQSortFilterTreeModel *recent_model = gtk_q_sort_filter_tree_model_new(
         RecentModel::instance().peopleProxy(),
         1,
-        Qt::DisplayRole, G_TYPE_STRING);
+        0, Qt::DisplayRole, G_TYPE_STRING);
 
     gtk_tree_view_set_model(GTK_TREE_VIEW(self),
                             GTK_TREE_MODEL(recent_model));

@@ -40,8 +40,10 @@
 #include "utils/files.h"
 #include <clutter-gtk/clutter-gtk.h>
 #include "chatview.h"
+#include "smartInfoview.h"
 #include <itemdataroles.h>
 #include <numbercategory.h>
+#include <iostream>
 
 static constexpr int CONTROLS_FADE_TIMEOUT = 3000000; /* microseconds */
 static constexpr int FADE_DURATION = 500; /* miliseconds */
@@ -62,6 +64,7 @@ struct _CurrentCallViewPrivate
 {
     GtkWidget *hbox_call_info;
     GtkWidget *hbox_call_controls;
+    GtkWidget *box_smartInfo;
     GtkWidget *image_peer;
     GtkWidget *label_name;
     GtkWidget *label_uri;
@@ -75,7 +78,8 @@ struct _CurrentCallViewPrivate
     GtkWidget *button_hangup;
     GtkWidget *scalebutton_quality;
     GtkWidget *checkbutton_autoquality;
-
+    GtkWidget *frame_smartInfo;
+    GtkWidget *button_smartInfo;
     /* flag used to keep track of the video quality scale pressed state;
      * we do not want to update the codec bitrate until the user releases the
      * scale button */
@@ -143,13 +147,21 @@ chat_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-
     if (gtk_toggle_button_get_active(togglebutton)) {
         gtk_widget_show_all(priv->frame_chat);
         gtk_widget_grab_focus(priv->frame_chat);
     } else {
         gtk_widget_hide(priv->frame_chat);
     }
+}
+
+static void
+smartInfo_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    gtk_widget_show_all(priv->frame_smartInfo);
+    gtk_widget_grab_focus(priv->frame_smartInfo);
 }
 
 gboolean
@@ -443,6 +455,7 @@ current_call_view_init(CurrentCallView *view)
 
     /* toggle whether or not the chat is displayed */
     g_signal_connect(priv->togglebutton_chat, "toggled", G_CALLBACK(chat_toggled), view);
+    g_signal_connect(priv->button_smartInfo, "toggled", G_CALLBACK(smartInfo_toggled), view);
 
     /* bind the chat orientation to the gsetting */
     priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
@@ -468,6 +481,32 @@ current_call_view_init(CurrentCallView *view)
 }
 
 static void
+current_smartInfo_view_init(CurrentCallView *view)
+{
+    gtk_widget_init_template(GTK_WIDGET(view));
+
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    /* create video widget and overlay the call info and controls on it */
+    priv->video_widget = video_widget_new();
+    gtk_container_add(GTK_CONTAINER(priv->frame_video), priv->video_widget);
+    gtk_widget_show_all(priv->frame_video);
+
+    auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
+    auto actor_info = gtk_clutter_actor_new_with_contents(priv->hbox_call_info);
+    auto actor_controls = gtk_clutter_actor_new_with_contents(priv->box_smartInfo);
+
+    clutter_actor_add_child(stage, actor_info);
+    clutter_actor_set_x_align(actor_info, CLUTTER_ACTOR_ALIGN_FILL);
+    clutter_actor_set_y_align(actor_info, CLUTTER_ACTOR_ALIGN_START);
+
+    clutter_actor_add_child(stage, actor_controls);
+    clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
+    clutter_actor_set_y_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
+
+
+}
+static void
 current_call_view_class_init(CurrentCallViewClass *klass)
 {
     G_OBJECT_CLASS(klass)->dispose = current_call_view_dispose;
@@ -477,6 +516,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_controls);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, box_smartInfo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, image_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_name);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_uri);
@@ -488,7 +528,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scalebutton_quality);
-
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_smartInfo);
     current_call_view_signals[VIDEO_DOUBLE_CLICKED] = g_signal_new (
         "video-double-clicked",
         G_TYPE_FROM_CLASS(klass),
@@ -644,6 +684,15 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
             //       different for each codec, so there is no reason to check it here
         }
     }
+
+    /* init smartInfo view */
+<<<<<<< HEAD
+    /*auto smartInfo_view = smartInfo_view_new_call(priv->call);
+    gtk_container_add(GTK_CONTAINER(priv->frame_smartInfo), smartInfo_view);*/
+=======
+    auto smartInfo_view = smartInfo_view_new_call(priv->call);
+    gtk_container_add(GTK_CONTAINER(priv->frame_smartInfo), smartInfo_view);
+>>>>>>> 4ab7d13... [not working]: lost with my class smartinfoview
 
     /* init chat view */
     auto chat_view = chat_view_new_call(priv->call);
