@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a6a9dd7_5d312b0a",
+        "filename": "src/main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-07T18:48:19Z",
+      "side": 1,
+      "message": "The QStandardPaths works though, so, I think this is not true... maybe change the comment to say that by default we will look in ~/.local/share/ring, unless there is something ring-gnome specific?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 77
+      },
+      "revId": "da7cdcba95818a794632f1c07212735e88623a65",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a6a9dd7_5d4a8b84",
         "filename": "src/main.cpp",
         "patchSetId": 5
@@ -42,6 +65,29 @@
         "startChar": 42,
         "endLine": 37,
         "endChar": 46
+      },
+      "revId": "da7cdcba95818a794632f1c07212735e88623a65",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_7d366f05",
+        "filename": "src/main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-07T18:48:19Z",
+      "side": 1,
+      "message": "I think this should be move to \"ring_client.cpp\" as all the other settings and intializations related to Qt are done there..",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 49
       },
       "revId": "da7cdcba95818a794632f1c07212735e88623a65",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
