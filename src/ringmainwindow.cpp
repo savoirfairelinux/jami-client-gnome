@@ -134,6 +134,8 @@ struct _RingMainWindowPrivate
 
     /* fullscreen */
     gboolean is_fullscreen;
+
+    GtkWidget* avatar_manipulation;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -584,6 +586,12 @@ account_creation_next_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *w
     gtk_widget_show(priv->label_generating_account);
     gtk_widget_show(priv->spinner_generating_account);
 
+    /* make sure the AvatarManipulation widget is destroyed so the VideoWidget inside of it is too;
+     * NOTE: destorying its parent (box_avatarselection) first will cause a mystery 'BadDrawable'
+     * crash due to X error */
+    gtk_container_remove(GTK_CONTAINER(priv->box_avatarselection), priv->avatar_manipulation);
+    priv->avatar_manipulation = nullptr;
+
     /* now create account after a short timeout so that the the save doesn't
      * happen freeze the client before the widget changes happen;
      * the timeout function should then display the next step in account creation
@@ -636,7 +644,8 @@ show_account_creation(RingMainWindow *win)
         gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), user_name);
 
     /* avatar manipulation widget */
-    gtk_box_pack_start(GTK_BOX(priv->box_avatarselection), avatar_manipulation_new_from_wizard(), true, true, 0);
+    priv->avatar_manipulation = avatar_manipulation_new_from_wizard();
+    gtk_box_pack_start(GTK_BOX(priv->box_avatarselection), priv->avatar_manipulation, true, true, 0);
 
     /* connect signals */
     g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(alias_entry_changed), win);
