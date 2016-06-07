@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a6a9dd7_dd0bfb29",
+        "filename": "src/main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-06-07T19:04:00Z",
+      "side": 1,
+      "message": "ah, gotcha",
+      "parentUuid": "9a6a9dd7_7d1d0f73",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 77
+      },
+      "revId": "da7cdcba95818a794632f1c07212735e88623a65",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a6a9dd7_5d4a8b84",
         "filename": "src/main.cpp",
         "patchSetId": 5
