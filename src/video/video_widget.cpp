@@ -33,6 +33,11 @@
 #include <mutex>
 #include <call.h>
 #include "xrectsel.h"
+#include <smartInfoHub.h>
+
+#include <iostream>
+#include <categorizedhistorymodel.h>
+
 
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
@@ -469,6 +474,15 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
     gtk_widget_destroy(dialog);
     g_free(uri);
 }
+/*
+ * Pull technical informations from daemon
+ */
+static void
+display_technical_information()
+{
+      std::cout << "Hello world!" << std::endl;
+      SmartInfoHub::smartInfo();
+}
 
 /*
  * video_widget_on_button_press_in_screen_event()
@@ -506,14 +520,14 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
         g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
     }
 
-    /* add separator */
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
-
     /* add screen area as an input */
     GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(_("Share screen area"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen), call);
+
+    /* add separator */
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
     /* add file as an input */
     item = gtk_check_menu_item_new_with_mnemonic(_("Share file"));
@@ -522,12 +536,21 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
     g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), parent);
 
+    /* add separator */
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+
+    /* call smartInfo */
+    item = gtk_check_menu_item_new_with_mnemonic(_("Advance information"));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    g_signal_connect(item, "activate", G_CALLBACK(display_technical_information), NULL);
+
     /* show menu */
     gtk_widget_show_all(menu);
     gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 
     return TRUE; /* event has been fully handled */
 }
+
 
 static void
 clutter_render_image(VideoWidgetRenderer* wg_renderer)
