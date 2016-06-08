@@ -25,6 +25,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QString>
 #include <QtCore/QByteArray>
+#include <QtCore/QDir>
 #include <callmodel.h>
 #include <QtCore/QItemSelectionModel>
 #include <useractionmodel.h>
@@ -259,6 +260,40 @@ ring_client_activate(GApplication *app)
 }
 
 static void
+migrate_data_location()
+{
+    //Check for existence of the current data location
+    QString data_location_path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    QDir data_location = QDir(data_location_path);
+    if (data_location.exists())
+    {
+        return;
+    }
+
+    //Check for the existence of the old data location
+    QString current_app_name = QCoreApplication::applicationName();
+    QCoreApplication::setApplicationName("gnome-ring");
+    QString old_data_location_path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    QDir old_data_location = QDir(old_data_location_path);
+    QCoreApplication::setApplicationName(current_app_name);
+    if (old_data_location.exists() == false)
+    {
+        return;
+    }
+
+    //Migrate from the old data location to the new one
+    QDir moved_dir;
+    bool rename_success = moved_dir.rename(old_data_location_path, data_location_path);
+    if (rename_success == false)
+    {
+        g_message("Could not rename data location directory from %s to %s",
+                  old_data_location_path.toStdString().c_str(),
+                  data_location_path.toStdString().c_str()
+        );
+    }
+}
+
+static void
 ring_client_startup(GApplication *app)
 {
     RingClient *client = RING_CLIENT(app);
@@ -325,6 +360,9 @@ ring_client_startup(GApplication *app)
      */
     NumberCategoryModel::instance().addCategory("work", QVariant());
     NumberCategoryModel::instance().addCategory("home", QVariant());
+
+    /* migrate application files if needed. This should be removed one day... */
+    migrate_data_location();
 
     /* add backends */
     CategorizedHistoryModel::instance().addCollection<LocalHistoryCollection>(LoadOptions::FORCE_ENABLED);
