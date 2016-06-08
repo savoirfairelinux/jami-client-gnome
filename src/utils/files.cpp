@@ -29,13 +29,13 @@
 void
 autostart_symlink(gboolean autostart)
 {
-    /* autostart is enabled by creating a symlink to ring-gnome.desktop in
+    /* autostart is enabled by creating a symlink to gnome-ring.desktop in
      * $XDG_CONFIG_HOME/autostart (by default ~/.config/autostart)
      * and removing it to disable autostart
      */
 
     GError *error = NULL;
-    gchar *autostart_path = g_strconcat(g_get_user_config_dir(), "/autostart/ring-gnome.desktop", NULL);
+    gchar *autostart_path = g_strconcat(g_get_user_config_dir(), "/autostart/gnome-ring.desktop", NULL);
 
     if (autostart) {
         g_debug("enabling autostart");
@@ -53,9 +53,9 @@ autostart_symlink(gboolean autostart)
          */
         int num_paths = 3;
         gchar *desktop_paths[num_paths];
-        desktop_paths[0] = g_strconcat("/usr", RING_DATA_DIR, "/ring-gnome.desktop", NULL);
-        desktop_paths[1] = g_strconcat("/usr/local", RING_DATA_DIR, "/ring-gnome.desktop", NULL);
-        desktop_paths[2] = g_strconcat(RING_CLIENT_INSTALL, RING_DATA_DIR, "/ring-gnome.desktop", NULL);
+        desktop_paths[0] = g_strconcat("/usr", RING_DATA_DIR, "/gnome-ring.desktop", NULL);
+        desktop_paths[1] = g_strconcat("/usr/local", RING_DATA_DIR, "/gnome-ring.desktop", NULL);
+        desktop_paths[2] = g_strconcat(RING_CLIENT_INSTALL, RING_DATA_DIR, "/gnome-ring.desktop", NULL);
 
         for (int i = 0; i < num_paths && !desktop_path; ++i) {
             g_debug("checking %s", desktop_paths[i]);
