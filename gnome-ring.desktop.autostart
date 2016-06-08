@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Ring
 Comment=Ring is a secured and distributed communication software.
-Exec=ring-gnome --restore-last-window-state
+Exec=gnome-ring --restore-last-window-state
 Icon=ring
 StartupNotify=true
 Terminal=false
