@@ -55,6 +55,7 @@
 #include "profile.h"
 #include "peerprofilecollection.h"
 #include "localprofilecollection.h"
+#include <certificatemodel.h>
 
 #if USE_APPINDICATOR
 #include <libappindicator/app-indicator.h>
@@ -360,6 +361,7 @@ ring_client_startup(GApplication *app)
         priv->qtapp = new QCoreApplication(priv->argc, priv->argv);
         /* the call model will try to connect to dring via dbus */
         CallModel::instance();
+        CertificateModel::instance(); // test
     } catch (const char * msg) {
         init_exception_dialog(msg);
         g_error("%s", msg);

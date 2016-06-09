@@ -37,6 +37,7 @@
 #include <glib/gprintf.h>
 #include "utils/models.h"
 #include "accountimportexportview.h"
+#include "accountcertificatestab.h"
 
 struct _AccountView
 {
@@ -176,6 +177,14 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  security_tab,
                                  gtk_label_new(C_("Account settings", "Security")));
+
+        if (account->protocol() == Account::Protocol::RING) {
+            auto certificates_tab = create_scrolled_account_view(account_certificates_tab_new(account));
+            gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
+                                     certificates_tab,
+                                     gtk_label_new(C_("Account settings", "Certificates")));
+        }
+
 
         gtk_widget_show_all(hbox_account);
         /* set the tab displayed to the same as the prev account selected */

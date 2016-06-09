@@ -312,6 +312,8 @@ SET( SRC_FILES
    src/avatarmanipulation.cpp
    src/accountimportexportview.h
    src/accountimportexportview.cpp
+   src/accountcertificatestab.h
+   src/accountcertificatestab.cpp
 )
 
 # compile glib resource files to c code
