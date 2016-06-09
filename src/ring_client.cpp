@@ -53,6 +53,7 @@
 #include <smartinfohub.h>
 #include <media/textrecording.h>
 #include <media/recordingmodel.h>
+#include <certificatemodel.h>
 
 // Ring client
 #include "ring_client_options.h"

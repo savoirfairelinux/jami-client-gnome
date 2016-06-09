@@ -301,6 +301,8 @@ SET( SRC_FILES
    src/contactpopupmenu.cpp
    src/cc-crop-area.h
    src/cc-crop-area.c
+   src/accountcertificatestab.h
+   src/accountcertificatestab.cpp
 )
 
 # compile glib resource files to c code
