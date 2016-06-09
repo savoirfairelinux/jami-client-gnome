@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a6a9dd7_40ece4c7",
+        "filename": "src/ring_client.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-06-09T17:35:27Z",
+      "side": 1,
+      "message": "if we absolutely want the move to work, we can change this to a g_error.",
+      "revId": "8fc8b17c75b10bd6c3bb78ae8e7d62dde0fb2bb3",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
