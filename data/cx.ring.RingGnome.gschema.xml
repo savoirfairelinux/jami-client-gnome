@@ -6,20 +6,20 @@
         <summary>Start Ring on login.</summary>
         <description>Start Ring on login. Only supported on XDG compliant desktop environments.</description>
     </key>
-    <key name="hide-on-close" type="b">
+    <key name="show-status-icon" type="b">
         <default>true</default>
-        <summary>Hide on close instead of quitting.</summary>
-        <description>Hide the main window on close instead of quitting the application. If set to true, Ring will continue to run and be able to receive calls and messages if the main window is closed.</description>
+        <summary>Show status (system tray) icon.</summary>
+        <description>When set to true Ring will continue to run if the main window is closed.</description>
     </key>
     <key name="bring-window-to-front" type="b">
         <default>true</default>
         <summary>Bring window to foreground on incoming calls.</summary>
         <description>Bring window to foreground on incoming calls.</description>
     </key>
-    <key name="window-state-hidden" type="b">
-        <default>false</default>
-        <summary>Saves whether or not the main window is currently hidden or not.</summary>
-        <description>This is used when launching the application with the '--restore-last-window-state' option, which will launch the application with the main window in the same state as when it was last quit.</description>
+    <key name="show-main-window" type="b">
+        <default>true</default>
+        <summary>Saves whether or not the main window is currently visible or not.</summary>
+        <description>This is used when launching the application with the '--restore-last-window-state' option, which will launch the application with the main window in the same state as when Ring was last quit.</description>
     </key>
     <key name="chat-pane-horizontal" type="b">
         <default>true</default>
