@@ -48,7 +48,7 @@ struct _GeneralSettingsViewPrivate
 
     /* Rint settings */
     GtkWidget *checkbutton_autostart;
-    GtkWidget *checkbutton_hideonclose;
+    GtkWidget *checkbutton_showstatusicon;
     GtkWidget *checkbutton_bringtofront;
     GtkWidget *radiobutton_chatright;
     GtkWidget *radiobutton_chatbottom;
@@ -139,8 +139,8 @@ general_settings_view_init(GeneralSettingsView *self)
     g_settings_bind(priv->settings, "start-on-login",
                     priv->checkbutton_autostart, "active",
                     G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind(priv->settings, "hide-on-close",
-                    priv->checkbutton_hideonclose, "active",
+    g_settings_bind(priv->settings, "show-status-icon",
+                    priv->checkbutton_showstatusicon, "active",
                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind(priv->settings, "bring-window-to-front",
                     priv->checkbutton_bringtofront, "active",
@@ -171,7 +171,7 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
                                                 "/cx/ring/RingGnome/generalsettingsview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_autostart);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_hideonclose);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_showstatusicon);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_bringtofront);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, radiobutton_chatright);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, radiobutton_chatbottom);
