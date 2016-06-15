@@ -56,6 +56,10 @@
 #include "peerprofilecollection.h"
 #include "localprofilecollection.h"
 
+#if USE_APPINDICATOR
+#include <libappindicator/app-indicator.h>
+#endif
+
 struct _RingClientClass
 {
     GtkApplicationClass parent_class;
@@ -87,6 +91,9 @@ struct _RingClientPrivate {
     GCancellable *cancellable;
 
     gboolean restore_window_state;
+
+    gpointer systray_icon;
+    GtkWidget *icon_menu;
 };
 
 /* this union is used to pass ints as pointers and vice versa for GAction parameters*/
@@ -144,8 +151,8 @@ action_quit(G_GNUC_UNUSED GSimpleAction *simple,
 
 static void
 action_about(G_GNUC_UNUSED GSimpleAction *simple,
-            G_GNUC_UNUSED GVariant      *parameter,
-            gpointer user_data)
+             G_GNUC_UNUSED GVariant      *parameter,
+             gpointer user_data)
 {
     g_return_if_fail(G_IS_APPLICATION(user_data));
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
@@ -187,30 +194,31 @@ autostart_toggled(GSettings *settings, G_GNUC_UNUSED gchar *key, G_GNUC_UNUSED g
     autostart_symlink(g_settings_get_boolean(settings, "start-on-login"));
 }
 
+
+static void
+show_main_window_toggled(RingClient *client)
+{
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    if (g_settings_get_boolean(priv->settings, "show-main-window")) {
+        gtk_window_present(GTK_WINDOW(priv->win));
+    } else {
+        gtk_widget_hide(priv->win);
+    }
+}
+
 static void
 ring_window_show(RingClient *client)
 {
-    g_return_if_fail(IS_RING_CLIENT(client));
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
-
-    g_return_if_fail(priv->win);
-
-    g_debug("showing main window");
-    gtk_window_present(GTK_WINDOW(priv->win));
-    g_settings_set_boolean(priv->settings, "window-state-hidden", FALSE);
+    g_settings_set_boolean(priv->settings, "show-main-window", TRUE);
 }
 
 static void
 ring_window_hide(RingClient *client)
 {
-    g_return_if_fail(IS_RING_CLIENT(client));
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
-
-    g_return_if_fail(priv->win);
-
-    g_debug("hiding main window");
-    gtk_widget_hide(priv->win);
-    g_settings_set_boolean(priv->settings, "window-state-hidden", TRUE);
+    g_settings_set_boolean(priv->settings, "show-main-window", FALSE);
 }
 
 static gboolean
@@ -219,7 +227,7 @@ on_close_window(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, RingClient *cl
     g_return_val_if_fail(GTK_IS_WINDOW(window) && IS_RING_CLIENT(client), FALSE);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
-    if (g_settings_get_boolean(priv->settings, "hide-on-close")) {
+    if (g_settings_get_boolean(priv->settings, "show-status-icon")) {
         /* we want to simply hide the window and keep the client running */
         ring_window_hide(client);
         return TRUE; /* do not propogate event */
@@ -229,15 +237,80 @@ on_close_window(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, RingClient *cl
     }
 }
 
+#if !USE_APPINDICATOR
+static void
+popup_menu(GtkStatusIcon *self,
+           guint          button,
+           guint          when,
+           RingClient    *client)
+{
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS // GtkStatusIcon is deprecated since 3.14, but we fallback on it
+    gtk_menu_popup(GTK_MENU(priv->icon_menu), NULL, NULL, gtk_status_icon_position_menu, self, button, when);
+    G_GNUC_END_IGNORE_DEPRECATIONS
+}
+#endif
+
+static void
+init_systray(RingClient *client)
+{
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    // init menu
+    auto builder = gtk_builder_new_from_resource("/cx/ring/RingGnome/ringiconmenu.ui");
+    auto menu_model = G_MENU_MODEL(gtk_builder_get_object(builder, "menu"));
+    priv->icon_menu = gtk_menu_new_from_model(menu_model);
+
+    /* enable the menu actions */
+    gtk_widget_insert_action_group(priv->icon_menu, "app", G_ACTION_GROUP(client));
+    g_object_unref(builder);
+    g_object_unref(menu_model);
+    g_object_ref(priv->icon_menu);
+
+#if USE_APPINDICATOR
+    auto indicator = app_indicator_new("ring", "ring", APP_INDICATOR_CATEGORY_COMMUNICATIONS);
+    app_indicator_set_status(indicator, APP_INDICATOR_STATUS_ACTIVE);
+    app_indicator_set_title(indicator, "ring");
+    /* app indicator requires a menu */
+    app_indicator_set_menu(indicator, GTK_MENU(priv->icon_menu));
+    priv->systray_icon = indicator;
+#else
+
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS // GtkStatusIcon is deprecated since 3.14, but we fallback on it
+    auto status_icon = gtk_status_icon_new_from_icon_name("ring");
+    gtk_status_icon_set_title(status_icon, "ring");
+G_GNUC_END_IGNORE_DEPRECATIONS
+    g_signal_connect_swapped(status_icon, "activate", G_CALLBACK(ring_window_show), client);
+    g_signal_connect(status_icon, "popup-menu", G_CALLBACK(popup_menu), client);
+
+    priv->systray_icon = status_icon;
+#endif
+}
+
+static void
+systray_toggled(GSettings *settings, const gchar *key, RingClient *client)
+{
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    if (g_settings_get_boolean(settings, key)) {
+        if (!priv->systray_icon)
+            init_systray(client);
+    } else {
+        if (priv->systray_icon)
+            g_clear_object(&priv->systray_icon);
+        if (priv->icon_menu)
+            g_clear_object(&priv->icon_menu);
+    }
+}
+
 static void
 ring_client_activate(GApplication *app)
 {
     RingClient *client = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
-    gboolean show_window = TRUE;
-
     if (priv->win == NULL) {
+        // activate being called for the first time
         priv->win = ring_main_window_new(GTK_APPLICATION(app));
 
         /* make sure win is set to NULL when the window is destroyed */
@@ -246,16 +319,20 @@ ring_client_activate(GApplication *app)
         /* check if the window should be destoryed or not on close */
         g_signal_connect(priv->win, "delete-event", G_CALLBACK(on_close_window), client);
 
-        /* the only case in which we don't want to show the main window is we're launching the
-         * primary instance of the application with the '-r' (--restore-last-window-state) option
-         * and the window was hidden when the application last quit
-         */
-        if ( priv->restore_window_state && g_settings_get_boolean(priv->settings, "window-state-hidden") )
-            show_window = FALSE;
-    }
+        //track window state
+        g_signal_connect_swapped(priv->settings, "changed::show-main-window", G_CALLBACK(show_main_window_toggled), client);
+        /* if we didn't launch with the '-r' (--restore-last-window-state) option then force the
+         * show-main-window to true */
+        if (!priv->restore_window_state)
+            ring_window_show(client);
 
-    if (show_window)
+        // track sys icon state
+        g_signal_connect(priv->settings, "changed::show-status-icon", G_CALLBACK(systray_toggled), client);
+        systray_toggled(priv->settings, "show-status-icon", client);
+    } else {
+        // activate not being called for the first time, force showing of main window
         ring_window_show(client);
+    }
 }
 
 static void
@@ -343,6 +420,10 @@ ring_client_startup(GApplication *app)
     /* add GActions */
     g_action_map_add_action_entries(
         G_ACTION_MAP(app), ring_actions, G_N_ELEMENTS(ring_actions), app);
+
+    /* GActions for settings */
+    auto action_window_visible = g_settings_create_action(priv->settings, "show-main-window");
+    g_action_map_add_action(G_ACTION_MAP(app), action_window_visible);
 
     /* add accelerators */
     ring_accelerators(RING_CLIENT(app));
