@@ -43,7 +43,7 @@ GtkWindow  *ring_client_get_main_window(RingClient *client);
 
 /**
  * Sets if the client should attempt to restore the main window state (hidden or not) to what it was
- * when it was last quit (stored by the "window-state-hidden" gsetting). This function must be
+ * when it was last quit (stored by the "show-main-window" gsetting). This function must be
  * called before the main window is created for the first time for it to have an effect.
  */
 void        ring_client_set_restore_main_window_state(RingClient *client, gboolean restore);

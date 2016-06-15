@@ -50,7 +50,7 @@
                 <!-- end box ring settings-->
                 <!-- end profil settings -->
               </object>
-            </child>  
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -95,8 +95,8 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton_hideonclose">
-                        <property name="label" translatable="yes">Hide Ring on close instead of quitting.</property>
+                      <object class="GtkCheckButton" id="checkbutton_showstatusicon">
+                        <property name="label" translatable="yes">Show Ring icon in the notification area (systray).</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="xalign">0</property>
