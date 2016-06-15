@@ -56,6 +56,10 @@
 #include "peerprofilecollection.h"
 #include "localprofilecollection.h"
 
+#if USE_APPINDICATOR
+#include <libappindicator/app-indicator.h>
+#endif
+
 struct _RingClientClass
 {
     GtkApplicationClass parent_class;
@@ -230,6 +234,34 @@ on_close_window(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, RingClient *cl
 }
 
 static void
+systray_toggled(GSettings *settings, gchar *key, RingClient *client)
+{
+
+    g_settings_get_boolean(settings, key));
+
+#if USE_APPINDICATOR
+    auto indicator = app_indicator_new("ring", "ring", APP_INDICATOR_CATEGORY_COMMUNICATIONS);
+    app_indicator_set_status(indicator, APP_INDICATOR_STATUS_ACTIVE);
+    app_indicator_set_title(indicator, "ring");
+
+    /* ring menu */
+    GtkBuilder *builder = gtk_builder_new_from_resource("/cx/ring/RingGnome/ringgearsmenu.ui");
+    GMenuModel *menu_model = G_MENU_MODEL(gtk_builder_get_object(builder, "menu"));
+    auto menu = gtk_menu_new_from_model(menu_model);
+
+    gtk_widget_insert_action_group(menu, "app", G_ACTION_GROUP(app));
+
+    app_indicator_set_menu(indicator, GTK_MENU(menu));
+    g_object_unref(builder);
+    g_object_unref(menu_model);
+#else
+    auto status_icon = gtk_status_icon_new_from_icon_name("ring");
+    gtk_status_icon_set_title(status_icon, "ring");
+    g_signal_connect_swapped(status_icon, "activate", G_CALLBACK(ring_window_show), client);
+#endif
+}
+
+static void
 ring_client_activate(GApplication *app)
 {
     RingClient *client = RING_CLIENT(app);
@@ -256,6 +288,10 @@ ring_client_activate(GApplication *app)
 
     if (show_window)
         ring_window_show(client);
+
+    /* sys tray icon */
+    systray_toggled(priv->settings, "start-on-login", client);
+    g_signal_connect(priv->settings, "changed::start-on-login", G_CALLBACK(systray_toggled), client);
 }
 
 static void
