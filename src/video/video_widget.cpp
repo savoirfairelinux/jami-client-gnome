@@ -33,6 +33,7 @@
 #include <mutex>
 #include <call.h>
 #include "xrectsel.h"
+#include <smartinfohub.h>
 
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
@@ -171,7 +172,6 @@ video_widget_finalize(GObject *object)
 
     G_OBJECT_CLASS(video_widget_parent_class)->finalize(object);
 }
-
 
 /*
  * video_widget_class_init()
@@ -470,6 +470,17 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
     g_free(uri);
 }
 
+// static void
+// display_advance_information(GtkWidget *item)
+// {
+//     bool state_display_smartinfo = g_variant_get_boolean(g_action_get_state(G_ACTION(g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "display_smartinfo"))));
+//     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(item), !state_display_smartinfo);
+//
+//     g_action_change_state(G_ACTION(g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "display_smartinfo")),
+//                           g_variant_new_boolean(!state_display_smartinfo));
+//
+// }
+
 /*
  * video_widget_on_button_press_in_screen_event()
  *
@@ -521,6 +532,15 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
     g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), parent);
+
+    /* add separator */
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+
+    /* add SmartInfo */
+    item = gtk_check_menu_item_new_with_mnemonic(_("Show advanced information"));
+    gtk_actionable_set_action_name(GTK_ACTIONABLE(item), "app.display_smartinfo");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    gtk_widget_insert_action_group(menu, "app", G_ACTION_GROUP(g_application_get_default()));
 
     /* show menu */
     gtk_widget_show_all(menu);

@@ -50,6 +50,7 @@
 #include <peerprofilecollection.h>
 #include <localprofilecollection.h>
 #include <accountmodel.h>
+#include <smartinfohub.h>
 
 // Ring client
 #include "ring_client_options.h"
@@ -177,16 +178,98 @@ action_about(G_GNUC_UNUSED GSimpleAction *simple,
     ring_about_dialog(priv->win);
 }
 
+// /* adapted from glib 2.40, gsimpleaction.c */
+// static void
+// g_simple_action_change_state(GSimpleAction *simple, GVariant *value)
+// {
+//     GAction *action = G_ACTION(simple);
+//
+//     guint change_state_id = g_signal_lookup("change-state", G_OBJECT_TYPE(simple));
+//
+//     /* If the user connected a signal handler then they are responsible
+//     * for handling state changes.
+//     */
+//     if (g_signal_has_handler_pending(action, change_state_id, 0, TRUE))
+//         g_signal_emit(action, change_state_id, 0, value);
+//
+//     /* If not, then the default behaviour is to just set the state. */
+//     else
+//         g_simple_action_set_state(simple, value);
+// }
+//
+// /* define activate handler for simple toggle actions for glib < 2.40
+//  * adapted from glib 2.40, gsimpleaction.c */
+// static void
+// g_simple_action_toggle(GSimpleAction *action, GVariant *parameter, G_GNUC_UNUSED gpointer user_data)
+// {
+//     const GVariantType *parameter_type = g_action_get_parameter_type(G_ACTION(action));
+//     g_return_if_fail(parameter_type == NULL ?
+//                     parameter == NULL :
+//                     (parameter != NULL &&
+//                     g_variant_is_of_type(parameter, parameter_type)));
+//
+//     if (parameter != NULL)
+//         g_variant_ref_sink(parameter);
+//
+//     if (g_action_get_enabled(G_ACTION(action))) {
+//         /* make sure it is a stateful action and toggle it */
+//         GVariant *state = g_action_get_state(G_ACTION(action));
+//         if (state) {
+//             /* If we have no parameter and this is a boolean action, toggle. */
+//             if (parameter == NULL && g_variant_is_of_type(state, G_VARIANT_TYPE_BOOLEAN)) {
+//                 gboolean was_enabled = g_variant_get_boolean(state);
+//                 g_simple_action_change_state(action, g_variant_new_boolean(!was_enabled));
+//             }
+//             /* else, if the parameter and state type are the same, do a change-state */
+//             else if (g_variant_is_of_type (state, g_variant_get_type(parameter)))
+//                 g_simple_action_change_state(action, parameter);
+//         }
+//         g_variant_unref(state);
+//     }
+//
+//     if (parameter != NULL)
+//         g_variant_unref (parameter);
+// }
+
+static void
+display_smartinfo(GSimpleAction *action, GVariant* parameter, gpointer)
+{
+    // set state
+    auto current_state = g_action_get_state(G_ACTION(action));
+    g_debug("current state: %s", current_state ? "true" : "false");
+    g_action_change_state (G_ACTION(action), g_variant_new_boolean(!current_state));
+    // g_simple_action_set_state(G_SIMPLE_ACTION(action), g_variant_new_boolean(!current_state));
+    // g_simple_action_set_state(action, g_variant_new_boolean(!current_state));
+    g_debug("activate");
+}
+//
+static void
+toggle_smartinfo(GSimpleAction *action, GVariant* value, gpointer)
+{
+    g_debug("toggle");
+    // set state
+    auto requested = g_variant_get_boolean(value);
+    g_debug("requested state: %s", requested ? "true" : "false");
+    g_simple_action_set_state(action, value);
+
+    if (requested) {
+        SmartInfoHub::instance().start();
+    } else {
+        SmartInfoHub::instance().stop();
+    }
+}
+
 static const GActionEntry ring_actions[] =
 {
-    { "accept", NULL,         NULL, NULL,    NULL, {0} },
-    { "hangup", NULL,         NULL, NULL,    NULL, {0} },
-    { "hold",   NULL,         NULL, "false", NULL, {0} },
-    { "quit",   action_quit,  NULL, NULL,    NULL, {0} },
-    { "about",  action_about, NULL, NULL,    NULL, {0} },
-    { "mute_audio", NULL,     NULL, "false", NULL, {0} },
-    { "mute_video", NULL,     NULL, "false", NULL, {0} },
-    { "record",     NULL,     NULL, "false", NULL, {0} },
+    { "accept",             NULL,         NULL, NULL,    NULL, {0} },
+    { "hangup",             NULL,         NULL, NULL,    NULL, {0} },
+    { "hold",               NULL,         NULL, "false", NULL, {0} },
+    { "quit",               action_quit,  NULL, NULL,    NULL, {0} },
+    { "about",              action_about, NULL, NULL,    NULL, {0} },
+    { "mute_audio",         NULL,         NULL, "false", NULL, {0} },
+    { "mute_video",         NULL,         NULL, "false", NULL, {0} },
+    { "record",             NULL,         NULL, "false", NULL, {0} },
+    // { "display_smartinfo",  display_smartinfo, NULL, "true", NULL, {0} },
     /* TODO implement the other actions */
     // { "transfer",   NULL,        NULL, "flase", NULL, {0} },
 };
@@ -499,6 +582,10 @@ ring_client_startup(GApplication *app)
     /* GActions for settings */
     auto action_window_visible = g_settings_create_action(priv->settings, "show-main-window");
     g_action_map_add_action(G_ACTION_MAP(app), action_window_visible);
+
+    auto toggle_smartinfo = g_simple_action_new_stateful("display_smartinfo", NULL, g_variant_new_boolean(FALSE));
+    // g_signal_connect(toggle_smartinfo, "change-state", G_CALLBACK(toggle_smartinfo), NULL);
+    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(toggle_smartinfo));
 
     /* add accelerators */
     ring_accelerators(RING_CLIENT(app));
