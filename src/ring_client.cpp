@@ -50,6 +50,7 @@
 #include <peerprofilecollection.h>
 #include <localprofilecollection.h>
 #include <accountmodel.h>
+#include <smartinfohub.h>
 
 // Ring client
 #include "ring_client_options.h"
@@ -179,14 +180,14 @@ action_about(G_GNUC_UNUSED GSimpleAction *simple,
 
 static const GActionEntry ring_actions[] =
 {
-    { "accept", NULL,         NULL, NULL,    NULL, {0} },
-    { "hangup", NULL,         NULL, NULL,    NULL, {0} },
-    { "hold",   NULL,         NULL, "false", NULL, {0} },
-    { "quit",   action_quit,  NULL, NULL,    NULL, {0} },
-    { "about",  action_about, NULL, NULL,    NULL, {0} },
-    { "mute_audio", NULL,     NULL, "false", NULL, {0} },
-    { "mute_video", NULL,     NULL, "false", NULL, {0} },
-    { "record",     NULL,     NULL, "false", NULL, {0} },
+    { "accept",             NULL,         NULL, NULL,    NULL, {0} },
+    { "hangup",             NULL,         NULL, NULL,    NULL, {0} },
+    { "hold",               NULL,         NULL, "false", NULL, {0} },
+    { "quit",               action_quit,  NULL, NULL,    NULL, {0} },
+    { "about",              action_about, NULL, NULL,    NULL, {0} },
+    { "mute_audio",         NULL,         NULL, "false", NULL, {0} },
+    { "mute_video",         NULL,         NULL, "false", NULL, {0} },
+    { "record",             NULL,         NULL, "false", NULL, {0} },
     /* TODO implement the other actions */
     // { "transfer",   NULL,        NULL, "flase", NULL, {0} },
 };
@@ -499,6 +500,9 @@ ring_client_startup(GApplication *app)
     /* GActions for settings */
     auto action_window_visible = g_settings_create_action(priv->settings, "show-main-window");
     g_action_map_add_action(G_ACTION_MAP(app), action_window_visible);
+
+    auto toggle_smartinfo = g_simple_action_new_stateful("display_smartinfo", NULL, g_variant_new_boolean(FALSE));
+    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(toggle_smartinfo));
 
     /* add accelerators */
     ring_accelerators(RING_CLIENT(app));
