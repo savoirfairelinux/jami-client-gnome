@@ -33,10 +33,15 @@
 #include <mutex>
 #include <call.h>
 #include "xrectsel.h"
+#include <smartInfoHub.h>
+#include "../ring_client.h"
+
+
 
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
 static constexpr const char* JOIN_CALL_KEY = "call_data";
+
 
 /* check video frame queues at this rate;
  * use 30 ms (about 30 fps) since we don't expect to
@@ -470,6 +475,21 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
     g_free(uri);
 }
 
+//Pull technical informations from daemon
+static void
+display_technical_information(GtkWidget *item)
+{
+    SmartInfoHub::instance().start();
+    g_action_change_state (G_ACTION(g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "display_smartinfo")), g_variant_new_boolean (TRUE));
+}
+
+//stop pulling technical informations from daemon
+static void stopSmartinfo()
+{
+    SmartInfoHub::instance().stop();
+    g_action_change_state (G_ACTION(g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "display_smartinfo")), g_variant_new_boolean (FALSE));
+}
+
 /*
  * video_widget_on_button_press_in_screen_event()
  *
@@ -506,9 +526,6 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
         g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
     }
 
-    /* add separator */
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
-
     /* add screen area as an input */
     GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(_("Share screen area"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
@@ -521,6 +538,19 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
     g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), parent);
+
+    /* add separator */
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+
+    /* call smartInfo */
+    item = gtk_check_menu_item_new_with_mnemonic(_("Display advanced information"));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    g_signal_connect(item, "activate", G_CALLBACK(display_technical_information), parent);
+
+    /* stop smartInfo */
+    item = gtk_check_menu_item_new_with_mnemonic(_("Hide advanced information"));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    g_signal_connect(item, "activate", G_CALLBACK(stopSmartinfo), NULL);
 
     /* show menu */
     gtk_widget_show_all(menu);

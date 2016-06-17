@@ -39,6 +39,7 @@ typedef struct _CurrentCallViewClass CurrentCallViewClass;
 GType      current_call_view_get_type      (void) G_GNUC_CONST;
 GtkWidget *current_call_view_new           (void);
 void       current_call_view_set_call_info (CurrentCallView *view, const QModelIndex& idx);
+static void stop_display_information(void);
 
 G_END_DECLS
 
