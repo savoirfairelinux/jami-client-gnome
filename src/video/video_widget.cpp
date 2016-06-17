@@ -33,6 +33,8 @@
 #include <mutex>
 #include <call.h>
 #include "xrectsel.h"
+#include <smartInfoHub.h>
+#include <categorizedhistorymodel.h>
 
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
@@ -471,6 +473,36 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
 }
 
 /*
+ * Pull technical informations from daemon
+ */
+static void
+display_technical_information()
+{
+      SmartInfoHub::smartInfo();
+      GtkWidget *window;
+      GtkWidget *label
+
+      window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+      gtk_window_set_title(GTK_WINDOW(window), "smartInfo")
+      gtk_window_set_default_size(GTK_WINDOW(window), 230, 150);
+      gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+
+
+      //kill the program smartInfo when we close it
+      g_signal_connect(G_OBJECT(window), "destroy",
+          G_CALLBACK(gtk_main_quit), NULL);
+      gtk_label_new(label);
+      gtk_label_set_text(label, "test");
+      gtk_container_add(GTK_CONTAINER(window), label);
+
+      gtk_widget_show(window);
+
+      gtk_main();
+}
+
+
+
+/*
  * video_widget_on_button_press_in_screen_event()
  *
  * Handle button event in the video screen.
@@ -506,14 +538,14 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
         g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
     }
 
-    /* add separator */
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
-
     /* add screen area as an input */
     GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(_("Share screen area"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen), call);
+
+    /* add separator */
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
     /* add file as an input */
     item = gtk_check_menu_item_new_with_mnemonic(_("Share file"));
@@ -521,6 +553,14 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
     g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), parent);
+
+    /* add separator */
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+
+    /* call smartInfo */
+    item = gtk_check_menu_item_new_with_mnemonic(_("Advance information"));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    g_signal_connect(item, "activate", G_CALLBACK(display_technical_information), NULL);
 
     /* show menu */
     gtk_widget_show_all(menu);
