@@ -110,6 +110,35 @@
     </child>
     <!-- end of box which contains peer name and uri -->
 
+    <!-- box which contains smartInfo -->
+    <child>
+      <object class="GtkBox" id="hbox_call_smartInfo">
+        <property name="visible">True</property>
+        <property name="spacing">15</property>
+        <property name="border-width">10</property>
+          <child>
+              <object class="GtkLabel" id="label_smartInfo">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="selectable">True</property>
+                <property name="ellipsize">end</property>
+                <attributes>
+                  <attribute name="foreground" value="#ffffffffffff"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
+              </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+      <!-- end of box which contains smartInfo -->
+
     <!-- call status box -->
     <child>
       <object class="GtkBox" id="hbox_call_status">

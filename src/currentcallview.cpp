@@ -62,11 +62,13 @@ struct _CurrentCallViewPrivate
 {
     GtkWidget *hbox_call_info;
     GtkWidget *hbox_call_controls;
+    GtkWidget *hbox_call_smartInfo;
     GtkWidget *image_peer;
     GtkWidget *label_name;
     GtkWidget *label_uri;
     GtkWidget *label_status;
     GtkWidget *label_duration;
+    GtkWidget *label_smartInfo;
     GtkWidget *paned_call;
     GtkWidget *frame_video;
     GtkWidget *video_widget;
@@ -93,6 +95,7 @@ struct _CurrentCallViewPrivate
     // for clutter animations and to know when to fade in/out the overlays
     ClutterTransition *fade_info;
     ClutterTransition *fade_controls;
+    ClutterTransition *fade_smartInfo;
     gint64 time_last_mouse_motion;
     guint timer_fade;
 };
@@ -180,11 +183,14 @@ timeout_check_last_motion_event(CurrentCallView *self)
         if (clutter_timeline_get_direction(CLUTTER_TIMELINE(priv->fade_info)) == CLUTTER_TIMELINE_BACKWARD) {
             clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_info), CLUTTER_TIMELINE_FORWARD);
             clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_controls), CLUTTER_TIMELINE_FORWARD);
+            clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_smartInfo), CLUTTER_TIMELINE_FORWARD);
             if (!clutter_timeline_is_playing(CLUTTER_TIMELINE(priv->fade_info))) {
                 clutter_timeline_rewind(CLUTTER_TIMELINE(priv->fade_info));
                 clutter_timeline_rewind(CLUTTER_TIMELINE(priv->fade_controls));
+                clutter_timeline_rewind(CLUTTER_TIMELINE(priv->fade_smartInfo));
                 clutter_timeline_start(CLUTTER_TIMELINE(priv->fade_info));
                 clutter_timeline_start(CLUTTER_TIMELINE(priv->fade_controls));
+                clutter_timeline_start(CLUTTER_TIMELINE(priv->fade_smartInfo));
             }
         }
     }
@@ -204,11 +210,14 @@ mouse_moved(CurrentCallView *self)
     if (clutter_timeline_get_direction(CLUTTER_TIMELINE(priv->fade_info)) == CLUTTER_TIMELINE_FORWARD) {
         clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_info), CLUTTER_TIMELINE_BACKWARD);
         clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_controls), CLUTTER_TIMELINE_BACKWARD);
+        clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_smartInfo), CLUTTER_TIMELINE_FORWARD);
         if (!clutter_timeline_is_playing(CLUTTER_TIMELINE(priv->fade_info))) {
             clutter_timeline_rewind(CLUTTER_TIMELINE(priv->fade_info));
             clutter_timeline_rewind(CLUTTER_TIMELINE(priv->fade_controls));
+            clutter_timeline_rewind(CLUTTER_TIMELINE(priv->fade_smartInfo));
             clutter_timeline_start(CLUTTER_TIMELINE(priv->fade_info));
             clutter_timeline_start(CLUTTER_TIMELINE(priv->fade_controls));
+            clutter_timeline_start(CLUTTER_TIMELINE(priv->fade_smartInfo));
         }
     }
 
@@ -410,6 +419,7 @@ current_call_view_init(CurrentCallView *view)
     auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
     auto actor_info = gtk_clutter_actor_new_with_contents(priv->hbox_call_info);
     auto actor_controls = gtk_clutter_actor_new_with_contents(priv->hbox_call_controls);
+    auto actor_smartInfo = gtk_clutter_actor_new_with_contents(priv->hbox_call_smartInfo);
 
     clutter_actor_add_child(stage, actor_info);
     clutter_actor_set_x_align(actor_info, CLUTTER_ACTOR_ALIGN_FILL);
@@ -419,16 +429,24 @@ current_call_view_init(CurrentCallView *view)
     clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
     clutter_actor_set_y_align(actor_controls, CLUTTER_ACTOR_ALIGN_END);
 
+    clutter_actor_add_child(stage, actor_smartInfo);
+    clutter_actor_set_x_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_CENTER);
+    clutter_actor_set_y_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_CENTER);
+
     /* add fade in and out states to the info and controls */
     priv->time_last_mouse_motion = g_get_monotonic_time();
     priv->fade_info = create_fade_out_transition();
     priv->fade_controls = create_fade_out_transition();
+    priv->fade_smartInfo = create_fade_out_transition();
     clutter_actor_add_transition(actor_info, "fade_info", priv->fade_info);
     clutter_actor_add_transition(actor_controls, "fade_controls", priv->fade_controls);
+    clutter_actor_add_transition(actor_smartInfo, "fade_smartInfo", priv->fade_smartInfo);
     clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_info), CLUTTER_TIMELINE_BACKWARD);
     clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_controls), CLUTTER_TIMELINE_BACKWARD);
+    clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_smartInfo), CLUTTER_TIMELINE_BACKWARD);
     clutter_timeline_stop(CLUTTER_TIMELINE(priv->fade_info));
     clutter_timeline_stop(CLUTTER_TIMELINE(priv->fade_controls));
+    clutter_timeline_stop(CLUTTER_TIMELINE(priv->fade_smartInfo));
 
     /* have a timer check every 1 second if the controls should fade out */
     priv->timer_fade = g_timeout_add(1000, (GSourceFunc)timeout_check_last_motion_event, view);
@@ -477,11 +495,13 @@ current_call_view_class_init(CurrentCallViewClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_controls);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_smartInfo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, image_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_name);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_uri);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_duration);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_smartInfo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, paned_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
@@ -528,6 +548,14 @@ update_details(CurrentCallView *view, Call *call)
     gtk_label_set_text(GTK_LABEL(priv->label_duration), ba_length.constData());
 }
 
+static void
+update_smartInfo(CurrentCallView *view, Call *call)
+{
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    gtk_label_set_text(GTK_LABEL(priv->label_smartInfo), "test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+}
+
 static gboolean
 on_button_press_in_video_event(GtkWidget *self, GdkEventButton *event, CurrentCallView *view)
 {
@@ -572,6 +600,7 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     /* change some things depending on call state */
     update_state(view, priv->call);
     update_details(view, priv->call);
+    update_smartInfo(view, priv->call);
 
     priv->state_change_connection = QObject::connect(
         priv->call,
@@ -582,7 +611,8 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     priv->call_details_connection = QObject::connect(
         priv->call,
         static_cast<void (Call::*)(void)>(&Call::changed),
-        [view, priv]() { update_details(view, priv->call); }
+        [view, priv]() { update_details(view, priv->call);
+         update_smartInfo(view, priv->call);}
     );
 
     /* check if we already have a renderer */
