@@ -47,6 +47,43 @@
     <!-- end of Paned container -->
   </template>
 
+  <!-- box which contains smartInfo -->
+    <object class="GtkBox" id="hbox_call_smartInfo">
+    <property name="visible">True</property>
+    <property name="hexpand">True</property>
+    <property name="spacing">10</property>
+    <property name="border-width">10</property>
+    <child>
+      <object class="GtkImage" id="image_yolo">
+        <property name="visible">True</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+
+        <child>
+          <object class="GtkLabel" id="label_smartInfo">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="selectable">True</property>
+            <property name="ellipsize">end</property>
+            <property name="halign">start</property>
+            <attributes>
+              <attribute name="scale" value="1.25"/>
+              <attribute name="foreground" value="#ffffffffffff"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+
+    </object>
+    <!-- end of box which contains smartInfo -->
+
   <!-- box which contains peer image and name and call status -->
   <object class="GtkBox" id="hbox_call_info">
     <property name="visible">True</property>
