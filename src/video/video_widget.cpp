@@ -33,10 +33,18 @@
 #include <mutex>
 #include <call.h>
 #include "xrectsel.h"
+#include <smartInfoHub.h>
+#include <categorizedhistorymodel.h>
+#include <string.h>
+#include <string>
+#include <chrono>
+#include <callmodel.h>
+
 
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
 static constexpr const char* JOIN_CALL_KEY = "call_data";
+
 
 /* check video frame queues at this rate;
  * use 30 ms (about 30 fps) since we don't expect to
@@ -470,6 +478,70 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
     g_free(uri);
 }
 
+// Stop pushing the signal smartInfo
+static void
+closeSmartInfo()
+{
+    SmartInfoHub::smartInfo(0);
+}
+
+
+
+/*
+ * Pull technical informations from daemon
+ */
+static void
+display_technical_information()
+{
+
+    int refreshTimeInformationMS =500;
+    SmartInfoHub::smartInfo(refreshTimeInformationMS);
+    GtkWidget *window;
+    GtkWidget *align;
+    GtkWidget *lblLocalFps;
+    GtkWidget *lblRemoteFps;
+
+    //std::this_thread::sleep_for(std::chrono::milliseconds(refreshTimeInformationMS));
+    //const gchar* testString = "test";
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(window), "SmartInfo");
+    gtk_window_set_default_size(GTK_WINDOW(window), 300, 200);
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+    gtk_container_set_border_width(GTK_CONTAINER(window), 5);
+
+    align = gtk_alignment_new(0, 0, 0, 0);
+    lblLocalFps = gtk_label_new("");
+    lblRemoteFps = gtk_label_new("");
+
+    gtk_container_add(GTK_CONTAINER(align), lblLocalFps);
+    gtk_container_add(GTK_CONTAINER(window), align);
+
+
+
+    g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(closeSmartInfo), NULL);
+
+    gtk_widget_show_all(window);
+
+    QObject::connect(&CallModel::instance(), &CallModel::updateInfo,
+        [lblLocalFps, lblRemoteFps] (MapStringString info) {
+            //const gchar* affichRemoteFps = info["remoteFps"].toStdString().c_str();
+            qDebug()<<"remote: "<<info["remoteFps"];
+            qDebug()<<"local: "<<info["localFps"];
+            //const gchar* affich = g_strdup_printf("%s %s","Local frame rate: ", info["localFps"].toStdString().c_str());
+            gtk_label_set_text(GTK_LABEL(lblLocalFps),g_strdup_printf("%s %s","Local frame rate: ", info["localFps"].toStdString().c_str()));
+            gtk_label_set_text(GTK_LABEL(lblRemoteFps),g_strdup_printf("%s %s","remote frame rate: ", info["RemoteFps"].toStdString().c_str()));
+            //gtk_label_set_text(GTK_LABEL(lblLocalFps),g_strdup_printf("%s %s","Local frame rate: ", info["localFps"].toStdString().c_str()));
+        });
+
+    //gtk_main();
+}
+/*
+static void updateSmartInfo(int update) {
+  gtk_label_set_text(lbl,g_strdup_printf("%d", update));
+}
+*/
+
+
 /*
  * video_widget_on_button_press_in_screen_event()
  *
@@ -506,14 +578,14 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
         g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
     }
 
-    /* add separator */
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
-
     /* add screen area as an input */
     GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(_("Share screen area"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen), call);
+
+    /* add separator */
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
     /* add file as an input */
     item = gtk_check_menu_item_new_with_mnemonic(_("Share file"));
@@ -521,6 +593,14 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
     g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), parent);
+
+    /* add separator */
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+
+    /* call smartInfo */
+    item = gtk_check_menu_item_new_with_mnemonic(_("Advance information"));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    g_signal_connect(item, "activate", G_CALLBACK(display_technical_information), NULL);
 
     /* show menu */
     gtk_widget_show_all(menu);
