@@ -33,10 +33,14 @@
 #include <mutex>
 #include <call.h>
 #include "xrectsel.h"
+#include <smartInfoHub.h>
+
+
 
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
 static constexpr const char* JOIN_CALL_KEY = "call_data";
+
 
 /* check video frame queues at this rate;
  * use 30 ms (about 30 fps) since we don't expect to
@@ -117,6 +121,7 @@ static void     video_widget_add_renderer      (VideoWidget *, VideoWidgetRender
 /* signals */
 enum {
     SNAPSHOT_SIGNAL,
+    START_SMARTINFO_SIGNAL,
     LAST_SIGNAL
 };
 
@@ -189,6 +194,17 @@ video_widget_class_init(VideoWidgetClass *klass)
 
     /* add snapshot signal */
     video_widget_signals[SNAPSHOT_SIGNAL] = g_signal_new("snapshot-taken",
+                 G_TYPE_FROM_CLASS(klass),
+                 (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+                 0,
+                 nullptr,
+                 nullptr,
+                 g_cclosure_marshal_VOID__VOID,
+                 G_TYPE_NONE, 0);
+
+    /* add start smartInfo signal */
+    video_widget_signals[START_SMARTINFO_SIGNAL] = g_signal_new(
+                "start-SmartInfo",
                  G_TYPE_FROM_CLASS(klass),
                  (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
                  0,
@@ -470,6 +486,23 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
     g_free(uri);
 }
 
+//Pull technical informations from daemon
+static void
+display_technical_information(GtkWidget *item, VideoWidget *self)
+{
+
+    SmartInfoHub::instance().start();
+    g_signal_emit(G_OBJECT(self), video_widget_signals[START_SMARTINFO_SIGNAL], 0);
+
+
+    //gtk_main();
+}
+
+static void stopSmartinfo() {
+    SmartInfoHub::instance().stop();
+}
+
+
 /*
  * video_widget_on_button_press_in_screen_event()
  *
@@ -506,9 +539,6 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
         g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
     }
 
-    /* add separator */
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
-
     /* add screen area as an input */
     GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(_("Share screen area"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
@@ -521,6 +551,19 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
     g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
     g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), parent);
+
+    /* add separator */
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+
+    /* call smartInfo */
+    item = gtk_check_menu_item_new_with_mnemonic(_("Display advanced information"));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    g_signal_connect(item, "activate", G_CALLBACK(display_technical_information), NULL);
+
+    /* stop smartInfo */
+    item = gtk_check_menu_item_new_with_mnemonic(_("Hide advanced information"));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    g_signal_connect(item, "activate", G_CALLBACK(stopSmartinfo), NULL);
 
     /* show menu */
     gtk_widget_show_all(menu);
