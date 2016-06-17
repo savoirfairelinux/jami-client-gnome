@@ -33,6 +33,7 @@ G_BEGIN_DECLS
 #define IS_VIDEO_WIDGET(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), VIDEO_WIDGET_TYPE))
 #define IS_VIDEO_WIDGET_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass), VIDEO_WIDGET_TYPE))
 
+
 typedef struct _VideoWidgetClass VideoWidgetClass;
 typedef struct _VideoWidget VideoWidget;
 
