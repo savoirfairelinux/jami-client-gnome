@@ -42,6 +42,7 @@
 #include "chatview.h"
 #include <itemdataroles.h>
 #include <numbercategory.h>
+#include <smartinfohub.h>
 
 static constexpr int CONTROLS_FADE_TIMEOUT = 3000000; /* microseconds */
 static constexpr int FADE_DURATION = 500; /* miliseconds */
@@ -62,11 +63,15 @@ struct _CurrentCallViewPrivate
 {
     GtkWidget *hbox_call_info;
     GtkWidget *hbox_call_controls;
+    GtkWidget *vbox_call_smartInfo;
     GtkWidget *image_peer;
     GtkWidget *label_name;
     GtkWidget *label_uri;
     GtkWidget *label_status;
     GtkWidget *label_duration;
+    GtkWidget *label_smartinfo_description;
+    GtkWidget *label_smartinfo_value;
+    GtkWidget *label_smartinfo_general_information;
     GtkWidget *paned_call;
     GtkWidget *frame_video;
     GtkWidget *video_widget;
@@ -95,6 +100,10 @@ struct _CurrentCallViewPrivate
     ClutterTransition *fade_controls;
     gint64 time_last_mouse_motion;
     guint timer_fade;
+
+    // smart info
+    QMetaObject::Connection smartinfo_refresh_connection;
+    guint smartinfo_action;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(CurrentCallView, current_call_view, GTK_TYPE_BOX);
@@ -121,10 +130,13 @@ current_call_view_dispose(GObject *object)
     QObject::disconnect(priv->call_details_connection);
     QObject::disconnect(priv->local_renderer_connection);
     QObject::disconnect(priv->remote_renderer_connection);
-
+    QObject::disconnect(priv->smartinfo_refresh_connection);
     g_clear_object(&priv->settings);
 
     g_source_remove(priv->timer_fade);
+
+    auto display_smartinfo = g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "display-smartinfo");
+    g_signal_handler_disconnect(display_smartinfo, priv->smartinfo_action);
 
     G_OBJECT_CLASS(current_call_view_parent_class)->dispose(object);
 }
@@ -410,6 +422,7 @@ current_call_view_init(CurrentCallView *view)
     auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
     auto actor_info = gtk_clutter_actor_new_with_contents(priv->hbox_call_info);
     auto actor_controls = gtk_clutter_actor_new_with_contents(priv->hbox_call_controls);
+    auto actor_smartInfo = gtk_clutter_actor_new_with_contents(priv->vbox_call_smartInfo);
 
     clutter_actor_add_child(stage, actor_info);
     clutter_actor_set_x_align(actor_info, CLUTTER_ACTOR_ALIGN_FILL);
@@ -418,6 +431,14 @@ current_call_view_init(CurrentCallView *view)
     clutter_actor_add_child(stage, actor_controls);
     clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
     clutter_actor_set_y_align(actor_controls, CLUTTER_ACTOR_ALIGN_END);
+
+    clutter_actor_add_child(stage, actor_smartInfo);
+    clutter_actor_set_x_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_END);
+    clutter_actor_set_y_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_START);
+    ClutterMargin clutter_margin_smartInfo;
+    clutter_margin_smartInfo.top = 50;
+    clutter_margin_smartInfo.right = 10;
+    clutter_actor_set_margin (actor_smartInfo, &clutter_margin_smartInfo);
 
     /* add fade in and out states to the info and controls */
     priv->time_last_mouse_motion = g_get_monotonic_time();
@@ -477,11 +498,15 @@ current_call_view_class_init(CurrentCallViewClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_controls);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_call_smartInfo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, image_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_name);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_uri);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_duration);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_smartinfo_description);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_smartinfo_value);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_smartinfo_general_information);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, paned_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
@@ -528,6 +553,67 @@ update_details(CurrentCallView *view, Call *call)
     gtk_label_set_text(GTK_LABEL(priv->label_duration), ba_length.constData());
 }
 
+static void
+update_smartInfo(CurrentCallView *view)
+{
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    if (!SmartInfoHub::instance().isConference()) {
+        gchar* general_information = g_strdup_printf("Call ID: %s", SmartInfoHub::instance().callID().toStdString().c_str());
+        gtk_label_set_text(GTK_LABEL(priv->label_smartinfo_general_information), general_information);
+        g_free(general_information);
+
+        gchar* description = g_strdup_printf("You\n"
+                                             "Framerate:\n"
+                                             "Video codec:\n"
+                                             "Audio codec:\n"
+                                             "Resolution:\n\n"
+                                             "Peer\n"
+                                             "Framerate:\n"
+                                             "Video codec:\n"
+                                             "Audio codec:\n"
+                                             "Resolution:");
+        gtk_label_set_text(GTK_LABEL(priv->label_smartinfo_description),description);
+        g_free(description);
+
+        gchar* value = g_strdup_printf("\n%f\n%s\n%s\n%dx%d\n\n\n%f\n%s\n%s\n%dx%d",
+                                       (double)SmartInfoHub::instance().localFps(),
+                                       SmartInfoHub::instance().localVideoCodec().toStdString().c_str(),
+                                       SmartInfoHub::instance().localAudioCodec().toStdString().c_str(),
+                                       SmartInfoHub::instance().localWidth(),
+                                       SmartInfoHub::instance().localHeight(),
+                                       (double)SmartInfoHub::instance().remoteFps(),
+                                       SmartInfoHub::instance().remoteVideoCodec().toStdString().c_str(),
+                                       SmartInfoHub::instance().remoteAudioCodec().toStdString().c_str(),
+                                       SmartInfoHub::instance().remoteWidth(),
+                                       SmartInfoHub::instance().remoteHeight());
+        gtk_label_set_text(GTK_LABEL(priv->label_smartinfo_value),value);
+        g_free(value);
+    } else {
+        gchar* general_information = g_strdup_printf("Conference ID: %s", SmartInfoHub::instance().callID().toStdString().c_str());
+        gtk_label_set_text(GTK_LABEL(priv->label_smartinfo_general_information), general_information);
+        g_free(general_information);
+
+        gchar* description = g_strdup_printf("You\n"
+                                             "Framerate:\n"
+                                             "Video codec:\n"
+                                             "Audio codec:\n"
+                                             "Resolution:");
+        gtk_label_set_text(GTK_LABEL(priv->label_smartinfo_description),description);
+        g_free(description);
+
+        gchar* value = g_strdup_printf("\n%f\n%s\n%s\n%dx%d",
+                                       (double)SmartInfoHub::instance().localFps(),
+                                       SmartInfoHub::instance().localVideoCodec().toStdString().c_str(),
+                                       SmartInfoHub::instance().localAudioCodec().toStdString().c_str(),
+                                       SmartInfoHub::instance().localWidth(),
+                                       SmartInfoHub::instance().localHeight());
+        gtk_label_set_text(GTK_LABEL(priv->label_smartinfo_value),value);
+        g_free(value);
+    }
+}
+
+
 static gboolean
 on_button_press_in_video_event(GtkWidget *self, GdkEventButton *event, CurrentCallView *view)
 {
@@ -541,6 +627,16 @@ on_button_press_in_video_event(GtkWidget *self, GdkEventButton *event, CurrentCa
     }
 
     return GDK_EVENT_PROPAGATE;
+}
+
+static void
+toggle_smartinfo(GSimpleAction* action, G_GNUC_UNUSED GVariant* state, GtkWidget* vbox_call_smartInfo)
+{
+    if (g_variant_get_boolean(g_action_get_state(G_ACTION(action)))) {
+        gtk_widget_show(vbox_call_smartInfo);
+    } else {
+        gtk_widget_hide(vbox_call_smartInfo);
+    }
 }
 
 void
@@ -572,6 +668,12 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     /* change some things depending on call state */
     update_state(view, priv->call);
     update_details(view, priv->call);
+
+    priv->smartinfo_refresh_connection = QObject::connect(
+        &SmartInfoHub::instance(),
+        &SmartInfoHub::changed,
+        [view, priv]() { update_smartInfo(view); }
+    );
 
     priv->state_change_connection = QObject::connect(
         priv->call,
@@ -628,6 +730,13 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     g_signal_connect(priv->video_widget, "button-press-event",
                      G_CALLBACK(on_button_press_in_video_event),
                      view);
+
+    /* handle smartinfo in right click menu */
+    auto display_smartinfo = g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "display-smartinfo");
+    priv->smartinfo_action = g_signal_connect(display_smartinfo,
+                                              "notify::state",
+                                              G_CALLBACK(toggle_smartinfo),
+                                              priv->vbox_call_smartInfo);
 
     /* check if auto quality is enabled or not; */
     if (const auto& codecModel = priv->call->account()->codecModel()) {

@@ -50,6 +50,7 @@
 #include <peerprofilecollection.h>
 #include <localprofilecollection.h>
 #include <accountmodel.h>
+#include <smartinfohub.h>
 
 // Ring client
 #include "ring_client_options.h"
@@ -177,16 +178,28 @@ action_about(G_GNUC_UNUSED GSimpleAction *simple,
     ring_about_dialog(priv->win);
 }
 
+static void
+toggle_smartinfo(GSimpleAction *action, GVariant *parameter, gpointer)
+{
+    g_simple_action_set_state(action, parameter);
+    if (g_variant_get_boolean(parameter)) {
+        SmartInfoHub::instance().start();
+    } else {
+        SmartInfoHub::instance().stop();
+    }
+}
+
 static const GActionEntry ring_actions[] =
 {
-    { "accept", NULL,         NULL, NULL,    NULL, {0} },
-    { "hangup", NULL,         NULL, NULL,    NULL, {0} },
-    { "hold",   NULL,         NULL, "false", NULL, {0} },
-    { "quit",   action_quit,  NULL, NULL,    NULL, {0} },
-    { "about",  action_about, NULL, NULL,    NULL, {0} },
-    { "mute_audio", NULL,     NULL, "false", NULL, {0} },
-    { "mute_video", NULL,     NULL, "false", NULL, {0} },
-    { "record",     NULL,     NULL, "false", NULL, {0} },
+    { "accept",             NULL,         NULL, NULL,    NULL, {0} },
+    { "hangup",             NULL,         NULL, NULL,    NULL, {0} },
+    { "hold",               NULL,         NULL, "false", NULL, {0} },
+    { "quit",               action_quit,  NULL, NULL,    NULL, {0} },
+    { "about",              action_about, NULL, NULL,    NULL, {0} },
+    { "mute_audio",         NULL,         NULL, "false", NULL, {0} },
+    { "mute_video",         NULL,         NULL, "false", NULL, {0} },
+    { "record",             NULL,         NULL, "false", NULL, {0} },
+    { "display-smartinfo",  NULL,         NULL, "false", toggle_smartinfo, {0} },
     /* TODO implement the other actions */
     // { "transfer",   NULL,        NULL, "flase", NULL, {0} },
 };
