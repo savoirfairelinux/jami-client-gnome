@@ -42,6 +42,7 @@
 #include "chatview.h"
 #include <itemdataroles.h>
 #include <numbercategory.h>
+#include <smartInfoHub.h>
 
 static constexpr int CONTROLS_FADE_TIMEOUT = 3000000; /* microseconds */
 static constexpr int FADE_DURATION = 500; /* miliseconds */
@@ -62,6 +63,7 @@ struct _CurrentCallViewPrivate
 {
     GtkWidget *hbox_call_info;
     GtkWidget *hbox_call_controls;
+    GtkWidget *vbox_call_smartInfo;
     GtkWidget *image_peer;
     GtkWidget *label_name;
     GtkWidget *label_uri;
@@ -75,6 +77,18 @@ struct _CurrentCallViewPrivate
     GtkWidget *button_hangup;
     GtkWidget *scalebutton_quality;
     GtkWidget *checkbutton_autoquality;
+
+    //smartInfo
+    GtkWidget *label_local;
+    GtkWidget *label_local_video_codec;
+    GtkWidget *label_local_framerate;
+
+    GtkWidget *label_remote;
+    GtkWidget *label_remote_framerate;
+    GtkWidget *label_remote_width;
+    GtkWidget *label_remote_height;
+    GtkWidget *label_remote_video_codec;
+    GtkWidget *label_remote_audio_codec;
 
     /* flag used to keep track of the video quality scale pressed state;
      * we do not want to update the codec bitrate until the user releases the
@@ -100,13 +114,18 @@ struct _CurrentCallViewPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(CurrentCallView, current_call_view, GTK_TYPE_BOX);
 
 #define CURRENT_CALL_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CURRENT_CALL_VIEW_TYPE, CurrentCallViewPrivate))
-
+//_CurrentCallViewPrivate
 enum {
     VIDEO_DOUBLE_CLICKED,
     LAST_SIGNAL
 };
 
 static guint current_call_view_signals[LAST_SIGNAL] = { 0 };
+
+void
+stop_display_information(){
+    qDebug()<< "into CurrentCallView";
+}
 
 static void
 current_call_view_dispose(GObject *object)
@@ -410,6 +429,7 @@ current_call_view_init(CurrentCallView *view)
     auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
     auto actor_info = gtk_clutter_actor_new_with_contents(priv->hbox_call_info);
     auto actor_controls = gtk_clutter_actor_new_with_contents(priv->hbox_call_controls);
+    auto actor_smartInfo = gtk_clutter_actor_new_with_contents(priv->vbox_call_smartInfo);
 
     clutter_actor_add_child(stage, actor_info);
     clutter_actor_set_x_align(actor_info, CLUTTER_ACTOR_ALIGN_FILL);
@@ -418,6 +438,14 @@ current_call_view_init(CurrentCallView *view)
     clutter_actor_add_child(stage, actor_controls);
     clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
     clutter_actor_set_y_align(actor_controls, CLUTTER_ACTOR_ALIGN_END);
+
+    clutter_actor_add_child(stage, actor_smartInfo);
+    clutter_actor_set_x_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_END);
+    clutter_actor_set_y_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_START);
+    ClutterMargin clutter_margin_smartInfo;
+    clutter_margin_smartInfo.top = 50;
+    clutter_margin_smartInfo.right = 10;
+    clutter_actor_set_margin (actor_smartInfo, &clutter_margin_smartInfo);
 
     /* add fade in and out states to the info and controls */
     priv->time_last_mouse_motion = g_get_monotonic_time();
@@ -477,6 +505,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_controls);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_call_smartInfo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, image_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_name);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_uri);
@@ -488,6 +517,23 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scalebutton_quality);
+    //smartinfo
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_local);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_local_framerate);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_local_video_codec);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_remote);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_remote_framerate);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_remote_video_codec);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_remote_width);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_remote_height);
+
+    /*
+
+
+
+
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_remote_audio_codec);*/
+
 
     current_call_view_signals[VIDEO_DOUBLE_CLICKED] = g_signal_new (
         "video-double-clicked",
@@ -527,6 +573,69 @@ update_details(CurrentCallView *view, Call *call)
     QByteArray ba_length = call->length().toLocal8Bit();
     gtk_label_set_text(GTK_LABEL(priv->label_duration), ba_length.constData());
 }
+
+static void
+update_smartInfo(CurrentCallView *view, Call *call)
+{
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    QObject::connect(&SmartInfoHub::instance(), &SmartInfoHub::changed,
+        [priv] () {
+
+            gtk_label_set_text(GTK_LABEL(priv->label_local),"Local:");
+            gtk_label_set_text(GTK_LABEL(priv->label_remote),"Remote:");
+            QList<QString> keyChanged = SmartInfoHub::instance().keyChanged();
+
+            for(int i = 0; i < keyChanged.size(); i++){
+                if(keyChanged.at(i) == LOCAL_FPS)
+                    gtk_label_set_text(GTK_LABEL(priv->label_local_framerate),
+                        g_strdup_printf("%s %s","framerate: ",
+                            QString::number(SmartInfoHub::instance().localFps()).toStdString().c_str()));
+
+                if(keyChanged.at(i) == LOCAL_VIDEO_CODEC)
+                    gtk_label_set_text(GTK_LABEL(priv->label_local_video_codec),
+                        g_strdup_printf("%s %s","video codec: ",
+                            SmartInfoHub::instance().localVideoCodec().toStdString().c_str()));
+
+                if(keyChanged.at(i) == REMOTE_FPS)
+                    gtk_label_set_text(GTK_LABEL(priv->label_remote_framerate),
+                        g_strdup_printf("%s %s","framerate: ",
+                            QString::number(SmartInfoHub::instance().remoteFps()).toStdString().c_str()));
+
+                if(keyChanged.at(i) == REMOTE_VIDEO_CODEC)
+                    gtk_label_set_text(GTK_LABEL(priv->label_remote_video_codec),
+                        g_strdup_printf("%s %s","video codec: ",
+                            SmartInfoHub::instance().remoteVideoCodec().toStdString().c_str()));
+
+                if(keyChanged.at(i) == REMOTE_WIDTH)
+                    gtk_label_set_text(GTK_LABEL(priv->label_remote_width),
+                        g_strdup_printf("%s %s","width: ",
+                            QString::number(SmartInfoHub::instance().remoteWidth()).toStdString().c_str()));
+
+
+                if(keyChanged.at(i) == REMOTE_HEIGHT)
+                    gtk_label_set_text(GTK_LABEL(priv->label_remote_height),
+                        g_strdup_printf("%s %s","height: ",
+                            QString::number(SmartInfoHub::instance().remoteHeight()).toStdString().c_str()));
+
+                    /*
+                if(keyChanged.at(i) == REMOTE_AUDIO_CODEC)
+                    gtk_label_set_text(GTK_LABEL(priv->label_remote_audio_codec),
+                        g_strdup_printf("%s %s","audio codec: ",
+                            SmartInfoHub::instance().remoteAudioCodec().toStdString().c_str()));*/
+
+
+                }
+        });
+
+
+            /*for(int i=0; i < SmartInfoHub::instance().keyChanged().size(); i++){
+                qDebug() << SmartInfoHub::instance().keyChanged().at(i);
+            }
+
+            qDebug() << SmartInfoHub::instance().localFps() LOCAL_FPS;*/
+
+}
+
 
 static gboolean
 on_button_press_in_video_event(GtkWidget *self, GdkEventButton *event, CurrentCallView *view)
@@ -572,6 +681,7 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     /* change some things depending on call state */
     update_state(view, priv->call);
     update_details(view, priv->call);
+    update_smartInfo(view, priv->call);
 
     priv->state_change_connection = QObject::connect(
         priv->call,
@@ -582,7 +692,8 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     priv->call_details_connection = QObject::connect(
         priv->call,
         static_cast<void (Call::*)(void)>(&Call::changed),
-        [view, priv]() { update_details(view, priv->call); }
+        [view, priv]() { update_details(view, priv->call);
+         update_smartInfo(view, priv->call);}
     );
 
     /* check if we already have a renderer */
