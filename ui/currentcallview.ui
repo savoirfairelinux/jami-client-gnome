@@ -47,6 +47,78 @@
     <!-- end of Paned container -->
   </template>
 
+  <!-- vertical box which contains smartInfo -->
+  <object class="GtkBox" id="vbox_call_smartInfo">
+    <property name="visible">True</property>
+    <property name="spacing">5</property>
+    <property name="valign">start</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkLabel" id="label_smartinfo_general_information">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="selectable">True</property>
+        <property name="ellipsize">end</property>
+        <property name="halign">start</property>
+        <attributes>
+          <attribute name="scale" value="1"/>
+          <attribute name="foreground" value="#ffffffffffff"/>
+        </attributes>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <child>
+
+    <!-- horizontal box which contains smartInfo -->
+    <object class="GtkBox" id="hbox_call_smartInfo">
+      <property name="visible">True</property>
+      <property name="hexpand">True</property>
+      <property name="spacing">10</property>
+      <property name="border-width">10</property>
+      <child>
+        <object class="GtkLabel" id="label_smartinfo_description">
+          <property name="visible">True</property>
+          <property name="can_focus">True</property>
+          <property name="selectable">True</property>
+          <property name="ellipsize">end</property>
+          <property name="halign">start</property>
+          <attributes>
+            <attribute name="scale" value="1"/>
+            <attribute name="foreground" value="#ffffffffffff"/>
+          </attributes>
+        </object>
+        <packing>
+          <property name="expand">False</property>
+          <property name="fill">True</property>
+        </packing>
+      </child>
+      <child>
+        <object class="GtkLabel" id="label_smartinfo_value">
+          <property name="visible">True</property>
+          <property name="can_focus">True</property>
+          <property name="selectable">True</property>
+          <property name="ellipsize">end</property>
+          <property name="halign">start</property>
+          <attributes>
+            <attribute name="scale" value="1"/>
+            <attribute name="foreground" value="#ffffffffffff"/>
+          </attributes>
+        </object>
+        <packing>
+          <property name="expand">False</property>
+          <property name="fill">True</property>
+        </packing>
+      </child>
+    </object>
+  </child>
+  <!-- end ofhorizontal box which contains smartInfo -->
+
+  </object>
+  <!-- end of the vertical box which contains smartInfo -->
+
   <!-- box which contains peer image and name and call status -->
   <object class="GtkBox" id="hbox_call_info">
     <property name="visible">True</property>
