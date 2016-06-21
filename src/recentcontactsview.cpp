@@ -40,6 +40,8 @@
 #include <QtCore/QMimeData>
 #include "utils/drawing.h"
 #include "numbercategory.h"
+#include "utils/accounts.h"
+#include <account.h>
 
 static constexpr const char* COPY_DATA_KEY = "copy_data";
 
@@ -100,6 +102,16 @@ call_contactmethod(G_GNUC_UNUSED GtkWidget *item, ContactMethod *cm)
 {
     g_return_if_fail(cm);
     place_new_call(cm);
+}
+
+static void
+send_friendrequest(G_GNUC_UNUSED GtkWidget *item, ContactMethod *cm)
+{
+    g_return_if_fail(cm);
+    if (auto a = get_active_ring_account()) {
+        g_debug("requesting trust");
+        a->requestTrust(cm);
+    }
 }
 
 static void
@@ -546,6 +558,42 @@ create_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gp
              gtk_tree_path_free(path);
              auto add_to = menu_item_add_to_contact(object.value<ContactMethod *>(), GTK_WIDGET(treeview), &rect);
              gtk_menu_shell_append(GTK_MENU_SHELL(menu), add_to);
+         }
+     }
+
+     /* experimental trust request */
+     if (type.isValid() && object.isValid()) {
+         switch (type.value<Ring::ObjectType>()) {
+             case Ring::ObjectType::Person:
+             {
+                 /* only when there is only 1 number associated */
+                 auto cms = object.value<Person *>()->phoneNumbers();
+                 if (cms.size() == 1) {
+                     auto item = gtk_menu_item_new_with_mnemonic(_("Send friend request"));
+                     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+                     g_signal_connect(item,
+                                      "activate",
+                                      G_CALLBACK(send_friendrequest),
+                                      cms.at(0));
+                }
+             }
+             break;
+             case Ring::ObjectType::ContactMethod:
+             {
+                 auto cm = object.value<ContactMethod *>();
+                 auto item = gtk_menu_item_new_with_mnemonic(_("Send friend request"));
+                 gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+                 g_signal_connect(item,
+                                  "activate",
+                                  G_CALLBACK(send_friendrequest),
+                                  cm);
+             }
+             break;
+             case Ring::ObjectType::Call:
+             case Ring::ObjectType::Media:
+             // nothing to do for now
+             case Ring::ObjectType::COUNT__:
+             break;
          }
      }
 
