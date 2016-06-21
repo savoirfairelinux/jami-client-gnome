@@ -30,6 +30,7 @@
 #include "ringnotify.h"
 #include "numbercategory.h"
 #include <QtCore/QDateTime>
+#include "utils/calling.h"
 
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
 
@@ -55,6 +56,7 @@ struct _ChatViewPrivate
     GtkWidget *label_peer;
     GtkWidget *combobox_cm;
     GtkWidget *button_close_chatview;
+    GtkWidget *button_placecall;
 
     /* only one of the three following pointers should be non void;
      * either this is an in-call chat (and so the in-call chat APIs will be used)
@@ -117,7 +119,7 @@ send_chat(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
                 if (!cm->sendOfflineTextMessage(messages))
                     g_warning("message failed to send"); // TODO: warn the user about this in the UI
             } else {
-                g_warning("no ContactMethod chosen; message not esnt");
+                g_warning("no ContactMethod chosen; message not sent");
             }
         } else if (priv->cm) {
             if (!priv->cm->sendOfflineTextMessage(messages))
@@ -145,6 +147,27 @@ hide_chat_view(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
 }
 
 static void
+placecall_clicked(ChatView *self)
+{
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    if (priv->person) {
+        // get the chosen cm
+        auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
+        if (active >= 0) {
+            auto cm = priv->person->phoneNumbers().at(active);
+            place_new_call(cm);
+        } else {
+            g_warning("no ContactMethod chosen; cannot place call");
+        }
+    } else if (priv->cm) {
+        place_new_call(priv->cm);
+    } else {
+        g_warning("no Person or ContactMethod set; cannot place call");
+    }
+}
+
+static void
 chat_view_init(ChatView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
@@ -161,6 +184,8 @@ chat_view_init(ChatView *view)
     g_signal_connect(adjustment, "changed", G_CALLBACK(scroll_to_bottom), NULL);
 
     g_signal_connect(priv->button_close_chatview, "clicked", G_CALLBACK(hide_chat_view), view);
+
+    g_signal_connect_swapped(priv->button_placecall, "clicked", G_CALLBACK(placecall_clicked), view);
 }
 
 static void
@@ -179,6 +204,7 @@ chat_view_class_init(ChatViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, combobox_cm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_close_chatview);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_placecall);
 
     chat_view_signals[NEW_MESSAGES_DISPLAYED] = g_signal_new (
         "new-messages-displayed",
@@ -406,6 +432,9 @@ update_contact_methods(ChatView *self)
     /* if there is only one CM, make the combo box insensitive */
     if (cms.size() < 2)
         gtk_widget_set_sensitive(priv->combobox_cm, FALSE);
+
+    /* if no CMs make the call button insensitive */
+    gtk_widget_set_sensitive(priv->button_placecall, !cms.isEmpty());
 }
 
 static void

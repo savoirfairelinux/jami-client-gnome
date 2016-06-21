@@ -148,17 +148,10 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="button_placecall">
-                    <property name="image">image_call</property>
+                  <object class="GtkButton" id="button_new_conversation">
+                    <property name="image">image_new_conversation</property>
                     <property name="visible">True</property>
                     <property name="relief">none</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkButton" id="button_addcontact">
-                    <property name="image">image_contact</property>
-                    <!-- TODO: make visible when feature ready -->
-                    <property name="visible">False</property>
                   </object>
                 </child>
               </object>
@@ -416,9 +409,9 @@
     <property name="visible">True</property>
     <property name="resource">/cx/ring/RingGnome/users_small</property>
   </object>
-  <object class="GtkImage" id="image_call">
+  <object class="GtkImage" id="image_new_conversation">
     <property name="visible">True</property>
-    <property name="icon-name">call-start-symbolic</property>
+    <property name="icon-name">list-add-symbolic</property>
   </object>
   <object class="GtkImage" id="image_contact">
     <property name="visible">True</property>

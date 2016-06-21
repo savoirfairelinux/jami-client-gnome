@@ -39,6 +39,21 @@
           </packing>
         </child>
         <child>
+          <object class="GtkButton" id="button_placecall">
+            <property name="visible">True</property>
+            <property name="image">image_place_call</property>
+            <property name="tooltip-text" translatable="yes">Place call</property>
+            <child internal-child="accessible">
+              <object class="AtkObject" id="button_placecall-atkobject">
+                <property name="AtkObject::accessible-name" translatable="yes">Place call</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack-type">end</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkComboBox" id="combobox_cm">
             <property name="visible">True</property>
             <property name="popup-fixed-width">False</property>
@@ -113,5 +128,9 @@
   <object class="GtkImage" id="image_back_arrow">
     <property name="visible">True</property>
     <property name="icon-name">go-previous-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_place_call">
+    <property name="visible">True</property>
+    <property name="icon-name">call-start-symbolic</property>
   </object>
 </interface>

@@ -29,6 +29,7 @@
 // Qt
 #include <QtCore/QItemSelectionModel>
 #include <QtCore/QSortFilterProxyModel>
+#include <QtCore/QDateTime>
 
 // LRC
 #include <callmodel.h>
@@ -110,7 +111,7 @@ struct _RingMainWindowPrivate
     GtkWidget *vbox_call_view;
     GtkWidget *frame_call;
     GtkWidget *welcome_view;
-    GtkWidget *button_placecall;
+    GtkWidget *button_new_conversation  ;
     GtkWidget *account_settings_view;
     GtkWidget *media_settings_view;
     GtkWidget *general_settings_view;
@@ -447,23 +448,29 @@ selection_changed(RingMainWindow *win)
 }
 
 static void
-search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
+search_entry_activated(GtkWidget *entry, RingMainWindow *self)
 {
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
-    const gchar *number_entered = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
+    const auto *number_entered = gtk_entry_get_text(GTK_ENTRY(entry));
 
     if (number_entered && strlen(number_entered) > 0) {
         auto cm = PhoneDirectoryModel::instance().getNumber(number_entered);
 
-        g_debug("dialing to number: %s", cm->uri().toUtf8().constData());
+        if (g_settings_get_boolean(priv->settings, "search-entry-places-call")) {
+            place_new_call(cm);
 
-        place_new_call(cm);
+            /* move focus away from entry so that DTMF tones can be entered via the keyboard */
+            gtk_widget_child_focus(GTK_WIDGET(self), GTK_DIR_TAB_FORWARD);
+        } else {
+            // if its a new CM, bring it to the top
+            if (cm->lastUsed() == 0)
+                cm->setLastUsed(QDateTime::currentDateTime().toTime_t());
 
-        /* move focus away from entry so that DTMF tones can be entered via the keyboard */
-        gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
-        /* clear the entry */
-        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+            // select cm
+            RecentModel::instance().selectionModel()->setCurrentIndex(RecentModel::instance().getIndex(cm), QItemSelectionModel::ClearAndSelect);
+        }
+        gtk_entry_set_text(GTK_ENTRY(entry), "");
     }
 }
 
@@ -873,10 +880,19 @@ select_autocompletion(G_GNUC_UNUSED GtkEntryCompletion *widget,
     if (idx.isValid()) {
         auto cm = priv->q_completion_model->number(idx);
 
-        place_new_call(cm);
+        if (g_settings_get_boolean(priv->settings, "search-entry-places-call")) {
+            place_new_call(cm);
 
-        /* move focus away from entry so that DTMF tones can be entered via the keyboard */
-        gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
+            /* move focus away from entry so that DTMF tones can be entered via the keyboard */
+            gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
+        } else {
+            // if its a new CM, bring it to the top
+            if (cm->lastUsed() == 0)
+                cm->setLastUsed(QDateTime::currentDateTime().toTime_t());
+
+            // select cm
+            RecentModel::instance().selectionModel()->setCurrentIndex(RecentModel::instance().getIndex(cm), QItemSelectionModel::ClearAndSelect);
+        }
 
         /* clear the entry */
         gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
@@ -1093,6 +1109,18 @@ window_size_changed(GtkWidget *win, GdkEventConfigure *event, gpointer)
 }
 
 static void
+search_entry_places_call_changed(GSettings *settings, const gchar *key, RingMainWindow *self)
+{
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+
+    if (g_settings_get_boolean(settings, key)) {
+        gtk_widget_set_tooltip_text(priv->button_new_conversation, C_("button next to search entry will place a new call", "place call"));
+    } else {
+        gtk_widget_set_tooltip_text(priv->button_new_conversation, C_("button next to search entry will open chat", "open chat"));
+    }
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -1104,6 +1132,10 @@ ring_main_window_init(RingMainWindow *win)
     auto height = g_settings_get_int(priv->settings, "window-height");
     gtk_window_set_default_size(GTK_WINDOW(win), width, height);
     g_signal_connect(win, "configure-event", G_CALLBACK(window_size_changed), nullptr);
+
+    /* search-entry-places-call setting */
+    search_entry_places_call_changed(priv->settings, "search-entry-places-call", win);
+    g_signal_connect(priv->settings, "changed::search-entry-places-call", G_CALLBACK(search_entry_places_call_changed), win);
 
      /* set window icon */
     GError *error = NULL;
@@ -1192,8 +1224,8 @@ ring_main_window_init(RingMainWindow *win)
     auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
     g_signal_connect(selection_history, "changed", G_CALLBACK(history_selection_changed), win);
 
-    g_signal_connect(priv->button_placecall, "clicked", G_CALLBACK(search_entry_placecall), win);
-    g_signal_connect(priv->search_entry, "activate", G_CALLBACK(search_entry_placecall), win);
+    g_signal_connect(priv->button_new_conversation, "clicked", G_CALLBACK(search_entry_activated), win);
+    g_signal_connect(priv->search_entry, "activate", G_CALLBACK(search_entry_activated), win);
 
     /* autocompletion */
     priv->q_completion_model = new NumberCompletionModel();
@@ -1338,7 +1370,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_main_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_call_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, frame_call);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_placecall);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_new_conversation  );
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_media_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
