@@ -27,11 +27,13 @@
 #include <person.h>
 #include <numbercategory.h>
 #include <call.h>
+#include <account.h>
 
 // Ring client
 #include "utils/calling.h"
 #include "models/gtkqsortfiltertreemodel.h"
 #include "utils/menus.h"
+#include "utils/accounts.h"
 
 static constexpr const char* COPY_DATA_KEY = "copy_data";
 
@@ -95,6 +97,16 @@ remove_contact(GtkWidget *item, Person *person)
     }
 
     gtk_widget_destroy(dialog);
+}
+
+static void
+send_friendrequest(G_GNUC_UNUSED GtkWidget *item, ContactMethod *cm)
+{
+    g_return_if_fail(cm);
+    if (auto a = get_active_ring_account()) {
+        g_debug("requesting trust");
+        a->requestTrust(cm);
+    }
 }
 
 /**
@@ -323,6 +335,40 @@ update(GtkTreeSelection *selection, ContactPopupMenu *self)
                           "activate",
                           G_CALLBACK(remove_contact),
                           person);
+     }
+
+     /* experimental trust request */
+     switch (type.value<Ring::ObjectType>()) {
+         case Ring::ObjectType::Person:
+         {
+             /* only when there is only 1 number associated */
+             auto cms = object.value<Person *>()->phoneNumbers();
+             if (cms.size() == 1) {
+                 auto item = gtk_menu_item_new_with_mnemonic(_("Send friend request"));
+                 gtk_menu_shell_append(GTK_MENU_SHELL(self), item);
+                 g_signal_connect(item,
+                                  "activate",
+                                  G_CALLBACK(send_friendrequest),
+                                  cms.at(0));
+            }
+         }
+         break;
+         case Ring::ObjectType::ContactMethod:
+         {
+             auto cm = object.value<ContactMethod *>();
+             auto item = gtk_menu_item_new_with_mnemonic(_("Send friend request"));
+             gtk_menu_shell_append(GTK_MENU_SHELL(self), item);
+             g_signal_connect(item,
+                              "activate",
+                              G_CALLBACK(send_friendrequest),
+                              cm);
+         }
+         break;
+         case Ring::ObjectType::Call:
+         case Ring::ObjectType::Media:
+         // nothing to do for now
+         case Ring::ObjectType::COUNT__:
+         break;
      }
 
      /* show all items */
