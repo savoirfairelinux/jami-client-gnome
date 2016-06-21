@@ -44,5 +44,10 @@
         <summary>Main window height.</summary>
         <description>Main window height.</description>
     </key>
+    <key name="search-entry-places-call" type="b">
+        <default>false</default>
+        <summary>Entering a number in the search entry places a new call.</summary>
+        <description>Entering a number in the search entry places a new call. If false, then this will instead open a chat view.</description>
+    </key>
   </schema>
 </schemalist>
