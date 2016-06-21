@@ -55,6 +55,7 @@
 #include "recentcontactsview.h"
 #include <recentmodel.h>
 #include "chatview.h"
+#include <QtCore/QDateTime>
 
 /*TODO : sorting headers */
 /* client */
@@ -347,6 +348,22 @@ selected_item_changed(RingMainWindow *win)
     }
 
     return G_SOURCE_REMOVE;
+}
+
+static void
+search_entry_activated(GtkWidget *entry, gpointer win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+
+    const auto *number_entered = gtk_entry_get_text(GTK_ENTRY(entry));
+
+    auto cm = PhoneDirectoryModel::instance().getNumber(number_entered);
+    cm->setLastUsed(QDateTime::currentDateTime().toTime_t());
+
+    // select cm
+    RecentModel::instance().selectionModel()->setCurrentIndex(RecentModel::instance().getIndex(cm), QItemSelectionModel::ClearAndSelect);
+
+    gtk_entry_set_text(GTK_ENTRY(entry), "");
 }
 
 static void
@@ -970,8 +987,8 @@ ring_main_window_init(RingMainWindow *win)
         }
     );
 
-    g_signal_connect(priv->button_placecall, "clicked", G_CALLBACK(search_entry_placecall), win);
-    g_signal_connect(priv->search_entry, "activate", G_CALLBACK(search_entry_placecall), win);
+    g_signal_connect(priv->button_placecall, "clicked", G_CALLBACK(search_entry_activated), win);
+    g_signal_connect(priv->search_entry, "activate", G_CALLBACK(search_entry_activated), win);
 
     /* autocompletion */
     priv->q_completion_model = new NumberCompletionModel();
