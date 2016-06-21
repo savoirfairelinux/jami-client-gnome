@@ -483,7 +483,11 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
         return FALSE;
 
     /* create menu with available video sources */
+
+    // we create a new menu, take ownership and destroy it when done
     GtkWidget *menu = gtk_menu_new();
+    g_object_ref_sink(menu);
+    g_signal_connect_swapped(menu, "selection-done", G_CALLBACK(g_object_unref), menu);
 
     Video::SourceModel *sourcemodel = nullptr;
     if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))

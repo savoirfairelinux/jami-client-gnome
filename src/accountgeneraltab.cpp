@@ -218,7 +218,11 @@ bootstrap_servers_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *ev
     if (!gtk_tree_selection_get_selected(selection, &model, &iter))
         return FALSE;
 
+    // we create a new menu, take ownership and destroy it when done
     GtkWidget *menu = gtk_menu_new();
+    g_object_ref_sink(menu);
+    g_signal_connect_swapped(menu, "selection-done", G_CALLBACK(g_object_unref), menu);
+
     QModelIndex idx = get_index_from_selection(selection);
 
     GtkWidget *remove_server_item = gtk_menu_item_new_with_mnemonic(_("_Remove server"));

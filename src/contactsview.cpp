@@ -341,7 +341,12 @@ contacts_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkT
         return FALSE;
 
     /* deeper than a category, so create a menu */
+
+    // we create a new menu, take ownership and destroy it when done
     GtkWidget *menu = gtk_menu_new();
+    g_object_ref_sink(menu);
+    g_signal_connect_swapped(menu, "selection-done", G_CALLBACK(g_object_unref), menu);
+
     QModelIndex idx = get_index_from_selection(selection);
 
     /* if depth == 2, it is a contact, offer to copy name, and if only one
