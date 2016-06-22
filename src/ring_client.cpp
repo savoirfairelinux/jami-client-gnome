@@ -319,12 +319,12 @@ ring_client_activate(GApplication *app)
         /* check if the window should be destoryed or not on close */
         g_signal_connect(priv->win, "delete-event", G_CALLBACK(on_close_window), client);
 
-        //track window state
-        g_signal_connect_swapped(priv->settings, "changed::show-main-window", G_CALLBACK(show_main_window_toggled), client);
         /* if we didn't launch with the '-r' (--restore-last-window-state) option then force the
          * show-main-window to true */
         if (!priv->restore_window_state)
             ring_window_show(client);
+        show_main_window_toggled(client);
+        g_signal_connect_swapped(priv->settings, "changed::show-main-window", G_CALLBACK(show_main_window_toggled), client);
 
         // track sys icon state
         g_signal_connect(priv->settings, "changed::show-status-icon", G_CALLBACK(systray_toggled), client);
