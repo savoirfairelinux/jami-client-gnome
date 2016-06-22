@@ -17,6 +17,5 @@
     <file preprocess="xml-stripblanks">choosecontactview.ui</file>
     <file preprocess="xml-stripblanks">chatview.ui</file>
     <file preprocess="xml-stripblanks">avatarmanipulation.ui</file>
-    <file preprocess="xml-stripblanks">ringiconmenu.ui</file>
   </gresource>
 </gresources>

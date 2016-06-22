@@ -258,15 +258,23 @@ init_systray(RingClient *client)
 
     // init menu
     if (!priv->icon_menu) {
-        auto builder = gtk_builder_new_from_resource("/cx/ring/RingGnome/ringiconmenu.ui");
-        auto menu_model = G_MENU_MODEL(gtk_builder_get_object(builder, "menu"));
-        priv->icon_menu = gtk_menu_new_from_model(menu_model);
 
-        /* enable the menu actions */
-        gtk_widget_insert_action_group(priv->icon_menu, "app", G_ACTION_GROUP(client));
-        g_object_unref(builder);
-        g_object_unref(menu_model);
+        /* for some reason AppIndicator doesn't like the menu being built from a GMenuModel and/or
+         * the GMenuModel being built from an xml resource. So we build the menu in code.
+         */
+        priv->icon_menu = gtk_menu_new();
         g_object_ref_sink(priv->icon_menu);
+
+        auto item = gtk_check_menu_item_new_with_label(C_("In the status icon menu, toggle action to show or hide the Ring main window", "Show Ring"));
+        gtk_actionable_set_action_name(GTK_ACTIONABLE(item), "app.show-main-window");
+        gtk_menu_shell_append(GTK_MENU_SHELL(priv->icon_menu), item);
+
+        item = gtk_menu_item_new_with_label(_("Quit"));
+        gtk_actionable_set_action_name(GTK_ACTIONABLE(item), "app.quit");
+        gtk_menu_shell_append(GTK_MENU_SHELL(priv->icon_menu), item);
+
+        gtk_widget_insert_action_group(priv->icon_menu, "app", G_ACTION_GROUP(client));
+        gtk_widget_show_all(priv->icon_menu);
     }
 
 #if USE_APPINDICATOR
