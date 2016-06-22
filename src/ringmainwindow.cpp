@@ -55,6 +55,7 @@
 #include "recentcontactsview.h"
 #include <recentmodel.h>
 #include "chatview.h"
+#include <namedirectory.h>
 
 /*TODO : sorting headers */
 /* client */
@@ -110,6 +111,8 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_general_settings;
     GtkWidget *radiobutton_media_settings;
     GtkWidget *radiobutton_account_settings;
+    GtkWidget *checkbutton_sign_up_blockchain;
+    GtkWidget *label_response_for_alias;
 
     QMetaObject::Connection selection_updated;
 
@@ -126,7 +129,9 @@ struct _RingMainWindowPrivate
     GtkWidget *spinner_generating_account;
     GtkWidget *button_account_creation_next;
     GtkWidget *box_avatarselection;
-    GtkWidget* avatar_manipulation;
+    GtkWidget *avatar_manipulation;
+    GtkWidget *entry_archive_password;
+    GtkWidget *checkbutton_invisible_password;
 
     QMetaObject::Connection hash_updated;
 
@@ -523,11 +528,12 @@ create_ring_account(RingMainWindow *win)
 
     if (profile) {
         if (alias && strlen(alias) > 0) {
-            account = AccountModel::instance().add(alias, Account::Protocol::RING);
+            account = AccountModel::instance().add(alias
+                       , QString(gtk_entry_get_text(GTK_ENTRY(priv->entry_archive_password))), Account::Protocol::RING);
             profile->person()->setFormattedName(alias);
         } else {
             auto unknown_alias = C_("The default username / account alias, if none is set by the user", "Unknown");
-            account = AccountModel::instance().add(unknown_alias, Account::Protocol::RING);
+            account = AccountModel::instance().add(unknown_alias, QString(""), Account::Protocol::RING);
             profile->person()->setFormattedName(unknown_alias);
         }
     }
@@ -565,12 +571,72 @@ alias_entry_changed(GtkEditable *entry, RingMainWindow *win)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
     const gchar *alias = gtk_entry_get_text(GTK_ENTRY(entry));
+
     if (!alias || strlen(alias) == 0) {
         gtk_widget_show(priv->label_default_name);
         gtk_widget_hide(priv->label_paceholder);
+        /* refuse to signup an empty alias (TODO : do it in lrc) */
+        gtk_widget_set_sensitive(priv->button_account_creation_next
+                              , !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_sign_up_blockchain)));
     } else {
         gtk_widget_hide(priv->label_default_name);
         gtk_widget_show(priv->label_paceholder);
+
+        /* ask the blockchain to check alias if required */
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_sign_up_blockchain))) {
+            gtk_entry_set_icon_from_icon_name(GTK_ENTRY(priv->entry_alias), GTK_ENTRY_ICON_PRIMARY, "gtk-network");
+            NameDirectory::instance().nameLookup(alias,[=](const QString& str, const BlockChainResponse& status){
+                switch(status) {
+                    case BlockChainResponse::notFound :
+                    gtk_label_set_text(GTK_LABEL(priv->label_response_for_alias), "alias available");
+                    gtk_entry_set_icon_from_icon_name(GTK_ENTRY(priv->entry_alias), GTK_ENTRY_ICON_PRIMARY, "gtk-apply");
+                    gtk_widget_set_sensitive(priv->button_account_creation_next, false);
+                    break;
+                    case BlockChainResponse::found :
+                    gtk_label_set_text(GTK_LABEL(priv->label_response_for_alias), "alias already used");
+                    gtk_entry_set_icon_from_icon_name(GTK_ENTRY(priv->entry_alias), GTK_ENTRY_ICON_PRIMARY, "gtk-dialog-error");
+                    gtk_widget_set_sensitive(priv->button_account_creation_next, true);
+                    break;
+                    case BlockChainResponse::error :
+                    gtk_label_set_text(GTK_LABEL(priv->label_response_for_alias), str.toStdString().c_str());
+                    gtk_entry_set_icon_from_icon_name(GTK_ENTRY(priv->entry_alias), GTK_ENTRY_ICON_PRIMARY, "gtk-dialog-error");
+                    gtk_widget_set_sensitive(priv->button_account_creation_next, false);
+                }
+            });
+        }
+    }
+}
+
+static void
+entry_archive_password_changed(GtkEditable *entry, RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+}
+
+static void
+checkbutton_invisible_password_toggled(GtkToggleButton *togglebutton, RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    gtk_entry_set_visibility (GTK_ENTRY(priv->entry_archive_password),!gtk_toggle_button_get_active(togglebutton));
+}
+
+
+static void
+checkbutton_sign_up_blockchain_toggled(GtkToggleButton *togglebutton, RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    /* explicit call to alias_entry_changed to fire the check on the blockchain for the current alias */
+    if (gtk_toggle_button_get_active(togglebutton)) {
+        alias_entry_changed(GTK_EDITABLE(priv->entry_alias), win);
+    } else {
+        gtk_widget_set_sensitive(priv->button_account_creation_next, true);
+        gtk_label_set_text(GTK_LABEL(priv->label_response_for_alias), "");
+        gtk_entry_set_icon_from_icon_name(GTK_ENTRY(priv->entry_alias), GTK_ENTRY_ICON_PRIMARY, NULL);
     }
 }
 
@@ -650,6 +716,11 @@ show_account_creation(RingMainWindow *win)
     g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(alias_entry_changed), win);
     g_signal_connect(priv->button_account_creation_next, "clicked", G_CALLBACK(account_creation_next_clicked), win);
     g_signal_connect(priv->entry_alias, "activate", G_CALLBACK(entry_alias_activated), win);
+    g_signal_connect(priv->entry_archive_password, "changed", G_CALLBACK(entry_archive_password_changed), win);
+    g_signal_connect(priv->checkbutton_sign_up_blockchain, "toggled", G_CALLBACK(checkbutton_sign_up_blockchain_toggled)
+                                                                                                                 , win);
+    g_signal_connect(priv->checkbutton_invisible_password, "toggled", G_CALLBACK(checkbutton_invisible_password_toggled)
+                                                                                                                 , win);
 
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CREATE_ACCOUNT_VIEW_NAME);
 }
@@ -1129,6 +1200,11 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, spinner_generating_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_account_creation_next);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, box_avatarselection);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_archive_password);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, checkbutton_sign_up_blockchain);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_response_for_alias);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, checkbutton_invisible_password);
+
 }
 
 GtkWidget *
