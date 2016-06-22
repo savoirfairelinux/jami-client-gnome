@@ -317,15 +317,17 @@
     <child>
       <object class="GtkBox" id="vbox_account_creation_entry">
         <property name="visible">True</property>
+        <property name="can_focus">False</property>
         <property name="valign">center</property>
         <property name="orientation">vertical</property>
         <property name="spacing">10</property>
         <child>
           <object class="GtkLabel" id="label_enter_alias">
             <property name="visible">True</property>
-            <property name="label" translatable="yes">Choose an avatar and your username:</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Choose your avatar, your username and your password :</property>
           </object>
-          <packing> <!-- nicoo, check if packing is needed -->
+          <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">0</property>
@@ -334,6 +336,7 @@
         <child>
           <object class="GtkBox" id="box_avatarselection">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="orientation">vertical</property>
@@ -348,15 +351,79 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="entry_alias">
-            <property name="width_request">400</property>
+          <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="can_default">True</property>
-            <property name="has_default">True</property>
-            <property name="xalign">0.5</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">10</property>
+            <child>
+              <object class="GtkEntry" id="entry_alias">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="max_length">128</property>
+                <property name="max_width_chars">16</property>
+                <property name="halign">center</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label_response_for_alias">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="entry_archive_password">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="max_length">128</property>
+                <property name="max_width_chars">16</property>
+                <property name="input_purpose">password</property>
+                <property name="halign">center</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">label message from password</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbutton_sign_up_blockchain">
+                <property name="label" translatable="yes">sign up on blockchain</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">center</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">4</property>
+              </packing>
+            </child>
           </object>
-           <packing>
+          <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">2</property>
@@ -364,18 +431,28 @@
         </child>
         <child>
           <object class="GtkLabel" id="label_default_name">
-            <property name="visible">False</property>
+            <property name="can_focus">False</property>
             <property name="label" translatable="yes">Username will be set to "Unknown" if left empty.</property>
             <style>
               <class name="dim-label"/>
             </style>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
         </child>
-        <!-- this placeholder lable is just used to take up space while the above label in hidden -->
         <child>
           <object class="GtkLabel" id="label_paceholder">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">6</property>
+          </packing>
         </child>
       </object>
     </child>
