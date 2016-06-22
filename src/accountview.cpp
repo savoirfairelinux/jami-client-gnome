@@ -315,7 +315,7 @@ add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
             GtkWidget *working = ring_dialog_working(GTK_WIDGET(view), NULL);
             gtk_window_present(GTK_WINDOW(working));
 
-            auto account = AccountModel::instance().add(QString(_("New Account")), protocol_idx);
+            auto account = AccountModel::instance().add(QString(_("New Account")), QString(""), protocol_idx);
             if (account->protocol() == Account::Protocol::RING)
                 account->setDisplayName(_("New Account"));
 
