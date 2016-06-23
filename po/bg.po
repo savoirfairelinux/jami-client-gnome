@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2016-03-28 16:48+0000\n"
+"PO-Revision-Date: 2016-06-06 19:35+0000\n"
 "Last-Translator: Любомир Василев\n"
 "Language-Team: Bulgarian (http://www.transifex.com/savoirfairelinux/ring/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -347,11 +347,11 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:558 ui/accountadvancedtab.ui:632
 msgid "Min"
-msgstr ""
+msgstr "Минимум"
 
 #: ui/accountadvancedtab.ui:581 ui/accountadvancedtab.ui:655
 msgid "Max"
-msgstr ""
+msgstr "Максимум"
 
 #: ui/accountadvancedtab.ui:605
 msgid "<b>Audio RTP Port Range</b>"

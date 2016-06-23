@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
+# Ivica  Kolić <ikoli@yahoo.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2016-03-24 20:09+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"PO-Revision-Date: 2016-06-05 22:50+0000\n"
+"Last-Translator: Ivica  Kolić <ikoli@yahoo.com>\n"
 "Language-Team: Croatian (http://www.transifex.com/savoirfairelinux/ring/language/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +25,7 @@ msgstr "Uključeno"
 #: src/accountaudiotab.cpp:191
 msgctxt "Name of the codec"
 msgid "Name"
-msgstr ""
+msgstr "Ime"
 
 #: src/accountaudiotab.cpp:195 src/accountvideotab.cpp:204
 msgid "Bitrate"
@@ -40,7 +41,7 @@ msgstr "Alias"
 
 #: src/accountgeneraltab.cpp:221
 msgid "Type"
-msgstr ""
+msgstr "Vrsta"
 
 #: src/accountgeneraltab.cpp:250
 msgid "auto-generating..."
@@ -56,7 +57,7 @@ msgstr "Korisničko ime"
 
 #: src/accountgeneraltab.cpp:289
 msgid "Password"
-msgstr ""
+msgstr "Lozinka"
 
 #: src/accountgeneraltab.cpp:302
 msgid "Show password"
@@ -64,11 +65,11 @@ msgstr "Prikaži lozinku"
 
 #: src/accountgeneraltab.cpp:308
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: src/accountgeneraltab.cpp:318
 msgid "Voicemail number"
-msgstr ""
+msgstr "Broj govorne pošte"
 
 #: src/accountgeneraltab.cpp:330
 msgctxt "The DHT bootstrap server url"
@@ -81,7 +82,7 @@ msgstr "Automatski primi pozive"
 
 #: src/accountgeneraltab.cpp:350
 msgid "UPnP enabled"
-msgstr ""
+msgstr "UPnP omogućen"
 
 #: src/accountgeneraltab.cpp:358
 msgid "DTMF tone type:"
@@ -90,7 +91,7 @@ msgstr ""
 #: src/accountvideotab.cpp:200
 msgctxt "The name of the codec"
 msgid "Name"
-msgstr ""
+msgstr "Ime"
 
 #: src/accountview.cpp:159
 msgctxt "Account settings"
@@ -115,16 +116,16 @@ msgstr "Napredno"
 #: src/accountview.cpp:175
 msgctxt "Account settings"
 msgid "Security"
-msgstr ""
+msgstr "Sigurnost"
 
 #: src/accountview.cpp:229
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
-msgstr ""
+msgstr "Jeste li sigurni da želite izbrisati račun \"%s\"?"
 
 #: src/accountview.cpp:313 src/accountview.cpp:315
 msgid "New Account"
-msgstr ""
+msgstr "Novi račun"
 
 #: src/accountview.cpp:399
 msgctxt "Account state column"
@@ -139,15 +140,15 @@ msgstr "Alias"
 #: src/accountview.cpp:409
 msgctxt "Account status column"
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: src/contactsview.cpp:305
 msgid "_Copy name"
-msgstr ""
+msgstr "_Kopiraj ime"
 
 #: src/contactsview.cpp:316 src/contactsview.cpp:331
 msgid "_Copy number"
-msgstr ""
+msgstr "_Kopiraj broj"
 
 #: src/dialogs.c:53
 msgid "Working..."
@@ -180,7 +181,7 @@ msgstr ""
 
 #: src/historyview.cpp:184
 msgid "_Copy"
-msgstr ""
+msgstr "_Kopiraj"
 
 #: src/historyview.cpp:402
 msgctxt "Call history"
@@ -190,17 +191,17 @@ msgstr "Nazovi"
 #: src/historyview.cpp:447
 msgctxt "Call history"
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: src/ringnotify.cpp:86
 msgid "Incoming call"
-msgstr ""
+msgstr "Dolazni poziv"
 
 #: src/ringnotify.cpp:169
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
-msgstr ""
+msgstr "%s kaže:"
 
 #: src/ring_client_options.c:65
 msgid "Enable debug"
@@ -214,27 +215,27 @@ msgstr ""
 
 #: src/ring_client_options.c:84
 msgid "- GNOME client for Ring"
-msgstr ""
+msgstr "- GNOME klijent za Ring"
 
 #: src/backends/edscontactbackend.cpp:201
 msgid "Unknown EDS addressbook"
-msgstr ""
+msgstr "Nepoznati EDS adresar"
 
 #: src/backends/edscontactbackend.cpp:221
 msgctxt "Backend type"
 msgid "Contacts"
-msgstr ""
+msgstr "Kontakti"
 
 #: src/utils/menus.cpp:67
 msgid "_Add to contact"
-msgstr ""
+msgstr "_Dodaj u kontakt"
 
 #: src/ringmainwindow.cpp:944
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr ""
+msgstr "Traži kontakt ili unesi broj"
 
 #: src/ringwelcomeview.cpp:61
 msgid "fetching RingID..."
@@ -256,11 +257,11 @@ msgstr ""
 
 #: src/video/video_widget.cpp:478
 msgid "Share screen area"
-msgstr ""
+msgstr "Dijelite područje zaslona"
 
 #: src/video/video_widget.cpp:484
 msgid "Share file"
-msgstr ""
+msgstr "Dijeli datoteku"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
@@ -280,23 +281,23 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:149
 msgid "<b>Registration</b>"
-msgstr ""
+msgstr "<b>Registracija</b>"
 
 #: ui/accountadvancedtab.ui:176
 msgid "Use random port"
-msgstr ""
+msgstr "Koristi nasumični port"
 
 #: ui/accountadvancedtab.ui:197
 msgid "Local port:"
-msgstr ""
+msgstr "Lokalni port:"
 
 #: ui/accountadvancedtab.ui:223
 msgid "<b>Network Interface</b>"
-msgstr ""
+msgstr "<b>Mrežno sučelje</b>"
 
 #: ui/accountadvancedtab.ui:249
 msgid "Same as local parameters"
-msgstr ""
+msgstr "Isto kao i lokalni parametri"
 
 #: ui/accountadvancedtab.ui:264
 msgid "Set published address and port:"
@@ -312,23 +313,23 @@ msgstr "Port"
 
 #: ui/accountadvancedtab.ui:336
 msgid "Use STUN"
-msgstr ""
+msgstr "Koristi STUN"
 
 #: ui/accountadvancedtab.ui:359 ui/accountadvancedtab.ui:408
 msgid "server URL"
-msgstr ""
+msgstr "URL poslužitelja"
 
 #: ui/accountadvancedtab.ui:385
 msgid "Use TURN"
-msgstr ""
+msgstr "Koristi TURN"
 
 #: ui/accountadvancedtab.ui:430
 msgid "username"
-msgstr ""
+msgstr "korisničko ime"
 
 #: ui/accountadvancedtab.ui:451
 msgid "password"
-msgstr ""
+msgstr "lozinka"
 
 #: ui/accountadvancedtab.ui:475
 msgid "realm"
@@ -374,15 +375,15 @@ msgstr "Dolje"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
 msgid "<b>Codecs</b>"
-msgstr ""
+msgstr "<b>Kodeci</b>"
 
 #: ui/accountgeneraltab.ui:42
 msgid "<b>Account</b>"
-msgstr ""
+msgstr "<b>Račun</b>"
 
 #: ui/accountgeneraltab.ui:80
 msgid "<b>Parameters</b>"
-msgstr ""
+msgstr "<b>Parametri</b>"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -414,19 +415,19 @@ msgstr ""
 
 #: ui/accountsecuritytab.ui:220
 msgid "Private key"
-msgstr ""
+msgstr "Privatni ključ"
 
 #: ui/accountsecuritytab.ui:243
 msgid "Private key password"
-msgstr ""
+msgstr "Lozinka privatnog ključa"
 
 #: ui/accountsecuritytab.ui:290
 msgid "TLS protocol method"
-msgstr ""
+msgstr "Metoda TSL protokola"
 
 #: ui/accountsecuritytab.ui:313
 msgid "Outgoing TLS server name"
-msgstr ""
+msgstr "Ime odlaznoga TSL poslužitelja"
 
 #: ui/accountsecuritytab.ui:335
 msgid "Negotiation timeout (seconds)"
@@ -458,31 +459,31 @@ msgstr ""
 
 #: ui/accountvideotab.ui:90
 msgid "Enable Video"
-msgstr ""
+msgstr "Omogući video"
 
 #: ui/accountview.ui:59
 msgid "<b>&#8722;</b>"
-msgstr ""
+msgstr "<b>&#8722;</b>"
 
 #: ui/accountview.ui:83
 msgid "<b>+</b>"
-msgstr ""
+msgstr "<b>+</b>"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
-msgstr ""
+msgstr "Napravi novi"
 
 #: ui/currentcallview.ui:73
 msgid "Send"
-msgstr ""
+msgstr "Pošalji"
 
 #: ui/currentcallview.ui:191
 msgid "End this call"
-msgstr ""
+msgstr "Završi ovaj poziv"
 
 #: ui/currentcallview.ui:195 ui/currentcallview.ui:356
 msgid "End call"
-msgstr ""
+msgstr "Završi poziv"
 
 #: ui/currentcallview.ui:213
 msgid "Toggle hold"
@@ -511,7 +512,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:283
 msgid "Record audio"
-msgstr ""
+msgstr "Snimaj audio"
 
 #: ui/currentcallview.ui:299
 msgid "Toggle show chat"
@@ -519,7 +520,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:303 ui/currentcallview.ui:320
 msgid "Chat"
-msgstr ""
+msgstr "Čavrljanje"
 
 #: ui/currentcallview.ui:329
 msgid "Mute audio"
@@ -527,27 +528,27 @@ msgstr ""
 
 #: ui/currentcallview.ui:365
 msgid "Record"
-msgstr ""
+msgstr "Snimaj"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
-msgstr ""
+msgstr "Odaberi adresar"
 
 #: ui/editcontactview.ui:15
 msgid "Addressbook"
-msgstr ""
+msgstr "Adresar"
 
 #: ui/editcontactview.ui:29
 msgid "Name"
-msgstr ""
+msgstr "Ime"
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
-msgstr ""
+msgstr "Ime kontakta"
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
-msgstr ""
+msgstr "Odaberite kako će ovaj broj biti kategoriziran"
 
 #: ui/editcontactview.ui:50
 msgid "Number category"
@@ -563,11 +564,11 @@ msgstr ""
 
 #: ui/editcontactview.ui:83
 msgid "Save"
-msgstr ""
+msgstr "Spremi"
 
 #: ui/generalsettingsview.ui:32
 msgid "<b>Ring Settings</b>"
-msgstr ""
+msgstr "<b>Ring postavke</b>"
 
 #: ui/generalsettingsview.ui:46
 msgid "Start Ring on login"
@@ -591,19 +592,19 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:110
 msgid "<b>History Settings</b>"
-msgstr ""
+msgstr "<b>Postavke povijesti</b>"
 
 #: ui/generalsettingsview.ui:128
 msgid "Keep history for (days):"
-msgstr ""
+msgstr "Zadrži povijest (dana):"
 
 #: ui/generalsettingsview.ui:151
 msgid "(set to 0 for unlimited history)"
-msgstr ""
+msgstr "(postavi na 0 za neograničenu povijest)"
 
 #: ui/generalsettingsview.ui:160
 msgid "Clear all history"
-msgstr ""
+msgstr "Očisti svu povijest"
 
 #: ui/incomingcallview.ui:88
 msgid "Incoming..."
@@ -611,11 +612,11 @@ msgstr ""
 
 #: ui/incomingcallview.ui:122
 msgid "   Accept"
-msgstr ""
+msgstr "Prihvati"
 
 #: ui/incomingcallview.ui:137
 msgid "   Reject"
-msgstr ""
+msgstr "Odbij"
 
 #: ui/incomingcallview.ui:152
 msgid "   Hang-up"
@@ -627,11 +628,11 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:48
 msgid "Ringtone device:"
-msgstr ""
+msgstr "Uređaj melodija zvona:"
 
 #: ui/mediasettingsview.ui:60
 msgid "Output device:"
-msgstr ""
+msgstr "Izlazni uređaj:"
 
 #: ui/mediasettingsview.ui:72
 msgid "Input device:"
@@ -639,19 +640,19 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:127
 msgid "<b>Audio Settings</b>"
-msgstr ""
+msgstr "<b>Audio postavke</b>"
 
 #: ui/mediasettingsview.ui:163
 msgid "Device:"
-msgstr ""
+msgstr "Uređaj:"
 
 #: ui/mediasettingsview.ui:175
 msgid "Channel:"
-msgstr ""
+msgstr "Kanal:"
 
 #: ui/mediasettingsview.ui:187
 msgid "Resolution:"
-msgstr ""
+msgstr "Razlučivost:"
 
 #: ui/mediasettingsview.ui:199
 msgid "Frame rate:"
@@ -659,19 +660,19 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:258
 msgid "<b>Camera Settings</b>"
-msgstr ""
+msgstr "<b>Postavke kamere</b>"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr ""
+msgstr "_O programu"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr ""
+msgstr "_Prekini"
 
 #: ui/ringmainwindow.ui:20
 msgid "Menu"
-msgstr ""
+msgstr "Izbornik"
 
 #: ui/ringmainwindow.ui:54
 msgid "General"
@@ -679,7 +680,7 @@ msgstr "Opće"
 
 #: ui/ringmainwindow.ui:64
 msgid "Media"
-msgstr ""
+msgstr "Medij"
 
 #: ui/ringmainwindow.ui:75
 msgid "Accounts"
@@ -691,11 +692,11 @@ msgstr "Postavke"
 
 #: ui/ringmainwindow.ui:192
 msgid "Conversations"
-msgstr ""
+msgstr "Razgovori"
 
 #: ui/ringmainwindow.ui:211
 msgid "Contacts"
-msgstr ""
+msgstr "Kontakti"
 
 #: ui/ringmainwindow.ui:230
 msgid "History"
@@ -703,7 +704,7 @@ msgstr "Povijest"
 
 #: ui/ringmainwindow.ui:290
 msgid "Welcome to  "
-msgstr ""
+msgstr "Dobrodošli u"
 
 #: ui/ringmainwindow.ui:307
 msgid "Enter your alias to get started:"
@@ -715,7 +716,7 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:338
 msgid "Next"
-msgstr ""
+msgstr "Slijedeće"
 
 #: ui/ringmainwindow.ui:360
 msgid "Your Ring account has been created with the following Ring ID:"
@@ -723,8 +724,8 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:375
 msgid "Share it with your friends so they can contact you via Ring!"
-msgstr ""
+msgstr "Podijelite sa vašim prijateljima da vas mogu kontaktirati putem Ringa!"
 
 #: ui/ringmainwindow.ui:380
 msgid "Done"
-msgstr ""
+msgstr "Učinjeno"
