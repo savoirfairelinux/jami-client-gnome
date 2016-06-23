@@ -4,13 +4,14 @@
 # 
 # Translators:
 # David <stakewinner00@mykolab.com>, 2015
+# Jaume <retrasado.man@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2016-03-24 20:09+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"PO-Revision-Date: 2016-05-26 12:59+0000\n"
+"Last-Translator: Jaume <retrasado.man@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/savoirfairelinux/ring/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,47 +30,47 @@ msgstr "Nom"
 
 #: src/accountaudiotab.cpp:195 src/accountvideotab.cpp:204
 msgid "Bitrate"
-msgstr ""
+msgstr "Taxa de bits"
 
 #: src/accountaudiotab.cpp:199
 msgid "Samplerate"
-msgstr ""
+msgstr "Freqüència de mostreig"
 
 #: src/accountgeneraltab.cpp:210
 msgid "Alias"
-msgstr ""
+msgstr "Àlies"
 
 #: src/accountgeneraltab.cpp:221
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #: src/accountgeneraltab.cpp:250
 msgid "auto-generating..."
-msgstr ""
+msgstr "autogenerant..."
 
 #: src/accountgeneraltab.cpp:269
 msgid "Hostname"
-msgstr ""
+msgstr "Nom d'amfitrió"
 
 #: src/accountgeneraltab.cpp:279
 msgid "Username"
-msgstr ""
+msgstr "Nom d'usuari"
 
 #: src/accountgeneraltab.cpp:289
 msgid "Password"
-msgstr ""
+msgstr "Contrasenya"
 
 #: src/accountgeneraltab.cpp:302
 msgid "Show password"
-msgstr ""
+msgstr "Mostra la contrasenya"
 
 #: src/accountgeneraltab.cpp:308
 msgid "Proxy"
-msgstr ""
+msgstr "Intermediari"
 
 #: src/accountgeneraltab.cpp:318
 msgid "Voicemail number"
-msgstr ""
+msgstr "Nombre de correu de veu"
 
 #: src/accountgeneraltab.cpp:330
 msgctxt "The DHT bootstrap server url"
@@ -78,15 +79,15 @@ msgstr ""
 
 #: src/accountgeneraltab.cpp:342
 msgid "Auto-answer calls"
-msgstr ""
+msgstr "Autorespondre trucades"
 
 #: src/accountgeneraltab.cpp:350
 msgid "UPnP enabled"
-msgstr ""
+msgstr "UPnP habitlitat"
 
 #: src/accountgeneraltab.cpp:358
 msgid "DTMF tone type:"
-msgstr ""
+msgstr "Tipus de to DTMF"
 
 #: src/accountvideotab.cpp:200
 msgctxt "The name of the codec"
@@ -96,22 +97,22 @@ msgstr "Nom"
 #: src/accountview.cpp:159
 msgctxt "Account settings"
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: src/accountview.cpp:163
 msgctxt "Account settings"
 msgid "Audio"
-msgstr ""
+msgstr "Àudio"
 
 #: src/accountview.cpp:167
 msgctxt "Account settings"
 msgid "Video"
-msgstr ""
+msgstr "Vídeo"
 
 #: src/accountview.cpp:171
 msgctxt "Account settings"
 msgid "Advanced"
-msgstr ""
+msgstr "Avançat"
 
 #: src/accountview.cpp:175
 msgctxt "Account settings"
@@ -121,11 +122,11 @@ msgstr "Seguretat"
 #: src/accountview.cpp:229
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
-msgstr ""
+msgstr "Esteu segur que voleu esborrar el compte \"%s\"?"
 
 #: src/accountview.cpp:313 src/accountview.cpp:315
 msgid "New Account"
-msgstr ""
+msgstr "Compte Nou"
 
 #: src/accountview.cpp:399
 msgctxt "Account state column"
@@ -135,24 +136,24 @@ msgstr "Habilitat"
 #: src/accountview.cpp:405
 msgctxt "Account alias (name) column"
 msgid "Alias"
-msgstr ""
+msgstr "Àlies"
 
 #: src/accountview.cpp:409
 msgctxt "Account status column"
 msgid "Status"
-msgstr ""
+msgstr "Estat"
 
 #: src/contactsview.cpp:305
 msgid "_Copy name"
-msgstr ""
+msgstr "_Copia nom"
 
 #: src/contactsview.cpp:316 src/contactsview.cpp:331
 msgid "_Copy number"
-msgstr ""
+msgstr "_Copia telèfon"
 
 #: src/dialogs.c:53
 msgid "Working..."
-msgstr ""
+msgstr "Treballant..."
 
 #: src/dialogs.c:84
 #, c-format
@@ -166,170 +167,170 @@ msgstr ""
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is a secured and distributed communication software."
-msgstr ""
+msgstr "El client de GNOME per a Ring.\nRing és un programari de comunicació segur i distribuït."
 
 #: src/editcontactview.cpp:196
 msgctxt "Phone number category"
 msgid "home"
-msgstr ""
+msgstr "casa"
 
 #: src/generalsettingsview.cpp:94
 msgid ""
 "Are you sure you want to clear all your history?\n"
 "This operation will also reset the Frequent Contacts list"
-msgstr ""
+msgstr "Esteu segura que voleu esborrar tot el vostre historial?\nAquesta operació també esborrarà la llista de Contactes Freqüents."
 
 #: src/historyview.cpp:184
 msgid "_Copy"
-msgstr ""
+msgstr "_Copia"
 
 #: src/historyview.cpp:402
 msgctxt "Call history"
 msgid "Call"
-msgstr ""
+msgstr "Trucada"
 
 #: src/historyview.cpp:447
 msgctxt "Call history"
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/ringnotify.cpp:86
 msgid "Incoming call"
-msgstr ""
+msgstr "Trucada entrant"
 
 #: src/ringnotify.cpp:169
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
-msgstr ""
+msgstr "%s diu:"
 
 #: src/ring_client_options.c:65
 msgid "Enable debug"
-msgstr ""
+msgstr "Habilitar depuració"
 
 #: src/ring_client_options.c:67
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr ""
+msgstr "Restaura l'estat ocult de la finestra principal (només s'aplica a la instància principal)"
 
 #: src/ring_client_options.c:84
 msgid "- GNOME client for Ring"
-msgstr ""
+msgstr "- Client de GNOME per a Ring"
 
 #: src/backends/edscontactbackend.cpp:201
 msgid "Unknown EDS addressbook"
-msgstr ""
+msgstr "Llibreta d'adreces EDS desconeguda"
 
 #: src/backends/edscontactbackend.cpp:221
 msgctxt "Backend type"
 msgid "Contacts"
-msgstr ""
+msgstr "Contactes"
 
 #: src/utils/menus.cpp:67
 msgid "_Add to contact"
-msgstr ""
+msgstr "_Afegir al contacte"
 
 #: src/ringmainwindow.cpp:944
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr ""
+msgstr "Busqueu contactes o introduïu el nombre"
 
 #: src/ringwelcomeview.cpp:61
 msgid "fetching RingID..."
-msgstr ""
+msgstr "buscant RingID"
 
 #: src/ringwelcomeview.cpp:92
 msgid ""
 "Ring is a secure and distributed voice, video, and chat communication "
 "platform that requires no centralized server and leaves the power of privacy"
 " in the hands of the user."
-msgstr ""
+msgstr "Ring és una plataforma de veu, vídeo i xat segura i distribuïda que no requereix un servidor central i deixa en mans de l'usuari el poder de la privacitat."
 
 #: src/ringwelcomeview.cpp:102
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Aquest és el vostre RingID.\nCopieu i compartiu amb les vostres amistats!"
 
 #: src/video/video_widget.cpp:478
 msgid "Share screen area"
-msgstr ""
+msgstr "Compartir pantalla"
 
 #: src/video/video_widget.cpp:484
 msgid "Share file"
-msgstr ""
+msgstr "Compartir arxiu"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
-msgstr ""
+msgstr "Temps d'expiració del registre (segons):"
 
 #: ui/accountadvancedtab.ui:103
 msgid "Allow calls from unknown peers"
-msgstr ""
+msgstr "Permetre trucades de nodes desconeguts"
 
 #: ui/accountadvancedtab.ui:117
 msgid "Allow calls from peers in your call history"
-msgstr ""
+msgstr "Permetre trucades de nodes del vostre historial de trucades"
 
 #: ui/accountadvancedtab.ui:131
 msgid "Allow calls from peers in your contacts list"
-msgstr ""
+msgstr "Permetre trucades de nodes de la vostra llista de contactes"
 
 #: ui/accountadvancedtab.ui:149
 msgid "<b>Registration</b>"
-msgstr ""
+msgstr "<b>Registre</b>"
 
 #: ui/accountadvancedtab.ui:176
 msgid "Use random port"
-msgstr ""
+msgstr "Fer servir un port aleatori"
 
 #: ui/accountadvancedtab.ui:197
 msgid "Local port:"
-msgstr ""
+msgstr "Port local:"
 
 #: ui/accountadvancedtab.ui:223
 msgid "<b>Network Interface</b>"
-msgstr ""
+msgstr "<b>Interfície de xarxa</b>"
 
 #: ui/accountadvancedtab.ui:249
 msgid "Same as local parameters"
-msgstr ""
+msgstr "Igual que els paràmetres locals"
 
 #: ui/accountadvancedtab.ui:264
 msgid "Set published address and port:"
-msgstr ""
+msgstr "Establir port i adreça publicats:"
 
 #: ui/accountadvancedtab.ui:288
 msgid "Address"
-msgstr ""
+msgstr "Adreça"
 
 #: ui/accountadvancedtab.ui:310
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: ui/accountadvancedtab.ui:336
 msgid "Use STUN"
-msgstr ""
+msgstr "Utilitza STUN"
 
 #: ui/accountadvancedtab.ui:359 ui/accountadvancedtab.ui:408
 msgid "server URL"
-msgstr ""
+msgstr "URl del servidor"
 
 #: ui/accountadvancedtab.ui:385
 msgid "Use TURN"
-msgstr ""
+msgstr "Utilitza TURN"
 
 #: ui/accountadvancedtab.ui:430
 msgid "username"
-msgstr ""
+msgstr "nom d'usuari"
 
 #: ui/accountadvancedtab.ui:451
 msgid "password"
-msgstr ""
+msgstr "contrasenya"
 
 #: ui/accountadvancedtab.ui:475
 msgid "realm"
@@ -337,7 +338,7 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:504
 msgid "<b>Published Address</b>"
-msgstr ""
+msgstr "<b>Adreça publicada</b>"
 
 #: ui/accountadvancedtab.ui:533
 msgid ""
@@ -347,19 +348,19 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:558 ui/accountadvancedtab.ui:632
 msgid "Min"
-msgstr ""
+msgstr "Mín"
 
 #: ui/accountadvancedtab.ui:581 ui/accountadvancedtab.ui:655
 msgid "Max"
-msgstr ""
+msgstr "Màx"
 
 #: ui/accountadvancedtab.ui:605
 msgid "<b>Audio RTP Port Range</b>"
-msgstr ""
+msgstr "<b>Interval de Ports d'Àudio RTP</b>"
 
 #: ui/accountadvancedtab.ui:679
 msgid "<b>Video RTP Port Range</b>"
-msgstr ""
+msgstr "<b>Interval de Ports de Vídeo RTP</b>"
 
 #: ui/accountadvancedtab.ui:695
 msgid "<b>SDP Session Negotiation (ICE Fallback)</b>"
@@ -367,31 +368,31 @@ msgstr ""
 
 #: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
 msgid "Up"
-msgstr ""
+msgstr "Amunt"
 
 #: ui/accountaudiotab.ui:66 ui/accountvideotab.ui:66
 msgid "Down"
-msgstr ""
+msgstr "Avall"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
 msgid "<b>Codecs</b>"
-msgstr ""
+msgstr "<b>Còdecs</b>"
 
 #: ui/accountgeneraltab.ui:42
 msgid "<b>Account</b>"
-msgstr ""
+msgstr "<b>Comptes</b>"
 
 #: ui/accountgeneraltab.ui:80
 msgid "<b>Parameters</b>"
-msgstr ""
+msgstr "<b>Paràmetres</b>"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
-msgstr ""
+msgstr "Xifra el flux de mitjans (SRTP)"
 
 #: ui/accountsecuritytab.ui:58
 msgid "Key exchange protocol"
-msgstr ""
+msgstr "Protocol d'intercanvi de claus"
 
 #: ui/accountsecuritytab.ui:76
 msgid "Fallback on RTP on encryption failure"
@@ -399,19 +400,19 @@ msgstr ""
 
 #: ui/accountsecuritytab.ui:94
 msgid "<b>Media Stream Encryption</b>"
-msgstr ""
+msgstr "<b>Xifratge del Flux de Mitjans</b>"
 
 #: ui/accountsecuritytab.ui:121
 msgid "Encrypt negotiation (TLS)"
-msgstr ""
+msgstr "Negociació de xifrat (TLS)"
 
 #: ui/accountsecuritytab.ui:146
 msgid "CA certificate"
-msgstr ""
+msgstr "Certificat CA"
 
 #: ui/accountsecuritytab.ui:183
 msgid "User certificate"
-msgstr ""
+msgstr "Certificat d'usuari"
 
 #: ui/accountsecuritytab.ui:220
 msgid "Private key"
@@ -419,27 +420,27 @@ msgstr "Clau privada"
 
 #: ui/accountsecuritytab.ui:243
 msgid "Private key password"
-msgstr ""
+msgstr "Contrasenya de la clau privada"
 
 #: ui/accountsecuritytab.ui:290
 msgid "TLS protocol method"
-msgstr ""
+msgstr "Mètode del protocol TLS"
 
 #: ui/accountsecuritytab.ui:313
 msgid "Outgoing TLS server name"
-msgstr ""
+msgstr "Servidor TLS sortint"
 
 #: ui/accountsecuritytab.ui:335
 msgid "Negotiation timeout (seconds)"
-msgstr ""
+msgstr "Temps d'espera de la negociació (segons)"
 
 #: ui/accountsecuritytab.ui:369
 msgid "Use default ciphers"
-msgstr ""
+msgstr "Utilitza xifrats per defecte"
 
 #: ui/accountsecuritytab.ui:385
 msgid "Use custom cipher list"
-msgstr ""
+msgstr "Utilitza llista de xifrats personalitzats"
 
 #: ui/accountsecuritytab.ui:442
 msgid "Verify incoming certificates (server side)"
@@ -459,7 +460,7 @@ msgstr ""
 
 #: ui/accountvideotab.ui:90
 msgid "Enable Video"
-msgstr ""
+msgstr "Habilita el vídeo"
 
 #: ui/accountview.ui:59
 msgid "<b>&#8722;</b>"
@@ -471,7 +472,7 @@ msgstr ""
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
-msgstr ""
+msgstr "Crea Nou"
 
 #: ui/currentcallview.ui:73
 msgid "Send"
@@ -479,56 +480,56 @@ msgstr "Enviar"
 
 #: ui/currentcallview.ui:191
 msgid "End this call"
-msgstr ""
+msgstr "Finalitza aquesta trucada"
 
 #: ui/currentcallview.ui:195 ui/currentcallview.ui:356
 msgid "End call"
-msgstr ""
+msgstr "Finalitza la trucada"
 
 #: ui/currentcallview.ui:213
 msgid "Toggle hold"
-msgstr ""
+msgstr "Mantenir en espera"
 
 #: ui/currentcallview.ui:217 ui/currentcallview.ui:239
 #: ui/currentcallview.ui:347
 msgid "Hold"
-msgstr ""
+msgstr "En espera"
 
 #: ui/currentcallview.ui:235
 msgid "Toggle mute audio"
-msgstr ""
+msgstr "Activa silenci d'àudio"
 
 #: ui/currentcallview.ui:257
 msgid "Toggle mute video"
-msgstr ""
+msgstr "Activa silenci de vídeo"
 
 #: ui/currentcallview.ui:261 ui/currentcallview.ui:338
 msgid "Mute video"
-msgstr ""
+msgstr "Silencia el vídeo"
 
 #: ui/currentcallview.ui:280
 msgid "Toggle record audio"
-msgstr ""
+msgstr "Activa silenci"
 
 #: ui/currentcallview.ui:283
 msgid "Record audio"
-msgstr ""
+msgstr "Grava l'àudio"
 
 #: ui/currentcallview.ui:299
 msgid "Toggle show chat"
-msgstr ""
+msgstr "Mostra el xat"
 
 #: ui/currentcallview.ui:303 ui/currentcallview.ui:320
 msgid "Chat"
-msgstr ""
+msgstr "Xat"
 
 #: ui/currentcallview.ui:329
 msgid "Mute audio"
-msgstr ""
+msgstr "Silencia l'àudio"
 
 #: ui/currentcallview.ui:365
 msgid "Record"
-msgstr ""
+msgstr "Grava"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
@@ -536,7 +537,7 @@ msgstr ""
 
 #: ui/editcontactview.ui:15
 msgid "Addressbook"
-msgstr ""
+msgstr "Llibreta d'adreces"
 
 #: ui/editcontactview.ui:29
 msgid "Name"
@@ -544,7 +545,7 @@ msgstr "Nom"
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
-msgstr ""
+msgstr "Nom de contacte"
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
@@ -560,19 +561,19 @@ msgstr ""
 
 #: ui/editcontactview.ui:72
 msgid "Number or Ring ID"
-msgstr ""
+msgstr "Nombre o Ring ID"
 
 #: ui/editcontactview.ui:83
 msgid "Save"
-msgstr ""
+msgstr "Desa"
 
 #: ui/generalsettingsview.ui:32
 msgid "<b>Ring Settings</b>"
-msgstr ""
+msgstr "<b>Opcions de Ring</b>"
 
 #: ui/generalsettingsview.ui:46
 msgid "Start Ring on login"
-msgstr ""
+msgstr "Obre Ring a l'inici"
 
 #: ui/generalsettingsview.ui:55
 msgid "Hide Ring on close instead of quitting."
@@ -604,23 +605,23 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:160
 msgid "Clear all history"
-msgstr ""
+msgstr "Neteja l'historial"
 
 #: ui/incomingcallview.ui:88
 msgid "Incoming..."
-msgstr ""
+msgstr "Entrant..."
 
 #: ui/incomingcallview.ui:122
 msgid "   Accept"
-msgstr ""
+msgstr "Accepta"
 
 #: ui/incomingcallview.ui:137
 msgid "   Reject"
-msgstr ""
+msgstr "Rebutja"
 
 #: ui/incomingcallview.ui:152
 msgid "   Hang-up"
-msgstr ""
+msgstr "Penja"
 
 #: ui/mediasettingsview.ui:36
 msgid "Audio manager:"
@@ -644,88 +645,88 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:163
 msgid "Device:"
-msgstr ""
+msgstr "Dispositiu"
 
 #: ui/mediasettingsview.ui:175
 msgid "Channel:"
-msgstr ""
+msgstr "Canal:"
 
 #: ui/mediasettingsview.ui:187
 msgid "Resolution:"
-msgstr ""
+msgstr "Resolució"
 
 #: ui/mediasettingsview.ui:199
 msgid "Frame rate:"
-msgstr ""
+msgstr "Velocitat de fotogrames"
 
 #: ui/mediasettingsview.ui:258
 msgid "<b>Camera Settings</b>"
-msgstr ""
+msgstr "<b>Opcions de Càmera</b>"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr ""
+msgstr "_Sobre"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr ""
+msgstr "_Tanca"
 
 #: ui/ringmainwindow.ui:20
 msgid "Menu"
-msgstr ""
+msgstr "Menú"
 
 #: ui/ringmainwindow.ui:54
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: ui/ringmainwindow.ui:64
 msgid "Media"
-msgstr ""
+msgstr "Mitjans"
 
 #: ui/ringmainwindow.ui:75
 msgid "Accounts"
-msgstr ""
+msgstr "Comptes"
 
 #: ui/ringmainwindow.ui:93
 msgid "Settings"
-msgstr ""
+msgstr "Opcions"
 
 #: ui/ringmainwindow.ui:192
 msgid "Conversations"
-msgstr ""
+msgstr "Converses"
 
 #: ui/ringmainwindow.ui:211
 msgid "Contacts"
-msgstr ""
+msgstr "Contactes"
 
 #: ui/ringmainwindow.ui:230
 msgid "History"
-msgstr ""
+msgstr "Historial"
 
 #: ui/ringmainwindow.ui:290
 msgid "Welcome to  "
-msgstr ""
+msgstr "Benvingut a"
 
 #: ui/ringmainwindow.ui:307
 msgid "Enter your alias to get started:"
-msgstr ""
+msgstr "Introduïu el vostre àlies per començar:"
 
 #: ui/ringmainwindow.ui:324
 msgid "Generating your Ring account..."
-msgstr ""
+msgstr "Generant el vostre compte de Ring..."
 
 #: ui/ringmainwindow.ui:338
 msgid "Next"
-msgstr ""
+msgstr "Següent"
 
 #: ui/ringmainwindow.ui:360
 msgid "Your Ring account has been created with the following Ring ID:"
-msgstr ""
+msgstr "El vostre compte de Ring ha sigut creat amb el següent Ring ID:"
 
 #: ui/ringmainwindow.ui:375
 msgid "Share it with your friends so they can contact you via Ring!"
-msgstr ""
+msgstr "Compartiu amb els vostres amics per que puguen contactar-vos a través de Ring!"
 
 #: ui/ringmainwindow.ui:380
 msgid "Done"
-msgstr ""
+msgstr "Fet"
