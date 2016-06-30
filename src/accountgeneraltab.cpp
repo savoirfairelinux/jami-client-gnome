@@ -282,9 +282,6 @@ build_tab_view(AccountGeneralTab *view)
         case Account::Protocol::SIP:
             gtk_label_set_text(GTK_LABEL(label), "SIP");
             break;
-        case Account::Protocol::IAX:
-            gtk_label_set_text(GTK_LABEL(label), "IAX");
-            break;
         case Account::Protocol::RING:
             gtk_label_set_text(GTK_LABEL(label), "RING");
             break;
@@ -315,7 +312,7 @@ build_tab_view(AccountGeneralTab *view)
     /* build parameters grid */
     grid_row = 0;
     if (priv->account->protocol() != Account::Protocol::RING) {
-        /* SIP and IAX have the same params */
+        /* SIP account */
 
         /* host name */
         label = gtk_label_new(_("Hostname"));
