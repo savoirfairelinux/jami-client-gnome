@@ -74,13 +74,12 @@ struct _AvatarManipulationPrivate
     GtkWidget *box_controls;
     GtkWidget *button_take_photo;
     GtkWidget *button_choose_picture;
-    GtkWidget *button_trash_avatar;
     GtkWidget *button_set_avatar;
-    GtkWidget *button_export_avatar;
     GtkWidget *selector_widget;
     GtkWidget *stack_views;
     GtkWidget *image_avatar;
     GtkWidget *vbox_selector;
+    GtkWidget *eventbox_avatar;
     GdkPixbuf *pix_scaled;
 
     /* selector widget properties */
@@ -104,9 +103,8 @@ static void set_state(AvatarManipulation *self, AvatarManipulationState state);
 
 static void take_a_photo(AvatarManipulation *self);
 static void choose_picture(AvatarManipulation *self);
-static void export_avatar(AvatarManipulation *self);
 static void update_preview_cb(GtkFileChooser *file_chooser, GtkWidget *preview);
-static void trash_photo(AvatarManipulation *self);
+static void open_camera(GtkWidget *widget, GdkEventButton *event, AvatarManipulation *self);
 static void set_avatar(AvatarManipulation *self);
 static void got_snapshot(AvatarManipulation *parent);
 
@@ -181,11 +179,10 @@ avatar_manipulation_class_init(AvatarManipulationClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, box_controls);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_take_photo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_set_avatar);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_trash_avatar);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_choose_picture);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_export_avatar);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, stack_views);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, image_avatar);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, eventbox_avatar);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, vbox_selector);
 }
 
@@ -199,28 +196,31 @@ avatar_manipulation_init(AvatarManipulation *self)
     priv->selector_widget = gtk_drawing_area_new();
     gtk_box_pack_start(GTK_BOX(priv->vbox_selector), priv->selector_widget, FALSE, TRUE, 0);
 
+    /* set event box */
+    gtk_widget_set_events(priv->eventbox_avatar, GDK_BUTTON_RELEASE_MASK);
+
     /* our desired size for the image area */
     gtk_widget_set_size_request(priv->stack_views, VIDEO_WIDTH, VIDEO_HEIGHT);
 
     /* Signals used to handle backing surface */
     g_signal_connect(priv->selector_widget, "draw", G_CALLBACK (selector_widget_draw), self);
     g_signal_connect(priv->selector_widget,"configure-event", G_CALLBACK (selector_widget_configure_event), self);
+
     /* Event signals */
     g_signal_connect(priv->selector_widget, "motion-notify-event", G_CALLBACK(selector_widget_motion_notify_event), self);
     g_signal_connect(priv->selector_widget, "button-press-event", G_CALLBACK(selector_widget_button_press_event), self);
     g_signal_connect(priv->selector_widget, "button-release-event", G_CALLBACK(selector_widget_button_release_event), self);
+    g_signal_connect(priv->eventbox_avatar, "button-release-event", G_CALLBACK(open_camera), self);
+
     /* Ask to receive events the drawing area doesn't normally subscribe to */
     gtk_widget_set_events (priv->selector_widget, gtk_widget_get_events (priv->selector_widget)
                            | GDK_LEAVE_NOTIFY_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
                            | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK);
 
-
     /* signals */
     g_signal_connect_swapped(priv->button_choose_picture, "clicked", G_CALLBACK(choose_picture), self);
     g_signal_connect_swapped(priv->button_take_photo, "clicked", G_CALLBACK(take_a_photo), self);
     g_signal_connect_swapped(priv->button_set_avatar, "clicked", G_CALLBACK(set_avatar), self);
-    g_signal_connect_swapped(priv->button_trash_avatar, "clicked", G_CALLBACK(trash_photo), self);
-    g_signal_connect_swapped(priv->button_export_avatar, "clicked", G_CALLBACK(export_avatar), self);
 
     set_state(self, AVATAR_MANIPULATION_STATE_CURRENT);
 
@@ -253,9 +253,6 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
             gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_views), "page_avatar");
             // gtk_widget_set_size_request(priv->video_widget, VIDEO_WIDTH, VIDEO_HEIGHT);
 
-            /* available actions: trash or export avatar */
-            gtk_widget_set_visible(priv->button_trash_avatar,   true);
-            gtk_widget_set_visible(priv->button_export_avatar,  true);
             gtk_widget_set_visible(priv->button_set_avatar,     false);
             gtk_widget_set_visible(priv->button_take_photo,     false);
             gtk_widget_set_visible(priv->button_choose_picture, false);
@@ -298,8 +295,6 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
 
             /* available actions: choose file */
             gtk_widget_set_visible(priv->button_choose_picture, true);
-            gtk_widget_set_visible(priv->button_trash_avatar,   false);
-            gtk_widget_set_visible(priv->button_export_avatar,  false);
             gtk_widget_set_visible(priv->button_set_avatar,     false);
         }
         break;
@@ -317,12 +312,9 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
             priv->origin[1] = 0;
             priv->length = INITIAL_LENTGH;
 
-            /* available actions: set avatar, trash avatar */
             gtk_widget_set_visible(priv->button_set_avatar, true);
-            gtk_widget_set_visible(priv->button_trash_avatar, true);
             gtk_widget_set_visible(priv->button_take_photo, false);
             gtk_widget_set_visible(priv->button_choose_picture, false);
-            gtk_widget_set_visible(priv->button_export_avatar, false);
 
             gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_views), "page_edit_view");
         }
@@ -340,12 +332,8 @@ take_a_photo(AvatarManipulation *self)
 }
 
 static void
-trash_photo(AvatarManipulation *self)
+open_camera(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEventButton *event, AvatarManipulation *self)
 {
-    /* clear the avatar in the profile */
-    ProfileModel::instance().selectedProfile()->person()->setPhoto(QVariant());
-    ProfileModel::instance().selectedProfile()->save();
-
     set_state(self, AVATAR_MANIPULATION_STATE_NEW);
 }
 
@@ -353,6 +341,10 @@ static void
 set_avatar(AvatarManipulation *self)
 {
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
+
+    /* clear the avatar in the profile */
+    ProfileModel::instance().selectedProfile()->person()->setPhoto(QVariant());
+    ProfileModel::instance().selectedProfile()->save();
 
     gchar* png_buffer_signed = nullptr;
     gsize png_buffer_size;
@@ -446,44 +438,6 @@ choose_picture(AvatarManipulation *self)
     }
 
     gtk_widget_destroy(dialog);
-}
-
-static void
-export_avatar(AvatarManipulation *self)
-{
-    GtkWidget *ring_main_window = gtk_widget_get_toplevel(GTK_WIDGET(self));
-
-    auto dialog = gtk_file_chooser_dialog_new(_("Save Avatar Image"),
-                                              GTK_WINDOW(ring_main_window),
-                                              GTK_FILE_CHOOSER_ACTION_SAVE,
-                                              _("_Cancel"),
-                                              GTK_RESPONSE_CANCEL,
-                                              _("_Save"),
-                                              GTK_RESPONSE_ACCEPT,
-                                              NULL);
-
-    gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(dialog), TRUE);
-
-    /* start the file chooser */
-    auto res = gtk_dialog_run (GTK_DIALOG (dialog));
-    if (res == GTK_RESPONSE_ACCEPT) {
-        if (auto filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog))) {
-            GError* error =  nullptr;
-            auto photo = ProfileModel::instance().selectedProfile()->person()->photo();
-            std::shared_ptr<GdkPixbuf> pixbuf_photo = photo.value<std::shared_ptr<GdkPixbuf>>();
-
-            if (photo.isValid()) {
-                gdk_pixbuf_save(pixbuf_photo.get(), filename, "png", &error, NULL);
-                if (error){
-                    g_warning("(export_avatar) could not save avatar to file: %s\n", error->message);
-                    g_error_free(error);
-                }
-            }
-            g_free (filename);
-        }
-    }
-
-    gtk_widget_destroy (dialog);
 }
 
 static void
