@@ -21,6 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+#include <gio/gio.h>
 #include <QtCore/QTranslator>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QString>
@@ -55,10 +56,13 @@
 #include "profile.h"
 #include "peerprofilecollection.h"
 #include "localprofilecollection.h"
+#include <accountmodel.h>
 
 #if USE_APPINDICATOR
 #include <libappindicator/app-indicator.h>
 #endif
+
+static constexpr int CONNECTIVITY_TIMEOUT = 3; /* seconds */
 
 struct _RingClientClass
 {
@@ -94,6 +98,11 @@ struct _RingClientPrivate {
 
     gpointer systray_icon;
     GtkWidget *icon_menu;
+
+    /* network connectivity */
+    gint                 connectivity_timeout;
+    gboolean             online;
+    GNetworkConnectivity connectivity;
 };
 
 /* this union is used to pass ints as pointers and vice versa for GAction parameters*/
@@ -343,6 +352,60 @@ ring_client_activate(GApplication *app)
     }
 }
 
+static gboolean
+connectivity_changed(RingClient *self)
+{
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
+
+    gchar* connectivity_str = nullptr;
+    switch (priv->connectivity) {
+        case G_NETWORK_CONNECTIVITY_LOCAL:
+            connectivity_str = g_strdup_printf("local");
+            break;
+        case G_NETWORK_CONNECTIVITY_LIMITED:
+            connectivity_str = g_strdup_printf("limited");;
+            break;
+        case G_NETWORK_CONNECTIVITY_PORTAL:
+            connectivity_str = g_strdup_printf("portal");
+            break;
+        case G_NETWORK_CONNECTIVITY_FULL:
+            connectivity_str = g_strdup_printf("full");
+            break;
+    }
+    g_debug("network status changed, available: %s, connectivity: %s", priv->online? "true" : "false", connectivity_str);
+    g_free(connectivity_str);
+
+    AccountModel::instance().connectivityChanged(priv->online);
+
+    priv->connectivity_timeout = 0;
+    return G_SOURCE_REMOVE;
+}
+
+static void
+network_changed(GNetworkMonitor *monitor, gboolean online, RingClient *self)
+{
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
+
+    auto connectivity = g_network_monitor_get_connectivity(monitor);
+
+    /* the network-changed signal is emitted a lot and sometimes is non relevant (ie: the network we're
+     * connected to hasn't changed); we only want to call connectivity_changed when either the availability
+     * (online/offline) or the connectivity has changed, and only if CONNECTIVITY_TIMEOUT seconds has
+     * passed since the last change, so that we prevent constantly reloading the accounts
+     */
+    if (priv->online != online || priv->connectivity != connectivity) {
+        priv->online = online;
+        priv->connectivity = connectivity;
+
+        if (priv->connectivity_timeout) {
+            // cancel current timeout
+            g_source_remove(priv->connectivity_timeout);
+            priv->connectivity_timeout = 0;
+        }
+        priv->connectivity_timeout = g_timeout_add_seconds(CONNECTIVITY_TIMEOUT, (GSourceFunc)connectivity_changed, self);
+    }
+}
+
 static void
 ring_client_startup(GApplication *app)
 {
@@ -490,6 +553,14 @@ ring_client_startup(GApplication *app)
     /* chat notifications for incoming messages on all calls which are not the
      * currently selected call */
      ring_notify_monitor_chat_notifications(client);
+
+    /* get initial network status */
+    auto network_monitor = g_network_monitor_get_default();
+    priv->online = g_network_monitor_get_network_available(network_monitor);
+    priv->connectivity = g_network_monitor_get_connectivity(network_monitor);
+
+    /* monitor changes in network */
+    g_signal_connect(network_monitor, "network-changed", G_CALLBACK(network_changed), client);
 
 #if GLIB_CHECK_VERSION(2,40,0)
     G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
