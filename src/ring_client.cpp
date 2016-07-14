@@ -21,6 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+#include <gio/gio.h>
 #include <QtCore/QTranslator>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QString>
@@ -55,10 +56,13 @@
 #include "profile.h"
 #include "peerprofilecollection.h"
 #include "localprofilecollection.h"
+#include <accountmodel.h>
 
 #if USE_APPINDICATOR
 #include <libappindicator/app-indicator.h>
 #endif
+
+static constexpr int CONNECTIVITY_TIMEOUT = 3; /* seconds */
 
 struct _RingClientClass
 {
@@ -94,6 +98,9 @@ struct _RingClientPrivate {
 
     gpointer systray_icon;
     GtkWidget *icon_menu;
+
+    /* network connectivity */
+    gint connectivity_timeout;
 };
 
 /* this union is used to pass ints as pointers and vice versa for GAction parameters*/
@@ -343,6 +350,66 @@ ring_client_activate(GApplication *app)
     }
 }
 
+static gboolean
+connectivity_changed(RingClient *self)
+{
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
+
+    /* connectivity changed can be received due to many reasons, eg: if a new network is connected
+     * to; however we may still be connected to the old network; we don't want to call
+     * connectivityChanged() if a call is still in progress since the daemon will likely then end
+     * any ongong calls; thus if we wait until there are either no more calls in progress before
+     * letting the daemon know
+     */
+
+    foreach(Call* call, CallModel::instance().getActiveCalls()) {
+        if (call->lifeCycleState() == Call::LifeCycleState::PROGRESS)
+            return G_SOURCE_CONTINUE; // try again later
+    }
+
+    auto monitor = g_network_monitor_get_default();
+    auto online = g_network_monitor_get_network_available(monitor);
+    auto connectivity = g_network_monitor_get_connectivity(monitor);
+
+    gchar* connectivity_str = nullptr;
+    switch (connectivity) {
+        case G_NETWORK_CONNECTIVITY_LOCAL:
+            connectivity_str = g_strdup_printf("local");
+            break;
+        case G_NETWORK_CONNECTIVITY_LIMITED:
+            connectivity_str = g_strdup_printf("limited");;
+            break;
+        case G_NETWORK_CONNECTIVITY_PORTAL:
+            connectivity_str = g_strdup_printf("portal");
+            break;
+        case G_NETWORK_CONNECTIVITY_FULL:
+            connectivity_str = g_strdup_printf("full");
+            break;
+    }
+    g_debug("network status changed, available: %s, connectivity: %s", online? "true" : "false", connectivity_str);
+    g_free(connectivity_str);
+
+    AccountModel::instance().connectivityChanged(online);
+    priv->connectivity_timeout = 0;
+    return G_SOURCE_REMOVE;
+}
+
+static void
+network_changed(RingClient *self)
+{
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
+
+    /* the network-changed signal can be emitted a lot; to prevent from spamming the daemon, we wait
+     * until CONNECTIVITY_TIMEOUT seconds have passed since the last change
+     */
+    if (priv->connectivity_timeout) {
+        // cancel current timeout
+        g_source_remove(priv->connectivity_timeout);
+        priv->connectivity_timeout = 0;
+    }
+    priv->connectivity_timeout = g_timeout_add_seconds(CONNECTIVITY_TIMEOUT, (GSourceFunc)connectivity_changed, self);
+}
+
 static void
 ring_client_startup(GApplication *app)
 {
@@ -490,6 +557,12 @@ ring_client_startup(GApplication *app)
     /* chat notifications for incoming messages on all calls which are not the
      * currently selected call */
      ring_notify_monitor_chat_notifications(client);
+
+    /* get initial network status */
+    auto network_monitor = g_network_monitor_get_default();
+
+    /* monitor changes in network */
+    g_signal_connect_swapped(network_monitor, "network-changed", G_CALLBACK(network_changed), client);
 
 #if GLIB_CHECK_VERSION(2,40,0)
     G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
