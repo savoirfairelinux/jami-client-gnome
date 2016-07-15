@@ -706,9 +706,9 @@ free_video_widget_renderer(VideoWidgetRenderer *renderer)
 {
     QObject::disconnect(renderer->render_stop);
     QObject::disconnect(renderer->render_start);
-    g_free(renderer);
     if (renderer->snapshot)
         g_object_unref(renderer->snapshot);
+    g_free(renderer);
 }
 
 static void
