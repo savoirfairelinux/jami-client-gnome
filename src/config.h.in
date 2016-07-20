@@ -6,6 +6,7 @@
 
 #define USE_LIBNOTIFY @USE_LIBNOTIFY@
 #define USE_APPINDICATOR @HAVE_APPINDICATOR@
+#define USE_LIBNM @USE_LIBNM@
 
 #define RING_CLIENT_APP_ID "cx.ring.RingGnome"
 
