@@ -19,26 +19,39 @@
 
 #include "ring_client.h"
 
+// system
+#include <memory>
+
+// GTK+ related
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+#include <clutter-gtk/clutter-gtk.h>
+
+// Qt
 #include <QtCore/QTranslator>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QString>
 #include <QtCore/QByteArray>
-#include <callmodel.h>
 #include <QtCore/QItemSelectionModel>
+#include <QtCore/QStandardPaths>
+
+// LRC
+#include <callmodel.h>
 #include <useractionmodel.h>
-#include <clutter-gtk/clutter-gtk.h>
 #include <categorizedhistorymodel.h>
 #include <personmodel.h>
 #include <fallbackpersoncollection.h>
-#include <QtCore/QStandardPaths>
 #include <localhistorycollection.h>
 #include <media/text.h>
 #include <numbercategorymodel.h>
 #include <globalinstances.h>
-#include <memory>
+#include <profilemodel.h>
+#include <profile.h>
+#include <peerprofilecollection.h>
+#include <localprofilecollection.h>
+#include <accountmodel.h>
 
+// Ring client
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
 #include "dialogs.h"
@@ -50,14 +63,13 @@
 #include "utils/files.h"
 #include "revision.h"
 #include "utils/accounts.h"
-/*lrc*/
-#include "profilemodel.h"
-#include "profile.h"
-#include "peerprofilecollection.h"
-#include "localprofilecollection.h"
 
 #if USE_APPINDICATOR
 #include <libappindicator/app-indicator.h>
+#endif
+
+#if USE_LIBNM
+#include <NetworkManager.h>
 #endif
 
 struct _RingClientClass
@@ -94,6 +106,11 @@ struct _RingClientPrivate {
 
     gpointer systray_icon;
     GtkWidget *icon_menu;
+
+#if USE_LIBNM
+    /* NetworkManager */
+    NMClient *nm_client;
+#endif
 };
 
 /* this union is used to pass ints as pointers and vice versa for GAction parameters*/
@@ -343,6 +360,65 @@ ring_client_activate(GApplication *app)
     }
 }
 
+#if USE_LIBNM
+
+static void
+log_connection_info(NMActiveConnection *connection)
+{
+    if (connection) {
+        g_debug("primary network connection: %s, %s, %s, default: %s",
+                nm_active_connection_get_uuid(connection),
+                nm_active_connection_get_id(connection),
+                nm_active_connection_get_connection_type(connection),
+                nm_active_connection_get_default(connection) ? "yes" : "no");
+    } else {
+        g_warning("no primary network connection detected, check network settings");
+    }
+}
+
+static void
+primary_connection_changed(NMClient *nm, G_GNUC_UNUSED GParamSpec *pspec, RingClient *self)
+{
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
+
+    auto connection = nm_client_get_primary_connection(nm);
+    log_connection_info(connection);
+
+    AccountModel::instance().slotConnectivityChanged();
+}
+
+static void
+nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result, RingClient *self)
+{
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
+
+    GError* error = nullptr;
+    if (auto nm_client = nm_client_new_finish(result, &error)) {
+        priv->nm_client = nm_client;
+        g_debug("NetworkManager client initialized, version: %s\ndaemon running: %s\ndaemon finished starting up: %s\nnetworking enabled: %s",
+                nm_client_get_version(nm_client),
+                nm_client_get_nm_running(nm_client) ? "yes" : "no",
+                nm_client_get_startup(nm_client) ? "no" : "yes",
+                nm_client_networking_get_enabled(nm_client) ? "yes" : "no");
+
+        auto connection = nm_client_get_primary_connection(nm_client);
+        log_connection_info(connection);
+
+        /* We monitor the primary connection and notify the daemon to re-load its connections
+         * (accounts, UPnP, ...) when it changes. For example, on most systems, if we have an
+         * ethernet connection and then also connect to wifi, the primary connection will not change;
+         * however it will change in the opposite case because an ethernet connection is preferred.
+         */
+        g_signal_connect(nm_client, "notify::primary-connection", G_CALLBACK(primary_connection_changed), self);
+
+    } else {
+        g_warning("error initializing NetworkManager client: %s", error->message);
+        g_clear_error(&error);
+    }
+}
+
+#endif /* USE_LIBNM */
+
 static void
 ring_client_startup(GApplication *app)
 {
@@ -491,6 +567,11 @@ ring_client_startup(GApplication *app)
      * currently selected call */
      ring_notify_monitor_chat_notifications(client);
 
+#if USE_LIBNM
+     /* monitor the network using libnm to notify the daemon about connectivity chagnes */
+     nm_client_new_async(priv->cancellable, (GAsyncReadyCallback)nm_client_cb, client);
+#endif
+
 #if GLIB_CHECK_VERSION(2,40,0)
     G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
 #else
@@ -553,6 +634,11 @@ ring_client_shutdown(GApplication *app)
     g_clear_object(&priv->settings);
 
     ring_notify_uninit();
+
+#if USE_LIBNM
+    /* clear NetworkManager client if it was used */
+    g_clear_object(&priv->nm_client);
+#endif
 
     /* Chain up to the parent class */
     G_APPLICATION_CLASS(ring_client_parent_class)->shutdown(app);
