@@ -18,8 +18,9 @@ BuildRequires:      boost-devel dbus-c++-devel dbus-devel libupnp-devel qt5-qtba
 BuildRequires:      gnome-icon-theme-symbolic chrpath check astyle gnutls-devel yasm git
 BuildRequires:      cmake clutter-gtk-devel clutter-devel glib2-devel gtk3-devel evolution-data-server-devel
 BuildRequires:      libnotify-devel qt5-qttools-devel gettext qrencode-devel libappindicator-gtk3-devel
+BuildRequires:      libnm-devel
 Requires:           gnome-icon-theme-symbolic evolution-data-server ring-daemon librsvg2
-Requires:           libnotify qrencode libappindicator-gtk3
+Requires:           libnotify qrencode libappindicator-gtk3 libnm
 Conflicts:          ring-kde
 
 %description
