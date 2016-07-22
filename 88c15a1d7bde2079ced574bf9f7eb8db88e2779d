@@ -34,6 +34,24 @@
       "revId": "88c15a1d7bde2079ced574bf9f7eb8db88e2779d",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7ca5a3_89046916",
+        "filename": "debian/control",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-07-22T16:28:57Z",
+      "side": 1,
+      "message": "Yeah.\n\nIn my debian package, I have none of them:\n - https://github.com/savoirfairelinux/ring-project/blob/master/packaging/rules/debian/control#L66",
+      "parentUuid": "5a7ca5a3_be2b9d93",
+      "revId": "88c15a1d7bde2079ced574bf9f7eb8db88e2779d",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
