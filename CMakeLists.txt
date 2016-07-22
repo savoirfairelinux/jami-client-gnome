@@ -78,7 +78,7 @@ PKG_CHECK_MODULES(EBOOK REQUIRED libebook-1.2>=3.10)
 PKG_CHECK_MODULES(LIBNOTIFY libnotify>=0.7.6) #optional
 FIND_PACKAGE(Gettext) #optional for translations
 PKG_CHECK_MODULES(LIBQRENCODE libqrencode>=3.4)
-PKG_CHECK_MODULES(LIBNM libnm>=1.2.0) #optional to detect changes in the network
+PKG_CHECK_MODULES(LIBNM libnm-glib>=0.9.8.8) #optional to detect changes in the network
 
 IF(USE_APPINDICATOR)
     PKG_CHECK_MODULES(APPINDICATOR appindicator3-0.1) #optional

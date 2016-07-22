@@ -69,7 +69,7 @@
 #endif
 
 #if USE_LIBNM
-#include <NetworkManager.h>
+#include <libnm-glib/nm-client.h>
 #endif
 
 struct _RingClientClass
@@ -377,10 +377,8 @@ log_connection_info(NMActiveConnection *connection)
 }
 
 static void
-primary_connection_changed(NMClient *nm, G_GNUC_UNUSED GParamSpec *pspec, RingClient *self)
+primary_connection_changed(NMClient *nm)
 {
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
-
     auto connection = nm_client_get_primary_connection(nm);
     log_connection_info(connection);
 
@@ -395,10 +393,9 @@ nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result, RingCli
     GError* error = nullptr;
     if (auto nm_client = nm_client_new_finish(result, &error)) {
         priv->nm_client = nm_client;
-        g_debug("NetworkManager client initialized, version: %s\ndaemon running: %s\ndaemon finished starting up: %s\nnetworking enabled: %s",
+        g_debug("NetworkManager client initialized, version: %s\ndaemon running: %s\nnnetworking enabled: %s",
                 nm_client_get_version(nm_client),
-                nm_client_get_nm_running(nm_client) ? "yes" : "no",
-                nm_client_get_startup(nm_client) ? "no" : "yes",
+                nm_client_get_manager_running(nm_client) ? "yes" : "no",
                 nm_client_networking_get_enabled(nm_client) ? "yes" : "no");
 
         auto connection = nm_client_get_primary_connection(nm_client);
@@ -409,7 +406,7 @@ nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result, RingCli
          * ethernet connection and then also connect to wifi, the primary connection will not change;
          * however it will change in the opposite case because an ethernet connection is preferred.
          */
-        g_signal_connect(nm_client, "notify::primary-connection", G_CALLBACK(primary_connection_changed), self);
+        g_signal_connect(nm_client, "notify::primary-connection", G_CALLBACK(primary_connection_changed), nullptr);
 
     } else {
         g_warning("error initializing NetworkManager client: %s", error->message);
