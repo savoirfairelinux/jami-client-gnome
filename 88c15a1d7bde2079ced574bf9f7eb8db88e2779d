@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a7ca5a3_1e3bb1ec",
+        "filename": "debian/control",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-07-22T16:10:24Z",
+      "side": 1,
+      "message": "As fas as I know this will be automagically added in ${shlibs:Depends}. libs shouldn\u0027t be here.",
+      "revId": "88c15a1d7bde2079ced574bf9f7eb8db88e2779d",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
