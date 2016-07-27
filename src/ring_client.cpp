@@ -366,10 +366,8 @@ static void
 log_connection_info(NMActiveConnection *connection)
 {
     if (connection) {
-        g_debug("primary network connection: %s, %s, %s, default: %s",
+        g_debug("primary network connection: %s, default: %s",
                 nm_active_connection_get_uuid(connection),
-                nm_active_connection_get_id(connection),
-                nm_active_connection_get_connection_type(connection),
                 nm_active_connection_get_default(connection) ? "yes" : "no");
     } else {
         g_warning("no primary network connection detected, check network settings");
