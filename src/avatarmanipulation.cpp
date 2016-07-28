@@ -72,11 +72,18 @@ struct _AvatarManipulationPrivate
     GtkWidget *video_widget;
     GtkWidget *box_views_and_controls;
     GtkWidget *box_controls;
-    GtkWidget *button_take_photo;
+
+    GtkWidget *button_box_current;
+    GtkWidget *button_box_photo;
+    GtkWidget *button_box_edit;
+
+    GtkWidget *button_start_camera;
     GtkWidget *button_choose_picture;
-    GtkWidget *button_trash_avatar;
+    GtkWidget *button_take_photo;
+    GtkWidget *button_return_photo;
     GtkWidget *button_set_avatar;
-    GtkWidget *button_export_avatar;
+    GtkWidget *button_return_edit;
+
     GtkWidget *selector_widget;
     GtkWidget *stack_views;
     GtkWidget *image_avatar;
@@ -93,6 +100,13 @@ struct _AvatarManipulationPrivate
     GdkModifierType button_pressed;
 
     AvatarManipulationState state;
+    AvatarManipulationState last_state;
+
+    /* this is used to keep track of the state of the preview when the camera is used to take a
+     * photo; if a call is in progress, then the preview should already be started and we don't want
+     * to stop it when the settings are closed, in this case
+     */
+    gboolean video_started_by_avatar_manipulation;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AvatarManipulation, avatar_manipulation, GTK_TYPE_BOX);
@@ -102,11 +116,11 @@ G_DEFINE_TYPE_WITH_PRIVATE(AvatarManipulation, avatar_manipulation, GTK_TYPE_BOX
 
 static void set_state(AvatarManipulation *self, AvatarManipulationState state);
 
+static void start_camera(AvatarManipulation *self);
 static void take_a_photo(AvatarManipulation *self);
 static void choose_picture(AvatarManipulation *self);
-static void export_avatar(AvatarManipulation *self);
+static void return_to_previous_state(AvatarManipulation *self);
 static void update_preview_cb(GtkFileChooser *file_chooser, GtkWidget *preview);
-static void trash_photo(AvatarManipulation *self);
 static void set_avatar(AvatarManipulation *self);
 static void got_snapshot(AvatarManipulation *parent);
 
@@ -125,7 +139,8 @@ avatar_manipulation_dispose(GObject *object)
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(object);
 
     /* make sure we stop the preview and the video widget */
-    Video::PreviewManager::instance().stopPreview();
+    if (priv->video_started_by_avatar_manipulation)
+        Video::PreviewManager::instance().stopPreview();
     if (priv->video_widget) {
         gtk_container_remove(GTK_CONTAINER(priv->stack_views), priv->video_widget);
         priv->video_widget = NULL;
@@ -162,9 +177,12 @@ avatar_manipulation_new_from_wizard(void)
 {
     auto self = avatar_manipulation_new();
 
-    /* in this mode, we want to automatically go to the new avatar state, unless one already exists */
-    if (!ProfileModel::instance().selectedProfile()->person()->photo().isValid())
-        set_state(AVATAR_MANIPULATION(self), AVATAR_MANIPULATION_STATE_NEW);
+    /* in this mode, we want to automatically go to the PHOTO avatar state, unless one already exists */
+    if (!ProfileModel::instance().selectedProfile()->person()->photo().isValid()) {
+        // check if there is a camera
+        if (Video::DeviceModel::instance().rowCount() > 0)
+            set_state(AVATAR_MANIPULATION(self), AVATAR_MANIPULATION_STATE_PHOTO);
+    }
 
     return self;
 }
@@ -179,14 +197,18 @@ avatar_manipulation_class_init(AvatarManipulationClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, box_views_and_controls);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, box_controls);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_take_photo);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_set_avatar);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_trash_avatar);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_start_camera);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_choose_picture);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_export_avatar);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_take_photo);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_return_photo);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_set_avatar);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_return_edit);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, stack_views);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, image_avatar);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, vbox_selector);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_box_current);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_box_photo);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_box_edit);
 }
 
 static void
@@ -204,7 +226,7 @@ avatar_manipulation_init(AvatarManipulation *self)
 
     /* Signals used to handle backing surface */
     g_signal_connect(priv->selector_widget, "draw", G_CALLBACK (selector_widget_draw), self);
-    g_signal_connect(priv->selector_widget,"configure-event", G_CALLBACK (selector_widget_configure_event), self);
+    g_signal_connect(priv->selector_widget, "configure-event", G_CALLBACK (selector_widget_configure_event), self);
     /* Event signals */
     g_signal_connect(priv->selector_widget, "motion-notify-event", G_CALLBACK(selector_widget_motion_notify_event), self);
     g_signal_connect(priv->selector_widget, "button-press-event", G_CALLBACK(selector_widget_button_press_event), self);
@@ -216,11 +238,12 @@ avatar_manipulation_init(AvatarManipulation *self)
 
 
     /* signals */
+    g_signal_connect_swapped(priv->button_start_camera, "clicked", G_CALLBACK(start_camera), self);
     g_signal_connect_swapped(priv->button_choose_picture, "clicked", G_CALLBACK(choose_picture), self);
     g_signal_connect_swapped(priv->button_take_photo, "clicked", G_CALLBACK(take_a_photo), self);
+    g_signal_connect_swapped(priv->button_return_photo, "clicked", G_CALLBACK(return_to_previous_state), self);
     g_signal_connect_swapped(priv->button_set_avatar, "clicked", G_CALLBACK(set_avatar), self);
-    g_signal_connect_swapped(priv->button_trash_avatar, "clicked", G_CALLBACK(trash_photo), self);
-    g_signal_connect_swapped(priv->button_export_avatar, "clicked", G_CALLBACK(export_avatar), self);
+    g_signal_connect_swapped(priv->button_return_edit, "clicked", G_CALLBACK(return_to_previous_state), self);
 
     set_state(self, AVATAR_MANIPULATION_STATE_CURRENT);
 
@@ -233,6 +256,9 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
     // note: this funciton does not check if the state transition is valid, this is assumed to have
     // been done by the caller
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
+
+    // save prev state
+    priv->last_state = priv->state;
 
     switch (state) {
         case AVATAR_MANIPULATION_STATE_CURRENT:
@@ -251,62 +277,58 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
             }
 
             gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_views), "page_avatar");
-            // gtk_widget_set_size_request(priv->video_widget, VIDEO_WIDTH, VIDEO_HEIGHT);
 
-            /* available actions: trash or export avatar */
-            gtk_widget_set_visible(priv->button_trash_avatar,   true);
-            gtk_widget_set_visible(priv->button_export_avatar,  true);
-            gtk_widget_set_visible(priv->button_set_avatar,     false);
-            gtk_widget_set_visible(priv->button_take_photo,     false);
-            gtk_widget_set_visible(priv->button_choose_picture, false);
+            /* available actions: start camera (if available) or choose image */
+            if (Video::DeviceModel::instance().rowCount() > 0) {
+                // TODO: update if a video device gets inserted while in this state
+                gtk_widget_set_visible(priv->button_start_camera, true);
+            }
+            gtk_widget_set_visible(priv->button_box_current, true);
+            gtk_widget_set_visible(priv->button_box_photo,   false);
+            gtk_widget_set_visible(priv->button_box_edit,    false);
 
-            /* make sure video widget and camera is no longer running */
-            Video::PreviewManager::instance().stopPreview();
+            /* make sure video widget and camera is not running */
+            if (priv->video_started_by_avatar_manipulation)
+                Video::PreviewManager::instance().stopPreview();
             if (priv->video_widget) {
                 gtk_container_remove(GTK_CONTAINER(priv->stack_views), priv->video_widget);
                 priv->video_widget = NULL;
             }
         }
         break;
-        case AVATAR_MANIPULATION_STATE_NEW:
+        case AVATAR_MANIPULATION_STATE_PHOTO:
         {
-            /* check if a video device is available, if so show the camera stream; otherwise we can
-             * only choose a file, and we keep showing the current/default avatar
-             *
-             * TODO: update if a video device gets inserted while in this state
-             */
-            if (Video::DeviceModel::instance().rowCount() > 0) {
-                priv->video_widget = video_widget_new();
-                // gtk_widget_set_size_request(priv->video_widget, VIDEO_WIDTH, VIDEO_HEIGHT);
-                video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                                Video::PreviewManager::instance().previewRenderer(),
-                                                VIDEO_RENDERER_REMOTE);
-                g_signal_connect_swapped(priv->video_widget, "snapshot-taken", G_CALLBACK (got_snapshot), self);
-                gtk_widget_set_vexpand_set(priv->video_widget, FALSE);
-                gtk_widget_set_hexpand_set(priv->video_widget, FALSE);
-                gtk_widget_set_visible(priv->video_widget, true);
-                gtk_stack_add_named(GTK_STACK(priv->stack_views), priv->video_widget, "page_photobooth");
-                gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_views), "page_photobooth");
+            // start the video; if its not available we should not be in this state
+            priv->video_widget = video_widget_new();
+            g_signal_connect_swapped(priv->video_widget, "snapshot-taken", G_CALLBACK (got_snapshot), self);
+            gtk_widget_set_vexpand_set(priv->video_widget, FALSE);
+            gtk_widget_set_hexpand_set(priv->video_widget, FALSE);
+            gtk_widget_set_visible(priv->video_widget, true);
+            gtk_stack_add_named(GTK_STACK(priv->stack_views), priv->video_widget, "page_photobooth");
+            gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_views), "page_photobooth");
 
+
+            /* local renderer, but set as "remote" so that it takes up the whole screen */
+            video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                           Video::PreviewManager::instance().previewRenderer(),
+                                           VIDEO_RENDERER_REMOTE);
+
+            if (Video::PreviewManager::instance().isPreviewing()) {
+                priv->video_started_by_avatar_manipulation = FALSE;
                 Video::PreviewManager::instance().startPreview();
-
-                /* available action in this case: take snapshot */
-                gtk_widget_set_visible(priv->button_take_photo, true);
-            } else {
-                gtk_widget_set_visible(priv->button_take_photo, false);
             }
 
-            /* available actions: choose file */
-            gtk_widget_set_visible(priv->button_choose_picture, true);
-            gtk_widget_set_visible(priv->button_trash_avatar,   false);
-            gtk_widget_set_visible(priv->button_export_avatar,  false);
-            gtk_widget_set_visible(priv->button_set_avatar,     false);
+            /* available actions: take snapshot, return*/
+            gtk_widget_set_visible(priv->button_box_current, false);
+            gtk_widget_set_visible(priv->button_box_photo,   true);
+            gtk_widget_set_visible(priv->button_box_edit,    false);
         }
         break;
         case AVATAR_MANIPULATION_STATE_EDIT:
         {
-            /* make sure video widget and camera is no longer running */
-            Video::PreviewManager::instance().stopPreview();
+            /* make sure video widget and camera is not running */
+            if (priv->video_started_by_avatar_manipulation)
+                Video::PreviewManager::instance().stopPreview();
             if (priv->video_widget) {
                 gtk_container_remove(GTK_CONTAINER(priv->stack_views), priv->video_widget);
                 priv->video_widget = NULL;
@@ -317,12 +339,10 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
             priv->origin[1] = 0;
             priv->length = INITIAL_LENTGH;
 
-            /* available actions: set avatar, trash avatar */
-            gtk_widget_set_visible(priv->button_set_avatar, true);
-            gtk_widget_set_visible(priv->button_trash_avatar, true);
-            gtk_widget_set_visible(priv->button_take_photo, false);
-            gtk_widget_set_visible(priv->button_choose_picture, false);
-            gtk_widget_set_visible(priv->button_export_avatar, false);
+            /* available actions: set avatar, return */
+            gtk_widget_set_visible(priv->button_box_current, false);
+            gtk_widget_set_visible(priv->button_box_photo,   false);
+            gtk_widget_set_visible(priv->button_box_edit,    true);
 
             gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_views), "page_edit_view");
         }
@@ -333,20 +353,16 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
 }
 
 static void
+start_camera(AvatarManipulation *self)
+{
+    set_state(self, AVATAR_MANIPULATION_STATE_PHOTO);
+}
+
+static void
 take_a_photo(AvatarManipulation *self)
 {
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
     video_widget_take_snapshot(VIDEO_WIDGET(priv->video_widget));
-}
-
-static void
-trash_photo(AvatarManipulation *self)
-{
-    /* clear the avatar in the profile */
-    ProfileModel::instance().selectedProfile()->person()->setPhoto(QVariant());
-    ProfileModel::instance().selectedProfile()->save();
-
-    set_state(self, AVATAR_MANIPULATION_STATE_NEW);
 }
 
 static void
@@ -387,6 +403,13 @@ set_avatar(AvatarManipulation *self)
     g_object_unref(pixbuf_frame_resized);
 
     set_state(self, AVATAR_MANIPULATION_STATE_CURRENT);
+}
+
+static void
+return_to_previous_state(AvatarManipulation *self)
+{
+    AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
+    set_state(self, priv->last_state);
 }
 
 static void
@@ -446,44 +469,6 @@ choose_picture(AvatarManipulation *self)
     }
 
     gtk_widget_destroy(dialog);
-}
-
-static void
-export_avatar(AvatarManipulation *self)
-{
-    GtkWidget *ring_main_window = gtk_widget_get_toplevel(GTK_WIDGET(self));
-
-    auto dialog = gtk_file_chooser_dialog_new(_("Save Avatar Image"),
-                                              GTK_WINDOW(ring_main_window),
-                                              GTK_FILE_CHOOSER_ACTION_SAVE,
-                                              _("_Cancel"),
-                                              GTK_RESPONSE_CANCEL,
-                                              _("_Save"),
-                                              GTK_RESPONSE_ACCEPT,
-                                              NULL);
-
-    gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(dialog), TRUE);
-
-    /* start the file chooser */
-    auto res = gtk_dialog_run (GTK_DIALOG (dialog));
-    if (res == GTK_RESPONSE_ACCEPT) {
-        if (auto filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog))) {
-            GError* error =  nullptr;
-            auto photo = ProfileModel::instance().selectedProfile()->person()->photo();
-            std::shared_ptr<GdkPixbuf> pixbuf_photo = photo.value<std::shared_ptr<GdkPixbuf>>();
-
-            if (photo.isValid()) {
-                gdk_pixbuf_save(pixbuf_photo.get(), filename, "png", &error, NULL);
-                if (error){
-                    g_warning("(export_avatar) could not save avatar to file: %s\n", error->message);
-                    g_error_free(error);
-                }
-            }
-            g_free (filename);
-        }
-    }
-
-    gtk_widget_destroy (dialog);
 }
 
 static void
