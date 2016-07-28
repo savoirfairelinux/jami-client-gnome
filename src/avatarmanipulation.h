@@ -37,19 +37,18 @@ typedef struct _AvatarManipulationClass AvatarManipulationClass;
 /**
  * AvatarManipulationState:
  * @AVATAR_MANIPULATION_STATE_CURRENT: The initial state. The widget will display the current
- *  or the default avatar, with the possible actions being to delete (and select a new one) or to
- *  save to disk the current avatar.
- * @AVATAR_MANIPULATION_STATE_NEW: The state in which the user is selecting a new avatar. If
- *  a video device is available, it will will be turned on. The possible actions being to take a
- *  snapshot or to select an existing image from a file.
- * @AVATAR_MANIPULATION_STATE_EDIT: The state after selecting a new image when the user must
- *  select the square area they wish to use for the avatar. The possible actions being to confirm
- *  the selection or to discard it.
+ *  or the default avatar, with the possible actions being to start the camera (if available) to
+ *  take a new photo) or to select an existing image.
+ * @AVATAR_MANIPULATION_STATE_PHOTO: The state in which the camera is on and the video is being
+ *  shown. The possible actions are to take a snapshot or to return to the previous state.
+ * @AVATAR_MANIPULATION_STATE_EDIT: The state after selecting a new image (or snapping a photo). The
+ *  user must select the square area they wish to use for the avatar. The possible actions are to
+ *  confirm the selection or to return to the previous state.
  */
 typedef enum
 {
     AVATAR_MANIPULATION_STATE_CURRENT,
-    AVATAR_MANIPULATION_STATE_NEW,
+    AVATAR_MANIPULATION_STATE_PHOTO,
     AVATAR_MANIPULATION_STATE_EDIT
 } AvatarManipulationState;
 
