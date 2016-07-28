@@ -31,8 +31,10 @@
                 <child type="label">
                   <object class="GtkLabel" id="label_profile_settings">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Profile Settings&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label" translatable="yes">Profile Settings</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                 </child>
                 <!-- end frame label -->
@@ -73,8 +75,10 @@
                   <child type="label">
                     <object class="GtkLabel" id="label_ring_settings">
                       <property name="visible">True</property>
-                      <property name="label" translatable="yes">&lt;b&gt;Ring Settings&lt;/b&gt;</property>
-                      <property name="use_markup">True</property>
+                      <property name="label" translatable="yes">Ring Settings</property>
+                      <attributes>
+                        <attribute name="weight" value="bold"/>
+                      </attributes>
                     </object>
                   </child>
                   <!-- end frame label -->
@@ -151,8 +155,10 @@
                     <object class="GtkLabel" id="label_history_settings">
                       <property name="visible">True</property>
                       <property name="can_focus">False</property>
-                      <property name="label" translatable="yes">&lt;b&gt;History Settings&lt;/b&gt;</property>
-                      <property name="use_markup">True</property>
+                      <property name="label" translatable="yes">History Settings</property>
+                      <attributes>
+                        <attribute name="weight" value="bold"/>
+                      </attributes>
                     </object>
                   </child>
                   <!-- end frame label -->
