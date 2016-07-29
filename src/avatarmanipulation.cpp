@@ -88,6 +88,7 @@ struct _AvatarManipulationPrivate
     GtkWidget *stack_views;
     GtkWidget *image_avatar;
     GtkWidget *vbox_selector;
+    GtkWidget *frame_video;
     GdkPixbuf *pix_scaled;
 
     /* selector widget properties */
@@ -142,7 +143,7 @@ avatar_manipulation_dispose(GObject *object)
     if (priv->video_started_by_avatar_manipulation)
         Video::PreviewManager::instance().stopPreview();
     if (priv->video_widget) {
-        gtk_container_remove(GTK_CONTAINER(priv->stack_views), priv->video_widget);
+        gtk_container_remove(GTK_CONTAINER(priv->frame_video), priv->video_widget);
         priv->video_widget = NULL;
     }
 
@@ -205,6 +206,7 @@ avatar_manipulation_class_init(AvatarManipulationClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_return_edit);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, stack_views);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, image_avatar);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, frame_video);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, vbox_selector);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_box_current);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_box_photo);
@@ -291,7 +293,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
             if (priv->video_started_by_avatar_manipulation)
                 Video::PreviewManager::instance().stopPreview();
             if (priv->video_widget) {
-                gtk_container_remove(GTK_CONTAINER(priv->stack_views), priv->video_widget);
+                gtk_container_remove(GTK_CONTAINER(priv->frame_video), priv->video_widget);
                 priv->video_widget = NULL;
             }
         }
@@ -303,8 +305,8 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
             g_signal_connect_swapped(priv->video_widget, "snapshot-taken", G_CALLBACK (got_snapshot), self);
             gtk_widget_set_vexpand_set(priv->video_widget, FALSE);
             gtk_widget_set_hexpand_set(priv->video_widget, FALSE);
+            gtk_container_add(GTK_CONTAINER(priv->frame_video), priv->video_widget);
             gtk_widget_set_visible(priv->video_widget, true);
-            gtk_stack_add_named(GTK_STACK(priv->stack_views), priv->video_widget, "page_photobooth");
             gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_views), "page_photobooth");
 
 
@@ -332,7 +334,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
             if (priv->video_started_by_avatar_manipulation)
                 Video::PreviewManager::instance().stopPreview();
             if (priv->video_widget) {
-                gtk_container_remove(GTK_CONTAINER(priv->stack_views), priv->video_widget);
+                gtk_container_remove(GTK_CONTAINER(priv->frame_video), priv->video_widget);
                 priv->video_widget = NULL;
             }
 
