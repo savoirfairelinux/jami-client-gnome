@@ -256,10 +256,14 @@ SET( SRC_FILES
    src/models/gtkqsortfiltertreemodel.cpp
    src/accountview.h
    src/accountview.cpp
+   src/accountcreationwizard.h
+   src/accountcreationwizard.cpp
    src/accountgeneraltab.h
    src/accountgeneraltab.cpp
    src/accountaudiotab.h
    src/accountaudiotab.cpp
+   src/accountdevicestab.h
+   src/accountdevicestab.cpp
    src/accountvideotab.h
    src/accountvideotab.cpp
    src/accountadvancedtab.h
