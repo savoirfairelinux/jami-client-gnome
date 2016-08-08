@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.10"/>
+  <template class="AccountDevicesTab" parent="GtkBox">
+    <child>
+      <object class="GtkStack" id="stack_account_devices">
+        <property name="visible">True</property>
+        <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
+        <property name="transition-duration">300</property>
+      </object>
+      <packing>
+        <property name="expand">True</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+  </template>
+  <!-- Manage devices view -->
+  <object class="GtkBox" id="manage_devices">
+    <property name="orientation">vertical</property>
+    <property name="spacing">15</property>
+    <child>
+      <object class="GtkLabel" id="label_codecs">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">&lt;b&gt;Devices&lt;/b&gt;</property>
+        <property name="use_markup">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="shadow_type">in</property>
+        <property name="min-content-height">225</property>
+        <property name="hscrollbar_policy">never</property>
+        <child>
+          <object class="GtkTreeView" id="treeview_devices">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="button_add_device">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Add device</property>
+      </object>
+    </child>
+  </object>
+  <!-- End Manage devices view -->
+  <!-- Add device view -->
+  <object class="GtkBox" id="add_device">
+    <property name="orientation">vertical</property>
+    <property name="spacing">15</property>
+
+          <!-- Title Row -->
+          <child>
+            <object class="GtkLabel" id="label_devices">
+              <property name="visible">True</property>
+              <property name="can_focus">False</property>
+              <property name="label" translatable="yes">&lt;b&gt;Add New Device&lt;/b&gt;</property>
+              <property name="use_markup">True</property>
+            </object>
+          </child>
+
+          <!-- Explaination row -->
+          <child>
+            <object class="GtkLabel" id="label_explaination">
+              <property name="visible">True</property>
+              <property name="can_focus">False</property>
+              <property name="use_markup">True</property>
+              <property name="label" translatable="yes">
+                  To add a new device to your Ring account, you must generate a pin.
+                  The pin must be entered on your new device within 5 minutes of its generation.
+              </property>
+            </object>
+          </child>
+          <!-- End of Explaination row -->
+
+          <!-- Password entry row -->'
+          <child>
+            <object class="GtkButtonBox">
+              <child>
+                <object class="GtkLabel">
+                  <property name="visible">True</property>
+                  <property name="halign">end</property>
+                  <property name="label" translatable="yes">Password (required):</property>
+                </object>
+              </child>
+
+              <child>
+                <object class="GtkEntry" id="entry_password">
+                  <property name="visible">True</property>
+                  <property name="halign">start</property>
+                  <property name="visibility">False</property>
+                  <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                  <property name="input_purpose">password</property>
+                  <property name="tooltip-text" translatable="yes">Enter archive password</property>
+                </object>
+              </child>
+            </object>
+          </child>
+
+            <!-- End of password entry row -->
+
+            <!-- Cancel and Generate pin buttons -->
+            <child>
+              <object class="GtkButtonBox" id="buttonbox_confirm">
+                <property name="visible">True</property>
+                <property name="layout-style">spread</property>
+                <property name="spacing">10</property>
+
+                <child>
+                  <object class="GtkButton" id="button_add_device_cancel">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Cancel</property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkButton" id="button_generate_pin">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Generate pin</property>
+                  </object>
+                </child>
+
+              </object>
+            </child>
+            <!-- end Cancel and Generate pin buttons -->
+
+          </object>
+    <!-- End add device view -->
+    <!-- Generated pin view -->
+    <object class="GtkBox" id="generated_pin">
+      <property name="orientation">vertical</property>
+      <property name="spacing">15</property>
+      <child>
+        <object class="GtkLabel">
+          <property name="visible">True</property>
+          <property name="can_focus">False</property>
+          <property name="label" translatable="yes">Your generated pin:</property>
+          <property name="use_markup">True</property>
+        </object>
+      </child>
+      <child>
+        <object class="GtkLabel" id="label_generated_pin">
+          <property name="visible">True</property>
+          <property name="can_focus">True</property>
+          <property name="label">PIN HERE</property>
+        </object>
+      </child>
+      <child>
+        <object class="GtkLabel">
+          <property name="visible">True</property>
+          <property name="can_focus">False</property>
+          <property name="label">
+              This pin should be entered on your new device within 5 minutes.
+               You may generate a new one at any moment
+          </property>
+          <property name="use_markup">True</property>
+        </object>
+      </child>
+      <child>
+        <object class="GtkButton" id="button_generated_pin_ok">
+          <property name="visible">True</property>
+          <property name="label" translatable="yes">OK</property>
+        </object>
+      </child>
+    </object>
+    <!-- End Geneerated pn view -->
+</interface>
