@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.10"/>
+  <template class="AccountAddDeviceView" parent="GtkBox">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkGrid" id="grid_devices">
+          <property name="visible">True</property>
+          <property name="column-spacing">10</property>
+          <property name="row-spacing">10</property>
+          <property name="halign">center</property>
+          <property name="valign">center</property>
+
+          <!-- Title Row -->
+          <child>
+            <object class="GtkLabel" id="label_devices">
+              <property name="visible">True</property>
+              <property name="can_focus">False</property>
+              <property name="label" translatable="yes">&lt;b&gt;Add New Device&lt;/b&gt;</property>
+              <property name="use_markup">True</property>
+            </object>
+            <packing>
+              <property name="left-attach">0</property>
+              <property name="top-attach">0</property>
+            </packing>
+          </child>
+
+          <!-- Explaination row -->
+          <child>
+            <object class="GtkLabel" id="label_explaination">
+              <property name="visible">True</property>
+              <property name="can_focus">False</property>
+              <property name="use_markup">True</property>
+              <property name="label" translatable="yes">
+                  To add a new device to your Ring account, you must generate a pin.
+                  The pin must be entered on your new device within 5 minutes of its generation.
+              </property>
+            </object>
+            <packing>
+              <property name="left-attach">0</property>
+              <property name="top-attach">1</property>
+            </packing>
+          </child>
+          <!-- End of Explaination row -->
+
+          <!-- Pin row -->
+          <child>
+            <object class="GtkLabel" id="label_pin">
+              <property name="visible">True</property>
+              <property name="label" translatable="yes">PIN HERE</property>
+            </object>
+            <packing>
+              <property name="left-attach">0</property>
+              <property name="top-attach">2</property>
+            </packing>
+          </child>
+          <!-- End of Pin row -->
+
+          <!-- Password entry row -->
+          <child>
+            <object class="GtkLabel" id="label_password">
+              <property name="visible">True</property>
+              <property name="label" translatable="yes">Password (required):</property>
+            </object>
+            <packing>
+              <property name="left_attach">0</property>
+              <property name="top_attach">3</property>
+            </packing>
+          </child>
+
+            <child>
+              <object class="GtkEntry" id="entry_password">
+                <property name="visible">True</property>
+                <property name="visibility">False</property>
+                <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                <property name="input_purpose">password</property>
+                <property name="tooltip-text" translatable="yes">Enter archive password</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <!-- End of password entry row -->
+
+            <!-- Cancel and Generate pin buttons -->
+            <child>
+              <object class="GtkButtonBox" id="buttonbox_confirm">
+                <property name="visible">True</property>
+                <property name="layout-style">spread</property>
+                <property name="spacing">10</property>
+
+                <child>
+                  <object class="GtkButton" id="button_cancel">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Cancel</property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkButton" id="button_generate_pin">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Generate pin</property>
+                  </object>
+                </child>
+
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">4</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <!-- end Cancel and Generate pin buttons -->
+
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+  </template>
+</interface>
