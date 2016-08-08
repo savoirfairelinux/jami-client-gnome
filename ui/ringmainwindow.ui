@@ -272,8 +272,8 @@
     </child>
   </object>
   <!-- end main call view -->
-  <!-- account creation wizard -->
-  <object class="GtkBox" id="account_creation">
+  <!-- Choose account type wizard -->
+  <object class="GtkBox" id="choose_account_type">
     <property name="visible">True</property>
     <property name="valign">center</property>
     <property name="border_width">10</property>
@@ -314,6 +314,31 @@
         <property name="position">0</property>
       </packing>
     </child>
+    <child>
+      <object class="GtkButton" id="button_existing_account">
+        <property name="label" translatable="yes">Existing Ring account</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="halign">end</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="button_new_account">
+        <property name="label" translatable="yes">New Ring account</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="halign">end</property>
+      </object>
+    </child>
+  </object>
+  <!-- End Choose account type wizard -->
+  <!-- account creation wizard -->
+  <object class="GtkBox" id="account_creation">
+    <property name="visible">True</property>
+    <property name="valign">center</property>
+    <property name="border_width">10</property>
+    <property name="orientation">vertical</property>
+    <property name="spacing">15</property>
     <child>
       <object class="GtkBox" id="vbox_account_creation_entry">
         <property name="visible">True</property>
@@ -360,6 +385,47 @@
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_enter_password">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Password:</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="entry_password">
+            <property name="width_request">200</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">True</property>
+            <property name="has_default">True</property>
+            <property name="xalign">0.5</property>
+          </object>
+           <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="entry_password_confirm">
+            <property name="width_request">200</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">True</property>
+            <property name="has_default">True</property>
+            <property name="xalign">0.5</property>
+          </object>
+           <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
           </packing>
         </child>
         <child>
