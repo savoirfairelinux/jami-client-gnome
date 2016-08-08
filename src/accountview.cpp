@@ -33,6 +33,7 @@
 #include "accountvideotab.h"
 #include "accountadvancedtab.h"
 #include "accountsecuritytab.h"
+#include "accountdevicestab.h"
 #include "dialogs.h"
 #include <glib/gprintf.h>
 #include "utils/models.h"
@@ -176,6 +177,10 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  security_tab,
                                  gtk_label_new(C_("Account settings", "Security")));
+        auto devices_tab = create_scrolled_account_view(account_devices_tab_new(account));
+        gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
+                                 devices_tab,
+                                 gtk_label_new(C_("Account settings", "Devices")));
 
         gtk_widget_show_all(hbox_account);
         /* set the tab displayed to the same as the prev account selected */

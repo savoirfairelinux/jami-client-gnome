@@ -64,7 +64,8 @@
 #include <profile.h>
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
-static constexpr const char* CREATE_ACCOUNT_VIEW_NAME   = "wizard";
+static constexpr const char* CREATE_ACCOUNT_VIEW_NAME   = "wizard-create";
+static constexpr const char* CHOOSE_ACCOUNT_TYPE_VIEW_NAME = "wizard-choose";
 static constexpr const char* GENERAL_SETTINGS_VIEW_NAME = "general";
 static constexpr const char* AUDIO_SETTINGS_VIEW_NAME   = "audio";
 static constexpr const char* MEDIA_SETTINGS_VIEW_NAME   = "media";
@@ -115,11 +116,17 @@ struct _RingMainWindowPrivate
 
     gboolean   show_settings;
 
+    /* choose account type */
+    GtkWidget *choose_account_type;
+    GtkWidget *button_new_account;
+
     /* account creation */
     GtkWidget *account_creation;
     GtkWidget *image_ring_logo;
     GtkWidget *vbox_account_creation_entry;
     GtkWidget *entry_alias;
+    GtkWidget *entry_password;
+    GtkWidget *entry_password_confirm;
     GtkWidget *label_default_name;
     GtkWidget *label_paceholder;
     GtkWidget *label_generating_account;
@@ -516,6 +523,7 @@ create_ring_account(RingMainWindow *win)
 
     /* create account and set UPnP enabled, as its not by default in the daemon */
     const gchar *alias = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
+    const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
     Account *account = nullptr;
 
     /* get profile (if so) */
@@ -531,6 +539,9 @@ create_ring_account(RingMainWindow *win)
             profile->person()->setFormattedName(unknown_alias);
         }
     }
+
+    account->setArchivePassword(password);
+    //TODO: Clear priv->entry_password and priv->entry_password_confirm
 
     account->setDisplayName(alias); // set the display name to the same as the alias
     account->setUpnpEnabled(TRUE);
@@ -579,6 +590,15 @@ account_creation_next_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *w
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
+    /* Check for correct password */
+    const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
+    const gchar *password_confirm = gtk_entry_get_text(GTK_ENTRY(priv->entry_password_confirm));
+    if (g_strcmp0(password, password_confirm) != 0)
+    {
+        //TODO: Error message
+        return;
+    }
+
     /* show/hide relevant widgets */
     gtk_widget_hide(priv->vbox_account_creation_entry);
     gtk_widget_hide(priv->button_account_creation_next);
@@ -617,19 +637,6 @@ show_account_creation(RingMainWindow *win)
                         priv->account_creation,
                         CREATE_ACCOUNT_VIEW_NAME);
 
-    /* hide settings button until account creation is complete */
-    gtk_widget_hide(priv->ring_settings);
-
-    /* set ring logo */
-    GError *error = NULL;
-    GdkPixbuf* logo_ring = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/ring-logo-blue",
-                                                                  -1, 50, TRUE, &error);
-    if (logo_ring == NULL) {
-        g_debug("Could not load logo: %s", error->message);
-        g_clear_error(&error);
-    } else
-        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring_logo), logo_ring);
-
     /* use the real name / username of the logged in user as the default */
     const char* real_name = g_get_real_name();
     const char* user_name = g_get_user_name();
@@ -652,6 +659,39 @@ show_account_creation(RingMainWindow *win)
     g_signal_connect(priv->entry_alias, "activate", G_CALLBACK(entry_alias_activated), win);
 
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CREATE_ACCOUNT_VIEW_NAME);
+}
+
+static void
+new_account_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+{
+    show_account_creation(win);
+}
+
+static void
+show_choose_account_type(RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
+                        priv->choose_account_type,
+                        CHOOSE_ACCOUNT_TYPE_VIEW_NAME);
+
+    /* hide settings button until account creation is complete */
+    gtk_widget_hide(priv->ring_settings);
+
+    /* set ring logo */
+    GError *error = NULL;
+    GdkPixbuf* logo_ring = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/ring-logo-blue",
+                                                                  -1, 50, TRUE, &error);
+    if (logo_ring == NULL) {
+        g_debug("Could not load logo: %s", error->message);
+        g_clear_error(&error);
+    } else
+        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring_logo), logo_ring);
+
+    g_signal_connect(priv->button_new_account, "clicked", G_CALLBACK(new_account_clicked), win);
+
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CHOOSE_ACCOUNT_TYPE_VIEW_NAME);
 }
 
 static void
@@ -901,7 +941,7 @@ ring_main_window_init(RingMainWindow *win)
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
     } else {
         /* user has to create the ring account */
-        show_account_creation(win);
+        show_choose_account_type(win);
     }
 
     /* init the settings views */
@@ -1118,11 +1158,17 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_media_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
 
+    /* choose account type */
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, choose_account_type);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_new_account);
+
     /* account creation */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, account_creation);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_ring_logo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_account_creation_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_alias);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_password);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_password_confirm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_default_name);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_paceholder);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_generating_account);
