@@ -64,7 +64,10 @@
 #include <profile.h>
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
-static constexpr const char* CREATE_ACCOUNT_VIEW_NAME   = "wizard";
+static constexpr const char* CREATE_ACCOUNT_VIEW_NAME   = "wizard-create";
+static constexpr const char* EXISTING_ACCOUNT_VIEW_NAME = "wizard-existing-account";
+static constexpr const char* RETRIEVING_ACCOUNT_VIEW_NAME = "retrieving-account";
+static constexpr const char* CHOOSE_ACCOUNT_TYPE_VIEW_NAME = "wizard-choose";
 static constexpr const char* GENERAL_SETTINGS_VIEW_NAME = "general";
 static constexpr const char* AUDIO_SETTINGS_VIEW_NAME   = "audio";
 static constexpr const char* MEDIA_SETTINGS_VIEW_NAME   = "media";
@@ -115,16 +118,32 @@ struct _RingMainWindowPrivate
 
     gboolean   show_settings;
 
+    /* choose account type */
+    GtkWidget *choose_account_type;
+    GtkWidget *button_new_account;
+    GtkWidget *button_existing_account;
+
+    /* existing account */
+    GtkWidget *existing_account;
+    GtkWidget *button_existing_account_next;
+    GtkWidget *button_existing_account_previous;
+    GtkWidget *entry_existing_account_pin;
+    GtkWidget *entry_existing_account_password;
+    GtkWidget *retrieving_account;
+
     /* account creation */
     GtkWidget *account_creation;
     GtkWidget *image_ring_logo;
     GtkWidget *vbox_account_creation_entry;
     GtkWidget *entry_alias;
+    GtkWidget *entry_password;
+    GtkWidget *entry_password_confirm;
     GtkWidget *label_default_name;
     GtkWidget *label_paceholder;
     GtkWidget *label_generating_account;
     GtkWidget *spinner_generating_account;
     GtkWidget *button_account_creation_next;
+    GtkWidget *button_account_creation_previous;
     GtkWidget *box_avatarselection;
     GtkWidget* avatar_manipulation;
 
@@ -509,13 +528,15 @@ show_general_settings(GtkToggleButton *navbutton, RingMainWindow *win)
 }
 
 static gboolean
-create_ring_account(RingMainWindow *win)
+create_ring_account(RingMainWindow *win,
+                    const gchar *alias,
+                    const gchar *password,
+                    const gchar *pin)
 {
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(win), G_SOURCE_REMOVE);
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
     /* create account and set UPnP enabled, as its not by default in the daemon */
-    const gchar *alias = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
     Account *account = nullptr;
 
     /* get profile (if so) */
@@ -530,6 +551,16 @@ create_ring_account(RingMainWindow *win)
             account = AccountModel::instance().add(unknown_alias, Account::Protocol::RING);
             profile->person()->setFormattedName(unknown_alias);
         }
+    }
+
+    /* Set the archive password */
+    account->setArchivePassword(password);
+    //TODO: Clear the password
+
+    /* Set the archive pin (existng accounts) */
+    if(pin)
+    {
+        account->setArchivePin(pin);
     }
 
     account->setDisplayName(alias); // set the display name to the same as the alias
@@ -558,6 +589,30 @@ create_ring_account(RingMainWindow *win)
     return G_SOURCE_REMOVE;
 }
 
+static gboolean
+create_new_ring_account(RingMainWindow *win)
+{
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(win), G_SOURCE_REMOVE);
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    const gchar *alias = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
+    const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
+
+    return create_ring_account(win, alias, password, NULL);
+}
+
+static gboolean
+create_existing_ring_account(RingMainWindow *win)
+{
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(win), G_SOURCE_REMOVE);
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_existing_account_password));
+    const gchar *pin = gtk_entry_get_text(GTK_ENTRY(priv->entry_existing_account_pin));
+
+    return create_ring_account(win, NULL, password, pin);
+}
+
 static void
 alias_entry_changed(GtkEditable *entry, RingMainWindow *win)
 {
@@ -579,9 +634,19 @@ account_creation_next_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *w
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
+    /* Check for correct password */
+    const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
+    const gchar *password_confirm = gtk_entry_get_text(GTK_ENTRY(priv->entry_password_confirm));
+    if (g_strcmp0(password, password_confirm) != 0)
+    {
+        //TODO: Error message
+        return;
+    }
+
     /* show/hide relevant widgets */
     gtk_widget_hide(priv->vbox_account_creation_entry);
     gtk_widget_hide(priv->button_account_creation_next);
+    gtk_widget_hide(priv->button_account_creation_previous);
     gtk_widget_show(priv->label_generating_account);
     gtk_widget_show(priv->spinner_generating_account);
 
@@ -595,7 +660,34 @@ account_creation_next_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *w
      * happen freeze the client before the widget changes happen;
      * the timeout function should then display the next step in account creation
      */
-    g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)create_ring_account, win, NULL);
+    g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)create_new_ring_account, win, NULL);
+}
+
+static void
+show_retrieving_account(RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (!gtk_stack_get_child_by_name(GTK_STACK(priv->stack_main_view), RETRIEVING_ACCOUNT_VIEW_NAME))
+    {
+        gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
+                            priv->retrieving_account,
+                            RETRIEVING_ACCOUNT_VIEW_NAME);
+    }
+
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), RETRIEVING_ACCOUNT_VIEW_NAME);
+}
+
+static void
+existing_account_next_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+{
+    show_retrieving_account(win);
+
+    /* now create account after a short timeout so that the the save doesn't
+     * happen freeze the client before the widget changes happen;
+     * the timeout function should then display the next step in account creation
+     */
+    g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)create_existing_ring_account, win, NULL);
 }
 
 static void
@@ -609,13 +701,80 @@ entry_alias_activated(GtkEntry *entry, RingMainWindow *win)
 }
 
 static void
+show_existing_account(RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (!gtk_stack_get_child_by_name(GTK_STACK(priv->stack_main_view), EXISTING_ACCOUNT_VIEW_NAME))
+    {
+        gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
+                            priv->existing_account,
+                            EXISTING_ACCOUNT_VIEW_NAME);
+        g_signal_connect(priv->button_existing_account_next, "clicked", G_CALLBACK(existing_account_next_clicked), win);
+    }
+
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), EXISTING_ACCOUNT_VIEW_NAME);
+}
+
+static void
 show_account_creation(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
-    gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
-                        priv->account_creation,
-                        CREATE_ACCOUNT_VIEW_NAME);
+    if (!gtk_stack_get_child_by_name(GTK_STACK(priv->stack_main_view), CREATE_ACCOUNT_VIEW_NAME))
+    {
+        gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
+                            priv->account_creation,
+                            CREATE_ACCOUNT_VIEW_NAME);
+
+        /* use the real name / username of the logged in user as the default */
+        const char* real_name = g_get_real_name();
+        const char* user_name = g_get_user_name();
+        g_debug("real_name = %s",real_name);
+        g_debug("user_name = %s",user_name);
+
+        /* check first if the real name was determined */
+        if (g_strcmp0 (real_name,"Unknown") != 0)
+            gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), real_name);
+        else
+            gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), user_name);
+
+        /* avatar manipulation widget */
+        priv->avatar_manipulation = avatar_manipulation_new_from_wizard();
+        gtk_box_pack_start(GTK_BOX(priv->box_avatarselection), priv->avatar_manipulation, true, true, 0);
+
+        /* connect signals */
+        g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(alias_entry_changed), win);
+        g_signal_connect(priv->button_account_creation_next, "clicked", G_CALLBACK(account_creation_next_clicked), win);
+        g_signal_connect(priv->entry_alias, "activate", G_CALLBACK(entry_alias_activated), win);
+    }
+
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CREATE_ACCOUNT_VIEW_NAME);
+}
+
+static void
+new_account_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+{
+    show_account_creation(win);
+}
+
+static void
+existing_account_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+{
+    show_existing_account(win);
+}
+
+static void
+show_choose_account_type(RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (!gtk_stack_get_child_by_name(GTK_STACK(priv->stack_main_view), CHOOSE_ACCOUNT_TYPE_VIEW_NAME))
+    {
+        gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
+                            priv->choose_account_type,
+                            CHOOSE_ACCOUNT_TYPE_VIEW_NAME);
+    }
 
     /* hide settings button until account creation is complete */
     gtk_widget_hide(priv->ring_settings);
@@ -630,28 +789,22 @@ show_account_creation(RingMainWindow *win)
     } else
         gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring_logo), logo_ring);
 
-    /* use the real name / username of the logged in user as the default */
-    const char* real_name = g_get_real_name();
-    const char* user_name = g_get_user_name();
-    g_debug("real_name = %s",real_name);
-    g_debug("user_name = %s",user_name);
+    g_signal_connect(priv->button_new_account, "clicked", G_CALLBACK(new_account_clicked), win);
+    g_signal_connect(priv->button_existing_account, "clicked", G_CALLBACK(existing_account_clicked), win);
 
-    /* check first if the real name was determined */
-    if (g_strcmp0 (real_name,"Unknown") != 0)
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), real_name);
-    else
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), user_name);
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CHOOSE_ACCOUNT_TYPE_VIEW_NAME);
+}
 
-    /* avatar manipulation widget */
-    priv->avatar_manipulation = avatar_manipulation_new_from_wizard();
-    gtk_box_pack_start(GTK_BOX(priv->box_avatarselection), priv->avatar_manipulation, true, true, 0);
+static void
+account_creation_previous_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+{
+    show_choose_account_type(win);
+}
 
-    /* connect signals */
-    g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(alias_entry_changed), win);
-    g_signal_connect(priv->button_account_creation_next, "clicked", G_CALLBACK(account_creation_next_clicked), win);
-    g_signal_connect(priv->entry_alias, "activate", G_CALLBACK(entry_alias_activated), win);
-
-    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CREATE_ACCOUNT_VIEW_NAME);
+static void
+existing_account_previous_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+{
+    show_choose_account_type(win);
 }
 
 static void
@@ -901,7 +1054,13 @@ ring_main_window_init(RingMainWindow *win)
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
     } else {
         /* user has to create the ring account */
-        show_account_creation(win);
+        show_choose_account_type(win);
+
+        /* Account creation signals */
+        g_signal_connect(priv->button_account_creation_previous, "clicked", G_CALLBACK(account_creation_previous_clicked), win);
+
+        /* Existing account singals */
+        g_signal_connect(priv->button_existing_account_previous, "clicked", G_CALLBACK(existing_account_previous_clicked), win);
     }
 
     /* init the settings views */
@@ -1118,16 +1277,33 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_media_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
 
+    /* choose account type */
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, choose_account_type);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_new_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_existing_account);
+
+    /* existing account */
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, existing_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_existing_account_next);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_existing_account_previous);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_existing_account_pin);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_existing_account_password);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_existing_account_password);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, retrieving_account);
+
     /* account creation */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, account_creation);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_ring_logo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_account_creation_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_alias);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_password);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_password_confirm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_default_name);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_paceholder);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_generating_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, spinner_generating_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_account_creation_next);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_account_creation_previous);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, box_avatarselection);
 }
 
