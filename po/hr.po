@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2016-06-05 22:50+0000\n"
+"PO-Revision-Date: 2016-07-25 19:12+0000\n"
 "Last-Translator: Ivica  Kolić <ikoli@yahoo.com>\n"
 "Language-Team: Croatian (http://www.transifex.com/savoirfairelinux/ring/language/hr/)\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgstr ""
 
 #: src/accountgeneraltab.cpp:269
 msgid "Hostname"
-msgstr ""
+msgstr "Ime poslužitelja"
 
 #: src/accountgeneraltab.cpp:279
 msgid "Username"
@@ -411,7 +411,7 @@ msgstr ""
 
 #: ui/accountsecuritytab.ui:183
 msgid "User certificate"
-msgstr ""
+msgstr "Korisnički certifikat"
 
 #: ui/accountsecuritytab.ui:220
 msgid "Private key"

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
-# Hessam Shahpouri <h.shahpouri@yandex.com>, 2016
+# Hessam Shahpouri, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
 "PO-Revision-Date: 2016-04-25 04:23+0000\n"
-"Last-Translator: Hessam Shahpouri <h.shahpouri@yandex.com>\n"
+"Last-Translator: Hessam Shahpouri\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/ring/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

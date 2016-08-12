@@ -3,158 +3,155 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
-# Guillaume Roguez, 2015
-# Mantas Kriaučiūnas <mantas@akl.lt>, 2015
-# Moo, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2016-08-11 21:33+0000\n"
-"Last-Translator: Moo\n"
-"Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
+"PO-Revision-Date: 2015-09-10 22:02+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
 msgid "Enabled"
-msgstr "Įjungta"
+msgstr ""
 
 #: src/accountaudiotab.cpp:191
 msgctxt "Name of the codec"
 msgid "Name"
-msgstr "Vardas"
+msgstr ""
 
 #: src/accountaudiotab.cpp:195 src/accountvideotab.cpp:204
 msgid "Bitrate"
-msgstr "Pralaidumas"
+msgstr ""
 
 #: src/accountaudiotab.cpp:199
 msgid "Samplerate"
-msgstr "Skaitmeninimo dažnis"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:210
 msgid "Alias"
-msgstr "Slapyvardis"
+msgstr "別名"
 
 #: src/accountgeneraltab.cpp:221
 msgid "Type"
-msgstr "Tipas"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:250
 msgid "auto-generating..."
-msgstr "automatiškai kuriama..."
+msgstr ""
 
 #: src/accountgeneraltab.cpp:269
 msgid "Hostname"
-msgstr "Kompiuterio vardas"
+msgstr "主機名稱"
 
 #: src/accountgeneraltab.cpp:279
 msgid "Username"
-msgstr "Naudotojo vardas"
+msgstr "使用者名稱"
 
 #: src/accountgeneraltab.cpp:289
 msgid "Password"
-msgstr "Slaptažodis"
+msgstr "密碼"
 
 #: src/accountgeneraltab.cpp:302
 msgid "Show password"
-msgstr "Rodyti slaptažodį"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:308
 msgid "Proxy"
-msgstr "Įgaliotasis serveris"
+msgstr "Proxy"
 
 #: src/accountgeneraltab.cpp:318
 msgid "Voicemail number"
-msgstr "Balso pašto numeris"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:330
 msgctxt "The DHT bootstrap server url"
 msgid "Bootstrap"
-msgstr "Pradinė įkeltis"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:342
 msgid "Auto-answer calls"
-msgstr "Automatiškai atsiliepti į skambučius"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:350
 msgid "UPnP enabled"
-msgstr "UPnP įjungta"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:358
 msgid "DTMF tone type:"
-msgstr "DTMF tono tipas:"
+msgstr ""
 
 #: src/accountvideotab.cpp:200
 msgctxt "The name of the codec"
 msgid "Name"
-msgstr "Vardas"
+msgstr ""
 
 #: src/accountview.cpp:159
 msgctxt "Account settings"
 msgid "General"
-msgstr "Bendra"
+msgstr "一般"
 
 #: src/accountview.cpp:163
 msgctxt "Account settings"
 msgid "Audio"
-msgstr "Garsas"
+msgstr "音訊"
 
 #: src/accountview.cpp:167
 msgctxt "Account settings"
 msgid "Video"
-msgstr "Vaizdas"
+msgstr "視訊"
 
 #: src/accountview.cpp:171
 msgctxt "Account settings"
 msgid "Advanced"
-msgstr "Išplėstiniai"
+msgstr "進階"
 
 #: src/accountview.cpp:175
 msgctxt "Account settings"
 msgid "Security"
-msgstr "Saugumas"
+msgstr "安全性"
 
 #: src/accountview.cpp:229
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
-msgstr "Ar tikrai norite ištrinti paskyrą \"%s\"?"
+msgstr ""
 
 #: src/accountview.cpp:313 src/accountview.cpp:315
 msgid "New Account"
-msgstr "Nauja paskyra"
+msgstr ""
 
 #: src/accountview.cpp:399
 msgctxt "Account state column"
 msgid "Enabled"
-msgstr "Įjungta"
+msgstr ""
 
 #: src/accountview.cpp:405
 msgctxt "Account alias (name) column"
 msgid "Alias"
-msgstr "Slapyvardis"
+msgstr "別名"
 
 #: src/accountview.cpp:409
 msgctxt "Account status column"
 msgid "Status"
-msgstr "Būsena"
+msgstr ""
 
 #: src/contactsview.cpp:305
 msgid "_Copy name"
-msgstr "_Kopijuoti vardą"
+msgstr ""
 
 #: src/contactsview.cpp:316 src/contactsview.cpp:331
 msgid "_Copy number"
-msgstr "_Kopijuoti numerį"
+msgstr ""
 
 #: src/dialogs.c:53
 msgid "Working..."
-msgstr "Dirbama..."
+msgstr ""
 
 #: src/dialogs.c:84
 #, c-format
@@ -162,572 +159,572 @@ msgctxt "Do not translate the release name"
 msgid ""
 "release: Louis-Joseph Papineau\n"
 "v%d.%d.%d - %.10s"
-msgstr "laida: Louis-Joseph Papineau\nv%d.%d.%d - %.10s"
+msgstr ""
 
 #: src/dialogs.c:111
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is a secured and distributed communication software."
-msgstr "GNOME kliento programa, skirta Ring.\nRing yra saugi ir paskirstytoji susisiekimo programinė įranga."
+msgstr ""
 
 #: src/editcontactview.cpp:196
 msgctxt "Phone number category"
 msgid "home"
-msgstr "namai"
+msgstr ""
 
 #: src/generalsettingsview.cpp:94
 msgid ""
 "Are you sure you want to clear all your history?\n"
 "This operation will also reset the Frequent Contacts list"
-msgstr "Ar tikrai norite išvalyti visą savo istoriją?\nŠi operacija taip pat atstatys į pradinę būseną Dažnų Kontaktų sąrašą"
+msgstr ""
 
 #: src/historyview.cpp:184
 msgid "_Copy"
-msgstr "_Kopijuoti"
+msgstr ""
 
 #: src/historyview.cpp:402
 msgctxt "Call history"
 msgid "Call"
-msgstr "Skambutis"
+msgstr ""
 
 #: src/historyview.cpp:447
 msgctxt "Call history"
 msgid "Date"
-msgstr "Data"
+msgstr ""
 
 #: src/ringnotify.cpp:86
 msgid "Incoming call"
-msgstr "Įeinantis skambutis"
+msgstr ""
 
 #: src/ringnotify.cpp:169
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
-msgstr "%s sako:"
+msgstr ""
 
 #: src/ring_client_options.c:65
 msgid "Enable debug"
-msgstr "Įjungti derinimą"
+msgstr ""
 
 #: src/ring_client_options.c:67
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr "Atkuria pagrindinio lango paslėptą būseną (pritaikoma tik pirminiam egzemplioriui)"
+msgstr ""
 
 #: src/ring_client_options.c:84
 msgid "- GNOME client for Ring"
-msgstr "- GNOME kliento programa, skirta Ring"
+msgstr ""
 
 #: src/backends/edscontactbackend.cpp:201
 msgid "Unknown EDS addressbook"
-msgstr "Nežinoma EDS adresų knyga"
+msgstr ""
 
 #: src/backends/edscontactbackend.cpp:221
 msgctxt "Backend type"
 msgid "Contacts"
-msgstr "Kontaktai"
+msgstr ""
 
 #: src/utils/menus.cpp:67
 msgid "_Add to contact"
-msgstr "Pridėti prie kont_aktų"
+msgstr ""
 
 #: src/ringmainwindow.cpp:944
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr "Ieškokite kontaktus arba įrašykite numerį"
+msgstr ""
 
 #: src/ringwelcomeview.cpp:61
 msgid "fetching RingID..."
-msgstr "gaunamas RingID..."
+msgstr ""
 
 #: src/ringwelcomeview.cpp:92
 msgid ""
 "Ring is a secure and distributed voice, video, and chat communication "
 "platform that requires no centralized server and leaves the power of privacy"
 " in the hands of the user."
-msgstr "Ring yra saugi ir paskirstytoji balso, vaizdo ir pokalbių susisiekimo platforma, kuri nereikalauja centralizuoto serverio ir palieka visą privatumo galią naudotojo rankose."
+msgstr ""
 
 #: src/ringwelcomeview.cpp:102
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr "Tai yra jūsų RingID.\nNukopijuokite ir dalinkitės juo su savo draugais!"
+msgstr ""
 
 #: src/video/video_widget.cpp:478
 msgid "Share screen area"
-msgstr "Bendrinti ekrano sritį"
+msgstr ""
 
 #: src/video/video_widget.cpp:484
 msgid "Share file"
-msgstr "Bendrinti failą"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
-msgstr "Registracijos galiojimui skirtas laikas (sekundžių):"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:103
 msgid "Allow calls from unknown peers"
-msgstr "Leisti skambučius nuo nežinomų naudotojų"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:117
 msgid "Allow calls from peers in your call history"
-msgstr "Leisti skambučius nuo jūsų skambučių istorijoje esančių naudotojų"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:131
 msgid "Allow calls from peers in your contacts list"
-msgstr "Leisti skambučius nuo jūsų kontaktų sąraše esančių naudotojų"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:149
 msgid "<b>Registration</b>"
-msgstr "<b>Registracija</b>"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:176
 msgid "Use random port"
-msgstr "Naudoti atsitiktinį prievadą"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:197
 msgid "Local port:"
-msgstr "Vietinis prievadas:"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:223
 msgid "<b>Network Interface</b>"
-msgstr "<b>Tinklo sąsaja</b>"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:249
 msgid "Same as local parameters"
-msgstr "Toks pats kaip vietiniai parametrai"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:264
 msgid "Set published address and port:"
-msgstr "Nustatyti paskelbtą adresą ir prievadą:"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:288
 msgid "Address"
-msgstr "Adresas"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:310
 msgid "Port"
-msgstr "Prievadas"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:336
 msgid "Use STUN"
-msgstr "Naudoti STUN"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:359 ui/accountadvancedtab.ui:408
 msgid "server URL"
-msgstr "serverio URL"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:385
 msgid "Use TURN"
-msgstr "Naudoti TURN"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:430
 msgid "username"
-msgstr "naudotojo vardas"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:451
 msgid "password"
-msgstr "slaptažodis"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:475
 msgid "realm"
-msgstr "sritis"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:504
 msgid "<b>Published Address</b>"
-msgstr "<b>Paskelbtas adresas</b>"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:533
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
-msgstr "Šie nustatymai yra naudojami tik SDP seanso derėjimosi metu tuo atveju, jei serveris arba naudotojas nepalaiko ICE."
+msgstr ""
 
 #: ui/accountadvancedtab.ui:558 ui/accountadvancedtab.ui:632
 msgid "Min"
-msgstr "Maž."
+msgstr ""
 
 #: ui/accountadvancedtab.ui:581 ui/accountadvancedtab.ui:655
 msgid "Max"
-msgstr "Didž."
+msgstr ""
 
 #: ui/accountadvancedtab.ui:605
 msgid "<b>Audio RTP Port Range</b>"
-msgstr "<b>Garso RTP prievadų rėžis</b>"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:679
 msgid "<b>Video RTP Port Range</b>"
-msgstr "<b>Vaizdo RTP prievadų rėžis</b>"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:695
 msgid "<b>SDP Session Negotiation (ICE Fallback)</b>"
-msgstr "<b>SDP seanso derėjimasis (ICE surogatas)</b>"
+msgstr ""
 
 #: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
 msgid "Up"
-msgstr "Aukštyn"
+msgstr ""
 
 #: ui/accountaudiotab.ui:66 ui/accountvideotab.ui:66
 msgid "Down"
-msgstr "Žemyn"
+msgstr ""
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
 msgid "<b>Codecs</b>"
-msgstr "<b>Kodekai</b>"
+msgstr ""
 
 #: ui/accountgeneraltab.ui:42
 msgid "<b>Account</b>"
-msgstr "<b>Paskyra</b>"
+msgstr ""
 
 #: ui/accountgeneraltab.ui:80
 msgid "<b>Parameters</b>"
-msgstr "<b>Parametrai</b>"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
-msgstr "Šifruoti medija srautus (SRTP)"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:58
 msgid "Key exchange protocol"
-msgstr "Rakto mainų protokolas"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:76
 msgid "Fallback on RTP on encryption failure"
-msgstr "Nepavykus šifravimui, pereiti į RTP surogatinę veikseną"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:94
 msgid "<b>Media Stream Encryption</b>"
-msgstr "<b>Medija srauto šifravimas</b>"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:121
 msgid "Encrypt negotiation (TLS)"
-msgstr "Šifruoti derėjimąsi (TLS)"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:146
 msgid "CA certificate"
-msgstr "LĮ liudijimas"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:183
 msgid "User certificate"
-msgstr "Naudotojo liudijimas"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:220
 msgid "Private key"
-msgstr "Privatus raktas"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:243
 msgid "Private key password"
-msgstr "Privataus rakto slaptažodis"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:290
 msgid "TLS protocol method"
-msgstr "TLS protokolo metodas"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:313
 msgid "Outgoing TLS server name"
-msgstr "Išsiunčiamo TLS serverio pavadinimas"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:335
 msgid "Negotiation timeout (seconds)"
-msgstr "Derėjimuisi skirtas laikas (sekundžių)"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:369
 msgid "Use default ciphers"
-msgstr "Naudoti numatytuosius šifrus"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:385
 msgid "Use custom cipher list"
-msgstr "Naudoti tinkintą šifrų sąrašą"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:442
 msgid "Verify incoming certificates (server side)"
-msgstr "Tikrinti gaunamus liudijimus (serverio pusėje)"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:457
 msgid "Verify answer certificates (client side)"
-msgstr "Tikrinti atsakomuosius liudijimus (kliento pusėje)"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:472
 msgid "Require a certificate for incoming TLS connections"
-msgstr "Reikalauti liudijimo gaunamiems TLS ryšiams"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:491
 msgid "<b>Negotiation Encryption</b>"
-msgstr "<b>Derėjimosi šifravimas</b>"
+msgstr ""
 
 #: ui/accountvideotab.ui:90
 msgid "Enable Video"
-msgstr "Įjungti vaizdą"
+msgstr "啟用視訊"
 
 #: ui/accountview.ui:59
 msgid "<b>&#8722;</b>"
-msgstr "<b>&#8722;</b>"
+msgstr ""
 
 #: ui/accountview.ui:83
 msgid "<b>+</b>"
-msgstr "<b>+</b>"
+msgstr ""
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
-msgstr "Kurti naują"
+msgstr ""
 
 #: ui/currentcallview.ui:73
 msgid "Send"
-msgstr "Siųsti"
+msgstr ""
 
 #: ui/currentcallview.ui:191
 msgid "End this call"
-msgstr "Baigti šį skambutį"
+msgstr ""
 
 #: ui/currentcallview.ui:195 ui/currentcallview.ui:356
 msgid "End call"
-msgstr "Baigti skambutį"
+msgstr ""
 
 #: ui/currentcallview.ui:213
 msgid "Toggle hold"
-msgstr "Perjungti užlaikymą"
+msgstr ""
 
 #: ui/currentcallview.ui:217 ui/currentcallview.ui:239
 #: ui/currentcallview.ui:347
 msgid "Hold"
-msgstr "Užlaikyta"
+msgstr ""
 
 #: ui/currentcallview.ui:235
 msgid "Toggle mute audio"
-msgstr "Perjungti garso nutildymą"
+msgstr ""
 
 #: ui/currentcallview.ui:257
 msgid "Toggle mute video"
-msgstr "Perjungti vaizdo išjungimą"
+msgstr ""
 
 #: ui/currentcallview.ui:261 ui/currentcallview.ui:338
 msgid "Mute video"
-msgstr "Išjungti vaizdą"
+msgstr ""
 
 #: ui/currentcallview.ui:280
 msgid "Toggle record audio"
-msgstr "Perjungti garso įrašymą"
+msgstr ""
 
 #: ui/currentcallview.ui:283
 msgid "Record audio"
-msgstr "Įrašyti pokalbį (garsą)"
+msgstr ""
 
 #: ui/currentcallview.ui:299
 msgid "Toggle show chat"
-msgstr "Perjungti pokalbių rodymą"
+msgstr ""
 
 #: ui/currentcallview.ui:303 ui/currentcallview.ui:320
 msgid "Chat"
-msgstr "Pokalbis"
+msgstr ""
 
 #: ui/currentcallview.ui:329
 msgid "Mute audio"
-msgstr "Nutildyti garsą"
+msgstr ""
 
 #: ui/currentcallview.ui:365
 msgid "Record"
-msgstr "Įrašyti"
+msgstr ""
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
-msgstr "Pasirinkite adresų knygą"
+msgstr ""
 
 #: ui/editcontactview.ui:15
 msgid "Addressbook"
-msgstr "Adresų knyga"
+msgstr ""
 
 #: ui/editcontactview.ui:29
 msgid "Name"
-msgstr "Vardas"
+msgstr ""
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
-msgstr "Kontakto vardas"
+msgstr ""
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
-msgstr "Pasirinkite kaip šis numeris bus kategorizuojamas"
+msgstr ""
 
 #: ui/editcontactview.ui:50
 msgid "Number category"
-msgstr "Numerių kategorija"
+msgstr ""
 
 #: ui/editcontactview.ui:66
 msgid "Number or Ring ID to be added"
-msgstr "Numeris arba Ring ID, kuris bus pridėtas"
+msgstr ""
 
 #: ui/editcontactview.ui:72
 msgid "Number or Ring ID"
-msgstr "Numeris arba Ring ID"
+msgstr ""
 
 #: ui/editcontactview.ui:83
 msgid "Save"
-msgstr "Įrašyti"
+msgstr ""
 
 #: ui/generalsettingsview.ui:32
 msgid "<b>Ring Settings</b>"
-msgstr "<b>Ring nustatymai</b>"
+msgstr ""
 
 #: ui/generalsettingsview.ui:46
 msgid "Start Ring on login"
-msgstr "Paleisti Ring, įjungus kompiuterį"
+msgstr ""
 
 #: ui/generalsettingsview.ui:55
 msgid "Hide Ring on close instead of quitting."
-msgstr "Slėpti Ring, užvėrus programos langą."
+msgstr ""
 
 #: ui/generalsettingsview.ui:64
 msgid "Bring Ring to the foreground on incoming calls."
-msgstr "Esant įeinantiems skambučiams, rodyti Ring priekiniame plane"
+msgstr ""
 
 #: ui/generalsettingsview.ui:79
 msgid "Show chat on the right."
-msgstr "Rodyti pokalbį dešinėje."
+msgstr ""
 
 #: ui/generalsettingsview.ui:86
 msgid "Show chat on the bottom."
-msgstr "Rodyti pokalbį apačioje."
+msgstr ""
 
 #: ui/generalsettingsview.ui:110
 msgid "<b>History Settings</b>"
-msgstr "<b>Istorijos nustatymai</b>"
+msgstr ""
 
 #: ui/generalsettingsview.ui:128
 msgid "Keep history for (days):"
-msgstr "Laikyti istoriją (dienų):"
+msgstr ""
 
 #: ui/generalsettingsview.ui:151
 msgid "(set to 0 for unlimited history)"
-msgstr "(nustatykite 0 neribotai istorijai)"
+msgstr ""
 
 #: ui/generalsettingsview.ui:160
 msgid "Clear all history"
-msgstr "Išvalyti visą istoriją"
+msgstr ""
 
 #: ui/incomingcallview.ui:88
 msgid "Incoming..."
-msgstr "Įeinantis..."
+msgstr ""
 
 #: ui/incomingcallview.ui:122
 msgid "   Accept"
-msgstr "Priimti"
+msgstr ""
 
 #: ui/incomingcallview.ui:137
 msgid "   Reject"
-msgstr "Atmesti"
+msgstr ""
 
 #: ui/incomingcallview.ui:152
 msgid "   Hang-up"
-msgstr "Padėti ragelį"
+msgstr ""
 
 #: ui/mediasettingsview.ui:36
 msgid "Audio manager:"
-msgstr "Garso tvarkytuvė:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:48
 msgid "Ringtone device:"
-msgstr "Skambučio melodijos įrenginys:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:60
 msgid "Output device:"
-msgstr "Išvesties įrenginys:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:72
 msgid "Input device:"
-msgstr "Įvesties įrenginys:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:127
 msgid "<b>Audio Settings</b>"
-msgstr "<b>Garso nustatymai</b>"
+msgstr ""
 
 #: ui/mediasettingsview.ui:163
 msgid "Device:"
-msgstr "Įrenginys:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:175
 msgid "Channel:"
-msgstr "Kanalas:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:187
 msgid "Resolution:"
-msgstr "Raiška:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:199
 msgid "Frame rate:"
-msgstr "Kadrų dažnis:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:258
 msgid "<b>Camera Settings</b>"
-msgstr "<b>Kameros nustatymai</b>"
+msgstr ""
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr "_Apie"
+msgstr ""
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr "_Baigti"
+msgstr ""
 
 #: ui/ringmainwindow.ui:20
 msgid "Menu"
-msgstr "Meniu"
+msgstr ""
 
 #: ui/ringmainwindow.ui:54
 msgid "General"
-msgstr "Bendra"
+msgstr "一般"
 
 #: ui/ringmainwindow.ui:64
 msgid "Media"
-msgstr "Medija"
+msgstr "媒體"
 
 #: ui/ringmainwindow.ui:75
 msgid "Accounts"
-msgstr "Paskyros"
+msgstr "帳號"
 
 #: ui/ringmainwindow.ui:93
 msgid "Settings"
-msgstr "Nustatymai"
+msgstr "設定"
 
 #: ui/ringmainwindow.ui:192
 msgid "Conversations"
-msgstr "Pokalbiai"
+msgstr ""
 
 #: ui/ringmainwindow.ui:211
 msgid "Contacts"
-msgstr "Kontaktai"
+msgstr ""
 
 #: ui/ringmainwindow.ui:230
 msgid "History"
-msgstr "Istorija"
+msgstr ""
 
 #: ui/ringmainwindow.ui:290
 msgid "Welcome to  "
-msgstr "Sveiki atvykę į  "
+msgstr ""
 
 #: ui/ringmainwindow.ui:307
 msgid "Enter your alias to get started:"
-msgstr "Norėdami pradėti, įrašykite savo slapyvardį:"
+msgstr ""
 
 #: ui/ringmainwindow.ui:324
 msgid "Generating your Ring account..."
-msgstr "Kuriama jūsų Ring paskyra..."
+msgstr ""
 
 #: ui/ringmainwindow.ui:338
 msgid "Next"
-msgstr "Kitas"
+msgstr ""
 
 #: ui/ringmainwindow.ui:360
 msgid "Your Ring account has been created with the following Ring ID:"
-msgstr "Jūsų Ring paskyra buvo sukurta su šiuo Ring ID:"
+msgstr ""
 
 #: ui/ringmainwindow.ui:375
 msgid "Share it with your friends so they can contact you via Ring!"
-msgstr "Pasidalinkite juo su savo draugais, kad jie galėtų susisiekti su jumis per Ring!"
+msgstr ""
 
 #: ui/ringmainwindow.ui:380
 msgid "Done"
-msgstr "Atlikta"
+msgstr ""

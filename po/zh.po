@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Derek 呆 <dailidu@linuxdeepin.com>, 2016
+# Redfish Hong-Yu Li <redfish.tbc@gmail.com>, 2016
 # Tom Samder <2v894l+efbge9r9x3pt0@sharklasers.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2016-03-24 20:09+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"PO-Revision-Date: 2016-07-26 00:27+0000\n"
+"Last-Translator: Redfish Hong-Yu Li <redfish.tbc@gmail.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/savoirfairelinux/ring/language/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +31,7 @@ msgstr "姓名"
 
 #: src/accountaudiotab.cpp:195 src/accountvideotab.cpp:204
 msgid "Bitrate"
-msgstr ""
+msgstr "位元速率"
 
 #: src/accountaudiotab.cpp:199
 msgid "Samplerate"
@@ -42,7 +43,7 @@ msgstr "別名"
 
 #: src/accountgeneraltab.cpp:221
 msgid "Type"
-msgstr ""
+msgstr "型"
 
 #: src/accountgeneraltab.cpp:250
 msgid "auto-generating..."
@@ -75,7 +76,7 @@ msgstr "語音留言號"
 #: src/accountgeneraltab.cpp:330
 msgctxt "The DHT bootstrap server url"
 msgid "Bootstrap"
-msgstr ""
+msgstr "引導"
 
 #: src/accountgeneraltab.cpp:342
 msgid "Auto-answer calls"
@@ -145,11 +146,11 @@ msgstr "狀態"
 
 #: src/contactsview.cpp:305
 msgid "_Copy name"
-msgstr ""
+msgstr "_複製名稱"
 
 #: src/contactsview.cpp:316 src/contactsview.cpp:331
 msgid "_Copy number"
-msgstr ""
+msgstr "_複製號碼"
 
 #: src/dialogs.c:53
 msgid "Working..."
@@ -182,7 +183,7 @@ msgstr "確定清除所有歷史記錄?\n常用聯絡人清單也會一併重制
 
 #: src/historyview.cpp:184
 msgid "_Copy"
-msgstr ""
+msgstr "_複製"
 
 #: src/historyview.cpp:402
 msgctxt "Call history"
@@ -229,18 +230,18 @@ msgstr "聯絡人"
 
 #: src/utils/menus.cpp:67
 msgid "_Add to contact"
-msgstr ""
+msgstr "_加入連絡人"
 
 #: src/ringmainwindow.cpp:944
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr ""
+msgstr "從通訊錄尋找或是輸入號碼"
 
 #: src/ringwelcomeview.cpp:61
 msgid "fetching RingID..."
-msgstr ""
+msgstr "正在取的Ring ID..."
 
 #: src/ringwelcomeview.cpp:92
 msgid ""
@@ -254,15 +255,15 @@ msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "這是你的RingID\n複製並且與你的朋友們分享！"
 
 #: src/video/video_widget.cpp:478
 msgid "Share screen area"
-msgstr ""
+msgstr "分享部分螢幕"
 
 #: src/video/video_widget.cpp:484
 msgid "Share file"
-msgstr ""
+msgstr "分享檔案"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
@@ -270,11 +271,11 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:103
 msgid "Allow calls from unknown peers"
-msgstr ""
+msgstr "允許未知來電"
 
 #: ui/accountadvancedtab.ui:117
 msgid "Allow calls from peers in your call history"
-msgstr ""
+msgstr "允許歷史來電"
 
 #: ui/accountadvancedtab.ui:131
 msgid "Allow calls from peers in your contacts list"
@@ -282,55 +283,55 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:149
 msgid "<b>Registration</b>"
-msgstr ""
+msgstr "<b>註冊</b>"
 
 #: ui/accountadvancedtab.ui:176
 msgid "Use random port"
-msgstr ""
+msgstr "使用隨機埠"
 
 #: ui/accountadvancedtab.ui:197
 msgid "Local port:"
-msgstr ""
+msgstr "本地埠："
 
 #: ui/accountadvancedtab.ui:223
 msgid "<b>Network Interface</b>"
-msgstr ""
+msgstr "<b>網路介面</b>"
 
 #: ui/accountadvancedtab.ui:249
 msgid "Same as local parameters"
-msgstr ""
+msgstr "與本地參數相同"
 
 #: ui/accountadvancedtab.ui:264
 msgid "Set published address and port:"
-msgstr ""
+msgstr "設定公開地址與連結埠："
 
 #: ui/accountadvancedtab.ui:288
 msgid "Address"
-msgstr ""
+msgstr "地址"
 
 #: ui/accountadvancedtab.ui:310
 msgid "Port"
-msgstr ""
+msgstr "埠"
 
 #: ui/accountadvancedtab.ui:336
 msgid "Use STUN"
-msgstr ""
+msgstr "使用STUN"
 
 #: ui/accountadvancedtab.ui:359 ui/accountadvancedtab.ui:408
 msgid "server URL"
-msgstr ""
+msgstr "伺服器連結"
 
 #: ui/accountadvancedtab.ui:385
 msgid "Use TURN"
-msgstr ""
+msgstr "使用TURN"
 
 #: ui/accountadvancedtab.ui:430
 msgid "username"
-msgstr ""
+msgstr "使用者名稱"
 
 #: ui/accountadvancedtab.ui:451
 msgid "password"
-msgstr "密码"
+msgstr "密碼"
 
 #: ui/accountadvancedtab.ui:475
 msgid "realm"
@@ -338,7 +339,7 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:504
 msgid "<b>Published Address</b>"
-msgstr ""
+msgstr "<b>公開地址</b>"
 
 #: ui/accountadvancedtab.ui:533
 msgid ""
@@ -348,11 +349,11 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:558 ui/accountadvancedtab.ui:632
 msgid "Min"
-msgstr ""
+msgstr "最小值"
 
 #: ui/accountadvancedtab.ui:581 ui/accountadvancedtab.ui:655
 msgid "Max"
-msgstr ""
+msgstr "最大值"
 
 #: ui/accountadvancedtab.ui:605
 msgid "<b>Audio RTP Port Range</b>"
@@ -460,23 +461,23 @@ msgstr ""
 
 #: ui/accountvideotab.ui:90
 msgid "Enable Video"
-msgstr ""
+msgstr "啟用視訊"
 
 #: ui/accountview.ui:59
 msgid "<b>&#8722;</b>"
-msgstr ""
+msgstr "<b>&#8722;</b>"
 
 #: ui/accountview.ui:83
 msgid "<b>+</b>"
-msgstr ""
+msgstr "<b>+</b>"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
-msgstr ""
+msgstr "建立新"
 
 #: ui/currentcallview.ui:73
 msgid "Send"
-msgstr "发送"
+msgstr "發送"
 
 #: ui/currentcallview.ui:191
 msgid "End this call"
@@ -505,11 +506,11 @@ msgstr "切換影像輸出狀態"
 
 #: ui/currentcallview.ui:261 ui/currentcallview.ui:338
 msgid "Mute video"
-msgstr ""
+msgstr "視訊靜音"
 
 #: ui/currentcallview.ui:280
 msgid "Toggle record audio"
-msgstr ""
+msgstr "切換音訊錄音"
 
 #: ui/currentcallview.ui:283
 msgid "Record audio"
@@ -517,7 +518,7 @@ msgstr "錄音"
 
 #: ui/currentcallview.ui:299
 msgid "Toggle show chat"
-msgstr ""
+msgstr "切換顯示聊天"
 
 #: ui/currentcallview.ui:303 ui/currentcallview.ui:320
 msgid "Chat"
@@ -561,23 +562,23 @@ msgstr "要增加的號碼或 Ring ID"
 
 #: ui/editcontactview.ui:72
 msgid "Number or Ring ID"
-msgstr ""
+msgstr "號碼或Ring ID"
 
 #: ui/editcontactview.ui:83
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 #: ui/generalsettingsview.ui:32
 msgid "<b>Ring Settings</b>"
-msgstr ""
+msgstr "<b>Ring 設定</b>"
 
 #: ui/generalsettingsview.ui:46
 msgid "Start Ring on login"
-msgstr ""
+msgstr "登入時啟用Ring"
 
 #: ui/generalsettingsview.ui:55
 msgid "Hide Ring on close instead of quitting."
-msgstr ""
+msgstr "關閉Ring時已啟用背景執行而不是關閉程式"
 
 #: ui/generalsettingsview.ui:64
 msgid "Bring Ring to the foreground on incoming calls."
@@ -585,19 +586,19 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:79
 msgid "Show chat on the right."
-msgstr ""
+msgstr "在右側顯示聊天"
 
 #: ui/generalsettingsview.ui:86
 msgid "Show chat on the bottom."
-msgstr ""
+msgstr "在下方顯示聊天"
 
 #: ui/generalsettingsview.ui:110
 msgid "<b>History Settings</b>"
-msgstr ""
+msgstr "<b>歷史記錄設定</b>"
 
 #: ui/generalsettingsview.ui:128
 msgid "Keep history for (days):"
-msgstr ""
+msgstr "保留歷史紀錄(天):"
 
 #: ui/generalsettingsview.ui:151
 msgid "(set to 0 for unlimited history)"
@@ -605,7 +606,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:160
 msgid "Clear all history"
-msgstr ""
+msgstr "清除所有歷史紀錄"
 
 #: ui/incomingcallview.ui:88
 msgid "Incoming..."
@@ -625,11 +626,11 @@ msgstr "掛斷"
 
 #: ui/mediasettingsview.ui:36
 msgid "Audio manager:"
-msgstr ""
+msgstr "音訊管理員:"
 
 #: ui/mediasettingsview.ui:48
 msgid "Ringtone device:"
-msgstr ""
+msgstr "鈴聲裝置:"
 
 #: ui/mediasettingsview.ui:60
 msgid "Output device:"
@@ -657,23 +658,23 @@ msgstr "解析度:"
 
 #: ui/mediasettingsview.ui:199
 msgid "Frame rate:"
-msgstr ""
+msgstr "幀率:"
 
 #: ui/mediasettingsview.ui:258
 msgid "<b>Camera Settings</b>"
-msgstr ""
+msgstr "<b>相機設定</b>"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr ""
+msgstr "_關於"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr ""
+msgstr "_離開"
 
 #: ui/ringmainwindow.ui:20
 msgid "Menu"
-msgstr ""
+msgstr "選單"
 
 #: ui/ringmainwindow.ui:54
 msgid "General"
@@ -681,7 +682,7 @@ msgstr "通用"
 
 #: ui/ringmainwindow.ui:64
 msgid "Media"
-msgstr ""
+msgstr "媒體"
 
 #: ui/ringmainwindow.ui:75
 msgid "Accounts"
@@ -689,11 +690,11 @@ msgstr "帳號"
 
 #: ui/ringmainwindow.ui:93
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 #: ui/ringmainwindow.ui:192
 msgid "Conversations"
-msgstr ""
+msgstr "對話"
 
 #: ui/ringmainwindow.ui:211
 msgid "Contacts"
@@ -725,7 +726,7 @@ msgstr "你的 Ring 帳號已建立完成, ID 如下:"
 
 #: ui/ringmainwindow.ui:375
 msgid "Share it with your friends so they can contact you via Ring!"
-msgstr ""
+msgstr "分享給你的朋友們，讓他們可以用Ring與你聯繫！"
 
 #: ui/ringmainwindow.ui:380
 msgid "Done"

@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
+# Pekka Hapuli <pekka.hapuli@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2015-09-10 22:02+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-07-28 18:06+0000\n"
+"Last-Translator: Pekka Hapuli <pekka.hapuli@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/savoirfairelinux/ring/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +20,7 @@ msgstr ""
 
 #: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
 msgid "Enabled"
-msgstr ""
+msgstr "Päällä"
 
 #: src/accountaudiotab.cpp:191
 msgctxt "Name of the codec"
@@ -32,43 +33,43 @@ msgstr ""
 
 #: src/accountaudiotab.cpp:199
 msgid "Samplerate"
-msgstr ""
+msgstr "Näytteenottotaajuus"
 
 #: src/accountgeneraltab.cpp:210
 msgid "Alias"
-msgstr ""
+msgstr "Lempinimi"
 
 #: src/accountgeneraltab.cpp:221
 msgid "Type"
-msgstr ""
+msgstr "Tyyppi"
 
 #: src/accountgeneraltab.cpp:250
 msgid "auto-generating..."
-msgstr ""
+msgstr "automaattinen generointi..."
 
 #: src/accountgeneraltab.cpp:269
 msgid "Hostname"
-msgstr ""
+msgstr "Yhteysosoite"
 
 #: src/accountgeneraltab.cpp:279
 msgid "Username"
-msgstr ""
+msgstr "Käyttäjänimi"
 
 #: src/accountgeneraltab.cpp:289
 msgid "Password"
-msgstr ""
+msgstr "Salasana"
 
 #: src/accountgeneraltab.cpp:302
 msgid "Show password"
-msgstr ""
+msgstr "Näytä salasana"
 
 #: src/accountgeneraltab.cpp:308
 msgid "Proxy"
-msgstr ""
+msgstr "Välityspalvelin"
 
 #: src/accountgeneraltab.cpp:318
 msgid "Voicemail number"
-msgstr ""
+msgstr "Vastaajan numero"
 
 #: src/accountgeneraltab.cpp:330
 msgctxt "The DHT bootstrap server url"
@@ -77,11 +78,11 @@ msgstr ""
 
 #: src/accountgeneraltab.cpp:342
 msgid "Auto-answer calls"
-msgstr ""
+msgstr "Automaattivastaus"
 
 #: src/accountgeneraltab.cpp:350
 msgid "UPnP enabled"
-msgstr ""
+msgstr "UPnP päällä"
 
 #: src/accountgeneraltab.cpp:358
 msgid "DTMF tone type:"
@@ -95,7 +96,7 @@ msgstr "Nimi"
 #: src/accountview.cpp:159
 msgctxt "Account settings"
 msgid "General"
-msgstr ""
+msgstr "Yleiset"
 
 #: src/accountview.cpp:163
 msgctxt "Account settings"
@@ -110,36 +111,36 @@ msgstr "Video"
 #: src/accountview.cpp:171
 msgctxt "Account settings"
 msgid "Advanced"
-msgstr ""
+msgstr "Edistyneet asetukset"
 
 #: src/accountview.cpp:175
 msgctxt "Account settings"
 msgid "Security"
-msgstr ""
+msgstr "Turvallisuus"
 
 #: src/accountview.cpp:229
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
-msgstr ""
+msgstr "Oletko varma että haluat poistaa tunnuksen \"%s\"?"
 
 #: src/accountview.cpp:313 src/accountview.cpp:315
 msgid "New Account"
-msgstr ""
+msgstr "Uusi tunnus"
 
 #: src/accountview.cpp:399
 msgctxt "Account state column"
 msgid "Enabled"
-msgstr ""
+msgstr "Päällä"
 
 #: src/accountview.cpp:405
 msgctxt "Account alias (name) column"
 msgid "Alias"
-msgstr ""
+msgstr "Lempinimi"
 
 #: src/accountview.cpp:409
 msgctxt "Account status column"
 msgid "Status"
-msgstr ""
+msgstr "Tilanne"
 
 #: src/contactsview.cpp:305
 msgid "_Copy name"
@@ -151,7 +152,7 @@ msgstr ""
 
 #: src/dialogs.c:53
 msgid "Working..."
-msgstr ""
+msgstr "Työskentelee..."
 
 #: src/dialogs.c:84
 #, c-format
@@ -165,18 +166,18 @@ msgstr ""
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is a secured and distributed communication software."
-msgstr ""
+msgstr "GNOME asiakasohjelma Ringille.\nRing on turvallinen ja hajautettu ohjelmisto."
 
 #: src/editcontactview.cpp:196
 msgctxt "Phone number category"
 msgid "home"
-msgstr ""
+msgstr "koti"
 
 #: src/generalsettingsview.cpp:94
 msgid ""
 "Are you sure you want to clear all your history?\n"
 "This operation will also reset the Frequent Contacts list"
-msgstr ""
+msgstr "Oletko varma että haluat tyhjentää historiasi?\nTätä toimintoa ei voi perua."
 
 #: src/historyview.cpp:184
 msgid "_Copy"
@@ -185,26 +186,26 @@ msgstr ""
 #: src/historyview.cpp:402
 msgctxt "Call history"
 msgid "Call"
-msgstr ""
+msgstr "Soita"
 
 #: src/historyview.cpp:447
 msgctxt "Call history"
 msgid "Date"
-msgstr ""
+msgstr "Päivämäärä"
 
 #: src/ringnotify.cpp:86
 msgid "Incoming call"
-msgstr ""
+msgstr "Saapuva puhelu"
 
 #: src/ringnotify.cpp:169
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
-msgstr ""
+msgstr "%s sanoo:"
 
 #: src/ring_client_options.c:65
 msgid "Enable debug"
-msgstr ""
+msgstr "Virheenjäljitys päälle"
 
 #: src/ring_client_options.c:67
 msgid ""
@@ -214,7 +215,7 @@ msgstr ""
 
 #: src/ring_client_options.c:84
 msgid "- GNOME client for Ring"
-msgstr ""
+msgstr "- GNOME asiakasohjelma Ringille"
 
 #: src/backends/edscontactbackend.cpp:201
 msgid "Unknown EDS addressbook"
@@ -223,11 +224,11 @@ msgstr ""
 #: src/backends/edscontactbackend.cpp:221
 msgctxt "Backend type"
 msgid "Contacts"
-msgstr ""
+msgstr "Yhteystiedot"
 
 #: src/utils/menus.cpp:67
 msgid "_Add to contact"
-msgstr ""
+msgstr "_Lisää yhteystietoon"
 
 #: src/ringmainwindow.cpp:944
 msgctxt ""
@@ -256,23 +257,23 @@ msgstr ""
 
 #: src/video/video_widget.cpp:478
 msgid "Share screen area"
-msgstr ""
+msgstr "Jaa osa näytöstä"
 
 #: src/video/video_widget.cpp:484
 msgid "Share file"
-msgstr ""
+msgstr "Jaa tiedosto"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
-msgstr ""
+msgstr "Rekistöröinnin aikakatkaisu (sekunteja):"
 
 #: ui/accountadvancedtab.ui:103
 msgid "Allow calls from unknown peers"
-msgstr ""
+msgstr "Salli puhelut tuntemattomilta"
 
 #: ui/accountadvancedtab.ui:117
 msgid "Allow calls from peers in your call history"
-msgstr ""
+msgstr "Salli puhelut historiassa olevilta yhteystiedoilta"
 
 #: ui/accountadvancedtab.ui:131
 msgid "Allow calls from peers in your contacts list"
@@ -296,7 +297,7 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:249
 msgid "Same as local parameters"
-msgstr ""
+msgstr "Sama kuin paikalliset parametrit"
 
 #: ui/accountadvancedtab.ui:264
 msgid "Set published address and port:"
@@ -304,15 +305,15 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:288
 msgid "Address"
-msgstr ""
+msgstr "Osoite"
 
 #: ui/accountadvancedtab.ui:310
 msgid "Port"
-msgstr ""
+msgstr "Portti"
 
 #: ui/accountadvancedtab.ui:336
 msgid "Use STUN"
-msgstr ""
+msgstr "Käytä STUNia"
 
 #: ui/accountadvancedtab.ui:359 ui/accountadvancedtab.ui:408
 msgid "server URL"
@@ -346,11 +347,11 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:558 ui/accountadvancedtab.ui:632
 msgid "Min"
-msgstr ""
+msgstr "Minimi"
 
 #: ui/accountadvancedtab.ui:581 ui/accountadvancedtab.ui:655
 msgid "Max"
-msgstr ""
+msgstr "Maksimi"
 
 #: ui/accountadvancedtab.ui:605
 msgid "<b>Audio RTP Port Range</b>"
@@ -402,23 +403,23 @@ msgstr ""
 
 #: ui/accountsecuritytab.ui:121
 msgid "Encrypt negotiation (TLS)"
-msgstr ""
+msgstr "Salaa neuvottelu (TLS)"
 
 #: ui/accountsecuritytab.ui:146
 msgid "CA certificate"
-msgstr ""
+msgstr "CA sertifikaatti"
 
 #: ui/accountsecuritytab.ui:183
 msgid "User certificate"
-msgstr ""
+msgstr "Käyttäjäsertifikaatti"
 
 #: ui/accountsecuritytab.ui:220
 msgid "Private key"
-msgstr ""
+msgstr "Henkilökohtainen salausavain"
 
 #: ui/accountsecuritytab.ui:243
 msgid "Private key password"
-msgstr ""
+msgstr "Henkilökohtaisen salausavaimen salasana"
 
 #: ui/accountsecuritytab.ui:290
 msgid "TLS protocol method"
@@ -442,7 +443,7 @@ msgstr ""
 
 #: ui/accountsecuritytab.ui:442
 msgid "Verify incoming certificates (server side)"
-msgstr ""
+msgstr "Varmenna saapuvat sertifikaatit (palvelinpuoli)"
 
 #: ui/accountsecuritytab.ui:457
 msgid "Verify answer certificates (client side)"
@@ -458,7 +459,7 @@ msgstr ""
 
 #: ui/accountvideotab.ui:90
 msgid "Enable Video"
-msgstr ""
+msgstr "Video päälle"
 
 #: ui/accountview.ui:59
 msgid "<b>&#8722;</b>"
@@ -474,7 +475,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:73
 msgid "Send"
-msgstr ""
+msgstr "Lähetä"
 
 #: ui/currentcallview.ui:191
 msgid "End this call"
@@ -482,7 +483,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:195 ui/currentcallview.ui:356
 msgid "End call"
-msgstr ""
+msgstr "Lopeta puhelu"
 
 #: ui/currentcallview.ui:213
 msgid "Toggle hold"
@@ -491,51 +492,51 @@ msgstr ""
 #: ui/currentcallview.ui:217 ui/currentcallview.ui:239
 #: ui/currentcallview.ui:347
 msgid "Hold"
-msgstr ""
+msgstr "Pidossa"
 
 #: ui/currentcallview.ui:235
 msgid "Toggle mute audio"
-msgstr ""
+msgstr "Vaimenna ääni"
 
 #: ui/currentcallview.ui:257
 msgid "Toggle mute video"
-msgstr ""
+msgstr "Pimennä video"
 
 #: ui/currentcallview.ui:261 ui/currentcallview.ui:338
 msgid "Mute video"
-msgstr ""
+msgstr "Pysäytä video"
 
 #: ui/currentcallview.ui:280
 msgid "Toggle record audio"
-msgstr ""
+msgstr "Käynnistä äänen tallennus"
 
 #: ui/currentcallview.ui:283
 msgid "Record audio"
-msgstr ""
+msgstr "Tallenna ääntä"
 
 #: ui/currentcallview.ui:299
 msgid "Toggle show chat"
-msgstr ""
+msgstr "Näytä keskustelu"
 
 #: ui/currentcallview.ui:303 ui/currentcallview.ui:320
 msgid "Chat"
-msgstr ""
+msgstr "keskustelu"
 
 #: ui/currentcallview.ui:329
 msgid "Mute audio"
-msgstr ""
+msgstr "Vaimenna ääni"
 
 #: ui/currentcallview.ui:365
 msgid "Record"
-msgstr ""
+msgstr "Tallenne"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
-msgstr ""
+msgstr "Valitse osoitekirja"
 
 #: ui/editcontactview.ui:15
 msgid "Addressbook"
-msgstr ""
+msgstr "Osoitekirja"
 
 #: ui/editcontactview.ui:29
 msgid "Name"
@@ -543,7 +544,7 @@ msgstr "Nimi"
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
-msgstr ""
+msgstr "Yhteystiedon nimi"
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
@@ -563,63 +564,63 @@ msgstr ""
 
 #: ui/editcontactview.ui:83
 msgid "Save"
-msgstr ""
+msgstr "Tallenna"
 
 #: ui/generalsettingsview.ui:32
 msgid "<b>Ring Settings</b>"
-msgstr ""
+msgstr "<b>Ring asetukset</b>"
 
 #: ui/generalsettingsview.ui:46
 msgid "Start Ring on login"
-msgstr ""
+msgstr "Käynnistä Ring kirjauduttaessa"
 
 #: ui/generalsettingsview.ui:55
 msgid "Hide Ring on close instead of quitting."
-msgstr ""
+msgstr "Piilota ring lopettamisen sijaan"
 
 #: ui/generalsettingsview.ui:64
 msgid "Bring Ring to the foreground on incoming calls."
-msgstr ""
+msgstr "Tuo ring eteen puhelun saapuessa"
 
 #: ui/generalsettingsview.ui:79
 msgid "Show chat on the right."
-msgstr ""
+msgstr "Näytä keskustelu oikealla."
 
 #: ui/generalsettingsview.ui:86
 msgid "Show chat on the bottom."
-msgstr ""
+msgstr "Näytä keskustelu alhaalla."
 
 #: ui/generalsettingsview.ui:110
 msgid "<b>History Settings</b>"
-msgstr ""
+msgstr "<b>Historia asetukset</b>"
 
 #: ui/generalsettingsview.ui:128
 msgid "Keep history for (days):"
-msgstr ""
+msgstr "Pidä historia tallessa (päivää):"
 
 #: ui/generalsettingsview.ui:151
 msgid "(set to 0 for unlimited history)"
-msgstr ""
+msgstr "(aseta 0 rajoittamattomalle historialle)"
 
 #: ui/generalsettingsview.ui:160
 msgid "Clear all history"
-msgstr ""
+msgstr "Tyhjennä koko historia"
 
 #: ui/incomingcallview.ui:88
 msgid "Incoming..."
-msgstr ""
+msgstr "Saapuva..."
 
 #: ui/incomingcallview.ui:122
 msgid "   Accept"
-msgstr ""
+msgstr "Hyväksy"
 
 #: ui/incomingcallview.ui:137
 msgid "   Reject"
-msgstr ""
+msgstr "Kietäydy"
 
 #: ui/incomingcallview.ui:152
 msgid "   Hang-up"
-msgstr ""
+msgstr "Katkaise"
 
 #: ui/mediasettingsview.ui:36
 msgid "Audio manager:"
@@ -639,27 +640,27 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:127
 msgid "<b>Audio Settings</b>"
-msgstr ""
+msgstr "<b>Ääniasetukset</b>"
 
 #: ui/mediasettingsview.ui:163
 msgid "Device:"
-msgstr ""
+msgstr "Laite:"
 
 #: ui/mediasettingsview.ui:175
 msgid "Channel:"
-msgstr ""
+msgstr "Kanava:"
 
 #: ui/mediasettingsview.ui:187
 msgid "Resolution:"
-msgstr ""
+msgstr "Tarkkuus:"
 
 #: ui/mediasettingsview.ui:199
 msgid "Frame rate:"
-msgstr ""
+msgstr "Kuvataajuus:"
 
 #: ui/mediasettingsview.ui:258
 msgid "<b>Camera Settings</b>"
-msgstr ""
+msgstr "<b>Kameran asetukset</b>"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
@@ -671,39 +672,39 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:20
 msgid "Menu"
-msgstr ""
+msgstr "Valikko"
 
 #: ui/ringmainwindow.ui:54
 msgid "General"
-msgstr ""
+msgstr "Yleiset"
 
 #: ui/ringmainwindow.ui:64
 msgid "Media"
-msgstr ""
+msgstr "Media"
 
 #: ui/ringmainwindow.ui:75
 msgid "Accounts"
-msgstr ""
+msgstr "Tunnukset"
 
 #: ui/ringmainwindow.ui:93
 msgid "Settings"
-msgstr ""
+msgstr "Asetukset"
 
 #: ui/ringmainwindow.ui:192
 msgid "Conversations"
-msgstr ""
+msgstr "Keskustelu"
 
 #: ui/ringmainwindow.ui:211
 msgid "Contacts"
-msgstr ""
+msgstr "Yhteystiedot"
 
 #: ui/ringmainwindow.ui:230
 msgid "History"
-msgstr ""
+msgstr "Historia"
 
 #: ui/ringmainwindow.ui:290
 msgid "Welcome to  "
-msgstr ""
+msgstr "Tervetuloa"
 
 #: ui/ringmainwindow.ui:307
 msgid "Enter your alias to get started:"
@@ -715,7 +716,7 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:338
 msgid "Next"
-msgstr ""
+msgstr "Seuraava"
 
 #: ui/ringmainwindow.ui:360
 msgid "Your Ring account has been created with the following Ring ID:"
@@ -727,4 +728,4 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:380
 msgid "Done"
-msgstr ""
+msgstr "Valmis"
