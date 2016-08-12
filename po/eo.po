@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2016-04-15 18:05+0000\n"
+"PO-Revision-Date: 2016-07-28 18:52+0000\n"
 "Last-Translator: Stepan Salenikovich\n"
 "Language-Team: Esperanto (http://www.transifex.com/savoirfairelinux/ring/language/eo/)\n"
 "MIME-Version: 1.0\n"
@@ -196,7 +196,7 @@ msgstr "Dato"
 
 #: src/ringnotify.cpp:86
 msgid "Incoming call"
-msgstr "Envena alvoko"
+msgstr "Envena voko"
 
 #: src/ringnotify.cpp:169
 #, c-format
@@ -270,15 +270,15 @@ msgstr "Tempolimo de registriĝo (sekunde):"
 
 #: ui/accountadvancedtab.ui:103
 msgid "Allow calls from unknown peers"
-msgstr "Permesi alvokojn de nekonataj samtavolanoj"
+msgstr "Permesi vokojn de nekonataj samtavolanoj"
 
 #: ui/accountadvancedtab.ui:117
 msgid "Allow calls from peers in your call history"
-msgstr "Permesi alvokojn de samtavolanoj en via alvoka historio"
+msgstr "Permesi vokojn de samtavolanoj en via voka historio"
 
 #: ui/accountadvancedtab.ui:131
 msgid "Allow calls from peers in your contacts list"
-msgstr "Permesi alvokojn de samtavolanoj en via listo de kontaktoj"
+msgstr "Permesi vokojn de samtavolanoj en via listo de kontaktoj"
 
 #: ui/accountadvancedtab.ui:149
 msgid "<b>Registration</b>"
@@ -480,11 +480,11 @@ msgstr "Sendi"
 
 #: ui/currentcallview.ui:191
 msgid "End this call"
-msgstr "Finigi tiun ĉi alvokon"
+msgstr "Finigi tiun ĉi vokon"
 
 #: ui/currentcallview.ui:195 ui/currentcallview.ui:356
 msgid "End call"
-msgstr "Finigi alvokon"
+msgstr "Finigi vokon"
 
 #: ui/currentcallview.ui:213
 msgid "Toggle hold"
@@ -581,7 +581,7 @@ msgstr "Kaŝi anstataŭ ĉesi Ring je fermo."
 
 #: ui/generalsettingsview.ui:64
 msgid "Bring Ring to the foreground on incoming calls."
-msgstr "Superigi Ring je envenaj alvokoj."
+msgstr "Superigi Ring je envenaj vokoj."
 
 #: ui/generalsettingsview.ui:79
 msgid "Show chat on the right."
@@ -621,7 +621,7 @@ msgstr "   Rifuzi"
 
 #: ui/incomingcallview.ui:152
 msgid "   Hang-up"
-msgstr "   Fini alvokon"
+msgstr "   Fini vokon"
 
 #: ui/mediasettingsview.ui:36
 msgid "Audio manager:"

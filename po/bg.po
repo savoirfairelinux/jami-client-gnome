@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2016-06-06 19:35+0000\n"
+"PO-Revision-Date: 2016-07-21 07:08+0000\n"
 "Last-Translator: Любомир Василев\n"
 "Language-Team: Bulgarian (http://www.transifex.com/savoirfairelinux/ring/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgstr ""
 
 #: src/accountgeneraltab.cpp:358
 msgid "DTMF tone type:"
-msgstr ""
+msgstr "Вид на тоналното набиране:"
 
 #: src/accountvideotab.cpp:200
 msgctxt "The name of the codec"
@@ -160,7 +160,7 @@ msgctxt "Do not translate the release name"
 msgid ""
 "release: Louis-Joseph Papineau\n"
 "v%d.%d.%d - %.10s"
-msgstr ""
+msgstr "издание: Луи-Жозеф Папино\nв.%d.%d.%d — %.10s"
 
 #: src/dialogs.c:111
 msgid ""
@@ -375,7 +375,7 @@ msgstr "Надолу"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
 msgid "<b>Codecs</b>"
-msgstr ""
+msgstr "<b>Кодеци</b>"
 
 #: ui/accountgeneraltab.ui:42
 msgid "<b>Account</b>"
@@ -680,7 +680,7 @@ msgstr "Общи"
 
 #: ui/ringmainwindow.ui:64
 msgid "Media"
-msgstr ""
+msgstr "Звук и видео"
 
 #: ui/ringmainwindow.ui:75
 msgid "Accounts"

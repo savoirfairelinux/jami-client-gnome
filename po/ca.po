@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-13 09:43-0500\n"
-"PO-Revision-Date: 2016-05-26 12:59+0000\n"
+"PO-Revision-Date: 2016-07-03 10:53+0000\n"
 "Last-Translator: Jaume <retrasado.man@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/savoirfairelinux/ring/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr "Nombre de correu de veu"
 #: src/accountgeneraltab.cpp:330
 msgctxt "The DHT bootstrap server url"
 msgid "Bootstrap"
-msgstr ""
+msgstr "Bootstrap"
 
 #: src/accountgeneraltab.cpp:342
 msgid "Auto-answer calls"
@@ -161,7 +161,7 @@ msgctxt "Do not translate the release name"
 msgid ""
 "release: Louis-Joseph Papineau\n"
 "v%d.%d.%d - %.10s"
-msgstr ""
+msgstr "publicat per: Louis-Joseph Papineau\nv%d.%d.%d - %.10s"
 
 #: src/dialogs.c:111
 msgid ""
@@ -396,7 +396,7 @@ msgstr "Protocol d'intercanvi de claus"
 
 #: ui/accountsecuritytab.ui:76
 msgid "Fallback on RTP on encryption failure"
-msgstr ""
+msgstr "Feu servir RTP quan fracase el xifrat"
 
 #: ui/accountsecuritytab.ui:94
 msgid "<b>Media Stream Encryption</b>"
@@ -444,19 +444,19 @@ msgstr "Utilitza llista de xifrats personalitzats"
 
 #: ui/accountsecuritytab.ui:442
 msgid "Verify incoming certificates (server side)"
-msgstr ""
+msgstr "Verifica certificats entrants (servidor)"
 
 #: ui/accountsecuritytab.ui:457
 msgid "Verify answer certificates (client side)"
-msgstr ""
+msgstr "Verifica certificats entrants (client)"
 
 #: ui/accountsecuritytab.ui:472
 msgid "Require a certificate for incoming TLS connections"
-msgstr ""
+msgstr "Exigeix certificat per a les conexions TLS entrants"
 
 #: ui/accountsecuritytab.ui:491
 msgid "<b>Negotiation Encryption</b>"
-msgstr ""
+msgstr "<b>Negociació Xifrada</b>"
 
 #: ui/accountvideotab.ui:90
 msgid "Enable Video"
@@ -464,11 +464,11 @@ msgstr "Habilita el vídeo"
 
 #: ui/accountview.ui:59
 msgid "<b>&#8722;</b>"
-msgstr ""
+msgstr "<b>&#8722;</b>"
 
 #: ui/accountview.ui:83
 msgid "<b>+</b>"
-msgstr ""
+msgstr "<b>+</b>"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
@@ -533,7 +533,7 @@ msgstr "Grava"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
-msgstr ""
+msgstr "Selecciona la llibreta d'adreces"
 
 #: ui/editcontactview.ui:15
 msgid "Addressbook"
@@ -549,19 +549,19 @@ msgstr "Nom de contacte"
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
-msgstr ""
+msgstr "Selecciona la categoria del número de telèfon"
 
 #: ui/editcontactview.ui:50
 msgid "Number category"
-msgstr ""
+msgstr "Categoria del número"
 
 #: ui/editcontactview.ui:66
 msgid "Number or Ring ID to be added"
-msgstr ""
+msgstr "Número o Ring ID per a agefir"
 
 #: ui/editcontactview.ui:72
 msgid "Number or Ring ID"
-msgstr "Nombre o Ring ID"
+msgstr "Número o Ring ID"
 
 #: ui/editcontactview.ui:83
 msgid "Save"
@@ -577,31 +577,31 @@ msgstr "Obre Ring a l'inici"
 
 #: ui/generalsettingsview.ui:55
 msgid "Hide Ring on close instead of quitting."
-msgstr ""
+msgstr "Oculta Ring en tancar la finesta en compte de sortir"
 
 #: ui/generalsettingsview.ui:64
 msgid "Bring Ring to the foreground on incoming calls."
-msgstr ""
+msgstr "Torna Ring al primer pla amb les trucades entrants."
 
 #: ui/generalsettingsview.ui:79
 msgid "Show chat on the right."
-msgstr ""
+msgstr "Mostra el cat a la dreta."
 
 #: ui/generalsettingsview.ui:86
 msgid "Show chat on the bottom."
-msgstr ""
+msgstr "Mostra el xat a la part inferior."
 
 #: ui/generalsettingsview.ui:110
 msgid "<b>History Settings</b>"
-msgstr ""
+msgstr "<b>Opcions d'Historial</b>"
 
 #: ui/generalsettingsview.ui:128
 msgid "Keep history for (days):"
-msgstr ""
+msgstr "Guarda l'historial durant (dies):"
 
 #: ui/generalsettingsview.ui:151
 msgid "(set to 0 for unlimited history)"
-msgstr ""
+msgstr "(posar a 0 per a historial il·limitat)"
 
 #: ui/generalsettingsview.ui:160
 msgid "Clear all history"
@@ -625,23 +625,23 @@ msgstr "Penja"
 
 #: ui/mediasettingsview.ui:36
 msgid "Audio manager:"
-msgstr ""
+msgstr "Gestor d'àudio:"
 
 #: ui/mediasettingsview.ui:48
 msgid "Ringtone device:"
-msgstr ""
+msgstr "Dispositiu de to de trucada"
 
 #: ui/mediasettingsview.ui:60
 msgid "Output device:"
-msgstr ""
+msgstr "Dispositiu de sortida:"
 
 #: ui/mediasettingsview.ui:72
 msgid "Input device:"
-msgstr ""
+msgstr "Dispositiu d'entrada:"
 
 #: ui/mediasettingsview.ui:127
 msgid "<b>Audio Settings</b>"
-msgstr ""
+msgstr "<b>Opcions d'Àudio</b>"
 
 #: ui/mediasettingsview.ui:163
 msgid "Device:"
