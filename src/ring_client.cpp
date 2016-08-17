@@ -126,9 +126,9 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingClient, ring_client, GTK_TYPE_APPLICATION);
 #define RING_CLIENT_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_CLIENT_TYPE, RingClientPrivate))
 
 static void
-init_exception_dialog(const char* msg)
+exception_dialog(const char* msg)
 {
-    g_warning("%s", msg);
+    g_critical("%s", msg);
     GtkWidget *dialog = gtk_message_dialog_new(NULL,
                             (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
                             GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
@@ -439,16 +439,12 @@ ring_client_startup(GApplication *app)
         priv->qtapp = new QCoreApplication(priv->argc, priv->argv);
         /* the call model will try to connect to dring via dbus */
         CallModel::instance();
-    } catch (const char * msg) {
-        init_exception_dialog(msg);
-        g_error("%s", msg);
-        exit(1); /* the g_error above should normally cause the applicaiton to exit */
+    } catch(const char * msg) {
+        exception_dialog(msg);
+        exit(1);
     } catch(QString& msg) {
-        QByteArray ba = msg.toLocal8Bit();
-        const char *c_str = ba.data();
-        init_exception_dialog(c_str);
-        g_error("%s", c_str);
-        exit(1); /* the g_error above should normally cause the applicaiton to exit */
+        exception_dialog(msg.toLocal8Bit().constData());
+        exit(1);
     }
 
     /* load translations from LRC */
