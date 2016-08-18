@@ -29,14 +29,18 @@
 #include "models/gtkqsortfiltertreemodel.h"
 #include "models/activeitemproxymodel.h"
 #include "accountgeneraltab.h"
+#include "accountcreationwizard.h"
 #include "accountaudiotab.h"
 #include "accountvideotab.h"
 #include "accountadvancedtab.h"
 #include "accountsecuritytab.h"
+#include "accountdevicestab.h"
 #include "dialogs.h"
 #include <glib/gprintf.h>
 #include "utils/models.h"
 #include "accountimportexportview.h"
+
+static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
 
 struct _AccountView
 {
@@ -131,6 +135,16 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
     AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(self);
 
     auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_account));
+    if(IS_ACCOUNT_CREATION_WIZARD(old_view))
+    {
+        /* When using the account creation wizard, The user might create
+         * accounts that are invalid, so the fact that the account
+         * selection has changed should be ignored. The account creation wizard
+         * should be responsible to remove itself of the stack and then call
+         * account_selection_changed.
+         */
+        return;
+    }
 
     QModelIndex account_idx = get_index_from_selection(selection);
     if (!account_idx.isValid()) {
@@ -176,6 +190,10 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  security_tab,
                                  gtk_label_new(C_("Account settings", "Security")));
+        auto devices_tab = create_scrolled_account_view(account_devices_tab_new(account));
+        gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
+                                 devices_tab,
+                                 gtk_label_new(C_("Account settings", "Devices")));
 
         gtk_widget_show_all(hbox_account);
         /* set the tab displayed to the same as the prev account selected */
@@ -296,6 +314,54 @@ remove_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
 }
 
 static void
+hide_account_creation_wizard(AccountView *view)
+{
+    g_return_if_fail(IS_ACCOUNT_VIEW(view));
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
+
+    auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_account));
+    if (IS_ACCOUNT_CREATION_WIZARD(old_view))
+    {
+        gtk_container_remove(GTK_CONTAINER(priv->stack_account), old_view);
+    }
+
+    auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
+    account_selection_changed(selection, view);
+}
+
+static void
+show_account_creation_wizard(AccountView *view)
+{
+    g_return_if_fail(IS_ACCOUNT_VIEW(view));
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
+
+    auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_account));
+
+    auto account_creation_wizard = gtk_stack_get_child_by_name(
+        GTK_STACK(priv->stack_account),
+        ACCOUNT_CREATION_WIZARD_VIEW_NAME
+    );
+
+    if (!account_creation_wizard)
+    {
+        account_creation_wizard = account_creation_wizard_new(true);
+        gtk_stack_add_named(GTK_STACK(priv->stack_account),
+                            account_creation_wizard,
+                            ACCOUNT_CREATION_WIZARD_VIEW_NAME);
+        g_signal_connect_swapped(account_creation_wizard, "account-creation-completed", G_CALLBACK(hide_account_creation_wizard), view);
+        g_signal_connect_swapped(account_creation_wizard, "account-creation-canceled", G_CALLBACK(hide_account_creation_wizard), view);
+    }
+
+    gtk_widget_show(account_creation_wizard);
+
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_account), ACCOUNT_CREATION_WIZARD_VIEW_NAME);
+
+    /* remove the old view */
+    if (old_view)
+        gtk_container_remove(GTK_CONTAINER(priv->stack_account), old_view);
+}
+
+static void
 add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
 {
     g_return_if_fail(IS_ACCOUNT_VIEW(view));
@@ -311,19 +377,26 @@ add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
         if (protocol_idx.isValid()) {
             protocol_idx = priv->active_protocols->mapToSource(protocol_idx);
 
-            /* show working dialog in case save operation takes time */
-            GtkWidget *working = ring_dialog_working(GTK_WIDGET(view), NULL);
-            gtk_window_present(GTK_WINDOW(working));
+            Account::Protocol protocol = qvariant_cast<Account::Protocol>(protocol_idx.data((int)ProtocolModel::Role::Protocol));
+            if (protocol == Account::Protocol::RING)
+            {
+                show_account_creation_wizard(view);
+            }
+            else
+            {
+                /* show working dialog in case save operation takes time */
+                GtkWidget *working = ring_dialog_working(GTK_WIDGET(view), NULL);
+                gtk_window_present(GTK_WINDOW(working));
 
-            auto account = AccountModel::instance().add(QString(_("New Account")), protocol_idx);
-            if (account->protocol() == Account::Protocol::RING)
-                account->setDisplayName(_("New Account"));
+                AccountModel::instance().add(QString(_("New Account")), protocol_idx);
 
-            /* now save after a short timeout to make sure that
-             * the save doesn't happen before the "working" dialog is presented
-             * the timeout function should destroy the "working" dialog when done saving
-             */
-            g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)save_account, working, NULL);
+                /* now save after a short timeout to make sure that
+                 * the save doesn't happen before the "working" dialog is presented
+                 * the timeout function should destroy the "working" dialog when done saving
+                 */
+                g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)save_account, working, NULL);
+            }
+
         }
     }
 }
