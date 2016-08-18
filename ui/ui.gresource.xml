@@ -6,8 +6,10 @@
     <file preprocess="xml-stripblanks">incomingcallview.ui</file>
     <file preprocess="xml-stripblanks">currentcallview.ui</file>
     <file preprocess="xml-stripblanks">accountview.ui</file>
+    <file preprocess="xml-stripblanks">accountcreationwizard.ui</file>
     <file preprocess="xml-stripblanks">accountgeneraltab.ui</file>
     <file preprocess="xml-stripblanks">accountaudiotab.ui</file>
+    <file preprocess="xml-stripblanks">accountdevicestab.ui</file>
     <file preprocess="xml-stripblanks">accountvideotab.ui</file>
     <file preprocess="xml-stripblanks">mediasettingsview.ui</file>
     <file preprocess="xml-stripblanks">accountadvancedtab.ui</file>
