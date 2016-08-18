@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_86367a02",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-18T21:08:20Z",
+      "side": 1,
+      "message": "I think you need to g_strdup this string here like you do the password bellow, ASAN detects a use after free on it, however, don\u0027t forget to free it later!\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\u003d\u003d19326\u003d\u003dERROR: AddressSanitizer: heap-use-after-free on address 0x6020015adfb0 at pc 0x7ffff6eda20b bp 0x7fffffffd8e0 sp 0x7fffffffd088\nREAD of size 2 at 0x6020015adfb0 thread T0\n    #0 0x7ffff6eda20a in __interceptor_strlen (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x7020a)\n    #1 0x505b9d in QString::QString(char const*) /usr/include/x86_64-linux-gnu/qt5/QtCore/qstring.h:650\n    #2 0x505b9d in create_ring_account /home/ssalenikovich/projects/ring-client-gnome/src/accountcreationwizard.cpp:204\n    #3 0x5064c2 in create_new_ring_account /home/ssalenikovich/projects/ring-client-gnome/src/accountcreationwizard.cpp:255\n    #4 0x7ffff523cac2  (/lib/x86_64-linux-gnu/libglib-2.0.so.0+0x4aac2)\n    #5 0x7ffff523c059 in g_main_context_dispatch (/lib/x86_64-linux-gnu/libglib-2.0.so.0+0x4a059)\n    #6 0x7ffff523c3ff  (/lib/x86_64-linux-gnu/libglib-2.0.so.0+0x4a3ff)\n    #7 0x7ffff523c4ab in g_main_context_iteration (/lib/x86_64-linux-gnu/libglib-2.0.so.0+0x4a4ab)\n    #8 0x7ffff5803cdc in g_application_run (/usr/lib/x86_64-linux-gnu/libgio-2.0.so.0+0xadcdc)\n    #9 0x4d2863 in main /home/ssalenikovich/projects/ring-client-gnome/src/main.cpp:34\n    #10 0x7ffff242382f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)\n    #11 0x4d26b8 in _start (/home/ssalenikovich/projects/ring-client-gnome/build/gnome-ring+0x4d26b8)\n\n0x6020015adfb0 is located 0 bytes inside of 16-byte region [0x6020015adfb0,0x6020015adfc0)\nfreed by thread T0 here:\n    #0 0x7ffff6f022ca in __interceptor_free (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x982ca)\n    #1 0x7ffff66d30cb  (/usr/lib/x86_64-linux-gnu/libgtk-3.so.0+0x1980cb)\n\npreviously allocated by thread T0 here:\n    #0 0x7ffff6f02602 in malloc (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x98602)\n    #1 0x7ffff5241728 in g_malloc (/lib/x86_64-linux-gnu/libglib-2.0.so.0+0x4f728)\n\nSUMMARY: AddressSanitizer: heap-use-after-free ??:0 __interceptor_strlen\nShadow bytes around the buggy address:\n  0x0c04802adba0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa\n  0x0c04802adbb0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa\n  0x0c04802adbc0: fa fa fd fd fa fa fd fa fa fa fd fa fa fa fd fd\n  0x0c04802adbd0: fa fa fd fa fa fa fd fd fa fa fd fa fa fa fd fa\n  0x0c04802adbe0: fa fa fd fd fa fa fd fd fa fa fd fa fa fa fd fd\n\u003d\u003e0x0c04802adbf0: fa fa fd fd fa fa[fd]fd fa fa fd fd fa fa fd fa\n  0x0c04802adc00: fa fa fd fa fa fa fd fd fa fa fd fd fa fa fd fa\n  0x0c04802adc10: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fa\n  0x0c04802adc20: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fa\n  0x0c04802adc30: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fa\n  0x0c04802adc40: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fa\nShadow byte legend (one shadow byte represents 8 application bytes):\n  Addressable:           00\n  Partially addressable: 01 02 03 04 05 06 07 \n  Heap left redzone:       fa\n  Heap right redzone:      fb\n  Freed heap region:       fd\n  Stack left redzone:      f1\n  Stack mid redzone:       f2\n  Stack right redzone:     f3\n  Stack partial redzone:   f4\n  Stack after return:      f5\n  Stack use after scope:   f8\n  Global redzone:          f9\n  Global init order:       f6\n  Poisoned by user:        f7\n  Container overflow:      fc\n  Array cookie:            ac\n  Intra object redzone:    bb\n  ASan internal:           fe\n\u003d\u003d19326\u003d\u003dABORTING\n[Thread 0x7fffd0e7d700 (LWP 19556) exited]\n[Thread 0x7fffd2fb3700 (LWP 19554) exited]\n[Thread 0x7fffd1754700 (LWP 19553) exited]\n[Thread 0x7fffd68fd700 (LWP 19552) exited]\n[Thread 0x7fffd2795700 (LWP 19551) exited]\n[Thread 0x7fffd4ced700 (LWP 19543) exited]\n[Thread 0x7fffd5506700 (LWP 19344) exited]\n[Thread 0x7fffd8b8e700 (LWP 19339) exited]\n[Thread 0x7fffdd813700 (LWP 19333) exited]\n[Thread 0x7fffde014700 (LWP 19332) exited]\n[Thread 0x7fffdeaf2700 (LWP 19331) exited]\n[Thread 0x7ffff7e60b00 (LWP 19326) exited]\n[Inferior 1 (process 19326) exited with code 01]",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 74
+      },
+      "revId": "ce77bfad7c8af5e756cc967891e48742bf84d2dc",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_263b0eed",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-18T21:08:20Z",
+      "side": 1,
+      "message": "this is a mallocd string (g_strdup), do you need to free it somewhere, I guess after calling create_ring_account()",
+      "range": {
+        "startLine": 251,
+        "startChar": 17,
+        "endLine": 251,
+        "endChar": 25
+      },
+      "revId": "ce77bfad7c8af5e756cc967891e48742bf84d2dc",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_46173252",
+        "filename": "src/accountview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-18T21:08:20Z",
+      "side": 1,
+      "message": "I think the bug might be because you don\u0027t switch the visible view in the stack before destroying the account creation wizard. See comment below for more details.",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 5
+      },
+      "revId": "ce77bfad7c8af5e756cc967891e48742bf84d2dc",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_a605be15",
+        "filename": "src/accountview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-18T21:08:20Z",
+      "side": 1,
+      "message": "When you insert this new view into the stack, you should destroy remove the old view (eg: old account view). I suggest you see how I implemented the import and export views and how I dealt with destroying them. The important part being:\n/* remove the old view */\n    if (old_view)\n        gtk_container_remove(GTK_CONTAINER(priv-\u003estack_account), old_view);\n\nAnd see how the close_import_export_view() fucntion simply calls account_selection_changed which will take care of destroying the account creation wizard by just removing it (removing it will destroy that widget since its reference count should go to zero, you don\u0027t have to call destroy on it)",
+      "range": {
+        "startLine": 326,
+        "startChar": 0,
+        "endLine": 350,
+        "endChar": 1
+      },
+      "revId": "ce77bfad7c8af5e756cc967891e48742bf84d2dc",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
