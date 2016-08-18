@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_e13970d9",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-18T21:38:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_86367a02",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 74
+      },
+      "revId": "ce77bfad7c8af5e756cc967891e48742bf84d2dc",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_263b0eed",
         "filename": "src/accountcreationwizard.cpp",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_2120d89a",
+        "filename": "src/accountview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-18T21:38:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_46173252",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 5
+      },
+      "revId": "ce77bfad7c8af5e756cc967891e48742bf84d2dc",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_a605be15",
         "filename": "src/accountview.cpp",
         "patchSetId": 1
@@ -82,6 +130,30 @@
       "writtenOn": "2016-08-18T21:08:20Z",
       "side": 1,
       "message": "When you insert this new view into the stack, you should destroy remove the old view (eg: old account view). I suggest you see how I implemented the import and export views and how I dealt with destroying them. The important part being:\n/* remove the old view */\n    if (old_view)\n        gtk_container_remove(GTK_CONTAINER(priv-\u003estack_account), old_view);\n\nAnd see how the close_import_export_view() fucntion simply calls account_selection_changed which will take care of destroying the account creation wizard by just removing it (removing it will destroy that widget since its reference count should go to zero, you don\u0027t have to call destroy on it)",
+      "range": {
+        "startLine": 326,
+        "startChar": 0,
+        "endLine": 350,
+        "endChar": 1
+      },
+      "revId": "ce77bfad7c8af5e756cc967891e48742bf84d2dc",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_4125dca9",
+        "filename": "src/accountview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-18T21:38:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_a605be15",
       "range": {
         "startLine": 326,
         "startChar": 0,
