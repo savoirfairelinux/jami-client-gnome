@@ -52,19 +52,20 @@
 #include "generalsettingsview.h"
 #include "utils/accounts.h"
 #include "ringwelcomeview.h"
+#include "accountmigrationview.h"
+#include "accountcreationwizard.h"
 #include "recentcontactsview.h"
 #include <recentmodel.h>
 #include "chatview.h"
 
 /*TODO : sorting headers */
-/* client */
-#include "avatarmanipulation.h"
 /* lrc */
 #include <profilemodel.h>
 #include <profile.h>
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
-static constexpr const char* CREATE_ACCOUNT_VIEW_NAME   = "wizard";
+static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
+static constexpr const char* ACCOUNT_MIGRATION_VIEW_NAME       = "account-migration-view";
 static constexpr const char* GENERAL_SETTINGS_VIEW_NAME = "general";
 static constexpr const char* AUDIO_SETTINGS_VIEW_NAME   = "audio";
 static constexpr const char* MEDIA_SETTINGS_VIEW_NAME   = "media";
@@ -114,21 +115,6 @@ struct _RingMainWindowPrivate
     QMetaObject::Connection selection_updated;
 
     gboolean   show_settings;
-
-    /* account creation */
-    GtkWidget *account_creation;
-    GtkWidget *image_ring_logo;
-    GtkWidget *vbox_account_creation_entry;
-    GtkWidget *entry_alias;
-    GtkWidget *label_default_name;
-    GtkWidget *label_paceholder;
-    GtkWidget *label_generating_account;
-    GtkWidget *spinner_generating_account;
-    GtkWidget *button_account_creation_next;
-    GtkWidget *box_avatarselection;
-    GtkWidget* avatar_manipulation;
-
-    QMetaObject::Connection hash_updated;
 
     /* allocd qmodels */
     NumberCompletionModel *q_completion_model;
@@ -508,153 +494,57 @@ show_general_settings(GtkToggleButton *navbutton, RingMainWindow *win)
     }
 }
 
-static gboolean
-create_ring_account(RingMainWindow *win)
-{
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(win), G_SOURCE_REMOVE);
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-
-    /* create account and set UPnP enabled, as its not by default in the daemon */
-    const gchar *alias = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
-    Account *account = nullptr;
-
-    /* get profile (if so) */
-    auto profile = ProfileModel::instance().selectedProfile();
-
-    if (profile) {
-        if (alias && strlen(alias) > 0) {
-            account = AccountModel::instance().add(alias, Account::Protocol::RING);
-            profile->person()->setFormattedName(alias);
-        } else {
-            auto unknown_alias = C_("The default username / account alias, if none is set by the user", "Unknown");
-            account = AccountModel::instance().add(unknown_alias, Account::Protocol::RING);
-            profile->person()->setFormattedName(unknown_alias);
-        }
-    }
-
-    account->setDisplayName(alias); // set the display name to the same as the alias
-    account->setUpnpEnabled(TRUE);
-
-    /* wait for hash to be generated to show the main view */
-    priv->hash_updated = QObject::connect(
-        account,
-        &Account::changed,
-        [=] (Account *a) {
-            QString hash = a->username();
-            if (!hash.isEmpty()) {
-                /* show the call view */
-                gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
-                gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
-
-                /* show the settings button*/
-                gtk_widget_show(priv->ring_settings);
-
-                //once the account is created we don't want this lambda to be called again
-                QObject::disconnect(priv->hash_updated);
-            }
-        }
-    );
-
-    account->performAction(Account::EditAction::SAVE);
-    profile->save();
-
-    return G_SOURCE_REMOVE;
-}
-
 static void
-alias_entry_changed(GtkEditable *entry, RingMainWindow *win)
+on_account_creation_completed(RingMainWindow *win)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(win));
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
-    const gchar *alias = gtk_entry_get_text(GTK_ENTRY(entry));
-    if (!alias || strlen(alias) == 0) {
-        gtk_widget_show(priv->label_default_name);
-        gtk_widget_hide(priv->label_paceholder);
-    } else {
-        gtk_widget_hide(priv->label_default_name);
-        gtk_widget_show(priv->label_paceholder);
+    gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
+
+    /* destroy the wizard */
+    //REVIEW: Is that how its done?
+    GtkWidget* account_creation_wizard = gtk_stack_get_child_by_name(
+        GTK_STACK(priv->stack_main_view),
+        ACCOUNT_CREATION_WIZARD_VIEW_NAME
+    );
+    if (account_creation_wizard)
+    {
+        gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), account_creation_wizard);
+        gtk_widget_destroy(account_creation_wizard);
     }
+
+    /* show the settings button*/
+    gtk_widget_show(priv->ring_settings);
 }
 
 static void
-account_creation_next_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+show_account_creation_wizard(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
-    /* show/hide relevant widgets */
-    gtk_widget_hide(priv->vbox_account_creation_entry);
-    gtk_widget_hide(priv->button_account_creation_next);
-    gtk_widget_show(priv->label_generating_account);
-    gtk_widget_show(priv->spinner_generating_account);
+    auto account_creation_wizard = gtk_stack_get_child_by_name(
+        GTK_STACK(priv->stack_main_view),
+        ACCOUNT_CREATION_WIZARD_VIEW_NAME
+    );
 
-    /* make sure the AvatarManipulation widget is destroyed so the VideoWidget inside of it is too;
-     * NOTE: destorying its parent (box_avatarselection) first will cause a mystery 'BadDrawable'
-     * crash due to X error */
-    gtk_container_remove(GTK_CONTAINER(priv->box_avatarselection), priv->avatar_manipulation);
-    priv->avatar_manipulation = nullptr;
+    if (!account_creation_wizard)
+    {
+        account_creation_wizard = account_creation_wizard_new(false);
+        g_signal_connect_swapped(account_creation_wizard, "account-creation-completed", G_CALLBACK(on_account_creation_completed), win);
 
-    /* now create account after a short timeout so that the the save doesn't
-     * happen freeze the client before the widget changes happen;
-     * the timeout function should then display the next step in account creation
-     */
-    g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)create_ring_account, win, NULL);
-}
-
-static void
-entry_alias_activated(GtkEntry *entry, RingMainWindow *win)
-{
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-
-    const gchar *alias = gtk_entry_get_text(GTK_ENTRY(entry));
-    if (strlen(alias) > 0)
-        gtk_button_clicked(GTK_BUTTON(priv->button_account_creation_next));
-}
-
-static void
-show_account_creation(RingMainWindow *win)
-{
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-
-    gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
-                        priv->account_creation,
-                        CREATE_ACCOUNT_VIEW_NAME);
+        gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
+                            account_creation_wizard,
+                            ACCOUNT_CREATION_WIZARD_VIEW_NAME);
+    }
 
     /* hide settings button until account creation is complete */
     gtk_widget_hide(priv->ring_settings);
 
-    /* set ring logo */
-    GError *error = NULL;
-    GdkPixbuf* logo_ring = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/ring-logo-blue",
-                                                                  -1, 50, TRUE, &error);
-    if (logo_ring == NULL) {
-        g_debug("Could not load logo: %s", error->message);
-        g_clear_error(&error);
-    } else
-        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring_logo), logo_ring);
+    gtk_widget_show(account_creation_wizard);
 
-    /* use the real name / username of the logged in user as the default */
-    const char* real_name = g_get_real_name();
-    const char* user_name = g_get_user_name();
-    g_debug("real_name = %s",real_name);
-    g_debug("user_name = %s",user_name);
-
-    /* check first if the real name was determined */
-    if (g_strcmp0 (real_name,"Unknown") != 0)
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), real_name);
-    else
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), user_name);
-
-    /* avatar manipulation widget */
-    priv->avatar_manipulation = avatar_manipulation_new_from_wizard();
-    gtk_box_pack_start(GTK_BOX(priv->box_avatarselection), priv->avatar_manipulation, true, true, 0);
-
-    /* connect signals */
-    g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(alias_entry_changed), win);
-    g_signal_connect(priv->button_account_creation_next, "clicked", G_CALLBACK(account_creation_next_clicked), win);
-    g_signal_connect(priv->entry_alias, "activate", G_CALLBACK(entry_alias_activated), win);
-
-    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CREATE_ACCOUNT_VIEW_NAME);
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_CREATION_WIZARD_VIEW_NAME);
 }
 
 static void
@@ -859,6 +749,45 @@ dtmf_pressed(RingMainWindow *win,
 }
 
 static void
+handle_account_migrations(RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    /* If there is an existing migration view, remove it */
+    GtkWidget* old_view = gtk_stack_get_child_by_name(GTK_STACK(priv->stack_main_view), ACCOUNT_MIGRATION_VIEW_NAME);
+    if (old_view)
+    {
+        gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), old_view);
+    }
+
+    QList<Account*> accounts = AccountModel::instance().accountsToMigrate();
+    if (!accounts.isEmpty())
+    {
+        Account* account = accounts.first();
+        g_debug("Migrating account: %s", account->id().toStdString().c_str());
+
+        GtkWidget* account_migration_view = account_migration_view_new(account);
+        g_signal_connect_swapped(account_migration_view, "account-migration-completed", G_CALLBACK(handle_account_migrations), win);
+
+        gtk_widget_hide(priv->ring_settings);
+        gtk_widget_show(account_migration_view);
+        gtk_stack_add_named(
+            GTK_STACK(priv->stack_main_view),
+            account_migration_view,
+            ACCOUNT_MIGRATION_VIEW_NAME
+        );
+        gtk_stack_set_visible_child_name(
+            GTK_STACK(priv->stack_main_view),
+            ACCOUNT_MIGRATION_VIEW_NAME
+        );
+    }
+    else
+    {
+        gtk_widget_show(priv->ring_settings);
+    }
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -904,7 +833,7 @@ ring_main_window_init(RingMainWindow *win)
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
     } else {
         /* user has to create the ring account */
-        show_account_creation(win);
+        show_account_creation_wizard(win);
     }
 
     /* init the settings views */
@@ -1072,6 +1001,8 @@ ring_main_window_init(RingMainWindow *win)
     /* set the search entry placeholder text */
     gtk_entry_set_placeholder_text(GTK_ENTRY(priv->search_entry),
                                    C_("Please try to make the translation 50 chars or less so that it fits into the layout", "Search contacts or enter number"));
+
+    handle_account_migrations(win);
 }
 
 static void
@@ -1120,18 +1051,6 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_media_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
-
-    /* account creation */
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, account_creation);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_ring_logo);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_account_creation_entry);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, entry_alias);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_default_name);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_paceholder);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, label_generating_account);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, spinner_generating_account);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_account_creation_next);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, box_avatarselection);
 }
 
 GtkWidget *
