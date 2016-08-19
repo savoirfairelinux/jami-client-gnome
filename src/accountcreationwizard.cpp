@@ -30,6 +30,7 @@
 #include <accountmodel.h>
 #include <personmodel.h>
 #include "avatarmanipulation.h"
+#include <memory>
 
 struct _AccountCreationWizard
 {
@@ -112,8 +113,10 @@ destroy_avatar_manipulation(AccountCreationWizard *view)
 static void
 account_creation_wizard_dispose(GObject *object)
 {
-    G_OBJECT_CLASS(account_creation_wizard_parent_class)->dispose(object);
+    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(object);
     destroy_avatar_manipulation(ACCOUNT_CREATION_WIZARD(object));
+    QObject::disconnect(priv->hash_updated);
+    G_OBJECT_CLASS(account_creation_wizard_parent_class)->dispose(object);
 }
 
 static void
@@ -192,6 +195,8 @@ create_ring_account(AccountCreationWizard *view,
     g_return_val_if_fail(IS_ACCOUNT_CREATION_WIZARD(view), G_SOURCE_REMOVE);
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
 
+    g_object_ref(view); // ref so its not desroyed too early
+
     /* create account and set UPnP enabled, as its not by default in the daemon */
     Account *account = nullptr;
 
@@ -230,6 +235,10 @@ create_ring_account(AccountCreationWizard *view,
             QString hash = a->username();
             if (!hash.isEmpty()) {
                 g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED], 0);
+                AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+                QObject::disconnect(priv->hash_updated); // only want to emit once
+                g_object_unref(view); // no longer needed
+                // TODO: what if changed never gets called?
             }
         }
     );
