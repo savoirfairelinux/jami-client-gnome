@@ -548,6 +548,9 @@ create_ring_account(RingMainWindow *win)
 
                 /* show the settings button*/
                 gtk_widget_show(priv->ring_settings);
+
+                //once the account is created we don't want this lambda to be called again
+                QObject::disconnect(priv->hash_updated);
             }
         }
     );
