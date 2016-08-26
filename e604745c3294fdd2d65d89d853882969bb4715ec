@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_b9196024",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-26T16:15:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_61bca06d",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 83
+      },
+      "revId": "e604745c3294fdd2d65d89d853882969bb4715ec",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_8c177ba3",
         "filename": "src/accountcreationwizard.cpp",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2016-08-24T19:45:57Z",
       "side": 1,
       "message": "should we be setting the profile name each time to the alias? ie: if this is the first account being created when Ring is first used, this makes sense, but for subsequent accounts, it will overwrite the profile name already set, and I\u0027m not sure if thats expected behaviour... maybe we should check if its the first account being created and if the profile name is blank, otherwise it should be left as is",
+      "range": {
+        "startLine": 225,
+        "startChar": 12,
+        "endLine": 225,
+        "endChar": 55
+      },
+      "revId": "e604745c3294fdd2d65d89d853882969bb4715ec",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_b9f080ca",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-26T16:15:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_8c177ba3",
       "range": {
         "startLine": 225,
         "startChar": 12,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_d916a4f1",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-26T16:15:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_81c184e6",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 91
+      },
+      "revId": "e604745c3294fdd2d65d89d853882969bb4715ec",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_8c7e9be3",
         "filename": "src/accountcreationwizard.cpp",
         "patchSetId": 9
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_79d3f838",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-26T16:15:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_8c7e9be3",
+      "range": {
+        "startLine": 235,
+        "startChar": 4,
+        "endLine": 235,
+        "endChar": 21
+      },
+      "revId": "e604745c3294fdd2d65d89d853882969bb4715ec",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_2c83efcd",
         "filename": "src/accountcreationwizard.cpp",
         "patchSetId": 9
@@ -105,6 +201,30 @@
       "writtenOn": "2016-08-24T19:45:57Z",
       "side": 1,
       "message": "I assume in this case we also want to call:\nQObject::disconnect(priv-\u003ehash_updated); // only want to emit once",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 55
+      },
+      "revId": "e604745c3294fdd2d65d89d853882969bb4715ec",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_99d81c55",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-26T16:15:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_2c83efcd",
       "range": {
         "startLine": 267,
         "startChar": 0,
