@@ -316,6 +316,8 @@ SET( SRC_FILES
    src/avatarmanipulation.cpp
    src/accountimportexportview.h
    src/accountimportexportview.cpp
+   src/contactpopupmenu.h
+   src/contactpopupmenu.cpp
 )
 
 # compile glib resource files to c code
