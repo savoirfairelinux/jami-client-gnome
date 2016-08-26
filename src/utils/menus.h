@@ -32,9 +32,10 @@ class ContactMethod;
 gboolean    contact_method_has_contact(ContactMethod *cm);
 
 /**
- * creates a menu item allowing the adition of a contact method to a contact
+ * Takes a GtkMenuItem and connects its activate signal to a popup which adds the given
+ * ContactMethod to a Person
  */
-GtkWidget * menu_item_add_to_contact(ContactMethod *cm, GtkWidget *parent, const GdkRectangle *rect);
+GtkMenuItem* menu_item_add_to_contact(GtkMenuItem *item, ContactMethod *cm, GtkWidget *parent, const GdkRectangle *rect);
 
 G_END_DECLS
 

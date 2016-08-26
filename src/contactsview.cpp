@@ -33,8 +33,7 @@
 #include "utils/models.h"
 #include <QtCore/QItemSelectionModel>
 #include "numbercategory.h"
-
-static constexpr const char* COPY_DATA_KEY = "copy_data";
+#include "contactpopupmenu.h"
 
 struct _ContactsView
 {
@@ -50,6 +49,8 @@ typedef struct _ContactsViewPrivate ContactsViewPrivate;
 
 struct _ContactsViewPrivate
 {
+    GtkWidget *popup_menu;
+
     CategorizedContactModel::SortedProxy *q_sorted_proxy;
 };
 
@@ -251,207 +252,6 @@ activate_contact_item(GtkTreeView *tree_view,
 }
 
 static void
-call_contactmethod(G_GNUC_UNUSED GtkWidget *item, ContactMethod *cm)
-{
-    g_return_if_fail(cm);
-    place_new_call(cm);
-}
-
-static void
-copy_contact_info(GtkWidget *item, G_GNUC_UNUSED gpointer user_data)
-{
-    gpointer data = g_object_get_data(G_OBJECT(item), COPY_DATA_KEY);
-    g_return_if_fail(data);
-    gchar* text = (gchar *)data;
-    GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-    gtk_clipboard_set_text(clip, text, -1);
-}
-
-
-static gboolean
-remove_contact_dialog(GtkWidget *widget, Person *person)
-{
-    gboolean response = FALSE;
-    GtkWidget *dialog = gtk_message_dialog_new(NULL,
-                            (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-                            GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
-                            _("Are you sure you want to delete contact \"%s\"?"
-                            " It will be removed from your system's addressbook."),
-                            person->formattedName().toUtf8().constData());
-
-    gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
-
-    /* get parent window so we can center on it */
-    GtkWidget *parent = gtk_widget_get_toplevel(GTK_WIDGET(widget));
-    if (gtk_widget_is_toplevel(parent)) {
-        gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(parent));
-        gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
-    }
-
-    switch (gtk_dialog_run(GTK_DIALOG(dialog))) {
-        case GTK_RESPONSE_OK:
-            response = TRUE;
-            break;
-        default:
-            response = FALSE;
-            break;
-    }
-
-    gtk_widget_destroy(dialog);
-
-    return response;
-}
-
-static void
-remove_contact(GtkWidget *item, G_GNUC_UNUSED gpointer user_data)
-{
-    gpointer data = g_object_get_data(G_OBJECT(item), COPY_DATA_KEY);
-    g_return_if_fail(data);
-    Person* person = (Person *)data;
-    if (remove_contact_dialog(item, person)) {
-        person->remove();
-    }
-}
-
-static gboolean
-contacts_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, GtkTreeView *treeview)
-{
-    /* build popup menu when right clicking on contact item
-     * user should be able to copy the contact's name or "number".
-     * other functionality may be added later.
-     */
-
-    /* check for right click */
-    if (event->button != BUTTON_RIGHT_CLICK || event->type != GDK_BUTTON_PRESS)
-        return FALSE;
-
-    /* we don't want a popup menu for categories for now, so everything deeper
-     * than one */
-    GtkTreeIter iter;
-    GtkTreeModel *model;
-    GtkTreeSelection *selection = gtk_tree_view_get_selection(treeview);
-    if (!gtk_tree_selection_get_selected(selection, &model, &iter))
-        return FALSE;
-
-    GtkTreePath *path = gtk_tree_model_get_path(model, &iter);
-    int depth = gtk_tree_path_get_depth(path);
-    gtk_tree_path_free(path);
-
-    if (depth < 2)
-        return FALSE;
-
-    /* deeper than a category, so create a menu */
-    GtkWidget *menu = gtk_menu_new();
-    QModelIndex idx = get_index_from_selection(selection);
-
-    /* if depth == 2, it is a contact, offer to copy name, and if only one
-     * contact method exists then also the "number",
-     * if depth > 2, then its a contact method, so only offer to copy the number
-     */
-    if (depth == 2) {
-        QVariant var_c = idx.data(static_cast<int>(Ring::Role::Object));
-        if (var_c.isValid()) {
-            Person *c = var_c.value<Person *>();
-
-                /* call */
-                /* possiblity for multiple numbers */
-                auto cms = c->phoneNumbers();
-                if (cms.size() == 1) {
-                    auto item = gtk_menu_item_new_with_mnemonic(_("_Call"));
-                    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-                    g_signal_connect(item,
-                                     "activate",
-                                     G_CALLBACK(call_contactmethod),
-                                     cms.at(0));
-                } else if (cms.size() > 1) {
-                    // maybe this is not needed since there is the depth > 2 option
-                    auto call_item = gtk_menu_item_new_with_mnemonic(_("_Call"));
-                    gtk_menu_shell_append(GTK_MENU_SHELL(menu), call_item);
-                    auto call_menu = gtk_menu_new();
-                    gtk_menu_item_set_submenu(GTK_MENU_ITEM(call_item), call_menu);
-                    for (int i = 0; i < cms.size(); ++i) {
-                        gchar *number = nullptr;
-                        if (cms.at(i)->category()) {
-                            // try to get the number category, eg: "home"
-                            number = g_strdup_printf("(%s) %s", cms.at(i)->category()->name().toUtf8().constData(),
-                                                              cms.at(i)->uri().toUtf8().constData());
-                        } else {
-                            number = g_strdup_printf("%s", cms.at(i)->uri().toUtf8().constData());
-                        }
-                        auto item = gtk_menu_item_new_with_label(number);
-                        g_free(number);
-                        gtk_menu_shell_append(GTK_MENU_SHELL(call_menu), item);
-                        g_signal_connect(item,
-                                         "activate",
-                                         G_CALLBACK(call_contactmethod),
-                                         cms.at(i));
-                    }
-                }
-
-            /* copy name */
-            gchar *name = g_strdup_printf("%s", c->formattedName().toUtf8().constData());
-            GtkWidget *copy_name_item = gtk_menu_item_new_with_mnemonic(_("_Copy name"));
-            gtk_menu_shell_append(GTK_MENU_SHELL(menu), copy_name_item);
-            g_object_set_data_full(G_OBJECT(copy_name_item), COPY_DATA_KEY, name, (GDestroyNotify)g_free);
-            g_signal_connect(copy_name_item,
-                             "activate",
-                             G_CALLBACK(copy_contact_info),
-                             NULL);
-
-            /* copy number if there is only one */
-            if (c->phoneNumbers().size() == 1) {
-                gchar *number = g_strdup_printf("%s",c->phoneNumbers().first()->uri().toUtf8().constData());
-                GtkWidget *item = gtk_menu_item_new_with_mnemonic(_("_Copy number"));
-                gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-                g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, number, (GDestroyNotify)g_free);
-                g_signal_connect(item,
-                                "activate",
-                                G_CALLBACK(copy_contact_info),
-                                NULL);
-            }
-
-            /* delete contact */
-            GtkWidget *remove_contact_item = gtk_menu_item_new_with_mnemonic(_("_Remove contact"));
-            gtk_menu_shell_append(GTK_MENU_SHELL(menu), remove_contact_item);
-            g_object_set_data_full(G_OBJECT(remove_contact_item), COPY_DATA_KEY, c, (GDestroyNotify)g_free);
-            g_signal_connect(remove_contact_item,
-                             "activate",
-                             G_CALLBACK(remove_contact),
-                             NULL);
-
-        }
-    } else if (depth > 2) {
-        QVariant var_n = idx.data(static_cast<int>(ContactMethod::Role::Object));
-        if (var_n.isValid()) {
-            /* copy number */
-            ContactMethod *cm = var_n.value<ContactMethod *>();
-            gchar *number = g_strdup_printf("%s",cm->uri().toUtf8().constData());
-            GtkWidget *item = gtk_menu_item_new_with_mnemonic(_("_Copy number"));
-            gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-            g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, number, (GDestroyNotify)g_free);
-            g_signal_connect(item,
-                             "activate",
-                             G_CALLBACK(copy_contact_info),
-                             NULL);
-
-            /* call */
-            item = gtk_menu_item_new_with_mnemonic(_("_Call"));
-            gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-            g_signal_connect(item,
-                             "activate",
-                             G_CALLBACK(call_contactmethod),
-                             cm);
-        }
-    }
-
-    /* show menu */
-    gtk_widget_show_all(menu);
-    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
-
-    return TRUE; /* we handled the event */
-}
-
-static void
 contacts_view_init(ContactsView *self)
 {
     ContactsViewPrivate *priv = CONTACTS_VIEW_GET_PRIVATE(self);
@@ -513,8 +313,11 @@ contacts_view_init(ContactsView *self)
 
     gtk_tree_view_expand_all(GTK_TREE_VIEW(self));
     g_signal_connect(contact_model, "row-inserted", G_CALLBACK(expand_if_child), self);
-    g_signal_connect(self, "button-press-event", G_CALLBACK(contacts_popup_menu), self);
     g_signal_connect(self, "row-activated", G_CALLBACK(activate_contact_item), NULL);
+
+    /* init popup menu */
+    priv->popup_menu = contact_popup_menu_new(GTK_TREE_VIEW(self));
+    g_signal_connect_swapped(self, "button-press-event", G_CALLBACK(contact_popup_menu_show), priv->popup_menu);
 
     gtk_widget_show_all(GTK_WIDGET(self));
 }
@@ -522,6 +325,10 @@ contacts_view_init(ContactsView *self)
 static void
 contacts_view_dispose(GObject *object)
 {
+    ContactsViewPrivate *priv = CONTACTS_VIEW_GET_PRIVATE(object);
+
+    gtk_widget_destroy(priv->popup_menu);
+
     G_OBJECT_CLASS(contacts_view_parent_class)->dispose(object);
 }
 

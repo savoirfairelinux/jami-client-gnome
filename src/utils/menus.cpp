@@ -47,26 +47,26 @@ choose_contact(GtkWidget *item, ContactMethod *contactmethod)
 }
 
 /**
- * creates a menu item allowing the adition of a contact method to a contact
+ * Takes a GtkMenuItem and connects its activate signal to a popup which adds the given
+ * ContactMethod to a Person
  */
-GtkWidget * menu_item_add_to_contact(ContactMethod *cm, GtkWidget *parent, const GdkRectangle *rect)
+GtkMenuItem*
+menu_item_add_to_contact(GtkMenuItem *item, ContactMethod *cm, GtkWidget *parent, const GdkRectangle *rect)
 {
-    g_return_val_if_fail(cm, NULL);
-
-    auto add_to = gtk_menu_item_new_with_mnemonic(_("_Add to contact"));
+    g_return_val_if_fail(item && cm, NULL);
 
     /* save the parent widget in the item object, so we can retrieve
      * it in the callback */
-    g_object_set_data(G_OBJECT(add_to), "parent-widget", parent);
+    g_object_set_data(G_OBJECT(item), "parent-widget", parent);
 
     GdkRectangle *copy_rect = NULL;
     if (rect) {
         copy_rect = g_new0(GdkRectangle, 1);
         memcpy(copy_rect, rect, sizeof(GdkRectangle));
     }
-    g_object_set_data_full(G_OBJECT(add_to), "parent-rectangle", copy_rect, (GDestroyNotify)g_free);
+    g_object_set_data_full(G_OBJECT(item), "parent-rectangle", copy_rect, (GDestroyNotify)g_free);
 
-    g_signal_connect(add_to, "activate", G_CALLBACK(choose_contact), cm);
+    g_signal_connect(item, "activate", G_CALLBACK(choose_contact), cm);
 
-    return add_to;
+    return item;
 }

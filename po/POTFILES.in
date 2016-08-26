@@ -8,6 +8,7 @@ src/accountvideotab.cpp
 src/accountview.cpp
 src/avatarmanipulation.cpp
 src/backends/edscontactbackend.cpp
+src/contactpopupmenu.cpp
 src/contactsview.cpp
 src/dialogs.c
 src/editcontactview.cpp

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-29 08:42-0400\n"
+"POT-Creation-Date: 2016-08-29 18:07-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -169,15 +169,15 @@ msgctxt "Account status column"
 msgid "Status"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:429
+#: src/avatarmanipulation.cpp:431
 msgid "Open Avatar Image"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:432
+#: src/avatarmanipulation.cpp:434
 msgid "_Cancel"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:434
+#: src/avatarmanipulation.cpp:436
 msgid "_Open"
 msgstr ""
 
@@ -190,31 +190,30 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr ""
 
-#: src/contactsview.cpp:278
+#: src/contactpopupmenu.cpp:82
 #, c-format
 msgid ""
 "Are you sure you want to delete contact \"%s\"? It will be removed from your "
 "system's addressbook."
 msgstr ""
 
-#: src/contactsview.cpp:360 src/contactsview.cpp:368 src/contactsview.cpp:438
-#: src/historyview.cpp:188 src/recentcontactsview.cpp:406
-#: src/recentcontactsview.cpp:413 src/recentcontactsview.cpp:440
+#: src/contactpopupmenu.cpp:114
 msgid "_Call"
 msgstr ""
 
-#: src/contactsview.cpp:393 src/historyview.cpp:199
-#: src/recentcontactsview.cpp:460
+#: src/contactpopupmenu.cpp:117
 msgid "_Copy name"
 msgstr ""
 
-#: src/contactsview.cpp:404 src/contactsview.cpp:429 src/historyview.cpp:209
-#: src/recentcontactsview.cpp:478 src/recentcontactsview.cpp:486
-#: src/recentcontactsview.cpp:518
+#: src/contactpopupmenu.cpp:120
 msgid "_Copy number"
 msgstr ""
 
-#: src/contactsview.cpp:414
+#: src/contactpopupmenu.cpp:123
+msgid "_Add to contact"
+msgstr ""
+
+#: src/contactpopupmenu.cpp:126
 msgid "_Remove contact"
 msgstr ""
 
@@ -247,12 +246,12 @@ msgid ""
 "This operation will also reset the Frequent Contacts list"
 msgstr ""
 
-#: src/historyview.cpp:403
+#: src/historyview.cpp:289
 msgctxt "Call history"
 msgid "Call"
 msgstr ""
 
-#: src/historyview.cpp:448
+#: src/historyview.cpp:334
 msgctxt "Call history"
 msgid "Date"
 msgstr ""
@@ -286,7 +285,7 @@ msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1071
+#: src/ringmainwindow.cpp:1074
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the "
 "layout"
@@ -324,10 +323,6 @@ msgstr ""
 msgid ""
 "Could not re-connect to the Ring daemon (dring).\n"
 "Ring will now quit."
-msgstr ""
-
-#: src/utils/menus.cpp:56
-msgid "_Add to contact"
 msgstr ""
 
 #: src/video/video_widget.cpp:513

@@ -39,9 +39,8 @@
 #include <QtCore/QDateTime>
 #include <QtCore/QMimeData>
 #include "utils/drawing.h"
-#include "numbercategory.h"
-
-static constexpr const char* COPY_DATA_KEY = "copy_data";
+#include <numbercategory.h>
+#include "contactpopupmenu.h"
 
 static constexpr const char* CALL_TARGET    = "CALL_TARGET";
 static constexpr int         CALL_TARGET_ID = 0;
@@ -60,7 +59,7 @@ typedef struct _RecentContactsViewPrivate RecentContactsViewPrivate;
 
 struct _RecentContactsViewPrivate
 {
-    GtkWidget *overlay_button;
+    GtkWidget *popup_menu;
 
     QMetaObject::Connection selection_updated;
 };
@@ -83,23 +82,6 @@ update_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer user_data)
     } else {
         CallModel::instance().selectionModel()->clearCurrentIndex();
     }
-}
-
-static void
-copy_contact_info(GtkWidget *item, G_GNUC_UNUSED gpointer user_data)
-{
-    gpointer data = g_object_get_data(G_OBJECT(item), COPY_DATA_KEY);
-    g_return_if_fail(data);
-    gchar* text = (gchar *)data;
-    GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-    gtk_clipboard_set_text(clip, text, -1);
-}
-
-static void
-call_contactmethod(G_GNUC_UNUSED GtkWidget *item, ContactMethod *cm)
-{
-    g_return_if_fail(cm);
-    place_new_call(cm);
 }
 
 static void
@@ -372,186 +354,6 @@ activate_item(GtkTreeView *tree_view,
     }
 }
 
-static gboolean
-create_popup_menu(GtkTreeView *treeview, GdkEventButton *event, G_GNUC_UNUSED gpointer user_data)
-{
-    /* build popup menu when right clicking on contact item
-     * user should be able to copy the contact's name or "number".
-     * or add the "number" to his contact list, if not already so
-     */
-
-    /* check for right click */
-    if (event->button != BUTTON_RIGHT_CLICK || event->type != GDK_BUTTON_PRESS)
-        return FALSE;
-
-    GtkTreeIter iter;
-    GtkTreeModel *model;
-    GtkTreeSelection *selection = gtk_tree_view_get_selection(treeview);
-    if (!gtk_tree_selection_get_selected(selection, &model, &iter))
-        return FALSE;
-
-    GtkWidget *menu = gtk_menu_new();
-    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
-
-    /* if Person or CM, give option to call */
-    auto type = idx.data(static_cast<int>(Ring::Role::ObjectType));
-    auto object = idx.data(static_cast<int>(Ring::Role::Object));
-    if (type.isValid() && object.isValid()) {
-        switch (type.value<Ring::ObjectType>()) {
-            case Ring::ObjectType::Person:
-            {
-                /* possiblity for multiple numbers */
-                auto cms = object.value<Person *>()->phoneNumbers();
-                if (cms.size() == 1) {
-                    auto item = gtk_menu_item_new_with_mnemonic(_("_Call"));
-                    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-                    g_signal_connect(item,
-                                     "activate",
-                                     G_CALLBACK(call_contactmethod),
-                                     cms.at(0));
-                } else if (cms.size() > 1) {
-                    auto call_item = gtk_menu_item_new_with_mnemonic(_("_Call"));
-                    gtk_menu_shell_append(GTK_MENU_SHELL(menu), call_item);
-                    auto call_menu = gtk_menu_new();
-                    gtk_menu_item_set_submenu(GTK_MENU_ITEM(call_item), call_menu);
-                    for (int i = 0; i < cms.size(); ++i) {
-                        gchar *number = nullptr;
-                        if (cms.at(i)->category()) {
-                            // try to get the number category, eg: "home"
-                            number = g_strdup_printf("(%s) %s", cms.at(i)->category()->name().toUtf8().constData(),
-                                                              cms.at(i)->uri().toUtf8().constData());
-                        } else {
-                            number = g_strdup_printf("%s", cms.at(i)->uri().toUtf8().constData());
-                        }
-                        auto item = gtk_menu_item_new_with_label(number);
-                        g_free(number);
-                        gtk_menu_shell_append(GTK_MENU_SHELL(call_menu), item);
-                        g_signal_connect(item,
-                                         "activate",
-                                         G_CALLBACK(call_contactmethod),
-                                         cms.at(i));
-                    }
-                }
-            }
-            break;
-            case Ring::ObjectType::ContactMethod:
-            {
-                auto cm = object.value<ContactMethod *>();
-                auto item = gtk_menu_item_new_with_mnemonic(_("_Call"));
-                gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-                g_signal_connect(item,
-                                 "activate",
-                                 G_CALLBACK(call_contactmethod),
-                                 cm);
-            }
-            break;
-            case Ring::ObjectType::Call:
-            case Ring::ObjectType::Media:
-            // nothing to do for now
-            case Ring::ObjectType::COUNT__:
-            break;
-        }
-    }
-
-    /* copy name */
-    QVariant name_var = idx.data(static_cast<int>(Ring::Role::Name));
-    if (name_var.isValid()) {
-        gchar *name = g_strdup_printf("%s", name_var.value<QString>().toUtf8().constData());
-        GtkWidget *item = gtk_menu_item_new_with_mnemonic(_("_Copy name"));
-        gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-        g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, name, (GDestroyNotify)g_free);
-        g_signal_connect(item,
-                         "activate",
-                         G_CALLBACK(copy_contact_info),
-                         NULL);
-    }
-
-    /* copy number(s) */
-    if (type.isValid() && object.isValid()) {
-        switch (type.value<Ring::ObjectType>()) {
-            case Ring::ObjectType::Person:
-            {
-                /* possiblity for multiple numbers */
-                auto cms = object.value<Person *>()->phoneNumbers();
-                if (cms.size() == 1) {
-                    gchar *number = g_strdup_printf("%s",cms.at(0)->uri().toUtf8().constData());
-                    auto item = gtk_menu_item_new_with_mnemonic(_("_Copy number"));
-                    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-                    g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, number, (GDestroyNotify)g_free);
-                    g_signal_connect(item,
-                                     "activate",
-                                     G_CALLBACK(copy_contact_info),
-                                     NULL);
-                } else if (cms.size() > 1) {
-                    auto copy_item = gtk_menu_item_new_with_mnemonic(_("_Copy number"));
-                    gtk_menu_shell_append(GTK_MENU_SHELL(menu), copy_item);
-                    auto copy_menu = gtk_menu_new();
-                    gtk_menu_item_set_submenu(GTK_MENU_ITEM(copy_item), copy_menu);
-                    for (int i = 0; i < cms.size(); ++i) {
-                        gchar *number = nullptr;
-                        if (cms.at(i)->category()) {
-                            // try to get the number category, eg: "home"
-                            number = g_strdup_printf("(%s) %s", cms.at(i)->category()->name().toUtf8().constData(),
-                                                              cms.at(i)->uri().toUtf8().constData());
-                        } else {
-                            number = g_strdup_printf("%s", cms.at(i)->uri().toUtf8().constData());
-                        }
-                        auto item = gtk_menu_item_new_with_label(number);
-                        g_free(number);
-                        gtk_menu_shell_append(GTK_MENU_SHELL(copy_menu), item);
-                        g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, number, (GDestroyNotify)g_free);
-                        g_signal_connect(item,
-                                         "activate",
-                                         G_CALLBACK(copy_contact_info),
-                                         NULL);
-                    }
-                }
-            }
-            break;
-            case Ring::ObjectType::ContactMethod:
-            case Ring::ObjectType::Call:
-            case Ring::ObjectType::Media:
-            {
-                QVariant number_var = idx.data(static_cast<int>(Ring::Role::Number));
-                if (number_var.isValid()) {
-                    gchar *number = g_strdup_printf("%s", number_var.value<QString>().toUtf8().constData());
-                    GtkWidget *item = gtk_menu_item_new_with_mnemonic(_("_Copy number"));
-                    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-                    g_object_set_data_full(G_OBJECT(item), COPY_DATA_KEY, number, (GDestroyNotify)g_free);
-                    g_signal_connect(item,
-                                     "activate",
-                                     G_CALLBACK(copy_contact_info),
-                                     NULL);
-                }
-            }
-            break;
-            case Ring::ObjectType::COUNT__:
-            break;
-        }
-    }
-
-     /* if the object is a CM, then give the option to add to contacts*/
-     if (type.isValid() && object.isValid()) {
-         if (type.value<Ring::ObjectType>() == Ring::ObjectType::ContactMethod) {
-             /* get rectangle */
-             auto path = gtk_tree_model_get_path(model, &iter);
-             auto column = gtk_tree_view_get_column(treeview, 0);
-             GdkRectangle rect;
-             gtk_tree_view_get_cell_area(treeview, path, column, &rect);
-             gtk_tree_view_convert_bin_window_to_widget_coords(treeview, rect.x, rect.y, &rect.x, &rect.y);
-             gtk_tree_path_free(path);
-             auto add_to = menu_item_add_to_contact(object.value<ContactMethod *>(), GTK_WIDGET(treeview), &rect);
-             gtk_menu_shell_append(GTK_MENU_SHELL(menu), add_to);
-         }
-     }
-
-    /* show menu */
-    gtk_widget_show_all(menu);
-    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
-
-    return TRUE; /* we handled the event */
-}
-
 static void
 expand_if_child(G_GNUC_UNUSED GtkTreeModel *tree_model,
                 GtkTreePath  *path,
@@ -792,7 +594,6 @@ recent_contacts_view_init(RecentContactsView *self)
     gtk_tree_view_column_set_expand(column, TRUE);
     gtk_tree_view_expand_all(GTK_TREE_VIEW(self));
 
-    g_signal_connect(self, "button-press-event", G_CALLBACK(create_popup_menu), NULL);
     g_signal_connect(self, "row-activated", G_CALLBACK(activate_item), NULL);
     g_signal_connect(recent_model, "row-inserted", G_CALLBACK(expand_if_child), self);
 
@@ -838,6 +639,10 @@ recent_contacts_view_init(RecentContactsView *self)
     g_signal_connect(self, "drag-motion", G_CALLBACK(on_drag_motion), nullptr);
     g_signal_connect(self, "drag_data_received", G_CALLBACK(on_drag_data_received), nullptr);
 
+    /* init popup menu */
+    priv->popup_menu = contact_popup_menu_new(GTK_TREE_VIEW(self));
+    g_signal_connect_swapped(self, "button-press-event", G_CALLBACK(contact_popup_menu_show), priv->popup_menu);
+
     gtk_widget_show_all(GTK_WIDGET(self));
 }
 
@@ -848,6 +653,7 @@ recent_contacts_view_dispose(GObject *object)
     RecentContactsViewPrivate *priv = RECENT_CONTACTS_VIEW_GET_PRIVATE(self);
 
     QObject::disconnect(priv->selection_updated);
+    gtk_widget_destroy(priv->popup_menu);
 
     G_OBJECT_CLASS(recent_contacts_view_parent_class)->dispose(object);
 }
