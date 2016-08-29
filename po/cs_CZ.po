@@ -1,154 +1,224 @@
 # Gettext PO translation template file for the GNOME client of the Ring project.
 # Copyright (C) 2015 Savoir-faire Linux Inc.
 # This file is distributed under the same license as the Ring package.
-# 
+#
 # Translators:
 # Tirifto <tirifto@openmailbox.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-13 09:43-0500\n"
+"POT-Creation-Date: 2016-07-29 08:42-0400\n"
 "PO-Revision-Date: 2016-07-28 18:51+0000\n"
 "Last-Translator: Stepan Salenikovich\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/savoirfairelinux/ring/language/cs_CZ/)\n"
+"Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs_CZ\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
+#: src/accountaudiotab.cpp:174 src/accountvideotab.cpp:183
 msgid "Enabled"
 msgstr "Zapnuto"
 
-#: src/accountaudiotab.cpp:191
+#: src/accountaudiotab.cpp:180
 msgctxt "Name of the codec"
 msgid "Name"
 msgstr "Jméno"
 
-#: src/accountaudiotab.cpp:195 src/accountvideotab.cpp:204
+#: src/accountaudiotab.cpp:184 src/accountvideotab.cpp:193
 msgid "Bitrate"
 msgstr "Přenosová rychlost"
 
-#: src/accountaudiotab.cpp:199
+#: src/accountaudiotab.cpp:188
 msgid "Samplerate"
 msgstr "Vzorkování"
 
-#: src/accountgeneraltab.cpp:210
+#: src/accountgeneraltab.cpp:224
+msgid "_Remove server"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:264
 msgid "Alias"
 msgstr "Přezdívka"
 
-#: src/accountgeneraltab.cpp:221
+#: src/accountgeneraltab.cpp:275
 msgid "Type"
 msgstr "Typ"
 
-#: src/accountgeneraltab.cpp:250
+#: src/accountgeneraltab.cpp:300
 msgid "auto-generating..."
 msgstr "auto-generace..."
 
-#: src/accountgeneraltab.cpp:269
+#: src/accountgeneraltab.cpp:318 src/accountgeneraltab.cpp:412
 msgid "Hostname"
 msgstr "Hostitelské jméno"
 
-#: src/accountgeneraltab.cpp:279
+#: src/accountgeneraltab.cpp:328
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: src/accountgeneraltab.cpp:289
+#: src/accountgeneraltab.cpp:338
 msgid "Password"
 msgstr "Heslo"
 
-#: src/accountgeneraltab.cpp:302
+#: src/accountgeneraltab.cpp:351
 msgid "Show password"
 msgstr "Ukázat heslo"
 
-#: src/accountgeneraltab.cpp:308
+#: src/accountgeneraltab.cpp:357
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/accountgeneraltab.cpp:318
+#: src/accountgeneraltab.cpp:367
 msgid "Voicemail number"
 msgstr "Číslo hlasové schránky"
 
-#: src/accountgeneraltab.cpp:330
+#: src/accountgeneraltab.cpp:379
+#, fuzzy
 msgctxt "The DHT bootstrap server url"
-msgid "Bootstrap"
+msgid "Bootstrap Servers"
 msgstr "Inicializace"
 
-#: src/accountgeneraltab.cpp:342
+#: src/accountgeneraltab.cpp:420 ui/accountadvancedtab.ui:314
+msgid "Port"
+msgstr "Port"
+
+#: src/accountgeneraltab.cpp:430
 msgid "Auto-answer calls"
 msgstr "Automaticky přijímat hovory"
 
-#: src/accountgeneraltab.cpp:350
+#: src/accountgeneraltab.cpp:438
 msgid "UPnP enabled"
 msgstr "UPnP povoleno"
 
-#: src/accountgeneraltab.cpp:358
+#: src/accountgeneraltab.cpp:446
 msgid "DTMF tone type:"
 msgstr "Typ tónové volby:"
 
-#: src/accountvideotab.cpp:200
+#: src/accountimportexportview.cpp:99
+msgid "Select account export location"
+msgstr ""
+
+#: src/accountimportexportview.cpp:102 ui/accountimportexportview.ui:161
+msgid "Cancel"
+msgstr ""
+
+#: src/accountimportexportview.cpp:104
+msgid "Select"
+msgstr ""
+
+#: src/accountimportexportview.cpp:211
+msgid "Error importing account(s)"
+msgstr ""
+
+#: src/accountimportexportview.cpp:263
+msgid "Error exporting account(s)"
+msgstr ""
+
+#: src/accountvideotab.cpp:189
 msgctxt "The name of the codec"
 msgid "Name"
 msgstr "Jméno"
 
-#: src/accountview.cpp:159
+#: src/accountview.cpp:162
 msgctxt "Account settings"
 msgid "General"
 msgstr "Obecné"
 
-#: src/accountview.cpp:163
+#: src/accountview.cpp:166
 msgctxt "Account settings"
 msgid "Audio"
 msgstr "Zvuk"
 
-#: src/accountview.cpp:167
+#: src/accountview.cpp:170
 msgctxt "Account settings"
 msgid "Video"
 msgstr "Obraz"
 
-#: src/accountview.cpp:171
+#: src/accountview.cpp:174
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Pokročilé"
 
-#: src/accountview.cpp:175
+#: src/accountview.cpp:178
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Zabezpečení"
 
-#: src/accountview.cpp:229
+#: src/accountview.cpp:234
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "Jste si jisti, že chcete odstranit účet \"%s\"?"
 
-#: src/accountview.cpp:313 src/accountview.cpp:315
+#: src/accountview.cpp:318 src/accountview.cpp:320
 msgid "New Account"
 msgstr "Nový účet"
 
-#: src/accountview.cpp:399
+#: src/accountview.cpp:469
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Povoleno"
 
-#: src/accountview.cpp:405
+#: src/accountview.cpp:475
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Přezdívka"
 
-#: src/accountview.cpp:409
+#: src/accountview.cpp:483
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Status"
 
-#: src/contactsview.cpp:305
+#: src/avatarmanipulation.cpp:429
+msgid "Open Avatar Image"
+msgstr ""
+
+#: src/avatarmanipulation.cpp:432
+msgid "_Cancel"
+msgstr ""
+
+#: src/avatarmanipulation.cpp:434
+msgid "_Open"
+msgstr ""
+
+#: src/backends/edscontactbackend.cpp:193
+msgid "Unknown EDS addressbook"
+msgstr "neznámá kniha adres EDS"
+
+#: src/backends/edscontactbackend.cpp:213
+msgctxt "Backend type"
+msgid "Contacts"
+msgstr "Kontakty"
+
+#: src/contactsview.cpp:278
+#, c-format
+msgid "Are you sure you want to delete contact \"%s\"? It will be removed from your system's addressbook."
+msgstr ""
+
+#: src/contactsview.cpp:360 src/contactsview.cpp:368 src/contactsview.cpp:438
+#: src/historyview.cpp:188 src/recentcontactsview.cpp:406
+#: src/recentcontactsview.cpp:413 src/recentcontactsview.cpp:440
+#, fuzzy
+msgid "_Call"
+msgstr "Hovor"
+
+#: src/contactsview.cpp:393 src/historyview.cpp:199
+#: src/recentcontactsview.cpp:460
 msgid "_Copy name"
 msgstr "_Kopírovat jméno"
 
-#: src/contactsview.cpp:316 src/contactsview.cpp:331
+#: src/contactsview.cpp:404 src/contactsview.cpp:429 src/historyview.cpp:209
+#: src/recentcontactsview.cpp:478 src/recentcontactsview.cpp:486
+#: src/recentcontactsview.cpp:518
 msgid "_Copy number"
 msgstr "_Kopírovat číslo"
+
+#: src/contactsview.cpp:414
+#, fuzzy
+msgid "_Remove contact"
+msgstr "_Přidat do kontaktu"
 
 #: src/dialogs.c:53
 msgid "Working..."
@@ -160,44 +230,46 @@ msgctxt "Do not translate the release name"
 msgid ""
 "release: Louis-Joseph Papineau\n"
 "v%d.%d.%d - %.10s"
-msgstr "vydání: Louis-Joseph Papineau\nv%d.%d.%d - %.10s"
+msgstr ""
+"vydání: Louis-Joseph Papineau\n"
+"v%d.%d.%d - %.10s"
 
-#: src/dialogs.c:111
+#: src/dialogs.c:114
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is a secured and distributed communication software."
-msgstr "Klient GNOME pro Ring.\nRing je zabezpečený a distribuovaný komunikační program."
+msgstr ""
+"Klient GNOME pro Ring.\n"
+"Ring je zabezpečený a distribuovaný komunikační program."
 
-#: src/editcontactview.cpp:196
+#: src/editcontactview.cpp:185
 msgctxt "Phone number category"
 msgid "home"
 msgstr "domov"
 
-#: src/generalsettingsview.cpp:94
+#: src/generalsettingsview.cpp:95
 msgid ""
 "Are you sure you want to clear all your history?\n"
 "This operation will also reset the Frequent Contacts list"
-msgstr "Jste si jisti, že chcete vymazat celou vaši historii?\nTato operace také vynuluje váš seznam Častých Kontaktů"
+msgstr ""
+"Jste si jisti, že chcete vymazat celou vaši historii?\n"
+"Tato operace také vynuluje váš seznam Častých Kontaktů"
 
-#: src/historyview.cpp:184
-msgid "_Copy"
-msgstr "_Kopírovat"
-
-#: src/historyview.cpp:402
+#: src/historyview.cpp:403
 msgctxt "Call history"
 msgid "Call"
 msgstr "Hovor"
 
-#: src/historyview.cpp:447
+#: src/historyview.cpp:448
 msgctxt "Call history"
 msgid "Date"
 msgstr "Datum"
 
-#: src/ringnotify.cpp:86
+#: src/ringnotify.cpp:78
 msgid "Incoming call"
 msgstr "Příchozí hovor"
 
-#: src/ringnotify.cpp:169
+#: src/ringnotify.cpp:161
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
@@ -208,58 +280,64 @@ msgid "Enable debug"
 msgstr "Povolit debug"
 
 #: src/ring_client_options.c:67
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
+msgid "Restores the hidden state of the main window (only applicable to the primary instance)"
 msgstr "Obnoví skrytý stav hlavního okna (pouze pro primární instanci)"
 
 #: src/ring_client_options.c:84
 msgid "- GNOME client for Ring"
 msgstr "- klient GNOME pro Ring"
 
-#: src/backends/edscontactbackend.cpp:201
-msgid "Unknown EDS addressbook"
-msgstr "neznámá kniha adres EDS"
+#: src/ringmainwindow.cpp:529
+msgctxt "The default username / account alias, if none is set by the user"
+msgid "Unknown"
+msgstr ""
 
-#: src/backends/edscontactbackend.cpp:221
-msgctxt "Backend type"
-msgid "Contacts"
-msgstr "Kontakty"
-
-#: src/utils/menus.cpp:67
-msgid "_Add to contact"
-msgstr "_Přidat do kontaktu"
-
-#: src/ringmainwindow.cpp:944
-msgctxt ""
-"Please try to make the translation 50 chars or less so that it fits into the"
-" layout"
+#: src/ringmainwindow.cpp:1071
+msgctxt "Please try to make the translation 50 chars or less so that it fits into the layout"
 msgid "Search contacts or enter number"
 msgstr "Hledejte kontakty nebo zadejte číslo"
 
-#: src/ringwelcomeview.cpp:61
+#: src/ringwelcomeview.cpp:65
 msgid "fetching RingID..."
 msgstr "získávám RingID..."
 
-#: src/ringwelcomeview.cpp:92
-msgid ""
-"Ring is a secure and distributed voice, video, and chat communication "
-"platform that requires no centralized server and leaves the power of privacy"
-" in the hands of the user."
+#: src/ringwelcomeview.cpp:102
+msgid "Ring is a secure and distributed voice, video, and chat communication platform that requires no centralized server and leaves the power of privacy in the hands of the user."
 msgstr "Ring je bezpečná a distribuovaná platforma pro zvukovou, obrazovou a textovou komunikaci, která nevyžaduje žádný centrální server a ponechává kontrolu nad soukromím v rukou uživatele."
 
-#: src/ringwelcomeview.cpp:102
+#: src/ringwelcomeview.cpp:113
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr "Toto je vaše RingID.\nZkopírujte a sdílejte jej s vašimi přáteli!"
+msgstr ""
+"Toto je vaše RingID.\n"
+"Zkopírujte a sdílejte jej s vašimi přáteli!"
 
-#: src/video/video_widget.cpp:478
+#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
+msgctxt "Name of error window (dialog)"
+msgid "Ring Error"
+msgstr ""
+
+#: src/native/dbuserrorhandler.cpp:57
+msgid "Trying to reconnect to the Ring daemon (dring)..."
+msgstr ""
+
+#: src/native/dbuserrorhandler.cpp:87
+msgid ""
+"Could not re-connect to the Ring daemon (dring).\n"
+"Ring will now quit."
+msgstr ""
+
+#: src/utils/menus.cpp:56
+msgid "_Add to contact"
+msgstr "_Přidat do kontaktu"
+
+#: src/video/video_widget.cpp:513
 msgid "Share screen area"
 msgstr "Sdílet část obrazovky"
 
-#: src/video/video_widget.cpp:484
+#: src/video/video_widget.cpp:519
 msgid "Share file"
 msgstr "Sdílet soubor"
 
@@ -280,89 +358,89 @@ msgid "Allow calls from peers in your contacts list"
 msgstr "Povolit hovory od uživatelů v seznamu kontaktů"
 
 #: ui/accountadvancedtab.ui:149
-msgid "<b>Registration</b>"
+#, fuzzy
+msgid "Registration"
 msgstr "<b>Registrace</b>"
 
-#: ui/accountadvancedtab.ui:176
+#: ui/accountadvancedtab.ui:178
 msgid "Use random port"
 msgstr "Použít náhodný port"
 
-#: ui/accountadvancedtab.ui:197
+#: ui/accountadvancedtab.ui:199
 msgid "Local port:"
 msgstr "Místní port:"
 
-#: ui/accountadvancedtab.ui:223
-msgid "<b>Network Interface</b>"
+#: ui/accountadvancedtab.ui:225
+#, fuzzy
+msgid "Network Interface"
 msgstr "<b>Síťové Rozhraní</b>"
 
-#: ui/accountadvancedtab.ui:249
+#: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
 msgstr "Stejné jako místní parametry"
 
-#: ui/accountadvancedtab.ui:264
+#: ui/accountadvancedtab.ui:268
 msgid "Set published address and port:"
 msgstr "Zadat veřejnou adresu a port:"
 
-#: ui/accountadvancedtab.ui:288
+#: ui/accountadvancedtab.ui:292
 msgid "Address"
 msgstr "Adresa"
 
-#: ui/accountadvancedtab.ui:310
-msgid "Port"
-msgstr "Port"
-
-#: ui/accountadvancedtab.ui:336
+#: ui/accountadvancedtab.ui:340
 msgid "Use STUN"
 msgstr "Použít STUN"
 
-#: ui/accountadvancedtab.ui:359 ui/accountadvancedtab.ui:408
+#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
 msgid "server URL"
 msgstr "URL serveru"
 
-#: ui/accountadvancedtab.ui:385
+#: ui/accountadvancedtab.ui:389
 msgid "Use TURN"
 msgstr "Použít TURN"
 
-#: ui/accountadvancedtab.ui:430
+#: ui/accountadvancedtab.ui:434
 msgid "username"
 msgstr "uživatelské jméno"
 
-#: ui/accountadvancedtab.ui:451
+#: ui/accountadvancedtab.ui:455
 msgid "password"
 msgstr "heslo"
 
-#: ui/accountadvancedtab.ui:475
+#: ui/accountadvancedtab.ui:479
 msgid "realm"
 msgstr "říše"
 
-#: ui/accountadvancedtab.ui:504
-msgid "<b>Published Address</b>"
+#: ui/accountadvancedtab.ui:508
+#, fuzzy
+msgid "Published Address"
 msgstr "<b>Zveřejněná adresa<b>"
 
-#: ui/accountadvancedtab.ui:533
-msgid ""
-"These settings are only used during SDP session negotiation in case ICE is "
-"not supported by the server or peer."
+#: ui/accountadvancedtab.ui:539
+msgid "These settings are only used during SDP session negotiation in case ICE is not supported by the server or peer."
 msgstr "Tato nastavení jsou použita jen během vyjednávání sezení SDP, v případě že ICE není podporováno serverem nebo peerem."
 
-#: ui/accountadvancedtab.ui:558 ui/accountadvancedtab.ui:632
+#: ui/accountadvancedtab.ui:564 ui/accountadvancedtab.ui:640
 msgid "Min"
 msgstr "Min"
 
-#: ui/accountadvancedtab.ui:581 ui/accountadvancedtab.ui:655
+#: ui/accountadvancedtab.ui:587 ui/accountadvancedtab.ui:663
 msgid "Max"
 msgstr "Max"
 
-#: ui/accountadvancedtab.ui:605
-msgid "<b>Audio RTP Port Range</b>"
+#: ui/accountadvancedtab.ui:611
+#, fuzzy
+msgid "Audio RTP Port Range"
 msgstr "<b>Rozsah Portů RTP Zvuku</b>"
 
-#: ui/accountadvancedtab.ui:679
-msgid "<b>Video RTP Port Range</b>"
+#: ui/accountadvancedtab.ui:687
+#, fuzzy
+msgid "Video RTP Port Range"
 msgstr "<b>Rozsah Portů RTP Obrazu</b>"
 
-#: ui/accountadvancedtab.ui:695
-msgid "<b>SDP Session Negotiation (ICE Fallback)</b>"
+#: ui/accountadvancedtab.ui:705
+#, fuzzy
+msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "<b>Vyjednávání sezení SDP (ICE Fallback)</b>"
 
 #: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
@@ -374,16 +452,62 @@ msgid "Down"
 msgstr "Dolů"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
-msgid "<b>Codecs</b>"
+#, fuzzy
+msgid "Codecs"
 msgstr "<b>Kodeky</b>"
 
 #: ui/accountgeneraltab.ui:42
-msgid "<b>Account</b>"
-msgstr "<b>Účet</b>"
+#, fuzzy
+msgid "Account"
+msgstr "Účty"
 
-#: ui/accountgeneraltab.ui:80
-msgid "<b>Parameters</b>"
+#: ui/accountgeneraltab.ui:82
+#, fuzzy
+msgid "Parameters"
 msgstr "<b>Parametry</b>"
+
+#: ui/accountimportexportview.ui:14
+msgid "Export selected account"
+msgstr ""
+
+#: ui/accountimportexportview.ui:26
+#, fuzzy
+msgid "Import accounts"
+msgstr "Účty"
+
+#: ui/accountimportexportview.ui:49
+#, fuzzy
+msgid "Location:"
+msgstr "Rozlišení:"
+
+#: ui/accountimportexportview.ui:70
+msgid "choose location"
+msgstr ""
+
+#: ui/accountimportexportview.ui:76
+msgid "Choose export location"
+msgstr ""
+
+#: ui/accountimportexportview.ui:95
+msgid "Choose archive location"
+msgstr ""
+
+#: ui/accountimportexportview.ui:111
+msgid "Password (required):"
+msgstr ""
+
+#: ui/accountimportexportview.ui:126
+#, fuzzy
+msgid "Enter archive password"
+msgstr "Heslo soukromého klíče"
+
+#: ui/accountimportexportview.ui:169 ui/accountview.ui:107
+msgid "Export"
+msgstr ""
+
+#: ui/accountimportexportview.ui:181 ui/accountview.ui:100
+msgid "Import"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -398,135 +522,178 @@ msgid "Fallback on RTP on encryption failure"
 msgstr "Použít RTP v případě selhání šifrování"
 
 #: ui/accountsecuritytab.ui:94
-msgid "<b>Media Stream Encryption</b>"
+#, fuzzy
+msgid "Media Stream Encryption"
 msgstr "<b>Šifrování Datového Toku</b>"
 
-#: ui/accountsecuritytab.ui:121
+#: ui/accountsecuritytab.ui:123
 msgid "Encrypt negotiation (TLS)"
 msgstr "Šifrovat vyjednávání (TLS)"
 
-#: ui/accountsecuritytab.ui:146
+#: ui/accountsecuritytab.ui:148
 msgid "CA certificate"
 msgstr "CA certifikát"
 
-#: ui/accountsecuritytab.ui:183
+#: ui/accountsecuritytab.ui:185
 msgid "User certificate"
 msgstr "Uživatelský certifikát"
 
-#: ui/accountsecuritytab.ui:220
+#: ui/accountsecuritytab.ui:222
 msgid "Private key"
 msgstr "Soukromý klíč"
 
-#: ui/accountsecuritytab.ui:243
+#: ui/accountsecuritytab.ui:245
 msgid "Private key password"
 msgstr "Heslo soukromého klíče"
 
-#: ui/accountsecuritytab.ui:290
+#: ui/accountsecuritytab.ui:292
 msgid "TLS protocol method"
 msgstr "Metoda protokolu TLS"
 
-#: ui/accountsecuritytab.ui:313
+#: ui/accountsecuritytab.ui:315
 msgid "Outgoing TLS server name"
 msgstr "Jméno výchozího serveru TLS"
 
-#: ui/accountsecuritytab.ui:335
+#: ui/accountsecuritytab.ui:337
 msgid "Negotiation timeout (seconds)"
 msgstr "Vypršení vyjednávání (v sekundách)"
 
-#: ui/accountsecuritytab.ui:369
+#: ui/accountsecuritytab.ui:371
 msgid "Use default ciphers"
 msgstr "Použít výchozí šifry"
 
-#: ui/accountsecuritytab.ui:385
+#: ui/accountsecuritytab.ui:387
 msgid "Use custom cipher list"
 msgstr "Použít vlastní seznam šifer"
 
-#: ui/accountsecuritytab.ui:442
+#: ui/accountsecuritytab.ui:444
 msgid "Verify incoming certificates (server side)"
 msgstr "Ověřit příchozí certifikáty (na straně serveru)"
 
-#: ui/accountsecuritytab.ui:457
+#: ui/accountsecuritytab.ui:459
 msgid "Verify answer certificates (client side)"
 msgstr "Ověřit příchozí certifikáty (na straně klienta)"
 
-#: ui/accountsecuritytab.ui:472
+#: ui/accountsecuritytab.ui:474
 msgid "Require a certificate for incoming TLS connections"
 msgstr "Vyžadovat certifikát pro příchozí TLS spojení"
 
-#: ui/accountsecuritytab.ui:491
-msgid "<b>Negotiation Encryption</b>"
+#: ui/accountsecuritytab.ui:493
+#, fuzzy
+msgid "Negotiation Encryption"
 msgstr "<b>Šifrování vyjednávání</b>"
 
-#: ui/accountvideotab.ui:90
+#: ui/accountvideotab.ui:92
 msgid "Enable Video"
 msgstr "Povolit obraz"
 
-#: ui/accountview.ui:59
-msgid "<b>&#8722;</b>"
-msgstr "<b>&#8722;</b>"
+#: ui/accountview.ui:42 ui/accountview.ui:45
+msgid "Remove selected account"
+msgstr ""
 
-#: ui/accountview.ui:83
-msgid "<b>+</b>"
-msgstr "<b>+</b>"
+#: ui/accountview.ui:63 ui/accountview.ui:66
+#, fuzzy
+msgid "Add new account"
+msgstr "Nový účet"
+
+#: ui/accountview.ui:75 ui/accountview.ui:78
+msgid "Select account type"
+msgstr ""
+
+#: ui/accountview.ui:101
+msgid "Import archived account(s)"
+msgstr ""
+
+#: ui/accountview.ui:109
+msgid "Export selected account(s)"
+msgstr ""
+
+#: ui/avatarmanipulation.ui:95 ui/avatarmanipulation.ui:128
+msgid "Take photo"
+msgstr ""
+
+#: ui/avatarmanipulation.ui:105
+msgid "Choose image from file"
+msgstr ""
+
+#: ui/avatarmanipulation.ui:138 ui/avatarmanipulation.ui:171
+msgid "Return"
+msgstr ""
+
+#: ui/avatarmanipulation.ui:161
+msgid "Set selection as image"
+msgstr ""
+
+#: ui/chatview.ui:19 ui/chatview.ui:22
+msgid "Hide chat view"
+msgstr ""
+
+#: ui/chatview.ui:100
+msgid "Send"
+msgstr "Odeslat"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
 msgstr "Vytvořit nový"
 
-#: ui/currentcallview.ui:73
-msgid "Send"
-msgstr "Odeslat"
-
-#: ui/currentcallview.ui:191
+#: ui/currentcallview.ui:172
 msgid "End this call"
 msgstr "Ukončit tento hovor"
 
-#: ui/currentcallview.ui:195 ui/currentcallview.ui:356
+#: ui/currentcallview.ui:176 ui/currentcallview.ui:359
 msgid "End call"
 msgstr "Ukončit hovor"
 
-#: ui/currentcallview.ui:213
+#: ui/currentcallview.ui:194
 msgid "Toggle hold"
 msgstr "Pozastavit"
 
-#: ui/currentcallview.ui:217 ui/currentcallview.ui:239
-#: ui/currentcallview.ui:347
+#: ui/currentcallview.ui:198 ui/currentcallview.ui:220
+#: ui/currentcallview.ui:350
 msgid "Hold"
 msgstr "Pozastavit"
 
-#: ui/currentcallview.ui:235
+#: ui/currentcallview.ui:216
 msgid "Toggle mute audio"
 msgstr "Přepnout zvuk"
 
-#: ui/currentcallview.ui:257
+#: ui/currentcallview.ui:238
 msgid "Toggle mute video"
 msgstr "Přepnout obraz"
 
-#: ui/currentcallview.ui:261 ui/currentcallview.ui:338
+#: ui/currentcallview.ui:242 ui/currentcallview.ui:341
 msgid "Mute video"
 msgstr "Vypnout obraz"
 
-#: ui/currentcallview.ui:280
+#: ui/currentcallview.ui:261
 msgid "Toggle record audio"
 msgstr "Přepnout nahrávání zvuku"
 
-#: ui/currentcallview.ui:283
+#: ui/currentcallview.ui:264
 msgid "Record audio"
 msgstr "Nahrávat zvuk"
 
-#: ui/currentcallview.ui:299
+#: ui/currentcallview.ui:281
+msgid "Adjust outgoing video quality"
+msgstr ""
+
+#: ui/currentcallview.ui:286 ui/currentcallview.ui:368
+msgid "Video quality"
+msgstr ""
+
+#: ui/currentcallview.ui:302
 msgid "Toggle show chat"
 msgstr "Přepnout chat"
 
-#: ui/currentcallview.ui:303 ui/currentcallview.ui:320
+#: ui/currentcallview.ui:306 ui/currentcallview.ui:323
 msgid "Chat"
 msgstr "Chat"
 
-#: ui/currentcallview.ui:329
+#: ui/currentcallview.ui:332
 msgid "Mute audio"
 msgstr "Ztlumit zvuk"
 
-#: ui/currentcallview.ui:365
+#: ui/currentcallview.ui:377
 msgid "Record"
 msgstr "Nahrávat"
 
@@ -566,101 +733,110 @@ msgstr "Číslo nebo Ring ID"
 msgid "Save"
 msgstr "Uložit"
 
-#: ui/generalsettingsview.ui:32
-msgid "<b>Ring Settings</b>"
+#: ui/generalsettingsview.ui:34
+#, fuzzy
+msgid "Profile Settings"
+msgstr "Nastavení"
+
+#: ui/generalsettingsview.ui:78
+#, fuzzy
+msgid "Ring Settings"
 msgstr "<b>Nastavení Ring</b>"
 
-#: ui/generalsettingsview.ui:46
+#: ui/generalsettingsview.ui:94
 msgid "Start Ring on login"
 msgstr "Spouštět Ring po přihlášení"
 
-#: ui/generalsettingsview.ui:55
-msgid "Hide Ring on close instead of quitting."
-msgstr "Skrýt Ring při zavření okna místo ukončení."
+#: ui/generalsettingsview.ui:103
+msgid "Show Ring icon in the notification area (systray)."
+msgstr ""
 
-#: ui/generalsettingsview.ui:64
+#: ui/generalsettingsview.ui:112
 msgid "Bring Ring to the foreground on incoming calls."
 msgstr "Přenést okno Ring do popředí při příchozích hovorech."
 
-#: ui/generalsettingsview.ui:79
+#: ui/generalsettingsview.ui:127
 msgid "Show chat on the right."
 msgstr "Ukázat chat napravo."
 
-#: ui/generalsettingsview.ui:86
+#: ui/generalsettingsview.ui:134
 msgid "Show chat on the bottom."
 msgstr "Ukázat chat dole."
 
-#: ui/generalsettingsview.ui:110
-msgid "<b>History Settings</b>"
+#: ui/generalsettingsview.ui:158
+#, fuzzy
+msgid "History Settings"
 msgstr "<b>Nastavení Historie</b>"
 
-#: ui/generalsettingsview.ui:128
+#: ui/generalsettingsview.ui:178
 msgid "Keep history for (days):"
 msgstr "Uchovat historii po (dnů):"
 
-#: ui/generalsettingsview.ui:151
+#: ui/generalsettingsview.ui:201
 msgid "(set to 0 for unlimited history)"
 msgstr "(nastavte na 0 pro neomezenou historii)"
 
-#: ui/generalsettingsview.ui:160
+#: ui/generalsettingsview.ui:210
 msgid "Clear all history"
 msgstr "Vymazat celou historii"
 
-#: ui/incomingcallview.ui:88
+#: ui/incomingcallview.ui:105
 msgid "Incoming..."
 msgstr "Příchozí..."
 
-#: ui/incomingcallview.ui:122
+#: ui/incomingcallview.ui:139
 msgid "   Accept"
 msgstr "   Přijmout"
 
-#: ui/incomingcallview.ui:137
+#: ui/incomingcallview.ui:154
 msgid "   Reject"
 msgstr "   Odmítnout"
 
-#: ui/incomingcallview.ui:152
+#: ui/incomingcallview.ui:169
 msgid "   Hang-up"
 msgstr "   Zavěsit"
 
-#: ui/mediasettingsview.ui:36
+#: ui/mediasettingsview.ui:24
+#, fuzzy
+msgid "Audio Settings"
+msgstr "<b>Nastavení Zvuku</b>"
+
+#: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
 msgstr "Správce zvuku:"
 
-#: ui/mediasettingsview.ui:48
+#: ui/mediasettingsview.ui:52
 msgid "Ringtone device:"
 msgstr "Vyzváněcí zařízení:"
 
-#: ui/mediasettingsview.ui:60
+#: ui/mediasettingsview.ui:64
 msgid "Output device:"
 msgstr "Výstupní zařízení:"
 
-#: ui/mediasettingsview.ui:72
+#: ui/mediasettingsview.ui:76
 msgid "Input device:"
 msgstr "Vstupní zařízení:"
 
-#: ui/mediasettingsview.ui:127
-msgid "<b>Audio Settings</b>"
-msgstr "<b>Nastavení Zvuku</b>"
+#: ui/mediasettingsview.ui:134
+#, fuzzy
+msgid "Camera Settings"
+msgstr "<b>Nastavení Kamery</b>"
 
-#: ui/mediasettingsview.ui:163
+#: ui/mediasettingsview.ui:150
 msgid "Device:"
 msgstr "Zařízení:"
 
-#: ui/mediasettingsview.ui:175
+#: ui/mediasettingsview.ui:162
 msgid "Channel:"
 msgstr "Kanál:"
 
-#: ui/mediasettingsview.ui:187
+#: ui/mediasettingsview.ui:174
 msgid "Resolution:"
 msgstr "Rozlišení:"
 
-#: ui/mediasettingsview.ui:199
+#: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
 msgstr "Snímková frekvence:"
-
-#: ui/mediasettingsview.ui:258
-msgid "<b>Camera Settings</b>"
-msgstr "<b>Nastavení Kamery</b>"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
@@ -690,42 +866,62 @@ msgstr "Účty"
 msgid "Settings"
 msgstr "Nastavení"
 
-#: ui/ringmainwindow.ui:192
+#: ui/ringmainwindow.ui:194
 msgid "Conversations"
 msgstr "Konverzace"
 
-#: ui/ringmainwindow.ui:211
+#: ui/ringmainwindow.ui:213
 msgid "Contacts"
 msgstr "Kontakty"
 
-#: ui/ringmainwindow.ui:230
+#: ui/ringmainwindow.ui:232
 msgid "History"
 msgstr "Historie"
 
-#: ui/ringmainwindow.ui:290
-msgid "Welcome to  "
+#: ui/ringmainwindow.ui:289
+#, fuzzy
+msgid "Welcome to "
 msgstr "Vítejte v  "
 
-#: ui/ringmainwindow.ui:307
-msgid "Enter your alias to get started:"
-msgstr "Pro začátek zadejte vaši přezdívku:"
+#: ui/ringmainwindow.ui:326
+msgid "Choose an avatar and your username:"
+msgstr ""
 
-#: ui/ringmainwindow.ui:324
+#: ui/ringmainwindow.ui:368
+msgid "Username will be set to \"Unknown\" if left empty."
+msgstr ""
+
+#: ui/ringmainwindow.ui:387
 msgid "Generating your Ring account..."
 msgstr "Generuji váš účet Ring..."
 
-#: ui/ringmainwindow.ui:338
+#: ui/ringmainwindow.ui:401
 msgid "Next"
 msgstr "Další"
 
-#: ui/ringmainwindow.ui:360
-msgid "Your Ring account has been created with the following Ring ID:"
-msgstr "Váš účet Ring byl vytvořen s následujícím Ring ID:"
+#~ msgid "_Copy"
+#~ msgstr "_Kopírovat"
 
-#: ui/ringmainwindow.ui:375
-msgid "Share it with your friends so they can contact you via Ring!"
-msgstr "Sdílejte jej s vašimi přáteli, aby vás mohli kontaktovat skrze Ring!"
+#~ msgid "<b>Account</b>"
+#~ msgstr "<b>Účet</b>"
 
-#: ui/ringmainwindow.ui:380
-msgid "Done"
-msgstr "Hotovo"
+#~ msgid "<b>&#8722;</b>"
+#~ msgstr "<b>&#8722;</b>"
+
+#~ msgid "<b>+</b>"
+#~ msgstr "<b>+</b>"
+
+#~ msgid "Hide Ring on close instead of quitting."
+#~ msgstr "Skrýt Ring při zavření okna místo ukončení."
+
+#~ msgid "Enter your alias to get started:"
+#~ msgstr "Pro začátek zadejte vaši přezdívku:"
+
+#~ msgid "Your Ring account has been created with the following Ring ID:"
+#~ msgstr "Váš účet Ring byl vytvořen s následujícím Ring ID:"
+
+#~ msgid "Share it with your friends so they can contact you via Ring!"
+#~ msgstr "Sdílejte jej s vašimi přáteli, aby vás mohli kontaktovat skrze Ring!"
+
+#~ msgid "Done"
+#~ msgstr "Hotovo"
