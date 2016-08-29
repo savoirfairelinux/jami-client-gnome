@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-29 08:42-0400\n"
-"PO-Revision-Date: 2016-05-23 00:25+0000\n"
+"PO-Revision-Date: 2016-08-29 13:02+0200\n"
 "Last-Translator: GenghisKhan <genghiskhan@gmx.ca>\n"
 "Language-Team: Hebrew (http://www.transifex.com/savoirfairelinux/ring/language/he/)\n"
 "Language: he\n"
@@ -352,9 +352,8 @@ msgid "Allow calls from peers in your contacts list"
 msgstr "התר קריאות מתוך עמיתים מרשימת קשר"
 
 #: ui/accountadvancedtab.ui:149
-#, fuzzy
 msgid "Registration"
-msgstr "<b>רישום</b>"
+msgstr "רישום"
 
 #: ui/accountadvancedtab.ui:178
 msgid "Use random port"
@@ -365,9 +364,8 @@ msgid "Local port:"
 msgstr "פורט מקומי:"
 
 #: ui/accountadvancedtab.ui:225
-#, fuzzy
 msgid "Network Interface"
-msgstr "<b>ממשק רשת</b>"
+msgstr "ממשק רשת"
 
 #: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
@@ -406,9 +404,8 @@ msgid "realm"
 msgstr "תחום"
 
 #: ui/accountadvancedtab.ui:508
-#, fuzzy
 msgid "Published Address"
-msgstr "<b>כתובת מפורסמת</b>"
+msgstr "כתובת מפורסמת"
 
 #: ui/accountadvancedtab.ui:539
 msgid "These settings are only used during SDP session negotiation in case ICE is not supported by the server or peer."
@@ -443,9 +440,8 @@ msgid "Down"
 msgstr "מטה"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
-#, fuzzy
 msgid "Codecs"
-msgstr "<b>קודק</b>"
+msgstr "קודק"
 
 #: ui/accountgeneraltab.ui:42
 #, fuzzy
@@ -453,9 +449,8 @@ msgid "Account"
 msgstr "חשבונות"
 
 #: ui/accountgeneraltab.ui:82
-#, fuzzy
 msgid "Parameters"
-msgstr "<b>פרמטרים</b>"
+msgstr "פרמטרים"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -512,9 +507,8 @@ msgid "Fallback on RTP on encryption failure"
 msgstr ""
 
 #: ui/accountsecuritytab.ui:94
-#, fuzzy
 msgid "Media Stream Encryption"
-msgstr "<b>הצפנת זרם מדיה</b>"
+msgstr "הצפנת זרם מדיה"
 
 #: ui/accountsecuritytab.ui:123
 msgid "Encrypt negotiation (TLS)"
@@ -729,9 +723,8 @@ msgid "Profile Settings"
 msgstr "הגדרות"
 
 #: ui/generalsettingsview.ui:78
-#, fuzzy
 msgid "Ring Settings"
-msgstr "<b>הגדרות Ring</b>"
+msgstr "הגדרות Ring"
 
 #: ui/generalsettingsview.ui:94
 msgid "Start Ring on login"
@@ -754,9 +747,8 @@ msgid "Show chat on the bottom."
 msgstr ""
 
 #: ui/generalsettingsview.ui:158
-#, fuzzy
 msgid "History Settings"
-msgstr "<b>הגדרות היסטוריה</b>"
+msgstr "הגדרות היסטוריה"
 
 #: ui/generalsettingsview.ui:178
 msgid "Keep history for (days):"
@@ -787,9 +779,8 @@ msgid "   Hang-up"
 msgstr "   נתק"
 
 #: ui/mediasettingsview.ui:24
-#, fuzzy
 msgid "Audio Settings"
-msgstr "<b>הגדרות אודיו</b>"
+msgstr "הגדרות אודיו"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
@@ -808,9 +799,8 @@ msgid "Input device:"
 msgstr "מכשיר קלט:"
 
 #: ui/mediasettingsview.ui:134
-#, fuzzy
 msgid "Camera Settings"
-msgstr "<b>הגדרות מצלמה</b>"
+msgstr "הגדרות מצלמה"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"
@@ -891,15 +881,6 @@ msgstr "קדימה"
 
 #~ msgid "_Copy"
 #~ msgstr "ה_עתק"
-
-#~ msgid "<b>Account</b>"
-#~ msgstr "<b>חשבון</b>"
-
-#~ msgid "<b>&#8722;</b>"
-#~ msgstr "<b>&#8722;</b>"
-
-#~ msgid "<b>+</b>"
-#~ msgstr "<b>+</b>"
 
 #~ msgid "Enter your alias to get started:"
 #~ msgstr "הזן את הכינוי שלך כדי להתחיל:"
