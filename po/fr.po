@@ -886,15 +886,6 @@ msgstr "Suivant"
 #~ msgid "_Copy"
 #~ msgstr "_Copier"
 
-#~ msgid "<b>Account</b>"
-#~ msgstr "<b>Compte</b>"
-
-#~ msgid "<b>&#8722;</b>"
-#~ msgstr "<b>&#8722;</b>"
-
-#~ msgid "<b>+</b>"
-#~ msgstr "<b>+</b>"
-
 #~ msgid "Hide Ring on close instead of quitting."
 #~ msgstr "Cacher Ring à la fermeture au lieu de quitter"
 
