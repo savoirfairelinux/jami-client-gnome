@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-29 08:42-0400\n"
-"PO-Revision-Date: 2016-05-12 17:43+0000\n"
+"PO-Revision-Date: 2016-08-29 12:35+0200\n"
 "Last-Translator: OmarRi <om_80_m@yahoo.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/savoirfairelinux/ring/language/ar/)\n"
 "Language: ar\n"
@@ -360,9 +360,8 @@ msgid "Allow calls from peers in your contacts list"
 msgstr "إسمح للأشخاص في قائمة الإتصالات المعروفة بالإتصال"
 
 #: ui/accountadvancedtab.ui:149
-#, fuzzy
 msgid "Registration"
-msgstr "<b/>تسجيل<b>"
+msgstr "تسجيل"
 
 #: ui/accountadvancedtab.ui:178
 msgid "Use random port"
@@ -373,9 +372,8 @@ msgid "Local port:"
 msgstr "نقطة عبور ( port ) محلية"
 
 #: ui/accountadvancedtab.ui:225
-#, fuzzy
 msgid "Network Interface"
-msgstr "<b/>واجهة الشبكة<b>"
+msgstr "واجهة الشبكة"
 
 #: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
@@ -414,9 +412,8 @@ msgid "realm"
 msgstr "حقل ( realm )"
 
 #: ui/accountadvancedtab.ui:508
-#, fuzzy
 msgid "Published Address"
-msgstr "<b/> العنوان المنشور <b>"
+msgstr " العنوان المنشور "
 
 #: ui/accountadvancedtab.ui:539
 msgid "These settings are only used during SDP session negotiation in case ICE is not supported by the server or peer."
@@ -431,19 +428,16 @@ msgid "Max"
 msgstr "الحد الاقصى"
 
 #: ui/accountadvancedtab.ui:611
-#, fuzzy
 msgid "Audio RTP Port Range"
-msgstr " <b/> نطاق المنفذ RTP الصوتي <b>"
+msgstr "  نطاق المنفذ RTP الصوتي "
 
 #: ui/accountadvancedtab.ui:687
-#, fuzzy
 msgid "Video RTP Port Range"
-msgstr " <b/> نطاق المنفذ RTP فيديو <b>"
+msgstr "  نطاق المنفذ RTP فيديو "
 
 #: ui/accountadvancedtab.ui:705
-#, fuzzy
 msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr "<b/> جلسة تفاوض SDP (حل تعويض)  <b>"
+msgstr " جلسة تفاوض SDP (حل تعويض)  "
 
 #: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
 msgid "Up"
@@ -454,9 +448,8 @@ msgid "Down"
 msgstr "الأسفل"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
-#, fuzzy
 msgid "Codecs"
-msgstr "<b/> الترميز <b>"
+msgstr " الترميز "
 
 #: ui/accountgeneraltab.ui:42
 #, fuzzy
@@ -464,9 +457,8 @@ msgid "Account"
 msgstr "حسابات"
 
 #: ui/accountgeneraltab.ui:82
-#, fuzzy
 msgid "Parameters"
-msgstr "<b/>المعلمات<b>"
+msgstr "المعلمات"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -524,9 +516,8 @@ msgid "Fallback on RTP on encryption failure"
 msgstr "إلجأ إلى RTP عند فشل التشفير"
 
 #: ui/accountsecuritytab.ui:94
-#, fuzzy
 msgid "Media Stream Encryption"
-msgstr "<b/>تشفير تيارات الميديا<b>"
+msgstr "تشفير تيارات الميديا"
 
 #: ui/accountsecuritytab.ui:123
 msgid "Encrypt negotiation (TLS)"
@@ -581,9 +572,8 @@ msgid "Require a certificate for incoming TLS connections"
 msgstr "استلزم شهادة للإتصالات TLS الواردة"
 
 #: ui/accountsecuritytab.ui:493
-#, fuzzy
 msgid "Negotiation Encryption"
-msgstr "<b/>تشفير التفاوض<b>"
+msgstr "تشفير التفاوض"
 
 #: ui/accountvideotab.ui:92
 msgid "Enable Video"
@@ -741,9 +731,8 @@ msgid "Profile Settings"
 msgstr "إعدادات"
 
 #: ui/generalsettingsview.ui:78
-#, fuzzy
 msgid "Ring Settings"
-msgstr "<b>إعدادات Ring الحساب</b>"
+msgstr "إعدادات Ring الحساب"
 
 #: ui/generalsettingsview.ui:94
 msgid "Start Ring on login"
@@ -766,9 +755,8 @@ msgid "Show chat on the bottom."
 msgstr "إعرض الدردشة في الأسفل"
 
 #: ui/generalsettingsview.ui:158
-#, fuzzy
 msgid "History Settings"
-msgstr "<b/>إعدادات التاريخ<b>"
+msgstr "إعدادات التاريخ"
 
 #: ui/generalsettingsview.ui:178
 msgid "Keep history for (days):"
@@ -799,9 +787,8 @@ msgid "   Hang-up"
 msgstr "أنهي المكالمة"
 
 #: ui/mediasettingsview.ui:24
-#, fuzzy
 msgid "Audio Settings"
-msgstr "<b/>إعدادات الصوت<b>"
+msgstr "إعدادات الصوت"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
@@ -820,9 +807,8 @@ msgid "Input device:"
 msgstr "جهاز الإدخال:"
 
 #: ui/mediasettingsview.ui:134
-#, fuzzy
 msgid "Camera Settings"
-msgstr "<b/>إعدادات الكاميرا<b>"
+msgstr "إعدادات الكاميرا"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"

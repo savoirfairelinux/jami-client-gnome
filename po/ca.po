@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-29 08:42-0400\n"
-"PO-Revision-Date: 2016-07-03 10:53+0000\n"
+"PO-Revision-Date: 2016-08-29 12:41+0200\n"
 "Last-Translator: Jaume <retrasado.man@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/savoirfairelinux/ring/language/ca/)\n"
 "Language: ca\n"
@@ -359,9 +359,8 @@ msgid "Allow calls from peers in your contacts list"
 msgstr "Permetre trucades de nodes de la vostra llista de contactes"
 
 #: ui/accountadvancedtab.ui:149
-#, fuzzy
 msgid "Registration"
-msgstr "<b>Registre</b>"
+msgstr "Registre"
 
 #: ui/accountadvancedtab.ui:178
 msgid "Use random port"
@@ -372,9 +371,8 @@ msgid "Local port:"
 msgstr "Port local:"
 
 #: ui/accountadvancedtab.ui:225
-#, fuzzy
 msgid "Network Interface"
-msgstr "<b>Interfície de xarxa</b>"
+msgstr "Interfície de xarxa"
 
 #: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
@@ -413,9 +411,8 @@ msgid "realm"
 msgstr ""
 
 #: ui/accountadvancedtab.ui:508
-#, fuzzy
 msgid "Published Address"
-msgstr "<b>Adreça publicada</b>"
+msgstr "Adreça publicada"
 
 #: ui/accountadvancedtab.ui:539
 msgid "These settings are only used during SDP session negotiation in case ICE is not supported by the server or peer."
@@ -430,14 +427,12 @@ msgid "Max"
 msgstr "Màx"
 
 #: ui/accountadvancedtab.ui:611
-#, fuzzy
 msgid "Audio RTP Port Range"
-msgstr "<b>Interval de Ports d'Àudio RTP</b>"
+msgstr "Interval de Ports d'Àudio RTP"
 
 #: ui/accountadvancedtab.ui:687
-#, fuzzy
 msgid "Video RTP Port Range"
-msgstr "<b>Interval de Ports de Vídeo RTP</b>"
+msgstr "Interval de Ports de Vídeo RTP"
 
 #: ui/accountadvancedtab.ui:705
 msgid "SDP Session Negotiation (ICE Fallback)"
@@ -452,9 +447,8 @@ msgid "Down"
 msgstr "Avall"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
-#, fuzzy
 msgid "Codecs"
-msgstr "<b>Còdecs</b>"
+msgstr "Còdecs"
 
 #: ui/accountgeneraltab.ui:42
 #, fuzzy
@@ -462,9 +456,8 @@ msgid "Account"
 msgstr "Comptes"
 
 #: ui/accountgeneraltab.ui:82
-#, fuzzy
 msgid "Parameters"
-msgstr "<b>Paràmetres</b>"
+msgstr "Paràmetres"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -522,9 +515,8 @@ msgid "Fallback on RTP on encryption failure"
 msgstr "Feu servir RTP quan fracase el xifrat"
 
 #: ui/accountsecuritytab.ui:94
-#, fuzzy
 msgid "Media Stream Encryption"
-msgstr "<b>Xifratge del Flux de Mitjans</b>"
+msgstr "Xifratge del Flux de Mitjans"
 
 #: ui/accountsecuritytab.ui:123
 msgid "Encrypt negotiation (TLS)"
@@ -579,9 +571,8 @@ msgid "Require a certificate for incoming TLS connections"
 msgstr "Exigeix certificat per a les conexions TLS entrants"
 
 #: ui/accountsecuritytab.ui:493
-#, fuzzy
 msgid "Negotiation Encryption"
-msgstr "<b>Negociació Xifrada</b>"
+msgstr "Negociació Xifrada"
 
 #: ui/accountvideotab.ui:92
 msgid "Enable Video"
@@ -739,9 +730,8 @@ msgid "Profile Settings"
 msgstr "Opcions"
 
 #: ui/generalsettingsview.ui:78
-#, fuzzy
 msgid "Ring Settings"
-msgstr "<b>Opcions de Ring</b>"
+msgstr "Opcions de Ring"
 
 #: ui/generalsettingsview.ui:94
 msgid "Start Ring on login"
@@ -764,9 +754,8 @@ msgid "Show chat on the bottom."
 msgstr "Mostra el xat a la part inferior."
 
 #: ui/generalsettingsview.ui:158
-#, fuzzy
 msgid "History Settings"
-msgstr "<b>Opcions d'Historial</b>"
+msgstr "Opcions d'Historial"
 
 #: ui/generalsettingsview.ui:178
 msgid "Keep history for (days):"
@@ -797,9 +786,8 @@ msgid "   Hang-up"
 msgstr "Penja"
 
 #: ui/mediasettingsview.ui:24
-#, fuzzy
 msgid "Audio Settings"
-msgstr "<b>Opcions d'Àudio</b>"
+msgstr "Opcions d'Àudio"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
@@ -818,9 +806,8 @@ msgid "Input device:"
 msgstr "Dispositiu d'entrada:"
 
 #: ui/mediasettingsview.ui:134
-#, fuzzy
 msgid "Camera Settings"
-msgstr "<b>Opcions de Càmera</b>"
+msgstr "Opcions de Càmera"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"

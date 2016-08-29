@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-29 08:42-0400\n"
-"PO-Revision-Date: 2016-07-25 19:12+0000\n"
+"PO-Revision-Date: 2016-08-29 12:47+0200\n"
 "Last-Translator: Ivica  Kolić <ikoli@yahoo.com>\n"
 "Language-Team: Croatian (http://www.transifex.com/savoirfairelinux/ring/language/hr/)\n"
 "Language: hr\n"
@@ -349,9 +349,8 @@ msgid "Allow calls from peers in your contacts list"
 msgstr ""
 
 #: ui/accountadvancedtab.ui:149
-#, fuzzy
 msgid "Registration"
-msgstr "<b>Registracija</b>"
+msgstr "Registracija"
 
 #: ui/accountadvancedtab.ui:178
 msgid "Use random port"
@@ -362,9 +361,8 @@ msgid "Local port:"
 msgstr "Lokalni port:"
 
 #: ui/accountadvancedtab.ui:225
-#, fuzzy
 msgid "Network Interface"
-msgstr "<b>Mrežno sučelje</b>"
+msgstr "Mrežno sučelje"
 
 #: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
@@ -439,9 +437,8 @@ msgid "Down"
 msgstr "Dolje"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
-#, fuzzy
 msgid "Codecs"
-msgstr "<b>Kodeci</b>"
+msgstr "Kodeci"
 
 #: ui/accountgeneraltab.ui:42
 #, fuzzy
@@ -449,9 +446,8 @@ msgid "Account"
 msgstr "Računi"
 
 #: ui/accountgeneraltab.ui:82
-#, fuzzy
 msgid "Parameters"
-msgstr "<b>Parametri</b>"
+msgstr "Parametri"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -724,9 +720,8 @@ msgid "Profile Settings"
 msgstr "Postavke"
 
 #: ui/generalsettingsview.ui:78
-#, fuzzy
 msgid "Ring Settings"
-msgstr "<b>Ring postavke</b>"
+msgstr "Ring postavke"
 
 #: ui/generalsettingsview.ui:94
 msgid "Start Ring on login"
@@ -749,9 +744,8 @@ msgid "Show chat on the bottom."
 msgstr ""
 
 #: ui/generalsettingsview.ui:158
-#, fuzzy
 msgid "History Settings"
-msgstr "<b>Postavke povijesti</b>"
+msgstr "Postavke povijesti"
 
 #: ui/generalsettingsview.ui:178
 msgid "Keep history for (days):"
@@ -782,9 +776,8 @@ msgid "   Hang-up"
 msgstr ""
 
 #: ui/mediasettingsview.ui:24
-#, fuzzy
 msgid "Audio Settings"
-msgstr "<b>Audio postavke</b>"
+msgstr "Audio postavke"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
@@ -803,9 +796,8 @@ msgid "Input device:"
 msgstr ""
 
 #: ui/mediasettingsview.ui:134
-#, fuzzy
 msgid "Camera Settings"
-msgstr "<b>Postavke kamere</b>"
+msgstr "Postavke kamere"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"

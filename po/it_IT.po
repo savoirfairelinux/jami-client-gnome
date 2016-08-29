@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-29 08:42-0400\n"
-"PO-Revision-Date: 2016-07-03 10:01+0000\n"
+"PO-Revision-Date: 2016-08-29 12:49+0200\n"
 "Last-Translator: Gianluca Scacco <gianluca.scacco@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/savoirfairelinux/ring/language/it_IT/)\n"
 "Language: it_IT\n"
@@ -356,9 +356,8 @@ msgid "Allow calls from peers in your contacts list"
 msgstr "Permetti le chiamate da peers presenti nella lista dei contatti"
 
 #: ui/accountadvancedtab.ui:149
-#, fuzzy
 msgid "Registration"
-msgstr "<b>Registrazione</b>"
+msgstr "Registrazione"
 
 #: ui/accountadvancedtab.ui:178
 msgid "Use random port"
@@ -369,9 +368,8 @@ msgid "Local port:"
 msgstr "Porta locale:"
 
 #: ui/accountadvancedtab.ui:225
-#, fuzzy
 msgid "Network Interface"
-msgstr "<b>Interfaccia di rete</b>"
+msgstr "Interfaccia di rete"
 
 #: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
@@ -410,9 +408,8 @@ msgid "realm"
 msgstr "realm"
 
 #: ui/accountadvancedtab.ui:508
-#, fuzzy
 msgid "Published Address"
-msgstr "<b>Indirizzo Pubblicato</b>"
+msgstr "Indirizzo Pubblicato"
 
 #: ui/accountadvancedtab.ui:539
 msgid "These settings are only used during SDP session negotiation in case ICE is not supported by the server or peer."
@@ -427,19 +424,16 @@ msgid "Max"
 msgstr "Max"
 
 #: ui/accountadvancedtab.ui:611
-#, fuzzy
 msgid "Audio RTP Port Range"
-msgstr "<b>Intervallo delle porte audio RTP</b>"
+msgstr "Intervallo delle porte audio RTP"
 
 #: ui/accountadvancedtab.ui:687
-#, fuzzy
 msgid "Video RTP Port Range"
-msgstr "<b>Intervallo delle porte video RTP</b>"
+msgstr "Intervallo delle porte video RTP"
 
 #: ui/accountadvancedtab.ui:705
-#, fuzzy
 msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr "<b>Negoziazione della sessione SDP (ICE Fallback)</b>"
+msgstr "Negoziazione della sessione SDP (ICE Fallback)"
 
 #: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
 msgid "Up"
@@ -450,9 +444,8 @@ msgid "Down"
 msgstr "Giu"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
-#, fuzzy
 msgid "Codecs"
-msgstr "<b>Codecs</b>"
+msgstr "Codecs"
 
 #: ui/accountgeneraltab.ui:42
 #, fuzzy
@@ -460,9 +453,8 @@ msgid "Account"
 msgstr "Nuovo Account"
 
 #: ui/accountgeneraltab.ui:82
-#, fuzzy
 msgid "Parameters"
-msgstr "<b>Parametri</b>"
+msgstr "Parametri"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -518,9 +510,8 @@ msgid "Fallback on RTP on encryption failure"
 msgstr "Ricadi su RTP in caso di fallimento della cifratura"
 
 #: ui/accountsecuritytab.ui:94
-#, fuzzy
 msgid "Media Stream Encryption"
-msgstr "<b>Cifratura del flusso multimediale</b>"
+msgstr "Cifratura del flusso multimediale"
 
 #: ui/accountsecuritytab.ui:123
 msgid "Encrypt negotiation (TLS)"

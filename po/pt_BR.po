@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-29 08:42-0400\n"
-"PO-Revision-Date: 2016-05-26 04:33+0000\n"
+"PO-Revision-Date: 2016-08-29 12:54+0200\n"
 "Last-Translator: Cleiton Floss\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/ring/language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -361,9 +361,8 @@ msgid "Allow calls from peers in your contacts list"
 msgstr "Permitir chamadas de membros em sua lista de contatos"
 
 #: ui/accountadvancedtab.ui:149
-#, fuzzy
 msgid "Registration"
-msgstr "<b>Registro</b>"
+msgstr "Registro"
 
 #: ui/accountadvancedtab.ui:178
 msgid "Use random port"
@@ -374,9 +373,8 @@ msgid "Local port:"
 msgstr "Porta local:"
 
 #: ui/accountadvancedtab.ui:225
-#, fuzzy
 msgid "Network Interface"
-msgstr "<b>Interface de Rede</b>"
+msgstr "Interface de Rede"
 
 #: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
@@ -415,9 +413,8 @@ msgid "realm"
 msgstr "domínio"
 
 #: ui/accountadvancedtab.ui:508
-#, fuzzy
 msgid "Published Address"
-msgstr "<b>Endereço Publicado</b>"
+msgstr "Endereço Publicado"
 
 #: ui/accountadvancedtab.ui:539
 msgid "These settings are only used during SDP session negotiation in case ICE is not supported by the server or peer."
@@ -432,19 +429,16 @@ msgid "Max"
 msgstr "Máx"
 
 #: ui/accountadvancedtab.ui:611
-#, fuzzy
 msgid "Audio RTP Port Range"
-msgstr "<b>Intervalo de Portas para Áudio RTP</b>"
+msgstr "Intervalo de Portas para Áudio RTP"
 
 #: ui/accountadvancedtab.ui:687
-#, fuzzy
 msgid "Video RTP Port Range"
-msgstr "<b>Intervalo de Portas para Vídeo RTP</b>"
+msgstr "Intervalo de Portas para Vídeo RTP"
 
 #: ui/accountadvancedtab.ui:705
-#, fuzzy
 msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr "<b>Negociação de Sessão SDP (ICE em caso de falha)</b>"
+msgstr "Negociação de Sessão SDP (ICE em caso de falha)"
 
 #: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
 msgid "Up"
@@ -455,9 +449,8 @@ msgid "Down"
 msgstr "Abaixo"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
-#, fuzzy
 msgid "Codecs"
-msgstr "<b>Codecs</b>"
+msgstr "Codecs"
 
 #: ui/accountgeneraltab.ui:42
 #, fuzzy
@@ -465,9 +458,8 @@ msgid "Account"
 msgstr "Contas"
 
 #: ui/accountgeneraltab.ui:82
-#, fuzzy
 msgid "Parameters"
-msgstr "<b>Parâmetros</b>"
+msgstr "Parâmetros"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -525,9 +517,8 @@ msgid "Fallback on RTP on encryption failure"
 msgstr "Utilizar RTP caso encriptação falhe"
 
 #: ui/accountsecuritytab.ui:94
-#, fuzzy
 msgid "Media Stream Encryption"
-msgstr "<b>Encriptação de Fluxo de Mídia</b>"
+msgstr "Encriptação de Fluxo de Mídia"
 
 #: ui/accountsecuritytab.ui:123
 msgid "Encrypt negotiation (TLS)"
@@ -582,9 +573,8 @@ msgid "Require a certificate for incoming TLS connections"
 msgstr "Exigir certificado para conexões TLS de entrada"
 
 #: ui/accountsecuritytab.ui:493
-#, fuzzy
 msgid "Negotiation Encryption"
-msgstr "<b>Negociação de Criptografia</b>"
+msgstr "Negociação de Criptografia"
 
 #: ui/accountvideotab.ui:92
 msgid "Enable Video"
@@ -742,9 +732,8 @@ msgid "Profile Settings"
 msgstr "Configurações"
 
 #: ui/generalsettingsview.ui:78
-#, fuzzy
 msgid "Ring Settings"
-msgstr "<b>Configurações do Ring</b>"
+msgstr "Configurações do Ring"
 
 #: ui/generalsettingsview.ui:94
 msgid "Start Ring on login"
@@ -767,9 +756,8 @@ msgid "Show chat on the bottom."
 msgstr "Mostre o bate-papo na parte inferior."
 
 #: ui/generalsettingsview.ui:158
-#, fuzzy
 msgid "History Settings"
-msgstr "<b>Configurações de Histórico</b>"
+msgstr "Configurações de Histórico"
 
 #: ui/generalsettingsview.ui:178
 msgid "Keep history for (days):"
@@ -800,9 +788,8 @@ msgid "   Hang-up"
 msgstr "Desligar"
 
 #: ui/mediasettingsview.ui:24
-#, fuzzy
 msgid "Audio Settings"
-msgstr "<b>Configurações de Áudio</b>"
+msgstr "Configurações de Áudio"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
@@ -821,9 +808,8 @@ msgid "Input device:"
 msgstr "Dispositivo de entrada:"
 
 #: ui/mediasettingsview.ui:134
-#, fuzzy
 msgid "Camera Settings"
-msgstr "<b>Configurações da Câmera</b>"
+msgstr "Configurações da Câmera"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"
