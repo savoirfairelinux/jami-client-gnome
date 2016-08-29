@@ -1,7 +1,7 @@
 # Gettext PO translation template file for the GNOME client of the Ring project.
 # Copyright (C) 2015 Savoir-faire Linux Inc.
 # This file is distributed under the same license as the Ring package.
-# 
+#
 # Translators:
 # Cleiton Floss, 2016
 # Keven de Oliveira <keven@zenbackup.com.br>, 2015
@@ -11,147 +11,217 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-13 09:43-0500\n"
+"POT-Creation-Date: 2016-07-29 08:42-0400\n"
 "PO-Revision-Date: 2016-05-26 04:33+0000\n"
 "Last-Translator: Cleiton Floss\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/ring/language/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
+#: src/accountaudiotab.cpp:174 src/accountvideotab.cpp:183
 msgid "Enabled"
 msgstr "Habilitado"
 
-#: src/accountaudiotab.cpp:191
+#: src/accountaudiotab.cpp:180
 msgctxt "Name of the codec"
 msgid "Name"
 msgstr "Nome"
 
-#: src/accountaudiotab.cpp:195 src/accountvideotab.cpp:204
+#: src/accountaudiotab.cpp:184 src/accountvideotab.cpp:193
 msgid "Bitrate"
 msgstr "Taxa de bits"
 
-#: src/accountaudiotab.cpp:199
+#: src/accountaudiotab.cpp:188
 msgid "Samplerate"
 msgstr "Taxa de transmissão"
 
-#: src/accountgeneraltab.cpp:210
+#: src/accountgeneraltab.cpp:224
+msgid "_Remove server"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:264
 msgid "Alias"
 msgstr "Apelido"
 
-#: src/accountgeneraltab.cpp:221
+#: src/accountgeneraltab.cpp:275
 msgid "Type"
 msgstr "Tipo"
 
-#: src/accountgeneraltab.cpp:250
+#: src/accountgeneraltab.cpp:300
 msgid "auto-generating..."
 msgstr "gerando automaticamente"
 
-#: src/accountgeneraltab.cpp:269
+#: src/accountgeneraltab.cpp:318 src/accountgeneraltab.cpp:412
 msgid "Hostname"
 msgstr "Servidor"
 
-#: src/accountgeneraltab.cpp:279
+#: src/accountgeneraltab.cpp:328
 msgid "Username"
 msgstr "Nome de usuário"
 
-#: src/accountgeneraltab.cpp:289
+#: src/accountgeneraltab.cpp:338
 msgid "Password"
 msgstr "Senha"
 
-#: src/accountgeneraltab.cpp:302
+#: src/accountgeneraltab.cpp:351
 msgid "Show password"
 msgstr "Mostrar senha"
 
-#: src/accountgeneraltab.cpp:308
+#: src/accountgeneraltab.cpp:357
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/accountgeneraltab.cpp:318
+#: src/accountgeneraltab.cpp:367
 msgid "Voicemail number"
 msgstr "Número do correio de voz"
 
-#: src/accountgeneraltab.cpp:330
+#: src/accountgeneraltab.cpp:379
+#, fuzzy
 msgctxt "The DHT bootstrap server url"
-msgid "Bootstrap"
+msgid "Bootstrap Servers"
 msgstr "Inicialização"
 
-#: src/accountgeneraltab.cpp:342
+#: src/accountgeneraltab.cpp:420 ui/accountadvancedtab.ui:314
+msgid "Port"
+msgstr "Porta"
+
+#: src/accountgeneraltab.cpp:430
 msgid "Auto-answer calls"
 msgstr "Chamadas de Auto-Resposta"
 
-#: src/accountgeneraltab.cpp:350
+#: src/accountgeneraltab.cpp:438
 msgid "UPnP enabled"
 msgstr "UPnP ativado"
 
-#: src/accountgeneraltab.cpp:358
+#: src/accountgeneraltab.cpp:446
 msgid "DTMF tone type:"
 msgstr "Tipo de tom DTMF"
 
-#: src/accountvideotab.cpp:200
+#: src/accountimportexportview.cpp:99
+msgid "Select account export location"
+msgstr ""
+
+#: src/accountimportexportview.cpp:102 ui/accountimportexportview.ui:161
+msgid "Cancel"
+msgstr ""
+
+#: src/accountimportexportview.cpp:104
+msgid "Select"
+msgstr ""
+
+#: src/accountimportexportview.cpp:211
+msgid "Error importing account(s)"
+msgstr ""
+
+#: src/accountimportexportview.cpp:263
+msgid "Error exporting account(s)"
+msgstr ""
+
+#: src/accountvideotab.cpp:189
 msgctxt "The name of the codec"
 msgid "Name"
 msgstr "Nome"
 
-#: src/accountview.cpp:159
+#: src/accountview.cpp:162
 msgctxt "Account settings"
 msgid "General"
 msgstr "Geral"
 
-#: src/accountview.cpp:163
+#: src/accountview.cpp:166
 msgctxt "Account settings"
 msgid "Audio"
 msgstr "Audio"
 
-#: src/accountview.cpp:167
+#: src/accountview.cpp:170
 msgctxt "Account settings"
 msgid "Video"
 msgstr "Vídeo"
 
-#: src/accountview.cpp:171
+#: src/accountview.cpp:174
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Avançado"
 
-#: src/accountview.cpp:175
+#: src/accountview.cpp:178
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Segurança"
 
-#: src/accountview.cpp:229
+#: src/accountview.cpp:234
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "Você tem certeza que deseja deletar a conta \"%s\"?"
 
-#: src/accountview.cpp:313 src/accountview.cpp:315
+#: src/accountview.cpp:318 src/accountview.cpp:320
 msgid "New Account"
 msgstr "Nova conta"
 
-#: src/accountview.cpp:399
+#: src/accountview.cpp:469
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Habilitado"
 
-#: src/accountview.cpp:405
+#: src/accountview.cpp:475
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Apelido"
 
-#: src/accountview.cpp:409
+#: src/accountview.cpp:483
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Status"
 
-#: src/contactsview.cpp:305
+#: src/avatarmanipulation.cpp:429
+msgid "Open Avatar Image"
+msgstr ""
+
+#: src/avatarmanipulation.cpp:432
+msgid "_Cancel"
+msgstr ""
+
+#: src/avatarmanipulation.cpp:434
+msgid "_Open"
+msgstr ""
+
+#: src/backends/edscontactbackend.cpp:193
+msgid "Unknown EDS addressbook"
+msgstr "Agenda de endereços EDS desconhecida"
+
+#: src/backends/edscontactbackend.cpp:213
+msgctxt "Backend type"
+msgid "Contacts"
+msgstr "Contatos"
+
+#: src/contactsview.cpp:278
+#, c-format
+msgid "Are you sure you want to delete contact \"%s\"? It will be removed from your system's addressbook."
+msgstr ""
+
+#: src/contactsview.cpp:360 src/contactsview.cpp:368 src/contactsview.cpp:438
+#: src/historyview.cpp:188 src/recentcontactsview.cpp:406
+#: src/recentcontactsview.cpp:413 src/recentcontactsview.cpp:440
+#, fuzzy
+msgid "_Call"
+msgstr "Chamar"
+
+#: src/contactsview.cpp:393 src/historyview.cpp:199
+#: src/recentcontactsview.cpp:460
 msgid "_Copy name"
 msgstr "_Copiar nome"
 
-#: src/contactsview.cpp:316 src/contactsview.cpp:331
+#: src/contactsview.cpp:404 src/contactsview.cpp:429 src/historyview.cpp:209
+#: src/recentcontactsview.cpp:478 src/recentcontactsview.cpp:486
+#: src/recentcontactsview.cpp:518
 msgid "_Copy number"
 msgstr "Copiar número"
+
+#: src/contactsview.cpp:414
+#, fuzzy
+msgid "_Remove contact"
+msgstr "_Adicionar contato"
 
 #: src/dialogs.c:53
 msgid "Working..."
@@ -163,44 +233,46 @@ msgctxt "Do not translate the release name"
 msgid ""
 "release: Louis-Joseph Papineau\n"
 "v%d.%d.%d - %.10s"
-msgstr "Versão: Louis-Joseph Papineau\nv%d.%d.%d - %.10s"
+msgstr ""
+"Versão: Louis-Joseph Papineau\n"
+"v%d.%d.%d - %.10s"
 
-#: src/dialogs.c:111
+#: src/dialogs.c:114
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is a secured and distributed communication software."
-msgstr "O cliente GNOME para o Ring.\nO Ring é um software de comunicação seguro e distribuído."
+msgstr ""
+"O cliente GNOME para o Ring.\n"
+"O Ring é um software de comunicação seguro e distribuído."
 
-#: src/editcontactview.cpp:196
+#: src/editcontactview.cpp:185
 msgctxt "Phone number category"
 msgid "home"
 msgstr "casa"
 
-#: src/generalsettingsview.cpp:94
+#: src/generalsettingsview.cpp:95
 msgid ""
 "Are you sure you want to clear all your history?\n"
 "This operation will also reset the Frequent Contacts list"
-msgstr "Você tem certeza que quer limpar todo seu histórico?\nEssa operação também vai reiniciar toda a sua lista de contatos recentes"
+msgstr ""
+"Você tem certeza que quer limpar todo seu histórico?\n"
+"Essa operação também vai reiniciar toda a sua lista de contatos recentes"
 
-#: src/historyview.cpp:184
-msgid "_Copy"
-msgstr "_Copiar"
-
-#: src/historyview.cpp:402
+#: src/historyview.cpp:403
 msgctxt "Call history"
 msgid "Call"
 msgstr "Chamar"
 
-#: src/historyview.cpp:447
+#: src/historyview.cpp:448
 msgctxt "Call history"
 msgid "Date"
 msgstr "Data"
 
-#: src/ringnotify.cpp:86
+#: src/ringnotify.cpp:78
 msgid "Incoming call"
 msgstr "Chamada recebida"
 
-#: src/ringnotify.cpp:169
+#: src/ringnotify.cpp:161
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
@@ -211,58 +283,64 @@ msgid "Enable debug"
 msgstr "Ativar depuração"
 
 #: src/ring_client_options.c:67
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
+msgid "Restores the hidden state of the main window (only applicable to the primary instance)"
 msgstr "Restaurar o estado oculto da janela principal (aplicável apenas à primeira instância)"
 
 #: src/ring_client_options.c:84
 msgid "- GNOME client for Ring"
 msgstr "- cliente GNOME para o Ring"
 
-#: src/backends/edscontactbackend.cpp:201
-msgid "Unknown EDS addressbook"
-msgstr "Agenda de endereços EDS desconhecida"
+#: src/ringmainwindow.cpp:529
+msgctxt "The default username / account alias, if none is set by the user"
+msgid "Unknown"
+msgstr ""
 
-#: src/backends/edscontactbackend.cpp:221
-msgctxt "Backend type"
-msgid "Contacts"
-msgstr "Contatos"
-
-#: src/utils/menus.cpp:67
-msgid "_Add to contact"
-msgstr "_Adicionar contato"
-
-#: src/ringmainwindow.cpp:944
-msgctxt ""
-"Please try to make the translation 50 chars or less so that it fits into the"
-" layout"
+#: src/ringmainwindow.cpp:1071
+msgctxt "Please try to make the translation 50 chars or less so that it fits into the layout"
 msgid "Search contacts or enter number"
 msgstr "Busque por contatos ou insira o número"
 
-#: src/ringwelcomeview.cpp:61
+#: src/ringwelcomeview.cpp:65
 msgid "fetching RingID..."
 msgstr "buscando RingID"
 
-#: src/ringwelcomeview.cpp:92
-msgid ""
-"Ring is a secure and distributed voice, video, and chat communication "
-"platform that requires no centralized server and leaves the power of privacy"
-" in the hands of the user."
+#: src/ringwelcomeview.cpp:102
+msgid "Ring is a secure and distributed voice, video, and chat communication platform that requires no centralized server and leaves the power of privacy in the hands of the user."
 msgstr "O Ring é uma plataforma de comunicação segura e distribuída para voz, vídeo e conversa que não necessita de servidor centralizado, deixando o poder da privacidade nas mãos do usuário. "
 
-#: src/ringwelcomeview.cpp:102
+#: src/ringwelcomeview.cpp:113
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr "Este é o seu RingID.\nSalve e compartilhe com seus amigos!"
+msgstr ""
+"Este é o seu RingID.\n"
+"Salve e compartilhe com seus amigos!"
 
-#: src/video/video_widget.cpp:478
+#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
+msgctxt "Name of error window (dialog)"
+msgid "Ring Error"
+msgstr ""
+
+#: src/native/dbuserrorhandler.cpp:57
+msgid "Trying to reconnect to the Ring daemon (dring)..."
+msgstr ""
+
+#: src/native/dbuserrorhandler.cpp:87
+msgid ""
+"Could not re-connect to the Ring daemon (dring).\n"
+"Ring will now quit."
+msgstr ""
+
+#: src/utils/menus.cpp:56
+msgid "_Add to contact"
+msgstr "_Adicionar contato"
+
+#: src/video/video_widget.cpp:513
 msgid "Share screen area"
 msgstr "Compartilhar área da tela"
 
-#: src/video/video_widget.cpp:484
+#: src/video/video_widget.cpp:519
 msgid "Share file"
 msgstr "Compartilhar arquivo"
 
@@ -283,89 +361,89 @@ msgid "Allow calls from peers in your contacts list"
 msgstr "Permitir chamadas de membros em sua lista de contatos"
 
 #: ui/accountadvancedtab.ui:149
-msgid "<b>Registration</b>"
+#, fuzzy
+msgid "Registration"
 msgstr "<b>Registro</b>"
 
-#: ui/accountadvancedtab.ui:176
+#: ui/accountadvancedtab.ui:178
 msgid "Use random port"
 msgstr "Usar porta randômica"
 
-#: ui/accountadvancedtab.ui:197
+#: ui/accountadvancedtab.ui:199
 msgid "Local port:"
 msgstr "Porta local:"
 
-#: ui/accountadvancedtab.ui:223
-msgid "<b>Network Interface</b>"
+#: ui/accountadvancedtab.ui:225
+#, fuzzy
+msgid "Network Interface"
 msgstr "<b>Interface de Rede</b>"
 
-#: ui/accountadvancedtab.ui:249
+#: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
 msgstr "Igual aos parâmetros locais"
 
-#: ui/accountadvancedtab.ui:264
+#: ui/accountadvancedtab.ui:268
 msgid "Set published address and port:"
 msgstr "Configurar endereço e portas publicadas:"
 
-#: ui/accountadvancedtab.ui:288
+#: ui/accountadvancedtab.ui:292
 msgid "Address"
 msgstr "Endereço"
 
-#: ui/accountadvancedtab.ui:310
-msgid "Port"
-msgstr "Porta"
-
-#: ui/accountadvancedtab.ui:336
+#: ui/accountadvancedtab.ui:340
 msgid "Use STUN"
 msgstr "Usar STUN"
 
-#: ui/accountadvancedtab.ui:359 ui/accountadvancedtab.ui:408
+#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
 msgid "server URL"
 msgstr "URL do servidor"
 
-#: ui/accountadvancedtab.ui:385
+#: ui/accountadvancedtab.ui:389
 msgid "Use TURN"
 msgstr "Usar TURN"
 
-#: ui/accountadvancedtab.ui:430
+#: ui/accountadvancedtab.ui:434
 msgid "username"
 msgstr "nome de usuário"
 
-#: ui/accountadvancedtab.ui:451
+#: ui/accountadvancedtab.ui:455
 msgid "password"
 msgstr "senha"
 
-#: ui/accountadvancedtab.ui:475
+#: ui/accountadvancedtab.ui:479
 msgid "realm"
 msgstr "domínio"
 
-#: ui/accountadvancedtab.ui:504
-msgid "<b>Published Address</b>"
+#: ui/accountadvancedtab.ui:508
+#, fuzzy
+msgid "Published Address"
 msgstr "<b>Endereço Publicado</b>"
 
-#: ui/accountadvancedtab.ui:533
-msgid ""
-"These settings are only used during SDP session negotiation in case ICE is "
-"not supported by the server or peer."
+#: ui/accountadvancedtab.ui:539
+msgid "These settings are only used during SDP session negotiation in case ICE is not supported by the server or peer."
 msgstr "Estas configurações serão apenas utilizadas durante uma negociação de sessão SDP, caso ICE não seja suportado pelo servidor ou pelo membro."
 
-#: ui/accountadvancedtab.ui:558 ui/accountadvancedtab.ui:632
+#: ui/accountadvancedtab.ui:564 ui/accountadvancedtab.ui:640
 msgid "Min"
 msgstr "Min"
 
-#: ui/accountadvancedtab.ui:581 ui/accountadvancedtab.ui:655
+#: ui/accountadvancedtab.ui:587 ui/accountadvancedtab.ui:663
 msgid "Max"
 msgstr "Máx"
 
-#: ui/accountadvancedtab.ui:605
-msgid "<b>Audio RTP Port Range</b>"
+#: ui/accountadvancedtab.ui:611
+#, fuzzy
+msgid "Audio RTP Port Range"
 msgstr "<b>Intervalo de Portas para Áudio RTP</b>"
 
-#: ui/accountadvancedtab.ui:679
-msgid "<b>Video RTP Port Range</b>"
+#: ui/accountadvancedtab.ui:687
+#, fuzzy
+msgid "Video RTP Port Range"
 msgstr "<b>Intervalo de Portas para Vídeo RTP</b>"
 
-#: ui/accountadvancedtab.ui:695
-msgid "<b>SDP Session Negotiation (ICE Fallback)</b>"
+#: ui/accountadvancedtab.ui:705
+#, fuzzy
+msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "<b>Negociação de Sessão SDP (ICE em caso de falha)</b>"
 
 #: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
@@ -377,16 +455,62 @@ msgid "Down"
 msgstr "Abaixo"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
-msgid "<b>Codecs</b>"
+#, fuzzy
+msgid "Codecs"
 msgstr "<b>Codecs</b>"
 
 #: ui/accountgeneraltab.ui:42
-msgid "<b>Account</b>"
-msgstr "<b>Conta</b>"
+#, fuzzy
+msgid "Account"
+msgstr "Contas"
 
-#: ui/accountgeneraltab.ui:80
-msgid "<b>Parameters</b>"
+#: ui/accountgeneraltab.ui:82
+#, fuzzy
+msgid "Parameters"
 msgstr "<b>Parâmetros</b>"
+
+#: ui/accountimportexportview.ui:14
+msgid "Export selected account"
+msgstr ""
+
+#: ui/accountimportexportview.ui:26
+#, fuzzy
+msgid "Import accounts"
+msgstr "Contas"
+
+#: ui/accountimportexportview.ui:49
+#, fuzzy
+msgid "Location:"
+msgstr "Resolução:"
+
+#: ui/accountimportexportview.ui:70
+msgid "choose location"
+msgstr ""
+
+#: ui/accountimportexportview.ui:76
+msgid "Choose export location"
+msgstr ""
+
+#: ui/accountimportexportview.ui:95
+msgid "Choose archive location"
+msgstr ""
+
+#: ui/accountimportexportview.ui:111
+msgid "Password (required):"
+msgstr ""
+
+#: ui/accountimportexportview.ui:126
+#, fuzzy
+msgid "Enter archive password"
+msgstr "Senha de chave privada"
+
+#: ui/accountimportexportview.ui:169 ui/accountview.ui:107
+msgid "Export"
+msgstr ""
+
+#: ui/accountimportexportview.ui:181 ui/accountview.ui:100
+msgid "Import"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -401,135 +525,178 @@ msgid "Fallback on RTP on encryption failure"
 msgstr "Utilizar RTP caso encriptação falhe"
 
 #: ui/accountsecuritytab.ui:94
-msgid "<b>Media Stream Encryption</b>"
+#, fuzzy
+msgid "Media Stream Encryption"
 msgstr "<b>Encriptação de Fluxo de Mídia</b>"
 
-#: ui/accountsecuritytab.ui:121
+#: ui/accountsecuritytab.ui:123
 msgid "Encrypt negotiation (TLS)"
 msgstr "Negociação de encriptação(TLS)"
 
-#: ui/accountsecuritytab.ui:146
+#: ui/accountsecuritytab.ui:148
 msgid "CA certificate"
 msgstr "Certificado de CA"
 
-#: ui/accountsecuritytab.ui:183
+#: ui/accountsecuritytab.ui:185
 msgid "User certificate"
 msgstr "Certificado de usuário"
 
-#: ui/accountsecuritytab.ui:220
+#: ui/accountsecuritytab.ui:222
 msgid "Private key"
 msgstr "Chave Privada"
 
-#: ui/accountsecuritytab.ui:243
+#: ui/accountsecuritytab.ui:245
 msgid "Private key password"
 msgstr "Senha de chave privada"
 
-#: ui/accountsecuritytab.ui:290
+#: ui/accountsecuritytab.ui:292
 msgid "TLS protocol method"
 msgstr "Método de Protocolo TLS"
 
-#: ui/accountsecuritytab.ui:313
+#: ui/accountsecuritytab.ui:315
 msgid "Outgoing TLS server name"
 msgstr "Servidor de saída TLS"
 
-#: ui/accountsecuritytab.ui:335
+#: ui/accountsecuritytab.ui:337
 msgid "Negotiation timeout (seconds)"
 msgstr "Tempo espera de negociação(sec)"
 
-#: ui/accountsecuritytab.ui:369
+#: ui/accountsecuritytab.ui:371
 msgid "Use default ciphers"
 msgstr "Utilizar cifras padrão"
 
-#: ui/accountsecuritytab.ui:385
+#: ui/accountsecuritytab.ui:387
 msgid "Use custom cipher list"
 msgstr "Use lista de cifra personalizada "
 
-#: ui/accountsecuritytab.ui:442
+#: ui/accountsecuritytab.ui:444
 msgid "Verify incoming certificates (server side)"
 msgstr "Verificar certificados de saída (lado do servidor)"
 
-#: ui/accountsecuritytab.ui:457
+#: ui/accountsecuritytab.ui:459
 msgid "Verify answer certificates (client side)"
 msgstr "Verificar certificados de entrada (lado do cliente)"
 
-#: ui/accountsecuritytab.ui:472
+#: ui/accountsecuritytab.ui:474
 msgid "Require a certificate for incoming TLS connections"
 msgstr "Exigir certificado para conexões TLS de entrada"
 
-#: ui/accountsecuritytab.ui:491
-msgid "<b>Negotiation Encryption</b>"
+#: ui/accountsecuritytab.ui:493
+#, fuzzy
+msgid "Negotiation Encryption"
 msgstr "<b>Negociação de Criptografia</b>"
 
-#: ui/accountvideotab.ui:90
+#: ui/accountvideotab.ui:92
 msgid "Enable Video"
 msgstr "Habilitar Vídeo"
 
-#: ui/accountview.ui:59
-msgid "<b>&#8722;</b>"
-msgstr "<b>&#8722;</b>"
+#: ui/accountview.ui:42 ui/accountview.ui:45
+msgid "Remove selected account"
+msgstr ""
 
-#: ui/accountview.ui:83
-msgid "<b>+</b>"
-msgstr "<b>+</b>"
+#: ui/accountview.ui:63 ui/accountview.ui:66
+#, fuzzy
+msgid "Add new account"
+msgstr "Nova conta"
+
+#: ui/accountview.ui:75 ui/accountview.ui:78
+msgid "Select account type"
+msgstr ""
+
+#: ui/accountview.ui:101
+msgid "Import archived account(s)"
+msgstr ""
+
+#: ui/accountview.ui:109
+msgid "Export selected account(s)"
+msgstr ""
+
+#: ui/avatarmanipulation.ui:95 ui/avatarmanipulation.ui:128
+msgid "Take photo"
+msgstr ""
+
+#: ui/avatarmanipulation.ui:105
+msgid "Choose image from file"
+msgstr ""
+
+#: ui/avatarmanipulation.ui:138 ui/avatarmanipulation.ui:171
+msgid "Return"
+msgstr ""
+
+#: ui/avatarmanipulation.ui:161
+msgid "Set selection as image"
+msgstr ""
+
+#: ui/chatview.ui:19 ui/chatview.ui:22
+msgid "Hide chat view"
+msgstr ""
+
+#: ui/chatview.ui:100
+msgid "Send"
+msgstr "Enviar"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
 msgstr "Criar Novo"
 
-#: ui/currentcallview.ui:73
-msgid "Send"
-msgstr "Enviar"
-
-#: ui/currentcallview.ui:191
+#: ui/currentcallview.ui:172
 msgid "End this call"
 msgstr "Finalizar esta chamada"
 
-#: ui/currentcallview.ui:195 ui/currentcallview.ui:356
+#: ui/currentcallview.ui:176 ui/currentcallview.ui:359
 msgid "End call"
 msgstr "Finalizar chamada"
 
-#: ui/currentcallview.ui:213
+#: ui/currentcallview.ui:194
 msgid "Toggle hold"
 msgstr "Ligar espera"
 
-#: ui/currentcallview.ui:217 ui/currentcallview.ui:239
-#: ui/currentcallview.ui:347
+#: ui/currentcallview.ui:198 ui/currentcallview.ui:220
+#: ui/currentcallview.ui:350
 msgid "Hold"
 msgstr "Modo de espera"
 
-#: ui/currentcallview.ui:235
+#: ui/currentcallview.ui:216
 msgid "Toggle mute audio"
 msgstr "Alternar áudio para mudo"
 
-#: ui/currentcallview.ui:257
+#: ui/currentcallview.ui:238
 msgid "Toggle mute video"
 msgstr "Alternar vídeo para mudo"
 
-#: ui/currentcallview.ui:261 ui/currentcallview.ui:338
+#: ui/currentcallview.ui:242 ui/currentcallview.ui:341
 msgid "Mute video"
 msgstr "Desabilitar som do vídeo"
 
-#: ui/currentcallview.ui:280
+#: ui/currentcallview.ui:261
 msgid "Toggle record audio"
 msgstr "Alternar gravação de áudio"
 
-#: ui/currentcallview.ui:283
+#: ui/currentcallview.ui:264
 msgid "Record audio"
 msgstr "Gravar áudio"
 
-#: ui/currentcallview.ui:299
+#: ui/currentcallview.ui:281
+msgid "Adjust outgoing video quality"
+msgstr ""
+
+#: ui/currentcallview.ui:286 ui/currentcallview.ui:368
+msgid "Video quality"
+msgstr ""
+
+#: ui/currentcallview.ui:302
 msgid "Toggle show chat"
 msgstr "Alternar exibição de conversa"
 
-#: ui/currentcallview.ui:303 ui/currentcallview.ui:320
+#: ui/currentcallview.ui:306 ui/currentcallview.ui:323
 msgid "Chat"
 msgstr "Conversa"
 
-#: ui/currentcallview.ui:329
+#: ui/currentcallview.ui:332
 msgid "Mute audio"
 msgstr "Desabilitar som do áudio"
 
-#: ui/currentcallview.ui:365
+#: ui/currentcallview.ui:377
 msgid "Record"
 msgstr "Gravar"
 
@@ -569,101 +736,110 @@ msgstr "Número ou Ring ID"
 msgid "Save"
 msgstr "Salvar"
 
-#: ui/generalsettingsview.ui:32
-msgid "<b>Ring Settings</b>"
+#: ui/generalsettingsview.ui:34
+#, fuzzy
+msgid "Profile Settings"
+msgstr "Configurações"
+
+#: ui/generalsettingsview.ui:78
+#, fuzzy
+msgid "Ring Settings"
 msgstr "<b>Configurações do Ring</b>"
 
-#: ui/generalsettingsview.ui:46
+#: ui/generalsettingsview.ui:94
 msgid "Start Ring on login"
 msgstr "Iniciar Ring durante o login"
 
-#: ui/generalsettingsview.ui:55
-msgid "Hide Ring on close instead of quitting."
-msgstr "Esconder Ring ao invés de fechar."
+#: ui/generalsettingsview.ui:103
+msgid "Show Ring icon in the notification area (systray)."
+msgstr ""
 
-#: ui/generalsettingsview.ui:64
+#: ui/generalsettingsview.ui:112
 msgid "Bring Ring to the foreground on incoming calls."
 msgstr "Trazer Ring para o primeiro plano ao receber chamadas"
 
-#: ui/generalsettingsview.ui:79
+#: ui/generalsettingsview.ui:127
 msgid "Show chat on the right."
 msgstr "Mostre o bate-papo na direita"
 
-#: ui/generalsettingsview.ui:86
+#: ui/generalsettingsview.ui:134
 msgid "Show chat on the bottom."
 msgstr "Mostre o bate-papo na parte inferior."
 
-#: ui/generalsettingsview.ui:110
-msgid "<b>History Settings</b>"
+#: ui/generalsettingsview.ui:158
+#, fuzzy
+msgid "History Settings"
 msgstr "<b>Configurações de Histórico</b>"
 
-#: ui/generalsettingsview.ui:128
+#: ui/generalsettingsview.ui:178
 msgid "Keep history for (days):"
 msgstr "Manter histórico por (dias):"
 
-#: ui/generalsettingsview.ui:151
+#: ui/generalsettingsview.ui:201
 msgid "(set to 0 for unlimited history)"
 msgstr "(configure 0 para histórico ilimitado)"
 
-#: ui/generalsettingsview.ui:160
+#: ui/generalsettingsview.ui:210
 msgid "Clear all history"
 msgstr "Limpar histórico"
 
-#: ui/incomingcallview.ui:88
+#: ui/incomingcallview.ui:105
 msgid "Incoming..."
 msgstr "Recebendo chamada..."
 
-#: ui/incomingcallview.ui:122
+#: ui/incomingcallview.ui:139
 msgid "   Accept"
 msgstr "Aceitar"
 
-#: ui/incomingcallview.ui:137
+#: ui/incomingcallview.ui:154
 msgid "   Reject"
 msgstr "Rejeitar"
 
-#: ui/incomingcallview.ui:152
+#: ui/incomingcallview.ui:169
 msgid "   Hang-up"
 msgstr "Desligar"
 
-#: ui/mediasettingsview.ui:36
+#: ui/mediasettingsview.ui:24
+#, fuzzy
+msgid "Audio Settings"
+msgstr "<b>Configurações de Áudio</b>"
+
+#: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
 msgstr "Gerenciador de áudio:"
 
-#: ui/mediasettingsview.ui:48
+#: ui/mediasettingsview.ui:52
 msgid "Ringtone device:"
 msgstr "Dispositivo de toque:"
 
-#: ui/mediasettingsview.ui:60
+#: ui/mediasettingsview.ui:64
 msgid "Output device:"
 msgstr "Dispositivo de saída:"
 
-#: ui/mediasettingsview.ui:72
+#: ui/mediasettingsview.ui:76
 msgid "Input device:"
 msgstr "Dispositivo de entrada:"
 
-#: ui/mediasettingsview.ui:127
-msgid "<b>Audio Settings</b>"
-msgstr "<b>Configurações de Áudio</b>"
+#: ui/mediasettingsview.ui:134
+#, fuzzy
+msgid "Camera Settings"
+msgstr "<b>Configurações da Câmera</b>"
 
-#: ui/mediasettingsview.ui:163
+#: ui/mediasettingsview.ui:150
 msgid "Device:"
 msgstr "Dispositivo:"
 
-#: ui/mediasettingsview.ui:175
+#: ui/mediasettingsview.ui:162
 msgid "Channel:"
 msgstr "Canal:"
 
-#: ui/mediasettingsview.ui:187
+#: ui/mediasettingsview.ui:174
 msgid "Resolution:"
 msgstr "Resolução:"
 
-#: ui/mediasettingsview.ui:199
+#: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
 msgstr "Taxa de quadros:"
-
-#: ui/mediasettingsview.ui:258
-msgid "<b>Camera Settings</b>"
-msgstr "<b>Configurações da Câmera</b>"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
@@ -693,42 +869,35 @@ msgstr "Contas"
 msgid "Settings"
 msgstr "Configurações"
 
-#: ui/ringmainwindow.ui:192
+#: ui/ringmainwindow.ui:194
 msgid "Conversations"
 msgstr "Conversas"
 
-#: ui/ringmainwindow.ui:211
+#: ui/ringmainwindow.ui:213
 msgid "Contacts"
 msgstr "Contatos"
 
-#: ui/ringmainwindow.ui:230
+#: ui/ringmainwindow.ui:232
 msgid "History"
 msgstr "Histórico"
 
-#: ui/ringmainwindow.ui:290
-msgid "Welcome to  "
+#: ui/ringmainwindow.ui:289
+#, fuzzy
+msgid "Welcome to "
 msgstr "Bem-vindo "
 
-#: ui/ringmainwindow.ui:307
-msgid "Enter your alias to get started:"
-msgstr "Digite seu apelido para iniciar:"
+#: ui/ringmainwindow.ui:326
+msgid "Choose an avatar and your username:"
+msgstr ""
 
-#: ui/ringmainwindow.ui:324
+#: ui/ringmainwindow.ui:368
+msgid "Username will be set to \"Unknown\" if left empty."
+msgstr ""
+
+#: ui/ringmainwindow.ui:387
 msgid "Generating your Ring account..."
 msgstr "Criando sua conta Ring..."
 
-#: ui/ringmainwindow.ui:338
+#: ui/ringmainwindow.ui:401
 msgid "Next"
 msgstr "Próximo"
-
-#: ui/ringmainwindow.ui:360
-msgid "Your Ring account has been created with the following Ring ID:"
-msgstr "Sua conta Ring foi criada com o seguinte Ring ID:"
-
-#: ui/ringmainwindow.ui:375
-msgid "Share it with your friends so they can contact you via Ring!"
-msgstr "Compartilhe com seus amigos, para que possam te contactar através do Ring!"
-
-#: ui/ringmainwindow.ui:380
-msgid "Done"
-msgstr "Feito"
