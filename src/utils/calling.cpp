@@ -24,13 +24,25 @@
 #include <QtCore/QItemSelectionModel>
 
 void
-place_new_call(const ContactMethod *n, Account *acc)
+place_new_call(ContactMethod *n, Account *acc)
 {
-    Call *call = CallModel::instance().dialingCall();
-    call->setDialNumber(n);
-    if (acc)
-        call->setAccount(acc);
-    call->performAction(Call::Action::ACCEPT);
+    /* check if this CM already has an ongoing call; likely we want the most recent one, so we
+     * check the CallModel in reverse order
+     */
+    auto call_list = CallModel::instance().getActiveCalls();
+    Call* call = nullptr;
+    for (int i = call_list.size() - 1; i > -1 && call == nullptr; --i) {
+        if (call_list.at(i)->peerContactMethod() == n) {
+            call = call_list.at(i);
+        }
+    }
+
+    if (!call) {
+        /* didn't find an existing call, so create a new one */
+        auto call = CallModel::instance().dialingCall(n);
+        call->setAccount(acc); // force account
+        call->performAction(Call::Action::ACCEPT);
+    }
 
     /* make this the currently selected call */
     QModelIndex call_idx = CallModel::instance().getIndex(call);
