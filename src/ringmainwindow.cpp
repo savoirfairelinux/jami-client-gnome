@@ -19,49 +19,53 @@
 
 #include "ringmainwindow.h"
 
-#include <gtk/gtk.h>
+// system
+#include <string.h>
+#include <memory>
+
+// GTK+ related
 #include <glib/gi18n.h>
-#include "models/gtkqtreemodel.h"
+
+// Qt
+#include <QtCore/QItemSelectionModel>
+#include <QtCore/QSortFilterProxyModel>
+
+// LRC
 #include <callmodel.h>
 #include <call.h>
-#include <QtCore/QItemSelectionModel>
-#include "incomingcallview.h"
-#include "currentcallview.h"
-#include <string.h>
 #include <contactmethod.h>
-#include <QtCore/QSortFilterProxyModel>
-#include "models/gtkqsortfiltertreemodel.h"
-#include "accountview.h"
 #include <accountmodel.h>
 #include <codecmodel.h>
-#include "dialogs.h"
-#include "mediasettingsview.h"
 #include <video/previewmanager.h>
 #include <personmodel.h>
-#include "utils/drawing.h"
-#include <memory>
 #include <globalinstances.h>
+#include <numbercompletionmodel.h>
+#include <categorizedcontactmodel.h>
+#include <recentmodel.h>
+#include <profilemodel.h>
+#include <profile.h>
+
+// Ring client
+#include "models/gtkqtreemodel.h"
+#include "incomingcallview.h"
+#include "currentcallview.h"
+#include "models/gtkqsortfiltertreemodel.h"
+#include "accountview.h"
+#include "dialogs.h"
+#include "mediasettingsview.h"
+#include "utils/drawing.h"
 #include "native/pixbufmanipulator.h"
 #include "models/activeitemproxymodel.h"
-#include <numbercompletionmodel.h>
 #include "utils/calling.h"
 #include "contactsview.h"
-#include <categorizedcontactmodel.h>
 #include "historyview.h"
 #include "utils/models.h"
 #include "generalsettingsview.h"
 #include "utils/accounts.h"
 #include "ringwelcomeview.h"
 #include "recentcontactsview.h"
-#include <recentmodel.h>
 #include "chatview.h"
-
-/*TODO : sorting headers */
-/* client */
 #include "avatarmanipulation.h"
-/* lrc */
-#include <profilemodel.h>
-#include <profile.h>
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* CREATE_ACCOUNT_VIEW_NAME   = "wizard";
@@ -357,31 +361,11 @@ search_entry_placecall(G_GNUC_UNUSED GtkWidget *entry, gpointer win)
     const gchar *number_entered = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
 
     if (number_entered && strlen(number_entered) > 0) {
-        /* detect Ring hash */
-        gboolean is_ring_hash = FALSE;
-        if (strlen(number_entered) == 40) {
-            is_ring_hash = TRUE;
-            /* must be 40 chars long and alphanumeric */
-            for (int i = 0; i < 40 && is_ring_hash; ++i) {
-                if (!g_ascii_isalnum(number_entered[i]))
-                    is_ring_hash = FALSE;
-            }
-        }
+        auto cm = PhoneDirectoryModel::instance().getNumber(number_entered);
 
-        QString number = QString{number_entered};
+        g_debug("dialing to number: %s", cm->uri().toUtf8().constData());
 
-        if (is_ring_hash)
-            number = "ring:" + number;
-
-        g_debug("dialing to number: %s", number.toUtf8().constData());
-
-        Call *call = priv->q_completion_model->call();
-        call->setDialNumber(number);
-        call->performAction(Call::Action::ACCEPT);
-
-        /* make this the currently selected call */
-        QModelIndex idx = CallModel::instance().getIndex(call);
-        CallModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
+        place_new_call(cm);
 
         /* move focus away from entry so that DTMF tones can be entered via the keyboard */
         gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
@@ -796,12 +780,9 @@ select_autocompletion(G_GNUC_UNUSED GtkEntryCompletion *widget,
     QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
     if (idx.isValid()) {
         priv->q_completion_model->selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
-        Call *call = priv->q_completion_model->call();
-        priv->q_completion_model->callSelectedNumber();
+        auto call = priv->q_completion_model->call();
 
-        /* make this the currently selected call */
-        QModelIndex idx = CallModel::instance().getIndex(call);
-        CallModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
+        place_new_call(call->peerContactMethod());
 
         /* move focus away from entry so that DTMF tones can be entered via the keyboard */
         gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
