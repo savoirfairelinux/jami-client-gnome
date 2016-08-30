@@ -524,11 +524,13 @@ ring_client_startup(GApplication *app)
 
     /* change the state of the GActions based on the UserActionModel */
     priv->uam_updated = QObject::connect(uam,&UserActionModel::dataChanged, [actionHash,uam](const QModelIndex& tl, const QModelIndex& br) {
+        g_debug("UAM data changed");
        const int first(tl.row()),last(br.row());
        for(int i = first; i <= last;i++) {
           const QModelIndex& idx = uam->index(i,0);
           GSimpleAction* sa = actionHash[(int)qvariant_cast<UserActionModel::Action>(idx.data(UserActionModel::Role::ACTION))];
           if (sa) {
+              g_debug("action: %s: %s", g_action_get_name(G_ACTION(sa)), idx.flags() & Qt::ItemIsEnabled ? "y" : "n");
             /* enable/disable GAction based on UserActionModel */
             g_simple_action_set_enabled(sa, idx.flags() & Qt::ItemIsEnabled);
             /* set the state of the action if its stateful */
