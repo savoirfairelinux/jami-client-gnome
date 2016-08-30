@@ -516,26 +516,26 @@ ring_client_startup(GApplication *app)
     actionHash[ (int)UserActionModel::Action::HANGUP          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "hangup"));
 
     for (QHash<int,GSimpleAction*>::const_iterator i = actionHash.begin(); i != actionHash.end(); ++i) {
-       GSimpleAction* sa = i.value();
-       int_ptr_t user_data;
-       user_data.value = i.key();
-       g_signal_connect(G_OBJECT(sa), "activate", G_CALLBACK(activate_action), user_data.ptr);
+        GSimpleAction* sa = i.value();
+        int_ptr_t user_data;
+        user_data.value = i.key();
+        g_signal_connect(G_OBJECT(sa), "activate", G_CALLBACK(activate_action), user_data.ptr);
     }
 
     /* change the state of the GActions based on the UserActionModel */
     priv->uam_updated = QObject::connect(uam,&UserActionModel::dataChanged, [actionHash,uam](const QModelIndex& tl, const QModelIndex& br) {
-       const int first(tl.row()),last(br.row());
-       for(int i = first; i <= last;i++) {
-          const QModelIndex& idx = uam->index(i,0);
-          GSimpleAction* sa = actionHash[(int)qvariant_cast<UserActionModel::Action>(idx.data(UserActionModel::Role::ACTION))];
-          if (sa) {
-            /* enable/disable GAction based on UserActionModel */
-            g_simple_action_set_enabled(sa, idx.flags() & Qt::ItemIsEnabled);
-            /* set the state of the action if its stateful */
-            if (g_action_get_state_type(G_ACTION(sa)) != NULL)
-                g_simple_action_set_state(sa, g_variant_new_boolean(idx.data(Qt::CheckStateRole) == Qt::Checked));
-          }
-       }
+        const int first(tl.row()),last(br.row());
+        for(int i = first; i <= last;i++) {
+            const QModelIndex& idx = uam->index(i,0);
+            GSimpleAction* sa = actionHash[(int)qvariant_cast<UserActionModel::Action>(idx.data(UserActionModel::Role::ACTION))];
+            if (sa) {
+                /* enable/disable GAction based on UserActionModel */
+                g_simple_action_set_enabled(sa, idx.flags() & Qt::ItemIsEnabled);
+                /* set the state of the action if its stateful */
+                if (g_action_get_state_type(G_ACTION(sa)) != NULL)
+                    g_simple_action_set_state(sa, g_variant_new_boolean(idx.data(Qt::CheckStateRole) == Qt::Checked));
+            }
+        }
     });
 
     /* show window on incoming calls (if the option is set)*/
