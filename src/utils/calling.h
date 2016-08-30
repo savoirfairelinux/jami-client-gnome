@@ -24,6 +24,6 @@ class ContactMethod;
 class Account;
 
 void
-place_new_call(const ContactMethod *n, Account *acc = nullptr);
+place_new_call(ContactMethod *n, Account *acc = nullptr);
 
 #endif /* _CALLING_H */
