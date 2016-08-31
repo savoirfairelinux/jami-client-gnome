@@ -519,6 +519,75 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_4f73c2b1",
+        "filename": "src/accountdevicestab.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T16:25:17Z",
+      "side": 1,
+      "message": "maybe better to replace this with a description rather than the function name? maybe just \"export\" or \"account export\"",
+      "range": {
+        "startLine": 221,
+        "startChar": 94,
+        "endLine": 221,
+        "endChar": 106
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_cf5ed212",
+        "filename": "src/accountdevicestab.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T16:25:17Z",
+      "side": 1,
+      "message": "probably a good idea to use the translation macro which allows you to add a comment for the translators so they understand the context, eg: C_(\"Account name column\", \"Name\")",
+      "range": {
+        "startLine": 266,
+        "startChar": 54,
+        "endLine": 266,
+        "endChar": 63
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_6f9b26ca",
+        "filename": "src/accountdevicestab.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T16:25:17Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 271,
+        "startChar": 54,
+        "endLine": 271,
+        "endChar": 61
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_bc2e2ea4",
         "filename": "src/accountdevicestab.h",
         "patchSetId": 24
