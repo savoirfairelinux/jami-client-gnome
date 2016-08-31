@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_cf19f27a",
+        "filename": "src/ring_client.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T15:34:45Z",
+      "side": 1,
+      "message": "oups, didn\u0027t mean to commit that anyways",
+      "parentUuid": "fad0f9df_7c31a60a",
+      "revId": "2559bdea22f9df73c32fce37d6673e6763c0cae3",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_9c36ca02",
         "filename": "src/ring_client.cpp",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2016-08-31T14:54:36Z",
       "side": 1,
       "message": "Indentation is off",
+      "revId": "2559bdea22f9df73c32fce37d6673e6763c0cae3",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_6f26c6bc",
+        "filename": "src/ring_client.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T15:34:45Z",
+      "side": 1,
+      "message": "same",
+      "parentUuid": "fad0f9df_9c36ca02",
       "revId": "2559bdea22f9df73c32fce37d6673e6763c0cae3",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
