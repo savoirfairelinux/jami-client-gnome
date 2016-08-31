@@ -1,0 +1,314 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_5c406256",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "The commit msg body should probably have a description of everything the patch does functionally, including any changes in behaviour.",
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_1c22dab9",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "I\u0027ve started sorting these into system, GTK+ related, Qt, LRC, and Ring client since some files have a lot of includes, it would be good to do it right away in all the new files, see ring_client.cpp for example",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_1c741ace",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "instead of having a function which just calls one other function, you can do:\ng_signal_connect_swapped(... G_CALLBACK(show_account_creation), view);\n\nThis macro will reverse the arguments given to the callback... its also OK if your callback only takes the first argument as a parameter. See:\nhttps://developer.gnome.org/gobject/unstable/gobject-Signals.html#g-signal-connect-swapped",
+      "range": {
+        "startLine": 513,
+        "startChar": 0,
+        "endLine": 513,
+        "endChar": 97
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_bc806e8c",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 514,
+        "endChar": 107
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_dc7d32b3",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 518,
+        "startChar": 0,
+        "endLine": 518,
+        "endChar": 125
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_7c4a0685",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 520,
+        "startChar": 0,
+        "endLine": 520,
+        "endChar": 117
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_9c4faa92",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 524,
+        "startChar": 4,
+        "endLine": 525,
+        "endChar": 117
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_3c447e73",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 528,
+        "startChar": 0,
+        "endLine": 528,
+        "endChar": 101
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_fc24b6c7",
+        "filename": "src/accountcreationwizard.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "we can use \"#pragma once\" now like in the daemon... actually I should make sure I do the same :P",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 32
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_fc5d9649",
+        "filename": "src/accountdevicestab.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "see my comments about he callback function wrappers and using g_signal_connect_swapper macro in the other file",
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_dc2bf292",
+        "filename": "src/accountdevicestab.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "I\u0027ve started sorting these into system, GTK+ related, Qt, LRC, and Ring client since some files have a lot of includes, it would be good to do it right away in all the new files, see ring_client.cpp for example",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_bc2e2ea4",
+        "filename": "src/accountdevicestab.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "#pragma once",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_9c1d6a76",
+        "filename": "src/accountmigrationview.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "I\u0027ve started sorting these into system, GTK+ related, Qt, LRC, and Ring client since some files have a lot of includes, it would be good to do it right away in all the new files, see ring_client.cpp for example",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 28
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_7c18c684",
+        "filename": "src/accountmigrationview.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T14:59:52Z",
+      "side": 1,
+      "message": "#pragma once",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
