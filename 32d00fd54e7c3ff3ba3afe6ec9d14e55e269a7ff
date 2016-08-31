@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_8f63eab0",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T19:36:59Z",
+      "side": 1,
+      "message": "this string is mallocd by g_strdup_printf, needs to be freed after use",
+      "range": {
+        "startLine": 556,
+        "startChar": 15,
+        "endLine": 556,
+        "endChar": 34
+      },
+      "revId": "32d00fd54e7c3ff3ba3afe6ec9d14e55e269a7ff",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_cf51f2d9",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T19:36:59Z",
+      "side": 1,
+      "message": "this string is mallocd by g_strdup_printf, needs to be freed after use",
+      "range": {
+        "startLine": 572,
+        "startChar": 15,
+        "endLine": 572,
+        "endChar": 20
+      },
+      "revId": "32d00fd54e7c3ff3ba3afe6ec9d14e55e269a7ff",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_6f5ec6eb",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T19:36:59Z",
+      "side": 1,
+      "message": "same as above, needs to be freed",
+      "range": {
+        "startLine": 585,
+        "startChar": 15,
+        "endLine": 585,
+        "endChar": 34
+      },
+      "revId": "32d00fd54e7c3ff3ba3afe6ec9d14e55e269a7ff",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_2f58bef9",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T19:36:59Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 596,
+        "startChar": 15,
+        "endLine": 596,
+        "endChar": 20
+      },
+      "revId": "32d00fd54e7c3ff3ba3afe6ec9d14e55e269a7ff",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_4f5d02e9",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T19:36:59Z",
+      "side": 1,
+      "message": "like the TODO says, the return value of this call needs to be saved so that the signal can be disconnected when this widget is destroyed, or else \"bad things will happen\" if the user activates the smart info after this widget no longer exists",
+      "range": {
+        "startLine": 727,
+        "startChar": 0,
+        "endLine": 728,
+        "endChar": 48
+      },
+      "revId": "32d00fd54e7c3ff3ba3afe6ec9d14e55e269a7ff",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_ef4ab626",
+        "filename": "src/currentcallview.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T19:36:59Z",
+      "side": 1,
+      "message": "this is not part of the public API of the CurrentCallView, so this shouldn\u0027t be in the header... it should either be declared at the top of the .cpp file, or else just defined before it used, which is the method I usually employ",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "32d00fd54e7c3ff3ba3afe6ec9d14e55e269a7ff",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
