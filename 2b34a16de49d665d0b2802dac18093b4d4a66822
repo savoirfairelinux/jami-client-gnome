@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_efc39688",
+        "filename": "src/accountmigrationview.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-08-31T19:07:32Z",
+      "side": 1,
+      "message": "maybe not for this patch, but maybe we should think about adding another state, either in the RegistrationState, or maybe another state entirely, such as CreationState. There are existing issues to the time that it takes to create a Ring account, before with SIP the action was immediate, but since Ring takes time, we get a bunch of unnecesary output in LRC during creation while its checking if its done being created...",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 67
+      },
+      "revId": "2b34a16de49d665d0b2802dac18093b4d4a66822",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
