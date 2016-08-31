@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_6f4d6672",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_5c406256",
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_1c22dab9",
         "filename": "src/accountcreationwizard.cpp",
         "patchSetId": 24
@@ -30,6 +48,54 @@
       "writtenOn": "2016-08-31T14:59:52Z",
       "side": 1,
       "message": "I\u0027ve started sorting these into system, GTK+ related, Qt, LRC, and Ring client since some files have a lot of includes, it would be good to do it right away in all the new files, see ring_client.cpp for example",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_af1cae6b",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_1c22dab9",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_cf3012eb",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_1c22dab9",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -65,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_ef407637",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_1c741ace",
+      "range": {
+        "startLine": 513,
+        "startChar": 0,
+        "endLine": 513,
+        "endChar": 97
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_bc806e8c",
         "filename": "src/accountcreationwizard.cpp",
         "patchSetId": 24
@@ -76,6 +166,30 @@
       "writtenOn": "2016-08-31T14:59:52Z",
       "side": 1,
       "message": "same as above",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 514,
+        "endChar": 107
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_0f3e1ab9",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_bc806e8c",
       "range": {
         "startLine": 514,
         "startChar": 0,
@@ -111,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_af4a6e53",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_dc7d32b3",
+      "range": {
+        "startLine": 518,
+        "startChar": 0,
+        "endLine": 518,
+        "endChar": 125
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_7c4a0685",
         "filename": "src/accountcreationwizard.cpp",
         "patchSetId": 24
@@ -122,6 +260,30 @@
       "writtenOn": "2016-08-31T14:59:52Z",
       "side": 1,
       "message": "same as above",
+      "range": {
+        "startLine": 520,
+        "startChar": 0,
+        "endLine": 520,
+        "endChar": 117
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_cf47b24a",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "This one isn\u0027t a dummy function.",
+      "parentUuid": "fad0f9df_7c4a0685",
       "range": {
         "startLine": 520,
         "startChar": 0,
@@ -157,6 +319,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_6f74869c",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "existing_account_next_clicked isn\u0027t a dummy function",
+      "parentUuid": "fad0f9df_9c4faa92",
+      "range": {
+        "startLine": 524,
+        "startChar": 4,
+        "endLine": 525,
+        "endChar": 117
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_3c447e73",
         "filename": "src/accountcreationwizard.cpp",
         "patchSetId": 24
@@ -168,6 +354,30 @@
       "writtenOn": "2016-08-31T14:59:52Z",
       "side": 1,
       "message": "same as above",
+      "range": {
+        "startLine": 528,
+        "startChar": 0,
+        "endLine": 528,
+        "endChar": 101
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_8f79aa95",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_3c447e73",
       "range": {
         "startLine": 528,
         "startChar": 0,
@@ -203,6 +413,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_8f520a12",
+        "filename": "src/accountcreationwizard.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_fc24b6c7",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 32
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_fc5d9649",
         "filename": "src/accountdevicestab.cpp",
         "patchSetId": 24
@@ -220,6 +454,24 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_2f6e7eca",
+        "filename": "src/accountdevicestab.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_fc5d9649",
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_dc2bf292",
         "filename": "src/accountdevicestab.cpp",
         "patchSetId": 24
@@ -231,6 +483,30 @@
       "writtenOn": "2016-08-31T14:59:52Z",
       "side": 1,
       "message": "I\u0027ve started sorting these into system, GTK+ related, Qt, LRC, and Ring client since some files have a lot of includes, it would be good to do it right away in all the new files, see ring_client.cpp for example",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_ef3956d9",
+        "filename": "src/accountdevicestab.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_dc2bf292",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -266,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_2f575e04",
+        "filename": "src/accountdevicestab.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_bc2e2ea4",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_9c1d6a76",
         "filename": "src/accountmigrationview.cpp",
         "patchSetId": 24
@@ -289,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_0f37fae4",
+        "filename": "src/accountmigrationview.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_9c1d6a76",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 28
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_7c18c684",
         "filename": "src/accountmigrationview.h",
         "patchSetId": 24
@@ -300,6 +624,30 @@
       "writtenOn": "2016-08-31T14:59:52Z",
       "side": 1,
       "message": "#pragma once",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "adffa6281aee507b02ea27bfb529624bc2dd2f72",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_4f5c2226",
+        "filename": "src/accountmigrationview.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-08-31T16:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_7c18c684",
       "range": {
         "startLine": 20,
         "startChar": 0,
