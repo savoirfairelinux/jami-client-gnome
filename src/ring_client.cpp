@@ -576,43 +576,8 @@ ring_client_startup(GApplication *app)
      nm_client_new_async(priv->cancellable, (GAsyncReadyCallback)nm_client_cb, client);
 #endif
 
-#if GLIB_CHECK_VERSION(2,40,0)
     G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
-#else
-    /* don't need to chain up to the parent callback as this function will
-     * be called manually by the command_line callback in this case */
-#endif
 }
-
-#if !GLIB_CHECK_VERSION(2,40,0)
-static int
-ring_client_command_line(GApplication *app, GApplicationCommandLine *cmdline)
-{
-    gint argc;
-    gchar **argv = g_application_command_line_get_arguments(cmdline, &argc);
-    GOptionContext *context = ring_client_options_get_context();
-    GError *error = NULL;
-    if (g_option_context_parse(context, &argc, &argv, &error) == FALSE) {
-        g_print(_("%s\nRun '%s --help' to see a full list of available command line options.\n"),
-                error->message, argv[0]);
-        g_clear_error(&error);
-        g_option_context_free(context);
-        g_strfreev(argv);
-        return 1;
-    }
-    g_option_context_free(context);
-    g_strfreev(argv);
-
-    if (!g_application_get_is_remote(app)) {
-        /* if this is the primary instance, we must peform the startup */
-        ring_client_startup(app);
-    }
-
-    g_application_activate(app);
-
-    return 0;
-}
-#endif
 
 static void
 ring_client_shutdown(GApplication *app)
@@ -658,20 +623,14 @@ ring_client_init(RingClient *self)
     priv->cancellable = g_cancellable_new();
     priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
 
-#if GLIB_CHECK_VERSION(2,40,0)
     /* add custom cmd line options */
     ring_client_add_options(G_APPLICATION(self));
-#endif
 }
 
 static void
 ring_client_class_init(RingClientClass *klass)
 {
-#if GLIB_CHECK_VERSION(2,40,0)
     G_APPLICATION_CLASS(klass)->startup = ring_client_startup;
-#else
-    G_APPLICATION_CLASS(klass)->command_line = ring_client_command_line;
-#endif
     G_APPLICATION_CLASS(klass)->activate = ring_client_activate;
     G_APPLICATION_CLASS(klass)->shutdown = ring_client_shutdown;
 }
@@ -679,18 +638,9 @@ ring_client_class_init(RingClientClass *klass)
 RingClient *
 ring_client_new(int argc, char *argv[])
 {
-    /* because the g_application_add_main_option_entries was only added in
-     * glib 2.40, for lower versions we must handle the command line options
-     * ourselves
-     */
     RingClient *client = (RingClient *)g_object_new(ring_client_get_type(),
                                                     "application-id", RING_CLIENT_APP_ID,
-#if GLIB_CHECK_VERSION(2,40,0)
                                                     NULL);
-#else
-                                                    "flags", G_APPLICATION_HANDLES_COMMAND_LINE,
-                                                    NULL);
-#endif
 
     /* copy the cmd line args before they get processed by the GApplication*/
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
