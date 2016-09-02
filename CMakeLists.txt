@@ -92,26 +92,6 @@ ELSE()
     SET(HAVE_APPINDICATOR 0)
 ENDIF(USE_APPINDICATOR)
 
-IF( LIBQRENCODE_FOUND )
-    MESSAGE(STATUS "Found libqrencode version >= 3.4: " ${LIBQRENCODE_VERSION})
-ELSE()
-    MESSAGE(STATUS "libqrencode supported version NOT found. Will use the repo" )
-
-    EXECUTE_PROCESS (COMMAND git submodule update --init)
-    INCLUDE(ExternalProject)
-        ExternalProject_Add(libqrencode
-            GIT_SUBMODULES libqrencode
-            SOURCE_DIR ${CMAKE_SOURCE_DIR}/libqrencode
-            BINARY_DIR  ${CMAKE_SOURCE_DIR}/libqrencode
-            INSTALL_DIR ${CMAKE_SOURCE_DIR}/libqrencode
-            CONFIGURE_COMMAND ./autogen.sh
-                COMMAND ./configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/libqrencode --disable-shared --enable-static
-            BUILD_COMMAND ${MAKE})
-
-    INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/libqrencode/include)
-    LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/libqrencode/lib)
-ENDIF()
-
 # include libs
 INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${LIB_RING_CLIENT_INCLUDE_DIR})
@@ -363,8 +343,6 @@ add_schema("cx.ring.RingGnome.gschema.xml" GSCHEMA_RING)
 
 ADD_EXECUTABLE(gnome-ring ${GLIB_RESOURCES_RING} ${GSCHEMA_RING} ${SRC_FILES})
 
-ADD_DEPENDENCIES(gnome-ring libqrencode)
-
 IF(NOT ${ENABLE_STATIC} MATCHES false)
 TARGET_LINK_LIBRARIES(gnome-ring
    ${LIB_RING_CLIENT_LIBRARY}
@@ -377,9 +355,9 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${LIBNOTIFY_LIBRARIES}
    ${APPINDICATOR_LIBRARIES}
    ${LIBNM_LIBRARIES}
+   ${LIBQRENCODE_LIBRARIES}
    -lpthread
    -lrt
-   -lqrencode
    )
 ELSE()
 TARGET_LINK_LIBRARIES(gnome-ring
@@ -392,7 +370,7 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${LIBNOTIFY_LIBRARIES}
    ${APPINDICATOR_LIBRARIES}
    ${LIBNM_LIBRARIES}
-   -lqrencode
+   ${LIBQRENCODE_LIBRARIES}
    )
 ENDIF()
 
