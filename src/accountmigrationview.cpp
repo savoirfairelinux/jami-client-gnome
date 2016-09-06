@@ -34,6 +34,7 @@
 // Ring Client
 #include "avatarmanipulation.h"
 #include "accountmigrationview.h"
+#include "usernameregistrationbox.h"
 #include "utils/models.h"
 #include "native/pixbufmanipulator.h"
 #include "video/video_widget.h"
@@ -67,6 +68,11 @@ struct _AccountMigrationViewPrivate
     /* error_view */
     GtkWidget *error_view;
     GtkWidget *button_error_view_ok;
+
+    /* choose_username_view */
+    GtkWidget *choose_username_view;
+    GtkWidget *box_username_registration_box;
+    GtkWidget *button_register_username_later;
 
     /* main_view */
     GtkWidget *main_view;
@@ -130,6 +136,11 @@ account_migration_view_class_init(AccountMigrationViewClass *klass)
     /* migrating_account_view */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, migrating_account_view);
 
+    /* choose_username_view */
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, choose_username_view);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, box_username_registration_box);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, button_register_username_later);
+
     /* main_view */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, main_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_account_alias);
@@ -178,6 +189,13 @@ button_error_view_ok_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationVi
 }
 
 static void
+show_choose_username(AccountMigrationView *view)
+{
+    AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_migration), priv->choose_username_view);
+}
+
+static void
 migrate_account_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationView *view)
 {
     AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
@@ -218,7 +236,13 @@ migrate_account_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationView *v
                         // Make sure that the account is ready to be displayed.
                         priv->account << Account::EditAction::RELOAD;
 
-                        g_signal_emit(G_OBJECT(view), account_migration_view_signals[ACCOUNT_MIGRATION_COMPLETED], 0);
+                        AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
+                        QObject::disconnect(priv->state_changed); // only want to emit once
+                        g_source_remove(priv->timeout_tag); // We didn't timeout
+
+                        // Propose setting a username
+                        show_choose_username(view);
+
                         break;
                     }
                     case Account::RegistrationState::ERROR:
@@ -257,15 +281,39 @@ password_entry_changed(G_GNUC_UNUSED GtkEntry* entry, AccountMigrationView *view
 }
 
 static void
+account_migration_completed(AccountMigrationView *view)
+{
+    /* This check is needed because users may close the migration view while
+     * the registration is still ongoing.
+     */
+    g_return_if_fail(IS_ACCOUNT_MIGRATION_VIEW(view));
+
+    g_signal_emit(G_OBJECT(view), account_migration_view_signals[ACCOUNT_MIGRATION_COMPLETED], 0);
+}
+
+static void
+button_register_username_later_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationView *view)
+{
+    account_migration_completed(view);
+}
+
+static void
 build_migration_view(AccountMigrationView *view)
 {
     g_return_if_fail(IS_ACCOUNT_MIGRATION_VIEW(view));
     AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
 
+    /* Create the username registration box */
+    auto username_registration_box = username_registration_box_new(priv->account, TRUE, TRUE);
+    gtk_widget_show(username_registration_box);
+    gtk_container_add(GTK_CONTAINER(priv->box_username_registration_box), username_registration_box);
+
     g_signal_connect(priv->button_migrate_account, "clicked", G_CALLBACK(migrate_account_clicked), view);
     g_signal_connect(priv->button_error_view_ok, "clicked", G_CALLBACK(button_error_view_ok_clicked), view);
     g_signal_connect(priv->entry_password, "changed", G_CALLBACK(password_entry_changed), view);
     g_signal_connect(priv->entry_password_confirm, "changed", G_CALLBACK(password_entry_changed), view);
+    g_signal_connect(priv->button_register_username_later, "clicked", G_CALLBACK(button_register_username_later_clicked), view);
+    g_signal_connect_swapped(username_registration_box, "username-registration-completed", G_CALLBACK(account_migration_completed), view);
 
     gtk_label_set_text(GTK_LABEL(priv->label_account_alias), priv->account->alias().toUtf8().constData());
     gtk_label_set_text(GTK_LABEL(priv->label_account_id), priv->account->id().constData());

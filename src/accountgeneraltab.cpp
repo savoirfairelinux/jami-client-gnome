@@ -25,7 +25,9 @@
 #include <account.h>
 #include <bootstrapmodel.h>
 #include "defines.h"
+#include "namedirectory.h"
 #include "utils/models.h"
+#include "usernameregistrationbox.h"
 
 struct _AccountGeneralTab
 {
@@ -99,6 +101,14 @@ account_alias_changed(GtkEditable *entry, AccountGeneralTab *view)
     priv->account->setAlias(QString(gtk_editable_get_chars(entry, 0, -1)));
     if (priv->account->protocol() == Account::Protocol::RING)
         priv->account->setDisplayName(gtk_entry_get_text(GTK_ENTRY(entry)));
+}
+
+static void
+entry_name_service_url_changed(GtkEditable *entry, AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+    priv->account->setNameServiceURL(QString(gtk_editable_get_chars(entry, 0, -1)));
 }
 
 static void
@@ -236,7 +246,6 @@ bootstrap_servers_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *ev
     return TRUE; /* we handled the event */
 }
 
-
 static void
 build_tab_view(AccountGeneralTab *view)
 {
@@ -304,6 +313,13 @@ build_tab_view(AccountGeneralTab *view)
         gtk_widget_override_font(entry_username, pango_font_description_from_string("monospace"));
         gtk_entry_set_alignment(GTK_ENTRY(entry_username), 0.5);
         gtk_grid_attach(GTK_GRID(priv->grid_account), entry_username, 1, grid_row, 1, 1);
+        ++grid_row;
+
+        label = gtk_label_new("Ring username");
+        gtk_widget_set_halign(label, GTK_ALIGN_START);
+        gtk_grid_attach(GTK_GRID(priv->grid_account), label, 0, grid_row, 1, 1);
+        auto username_registration_box = username_registration_box_new(priv->account, TRUE, FALSE);
+        gtk_grid_attach(GTK_GRID(priv->grid_account), username_registration_box, 1, grid_row, 1, 1);
         ++grid_row;
     }
 
@@ -424,6 +440,18 @@ build_tab_view(AccountGeneralTab *view)
         g_signal_connect(renderer, "edited", G_CALLBACK(bootstrap_server_edited), view);
 
         ++grid_row;
+
+        /* Name service */
+        label = gtk_label_new(_("Name service URL"));
+        gtk_widget_set_halign(label, GTK_ALIGN_START);
+        gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
+        GtkWidget* entry_name_service_url = gtk_entry_new();
+        gtk_widget_set_halign(entry_name_service_url, GTK_ALIGN_START);
+        gtk_entry_set_text(GTK_ENTRY(entry_name_service_url), priv->account->nameServiceURL().toLocal8Bit().constData());
+        gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry_name_service_url, 1, grid_row, 1, 1);
+        g_signal_connect(entry_name_service_url, "changed", G_CALLBACK(entry_name_service_url_changed), view);
+        ++grid_row;
+
     }
 
     /* auto answer */
