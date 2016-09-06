@@ -163,7 +163,6 @@ migration_timeout(AccountMigrationView *view)
 static void
 button_error_view_ok_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationView *view)
 {
-    AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
     g_signal_emit(G_OBJECT(view), account_migration_view_signals[ACCOUNT_MIGRATION_FAILED], 0);
 }
 
@@ -208,6 +207,10 @@ migrate_account_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationView *v
                         AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
                         QObject::disconnect(priv->state_changed); // only want to emit once
                         g_source_remove(priv->timeout_tag); // We didn't timeout
+
+                        // Propose setting a username
+
+
                         g_signal_emit(G_OBJECT(view), account_migration_view_signals[ACCOUNT_MIGRATION_COMPLETED], 0);
                         break;
                     }
