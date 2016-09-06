@@ -25,6 +25,7 @@
 #include <account.h>
 #include <bootstrapmodel.h>
 #include "defines.h"
+#include "namedirectory.h"
 #include "utils/models.h"
 
 struct _AccountGeneralTab
@@ -45,6 +46,16 @@ struct _AccountGeneralTabPrivate
     GtkWidget *grid_account;
     GtkWidget *grid_parameters;
     GtkWidget *treeview_bootstrap_servers;
+
+    //Username registration
+    GtkWidget *label_username_status;
+    GtkWidget *icon_username_availability;
+    GtkWidget *spinner_registring_username;
+    GtkWidget *entry_registered_username;
+    GtkWidget *button_register_username;
+    QMetaObject::Connection name_registration_ended;
+    QMetaObject::Connection registered_name_found;
+    QString* username_waiting_for_lookup_result;
 
     QMetaObject::Connection account_updated;
 };
@@ -99,6 +110,14 @@ account_alias_changed(GtkEditable *entry, AccountGeneralTab *view)
     priv->account->setAlias(QString(gtk_editable_get_chars(entry, 0, -1)));
     if (priv->account->protocol() == Account::Protocol::RING)
         priv->account->setDisplayName(gtk_entry_get_text(GTK_ENTRY(entry)));
+}
+
+static void
+entry_name_service_url_changed(GtkEditable *entry, AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+    priv->account->setNameServiceURL(QString(gtk_editable_get_chars(entry, 0, -1)));
 }
 
 static void
@@ -236,6 +255,194 @@ bootstrap_servers_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *ev
     return TRUE; /* we handled the event */
 }
 
+static void
+button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+
+    g_debug("button_register_username_clicked");
+
+    const QString* username = new QString(gtk_entry_get_text(GTK_ENTRY(priv->entry_registered_username)));
+
+    if (username->isEmpty())
+    {
+        //Error message should be displayed already.
+        return;
+    }
+
+    GtkWidget* password_dialog = gtk_message_dialog_new(
+        GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
+        (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
+        GTK_MESSAGE_QUESTION,
+        GTK_BUTTONS_OK_CANCEL,
+        "Enter the password of your Ring account"
+    );
+
+    GtkWidget* entry_password = gtk_entry_new();
+    gtk_entry_set_visibility(GTK_ENTRY(entry_password), FALSE);
+    gtk_box_pack_end(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(password_dialog))), entry_password, FALSE, FALSE, 0);
+    gtk_widget_show(entry_password);
+
+    gint result = gtk_dialog_run(GTK_DIALOG(password_dialog));
+    gtk_widget_destroy(password_dialog);
+
+    switch(result)
+    {
+        case GTK_RESPONSE_OK:
+        {
+            // Show the spinner
+            gtk_widget_hide(priv->icon_username_availability);
+            gtk_widget_show(priv->spinner_registring_username);
+            gtk_spinner_start(GTK_SPINNER(priv->spinner_registring_username));
+
+            //Disable the entry
+            gtk_widget_set_sensitive(priv->entry_registered_username, FALSE);
+            gtk_widget_set_sensitive(priv->button_register_username, FALSE);
+
+            gtk_label_set_text(GTK_LABEL(priv->label_username_status), _("Registering username..."));
+
+            const QString* password = new QString(gtk_entry_get_text(GTK_ENTRY(entry_password)));
+
+            priv->name_registration_ended = QObject::connect(
+                priv->account,
+                &Account::nameRegistrationEnded,
+                [=] (NameDirectory::RegisterNameStatus status, const QString& name) {
+                    g_debug("Name registration ended");
+
+                    gtk_spinner_stop(GTK_SPINNER(priv->spinner_registring_username));
+                    gtk_widget_hide(priv->spinner_registring_username);
+
+                    switch(status)
+                    {
+                        case NameDirectory::RegisterNameStatus::SUCCESS:
+                        {
+                            gtk_label_set_text(GTK_LABEL(priv->label_username_status), NULL);
+                            gtk_widget_hide(priv->button_register_username);
+                            break;
+                        }
+                        case NameDirectory::RegisterNameStatus::WRONG_PASSWORD:
+                        {
+                            gtk_widget_set_sensitive(priv->entry_registered_username, TRUE);
+                            gtk_widget_set_sensitive(priv->button_register_username, TRUE);
+                            gtk_label_set_text(GTK_LABEL(priv->label_username_status), _("Bad password"));
+                            gtk_widget_show(priv->icon_username_availability);
+                            break;
+                        }
+                        case NameDirectory::RegisterNameStatus::ALREADY_TAKEN:
+                        {
+                            gtk_widget_set_sensitive(priv->entry_registered_username, TRUE);
+                            gtk_widget_set_sensitive(priv->button_register_username, TRUE);
+                            gtk_label_set_text(GTK_LABEL(priv->label_username_status), _("Username already taken"));
+                            gtk_widget_show(priv->icon_username_availability);
+                            break;
+                        }
+                        case NameDirectory::RegisterNameStatus::NETWORK_ERROR:
+                        {
+                            gtk_widget_set_sensitive(priv->entry_registered_username, TRUE);
+                            gtk_widget_set_sensitive(priv->button_register_username, TRUE);
+                            gtk_label_set_text(GTK_LABEL(priv->label_username_status), _("Network error"));
+                            gtk_widget_show(priv->icon_username_availability);
+                            break;
+                        }
+                    }
+                }
+            );
+
+             if (!priv->account->registerName(*username, *password))
+             {
+                 //TODO: handle this
+                 g_debug("Could not initiate registerName operation");
+             }
+            break;
+        }
+        case GTK_RESPONSE_CANCEL:
+        {
+            break;
+        }
+    }
+
+}
+
+static gboolean
+launch_lookup(AccountGeneralTab *view)
+{
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+    NameDirectory::instance().lookupName(QString(), QString(), *priv->username_waiting_for_lookup_result);
+    return G_SOURCE_REMOVE;
+}
+
+static void
+entry_registered_username_changed(G_GNUC_UNUSED GtkEntry* entry, AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+
+    //Show the spinner + disable button
+    gtk_widget_hide(priv->icon_username_availability);
+    gtk_widget_show(priv->spinner_registring_username);
+    gtk_spinner_start(GTK_SPINNER(priv->spinner_registring_username));
+    gtk_widget_set_sensitive(priv->button_register_username, FALSE);
+
+    priv->username_waiting_for_lookup_result = new QString(gtk_entry_get_text(GTK_ENTRY(priv->entry_registered_username)));
+
+    QObject::disconnect(priv->registered_name_found);
+    priv->registered_name_found = QObject::connect(
+        &NameDirectory::instance(),
+        &NameDirectory::registeredNameFound,
+        [=] (const QString& accountId, NameDirectory::LookupStatus status, const QString& address, const QString& name) {
+            g_debug("Name lookup ended");
+            //If this is the username we are waiting for, we can disconnect.
+            if (name.compare(priv->username_waiting_for_lookup_result) == 0)
+            {
+                QObject::disconnect(priv->registered_name_found);
+            }
+            else
+            {
+                //Keep waiting...
+                return;
+            }
+
+            //We may now stop the spinner
+            gtk_spinner_stop(GTK_SPINNER(priv->spinner_registring_username));
+            gtk_widget_hide(priv->spinner_registring_username);
+
+            switch(status)
+            {
+                case NameDirectory::LookupStatus::SUCCESS:
+                {
+                    gtk_widget_set_sensitive(priv->button_register_username, FALSE);
+                    gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon_username_availability), "error", GTK_ICON_SIZE_SMALL_TOOLBAR);
+                    gtk_widget_set_tooltip_text(priv->icon_username_availability, _("The entered username is not available"));
+                    gtk_label_set_text(GTK_LABEL(priv->label_username_status), g_strdup_printf(_("Username \"%s\" is not available"), name.toStdString().c_str()));
+                    gtk_widget_show(priv->icon_username_availability);
+                    break;
+                }
+                case NameDirectory::LookupStatus::NOT_FOUND:
+                {
+                    gtk_widget_set_sensitive(priv->button_register_username, TRUE);
+                    gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon_username_availability), "emblem-default", GTK_ICON_SIZE_SMALL_TOOLBAR);
+                    gtk_widget_set_tooltip_text(priv->icon_username_availability, _("The entered username is available"));
+                    gtk_label_set_text(GTK_LABEL(priv->label_username_status),g_strdup_printf(_("Username \"%s\" is available"), name.toStdString().c_str()));
+                    gtk_widget_show(priv->icon_username_availability);
+                    break;
+                }
+                case NameDirectory::LookupStatus::ERROR:
+                {
+                    gtk_widget_set_sensitive(priv->button_register_username, FALSE);
+                    gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon_username_availability), "error", GTK_ICON_SIZE_SMALL_TOOLBAR);
+                    gtk_widget_set_tooltip_text(priv->icon_username_availability, _("Failed to perform lookup"));
+                    gtk_label_set_text(GTK_LABEL(priv->label_username_status), g_strdup_printf(_("Could not lookup username \"%s\""), name.toStdString().c_str()));
+                    gtk_widget_show(priv->icon_username_availability);
+                    break;
+                }
+            }
+        }
+    );
+
+    //Start the lookup in a second so that the UI dosen't seem to freeze
+    g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)launch_lookup, view, NULL);
+}
 
 static void
 build_tab_view(AccountGeneralTab *view)
@@ -304,6 +511,48 @@ build_tab_view(AccountGeneralTab *view)
         gtk_widget_override_font(entry_username, pango_font_description_from_string("monospace"));
         gtk_entry_set_alignment(GTK_ENTRY(entry_username), 0.5);
         gtk_grid_attach(GTK_GRID(priv->grid_account), entry_username, 1, grid_row, 1, 1);
+        ++grid_row;
+
+        label = gtk_label_new("Ring username");
+        gtk_widget_set_halign(label, GTK_ALIGN_START);
+        gtk_grid_attach(GTK_GRID(priv->grid_account), label, 0, grid_row, 1, 1);
+        priv->entry_registered_username = gtk_entry_new();
+        gtk_entry_set_placeholder_text(GTK_ENTRY(priv->entry_registered_username), _("No username registered"));
+        auto registered_name = priv->account->registeredName();
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_registered_username), registered_name.toLocal8Bit().constData());
+        g_object_set(G_OBJECT(priv->entry_registered_username), "editable", FALSE, NULL);
+        g_object_set(G_OBJECT(priv->entry_registered_username), "max-width-chars", 50, NULL);
+        gtk_widget_override_font(priv->entry_registered_username, pango_font_description_from_string("monospace"));
+        gtk_entry_set_alignment(GTK_ENTRY(priv->entry_registered_username), 0.5);
+        gtk_grid_attach(GTK_GRID(priv->grid_account), priv->entry_registered_username, 1, grid_row, 1, 1);
+
+        //If the user has no registered name yet
+        if (registered_name.isEmpty())
+        {
+            //Make the entry editable
+            g_object_set(G_OBJECT(priv->entry_registered_username), "editable", TRUE, NULL);
+            g_signal_connect(priv->entry_registered_username, "changed", G_CALLBACK(entry_registered_username_changed), view);
+
+            //Add the status icon
+            priv->icon_username_availability = gtk_image_new();
+            gtk_grid_attach(GTK_GRID(priv->grid_account), priv->icon_username_availability, 2, grid_row, 1, 1);
+
+            //Add the staus spinner
+            priv->spinner_registring_username = gtk_spinner_new();
+            gtk_grid_attach(GTK_GRID(priv->grid_account), priv->spinner_registring_username, 2, grid_row, 1, 1);
+
+            // Add a register button
+            priv->button_register_username = gtk_button_new_with_label("Register");
+            gtk_widget_set_sensitive(priv->button_register_username, FALSE);
+            gtk_widget_set_tooltip_text(priv->button_register_username, _("Register this username on the blockchain"));
+            g_signal_connect(priv->button_register_username, "clicked", G_CALLBACK(button_register_username_clicked), view);
+            gtk_grid_attach(GTK_GRID(priv->grid_account), priv->button_register_username, 3, grid_row, 1, 1);
+
+            //Add the status label
+            priv->label_username_status = gtk_label_new(NULL);
+            gtk_widget_show(priv->label_username_status);
+            gtk_grid_attach(GTK_GRID(priv->grid_account), priv->label_username_status, 4, grid_row, 1, 1);
+        }
         ++grid_row;
     }
 
@@ -424,6 +673,18 @@ build_tab_view(AccountGeneralTab *view)
         g_signal_connect(renderer, "edited", G_CALLBACK(bootstrap_server_edited), view);
 
         ++grid_row;
+
+        /* Name service */
+        label = gtk_label_new(_("Name service URL"));
+        gtk_widget_set_halign(label, GTK_ALIGN_START);
+        gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
+        GtkWidget* entry_name_service_url = gtk_entry_new();
+        gtk_widget_set_halign(entry_name_service_url, GTK_ALIGN_START);
+        gtk_entry_set_text(GTK_ENTRY(entry_name_service_url), priv->account->nameServiceURL().toLocal8Bit().constData());
+        gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry_name_service_url, 1, grid_row, 1, 1);
+        g_signal_connect(entry_name_service_url, "changed", G_CALLBACK(entry_name_service_url_changed), view);
+        ++grid_row;
+
     }
 
     /* auto answer */
