@@ -35,6 +35,7 @@
 #include "utils/models.h"
 #include "avatarmanipulation.h"
 #include "accountcreationwizard.h"
+#include "usernameregistrationbox.h"
 
 
 struct _AccountCreationWizard
@@ -53,6 +54,11 @@ struct _AccountCreationWizardPrivate
 {
     GtkWidget *stack_account_creation;
     QMetaObject::Connection account_state_changed;
+    QMetaObject::Connection name_registration_ended;
+    gboolean username_available;
+
+    QString* password;
+    QString* alias;
 
     /* choose_account_type_vbox */
     GtkWidget *choose_account_type_vbox;
@@ -82,6 +88,9 @@ struct _AccountCreationWizardPrivate
     GtkWidget *box_avatarselection;
     GtkWidget *avatar_manipulation;
     GtkWidget *label_password_error;
+    GtkWidget *box_username_entry;
+    GtkWidget *checkbutton_sign_up_blockchain;
+    GtkWidget *username_registration_box;
 
     /* generating_account_spinner */
     GtkWidget *vbox_generating_account_spinner;
@@ -164,7 +173,6 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     /* account creation */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, account_creation);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, vbox_account_creation_entry);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_alias);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_password);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_password_confirm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, label_default_name);
@@ -173,6 +181,8 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_creation_previous);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, box_avatarselection);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, label_password_error);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, box_username_entry);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, checkbutton_sign_up_blockchain);
 
     /* generating_account_spinner */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, vbox_generating_account_spinner);
@@ -208,6 +218,20 @@ show_error_view(AccountCreationWizard *view)
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->error_view);
 }
 
+static void
+could_not_register_username_dialog(AccountCreationWizard *view)
+{
+    GtkWidget* dialog = gtk_message_dialog_new(
+        GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
+                    GTK_DIALOG_DESTROY_WITH_PARENT,
+                    GTK_MESSAGE_ERROR,
+                    GTK_BUTTONS_OK,
+                    _("Your account was created, but we could not register your username. Try again from the settings menu.")
+    );
+    gtk_dialog_run(GTK_DIALOG (dialog));
+    gtk_widget_destroy(dialog);
+}
+
 static gboolean
 create_ring_account(AccountCreationWizard *view,
                     gchar *alias,
@@ -216,6 +240,10 @@ create_ring_account(AccountCreationWizard *view,
 {
     g_return_val_if_fail(IS_ACCOUNT_CREATION_WIZARD(view), G_SOURCE_REMOVE);
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+
+    // Copy password and alias, which will be used in our callbacks
+    priv->password = new QString(password);
+    priv->alias = new QString(alias);
 
     g_object_ref(view); // ref so its not desroyed too early
 
@@ -275,10 +303,53 @@ create_ring_account(AccountCreationWizard *view,
                     account << Account::EditAction::RELOAD;
                     if (!account->username().isEmpty())
                     {
-                        g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED], 0);
                         AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
                         QObject::disconnect(priv->account_state_changed);
-                        g_object_unref(view);
+
+                        // Now try to register the username
+                        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_sign_up_blockchain)))
+                        {
+                            priv->name_registration_ended = QObject::connect(
+                                account,
+                                &Account::nameRegistrationEnded,
+                                [=] (NameDirectory::RegisterNameStatus status, G_GNUC_UNUSED const QString& name) {
+                                    QObject::disconnect(priv->name_registration_ended);
+                                    switch(status)
+                                    {
+                                        case NameDirectory::RegisterNameStatus::WRONG_PASSWORD:
+                                        case NameDirectory::RegisterNameStatus::ALREADY_TAKEN:
+                                        case NameDirectory::RegisterNameStatus::NETWORK_ERROR:
+                                        {
+                                            could_not_register_username_dialog(view);
+                                        }
+                                        case NameDirectory::RegisterNameStatus::SUCCESS:
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED], 0);
+                                    g_object_unref(view);
+                                }
+                            );
+
+                            bool register_name_result = account->registerName(*priv->password, *priv->alias);
+                            priv->password->clear();
+                            priv->alias->clear();
+
+                             if (register_name_result == FALSE)
+                             {
+                                 g_debug("Could not initialize registerName operation");
+                                 could_not_register_username_dialog(view);
+                                 QObject::disconnect(priv->name_registration_ended);
+                                 g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED], 0);
+                                 g_object_unref(view);
+                             }
+                        }
+                        else
+                        {
+                            g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED], 0);
+                            g_object_unref(view);
+                        }
                     }
                     break;
                 }
@@ -345,11 +416,15 @@ alias_entry_changed(GtkEditable *entry, AccountCreationWizard *win)
     g_return_if_fail(IS_ACCOUNT_CREATION_WIZARD(win));
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
 
-    const gchar *alias = gtk_entry_get_text(GTK_ENTRY(entry));
-    if (!alias || strlen(alias) == 0) {
+    const gchar *username = gtk_entry_get_text(GTK_ENTRY(entry));
+
+    if(!username || strlen(username) == 0)
+    {
         gtk_widget_show(priv->label_default_name);
         gtk_widget_hide(priv->label_paceholder);
-    } else {
+    }
+    else
+    {
         gtk_widget_hide(priv->label_default_name);
         gtk_widget_show(priv->label_paceholder);
     }
@@ -476,10 +551,19 @@ entries_new_account_changed(G_GNUC_UNUSED GtkEntry *entry, AccountCreationWizard
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
 
+    const gchar *username = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
     const gchar *password_confirm = gtk_entry_get_text(GTK_ENTRY(priv->entry_password_confirm));
+    const gboolean sign_up_blockchain = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_sign_up_blockchain));
 
-    if (strlen(password) > 0 && strlen(password_confirm) > 0)
+    if (
+            strlen(password) > 0 && // Password is longer than 0
+            strlen(password_confirm) > 0 && // Confirmation is also longer than 0
+            (
+                !sign_up_blockchain || // If user does not signup for blockchain, don't check anything else
+                (priv->username_available && strlen(username) > 0) // If user signs up for blockchain, check availability + length
+            )
+        )
     {
         gtk_widget_set_sensitive(priv->button_account_creation_next, TRUE);
     }
@@ -490,7 +574,33 @@ entries_new_account_changed(G_GNUC_UNUSED GtkEntry *entry, AccountCreationWizard
 }
 
 static void
-build_creation_wizard_view(AccountCreationWizard *view, bool show_cancel_button)
+checkbutton_sign_up_blockchain_toggled(GtkToggleButton *toggle_button, AccountCreationWizard *view)
+{
+    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+    gboolean sign_up_blockchain = gtk_toggle_button_get_active(toggle_button);
+
+
+    username_registration_box_set_status_widgets_visible(
+        USERNAME_REGISTRATION_BOX(priv->username_registration_box),
+        sign_up_blockchain
+    );
+
+    /* Unchecking blockchain signup when there is an empty username should
+     * result in activating the next button.
+    */
+    entries_new_account_changed(nullptr, view);
+}
+
+static void
+username_availability_changed(AccountCreationWizard *view, gboolean username_available)
+{
+    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+    priv->username_available = username_available;
+    entries_new_account_changed(nullptr, view);
+}
+
+static void
+build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_button)
 {
     g_return_if_fail(IS_ACCOUNT_CREATION_WIZARD(view));
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
@@ -505,6 +615,15 @@ build_creation_wizard_view(AccountCreationWizard *view, bool show_cancel_button)
     } else
         gtk_image_set_from_pixbuf(GTK_IMAGE(priv->choose_account_type_ring_logo), logo_ring);
 
+    /* create the username_registration_box */
+    priv->username_registration_box = username_registration_box_new(nullptr, FALSE);
+    gtk_container_add(GTK_CONTAINER(priv->box_username_entry), priv->username_registration_box);
+    gtk_widget_show(priv->username_registration_box);
+    priv->entry_alias = GTK_WIDGET(
+        username_registration_box_get_entry(
+            USERNAME_REGISTRATION_BOX(priv->username_registration_box)
+        )
+    );
 
     /* use the real name / username of the logged in user as the default */
     const char* real_name = g_get_real_name();
@@ -533,6 +652,9 @@ build_creation_wizard_view(AccountCreationWizard *view, bool show_cancel_button)
     g_signal_connect(priv->entry_alias, "activate", G_CALLBACK(entry_alias_activated), view);
     g_signal_connect(priv->entry_password, "changed", G_CALLBACK(entries_new_account_changed), view);
     g_signal_connect(priv->entry_password_confirm, "changed", G_CALLBACK(entries_new_account_changed), view);
+    g_signal_connect(priv->entry_alias, "changed", G_CALLBACK(entries_new_account_changed), view);
+    g_signal_connect(priv->checkbutton_sign_up_blockchain, "toggled", G_CALLBACK(checkbutton_sign_up_blockchain_toggled), view);
+    g_signal_connect_swapped(priv->username_registration_box, "username-availability-changed", G_CALLBACK(username_availability_changed), view);
 
     /* existing_account singals */
     g_signal_connect_swapped(priv->button_existing_account_previous, "clicked", G_CALLBACK(show_choose_account_type), view);
