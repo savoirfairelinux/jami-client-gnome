@@ -211,19 +211,45 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkEntry" id="entry_alias">
-                        <property name="halign">center</property>
-                        <property name="width-chars">40</property>
+                      <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="can_default">True</property>
-                        <property name="has_default">True</property>
-                        <property name="xalign">0.5</property>
+                        <property name="label" translatable="yes">Username:</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox" id="box_username_entry">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                        <property name="halign">center</property>
+                        <property name="orientation">horizontal</property>
+                        <property name="spacing">10</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">2</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton_sign_up_blockchain">
+                        <property name="label" translatable="yes">Register your username</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="halign">center</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">True</property>
+                        <property name="tooltip_text" translatable="yes">Reserve the username so that only you can use it. Your friends will be able to contact you with your username instead of using your RingID.</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">4</property>
                       </packing>
                     </child>
                     <child>
@@ -234,20 +260,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label_password_error">
-                        <property name="visible">False</property>
-                        <property name="use_markup">True</property>
-                        <property name="label" translatable="yes">Passwords don't match</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="position">4</property>
+                        <property name="position">5</property>
                       </packing>
                     </child>
                     <child>
@@ -266,7 +279,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">5</property>
+                        <property name="position">6</property>
                       </packing>
                     </child>
                     <child>
@@ -285,23 +298,20 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">6</property>
+                        <property name="position">7</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label_default_name">
-                        <property name="visible">False</property>
-                        <property name="label" translatable="yes">Username will be set to "Unknown" if left empty.</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                    </child>
-                    <!-- this placeholder lable is just used to take up space while the above label in hidden -->
-                    <child>
-                      <object class="GtkLabel" id="label_paceholder">
+                      <object class="GtkLabel" id="label_password_error">
                         <property name="visible">True</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                          <attribute name="foreground" value="red"/>
+                        </attributes>
                       </object>
+                      <packing>
+                        <property name="position">8</property>
+                      </packing>
                     </child>
                   </object>
                 </child>
@@ -356,6 +366,39 @@
               </object>
             </child>
             <!-- End Generating account spinner -->
+            <!-- Registering username spinner -->
+            <child>
+              <object class="GtkBox" id="vbox_registering_username_spinner">
+                <property name="visible">True</property>
+                <property name="valign">center</property>
+                <property name="border_width">10</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">15</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Registering username...</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">This may take a few minutes.</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSpinner">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="active">True</property>
+                    <property name="height_request">50</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <!-- End registering username spinner -->
             <!-- Retrieving account spinner -->
             <child>
               <object class="GtkBox" id="retrieving_account">

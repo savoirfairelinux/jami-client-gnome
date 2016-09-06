@@ -239,6 +239,49 @@
               </object>
             </child>
             <!-- End Error view -->
+            <!-- Choose username view -->
+            <child>
+              <object class="GtkBox" id="choose_username_view">
+                <property name="visible">True</property>
+                <property name="valign">center</property>
+                <property name="halign">center</property>
+                <property name="border_width">10</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">15</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Choose your Ring username</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">As of now Ring has a decentralized username registry. This means that you can now contact your friends using their usernames instead of their RingIDs. The username registry is distributed and all users are able to consult it.</property>
+                    <property name="halign">center</property>
+                    <property name="max-width-chars">80</property>
+                    <property name="wrap">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="box_username_registration_box">
+                    <property name="visible">True</property>
+                    <property name="halign">center</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_register_username_later">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Register my username later</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <!-- End Choose username view -->
           </object>
         </child>
       </object>
