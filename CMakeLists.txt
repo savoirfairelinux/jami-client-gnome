@@ -241,6 +241,8 @@ SET( SRC_FILES
    src/accountmigrationview.cpp
    src/accountgeneraltab.h
    src/accountgeneraltab.cpp
+   src/usernameregistrationbox.h
+   src/usernameregistrationbox.cpp
    src/accountaudiotab.h
    src/accountaudiotab.cpp
    src/accountdevicestab.h

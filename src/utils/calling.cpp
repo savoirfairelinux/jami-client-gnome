@@ -17,6 +17,9 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
+ // GTK+ related
+ #include <gtk/gtk.h>
+
 #include "calling.h"
 
 #include <contactmethod.h>
@@ -26,6 +29,20 @@
 void
 place_new_call(ContactMethod *n, Account *acc)
 {
+    g_warning("URI: %S", n->uri().toUtf8().constData());
+    g_warning("USERINFO: %s", n->uri().userinfo().toUtf8().constData());
+    g_warning("FULL: %s", n->uri().full().toUtf8().constData());
+
+    switch (n->uri().schemeType())
+    {
+        case URI::SchemeType::RING:
+            g_warning("Scheme type: RING");
+            break;
+        default:
+            g_warning("Scheme type: notring");
+            break;
+    }
+
     /* check if this CM already has an ongoing call; likely we want the most recent one, so we
      * check the CallModel in reverse order
      */
