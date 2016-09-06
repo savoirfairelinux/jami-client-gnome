@@ -45,6 +45,9 @@ struct _AccountGeneralTabPrivate
     GtkWidget *grid_account;
     GtkWidget *grid_parameters;
     GtkWidget *treeview_bootstrap_servers;
+    GtkWidget *icon_username_availability;
+    GtkWidget *entry_registered_username;
+    GtkWidget *button_register_username;
 
     QMetaObject::Connection account_updated;
 };
@@ -236,6 +239,33 @@ bootstrap_servers_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *ev
     return TRUE; /* we handled the event */
 }
 
+static void
+button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, AccountGeneralTab *view)
+{
+    g_debug("button_register_username_clicked");
+}
+
+static void
+entry_registered_username_changed(G_GNUC_UNUSED GtkEntry* entry, AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+
+    const gchar* username = gtk_entry_get_text(GTK_ENTRY(priv->entry_registered_username));
+
+    if(strlen(username) == 0)
+    {
+        gtk_widget_set_sensitive(priv->button_register_username, FALSE);
+        gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon_username_availability), "error", GTK_ICON_SIZE_SMALL_TOOLBAR);
+        gtk_widget_set_tooltip_text(priv->icon_username_availability, _("The entered username is not available"));
+    }
+    else
+    {
+        gtk_widget_set_sensitive(priv->button_register_username, TRUE);
+        gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon_username_availability), "emblem-default", GTK_ICON_SIZE_SMALL_TOOLBAR);
+        gtk_widget_set_tooltip_text(priv->icon_username_availability, _("The entered username is available"));
+    }
+}
 
 static void
 build_tab_view(AccountGeneralTab *view)
@@ -304,6 +334,39 @@ build_tab_view(AccountGeneralTab *view)
         gtk_widget_override_font(entry_username, pango_font_description_from_string("monospace"));
         gtk_entry_set_alignment(GTK_ENTRY(entry_username), 0.5);
         gtk_grid_attach(GTK_GRID(priv->grid_account), entry_username, 1, grid_row, 1, 1);
+        ++grid_row;
+
+        label = gtk_label_new("Ring username");
+        gtk_widget_set_halign(label, GTK_ALIGN_START);
+        gtk_grid_attach(GTK_GRID(priv->grid_account), label, 0, grid_row, 1, 1);
+        priv->entry_registered_username = gtk_entry_new();
+        gtk_entry_set_placeholder_text(GTK_ENTRY(priv->entry_registered_username), _("No username registered"));
+        auto registered_name = priv->account->registeredName();
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_registered_username), registered_name.toLocal8Bit().constData());
+        g_object_set(G_OBJECT(priv->entry_registered_username), "editable", FALSE, NULL);
+        g_object_set(G_OBJECT(priv->entry_registered_username), "max-width-chars", 50, NULL);
+        gtk_widget_override_font(priv->entry_registered_username, pango_font_description_from_string("monospace"));
+        gtk_entry_set_alignment(GTK_ENTRY(priv->entry_registered_username), 0.5);
+        gtk_grid_attach(GTK_GRID(priv->grid_account), priv->entry_registered_username, 1, grid_row, 1, 1);
+
+        //If the user has no registered name yet
+        if (!registered_name.isEmpty())
+        {
+            //Make the entry editable
+            g_object_set(G_OBJECT(priv->entry_registered_username), "editable", TRUE, NULL);
+            g_signal_connect(priv->entry_registered_username, "changed", G_CALLBACK(entry_registered_username_changed), view);
+
+            //Add the status icon
+            priv->icon_username_availability = gtk_image_new();
+            gtk_grid_attach(GTK_GRID(priv->grid_account), priv->icon_username_availability, 2, grid_row, 1, 1);
+
+            // Add a register button
+            priv->button_register_username = gtk_button_new_with_label("Register");
+            gtk_widget_set_sensitive(priv->button_register_username, FALSE);
+            gtk_widget_set_tooltip_text(priv->button_register_username, _("Register this username on the blockchain"));
+            g_signal_connect(priv->button_register_username, "clicked", G_CALLBACK(button_register_username_clicked), view);
+            gtk_grid_attach(GTK_GRID(priv->grid_account), priv->button_register_username, 3, grid_row, 1, 1);
+        }
         ++grid_row;
     }
 
