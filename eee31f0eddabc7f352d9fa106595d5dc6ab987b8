@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_8d4d3275",
+        "filename": "po/ar.po",
+        "patchSetId": 2
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2016-09-07T15:00:29Z",
+      "side": 1,
+      "message": "Do we need to remove that?",
+      "range": {
+        "startLine": 904,
+        "startChar": 0,
+        "endLine": 929,
+        "endChar": 16
+      },
+      "revId": "eee31f0eddabc7f352d9fa106595d5dc6ab987b8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
