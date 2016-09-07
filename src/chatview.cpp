@@ -478,3 +478,30 @@ chat_view_new_person(Person *p)
 
     return (GtkWidget *)self;
 }
+
+Call*
+chat_view_get_call(ChatView *self)
+{
+    g_return_val_if_fail(IS_CHAT_VIEW(self), nullptr);
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    return priv->call;
+}
+
+ContactMethod*
+chat_view_get_cm(ChatView *self)
+{
+    g_return_val_if_fail(IS_CHAT_VIEW(self), nullptr);
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    return priv->cm;
+}
+
+Person*
+chat_view_get_person(ChatView *self)
+{
+    g_return_val_if_fail(IS_CHAT_VIEW(self), nullptr);
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    return priv->person;
+}

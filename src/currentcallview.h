@@ -22,7 +22,7 @@
 
 #include <gtk/gtk.h>
 
-class QModelIndex;
+class Call;
 
 G_BEGIN_DECLS
 
@@ -37,8 +37,8 @@ typedef struct _CurrentCallViewClass CurrentCallViewClass;
 
 
 GType      current_call_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *current_call_view_new           (void);
-void       current_call_view_set_call_info (CurrentCallView *view, const QModelIndex& idx);
+GtkWidget *current_call_view_new           (Call*);
+Call      *current_call_view_get_call      (CurrentCallView*);
 
 G_END_DECLS
 
