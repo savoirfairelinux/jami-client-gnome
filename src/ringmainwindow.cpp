@@ -98,8 +98,11 @@ struct _RingMainWindowPrivate
     GtkWidget *image_settings;
     GtkWidget *hbox_settings;
     GtkWidget *scrolled_window_smartview;
+    GtkWidget *treeview_conversations;
     GtkWidget *scrolled_window_contacts;
+    GtkWidget *treeview_contacts;
     GtkWidget *scrolled_window_history;
+    GtkWidget *treeview_history;
     GtkWidget *vbox_left_pane;
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
@@ -115,7 +118,8 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_media_settings;
     GtkWidget *radiobutton_account_settings;
 
-    QMetaObject::Connection selection_updated;
+    QMetaObject::Connection selected_item_changed;
+    QMetaObject::Connection selected_call_over;
 
     gboolean   show_settings;
 
@@ -187,167 +191,253 @@ video_double_clicked(G_GNUC_UNUSED CurrentCallView *view, RingMainWindow *self)
 static void
 hide_view_clicked(G_GNUC_UNUSED GtkWidget *view, RingMainWindow *self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
 
     /* clear selection */
-    RecentModel::instance().selectionModel()->clear();
+    auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
+    gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
+    auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
+    gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contacts));
+    auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
+    gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
 }
 
 /**
- * This takes the RecentModel index as the argument and displays the corresponding view:
+ * This function determines which view to display in the right panel of the main window based on
+ * which item is selected in one of the 3 contact list views (Conversations, Contacts, History). The
+ * possible views ares:
  * - incoming call view
  * - current call view
  * - chat view
- * - welcome view (if no index is selected)
+ * - welcome view (if no valid item is selected)
+ *
+ * There should never be a conflict of which item should be displayed (ie: which item is selected),
+ * as there should only ever be one selection at a time in the 3 views except in the case that the
+ * same item is selected in more than one view (see the compare_treeview_selection() function).
+ *
+ * This function could be called from a g_idle source, so it returns a boolean to remove itself from
+ * being called again. The boolean doesn't reflect success nor failure.
  */
-static void
-selection_changed(const QModelIndex& recent_idx, RingMainWindow *win)
+static gboolean
+selection_changed(RingMainWindow *win)
 {
     // g_debug("selection changed");
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(win), G_SOURCE_REMOVE);
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
-    /* if we're showing the settings, then nothing needs to be done as the call
-       view is not shown */
-    if (priv->show_settings) return;
+    auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+    GtkWidget *new_view = nullptr;
 
-    /* get the current visible stack child */
-    GtkWidget *old_call_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+    /* if we're showing the settings, then we need to make sure to remove any possible ongoing call
+     * view so that we don't have more than one VideoWidget at a time */
+    if (priv->show_settings) {
+        if (old_view != priv->welcome_view) {
+            leave_full_screen(win);
+            gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_view);
+            gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
+            gtk_widget_show(priv->welcome_view);
+        }
+        return G_SOURCE_REMOVE;
+    }
 
-    /* make sure we leave full screen, since the call selection is changing */
-    leave_full_screen(win);
+    /* there should only be one item selected at a time, get which one is selected */
+    auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
+    auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
+    auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
+
+    GtkTreeModel *model = nullptr;
+    GtkTreeIter iter;
+    QModelIndex idx;
+
+    if (gtk_tree_selection_get_selected(selection_conversations, &model, &iter)) {
+        idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
+    } else if (gtk_tree_selection_get_selected(selection_contacts, &model, &iter)) {
+        idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
+    } else if (gtk_tree_selection_get_selected(selection_history, &model, &iter)) {
+        idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
+    }
 
     /* check which object type is selected */
-    auto type = recent_idx.data(static_cast<int>(Ring::Role::ObjectType)).value<Ring::ObjectType>();
-    auto object = recent_idx.data(static_cast<int>(Ring::Role::Object));
-    /* try to get the call model index, in case its a call, since we're still using the CallModel as well */
-    auto call_idx = CallModel::instance().getIndex(RecentModel::instance().getActiveCall(recent_idx));
+    auto type = idx.data(static_cast<int>(Ring::Role::ObjectType));
+    auto object = idx.data(static_cast<int>(Ring::Role::Object));
 
-    /* we prioritize showing the call view */
-    if (call_idx.isValid()) {
-        /* show the call view */
-        QVariant state =  call_idx.data(static_cast<int>(Call::Role::LifeCycleState));
-        GtkWidget *new_call_view = NULL;
+    if (idx.isValid() && type.isValid() && object.isValid()) {
 
-        switch(state.value<Call::LifeCycleState>()) {
-            case Call::LifeCycleState::CREATION:
-            case Call::LifeCycleState::INITIALIZATION:
-            case Call::LifeCycleState::FINISHED:
-                new_call_view = incoming_call_view_new();
-                incoming_call_view_set_call_info(INCOMING_CALL_VIEW(new_call_view), call_idx);
-                break;
-            case Call::LifeCycleState::PROGRESS:
-                new_call_view = current_call_view_new();
-                g_signal_connect(new_call_view, "video-double-clicked", G_CALLBACK(video_double_clicked), win);
-                current_call_view_set_call_info(CURRENT_CALL_VIEW(new_call_view), call_idx);
-                break;
-            case Call::LifeCycleState::COUNT__:
-                g_warning("LifeCycleState should never be COUNT");
-                break;
-        }
+        /* we prioritize the views in the following order:
+         *  - call view (if there is an ongoing call associated with the item)
+         *  - chat view built from Person
+         *  - chat view built from ContactMethod
+         */
 
-        gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
-        gtk_container_add(GTK_CONTAINER(priv->frame_call), new_call_view);
-        gtk_widget_show(new_call_view);
-    } else if (type == Ring::ObjectType::Person && object.isValid()) {
-        /* show chat view constructed from Person object */
-        auto new_chat_view = chat_view_new_person(object.value<Person *>());
-        g_signal_connect(new_chat_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), win);
-        gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
-        gtk_container_add(GTK_CONTAINER(priv->frame_call), new_chat_view);
-        gtk_widget_show(new_chat_view);
-    } else if (type == Ring::ObjectType::ContactMethod && object.isValid()) {
-        /* show chat view constructed from CM */
-        auto new_chat_view = chat_view_new_cm(object.value<ContactMethod *>());
-        g_signal_connect(new_chat_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), win);
-        gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
-        gtk_container_add(GTK_CONTAINER(priv->frame_call), new_chat_view);
-        gtk_widget_show(new_chat_view);
-    } else {
-        /* nothing selected that we can display, show the welcome view */
-        gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_call_view);
-        gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
-    }
-}
+        Person *person = nullptr;
+        ContactMethod *cm = nullptr;
+        Call *call = nullptr;
 
-static gboolean
-selected_item_changed(RingMainWindow *win)
-{
-    // g_debug("item changed");
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
-
-    /* if we're showing the settings, then nothing needs to be done as the call
-       view is not shown */
-    if (priv->show_settings) return G_SOURCE_REMOVE;
-
-    auto idx_selected = RecentModel::instance().selectionModel()->currentIndex();
-
-    /* we prioritize showing the call view; but if the call is over we go back to showing the chat view */
-    if(auto call = RecentModel::instance().getActiveCall(idx_selected)) {
-        /* check if we need to change the view */
-        auto current_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
-        auto state = call->lifeCycleState();
-
-        /* check what the current state is vs what is displayed */
-        switch(state) {
-            case Call::LifeCycleState::CREATION:
-            case Call::LifeCycleState::FINISHED:
-            /* go back to incoming call view;
-             * it will show that the call failed and offer to hang it up */
-            case Call::LifeCycleState::INITIALIZATION:
-                {
-                    /* show the incoming call view */
-                    if (!IS_INCOMING_CALL_VIEW(current_view)) {
-                        auto new_view = incoming_call_view_new();
-                        incoming_call_view_set_call_info(INCOMING_CALL_VIEW(new_view), CallModel::instance().getIndex(call));
-                        gtk_container_remove(GTK_CONTAINER(priv->frame_call), current_view);
-                        gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
-                        gtk_widget_show(new_view);
+        /* use the RecentModel to see if there are any ongoing calls associated with the selected item */
+        switch(type.value<Ring::ObjectType>()) {
+            case Ring::ObjectType::Person:
+            {
+                person = object.value<Person *>();
+                auto recent_idx = RecentModel::instance().getIndex(person);
+                if (recent_idx.isValid()) {
+                    call = RecentModel::instance().getActiveCall(recent_idx);
+                }
+            }
+            break;
+            case Ring::ObjectType::ContactMethod:
+            {
+                cm = object.value<ContactMethod *>();
+                auto recent_idx = RecentModel::instance().getIndex(cm);
+                if (recent_idx.isValid()) {
+                    call = RecentModel::instance().getActiveCall(recent_idx);
+                }
+            }
+            break;
+            case Ring::ObjectType::Call:
+            {
+                /* if the call is over (eg: if it comes from the history model) then we first check
+                 * if there is an ongoing call with the same ContactMethod, otherwise we need to get
+                 * the associated Person or ContactMethod */
+                call = object.value<Call *>();
+                if (call->isHistory()) {
+                    cm = call->peerContactMethod();
+                    call = nullptr;
+                    if (cm) {
+                        auto recent_idx = RecentModel::instance().getIndex(cm);
+                        if (recent_idx.isValid()) {
+                            call = RecentModel::instance().getActiveCall(recent_idx);
+                        }
+                        person = cm->contact();
                     }
                 }
-                break;
-            case Call::LifeCycleState::PROGRESS:
-                {
-                    /* show the current call view */
-                    if (!IS_CURRENT_CALL_VIEW(current_view)) {
-                        auto new_view = current_call_view_new();
+            }
+            break;
+            case Ring::ObjectType::Media:
+            case Ring::ObjectType::Certificate:
+            case Ring::ObjectType::COUNT__:
+            // nothing to do
+            break;
+        }
+
+        /* we prioritize showing the call view */
+        if (call) {
+            auto state = call->lifeCycleState();
+
+            Call *current_call = nullptr;
+
+            switch(state) {
+                case Call::LifeCycleState::CREATION:
+                case Call::LifeCycleState::INITIALIZATION:
+                case Call::LifeCycleState::FINISHED:
+                    // check if we're already displaying this call
+                    if (IS_INCOMING_CALL_VIEW(old_view))
+                        current_call = incoming_call_view_get_call(INCOMING_CALL_VIEW(old_view));
+                    if (current_call != call)
+                        new_view = incoming_call_view_new(call);
+                    break;
+                case Call::LifeCycleState::PROGRESS:
+                    // check if we're already displaying this call
+                    if (IS_CURRENT_CALL_VIEW(old_view))
+                        current_call = current_call_view_get_call(CURRENT_CALL_VIEW(old_view));
+                    if (current_call != call) {
+                        new_view = current_call_view_new(call);
                         g_signal_connect(new_view, "video-double-clicked", G_CALLBACK(video_double_clicked), win);
-                        current_call_view_set_call_info(CURRENT_CALL_VIEW(new_view), CallModel::instance().getIndex(call));
-                        gtk_container_remove(GTK_CONTAINER(priv->frame_call), current_view);
-                        gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
-                        gtk_widget_show(new_view);
                     }
-                }
-                break;
-            case Call::LifeCycleState::COUNT__:
-                g_warning("LifeCycleState should never be COUNT");
-                break;
-        }
-    } else if (idx_selected.isValid()) {
-        /* otherwise, the call is over and is already removed from the RecentModel */
-        auto current_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
-        leave_full_screen(win);
+                    break;
+                case Call::LifeCycleState::COUNT__:
+                    g_warning("LifeCycleState should never be COUNT");
+                    break;
+            }
 
-        /* show the chat view */
-        if (!IS_CHAT_VIEW(current_view)) {
-            auto type = idx_selected.data(static_cast<int>(Ring::Role::ObjectType)).value<Ring::ObjectType>();
-            auto object = idx_selected.data(static_cast<int>(Ring::Role::Object));
-            if (type == Ring::ObjectType::Person && object.isValid()) {
-                /* show chat view constructed from Person object */
-                auto new_view = chat_view_new_person(object.value<Person *>());
+            if (new_view) {
+                /* connect to the call's lifeCycleStateChanged signal to know when to change the view */
+                QObject::disconnect(priv->selected_item_changed);
+                priv->selected_item_changed = QObject::connect(
+                    call,
+                    &Call::lifeCycleStateChanged,
+                    [win] (Call::LifeCycleState, Call::LifeCycleState)
+                    {g_idle_add((GSourceFunc)selection_changed, win);}
+                );
+                /* we want to also change the view when the call is over */
+                QObject::disconnect(priv->selected_call_over);
+                priv->selected_call_over = QObject::connect(
+                    call,
+                    &Call::isOver,
+                    [win] ()
+                    {g_idle_add((GSourceFunc)selection_changed, win);}
+                );
+            }
+
+        } else if (person) {
+            /* show chat view constructed from Person object */
+
+            // check if we're already displaying the chat view for this person
+            Person *current_person = nullptr;
+            if (IS_CHAT_VIEW(old_view))
+                current_person = chat_view_get_person(CHAT_VIEW(old_view));
+
+            if (current_person != person) {
+                new_view = chat_view_new_person(person);
                 g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), win);
-                gtk_container_remove(GTK_CONTAINER(priv->frame_call), current_view);
-                gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
-                gtk_widget_show(new_view);
-            } else if (type == Ring::ObjectType::ContactMethod && object.isValid()) {
-                /* show chat view constructed from CM */
-                auto new_view = chat_view_new_cm(object.value<ContactMethod *>());
+
+                /* connect to the Person's callAdded signal, because we want to switch to the call view
+                 * in this case */
+                QObject::disconnect(priv->selected_item_changed);
+                QObject::disconnect(priv->selected_call_over);
+                priv->selected_item_changed = QObject::connect(
+                    person,
+                    &Person::callAdded,
+                    [win] (Call*)
+                    {g_idle_add((GSourceFunc)selection_changed, win);}
+                );
+            }
+        } else if (cm) {
+            /* show chat view constructed from CM */
+
+            // check if we're already displaying the chat view for this cm
+            ContactMethod *current_cm = nullptr;
+            if (IS_CHAT_VIEW(old_view))
+                current_cm = chat_view_get_cm(CHAT_VIEW(old_view));
+
+            if (current_cm != cm) {
+                new_view = chat_view_new_cm(cm);
                 g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), win);
-                gtk_container_remove(GTK_CONTAINER(priv->frame_call), current_view);
-                gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
-                gtk_widget_show(new_view);
+
+                /* connect to the ContactMethod's callAdded signal, because we want to switch to the
+                 *call view in this case */
+                QObject::disconnect(priv->selected_item_changed);
+                QObject::disconnect(priv->selected_call_over);
+                priv->selected_item_changed = QObject::connect(
+                    cm,
+                    &ContactMethod::callAdded,
+                    [win] (Call*)
+                    {g_idle_add((GSourceFunc)selection_changed, win);}
+                );
+            }
+        } else {
+            /* not a supported object type, display the welcome view */
+            if (old_view != priv->welcome_view) {
+                QObject::disconnect(priv->selected_item_changed);
+                QObject::disconnect(priv->selected_call_over);
+                new_view = priv->welcome_view;
             }
         }
+    } else {
+        /* selection isn't valid, display the welcome view */
+        if (old_view != priv->welcome_view) {
+            QObject::disconnect(priv->selected_item_changed);
+            QObject::disconnect(priv->selected_call_over);
+            new_view = priv->welcome_view;
+        }
+    }
+
+    if (new_view) {
+        /* make sure we leave full screen, since the view is changing */
+        leave_full_screen(win);
+        gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_view);
+        gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
+        gtk_widget_show(new_view);
     }
 
     return G_SOURCE_REMOVE;
@@ -395,9 +485,10 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
     /* check which view to show */
     if (!priv->show_settings) {
         /* show the settings */
+        priv->show_settings = TRUE;
 
         /* make sure we are not showing a call view so we don't have more than one clutter stage at a time */
-        selection_changed(QModelIndex(), win);
+        selection_changed(win);
 
         /* show settings */
         gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-ok-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
@@ -414,8 +505,6 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
 
         gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_UP);
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->last_settings_view);
-
-        priv->show_settings = TRUE;
     } else {
         /* hide the settings */
         priv->show_settings = FALSE;
@@ -443,7 +532,7 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
 
         /* show the view which was selected previously */
-        selection_changed(RecentModel::instance().selectionModel()->currentIndex(), win);
+        selection_changed(win);
     }
 }
 
@@ -838,6 +927,157 @@ dtmf_pressed(RingMainWindow *win,
     return GDK_EVENT_PROPAGATE;
 }
 
+/**
+ * This function determines if two different contact list views (Conversations, Contacts, History)
+ * have the same item selected. Note that the same item does not necessarily mean the same object.
+ * For example, if the history view has a Call selected and the Conversations view has a Person
+ * selected which is associated with the ContactMethod to which that Call was made, then this will
+ * evaluate to TRUE.
+ */
+static gboolean
+compare_treeview_selection(GtkTreeSelection *selection1, GtkTreeSelection *selection2)
+{
+    g_return_val_if_fail(selection1 && selection2, FALSE);
+
+    if (selection1 == selection2) return TRUE;
+
+    auto idx1 = get_index_from_selection(selection1);
+    auto type1 = idx1.data(static_cast<int>(Ring::Role::ObjectType));
+    auto object1 = idx1.data(static_cast<int>(Ring::Role::Object));
+
+    auto idx2 = get_index_from_selection(selection2);
+    auto type2 = idx2.data(static_cast<int>(Ring::Role::ObjectType));
+    auto object2 = idx2.data(static_cast<int>(Ring::Role::Object));
+
+    if (idx1.isValid() && type1.isValid() && object1.isValid() && idx2.isValid() && type2.isValid() && object2.isValid()) {
+        Call *call1 = nullptr;
+        ContactMethod *cm1 = nullptr;
+        Person *person1 = nullptr;
+
+        Call *call2 = nullptr;
+        ContactMethod *cm2 = nullptr;
+        Person *person2 = nullptr;
+
+        switch(type1.value<Ring::ObjectType>()) {
+            case Ring::ObjectType::Person:
+                person1 = object1.value<Person *>();
+                break;
+            case Ring::ObjectType::ContactMethod:
+                cm1 = object1.value<ContactMethod *>();
+                person1 = cm1->contact();
+                break;
+            case Ring::ObjectType::Call:
+                call1 = object1.value<Call *>();
+                cm1 = call1->peerContactMethod();
+                person1 = cm1->contact();
+                break;
+            case Ring::ObjectType::Media:
+            case Ring::ObjectType::Certificate:
+            case Ring::ObjectType::COUNT__:
+            // nothing to do
+            break;
+        }
+
+        switch(type2.value<Ring::ObjectType>()) {
+            case Ring::ObjectType::Person:
+                person2 = object2.value<Person *>();
+                break;
+            case Ring::ObjectType::ContactMethod:
+                cm2 = object2.value<ContactMethod *>();
+                person2 = cm2->contact();
+                break;
+            case Ring::ObjectType::Call:
+                call2 = object2.value<Call *>();
+                cm2 = call2->peerContactMethod();
+                person2 = cm2->contact();
+                break;
+            case Ring::ObjectType::Media:
+            case Ring::ObjectType::Certificate:
+            case Ring::ObjectType::COUNT__:
+            // nothing to do
+            break;
+        }
+
+        if (person1 != nullptr && person1 == person2)
+            return TRUE;
+        if (cm1 != nullptr && cm1 == cm2)
+            return TRUE;
+        if (call1 != nullptr && call1 == call2)
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+static void
+conversation_selection_changed(GtkTreeSelection *selection, RingMainWindow *self)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    GtkTreeIter iter;
+    GtkTreeModel *model = nullptr;
+    if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+        /* something is selected in the conversations view, clear the selection in the other views;
+         * unless the current selection is of the same item; we don't try to match the selection in
+         * all views since not all items exist in all 3 contact list views
+         */
+
+        auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
+        if (!compare_treeview_selection(selection, selection_contacts))
+            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contacts));
+
+        auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
+        if (!compare_treeview_selection(selection, selection_history))
+            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
+    }
+
+    selection_changed(self);
+}
+
+static void
+contact_selection_changed(GtkTreeSelection *selection, RingMainWindow *self)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    GtkTreeIter iter;
+    if (gtk_tree_selection_get_selected(selection, nullptr, &iter)) {
+        /* something is selected in the contacts view, clear the selection in the other views;
+         * unless the current selection is of the same item; we don't try to match the selection in
+         * all views since not all items exist in all 3 contact list views
+         */
+        auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
+        if (!compare_treeview_selection(selection, selection_conversations))
+            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
+
+        auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
+        if (!compare_treeview_selection(selection, selection_history))
+            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
+    }
+
+    selection_changed(self);
+}
+
+static void
+history_selection_changed(GtkTreeSelection *selection, RingMainWindow *self)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    GtkTreeIter iter;
+    if (gtk_tree_selection_get_selected(selection, nullptr, &iter)) {
+        /* something is selected in the history view, clear the selection in the other views;
+         * unless the current selection is of the same item; we don't try to match the selection in
+         * all views since not all items exist in all 3 contact list views
+         */
+
+        auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
+        if (!compare_treeview_selection(selection, selection_conversations))
+            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
+
+        auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
+        if (!compare_treeview_selection(selection, selection_contacts))
+            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contacts));
+    }
+
+    selection_changed(self);
+}
+
 static void
 ring_main_window_init(RingMainWindow *win)
 {
@@ -907,51 +1147,29 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect(priv->radiobutton_general_settings, "toggled", G_CALLBACK(show_general_settings), win);
 
     /* populate the notebook */
-    auto smart_view = recent_contacts_view_new();
-    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), smart_view);
+    priv->treeview_conversations = recent_contacts_view_new();
+    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
 
-    auto contacts_view = contacts_view_new();
-    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contacts), contacts_view);
+    priv->treeview_contacts = contacts_view_new();
+    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contacts), priv->treeview_contacts);
 
-    auto history_view = history_view_new();
-    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_history), history_view);
+    priv->treeview_history = history_view_new();
+    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_history), priv->treeview_history);
 
     /* welcome/default view */
     priv->welcome_view = ring_welcome_view_new();
-    g_object_ref(priv->welcome_view);
-    // gtk_stack_add_named(GTK_STACK(priv->stack_call_view), welcome_view, DEFAULT_VIEW_NAME);
+    g_object_ref(priv->welcome_view); // increase ref because don't want it to be destroyed when not displayed
     gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
     gtk_widget_show(priv->welcome_view);
 
-    /* call/chat selection */
-    QObject::connect(
-       RecentModel::instance().selectionModel(),
-       &QItemSelectionModel::currentChanged,
-       [win](const QModelIndex current, G_GNUC_UNUSED const QModelIndex & previous) {
-            if (auto call = RecentModel::instance().getActiveCall(current)) {
-                /* if the call is on hold, we want to put it off hold automatically
-                 * when switching to it */
-                if (call->state() == Call::State::HOLD)
-                    call << Call::Action::HOLD;
-            }
-            selection_changed(current, win);
-        }
-    );
+    auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
+    g_signal_connect(selection_conversations, "changed", G_CALLBACK(conversation_selection_changed), win);
 
-    /* connect to dataChanged of the RecentModel to see if we need to change the view */
-    QObject::connect(
-        &RecentModel::instance(),
-        &RecentModel::dataChanged,
-        [win](const QModelIndex & topLeft, G_GNUC_UNUSED const QModelIndex & bottomRight, G_GNUC_UNUSED const QVector<int> & roles) {
-            /* it is possible for dataChanged to be emitted inside of a dataChanged handler or
-             * some other signal; since the connection is via a lambda, Qt would cause the
-             * handler to be called directly. This is not behaviour we usually want, so we call our
-             * function via g_idle so that it gets called after the initial handler is done.
-             */
-            if (topLeft == RecentModel::instance().selectionModel()->currentIndex())
-                g_idle_add((GSourceFunc)selected_item_changed, win);
-        }
-    );
+    auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
+    g_signal_connect(selection_contacts, "changed", G_CALLBACK(contact_selection_changed), win);
+
+    auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
+    g_signal_connect(selection_history, "changed", G_CALLBACK(history_selection_changed), win);
 
     g_signal_connect(priv->button_placecall, "clicked", G_CALLBACK(search_entry_placecall), win);
     g_signal_connect(priv->search_entry, "activate", G_CALLBACK(search_entry_placecall), win);
@@ -1036,13 +1254,12 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect(priv->search_entry, "changed", G_CALLBACK(search_entry_text_changed), win);
     g_signal_connect(entry_completion, "match-selected", G_CALLBACK(select_autocompletion), win);
 
-    /* connect to incoming call and focus */
+    /* make sure the incoming call is the selected call in the CallModel */
     QObject::connect(
         &CallModel::instance(),
         &CallModel::incomingCall,
-        [=](Call* call) {
-            CallModel::instance().selectionModel()->setCurrentIndex(
-                CallModel::instance().getIndex(call), QItemSelectionModel::ClearAndSelect);
+        [](Call* call) {
+            CallModel::instance().selectCall(call);
         }
     );
 
@@ -1060,7 +1277,9 @@ ring_main_window_dispose(GObject *object)
     RingMainWindow *self = RING_MAIN_WINDOW(object);
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
-    QObject::disconnect(priv->selection_updated);
+    QObject::disconnect(priv->selected_item_changed);
+    QObject::disconnect(priv->selected_call_over);
+    g_object_unref(priv->welcome_view); // can now be destroyed
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
 }
@@ -1068,9 +1287,6 @@ ring_main_window_dispose(GObject *object)
 static void
 ring_main_window_finalize(GObject *object)
 {
-    RingMainWindow *self = RING_MAIN_WINDOW(object);
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-
     G_OBJECT_CLASS(ring_main_window_parent_class)->finalize(object);
 }
 
