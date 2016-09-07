@@ -54,6 +54,8 @@ struct _IncomingCallViewPrivate
     GtkWidget *button_reject_incoming;
     GtkWidget *button_end_call;
 
+    Call *call;
+
     QMetaObject::Connection state_change_connection;
 };
 
@@ -99,12 +101,6 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_reject_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_end_call);
-}
-
-GtkWidget *
-incoming_call_view_new(void)
-{
-    return (GtkWidget *)g_object_new(INCOMING_CALL_VIEW_TYPE, NULL);
 }
 
 static void
@@ -160,11 +156,11 @@ update_state(IncomingCallView *view, Call *call)
     }
 }
 
-void
-incoming_call_view_set_call_info(IncomingCallView *view, const QModelIndex& idx) {
+static void
+set_call_info(IncomingCallView *view, Call *call) {
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
-    Call *call = CallModel::instance().getCall(idx);
+    priv->call = call;
 
     /* get call image */
     QVariant var_i = GlobalInstances::pixmapManipulator().callPhoto(call, QSize(110, 110), false);
@@ -172,15 +168,15 @@ incoming_call_view_set_call_info(IncomingCallView *view, const QModelIndex& idx)
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), image.get());
 
     /* get name */
-    auto name = idx.model()->data(idx, static_cast<int>(Ring::Role::Name));
-    gtk_label_set_text(GTK_LABEL(priv->label_name), name.toString().toUtf8().constData());
+    auto name = call->formattedName();
+    gtk_label_set_text(GTK_LABEL(priv->label_name), name.toUtf8().constData());
 
     /* get uri, if different from name */
-    auto uri = idx.model()->data(idx, static_cast<int>(Ring::Role::Number));
-    if (name.toString() != uri.toString()) {
+    auto uri = call->peerContactMethod()->uri();
+    if (name != uri) {
         auto cat_uri = g_strdup_printf("(%s) %s"
                                        ,call->peerContactMethod()->category()->name().toUtf8().constData()
-                                       ,uri.toString().toUtf8().constData());
+                                       ,uri.toUtf8().constData());
         gtk_label_set_text(GTK_LABEL(priv->label_uri), cat_uri);
         g_free(cat_uri);
         gtk_widget_show(priv->label_uri);
@@ -194,4 +190,22 @@ incoming_call_view_set_call_info(IncomingCallView *view, const QModelIndex& idx)
         &Call::stateChanged,
         [=]() { update_state(view, call); }
     );
+}
+
+GtkWidget *
+incoming_call_view_new(Call *call)
+{
+    auto self = g_object_new(INCOMING_CALL_VIEW_TYPE, NULL);
+    set_call_info(INCOMING_CALL_VIEW(self), call);
+
+    return GTK_WIDGET(self);
+}
+
+Call*
+incoming_call_view_get_call(IncomingCallView *self)
+{
+    g_return_val_if_fail(IS_INCOMING_CALL_VIEW(self), nullptr);
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
+
+    return priv->call;
 }
