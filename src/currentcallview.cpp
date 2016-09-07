@@ -525,12 +525,6 @@ current_call_view_class_init(CurrentCallViewClass *klass)
         G_TYPE_NONE, 0);
 }
 
-GtkWidget *
-current_call_view_new(void)
-{
-    return (GtkWidget *)g_object_new(CURRENT_CALL_VIEW_TYPE, NULL);
-}
-
 static void
 update_state(CurrentCallView *view, Call *call)
 {
@@ -639,11 +633,11 @@ toggle_smartinfo(GSimpleAction* action, G_GNUC_UNUSED GVariant* state, GtkWidget
     }
 }
 
-void
-current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
+static void
+set_call_info(CurrentCallView *view, Call *call) {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    priv->call = CallModel::instance().getCall(idx);
+    priv->call = call;
 
     /* get call image */
     QVariant var_i = GlobalInstances::pixmapManipulator().callPhoto(priv->call, QSize(60, 60), false);
@@ -651,15 +645,15 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
 
     /* get name */
-    auto name = idx.model()->data(idx, static_cast<int>(Ring::Role::Name));
-    gtk_label_set_text(GTK_LABEL(priv->label_name), name.toString().toUtf8().constData());
+    auto name = call->formattedName();
+    gtk_label_set_text(GTK_LABEL(priv->label_name), name.toUtf8().constData());
 
     /* get uri, if different from name */
-    auto uri = idx.model()->data(idx, static_cast<int>(Ring::Role::Number));
-    if (name.toString() != uri.toString()) {
+    auto uri = call->peerContactMethod()->uri();
+    if (name != uri) {
         auto cat_uri = g_strdup_printf("(%s) %s"
                                        ,priv->call->peerContactMethod()->category()->name().toUtf8().constData()
-                                       ,uri.toString().toUtf8().constData());
+                                       ,uri.toUtf8().constData());
         gtk_label_set_text(GTK_LABEL(priv->label_uri), cat_uri);
         g_free(cat_uri);
         gtk_widget_show(priv->label_uri);
@@ -764,4 +758,22 @@ current_call_view_set_call_info(CurrentCallView *view, const QModelIndex& idx) {
 
     /* show chat view on any new incoming messages */
     g_signal_connect_swapped(chat_view, "new-messages-displayed", G_CALLBACK(show_chat_view), view);
+}
+
+GtkWidget *
+current_call_view_new(Call *call)
+{
+    auto self = g_object_new(CURRENT_CALL_VIEW_TYPE, NULL);
+    set_call_info(CURRENT_CALL_VIEW(self), call);
+
+    return GTK_WIDGET(self);
+}
+
+Call*
+current_call_view_get_call(CurrentCallView *self)
+{
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), nullptr);
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    return priv->call;
 }
