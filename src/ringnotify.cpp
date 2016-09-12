@@ -33,6 +33,7 @@
 #include <callmodel.h>
 #include <media/textrecording.h>
 #include <media/recordingmodel.h>
+#include <recentmodel.h>
 #endif
 
 #if USE_LIBNOTIFY
@@ -117,6 +118,20 @@ ring_notify_is_initted()
 #endif
 }
 
+static void
+ring_notify_show_cm(NotifyNotification*, char *, ContactMethod *cm)
+{
+    /* show the main window in case its hidden */
+    if (auto action = g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "show-main-window")) {
+        g_action_change_state(action, g_variant_new_boolean(TRUE));
+    }
+    /* select the relevant cm */
+    auto idx = RecentModel::instance().getIndex(cm);
+    if (idx.isValid()) {
+        RecentModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
+    }
+}
+
 gboolean
 ring_notify_incoming_call(
 #if !USE_LIBNOTIFY
@@ -128,7 +143,7 @@ ring_notify_incoming_call(
 #if USE_LIBNOTIFY
     g_return_val_if_fail(call, FALSE);
 
-    gchar *body = g_strdup_printf("%s", call->formattedName().toUtf8().constData());
+    gchar *body = g_markup_escape_text(call->formattedName().toUtf8().constData(), -1);
     std::shared_ptr<NotifyNotification> notification(
         notify_notification_new(_("Incoming call"), body, NULL), g_object_unref);
     g_free(body);
@@ -142,6 +157,16 @@ ring_notify_incoming_call(
     /* calls have highest urgency */
     notify_notification_set_urgency(notification.get(), NOTIFY_URGENCY_CRITICAL);
     notify_notification_set_timeout(notification.get(), NOTIFY_EXPIRES_DEFAULT);
+
+    /* if the notification server supports actions, make the default action to show the call */
+    if (server_info.actions) {
+        notify_notification_add_action(notification.get(),
+                                       "default",
+                                       C_("notification action name", "Show"),
+                                       (NotifyActionCallback)ring_notify_show_cm,
+                                       call->peerContactMethod(),
+                                       nullptr);
+    }
 
     GError *error = NULL;
     success = notify_notification_show(notification.get(), &error);
@@ -310,6 +335,16 @@ ring_notify_show_text_message(ContactMethod *cm, const QModelIndex& idx)
         /* remove the key and value from the hash table once the notification is
          * closed; note that this will also unref the notification */
         g_signal_connect(notification_new, "closed", G_CALLBACK(notification_closed), cm);
+
+        /* if the notification server supports actions, make the default action to show the chat view */
+        if (server_info.actions) {
+            notify_notification_add_action(notification_new,
+                                           "default",
+                                           C_("notification action name", "Show"),
+                                           (NotifyActionCallback)ring_notify_show_cm,
+                                           cm,
+                                           nullptr);
+        }
     }
 
     GError *error = nullptr;
