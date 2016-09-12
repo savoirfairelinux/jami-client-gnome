@@ -33,6 +33,7 @@
 #include <callmodel.h>
 #include <media/textrecording.h>
 #include <media/recordingmodel.h>
+#include <recentmodel.h>
 #endif
 
 #if USE_LIBNOTIFY
@@ -233,6 +234,21 @@ notification_closed(NotifyNotification *notification, ContactMethod *cm)
     g_object_unref(notification);
 }
 
+static void
+ring_notify_show_chat(NotifyNotification*, char *, ContactMethod *cm)
+{
+    // show the main window
+    if (auto action = g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "show-main-window")) {
+        g_action_change_state(action, g_variant_new_boolean(TRUE));
+    }
+    // select the chat with that cm
+    auto idx = RecentModel::instance().getIndex(cm);
+    if (idx.isValid()) {
+        RecentModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
+    }
+
+}
+
 static gboolean
 ring_notify_show_text_message(ContactMethod *cm, const QModelIndex& idx)
 {
@@ -310,6 +326,16 @@ ring_notify_show_text_message(ContactMethod *cm, const QModelIndex& idx)
         /* remove the key and value from the hash table once the notification is
          * closed; note that this will also unref the notification */
         g_signal_connect(notification_new, "closed", G_CALLBACK(notification_closed), cm);
+
+        if (server_info.actions) {
+            // if the notification server supports actions, make the default action to show the chat view
+            notify_notification_add_action(notification_new,
+                                           "default",
+                                           C_("chat notification action name", "Show"),
+                                           (NotifyActionCallback)ring_notify_show_chat,
+                                           cm,
+                                           nullptr);
+        }
     }
 
     GError *error = nullptr;
