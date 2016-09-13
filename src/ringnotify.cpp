@@ -379,9 +379,18 @@ delete_idx(QModelIndex *idx)
     delete idx;
 }
 
-static void
-ring_notify_message(ContactMethod *cm, Media::TextRecording *t, RingClient *client)
+#endif
+
+void
+ring_notify_message(
+#if !USE_LIBNOTIFY
+    ContactMethod*, Media::TextRecording*, RingClient*)
+#else
+    ContactMethod *cm, Media::TextRecording *t, RingClient *client)
+#endif
 {
+
+#if USE_LIBNOTIFY
     g_return_if_fail(cm && t && client);
 
     // get the message
@@ -405,28 +414,8 @@ ring_notify_message(ContactMethod *cm, Media::TextRecording *t, RingClient *clie
         }
 
     }
+#endif
 }
-#endif
-
-void
-ring_notify_monitor_chat_notifications(
-#if !USE_LIBNOTIFY
-    G_GNUC_UNUSED
-#endif
-    RingClient *client)
-{
-#if USE_LIBNOTIFY
-
-    QObject::connect(
-        &Media::RecordingModel::instance(),
-        &Media::RecordingModel::newTextMessage,
-        [client] (Media::TextRecording* t, ContactMethod* cm)
-        {
-            ring_notify_message(cm, t, client);
-        }
-     );
-#endif
- }
 
 gboolean
 ring_notify_close_chat_notification(

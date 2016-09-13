@@ -26,5 +26,13 @@
         <summary>Display the chat to the rigth (default) or at the bottom.</summary>
         <description>If the chat pane is horizontal then the chat is displayed to the right of the video; otherwise it will be displayed bellow it.</description>
     </key>
+    <key name="enable-call-notifications" type="b">
+        <default>true</default>
+        <summary>Enable notifications for incoming calls.</summary>
+    </key>
+    <key name="enable-chat-notifications" type="b">
+        <default>true</default>
+        <summary>Enable notifications for new chat messages.</summary>
+    </key>
   </schema>
 </schemalist>
