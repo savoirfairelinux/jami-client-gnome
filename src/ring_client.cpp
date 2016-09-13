@@ -51,6 +51,8 @@
 #include <localprofilecollection.h>
 #include <accountmodel.h>
 #include <smartinfohub.h>
+#include <media/textrecording.h>
+#include <media/recordingmodel.h>
 
 // Ring client
 #include "ring_client_options.h"
@@ -112,6 +114,10 @@ struct _RingClientPrivate {
     /* NetworkManager */
     NMClient *nm_client;
 #endif
+
+    /* notifications */
+    QMetaObject::Connection call_notification;
+    QMetaObject::Connection chat_notification;
 };
 
 /* this union is used to pass ints as pointers and vice versa for GAction parameters*/
@@ -428,6 +434,39 @@ nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result, RingCli
 #endif /* USE_LIBNM */
 
 static void
+call_notifications_toggled(RingClient *self)
+{
+    auto priv = RING_CLIENT_GET_PRIVATE(self);
+
+    if (g_settings_get_boolean(priv->settings, "enable-call-notifications")) {
+        priv->call_notification = QObject::connect(
+            &CallModel::instance(),
+            &CallModel::incomingCall,
+            [] (Call *call) { ring_notify_incoming_call(call); }
+        );
+    } else {
+        QObject::disconnect(priv->call_notification);
+    }
+}
+
+static void
+chat_notifications_toggled(RingClient *self)
+{
+    auto priv = RING_CLIENT_GET_PRIVATE(self);
+
+    if (g_settings_get_boolean(priv->settings, "enable-chat-notifications")) {
+        priv->chat_notification = QObject::connect(
+            &Media::RecordingModel::instance(),
+            &Media::RecordingModel::newTextMessage,
+            [self] (Media::TextRecording* t, ContactMethod* cm)
+            { ring_notify_message(cm, t, self); }
+        );
+    } else {
+        QObject::disconnect(priv->chat_notification);
+    }
+}
+
+static void
 ring_client_startup(GApplication *app)
 {
     RingClient *client = RING_CLIENT(app);
@@ -561,15 +600,12 @@ ring_client_startup(GApplication *app)
         }
     );
 
-    /* send call notifications */
+    /* enable notifications based on settings */
     ring_notify_init();
-    QObject::connect(&CallModel::instance(), &CallModel::incomingCall,
-        [] (Call *call) { ring_notify_incoming_call(call);}
-    );
-
-    /* chat notifications for incoming messages on all calls which are not the
-     * currently selected call */
-     ring_notify_monitor_chat_notifications(client);
+    call_notifications_toggled(client);
+    chat_notifications_toggled(client);
+    g_signal_connect_swapped(priv->settings, "changed::enable-call-notifications", G_CALLBACK(call_notifications_toggled), client);
+    g_signal_connect_swapped(priv->settings, "changed::enable-chat-notifications", G_CALLBACK(chat_notifications_toggled), client);
 
 #if USE_LIBNM
      /* monitor the network using libnm to notify the daemon about connectivity chagnes */
@@ -592,6 +628,8 @@ ring_client_shutdown(GApplication *app)
     g_object_unref(priv->cancellable);
 
     QObject::disconnect(priv->uam_updated);
+    QObject::disconnect(priv->call_notification);
+    QObject::disconnect(priv->chat_notification);
 
     /* free the QCoreApplication, which will destroy all libRingClient models
      * and thus send the Unregister signal over dbus to dring */

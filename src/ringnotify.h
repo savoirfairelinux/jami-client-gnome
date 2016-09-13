@@ -25,15 +25,18 @@
 
 class Call;
 class ContactMethod;
+namespace Media {
+class TextRecording;
+}
 
 G_BEGIN_DECLS
 
 void     ring_notify_init();
 void     ring_notify_uninit();
 gboolean ring_notify_is_initted();
-gboolean ring_notify_incoming_call(Call *call);
-void     ring_notify_monitor_chat_notifications(RingClient *client);
-gboolean ring_notify_close_chat_notification(ContactMethod *cm);
+gboolean ring_notify_incoming_call(Call*);
+void     ring_notify_message(ContactMethod*, Media::TextRecording*, RingClient*);
+gboolean ring_notify_close_chat_notification(ContactMethod*);
 
 G_END_DECLS
 

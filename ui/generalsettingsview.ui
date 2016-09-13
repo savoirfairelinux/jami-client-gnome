@@ -13,14 +13,12 @@
     <child>
       <object class="GtkBox" id="hbox_main_columns">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="spacing">10</property>
         <property name="border_width">10</property>
         <!-- start profil settings -->
         <child>
           <object class="GtkBox" id="vbox_main_left">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkFrame" id="frame_profile_settings">
@@ -42,7 +40,6 @@
                 <child>
                   <object class="GtkBox" id="box_profil_settings">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="valign">end</property>
                     <property name="halign">start</property>
                     <property name="orientation">vertical</property>
@@ -63,7 +60,6 @@
         <child>
           <object class="GtkBox" id="vbox_main_right">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <property name="spacing">12</property>
             <child>
@@ -93,7 +89,6 @@
                       <object class="GtkCheckButton" id="checkbutton_autostart">
                         <property name="label" translatable="yes">Start Ring on login</property>
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
                         <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
                       </object>
@@ -102,7 +97,6 @@
                       <object class="GtkCheckButton" id="checkbutton_showstatusicon">
                         <property name="label" translatable="yes">Show Ring icon in the notification area (systray).</property>
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
                         <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
                       </object>
@@ -111,7 +105,22 @@
                       <object class="GtkCheckButton" id="checkbutton_bringtofront">
                         <property name="label" translatable="yes">Bring Ring to the foreground on incoming calls.</property>
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
+                        <property name="xalign">0</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton_callnotifications">
+                        <property name="label" translatable="yes">Enable notifications for incoming calls.</property>
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton_chatnotifications">
+                        <property name="label" translatable="yes">Enable notifications for new chat messages.</property>
+                        <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
                       </object>
@@ -119,21 +128,18 @@
                     <child>
                       <object class="GtkButtonBox" id="buttonbox_chatposition">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
                         <property name="orientation">vertical</property>
                         <property name="layout-style">start</property>
                         <child>
                           <object class="GtkRadioButton" id="radiobutton_chatright">
                             <property name="label" translatable="yes">Show chat on the right.</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
                           </object>
                         </child>
                         <child>
                           <object class="GtkRadioButton" id="radiobutton_chatbottom">
                             <property name="label" translatable="yes">Show chat on the bottom.</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
                             <property name="group">radiobutton_chatright</property>
                           </object>
                         </child>
@@ -154,7 +160,6 @@
                   <child type="label">
                     <object class="GtkLabel" id="label_history_settings">
                       <property name="visible">True</property>
-                      <property name="can_focus">False</property>
                       <property name="label" translatable="yes">History Settings</property>
                       <attributes>
                         <attribute name="weight" value="bold"/>
@@ -166,7 +171,6 @@
                 <child>
                   <object class="GtkGrid" id="grid_history_settings">
                   <property name="visible">True</property>
-                  <property name="can_focus">False</property>
                   <property name="margin_left">10</property>
                   <property name="margin_top">10</property>
                   <property name="row_spacing">10</property>
@@ -174,7 +178,6 @@
                     <child>
                       <object class="GtkLabel" id="label_history_duration">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Keep history for (days):</property>
                       </object>
                       <packing>
@@ -185,7 +188,6 @@
                   <child>
                     <object class="GtkSpinButton" id="spinbutton_history_duration">
                       <property name="visible">True</property>
-                      <property name="can_focus">False</property>
                       <property name="value">0</property>
                       <property name="adjustment">adjustment_history_duration</property>
                     </object>
@@ -197,7 +199,6 @@
                   <child>
                     <object class="GtkLabel" id="label_history_explanation">
                       <property name="visible">True</property>
-                      <property name="can_focus">False</property>
                       <property name="label" translatable="yes">(set to 0 for unlimited history)</property>
                     </object>
                     <packing>
@@ -209,7 +210,6 @@
                     <object class="GtkButton" id="button_clear_history">
                       <property name="label" translatable="yes">Clear all history</property>
                       <property name="visible">True</property>
-                      <property name="can_focus">True</property>
                       <property name="receives_default">True</property>
                       <property name="halign">start</property>
                     </object>
