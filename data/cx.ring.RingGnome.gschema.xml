@@ -26,5 +26,15 @@
         <summary>Display the chat to the rigth (default) or at the bottom.</summary>
         <description>If the chat pane is horizontal then the chat is displayed to the right of the video; otherwise it will be displayed bellow it.</description>
     </key>
+    <key name="window-width" type="i">
+        <default>800</default>
+        <summary>Main window width.</summary>
+        <description>Main window width.</description>
+    </key>
+    <key name="window-height" type="i">
+        <default>500</default>
+        <summary>Main window height.</summary>
+        <description>Main window height.</description>
+    </key>
   </schema>
 </schemalist>

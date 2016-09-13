@@ -66,6 +66,7 @@
 #include "recentcontactsview.h"
 #include "chatview.h"
 #include "avatarmanipulation.h"
+#include "utils/files.h"
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* CREATE_ACCOUNT_VIEW_NAME   = "wizard";
@@ -139,6 +140,8 @@ struct _RingMainWindowPrivate
 
     /* fullscreen */
     gboolean is_fullscreen;
+
+    GSettings *settings;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -838,11 +841,29 @@ dtmf_pressed(RingMainWindow *win,
     return GDK_EVENT_PROPAGATE;
 }
 
+static gboolean
+window_size_changed(GtkWidget *win, GdkEventConfigure *event, gpointer)
+{
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    g_settings_set_int(priv->settings, "window-width", event->width);
+    g_settings_set_int(priv->settings, "window-height", event->height);
+
+    return GDK_EVENT_PROPAGATE;
+}
+
 static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
     gtk_widget_init_template(GTK_WIDGET(win));
+
+    /* bind to window size settings */
+    priv->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
+    auto width = g_settings_get_int(priv->settings, "window-width");
+    auto height = g_settings_get_int(priv->settings, "window-height");
+    gtk_window_set_default_size(GTK_WINDOW(win), width, height);
+    g_signal_connect(win, "configure-event", G_CALLBACK(window_size_changed), nullptr);
 
      /* set window icon */
     GError *error = NULL;
@@ -1070,6 +1091,8 @@ ring_main_window_finalize(GObject *object)
 {
     RingMainWindow *self = RING_MAIN_WINDOW(object);
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+
+    g_clear_object(&priv->settings);
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->finalize(object);
 }
