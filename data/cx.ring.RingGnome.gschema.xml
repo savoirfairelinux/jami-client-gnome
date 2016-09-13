@@ -34,5 +34,15 @@
         <default>true</default>
         <summary>Enable notifications for new chat messages.</summary>
     </key>
+    <key name="window-width" type="i">
+        <default>800</default>
+        <summary>Main window width.</summary>
+        <description>Main window width.</description>
+    </key>
+    <key name="window-height" type="i">
+        <default>500</default>
+        <summary>Main window height.</summary>
+        <description>Main window height.</description>
+    </key>
   </schema>
 </schemalist>
