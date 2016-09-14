@@ -104,7 +104,7 @@ static void set_state(AvatarManipulation *self, AvatarManipulationState state);
 static void start_camera(AvatarManipulation *self);
 static void take_a_photo(AvatarManipulation *self);
 static void choose_picture(AvatarManipulation *self);
-static void return_to_previous_state(AvatarManipulation *self);
+static void return_to_previous(AvatarManipulation *self);
 static void update_preview_cb(GtkFileChooser *file_chooser, GtkWidget *preview);
 static void set_avatar(AvatarManipulation *self);
 static void got_snapshot(AvatarManipulation *parent);
@@ -202,9 +202,9 @@ avatar_manipulation_init(AvatarManipulation *self)
     g_signal_connect_swapped(priv->button_start_camera, "clicked", G_CALLBACK(start_camera), self);
     g_signal_connect_swapped(priv->button_choose_picture, "clicked", G_CALLBACK(choose_picture), self);
     g_signal_connect_swapped(priv->button_take_photo, "clicked", G_CALLBACK(take_a_photo), self);
-    g_signal_connect_swapped(priv->button_return_photo, "clicked", G_CALLBACK(return_to_previous_state), self);
+    g_signal_connect_swapped(priv->button_return_photo, "clicked", G_CALLBACK(return_to_previous), self);
     g_signal_connect_swapped(priv->button_set_avatar, "clicked", G_CALLBACK(set_avatar), self);
-    g_signal_connect_swapped(priv->button_return_edit, "clicked", G_CALLBACK(return_to_previous_state), self);
+    g_signal_connect_swapped(priv->button_return_edit, "clicked", G_CALLBACK(return_to_previous), self);
 
     set_state(self, AVATAR_MANIPULATION_STATE_CURRENT);
 
@@ -363,10 +363,17 @@ set_avatar(AvatarManipulation *self)
 }
 
 static void
-return_to_previous_state(AvatarManipulation *self)
+return_to_previous(AvatarManipulation *self)
 {
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
-    set_state(self, priv->last_state);
+
+    if (priv->state == AVATAR_MANIPULATION_STATE_PHOTO) {
+        // from photo we alway go back to current
+        set_state(self, AVATAR_MANIPULATION_STATE_CURRENT);
+    } else {
+        // otherwise, if we were in edit state, we may have come from photo or current state
+        set_state(self, priv->last_state);
+    }
 }
 
 static void
