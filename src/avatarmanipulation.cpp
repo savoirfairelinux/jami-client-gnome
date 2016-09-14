@@ -32,10 +32,10 @@
 /* client */
 #include "native/pixbufmanipulator.h"
 #include "video/video_widget.h"
+#include "cc-crop-area.h"
 
 /* system */
 #include <glib/gi18n.h>
-#include <cmath>
 
 /* size of avatar */
 static constexpr int AVATAR_WIDTH  = 100; /* px */
@@ -44,15 +44,6 @@ static constexpr int AVATAR_HEIGHT = 100; /* px */
 /* size of video widget */
 static constexpr int VIDEO_WIDTH = 300; /* px */
 static constexpr int VIDEO_HEIGHT = 200; /* px */
-
-/* initial length of the selector */
-static constexpr int INITIAL_LENTGH = 100; /* px */
-
-/* mouse interactions with selector */
-enum ActionOnSelector {
-    MOVE_SELECTOR,
-    PICK_SELECTOR
-};
 
 struct _AvatarManipulation
 {
@@ -84,21 +75,12 @@ struct _AvatarManipulationPrivate
     GtkWidget *button_set_avatar;
     GtkWidget *button_return_edit;
 
-    GtkWidget *selector_widget;
+    // GtkWidget *selector_widget;
     GtkWidget *stack_views;
     GtkWidget *image_avatar;
-    GtkWidget *vbox_selector;
+    GtkWidget *vbox_crop_area;
     GtkWidget *frame_video;
     GdkPixbuf *pix_scaled;
-
-    /* selector widget properties */
-    cairo_surface_t * selector_widget_surface;
-    int origin[2];            /* top left coordinates of the selector */
-    int relative_position[2]; /* this position refers the pointer to selector origin */
-    int length;               /* selector length */
-    ActionOnSelector action_on_selector;
-    bool do_action;
-    GdkModifierType button_pressed;
 
     AvatarManipulationState state;
     AvatarManipulationState last_state;
@@ -108,6 +90,8 @@ struct _AvatarManipulationPrivate
      * to stop it when the settings are closed, in this case
      */
     gboolean video_started_by_avatar_manipulation;
+
+    GtkWidget *crop_area;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AvatarManipulation, avatar_manipulation, GTK_TYPE_BOX);
@@ -124,15 +108,6 @@ static void return_to_previous_state(AvatarManipulation *self);
 static void update_preview_cb(GtkFileChooser *file_chooser, GtkWidget *preview);
 static void set_avatar(AvatarManipulation *self);
 static void got_snapshot(AvatarManipulation *parent);
-
-/* area selected */
-static gboolean selector_widget_button_press_event(GtkWidget *widget, GdkEventButton *event, AvatarManipulation *self);
-static gboolean selector_widget_button_release_event(GtkWidget *widget, GdkEventButton *event, AvatarManipulation *self);
-static gboolean selector_widget_motion_notify_event(GtkWidget *widget, GdkEventMotion *event, AvatarManipulation *self);
-static gboolean selector_widget_configure_event(GtkWidget *widget, GdkEventConfigure *event, AvatarManipulation *self);
-static gboolean selector_widget_draw(GtkWidget *widget, cairo_t *cr, AvatarManipulation *self);
-static void update_and_draw(gdouble x, gdouble y, AvatarManipulation *self);
-static void rescale(gdouble x, gdouble y, AvatarManipulation *self);
 
 static void
 avatar_manipulation_dispose(GObject *object)
@@ -154,9 +129,6 @@ static void
 avatar_manipulation_finalize(GObject *object)
 {
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(object);
-
-    if (priv->selector_widget_surface)
-        cairo_surface_destroy(priv->selector_widget_surface);
 
     if (priv->pix_scaled)
         g_object_unref(priv->pix_scaled);
@@ -207,7 +179,7 @@ avatar_manipulation_class_init(AvatarManipulationClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, stack_views);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, image_avatar);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, frame_video);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, vbox_selector);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, vbox_crop_area);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_box_current);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_box_photo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, button_box_edit);
@@ -219,25 +191,12 @@ avatar_manipulation_init(AvatarManipulation *self)
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
     gtk_widget_init_template(GTK_WIDGET(self));
 
-    /* selector widget */
-    priv->selector_widget = gtk_drawing_area_new();
-    gtk_box_pack_start(GTK_BOX(priv->vbox_selector), priv->selector_widget, FALSE, TRUE, 0);
+    /* crop area */
+    priv->crop_area = cc_crop_area_new();
+    gtk_box_pack_start(GTK_BOX(priv->vbox_crop_area), priv->crop_area, TRUE, TRUE, 0);
 
     /* our desired size for the image area */
     gtk_widget_set_size_request(priv->stack_views, VIDEO_WIDTH, VIDEO_HEIGHT);
-
-    /* Signals used to handle backing surface */
-    g_signal_connect(priv->selector_widget, "draw", G_CALLBACK (selector_widget_draw), self);
-    g_signal_connect(priv->selector_widget, "configure-event", G_CALLBACK (selector_widget_configure_event), self);
-    /* Event signals */
-    g_signal_connect(priv->selector_widget, "motion-notify-event", G_CALLBACK(selector_widget_motion_notify_event), self);
-    g_signal_connect(priv->selector_widget, "button-press-event", G_CALLBACK(selector_widget_button_press_event), self);
-    g_signal_connect(priv->selector_widget, "button-release-event", G_CALLBACK(selector_widget_button_release_event), self);
-    /* Ask to receive events the drawing area doesn't normally subscribe to */
-    gtk_widget_set_events (priv->selector_widget, gtk_widget_get_events (priv->selector_widget)
-                           | GDK_LEAVE_NOTIFY_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
-                           | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK);
-
 
     /* signals */
     g_signal_connect_swapped(priv->button_start_camera, "clicked", G_CALLBACK(start_camera), self);
@@ -338,11 +297,6 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
                 priv->video_widget = NULL;
             }
 
-            /* reset the selector */
-            priv->origin[0] = 0;
-            priv->origin[1] = 0;
-            priv->length = INITIAL_LENTGH;
-
             /* available actions: set avatar, return */
             gtk_widget_set_visible(priv->button_box_current, false);
             gtk_widget_set_visible(priv->button_box_photo,   false);
@@ -378,9 +332,8 @@ set_avatar(AvatarManipulation *self)
     gsize png_buffer_size;
     GError* error =  nullptr;
 
-    /* get the selected zone */
-    GdkPixbuf *selector_pixbuf = gdk_pixbuf_new_subpixbuf(priv->pix_scaled, priv->origin[0], priv->origin[1],
-                                                          priv->length, priv->length);
+    /* get the cropped area */
+    GdkPixbuf *selector_pixbuf = cc_crop_area_get_picture(CC_CROP_AREA(priv->crop_area));
 
     /* scale it */
     GdkPixbuf* pixbuf_frame_resized = gdk_pixbuf_scale_simple(selector_pixbuf, AVATAR_WIDTH, AVATAR_HEIGHT,
@@ -494,290 +447,13 @@ update_preview_cb(GtkFileChooser *file_chooser, GtkWidget *preview)
     gtk_file_chooser_set_preview_widget_active(file_chooser, have_preview);
 }
 
-static gboolean
-selector_widget_configure_event(G_GNUC_UNUSED GtkWidget *widget,
-                                G_GNUC_UNUSED GdkEventConfigure *event,
-                                AvatarManipulation *self)
-{
-    AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
-    GtkAllocation allocation;
-
-    gtk_widget_get_allocation (widget, &allocation);
-    if (priv->selector_widget_surface) {
-        cairo_surface_destroy(priv->selector_widget_surface);
-        priv->selector_widget_surface = nullptr;
-    }
-
-    priv->selector_widget_surface = gdk_window_create_similar_surface (gtk_widget_get_window (widget),
-                                               CAIRO_CONTENT_COLOR,
-                                               allocation.width,
-                                               allocation.height);
-
-    /* TRUE = do not propagate */
-    return TRUE;
-}
-
-static gboolean
-selector_widget_draw(G_GNUC_UNUSED GtkWidget *widget, cairo_t *cr, AvatarManipulation *self)
-{
-    AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
-
-    if(!priv->pix_scaled)
-        return FALSE;
-
-    int w = gdk_pixbuf_get_width(priv->pix_scaled);
-    int h = gdk_pixbuf_get_height(priv->pix_scaled);
-    gtk_widget_set_size_request(priv->selector_widget, w, h);
-
-    /* add the snapshot/picture on it */
-    gdk_cairo_set_source_pixbuf(cr, priv->pix_scaled, 0, 0);
-    cairo_paint(cr);
-
-    /* dark around the selector : */
-    cairo_set_source_rgba(cr, 0., 0., 0., 0.4);
-    cairo_set_line_width(cr, 2);
-    /* left */
-    cairo_rectangle(cr, 0, 0, priv->origin[0], VIDEO_HEIGHT);
-    cairo_fill(cr);
-    /* right */
-    cairo_rectangle(cr, priv->origin[0]+priv->length, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
-    cairo_fill(cr);
-    /* up */
-    cairo_rectangle(cr, priv->origin[0], 0, priv->length, priv->origin[1]);
-    cairo_fill(cr);
-    /* down */
-    cairo_rectangle(cr, priv->origin[0], priv->origin[1]+priv->length, priv->length, VIDEO_HEIGHT);
-    cairo_fill(cr);
-
-    /* black border around the selector */
-    cairo_set_source_rgb(cr, 0., 0., 0.);
-    cairo_set_line_width(cr, 2);
-    cairo_rectangle(cr, priv->origin[0], priv->origin[1], priv->length, priv->length);
-    cairo_stroke(cr);
-
-    /* white border around the selector */
-    cairo_set_source_rgb(cr, 1., 1., 1.);
-    cairo_set_line_width(cr, 2);
-    cairo_rectangle(cr, priv->origin[0]+2, priv->origin[1]+2, priv->length-4, priv->length-4);
-    cairo_stroke(cr);
-
-    /* crosshair */
-    cairo_set_line_width(cr, 1);
-    double lg = (double)priv->length;
-    if(priv->do_action) {
-        /* horizontales */
-        cairo_move_to(cr, priv->origin[0]+((int)(lg/3.0))+2, priv->origin[1]+2);
-        cairo_line_to(cr, priv->origin[0]+((int)(lg/3.0))+2, priv->origin[1]+priv->length-4);
-        cairo_move_to(cr, priv->origin[0]+((int)(2.0*lg/3.0))+2, priv->origin[1]+2);
-        cairo_line_to(cr, priv->origin[0]+((int)(2.0*lg/3.0))+2, priv->origin[1]+priv->length-4);
-        /* verticales */
-        cairo_move_to(cr, priv->origin[0]+2, priv->origin[1]+((int)(lg/3.0))+2);
-        cairo_line_to(cr, priv->origin[0]+priv->length-4, priv->origin[1]+((int)(lg/3.0))+2);
-        cairo_move_to(cr, priv->origin[0]+2, priv->origin[1]+((int)(2.0*lg/3.0))+2);
-        cairo_line_to(cr, priv->origin[0]+priv->length-4, priv->origin[1]+((int)(2.0*lg/3.0))+2);
-        cairo_stroke(cr);
-    }
-
-    return TRUE;
-}
-
-static gboolean
-selector_widget_motion_notify_event(G_GNUC_UNUSED GtkWidget *widget, GdkEventMotion *event, AvatarManipulation *self)
-{
-    AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
-
-    int x, y;
-    GdkModifierType state;
-    gdk_window_get_device_position (event->window, event->device, &x, &y, &state);
-
-    if (priv->do_action && state == priv->button_pressed) {
-        switch (priv->action_on_selector) {
-        case MOVE_SELECTOR:
-            update_and_draw( x - priv->relative_position[0], y - priv->relative_position[1] , self );
-        break;
-        case PICK_SELECTOR:
-            rescale( x, y , self );
-        break;
-        }
-    } else { /* is the pointer just over the selector ? */
-        if (x > priv->origin[0] && x < priv->origin[0] +priv->length
-                                && y > priv->origin[1] && y < priv->origin[1] + priv->length) {
-            GdkWindow *window = gtk_widget_get_window( GTK_WIDGET(priv->selector_widget));
-            GdkCursor *cursor = gdk_cursor_new_for_display(gdk_display_get_default(), GDK_FLEUR);
-            gdk_window_set_cursor(window, cursor);
-            priv->action_on_selector = MOVE_SELECTOR;
-        } else {
-            GdkWindow *window = gtk_widget_get_window(GTK_WIDGET(priv->selector_widget));
-            GdkCursor *cursor = gdk_cursor_new_for_display(gdk_display_get_default(), GDK_CROSSHAIR);
-            gdk_window_set_cursor(window, cursor);
-            priv->action_on_selector = PICK_SELECTOR;
-        }
-    }
-
-  return TRUE;
-}
-
-static gboolean
-selector_widget_button_press_event(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, AvatarManipulation *self)
-{
-    AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
-
-    int x, y;
-    GdkModifierType state;
-    gdk_window_get_device_position (event->window, event->device, &x, &y, &state);
-
-    switch (priv->action_on_selector) {
-    case MOVE_SELECTOR:
-        priv->do_action = true;
-        priv->relative_position[0] = x - priv->origin[0];
-        priv->relative_position[1] = y - priv->origin[1];
-    break;
-    case PICK_SELECTOR:
-        priv->do_action = true;
-        priv->length = 0;
-        update_and_draw( x, y , self );
-    break;
-    }
-
-    priv->button_pressed = state;
-
-  return TRUE;
-}
-
-static gboolean
-selector_widget_button_release_event(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, AvatarManipulation *self)
-{
-    AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
-
-    int x, y;
-    GdkModifierType state;
-    gdk_window_get_device_position (event->window, event->device, &x, &y, &state);
-
-    if (priv->do_action)
-        switch ( priv->action_on_selector ) {
-        case MOVE_SELECTOR:
-            update_and_draw( x-priv->relative_position[0], y-priv->relative_position[1], self );
-        break;
-        case PICK_SELECTOR:
-            update_and_draw( priv->origin[0], priv->origin[1], self );
-        break;
-        }
-
-    priv->do_action = false;
-
-    return TRUE;
-}
-
-static void
-update_and_draw(gdouble x, gdouble y, AvatarManipulation *self)
-{
-    AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
-
-    GdkRectangle update_rect;
-    cairo_t *cr;
-
-    if (!priv->pix_scaled) {
-        g_warning("(update_and_draw) pix_scaled is null");
-        return;
-    }
-    auto width = gdk_pixbuf_get_width(priv->pix_scaled);
-    auto height = gdk_pixbuf_get_height(priv->pix_scaled);
-
-    update_rect.x = ( ( x - priv->origin[0] < 0 ) ? x : priv->origin[0] ) - 30;
-    update_rect.y = ( ( y - priv->origin[1] < 0 ) ? y : priv->origin[1] ) - 30;
-    update_rect.width = width - update_rect.x;
-    update_rect.height = height - update_rect.y;
-
-    if (x > width - priv->length)
-        priv->origin[0] = (x > width - priv->length) ? width - priv->length : x;
-    else
-        priv->origin[0] = (x > 0) ? x : 0;
-
-    if (y > height - priv->length )
-        priv->origin[1] = (y > height - priv->length ) ? height - priv->length : y;
-    else
-        priv->origin[1] = (y > 0) ? y : 0;
-
-    /* cairo operations */
-    cr = cairo_create(priv->selector_widget_surface);
-    gdk_cairo_rectangle(cr, &update_rect);
-    cairo_fill(cr);
-    cairo_destroy(cr);
-
-    /* invalidate the affected region */
-    gdk_window_invalidate_rect(gtk_widget_get_window (priv->selector_widget), &update_rect, FALSE);
-}
-
-static void
-rescale(gdouble x, gdouble y, AvatarManipulation *self)
-{
-    AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
-
-    GdkRectangle update_rect;
-    cairo_t *cr;
-
-    if (!priv->pix_scaled) {
-        g_warning("(rescale) pix_scaled is null");
-        return;
-    }
-    auto width = gdk_pixbuf_get_width(priv->pix_scaled);
-    auto height = gdk_pixbuf_get_height(priv->pix_scaled);
-
-    update_rect.x = ( ( x - priv->origin[0] < 0 ) ? x : priv->origin[0] ) - 3;
-    update_rect.y = ( ( y - priv->origin[1] < 0 ) ? y : priv->origin[1] ) - 3;
-    update_rect.width = width - update_rect.x;
-    update_rect.height = height - update_rect.y;
-
-    int old_length = priv->length;
-    priv->length = sqrt( (priv->origin[0] - x)*(priv->origin[0] - x) + (priv->origin[1] - y)*(priv->origin[1] - y) );
-
-    if (priv->length < 10)
-        priv->length = 10;
-
-    if (priv->origin[0] + priv->length > width)
-        priv->length = old_length;
-
-    if (priv->origin[1] + priv->length > height)
-        priv->length = old_length;
-
-    /* cairo operations */
-    cr = cairo_create(priv->selector_widget_surface);
-
-    gdk_cairo_rectangle(cr, &update_rect);
-    cairo_fill(cr);
-
-    cairo_destroy(cr);
-
-    /* invalidate the affected region */
-    gdk_window_invalidate_rect(gtk_widget_get_window (priv->selector_widget), &update_rect, FALSE);
-}
-
 static void
 got_snapshot(AvatarManipulation *self)
 {
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
     GdkPixbuf* pix = video_widget_get_snapshot(VIDEO_WIDGET(priv->video_widget));
 
-    /* in this case we have to deal with the aspect ratio */
-    float w = ((float)gdk_pixbuf_get_width(pix));
-    float h = ((float)gdk_pixbuf_get_height(pix));
-    const float ratio = h/w;
-    const float W = VIDEO_WIDTH;
-    const float H = VIDEO_HEIGHT;
-
-    if (h > w) {
-        h = H;
-        w = h / ratio;
-    } else {
-        w = W;
-        h = w * ratio;
-    }
-
-    if (priv->pix_scaled) {
-        g_object_unref(priv->pix_scaled);
-        priv->pix_scaled = nullptr;
-    }
-    priv->pix_scaled = gdk_pixbuf_scale_simple(pix, w, h, GDK_INTERP_HYPER);
+    cc_crop_area_set_picture(CC_CROP_AREA(priv->crop_area), pix);
 
     set_state(self, AVATAR_MANIPULATION_STATE_EDIT);
 }
