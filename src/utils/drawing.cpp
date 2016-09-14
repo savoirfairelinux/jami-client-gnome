@@ -132,9 +132,9 @@ ring_frame_avatar(GdkPixbuf *avatar) {
     cairo_close_path (cr);
 
     // in case the image has alpha, we want to first set the background of the part inside the
-    // blue frame to black; otherwise the resulting image will show whatever is in the background,
+    // blue frame to white; otherwise the resulting image will show whatever is in the background,
     // which can be weird in certain cases (eg: the image displayed over a video)
-    cairo_set_source_rgba(cr, 0, 0, 0, 1);
+    cairo_set_source_rgba(cr, 1, 1, 1, 1);
     cairo_fill_preserve(cr);
 
     // now draw the image over this black square
