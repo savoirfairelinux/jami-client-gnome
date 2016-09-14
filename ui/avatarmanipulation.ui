@@ -56,11 +56,8 @@
               </packing>
             </child>
             <child>
-              <object class="GtkBox" id="vbox_selector">
+              <object class="GtkBox" id="vbox_crop_area">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <property name="valign">center</property>
-                <property name="halign">center</property>
               </object>
               <packing>
                 <property name="name">page_edit_view</property>

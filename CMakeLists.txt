@@ -299,6 +299,8 @@ SET( SRC_FILES
    src/accountimportexportview.cpp
    src/contactpopupmenu.h
    src/contactpopupmenu.cpp
+   src/cc-crop-area.h
+   src/cc-crop-area.c
 )
 
 # compile glib resource files to c code
