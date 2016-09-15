@@ -80,7 +80,6 @@ struct _AvatarManipulationPrivate
     GtkWidget *image_avatar;
     GtkWidget *vbox_crop_area;
     GtkWidget *frame_video;
-    GdkPixbuf *pix_scaled;
 
     AvatarManipulationState state;
     AvatarManipulationState last_state;
@@ -128,11 +127,6 @@ avatar_manipulation_dispose(GObject *object)
 static void
 avatar_manipulation_finalize(GObject *object)
 {
-    AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(object);
-
-    if (priv->pix_scaled)
-        g_object_unref(priv->pix_scaled);
-
     G_OBJECT_CLASS(avatar_manipulation_parent_class)->finalize(object);
 }
 
@@ -190,10 +184,6 @@ avatar_manipulation_init(AvatarManipulation *self)
 {
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
     gtk_widget_init_template(GTK_WIDGET(self));
-
-    /* crop area */
-    priv->crop_area = cc_crop_area_new();
-    gtk_box_pack_start(GTK_BOX(priv->vbox_crop_area), priv->crop_area, TRUE, TRUE, 0);
 
     /* our desired size for the image area */
     gtk_widget_set_size_request(priv->stack_views, VIDEO_WIDTH, VIDEO_HEIGHT);
@@ -413,13 +403,18 @@ choose_picture(AvatarManipulation *self)
         if(auto filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (dialog))) {
             GError* error =  nullptr; /* initialising to null avoid trouble... */
 
-            if (priv->pix_scaled) {
-                g_object_unref(priv->pix_scaled);
-                priv->pix_scaled = nullptr;
-            }
-            priv->pix_scaled = gdk_pixbuf_new_from_file_at_size (filename, VIDEO_WIDTH, VIDEO_HEIGHT, &error);
+            auto picture = gdk_pixbuf_new_from_file_at_size (filename, VIDEO_WIDTH, VIDEO_HEIGHT, &error);
 
             if (!error) {
+                /* reset crop area */
+                if (priv->crop_area)
+                    gtk_container_remove(GTK_CONTAINER(priv->vbox_crop_area), priv->crop_area);
+                priv->crop_area = cc_crop_area_new();
+                gtk_widget_show(priv->crop_area);
+                gtk_box_pack_start(GTK_BOX(priv->vbox_crop_area), priv->crop_area, TRUE, TRUE, 0);
+                cc_crop_area_set_picture(CC_CROP_AREA(priv->crop_area), picture);
+                g_object_unref(picture);
+
                 set_state(self, AVATAR_MANIPULATION_STATE_EDIT);
             } else {
                 g_warning("(choose_picture) failed to load pixbuf from file: %s", error->message);
@@ -460,6 +455,11 @@ got_snapshot(AvatarManipulation *self)
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
     GdkPixbuf* pix = video_widget_get_snapshot(VIDEO_WIDGET(priv->video_widget));
 
+    if (priv->crop_area)
+        gtk_container_remove(GTK_CONTAINER(priv->vbox_crop_area), priv->crop_area);
+    priv->crop_area = cc_crop_area_new();
+    gtk_widget_show(priv->crop_area);
+    gtk_box_pack_start(GTK_BOX(priv->vbox_crop_area), priv->crop_area, TRUE, TRUE, 0);
     cc_crop_area_set_picture(CC_CROP_AREA(priv->crop_area), pix);
 
     set_state(self, AVATAR_MANIPULATION_STATE_EDIT);
