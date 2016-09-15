@@ -40,10 +40,11 @@ typedef struct _RingWelcomeViewPrivate RingWelcomeViewPrivate;
 
 struct _RingWelcomeViewPrivate
 {
+    GtkWidget *box_overlay;
     GtkWidget *label_ringid;
     GtkWidget *label_explanation;
     GtkWidget *button_qrcode;
-    GtkWidget *drawingarea_qrcode;
+    GtkWidget *revealer_qrcode;
 
     QMetaObject::Connection account_list_updated;
     QMetaObject::Connection account_enabled_changed;
@@ -55,7 +56,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_SCROLLED
 #define RING_WELCOME_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_WELCOME_VIEW_TYPE, RingWelcomeViewPrivate))
 
 static gboolean   draw_qrcode(GtkWidget*,cairo_t*,gpointer);
-static void       switch_qrcode(GtkWidget* qrcode);
+static void       switch_qrcode(RingWelcomeView* self);
 
 static void
 update_view(RingWelcomeView *self) {
@@ -79,9 +80,12 @@ update_view(RingWelcomeView *self) {
     gtk_widget_set_visible(priv->label_ringid, account != nullptr);
     gtk_widget_set_visible(priv->label_explanation, account != nullptr);
     gtk_widget_set_visible(priv->button_qrcode, account != nullptr);
+    gtk_widget_set_visible(priv->revealer_qrcode, account != nullptr);
 
-    if (account == nullptr)
-        gtk_widget_hide(priv->drawingarea_qrcode);
+    if (!account) {
+        gtk_revealer_set_reveal_child(GTK_REVEALER(priv->revealer_qrcode), FALSE);
+        gtk_widget_set_opacity(priv->box_overlay, 1.0);
+    }
 }
 
 static void
@@ -91,14 +95,22 @@ ring_welcome_view_init(RingWelcomeView *self)
 
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(self), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 
-    auto box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 15);
-    gtk_container_add(GTK_CONTAINER(self), box);
-    gtk_box_set_baseline_position(GTK_BOX(box), GTK_BASELINE_POSITION_CENTER);
-    gtk_widget_set_vexpand(GTK_WIDGET(box), TRUE);
-    gtk_widget_set_hexpand(GTK_WIDGET(box), FALSE);
-    gtk_widget_set_valign(GTK_WIDGET(box), GTK_ALIGN_CENTER);
-    gtk_widget_set_halign(GTK_WIDGET(box), GTK_ALIGN_CENTER);
-    gtk_widget_set_visible(GTK_WIDGET(box), TRUE);
+    auto box_main = gtk_box_new(GTK_ORIENTATION_VERTICAL, 15);
+    gtk_container_add(GTK_CONTAINER(self), box_main);
+    gtk_box_set_baseline_position(GTK_BOX(box_main), GTK_BASELINE_POSITION_CENTER);
+    gtk_widget_set_vexpand(GTK_WIDGET(box_main), TRUE);
+    gtk_widget_set_hexpand(GTK_WIDGET(box_main), FALSE);
+    gtk_widget_set_valign(GTK_WIDGET(box_main), GTK_ALIGN_CENTER);
+    gtk_widget_set_halign(GTK_WIDGET(box_main), GTK_ALIGN_CENTER);
+    gtk_widget_set_visible(GTK_WIDGET(box_main), TRUE);
+
+    /* overlay to show hide the qr code over the stuff in it */
+    auto overlay_qrcode = gtk_overlay_new();
+    gtk_box_pack_start(GTK_BOX(box_main), overlay_qrcode, FALSE, TRUE, 0);
+
+    /* box which will be in the overaly so that we can display the QR code over the stuff in this box */
+    priv->box_overlay = gtk_box_new(GTK_ORIENTATION_VERTICAL, 15);
+    gtk_container_add(GTK_CONTAINER(overlay_qrcode), priv->box_overlay);
 
     /* get logo */
     GError *error = NULL;
@@ -109,7 +121,7 @@ ring_welcome_view_init(RingWelcomeView *self)
         g_clear_error(&error);
     } else {
         auto image_ring_logo = gtk_image_new_from_pixbuf(logo);
-        gtk_box_pack_start(GTK_BOX(box), image_ring_logo, FALSE, TRUE, 0);
+        gtk_box_pack_start(GTK_BOX(priv->box_overlay), image_ring_logo, FALSE, TRUE, 0);
         gtk_widget_set_visible(GTK_WIDGET(image_ring_logo), TRUE);
     }
 
@@ -121,7 +133,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     /* the max width chars is to limit how much the text expands */
     gtk_label_set_max_width_chars(GTK_LABEL(label_welcome_text), 50);
     gtk_label_set_selectable(GTK_LABEL(label_welcome_text), TRUE);
-    gtk_box_pack_start(GTK_BOX(box), label_welcome_text, FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(priv->box_overlay), label_welcome_text, FALSE, TRUE, 0);
     gtk_widget_set_visible(GTK_WIDGET(label_welcome_text), TRUE);
 
     /* RingID explanation */
@@ -132,36 +144,41 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_label_set_selectable(GTK_LABEL(priv->label_explanation), TRUE);
     gtk_widget_set_margin_top(priv->label_explanation, 20);
     gtk_widget_set_no_show_all(priv->label_explanation, TRUE);
-    gtk_box_pack_start(GTK_BOX(box), priv->label_explanation, FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(priv->box_overlay), priv->label_explanation, FALSE, TRUE, 0);
 
     /* RingID label */
     priv->label_ringid = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(priv->label_ringid), TRUE);
     gtk_widget_override_font(priv->label_ringid, pango_font_description_from_string("monospace 12"));
     gtk_widget_set_no_show_all(priv->label_ringid, TRUE);
-    gtk_box_pack_start(GTK_BOX(box), priv->label_ringid, FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(box_main), priv->label_ringid, FALSE, TRUE, 0);
     gtk_label_set_ellipsize(GTK_LABEL(priv->label_ringid), PANGO_ELLIPSIZE_END);
 
     /* QR drawing area */
-    priv->drawingarea_qrcode = gtk_drawing_area_new();
+    auto drawingarea_qrcode = gtk_drawing_area_new();
     auto qrsize = 200;
-    gtk_widget_set_size_request (priv->drawingarea_qrcode, qrsize, qrsize);
-    gtk_widget_set_halign(priv->drawingarea_qrcode, GTK_ALIGN_CENTER);
-    g_signal_connect(priv->drawingarea_qrcode, "draw", G_CALLBACK(draw_qrcode), NULL);
-    gtk_widget_set_no_show_all(priv->drawingarea_qrcode, TRUE);
-    gtk_widget_set_visible(priv->drawingarea_qrcode, FALSE);
+    gtk_widget_set_size_request(drawingarea_qrcode, qrsize, qrsize);
+    g_signal_connect(drawingarea_qrcode, "draw", G_CALLBACK(draw_qrcode), NULL);
+    gtk_widget_set_visible(drawingarea_qrcode, TRUE);
+
+    /* revealer which will show the qr code */
+    priv->revealer_qrcode = gtk_revealer_new();
+    gtk_container_add(GTK_CONTAINER(priv->revealer_qrcode), drawingarea_qrcode);
+    gtk_revealer_set_transition_type(GTK_REVEALER(priv->revealer_qrcode), GTK_REVEALER_TRANSITION_TYPE_CROSSFADE); //GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP);
+    gtk_widget_set_halign(priv->revealer_qrcode, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign(priv->revealer_qrcode, GTK_ALIGN_CENTER);
+    gtk_overlay_add_overlay(GTK_OVERLAY(overlay_qrcode), priv->revealer_qrcode);
+    gtk_widget_set_no_show_all(priv->revealer_qrcode, TRUE);
+    gtk_widget_set_visible(priv->revealer_qrcode, FALSE);
 
     /* QR code button */
     priv->button_qrcode = gtk_button_new_with_label("QR code");
     gtk_widget_set_hexpand(priv->button_qrcode, FALSE);
     gtk_widget_set_size_request(priv->button_qrcode,10,10);
-    g_signal_connect_swapped(priv->button_qrcode, "clicked", G_CALLBACK(switch_qrcode), priv->drawingarea_qrcode);
+    g_signal_connect_swapped(priv->button_qrcode, "clicked", G_CALLBACK(switch_qrcode), self);
     gtk_widget_set_no_show_all(priv->button_qrcode, TRUE);
     gtk_widget_set_visible(priv->button_qrcode, FALSE);
-
-    gtk_box_pack_start(GTK_BOX(box), priv->button_qrcode, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(box), priv->drawingarea_qrcode, FALSE, TRUE, 0);
-
+    gtk_box_pack_start(GTK_BOX(box_main), priv->button_qrcode, TRUE, TRUE, 0);
 
     update_view(self);
 
@@ -225,7 +242,11 @@ draw_qrcode(G_GNUC_UNUSED GtkWidget* diese,
             cairo_t*   cr,
             G_GNUC_UNUSED gpointer   data)
 {
-    auto rcode = QRcode_encodeString(get_active_ring_account()->username().toStdString().c_str(),
+    auto account = get_active_ring_account();
+    if (!account)
+        return TRUE;
+
+    auto rcode = QRcode_encodeString(account->username().toStdString().c_str(),
                                       0, //Let the version be decided by libqrencode
                                       QR_ECLEVEL_L, // Lowest level of error correction
                                       QR_MODE_8, // 8-bit data mode
@@ -269,7 +290,11 @@ draw_qrcode(G_GNUC_UNUSED GtkWidget* diese,
 }
 
 static void
-switch_qrcode(GtkWidget* drawingarea_qrcode)
+switch_qrcode(RingWelcomeView* self)
 {
-    gtk_widget_set_visible(drawingarea_qrcode, !gtk_widget_get_visible(drawingarea_qrcode));
+    auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
+
+    auto to_reveal = !gtk_revealer_get_reveal_child(GTK_REVEALER(priv->revealer_qrcode));
+    gtk_revealer_set_reveal_child(GTK_REVEALER(priv->revealer_qrcode), to_reveal);
+    gtk_widget_set_opacity(priv->box_overlay, to_reveal ? 0.25 : 1.0);
 }
