@@ -175,16 +175,17 @@
                   <property name="margin_top">10</property>
                   <property name="row_spacing">10</property>
                   <property name="column_spacing">10</property>
-                    <child>
-                      <object class="GtkLabel" id="label_history_duration">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Keep history for (days):</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
+                  <!-- hidden until the history limit implementation is improved
+                  <child>
+                    <object class="GtkLabel" id="label_history_duration">
+                      <property name="visible">True</property>
+                      <property name="label" translatable="yes">Keep history for (days):</property>
+                    </object>
+                    <packing>
+                      <property name="left_attach">0</property>
+                      <property name="top_attach">0</property>
+                    </packing>
+                  </child>
                   <child>
                     <object class="GtkSpinButton" id="spinbutton_history_duration">
                       <property name="visible">True</property>
@@ -205,7 +206,7 @@
                       <property name="left_attach">1</property>
                       <property name="top_attach">1</property>
                     </packing>
-                  </child>
+                  </child> -->
                   <child>
                     <object class="GtkButton" id="button_clear_history">
                       <property name="label" translatable="yes">Clear all history</property>
