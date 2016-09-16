@@ -28,6 +28,7 @@
 #include <profile.h>
 #include <profilemodel.h>
 #include <categorizedhistorymodel.h>
+#include <media/recordingmodel.h>
 
 // Ring client
 #include "utils/files.h"
@@ -98,7 +99,7 @@ clear_history_dialog(GeneralSettingsView *self)
     GtkWidget *dialog = gtk_message_dialog_new(NULL,
                             (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
                             GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
-                            _("Are you sure you want to clear all your history?\nThis operation will also reset the Frequent Contacts list"));
+                            _("This is a destructive operation. Are you sure you want to delete all of your chat and call history?"));
 
     gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
 
@@ -128,8 +129,10 @@ clear_history(G_GNUC_UNUSED GtkWidget *button, GeneralSettingsView *self)
 {
     g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
 
-    if (clear_history_dialog(self) )
-        CategorizedHistoryModel::instance().clearAllCollections();
+    if (clear_history_dialog(self) ) {
+        CategorizedHistoryModel::instance().clear();
+        Media::RecordingModel::instance().clear();
+    }
 }
 
 static void
