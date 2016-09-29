@@ -364,6 +364,9 @@ contact_popup_menu_new(GtkTreeView *treeview)
     GtkTreeSelection *selection = gtk_tree_view_get_selection(priv->treeview);
     g_signal_connect(selection, "changed", G_CALLBACK(update), self);
 
+    // build the menu for the first time
+    update(selection, CONTACT_POPUP_MENU(self));
+
     return (GtkWidget *)self;
 }
 
