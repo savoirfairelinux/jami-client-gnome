@@ -1,0 +1,103 @@
+<html>
+
+<body>
+    <div id="messages">
+    </div>
+</body>
+
+
+<!-- Uncomment for easy testing ->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!- -->
+
+<style>
+
+.message_author {
+    font-weight: bold;
+}
+
+.message_in > .message_author {
+    color: red;
+}
+
+.message_out > .message_author {
+    color: blue;
+}
+
+.message_time {
+    float: right;
+    display: none;
+}
+
+.message:hover .message_time {
+    display: block;
+}
+
+</style>
+
+<script>
+var ring = {};
+
+ring.chatview = (function(){
+
+    function addMessage(message_text,
+                        message_author,
+                        message_timestamp,
+                        message_direction)
+    {
+        message_div_classes = [
+            "message_" + message_direction,
+        ]
+        $message_div = $(
+            "<div>",
+            {
+                class: "message " + message_div_classes.join(" ")
+            }
+        );
+
+        $message_content = $(
+            "<span>",
+            {
+                class: "message_content",
+                html: message_text,
+            }
+        );
+
+        $message_author = $(
+            "<span>",
+            {
+                class: "message_author",
+                html: message_author + ": ",
+            }
+        );
+
+        $message_time = $(
+            "<span>",
+            {
+                class: "message_time",
+                html: message_timestamp,
+            }
+        )
+
+        $message_div.append($message_author);
+        $message_div.append($message_content);
+        $message_div.append($message_time);
+
+        $("#messages").append($message_div);
+    }
+
+    return {
+        addMessage: addMessage,
+    }
+
+})();
+
+/* Uncomment for easy testing *
+ring.chatview.addMessage("Added message 1", "author1", 11, "in");
+ring.chatview.addMessage("Added message 2", "author2", 11, "out");
+ring.chatview.addMessage("Added message 3", "author1", 11, "in");
+/* */
+</script>
+
+</html>
