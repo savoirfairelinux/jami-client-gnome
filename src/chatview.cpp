@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2016 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,13 +25,15 @@
 #include <callmodel.h>
 #include <contactmethod.h>
 #include <person.h>
-#include <media/media.h>
 #include <media/text.h>
 #include <media/textrecording.h>
 #include "ringnotify.h"
+#include "profilemodel.h"
+#include "profile.h"
 #include "numbercategory.h"
 #include <QtCore/QDateTime>
 #include "utils/calling.h"
+#include "webkitchatcontainer.h"
 
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
 
@@ -48,7 +51,8 @@ typedef struct _ChatViewPrivate ChatViewPrivate;
 
 struct _ChatViewPrivate
 {
-    GtkWidget *textview_chat;
+    GtkWidget *box_webkit_chat_container;
+    GtkWidget *webkit_chat_container;
     GtkWidget *button_chat_input;
     GtkWidget *entry_chat_input;
     GtkWidget *scrolledwindow_chat;
@@ -60,13 +64,16 @@ struct _ChatViewPrivate
 
     /* only one of the three following pointers should be non void;
      * either this is an in-call chat (and so the in-call chat APIs will be used)
-     * or it is an out of call chat (and so the account chat APIs will be used)
-     */
+     * or it is an out of call chat (and so the account chat APIs will be used) */
     Call          *call;
     Person        *person;
     ContactMethod *cm;
 
+    /* initial TextRecording to print when the chat is ready */
+    Media::TextRecording* initial_text_recording;
+
     QMetaObject::Connection new_message_connection;
+    QMetaObject::Connection message_changed_connection;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ChatView, chat_view, GTK_TYPE_BOX);
@@ -91,6 +98,14 @@ chat_view_dispose(GObject *object)
     priv = CHAT_VIEW_GET_PRIVATE(view);
 
     QObject::disconnect(priv->new_message_connection);
+    QObject::disconnect(priv->message_changed_connection);
+
+    /* Destroying the box will also destroy its children, and we wouldn't
+     * want that. So we remove the webkit_chat_container from the box. */
+    gtk_container_remove(
+        GTK_CONTAINER(priv->box_webkit_chat_container),
+        GTK_WIDGET(priv->webkit_chat_container)
+    );
 
     G_OBJECT_CLASS(chat_view_parent_class)->dispose(object);
 }
@@ -134,13 +149,6 @@ send_chat(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
 }
 
 static void
-scroll_to_bottom(GtkAdjustment *adjustment, G_GNUC_UNUSED gpointer user_data)
-{
-    gtk_adjustment_set_value(adjustment,
-        gtk_adjustment_get_upper(adjustment) - gtk_adjustment_get_page_size(adjustment));
-}
-
-static void
 hide_chat_view(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
 {
     g_signal_emit(G_OBJECT(self), chat_view_signals[HIDE_VIEW_CLICKED], 0);
@@ -176,15 +184,7 @@ chat_view_init(ChatView *view)
 
     g_signal_connect(priv->button_chat_input, "clicked", G_CALLBACK(send_chat), view);
     g_signal_connect(priv->entry_chat_input, "activate", G_CALLBACK(send_chat), view);
-
-    /* the adjustment params will change only when the model is created and when
-     * new messages are added; in these cases we want to scroll to the bottom of
-     * the chat treeview */
-    GtkAdjustment *adjustment = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(priv->scrolledwindow_chat));
-    g_signal_connect(adjustment, "changed", G_CALLBACK(scroll_to_bottom), NULL);
-
     g_signal_connect(priv->button_close_chatview, "clicked", G_CALLBACK(hide_chat_view), view);
-
     g_signal_connect_swapped(priv->button_placecall, "clicked", G_CALLBACK(placecall_clicked), view);
 }
 
@@ -196,7 +196,7 @@ chat_view_class_init(ChatViewClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/chatview.ui");
 
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, textview_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, box_webkit_chat_container);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, entry_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, scrolledwindow_chat);
@@ -227,65 +227,22 @@ chat_view_class_init(ChatViewClass *klass)
         G_TYPE_NONE, 0);
 }
 
+
+
 static void
-print_message_to_buffer(const QModelIndex &idx, GtkTextBuffer *buffer)
+print_message_to_buffer(ChatView* self, const QModelIndex &idx)
 {
-    if (idx.isValid()) {
-        auto message = idx.data().value<QString>().toUtf8();
-        auto sender = idx.data(static_cast<int>(Media::TextRecording::Role::AuthorDisplayname)).value<QString>().toUtf8();
-        auto timestamp = idx.data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
-        auto datetime = QDateTime::fromTime_t(timestamp);
-        auto direction = idx.data(static_cast<int>(Media::TextRecording::Role::Direction)).value<Media::Media::Direction>();
-
-        GtkTextIter iter;
-
-        /* unless its the very first message, insert a new line */
-        if (idx.row() != 0) {
-            gtk_text_buffer_get_end_iter(buffer, &iter);
-            gtk_text_buffer_insert(buffer, &iter, "\n", -1);
-        }
-
-        /* if it is the very first row, we print the current date;
-         * otherwise we print the date every time it is different from the previous message */
-        auto date = datetime.date();
-        gchar* new_date = nullptr;
-        if (idx.row() == 0) {
-            new_date = g_strconcat("-- ", date.toString().toUtf8().constData(), " --\n", NULL);
-        } else {
-            auto prev_timestamp = idx.sibling(idx.row() - 1, 0).data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
-            auto prev_date = QDateTime::fromTime_t(prev_timestamp).date();
-            if (date != prev_date) {
-                new_date = g_strconcat("-- ", date.toString().toUtf8().constData(), " --\n", NULL);
-            }
-        }
-
-        if (new_date) {
-            gtk_text_buffer_get_end_iter(buffer, &iter);
-            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, new_date, -1, "center", NULL);
-        }
-
-        /* insert time */
-        gtk_text_buffer_get_end_iter(buffer, &iter);
-        gtk_text_buffer_insert(buffer, &iter, datetime.time().toString().toUtf8().constData(), -1);
-
-        /* insert sender */
-        auto format_sender = g_strconcat(" ", sender.constData(), ": ", NULL);
-        gtk_text_buffer_get_end_iter(buffer, &iter);
-        if (direction == Media::Media::Direction::OUT)
-            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, format_sender, -1, "bold-blue", NULL);
-        else
-            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, format_sender, -1, "bold", NULL);
-        g_free(format_sender);
-
-        gtk_text_buffer_get_end_iter(buffer, &iter);
-        if (direction == Media::Media::Direction::OUT)
-            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, message.constData(), -1, "blue", NULL);
-        else
-            gtk_text_buffer_insert(buffer, &iter, message.constData(), -1);
-
-    } else {
+    if (!idx.isValid()) {
         g_warning("QModelIndex in im model is not valid");
+        return;
     }
+
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    webkit_chat_container_print_new_message(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        idx
+    );
 }
 
 static void
@@ -300,24 +257,28 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
     /* new model, disconnect from the old model updates and clear the text buffer */
     QObject::disconnect(priv->new_message_connection);
 
-    GtkTextBuffer *new_buffer = gtk_text_buffer_new(NULL);
-    gtk_text_view_set_buffer(GTK_TEXT_VIEW(priv->textview_chat), new_buffer);
-
-    /* add tags to the buffer */
-    gtk_text_buffer_create_tag(new_buffer, "bold", "weight", PANGO_WEIGHT_BOLD, NULL);
-    gtk_text_buffer_create_tag(new_buffer, "center", "justification", GTK_JUSTIFY_CENTER, NULL);
-    gtk_text_buffer_create_tag(new_buffer, "bold-blue", "weight", PANGO_WEIGHT_BOLD, "foreground-rgba", &RING_BLUE, NULL);
-    gtk_text_buffer_create_tag(new_buffer, "blue", "foreground-rgba", &RING_BLUE, NULL);
-
-    g_object_unref(new_buffer);
-
     /* put all the messages in the im model into the text view */
     for (int row = 0; row < model->rowCount(); ++row) {
         QModelIndex idx = model->index(row, 0);
-        print_message_to_buffer(idx, new_buffer);
+        print_message_to_buffer(self, idx);
     }
     /* mark all messages as read */
     recording->setAllRead();
+
+
+    /* messages modified */
+    /* connecting on instantMessagingModel and not textMessagingModel */
+    priv->message_changed_connection = QObject::connect(
+        model,
+        &QAbstractItemModel::dataChanged,
+        [self, priv] (const QModelIndex & topLeft, G_GNUC_UNUSED const QModelIndex & bottomRight)
+        {
+            webkit_chat_container_update_message(
+                WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                topLeft
+            );
+        }
+    );
 
     /* append new messages */
     priv->new_message_connection = QObject::connect(
@@ -326,7 +287,7 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
         [self, priv, model] (const QModelIndex &parent, int first, int last) {
             for (int row = first; row <= last; ++row) {
                 QModelIndex idx = model->index(row, 0, parent);
-                print_message_to_buffer(idx, gtk_text_view_get_buffer(GTK_TEXT_VIEW(priv->textview_chat)));
+                print_message_to_buffer(self, idx);
                 /* make sure these messages are marked as read */
                 model->setData(idx, true, static_cast<int>(Media::TextRecording::Role::IsRead));
                 g_signal_emit(G_OBJECT(self), chat_view_signals[NEW_MESSAGES_DISPLAYED], 0);
@@ -440,7 +401,6 @@ update_contact_methods(ChatView *self)
 static void
 update_name(ChatView *self)
 {
-    g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     g_return_if_fail(priv->person || priv->cm);
@@ -454,31 +414,150 @@ update_name(ChatView *self)
     gtk_label_set_text(GTK_LABEL(priv->label_peer), name.toUtf8().constData());
 }
 
+static void
+set_participant_images(ChatView* self)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    /* set sender image for "ME" */
+    auto profile = ProfileModel::instance().selectedProfile();
+    if (profile)
+    {
+        auto person = profile->person();
+        if (person)
+        {
+            auto photo_variant_me = person->photo();
+            if (photo_variant_me.isValid())
+            {
+                webkit_chat_container_set_sender_image(
+                    WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                    "Me",
+                    photo_variant_me
+                );
+            }
+        }
+    }
+
+    /* Set the sender image for the peer */
+    QString sender_name_peer;
+    QVariant photo_variant_peer;
+
+    if (priv->person)
+    {
+        photo_variant_peer = priv->person->photo();
+        sender_name_peer = priv->person->roleData(static_cast<int>(Ring::Role::Name)).toString();
+    }
+    else
+    {
+        ContactMethod *contact_method;
+        if (priv->cm)
+        {
+            contact_method = priv->cm;
+        }
+        else
+        {
+            contact_method = priv->call->peerContactMethod();
+        }
+        sender_name_peer = contact_method->roleData(static_cast<int>(Ring::Role::Name)).toString();
+        photo_variant_peer = contact_method->roleData((int) Call::Role::Photo);
+    }
+
+    if (photo_variant_peer.isValid())
+    {
+        webkit_chat_container_set_sender_image(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            sender_name_peer,
+            photo_variant_peer
+        );
+    }
+}
+
+static void
+webkit_chat_container_ready(ChatView* self)
+{
+    /* The webkit chat container has loaded the javascript libraries, we can
+     * now use it. */
+
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    webkit_chat_container_clear(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)
+    );
+
+    /* set the photos of the chat participants */
+    set_participant_images(self);
+
+    /* print the text recordings */
+    if (priv->initial_text_recording)
+    {
+        print_text_recording(priv->initial_text_recording, self);
+    }
+
+    /* connect to the changed signal before setting the cm combo box, so that the correct
+     * conversation will get displayed */
+     if(priv->person)
+     {
+         g_signal_connect(priv->combobox_cm, "changed", G_CALLBACK(selected_cm_changed), self);
+         update_contact_methods(self);
+         update_name(self);
+     }
+}
+
+static void
+build_chat_view(ChatView* self)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    gtk_container_add(GTK_CONTAINER(priv->box_webkit_chat_container), priv->webkit_chat_container);
+    gtk_widget_show(priv->webkit_chat_container);
+
+
+    g_signal_connect_swapped(
+        priv->webkit_chat_container,
+        "ready",
+        G_CALLBACK(webkit_chat_container_ready),
+        self
+    );
+
+    if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
+    {
+        webkit_chat_container_ready(self);
+    }
+
+}
+
 GtkWidget *
-chat_view_new_call(Call *call)
+chat_view_new_call(WebKitChatContainer *webkit_chat_container, Call *call)
 {
     g_return_val_if_fail(call, nullptr);
 
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->call = call;
     auto cm = priv->call->peerContactMethod();
-    print_text_recording(cm->textRecording(), self);
+    priv->initial_text_recording = cm->textRecording();
+
+    build_chat_view(self);
 
     return (GtkWidget *)self;
 }
 
 GtkWidget *
-chat_view_new_cm(ContactMethod *cm)
+chat_view_new_cm(WebKitChatContainer *webkit_chat_container, ContactMethod *cm)
 {
     g_return_val_if_fail(cm, nullptr);
 
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->cm = cm;
-    print_text_recording(priv->cm->textRecording(), self);
+    priv->initial_text_recording = priv->cm->textRecording();
+
+    build_chat_view(self);
+
     update_contact_methods(self);
     update_name(self);
 
@@ -488,20 +567,17 @@ chat_view_new_cm(ContactMethod *cm)
 }
 
 GtkWidget *
-chat_view_new_person(Person *p)
+chat_view_new_person(WebKitChatContainer *webkit_chat_container, Person *p)
 {
     g_return_val_if_fail(p, nullptr);
 
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->person = p;
 
-    /* connect to the changed signal before setting the cm combo box, so that the correct
-     * conversation will get displayed */
-    g_signal_connect(priv->combobox_cm, "changed", G_CALLBACK(selected_cm_changed), self);
-    update_contact_methods(self);
-    update_name(self);
+    build_chat_view(self);
 
     gtk_widget_show(priv->hbox_chat_info);
 
