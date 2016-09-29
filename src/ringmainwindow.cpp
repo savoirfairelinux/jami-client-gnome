@@ -125,6 +125,10 @@ struct _RingMainWindowPrivate
     GtkWidget *account_creation_wizard;
     GtkWidget *account_migration_view;
 
+    /* The webkit_chat_container is created once, then reused for all chat
+     * views */
+    GtkWidget *webkit_chat_container;
+
     QMetaObject::Connection selected_item_changed;
     QMetaObject::Connection selected_call_over;
 
@@ -142,6 +146,20 @@ struct _RingMainWindowPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
 
 #define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
+
+WebKitChatContainer*
+get_webkit_chat_container(RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+    if (!priv->webkit_chat_container)
+    {
+        priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container_new());
+
+        //We don't want it to be deleted, ever.
+        g_object_ref(priv->webkit_chat_container);
+    }
+    return WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container);
+}
 
 static void
 enter_full_screen(RingMainWindow *self)
@@ -328,14 +346,14 @@ selection_changed(RingMainWindow *win)
                     if (IS_INCOMING_CALL_VIEW(old_view))
                         current_call = incoming_call_view_get_call(INCOMING_CALL_VIEW(old_view));
                     if (current_call != call)
-                        new_view = incoming_call_view_new(call);
+                        new_view = incoming_call_view_new(call, get_webkit_chat_container(win));
                     break;
                 case Call::LifeCycleState::PROGRESS:
                     // check if we're already displaying this call
                     if (IS_CURRENT_CALL_VIEW(old_view))
                         current_call = current_call_view_get_call(CURRENT_CALL_VIEW(old_view));
                     if (current_call != call) {
-                        new_view = current_call_view_new(call);
+                        new_view = current_call_view_new(call, get_webkit_chat_container(win));
                         g_signal_connect(new_view, "video-double-clicked", G_CALLBACK(video_double_clicked), win);
                     }
                     break;
@@ -372,7 +390,7 @@ selection_changed(RingMainWindow *win)
                 current_person = chat_view_get_person(CHAT_VIEW(old_view));
 
             if (current_person != person) {
-                new_view = chat_view_new_person(person);
+                new_view = chat_view_new_person(get_webkit_chat_container(win), person);
                 g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), win);
 
                 /* connect to the Person's callAdded signal, because we want to switch to the call view
@@ -395,7 +413,7 @@ selection_changed(RingMainWindow *win)
                 current_cm = chat_view_get_cm(CHAT_VIEW(old_view));
 
             if (current_cm != cm) {
-                new_view = chat_view_new_cm(cm);
+                new_view = chat_view_new_cm(get_webkit_chat_container(win), cm);
                 g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), win);
 
                 /* connect to the ContactMethod's callAdded signal, because we want to switch to the

@@ -1,0 +1,345 @@
+<html>
+
+
+<!-- Empty head might be needed for setSenderImage -->
+<head>
+</head>
+
+<body>
+    <div id="messages">
+    </div>
+</body>
+
+
+<!-- Uncomment for easy testing ->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://soapbox.github.io/linkifyjs/js/linkify/linkify.min.js"></script>
+<script src="https://soapbox.github.io/linkifyjs/js/linkify/linkify-string.min.js"></script>
+<script src="https://soapbox.github.io/linkifyjs/js/linkify/linkify-jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!- -->
+
+<style>
+
+.message_sender {
+    font-weight: bold;
+}
+
+.message_in > .message_sender {
+    color: red;
+}
+
+.message_out > .message_sender {
+    color: blue;
+}
+
+.message_timestamp {
+    float: right;
+    display: none;
+}
+
+.message_text {
+    word-wrap: break-word;
+}
+
+.message:hover .message_timestamp {
+    display: block;
+}
+
+.message_delivery_status {
+    float:right;
+}
+
+</style>
+
+<script>
+var ring = {}; // ring namespace
+
+ring.chatview = (function(){
+    var dev = {}; // ring.chatview.dev namespace
+
+    /**
+     * Clears all messages
+     */
+    function clearMessages()
+    {
+        $( "#messages" ).empty();
+    }
+
+    /**
+     * Converts text to HTML
+     */
+    function escapeHtml(html)
+    {
+        var text = document.createTextNode(html);
+        var div = document.createElement('div');
+        div.appendChild(text);
+        return div.innerHTML;
+    }
+
+    /**
+     * Returns HTML message from the message text.
+     * Cleaned and linkified.
+     */
+    function getMessageHtml(message_text)
+    {
+        escaped_message = escapeHtml(message_text);
+        linkified_message = linkifyHtml(escaped_message, {});
+        return linkified_message;
+    }
+
+    /**
+     * Returns the message status, formatted for display
+     */
+    function getMessageDeliveryStatusText(message_delivery_status)
+    {
+        var formatted_delivery_status = message_delivery_status;
+
+        switch(message_delivery_status)
+        {
+            case "unknown":
+                formatted_delivery_status = "";
+                break;
+            case "failure":
+            case "sending":
+            case "read":
+            case "sent":
+                break;
+            default:
+                console.log("getMessageDeliveryStatusText: unknown delivery status: " + message_delivery_status);
+                break;
+        }
+
+        return formatted_delivery_status;
+    }
+
+    /**
+     * Returns the message date, formatted for display
+     */
+    function getMessageTimestampText(message_timestamp)
+    {
+        return new Date(1000 * message_timestamp).toLocaleString();
+    }
+
+   /**
+    * Adds a message to the buffer, or update it if new_message is
+    * TRUE
+    */
+    function addOrUpdateMessage(message_object, new_message)
+    {
+        // Properties of the message object
+        message_id = message_object["id"];
+        message_text = message_object["text"];
+        message_sender = message_object["sender"];
+        message_timestamp = message_object["timestamp"];
+        message_direction = message_object["direction"];
+        message_delivery_status = message_object["delivery_status"];
+
+        if (new_message)
+        {
+            message_div_classes = [
+                "message",
+                "message_" + message_direction
+            ];
+
+            $message_div = $(
+                "<div>",
+                {
+                    id: "message_" + message_id,
+                    class: message_div_classes.join(" "),
+                }
+            );
+
+            $message_text = $("<span>", { class: "message_text" });
+            $message_sender = $("<span>", { class: "message_sender" });
+            $message_delivery_status = $("<span>", { class: "message_delivery_status" });
+            $message_timestamp = $("<span>", { class: "message_timestamp" });
+
+            // Sender image
+            $message_sender_span = $("<span>", { class: "message_sender_image" });
+            $message_sender_image = $("<img>", { class: "sender_image_" + message_sender.replace(" ", "_") });
+
+            $message_div.append($message_sender_image);
+            $message_div.append($message_sender);
+            $message_div.append($message_text);
+            $message_div.append($message_delivery_status);
+            $message_div.append($message_timestamp);
+            $("#messages").append($message_div);
+        }
+        else
+        {
+            message_selector = "#message_" + message_id;
+            $message_text = $(message_selector + " .message_text");
+            $message_sender_image = $(message_selector + " .message_sender_image");
+            $message_sender = $(message_selector + " .message_sender");
+            $message_delivery_status = $(message_selector + " .message_delivery_status");
+            $message_timestamp = $(message_selector + " .message_timestamp");
+        }
+
+        // Set the variables
+        $message_text.html(getMessageHtml(message_text));
+        $message_sender.text(message_sender + ": ");
+        $message_delivery_status.text(getMessageDeliveryStatusText(message_delivery_status));
+        $message_timestamp.text(getMessageTimestampText(message_timestamp));
+
+    }
+
+
+    /**
+     * Add a message to the buffer
+     */
+    function addMessage(message_object)
+    {
+        addOrUpdateMessage(message_object, true);
+
+        // Scroll to bottom
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    /**
+     * Updated a message that was previously added with addMessage
+     */
+    function updateMessage(message_object)
+    {
+        addOrUpdateMessage(message_object, false);
+    }
+
+    /**
+     * Sets the image for a given sender
+     * set_sender_image object should contain the following keys:
+     * - sender: the name of the sender
+     * - sender_image: base64 png encoding of the sender image
+     */
+    function setSenderImage(set_sender_image_object)
+    {
+        sender = set_sender_image_object['sender'];
+        sender_image = set_sender_image_object['sender_image'];
+
+        sender_image_id = "sender_image_" + sender.replace(" ", "_");
+
+        // Remove the currently set sender image
+        $("#" + sender_image_id).remove();
+
+        // Create a new style element
+        var style = document.createElement('style');
+        style.type = 'text/css';
+        style.id = sender_image_id
+        style.innerHTML = 'img.' + sender_image_id + " { \n content: url(data:image/png;base64," + sender_image + "); \n height: 50px; \n width: 50px; \n }";
+        document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function clearSenderImages()
+    {
+        alert(document.getElementsByTagName('head')[0].innerHTML);
+        document.getElementsByTagName('head')[0].innerHTML = "";
+    }
+
+    return {
+        addMessage: addMessage,
+        updateMessage: updateMessage,
+        setSenderImage: setSenderImage,
+        dev: dev,
+        clearMessages: clearMessages,
+        clearSenderImages: clearSenderImages,
+    }
+
+})();
+
+/* DEV functions */
+ring.chatview.dev = (function(){
+
+
+
+    /**
+     * Fills the backlog with bogus messages
+     */
+    function fillMessages()
+    {
+        ring.chatview.clearMessages();
+
+        profile_picture = "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";
+
+        // Set the profile pictures
+        ring.chatview.setSenderImage(
+            {
+                "sender": "Me",
+                "sender_image": profile_picture,
+            }
+        );
+
+        ring.chatview.setSenderImage(
+            {
+                "sender": "Other Guy",
+                "sender_image": profile_picture,
+            }
+        )
+
+
+        // Create messages
+        ring.chatview.addMessage(
+            {
+                "id": 0,
+                "text": "Hello! This message's status will be updated to sent.",
+                "sender": "Me",
+                "timestamp": 1475275399,
+                "direction": "out",
+                "delivery_status": "sending",
+            }
+        );
+
+        ring.chatview.updateMessage(
+            {
+                "id": 0,
+                "text": "Hello! This message's status will be updated to sent.",
+                "sender": "Me",
+                "timestamp": 1475275399,
+                "direction": "out",
+                "delivery_status": "sent",
+            }
+        );
+
+        ring.chatview.addMessage(
+            {
+                "id": 1,
+                "text": "Hey! This message's status is 'Unknown', we shouldn't display that to the user.",
+                "sender": "Other Guy",
+                "timestamp": 1475275399,
+                "direction": "in",
+                "delivery_status": "unknown",
+            }
+        );
+
+        ring.chatview.addMessage(
+            {
+                "id": 2,
+                "text": "This is the second message in a row from me. Don't bother displaying my profile picture twice.",
+                "sender": "Other Guy",
+                "timestamp": 1475275399,
+                "direction": "in",
+                "delivery_status": "unknown",
+            }
+        );
+
+        ring.chatview.addMessage(
+            {
+                "id": 0,
+                "text": "Now its my turn to speak!",
+                "sender": "Me",
+                "timestamp": 1475275399,
+                "direction": "out",
+                "delivery_status": "sending",
+            }
+        );
+
+
+    }
+
+    return {
+        fillMessages: fillMessages,
+    }
+
+})();
+
+</script>
+
+</html>
