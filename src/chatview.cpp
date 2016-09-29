@@ -30,6 +30,7 @@
 #include "ringnotify.h"
 #include "numbercategory.h"
 #include <QtCore/QDateTime>
+#include <webkit2/webkit2.h>
 
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
 
@@ -47,7 +48,7 @@ typedef struct _ChatViewPrivate ChatViewPrivate;
 
 struct _ChatViewPrivate
 {
-    GtkWidget *textview_chat;
+    GtkWidget* webview_chat;
     GtkWidget *button_chat_input;
     GtkWidget *entry_chat_input;
     GtkWidget *scrolledwindow_chat;
@@ -168,10 +169,14 @@ chat_view_class_init(ChatViewClass *klass)
 {
     G_OBJECT_CLASS(klass)->dispose = chat_view_dispose;
 
+    /* This must be called at least once before we render chatview.ui
+     * in order to allow us to use WebKitWebView in the template file. */
+    webkit_web_view_get_type();
+
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/chatview.ui");
 
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, textview_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, webview_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, entry_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, scrolledwindow_chat);
@@ -202,64 +207,43 @@ chat_view_class_init(ChatViewClass *klass)
 }
 
 static void
-print_message_to_buffer(const QModelIndex &idx, GtkTextBuffer *buffer)
+print_message_to_buffer(ChatView* view, const QModelIndex &idx)
 {
-    if (idx.isValid()) {
-        auto message = idx.data().value<QString>().toUtf8();
-        auto sender = idx.data(static_cast<int>(Media::TextRecording::Role::AuthorDisplayname)).value<QString>().toUtf8();
-        auto timestamp = idx.data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
-        auto datetime = QDateTime::fromTime_t(timestamp);
-        auto direction = idx.data(static_cast<int>(Media::TextRecording::Role::Direction)).value<Media::Media::Direction>();
-
-        GtkTextIter iter;
-
-        /* unless its the very first message, insert a new line */
-        if (idx.row() != 0) {
-            gtk_text_buffer_get_end_iter(buffer, &iter);
-            gtk_text_buffer_insert(buffer, &iter, "\n", -1);
-        }
-
-        /* if it is the very first row, we print the current date;
-         * otherwise we print the date every time it is different from the previous message */
-        auto date = datetime.date();
-        gchar* new_date = nullptr;
-        if (idx.row() == 0) {
-            new_date = g_strconcat("-- ", date.toString().toUtf8().constData(), " --\n", NULL);
-        } else {
-            auto prev_timestamp = idx.sibling(idx.row() - 1, 0).data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
-            auto prev_date = QDateTime::fromTime_t(prev_timestamp).date();
-            if (date != prev_date) {
-                new_date = g_strconcat("-- ", date.toString().toUtf8().constData(), " --\n", NULL);
-            }
-        }
-
-        if (new_date) {
-            gtk_text_buffer_get_end_iter(buffer, &iter);
-            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, new_date, -1, "center", NULL);
-        }
-
-        /* insert time */
-        gtk_text_buffer_get_end_iter(buffer, &iter);
-        gtk_text_buffer_insert(buffer, &iter, datetime.time().toString().toUtf8().constData(), -1);
-
-        /* insert sender */
-        auto format_sender = g_strconcat(" ", sender.constData(), ": ", NULL);
-        gtk_text_buffer_get_end_iter(buffer, &iter);
-        if (direction == Media::Media::Direction::OUT)
-            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, format_sender, -1, "bold-blue", NULL);
-        else
-            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, format_sender, -1, "bold", NULL);
-        g_free(format_sender);
-
-        gtk_text_buffer_get_end_iter(buffer, &iter);
-        if (direction == Media::Media::Direction::OUT)
-            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, message.constData(), -1, "blue", NULL);
-        else
-            gtk_text_buffer_insert(buffer, &iter, message.constData(), -1);
-
-    } else {
+    if (!idx.isValid()) {
         g_warning("QModelIndex in im model is not valid");
+        return;
     }
+
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(view);
+
+    auto message = idx.data().value<QString>().toUtf8().constData();
+    auto sender = idx.data(static_cast<int>(Media::TextRecording::Role::AuthorDisplayname)).value<QString>().toUtf8().constData();
+    auto timestamp = idx.data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
+    auto direction = idx.data(static_cast<int>(Media::TextRecording::Role::Direction)).value<Media::Media::Direction>();
+
+    g_warning("MESSAGE: %s", message);
+
+    gchar* function_call = g_strdup_printf(
+        "ring.chatview.addMessage(\"%s\", \"%s\", %d, \"%s\");",
+        message,
+        sender,
+        timestamp,
+        (direction == Media::Media::Direction::IN) ? "in" : "out"
+    );
+
+    g_warning(function_call);
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+
+    g_free(function_call);
+
+    g_warning("PRINTED MESSAGE");
 }
 
 static void
@@ -274,21 +258,10 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
     /* new model, disconnect from the old model updates and clear the text buffer */
     QObject::disconnect(priv->new_message_connection);
 
-    GtkTextBuffer *new_buffer = gtk_text_buffer_new(NULL);
-    gtk_text_view_set_buffer(GTK_TEXT_VIEW(priv->textview_chat), new_buffer);
-
-    /* add tags to the buffer */
-    gtk_text_buffer_create_tag(new_buffer, "bold", "weight", PANGO_WEIGHT_BOLD, NULL);
-    gtk_text_buffer_create_tag(new_buffer, "center", "justification", GTK_JUSTIFY_CENTER, NULL);
-    gtk_text_buffer_create_tag(new_buffer, "bold-blue", "weight", PANGO_WEIGHT_BOLD, "foreground-rgba", &RING_BLUE, NULL);
-    gtk_text_buffer_create_tag(new_buffer, "blue", "foreground-rgba", &RING_BLUE, NULL);
-
-    g_object_unref(new_buffer);
-
     /* put all the messages in the im model into the text view */
     for (int row = 0; row < model->rowCount(); ++row) {
         QModelIndex idx = model->index(row, 0);
-        print_message_to_buffer(idx, new_buffer);
+        print_message_to_buffer(self, idx);
     }
     /* mark all messages as read */
     recording->setAllRead();
@@ -300,7 +273,7 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
         [self, priv, model] (const QModelIndex &parent, int first, int last) {
             for (int row = first; row <= last; ++row) {
                 QModelIndex idx = model->index(row, 0, parent);
-                print_message_to_buffer(idx, gtk_text_view_get_buffer(GTK_TEXT_VIEW(priv->textview_chat)));
+                print_message_to_buffer(self, idx);
                 /* make sure these messages are marked as read */
                 model->setData(idx, true, static_cast<int>(Media::TextRecording::Role::IsRead));
                 g_signal_emit(G_OBJECT(self), chat_view_signals[NEW_MESSAGES_DISPLAYED], 0);
@@ -425,12 +398,117 @@ update_name(ChatView *self)
     gtk_label_set_text(GTK_LABEL(priv->label_peer), name.toUtf8().constData());
 }
 
+static void
+chatview_js_loaded(WebKitWebView *web_view,
+                   GAsyncResult *result)
+{
+    GError *error = NULL;
+    WebKitJavascriptResult* js_result = webkit_web_view_run_javascript_from_gresource_finish(web_view, result, &error);
+    if (!js_result) {
+        g_warning("Error loading chatview.js: %s", error->message);
+        g_error_free(error);
+        return;
+    }
+    webkit_javascript_result_unref(js_result);
+}
+
+static void
+jquery_loaded(WebKitWebView *web_view,
+              GAsyncResult *result)
+{
+    g_warning("Loaded jquery");
+    GError *error = NULL;
+    WebKitJavascriptResult* js_result = webkit_web_view_run_javascript_from_gresource_finish(web_view, result, &error);
+    if (!js_result) {
+        g_warning("Error loading jquery.js: %s", error->message);
+        g_error_free(error);
+        return;
+    }
+    webkit_javascript_result_unref(js_result);
+
+
+    webkit_web_view_run_javascript(
+        web_view,
+        "ring.chatview.addMessage(\"Added message 1\", \"author1\", 11, \"in\");",
+        NULL,
+        NULL,
+        NULL
+    );
+
+    /*
+    webkit_web_view_run_javascript_from_gresource(
+        web_view,
+        "/cx/ring/RingGnome/chatview.js",
+        NULL,
+        (GAsyncReadyCallback) chatview_js_loaded,
+        NULL
+    );
+    */
+}
+
+static void
+webview_chat_load_changed(WebKitWebView  *webview_chat,
+                           WebKitLoadEvent load_event,
+                           G_GNUC_UNUSED gpointer user_data)
+{
+    switch (load_event) {
+        case WEBKIT_LOAD_REDIRECTED:
+        {
+            g_error("webview_chat load is being redirected, this should not happen");
+        }
+        case WEBKIT_LOAD_STARTED:
+        case WEBKIT_LOAD_COMMITTED:
+        {
+            break;
+        }
+        case WEBKIT_LOAD_FINISHED:
+        {
+            webkit_web_view_run_javascript_from_gresource(
+                WEBKIT_WEB_VIEW(webview_chat),
+                "/cx/ring/RingGnome/jquery.js",
+                NULL,
+                (GAsyncReadyCallback) jquery_loaded,
+                NULL
+            );
+            break;
+        }
+    }
+}
+
+static void
+build_chat_view(ChatView* view)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(view);
+
+    WebKitSettings* webkit_settings = webkit_settings_new_with_settings(
+        "enable-javascript", TRUE,
+        NULL
+    );
+    webkit_web_view_set_settings(WEBKIT_WEB_VIEW(priv->webview_chat), webkit_settings);
+    g_signal_connect(priv->webview_chat, "load-changed", G_CALLBACK(webview_chat_load_changed), view);
+
+    GBytes* chatview_bytes = g_resources_lookup_data(
+        "/cx/ring/RingGnome/chatview.html",
+        G_RESOURCE_LOOKUP_FLAGS_NONE,
+        NULL
+    );
+
+    webkit_web_view_load_html(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        (gchar*)
+        g_bytes_get_data(chatview_bytes, NULL),
+        NULL
+    );
+
+}
+
 GtkWidget *
 chat_view_new_call(Call *call)
 {
     g_return_val_if_fail(call, nullptr);
 
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
+    build_chat_view(self);
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     priv->call = call;
@@ -446,6 +524,7 @@ chat_view_new_cm(ContactMethod *cm)
     g_return_val_if_fail(cm, nullptr);
 
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
+    build_chat_view(self);
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     priv->cm = cm;
@@ -464,6 +543,7 @@ chat_view_new_person(Person *p)
     g_return_val_if_fail(p, nullptr);
 
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
+    build_chat_view(self);
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     priv->person = p;
