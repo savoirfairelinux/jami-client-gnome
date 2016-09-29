@@ -18,5 +18,8 @@
     <file preprocess="xml-stripblanks">chatview.ui</file>
     <file preprocess="xml-stripblanks">avatarmanipulation.ui</file>
     <file preprocess="xml-stripblanks">accountimportexportview.ui</file>
+
+    <!-- Web resourcess -->
+    <file preprocess="xml-stripblanks">chatview.html</file>
   </gresource>
 </gresources>

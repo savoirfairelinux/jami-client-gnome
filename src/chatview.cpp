@@ -30,6 +30,7 @@
 #include "ringnotify.h"
 #include "numbercategory.h"
 #include <QtCore/QDateTime>
+#include <webkit2/webkit2.h>
 
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
 
@@ -47,7 +48,8 @@ typedef struct _ChatViewPrivate ChatViewPrivate;
 
 struct _ChatViewPrivate
 {
-    GtkWidget *textview_chat;
+    GtkWidget* webview_chat;
+    GtkWidget *box_chat;
     GtkWidget *button_chat_input;
     GtkWidget *entry_chat_input;
     GtkWidget *scrolledwindow_chat;
@@ -171,7 +173,7 @@ chat_view_class_init(ChatViewClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/chatview.ui");
 
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, textview_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, box_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, entry_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, scrolledwindow_chat);
@@ -202,64 +204,20 @@ chat_view_class_init(ChatViewClass *klass)
 }
 
 static void
-print_message_to_buffer(const QModelIndex &idx, GtkTextBuffer *buffer)
+print_message_to_buffer(ChatView* view, const QModelIndex &idx)
 {
-    if (idx.isValid()) {
-        auto message = idx.data().value<QString>().toUtf8();
-        auto sender = idx.data(static_cast<int>(Media::TextRecording::Role::AuthorDisplayname)).value<QString>().toUtf8();
-        auto timestamp = idx.data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
-        auto datetime = QDateTime::fromTime_t(timestamp);
-        auto direction = idx.data(static_cast<int>(Media::TextRecording::Role::Direction)).value<Media::Media::Direction>();
-
-        GtkTextIter iter;
-
-        /* unless its the very first message, insert a new line */
-        if (idx.row() != 0) {
-            gtk_text_buffer_get_end_iter(buffer, &iter);
-            gtk_text_buffer_insert(buffer, &iter, "\n", -1);
-        }
-
-        /* if it is the very first row, we print the current date;
-         * otherwise we print the date every time it is different from the previous message */
-        auto date = datetime.date();
-        gchar* new_date = nullptr;
-        if (idx.row() == 0) {
-            new_date = g_strconcat("-- ", date.toString().toUtf8().constData(), " --\n", NULL);
-        } else {
-            auto prev_timestamp = idx.sibling(idx.row() - 1, 0).data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
-            auto prev_date = QDateTime::fromTime_t(prev_timestamp).date();
-            if (date != prev_date) {
-                new_date = g_strconcat("-- ", date.toString().toUtf8().constData(), " --\n", NULL);
-            }
-        }
-
-        if (new_date) {
-            gtk_text_buffer_get_end_iter(buffer, &iter);
-            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, new_date, -1, "center", NULL);
-        }
-
-        /* insert time */
-        gtk_text_buffer_get_end_iter(buffer, &iter);
-        gtk_text_buffer_insert(buffer, &iter, datetime.time().toString().toUtf8().constData(), -1);
-
-        /* insert sender */
-        auto format_sender = g_strconcat(" ", sender.constData(), ": ", NULL);
-        gtk_text_buffer_get_end_iter(buffer, &iter);
-        if (direction == Media::Media::Direction::OUT)
-            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, format_sender, -1, "bold-blue", NULL);
-        else
-            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, format_sender, -1, "bold", NULL);
-        g_free(format_sender);
-
-        gtk_text_buffer_get_end_iter(buffer, &iter);
-        if (direction == Media::Media::Direction::OUT)
-            gtk_text_buffer_insert_with_tags_by_name(buffer, &iter, message.constData(), -1, "blue", NULL);
-        else
-            gtk_text_buffer_insert(buffer, &iter, message.constData(), -1);
-
-    } else {
+    if (!idx.isValid()) {
         g_warning("QModelIndex in im model is not valid");
+        return;
     }
+
+    auto message = idx.data().value<QString>().toUtf8();
+    auto sender = idx.data(static_cast<int>(Media::TextRecording::Role::AuthorDisplayname)).value<QString>().toUtf8();
+    auto timestamp = idx.data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
+    auto datetime = QDateTime::fromTime_t(timestamp);
+    auto direction = idx.data(static_cast<int>(Media::TextRecording::Role::Direction)).value<Media::Media::Direction>();
+
+    g_warning("PRINTING MESSAGE");
 }
 
 static void
@@ -274,21 +232,10 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
     /* new model, disconnect from the old model updates and clear the text buffer */
     QObject::disconnect(priv->new_message_connection);
 
-    GtkTextBuffer *new_buffer = gtk_text_buffer_new(NULL);
-    gtk_text_view_set_buffer(GTK_TEXT_VIEW(priv->textview_chat), new_buffer);
-
-    /* add tags to the buffer */
-    gtk_text_buffer_create_tag(new_buffer, "bold", "weight", PANGO_WEIGHT_BOLD, NULL);
-    gtk_text_buffer_create_tag(new_buffer, "center", "justification", GTK_JUSTIFY_CENTER, NULL);
-    gtk_text_buffer_create_tag(new_buffer, "bold-blue", "weight", PANGO_WEIGHT_BOLD, "foreground-rgba", &RING_BLUE, NULL);
-    gtk_text_buffer_create_tag(new_buffer, "blue", "foreground-rgba", &RING_BLUE, NULL);
-
-    g_object_unref(new_buffer);
-
     /* put all the messages in the im model into the text view */
     for (int row = 0; row < model->rowCount(); ++row) {
         QModelIndex idx = model->index(row, 0);
-        print_message_to_buffer(idx, new_buffer);
+        print_message_to_buffer(self, idx);
     }
     /* mark all messages as read */
     recording->setAllRead();
@@ -300,7 +247,7 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
         [self, priv, model] (const QModelIndex &parent, int first, int last) {
             for (int row = first; row <= last; ++row) {
                 QModelIndex idx = model->index(row, 0, parent);
-                print_message_to_buffer(idx, gtk_text_view_get_buffer(GTK_TEXT_VIEW(priv->textview_chat)));
+                print_message_to_buffer(self, idx);
                 /* make sure these messages are marked as read */
                 model->setData(idx, true, static_cast<int>(Media::TextRecording::Role::IsRead));
                 g_signal_emit(G_OBJECT(self), chat_view_signals[NEW_MESSAGES_DISPLAYED], 0);
@@ -425,12 +372,34 @@ update_name(ChatView *self)
     gtk_label_set_text(GTK_LABEL(priv->label_peer), name.toUtf8().constData());
 }
 
+
+static void
+build_chat_view(ChatView* view)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(view);
+
+    priv->webview_chat = webkit_web_view_new();
+    gtk_widget_show(priv->webview_chat);
+    gtk_widget_set_hexpand(priv->webview_chat, true);
+    gtk_widget_set_vexpand(priv->webview_chat, true);
+    gtk_container_add(GTK_CONTAINER(priv->box_chat), priv->webview_chat);
+
+    auto chatview_html = g_resources_lookup_data("/cx/ring/RingGnome/chatview.html", G_RESOURCE_LOOKUP_FLAGS_NONE, NULL);
+
+    webkit_web_view_load_html(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        (gchar*) chatview_html,
+        NULL
+    );
+}
+
 GtkWidget *
 chat_view_new_call(Call *call)
 {
     g_return_val_if_fail(call, nullptr);
 
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
+    build_chat_view(self);
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     priv->call = call;
@@ -446,6 +415,7 @@ chat_view_new_cm(ContactMethod *cm)
     g_return_val_if_fail(cm, nullptr);
 
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
+    build_chat_view(self);
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     priv->cm = cm;
@@ -464,6 +434,7 @@ chat_view_new_person(Person *p)
     g_return_val_if_fail(p, nullptr);
 
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
+    build_chat_view(self);
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     priv->person = p;
