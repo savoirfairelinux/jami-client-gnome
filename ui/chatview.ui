@@ -77,14 +77,10 @@
       <object class="GtkScrolledWindow" id="scrolledwindow_chat">
         <property name="visible">True</property>
         <child>
-          <object class="GtkTextView" id="textview_chat">
+          <object class="WebKitWebView" id="webview_chat">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="editable">False</property>
-            <property name="wrap-mode">word-char</property>
-            <property name="left-margin">5</property>
-            <property name="right-margin">5</property>
-            <property name="height-request">50</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
           </object>
         </child>
       </object>
