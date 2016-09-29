@@ -44,6 +44,7 @@ option_debug_cb(G_GNUC_UNUSED const gchar *option_name,
                 G_GNUC_UNUSED GError **error)
 {
     g_setenv("G_MESSAGES_DEBUG", "all", TRUE);
+    g_setenv("RING_CHATVIEW_DEBUG", "true", TRUE);
     g_debug("debug enabled");
     return TRUE;
 }
