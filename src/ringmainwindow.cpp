@@ -125,6 +125,9 @@ struct _RingMainWindowPrivate
     GtkWidget *account_creation_wizard;
     GtkWidget *account_migration_view;
 
+    /* The webkit_chat_container is created once, then reused for all chat views */
+    GtkWidget *webkit_chat_container;
+
     QMetaObject::Connection selected_item_changed;
     QMetaObject::Connection selected_call_over;
 
@@ -142,6 +145,22 @@ struct _RingMainWindowPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
 
 #define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
+
+static gboolean selection_changed(RingMainWindow *win);
+
+static WebKitChatContainer*
+get_webkit_chat_container(RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+    if (!priv->webkit_chat_container)
+    {
+        priv->webkit_chat_container = webkit_chat_container_new();
+
+        //We don't want it to be deleted, ever.
+        g_object_ref(priv->webkit_chat_container);
+    }
+    return WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container);
+}
 
 static void
 enter_full_screen(RingMainWindow *self)
@@ -196,6 +215,90 @@ hide_view_clicked(G_GNUC_UNUSED GtkWidget *view, RingMainWindow *self)
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
 }
 
+static void
+change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
+{
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    leave_full_screen(self);
+    gtk_container_remove(GTK_CONTAINER(priv->frame_call), old);
+
+    GtkWidget *new_view = nullptr;
+
+    QObject::disconnect(priv->selected_item_changed);
+    QObject::disconnect(priv->selected_call_over);
+
+    if (g_type_is_a(INCOMING_CALL_VIEW_TYPE, type)) {
+        if (auto call = qobject_cast<Call *>(object)) {
+            new_view = incoming_call_view_new(call, get_webkit_chat_container(self));
+            priv->selected_item_changed = QObject::connect(
+                call,
+                &Call::lifeCycleStateChanged,
+                [self] (Call::LifeCycleState, Call::LifeCycleState)
+                {g_idle_add((GSourceFunc)selection_changed, self);}
+            );
+            priv->selected_call_over = QObject::connect(
+                call,
+                &Call::isOver,
+                [self] ()
+                {g_idle_add((GSourceFunc)selection_changed, self);}
+            );
+        } else
+            g_warning("Trying to display a view of type IncomingCallView, but the object is not of type Call");
+    } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
+        if (auto call = qobject_cast<Call *>(object)) {
+            new_view = current_call_view_new(call, get_webkit_chat_container(self));
+            g_signal_connect(new_view, "video-double-clicked", G_CALLBACK(video_double_clicked), self);
+            priv->selected_item_changed = QObject::connect(
+                call,
+                &Call::lifeCycleStateChanged,
+                [self] (Call::LifeCycleState, Call::LifeCycleState)
+                {g_idle_add((GSourceFunc)selection_changed, self);}
+            );
+            priv->selected_call_over = QObject::connect(
+                call,
+                &Call::isOver,
+                [self] ()
+                {g_idle_add((GSourceFunc)selection_changed, self);}
+            );
+        } else
+            g_warning("Trying to display a view of type CurrentCallView, but the object is not of type Call");
+    } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
+        if (auto person = qobject_cast<Person *>(object)) {
+            new_view = chat_view_new_person(get_webkit_chat_container(self), person);
+            g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
+
+            /* connect to the Person's callAdded signal, because we want to switch to the call view
+             * in this case */
+            priv->selected_item_changed = QObject::connect(
+                person,
+                &Person::callAdded,
+                [self] (Call*)
+                {g_idle_add((GSourceFunc)selection_changed, self);}
+            );
+        } else if (auto cm = qobject_cast<ContactMethod *>(object)) {
+            new_view = chat_view_new_cm(get_webkit_chat_container(self), cm);
+            g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
+
+            /* connect to the ContactMethod's callAdded signal, because we want to switch to the
+             * call view in this case */
+            priv->selected_item_changed = QObject::connect(
+                cm,
+                &ContactMethod::callAdded,
+                [self] (Call*)
+                {g_idle_add((GSourceFunc)selection_changed, self);}
+            );
+        } else {
+            g_warning("Trying to display a veiw of type ChatView, but the object is neither a Person nor a ContactMethod");
+        }
+    } else {
+        // display the welcome view
+        new_view = priv->welcome_view;
+    }
+
+    gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
+    gtk_widget_show(new_view);
+}
+
 /**
  * This function determines which view to display in the right panel of the main window based on
  * which item is selected in one of the 3 contact list views (Conversations, Contacts, History). The
@@ -221,7 +324,6 @@ selection_changed(RingMainWindow *win)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
 
     auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
-    GtkWidget *new_view = nullptr;
 
     /* if we're showing the settings, then we need to make sure to remove any possible ongoing call
      * view so that we don't have more than one VideoWidget at a time */
@@ -328,39 +430,18 @@ selection_changed(RingMainWindow *win)
                     if (IS_INCOMING_CALL_VIEW(old_view))
                         current_call = incoming_call_view_get_call(INCOMING_CALL_VIEW(old_view));
                     if (current_call != call)
-                        new_view = incoming_call_view_new(call);
+                        change_view(win, old_view, call, INCOMING_CALL_VIEW_TYPE);
                     break;
                 case Call::LifeCycleState::PROGRESS:
                     // check if we're already displaying this call
                     if (IS_CURRENT_CALL_VIEW(old_view))
                         current_call = current_call_view_get_call(CURRENT_CALL_VIEW(old_view));
-                    if (current_call != call) {
-                        new_view = current_call_view_new(call);
-                        g_signal_connect(new_view, "video-double-clicked", G_CALLBACK(video_double_clicked), win);
-                    }
+                    if (current_call != call)
+                        change_view(win, old_view, call, CURRENT_CALL_VIEW_TYPE);
                     break;
                 case Call::LifeCycleState::COUNT__:
                     g_warning("LifeCycleState should never be COUNT");
                     break;
-            }
-
-            if (new_view) {
-                /* connect to the call's lifeCycleStateChanged signal to know when to change the view */
-                QObject::disconnect(priv->selected_item_changed);
-                priv->selected_item_changed = QObject::connect(
-                    call,
-                    &Call::lifeCycleStateChanged,
-                    [win] (Call::LifeCycleState, Call::LifeCycleState)
-                    {g_idle_add((GSourceFunc)selection_changed, win);}
-                );
-                /* we want to also change the view when the call is over */
-                QObject::disconnect(priv->selected_call_over);
-                priv->selected_call_over = QObject::connect(
-                    call,
-                    &Call::isOver,
-                    [win] ()
-                    {g_idle_add((GSourceFunc)selection_changed, win);}
-                );
             }
 
         } else if (person) {
@@ -371,21 +452,8 @@ selection_changed(RingMainWindow *win)
             if (IS_CHAT_VIEW(old_view))
                 current_person = chat_view_get_person(CHAT_VIEW(old_view));
 
-            if (current_person != person) {
-                new_view = chat_view_new_person(person);
-                g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), win);
-
-                /* connect to the Person's callAdded signal, because we want to switch to the call view
-                 * in this case */
-                QObject::disconnect(priv->selected_item_changed);
-                QObject::disconnect(priv->selected_call_over);
-                priv->selected_item_changed = QObject::connect(
-                    person,
-                    &Person::callAdded,
-                    [win] (Call*)
-                    {g_idle_add((GSourceFunc)selection_changed, win);}
-                );
-            }
+            if (current_person != person)
+                change_view(win, old_view, person, CHAT_VIEW_TYPE);
         } else if (cm) {
             /* show chat view constructed from CM */
 
@@ -394,44 +462,17 @@ selection_changed(RingMainWindow *win)
             if (IS_CHAT_VIEW(old_view))
                 current_cm = chat_view_get_cm(CHAT_VIEW(old_view));
 
-            if (current_cm != cm) {
-                new_view = chat_view_new_cm(cm);
-                g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), win);
-
-                /* connect to the ContactMethod's callAdded signal, because we want to switch to the
-                 *call view in this case */
-                QObject::disconnect(priv->selected_item_changed);
-                QObject::disconnect(priv->selected_call_over);
-                priv->selected_item_changed = QObject::connect(
-                    cm,
-                    &ContactMethod::callAdded,
-                    [win] (Call*)
-                    {g_idle_add((GSourceFunc)selection_changed, win);}
-                );
-            }
+            if (current_cm != cm)
+                change_view(win, old_view, cm, CHAT_VIEW_TYPE);
         } else {
             /* not a supported object type, display the welcome view */
-            if (old_view != priv->welcome_view) {
-                QObject::disconnect(priv->selected_item_changed);
-                QObject::disconnect(priv->selected_call_over);
-                new_view = priv->welcome_view;
-            }
+            if (old_view != priv->welcome_view)
+                change_view(win, old_view, nullptr, RING_WELCOME_VIEW_TYPE);
         }
     } else {
         /* selection isn't valid, display the welcome view */
-        if (old_view != priv->welcome_view) {
-            QObject::disconnect(priv->selected_item_changed);
-            QObject::disconnect(priv->selected_call_over);
-            new_view = priv->welcome_view;
-        }
-    }
-
-    if (new_view) {
-        /* make sure we leave full screen, since the view is changing */
-        leave_full_screen(win);
-        gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_view);
-        gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
-        gtk_widget_show(new_view);
+        if (old_view != priv->welcome_view)
+            change_view(win, old_view, nullptr, RING_WELCOME_VIEW_TYPE);
     }
 
     return G_SOURCE_REMOVE;
@@ -1247,6 +1288,9 @@ ring_main_window_init(RingMainWindow *win)
     gtk_entry_set_placeholder_text(GTK_ENTRY(priv->search_entry),
                                    C_("Please try to make the translation 50 chars or less so that it fits into the layout", "Search contacts or enter number"));
 
+    /* init chat webkit container so that it starts loading before the first time we need it*/
+    get_webkit_chat_container(win);
+
     handle_account_migrations(win);
 }
 
@@ -1258,7 +1302,9 @@ ring_main_window_dispose(GObject *object)
 
     QObject::disconnect(priv->selected_item_changed);
     QObject::disconnect(priv->selected_call_over);
-    g_object_unref(priv->welcome_view); // can now be destroyed
+
+    g_clear_object(&priv->welcome_view);
+    g_clear_object(&priv->webkit_chat_container);
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
 }

@@ -78,13 +78,10 @@
         <property name="visible">True</property>
         <property name="min-content-height">100</property>
         <child>
-          <object class="GtkTextView" id="textview_chat">
+          <object class="GtkBox" id="box_webkit_chat_container">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="editable">False</property>
-            <property name="wrap-mode">word-char</property>
-            <property name="left-margin">5</property>
-            <property name="right-margin">5</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
           </object>
         </child>
       </object>

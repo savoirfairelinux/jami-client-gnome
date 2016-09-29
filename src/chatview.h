@@ -17,10 +17,10 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef _CHATVIEW_H
-#define _CHATVIEW_H
+#pragma once
 
 #include <gtk/gtk.h>
+#include "webkitchatcontainer.h"
 
 class Call;
 class ContactMethod;
@@ -39,14 +39,12 @@ typedef struct _ChatViewClass ChatViewClass;
 
 
 GType          chat_view_get_type   (void) G_GNUC_CONST;
-GtkWidget     *chat_view_new_call   (Call*);
-GtkWidget     *chat_view_new_cm     (ContactMethod*);
-GtkWidget     *chat_view_new_person (Person* p);
+GtkWidget     *chat_view_new_call   (WebKitChatContainer* view, Call* call);
+GtkWidget     *chat_view_new_cm     (WebKitChatContainer* view, ContactMethod* cm);
+GtkWidget     *chat_view_new_person (WebKitChatContainer* view, Person* p);
 Call          *chat_view_get_call   (ChatView*);
 ContactMethod *chat_view_get_cm     (ChatView*);
 Person        *chat_view_get_person (ChatView*);
 void           chat_view_set_header_visible(ChatView*, gboolean);
 
 G_END_DECLS
-
-#endif /* _CHATVIEW_H */
