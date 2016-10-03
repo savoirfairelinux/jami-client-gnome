@@ -21,7 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include "models/gtkqsortfiltertreemodel.h"
+#include "models/gtkqtreemodel.h"
 #include <categorizedhistorymodel.h>
 #include <QtCore/QSortFilterProxyModel>
 #include <personmodel.h>
@@ -119,7 +119,7 @@ activate_history_item(GtkTreeView *tree_view,
     /* get iter */
     GtkTreeIter iter;
     if (gtk_tree_model_get_iter(model, &iter, path)) {
-        QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
+        QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
 
         QVariant contact_method = idx.data(static_cast<int>(Call::Role::ContactMethod));
         /* create new call */
@@ -143,7 +143,7 @@ render_call_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     gtk_tree_path_free(path);
     if (depth == 2) {
         /* get person */
-        QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
+        QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
         if (idx.isValid()) {
             QVariant var_c = idx.data(static_cast<int>(Call::Role::Object));
             Call *c = var_c.value<Call *>();
@@ -183,7 +183,7 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
     gchar *text = NULL;
 
-    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
     if (idx.isValid()) {
         QVariant var = idx.data(Qt::DisplayRole);
         if (depth == 1) {
@@ -228,7 +228,7 @@ render_date_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
     gchar *text = NULL;
 
-    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
     QVariant var_d = idx.data(static_cast<int>(Call::Role::DateTime));
     if (idx.isValid() && var_d.isValid()) {
         QDateTime date_time = var_d.value<QDateTime>();
@@ -273,7 +273,7 @@ history_view_init(HistoryView *self)
     /* make sure it is sorted so that newest calls are at the top */
     priv->q_sorted_proxy->model()->sort(0, Qt::AscendingOrder);
 
-    GtkQSortFilterTreeModel *history_model = gtk_q_sort_filter_tree_model_new(
+    GtkQTreeModel *history_model = gtk_q_tree_model_new(
         priv->q_sorted_proxy->model(),
         5,
         0, Qt::DisplayRole, G_TYPE_STRING,

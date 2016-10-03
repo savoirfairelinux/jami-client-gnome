@@ -23,7 +23,8 @@
 #include <glib/gi18n.h>
 #include <account.h>
 #include <codecmodel.h>
-#include "models/gtkqsortfiltertreemodel.h"
+#include "models/gtkqtreemodel.h"
+#include <QtCore/QSortFilterProxyModel>
 #include "utils/models.h"
 
 struct _AccountAudioTab
@@ -91,7 +92,7 @@ codec_active_toggled(GtkCellRendererToggle *renderer, gchar *path, AccountAudioT
     gtk_tree_model_get_iter(model, &iter, tree_path);
 
     /* get qmodelindex from iter and set the model data */
-    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
     if (idx.isValid()) {
         priv->account->codecModel()->audioCodecs()->setData(idx, QVariant(toggle), Qt::CheckStateRole);
     }
@@ -130,8 +131,8 @@ move_selected_codec(AccountAudioTab *view, int position_diff)
 
     idx = idx.sibling(new_row, idx.column());
     GtkTreeIter iter;
-    if (gtk_q_sort_filter_tree_model_source_index_to_iter(
-            GTK_Q_SORT_FILTER_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(priv->treeview_codecs))),
+    if (gtk_q_tree_model_source_index_to_iter(
+            GTK_Q_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(priv->treeview_codecs))),
             idx,
             &iter)) {
         gtk_tree_selection_select_iter(selection, &iter);
@@ -157,11 +158,11 @@ build_tab_view(AccountAudioTab *view)
     AccountAudioTabPrivate *priv = ACCOUNT_AUDIO_TAB_GET_PRIVATE(view);
 
     /* codec model */
-    GtkQSortFilterTreeModel *codec_model;
+    GtkQTreeModel *codec_model;
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;
 
-    codec_model = gtk_q_sort_filter_tree_model_new(
+    codec_model = gtk_q_tree_model_new(
         priv->account->codecModel()->audioCodecs(),
         4,
         0, Qt::CheckStateRole, G_TYPE_BOOLEAN,

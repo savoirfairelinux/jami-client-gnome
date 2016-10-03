@@ -21,7 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include "models/gtkqsortfiltertreemodel.h"
+#include "models/gtkqtreemodel.h"
 #include "utils/calling.h"
 #include <memory>
 #include <globalinstances.h>
@@ -91,7 +91,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                      GtkTreeIter *iter,
                      G_GNUC_UNUSED gpointer data)
 {
-    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), iter);
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
 
     std::shared_ptr<GdkPixbuf> image;
     /* we only want to render a photo for the top nodes: Person, ContactMethod (, later Conference) */
@@ -134,7 +134,7 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 {
     gchar *text = NULL;
 
-    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), iter);
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
 
     // check if this iter is selected
     gboolean is_selected = FALSE;
@@ -256,7 +256,7 @@ render_call_duration(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 {
     gchar *text = NULL;
 
-    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), iter);
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
 
     auto type = idx.data(static_cast<int>(Ring::Role::ObjectType));
     if (idx.isValid() && type.isValid()) {
@@ -310,7 +310,7 @@ activate_item(GtkTreeView *tree_view,
     auto model = gtk_tree_view_get_model(tree_view);
     GtkTreeIter iter;
     if (gtk_tree_model_get_iter(model, &iter, path)) {
-        auto idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
+        QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
         auto type = idx.data(static_cast<int>(Ring::Role::ObjectType));
         if (idx.isValid() && type.isValid()) {
             switch (type.value<Ring::ObjectType>()) {
@@ -493,11 +493,11 @@ on_drag_data_received(GtkWidget        *treeview,
 
             GtkTreeIter source;
             gtk_tree_model_get_iter_from_string(model, &source, path_str_source);
-            auto idx_source_proxy = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &source);
+            auto idx_source_proxy = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &source);
 
             GtkTreeIter dest;
             gtk_tree_model_get_iter(model, &dest, dest_path);
-            auto idx_dest_proxy = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &dest);
+            auto idx_dest_proxy = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &dest);
 
             // get call objects and indeces from RecentModel indeces being drag and dropped
             auto idx_source = RecentModel::instance().peopleProxy()->mapToSource(idx_source_proxy);
@@ -542,7 +542,7 @@ recent_contacts_view_init(RecentContactsView *self)
      * otherwise the search steals input focus on key presses */
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(self), FALSE);
 
-    GtkQSortFilterTreeModel *recent_model = gtk_q_sort_filter_tree_model_new(
+    GtkQTreeModel *recent_model = gtk_q_tree_model_new(
         RecentModel::instance().peopleProxy(),
         1,
         0, Qt::DisplayRole, G_TYPE_STRING);
@@ -614,7 +614,7 @@ recent_contacts_view_init(RecentContactsView *self)
             if (current.isValid()) {
                 /* select the current */
                 GtkTreeIter new_iter;
-                if (gtk_q_sort_filter_tree_model_source_index_to_iter(recent_model, current_proxy, &new_iter)) {
+                if (gtk_q_tree_model_source_index_to_iter(recent_model, current_proxy, &new_iter)) {
                     gtk_tree_selection_select_iter(selection, &new_iter);
                 }
             } else {
