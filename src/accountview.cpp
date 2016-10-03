@@ -26,7 +26,7 @@
 #include <protocolmodel.h>
 #include <QtCore/QItemSelectionModel>
 #include "models/gtkqtreemodel.h"
-#include "models/gtkqsortfiltertreemodel.h"
+#include "models/gtkqtreemodel.h"
 #include "models/activeitemproxymodel.h"
 #include "accountgeneraltab.h"
 #include "accountaudiotab.h"
@@ -305,8 +305,8 @@ add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
     if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(priv->combobox_account_type), &protocol_iter)) {
         /* get the qmodelindex of the protocol */
         GtkTreeModel *protocol_model = gtk_combo_box_get_model(GTK_COMBO_BOX(priv->combobox_account_type));
-        QModelIndex protocol_idx = gtk_q_sort_filter_tree_model_get_source_idx(
-                                    GTK_Q_SORT_FILTER_TREE_MODEL(protocol_model),
+        QModelIndex protocol_idx = gtk_q_tree_model_get_source_idx(
+                                    GTK_Q_TREE_MODEL(protocol_model),
                                     &protocol_iter);
         if (protocol_idx.isValid()) {
             protocol_idx = priv->active_protocols->mapToSource(protocol_idx);
@@ -504,7 +504,7 @@ account_view_init(AccountView *view)
     /* TODO: when to delete this model? */
     priv->active_protocols = new ActiveItemProxyModel((QAbstractItemModel *)AccountModel::instance().protocolModel());
 
-    GtkQSortFilterTreeModel *protocol_model = gtk_q_sort_filter_tree_model_new(
+    GtkQTreeModel *protocol_model = gtk_q_tree_model_new(
                                                 (QSortFilterProxyModel *)priv->active_protocols,
                                                 1,
                                                 0, Qt::DisplayRole, G_TYPE_STRING);
@@ -544,8 +544,8 @@ account_view_init(AccountView *view)
     if (protocol_idx.isValid()) {
         protocol_idx = priv->active_protocols->mapFromSource(protocol_idx);
         GtkTreeIter protocol_iter;
-        if (gtk_q_sort_filter_tree_model_source_index_to_iter(
-                (GtkQSortFilterTreeModel *)protocol_model,
+        if (gtk_q_tree_model_source_index_to_iter(
+                (GtkQTreeModel *)protocol_model,
                 protocol_idx,
                 &protocol_iter)) {
             gtk_combo_box_set_active_iter(GTK_COMBO_BOX(priv->combobox_account_type), &protocol_iter);
