@@ -21,9 +21,9 @@
 
 #include <gtk/gtk.h>
 #include "../models/gtkqtreemodel.h"
-#include "../models/gtkqsortfiltertreemodel.h"
 #include <QtCore/QModelIndex>
 #include <QtCore/QItemSelectionModel>
+#include <QtCore/QSortFilterProxyModel>
 
 QModelIndex
 get_index_from_selection(GtkTreeSelection *selection)
@@ -34,8 +34,6 @@ get_index_from_selection(GtkTreeSelection *selection)
     if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
         if (GTK_IS_Q_TREE_MODEL(model))
             return gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
-        else if (GTK_IS_Q_SORT_FILTER_TREE_MODEL(model))
-            return gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
     }
     return QModelIndex();
 }
@@ -66,8 +64,8 @@ gtk_combo_box_get_index(GtkComboBox *box)
 
         if (GTK_IS_Q_TREE_MODEL(model))
             return gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
-        else if (GTK_IS_Q_SORT_FILTER_TREE_MODEL(model))
-            return gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), iter);
+        else if (GTK_IS_Q_TREE_MODEL(model))
+            return gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
     }
     return QModelIndex();
 }
@@ -87,8 +85,8 @@ filter_disabled_items(GtkTreeModel *model, GtkTreeIter *iter, G_GNUC_UNUSED gpoi
     QModelIndex idx;
     if (GTK_IS_Q_TREE_MODEL(model))
         idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
-    else if (GTK_IS_Q_SORT_FILTER_TREE_MODEL(model))
-        idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), iter);
+    else if (GTK_IS_Q_TREE_MODEL(model))
+        idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
 
     if (idx.isValid()) {
         return idx.flags() & Qt::ItemIsEnabled ? TRUE : FALSE;
@@ -112,9 +110,9 @@ gtk_combo_box_set_active_index(GtkComboBox *box, const QModelIndex& idx)
         if (GTK_IS_Q_TREE_MODEL(model)) {
             valid = gtk_q_tree_model_source_index_to_iter(
                 GTK_Q_TREE_MODEL(model), idx, &new_iter);
-        } else if (GTK_IS_Q_SORT_FILTER_TREE_MODEL(model)) {
-            valid = gtk_q_sort_filter_tree_model_source_index_to_iter(
-                GTK_Q_SORT_FILTER_TREE_MODEL(model), idx, &new_iter);
+        } else if (GTK_IS_Q_TREE_MODEL(model)) {
+            valid = gtk_q_tree_model_source_index_to_iter(
+                GTK_Q_TREE_MODEL(model), idx, &new_iter);
         }
 
         if (valid) {
@@ -147,7 +145,7 @@ gtk_combo_box_set_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
     /* check if its a QAbstractItemModel or a QSortFilterProxyModel */
     QSortFilterProxyModel *proxy_qmodel = qobject_cast<QSortFilterProxyModel*>(qmodel);
     if (proxy_qmodel) {
-        model = (GtkTreeModel *)gtk_q_sort_filter_tree_model_new(
+        model = (GtkTreeModel *)gtk_q_tree_model_new(
             proxy_qmodel,
             1,
             0, Qt::DisplayRole, G_TYPE_STRING);

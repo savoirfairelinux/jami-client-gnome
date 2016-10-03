@@ -233,8 +233,8 @@ SET( SRC_FILES
    src/utils/drawing.cpp
    src/video/video_widget.h
    src/video/video_widget.cpp
-   src/models/gtkqsortfiltertreemodel.h
-   src/models/gtkqsortfiltertreemodel.cpp
+   # src/models/gtkqsortfiltertreemodel.h
+   # src/models/gtkqsortfiltertreemodel.cpp
    src/accountview.h
    src/accountview.cpp
    src/accountgeneraltab.h

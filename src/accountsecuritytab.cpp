@@ -22,7 +22,6 @@
 #include <gtk/gtk.h>
 #include <account.h>
 #include "models/activeitemproxymodel.h"
-#include "models/gtkqsortfiltertreemodel.h"
 #include "models/gtkqtreemodel.h"
 #include "utils/models.h"
 #include <certificate.h>
@@ -270,8 +269,6 @@ render_check_state(G_GNUC_UNUSED GtkCellLayout *cell_layout,
     QModelIndex idx;
     if (GTK_IS_Q_TREE_MODEL(model))
         idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
-    else if (GTK_IS_Q_SORT_FILTER_TREE_MODEL(model))
-        idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), iter);
 
     gboolean checked = FALSE;
 

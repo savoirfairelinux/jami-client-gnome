@@ -30,7 +30,7 @@
 
 // Ring client
 #include "utils/calling.h"
-#include "models/gtkqsortfiltertreemodel.h"
+#include "models/gtkqtreemodel.h"
 #include "utils/menus.h"
 
 static constexpr const char* COPY_DATA_KEY = "copy_data";
@@ -135,7 +135,7 @@ update(GtkTreeSelection *selection, ContactPopupMenu *self)
     if (!gtk_tree_selection_get_selected(selection, &model, &iter))
         return;
 
-    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
 
     auto type = idx.data(static_cast<int>(Ring::Role::ObjectType));
     auto object = idx.data(static_cast<int>(Ring::Role::Object));
