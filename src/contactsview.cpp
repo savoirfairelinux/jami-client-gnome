@@ -21,7 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include "models/gtkqsortfiltertreemodel.h"
+#include "models/gtkqtreemodel.h"
 #include <categorizedcontactmodel.h>
 #include <personmodel.h>
 #include "utils/calling.h"
@@ -73,7 +73,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     gtk_tree_path_free(path);
     if (depth == 2) {
         /* get person */
-        QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
+        QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
         if (idx.isValid()) {
             QVariant var_c = idx.data(static_cast<int>(Person::Role::Object));
             Person *c = var_c.value<Person *>();
@@ -115,7 +115,7 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
     gchar *text = NULL;
 
-    QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(tree_model), iter);
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
     if (idx.isValid()) {
         QVariant var = idx.data(Qt::DisplayRole);
         if (depth == 1) {
@@ -215,7 +215,7 @@ activate_contact_item(GtkTreeView *tree_view,
     /* get iter */
     GtkTreeIter iter;
     if (gtk_tree_model_get_iter(model, &iter, path)) {
-        QModelIndex idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
+        QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
         if (idx.isValid()) {
             int depth = gtk_tree_path_get_depth(path);
             switch (depth) {
@@ -274,7 +274,7 @@ contacts_view_init(ContactsView *self)
         priv->q_sorted_proxy->categoryModel()->index(0, 0),
         QItemSelectionModel::ClearAndSelect);
 
-    GtkQSortFilterTreeModel *contact_model = gtk_q_sort_filter_tree_model_new(
+    GtkQTreeModel *contact_model = gtk_q_tree_model_new(
         priv->q_sorted_proxy->model(),
         1,
         0, Qt::DisplayRole, G_TYPE_STRING);

@@ -49,7 +49,7 @@
 #include "models/gtkqtreemodel.h"
 #include "incomingcallview.h"
 #include "currentcallview.h"
-#include "models/gtkqsortfiltertreemodel.h"
+#include "models/gtkqtreemodel.h"
 #include "accountview.h"
 #include "dialogs.h"
 #include "mediasettingsview.h"
@@ -254,11 +254,11 @@ selection_changed(RingMainWindow *win)
     QModelIndex idx;
 
     if (gtk_tree_selection_get_selected(selection_conversations, &model, &iter)) {
-        idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
+        idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
     } else if (gtk_tree_selection_get_selected(selection_contacts, &model, &iter)) {
-        idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
+        idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
     } else if (gtk_tree_selection_get_selected(selection_history, &model, &iter)) {
-        idx = gtk_q_sort_filter_tree_model_get_source_idx(GTK_Q_SORT_FILTER_TREE_MODEL(model), &iter);
+        idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
     }
 
     /* check which object type is selected */
