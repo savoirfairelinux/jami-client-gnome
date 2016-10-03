@@ -182,12 +182,10 @@ QModelIndex
 gtk_q_tree_model_get_source_idx(GtkQTreeModel *q_tree_model, GtkTreeIter *iter)
 {
     GtkQTreeModelPrivate *priv = GTK_Q_TREEMODEL_GET_PRIVATE(q_tree_model);
-    /* get the call */
     QIter *qiter = Q_ITER(iter);
     GtkAccessProxyModel *proxy_model = priv->model;
     QModelIndex proxy_idx = proxy_model->indexFromId(qiter->row.value, qiter->column.value, qiter->id);
     if (proxy_idx.isValid()) {
-        /* we have the proxy model idx, now get the actual idx so we can get the call object */
         return proxy_model->mapToSource(proxy_idx);
     } else {
         g_warning("could not get valid QModelIndex from given GtkTreeIter");
