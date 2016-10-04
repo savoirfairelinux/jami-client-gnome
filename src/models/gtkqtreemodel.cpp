@@ -441,10 +441,8 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
             /* we have to assume only one column */
             int first = topLeft.row();
             int last = bottomRight.row();
-            if (topLeft.column() != bottomRight.column() ) {
-                g_warning("more than one column is not supported!");
-            }
-            /* the first idx IS topLeft, the reset are his siblings */
+
+            /* the first idx IS topLeft, the rest are his siblings */
             GtkTreeIter iter;
             QModelIndex idx = topLeft;
             iter.stamp = stamp;
