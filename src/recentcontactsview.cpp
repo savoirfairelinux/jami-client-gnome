@@ -62,6 +62,7 @@ struct _RecentContactsViewPrivate
     GtkWidget *popup_menu;
 
     QMetaObject::Connection selection_updated;
+    QMetaObject::Connection layout_changed;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RecentContactsView, recent_contacts_view, GTK_TYPE_TREE_VIEW);
@@ -623,6 +624,28 @@ recent_contacts_view_init(RecentContactsView *self)
         }
     );
 
+    /* we may need to update the selection when the layout changes */
+    priv->layout_changed = QObject::connect(
+        RecentModel::instance().peopleProxy(),
+        &QAbstractItemModel::layoutChanged,
+        [self, recent_model]() {
+            auto idx = RecentModel::instance().selectionModel()->currentIndex();
+            auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
+
+            auto idx_proxy = RecentModel::instance().peopleProxy()->mapFromSource(idx);
+
+            if (idx_proxy.isValid()) {
+                /* select the current */
+                GtkTreeIter iter;
+                if (gtk_q_tree_model_source_index_to_iter(recent_model, idx_proxy, &iter)) {
+                    gtk_tree_selection_select_iter(selection, &iter);
+                }
+            } else {
+                gtk_tree_selection_unselect_all(selection);
+            }
+        }
+    );
+
     /* drag and drop */
     static GtkTargetEntry targetentries[] = {
         { (gchar *)CALL_TARGET, GTK_TARGET_SAME_WIDGET, CALL_TARGET_ID },
@@ -653,6 +676,7 @@ recent_contacts_view_dispose(GObject *object)
     RecentContactsViewPrivate *priv = RECENT_CONTACTS_VIEW_GET_PRIVATE(self);
 
     QObject::disconnect(priv->selection_updated);
+    QObject::disconnect(priv->layout_changed);
     gtk_widget_destroy(priv->popup_menu);
 
     G_OBJECT_CLASS(recent_contacts_view_parent_class)->dispose(object);

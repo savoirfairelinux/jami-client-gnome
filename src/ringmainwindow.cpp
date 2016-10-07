@@ -40,11 +40,11 @@
 #include <video/previewmanager.h>
 #include <personmodel.h>
 #include <globalinstances.h>
-#include <numbercompletionmodel.h>
 #include <categorizedcontactmodel.h>
 #include <recentmodel.h>
 #include <profilemodel.h>
 #include <profile.h>
+#include <phonedirectorymodel.h>
 
 // Ring client
 #include "models/gtkqtreemodel.h"
@@ -132,9 +132,6 @@ struct _RingMainWindowPrivate
     QMetaObject::Connection selected_call_over;
 
     gboolean   show_settings;
-
-    /* allocd qmodels */
-    NumberCompletionModel *q_completion_model;
 
     /* fullscreen */
     gboolean is_fullscreen;
@@ -667,165 +664,12 @@ show_account_creation_wizard(RingMainWindow *win)
 }
 
 static void
-search_entry_text_changed(GtkEditable *search_entry, RingMainWindow *win)
+search_entry_text_changed(GtkEditable *search_entry, RingMainWindow *)
 {
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-
     /* get the text from the entry */
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(search_entry));
 
-    if (text && strlen(text) > 0) {
-        /* edit the the dialing call (or create a new one) */
-        if (auto call = CallModel::instance().dialingCall()) {
-            call->setDialNumber(text);
-            priv->q_completion_model->setCall(call);
-        }
-    } else {
-        if (auto call = priv->q_completion_model->call()) {
-            if (call->lifeCycleState() == Call::LifeCycleState::CREATION)
-                call->performAction(Call::Action::REFUSE);
-        }
-    }
-}
-
-static gboolean
-completion_match_func(G_GNUC_UNUSED GtkEntryCompletion *completion,
-                      G_GNUC_UNUSED const gchar *key,
-                      G_GNUC_UNUSED GtkTreeIter *iter,
-                      G_GNUC_UNUSED RingMainWindow *win)
-{
-    /* the model is updated by lrc and should only every contain matching entries
-     * so always return TRUE */
-    return TRUE;
-}
-
-static QModelIndex
-get_qidx_from_filter_model(GtkTreeModelFilter *filter_model,
-                           GtkTreeIter *filter_iter)
-{
-    GtkTreeModel *child_model = gtk_tree_model_filter_get_model(filter_model);
-    GtkTreeIter child_iter;
-    gtk_tree_model_filter_convert_iter_to_child_iter(
-        GTK_TREE_MODEL_FILTER(filter_model),
-        &child_iter,
-        filter_iter);
-
-    return gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(child_model), &child_iter);
-}
-
-static void
-autocompletion_photo_render(G_GNUC_UNUSED GtkCellLayout *cell_layout,
-                            GtkCellRenderer *cell,
-                            GtkTreeModel *model,
-                            GtkTreeIter *iter,
-                            G_GNUC_UNUSED gpointer user_data)
-{
-    QModelIndex idx = get_qidx_from_filter_model(GTK_TREE_MODEL_FILTER(model), iter);
-    if (idx.isValid()) {
-        QVariant photo_var = idx.sibling(idx.row(), 1).data(Qt::DecorationRole);
-        if (photo_var.isValid()) {
-            std::shared_ptr<GdkPixbuf> photo = photo_var.value<std::shared_ptr<GdkPixbuf>>();
-            GdkPixbuf *scaled = gdk_pixbuf_scale_simple(photo.get(),
-                                                        20, 20,
-                                                        GDK_INTERP_BILINEAR);
-
-            g_object_set(G_OBJECT(cell), "pixbuf", scaled, NULL);
-            g_object_unref(scaled);
-            return;
-        }
-    }
-
-    g_object_set(G_OBJECT(cell), "pixbuf", NULL, NULL);
-}
-
-static void
-autocompletion_name_render(G_GNUC_UNUSED GtkCellLayout *cell_layout,
-                           GtkCellRenderer *cell,
-                           GtkTreeModel *model,
-                           GtkTreeIter *iter,
-                           G_GNUC_UNUSED gpointer user_data)
-{
-    gchar *text = nullptr;
-    QModelIndex idx = get_qidx_from_filter_model(GTK_TREE_MODEL_FILTER(model), iter);
-    if (idx.isValid()) {
-        QVariant name = idx.sibling(idx.row(), 1).data(Qt::DisplayRole);
-        text = g_markup_printf_escaped("<span weight=\"bold\">%s</span>",
-                                       name.value<QString>().toUtf8().constData());
-    }
-
-    g_object_set(G_OBJECT(cell), "markup", text, NULL);
-    g_free(text);
-}
-
-static void
-autocompletion_number_render(G_GNUC_UNUSED GtkCellLayout *cell_layout,
-                             GtkCellRenderer *cell,
-                             GtkTreeModel *model,
-                             GtkTreeIter *iter,
-                             G_GNUC_UNUSED gpointer user_data)
-{
-    gchar *text = nullptr;
-    QModelIndex idx = get_qidx_from_filter_model(GTK_TREE_MODEL_FILTER(model), iter);
-    if (idx.isValid()) {
-        QVariant uri = idx.data(Qt::DisplayRole);
-        text = g_markup_escape_text(uri.value<QString>().toUtf8().constData(), -1);
-    }
-
-    g_object_set(G_OBJECT(cell), "markup", text, NULL);
-    g_free(text);
-}
-
-static void
-autocompletion_account_render(G_GNUC_UNUSED GtkCellLayout *cell_layout,
-                              GtkCellRenderer *cell,
-                              GtkTreeModel *model,
-                              GtkTreeIter *iter,
-                              G_GNUC_UNUSED gpointer user_data)
-{
-    gchar *text = nullptr;
-    QModelIndex idx = get_qidx_from_filter_model(GTK_TREE_MODEL_FILTER(model), iter);
-    if (idx.isValid()) {
-        QVariant alias = idx.sibling(idx.row(), 2).data(Qt::DisplayRole);
-        text = g_markup_printf_escaped("<span color=\"gray\">%s</span>",
-                                       alias.value<QString>().toUtf8().constData());
-    }
-
-    g_object_set(G_OBJECT(cell), "markup", text, NULL);
-    g_free(text);
-}
-
-static gboolean
-select_autocompletion(G_GNUC_UNUSED GtkEntryCompletion *widget,
-                      GtkTreeModel *model,
-                      GtkTreeIter *iter,
-                      RingMainWindow *win)
-{
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-
-    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
-    if (idx.isValid()) {
-        auto cm = priv->q_completion_model->number(idx);
-
-        if (g_settings_get_boolean(priv->settings, "search-entry-places-call")) {
-            place_new_call(cm);
-
-            /* move focus away from entry so that DTMF tones can be entered via the keyboard */
-            gtk_widget_child_focus(GTK_WIDGET(win), GTK_DIR_TAB_FORWARD);
-        } else {
-            // if its a new CM, bring it to the top
-            if (cm->lastUsed() == 0)
-                cm->setLastUsed(QDateTime::currentDateTime().toTime_t());
-
-            // select cm
-            RecentModel::instance().selectionModel()->setCurrentIndex(RecentModel::instance().getIndex(cm), QItemSelectionModel::ClearAndSelect);
-        }
-
-        /* clear the entry */
-        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
-    } else {
-        g_warning("autocompletion selection is not a valid index!");
-    }
-    return TRUE;
+    RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp(text, Qt::CaseInsensitive, QRegExp::FixedString));
 }
 
 static gboolean
@@ -1192,91 +1036,20 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect_swapped(priv->button_new_conversation, "clicked", G_CALLBACK(search_entry_activated), win);
     g_signal_connect_swapped(priv->search_entry, "activate", G_CALLBACK(search_entry_activated), win);
 
-    /* autocompletion */
-    priv->q_completion_model = new NumberCompletionModel();
-
-    /* autocompletion renderers */
-    GtkCellArea *completion_area = gtk_cell_area_box_new();
-
-    /* photo renderer */
-    GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
-    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(completion_area),
-                                 renderer,
-                                 TRUE,  /* expand */
-                                 TRUE,  /* align */
-                                 TRUE); /* fixed size */
-
-    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(completion_area),
-                                       renderer,
-                                       (GtkCellLayoutDataFunc)autocompletion_photo_render,
-                                       NULL, NULL);
-
-    /* name renderer */
-    renderer = gtk_cell_renderer_text_new();
-    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(completion_area),
-                                 renderer,
-                                 TRUE,  /* expand */
-                                 TRUE,  /* align */
-                                 TRUE); /* fixed size */
-
-    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(completion_area),
-                                       renderer,
-                                       (GtkCellLayoutDataFunc)autocompletion_name_render,
-                                       NULL, NULL);
-
-    /* number renderer */
-    renderer = gtk_cell_renderer_text_new();
-    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(completion_area),
-                                 renderer,
-                                 TRUE,  /* expand */
-                                 TRUE,  /* align */
-                                 TRUE); /* fixed size */
-
-    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(completion_area),
-                                       renderer,
-                                       (GtkCellLayoutDataFunc)autocompletion_number_render,
-                                       NULL, NULL);
-    /* account renderer */
-    renderer = gtk_cell_renderer_text_new();
-    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(completion_area),
-                                 renderer,
-                                 TRUE,  /* expand */
-                                 TRUE,  /* align */
-                                 TRUE); /* fixed size */
-
-    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(completion_area),
-                                       renderer,
-                                       (GtkCellLayoutDataFunc)autocompletion_account_render,
-                                       NULL, NULL);
-
-    GtkEntryCompletion *entry_completion = gtk_entry_completion_new_with_area(completion_area);
-
-    GtkQTreeModel *completion_model = gtk_q_tree_model_new(
-        (QAbstractItemModel *)priv->q_completion_model,
-        1,
-        0, Qt::DisplayRole, G_TYPE_STRING);
-
-    gtk_entry_completion_set_model(entry_completion, GTK_TREE_MODEL(completion_model));
-
-    gtk_entry_set_completion(GTK_ENTRY(priv->search_entry), entry_completion);
-    gtk_entry_completion_set_match_func(
-        entry_completion,
-        (GtkEntryCompletionMatchFunc) completion_match_func,
-        NULL,
-        NULL);
-
     /* connect signal to when text is entered in the entry */
     g_signal_connect(priv->search_entry, "changed", G_CALLBACK(search_entry_text_changed), win);
-    g_signal_connect(entry_completion, "match-selected", G_CALLBACK(select_autocompletion), win);
+    // g_signal_connect(entry_completion, "match-selected", G_CALLBACK(select_autocompletion), win);
 
     /* make sure the incoming call is the selected call in the CallModel */
     QObject::connect(
         &CallModel::instance(),
         &CallModel::incomingCall,
         [](Call* call) {
+            // clear the regex to make sure the call is shown
+            RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp());
+
+            // now make sure its selected
+            RecentModel::instance().selectionModel()->clearCurrentIndex();
             CallModel::instance().selectCall(call);
         }
     );
