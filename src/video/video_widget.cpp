@@ -80,6 +80,8 @@ struct _VideoWidgetPrivate {
      */
     guint                    renderer_timeout_source;
     GAsyncQueue             *new_renderer_queue;
+
+    GtkWidget               *popup_menu;
 };
 
 struct _VideoWidgetRenderer {
@@ -151,6 +153,8 @@ video_widget_dispose(GObject *object)
         g_async_queue_unref(priv->new_renderer_queue);
         priv->new_renderer_queue = NULL;
     }
+
+    gtk_widget_destroy(priv->popup_menu);
 
     G_OBJECT_CLASS(video_widget_parent_class)->dispose(object);
 }
@@ -364,6 +368,8 @@ video_widget_init(VideoWidget *self)
     /* drag & drop files as video sources */
     gtk_drag_dest_set(GTK_WIDGET(self), GTK_DEST_DEFAULT_ALL, NULL, 0, (GdkDragAction)(GDK_ACTION_COPY | GDK_ACTION_PRIVATE));
     gtk_drag_dest_add_uri_targets(GTK_WIDGET(self));
+
+    priv->popup_menu = gtk_menu_new();
 }
 
 /*
@@ -476,23 +482,25 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
  * Handle button event in the video screen.
  */
 gboolean
-video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton *event, Call* call)
+video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton *event, Call* call)
 {
     /* check for right click */
     if (event->button != BUTTON_RIGHT_CLICK || event->type != GDK_BUTTON_PRESS)
         return FALSE;
 
-    /* create menu with available video sources */
-    GtkWidget *menu = gtk_menu_new();
+    /* update menu with available video sources */
+    auto priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    auto menu = priv->popup_menu;
+
+    gtk_container_forall(GTK_CONTAINER(menu), (GtkCallback)gtk_widget_destroy, nullptr);
 
     Video::SourceModel *sourcemodel = nullptr;
-    if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+    int active = -1;
+    if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT)) {
         sourcemodel = out_media->sourceModel();
-
-    if(!sourcemodel)
-        return FALSE;
-
-    auto active = sourcemodel->activeIndex();
+        active = sourcemodel->activeIndex();
+    }
+    /* if sourcemodel is null then we have no outgoing video */
 
     /* list available devices and check off the active device */
     auto device_list = Video::DeviceModel::instance().devices();
@@ -500,10 +508,14 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
     for( auto device: device_list) {
         GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(device->name().toLocal8Bit().constData());
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-        auto device_idx = sourcemodel->getDeviceIndex(device);
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device_idx == active);
-        g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY,call);
-        g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
+        if (sourcemodel) {
+            auto device_idx = sourcemodel->getDeviceIndex(device);
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device_idx == active);
+            g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY,call);
+            g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
+        } else {
+            gtk_widget_set_sensitive(item, FALSE);
+        }
     }
 
     /* add separator */
@@ -512,15 +524,23 @@ video_widget_on_button_press_in_screen_event(GtkWidget *parent,  GdkEventButton 
     /* add screen area as an input */
     GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(_("Share screen area"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
-    g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen), call);
+    if (sourcemodel) {
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
+        g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen), call);
+    } else {
+        gtk_widget_set_sensitive(item, FALSE);
+    }
 
     /* add file as an input */
     item = gtk_check_menu_item_new_with_mnemonic(_("Share file"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
-    g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
-    g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), parent);
+    if (sourcemodel) {
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
+        g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
+        g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), self);
+    } else {
+        gtk_widget_set_sensitive(item, FALSE);
+    }
 
     /* add separator */
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
