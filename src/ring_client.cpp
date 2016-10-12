@@ -113,6 +113,7 @@ struct _RingClientPrivate {
 #if USE_LIBNM
     /* NetworkManager */
     NMClient *nm_client;
+    NMActiveConnection *primary_connection;
 #endif
 
     /* notifications */
@@ -394,12 +395,19 @@ log_connection_info(NMActiveConnection *connection)
 }
 
 static void
-primary_connection_changed(NMClient *nm)
+primary_connection_changed(NMClient *nm,  GParamSpec*, RingClient *self)
 {
+    auto priv = RING_CLIENT_GET_PRIVATE(self);
     auto connection = nm_client_get_primary_connection(nm);
-    log_connection_info(connection);
 
-    AccountModel::instance().slotConnectivityChanged();
+    if (priv->primary_connection != connection) {
+        /* make sure the connection really changed
+         * on client start it seems to always emit the notify::primary-connection signal though it
+         * hasn't changed */
+        log_connection_info(connection);
+        priv->primary_connection = connection;
+        AccountModel::instance().slotConnectivityChanged();
+    }
 }
 
 static void
@@ -417,13 +425,14 @@ nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result, RingCli
 
         auto connection = nm_client_get_primary_connection(nm_client);
         log_connection_info(connection);
+        priv->primary_connection = connection;
 
         /* We monitor the primary connection and notify the daemon to re-load its connections
          * (accounts, UPnP, ...) when it changes. For example, on most systems, if we have an
          * ethernet connection and then also connect to wifi, the primary connection will not change;
          * however it will change in the opposite case because an ethernet connection is preferred.
          */
-        g_signal_connect(nm_client, "notify::primary-connection", G_CALLBACK(primary_connection_changed), nullptr);
+        g_signal_connect(nm_client, "notify::primary-connection", G_CALLBACK(primary_connection_changed), self);
 
     } else {
         g_warning("error initializing NetworkManager client: %s", error->message);
