@@ -76,6 +76,7 @@
     <child>
       <object class="GtkScrolledWindow" id="scrolledwindow_chat">
         <property name="visible">True</property>
+        <property name="min-content-height">100</property>
         <child>
           <object class="GtkTextView" id="textview_chat">
             <property name="visible">True</property>
@@ -84,7 +85,6 @@
             <property name="wrap-mode">word-char</property>
             <property name="left-margin">5</property>
             <property name="right-margin">5</property>
-            <property name="height-request">50</property>
           </object>
         </child>
       </object>

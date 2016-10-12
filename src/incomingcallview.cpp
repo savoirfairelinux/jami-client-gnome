@@ -29,6 +29,8 @@
 #include "native/pixbufmanipulator.h"
 #include <itemdataroles.h>
 #include <numbercategory.h>
+#include "chatview.h"
+#include "utils/files.h"
 
 struct _IncomingCallView
 {
@@ -44,6 +46,7 @@ typedef struct _IncomingCallViewPrivate IncomingCallViewPrivate;
 
 struct _IncomingCallViewPrivate
 {
+    GtkWidget *paned_call;
     GtkWidget *image_incoming;
     GtkWidget *label_name;
     GtkWidget *label_uri;
@@ -53,10 +56,13 @@ struct _IncomingCallViewPrivate
     GtkWidget *button_accept_incoming;
     GtkWidget *button_reject_incoming;
     GtkWidget *button_end_call;
+    GtkWidget *frame_chat;
 
     Call *call;
 
     QMetaObject::Connection state_change_connection;
+
+    GSettings *settings;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(IncomingCallView, incoming_call_view, GTK_TYPE_BOX);
@@ -64,7 +70,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(IncomingCallView, incoming_call_view, GTK_TYPE_BOX);
 #define INCOMING_CALL_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), INCOMING_CALL_VIEW_TYPE, IncomingCallViewPrivate))
 
 static void
-incoming_call_dispose(GObject *object)
+incoming_call_view_dispose(GObject *object)
 {
     IncomingCallView *view;
     IncomingCallViewPrivate *priv;
@@ -74,24 +80,53 @@ incoming_call_dispose(GObject *object)
 
     QObject::disconnect(priv->state_change_connection);
 
+    g_clear_object(&priv->settings);
+
     G_OBJECT_CLASS(incoming_call_view_parent_class)->dispose(object);
+}
+
+static gboolean
+map_boolean_to_orientation(GValue *value, GVariant *variant, G_GNUC_UNUSED gpointer user_data)
+{
+    if (g_variant_is_of_type(variant, G_VARIANT_TYPE_BOOLEAN)) {
+        if (g_variant_get_boolean(variant)) {
+            // true, chat should be horizontal (to the right)
+            g_value_set_enum(value, GTK_ORIENTATION_HORIZONTAL);
+        } else {
+            // false, chat should be vertical (at the bottom)
+            g_value_set_enum(value, GTK_ORIENTATION_VERTICAL);
+        }
+        return TRUE;
+    }
+    return FALSE;
 }
 
 static void
 incoming_call_view_init(IncomingCallView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
-    gtk_widget_add_events(GTK_WIDGET(view), GDK_KEY_PRESS_MASK);
+    // gtk_widget_add_events(GTK_WIDGET(view), GDK_KEY_PRESS_MASK);
+
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+
+    /* bind the chat orientation to the gsetting */
+    priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
+    g_settings_bind_with_mapping(priv->settings, "chat-pane-horizontal",
+                                 priv->paned_call, "orientation",
+                                 G_SETTINGS_BIND_GET,
+                                 map_boolean_to_orientation,
+                                 nullptr, nullptr, nullptr);
 }
 
 static void
 incoming_call_view_class_init(IncomingCallViewClass *klass)
 {
-    G_OBJECT_CLASS(klass)->dispose = incoming_call_dispose;
+    G_OBJECT_CLASS(klass)->dispose = incoming_call_view_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/incomingcallview.ui");
 
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, paned_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_name);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_uri);
@@ -101,6 +136,7 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_reject_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_end_call);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, frame_chat);
 }
 
 static void
@@ -190,6 +226,12 @@ set_call_info(IncomingCallView *view, Call *call) {
         &Call::stateChanged,
         [=]() { update_state(view, call); }
     );
+
+    /* show chat */
+    auto chat_view = chat_view_new_cm(priv->call->peerContactMethod());
+    gtk_widget_show(chat_view);
+    chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
+    gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
 }
 
 GtkWidget *
