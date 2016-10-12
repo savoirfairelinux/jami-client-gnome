@@ -534,3 +534,11 @@ chat_view_get_person(ChatView *self)
 
     return priv->person;
 }
+
+void
+chat_view_set_header_visible(ChatView *self, gboolean visible)
+{
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    gtk_widget_set_visible(priv->hbox_chat_info, visible);
+}

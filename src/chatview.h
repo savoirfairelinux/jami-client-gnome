@@ -45,6 +45,7 @@ GtkWidget     *chat_view_new_person (Person* p);
 Call          *chat_view_get_call   (ChatView*);
 ContactMethod *chat_view_get_cm     (ChatView*);
 Person        *chat_view_get_person (ChatView*);
+void           chat_view_set_header_visible(ChatView*, gboolean);
 
 G_END_DECLS
 
