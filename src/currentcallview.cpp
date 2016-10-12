@@ -164,7 +164,7 @@ chat_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
     }
 }
 
-gboolean
+static gboolean
 map_boolean_to_orientation(GValue *value, GVariant *variant, G_GNUC_UNUSED gpointer user_data)
 {
     if (g_variant_is_of_type(variant, G_VARIANT_TYPE_BOOLEAN)) {
