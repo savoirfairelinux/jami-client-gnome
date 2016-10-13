@@ -436,11 +436,11 @@ selection_changed(RingMainWindow *win)
 }
 
 static void
-search_entry_activated(GtkWidget *entry, RingMainWindow *self)
+search_entry_activated(RingMainWindow *self)
 {
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
-    const auto *number_entered = gtk_entry_get_text(GTK_ENTRY(entry));
+    const auto *number_entered = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
 
     if (number_entered && strlen(number_entered) > 0) {
         auto cm = PhoneDirectoryModel::instance().getNumber(number_entered);
@@ -458,7 +458,7 @@ search_entry_activated(GtkWidget *entry, RingMainWindow *self)
             // select cm
             RecentModel::instance().selectionModel()->setCurrentIndex(RecentModel::instance().getIndex(cm), QItemSelectionModel::ClearAndSelect);
         }
-        gtk_entry_set_text(GTK_ENTRY(entry), "");
+        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
     }
 }
 
@@ -1155,8 +1155,8 @@ ring_main_window_init(RingMainWindow *win)
     auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
     g_signal_connect(selection_history, "changed", G_CALLBACK(history_selection_changed), win);
 
-    g_signal_connect(priv->button_new_conversation, "clicked", G_CALLBACK(search_entry_activated), win);
-    g_signal_connect(priv->search_entry, "activate", G_CALLBACK(search_entry_activated), win);
+    g_signal_connect_swapped(priv->button_new_conversation, "clicked", G_CALLBACK(search_entry_activated), win);
+    g_signal_connect_swapped(priv->search_entry, "activate", G_CALLBACK(search_entry_activated), win);
 
     /* autocompletion */
     priv->q_completion_model = new NumberCompletionModel();
