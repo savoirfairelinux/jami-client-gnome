@@ -119,7 +119,7 @@
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">To proceed with the migration, you must choose a password for your account. This password will be used to encrypt your master key. It will be required for adding new devices to your Ring account. If you are not ready to choose a password, you may close Ring and resume the migration later.</property>
+                    <property name="label" translatable="yes">To proceed with the migration, you must choose a password for your account. This password will be used to encrypt your master key. It will be required for adding new devices to your Ring account. If you are not ready to choose a password, you may close Ring and resume the migration later. Note that all acounts will be enabled after the migration.</property>
                     <property name="halign">center</property>
                     <property name="max-width-chars">80</property>
                     <property name="wrap">True</property>
