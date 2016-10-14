@@ -65,6 +65,7 @@ struct _AccountViewPrivate
     GtkWidget *combobox_account_type;
     GtkWidget *button_import_account;
     GtkWidget *button_export_account;
+    GtkWidget *account_creation_wizard;
 
     gint current_page; /* keeps track of current notebook page displayed */
 
@@ -337,22 +338,18 @@ show_account_creation_wizard(AccountView *view)
 
     auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_account));
 
-    auto account_creation_wizard = gtk_stack_get_child_by_name(
-        GTK_STACK(priv->stack_account),
-        ACCOUNT_CREATION_WIZARD_VIEW_NAME
-    );
-
-    if (!account_creation_wizard)
+    if (!priv->account_creation_wizard)
     {
-        account_creation_wizard = account_creation_wizard_new(true);
+        priv->account_creation_wizard = account_creation_wizard_new(true);
+        g_object_add_weak_pointer(G_OBJECT(priv->account_creation_wizard), (gpointer *)&priv->account_creation_wizard);
         gtk_stack_add_named(GTK_STACK(priv->stack_account),
-                            account_creation_wizard,
+                            priv->account_creation_wizard,
                             ACCOUNT_CREATION_WIZARD_VIEW_NAME);
-        g_signal_connect_swapped(account_creation_wizard, "account-creation-completed", G_CALLBACK(hide_account_creation_wizard), view);
-        g_signal_connect_swapped(account_creation_wizard, "account-creation-canceled", G_CALLBACK(hide_account_creation_wizard), view);
+        g_signal_connect_swapped(priv->account_creation_wizard, "account-creation-completed", G_CALLBACK(hide_account_creation_wizard), view);
+        g_signal_connect_swapped(priv->account_creation_wizard, "account-creation-canceled", G_CALLBACK(hide_account_creation_wizard), view);
     }
 
-    gtk_widget_show(account_creation_wizard);
+    gtk_widget_show(priv->account_creation_wizard);
 
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_account), ACCOUNT_CREATION_WIZARD_VIEW_NAME);
 
