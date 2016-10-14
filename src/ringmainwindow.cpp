@@ -1027,7 +1027,7 @@ handle_account_migrations(RingMainWindow *win)
     if (!accounts.isEmpty())
     {
         Account* account = accounts.first();
-        g_debug("Migrating account: %s", account->id().toStdString().c_str());
+        g_debug("Migrating account: %s", account->id().constData());
 
         GtkWidget* account_migration_view = account_migration_view_new(account);
         g_signal_connect_swapped(account_migration_view, "account-migration-completed", G_CALLBACK(handle_account_migrations), win);
