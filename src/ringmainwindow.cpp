@@ -122,6 +122,8 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_general_settings;
     GtkWidget *radiobutton_media_settings;
     GtkWidget *radiobutton_account_settings;
+    GtkWidget *account_creation_wizard;
+    GtkWidget *account_migration_view;
 
     QMetaObject::Connection selected_item_changed;
     QMetaObject::Connection selected_call_over;
@@ -589,14 +591,10 @@ on_account_creation_completed(RingMainWindow *win)
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
 
     /* destroy the wizard */
-    GtkWidget* account_creation_wizard = gtk_stack_get_child_by_name(
-        GTK_STACK(priv->stack_main_view),
-        ACCOUNT_CREATION_WIZARD_VIEW_NAME
-    );
-    if (account_creation_wizard)
+    if (priv->account_creation_wizard)
     {
-        gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), account_creation_wizard);
-        gtk_widget_destroy(account_creation_wizard);
+        gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), priv->account_creation_wizard);
+        gtk_widget_destroy(priv->account_creation_wizard);
     }
 
     /* show the settings button*/
@@ -608,27 +606,22 @@ show_account_creation_wizard(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
-    auto account_creation_wizard = gtk_stack_get_child_by_name(
-        GTK_STACK(priv->stack_main_view),
-        ACCOUNT_CREATION_WIZARD_VIEW_NAME
-    );
-
-    if (!account_creation_wizard)
+    if (!priv->account_creation_wizard)
     {
-        account_creation_wizard = account_creation_wizard_new(false);
-        g_signal_connect_swapped(account_creation_wizard, "account-creation-completed", G_CALLBACK(on_account_creation_completed), win);
+        priv->account_creation_wizard = account_creation_wizard_new(false);
+        g_signal_connect_swapped(priv->account_creation_wizard, "account-creation-completed", G_CALLBACK(on_account_creation_completed), win);
 
         gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
-                            account_creation_wizard,
+                            priv->account_creation_wizard,
                             ACCOUNT_CREATION_WIZARD_VIEW_NAME);
     }
 
     /* hide settings button until account creation is complete */
     gtk_widget_hide(priv->ring_settings);
 
-    gtk_widget_show(account_creation_wizard);
+    gtk_widget_show(priv->account_creation_wizard);
 
-    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_CREATION_WIZARD_VIEW_NAME);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->account_creation_wizard);
 }
 
 static void
@@ -1017,10 +1010,10 @@ handle_account_migrations(RingMainWindow *win)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
     /* If there is an existing migration view, remove it */
-    GtkWidget* old_view = gtk_stack_get_child_by_name(GTK_STACK(priv->stack_main_view), ACCOUNT_MIGRATION_VIEW_NAME);
-    if (old_view)
+    if (priv->account_migration_view)
     {
-        gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), old_view);
+        gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), priv->account_migration_view);
+        gtk_widget_destroy(priv->account_creation_wizard);
     }
 
     QList<Account*> accounts = AccountModel::instance().accountsToMigrate();
@@ -1029,15 +1022,15 @@ handle_account_migrations(RingMainWindow *win)
         Account* account = accounts.first();
         g_debug("Migrating account: %s", account->id().constData());
 
-        GtkWidget* account_migration_view = account_migration_view_new(account);
-        g_signal_connect_swapped(account_migration_view, "account-migration-completed", G_CALLBACK(handle_account_migrations), win);
-        g_signal_connect_swapped(account_migration_view, "account-migration-failed", G_CALLBACK(handle_account_migrations), win);
+        priv->account_migration_view = account_migration_view_new(account);
+        g_signal_connect_swapped(priv->account_migration_view, "account-migration-completed", G_CALLBACK(handle_account_migrations), win);
+        g_signal_connect_swapped(priv->account_migration_view, "account-migration-failed", G_CALLBACK(handle_account_migrations), win);
 
         gtk_widget_hide(priv->ring_settings);
-        gtk_widget_show(account_migration_view);
+        gtk_widget_show(priv->account_migration_view);
         gtk_stack_add_named(
             GTK_STACK(priv->stack_main_view),
-            account_migration_view,
+            priv->account_migration_view,
             ACCOUNT_MIGRATION_VIEW_NAME
         );
         gtk_stack_set_visible_child_name(
