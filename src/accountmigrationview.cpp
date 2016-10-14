@@ -186,9 +186,6 @@ migrate_account_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationView *v
     {
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_migration), priv->migrating_account_view);
 
-        priv->account->setArchivePassword(password);
-        priv->account->performAction(Account::EditAction::SAVE);
-
         // Timeout in 30 seconds
         priv->timeout_tag = g_timeout_add_full(G_PRIORITY_DEFAULT, 30000, (GSourceFunc)migration_timeout, view, NULL);
 
@@ -221,6 +218,9 @@ migrate_account_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationView *v
                 }
             }
         );
+
+        priv->account->setArchivePassword(password);
+        priv->account->performAction(Account::EditAction::SAVE);
 
     }
 }
