@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_8e4d2a75",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T19:27:42Z",
+      "side": 1,
+      "message": "hmm, with this approach, if there is no photo set, the we have to image at all... is this what we want? If you use the contactPhoto() and related pixmapManipulator functions, then it will give you a pixbuf with the default avatar, maybe then you could get a bytarray from that and then there would always be an image, at least a default one... anyways, not critical to do right away...",
+      "range": {
+        "startLine": 499,
+        "startChar": 41,
+        "endLine": 499,
+        "endChar": 115
+      },
+      "revId": "41e2fa41bff9a1b99abbd70f3cddf2113d2d92de",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
