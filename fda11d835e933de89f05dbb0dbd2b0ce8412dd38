@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_33b6eb8b",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T18:25:44Z",
+      "side": 1,
+      "message": "should be deleted... otherwise needs a comment as to why this is commented out...",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 118
+      },
+      "revId": "fda11d835e933de89f05dbb0dbd2b0ce8412dd38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_53bb6f72",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T18:25:44Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 70
+      },
+      "revId": "fda11d835e933de89f05dbb0dbd2b0ce8412dd38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_13ade731",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T18:25:44Z",
+      "side": 1,
+      "message": "do you need the explicit QString() here? I think a string literal as well as a char* will get automatically converted to a QString since those are all valid QString constructors:\nhttp://doc.qt.io/qt-5/qstring.html",
+      "range": {
+        "startLine": 257,
+        "startChar": 95,
+        "endLine": 257,
+        "endChar": 102
+      },
+      "revId": "fda11d835e933de89f05dbb0dbd2b0ce8412dd38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_7363131b",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T18:25:44Z",
+      "side": 1,
+      "message": "should be wrapped in a translation macro, eg: _(\"failure\"), or even better with a tr comment, eg: C_(\"chat message status\", \"failure\"), to make the context clear for translators\n\nalso, make sure to #include \u003cglib/gi18n.h\u003e and add this file to the list of files to be translated in po/POTFILES.in",
+      "range": {
+        "startLine": 263,
+        "startChar": 72,
+        "endLine": 263,
+        "endChar": 81
+      },
+      "revId": "fda11d835e933de89f05dbb0dbd2b0ce8412dd38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_d3a67f53",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T18:25:44Z",
+      "side": 1,
+      "message": "same comment about the QString()",
+      "range": {
+        "startLine": 263,
+        "startChar": 64,
+        "endLine": 263,
+        "endChar": 71
+      },
+      "revId": "fda11d835e933de89f05dbb0dbd2b0ce8412dd38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_9368f7f6",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T18:25:44Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 273,
+        "startChar": 64,
+        "endLine": 273,
+        "endChar": 82
+      },
+      "revId": "fda11d835e933de89f05dbb0dbd2b0ce8412dd38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_336d8b05",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T18:25:44Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 278,
+        "startChar": 64,
+        "endLine": 278,
+        "endChar": 82
+      },
+      "revId": "fda11d835e933de89f05dbb0dbd2b0ce8412dd38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_53728fe6",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T18:25:44Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 283,
+        "startChar": 64,
+        "endLine": 283,
+        "endChar": 79
+      },
+      "revId": "fda11d835e933de89f05dbb0dbd2b0ce8412dd38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_f37623d8",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T18:25:44Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 288,
+        "startChar": 64,
+        "endLine": 288,
+        "endChar": 79
+      },
+      "revId": "fda11d835e933de89f05dbb0dbd2b0ce8412dd38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_137407ce",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T18:25:44Z",
+      "side": 1,
+      "message": "why not just call the print_message_to_buffer() function from here, which does the same thing?",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 9
+      },
+      "revId": "fda11d835e933de89f05dbb0dbd2b0ce8412dd38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_b3809b8c",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T18:25:44Z",
+      "side": 1,
+      "message": "g_error causes an abort(), we pretty much never want to do this:\nhttps://developer.gnome.org/glib/unstable/glib-Message-Logging.html#g-error",
+      "range": {
+        "startLine": 648,
+        "startChar": 12,
+        "endLine": 648,
+        "endChar": 19
+      },
+      "revId": "fda11d835e933de89f05dbb0dbd2b0ce8412dd38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_5317ef51",
+        "filename": "ui/chatview.ui",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-17T18:25:44Z",
+      "side": 1,
+      "message": "I\u0027m wondering if it would make sense to use one global WebKitWebView instead of instantiating a new one for every chat view, for performance reasons...\n\nEg: we could init a webview in the ringmainwindow and then pass it to a chat view as a param each time we create a new one, and it would then clear and reprint the contents... that way we wouldn\u0027t have to init a new webview and load the js libs every time (not sure if there is some internal optimisation in the gtkwebview that speeds this up)",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 58
+      },
+      "revId": "fda11d835e933de89f05dbb0dbd2b0ce8412dd38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
