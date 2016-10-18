@@ -606,7 +606,7 @@ show_account_creation_wizard(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
-    if (priv->account_creation_wizard)
+    if (!priv->account_creation_wizard)
     {
         priv->account_creation_wizard = account_creation_wizard_new(false);
         g_object_add_weak_pointer(G_OBJECT(priv->account_creation_wizard), (gpointer *)&priv->account_creation_wizard);
