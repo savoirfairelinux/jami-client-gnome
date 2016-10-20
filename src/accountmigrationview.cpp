@@ -95,6 +95,15 @@ static guint account_migration_view_signals[LAST_SIGNAL] = { 0 };
 static void
 account_migration_view_dispose(GObject *object)
 {
+    auto priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(object);
+
+    // make sure to disconnect from all signals when disposing of view
+    QObject::disconnect(priv->state_changed);
+
+    if (priv->timeout_tag) {
+        g_source_remove(priv->timeout_tag);
+        priv->timeout_tag = 0;
+    }
     G_OBJECT_CLASS(account_migration_view_parent_class)->dispose(object);
 }
 
@@ -155,7 +164,9 @@ static gboolean
 migration_timeout(AccountMigrationView *view)
 {
     AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
+    g_warning("timout reached while migrating account %s", priv->account->id().constData());
     QObject::disconnect(priv->state_changed);
+    priv->timeout_tag = 0;
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_migration), priv->error_view);
     return G_SOURCE_REMOVE;
 }
@@ -163,7 +174,6 @@ migration_timeout(AccountMigrationView *view)
 static void
 button_error_view_ok_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationView *view)
 {
-    AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
     g_signal_emit(G_OBJECT(view), account_migration_view_signals[ACCOUNT_MIGRATION_FAILED], 0);
 }
 
@@ -199,12 +209,15 @@ migrate_account_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationView *v
                     case Account::RegistrationState::TRYING:
                     case Account::RegistrationState::UNREGISTERED:
                     {
+                        // disconnect before calling reload, since that will cause and account state change
+                        QObject::disconnect(priv->state_changed); // only want to emit once
+
+                        g_source_remove(priv->timeout_tag); // We didn't timeout
+                        priv->timeout_tag = 0;
+
                         // Make sure that the account is ready to be displayed.
                         priv->account << Account::EditAction::RELOAD;
 
-                        AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
-                        QObject::disconnect(priv->state_changed); // only want to emit once
-                        g_source_remove(priv->timeout_tag); // We didn't timeout
                         g_signal_emit(G_OBJECT(view), account_migration_view_signals[ACCOUNT_MIGRATION_COMPLETED], 0);
                         break;
                     }
