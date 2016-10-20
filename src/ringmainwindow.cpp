@@ -1013,17 +1013,16 @@ handle_account_migrations(RingMainWindow *win)
     /* If there is an existing migration view, remove it */
     if (priv->account_migration_view)
     {
-        gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), priv->account_migration_view);
+        gtk_widget_destroy(priv->account_migration_view);
+        priv->account_migration_view = nullptr;
     }
 
     QList<Account*> accounts = AccountModel::instance().accountsToMigrate();
     if (!accounts.isEmpty())
     {
         Account* account = accounts.first();
-        g_debug("Migrating account: %s", account->id().constData());
 
         priv->account_migration_view = account_migration_view_new(account);
-        g_object_add_weak_pointer(G_OBJECT(priv->account_migration_view), (gpointer *)&priv->account_migration_view);
         g_signal_connect_swapped(priv->account_migration_view, "account-migration-completed", G_CALLBACK(handle_account_migrations), win);
         g_signal_connect_swapped(priv->account_migration_view, "account-migration-failed", G_CALLBACK(handle_account_migrations), win);
 
