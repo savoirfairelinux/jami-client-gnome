@@ -126,7 +126,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     }
 
     /* welcome text */
-    auto label_welcome_text = gtk_label_new(_("Ring is a secure and distributed voice, video, and chat communication platform that requires no centralized server and leaves the power of privacy in the hands of the user."));
+    auto label_welcome_text = gtk_label_new(_("GNU Ring is free software for universal communication which respects the freedoms and privacy of its users."));
     gtk_label_set_justify(GTK_LABEL(label_welcome_text), GTK_JUSTIFY_CENTER);
     gtk_widget_override_font(label_welcome_text, pango_font_description_from_string("12"));
     gtk_label_set_line_wrap(GTK_LABEL(label_welcome_text), TRUE);
