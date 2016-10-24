@@ -63,6 +63,7 @@ update_view(RingWelcomeView *self) {
     auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
 
     auto account = get_active_ring_account();
+    account << Account::EditAction::RELOAD;
     if (account != nullptr) {
         gchar *ring_id = nullptr;
         if (!account->username().isEmpty()) {
@@ -196,8 +197,8 @@ ring_welcome_view_init(RingWelcomeView *self)
 
     priv->account_registration_changed = QObject::connect(
         &AccountModel::instance(),
-        &AccountModel::registrationChanged,
-        [self] (Account*, bool) { update_view(self); }
+        &AccountModel::accountStateChanged,
+        [self] (Account*, Account::RegistrationState) { update_view(self); }
     );
 
     gtk_widget_show_all(GTK_WIDGET(self));
