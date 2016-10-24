@@ -46,9 +46,7 @@ struct _RingWelcomeViewPrivate
     GtkWidget *button_qrcode;
     GtkWidget *revealer_qrcode;
 
-    QMetaObject::Connection account_list_updated;
-    QMetaObject::Connection account_enabled_changed;
-    QMetaObject::Connection account_registration_changed;
+    QMetaObject::Connection account_model_data_changed;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_SCROLLED_WINDOW);
@@ -182,22 +180,10 @@ ring_welcome_view_init(RingWelcomeView *self)
 
     update_view(self);
 
-    priv->account_list_updated = QObject::connect(
+    priv->account_model_data_changed = QObject::connect(
         &AccountModel::instance(),
-        &AccountModel::accountListUpdated,
-        [self] () { update_view(self); }
-    );
-
-    priv->account_enabled_changed = QObject::connect(
-        &AccountModel::instance(),
-        &AccountModel::accountEnabledChanged,
-        [self] (Account*) { update_view(self); }
-    );
-
-    priv->account_registration_changed = QObject::connect(
-        &AccountModel::instance(),
-        &AccountModel::registrationChanged,
-        [self] (Account*, bool) { update_view(self); }
+        &AccountModel::dataChanged,
+        [self] (const QModelIndex&, const QModelIndex&) { update_view(self); }
     );
 
     gtk_widget_show_all(GTK_WIDGET(self));
@@ -209,9 +195,7 @@ ring_welcome_view_dispose(GObject *object)
     RingWelcomeView *self = RING_WELCOME_VIEW(object);
     RingWelcomeViewPrivate *priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
 
-    QObject::disconnect(priv->account_list_updated);
-    QObject::disconnect(priv->account_enabled_changed);
-    QObject::disconnect(priv->account_registration_changed);
+    QObject::disconnect(priv->account_model_data_changed);
 
     G_OBJECT_CLASS(ring_welcome_view_parent_class)->dispose(object);
 }
