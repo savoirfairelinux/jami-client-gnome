@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_df02fe0a",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-24T16:54:32Z",
+      "side": 1,
+      "message": "Why does this need to be done? If we have to force a reload client side, it seems like its hiding a bug either in LRC (eg: its not properly parsing info from the daemon) or in the daemon (its not updating us about changes in the account)...\n\nThe purpose of the RELOAD action is to basically undo any unsaved changes (ie: account changes not passed to the daemon). What if the state changes while the user is modifying the account settings, this will cause those changes to be lost (assuming that code works correctly).\n\nNow that I think about it, the fact that we call RELOAD during account creation/migration is a bug as well.",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "a96a9751809df3cff8a5ccedd92b03fed10d6b16",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
