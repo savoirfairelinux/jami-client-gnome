@@ -298,3 +298,9 @@ switch_qrcode(RingWelcomeView* self)
     gtk_revealer_set_reveal_child(GTK_REVEALER(priv->revealer_qrcode), to_reveal);
     gtk_widget_set_opacity(priv->box_overlay, to_reveal ? 0.25 : 1.0);
 }
+
+void
+ring_welcome_view_update(RingWelcomeView* self)
+{
+    update_view(self);
+}

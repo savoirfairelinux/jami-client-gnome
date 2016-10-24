@@ -587,6 +587,9 @@ on_account_creation_completed(RingMainWindow *win)
     g_return_if_fail(IS_RING_MAIN_WINDOW(win));
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
+    /* update the ring welcome view to include the RingID */
+    ring_welcome_view_update(RING_WELCOME_VIEW(priv->welcome_view));
+
     gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
 
@@ -1015,6 +1018,9 @@ handle_account_migrations(RingMainWindow *win)
     {
         gtk_widget_destroy(priv->account_migration_view);
         priv->account_migration_view = nullptr;
+
+        /* update the ring welcome view to include the RingID */
+        ring_welcome_view_update(RING_WELCOME_VIEW(priv->welcome_view));
     }
 
     QList<Account*> accounts = AccountModel::instance().accountsToMigrate();
