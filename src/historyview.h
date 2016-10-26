@@ -35,6 +35,7 @@ typedef struct _HistoryViewClass HistoryViewClass;
 
 GType      history_view_get_type (void) G_GNUC_CONST;
 GtkWidget *history_view_new      (void);
+void       history_view_set_filter_string(HistoryView *, const char*);
 
 G_END_DECLS
 
