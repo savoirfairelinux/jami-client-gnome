@@ -305,6 +305,8 @@ SET( SRC_FILES
    src/contactpopupmenu.cpp
    src/cc-crop-area.h
    src/cc-crop-area.c
+   src/models/namenumberfilterproxymodel.h
+   src/models/namenumberfilterproxymodel.cpp
 )
 
 # compile glib resource files to c code

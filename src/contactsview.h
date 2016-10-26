@@ -35,6 +35,7 @@ typedef struct _ContactsViewClass ContactsViewClass;
 
 GType      contacts_view_get_type  (void) G_GNUC_CONST;
 GtkWidget *contacts_view_new       (void);
+void       contacts_view_set_filter_string(ContactsView *, const char*);
 // void       contact_view_set_sorting(ContactsView *self, int sort);
 
 G_END_DECLS
