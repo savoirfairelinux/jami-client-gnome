@@ -317,7 +317,17 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
         proxy_model,
         &QAbstractItemModel::rowsAboutToBeMoved,
         [=](const QModelIndex & sourceParent, int sourceStart, int sourceEnd,
-            const QModelIndex & destinationParent, G_GNUC_UNUSED int destinationRow) {
+            const QModelIndex & destinationParent, int destinationRow) {
+
+            /* detect if the source or destination rows are out of bounds (due to some incosistency)
+             * in order to prevent crash */
+            auto max_row = proxy_model->rowCount(sourceParent) - 1;
+            auto destinationEndRow = destinationRow + (sourceEnd - sourceStart);
+            if (sourceStart > max_row || sourceEnd > max_row || destinationRow > max_row || destinationEndRow > max_row) {
+                g_critical("rowsMoved: rows being moved inconsistent with number of rows in the model");
+                return;
+            }
+
             /* if the sourceParent and the destinationParent are the same, then we can use the
              * GtkTreeModel API to move the rows, otherwise we must first delete them and then
              * re-insert them under the new parent */
@@ -343,6 +353,16 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
         &QAbstractItemModel::rowsMoved,
         [=](const QModelIndex & sourceParent, int sourceStart, int sourceEnd,
             const QModelIndex & destinationParent, int destinationRow) {
+
+            /* detect if the source or destination rows are out of bounds (due to some incosistency)
+             * in order to prevent crash */
+            auto max_row = proxy_model->rowCount(sourceParent) - 1;
+            auto destinationEndRow = destinationRow + (sourceEnd - sourceStart);
+            if (sourceStart > max_row || sourceEnd > max_row || destinationRow > max_row || destinationEndRow > max_row) {
+                g_critical("rowsMoved: rows being moved inconsistent with number of rows in the model");
+                return;
+            }
+
             /* if the sourceParent and the destinationParent are the same, then we can use the
              * GtkTreeModel API to move the rows, otherwise we must first delete them and then
              * re-insert them under the new parent */
