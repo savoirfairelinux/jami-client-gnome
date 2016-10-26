@@ -34,6 +34,7 @@
 #include <QtCore/QItemSelectionModel>
 #include "numbercategory.h"
 #include "contactpopupmenu.h"
+#include "models/namenumberfilterproxymodel.h"
 
 struct _ContactsView
 {
@@ -51,7 +52,8 @@ struct _ContactsViewPrivate
 {
     GtkWidget *popup_menu;
 
-    CategorizedContactModel::SortedProxy *q_sorted_proxy;
+    NameNumberFilterProxy *filterproxy;
+    QMetaObject::Connection expand_inserted_row;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ContactsView, contacts_view, GTK_TYPE_TREE_VIEW);
@@ -189,16 +191,6 @@ render_name_and_contact_method(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 }
 
 static void
-expand_if_child(G_GNUC_UNUSED GtkTreeModel *tree_model,
-                GtkTreePath  *path,
-                G_GNUC_UNUSED GtkTreeIter  *iter,
-                GtkTreeView  *treeview)
-{
-    if (gtk_tree_path_get_depth(path) == 2)
-        gtk_tree_view_expand_to_path(treeview, path);
-}
-
-static void
 activate_contact_item(GtkTreeView *tree_view,
                       GtkTreePath *path,
                       G_GNUC_UNUSED GtkTreeViewColumn *column,
@@ -263,19 +255,22 @@ contacts_view_init(ContactsView *self)
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(self), FALSE);
 
     /* initial set up to be categorized by name and sorted alphabetically */
-    priv->q_sorted_proxy = &CategorizedContactModel::SortedProxy::instance();
+    auto q_sorted_proxy = &CategorizedContactModel::SortedProxy::instance();
     CategorizedContactModel::instance().setUnreachableHidden(true);
 
     /* for now we always want to sort by ascending order */
-    priv->q_sorted_proxy->model()->sort(0);
+    q_sorted_proxy->model()->sort(0);
 
     /* select default category (the first one, which is by name) */
-    priv->q_sorted_proxy->categorySelectionModel()->setCurrentIndex(
-        priv->q_sorted_proxy->categoryModel()->index(0, 0),
+    q_sorted_proxy->categorySelectionModel()->setCurrentIndex(
+        q_sorted_proxy->categoryModel()->index(0, 0),
         QItemSelectionModel::ClearAndSelect);
 
+    // filtering
+    priv->filterproxy = new NameNumberFilterProxy(q_sorted_proxy->model());
+
     GtkQTreeModel *contact_model = gtk_q_tree_model_new(
-        priv->q_sorted_proxy->model(),
+        priv->filterproxy,
         1,
         0, Qt::DisplayRole, G_TYPE_STRING);
     gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(contact_model));
@@ -312,8 +307,43 @@ contacts_view_init(ContactsView *self)
     gtk_tree_view_column_set_resizable(column, TRUE);
 
     gtk_tree_view_expand_all(GTK_TREE_VIEW(self));
-    g_signal_connect(contact_model, "row-inserted", G_CALLBACK(expand_if_child), self);
     g_signal_connect(self, "row-activated", G_CALLBACK(activate_contact_item), NULL);
+
+    priv->expand_inserted_row = QObject::connect(
+        priv->filterproxy,
+        &QAbstractItemModel::rowsInserted,
+        [self, priv, contact_model](const QModelIndex & parent, int first, int last) {
+            for( int row = first; row <= last; row++) {
+                auto idx = priv->filterproxy->index(row, 0, parent);
+
+                // we want to expand all Categories, but not the contacts
+                if (!parent.isValid()) {
+                    // category, exand any children (contacts)
+                    auto children = priv->filterproxy->rowCount(idx);
+                    for (int child_row = 0; child_row < children; ++child_row) {
+                        auto child_idx = priv->filterproxy->index(child_row, 0, idx);
+                        GtkTreeIter iter;
+                        if (gtk_q_tree_model_source_index_to_iter(contact_model, child_idx, &iter)) {
+                            GtkTreePath *path = gtk_tree_model_get_path(GTK_TREE_MODEL(contact_model), &iter);
+                            gtk_tree_view_expand_to_path(GTK_TREE_VIEW(self), path);
+                            gtk_tree_path_free(path);
+                        }
+                    }
+                } else {
+                    // contact or ContactMethod; we only want to expand to the contact
+                    GtkTreeIter iter;
+                    if (gtk_q_tree_model_source_index_to_iter(contact_model, idx, &iter)) {
+                        GtkTreePath *path = gtk_tree_model_get_path(GTK_TREE_MODEL(contact_model), &iter);
+
+                        if (gtk_tree_path_get_depth(path) == 2) {
+                            gtk_tree_view_expand_to_path(GTK_TREE_VIEW(self), path);
+                        }
+                        gtk_tree_path_free(path);
+                    }
+                }
+            }
+        }
+    );
 
     /* init popup menu */
     priv->popup_menu = contact_popup_menu_new(GTK_TREE_VIEW(self));
@@ -327,6 +357,7 @@ contacts_view_dispose(GObject *object)
 {
     ContactsViewPrivate *priv = CONTACTS_VIEW_GET_PRIVATE(object);
 
+    QObject::disconnect(priv->expand_inserted_row);
     gtk_widget_destroy(priv->popup_menu);
 
     G_OBJECT_CLASS(contacts_view_parent_class)->dispose(object);
@@ -351,4 +382,11 @@ contacts_view_new()
     gpointer self = g_object_new(CONTACTS_VIEW_TYPE, NULL);
 
     return (GtkWidget *)self;
+}
+
+void
+contacts_view_set_filter_string(ContactsView *self, const char* text)
+{
+    ContactsViewPrivate *priv = CONTACTS_VIEW_GET_PRIVATE(self);
+    priv->filterproxy->setFilterRegExp(QRegExp(text, Qt::CaseInsensitive, QRegExp::FixedString));
 }

@@ -36,6 +36,7 @@
 #include <QtCore/QItemSelectionModel>
 #include "utils/menus.h"
 #include "contactpopupmenu.h"
+#include "models/namenumberfilterproxymodel.h"
 
 struct _HistoryView
 {
@@ -53,7 +54,7 @@ struct _HistoryViewPrivate
 {
     GtkWidget *popup_menu;
 
-    CategorizedHistoryModel::SortedProxy *q_sorted_proxy;
+    NameNumberFilterProxy *filterproxy;
     QMetaObject::Connection category_changed;
 };
 
@@ -264,17 +265,20 @@ history_view_init(HistoryView *self)
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(self), FALSE);
 
     /* instantiate history proxy model */
-    priv->q_sorted_proxy = &CategorizedHistoryModel::SortedProxy::instance();
+    auto q_sorted_proxy = &CategorizedHistoryModel::SortedProxy::instance();
 
     /* select default category (the first one, which is by date) */
-    priv->q_sorted_proxy->categorySelectionModel()->setCurrentIndex(
-        priv->q_sorted_proxy->categoryModel()->index(0, 0),
+    q_sorted_proxy->categorySelectionModel()->setCurrentIndex(
+        q_sorted_proxy->categoryModel()->index(0, 0),
         QItemSelectionModel::ClearAndSelect);
     /* make sure it is sorted so that newest calls are at the top */
-    priv->q_sorted_proxy->model()->sort(0, Qt::AscendingOrder);
+    q_sorted_proxy->model()->sort(0, Qt::AscendingOrder);
+
+    /* filter for name and number */
+    priv->filterproxy = new NameNumberFilterProxy(q_sorted_proxy->model());
 
     GtkQTreeModel *history_model = gtk_q_tree_model_new(
-        priv->q_sorted_proxy->model(),
+        priv->filterproxy,
         5,
         0, Qt::DisplayRole, G_TYPE_STRING,
         0, Call::Role::Number, G_TYPE_STRING,
@@ -387,4 +391,19 @@ history_view_new()
     gpointer self = g_object_new(HISTORY_VIEW_TYPE, NULL);
 
     return (GtkWidget *)self;
+}
+
+void
+history_view_set_filter_string(HistoryView *self, const char *text)
+{
+    auto priv = HISTORY_VIEW_GET_PRIVATE(self);
+
+    priv->filterproxy->setFilterRegExp(QRegExp(text, Qt::CaseInsensitive, QRegExp::FixedString));
+
+    // if filtering, expand all categories so we can see the calls
+    // otherwise collapse all
+    if (text && strlen(text) > 0)
+        gtk_tree_view_expand_all(GTK_TREE_VIEW(self));
+    else
+        gtk_tree_view_collapse_all(GTK_TREE_VIEW(self));
 }
