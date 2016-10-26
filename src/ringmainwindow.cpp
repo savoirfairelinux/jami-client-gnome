@@ -623,12 +623,15 @@ show_account_creation_wizard(RingMainWindow *win)
 }
 
 static void
-search_entry_text_changed(GtkEditable *search_entry, RingMainWindow *)
+search_entry_text_changed(GtkEditable *search_entry, RingMainWindow *self)
 {
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+
     /* get the text from the entry */
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(search_entry));
 
     RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp(text, Qt::CaseInsensitive, QRegExp::FixedString));
+    contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts), text);
 }
 
 static gboolean

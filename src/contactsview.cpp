@@ -35,6 +35,67 @@
 #include "numbercategory.h"
 #include "contactpopupmenu.h"
 
+class NameNumberFilterProxy : public QSortFilterProxyModel
+{
+public:
+    NameNumberFilterProxy(QAbstractItemModel* source_model);
+
+    virtual bool filterAcceptsRow ( int source_row, const QModelIndex & source_parent ) const override;
+
+};
+
+NameNumberFilterProxy::NameNumberFilterProxy(QAbstractItemModel* sourceModel)
+{
+    setParent(sourceModel);
+    setSourceModel(sourceModel);
+}
+
+bool
+NameNumberFilterProxy::filterAcceptsRow(int source_row, const QModelIndex & source_parent) const
+{
+    //we don't filter on top nodes, since those are categories
+    if (!source_parent.isValid() || filterRegExp().isEmpty())
+        return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
+    else {
+        auto idx = sourceModel()->index(source_row, 0);
+
+        //we want to filter on name and number; note that Person object may have many numbers
+        if (idx.data(static_cast<int>(Ring::Role::Name)).toString().contains(filterRegExp())) {
+            return true;
+        } else {
+            auto type = idx.data(static_cast<int>(Ring::Role::ObjectType)).value<Ring::ObjectType>();
+            auto object = idx.data(static_cast<int>(Ring::Role::Object));
+
+            switch (type) {
+                case Ring::ObjectType::Person:
+                {
+                    auto p = object.value<Person *>();
+                    for (auto cm : p->phoneNumbers()) {
+                        if (cm->uri().full().contains(filterRegExp()))
+                            return true;
+                    }
+                    return false;
+                }
+                break;
+                case Ring::ObjectType::ContactMethod:
+                {
+                    auto cm = object.value<ContactMethod *>();
+                    return cm->uri().full().contains(filterRegExp());
+                }
+                break;
+                // top nodes are only of type Person or ContactMethod
+                case Ring::ObjectType::Call:
+                case Ring::ObjectType::Media:
+                case Ring::ObjectType::Certificate:
+                case Ring::ObjectType::COUNT__:
+                break;
+            }
+
+        }
+        return false; // no matches
+    }
+}
+
 struct _ContactsView
 {
     GtkTreeView parent;
@@ -51,7 +112,7 @@ struct _ContactsViewPrivate
 {
     GtkWidget *popup_menu;
 
-    CategorizedContactModel::SortedProxy *q_sorted_proxy;
+    NameNumberFilterProxy *filterproxy;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ContactsView, contacts_view, GTK_TYPE_TREE_VIEW);
@@ -263,19 +324,22 @@ contacts_view_init(ContactsView *self)
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(self), FALSE);
 
     /* initial set up to be categorized by name and sorted alphabetically */
-    priv->q_sorted_proxy = &CategorizedContactModel::SortedProxy::instance();
+    auto q_sorted_proxy = &CategorizedContactModel::SortedProxy::instance();
     CategorizedContactModel::instance().setUnreachableHidden(true);
 
     /* for now we always want to sort by ascending order */
-    priv->q_sorted_proxy->model()->sort(0);
+    q_sorted_proxy->model()->sort(0);
 
     /* select default category (the first one, which is by name) */
-    priv->q_sorted_proxy->categorySelectionModel()->setCurrentIndex(
-        priv->q_sorted_proxy->categoryModel()->index(0, 0),
+    q_sorted_proxy->categorySelectionModel()->setCurrentIndex(
+        q_sorted_proxy->categoryModel()->index(0, 0),
         QItemSelectionModel::ClearAndSelect);
 
+    // filtering
+    priv->filterproxy = new NameNumberFilterProxy(q_sorted_proxy->model());
+
     GtkQTreeModel *contact_model = gtk_q_tree_model_new(
-        priv->q_sorted_proxy->model(),
+        priv->filterproxy,
         1,
         0, Qt::DisplayRole, G_TYPE_STRING);
     gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(contact_model));
@@ -351,4 +415,11 @@ contacts_view_new()
     gpointer self = g_object_new(CONTACTS_VIEW_TYPE, NULL);
 
     return (GtkWidget *)self;
+}
+
+void
+contacts_view_set_filter_string(ContactsView *self, const char* text)
+{
+    ContactsViewPrivate *priv = CONTACTS_VIEW_GET_PRIVATE(self);
+    priv->filterproxy->setFilterRegExp(QRegExp(text, Qt::CaseInsensitive, QRegExp::FixedString));
 }
