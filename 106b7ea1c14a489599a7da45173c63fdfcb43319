@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_853ae434",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-27T22:42:15Z",
+      "side": 1,
+      "message": "I think we should actually init it in the init of the main window... that way it will start loading before the first time we want to display it and so hoepfully the first chat view will load instantly",
+      "range": {
+        "startLine": 158,
+        "startChar": 7,
+        "endLine": 158,
+        "endChar": 78
+      },
+      "revId": "106b7ea1c14a489599a7da45173c63fdfcb43319",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_65358045",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-10-27T22:42:15Z",
+      "side": 1,
+      "message": "you should unref it in the dispose of the main window... not a big deal since that gets destroyed only when we quit the program, but one less mem leak detection",
+      "range": {
+        "startLine": 160,
+        "startChar": 8,
+        "endLine": 161,
+        "endChar": 50
+      },
+      "revId": "106b7ea1c14a489599a7da45173c63fdfcb43319",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
