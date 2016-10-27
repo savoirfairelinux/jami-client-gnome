@@ -345,6 +345,11 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
                 GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
                 gtk_tree_model_row_inserted(GTK_TREE_MODEL(retval), path, &iter);
                 gtk_tree_path_free(path);
+
+                // in certain cases (eg: proxy models), its possible for rows to be inserted that
+                // already have children; however no rowsInserted will be emitted for the children,
+                // in these cases we check for the existence of chilren and insert them
+                insert_children(idx, retval);
             }
         }
     );
