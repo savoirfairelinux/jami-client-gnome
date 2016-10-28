@@ -2,6 +2,8 @@
 # Please keep this file sorted alphabetically.
 
 src/accountaudiotab.cpp
+src/accountcreationwizard.cpp
+src/accountdevicestab.cpp
 src/accountgeneraltab.cpp
 src/accountimportexportview.cpp
 src/accountvideotab.cpp
@@ -24,8 +26,11 @@ src/utils/menus.cpp
 src/video/video_widget.cpp
 ui/accountadvancedtab.ui
 ui/accountaudiotab.ui
+ui/accountcreationwizard.ui
+ui/accountdevicestab.ui
 ui/accountgeneraltab.ui
 ui/accountimportexportview.ui
+ui/accountmigrationview.ui
 ui/accountsecuritytab.ui
 ui/accountvideotab.ui
 ui/accountview.ui
