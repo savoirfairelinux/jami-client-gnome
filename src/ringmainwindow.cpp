@@ -636,6 +636,22 @@ search_entry_text_changed(GtkEditable *search_entry, RingMainWindow *self)
 }
 
 static gboolean
+search_entry_key_released(GtkEntry *search_entry, GdkEventKey *key, RingMainWindow *self)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+
+    // if esc key pressed, clear the regex (keep the text, the user might not want to actually delete it)
+    if (key->keyval == GDK_KEY_Escape) {
+        RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp());
+        contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts), "");
+        history_view_set_filter_string(HISTORY_VIEW(priv->treeview_history), "");
+        return GDK_EVENT_STOP;
+    }
+
+    return GDK_EVENT_PROPAGATE;
+}
+
+static gboolean
 dtmf_pressed(RingMainWindow *win,
               GdkEventKey *event,
               G_GNUC_UNUSED gpointer user_data)
@@ -998,10 +1014,8 @@ ring_main_window_init(RingMainWindow *win)
 
     g_signal_connect_swapped(priv->button_new_conversation, "clicked", G_CALLBACK(search_entry_activated), win);
     g_signal_connect_swapped(priv->search_entry, "activate", G_CALLBACK(search_entry_activated), win);
-
-    /* connect signal to when text is entered in the entry */
     g_signal_connect(priv->search_entry, "changed", G_CALLBACK(search_entry_text_changed), win);
-    // g_signal_connect(entry_completion, "match-selected", G_CALLBACK(select_autocompletion), win);
+    g_signal_connect(priv->search_entry, "key-release-event", G_CALLBACK(search_entry_key_released), win);
 
     /* make sure the incoming call is the selected call in the CallModel */
     QObject::connect(
