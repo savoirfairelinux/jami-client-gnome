@@ -67,7 +67,6 @@ update_view(RingWelcomeView *self) {
             ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
                                               account->username().toUtf8().constData());
         } else {
-            g_warning("got ring account, but Ring id is empty");
             ring_id = g_markup_printf_escaped("<span fgcolor=\"gray\">%s</span>",
                                               _("fetching RingID..."));
         }
