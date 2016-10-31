@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_6eed5d8b",
+        "filename": "pixmaps/logo-ring-standard-coul.svg",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-10-31T17:16:15Z",
+      "side": 1,
+      "message": "It looks like we switched from using Inkscape to Adobe Illustrator :(",
+      "revId": "9620c7b9a6b15022ddc2720138da9eb17ff6a03b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
