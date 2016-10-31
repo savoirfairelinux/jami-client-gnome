@@ -125,6 +125,9 @@ struct _RingMainWindowPrivate
     GtkWidget *account_creation_wizard;
     GtkWidget *account_migration_view;
 
+    /* Pending ring usernames lookup for the search entry */
+    QMetaObject::Connection username_lookup;
+
     /* The webkit_chat_container is created once, then reused for all chat views */
     GtkWidget *webkit_chat_container;
 
@@ -476,6 +479,29 @@ selection_changed(RingMainWindow *win)
 }
 
 static void
+process_search_entry_contact_method(RingMainWindow *self, const URI& uri)
+{
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+
+    auto cm = PhoneDirectoryModel::instance().getNumber(uri);
+
+    if (g_settings_get_boolean(priv->settings, "search-entry-places-call")) {
+        place_new_call(cm);
+
+        /* move focus away from entry so that DTMF tones can be entered via the keyboard */
+        gtk_widget_child_focus(GTK_WIDGET(self), GTK_DIR_TAB_FORWARD);
+    } else {
+        // if its a new CM, bring it to the top
+        if (cm->lastUsed() == 0)
+            cm->setLastUsed(QDateTime::currentDateTime().toTime_t());
+
+        // select cm
+        RecentModel::instance().selectionModel()->setCurrentIndex(RecentModel::instance().getIndex(cm), QItemSelectionModel::ClearAndSelect);
+    }
+    gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+}
+
+static void
 search_entry_activated(RingMainWindow *self)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
@@ -483,22 +509,84 @@ search_entry_activated(RingMainWindow *self)
     const auto *number_entered = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
 
     if (number_entered && strlen(number_entered) > 0) {
-        auto cm = PhoneDirectoryModel::instance().getNumber(number_entered);
+        URI uri = URI(number_entered);
+        if (uri.protocolHint() == URI::ProtocolHint::RING_USERNAME)
+        {
+            gtk_widget_set_sensitive(priv->search_entry, FALSE);
+            gtk_entry_set_text(
+                GTK_ENTRY(priv->search_entry),
+                g_strdup_printf(
+                    _("looking up RingID for %s..."),
+                    uri.userinfo().toUtf8().constData()
+                )
+            );
 
-        if (g_settings_get_boolean(priv->settings, "search-entry-places-call")) {
-            place_new_call(cm);
+            QString username_to_lookup = uri.userinfo();
 
-            /* move focus away from entry so that DTMF tones can be entered via the keyboard */
-            gtk_widget_child_focus(GTK_WIDGET(self), GTK_DIR_TAB_FORWARD);
-        } else {
-            // if its a new CM, bring it to the top
-            if (cm->lastUsed() == 0)
-                cm->setLastUsed(QDateTime::currentDateTime().toTime_t());
+            QObject::disconnect(priv->username_lookup);
+            priv->username_lookup = QObject::connect(
+                &NameDirectory::instance(),
+                &NameDirectory::registeredNameFound,
+                [self, priv, username_to_lookup] (G_GNUC_UNUSED const Account* account, NameDirectory::LookupStatus status, const QString& address, const QString& name) {
+                    if (username_to_lookup.compare(name) != 0)
+                    {
+                        //That is not our lookup.
+                        return;
+                    }
 
-            // select cm
-            RecentModel::instance().selectionModel()->setCurrentIndex(RecentModel::instance().getIndex(cm), QItemSelectionModel::ClearAndSelect);
+                    gtk_widget_set_sensitive(priv->search_entry, TRUE);
+                    gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+
+                    switch(status)
+                    {
+                        case NameDirectory::LookupStatus::SUCCESS:
+                        {
+                            URI uri = URI("ring:" + address);
+                            process_search_entry_contact_method(self, uri);
+                            break;
+                        }
+                        case NameDirectory::LookupStatus::INVALID_NAME:
+                        {
+                            //Can't be a ring username, could be something else.
+                            auto dialog = gtk_message_dialog_new(
+                                GTK_WINDOW(self),
+                                GTK_DIALOG_DESTROY_WITH_PARENT,
+                                GTK_MESSAGE_ERROR,
+                                GTK_BUTTONS_CLOSE,
+                                _("Invalid Ring username: %s"),
+                                name.toUtf8().constData()
+                            );
+
+                            gtk_dialog_run (GTK_DIALOG (dialog));
+                            gtk_widget_destroy (dialog);
+                            break;
+                        }
+                        case NameDirectory::LookupStatus::ERROR:
+                        case NameDirectory::LookupStatus::NOT_FOUND:
+                        {
+                            auto dialog = gtk_message_dialog_new(
+                                GTK_WINDOW(self),
+                                GTK_DIALOG_DESTROY_WITH_PARENT,
+                                GTK_MESSAGE_ERROR,
+                                GTK_BUTTONS_CLOSE,
+                                _("Could not resolve Ring username: %s"),
+                                name.toUtf8().constData()
+                            );
+
+                            gtk_dialog_run(GTK_DIALOG (dialog));
+                            gtk_widget_destroy(dialog);
+                            break;
+                        }
+                    }
+                }
+            );
+
+            NameDirectory::instance().lookupName(nullptr, QString(), username_to_lookup);
         }
-        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+        else
+        {
+            process_search_entry_contact_method(self, uri);
+        }
     }
 }
 
@@ -1095,6 +1183,7 @@ ring_main_window_dispose(GObject *object)
 
     QObject::disconnect(priv->selected_item_changed);
     QObject::disconnect(priv->selected_call_over);
+    QObject::disconnect(priv->username_lookup);
 
     g_clear_object(&priv->welcome_view);
     g_clear_object(&priv->webkit_chat_container);
