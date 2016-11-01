@@ -268,7 +268,7 @@ build_migration_view(AccountMigrationView *view)
     g_signal_connect(priv->entry_password_confirm, "changed", G_CALLBACK(password_entry_changed), view);
 
     gtk_label_set_text(GTK_LABEL(priv->label_account_alias), priv->account->alias().toUtf8().constData());
-    gtk_label_set_text(GTK_LABEL(priv->label_account_id), priv->account->id().constData());
+    gtk_label_set_text(GTK_LABEL(priv->label_account_id), priv->account->username().toUtf8().constData());
 
     /* set the avatar picture */
     auto photo = GlobalInstances::pixmapManipulator().contactPhoto(
