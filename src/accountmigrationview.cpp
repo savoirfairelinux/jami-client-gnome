@@ -71,7 +71,7 @@ struct _AccountMigrationViewPrivate
     /* main_view */
     GtkWidget *main_view;
     GtkWidget *label_account_alias;
-    GtkWidget *label_account_id;
+    GtkWidget *label_account_username;
     GtkWidget *image_avatar;
     GtkWidget *label_password_error;
     GtkWidget *entry_password;
@@ -133,7 +133,7 @@ account_migration_view_class_init(AccountMigrationViewClass *klass)
     /* main_view */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, main_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_account_alias);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_account_id);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_account_username);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, image_avatar);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_password_error);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, entry_password);
@@ -268,7 +268,7 @@ build_migration_view(AccountMigrationView *view)
     g_signal_connect(priv->entry_password_confirm, "changed", G_CALLBACK(password_entry_changed), view);
 
     gtk_label_set_text(GTK_LABEL(priv->label_account_alias), priv->account->alias().toUtf8().constData());
-    gtk_label_set_text(GTK_LABEL(priv->label_account_id), priv->account->id().constData());
+    gtk_label_set_text(GTK_LABEL(priv->label_account_username), priv->account->username().toUtf8().constData());
 
     /* set the avatar picture */
     auto photo = GlobalInstances::pixmapManipulator().contactPhoto(

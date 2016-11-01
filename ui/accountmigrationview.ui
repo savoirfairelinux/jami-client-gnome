@@ -81,7 +81,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label_account_id">
+                      <object class="GtkLabel" id="label_account_username">
                         <property name="visible">True</property>
                         <property name="halign">start</property>
                       </object>
