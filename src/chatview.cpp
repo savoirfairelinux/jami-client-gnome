@@ -248,11 +248,88 @@ print_message_to_buffer(ChatView* self, const QModelIndex &idx)
     );
 }
 
+ContactMethod*
+get_active_contactmethod(ChatView *self)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    auto cms = priv->person->phoneNumbers();
+    auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
+    if (active >= 0 && active < cms.size()) {
+        return cms.at(active);
+    } else {
+        return nullptr;
+    }
+}
+
+static void
+set_participant_images(ChatView* self)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    webkit_chat_container_clear_sender_images(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)
+    );
+
+    /* Set the sender image for the peer */
+    ContactMethod* sender_contact_method_peer;
+    QVariant photo_variant_peer;
+
+    if (priv->person)
+    {
+        photo_variant_peer = priv->person->photo();
+        sender_contact_method_peer = get_active_contactmethod(self);
+    }
+    else
+    {
+        if (priv->cm)
+        {
+            sender_contact_method_peer = priv->cm;
+        }
+        else
+        {
+            sender_contact_method_peer = priv->call->peerContactMethod();
+        }
+        photo_variant_peer = sender_contact_method_peer->roleData((int) Call::Role::Photo);
+    }
+
+    if (photo_variant_peer.isValid())
+    {
+        webkit_chat_container_set_sender_image(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            sender_contact_method_peer,
+            photo_variant_peer
+        );
+    }
+
+    /* set sender image for "ME" */
+    auto profile = ProfileModel::instance().selectedProfile();
+    if (profile)
+    {
+        auto person = profile->person();
+        if (person)
+        {
+            auto photo_variant_me = person->photo();
+            if (photo_variant_me.isValid())
+            {
+                webkit_chat_container_set_sender_image(
+                    WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                    nullptr,
+                    photo_variant_me
+                );
+            }
+        }
+    }
+}
+
 static void
 print_text_recording(Media::TextRecording *recording, ChatView *self)
 {
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+     /* set the photos of the chat participants */
+     set_participant_images(self);
 
     /* only text messages are supported for now */
     auto model = recording->instantTextMessagingModel();
@@ -300,15 +377,13 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
 }
 
 static void
-selected_cm_changed(GtkComboBox *box, ChatView *self)
+selected_cm_changed(G_GNUC_UNUSED GtkComboBox *box, ChatView *self)
 {
     g_return_if_fail(IS_CHAT_VIEW(self));
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    auto cms = priv->person->phoneNumbers();
-    auto active = gtk_combo_box_get_active(box);
-    if (active >= 0 && active < cms.size()) {
-        print_text_recording(cms.at(active)->textRecording(), self);
+    auto cm = get_active_contactmethod(self);
+    if (cm){
+        print_text_recording(cm->textRecording(), self);
     } else {
         g_warning("no valid ContactMethod selected to display chat conversation");
     }
@@ -418,64 +493,6 @@ update_name(ChatView *self)
 }
 
 static void
-set_participant_images(ChatView* self)
-{
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    /* set sender image for "ME" */
-    auto profile = ProfileModel::instance().selectedProfile();
-    if (profile)
-    {
-        auto person = profile->person();
-        if (person)
-        {
-            auto photo_variant_me = person->photo();
-            if (photo_variant_me.isValid())
-            {
-                webkit_chat_container_set_sender_image(
-                    WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                    "Me",
-                    photo_variant_me
-                );
-            }
-        }
-    }
-
-    /* Set the sender image for the peer */
-    QString sender_name_peer;
-    QVariant photo_variant_peer;
-
-    if (priv->person)
-    {
-        photo_variant_peer = priv->person->photo();
-        sender_name_peer = priv->person->roleData(static_cast<int>(Ring::Role::Name)).toString();
-    }
-    else
-    {
-        ContactMethod *contact_method;
-        if (priv->cm)
-        {
-            contact_method = priv->cm;
-        }
-        else
-        {
-            contact_method = priv->call->peerContactMethod();
-        }
-        sender_name_peer = contact_method->roleData(static_cast<int>(Ring::Role::Name)).toString();
-        photo_variant_peer = contact_method->roleData((int) Call::Role::Photo);
-    }
-
-    if (photo_variant_peer.isValid())
-    {
-        webkit_chat_container_set_sender_image(
-            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-            sender_name_peer,
-            photo_variant_peer
-        );
-    }
-}
-
-static void
 webkit_chat_container_ready(ChatView* self)
 {
     /* The webkit chat container has loaded the javascript libraries, we can
@@ -486,9 +503,6 @@ webkit_chat_container_ready(ChatView* self)
     webkit_chat_container_clear(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)
     );
-
-    /* set the photos of the chat participants */
-    set_participant_images(self);
 
     /* print the text recordings */
     if (priv->initial_text_recording)
