@@ -131,6 +131,7 @@ ring.chatview = (function(){
         message_id = message_object["id"];
         message_text = message_object["text"];
         message_sender = message_object["sender"];
+        message_sender_contact_method = message_object["sender_contact_method"];
         message_timestamp = message_object["timestamp"];
         message_direction = message_object["direction"];
         message_delivery_status = message_object["delivery_status"];
@@ -157,7 +158,7 @@ ring.chatview = (function(){
 
             // Sender image
             $message_sender_span = $("<span>", { class: "message_sender_image" });
-            $message_sender_image = $("<img>", { class: "sender_image_" + message_sender.replace(" ", "_") });
+            $message_sender_image = $("<img>", { class: "sender_image_" + message_sender_contact_method });
 
             $message_div.append($message_sender_image);
             $message_div.append($message_sender);
@@ -212,10 +213,10 @@ ring.chatview = (function(){
      */
     function setSenderImage(set_sender_image_object)
     {
-        sender = set_sender_image_object['sender'];
+        sender_contact_method = set_sender_image_object['sender_contact_method'];
         sender_image = set_sender_image_object['sender_image'];
 
-        sender_image_id = "sender_image_" + sender.replace(" ", "_");
+        sender_image_id = "sender_image_" + sender_contact_method;
 
         // Remove the currently set sender image
         $("#" + sender_image_id).remove();
