@@ -664,7 +664,7 @@ show_account_creation_wizard(RingMainWindow *win)
 }
 
 static void
-search_entry_text_changed(GtkEditable *search_entry, RingMainWindow *self)
+search_entry_text_changed(GtkSearchEntry *search_entry, RingMainWindow *self)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
@@ -1055,7 +1055,7 @@ ring_main_window_init(RingMainWindow *win)
 
     g_signal_connect_swapped(priv->button_new_conversation, "clicked", G_CALLBACK(search_entry_activated), win);
     g_signal_connect_swapped(priv->search_entry, "activate", G_CALLBACK(search_entry_activated), win);
-    g_signal_connect(priv->search_entry, "changed", G_CALLBACK(search_entry_text_changed), win);
+    g_signal_connect(priv->search_entry, "search-changed", G_CALLBACK(search_entry_text_changed), win);
     g_signal_connect(priv->search_entry, "key-release-event", G_CALLBACK(search_entry_key_released), win);
 
     /* make sure the incoming call is the selected call in the CallModel */
