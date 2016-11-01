@@ -32,6 +32,7 @@
 // LRC
 #include <media/textrecording.h>
 #include <globalinstances.h>
+#include <contactmethod.h>
 
 // Ring Client
 #include "native/pixbufmanipulator.h"
@@ -121,14 +122,26 @@ message_index_to_json_message_object(const QModelIndex &idx)
 {
     auto message = idx.data().value<QString>();
     auto sender = idx.data(static_cast<int>(Media::TextRecording::Role::AuthorDisplayname)).value<QString>();
+    auto sender_contact_method = idx.data(static_cast<int>(Media::TextRecording::Role::ContactMethod)).value<ContactMethod*>();
     auto timestamp = idx.data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
     auto direction = idx.data(static_cast<int>(Media::TextRecording::Role::Direction)).value<Media::Media::Direction>();
     auto message_id = idx.row();
+
+    QString sender_contact_method_str;
+    if(direction == Media::Media::Direction::IN)
+    {
+        sender_contact_method_str = QString(g_strdup_printf("%p", sender_contact_method));
+    }
+    else
+    {
+        sender_contact_method_str = "self";
+    }
 
     QJsonObject message_object = QJsonObject();
     message_object.insert("text", QJsonValue(message));
     message_object.insert("id", QJsonValue(QString().setNum(message_id)));
     message_object.insert("sender", QJsonValue(sender));
+    message_object.insert("sender_contact_method", QJsonValue(sender_contact_method_str));
     message_object.insert("timestamp", QJsonValue((int) timestamp));
     message_object.insert("direction", QJsonValue((direction == Media::Media::Direction::IN) ? "in" : "out"));
 
@@ -383,6 +396,20 @@ webkit_chat_container_new()
 }
 
 void
+webkit_chat_container_clear_sender_images(WebKitChatContainer *view)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        "ring.chatview.clearSenderImages()",
+        NULL,
+        NULL,
+        NULL
+    );
+}
+
+void
 webkit_chat_container_clear(WebKitChatContainer *view)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
@@ -395,13 +422,7 @@ webkit_chat_container_clear(WebKitChatContainer *view)
         NULL
     );
 
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        "ring.chatview.clearSenderImages()",
-        NULL,
-        NULL,
-        NULL
-    );
+    webkit_chat_container_clear_sender_images(view);
 }
 
 void
@@ -439,14 +460,25 @@ webkit_chat_container_update_message(WebKitChatContainer *view, const QModelInde
 }
 
 void
-webkit_chat_container_set_sender_image(WebKitChatContainer *view, QString sender_name, QVariant sender_image)
+webkit_chat_container_set_sender_image(WebKitChatContainer *view, ContactMethod *sender_contact_method, QVariant sender_image)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    /* The sender_contact_method should be set to nullptr if the sender is self */
+    QString sender_contact_method_str;
+    if (sender_contact_method)
+    {
+        sender_contact_method_str =  QString(g_strdup_printf("%p", sender_contact_method));
+    }
+    else
+    {
+        sender_contact_method_str = "self";
+    }
 
     auto sender_image_base64 = (QString) GlobalInstances::pixmapManipulator().toByteArray(sender_image).toBase64();
 
     QJsonObject set_sender_image_object = QJsonObject();
-    set_sender_image_object.insert("sender", QJsonValue(sender_name));
+    set_sender_image_object.insert("sender_contact_method", QJsonValue(sender_contact_method_str));
     set_sender_image_object.insert("sender_image", QJsonValue(sender_image_base64));
 
     auto set_sender_image_object_string = QString(QJsonDocument(set_sender_image_object).toJson(QJsonDocument::Compact)).toUtf8().constData();
