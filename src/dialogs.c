@@ -81,8 +81,9 @@ ring_about_dialog(GtkWidget *parent)
     }
 
     gchar *name = g_strdup_printf("Gnome Ring");
-    gchar *version = g_strdup_printf(C_("Do not translate the release name", "release: Louis-Joseph Papineau\nv%d.%d.%d - %.10s"),
-                                     VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, RING_CLIENT_REVISION);
+    gchar *version = g_strdup_printf(C_("Do not translate the release name nor the status (beta, final, ...)",
+                                        "release: Louis Riel - beta 2\nbuild on %.25s"),
+                                     RING_CLIENT_BUILD_DATE);
 
     const gchar *authors[] = {
         [0]  = "Adrien Béraud",
