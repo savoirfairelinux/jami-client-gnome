@@ -3,6 +3,7 @@
 
 <!-- Empty head might be needed for setSenderImage -->
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 
 <body>
@@ -16,38 +17,180 @@
 <script src="https://soapbox.github.io/linkifyjs/js/linkify/linkify.min.js"></script>
 <script src="https://soapbox.github.io/linkifyjs/js/linkify/linkify-string.min.js"></script>
 <script src="https://soapbox.github.io/linkifyjs/js/linkify/linkify-jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://soapbox.github.io/linkifyjs/js/linkify/linkify-html.min.js"></script>
 <!- -->
 
 <style>
+.message_wrapper {
+    transform: scale(0);
+    max-width: 50%;
+    margin: 10px 0;
+    display: inline-block;
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+    position: relative;
+    animation: talk;
+    animation-duration: 0.3s;
+    animation-delay: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+.message {
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: top;
+    overflow: hidden;
+}
+
+.message_out {
+    flex-direction: row-reverse;
+}
 
 .message_sender {
-    font-weight: bold;
+    display: none;
 }
 
-.message_in > .message_sender {
-    color: red;
+.message_in .sender_image {
+    animation-name: enter-stage-left;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
 }
 
-.message_out > .message_sender {
-    color: blue;
+.message_out .sender_image {
+    animation-name: enter-stage-right;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes enter-stage-left {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+}
+
+@keyframes enter-stage-right {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+}
+
+.message_out > .message_wrapper {
+    background-color: #00BFD3;
+    color: #fff;
+    border-top-right-radius: 0;
+    transform-origin: top right;
+}
+
+.message_out + .message_out > .message_wrapper {
+    border-top-right-radius: 10px;
+}
+
+.message_in > .message_wrapper {
+    background-color: #DEDEE0;
+    border-top-left-radius: 0;
+    transform-origin: top left;
+}
+
+.message_in + .message_in > .message_wrapper {
+    border-top-left-radius: 10px;
 }
 
 .message_timestamp {
-    float: right;
-    display: none;
+    font-size: 0.8em;
+    margin-top: 0.3em;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    display: block;
+}
+
+.message_in .message_timestamp {
+    color: #9E9E9E;
+}
+
+@keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
 }
 
 .message_text {
     word-wrap: break-word;
 }
 
-.message:hover .message_timestamp {
-    display: block;
+@keyframes talk {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+}
+
+.message_in > .message_wrapper:before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left: -10px;
+    top: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E %3Cpath d= 'M10,0 L0,0 C10,0 10,10 10,10' fill='%23DEDEE0'/%3E %3C/svg%3E");
+    transform-origin: top left;
+}
+
+.message_in + .message_in > .message_wrapper:before {
+    display: none;
+}
+
+.message_out + .message_out > .message_wrapper:after {
+    display: none;
+}
+
+.message_out > .message_wrapper:after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    right: -10px;
+    top: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E %3Cpath d= 'M0,0 L10,0 C0,0 0,10 0,10' fill='%2300BFD3'/%3E %3C/svg%3E");
+    transform-origin: top right;
 }
 
 .message_delivery_status {
-    float:right;
+    margin: 10px 10px;
+    color: #A0A0A0;
+    opacity: 0;
+    animation-name: fade-in;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0.4s;
+    animation-fill-mode: forwards;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.sender_image {
+    border-radius: 50%;
+    transition: transform 0.2s ease-in-out;
+    margin: 10px 10px 10px 10px;
+}
+
+.message_in + .message_in .sender_image {
+    opacity: 0;
+}
+
+.message_out + .message_out .sender_image {
+    opacity: 0;
 }
 
 </style>
@@ -151,20 +294,26 @@ ring.chatview = (function(){
                 }
             );
 
+            $message_wrapper = $("<div>", { class: "message_wrapper"});
+
             $message_text = $("<span>", { class: "message_text" });
             $message_sender = $("<span>", { class: "message_sender" });
             $message_delivery_status = $("<span>", { class: "message_delivery_status" });
             $message_timestamp = $("<span>", { class: "message_timestamp" });
 
+            $message_wrapper.append($message_text);
+            $message_wrapper.append($message_sender);
+
+
             // Sender image
             $message_sender_span = $("<span>", { class: "message_sender_image" });
-            $message_sender_image = $("<img>", { class: "sender_image_" + message_sender_contact_method });
+            $message_sender_image = $("<span>", { class: "sender_image sender_image_" + message_sender_contact_method });
+
 
             $message_div.append($message_sender_image);
-            $message_div.append($message_sender);
-            $message_div.append($message_text);
+            $message_div.append($message_wrapper);
             $message_div.append($message_delivery_status);
-            $message_div.append($message_timestamp);
+
             $("#messages").append($message_div);
         }
         else
@@ -182,6 +331,7 @@ ring.chatview = (function(){
         $message_sender.text(message_sender + ": ");
         $message_delivery_status.text(getMessageDeliveryStatusText(message_delivery_status));
         $message_timestamp.text(getMessageTimestampText(message_timestamp));
+        $message_div.find($message_wrapper).append($message_timestamp);
 
     }
 
@@ -225,7 +375,7 @@ ring.chatview = (function(){
         var style = document.createElement('style');
         style.type = 'text/css';
         style.id = sender_image_id
-        style.innerHTML = 'img.' + sender_image_id + " { \n content: url(data:image/png;base64," + sender_image + "); \n height: 50px; \n width: 50px; \n }";
+        style.innerHTML = '.' + sender_image_id + " { \n content: url(data:image/png;base64," + sender_image + "); \n height: 35px; \n width: 35px; \n }";
         document.getElementsByTagName('head')[0].appendChild(style);
     }
 
