@@ -53,6 +53,7 @@ typedef struct _WebKitChatContainerPrivate WebKitChatContainerPrivate;
 struct _WebKitChatContainerPrivate
 {
     GtkWidget* webview_chat;
+    GtkWidget* box_webview_chat;
 
     bool       chatview_debug;
 
@@ -90,14 +91,10 @@ webkit_chat_container_class_init(WebKitChatContainerClass *klass)
 {
     G_OBJECT_CLASS(klass)->dispose = webkit_chat_container_dispose;
 
-    /* This must be called at least once before we render chatview.ui
-     * in order to allow us to use WebKitWebView in the template file. */
-    webkit_web_view_get_type();
-
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/webkitchatcontainer.ui");
 
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), WebKitChatContainer, webview_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), WebKitChatContainer, box_webview_chat);
 
     /* add signals */
     webkit_chat_container_signals[READY] = g_signal_new("ready",
@@ -349,6 +346,26 @@ build_view(WebKitChatContainer *view)
         priv->chatview_debug = TRUE;
     }
 
+    /* Prepare WebKitUserContentManager */
+    WebKitUserContentManager* webkit_content_manager = webkit_user_content_manager_new();
+
+    WebKitUserStyleSheet* chatview_style_sheet = webkit_user_style_sheet_new(
+        (gchar*) g_bytes_get_data(
+            g_resources_lookup_data(
+                "/cx/ring/RingGnome/chatview.css",
+                G_RESOURCE_LOOKUP_FLAGS_NONE,
+                NULL
+            ),
+            NULL
+        ),
+        WEBKIT_USER_CONTENT_INJECT_ALL_FRAMES,
+        WEBKIT_USER_STYLE_LEVEL_USER,
+        NULL,
+        NULL
+    );
+    webkit_user_content_manager_add_style_sheet(webkit_content_manager, chatview_style_sheet);
+
+    /* Prepare WebKitSettings */
     WebKitSettings* webkit_settings = webkit_settings_new_with_settings(
         "enable-javascript", TRUE,
         "enable-developer-extras", priv->chatview_debug,
@@ -358,6 +375,20 @@ build_view(WebKitChatContainer *view)
         "enable-smooth-scrolling", TRUE,
         NULL
     );
+
+    /* Create the WebKitWebView */
+    priv->webview_chat = GTK_WIDGET(
+        webkit_web_view_new_with_user_content_manager(
+            webkit_content_manager
+        )
+    );
+
+    gtk_container_add(GTK_CONTAINER(priv->box_webview_chat), priv->webview_chat);
+    gtk_widget_show(priv->webview_chat);
+    gtk_widget_set_vexpand(GTK_WIDGET(priv->webview_chat), TRUE);
+    gtk_widget_set_hexpand(GTK_WIDGET(priv->webview_chat), TRUE);
+
+    /* Set the WebKitSettings */
     webkit_web_view_set_settings(WEBKIT_WEB_VIEW(priv->webview_chat), webkit_settings);
 
     g_signal_connect(priv->webview_chat, "load-changed", G_CALLBACK(webview_chat_load_changed), view);
