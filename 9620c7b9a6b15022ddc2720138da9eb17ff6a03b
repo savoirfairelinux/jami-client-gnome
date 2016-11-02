@@ -16,6 +16,24 @@
       "revId": "9620c7b9a6b15022ddc2720138da9eb17ff6a03b",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_afffd9a9",
+        "filename": "pixmaps/logo-ring-standard-coul.svg",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2016-11-02T20:19:13Z",
+      "side": 1,
+      "message": "lol",
+      "parentUuid": "dad5f5cf_6eed5d8b",
+      "revId": "9620c7b9a6b15022ddc2720138da9eb17ff6a03b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
