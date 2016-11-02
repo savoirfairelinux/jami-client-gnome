@@ -10,5 +10,8 @@
       <file>linkify-string.js</file>
       <file>linkify-html.js</file>
       <file>linkify-jquery.js</file>
+
+      <!-- CSS -->
+      <file>chatview.css</file>
     </gresource>
   </gresources>
