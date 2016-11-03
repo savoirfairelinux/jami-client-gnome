@@ -124,7 +124,7 @@ ring_about_dialog(GtkWidget *parent)
         "license-type", GTK_LICENSE_GPL_3_0,
         "logo", logo,
         "version", version,
-        "comments", _("The GNOME client for GNU Ring.\nGNU Ring is free software for universal communication which respects the freedoms and privacy of its users."),
+        "comments", _("The GNOME client for Ring.\nRing is free software for universal communication which respects the freedoms and privacy of its users."),
         "authors", authors,
         "website", "http://www.ring.cx/",
         "website-label", "www.ring.cx",
