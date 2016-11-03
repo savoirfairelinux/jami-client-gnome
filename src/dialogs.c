@@ -80,9 +80,8 @@ ring_about_dialog(GtkWidget *parent)
         g_clear_error(&error);
     }
 
-    gchar *name = g_strdup_printf("Gnome Ring");
     gchar *version = g_strdup_printf(C_("Do not translate the release name nor the status (beta, final, ...)",
-                                        "release: Louis Riel - beta 2\nbuilt on %.25s"),
+                                        "Gaston Miron - Beta 2\nbuilt on %.25s"),
                                      RING_CLIENT_BUILD_DATE);
 
     const gchar *authors[] = {
@@ -123,7 +122,7 @@ ring_about_dialog(GtkWidget *parent)
 
     gtk_show_about_dialog(
         GTK_WINDOW(parent),
-        "program-name", name,
+        "program-name", "",
         "copyright", "© 2016 Savoir-faire Linux",
         "license-type", GTK_LICENSE_GPL_3_0,
         "logo", logo,
@@ -137,6 +136,5 @@ ring_about_dialog(GtkWidget *parent)
         NULL
     );
 
-    g_free(name);
     g_free(version);
 }
