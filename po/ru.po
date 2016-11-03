@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-28 13:03-0400\n"
-"PO-Revision-Date: 2016-10-28 17:07+0000\n"
+"POT-Creation-Date: 2016-11-03 18:11-0400\n"
+"PO-Revision-Date: 2016-11-03 22:14+0000\n"
 "Last-Translator: Stepan Salenikovich\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -43,12 +43,22 @@ msgstr "Битрейт"
 msgid "Samplerate"
 msgstr "Частота дискретизации"
 
-#: src/accountcreationwizard.cpp:234
+#: src/accountcreationwizard.cpp:230
+msgid ""
+"Your account was created, but we could not register your username. Try again"
+" from the settings menu."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:271
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "Неизвестно"
 
-#: src/accountdevicestab.cpp:195
+#: src/accountcreationwizard.cpp:441 ui/accountmigrationview.ui:132
+msgid "Passwords don't match"
+msgstr ""
+
+#: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:336
 msgid "Bad password"
 msgstr ""
 
@@ -70,64 +80,68 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:224
+#: src/accountgeneraltab.cpp:234
 msgid "_Remove server"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:264
+#: src/accountgeneraltab.cpp:273
 msgid "Alias"
 msgstr "Псевдоним "
 
-#: src/accountgeneraltab.cpp:275
+#: src/accountgeneraltab.cpp:284
 msgid "Type"
 msgstr "Тип"
 
-#: src/accountgeneraltab.cpp:300
+#: src/accountgeneraltab.cpp:310
 msgid "auto-generating..."
 msgstr "авто-генерация..."
 
-#: src/accountgeneraltab.cpp:318 src/accountgeneraltab.cpp:412
+#: src/accountgeneraltab.cpp:335 src/accountgeneraltab.cpp:429
 msgid "Hostname"
 msgstr "Имя компьютера"
 
-#: src/accountgeneraltab.cpp:328
+#: src/accountgeneraltab.cpp:345
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: src/accountgeneraltab.cpp:338
+#: src/accountgeneraltab.cpp:355
 msgid "Password"
 msgstr "Пароль"
 
-#: src/accountgeneraltab.cpp:351
+#: src/accountgeneraltab.cpp:368
 msgid "Show password"
 msgstr "Показать пароль"
 
-#: src/accountgeneraltab.cpp:357
+#: src/accountgeneraltab.cpp:374
 msgid "Proxy"
 msgstr "Прокси"
 
-#: src/accountgeneraltab.cpp:367
+#: src/accountgeneraltab.cpp:384
 msgid "Voicemail number"
 msgstr "Номер голосовой почты"
 
-#: src/accountgeneraltab.cpp:379
+#: src/accountgeneraltab.cpp:396
 msgctxt "The DHT bootstrap server url"
 msgid "Bootstrap Servers"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:420 ui/accountadvancedtab.ui:314
+#: src/accountgeneraltab.cpp:437 ui/accountadvancedtab.ui:314
 msgid "Port"
 msgstr "Порт"
 
-#: src/accountgeneraltab.cpp:430
+#: src/accountgeneraltab.cpp:446
+msgid "Name service URL"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:459
 msgid "Auto-answer calls"
 msgstr "Автоответчик"
 
-#: src/accountgeneraltab.cpp:438
+#: src/accountgeneraltab.cpp:467
 msgid "UPnP enabled"
 msgstr "UPnP разрешен"
 
-#: src/accountgeneraltab.cpp:446
+#: src/accountgeneraltab.cpp:475
 msgid "DTMF tone type:"
 msgstr "Тип DTMF"
 
@@ -265,16 +279,16 @@ msgstr "Выполняю..."
 
 #: src/dialogs.c:84
 #, c-format
-msgctxt "Do not translate the release name"
+msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"release: Louis-Joseph Papineau\n"
-"v%d.%d.%d - %.10s"
+"Gaston Miron - Beta 2\n"
+"built on %.25s"
 msgstr ""
 
-#: src/dialogs.c:126
+#: src/dialogs.c:131
 msgid ""
-"The GNOME client for GNU Ring.\n"
-"GNU Ring is free software for universal communication which respects the freedoms and privacy of its users."
+"The GNOME client for Ring.\n"
+"Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr ""
 
 #: src/editcontactview.cpp:185
@@ -288,12 +302,12 @@ msgid ""
 " chat and call history?"
 msgstr ""
 
-#: src/historyview.cpp:289
+#: src/historyview.cpp:293
 msgctxt "Call history"
 msgid "Call"
 msgstr "Звонок"
 
-#: src/historyview.cpp:334
+#: src/historyview.cpp:338
 msgctxt "Call history"
 msgid "Date"
 msgstr "Дата"
@@ -313,53 +327,127 @@ msgctxt "Text message notification"
 msgid "%s says:"
 msgstr "%s сказал:"
 
-#: src/ring_client_options.c:65
+#: src/ring_client_options.c:66
 msgid "Enable debug"
 msgstr "Включить отладку"
 
-#: src/ring_client_options.c:67
+#: src/ring_client_options.c:68
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
 msgstr "Восстанавливает скрытую форму главного окна (только для первого образца)"
 
-#: src/ring_client_options.c:84
+#: src/ring_client_options.c:85
 msgid "- GNOME client for Ring"
 msgstr "GNOME клиент для Ring"
 
-#: src/ringmainwindow.cpp:1002
+#: src/ringmainwindow.cpp:519
+msgid "looking up RingID"
+msgstr ""
+
+#: src/ringmainwindow.cpp:555
+#, c-format
+msgid "Invalid Ring username: %s"
+msgstr ""
+
+#: src/ringmainwindow.cpp:571
+#, c-format
+msgid "Could not resolve Ring username: %s"
+msgstr ""
+
+#: src/ringmainwindow.cpp:994
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1004
+#: src/ringmainwindow.cpp:996
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1248
+#: src/ringmainwindow.cpp:1169
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Найдите контакты или введите номер"
 
-#: src/ringwelcomeview.cpp:72
+#: src/ringwelcomeview.cpp:71
 msgid "fetching RingID..."
 msgstr "получение RingID..."
 
-#: src/ringwelcomeview.cpp:127
+#: src/ringwelcomeview.cpp:126
 msgid ""
-"GNU Ring is free software for universal communication which respects the "
+"Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
 msgstr ""
 
-#: src/ringwelcomeview.cpp:138
+#: src/ringwelcomeview.cpp:137
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
 msgstr "Это ваш RingID.\nСкопируйте и поделитесь им с вашими друзьями!"
+
+#: src/usernameregistrationbox.cpp:127
+msgid "The entered username is not available"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:128
+msgid "Username is not available"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:137
+msgid "The entered username is not valid"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:138
+msgid "Username is not valid"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:147
+msgid "The entered username is available"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:148
+msgid "Username is available"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:157
+msgid "Failed to perform lookup"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:158
+msgid "Could not lookup username"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:245
+msgid "Looking up username availability..."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:305 ui/accountcreationwizard.ui:381
+msgid "Registering username..."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:329
+msgid "Invalid username"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:343
+msgid "Username already taken"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:350
+msgid "Network error"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:365
+msgid "Count not initiate name registration, try again."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:407
+msgid "Register this username on the blockchain"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -503,15 +591,15 @@ msgid "Welcome to "
 msgstr ""
 
 #: ui/accountcreationwizard.ui:66
-msgid "Existing Ring account"
+msgid "Link this device to an existing account"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:67
-msgid "Import a Ring account created on another device"
+msgid "Link this devices to a Ring account created on another device"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:74
-msgid "New Ring account"
+msgid "Create Ring Account"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:75
@@ -526,11 +614,11 @@ msgstr ""
 msgid "Enter your password:"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:151 ui/accountcreationwizard.ui:313
+#: ui/accountcreationwizard.ui:151 ui/accountcreationwizard.ui:323
 msgid "Previous"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:159 ui/accountcreationwizard.ui:321
+#: ui/accountcreationwizard.ui:159 ui/accountcreationwizard.ui:331
 msgid "Next"
 msgstr "Далее"
 
@@ -538,31 +626,41 @@ msgstr "Далее"
 msgid "Choose your avatar, username, and password:"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:232 ui/accountmigrationview.ui:161
+#: ui/accountcreationwizard.ui:216
+msgid "Username:"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:240
+msgid "Register name publicly (experimental)"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:247
+msgid ""
+"Reserve the username so that only you can use it. Your friends will be able "
+"to contact you with your username instead of using your RingID."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:258 ui/accountmigrationview.ui:161
 msgid "Password (confirm):"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:244 ui/accountmigrationview.ui:132
-msgid "Passwords don't match"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:294
-msgid "Username will be set to \"Unknown\" if left empty."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:345
+#: ui/accountcreationwizard.ui:355
 msgid "Generating your Ring account..."
 msgstr "Создание вашего аккаунта Ring..."
 
-#: ui/accountcreationwizard.ui:371
+#: ui/accountcreationwizard.ui:388
+msgid "This may take a few minutes."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:414
 msgid "Retrieving your Ring account..."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:397
+#: ui/accountcreationwizard.ui:440
 msgid "Error creating/loading account."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:402 ui/accountdevicestab.ui:210
+#: ui/accountcreationwizard.ui:445 ui/accountdevicestab.ui:210
 #: ui/accountdevicestab.ui:231 ui/accountmigrationview.ui:236
 msgid "OK"
 msgstr "OK"
@@ -642,11 +740,11 @@ msgstr ""
 msgid "Choose archive location"
 msgstr ""
 
-#: ui/accountimportexportview.ui:169 ui/accountview.ui:107
+#: ui/accountimportexportview.ui:169 ui/accountview.ui:110
 msgid "Export"
 msgstr ""
 
-#: ui/accountimportexportview.ui:181 ui/accountview.ui:100
+#: ui/accountimportexportview.ui:181 ui/accountview.ui:103
 msgid "Import"
 msgstr ""
 
@@ -693,6 +791,21 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:228
 msgid "Failed to migrate account. Try again."
+msgstr ""
+
+#: ui/accountmigrationview.ui:255
+msgid "Choose your Ring username"
+msgstr ""
+
+#: ui/accountmigrationview.ui:264
+msgid ""
+"As of now Ring has a decentralized username registry. This means that you "
+"can now contact your friends using their usernames instead of their RingIDs."
+" The username registry is distributed and all users are able to consult it."
+msgstr ""
+
+#: ui/accountmigrationview.ui:279
+msgid "Register my username later"
 msgstr ""
 
 #: ui/accountsecuritytab.ui:37
@@ -783,11 +896,11 @@ msgstr ""
 msgid "Select account type"
 msgstr ""
 
-#: ui/accountview.ui:101
+#: ui/accountview.ui:104
 msgid "Import archived account(s)"
 msgstr ""
 
-#: ui/accountview.ui:109
+#: ui/accountview.ui:112
 msgid "Export selected account(s)"
 msgstr ""
 
@@ -815,7 +928,7 @@ msgstr ""
 msgid "Place call"
 msgstr ""
 
-#: ui/chatview.ui:115
+#: ui/chatview.ui:112
 msgid "Send"
 msgstr "Отправить"
 
@@ -1071,3 +1184,11 @@ msgstr "Контакты"
 #: ui/ringmainwindow.ui:222
 msgid "History"
 msgstr "История"
+
+#: ui/usernameregistrationbox.ui:12
+msgid "enter username here"
+msgstr ""
+
+#: ui/usernameregistrationbox.ui:24
+msgid "Register"
+msgstr "Регистрация"
