@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
+# Stepan Salenikovich <>, 2016
 # Tirifto <tirifto@openmailbox.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-28 13:03-0400\n"
-"PO-Revision-Date: 2016-10-28 17:07+0000\n"
+"POT-Creation-Date: 2016-11-03 18:11-0400\n"
+"PO-Revision-Date: 2016-11-03 22:14+0000\n"
 "Last-Translator: Stepan Salenikovich\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/savoirfairelinux/ring/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
@@ -35,22 +36,32 @@ msgstr "Přenosová rychlost"
 msgid "Samplerate"
 msgstr "Vzorkování"
 
-#: src/accountcreationwizard.cpp:234
+#: src/accountcreationwizard.cpp:230
+msgid ""
+"Your account was created, but we could not register your username. Try again"
+" from the settings menu."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:271
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: src/accountdevicestab.cpp:195
+#: src/accountcreationwizard.cpp:441 ui/accountmigrationview.ui:132
+msgid "Passwords don't match"
+msgstr "Hesla se neshodují"
+
+#: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:336
 msgid "Bad password"
-msgstr ""
+msgstr "Nesprávné heslo"
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
-msgstr ""
+msgstr "Chyba v síti, zkuste to znovu"
 
 #: src/accountdevicestab.cpp:213
 msgid "Could not initiate export to the Ring, try again"
-msgstr ""
+msgstr "Nepodařilo se začít export do Ringu, zkuste to znovu"
 
 #: src/accountdevicestab.cpp:246
 msgctxt "Device Name Column"
@@ -60,72 +71,76 @@ msgstr "Jméno"
 #: src/accountdevicestab.cpp:251
 msgctxt "Device ID Column"
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
-#: src/accountgeneraltab.cpp:224
+#: src/accountgeneraltab.cpp:234
 msgid "_Remove server"
-msgstr ""
+msgstr "_Odstranit server"
 
-#: src/accountgeneraltab.cpp:264
+#: src/accountgeneraltab.cpp:273
 msgid "Alias"
 msgstr "Přezdívka"
 
-#: src/accountgeneraltab.cpp:275
+#: src/accountgeneraltab.cpp:284
 msgid "Type"
 msgstr "Typ"
 
-#: src/accountgeneraltab.cpp:300
+#: src/accountgeneraltab.cpp:310
 msgid "auto-generating..."
 msgstr "auto-generace..."
 
-#: src/accountgeneraltab.cpp:318 src/accountgeneraltab.cpp:412
+#: src/accountgeneraltab.cpp:335 src/accountgeneraltab.cpp:429
 msgid "Hostname"
 msgstr "Hostitelské jméno"
 
-#: src/accountgeneraltab.cpp:328
+#: src/accountgeneraltab.cpp:345
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: src/accountgeneraltab.cpp:338
+#: src/accountgeneraltab.cpp:355
 msgid "Password"
 msgstr "Heslo"
 
-#: src/accountgeneraltab.cpp:351
+#: src/accountgeneraltab.cpp:368
 msgid "Show password"
 msgstr "Ukázat heslo"
 
-#: src/accountgeneraltab.cpp:357
+#: src/accountgeneraltab.cpp:374
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/accountgeneraltab.cpp:367
+#: src/accountgeneraltab.cpp:384
 msgid "Voicemail number"
 msgstr "Číslo hlasové schránky"
 
-#: src/accountgeneraltab.cpp:379
+#: src/accountgeneraltab.cpp:396
 msgctxt "The DHT bootstrap server url"
 msgid "Bootstrap Servers"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:420 ui/accountadvancedtab.ui:314
+#: src/accountgeneraltab.cpp:437 ui/accountadvancedtab.ui:314
 msgid "Port"
 msgstr "Port"
 
-#: src/accountgeneraltab.cpp:430
+#: src/accountgeneraltab.cpp:446
+msgid "Name service URL"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:459
 msgid "Auto-answer calls"
 msgstr "Automaticky přijímat hovory"
 
-#: src/accountgeneraltab.cpp:438
+#: src/accountgeneraltab.cpp:467
 msgid "UPnP enabled"
 msgstr "UPnP povoleno"
 
-#: src/accountgeneraltab.cpp:446
+#: src/accountgeneraltab.cpp:475
 msgid "DTMF tone type:"
 msgstr "Typ tónové volby:"
 
 #: src/accountimportexportview.cpp:99
 msgid "Select account export location"
-msgstr ""
+msgstr "Vyberte umístění exportu účtu"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
 #: ui/accountdevicestab.ui:132 ui/accountimportexportview.ui:161
@@ -134,15 +149,15 @@ msgstr "Zrušit"
 
 #: src/accountimportexportview.cpp:104
 msgid "Select"
-msgstr ""
+msgstr "Vybrat"
 
 #: src/accountimportexportview.cpp:211
 msgid "Error importing account(s)"
-msgstr ""
+msgstr "Chyba během importu účtů"
 
 #: src/accountimportexportview.cpp:263
 msgid "Error exporting account(s)"
-msgstr ""
+msgstr "Chyba během exportu účtů"
 
 #: src/accountvideotab.cpp:190
 msgctxt "The name of the codec"
@@ -177,7 +192,7 @@ msgstr "Zabezpečení"
 #: src/accountview.cpp:197
 msgctxt "Account settings"
 msgid "Devices"
-msgstr ""
+msgstr "Zařízení"
 
 #: src/accountview.cpp:253
 #, c-format
@@ -205,15 +220,15 @@ msgstr "Status"
 
 #: src/avatarmanipulation.cpp:381
 msgid "Open Avatar Image"
-msgstr ""
+msgstr "Otevřít Profilový Obrázek"
 
 #: src/avatarmanipulation.cpp:384
 msgid "_Cancel"
-msgstr ""
+msgstr "_Zrušit"
 
 #: src/avatarmanipulation.cpp:386
 msgid "_Open"
-msgstr ""
+msgstr "_Otevřít"
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
@@ -229,11 +244,11 @@ msgstr "Kontakty"
 msgid ""
 "Are you sure you want to delete contact \"%s\"? It will be removed from your"
 " system's addressbook."
-msgstr ""
+msgstr "Jste si jisti, že chcete odstranit kontakt \"%s\"? Bude odstarněn také z vašeho systémového adresáře."
 
 #: src/contactpopupmenu.cpp:114
 msgid "_Call"
-msgstr ""
+msgstr "_Volat"
 
 #: src/contactpopupmenu.cpp:117
 msgid "_Copy name"
@@ -249,7 +264,7 @@ msgstr "_Přidat do kontaktu"
 
 #: src/contactpopupmenu.cpp:126
 msgid "_Remove contact"
-msgstr ""
+msgstr "_Odstranit kontakt"
 
 #: src/dialogs.c:53
 msgid "Working..."
@@ -257,16 +272,16 @@ msgstr "Pracuji..."
 
 #: src/dialogs.c:84
 #, c-format
-msgctxt "Do not translate the release name"
+msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"release: Louis-Joseph Papineau\n"
-"v%d.%d.%d - %.10s"
-msgstr "vydání: Louis-Joseph Papineau\nv%d.%d.%d - %.10s"
+"Gaston Miron - Beta 2\n"
+"built on %.25s"
+msgstr ""
 
-#: src/dialogs.c:126
+#: src/dialogs.c:131
 msgid ""
-"The GNOME client for GNU Ring.\n"
-"GNU Ring is free software for universal communication which respects the freedoms and privacy of its users."
+"The GNOME client for Ring.\n"
+"Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr ""
 
 #: src/editcontactview.cpp:185
@@ -278,14 +293,14 @@ msgstr "domov"
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr ""
+msgstr "Toto je destruktivní akce. Skutečně chcete odstranit veškerou vaši historii zpráv a volání?"
 
-#: src/historyview.cpp:289
+#: src/historyview.cpp:293
 msgctxt "Call history"
 msgid "Call"
 msgstr "Hovor"
 
-#: src/historyview.cpp:334
+#: src/historyview.cpp:338
 msgctxt "Call history"
 msgid "Date"
 msgstr "Datum"
@@ -297,7 +312,7 @@ msgstr "Příchozí hovor"
 #: src/ringnotify.cpp:165 src/ringnotify.cpp:343
 msgctxt "notification action name"
 msgid "Show"
-msgstr ""
+msgstr "Ukázat"
 
 #: src/ringnotify.cpp:267
 #, c-format
@@ -305,68 +320,142 @@ msgctxt "Text message notification"
 msgid "%s says:"
 msgstr "%s říká:"
 
-#: src/ring_client_options.c:65
+#: src/ring_client_options.c:66
 msgid "Enable debug"
 msgstr "Povolit debug"
 
-#: src/ring_client_options.c:67
+#: src/ring_client_options.c:68
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
 msgstr "Obnoví skrytý stav hlavního okna (pouze pro primární instanci)"
 
-#: src/ring_client_options.c:84
+#: src/ring_client_options.c:85
 msgid "- GNOME client for Ring"
 msgstr "- klient GNOME pro Ring"
 
-#: src/ringmainwindow.cpp:1002
+#: src/ringmainwindow.cpp:519
+msgid "looking up RingID"
+msgstr ""
+
+#: src/ringmainwindow.cpp:555
+#, c-format
+msgid "Invalid Ring username: %s"
+msgstr ""
+
+#: src/ringmainwindow.cpp:571
+#, c-format
+msgid "Could not resolve Ring username: %s"
+msgstr ""
+
+#: src/ringmainwindow.cpp:994
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr ""
+msgstr "zavolat"
 
-#: src/ringmainwindow.cpp:1004
+#: src/ringmainwindow.cpp:996
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr ""
+msgstr "zobrazit zprávy"
 
-#: src/ringmainwindow.cpp:1248
+#: src/ringmainwindow.cpp:1169
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Hledejte kontakty nebo zadejte číslo"
 
-#: src/ringwelcomeview.cpp:72
+#: src/ringwelcomeview.cpp:71
 msgid "fetching RingID..."
 msgstr "získávám RingID..."
 
-#: src/ringwelcomeview.cpp:127
+#: src/ringwelcomeview.cpp:126
 msgid ""
-"GNU Ring is free software for universal communication which respects the "
+"Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
 msgstr ""
 
-#: src/ringwelcomeview.cpp:138
+#: src/ringwelcomeview.cpp:137
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr "Toto je vaše RingID.\nZkopírujte a sdílejte jej s vašimi přáteli!"
+msgstr "Toto je vaše RingID.\nKopírujte a sdílejte jej s vašimi přáteli!"
+
+#: src/usernameregistrationbox.cpp:127
+msgid "The entered username is not available"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:128
+msgid "Username is not available"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:137
+msgid "The entered username is not valid"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:138
+msgid "Username is not valid"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:147
+msgid "The entered username is available"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:148
+msgid "Username is available"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:157
+msgid "Failed to perform lookup"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:158
+msgid "Could not lookup username"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:245
+msgid "Looking up username availability..."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:305 ui/accountcreationwizard.ui:381
+msgid "Registering username..."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:329
+msgid "Invalid username"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:343
+msgid "Username already taken"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:350
+msgid "Network error"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:365
+msgid "Count not initiate name registration, try again."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:407
+msgid "Register this username on the blockchain"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Ring Error"
-msgstr ""
+msgstr "Ring Chyba"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr ""
+msgstr "Pokouším se znovu připojit k démonu Ring (dring)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Ring daemon (dring).\n"
 "Ring will now quit."
-msgstr ""
+msgstr "Nelze se znovu připojit k démonu Ring (dring).\nRing nyní bude ukončen."
 
 #: src/video/video_widget.cpp:525
 msgid "Share screen area"
@@ -378,7 +467,7 @@ msgstr "Sdílet soubor"
 
 #: src/video/video_widget.cpp:549
 msgid "Show advanced information"
-msgstr ""
+msgstr "Ukázat pokročilé informace"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
@@ -488,119 +577,129 @@ msgstr "Dolů"
 
 #: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
 msgid "Codecs"
-msgstr ""
+msgstr "Kodeky"
 
 #: ui/accountcreationwizard.ui:31
 msgid "Welcome to "
-msgstr ""
+msgstr "Vítejte v"
 
 #: ui/accountcreationwizard.ui:66
-msgid "Existing Ring account"
+msgid "Link this device to an existing account"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:67
-msgid "Import a Ring account created on another device"
+msgid "Link this devices to a Ring account created on another device"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:74
-msgid "New Ring account"
+msgid "Create Ring Account"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:75
 msgid "Create a new Ring account (for new users)"
-msgstr ""
+msgstr "Vytvořit nový Ring účet (pro nové uživatele)"
 
 #: ui/accountcreationwizard.ui:108
 msgid "Enter your pin:"
-msgstr ""
+msgstr "Vložte váš pin:"
 
 #: ui/accountcreationwizard.ui:127
 msgid "Enter your password:"
-msgstr ""
+msgstr "Vložte vaše heslo:"
 
-#: ui/accountcreationwizard.ui:151 ui/accountcreationwizard.ui:313
+#: ui/accountcreationwizard.ui:151 ui/accountcreationwizard.ui:323
 msgid "Previous"
-msgstr ""
+msgstr "Předchozí"
 
-#: ui/accountcreationwizard.ui:159 ui/accountcreationwizard.ui:321
+#: ui/accountcreationwizard.ui:159 ui/accountcreationwizard.ui:331
 msgid "Next"
 msgstr "Další"
 
 #: ui/accountcreationwizard.ui:188
 msgid "Choose your avatar, username, and password:"
+msgstr "Vyberte si profilový obrázek, uživatelské jméno a heslo:"
+
+#: ui/accountcreationwizard.ui:216
+msgid "Username:"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:232 ui/accountmigrationview.ui:161
+#: ui/accountcreationwizard.ui:240
+msgid "Register name publicly (experimental)"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:247
+msgid ""
+"Reserve the username so that only you can use it. Your friends will be able "
+"to contact you with your username instead of using your RingID."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:258 ui/accountmigrationview.ui:161
 msgid "Password (confirm):"
-msgstr ""
+msgstr "Heslo (znovu):"
 
-#: ui/accountcreationwizard.ui:244 ui/accountmigrationview.ui:132
-msgid "Passwords don't match"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:294
-msgid "Username will be set to \"Unknown\" if left empty."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:345
+#: ui/accountcreationwizard.ui:355
 msgid "Generating your Ring account..."
-msgstr "Generuji váš účet Ring..."
+msgstr "Generuji váš Ring účet..."
 
-#: ui/accountcreationwizard.ui:371
+#: ui/accountcreationwizard.ui:388
+msgid "This may take a few minutes."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:414
 msgid "Retrieving your Ring account..."
-msgstr ""
+msgstr "Získávám váš Ring účet..."
 
-#: ui/accountcreationwizard.ui:397
+#: ui/accountcreationwizard.ui:440
 msgid "Error creating/loading account."
-msgstr ""
+msgstr "Chyba při vytváření/nahrávání účtu."
 
-#: ui/accountcreationwizard.ui:402 ui/accountdevicestab.ui:210
+#: ui/accountcreationwizard.ui:445 ui/accountdevicestab.ui:210
 #: ui/accountdevicestab.ui:231 ui/accountmigrationview.ui:236
 msgid "OK"
-msgstr ""
+msgstr "Budiž"
 
 #: ui/accountdevicestab.ui:19
 msgid "My Device ID:"
-msgstr ""
+msgstr "ID Mého Zařízení:"
 
 #: ui/accountdevicestab.ui:38
 msgid "Devices"
-msgstr ""
+msgstr "Zařízení"
 
 #: ui/accountdevicestab.ui:64
 msgid "Add device"
-msgstr ""
+msgstr "Přidat zařízení"
 
 #: ui/accountdevicestab.ui:80
 msgid "Add New Device"
-msgstr ""
+msgstr "Přidat Nové Zařízení"
 
 #: ui/accountdevicestab.ui:95
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "Pro přidání nového zařízení k vašemu Ring účtu, exportujte váš účet na Ring. Tímto získáte PIN, který musíte předat vašemu novému zařízení do pěti minut od jeho vygenerování."
 
 #: ui/accountdevicestab.ui:104 ui/accountimportexportview.ui:111
 msgid "Password (required):"
-msgstr ""
+msgstr "Heslo (potřebné):"
 
 #: ui/accountdevicestab.ui:115 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
-msgstr ""
+msgstr "Vložte heslo archivu"
 
 #: ui/accountdevicestab.ui:138
 msgid "Export on the Ring"
-msgstr ""
+msgstr "Exportovat na Ring"
 
 #: ui/accountdevicestab.ui:157
 msgid "Exporting account on the Ring..."
-msgstr ""
+msgstr "Exportuji účet na Ring..."
 
 #: ui/accountdevicestab.ui:179
 msgid "Your generated pin:"
-msgstr ""
+msgstr "Váš vygenerovaný PIN:"
 
 #: ui/accountgeneraltab.ui:42
 msgid "Account"
@@ -612,7 +711,7 @@ msgstr "Parametry"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
-msgstr ""
+msgstr "Exportovat vybraný účet"
 
 #: ui/accountimportexportview.ui:26
 msgid "Import accounts"
@@ -620,48 +719,48 @@ msgstr "Importovat účty"
 
 #: ui/accountimportexportview.ui:49
 msgid "Location:"
-msgstr ""
+msgstr "Umístění:"
 
 #: ui/accountimportexportview.ui:70
 msgid "choose location"
-msgstr ""
+msgstr "zvolte umístění"
 
 #: ui/accountimportexportview.ui:76
 msgid "Choose export location"
-msgstr ""
+msgstr "Zvolte umístění exportu"
 
 #: ui/accountimportexportview.ui:95
 msgid "Choose archive location"
-msgstr ""
+msgstr "Zvolte umístění archivu"
 
-#: ui/accountimportexportview.ui:169 ui/accountview.ui:107
+#: ui/accountimportexportview.ui:169 ui/accountview.ui:110
 msgid "Export"
 msgstr "Exportovat"
 
-#: ui/accountimportexportview.ui:181 ui/accountview.ui:100
+#: ui/accountimportexportview.ui:181 ui/accountview.ui:103
 msgid "Import"
 msgstr "Importovat"
 
 #: ui/accountmigrationview.ui:28
 msgid "Account migration required"
-msgstr ""
+msgstr "Je potřeba migrace účtu"
 
 #: ui/accountmigrationview.ui:37
 msgid ""
 "The following account needs to be migrated to the new Ring account format:"
-msgstr ""
+msgstr "Následující účet musí emigrovat do nového formátu Ring účtů:"
 
 #: ui/accountmigrationview.ui:52
 msgid "Alias:"
-msgstr ""
+msgstr "Alias:"
 
 #: ui/accountmigrationview.ui:75
 msgid "ID:"
-msgstr ""
+msgstr "ID:"
 
 #: ui/accountmigrationview.ui:98
 msgid "Avatar:"
-msgstr ""
+msgstr "Profilový obrázek:"
 
 #: ui/accountmigrationview.ui:122
 msgid ""
@@ -669,22 +768,37 @@ msgid ""
 "This password will be used to encrypt your master key. It will be required "
 "for adding new devices to your Ring account. If you are not ready to choose "
 "a password, you may close Ring and resume the migration later."
-msgstr ""
+msgstr "Pro pokračování v migraci musíte zvolit heslo pro váš účet. Toto heslo bude použito k zašifrování vašeho hlavního klíče. Bude požadováno pro přidávání nových zařízení k vašemu Ring účtu. Pokud nejste připraveni zvolit si heslo, můžete Ring zavřít a pokračovat v migraci později."
 
 #: ui/accountmigrationview.ui:141
 msgid "Password:"
-msgstr ""
+msgstr "Heslo:"
 
 #: ui/accountmigrationview.ui:184
 msgid "Migrate account"
-msgstr ""
+msgstr "Migrovat účet"
 
 #: ui/accountmigrationview.ui:202
 msgid "Migrating account..."
-msgstr ""
+msgstr "Migruji účet..."
 
 #: ui/accountmigrationview.ui:228
 msgid "Failed to migrate account. Try again."
+msgstr "Nepodařilo se emigrovat účet. Zkuste to znovu."
+
+#: ui/accountmigrationview.ui:255
+msgid "Choose your Ring username"
+msgstr ""
+
+#: ui/accountmigrationview.ui:264
+msgid ""
+"As of now Ring has a decentralized username registry. This means that you "
+"can now contact your friends using their usernames instead of their RingIDs."
+" The username registry is distributed and all users are able to consult it."
+msgstr ""
+
+#: ui/accountmigrationview.ui:279
+msgid "Register my username later"
 msgstr ""
 
 #: ui/accountsecuritytab.ui:37
@@ -765,49 +879,49 @@ msgstr "Povolit obraz"
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
-msgstr ""
+msgstr "Odstranit vybraný účet"
 
 #: ui/accountview.ui:63 ui/accountview.ui:66
 msgid "Add new account"
-msgstr ""
+msgstr "Přidat nový účet"
 
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
-msgstr ""
+msgstr "Vyberte typ účtu"
 
-#: ui/accountview.ui:101
+#: ui/accountview.ui:104
 msgid "Import archived account(s)"
-msgstr ""
+msgstr "Importovat archivované účty"
 
-#: ui/accountview.ui:109
+#: ui/accountview.ui:112
 msgid "Export selected account(s)"
-msgstr ""
+msgstr "Exportovat vybrané účty"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr ""
+msgstr "Vyfotit"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr ""
+msgstr "Vybrat obrázek ze souboru"
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
-msgstr ""
+msgstr "Zpět"
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
-msgstr ""
+msgstr "Nastavit výběr jako obrázek"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
-msgstr ""
+msgstr "Schovat zprávy"
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
-msgstr ""
+msgstr "Volat"
 
-#: ui/chatview.ui:115
+#: ui/chatview.ui:112
 msgid "Send"
 msgstr "Odeslat"
 
@@ -854,11 +968,11 @@ msgstr "Nahrávat zvuk"
 
 #: ui/currentcallview.ui:356
 msgid "Adjust outgoing video quality"
-msgstr ""
+msgstr "Upravit kvalitu odchozího videa"
 
 #: ui/currentcallview.ui:361 ui/currentcallview.ui:443
 msgid "Video quality"
-msgstr ""
+msgstr "Kvalita videa"
 
 #: ui/currentcallview.ui:377
 msgid "Toggle show chat"
@@ -914,11 +1028,11 @@ msgstr "Uložit"
 
 #: ui/generalsettingsview.ui:32
 msgid "Profile Settings"
-msgstr ""
+msgstr "Nastavení Profilu"
 
 #: ui/generalsettingsview.ui:74
 msgid "Ring Settings"
-msgstr ""
+msgstr "Nastavení Ring"
 
 #: ui/generalsettingsview.ui:90
 msgid "Start Ring on login"
@@ -926,7 +1040,7 @@ msgstr "Spouštět Ring po přihlášení"
 
 #: ui/generalsettingsview.ui:98
 msgid "Show Ring icon in the notification area (systray)."
-msgstr ""
+msgstr "Ukázat ikonku Ring v oblasti upozornění."
 
 #: ui/generalsettingsview.ui:106
 msgid "Bring Ring to the foreground on incoming calls."
@@ -934,15 +1048,15 @@ msgstr "Přenést okno Ring do popředí při příchozích hovorech."
 
 #: ui/generalsettingsview.ui:114
 msgid "Enable notifications for incoming calls."
-msgstr ""
+msgstr "Povolit upozornění pro příchozí hovory."
 
 #: ui/generalsettingsview.ui:122
 msgid "Enable notifications for new chat messages."
-msgstr ""
+msgstr "Povolit upozornění pro příchozí zprávy."
 
 #: ui/generalsettingsview.ui:130
 msgid "Entering a number in the search entry will place a new call."
-msgstr ""
+msgstr "Zadání čísla do pole vyhledávání jej vytočí."
 
 #: ui/generalsettingsview.ui:143
 msgid "Show chat on the right."
@@ -986,7 +1100,7 @@ msgstr "   Zavěsit"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
-msgstr ""
+msgstr "Nastavení Zvuku"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
@@ -1006,7 +1120,7 @@ msgstr "Vstupní zařízení:"
 
 #: ui/mediasettingsview.ui:134
 msgid "Camera Settings"
-msgstr ""
+msgstr "Nastavení Kamery"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"
@@ -1063,3 +1177,11 @@ msgstr "Kontakty"
 #: ui/ringmainwindow.ui:222
 msgid "History"
 msgstr "Historie"
+
+#: ui/usernameregistrationbox.ui:12
+msgid "enter username here"
+msgstr ""
+
+#: ui/usernameregistrationbox.ui:24
+msgid "Register"
+msgstr "Zaregistrovat"
