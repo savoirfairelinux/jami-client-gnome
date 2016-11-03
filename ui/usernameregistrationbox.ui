@@ -20,6 +20,7 @@
     <child>
       <object class="GtkButton" id="button_register_username">
         <property name="visible">False</property>
+        <property name="no-show-all">True</property>
         <property name="label" translatable="yes">Register</property>
       </object>
       <packing>
@@ -30,6 +31,7 @@
     <child>
       <object class="GtkSpinner" id="spinner">
         <property name="visible">False</property>
+        <property name="no-show-all">True</property>
         <property name="halign">center</property>
       </object>
       <packing>
@@ -40,6 +42,7 @@
     <child>
       <object class="GtkImage" id="icon_username_availability">
         <property name="visible">True</property>
+        <property name="no-show-all">True</property>
         <property name="halign">center</property>
       </object>
       <packing>
