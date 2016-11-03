@@ -1,14 +1,14 @@
 ring-client-gnome
 *****************
 
-Ring-client-gnome is a GNU Ring client written in GTK+3. It uses libRingClient to
+Ring-client-gnome is a Ring client written in GTK+3. It uses libRingClient to
 communicate with the Ring daemon and for all of the underlying models and their
 logic. Ideally ring-client-gnome should only contain UI related code and any
 wrappers necessary for interacting with libRingClient.
 
 Packages for Debian/Ubuntu/Fedora can be found on http://ring.cx
 
-More info about the GNU Ring project and the clients can be found on our Tuleap
+More info about the Ring project and the clients can be found on our Tuleap
 website:
  - https://tuleap.ring.cx/projects/ring/
 
