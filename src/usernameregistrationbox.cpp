@@ -246,6 +246,13 @@ entry_username_changed(UsernameRegistrationBox *view)
 
         // queue lookup with a 500ms delay
         priv->lookup_timeout = g_timeout_add(500, (GSourceFunc)lookup_username, view);
+    } else {
+        // not using blockchain, any name > 0 is OK
+        gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon_username_availability), "emblem-default", GTK_ICON_SIZE_SMALL_TOOLBAR);
+        gtk_widget_show(priv->icon_username_availability);
+        gtk_widget_hide(priv->spinner);
+        gtk_spinner_stop(GTK_SPINNER(priv->spinner));
+        gtk_label_set_text(GTK_LABEL(priv->label_status), "");
     }
 }
 
@@ -440,22 +447,13 @@ username_registration_box_set_use_blockchain(UsernameRegistrationBox* view, gboo
 
     priv->use_blockchain = use_blockchain;
 
-    if (use_blockchain) {
-        entry_username_changed(view);
+    entry_username_changed(view);
 
+    if (use_blockchain) {
         if (priv->show_register_button)
             gtk_widget_show(priv->button_register_username);
 
     } else {
-        gtk_widget_hide(priv->icon_username_availability);
-        gtk_widget_hide(priv->spinner);
-        gtk_spinner_stop(GTK_SPINNER(priv->spinner));
-        gtk_label_set_text(GTK_LABEL(priv->label_status), "");
         gtk_widget_hide(priv->button_register_username);
-        // cancel any queued lookup
-        if (priv->lookup_timeout) {
-            g_source_remove(priv->lookup_timeout);
-            priv->lookup_timeout = 0;
-        }
     }
 }
