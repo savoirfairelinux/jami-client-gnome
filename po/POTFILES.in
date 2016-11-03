@@ -21,6 +21,7 @@ src/ringnotify.cpp
 src/ring_client_options.c
 src/ringmainwindow.cpp
 src/ringwelcomeview.cpp
+src/usernameregistrationbox.cpp
 src/native/dbuserrorhandler.cpp
 src/utils/menus.cpp
 src/video/video_widget.cpp
@@ -44,3 +45,4 @@ ui/incomingcallview.ui
 ui/mediasettingsview.ui
 ui/ringgearsmenu.ui
 ui/ringmainwindow.ui
+ui/usernameregistrationbox.ui
