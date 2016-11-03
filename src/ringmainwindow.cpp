@@ -45,6 +45,7 @@
 #include <profilemodel.h>
 #include <profile.h>
 #include <phonedirectorymodel.h>
+#include <availableaccountmodel.h>
 
 // Ring client
 #include "models/gtkqtreemodel.h"
@@ -508,9 +509,28 @@ search_entry_activated(RingMainWindow *self)
 
     const auto *number_entered = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
 
-    if (number_entered && strlen(number_entered) > 0) {
-        URI uri = URI(number_entered);
-        if (uri.protocolHint() == URI::ProtocolHint::RING_USERNAME)
+    URI uri = URI(number_entered);
+
+
+    // make sure the userinfo part isn't empty, only specifying a protocol isn't enough
+    if (!uri.userinfo().isEmpty()) {
+
+        gboolean lookup_username = FALSE;
+
+        if (uri.protocolHint() == URI::ProtocolHint::RING_USERNAME ) {
+            lookup_username = TRUE;
+        } else if (
+            uri.protocolHint() != URI::ProtocolHint::RING && // not a RingID
+            uri.schemeType() == URI::SchemeType::NONE // scheme type not specified
+        ) {
+            // if no scheme type has been specified, determine ring vs sip by the first available account
+            if (auto account = AvailableAccountModel::instance().currentDefaultAccount()) {
+                if (account->protocol() == Account::Protocol::RING)
+                    lookup_username = TRUE;
+            }
+        }
+
+        if (lookup_username)
         {
             gtk_widget_set_sensitive(priv->search_entry, FALSE);
             gtk_widget_set_sensitive(priv->button_new_conversation, FALSE);
