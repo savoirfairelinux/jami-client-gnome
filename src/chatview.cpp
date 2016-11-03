@@ -120,9 +120,9 @@ send_chat(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    /* make sure there is text to send */
-    const gchar *text = gtk_entry_get_text(GTK_ENTRY(priv->entry_chat_input));
-    if (text && strlen(text) > 0) {
+    /* make sure there is more than just whitespace, but if so, send the original text */
+    const auto text = QString(gtk_entry_get_text(GTK_ENTRY(priv->entry_chat_input)));
+    if (!text.trimmed().isEmpty()) {
         QMap<QString, QString> messages;
         messages["text/plain"] = text;
 
