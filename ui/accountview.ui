@@ -90,7 +90,10 @@
         <!-- import/export account -->
         <child>
           <object class="GtkButtonBox" id="buttonbox_import_export">
-            <property name="visible">True</property>
+            <!-- hide while feature is broken -->
+            <property name="visible">False</property>
+            <property name="no-show-all">True</property>
+
             <property name="orientation">horizontal</property>
             <property name="layout-style">spread</property>
             <property name="margin-top">5</property>
