@@ -499,7 +499,7 @@ webkit_chat_container_set_sender_image(WebKitChatContainer *view, ContactMethod 
     QString sender_contact_method_str;
     if (sender_contact_method)
     {
-        sender_contact_method_str =  QString(g_strdup_printf("%p", sender_contact_method));
+        sender_contact_method_str =  QString().sprintf("%p", sender_contact_method);
     }
     else
     {
