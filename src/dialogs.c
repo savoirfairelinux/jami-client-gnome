@@ -86,10 +86,11 @@ ring_about_dialog(GtkWidget *parent)
 
     const gchar *authors[] = {
         "Adrien Béraud",
+        "Alexandr Sergheev",
         "Alexandre Lision",
-        "Andreas Traczyk",
         "Alexandre Viau",
         "Aline Bonnet",
+        "Andreas Traczyk",
         "Anthony Léonard",
         "Cyrille Béraud",
         "Edric Milaret",
