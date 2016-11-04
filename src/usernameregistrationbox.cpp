@@ -57,6 +57,7 @@ struct _UsernameRegistrationBoxPrivate
     QMetaObject::Connection registered_name_found;
     QString* username_waiting_for_lookup_result;
     gint lookup_timeout;
+    gulong entry_changed;
 
     gboolean use_blockchain;
     gboolean show_register_button;
@@ -304,6 +305,63 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
 
             gtk_label_set_text(GTK_LABEL(priv->label_status), _("Registering username..."));
 
+            if (!priv->account->registerName(password, username))
+            {
+                gtk_spinner_stop(GTK_SPINNER(priv->spinner));
+                gtk_widget_hide(priv->spinner);
+                gtk_widget_set_sensitive(priv->entry_username, TRUE);
+
+                gtk_widget_set_sensitive(priv->button_register_username, TRUE);
+                gtk_label_set_text(GTK_LABEL(priv->label_status), _("Count not initiate name registration, try again."));
+                gtk_widget_show(priv->icon_username_availability);
+            }
+            break;
+        }
+        case GTK_RESPONSE_CANCEL:
+        {
+            break;
+        }
+    }
+}
+
+static void
+build_view(UsernameRegistrationBox *view, gboolean register_button)
+{
+    UsernameRegistrationBoxPrivate *priv = USERNAME_REGISTRATION_BOX_GET_PRIVATE(view);
+
+    QString registered_name;
+    if(priv->account)
+    {
+        registered_name = priv->account->registeredName();
+    }
+    else
+    {
+        registered_name = QString();
+    }
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_username), registered_name.toLocal8Bit().constData());
+
+    if (registered_name.isEmpty())
+    {
+        //Make the entry editable
+        g_object_set(G_OBJECT(priv->entry_username), "editable", TRUE, NULL);
+        priv->entry_changed = g_signal_connect_swapped(priv->entry_username, "changed", G_CALLBACK(entry_username_changed), view);
+
+        //Show the status icon
+        gtk_widget_show(priv->icon_username_availability);
+
+        //Show the register button
+        if (register_button && priv->account)
+        {
+            gtk_widget_show(priv->button_register_username);
+            gtk_widget_set_sensitive(priv->button_register_username, FALSE);
+            gtk_widget_set_tooltip_text(priv->button_register_username, _("Register this username on the blockchain"));
+            g_signal_connect(priv->button_register_username, "clicked", G_CALLBACK(button_register_username_clicked), view);
+        }
+
+        //Show the status label
+        gtk_widget_show(priv->label_status);
+
+        if (priv->account) {
             priv->name_registration_ended = QObject::connect(
                 priv->account,
                 &Account::nameRegistrationEnded,
@@ -316,8 +374,14 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
                     {
                         case NameDirectory::RegisterNameStatus::SUCCESS:
                         {
+                            // update the entry to what was registered, just to be sure
+                            // don't do more lookups
+                            if (priv->entry_changed != 0) {
+                                g_signal_handler_disconnect(priv->entry_username, priv->entry_changed);
+                                priv->entry_changed = 0;
+                            }
+                            gtk_entry_set_text(GTK_ENTRY(priv->entry_username), name.toUtf8().constData());
                             gtk_label_set_text(GTK_LABEL(priv->label_status), NULL);
-                            gtk_widget_set_sensitive(priv->button_register_username, TRUE);
                             g_object_set(G_OBJECT(priv->entry_username), "editable", FALSE, NULL);
                             gtk_widget_hide(priv->button_register_username);
                             g_signal_emit(G_OBJECT(view), username_registration_box_signals[USERNAME_REGISTRATION_COMPLETED], 0);
@@ -354,64 +418,8 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
                     }
                 }
             );
-
-             if (!priv->account->registerName(password, username))
-             {
-                gtk_spinner_stop(GTK_SPINNER(priv->spinner));
-                gtk_widget_hide(priv->spinner);
-                gtk_widget_set_sensitive(priv->entry_username, TRUE);
-
-                gtk_widget_set_sensitive(priv->button_register_username, TRUE);
-                gtk_label_set_text(GTK_LABEL(priv->label_status), _("Count not initiate name registration, try again."));
-                gtk_widget_show(priv->icon_username_availability);
-             }
-            break;
-        }
-        case GTK_RESPONSE_CANCEL:
-        {
-            break;
         }
     }
-}
-
-static void
-build_view(UsernameRegistrationBox *view, gboolean register_button)
-{
-    UsernameRegistrationBoxPrivate *priv = USERNAME_REGISTRATION_BOX_GET_PRIVATE(view);
-
-    QString registered_name;
-    if(priv->account)
-    {
-        registered_name = priv->account->registeredName();
-    }
-    else
-    {
-        registered_name = QString();
-    }
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_username), registered_name.toLocal8Bit().constData());
-
-    if (registered_name.isEmpty())
-    {
-        //Make the entry editable
-        g_object_set(G_OBJECT(priv->entry_username), "editable", TRUE, NULL);
-        g_signal_connect_swapped(priv->entry_username, "changed", G_CALLBACK(entry_username_changed), view);
-
-        //Show the status icon
-        gtk_widget_show(priv->icon_username_availability);
-
-        //Show the register button
-        if (register_button && priv->account)
-        {
-            gtk_widget_show(priv->button_register_username);
-            gtk_widget_set_sensitive(priv->button_register_username, FALSE);
-            gtk_widget_set_tooltip_text(priv->button_register_username, _("Register this username on the blockchain"));
-            g_signal_connect(priv->button_register_username, "clicked", G_CALLBACK(button_register_username_clicked), view);
-        }
-
-        //Show the status label
-        gtk_widget_show(priv->label_status);
-    }
-
 }
 
 GtkWidget *
