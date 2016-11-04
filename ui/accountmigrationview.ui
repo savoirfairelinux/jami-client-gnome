@@ -68,6 +68,29 @@
                       </packing>
                     </child>
                     <!-- End account alias -->
+                    <!-- Begin accont ringID -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="no">RingID:</property>
+                        <property name="halign">start</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_account_ringid">
+                        <property name="visible">True</property>
+                        <property name="halign">start</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">1</property>
+                      </packing>
+                    </child>
+                    <!-- End account ringID -->
                     <!-- Begin account avatar -->
                     <child>
                       <object class="GtkLabel">
