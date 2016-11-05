@@ -541,7 +541,11 @@ search_entry_activated(RingMainWindow *self)
                 _("looking up RingID")
             );
 
-            QString username_to_lookup = uri.userinfo();
+            QString username_to_lookup = uri.format(
+                URI::Section::USER_INFO |
+                URI::Section::HOSTNAME |
+                URI::Section::PORT
+            );
 
             QObject::disconnect(priv->username_lookup);
             priv->username_lookup = QObject::connect(
