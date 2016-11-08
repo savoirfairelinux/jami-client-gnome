@@ -57,7 +57,7 @@ struct _AccountCreationWizardPrivate
     gboolean username_available;
 
     QString* password;
-    QString* alias;
+    QString* username;
 
     /* choose_account_type_vbox */
     GtkWidget *choose_account_type_vbox;
@@ -77,7 +77,7 @@ struct _AccountCreationWizardPrivate
     /* account creation */
     GtkWidget *account_creation;
     GtkWidget *vbox_account_creation_entry;
-    GtkWidget *entry_alias;
+    GtkWidget *entry_username;
     GtkWidget *entry_password;
     GtkWidget *entry_password_confirm;
     GtkWidget *button_account_creation_next;
@@ -88,6 +88,7 @@ struct _AccountCreationWizardPrivate
     GtkWidget *box_username_entry;
     GtkWidget *checkbutton_sign_up_blockchain;
     GtkWidget *username_registration_box;
+    GtkWidget *entry_display_name;
 
     /* generating_account_spinner */
     GtkWidget *vbox_generating_account_spinner;
@@ -181,6 +182,7 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, label_password_error);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, box_username_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, checkbutton_sign_up_blockchain);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_display_name);
 
     /* generating_account_spinner */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, vbox_generating_account_spinner);
@@ -242,16 +244,18 @@ show_registering_on_blockchain_spinner(AccountCreationWizard *view)
 
 static gboolean
 create_ring_account(AccountCreationWizard *view,
-                    gchar *alias,
+                    gchar *display_name,
+                    gchar *username,
                     gchar *password,
                     gchar *pin)
 {
+
     g_return_val_if_fail(IS_ACCOUNT_CREATION_WIZARD(view), G_SOURCE_REMOVE);
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
 
     // Copy password and alias, which will be used in our callbacks
+    priv->username = new QString(username);
     priv->password = new QString(password);
-    priv->alias = new QString(alias);
 
     g_object_ref(view); // ref so its not desroyed too early
 
@@ -261,11 +265,11 @@ create_ring_account(AccountCreationWizard *view,
     /* get profile (if so) */
     auto profile = ProfileModel::instance().selectedProfile();
 
-    if (alias && strlen(alias) > 0) {
-        account = AccountModel::instance().add(alias, Account::Protocol::RING);
+    if (display_name && strlen(display_name) > 0) {
+        account = AccountModel::instance().add(display_name, Account::Protocol::RING);
         if(profile && AccountModel::instance().size() == 1)
         {
-            profile->person()->setFormattedName(alias);
+            profile->person()->setFormattedName(display_name);
         }
     } else {
         auto unknown_alias = C_("The default username / account alias, if none is set by the user", "Unknown");
@@ -285,7 +289,7 @@ create_ring_account(AccountCreationWizard *view,
         account->setArchivePin(pin);
     }
 
-    account->setDisplayName(alias); // set the display name to the same as the alias
+    account->setDisplayName(display_name); // set the display name to the same as the alias
 
     account->setUpnpEnabled(TRUE);
 
@@ -314,7 +318,7 @@ create_ring_account(AccountCreationWizard *view,
                     account << Account::EditAction::RELOAD;
 
                     // Now try to register the username
-                    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_sign_up_blockchain)))
+                    if (priv->username && !priv->username->isEmpty() && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_sign_up_blockchain)))
                     {
                         priv->name_registration_ended = QObject::connect(
                             account,
@@ -344,9 +348,9 @@ create_ring_account(AccountCreationWizard *view,
 
                         show_registering_on_blockchain_spinner(view);
 
-                        bool register_name_result = account->registerName(*priv->password, *priv->alias);
+                        bool register_name_result = account->registerName(*priv->password, *priv->username);
+                        priv->username->clear();
                         priv->password->clear();
-                        priv->alias->clear();
 
                         if (register_name_result == FALSE)
                         {
@@ -386,16 +390,17 @@ create_new_ring_account(AccountCreationWizard *win)
     g_return_val_if_fail(IS_ACCOUNT_CREATION_WIZARD(win), G_SOURCE_REMOVE);
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
 
-    gchar *alias = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_alias)));
-
+    gchar *display_name = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_display_name)));
+    gchar *username = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_username)));
     gchar *password = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_password)));
     gtk_entry_set_text(GTK_ENTRY(priv->entry_password), "");
     gtk_entry_set_text(GTK_ENTRY(priv->entry_password_confirm), "");
 
-    auto status = create_ring_account(win, alias, password, NULL);
+    auto status = create_ring_account(win, display_name, username, password, NULL);
 
-    g_free(alias);
+    g_free(display_name);
     g_free(password);
+    g_free(username);
 
     return status;
 }
@@ -412,7 +417,7 @@ create_existing_ring_account(AccountCreationWizard *win)
     gchar *pin = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_existing_account_pin)));
     gtk_entry_set_text(GTK_ENTRY(priv->entry_existing_account_pin), "");
 
-    auto status = create_ring_account(win, NULL, password, pin);
+    auto status = create_ring_account(win, NULL, NULL, password, pin);
 
     g_free(password);
     g_free(pin);
@@ -528,16 +533,20 @@ entries_new_account_changed(AccountCreationWizard *view)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
 
-    const gchar *username = gtk_entry_get_text(GTK_ENTRY(priv->entry_alias));
+    const gchar *display_name = gtk_entry_get_text(GTK_ENTRY(priv->entry_display_name));
+    const gchar *username = gtk_entry_get_text(GTK_ENTRY(priv->entry_username));
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
     const gchar *password_confirm = gtk_entry_get_text(GTK_ENTRY(priv->entry_password_confirm));
     const gboolean sign_up_blockchain = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_sign_up_blockchain));
 
     if (
+            strlen(display_name) > 0 && // Display name is longer than 0
             strlen(password) > 0 && // Password is longer than 0
             strlen(password_confirm) > 0 && // Confirmation is also longer than 0
-            strlen(username) > 0 && // username is set
-            (!sign_up_blockchain || priv->username_available) // either the username must be available, or don't sign up for the blockchain
+            (
+                (sign_up_blockchain && strlen(username) > 0 && priv->username_available) || // we are signing up, username is set and avaialble
+                !sign_up_blockchain // We are not signing up
+            )
         )
     {
         gtk_widget_set_sensitive(priv->button_account_creation_next, TRUE);
@@ -559,6 +568,13 @@ checkbutton_sign_up_blockchain_toggled(GtkToggleButton *toggle_button, AccountCr
         USERNAME_REGISTRATION_BOX(priv->username_registration_box),
         sign_up_blockchain
     );
+
+    gtk_widget_set_sensitive(priv->entry_username, sign_up_blockchain);
+
+    if (!sign_up_blockchain)
+    {
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_username), "");
+    }
 
     /* Unchecking blockchain signup when there is an empty username should
      * result in activating the next button.
@@ -594,7 +610,7 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
     priv->username_registration_box = username_registration_box_new(nullptr, FALSE);
     gtk_container_add(GTK_CONTAINER(priv->box_username_entry), priv->username_registration_box);
     gtk_widget_show(priv->username_registration_box);
-    priv->entry_alias = GTK_WIDGET(
+    priv->entry_username = GTK_WIDGET(
         username_registration_box_get_entry(
             USERNAME_REGISTRATION_BOX(priv->username_registration_box)
         )
@@ -608,9 +624,11 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
 
     /* check first if the real name was determined */
     if (g_strcmp0 (real_name,"Unknown") != 0)
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), real_name);
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_display_name), real_name);
     else
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_alias), user_name);
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_display_name), user_name);
+
+    gtk_entry_set_placeholder_text(GTK_ENTRY(priv->entry_username), user_name);
 
     /* cancel button */
     gtk_widget_set_visible(priv->button_wizard_cancel, show_cancel_button);
@@ -622,11 +640,12 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
 
     /* account_creation signals */
     g_signal_connect_swapped(priv->button_account_creation_previous, "clicked", G_CALLBACK(show_choose_account_type), view);
-    g_signal_connect_swapped(priv->entry_alias, "changed", G_CALLBACK(entries_new_account_changed), view);
+    g_signal_connect_swapped(priv->entry_username, "changed", G_CALLBACK(entries_new_account_changed), view);
     g_signal_connect(priv->button_account_creation_next, "clicked", G_CALLBACK(account_creation_next_clicked), view);
     g_signal_connect_swapped(priv->entry_password, "changed", G_CALLBACK(entries_new_account_changed), view);
     g_signal_connect_swapped(priv->entry_password_confirm, "changed", G_CALLBACK(entries_new_account_changed), view);
-    g_signal_connect_swapped(priv->entry_alias, "changed", G_CALLBACK(entries_new_account_changed), view);
+    g_signal_connect_swapped(priv->entry_username, "changed", G_CALLBACK(entries_new_account_changed), view);
+    g_signal_connect_swapped(priv->entry_display_name, "changed", G_CALLBACK(entries_new_account_changed), view);
     g_signal_connect(priv->checkbutton_sign_up_blockchain, "toggled", G_CALLBACK(checkbutton_sign_up_blockchain_toggled), view);
     g_signal_connect_swapped(priv->username_registration_box, "username-availability-changed", G_CALLBACK(username_availability_changed), view);
 
