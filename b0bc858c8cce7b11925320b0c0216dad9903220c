@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_42ddd741",
+        "filename": "ui/accountcreationwizard.ui",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-11-08T21:21:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_622b3b31",
+      "range": {
+        "startLine": 185,
+        "startChar": 20,
+        "endLine": 196,
+        "endChar": 28
+      },
+      "revId": "b0bc858c8cce7b11925320b0c0216dad9903220c",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_02f90fc8",
         "filename": "ui/accountcreationwizard.ui",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2016-11-08T21:06:35Z",
       "side": 1,
       "message": "add this property so that the username box is displaced 26px to the right (10px spacing + 16px icon) and is centered:\n\u003cproperty name\u003d\"margin-start\"\u003e26\u003c/property\u003e",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 62
+      },
+      "revId": "b0bc858c8cce7b11925320b0c0216dad9903220c",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_62e25b05",
+        "filename": "ui/accountcreationwizard.ui",
+        "patchSetId": 6
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-11-08T21:21:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_02f90fc8",
       "range": {
         "startLine": 258,
         "startChar": 0,
