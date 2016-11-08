@@ -183,18 +183,6 @@
                     <property name="orientation">vertical</property>
                     <property name="spacing">10</property>
                     <child>
-                      <object class="GtkLabel" id="label_enter_alias">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Choose your avatar, username, and password:</property>
-                      </object>
-                      <packing>
-                        <!-- nicoo, check if packing is needed -->
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkBox" id="box_avatarselection">
                         <property name="visible">True</property>
                         <property name="halign">center</property>
@@ -207,18 +195,52 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">False</property>
-                        <property name="position">1</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Username:</property>
+                        <property name="label" translatable="yes">Display Name:</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="entry_display_name">
+                        <property name="halign">center</property>
+                        <property name="width-chars">40</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="can_default">True</property>
+                        <property name="has_default">True</property>
+                        <property name="xalign">0.5</property>
+                        <property name="visibility">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
                         <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbutton_sign_up_blockchain">
+                        <property name="label" translatable="yes">Register name publicly (experimental):</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="halign">center</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">True</property>
+                        <property name="tooltip_text" translatable="yes">Reserve the username so that only you can use it. Your friends will be able to contact you with your username instead of using your RingID.</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">3</property>
                       </packing>
                     </child>
                     <child>
@@ -228,23 +250,7 @@
                         <property name="halign">center</property>
                         <property name="orientation">horizontal</property>
                         <property name="spacing">10</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="checkbutton_sign_up_blockchain">
-                        <property name="label" translatable="yes">Register name publicly (experimental)</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="halign">center</property>
-                        <property name="active">True</property>
-                        <property name="draw_indicator">True</property>
-                        <property name="tooltip_text" translatable="yes">Reserve the username so that only you can use it. Your friends will be able to contact you with your username instead of using your RingID.</property>
+                        <property name="margin-start">26</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
