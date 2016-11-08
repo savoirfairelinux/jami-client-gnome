@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_42fe376d",
+        "filename": "web/chatview.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-11-08T21:46:11Z",
+      "side": 1,
+      "message": "what about these?",
+      "range": {
+        "startLine": 54,
+        "startChar": 7,
+        "endLine": 55,
+        "endChar": 61
+      },
+      "revId": "577c8d06d8eed9a071d15703f339f5a1b1c13881",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
