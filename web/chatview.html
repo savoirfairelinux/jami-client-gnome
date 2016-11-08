@@ -18,6 +18,7 @@
 <script src="https://soapbox.github.io/linkifyjs/js/linkify/linkify-string.min.js"></script>
 <script src="https://soapbox.github.io/linkifyjs/js/linkify/linkify-jquery.min.js"></script>
 <script src="https://soapbox.github.io/linkifyjs/js/linkify/linkify-html.min.js"></script>
+<link rel="stylesheet" type="text/css" href="chatview.css">
 -->
 
 <script>
@@ -243,14 +244,14 @@ ring.chatview.dev = (function(){
         // Set the profile pictures
         ring.chatview.setSenderImage(
             {
-                "sender": "Me",
+                "sender_contact_method": "self",
                 "sender_image": profile_picture,
             }
         );
 
         ring.chatview.setSenderImage(
             {
-                "sender": "Other Guy",
+                "sender_contact_method": "0x3345",
                 "sender_image": profile_picture,
             }
         )
@@ -262,6 +263,7 @@ ring.chatview.dev = (function(){
                 "id": 0,
                 "text": "Hello! This message's status will be updated to sent.",
                 "sender": "Me",
+                "sender_contact_method": "self",
                 "timestamp": 1475275399,
                 "direction": "out",
                 "delivery_status": "sending",
@@ -273,6 +275,7 @@ ring.chatview.dev = (function(){
                 "id": 0,
                 "text": "Hello! This message's status will be updated to sent.",
                 "sender": "Me",
+                "sender_contact_method": "self",
                 "timestamp": 1475275399,
                 "direction": "out",
                 "delivery_status": "sending",
@@ -284,6 +287,7 @@ ring.chatview.dev = (function(){
                 "id": 1,
                 "text": "Hey! This message's status is 'Unknown', we shouldn't display that to the user.",
                 "sender": "Other Guy",
+                "sender_contact_method": "0x3345",
                 "timestamp": 1475275399,
                 "direction": "in",
                 "delivery_status": "unknown",
@@ -295,6 +299,7 @@ ring.chatview.dev = (function(){
                 "id": 1,
                 "text": "This is the second message in a row from me. Don't bother displaying my profile picture twice.",
                 "sender": "Other Guy",
+                "sender_contact_method": "0x3345",
                 "timestamp": 1475275399,
                 "direction": "in",
                 "delivery_status": "unknown",
@@ -306,6 +311,7 @@ ring.chatview.dev = (function(){
                 "id": 0,
                 "text": "Now its my turn to speak!",
                 "sender": "Me",
+                "sender_contact_method": "self",
                 "timestamp": 1475275399,
                 "direction": "out",
                 "delivery_status": "sent",
@@ -317,6 +323,7 @@ ring.chatview.dev = (function(){
                "id": 5,
                "text": "Hello! This message's status will be updated to sent.",
                "sender": "Me",
+               "sender_contact_method": "self",
                "timestamp": 1475275399,
                "direction": "out",
                "delivery_status": "sending",
@@ -329,6 +336,7 @@ ring.chatview.dev = (function(){
                "id": 5,
                "text": "Hello! This message's status will be updated to sent.",
                "sender": "Me",
+               "sender_contact_method": "self",
                "timestamp": 1475275399,
                "direction": "out",
                "delivery_status": "failure",
