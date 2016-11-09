@@ -63,17 +63,17 @@
                     <property name="spacing">15</property>
                     <property name="homogeneous">True</property>
                     <child>
-                      <object class="GtkButton" id="button_existing_account">
-                        <property name="label" translatable="yes">Link this device to an existing account</property>
-                        <property name="tooltip_text" translatable="yes">Link this devices to a Ring account created on another device</property>
+                      <object class="GtkButton" id="button_new_account">
+                        <property name="label" translatable="yes">Create Ring Account</property>
+                        <property name="tooltip_text" translatable="yes">Create a new Ring account (for new users)</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button_new_account">
-                        <property name="label" translatable="yes">Create Ring Account</property>
-                        <property name="tooltip_text" translatable="yes">Create a new Ring account (for new users)</property>
+                      <object class="GtkButton" id="button_existing_account">
+                        <property name="label" translatable="yes">Link this device to an account</property>
+                        <property name="tooltip_text" translatable="yes">Link this devices to a Ring account created on another device</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
@@ -178,149 +178,193 @@
                 <property name="orientation">vertical</property>
                 <property name="spacing">15</property>
                 <child>
-                  <object class="GtkBox" id="vbox_account_creation_entry">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="valign">center</property>
                     <property name="orientation">vertical</property>
                     <property name="spacing">10</property>
+                    <!-- Start of profile frame child -->
                     <child>
-                      <object class="GtkBox" id="box_avatarselection">
+                      <!-- Start of profile frame object -->
+                      <object class="GtkFrame">
                         <property name="visible">True</property>
-                        <property name="halign">center</property>
-                        <property name="valign">center</property>
-                        <property name="orientation">vertical</property>
+                        <!-- Start of profile box child -->
                         <child>
-                          <placeholder/>
+                          <!-- Start of profile box object -->
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">10</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Profile</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkBox" id="box_avatarselection">
+                                <property name="visible">True</property>
+                                <property name="halign">center</property>
+                                <property name="valign">center</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">Full name:</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkEntry" id="entry_display_name">
+                                <property name="halign">center</property>
+                                <property name="width-chars">40</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="can_default">True</property>
+                                <property name="has_default">True</property>
+                                <property name="xalign">0.5</property>
+                                <property name="visibility">True</property>
+                              </object>
+                            </child>
+                            <!-- End of profile box object -->
+                          </object>
+                          <!-- End of profile box child -->
                         </child>
+                        <!-- end of profile frame object -->
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">0</property>
-                      </packing>
+                      <!-- End of profile frame child -->
                     </child>
+                    <!-- Start of account frame child -->
                     <child>
-                      <object class="GtkLabel">
+                      <!-- Start of account frame object -->
+                      <object class="GtkFrame">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Display Name:</property>
+                        <!-- Start of account box child -->
+                        <child>
+                          <!-- Start of account box object -->
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">10</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Ring Account</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="orientation">horizontal</property>
+                                <property name="halign">center</property>
+                                <child>
+                                  <object class="GtkCheckButton" id="checkbutton_sign_up_blockchain">
+                                    <property name="label" translatable="yes">Register public username (experimental):</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">False</property>
+                                    <property name="halign">center</property>
+                                    <property name="active">True</property>
+                                    <property name="draw_indicator">True</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkImage">
+                                    <property name="visible">True</property>
+                                    <property name="icon-name">dialog-question-symbolic</property>
+                                    <property name="tooltip_text" translatable="yes">By checking this, you will register a unique username on the Ring network. People can use it to contact you instead of using your RingID, which is 40 characters long.</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkBox" id="box_username_entry">
+                                <property name="visible">True</property>
+                                <property name="valign">center</property>
+                                <property name="halign">center</property>
+                                <property name="orientation">horizontal</property>
+                                <property name="spacing">10</property>
+                                <property name="margin-start">26</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="halign">center</property>
+                                <property name="orientation">horizontal</property>
+                                <child>
+                                  <object class="GtkLabel" id="label_enter_password">
+                                    <property name="visible">True</property>
+                                    <property name="label" translatable="yes">Password (confirm):</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkImage">
+                                    <property name="visible">True</property>
+                                    <property name="icon-name">dialog-question-symbolic</property>
+                                    <property name="tooltip_text" translatable="yes">This password will be used to encrypt your account data and to link new devices to your account.</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkEntry" id="entry_password">
+                                <property name="halign">center</property>
+                                <property name="width-chars">40</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="can_default">True</property>
+                                <property name="has_default">True</property>
+                                <property name="xalign">0.5</property>
+                                <property name="visibility">False</property>
+                                <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                                <property name="input_purpose">password</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkEntry" id="entry_password_confirm">
+                                <property name="halign">center</property>
+                                <property name="width-chars">40</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="can_default">True</property>
+                                <property name="has_default">True</property>
+                                <property name="xalign">0.5</property>
+                                <property name="visibility">False</property>
+                                <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                                <property name="input_purpose">password</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label_password_error">
+                                <property name="visible">True</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                  <attribute name="foreground" value="red"/>
+                                </attributes>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <!-- End of profile box object -->
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">1</property>
-                      </packing>
+                      <!-- End of profile box child -->
                     </child>
-                    <child>
-                      <object class="GtkEntry" id="entry_display_name">
-                        <property name="halign">center</property>
-                        <property name="width-chars">40</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="can_default">True</property>
-                        <property name="has_default">True</property>
-                        <property name="xalign">0.5</property>
-                        <property name="visibility">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="checkbutton_sign_up_blockchain">
-                        <property name="label" translatable="yes">Register name publicly (experimental):</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="halign">center</property>
-                        <property name="active">True</property>
-                        <property name="draw_indicator">True</property>
-                        <property name="tooltip_text" translatable="yes">Reserve the username so that only you can use it. Your friends will be able to contact you with your username instead of using your RingID.</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox" id="box_username_entry">
-                        <property name="visible">True</property>
-                        <property name="valign">center</property>
-                        <property name="halign">center</property>
-                        <property name="orientation">horizontal</property>
-                        <property name="spacing">10</property>
-                        <property name="margin-start">26</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label_enter_password">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Password (confirm):</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkEntry" id="entry_password">
-                        <property name="halign">center</property>
-                        <property name="width-chars">40</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="can_default">True</property>
-                        <property name="has_default">True</property>
-                        <property name="xalign">0.5</property>
-                        <property name="visibility">False</property>
-                        <property name="primary_icon_stock">gtk-dialog-authentication</property>
-                        <property name="input_purpose">password</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">6</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkEntry" id="entry_password_confirm">
-                        <property name="halign">center</property>
-                        <property name="width-chars">40</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="can_default">True</property>
-                        <property name="has_default">True</property>
-                        <property name="xalign">0.5</property>
-                        <property name="visibility">False</property>
-                        <property name="primary_icon_stock">gtk-dialog-authentication</property>
-                        <property name="input_purpose">password</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">7</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label_password_error">
-                        <property name="visible">True</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                          <attribute name="foreground" value="red"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="position">8</property>
-                      </packing>
-                    </child>
+                    <!-- end of profile frame object -->
                   </object>
+                  <!-- End of profile frame child -->
                 </child>
                 <child>
                   <object class="GtkButtonBox">
