@@ -543,7 +543,7 @@ account_view_init(AccountView *view)
     g_signal_connect(renderer, "toggled", G_CALLBACK(account_active_toggled), view);
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(C_("Account alias (name) column", "Alias"), renderer, "text", 1, NULL);
+    column = gtk_tree_view_column_new_with_attributes(C_("Account Full name column", "Full name"), renderer, "text", 1, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(priv->treeview_account_list), column);
     g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     gtk_tree_view_column_set_expand(column, TRUE);
