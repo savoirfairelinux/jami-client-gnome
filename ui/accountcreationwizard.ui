@@ -61,6 +61,7 @@
                     <property name="visible">True</property>
                     <property name="orientation">vertical</property>
                     <property name="spacing">15</property>
+                    <property name="homogeneous">True</property>
                     <child>
                       <object class="GtkButton" id="button_existing_account">
                         <property name="label" translatable="yes">Link this device to an existing account</property>
