@@ -63,17 +63,17 @@
                     <property name="spacing">15</property>
                     <property name="homogeneous">True</property>
                     <child>
-                      <object class="GtkButton" id="button_existing_account">
-                        <property name="label" translatable="yes">Link this device to an existing account</property>
-                        <property name="tooltip_text" translatable="yes">Link this devices to a Ring account created on another device</property>
+                      <object class="GtkButton" id="button_new_account">
+                        <property name="label" translatable="yes">Create Ring Account</property>
+                        <property name="tooltip_text" translatable="yes">Create a new Ring account (for new users)</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button_new_account">
-                        <property name="label" translatable="yes">Create Ring Account</property>
-                        <property name="tooltip_text" translatable="yes">Create a new Ring account (for new users)</property>
+                      <object class="GtkButton" id="button_existing_account">
+                        <property name="label" translatable="yes">Link this device to an account</property>
+                        <property name="tooltip_text" translatable="yes">Link this devices to a Ring account created on another device</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
@@ -184,6 +184,21 @@
                     <property name="orientation">vertical</property>
                     <property name="spacing">10</property>
                     <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Profile</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkBox" id="box_avatarselection">
                         <property name="visible">True</property>
                         <property name="halign">center</property>
@@ -196,18 +211,18 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">False</property>
-                        <property name="position">0</property>
+                        <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Display Name:</property>
+                        <property name="label" translatable="yes">Full Name:</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">False</property>
-                        <property name="position">1</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                     <child>
@@ -224,24 +239,39 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">2</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Ring Account</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">4</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_sign_up_blockchain">
-                        <property name="label" translatable="yes">Register name publicly (experimental):</property>
+                        <property name="label" translatable="yes">Register public username (experimental):</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="halign">center</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
-                        <property name="tooltip_text" translatable="yes">Reserve the username so that only you can use it. Your friends will be able to contact you with your username instead of using your RingID.</property>
+                        <property name="tooltip_text" translatable="yes">By checking this, you will register a unique username on the Ring network. Other people can use it to contact you.</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">3</property>
+                        <property name="position">5</property>
                       </packing>
                     </child>
                     <child>
@@ -256,7 +286,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">4</property>
+                        <property name="position">6</property>
                       </packing>
                     </child>
                     <child>
@@ -267,7 +297,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">5</property>
+                        <property name="position">7</property>
                       </packing>
                     </child>
                     <child>
@@ -286,7 +316,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">6</property>
+                        <property name="position">8</property>
                       </packing>
                     </child>
                     <child>
@@ -305,7 +335,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">7</property>
+                        <property name="position">9</property>
                       </packing>
                     </child>
                     <child>
@@ -317,7 +347,7 @@
                         </attributes>
                       </object>
                       <packing>
-                        <property name="position">8</property>
+                        <property name="position">10</property>
                       </packing>
                     </child>
                   </object>
