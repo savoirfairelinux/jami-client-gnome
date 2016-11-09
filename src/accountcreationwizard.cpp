@@ -81,7 +81,6 @@ struct _AccountCreationWizardPrivate
 
     /* account creation */
     GtkWidget *account_creation;
-    GtkWidget *vbox_account_creation_entry;
     GtkWidget *entry_username;
     GtkWidget *entry_password;
     GtkWidget *entry_password_confirm;
@@ -183,7 +182,6 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
 
     /* account creation */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, account_creation);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, vbox_account_creation_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_password);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_password_confirm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_creation_next);
@@ -640,8 +638,6 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
         gtk_entry_set_text(GTK_ENTRY(priv->entry_display_name), real_name);
     else
         gtk_entry_set_text(GTK_ENTRY(priv->entry_display_name), user_name);
-
-    gtk_entry_set_placeholder_text(GTK_ENTRY(priv->entry_username), user_name);
 
     /* cancel button */
     gtk_widget_set_visible(priv->button_wizard_cancel, show_cancel_button);
