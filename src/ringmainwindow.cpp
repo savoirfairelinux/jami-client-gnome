@@ -517,6 +517,9 @@ search_entry_activated(RingMainWindow *self)
 
         gboolean lookup_username = FALSE;
 
+        /* get the account with which we will do the lookup */
+        auto ring_account = AvailableAccountModel::instance().currentDefaultAccount(URI::SchemeType::RING);
+
         if (uri.protocolHint() == URI::ProtocolHint::RING_USERNAME ) {
             lookup_username = TRUE;
         } else if (
@@ -606,7 +609,7 @@ search_entry_activated(RingMainWindow *self)
                 }
             );
 
-            NameDirectory::instance().lookupName(nullptr, QString(), username_to_lookup);
+            NameDirectory::instance().lookupName(ring_account, QString(), username_to_lookup);
         }
         else
         {
