@@ -93,6 +93,7 @@ ring_about_dialog(GtkWidget *parent)
         "Andreas Traczyk",
         "Anthony Léonard",
         "Cyrille Béraud",
+        "Dorina Mosku",
         "Edric Milaret",
         "Éloi Bail",
         "Emmanuel Lepage-Vallée",
