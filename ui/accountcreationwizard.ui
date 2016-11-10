@@ -88,14 +88,78 @@
               </object>
             </child>
             <!-- End Choose account type wizard -->
-            <!-- Existing account wizard -->
+            <!-- Existing account wizard: step 1 -->
             <child>
-              <object class="GtkBox" id="existing_account">
+              <object class="GtkBox" id="existing_account_step1">
                 <property name="visible">True</property>
                 <property name="valign">center</property>
                 <property name="border_width">10</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">15</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Link this device to an existing account</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="valign">center</property>
+                    <property name="halign">center</property>
+                    <property name="max-width-chars">80</property>
+                    <property name="can_focus">True</property>
+                    <property name="wrap">True</property>
+                    <property name="justify">left</property>
+                    <property name="label" translatable="yes">To link this device to another account, you first need to obtain a PIN code. To generate the pin code, go to the account management setting of a previous device, choose the Ring Account to use and select "Link another device to this account". You will get the necessary PIN to complete this form. The PIN is only valid for 10 minutes.</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButtonBox">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkButton" id="button_existing_account_step1_previous">
+                        <property name="label" translatable="yes">Previous</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">start</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="button_existing_account_step1_next">
+                        <property name="label" translatable="yes">Okay, I have the PIN!</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">end</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <!-- End of Existing accoutn wizard: step2 -->
+            <!-- Existing account wizard: step 2 -->
+            <child>
+              <object class="GtkBox" id="existing_account_step2">
+                <property name="visible">True</property>
+                <property name="valign">center</property>
+                <property name="border_width">10</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">15</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Link this device to an existing account</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
                 <child>
                   <object class="GtkBox" id="vbox_existing_account_entry">
                     <property name="visible">True</property>
@@ -147,7 +211,7 @@
                   <object class="GtkButtonBox">
                     <property name="visible">True</property>
                     <child>
-                      <object class="GtkButton" id="button_existing_account_previous">
+                      <object class="GtkButton" id="button_existing_account_step2_previous">
                         <property name="label" translatable="yes">Previous</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -155,7 +219,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button_existing_account_next">
+                      <object class="GtkButton" id="button_existing_account_step2_next">
                         <property name="label" translatable="yes">Next</property>
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
@@ -167,7 +231,7 @@
                 </child>
               </object>
             </child>
-            <!-- End existing account wizard -->
+            <!-- End existing account wizard: step 2 -->
             <!-- account creation wizard -->
             <child>
               <object class="GtkBox" id="account_creation">

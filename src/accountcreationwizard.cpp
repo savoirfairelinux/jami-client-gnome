@@ -66,13 +66,18 @@ struct _AccountCreationWizardPrivate
     GtkWidget *button_existing_account;
     GtkWidget *button_wizard_cancel;
 
-    /* existing account */
-    GtkWidget *existing_account;
-    GtkWidget *button_existing_account_next;
-    GtkWidget *button_existing_account_previous;
+    /* existing account step1 */
+    GtkWidget *existing_account_step1;
+    GtkWidget *button_existing_account_step1_next;
+    GtkWidget *button_existing_account_step1_previous;
     GtkWidget *entry_existing_account_pin;
     GtkWidget *entry_existing_account_password;
     GtkWidget *retrieving_account;
+
+    /* existing account step 2 */
+    GtkWidget *existing_account_step2;
+    GtkWidget *button_existing_account_step2_next;
+    GtkWidget *button_existing_account_step2_previous;
 
     /* account creation */
     GtkWidget *account_creation;
@@ -161,10 +166,15 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_wizard_cancel);
 
-    /* existing account */
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, existing_account);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account_next);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account_previous);
+    /* existing account step1 */
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, existing_account_step1);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account_step1_next);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account_step1_previous);
+
+    /* existing account step2 */
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, existing_account_step2);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account_step2_next);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account_step2_previous);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_existing_account_pin);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_existing_account_password);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_existing_account_password);
@@ -462,7 +472,7 @@ show_retrieving_account(AccountCreationWizard *win)
 }
 
 static void
-existing_account_next_clicked(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *win)
+existing_account_step2_next_clicked(AccountCreationWizard *win)
 {
     show_retrieving_account(win);
 
@@ -481,10 +491,17 @@ show_choose_account_type(AccountCreationWizard *view)
 }
 
 static void
-show_existing_account(AccountCreationWizard *view)
+show_existing_account_step2(AccountCreationWizard *view)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->existing_account);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->existing_account_step2);
+}
+
+static void
+show_existing_account_step1(AccountCreationWizard *view)
+{
+    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->existing_account_step1);
 }
 
 static void
@@ -516,14 +533,10 @@ entries_existing_account_changed(G_GNUC_UNUSED GtkEntry *entry, AccountCreationW
     const gchar *pin = gtk_entry_get_text(GTK_ENTRY(priv->entry_existing_account_pin));
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_existing_account_password));
 
-    if (strlen(pin) > 0 && strlen(password) > 0)
-    {
-        gtk_widget_set_sensitive(priv->button_existing_account_next, TRUE);
-    }
-    else
-    {
-        gtk_widget_set_sensitive(priv->button_existing_account_next, FALSE);
-    }
+    gtk_widget_set_sensitive(
+        priv->button_existing_account_step2_next,
+        (strlen(pin) > 0 && strlen(password) > 0)
+    );
 }
 
 static void
@@ -631,7 +644,7 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
 
     /* choose_account_type signals */
     g_signal_connect_swapped(priv->button_new_account, "clicked", G_CALLBACK(show_account_creation), view);
-    g_signal_connect_swapped(priv->button_existing_account, "clicked", G_CALLBACK(show_existing_account), view);
+    g_signal_connect_swapped(priv->button_existing_account, "clicked", G_CALLBACK(show_existing_account_step1), view);
     g_signal_connect(priv->button_wizard_cancel, "clicked", G_CALLBACK(wizard_cancel_clicked), view);
 
     /* account_creation signals */
@@ -645,9 +658,13 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
     g_signal_connect(priv->checkbutton_sign_up_blockchain, "toggled", G_CALLBACK(checkbutton_sign_up_blockchain_toggled), view);
     g_signal_connect_swapped(priv->username_registration_box, "username-availability-changed", G_CALLBACK(username_availability_changed), view);
 
-    /* existing_account singals */
-    g_signal_connect_swapped(priv->button_existing_account_previous, "clicked", G_CALLBACK(show_choose_account_type), view);
-    g_signal_connect(priv->button_existing_account_next, "clicked", G_CALLBACK(existing_account_next_clicked), view);
+    /* existing_account_step1 singals */
+    g_signal_connect_swapped(priv->button_existing_account_step1_previous, "clicked", G_CALLBACK(show_choose_account_type), view);
+    g_signal_connect_swapped(priv->button_existing_account_step1_next, "clicked", G_CALLBACK(show_existing_account_step2), view);
+
+    /* existing_account_step2 signals */
+    g_signal_connect_swapped(priv->button_existing_account_step2_previous, "clicked", G_CALLBACK(show_existing_account_step1), view);
+    g_signal_connect_swapped(priv->button_existing_account_step2_next, "clicked", G_CALLBACK(existing_account_step2_next_clicked), view);
     g_signal_connect(priv->entry_existing_account_pin, "changed", G_CALLBACK(entries_existing_account_changed), view);
     g_signal_connect(priv->entry_existing_account_password, "changed", G_CALLBACK(entries_existing_account_changed), view);
 
