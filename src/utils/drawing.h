@@ -26,7 +26,7 @@ GdkPixbuf *ring_draw_fallback_avatar(int size);
 
 GdkPixbuf *ring_draw_conference_avatar(int size);
 
-GdkPixbuf *ring_frame_avatar(GdkPixbuf *avatar);
+GdkPixbuf *ring_frame_avatar(GdkPixbuf *avatar, bool presenceStatus);
 
 GdkPixbuf *ring_draw_unread_messages(const GdkPixbuf *avatar, int unread_count);
 
