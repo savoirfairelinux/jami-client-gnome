@@ -36,7 +36,7 @@ PixbufManipulator::PixbufManipulator()
 }
 
 std::shared_ptr<GdkPixbuf>
-PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo, const QSize& size)
+PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo, const QSize& size, bool presenceStatus)
 {
     /**
      * for now, respect the height requested
@@ -63,32 +63,41 @@ PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo, const QSize& size)
         g_object_unref};
 
     /* frame photo */
-    return {ring_frame_avatar(scaled_photo.get()), g_object_unref};
+    return {ring_frame_avatar(scaled_photo.get(), presenceStatus), g_object_unref};
 }
 
 QVariant
 PixbufManipulator::callPhoto(Call* c, const QSize& size, bool displayPresence)
 {
     if (c->type() == Call::Type::CONFERENCE)
-        return QVariant::fromValue(scaleAndFrame(conferenceAvatar_.get(), size));
-    return callPhoto(c->peerContactMethod(), size, displayPresence);
+        return QVariant::fromValue(scaleAndFrame(conferenceAvatar_.get(), size, c->peerContactMethod()->isPresent()));
+    return callPhoto(c->peerContactMethod(), size, true);
 }
 
 QVariant
 PixbufManipulator::callPhoto(const ContactMethod* n, const QSize& size, bool displayPresence)
 {
+    qDebug() << "callPhoto";
     if (n->contact()) {
-        return contactPhoto(n->contact(), size, displayPresence);
+        return contactPhoto(n->contact(), size, n->isPresent());
     } else {
-        return QVariant::fromValue(scaleAndFrame(fallbackAvatar_.get(), size));
+        return QVariant::fromValue(scaleAndFrame(fallbackAvatar_.get(), size, n->isPresent()));
     }
 }
 
 QVariant
 PixbufManipulator::contactPhoto(Person* c, const QSize& size, bool displayPresence)
 {
-    Q_UNUSED(displayPresence);
+    qDebug() << "contactPhoto";
 
+    if (c->isPresent())
+    {
+        qDebug() << "contact PRESENT";
+    }
+    else
+    {
+        qDebug() << "contact ABSENT";
+    }
     /**
      * try to get the photo
      * otherwise use the fallback avatar
@@ -101,11 +110,12 @@ PixbufManipulator::contactPhoto(Person* c, const QSize& size, bool displayPresen
     else
         photo = fallbackAvatar_;
 
-    return QVariant::fromValue(scaleAndFrame(photo.get(), size));
+    return QVariant::fromValue(scaleAndFrame(photo.get(), size, c->isPresent()));
 }
 
 QVariant PixbufManipulator::personPhoto(const QByteArray& data, const QString& type)
 {
+    qDebug() << "personPhoto";
     Q_UNUSED(type);
     /* Try to load the image from the data provided by lrc vcard utils;
      * lrc is getting the image data assuming that it is inlined in the vcard,

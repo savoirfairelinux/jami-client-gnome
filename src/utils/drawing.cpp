@@ -104,7 +104,7 @@ ring_draw_conference_avatar(int size) {
 }
 
 GdkPixbuf *
-ring_frame_avatar(GdkPixbuf *avatar) {
+ring_frame_avatar(GdkPixbuf *avatar, bool presenceStatus) {
     int extra_space = 10;
     int offset = extra_space/2;
     int w = gdk_pixbuf_get_width(avatar);
@@ -143,6 +143,13 @@ ring_frame_avatar(GdkPixbuf *avatar) {
 
     // now draw the blue frame
     cairo_set_source_rgba (cr, 58.0/256.0, 191/256.0, 210/256.0, 1.0);
+
+    // Present
+    if (presenceStatus)
+    {
+        cairo_set_source_rgba (cr, 11.0/265.0, 208.0/256.0, 47.0/256.0, 1.0);
+    }
+
     cairo_set_line_width (cr, 2.0);
     cairo_stroke (cr);
 
