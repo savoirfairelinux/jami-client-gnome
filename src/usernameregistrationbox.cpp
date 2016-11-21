@@ -231,26 +231,30 @@ entry_username_changed(UsernameRegistrationBox *view)
     }
     gtk_widget_set_sensitive(priv->button_register_username, FALSE);
 
-    if (strlen(username) == 0) {
-        // don't lookup empty username
-        gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon_username_availability), "error", GTK_ICON_SIZE_SMALL_TOOLBAR);
-        gtk_widget_show(priv->icon_username_availability);
+    if (priv->use_blockchain) {
 
-        gtk_widget_hide(priv->spinner);
-        gtk_spinner_stop(GTK_SPINNER(priv->spinner));
-        gtk_label_set_text(GTK_LABEL(priv->label_status), "");
-    } else if (priv->use_blockchain) {
-        gtk_widget_hide(priv->icon_username_availability);
-        gtk_widget_show(priv->spinner);
-        gtk_spinner_start(GTK_SPINNER(priv->spinner));
-        gtk_label_set_text(GTK_LABEL(priv->label_status), _("Looking up username availability..."));
+        if (strlen(username) == 0) {
+            // don't lookup empty username
+            gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon_username_availability), "error", GTK_ICON_SIZE_SMALL_TOOLBAR);
+            gtk_widget_show(priv->icon_username_availability);
 
-        // queue lookup with a 500ms delay
-        priv->lookup_timeout = g_timeout_add(500, (GSourceFunc)lookup_username, view);
+            gtk_widget_hide(priv->spinner);
+            gtk_spinner_stop(GTK_SPINNER(priv->spinner));
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "");
+        } else {
+            gtk_widget_hide(priv->icon_username_availability);
+            gtk_widget_show(priv->spinner);
+            gtk_spinner_start(GTK_SPINNER(priv->spinner));
+            gtk_label_set_text(GTK_LABEL(priv->label_status), _("Looking up username availability..."));
+
+            // queue lookup with a 500ms delay
+            priv->lookup_timeout = g_timeout_add(500, (GSourceFunc)lookup_username, view);
+        }
     } else {
-        // not using blockchain, any name > 0 is OK
-        gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon_username_availability), "emblem-default", GTK_ICON_SIZE_SMALL_TOOLBAR);
+        // not using blockchain, so don't care about username validity
+        gtk_image_clear(GTK_IMAGE(priv->icon_username_availability));
         gtk_widget_show(priv->icon_username_availability);
+        gtk_widget_set_size_request(priv->icon_username_availability, 16, 16); // ensure min size of empty icon
         gtk_widget_hide(priv->spinner);
         gtk_spinner_stop(GTK_SPINNER(priv->spinner));
         gtk_label_set_text(GTK_LABEL(priv->label_status), "");
