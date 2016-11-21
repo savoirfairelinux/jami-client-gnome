@@ -590,6 +590,19 @@ search_entry_activated(RingMainWindow *self)
                             break;
                         }
                         case NameDirectory::LookupStatus::ERROR:
+                        {
+                            auto dialog = gtk_message_dialog_new(
+                                GTK_WINDOW(self),
+                                GTK_DIALOG_DESTROY_WITH_PARENT,
+                                GTK_MESSAGE_ERROR,
+                                GTK_BUTTONS_CLOSE,
+                                _("Error resolving username, nameserver is possibly unreachable")
+                            );
+
+                            gtk_dialog_run(GTK_DIALOG (dialog));
+                            gtk_widget_destroy(dialog);
+                            break;
+                        }
                         case NameDirectory::LookupStatus::NOT_FOUND:
                         {
                             auto dialog = gtk_message_dialog_new(
