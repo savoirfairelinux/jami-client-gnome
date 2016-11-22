@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3ace114c_6cbb3bc5",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-11-22T16:21:25Z",
+      "side": 1,
+      "message": "Okay, I reverted it.",
+      "parentUuid": "5ac10518_106e4aca",
+      "range": {
+        "startLine": 273,
+        "startChar": 29,
+        "endLine": 273,
+        "endChar": 38
+      },
+      "revId": "789db8b675dd772890ecbd0d5ca0711ef7e52b50",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_7079ce92",
         "filename": "src/accountgeneraltab.cpp",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3ace114c_4cb67fde",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-11-22T16:21:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ac10518_7079ce92",
+      "range": {
+        "startLine": 319,
+        "startChar": 30,
+        "endLine": 319,
+        "endChar": 40
+      },
+      "revId": "789db8b675dd772890ecbd0d5ca0711ef7e52b50",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_307346b3",
         "filename": "src/accountview.cpp",
         "patchSetId": 10
@@ -59,6 +107,30 @@
       "writtenOn": "2016-11-17T15:31:48Z",
       "side": 1,
       "message": "same comment as in the general tab... we\u0027re actually dispalying the account alias here, which doesn\u0027t necessarily correspond to the full name",
+      "range": {
+        "startLine": 546,
+        "startChar": 57,
+        "endLine": 546,
+        "endChar": 96
+      },
+      "revId": "789db8b675dd772890ecbd0d5ca0711ef7e52b50",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ace114c_0cb077dc",
+        "filename": "src/accountview.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-11-22T16:21:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ac10518_307346b3",
       "range": {
         "startLine": 546,
         "startChar": 57,
