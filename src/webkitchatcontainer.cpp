@@ -287,11 +287,9 @@ load_javascript_libs(WebKitWebView *webview_chat,
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(self);
 
     /* Create the list of libraries to load */
-    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/ring/RingGnome/jquery.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/ring/RingGnome/linkify.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/ring/RingGnome/linkify-string.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/ring/RingGnome/linkify-html.js");
-    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/ring/RingGnome/linkify-jquery.js");
 
     /* ref the chat view so that its not destroyed while we load
      * we will unref in javascript_library_loaded

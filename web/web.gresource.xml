@@ -5,11 +5,9 @@
       <file>chatview.html</file>
 
       <!-- JavaScript -->
-      <file>jquery.js</file>
       <file>linkify.js</file>
       <file>linkify-string.js</file>
       <file>linkify-html.js</file>
-      <file>linkify-jquery.js</file>
 
       <!-- CSS -->
       <file>chatview.css</file>
