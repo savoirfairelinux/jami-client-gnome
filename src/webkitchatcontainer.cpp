@@ -512,9 +512,9 @@ webkit_chat_container_set_sender_image(WebKitChatContainer *view, ContactMethod 
     set_sender_image_object.insert("sender_contact_method", QJsonValue(sender_contact_method_str));
     set_sender_image_object.insert("sender_image", QJsonValue(sender_image_base64));
 
-    auto set_sender_image_object_string = QString(QJsonDocument(set_sender_image_object).toJson(QJsonDocument::Compact)).toUtf8().constData();
+    auto set_sender_image_object_string = QString(QJsonDocument(set_sender_image_object).toJson(QJsonDocument::Compact));
 
-    gchar* function_call = g_strdup_printf("ring.chatview.setSenderImage(%s);", set_sender_image_object_string);
+    gchar* function_call = g_strdup_printf("ring.chatview.setSenderImage(%s);", set_sender_image_object_string.toUtf8().constData());
     webkit_web_view_run_javascript(WEBKIT_WEB_VIEW(priv->webview_chat), function_call, NULL, NULL, NULL);
     g_free(function_call);
 }
