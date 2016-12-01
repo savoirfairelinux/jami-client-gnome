@@ -26,6 +26,8 @@ static constexpr const char* MSG_COUNT_FONT        = "Sans";
 static constexpr int         MSG_COUNT_FONT_SIZE   = 12;
 static constexpr GdkRGBA     MSG_COUNT_FONT_COLOUR = {1.0, 1.0, 1.0, 1.0}; // white
 static constexpr GdkRGBA     MSG_COUNT_BACKGROUND  = {0.984, 0.282, 0.278, 0.9}; // red 251, 72, 71, 0.9
+static constexpr GdkRGBA     PRESENCE_PRESENT_BACKGROUND = {0.4375, 0.0234375, 0.84765625, 0.9}; // green 112, 217, 6, 0.9
+static constexpr GdkRGBA     PRESENCE_ABSENT_BACKGROUND = {0.984, 0.282, 0.278, 0.9}; // red 251, 72, 71, 0.9
 
 GdkPixbuf *
 ring_draw_fallback_avatar(int size) {
@@ -167,6 +169,55 @@ create_rounded_rectangle_path(cairo_t *cr, double corner_radius, double x, doubl
     cairo_arc (cr, x + radius, y + h - radius, radius, 90 * degrees, 180 * degrees);
     cairo_arc (cr, x + radius, y + radius, radius, 180 * degrees, 270 * degrees);
     cairo_close_path (cr);
+}
+
+/**
+ * Draws the presence icon in the top right corner of the given image.
+ */
+GdkPixbuf *
+ring_draw_presence(const GdkPixbuf *avatar, bool present) {
+    if (!present) {
+        // simply return a copy of the original pixbuf
+        return gdk_pixbuf_copy(avatar);
+    }
+
+    int w = gdk_pixbuf_get_width(avatar);
+    int h = gdk_pixbuf_get_height(avatar);
+    cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w, h);
+    cairo_t *cr = cairo_create(surface);
+    cairo_surface_destroy(surface);
+
+    /* draw original image */
+    gdk_cairo_set_source_pixbuf(cr, avatar, 0, 0);
+    cairo_paint(cr);
+
+    /* draw rounded rectangle, with 3 pixel border
+     * ie: 6 pixels higher, 6 pixels wider */
+    int border_width = 5;
+    double rec_x = w - border_width * 2.5;
+    double rec_y = h - border_width * 2.5;
+    double rec_w = border_width * 2;
+    double rec_h = border_width * 2;
+    double corner_radius = rec_h/2.5;
+    create_rounded_rectangle_path(cr, corner_radius, rec_x, rec_y, rec_w, rec_h);
+
+    // For now we don't draw the absent background.
+    auto background = present ? PRESENCE_PRESENT_BACKGROUND : PRESENCE_ABSENT_BACKGROUND;
+    cairo_set_source_rgba(
+        cr,
+        background.red,
+        background.blue,
+        background.green,
+        background.alpha
+    );
+    cairo_fill(cr);
+
+    GdkPixbuf *pixbuf = gdk_pixbuf_get_from_surface(surface, 0, 0, w, h);
+
+    /* free resources */
+    cairo_destroy(cr);
+
+    return pixbuf;
 }
 
 /**
