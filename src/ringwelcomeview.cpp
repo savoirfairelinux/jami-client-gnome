@@ -63,10 +63,23 @@ update_view(RingWelcomeView *self) {
     auto account = get_active_ring_account();
     if (account != nullptr) {
         gchar *ring_id = nullptr;
-        if (!account->username().isEmpty()) {
+        if(!account->registeredName().isEmpty()){
+            gtk_label_set_text(
+                GTK_LABEL(priv->label_explanation),
+                _("This is your Ring username.\nCopy and share it with your friends!")
+            );
+            ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">ring:%s</span>",
+                                              account->registeredName().toUtf8().constData());
+        }
+        else if (!account->username().isEmpty()) {
+            gtk_label_set_text(
+                GTK_LABEL(priv->label_explanation),
+                C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!")
+            );
             ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
                                               account->username().toUtf8().constData());
         } else {
+            gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
             ring_id = g_markup_printf_escaped("<span fgcolor=\"gray\">%s</span>",
                                               _("fetching RingID..."));
         }
@@ -134,7 +147,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_set_visible(GTK_WIDGET(label_welcome_text), TRUE);
 
     /* RingID explanation */
-    priv->label_explanation = gtk_label_new(C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!"));
+    priv->label_explanation = gtk_label_new(NULL);
     auto context = gtk_widget_get_style_context(priv->label_explanation);
     gtk_style_context_add_class(context, GTK_STYLE_CLASS_DIM_LABEL);
     gtk_label_set_justify(GTK_LABEL(priv->label_explanation), GTK_JUSTIFY_CENTER);
@@ -169,7 +182,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_set_visible(priv->revealer_qrcode, FALSE);
 
     /* QR code button */
-    priv->button_qrcode = gtk_button_new_with_label("QR code");
+    priv->button_qrcode = gtk_button_new_with_label(C_("Do not translate \"Ring ID\"", "Ring ID QR code"));
     gtk_widget_set_hexpand(priv->button_qrcode, FALSE);
     gtk_widget_set_size_request(priv->button_qrcode,10,10);
     g_signal_connect_swapped(priv->button_qrcode, "clicked", G_CALLBACK(switch_qrcode), self);
