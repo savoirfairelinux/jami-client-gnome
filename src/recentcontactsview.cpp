@@ -99,23 +99,34 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     QVariant object = idx.data(static_cast<int>(Ring::Role::Object));
     if (idx.isValid() && object.isValid()) {
         QVariant var_photo;
+        bool present = false;
         if (auto person = object.value<Person *>()) {
             var_photo = GlobalInstances::pixmapManipulator().contactPhoto(person, QSize(50, 50), false);
+            present = person->isPresent();
         } else if (auto cm = object.value<ContactMethod *>()) {
             /* get photo, note that this should in all cases be the fallback avatar, since there
              * shouldn't be a person associated with this contact method */
             var_photo = GlobalInstances::pixmapManipulator().callPhoto(cm, QSize(50, 50), false);
+            present = cm->isPresent();
+            g_warning(
+                "ContactMethod %s. Tracked: %s. Present:%s. RING: %s, Account: %p",
+                cm->uri().full().toUtf8().constData(),
+                cm->isTracked() ? "True": "False",
+                cm->isPresent() ? "True": "False",
+                cm->uri().protocolHint() == URI::ProtocolHint::RING ? "True": "False",
+                cm->account()
+            );
+
         } else if (auto call = object.value<Call *>()) {
             if (call->type() == Call::Type::CONFERENCE) {
                 var_photo = GlobalInstances::pixmapManipulator().callPhoto(call, QSize(50, 50), false);
             }
+            present = true;
         }
         if (var_photo.isValid()) {
             std::shared_ptr<GdkPixbuf> photo = var_photo.value<std::shared_ptr<GdkPixbuf>>();
 
-            auto unread = idx.data(static_cast<int>(Ring::Role::UnreadTextMessageCount));
-
-            image.reset(ring_draw_unread_messages(photo.get(), unread.toInt()), g_object_unref);
+            image.reset(ring_draw_presence(photo.get(), present), g_object_unref);
         } else {
             // set the width of the cell rendered to the with of the photo
             // so that the other renderers are shifted to the right
@@ -276,6 +287,13 @@ render_call_duration(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                     && duration.isValid())
                 {
                     text = g_markup_escape_text(duration.value<QString>().toUtf8().constData(), -1);
+                }
+                else
+                {
+                    auto unread = idx.data(static_cast<int>(Ring::Role::UnreadTextMessageCount));
+                    if (unread > 0){
+                        text = g_markup_printf_escaped("<span color=\"red\" font_weight=\"bold\">%s</span>", "10");
+                    }
                 }
             }
             break;
@@ -585,7 +603,7 @@ recent_contacts_view_init(RecentContactsView *self)
         self,
         NULL);
 
-    /* call duration */
+    /* call duration or unread messages */
     renderer = gtk_cell_renderer_text_new();
     g_object_set(G_OBJECT(renderer), "xalign", 1.0, NULL);
     gtk_cell_area_box_pack_end(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
