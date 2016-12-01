@@ -99,23 +99,27 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     QVariant object = idx.data(static_cast<int>(Ring::Role::Object));
     if (idx.isValid() && object.isValid()) {
         QVariant var_photo;
+        bool present = false;
         if (auto person = object.value<Person *>()) {
             var_photo = GlobalInstances::pixmapManipulator().contactPhoto(person, QSize(50, 50), false);
+            present = person->isPresent();
         } else if (auto cm = object.value<ContactMethod *>()) {
             /* get photo, note that this should in all cases be the fallback avatar, since there
              * shouldn't be a person associated with this contact method */
             var_photo = GlobalInstances::pixmapManipulator().callPhoto(cm, QSize(50, 50), false);
+            present = cm->isPresent();
         } else if (auto call = object.value<Call *>()) {
             if (call->type() == Call::Type::CONFERENCE) {
                 var_photo = GlobalInstances::pixmapManipulator().callPhoto(call, QSize(50, 50), false);
             }
+            present = true;
         }
         if (var_photo.isValid()) {
             std::shared_ptr<GdkPixbuf> photo = var_photo.value<std::shared_ptr<GdkPixbuf>>();
 
             auto unread = idx.data(static_cast<int>(Ring::Role::UnreadTextMessageCount));
-
-            image.reset(ring_draw_unread_messages(photo.get(), unread.toInt()), g_object_unref);
+            photo.reset(ring_draw_unread_messages(photo.get(), unread.toInt()), g_object_unref);
+            image.reset(ring_draw_presence(photo.get(), present), g_object_unref);
         } else {
             // set the width of the cell rendered to the with of the photo
             // so that the other renderers are shifted to the right
