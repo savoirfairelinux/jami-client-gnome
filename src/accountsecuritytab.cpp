@@ -193,7 +193,7 @@ use_tls_toggled(GtkToggleButton *toggle_button, AccountSecurityTab *self)
 
     gboolean use_tls = gtk_toggle_button_get_active(toggle_button);
 
-    priv->account->setTlsEnabled(use_tls);
+    priv->account->getAccountTLS()->setTlsEnabled(use_tls);
 
     /* disable the other tls options if no tls */
     gtk_widget_set_sensitive(priv->grid_tls_settings_0, priv->account->isTlsEnabled());
@@ -211,7 +211,7 @@ tls_server_name_changed(GtkEntry *entry, AccountSecurityTab *self)
     g_return_if_fail(IS_ACCOUNT_SECURITY_TAB(self));
     AccountSecurityTabPrivate *priv = ACCOUNT_SECURITY_TAB_GET_PRIVATE(self);
 
-    priv->account->setTlsServerName(gtk_entry_get_text(entry));
+    priv->account->getAccountTLS()->setTlsServerName(gtk_entry_get_text(entry));
 }
 
 static void
@@ -221,7 +221,7 @@ tls_timeout_changed(GtkAdjustment *adjustment, AccountSecurityTab *self)
     AccountSecurityTabPrivate *priv = ACCOUNT_SECURITY_TAB_GET_PRIVATE(self);
 
     int timeout = (int)gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
-    priv->account->setTlsNegotiationTimeoutSec(timeout);
+    priv->account->getAccountTLS()->setTlsNegotiationTimeoutSec(timeout);
 }
 
 static void
@@ -287,7 +287,7 @@ verify_certs_server_toggled(GtkToggleButton *toggle_button, AccountSecurityTab *
 
     gboolean verify_certs = gtk_toggle_button_get_active(toggle_button);
 
-    priv->account->setTlsVerifyServer(verify_certs);
+    priv->account->getAccountTLS()->setTlsVerifyServer(verify_certs);
 }
 
 static void
@@ -298,7 +298,7 @@ verify_certs_client_toggled(GtkToggleButton *toggle_button, AccountSecurityTab *
 
     gboolean verify_certs = gtk_toggle_button_get_active(toggle_button);
 
-    priv->account->setTlsVerifyClient(verify_certs);
+    priv->account->getAccountTLS()->setTlsVerifyClient(verify_certs);
 }
 
 static void
@@ -309,7 +309,7 @@ require_incoming_certs_toggled(GtkToggleButton *toggle_button, AccountSecurityTa
 
     gboolean require = gtk_toggle_button_get_active(toggle_button);
 
-    priv->account->setTlsRequireClientCertificate(require);
+    priv->account->getAccountTLS()->setTlsRequireClientCertificate(require);
 }
 
 static void
@@ -320,7 +320,7 @@ ca_cert_file_set(GtkFileChooser *file_chooser, AccountSecurityTab *self)
 
     gchar *filename = gtk_file_chooser_get_filename(file_chooser);
 
-    priv->account->setTlsCaListCertificate(filename);
+    priv->account->getAccountTLS()->setTlsCaListCertificate(filename);
     g_free(filename);
 }
 
@@ -332,7 +332,7 @@ user_cert_file_set(GtkFileChooser *file_chooser, AccountSecurityTab *self)
 
     gchar *filename = gtk_file_chooser_get_filename(file_chooser);
 
-    priv->account->setTlsCertificate(filename);
+    priv->account->getAccountTLS()->setTlsCertificate(filename);
     g_free(filename);
 }
 
@@ -344,7 +344,7 @@ private_key_file_set(GtkFileChooser *file_chooser, AccountSecurityTab *self)
 
     gchar *filename = gtk_file_chooser_get_filename(file_chooser);
 
-    priv->account->setTlsPrivateKey(filename);
+    priv->account->getAccountTLS()->setTlsPrivateKey(filename);
     g_free(filename);
 }
 
@@ -354,7 +354,7 @@ private_key_password_changed(GtkEntry *entry,  AccountSecurityTab *self)
     g_return_if_fail(IS_ACCOUNT_SECURITY_TAB(self));
     AccountSecurityTabPrivate *priv = ACCOUNT_SECURITY_TAB_GET_PRIVATE(self);
 
-    priv->account->setTlsPassword(gtk_entry_get_text(entry));
+    priv->account->getAccountTLS()->setTlsPassword(gtk_entry_get_text(entry));
 }
 
 static void

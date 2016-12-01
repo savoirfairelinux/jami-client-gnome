@@ -155,9 +155,9 @@ local_port_changed(GtkAdjustment *adjustment, AccountAdvancedTab *self)
     unsigned short int local_port = (unsigned short int)gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
 
     if (priv->account->protocol() != Account::Protocol::RING) {
-        priv->account->setLocalPort(local_port);
+        priv->account->getAccountTLS()->setLocalPort(local_port);
     } else {
-        priv->account->setBootstrapPort(local_port);
+        priv->account->getAccountTLS()->setBootstrapPort(local_port);
     }
 }
 
@@ -191,7 +191,7 @@ published_port_changed(GtkAdjustment *adjustment, AccountAdvancedTab *self)
     AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
 
     unsigned short int published_port = (unsigned short int)gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
-    priv->account->setPublishedPort(published_port);
+    priv->account->getAccountTLS()->setPublishedPort(published_port);
 }
 
 static void
