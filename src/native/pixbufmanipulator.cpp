@@ -36,7 +36,7 @@ PixbufManipulator::PixbufManipulator()
 }
 
 std::shared_ptr<GdkPixbuf>
-PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo, const QSize& size)
+PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo, const QSize& size, bool display_presence, bool is_present)
 {
     /**
      * for now, respect the height requested
@@ -63,14 +63,25 @@ PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo, const QSize& size)
         g_object_unref};
 
     /* frame photo */
-    return {ring_frame_avatar(scaled_photo.get()), g_object_unref};
+    std::shared_ptr<GdkPixbuf> result {
+        ring_frame_avatar(scaled_photo.get()),
+        g_object_unref
+    };
+
+    /* draw presence */
+    if (display_presence)
+        result.reset(ring_draw_presence(result.get(), is_present), g_object_unref);
+
+    return result;
 }
 
 QVariant
 PixbufManipulator::callPhoto(Call* c, const QSize& size, bool displayPresence)
 {
-    if (c->type() == Call::Type::CONFERENCE)
-        return QVariant::fromValue(scaleAndFrame(conferenceAvatar_.get(), size));
+    if (c->type() == Call::Type::CONFERENCE) {
+        /* conferences are always "online" */
+        return QVariant::fromValue(scaleAndFrame(conferenceAvatar_.get(), size, displayPresence, TRUE));
+    }
     return callPhoto(c->peerContactMethod(), size, displayPresence);
 }
 
@@ -80,15 +91,13 @@ PixbufManipulator::callPhoto(const ContactMethod* n, const QSize& size, bool dis
     if (n->contact()) {
         return contactPhoto(n->contact(), size, displayPresence);
     } else {
-        return QVariant::fromValue(scaleAndFrame(fallbackAvatar_.get(), size));
+        return QVariant::fromValue(scaleAndFrame(fallbackAvatar_.get(), size, displayPresence, n->isPresent()));
     }
 }
 
 QVariant
 PixbufManipulator::contactPhoto(Person* c, const QSize& size, bool displayPresence)
 {
-    Q_UNUSED(displayPresence);
-
     /**
      * try to get the photo
      * otherwise use the fallback avatar
@@ -101,7 +110,7 @@ PixbufManipulator::contactPhoto(Person* c, const QSize& size, bool displayPresen
     else
         photo = fallbackAvatar_;
 
-    return QVariant::fromValue(scaleAndFrame(photo.get(), size));
+    return QVariant::fromValue(scaleAndFrame(photo.get(), size, displayPresence, c->isPresent()));
 }
 
 QVariant PixbufManipulator::personPhoto(const QByteArray& data, const QString& type)
