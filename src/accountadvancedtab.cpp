@@ -391,7 +391,7 @@ build_tab_view(AccountAdvancedTab *self)
     } else {
         /* TODO: when this option is added, for now just don't set it
          * gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_local_port),
-         *                         priv->account->bootstrapPort());
+         *                         priv->account->getAccountTLS()->bootstrapPort());
          */
         gtk_container_remove(GTK_CONTAINER(priv->vbox_main), priv->frame_network_interface);
         priv->frame_network_interface = NULL;

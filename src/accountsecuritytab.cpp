@@ -196,13 +196,13 @@ use_tls_toggled(GtkToggleButton *toggle_button, AccountSecurityTab *self)
     priv->account->getAccountTLS()->setTlsEnabled(use_tls);
 
     /* disable the other tls options if no tls */
-    gtk_widget_set_sensitive(priv->grid_tls_settings_0, priv->account->isTlsEnabled());
-    gtk_widget_set_sensitive(priv->grid_tls_settings_1, priv->account->isTlsEnabled());
-    gtk_widget_set_sensitive(priv->buttonbox_cipher_list, priv->account->isTlsEnabled());
-    gtk_widget_set_sensitive(priv->treeview_cipher_list, priv->account->isTlsEnabled());
-    gtk_widget_set_sensitive(priv->checkbutton_verify_certs_server, priv->account->isTlsEnabled());
-    gtk_widget_set_sensitive(priv->checkbutton_verify_certs_client, priv->account->isTlsEnabled());
-    gtk_widget_set_sensitive(priv->checkbutton_require_incoming_tls_certs, priv->account->isTlsEnabled());
+    gtk_widget_set_sensitive(priv->grid_tls_settings_0, priv->account->getAccountTLS()->isTlsEnabled());
+    gtk_widget_set_sensitive(priv->grid_tls_settings_1, priv->account->getAccountTLS()->isTlsEnabled());
+    gtk_widget_set_sensitive(priv->buttonbox_cipher_list, priv->account->getAccountTLS()->isTlsEnabled());
+    gtk_widget_set_sensitive(priv->treeview_cipher_list, priv->account->getAccountTLS()->isTlsEnabled());
+    gtk_widget_set_sensitive(priv->checkbutton_verify_certs_server, priv->account->getAccountTLS()->isTlsEnabled());
+    gtk_widget_set_sensitive(priv->checkbutton_verify_certs_client, priv->account->getAccountTLS()->isTlsEnabled());
+    gtk_widget_set_sensitive(priv->checkbutton_require_incoming_tls_certs, priv->account->getAccountTLS()->isTlsEnabled());
 }
 
 static void
@@ -412,28 +412,28 @@ build_tab_view(AccountSecurityTab *self)
 
     /* use TLS */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_use_tls),
-                                 priv->account->isTlsEnabled());
+                                 priv->account->getAccountTLS()->isTlsEnabled());
 
     /* disable certain options if TLS is off, or if its a RING account*/
     gtk_widget_set_sensitive(priv->checkbutton_use_tls, not_ring);
     gtk_widget_set_sensitive(priv->grid_tls_settings_0,
-                             priv->account->isTlsEnabled());
+                             priv->account->getAccountTLS()->isTlsEnabled());
     gtk_widget_set_sensitive(priv->grid_tls_settings_1,
-                             priv->account->isTlsEnabled() && not_ring);
+                             priv->account->getAccountTLS()->isTlsEnabled() && not_ring);
     gtk_widget_set_sensitive(priv->buttonbox_cipher_list,
-                             priv->account->isTlsEnabled() && not_ring);
+                             priv->account->getAccountTLS()->isTlsEnabled() && not_ring);
     gtk_widget_set_sensitive(priv->treeview_cipher_list,
-                             priv->account->isTlsEnabled() && not_ring);
+                             priv->account->getAccountTLS()->isTlsEnabled() && not_ring);
     gtk_widget_set_sensitive(priv->checkbutton_verify_certs_server,
-                             priv->account->isTlsEnabled() && not_ring);
+                             priv->account->getAccountTLS()->isTlsEnabled() && not_ring);
     gtk_widget_set_sensitive(priv->checkbutton_verify_certs_client,
-                             priv->account->isTlsEnabled() && not_ring);
+                             priv->account->getAccountTLS()->isTlsEnabled() && not_ring);
     gtk_widget_set_sensitive(priv->checkbutton_require_incoming_tls_certs,
-                             priv->account->isTlsEnabled() && not_ring);
+                             priv->account->getAccountTLS()->isTlsEnabled() && not_ring);
     g_signal_connect(priv->checkbutton_use_tls, "toggled", G_CALLBACK(use_tls_toggled), self);
 
     /* CA certificate */
-    Certificate *ca_cert = priv->account->tlsCaListCertificate();
+    Certificate *ca_cert = priv->account->getAccountTLS()->tlsCaListCertificate();
     if (ca_cert) {
         gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_ca_list),
                                       ca_cert->path().toUtf8().constData());
@@ -441,7 +441,7 @@ build_tab_view(AccountSecurityTab *self)
     g_signal_connect(priv->filechooserbutton_ca_list, "file-set", G_CALLBACK(ca_cert_file_set), self);
 
     /* user certificate */
-    if ( (priv->user_cert = priv->account->tlsCertificate()) ) {
+    if ( (priv->user_cert = priv->account->getAccountTLS()->tlsCertificate()) ) {
         gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_certificate),
             priv->user_cert->path().toUtf8().constData()
         );
@@ -463,7 +463,7 @@ build_tab_view(AccountSecurityTab *self)
     if (priv->user_cert && priv->user_cert->requirePrivateKeyPassword()) {
         gtk_entry_set_text(
             GTK_ENTRY(priv->entry_password),
-            priv->account->tlsPassword().toUtf8().constData()
+            priv->account->getAccountTLS()->tlsPassword().toUtf8().constData()
         );
         gtk_widget_set_sensitive(priv->entry_password, TRUE);
         gtk_widget_set_sensitive(priv->label_private_key_password, TRUE);
@@ -477,8 +477,8 @@ build_tab_view(AccountSecurityTab *self)
 
     /* TLS protocol method */
     priv->tls_method_selection = gtk_combo_box_set_qmodel(GTK_COMBO_BOX(priv->combobox_tls_protocol_method),
-                                                          (QAbstractItemModel *)priv->account->tlsMethodModel(),
-                                                          priv->account->tlsMethodModel()->selectionModel());
+                                                          (QAbstractItemModel *)priv->account->getAccountTLS()->tlsMethodModel(),
+                                                          priv->account->getAccountTLS()->tlsMethodModel()->selectionModel());
 
     /* outgoing TLS server */
     gtk_entry_set_text(GTK_ENTRY(priv->entry_tls_server_name),
@@ -531,19 +531,19 @@ build_tab_view(AccountSecurityTab *self)
 
     /* server certs */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_verify_certs_server),
-                                 priv->account->isTlsVerifyServer());
+                                 priv->account->getAccountTLS()->isTlsVerifyServer());
     g_signal_connect(priv->checkbutton_verify_certs_server,
                      "toggled", G_CALLBACK(verify_certs_server_toggled), self);
 
     /* client certs */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_verify_certs_client),
-                                 priv->account->isTlsVerifyClient());
+                                 priv->account->getAccountTLS()->isTlsVerifyClient());
     g_signal_connect(priv->checkbutton_verify_certs_client,
                      "toggled", G_CALLBACK(verify_certs_client_toggled), self);
 
     /* incoming certs */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_require_incoming_tls_certs),
-                                 priv->account->isTlsRequireClientCertificate());
+                                 priv->account->getAccountTLS()->isTlsRequireClientCertificate());
     g_signal_connect(priv->checkbutton_require_incoming_tls_certs,
                      "toggled", G_CALLBACK(require_incoming_certs_toggled), self);
 
@@ -561,10 +561,10 @@ build_tab_view(AccountSecurityTab *self)
                                          priv->account->isSrtpRtpFallback());
             /* use TLS */
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_use_tls),
-                                         priv->account->isTlsEnabled());
+                                         priv->account->getAccountTLS()->isTlsEnabled());
 
             /* CA certificate */
-            Certificate *ca_cert = priv->account->tlsCaListCertificate();
+            Certificate *ca_cert = priv->account->getAccountTLS()->tlsCaListCertificate();
             if (ca_cert) {
                 gtk_file_chooser_set_filename(
                     GTK_FILE_CHOOSER(priv->filechooserbutton_ca_list),
@@ -578,7 +578,7 @@ build_tab_view(AccountSecurityTab *self)
 
             /* user certificate */
             QObject::disconnect(priv->cert_changed);
-            if ( (priv->user_cert = priv->account->tlsCertificate()) ) {
+            if ( (priv->user_cert = priv->account->getAccountTLS()->tlsCertificate()) ) {
                 gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_certificate),
                     priv->user_cert->path().toUtf8().constData()
                 );
@@ -603,7 +603,7 @@ build_tab_view(AccountSecurityTab *self)
             if (priv->user_cert && priv->user_cert->requirePrivateKeyPassword()) {
                 gtk_entry_set_text(
                     GTK_ENTRY(priv->entry_password),
-                    priv->account->tlsPassword().toUtf8().constData()
+                    priv->account->getAccountTLS()->tlsPassword().toUtf8().constData()
                 );
                 gtk_widget_set_sensitive(priv->entry_password, TRUE);
                 gtk_widget_set_sensitive(priv->label_private_key_password, TRUE);
@@ -627,15 +627,15 @@ build_tab_view(AccountSecurityTab *self)
 
             /* server certs */
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_verify_certs_server),
-                                        priv->account->isTlsVerifyServer());
+                                        priv->account->getAccountTLS()->isTlsVerifyServer());
 
             /* client certs */
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_verify_certs_client),
-                                        priv->account->isTlsVerifyClient());
+                                        priv->account->getAccountTLS()->isTlsVerifyClient());
 
             /* incoming certs */
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_require_incoming_tls_certs),
-                                        priv->account->isTlsRequireClientCertificate());
+                                        priv->account->getAccountTLS()->isTlsRequireClientCertificate());
         }
     );
 }
