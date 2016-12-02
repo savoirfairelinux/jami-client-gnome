@@ -83,7 +83,7 @@ video_enable(GtkToggleButton *checkbutton, AccountVideoTab *view)
 {
     g_return_if_fail(IS_ACCOUNT_VIDEO_TAB(view));
    AccountVideoTabPrivate *priv = ACCOUNT_VIDEO_TAB_GET_PRIVATE(view);
-    priv->account->setVideoEnabled(gtk_toggle_button_get_active(checkbutton));
+    priv->account->getAccountMedia()->setVideoEnabled(gtk_toggle_button_get_active(checkbutton));
 }
 
 static void
@@ -196,7 +196,7 @@ build_tab_view(AccountVideoTab *view)
 
     /* enable video checkbutton */
     gtk_toggle_button_set_active(
-        GTK_TOGGLE_BUTTON(priv->checkbutton_enable), priv->account->isVideoEnabled());
+        GTK_TOGGLE_BUTTON(priv->checkbutton_enable), priv->account->getAccountMedia()->isVideoEnabled());
     g_signal_connect(priv->checkbutton_enable, "toggled", G_CALLBACK(video_enable), view);
 
     /* connect move codecs up/down signals */

@@ -162,7 +162,7 @@ auto_answer(GtkToggleButton *checkbutton, AccountGeneralTab *view)
 {
     g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
     AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
-    priv->account->setAutoAnswer(gtk_toggle_button_get_active(checkbutton));
+    priv->account->getAccountTLS()->setAutoAnswer(gtk_toggle_button_get_active(checkbutton));
 }
 
 static void
