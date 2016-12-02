@@ -274,7 +274,7 @@ audio_port_min_changed(GtkAdjustment *adjustment, AccountAdvancedTab *self)
     AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
 
     int port = (int)gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
-    priv->account->setAudioPortMin(port);
+    priv->account->getAccountMedia()->setAudioPortMin(port);
 }
 
 static void
@@ -284,7 +284,7 @@ audio_port_max_changed(GtkAdjustment *adjustment, AccountAdvancedTab *self)
     AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
 
     int port = (int)gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
-    priv->account->setAudioPortMax(port);
+    priv->account->getAccountMedia()->setAudioPortMax(port);
 }
 
 static void
@@ -294,7 +294,7 @@ video_port_min_changed(GtkAdjustment *adjustment, AccountAdvancedTab *self)
     AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
 
     int port = (int)gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
-    priv->account->setVideoPortMin(port);
+    priv->account->getAccountMedia()->setVideoPortMin(port);
 }
 
 static void
@@ -304,7 +304,7 @@ video_port_max_changed(GtkAdjustment *adjustment, AccountAdvancedTab *self)
     AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
 
     int port = (int)gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
-    priv->account->setVideoPortMax(port);
+    priv->account->getAccountMedia()->setVideoPortMax(port);
 }
 
 static void
@@ -459,19 +459,19 @@ build_tab_view(AccountAdvancedTab *self)
 
     /* audio/video rtp port range */
     gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_audio_port_min),
-                             priv->account->audioPortMin());
+                             priv->account->getAccountMedia()->audioPortMin());
     g_signal_connect(priv->adjustment_audio_port_min,
                      "value-changed", G_CALLBACK(audio_port_min_changed), self);
     gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_audio_port_max),
-                             priv->account->audioPortMax());
+                             priv->account->getAccountMedia()->audioPortMax());
     g_signal_connect(priv->adjustment_audio_port_min,
                      "value-changed", G_CALLBACK(audio_port_max_changed), self);
     gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_video_port_min),
-                             priv->account->videoPortMin());
+                             priv->account->getAccountMedia()->videoPortMin());
     g_signal_connect(priv->adjustment_audio_port_min,
                      "value-changed", G_CALLBACK(video_port_min_changed), self);
     gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_video_port_max),
-                             priv->account->videoPortMax());
+                             priv->account->getAccountMedia()->videoPortMax());
     g_signal_connect(priv->adjustment_video_port_max,
                      "value-changed", G_CALLBACK(video_port_max_changed), self);
 
@@ -539,13 +539,13 @@ build_tab_view(AccountAdvancedTab *self)
 
             /* audio/video rtp port range */
             gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_audio_port_min),
-                                    priv->account->audioPortMin());
+                                    priv->account->getAccountMedia()->audioPortMin());
             gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_audio_port_max),
-                                    priv->account->audioPortMax());
+                                    priv->account->getAccountMedia()->audioPortMax());
             gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_video_port_min),
-                                    priv->account->videoPortMin());
+                                    priv->account->getAccountMedia()->videoPortMin());
             gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_video_port_max),
-                                    priv->account->videoPortMax());
+                                    priv->account->getAccountMedia()->videoPortMax());
         }
     );
 }
