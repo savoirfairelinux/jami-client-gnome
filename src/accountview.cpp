@@ -175,6 +175,11 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  general_tab,
                                  gtk_label_new(C_("Account settings", "General")));
+
+        auto devices_tab = create_scrolled_account_view(account_devices_tab_new(account));
+        gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
+                                 devices_tab,
+                                 gtk_label_new(C_("Account settings", "Devices")));
         auto audio_tab = create_scrolled_account_view(account_audio_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  audio_tab,
@@ -183,18 +188,14 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  video_tab,
                                  gtk_label_new(C_("Account settings", "Video")));
-        auto advanced_tab = create_scrolled_account_view(account_advanced_tab_new(account));
-        gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
-                                 advanced_tab,
-                                 gtk_label_new(C_("Account settings", "Advanced")));
         auto security_tab = create_scrolled_account_view(account_security_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  security_tab,
                                  gtk_label_new(C_("Account settings", "Security")));
-        auto devices_tab = create_scrolled_account_view(account_devices_tab_new(account));
+        auto advanced_tab = create_scrolled_account_view(account_advanced_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
-                                 devices_tab,
-                                 gtk_label_new(C_("Account settings", "Devices")));
+                                 advanced_tab,
+                                 gtk_label_new(C_("Account settings", "Advanced")));
 
         gtk_widget_show_all(hbox_account);
         /* set the tab displayed to the same as the prev account selected */
