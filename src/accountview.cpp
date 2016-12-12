@@ -22,7 +22,6 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <accountmodel.h>
-#include <codecmodel.h>
 #include <protocolmodel.h>
 #include <QtCore/QItemSelectionModel>
 #include "models/gtkqtreemodel.h"
@@ -30,8 +29,6 @@
 #include "models/activeitemproxymodel.h"
 #include "accountgeneraltab.h"
 #include "accountcreationwizard.h"
-#include "accountaudiotab.h"
-#include "accountvideotab.h"
 #include "accountadvancedtab.h"
 #include "accountsecuritytab.h"
 #include "accountdevicestab.h"
@@ -175,14 +172,6 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  general_tab,
                                  gtk_label_new(C_("Account settings", "General")));
-        auto audio_tab = create_scrolled_account_view(account_audio_tab_new(account));
-        gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
-                                 audio_tab,
-                                 gtk_label_new(C_("Account settings", "Audio")));
-        auto video_tab = create_scrolled_account_view(account_video_tab_new(account));
-        gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
-                                 video_tab,
-                                 gtk_label_new(C_("Account settings", "Video")));
         auto advanced_tab = create_scrolled_account_view(account_advanced_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  advanced_tab,
