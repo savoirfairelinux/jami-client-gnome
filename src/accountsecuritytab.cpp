@@ -43,6 +43,7 @@ typedef struct _AccountSecurityTabPrivate AccountSecurityTabPrivate;
 struct _AccountSecurityTabPrivate
 {
     Account   *account;
+    GtkWidget *frame_srtp;
     GtkWidget *checkbutton_use_srtp;
     GtkWidget *box_key_exchange;
     GtkWidget *combobox_key_exchange;
@@ -128,6 +129,7 @@ account_security_tab_class_init(AccountSecurityTabClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/accountsecuritytab.ui");
 
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountSecurityTab, frame_srtp);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountSecurityTab, checkbutton_use_srtp);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountSecurityTab, box_key_exchange);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountSecurityTab, combobox_key_exchange);
@@ -386,17 +388,17 @@ build_tab_view(AccountSecurityTab *self)
     g_return_if_fail(IS_ACCOUNT_SECURITY_TAB(self));
     AccountSecurityTabPrivate *priv = ACCOUNT_SECURITY_TAB_GET_PRIVATE(self);
 
-    gboolean not_ring = priv->account->protocol() != Account::Protocol::RING;
+    gboolean is_ring_account = priv->account->protocol() == Account::Protocol::RING;
 
     /* SRTP */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_use_srtp),
                                  priv->account->isSrtpEnabled());
     /* disable options if SRTP is off or if its a RING account */
-    gtk_widget_set_sensitive(priv->checkbutton_use_srtp, not_ring);
+    gtk_widget_set_sensitive(priv->checkbutton_use_srtp, !is_ring_account);
     gtk_widget_set_sensitive(priv->box_key_exchange,
-                             priv->account->isSrtpEnabled() && not_ring);
+                             priv->account->isSrtpEnabled() && !is_ring_account);
     gtk_widget_set_sensitive(priv->checkbutton_srtp_fallback,
-                             priv->account->isSrtpEnabled() && not_ring);
+                             priv->account->isSrtpEnabled() && !is_ring_account);
     g_signal_connect(priv->checkbutton_use_srtp, "toggled", G_CALLBACK(use_srtp_toggled), self);
 
     /* encryption key exchange type */
@@ -414,24 +416,34 @@ build_tab_view(AccountSecurityTab *self)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_use_tls),
                                  priv->account->isTlsEnabled());
 
-    /* disable certain options if TLS is off, or if its a RING account*/
-    gtk_widget_set_sensitive(priv->checkbutton_use_tls, not_ring);
+    /* disable certain options if TLS is off */
+    gtk_widget_set_sensitive(priv->checkbutton_use_tls, !is_ring_account);
     gtk_widget_set_sensitive(priv->grid_tls_settings_0,
                              priv->account->isTlsEnabled());
     gtk_widget_set_sensitive(priv->grid_tls_settings_1,
-                             priv->account->isTlsEnabled() && not_ring);
+                             priv->account->isTlsEnabled() && !is_ring_account);
     gtk_widget_set_sensitive(priv->buttonbox_cipher_list,
-                             priv->account->isTlsEnabled() && not_ring);
+                             priv->account->isTlsEnabled() && !is_ring_account);
     gtk_widget_set_sensitive(priv->treeview_cipher_list,
-                             priv->account->isTlsEnabled() && not_ring);
+                             priv->account->isTlsEnabled() && !is_ring_account);
     gtk_widget_set_sensitive(priv->checkbutton_verify_certs_server,
-                             priv->account->isTlsEnabled() && not_ring);
+                             priv->account->isTlsEnabled() && !is_ring_account);
     gtk_widget_set_sensitive(priv->checkbutton_verify_certs_client,
-                             priv->account->isTlsEnabled() && not_ring);
+                             priv->account->isTlsEnabled() && !is_ring_account);
     gtk_widget_set_sensitive(priv->checkbutton_require_incoming_tls_certs,
-                             priv->account->isTlsEnabled() && not_ring);
+                             priv->account->isTlsEnabled() && !is_ring_account);
     g_signal_connect(priv->checkbutton_use_tls, "toggled", G_CALLBACK(use_tls_toggled), self);
 
+    /* hide everything that is not relevant to Ring accounts */
+    if (is_ring_account)
+    {
+        gtk_widget_hide(priv->frame_srtp);
+        gtk_widget_hide(priv->grid_tls_settings_1);
+        gtk_widget_hide(priv->checkbutton_verify_certs_server);
+        gtk_widget_hide(priv->checkbutton_verify_certs_client);
+        gtk_widget_hide(priv->checkbutton_require_incoming_tls_certs);
+        gtk_widget_hide(priv->buttonbox_cipher_list);
+    }
     /* CA certificate */
     Certificate *ca_cert = priv->account->tlsCaListCertificate();
     if (ca_cert) {
