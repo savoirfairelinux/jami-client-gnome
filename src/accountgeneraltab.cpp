@@ -247,6 +247,39 @@ bootstrap_servers_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *ev
 }
 
 static void
+allow_from_unknown_toggled(GtkToggleButton *toggle_button, AccountGeneralTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(self));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(self);
+
+    gboolean allow = gtk_toggle_button_get_active(toggle_button);
+
+    priv->account->setAllowIncomingFromUnknown(allow);
+}
+
+static void
+allow_from_history_toggled(GtkToggleButton *toggle_button, AccountGeneralTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(self));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(self);
+
+    gboolean allow = gtk_toggle_button_get_active(toggle_button);
+
+    priv->account->setAllowIncomingFromHistory(allow);
+}
+
+static void
+allow_from_contacts_toggled(GtkToggleButton *toggle_button, AccountGeneralTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(self));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(self);
+
+    gboolean allow = gtk_toggle_button_get_active(toggle_button);
+
+    priv->account->setAllowIncomingFromContact(allow);
+}
+
+static void
 build_tab_view(AccountGeneralTab *view)
 {
     g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
@@ -328,6 +361,51 @@ build_tab_view(AccountGeneralTab *view)
 
     /* build parameters grid */
     grid_row = 0;
+
+    /* auto answer */
+    checkbutton_autoanswer = gtk_check_button_new_with_label(_("Auto-answer calls"));
+    gtk_widget_set_halign(checkbutton_autoanswer, GTK_ALIGN_START);
+    gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_autoanswer, 0, grid_row, 1, 1);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_autoanswer), priv->account->isAutoAnswer());
+    g_signal_connect(checkbutton_autoanswer, "toggled", G_CALLBACK(auto_answer), view);
+    ++grid_row;
+
+    GtkWidget* checkbutton_allow_calls_unknown_peers;
+    GtkWidget* checkbutton_allow_calls_from_peers_in_call_history;
+    GtkWidget* checkbutton_allow_calls_from_peers_in_contact_list;
+    if (priv->account->protocol() == Account::Protocol::RING)
+    {
+        /* allow calls from unknown peers */
+        checkbutton_allow_calls_unknown_peers = gtk_check_button_new_with_label(_("Allow calls from unknown peers"));
+        gtk_widget_set_halign(checkbutton_allow_calls_unknown_peers, GTK_ALIGN_START);
+        gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_allow_calls_unknown_peers, 0, grid_row, 1, 1);
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_allow_calls_unknown_peers), priv->account->allowIncomingFromUnknown());
+        g_signal_connect(checkbutton_allow_calls_unknown_peers, "toggled", G_CALLBACK(allow_from_unknown_toggled), view);
+        ++grid_row;
+
+        /* allow calls from peers in your call history */
+        checkbutton_allow_calls_from_peers_in_call_history = gtk_check_button_new_with_label(_("Allow calls from peers in your call history"));
+        gtk_widget_set_halign(checkbutton_allow_calls_from_peers_in_call_history, GTK_ALIGN_START);
+        gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_allow_calls_from_peers_in_call_history, 0, grid_row, 1, 1);
+        gtk_toggle_button_set_active(
+            GTK_TOGGLE_BUTTON(checkbutton_allow_calls_from_peers_in_call_history),
+            priv->account->allowIncomingFromUnknown()
+        );
+        g_signal_connect(checkbutton_allow_calls_from_peers_in_call_history, "toggled", G_CALLBACK(allow_from_history_toggled), view);
+        ++grid_row;
+
+        /* allow calls from peers in your contact list */
+        checkbutton_allow_calls_from_peers_in_contact_list = gtk_check_button_new_with_label(_("Allow calls from peers in your contact list"));
+        gtk_widget_set_halign(checkbutton_allow_calls_from_peers_in_contact_list, GTK_ALIGN_START);
+        gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_allow_calls_from_peers_in_contact_list, 0, grid_row, 1, 1);
+        gtk_toggle_button_set_active(
+            GTK_TOGGLE_BUTTON(checkbutton_allow_calls_from_peers_in_contact_list),
+            priv->account->allowIncomingFromContact()
+        );
+        g_signal_connect(checkbutton_allow_calls_from_peers_in_contact_list, "toggled", G_CALLBACK(allow_from_contacts_toggled), view);
+        ++grid_row;
+    }
+
     if (priv->account->protocol() != Account::Protocol::RING) {
         /* SIP account */
 
@@ -455,14 +533,6 @@ build_tab_view(AccountGeneralTab *view)
 
     }
 
-    /* auto answer */
-    checkbutton_autoanswer = gtk_check_button_new_with_label(_("Auto-answer calls"));
-    gtk_widget_set_halign(checkbutton_autoanswer, GTK_ALIGN_START);
-    gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_autoanswer, 0, grid_row, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_autoanswer), priv->account->isAutoAnswer());
-    g_signal_connect(checkbutton_autoanswer, "toggled", G_CALLBACK(auto_answer), view);
-    ++grid_row;
-
     /* upnp */
     checkbutton_upnp = gtk_check_button_new_with_label(_("UPnP enabled"));
     gtk_widget_set_halign(checkbutton_upnp, GTK_ALIGN_START);
@@ -505,7 +575,15 @@ build_tab_view(AccountGeneralTab *view)
             gtk_entry_set_text(GTK_ENTRY(entry_alias), priv->account->alias().toLocal8Bit().constData());
             gtk_entry_set_text(GTK_ENTRY(entry_username), priv->account->username().toLocal8Bit().constData());
 
-            if (priv->account->protocol() != Account::Protocol::RING) {
+            if (priv->account->protocol() == Account::Protocol::RING) {
+                gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_allow_calls_unknown_peers),
+                                             priv->account->allowIncomingFromUnknown());
+                gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_allow_calls_from_peers_in_call_history),
+                                             priv->account->allowIncomingFromHistory());
+                gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_allow_calls_from_peers_in_contact_list),
+                                             priv->account->allowIncomingFromContact());
+            }
+            else {
                 gtk_entry_set_text(GTK_ENTRY(entry_hostname), priv->account->hostname().toLocal8Bit().constData());
                 gtk_entry_set_text(GTK_ENTRY(entry_password), priv->account->password().toLocal8Bit().constData());
                 gtk_entry_set_text(GTK_ENTRY(entry_proxy), priv->account->proxy().toLocal8Bit().constData());
