@@ -26,6 +26,8 @@
 #include "utils/models.h"
 #include "defines.h"
 #include <bootstrapmodel.h>
+#include "accountaudiotab.h"
+#include "accountvideotab.h"
 
 struct _AccountAdvancedTab
 {
@@ -76,7 +78,10 @@ struct _AccountAdvancedTabPrivate
     GtkWidget *adjustment_video_port_min;
     GtkWidget *adjustment_video_port_max;
     GtkWidget *box_bootstrap_servers;
+    GtkWidget *frame_bootstrap_servers;
     GtkWidget *treeview_bootstrap_servers;
+    GtkWidget *frame_video_codecs;
+    GtkWidget *frame_audio_codecs;
 
     QMetaObject::Connection account_updated;
 };
@@ -144,6 +149,9 @@ account_advanced_tab_class_init(AccountAdvancedTabClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_video_port_min);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_video_port_max);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, box_bootstrap_servers);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, frame_bootstrap_servers);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, frame_audio_codecs);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, frame_video_codecs);
 }
 
 static void
@@ -512,7 +520,7 @@ build_tab_view(AccountAdvancedTab *self)
 
     }
     else {
-        gtk_widget_hide(priv->box_bootstrap_servers);
+        gtk_widget_hide(priv->frame_bootstrap_servers);
     }
 
 
@@ -617,6 +625,21 @@ build_tab_view(AccountAdvancedTab *self)
                              priv->account->videoPortMax());
     g_signal_connect(priv->adjustment_video_port_max,
                      "value-changed", G_CALLBACK(video_port_max_changed), self);
+
+    /* audio and video codecs */
+    auto video_codecs = account_video_tab_new(priv->account);
+    gtk_container_add(
+        GTK_CONTAINER(priv->frame_video_codecs),
+        video_codecs
+    );
+    gtk_widget_show(video_codecs);
+
+    auto audio_codecs = account_audio_tab_new(priv->account);
+    gtk_container_add(
+        GTK_CONTAINER(priv->frame_audio_codecs),
+        audio_codecs
+    );
+    gtk_widget_show(audio_codecs);
 
     /* update account UI if model is updated */
     priv->account_updated = QObject::connect(

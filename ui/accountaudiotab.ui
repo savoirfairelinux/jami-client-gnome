@@ -10,8 +10,6 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">10</property>
-        <property name="border_width">10</property>
         <child>
           <object class="GtkFrame" id="frame_codecs">
             <property name="visible">True</property>
@@ -74,7 +72,7 @@
               <object class="GtkLabel" id="label_codecs">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Codecs</property>
+                <property name="label" translatable="yes">Audio Codecs</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
