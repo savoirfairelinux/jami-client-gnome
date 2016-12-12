@@ -163,15 +163,18 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
 
         /* build new account view */
         GtkWidget *hbox_account = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+        gtk_widget_show(hbox_account);
 
         /* create account notebook */
         auto account_notebook = gtk_notebook_new();
+        gtk_widget_show(account_notebook);
         gtk_notebook_set_scrollable(GTK_NOTEBOOK(account_notebook), TRUE);
         gtk_notebook_set_show_border(GTK_NOTEBOOK(account_notebook), FALSE);
         gtk_box_pack_start(GTK_BOX(hbox_account), account_notebook, TRUE, TRUE, 0);
 
         /* customize account view based on account */
         auto general_tab = create_scrolled_account_view(account_general_tab_new(account));
+        gtk_widget_show(general_tab);
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  general_tab,
                                  gtk_label_new(C_("Account settings", "General")));
@@ -179,28 +182,32 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
         if (account->protocol() == Account::Protocol::RING)
         {
             auto devices_tab = create_scrolled_account_view(account_devices_tab_new(account));
+            gtk_widget_show(devices_tab);
             gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                      devices_tab,
                                      gtk_label_new(C_("Account settings", "Devices")));
         }
         auto audio_tab = create_scrolled_account_view(account_audio_tab_new(account));
+        gtk_widget_show(audio_tab);
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  audio_tab,
                                  gtk_label_new(C_("Account settings", "Audio")));
         auto video_tab = create_scrolled_account_view(account_video_tab_new(account));
+        gtk_widget_show(video_tab);
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  video_tab,
                                  gtk_label_new(C_("Account settings", "Video")));
         auto security_tab = create_scrolled_account_view(account_security_tab_new(account));
+        gtk_widget_show(security_tab);
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  security_tab,
                                  gtk_label_new(C_("Account settings", "Security")));
         auto advanced_tab = create_scrolled_account_view(account_advanced_tab_new(account));
+        gtk_widget_show(advanced_tab);
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  advanced_tab,
                                  gtk_label_new(C_("Account settings", "Advanced")));
 
-        gtk_widget_show_all(hbox_account);
         /* set the tab displayed to the same as the prev account selected */
         gtk_notebook_set_current_page(GTK_NOTEBOOK(account_notebook), priv->current_page);
         /* now connect to the tab changed signal */
