@@ -176,10 +176,13 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
                                  general_tab,
                                  gtk_label_new(C_("Account settings", "General")));
 
-        auto devices_tab = create_scrolled_account_view(account_devices_tab_new(account));
-        gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
-                                 devices_tab,
-                                 gtk_label_new(C_("Account settings", "Devices")));
+        if (account->protocol() == Account::Protocol::RING)
+        {
+            auto devices_tab = create_scrolled_account_view(account_devices_tab_new(account));
+            gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
+                                     devices_tab,
+                                     gtk_label_new(C_("Account settings", "Devices")));
+        }
         auto audio_tab = create_scrolled_account_view(account_audio_tab_new(account));
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  audio_tab,
