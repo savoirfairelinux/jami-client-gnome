@@ -65,6 +65,7 @@ struct _AccountAdvancedTabPrivate
     GtkWidget *entry_turnusername;
     GtkWidget *entry_turnpassword;
     GtkWidget *entry_turnrealm;
+    GtkWidget *frame_ice_fallback;
     GtkWidget *adjustment_audio_port_min;
     GtkWidget *adjustment_audio_port_max;
     GtkWidget *adjustment_video_port_min;
@@ -130,6 +131,7 @@ account_advanced_tab_class_init(AccountAdvancedTabClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnusername);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnpassword);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnrealm);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, frame_ice_fallback);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_audio_port_min);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_audio_port_max);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_video_port_min);
@@ -458,6 +460,13 @@ build_tab_view(AccountAdvancedTab *self)
                      "changed", G_CALLBACK(turn_serverrealm_changed), self);
 
     /* audio/video rtp port range */
+
+    /* ice fallback features are not relevant to Ring account, as every RING
+       client supports ICE */
+    gtk_widget_set_visible(
+        priv->frame_ice_fallback,
+        *priv->account->protocol() != Account::Protocol::RING
+    );
     gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_audio_port_min),
                              priv->account->audioPortMin());
     g_signal_connect(priv->adjustment_audio_port_min,
