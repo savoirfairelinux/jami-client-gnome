@@ -15,7 +15,9 @@
         <property name="visible">True</property>
         <property name="spacing">10</property>
         <property name="border_width">10</property>
-        <!-- start profil settings -->
+        <property name="orientation">vertical</property>
+        <property name="halign">center</property>
+        <!-- start profile settings -->
         <child>
           <object class="GtkBox" id="vbox_main_left">
             <property name="visible">True</property>
@@ -138,6 +140,7 @@
                         <property name="visible">True</property>
                         <property name="orientation">vertical</property>
                         <property name="layout-style">start</property>
+                        <property name="halign">start</property>
                         <child>
                           <object class="GtkRadioButton" id="radiobutton_chatright">
                             <property name="label" translatable="yes">Show chat on the right.</property>
