@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ace114c_1dc73447",
+        "filename": "ui/accountvideotab.ui",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-12-13T16:37:47Z",
+      "side": 1,
+      "message": "could you also move this into the frame_codecs, into the hbox_codecs, so that it gets the 10px left margin applied... also since it should fall under the video codecs frame anyways now",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 16
+      },
+      "revId": "41f4cee277577ea2e79889b779fa26a68560fe33",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
