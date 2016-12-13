@@ -238,6 +238,7 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             }
             break;
             case Ring::ObjectType::Media:
+            case Ring::ObjectType::Certificate:
             // nothing to do for now
             case Ring::ObjectType::COUNT__:
             break;
@@ -292,6 +293,7 @@ render_call_duration(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             }
             break;
             case Ring::ObjectType::Media:
+            case Ring::ObjectType::Certificate:
             // nothing to do for now
             case Ring::ObjectType::COUNT__:
             break;
@@ -347,6 +349,7 @@ activate_item(GtkTreeView *tree_view,
                 break;
                 case Ring::ObjectType::Call:
                 case Ring::ObjectType::Media:
+                case Ring::ObjectType::Certificate:
                 // nothing to do for now
                 case Ring::ObjectType::COUNT__:
                 break;
