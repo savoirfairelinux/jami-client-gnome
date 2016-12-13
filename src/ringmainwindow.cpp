@@ -790,7 +790,7 @@ search_entry_text_changed(GtkSearchEntry *search_entry, RingMainWindow *self)
 }
 
 static gboolean
-search_entry_key_released(GtkEntry *search_entry, GdkEventKey *key, RingMainWindow *self)
+search_entry_key_released(G_GNUC_UNUSED GtkEntry *search_entry, GdkEventKey *key, RingMainWindow *self)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
