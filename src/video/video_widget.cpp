@@ -553,7 +553,7 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
 
     /* show menu */
     gtk_widget_show_all(menu);
-    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+    gtk_menu_popup_at_pointer(GTK_MENU(self), (GdkEvent*) event);
 
     return TRUE; /* event has been fully handled */
 }

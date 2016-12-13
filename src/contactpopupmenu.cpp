@@ -379,7 +379,7 @@ contact_popup_menu_show(ContactPopupMenu *self, GdkEventButton *event)
     /* check for right click */
     if (event->type == GDK_BUTTON_PRESS && event->button == GDK_BUTTON_SECONDARY ) {
         /* the menu will automatically get updated when the selection changes */
-        gtk_menu_popup(GTK_MENU(self), NULL, NULL, NULL, NULL, event->button, event->time);
+        gtk_menu_popup_at_pointer(GTK_MENU(self), (GdkEvent*) event);
     }
 
     return GDK_EVENT_PROPAGATE; /* so that the item selection changes */
