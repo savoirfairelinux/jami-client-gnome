@@ -22,6 +22,30 @@
       "revId": "41f4cee277577ea2e79889b779fa26a68560fe33",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ace114c_1d3c142f",
+        "filename": "ui/accountvideotab.ui",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 66
+      },
+      "writtenOn": "2016-12-13T17:09:53Z",
+      "side": 1,
+      "message": "Done!\n\nI also added the same 10px margin to the bootstrap servers.",
+      "parentUuid": "3ace114c_1dc73447",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 16
+      },
+      "revId": "41f4cee277577ea2e79889b779fa26a68560fe33",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
