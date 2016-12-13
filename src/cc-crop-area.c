@@ -660,7 +660,7 @@ cc_crop_area_button_press_event (GtkWidget      *widget,
 
 static gboolean
 cc_crop_area_button_release_event (GtkWidget      *widget,
-                                   GdkEventButton *event)
+                                   G_GNUC_UNUSED GdkEventButton *event)
 {
         CcCropArea *area = CC_CROP_AREA (widget);
         GdkRectangle crop;
