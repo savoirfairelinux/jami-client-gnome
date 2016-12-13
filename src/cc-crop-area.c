@@ -1,6 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
  * Copyright 2009  Red Hat, Inc,
+ * Copyright (C) 2017 Savoir-faire Linux Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -660,7 +661,7 @@ cc_crop_area_button_press_event (GtkWidget      *widget,
 
 static gboolean
 cc_crop_area_button_release_event (GtkWidget      *widget,
-                                   GdkEventButton *event)
+                                   G_GNUC_UNUSED GdkEventButton *event)
 {
         CcCropArea *area = CC_CROP_AREA (widget);
         GdkRectangle crop;
