@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ace114c_fd7b4827",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-12-13T16:24:48Z",
+      "side": 1,
+      "message": "can we remove this as well? I think that was the only tree model",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 33
+      },
+      "revId": "569148895f6e2605a36960b878eb603f4dcd46fc",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ace114c_1d79742f",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-12-13T16:24:48Z",
+      "side": 1,
+      "message": "unrelated, but not sure if this is needed either",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 26
+      },
+      "revId": "569148895f6e2605a36960b878eb603f4dcd46fc",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
