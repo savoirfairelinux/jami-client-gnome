@@ -3,13 +3,15 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
+# a a <gfvbjhgf@mailinator.com>, 2016
+# Efstathios Iosifidis <iefstathios@gmail.com>, 2016
 # Vangelis Skarmoutsos <skarmoutsosv@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-03 18:11-0400\n"
-"PO-Revision-Date: 2016-11-03 22:14+0000\n"
+"POT-Creation-Date: 2016-12-15 14:42-0500\n"
+"PO-Revision-Date: 2016-12-15 19:44+0000\n"
 "Last-Translator: Stepan Salenikovich\n"
 "Language-Team: Greek (http://www.transifex.com/savoirfairelinux/ring/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +19,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/accountadvancedtab.cpp:389
+msgid "_Remove server"
+msgstr "_Απομάκρυνση διακομιστή"
+
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:263
+msgid "Hostname"
+msgstr "Hostname"
+
+#: src/accountadvancedtab.cpp:510 ui/accountadvancedtab.ui:314
+msgid "Port"
+msgstr "Θύρα"
 
 #: src/accountaudiotab.cpp:175 src/accountvideotab.cpp:184
 msgid "Enabled"
@@ -35,32 +49,32 @@ msgstr "Bitrate"
 msgid "Samplerate"
 msgstr "Ρυθμός δειγματοληψίας"
 
-#: src/accountcreationwizard.cpp:230
+#: src/accountcreationwizard.cpp:240
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
-msgstr ""
+msgstr "Ο λογαριασμός σας έχει δημιουργηθεί, αλλά δεν μπορέσαμε να καταχωρήσετε το όνομα χρήστη σας. Δοκιμάστε ξανά από το μενού ρυθμίσεων."
 
-#: src/accountcreationwizard.cpp:271
+#: src/accountcreationwizard.cpp:283
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "Άγνωστοι"
 
-#: src/accountcreationwizard.cpp:441 ui/accountmigrationview.ui:132
+#: src/accountcreationwizard.cpp:454 ui/accountmigrationview.ui:132
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Οι κωδικοί πρόσβασης δεν ταιριάζουν"
 
-#: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:336
+#: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
 msgid "Bad password"
-msgstr ""
+msgstr "Λανθασμένος κωδικός πρόσβασης"
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
-msgstr ""
+msgstr "Σφάλμα δικτύου, δοκιμάστε ξανά"
 
 #: src/accountdevicestab.cpp:213
 msgid "Could not initiate export to the Ring, try again"
-msgstr ""
+msgstr "Δεν μπορεί να κινήσει την εξαγωγή προς το Ring, προσπαθήστε ξανά"
 
 #: src/accountdevicestab.cpp:246
 msgctxt "Device Name Column"
@@ -70,70 +84,53 @@ msgstr "Όνομα"
 #: src/accountdevicestab.cpp:251
 msgctxt "Device ID Column"
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
-#: src/accountgeneraltab.cpp:234
-msgid "_Remove server"
-msgstr "_Απομάκρυνση διακομιστή"
-
-#: src/accountgeneraltab.cpp:273
+#: src/accountgeneraltab.cpp:201
 msgid "Alias"
 msgstr "Ψευδώνυμο"
 
-#: src/accountgeneraltab.cpp:284
+#: src/accountgeneraltab.cpp:212
 msgid "Type"
 msgstr "Τύπος"
 
-#: src/accountgeneraltab.cpp:310
+#: src/accountgeneraltab.cpp:238
 msgid "auto-generating..."
 msgstr "αυτόματη-παραγωγή..."
 
-#: src/accountgeneraltab.cpp:335 src/accountgeneraltab.cpp:429
-msgid "Hostname"
-msgstr "Hostname"
-
-#: src/accountgeneraltab.cpp:345
+#: src/accountgeneraltab.cpp:247 src/accountgeneraltab.cpp:273
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
-#: src/accountgeneraltab.cpp:355
+#: src/accountgeneraltab.cpp:283
 msgid "Password"
 msgstr "Σύνθημα"
 
-#: src/accountgeneraltab.cpp:368
+#: src/accountgeneraltab.cpp:296
 msgid "Show password"
 msgstr "Εμφάνιση συνθήματος"
 
-#: src/accountgeneraltab.cpp:374
+#: src/accountgeneraltab.cpp:302
 msgid "Proxy"
 msgstr "Διαμεσολαβητής"
 
-#: src/accountgeneraltab.cpp:384
+#: src/accountgeneraltab.cpp:312
 msgid "Voicemail number"
 msgstr "Αριθμός Voicemail"
 
-#: src/accountgeneraltab.cpp:396
-msgctxt "The DHT bootstrap server url"
-msgid "Bootstrap Servers"
-msgstr "Bootstrap Servers"
-
-#: src/accountgeneraltab.cpp:437 ui/accountadvancedtab.ui:314
-msgid "Port"
-msgstr "Θύρα"
-
-#: src/accountgeneraltab.cpp:446
+#: src/accountgeneraltab.cpp:324
 msgid "Name service URL"
-msgstr ""
+msgstr "URL υπηρεσίας ονομάτων"
 
-#: src/accountgeneraltab.cpp:459
+#: src/accountgeneraltab.cpp:337
 msgid "Auto-answer calls"
 msgstr "Αυτόματη απάντηση κλήσεων"
 
-#: src/accountgeneraltab.cpp:467
+#: src/accountgeneraltab.cpp:345
 msgid "UPnP enabled"
 msgstr "UPnP ενεργοποιημένο"
 
-#: src/accountgeneraltab.cpp:475
+#: src/accountgeneraltab.cpp:353
 msgid "DTMF tone type:"
 msgstr "Τύπος τόνου DTMF:"
 
@@ -142,7 +139,7 @@ msgid "Select account export location"
 msgstr "Επιλογή τοποθεσίας εξαγωγής λογαριασμού"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
-#: ui/accountdevicestab.ui:132 ui/accountimportexportview.ui:161
+#: ui/accountdevicestab.ui:134 ui/accountimportexportview.ui:161
 msgid "Cancel"
 msgstr "Ακύρωση"
 
@@ -168,51 +165,41 @@ msgctxt "Account settings"
 msgid "General"
 msgstr "Γενικά"
 
-#: src/accountview.cpp:181
-msgctxt "Account settings"
-msgid "Audio"
-msgstr "Ήχος"
-
 #: src/accountview.cpp:185
 msgctxt "Account settings"
-msgid "Video"
-msgstr "Βίντεο"
+msgid "Devices"
+msgstr "Συσκευές"
 
-#: src/accountview.cpp:189
-msgctxt "Account settings"
-msgid "Advanced"
-msgstr "Για προχωρημένους"
-
-#: src/accountview.cpp:193
+#: src/accountview.cpp:191
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Ασφάλεια"
 
-#: src/accountview.cpp:197
+#: src/accountview.cpp:196
 msgctxt "Account settings"
-msgid "Devices"
-msgstr ""
+msgid "Advanced"
+msgstr "Για προχωρημένους"
 
-#: src/accountview.cpp:253
+#: src/accountview.cpp:251
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "Είσαι σίγουρος ότι θέλεις να διαγράψεις τον λογαριασμό  \"%s\";"
 
-#: src/accountview.cpp:388
+#: src/accountview.cpp:386
 msgid "New Account"
 msgstr "Νέος λογαριασμός"
 
-#: src/accountview.cpp:540
+#: src/accountview.cpp:538
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Ενεργοποιημένο"
 
-#: src/accountview.cpp:546
+#: src/accountview.cpp:544
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Ψευδώνυμο"
 
-#: src/accountview.cpp:554
+#: src/accountview.cpp:552
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Κατάσταση"
@@ -275,13 +262,13 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Gaston Miron - Beta 2\n"
 "built on %.25s"
-msgstr ""
+msgstr "Gaston Miron - Beta 2\nχτισμένο σε %.25s"
 
-#: src/dialogs.c:131
+#: src/dialogs.c:132
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Ο GNOME πελάτης για το Ring.\nRing είναι ελεύθερο λογισμικό για την καθολική επικοινωνία που σέβεται τις ελευθερίες και την ιδιωτική ζωή των χρηστών του."
 
 #: src/editcontactview.cpp:185
 msgctxt "Phone number category"
@@ -292,7 +279,7 @@ msgstr "σπίτι"
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr ""
+msgstr "Αυτή είναι μια καταστροφική λειτουργία. Είστε σίγουροι ότι θέλετε να διαγράψετε όλες τις συζήτησης σας και το ιστορικό κλήσεων;"
 
 #: src/historyview.cpp:293
 msgctxt "Call history"
@@ -311,7 +298,7 @@ msgstr "Εισερχόμενη κλήση"
 #: src/ringnotify.cpp:165 src/ringnotify.cpp:343
 msgctxt "notification action name"
 msgid "Show"
-msgstr ""
+msgstr "Προβολή"
 
 #: src/ringnotify.cpp:267
 #, c-format
@@ -333,112 +320,127 @@ msgstr "Επαναφέρει την κρυμένη κατάσταση του κ�
 msgid "- GNOME client for Ring"
 msgstr "- Πελάτης GNOME για το Ring"
 
-#: src/ringmainwindow.cpp:519
+#: src/ringmainwindow.cpp:544
 msgid "looking up RingID"
-msgstr ""
+msgstr "αναζήτηση RingID"
 
-#: src/ringmainwindow.cpp:555
+#: src/ringmainwindow.cpp:584
 #, c-format
 msgid "Invalid Ring username: %s"
+msgstr "Μη έγκυρο όνομα χρήστη Ring: %s"
+
+#: src/ringmainwindow.cpp:599
+msgid "Error resolving username, nameserver is possibly unreachable"
 msgstr ""
 
-#: src/ringmainwindow.cpp:571
+#: src/ringmainwindow.cpp:613
 #, c-format
 msgid "Could not resolve Ring username: %s"
 msgstr ""
 
-#: src/ringmainwindow.cpp:994
+#: src/ringmainwindow.cpp:1036
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:996
+#: src/ringmainwindow.cpp:1038
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1169
+#: src/ringmainwindow.cpp:1211
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Αναζήτηση επαφών ή εισαγωγή αριθμού"
 
-#: src/ringwelcomeview.cpp:71
-msgid "fetching RingID..."
-msgstr "λήψη του RingID..."
-
-#: src/ringwelcomeview.cpp:126
+#: src/ringwelcomeview.cpp:69
 msgid ""
-"Ring is free software for universal communication which respects the "
-"freedoms and privacy of its users."
+"This is your Ring username.\n"
+"Copy and share it with your friends!"
 msgstr ""
 
-#: src/ringwelcomeview.cpp:137
+#: src/ringwelcomeview.cpp:77
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
 msgstr "Αυτό είναι το RingID σου.\nΑντέγραψε το και μοιράσου το με τους φίλους σου!"
 
-#: src/usernameregistrationbox.cpp:127
-msgid "The entered username is not available"
+#: src/ringwelcomeview.cpp:84
+msgid "fetching RingID..."
+msgstr "λήψη του RingID..."
+
+#: src/ringwelcomeview.cpp:139
+msgid ""
+"Ring is free software for universal communication which respects the "
+"freedoms and privacy of its users."
+msgstr ""
+
+#: src/ringwelcomeview.cpp:185
+msgctxt "Do not translate \"Ring ID\""
+msgid "Ring ID QR code"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:128
+msgid "The entered username is not available"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:129
 msgid "Username is not available"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:137
+#: src/usernameregistrationbox.cpp:138
 msgid "The entered username is not valid"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:138
+#: src/usernameregistrationbox.cpp:139
 msgid "Username is not valid"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:147
+#: src/usernameregistrationbox.cpp:148
 msgid "The entered username is available"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:148
+#: src/usernameregistrationbox.cpp:149
 msgid "Username is available"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:157
+#: src/usernameregistrationbox.cpp:158
 msgid "Failed to perform lookup"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:158
+#: src/usernameregistrationbox.cpp:159
 msgid "Could not lookup username"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:245
+#: src/usernameregistrationbox.cpp:248
 msgid "Looking up username availability..."
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:305 ui/accountcreationwizard.ui:381
+#: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:485
 msgid "Registering username..."
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:329
-msgid "Invalid username"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:343
-msgid "Username already taken"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:350
-msgid "Network error"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:365
+#: src/usernameregistrationbox.cpp:319
 msgid "Count not initiate name registration, try again."
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:407
+#: src/usernameregistrationbox.cpp:361
 msgid "Register this username on the blockchain"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:397
+msgid "Invalid username"
+msgstr "Μη έγκυρο όνομα χρήστη"
+
+#: src/usernameregistrationbox.cpp:411
+msgid "Username already taken"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:418
+msgid "Network error"
 msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
@@ -540,163 +542,196 @@ msgstr "realm"
 msgid "Published Address"
 msgstr "Δημοσιευμένη διεύθυνση"
 
-#: ui/accountadvancedtab.ui:539
+#: ui/accountadvancedtab.ui:536
+msgid "Bootstrap Servers"
+msgstr "Bootstrap Servers"
+
+#: ui/accountadvancedtab.ui:593
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
 msgstr "Αυτές οι ρυθμίσεις χρησιμοποιούνται μόνο κατά την διαπραγμάτευση της συνεδρία SDP, σε περίπτωση που το ICE δεν υποστηρίζεται από τον διακομιστή ή τον κόμβο."
 
-#: ui/accountadvancedtab.ui:564 ui/accountadvancedtab.ui:640
+#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
 msgid "Min"
 msgstr "Ελάχιστο"
 
-#: ui/accountadvancedtab.ui:587 ui/accountadvancedtab.ui:663
+#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
 msgid "Max"
 msgstr "Μέγιστο"
 
-#: ui/accountadvancedtab.ui:611
+#: ui/accountadvancedtab.ui:665
 msgid "Audio RTP Port Range"
 msgstr "Εύρος θυρών RTP ήχου"
 
-#: ui/accountadvancedtab.ui:687
+#: ui/accountadvancedtab.ui:741
 msgid "Video RTP Port Range"
 msgstr "Εύρος θυρών RTP βίντεο"
 
-#: ui/accountadvancedtab.ui:705
+#: ui/accountadvancedtab.ui:759
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "Διαπραγμάτευση συνεδρίας SDP (εφεδρικό του ICE)"
 
-#: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
+#: ui/accountaudiotab.ui:57 ui/accountvideotab.ui:80
 msgid "Up"
 msgstr "Πάνω"
 
-#: ui/accountaudiotab.ui:66 ui/accountvideotab.ui:66
+#: ui/accountaudiotab.ui:64 ui/accountvideotab.ui:87
 msgid "Down"
 msgstr "Κάτω"
 
-#: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
-msgid "Codecs"
-msgstr "Κωδικοποιητές"
+#: ui/accountaudiotab.ui:75
+msgid "Audio Codecs"
+msgstr ""
 
-#: ui/accountcreationwizard.ui:31
+#: ui/accountcreationwizard.ui:32
 msgid "Welcome to "
 msgstr "Καλώς ήλθατε στο"
 
 #: ui/accountcreationwizard.ui:66
-msgid "Link this device to an existing account"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:67
-msgid "Link this devices to a Ring account created on another device"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:74
 msgid "Create Ring Account"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:75
+#: ui/accountcreationwizard.ui:67
 msgid "Create a new Ring account (for new users)"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:108
-msgid "Enter your pin:"
+#: ui/accountcreationwizard.ui:74
+msgid "Link this device to an account"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:127
-msgid "Enter your password:"
+#: ui/accountcreationwizard.ui:75
+msgid "Link this devices to a Ring account created on another device"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:151 ui/accountcreationwizard.ui:323
+#: ui/accountcreationwizard.ui:103 ui/accountcreationwizard.ui:157
+msgid "Link this device to an existing account"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:118
+msgid ""
+"To link this device to another account, you first need to obtain a PIN code."
+" To generate the pin code, go to the account management setting of a "
+"previous device, choose the Ring Account to use and select \"Link another "
+"device to this account\". You will get the necessary PIN to complete this "
+"form. The PIN is only valid for 10 minutes."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:126 ui/accountcreationwizard.ui:215
+#: ui/accountcreationwizard.ui:427
 msgid "Previous"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:159 ui/accountcreationwizard.ui:331
+#: ui/accountcreationwizard.ui:134
+msgid "Okay, I have the PIN!"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:172
+msgid "Enter your pin:"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:191
+msgid "Enter your password:"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:223 ui/accountcreationwizard.ui:435
 msgid "Next"
 msgstr "Επόμενο"
 
-#: ui/accountcreationwizard.ui:188
-msgid "Choose your avatar, username, and password:"
+#: ui/accountcreationwizard.ui:265
+msgid "Profile"
+msgstr "Προφίλ"
+
+#: ui/accountcreationwizard.ui:285
+msgid "Full name:"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:216
-msgid "Username:"
+#: ui/accountcreationwizard.ui:327
+msgid "Ring Account"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:240
-msgid "Register name publicly (experimental)"
+#: ui/accountcreationwizard.ui:340
+msgid "Register public username (experimental):"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:247
+#: ui/accountcreationwizard.ui:346
 msgid ""
-"Reserve the username so that only you can use it. Your friends will be able "
-"to contact you with your username instead of using your RingID."
+"By checking this, you will register a unique username on the Ring network. "
+"People can use it to contact you instead of using your RingID, which is 40 "
+"characters long."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:258 ui/accountmigrationview.ui:161
+#: ui/accountcreationwizard.ui:369 ui/accountmigrationview.ui:161
 msgid "Password (confirm):"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:355
+#: ui/accountcreationwizard.ui:370
+msgid ""
+"This password will be used to encrypt your account data and to link new "
+"devices to your account."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:459
 msgid "Generating your Ring account..."
 msgstr "Γίνεται δημιουργία του λογαριασμού σας Ring..."
 
-#: ui/accountcreationwizard.ui:388
+#: ui/accountcreationwizard.ui:492
 msgid "This may take a few minutes."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:414
+#: ui/accountcreationwizard.ui:518
 msgid "Retrieving your Ring account..."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:440
+#: ui/accountcreationwizard.ui:544
 msgid "Error creating/loading account."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:445 ui/accountdevicestab.ui:210
-#: ui/accountdevicestab.ui:231 ui/accountmigrationview.ui:236
+#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:212
+#: ui/accountdevicestab.ui:233 ui/accountmigrationview.ui:236
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
-#: ui/accountdevicestab.ui:19
+#: ui/accountdevicestab.ui:21
 msgid "My Device ID:"
 msgstr ""
 
-#: ui/accountdevicestab.ui:38
+#: ui/accountdevicestab.ui:40
 msgid "Devices"
-msgstr ""
+msgstr "Συσκευές"
 
-#: ui/accountdevicestab.ui:64
+#: ui/accountdevicestab.ui:66
 msgid "Add device"
-msgstr ""
+msgstr "Προσθήκη συσκευής"
 
-#: ui/accountdevicestab.ui:80
+#: ui/accountdevicestab.ui:82
 msgid "Add New Device"
-msgstr ""
+msgstr "Προσθήκη νέας συσκευής"
 
-#: ui/accountdevicestab.ui:95
+#: ui/accountdevicestab.ui:97
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
 msgstr ""
 
-#: ui/accountdevicestab.ui:104 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:106 ui/accountimportexportview.ui:111
 msgid "Password (required):"
 msgstr "Συνθηματικό (απαιτείται)"
 
-#: ui/accountdevicestab.ui:115 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:117 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
 msgstr "Εισαγωγή συνθηματικού αρχειοθέτησης"
 
-#: ui/accountdevicestab.ui:138
+#: ui/accountdevicestab.ui:140
 msgid "Export on the Ring"
 msgstr ""
 
-#: ui/accountdevicestab.ui:157
+#: ui/accountdevicestab.ui:159
 msgid "Exporting account on the Ring..."
 msgstr ""
 
-#: ui/accountdevicestab.ui:179
+#: ui/accountdevicestab.ui:181
 msgid "Your generated pin:"
 msgstr ""
 
@@ -753,10 +788,6 @@ msgstr ""
 msgid "Alias:"
 msgstr ""
 
-#: ui/accountmigrationview.ui:75
-msgid "ID:"
-msgstr ""
-
 #: ui/accountmigrationview.ui:98
 msgid "Avatar:"
 msgstr ""
@@ -771,7 +802,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:141
 msgid "Password:"
-msgstr ""
+msgstr "Συνθηματικό:"
 
 #: ui/accountmigrationview.ui:184
 msgid "Migrate account"
@@ -872,9 +903,13 @@ msgstr "Απαίτηση πιστοποιητικού για εισερχόμε�
 msgid "Negotiation Encryption"
 msgstr "Κρυπτογράφηση διαπραγμάτευσης"
 
-#: ui/accountvideotab.ui:92
+#: ui/accountvideotab.ui:50
 msgid "Enable Video"
 msgstr "Ενεργοποίση βίνταο"
+
+#: ui/accountvideotab.ui:98
+msgid "Video Codecs"
+msgstr ""
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"

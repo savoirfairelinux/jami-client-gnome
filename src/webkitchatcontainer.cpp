@@ -21,7 +21,6 @@
 
 // GTK+ related
 #include <gtk/gtk.h>
-#include <glib/gi18n.h>
 #include <webkit2/webkit2.h>
 
 // Qt

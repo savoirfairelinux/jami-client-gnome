@@ -1,6 +1,7 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 
+src/accountadvancedtab.cpp
 src/accountaudiotab.cpp
 src/accountcreationwizard.cpp
 src/accountdevicestab.cpp

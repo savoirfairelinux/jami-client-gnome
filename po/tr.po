@@ -3,15 +3,17 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
+# Caner Başaran <basaran.caner@protonmail.com>, 2016
 # Emin Tufan <etcetin@gmail.com>, 2016
 # koray arberk <korayarberk@yahoo.com>, 2016
 # mahmut özcan <mahmutozcan65@yahoo.com>, 2016
+# M. Utkun Uyar, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-03 18:11-0400\n"
-"PO-Revision-Date: 2016-11-03 22:14+0000\n"
+"POT-Creation-Date: 2016-12-15 14:42-0500\n"
+"PO-Revision-Date: 2016-12-15 19:44+0000\n"
 "Last-Translator: Stepan Salenikovich\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/ring/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +21,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/accountadvancedtab.cpp:389
+msgid "_Remove server"
+msgstr "Sunucuyu _sil"
+
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:263
+msgid "Hostname"
+msgstr "Sunucu adı"
+
+#: src/accountadvancedtab.cpp:510 ui/accountadvancedtab.ui:314
+msgid "Port"
+msgstr "Bağlanma noktası"
 
 #: src/accountaudiotab.cpp:175 src/accountvideotab.cpp:184
 msgid "Enabled"
@@ -37,32 +51,32 @@ msgstr "Bit oranı"
 msgid "Samplerate"
 msgstr "Örnekleme oranı"
 
-#: src/accountcreationwizard.cpp:230
+#: src/accountcreationwizard.cpp:240
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
-msgstr ""
+msgstr "Hesabınız oluşturuldu ama kullanıcı adınızı kaydedemiyoruz. Ayarlar menüsünden yeniden deneyin."
 
-#: src/accountcreationwizard.cpp:271
+#: src/accountcreationwizard.cpp:283
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "Bilinmeyen"
 
-#: src/accountcreationwizard.cpp:441 ui/accountmigrationview.ui:132
+#: src/accountcreationwizard.cpp:454 ui/accountmigrationview.ui:132
 msgid "Passwords don't match"
 msgstr "Parolalar uyuşmuyor"
 
-#: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:336
+#: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
 msgid "Bad password"
 msgstr "Geçersiz parola"
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
-msgstr "Ağ hatası, tekrar deneyin"
+msgstr "Ağ hatası, yeniden deneyin"
 
 #: src/accountdevicestab.cpp:213
 msgid "Could not initiate export to the Ring, try again"
-msgstr "Ring dışa aktarımı başlatılamadı, tekrar deneyin"
+msgstr "Ring dışa aktarımı başlatılamadı, yeniden deneyin"
 
 #: src/accountdevicestab.cpp:246
 msgctxt "Device Name Column"
@@ -74,68 +88,51 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "Kimlik"
 
-#: src/accountgeneraltab.cpp:234
-msgid "_Remove server"
-msgstr "Sunucuyu _sil"
-
-#: src/accountgeneraltab.cpp:273
+#: src/accountgeneraltab.cpp:201
 msgid "Alias"
 msgstr "Takma ad"
 
-#: src/accountgeneraltab.cpp:284
+#: src/accountgeneraltab.cpp:212
 msgid "Type"
 msgstr "Tür"
 
-#: src/accountgeneraltab.cpp:310
+#: src/accountgeneraltab.cpp:238
 msgid "auto-generating..."
 msgstr "kendiliğinden oluşturuluyor..."
 
-#: src/accountgeneraltab.cpp:335 src/accountgeneraltab.cpp:429
-msgid "Hostname"
-msgstr "Sunucu adı"
-
-#: src/accountgeneraltab.cpp:345
+#: src/accountgeneraltab.cpp:247 src/accountgeneraltab.cpp:273
 msgid "Username"
 msgstr "Kullanıcı adı"
 
-#: src/accountgeneraltab.cpp:355
+#: src/accountgeneraltab.cpp:283
 msgid "Password"
 msgstr "Parola"
 
-#: src/accountgeneraltab.cpp:368
+#: src/accountgeneraltab.cpp:296
 msgid "Show password"
 msgstr "Parolayı göster"
 
-#: src/accountgeneraltab.cpp:374
+#: src/accountgeneraltab.cpp:302
 msgid "Proxy"
 msgstr "Vekil"
 
-#: src/accountgeneraltab.cpp:384
+#: src/accountgeneraltab.cpp:312
 msgid "Voicemail number"
-msgstr "Sesli mesaj numarası"
+msgstr "Sesli ileti numarası"
 
-#: src/accountgeneraltab.cpp:396
-msgctxt "The DHT bootstrap server url"
-msgid "Bootstrap Servers"
-msgstr "Önyükleme Sunucuları"
-
-#: src/accountgeneraltab.cpp:437 ui/accountadvancedtab.ui:314
-msgid "Port"
-msgstr "Bağlanma noktası"
-
-#: src/accountgeneraltab.cpp:446
+#: src/accountgeneraltab.cpp:324
 msgid "Name service URL"
-msgstr ""
+msgstr "Ad hizmeti adresi"
 
-#: src/accountgeneraltab.cpp:459
+#: src/accountgeneraltab.cpp:337
 msgid "Auto-answer calls"
 msgstr "Aramaları kendiliğinden cevapla"
 
-#: src/accountgeneraltab.cpp:467
+#: src/accountgeneraltab.cpp:345
 msgid "UPnP enabled"
 msgstr "UPnP etkin"
 
-#: src/accountgeneraltab.cpp:475
+#: src/accountgeneraltab.cpp:353
 msgid "DTMF tone type:"
 msgstr "DTMF ton türü:"
 
@@ -144,7 +141,7 @@ msgid "Select account export location"
 msgstr "Hesabın dışa aktarılacağı yeri seçin"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
-#: ui/accountdevicestab.ui:132 ui/accountimportexportview.ui:161
+#: ui/accountdevicestab.ui:134 ui/accountimportexportview.ui:161
 msgid "Cancel"
 msgstr "İptal"
 
@@ -170,51 +167,41 @@ msgctxt "Account settings"
 msgid "General"
 msgstr "Genel"
 
-#: src/accountview.cpp:181
-msgctxt "Account settings"
-msgid "Audio"
-msgstr "Ses"
-
 #: src/accountview.cpp:185
-msgctxt "Account settings"
-msgid "Video"
-msgstr "Görüntü"
-
-#: src/accountview.cpp:189
-msgctxt "Account settings"
-msgid "Advanced"
-msgstr "Gelişmiş"
-
-#: src/accountview.cpp:193
-msgctxt "Account settings"
-msgid "Security"
-msgstr "Güvenlik"
-
-#: src/accountview.cpp:197
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "Aygıtlar"
 
-#: src/accountview.cpp:253
+#: src/accountview.cpp:191
+msgctxt "Account settings"
+msgid "Security"
+msgstr "Güvenlik"
+
+#: src/accountview.cpp:196
+msgctxt "Account settings"
+msgid "Advanced"
+msgstr "Gelişmiş"
+
+#: src/accountview.cpp:251
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "\"%s\" hesabını silmek istediğinizden emin misiniz?"
 
-#: src/accountview.cpp:388
+#: src/accountview.cpp:386
 msgid "New Account"
 msgstr "Yeni Hesap"
 
-#: src/accountview.cpp:540
+#: src/accountview.cpp:538
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Etkin"
 
-#: src/accountview.cpp:546
+#: src/accountview.cpp:544
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Takma ad"
 
-#: src/accountview.cpp:554
+#: src/accountview.cpp:552
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Durum"
@@ -277,13 +264,13 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Gaston Miron - Beta 2\n"
 "built on %.25s"
-msgstr ""
+msgstr "Gaston Miron - Beta 2\n%.25s üzerine yapıldı"
 
-#: src/dialogs.c:131
+#: src/dialogs.c:132
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Ring için GNOME istemcisi.\nRing; kullanıcılarının özgürlüklerine ve gizliliğine önem veren, evrensel iletişim için özgür yazılımdır."
 
 #: src/editcontactview.cpp:185
 msgctxt "Phone number category"
@@ -294,7 +281,7 @@ msgstr "ev"
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr "Bu yok edici bir eylemdir. Bütün sohbet ve çağrı geçmişini silmek istediğinizden emin misiniz?"
+msgstr "Bu yok edici bir eylemdir. Tüm konuşma ve çağrı geçmişini silmek istediğinizden emin misiniz?"
 
 #: src/historyview.cpp:293
 msgctxt "Call history"
@@ -329,119 +316,134 @@ msgstr "Hata ayıklayıcıyı etkinleştir"
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr ""
+msgstr "Ana pencerenin gizli durumunu eski haline döndürür (sadece birincil oluşum için geçerli)"
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Ring"
 msgstr "- Ring için GNOME istemcisi"
 
-#: src/ringmainwindow.cpp:519
+#: src/ringmainwindow.cpp:544
 msgid "looking up RingID"
-msgstr ""
+msgstr "RingID'ye bakılıyor"
 
-#: src/ringmainwindow.cpp:555
+#: src/ringmainwindow.cpp:584
 #, c-format
 msgid "Invalid Ring username: %s"
+msgstr "Geçersiz Ring kullanıcı adı: %s"
+
+#: src/ringmainwindow.cpp:599
+msgid "Error resolving username, nameserver is possibly unreachable"
 msgstr ""
 
-#: src/ringmainwindow.cpp:571
+#: src/ringmainwindow.cpp:613
 #, c-format
 msgid "Could not resolve Ring username: %s"
-msgstr ""
+msgstr "Ring kullanıcı adı ayrıştırılamıyor: %s"
 
-#: src/ringmainwindow.cpp:994
+#: src/ringmainwindow.cpp:1036
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "ara"
 
-#: src/ringmainwindow.cpp:996
+#: src/ringmainwindow.cpp:1038
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr "sohbet aç"
+msgstr "konuşma aç"
 
-#: src/ringmainwindow.cpp:1169
+#: src/ringmainwindow.cpp:1211
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Kişileri ara veya numara gir"
 
-#: src/ringwelcomeview.cpp:71
-msgid "fetching RingID..."
-msgstr "RingID alınıyor..."
-
-#: src/ringwelcomeview.cpp:126
+#: src/ringwelcomeview.cpp:69
 msgid ""
-"Ring is free software for universal communication which respects the "
-"freedoms and privacy of its users."
+"This is your Ring username.\n"
+"Copy and share it with your friends!"
 msgstr ""
 
-#: src/ringwelcomeview.cpp:137
+#: src/ringwelcomeview.cpp:77
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
 msgstr "Bu senin RingID'in.\nKopyala ve arkadaşlarınla paylaş!"
 
-#: src/usernameregistrationbox.cpp:127
-msgid "The entered username is not available"
+#: src/ringwelcomeview.cpp:84
+msgid "fetching RingID..."
+msgstr "RingID alınıyor..."
+
+#: src/ringwelcomeview.cpp:139
+msgid ""
+"Ring is free software for universal communication which respects the "
+"freedoms and privacy of its users."
+msgstr "Ring; kullanıcılarının özgürlüklerine ve gizliliğine önem veren, evrensel iletişim için özgür yazılımdır."
+
+#: src/ringwelcomeview.cpp:185
+msgctxt "Do not translate \"Ring ID\""
+msgid "Ring ID QR code"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:128
-msgid "Username is not available"
-msgstr ""
+msgid "The entered username is not available"
+msgstr "Girilen kullanıcı adı uygun değil"
 
-#: src/usernameregistrationbox.cpp:137
-msgid "The entered username is not valid"
-msgstr ""
+#: src/usernameregistrationbox.cpp:129
+msgid "Username is not available"
+msgstr "Kullanıcı adı uygun değil"
 
 #: src/usernameregistrationbox.cpp:138
-msgid "Username is not valid"
-msgstr ""
+msgid "The entered username is not valid"
+msgstr "Girilen kullanıcı adı geçerli değil"
 
-#: src/usernameregistrationbox.cpp:147
-msgid "The entered username is available"
-msgstr ""
+#: src/usernameregistrationbox.cpp:139
+msgid "Username is not valid"
+msgstr "Kullanıcı adı geçerli değil"
 
 #: src/usernameregistrationbox.cpp:148
-msgid "Username is available"
-msgstr ""
+msgid "The entered username is available"
+msgstr "Girilen kullanıcı adı uygun"
 
-#: src/usernameregistrationbox.cpp:157
-msgid "Failed to perform lookup"
-msgstr ""
+#: src/usernameregistrationbox.cpp:149
+msgid "Username is available"
+msgstr "Kullanıcı adı uygun"
 
 #: src/usernameregistrationbox.cpp:158
+msgid "Failed to perform lookup"
+msgstr "Bakma başarısız"
+
+#: src/usernameregistrationbox.cpp:159
 msgid "Could not lookup username"
-msgstr ""
+msgstr "Kullanıcı adına bakılamıyor"
 
-#: src/usernameregistrationbox.cpp:245
+#: src/usernameregistrationbox.cpp:248
 msgid "Looking up username availability..."
-msgstr ""
+msgstr "Kullanıcı adının uygunluğuna bakılıyor..."
 
-#: src/usernameregistrationbox.cpp:305 ui/accountcreationwizard.ui:381
+#: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:485
 msgid "Registering username..."
-msgstr ""
+msgstr "Kullanıcı adı kaydediliyor..."
 
-#: src/usernameregistrationbox.cpp:329
+#: src/usernameregistrationbox.cpp:319
+msgid "Count not initiate name registration, try again."
+msgstr "Ad kaydı başlatılamıyor, yeniden deneyin."
+
+#: src/usernameregistrationbox.cpp:361
+msgid "Register this username on the blockchain"
+msgstr "Bu kullanıcı adını makaralı zincirde kaydet"
+
+#: src/usernameregistrationbox.cpp:397
 msgid "Invalid username"
-msgstr ""
+msgstr "Geçersiz kullanıcı adı"
 
-#: src/usernameregistrationbox.cpp:343
+#: src/usernameregistrationbox.cpp:411
 msgid "Username already taken"
-msgstr ""
+msgstr "Kullanıcı adı önceden alınmış"
 
-#: src/usernameregistrationbox.cpp:350
+#: src/usernameregistrationbox.cpp:418
 msgid "Network error"
 msgstr "Ağ hatası"
-
-#: src/usernameregistrationbox.cpp:365
-msgid "Count not initiate name registration, try again."
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:407
-msgid "Register this username on the blockchain"
-msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -542,165 +544,198 @@ msgstr "yetki alanı"
 msgid "Published Address"
 msgstr "Yayınlanan Yer"
 
-#: ui/accountadvancedtab.ui:539
+#: ui/accountadvancedtab.ui:536
+msgid "Bootstrap Servers"
+msgstr "Önyükleme Sunucuları"
+
+#: ui/accountadvancedtab.ui:593
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
-msgstr "Bu ayarlar sadece SDP oturum müzakeresi sırasında ICE'ın sunucu ya da eş tarafından desteklenmemesi durumunda kullanılacaktır."
+msgstr "Bu ayarlar yalnızca SDP oturum müzakeresi sırasında ICE'ın sunucu ya da eş tarafından desteklenmemesi durumunda kullanılacaktır."
 
-#: ui/accountadvancedtab.ui:564 ui/accountadvancedtab.ui:640
+#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
 msgid "Min"
 msgstr "Asgari"
 
-#: ui/accountadvancedtab.ui:587 ui/accountadvancedtab.ui:663
+#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
 msgid "Max"
 msgstr "Azami"
 
-#: ui/accountadvancedtab.ui:611
+#: ui/accountadvancedtab.ui:665
 msgid "Audio RTP Port Range"
 msgstr "Ses RTP Delik Aralığı"
 
-#: ui/accountadvancedtab.ui:687
+#: ui/accountadvancedtab.ui:741
 msgid "Video RTP Port Range"
 msgstr "Görüntü RTP Delik Aralığı"
 
-#: ui/accountadvancedtab.ui:705
+#: ui/accountadvancedtab.ui:759
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP Görüşme Oturumu (ICE Geri çekilme)"
 
-#: ui/accountaudiotab.ui:59 ui/accountvideotab.ui:59
+#: ui/accountaudiotab.ui:57 ui/accountvideotab.ui:80
 msgid "Up"
 msgstr "Yukarı"
 
-#: ui/accountaudiotab.ui:66 ui/accountvideotab.ui:66
+#: ui/accountaudiotab.ui:64 ui/accountvideotab.ui:87
 msgid "Down"
 msgstr "Aşağı"
 
-#: ui/accountaudiotab.ui:77 ui/accountvideotab.ui:77
-msgid "Codecs"
-msgstr "Çözücüler"
+#: ui/accountaudiotab.ui:75
+msgid "Audio Codecs"
+msgstr ""
 
-#: ui/accountcreationwizard.ui:31
+#: ui/accountcreationwizard.ui:32
 msgid "Welcome to "
 msgstr "Hoş geldiniz"
 
 #: ui/accountcreationwizard.ui:66
-msgid "Link this device to an existing account"
-msgstr ""
+msgid "Create Ring Account"
+msgstr "Ring Hesabı Oluştur"
 
 #: ui/accountcreationwizard.ui:67
-msgid "Link this devices to a Ring account created on another device"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:74
-msgid "Create Ring Account"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:75
 msgid "Create a new Ring account (for new users)"
 msgstr "Yeni bir Ring hesabı oluştur (yeni kullanıcılar için)"
 
-#: ui/accountcreationwizard.ui:108
-msgid "Enter your pin:"
+#: ui/accountcreationwizard.ui:74
+msgid "Link this device to an account"
+msgstr "Bu aygıtı bir hesaba bağla"
+
+#: ui/accountcreationwizard.ui:75
+msgid "Link this devices to a Ring account created on another device"
+msgstr "Bu aygıtları başka aygıtta oluşturulan Ring hesabına bağla"
+
+#: ui/accountcreationwizard.ui:103 ui/accountcreationwizard.ui:157
+msgid "Link this device to an existing account"
+msgstr "Bu aygıtı var olan bir hesaba bağla"
+
+#: ui/accountcreationwizard.ui:118
+msgid ""
+"To link this device to another account, you first need to obtain a PIN code."
+" To generate the pin code, go to the account management setting of a "
+"previous device, choose the Ring Account to use and select \"Link another "
+"device to this account\". You will get the necessary PIN to complete this "
+"form. The PIN is only valid for 10 minutes."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:127
-msgid "Enter your password:"
-msgstr "Parolanızı girin:"
-
-#: ui/accountcreationwizard.ui:151 ui/accountcreationwizard.ui:323
+#: ui/accountcreationwizard.ui:126 ui/accountcreationwizard.ui:215
+#: ui/accountcreationwizard.ui:427
 msgid "Previous"
 msgstr "Önceki"
 
-#: ui/accountcreationwizard.ui:159 ui/accountcreationwizard.ui:331
+#: ui/accountcreationwizard.ui:134
+msgid "Okay, I have the PIN!"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:172
+msgid "Enter your pin:"
+msgstr "Pin'inizi girin:"
+
+#: ui/accountcreationwizard.ui:191
+msgid "Enter your password:"
+msgstr "Parolanızı girin:"
+
+#: ui/accountcreationwizard.ui:223 ui/accountcreationwizard.ui:435
 msgid "Next"
 msgstr "İleri"
 
-#: ui/accountcreationwizard.ui:188
-msgid "Choose your avatar, username, and password:"
-msgstr "Parolanızı, kullanıcı adınızı ve avatarınızı seçin:"
+#: ui/accountcreationwizard.ui:265
+msgid "Profile"
+msgstr "Profil"
 
-#: ui/accountcreationwizard.ui:216
-msgid "Username:"
+#: ui/accountcreationwizard.ui:285
+msgid "Full name:"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:240
-msgid "Register name publicly (experimental)"
+#: ui/accountcreationwizard.ui:327
+msgid "Ring Account"
+msgstr "Ring Hesabı"
+
+#: ui/accountcreationwizard.ui:340
+msgid "Register public username (experimental):"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:247
+#: ui/accountcreationwizard.ui:346
 msgid ""
-"Reserve the username so that only you can use it. Your friends will be able "
-"to contact you with your username instead of using your RingID."
+"By checking this, you will register a unique username on the Ring network. "
+"People can use it to contact you instead of using your RingID, which is 40 "
+"characters long."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:258 ui/accountmigrationview.ui:161
+#: ui/accountcreationwizard.ui:369 ui/accountmigrationview.ui:161
 msgid "Password (confirm):"
 msgstr "Parola (Onay):"
 
-#: ui/accountcreationwizard.ui:355
+#: ui/accountcreationwizard.ui:370
+msgid ""
+"This password will be used to encrypt your account data and to link new "
+"devices to your account."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:459
 msgid "Generating your Ring account..."
 msgstr "Ring hesabınız oluşturuluyor..."
 
-#: ui/accountcreationwizard.ui:388
+#: ui/accountcreationwizard.ui:492
 msgid "This may take a few minutes."
-msgstr ""
+msgstr "Bu bir kaç dakika sürebilir."
 
-#: ui/accountcreationwizard.ui:414
+#: ui/accountcreationwizard.ui:518
 msgid "Retrieving your Ring account..."
 msgstr "Ring hesabınız alınıyor..."
 
-#: ui/accountcreationwizard.ui:440
+#: ui/accountcreationwizard.ui:544
 msgid "Error creating/loading account."
 msgstr "Hesap oluşturma/yükleme hatası."
 
-#: ui/accountcreationwizard.ui:445 ui/accountdevicestab.ui:210
-#: ui/accountdevicestab.ui:231 ui/accountmigrationview.ui:236
+#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:212
+#: ui/accountdevicestab.ui:233 ui/accountmigrationview.ui:236
 msgid "OK"
 msgstr "TAMAM"
 
-#: ui/accountdevicestab.ui:19
+#: ui/accountdevicestab.ui:21
 msgid "My Device ID:"
 msgstr "Aygıtımın Kimliği:"
 
-#: ui/accountdevicestab.ui:38
+#: ui/accountdevicestab.ui:40
 msgid "Devices"
 msgstr "Aygıtlar"
 
-#: ui/accountdevicestab.ui:64
+#: ui/accountdevicestab.ui:66
 msgid "Add device"
 msgstr "Aygıt ekle"
 
-#: ui/accountdevicestab.ui:80
+#: ui/accountdevicestab.ui:82
 msgid "Add New Device"
 msgstr "Yeni Aygıt Ekle"
 
-#: ui/accountdevicestab.ui:95
+#: ui/accountdevicestab.ui:97
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "Ring hesabınıza yeni bir aygıt eklemek için hesabınızı Ring üzerinden dışarıya aktarın. Bu işlem yeni eklenecek cihaza 5 dakika içerisinde girilmesi gereken bir PIN kodu yaratacaktır."
 
-#: ui/accountdevicestab.ui:104 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:106 ui/accountimportexportview.ui:111
 msgid "Password (required):"
 msgstr "Parola (gerekli):"
 
-#: ui/accountdevicestab.ui:115 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:117 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
 msgstr "Arşiv parolası girin"
 
-#: ui/accountdevicestab.ui:138
+#: ui/accountdevicestab.ui:140
 msgid "Export on the Ring"
-msgstr ""
+msgstr "Ring'de Dışa Aktar"
 
-#: ui/accountdevicestab.ui:157
+#: ui/accountdevicestab.ui:159
 msgid "Exporting account on the Ring..."
-msgstr ""
+msgstr "Ring'de hesap dışa aktarılıyor..."
 
-#: ui/accountdevicestab.ui:179
+#: ui/accountdevicestab.ui:181
 msgid "Your generated pin:"
-msgstr ""
+msgstr "Oluşturulan pin'iniz:"
 
 #: ui/accountgeneraltab.ui:42
 msgid "Account"
@@ -732,7 +767,7 @@ msgstr "Dışa aktarım konumunu seç"
 
 #: ui/accountimportexportview.ui:95
 msgid "Choose archive location"
-msgstr "Arşiv yerini seçin"
+msgstr "Arşiv yerini seç"
 
 #: ui/accountimportexportview.ui:169 ui/accountview.ui:110
 msgid "Export"
@@ -744,7 +779,7 @@ msgstr "İçe aktar"
 
 #: ui/accountmigrationview.ui:28
 msgid "Account migration required"
-msgstr "Hesap göçü gerekli"
+msgstr "Hesap taşıma gerekli"
 
 #: ui/accountmigrationview.ui:37
 msgid ""
@@ -754,10 +789,6 @@ msgstr "Aşağıdaki hesabın yeni Ring hesabı biçimine göç ettirilmesi gere
 #: ui/accountmigrationview.ui:52
 msgid "Alias:"
 msgstr "Takma ad:"
-
-#: ui/accountmigrationview.ui:75
-msgid "ID:"
-msgstr "Kimlik:"
 
 #: ui/accountmigrationview.ui:98
 msgid "Avatar:"
@@ -769,7 +800,7 @@ msgid ""
 "This password will be used to encrypt your master key. It will be required "
 "for adding new devices to your Ring account. If you are not ready to choose "
 "a password, you may close Ring and resume the migration later."
-msgstr ""
+msgstr "Göçü sürdürmek için, hesabınız için bir parola seçmelisiniz. Bu parola ana anahtarınızı şifrelemek için kullanılacak. Bu, yeni aygıtları Ring hesabınıza eklerken gerekecek. Eğer parola seçmek için hazır değilseniz, Ring'i kapatabilir ve göçü daha sonra sürdürebilirsiniz."
 
 #: ui/accountmigrationview.ui:141
 msgid "Password:"
@@ -781,26 +812,26 @@ msgstr "Hesap göçü"
 
 #: ui/accountmigrationview.ui:202
 msgid "Migrating account..."
-msgstr "Hesap taşınıyor..."
+msgstr "Hesap göç ettiriliyor..."
 
 #: ui/accountmigrationview.ui:228
 msgid "Failed to migrate account. Try again."
-msgstr "Hesap taşınırken hata oluştu. Tekrar deneyin."
+msgstr "Hesap göç ettirme başarısız. Yeniden deneyin."
 
 #: ui/accountmigrationview.ui:255
 msgid "Choose your Ring username"
-msgstr ""
+msgstr "Ring kullanıcı adınızı seçin"
 
 #: ui/accountmigrationview.ui:264
 msgid ""
 "As of now Ring has a decentralized username registry. This means that you "
 "can now contact your friends using their usernames instead of their RingIDs."
 " The username registry is distributed and all users are able to consult it."
-msgstr ""
+msgstr "Artık Ring'in dağıtılmış bir kullanıcı adı kütüğü var. Bu artık arkadaşlarınıza RingID'leri yerine kullanıcı adlarıyla ulaşabileceğiniz anlamına geliyor. Kullanıcı adı kütüğü aleni ve tüm kullanıcılar tarafından görülebilir."
 
 #: ui/accountmigrationview.ui:279
 msgid "Register my username later"
-msgstr ""
+msgstr "Kullanıcı adımı daha sonra kaydet"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -812,7 +843,7 @@ msgstr "Anahtar takas kuralı"
 
 #: ui/accountsecuritytab.ui:76
 msgid "Fallback on RTP on encryption failure"
-msgstr ""
+msgstr "Şifreleme hatasından dolayı RTP geri düştü."
 
 #: ui/accountsecuritytab.ui:94
 msgid "Media Stream Encryption"
@@ -874,9 +905,13 @@ msgstr "Gelen TLS bağlantıları için sertifika iste"
 msgid "Negotiation Encryption"
 msgstr "Müzakere Şifreleme"
 
-#: ui/accountvideotab.ui:92
+#: ui/accountvideotab.ui:50
 msgid "Enable Video"
 msgstr "Görüntüyü Etkinleştir"
+
+#: ui/accountvideotab.ui:98
+msgid "Video Codecs"
+msgstr ""
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
@@ -900,7 +935,7 @@ msgstr "Seçilen hesap(lar)ı dışa aktar"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr "Fotograf çek"
+msgstr "Fotoğraf çek"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
@@ -916,7 +951,7 @@ msgstr "Seçimi görüntü olarak belirle"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
-msgstr "Sohbet görünümünü gizle"
+msgstr "Konuşma görünümünü gizle"
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
@@ -981,7 +1016,7 @@ msgstr "Öntanımlı şifreyi kullan"
 
 #: ui/currentcallview.ui:381 ui/currentcallview.ui:398
 msgid "Chat"
-msgstr "Sohbet"
+msgstr "Konuşma"
 
 #: ui/currentcallview.ui:407
 msgid "Mute audio"
@@ -1041,7 +1076,7 @@ msgstr "Ring'i girişte başlat"
 
 #: ui/generalsettingsview.ui:98
 msgid "Show Ring icon in the notification area (systray)."
-msgstr "Ring simgesini bildirim bölümünde (systray) göster"
+msgstr "Ring simgesini bildirim bölümünde (systray) göster."
 
 #: ui/generalsettingsview.ui:106
 msgid "Bring Ring to the foreground on incoming calls."
@@ -1049,23 +1084,23 @@ msgstr "Gelen aramalarda Ring'i ön plana çıkar."
 
 #: ui/generalsettingsview.ui:114
 msgid "Enable notifications for incoming calls."
-msgstr "Gelen çağrılar için bildirimler etkin."
+msgstr "Gelen çağrılar için bildirimleri etkinleştir."
 
 #: ui/generalsettingsview.ui:122
 msgid "Enable notifications for new chat messages."
-msgstr "Yeni sohbet iletileri için bildirimler etkin"
+msgstr "Yeni konuşma iletileri için bildirimler etkinleştir."
 
 #: ui/generalsettingsview.ui:130
 msgid "Entering a number in the search entry will place a new call."
-msgstr ""
+msgstr "Arama girişine bir numara girmek yeni bir arama yapacak."
 
 #: ui/generalsettingsview.ui:143
 msgid "Show chat on the right."
-msgstr "Sohbeti sağda göster"
+msgstr "Konuşmayı sağda göster."
 
 #: ui/generalsettingsview.ui:149
 msgid "Show chat on the bottom."
-msgstr "Sohbeti aşağıda göster"
+msgstr "Konuşmayı aşağıda göster."
 
 #: ui/generalsettingsview.ui:171
 msgid "History Settings"
@@ -1181,7 +1216,7 @@ msgstr "Geçmiş"
 
 #: ui/usernameregistrationbox.ui:12
 msgid "enter username here"
-msgstr ""
+msgstr "kullanıcı adını buraya gir"
 
 #: ui/usernameregistrationbox.ui:24
 msgid "Register"
