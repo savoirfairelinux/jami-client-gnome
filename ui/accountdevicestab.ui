@@ -61,8 +61,8 @@
             </child>
             <child>
               <object class="GtkButton" id="button_add_device">
-                <property name="halign">center</property>
                 <property name="visible">True</property>
+                <property name="halign">center</property>
                 <property name="label" translatable="yes">Add device</property>
               </object>
             </child>
@@ -72,6 +72,7 @@
         <!-- Add device view -->
         <child>
           <object class="GtkBox" id="add_device">
+            <property name="visible">True</property>
             <property name="orientation">vertical</property>
             <property name="spacing">15</property>
             <!-- Title Row -->
@@ -108,9 +109,9 @@
             </child>
             <child>
               <object class="GtkEntry" id="entry_password">
+                <property name="visible">True</property>
                 <property name="halign">center</property>
                 <property name="width-chars">40</property>
-                <property name="visible">True</property>
                 <property name="visibility">False</property>
                 <property name="primary_icon_stock">gtk-dialog-authentication</property>
                 <property name="input_purpose">password</property>
@@ -149,18 +150,21 @@
         <!-- Generating pin spinner  -->
         <child>
           <object class="GtkBox" id="vbox_generating_pin_spinner">
+            <property name="visible">True</property>
             <property name="valign">center</property>
             <property name="border_width">10</property>
             <property name="orientation">vertical</property>
             <property name="spacing">15</property>
             <child>
               <object class="GtkLabel">
+                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Exporting account on the Ring...</property>
               </object>
             </child>
             <child>
               <object class="GtkSpinner">
+                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="active">True</property>
                 <property name="height_request">50</property>
@@ -172,6 +176,7 @@
         <!-- Generated pin view -->
         <child>
           <object class="GtkBox" id="generated_pin">
+            <property name="visible">True</property>
             <property name="orientation">vertical</property>
             <property name="spacing">15</property>
             <child>
@@ -206,9 +211,9 @@
             </child>
             <child>
               <object class="GtkButton" id="button_generated_pin_ok">
+                <property name="visible">True</property>
                 <property name="halign">center</property>
                 <property name="width-request">100</property>
-                <property name="visible">True</property>
                 <property name="label" translatable="yes">OK</property>
               </object>
             </child>
@@ -218,6 +223,7 @@
         <!-- Export on Ring error -->
         <child>
           <object class="GtkBox" id="export_on_ring_error">
+            <property name="visible">True</property>
             <property name="orientation">vertical</property>
             <property name="spacing">15</property>
             <child>
