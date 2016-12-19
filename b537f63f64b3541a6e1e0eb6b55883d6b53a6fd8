@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ace114c_7e9e6f58",
+        "filename": "src/cc-crop-area.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-12-19T19:49:09Z",
+      "side": 1,
+      "message": "when I added this code, it was copied completely, with 0 modifications... since you\u0027re modifying it, although just slightly, do we need to add something here?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 51
+      },
+      "revId": "b537f63f64b3541a6e1e0eb6b55883d6b53a6fd8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
