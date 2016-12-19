@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ace114c_3ea0e78f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2016-12-19T19:50:15Z",
+      "side": 1,
+      "message": "Could you add in the cmt msg body that this prevents build warnings?",
+      "revId": "292622fc34bcf64c6ea801724a91b61207d6126d",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
