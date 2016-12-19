@@ -316,7 +316,7 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
                 gtk_widget_set_sensitive(priv->entry_username, TRUE);
 
                 gtk_widget_set_sensitive(priv->button_register_username, TRUE);
-                gtk_label_set_text(GTK_LABEL(priv->label_status), _("Count not initiate name registration, try again."));
+                gtk_label_set_text(GTK_LABEL(priv->label_status), _("Could not initiate name registration, try again."));
                 gtk_widget_show(priv->icon_username_availability);
             }
             break;
