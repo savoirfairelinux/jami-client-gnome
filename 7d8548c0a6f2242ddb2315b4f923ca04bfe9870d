@@ -1,0 +1,7 @@
+Verified+1: Jenkins CI <jenkins@ring-packaging.cx>
+Code-Review+2: Nicolas Jager <nicolas.jager@savoirfairelinux.com>
+Submitted-by: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+Submitted-at: Tue, 20 Dec 2016 11:16:37 -0500
+Reviewed-on: https://gerrit-ring.savoirfairelinux.com/5881
+Project: ring-client-gnome
+Branch: refs/heads/master
