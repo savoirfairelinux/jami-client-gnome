@@ -178,7 +178,7 @@ message_index_to_json_message_object(const QModelIndex &idx)
     return QString(QJsonDocument(message_object).toJson(QJsonDocument::Compact));
 }
 
-#if HAVE_WEBKIT2GTK4
+#if WEBKIT_CHECK_VERSION(2, 6, 0)
 static gboolean
 webview_chat_decide_policy (G_GNUC_UNUSED WebKitWebView *web_view,
                             WebKitPolicyDecision *decision,
@@ -390,7 +390,7 @@ build_view(WebKitChatContainer *view)
 
     g_signal_connect(priv->webview_chat, "load-changed", G_CALLBACK(webview_chat_load_changed), view);
     g_signal_connect_swapped(priv->webview_chat, "context-menu", G_CALLBACK(webview_chat_context_menu), view);
-#if HAVE_WEBKIT2GTK4
+#if WEBKIT_CHECK_VERSION(2, 6, 0)
     g_signal_connect(priv->webview_chat, "decide-policy", G_CALLBACK(webview_chat_decide_policy), view);
 #endif
 
