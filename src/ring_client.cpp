@@ -67,7 +67,7 @@
 #include "revision.h"
 #include "utils/accounts.h"
 
-#if USE_APPINDICATOR
+#if HAVE_APPINDICATOR
 #include <libappindicator/app-indicator.h>
 #endif
 
@@ -274,7 +274,6 @@ on_close_window(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, RingClient *cl
     }
 }
 
-#if !USE_APPINDICATOR
 static void
 popup_menu(GtkStatusIcon *self,
            guint          button,
@@ -286,7 +285,6 @@ popup_menu(GtkStatusIcon *self,
     gtk_menu_popup(GTK_MENU(priv->icon_menu), NULL, NULL, gtk_status_icon_position_menu, self, button, when);
     G_GNUC_END_IGNORE_DEPRECATIONS
 }
-#endif
 
 static void
 init_systray(RingClient *client)
@@ -314,24 +312,33 @@ init_systray(RingClient *client)
         gtk_widget_show_all(priv->icon_menu);
     }
 
-#if USE_APPINDICATOR
-    auto indicator = app_indicator_new("ring", "ring", APP_INDICATOR_CATEGORY_COMMUNICATIONS);
-    app_indicator_set_status(indicator, APP_INDICATOR_STATUS_ACTIVE);
-    app_indicator_set_title(indicator, "ring");
-    /* app indicator requires a menu */
-    app_indicator_set_menu(indicator, GTK_MENU(priv->icon_menu));
-    priv->systray_icon = indicator;
-#else
+    gboolean use_appinidcator = FALSE;
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS // GtkStatusIcon is deprecated since 3.14, but we fallback on it
-    auto status_icon = gtk_status_icon_new_from_icon_name("ring");
-    gtk_status_icon_set_title(status_icon, "ring");
-G_GNUC_END_IGNORE_DEPRECATIONS
-    g_signal_connect_swapped(status_icon, "activate", G_CALLBACK(ring_window_show), client);
-    g_signal_connect(status_icon, "popup-menu", G_CALLBACK(popup_menu), client);
+#if HAVE_APPINDICATOR
+    /* only use AppIndicator in Unity (Tuleap: #1440) */
+    const auto desktop = g_getenv("XDG_CURRENT_DESKTOP");
+    if (g_strcmp0("Unity", desktop) == 0) {
+        use_appinidcator = TRUE;
 
-    priv->systray_icon = status_icon;
+        auto indicator = app_indicator_new("ring", "ring", APP_INDICATOR_CATEGORY_COMMUNICATIONS);
+        app_indicator_set_status(indicator, APP_INDICATOR_STATUS_ACTIVE);
+        app_indicator_set_title(indicator, "ring");
+        /* app indicator requires a menu */
+        app_indicator_set_menu(indicator, GTK_MENU(priv->icon_menu));
+        priv->systray_icon = indicator;
+    }
 #endif
+
+    if (!use_appinidcator) {
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS // GtkStatusIcon is deprecated since 3.14, but we fallback on it
+        auto status_icon = gtk_status_icon_new_from_icon_name("ring");
+        gtk_status_icon_set_title(status_icon, "ring");
+G_GNUC_END_IGNORE_DEPRECATIONS
+        g_signal_connect_swapped(status_icon, "activate", G_CALLBACK(ring_window_show), client);
+        g_signal_connect(status_icon, "popup-menu", G_CALLBACK(popup_menu), client);
+
+        priv->systray_icon = status_icon;
+    }
 }
 
 static void
