@@ -81,8 +81,6 @@ ELSE(LibRingClient_PROJECT_DIR)
    FIND_PACKAGE(LibRingClient REQUIRED)
 ENDIF(LibRingClient_PROJECT_DIR)
 
-OPTION(USE_APPINDICATOR "Use AppIndicator instead of GtkStatusIcon for the systray (if appindicator3-0.1 is found)" ON)
-
 # find packages
 FIND_PACKAGE(PkgConfig REQUIRED)
 PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0>=3.10)
@@ -95,22 +93,12 @@ PKG_CHECK_MODULES(LIBNOTIFY libnotify>=0.7.6) #optional
 FIND_PACKAGE(Gettext) #optional for translations
 PKG_CHECK_MODULES(LIBQRENCODE libqrencode>=3.4)
 PKG_CHECK_MODULES(LIBNM libnm-glib>=0.9.8.8) #optional to detect changes in the network
+PKG_CHECK_MODULES(APPINDICATOR appindicator3-0.1) #optional, ideal for use with Unity
 
 PKG_CHECK_MODULES(WEBKIT webkit2gtk-4.0)
 IF(NOT WEBKIT_FOUND)
     PKG_CHECK_MODULES(WEBKIT REQUIRED webkit2gtk-3.0)
 ENDIF()
-
-IF(USE_APPINDICATOR)
-    PKG_CHECK_MODULES(APPINDICATOR appindicator3-0.1) #optional
-    IF(APPINDICATOR_FOUND)
-        SET(HAVE_APPINDICATOR 1)
-    ELSE()
-        SET(HAVE_APPINDICATOR 0)
-    ENDIF()
-ELSE()
-    SET(HAVE_APPINDICATOR 0)
-ENDIF(USE_APPINDICATOR)
 
 # include libs
 INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
