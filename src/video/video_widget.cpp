@@ -34,6 +34,7 @@
 #include <call.h>
 #include "xrectsel.h"
 #include <smartinfohub.h>
+#include <math.h>
 
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
@@ -49,6 +50,27 @@ enum SnapshotStatus {
     HAS_TO_TAKE_ONE,
     HAS_A_NEW_ONE
 };
+
+typedef enum {
+        OUTSIDE,
+        INSIDE,
+        TOP,
+        TOP_LEFT,
+        TOP_RIGHT,
+        BOTTOM,
+        BOTTOM_LEFT,
+        BOTTOM_RIGHT,
+        LEFT,
+        RIGHT
+} Location;
+
+typedef enum {
+        BELOW,
+        LOWER,
+        BETWEEN,
+        UPPER,
+        ABOVE
+} Range;
 
 struct _VideoWidgetClass {
     GtkClutterEmbedClass parent_class;
@@ -82,6 +104,13 @@ struct _VideoWidgetPrivate {
     GAsyncQueue             *new_renderer_queue;
 
     GtkWidget               *popup_menu;
+
+    /* cursor & resizing vars */
+    char                    *cursor_name;
+    gboolean                 button_pressed;
+    gfloat                   last_press_x;
+    gfloat                   last_press_y;
+    Location                 active_region;
 };
 
 struct _VideoWidgetRenderer {
@@ -216,6 +245,14 @@ on_allocation_changed(ClutterActor *video_area, G_GNUC_UNUSED GParamSpec *pspec,
     clutter_actor_get_allocation_box(actor, &actor_box);
     gfloat actor_w = clutter_actor_box_get_width(&actor_box);
     gfloat actor_h = clutter_actor_box_get_height(&actor_box);
+    //
+    // if (auto image = CLUTTER_IMAGE(clutter_actor_get_content(actor))) {
+    //     auto texture = clutter_image_get_texture(image);
+    //     auto image_w = cogl_texture_get_width(texture);
+    //     auto image_h = cogl_texture_get_height(texture);
+    //
+    //     g_debug("actor: %f x %f, image: %d x %d", actor_w, actor_h, image_w, image_h);
+    // }
 
     ClutterActorBox area_box;
     clutter_actor_get_allocation_box(video_area, &area_box);
@@ -281,7 +318,194 @@ on_drag_end(G_GNUC_UNUSED ClutterDragAction   *action,
     clutter_actor_add_constraint(actor, constraint_y);
 }
 
+static Range
+find_range (gfloat x,
+            gfloat min,
+            gfloat max)
+{
+        gfloat tolerance = 12;
 
+        if (x < min - tolerance)
+                return BELOW;
+        if (x <= min + tolerance)
+                return LOWER;
+        if (x < max - tolerance)
+                return BETWEEN;
+        if (x <= max + tolerance)
+                return UPPER;
+        return ABOVE;
+}
+
+static Location
+find_location (ClutterActorBox *box,
+               gfloat          x,
+               gfloat          y)
+{
+        Range x_range, y_range;
+        Location location[5][5] = {
+                { OUTSIDE, OUTSIDE,     OUTSIDE, OUTSIDE,      OUTSIDE },
+                { OUTSIDE, TOP_LEFT,    TOP,     TOP_RIGHT,    OUTSIDE },
+                { OUTSIDE, LEFT,        INSIDE,  RIGHT,        OUTSIDE },
+                { OUTSIDE, BOTTOM_LEFT, BOTTOM,  BOTTOM_RIGHT, OUTSIDE },
+                { OUTSIDE, OUTSIDE,     OUTSIDE, OUTSIDE,      OUTSIDE }
+        };
+
+        x_range = find_range (x, box->x1, box->x2);
+        y_range = find_range (y, box->y1, box->y2);
+
+        return location[y_range][x_range];
+}
+
+static void
+update_cursor(gfloat x, gfloat y, VideoWidget *self)
+{
+    // g_debug("mouse coords: %f, %f", event->x, event->y);
+
+    auto priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    GdkCursorType cursor_type;
+    GdkRectangle crop;
+    gint region;
+
+
+    ClutterActorBox actor_box;
+    clutter_actor_get_allocation_box(priv->local->actor, &actor_box);
+    //
+    // region = area->priv->active_region;
+    // if (region == OUTSIDE) {
+        // crop_to_widget (area, &crop);
+        region = find_location (&actor_box, x, y);
+    // }
+
+    switch (region) {
+    case OUTSIDE:
+        cursor_type = GDK_LEFT_PTR;
+        break;
+    case TOP_LEFT:
+        cursor_type = GDK_TOP_LEFT_CORNER;
+        break;
+    case TOP:
+        cursor_type = GDK_TOP_SIDE;
+        break;
+    case TOP_RIGHT:
+        cursor_type = GDK_TOP_RIGHT_CORNER;
+        break;
+    case LEFT:
+        cursor_type = GDK_LEFT_SIDE;
+        break;
+    case INSIDE:
+        cursor_type = GDK_FLEUR;
+        break;
+    case RIGHT:
+        cursor_type = GDK_RIGHT_SIDE;
+        break;
+    case BOTTOM_LEFT:
+        cursor_type = GDK_BOTTOM_LEFT_CORNER;
+        break;
+    case BOTTOM:
+        cursor_type = GDK_BOTTOM_SIDE;
+        break;
+    case BOTTOM_RIGHT:
+        cursor_type = GDK_BOTTOM_RIGHT_CORNER;
+        break;
+    default:
+        g_assert_not_reached ();
+    }
+
+    // if (cursor_type != priv->current_cursor) {
+        GdkCursor *cursor = gdk_cursor_new_for_display (gtk_widget_get_display (GTK_WIDGET (self)),
+                                                        cursor_type);
+        gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (self)), cursor);
+        g_object_unref (cursor);
+        // area->priv->current_cursor = cursor_type;
+    // }
+}
+
+static gboolean
+button_press(ClutterActor *stage, ClutterButtonEvent *event, VideoWidget *self)
+{
+    g_debug("button_press");
+
+    auto priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    priv->button_pressed = TRUE;
+    priv->last_press_x = event->x;
+    priv->last_press_y = event->y;
+
+    ClutterActorBox actor_box;
+    clutter_actor_get_allocation_box(priv->local->actor, &actor_box);
+    priv->active_region = find_location(&actor_box, event->x, event->y);
+
+    return GDK_EVENT_PROPAGATE;
+}
+
+static gboolean
+button_release(ClutterActor *stage, ClutterButtonEvent *event, VideoWidget *self)
+{
+    g_debug("button_release");
+
+    auto priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    priv->button_pressed = FALSE;
+    priv->last_press_x = -1;
+    priv->last_press_y = -1;
+    priv->active_region = OUTSIDE;
+
+    return GDK_EVENT_PROPAGATE;
+}
+
+static gboolean
+motion_event(ClutterActor *stage, ClutterMotionEvent *event, VideoWidget *self)
+{
+    update_cursor(event->x, event->y, self);
+
+    auto priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    switch (priv->active_region) {
+        case TOP:
+        case TOP_LEFT :
+        case TOP_RIGHT :
+        case BOTTOM :
+        case BOTTOM_LEFT :
+        case BOTTOM_RIGHT :
+        case LEFT :
+        case RIGHT :
+        {
+            /* calculate the distance to the center of the preview and compare it to the distance at
+             * the time of the button press; if we're moving towards the center, proportionaly
+             * shrink the preview, otherwise proportionaly scale up the preview. Respect the size
+             * limits
+             */
+             ClutterActorBox actor_box;
+             clutter_actor_get_allocation_box(priv->local->actor, &actor_box);
+
+             gfloat centre_x = (actor_box.x2 - actor_box.x1) / 2.0;
+             gfloat centre_y = (actor_box.y2 - actor_box.y1) / 2.0;
+
+             auto initial_distance = sqrt(pow(priv->last_press_x- centre_x, 2) + pow(priv->last_press_y - centre_y, 2));
+             auto current_distance = sqrt(pow(event->x - centre_x, 2) + pow(event->y - centre_y, 2));
+
+             gfloat width;
+             gfloat height;
+             clutter_actor_get_size(priv->local->actor, &width, &height);
+
+             g_debug("current size: %f x %f", width, height);
+
+             width = width + current_distance - initial_distance;
+             height = width + current_distance - initial_distance;
+
+             if (width >= VIDEO_LOCAL_SIZE && height >= VIDEO_LOCAL_SIZE) {
+                 clutter_actor_set_size(priv->local->actor, width, height);
+             }
+
+              g_debug("new size: %f x %f", width, height);
+
+        }
+        break;
+        default:
+            return GDK_EVENT_PROPAGATE;
+    }
+
+    return GDK_EVENT_PROPAGATE;
+}
 /*
  * video_widget_init()
  *
@@ -370,6 +594,10 @@ video_widget_init(VideoWidget *self)
     gtk_drag_dest_add_uri_targets(GTK_WIDGET(self));
 
     priv->popup_menu = gtk_menu_new();
+
+    g_signal_connect(stage, "motion-event", G_CALLBACK(motion_event), self);
+    g_signal_connect(stage, "button-press-event", G_CALLBACK(button_press), self);
+    g_signal_connect(stage, "button-release-event", G_CALLBACK(button_release), self);
 }
 
 /*
