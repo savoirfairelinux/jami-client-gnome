@@ -34,9 +34,8 @@
 #include <call.h>
 #include "xrectsel.h"
 #include <smartinfohub.h>
+#include "../videopreviewclutteractor.h"
 
-static constexpr int VIDEO_LOCAL_SIZE            = 150;
-static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
 static constexpr const char* JOIN_CALL_KEY = "call_data";
 
 /* check video frame queues at this rate;
@@ -203,85 +202,6 @@ video_widget_class_init(VideoWidgetClass *klass)
 
 }
 
-static void
-on_allocation_changed(ClutterActor *video_area, G_GNUC_UNUSED GParamSpec *pspec, VideoWidget *self)
-{
-    g_return_if_fail(IS_VIDEO_WIDGET(self));
-    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
-
-    auto actor = priv->local->actor;
-    auto drag_action = priv->local->drag_action;
-
-    ClutterActorBox actor_box;
-    clutter_actor_get_allocation_box(actor, &actor_box);
-    gfloat actor_w = clutter_actor_box_get_width(&actor_box);
-    gfloat actor_h = clutter_actor_box_get_height(&actor_box);
-
-    ClutterActorBox area_box;
-    clutter_actor_get_allocation_box(video_area, &area_box);
-    gfloat area_w = clutter_actor_box_get_width(&area_box);
-    gfloat area_h = clutter_actor_box_get_height(&area_box);
-
-    /* make sure drag area stays within the bounds of the stage */
-    ClutterRect *rect = clutter_rect_init (
-        clutter_rect_alloc(),
-        0, 0,
-        area_w - actor_w,
-        area_h - actor_h);
-    clutter_drag_action_set_drag_area(CLUTTER_DRAG_ACTION(drag_action), rect);
-    clutter_rect_free(rect);
-}
-
-static void
-on_drag_begin(G_GNUC_UNUSED ClutterDragAction   *action,
-                            ClutterActor        *actor,
-              G_GNUC_UNUSED gfloat               event_x,
-              G_GNUC_UNUSED gfloat               event_y,
-              G_GNUC_UNUSED ClutterModifierType  modifiers,
-              G_GNUC_UNUSED gpointer             user_data)
-{
-    /* clear the align constraint when starting to move the preview, otherwise
-     * it won't move; save and set its position, to what it was before the
-     * constraint was cleared, or else it might jump around */
-    gfloat actor_x, actor_y;
-    clutter_actor_get_position(actor, &actor_x, &actor_y);
-    clutter_actor_clear_constraints(actor);
-    clutter_actor_set_position(actor, actor_x, actor_y);
-}
-
-static void
-on_drag_end(G_GNUC_UNUSED ClutterDragAction   *action,
-                          ClutterActor        *actor,
-            G_GNUC_UNUSED gfloat               event_x,
-            G_GNUC_UNUSED gfloat               event_y,
-            G_GNUC_UNUSED ClutterModifierType  modifiers,
-                          ClutterActor        *video_area)
-{
-    ClutterActorBox area_box;
-    clutter_actor_get_allocation_box(video_area, &area_box);
-    gfloat area_w = clutter_actor_box_get_width(&area_box);
-    gfloat area_h = clutter_actor_box_get_height(&area_box);
-
-    gfloat actor_x, actor_y;
-    clutter_actor_get_position(actor, &actor_x, &actor_y);
-    gfloat actor_w, actor_h;
-    clutter_actor_get_size(actor, &actor_w, &actor_h);
-
-    area_w -= actor_w;
-    area_h -= actor_h;
-
-    /* add new constraints to make sure the preview stays in about the same location
-     * relative to the rest of the video when resizing */
-    ClutterConstraint *constraint_x = clutter_align_constraint_new(video_area,
-        CLUTTER_ALIGN_X_AXIS, actor_x/area_w);
-    clutter_actor_add_constraint(actor, constraint_x);
-
-    ClutterConstraint *constraint_y = clutter_align_constraint_new(video_area,
-        CLUTTER_ALIGN_Y_AXIS, actor_y/area_h);
-    clutter_actor_add_constraint(actor, constraint_y);
-}
-
-
 /*
  * video_widget_init()
  *
@@ -319,29 +239,8 @@ video_widget_init(VideoWidget *self)
     clutter_actor_add_constraint(priv->remote->actor, constraint);
 
     /* arrange local actor */
-    priv->local->actor = clutter_actor_new();
+    priv->local->actor = video_preview_clutter_actor_new(GTK_CLUTTER_EMBED(self));
     clutter_actor_insert_child_above(priv->video_container, priv->local->actor, NULL);
-    /* set size to square, but it will stay the aspect ratio when the image is rendered */
-    clutter_actor_set_size(priv->local->actor, VIDEO_LOCAL_SIZE, VIDEO_LOCAL_SIZE);
-    /* set position constraint to right cornder;
-     * this constraint will be removed once the user tries to move the position
-     * of the action */
-    constraint = clutter_align_constraint_new(priv->video_container,
-                                              CLUTTER_ALIGN_BOTH, 0.99);
-    clutter_actor_add_constraint(priv->local->actor, constraint);
-    clutter_actor_set_opacity(priv->local->actor,
-                              VIDEO_LOCAL_OPACITY_DEFAULT);
-
-    /* add ability for actor to be moved */
-    clutter_actor_set_reactive(priv->local->actor, TRUE);
-    priv->local->drag_action = clutter_drag_action_new();
-    clutter_actor_add_action(priv->local->actor, priv->local->drag_action);
-
-    g_signal_connect(priv->local->drag_action, "drag-begin", G_CALLBACK(on_drag_begin), NULL);
-    g_signal_connect_after(priv->local->drag_action, "drag-end", G_CALLBACK(on_drag_end), stage);
-
-    /* make sure the actor stays within the bounds of the stage */
-    g_signal_connect(stage, "notify::allocation", G_CALLBACK(on_allocation_changed), self);
 
     /* Init the timeout source which will check the for new frames.
      * The priority must be lower than GTK drawing events

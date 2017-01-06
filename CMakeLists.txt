@@ -326,6 +326,8 @@ SET( SRC_FILES
    src/cc-crop-area.c
    src/models/namenumberfilterproxymodel.h
    src/models/namenumberfilterproxymodel.cpp
+   src/videopreviewclutteractor.h
+   src/videopreviewclutteractor.cpp
 )
 
 # compile glib resource files to c code
