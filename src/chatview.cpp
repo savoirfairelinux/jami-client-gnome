@@ -414,9 +414,9 @@ render_contact_method(G_GNUC_UNUSED GtkCellLayout *cell_layout,
     if (cm && cm->category()) {
         // try to get the number category, eg: "home"
         number = g_strdup_printf("(%s) %s", cm->category()->name().toUtf8().constData(),
-                                            cm->uri().toUtf8().constData());
+                                            cm->getBestId().toUtf8().constData());
     } else if (cm) {
-        number = g_strdup_printf("%s", cm->uri().toUtf8().constData());
+        number = g_strdup_printf("%s", cm->getBestId().toUtf8().constData());
     }
 
     g_object_set(G_OBJECT(cell), "text", number, NULL);
