@@ -648,19 +648,33 @@ set_call_info(CurrentCallView *view, Call *call) {
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
 
-    /* get name */
+    /* get profile name */
     auto name = call->formattedName();
     gtk_label_set_text(GTK_LABEL(priv->label_name), name.toUtf8().constData());
 
-    /* get uri, if different from name */
-    auto uri = call->peerContactMethod()->uri();
-    if (name != uri) {
-        auto cat_uri = g_strdup_printf("(%s) %s"
-                                       ,priv->call->peerContactMethod()->category()->name().toUtf8().constData()
-                                       ,uri.toUtf8().constData());
+
+    /* show the registered name if present */
+    auto registeredName = call->peerContactMethod()->registeredName();
+
+    if (registeredName.size() >0) {
+        auto cat_uri = g_strdup_printf("(%s)", registeredName.toUtf8().constData());
         gtk_label_set_text(GTK_LABEL(priv->label_uri), cat_uri);
         g_free(cat_uri);
         gtk_widget_show(priv->label_uri);
+
+    } else {
+
+        /* get uri, if different from name */
+        auto uri = call->peerContactMethod()->uri();
+
+        if (name != uri) {
+            auto cat_uri = g_strdup_printf("(%s) %s"
+                                           ,priv->call->peerContactMethod()->category()->name().toUtf8().constData()
+                                           ,uri.toUtf8().constData());
+            gtk_label_set_text(GTK_LABEL(priv->label_uri), cat_uri);
+            g_free(cat_uri);
+            gtk_widget_show(priv->label_uri);
+        }
     }
 
     /* change some things depending on call state */
