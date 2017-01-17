@@ -410,17 +410,20 @@ render_contact_method(G_GNUC_UNUSED GtkCellLayout *cell_layout,
     gtk_tree_model_get_value(model, iter, 0, &value);
     auto cm = (ContactMethod *)g_value_get_pointer(&value);
 
-    gchar *number = nullptr;
-    if (cm && cm->category()) {
+    gchar *contactInfoToRender = nullptr;
+    if (cm && cm->registeredName().size() > 0) {
+        // show the registered name if the contact has signed up on the blockchain
+        contactInfoToRender = g_strdup_printf("%s",cm->registeredName().toUtf8().constData());
+    } else if (cm && cm->category()) {
         // try to get the number category, eg: "home"
-        number = g_strdup_printf("(%s) %s", cm->category()->name().toUtf8().constData(),
+        contactInfoToRender = g_strdup_printf("(%s) %s", cm->category()->name().toUtf8().constData(),
                                             cm->uri().toUtf8().constData());
     } else if (cm) {
-        number = g_strdup_printf("%s", cm->uri().toUtf8().constData());
+        contactInfoToRender = g_strdup_printf("%s", cm->uri().toUtf8().constData());
     }
 
-    g_object_set(G_OBJECT(cell), "text", number, NULL);
-    g_free(number);
+    g_object_set(G_OBJECT(cell), "text", contactInfoToRender, NULL);
+    g_free(contactInfoToRender);
 }
 
 static void
