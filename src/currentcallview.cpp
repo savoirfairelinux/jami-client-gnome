@@ -652,14 +652,14 @@ set_call_info(CurrentCallView *view, Call *call) {
     auto name = call->formattedName();
     gtk_label_set_text(GTK_LABEL(priv->label_name), name.toUtf8().constData());
 
-    /* get uri, if different from name */
-    auto uri = call->peerContactMethod()->uri();
-    if (name != uri) {
-        auto cat_uri = g_strdup_printf("(%s) %s"
+    /* get contact best id, if different from name */
+    auto contactId = call->peerContactMethod()->getBestId();
+    if (name != contactId) {
+        auto cat_contactId = g_strdup_printf("(%s) %s"
                                        ,priv->call->peerContactMethod()->category()->name().toUtf8().constData()
-                                       ,uri.toUtf8().constData());
-        gtk_label_set_text(GTK_LABEL(priv->label_uri), cat_uri);
-        g_free(cat_uri);
+                                       ,contactId.toUtf8().constData());
+        gtk_label_set_text(GTK_LABEL(priv->label_uri), cat_contactId);
+        g_free(cat_contactId);
         gtk_widget_show(priv->label_uri);
     }
 
