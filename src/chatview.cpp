@@ -411,7 +411,10 @@ render_contact_method(G_GNUC_UNUSED GtkCellLayout *cell_layout,
     auto cm = (ContactMethod *)g_value_get_pointer(&value);
 
     gchar *number = nullptr;
-    if (cm && cm->category()) {
+    if (cm && cm->registeredName().size() > 0) {
+        // show the registered name if the contact has signed up on the blockchain
+        number = g_strdup_printf("%s",cm->registeredName().toUtf8().constData());
+    } else if (cm && cm->category()) {
         // try to get the number category, eg: "home"
         number = g_strdup_printf("(%s) %s", cm->category()->name().toUtf8().constData(),
                                             cm->uri().toUtf8().constData());
