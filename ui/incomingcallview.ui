@@ -64,7 +64,7 @@
                     <!-- end name or other identity of contact -->
                     <!-- uri of contact -->
                     <child>
-                      <object class="GtkLabel" id="label_uri">
+                      <object class="GtkLabel" id="label_bestId">
                         <property name="visible">False</property>
                         <property name="can_focus">True</property>
                         <property name="halign">center</property>
