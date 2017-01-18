@@ -66,7 +66,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *vbox_call_smartInfo;
     GtkWidget *image_peer;
     GtkWidget *label_name;
-    GtkWidget *label_uri;
+    GtkWidget *label_bestId;
     GtkWidget *label_status;
     GtkWidget *label_duration;
     GtkWidget *label_smartinfo_description;
@@ -505,7 +505,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_call_smartInfo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, image_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_name);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_uri);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_bestId);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_smartinfo_description);
@@ -658,9 +658,9 @@ set_call_info(CurrentCallView *view, Call *call) {
         auto cat_contactId = g_strdup_printf("(%s) %s"
                                        ,priv->call->peerContactMethod()->category()->name().toUtf8().constData()
                                        ,contactId.toUtf8().constData());
-        gtk_label_set_text(GTK_LABEL(priv->label_uri), cat_contactId);
+        gtk_label_set_text(GTK_LABEL(priv->label_bestId), cat_contactId);
         g_free(cat_contactId);
-        gtk_widget_show(priv->label_uri);
+        gtk_widget_show(priv->label_bestId);
     }
 
     /* change some things depending on call state */

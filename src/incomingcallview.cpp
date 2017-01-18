@@ -49,7 +49,7 @@ struct _IncomingCallViewPrivate
     GtkWidget *paned_call;
     GtkWidget *image_incoming;
     GtkWidget *label_name;
-    GtkWidget *label_uri;
+    GtkWidget *label_bestId;
     GtkWidget *spinner_status;
     GtkWidget *placeholder;
     GtkWidget *label_status;
@@ -133,7 +133,7 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, paned_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_name);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_uri);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_bestId);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, spinner_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, placeholder);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_status);
@@ -214,12 +214,12 @@ set_call_info(IncomingCallView *view, Call *call) {
     /* get uri, if different from name */
     auto uri = call->peerContactMethod()->uri();
     if (name != uri) {
-        auto cat_uri = g_strdup_printf("(%s) %s"
+        auto cat_bestId = g_strdup_printf("(%s) %s"
                                        ,call->peerContactMethod()->category()->name().toUtf8().constData()
                                        ,uri.toUtf8().constData());
-        gtk_label_set_text(GTK_LABEL(priv->label_uri), cat_uri);
-        g_free(cat_uri);
-        gtk_widget_show(priv->label_uri);
+        gtk_label_set_text(GTK_LABEL(priv->label_bestId), cat_bestId);
+        g_free(cat_bestId);
+        gtk_widget_show(priv->label_bestId);
     }
 
     /* change some things depending on call state */
