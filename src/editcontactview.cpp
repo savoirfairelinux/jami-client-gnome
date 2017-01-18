@@ -50,7 +50,7 @@ struct _EditContactViewPrivate
     GtkWidget *combobox_addressbook;
     GtkWidget *entry_name;
     GtkWidget *combobox_detail;
-    GtkWidget *label_uri;
+    GtkWidget *label_bestId;
 
     ContactMethod *cm;
     Person        *person;
@@ -229,7 +229,7 @@ edit_contact_view_class_init(EditContactViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), EditContactView, combobox_addressbook);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), EditContactView, entry_name);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), EditContactView, combobox_detail);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), EditContactView, label_uri);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), EditContactView, label_bestId);
 }
 
 /**
@@ -248,7 +248,7 @@ edit_contact_view_new(ContactMethod *cm, Person *p)
 
     priv->cm = cm;
     auto uri_escaped = g_markup_printf_escaped("<b>%s</b>", cm->uri().toUtf8().constData());
-    gtk_label_set_markup(GTK_LABEL(priv->label_uri), uri_escaped);
+    gtk_label_set_markup(GTK_LABEL(priv->label_bestId), uri_escaped);
     g_free(uri_escaped);
 
     /* use the primaryName as the suggested name (usually the display name), unless it is the same

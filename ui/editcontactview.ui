@@ -57,7 +57,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label_uri">
+      <object class="GtkLabel" id="label_bestId">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="ellipsize">PANGO_ELLIPSIZE_END</property>
@@ -68,7 +68,7 @@
         <property name="max-width-chars">20</property>
         <property name="xalign">0.5</property>
         <child internal-child="accessible">
-          <object class="AtkObject" id="label_uri-atkobject">
+          <object class="AtkObject" id="label_bestId-atkobject">
             <property name="AtkObject::accessible-name" translatable="yes">Number or Ring ID</property>
           </object>
         </child>
