@@ -212,11 +212,11 @@ set_call_info(IncomingCallView *view, Call *call) {
     gtk_label_set_text(GTK_LABEL(priv->label_name), name.toUtf8().constData());
 
     /* get uri, if different from name */
-    auto uri = call->peerContactMethod()->uri();
-    if (name != uri) {
+    auto bestId = call->peerContactMethod()->getBestId();
+    if (name != bestId) {
         auto cat_bestId = g_strdup_printf("(%s) %s"
                                        ,call->peerContactMethod()->category()->name().toUtf8().constData()
-                                       ,uri.toUtf8().constData());
+                                       ,bestId.toUtf8().constData());
         gtk_label_set_text(GTK_LABEL(priv->label_bestId), cat_bestId);
         g_free(cat_bestId);
         gtk_widget_show(priv->label_bestId);
