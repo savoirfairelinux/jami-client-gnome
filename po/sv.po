@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 14:42-0500\n"
-"PO-Revision-Date: 2016-12-15 19:44+0000\n"
-"Last-Translator: Stepan Salenikovich\n"
+"POT-Creation-Date: 2016-12-19 15:13-0500\n"
+"PO-Revision-Date: 2016-12-29 20:15+0000\n"
+"Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/ring/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,7 +137,7 @@ msgid "Select account export location"
 msgstr "Välj plats för kontoexport"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
-#: ui/accountdevicestab.ui:134 ui/accountimportexportview.ui:161
+#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -329,7 +329,7 @@ msgstr "Ogiltigt Ring-namn: %s"
 
 #: src/ringmainwindow.cpp:599
 msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr ""
+msgstr "Fel vid uppslagning av användarnamn. Namnservern är möjligen onåbar."
 
 #: src/ringmainwindow.cpp:613
 #, c-format
@@ -357,7 +357,7 @@ msgstr "Sök i kontakter eller ange nummer"
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Detta är ditt Ring-användarnamn.\nKopiera och dela det med dina vänner!"
 
 #: src/ringwelcomeview.cpp:77
 msgctxt "Do not translate \"RingID\""
@@ -379,7 +379,7 @@ msgstr "Ring är fri mjukvara för universell kommunikation, med respekt för an
 #: src/ringwelcomeview.cpp:185
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr ""
+msgstr "Ring-ID som QR-kod"
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
@@ -422,8 +422,8 @@ msgid "Registering username..."
 msgstr "Registrerar användarnamn..."
 
 #: src/usernameregistrationbox.cpp:319
-msgid "Count not initiate name registration, try again."
-msgstr "Kan inte starta namnregistrering, försök igen."
+msgid "Could not initiate name registration, try again."
+msgstr "Kunde inte starta namnregistrering, försök igen."
 
 #: src/usernameregistrationbox.cpp:361
 msgid "Register this username on the blockchain"
@@ -526,19 +526,19 @@ msgstr "Använd TURN"
 
 #: ui/accountadvancedtab.ui:434
 msgid "username"
-msgstr "användarnamn"
+msgstr "Användarnamn"
 
 #: ui/accountadvancedtab.ui:455
 msgid "password"
-msgstr "lösenord"
+msgstr "Lösenord"
 
 #: ui/accountadvancedtab.ui:479
 msgid "realm"
-msgstr "område"
+msgstr "Område"
 
 #: ui/accountadvancedtab.ui:508
 msgid "Published Address"
-msgstr "Publiserad adress"
+msgstr "Publicerad adress"
 
 #: ui/accountadvancedtab.ui:536
 msgid "Bootstrap Servers"
@@ -580,7 +580,7 @@ msgstr "Ner"
 
 #: ui/accountaudiotab.ui:75
 msgid "Audio Codecs"
-msgstr ""
+msgstr "Ljudkodekar"
 
 #: ui/accountcreationwizard.ui:32
 msgid "Welcome to "
@@ -613,7 +613,7 @@ msgid ""
 "previous device, choose the Ring Account to use and select \"Link another "
 "device to this account\". You will get the necessary PIN to complete this "
 "form. The PIN is only valid for 10 minutes."
-msgstr ""
+msgstr "Du måste först skaffa en PIN-kod, för att länka denna enhet till ett annat konto. För att generera PIN-koden, går du till kontohanteringen i den föregående enheten, väljer Ring-konto och trycker \"Länka en annan enhet till detta konto\". Du får då en PIN-kod för att slutföra detta formulär. Pin-koden är endast giltig i 10 minuter."
 
 #: ui/accountcreationwizard.ui:126 ui/accountcreationwizard.ui:215
 #: ui/accountcreationwizard.ui:427
@@ -622,7 +622,7 @@ msgstr "Föregående"
 
 #: ui/accountcreationwizard.ui:134
 msgid "Okay, I have the PIN!"
-msgstr ""
+msgstr "Okay, jag har PIN-koden!"
 
 #: ui/accountcreationwizard.ui:172
 msgid "Enter your pin:"
@@ -642,7 +642,7 @@ msgstr "Profil"
 
 #: ui/accountcreationwizard.ui:285
 msgid "Full name:"
-msgstr ""
+msgstr "Fullständigt namn:"
 
 #: ui/accountcreationwizard.ui:327
 msgid "Ring Account"
@@ -650,14 +650,14 @@ msgstr "Ring-konto"
 
 #: ui/accountcreationwizard.ui:340
 msgid "Register public username (experimental):"
-msgstr ""
+msgstr "Registrera offentligt användarnamn (experimentellt):"
 
 #: ui/accountcreationwizard.ui:346
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Genom att aktivera detta, registrerar du ett unikt användarnamn på Ring-nätverket. Folk kan använda det för att kontakta dig, istället för att använda ditt Ring-ID, som är 40 tecken långt."
 
 #: ui/accountcreationwizard.ui:369 ui/accountmigrationview.ui:161
 msgid "Password (confirm):"
@@ -667,7 +667,7 @@ msgstr "Lösenord (bekräfta):"
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "Detta lösenord kommer att användas för att kryptera din kontodata och för att länka nya enheter till ditt konto."
 
 #: ui/accountcreationwizard.ui:459
 msgid "Generating your Ring account..."
@@ -685,8 +685,8 @@ msgstr "Hämtar ditt Ring-konto..."
 msgid "Error creating/loading account."
 msgstr "Fel vid skapande/inläsning av konto."
 
-#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:212
-#: ui/accountdevicestab.ui:233 ui/accountmigrationview.ui:236
+#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
+#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
 msgid "OK"
 msgstr "OK"
 
@@ -702,34 +702,34 @@ msgstr "Enheter"
 msgid "Add device"
 msgstr "Lägg till enhet"
 
-#: ui/accountdevicestab.ui:82
+#: ui/accountdevicestab.ui:83
 msgid "Add New Device"
 msgstr "Lägg till ny enhet"
 
-#: ui/accountdevicestab.ui:97
+#: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
 msgstr "För att lägga till en ny enhet till ditt Ring-konto, exporterar du ditt befintliga konto. Detta genererar en PIN-kod, som inom 5 minuter måste anges i din nya enhet."
 
-#: ui/accountdevicestab.ui:106 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
 msgstr "Lösenord (obligatoriskt):"
 
-#: ui/accountdevicestab.ui:117 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
 msgstr "Ange arkivlösenord"
 
-#: ui/accountdevicestab.ui:140
+#: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
 msgstr "Export på Ring"
 
-#: ui/accountdevicestab.ui:159
+#: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
 msgstr "Exporterar Ring-konto..."
 
-#: ui/accountdevicestab.ui:181
+#: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
 msgstr "Din PIN-kod:"
 
@@ -907,7 +907,7 @@ msgstr "Aktivera video"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
-msgstr ""
+msgstr "Videokodekar"
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
@@ -1072,7 +1072,7 @@ msgstr "Starta Ring vid systeminloggning"
 
 #: ui/generalsettingsview.ui:98
 msgid "Show Ring icon in the notification area (systray)."
-msgstr "Visa Ring-ikon i notifieringsfältet (systray)."
+msgstr "Visa Ring-ikon i meddelandefältet (systray)."
 
 #: ui/generalsettingsview.ui:106
 msgid "Bring Ring to the foreground on incoming calls."

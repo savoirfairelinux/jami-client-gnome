@@ -4,13 +4,15 @@
 # 
 # Translators:
 # Gianluca Scacco <gianluca.scacco@gmail.com>, 2016
+# Matteo Fortini <matteo.fortini@gmail.com>, 2017
+# oven pasta <ovenpasta@pizzahack.eu>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 14:42-0500\n"
-"PO-Revision-Date: 2016-12-15 19:44+0000\n"
-"Last-Translator: Stepan Salenikovich\n"
+"POT-Creation-Date: 2016-12-19 15:13-0500\n"
+"PO-Revision-Date: 2017-01-16 17:36+0000\n"
+"Last-Translator: Matteo Fortini <matteo.fortini@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/savoirfairelinux/ring/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +53,7 @@ msgstr "Frequenza di campionamento"
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
-msgstr ""
+msgstr "Il tuo account è stato creato, ma non abbiamo potuto registrare il tuo nome utente. Riprova dal menu opzioni."
 
 #: src/accountcreationwizard.cpp:283
 msgctxt "The default username / account alias, if none is set by the user"
@@ -60,19 +62,19 @@ msgstr "Sconosciuto"
 
 #: src/accountcreationwizard.cpp:454 ui/accountmigrationview.ui:132
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Le password non coincidono"
 
 #: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
 msgid "Bad password"
-msgstr ""
+msgstr "Password scarsa"
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
-msgstr ""
+msgstr "Errore di rete, riprova"
 
 #: src/accountdevicestab.cpp:213
 msgid "Could not initiate export to the Ring, try again"
-msgstr ""
+msgstr "Non è stato possibile iniziare l'esportazione a Ring, riprova"
 
 #: src/accountdevicestab.cpp:246
 msgctxt "Device Name Column"
@@ -82,7 +84,7 @@ msgstr "Nome"
 #: src/accountdevicestab.cpp:251
 msgctxt "Device ID Column"
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: src/accountgeneraltab.cpp:201
 msgid "Alias"
@@ -118,7 +120,7 @@ msgstr "Numero voicemail"
 
 #: src/accountgeneraltab.cpp:324
 msgid "Name service URL"
-msgstr ""
+msgstr "URL del servizio di nomi"
 
 #: src/accountgeneraltab.cpp:337
 msgid "Auto-answer calls"
@@ -134,24 +136,24 @@ msgstr "tipo di tono DTMF"
 
 #: src/accountimportexportview.cpp:99
 msgid "Select account export location"
-msgstr ""
+msgstr "Seleziona il percorso di esportazione account"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
-#: ui/accountdevicestab.ui:134 ui/accountimportexportview.ui:161
+#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
 msgstr "Annulla"
 
 #: src/accountimportexportview.cpp:104
 msgid "Select"
-msgstr ""
+msgstr "Seleziona"
 
 #: src/accountimportexportview.cpp:211
 msgid "Error importing account(s)"
-msgstr ""
+msgstr "Errore di importazione account"
 
 #: src/accountimportexportview.cpp:263
 msgid "Error exporting account(s)"
-msgstr ""
+msgstr "Errore di esportazione account"
 
 #: src/accountvideotab.cpp:190
 msgctxt "The name of the codec"
@@ -204,15 +206,15 @@ msgstr "Stato"
 
 #: src/avatarmanipulation.cpp:381
 msgid "Open Avatar Image"
-msgstr ""
+msgstr "Apri immagine dell'Avatar"
 
 #: src/avatarmanipulation.cpp:384
 msgid "_Cancel"
-msgstr ""
+msgstr "_Annulla"
 
 #: src/avatarmanipulation.cpp:386
 msgid "_Open"
-msgstr ""
+msgstr "_Apri"
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
@@ -228,19 +230,19 @@ msgstr "Contatti"
 msgid ""
 "Are you sure you want to delete contact \"%s\"? It will be removed from your"
 " system's addressbook."
-msgstr ""
+msgstr "Sei sicuro di voler eliminare il contatto \"%s\"? Sarà rimosso dalla rubrica del tuo sistema."
 
 #: src/contactpopupmenu.cpp:114
 msgid "_Call"
-msgstr ""
+msgstr "_Chiama"
 
 #: src/contactpopupmenu.cpp:117
 msgid "_Copy name"
-msgstr ""
+msgstr "_Copia nome"
 
 #: src/contactpopupmenu.cpp:120
 msgid "_Copy number"
-msgstr ""
+msgstr "_Copia numero"
 
 #: src/contactpopupmenu.cpp:123
 msgid "_Add to contact"
@@ -248,11 +250,11 @@ msgstr "_Aggiungi ai contatti"
 
 #: src/contactpopupmenu.cpp:126
 msgid "_Remove contact"
-msgstr ""
+msgstr "_Rimuovi contatto"
 
 #: src/dialogs.c:53
 msgid "Working..."
-msgstr ""
+msgstr "Lavoro..."
 
 #: src/dialogs.c:84
 #, c-format
@@ -266,7 +268,7 @@ msgstr ""
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Il client GNOME per Ring.\nRing è software libero per la comunicazione universale che rispetta le libertà e la privacy dei suoi utenti."
 
 #: src/editcontactview.cpp:185
 msgctxt "Phone number category"
@@ -277,7 +279,7 @@ msgstr "home"
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr ""
+msgstr "Questa è un'operazione distruttiva. Sei sicuro di voler eliminare tutte le tue chat e cronologia chiamate?"
 
 #: src/historyview.cpp:293
 msgctxt "Call history"
@@ -296,7 +298,7 @@ msgstr "Chiamata in ingresso"
 #: src/ringnotify.cpp:165 src/ringnotify.cpp:343
 msgctxt "notification action name"
 msgid "Show"
-msgstr ""
+msgstr "Mostra"
 
 #: src/ringnotify.cpp:267
 #, c-format
@@ -320,31 +322,31 @@ msgstr "- Client GNOME per Ring"
 
 #: src/ringmainwindow.cpp:544
 msgid "looking up RingID"
-msgstr ""
+msgstr "Ricerca del RingID"
 
 #: src/ringmainwindow.cpp:584
 #, c-format
 msgid "Invalid Ring username: %s"
-msgstr ""
+msgstr "Nome utente Ring non valido: %s"
 
 #: src/ringmainwindow.cpp:599
 msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr ""
+msgstr "Errore di risoluzione del nome utente, il server di nome è probabilmente non raggiungibile"
 
 #: src/ringmainwindow.cpp:613
 #, c-format
 msgid "Could not resolve Ring username: %s"
-msgstr ""
+msgstr "Non è stato possibile risolvere il nome utente Ring: %s"
 
 #: src/ringmainwindow.cpp:1036
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr ""
+msgstr "chiama"
 
 #: src/ringmainwindow.cpp:1038
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr ""
+msgstr "apri chat"
 
 #: src/ringmainwindow.cpp:1211
 msgctxt ""
@@ -357,7 +359,7 @@ msgstr "Cerca tra i contatti o inserisci un numero"
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Questo è il tuo nome utente Ring.\nCopialo e condividilo con i tuoi amici!"
 
 #: src/ringwelcomeview.cpp:77
 msgctxt "Do not translate \"RingID\""
@@ -374,60 +376,60 @@ msgstr "sto estraendo il RingID..."
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Ring è software libero per la comunicazione universale che rispetta le libertà e la privacy dei suoi utenti."
 
 #: src/ringwelcomeview.cpp:185
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr ""
+msgstr "Codice QR del Ring ID"
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
-msgstr ""
+msgstr "Il nome utente inserito non è disponibile"
 
 #: src/usernameregistrationbox.cpp:129
 msgid "Username is not available"
-msgstr ""
+msgstr "Nome utente non disponibile"
 
 #: src/usernameregistrationbox.cpp:138
 msgid "The entered username is not valid"
-msgstr ""
+msgstr "Il nome utente inserito non è valido"
 
 #: src/usernameregistrationbox.cpp:139
 msgid "Username is not valid"
-msgstr ""
+msgstr "Nome utente non valido"
 
 #: src/usernameregistrationbox.cpp:148
 msgid "The entered username is available"
-msgstr ""
+msgstr "Il nome utente inserito è disponibile"
 
 #: src/usernameregistrationbox.cpp:149
 msgid "Username is available"
-msgstr ""
+msgstr "Nome utente disponibile"
 
 #: src/usernameregistrationbox.cpp:158
 msgid "Failed to perform lookup"
-msgstr ""
+msgstr "Non è stato possibile eseguire la ricerca"
 
 #: src/usernameregistrationbox.cpp:159
 msgid "Could not lookup username"
-msgstr ""
+msgstr "Non è stato possibile cercare il nome utente"
 
 #: src/usernameregistrationbox.cpp:248
 msgid "Looking up username availability..."
-msgstr ""
+msgstr "Ricerca disponibilità del nome utente..."
 
 #: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:485
 msgid "Registering username..."
-msgstr ""
+msgstr "Registro nome utente..."
 
 #: src/usernameregistrationbox.cpp:319
-msgid "Count not initiate name registration, try again."
-msgstr ""
+msgid "Could not initiate name registration, try again."
+msgstr "Non è stato possibile iniziare la registrazione del nome, riprova"
 
 #: src/usernameregistrationbox.cpp:361
 msgid "Register this username on the blockchain"
-msgstr ""
+msgstr "Registra questo nome utente nella blockchain"
 
 #: src/usernameregistrationbox.cpp:397
 msgid "Invalid username"
@@ -444,17 +446,17 @@ msgstr "Errore di rete"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Ring Error"
-msgstr ""
+msgstr "Errore di Ring"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr ""
+msgstr "Tentativo di riconnessione al demone Ring (dring)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Ring daemon (dring).\n"
 "Ring will now quit."
-msgstr ""
+msgstr "Non è stato possibile riconnettersi al demone Ring (dring)\nRing ora verrà terminato."
 
 #: src/video/video_widget.cpp:525
 msgid "Share screen area"
@@ -466,7 +468,7 @@ msgstr "Condividi file"
 
 #: src/video/video_widget.cpp:549
 msgid "Show advanced information"
-msgstr ""
+msgstr "Mostra informazioni avanzate"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
@@ -542,7 +544,7 @@ msgstr "Indirizzo Pubblico"
 
 #: ui/accountadvancedtab.ui:536
 msgid "Bootstrap Servers"
-msgstr ""
+msgstr "Server di inizializzazione"
 
 #: ui/accountadvancedtab.ui:593
 msgid ""
@@ -580,19 +582,19 @@ msgstr "Giu"
 
 #: ui/accountaudiotab.ui:75
 msgid "Audio Codecs"
-msgstr ""
+msgstr "Codec audio"
 
 #: ui/accountcreationwizard.ui:32
 msgid "Welcome to "
-msgstr ""
+msgstr "Benvenuto su"
 
 #: ui/accountcreationwizard.ui:66
 msgid "Create Ring Account"
-msgstr ""
+msgstr "Crea Account Ring"
 
 #: ui/accountcreationwizard.ui:67
 msgid "Create a new Ring account (for new users)"
-msgstr ""
+msgstr "Crea un nuovo account Ring (per nuovi utenti)"
 
 #: ui/accountcreationwizard.ui:74
 msgid "Link this device to an account"
@@ -600,11 +602,11 @@ msgstr "Collega questo dispositivo ad un account"
 
 #: ui/accountcreationwizard.ui:75
 msgid "Link this devices to a Ring account created on another device"
-msgstr ""
+msgstr "Collega questo dispositivo ad un account RIng creato su un altro dispositivo"
 
 #: ui/accountcreationwizard.ui:103 ui/accountcreationwizard.ui:157
 msgid "Link this device to an existing account"
-msgstr ""
+msgstr "Collega questo dispositivo ad un account esistente"
 
 #: ui/accountcreationwizard.ui:118
 msgid ""
@@ -613,24 +615,24 @@ msgid ""
 "previous device, choose the Ring Account to use and select \"Link another "
 "device to this account\". You will get the necessary PIN to complete this "
 "form. The PIN is only valid for 10 minutes."
-msgstr ""
+msgstr "Per collegare questo dispositivo a un altro account, devi prima ottenere un codice PIN. Per generare il codice pin, vai nelle impostazioni di gestione degli account di un dispositivo registrato precedentemente, scegli l'Account Ring che vuoi usare e scegli  \"Collega un altro dispositivo a questo account\". Ti verrà fornito il PIN necessario per completare questo modulo. Il PIN ha una validità di 10 minuti."
 
 #: ui/accountcreationwizard.ui:126 ui/accountcreationwizard.ui:215
 #: ui/accountcreationwizard.ui:427
 msgid "Previous"
-msgstr ""
+msgstr "Precedente"
 
 #: ui/accountcreationwizard.ui:134
 msgid "Okay, I have the PIN!"
-msgstr ""
+msgstr "OK, ho il PIN!"
 
 #: ui/accountcreationwizard.ui:172
 msgid "Enter your pin:"
-msgstr ""
+msgstr "Inserire il pin:"
 
 #: ui/accountcreationwizard.ui:191
 msgid "Enter your password:"
-msgstr ""
+msgstr "Inserire la password:"
 
 #: ui/accountcreationwizard.ui:223 ui/accountcreationwizard.ui:435
 msgid "Next"
@@ -642,57 +644,57 @@ msgstr "Profilo"
 
 #: ui/accountcreationwizard.ui:285
 msgid "Full name:"
-msgstr ""
+msgstr "Nome completo:"
 
 #: ui/accountcreationwizard.ui:327
 msgid "Ring Account"
-msgstr ""
+msgstr "Account Ring"
 
 #: ui/accountcreationwizard.ui:340
 msgid "Register public username (experimental):"
-msgstr ""
+msgstr "Registra nome utente pubblico (sperimentale):"
 
 #: ui/accountcreationwizard.ui:346
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Selezionando questo, registrerai un nome utente unico nella rete Ring. Le persone possono utilizzarlo per contattarti invece di usare il tuo RingID, che è lungo 40 caratteri."
 
 #: ui/accountcreationwizard.ui:369 ui/accountmigrationview.ui:161
 msgid "Password (confirm):"
-msgstr ""
+msgstr "Password (conferma):"
 
 #: ui/accountcreationwizard.ui:370
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "Questa password verrà utilizzata per crittografare i tuoi dati dell'account e per collegare i nuovi dispositivi al tuo account."
 
 #: ui/accountcreationwizard.ui:459
 msgid "Generating your Ring account..."
-msgstr ""
+msgstr "Generazione del tuo account Ring..."
 
 #: ui/accountcreationwizard.ui:492
 msgid "This may take a few minutes."
-msgstr ""
+msgstr "Questa operazione potrebbe richiedere alcuni minuti."
 
 #: ui/accountcreationwizard.ui:518
 msgid "Retrieving your Ring account..."
-msgstr ""
+msgstr "Acquisisco il tuo account Ring..."
 
 #: ui/accountcreationwizard.ui:544
 msgid "Error creating/loading account."
-msgstr ""
+msgstr "Errore di creazione/caricamento account."
 
-#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:212
-#: ui/accountdevicestab.ui:233 ui/accountmigrationview.ui:236
+#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
+#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ui/accountdevicestab.ui:21
 msgid "My Device ID:"
-msgstr ""
+msgstr "ID del mio dispositivo:"
 
 #: ui/accountdevicestab.ui:40
 msgid "Devices"
@@ -700,38 +702,38 @@ msgstr "Dispositivi"
 
 #: ui/accountdevicestab.ui:66
 msgid "Add device"
-msgstr ""
+msgstr "Aggiungi dispositivo"
 
-#: ui/accountdevicestab.ui:82
+#: ui/accountdevicestab.ui:83
 msgid "Add New Device"
-msgstr ""
+msgstr "Aggiungi Nuovo Dispositivo"
 
-#: ui/accountdevicestab.ui:97
+#: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
 msgstr ""
 
-#: ui/accountdevicestab.ui:106 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
 msgstr ""
 
-#: ui/accountdevicestab.ui:117 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
 msgstr ""
 
-#: ui/accountdevicestab.ui:140
+#: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
 msgstr ""
 
-#: ui/accountdevicestab.ui:159
+#: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
 msgstr ""
 
-#: ui/accountdevicestab.ui:181
+#: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
-msgstr ""
+msgstr "Il pin generato per te:"
 
 #: ui/accountgeneraltab.ui:42
 msgid "Account"
@@ -775,12 +777,12 @@ msgstr "Importa"
 
 #: ui/accountmigrationview.ui:28
 msgid "Account migration required"
-msgstr ""
+msgstr "Migrazione account richiesta"
 
 #: ui/accountmigrationview.ui:37
 msgid ""
 "The following account needs to be migrated to the new Ring account format:"
-msgstr ""
+msgstr "Il seguente account ha bisogno di essere migrato al nuovo formato di account Ring:"
 
 #: ui/accountmigrationview.ui:52
 msgid "Alias:"
@@ -796,11 +798,11 @@ msgid ""
 "This password will be used to encrypt your master key. It will be required "
 "for adding new devices to your Ring account. If you are not ready to choose "
 "a password, you may close Ring and resume the migration later."
-msgstr ""
+msgstr "Per continuare la migrazione, devi scegliere una password per il tuo account. Questa password verrà usata per cifrare la tua master key. Verrà richiesta per aggiungere nuovi dispositivi al tuo account Ring. Se non sei pronto a scegliere una password, dovresti chiudere Ring e riprendere la migrazione più tardi."
 
 #: ui/accountmigrationview.ui:141
 msgid "Password:"
-msgstr ""
+msgstr "Password:"
 
 #: ui/accountmigrationview.ui:184
 msgid "Migrate account"
@@ -816,7 +818,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:255
 msgid "Choose your Ring username"
-msgstr ""
+msgstr "Scegli il tuo nome utente Ring:"
 
 #: ui/accountmigrationview.ui:264
 msgid ""
@@ -827,7 +829,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:279
 msgid "Register my username later"
-msgstr ""
+msgstr "Registra il mio nome utente in un secondo momento"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -843,7 +845,7 @@ msgstr "Ricadi su RTP in caso di fallimento della cifratura"
 
 #: ui/accountsecuritytab.ui:94
 msgid "Media Stream Encryption"
-msgstr ""
+msgstr "Cifratura del flusso multimediale"
 
 #: ui/accountsecuritytab.ui:123
 msgid "Encrypt negotiation (TLS)"
@@ -988,7 +990,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:416
 msgid "Mute video"
-msgstr ""
+msgstr "Silenzia Video"
 
 #: ui/currentcallview.ui:336
 msgid "Toggle record audio"
@@ -1016,7 +1018,7 @@ msgstr "Chat"
 
 #: ui/currentcallview.ui:407
 msgid "Mute audio"
-msgstr ""
+msgstr "Silenzia audio"
 
 #: ui/currentcallview.ui:452
 msgid "Record"
@@ -1180,7 +1182,7 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:17
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: ui/ringmainwindow.ui:51
 msgid "General"

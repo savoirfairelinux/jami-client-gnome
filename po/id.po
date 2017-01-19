@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 14:42-0500\n"
-"PO-Revision-Date: 2016-12-15 19:44+0000\n"
+"POT-Creation-Date: 2016-12-19 15:13-0500\n"
+"PO-Revision-Date: 2016-12-19 20:14+0000\n"
 "Last-Translator: Stepan Salenikovich\n"
 "Language-Team: Indonesian (http://www.transifex.com/savoirfairelinux/ring/language/id/)\n"
 "MIME-Version: 1.0\n"
@@ -136,7 +136,7 @@ msgid "Select account export location"
 msgstr ""
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
-#: ui/accountdevicestab.ui:134 ui/accountimportexportview.ui:161
+#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
 msgstr ""
 
@@ -421,7 +421,7 @@ msgid "Registering username..."
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:319
-msgid "Count not initiate name registration, try again."
+msgid "Could not initiate name registration, try again."
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:361
@@ -684,8 +684,8 @@ msgstr ""
 msgid "Error creating/loading account."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:212
-#: ui/accountdevicestab.ui:233 ui/accountmigrationview.ui:236
+#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
+#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
 msgid "OK"
 msgstr ""
 
@@ -701,34 +701,34 @@ msgstr ""
 msgid "Add device"
 msgstr ""
 
-#: ui/accountdevicestab.ui:82
+#: ui/accountdevicestab.ui:83
 msgid "Add New Device"
 msgstr ""
 
-#: ui/accountdevicestab.ui:97
+#: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
 msgstr ""
 
-#: ui/accountdevicestab.ui:106 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
 msgstr ""
 
-#: ui/accountdevicestab.ui:117 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
 msgstr ""
 
-#: ui/accountdevicestab.ui:140
+#: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
 msgstr ""
 
-#: ui/accountdevicestab.ui:159
+#: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
 msgstr ""
 
-#: ui/accountdevicestab.ui:181
+#: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
 msgstr ""
 

@@ -10,17 +10,19 @@
 # Ernesto Rodriguez Ortiz <ernesto.rodriguezortiz@savoirfairelinux.com>, 2015-2016
 # jsagarribay <jsagarribay@gmail.com>, 2016
 # Juanjo Faico <juanjofaico22@openmailbox.org>, 2016
+# Julie LeBrun <julie.lebrun@savoirfairelinux.com>, 2016
 # Julio Gutierrez <bubuntux@gmail.com>, 2016
 # Jusore Mondos <jusore@gmail.com>, 2016
 # fgp <komakino@wanadoo.es>, 2016
+# Laura Arjona Reina <larjona@larjona.net>, 2016
 # Stepan Salenikovich, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 14:42-0500\n"
-"PO-Revision-Date: 2016-12-15 19:44+0000\n"
-"Last-Translator: Stepan Salenikovich\n"
+"POT-Creation-Date: 2016-12-19 15:13-0500\n"
+"PO-Revision-Date: 2016-12-20 00:20+0000\n"
+"Last-Translator: Laura Arjona Reina <larjona@larjona.net>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -147,7 +149,7 @@ msgid "Select account export location"
 msgstr "Elegir lugar para exportar"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
-#: ui/accountdevicestab.ui:134 ui/accountimportexportview.ui:161
+#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -270,7 +272,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Gaston Miron - Beta 2\n"
 "built on %.25s"
-msgstr "Gaston Miron - Beta 2\nconstruída %.25s"
+msgstr "Gaston Miron - Beta 2\nconstruida el %.25s"
 
 #: src/dialogs.c:132
 msgid ""
@@ -339,7 +341,7 @@ msgstr "Usuario Ring no válido: %s"
 
 #: src/ringmainwindow.cpp:599
 msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr ""
+msgstr "Error en la resolución del nombre de usario, el nombre del servidor puede ser inaccesible."
 
 #: src/ringmainwindow.cpp:613
 #, c-format
@@ -367,7 +369,7 @@ msgstr "Buscar contacto o introducir número"
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Este es tu nombre de usuario en Ring.\n¡Cópialo y compártelo con tus amigos!"
 
 #: src/ringwelcomeview.cpp:77
 msgctxt "Do not translate \"RingID\""
@@ -389,7 +391,7 @@ msgstr "Ring es software libre de comunicaciones que respeta las libertades y pr
 #: src/ringwelcomeview.cpp:185
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr ""
+msgstr "Código QR identificador Ring"
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
@@ -405,7 +407,7 @@ msgstr "El nombre de usuario tecleado no es válido"
 
 #: src/usernameregistrationbox.cpp:139
 msgid "Username is not valid"
-msgstr "Nombre de usuario no válido."
+msgstr "Nombre de usuario no válido"
 
 #: src/usernameregistrationbox.cpp:148
 msgid "The entered username is available"
@@ -432,8 +434,8 @@ msgid "Registering username..."
 msgstr "Registrando nombre de usuario..."
 
 #: src/usernameregistrationbox.cpp:319
-msgid "Count not initiate name registration, try again."
-msgstr "No se pudo registrar el nombre, inténtalo de nuevo."
+msgid "Could not initiate name registration, try again."
+msgstr "No se ha podido iniciar el registro del nombre, inténtelo de nuevo."
 
 #: src/usernameregistrationbox.cpp:361
 msgid "Register this username on the blockchain"
@@ -590,7 +592,7 @@ msgstr "Abajo"
 
 #: ui/accountaudiotab.ui:75
 msgid "Audio Codecs"
-msgstr ""
+msgstr "Codecs de audio"
 
 #: ui/accountcreationwizard.ui:32
 msgid "Welcome to "
@@ -623,7 +625,7 @@ msgid ""
 "previous device, choose the Ring Account to use and select \"Link another "
 "device to this account\". You will get the necessary PIN to complete this "
 "form. The PIN is only valid for 10 minutes."
-msgstr ""
+msgstr "Para conectar este dispositivo a otra cuenta, primero necesita obtener un código PIN. Para generar el código pin, vaya a las opciones de administración de la cuenta en el dispositivo anterior, escoja la Cuenta Ring a usar y seleccione \"Conectar otro dispositivo a esta cuenta\". Obtendrá el PIN necesario para completar este formulario. El PIN es válido solamente durante 10 minutos."
 
 #: ui/accountcreationwizard.ui:126 ui/accountcreationwizard.ui:215
 #: ui/accountcreationwizard.ui:427
@@ -632,7 +634,7 @@ msgstr "Anterior"
 
 #: ui/accountcreationwizard.ui:134
 msgid "Okay, I have the PIN!"
-msgstr ""
+msgstr "¡Tengo el PIN!"
 
 #: ui/accountcreationwizard.ui:172
 msgid "Enter your pin:"
@@ -652,7 +654,7 @@ msgstr "Perfil"
 
 #: ui/accountcreationwizard.ui:285
 msgid "Full name:"
-msgstr ""
+msgstr "Nombre y apellidos"
 
 #: ui/accountcreationwizard.ui:327
 msgid "Ring Account"
@@ -660,14 +662,14 @@ msgstr "Cuenta Ring"
 
 #: ui/accountcreationwizard.ui:340
 msgid "Register public username (experimental):"
-msgstr ""
+msgstr "Registrar nombre de usuario público (experimental):"
 
 #: ui/accountcreationwizard.ui:346
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Al marcar aquí, estarás registrando un nombre de usuario único en la red de Ring. Otras personas podrán utilizarlo para llamarte sin tener que utilizar tu identificador en Ring, RingID, de 40 caracteres."
 
 #: ui/accountcreationwizard.ui:369 ui/accountmigrationview.ui:161
 msgid "Password (confirm):"
@@ -677,7 +679,7 @@ msgstr "Contraseña (confirmar):"
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "La contraseña se utilizará para cifrar los datos de tu cuenta y para conectar nuevos dispositivos a tu cuenta."
 
 #: ui/accountcreationwizard.ui:459
 msgid "Generating your Ring account..."
@@ -695,8 +697,8 @@ msgstr "Recuperando tu cuenta de Ring..."
 msgid "Error creating/loading account."
 msgstr "Error creando o cargando la cuenta."
 
-#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:212
-#: ui/accountdevicestab.ui:233 ui/accountmigrationview.ui:236
+#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
+#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
 msgid "OK"
 msgstr "OK"
 
@@ -712,34 +714,34 @@ msgstr "Dispositivos"
 msgid "Add device"
 msgstr "Agregar dispositivo"
 
-#: ui/accountdevicestab.ui:82
+#: ui/accountdevicestab.ui:83
 msgid "Add New Device"
 msgstr "Agregar nuevo dispositivo"
 
-#: ui/accountdevicestab.ui:97
+#: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
 msgstr "Para agregar un dispositivo a tu cuenta se exportará la misma en Ring. Esto producirá un PIN que debes escribir en el nuevo dispositivo antes de que pasen 5 minutos."
 
-#: ui/accountdevicestab.ui:106 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
 msgstr "Contraseña (necesario)"
 
-#: ui/accountdevicestab.ui:117 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
 msgstr "Introducir la contraseña del archivo"
 
-#: ui/accountdevicestab.ui:140
+#: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
 msgstr "Exportar en Ring"
 
-#: ui/accountdevicestab.ui:159
+#: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
 msgstr "Exportando cuenta en Ring..."
 
-#: ui/accountdevicestab.ui:181
+#: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
 msgstr "PIN generado:"
 
@@ -917,7 +919,7 @@ msgstr "Habilitar vídeo"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
-msgstr ""
+msgstr "Codecs de vídeo"
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
@@ -1222,7 +1224,7 @@ msgstr "Historial"
 
 #: ui/usernameregistrationbox.ui:12
 msgid "enter username here"
-msgstr "Escribe el nombre de usuario aquí"
+msgstr "escribe el nombre de usuario aquí"
 
 #: ui/usernameregistrationbox.ui:24
 msgid "Register"

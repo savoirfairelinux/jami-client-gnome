@@ -5,14 +5,14 @@
 # Translators:
 # Guillaume Roguez, 2015
 # Mantas Kriaučiūnas <mantas@akl.lt>, 2015
-# Moo, 2015-2016
+# Moo, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 14:42-0500\n"
-"PO-Revision-Date: 2016-12-15 19:44+0000\n"
-"Last-Translator: Stepan Salenikovich\n"
+"POT-Creation-Date: 2016-12-19 15:13-0500\n"
+"PO-Revision-Date: 2017-01-17 16:11+0000\n"
+"Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,7 +139,7 @@ msgid "Select account export location"
 msgstr "Pasirinkite paskyros eksportavimo vietą"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
-#: ui/accountdevicestab.ui:134 ui/accountimportexportview.ui:161
+#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
 msgstr "Atsisakyti"
 
@@ -359,7 +359,7 @@ msgstr "Ieškokite kontaktus arba įveskite numerį"
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Tai yra jūsų Ring naudotojo vardas.\nNukopijuokite ir dalinkitės juo su draugais!"
 
 #: src/ringwelcomeview.cpp:77
 msgctxt "Do not translate \"RingID\""
@@ -381,7 +381,7 @@ msgstr "Ring yra visuotiniam susisiekimui skirta laisva programinė įranga, kur
 #: src/ringwelcomeview.cpp:185
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr ""
+msgstr "Ring ID QR kodas"
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
@@ -424,7 +424,7 @@ msgid "Registering username..."
 msgstr "Registruojamas naudotojo vardas..."
 
 #: src/usernameregistrationbox.cpp:319
-msgid "Count not initiate name registration, try again."
+msgid "Could not initiate name registration, try again."
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:361
@@ -582,7 +582,7 @@ msgstr "Žemyn"
 
 #: ui/accountaudiotab.ui:75
 msgid "Audio Codecs"
-msgstr ""
+msgstr "Garso kodekai"
 
 #: ui/accountcreationwizard.ui:32
 msgid "Welcome to "
@@ -652,7 +652,7 @@ msgstr "Ring paskyra"
 
 #: ui/accountcreationwizard.ui:340
 msgid "Register public username (experimental):"
-msgstr ""
+msgstr "Registruoti viešąjį naudotojo vardą (eksperimentinis):"
 
 #: ui/accountcreationwizard.ui:346
 msgid ""
@@ -687,8 +687,8 @@ msgstr "Gaunama jūsų Ring paskyra..."
 msgid "Error creating/loading account."
 msgstr "Klaida, kuriant/įkeliant paskyrą."
 
-#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:212
-#: ui/accountdevicestab.ui:233 ui/accountmigrationview.ui:236
+#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
+#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
 msgid "OK"
 msgstr "Gerai"
 
@@ -704,34 +704,34 @@ msgstr "Įrenginiai"
 msgid "Add device"
 msgstr "Pridėti įrenginį"
 
-#: ui/accountdevicestab.ui:82
+#: ui/accountdevicestab.ui:83
 msgid "Add New Device"
 msgstr "Pridėti naują įrenginį"
 
-#: ui/accountdevicestab.ui:97
+#: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
 msgstr "Norėdami pridėti naują įrenginį į savo Ring paskyrą, jūs eksportuojate savo paskyrą Ring sistemoje. Tai sukurs pin, kurį per 5 minutes nuo jo sukūrimo reikės įvesti jūsų naujame įrenginyje."
 
-#: ui/accountdevicestab.ui:106 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
 msgstr "Slaptažodis (būtinas):"
 
-#: ui/accountdevicestab.ui:117 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
 msgstr "Įveskite archyvo slaptažodį"
 
-#: ui/accountdevicestab.ui:140
+#: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
 msgstr ""
 
-#: ui/accountdevicestab.ui:159
+#: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
 msgstr ""
 
-#: ui/accountdevicestab.ui:181
+#: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
 msgstr ""
 
@@ -909,7 +909,7 @@ msgstr "Įjungti vaizdą"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
-msgstr ""
+msgstr "Vaizdo kodekai"
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"

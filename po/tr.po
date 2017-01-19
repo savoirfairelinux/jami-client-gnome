@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 14:42-0500\n"
-"PO-Revision-Date: 2016-12-15 19:44+0000\n"
-"Last-Translator: Stepan Salenikovich\n"
+"POT-Creation-Date: 2016-12-19 15:13-0500\n"
+"PO-Revision-Date: 2016-12-20 14:00+0000\n"
+"Last-Translator: Emin Tufan <etcetin@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/ring/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -141,7 +141,7 @@ msgid "Select account export location"
 msgstr "Hesabın dışa aktarılacağı yeri seçin"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
-#: ui/accountdevicestab.ui:134 ui/accountimportexportview.ui:161
+#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
 msgstr "İptal"
 
@@ -333,7 +333,7 @@ msgstr "Geçersiz Ring kullanıcı adı: %s"
 
 #: src/ringmainwindow.cpp:599
 msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr ""
+msgstr "Kullanıcı adı çözümlenirken hata oluştu, muhtemelen ad sunucusuna erişilemiyor"
 
 #: src/ringmainwindow.cpp:613
 #, c-format
@@ -361,7 +361,7 @@ msgstr "Kişileri ara veya numara gir"
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Bu senin Ring kullanıcı adın.\nKopyala ve arkadaşlarınla paylaş!"
 
 #: src/ringwelcomeview.cpp:77
 msgctxt "Do not translate \"RingID\""
@@ -383,7 +383,7 @@ msgstr "Ring; kullanıcılarının özgürlüklerine ve gizliliğine önem veren
 #: src/ringwelcomeview.cpp:185
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr ""
+msgstr "OR kod Ring Kimliği"
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
@@ -426,7 +426,7 @@ msgid "Registering username..."
 msgstr "Kullanıcı adı kaydediliyor..."
 
 #: src/usernameregistrationbox.cpp:319
-msgid "Count not initiate name registration, try again."
+msgid "Could not initiate name registration, try again."
 msgstr "Ad kaydı başlatılamıyor, yeniden deneyin."
 
 #: src/usernameregistrationbox.cpp:361
@@ -584,7 +584,7 @@ msgstr "Aşağı"
 
 #: ui/accountaudiotab.ui:75
 msgid "Audio Codecs"
-msgstr ""
+msgstr "Ses çözücüleri"
 
 #: ui/accountcreationwizard.ui:32
 msgid "Welcome to "
@@ -617,7 +617,7 @@ msgid ""
 "previous device, choose the Ring Account to use and select \"Link another "
 "device to this account\". You will get the necessary PIN to complete this "
 "form. The PIN is only valid for 10 minutes."
-msgstr ""
+msgstr "Başka bir aygıtı bu hesaba bağlamak için ilk olarak pin kodu almanız gerekir. Pin kodunu oluşturmak için, önceki aygıtın hesap yönetim ayarına gidin, kullanılacak Ring Hesabını seçin ve \"Başka aygıtı bu hesaba bağla\"yı seçin. Bu formu tamamlamak için gerekli pini alacaksınız. Pin, sadece 10 dakika için geçerlidir."
 
 #: ui/accountcreationwizard.ui:126 ui/accountcreationwizard.ui:215
 #: ui/accountcreationwizard.ui:427
@@ -626,7 +626,7 @@ msgstr "Önceki"
 
 #: ui/accountcreationwizard.ui:134
 msgid "Okay, I have the PIN!"
-msgstr ""
+msgstr "Tamam, PIN'im var"
 
 #: ui/accountcreationwizard.ui:172
 msgid "Enter your pin:"
@@ -646,7 +646,7 @@ msgstr "Profil"
 
 #: ui/accountcreationwizard.ui:285
 msgid "Full name:"
-msgstr ""
+msgstr "Tam ad:"
 
 #: ui/accountcreationwizard.ui:327
 msgid "Ring Account"
@@ -654,14 +654,14 @@ msgstr "Ring Hesabı"
 
 #: ui/accountcreationwizard.ui:340
 msgid "Register public username (experimental):"
-msgstr ""
+msgstr "Halka açık kullanıcı adı kaydet (deneysel):"
 
 #: ui/accountcreationwizard.ui:346
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Bunu seçerek Ring ağı üzerinde benzersiz bir kullanıcı adı kayıt olacaksınız. İnsanlar 40 karakter uzunluğundaki Ring Kimliğiniz yerine bunu kullanarak sizinle iletişime geçebilecek."
 
 #: ui/accountcreationwizard.ui:369 ui/accountmigrationview.ui:161
 msgid "Password (confirm):"
@@ -671,7 +671,7 @@ msgstr "Parola (Onay):"
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "Bu parola hesap bilgilerinizi şifrelemek ve hesabınızı yeni aygıtlara bağlamak için kullanılacaktır"
 
 #: ui/accountcreationwizard.ui:459
 msgid "Generating your Ring account..."
@@ -689,8 +689,8 @@ msgstr "Ring hesabınız alınıyor..."
 msgid "Error creating/loading account."
 msgstr "Hesap oluşturma/yükleme hatası."
 
-#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:212
-#: ui/accountdevicestab.ui:233 ui/accountmigrationview.ui:236
+#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
+#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
 msgid "OK"
 msgstr "TAMAM"
 
@@ -706,34 +706,34 @@ msgstr "Aygıtlar"
 msgid "Add device"
 msgstr "Aygıt ekle"
 
-#: ui/accountdevicestab.ui:82
+#: ui/accountdevicestab.ui:83
 msgid "Add New Device"
 msgstr "Yeni Aygıt Ekle"
 
-#: ui/accountdevicestab.ui:97
+#: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
 msgstr "Ring hesabınıza yeni bir aygıt eklemek için hesabınızı Ring üzerinden dışarıya aktarın. Bu işlem yeni eklenecek cihaza 5 dakika içerisinde girilmesi gereken bir PIN kodu yaratacaktır."
 
-#: ui/accountdevicestab.ui:106 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
 msgstr "Parola (gerekli):"
 
-#: ui/accountdevicestab.ui:117 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
 msgstr "Arşiv parolası girin"
 
-#: ui/accountdevicestab.ui:140
+#: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
 msgstr "Ring'de Dışa Aktar"
 
-#: ui/accountdevicestab.ui:159
+#: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
 msgstr "Ring'de hesap dışa aktarılıyor..."
 
-#: ui/accountdevicestab.ui:181
+#: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
 msgstr "Oluşturulan pin'iniz:"
 
@@ -911,7 +911,7 @@ msgstr "Görüntüyü Etkinleştir"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
-msgstr ""
+msgstr "Görüntü çözücüler"
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"

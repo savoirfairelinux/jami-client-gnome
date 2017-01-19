@@ -5,13 +5,14 @@
 # Translators:
 # Aputsiak Niels Janussen <aj@isit.gl>, 2016
 # Mikkel Kirkgaard Nielsen <memb_transifex@mikini.dk>, 2016
+# scootergrisen, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 14:42-0500\n"
-"PO-Revision-Date: 2016-12-15 19:44+0000\n"
-"Last-Translator: Stepan Salenikovich\n"
+"POT-Creation-Date: 2016-12-19 15:13-0500\n"
+"PO-Revision-Date: 2017-01-08 17:00+0000\n"
+"Last-Translator: scootergrisen\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/savoirfairelinux/ring/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -138,7 +139,7 @@ msgid "Select account export location"
 msgstr "Vælg sted hvortil kontoen skal eksporteres"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
-#: ui/accountdevicestab.ui:134 ui/accountimportexportview.ui:161
+#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
 msgstr "Annuller"
 
@@ -380,7 +381,7 @@ msgstr "Ring er fri software til universel kommunikation som respekterer sine br
 #: src/ringwelcomeview.cpp:185
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr ""
+msgstr "Ring-ID QR-kode"
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
@@ -423,8 +424,8 @@ msgid "Registering username..."
 msgstr "Registrerer brugernavn..."
 
 #: src/usernameregistrationbox.cpp:319
-msgid "Count not initiate name registration, try again."
-msgstr "Kunne ikke starte registrering af brugernavn, prøv igen."
+msgid "Could not initiate name registration, try again."
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:361
 msgid "Register this username on the blockchain"
@@ -581,7 +582,7 @@ msgstr "Ned"
 
 #: ui/accountaudiotab.ui:75
 msgid "Audio Codecs"
-msgstr ""
+msgstr "Audio-codec'er"
 
 #: ui/accountcreationwizard.ui:32
 msgid "Welcome to "
@@ -643,7 +644,7 @@ msgstr "Profil"
 
 #: ui/accountcreationwizard.ui:285
 msgid "Full name:"
-msgstr ""
+msgstr "Fulde navn:"
 
 #: ui/accountcreationwizard.ui:327
 msgid "Ring Account"
@@ -686,8 +687,8 @@ msgstr "Henter din Ring-konto..."
 msgid "Error creating/loading account."
 msgstr "Fejl ved oprettelse/hentning af konto."
 
-#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:212
-#: ui/accountdevicestab.ui:233 ui/accountmigrationview.ui:236
+#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
+#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
 msgid "OK"
 msgstr "OK"
 
@@ -703,34 +704,34 @@ msgstr "Enheder"
 msgid "Add device"
 msgstr "Tilføj enhed"
 
-#: ui/accountdevicestab.ui:82
+#: ui/accountdevicestab.ui:83
 msgid "Add New Device"
 msgstr "Tilføj ny enhed"
 
-#: ui/accountdevicestab.ui:97
+#: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
 msgstr "For at tilføje en ny enhed til din Ring-konto skal den eksporteres til Ring. Dette vil generere en PIN-kode som skal indtastes på den nye enhed indenfor 5 minutter,"
 
-#: ui/accountdevicestab.ui:106 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
 msgstr "Kodeord (påkrævet):"
 
-#: ui/accountdevicestab.ui:117 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
 msgstr "Indtast arkivets kodeord"
 
-#: ui/accountdevicestab.ui:140
+#: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
 msgstr "Eksporter til Ring"
 
-#: ui/accountdevicestab.ui:159
+#: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
 msgstr "Eksporterer kontoen til Ring..."
 
-#: ui/accountdevicestab.ui:181
+#: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
 msgstr "Din genererede PIN-kode:"
 
@@ -908,7 +909,7 @@ msgstr "Aktivér video"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
-msgstr ""
+msgstr "Video-codec'er"
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
