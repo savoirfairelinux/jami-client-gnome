@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Любомир Василев, 2016
-# Симон Болоканов <sbolokanov@abv.bg>, 2016
+# Симонъ Болокановъ <sbolokanov@abv.bg>, 2016
+# Симонъ Болокановъ <sbolokanov@abv.bg>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 14:42-0500\n"
-"PO-Revision-Date: 2016-12-15 19:44+0000\n"
+"POT-Creation-Date: 2016-12-19 15:13-0500\n"
+"PO-Revision-Date: 2016-12-19 20:14+0000\n"
 "Last-Translator: Stepan Salenikovich\n"
 "Language-Team: Bulgarian (http://www.transifex.com/savoirfairelinux/ring/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -138,7 +139,7 @@ msgid "Select account export location"
 msgstr ""
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
-#: ui/accountdevicestab.ui:134 ui/accountimportexportview.ui:161
+#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
 msgstr "Отказ"
 
@@ -416,14 +417,14 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:248
 msgid "Looking up username availability..."
-msgstr ""
+msgstr "Проверява дали е свободно потребителското име…"
 
 #: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:485
 msgid "Registering username..."
 msgstr "Регистриране на потребителското име…"
 
 #: src/usernameregistrationbox.cpp:319
-msgid "Count not initiate name registration, try again."
+msgid "Could not initiate name registration, try again."
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:361
@@ -589,7 +590,7 @@ msgstr "Добре дошли в"
 
 #: ui/accountcreationwizard.ui:66
 msgid "Create Ring Account"
-msgstr ""
+msgstr "Създай Ring акаунт"
 
 #: ui/accountcreationwizard.ui:67
 msgid "Create a new Ring account (for new users)"
@@ -643,7 +644,7 @@ msgstr "Профил"
 
 #: ui/accountcreationwizard.ui:285
 msgid "Full name:"
-msgstr ""
+msgstr "Пълно име:"
 
 #: ui/accountcreationwizard.ui:327
 msgid "Ring Account"
@@ -680,14 +681,14 @@ msgstr "Може да отнеме известно време."
 
 #: ui/accountcreationwizard.ui:518
 msgid "Retrieving your Ring account..."
-msgstr ""
+msgstr "Получава твоят Ring акаунт…"
 
 #: ui/accountcreationwizard.ui:544
 msgid "Error creating/loading account."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:212
-#: ui/accountdevicestab.ui:233 ui/accountmigrationview.ui:236
+#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
+#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
 msgid "OK"
 msgstr "Добре"
 
@@ -703,34 +704,34 @@ msgstr "Устройства"
 msgid "Add device"
 msgstr "Добавяне на устройство"
 
-#: ui/accountdevicestab.ui:82
+#: ui/accountdevicestab.ui:83
 msgid "Add New Device"
 msgstr "Добавяне на ново устройство"
 
-#: ui/accountdevicestab.ui:97
+#: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
 msgstr ""
 
-#: ui/accountdevicestab.ui:106 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
 msgstr "Парола (задължително):"
 
-#: ui/accountdevicestab.ui:117 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
-msgstr ""
+msgstr "Вкарай архивна парола"
 
-#: ui/accountdevicestab.ui:140
+#: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
 msgstr ""
 
-#: ui/accountdevicestab.ui:159
+#: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
 msgstr ""
 
-#: ui/accountdevicestab.ui:181
+#: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
 msgstr ""
 
@@ -828,7 +829,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:279
 msgid "Register my username later"
-msgstr ""
+msgstr "Регистрирай потребителското ми име по–късно"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -852,7 +853,7 @@ msgstr "Шифроване на договарянето (TLS)"
 
 #: ui/accountsecuritytab.ui:148
 msgid "CA certificate"
-msgstr ""
+msgstr "CA сертификат"
 
 #: ui/accountsecuritytab.ui:185
 msgid "User certificate"
@@ -908,7 +909,7 @@ msgstr "Включване на видеото"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
-msgstr ""
+msgstr "Видео кодеци"
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
@@ -1001,7 +1002,7 @@ msgstr "Записване на звук"
 
 #: ui/currentcallview.ui:356
 msgid "Adjust outgoing video quality"
-msgstr ""
+msgstr "Настрой качеството на изходящото видео"
 
 #: ui/currentcallview.ui:361 ui/currentcallview.ui:443
 msgid "Video quality"
@@ -1061,11 +1062,11 @@ msgstr "Запазване"
 
 #: ui/generalsettingsview.ui:32
 msgid "Profile Settings"
-msgstr ""
+msgstr "Настройки на профила"
 
 #: ui/generalsettingsview.ui:74
 msgid "Ring Settings"
-msgstr ""
+msgstr "Настройки на Ring"
 
 #: ui/generalsettingsview.ui:90
 msgid "Start Ring on login"
@@ -1081,11 +1082,11 @@ msgstr "Извеждане на Ring на преден план при вход�
 
 #: ui/generalsettingsview.ui:114
 msgid "Enable notifications for incoming calls."
-msgstr ""
+msgstr "Включване на известията за входящи повиквания."
 
 #: ui/generalsettingsview.ui:122
 msgid "Enable notifications for new chat messages."
-msgstr ""
+msgstr "Включване на известията за нови съобщения."
 
 #: ui/generalsettingsview.ui:130
 msgid "Entering a number in the search entry will place a new call."

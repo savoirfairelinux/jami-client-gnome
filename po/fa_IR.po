@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
+# Amin Mahmudian, 2017
+# Danial Behzadi <dani.behzi@ubuntu.com>, 2016
 # Hessam Shahpouri, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 14:42-0500\n"
-"PO-Revision-Date: 2016-12-15 19:43+0000\n"
-"Last-Translator: Stepan Salenikovich\n"
+"POT-Creation-Date: 2016-12-19 15:13-0500\n"
+"PO-Revision-Date: 2017-01-16 10:03+0000\n"
+"Last-Translator: Amin Mahmudian\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/ring/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +22,7 @@ msgstr ""
 
 #: src/accountadvancedtab.cpp:389
 msgid "_Remove server"
-msgstr ""
+msgstr "_برداشتن کارساز"
 
 #: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:263
 msgid "Hostname"
@@ -51,24 +53,24 @@ msgstr "نرخ نمونه گیری"
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
-msgstr ""
+msgstr "حساب کاربری شما ساخته شد، ولی نتوانستیم نام کاربری شما را ثبت کنیم. در منوی تنظیمات دوباره تلاش کنید."
 
 #: src/accountcreationwizard.cpp:283
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
-msgstr ""
+msgstr "ناشناخته"
 
 #: src/accountcreationwizard.cpp:454 ui/accountmigrationview.ui:132
 msgid "Passwords don't match"
-msgstr ""
+msgstr "گذرواژه‌ها یکسان نیستند"
 
 #: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
 msgid "Bad password"
-msgstr ""
+msgstr "گذرواژهٔ بد"
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
-msgstr ""
+msgstr "خطای شبکه، دوباره تلاش کنید"
 
 #: src/accountdevicestab.cpp:213
 msgid "Could not initiate export to the Ring, try again"
@@ -82,7 +84,7 @@ msgstr "نام"
 #: src/accountdevicestab.cpp:251
 msgctxt "Device ID Column"
 msgid "ID"
-msgstr ""
+msgstr "شناسه"
 
 #: src/accountgeneraltab.cpp:201
 msgid "Alias"
@@ -118,7 +120,7 @@ msgstr "شماره پست صوتی"
 
 #: src/accountgeneraltab.cpp:324
 msgid "Name service URL"
-msgstr ""
+msgstr "نشانی اینترنتی خدمت نام"
 
 #: src/accountgeneraltab.cpp:337
 msgid "Auto-answer calls"
@@ -134,16 +136,16 @@ msgstr "نوع تون DTMF"
 
 #: src/accountimportexportview.cpp:99
 msgid "Select account export location"
-msgstr ""
+msgstr "گزینش مکان برون‌ریزی حساب"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
-#: ui/accountdevicestab.ui:134 ui/accountimportexportview.ui:161
+#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
-msgstr ""
+msgstr "لغو"
 
 #: src/accountimportexportview.cpp:104
 msgid "Select"
-msgstr ""
+msgstr "گزینش"
 
 #: src/accountimportexportview.cpp:211
 msgid "Error importing account(s)"
@@ -166,7 +168,7 @@ msgstr "همگانی"
 #: src/accountview.cpp:185
 msgctxt "Account settings"
 msgid "Devices"
-msgstr ""
+msgstr "افزاره‌ها"
 
 #: src/accountview.cpp:191
 msgctxt "Account settings"
@@ -204,15 +206,15 @@ msgstr "وضعیت"
 
 #: src/avatarmanipulation.cpp:381
 msgid "Open Avatar Image"
-msgstr ""
+msgstr "گشودن تصویر آواتار"
 
 #: src/avatarmanipulation.cpp:384
 msgid "_Cancel"
-msgstr ""
+msgstr "_لغو"
 
 #: src/avatarmanipulation.cpp:386
 msgid "_Open"
-msgstr ""
+msgstr "_گشودن"
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
@@ -232,7 +234,7 @@ msgstr ""
 
 #: src/contactpopupmenu.cpp:114
 msgid "_Call"
-msgstr ""
+msgstr "_تماس"
 
 #: src/contactpopupmenu.cpp:117
 msgid "_Copy name"
@@ -248,7 +250,7 @@ msgstr "افزودن به مخاطبین"
 
 #: src/contactpopupmenu.cpp:126
 msgid "_Remove contact"
-msgstr ""
+msgstr "_برداشتن مخاطب"
 
 #: src/dialogs.c:53
 msgid "Working..."
@@ -266,7 +268,7 @@ msgstr ""
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "نسخه گنوم برای رینگ.\nرینگ یک نرم‌افزار ارتباطات عمومی است که به آزادی‌ها و حریم شخصی کاربرانش احترام می‌گذارد."
 
 #: src/editcontactview.cpp:185
 msgctxt "Phone number category"
@@ -277,7 +279,7 @@ msgstr "منزل"
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr ""
+msgstr "این یک عملیات مخرب است. آیا مطمئن هستید که می‌خواهید تمام گفت‌وگو‌ها و تاریخ‌چه تماس‌تان را پاک کنید؟"
 
 #: src/historyview.cpp:293
 msgctxt "Call history"
@@ -296,7 +298,7 @@ msgstr "تماس ورودی"
 #: src/ringnotify.cpp:165 src/ringnotify.cpp:343
 msgctxt "notification action name"
 msgid "Show"
-msgstr ""
+msgstr "نمایش"
 
 #: src/ringnotify.cpp:267
 #, c-format
@@ -325,7 +327,7 @@ msgstr ""
 #: src/ringmainwindow.cpp:584
 #, c-format
 msgid "Invalid Ring username: %s"
-msgstr ""
+msgstr "نام‌کاربری رینگ نامعتبر: %s"
 
 #: src/ringmainwindow.cpp:599
 msgid "Error resolving username, nameserver is possibly unreachable"
@@ -344,7 +346,7 @@ msgstr ""
 #: src/ringmainwindow.cpp:1038
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr ""
+msgstr "گشودن گپ"
 
 #: src/ringmainwindow.cpp:1211
 msgctxt ""
@@ -357,14 +359,14 @@ msgstr ""
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "این نام کاربری رینگ شماست.\nکپی‌اش کنید و با دوستان‌تان به اشتراک بگذارید!"
 
 #: src/ringwelcomeview.cpp:77
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "این آی‌دی رینگ شماست.\nکپی‌اش کنید و با دوستان‌تان به اشتراک بگذارید!"
 
 #: src/ringwelcomeview.cpp:84
 msgid "fetching RingID..."
@@ -374,7 +376,7 @@ msgstr ""
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "رینگ یک نرم‌افزار ارتباطات عمومی است که به آزادی‌ها و حریم شخصی کاربرانش احترام می‌گذارد."
 
 #: src/ringwelcomeview.cpp:185
 msgctxt "Do not translate \"Ring ID\""
@@ -383,27 +385,27 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
-msgstr ""
+msgstr "نام کاربری وارد شده در دسترس نیست"
 
 #: src/usernameregistrationbox.cpp:129
 msgid "Username is not available"
-msgstr ""
+msgstr "نام کاربری دردسترس نیست"
 
 #: src/usernameregistrationbox.cpp:138
 msgid "The entered username is not valid"
-msgstr ""
+msgstr "نام کاربری وارد شده در معتبر نیست"
 
 #: src/usernameregistrationbox.cpp:139
 msgid "Username is not valid"
-msgstr ""
+msgstr "نام کاربری معتبر نیست"
 
 #: src/usernameregistrationbox.cpp:148
 msgid "The entered username is available"
-msgstr ""
+msgstr "نام کاربری وارد شده دردسترس است"
 
 #: src/usernameregistrationbox.cpp:149
 msgid "Username is available"
-msgstr ""
+msgstr "نام کاربری دردسترس است"
 
 #: src/usernameregistrationbox.cpp:158
 msgid "Failed to perform lookup"
@@ -419,10 +421,10 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:485
 msgid "Registering username..."
-msgstr ""
+msgstr "در حال ثبت نام کاربری..."
 
 #: src/usernameregistrationbox.cpp:319
-msgid "Count not initiate name registration, try again."
+msgid "Could not initiate name registration, try again."
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:361
@@ -431,15 +433,15 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:397
 msgid "Invalid username"
-msgstr ""
+msgstr "نام کاربری نامعتبر"
 
 #: src/usernameregistrationbox.cpp:411
 msgid "Username already taken"
-msgstr ""
+msgstr "نام کاربری قبلاً برداشته شده"
 
 #: src/usernameregistrationbox.cpp:418
 msgid "Network error"
-msgstr ""
+msgstr "خطای شبکه"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -486,7 +488,7 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:149
 msgid "Registration"
-msgstr ""
+msgstr "ثبت نام"
 
 #: ui/accountadvancedtab.ui:178
 msgid "Use random port"
@@ -498,7 +500,7 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:225
 msgid "Network Interface"
-msgstr ""
+msgstr "رابط شبکه"
 
 #: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
@@ -510,7 +512,7 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:292
 msgid "Address"
-msgstr ""
+msgstr "نشانی"
 
 #: ui/accountadvancedtab.ui:340
 msgid "Use STUN"
@@ -526,11 +528,11 @@ msgstr "استفاده از TURN"
 
 #: ui/accountadvancedtab.ui:434
 msgid "username"
-msgstr ""
+msgstr "نام کاربری"
 
 #: ui/accountadvancedtab.ui:455
 msgid "password"
-msgstr ""
+msgstr "گذرواژه"
 
 #: ui/accountadvancedtab.ui:479
 msgid "realm"
@@ -552,11 +554,11 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
 msgid "Min"
-msgstr ""
+msgstr "کمینه"
 
 #: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
 msgid "Max"
-msgstr ""
+msgstr "بیشینه"
 
 #: ui/accountadvancedtab.ui:665
 msgid "Audio RTP Port Range"
@@ -584,11 +586,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:32
 msgid "Welcome to "
-msgstr ""
+msgstr "خوش آمدید به"
 
 #: ui/accountcreationwizard.ui:66
 msgid "Create Ring Account"
-msgstr ""
+msgstr "ساخت حساب رینگ"
 
 #: ui/accountcreationwizard.ui:67
 msgid "Create a new Ring account (for new users)"
@@ -596,7 +598,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:74
 msgid "Link this device to an account"
-msgstr ""
+msgstr "پیوند این افزاره به یک حساب"
 
 #: ui/accountcreationwizard.ui:75
 msgid "Link this devices to a Ring account created on another device"
@@ -638,7 +640,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:265
 msgid "Profile"
-msgstr ""
+msgstr "نمایه"
 
 #: ui/accountcreationwizard.ui:285
 msgid "Full name:"
@@ -685,61 +687,61 @@ msgstr ""
 msgid "Error creating/loading account."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:212
-#: ui/accountdevicestab.ui:233 ui/accountmigrationview.ui:236
+#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
+#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
 msgid "OK"
-msgstr ""
+msgstr "خب"
 
 #: ui/accountdevicestab.ui:21
 msgid "My Device ID:"
-msgstr ""
+msgstr "آی‌دی دستگاه من:"
 
 #: ui/accountdevicestab.ui:40
 msgid "Devices"
-msgstr ""
+msgstr "افزاره‌ها"
 
 #: ui/accountdevicestab.ui:66
 msgid "Add device"
-msgstr ""
+msgstr "افزودن دستگاه"
 
-#: ui/accountdevicestab.ui:82
+#: ui/accountdevicestab.ui:83
 msgid "Add New Device"
-msgstr ""
+msgstr "افزودن افزاره نو"
 
-#: ui/accountdevicestab.ui:97
+#: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
 msgstr ""
 
-#: ui/accountdevicestab.ui:106 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
-msgstr ""
+msgstr "گذرواژ (الزامی):"
 
-#: ui/accountdevicestab.ui:117 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
 msgstr ""
 
-#: ui/accountdevicestab.ui:140
+#: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
 msgstr ""
 
-#: ui/accountdevicestab.ui:159
+#: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
 msgstr ""
 
-#: ui/accountdevicestab.ui:181
+#: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
 msgstr ""
 
 #: ui/accountgeneraltab.ui:42
 msgid "Account"
-msgstr ""
+msgstr "حساب کاربری"
 
 #: ui/accountgeneraltab.ui:82
 msgid "Parameters"
-msgstr ""
+msgstr "پارامترها"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -767,7 +769,7 @@ msgstr ""
 
 #: ui/accountimportexportview.ui:169 ui/accountview.ui:110
 msgid "Export"
-msgstr ""
+msgstr "برون‌ریزی"
 
 #: ui/accountimportexportview.ui:181 ui/accountview.ui:103
 msgid "Import"
@@ -800,7 +802,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:141
 msgid "Password:"
-msgstr ""
+msgstr "گذرواژه:"
 
 #: ui/accountmigrationview.ui:184
 msgid "Migrate account"
@@ -816,7 +818,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:255
 msgid "Choose your Ring username"
-msgstr ""
+msgstr "نام کاربری رینگ خود را انتخاب کنید"
 
 #: ui/accountmigrationview.ui:264
 msgid ""
@@ -859,11 +861,11 @@ msgstr ""
 
 #: ui/accountsecuritytab.ui:222
 msgid "Private key"
-msgstr ""
+msgstr "کلید خصوصی"
 
 #: ui/accountsecuritytab.ui:245
 msgid "Private key password"
-msgstr ""
+msgstr "گذرواژه کلید خصوصی"
 
 #: ui/accountsecuritytab.ui:292
 msgid "TLS protocol method"
@@ -1020,7 +1022,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:452
 msgid "Record"
-msgstr ""
+msgstr "ضبط"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"

@@ -3,7 +3,8 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
-# Andrei Shevchuk <andrei@shvchk.com>, 2016
+# Андрей Шевчук <andrei@shvchk.com>, 2016
+# Anton Samarchyan <desecho@gmail.com>, 2016
 # Konstantin, 2016
 # Marat Gubaidullin <marat.gubaidullin@savoirfairelinux.com>, 2015
 # Natalia <sonaux@gmail.com>, 2015
@@ -12,14 +13,15 @@
 # Yaroslav Molochko <onorua@gmail.com>, 2015
 # Александр <suslikkreal@gmail.com>, 2015
 # Александр Асланьян <asl174@yandex.ru>, 2015
+# Андрей Шевчук <andrei@shvchk.com>, 2016
 # Чураков Александр, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 14:42-0500\n"
-"PO-Revision-Date: 2016-12-15 19:44+0000\n"
-"Last-Translator: Stepan Salenikovich\n"
+"POT-Creation-Date: 2016-12-19 15:13-0500\n"
+"PO-Revision-Date: 2016-12-25 03:47+0000\n"
+"Last-Translator: Андрей Шевчук <andrei@shvchk.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -146,7 +148,7 @@ msgid "Select account export location"
 msgstr "Выбрать расположение для экспорта аккаунта"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
-#: ui/accountdevicestab.ui:134 ui/accountimportexportview.ui:161
+#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -338,7 +340,7 @@ msgstr "Недопустимое имя Ring: %s"
 
 #: src/ringmainwindow.cpp:599
 msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr ""
+msgstr "Ошибка нахождения имени пользователя, сервер имен возможно недоступен"
 
 #: src/ringmainwindow.cpp:613
 #, c-format
@@ -366,7 +368,7 @@ msgstr "Найдите контакты или введите номер"
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Это ваше имя пользователя Ring.\nСкопируйте и поделитесь им со своими друзьями!"
 
 #: src/ringwelcomeview.cpp:77
 msgctxt "Do not translate \"RingID\""
@@ -388,7 +390,7 @@ msgstr "Ring — это свободная программа для связи,
 #: src/ringwelcomeview.cpp:185
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr ""
+msgstr "Ring ID QR код"
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
@@ -431,7 +433,7 @@ msgid "Registering username..."
 msgstr "Регистрация имени пользователя…"
 
 #: src/usernameregistrationbox.cpp:319
-msgid "Count not initiate name registration, try again."
+msgid "Could not initiate name registration, try again."
 msgstr "Не удалось инициировать регистрацию имени, попробуйте снова."
 
 #: src/usernameregistrationbox.cpp:361
@@ -589,7 +591,7 @@ msgstr "Вниз"
 
 #: ui/accountaudiotab.ui:75
 msgid "Audio Codecs"
-msgstr ""
+msgstr "Аудио кодеки"
 
 #: ui/accountcreationwizard.ui:32
 msgid "Welcome to "
@@ -622,7 +624,7 @@ msgid ""
 "previous device, choose the Ring Account to use and select \"Link another "
 "device to this account\". You will get the necessary PIN to complete this "
 "form. The PIN is only valid for 10 minutes."
-msgstr ""
+msgstr "Для привязки этого устройства к другому аккаунту вам нужно сначала получить PIN код. Чтобы сгенерировать PIN код, перейдите в настройки аккаунта на предыдущем устройстве, выберите аккаунт Ring, затем \"Привязать другое устройство к этому аккаунту\". Вы получите PIN, необходимый для заполнения этой формы. PIN код действителен только в течение 10 минут."
 
 #: ui/accountcreationwizard.ui:126 ui/accountcreationwizard.ui:215
 #: ui/accountcreationwizard.ui:427
@@ -631,7 +633,7 @@ msgstr "Назад"
 
 #: ui/accountcreationwizard.ui:134
 msgid "Okay, I have the PIN!"
-msgstr ""
+msgstr "Окей, у меня есть PIN!"
 
 #: ui/accountcreationwizard.ui:172
 msgid "Enter your pin:"
@@ -651,7 +653,7 @@ msgstr "Профиль"
 
 #: ui/accountcreationwizard.ui:285
 msgid "Full name:"
-msgstr ""
+msgstr "Полное имя:"
 
 #: ui/accountcreationwizard.ui:327
 msgid "Ring Account"
@@ -659,14 +661,14 @@ msgstr "Аккаунт Ring"
 
 #: ui/accountcreationwizard.ui:340
 msgid "Register public username (experimental):"
-msgstr ""
+msgstr "Зарегистрировать публичное имя пользователя (экспериментальная функция):"
 
 #: ui/accountcreationwizard.ui:346
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Отмечая это, вы зарегистрируете уникальное имя в сети Ring. Другие пользователи смогут использовать его чтобы связаться с вами вместо RingID, который 40 символов длинной."
 
 #: ui/accountcreationwizard.ui:369 ui/accountmigrationview.ui:161
 msgid "Password (confirm):"
@@ -676,7 +678,7 @@ msgstr "Пароль (подтверждение):"
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "Этот пароль будет использован для шифрования данных вашего аккаунта и для привязки новых устройств к вашему аккаунту."
 
 #: ui/accountcreationwizard.ui:459
 msgid "Generating your Ring account..."
@@ -694,8 +696,8 @@ msgstr "Загрузка вашего аккаунта Ring…"
 msgid "Error creating/loading account."
 msgstr "Ошибка создания/загрузки аккаунта."
 
-#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:212
-#: ui/accountdevicestab.ui:233 ui/accountmigrationview.ui:236
+#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
+#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
 msgid "OK"
 msgstr "OK"
 
@@ -711,34 +713,34 @@ msgstr "Устройства"
 msgid "Add device"
 msgstr "Добавить устройство"
 
-#: ui/accountdevicestab.ui:82
+#: ui/accountdevicestab.ui:83
 msgid "Add New Device"
 msgstr "Добавить новое устройство"
 
-#: ui/accountdevicestab.ui:97
+#: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
 msgstr "Для привязки нового устройства к вашему аккаунту Ring вам нужно экспортировать ваш аккаунт в сеть Ring. Это сгенерирует PIN код, который потребуется ввести на вашем новом устройстве в течение 5 минут с момента его генерации."
 
-#: ui/accountdevicestab.ui:106 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
 msgstr "Пароль (обязательно):"
 
-#: ui/accountdevicestab.ui:117 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
 msgstr "Введите пароль архива"
 
-#: ui/accountdevicestab.ui:140
+#: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
 msgstr "Экспорт в сеть Ring"
 
-#: ui/accountdevicestab.ui:159
+#: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
 msgstr "Экспорт аккаунта в сеть Ring…"
 
-#: ui/accountdevicestab.ui:181
+#: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
 msgstr "Ваш сгенерированный PIN:"
 
@@ -916,7 +918,7 @@ msgstr "Включить видео"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
-msgstr ""
+msgstr "Видео кодеки"
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
