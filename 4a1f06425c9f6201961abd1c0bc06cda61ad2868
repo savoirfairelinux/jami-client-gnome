@@ -1,0 +1,7 @@
+Code-Review+2: Adrien Béraud <adrien.beraud@savoirfairelinux.com>
+Verified+1: Jenkins CI <jenkins@ring-packaging.cx>
+Submitted-by: Nicolas Jager <nicolas.jager@savoirfairelinux.com>
+Submitted-at: Mon, 23 Jan 2017 13:48:50 -0500
+Reviewed-on: https://gerrit-ring.savoirfairelinux.com/5991
+Project: ring-client-gnome
+Branch: refs/heads/master
