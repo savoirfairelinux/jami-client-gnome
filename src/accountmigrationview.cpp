@@ -58,31 +58,18 @@ typedef struct _AccountMigrationViewPrivate AccountMigrationViewPrivate;
 struct _AccountMigrationViewPrivate
 {
     Account   *account;
-    GtkWidget *stack_account_migration;
     QMetaObject::Connection state_changed;
     guint timeout_tag;
-
-    /* generating_account_view */
-    GtkWidget *migrating_account_view;
-
-    /* error_view */
-    GtkWidget *error_view;
-    GtkWidget *button_error_view_ok;
-
-    /* choose_username_view */
-    GtkWidget *choose_username_view;
-    GtkWidget *box_username_registration_box;
-    GtkWidget *button_register_username_later;
 
     /* main_view */
     GtkWidget *main_view;
     GtkWidget *label_account_alias;
     GtkWidget *label_account_ringid;
     GtkWidget *image_avatar;
-    GtkWidget *label_password_error;
+    GtkWidget *label_migration_error;
     GtkWidget *entry_password;
-    GtkWidget *entry_password_confirm;
     GtkWidget *button_migrate_account;
+    GtkWidget *spinner_migrating;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AccountMigrationView, account_migration_view, GTK_TYPE_BOX);
@@ -101,6 +88,7 @@ static guint account_migration_view_signals[LAST_SIGNAL] = { 0 };
 static void
 account_migration_view_dispose(GObject *object)
 {
+    g_warning(" &14& ");
     auto priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(object);
 
     // make sure to disconnect from all signals when disposing of view
@@ -116,40 +104,32 @@ account_migration_view_dispose(GObject *object)
 static void
 account_migration_view_init(AccountMigrationView *view)
 {
+    g_warning(" &13& ");
     gtk_widget_init_template(GTK_WIDGET(view));
+    
+    //~ AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
+    //~ gtk_widget_hide(priv->spinner_migrating);
+    
 }
 
 static void
 account_migration_view_class_init(AccountMigrationViewClass *klass)
 {
+    g_warning(" &12& ");
     G_OBJECT_CLASS(klass)->dispose = account_migration_view_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/accountmigrationview.ui");
-
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, stack_account_migration);
-
-    /* error_view */
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, error_view);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, button_error_view_ok);
-
-    /* migrating_account_view */
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, migrating_account_view);
-
-    /* choose_username_view */
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, choose_username_view);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, box_username_registration_box);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, button_register_username_later);
-
+    g_warning(" &B1& ");
     /* main_view */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, main_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_account_alias);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_account_ringid);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, image_avatar);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_password_error);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_migration_error);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, entry_password);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, entry_password_confirm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, button_migrate_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, spinner_migrating);
 
     /* add signals */
     account_migration_view_signals[ACCOUNT_MIGRATION_COMPLETED] = g_signal_new("account-migration-completed",
@@ -169,108 +149,100 @@ account_migration_view_class_init(AccountMigrationViewClass *klass)
                  nullptr,
                  g_cclosure_marshal_VOID__VOID,
                  G_TYPE_NONE, 0);
+
 }
 
 static gboolean
 migration_timeout(AccountMigrationView *view)
 {
+    g_warning(" &11& ");
     AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
     g_warning("timeout reached while migrating account %s", priv->account->id().constData());
     QObject::disconnect(priv->state_changed);
     priv->timeout_tag = 0;
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_migration), priv->error_view);
+    // XXX voir ce qui doit etre fait en cas de timeout
     return G_SOURCE_REMOVE;
 }
 
+/* XXX ancienement quand on cliquait sur le button, voir si la logique fonctionne...
 static void
 button_error_view_ok_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationView *view)
 {
+    g_warning(" &10& ");
     g_signal_emit(G_OBJECT(view), account_migration_view_signals[ACCOUNT_MIGRATION_FAILED], 0);
 }
+*/
 
 static void
-show_choose_username(AccountMigrationView *view)
+migrate(AccountMigrationView *view)
 {
+    g_warning(" &8& ");
+    g_warning("C : %d", view);
     AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_migration), priv->choose_username_view);
+    
+    gtk_widget_set_sensitive(priv->button_migrate_account, FALSE);
+    const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
+
+    // Timeout in 30 seconds
+    priv->timeout_tag = g_timeout_add_full(G_PRIORITY_DEFAULT, 30000, (GSourceFunc)migration_timeout, view, NULL);
+
+    priv->state_changed = QObject::connect(priv->account, &Account::migrationEnded,
+        [=] (const QString& accountId, const Account::MigrationEndedStatus state)
+        {
+            
+            g_source_remove(priv->timeout_tag);
+            priv->timeout_tag = 0;
+            
+            
+            priv->account << Account::EditAction::RELOAD;
+            
+            g_warning("message recu");
+            switch(state)
+            {
+            case Account::MigrationEndedStatus::SUCCESS:
+            //account_migration_completed(view);
+            g_signal_emit(G_OBJECT(view), account_migration_view_signals[ACCOUNT_MIGRATION_COMPLETED], 0);
+            break;
+            case Account::MigrationEndedStatus::INVALID:
+            g_warning("E R R E U R");
+            g_signal_emit(G_OBJECT(view), account_migration_view_signals[ACCOUNT_MIGRATION_FAILED], 0);
+            break;
+            }
+        });
+
+    priv->account->setArchivePassword(password);
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_password), "");
+    priv->account->performAction(Account::EditAction::SAVE);
+    g_warning(" &FD& ");
+
 }
+
 
 static void
 migrate_account_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationView *view)
 {
+    g_warning("C : %d", view);
+    migrate(view);
+}
+
+static void
+password_entry_activate(G_GNUC_UNUSED GtkEntry* entry, AccountMigrationView *view)
+{
+    g_warning("C : %d", view);
     AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
-    gtk_widget_hide(priv->label_password_error);
-
-    /* Check for correct password */
-    const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
-    const gchar *password_confirm = gtk_entry_get_text(GTK_ENTRY(priv->entry_password_confirm));
-
-    if (g_strcmp0(password, password_confirm) != 0)
-    {
-        gtk_widget_show(priv->label_password_error);
-        return;
-    }
-    else
-    {
-        gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_migration), priv->migrating_account_view);
-
-        // Timeout in 30 seconds
-        priv->timeout_tag = g_timeout_add_full(G_PRIORITY_DEFAULT, 30000, (GSourceFunc)migration_timeout, view, NULL);
-
-        priv->state_changed = QObject::connect(
-            priv->account,
-            &Account::stateChanged,
-            [=] (Account::RegistrationState state) {
-                switch(state)
-                {
-                    case Account::RegistrationState::READY:
-                    case Account::RegistrationState::TRYING:
-                    case Account::RegistrationState::UNREGISTERED:
-                    {
-                        // disconnect before calling reload, since that will cause and account state change
-                        QObject::disconnect(priv->state_changed); // only want to emit once
-
-                        g_source_remove(priv->timeout_tag); // We didn't timeout
-                        priv->timeout_tag = 0;
-
-                        // Make sure that the account is ready to be displayed.
-                        priv->account << Account::EditAction::RELOAD;
-
-                        AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
-                        QObject::disconnect(priv->state_changed); // only want to emit once
-                        g_source_remove(priv->timeout_tag); // We didn't timeout
-
-                        // Propose setting a username
-                        show_choose_username(view);
-
-                        break;
-                    }
-                    case Account::RegistrationState::ERROR:
-                    case Account::RegistrationState::INITIALIZING:
-                    case Account::RegistrationState::COUNT__:
-                    {
-                        // Keep waiting...
-                        break;
-                    }
-                }
-            }
-        );
-
-        priv->account->setArchivePassword(password);
-        priv->account->performAction(Account::EditAction::SAVE);
-
-    }
+    gtk_widget_show(priv->spinner_migrating);
+    migrate(view);
 }
 
 static void
 password_entry_changed(G_GNUC_UNUSED GtkEntry* entry, AccountMigrationView *view)
 {
+    g_warning(" &5& ");
     AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
 
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
-    const gchar *password_confirm = gtk_entry_get_text(GTK_ENTRY(priv->entry_password_confirm));
 
-    if (strlen(password) > 0 && strlen(password_confirm) > 0)
+    if (strlen(password) > 0)
     {
         gtk_widget_set_sensitive(priv->button_migrate_account, TRUE);
     }
@@ -283,6 +255,8 @@ password_entry_changed(G_GNUC_UNUSED GtkEntry* entry, AccountMigrationView *view
 static void
 account_migration_completed(AccountMigrationView *view)
 {
+    g_warning(" &4& ");
+    g_warning(" TOTO ");
     /* This check is needed because users may close the migration view while
      * the registration is still ongoing.
      */
@@ -294,26 +268,20 @@ account_migration_completed(AccountMigrationView *view)
 static void
 button_register_username_later_clicked(G_GNUC_UNUSED GtkButton* button, AccountMigrationView *view)
 {
+    g_warning(" &3& ");
     account_migration_completed(view);
 }
 
 static void
 build_migration_view(AccountMigrationView *view)
 {
+    g_warning(" &2& ");
     g_return_if_fail(IS_ACCOUNT_MIGRATION_VIEW(view));
     AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
 
-    /* Create the username registration box */
-    auto username_registration_box = username_registration_box_new(priv->account, TRUE);
-    gtk_widget_show(username_registration_box);
-    gtk_container_add(GTK_CONTAINER(priv->box_username_registration_box), username_registration_box);
-
     g_signal_connect(priv->button_migrate_account, "clicked", G_CALLBACK(migrate_account_clicked), view);
-    g_signal_connect(priv->button_error_view_ok, "clicked", G_CALLBACK(button_error_view_ok_clicked), view);
     g_signal_connect(priv->entry_password, "changed", G_CALLBACK(password_entry_changed), view);
-    g_signal_connect(priv->entry_password_confirm, "changed", G_CALLBACK(password_entry_changed), view);
-    g_signal_connect(priv->button_register_username_later, "clicked", G_CALLBACK(button_register_username_later_clicked), view);
-    g_signal_connect_swapped(username_registration_box, "username-registration-completed", G_CALLBACK(account_migration_completed), view);
+    g_signal_connect(priv->entry_password, "activate", G_CALLBACK(migrate_account_clicked), view);
 
     gtk_label_set_text(GTK_LABEL(priv->label_account_alias), priv->account->alias().toUtf8().constData());
     // display the ringID (without "ring:")
@@ -336,6 +304,7 @@ build_migration_view(AccountMigrationView *view)
 GtkWidget *
 account_migration_view_new(Account* account)
 {
+    g_warning(" &1& ");
     gpointer view = g_object_new(ACCOUNT_MIGRATION_VIEW_TYPE, NULL);
     AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
     priv->account = account;
