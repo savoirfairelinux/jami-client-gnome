@@ -1042,11 +1042,13 @@ search_entry_places_call_changed(GSettings *settings, const gchar *key, RingMain
 static void
 handle_account_migrations(RingMainWindow *win)
 {
+    g_warning("BUMP");
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
     /* If there is an existing migration view, remove it */
     if (priv->account_migration_view)
     {
+        g_warning("B1");
         gtk_widget_destroy(priv->account_migration_view);
         priv->account_migration_view = nullptr;
     }
@@ -1054,9 +1056,12 @@ handle_account_migrations(RingMainWindow *win)
     QList<Account*> accounts = AccountModel::instance().accountsToMigrate();
     if (!accounts.isEmpty())
     {
+        g_warning("B2");
         Account* account = accounts.first();
 
+g_warning("D1");
         priv->account_migration_view = account_migration_view_new(account);
+        g_warning("D2");
         g_signal_connect_swapped(priv->account_migration_view, "account-migration-completed", G_CALLBACK(handle_account_migrations), win);
         g_signal_connect_swapped(priv->account_migration_view, "account-migration-failed", G_CALLBACK(handle_account_migrations), win);
 
@@ -1074,6 +1079,7 @@ handle_account_migrations(RingMainWindow *win)
     }
     else
     {
+        g_warning("B3");
         gtk_widget_show(priv->ring_settings);
     }
 }
