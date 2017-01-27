@@ -1,293 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <template class="AccountMigrationView" parent="GtkBox">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="halign">center</property>
+    <property name="valign">start</property>
+    <property name="resize_mode">immediate</property>
     <child>
-      <object class="GtkBox">
+      <object class="GtkBox" id="main_view">
         <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="valign">center</property>
+        <property name="border_width">10</property>
         <property name="orientation">vertical</property>
         <property name="spacing">15</property>
-        <property name="valign">center</property>
         <child>
-          <object class="GtkStack" id="stack_account_migration">
+          <object class="GtkLabel">
             <property name="visible">True</property>
-            <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
-            <property name="transition-duration">300</property>
-            <!-- Main view -->
-            <child>
-              <object class="GtkBox" id="main_view">
-                <property name="visible">True</property>
-                <property name="valign">center</property>
-                <property name="border_width">10</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">15</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Account migration required</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">The following account needs to be migrated to the new Ring account format:</property>
-                  </object>
-                </child>
-                <!-- Begin account display -->
-                <child>
-                  <object class="GtkGrid">
-                    <property name="visible">True</property>
-                    <property name="column-spacing">10</property>
-                    <property name="row-spacing">10</property>
-                    <property name="halign">center</property>
-                    <property name="valign">center</property>
-                    <!-- Begin account alias -->
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Alias:</property>
-                        <property name="halign">start</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label_account_alias">
-                        <property name="visible">True</property>
-                        <property name="halign">start</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
-                    <!-- End account alias -->
-                    <!-- Begin accont ringID -->
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="no">RingID:</property>
-                        <property name="halign">start</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label_account_ringid">
-                        <property name="visible">True</property>
-                        <property name="halign">start</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                    <!-- End account ringID -->
-                    <!-- Begin account avatar -->
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Avatar:</property>
-                        <property name="halign">start</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkImage" id="image_avatar">
-                        <property name="visible">True</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">2</property>
-                      </packing>
-                    </child>
-                    <!-- End account avatar -->
-                  </object>
-                </child>
-                <!-- End account display -->
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">To proceed with the migration, you must choose a password for your account. This password will be used to encrypt your master key. It will be required for adding new devices to your Ring account. If you are not ready to choose a password, you may close Ring and resume the migration later.</property>
-                    <property name="halign">center</property>
-                    <property name="max-width-chars">80</property>
-                    <property name="wrap">True</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label_password_error">
-                    <property name="visible">False</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Passwords don't match</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">Password:</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="entry_password">
-                    <property name="max-width-chars">40</property>
-                    <property name="halign">center</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="can_default">True</property>
-                    <property name="has_default">True</property>
-                    <property name="xalign">0.5</property>
-                    <property name="visibility">False</property>
-                    <property name="primary_icon_stock">gtk-dialog-authentication</property>
-                    <property name="input_purpose">password</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">Password (confirm):</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="entry_password_confirm">
-                    <property name="max-width-chars">40</property>
-                    <property name="halign">center</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="can_default">True</property>
-                    <property name="has_default">True</property>
-                    <property name="xalign">0.5</property>
-                    <property name="visibility">False</property>
-                    <property name="primary_icon_stock">gtk-dialog-authentication</property>
-                    <property name="input_purpose">password</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkButton" id="button_migrate_account">
-                    <property name="width-request">200</property>
-                    <property name="halign">center</property>
-                    <property name="visible">True</property>
-                    <property name="sensitive">False</property>
-                    <property name="label" translatable="yes">Migrate account</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <!-- End Main view -->
-            <!-- Migrating account spinner -->
-            <child>
-              <object class="GtkBox" id="migrating_account_view">
-                <property name="visible">True</property>
-                <property name="valign">center</property>
-                <property name="border_width">10</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">15</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Migrating account...</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkSpinner">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="active">True</property>
-                    <property name="height_request">50</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <!-- End migrating account spinner -->
-            <!-- Error view -->
-            <child>
-              <object class="GtkBox" id="error_view">
-                <property name="visible">True</property>
-                <property name="valign">center</property>
-                <property name="border_width">10</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">15</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Failed to migrate account. Try again.</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkButton" id="button_error_view_ok">
-                    <property name="width-request">200</property>
-                    <property name="halign">center</property>
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">OK</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <!-- End Error view -->
-            <!-- Choose username view -->
-            <child>
-              <object class="GtkBox" id="choose_username_view">
-                <property name="visible">True</property>
-                <property name="valign">center</property>
-                <property name="halign">center</property>
-                <property name="border_width">10</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">15</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Choose your Ring username</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">As of now Ring has a decentralized username registry. This means that you can now contact your friends using their usernames instead of their RingIDs. The username registry is distributed and all users are able to consult it.</property>
-                    <property name="halign">center</property>
-                    <property name="max-width-chars">80</property>
-                    <property name="wrap">True</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox" id="box_username_registration_box">
-                    <property name="visible">True</property>
-                    <property name="halign">center</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkButton" id="button_register_username_later">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">Register my username later</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <!-- End Choose username view -->
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Account migration required</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+              <attribute name="scale" value="1.5"/>
+            </attributes>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="row_spacing">10</property>
+            <property name="column_spacing">10</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Alias:</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label_account_alias">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label">RingID:</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label_account_ringid">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="image_avatar">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Please enter your password:</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="entry_password">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="halign">center</property>
+            <property name="visibility">False</property>
+            <property name="max_width_chars">40</property>
+            <property name="xalign">0.5</property>
+            <property name="primary_icon_stock">gtk-dialog-authentication</property>
+            <property name="input_purpose">password</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_migration_error">
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Migration failed, wrong password ?</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="button_migrate_account">
+            <property name="label" translatable="yes">Migrate account</property>
+            <property name="width_request">200</property>
+            <property name="visible">True</property>
+            <property name="sensitive">False</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="halign">center</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">6</property>
+          </packing>
         </child>
       </object>
       <packing>
-        <property name="expand">True</property>
+        <property name="expand">False</property>
         <property name="fill">True</property>
+        <property name="position">0</property>
       </packing>
     </child>
   </template>
