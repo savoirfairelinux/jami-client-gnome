@@ -125,9 +125,11 @@ struct _RingMainWindowPrivate
     GtkWidget *radiobutton_account_settings;
     GtkWidget *account_creation_wizard;
     GtkWidget *account_migration_view;
+    GtkWidget *spinner_lookup;
 
     /* Pending ring usernames lookup for the search entry */
     QMetaObject::Connection username_lookup;
+    std::string pending_username_lookup;
 
     /* The webkit_chat_container is created once, then reused for all chat views */
     GtkWidget *webkit_chat_container;
@@ -507,7 +509,7 @@ search_entry_activated(RingMainWindow *self)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
-    const auto *number_entered = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
+    const auto *number_entered = gtk_entry_get_text(GTK_ENTRY(priv->search_entry)); // XXX rename number_entered by something more true...
 
     URI uri = URI(number_entered);
 
@@ -537,12 +539,9 @@ search_entry_activated(RingMainWindow *self)
 
         if (lookup_username)
         {
-            gtk_widget_set_sensitive(priv->search_entry, FALSE);
-            gtk_widget_set_sensitive(priv->button_new_conversation, FALSE);
-            gtk_entry_set_text(
-                GTK_ENTRY(priv->search_entry),
-                _("looking up RingID")
-            );
+            gtk_spinner_start(GTK_SPINNER(priv->spinner_lookup));
+            priv->pending_username_lookup = std::string(number_entered);
+            gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
 
             QString username_to_lookup = uri.format(
                 URI::Section::USER_INFO |
@@ -555,14 +554,11 @@ search_entry_activated(RingMainWindow *self)
                 &NameDirectory::instance(),
                 &NameDirectory::registeredNameFound,
                 [self, priv, username_to_lookup] (G_GNUC_UNUSED const Account* account, NameDirectory::LookupStatus status, const QString& address, const QString& name) {
-                    if (username_to_lookup.compare(name) != 0)
-                    {
-                        //That is not our lookup.
-                        return;
-                    }
 
-                    gtk_widget_set_sensitive(priv->search_entry, TRUE);
-                    gtk_widget_set_sensitive(priv->button_new_conversation, TRUE);
+                    auto name_qbarray = name.toLatin1();
+                    if ( strcmp(priv->pending_username_lookup.data(), name_qbarray.data()) != 0 )
+                        return;
+
                     gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
 
                     switch(status)
@@ -619,6 +615,8 @@ search_entry_activated(RingMainWindow *self)
                             break;
                         }
                     }
+                    priv->pending_username_lookup = "";
+                    gtk_spinner_stop(GTK_SPINNER(priv->spinner_lookup));
                 }
             );
 
@@ -626,6 +624,8 @@ search_entry_activated(RingMainWindow *self)
         }
         else
         {
+            priv->pending_username_lookup = "";
+                    gtk_spinner_stop(GTK_SPINNER(priv->spinner_lookup));
             process_search_entry_contact_method(self, uri);
         }
     }
@@ -1269,6 +1269,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_media_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, spinner_lookup);
 }
 
 GtkWidget *
