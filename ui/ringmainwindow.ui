@@ -136,7 +136,6 @@
                 <child>
                   <object class="GtkSearchEntry" id="search_entry">
                     <property name="visible">True</property>
-                    <property name="xalign">0.5</property>
                     <property name="truncate-multiline">True</property>
                     <property name="max-length">256</property>
                     <!-- ensure a min height (this is the natural height in adwiata)-->
@@ -145,7 +144,14 @@
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
+                    <property name="padding">5</property>
                   </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinner" id="spinner_lookup">
+                    <property name="visible">True</property>
+                    <property name="active">False</property>
+                  </object>
                 </child>
                 <child>
                   <object class="GtkButton" id="button_new_conversation">
@@ -158,6 +164,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
+                <property name="padding">5</property>
               </packing>
             </child>
             <!-- end hbox search -->
