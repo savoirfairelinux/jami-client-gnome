@@ -60,7 +60,6 @@ struct _AccountMigrationViewPrivate
 {
     Account   *account;
     QMetaObject::Connection state_changed;
-    guint timeout_tag;
 
     /* main_view */
     GtkWidget *main_view;
@@ -93,10 +92,6 @@ account_migration_view_dispose(GObject *object)
     // make sure to disconnect from all signals when disposing of view
     QObject::disconnect(priv->state_changed);
 
-    if (priv->timeout_tag) {
-        g_source_remove(priv->timeout_tag);
-        priv->timeout_tag = 0;
-    }
     G_OBJECT_CLASS(account_migration_view_parent_class)->dispose(object);
 }
 
@@ -142,17 +137,6 @@ account_migration_view_class_init(AccountMigrationViewClass *klass)
                  G_TYPE_NONE, 0);
 }
 
-static gboolean
-migration_timeout(AccountMigrationView *view)
-{
-    AccountMigrationViewPrivate *priv = ACCOUNT_MIGRATION_VIEW_GET_PRIVATE(view);
-    g_warning("timeout reached while migrating account %s", priv->account->id().constData());
-    QObject::disconnect(priv->state_changed);
-    priv->timeout_tag = 0;
-    g_signal_emit(G_OBJECT(view), account_migration_view_signals[ACCOUNT_MIGRATION_FAILED], 0);
-    return G_SOURCE_REMOVE;
-}
-
 static void
 migrate(AccountMigrationView *view)
 {
@@ -160,20 +144,10 @@ migrate(AccountMigrationView *view)
     
     gtk_widget_set_sensitive(priv->button_migrate_account, FALSE);
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
-
-    // Timeout in 30 seconds
-    priv->timeout_tag = g_timeout_add_full(G_PRIORITY_DEFAULT, 30000, (GSourceFunc)migration_timeout, view, NULL);
-
     priv->state_changed = QObject::connect(priv->account, &Account::migrationEnded,
         [=] (const Account::MigrationEndedStatus state)
         {
-            
-            g_source_remove(priv->timeout_tag);
-            priv->timeout_tag = 0;
-            
-            
             priv->account << Account::EditAction::RELOAD;
-            
             switch(state)
             {
             case Account::MigrationEndedStatus::SUCCESS:
