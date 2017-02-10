@@ -47,7 +47,7 @@ registry_cb(G_GNUC_UNUSED GObject *source, GAsyncResult *result, GCancellable *c
     GError *error = NULL;
     ESourceRegistry *registry = e_source_registry_new_finish(result, &error);
     if(!registry) {
-        g_critical("Unable to create EDS registry: %s", error->message);
+        g_warning("Unable to create EDS registry: %s", error->message);
         g_clear_error(&error);
         return;
     } else {
@@ -249,7 +249,7 @@ client_view_cb(EBookClient *client, GAsyncResult *result, EdsContactBackend *sel
     EBookClientView *client_view = NULL;
     GError *error = NULL;
     if(!e_book_client_get_view_finish(client, result, &client_view, &error)) {
-        g_critical("Unable to get client view: %s", error->message);
+        g_warning("Unable to get EDS client view: %s", error->message);
         g_clear_error(&error);
         return;
     } else {
@@ -353,7 +353,7 @@ void EdsContactBackend::addClientView(std::unique_ptr<EBookClientView, void(*)(E
     GError *error = NULL;
     e_book_client_view_start(client_view_.get(), &error);
     if (error) {
-        g_critical("Unable to get start client view: %s", error->message);
+        g_warning("Unable to start EDS client view: %s", error->message);
         g_clear_error(&error);
     }
 }
