@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1acb0d3e_edf71c8b",
+        "filename": "src/accountmigrationview.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-02-15T18:20:40Z",
+      "side": 1,
+      "message": "indent issues to fix here",
+      "range": {
+        "startLine": 178,
+        "startChar": 13,
+        "endLine": 185,
+        "endChar": 13
+      },
+      "revId": "d76dfe8c2f3761f4350dab0db427b5af4a8e970f",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
