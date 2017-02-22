@@ -1,4 +1,19 @@
 body {
+  margin: 0;
+}
+
+#container {
+  position: relative;
+  height:100%;
+  width: 100%;
+}
+
+#messages {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  max-height: 100%;
+  width: 100%;
   overflow-y: scroll;
 }
 
@@ -173,10 +188,6 @@ body {
     transform-origin: top left;
 }
 
-.message_in + .message_in > .message_wrapper {
-    border-top-left-radius: 10px;
-}
-
 .message_timestamp {
     font-size: 0.8em;
     margin-top: 0.5em;
@@ -228,10 +239,6 @@ body {
     transform-origin: top left;
 }
 
-.message_in + .message_in > .message_wrapper:before {
-    display: none;
-}
-
 .message_out + .message_out > .message_wrapper:after {
     display: none;
 }
@@ -257,10 +264,6 @@ body {
     -webkit-animation-delay: 0.4s;
     -webkit-animation-fill-mode: forwards;
     transition: opacity 0.5s ease-in-out;
-}
-
-.message_in + .message_in .sender_image {
-    opacity: 0;
 }
 
 .message_out + .message_out .sender_image {
