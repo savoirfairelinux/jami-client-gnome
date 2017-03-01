@@ -114,6 +114,29 @@
       "revId": "91c36fbd8159cbbe6b8cda11856aa7c794b64870",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_e96e3596",
+        "filename": "ui/accountmigrationview.ui",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-01T15:30:54Z",
+      "side": 1,
+      "message": "the user is creating a new password, a password for the account doesn\u0027t exist before the migration, so there is no such thing as a wrong password...",
+      "range": {
+        "startLine": 139,
+        "startChar": 54,
+        "endLine": 139,
+        "endChar": 88
+      },
+      "revId": "91c36fbd8159cbbe6b8cda11856aa7c794b64870",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
