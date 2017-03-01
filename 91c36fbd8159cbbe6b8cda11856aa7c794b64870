@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_69eec524",
+        "filename": "src/accountmigrationview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-01T15:28:44Z",
+      "side": 1,
+      "message": "you should handle the UNDEFINED_STATUS state, to prevent compile time warning",
+      "range": {
+        "startLine": 177,
+        "startChar": 12,
+        "endLine": 185,
+        "endChar": 13
+      },
+      "revId": "91c36fbd8159cbbe6b8cda11856aa7c794b64870",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a9511dda",
+        "filename": "src/accountmigrationview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-01T15:28:44Z",
+      "side": 1,
+      "message": "function not used",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 82
+      },
+      "revId": "91c36fbd8159cbbe6b8cda11856aa7c794b64870",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_c94a5127",
+        "filename": "src/accountmigrationview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-01T15:28:44Z",
+      "side": 1,
+      "message": "unused var",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 81
+      },
+      "revId": "91c36fbd8159cbbe6b8cda11856aa7c794b64870",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_895459cb",
+        "filename": "src/accountmigrationview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-01T15:28:44Z",
+      "side": 1,
+      "message": "function not used",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 1
+      },
+      "revId": "91c36fbd8159cbbe6b8cda11856aa7c794b64870",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_696325b2",
+        "filename": "src/accountmigrationview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-01T15:28:44Z",
+      "side": 1,
+      "message": "why not just call migrate() directly? migrate_account_clicked() only calls migrate()\n\nyou can do this with g_signal_connect_swapped",
+      "range": {
+        "startLine": 250,
+        "startChar": 66,
+        "endLine": 250,
+        "endChar": 89
+      },
+      "revId": "91c36fbd8159cbbe6b8cda11856aa7c794b64870",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
