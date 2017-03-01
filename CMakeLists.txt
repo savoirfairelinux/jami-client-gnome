@@ -415,6 +415,13 @@ ELSE()
    SET(USE_LIBNM 0)
 ENDIF()
 
+# configure appindicator variable for config.h file
+IF( APPINDICATOR_FOUND )
+    SET(HAVE_APPINDICATOR 1)
+ELSE()
+    SET(HAVE_APPINDICATOR 0)
+ENDIF()
+
 # create config header file to pass cmake settings to source code
 CONFIGURE_FILE (
    "${PROJECT_SOURCE_DIR}/src/config.h.in"
