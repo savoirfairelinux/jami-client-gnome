@@ -6,7 +6,7 @@ communicate with the Ring daemon and for all of the underlying models and their
 logic. Ideally ring-client-gnome should only contain UI related code and any
 wrappers necessary for interacting with libRingClient.
 
-Packages for Debian/Ubuntu/Fedora can be found on http://ring.cx
+Packages for Debian/Ubuntu/Fedora can be found at https://ring.cx
 
 More info about the Ring project and the clients can be found on our Tuleap
 website:
@@ -30,9 +30,9 @@ On Debian/Ubuntu these can be installed by:
     sudo apt-get install g++ cmake libgtk-3-dev qtbase5-dev libclutter-gtk-1.0-dev gnome-icon-theme-symbolic libebook1.2-dev libnotify-dev gettext
 
 On Fedora:
-    sudo yum install gcc-c++ cmake gtk3-devel qt5-qtbase-devel clutter-gtk-devel gnome-icon-theme-symbolic evolution-data-server-devel libnotify-devel gettext
+    sudo dnf install gcc-c++ cmake gtk3-devel qt5-qtbase-devel clutter-gtk-devel gnome-icon-theme-symbolic evolution-data-server-devel libnotify-devel gettext
 
-The build instruction for the daemon and libRingClient can be found in their
+The build instructions for the daemon and libRingClient can be found in their
 respective repositories. See Gerrit:
  - https://gerrit-ring.savoirfairelinux.com/#/admin/projects/
 
@@ -61,7 +61,7 @@ building the client.
 Building without installing Ring daemon and libRingClient
 ==================
 
-It is possible to build ring-client-gnome without installing the deamon and
+It is possible to build ring-client-gnome without installing the daemon and
 libRingClient on your system (eg: in /usr or /usr/local):
 
 1. build the daemon
@@ -73,7 +73,7 @@ libRingClient on your system (eg: in /usr or /usr/local):
    install prefix in the cmake options, eg:
    -DCMAKE_INSTALL_PREFIX=/home/user/ringinstall
 4. now compile libRingClient and do 'make install', everything will be installed
-   in the dir specified by the prefix
+   in the directory specified by the prefix
 4. now we just have to point the client to the libRingClient cmake module during
    the configuration:
    -DLibRingClient_DIR=/home/user/ringinstall/lib/cmake/LibRingClient
