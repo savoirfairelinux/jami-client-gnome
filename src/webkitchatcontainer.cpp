@@ -329,6 +329,18 @@ webview_chat_load_changed(WebKitWebView  *webview_chat,
     }
 }
 
+static gboolean
+webview_change_focus()
+{
+    /* we want the focus to move to the next widget, since by default it seems to get stuck in the
+     * WebView; from the doc:
+     * The default ::focus handler for a widget should return TRUE if moving in direction left the
+     * focus on a focusable location inside that widget, and FALSE if moving in direction moved the
+     * focus outside the widget.
+     */
+    return FALSE;
+}
+
 static void
 build_view(WebKitChatContainer *view)
 {
@@ -393,6 +405,9 @@ build_view(WebKitChatContainer *view)
 #if WEBKIT_CHECK_VERSION(2, 6, 0)
     g_signal_connect(priv->webview_chat, "decide-policy", G_CALLBACK(webview_chat_decide_policy), view);
 #endif
+    g_signal_connect(priv->webview_chat, "focus", G_CALLBACK(webview_change_focus), NULL);
+
+    gtk_widget_set_can_focus(priv->webview_chat, FALSE);
 
     GBytes* chatview_bytes = g_resources_lookup_data(
         "/cx/ring/RingGnome/chatview.html",
