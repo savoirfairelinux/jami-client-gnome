@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bab3e1c7_8e921ff5",
+        "filename": "src/accountmigrationview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-08T20:16:44Z",
+      "side": 1,
+      "message": "function not used",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 1
+      },
+      "revId": "9d303454eb3f6e62ba354e39ad52f1856f8a87a0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
