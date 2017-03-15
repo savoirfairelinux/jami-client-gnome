@@ -21,6 +21,7 @@
 
 // system
 #include <memory>
+#include <regex>
 
 // GTK+ related
 #include <gtk/gtk.h>
@@ -66,6 +67,7 @@
 #include "utils/files.h"
 #include "revision.h"
 #include "utils/accounts.h"
+#include "utils/calling.h"
 
 #if HAVE_APPINDICATOR
 #include <libappindicator/app-indicator.h>
@@ -387,6 +389,25 @@ ring_client_activate(GApplication *app)
     }
 }
 
+static void
+ring_client_open(GApplication *app, GFile **file, gint /*arg3*/, const gchar* /*arg4*/)
+{
+    ring_client_activate(app);
+
+    if (strcmp(g_file_get_uri_scheme(*file), "ring") == 0) {
+        const char * call_id = g_file_get_basename(*file);
+        std::regex format {"^[[:xdigit:]]{40}$"};
+
+        if (std::regex_match(call_id, format)) {
+            auto cm = std::unique_ptr<TemporaryContactMethod>(new TemporaryContactMethod);
+            cm->setUri(URI(QString::fromStdString(call_id)));
+
+            place_new_call(cm.get());
+            cm.release();
+        }
+    }
+}
+
 #if USE_LIBNM
 
 static void
@@ -686,6 +707,7 @@ ring_client_class_init(RingClientClass *klass)
 {
     G_APPLICATION_CLASS(klass)->startup = ring_client_startup;
     G_APPLICATION_CLASS(klass)->activate = ring_client_activate;
+    G_APPLICATION_CLASS(klass)->open = ring_client_open;
     G_APPLICATION_CLASS(klass)->shutdown = ring_client_shutdown;
 }
 
@@ -694,6 +716,7 @@ ring_client_new(int argc, char *argv[])
 {
     RingClient *client = (RingClient *)g_object_new(ring_client_get_type(),
                                                     "application-id", RING_CLIENT_APP_ID,
+                                                    "flags", G_APPLICATION_HANDLES_OPEN ,
                                                     NULL);
 
     /* copy the cmd line args before they get processed by the GApplication*/

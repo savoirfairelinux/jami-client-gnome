@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Ring
 Comment=Ring is a secured and distributed communication software.
-Exec=gnome-ring
+Exec=gnome-ring %u
 Icon=ring
 StartupNotify=true
 Terminal=false
