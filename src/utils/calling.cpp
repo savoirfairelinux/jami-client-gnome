@@ -44,7 +44,7 @@ place_new_call(ContactMethod *n, Account *acc)
     if (not acc)
         acc = AccountModel::instance().selectedAccount();
 
-    if (acc && n->account() != acc)
+    if (acc && not n->account())
         n->setAccount(acc);
 
     if (!call) {
