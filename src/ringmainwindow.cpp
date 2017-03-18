@@ -1239,6 +1239,18 @@ ring_main_window_init(RingMainWindow *win)
     priv->treeview_pending_trust = pending_contact_requests_view_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contact_requests), priv->treeview_pending_trust);
 
+    /* use this event to refresh the treeview_conversations when account selection changed */
+    QObject::connect(&AccountModel::instance(), &AccountModel::selectedAccountChanged, [priv](Account* a){
+        // next line will refresh the recentmodel so the treeview will do
+        RecentModel::instance().peopleProxy()->setFilterRegExp("");
+
+        // set the good index to the combox. Required when the selected account changed by different way than selecting
+        // from the combo box.
+        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector),
+                                 a->index().row());
+
+    });
+
     /* welcome/default view */
     priv->welcome_view = ring_welcome_view_new();
     g_object_ref(priv->welcome_view); // increase ref because don't want it to be destroyed when not displayed
