@@ -129,7 +129,7 @@ struct _RingMainWindowPrivate
 
     /* Pending ring usernames lookup for the search entry */
     QMetaObject::Connection username_lookup;
-    std::string pending_username_lookup;
+    std::string* pending_username_lookup;
 
     /* The webkit_chat_container is created once, then reused for all chat views */
     GtkWidget *webkit_chat_container;
@@ -540,7 +540,7 @@ search_entry_activated(RingMainWindow *self)
         if (lookup_username)
         {
             gtk_spinner_start(GTK_SPINNER(priv->spinner_lookup));
-            priv->pending_username_lookup = std::string(querry);
+            *priv->pending_username_lookup = querry;
             gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
 
             QString username_to_lookup = uri.format(
@@ -556,7 +556,7 @@ search_entry_activated(RingMainWindow *self)
                 [self, priv, username_to_lookup] (G_GNUC_UNUSED const Account* account, NameDirectory::LookupStatus status, const QString& address, const QString& name) {
 
                     auto name_qbarray = name.toLatin1();
-                    if ( strcmp(priv->pending_username_lookup.data(), name_qbarray.data()) != 0 )
+                    if ( strcmp(priv->pending_username_lookup->data(), name_qbarray.data()) != 0 )
                         return;
 
                     gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
@@ -615,7 +615,7 @@ search_entry_activated(RingMainWindow *self)
                             break;
                         }
                     }
-                    priv->pending_username_lookup = "";
+                    *priv->pending_username_lookup = "";
                     gtk_spinner_stop(GTK_SPINNER(priv->spinner_lookup));
                 }
             );
@@ -624,7 +624,7 @@ search_entry_activated(RingMainWindow *self)
         }
         else
         {
-            priv->pending_username_lookup = "";
+            *priv->pending_username_lookup = "";
             gtk_spinner_stop(GTK_SPINNER(priv->spinner_lookup));
             process_search_entry_contact_method(self, uri);
         }
@@ -1084,6 +1084,8 @@ ring_main_window_init(RingMainWindow *win)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
     gtk_widget_init_template(GTK_WIDGET(win));
 
+    priv->pending_username_lookup = new std::string; // see object finilize for delete
+
     /* bind to window size settings */
     priv->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
     auto width = g_settings_get_int(priv->settings, "window-width");
@@ -1239,6 +1241,9 @@ ring_main_window_finalize(GObject *object)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
     g_clear_object(&priv->settings);
+
+    delete priv->pending_username_lookup;
+    priv->pending_username_lookup = nullptr;
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->finalize(object);
 }
