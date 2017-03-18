@@ -23,6 +23,9 @@
 #include <callmodel.h>
 #include <QtCore/QItemSelectionModel>
 
+// LRC
+#include <accountmodel.h>
+
 void
 place_new_call(ContactMethod *n, Account *acc)
 {
@@ -36,6 +39,13 @@ place_new_call(ContactMethod *n, Account *acc)
             call = call_list.at(i);
         }
     }
+
+    /* use the selected account if none was passed to the function */
+    if (not acc)
+        acc = AccountModel::instance().selectedAccount();
+
+    if (acc && not n->account())
+        n->setAccount(acc);
 
     if (!call) {
         /* didn't find an existing call, so create a new one */
