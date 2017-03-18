@@ -515,122 +515,93 @@ search_entry_activated(RingMainWindow *self)
 
     URI uri = URI(querry);
 
+    /* we don't want to lookup a ring id and we require to have a ring account chosen */
+    if (uri.protocolHint() != URI::ProtocolHint::RING && get_active_ring_account()) {
+        *priv->pending_username_lookup = querry;
 
-    // make sure the userinfo part isn't empty, only specifying a protocol isn't enough
-    if (!uri.userinfo().isEmpty()) {
+        gtk_spinner_start(GTK_SPINNER(priv->spinner_lookup));
+        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
 
-        gboolean lookup_username = FALSE;
+        QString username_to_lookup = uri.format(URI::Section::USER_INFO|URI::Section::HOSTNAME|URI::Section::PORT);
 
-        /* get the account with which we will do the lookup */
-        auto ring_account = AvailableAccountModel::instance().currentDefaultAccount(URI::SchemeType::RING);
+        /* disconect previous lookup */
+        QObject::disconnect(priv->username_lookup);
 
-        if (uri.protocolHint() == URI::ProtocolHint::RING_USERNAME ) {
-            lookup_username = TRUE;
-        } else if (
-            uri.protocolHint() != URI::ProtocolHint::RING && // not a RingID
-            uri.schemeType() == URI::SchemeType::NONE // scheme type not specified
-        ) {
-            // if no scheme type has been specified, determine ring vs sip by the first available account
-            auto idx = AvailableAccountModel::instance().index(0, 0);
-            if (idx.isValid()) {
-                auto account = idx.data((int)Ring::Role::Object).value<Account *>();
-                if (account && account->protocol() == Account::Protocol::RING)
-                    lookup_username = TRUE;
-            }
-        }
+        /* connect new lookup */
+        priv->username_lookup = QObject::connect(
+            &NameDirectory::instance(),
+            &NameDirectory::registeredNameFound,
+            [self, priv, username_to_lookup] (Account* account, NameDirectory::LookupStatus status, const QString& address, const QString& name) {
 
-        if (lookup_username)
-        {
-            gtk_spinner_start(GTK_SPINNER(priv->spinner_lookup));
-            *priv->pending_username_lookup = querry;
-            gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+                auto name_qbarray = name.toLatin1();
+                if ( strcmp(priv->pending_username_lookup->data(), name_qbarray.data()) != 0 )
+                    return;
 
-            QString username_to_lookup = uri.format(
-                URI::Section::USER_INFO |
-                URI::Section::HOSTNAME |
-                URI::Section::PORT
-            );
+                gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
 
-            QObject::disconnect(priv->username_lookup);
-            priv->username_lookup = QObject::connect(
-                &NameDirectory::instance(),
-                &NameDirectory::registeredNameFound,
-                [self, priv, username_to_lookup] (Account* account, NameDirectory::LookupStatus status, const QString& address, const QString& name) {
-
-                    auto name_qbarray = name.toLatin1();
-                    if ( strcmp(priv->pending_username_lookup->data(), name_qbarray.data()) != 0 )
-                        return;
-
-                    gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
-
-                    switch(status)
+                switch(status)
+                {
+                    case NameDirectory::LookupStatus::SUCCESS:
                     {
-                        case NameDirectory::LookupStatus::SUCCESS:
-                        {
-                            URI uri = URI("ring:" + address);
-                            process_search_entry_contact_method(self, uri, account);
-                            break;
-                        }
-                        case NameDirectory::LookupStatus::INVALID_NAME:
-                        {
-                            //Can't be a ring username, could be something else.
-                            auto dialog = gtk_message_dialog_new(
-                                GTK_WINDOW(self),
-                                GTK_DIALOG_DESTROY_WITH_PARENT,
-                                GTK_MESSAGE_ERROR,
-                                GTK_BUTTONS_CLOSE,
-                                _("Invalid Ring username: %s"),
-                                name.toUtf8().constData()
-                            );
-
-                            gtk_dialog_run (GTK_DIALOG (dialog));
-                            gtk_widget_destroy (dialog);
-                            break;
-                        }
-                        case NameDirectory::LookupStatus::ERROR:
-                        {
-                            auto dialog = gtk_message_dialog_new(
-                                GTK_WINDOW(self),
-                                GTK_DIALOG_DESTROY_WITH_PARENT,
-                                GTK_MESSAGE_ERROR,
-                                GTK_BUTTONS_CLOSE,
-                                _("Error resolving username, nameserver is possibly unreachable")
-                            );
-
-                            gtk_dialog_run(GTK_DIALOG (dialog));
-                            gtk_widget_destroy(dialog);
-                            break;
-                        }
-                        case NameDirectory::LookupStatus::NOT_FOUND:
-                        {
-                            auto dialog = gtk_message_dialog_new(
-                                GTK_WINDOW(self),
-                                GTK_DIALOG_DESTROY_WITH_PARENT,
-                                GTK_MESSAGE_ERROR,
-                                GTK_BUTTONS_CLOSE,
-                                _("Could not resolve Ring username: %s"),
-                                name.toUtf8().constData()
-                            );
-
-                            gtk_dialog_run(GTK_DIALOG (dialog));
-                            gtk_widget_destroy(dialog);
-                            break;
-                        }
+                        URI uri = URI("ring:" + address);
+                        process_search_entry_contact_method(self, uri, account);
+                        break;
                     }
-                    *priv->pending_username_lookup = "";
-                    gtk_spinner_stop(GTK_SPINNER(priv->spinner_lookup));
-                }
-            );
+                    case NameDirectory::LookupStatus::INVALID_NAME:
+                    {
+                        //Can't be a ring username, could be something else.
+                        auto dialog = gtk_message_dialog_new(
+                            GTK_WINDOW(self),
+                            GTK_DIALOG_DESTROY_WITH_PARENT,
+                            GTK_MESSAGE_ERROR,
+                            GTK_BUTTONS_CLOSE,
+                            _("Invalid Ring username: %s"),
+                            name.toUtf8().constData()
+                        );
 
-            NameDirectory::instance().lookupName(ring_account, QString(), username_to_lookup);
-        }
-        else
-        {
-            *priv->pending_username_lookup = "";
-            gtk_spinner_stop(GTK_SPINNER(priv->spinner_lookup));
-            process_search_entry_contact_method(self, uri, nullptr);
-        }
-    }
+                        gtk_dialog_run (GTK_DIALOG (dialog));
+                        gtk_widget_destroy (dialog);
+                        break;
+                    }
+                    case NameDirectory::LookupStatus::ERROR:
+                    {
+                        auto dialog = gtk_message_dialog_new(
+                            GTK_WINDOW(self),
+                            GTK_DIALOG_DESTROY_WITH_PARENT,
+                            GTK_MESSAGE_ERROR,
+                            GTK_BUTTONS_CLOSE,
+                            _("Error resolving username, nameserver is possibly unreachable")
+                        );
+
+                        gtk_dialog_run(GTK_DIALOG (dialog));
+                        gtk_widget_destroy(dialog);
+                        break;
+                    }
+                    case NameDirectory::LookupStatus::NOT_FOUND:
+                    {
+                        auto dialog = gtk_message_dialog_new(
+                            GTK_WINDOW(self),
+                            GTK_DIALOG_DESTROY_WITH_PARENT,
+                            GTK_MESSAGE_ERROR,
+                            GTK_BUTTONS_CLOSE,
+                            _("Could not resolve Ring username: %s"),
+                            name.toUtf8().constData()
+                        );
+
+                        gtk_dialog_run(GTK_DIALOG (dialog));
+                        gtk_widget_destroy(dialog);
+                        break;
+                    }
+                }
+                *priv->pending_username_lookup = "";
+                gtk_spinner_stop(GTK_SPINNER(priv->spinner_lookup));
+            }
+        );
+
+        /* lookup */
+        NameDirectory::instance().lookupName(get_active_ring_account(), QString(), username_to_lookup);
+    }else // no lookup
+        process_search_entry_contact_method(self, uri, nullptr);
 }
 
 static gboolean
