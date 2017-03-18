@@ -522,7 +522,7 @@ search_entry_activated(RingMainWindow *self)
         gboolean lookup_username = FALSE;
 
         /* get the account with which we will do the lookup */
-        auto ring_account = AvailableAccountModel::instance().currentDefaultAccount(URI::SchemeType::RING);
+        auto ring_account = get_active_ring_account();
 
         if (uri.protocolHint() == URI::ProtocolHint::RING_USERNAME ) {
             lookup_username = TRUE;

@@ -18,6 +18,7 @@
  */
 
 #include "calling.h"
+#include "accounts.h"
 
 #include <contactmethod.h>
 #include <callmodel.h>
@@ -35,6 +36,11 @@ place_new_call(ContactMethod *n, Account *acc)
         if (call_list.at(i)->peerContactMethod() == n) {
             call = call_list.at(i);
         }
+    }
+
+    /* use the selected account if none was passed to the function */
+    if (not acc) {
+        acc = get_active_ring_account();
     }
 
     if (!call) {
