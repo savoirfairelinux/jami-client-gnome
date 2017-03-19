@@ -1108,6 +1108,63 @@ selected_account_changed(GtkComboBox *gtk_combo_box, RingMainWindow *self)
     hide_view_clicked(nullptr, self);
 }
 
+/**
+ * set the column value by printing the alias and the state of an account in combobox_account_selector.
+ */
+static void
+print_account_and_state(GtkCellLayout* cell_layout,
+                        GtkCellRenderer* cell_renderer,
+                        GtkTreeModel* tree_model,
+                        GtkTreeIter* iter,
+                        gpointer* data)
+{
+    (void) cell_layout; // UNUSED
+    (void) data; // UNUSED
+
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
+    auto account = AccountModel::instance().getAccountByModelIndex(idx);
+    auto accountAlias = account->alias();
+
+    gchar* account_alias = g_markup_escape_text(accountAlias.toUtf8().constData(), -1);
+    gchar* display_alias = nullptr;
+
+    if (idx.isValid()) {
+        auto account = AccountModel::instance().getAccountByModelIndex(idx);
+
+        switch (account->registrationState()) {
+            case Account::RegistrationState::READY:
+            {
+                display_alias = g_strdup_printf("%s",account_alias);
+            }
+            break;
+            case Account::RegistrationState::UNREGISTERED:
+            {
+                display_alias = g_strdup_printf("<span fgcolor=\"gray\">%s</span>", account_alias);
+            }
+            break;
+            case Account::RegistrationState::TRYING:
+            case Account::RegistrationState::INITIALIZING:
+            {
+                auto account_alias_i18n = g_markup_printf_escaped (C_("%%s will be replaced by the account alias", "%s..."), account_alias);
+                display_alias = g_strdup_printf("<span fgcolor=\"gray\" font_style=\"italic\">%s</span>", account_alias_i18n);
+            }
+            break;
+            case Account::RegistrationState::ERROR:
+            {
+                auto error_string = g_markup_printf_escaped(C_("%%s will be replaced by the account alias", "%s (error)"), account_alias);
+                display_alias = g_strdup_printf("<span fgcolor=\"red\">%s</span>", error_string);
+            }
+            case Account::RegistrationState::COUNT__:
+            break;
+        }
+    }
+
+    g_object_set(G_OBJECT(cell_renderer), "markup", display_alias, nullptr);
+    g_free(display_alias);
+    g_free(account_alias);
+
+}
+
 static void
 ring_main_window_init(RingMainWindow *win)
 {
@@ -1278,7 +1335,10 @@ ring_main_window_init(RingMainWindow *win)
     /* layout */
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, FALSE);
     gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, "text", 0, NULL);
-
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_account_selector),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc)print_account_and_state,
+                                       nullptr, nullptr);
 
     g_signal_connect(priv->combobox_account_selector, "changed", G_CALLBACK(selected_account_changed), win);
 
