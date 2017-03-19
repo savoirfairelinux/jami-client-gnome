@@ -1146,6 +1146,55 @@ selected_account_changed(GtkComboBox *gtk_combo_box, ChatView *self)
 }
 
 static void
+state_to_string(GtkCellLayout* cell_layout,
+                GtkCellRenderer* cell_redenrer,
+                GtkTreeModel* tree_model,
+                GtkTreeIter* iter,
+                gpointer* data)
+{
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
+    auto account = AccountModel::instance().getAccountByModelIndex(idx);
+    auto accountAlias = account->alias();
+
+    gchar* account_alias = g_markup_escape_text(accountAlias.toUtf8().constData(), -1);
+    gchar* display_alias = NULL;
+
+    if (idx.isValid()) {
+        auto account = AccountModel::instance().getAccountByModelIndex(idx);
+
+        switch (account->registrationState()) {
+            case Account::RegistrationState::READY:
+            {
+                display_alias = g_strdup_printf("%s",account_alias);
+            }
+            break;
+            case Account::RegistrationState::UNREGISTERED:
+            {
+                display_alias = g_strdup_printf("<span fgcolor=\"gray\">%s</span>", account_alias);
+            }
+            break;
+            case Account::RegistrationState::TRYING:
+            case Account::RegistrationState::INITIALIZING:
+            {
+                display_alias = g_strdup_printf("<span fgcolor=\"gray\" font_style=\"italic\">%s...</span>", account_alias);
+            }
+            break;
+            case Account::RegistrationState::ERROR:
+            case Account::RegistrationState::COUNT__:
+            {
+                display_alias = g_strdup_printf("<span fgcolor=\"red\">%s (error)</span>", account_alias);
+            }
+            break;
+        }
+    }
+
+    g_object_set(G_OBJECT(cell_redenrer), "markup", display_alias, NULL);
+    g_free(display_alias);
+    g_free(account_alias);
+
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -1309,12 +1358,14 @@ ring_main_window_init(RingMainWindow *win)
     gtk_combo_box_set_model(GTK_COMBO_BOX(priv->combobox_account_selector), GTK_TREE_MODEL(account_model));
 
     GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
-    GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes(C_("Account alias (name) column", "Alias"), renderer, "text", 0, NULL);
 
     /* layout */
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, FALSE);
     gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, "text", 0, NULL);
-
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_account_selector),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc)state_to_string,
+                                       NULL, NULL);
 
     g_signal_connect(priv->combobox_account_selector, "changed", G_CALLBACK(selected_account_changed), win);
 
