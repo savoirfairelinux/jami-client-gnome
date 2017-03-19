@@ -217,6 +217,13 @@ video_double_clicked(G_GNUC_UNUSED CurrentCallView *view, RingMainWindow *self)
 }
 
 static int
+count_pending_contact_requests(Account* account)
+{
+    return account->pendingTrustRequestModel()->rowCount();
+}
+
+
+static int
 count_pending_contact_requests_for_all()
 {
     int count = 0;
@@ -1263,15 +1270,21 @@ state_to_string(GtkCellLayout* cell_layout,
         auto account = AccountModel::instance().getAccountByModelIndex(idx);
 
     /* for one account, used to show the numbers of unread messages */
-    int count = count_unread_messages(account);
+    int count_um = count_unread_messages(account);
+
+    int count_pcr = count_pending_contact_requests(account);
 
         switch (account->registrationState()) {
             case Account::RegistrationState::READY:
             {
-                if (count)
-                    display_alias = g_strdup_printf("<span fgcolor=\"red\">(%d)</span> %s", count, account_alias);
+                if (count_um)
+                    display_alias = g_strdup_printf("<span fgcolor=\"red\">(%d)</span> %s", count_um, account_alias);
                 else
-                    display_alias = g_strdup_printf("%s",account_alias);
+                    display_alias = g_strdup_printf("%s", account_alias);
+
+                if (count_pcr)
+                    display_alias = g_strdup_printf("<span fgcolor=\"blue\">(%d)</span> %s", count_pcr, account_alias);
+
             }
             break;
             case Account::RegistrationState::UNREGISTERED:
