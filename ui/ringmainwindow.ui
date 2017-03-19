@@ -85,16 +85,16 @@
         <!-- end titel box with search or settings -->
         <!-- message notification -->
         <child>
-          <object class="GtkLabel" id="label_notification_unread_message">
+          <object class="GtkImage" id="image_notification_unread_message">
             <property name="visible">False</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">X</property>
+            <property name="tooltip_text" translatable="yes">unread message(s)</property>
+            <property name="stock">gtk-dialog-warning</property>
           </object>
           <packing>
-            <property name="pack_type">end</property>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">3</property>
+            <property name="pack_type">end</property>
           </packing>
         </child>
         <!-- end message notification -->
