@@ -49,6 +49,7 @@
 #include <trustrequest.h>
 #include <media/textrecording.h>
 #include <media/recordingmodel.h>
+#include <pendingtrustrequestmodel.h>
 
 // Ring client
 #include "models/gtkqtreemodel.h"
@@ -136,6 +137,7 @@ struct _RingMainWindowPrivate
     GtkWidget *scrolled_window_contact_requests;
     GtkWidget *contact_request_view;
     GtkWidget *image_notification_unread_message;
+    GtkWidget *image_notification_contact_request;
 
     /* Pending ring usernames lookup for the search entry */
     QMetaObject::Connection username_lookup;
@@ -212,6 +214,31 @@ video_double_clicked(G_GNUC_UNUSED CurrentCallView *view, RingMainWindow *self)
     } else {
         enter_full_screen(self);
     }
+}
+
+static int
+count_pending_contact_requests_for_all()
+{
+    int count = 0;
+
+    for (int i = 0 ; i < AccountModel::instance().size() ; i++)
+        count += AccountModel::instance()[i]->pendingTrustRequestModel()->rowCount();
+
+    return count;
+}
+
+static void
+notify_contact_request(RingMainWindow* self)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+
+    /* refresh the account selector */
+    gtk_widget_show(priv->combobox_account_selector);
+
+    if (count_pending_contact_requests_for_all())
+        gtk_widget_show(priv->image_notification_contact_request);
+    else
+        gtk_widget_hide(priv->image_notification_contact_request);
 }
 
 static void
@@ -1482,9 +1509,28 @@ ring_main_window_init(RingMainWindow *win)
         notify_unread_message(win);
     });
 
+    for (int i = 0 ; i < AccountModel::instance().size() ; i++) {
+        auto account = AccountModel::instance()[i];
+
+        QObject::connect(account->pendingTrustRequestModel(), &PendingTrustRequestModel::requestAdded, [win](TrustRequest* r){
+            notify_contact_request(win);
+        });
+
+        QObject::connect(account->pendingTrustRequestModel(), &PendingTrustRequestModel::requestAccepted, [win](TrustRequest* r){
+            notify_contact_request(win);
+        });
+
+        QObject::connect(account->pendingTrustRequestModel(), &PendingTrustRequestModel::requestDiscarded, [win](TrustRequest* r){
+            notify_contact_request(win);
+        });
+
+    }
+
     /* ensures to show even at the start of the application. */
     notify_unread_message(win);
->>>>>>> 89ec4dd... WIP2 show unread message in account selector
+
+    /* ensures to show even at the start of the application. */
+    notify_contact_request(win);
 }
 
 static void
@@ -1547,6 +1593,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_account_selector);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contact_requests);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_notification_unread_message);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_notification_contact_request);
 }
 
 GtkWidget *
