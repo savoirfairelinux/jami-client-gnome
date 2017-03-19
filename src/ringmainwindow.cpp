@@ -47,6 +47,8 @@
 #include <phonedirectorymodel.h>
 #include <availableaccountmodel.h>
 #include <trustrequest.h>
+#include <media/textrecording.h>
+#include <media/recordingmodel.h>
 
 // Ring client
 #include "models/gtkqtreemodel.h"
@@ -133,6 +135,7 @@ struct _RingMainWindowPrivate
     GtkWidget *treeview_pending_trust;
     GtkWidget *scrolled_window_contact_requests;
     GtkWidget *contact_request_view;
+    GtkWidget *image_notification_unread_message;
 
     /* Pending ring usernames lookup for the search entry */
     QMetaObject::Connection username_lookup;
@@ -228,6 +231,54 @@ hide_view_clicked(G_GNUC_UNUSED GtkWidget *view, RingMainWindow *self)
 
 }
 
+/* the next for is a try to determine if an account has some ContactMethod with unread messages */
+static int
+count_unread_messages(Account* account)
+{
+    int count = 0;
+    QSet<ContactMethod*> list; // QSet ensures no duplicated uri
+
+    for (int row = 0 ; row < PhoneDirectoryModel::instance().rowCount() ; row++) {
+
+        auto idx = PhoneDirectoryModel::instance().index(row, 0);
+        auto cm = PhoneDirectoryModel::instance().data(idx, static_cast<int>(PhoneDirectoryModel::Role::Object)).value<ContactMethod*>();
+
+        list << cm;
+        }
+
+    for (auto cm : list) {
+        if (cm && cm->account() == account )
+            count += cm->roleData(static_cast<int>(Ring::Role::UnreadTextMessageCount)).toInt();
+    }
+
+    return count;
+}
+
+static int
+count_unread_messages_for_all()
+{
+    int count = 0;
+
+    for (int i = 0 ; i < AccountModel::instance().size() ; i++)
+        count += count_unread_messages(AccountModel::instance()[i]);
+
+    return count;
+}
+
+static void
+notify_unread_message(RingMainWindow* self)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+
+    /* refresh the account selector */
+    gtk_widget_show(priv->combobox_account_selector);
+
+    if (count_unread_messages_for_all())
+        gtk_widget_show(priv->image_notification_unread_message);
+    else
+        gtk_widget_hide(priv->image_notification_unread_message);
+}
+
 static void
 change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
 {
@@ -303,6 +354,10 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
         } else {
             g_warning("Trying to display a veiw of type ChatView, but the object is neither a Person nor a ContactMethod");
         }
+
+        /* check if all message was read */
+        notify_unread_message(RING_MAIN_WINDOW(self));
+
     } else if (g_type_is_a(CONTACT_REQUEST_CONTENT_VIEW_TYPE, type)) {
         if (auto trust_request = qobject_cast<TrustRequest *>(object)) {
             new_view = contact_request_content_view_new(trust_request);
@@ -495,8 +550,18 @@ selection_changed(RingMainWindow *win)
 
         } else if (trust_request) {
             /* show the trust request page */
+<<<<<<< HEAD
             change_view(win, old_view, trust_request, CONTACT_REQUEST_CONTENT_VIEW_TYPE);
+<<<<<<< HEAD
 
+=======
+        
+=======
+            g_warning("show me the trust request page");
+            change_view(win, old_view, trust_request, PENDING_TRUST_REQUEST_VIEW_TYPE);
+
+>>>>>>> ab0bbde... WIP show unread message in account selector
+>>>>>>> 89ec4dd... WIP2 show unread message in account selector
         } else {
             /* not a supported object type, display the welcome view */
             if (old_view != priv->welcome_view)
@@ -1138,11 +1203,18 @@ selected_account_changed(GtkComboBox *gtk_combo_box, ChatView *self)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     int nbr = gtk_combo_box_get_active(gtk_combo_box);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 89ec4dd... WIP2 show unread message in account selector
     QModelIndex idx = AccountModel::instance().index(nbr, 0);
     auto account = AccountModel::instance().getAccountByModelIndex(idx);
 
     AccountModel::instance().setSelectedAccount(account);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 89ec4dd... WIP2 show unread message in account selector
 }
 
 static void
@@ -1156,16 +1228,23 @@ state_to_string(GtkCellLayout* cell_layout,
     auto account = AccountModel::instance().getAccountByModelIndex(idx);
     auto accountAlias = account->alias();
 
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(data);
     gchar* account_alias = g_markup_escape_text(accountAlias.toUtf8().constData(), -1);
     gchar* display_alias = NULL;
 
     if (idx.isValid()) {
         auto account = AccountModel::instance().getAccountByModelIndex(idx);
 
+    /* for one account, used to show the numbers of unread messages */
+    int count = count_unread_messages(account);
+
         switch (account->registrationState()) {
             case Account::RegistrationState::READY:
             {
-                display_alias = g_strdup_printf("%s",account_alias);
+                if (count)
+                    display_alias = g_strdup_printf("<span fgcolor=\"red\">(%d)</span> %s", count, account_alias);
+                else
+                    display_alias = g_strdup_printf("%s",account_alias);
             }
             break;
             case Account::RegistrationState::UNREGISTERED:
@@ -1365,14 +1444,47 @@ ring_main_window_init(RingMainWindow *win)
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_account_selector),
                                        renderer,
                                        (GtkCellLayoutDataFunc)state_to_string,
-                                       NULL, NULL);
+                                       win, NULL);
 
     g_signal_connect(priv->combobox_account_selector, "changed", G_CALLBACK(selected_account_changed), win);
 
     /* init the selection for the account selector */
     gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
 
+<<<<<<< HEAD
     g_object_unref(account_model);
+=======
+
+    //~ priv->selected_account_changed = QObject::connect(
+        //~ AccountModel::instance().selectionModel(),
+        //~ &QItemSelectionModel::currentChanged,
+        //~ [=](const QModelIndex & current, G_GNUC_UNUSED const QModelIndex & previous) {
+            //~ GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
+
+            //~ /* select the current */
+            //~ if (current.isValid()) {
+                //~ GtkTreeIter new_iter;
+                //~ if (gtk_q_tree_model_source_index_to_iter(account_model, current, &new_iter)) {
+                    //~ gtk_tree_selection_select_iter(selection, &new_iter);
+                //~ } else {
+                    //~ g_warning("SelectionModel of AccountModel changed to invalid QModelIndex?");
+                //~ }
+            //~ }
+        //~ }
+    //~ );
+
+
+    g_object_unref(account_model);
+
+    QObject::connect(&Media::RecordingModel::instance(),
+                     &Media::RecordingModel::newTextMessage,
+                     [win] (Media::TextRecording* t, ContactMethod* cm) {
+        notify_unread_message(win);
+    });
+
+    /* ensures to show even at the start of the application. */
+    notify_unread_message(win);
+>>>>>>> 89ec4dd... WIP2 show unread message in account selector
 }
 
 static void
@@ -1434,6 +1546,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, spinner_lookup);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_account_selector);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contact_requests);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_notification_unread_message);
 }
 
 GtkWidget *
