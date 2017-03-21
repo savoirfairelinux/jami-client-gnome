@@ -26,6 +26,10 @@
 #include <accountmodel.h>
 #include <qrencode.h>
 
+// Qt
+#include <QObject>
+#include <QItemSelectionModel>
+
 struct _RingWelcomeView
 {
     GtkScrolledWindow parent;
@@ -60,8 +64,7 @@ static void
 update_view(RingWelcomeView *self) {
     auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
 
-    auto account = get_active_ring_account();
-    if (account != nullptr) {
+    if (auto account = get_active_ring_account()) {
         gchar *ring_id = nullptr;
         if(!account->registeredName().isEmpty()){
             gtk_label_set_text(
@@ -84,15 +87,18 @@ update_view(RingWelcomeView *self) {
                                               _("fetching RingID..."));
         }
         gtk_label_set_markup(GTK_LABEL(priv->label_ringid), ring_id);
+        gtk_widget_show(priv->label_explanation);
+        gtk_widget_show(priv->label_ringid);
+        gtk_widget_show(priv->button_qrcode);
+        gtk_widget_show(priv->revealer_qrcode);
+
         g_free(ring_id);
-    }
 
-    gtk_widget_set_visible(priv->label_ringid, account != nullptr);
-    gtk_widget_set_visible(priv->label_explanation, account != nullptr);
-    gtk_widget_set_visible(priv->button_qrcode, account != nullptr);
-    gtk_widget_set_visible(priv->revealer_qrcode, account != nullptr);
-
-    if (!account) {
+    } else { // any other protocols
+        gtk_widget_hide(priv->label_explanation);
+        gtk_widget_hide(priv->label_ringid);
+        gtk_widget_hide(priv->button_qrcode);
+        gtk_widget_hide(priv->revealer_qrcode);
         gtk_revealer_set_reveal_child(GTK_REVEALER(priv->revealer_qrcode), FALSE);
         gtk_widget_set_opacity(priv->box_overlay, 1.0);
     }
@@ -190,13 +196,18 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_set_visible(priv->button_qrcode, FALSE);
     gtk_box_pack_start(GTK_BOX(box_main), priv->button_qrcode, TRUE, TRUE, 0);
 
-    update_view(self);
-
     priv->account_model_data_changed = QObject::connect(
         &AccountModel::instance(),
         &AccountModel::dataChanged,
         [self] (const QModelIndex&, const QModelIndex&) { update_view(self); }
     );
+
+    /* connect to the next signal to update in terms of the account selected */
+    QObject::connect(AccountModel::instance().userSelectionModel(), &QItemSelectionModel::currentChanged,
+    [self](const QModelIndex& idx){
+        Q_UNUSED(idx)
+        update_view(self);
+    });
 
     gtk_widget_show_all(GTK_WIDGET(self));
 }
