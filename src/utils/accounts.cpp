@@ -21,6 +21,9 @@
 
 #include <accountmodel.h>
 
+// LRC
+#include <QItemSelectionModel>
+
 /**
  * returns TRUE if a RING account exists; FALSE otherwise
  */
@@ -50,52 +53,11 @@ force_ring_display_name()
 }
 
 /**
- * Finds and returns the first RING account, in order of priority:
- * 1. registered
- * 2. enabled
- * 3. existing
- *
- * Returns a nullptr if no RING acconts exist
+ * Returns the the user chosen account if it's a ring account, nullptr otherwise.
  */
 Account*
 get_active_ring_account()
 {
-    /* get the users Ring account
-     * if multiple accounts exist, get the first one which is registered,
-     * if none, then the first one which is enabled,
-     * if none, then the first one in the list of ring accounts
-     */
-    Account *registered_account = nullptr;
-    Account *enabled_account = nullptr;
-    Account *ring_account = nullptr;
-    int a_count = AccountModel::instance().rowCount();
-    for (int i = 0; i < a_count && !registered_account; ++i) {
-        QModelIndex idx = AccountModel::instance().index(i, 0);
-        Account *account = AccountModel::instance().getAccountByModelIndex(idx);
-        if (account->protocol() == Account::Protocol::RING) {
-            /* got RING account, check if active */
-            if (account->isEnabled()) {
-                /* got enabled account, check if connected */
-                if (account->registrationState() == Account::RegistrationState::READY) {
-                    /* got registered account, use this one */
-                    registered_account = enabled_account = ring_account = account;
-                    // g_debug("got registered account: %s", ring_account->alias().toUtf8().constData());
-                } else {
-                    /* not registered, but enabled, use if its the first one */
-                    if (!enabled_account) {
-                        enabled_account = ring_account = account;
-                        // g_debug("got enabled ring accout: %s", ring_account->alias().toUtf8().constData());
-                    }
-                }
-            } else {
-                /* not enabled, but a Ring account, use if its the first one */
-                if (!ring_account) {
-                    ring_account = account;
-                    // g_debug("got ring account: %s", ring_account->alias().toUtf8().constData());
-                }
-            }
-        }
-    }
-
-    return ring_account;
+    auto account = AccountModel::instance().userChosenAccount();
+    return (account && account->protocol() == Account::Protocol::RING) ? account : nullptr;
 }
