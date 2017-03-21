@@ -26,6 +26,9 @@
 #include <accountmodel.h>
 #include <qrencode.h>
 
+// Qt
+#include <QObject>
+
 struct _RingWelcomeView
 {
     GtkScrolledWindow parent;
@@ -190,13 +193,16 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_set_visible(priv->button_qrcode, FALSE);
     gtk_box_pack_start(GTK_BOX(box_main), priv->button_qrcode, TRUE, TRUE, 0);
 
-    update_view(self);
-
     priv->account_model_data_changed = QObject::connect(
         &AccountModel::instance(),
         &AccountModel::dataChanged,
         [self] (const QModelIndex&, const QModelIndex&) { update_view(self); }
     );
+
+    /* connect to the next signal to update in terms of the account selected */
+    QObject::connect(&AccountModel::instance(), &AccountModel::selectedAccountChanged, [self](Account* a){
+        update_view(self);
+    });
 
     gtk_widget_show_all(GTK_WIDGET(self));
 }
