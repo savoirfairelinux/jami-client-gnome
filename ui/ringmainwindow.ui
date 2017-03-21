@@ -83,6 +83,20 @@
           </object>
         </child>
         <!-- end titel box with search or settings -->
+        <!-- choose account -->
+        <child>
+          <object class="GtkComboBox" id="combobox_account_selector">
+            <property name="width_request">230</property>
+            <property name="visible">True</property>
+            <property name="popup-fixed-width">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack-type">end</property>
+          </packing>
+        </child>
+        <!-- end choose account -->
         <!-- button settings -->
         <child>
           <object class="GtkButton" id="ring_settings">
