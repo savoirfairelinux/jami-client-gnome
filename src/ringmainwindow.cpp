@@ -126,6 +126,7 @@ struct _RingMainWindowPrivate
     GtkWidget *account_creation_wizard;
     GtkWidget *account_migration_view;
     GtkWidget *spinner_lookup;
+    GtkWidget *combobox_account_selector;
 
     /* Pending ring usernames lookup for the search entry */
     QMetaObject::Connection username_lookup;
@@ -1082,6 +1083,20 @@ handle_account_migrations(RingMainWindow *win)
 }
 
 static void
+selected_account_changed(GtkComboBox *gtk_combo_box, RingMainWindow *self)
+{
+    int nbr = gtk_combo_box_get_active(gtk_combo_box);
+
+    QModelIndex idx = AccountModel::instance().index(nbr, 0);
+    auto account = AccountModel::instance().getAccountByModelIndex(idx);
+
+    AccountModel::instance().setSelectedAccount(account);
+
+    // we closing any view opened to avoid confusion (especially between SIP and Ring protocols).
+    hide_view_clicked(nullptr, self);
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -1219,6 +1234,26 @@ ring_main_window_init(RingMainWindow *win)
     get_webkit_chat_container(win);
 
     handle_account_migrations(win);
+
+    /* model for the combobox for Account chooser */
+    auto account_model = gtk_q_tree_model_new(&AccountModel::instance(), 1,
+        0, Account::Role::Alias, G_TYPE_STRING);
+
+    gtk_combo_box_set_model(GTK_COMBO_BOX(priv->combobox_account_selector), GTK_TREE_MODEL(account_model));
+
+    GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
+
+    /* layout */
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, FALSE);
+    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, "text", 0, NULL);
+
+
+    g_signal_connect(priv->combobox_account_selector, "changed", G_CALLBACK(selected_account_changed), win);
+
+    /* init the selection for the account selector */
+    gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
+
+    g_object_unref(account_model);
 }
 
 static void
@@ -1278,6 +1313,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_media_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, spinner_lookup);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_account_selector);
 }
 
 GtkWidget *
