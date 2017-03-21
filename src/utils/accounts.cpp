@@ -61,6 +61,7 @@ Account*
 get_active_ring_account()
 {
     /* get the users Ring account
+     * get the one selected if so,
      * if multiple accounts exist, get the first one which is registered,
      * if none, then the first one which is enabled,
      * if none, then the first one in the list of ring accounts
@@ -68,6 +69,11 @@ get_active_ring_account()
     Account *registered_account = nullptr;
     Account *enabled_account = nullptr;
     Account *ring_account = nullptr;
+    Account *selected_account = AccountModel::instance().selectedAccount();
+
+    if (selected_account)
+        return selected_account;
+
     int a_count = AccountModel::instance().rowCount();
     for (int i = 0; i < a_count && !registered_account; ++i) {
         QModelIndex idx = AccountModel::instance().index(i, 0);
