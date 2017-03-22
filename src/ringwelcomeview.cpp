@@ -201,6 +201,7 @@ ring_welcome_view_init(RingWelcomeView *self)
 
     /* connect to the next signal to update in terms of the account selected */
     QObject::connect(&AccountModel::instance(), &AccountModel::selectedAccountChanged, [self](Account* a){
+        Q_UNUSED(a)
         update_view(self);
     });
 

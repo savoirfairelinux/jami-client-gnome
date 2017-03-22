@@ -924,7 +924,7 @@ search_entry_text_changed(GtkSearchEntry *search_entry, RingMainWindow *self)
 }
 
 static gboolean
-search_entry_key_released(GtkEntry *search_entry, GdkEventKey *key, RingMainWindow *self)
+search_entry_key_released(G_GNUC_UNUSED GtkEntry *search_entry, GdkEventKey *key, RingMainWindow *self)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
@@ -1222,9 +1222,8 @@ handle_account_migrations(RingMainWindow *win)
 }
 
 static void
-selected_account_changed(GtkComboBox *gtk_combo_box, ChatView *self)
+selected_account_changed(GtkComboBox *gtk_combo_box, G_GNUC_UNUSED  ChatView *self)
 {
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     int nbr = gtk_combo_box_get_active(gtk_combo_box);
     QModelIndex idx = AccountModel::instance().index(nbr, 0);
     auto account = AccountModel::instance().getAccountByModelIndex(idx);
@@ -1233,17 +1232,16 @@ selected_account_changed(GtkComboBox *gtk_combo_box, ChatView *self)
 }
 
 static void
-state_to_string(GtkCellLayout* cell_layout,
+state_to_string(G_GNUC_UNUSED GtkCellLayout* cell_layout,
                 GtkCellRenderer* cell_redenrer,
                 GtkTreeModel* tree_model,
                 GtkTreeIter* iter,
-                gpointer* data)
+                G_GNUC_UNUSED gpointer* data)
 {
     QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), iter);
     auto account = AccountModel::instance().getAccountByModelIndex(idx);
     auto accountAlias = account->alias();
 
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(data);
     gchar* account_alias = g_markup_escape_text(accountAlias.toUtf8().constData(), -1);
     gchar* display_alias = NULL;
 
@@ -1477,6 +1475,8 @@ ring_main_window_init(RingMainWindow *win)
     QObject::connect(&Media::RecordingModel::instance(),
                      &Media::RecordingModel::newTextMessage,
                      [win] (Media::TextRecording* t, ContactMethod* cm) {
+        Q_UNUSED(t)
+        Q_UNUSED(cm)
         notify_unread_message(win);
     });
 
@@ -1484,14 +1484,17 @@ ring_main_window_init(RingMainWindow *win)
         auto account = AccountModel::instance()[i];
 
         QObject::connect(account->pendingTrustRequestModel(), &PendingTrustRequestModel::requestAdded, [win](TrustRequest* r){
+            Q_UNUSED(r)
             notify_contact_request(win);
         });
 
         QObject::connect(account->pendingTrustRequestModel(), &PendingTrustRequestModel::requestAccepted, [win](TrustRequest* r){
+            Q_UNUSED(r)
             notify_contact_request(win);
         });
 
         QObject::connect(account->pendingTrustRequestModel(), &PendingTrustRequestModel::requestDiscarded, [win](TrustRequest* r){
+            Q_UNUSED(r)
             notify_contact_request(win);
         });
 

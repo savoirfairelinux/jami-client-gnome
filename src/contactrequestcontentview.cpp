@@ -80,12 +80,6 @@ static guint contact_request_content_view_signals[LAST_SIGNAL] = { 0 };
 static void
 contact_request_content_view_dispose(GObject *object)
 {
-    ContactRequestContentView *self;
-    ContactRequestContentViewPrivate *priv;
-
-    self = CONTACT_REQUEST_CONTENT_VIEW(object);
-    priv = CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(self);
-
     G_OBJECT_CLASS(contact_request_content_view_parent_class)->dispose(object);
 }
 
@@ -180,7 +174,6 @@ GtkWidget*
 contact_request_content_view_new(TrustRequest *contact_request)
 {
     gpointer self = g_object_new(CONTACT_REQUEST_CONTENT_VIEW_TYPE, NULL);
-    ContactRequestContentViewPrivate *priv = CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(self);
 
     build_contact_request_content(CONTACT_REQUEST_CONTENT_VIEW(self), contact_request);
 
