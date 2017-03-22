@@ -98,6 +98,21 @@
           </packing>
         </child>
         <!-- end message notification -->
+        <!-- contact request notification -->
+        <child>
+          <object class="GtkImage" id="image_notification_contact_request">
+            <property name="visible">False</property>
+            <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">pending contact request(s)</property>
+            <property name="stock">gtk-dialog-warning</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+        <!-- contact request notification -->
         <!-- choose account -->
         <child>
           <object class="GtkComboBox" id="combobox_account_selector">
