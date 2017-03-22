@@ -54,6 +54,21 @@
           </packing>
         </child>
         <child>
+          <object class="GtkButton" id="button_send_invitation">
+            <property name="visible">True</property>
+            <property name="label">Invite</property>
+            <property name="tooltip-text" translatable="yes">Send trust request</property>
+            <child internal-child="accessible">
+              <object class="AtkObject" id="button_send_invitation-atkobject">
+                <property name="AtkObject::accessible-name" translatable="yes">Send invitation</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack-type">end</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkComboBox" id="combobox_cm">
             <property name="visible">True</property>
             <property name="popup-fixed-width">False</property>
