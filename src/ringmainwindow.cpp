@@ -1224,6 +1224,11 @@ ring_main_window_init(RingMainWindow *win)
         &CallModel::instance(),
         &CallModel::incomingCall,
         [priv](Call* call) {
+            // select the revelant account
+            auto cm = call->peerContactMethod();
+            if (cm->account() != AccountModel::instance().selectedAccount())
+                AccountModel::instance().setSelectedAccount(cm->account());
+
             // clear the regex to make sure the call is shown
             RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp());
             contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts),"");
