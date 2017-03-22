@@ -248,6 +248,25 @@
                   </packing>
                 </child>
                 <!-- end history -->
+                <!-- pending contact requests list -->
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolled_window_contact_requests">
+                    <property name="visible">True</property>
+                  </object>
+                  <packing>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child type="tab">
+                  <object class="GtkLabel" id="tab_label_contact_requests">
+                    <property name="label" translatable="yes">Contact requests</property>
+                    <property name="hexpand">True</property>
+                  </object>
+                  <packing>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <!-- end pending contact requests list -->
               </object>
               <packing>
                 <property name="expand">True</property>
