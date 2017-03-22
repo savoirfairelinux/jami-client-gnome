@@ -46,6 +46,7 @@
 #include <profile.h>
 #include <phonedirectorymodel.h>
 #include <availableaccountmodel.h>
+#include <contactrequest.h>
 
 // Ring client
 #include "models/gtkqtreemodel.h"
@@ -71,6 +72,7 @@
 #include "chatview.h"
 #include "avatarmanipulation.h"
 #include "utils/files.h"
+#include "pendingcontactrequests.h"
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
@@ -127,6 +129,9 @@ struct _RingMainWindowPrivate
     GtkWidget *account_migration_view;
     GtkWidget *spinner_lookup;
     GtkWidget *combobox_account_selector;
+    GtkWidget *treeview_contact_requests;
+    GtkWidget *scrolled_window_contact_requests;
+    GtkWidget *contact_request_view;
 
     /* Pending ring usernames lookup for the search entry */
     QMetaObject::Connection username_lookup;
@@ -217,6 +222,9 @@ hide_view_clicked(G_GNUC_UNUSED GtkWidget *view, RingMainWindow *self)
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contacts));
     auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
+    auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
+    gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_request));
+
 }
 
 static void
@@ -322,7 +330,6 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
 static gboolean
 selection_changed(RingMainWindow *win)
 {
-    // g_debug("selection changed");
 
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(win), G_SOURCE_REMOVE);
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
@@ -345,6 +352,7 @@ selection_changed(RingMainWindow *win)
     auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
     auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
     auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
+    auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
 
     GtkTreeModel *model = nullptr;
     GtkTreeIter iter;
@@ -355,6 +363,8 @@ selection_changed(RingMainWindow *win)
     } else if (gtk_tree_selection_get_selected(selection_contacts, &model, &iter)) {
         idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
     } else if (gtk_tree_selection_get_selected(selection_history, &model, &iter)) {
+        idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
+    } else if (gtk_tree_selection_get_selected(selection_contact_request, &model, &iter)) {
         idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
     }
 
@@ -992,6 +1002,24 @@ history_selection_changed(GtkTreeSelection *selection, RingMainWindow *self)
     selection_changed(self);
 }
 
+static void
+contact_request_selection_changed(GtkTreeSelection *selection, RingMainWindow *self)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    GtkTreeIter iter;
+    if (gtk_tree_selection_get_selected(selection, nullptr, &iter)) {
+        auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
+        if (!compare_treeview_selection(selection, selection_conversations))
+            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
+
+        auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
+        if (!compare_treeview_selection(selection, selection_contacts))
+            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contacts));
+    }
+
+    selection_changed(self);
+}
+
 static gboolean
 window_size_changed(GtkWidget *win, GdkEventConfigure *event, gpointer)
 {
@@ -1167,6 +1195,9 @@ ring_main_window_init(RingMainWindow *win)
 
     });
 
+    priv->treeview_contact_requests = pending_contact_requests_view_new();
+    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contact_requests), priv->treeview_contact_requests);
+
     /* welcome/default view */
     priv->welcome_view = ring_welcome_view_new();
     g_object_ref(priv->welcome_view); // increase ref because don't want it to be destroyed when not displayed
@@ -1181,6 +1212,9 @@ ring_main_window_init(RingMainWindow *win)
 
     auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
     g_signal_connect(selection_history, "changed", G_CALLBACK(history_selection_changed), win);
+
+    auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
+    g_signal_connect(selection_contact_request, "changed", G_CALLBACK(contact_request_selection_changed), win);
 
     g_signal_connect_swapped(priv->button_new_conversation, "clicked", G_CALLBACK(search_entry_activated), win);
     g_signal_connect_swapped(priv->search_entry, "activate", G_CALLBACK(search_entry_activated), win);
@@ -1305,6 +1339,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, spinner_lookup);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_account_selector);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contact_requests);
 }
 
 GtkWidget *
