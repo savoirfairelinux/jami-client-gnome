@@ -36,6 +36,9 @@
 #include <recentmodel.h>
 #endif
 
+// LRC
+#include <accountmodel.h>
+
 #if USE_LIBNOTIFY
 
 static constexpr int MAX_NOTIFICATIONS = 10; // max unread chat msgs to display from the same contact
@@ -147,6 +150,11 @@ ring_notify_incoming_call(
     std::shared_ptr<NotifyNotification> notification(
         notify_notification_new(_("Incoming call"), body, NULL), g_object_unref);
     g_free(body);
+
+    /* select the revelant account */
+    auto cm = call->peerContactMethod();
+    if (cm->account() != AccountModel::instance().selectedAccount())
+        AccountModel::instance().setSelectedAccount(cm->account());
 
     /* get photo */
     QVariant var_p = GlobalInstances::pixmapManipulator().callPhoto(
