@@ -36,6 +36,9 @@
 #include <recentmodel.h>
 #endif
 
+// LRC
+#include <accountmodel.h>
+
 #if USE_LIBNOTIFY
 
 static constexpr int MAX_NOTIFICATIONS = 10; // max unread chat msgs to display from the same contact
