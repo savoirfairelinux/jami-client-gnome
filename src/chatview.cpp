@@ -35,6 +35,14 @@
 #include "utils/calling.h"
 #include "webkitchatcontainer.h"
 
+// LRC
+#include <certificatemodel.h>
+#include <account.h>
+#include <accountmodel.h>
+
+// Qt
+#include <QItemSelectionModel>
+
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
 
 struct _ChatView
@@ -61,6 +69,7 @@ struct _ChatViewPrivate
     GtkWidget *combobox_cm;
     GtkWidget *button_close_chatview;
     GtkWidget *button_placecall;
+    GtkWidget *button_send_invitation;
 
     /* only one of the three following pointers should be non void;
      * either this is an in-call chat (and so the in-call chat APIs will be used)
@@ -185,6 +194,42 @@ placecall_clicked(ChatView *self)
 }
 
 static void
+button_send_invitation_clicked(ChatView *self)
+{
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    // get the account associated to the selected cm
+    auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
+
+    if (priv->person)
+        priv->cm = priv->person->phoneNumbers().at(active);
+
+    if (!priv->cm) {
+        g_warning("invalid contact, cannot send invitation!");
+        return;
+    }
+
+    // try first to use the account associated to the contact method
+    auto account = priv->cm->account();
+    if (not account) {
+        // if there is no account associated try then to get the choosen account
+        auto qIndex = AccountModel::instance().userSelectionModel()->currentIndex();
+        account = qIndex.data(static_cast<int>(Account::Role::Object)).value<Account*>();
+
+        if (not account) {
+            g_warning("invalid account, cannot send invitation!");
+            return;
+        }
+    }
+
+    // perform the request
+    if (!account->sendContactRequest(priv->cm))
+        g_warning("contact request not forwarded, cannot send invitation!");
+
+    // TODO : add an entry in the conversation to tell the user an invitation was sent.
+}
+
+static void
 chat_view_init(ChatView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
@@ -195,6 +240,7 @@ chat_view_init(ChatView *view)
     g_signal_connect(priv->entry_chat_input, "activate", G_CALLBACK(send_chat), view);
     g_signal_connect(priv->button_close_chatview, "clicked", G_CALLBACK(hide_chat_view), view);
     g_signal_connect_swapped(priv->button_placecall, "clicked", G_CALLBACK(placecall_clicked), view);
+    g_signal_connect_swapped(priv->button_send_invitation, "clicked", G_CALLBACK(button_send_invitation_clicked), view);
 }
 
 static void
@@ -214,6 +260,7 @@ chat_view_class_init(ChatViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, combobox_cm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_close_chatview);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_placecall);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_send_invitation);
 
     chat_view_signals[NEW_MESSAGES_DISPLAYED] = g_signal_new (
         "new-messages-displayed",
