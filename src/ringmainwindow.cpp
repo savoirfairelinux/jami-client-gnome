@@ -73,6 +73,7 @@
 #include "avatarmanipulation.h"
 #include "utils/files.h"
 #include "pendingcontactrequests.h"
+#include "contactrequestcontentview.h"
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
@@ -302,6 +303,11 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
         } else {
             g_warning("Trying to display a veiw of type ChatView, but the object is neither a Person nor a ContactMethod");
         }
+    } else if (g_type_is_a(CONTACT_REQUEST_CONTENT_VIEW_TYPE, type)) {
+        if (auto contact_request = qobject_cast<ContactRequest *>(object)) {
+            new_view = contact_request_content_view_new(contact_request);
+            g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
+        }
     } else {
         // display the welcome view
         new_view = priv->welcome_view;
@@ -318,6 +324,7 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
  * - incoming call view
  * - current call view
  * - chat view
+ * - contact request content view
  * - welcome view (if no valid item is selected)
  *
  * There should never be a conflict of which item should be displayed (ie: which item is selected),
@@ -378,11 +385,13 @@ selection_changed(RingMainWindow *win)
          *  - call view (if there is an ongoing call associated with the item)
          *  - chat view built from Person
          *  - chat view built from ContactMethod
+         *  - contact request content view built from ContactRequest
          */
 
         Person *person = nullptr;
         ContactMethod *cm = nullptr;
         Call *call = nullptr;
+        ContactRequest *contact_request = nullptr;
 
         /* use the RecentModel to see if there are any ongoing calls associated with the selected item */
         switch(type.value<Ring::ObjectType>()) {
@@ -423,9 +432,13 @@ selection_changed(RingMainWindow *win)
                 }
             }
             break;
+            case Ring::ObjectType::ContactRequest:
+            {
+                contact_request = object.value<ContactRequest *>();
+            }
+            break;
             case Ring::ObjectType::Media:
             case Ring::ObjectType::Certificate:
-            case Ring::ObjectType::ContactRequest:
             case Ring::ObjectType::COUNT__:
             // nothing to do
             break;
@@ -479,6 +492,11 @@ selection_changed(RingMainWindow *win)
 
             if (current_cm != cm)
                 change_view(win, old_view, cm, CHAT_VIEW_TYPE);
+
+        } else if (contact_request) {
+            /* show the contact request page */
+            change_view(win, old_view, contact_request, CONTACT_REQUEST_CONTENT_VIEW_TYPE);
+
         } else {
             /* not a supported object type, display the welcome view */
             if (old_view != priv->welcome_view)

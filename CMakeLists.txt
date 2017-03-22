@@ -325,6 +325,8 @@ SET( SRC_FILES
    src/models/namenumberfilterproxymodel.cpp
    src/pendingcontactrequests.h
    src/pendingcontactrequests.cpp
+   src/contactrequestcontentview.h
+   src/contactrequestcontentview.cpp
 )
 
 # compile glib resource files to c code
