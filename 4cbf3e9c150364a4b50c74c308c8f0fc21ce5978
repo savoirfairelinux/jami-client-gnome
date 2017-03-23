@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_e692de9e",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-23T18:16:33Z",
+      "side": 1,
+      "message": "this should be a separate string so that we can mark it for translation, something like:\nauto error_string \u003d g_markup_escape_text(_(\"(error)\"));\n...\ndisplay_alias \u003d g_strdup_printf(\"\u003cspan fgcolor\u003d\\\"red\\\"\u003e%s %s\u003c/span\u003e\", account_alias, error_string);",
+      "range": {
+        "startLine": 1185,
+        "startChar": 74,
+        "endLine": 1185,
+        "endChar": 81
+      },
+      "revId": "4cbf3e9c150364a4b50c74c308c8f0fc21ce5978",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
