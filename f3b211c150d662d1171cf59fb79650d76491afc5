@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_4682d253",
+        "filename": "src/utils/calling.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-23T17:59:35Z",
+      "side": 1,
+      "message": "is this necessary? if the call is not null, then it should already have an account, I think, and if it is null, then we do call-\u003esetAccount(acc); on line 53\n\n...maybe there is a case that I\u0027m not considering...",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 27
+      },
+      "revId": "f3b211c150d662d1171cf59fb79650d76491afc5",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
