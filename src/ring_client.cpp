@@ -319,7 +319,7 @@ init_systray(RingClient *client)
 #if HAVE_APPINDICATOR
     /* only use AppIndicator in Unity (Tuleap: #1440) */
     const auto desktop = g_getenv("XDG_CURRENT_DESKTOP");
-    if (g_strcmp0("Unity", desktop) == 0) {
+    if (g_strcmp0("Unity", desktop) == 0 || g_strcmp0("KDE", desktop) == 0) {
         use_appinidcator = TRUE;
 
         auto indicator = app_indicator_new("ring", "ring", APP_INDICATOR_CATEGORY_COMMUNICATIONS);
