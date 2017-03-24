@@ -22,6 +22,30 @@
       "revId": "171685132997aa886efd71a06754122cf77a8cb8",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_06ab7a8a",
+        "filename": "src/utils/accounts.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2017-03-24T15:01:26Z",
+      "side": 1,
+      "message": "I made some modifications on the welcome page. For now I don\u0027t see any other places where modifications are required by account protocols.",
+      "parentUuid": "7aade967_4674129c",
+      "range": {
+        "startLine": 72,
+        "startChar": 13,
+        "endLine": 72,
+        "endChar": 29
+      },
+      "revId": "171685132997aa886efd71a06754122cf77a8cb8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
