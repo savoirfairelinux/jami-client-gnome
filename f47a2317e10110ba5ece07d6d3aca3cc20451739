@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_c6cd6288",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-24T15:05:04Z",
+      "side": 1,
+      "message": "There is a couple of issues with this:\n1. The PhoneDirectlyModel usually already ensures that there is only 1 instance of a unique ContactMethod, so I don\u0027t think this is necessary\n2. In the QSet you\u0027re storing the ContactMethod ptr, so the QSet will only check that there are no two identical pointers, it won\u0027t check the contents of the ContactMethod, so it won\u0027t ensure that there isn\u0027t a duplicated uri",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 9
+      },
+      "revId": "f47a2317e10110ba5ece07d6d3aca3cc20451739",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_869e8a62",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-24T15:05:04Z",
+      "side": 1,
+      "message": "this technically will work, but maybe we can think of a nicer way of doing this than looping through every single contact method every time the message count changes in one ContactMethod... maybe change/add the message count signal to have the unread message difference, and have ContactMethods notify the account they\u0027re associated with, so then we can just do Account-\u003eunreadMessageCount()... or something similar\n\nnote: this can be done later",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 1
+      },
+      "revId": "f47a2317e10110ba5ece07d6d3aca3cc20451739",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_26b0f6f3",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1441,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-24T15:05:04Z",
+      "side": 1,
+      "message": "this will only update the message count when new messages are received, we should also update it when messages are marked as read, no?",
+      "range": {
+        "startLine": 1437,
+        "startChar": 0,
+        "endLine": 1441,
+        "endChar": 7
+      },
+      "revId": "f47a2317e10110ba5ece07d6d3aca3cc20451739",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
