@@ -482,11 +482,11 @@ selection_changed(RingMainWindow *win)
 }
 
 static void
-process_search_entry_contact_method(RingMainWindow *self, const URI& uri)
+process_search_entry_contact_method(RingMainWindow *self, const URI& uri, Account* accountOrNullptr)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
-    auto cm = PhoneDirectoryModel::instance().getNumber(uri);
+    auto cm = PhoneDirectoryModel::instance().getNumber(uri, accountOrNullptr);
 
     if (g_settings_get_boolean(priv->settings, "search-entry-places-call")) {
         place_new_call(cm);
@@ -553,7 +553,7 @@ search_entry_activated(RingMainWindow *self)
             priv->username_lookup = QObject::connect(
                 &NameDirectory::instance(),
                 &NameDirectory::registeredNameFound,
-                [self, priv, username_to_lookup] (G_GNUC_UNUSED const Account* account, NameDirectory::LookupStatus status, const QString& address, const QString& name) {
+                [self, priv, username_to_lookup] (Account* account, NameDirectory::LookupStatus status, const QString& address, const QString& name) {
 
                     auto name_qbarray = name.toLatin1();
                     if ( strcmp(priv->pending_username_lookup->data(), name_qbarray.data()) != 0 )
@@ -566,7 +566,7 @@ search_entry_activated(RingMainWindow *self)
                         case NameDirectory::LookupStatus::SUCCESS:
                         {
                             URI uri = URI("ring:" + address);
-                            process_search_entry_contact_method(self, uri);
+                            process_search_entry_contact_method(self, uri, account);
                             break;
                         }
                         case NameDirectory::LookupStatus::INVALID_NAME:
@@ -626,7 +626,7 @@ search_entry_activated(RingMainWindow *self)
         {
             *priv->pending_username_lookup = "";
             gtk_spinner_stop(GTK_SPINNER(priv->spinner_lookup));
-            process_search_entry_contact_method(self, uri);
+            process_search_entry_contact_method(self, uri, nullptr);
         }
     }
 }
