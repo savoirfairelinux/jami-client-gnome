@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_267236e6",
+        "filename": "src/contactrequestcontentview.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2017-03-27T14:43:15Z",
+      "side": 1,
+      "message": "Don\u0027t merge client patches until the LRC API have been renamed as already discussed. For this I suggest \"contactrequestmodel.h\". Note that a contact request is always pending.",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 34
+      },
+      "revId": "bb1c00ed56b7a970df9df86fb235a2b7cb9e4e60",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
