@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_e9c63149",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-03-27T21:21:25Z",
+      "side": 1,
+      "message": "you can just pass the Account to getNumber to associate it with the account right away ie:\ngetNumber(uri, account);",
+      "range": {
+        "startLine": 489,
+        "startChar": 46,
+        "endLine": 489,
+        "endChar": 55
+      },
+      "revId": "4b402d4e7bd007b242ec0c3074b04523f2f31cde",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
