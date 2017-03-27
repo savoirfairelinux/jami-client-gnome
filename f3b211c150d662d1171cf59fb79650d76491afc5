@@ -22,6 +22,30 @@
       "revId": "f3b211c150d662d1171cf59fb79650d76491afc5",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_a654e621",
+        "filename": "src/utils/calling.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2017-03-27T15:11:27Z",
+      "side": 1,
+      "message": "I don\u0027t understand, n is the contactmethod. It set the account to the cm before dialing.",
+      "parentUuid": "7aade967_4682d253",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 27
+      },
+      "revId": "f3b211c150d662d1171cf59fb79650d76491afc5",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
