@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_c601e23a",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2017-03-27T14:30:43Z",
+      "side": 1,
+      "message": "As discussed multiple times, the LRC API needs to be renamed before merging client patches.\nIt should be \"sendContactRequest\".\nThe sooner the rename, the less work it is for everyone.",
+      "range": {
+        "startLine": 224,
+        "startChar": 18,
+        "endLine": 224,
+        "endChar": 30
+      },
+      "revId": "07ac265792d76e070748c78fbcb0d39ad76d0a91",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
