@@ -458,8 +458,8 @@ webkit_chat_container_print_new_message(WebKitChatContainer *view, const QModelI
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    auto message_object = message_index_to_json_message_object(idx).toUtf8().constData();
-    gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", message_object);
+    auto message_object = message_index_to_json_message_object(idx).toUtf8();
+    gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", message_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,
@@ -475,8 +475,8 @@ webkit_chat_container_update_message(WebKitChatContainer *view, const QModelInde
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    auto message_object = message_index_to_json_message_object(idx).toUtf8().constData();
-    gchar* function_call = g_strdup_printf("ring.chatview.updateMessage(%s);", message_object);
+    auto message_object = message_index_to_json_message_object(idx).toUtf8();
+    gchar* function_call = g_strdup_printf("ring.chatview.updateMessage(%s);", message_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,
