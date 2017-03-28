@@ -200,6 +200,7 @@ update(GtkTreeSelection *selection, ContactPopupMenu *self)
         break;
         case Ring::ObjectType::Media:
         case Ring::ObjectType::Certificate:
+        case Ring::ObjectType::ContactRequest:
         // nothing to do for now
         case Ring::ObjectType::COUNT__:
         break;
@@ -275,6 +276,7 @@ update(GtkTreeSelection *selection, ContactPopupMenu *self)
         break;
         case Ring::ObjectType::Media:
         case Ring::ObjectType::Certificate:
+        case Ring::ObjectType::ContactRequest:
         // nothing to do
         case Ring::ObjectType::COUNT__:
         break;
@@ -313,6 +315,7 @@ update(GtkTreeSelection *selection, ContactPopupMenu *self)
         break;
         case Ring::ObjectType::Media:
         case Ring::ObjectType::Certificate:
+        case Ring::ObjectType::ContactRequest:
         // nothing to do
         case Ring::ObjectType::COUNT__:
         break;
