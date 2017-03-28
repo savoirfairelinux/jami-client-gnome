@@ -414,6 +414,7 @@ selection_changed(RingMainWindow *win)
             break;
             case Ring::ObjectType::Media:
             case Ring::ObjectType::Certificate:
+            case Ring::ObjectType::ContactRequest:
             case Ring::ObjectType::COUNT__:
             // nothing to do
             break;
@@ -911,6 +912,7 @@ compare_treeview_selection(GtkTreeSelection *selection1, GtkTreeSelection *selec
                 break;
             case Ring::ObjectType::Media:
             case Ring::ObjectType::Certificate:
+            case Ring::ObjectType::ContactRequest:
             case Ring::ObjectType::COUNT__:
             // nothing to do
             break;
@@ -931,6 +933,7 @@ compare_treeview_selection(GtkTreeSelection *selection1, GtkTreeSelection *selec
                 break;
             case Ring::ObjectType::Media:
             case Ring::ObjectType::Certificate:
+            case Ring::ObjectType::ContactRequest:
             case Ring::ObjectType::COUNT__:
             // nothing to do
             break;
