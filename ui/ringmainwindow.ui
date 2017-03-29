@@ -105,8 +105,8 @@
     <child>
       <object class="GtkStack" id="stack_main_view">
         <property name="visible">True</property>
-        <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_UP</property>
-        <property name="transition-duration">400</property>
+        <property name="transition-type">GTK_STACK_TRANSITION_TYPE_NONE</property>
+        <!-- <property name="transition-duration">400</property> -->
       </object>
     </child>
   </template>
