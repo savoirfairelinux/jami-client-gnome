@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_baedd9f1",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-03-29T14:43:29Z",
+      "side": 1,
+      "message": "fun that you use auto right before but not here.\nC++ protects you with type safety. \"auto\" binds the correct type.",
+      "range": {
+        "startLine": 1256,
+        "startChar": 4,
+        "endLine": 1256,
+        "endChar": 21
+      },
+      "revId": "b919f0a956391b5575d077eebfb0b92f2979c7f9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_5abaa5e2",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-03-29T14:43:29Z",
+      "side": 1,
+      "message": "nit: extra line",
+      "revId": "b919f0a956391b5575d077eebfb0b92f2979c7f9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_9ac7bd64",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-03-29T14:43:29Z",
+      "side": 1,
+      "message": "nit: you can use one line\n\nif (auto \u003d ....)",
+      "range": {
+        "startLine": 66,
+        "startChar": 13,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "b919f0a956391b5575d077eebfb0b92f2979c7f9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_7aa681c3",
+        "filename": "src/utils/accounts.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-03-29T14:43:29Z",
+      "side": 1,
+      "message": "nit: one line also (as you don\u0027t use the variable later)\n\nif (auto selected_account \u003d ...)",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 32
+      },
+      "revId": "b919f0a956391b5575d077eebfb0b92f2979c7f9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
