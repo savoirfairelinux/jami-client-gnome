@@ -61,6 +61,8 @@ gboolean        video_widget_on_button_press_in_screen_event (VideoWidget *self,
 void            video_widget_take_snapshot (VideoWidget *self);
 GdkPixbuf*      video_widget_get_snapshot  (VideoWidget *self);
 
+GtkWidget* video_widget_get_global(void);
+
 G_END_DECLS
 
 #endif /* __VIDEO_WIDGET_H__ */

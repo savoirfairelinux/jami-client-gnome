@@ -142,6 +142,12 @@ current_call_view_dispose(GObject *object)
     auto display_smartinfo = g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "display-smartinfo");
     g_signal_handler_disconnect(display_smartinfo, priv->smartinfo_action);
 
+    if (priv->video_widget) {
+        g_object_ref(priv->video_widget);
+        gtk_container_remove(GTK_CONTAINER(priv->frame_video), priv->video_widget);
+        priv->video_widget = nullptr;
+    }
+
     G_OBJECT_CLASS(current_call_view_parent_class)->dispose(object);
 }
 
@@ -419,52 +425,52 @@ current_call_view_init(CurrentCallView *view)
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
     /* create video widget and overlay the call info and controls on it */
-    priv->video_widget = video_widget_new();
+    priv->video_widget = video_widget_get_global();
     gtk_container_add(GTK_CONTAINER(priv->frame_video), priv->video_widget);
     gtk_widget_show_all(priv->frame_video);
 
-    auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
-    auto actor_info = gtk_clutter_actor_new_with_contents(priv->hbox_call_info);
-    auto actor_controls = gtk_clutter_actor_new_with_contents(priv->hbox_call_controls);
-    auto actor_smartInfo = gtk_clutter_actor_new_with_contents(priv->vbox_call_smartInfo);
+    // auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
+    // auto actor_info = gtk_clutter_actor_new_with_contents(priv->hbox_call_info);
+    // auto actor_controls = gtk_clutter_actor_new_with_contents(priv->hbox_call_controls);
+    // auto actor_smartInfo = gtk_clutter_actor_new_with_contents(priv->vbox_call_smartInfo);
 
-    clutter_actor_add_child(stage, actor_info);
-    clutter_actor_set_x_align(actor_info, CLUTTER_ACTOR_ALIGN_FILL);
-    clutter_actor_set_y_align(actor_info, CLUTTER_ACTOR_ALIGN_START);
-
-    clutter_actor_add_child(stage, actor_controls);
-    clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
-    clutter_actor_set_y_align(actor_controls, CLUTTER_ACTOR_ALIGN_END);
-
-    clutter_actor_add_child(stage, actor_smartInfo);
-    clutter_actor_set_x_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_END);
-    clutter_actor_set_y_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_START);
-    ClutterMargin clutter_margin_smartInfo;
-    clutter_margin_smartInfo.top = 50;
-    clutter_margin_smartInfo.right = 10;
-    clutter_actor_set_margin (actor_smartInfo, &clutter_margin_smartInfo);
-
-    /* add fade in and out states to the info and controls */
-    priv->time_last_mouse_motion = g_get_monotonic_time();
-    priv->fade_info = create_fade_out_transition();
-    priv->fade_controls = create_fade_out_transition();
-    clutter_actor_add_transition(actor_info, "fade_info", priv->fade_info);
-    clutter_actor_add_transition(actor_controls, "fade_controls", priv->fade_controls);
-    clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_info), CLUTTER_TIMELINE_BACKWARD);
-    clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_controls), CLUTTER_TIMELINE_BACKWARD);
-    clutter_timeline_stop(CLUTTER_TIMELINE(priv->fade_info));
-    clutter_timeline_stop(CLUTTER_TIMELINE(priv->fade_controls));
-
-    /* have a timer check every 1 second if the controls should fade out */
-    priv->timer_fade = g_timeout_add(1000, (GSourceFunc)timeout_check_last_motion_event, view);
+    // clutter_actor_add_child(stage, actor_info);
+    // clutter_actor_set_x_align(actor_info, CLUTTER_ACTOR_ALIGN_FILL);
+    // clutter_actor_set_y_align(actor_info, CLUTTER_ACTOR_ALIGN_START);
+    //
+    // clutter_actor_add_child(stage, actor_controls);
+    // clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
+    // clutter_actor_set_y_align(actor_controls, CLUTTER_ACTOR_ALIGN_END);
+    //
+    // clutter_actor_add_child(stage, actor_smartInfo);
+    // clutter_actor_set_x_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_END);
+    // clutter_actor_set_y_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_START);
+    // ClutterMargin clutter_margin_smartInfo;
+    // clutter_margin_smartInfo.top = 50;
+    // clutter_margin_smartInfo.right = 10;
+    // clutter_actor_set_margin (actor_smartInfo, &clutter_margin_smartInfo);
+    //
+    // /* add fade in and out states to the info and controls */
+    // priv->time_last_mouse_motion = g_get_monotonic_time();
+    // priv->fade_info = create_fade_out_transition();
+    // priv->fade_controls = create_fade_out_transition();
+    // clutter_actor_add_transition(actor_info, "fade_info", priv->fade_info);
+    // clutter_actor_add_transition(actor_controls, "fade_controls", priv->fade_controls);
+    // clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_info), CLUTTER_TIMELINE_BACKWARD);
+    // clutter_timeline_set_direction(CLUTTER_TIMELINE(priv->fade_controls), CLUTTER_TIMELINE_BACKWARD);
+    // clutter_timeline_stop(CLUTTER_TIMELINE(priv->fade_info));
+    // clutter_timeline_stop(CLUTTER_TIMELINE(priv->fade_controls));
+    //
+    // /* have a timer check every 1 second if the controls should fade out */
+    // priv->timer_fade = g_timeout_add(1000, (GSourceFunc)timeout_check_last_motion_event, view);
 
     /* connect to the mouse motion event to reset the last moved time */
-    g_signal_connect_swapped(priv->video_widget, "motion-notify-event", G_CALLBACK(mouse_moved), view);
-    g_signal_connect_swapped(priv->video_widget, "button-press-event", G_CALLBACK(mouse_moved), view);
-    g_signal_connect_swapped(priv->video_widget, "button-release-event", G_CALLBACK(mouse_moved), view);
+    // g_signal_connect_swapped(priv->video_widget, "motion-notify-event", G_CALLBACK(mouse_moved), view);
+    // g_signal_connect_swapped(priv->video_widget, "button-press-event", G_CALLBACK(mouse_moved), view);
+    // g_signal_connect_swapped(priv->video_widget, "button-release-event", G_CALLBACK(mouse_moved), view);
 
     /* manually handle the focus of the video widget to be able to focus on the call controls */
-    g_signal_connect(priv->video_widget, "focus", G_CALLBACK(video_widget_focus), view);
+    // g_signal_connect(priv->video_widget, "focus", G_CALLBACK(video_widget_focus), view);
 
     /* toggle whether or not the chat is displayed */
     g_signal_connect(priv->togglebutton_chat, "toggled", G_CALLBACK(chat_toggled), view);
@@ -719,15 +725,15 @@ set_call_info(CurrentCallView *view, Call *call) {
     );
 
     /* handle video widget button click event */
-    g_signal_connect(priv->video_widget, "button-press-event", G_CALLBACK(video_widget_on_button_press_in_screen_event), priv->call);
+    // g_signal_connect(priv->video_widget, "button-press-event", G_CALLBACK(video_widget_on_button_press_in_screen_event), priv->call);
 
     /* handle video widget drag and drop*/
-    g_signal_connect(priv->video_widget, "drag-data-received", G_CALLBACK(video_widget_on_drag_data_received), priv->call);
+    // g_signal_connect(priv->video_widget, "drag-data-received", G_CALLBACK(video_widget_on_drag_data_received), priv->call);
 
     /* catch double click to make full screen */
-    g_signal_connect(priv->video_widget, "button-press-event",
-                     G_CALLBACK(on_button_press_in_video_event),
-                     view);
+    // g_signal_connect(priv->video_widget, "button-press-event",
+    //                  G_CALLBACK(on_button_press_in_video_event),
+    //                  view);
 
     /* handle smartinfo in right click menu */
     auto display_smartinfo = g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "display-smartinfo");

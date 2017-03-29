@@ -871,3 +871,14 @@ video_widget_get_snapshot(VideoWidget *self)
 
     return priv->remote->snapshot;
 }
+
+GtkWidget*
+video_widget_get_global()
+{
+    static GtkWidget* video_widget = nullptr;
+    if (!video_widget) {
+        video_widget = video_widget_new();
+        g_object_ref_sink(video_widget);
+    }
+    return video_widget;
+}
