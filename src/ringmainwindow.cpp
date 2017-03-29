@@ -154,15 +154,16 @@ static gboolean selection_changed(RingMainWindow *win);
 static WebKitChatContainer*
 get_webkit_chat_container(RingMainWindow *win)
 {
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-    if (!priv->webkit_chat_container)
-    {
-        priv->webkit_chat_container = webkit_chat_container_new();
-
-        //We don't want it to be deleted, ever.
-        g_object_ref(priv->webkit_chat_container);
-    }
-    return WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container);
+    // RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+    // if (!priv->webkit_chat_container)
+    // {
+    //     priv->webkit_chat_container = webkit_chat_container_new();
+    //
+    //     //We don't want it to be deleted, ever.
+    //     g_object_ref(priv->webkit_chat_container);
+    // }
+    // return WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container);
+    return nullptr;
 }
 
 static void
