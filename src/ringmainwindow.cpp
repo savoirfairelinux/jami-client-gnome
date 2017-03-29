@@ -160,7 +160,7 @@ get_webkit_chat_container(RingMainWindow *win)
         priv->webkit_chat_container = webkit_chat_container_new();
 
         //We don't want it to be deleted, ever.
-        g_object_ref(priv->webkit_chat_container);
+        g_object_ref_sink(priv->webkit_chat_container);
     }
     return WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container);
 }

@@ -108,6 +108,8 @@ chat_view_dispose(GObject *object)
         g_signal_handler_disconnect(priv->webkit_chat_container, priv->webkit_ready);
         priv->webkit_ready = 0;
 
+        gtk_widget_hide(GTK_WIDGET(priv->webkit_chat_container));
+
         gtk_container_remove(
             GTK_CONTAINER(priv->box_webkit_chat_container),
             GTK_WIDGET(priv->webkit_chat_container)
