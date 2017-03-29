@@ -248,10 +248,10 @@ print_message_to_buffer(ChatView* self, const QModelIndex &idx)
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    webkit_chat_container_print_new_message(
-        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-        idx
-    );
+    // webkit_chat_container_print_new_message(
+    //     WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+    //     idx
+    // );
 }
 
 ContactMethod*
@@ -359,27 +359,27 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
         &QAbstractItemModel::dataChanged,
         [self, priv] (const QModelIndex & topLeft, G_GNUC_UNUSED const QModelIndex & bottomRight)
         {
-            webkit_chat_container_update_message(
-                WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                topLeft
-            );
+            // webkit_chat_container_update_message(
+            //     WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            //     topLeft
+            // );
         }
     );
 
-    /* append new messages */
-    priv->new_message_connection = QObject::connect(
-        model,
-        &QAbstractItemModel::rowsInserted,
-        [self, priv, model] (const QModelIndex &parent, int first, int last) {
-            for (int row = first; row <= last; ++row) {
-                QModelIndex idx = model->index(row, 0, parent);
-                print_message_to_buffer(self, idx);
-                /* make sure these messages are marked as read */
-                model->setData(idx, true, static_cast<int>(Media::TextRecording::Role::IsRead));
-                g_signal_emit(G_OBJECT(self), chat_view_signals[NEW_MESSAGES_DISPLAYED], 0);
-            }
-        }
-    );
+    // /* append new messages */
+    // priv->new_message_connection = QObject::connect(
+    //     model,
+    //     &QAbstractItemModel::rowsInserted,
+    //     [self, priv, model] (const QModelIndex &parent, int first, int last) {
+    //         for (int row = first; row <= last; ++row) {
+    //             QModelIndex idx = model->index(row, 0, parent);
+    //             print_message_to_buffer(self, idx);
+    //             /* make sure these messages are marked as read */
+    //             model->setData(idx, true, static_cast<int>(Media::TextRecording::Role::IsRead));
+    //             g_signal_emit(G_OBJECT(self), chat_view_signals[NEW_MESSAGES_DISPLAYED], 0);
+    //         }
+    //     }
+    // );
 }
 
 static void
@@ -534,8 +534,8 @@ build_chat_view(ChatView* self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    gtk_container_add(GTK_CONTAINER(priv->box_webkit_chat_container), priv->webkit_chat_container);
-    gtk_widget_show(priv->webkit_chat_container);
+    // gtk_container_add(GTK_CONTAINER(priv->box_webkit_chat_container), priv->webkit_chat_container);
+    // gtk_widget_show(priv->webkit_chat_container);
 
     /* keep name updated */
     if (priv->call) {
@@ -563,15 +563,15 @@ build_chat_view(ChatView* self)
     update_contact_methods(self);
     g_signal_connect_swapped(priv->combobox_cm, "changed", G_CALLBACK(selected_cm_changed), self);
 
-    priv->webkit_ready = g_signal_connect_swapped(
-        priv->webkit_chat_container,
-        "ready",
-        G_CALLBACK(webkit_chat_container_ready),
-        self
-    );
-
-    if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
-        webkit_chat_container_ready(self);
+    // priv->webkit_ready = g_signal_connect_swapped(
+    //     priv->webkit_chat_container,
+    //     "ready",
+    //     G_CALLBACK(webkit_chat_container_ready),
+    //     self
+    // );
+    //
+    // if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
+    //     webkit_chat_container_ready(self);
 
     /* we only show the chat info in the case of cm / person */
     gtk_widget_set_visible(priv->hbox_chat_info, (priv->cm || priv->person));
@@ -585,7 +585,7 @@ chat_view_new_call(WebKitChatContainer *webkit_chat_container, Call *call)
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
+    // priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->call = call;
 
     build_chat_view(self);
@@ -601,7 +601,7 @@ chat_view_new_cm(WebKitChatContainer *webkit_chat_container, ContactMethod *cm)
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
+    // priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->cm = cm;
 
     build_chat_view(self);
@@ -617,7 +617,7 @@ chat_view_new_person(WebKitChatContainer *webkit_chat_container, Person *p)
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
+    // priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->person = p;
 
     build_chat_view(self);
