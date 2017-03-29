@@ -671,7 +671,6 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         if (priv->last_settings_view == priv->general_settings_view)
             general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(priv->general_settings_view), TRUE);
 
-        gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_UP);
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->last_settings_view);
     } else {
         /* hide the settings */
@@ -696,7 +695,6 @@ settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
         media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(priv->media_settings_view), FALSE);
         general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(priv->general_settings_view), FALSE);
 
-        gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
 
         /* show the view which was selected previously */
@@ -712,7 +710,6 @@ show_media_settings(GtkToggleButton *navbutton, RingMainWindow *win)
 
     if (gtk_toggle_button_get_active(navbutton)) {
         media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(priv->media_settings_view), TRUE);
-        gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), MEDIA_SETTINGS_VIEW_NAME);
         priv->last_settings_view = priv->media_settings_view;
     } else {
@@ -727,7 +724,6 @@ show_account_settings(GtkToggleButton *navbutton, RingMainWindow *win)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
     if (gtk_toggle_button_get_active(navbutton)) {
-        gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_SETTINGS_VIEW_NAME);
         priv->last_settings_view = priv->account_settings_view;
     }
@@ -741,7 +737,6 @@ show_general_settings(GtkToggleButton *navbutton, RingMainWindow *win)
 
     if (gtk_toggle_button_get_active(navbutton)) {
         general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(priv->general_settings_view), TRUE);
-        gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), GENERAL_SETTINGS_VIEW_NAME);
         priv->last_settings_view = priv->general_settings_view;
     } else {
@@ -755,7 +750,6 @@ on_account_creation_completed(RingMainWindow *win)
     g_return_if_fail(IS_RING_MAIN_WINDOW(win));
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
-    gtk_stack_set_transition_type(GTK_STACK(priv->stack_main_view), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT);
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
 
     /* destroy the wizard */
