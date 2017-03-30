@@ -7,45 +7,12 @@ body {
 }
 
 .status_circle {
-  fill: #A0A0A0;
-  -webkit-animation: circle-dance;
-  -webkit-animation-duration: 0.8s;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-direction: alternate;
-  -webkit-animation-timing-function: ease-in-out;
-}
-
-.anim-first {
-  -webkit-animation-delay: 0.7s;
-}
-
-.anim-second {
-  -webkit-animation-delay: 0.9s;
-}
-
-.anim-third {
-  -webkit-animation-delay: 1.1s;
-}
-
-@-webkit-keyframes circle-dance {
-  0%,50% {
-    -webkit-transform: translateY(0);
-    fill: #A0A0A0;
-  }
-  100% {
-    -webkit-transform: translateY(-8px);
-    fill: #000;
-  }
+  fill: #000;
 }
 
 .status-check {
     stroke-dasharray: 17;
-    stroke-dashoffset: 17;
-    -webkit-animation: dash-check;
-    -webkit-animation-duration: 0.4s;
-    -webkit-animation-delay: 0.7s;
-    -webkit-animation-fill-mode: forwards;
-    -webkit-animation-timing-function: ease-in-out;
+    stroke-dashoffset: 0;
     display: none;
 }
 
@@ -53,54 +20,18 @@ body {
         display: inline-block;
 }
 
-@-webkit-keyframes dash-check{
-  from {
-    stroke-dashoffset: 17;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
 .status-x {
   stroke-dasharray: 12;
-  stroke-dashoffset: 12;
-  -webkit-animation: dash-x;
-  -webkit-animation-duration: 0.2s;
-  -webkit-animation-fill-mode: forwards;
-  -webkit-animation-timing-function: ease-in-out;
-}
-
-.x-first {
-  -webkit-animation-delay: 0.7s;
-}
-
-.x-second {
-  -webkit-animation-delay: 0.9s;
-}
-
-@-webkit-keyframes dash-x{
-  from {
-    stroke-dashoffset: 12;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
+  stroke-dashoffset: 0;
 }
 
 .message_wrapper {
-    transform: scale(0);
     max-width: 50%;
     margin: 10px 0;
     display: inline-block;
     padding: 10px;
     border-radius: 10px;
     position: relative;
-    -webkit-animation: talk;
-    -webkit-animation-duration: 0.3s;
-    -webkit-animation-delay: 0.1s;
-    -webkit-animation-fill-mode: forwards;
-    -webkit-animation-timing-function: ease-in-out;
 }
 
 .message {
@@ -124,36 +55,6 @@ body {
     border-radius: 50%;
     transition: transform 0.2s ease-in-out;
     margin: 10px;
-}
-
-.message_in .sender_image {
-    -webkit-animation-name: enter-stage-left;
-    -webkit-animation-duration: 0.2s;
-    -webkit-animation-timing-function: ease-in-out;
-}
-
-.message_out .sender_image {
-    -webkit-animation-name: enter-stage-right;
-    -webkit-animation-duration: 0.2s;
-    -webkit-animation-timing-function: ease-in-out;
-}
-
-@-webkit-keyframes enter-stage-left {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-}
-
-@-webkit-keyframes enter-stage-right {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
 }
 
 .message_out > .message_wrapper {
@@ -194,27 +95,9 @@ body {
     color: #9E9E9E;
 }
 
-@-webkit-keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-}
-
 .message_text {
     word-wrap: break-word;
     display: block;
-}
-
-@-webkit-keyframes talk {
-    from {
-      transform: scale(0);
-    }
-    to {
-      transform: scale(1);
-    }
 }
 
 .message_in > .message_wrapper:before {
@@ -250,12 +133,6 @@ body {
 .message_delivery_status {
     margin: 10px 10px;
     color: #A0A0A0;
-    opacity: 0;
-    -webkit-animation-name: fade-in;
-    -webkit-animation-duration: 0.2s;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-delay: 0.4s;
-    -webkit-animation-fill-mode: forwards;
     transition: opacity 0.5s ease-in-out;
 }
 
