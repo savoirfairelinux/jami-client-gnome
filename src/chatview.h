@@ -39,9 +39,9 @@ typedef struct _ChatViewClass ChatViewClass;
 
 
 GType          chat_view_get_type   (void) G_GNUC_CONST;
-GtkWidget     *chat_view_new_call   (WebKitChatContainer* view, Call* call);
-GtkWidget     *chat_view_new_cm     (WebKitChatContainer* view, ContactMethod* cm);
-GtkWidget     *chat_view_new_person (WebKitChatContainer* view, Person* p);
+GtkWidget     *chat_view_new_call   (Call* call);
+GtkWidget     *chat_view_new_cm     (ContactMethod* cm);
+GtkWidget     *chat_view_new_person (Person* p);
 Call          *chat_view_get_call   (ChatView*);
 ContactMethod *chat_view_get_cm     (ChatView*);
 Person        *chat_view_get_person (ChatView*);

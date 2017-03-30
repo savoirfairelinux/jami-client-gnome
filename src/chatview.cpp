@@ -101,21 +101,6 @@ chat_view_dispose(GObject *object)
     QObject::disconnect(priv->message_changed_connection);
     QObject::disconnect(priv->update_name);
 
-    /* Destroying the box will also destroy its children, and we wouldn't
-     * want that. So we remove the webkit_chat_container from the box. */
-    if (priv->webkit_chat_container) {
-        /* disconnect for webkit signals */
-        g_signal_handler_disconnect(priv->webkit_chat_container, priv->webkit_ready);
-        priv->webkit_ready = 0;
-
-        gtk_container_remove(
-            GTK_CONTAINER(priv->box_webkit_chat_container),
-            GTK_WIDGET(priv->webkit_chat_container)
-        );
-        priv->webkit_chat_container = nullptr;
-
-    }
-
     G_OBJECT_CLASS(chat_view_parent_class)->dispose(object);
 }
 
@@ -534,6 +519,7 @@ build_chat_view(ChatView* self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
+    priv->webkit_chat_container = webkit_chat_container_new();
     gtk_container_add(GTK_CONTAINER(priv->box_webkit_chat_container), priv->webkit_chat_container);
     gtk_widget_show(priv->webkit_chat_container);
 
@@ -578,14 +564,13 @@ build_chat_view(ChatView* self)
 }
 
 GtkWidget *
-chat_view_new_call(WebKitChatContainer *webkit_chat_container, Call *call)
+chat_view_new_call(Call *call)
 {
     g_return_val_if_fail(call, nullptr);
 
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->call = call;
 
     build_chat_view(self);
@@ -594,14 +579,13 @@ chat_view_new_call(WebKitChatContainer *webkit_chat_container, Call *call)
 }
 
 GtkWidget *
-chat_view_new_cm(WebKitChatContainer *webkit_chat_container, ContactMethod *cm)
+chat_view_new_cm(ContactMethod *cm)
 {
     g_return_val_if_fail(cm, nullptr);
 
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->cm = cm;
 
     build_chat_view(self);
@@ -610,14 +594,13 @@ chat_view_new_cm(WebKitChatContainer *webkit_chat_container, ContactMethod *cm)
 }
 
 GtkWidget *
-chat_view_new_person(WebKitChatContainer *webkit_chat_container, Person *p)
+chat_view_new_person(Person *p)
 {
     g_return_val_if_fail(p, nullptr);
 
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->person = p;
 
     build_chat_view(self);

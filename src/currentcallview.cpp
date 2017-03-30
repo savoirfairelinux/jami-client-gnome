@@ -81,10 +81,6 @@ struct _CurrentCallViewPrivate
     GtkWidget *scalebutton_quality;
     GtkWidget *checkbutton_autoquality;
 
-    /* The webkit_chat_container is created once, then reused for all chat
-     * views */
-    GtkWidget *webkit_chat_container;
-
     /* flag used to keep track of the video quality scale pressed state;
      * we do not want to update the codec bitrate until the user releases the
      * scale button */
@@ -753,7 +749,7 @@ set_call_info(CurrentCallView *view, Call *call) {
     }
 
     /* init chat view */
-    auto chat_view = chat_view_new_call(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->call);
+    auto chat_view = chat_view_new_call(priv->call);
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
 
     /* check if there were any chat notifications and open the chat view if so */
@@ -765,11 +761,10 @@ set_call_info(CurrentCallView *view, Call *call) {
 }
 
 GtkWidget *
-current_call_view_new(Call *call, WebKitChatContainer *webkit_chat_container)
+current_call_view_new(Call *call)
 {
     auto self = g_object_new(CURRENT_CALL_VIEW_TYPE, NULL);
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
+
     set_call_info(CURRENT_CALL_VIEW(self), call);
 
     return GTK_WIDGET(self);

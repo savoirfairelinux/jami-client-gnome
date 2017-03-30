@@ -58,10 +58,6 @@ struct _IncomingCallViewPrivate
     GtkWidget *button_end_call;
     GtkWidget *frame_chat;
 
-    /* The webkit_chat_container is created once, then reused for all chat
-     * views */
-    GtkWidget *webkit_chat_container;
-
     Call *call;
 
     QMetaObject::Connection state_change_connection;
@@ -232,19 +228,16 @@ set_call_info(IncomingCallView *view, Call *call) {
     );
 
     /* show chat */
-    auto chat_view = chat_view_new_cm(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->call->peerContactMethod());
+    auto chat_view = chat_view_new_cm(priv->call->peerContactMethod());
     gtk_widget_show(chat_view);
     chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
 }
 
 GtkWidget *
-incoming_call_view_new(Call *call, WebKitChatContainer *webkit_chat_container)
+incoming_call_view_new(Call *call)
 {
     auto self = g_object_new(INCOMING_CALL_VIEW_TYPE, NULL);
-
-    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
-    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
 
     set_call_info(INCOMING_CALL_VIEW(self), call);
 

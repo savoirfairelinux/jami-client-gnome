@@ -21,7 +21,6 @@
 #define _INCOMINGCALLVIEW_H
 
 #include <gtk/gtk.h>
-#include "webkitchatcontainer.h"
 
 class Call;
 
@@ -38,7 +37,7 @@ typedef struct _IncomingCallViewClass IncomingCallViewClass;
 
 
 GType      incoming_call_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *incoming_call_view_new           (Call*, WebKitChatContainer*);
+GtkWidget *incoming_call_view_new           (Call*);
 Call      *incoming_call_view_get_call      (IncomingCallView*);
 
 G_END_DECLS

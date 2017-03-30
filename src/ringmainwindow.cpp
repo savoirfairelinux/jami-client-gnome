@@ -131,9 +131,6 @@ struct _RingMainWindowPrivate
     QMetaObject::Connection username_lookup;
     std::string* pending_username_lookup;
 
-    /* The webkit_chat_container is created once, then reused for all chat views */
-    GtkWidget *webkit_chat_container;
-
     QMetaObject::Connection selected_item_changed;
     QMetaObject::Connection selected_call_over;
 
@@ -150,20 +147,6 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATIO
 #define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
 
 static gboolean selection_changed(RingMainWindow *win);
-
-static WebKitChatContainer*
-get_webkit_chat_container(RingMainWindow *win)
-{
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-    if (!priv->webkit_chat_container)
-    {
-        priv->webkit_chat_container = webkit_chat_container_new();
-
-        //We don't want it to be deleted, ever.
-        g_object_ref(priv->webkit_chat_container);
-    }
-    return WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container);
-}
 
 static void
 enter_full_screen(RingMainWindow *self)
@@ -232,7 +215,7 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
 
     if (g_type_is_a(INCOMING_CALL_VIEW_TYPE, type)) {
         if (auto call = qobject_cast<Call *>(object)) {
-            new_view = incoming_call_view_new(call, get_webkit_chat_container(self));
+            new_view = incoming_call_view_new(call);
             priv->selected_item_changed = QObject::connect(
                 call,
                 &Call::lifeCycleStateChanged,
@@ -249,7 +232,7 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
             g_warning("Trying to display a view of type IncomingCallView, but the object is not of type Call");
     } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
         if (auto call = qobject_cast<Call *>(object)) {
-            new_view = current_call_view_new(call, get_webkit_chat_container(self));
+            new_view = current_call_view_new(call);
             g_signal_connect(new_view, "video-double-clicked", G_CALLBACK(video_double_clicked), self);
             priv->selected_item_changed = QObject::connect(
                 call,
@@ -267,7 +250,7 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
             g_warning("Trying to display a view of type CurrentCallView, but the object is not of type Call");
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
         if (auto person = qobject_cast<Person *>(object)) {
-            new_view = chat_view_new_person(get_webkit_chat_container(self), person);
+            new_view = chat_view_new_person(person);
             g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
 
             /* connect to the Person's callAdded signal, because we want to switch to the call view
@@ -279,7 +262,7 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
                 {g_idle_add((GSourceFunc)selection_changed, self);}
             );
         } else if (auto cm = qobject_cast<ContactMethod *>(object)) {
-            new_view = chat_view_new_cm(get_webkit_chat_container(self), cm);
+            new_view = chat_view_new_cm(cm);
             g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
 
             /* connect to the ContactMethod's callAdded signal, because we want to switch to the
@@ -1209,9 +1192,6 @@ ring_main_window_init(RingMainWindow *win)
     gtk_entry_set_placeholder_text(GTK_ENTRY(priv->search_entry),
                                    C_("Please try to make the translation 50 chars or less so that it fits into the layout", "Search contacts or enter number"));
 
-    /* init chat webkit container so that it starts loading before the first time we need it*/
-    get_webkit_chat_container(win);
-
     handle_account_migrations(win);
 }
 
@@ -1226,7 +1206,6 @@ ring_main_window_dispose(GObject *object)
     QObject::disconnect(priv->username_lookup);
 
     g_clear_object(&priv->welcome_view);
-    g_clear_object(&priv->webkit_chat_container);
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
 }
