@@ -22,6 +22,29 @@
       "revId": "db00da16d587ef89f9d83e867d4bad0dec4665b4",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_2d83eecd",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2017-04-03T16:52:54Z",
+      "side": 1,
+      "message": "rm ws",
+      "range": {
+        "startLine": 1185,
+        "startChar": 138,
+        "endLine": 1185,
+        "endChar": 143
+      },
+      "revId": "db00da16d587ef89f9d83e867d4bad0dec4665b4",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
