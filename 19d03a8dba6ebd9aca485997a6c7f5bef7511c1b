@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_833c3195",
+        "filename": "src/utils/accounts.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-04-04T22:26:01Z",
+      "side": 1,
+      "message": "this should be updated to reflect the new behaviour",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 3
+      },
+      "revId": "19d03a8dba6ebd9aca485997a6c7f5bef7511c1b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
