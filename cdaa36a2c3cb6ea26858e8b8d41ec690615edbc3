@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_50036173",
+        "filename": "src/utils/accounts.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-04-04T15:31:07Z",
+      "side": 1,
+      "message": "do we still even need this whole method? can we just replace it with AccountModel::instance().userChosenAccount()?",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 1
+      },
+      "revId": "cdaa36a2c3cb6ea26858e8b8d41ec690615edbc3",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
