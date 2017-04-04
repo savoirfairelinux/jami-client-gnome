@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_10f5e982",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-04-04T15:35:38Z",
+      "side": 1,
+      "message": "why perform the check for which account is currently chosen? we always want it to be the same as cm-\u003eaccount(), so just do:\n AccountModel::instance().setUserChosenAccount(call-\u003eaccount());",
+      "range": {
+        "startLine": 1220,
+        "startChar": 0,
+        "endLine": 1227,
+        "endChar": 77
+      },
+      "revId": "171190757371fac04e7f2a760ddc65be0dc662f5",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
