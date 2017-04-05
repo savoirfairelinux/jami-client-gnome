@@ -1069,7 +1069,7 @@ handle_account_migrations(RingMainWindow *win)
             ACCOUNT_MIGRATION_VIEW_NAME
         );
     }
-    else
+    else if (AccountModel::instance().size())
     {
         gtk_widget_show(priv->ring_settings);
     }
