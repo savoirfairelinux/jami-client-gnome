@@ -1129,14 +1129,6 @@ ring_main_window_init(RingMainWindow *win)
                         priv->vbox_call_view,
                         CALL_VIEW_NAME);
 
-    if (has_ring_account()) {
-        /* user has ring account, so show the call view right away */
-        gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
-    } else {
-        /* user has to create the ring account */
-        show_account_creation_wizard(win);
-    }
-
     /* init the settings views */
     priv->account_settings_view = account_view_new();
     gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->account_settings_view, ACCOUNT_SETTINGS_VIEW_NAME);
@@ -1212,7 +1204,15 @@ ring_main_window_init(RingMainWindow *win)
     /* init chat webkit container so that it starts loading before the first time we need it*/
     get_webkit_chat_container(win);
 
-    handle_account_migrations(win);
+    if (has_ring_account()) {
+        /* user has ring account, so show the call view right away */
+        gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
+
+        handle_account_migrations(win);
+    } else {
+        /* user has to create the ring account */
+        show_account_creation_wizard(win);
+    }
 }
 
 static void
