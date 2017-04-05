@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_c38f89cb",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-04-05T17:25:24Z",
+      "side": 1,
+      "message": "I think this should be changed in this patch to be something like:\nif (ring_account) lookup_username \u003d TRUE;\n\nsince we no longer have to rely on the availableaccountmodel to know which account the user wishes to use",
+      "range": {
+        "startLine": 533,
+        "startChar": 11,
+        "endLine": 539,
+        "endChar": 13
+      },
+      "revId": "20e688dfbfe5252c6ce2da97672b3110917b9e8a",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
