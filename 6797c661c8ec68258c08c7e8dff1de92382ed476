@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_dc168af1",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1127,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-04-11T19:58:10Z",
+      "side": 1,
+      "message": "typo: renderer (extra n)",
+      "range": {
+        "startLine": 1127,
+        "startChar": 41,
+        "endLine": 1127,
+        "endChar": 54
+      },
+      "revId": "6797c661c8ec68258c08c7e8dff1de92382ed476",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_7cd3d638",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-04-11T19:58:10Z",
+      "side": 1,
+      "message": "use nullptr in C++ code",
+      "range": {
+        "startLine": 1137,
+        "startChar": 27,
+        "endLine": 1137,
+        "endChar": 31
+      },
+      "revId": "6797c661c8ec68258c08c7e8dff1de92382ed476",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_1ccbc273",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-04-11T19:58:10Z",
+      "side": 1,
+      "message": "this doesn\u0027t work well with R2L written languages (like hebrew)",
+      "range": {
+        "startLine": 1156,
+        "startChar": 94,
+        "endLine": 1156,
+        "endChar": 99
+      },
+      "revId": "6797c661c8ec68258c08c7e8dff1de92382ed476",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
