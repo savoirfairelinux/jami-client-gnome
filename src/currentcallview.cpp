@@ -418,6 +418,13 @@ current_call_view_init(CurrentCallView *view)
 
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
+    // CSS styles
+    auto provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_resource(provider, "/cx/ring/RingGnome/currentcallview.css");
+    gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
+                                              GTK_STYLE_PROVIDER(provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
     /* create video widget and overlay the call info and controls on it */
     priv->video_widget = video_widget_new();
     gtk_container_add(GTK_CONTAINER(priv->frame_video), priv->video_widget);
