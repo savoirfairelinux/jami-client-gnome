@@ -60,6 +60,19 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
+          <object class="GtkButton" id="button_accept_contact_request">
+            <property name="label" translatable="yes">Accept invitation</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkButton" id="button_ignore_contact_request">
             <property name="label">Ignore</property>
             <property name="visible">True</property>
@@ -70,21 +83,22 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">False</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="button_accept_contact_request">
-            <property name="label" translatable="yes">Accept invitation</property>
+          <object class="GtkButton" id="button_block_contact_request">
+            <property name="label">Block</property>
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can_focus">True</property>
             <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Block invitation from this contact</property>
           </object>
           <packing>
             <property name="expand">True</property>
             <property name="fill">False</property>
-            <property name="position">1</property>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>
