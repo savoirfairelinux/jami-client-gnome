@@ -49,6 +49,9 @@
 
   <!-- vertical box which contains smartInfo -->
   <object class="GtkBox" id="vbox_call_smartInfo">
+    <style>
+      <class name="smartinfo-block-style"/>
+    </style>
     <property name="visible">True</property>
     <property name="spacing">5</property>
     <property name="valign">start</property>
@@ -62,7 +65,6 @@
         <property name="halign">start</property>
         <attributes>
           <attribute name="scale" value="1"/>
-          <attribute name="foreground" value="#8a8ae2e23434"/>
           <attribute name="weight" value="bold"/>
         </attributes>
       </object>
@@ -88,7 +90,6 @@
           <property name="halign">start</property>
           <attributes>
             <attribute name="scale" value="1"/>
-            <attribute name="foreground" value="#8a8ae2e23434"/>
             <attribute name="weight" value="bold"/>
           </attributes>
         </object>
@@ -106,7 +107,6 @@
           <property name="halign">start</property>
           <attributes>
             <attribute name="scale" value="1"/>
-            <attribute name="foreground" value="#8a8ae2e23434"/>
             <attribute name="weight" value="bold"/>
           </attributes>
         </object>
