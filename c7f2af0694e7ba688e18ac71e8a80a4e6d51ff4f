@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_3c99de6e",
+        "filename": "src/contactrequestcontentview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-04-11T20:09:07Z",
+      "side": 1,
+      "message": "global?\nWhy is it not in _ContactRequestContentViewPrivate ?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 71
+      },
+      "revId": "c7f2af0694e7ba688e18ac71e8a80a4e6d51ff4f",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_dc720a49",
+        "filename": "src/contactrequestcontentview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-04-11T20:09:07Z",
+      "side": 1,
+      "message": "auto",
+      "range": {
+        "startLine": 170,
+        "startChar": 4,
+        "endLine": 170,
+        "endChar": 38
+      },
+      "revId": "c7f2af0694e7ba688e18ac71e8a80a4e6d51ff4f",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_bc75ce33",
+        "filename": "src/contactrequestcontentview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-04-11T20:09:07Z",
+      "side": 1,
+      "message": "auto",
+      "range": {
+        "startLine": 183,
+        "startChar": 4,
+        "endLine": 183,
+        "endChar": 38
+      },
+      "revId": "c7f2af0694e7ba688e18ac71e8a80a4e6d51ff4f",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_fc7b4627",
+        "filename": "src/contactrequestcontentview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-04-11T20:09:07Z",
+      "side": 1,
+      "message": "no C-cast in C++, use all xxx_cast\u003cyyy\u003e()\nHere I think it\u0027s static_cast\u003cGtkWidget*\u003e(self)",
+      "range": {
+        "startLine": 187,
+        "startChar": 11,
+        "endLine": 187,
+        "endChar": 23
+      },
+      "revId": "c7f2af0694e7ba688e18ac71e8a80a4e6d51ff4f",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
