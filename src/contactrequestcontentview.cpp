@@ -69,6 +69,7 @@ struct _ContactRequestContentViewPrivate
     GtkWidget*    button_ignore_contact_request;
     GtkWidget*    button_accept_contact_request;
     GtkWidget*    button_close_contact_request_content_view;
+    GtkWidget*    button_block_contact_request;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ContactRequestContentView, contact_request_content_view, GTK_TYPE_BOX);
@@ -108,13 +109,24 @@ button_accept_contact_request_clicked(G_GNUC_UNUSED GtkWidget *widget, ContactRe
 }
 
 /**
- * gtk clicked callback to ignore contact request
+ * gtk clicked callback to close the view
  */
 static void
 button_close_contact_request_content_view_clicked(G_GNUC_UNUSED GtkWidget *widget, ContactRequestContentView *self)
 {
     auto klass = CONTACT_REQUEST_CONTENT_VIEW_CLASS(self);
     g_signal_emit(G_OBJECT(self), klass->contact_request_content_view_signals[HIDE_VIEW_CLICKED], 0);
+}
+
+/**
+ * gtk clicked callback to block contact request
+ */
+static void
+button_block_contact_request_clicked(G_GNUC_UNUSED GtkWidget *widget, ContactRequestContentView *self)
+{
+    auto priv = CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(self);
+
+    priv->contactRequest->block();
 }
 
 /**
@@ -129,6 +141,7 @@ contact_request_content_view_init(ContactRequestContentView *self)
 
     g_signal_connect(priv->button_ignore_contact_request, "clicked", G_CALLBACK(button_ignore_contact_request_clicked), self);
     g_signal_connect(priv->button_accept_contact_request, "clicked", G_CALLBACK(button_accept_contact_request_clicked), self);
+    g_signal_connect(priv->button_block_contact_request, "clicked", G_CALLBACK(button_block_contact_request_clicked), self);
     g_signal_connect(priv->button_close_contact_request_content_view, "clicked", G_CALLBACK(button_close_contact_request_content_view_clicked), self);
 }
 
@@ -143,6 +156,7 @@ contact_request_content_view_class_init(ContactRequestContentViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, label_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, button_ignore_contact_request);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, button_accept_contact_request);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, button_block_contact_request);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, button_close_contact_request_content_view);
 
     klass->contact_request_content_view_signals[HIDE_VIEW_CLICKED] = g_signal_new (
