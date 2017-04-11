@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_5ccffab0",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-04-11T18:26:04Z",
+      "side": 1,
+      "message": "good to remember",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 87
+      },
+      "revId": "aea926d4ec8117b01f19ad7ccaf7a123d1650980",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_fcc34688",
+        "filename": "ui/chatview.ui",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-04-11T18:26:04Z",
+      "side": 1,
+      "message": "redundant information, this thing is used in case of difference to print when accessible string is different of tooltip one. When equals, it\u0027s redundant.",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 65,
+        "endChar": 20
+      },
+      "revId": "aea926d4ec8117b01f19ad7ccaf7a123d1650980",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
