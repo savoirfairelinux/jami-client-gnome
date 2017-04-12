@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7aade967_9ccc9237",
+        "filename": "src/contactrequestcontentview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-04-12T14:03:04Z",
+      "side": 1,
+      "message": "So? copying something wrong, make it more wrong and continuing to do it wrong?\nCode exemple are not \"state-of-the-art\", even not references.\nMany of them must not be taken in production code, they are only example to explain an idea.\nFor this one: date \u003d 1997, and a C code...\nTake a look to recent documentation about GTK classes, they shows that you can add private member to your class.",
+      "parentUuid": "7aade967_9c7ed2e3",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 71
+      },
+      "revId": "c7f2af0694e7ba688e18ac71e8a80a4e6d51ff4f",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aade967_dc720a49",
         "filename": "src/contactrequestcontentview.cpp",
         "patchSetId": 6
