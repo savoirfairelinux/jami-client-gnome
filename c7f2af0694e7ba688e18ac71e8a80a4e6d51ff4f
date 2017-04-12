@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7aade967_9c7ed2e3",
+        "filename": "src/contactrequestcontentview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2017-04-12T12:58:40Z",
+      "side": 1,
+      "message": "I tried to respect as much as possible the code style of the rest of our client :\n\nIf you do a grep on LAST_SIGNAL you\u0027ll see that same thing is made in several files and never put in private. The same is made on this example : https://developer.gnome.org/gtk-tutorial/stable/a2901.html",
+      "parentUuid": "7aade967_3c99de6e",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 71
+      },
+      "revId": "c7f2af0694e7ba688e18ac71e8a80a4e6d51ff4f",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aade967_dc720a49",
         "filename": "src/contactrequestcontentview.cpp",
         "patchSetId": 6
@@ -82,6 +106,30 @@
       "writtenOn": "2017-04-11T20:09:07Z",
       "side": 1,
       "message": "no C-cast in C++, use all xxx_cast\u003cyyy\u003e()\nHere I think it\u0027s static_cast\u003cGtkWidget*\u003e(self)",
+      "range": {
+        "startLine": 187,
+        "startChar": 11,
+        "endLine": 187,
+        "endChar": 23
+      },
+      "revId": "c7f2af0694e7ba688e18ac71e8a80a4e6d51ff4f",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_3c831ece",
+        "filename": "src/contactrequestcontentview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2017-04-12T12:58:40Z",
+      "side": 1,
+      "message": "same reason than comment line 75. a static_cast sounds good though.",
+      "parentUuid": "7aade967_fc7b4627",
       "range": {
         "startLine": 187,
         "startChar": 11,
