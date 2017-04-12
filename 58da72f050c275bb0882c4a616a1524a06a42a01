@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_fc6ca638",
+        "filename": "src/contactrequestcontentview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2017-04-12T13:38:23Z",
+      "side": 1,
+      "message": "using GTK_WIDGET is safer than doing a simple c cast (GtkWidget*) but it uses the c cast as well.",
+      "range": {
+        "startLine": 176,
+        "startChar": 1,
+        "endLine": 177,
+        "endChar": 85
+      },
+      "revId": "58da72f050c275bb0882c4a616a1524a06a42a01",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
