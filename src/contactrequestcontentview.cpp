@@ -29,6 +29,15 @@
 #include <pendingcontactrequestmodel.h>
 
 /**
+ * signals
+ */
+
+enum {
+    HIDE_VIEW_CLICKED,
+    LAST_SIGNAL
+};
+
+/**
  * gtk structure
  */
 struct _ContactRequestContentView
@@ -42,6 +51,8 @@ struct _ContactRequestContentView
 struct _ContactRequestContentViewClass
 {
     GtkBoxClass parent_class;
+
+    guint contact_request_content_view_signals[LAST_SIGNAL];
 };
 
 typedef struct _ContactRequestContentViewPrivate ContactRequestContentViewPrivate;
@@ -64,28 +75,11 @@ G_DEFINE_TYPE_WITH_PRIVATE(ContactRequestContentView, contact_request_content_vi
 #define CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CONTACT_REQUEST_CONTENT_VIEW_TYPE, ContactRequestContentViewPrivate))
 
 /**
- * signals
- */
-
-enum {
-    HIDE_VIEW_CLICKED,
-    LAST_SIGNAL
-};
-
-static guint contact_request_content_view_signals[LAST_SIGNAL] = { 0 };
-
-/**
  * gtk dispose function
  */
 static void
 contact_request_content_view_dispose(GObject *object)
 {
-    ContactRequestContentView *self;
-    ContactRequestContentViewPrivate *priv;
-
-    self = CONTACT_REQUEST_CONTENT_VIEW(object);
-    priv = CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(self);
-
     G_OBJECT_CLASS(contact_request_content_view_parent_class)->dispose(object);
 }
 
@@ -118,7 +112,8 @@ button_accept_contact_request_clicked(G_GNUC_UNUSED GtkWidget *widget, ContactRe
 static void
 button_close_contact_request_content_view_clicked(G_GNUC_UNUSED GtkWidget *widget, ContactRequestContentView *self)
 {
-    g_signal_emit(G_OBJECT(self), contact_request_content_view_signals[HIDE_VIEW_CLICKED], 0);
+    auto klass = CONTACT_REQUEST_CONTENT_VIEW_CLASS(self);
+    g_signal_emit(G_OBJECT(self), klass->contact_request_content_view_signals[HIDE_VIEW_CLICKED], 0);
 }
 
 /**
@@ -129,7 +124,7 @@ contact_request_content_view_init(ContactRequestContentView *self)
 {
     gtk_widget_init_template(GTK_WIDGET(self));
 
-    ContactRequestContentViewPrivate *priv = CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(self);
+    auto priv = CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(self);
 
     g_signal_connect(priv->button_ignore_contact_request, "clicked", G_CALLBACK(button_ignore_contact_request_clicked), self);
     g_signal_connect(priv->button_accept_contact_request, "clicked", G_CALLBACK(button_accept_contact_request_clicked), self);
@@ -149,7 +144,7 @@ contact_request_content_view_class_init(ContactRequestContentViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, button_accept_contact_request);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, button_close_contact_request_content_view);
 
-    contact_request_content_view_signals[HIDE_VIEW_CLICKED] = g_signal_new (
+    klass->contact_request_content_view_signals[HIDE_VIEW_CLICKED] = g_signal_new (
         "hide-view-clicked",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
@@ -167,7 +162,7 @@ contact_request_content_view_class_init(ContactRequestContentViewClass *klass)
 void
 build_contact_request_content(ContactRequestContentView *self, ContactRequest *contact_request)
 {
-    ContactRequestContentViewPrivate *priv = CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(self);
+    auto priv = CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(self);
     priv->contactRequest = contact_request;
 
     gtk_label_set_text(GTK_LABEL(priv->label_peer), contact_request->certificate()->remoteId().toStdString().c_str());
@@ -179,10 +174,9 @@ build_contact_request_content(ContactRequestContentView *self, ContactRequest *c
 GtkWidget*
 contact_request_content_view_new(ContactRequest *contact_request)
 {
-    gpointer self = g_object_new(CONTACT_REQUEST_CONTENT_VIEW_TYPE, NULL);
-    ContactRequestContentViewPrivate *priv = CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(self);
+    auto self = GTK_WIDGET(g_object_new(CONTACT_REQUEST_CONTENT_VIEW_TYPE, nullptr));
 
     build_contact_request_content(CONTACT_REQUEST_CONTENT_VIEW(self), contact_request);
 
-    return (GtkWidget*)self;
+    return self;
 }
