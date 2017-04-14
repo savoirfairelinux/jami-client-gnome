@@ -727,6 +727,16 @@ show_general_settings(GtkToggleButton *navbutton, RingMainWindow *win)
 }
 
 static void
+show_combobox_account_selector(RingMainWindow *self, gboolean show)
+{
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    /* we only want to show the account selector when there is more than 1 eneabled account; so
+     * every time we want to show it, we should preform this check */
+    gtk_widget_set_visible(priv->combobox_account_selector,
+        show && AvailableAccountModel::instance().rowCount() > 1);
+}
+
+static void
 on_account_creation_completed(RingMainWindow *win)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(win));
@@ -745,7 +755,7 @@ on_account_creation_completed(RingMainWindow *win)
     gtk_widget_show(priv->ring_settings);
 
     /* show the account selector */
-    gtk_widget_show(priv->combobox_account_selector);
+    show_combobox_account_selector(win, TRUE);
 
     /* init the selection for the account selector */
     gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
@@ -769,7 +779,7 @@ show_account_creation_wizard(RingMainWindow *win)
 
     /* hide settings button until account creation is complete */
     gtk_widget_hide(priv->ring_settings);
-    gtk_widget_hide(priv->combobox_account_selector);
+    show_combobox_account_selector(win, FALSE);
 
     gtk_widget_show(priv->account_creation_wizard);
 
@@ -1072,7 +1082,7 @@ handle_account_migrations(RingMainWindow *win)
         g_signal_connect_swapped(priv->account_migration_view, "account-migration-failed", G_CALLBACK(handle_account_migrations), win);
 
         gtk_widget_hide(priv->ring_settings);
-        gtk_widget_hide(priv->combobox_account_selector);
+        show_combobox_account_selector(win, FALSE);
         gtk_widget_show(priv->account_migration_view);
         gtk_stack_add_named(
             GTK_STACK(priv->stack_main_view),
@@ -1087,7 +1097,7 @@ handle_account_migrations(RingMainWindow *win)
     else
     {
         gtk_widget_show(priv->ring_settings);
-        gtk_widget_show(priv->combobox_account_selector);
+        show_combobox_account_selector(win, TRUE);
 
         /* init the selection for the account selector */
         gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
@@ -1256,11 +1266,14 @@ ring_main_window_init(RingMainWindow *win)
 
     });
 
-    QObject::connect(&AccountModel::instance(), &AccountModel::accountEnabledChanged, [win, priv](Account* a){
-        Q_UNUSED(a)
-        gtk_widget_set_visible(priv->combobox_account_selector,
-                                            (AvailableAccountModel::instance().rowCount() > 1)? TRUE : FALSE);
-    });
+    auto available_accounts_changed = [win, priv] {
+        /* if we're hiding the settings it means we're in the migration or wizard view and we don't
+         * want to show the combo box */
+        if (gtk_widget_get_visible(priv->ring_settings))
+            show_combobox_account_selector(win, TRUE);
+    };
+    QObject::connect(&AvailableAccountModel::instance(), &QAbstractItemModel::rowsRemoved, available_accounts_changed);
+    QObject::connect(&AvailableAccountModel::instance(), &QAbstractItemModel::rowsInserted, available_accounts_changed);
 
     priv->treeview_contact_requests = pending_contact_requests_view_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contact_requests), priv->treeview_contact_requests);
@@ -1336,8 +1349,7 @@ ring_main_window_init(RingMainWindow *win)
     auto *renderer = gtk_cell_renderer_text_new();
 
     /* set visibility */
-    gtk_widget_set_visible(priv->combobox_account_selector,
-                                            (AvailableAccountModel::instance().rowCount() > 1)? TRUE : FALSE);
+    show_combobox_account_selector(win, TRUE);
 
     /* layout */
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, FALSE);
