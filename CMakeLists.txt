@@ -11,7 +11,7 @@ IF (CMAKE_COMPILER_IS_GNUCC)
    ENDIF()
 ENDIF()
 
-ADD_DEFINITIONS("-std=c++1y")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 # set project name and version
 PROJECT(ring-client-gnome)
