@@ -1109,6 +1109,30 @@ selected_account_changed(GtkComboBox *gtk_combo_box, RingMainWindow *self)
 }
 
 /**
+ * count the number of enabled accounts.
+ */
+
+static int
+count_enabled_accounts(RingMainWindow *self)
+{
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    auto tree_model = gtk_combo_box_get_model(GTK_COMBO_BOX(priv->combobox_account_selector));
+    auto rows = gtk_tree_model_iter_n_children(tree_model, NULL);
+    int count = 0;
+
+    for(auto i = 0 ; i < rows ; i++) {
+        GtkTreeIter iter;
+        gtk_tree_model_iter_nth_child(tree_model, &iter, NULL, i);
+
+        QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(tree_model), &iter);
+
+        if(AccountModel::instance().getAccountByModelIndex(idx)->isEnabled())
+          count++;
+    }
+    return count;
+}
+
+/**
  * set the column value by printing the alias and the state of an account in combobox_account_selector.
  */
 static void
@@ -1259,6 +1283,11 @@ ring_main_window_init(RingMainWindow *win)
 
     });
 
+    QObject::connect(&AccountModel::instance(), &AccountModel::accountEnabledChanged, [win, priv](Account* a){
+        auto count = count_enabled_accounts(win);
+        gtk_widget_set_visible(priv->combobox_account_selector, (count > 1)? TRUE : FALSE);
+    });
+
     priv->treeview_contact_requests = pending_contact_requests_view_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contact_requests), priv->treeview_contact_requests);
 
@@ -1331,6 +1360,10 @@ ring_main_window_init(RingMainWindow *win)
     gtk_combo_box_set_model(GTK_COMBO_BOX(priv->combobox_account_selector), GTK_TREE_MODEL(account_model));
 
     auto *renderer = gtk_cell_renderer_text_new();
+
+    /* set visibility */
+    auto count = count_enabled_accounts(win);
+    gtk_widget_set_visible(priv->combobox_account_selector, (count > 1)? TRUE : FALSE);
 
     /* layout */
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, FALSE);
