@@ -420,7 +420,10 @@ current_call_view_init(CurrentCallView *view)
 
     // CSS styles
     auto provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_resource(provider, "/cx/ring/RingGnome/currentcallview.css");
+    gtk_css_provider_load_from_data(provider,
+        ".smartinfo-block-style { color: #8ae234; background-color: rgba(1, 1, 1, 0.33); }",
+        -1, nullptr
+    );
     gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
                                               GTK_STYLE_PROVIDER(provider),
                                               GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
