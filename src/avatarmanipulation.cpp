@@ -464,3 +464,17 @@ got_snapshot(AvatarManipulation *self)
 
     set_state(self, AVATAR_MANIPULATION_STATE_EDIT);
 }
+
+void
+avatar_manipulation_wizard_completed(AvatarManipulation *self)
+{
+    auto priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
+
+    /* Tuleap: #1441
+     * if the user did not validate the avatar area selection, we still take that as the image
+     * for their avatar; otherwise many users end up with no avatar by default
+     * TODO: improve avatar creation process to not need this fix
+     */
+    if (priv->state == AVATAR_MANIPULATION_STATE_EDIT)
+        set_avatar(self);
+}

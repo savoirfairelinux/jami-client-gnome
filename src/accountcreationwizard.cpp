@@ -398,6 +398,13 @@ create_new_ring_account(AccountCreationWizard *win)
     g_return_val_if_fail(IS_ACCOUNT_CREATION_WIZARD(win), G_SOURCE_REMOVE);
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
 
+    /* Tuleap: #1441
+     * if the user did not validate the avatar area selection, we still take that as the image
+     * for their avatar; otherwise many users end up with no avatar by default
+     * TODO: improve avatar creation process to not need this fix
+     */
+    avatar_manipulation_wizard_completed(AVATAR_MANIPULATION(priv->avatar_manipulation));
+
     gchar *display_name = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_display_name)));
     gchar *username = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_username)));
     gchar *password = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_password)));
