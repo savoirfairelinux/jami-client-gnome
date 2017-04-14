@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.11)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1.0)
 
 # First, check is the compiler is new enough, most version of Clang are fine
 # until problems arise, checking for GCC is enough
@@ -11,7 +11,7 @@ IF (CMAKE_COMPILER_IS_GNUCC)
    ENDIF()
 ENDIF()
 
-ADD_DEFINITIONS("-std=c++1y")
+set (CMAKE_CXX_STANDARD 14)
 
 # set project name and version
 PROJECT(ring-client-gnome)
