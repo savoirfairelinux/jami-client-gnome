@@ -1259,6 +1259,12 @@ ring_main_window_init(RingMainWindow *win)
 
     });
 
+    QObject::connect(&AccountModel::instance(), &AccountModel::accountEnabledChanged, [win, priv](Account* a){
+        Q_UNUSED(a)
+        gtk_widget_set_visible(priv->combobox_account_selector,
+                                            (AccountModel::instance().enabledAccounts()->rowCount() > 1)? TRUE : FALSE);
+    });
+
     priv->treeview_contact_requests = pending_contact_requests_view_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contact_requests), priv->treeview_contact_requests);
 
@@ -1325,12 +1331,16 @@ ring_main_window_init(RingMainWindow *win)
     }
 
     /* model for the combobox for Account chooser */
-    auto account_model = gtk_q_tree_model_new(AccountModel::instance().userSelectionModel()->model(), 1,
+    auto account_model = gtk_q_tree_model_new(AccountModel::instance().enabledAccounts(), 1,
         0, Account::Role::Alias, G_TYPE_STRING);
 
     gtk_combo_box_set_model(GTK_COMBO_BOX(priv->combobox_account_selector), GTK_TREE_MODEL(account_model));
 
     auto *renderer = gtk_cell_renderer_text_new();
+
+    /* set visibility */
+    gtk_widget_set_visible(priv->combobox_account_selector,
+                                            (AccountModel::instance().enabledAccounts()->rowCount() > 1)? TRUE : FALSE);
 
     /* layout */
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, FALSE);
