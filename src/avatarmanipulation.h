@@ -55,7 +55,10 @@ typedef enum
 
 GType      avatar_manipulation_get_type       (void) G_GNUC_CONST;
 GtkWidget *avatar_manipulation_new            (void);
-GtkWidget *avatar_manipulation_new_from_wizard(void); /* should be used from the account creation wizard */
+
+/* used from the account creation wizard */
+GtkWidget *avatar_manipulation_new_from_wizard(void);
+void       avatar_manipulation_wizard_completed(AvatarManipulation *);
 
 G_END_DECLS
 
