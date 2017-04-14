@@ -559,6 +559,12 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
 }
 
 static void
+free_pixels(guchar *pixels, gpointer)
+{
+    g_free(pixels);
+}
+
+static void
 clutter_render_image(VideoWidgetRenderer* wg_renderer)
 {
     auto actor = wg_renderer->actor;
@@ -654,7 +660,7 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         }
 
         if (wg_renderer->snapshot_status == HAS_TO_TAKE_ONE) {
-            guchar pixbuf_frame_data[res.width() * res.height() * 3];
+            guchar *pixbuf_frame_data = (guchar *)g_malloc(res.width() * res.height() * 3);
 
             BPP = 3; /* RGB */
             gint ROW_STRIDE = BPP * res.width();
@@ -671,10 +677,10 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
                 wg_renderer->snapshot = nullptr;
             }
 
-            wg_renderer->snapshot = gdk_pixbuf_new_from_data(&pixbuf_frame_data[0],
+            wg_renderer->snapshot = gdk_pixbuf_new_from_data(pixbuf_frame_data,
                                                              GDK_COLORSPACE_RGB, FALSE, 8,
                                                              res.width(), res.height(),
-                                                             ROW_STRIDE, NULL, NULL);
+                                                             ROW_STRIDE, free_pixels, NULL);
 
             wg_renderer->snapshot_status = HAS_A_NEW_ONE;
 
