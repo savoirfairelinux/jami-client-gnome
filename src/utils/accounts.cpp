@@ -20,7 +20,6 @@
 #include "accounts.h"
 
 #include <accountmodel.h>
-#include <availableaccountmodel.h>
 
 // LRC
 #include <QItemSelectionModel>
@@ -59,8 +58,6 @@ force_ring_display_name()
 Account*
 get_active_ring_account()
 {
-    const auto idx = AvailableAccountModel::instance().selectionModel()->currentIndex();
-    auto account = idx.data(static_cast<int>(Account::Role::Object)).value<Account*>();
-
+    auto account = AccountModel::instance().userChosenAccount();
     return (account && account->protocol() == Account::Protocol::RING) ? account : nullptr;
 }

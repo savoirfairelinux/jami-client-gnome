@@ -30,9 +30,6 @@
 #include <QObject>
 #include <QItemSelectionModel>
 
-// LRC
-#include <availableaccountmodel.h>
-
 struct _RingWelcomeView
 {
     GtkScrolledWindow parent;
@@ -200,12 +197,17 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_box_pack_start(GTK_BOX(box_main), priv->button_qrcode, TRUE, TRUE, 0);
 
     priv->account_model_data_changed = QObject::connect(
-        &AvailableAccountModel::instance(),
-        &AvailableAccountModel::currentDefaultAccountChanged,
-        [self] (Account* a)
-        {
-            update_view(self);
-        });
+        &AccountModel::instance(),
+        &AccountModel::dataChanged,
+        [self] (const QModelIndex&, const QModelIndex&) { update_view(self); }
+    );
+
+    /* connect to the next signal to update in terms of the account selected */
+    QObject::connect(AccountModel::instance().userSelectionModel(), &QItemSelectionModel::currentChanged,
+    [self](const QModelIndex& idx){
+        Q_UNUSED(idx)
+        update_view(self);
+    });
 
     gtk_widget_show_all(GTK_WIDGET(self));
 }
