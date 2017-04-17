@@ -1109,8 +1109,10 @@ selected_account_changed(GtkComboBox *gtk_combo_box, RingMainWindow *self)
 {
     int nbr = gtk_combo_box_get_active(gtk_combo_box);
 
-    const auto idx = AvailableAccountModel::instance().selectionModel()->model()->index(nbr, 0);
-    AvailableAccountModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
+    QModelIndex idx = AccountModel::instance().userSelectionModel()->model()->index(nbr, 0);
+    auto account = AccountModel::instance().getAccountByModelIndex(idx);
+
+    AccountModel::instance().setUserChosenAccount(account);
 
     // we closing any view opened to avoid confusion (especially between SIP and Ring protocols).
     hide_view_clicked(nullptr, self);
@@ -1254,7 +1256,7 @@ ring_main_window_init(RingMainWindow *win)
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_history), priv->treeview_history);
 
     /* use this event to refresh the treeview_conversations when account selection changed */
-    QObject::connect(AvailableAccountModel::instance().selectionModel(), &QItemSelectionModel::currentChanged, [priv](const QModelIndex& idx){
+    QObject::connect(AccountModel::instance().userSelectionModel(), &QItemSelectionModel::currentChanged, [priv](const QModelIndex& idx){
         // next line will refresh the recentmodel so the treeview will do
         RecentModel::instance().peopleProxy()->setFilterRegExp("");
 
@@ -1305,9 +1307,7 @@ ring_main_window_init(RingMainWindow *win)
         &CallModel::incomingCall,
         [priv](Call* call) {
             // select the revelant account
-            const auto idx = call->account()->index();
-            AvailableAccountModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
-
+            AccountModel::instance().setUserChosenAccount(call->account());
 
             // clear the regex to make sure the call is shown
             RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp());
