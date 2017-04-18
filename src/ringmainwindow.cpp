@@ -1305,11 +1305,11 @@ ring_main_window_init(RingMainWindow *win)
         &CallModel::incomingCall,
         [priv](Call* call) {
             // select the revelant account
-            if (call->account()) {
-                auto row = call->account()->index().row();
-                gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), row);
-            }
+            auto idx = call->account()->index();                        // from AccountModel
+            idx = AvailableAccountModel::instance().mapFromSource(idx); // from AvailableAccountModel
 
+            AvailableAccountModel::instance().selectionModel()->setCurrentIndex(idx,
+                                                                                QItemSelectionModel::ClearAndSelect);
 
             // clear the regex to make sure the call is shown
             RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp());
