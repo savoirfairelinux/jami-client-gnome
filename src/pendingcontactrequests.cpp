@@ -27,6 +27,7 @@
 #include <accountmodel.h>
 #include <pendingcontactrequestmodel.h>
 #include <account.h>
+#include <availableaccountmodel.h>
 
 // System
 #include <gtk/gtk.h>
@@ -74,7 +75,7 @@ pending_contact_requests_view_init(PendingContactRequestsView *self)
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(self), FALSE);
 
     // the next signal is used to set the model in function of the selection of the account
-    QObject::connect(AccountModel::instance().userSelectionModel(), &QItemSelectionModel::currentChanged, [self](const QModelIndex& idx){
+    QObject::connect(AvailableAccountModel::instance().selectionModel(), &QItemSelectionModel::currentChanged, [self](const QModelIndex& idx){
         auto account = idx.data(static_cast<int>(Account::Role::Object)).value<Account*>();
         GtkQTreeModel *pending_contact_requests_model;
         pending_contact_requests_model = gtk_q_tree_model_new(
