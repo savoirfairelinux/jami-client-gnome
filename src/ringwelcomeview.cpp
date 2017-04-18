@@ -200,10 +200,11 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_box_pack_start(GTK_BOX(box_main), priv->button_qrcode, TRUE, TRUE, 0);
 
     priv->account_model_data_changed = QObject::connect(
-        &AvailableAccountModel::instance(),
-        &AvailableAccountModel::currentDefaultAccountChanged,
-        [self] (Account* a)
+        AvailableAccountModel::instance().selectionModel(),
+        &QItemSelectionModel::currentChanged,
+        [self] (const QModelIndex& idx)
         {
+            Q_UNUSED(idx);
             update_view(self);
         });
 
