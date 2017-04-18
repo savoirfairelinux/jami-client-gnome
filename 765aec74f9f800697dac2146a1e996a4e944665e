@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_342252ba",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-04-18T18:04:59Z",
+      "side": 1,
+      "message": "you can actually just delete this and have 0 params, then you don\u0027t need the Q_UNUSED",
+      "range": {
+        "startLine": 205,
+        "startChar": 16,
+        "endLine": 205,
+        "endChar": 38
+      },
+      "revId": "765aec74f9f800697dac2146a1e996a4e944665e",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_d42e5ea5",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-04-18T18:04:59Z",
+      "side": 1,
+      "message": "see above",
+      "range": {
+        "startLine": 207,
+        "startChar": 12,
+        "endLine": 207,
+        "endChar": 26
+      },
+      "revId": "765aec74f9f800697dac2146a1e996a4e944665e",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
