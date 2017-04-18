@@ -6,7 +6,9 @@
 </head>
 
 <body>
-    <div id="messages"></div>
+    <div id="container">
+      <div id="messages"></div>
+    </div>
 </body>
 
 <!--
@@ -123,6 +125,7 @@ ring.chatview = (function(){
 
             chatview_sentCheckmark.setAttribute("class", "sent-checkmark");
 
+        chatview_message_div = document.querySelector("#message_" + message_id);
         if (new_message)
         {
             message_div_classes = [
@@ -210,53 +213,32 @@ ring.chatview = (function(){
      */
     function addMessage(message_object)
     {
-        // Set variables for scroll animation.
-        var scrolly, // Precise position to scroll to during animation.
-            startTime = Date.now(),
-            durTime = 400, // Duration of the scroll animation, in milliseconds.
-            yOffset = window.pageYOffset;
-
+        var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - 5;
         addOrUpdateMessage(message_object, true);
+        if (atEnd) {
+            var startTime = Date.now(),
+                durTime = 250.,
+                scrollStartHeight = messages.scrollHeight,
+                scrollStart = messages.scrollTop,
+                scrollDiff = scrollStartHeight - messages.clientHeight - scrollStart;
 
-       /**
-        * Smooth scrolling animation.
-        */
-        function loop()
-        {
-          var time = Date.now() - startTime,
-              lastEl= messages.lastElementChild.getBoundingClientRect(),
-              scrollHeight = document.body.scrollHeight,
-              windowHeight = window.innerHeight,
-              diff =  scrollHeight - yOffset - windowHeight -lastEl.height, // If user scrolls up (diff > 0).
-              animated,
-              i;
+            function loop() {
+                var time = Date.now() - startTime,
+                    scrollHeight = messages.scrollHeight,
+                    diff = messages.scrollTop - scrollStart; // If user scrolls up (diff > 0).
 
-          if (time >= durTime || scrollHeight <= window.innerHeight || diff > 0) {
-              if (diff <=0) { // User scrolled up, don't autoscroll.
-                  window.scrollTo(0, scrollHeight);
-              }
-
-              animated = document.querySelectorAll(".message_wrapper.wc");
-
-              i = animated.length;
-              while (i--){
-                  animated[i].classList.remove("wc");
-              }
-              return false;
-
-          } else {
-
-              scrolly =  (yOffset) + ((lastEl.height) * (time/durTime));
-          }
-
-          window.scrollTo(0, scrolly);
-
-          // Recall the loop
-          raf(loop);
+                if (time >= durTime || scrollHeight != scrollStartHeight || diff < 0) {
+                    if (diff >= 0) { // User scrolled up, don't autoscroll.
+                        messages.scrollTop = scrollHeight;
+                    }
+                    return false;
+                } else {
+                    messages.scrollTop = scrollStart + (scrollDiff * (time/durTime));
+                    raf(loop);
+                }
+            }
+            raf(loop); // Start the animation loop
         }
-
-        loop(); // Start the animation loop
-
     }
 
     /**
