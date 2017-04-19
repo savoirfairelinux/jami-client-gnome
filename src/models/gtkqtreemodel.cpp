@@ -218,6 +218,9 @@ QModelIndex
 gtk_q_tree_model_get_source_idx(GtkQTreeModel *q_tree_model, GtkTreeIter *iter)
 {
     GtkQTreeModelPrivate *priv = GTK_Q_TREEMODEL_GET_PRIVATE(q_tree_model);
+
+    g_return_val_if_fail (iter->stamp == priv->stamp, QModelIndex());
+
     QIter *qiter = Q_ITER(iter);
     GtkAccessProxyModel *proxy_model = priv->model;
     QModelIndex proxy_idx = proxy_model->indexFromId(qiter->row.value, qiter->column.value, qiter->id);
