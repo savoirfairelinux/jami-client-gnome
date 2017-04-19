@@ -22,6 +22,30 @@
       "revId": "cf024b397c131a4cc32a8be74376b209155095c0",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_170cf841",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2017-04-19T16:08:44Z",
+      "side": 1,
+      "message": "Done, it now uses CMAKE_CXX_FLAGS.",
+      "parentUuid": "7aade967_3786d4ba",
+      "range": {
+        "startLine": 1,
+        "startChar": 31,
+        "endLine": 1,
+        "endChar": 36
+      },
+      "revId": "cf024b397c131a4cc32a8be74376b209155095c0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
