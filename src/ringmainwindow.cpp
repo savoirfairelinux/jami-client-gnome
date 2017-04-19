@@ -1262,6 +1262,9 @@ ring_main_window_init(RingMainWindow *win)
         // from the combo box.
         gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), idx.row());
 
+        // clear the search bar
+        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+
     });
 
     auto available_accounts_changed = [win, priv] {
