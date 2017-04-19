@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_3786d4ba",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-04-19T10:54:38Z",
+      "side": 1,
+      "message": "this change should be mentioned in the commit msg body\n\nalso, note that Debian 8 seems to ship 3.0.2:\nhttps://packages.debian.org/jessie/cmake\n\nI\u0027m assuming this will break the build there... could we still support older cmake? I know CMAKE_CXX_STANDARD was only added in 3.1.0",
+      "range": {
+        "startLine": 1,
+        "startChar": 31,
+        "endLine": 1,
+        "endChar": 36
+      },
+      "revId": "cf024b397c131a4cc32a8be74376b209155095c0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
