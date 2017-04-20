@@ -60,7 +60,9 @@ Account*
 get_active_ring_account()
 {
     const auto idx = AvailableAccountModel::instance().selectionModel()->currentIndex();
-    auto account = idx.data(static_cast<int>(Account::Role::Object)).value<Account*>();
+    Account* account = nullptr;
+    if (idx.isValid())
+	account = idx.data(static_cast<int>(Account::Role::Object)).value<Account*>();
 
     return (account && account->protocol() == Account::Protocol::RING) ? account : nullptr;
 }
