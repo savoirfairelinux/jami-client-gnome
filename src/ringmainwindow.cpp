@@ -1110,7 +1110,8 @@ selected_account_changed(GtkComboBox *gtk_combo_box, RingMainWindow *self)
     int nbr = gtk_combo_box_get_active(gtk_combo_box);
 
     const auto idx = AvailableAccountModel::instance().selectionModel()->model()->index(nbr, 0);
-    AvailableAccountModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
+    if (idx.isValid())
+        AvailableAccountModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
 
     // we closing any view opened to avoid confusion (especially between SIP and Ring protocols).
     hide_view_clicked(nullptr, self);
