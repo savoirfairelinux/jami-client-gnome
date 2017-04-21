@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7aade967_9d2b29eb",
+        "filename": "src/utils/accounts.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2017-04-21T13:44:12Z",
+      "side": 1,
+      "message": "You\u0027re right: http://doc.qt.io/qt-5/qvariant.html#value",
+      "parentUuid": "7aade967_9ddd6917",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 22
+      },
+      "revId": "5f7afdbadf6255093602f08081c83ea0dea33c43",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aade967_bde2a5d3",
         "filename": "src/utils/accounts.cpp",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-20T22:12:17Z",
       "side": 1,
       "message": "fyi, only spaces, no tabs please :)",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 1
+      },
+      "revId": "5f7afdbadf6255093602f08081c83ea0dea33c43",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_bd306557",
+        "filename": "src/utils/accounts.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2017-04-21T13:44:12Z",
+      "side": 1,
+      "message": "Oops ;)",
+      "parentUuid": "7aade967_bde2a5d3",
       "range": {
         "startLine": 65,
         "startChar": 0,
