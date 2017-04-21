@@ -76,16 +76,17 @@ pending_contact_requests_view_init(PendingContactRequestsView *self)
 
     // the next signal is used to set the model in function of the selection of the account
     QObject::connect(AvailableAccountModel::instance().selectionModel(), &QItemSelectionModel::currentChanged, [self](const QModelIndex& idx){
-        auto account = idx.data(static_cast<int>(Account::Role::Object)).value<Account*>();
-        GtkQTreeModel *pending_contact_requests_model;
-        pending_contact_requests_model = gtk_q_tree_model_new(
-                                                    account->pendingContactRequestModel(),
-                                                    1/*nmbr. of cols.*/,
-                                                    0,
-                                                    Qt::DisplayRole,
-                                                    G_TYPE_STRING);
+        if (auto account = idx.data(static_cast<int>(Account::Role::Object)).value<Account*>()) {
+            GtkQTreeModel *pending_contact_requests_model;
+            pending_contact_requests_model = gtk_q_tree_model_new(
+                account->pendingContactRequestModel(),
+                1/*nmbr. of cols.*/,
+                0,
+                Qt::DisplayRole,
+                G_TYPE_STRING);
 
-        gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(pending_contact_requests_model));
+            gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(pending_contact_requests_model));
+        }
     });
 
     GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
