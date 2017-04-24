@@ -49,5 +49,10 @@
         <summary>Entering a number in the search entry places a new call.</summary>
         <description>Entering a number in the search entry places a new call. If false, then this will instead open a chat view.</description>
     </key>
+    <key name="selected-account" type="s">
+        <default>""</default>
+        <summary>The user selected account.</summary>
+        <description>The account id of the user selected account; if empty there is no valid account selected.</description>
+    </key>
   </schema>
 </schemalist>

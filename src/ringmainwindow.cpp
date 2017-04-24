@@ -775,7 +775,9 @@ on_account_creation_completed(RingMainWindow *win)
     /* show the account selector */
     show_combobox_account_selector(win, TRUE);
 
-    /* init the selection for the account selector */
+    /* select the newly created account */
+    // TODO: the new account might not always be the first one; eg: if the user has an existing
+    //       SIP account
     gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
 }
 
@@ -1116,9 +1118,6 @@ handle_account_migrations(RingMainWindow *win)
     {
         gtk_widget_show(priv->ring_settings);
         show_combobox_account_selector(win, TRUE);
-
-        /* init the selection for the account selector */
-        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
     }
 }
 
@@ -1380,10 +1379,12 @@ ring_main_window_init(RingMainWindow *win)
                                        (GtkCellLayoutDataFunc)print_account_and_state,
                                        nullptr, nullptr);
 
-    g_signal_connect(priv->combobox_account_selector, "changed", G_CALLBACK(selected_account_changed), win);
-
     /* init the selection for the account selector */
-    selected_account_changed(GTK_COMBO_BOX(priv->combobox_account_selector), win);
+    auto selected_idx = AvailableAccountModel::instance().selectionModel()->currentIndex();
+    if (selected_idx.isValid())
+        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), selected_idx.row());
+
+    g_signal_connect(priv->combobox_account_selector, "changed", G_CALLBACK(selected_account_changed), win);
 
     g_object_unref(account_model);
 }
