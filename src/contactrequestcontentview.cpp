@@ -180,7 +180,7 @@ build_contact_request_content(ContactRequestContentView *self, ContactRequest *c
     auto priv = CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(self);
     priv->contactRequest = contact_request;
 
-    gtk_label_set_text(GTK_LABEL(priv->label_peer), contact_request->certificate()->remoteId().toStdString().c_str());
+    gtk_label_set_text(GTK_LABEL(priv->label_peer), contact_request->certificate()->remoteId().constData());
 }
 
 /**
