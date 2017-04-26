@@ -327,6 +327,8 @@ SET( SRC_FILES
    src/pendingcontactrequests.cpp
    src/contactrequestcontentview.h
    src/contactrequestcontentview.cpp
+   src/accountbanstab.h
+   src/accountbanstab.cpp
 )
 
 # compile glib resource files to c code
