@@ -24,5 +24,6 @@
     <file preprocess="xml-stripblanks">webkitchatcontainer.ui</file>
     <file preprocess="xml-stripblanks">usernameregistrationbox.ui</file>
     <file preprocess="xml-stripblanks">contactrequestcontentview.ui</file>
+    <file preprocess="xml-stripblanks">accountbanstab.ui</file>
   </gresource>
 </gresources>
