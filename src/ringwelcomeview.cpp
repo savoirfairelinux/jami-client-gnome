@@ -196,9 +196,9 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_set_size_request(priv->button_qrcode,10,10);
     g_signal_connect_swapped(priv->button_qrcode, "clicked", G_CALLBACK(switch_qrcode), self);
     gtk_widget_set_no_show_all(priv->button_qrcode, TRUE);
-    gtk_widget_set_visible(priv->button_qrcode, FALSE);
     gtk_box_pack_start(GTK_BOX(box_main), priv->button_qrcode, TRUE, TRUE, 0);
 
+    update_view(self);
     priv->account_model_data_changed = QObject::connect(
         AvailableAccountModel::instance().selectionModel(),
         &QItemSelectionModel::currentChanged,
