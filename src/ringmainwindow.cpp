@@ -198,7 +198,7 @@ leave_full_screen(RingMainWindow *self)
 }
 
 static void
-video_double_clicked(G_GNUC_UNUSED CurrentCallView *view, RingMainWindow *self)
+video_double_clicked(RingMainWindow *self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
@@ -211,7 +211,7 @@ video_double_clicked(G_GNUC_UNUSED CurrentCallView *view, RingMainWindow *self)
 }
 
 static void
-hide_view_clicked(G_GNUC_UNUSED GtkWidget *view, RingMainWindow *self)
+hide_view_clicked(RingMainWindow *self)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
 
@@ -259,7 +259,7 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
     } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
         if (auto call = qobject_cast<Call *>(object)) {
             new_view = current_call_view_new(call, get_webkit_chat_container(self));
-            g_signal_connect(new_view, "video-double-clicked", G_CALLBACK(video_double_clicked), self);
+            g_signal_connect_swapped(new_view, "video-double-clicked", G_CALLBACK(video_double_clicked), self);
             priv->selected_item_changed = QObject::connect(
                 call,
                 &Call::lifeCycleStateChanged,
@@ -277,7 +277,7 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
         if (auto person = qobject_cast<Person *>(object)) {
             new_view = chat_view_new_person(get_webkit_chat_container(self), person);
-            g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
+            g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
 
             /* connect to the Person's callAdded signal, because we want to switch to the call view
              * in this case */
@@ -289,7 +289,7 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
             );
         } else if (auto cm = qobject_cast<ContactMethod *>(object)) {
             new_view = chat_view_new_cm(get_webkit_chat_container(self), cm);
-            g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
+            g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
 
             /* connect to the ContactMethod's callAdded signal, because we want to switch to the
              * call view in this case */
@@ -305,7 +305,7 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
     } else if (g_type_is_a(CONTACT_REQUEST_CONTENT_VIEW_TYPE, type)) {
         if (auto contact_request = qobject_cast<ContactRequest *>(object)) {
             new_view = contact_request_content_view_new(contact_request);
-            g_signal_connect(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
+            g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
         }
     } else {
         // display the welcome view
@@ -699,7 +699,7 @@ save_accounts(GtkWidget *working_dialog)
 }
 
 static void
-settings_clicked(G_GNUC_UNUSED GtkButton *button, RingMainWindow *win)
+settings_clicked(RingMainWindow *win)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(win));
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -1175,13 +1175,6 @@ handle_account_migrations(RingMainWindow *win)
     }
 }
 
-static void
-selected_account_changed(GtkComboBox *, RingMainWindow *self)
-{
-    // we closing any view opened to avoid confusion (especially between SIP and Ring protocols).
-    hide_view_clicked(nullptr, self);
-}
-
 /**
  * set the column value by printing the alias and the state of an account in combobox_account_selector.
  */
@@ -1281,7 +1274,7 @@ ring_main_window_init(RingMainWindow *win)
     gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
 
     /* connect settings button signal */
-    g_signal_connect(priv->ring_settings, "clicked", G_CALLBACK(settings_clicked), win);
+    g_signal_connect_swapped(priv->ring_settings, "clicked", G_CALLBACK(settings_clicked), win);
 
     /* add the call view to the main stack */
     gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
@@ -1414,7 +1407,8 @@ ring_main_window_init(RingMainWindow *win)
                                        (GtkCellLayoutDataFunc)print_account_and_state,
                                        nullptr, nullptr);
 
-    g_signal_connect(priv->combobox_account_selector, "changed", G_CALLBACK(selected_account_changed), win);
+    // we closing any view opened to avoid confusion (especially between SIP and Ring protocols).
+    g_signal_connect_swapped(priv->combobox_account_selector, "changed", G_CALLBACK(hide_view_clicked), win);
 }
 
 static void
