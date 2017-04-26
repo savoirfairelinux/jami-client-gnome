@@ -1176,14 +1176,8 @@ handle_account_migrations(RingMainWindow *win)
 }
 
 static void
-selected_account_changed(GtkComboBox *gtk_combo_box, RingMainWindow *self)
+selected_account_changed(GtkComboBox *, RingMainWindow *self)
 {
-    int nbr = gtk_combo_box_get_active(gtk_combo_box);
-
-    const auto idx = AvailableAccountModel::instance().selectionModel()->model()->index(nbr, 0);
-    if (idx.isValid())
-        AvailableAccountModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
-
     // we closing any view opened to avoid confusion (especially between SIP and Ring protocols).
     hide_view_clicked(nullptr, self);
 }
@@ -1323,17 +1317,6 @@ ring_main_window_init(RingMainWindow *win)
     priv->treeview_history = history_view_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_history), priv->treeview_history);
 
-    /* use this event to refresh the treeview_conversations when account selection changed */
-    QObject::connect(AvailableAccountModel::instance().selectionModel(), &QItemSelectionModel::currentChanged, [priv](const QModelIndex& idx){
-        // next line will refresh the recentmodel so the treeview will do
-        RecentModel::instance().peopleProxy()->setFilterRegExp("");
-
-        // set the good index to the combox. Required when the selected account changed by different way than selecting
-        // from the combo box.
-        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), idx.row());
-
-    });
-
     auto available_accounts_changed = [win, priv] {
         /* if we're hiding the settings it means we're in the migration or wizard view and we don't
          * want to show the combo box */
@@ -1412,18 +1395,18 @@ ring_main_window_init(RingMainWindow *win)
         show_account_creation_wizard(win);
     }
 
-    /* model for the combobox for Account chooser */
-    auto account_model = gtk_q_tree_model_new(&AvailableAccountModel::instance(), 1,
-        0, Account::Role::Alias, G_TYPE_STRING);
-
-    gtk_combo_box_set_model(GTK_COMBO_BOX(priv->combobox_account_selector), GTK_TREE_MODEL(account_model));
-
-    auto *renderer = gtk_cell_renderer_text_new();
+    /* setup account selector */
+    gtk_combo_box_set_qmodel(
+        GTK_COMBO_BOX(priv->combobox_account_selector),
+        &AvailableAccountModel::instance(),
+        AvailableAccountModel::instance().selectionModel()
+    );
 
     /* set visibility */
     show_combobox_account_selector(win, TRUE);
 
     /* layout */
+    auto *renderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, FALSE);
     gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, "text", 0, NULL);
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_account_selector),
@@ -1431,14 +1414,7 @@ ring_main_window_init(RingMainWindow *win)
                                        (GtkCellLayoutDataFunc)print_account_and_state,
                                        nullptr, nullptr);
 
-    /* init the selection for the account selector */
-    auto selected_idx = AvailableAccountModel::instance().selectionModel()->currentIndex();
-    if (selected_idx.isValid())
-        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), selected_idx.row());
-
     g_signal_connect(priv->combobox_account_selector, "changed", G_CALLBACK(selected_account_changed), win);
-
-    g_object_unref(account_model);
 }
 
 static void
