@@ -178,7 +178,7 @@ edit_contact_view_init(EditContactView *self)
     gtk_combo_box_set_active_iter(GTK_COMBO_BOX(priv->combobox_addressbook), &iter_to_select);
 
     /* model for the available details to choose from */
-    gtk_combo_box_set_qmodel(GTK_COMBO_BOX(priv->combobox_detail),
+    gtk_combo_box_set_qmodel_text(GTK_COMBO_BOX(priv->combobox_detail),
                              (QAbstractItemModel *)&NumberCategoryModel::instance(), NULL);
 
     /* set "home" as the default number category */
