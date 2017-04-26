@@ -657,11 +657,13 @@ static gboolean
 iter_is_valid(GtkTreeIter *iter,
               GtkQTreeModel   *q_tree_model)
 {
-    gboolean retval;
+    auto priv = GTK_Q_TREEMODEL_GET_PRIVATE(q_tree_model);
+
     g_return_val_if_fail(iter != NULL, FALSE);
+    g_return_val_if_fail(iter->stamp == priv->stamp, FALSE);
+
     QIter *qiter = Q_ITER(iter);
-    retval = q_tree_model->priv->model->indexFromId(qiter->row.value, qiter->column.value, qiter->id).isValid();
-    return retval;
+    return q_tree_model->priv->model->indexFromId(qiter->row.value, qiter->column.value, qiter->id).isValid();
 }
 
 static void
@@ -775,7 +777,6 @@ gtk_q_tree_model_get_path(GtkTreeModel *tree_model,
     GtkQTreeModelPrivate *priv = q_tree_model->priv;
     GtkTreePath *path;
 
-    g_return_val_if_fail (iter->stamp == priv->stamp, NULL);
     g_return_val_if_fail (iter_is_valid(iter, q_tree_model), NULL);
 
     /* To get the path, we have to traverse from the child all the way up */
