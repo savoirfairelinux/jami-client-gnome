@@ -17,5 +17,7 @@
 	<file alias="pause">ic_pause_black_24px.svg</file>
 	<file alias="end">ic_clear_black_24px.svg</file>
 	<file alias="quality">ic_high_quality_black_24px.svg</file>
+	<file alias="block">ic_block_black_24px.svg</file>
+	<file alias="add">ic_add_black_24px.svg</file>
   </gresource>
 </gresources>
