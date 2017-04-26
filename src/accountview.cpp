@@ -36,6 +36,7 @@
 #include <glib/gprintf.h>
 #include "utils/models.h"
 #include "accountimportexportview.h"
+#include "accountbanstab.h"
 
 static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
 
@@ -194,6 +195,14 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  advanced_tab,
                                  gtk_label_new(C_("Account settings", "Advanced")));
+
+        if (account->protocol() == Account::Protocol::RING) {
+            auto banned_tab = create_scrolled_account_view(account_bans_tab_new(account));
+            gtk_widget_show(banned_tab);
+            gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
+                                     banned_tab,
+                                     gtk_label_new(C_("List of banned peers", "Bans")));
+        }
 
         /* set the tab displayed to the same as the prev account selected */
         gtk_notebook_set_current_page(GTK_NOTEBOOK(account_notebook), priv->current_page);
