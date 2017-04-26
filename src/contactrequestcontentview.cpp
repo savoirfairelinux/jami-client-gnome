@@ -17,16 +17,21 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
+// Client
 #include "contactrequestcontentview.h"
+#include "native/pixbufmanipulator.h"
 
 // System
 #include <gtk/gtk.h>
 
 // LRC
-#include <certificate.h>
-#include <contactrequest.h>
 #include <accountmodel.h>
+#include <certificate.h>
+#include <contactmethod.h>
+#include <contactrequest.h>
+#include <globalinstances.h>
 #include <pendingcontactrequestmodel.h>
+#include <person.h>
 
 /**
  * gtk structure
@@ -45,14 +50,14 @@ enum {
     LAST_SIGNAL
 };
 
+guint contact_request_content_view_signals[LAST_SIGNAL];
+
 /**
  * gtk class structure
  */
 struct _ContactRequestContentViewClass
 {
     GtkBoxClass parent_class;
-
-    guint contact_request_content_view_signals[LAST_SIGNAL];
 };
 
 typedef struct _ContactRequestContentViewPrivate ContactRequestContentViewPrivate;
@@ -70,6 +75,8 @@ struct _ContactRequestContentViewPrivate
     GtkWidget*    button_accept_contact_request;
     GtkWidget*    button_close_contact_request_content_view;
     GtkWidget*    button_block_contact_request;
+    GtkWidget*    image_peer;
+    GtkWidget*    label_bestId;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ContactRequestContentView, contact_request_content_view, GTK_TYPE_BOX);
@@ -114,8 +121,7 @@ button_accept_contact_request_clicked(G_GNUC_UNUSED GtkWidget *widget, ContactRe
 static void
 button_close_contact_request_content_view_clicked(G_GNUC_UNUSED GtkWidget *widget, ContactRequestContentView *self)
 {
-    auto klass = CONTACT_REQUEST_CONTENT_VIEW_CLASS(self);
-    g_signal_emit(G_OBJECT(self), klass->contact_request_content_view_signals[HIDE_VIEW_CLICKED], 0);
+    g_signal_emit(G_OBJECT(self), contact_request_content_view_signals[HIDE_VIEW_CLICKED], 0);
 }
 
 /**
@@ -158,8 +164,10 @@ contact_request_content_view_class_init(ContactRequestContentViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, button_accept_contact_request);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, button_block_contact_request);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, button_close_contact_request_content_view);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, image_peer);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, label_bestId);
 
-    klass->contact_request_content_view_signals[HIDE_VIEW_CLICKED] = g_signal_new (
+    contact_request_content_view_signals[HIDE_VIEW_CLICKED] = g_signal_new (
         "hide-view-clicked",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
@@ -179,8 +187,23 @@ build_contact_request_content(ContactRequestContentView *self, ContactRequest *c
 {
     auto priv = CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(self);
     priv->contactRequest = contact_request;
+    auto person = contact_request->peer();
 
-    gtk_label_set_text(GTK_LABEL(priv->label_peer), contact_request->certificate()->remoteId().constData());
+    /* get photo */
+    QVariant photo = GlobalInstances::pixmapManipulator().contactPhoto(person, QSize(110, 110), false);
+    std::shared_ptr<GdkPixbuf> image = photo.value<std::shared_ptr<GdkPixbuf>>();
+    gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
+
+    /* get name */
+    auto name_std = person->formattedName().toStdString();
+    gtk_label_set_text(GTK_LABEL(priv->label_peer), name_std.c_str());
+
+    /* get contact best id, if different from name */
+    auto contactId_std = person->phoneNumbers()[0]->getBestId().toStdString();
+    if (name_std != contactId_std) {
+        gtk_label_set_text(GTK_LABEL(priv->label_bestId), contactId_std.c_str());
+        gtk_widget_show(priv->label_bestId);
+    }
 }
 
 /**
