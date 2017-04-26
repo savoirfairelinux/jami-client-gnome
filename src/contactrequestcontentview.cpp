@@ -77,6 +77,7 @@ struct _ContactRequestContentViewPrivate
     GtkWidget*    button_block_contact_request;
     GtkWidget*    image_peer;
     GtkWidget*    label_bestId;
+    GtkWidget*    label_message;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ContactRequestContentView, contact_request_content_view, GTK_TYPE_BOX);
@@ -166,6 +167,7 @@ contact_request_content_view_class_init(ContactRequestContentViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, button_close_contact_request_content_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, image_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, label_bestId);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ContactRequestContentView, label_message);
 
     contact_request_content_view_signals[HIDE_VIEW_CLICKED] = g_signal_new (
         "hide-view-clicked",
@@ -204,6 +206,11 @@ build_contact_request_content(ContactRequestContentView *self, ContactRequest *c
         gtk_label_set_text(GTK_LABEL(priv->label_bestId), contactId_std.c_str());
         gtk_widget_show(priv->label_bestId);
     }
+
+    /* show the message */
+    auto message_std = contact_request->message().toStdString();
+    gtk_label_set_text(GTK_LABEL(priv->label_message), message_std.c_str());
+
 }
 
 /**
