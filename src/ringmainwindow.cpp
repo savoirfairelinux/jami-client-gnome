@@ -136,6 +136,7 @@ struct _RingMainWindowPrivate
 
     /* Pending ring usernames lookup for the search entry */
     QMetaObject::Connection username_lookup;
+    std::string* pending_username_lookup;
 
     /* The webkit_chat_container is created once, then reused for all chat views */
     GtkWidget *webkit_chat_container;
@@ -511,11 +512,11 @@ selection_changed(RingMainWindow *win)
 }
 
 static void
-activate_contact_method(RingMainWindow *self, URI uri, Account *account)
+process_search_entry_contact_method(RingMainWindow *self, const URI& uri, Account* accountOrNullptr)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
-    auto cm = PhoneDirectoryModel::instance().getNumber(uri, account);
+    auto cm = PhoneDirectoryModel::instance().getNumber(uri, accountOrNullptr);
 
     if (g_settings_get_boolean(priv->settings, "search-entry-places-call")) {
         place_new_call(cm);
@@ -528,125 +529,11 @@ activate_contact_method(RingMainWindow *self, URI uri, Account *account)
             cm->setLastUsed(QDateTime::currentDateTime().toTime_t());
 
         // select cm
-        RecentModel::instance().selectionModel()->setCurrentIndex(
-            RecentModel::instance().getIndex(cm),
-            QItemSelectionModel::ClearAndSelect
-        );
+        RecentModel::instance().selectionModel()->setCurrentIndex(RecentModel::instance().getIndex(cm), QItemSelectionModel::ClearAndSelect);
     }
     gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
 }
 
-static void
-lookup_username(RingMainWindow *self, URI uri, Account *account)
-{
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-
-    gtk_spinner_start(GTK_SPINNER(priv->spinner_lookup));
-    gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
-
-    // we need to strip the Scheme section, or else some will contain "sip:"
-    QString querry = uri.format(URI::Section::USER_INFO|URI::Section::HOSTNAME|URI::Section::PORT);
-
-    /* disconect previous lookup */
-    QObject::disconnect(priv->username_lookup);
-
-    /* connect new lookup */
-    priv->username_lookup = QObject::connect(
-        &NameDirectory::instance(),
-        &NameDirectory::registeredNameFound,
-        [self, priv, querry] (Account* account, NameDirectory::LookupStatus status, const QString& address, const QString& name) {
-
-            g_debug("lookup results for %s is %s",
-                querry.toUtf8().constData(),
-                name.toUtf8().constData()
-            );
-
-            if ( name.compare(querry, Qt::CaseInsensitive) != 0 ) {
-                g_debug("not from the same lookup match");
-                return; // doesn't match
-            }
-
-            gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
-
-            switch(status)
-            {
-                case NameDirectory::LookupStatus::SUCCESS:
-                {
-                    URI result = URI("ring:" + address);
-                    activate_contact_method(self, result, account);
-                    break;
-                }
-                case NameDirectory::LookupStatus::INVALID_NAME:
-                {
-                    //Can't be a ring username, could be something else.
-                    auto dialog = gtk_message_dialog_new(
-                        GTK_WINDOW(self),
-                        GTK_DIALOG_DESTROY_WITH_PARENT,
-                        GTK_MESSAGE_ERROR,
-                        GTK_BUTTONS_CLOSE,
-                        _("Invalid Ring username: %s"),
-                        name.toUtf8().constData()
-                    );
-
-                    gtk_dialog_run (GTK_DIALOG (dialog));
-                    gtk_widget_destroy (dialog);
-                    break;
-                }
-                case NameDirectory::LookupStatus::ERROR:
-                {
-                    auto dialog = gtk_message_dialog_new(
-                        GTK_WINDOW(self),
-                        GTK_DIALOG_DESTROY_WITH_PARENT,
-                        GTK_MESSAGE_ERROR,
-                        GTK_BUTTONS_CLOSE,
-                        _("Error resolving username, nameserver is possibly unreachable")
-                    );
-
-                    gtk_dialog_run(GTK_DIALOG (dialog));
-                    gtk_widget_destroy(dialog);
-                    break;
-                }
-                case NameDirectory::LookupStatus::NOT_FOUND:
-                {
-                    auto dialog = gtk_message_dialog_new(
-                        GTK_WINDOW(self),
-                        GTK_DIALOG_DESTROY_WITH_PARENT,
-                        GTK_MESSAGE_ERROR,
-                        GTK_BUTTONS_CLOSE,
-                        _("Could not resolve Ring username: %s"),
-                        name.toUtf8().constData()
-                    );
-
-                    gtk_dialog_run(GTK_DIALOG (dialog));
-                    gtk_widget_destroy(dialog);
-                    break;
-                }
-            }
-            gtk_spinner_stop(GTK_SPINNER(priv->spinner_lookup));
-        }
-    );
-
-    /* lookup */
-    NameDirectory::instance().lookupName(account, "", querry);
-}
-
-/**
- * This is called when someone activates the search entry (clicks enter or on the button).
- * At this point the list is already filtered but on clicking enter we want to either contact a new
- * number or perform a search on the name service. Here we must decide which one the user wants.
- * We'll use the following rules to decide:
- *   * if a user explicitly specifies the scheme ("sip:" or "ring:") then we always use a
- *     corresponding account type (use currentDefaultAccount() with the scheme type)
- *   * if a user doesn't specify the scheme, then we decide based on the user selected account; if
- *     SIP account then we assume its a SIP URI; if RING account then we check if its a ringID,
- *     otherwise we perform a name lookup.
- *
- * Additionally, we need to make sure that the CM found/created either has the same account set as
- * selected by the user, no account set, or else we need to switch the user selected account to the
- * account of the CM (eg: in the case we're switching protocols), or else the item will not be
- * visible in the Converstations list to the user. This is accomplished via the use of
- * currentDefaultAccount().
- */
 static void
 search_entry_activated(RingMainWindow *self)
 {
@@ -656,34 +543,93 @@ search_entry_activated(RingMainWindow *self)
 
     URI uri = URI(querry);
 
-    /* get account to use */
-    Account *account = nullptr;
-    if (uri.schemeType() != URI::SchemeType::NONE) {
-        /* explicit SIP, SIPS, or RING; make sure account is of right type */
-        account = AvailableAccountModel::instance().currentDefaultAccount(uri.schemeType());
-        if (!account) {
-            const gchar *type = uri.schemeType() == URI::SchemeType::RING ? "RING" : "SIP";
-            g_warning("entered %s uri, but no active %s accounts", type, type);
-        }
-    } else {
-        /* just take the user selected account */
-        account = AvailableAccountModel::instance().currentDefaultAccount();
-    }
+    /* we don't want to lookup a ring id and we require to have a ring account chosen */
+    if (uri.protocolHint() != URI::ProtocolHint::RING && get_active_ring_account()) {
+        *priv->pending_username_lookup = querry;
 
-    if (!account) {
-        g_critical("could not get an account for uri: %s", uri.full().toUtf8().constData());
-        return;
-    }
+        gtk_spinner_start(GTK_SPINNER(priv->spinner_lookup));
+        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
 
-    /* if RING and not RingID, perform lookup */
-    if (account->protocol() == Account::Protocol::RING &&
-        uri.protocolHint() != URI::ProtocolHint::RING)
-    {
-        lookup_username(self, uri, account);
-    } else {
-        /* no lookup, simply use the URI as is */
-        activate_contact_method(self, uri, account);
-    }
+        QString username_to_lookup = uri.format(URI::Section::USER_INFO|URI::Section::HOSTNAME|URI::Section::PORT);
+
+        /* disconect previous lookup */
+        QObject::disconnect(priv->username_lookup);
+
+        /* connect new lookup */
+        priv->username_lookup = QObject::connect(
+            &NameDirectory::instance(),
+            &NameDirectory::registeredNameFound,
+            [self, priv, username_to_lookup] (Account* account, NameDirectory::LookupStatus status, const QString& address, const QString& name) {
+
+                auto name_qbarray = name.toLatin1();
+                if ( strcmp(priv->pending_username_lookup->data(), name_qbarray.data()) != 0 )
+                    return;
+
+                gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+
+                switch(status)
+                {
+                    case NameDirectory::LookupStatus::SUCCESS:
+                    {
+                        URI uri = URI("ring:" + address);
+                        process_search_entry_contact_method(self, uri, account);
+                        break;
+                    }
+                    case NameDirectory::LookupStatus::INVALID_NAME:
+                    {
+                        //Can't be a ring username, could be something else.
+                        auto dialog = gtk_message_dialog_new(
+                            GTK_WINDOW(self),
+                            GTK_DIALOG_DESTROY_WITH_PARENT,
+                            GTK_MESSAGE_ERROR,
+                            GTK_BUTTONS_CLOSE,
+                            _("Invalid Ring username: %s"),
+                            name.toUtf8().constData()
+                        );
+
+                        gtk_dialog_run (GTK_DIALOG (dialog));
+                        gtk_widget_destroy (dialog);
+                        break;
+                    }
+                    case NameDirectory::LookupStatus::ERROR:
+                    {
+                        auto dialog = gtk_message_dialog_new(
+                            GTK_WINDOW(self),
+                            GTK_DIALOG_DESTROY_WITH_PARENT,
+                            GTK_MESSAGE_ERROR,
+                            GTK_BUTTONS_CLOSE,
+                            _("Error resolving username, nameserver is possibly unreachable")
+                        );
+
+                        gtk_dialog_run(GTK_DIALOG (dialog));
+                        gtk_widget_destroy(dialog);
+                        break;
+                    }
+                    case NameDirectory::LookupStatus::NOT_FOUND:
+                    {
+                        auto dialog = gtk_message_dialog_new(
+                            GTK_WINDOW(self),
+                            GTK_DIALOG_DESTROY_WITH_PARENT,
+                            GTK_MESSAGE_ERROR,
+                            GTK_BUTTONS_CLOSE,
+                            _("Could not resolve Ring username: %s"),
+                            name.toUtf8().constData()
+                        );
+
+                        gtk_dialog_run(GTK_DIALOG (dialog));
+                        gtk_widget_destroy(dialog);
+                        break;
+                    }
+                }
+                *priv->pending_username_lookup = "";
+                gtk_spinner_stop(GTK_SPINNER(priv->spinner_lookup));
+            }
+        );
+
+        /* lookup */
+        NameDirectory::instance().lookupName(get_active_ring_account(), QString(), username_to_lookup);
+    }else // no lookup
+        process_search_entry_contact_method(self, uri, nullptr);
 }
 
 static gboolean
@@ -829,9 +775,7 @@ on_account_creation_completed(RingMainWindow *win)
     /* show the account selector */
     show_combobox_account_selector(win, TRUE);
 
-    /* select the newly created account */
-    // TODO: the new account might not always be the first one; eg: if the user has an existing
-    //       SIP account
+    /* init the selection for the account selector */
     gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
 }
 
@@ -1172,6 +1116,9 @@ handle_account_migrations(RingMainWindow *win)
     {
         gtk_widget_show(priv->ring_settings);
         show_combobox_account_selector(win, TRUE);
+
+        /* init the selection for the account selector */
+        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
     }
 }
 
@@ -1247,6 +1194,8 @@ ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
     gtk_widget_init_template(GTK_WIDGET(win));
+
+    priv->pending_username_lookup = new std::string; // see object finilize for delete
 
     /* bind to window size settings */
     priv->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
@@ -1431,12 +1380,10 @@ ring_main_window_init(RingMainWindow *win)
                                        (GtkCellLayoutDataFunc)print_account_and_state,
                                        nullptr, nullptr);
 
-    /* init the selection for the account selector */
-    auto selected_idx = AvailableAccountModel::instance().selectionModel()->currentIndex();
-    if (selected_idx.isValid())
-        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), selected_idx.row());
-
     g_signal_connect(priv->combobox_account_selector, "changed", G_CALLBACK(selected_account_changed), win);
+
+    /* init the selection for the account selector */
+    selected_account_changed(GTK_COMBO_BOX(priv->combobox_account_selector), win);
 
     g_object_unref(account_model);
 }
@@ -1464,6 +1411,9 @@ ring_main_window_finalize(GObject *object)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
     g_clear_object(&priv->settings);
+
+    delete priv->pending_username_lookup;
+    priv->pending_username_lookup = nullptr;
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->finalize(object);
 }

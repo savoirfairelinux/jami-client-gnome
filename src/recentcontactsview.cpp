@@ -115,6 +115,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
             auto unread = idx.data(static_cast<int>(Ring::Role::UnreadTextMessageCount));
 
+
             image.reset(ring_draw_unread_messages(photo.get(), unread.toInt()), g_object_unref);
         } else {
             // set the width of the cell rendered to the with of the photo
@@ -557,6 +558,7 @@ recent_contacts_view_init(RecentContactsView *self)
     gtk_tree_view_set_model(GTK_TREE_VIEW(self),
                             GTK_TREE_MODEL(recent_model));
 
+
     /* photo and name/contact method column */
     GtkCellArea *area = gtk_cell_area_box_new();
     GtkTreeViewColumn *column = gtk_tree_view_column_new_with_area(area);
@@ -584,6 +586,7 @@ recent_contacts_view_init(RecentContactsView *self)
         (GtkTreeCellDataFunc)render_name_and_info,
         self,
         NULL);
+
 
     /* call duration */
     renderer = gtk_cell_renderer_text_new();
