@@ -142,9 +142,14 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="placeholder">
+                  <object class="GtkLabel" id="label_message">
                     <property name="height_request">25</property>
+                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="max_width_chars">120</property>
+                    <attributes>
+                      <attribute name="style" value="oblique"/>
+                    </attributes>
                   </object>
                   <packing>
                     <property name="expand">False</property>
