@@ -66,8 +66,8 @@ struct _AccountViewPrivate
 
     gint current_page; /* keeps track of current notebook page displayed */
 
-    ActiveItemProxyModel *active_protocols;
     QMetaObject::Connection protocol_selection_changed;
+    QMetaObject::Connection account_selection_changed;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AccountView, account_view, GTK_TYPE_PANED);
@@ -81,19 +81,9 @@ account_view_dispose(GObject *object)
     AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
 
     QObject::disconnect(priv->protocol_selection_changed);
+    QObject::disconnect(priv->account_selection_changed);
 
     G_OBJECT_CLASS(account_view_parent_class)->dispose(object);
-}
-
-static void
-account_view_finalize(GObject *object)
-{
-    AccountView *view = ACCOUNT_VIEW(object);
-    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
-
-    delete priv->active_protocols;
-
-    G_OBJECT_CLASS(account_view_parent_class)->finalize(object);
 }
 
 static void
@@ -362,36 +352,26 @@ add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
     g_return_if_fail(IS_ACCOUNT_VIEW(view));
     AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
 
-    GtkTreeIter protocol_iter;
-    if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(priv->combobox_account_type), &protocol_iter)) {
-        /* get the qmodelindex of the protocol */
-        GtkTreeModel *protocol_model = gtk_combo_box_get_model(GTK_COMBO_BOX(priv->combobox_account_type));
-        QModelIndex protocol_idx = gtk_q_tree_model_get_source_idx(
-                                    GTK_Q_TREE_MODEL(protocol_model),
-                                    &protocol_iter);
-        if (protocol_idx.isValid()) {
-            protocol_idx = priv->active_protocols->mapToSource(protocol_idx);
+    auto idx = gtk_combo_box_get_index(GTK_COMBO_BOX(priv->combobox_account_type));
+    if (idx.isValid()) {
+        Account::Protocol protocol = qvariant_cast<Account::Protocol>(idx.data((int)ProtocolModel::Role::Protocol));
+        if (protocol == Account::Protocol::RING)
+        {
+            show_account_creation_wizard(view);
+        }
+        else
+        {
+            /* show working dialog in case save operation takes time */
+            GtkWidget *working = ring_dialog_working(GTK_WIDGET(view), NULL);
+            gtk_window_present(GTK_WINDOW(working));
 
-            Account::Protocol protocol = qvariant_cast<Account::Protocol>(protocol_idx.data((int)ProtocolModel::Role::Protocol));
-            if (protocol == Account::Protocol::RING)
-            {
-                show_account_creation_wizard(view);
-            }
-            else
-            {
-                /* show working dialog in case save operation takes time */
-                GtkWidget *working = ring_dialog_working(GTK_WIDGET(view), NULL);
-                gtk_window_present(GTK_WINDOW(working));
+            AccountModel::instance().add(QString(_("New Account")), idx);
 
-                AccountModel::instance().add(QString(_("New Account")), protocol_idx);
-
-                /* now save after a short timeout to make sure that
-                 * the save doesn't happen before the "working" dialog is presented
-                 * the timeout function should destroy the "working" dialog when done saving
-                 */
-                g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)save_account, working, NULL);
-            }
-
+            /* now save after a short timeout to make sure that
+             * the save doesn't happen before the "working" dialog is presented
+             * the timeout function should destroy the "working" dialog when done saving
+             */
+            g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)save_account, working, NULL);
         }
     }
 }
@@ -570,23 +550,14 @@ account_view_init(AccountView *view)
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), empty_box);
 
     /* populate account type combo box */
-    /* TODO: when to delete this model? */
-    priv->active_protocols = new ActiveItemProxyModel((QAbstractItemModel *)AccountModel::instance().protocolModel());
-
-    GtkQTreeModel *protocol_model = gtk_q_tree_model_new(
-                                                (QSortFilterProxyModel *)priv->active_protocols,
-                                                1,
-                                                0, Qt::DisplayRole, G_TYPE_STRING);
-
-    gtk_combo_box_set_model(GTK_COMBO_BOX(priv->combobox_account_type), GTK_TREE_MODEL(protocol_model));
-
-    renderer = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_account_type), renderer, FALSE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(priv->combobox_account_type), renderer,
-                                   "text", 0, NULL);
+    priv->protocol_selection_changed = gtk_combo_box_set_qmodel_text(
+        GTK_COMBO_BOX(priv->combobox_account_type),
+        AccountModel::instance().protocolModel(),
+        AccountModel::instance().protocolModel()->selectionModel()
+    );
 
     /* connect signals to and from the selection model of the account model */
-    priv->protocol_selection_changed = QObject::connect(
+    priv->account_selection_changed = QObject::connect(
         AccountModel::instance().selectionModel(),
         &QItemSelectionModel::currentChanged,
         [=](const QModelIndex & current, G_GNUC_UNUSED const QModelIndex & previous) {
@@ -608,19 +579,6 @@ account_view_init(AccountView *view)
     g_signal_connect(account_selection, "changed", G_CALLBACK(update_account_model_selection), NULL);
     g_signal_connect(account_selection, "changed", G_CALLBACK(account_selection_changed), view);
 
-    /* select the default protocol */
-    QModelIndex protocol_idx = AccountModel::instance().protocolModel()->selectionModel()->currentIndex();
-    if (protocol_idx.isValid()) {
-        protocol_idx = priv->active_protocols->mapFromSource(protocol_idx);
-        GtkTreeIter protocol_iter;
-        if (gtk_q_tree_model_source_index_to_iter(
-                (GtkQTreeModel *)protocol_model,
-                protocol_idx,
-                &protocol_iter)) {
-            gtk_combo_box_set_active_iter(GTK_COMBO_BOX(priv->combobox_account_type), &protocol_iter);
-        }
-    }
-
     /* connect signals to add/remove accounts */
     g_signal_connect(priv->button_remove_account, "clicked", G_CALLBACK(remove_account), view);
     g_signal_connect(priv->button_add_account, "clicked", G_CALLBACK(add_account), view);
@@ -634,7 +592,6 @@ static void
 account_view_class_init(AccountViewClass *klass)
 {
     G_OBJECT_CLASS(klass)->dispose = account_view_dispose;
-    G_OBJECT_CLASS(klass)->finalize = account_view_finalize;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/accountview.ui");
