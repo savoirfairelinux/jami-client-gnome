@@ -402,7 +402,7 @@ build_tab_view(AccountSecurityTab *self)
     g_signal_connect(priv->checkbutton_use_srtp, "toggled", G_CALLBACK(use_srtp_toggled), self);
 
     /* encryption key exchange type */
-    priv->key_exchange_selection =  gtk_combo_box_set_qmodel(
+    priv->key_exchange_selection =  gtk_combo_box_set_qmodel_text(
         GTK_COMBO_BOX(priv->combobox_key_exchange),
         (QAbstractItemModel *)priv->account->keyExchangeModel(),
         priv->account->keyExchangeModel()->selectionModel());
@@ -488,7 +488,7 @@ build_tab_view(AccountSecurityTab *self)
     g_signal_connect(priv->entry_password, "changed", G_CALLBACK(private_key_password_changed), self);
 
     /* TLS protocol method */
-    priv->tls_method_selection = gtk_combo_box_set_qmodel(GTK_COMBO_BOX(priv->combobox_tls_protocol_method),
+    priv->tls_method_selection = gtk_combo_box_set_qmodel_text(GTK_COMBO_BOX(priv->combobox_tls_protocol_method),
                                                           (QAbstractItemModel *)priv->account->tlsMethodModel(),
                                                           priv->account->tlsMethodModel()->selectionModel());
 
