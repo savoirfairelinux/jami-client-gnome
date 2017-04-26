@@ -220,7 +220,7 @@ button_send_invitation_clicked(ChatView *self)
     }
 
     // perform the request
-    if (not account->sendContactRequest(priv->cm))
+    if (not account->sendContactRequest(priv->cm, ""))
         g_warning("contact request not forwarded, cannot send invitation!");
 
     // TODO : add an entry in the conversation to tell the user an invitation was sent.
