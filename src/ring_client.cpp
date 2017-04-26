@@ -55,6 +55,7 @@
 #include <media/textrecording.h>
 #include <media/recordingmodel.h>
 #include <availableaccountmodel.h>
+#include <banscollection.h>
 
 // Ring client
 #include "ring_client_options.h"
@@ -628,6 +629,9 @@ ring_client_startup(GApplication *app)
 
     /* fallback backend for vcards */
     PersonModel::instance().addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
+
+    /* bans collection */
+    PersonModel::instance().addCollection<BansCollection>(LoadOptions::FORCE_ENABLED);
 
     /* EDS backend(s) */
     load_eds_sources(priv->cancellable);
