@@ -28,10 +28,15 @@
 #include <pendingcontactrequestmodel.h>
 #include <account.h>
 #include <availableaccountmodel.h>
+#include <globalinstances.h>
+#include <contactrequest.h>
 
-// System
+// Gtk
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+
+// Qt
+#include <QtCore/QSize>
 
 /**
  * gtk structure
@@ -64,6 +69,74 @@ G_DEFINE_TYPE_WITH_PRIVATE(PendingContactRequestsView, pending_contact_requests_
 
 #define PENDING_CONTACT_REQUESTS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), PENDING_CONTACT_REQUESTS_VIEW_TYPE, PendingContactRequestsViewPrivate))
 
+
+static void
+render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                     GtkCellRenderer *cell,
+                     GtkTreeModel *model,
+                     GtkTreeIter *iter,
+                     G_GNUC_UNUSED gpointer data)
+{
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
+
+    std::shared_ptr<GdkPixbuf> image;
+    /* we only want to render a photo for the top nodes: Person, ContactMethod (, later Conference) */
+    QVariant object = idx.data(static_cast<int>(Ring::Role::Object));
+
+
+    if (idx.isValid() && object.isValid()) {
+        qDebug() << " Y O P 1" ;
+        QVariant var_photo;
+        if (auto cr = object.value<ContactRequest *>()) {
+            qDebug() << " Y O P 2" ;
+            if (cr->peer()) {
+                var_photo = GlobalInstances::pixmapManipulator().contactPhoto(cr->peer(), QSize(50, 50), false);
+                
+                if (var_photo.isValid()) {
+                    qDebug() << " Y O P 3" ;
+                    std::shared_ptr<GdkPixbuf> photo = var_photo.value<std::shared_ptr<GdkPixbuf>>();
+                    g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
+                }
+                
+            } else {
+                qDebug() << " Y O P 4" ;
+                // fallback
+                std::shared_ptr<GdkPixbuf> photo = var_photo.value<std::shared_ptr<GdkPixbuf>>();
+
+                g_object_set(G_OBJECT(cell), "height", 50, NULL);
+                g_object_set(G_OBJECT(cell), "width", 50, NULL);
+                g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
+
+                
+            }
+        }
+    }
+
+//~ g_object_set(G_OBJECT(cell), "markup", "FIF", NULL);
+    //~ g_object_set(G_OBJECT(cell), "pixbuf", image.get(), NULL);
+}
+
+static void
+render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                     GtkCellRenderer *cell,
+                     GtkTreeModel *model,
+                     GtkTreeIter *iter,
+                     GtkTreeView *treeview)
+{
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
+    if (auto cr = idx.data(static_cast<int>(Ring::Role::Object)).value<ContactRequest*>()) {
+        if (cr->peer()) {            
+            auto alias = cr->peer()->formattedName().toStdString();
+            g_object_set(G_OBJECT(cell), "markup", alias.c_str(), NULL);
+            return;
+        }
+
+        // default
+        auto uri = cr->certificate()->remoteId().toStdString();
+        g_object_set(G_OBJECT(cell), "markup", uri.c_str(), NULL);
+    }
+}
+
 /**
  * gtk init function
  */
@@ -81,22 +154,57 @@ pending_contact_requests_view_init(PendingContactRequestsView *self)
             pending_contact_requests_model = gtk_q_tree_model_new(
                 account->pendingContactRequestModel(),
                 1/*nmbr. of cols.*/,
-                0,
-                Qt::DisplayRole,
-                G_TYPE_STRING);
+                0, Qt::DisplayRole, G_TYPE_STRING);
 
             gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(pending_contact_requests_model));
+
         }
     });
 
-    GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
-    GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes(C_("Account alias (name) column", "Alias"), renderer, "text", 0, NULL);
 
-    /* layout */
-    gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
-    gtk_tree_view_column_set_resizable(column, TRUE);
-    gtk_tree_view_column_set_expand(column, TRUE);
-    gtk_tree_view_expand_all(GTK_TREE_VIEW(self));
+
+            /* photo and name/contact method column */
+            GtkCellArea *area = gtk_cell_area_box_new();
+            GtkTreeViewColumn *column = gtk_tree_view_column_new_with_area(area);
+
+            /* photo renderer */
+            GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new();
+            gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
+
+            /* get the photo */
+            gtk_tree_view_column_set_cell_data_func(
+                column,
+                renderer,
+                (GtkTreeCellDataFunc)render_contact_photo,
+                NULL,
+                NULL);
+
+            /* name/cm and status renderer */
+            renderer = gtk_cell_renderer_text_new();
+            g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+            gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
+
+            gtk_tree_view_column_set_cell_data_func(
+                column,
+                renderer,
+                (GtkTreeCellDataFunc)render_name_and_info,
+                self,
+                NULL);
+
+            gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
+            gtk_tree_view_column_set_resizable(column, TRUE);
+            gtk_tree_view_column_set_expand(column, TRUE);
+            gtk_tree_view_expand_all(GTK_TREE_VIEW(self));
+
+
+    //~ GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
+    //~ GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes(C_("Account alias (name) column", "Alias"), renderer, "text", 0, NULL);
+
+    //~ /* layout */
+    //~ gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
+    //~ gtk_tree_view_column_set_resizable(column, TRUE);
+    //~ gtk_tree_view_column_set_expand(column, TRUE);
+    //~ gtk_tree_view_expand_all(GTK_TREE_VIEW(self));
 
 
     gtk_widget_show_all(GTK_WIDGET(self));
