@@ -558,25 +558,37 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
 
     QObject::connect(
         proxy_model,
-        &QAbstractItemModel::layoutChanged,
+        &QAbstractItemModel::layoutAboutToBeChanged,
         [=] () {
-            // g_debug("layout changed");
-
-            /* GtkTreeModel interface has no signal equivalent to layoutChanged; we implement it by
-             * simply emitting a row changed on each top level item; note that this assumes
-             * layoutChanged is only emitted on top level items (which is be the case for LRC
-             * models) and that they have no children (this is a rare case in LRC)*/
+            // g_debug("layout aboout to change");
+            /* nothing equvivalent eixists in GtkTreeModel, so simply delete all
+             * rows, and add all rows when the layout is changed;
+             * we must delete the rows in ascending order */
             int row_count = proxy_model->rowCount();
-            for (int row = 0; row < row_count; row++) {
-                // g_debug("adding row %d", row);
+            for (int row = row_count; row > 0; --row) {
+                // g_debug("deleting row %d", row -1);
+                QModelIndex idx = proxy_model->index(row - 1, 0);
                 GtkTreeIter iter;
-                QModelIndex idx = proxy_model->index(row, 0);
                 iter.stamp = stamp;
                 qmodelindex_to_iter(idx, &iter);
                 GtkTreePath *path = gtk_q_tree_model_get_path(GTK_TREE_MODEL(retval), &iter);
-                gtk_tree_model_row_changed(GTK_TREE_MODEL(retval), path, &iter);
+                gtk_tree_model_row_deleted(GTK_TREE_MODEL(retval), path);
                 gtk_tree_path_free(path);
             }
+        }
+    );
+
+    QObject::connect(
+        proxy_model,
+        &QAbstractItemModel::layoutChanged,
+        [=] () {
+            // g_debug("layout changed");
+            /* after layoutAboutToBeChanged has been handled by removing all the rows, we add all
+             * the rows back;
+             * NOTE: this will lose the selection in the GtkTreeView, if it needs to be kept, then
+             *       in the view code we need to connect to this layoutChanged signal and re-sync
+             *       the selection */
+            insert_children(QModelIndex(), retval);
         }
     );
 
