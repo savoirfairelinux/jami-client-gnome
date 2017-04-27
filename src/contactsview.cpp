@@ -54,6 +54,7 @@ struct _ContactsViewPrivate
 
     NameNumberFilterProxy *filterproxy;
     QMetaObject::Connection expand_inserted_row;
+    QMetaObject::Connection expand_layout_changed;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ContactsView, contacts_view, GTK_TYPE_TREE_VIEW);
@@ -243,6 +244,13 @@ activate_contact_item(GtkTreeView *tree_view,
     }
 }
 
+static gboolean
+expand_rows(ContactsView *self)
+{
+    gtk_tree_view_expand_all(GTK_TREE_VIEW(self));
+    return G_SOURCE_REMOVE;
+}
+
 static void
 contacts_view_init(ContactsView *self)
 {
@@ -309,40 +317,19 @@ contacts_view_init(ContactsView *self)
     gtk_tree_view_expand_all(GTK_TREE_VIEW(self));
     g_signal_connect(self, "row-activated", G_CALLBACK(activate_contact_item), NULL);
 
+
+    auto expand_rows_idle = [self] () { g_idle_add((GSourceFunc)expand_rows, self); };
+
     priv->expand_inserted_row = QObject::connect(
         priv->filterproxy,
         &QAbstractItemModel::rowsInserted,
-        [self, priv, contact_model](const QModelIndex & parent, int first, int last) {
-            for( int row = first; row <= last; row++) {
-                auto idx = priv->filterproxy->index(row, 0, parent);
+        expand_rows_idle
+    );
 
-                // we want to expand all Categories, but not the contacts
-                if (!parent.isValid()) {
-                    // category, exand any children (contacts)
-                    auto children = priv->filterproxy->rowCount(idx);
-                    for (int child_row = 0; child_row < children; ++child_row) {
-                        auto child_idx = priv->filterproxy->index(child_row, 0, idx);
-                        GtkTreeIter iter;
-                        if (gtk_q_tree_model_source_index_to_iter(contact_model, child_idx, &iter)) {
-                            GtkTreePath *path = gtk_tree_model_get_path(GTK_TREE_MODEL(contact_model), &iter);
-                            gtk_tree_view_expand_to_path(GTK_TREE_VIEW(self), path);
-                            gtk_tree_path_free(path);
-                        }
-                    }
-                } else {
-                    // contact or ContactMethod; we only want to expand to the contact
-                    GtkTreeIter iter;
-                    if (gtk_q_tree_model_source_index_to_iter(contact_model, idx, &iter)) {
-                        GtkTreePath *path = gtk_tree_model_get_path(GTK_TREE_MODEL(contact_model), &iter);
-
-                        if (gtk_tree_path_get_depth(path) == 2) {
-                            gtk_tree_view_expand_to_path(GTK_TREE_VIEW(self), path);
-                        }
-                        gtk_tree_path_free(path);
-                    }
-                }
-            }
-        }
+    priv->expand_layout_changed = QObject::connect(
+        priv->filterproxy,
+        &QAbstractItemModel::layoutChanged,
+        expand_rows_idle
     );
 
     /* init popup menu */
@@ -358,6 +345,7 @@ contacts_view_dispose(GObject *object)
     ContactsViewPrivate *priv = CONTACTS_VIEW_GET_PRIVATE(object);
 
     QObject::disconnect(priv->expand_inserted_row);
+    QObject::disconnect(priv->expand_layout_changed);
     gtk_widget_destroy(priv->popup_menu);
 
     G_OBJECT_CLASS(contacts_view_parent_class)->dispose(object);

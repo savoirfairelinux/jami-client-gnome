@@ -62,6 +62,8 @@ struct _GtkQTreeModelPrivate
     gint n_columns;
 
     GtkAccessProxyModel *model;
+
+    gboolean layout_changing;
 };
 
 /* static prototypes */
@@ -561,6 +563,11 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
         &QAbstractItemModel::layoutAboutToBeChanged,
         [=] () {
             // g_debug("layout aboout to change");
+
+            if (retval->priv->layout_changing)
+                g_warning("GtkQTreeModel: handling layoutAboutToBeChanged, but didn't finish layoutChanged");
+
+            retval->priv->layout_changing = TRUE;
             /* nothing equvivalent eixists in GtkTreeModel, so simply delete all
              * rows, and add all rows when the layout is changed;
              * we must delete the rows in ascending order */
@@ -583,12 +590,18 @@ gtk_q_tree_model_new(QAbstractItemModel *model, size_t n_columns, ...)
         &QAbstractItemModel::layoutChanged,
         [=] () {
             // g_debug("layout changed");
+
+            if (!retval->priv->layout_changing)
+                g_warning("GtkQTreeModel: handling layoutChanged, but didn't get a layoutAboutToBeChanged");
+
             /* after layoutAboutToBeChanged has been handled by removing all the rows, we add all
              * the rows back;
              * NOTE: this will lose the selection in the GtkTreeView, if it needs to be kept, then
              *       in the view code we need to connect to this layoutChanged signal and re-sync
              *       the selection */
             insert_children(QModelIndex(), retval);
+
+            retval->priv->layout_changing = FALSE;
         }
     );
 
@@ -1124,4 +1137,22 @@ gtk_q_tree_model_row_drop_possible(GtkTreeDragDest *, GtkTreePath *, GtkSelectio
 {
     // g_debug("row drop possible");
     return FALSE;
+}
+
+gboolean
+gtk_q_tree_model_is_layout_changing(GtkQTreeModel *self)
+{
+    return self->priv->layout_changing;
+}
+
+
+gboolean
+gtk_q_tree_model_ignore_selection_change(GtkTreeSelection *selection)
+{
+    auto treeview = gtk_tree_selection_get_tree_view(selection);
+    auto model = gtk_tree_view_get_model(treeview);
+
+    g_return_val_if_fail(GTK_IS_Q_TREE_MODEL(model), FALSE);
+
+    return gtk_q_tree_model_is_layout_changing(GTK_Q_TREE_MODEL(model));
 }
