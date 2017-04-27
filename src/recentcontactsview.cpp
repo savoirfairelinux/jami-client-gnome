@@ -70,10 +70,19 @@ G_DEFINE_TYPE_WITH_PRIVATE(RecentContactsView, recent_contacts_view, GTK_TYPE_TR
 #define RECENT_CONTACTS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RECENT_CONTACTS_VIEW_TYPE, RecentContactsViewPrivate))
 
 static void
-update_selection(GtkTreeSelection *selection, G_GNUC_UNUSED gpointer user_data)
+update_selection(GtkTreeSelection *selection)
 {
+    auto treeview = gtk_tree_selection_get_tree_view(selection);
+    auto model = gtk_tree_view_get_model(treeview);
+
     auto current_proxy = get_index_from_selection(selection);
     auto current = RecentModel::instance().peopleProxy()->mapToSource(current_proxy);
+
+    if (gtk_q_tree_model_is_layout_changing(GTK_Q_TREE_MODEL(model))) {
+        /* during a layout change, the GtkTreeModel items will be removed, so the GTK selection will
+         * be empty, we want to ignore this */
+        return;
+    }
 
     RecentModel::instance().selectionModel()->setCurrentIndex(current, QItemSelectionModel::ClearAndSelect);
 
@@ -374,7 +383,14 @@ expand_if_child(G_GNUC_UNUSED GtkTreeModel *tree_model,
 static void
 scroll_to_selection(GtkTreeSelection *selection)
 {
-    GtkTreeModel *model = nullptr;
+    auto treeview = gtk_tree_selection_get_tree_view(selection);
+    auto model = gtk_tree_view_get_model(treeview);
+    if (gtk_q_tree_model_is_layout_changing(GTK_Q_TREE_MODEL(model))) {
+        /* during a layout change, the GtkTreeModel items will be removed, so the GTK selection will
+         * be empty, we want to ignore this */
+        return;
+    }
+
     GtkTreeIter iter;
     if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
         auto path = gtk_tree_model_get_path(model, &iter);
@@ -537,6 +553,35 @@ on_drag_data_received(GtkWidget        *treeview,
     gtk_drag_finish(context, success, FALSE, time);
 }
 
+static gboolean
+synchronize_selection(RecentContactsView *self)
+{
+    auto idx = RecentModel::instance().selectionModel()->currentIndex();
+    auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
+    auto model = gtk_tree_view_get_model(GTK_TREE_VIEW(self));
+
+    if (gtk_q_tree_model_is_layout_changing(GTK_Q_TREE_MODEL(model))) {
+        /* during a layout change, the GtkTreeModel items will be removed, so the GTK selection will
+         * be empty, we want to avoid trying to sync during this time, and reschedule it to try
+         * again later */
+        return G_SOURCE_CONTINUE;
+    }
+
+    auto idx_proxy = RecentModel::instance().peopleProxy()->mapFromSource(idx);
+
+    if (idx_proxy.isValid()) {
+        /* select the current */
+        GtkTreeIter iter;
+        if (gtk_q_tree_model_source_index_to_iter(GTK_Q_TREE_MODEL(model), idx_proxy, &iter)) {
+            gtk_tree_selection_select_iter(selection, &iter);
+        }
+    } else {
+        gtk_tree_selection_unselect_all(selection);
+    }
+
+    return G_SOURCE_REMOVE;
+}
+
 static void
 recent_contacts_view_init(RecentContactsView *self)
 {
@@ -609,47 +654,20 @@ recent_contacts_view_init(RecentContactsView *self)
     g_signal_connect(selection, "changed", G_CALLBACK(scroll_to_selection), NULL);
     g_signal_connect_swapped(recent_model, "rows-reordered", G_CALLBACK(scroll_to_selection), selection);
 
+    auto synchronize_selection_idle = [self] () { g_idle_add((GSourceFunc)synchronize_selection, self); };
+
     /* update the selection based on the RecentModel */
     priv->selection_updated = QObject::connect(
         RecentModel::instance().selectionModel(),
         &QItemSelectionModel::currentChanged,
-        [self, recent_model](const QModelIndex current, G_GNUC_UNUSED const QModelIndex & previous) {
-            auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
-
-            auto current_proxy = RecentModel::instance().peopleProxy()->mapFromSource(current);
-
-            if (current.isValid()) {
-                /* select the current */
-                GtkTreeIter new_iter;
-                if (gtk_q_tree_model_source_index_to_iter(recent_model, current_proxy, &new_iter)) {
-                    gtk_tree_selection_select_iter(selection, &new_iter);
-                }
-            } else {
-                gtk_tree_selection_unselect_all(selection);
-            }
-        }
+        synchronize_selection_idle
     );
 
     /* we may need to update the selection when the layout changes */
     priv->layout_changed = QObject::connect(
         RecentModel::instance().peopleProxy(),
         &QAbstractItemModel::layoutChanged,
-        [self, recent_model]() {
-            auto idx = RecentModel::instance().selectionModel()->currentIndex();
-            auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
-
-            auto idx_proxy = RecentModel::instance().peopleProxy()->mapFromSource(idx);
-
-            if (idx_proxy.isValid()) {
-                /* select the current */
-                GtkTreeIter iter;
-                if (gtk_q_tree_model_source_index_to_iter(recent_model, idx_proxy, &iter)) {
-                    gtk_tree_selection_select_iter(selection, &iter);
-                }
-            } else {
-                gtk_tree_selection_unselect_all(selection);
-            }
-        }
+        synchronize_selection_idle
     );
 
     /* drag and drop */

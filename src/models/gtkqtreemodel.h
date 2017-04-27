@@ -41,6 +41,7 @@ GtkQTreeModel      *gtk_q_tree_model_new                 (QAbstractItemModel *, 
 QAbstractItemModel *gtk_q_tree_model_get_qmodel          (GtkQTreeModel *);
 QModelIndex         gtk_q_tree_model_get_source_idx      (GtkQTreeModel *, GtkTreeIter *);
 gboolean            gtk_q_tree_model_source_index_to_iter(GtkQTreeModel *, const QModelIndex &, GtkTreeIter *);
+gboolean            gtk_q_tree_model_is_layout_changing  (GtkQTreeModel *);
 
 G_END_DECLS
 
