@@ -650,6 +650,9 @@ recent_contacts_view_init(RecentContactsView *self)
     g_signal_connect(selection, "changed", G_CALLBACK(scroll_to_selection), NULL);
     g_signal_connect_swapped(recent_model, "rows-reordered", G_CALLBACK(scroll_to_selection), selection);
 
+    /* sync initial selection */
+    g_idle_add((GSourceFunc)synchronize_selection, self);
+
     auto synchronize_selection_idle = [self] () { g_idle_add((GSourceFunc)synchronize_selection, self); };
 
     /* update the selection based on the RecentModel */
