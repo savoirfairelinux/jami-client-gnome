@@ -219,8 +219,10 @@ button_send_invitation_clicked(ChatView *self)
         }
     }
 
+    const auto text = QString(gtk_entry_get_text(GTK_ENTRY(priv->entry_chat_input)));
+
     // perform the request
-    if (not account->sendContactRequest(priv->cm))
+    if (not account->sendContactRequest(priv->cm, text))
         g_warning("contact request not forwarded, cannot send invitation!");
 
     // TODO : add an entry in the conversation to tell the user an invitation was sent.
