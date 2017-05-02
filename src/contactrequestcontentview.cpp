@@ -190,7 +190,7 @@ build_contact_request_content(ContactRequestContentView *self, ContactRequest *c
     auto person = contact_request->peer();
 
     /* get photo */
-    QVariant photo = GlobalInstances::pixmapManipulator().contactPhoto(person, QSize(60, 60), false);
+    QVariant photo = GlobalInstances::pixmapManipulator().contactPhoto(person, QSize(110, 110), false);
     std::shared_ptr<GdkPixbuf> image = photo.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
 

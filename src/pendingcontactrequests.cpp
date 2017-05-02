@@ -113,13 +113,29 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                      GtkTreeView *treeview)
 {
     QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
+    auto qt_model = idx.model();
+    
+    
+    qDebug() << "index : " << static_cast<int>(PendingContactRequestModel::Columns::FORMATTED_NAME);
+    
+    
+    
+    //~ index.model()->data(index.model()->index(index.row(),94),Qt::DisplayRole).toInt();
+    
+    
+    //~ qt_model.index(idx.row(), static_cast<int>(PendingContactRequestModel::Columns::FORMATTED_NAME);
+    auto iddx = qt_model->index(idx.row(), static_cast<int>(PendingContactRequestModel::Columns::FORMATTED_NAME));
+    qDebug() << ":V: " << iddx.row() << ", " << iddx.column();
+    auto toto = qt_model->data(iddx);
+    
+    qDebug() << "MOM : " << toto.value<QString>();
 
     if (not idx.isValid()) {
         g_warning("could not get index for contact request");
         return;
     }
 
-    auto uri_qstring = idx.data(static_cast<int>(PendingContactRequestModel::Columns::PEER_ID)).value<QString>();
+    auto uri_qstring = idx.data(static_cast<int>(Qt::DisplayRole)).value<QString>();
     auto uri_std = uri_qstring.toStdString();
 
     g_object_set(G_OBJECT(cell), "markup", uri_std.c_str(), NULL);
