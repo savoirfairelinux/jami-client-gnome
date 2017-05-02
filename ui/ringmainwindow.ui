@@ -189,8 +189,8 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="show-border">False</property>
-                <property name="tab-pos">bottom</property>
-                <property name="scrollable">True</property>
+                <property name="tab-pos">top</property>
+                <property name="scrollable">False</property>
                 <!-- "smart view" -->
                 <child>
                   <object class="GtkScrolledWindow" id="scrolled_window_smartview">
@@ -201,9 +201,11 @@
                   </packing>
                 </child>
                 <child type="tab">
-                  <object class="GtkLabel" id="tab_label_smartview">
-                    <property name="label" translatable="yes">Conversations</property>
-                    <property name="hexpand">True</property>
+                  <object class="GtkImage" id="image_conversations_list">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="resource">/cx/ring/RingGnome/conversations_list</property>
+                    <property name="tooltip_text" translatable="yes">Conversations</property>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -220,9 +222,11 @@
                   </packing>
                 </child>
                 <child type="tab">
-                  <object class="GtkLabel" id="tab_label_contacts">
-                    <property name="label" translatable="yes">Contacts</property>
-                    <property name="hexpand">True</property>
+                  <object class="GtkImage" id="image_contacts_list">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="resource">/cx/ring/RingGnome/contacts_list</property>
+                    <property name="tooltip_text" translatable="yes">Contacts</property>
                   </object>
                   <packing>
                     <property name="position">1</property>
@@ -239,9 +243,11 @@
                   </packing>
                 </child>
                 <child type="tab">
-                  <object class="GtkLabel" id="tab_label_history">
-                    <property name="label" translatable="yes">History</property>
-                    <property name="hexpand">True</property>
+                  <object class="GtkImage" id="image_history_list">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="resource">/cx/ring/RingGnome/history_list</property>
+                    <property name="tooltip_text" translatable="yes">History</property>
                   </object>
                   <packing>
                     <property name="position">2</property>
@@ -258,9 +264,11 @@
                   </packing>
                 </child>
                 <child type="tab">
-                  <object class="GtkLabel" id="tab_label_contact_requests">
-                    <property name="label" translatable="yes">Contact requests</property>
-                    <property name="hexpand">True</property>
+                  <object class="GtkImage" id="image_contact_requests_list">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="resource">/cx/ring/RingGnome/contact_requests_list</property>
+                    <property name="tooltip_text" translatable="yes">Contact requests</property>
                   </object>
                   <packing>
                     <property name="position">3</property>
