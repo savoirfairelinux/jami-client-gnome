@@ -17,5 +17,9 @@
 	<file alias="pause">ic_pause_black_24px.svg</file>
 	<file alias="end">ic_clear_black_24px.svg</file>
 	<file alias="quality">ic_high_quality_black_24px.svg</file>
+	<file alias="contacts_list">ic_people_black_24px.svg</file>
+	<file alias="conversations_list">ic_question_answer_black_24px.svg</file>
+	<file alias="contact_requests_list">ic_verified_user_black_24px.svg</file>
+	<file alias="history_list">ic_history_black_24px.svg</file>
   </gresource>
 </gresources>
