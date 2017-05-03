@@ -654,6 +654,9 @@ search_entry_activated(RingMainWindow *self)
 
     const auto *querry = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
 
+    // nothing to do if querry is empty
+    if (strlen(querry) < 1) return;
+
     URI uri = URI(querry);
 
     /* get account to use */
