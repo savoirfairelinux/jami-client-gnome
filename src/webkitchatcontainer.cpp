@@ -73,6 +73,9 @@ enum {
 
 static guint webkit_chat_container_signals[LAST_SIGNAL] = { 0 };
 
+/* functions */
+static gboolean webview_crashed(WebKitChatContainer *self);
+
 static void
 webkit_chat_container_dispose(GObject *object)
 {
@@ -335,7 +338,6 @@ build_view(WebKitChatContainer *view)
     g_return_if_fail(IS_WEBKIT_CHAT_CONTAINER(view));
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-
     priv->chatview_debug = FALSE;
     auto ring_chatview_debug = g_getenv("RING_CHATVIEW_DEBUG");
     if (ring_chatview_debug || g_strcmp0(ring_chatview_debug, "true") == 0)
@@ -408,6 +410,27 @@ build_view(WebKitChatContainer *view)
 
     /* Now we wait for the load-changed event, before we
      * start loading javascript libraries */
+
+    /* handle web view crash */
+    g_signal_connect_swapped(priv->webview_chat, "web-process-crashed", G_CALLBACK(webview_crashed), view);
+}
+
+static gboolean
+webview_crashed(WebKitChatContainer *self)
+{
+    g_warning("Gtk Web Process crashed! Re-createing web view");
+
+    auto priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(self);
+
+    /* make sure we destroy previous WebView */
+    if (priv->webview_chat) {
+        gtk_widget_destroy(priv->webview_chat);
+        priv->webview_chat = nullptr;
+    }
+
+    build_view(self);
+
+    return G_SOURCE_CONTINUE;
 }
 
 GtkWidget *
