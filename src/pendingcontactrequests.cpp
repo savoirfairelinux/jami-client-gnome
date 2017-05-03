@@ -21,6 +21,7 @@
 #include "pendingcontactrequests.h"
 #include "models/gtkqtreemodel.h"
 #include "native/pixbufmanipulator.h"
+#include "utils/accounts.h"
 
 // LRC
 #include <recentmodel.h>
@@ -72,6 +73,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(PendingContactRequestsView, pending_contact_requests_
 #define PENDING_CONTACT_REQUESTS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), PENDING_CONTACT_REQUESTS_VIEW_TYPE, PendingContactRequestsViewPrivate))
 
 /**
+<<<<<<< HEAD
  * callback function for rendering the contact photo
  */
 static void
@@ -159,6 +161,26 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 }
 
 /**
+ * bind Account::pendingContactRequestModel() to pending_contact_requests_model
+ */
+static void
+bind_models(PendingContactRequestsView *self, Account* account)
+{
+    if (not account) {
+        g_warning("invalid account, cannot bind models.");
+        return;
+    }
+
+    auto pending_contact_requests_model = gtk_q_tree_model_new(account->pendingContactRequestModel(),
+                                                               1/*nmbr. of cols.*/,
+                                                               0,
+                                                               Qt::DisplayRole,
+                                                               G_TYPE_STRING);
+
+    gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(pending_contact_requests_model));
+}
+
+/**
  * gtk init function
  */
 static void
@@ -170,16 +192,7 @@ pending_contact_requests_view_init(PendingContactRequestsView *self)
 
     // the next signal is used to set the model in function of the selection of the account
     QObject::connect(AvailableAccountModel::instance().selectionModel(), &QItemSelectionModel::currentChanged, [self](const QModelIndex& idx){
-        if (auto account = idx.data(static_cast<int>(Account::Role::Object)).value<Account*>()) {
-            GtkQTreeModel *pending_contact_requests_model;
-            pending_contact_requests_model = gtk_q_tree_model_new(
-                account->pendingContactRequestModel(),
-                1/*nmbr. of cols.*/,
-                0, Qt::DisplayRole, G_TYPE_STRING);
-
-            gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(pending_contact_requests_model));
-
-        }
+        bind_models(self, idx.data(static_cast<int>(Account::Role::Object)).value<Account*>());
     });
 
     /* photo and name/contact method column */
@@ -214,6 +227,9 @@ pending_contact_requests_view_init(PendingContactRequestsView *self)
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_expand(column, TRUE);
     gtk_tree_view_expand_all(GTK_TREE_VIEW(self));
+
+    /* init the model */
+    bind_models(self, get_active_ring_account());
 
     gtk_widget_show_all(GTK_WIDGET(self));
 }
