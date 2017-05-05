@@ -23,5 +23,6 @@
 	<file alias="history_list">ic_history_black_24px.svg</file>
 	<file alias="block">ic_block_black_24px.svg</file>
 	<file alias="add">ic_add_black_24px.svg</file>
+	<file alias="send_contact_request">ic_send_contact_request_black_24px.svg</file>
   </gresource>
 </gresources>
