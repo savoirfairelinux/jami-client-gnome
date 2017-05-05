@@ -56,8 +56,11 @@
         <child>
           <object class="GtkButton" id="button_send_invitation">
             <property name="visible">True</property>
-            <property name="label">Invite</property>
-            <property name="tooltip-text" translatable="yes">Send invitation</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Send invitation</property>
+            <property name="image">image_send_contact_request</property>
+            <property name="always_show_image">True</property>
           </object>
           <packing>
             <property name="pack-type">end</property>
@@ -140,4 +143,169 @@
     <property name="visible">True</property>
     <property name="icon-name">call-start-symbolic</property>
   </object>
+  <object class="GtkImage" id="image_send_contact_request">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="resource">/cx/ring/RingGnome/send_contact_request</property>
+  </object>
+
+  <!-- start of invitation dialog -->
+  <object class="GtkTextBuffer" id="textbuffer1"/>
+  <object class="GtkDialog" id="dialog_invitation">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Sending invitation to...</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="type_hint">dialog</property>
+    <property name="has_resize_grip">True</property>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="width_request">400</property>
+        <property name="height_request">250</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="dialog_invitation_cancel_button">
+                <property name="label" translatable="yes">Cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="dialog_invitation_send_button">
+                <property name="label" translatable="yes">Send</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkImage" id="dialog_invitation_peer_photo">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="stock">gtk-missing-image</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkLabel" id="dialog_invitation_peer_name">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="valign">start</property>
+                        <property name="selectable">True</property>
+                        <property name="ellipsize">end</property>
+                        <attributes>
+                          <attribute name="scale" value="1.5"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="dialog_invitation_peer_bestid">
+                        <property name="can_focus">True</property>
+                        <property name="halign">start</property>
+                        <property name="valign">start</property>
+                        <property name="selectable">True</property>
+                        <property name="ellipsize">end</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkTextView" id="dialog_invitation_text_view">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">message</property>
+                <property name="buffer">textbuffer1</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">dialog_invitation_cancel_button</action-widget>
+      <action-widget response="-5">dialog_invitation_send_button</action-widget>
+    </action-widgets>
+    <child>
+      <placeholder/>
+    </child>
+  </object>
+  <!-- end of invitation dialog -->
+
 </interface>

@@ -35,9 +35,13 @@
 #include <QtCore/QDateTime>
 #include "utils/calling.h"
 #include "webkitchatcontainer.h"
+#include <glib/gi18n.h>
+#include "native/pixbufmanipulator.h"
+#include <globalinstances.h>
 
 // LRC
 #include <account.h>
+#include <recentmodel.h>
 
 
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
@@ -67,6 +71,13 @@ struct _ChatViewPrivate
     GtkWidget *button_close_chatview;
     GtkWidget *button_placecall;
     GtkWidget *button_send_invitation;
+    GtkWidget *dialog_invitation;
+    GtkWidget *dialog_invitation_peer_photo;
+    GtkWidget *dialog_invitation_peer_name;
+    GtkWidget *dialog_invitation_peer_bestid;
+    GtkWidget *dialog_invitation_cancel_button;
+    GtkWidget *dialog_invitation_send_button;
+    GtkWidget *dialog_invitation_text_view;
 
     /* only one of the three following pointers should be non void;
      * either this is an in-call chat (and so the in-call chat APIs will be used)
@@ -190,41 +201,99 @@ placecall_clicked(ChatView *self)
     }
 }
 
+/**
+ * show the dialog filled with data from Person and ContactMethod
+ */
 static void
 button_send_invitation_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    auto selectionModel = RecentModel::instance().selectionModel();
 
-    // get the account associated to the selected cm
-    auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
-
-    if (priv->person)
-        priv->cm = priv->person->phoneNumbers().at(active);
-
-    if (!priv->cm) {
-        g_warning("invalid contact, cannot send invitation!");
+    if (not selectionModel->hasSelection()) {
+        g_warning("the model has no selected item, not able to send invitation.");
         return;
     }
 
-    // try first to use the account associated to the contact method
-    auto account = priv->cm->account();
-    if (not account) {
+    auto idx = selectionModel->selectedIndexes()[0];
+    auto cm = idx.data(static_cast<int>(ContactMethod::Role::Object)).value<ContactMethod *>();
+    auto person = idx.data(static_cast<int>(Person::Role::Object)).value<Person *>();
 
-        // get the choosen account
-        account = get_active_ring_account();
+    if (person) {
+        /* get photo. */
+        auto photo = GlobalInstances::pixmapManipulator().contactPhoto(person, QSize(90, 90), false);
+        auto image = photo.value<std::shared_ptr<GdkPixbuf>>();
+        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->dialog_invitation_peer_photo), image.get());
 
-        if (not account) {
-            g_warning("invalid account, cannot send invitation!");
-            return;
-        }
+        /* get name. */
+        auto name_qstring = idx.data(static_cast<int>(Ring::Role::Name)).value<QString>();
+        auto name_std = name_qstring.toStdString();
+        gtk_label_set_text(GTK_LABEL(priv->dialog_invitation_peer_name), name_std.c_str());
+
+        /* get best id. */
+        auto id_qstring = idx.data(static_cast<int>(Person::Role::IdOfLastCMUsed)).value<QString>();
+        auto id_std = id_qstring.toStdString();
+        gtk_label_set_text(GTK_LABEL(priv->dialog_invitation_peer_bestid), id_std.c_str());
+
+    } else if (cm) {
+        auto photo = GlobalInstances::pixmapManipulator().callPhoto(cm, QSize(90, 90), false);
+        auto image = photo.value<std::shared_ptr<GdkPixbuf>>();
+        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->dialog_invitation_peer_photo), image.get());
+
+        /* get best id. */
+        /* will be displayed as name. */
+        auto id_qstring = idx.data(static_cast<int>(Ring::Role::Name)).value<QString>();
+        auto id_std = id_qstring.toStdString();
+        gtk_label_set_text(GTK_LABEL(priv->dialog_invitation_peer_name), id_std.c_str());
+
+    } else {
+        g_warning("Cannot determine any URI, not able to send invitation.");
+        return;
     }
 
-    // perform the request
-    if (not account->sendContactRequest(priv->cm, ""))
+    gtk_widget_show_all (priv->dialog_invitation);
+}
+
+/**
+ * handle the response, if the user clicked on "send" the response value is GTK_RESPONSE_OK (equal to -5 in int). This
+ * value is set in chatview.ui. Do not destroy the dialog but hide it.
+ */
+static void
+dialog_invitation_response(GtkDialog *dialog, gint response_id, ChatView *self)
+{
+    gtk_widget_hide(GTK_WIDGET(dialog));
+
+    if (response_id != GTK_RESPONSE_OK)
+        return;
+
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    auto selectionModel = RecentModel::instance().selectionModel();
+
+    if (not selectionModel->hasSelection()) {
+        g_warning("Won't send an invation, model has not selected item");
+        return;
+    }
+
+    /* get account and peer */
+    auto idx = selectionModel->selectedIndexes()[0];
+    auto person = idx.data(static_cast<int>(Person::Role::Object)).value<Person *>();
+    auto cm = person ? person->phoneNumbers()[0] : idx.data(static_cast<int>(ContactMethod::Role::Object)).value<ContactMethod *>();
+    auto account = get_active_ring_account();
+
+    /* get the message */
+    GtkTextIter start, end;
+    auto *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(priv->dialog_invitation_text_view));
+    gtk_text_buffer_get_bounds(buffer, &start, &end);
+    auto text = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
+    auto message = QString(text);
+
+    /* perform the request */
+    if (not account->sendContactRequest(cm, message))
         g_warning("contact request not forwarded, cannot send invitation!");
 
-    // TODO : add an entry in the conversation to tell the user an invitation was sent.
+    g_free(text);
 }
+
 
 static void
 chat_view_init(ChatView *view)
@@ -238,6 +307,7 @@ chat_view_init(ChatView *view)
     g_signal_connect(priv->button_close_chatview, "clicked", G_CALLBACK(hide_chat_view), view);
     g_signal_connect_swapped(priv->button_placecall, "clicked", G_CALLBACK(placecall_clicked), view);
     g_signal_connect_swapped(priv->button_send_invitation, "clicked", G_CALLBACK(button_send_invitation_clicked), view);
+    g_signal_connect (priv->dialog_invitation, "response", G_CALLBACK(dialog_invitation_response),view);
 }
 
 static void
@@ -258,6 +328,13 @@ chat_view_class_init(ChatViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_close_chatview);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_placecall);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_send_invitation);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, dialog_invitation);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, dialog_invitation_peer_photo);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, dialog_invitation_peer_name);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, dialog_invitation_peer_bestid);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, dialog_invitation_send_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, dialog_invitation_cancel_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, dialog_invitation_text_view);
 
     chat_view_signals[NEW_MESSAGES_DISPLAYED] = g_signal_new (
         "new-messages-displayed",
