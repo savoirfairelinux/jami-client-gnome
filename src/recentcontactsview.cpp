@@ -112,26 +112,29 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                 var_photo = GlobalInstances::pixmapManipulator().callPhoto(call, QSize(50, 50), true);
             }
         }
-        if (var_photo.isValid()) {
-            image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
-        } else {
-            // set the width of the cell rendered to the with of the photo
-            // so that the other renderers are shifted to the right
-            g_object_set(G_OBJECT(cell), "width", 50, NULL);
-        }
+        image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
     }
 
+    // set the width of the cell rendered to the width of the photo
+    // so that the other renderers are shifted to the right
+    g_object_set(G_OBJECT(cell), "width", 50, NULL);
     g_object_set(G_OBJECT(cell), "pixbuf", image.get(), NULL);
 }
 
+/**
+ * This is the 2nd column in the treeview; for Person and ContactMethod items we want to DisplayRole
+ * the name in the first row and the number (Ring registered name or URI) in the second row. for
+ * Conferences we simply display the name, and for calls we simply display the Call status (note:
+ * that if the item is a Call, it is not a top level item)
+ */
 static void
-render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
-                     GtkCellRenderer *cell,
-                     GtkTreeModel *model,
-                     GtkTreeIter *iter,
-                     GtkTreeView *treeview)
+render_name_and_number(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                       GtkCellRenderer *cell,
+                       GtkTreeModel *model,
+                       GtkTreeIter *iter,
+                       GtkTreeView *treeview)
 {
-    gchar *text = NULL;
+    gchar *text = nullptr;
 
     QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
 
@@ -148,45 +151,26 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             case Ring::ObjectType::Person:
             case Ring::ObjectType::ContactMethod:
             {
-                auto var_name = idx.data(static_cast<int>(Ring::Role::Name));
-                auto var_lastused = idx.data(static_cast<int>(Ring::Role::LastUsed));
-                auto var_status = idx.data(static_cast<int>(Ring::Role::FormattedState));
-
-                QString name, status;
-
-                if (var_name.isValid())
-                    name = var_name.value<QString>();
-
-                // show the status if there is a call, otherwise the last used date/time
-                if (var_status.isValid()) {
-                    status += var_status.value<QString>();
-                }else if (var_lastused.isValid()) {
-                    auto date_time = var_lastused.value<QDateTime>();
-                    auto category = HistoryTimeCategoryModel::timeToHistoryConst(date_time.toTime_t());
-
-                    // if it is 'today', then we only want to show the time
-                    if (category != HistoryTimeCategoryModel::HistoryConst::Today) {
-                        status += HistoryTimeCategoryModel::timeToHistoryCategory(date_time.toTime_t());
-                    }
-                    // we only want to show the time if it is less than a week ago
-                    if (category < HistoryTimeCategoryModel::HistoryConst::A_week_ago) {
-                        if (!status.isEmpty())
-                            status += ", ";
-                        status += QLocale::system().toString(date_time.time(), QLocale::ShortFormat);
-                    }
-                }
+                auto name = idx.data(static_cast<int>(Ring::Role::Name)).toString();
+                auto number = idx.data(static_cast<int>(Ring::Role::Number)).toString();
 
                 /* we want the color of the status text to be the default color if this iter is
                  * selected so that the treeview is able to invert it against the selection color */
                 if (is_selected) {
-                    text = g_markup_printf_escaped("%s\n<span size=\"smaller\">%s</span>",
-                                                   name.toUtf8().constData(),
-                                                   status.toUtf8().constData());
+                     text = g_markup_printf_escaped(
+                         "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\">%s</span>",
+                        // "%s\n<span size=\"smaller\">%s</span>",
+                         name.toUtf8().constData(),
+                         number.toUtf8().constData()
+                     );
                 } else {
-                    text = g_markup_printf_escaped("%s\n<span size=\"smaller\" color=\"gray\">%s</span>",
-                                                   name.toUtf8().constData(),
-                                                   status.toUtf8().constData());
-                }
+                     text = g_markup_printf_escaped(
+                         "<span font_weight=\"bold\">%s</span>\n<span color=\"gray\" size=\"smaller\">%s</span>",
+                        //  "%s\n<span color=\"gray\" size=\"smaller\">%s</span>",
+                         name.toUtf8().constData(),
+                         number.toUtf8().constData()
+                     );
+                 }
             }
             break;
             case Ring::ObjectType::Call:
@@ -248,16 +232,29 @@ render_name_and_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     g_free(text);
 }
 
+/**
+ * This is the 3rd column in the treeview. For Person and ContactMethod items we want to display
+ * in the first row the call status or else the last used date. In the second row we want to display
+ * either the call duration or else the number of unread messages. In the case of a Call item we
+ * simply display the call duration.
+ */
 static void
-render_call_duration(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
-                     GtkCellRenderer *cell,
-                     GtkTreeModel *model,
-                     GtkTreeIter *iter,
-                     G_GNUC_UNUSED gpointer data)
+render_info(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+            GtkCellRenderer *cell,
+            GtkTreeModel *model,
+            GtkTreeIter *iter,
+            GtkTreeView *treeview)
 {
-    gchar *text = NULL;
+    gchar *text = nullptr;
 
     QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), iter);
+
+    // check if this iter is selected
+    gboolean is_selected = FALSE;
+    if (GTK_IS_TREE_VIEW(treeview)) {
+        auto selection = gtk_tree_view_get_selection(treeview);
+        is_selected = gtk_tree_selection_iter_is_selected(selection, iter);
+    }
 
     auto type = idx.data(static_cast<int>(Ring::Role::ObjectType));
     if (idx.isValid() && type.isValid()) {
@@ -265,6 +262,44 @@ render_call_duration(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             case Ring::ObjectType::Person:
             case Ring::ObjectType::ContactMethod:
             {
+                gchar *row0 = nullptr; // either call status or last used
+                gchar *row1 = nullptr; // either call duration or unread msg count
+
+                QString status;
+                auto var_status = idx.data(static_cast<int>(Ring::Role::FormattedState));
+                auto var_lastused = idx.data(static_cast<int>(Ring::Role::LastUsed));
+
+                // show the status if there is a call, otherwise the last used date/time
+                if (var_status.isValid()) {
+                    status = var_status.value<QString>();
+                } else if (var_lastused.isValid()) {
+                    auto date_time = var_lastused.value<QDateTime>();
+                    auto category = HistoryTimeCategoryModel::timeToHistoryConst(date_time.toTime_t());
+
+                    // if it is 'today', then we only want to show the time
+                    if (category != HistoryTimeCategoryModel::HistoryConst::Today) {
+                        status = HistoryTimeCategoryModel::timeToHistoryCategory(date_time.toTime_t());
+                    }
+                    // we only want to show the time if it is less than a week ago
+                    if (category < HistoryTimeCategoryModel::HistoryConst::A_week_ago) {
+                        if (!status.isEmpty())
+                            status += ", ";
+                        status += QLocale::system().toString(date_time.time(), QLocale::ShortFormat);
+                    }
+                }
+
+                if (is_selected) {
+                    row0 = g_markup_printf_escaped(
+                        "<span size=\"smaller\">%s</span>",
+                        status.toUtf8().constData()
+                    );
+                } else {
+                    row0 = g_markup_printf_escaped(
+                        "<span size=\"smaller\" color=\"gray\">%s</span>",
+                        status.toUtf8().constData()
+                    );
+                }
+
                 // check if there are any children (calls); we need to convert to source model in
                 // case there is only one
                 auto idx_source = RecentModel::instance().peopleProxy()->mapToSource(idx);
@@ -273,15 +308,29 @@ render_call_duration(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                     && (idx_source.model()->rowCount(idx_source) == 1)
                     && duration.isValid())
                 {
-                    text = g_markup_escape_text(duration.value<QString>().toUtf8().constData(), -1);
+                    row1 = g_markup_printf_escaped("%s", duration.toString().toUtf8().constData());
                 }
                 else
                 {
                     auto unread = idx.data(static_cast<int>(Ring::Role::UnreadTextMessageCount)).toInt();
-                    if (unread > 0){
-                        text = g_markup_printf_escaped("<span color=\"red\" font_weight=\"bold\">%d</span>", unread);
+                    if (unread > 0) {
+                        if (is_selected) {
+                            row1 = g_markup_printf_escaped(
+                                "<span font_weight=\"bold\">%d</span>",
+                                unread
+                            );
+                        } else {
+                            row1 = g_markup_printf_escaped(
+                                "<span color=\"red\" font_weight=\"bold\">%d</span>",
+                                unread
+                            );
+                        }
                     }
                 }
+
+                text = g_strconcat(row0, "\n", row1, nullptr);
+                g_free(row0);
+                g_free(row1);
             }
             break;
             case Ring::ObjectType::Call:
@@ -622,7 +671,7 @@ recent_contacts_view_init(RecentContactsView *self)
     gtk_tree_view_column_set_cell_data_func(
         column,
         renderer,
-        (GtkTreeCellDataFunc)render_name_and_info,
+        (GtkTreeCellDataFunc)render_name_and_number,
         self,
         NULL);
 
@@ -633,8 +682,8 @@ recent_contacts_view_init(RecentContactsView *self)
     gtk_tree_view_column_set_cell_data_func(
         column,
         renderer,
-        (GtkTreeCellDataFunc)render_call_duration,
-        NULL,
+        (GtkTreeCellDataFunc)render_info,
+        self,
         NULL);
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
