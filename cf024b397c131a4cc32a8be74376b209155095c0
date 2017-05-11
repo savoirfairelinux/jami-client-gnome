@@ -46,6 +46,30 @@
       "revId": "cf024b397c131a4cc32a8be74376b209155095c0",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_3a3a4537",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2017-05-11T17:09:22Z",
+      "side": 1,
+      "message": "Reverted, alternative is not working.\n\nDebian Jessie is more than two years old, successor is in feature freeze and will be released soon.\n\nI suggest to put this on hold and drop support for Debian 8 when Debian 9 is officially \"released\".",
+      "parentUuid": "7aade967_170cf841",
+      "range": {
+        "startLine": 1,
+        "startChar": 31,
+        "endLine": 1,
+        "endChar": 36
+      },
+      "revId": "cf024b397c131a4cc32a8be74376b209155095c0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
