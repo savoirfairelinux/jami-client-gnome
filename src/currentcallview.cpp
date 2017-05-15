@@ -105,6 +105,8 @@ struct _CurrentCallViewPrivate
     gint64 time_last_mouse_motion;
     guint timer_fade;
 
+    guint insert_controls_id;
+
     // smart info
     QMetaObject::Connection smartinfo_refresh_connection;
     guint smartinfo_action;
@@ -412,26 +414,13 @@ quality_button_released(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent 
 }
 
 static void
-current_call_view_init(CurrentCallView *view)
+insert_controls(CurrentCallView *view)
 {
-    gtk_widget_init_template(GTK_WIDGET(view));
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-
-    // CSS styles
-    auto provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_data(provider,
-        ".smartinfo-block-style { color: #8ae234; background-color: rgba(1, 1, 1, 0.33); }",
-        -1, nullptr
-    );
-    gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
-                                              GTK_STYLE_PROVIDER(provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-    /* create video widget and overlay the call info and controls on it */
-    priv->video_widget = video_widget_new();
-    gtk_container_add(GTK_CONTAINER(priv->frame_video), priv->video_widget);
-    gtk_widget_show_all(priv->frame_video);
+    /* only add the controls once */
+    g_signal_handler_disconnect(view, priv->insert_controls_id);
+    priv->insert_controls_id = 0;
 
     auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
     auto actor_info = gtk_clutter_actor_new_with_contents(priv->hbox_call_info);
@@ -500,6 +489,48 @@ current_call_view_init(CurrentCallView *view)
         g_signal_connect(scale, "button-press-event", G_CALLBACK(quality_button_pressed), view);
         g_signal_connect(scale, "button-release-event", G_CALLBACK(quality_button_released), view);
     }
+
+    /* check if auto quality is enabled or not; */
+    if (const auto& codecModel = priv->call->account()->codecModel()) {
+        const auto& videoCodecs = codecModel->videoCodecs();
+        if (videoCodecs->rowCount() > 0) {
+            /* we only need to check the first codec since by default it is ON for all, and the
+             * gnome client sets its ON or OFF for all codecs as well */
+            const auto& idx = videoCodecs->index(0,0);
+            auto auto_quality_enabled = idx.data(static_cast<int>(CodecModel::Role::AUTO_QUALITY_ENABLED)).toString() == "true";
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality), auto_quality_enabled);
+
+            // TODO: save the manual quality setting in the client and set the slider to that value here;
+            //       the daemon resets the bitrate/quality between each call, and the default may be
+            //       different for each codec, so there is no reason to check it here
+        }
+    }
+}
+
+static void
+current_call_view_init(CurrentCallView *view)
+{
+    gtk_widget_init_template(GTK_WIDGET(view));
+
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    // CSS styles
+    auto provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_data(provider,
+        ".smartinfo-block-style { color: #8ae234; background-color: rgba(1, 1, 1, 0.33); }",
+        -1, nullptr
+    );
+    gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
+                                              GTK_STYLE_PROVIDER(provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+    priv->video_widget = video_widget_new();
+    gtk_container_add(GTK_CONTAINER(priv->frame_video), priv->video_widget);
+    gtk_widget_show_all(priv->frame_video);
+
+    /* add the overlay controls only once the view has been allocated a size to prevent size
+     * allocation warnings in the log */
+    priv->insert_controls_id = g_signal_connect(view, "size-allocate", G_CALLBACK(insert_controls), nullptr);
 }
 
 static void
@@ -745,22 +776,6 @@ set_call_info(CurrentCallView *view, Call *call) {
                                               "notify::state",
                                               G_CALLBACK(toggle_smartinfo),
                                               priv->vbox_call_smartInfo);
-
-    /* check if auto quality is enabled or not; */
-    if (const auto& codecModel = priv->call->account()->codecModel()) {
-        const auto& videoCodecs = codecModel->videoCodecs();
-        if (videoCodecs->rowCount() > 0) {
-            /* we only need to check the first codec since by default it is ON for all, and the
-             * gnome client sets its ON or OFF for all codecs as well */
-            const auto& idx = videoCodecs->index(0,0);
-            auto auto_quality_enabled = idx.data(static_cast<int>(CodecModel::Role::AUTO_QUALITY_ENABLED)).toString() == "true";
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality), auto_quality_enabled);
-
-            // TODO: save the manual quality setting in the client and set the slider to that value here;
-            //       the daemon resets the bitrate/quality between each call, and the default may be
-            //       different for each codec, so there is no reason to check it here
-        }
-    }
 
     /* init chat view */
     auto chat_view = chat_view_new_call(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->call);
