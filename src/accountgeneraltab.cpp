@@ -239,7 +239,11 @@ build_tab_view(AccountGeneralTab *view)
         gtk_entry_set_text(GTK_ENTRY(entry_username), priv->account->username().toLocal8Bit().constData());
         g_object_set(G_OBJECT(entry_username), "editable", FALSE, NULL);
         g_object_set(G_OBJECT(entry_username), "max-width-chars", 50, NULL);
-        gtk_widget_override_font(entry_username, pango_font_description_from_string("monospace"));
+        PangoAttrList *attrs = pango_attr_list_new();
+        PangoAttribute *font_desc = pango_attr_font_desc_new(pango_font_description_from_string("monospace"));
+        pango_attr_list_insert(attrs, font_desc);
+        gtk_entry_set_attributes(GTK_ENTRY(entry_username), attrs);
+        pango_attr_list_unref(attrs);
         gtk_entry_set_alignment(GTK_ENTRY(entry_username), 0.5);
         gtk_grid_attach(GTK_GRID(priv->grid_account), entry_username, 1, grid_row, 1, 1);
         ++grid_row;
