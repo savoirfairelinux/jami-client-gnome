@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_a78ff974",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-05-16T15:25:10Z",
+      "side": 1,
+      "message": "So the \"entry_username\" is a GtkEntry, not a label. Using gtk_label_set_attributes() won\u0027t work, I think, and it results in this in the log at run time:\n(gnome-ring:12450): GLib-GObject-WARNING **: invalid cast from \u0027GtkEntry\u0027 to \u0027GtkLabel\u0027\n\n(gnome-ring:12450): Gtk-CRITICAL **: gtk_label_set_attributes: assertion \u0027GTK_IS_LABEL (label)\u0027 failed\n\nHowever, I think there is a similar API for the GtkEntry:\nhttps://developer.gnome.org/gtk3/stable/GtkEntry.html#gtk-entry-set-attributes",
+      "range": {
+        "startLine": 245,
+        "startChar": 8,
+        "endLine": 245,
+        "endChar": 67
+      },
+      "revId": "ab48cf7d0b4d0b0fc19d9de984af18ed4ba5d1b6",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
