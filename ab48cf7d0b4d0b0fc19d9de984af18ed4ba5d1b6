@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5aaae553_873c3d95",
+        "filename": "src/accountgeneraltab.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-05-16T16:27:52Z",
+      "side": 1,
+      "message": "see my comment on the other file about unrefing the PangoAttrList",
+      "range": {
+        "startLine": 242,
+        "startChar": 8,
+        "endLine": 244,
+        "endChar": 49
+      },
+      "revId": "ab48cf7d0b4d0b0fc19d9de984af18ed4ba5d1b6",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_a78ff974",
         "filename": "src/accountgeneraltab.cpp",
         "patchSetId": 2
@@ -19,6 +42,23 @@
         "endLine": 245,
         "endChar": 67
       },
+      "revId": "ab48cf7d0b4d0b0fc19d9de984af18ed4ba5d1b6",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_6737c1b1",
+        "filename": "src/ringwelcomeview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 23
+      },
+      "writtenOn": "2017-05-16T16:27:52Z",
+      "side": 1,
+      "message": "So, you don\u0027t actually have to create two PangoAttrList and PangoAttributes since the attribute is the same in both cases. So you can just create one list and one attribute and then set it for both labels.\n\nThe other thing has to do with reference counting. I don\u0027t know if you\u0027re familiar with reference counting, or how it is done in GTK, so heres the doc for it:\nhttps://developer.gnome.org/gobject/stable/gobject-memory.html\n\nAnd some important info about floating refs here:\nhttps://developer.gnome.org/gobject/stable/gobject-The-Base-Object-Type.html#floating-ref\n\nIt can be a bit confusing. With most GtkWidgets, they are initialized with a floating reference. This is because widgets are usually then placed in other widgets (containers) which take ownership of them and convert the weak reference to a ref of one. Then when the container is destroyed, it will also unref the widget and so the widget inside of it will also be destroyed.\n\nHowever, this is not the case for all other GObjects. In the case of Pango objects, they are initialized with a ref count of 1. For example, the doc for pango_attr_font_desc_new says:\n\"the newly allocated PangoAttribute, which should be freed with pango_attribute_destroy()\"\nhttps://developer.gnome.org/pango/stable/pango-Text-Attributes.html#pango-attr-font-desc-new\n\nNow, this isn\u0027t clear for the doc, but if you look at the source code of gtk_label_set_attributes(), it will actually increment reference of the pango attr list by one by calling pango_attr_list_ref resulting now in a ref count of 2. This means that in your code, if you don\u0027t explicitly unref the pango list, then when the GtkLabel is destroyed, it will still have a ref count of 1, and it will not be dstroyed and result in a mem leak.\n\nOn the other hand, when you insert the PangoAttribute into the PangoAttrList, it assumes ownership of it and will destroy it when the list is destroyed:\nhttps://developer.gnome.org/pango/stable/pango-Text-Attributes.html#pango-attr-list-insert\n\nAll this to say, is that after you are done setting the PangoAttrList in the GtkLabel(s), you should call pang_attr_list_unref(), so that when the GtkLabels are destroyed, the list will be freed as well.\n\nHope thats not too confusing :P",
       "revId": "ab48cf7d0b4d0b0fc19d9de984af18ed4ba5d1b6",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
