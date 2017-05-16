@@ -147,7 +147,10 @@ ring_welcome_view_init(RingWelcomeView *self)
     /* welcome text */
     auto label_welcome_text = gtk_label_new(_("Ring is free software for universal communication which respects the freedoms and privacy of its users."));
     gtk_label_set_justify(GTK_LABEL(label_welcome_text), GTK_JUSTIFY_CENTER);
-    gtk_widget_override_font(label_welcome_text, pango_font_description_from_string("12"));
+    PangoAttrList *attrs = pango_attr_list_new();
+    PangoAttribute *font_desc = pango_attr_font_desc_new(pango_font_description_from_string("monospace 12"));
+    pango_attr_list_insert(attrs, font_desc);
+    gtk_label_set_attributes(GTK_LABEL(label_welcome_text), attrs);
     gtk_label_set_line_wrap(GTK_LABEL(label_welcome_text), TRUE);
     /* the max width chars is to limit how much the text expands */
     gtk_label_set_max_width_chars(GTK_LABEL(label_welcome_text), 50);
@@ -168,7 +171,8 @@ ring_welcome_view_init(RingWelcomeView *self)
     /* RingID label */
     priv->label_ringid = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(priv->label_ringid), TRUE);
-    gtk_widget_override_font(priv->label_ringid, pango_font_description_from_string("monospace 12"));
+    gtk_label_set_attributes(GTK_LABEL(label_welcome_text), attrs);
+    pango_attr_list_unref(attr);
     gtk_widget_set_no_show_all(priv->label_ringid, TRUE);
     gtk_box_pack_start(GTK_BOX(box_main), priv->label_ringid, FALSE, TRUE, 0);
     gtk_label_set_ellipsize(GTK_LABEL(priv->label_ringid), PANGO_ELLIPSIZE_END);
