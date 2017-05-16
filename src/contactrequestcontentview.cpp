@@ -199,7 +199,7 @@ build_contact_request_content(ContactRequestContentView *self, ContactRequest *c
     gtk_label_set_text(GTK_LABEL(priv->label_peer), name_std.c_str());
 
     /* get contact best id, if different from name */
-    auto contactId_std = person->phoneNumbers()[0]->getBestId().toStdString();
+    auto contactId_std = person->phoneNumbers()[0]->bestId().toStdString();
     if (name_std != contactId_std) {
         gtk_label_set_text(GTK_LABEL(priv->label_bestId), contactId_std.c_str());
         gtk_widget_show(priv->label_bestId);

@@ -663,7 +663,7 @@ set_call_info(CurrentCallView *view, Call *call) {
     gtk_label_set_text(GTK_LABEL(priv->label_name), name.toUtf8().constData());
 
     /* get contact best id, if different from name */
-    auto contactId = call->peerContactMethod()->getBestId();
+    auto contactId = call->peerContactMethod()->bestId();
     if (name != contactId) {
         auto cat_contactId = g_strdup_printf("(%s) %s"
                                        ,priv->call->peerContactMethod()->category()->name().toUtf8().constData()
