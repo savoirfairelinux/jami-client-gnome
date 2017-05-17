@@ -371,7 +371,6 @@ choose_picture(AvatarManipulation *self)
 {
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
     GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
-    GtkFileFilter *filter = gtk_file_filter_new ();
     gint res;
 
     auto preview = gtk_image_new();
@@ -386,11 +385,6 @@ choose_picture(AvatarManipulation *self)
                                           _("_Open"),
                                           GTK_RESPONSE_ACCEPT,
                                           NULL);
-
-    /* add filters */
-    gtk_file_filter_add_pattern (filter,"*.png");
-    gtk_file_filter_add_pattern (filter,"*.jpg");
-    gtk_file_chooser_set_filter (GTK_FILE_CHOOSER(dialog),filter);
 
     /* add an image preview inside the file choose */
     gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER(dialog), preview);
