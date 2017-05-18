@@ -23,13 +23,15 @@
 
 // LRC
 #include <accountmodel.h>
+#include <contactmethod.h>
 #include <personmodel.h>
 #include <person.h>
+#include <recentmodel.h>
 
 // Ring Client
 #include "accountbanstab.h"
-#include "models/gtkqtreemodel.h"
 #include "bannedcontactsview.h"
+#include "models/gtkqtreemodel.h"
 #include "utils/models.h"
 
 // Qt
@@ -62,6 +64,7 @@ struct _AccountBansTabPrivate
     Account   *account;
     GtkWidget *scrolled_window_bans_tab;
     GtkWidget *treeview_bans;
+    GtkWidget *button_unban;
     QMetaObject::Connection account_state_changed;
 
 };
@@ -94,6 +97,57 @@ account_bans_tab_finalize(GObject *object)
 }
 
 /**
+ * gtk callback function called when the selection in the contact request list changed
+ */
+static void
+selection_bans_changed(GtkTreeSelection *selection, AccountBansTab *self)
+{
+    AccountBansTabPrivate *priv = ACCOUNT_BANS_TAB_GET_PRIVATE(self);
+    auto has_selection = (gtk_tree_selection_count_selected_rows(selection) > 0);
+
+    gtk_widget_set_sensitive(priv->button_unban, has_selection);
+}
+
+/**
+ * gtk callback function called when button_unban is clicked.
+ */
+static void
+button_unban_clicked(AccountBansTab *view)
+{
+    #define TREE_VIEW GTK_TREE_VIEW(priv->treeview_bans)
+    AccountBansTabPrivate *priv = ACCOUNT_BANS_TAB_GET_PRIVATE(view);
+
+    GtkTreeSelection * tsel = gtk_tree_view_get_selection(TREE_VIEW);
+    GtkTreeIter iter ;
+    GtkTreeModel *tm ;
+
+    if ( gtk_tree_selection_get_selected ( tsel , &tm , &iter ) )
+    {
+        /* get account. */
+        const auto idx_account = AccountModel::instance().selectionModel()->currentIndex();
+        auto account = idx_account.data(static_cast<int>(Account::Role::Object)).value<Account*>();
+
+        /* get person. */
+        const auto idx_person = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(gtk_tree_view_get_model(TREE_VIEW)),
+                                                                                 &iter);
+        auto person = idx_person.data(static_cast<int>(Person::Role::Object)).value<Person*>();
+
+        if (not person or not account) {
+            g_error("cannot unban, invalid pointer(s). person(%d), account(%d)", person, account);
+            return;
+        }
+
+        /* unban == add to contact list. */
+        AccountModel::instance().setBanStatus(account, person->phoneNumbers()[0]->uri(), false);
+
+        /* refresh the related model views */
+        PersonModel::instance().bannedPeopleProxy()->invalidate();
+        RecentModel::instance().peopleProxy()->invalidate();
+
+    }
+}
+
+/**
  * gtk init function
  */
 static void
@@ -113,6 +167,11 @@ account_bans_tab_init(AccountBansTab *view)
         []() {
             PersonModel::instance().bannedPeopleProxy()->invalidate();
         });
+
+    auto selection_bans = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_bans));
+
+    g_signal_connect_swapped(priv->button_unban, "clicked", G_CALLBACK(button_unban_clicked), view);
+    g_signal_connect(selection_bans, "changed", G_CALLBACK(selection_bans_changed), view);
 }
 
 /**
@@ -127,6 +186,7 @@ account_bans_tab_class_init(AccountBansTabClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass), "/cx/ring/RingGnome/accountbanstab.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountBansTab, scrolled_window_bans_tab);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountBansTab, button_unban);
 }
 
 /**
