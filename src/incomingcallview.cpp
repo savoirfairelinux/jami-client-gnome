@@ -65,6 +65,9 @@ struct _IncomingCallViewPrivate
     Call *call;
 
     QMetaObject::Connection state_change_connection;
+    QMetaObject::Connection cm_changed_connection;
+    QMetaObject::Connection person_changed_connection;
+    QMetaObject::Connection cm_person_changed_connection;
 
     GSettings *settings;
 };
@@ -83,6 +86,9 @@ incoming_call_view_dispose(GObject *object)
     priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
     QObject::disconnect(priv->state_change_connection);
+    QObject::disconnect(priv->cm_changed_connection);
+    QObject::disconnect(priv->person_changed_connection);
+    QObject::disconnect(priv->cm_person_changed_connection);
 
     g_clear_object(&priv->settings);
 
@@ -197,38 +203,74 @@ update_state(IncomingCallView *view, Call *call)
 }
 
 static void
-set_call_info(IncomingCallView *view, Call *call) {
-    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
-
-    priv->call = call;
+update_name_and_photo(IncomingCallView *view)
+{
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
     /* get call image */
-    QVariant var_i = GlobalInstances::pixmapManipulator().callPhoto(call, QSize(110, 110), false);
+    QVariant var_i = GlobalInstances::pixmapManipulator().callPhoto(priv->call, QSize(110, 110), false);
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), image.get());
 
     /* get name */
-    auto name = call->formattedName();
+    auto name = priv->call->formattedName();
     gtk_label_set_text(GTK_LABEL(priv->label_name), name.toUtf8().constData());
 
     /* get uri, if different from name */
-    auto bestId = call->peerContactMethod()->bestId();
+    auto bestId = priv->call->peerContactMethod()->bestId();
     if (name != bestId) {
         auto cat_bestId = g_strdup_printf("(%s) %s"
-                                       ,call->peerContactMethod()->category()->name().toUtf8().constData()
+                                       ,priv->call->peerContactMethod()->category()->name().toUtf8().constData()
                                        ,bestId.toUtf8().constData());
         gtk_label_set_text(GTK_LABEL(priv->label_bestId), cat_bestId);
         g_free(cat_bestId);
         gtk_widget_show(priv->label_bestId);
     }
+}
+
+static void
+update_person(IncomingCallView *view, Person *new_person)
+{
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+
+    update_name_and_photo(view);
+
+    QObject::disconnect(priv->person_changed_connection);
+    if (new_person) {
+        priv->person_changed_connection = QObject::connect(
+            new_person,
+            &Person::changed,
+            [view]() { update_name_and_photo(view); }
+        );
+    }
+}
+
+static void
+set_call_info(IncomingCallView *view, Call *call) {
+    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+
+    priv->call = call;
 
     /* change some things depending on call state */
     update_state(view, call);
+    update_person(view, priv->call->peerContactMethod()->contact());
 
     priv->state_change_connection = QObject::connect(
         call,
         &Call::stateChanged,
         [=]() { update_state(view, call); }
+    );
+
+    priv->cm_changed_connection = QObject::connect(
+        priv->call->peerContactMethod(),
+        &ContactMethod::changed,
+        [view]() { update_name_and_photo(view); }
+    );
+
+    priv->cm_person_changed_connection = QObject::connect(
+        priv->call->peerContactMethod(),
+        &ContactMethod::contactChanged,
+        [view] (Person* newPerson, Person*) { update_person(view, newPerson); }
     );
 
     /* show chat */
