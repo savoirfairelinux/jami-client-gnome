@@ -725,7 +725,7 @@ set_call_info(CurrentCallView *view, Call *call) {
 
     priv->call_details_connection = QObject::connect(
         priv->call,
-        static_cast<void (Call::*)(void)>(&Call::changed),
+        &Call::changed,
         [view, priv]() { update_details(view, priv->call); }
     );
 
