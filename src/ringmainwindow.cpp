@@ -47,6 +47,7 @@
 #include <phonedirectorymodel.h>
 #include <availableaccountmodel.h>
 #include <contactrequest.h>
+#include <pendingcontactrequestmodel.h>
 
 // Ring client
 #include "models/gtkqtreemodel.h"
@@ -133,6 +134,7 @@ struct _RingMainWindowPrivate
     GtkWidget *treeview_contact_requests;
     GtkWidget *scrolled_window_contact_requests;
     GtkWidget *contact_request_view;
+    GtkWidget *image_contact_requests_list;
 
     /* Pending ring usernames lookup for the search entry */
     QMetaObject::Connection username_lookup;
@@ -209,6 +211,22 @@ video_double_clicked(RingMainWindow *self)
         enter_full_screen(self);
     }
 }
+
+static void
+set_pending_contact_request_tab_icon(const Account* account, RingMainWindow * self)
+{
+    if (not account or not self) {
+        g_warning("null pointer ?\naccount (%p), self (%p)", account, self);
+        return;
+    }
+
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    gtk_image_set_from_resource(GTK_IMAGE(priv->image_contact_requests_list),
+        (account->pendingContactRequestModel()->rowCount())
+        ? "/cx/ring/RingGnome/contact_requests_list_with_notification"
+        : "/cx/ring/RingGnome/contact_requests_list");
+};
 
 static void
 hide_view_clicked(RingMainWindow *self)
@@ -506,6 +524,9 @@ selection_changed(RingMainWindow *win)
         if (old_view != priv->welcome_view)
             change_view(win, old_view, nullptr, RING_WELCOME_VIEW_TYPE);
     }
+
+    /* we force to check the pending contact request status */
+    set_pending_contact_request_tab_icon(get_active_ring_account(), win);
 
     return G_SOURCE_REMOVE;
 }
@@ -1326,8 +1347,14 @@ ring_main_window_init(RingMainWindow *win)
         if (gtk_widget_get_visible(priv->ring_settings))
             show_combobox_account_selector(win, TRUE);
     };
+
     QObject::connect(&AvailableAccountModel::instance(), &QAbstractItemModel::rowsRemoved, available_accounts_changed);
     QObject::connect(&AvailableAccountModel::instance(), &QAbstractItemModel::rowsInserted, available_accounts_changed);
+    QObject::connect(AvailableAccountModel::instance().selectionModel(), &QItemSelectionModel::currentChanged,
+    [win] (const QModelIndex& current, const QModelIndex& previous) {
+        auto account = current.data(static_cast<int>(Account::Role::Object)).value<Account*>();
+        set_pending_contact_request_tab_icon(account, win);
+    });
 
     priv->treeview_contact_requests = pending_contact_requests_view_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contact_requests), priv->treeview_contact_requests);
@@ -1419,6 +1446,10 @@ ring_main_window_init(RingMainWindow *win)
 
     // we closing any view opened to avoid confusion (especially between SIP and Ring protocols).
     g_signal_connect_swapped(priv->combobox_account_selector, "changed", G_CALLBACK(hide_view_clicked), win);
+
+    // initialize the pending contact request icon.
+    set_pending_contact_request_tab_icon(get_active_ring_account(), win);
+
 }
 
 static void
@@ -1477,6 +1508,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, spinner_lookup);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_account_selector);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contact_requests);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_contact_requests_list);
 }
 
 GtkWidget *
