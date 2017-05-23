@@ -489,7 +489,6 @@ insert_controls(CurrentCallView *view)
         gtk_widget_show(priv->checkbutton_autoquality);
         gtk_box_pack_start(GTK_BOX(scale_box), priv->checkbutton_autoquality, FALSE, TRUE, 0);
         g_signal_connect(priv->checkbutton_autoquality, "toggled", G_CALLBACK(autoquality_toggled), view);
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality), TRUE);
     }
     if (auto scale = gtk_scale_button_get_scale(GTK_SCALE_BUTTON(priv->scalebutton_quality))) {
         g_signal_connect(scale, "button-press-event", G_CALLBACK(quality_button_pressed), view);
@@ -513,6 +512,9 @@ insert_controls(CurrentCallView *view)
                 //       different for each codec, so there is no reason to check it here
             }
         }
+    } else {
+        /* Auto-quality is off by default */
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality), FALSE);
     }
 }
 
