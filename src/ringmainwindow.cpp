@@ -1065,6 +1065,10 @@ conversation_selection_changed(GtkTreeSelection *selection, RingMainWindow *self
         auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
         if (!compare_treeview_selection(selection, selection_history))
             gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
+
+        auto selection_contact_requests = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
+        if (!compare_treeview_selection(selection, selection_contact_requests))
+            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_requests));
     }
 
     selection_changed(self);
@@ -1089,6 +1093,10 @@ contact_selection_changed(GtkTreeSelection *selection, RingMainWindow *self)
         auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
         if (!compare_treeview_selection(selection, selection_history))
             gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
+
+        auto selection_contact_requests = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
+        if (!compare_treeview_selection(selection, selection_contact_requests))
+            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_requests));
     }
 
     selection_changed(self);
@@ -1114,6 +1122,10 @@ history_selection_changed(GtkTreeSelection *selection, RingMainWindow *self)
         auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
         if (!compare_treeview_selection(selection, selection_contacts))
             gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contacts));
+
+        auto selection_contact_requests = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
+        if (!compare_treeview_selection(selection, selection_contact_requests))
+            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_requests));
     }
 
     selection_changed(self);
@@ -1141,6 +1153,11 @@ contact_request_selection_changed(GtkTreeSelection *selection, RingMainWindow *s
         auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
         if (!compare_treeview_selection(selection, selection_contacts))
             gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contacts));
+
+        /* unselect previous selection in history */
+        auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
+        if (!compare_treeview_selection(selection, selection_history))
+            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
     }
 
     selection_changed(self);
