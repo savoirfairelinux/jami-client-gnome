@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2015-2016 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Guillaume Roguew <guillaume.roguez@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -968,12 +969,12 @@ dtmf_pressed(RingMainWindow *win,
  * selected which is associated with the ContactMethod to which that Call was made, then this will
  * evaluate to TRUE.
  */
-static gboolean
-compare_treeview_selection(GtkTreeSelection *selection1, GtkTreeSelection *selection2)
+static bool
+compare_treeview_selection(GtkTreeSelection* selection1, GtkTreeSelection* selection2)
 {
-    g_return_val_if_fail(selection1 && selection2, FALSE);
+    g_return_val_if_fail(selection1 && selection2, false);
 
-    if (selection1 == selection2) return TRUE;
+    if (selection1 == selection2) return true;
 
     auto idx1 = get_index_from_selection(selection1);
     auto type1 = idx1.data(static_cast<int>(Ring::Role::ObjectType));
@@ -983,7 +984,8 @@ compare_treeview_selection(GtkTreeSelection *selection1, GtkTreeSelection *selec
     auto type2 = idx2.data(static_cast<int>(Ring::Role::ObjectType));
     auto object2 = idx2.data(static_cast<int>(Ring::Role::Object));
 
-    if (idx1.isValid() && type1.isValid() && object1.isValid() && idx2.isValid() && type2.isValid() && object2.isValid()) {
+    if (idx1.isValid() && type1.isValid() && object1.isValid() &&
+        idx2.isValid() && type2.isValid() && object2.isValid()) {
         Call *call1 = nullptr;
         ContactMethod *cm1 = nullptr;
         Person *person1 = nullptr;
@@ -1035,130 +1037,95 @@ compare_treeview_selection(GtkTreeSelection *selection1, GtkTreeSelection *selec
         }
 
         if (person1 != nullptr && person1 == person2)
-            return TRUE;
+            return true;
         if (cm1 != nullptr && cm1 == cm2)
-            return TRUE;
+            return true;
         if (call1 != nullptr && call1 == call2)
-            return TRUE;
+            return true;
     }
 
-    return FALSE;
+    return false;
+}
+
+inline static void
+unselect_if_different(GtkTreeSelection *selection1, GtkTreeView* treeview)
+{
+    auto selection2 = gtk_tree_view_get_selection(treeview);
+    if (!compare_treeview_selection(selection1, selection2))
+        gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection2));
 }
 
 static void
-conversation_selection_changed(GtkTreeSelection *selection, RingMainWindow *self)
+sync_all_view_selection(GtkTreeSelection* selection,
+                        GtkTreeView* treeview1,
+                        GtkTreeView* treeview2,
+                        GtkTreeView* treeview3)
 {
-    if (gtk_q_tree_model_ignore_selection_change(selection)) return;
-
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     GtkTreeIter iter;
     if (gtk_tree_selection_get_selected(selection, nullptr, &iter)) {
-        /* something is selected in the conversations view, clear the selection in the other views;
+        /* something is selected in one view, clear the selection in the other views;
          * unless the current selection is of the same item; we don't try to match the selection in
          * all views since not all items exist in all 3 contact list views
          */
 
-        auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
-        if (!compare_treeview_selection(selection, selection_contacts))
-            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contacts));
-
-        auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
-        if (!compare_treeview_selection(selection, selection_history))
-            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
-
-        auto selection_contact_requests = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
-        if (!compare_treeview_selection(selection, selection_contact_requests))
-            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_requests));
+        unselect_if_different(selection, treeview1);
+        unselect_if_different(selection, treeview2);
+        unselect_if_different(selection, treeview3);
     }
-
-    selection_changed(self);
 }
 
 static void
-contact_selection_changed(GtkTreeSelection *selection, RingMainWindow *self)
-{
-    if (gtk_q_tree_model_ignore_selection_change(selection)) return;
-
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-    GtkTreeIter iter;
-    if (gtk_tree_selection_get_selected(selection, nullptr, &iter)) {
-        /* something is selected in the contacts view, clear the selection in the other views;
-         * unless the current selection is of the same item; we don't try to match the selection in
-         * all views since not all items exist in all 3 contact list views
-         */
-        auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
-        if (!compare_treeview_selection(selection, selection_conversations))
-            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
-
-        auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
-        if (!compare_treeview_selection(selection, selection_history))
-            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
-
-        auto selection_contact_requests = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
-        if (!compare_treeview_selection(selection, selection_contact_requests))
-            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_requests));
-    }
-
-    selection_changed(self);
-}
-
-static void
-history_selection_changed(GtkTreeSelection *selection, RingMainWindow *self)
-{
-    if (gtk_q_tree_model_ignore_selection_change(selection)) return;
-
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-    GtkTreeIter iter;
-    if (gtk_tree_selection_get_selected(selection, nullptr, &iter)) {
-        /* something is selected in the history view, clear the selection in the other views;
-         * unless the current selection is of the same item; we don't try to match the selection in
-         * all views since not all items exist in all 3 contact list views
-         */
-
-        auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
-        if (!compare_treeview_selection(selection, selection_conversations))
-            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
-
-        auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
-        if (!compare_treeview_selection(selection, selection_contacts))
-            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contacts));
-
-        auto selection_contact_requests = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
-        if (!compare_treeview_selection(selection, selection_contact_requests))
-            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_requests));
-    }
-
-    selection_changed(self);
-}
-
-
-/**
- * gtk callback function called when the selection in the contact request list changed
- */
-static void
-contact_request_selection_changed(GtkTreeSelection *selection, RingMainWindow *self)
+conversation_selection_changed(GtkTreeSelection* selection, RingMainWindow* self)
 {
     if (gtk_q_tree_model_ignore_selection_change(selection)) return;
 
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-    GtkTreeIter iter;
+    sync_all_view_selection(selection,
+                            GTK_TREE_VIEW(priv->treeview_contacts),
+                            GTK_TREE_VIEW(priv->treeview_history),
+                            GTK_TREE_VIEW(priv->treeview_contact_requests));
 
-    if (gtk_tree_selection_get_selected(selection, nullptr, &iter)) {
-        /* unselect previous selection in conversations list */
-        auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
-        if (!compare_treeview_selection(selection, selection_conversations))
-            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
+    selection_changed(self);
+}
 
-        /* unselect previous selection in contacts list */
-        auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
-        if (!compare_treeview_selection(selection, selection_contacts))
-            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contacts));
+static void
+contact_selection_changed(GtkTreeSelection* selection, RingMainWindow* self)
+{
+    if (gtk_q_tree_model_ignore_selection_change(selection)) return;
 
-        /* unselect previous selection in history */
-        auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
-        if (!compare_treeview_selection(selection, selection_history))
-            gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
-    }
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    sync_all_view_selection(selection,
+                            GTK_TREE_VIEW(priv->treeview_conversations),
+                            GTK_TREE_VIEW(priv->treeview_history),
+                            GTK_TREE_VIEW(priv->treeview_contact_requests));
+
+    selection_changed(self);
+}
+
+static void
+history_selection_changed(GtkTreeSelection* selection, RingMainWindow* self)
+{
+    if (gtk_q_tree_model_ignore_selection_change(selection)) return;
+
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    sync_all_view_selection(selection,
+                            GTK_TREE_VIEW(priv->treeview_contacts),
+                            GTK_TREE_VIEW(priv->treeview_conversations),
+                            GTK_TREE_VIEW(priv->treeview_contact_requests));
+
+    selection_changed(self);
+}
+
+static void
+contact_request_selection_changed(GtkTreeSelection* selection, RingMainWindow* self)
+{
+    if (gtk_q_tree_model_ignore_selection_change(selection)) return;
+
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    sync_all_view_selection(selection,
+                            GTK_TREE_VIEW(priv->treeview_contacts),
+                            GTK_TREE_VIEW(priv->treeview_history),
+                            GTK_TREE_VIEW(priv->treeview_conversations));
 
     selection_changed(self);
 }
