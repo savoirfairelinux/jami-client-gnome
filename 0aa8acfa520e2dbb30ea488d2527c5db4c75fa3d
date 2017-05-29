@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_39e4890c",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1299,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2017-05-29T15:47:11Z",
+      "side": 1,
+      "message": "If account is null, I think that the previous model should still be disconnected (if any)",
+      "range": {
+        "startLine": 1297,
+        "startChar": 0,
+        "endLine": 1299,
+        "endChar": 57
+      },
+      "revId": "0aa8acfa520e2dbb30ea488d2527c5db4c75fa3d",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
