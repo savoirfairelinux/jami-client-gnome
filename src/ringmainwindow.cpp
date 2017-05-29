@@ -220,12 +220,12 @@ video_double_clicked(RingMainWindow *self)
 static void
 set_pending_contact_request_tab_icon(const Account* account, RingMainWindow* self)
 {
-    if (not account or not self) {
-        g_warning("null pointer ?\naccount (%p), self (%p)", account, self);
-        return;
-    }
-
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    bool is_ring = account && account->protocol() == Account::Protocol::RING;
+    gtk_widget_set_visible(priv->scrolled_window_contact_requests, is_ring);
+
+    if (not is_ring)
+        return;
 
     gtk_image_set_from_resource(GTK_IMAGE(priv->image_contact_requests_list),
         (account->pendingContactRequestModel()->rowCount())
@@ -1258,11 +1258,11 @@ current_account_changed(RingMainWindow* self, Account* account)
     QObject::disconnect(priv->account_request_accepted);
     QObject::disconnect(priv->account_request_discarded);
 
-    /* account is nullptr if it's something else than a ring account */
-    if (not account)
-        return;
-
     set_pending_contact_request_tab_icon(account, self);
+
+    bool is_ring = account && account->protocol() == Account::Protocol::RING;
+    if (not is_ring)
+        return;
 
     auto model = account->pendingContactRequestModel();
     auto action = [self, account](ContactRequest* r) {
