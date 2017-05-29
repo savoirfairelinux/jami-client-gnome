@@ -1284,14 +1284,19 @@ print_account_and_state(GtkCellLayout* cell_layout,
 static void
 current_account_changed(RingMainWindow* self, Account* account)
 {
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-
-    set_pending_contact_request_tab_icon(account, self);
-
     /* disconnect previous PendingContactRequestModel */
     QObject::disconnect(priv->account_request_added);
     QObject::disconnect(priv->account_request_accepted);
     QObject::disconnect(priv->account_request_discarded);
+
+    if (not self || not account) {
+        g_warning("current_account_changed is ignored, some paramater is null : self(%p) account(%p)", self, account);
+        return;
+    }
+
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+
+    set_pending_contact_request_tab_icon(account, self);
 
     auto model = account->pendingContactRequestModel();
     auto action = [self, account](ContactRequest* r) {
