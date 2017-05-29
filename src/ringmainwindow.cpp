@@ -1286,12 +1286,16 @@ current_account_changed(RingMainWindow* self, Account* account)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
-    set_pending_contact_request_tab_icon(account, self);
-
     /* disconnect previous PendingContactRequestModel */
     QObject::disconnect(priv->account_request_added);
     QObject::disconnect(priv->account_request_accepted);
     QObject::disconnect(priv->account_request_discarded);
+
+    /* account is nullptr if it's something else than a ring account */
+    if (not account)
+        return;
+
+    set_pending_contact_request_tab_icon(account, self);
 
     auto model = account->pendingContactRequestModel();
     auto action = [self, account](ContactRequest* r) {
