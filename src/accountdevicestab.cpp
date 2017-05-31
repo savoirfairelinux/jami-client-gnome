@@ -60,6 +60,8 @@ struct _AccountDevicesTabPrivate
     GtkWidget *label_device_id;
     GtkWidget *treeview_devices;
     GtkWidget *button_add_device;
+    GtkWidget *button_remove_device;
+    GtkQTreeModel *model;
 
     /* add_device view */
     GtkWidget *add_device;
@@ -113,6 +115,7 @@ account_devices_tab_class_init(AccountDevicesTabClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, label_device_id);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, treeview_devices);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, button_add_device);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, button_remove_device);
 
     /* add_device view */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, add_device);
@@ -143,6 +146,31 @@ show_add_device_view(AccountDevicesTab *view)
     g_return_if_fail(IS_ACCOUNT_DEVICES_TAB(view));
     AccountDevicesTabPrivate *priv = ACCOUNT_DEVICES_TAB_GET_PRIVATE(view);
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_devices), priv->add_device);
+}
+
+static void
+button_remove_device_clicked(AccountDevicesTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_DEVICES_TAB(view));
+    AccountDevicesTabPrivate *priv = ACCOUNT_DEVICES_TAB_GET_PRIVATE(view);
+
+    if (not priv->account) {
+        g_warning("button_remove_device_clicked has null priv->account");
+        return;
+    }
+
+    auto treeview = GTK_TREE_VIEW(priv->treeview_devices);
+    auto selection = gtk_tree_view_get_selection(treeview);
+    GtkTreeIter *iter;
+    if (not gtk_tree_selection_get_selected(selection, &GTK_TREE_MODEL(priv->model), iter)) {
+        g_warning("button_remove_device_clicked has invalid selection");
+        return;
+    }
+
+    QModelIndex idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(priv->account->ringDeviceModel()), iter);
+
+    priv->account->ringDeviceModel()->removeDevice(idx, "");
+
 }
 
 static void
@@ -227,17 +255,18 @@ build_tab_view(AccountDevicesTab *view)
     g_signal_connect(priv->button_export_on_the_ring, "clicked", G_CALLBACK(export_on_the_ring_clicked), view);
     g_signal_connect_swapped(priv->button_generated_pin_ok, "clicked", G_CALLBACK(show_manage_devices_view), view);
     g_signal_connect_swapped(priv->button_export_on_ring_error_ok, "clicked", G_CALLBACK(show_add_device_view), view);
+    g_signal_connect_swapped(priv->button_remove_device, "clicked", G_CALLBACK(button_remove_device_clicked), view);
 
     gtk_label_set_text(GTK_LABEL(priv->label_device_id), priv->account->deviceId().toUtf8().constData());
 
     /* treeview_devices */
-    auto *devices_model = gtk_q_tree_model_new(
+    priv->model = gtk_q_tree_model_new(
         (QAbstractItemModel*) priv->account->ringDeviceModel(),
         2,
         RingDevice::Column::Name, Qt::DisplayRole, G_TYPE_STRING,
         RingDevice::Column::Id, Qt::DisplayRole, G_TYPE_STRING);
 
-    gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_devices), GTK_TREE_MODEL(devices_model));
+    gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_devices), GTK_TREE_MODEL(priv->model));
 
     GtkCellRenderer* renderer;
     GtkTreeViewColumn* column;
