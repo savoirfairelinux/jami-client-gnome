@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <template class="AccountDevicesTab" parent="GtkBox">
     <property name="visible">True</property>
+    <property name="can_focus">False</property>
     <child>
       <object class="GtkStack" id="stack_account_devices">
         <property name="visible">True</property>
-        <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
-        <property name="transition-duration">300</property>
-        <!-- Manage devices view -->
+        <property name="can_focus">False</property>
+        <property name="transition_duration">300</property>
+        <property name="transition_type">slide-right</property>
         <child>
           <object class="GtkBox" id="manage_devices">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <property name="spacing">15</property>
             <child>
@@ -19,138 +22,227 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">My Device ID:</property>
+                <property name="use_markup">True</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
-                <property name="use_markup">True</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label_device_id">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="selectable">True</property>
                 <property name="label">DEVICE_ID</property>
+                <property name="selectable">True</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
             </child>
             <child>
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Devices</property>
+                <property name="use_markup">True</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
-                <property name="use_markup">True</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
             </child>
             <child>
               <object class="GtkScrolledWindow">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="shadow_type">in</property>
-                <property name="min-content-height">225</property>
                 <property name="hscrollbar_policy">never</property>
+                <property name="shadow_type">in</property>
+                <property name="min_content_height">225</property>
                 <child>
                   <object class="GtkTreeView" id="treeview_devices">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
+                    </child>
                   </object>
                 </child>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
             </child>
             <child>
-              <object class="GtkButton" id="button_add_device">
+              <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="halign">center</property>
-                <property name="label" translatable="yes">Add device</property>
+                <property name="can_focus">False</property>
+                <property name="homogeneous">True</property>
+                <child>
+                  <object class="GtkButton" id="button_revoke_device">
+                    <property name="label" translatable="yes">Revoke device</property>
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="padding">10</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_add_device">
+                    <property name="label" translatable="yes">Add device</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="padding">10</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">4</property>
+              </packing>
             </child>
           </object>
         </child>
-        <!-- End Manage devices view -->
-        <!-- Add device view -->
         <child>
           <object class="GtkBox" id="add_device">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <property name="spacing">15</property>
-            <!-- Title Row -->
             <child>
               <object class="GtkLabel" id="label_devices">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Add New Device</property>
+                <property name="use_markup">True</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
-                <property name="use_markup">True</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
             </child>
-            <!-- Explaination row -->
             <child>
               <object class="GtkLabel" id="label_explaination">
                 <property name="visible">True</property>
-                <property name="halign">center</property>
-                <property name="max-width-chars">80</property>
                 <property name="can_focus">False</property>
-                <property name="use_markup">True</property>
+                <property name="halign">center</property>
                 <property name="label" translatable="yes">To add a new device to your Ring account, you export your account on the Ring. This will generate a pin that must be entered on your new device within 5 minutes of its generation.</property>
+                <property name="use_markup">True</property>
                 <property name="wrap">True</property>
+                <property name="max_width_chars">80</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
             </child>
-            <!-- End of Explaination row -->
-            <!-- Password entry -->
             <child>
               <object class="GtkLabel">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Password (required):</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
             </child>
             <child>
               <object class="GtkEntry" id="entry_password">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Enter archive password</property>
                 <property name="halign">center</property>
-                <property name="width-chars">40</property>
                 <property name="visibility">False</property>
+                <property name="width_chars">40</property>
                 <property name="primary_icon_stock">gtk-dialog-authentication</property>
                 <property name="input_purpose">password</property>
-                <property name="tooltip-text" translatable="yes">Enter archive password</property>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="position">3</property>
               </packing>
             </child>
-            <!-- End of password entry row -->
-            <!-- Cancel and export on ring buttons -->
             <child>
               <object class="GtkButtonBox" id="buttonbox_confirm">
                 <property name="visible">True</property>
-                <property name="layout-style">spread</property>
+                <property name="can_focus">False</property>
                 <property name="spacing">10</property>
+                <property name="layout_style">spread</property>
                 <child>
                   <object class="GtkButton" id="button_add_device_cancel">
-                    <property name="visible">True</property>
                     <property name="label" translatable="yes">Cancel</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
                   </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
                 <child>
                   <object class="GtkButton" id="button_export_on_the_ring">
-                    <property name="visible">True</property>
                     <property name="label" translatable="yes">Export on the Ring</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
                   </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">4</property>
+              </packing>
             </child>
-            <!-- end Cancel and Generate pin buttons -->
           </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
         </child>
-        <!-- End add device view -->
-        <!-- Generating pin spinner  -->
         <child>
           <object class="GtkBox" id="vbox_generating_pin_spinner">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="valign">center</property>
             <property name="border_width">10</property>
             <property name="orientation">vertical</property>
@@ -161,22 +253,34 @@
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Exporting account on the Ring...</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
             </child>
             <child>
               <object class="GtkSpinner">
+                <property name="height_request">50</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="active">True</property>
-                <property name="height_request">50</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
             </child>
           </object>
+          <packing>
+            <property name="position">2</property>
+          </packing>
         </child>
-        <!-- End Generating account spinner -->
-        <!-- Generated pin view -->
         <child>
           <object class="GtkBox" id="generated_pin">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <property name="spacing">15</property>
             <child>
@@ -186,6 +290,11 @@
                 <property name="label" translatable="yes">Your generated pin:</property>
                 <property name="use_markup">True</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label_generated_pin">
@@ -197,33 +306,52 @@
                   <attribute name="weight" value="bold"/>
                 </attributes>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
             </child>
             <child>
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">center</property>
-                <property name="max-width-chars">80</property>
                 <property name="label">This pin and the account password should be entered on your new device within 5 minutes. On most client, this is done from the "Existing Ring account" menu. You may generate a new pin at any moment.</property>
                 <property name="use_markup">True</property>
                 <property name="wrap">True</property>
+                <property name="max_width_chars">80</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
             </child>
             <child>
               <object class="GtkButton" id="button_generated_pin_ok">
-                <property name="visible">True</property>
-                <property name="halign">center</property>
-                <property name="width-request">100</property>
                 <property name="label" translatable="yes">OK</property>
+                <property name="width_request">100</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="receives_default">False</property>
+                <property name="halign">center</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
             </child>
           </object>
+          <packing>
+            <property name="position">3</property>
+          </packing>
         </child>
-        <!-- End Generated pin view -->
-        <!-- Export on Ring error -->
         <child>
           <object class="GtkBox" id="export_on_ring_error">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <property name="spacing">15</property>
             <child>
@@ -232,21 +360,149 @@
                 <property name="can_focus">False</property>
                 <property name="use_markup">True</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
             </child>
             <child>
               <object class="GtkButton" id="button_export_on_ring_error_ok">
-                <property name="visible">True</property>
                 <property name="label" translatable="yes">OK</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="receives_default">False</property>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
             </child>
           </object>
+          <packing>
+            <property name="position">4</property>
+          </packing>
         </child>
-        <!-- End export on Ring error -->
       </object>
       <packing>
         <property name="expand">True</property>
         <property name="fill">True</property>
+        <property name="position">0</property>
       </packing>
     </child>
   </template>
+  <object class="GtkDialog" id="dialog_device_revocation">
+    <property name="can_focus">False</property>
+    <property name="type_hint">dialog</property>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="dialog_device_revocation_button_no">
+                <property name="label" translatable="yes">no</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="dialog_device_revocation_button_yes">
+                <property name="label" translatable="yes">yes</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">do you want to revoke :</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="dialog_device_revocation_entry_password">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="has_default">True</property>
+                <property name="halign">center</property>
+                <property name="visibility">False</property>
+                <property name="width_chars">40</property>
+                <property name="xalign">0.5</property>
+                <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                <property name="input_purpose">password</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">
+/!\ This operation cannot be undone.</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">dialog_device_revocation_button_no</action-widget>
+      <action-widget response="-5">dialog_device_revocation_button_yes</action-widget>
+    </action-widgets>
+    <child>
+      <placeholder/>
+    </child>
+  </object>
 </interface>
