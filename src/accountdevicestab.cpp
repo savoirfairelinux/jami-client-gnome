@@ -60,6 +60,8 @@ struct _AccountDevicesTabPrivate
     GtkWidget *label_device_id;
     GtkWidget *treeview_devices;
     GtkWidget *button_add_device;
+    GtkWidget *button_revoke_device;
+    GtkQTreeModel *model;
 
     /* add_device view */
     GtkWidget *add_device;
@@ -73,7 +75,13 @@ struct _AccountDevicesTabPrivate
     /* export on ring error */
     GtkWidget *export_on_ring_error;
     GtkWidget *label_export_on_ring_error;
-    GtkWidget* button_export_on_ring_error_ok;
+    GtkWidget *button_export_on_ring_error_ok;
+
+    /* revocation dialog box */
+    GtkWidget *dialog_device_revocation;
+    GtkWidget *dialog_device_revocation_button_no;
+    GtkWidget *dialog_device_revocation_button_yes;
+    GtkWidget *dialog_device_revocation_entry_password;
 
 };
 
@@ -113,6 +121,7 @@ account_devices_tab_class_init(AccountDevicesTabClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, label_device_id);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, treeview_devices);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, button_add_device);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, button_revoke_device);
 
     /* add_device view */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, add_device);
@@ -127,6 +136,13 @@ account_devices_tab_class_init(AccountDevicesTabClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, export_on_ring_error);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, label_export_on_ring_error);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, button_export_on_ring_error_ok);
+
+    /* revocation dialog box */
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, dialog_device_revocation);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, dialog_device_revocation_button_no);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, dialog_device_revocation_button_yes);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, dialog_device_revocation_entry_password);
+
 }
 
 static void
@@ -143,6 +159,15 @@ show_add_device_view(AccountDevicesTab *view)
     g_return_if_fail(IS_ACCOUNT_DEVICES_TAB(view));
     AccountDevicesTabPrivate *priv = ACCOUNT_DEVICES_TAB_GET_PRIVATE(view);
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_devices), priv->add_device);
+}
+
+static void
+button_revoke_device_clicked(AccountDevicesTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_DEVICES_TAB(view));
+    AccountDevicesTabPrivate *priv = ACCOUNT_DEVICES_TAB_GET_PRIVATE(view);
+
+    gtk_dialog_run(GTK_DIALOG(priv->dialog_device_revocation));
 }
 
 static void
@@ -217,27 +242,66 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, AccountDevicesTab *v
 }
 
 static void
+dialog_invitation_response(GtkDialog *dialog, gint response_id, AccountDevicesTab *view)
+{    
+    gtk_widget_hide(GTK_WIDGET(dialog));
+
+    if (response_id != GTK_RESPONSE_OK)
+        return;
+
+    auto *priv = ACCOUNT_DEVICES_TAB_GET_PRIVATE(view);
+
+    auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_devices));
+    auto idx = get_index_from_selection(selection);
+    qDebug() << idx;
+
+    auto password = gtk_entry_get_text(GTK_ENTRY(priv->dialog_device_revocation_entry_password));
+
+    priv->account->ringDeviceModel()->revoke(idx, password);
+
+    /* remove password from memory... is it enough ? */
+    gtk_entry_set_text(GTK_ENTRY(priv->dialog_device_revocation_entry_password), "");
+}
+
+/**
+ * gtk callback function called when the selection in the contact request list changed
+ */
+static void
+selection_device_changed(GtkTreeSelection *selection, AccountDevicesTab *view)
+{
+    AccountDevicesTabPrivate *priv = ACCOUNT_DEVICES_TAB_GET_PRIVATE(view);
+    auto has_selection = (gtk_tree_selection_count_selected_rows(selection) > 0);
+
+    gtk_widget_set_sensitive(priv->button_revoke_device, has_selection);
+}
+
+static void
 build_tab_view(AccountDevicesTab *view)
 {
     g_return_if_fail(IS_ACCOUNT_DEVICES_TAB(view));
     AccountDevicesTabPrivate *priv = ACCOUNT_DEVICES_TAB_GET_PRIVATE(view);
+
+    auto selection_device = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_devices));
 
     g_signal_connect_swapped(priv->button_add_device, "clicked", G_CALLBACK(show_add_device_view), view);
     g_signal_connect_swapped(priv->button_add_device_cancel, "clicked", G_CALLBACK(show_manage_devices_view), view);
     g_signal_connect(priv->button_export_on_the_ring, "clicked", G_CALLBACK(export_on_the_ring_clicked), view);
     g_signal_connect_swapped(priv->button_generated_pin_ok, "clicked", G_CALLBACK(show_manage_devices_view), view);
     g_signal_connect_swapped(priv->button_export_on_ring_error_ok, "clicked", G_CALLBACK(show_add_device_view), view);
+    g_signal_connect_swapped(priv->button_revoke_device, "clicked", G_CALLBACK(button_revoke_device_clicked), view);
+    g_signal_connect (priv->dialog_device_revocation, "response", G_CALLBACK(dialog_invitation_response), view);
+    g_signal_connect (selection_device, "changed", G_CALLBACK(selection_device_changed), view);
 
     gtk_label_set_text(GTK_LABEL(priv->label_device_id), priv->account->deviceId().toUtf8().constData());
 
     /* treeview_devices */
-    auto *devices_model = gtk_q_tree_model_new(
+    priv->model = gtk_q_tree_model_new(
         (QAbstractItemModel*) priv->account->ringDeviceModel(),
         2,
         RingDevice::Column::Name, Qt::DisplayRole, G_TYPE_STRING,
         RingDevice::Column::Id, Qt::DisplayRole, G_TYPE_STRING);
 
-    gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_devices), GTK_TREE_MODEL(devices_model));
+    gtk_tree_view_set_model(GTK_TREE_VIEW(priv->treeview_devices), GTK_TREE_MODEL(priv->model));
 
     GtkCellRenderer* renderer;
     GtkTreeViewColumn* column;
@@ -254,6 +318,7 @@ build_tab_view(AccountDevicesTab *view)
 
     /* Show manage-devices view */
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_devices), priv->manage_devices);
+    
 }
 
 GtkWidget *
