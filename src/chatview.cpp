@@ -198,8 +198,11 @@ button_send_invitation_clicked(ChatView *self)
     // get the account associated to the selected cm
     auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
 
-    if (priv->person)
-        priv->cm = priv->person->phoneNumbers().at(active);
+    if (priv->person) {
+        auto& numbers = priv->person->phoneNumbers();
+        if (not numbers.isEmpty())
+            priv->cm = numbers.at(active);
+    }
 
     if (!priv->cm) {
         g_warning("invalid contact, cannot send invitation!");
