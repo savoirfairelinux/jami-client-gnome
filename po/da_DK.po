@@ -1,18 +1,18 @@
 # Gettext PO translation template file for the GNOME client of the Ring project.
-# Copyright (C) 2015-2016 Savoir-faire Linux Inc.
+# Copyright (C) 2015-2017 Savoir-faire Linux Inc.
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
-# Aputsiak Niels Janussen <aj@isit.gl>, 2016
-# Mikkel Kirkgaard Nielsen <memb_transifex@mikini.dk>, 2016
+# Aputsiak Niels Janussen (Skjalden) <aj@isit.gl>, 2016
+# Mikkel Kirkgaard Nielsen <memb_transifex@mikini.dk>, 2016-2017
 # scootergrisen, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-19 15:13-0500\n"
-"PO-Revision-Date: 2017-01-08 17:00+0000\n"
-"Last-Translator: scootergrisen\n"
+"POT-Creation-Date: 2017-06-12 10:36-0400\n"
+"PO-Revision-Date: 2017-06-12 14:43+0000\n"
+"Last-Translator: Guillaume Roguez\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/savoirfairelinux/ring/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "_Remove server"
 msgstr "_Fjern server"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:263
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:267
 msgid "Hostname"
 msgstr "Værtsnavn"
 
@@ -60,7 +60,7 @@ msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "Ukendt"
 
-#: src/accountcreationwizard.cpp:454 ui/accountmigrationview.ui:132
+#: src/accountcreationwizard.cpp:461
 msgid "Passwords don't match"
 msgstr "Kodeord stemmer ikke overens"
 
@@ -98,39 +98,39 @@ msgstr "Type"
 msgid "auto-generating..."
 msgstr "auto-genererer..."
 
-#: src/accountgeneraltab.cpp:247 src/accountgeneraltab.cpp:273
+#: src/accountgeneraltab.cpp:251 src/accountgeneraltab.cpp:277
 msgid "Username"
 msgstr "Brugernavn"
 
-#: src/accountgeneraltab.cpp:283
+#: src/accountgeneraltab.cpp:287
 msgid "Password"
 msgstr "Kodeord"
 
-#: src/accountgeneraltab.cpp:296
+#: src/accountgeneraltab.cpp:300
 msgid "Show password"
 msgstr "Vis kodeord"
 
-#: src/accountgeneraltab.cpp:302
+#: src/accountgeneraltab.cpp:306
 msgid "Proxy"
 msgstr "Stedfortræder"
 
-#: src/accountgeneraltab.cpp:312
+#: src/accountgeneraltab.cpp:316
 msgid "Voicemail number"
 msgstr "Telefonsvarernummer"
 
-#: src/accountgeneraltab.cpp:324
+#: src/accountgeneraltab.cpp:328
 msgid "Name service URL"
 msgstr "Navne-service URL"
 
-#: src/accountgeneraltab.cpp:337
+#: src/accountgeneraltab.cpp:341
 msgid "Auto-answer calls"
 msgstr "Svar automatisk opkald"
 
-#: src/accountgeneraltab.cpp:345
+#: src/accountgeneraltab.cpp:349
 msgid "UPnP enabled"
 msgstr "UPnP aktiveret"
 
-#: src/accountgeneraltab.cpp:353
+#: src/accountgeneraltab.cpp:357
 msgid "DTMF tone type:"
 msgstr "DTMF-tonetype:"
 
@@ -160,59 +160,59 @@ msgctxt "The name of the codec"
 msgid "Name"
 msgstr "Navn"
 
-#: src/accountview.cpp:177
+#: src/accountview.cpp:167
 msgctxt "Account settings"
 msgid "General"
 msgstr "Generelt"
 
-#: src/accountview.cpp:185
+#: src/accountview.cpp:175
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "Enheder"
 
-#: src/accountview.cpp:191
+#: src/accountview.cpp:181
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Sikkerhed"
 
-#: src/accountview.cpp:196
+#: src/accountview.cpp:186
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Avanceret"
 
-#: src/accountview.cpp:251
+#: src/accountview.cpp:241
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "Er du sikker på at du vil slette kontoen \"%s\"?"
 
-#: src/accountview.cpp:386
+#: src/accountview.cpp:368
 msgid "New Account"
 msgstr "Ny konto"
 
-#: src/accountview.cpp:538
+#: src/accountview.cpp:518
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Aktiveret"
 
-#: src/accountview.cpp:544
+#: src/accountview.cpp:524
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountview.cpp:552
+#: src/accountview.cpp:532
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Status"
 
-#: src/avatarmanipulation.cpp:381
+#: src/avatarmanipulation.cpp:380
 msgid "Open Avatar Image"
 msgstr "Åbn profilbillede"
 
-#: src/avatarmanipulation.cpp:384
+#: src/avatarmanipulation.cpp:383
 msgid "_Cancel"
 msgstr "_Annuller"
 
-#: src/avatarmanipulation.cpp:386
+#: src/avatarmanipulation.cpp:385
 msgid "_Open"
 msgstr "_Åbn"
 
@@ -320,65 +320,73 @@ msgstr "Gendanner den skjulte tilstand fort hovedvinduer (kun gyldig for den pri
 msgid "- GNOME client for Ring"
 msgstr "- GNOME-klient til Ring"
 
-#: src/ringmainwindow.cpp:544
-msgid "looking up RingID"
-msgstr "slår RingID op"
-
-#: src/ringmainwindow.cpp:584
+#: src/ringmainwindow.cpp:613
 #, c-format
 msgid "Invalid Ring username: %s"
 msgstr "Ugyldigt Ring-brugernavn: %s"
 
-#: src/ringmainwindow.cpp:599
+#: src/ringmainwindow.cpp:628
 msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr ""
+msgstr "Fejl under hentning af brugernavn, navneserver er muligvis ikke tilgængelig."
 
-#: src/ringmainwindow.cpp:613
+#: src/ringmainwindow.cpp:642
 #, c-format
 msgid "Could not resolve Ring username: %s"
 msgstr "Kunne ikke finde Ring-brugernavnet: %s"
 
-#: src/ringmainwindow.cpp:1036
+#: src/ringmainwindow.cpp:1150
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "foretag opkald"
 
-#: src/ringmainwindow.cpp:1038
+#: src/ringmainwindow.cpp:1152
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "åbn beskedvindue"
 
-#: src/ringmainwindow.cpp:1211
+#: src/ringmainwindow.cpp:1232
+#, c-format
+msgctxt "string format will be replaced by the account alias"
+msgid "%s..."
+msgstr ""
+
+#: src/ringmainwindow.cpp:1238
+#, c-format
+msgctxt "string format will be replaced by the account alias"
+msgid "%s (error)"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1429
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Søg kontakt eller indtast nummer"
 
-#: src/ringwelcomeview.cpp:69
+#: src/ringwelcomeview.cpp:75
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Dette er dit Ring-brugernavn.\nKopier og del med dine venner!"
 
-#: src/ringwelcomeview.cpp:77
+#: src/ringwelcomeview.cpp:83
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
 msgstr "Dette er dit RingID.\nKopier og del den med dine venner!"
 
-#: src/ringwelcomeview.cpp:84
+#: src/ringwelcomeview.cpp:90
 msgid "fetching RingID..."
 msgstr "henter RingID..."
 
-#: src/ringwelcomeview.cpp:139
+#: src/ringwelcomeview.cpp:148
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
 msgstr "Ring er fri software til universel kommunikation som respekterer sine brugeres frihed og privatliv."
 
-#: src/ringwelcomeview.cpp:185
+#: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring-ID QR-kode"
@@ -425,7 +433,7 @@ msgstr "Registrerer brugernavn..."
 
 #: src/usernameregistrationbox.cpp:319
 msgid "Could not initiate name registration, try again."
-msgstr ""
+msgstr "Kunne ikke påbegynde registrering af navn, prøv igen."
 
 #: src/usernameregistrationbox.cpp:361
 msgid "Register this username on the blockchain"
@@ -615,7 +623,7 @@ msgid ""
 "previous device, choose the Ring Account to use and select \"Link another "
 "device to this account\". You will get the necessary PIN to complete this "
 "form. The PIN is only valid for 10 minutes."
-msgstr ""
+msgstr "For at tilknytte denne enhed til en anden konto, skal du først have en PIN-kode. For at generere en PIN-kode skal du gå ind i konto-indstillinger på en anden enhed, vælge Ring-kontoen du vil bruge og vælge \"Tilknyt en anden enhed til denne konto\". Dette vil generere PIN-koden du skal anvende her. PIN-koden er kun gyldig i 10 minutter."
 
 #: ui/accountcreationwizard.ui:126 ui/accountcreationwizard.ui:215
 #: ui/accountcreationwizard.ui:427
@@ -624,7 +632,7 @@ msgstr "Tilbage"
 
 #: ui/accountcreationwizard.ui:134
 msgid "Okay, I have the PIN!"
-msgstr ""
+msgstr "Okay, jeg har PIN-koden!"
 
 #: ui/accountcreationwizard.ui:172
 msgid "Enter your pin:"
@@ -652,16 +660,16 @@ msgstr "Ring-konto"
 
 #: ui/accountcreationwizard.ui:340
 msgid "Register public username (experimental):"
-msgstr ""
+msgstr "Registrer offentligt brugernavn (eksperimentel funktionalitet)"
 
 #: ui/accountcreationwizard.ui:346
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Ved at markere denne, vil et unikt brugernavn blive registreret på Ring-netværket. Andre kan bruge dette til at kontakte dig med, i stedet for dit RingID, som er 40 tegn langt."
 
-#: ui/accountcreationwizard.ui:369 ui/accountmigrationview.ui:161
+#: ui/accountcreationwizard.ui:369
 msgid "Password (confirm):"
 msgstr "Kodeord (bekræft):"
 
@@ -669,7 +677,7 @@ msgstr "Kodeord (bekræft):"
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "Dette kodeord vil blive brugt til at kryptere din kontos data og til at tilknytte nye enheder til din konto."
 
 #: ui/accountcreationwizard.ui:459
 msgid "Generating your Ring account..."
@@ -688,7 +696,7 @@ msgid "Error creating/loading account."
 msgstr "Fejl ved oprettelse/hentning af konto."
 
 #: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
-#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
+#: ui/accountdevicestab.ui:239
 msgid "OK"
 msgstr "OK"
 
@@ -775,61 +783,25 @@ msgstr "Eksport"
 msgid "Import"
 msgstr "Import"
 
-#: ui/accountmigrationview.ui:28
+#: ui/accountmigrationview.ui:14
 msgid "Account migration required"
 msgstr "Konto-migrering påkrævet"
 
-#: ui/accountmigrationview.ui:37
-msgid ""
-"The following account needs to be migrated to the new Ring account format:"
-msgstr "De følgende konti skal migreres til det nye Ring-konto-format:"
-
-#: ui/accountmigrationview.ui:52
+#: ui/accountmigrationview.ui:39
 msgid "Alias:"
 msgstr "Alias:"
 
-#: ui/accountmigrationview.ui:98
-msgid "Avatar:"
-msgstr "Profil-billede:"
+#: ui/accountmigrationview.ui:102
+msgid "Please enter your password:"
+msgstr ""
 
-#: ui/accountmigrationview.ui:122
-msgid ""
-"To proceed with the migration, you must choose a password for your account. "
-"This password will be used to encrypt your master key. It will be required "
-"for adding new devices to your Ring account. If you are not ready to choose "
-"a password, you may close Ring and resume the migration later."
-msgstr "For at fortsætte med migreringen, skal du vælge et kodeord til kontoen. Dette kodeord bruges til at kryptere din hovednøgle. Den skal bruges ved tilnytning af nye enheder til din Ring-konto. Hvis du ikke er klar til at vælge et kodeord, kan du lukke Ring og fortsætte med migreringen senere."
-
-#: ui/accountmigrationview.ui:141
-msgid "Password:"
-msgstr "Kodeord:"
-
-#: ui/accountmigrationview.ui:184
+#: ui/accountmigrationview.ui:129
 msgid "Migrate account"
 msgstr "Migrér konto"
 
-#: ui/accountmigrationview.ui:202
-msgid "Migrating account..."
-msgstr "Migrerer konto..."
-
-#: ui/accountmigrationview.ui:228
-msgid "Failed to migrate account. Try again."
-msgstr "Konto-migrering mislykkedes. Prøv igen."
-
-#: ui/accountmigrationview.ui:255
-msgid "Choose your Ring username"
-msgstr "Vælg dit Ring-brugernavn"
-
-#: ui/accountmigrationview.ui:264
-msgid ""
-"As of now Ring has a decentralized username registry. This means that you "
-"can now contact your friends using their usernames instead of their RingIDs."
-" The username registry is distributed and all users are able to consult it."
-msgstr "Ring har nu et decentralt register med brugernavne. Dette betyder at du kan få forbindelse med dine kontakter ved at anvende deres brugernavne i stedet for RingID. Registeret er distribueret og alle brugere er i stand til at søge i det."
-
-#: ui/accountmigrationview.ui:279
-msgid "Register my username later"
-msgstr "Registrer mit brugernavn senere"
+#: ui/accountmigrationview.ui:148
+msgid "Migration failed, wrong password ?"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -955,7 +927,11 @@ msgstr "Gem besked-vindue"
 msgid "Place call"
 msgstr "Foretag opkald"
 
-#: ui/chatview.ui:112
+#: ui/chatview.ui:60
+msgid "Send invitation"
+msgstr ""
+
+#: ui/chatview.ui:122
 msgid "Send"
 msgstr "Send"
 
@@ -1196,21 +1172,25 @@ msgstr "Medier"
 msgid "Accounts"
 msgstr "Konti"
 
-#: ui/ringmainwindow.ui:90
+#: ui/ringmainwindow.ui:102
 msgid "Settings"
 msgstr "Indstillinger"
 
-#: ui/ringmainwindow.ui:184
+#: ui/ringmainwindow.ui:206
 msgid "Conversations"
 msgstr "Samtaler"
 
-#: ui/ringmainwindow.ui:203
+#: ui/ringmainwindow.ui:228
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: ui/ringmainwindow.ui:222
+#: ui/ringmainwindow.ui:250
 msgid "History"
 msgstr "Historie"
+
+#: ui/ringmainwindow.ui:272
+msgid "Contact requests"
+msgstr "Kontaktforespørgsler"
 
 #: ui/usernameregistrationbox.ui:12
 msgid "enter username here"

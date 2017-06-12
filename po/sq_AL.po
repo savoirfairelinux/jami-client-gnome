@@ -1,16 +1,16 @@
 # Gettext PO translation template file for the GNOME client of the Ring project.
-# Copyright (C) 2015-2016 Savoir-faire Linux Inc.
+# Copyright (C) 2015-2017 Savoir-faire Linux Inc.
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
-# Besnik <besnik@programeshqip.org>, 2016
+# Besnik <besnik@programeshqip.org>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-19 15:13-0500\n"
-"PO-Revision-Date: 2016-12-19 20:14+0000\n"
-"Last-Translator: Stepan Salenikovich\n"
+"POT-Creation-Date: 2017-06-12 10:36-0400\n"
+"PO-Revision-Date: 2017-06-12 14:43+0000\n"
+"Last-Translator: Guillaume Roguez\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,15 +20,15 @@ msgstr ""
 
 #: src/accountadvancedtab.cpp:389
 msgid "_Remove server"
-msgstr ""
+msgstr "_Hiqe shërbyesin"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:263
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:267
 msgid "Hostname"
 msgstr "Strehëemër"
 
 #: src/accountadvancedtab.cpp:510 ui/accountadvancedtab.ui:314
 msgid "Port"
-msgstr ""
+msgstr "Portë"
 
 #: src/accountaudiotab.cpp:175 src/accountvideotab.cpp:184
 msgid "Enabled"
@@ -51,14 +51,14 @@ msgstr ""
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
-msgstr ""
+msgstr "Llogaria juaj u krijua, por s’regjistruam dot emrin tuaj të përdoruesit. Riprovoni prej menusë së rregullimeve."
 
 #: src/accountcreationwizard.cpp:283
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "E panjohur"
 
-#: src/accountcreationwizard.cpp:454 ui/accountmigrationview.ui:132
+#: src/accountcreationwizard.cpp:461
 msgid "Passwords don't match"
 msgstr "Fjalëkalimet nuk përputhen"
 
@@ -72,7 +72,7 @@ msgstr "Gabim rrjeti, riprovoni"
 
 #: src/accountdevicestab.cpp:213
 msgid "Could not initiate export to the Ring, try again"
-msgstr ""
+msgstr "S’u fillua dot eksportimi te Ring, riprovoni"
 
 #: src/accountdevicestab.cpp:246
 msgctxt "Device Name Column"
@@ -94,47 +94,47 @@ msgstr "Lloj"
 
 #: src/accountgeneraltab.cpp:238
 msgid "auto-generating..."
-msgstr ""
+msgstr "po vetëprodhohet…"
 
-#: src/accountgeneraltab.cpp:247 src/accountgeneraltab.cpp:273
+#: src/accountgeneraltab.cpp:251 src/accountgeneraltab.cpp:277
 msgid "Username"
 msgstr "Emër përdoruesi"
 
-#: src/accountgeneraltab.cpp:283
+#: src/accountgeneraltab.cpp:287
 msgid "Password"
 msgstr "Krijoni llogari"
 
-#: src/accountgeneraltab.cpp:296
+#: src/accountgeneraltab.cpp:300
 msgid "Show password"
 msgstr "Shfaqe fjalëkalimin"
 
-#: src/accountgeneraltab.cpp:302
+#: src/accountgeneraltab.cpp:306
 msgid "Proxy"
 msgstr "Ndërmjetës"
 
-#: src/accountgeneraltab.cpp:312
+#: src/accountgeneraltab.cpp:316
 msgid "Voicemail number"
-msgstr ""
+msgstr "Numër voicemail"
 
-#: src/accountgeneraltab.cpp:324
+#: src/accountgeneraltab.cpp:328
 msgid "Name service URL"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:337
+#: src/accountgeneraltab.cpp:341
 msgid "Auto-answer calls"
 msgstr "Vetëpërgjigju thirrjeve"
 
-#: src/accountgeneraltab.cpp:345
+#: src/accountgeneraltab.cpp:349
 msgid "UPnP enabled"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:353
+#: src/accountgeneraltab.cpp:357
 msgid "DTMF tone type:"
-msgstr ""
+msgstr "Lloj toni DTMF"
 
 #: src/accountimportexportview.cpp:99
 msgid "Select account export location"
-msgstr ""
+msgstr "Përzgjidhni vend eksportimi llogarie"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
 #: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
@@ -143,80 +143,80 @@ msgstr "Anuloje"
 
 #: src/accountimportexportview.cpp:104
 msgid "Select"
-msgstr ""
+msgstr "Përzgjidhe"
 
 #: src/accountimportexportview.cpp:211
 msgid "Error importing account(s)"
-msgstr ""
+msgstr "Gabim importimi llogarie(sh)"
 
 #: src/accountimportexportview.cpp:263
 msgid "Error exporting account(s)"
-msgstr ""
+msgstr "Gabim eksportimi llogarie(sh)"
 
 #: src/accountvideotab.cpp:190
 msgctxt "The name of the codec"
 msgid "Name"
 msgstr "Emër"
 
-#: src/accountview.cpp:177
+#: src/accountview.cpp:167
 msgctxt "Account settings"
 msgid "General"
 msgstr "Të përgjithshme"
 
-#: src/accountview.cpp:185
+#: src/accountview.cpp:175
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "Pajisje"
 
-#: src/accountview.cpp:191
+#: src/accountview.cpp:181
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Siguri"
 
-#: src/accountview.cpp:196
+#: src/accountview.cpp:186
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Të mëtejshme"
 
-#: src/accountview.cpp:251
+#: src/accountview.cpp:241
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
-msgstr ""
+msgstr "Jeni i sigurt se doni të fshihet llogaria \"%s\"?"
 
-#: src/accountview.cpp:386
+#: src/accountview.cpp:368
 msgid "New Account"
-msgstr ""
+msgstr "Llogari e Re"
 
-#: src/accountview.cpp:538
+#: src/accountview.cpp:518
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr ""
 
-#: src/accountview.cpp:544
+#: src/accountview.cpp:524
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountview.cpp:552
+#: src/accountview.cpp:532
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Gjendje"
 
-#: src/avatarmanipulation.cpp:381
+#: src/avatarmanipulation.cpp:380
 msgid "Open Avatar Image"
-msgstr ""
+msgstr "Hap Figurë Avatari"
 
-#: src/avatarmanipulation.cpp:384
+#: src/avatarmanipulation.cpp:383
 msgid "_Cancel"
-msgstr ""
+msgstr "_Anuloje"
 
-#: src/avatarmanipulation.cpp:386
+#: src/avatarmanipulation.cpp:385
 msgid "_Open"
-msgstr ""
+msgstr "_Hape"
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
-msgstr ""
+msgstr "Libër adresash EDS i panjohur"
 
 #: src/backends/edscontactbackend.cpp:213
 msgctxt "Backend type"
@@ -228,7 +228,7 @@ msgstr "Kontakte"
 msgid ""
 "Are you sure you want to delete contact \"%s\"? It will be removed from your"
 " system's addressbook."
-msgstr ""
+msgstr "Jeni i sigurt se doni të fshihet kontakti \"%s\"? Do të hiqet nga libri i adresave të sistemit tuaj."
 
 #: src/contactpopupmenu.cpp:114
 msgid "_Call"
@@ -236,19 +236,19 @@ msgstr ""
 
 #: src/contactpopupmenu.cpp:117
 msgid "_Copy name"
-msgstr ""
+msgstr "_Kopjoji emrin"
 
 #: src/contactpopupmenu.cpp:120
 msgid "_Copy number"
-msgstr ""
+msgstr "_Kopjoji numrin"
 
 #: src/contactpopupmenu.cpp:123
 msgid "_Add to contact"
-msgstr ""
+msgstr "_Shtoje te kontakti"
 
 #: src/contactpopupmenu.cpp:126
 msgid "_Remove contact"
-msgstr ""
+msgstr "_Hiqe kontaktin"
 
 #: src/dialogs.c:53
 msgid "Working..."
@@ -260,13 +260,13 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Gaston Miron - Beta 2\n"
 "built on %.25s"
-msgstr ""
+msgstr "Gaston Miron - Beta 2\nmontuar në %.25s"
 
 #: src/dialogs.c:132
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Klienti Ring për GNOME.\nRing është software i lirë për komunikim universal që respekton privatësinë e përdoruesve të tij."
 
 #: src/editcontactview.cpp:185
 msgctxt "Phone number category"
@@ -277,7 +277,7 @@ msgstr ""
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr ""
+msgstr "Ky është veprim me pasoja shkatërruese. Jeni i sigurt se doni të fshihet krejt historiku juaj i fjalosjeve dhe thirrjeve?"
 
 #: src/historyview.cpp:293
 msgctxt "Call history"
@@ -287,7 +287,7 @@ msgstr ""
 #: src/historyview.cpp:338
 msgctxt "Call history"
 msgid "Date"
-msgstr ""
+msgstr "Datë"
 
 #: src/ringnotify.cpp:148
 msgid "Incoming call"
@@ -296,17 +296,17 @@ msgstr "Thirrje ardhëse"
 #: src/ringnotify.cpp:165 src/ringnotify.cpp:343
 msgctxt "notification action name"
 msgid "Show"
-msgstr ""
+msgstr "Shfaqe"
 
 #: src/ringnotify.cpp:267
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
-msgstr ""
+msgstr "%s thotë:"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
-msgstr ""
+msgstr "Aktivizo diagnostikim"
 
 #: src/ring_client_options.c:68
 msgid ""
@@ -318,92 +318,100 @@ msgstr ""
 msgid "- GNOME client for Ring"
 msgstr ""
 
-#: src/ringmainwindow.cpp:544
-msgid "looking up RingID"
-msgstr ""
-
-#: src/ringmainwindow.cpp:584
+#: src/ringmainwindow.cpp:613
 #, c-format
 msgid "Invalid Ring username: %s"
-msgstr ""
+msgstr "Emër përdoruesi Ring i pavlefshëm: %s"
 
-#: src/ringmainwindow.cpp:599
+#: src/ringmainwindow.cpp:628
 msgid "Error resolving username, nameserver is possibly unreachable"
 msgstr ""
 
-#: src/ringmainwindow.cpp:613
+#: src/ringmainwindow.cpp:642
 #, c-format
 msgid "Could not resolve Ring username: %s"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1036
+#: src/ringmainwindow.cpp:1150
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1038
+#: src/ringmainwindow.cpp:1152
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
+msgstr "hape fjalosjen"
+
+#: src/ringmainwindow.cpp:1232
+#, c-format
+msgctxt "string format will be replaced by the account alias"
+msgid "%s..."
 msgstr ""
 
-#: src/ringmainwindow.cpp:1211
+#: src/ringmainwindow.cpp:1238
+#, c-format
+msgctxt "string format will be replaced by the account alias"
+msgid "%s (error)"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1429
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr ""
+msgstr "Përzgjidhni kontake ose jepni një numër"
 
-#: src/ringwelcomeview.cpp:69
+#: src/ringwelcomeview.cpp:75
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Ky është emri juaj i përdoruesit në Ring.\nKopjojeni dhe jepuani shokëve!"
 
-#: src/ringwelcomeview.cpp:77
+#: src/ringwelcomeview.cpp:83
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Kjo është RingID-ja juaj.\nKopjojeni dhe jepuani shokëve!"
 
-#: src/ringwelcomeview.cpp:84
+#: src/ringwelcomeview.cpp:90
 msgid "fetching RingID..."
 msgstr ""
 
-#: src/ringwelcomeview.cpp:139
+#: src/ringwelcomeview.cpp:148
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Ring është software i lirë për komunikim universal që respekton privatësinë e përdoruesve të tij."
 
-#: src/ringwelcomeview.cpp:185
+#: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr ""
+msgstr "Kod QR ID-je Ring-u"
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
-msgstr ""
+msgstr "Emri i dhënë për përdorues s’është i lirë"
 
 #: src/usernameregistrationbox.cpp:129
 msgid "Username is not available"
-msgstr ""
+msgstr "Emri i përdoruesit s’është i lirë"
 
 #: src/usernameregistrationbox.cpp:138
 msgid "The entered username is not valid"
-msgstr ""
+msgstr "Emri i përdoruesit i dhënë s’është i vlefshëm"
 
 #: src/usernameregistrationbox.cpp:139
 msgid "Username is not valid"
-msgstr ""
+msgstr "Emri i përdoruesit s’është i vlefshëm"
 
 #: src/usernameregistrationbox.cpp:148
 msgid "The entered username is available"
-msgstr ""
+msgstr "Emri i përdoruesit që u dha është i mundshëm"
 
 #: src/usernameregistrationbox.cpp:149
 msgid "Username is available"
-msgstr ""
+msgstr "Emri i përdoruesit është i lirë"
 
 #: src/usernameregistrationbox.cpp:158
 msgid "Failed to perform lookup"
@@ -415,15 +423,15 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:248
 msgid "Looking up username availability..."
-msgstr ""
+msgstr "Po shihet nëse është i lirë emri i përdoruesit…"
 
 #: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:485
 msgid "Registering username..."
-msgstr ""
+msgstr "Po regjistrohet emri i përdoruesit…"
 
 #: src/usernameregistrationbox.cpp:319
 msgid "Could not initiate name registration, try again."
-msgstr ""
+msgstr "S’u fillua dot regjistrimi i emrit, riprovoni."
 
 #: src/usernameregistrationbox.cpp:361
 msgid "Register this username on the blockchain"
@@ -444,7 +452,7 @@ msgstr "Gabim rrjeti"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Ring Error"
-msgstr ""
+msgstr "Gabim Ring"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)..."
@@ -466,27 +474,27 @@ msgstr ""
 
 #: src/video/video_widget.cpp:549
 msgid "Show advanced information"
-msgstr ""
+msgstr "Shfaq informacion të thelluar"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
-msgstr ""
+msgstr "Kohë skadimi regjistrimi (në sekonda):"
 
 #: ui/accountadvancedtab.ui:103
 msgid "Allow calls from unknown peers"
-msgstr ""
+msgstr "Lejo thirrje prej personash të panjohur"
 
 #: ui/accountadvancedtab.ui:117
 msgid "Allow calls from peers in your call history"
-msgstr ""
+msgstr "Lejo thirrje prej personash në historikun tuaj të thirrjeve"
 
 #: ui/accountadvancedtab.ui:131
 msgid "Allow calls from peers in your contacts list"
-msgstr ""
+msgstr "Lejo thirrje prej personash në listën tuaj të kontakteve"
 
 #: ui/accountadvancedtab.ui:149
 msgid "Registration"
-msgstr ""
+msgstr "Regjistrim"
 
 #: ui/accountadvancedtab.ui:178
 msgid "Use random port"
@@ -494,7 +502,7 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:199
 msgid "Local port:"
-msgstr ""
+msgstr "Portë vendore:"
 
 #: ui/accountadvancedtab.ui:225
 msgid "Network Interface"
@@ -502,7 +510,7 @@ msgstr "Ndërfaqe Rrjeti"
 
 #: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
-msgstr ""
+msgstr "Njësoj si parametrat vendorë"
 
 #: ui/accountadvancedtab.ui:268
 msgid "Set published address and port:"
@@ -510,15 +518,15 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:292
 msgid "Address"
-msgstr ""
+msgstr "Adresë"
 
 #: ui/accountadvancedtab.ui:340
 msgid "Use STUN"
-msgstr ""
+msgstr "Përdor STUN"
 
 #: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
 msgid "server URL"
-msgstr ""
+msgstr "URL shërbyesi"
 
 #: ui/accountadvancedtab.ui:389
 msgid "Use TURN"
@@ -526,11 +534,11 @@ msgstr "Përdor TURN"
 
 #: ui/accountadvancedtab.ui:434
 msgid "username"
-msgstr ""
+msgstr "emër përdoruesi"
 
 #: ui/accountadvancedtab.ui:455
 msgid "password"
-msgstr ""
+msgstr "fjalëkalim"
 
 #: ui/accountadvancedtab.ui:479
 msgid "realm"
@@ -552,11 +560,11 @@ msgstr ""
 
 #: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
 msgid "Min"
-msgstr ""
+msgstr "Min."
 
 #: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
 msgid "Max"
-msgstr ""
+msgstr "Maks."
 
 #: ui/accountadvancedtab.ui:665
 msgid "Audio RTP Port Range"
@@ -634,7 +642,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:223 ui/accountcreationwizard.ui:435
 msgid "Next"
-msgstr ""
+msgstr "Pasuesi"
 
 #: ui/accountcreationwizard.ui:265
 msgid "Profile"
@@ -646,7 +654,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:327
 msgid "Ring Account"
-msgstr ""
+msgstr "Llogari Ring"
 
 #: ui/accountcreationwizard.ui:340
 msgid "Register public username (experimental):"
@@ -659,7 +667,7 @@ msgid ""
 "characters long."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:369 ui/accountmigrationview.ui:161
+#: ui/accountcreationwizard.ui:369
 msgid "Password (confirm):"
 msgstr ""
 
@@ -686,7 +694,7 @@ msgid "Error creating/loading account."
 msgstr ""
 
 #: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
-#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
+#: ui/accountdevicestab.ui:239
 msgid "OK"
 msgstr "OK"
 
@@ -773,60 +781,24 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: ui/accountmigrationview.ui:28
+#: ui/accountmigrationview.ui:14
 msgid "Account migration required"
-msgstr ""
+msgstr "Lyp migrim llogarie"
 
-#: ui/accountmigrationview.ui:37
-msgid ""
-"The following account needs to be migrated to the new Ring account format:"
-msgstr ""
-
-#: ui/accountmigrationview.ui:52
+#: ui/accountmigrationview.ui:39
 msgid "Alias:"
 msgstr ""
 
-#: ui/accountmigrationview.ui:98
-msgid "Avatar:"
+#: ui/accountmigrationview.ui:102
+msgid "Please enter your password:"
 msgstr ""
 
-#: ui/accountmigrationview.ui:122
-msgid ""
-"To proceed with the migration, you must choose a password for your account. "
-"This password will be used to encrypt your master key. It will be required "
-"for adding new devices to your Ring account. If you are not ready to choose "
-"a password, you may close Ring and resume the migration later."
-msgstr ""
-
-#: ui/accountmigrationview.ui:141
-msgid "Password:"
-msgstr "Fjalëkalim:"
-
-#: ui/accountmigrationview.ui:184
+#: ui/accountmigrationview.ui:129
 msgid "Migrate account"
 msgstr ""
 
-#: ui/accountmigrationview.ui:202
-msgid "Migrating account..."
-msgstr ""
-
-#: ui/accountmigrationview.ui:228
-msgid "Failed to migrate account. Try again."
-msgstr ""
-
-#: ui/accountmigrationview.ui:255
-msgid "Choose your Ring username"
-msgstr ""
-
-#: ui/accountmigrationview.ui:264
-msgid ""
-"As of now Ring has a decentralized username registry. This means that you "
-"can now contact your friends using their usernames instead of their RingIDs."
-" The username registry is distributed and all users are able to consult it."
-msgstr ""
-
-#: ui/accountmigrationview.ui:279
-msgid "Register my username later"
+#: ui/accountmigrationview.ui:148
+msgid "Migration failed, wrong password ?"
 msgstr ""
 
 #: ui/accountsecuritytab.ui:37
@@ -851,11 +823,11 @@ msgstr ""
 
 #: ui/accountsecuritytab.ui:148
 msgid "CA certificate"
-msgstr ""
+msgstr "Dëshmi AD"
 
 #: ui/accountsecuritytab.ui:185
 msgid "User certificate"
-msgstr ""
+msgstr "Dëshmi përdoruesi"
 
 #: ui/accountsecuritytab.ui:222
 msgid "Private key"
@@ -863,11 +835,11 @@ msgstr "Kyç privat"
 
 #: ui/accountsecuritytab.ui:245
 msgid "Private key password"
-msgstr ""
+msgstr "Fjalëkalim kyçi privat"
 
 #: ui/accountsecuritytab.ui:292
 msgid "TLS protocol method"
-msgstr ""
+msgstr "Metodë protokolli TLS"
 
 #: ui/accountsecuritytab.ui:315
 msgid "Outgoing TLS server name"
@@ -879,23 +851,23 @@ msgstr ""
 
 #: ui/accountsecuritytab.ui:371
 msgid "Use default ciphers"
-msgstr ""
+msgstr "Përdor shifër parazgjedhje"
 
 #: ui/accountsecuritytab.ui:387
 msgid "Use custom cipher list"
-msgstr ""
+msgstr "Përdor listë vetjake shifre"
 
 #: ui/accountsecuritytab.ui:444
 msgid "Verify incoming certificates (server side)"
-msgstr ""
+msgstr "Verifikoji dëshmitë ardhëse (më anë të shërbyesit)"
 
 #: ui/accountsecuritytab.ui:459
 msgid "Verify answer certificates (client side)"
-msgstr ""
+msgstr "Verifikoji dëshmitë ardhëse (më anë të klientit)"
 
 #: ui/accountsecuritytab.ui:474
 msgid "Require a certificate for incoming TLS connections"
-msgstr ""
+msgstr "Kërko një dëshmi për lidhje TLS ardhëse"
 
 #: ui/accountsecuritytab.ui:493
 msgid "Negotiation Encryption"
@@ -953,7 +925,11 @@ msgstr ""
 msgid "Place call"
 msgstr ""
 
-#: ui/chatview.ui:112
+#: ui/chatview.ui:60
+msgid "Send invitation"
+msgstr ""
+
+#: ui/chatview.ui:122
 msgid "Send"
 msgstr ""
 
@@ -976,7 +952,7 @@ msgstr ""
 #: ui/currentcallview.ui:273 ui/currentcallview.ui:295
 #: ui/currentcallview.ui:425
 msgid "Hold"
-msgstr ""
+msgstr "Mbaje"
 
 #: ui/currentcallview.ui:291
 msgid "Toggle mute audio"
@@ -988,7 +964,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:416
 msgid "Mute video"
-msgstr ""
+msgstr "Mbylli videon"
 
 #: ui/currentcallview.ui:336
 msgid "Toggle record audio"
@@ -1016,7 +992,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:407
 msgid "Mute audio"
-msgstr ""
+msgstr "Mbylli zërin"
 
 #: ui/currentcallview.ui:452
 msgid "Record"
@@ -1100,7 +1076,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:171
 msgid "History Settings"
-msgstr ""
+msgstr "Rregullime Historiku"
 
 #: ui/generalsettingsview.ui:189
 msgid "Keep history for (days):"
@@ -1194,25 +1170,29 @@ msgstr "Media"
 msgid "Accounts"
 msgstr "Llogari"
 
-#: ui/ringmainwindow.ui:90
+#: ui/ringmainwindow.ui:102
 msgid "Settings"
 msgstr "Rregullime"
 
-#: ui/ringmainwindow.ui:184
+#: ui/ringmainwindow.ui:206
 msgid "Conversations"
-msgstr ""
+msgstr "Biseda"
 
-#: ui/ringmainwindow.ui:203
+#: ui/ringmainwindow.ui:228
 msgid "Contacts"
 msgstr "Kontakte"
 
-#: ui/ringmainwindow.ui:222
+#: ui/ringmainwindow.ui:250
 msgid "History"
 msgstr "Historik"
 
+#: ui/ringmainwindow.ui:272
+msgid "Contact requests"
+msgstr ""
+
 #: ui/usernameregistrationbox.ui:12
 msgid "enter username here"
-msgstr ""
+msgstr "jepni këtu emrin e përdoruesit"
 
 #: ui/usernameregistrationbox.ui:24
 msgid "Register"
