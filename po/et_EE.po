@@ -10,12 +10,12 @@ msgstr ""
 "POT-Creation-Date: 2017-06-12 10:36-0400\n"
 "PO-Revision-Date: 2017-06-12 14:43+0000\n"
 "Last-Translator: Guillaume Roguez\n"
-"Language-Team: French (France) (http://www.transifex.com/savoirfairelinux/ring/language/fr_FR/)\n"
+"Language-Team: Estonian (Estonia) (http://www.transifex.com/savoirfairelinux/ring/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr_FR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: et_EE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/accountadvancedtab.cpp:389
 msgid "_Remove server"
@@ -36,7 +36,7 @@ msgstr ""
 #: src/accountaudiotab.cpp:181
 msgctxt "Name of the codec"
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
 msgid "Bitrate"
@@ -55,11 +55,11 @@ msgstr ""
 #: src/accountcreationwizard.cpp:283
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
-msgstr "Inconnu"
+msgstr ""
 
 #: src/accountcreationwizard.cpp:461
 msgid "Passwords don't match"
-msgstr "Les mots de passe saisis sont différents"
+msgstr ""
 
 #: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
 msgid "Bad password"
@@ -76,7 +76,7 @@ msgstr ""
 #: src/accountdevicestab.cpp:246
 msgctxt "Device Name Column"
 msgid "Name"
-msgstr "Nom"
+msgstr "Nimi"
 
 #: src/accountdevicestab.cpp:251
 msgctxt "Device ID Column"
@@ -101,7 +101,7 @@ msgstr ""
 
 #: src/accountgeneraltab.cpp:287
 msgid "Password"
-msgstr "mot de passe"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:300
 msgid "Show password"
@@ -138,7 +138,7 @@ msgstr ""
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
 #: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
-msgstr "Annuler"
+msgstr ""
 
 #: src/accountimportexportview.cpp:104
 msgid "Select"
@@ -155,7 +155,7 @@ msgstr ""
 #: src/accountvideotab.cpp:190
 msgctxt "The name of the codec"
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: src/accountview.cpp:167
 msgctxt "Account settings"
@@ -281,7 +281,7 @@ msgstr ""
 #: src/historyview.cpp:293
 msgctxt "Call history"
 msgid "Call"
-msgstr "Appel"
+msgstr ""
 
 #: src/historyview.cpp:338
 msgctxt "Call history"
@@ -290,7 +290,7 @@ msgstr ""
 
 #: src/ringnotify.cpp:148
 msgid "Incoming call"
-msgstr "Appel entrant"
+msgstr ""
 
 #: src/ringnotify.cpp:165 src/ringnotify.cpp:343
 msgctxt "notification action name"
@@ -579,11 +579,11 @@ msgstr ""
 
 #: ui/accountaudiotab.ui:57 ui/accountvideotab.ui:80
 msgid "Up"
-msgstr "Save"
+msgstr "Üles"
 
 #: ui/accountaudiotab.ui:64 ui/accountvideotab.ui:87
 msgid "Down"
-msgstr "Bas"
+msgstr "Alla"
 
 #: ui/accountaudiotab.ui:75
 msgid "Audio Codecs"
@@ -641,11 +641,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:223 ui/accountcreationwizard.ui:435
 msgid "Next"
-msgstr "Suivant"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:265
 msgid "Profile"
-msgstr "Profil"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:285
 msgid "Full name:"
@@ -653,7 +653,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:327
 msgid "Ring Account"
-msgstr "Compte Ring"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:340
 msgid "Register public username (experimental):"
@@ -695,7 +695,7 @@ msgstr ""
 #: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
 #: ui/accountdevicestab.ui:239
 msgid "OK"
-msgstr "OK"
+msgstr ""
 
 #: ui/accountdevicestab.ui:21
 msgid "My Device ID:"
@@ -742,7 +742,7 @@ msgstr ""
 
 #: ui/accountgeneraltab.ui:42
 msgid "Account"
-msgstr "Compte"
+msgstr ""
 
 #: ui/accountgeneraltab.ui:82
 msgid "Parameters"
@@ -951,7 +951,7 @@ msgstr ""
 #: ui/currentcallview.ui:273 ui/currentcallview.ui:295
 #: ui/currentcallview.ui:425
 msgid "Hold"
-msgstr "Patienter"
+msgstr ""
 
 #: ui/currentcallview.ui:291
 msgid "Toggle mute audio"
@@ -995,7 +995,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:452
 msgid "Record"
-msgstr "Enregistrer"
+msgstr "Salvestus"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
@@ -1007,7 +1007,7 @@ msgstr ""
 
 #: ui/editcontactview.ui:29
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
@@ -1171,7 +1171,7 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:102
 msgid "Settings"
-msgstr "Réglages"
+msgstr ""
 
 #: ui/ringmainwindow.ui:206
 msgid "Conversations"

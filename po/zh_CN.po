@@ -1,16 +1,17 @@
 # Gettext PO translation template file for the GNOME client of the Ring project.
-# Copyright (C) 2015-2016 Savoir-faire Linux Inc.
+# Copyright (C) 2015-2017 Savoir-faire Linux Inc.
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
-# LINGXIAO YANG <ling-xiao.yang@mail.mcgill.ca>, 2016
+# Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2017
+# Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-19 15:13-0500\n"
-"PO-Revision-Date: 2016-12-21 22:13+0000\n"
-"Last-Translator: LINGXIAO YANG <ling-xiao.yang@mail.mcgill.ca>\n"
+"POT-Creation-Date: 2017-06-12 10:36-0400\n"
+"PO-Revision-Date: 2017-06-12 14:43+0000\n"
+"Last-Translator: Guillaume Roguez\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/ring/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +23,7 @@ msgstr ""
 msgid "_Remove server"
 msgstr "删除服务器(_R)"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:263
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:267
 msgid "Hostname"
 msgstr "主机名"
 
@@ -58,7 +59,7 @@ msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "未知"
 
-#: src/accountcreationwizard.cpp:454 ui/accountmigrationview.ui:132
+#: src/accountcreationwizard.cpp:461
 msgid "Passwords don't match"
 msgstr "密码不匹配"
 
@@ -96,39 +97,39 @@ msgstr "类别"
 msgid "auto-generating..."
 msgstr "自动生成中…"
 
-#: src/accountgeneraltab.cpp:247 src/accountgeneraltab.cpp:273
+#: src/accountgeneraltab.cpp:251 src/accountgeneraltab.cpp:277
 msgid "Username"
 msgstr "用户名"
 
-#: src/accountgeneraltab.cpp:283
+#: src/accountgeneraltab.cpp:287
 msgid "Password"
 msgstr "密码"
 
-#: src/accountgeneraltab.cpp:296
+#: src/accountgeneraltab.cpp:300
 msgid "Show password"
 msgstr "显示密码"
 
-#: src/accountgeneraltab.cpp:302
+#: src/accountgeneraltab.cpp:306
 msgid "Proxy"
 msgstr "代理"
 
-#: src/accountgeneraltab.cpp:312
+#: src/accountgeneraltab.cpp:316
 msgid "Voicemail number"
 msgstr "语音信箱号码"
 
-#: src/accountgeneraltab.cpp:324
+#: src/accountgeneraltab.cpp:328
 msgid "Name service URL"
 msgstr "名称服务器URL"
 
-#: src/accountgeneraltab.cpp:337
+#: src/accountgeneraltab.cpp:341
 msgid "Auto-answer calls"
 msgstr "自动应答来电"
 
-#: src/accountgeneraltab.cpp:345
+#: src/accountgeneraltab.cpp:349
 msgid "UPnP enabled"
 msgstr "UPnP已启用"
 
-#: src/accountgeneraltab.cpp:353
+#: src/accountgeneraltab.cpp:357
 msgid "DTMF tone type:"
 msgstr "DTMF拨号音类型："
 
@@ -158,59 +159,59 @@ msgctxt "The name of the codec"
 msgid "Name"
 msgstr "姓名"
 
-#: src/accountview.cpp:177
+#: src/accountview.cpp:167
 msgctxt "Account settings"
 msgid "General"
 msgstr "通用"
 
-#: src/accountview.cpp:185
+#: src/accountview.cpp:175
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "设备"
 
-#: src/accountview.cpp:191
+#: src/accountview.cpp:181
 msgctxt "Account settings"
 msgid "Security"
 msgstr "安全"
 
-#: src/accountview.cpp:196
+#: src/accountview.cpp:186
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "高级"
 
-#: src/accountview.cpp:251
+#: src/accountview.cpp:241
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "确定删除帐户“%s”吗？"
 
-#: src/accountview.cpp:386
+#: src/accountview.cpp:368
 msgid "New Account"
 msgstr "新帐户"
 
-#: src/accountview.cpp:538
+#: src/accountview.cpp:518
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "已启用"
 
-#: src/accountview.cpp:544
+#: src/accountview.cpp:524
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "别名"
 
-#: src/accountview.cpp:552
+#: src/accountview.cpp:532
 msgctxt "Account status column"
 msgid "Status"
 msgstr "状态"
 
-#: src/avatarmanipulation.cpp:381
+#: src/avatarmanipulation.cpp:380
 msgid "Open Avatar Image"
 msgstr "打开头像图片"
 
-#: src/avatarmanipulation.cpp:384
+#: src/avatarmanipulation.cpp:383
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: src/avatarmanipulation.cpp:386
+#: src/avatarmanipulation.cpp:385
 msgid "_Open"
 msgstr "打开(_O)"
 
@@ -318,65 +319,73 @@ msgstr "恢复主窗口的隐藏状态（仅应用于主实例）"
 msgid "- GNOME client for Ring"
 msgstr "- Ring的GNOME客户端"
 
-#: src/ringmainwindow.cpp:544
-msgid "looking up RingID"
-msgstr "正在查找RingID"
-
-#: src/ringmainwindow.cpp:584
+#: src/ringmainwindow.cpp:613
 #, c-format
 msgid "Invalid Ring username: %s"
 msgstr "Ring用户名非法：%s"
 
-#: src/ringmainwindow.cpp:599
+#: src/ringmainwindow.cpp:628
 msgid "Error resolving username, nameserver is possibly unreachable"
 msgstr "用户名解析错误，或因服务器故障"
 
-#: src/ringmainwindow.cpp:613
+#: src/ringmainwindow.cpp:642
 #, c-format
 msgid "Could not resolve Ring username: %s"
 msgstr "无法解析Ring用户名：%s"
 
-#: src/ringmainwindow.cpp:1036
+#: src/ringmainwindow.cpp:1150
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "拨出"
 
-#: src/ringmainwindow.cpp:1038
+#: src/ringmainwindow.cpp:1152
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "发起聊天"
 
-#: src/ringmainwindow.cpp:1211
+#: src/ringmainwindow.cpp:1232
+#, c-format
+msgctxt "string format will be replaced by the account alias"
+msgid "%s..."
+msgstr ""
+
+#: src/ringmainwindow.cpp:1238
+#, c-format
+msgctxt "string format will be replaced by the account alias"
+msgid "%s (error)"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1429
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "查找通讯录或输入号码"
 
-#: src/ringwelcomeview.cpp:69
+#: src/ringwelcomeview.cpp:75
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
 msgstr "这是您的Ring用户名。\n复制并发送给您的朋友！"
 
-#: src/ringwelcomeview.cpp:77
+#: src/ringwelcomeview.cpp:83
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
 msgstr "这是您的RingID。\n复制并发送给您的朋友！"
 
-#: src/ringwelcomeview.cpp:84
+#: src/ringwelcomeview.cpp:90
 msgid "fetching RingID..."
 msgstr "正在获取RingID…"
 
-#: src/ringwelcomeview.cpp:139
+#: src/ringwelcomeview.cpp:148
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
 msgstr "Ring是自由软件，尊重用户的通讯自由与隐私。"
 
-#: src/ringwelcomeview.cpp:185
+#: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "RingID二维码"
@@ -596,15 +605,15 @@ msgstr "创建新的Ring帐户（新用户）"
 
 #: ui/accountcreationwizard.ui:74
 msgid "Link this device to an account"
-msgstr "将这台设备与一个帐户进行连接"
+msgstr "将此设备与一个帐户进行连接"
 
 #: ui/accountcreationwizard.ui:75
 msgid "Link this devices to a Ring account created on another device"
-msgstr "将这台设备与其他设备创建的Ring帐户进行连接"
+msgstr "将此设备与其他设备创建的Ring帐户进行连接"
 
 #: ui/accountcreationwizard.ui:103 ui/accountcreationwizard.ui:157
 msgid "Link this device to an existing account"
-msgstr "将这台设备与已有帐户进行连接"
+msgstr "将此设备与已有帐户进行连接"
 
 #: ui/accountcreationwizard.ui:118
 msgid ""
@@ -613,7 +622,7 @@ msgid ""
 "previous device, choose the Ring Account to use and select \"Link another "
 "device to this account\". You will get the necessary PIN to complete this "
 "form. The PIN is only valid for 10 minutes."
-msgstr "要将这台设备连接至另一帐户，您需要一个PIN。请在该帐户的原有设备上，前往“帐户管理”，选择该Ring帐户并点击“将另一台设备与该帐户进行连接”以获得PIN，再填写至该设备。您获得的PIN将在10分钟内有效。"
+msgstr "要将此设备连接至另一帐户，您需要一个PIN。请在该帐户的原有设备上，前往“帐户管理”，选择该Ring帐户并点击“将另一设备与该帐户进行连接”以获得PIN，将其填写在这里。您获得的PIN将在10分钟内有效。"
 
 #: ui/accountcreationwizard.ui:126 ui/accountcreationwizard.ui:215
 #: ui/accountcreationwizard.ui:427
@@ -659,7 +668,7 @@ msgid ""
 "characters long."
 msgstr "勾选这项以注册Ring网络用户名。该用户名唯一并可替代40字符的RingID。"
 
-#: ui/accountcreationwizard.ui:369 ui/accountmigrationview.ui:161
+#: ui/accountcreationwizard.ui:369
 msgid "Password (confirm):"
 msgstr "密码（确认）："
 
@@ -686,7 +695,7 @@ msgid "Error creating/loading account."
 msgstr "创建或载入帐户时发生错误。"
 
 #: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
-#: ui/accountdevicestab.ui:239 ui/accountmigrationview.ui:236
+#: ui/accountdevicestab.ui:239
 msgid "OK"
 msgstr "确定"
 
@@ -773,61 +782,25 @@ msgstr "导出"
 msgid "Import"
 msgstr "倒入"
 
-#: ui/accountmigrationview.ui:28
+#: ui/accountmigrationview.ui:14
 msgid "Account migration required"
 msgstr "需要帐户迁移"
 
-#: ui/accountmigrationview.ui:37
-msgid ""
-"The following account needs to be migrated to the new Ring account format:"
-msgstr "以下帐户需要迁移至新版Ring数据格式："
-
-#: ui/accountmigrationview.ui:52
+#: ui/accountmigrationview.ui:39
 msgid "Alias:"
 msgstr "别名："
 
-#: ui/accountmigrationview.ui:98
-msgid "Avatar:"
-msgstr "头像："
+#: ui/accountmigrationview.ui:102
+msgid "Please enter your password:"
+msgstr ""
 
-#: ui/accountmigrationview.ui:122
-msgid ""
-"To proceed with the migration, you must choose a password for your account. "
-"This password will be used to encrypt your master key. It will be required "
-"for adding new devices to your Ring account. If you are not ready to choose "
-"a password, you may close Ring and resume the migration later."
-msgstr "要进行帐户迁移，您需要为该帐户设置一个密码，用于加密您的主密钥。当您连接该帐户至其他设备时，您需要输入这个密码。如果您尚未确定密码，请关闭Ring并稍后重新进行迁移。"
-
-#: ui/accountmigrationview.ui:141
-msgid "Password:"
-msgstr "密码："
-
-#: ui/accountmigrationview.ui:184
+#: ui/accountmigrationview.ui:129
 msgid "Migrate account"
 msgstr "迁移帐户"
 
-#: ui/accountmigrationview.ui:202
-msgid "Migrating account..."
-msgstr "正在迁移帐户…"
-
-#: ui/accountmigrationview.ui:228
-msgid "Failed to migrate account. Try again."
-msgstr "帐户迁移失败，请重试。"
-
-#: ui/accountmigrationview.ui:255
-msgid "Choose your Ring username"
-msgstr "设置您的Ring用户名"
-
-#: ui/accountmigrationview.ui:264
-msgid ""
-"As of now Ring has a decentralized username registry. This means that you "
-"can now contact your friends using their usernames instead of their RingIDs."
-" The username registry is distributed and all users are able to consult it."
-msgstr "Ring使用分散式的用户名存储机制，允许您在RingID之外，使用自定义的用户名寻找您的联系人。该分布式存储机制允许所有用户进行用户名查询。"
-
-#: ui/accountmigrationview.ui:279
-msgid "Register my username later"
-msgstr "稍后再注册我的用户名"
+#: ui/accountmigrationview.ui:148
+msgid "Migration failed, wrong password ?"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -953,7 +926,11 @@ msgstr "隐藏聊天界面"
 msgid "Place call"
 msgstr "发起通话"
 
-#: ui/chatview.ui:112
+#: ui/chatview.ui:60
+msgid "Send invitation"
+msgstr ""
+
+#: ui/chatview.ui:122
 msgid "Send"
 msgstr "发送"
 
@@ -1194,21 +1171,25 @@ msgstr "媒体"
 msgid "Accounts"
 msgstr "帐户"
 
-#: ui/ringmainwindow.ui:90
+#: ui/ringmainwindow.ui:102
 msgid "Settings"
 msgstr "设置"
 
-#: ui/ringmainwindow.ui:184
+#: ui/ringmainwindow.ui:206
 msgid "Conversations"
 msgstr "会话"
 
-#: ui/ringmainwindow.ui:203
+#: ui/ringmainwindow.ui:228
 msgid "Contacts"
 msgstr "通讯录"
 
-#: ui/ringmainwindow.ui:222
+#: ui/ringmainwindow.ui:250
 msgid "History"
 msgstr "历史记录"
+
+#: ui/ringmainwindow.ui:272
+msgid "Contact requests"
+msgstr "联系人请求"
 
 #: ui/usernameregistrationbox.ui:12
 msgid "enter username here"
