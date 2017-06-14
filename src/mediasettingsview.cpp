@@ -77,6 +77,11 @@ struct _MediaSettingsViewPrivate
     QMetaObject::Connection channel_selection;
     QMetaObject::Connection resolution_selection;
     QMetaObject::Connection rate_selection;
+
+    /* hardware accel settings */
+    GtkWidget *checkbutton_hardware_decoding;
+
+    QMetaObject::Connection hardware_decoding_checked;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(MediaSettingsView, media_settings_view, GTK_TYPE_SCROLLED_WINDOW);
@@ -105,6 +110,8 @@ media_settings_view_dispose(GObject *object)
     QObject::disconnect(priv->channel_selection);
     QObject::disconnect(priv->resolution_selection);
     QObject::disconnect(priv->rate_selection);
+
+    QObject::disconnect(priv->hardware_decoding_checked);
 
     G_OBJECT_CLASS(media_settings_view_parent_class)->dispose(object);
 }
@@ -180,6 +187,16 @@ connect_combo_box_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
 }
 
 static void
+hardware_decoding_toggled(GtkToggleButton *toggle_button, MediaSettingsView *self)
+{
+    g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
+    MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
+
+    gboolean hardware_decoding = gtk_toggle_button_get_active(toggle_button);
+    Video::ConfigurationProxy::setDecodingAccelerated(hardware_decoding);
+}
+
+static void
 media_settings_view_init(MediaSettingsView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
@@ -229,7 +246,8 @@ media_settings_view_init(MediaSettingsView *view)
                                                       Audio::Settings::instance().outputDeviceModel(),
                                                       Audio::Settings::instance().outputDeviceModel()->selectionModel());
 
-
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_hardware_decoding), Video::ConfigurationProxy::getDecodingAccelerated());
+    g_signal_connect(priv->checkbutton_hardware_decoding, "toggled", G_CALLBACK(hardware_decoding_toggled), view);
 }
 
 static void
@@ -249,6 +267,7 @@ media_settings_view_class_init(MediaSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_channel);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_resolution);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_framerate);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, checkbutton_hardware_decoding);
 }
 
 GtkWidget *
