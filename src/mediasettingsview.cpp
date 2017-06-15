@@ -80,8 +80,6 @@ struct _MediaSettingsViewPrivate
 
     /* hardware accel settings */
     GtkWidget *checkbutton_hardware_decoding;
-
-    QMetaObject::Connection hardware_decoding_checked;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(MediaSettingsView, media_settings_view, GTK_TYPE_SCROLLED_WINDOW);
@@ -110,8 +108,6 @@ media_settings_view_dispose(GObject *object)
     QObject::disconnect(priv->channel_selection);
     QObject::disconnect(priv->resolution_selection);
     QObject::disconnect(priv->rate_selection);
-
-    QObject::disconnect(priv->hardware_decoding_checked);
 
     G_OBJECT_CLASS(media_settings_view_parent_class)->dispose(object);
 }
@@ -189,9 +185,6 @@ connect_combo_box_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
 static void
 hardware_decoding_toggled(GtkToggleButton *toggle_button, MediaSettingsView *self)
 {
-    g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
-    MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
-
     gboolean hardware_decoding = gtk_toggle_button_get_active(toggle_button);
     Video::ConfigurationProxy::setDecodingAccelerated(hardware_decoding);
 }
