@@ -44,6 +44,8 @@
 #include <numbercategory.h>
 #include <smartinfohub.h>
 
+#include <cmath>
+
 static constexpr int CONTROLS_FADE_TIMEOUT = 3000000; /* microseconds */
 static constexpr int FADE_DURATION = 500; /* miliseconds */
 
@@ -328,26 +330,13 @@ set_quality(Call *call, gboolean auto_quality_on, double desired_quality)
                 // g_debug("enable auto quality");
                 videoCodecs->setData(idx, "true", CodecModel::Role::AUTO_QUALITY_ENABLED);
             } else {
-                auto min_bitrate = idx.data(static_cast<int>(CodecModel::Role::MIN_BITRATE)).toInt();
-                auto max_bitrate = idx.data(static_cast<int>(CodecModel::Role::MAX_BITRATE)).toInt();
-                auto min_quality = idx.data(static_cast<int>(CodecModel::Role::MIN_QUALITY)).toInt();
-                auto max_quality = idx.data(static_cast<int>(CodecModel::Role::MAX_QUALITY)).toInt();
+                auto min_bitrate = idx.data(int{CodecModel::Role::MIN_BITRATE}).toInt();
+                auto max_bitrate = idx.data(int{CodecModel::Role::MAX_BITRATE}).toInt();
+                auto bitrate = std::max(0.0, min_bitrate + (max_bitrate - min_bitrate)*(desired_quality/100.0));
 
-                // g_debug("bitrate min: %d, max: %d, quality min: %d, max: %d", min_bitrate, max_bitrate, min_quality, max_quality);
-
-                double bitrate;
-                bitrate = min_bitrate + (double)(max_bitrate - min_bitrate)*(desired_quality/100.0);
-                if (bitrate < 0) bitrate = 0;
-
-                double quality;
-                // note: a lower value means higher quality
-                quality = (double)min_quality - (min_quality - max_quality)*(desired_quality/100.0);
-                if (quality < 0) quality = 0;
-
-                // g_debug("disable auto quality; %% quality: %d; bitrate: %d; quality: %d", (int)desired_quality, (int)bitrate, (int)quality);
+                g_debug("Video quality (no-auto): desired=%d%% => bitrate=%d", int(desired_quality), int(bitrate));
                 videoCodecs->setData(idx, "false", CodecModel::Role::AUTO_QUALITY_ENABLED);
-                videoCodecs->setData(idx, QString::number((int)bitrate), CodecModel::Role::BITRATE);
-                videoCodecs->setData(idx, QString::number((int)quality), CodecModel::Role::QUALITY);
+                videoCodecs->setData(idx, QString::number(std::lround(bitrate)), CodecModel::Role::BITRATE);
             }
         }
         codecModel << CodecModel::EditAction::SAVE;
