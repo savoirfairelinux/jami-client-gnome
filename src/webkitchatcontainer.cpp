@@ -494,6 +494,22 @@ webkit_chat_container_print_new_message(WebKitChatContainer *view, const QModelI
 }
 
 void
+webkit_chat_container_scroll_to_message (WebKitChatContainer *view, const int msg_id)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    gchar* function_call = g_strdup_printf("ring.chatview.scrollToMessage(%i);", msg_id);
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
 webkit_chat_container_update_message(WebKitChatContainer *view, const QModelIndex &idx)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);

@@ -39,6 +39,13 @@
 // LRC
 #include <account.h>
 
+//Search
+#include <iostream>
+#include <regex>
+#include <vector>
+#include "messagefinder.h"
+#include <memory>
+
 
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
 
@@ -66,7 +73,11 @@ struct _ChatViewPrivate
     GtkWidget *combobox_cm;
     GtkWidget *button_close_chatview;
     GtkWidget *button_placecall;
+    GtkWidget *button_search;
     GtkWidget *button_send_invitation;
+    GtkWidget *find_message_dialog;
+
+    std::unique_ptr<MessageFinder> m_message_finder;
 
     /* only one of the three following pointers should be non void;
      * either this is an in-call chat (and so the in-call chat APIs will be used)
@@ -190,6 +201,142 @@ placecall_clicked(ChatView *self)
     }
 }
 
+ContactMethod*
+get_active_contactmethod(ChatView *self)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    auto cms = priv->person->phoneNumbers();
+    auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
+    if (active >= 0 && active < cms.size()) {
+        return cms.at(active);
+    } else {
+        return nullptr;
+    }
+}
+
+static void
+closeSearchDialog (G_GNUC_UNUSED GtkWidget *widget, ChatView* self)
+{
+    //Close find_message_dialog
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    gtk_widget_destroy (priv->find_message_dialog);
+    priv->find_message_dialog = nullptr;
+}
+
+static Media::TextRecording*
+get_text_recording(ChatView *self) {
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    Media::TextRecording *recording = nullptr;
+    if (priv->call) {
+        recording = priv->call->peerContactMethod()->textRecording();
+    } else if (priv->cm) {
+        recording = priv->cm->textRecording();
+    } else if (priv->person) {
+        auto cm = get_active_contactmethod(self);
+        if (cm) {
+            recording = cm->textRecording();
+        }
+    }
+    return recording;
+}
+
+/**
+ * Update priv->m_message_finder
+ * @return if priv->m_message_finder is updated
+ */
+static bool
+update_message_finder(ChatView* self) {
+    auto recording = get_text_recording(self);
+    if (!recording) return false;
+
+    auto entry = g_object_get_data(G_OBJECT(self), "entry");
+    auto pattern = std::string(gtk_entry_get_text (GTK_ENTRY(entry)));
+    if (pattern.empty()) return false;
+
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    if (!priv->m_message_finder ||
+    priv->m_message_finder->get_text_recording() != recording) {
+        // reset m_message_finder
+        priv->m_message_finder = std::unique_ptr<MessageFinder>(new MessageFinder(recording));
+        priv->m_message_finder->search_messages(pattern);
+    } else if (priv->m_message_finder->get_pattern() != pattern) {
+        // get matching messages.
+        priv->m_message_finder->search_messages(pattern);
+    }
+    return true;
+}
+
+static void
+go_to_next_message (G_GNUC_UNUSED GtkWidget *widget, ChatView *self) {
+    if(!update_message_finder(self)) return;
+
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    auto next_idx = priv->m_message_finder->get_next_message();
+
+    webkit_chat_container_scroll_to_message(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        next_idx
+    );
+}
+
+static void
+go_to_previous_message (G_GNUC_UNUSED GtkWidget *widget, ChatView *self) {
+    if(!update_message_finder(self)) return;
+
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    auto previous_idx = priv->m_message_finder->get_previous_message();
+
+    webkit_chat_container_scroll_to_message(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        previous_idx
+    );
+}
+
+static void
+view_onPopupMenu (G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
+{
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    // If window is already open
+    if (priv->find_message_dialog) return;
+
+
+
+    priv->find_message_dialog = gtk_dialog_new ();
+    g_signal_connect (priv->find_message_dialog, "destroy",
+	                G_CALLBACK (closeSearchDialog),
+	                self);
+    gtk_window_set_title (GTK_WINDOW (priv->find_message_dialog),
+    "Find message");
+
+    // Design the dialog window
+    GtkWidget* hbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+    GtkWidget* label = gtk_label_new ("Search:");
+    GtkWidget* entry = gtk_entry_new ();
+
+    gtk_widget_show (label);
+    gtk_widget_show (entry);
+    gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
+    gtk_widget_show (hbox);
+
+    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (priv->find_message_dialog))),
+                        hbox, TRUE, TRUE, 0);
+
+    // Add actions
+    GtkWidget* previous_button = gtk_dialog_add_button (GTK_DIALOG (priv->find_message_dialog), "Previous", 0);
+    GtkWidget* next_button = gtk_dialog_add_button (GTK_DIALOG (priv->find_message_dialog), "Next", 1);
+    GtkWidget* cancel_button = gtk_dialog_add_button (GTK_DIALOG (priv->find_message_dialog), "Cancel", 2);
+    gtk_widget_grab_default (cancel_button);
+    g_signal_connect(cancel_button, "clicked", G_CALLBACK(closeSearchDialog), self);
+    g_object_set_data(G_OBJECT(self), "entry", entry);
+    g_signal_connect(next_button, "clicked", G_CALLBACK(go_to_next_message), self);
+    g_signal_connect(previous_button, "clicked", G_CALLBACK(go_to_previous_message), self);
+
+    // Show dialog window
+    gtk_widget_show (priv->find_message_dialog);
+}
+
 static void
 button_send_invitation_clicked(ChatView *self)
 {
@@ -239,6 +386,7 @@ chat_view_init(ChatView *view)
     g_signal_connect(priv->button_chat_input, "clicked", G_CALLBACK(send_chat), view);
     g_signal_connect(priv->entry_chat_input, "activate", G_CALLBACK(send_chat), view);
     g_signal_connect(priv->button_close_chatview, "clicked", G_CALLBACK(hide_chat_view), view);
+    g_signal_connect(priv->button_search, "clicked", GCallback(view_onPopupMenu), view);
     g_signal_connect_swapped(priv->button_placecall, "clicked", G_CALLBACK(placecall_clicked), view);
     g_signal_connect_swapped(priv->button_send_invitation, "clicked", G_CALLBACK(button_send_invitation_clicked), view);
 }
@@ -259,6 +407,7 @@ chat_view_class_init(ChatViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, combobox_cm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_close_chatview);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_search);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_placecall);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_send_invitation);
 
@@ -299,20 +448,6 @@ print_message_to_buffer(ChatView* self, const QModelIndex &idx)
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
         idx
     );
-}
-
-ContactMethod*
-get_active_contactmethod(ChatView *self)
-{
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    auto cms = priv->person->phoneNumbers();
-    auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
-    if (active >= 0 && active < cms.size()) {
-        return cms.at(active);
-    } else {
-        return nullptr;
-    }
 }
 
 static void

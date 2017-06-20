@@ -242,6 +242,16 @@ ring.chatview = (function(){
     }
 
     /**
+     * Directly scroll to a message
+     */
+    function scrollToMessage(message_id) {
+      var message_div = document.querySelector("#message_" + message_id);
+      messages.scrollTop = message_div.offsetTop || 0;
+      messages.scrollLeft = message_div.offsetLeft || 0;
+      //TODO loop
+    }
+
+    /**
      * Updated a message that was previously added with addMessage
      */
     function updateMessage(message_object)
@@ -293,6 +303,7 @@ ring.chatview = (function(){
         dev: dev,
         clearMessages: clearMessages,
         clearSenderImages: clearSenderImages,
+        scrollToMessage: scrollToMessage,
     }
 
 })();
