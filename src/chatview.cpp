@@ -525,6 +525,9 @@ update_contact_methods(ChatView *self)
         }
 
         gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_cm), last_used_cm_idx);
+
+        if (last_used_cm->isConfirmed())
+            gtk_widget_hide(priv->button_send_invitation);
     }
 
     /* if there is only one CM, make the combo box insensitive */
