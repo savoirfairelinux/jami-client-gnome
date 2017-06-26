@@ -39,7 +39,6 @@
 // LRC
 #include <account.h>
 
-
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
 
 struct _ChatView
@@ -525,6 +524,9 @@ update_contact_methods(ChatView *self)
         }
 
         gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_cm), last_used_cm_idx);
+
+        if (last_used_cm->isTrusted())
+            gtk_widget_hide(priv->button_send_invitation);
     }
 
     /* if there is only one CM, make the combo box insensitive */
