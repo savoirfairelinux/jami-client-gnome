@@ -651,6 +651,11 @@ chat_view_new_cm(WebKitChatContainer *webkit_chat_container, ContactMethod *cm)
     priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->cm = cm;
 
+    // show "invite" button only if the contact is known
+    // this means LRC has linked a person information
+    if (not cm->contact())
+        gtk_widget_show(priv->button_send_invitation);
+
     build_chat_view(self);
 
     return (GtkWidget *)self;
