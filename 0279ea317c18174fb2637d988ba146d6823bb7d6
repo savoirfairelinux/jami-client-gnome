@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba3841fe_200aaad2",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 123
+      },
+      "writtenOn": "2017-06-26T20:52:03Z",
+      "side": 1,
+      "message": "Isn\u0027t it the opposite of what is done ?",
+      "range": {
+        "startLine": 654,
+        "startChar": 28,
+        "endLine": 654,
+        "endChar": 56
+      },
+      "revId": "0279ea317c18174fb2637d988ba146d6823bb7d6",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
