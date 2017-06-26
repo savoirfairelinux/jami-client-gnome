@@ -651,6 +651,11 @@ chat_view_new_cm(WebKitChatContainer *webkit_chat_container, ContactMethod *cm)
     priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->cm = cm;
 
+    // Hide "invite" button if the contact is unknown.
+    // "Unknown" means LRC has not linked a person.
+    if (not cm->contact())
+        gtk_widget_show(priv->button_send_invitation);
+
     build_chat_view(self);
 
     return (GtkWidget *)self;
