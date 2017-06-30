@@ -19,12 +19,15 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+#include <cstdlib>
 #include "config.h"
 #include "ring_client.h"
 
 int
 main(int argc, char *argv[])
 {
+    setenv("GDK_BACKEND", "x11", true); // workaround for Wayland
+
     /* Internationalization; localization is done automatically by gtk during init */
     bindtextdomain(PACKAGE_NAME, LOCALEDIR);
     bind_textdomain_codeset(PACKAGE_NAME, "UTF-8");
