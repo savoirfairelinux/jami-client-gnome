@@ -447,6 +447,8 @@ insert_controls(CurrentCallView *view)
     ClutterMargin clutter_margin_smartInfo;
     clutter_margin_smartInfo.top = 50;
     clutter_margin_smartInfo.right = 10;
+    clutter_margin_smartInfo.left = 10;
+    clutter_margin_smartInfo.bottom = 10;
     clutter_actor_set_margin (actor_smartInfo, &clutter_margin_smartInfo);
 
     /* add fade in and out states to the info and controls */
