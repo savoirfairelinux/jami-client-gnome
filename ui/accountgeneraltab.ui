@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <template class="AccountGeneralTab" parent="GtkBox">
@@ -9,9 +10,9 @@
       <object class="GtkBox" id="vbox_main">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="border_width">10</property>
         <property name="orientation">vertical</property>
         <property name="spacing">10</property>
-        <property name="border_width">10</property>
         <child>
           <object class="GtkFrame" id="frame_account">
             <property name="visible">True</property>
@@ -22,15 +23,41 @@
               <object class="GtkAlignment" id="alignment_account">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="left_padding">10</property>
                 <property name="top_padding">10</property>
+                <property name="left_padding">10</property>
                 <child>
                   <object class="GtkGrid" id="grid_account">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="row_spacing">10</property>
                     <property name="column_spacing">10</property>
-                    <!-- code generated account properties go here, base on account type -->
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -62,15 +89,32 @@
               <object class="GtkAlignment" id="alignment_parameters">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="left_padding">10</property>
                 <property name="top_padding">10</property>
+                <property name="left_padding">10</property>
                 <child>
                   <object class="GtkGrid" id="grid_parameters">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="row_spacing">10</property>
                     <property name="column_spacing">10</property>
-                    <!-- code generated account properties go here, base on account type -->
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
                   </object>
                 </child>
               </object>
