@@ -131,7 +131,7 @@ ring_about_dialog(GtkWidget *parent)
         "version", version,
         "comments", _("The GNOME client for Ring.\nRing is free software for universal communication which respects the freedoms and privacy of its users."),
         "authors", authors,
-        "website", "http://www.ring.cx/",
+        "website", "https://www.ring.cx/",
         "website-label", "www.ring.cx",
         "artists", artists,
         "translator-credits", "https://www.transifex.com/savoirfairelinux/ring",
