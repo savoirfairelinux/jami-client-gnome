@@ -102,34 +102,6 @@
     </child>
     <!-- end of chat text view -->
 
-    <!-- start of chat entry -->
-    <child>
-      <object class="GtkBox" id="hbox_chat_input">
-        <property name="visible">True</property>
-        <property name="orientation">horizontal</property>
-        <child>
-          <object class="GtkEntry" id="entry_chat_input">
-            <property name="visible">True</property>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="button_chat_input">
-            <property name="visible">True</property>
-            <property name="label" translatable="yes">Send</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-      </packing>
-    </child>
-    <!-- end of chat entry -->
-
   </template>
 
   <object class="GtkImage" id="image_back_arrow">

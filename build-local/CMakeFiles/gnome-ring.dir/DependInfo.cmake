@@ -1,0 +1,172 @@
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  "C"
+  "CXX"
+  )
+# The set of files for implicit dependencies of each language:
+set(CMAKE_DEPENDS_CHECK_C
+  "/home/sblin/Projets/ring-project/client-gnome/build-local/pixmaps/pixmaps.gresource.c" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/pixmaps/pixmaps.gresource.c.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/cc-crop-area.c" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/cc-crop-area.c.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/dialogs.c" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/dialogs.c.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/ring_client_options.c" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/ring_client_options.c.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/video/xrectsel.c" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/video/xrectsel.c.o"
+  "/home/sblin/Projets/ring-project/client-gnome/build-local/ui/ui.gresource.c" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/ui/ui.gresource.c.o"
+  "/home/sblin/Projets/ring-project/client-gnome/build-local/web/web.gresource.c" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/web/web.gresource.c.o"
+  )
+set(CMAKE_C_COMPILER_ID "GNU")
+
+# Preprocessor definitions for this target.
+set(CMAKE_TARGET_DEFINITIONS_C
+  "QT_CORE_LIB"
+  )
+
+# The include file search paths:
+set(CMAKE_C_TARGET_INCLUDE_PATH
+  "."
+  "/usr/include/gtk-3.0"
+  "/usr/include/at-spi2-atk/2.0"
+  "/usr/include/at-spi-2.0"
+  "/usr/include/dbus-1.0"
+  "/usr/lib/x86_64-linux-gnu/dbus-1.0/include"
+  "/usr/include/gio-unix-2.0"
+  "/usr/include/mirclient"
+  "/usr/include/mircore"
+  "/usr/include/mircookie"
+  "/usr/include/cairo"
+  "/usr/include/pango-1.0"
+  "/usr/include/harfbuzz"
+  "/usr/include/atk-1.0"
+  "/usr/include/pixman-1"
+  "/usr/include/freetype2"
+  "/usr/include/libpng16"
+  "/usr/include/gdk-pixbuf-2.0"
+  "/usr/include/glib-2.0"
+  "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
+  "/home/sblin/Projets/ring-project/install/lrc/include/libringclient"
+  "/usr/include/x86_64-linux-gnu/qt5"
+  "/usr/include/x86_64-linux-gnu/qt5/QtCore"
+  "/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64"
+  "/usr/include/clutter-1.0"
+  "/usr/include/cogl"
+  "/usr/include/libdrm"
+  "/usr/include/json-glib-1.0"
+  "/usr/include/clutter-gtk-1.0"
+  "/usr/include/evolution-data-server"
+  "/usr/include/nss"
+  "/usr/include/nspr"
+  "/usr/include/libsecret-1"
+  "/usr/include/libsoup-2.4"
+  "/usr/include/libxml2"
+  "/usr/include/libappindicator3-0.1"
+  "/usr/include/libdbusmenu-glib-0.4"
+  "/usr/include/libnm-glib"
+  "/usr/include/NetworkManager"
+  "/usr/include/webkitgtk-4.0"
+  )
+set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/sblin/Projets/ring-project/client-gnome/src/accountadvancedtab.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/accountadvancedtab.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/accountaudiotab.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/accountaudiotab.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/accountbanstab.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/accountbanstab.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/accountcreationwizard.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/accountcreationwizard.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/accountdevicestab.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/accountdevicestab.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/accountgeneraltab.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/accountgeneraltab.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/accountimportexportview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/accountimportexportview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/accountmigrationview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/accountmigrationview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/accountsecuritytab.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/accountsecuritytab.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/accountvideotab.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/accountvideotab.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/accountview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/accountview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/avatarmanipulation.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/avatarmanipulation.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/backends/edscontactbackend.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/backends/edscontactbackend.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/bannedcontactsview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/bannedcontactsview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/chatview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/chatview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/choosecontactview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/choosecontactview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/contactpopover.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/contactpopover.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/contactpopupmenu.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/contactpopupmenu.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/contactrequestcontentview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/contactrequestcontentview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/contactsview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/contactsview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/currentcallview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/currentcallview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/editcontactview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/editcontactview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/generalsettingsview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/generalsettingsview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/historyview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/historyview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/incomingcallview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/incomingcallview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/main.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/main.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/mediasettingsview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/mediasettingsview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/models/activeitemproxymodel.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/models/activeitemproxymodel.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/models/gtkaccessproxymodel.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/models/gtkaccessproxymodel.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/models/gtkqtreemodel.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/models/gtkqtreemodel.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/models/namenumberfilterproxymodel.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/models/namenumberfilterproxymodel.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/native/dbuserrorhandler.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/native/dbuserrorhandler.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/native/pixbufmanipulator.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/native/pixbufmanipulator.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/pendingcontactrequests.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/pendingcontactrequests.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/recentcontactsview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/recentcontactsview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/ring_client.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/ring_client.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/ringmainwindow.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/ringmainwindow.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/ringnotify.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/ringnotify.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/ringwelcomeview.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/ringwelcomeview.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/usernameregistrationbox.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/usernameregistrationbox.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/utils/accounts.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/utils/accounts.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/utils/calling.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/utils/calling.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/utils/drawing.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/utils/drawing.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/utils/files.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/utils/files.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/utils/menus.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/utils/menus.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/utils/models.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/utils/models.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/video/video_widget.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/video/video_widget.cpp.o"
+  "/home/sblin/Projets/ring-project/client-gnome/src/webkitchatcontainer.cpp" "/home/sblin/Projets/ring-project/client-gnome/build-local/CMakeFiles/gnome-ring.dir/src/webkitchatcontainer.cpp.o"
+  )
+set(CMAKE_CXX_COMPILER_ID "GNU")
+
+# Preprocessor definitions for this target.
+set(CMAKE_TARGET_DEFINITIONS_CXX
+  "QT_CORE_LIB"
+  )
+
+# The include file search paths:
+set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "."
+  "/usr/include/gtk-3.0"
+  "/usr/include/at-spi2-atk/2.0"
+  "/usr/include/at-spi-2.0"
+  "/usr/include/dbus-1.0"
+  "/usr/lib/x86_64-linux-gnu/dbus-1.0/include"
+  "/usr/include/gio-unix-2.0"
+  "/usr/include/mirclient"
+  "/usr/include/mircore"
+  "/usr/include/mircookie"
+  "/usr/include/cairo"
+  "/usr/include/pango-1.0"
+  "/usr/include/harfbuzz"
+  "/usr/include/atk-1.0"
+  "/usr/include/pixman-1"
+  "/usr/include/freetype2"
+  "/usr/include/libpng16"
+  "/usr/include/gdk-pixbuf-2.0"
+  "/usr/include/glib-2.0"
+  "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
+  "/home/sblin/Projets/ring-project/install/lrc/include/libringclient"
+  "/usr/include/x86_64-linux-gnu/qt5"
+  "/usr/include/x86_64-linux-gnu/qt5/QtCore"
+  "/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64"
+  "/usr/include/clutter-1.0"
+  "/usr/include/cogl"
+  "/usr/include/libdrm"
+  "/usr/include/json-glib-1.0"
+  "/usr/include/clutter-gtk-1.0"
+  "/usr/include/evolution-data-server"
+  "/usr/include/nss"
+  "/usr/include/nspr"
+  "/usr/include/libsecret-1"
+  "/usr/include/libsoup-2.4"
+  "/usr/include/libxml2"
+  "/usr/include/libappindicator3-0.1"
+  "/usr/include/libdbusmenu-glib-0.4"
+  "/usr/include/libnm-glib"
+  "/usr/include/NetworkManager"
+  "/usr/include/webkitgtk-4.0"
+  )
+
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")
