@@ -56,7 +56,7 @@
         <child>
           <object class="GtkButton" id="button_send_invitation">
             <property name="visible">True</property>
-            <property name="label">Invite</property>
+            <property name="image">image_invite</property>
             <property name="tooltip-text" translatable="yes">Send invitation</property>
           </object>
           <packing>
@@ -102,42 +102,24 @@
     </child>
     <!-- end of chat text view -->
 
-    <!-- start of chat entry -->
-    <child>
-      <object class="GtkBox" id="hbox_chat_input">
-        <property name="visible">True</property>
-        <property name="orientation">horizontal</property>
-        <child>
-          <object class="GtkEntry" id="entry_chat_input">
-            <property name="visible">True</property>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="button_chat_input">
-            <property name="visible">True</property>
-            <property name="label" translatable="yes">Send</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-      </packing>
-    </child>
-    <!-- end of chat entry -->
-
   </template>
 
   <object class="GtkImage" id="image_back_arrow">
     <property name="visible">True</property>
     <property name="icon-name">go-previous-symbolic</property>
   </object>
+
+  <object class="GtkImage" id="image_invite">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/invite</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_invite-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Send Invitation</property>
+      </object>
+    </child>
+  </object>
   <object class="GtkImage" id="image_place_call">
     <property name="visible">True</property>
-    <property name="icon-name">call-start-symbolic</property>
+    <property name="resource">/cx/ring/RingGnome/call_start</property>
   </object>
 </interface>
