@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-12 10:36-0400\n"
-"PO-Revision-Date: 2017-06-12 14:43+0000\n"
+"PO-Revision-Date: 2017-07-01 23:36+0000\n"
 "Last-Translator: Guillaume Roguez\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/savoirfairelinux/ring/language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:267
 msgid "Hostname"
-msgstr ""
+msgstr "Hostname"
 
 #: src/accountadvancedtab.cpp:510 ui/accountadvancedtab.ui:314
 msgid "Port"
@@ -90,7 +90,7 @@ msgstr "Alias"
 
 #: src/accountgeneraltab.cpp:212
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: src/accountgeneraltab.cpp:238
 msgid "auto-generating..."
@@ -221,7 +221,7 @@ msgstr ""
 #: src/backends/edscontactbackend.cpp:213
 msgctxt "Backend type"
 msgid "Contacts"
-msgstr ""
+msgstr "Kontakty"
 
 #: src/contactpopupmenu.cpp:82
 #, c-format
@@ -287,7 +287,7 @@ msgstr "Volaj"
 #: src/historyview.cpp:338
 msgctxt "Call history"
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #: src/ringnotify.cpp:148
 msgid "Incoming call"
@@ -952,7 +952,7 @@ msgstr ""
 #: ui/currentcallview.ui:273 ui/currentcallview.ui:295
 #: ui/currentcallview.ui:425
 msgid "Hold"
-msgstr ""
+msgstr "Podržať"
 
 #: ui/currentcallview.ui:291
 msgid "Toggle mute audio"
@@ -1180,11 +1180,11 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:228
 msgid "Contacts"
-msgstr ""
+msgstr "Kontakty"
 
 #: ui/ringmainwindow.ui:250
 msgid "History"
-msgstr ""
+msgstr "História"
 
 #: ui/ringmainwindow.ui:272
 msgid "Contact requests"

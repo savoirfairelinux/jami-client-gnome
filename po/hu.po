@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
+# . . <ovari123@zoho.com>, 2017
 # Zsolt <maxigaz@protonmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-12 10:36-0400\n"
-"PO-Revision-Date: 2017-06-12 14:43+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"PO-Revision-Date: 2017-07-13 13:30+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: src/accountadvancedtab.cpp:389
 msgid "_Remove server"
-msgstr ""
+msgstr "Kiszolgáló el_távolítása"
 
 #: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:267
 msgid "Hostname"
@@ -51,7 +52,7 @@ msgstr "Mintavételezési frekvencia"
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
-msgstr ""
+msgstr "Fiókját létrehoztuk, de nem tudtuk regisztrálni a felhasználóneved. Próbáld újra a beállítások menüből."
 
 #: src/accountcreationwizard.cpp:283
 msgctxt "The default username / account alias, if none is set by the user"
@@ -60,19 +61,19 @@ msgstr "Ismeretlen"
 
 #: src/accountcreationwizard.cpp:461
 msgid "Passwords don't match"
-msgstr ""
+msgstr "A jelszavak nem egyeznek"
 
 #: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
 msgid "Bad password"
-msgstr ""
+msgstr "Rossz jelszó"
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
-msgstr ""
+msgstr "Hálózati hiba, próbáld újra"
 
 #: src/accountdevicestab.cpp:213
 msgid "Could not initiate export to the Ring, try again"
-msgstr ""
+msgstr "Nem sikerült a Ring export beavatása, próbáld újra"
 
 #: src/accountdevicestab.cpp:246
 msgctxt "Device Name Column"
@@ -82,7 +83,7 @@ msgstr "Név"
 #: src/accountdevicestab.cpp:251
 msgctxt "Device ID Column"
 msgid "ID"
-msgstr ""
+msgstr "Azonosító"
 
 #: src/accountgeneraltab.cpp:201
 msgid "Alias"
@@ -94,7 +95,7 @@ msgstr "Típus"
 
 #: src/accountgeneraltab.cpp:238
 msgid "auto-generating..."
-msgstr ""
+msgstr "Automatikusan generáló…"
 
 #: src/accountgeneraltab.cpp:251 src/accountgeneraltab.cpp:277
 msgid "Username"
@@ -118,7 +119,7 @@ msgstr "Hangpostaszám"
 
 #: src/accountgeneraltab.cpp:328
 msgid "Name service URL"
-msgstr ""
+msgstr "Webcím névszolgáltatás"
 
 #: src/accountgeneraltab.cpp:341
 msgid "Auto-answer calls"
@@ -130,28 +131,28 @@ msgstr "UPnP engedélyezve"
 
 #: src/accountgeneraltab.cpp:357
 msgid "DTMF tone type:"
-msgstr ""
+msgstr "Kettős hangú többfrekvenciás (DTMF) típus"
 
 #: src/accountimportexportview.cpp:99
 msgid "Select account export location"
-msgstr ""
+msgstr "Válasszon a fiók export helyét"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
 #: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
-msgstr "Mégse"
+msgstr "Mé_gse"
 
 #: src/accountimportexportview.cpp:104
 msgid "Select"
-msgstr ""
+msgstr "Választ"
 
 #: src/accountimportexportview.cpp:211
 msgid "Error importing account(s)"
-msgstr ""
+msgstr "Fiók(ok) importálása hiba"
 
 #: src/accountimportexportview.cpp:263
 msgid "Error exporting account(s)"
-msgstr ""
+msgstr "Fiók(ok) exportálása hiba"
 
 #: src/accountvideotab.cpp:190
 msgctxt "The name of the codec"
@@ -166,7 +167,7 @@ msgstr "Általános"
 #: src/accountview.cpp:175
 msgctxt "Account settings"
 msgid "Devices"
-msgstr ""
+msgstr "Eszközök"
 
 #: src/accountview.cpp:181
 msgctxt "Account settings"
@@ -204,15 +205,15 @@ msgstr "Állapot"
 
 #: src/avatarmanipulation.cpp:380
 msgid "Open Avatar Image"
-msgstr ""
+msgstr "Képmás megnyitása"
 
 #: src/avatarmanipulation.cpp:383
 msgid "_Cancel"
-msgstr ""
+msgstr "Mé_gse"
 
 #: src/avatarmanipulation.cpp:385
 msgid "_Open"
-msgstr ""
+msgstr "_Megnyitás…"
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
@@ -221,18 +222,18 @@ msgstr "Ismeretlen EDS címjegyzék"
 #: src/backends/edscontactbackend.cpp:213
 msgctxt "Backend type"
 msgid "Contacts"
-msgstr "Partnerek"
+msgstr "Névjegyzék"
 
 #: src/contactpopupmenu.cpp:82
 #, c-format
 msgid ""
 "Are you sure you want to delete contact \"%s\"? It will be removed from your"
 " system's addressbook."
-msgstr ""
+msgstr "Biztosan szeretnél törölni a(z) „%s” névjegyet? Eltávolít a névjegy a rendszered névjegyzékéből."
 
 #: src/contactpopupmenu.cpp:114
 msgid "_Call"
-msgstr ""
+msgstr "_Felhívása"
 
 #: src/contactpopupmenu.cpp:117
 msgid "_Copy name"
@@ -244,11 +245,11 @@ msgstr "_Szám másolása"
 
 #: src/contactpopupmenu.cpp:123
 msgid "_Add to contact"
-msgstr "_Hozzáadás partnerként"
+msgstr "Névjegy _hozzáadása"
 
 #: src/contactpopupmenu.cpp:126
 msgid "_Remove contact"
-msgstr ""
+msgstr "Névjegy _törlése"
 
 #: src/dialogs.c:53
 msgid "Working..."
@@ -260,18 +261,18 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Gaston Miron - Beta 2\n"
 "built on %.25s"
-msgstr ""
+msgstr "Gaston Miron - 2 béta verzió\nKiadva: %.25s"
 
 #: src/dialogs.c:132
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "A GNOME kliens Ring-hez.\nRing a szabad szoftver az univerzális kommunikációhoz, amely tiszteletben tartja a felhasználók szabadságát és magánéletét."
 
 #: src/editcontactview.cpp:185
 msgctxt "Phone number category"
 msgid "home"
-msgstr ""
+msgstr "Főoldal"
 
 #: src/generalsettingsview.cpp:102
 msgid ""
@@ -296,7 +297,7 @@ msgstr "Bejövő hívás"
 #: src/ringnotify.cpp:165 src/ringnotify.cpp:343
 msgctxt "notification action name"
 msgid "Show"
-msgstr ""
+msgstr "Mutat"
 
 #: src/ringnotify.cpp:267
 #, c-format
@@ -306,7 +307,7 @@ msgstr "%s üzenete:"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
-msgstr ""
+msgstr "Engedélyezze a hibakeresése"
 
 #: src/ring_client_options.c:68
 msgid ""
@@ -321,7 +322,7 @@ msgstr "- GNOME-kliens a Ringhez"
 #: src/ringmainwindow.cpp:613
 #, c-format
 msgid "Invalid Ring username: %s"
-msgstr ""
+msgstr "Érvénytelen Ring felhasználónév: %s"
 
 #: src/ringmainwindow.cpp:628
 msgid "Error resolving username, nameserver is possibly unreachable"
@@ -335,31 +336,31 @@ msgstr ""
 #: src/ringmainwindow.cpp:1150
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr ""
+msgstr "Hívás kezdeményezése"
 
 #: src/ringmainwindow.cpp:1152
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr ""
+msgstr "Csevegés megnyitása"
 
 #: src/ringmainwindow.cpp:1232
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s..."
-msgstr ""
+msgstr "%s…"
 
 #: src/ringmainwindow.cpp:1238
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s (error)"
-msgstr ""
+msgstr "%s (hiba)"
 
 #: src/ringmainwindow.cpp:1429
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr "Partnerek keresése vagy szám beírása"
+msgstr "Névjegyzék keresése vagy szám beírása"
 
 #: src/ringwelcomeview.cpp:75
 msgid ""
@@ -382,36 +383,36 @@ msgstr "Ringazonosító lekérése..."
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Ring a szabad szoftver az univerzális kommunikációhoz, amely tiszteletben tartja a felhasználók szabadságát és magánéletét."
 
 #: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr ""
+msgstr "Ringazonosító QR-kód"
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
-msgstr ""
+msgstr "A beírt felhasználónév nem érhető"
 
 #: src/usernameregistrationbox.cpp:129
 msgid "Username is not available"
-msgstr ""
+msgstr "Felhasználónév nem elérhető"
 
 #: src/usernameregistrationbox.cpp:138
 msgid "The entered username is not valid"
-msgstr ""
+msgstr "A beírt felhasználónév érvénytelen"
 
 #: src/usernameregistrationbox.cpp:139
 msgid "Username is not valid"
-msgstr ""
+msgstr "Érvénytelen felhasználónév"
 
 #: src/usernameregistrationbox.cpp:148
 msgid "The entered username is available"
-msgstr ""
+msgstr "A beírt felhasználónév érhető"
 
 #: src/usernameregistrationbox.cpp:149
 msgid "Username is available"
-msgstr ""
+msgstr "Felhasználónév elérhető"
 
 #: src/usernameregistrationbox.cpp:158
 msgid "Failed to perform lookup"
@@ -439,20 +440,20 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:397
 msgid "Invalid username"
-msgstr ""
+msgstr "Érvénytelen felhasználónév"
 
 #: src/usernameregistrationbox.cpp:411
 msgid "Username already taken"
-msgstr ""
+msgstr "A felhasználónév már regisztrálva van"
 
 #: src/usernameregistrationbox.cpp:418
 msgid "Network error"
-msgstr ""
+msgstr "Hálózati hiba"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Ring Error"
-msgstr ""
+msgstr "Ring hiba"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)..."
@@ -550,7 +551,7 @@ msgstr "Nyilvános cím"
 
 #: ui/accountadvancedtab.ui:536
 msgid "Bootstrap Servers"
-msgstr ""
+msgstr "Bootstrap szerverek"
 
 #: ui/accountadvancedtab.ui:593
 msgid ""
@@ -588,11 +589,11 @@ msgstr "Le"
 
 #: ui/accountaudiotab.ui:75
 msgid "Audio Codecs"
-msgstr ""
+msgstr "Hangkodekek"
 
 #: ui/accountcreationwizard.ui:32
 msgid "Welcome to "
-msgstr ""
+msgstr "Isten hozott"
 
 #: ui/accountcreationwizard.ui:66
 msgid "Create Ring Account"
@@ -612,7 +613,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:103 ui/accountcreationwizard.ui:157
 msgid "Link this device to an existing account"
-msgstr ""
+msgstr "Ezt az eszköz csatlakoztassa egy másik eszközön létrehozott RING-fiókhoz"
 
 #: ui/accountcreationwizard.ui:118
 msgid ""
@@ -626,7 +627,7 @@ msgstr ""
 #: ui/accountcreationwizard.ui:126 ui/accountcreationwizard.ui:215
 #: ui/accountcreationwizard.ui:427
 msgid "Previous"
-msgstr ""
+msgstr "Vissza"
 
 #: ui/accountcreationwizard.ui:134
 msgid "Okay, I have the PIN!"
@@ -634,11 +635,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:172
 msgid "Enter your pin:"
-msgstr ""
+msgstr "Írd be a PIN-kódod:"
 
 #: ui/accountcreationwizard.ui:191
 msgid "Enter your password:"
-msgstr ""
+msgstr "Írd be a jelszavad:"
 
 #: ui/accountcreationwizard.ui:223 ui/accountcreationwizard.ui:435
 msgid "Next"
@@ -650,11 +651,11 @@ msgstr "Profil"
 
 #: ui/accountcreationwizard.ui:285
 msgid "Full name:"
-msgstr ""
+msgstr "Teljes név:"
 
 #: ui/accountcreationwizard.ui:327
 msgid "Ring Account"
-msgstr ""
+msgstr "Ringfiók"
 
 #: ui/accountcreationwizard.ui:340
 msgid "Register public username (experimental):"
@@ -669,7 +670,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:369
 msgid "Password (confirm):"
-msgstr ""
+msgstr "Jelszó megerősítése:"
 
 #: ui/accountcreationwizard.ui:370
 msgid ""
@@ -683,7 +684,7 @@ msgstr "A Ringfiókja létrehozása…"
 
 #: ui/accountcreationwizard.ui:492
 msgid "This may take a few minutes."
-msgstr ""
+msgstr "Ez néhány percet vesz igénybe."
 
 #: ui/accountcreationwizard.ui:518
 msgid "Retrieving your Ring account..."
@@ -696,23 +697,23 @@ msgstr ""
 #: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
 #: ui/accountdevicestab.ui:239
 msgid "OK"
-msgstr ""
+msgstr "Rendben"
 
 #: ui/accountdevicestab.ui:21
 msgid "My Device ID:"
-msgstr ""
+msgstr "Eszközazonosítóm:"
 
 #: ui/accountdevicestab.ui:40
 msgid "Devices"
-msgstr ""
+msgstr "Eszközök"
 
 #: ui/accountdevicestab.ui:66
 msgid "Add device"
-msgstr ""
+msgstr "Eszköz hozzáadása"
 
 #: ui/accountdevicestab.ui:83
 msgid "Add New Device"
-msgstr ""
+msgstr "Új eszköz hozzáadása"
 
 #: ui/accountdevicestab.ui:98
 msgid ""
@@ -723,7 +724,7 @@ msgstr ""
 
 #: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
-msgstr ""
+msgstr "Jelszó (kötelező)"
 
 #: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
@@ -787,7 +788,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:39
 msgid "Alias:"
-msgstr ""
+msgstr "Álnév:"
 
 #: ui/accountmigrationview.ui:102
 msgid "Please enter your password:"
@@ -879,7 +880,7 @@ msgstr "Videó engedélyezése"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
-msgstr ""
+msgstr "Videókodekek"
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
@@ -923,11 +924,11 @@ msgstr ""
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
-msgstr ""
+msgstr "Hívás kezdeményezése"
 
 #: ui/chatview.ui:60
 msgid "Send invitation"
-msgstr ""
+msgstr "Meghívás küldése"
 
 #: ui/chatview.ui:122
 msgid "Send"
@@ -980,7 +981,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:361 ui/currentcallview.ui:443
 msgid "Video quality"
-msgstr ""
+msgstr "Videó minőség"
 
 #: ui/currentcallview.ui:377
 msgid "Toggle show chat"
@@ -1000,11 +1001,11 @@ msgstr "Felvétel"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
-msgstr "Címjegyzés kiválasztása"
+msgstr "Névjegyzék kiválasztása"
 
 #: ui/editcontactview.ui:15
 msgid "Addressbook"
-msgstr "Címjegyzék"
+msgstr "Névjegyzék"
 
 #: ui/editcontactview.ui:29
 msgid "Name"
@@ -1012,7 +1013,7 @@ msgstr "Név"
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
-msgstr "Partner neve"
+msgstr "Névjegy név"
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
@@ -1036,11 +1037,11 @@ msgstr "Mentés"
 
 #: ui/generalsettingsview.ui:32
 msgid "Profile Settings"
-msgstr ""
+msgstr "Profilbeállítások"
 
 #: ui/generalsettingsview.ui:74
 msgid "Ring Settings"
-msgstr ""
+msgstr "Ring beállítások"
 
 #: ui/generalsettingsview.ui:90
 msgid "Start Ring on login"
@@ -1108,7 +1109,7 @@ msgstr "Lerak"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
-msgstr ""
+msgstr "Hangbeállítások"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
@@ -1128,7 +1129,7 @@ msgstr "Bemeneti eszköz:"
 
 #: ui/mediasettingsview.ui:134
 msgid "Camera Settings"
-msgstr ""
+msgstr "Videobeállítások"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"
@@ -1180,7 +1181,7 @@ msgstr "Beszélgetések"
 
 #: ui/ringmainwindow.ui:228
 msgid "Contacts"
-msgstr "Partnerek"
+msgstr "Névjegyzék"
 
 #: ui/ringmainwindow.ui:250
 msgid "History"
@@ -1188,7 +1189,7 @@ msgstr "Előzmények"
 
 #: ui/ringmainwindow.ui:272
 msgid "Contact requests"
-msgstr ""
+msgstr "Névjegyek kérelmek"
 
 #: ui/usernameregistrationbox.ui:12
 msgid "enter username here"
@@ -1196,4 +1197,4 @@ msgstr ""
 
 #: ui/usernameregistrationbox.ui:24
 msgid "Register"
-msgstr ""
+msgstr "Regisztráció"

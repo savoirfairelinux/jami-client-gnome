@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the Ring package.
 # 
 # Translators:
-# Åke Engelbrektson, 2016
+# Åke Engelbrektson, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-12 10:36-0400\n"
-"PO-Revision-Date: 2017-06-12 14:43+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"PO-Revision-Date: 2017-06-12 16:44+0000\n"
+"Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/ring/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -346,13 +346,13 @@ msgstr "öppna chatt"
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s..."
-msgstr ""
+msgstr "%s..."
 
 #: src/ringmainwindow.cpp:1238
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s (error)"
-msgstr ""
+msgstr "%s (fel)"
 
 #: src/ringmainwindow.cpp:1429
 msgctxt ""
@@ -791,7 +791,7 @@ msgstr "Alias:"
 
 #: ui/accountmigrationview.ui:102
 msgid "Please enter your password:"
-msgstr ""
+msgstr "Ange ditt lösenord:"
 
 #: ui/accountmigrationview.ui:129
 msgid "Migrate account"
@@ -799,7 +799,7 @@ msgstr "Migrera konto"
 
 #: ui/accountmigrationview.ui:148
 msgid "Migration failed, wrong password ?"
-msgstr ""
+msgstr "Migreringen misslyckades, fel lösenord?"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -927,7 +927,7 @@ msgstr "Starta samtal"
 
 #: ui/chatview.ui:60
 msgid "Send invitation"
-msgstr ""
+msgstr "Skicka inbjudan"
 
 #: ui/chatview.ui:122
 msgid "Send"

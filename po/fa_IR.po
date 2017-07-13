@@ -5,14 +5,15 @@
 # Translators:
 # Amin Mahmudian, 2017
 # Danial Behzadi <dani.behzi@ubuntu.com>, 2016-2017
+# Hasan Hejdari Nasab <hsn6@openmailbox.org>, 2017
 # Hessam Shahpouri, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-12 10:36-0400\n"
-"PO-Revision-Date: 2017-06-12 14:43+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"PO-Revision-Date: 2017-06-23 06:33+0000\n"
+"Last-Translator: Hasan Hejdari Nasab <hsn6@openmailbox.org>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/ring/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,7 +48,7 @@ msgstr "نرخ بیت"
 
 #: src/accountaudiotab.cpp:189
 msgid "Samplerate"
-msgstr "نرخ نمونه گیری"
+msgstr "نرخ نمونه‌گیری"
 
 #: src/accountcreationwizard.cpp:240
 msgid ""
