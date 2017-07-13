@@ -1,17 +1,18 @@
-# Gettext PO translation template file for the GNOME client of the Ring project.
-# Copyright (C) 2015-2017 Savoir-faire Linux Inc.
-# This file is distributed under the same license as the Ring package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Adrien Béraud <adrien.beraud@savoirfairelinux.com>, 2017
 # Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>, 2015
 # Julie LeBrun <julie.lebrun@savoirfairelinux.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-12 10:36-0400\n"
-"PO-Revision-Date: 2017-06-12 14:43+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"POT-Creation-Date: 2017-07-13 13:55-0400\n"
+"PO-Revision-Date: 2017-07-13 17:55+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: French (Canada) (http://www.transifex.com/savoirfairelinux/ring/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +24,7 @@ msgstr ""
 msgid "_Remove server"
 msgstr "_Retirer le serveur de la liste"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:267
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
 msgid "Hostname"
 msgstr "Nom d'hôte"
 
@@ -85,52 +86,48 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "Identifiant"
 
-#: src/accountgeneraltab.cpp:201
+#: src/accountgeneraltab.cpp:185
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountgeneraltab.cpp:212
+#: src/accountgeneraltab.cpp:196
 msgid "Type"
 msgstr "Type"
 
-#: src/accountgeneraltab.cpp:238
+#: src/accountgeneraltab.cpp:222
 msgid "auto-generating..."
 msgstr ""
 
-#: src/accountgeneraltab.cpp:251 src/accountgeneraltab.cpp:277
+#: src/accountgeneraltab.cpp:235 src/accountgeneraltab.cpp:261
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: src/accountgeneraltab.cpp:287
+#: src/accountgeneraltab.cpp:271
 msgid "Password"
 msgstr "Mot de passe"
 
-#: src/accountgeneraltab.cpp:300
+#: src/accountgeneraltab.cpp:284
 msgid "Show password"
 msgstr "Afficher le mot de passe"
 
-#: src/accountgeneraltab.cpp:306
+#: src/accountgeneraltab.cpp:290
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/accountgeneraltab.cpp:316
+#: src/accountgeneraltab.cpp:300
 msgid "Voicemail number"
 msgstr "Numéro de boîte vocale"
 
-#: src/accountgeneraltab.cpp:328
+#: src/accountgeneraltab.cpp:312
 msgid "Name service URL"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:341
+#: src/accountgeneraltab.cpp:325
 msgid "Auto-answer calls"
 msgstr "Réponse-automatique aux appels"
 
-#: src/accountgeneraltab.cpp:349
+#: src/accountgeneraltab.cpp:333
 msgid "UPnP enabled"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:357
-msgid "DTMF tone type:"
 msgstr ""
 
 #: src/accountimportexportview.cpp:99
@@ -159,46 +156,51 @@ msgctxt "The name of the codec"
 msgid "Name"
 msgstr "Nom"
 
-#: src/accountview.cpp:167
+#: src/accountview.cpp:168
 msgctxt "Account settings"
 msgid "General"
 msgstr "Général"
 
-#: src/accountview.cpp:175
+#: src/accountview.cpp:176
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "Appareils"
 
-#: src/accountview.cpp:181
+#: src/accountview.cpp:182
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Sécurité"
 
-#: src/accountview.cpp:186
+#: src/accountview.cpp:187
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Avancé"
 
-#: src/accountview.cpp:241
+#: src/accountview.cpp:194
+msgctxt "List of banned peers"
+msgid "Bans"
+msgstr ""
+
+#: src/accountview.cpp:250
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "Êtes-vous certain de vouloir supprimer le compte \"%s\"?"
 
-#: src/accountview.cpp:368
+#: src/accountview.cpp:377
 msgid "New Account"
 msgstr "Nouveau compte"
 
-#: src/accountview.cpp:518
+#: src/accountview.cpp:527
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Activer"
 
-#: src/accountview.cpp:524
+#: src/accountview.cpp:533
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountview.cpp:532
+#: src/accountview.cpp:541
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Statut"
@@ -267,7 +269,7 @@ msgstr ""
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "Le client GNOME pour Ring.\nRing est un logiciel libre pour une communication universelle qui respecte la liberté et vie privée de ses utilisateurs."
+msgstr "Le client GNOME pour Ring.\nRing est un logiciel libre de communication universel qui respecte la liberté et vie privée de ses utilisateurs."
 
 #: src/editcontactview.cpp:185
 msgctxt "Phone number category"
@@ -551,7 +553,7 @@ msgstr "Adresse publiée"
 
 #: ui/accountadvancedtab.ui:536
 msgid "Bootstrap Servers"
-msgstr ""
+msgstr "Nœuds d’amorçage"
 
 #: ui/accountadvancedtab.ui:593
 msgid ""
@@ -742,11 +744,11 @@ msgstr ""
 msgid "Your generated pin:"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:42
+#: ui/accountgeneraltab.ui:69
 msgid "Account"
 msgstr "Compte"
 
-#: ui/accountgeneraltab.ui:82
+#: ui/accountgeneraltab.ui:126
 msgid "Parameters"
 msgstr "Paramètres"
 
@@ -1145,6 +1147,14 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
+msgstr ""
+
+#: ui/mediasettingsview.ui:244
+msgid "Hardware Acceleration"
+msgstr ""
+
+#: ui/mediasettingsview.ui:260
+msgid "Enable hardware decoding:"
 msgstr ""
 
 #: ui/ringgearsmenu.ui:13

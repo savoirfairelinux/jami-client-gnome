@@ -1,6 +1,6 @@
-# Gettext PO translation template file for the GNOME client of the Ring project.
-# Copyright (C) 2015-2017 Savoir-faire Linux Inc.
-# This file is distributed under the same license as the Ring package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
 # Guillaume Roguez, 2015
@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-12 10:36-0400\n"
-"PO-Revision-Date: 2017-06-12 14:43+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"POT-Creation-Date: 2017-07-13 13:55-0400\n"
+"PO-Revision-Date: 2017-07-13 17:55+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "_Remove server"
 msgstr "Š_alinti serverį"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:267
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
 msgid "Hostname"
 msgstr "Kompiuterio vardas"
 
@@ -86,53 +86,49 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/accountgeneraltab.cpp:201
+#: src/accountgeneraltab.cpp:185
 msgid "Alias"
 msgstr "Slapyvardis"
 
-#: src/accountgeneraltab.cpp:212
+#: src/accountgeneraltab.cpp:196
 msgid "Type"
 msgstr "Tipas"
 
-#: src/accountgeneraltab.cpp:238
+#: src/accountgeneraltab.cpp:222
 msgid "auto-generating..."
 msgstr "automatiškai kuriama..."
 
-#: src/accountgeneraltab.cpp:251 src/accountgeneraltab.cpp:277
+#: src/accountgeneraltab.cpp:235 src/accountgeneraltab.cpp:261
 msgid "Username"
 msgstr "Naudotojo vardas"
 
-#: src/accountgeneraltab.cpp:287
+#: src/accountgeneraltab.cpp:271
 msgid "Password"
 msgstr "Slaptažodis"
 
-#: src/accountgeneraltab.cpp:300
+#: src/accountgeneraltab.cpp:284
 msgid "Show password"
 msgstr "Rodyti slaptažodį"
 
-#: src/accountgeneraltab.cpp:306
+#: src/accountgeneraltab.cpp:290
 msgid "Proxy"
 msgstr "Įgaliotasis serveris"
 
-#: src/accountgeneraltab.cpp:316
+#: src/accountgeneraltab.cpp:300
 msgid "Voicemail number"
 msgstr "Balso pašto numeris"
 
-#: src/accountgeneraltab.cpp:328
+#: src/accountgeneraltab.cpp:312
 msgid "Name service URL"
 msgstr "Vardų paslaugos URL"
 
-#: src/accountgeneraltab.cpp:341
+#: src/accountgeneraltab.cpp:325
 msgid "Auto-answer calls"
 msgstr "Automatiškai atsiliepti į skambučius"
 
-#: src/accountgeneraltab.cpp:349
+#: src/accountgeneraltab.cpp:333
 msgid "UPnP enabled"
 msgstr "UPnP įjungta"
-
-#: src/accountgeneraltab.cpp:357
-msgid "DTMF tone type:"
-msgstr "DTMF tono tipas:"
 
 #: src/accountimportexportview.cpp:99
 msgid "Select account export location"
@@ -160,46 +156,51 @@ msgctxt "The name of the codec"
 msgid "Name"
 msgstr "Vardas"
 
-#: src/accountview.cpp:167
+#: src/accountview.cpp:168
 msgctxt "Account settings"
 msgid "General"
 msgstr "Bendra"
 
-#: src/accountview.cpp:175
+#: src/accountview.cpp:176
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "Įrenginiai"
 
-#: src/accountview.cpp:181
+#: src/accountview.cpp:182
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Saugumas"
 
-#: src/accountview.cpp:186
+#: src/accountview.cpp:187
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Išplėstiniai"
 
-#: src/accountview.cpp:241
+#: src/accountview.cpp:194
+msgctxt "List of banned peers"
+msgid "Bans"
+msgstr ""
+
+#: src/accountview.cpp:250
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "Ar tikrai norite ištrinti paskyrą \"%s\"?"
 
-#: src/accountview.cpp:368
+#: src/accountview.cpp:377
 msgid "New Account"
 msgstr "Nauja paskyra"
 
-#: src/accountview.cpp:518
+#: src/accountview.cpp:527
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Įjungta"
 
-#: src/accountview.cpp:524
+#: src/accountview.cpp:533
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Slapyvardis"
 
-#: src/accountview.cpp:532
+#: src/accountview.cpp:541
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Būsena"
@@ -348,13 +349,13 @@ msgstr "atverti pokalbį"
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s..."
-msgstr ""
+msgstr "%s..."
 
 #: src/ringmainwindow.cpp:1238
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s (error)"
-msgstr ""
+msgstr "%s (klaida)"
 
 #: src/ringmainwindow.cpp:1429
 msgctxt ""
@@ -743,11 +744,11 @@ msgstr "Eksportuojama paskyra Ring sistemoje..."
 msgid "Your generated pin:"
 msgstr "Jūsų sukurtas pin:"
 
-#: ui/accountgeneraltab.ui:42
+#: ui/accountgeneraltab.ui:69
 msgid "Account"
 msgstr "Paskyra"
 
-#: ui/accountgeneraltab.ui:82
+#: ui/accountgeneraltab.ui:126
 msgid "Parameters"
 msgstr "Parametrai"
 
@@ -793,7 +794,7 @@ msgstr "Slapyvardis:"
 
 #: ui/accountmigrationview.ui:102
 msgid "Please enter your password:"
-msgstr ""
+msgstr "Prašome įvesti savo slaptažodį:"
 
 #: ui/accountmigrationview.ui:129
 msgid "Migrate account"
@@ -801,7 +802,7 @@ msgstr "Perkelti paskyrą"
 
 #: ui/accountmigrationview.ui:148
 msgid "Migration failed, wrong password ?"
-msgstr ""
+msgstr "Perkėlimas nepavyko, neteisingas slaptažodis ?"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -929,7 +930,7 @@ msgstr "Skambinti"
 
 #: ui/chatview.ui:60
 msgid "Send invitation"
-msgstr ""
+msgstr "Siųsti pakvietimą"
 
 #: ui/chatview.ui:122
 msgid "Send"
@@ -1147,6 +1148,14 @@ msgstr "Raiška:"
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
 msgstr "Kadrų dažnis:"
+
+#: ui/mediasettingsview.ui:244
+msgid "Hardware Acceleration"
+msgstr ""
+
+#: ui/mediasettingsview.ui:260
+msgid "Enable hardware decoding:"
+msgstr ""
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"

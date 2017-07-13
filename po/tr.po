@@ -1,6 +1,6 @@
-# Gettext PO translation template file for the GNOME client of the Ring project.
-# Copyright (C) 2015-2017 Savoir-faire Linux Inc.
-# This file is distributed under the same license as the Ring package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
 # Caner Başaran <basaran.caner@protonmail.com>, 2016
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-12 10:36-0400\n"
-"PO-Revision-Date: 2017-06-12 14:43+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"POT-Creation-Date: 2017-07-13 13:55-0400\n"
+"PO-Revision-Date: 2017-07-13 17:55+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/ring/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "_Remove server"
 msgstr "Sunucuyu _sil"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:267
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
 msgid "Hostname"
 msgstr "Sunucu adı"
 
@@ -88,53 +88,49 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "Kimlik"
 
-#: src/accountgeneraltab.cpp:201
+#: src/accountgeneraltab.cpp:185
 msgid "Alias"
 msgstr "Takma ad"
 
-#: src/accountgeneraltab.cpp:212
+#: src/accountgeneraltab.cpp:196
 msgid "Type"
 msgstr "Tür"
 
-#: src/accountgeneraltab.cpp:238
+#: src/accountgeneraltab.cpp:222
 msgid "auto-generating..."
 msgstr "kendiliğinden oluşturuluyor..."
 
-#: src/accountgeneraltab.cpp:251 src/accountgeneraltab.cpp:277
+#: src/accountgeneraltab.cpp:235 src/accountgeneraltab.cpp:261
 msgid "Username"
 msgstr "Kullanıcı adı"
 
-#: src/accountgeneraltab.cpp:287
+#: src/accountgeneraltab.cpp:271
 msgid "Password"
 msgstr "Parola"
 
-#: src/accountgeneraltab.cpp:300
+#: src/accountgeneraltab.cpp:284
 msgid "Show password"
 msgstr "Parolayı göster"
 
-#: src/accountgeneraltab.cpp:306
+#: src/accountgeneraltab.cpp:290
 msgid "Proxy"
 msgstr "Vekil"
 
-#: src/accountgeneraltab.cpp:316
+#: src/accountgeneraltab.cpp:300
 msgid "Voicemail number"
 msgstr "Sesli ileti numarası"
 
-#: src/accountgeneraltab.cpp:328
+#: src/accountgeneraltab.cpp:312
 msgid "Name service URL"
 msgstr "Ad hizmeti adresi"
 
-#: src/accountgeneraltab.cpp:341
+#: src/accountgeneraltab.cpp:325
 msgid "Auto-answer calls"
 msgstr "Aramaları kendiliğinden cevapla"
 
-#: src/accountgeneraltab.cpp:349
+#: src/accountgeneraltab.cpp:333
 msgid "UPnP enabled"
 msgstr "UPnP etkin"
-
-#: src/accountgeneraltab.cpp:357
-msgid "DTMF tone type:"
-msgstr "DTMF ton türü:"
 
 #: src/accountimportexportview.cpp:99
 msgid "Select account export location"
@@ -162,46 +158,51 @@ msgctxt "The name of the codec"
 msgid "Name"
 msgstr "Ad"
 
-#: src/accountview.cpp:167
+#: src/accountview.cpp:168
 msgctxt "Account settings"
 msgid "General"
 msgstr "Genel"
 
-#: src/accountview.cpp:175
+#: src/accountview.cpp:176
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "Aygıtlar"
 
-#: src/accountview.cpp:181
+#: src/accountview.cpp:182
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Güvenlik"
 
-#: src/accountview.cpp:186
+#: src/accountview.cpp:187
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Gelişmiş"
 
-#: src/accountview.cpp:241
+#: src/accountview.cpp:194
+msgctxt "List of banned peers"
+msgid "Bans"
+msgstr ""
+
+#: src/accountview.cpp:250
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "\"%s\" hesabını silmek istediğinizden emin misiniz?"
 
-#: src/accountview.cpp:368
+#: src/accountview.cpp:377
 msgid "New Account"
 msgstr "Yeni Hesap"
 
-#: src/accountview.cpp:518
+#: src/accountview.cpp:527
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Etkin"
 
-#: src/accountview.cpp:524
+#: src/accountview.cpp:533
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Takma ad"
 
-#: src/accountview.cpp:532
+#: src/accountview.cpp:541
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Durum"
@@ -745,11 +746,11 @@ msgstr "Ring'de hesap dışa aktarılıyor..."
 msgid "Your generated pin:"
 msgstr "Oluşturulan pin'iniz:"
 
-#: ui/accountgeneraltab.ui:42
+#: ui/accountgeneraltab.ui:69
 msgid "Account"
 msgstr "Hesap"
 
-#: ui/accountgeneraltab.ui:82
+#: ui/accountgeneraltab.ui:126
 msgid "Parameters"
 msgstr "Değişkenler"
 
@@ -1149,6 +1150,14 @@ msgstr "Çözünürlük:"
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
 msgstr "Kare hızı:"
+
+#: ui/mediasettingsview.ui:244
+msgid "Hardware Acceleration"
+msgstr ""
+
+#: ui/mediasettingsview.ui:260
+msgid "Enable hardware decoding:"
+msgstr ""
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"

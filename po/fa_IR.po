@@ -1,18 +1,19 @@
-# Gettext PO translation template file for the GNOME client of the Ring project.
-# Copyright (C) 2015-2017 Savoir-faire Linux Inc.
-# This file is distributed under the same license as the Ring package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
 # Amin Mahmudian, 2017
 # Danial Behzadi <dani.behzi@ubuntu.com>, 2016-2017
+# Hasan Hejdari Nasab <hsn6@openmailbox.org>, 2017
 # Hessam Shahpouri, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-12 10:36-0400\n"
-"PO-Revision-Date: 2017-06-12 14:43+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"POT-Creation-Date: 2017-07-13 13:55-0400\n"
+"PO-Revision-Date: 2017-07-13 17:55+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/ring/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +25,7 @@ msgstr ""
 msgid "_Remove server"
 msgstr "_برداشتن کارساز"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:267
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
 msgid "Hostname"
 msgstr "نام هاست"
 
@@ -47,7 +48,7 @@ msgstr "نرخ بیت"
 
 #: src/accountaudiotab.cpp:189
 msgid "Samplerate"
-msgstr "نرخ نمونه گیری"
+msgstr "نرخ نمونه‌گیری"
 
 #: src/accountcreationwizard.cpp:240
 msgid ""
@@ -86,53 +87,49 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "شناسه"
 
-#: src/accountgeneraltab.cpp:201
+#: src/accountgeneraltab.cpp:185
 msgid "Alias"
 msgstr "نام مستعار"
 
-#: src/accountgeneraltab.cpp:212
+#: src/accountgeneraltab.cpp:196
 msgid "Type"
 msgstr "نوع"
 
-#: src/accountgeneraltab.cpp:238
+#: src/accountgeneraltab.cpp:222
 msgid "auto-generating..."
 msgstr "تولید خودکار..."
 
-#: src/accountgeneraltab.cpp:251 src/accountgeneraltab.cpp:277
+#: src/accountgeneraltab.cpp:235 src/accountgeneraltab.cpp:261
 msgid "Username"
 msgstr "نام کاربری"
 
-#: src/accountgeneraltab.cpp:287
+#: src/accountgeneraltab.cpp:271
 msgid "Password"
 msgstr "گذرواژه"
 
-#: src/accountgeneraltab.cpp:300
+#: src/accountgeneraltab.cpp:284
 msgid "Show password"
 msgstr "نمایش گذرواژه"
 
-#: src/accountgeneraltab.cpp:306
+#: src/accountgeneraltab.cpp:290
 msgid "Proxy"
 msgstr "پراکسی"
 
-#: src/accountgeneraltab.cpp:316
+#: src/accountgeneraltab.cpp:300
 msgid "Voicemail number"
 msgstr "شماره پست صوتی"
 
-#: src/accountgeneraltab.cpp:328
+#: src/accountgeneraltab.cpp:312
 msgid "Name service URL"
 msgstr "نشانی اینترنتی خدمت نام"
 
-#: src/accountgeneraltab.cpp:341
+#: src/accountgeneraltab.cpp:325
 msgid "Auto-answer calls"
 msgstr "پاسخگویی خودکار تماس‌ها"
 
-#: src/accountgeneraltab.cpp:349
+#: src/accountgeneraltab.cpp:333
 msgid "UPnP enabled"
 msgstr "UPnP فعال شد"
-
-#: src/accountgeneraltab.cpp:357
-msgid "DTMF tone type:"
-msgstr "نوع تون DTMF"
 
 #: src/accountimportexportview.cpp:99
 msgid "Select account export location"
@@ -160,46 +157,51 @@ msgctxt "The name of the codec"
 msgid "Name"
 msgstr "نام"
 
-#: src/accountview.cpp:167
+#: src/accountview.cpp:168
 msgctxt "Account settings"
 msgid "General"
 msgstr "همگانی"
 
-#: src/accountview.cpp:175
+#: src/accountview.cpp:176
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "افزاره‌ها"
 
-#: src/accountview.cpp:181
+#: src/accountview.cpp:182
 msgctxt "Account settings"
 msgid "Security"
 msgstr "امنیت"
 
-#: src/accountview.cpp:186
+#: src/accountview.cpp:187
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "پیشرفته"
 
-#: src/accountview.cpp:241
+#: src/accountview.cpp:194
+msgctxt "List of banned peers"
+msgid "Bans"
+msgstr ""
+
+#: src/accountview.cpp:250
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "آیا مایل به حذف حساب « %s » هستید؟"
 
-#: src/accountview.cpp:368
+#: src/accountview.cpp:377
 msgid "New Account"
 msgstr "حساب جدید"
 
-#: src/accountview.cpp:518
+#: src/accountview.cpp:527
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "فعال"
 
-#: src/accountview.cpp:524
+#: src/accountview.cpp:533
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "نام مستعار"
 
-#: src/accountview.cpp:532
+#: src/accountview.cpp:541
 msgctxt "Account status column"
 msgid "Status"
 msgstr "وضعیت"
@@ -743,11 +745,11 @@ msgstr ""
 msgid "Your generated pin:"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:42
+#: ui/accountgeneraltab.ui:69
 msgid "Account"
 msgstr "حساب کاربری"
 
-#: ui/accountgeneraltab.ui:82
+#: ui/accountgeneraltab.ui:126
 msgid "Parameters"
 msgstr "پارامترها"
 
@@ -1146,6 +1148,14 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
+msgstr ""
+
+#: ui/mediasettingsview.ui:244
+msgid "Hardware Acceleration"
+msgstr ""
+
+#: ui/mediasettingsview.ui:260
+msgid "Enable hardware decoding:"
 msgstr ""
 
 #: ui/ringgearsmenu.ui:13
