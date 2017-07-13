@@ -58,8 +58,6 @@ struct _ChatViewPrivate
 {
     GtkWidget *box_webkit_chat_container;
     GtkWidget *webkit_chat_container;
-    GtkWidget *button_chat_input;
-    GtkWidget *entry_chat_input;
     GtkWidget *scrolledwindow_chat;
     GtkWidget *hbox_chat_info;
     GtkWidget *label_peer;
@@ -80,6 +78,7 @@ struct _ChatViewPrivate
     QMetaObject::Connection update_name;
 
     gulong webkit_ready;
+    gulong webkit_send_text;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ChatView, chat_view, GTK_TYPE_BOX);
@@ -113,6 +112,8 @@ chat_view_dispose(GObject *object)
         /* disconnect for webkit signals */
         g_signal_handler_disconnect(priv->webkit_chat_container, priv->webkit_ready);
         priv->webkit_ready = 0;
+        g_signal_handler_disconnect(priv->webkit_chat_container, priv->webkit_send_text);
+        priv->webkit_send_text = 0;
 
         gtk_container_remove(
             GTK_CONTAINER(priv->box_webkit_chat_container),
@@ -123,44 +124,6 @@ chat_view_dispose(GObject *object)
     }
 
     G_OBJECT_CLASS(chat_view_parent_class)->dispose(object);
-}
-
-
-static void
-send_chat(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
-{
-    g_return_if_fail(IS_CHAT_VIEW(self));
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    /* make sure there is more than just whitespace, but if so, send the original text */
-    const auto text = QString(gtk_entry_get_text(GTK_ENTRY(priv->entry_chat_input)));
-    if (!text.trimmed().isEmpty()) {
-        QMap<QString, QString> messages;
-        messages["text/plain"] = text;
-
-        if (priv->call) {
-            // in call message
-            priv->call->addOutgoingMedia<Media::Text>()->send(messages);
-        } else if (priv->person) {
-            // get the chosen cm
-            auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
-            if (active >= 0) {
-                auto cm = priv->person->phoneNumbers().at(active);
-                if (!cm->sendOfflineTextMessage(messages))
-                    g_warning("message failed to send"); // TODO: warn the user about this in the UI
-            } else {
-                g_warning("no ContactMethod chosen; message not sent");
-            }
-        } else if (priv->cm) {
-            if (!priv->cm->sendOfflineTextMessage(messages))
-                g_warning("message failed to send"); // TODO: warn the user about this in the UI
-        } else {
-            g_warning("no Call, Person, or ContactMethod set; message not sent");
-        }
-
-        /* clear the entry */
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_chat_input), "");
-    }
 }
 
 static void
@@ -230,14 +193,45 @@ button_send_invitation_clicked(ChatView *self)
 }
 
 static void
+webkit_chat_container_send_text(G_GNUC_UNUSED GtkWidget* webview, gchar *message, ChatView* self)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    /* make sure there is more than just whitespace, but if so, send the original text */
+    const auto text = QString(message);
+    if (!text.trimmed().isEmpty()) {
+        QMap<QString, QString> messages;
+        messages["text/plain"] = text;
+
+        if (priv->call) {
+            // in call message
+            priv->call->addOutgoingMedia<Media::Text>()->send(messages);
+        } else if (priv->person) {
+            // get the chosen cm
+            auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
+            if (active >= 0) {
+                auto cm = priv->person->phoneNumbers().at(active);
+                if (!cm->sendOfflineTextMessage(messages))
+                    g_warning("message failed to send"); // TODO: warn the user about this in the UI
+            } else {
+                g_warning("no ContactMethod chosen; message not sent");
+            }
+        } else if (priv->cm) {
+            if (!priv->cm->sendOfflineTextMessage(messages))
+                g_warning("message failed to send"); // TODO: warn the user about this in the UI
+        } else {
+            g_warning("no Call, Person, or ContactMethod set; message not sent");
+        }
+    }
+}
+
+static void
 chat_view_init(ChatView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(view);
 
-    g_signal_connect(priv->button_chat_input, "clicked", G_CALLBACK(send_chat), view);
-    g_signal_connect(priv->entry_chat_input, "activate", G_CALLBACK(send_chat), view);
     g_signal_connect(priv->button_close_chatview, "clicked", G_CALLBACK(hide_chat_view), view);
     g_signal_connect_swapped(priv->button_placecall, "clicked", G_CALLBACK(placecall_clicked), view);
     g_signal_connect_swapped(priv->button_send_invitation, "clicked", G_CALLBACK(button_send_invitation_clicked), view);
@@ -252,8 +246,6 @@ chat_view_class_init(ChatViewClass *klass)
                                                 "/cx/ring/RingGnome/chatview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, box_webkit_chat_container);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_chat_input);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, entry_chat_input);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, scrolledwindow_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, hbox_chat_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_peer);
@@ -619,6 +611,11 @@ build_chat_view(ChatView* self)
         G_CALLBACK(webkit_chat_container_ready),
         self
     );
+
+    priv->webkit_send_text = g_signal_connect(priv->webkit_chat_container,
+        "send-message",
+        G_CALLBACK(webkit_chat_container_send_text),
+        self);
 
     if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
         webkit_chat_container_ready(self);

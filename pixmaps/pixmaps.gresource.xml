@@ -4,11 +4,12 @@
 	<file alias="ring-symbol-blue">ring.svg</file>
 	<file alias="ring-logo-blue">logo-ring-standard-coul.svg</file>
 	<file alias="addressbook_small">addressbook.svg</file>
-  <file alias="history_small">history.svg</file>
+	<file alias="history_small">history.svg</file>
 	<file alias="clear_history">ic_delete_forever_black_24px.svg</file>
 	<file alias="users_small">users.svg</file>
 	<file alias="dial">dial.svg</file>
-  <file alias="call">call.svg</file>
+	<file alias="call">call.svg</file>
+	<file alias="call_start">ic_call_black_24px.svg</file>
 	<file alias="contact">contact.svg</file>
 	<file alias="accept">accept.svg</file>
 	<file alias="reject">hang_up.svg</file>
@@ -23,7 +24,8 @@
 	<file alias="contact_requests_list">ic_verified_user_black_24px.svg</file>
 	<file alias="history_list">ic_history_black_24px.svg</file>
 	<file alias="block">ic_block_black_24px.svg</file>
-  <file alias="add">ic_add_black_24px.svg</file>
+	<file alias="add">ic_add_black_24px.svg</file>
+	<file alias="invite">ic_person_add_black_24px.svg</file>
 	<file alias="contact_requests_list_with_notification">ic_verified_user_black_24px_with_notification.svg</file>
   </gresource>
 </gresources>
