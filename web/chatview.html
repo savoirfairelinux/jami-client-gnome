@@ -8,6 +8,17 @@
 <body>
     <div id="container">
       <div id="messages"></div>
+
+      <div id="sendMessage">
+        <input id="message" type="text" autofocus placeholder="Message" onkeyup="auto_grow(this)"
+        onkeydown="if (event.keyCode == 13) { ring.chatview.sendMessage(); return false; }">
+        <div id="sendBtn" onclick="ring.chatview.sendMessage()">
+          <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+              <path xmlns="http://www.w3.org/2000/svg" d="M12,11.874v4.357l7-6.69l-7-6.572v3.983c-8.775,0-11,9.732-11,9.732C3.484,12.296,7.237,11.874,12,11.874z"/>
+          </svg>
+        </div>
+      </div>
+      </form>
     </div>
 </body>
 
@@ -25,6 +36,19 @@ ring.chatview = (function(){
     var dev = {}; // ring.chatview.dev namespace
     var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
     var messages = document.querySelector("#messages");
+
+    /**
+     * Send #sendMessage #message value
+     */
+     function sendMessage()
+     {
+       var input = document.querySelector("#sendMessage #message");
+       var message = input.value;
+       if (message.length > 0) {
+         input.value = "";
+         window.prompt(message);
+       }
+     }
 
     /**
      * Clears all messages
@@ -276,6 +300,15 @@ ring.chatview = (function(){
         document.head.appendChild(style);
     }
 
+    /**
+     * Change the send icon
+     */
+    function setSendIcon(source)
+    {
+        var sendBtn = document.querySelector("#sendicon");
+        sendBtn.src = "data:image/png;base64," + source;
+    }
+
     function clearSenderImages()
     {
         var styles = document.head.querySelectorAll("style"),
@@ -290,9 +323,11 @@ ring.chatview = (function(){
         addMessage: addMessage,
         updateMessage: updateMessage,
         setSenderImage: setSenderImage,
+        setSendIcon: setSendIcon,
         dev: dev,
         clearMessages: clearMessages,
         clearSenderImages: clearSenderImages,
+        sendMessage: sendMessage,
     }
 
 })();
