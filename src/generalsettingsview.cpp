@@ -231,6 +231,7 @@ general_settings_view_show_profile(GeneralSettingsView *self, gboolean show_prof
     if (show_profile) {
         /* avatar manipulation widget */
         priv->avatarmanipulation = avatar_manipulation_new();
+        gtk_widget_set_halign(priv->box_profil_settings, GtkAlign::GTK_ALIGN_CENTER);
         gtk_box_pack_start(GTK_BOX(priv->box_profil_settings), priv->avatarmanipulation, true, true, 0);
         gtk_widget_set_visible(priv->avatarmanipulation, true);
 
