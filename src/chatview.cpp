@@ -75,7 +75,7 @@ struct _ChatViewPrivate
 
     QMetaObject::Connection new_message_connection;
     QMetaObject::Connection message_changed_connection;
-    QMetaObject::Connection update_name;
+    QMetaObject::Connection update_chat_info;
 
     gulong webkit_ready;
     gulong webkit_send_text;
@@ -104,7 +104,7 @@ chat_view_dispose(GObject *object)
 
     QObject::disconnect(priv->new_message_connection);
     QObject::disconnect(priv->message_changed_connection);
-    QObject::disconnect(priv->update_name);
+    QObject::disconnect(priv->update_chat_info);
 
     /* Destroying the box will also destroy its children, and we wouldn't
      * want that. So we remove the webkit_chat_container from the box. */
@@ -531,7 +531,7 @@ update_contact_methods(ChatView *self)
 }
 
 static void
-update_name(ChatView *self)
+update_chat_info(ChatView *self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
@@ -542,6 +542,9 @@ update_name(ChatView *self)
         name = priv->person->roleData(static_cast<int>(Ring::Role::Name)).toString();
     } else if (priv->cm) {
         name = priv->cm->roleData(static_cast<int>(Ring::Role::Name)).toString();
+        if (priv->cm->isConfirmed()) {
+            gtk_widget_hide(priv->button_send_invitation);
+        }
     } else if (priv->call) {
         name = priv->call->peerContactMethod()->roleData(static_cast<int>(Ring::Role::Name)).toString();
     }
@@ -581,25 +584,25 @@ build_chat_view(ChatView* self)
 
     /* keep name updated */
     if (priv->call) {
-        priv->update_name = QObject::connect(
+        priv->update_chat_info = QObject::connect(
             priv->call,
             &Call::changed,
-            [self] () { update_name(self); }
+            [self] () { update_chat_info(self); }
         );
     } else if (priv->cm) {
-        priv->update_name = QObject::connect(
+        priv->update_chat_info = QObject::connect(
             priv->cm,
             &ContactMethod::changed,
-            [self] () { update_name(self); }
+            [self] () { update_chat_info(self); }
         );
     } else if (priv->person) {
-        priv->update_name = QObject::connect(
+        priv->update_chat_info = QObject::connect(
             priv->person,
             &Person::changed,
-            [self] () { update_name(self); }
+            [self] () { update_chat_info(self); }
         );
     }
-    update_name(self);
+    update_chat_info(self);
 
     /* keep selected cm updated */
     update_contact_methods(self);
