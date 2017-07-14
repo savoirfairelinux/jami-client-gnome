@@ -11,25 +11,24 @@ body {
   flex-direction: column;
   margin: 0;
   padding: 0;
-  vertical-align: baseline;
+  justify-content: flex-end;
 }
 
 #messages {
   position: relative;
-  flex: 1;
   z-index: 0;
   width: 100%;
   overflow-y: scroll;
   height: auto;
+  max-height: calc(100% - 50px);
 }
 
 #sendMessage {
   display: flex;
   width: 97%;
   position: relative;
-  z-index: 1;
   transform: translateZ(0);
-  height: auto;
+  height: 50px;
   border-top : 2px solid #d3d3d3;
   padding-right: 10px;
   margin-left: 1%;
@@ -44,6 +43,7 @@ body {
   padding-right: 20px;
   color: black;
   padding-left: 8px;
+  flex: 1;
 }
 
 #message:focus,
