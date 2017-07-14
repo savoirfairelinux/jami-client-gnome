@@ -104,7 +104,8 @@ struct _RingClientPrivate {
     /* UAM */
     QMetaObject::Connection uam_updated;
 
-    std::unique_ptr<QTranslator> translator;
+    std::unique_ptr<QTranslator> translator_lang;
+    std::unique_ptr<QTranslator> translator_full;
 
     GCancellable *cancellable;
 
@@ -596,13 +597,27 @@ ring_client_startup(GApplication *app)
     }
 
     /* load translations from LRC */
-    priv->translator.reset(new QTranslator);
-    if (priv->translator->load(QLocale::system(), "lrc", "_", RING_CLIENT_INSTALL "/share/libringclient/translations")) {
-        priv->qtapp->installTranslator(priv->translator.get());
-    } else {
+    const auto locale_name = QLocale::system().name();
+    const auto locale_lang = locale_name.split('_')[0];
+
+    if (locale_name != locale_lang) {
+        /* Install language first to have lowest priority */
+        priv->translator_lang.reset(new QTranslator);
+        if (priv->translator_lang->load(RING_CLIENT_INSTALL "/share/libringclient/translations/lrc_" + locale_lang)) {
+            g_debug("installed translations for %s", locale_lang.toUtf8().constData());
+            priv->qtapp->installTranslator(priv->translator_lang.get());
+        }
+    }
+
+    priv->translator_full.reset(new QTranslator);
+    if (priv->translator_full->load(RING_CLIENT_INSTALL "/share/libringclient/translations/lrc_" + locale_name)) {
+        g_debug("installed translations for %s", locale_name.toUtf8().constData());
+    }
+
+    if (not priv->translator_lang and not priv->translator_full) {
         g_debug("could not load LRC translations for %s, %s",
-            QLocale::languageToString(QLocale::system().language()).toUtf8().constData(),
-            QLocale::countryToString(QLocale::system().country()).toUtf8().constData()
+                QLocale::languageToString(QLocale::system().language()).toUtf8().constData(),
+                QLocale::countryToString(QLocale::system().country()).toUtf8().constData()
         );
     }
 
