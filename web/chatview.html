@@ -10,8 +10,7 @@
       <div id="messages"></div>
 
       <div id="sendMessage">
-        <input id="message" type="text" autofocus placeholder="Message" onkeyup="auto_grow(this)"
-        onkeydown="if (event.keyCode == 13) { ring.chatview.sendMessage(); return false; }">
+        <textarea id="message" autofocus placeholder="Message" onkeyup="grow_text_area()" rows="1" ></textarea>
         <div id="sendBtn" onclick="ring.chatview.sendMessage()" title="Send">
           <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
               <path xmlns="http://www.w3.org/2000/svg" d="M12,11.874v4.357l7-6.69l-7-6.572v3.983c-8.775,0-11,9.732-11,9.732C3.484,12.296,7.237,11.874,12,11.874z"/>
@@ -30,6 +29,35 @@
 -->
 
 <script>
+
+document.querySelector("#message").addEventListener("keydown", function (e) {
+    e = e || event;
+    var map = {};
+    map[e.keyCode] = e.type == 'keydown';
+    if (e.ctrlKey || e.shiftKey) {
+      return true;
+    }
+    if (map[13]) {
+      ring.chatview.sendMessage();
+      e.preventDefault();
+    }
+    return true;
+});
+
+function grow_text_area() {
+    var messages = document.querySelector('#messages');
+    var is_at_bottom = messages.scrollTop === (messages.scrollHeight - messages.offsetHeight);
+
+    var area = document.querySelector("#message");
+    var old_height = area.style.height;
+    area.style.height = "auto";
+    area.style.height = area.scrollHeight +"px";
+
+    if (is_at_bottom) {
+      messages.scrollTop = messages.scrollHeight;
+    }
+}
+
 var ring = {}; // ring namespace
 
 ring.chatview = (function(){
@@ -45,7 +73,7 @@ ring.chatview = (function(){
        var input = document.querySelector("#sendMessage #message");
        var message = input.value;
        if (message.length > 0) {
-         input.value = "";
+         input.value = '';
          window.prompt(message);
        }
      }
@@ -78,7 +106,7 @@ ring.chatview = (function(){
         var escaped_message = escapeHtml(message_text),
             linkified_message = linkifyHtml(escaped_message, {});
 
-        return linkified_message;
+        return "<pre>" + linkified_message + "</pre>";
     }
 
     /**

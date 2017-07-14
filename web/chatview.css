@@ -25,30 +25,31 @@ body {
 
 #sendMessage {
   display: flex;
-  width: 97%;
   position: relative;
-  transform: translateZ(0);
-  height: 50px;
   border-top : 2px solid #d3d3d3;
-  padding-right: 10px;
-  margin-left: 1%;
-  margin-right: 1.5%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 8px;
+  overflow: hidden;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  align-items: center;
+
 }
 
 #message {
-  width: 100%;
-  border: 0;
-  height: 55px;
-  overflow: hidden;
-  padding-right: 20px;
-  color: black;
-  padding-left: 8px;
   flex: 1;
+  margin-right: 10px;
+  border: 0;
+  overflow-y: scroll;
+  color: black;
+  max-height: 150px;
+  padding-left: 8px;
+  resize: none;
 }
 
 #message:focus,
 #message.focus {
-  border: 0;
   outline: none;
 }
 
@@ -61,7 +62,7 @@ input[placeholder], [placeholder], *[placeholder] {
   border: 0;
   width: 40px;
   height: 40px;
-  margin-top: 8px;
+  align-self: center;
   transition: all 0.3s ease;
 }
 
@@ -192,6 +193,17 @@ input[placeholder], [placeholder], *[placeholder] {
     justify-content: flex-start;
     align-items: top;
     overflow: hidden;
+}
+
+pre {
+  font : inherit;
+  font-family : inherit;
+  font-size : inherit;
+  font-style : inherit;
+  font-variant : inherit;
+  font-weight : inherit;
+  margin: 0;
+  padding: 0;
 }
 
 .message_out {
