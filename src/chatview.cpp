@@ -62,6 +62,7 @@ struct _ChatViewPrivate
     GtkWidget *hbox_chat_info;
     GtkWidget *label_peer;
     GtkWidget *combobox_cm;
+    GtkWidget *label_cm;
     GtkWidget *button_close_chatview;
     GtkWidget *button_placecall;
     GtkWidget *button_send_invitation;
@@ -249,6 +250,7 @@ chat_view_class_init(ChatViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, scrolledwindow_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, hbox_chat_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_peer);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_cm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, combobox_cm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_close_chatview);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_placecall);
@@ -523,8 +525,21 @@ update_contact_methods(ChatView *self)
     }
 
     /* if there is only one CM, make the combo box insensitive */
-    if (cms.size() < 2)
-        gtk_widget_set_sensitive(priv->combobox_cm, FALSE);
+    if (cms.size() < 2) {
+        auto active = cms.at(gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm)));
+        std::string ring_id = active->roleData(static_cast<int>(Ring::Role::Number)).toString().toUtf8().constData();
+        std::string displayed = gtk_label_get_text(GTK_LABEL(priv->label_peer));
+        gtk_label_set_text(GTK_LABEL(priv->label_cm), ring_id.c_str());
+        gtk_widget_hide(priv->combobox_cm);
+        if (displayed == ring_id) {
+            gtk_widget_hide(priv->label_cm);
+        } else {
+            gtk_widget_show(priv->label_cm);
+        }
+    } else {
+        gtk_widget_show(priv->combobox_cm);
+        gtk_widget_hide(priv->label_cm);
+    }
 
     /* if no CMs make the call button insensitive */
     gtk_widget_set_sensitive(priv->button_placecall, !cms.isEmpty());
