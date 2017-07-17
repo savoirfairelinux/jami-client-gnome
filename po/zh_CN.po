@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 13:55-0400\n"
-"PO-Revision-Date: 2017-07-13 17:55+0000\n"
+"POT-Creation-Date: 2017-07-16 23:09-0400\n"
+"PO-Revision-Date: 2017-07-17 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/ring/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -931,9 +931,9 @@ msgstr "发起通话"
 msgid "Send invitation"
 msgstr "发送邀请"
 
-#: ui/chatview.ui:122
-msgid "Send"
-msgstr "发送"
+#: ui/chatview.ui:117
+msgid "Send Invitation"
+msgstr ""
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
@@ -1036,59 +1036,59 @@ msgstr "号码或RingID"
 msgid "Save"
 msgstr "保存"
 
-#: ui/generalsettingsview.ui:32
+#: ui/generalsettingsview.ui:34
 msgid "Profile Settings"
 msgstr "帐户设置"
 
-#: ui/generalsettingsview.ui:74
+#: ui/generalsettingsview.ui:76
 msgid "Ring Settings"
 msgstr "Ring设置"
 
-#: ui/generalsettingsview.ui:90
+#: ui/generalsettingsview.ui:92
 msgid "Start Ring on login"
 msgstr "登录时自动启动Ring"
 
-#: ui/generalsettingsview.ui:98
+#: ui/generalsettingsview.ui:100
 msgid "Show Ring icon in the notification area (systray)."
 msgstr "在系统托盘中显示Ring图标。"
 
-#: ui/generalsettingsview.ui:106
+#: ui/generalsettingsview.ui:108
 msgid "Bring Ring to the foreground on incoming calls."
 msgstr "来电时将Ring切换到前台。"
 
-#: ui/generalsettingsview.ui:114
+#: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
 msgstr "启用来电通知。"
 
-#: ui/generalsettingsview.ui:122
+#: ui/generalsettingsview.ui:124
 msgid "Enable notifications for new chat messages."
 msgstr "启用新消息通知。"
 
-#: ui/generalsettingsview.ui:130
+#: ui/generalsettingsview.ui:132
 msgid "Entering a number in the search entry will place a new call."
 msgstr "要直接拨打电话号码，请在搜索栏中输入该号码。"
 
-#: ui/generalsettingsview.ui:143
+#: ui/generalsettingsview.ui:147
 msgid "Show chat on the right."
 msgstr "在右侧显示聊天窗口。"
 
-#: ui/generalsettingsview.ui:149
+#: ui/generalsettingsview.ui:153
 msgid "Show chat on the bottom."
 msgstr "在下方显示聊天窗口。"
 
-#: ui/generalsettingsview.ui:171
+#: ui/generalsettingsview.ui:177
 msgid "History Settings"
 msgstr "历史记录设置"
 
-#: ui/generalsettingsview.ui:189
+#: ui/generalsettingsview.ui:195
 msgid "Keep history for (days):"
 msgstr "历史记录保存天数："
 
-#: ui/generalsettingsview.ui:210
+#: ui/generalsettingsview.ui:216
 msgid "(set to 0 for unlimited history)"
 msgstr "（设置为0则无限制）"
 
-#: ui/generalsettingsview.ui:219
+#: ui/generalsettingsview.ui:226
 msgid "Clear all history"
 msgstr "清除所有历史记录"
 
@@ -1150,11 +1150,11 @@ msgstr "帧率："
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "硬件加速"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr ""
+msgstr "启用硬件解码："
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"

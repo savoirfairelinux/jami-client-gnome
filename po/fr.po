@@ -7,6 +7,7 @@
 # Alexandre Lision, 2015
 # Alexandre Lision, 2015
 # Alex Garel <alex.garel@gmail.com>, 2016
+# Anthony Léonard <anthony.leonard@savoirfairelinux.com>, 2017
 # Baptiste Jonglez, 2016
 # Breizh <breizh@breizh.noho.st>, 2016
 # Bruno Pagani <bruno.n.pagani@gmail.com>, 2015
@@ -22,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 13:55-0400\n"
-"PO-Revision-Date: 2017-07-13 17:55+0000\n"
+"POT-Creation-Date: 2017-07-16 23:09-0400\n"
+"PO-Revision-Date: 2017-07-17 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -340,7 +341,7 @@ msgstr "Nom d'utilisateur Ring invalide : %s"
 
 #: src/ringmainwindow.cpp:628
 msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr "Erreur dans la résolution du nom d'utilisateur, le nom du serveur peut être inaccessible"
+msgstr "Erreur dans la résolution du nom d'utilisateur, le serveur de nom peut être inaccessible"
 
 #: src/ringmainwindow.cpp:642
 #, c-format
@@ -380,7 +381,7 @@ msgstr "Rechercher dans les contacts ou appeler un numéro"
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr "Voici votre nom d'utilisateur Ring. \nCopiez-le et partagez-le avec vos amis!"
+msgstr "Voici votre nom d'utilisateur Ring.\nCopiez-le et partagez-le avec vos amis!"
 
 #: src/ringwelcomeview.cpp:83
 msgctxt "Do not translate \"RingID\""
@@ -430,7 +431,7 @@ msgstr "Nom d'utilisateur disponible"
 
 #: src/usernameregistrationbox.cpp:158
 msgid "Failed to perform lookup"
-msgstr "Échec de la recherche blockchain"
+msgstr "Échec de la recherche"
 
 #: src/usernameregistrationbox.cpp:159
 msgid "Could not lookup username"
@@ -665,7 +666,7 @@ msgstr "Profil"
 
 #: ui/accountcreationwizard.ui:285
 msgid "Full name:"
-msgstr "Nom complet:"
+msgstr "Nom complet :"
 
 #: ui/accountcreationwizard.ui:327
 msgid "Ring Account"
@@ -673,18 +674,18 @@ msgstr "Compte Ring"
 
 #: ui/accountcreationwizard.ui:340
 msgid "Register public username (experimental):"
-msgstr "Enregistrer nom d’utilisateur public (expérimental)"
+msgstr "Enregistrer un nom d’utilisateur public (expérimental)"
 
 #: ui/accountcreationwizard.ui:346
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr "En cliquant ici, votre nom d'utilisateur unique sera enregistré sur le réseau Ring. Les gens peuvent l'utiliser pour vous contacter au lieu d'utiliser votre identifiant Ring qui contient 40 caractères."
+msgstr "En cochant cette case, vous enregistrez un nom d'utilisateur unique sur le réseau Ring. Les personnes peuvent l'utiliser pour vous contacter au lieu d'utiliser votre RingID de 40 caractères."
 
 #: ui/accountcreationwizard.ui:369
 msgid "Password (confirm):"
-msgstr "Mot de passe (à confirmer) :"
+msgstr "Mot de passe (confirmation) :"
 
 #: ui/accountcreationwizard.ui:370
 msgid ""
@@ -942,11 +943,11 @@ msgstr "Appeler"
 
 #: ui/chatview.ui:60
 msgid "Send invitation"
-msgstr ""
+msgstr "Envoyer une invitation"
 
-#: ui/chatview.ui:122
-msgid "Send"
-msgstr "Envoyer"
+#: ui/chatview.ui:117
+msgid "Send Invitation"
+msgstr ""
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
@@ -1049,59 +1050,59 @@ msgstr "Numéro ou identifiant Ring"
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: ui/generalsettingsview.ui:32
+#: ui/generalsettingsview.ui:34
 msgid "Profile Settings"
 msgstr "Paramètres de profil"
 
-#: ui/generalsettingsview.ui:74
+#: ui/generalsettingsview.ui:76
 msgid "Ring Settings"
 msgstr "Paramètres Ring"
 
-#: ui/generalsettingsview.ui:90
+#: ui/generalsettingsview.ui:92
 msgid "Start Ring on login"
 msgstr "Lancer Ring à l’ouverture de session"
 
-#: ui/generalsettingsview.ui:98
+#: ui/generalsettingsview.ui:100
 msgid "Show Ring icon in the notification area (systray)."
 msgstr "Afficher l’icône de Ring dans la zone de notification"
 
-#: ui/generalsettingsview.ui:106
+#: ui/generalsettingsview.ui:108
 msgid "Bring Ring to the foreground on incoming calls."
 msgstr "Ramener Ring à l’avant-plan en cas d’appel entrant"
 
-#: ui/generalsettingsview.ui:114
+#: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
 msgstr "Activer les notifications d'appel entrant"
 
-#: ui/generalsettingsview.ui:122
+#: ui/generalsettingsview.ui:124
 msgid "Enable notifications for new chat messages."
 msgstr "Activer les notifications de nouveaux messages"
 
-#: ui/generalsettingsview.ui:130
+#: ui/generalsettingsview.ui:132
 msgid "Entering a number in the search entry will place a new call."
 msgstr "Pour appeler, entrer le numéro de téléphone dans la zone de recherche."
 
-#: ui/generalsettingsview.ui:143
+#: ui/generalsettingsview.ui:147
 msgid "Show chat on the right."
 msgstr "Afficher les discussions texte à droite"
 
-#: ui/generalsettingsview.ui:149
+#: ui/generalsettingsview.ui:153
 msgid "Show chat on the bottom."
 msgstr "Afficher les discussions texte en bas"
 
-#: ui/generalsettingsview.ui:171
+#: ui/generalsettingsview.ui:177
 msgid "History Settings"
 msgstr "Paramètres de l’historique"
 
-#: ui/generalsettingsview.ui:189
+#: ui/generalsettingsview.ui:195
 msgid "Keep history for (days):"
 msgstr "Garder l’historique pendant (jours) :"
 
-#: ui/generalsettingsview.ui:210
+#: ui/generalsettingsview.ui:216
 msgid "(set to 0 for unlimited history)"
 msgstr "(mettre à 0 pour garder indéfiniment)"
 
-#: ui/generalsettingsview.ui:219
+#: ui/generalsettingsview.ui:226
 msgid "Clear all history"
 msgstr "Effacer tout l’historique"
 
@@ -1163,11 +1164,11 @@ msgstr "Images par seconde :"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "Accélération matérielle"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr ""
+msgstr "Activer l'accélération matérielle"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 13:55-0400\n"
-"PO-Revision-Date: 2017-07-13 17:55+0000\n"
+"POT-Creation-Date: 2017-07-16 23:09-0400\n"
+"PO-Revision-Date: 2017-07-17 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -932,9 +932,9 @@ msgstr "Skambinti"
 msgid "Send invitation"
 msgstr "Siųsti pakvietimą"
 
-#: ui/chatview.ui:122
-msgid "Send"
-msgstr "Siųsti"
+#: ui/chatview.ui:117
+msgid "Send Invitation"
+msgstr ""
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
@@ -1037,59 +1037,59 @@ msgstr "Numeris arba Ring ID"
 msgid "Save"
 msgstr "Įrašyti"
 
-#: ui/generalsettingsview.ui:32
+#: ui/generalsettingsview.ui:34
 msgid "Profile Settings"
 msgstr "Profilio nustatymai"
 
-#: ui/generalsettingsview.ui:74
+#: ui/generalsettingsview.ui:76
 msgid "Ring Settings"
 msgstr "Ring nustatymai"
 
-#: ui/generalsettingsview.ui:90
+#: ui/generalsettingsview.ui:92
 msgid "Start Ring on login"
 msgstr "Paleisti Ring, įjungus kompiuterį"
 
-#: ui/generalsettingsview.ui:98
+#: ui/generalsettingsview.ui:100
 msgid "Show Ring icon in the notification area (systray)."
 msgstr "Rodyti Ring piktogramą pranešimų srityje (sistemos dėkle)."
 
-#: ui/generalsettingsview.ui:106
+#: ui/generalsettingsview.ui:108
 msgid "Bring Ring to the foreground on incoming calls."
 msgstr "Esant gaunamiesiems skambučiams, rodyti Ring priekiniame plane"
 
-#: ui/generalsettingsview.ui:114
+#: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
 msgstr "Įjungti pranešimus gaunamiesiems skambučiams."
 
-#: ui/generalsettingsview.ui:122
+#: ui/generalsettingsview.ui:124
 msgid "Enable notifications for new chat messages."
 msgstr "Įjungti pranešimus naujoms pokalbio žinutėms."
 
-#: ui/generalsettingsview.ui:130
+#: ui/generalsettingsview.ui:132
 msgid "Entering a number in the search entry will place a new call."
 msgstr "Įvedus numerį į paieškos įrašą, bus pradedama skambinti."
 
-#: ui/generalsettingsview.ui:143
+#: ui/generalsettingsview.ui:147
 msgid "Show chat on the right."
 msgstr "Rodyti pokalbį dešinėje."
 
-#: ui/generalsettingsview.ui:149
+#: ui/generalsettingsview.ui:153
 msgid "Show chat on the bottom."
 msgstr "Rodyti pokalbį apačioje."
 
-#: ui/generalsettingsview.ui:171
+#: ui/generalsettingsview.ui:177
 msgid "History Settings"
 msgstr "Istorijos nustatymai"
 
-#: ui/generalsettingsview.ui:189
+#: ui/generalsettingsview.ui:195
 msgid "Keep history for (days):"
 msgstr "Laikyti istoriją (dienų):"
 
-#: ui/generalsettingsview.ui:210
+#: ui/generalsettingsview.ui:216
 msgid "(set to 0 for unlimited history)"
 msgstr "(nustatykite 0 neribotai istorijai)"
 
-#: ui/generalsettingsview.ui:219
+#: ui/generalsettingsview.ui:226
 msgid "Clear all history"
 msgstr "Išvalyti visą istoriją"
 
@@ -1151,11 +1151,11 @@ msgstr "Kadrų dažnis:"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "Aparatinės įrangos spartinimas"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr ""
+msgstr "Įjungti aparatinės įrangos dekodavimą:"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"

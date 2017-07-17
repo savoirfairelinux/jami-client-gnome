@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 13:55-0400\n"
-"PO-Revision-Date: 2017-07-13 17:55+0000\n"
+"POT-Creation-Date: 2017-07-16 23:09-0400\n"
+"PO-Revision-Date: 2017-07-17 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/ring/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -934,9 +934,9 @@ msgstr "Ara"
 msgid "Send invitation"
 msgstr ""
 
-#: ui/chatview.ui:122
-msgid "Send"
-msgstr "Gönder"
+#: ui/chatview.ui:117
+msgid "Send Invitation"
+msgstr ""
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
@@ -1039,59 +1039,59 @@ msgstr "Numara ya da Ring ID"
 msgid "Save"
 msgstr "Kaydet"
 
-#: ui/generalsettingsview.ui:32
+#: ui/generalsettingsview.ui:34
 msgid "Profile Settings"
 msgstr "Profil ayarları"
 
-#: ui/generalsettingsview.ui:74
+#: ui/generalsettingsview.ui:76
 msgid "Ring Settings"
 msgstr "Ring ayarları"
 
-#: ui/generalsettingsview.ui:90
+#: ui/generalsettingsview.ui:92
 msgid "Start Ring on login"
 msgstr "Ring'i girişte başlat"
 
-#: ui/generalsettingsview.ui:98
+#: ui/generalsettingsview.ui:100
 msgid "Show Ring icon in the notification area (systray)."
 msgstr "Ring simgesini bildirim bölümünde (systray) göster."
 
-#: ui/generalsettingsview.ui:106
+#: ui/generalsettingsview.ui:108
 msgid "Bring Ring to the foreground on incoming calls."
 msgstr "Gelen aramalarda Ring'i ön plana çıkar."
 
-#: ui/generalsettingsview.ui:114
+#: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
 msgstr "Gelen çağrılar için bildirimleri etkinleştir."
 
-#: ui/generalsettingsview.ui:122
+#: ui/generalsettingsview.ui:124
 msgid "Enable notifications for new chat messages."
 msgstr "Yeni konuşma iletileri için bildirimler etkinleştir."
 
-#: ui/generalsettingsview.ui:130
+#: ui/generalsettingsview.ui:132
 msgid "Entering a number in the search entry will place a new call."
 msgstr "Arama girişine bir numara girmek yeni bir arama yapacak."
 
-#: ui/generalsettingsview.ui:143
+#: ui/generalsettingsview.ui:147
 msgid "Show chat on the right."
 msgstr "Konuşmayı sağda göster."
 
-#: ui/generalsettingsview.ui:149
+#: ui/generalsettingsview.ui:153
 msgid "Show chat on the bottom."
 msgstr "Konuşmayı aşağıda göster."
 
-#: ui/generalsettingsview.ui:171
+#: ui/generalsettingsview.ui:177
 msgid "History Settings"
 msgstr "Geçmiş Ayarları"
 
-#: ui/generalsettingsview.ui:189
+#: ui/generalsettingsview.ui:195
 msgid "Keep history for (days):"
 msgstr "Geçmişi tutulacak gün sayısı:"
 
-#: ui/generalsettingsview.ui:210
+#: ui/generalsettingsview.ui:216
 msgid "(set to 0 for unlimited history)"
 msgstr "(sınırsız geçmiş için 0 yapın)"
 
-#: ui/generalsettingsview.ui:219
+#: ui/generalsettingsview.ui:226
 msgid "Clear all history"
 msgstr "Tüm geçmişi temizle"
 

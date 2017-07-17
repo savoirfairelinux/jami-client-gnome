@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 13:55-0400\n"
-"PO-Revision-Date: 2017-07-13 17:55+0000\n"
+"POT-Creation-Date: 2017-07-16 23:09-0400\n"
+"PO-Revision-Date: 2017-07-17 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Polish (http://www.transifex.com/savoirfairelinux/ring/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -930,9 +930,9 @@ msgstr ""
 msgid "Send invitation"
 msgstr ""
 
-#: ui/chatview.ui:122
-msgid "Send"
-msgstr "Wyślij"
+#: ui/chatview.ui:117
+msgid "Send Invitation"
+msgstr ""
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
@@ -1035,59 +1035,59 @@ msgstr "Numer lub Ring ID"
 msgid "Save"
 msgstr "Zapisz"
 
-#: ui/generalsettingsview.ui:32
+#: ui/generalsettingsview.ui:34
 msgid "Profile Settings"
 msgstr ""
 
-#: ui/generalsettingsview.ui:74
+#: ui/generalsettingsview.ui:76
 msgid "Ring Settings"
 msgstr ""
 
-#: ui/generalsettingsview.ui:90
+#: ui/generalsettingsview.ui:92
 msgid "Start Ring on login"
 msgstr "Zacznij Ring przy logowaniu"
 
-#: ui/generalsettingsview.ui:98
+#: ui/generalsettingsview.ui:100
 msgid "Show Ring icon in the notification area (systray)."
 msgstr ""
 
-#: ui/generalsettingsview.ui:106
+#: ui/generalsettingsview.ui:108
 msgid "Bring Ring to the foreground on incoming calls."
 msgstr "Przenieś Ring na pierwszy plan przy połączeniach przychodzących."
 
-#: ui/generalsettingsview.ui:114
+#: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
 msgstr ""
 
-#: ui/generalsettingsview.ui:122
+#: ui/generalsettingsview.ui:124
 msgid "Enable notifications for new chat messages."
 msgstr ""
 
-#: ui/generalsettingsview.ui:130
+#: ui/generalsettingsview.ui:132
 msgid "Entering a number in the search entry will place a new call."
 msgstr ""
 
-#: ui/generalsettingsview.ui:143
+#: ui/generalsettingsview.ui:147
 msgid "Show chat on the right."
 msgstr "Pokaż czat po prawej stronie."
 
-#: ui/generalsettingsview.ui:149
+#: ui/generalsettingsview.ui:153
 msgid "Show chat on the bottom."
 msgstr "Pokaż czat na dole."
 
-#: ui/generalsettingsview.ui:171
+#: ui/generalsettingsview.ui:177
 msgid "History Settings"
 msgstr "Ustawienia Historii"
 
-#: ui/generalsettingsview.ui:189
+#: ui/generalsettingsview.ui:195
 msgid "Keep history for (days):"
 msgstr "Przechowaj historię do (dni):"
 
-#: ui/generalsettingsview.ui:210
+#: ui/generalsettingsview.ui:216
 msgid "(set to 0 for unlimited history)"
 msgstr "(Ustaw na 0 dla nieograniczonej historii)"
 
-#: ui/generalsettingsview.ui:219
+#: ui/generalsettingsview.ui:226
 msgid "Clear all history"
 msgstr "Usuń całą historię"
 

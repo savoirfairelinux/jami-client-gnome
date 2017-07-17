@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Balázs Meskó <meskobalazs@gmail.com>, 2017
 # . . <ovari123@zoho.com>, 2017
 # Zsolt <maxigaz@protonmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 13:55-0400\n"
-"PO-Revision-Date: 2017-07-13 17:55+0000\n"
+"POT-Creation-Date: 2017-07-16 23:09-0400\n"
+"PO-Revision-Date: 2017-07-17 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +53,7 @@ msgstr "Mintavételezési frekvencia"
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
-msgstr "Fiókját létrehoztuk, de nem tudtuk regisztrálni a felhasználóneved. Próbáld újra a beállítások menüből."
+msgstr "A fiókja létre lett hozva, de a felhasználónevet nem lehetett regisztrálni. Próbálja újra a beállítások menüből."
 
 #: src/accountcreationwizard.cpp:283
 msgctxt "The default username / account alias, if none is set by the user"
@@ -65,15 +66,15 @@ msgstr "A jelszavak nem egyeznek"
 
 #: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
 msgid "Bad password"
-msgstr "Rossz jelszó"
+msgstr "Hibás jelszó"
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
-msgstr "Hálózati hiba, próbáld újra"
+msgstr "Hálózati hiba, próbálja újra"
 
 #: src/accountdevicestab.cpp:213
 msgid "Could not initiate export to the Ring, try again"
-msgstr "Nem sikerült a Ring export beavatása, próbáld újra"
+msgstr "A Ring export elindítása nem sikerült, próbálja újra"
 
 #: src/accountdevicestab.cpp:246
 msgctxt "Device Name Column"
@@ -931,9 +932,9 @@ msgstr "Hívás kezdeményezése"
 msgid "Send invitation"
 msgstr "Meghívás küldése"
 
-#: ui/chatview.ui:122
-msgid "Send"
-msgstr "Elküld"
+#: ui/chatview.ui:117
+msgid "Send Invitation"
+msgstr ""
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
@@ -1036,59 +1037,59 @@ msgstr "Szám vagy Ringazonosító"
 msgid "Save"
 msgstr "Mentés"
 
-#: ui/generalsettingsview.ui:32
+#: ui/generalsettingsview.ui:34
 msgid "Profile Settings"
 msgstr "Profilbeállítások"
 
-#: ui/generalsettingsview.ui:74
+#: ui/generalsettingsview.ui:76
 msgid "Ring Settings"
 msgstr "Ring beállítások"
 
-#: ui/generalsettingsview.ui:90
+#: ui/generalsettingsview.ui:92
 msgid "Start Ring on login"
 msgstr "A Ring indítása bejelentkezéskor"
 
-#: ui/generalsettingsview.ui:98
+#: ui/generalsettingsview.ui:100
 msgid "Show Ring icon in the notification area (systray)."
 msgstr ""
 
-#: ui/generalsettingsview.ui:106
+#: ui/generalsettingsview.ui:108
 msgid "Bring Ring to the foreground on incoming calls."
 msgstr "A Ring előtérbe hozása bejövő hívások esetén "
 
-#: ui/generalsettingsview.ui:114
+#: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
 msgstr ""
 
-#: ui/generalsettingsview.ui:122
+#: ui/generalsettingsview.ui:124
 msgid "Enable notifications for new chat messages."
 msgstr ""
 
-#: ui/generalsettingsview.ui:130
+#: ui/generalsettingsview.ui:132
 msgid "Entering a number in the search entry will place a new call."
 msgstr ""
 
-#: ui/generalsettingsview.ui:143
+#: ui/generalsettingsview.ui:147
 msgid "Show chat on the right."
 msgstr "Csevegés mutatása jobboldalt."
 
-#: ui/generalsettingsview.ui:149
+#: ui/generalsettingsview.ui:153
 msgid "Show chat on the bottom."
 msgstr "Csevegés mutatása alul."
 
-#: ui/generalsettingsview.ui:171
+#: ui/generalsettingsview.ui:177
 msgid "History Settings"
 msgstr "Előzmények beállításai"
 
-#: ui/generalsettingsview.ui:189
+#: ui/generalsettingsview.ui:195
 msgid "Keep history for (days):"
 msgstr "Előzmények megtartása ennyi napig:"
 
-#: ui/generalsettingsview.ui:210
+#: ui/generalsettingsview.ui:216
 msgid "(set to 0 for unlimited history)"
 msgstr "(állítsa 0-ra a korlátlan előzményekért)"
 
-#: ui/generalsettingsview.ui:219
+#: ui/generalsettingsview.ui:226
 msgid "Clear all history"
 msgstr "Az összes előzmény törlése"
 
