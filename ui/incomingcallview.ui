@@ -14,6 +14,7 @@
           <object class="GtkFrame" id="frame_call">
             <property name="visible">True</property>
             <property name="shadow-type">GTK_SHADOW_NONE</property>
+            <property name="valign">center</property>
 
             <!-- box call -->
             <child>
@@ -125,9 +126,14 @@
                     <property name="spacing">20</property>
                     <property name="border_width">20</property>
                     <property name="valign">center</property>
+                    <property name="halign">center</property>
                     <!-- accept button -->
                     <child>
                       <object class="GtkButton" id="button_accept_incoming">
+                        <style>
+                          <class name="green-button"/>
+                          <class name="flat-button"/>
+                        </style>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="label" translatable="yes">   Accept</property>
@@ -143,6 +149,10 @@
                     <!-- reject button -->
                     <child>
                       <object class="GtkButton" id="button_reject_incoming">
+                        <style>
+                          <class name="red-button"/>
+                          <class name="flat-button"/>
+                        </style>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="label" translatable="yes">   Reject</property>
@@ -158,6 +168,10 @@
                     <!-- end button -->
                     <child>
                       <object class="GtkButton" id="button_end_call">
+                        <style>
+                          <class name="red-button"/>
+                          <class name="flat-button"/>
+                        </style>
                         <property name="visible">False</property>
                         <property name="can_focus">True</property>
                         <property name="label" translatable="yes">   Hang-up</property>
