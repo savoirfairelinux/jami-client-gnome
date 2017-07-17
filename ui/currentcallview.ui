@@ -232,18 +232,21 @@
   </object>
   <!-- end of box which contains peer image and name -->
 
-  <!-- call conrol button box -->
+  <!-- call control button box -->
   <object class="GtkBox" id="hbox_call_controls">
     <property name="visible">True</property>
     <property name="spacing">15</property>
     <property name="border-width">10</property>
     <child>
       <object class="GtkButton" id="button_hangup">
+        <style>
+          <class name="hangup-button-style"/>
+        </style>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
-        <property name="width-request">42</property>
-        <property name="height-request">42</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
         <property name="action-name">app.hangup</property>
         <property name="has_tooltip">True</property>
         <property name="tooltip-text" translatable="yes">End this call</property>
@@ -261,11 +264,14 @@
     </child>
     <child>
       <object class="GtkToggleButton" id="togglebutton_hold">
+        <style>
+          <class name="call-button"/>
+        </style>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
-        <property name="width-request">42</property>
-        <property name="height-request">42</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
         <property name="action-name">app.hold</property>
         <property name="has_tooltip">True</property>
         <property name="tooltip-text" translatable="yes">Toggle hold</property>
@@ -283,11 +289,15 @@
     </child>
     <child>
       <object class="GtkToggleButton" id="togglebutton_muteaudio">
+        <style>
+          <class name="can-be-disabled"/>
+          <class name="call-button"/>
+        </style>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
-        <property name="width-request">42</property>
-        <property name="height-request">42</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
         <property name="action-name">app.mute_audio</property>
         <property name="has_tooltip">True</property>
         <property name="tooltip-text" translatable="yes">Toggle mute audio</property>
@@ -305,11 +315,15 @@
     </child>
     <child>
       <object class="GtkToggleButton" id="togglebutton_mutevideo">
+        <style>
+          <class name="call-button"/>
+          <class name="can-be-disabled"/>
+        </style>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
-        <property name="width-request">42</property>
-        <property name="height-request">42</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
         <property name="action-name">app.mute_video</property>
         <property name="has_tooltip">True</property>
         <property name="tooltip-text" translatable="yes">Toggle mute video</property>
@@ -327,11 +341,15 @@
     </child>
     <child>
       <object class="GtkToggleButton" id="togglebutton_record">
+        <style>
+          <class name="call-button"/>
+          <class name="record-button"/>
+        </style>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
-        <property name="width-request">42</property>
-        <property name="height-request">42</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
         <property name="action-name">app.record</property>
         <property name="has_tooltip">True</property>
         <property name="image">image_record</property>
@@ -349,10 +367,13 @@
     </child>
     <child>
       <object class="GtkScaleButton" id="scalebutton_quality">
+        <style>
+          <class name="call-button"/>
+        </style>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="width-request">42</property>
-        <property name="height-request">42</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
         <property name="has_tooltip">True</property>
         <property name="relief">normal</property>
         <property name="tooltip-text" translatable="yes">Adjust outgoing video quality</property>
@@ -371,10 +392,13 @@
     </child>
     <child>
       <object class="GtkToggleButton" id="togglebutton_chat">
+        <style>
+          <class name="call-button"/>
+        </style>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="width-request">42</property>
-        <property name="height-request">42</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
         <property name="has_tooltip">True</property>
         <property name="tooltip-text" translatable="yes">Toggle show chat</property>
         <property name="image">image_chat</property>
@@ -430,7 +454,7 @@
   </object>
   <object class="GtkImage" id="image_end">
     <property name="visible">True</property>
-    <property name="resource">/cx/ring/RingGnome/end</property>
+    <property name="resource">/cx/ring/RingGnome/call_end</property>
     <child internal-child="accessible">
       <object class="AtkObject" id="image_end-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">End call</property>
@@ -448,7 +472,7 @@
   </object>
   <object class="GtkImage" id="image_record">
     <property name="visible">True</property>
-    <property name="icon_name">media-record</property>
+    <property name="resource">/cx/ring/RingGnome/record</property>
     <child internal-child="accessible">
       <object class="AtkObject" id="image_record-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Record</property>

@@ -77,6 +77,9 @@ struct _CurrentCallViewPrivate
     GtkWidget *video_widget;
     GtkWidget *frame_chat;
     GtkWidget *togglebutton_chat;
+    GtkWidget *togglebutton_muteaudio;
+    GtkWidget *togglebutton_mutevideo;
+    GtkWidget *togglebutton_hold;
     GtkWidget *button_hangup;
     GtkWidget *scalebutton_quality;
     GtkWidget *checkbutton_autoquality;
@@ -160,6 +163,48 @@ show_chat_view(CurrentCallView *self)
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
+}
+
+static void
+muteaudio_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+
+    if (gtk_toggle_button_get_active(togglebutton)) {
+        auto image_down = gtk_image_new_from_resource ("/cx/ring/RingGnome/unmute_audio");
+        gtk_button_set_image(GTK_BUTTON(togglebutton), image_down);
+    } else {
+        auto image_up = gtk_image_new_from_resource ("/cx/ring/RingGnome/mute_audio");
+        gtk_button_set_image(GTK_BUTTON(togglebutton), image_up);
+    }
+}
+
+static void
+mutevideo_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+
+    if (gtk_toggle_button_get_active(togglebutton)) {
+        auto image_down = gtk_image_new_from_resource ("/cx/ring/RingGnome/unmute_video");
+        gtk_button_set_image(GTK_BUTTON(togglebutton), image_down);
+    } else {
+        auto image_up = gtk_image_new_from_resource ("/cx/ring/RingGnome/mute_video");
+        gtk_button_set_image(GTK_BUTTON(togglebutton), image_up);
+    }
+}
+
+static void
+hold_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+
+    if (gtk_toggle_button_get_active(togglebutton)) {
+        auto image_down = gtk_image_new_from_resource ("/cx/ring/RingGnome/play");
+        gtk_button_set_image(GTK_BUTTON(togglebutton), image_down);
+    } else {
+        auto image_up = gtk_image_new_from_resource ("/cx/ring/RingGnome/pause");
+        gtk_button_set_image(GTK_BUTTON(togglebutton), image_up);
+    }
 }
 
 static void
@@ -475,6 +520,9 @@ insert_controls(CurrentCallView *view)
 
     /* toggle whether or not the chat is displayed */
     g_signal_connect(priv->togglebutton_chat, "toggled", G_CALLBACK(chat_toggled), view);
+    g_signal_connect(priv->togglebutton_hold, "toggled", G_CALLBACK(hold_toggled), view);
+    g_signal_connect(priv->togglebutton_mutevideo, "toggled", G_CALLBACK(mutevideo_toggled), view);
+    g_signal_connect(priv->togglebutton_muteaudio, "toggled", G_CALLBACK(muteaudio_toggled), view);
 
     /* bind the chat orientation to the gsetting */
     priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
@@ -530,7 +578,16 @@ current_call_view_init(CurrentCallView *view)
     // CSS styles
     auto provider = gtk_css_provider_new();
     gtk_css_provider_load_from_data(provider,
-        ".smartinfo-block-style { color: #8ae234; background-color: rgba(1, 1, 1, 0.33); }",
+        ".smartinfo-block-style { color: #8ae234; background-color: rgba(1, 1, 1, 0.33); } \
+        @keyframes blink { 0% {opacity: 1;} 49% {opacity: 1;} 50% {opacity: 0;} 100% {opacity: 0;} } \
+        .record-button { background: rgba(0, 0, 0, 1); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
+        .record-button:checked { animation: blink 1s; animation-iteration-count: infinite; } \
+        .call-button { background: rgba(0, 0, 0, 0); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
+        .call-button:hover { background: rgba(200, 200, 200, 0.15); } \
+        .call-button:disabled { opacity: 0.2; } \
+        .can-be-disabled:checked { background: rgba(219, 58, 55, 1); } \
+        .hangup-button-style { background: rgba(219, 58, 55, 1); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
+        .hangup-button-style:hover { background: rgba(219, 39, 25, 1); }",
         -1, nullptr
     );
     gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
@@ -569,6 +626,9 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_hold);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_muteaudio);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_mutevideo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scalebutton_quality);
 

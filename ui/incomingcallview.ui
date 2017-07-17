@@ -14,6 +14,7 @@
           <object class="GtkFrame" id="frame_call">
             <property name="visible">True</property>
             <property name="shadow-type">GTK_SHADOW_NONE</property>
+            <property name="valign">center</property>
 
             <!-- box call -->
             <child>
@@ -125,12 +126,20 @@
                     <property name="spacing">20</property>
                     <property name="border_width">20</property>
                     <property name="valign">center</property>
+                    <property name="halign">center</property>
                     <!-- accept button -->
                     <child>
                       <object class="GtkButton" id="button_accept_incoming">
+                        <style>
+                          <class name="green-button"/>
+                          <class name="flat-button"/>
+                        </style>
+                        <property name="width-request">48</property>
+                        <property name="height-request">48</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">   Accept</property>
+                        <property name="has_tooltip">True</property>
+                        <property name="tooltip-text" translatable="yes">Accept</property>
                         <property name="image">image_accept</property>
                         <property name="action-name">app.accept</property>
                       </object>
@@ -143,9 +152,16 @@
                     <!-- reject button -->
                     <child>
                       <object class="GtkButton" id="button_reject_incoming">
+                        <style>
+                          <class name="red-button"/>
+                          <class name="flat-button"/>
+                        </style>
+                        <property name="width-request">48</property>
+                        <property name="height-request">48</property>
                         <property name="visible">True</property>
+                        <property name="has_tooltip">True</property>
+                        <property name="tooltip-text" translatable="yes">Reject</property>
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">   Reject</property>
                         <property name="image">image_reject</property>
                         <property name="action-name">app.hangup</property>
                       </object>
@@ -158,9 +174,16 @@
                     <!-- end button -->
                     <child>
                       <object class="GtkButton" id="button_end_call">
+                        <style>
+                          <class name="red-button"/>
+                          <class name="flat-button"/>
+                        </style>
+                        <property name="width-request">48</property>
+                        <property name="height-request">48</property>
                         <property name="visible">False</property>
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">   Hang-up</property>
+                        <property name="has_tooltip">True</property>
+                        <property name="tooltip-text" translatable="yes">Hang up</property>
                         <property name="image">image_hangup</property>
                         <property name="action-name">app.hangup</property>
                       </object>
@@ -217,10 +240,10 @@
   </object>
   <object class="GtkImage" id="image_reject">
     <property name="visible">True</property>
-    <property name="resource">/cx/ring/RingGnome/reject</property>
+    <property name="resource">/cx/ring/RingGnome/call_end</property>
   </object>
   <object class="GtkImage" id="image_hangup">
     <property name="visible">True</property>
-    <property name="resource">/cx/ring/RingGnome/reject</property>
+    <property name="resource">/cx/ring/RingGnome/call_end</property>
   </object>
 </interface>
