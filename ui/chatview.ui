@@ -64,6 +64,19 @@
           </packing>
         </child>
         <child>
+          <object class="GtkLabel" id="label_cm">
+            <property name="visible">True</property>
+            <property name="selectable">True</property>
+            <property name="ellipsize">end</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="pack-type">end</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkComboBox" id="combobox_cm">
             <property name="visible">True</property>
             <property name="popup-fixed-width">False</property>
