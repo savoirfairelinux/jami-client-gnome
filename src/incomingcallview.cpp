@@ -117,6 +117,19 @@ incoming_call_view_init(IncomingCallView *view)
     gtk_widget_init_template(GTK_WIDGET(view));
     // gtk_widget_add_events(GTK_WIDGET(view), GDK_KEY_PRESS_MASK);
 
+    auto provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_data(provider,
+        ".flat-button { color: white; border: 0; border-radius: 10px; transition: all 0.3s ease; padding: 10px; text-align: center; } \
+        .red-button { background: #c0392b; } \
+        .green-button { background: #27ae60; } \
+        .red-button:hover { background: #c0190b; } \
+        .green-button:hover { background: #219d55; }",
+        -1, nullptr
+    );
+    gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
+                                              GTK_STYLE_PROVIDER(provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
     /* bind the chat orientation to the gsetting */
