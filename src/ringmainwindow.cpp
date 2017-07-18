@@ -567,6 +567,7 @@ lookup_username(RingMainWindow *self, URI uri, Account *account)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
+    gtk_widget_show(priv->spinner_lookup);
     gtk_spinner_start(GTK_SPINNER(priv->spinner_lookup));
     gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
 
@@ -649,6 +650,7 @@ lookup_username(RingMainWindow *self, URI uri, Account *account)
                 }
             }
             gtk_spinner_stop(GTK_SPINNER(priv->spinner_lookup));
+            gtk_widget_hide(priv->spinner_lookup);
         }
     );
 
@@ -1397,6 +1399,18 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect_swapped(priv->search_entry, "activate", G_CALLBACK(search_entry_activated), win);
     g_signal_connect(priv->search_entry, "search-changed", G_CALLBACK(search_entry_text_changed), win);
     g_signal_connect(priv->search_entry, "key-release-event", G_CALLBACK(search_entry_key_released), win);
+
+    auto provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_data(provider,
+        ".search-entry-style { border: 0; border-radius: 0; } \
+        .spinner-style { border: 0; background: white; } \
+        .new-conversation-style { border: 0; background: white; transition: all 0.3s ease; border-radius: 0; } \
+        .new-conversation-style:hover {  background: #bae5f0; }",
+        -1, nullptr
+    );
+    gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
+                                              GTK_STYLE_PROVIDER(provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
     /* make sure the incoming call is the selected call in the CallModel */
     QObject::connect(
