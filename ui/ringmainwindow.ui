@@ -147,6 +147,9 @@
                 <property name="can_focus">False</property>
                 <child>
                   <object class="GtkSearchEntry" id="search_entry">
+                    <style>
+                      <class name="search-entry-style"/>
+                    </style>
                     <property name="visible">True</property>
                     <property name="truncate-multiline">True</property>
                     <property name="max-length">256</property>
@@ -156,17 +159,23 @@
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="padding">5</property>
+                    <property name="padding">0</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkSpinner" id="spinner_lookup">
-                    <property name="visible">True</property>
+                    <style>
+                      <class name="spinner-style"/>
+                    </style>
+                    <property name="visible">False</property>
                     <property name="active">False</property>
                   </object>
                 </child>
                 <child>
                   <object class="GtkButton" id="button_new_conversation">
+                    <style>
+                      <class name="new-conversation-style"/>
+                    </style>
                     <property name="image">image_new_conversation</property>
                     <property name="visible">True</property>
                     <property name="relief">none</property>
@@ -176,7 +185,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="padding">5</property>
+                <property name="padding">0</property>
               </packing>
             </child>
             <!-- end hbox search -->
