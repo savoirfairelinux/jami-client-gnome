@@ -81,7 +81,7 @@ ring_about_dialog(GtkWidget *parent)
     }
 
     gchar *version = g_strdup_printf(C_("Do not translate the release name nor the status (beta, final, ...)",
-                                        "Gaston Miron - Beta 2\nbuilt on %.25s"),
+                                        "Liberté, Égalité, Fraternité - Version 1.0\nbuilt on %.25s"),
                                      RING_CLIENT_BUILD_DATE);
 
     const gchar *authors[] = {
