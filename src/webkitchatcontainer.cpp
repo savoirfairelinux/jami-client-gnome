@@ -120,10 +120,27 @@ webkit_chat_container_class_init(WebKitChatContainerClass *klass)
 }
 
 static gboolean
-webview_chat_context_menu(WebKitChatContainer *self)
+webview_chat_context_menu(WebKitChatContainer *self,
+                          WebKitContextMenu   *menu,
+                          GdkEvent            *event,
+                          WebKitHitTestResult *hit_test_result,
+                          gpointer             user_data)
 {
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(self);
-    return !priv->chatview_debug;
+    GList *items, *nextList;
+    for (items = webkit_context_menu_get_items(menu) ; items ; items = nextList) {
+        WebKitContextMenuAction action;
+        nextList = items->next;
+        auto item = (WebKitContextMenuItem*)items->data;
+        action = webkit_context_menu_item_get_stock_action(item);
+
+        if (action == WEBKIT_CONTEXT_MENU_ACTION_RELOAD ||
+        action == WEBKIT_CONTEXT_MENU_ACTION_GO_FORWARD ||
+        action == WEBKIT_CONTEXT_MENU_ACTION_GO_BACK ||
+        action == WEBKIT_CONTEXT_MENU_ACTION_STOP) {
+            webkit_context_menu_remove(menu, item);
+        }
+    }
+    return false;
 }
 
 QString
