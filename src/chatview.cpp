@@ -133,6 +133,24 @@ hide_chat_view(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
     g_signal_emit(G_OBJECT(self), chat_view_signals[HIDE_VIEW_CLICKED], 0);
 }
 
+ContactMethod*
+get_active_contactmethod(ChatView *self)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    auto cms = priv->person->phoneNumbers();
+    if (cms.size() > 0 && priv->person->phoneNumbers().size() == 1) {
+        return cms.first();
+    } else if (cms.size() > 0) {
+        auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
+        if (active >= 0 && active < cms.size()) {
+            return cms.at(active);
+        }
+    } else {
+        return nullptr;
+    }
+}
+
 static void
 placecall_clicked(ChatView *self)
 {
@@ -140,9 +158,8 @@ placecall_clicked(ChatView *self)
 
     if (priv->person) {
         // get the chosen cm
-        auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
-        if (active >= 0) {
-            auto cm = priv->person->phoneNumbers().at(active);
+        auto cm = get_active_contactmethod(self);
+        if (cm) {
             place_new_call(cm);
         } else {
             g_warning("no ContactMethod chosen; cannot place call");
@@ -159,13 +176,8 @@ button_send_invitation_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    // get the account associated to the selected cm
-    auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
-
     if (priv->person) {
-        auto& numbers = priv->person->phoneNumbers();
-        if (not numbers.isEmpty())
-            priv->cm = numbers.at(active);
+        priv->cm = get_active_contactmethod(self);
     }
 
     if (!priv->cm) {
@@ -209,9 +221,8 @@ webkit_chat_container_send_text(G_GNUC_UNUSED GtkWidget* webview, gchar *message
             priv->call->addOutgoingMedia<Media::Text>()->send(messages);
         } else if (priv->person) {
             // get the chosen cm
-            auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
-            if (active >= 0) {
-                auto cm = priv->person->phoneNumbers().at(active);
+            auto cm = get_active_contactmethod(self);
+            if (cm) {
                 if (!cm->sendOfflineTextMessage(messages))
                     g_warning("message failed to send"); // TODO: warn the user about this in the UI
             } else {
@@ -293,20 +304,6 @@ print_message_to_buffer(ChatView* self, const QModelIndex &idx)
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
         idx
     );
-}
-
-ContactMethod*
-get_active_contactmethod(ChatView *self)
-{
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    auto cms = priv->person->phoneNumbers();
-    auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
-    if (active >= 0 && active < cms.size()) {
-        return cms.at(active);
-    } else {
-        return nullptr;
-    }
 }
 
 static void
