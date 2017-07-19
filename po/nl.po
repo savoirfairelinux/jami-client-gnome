@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Bert Frederiks <bert2017@elektroaandrijving.nl>, 2017
 # Nathan Follens, 2016-2017
 # Niels van Duijkeren <nielsvanduijkeren@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-16 23:09-0400\n"
-"PO-Revision-Date: 2017-07-17 03:09+0000\n"
+"POT-Creation-Date: 2017-07-19 10:25-0400\n"
+"PO-Revision-Date: 2017-07-19 14:25+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/ring/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +22,7 @@ msgstr ""
 
 #: src/accountadvancedtab.cpp:389
 msgid "_Remove server"
-msgstr "Server ve_rwijderen"
+msgstr "_Verwijder Server"
 
 #: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
 msgid "Hostname"
@@ -260,11 +261,11 @@ msgstr "Bezig..."
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"Gaston Miron - Beta 2\n"
+"Liberté, Égalité, Fraternité - Version 1.0\n"
 "built on %.25s"
-msgstr "Gaston Miron - beta 2\ngebouwd op %.25s"
+msgstr ""
 
-#: src/dialogs.c:132
+#: src/dialogs.c:135
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
@@ -931,72 +932,72 @@ msgstr "Oproep maken"
 msgid "Send invitation"
 msgstr "Uitnodiging sturen"
 
-#: ui/chatview.ui:117
+#: ui/chatview.ui:130
 msgid "Send Invitation"
-msgstr ""
+msgstr "Stuur Uitnodiging"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
 msgstr "Nieuw aanmaken"
 
-#: ui/currentcallview.ui:247
+#: ui/currentcallview.ui:252
 msgid "End this call"
 msgstr "Deze oproep beëindigen "
 
-#: ui/currentcallview.ui:251 ui/currentcallview.ui:434
+#: ui/currentcallview.ui:256 ui/currentcallview.ui:460
 msgid "End call"
 msgstr "Oproep beëindigen"
 
-#: ui/currentcallview.ui:269
+#: ui/currentcallview.ui:277
 msgid "Toggle hold"
 msgstr "Wacht in/uitschakelen"
 
-#: ui/currentcallview.ui:273 ui/currentcallview.ui:295
-#: ui/currentcallview.ui:425
+#: ui/currentcallview.ui:281 ui/currentcallview.ui:307
+#: ui/currentcallview.ui:451
 msgid "Hold"
 msgstr "In wacht zetten"
 
-#: ui/currentcallview.ui:291
+#: ui/currentcallview.ui:303
 msgid "Toggle mute audio"
 msgstr "Geluid in/uitschakelen"
 
-#: ui/currentcallview.ui:313
+#: ui/currentcallview.ui:329
 msgid "Toggle mute video"
 msgstr "Video in/uitschakelen"
 
-#: ui/currentcallview.ui:317 ui/currentcallview.ui:416
+#: ui/currentcallview.ui:333 ui/currentcallview.ui:442
 msgid "Mute video"
 msgstr "Video uitschakelen"
 
-#: ui/currentcallview.ui:336
+#: ui/currentcallview.ui:356
 msgid "Toggle record audio"
 msgstr "Geluid opname in/uitschakelen"
 
-#: ui/currentcallview.ui:339
+#: ui/currentcallview.ui:359
 msgid "Record audio"
 msgstr "Geluid opnemen"
 
-#: ui/currentcallview.ui:356
+#: ui/currentcallview.ui:379
 msgid "Adjust outgoing video quality"
 msgstr "Uitgaande videokwaliteit aanpassen"
 
-#: ui/currentcallview.ui:361 ui/currentcallview.ui:443
+#: ui/currentcallview.ui:384 ui/currentcallview.ui:469
 msgid "Video quality"
 msgstr "Videokwaliteit"
 
-#: ui/currentcallview.ui:377
+#: ui/currentcallview.ui:403
 msgid "Toggle show chat"
 msgstr "Gesprek tonen/verbergen"
 
-#: ui/currentcallview.ui:381 ui/currentcallview.ui:398
+#: ui/currentcallview.ui:407 ui/currentcallview.ui:424
 msgid "Chat"
 msgstr "Gesprek"
 
-#: ui/currentcallview.ui:407
+#: ui/currentcallview.ui:433
 msgid "Mute audio"
 msgstr "Geluid dempen"
 
-#: ui/currentcallview.ui:452
+#: ui/currentcallview.ui:478
 msgid "Record"
 msgstr "Opnemen"
 
@@ -1092,20 +1093,20 @@ msgstr "(kies 0 voor onbeperkte geschiedenis)"
 msgid "Clear all history"
 msgstr "Geschiedenis wissen"
 
-#: ui/incomingcallview.ui:105
+#: ui/incomingcallview.ui:106
 msgid "Incoming..."
 msgstr "Inkomend..."
 
-#: ui/incomingcallview.ui:133
-msgid "   Accept"
+#: ui/incomingcallview.ui:142
+msgid "Accept"
 msgstr "Aanvaarden"
 
-#: ui/incomingcallview.ui:148
-msgid "   Reject"
-msgstr "Afwijzen"
-
 #: ui/incomingcallview.ui:163
-msgid "   Hang-up"
+msgid "Reject"
+msgstr ""
+
+#: ui/incomingcallview.ui:186
+msgid "Hang up"
 msgstr "Ophangen"
 
 #: ui/mediasettingsview.ui:24

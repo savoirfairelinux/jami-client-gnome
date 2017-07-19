@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-16 23:09-0400\n"
-"PO-Revision-Date: 2017-07-17 03:09+0000\n"
+"POT-Creation-Date: 2017-07-19 10:25-0400\n"
+"PO-Revision-Date: 2017-07-19 14:25+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/ring/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -260,11 +260,11 @@ msgstr "正在工作…"
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"Gaston Miron - Beta 2\n"
+"Liberté, Égalité, Fraternité - Version 1.0\n"
 "built on %.25s"
-msgstr "Gaston Miron - Beta 2\n编译于%.25s"
+msgstr ""
 
-#: src/dialogs.c:132
+#: src/dialogs.c:135
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
@@ -931,7 +931,7 @@ msgstr "发起通话"
 msgid "Send invitation"
 msgstr "发送邀请"
 
-#: ui/chatview.ui:117
+#: ui/chatview.ui:130
 msgid "Send Invitation"
 msgstr ""
 
@@ -939,64 +939,64 @@ msgstr ""
 msgid "Create New"
 msgstr "创建新"
 
-#: ui/currentcallview.ui:247
+#: ui/currentcallview.ui:252
 msgid "End this call"
 msgstr "结束该通话"
 
-#: ui/currentcallview.ui:251 ui/currentcallview.ui:434
+#: ui/currentcallview.ui:256 ui/currentcallview.ui:460
 msgid "End call"
 msgstr "结束通话"
 
-#: ui/currentcallview.ui:269
+#: ui/currentcallview.ui:277
 msgid "Toggle hold"
 msgstr "等待/取消等待"
 
-#: ui/currentcallview.ui:273 ui/currentcallview.ui:295
-#: ui/currentcallview.ui:425
+#: ui/currentcallview.ui:281 ui/currentcallview.ui:307
+#: ui/currentcallview.ui:451
 msgid "Hold"
 msgstr "等待"
 
-#: ui/currentcallview.ui:291
+#: ui/currentcallview.ui:303
 msgid "Toggle mute audio"
 msgstr "开启声音/静音"
 
-#: ui/currentcallview.ui:313
+#: ui/currentcallview.ui:329
 msgid "Toggle mute video"
 msgstr "开启/关闭视频"
 
-#: ui/currentcallview.ui:317 ui/currentcallview.ui:416
+#: ui/currentcallview.ui:333 ui/currentcallview.ui:442
 msgid "Mute video"
 msgstr "关闭视频"
 
-#: ui/currentcallview.ui:336
+#: ui/currentcallview.ui:356
 msgid "Toggle record audio"
 msgstr "音频录制开始/结束"
 
-#: ui/currentcallview.ui:339
+#: ui/currentcallview.ui:359
 msgid "Record audio"
 msgstr "录音"
 
-#: ui/currentcallview.ui:356
+#: ui/currentcallview.ui:379
 msgid "Adjust outgoing video quality"
 msgstr "设置我的视频画质"
 
-#: ui/currentcallview.ui:361 ui/currentcallview.ui:443
+#: ui/currentcallview.ui:384 ui/currentcallview.ui:469
 msgid "Video quality"
 msgstr "视频画质"
 
-#: ui/currentcallview.ui:377
+#: ui/currentcallview.ui:403
 msgid "Toggle show chat"
 msgstr "显示/隐藏聊天栏"
 
-#: ui/currentcallview.ui:381 ui/currentcallview.ui:398
+#: ui/currentcallview.ui:407 ui/currentcallview.ui:424
 msgid "Chat"
 msgstr "聊天"
 
-#: ui/currentcallview.ui:407
+#: ui/currentcallview.ui:433
 msgid "Mute audio"
 msgstr "静音"
 
-#: ui/currentcallview.ui:452
+#: ui/currentcallview.ui:478
 msgid "Record"
 msgstr "录制"
 
@@ -1092,20 +1092,20 @@ msgstr "（设置为0则无限制）"
 msgid "Clear all history"
 msgstr "清除所有历史记录"
 
-#: ui/incomingcallview.ui:105
+#: ui/incomingcallview.ui:106
 msgid "Incoming..."
 msgstr "来电…"
 
-#: ui/incomingcallview.ui:133
-msgid "   Accept"
-msgstr "接受"
-
-#: ui/incomingcallview.ui:148
-msgid "   Reject"
-msgstr "拒绝"
+#: ui/incomingcallview.ui:142
+msgid "Accept"
+msgstr "接听"
 
 #: ui/incomingcallview.ui:163
-msgid "   Hang-up"
+msgid "Reject"
+msgstr ""
+
+#: ui/incomingcallview.ui:186
+msgid "Hang up"
 msgstr "挂断"
 
 #: ui/mediasettingsview.ui:24

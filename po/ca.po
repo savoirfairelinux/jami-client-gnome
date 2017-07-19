@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-16 23:09-0400\n"
-"PO-Revision-Date: 2017-07-17 03:09+0000\n"
+"POT-Creation-Date: 2017-07-19 10:25-0400\n"
+"PO-Revision-Date: 2017-07-19 14:25+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Catalan (http://www.transifex.com/savoirfairelinux/ring/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -260,11 +260,11 @@ msgstr "Treballant..."
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"Gaston Miron - Beta 2\n"
+"Liberté, Égalité, Fraternité - Version 1.0\n"
 "built on %.25s"
 msgstr ""
 
-#: src/dialogs.c:132
+#: src/dialogs.c:135
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
@@ -931,7 +931,7 @@ msgstr ""
 msgid "Send invitation"
 msgstr ""
 
-#: ui/chatview.ui:117
+#: ui/chatview.ui:130
 msgid "Send Invitation"
 msgstr ""
 
@@ -939,64 +939,64 @@ msgstr ""
 msgid "Create New"
 msgstr "Crea Nou"
 
-#: ui/currentcallview.ui:247
+#: ui/currentcallview.ui:252
 msgid "End this call"
 msgstr "Finalitza aquesta trucada"
 
-#: ui/currentcallview.ui:251 ui/currentcallview.ui:434
+#: ui/currentcallview.ui:256 ui/currentcallview.ui:460
 msgid "End call"
 msgstr "Finalitza la trucada"
 
-#: ui/currentcallview.ui:269
+#: ui/currentcallview.ui:277
 msgid "Toggle hold"
 msgstr "Mantenir en espera"
 
-#: ui/currentcallview.ui:273 ui/currentcallview.ui:295
-#: ui/currentcallview.ui:425
+#: ui/currentcallview.ui:281 ui/currentcallview.ui:307
+#: ui/currentcallview.ui:451
 msgid "Hold"
 msgstr "En espera"
 
-#: ui/currentcallview.ui:291
+#: ui/currentcallview.ui:303
 msgid "Toggle mute audio"
 msgstr "Activa silenci d'àudio"
 
-#: ui/currentcallview.ui:313
+#: ui/currentcallview.ui:329
 msgid "Toggle mute video"
 msgstr "Activa silenci de vídeo"
 
-#: ui/currentcallview.ui:317 ui/currentcallview.ui:416
+#: ui/currentcallview.ui:333 ui/currentcallview.ui:442
 msgid "Mute video"
 msgstr "Silencia el vídeo"
 
-#: ui/currentcallview.ui:336
+#: ui/currentcallview.ui:356
 msgid "Toggle record audio"
 msgstr "Activa silenci"
 
-#: ui/currentcallview.ui:339
+#: ui/currentcallview.ui:359
 msgid "Record audio"
 msgstr "Grava l'àudio"
 
-#: ui/currentcallview.ui:356
+#: ui/currentcallview.ui:379
 msgid "Adjust outgoing video quality"
 msgstr ""
 
-#: ui/currentcallview.ui:361 ui/currentcallview.ui:443
+#: ui/currentcallview.ui:384 ui/currentcallview.ui:469
 msgid "Video quality"
 msgstr ""
 
-#: ui/currentcallview.ui:377
+#: ui/currentcallview.ui:403
 msgid "Toggle show chat"
 msgstr "Mostra el xat"
 
-#: ui/currentcallview.ui:381 ui/currentcallview.ui:398
+#: ui/currentcallview.ui:407 ui/currentcallview.ui:424
 msgid "Chat"
 msgstr "Xat"
 
-#: ui/currentcallview.ui:407
+#: ui/currentcallview.ui:433
 msgid "Mute audio"
 msgstr "Silencia l'àudio"
 
-#: ui/currentcallview.ui:452
+#: ui/currentcallview.ui:478
 msgid "Record"
 msgstr "Grava"
 
@@ -1092,21 +1092,21 @@ msgstr "(posar a 0 per a historial il·limitat)"
 msgid "Clear all history"
 msgstr "Neteja l'historial"
 
-#: ui/incomingcallview.ui:105
+#: ui/incomingcallview.ui:106
 msgid "Incoming..."
 msgstr "Entrant..."
 
-#: ui/incomingcallview.ui:133
-msgid "   Accept"
-msgstr "Accepta"
-
-#: ui/incomingcallview.ui:148
-msgid "   Reject"
-msgstr "Rebutja"
+#: ui/incomingcallview.ui:142
+msgid "Accept"
+msgstr ""
 
 #: ui/incomingcallview.ui:163
-msgid "   Hang-up"
-msgstr "Penja"
+msgid "Reject"
+msgstr ""
+
+#: ui/incomingcallview.ui:186
+msgid "Hang up"
+msgstr "Penjar"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
