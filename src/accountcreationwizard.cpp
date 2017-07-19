@@ -542,7 +542,7 @@ entries_existing_account_changed(G_GNUC_UNUSED GtkEntry *entry, AccountCreationW
 
     gtk_widget_set_sensitive(
         priv->button_existing_account_step2_next,
-        (strlen(pin) > 0 && strlen(password) > 0)
+        (strlen(pin) > 0)
     );
 }
 
