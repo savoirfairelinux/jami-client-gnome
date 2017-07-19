@@ -21,13 +21,14 @@
 
 #include <gtk/gtk.h>
 #include <math.h>
+#include <algorithm>
 
 static constexpr const char* MSG_COUNT_FONT        = "Sans";
 static constexpr int         MSG_COUNT_FONT_SIZE   = 12;
 static constexpr GdkRGBA     MSG_COUNT_FONT_COLOUR = {1.0, 1.0, 1.0, 1.0}; // white
 static constexpr GdkRGBA     MSG_COUNT_BACKGROUND  = {0.984, 0.282, 0.278, 0.9}; // red 251, 72, 71, 0.9
-static constexpr GdkRGBA     PRESENCE_PRESENT_BACKGROUND = {0.4375, 0.0234375, 0.84765625, 0.9}; // green 112, 217, 6, 0.9
-static constexpr GdkRGBA     PRESENCE_ABSENT_BACKGROUND = {0.984, 0.282, 0.278, 0.9}; // red 251, 72, 71, 0.9
+static constexpr GdkRGBA     PRESENCE_PRESENT_BACKGROUND = {0, 0.4156827, 0.8, 1.0}; // green 112, 217, 6, 0.9
+static constexpr GdkRGBA     PRESENCE_ABSENT_BACKGROUND = {0.984, 0.282, 0.278, 1.0}; // red 251, 72, 71, 0.9
 
 GdkPixbuf *
 ring_draw_fallback_avatar(int size) {
@@ -105,31 +106,35 @@ ring_draw_conference_avatar(int size) {
     return pixbuf;
 }
 
+
 GdkPixbuf *
 ring_frame_avatar(GdkPixbuf *avatar) {
-    int extra_space = 10;
-    int offset = extra_space/2;
-    int w = gdk_pixbuf_get_width(avatar);
-    int h = gdk_pixbuf_get_height(avatar);
-    int w_surface = w + extra_space;
-    int h_surface = h + extra_space;
-    cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w_surface, h_surface);
+
+    auto w = gdk_pixbuf_get_width(avatar);
+    auto h = gdk_pixbuf_get_height(avatar);
+    auto new_size = std::max(h, gdk_pixbuf_get_height(avatar));
+    GdkPixbuf *crop_avatar = avatar;
+    gdk_pixbuf_scale (avatar, crop_avatar, 0, 0, new_size, new_size,
+                      (w/2)-(new_size/2), (h/2)-(new_size/2), 0, 0,
+                      GDK_INTERP_BILINEAR);
+    auto extra_space = 10;
+    auto offset = extra_space/2;
+    auto s_surface = new_size + extra_space;
+    cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, s_surface, s_surface);
     cairo_t *cr = cairo_create(surface);
 
     cairo_set_source_rgba(cr, 0, 0, 0, 0);
-    cairo_rectangle(cr, 0, 0, w_surface, h_surface);
+    cairo_rectangle(cr, 0, 0, s_surface, s_surface);
     cairo_fill(cr);
 
-    double aspect = (double)w/(double)h;
-    double corner_radius = 5;
-    double radius = corner_radius/aspect;
+    double radius = new_size/2;
     double degrees = M_PI / 180.0;
 
     // create the square path with ronded corners
     cairo_new_sub_path (cr);
-    cairo_arc (cr, offset + w - radius, offset + radius, radius, -90 * degrees, 0 * degrees);
-    cairo_arc (cr, offset + w - radius, offset + h - radius, radius, 0 * degrees, 90 * degrees);
-    cairo_arc (cr, offset + radius, offset + h - radius, radius, 90 * degrees, 180 * degrees);
+    cairo_arc (cr, offset + new_size - radius, offset + radius, radius, -90 * degrees, 0 * degrees);
+    cairo_arc (cr, offset + new_size - radius, offset + new_size - radius, radius, 0 * degrees, 90 * degrees);
+    cairo_arc (cr, offset + radius, offset + new_size - radius, radius, 90 * degrees, 180 * degrees);
     cairo_arc (cr, offset + radius, offset + radius, radius, 180 * degrees, 270 * degrees);
     cairo_close_path (cr);
 
@@ -140,15 +145,10 @@ ring_frame_avatar(GdkPixbuf *avatar) {
     cairo_fill_preserve(cr);
 
     // now draw the image over this black square
-    gdk_cairo_set_source_pixbuf(cr, avatar, offset, offset);
+    gdk_cairo_set_source_pixbuf(cr, crop_avatar, offset, offset);
     cairo_fill_preserve(cr);
 
-    // now draw the blue frame
-    cairo_set_source_rgba (cr, 58.0/256.0, 191/256.0, 210/256.0, 1.0);
-    cairo_set_line_width (cr, 2.0);
-    cairo_stroke (cr);
-
-    GdkPixbuf *pixbuf = gdk_pixbuf_get_from_surface(surface, 0, 0, w_surface, h_surface);
+    auto pixbuf = gdk_pixbuf_get_from_surface(surface, 0, 0, s_surface, s_surface);
 
     /* free resources */
     cairo_destroy(cr);
@@ -194,8 +194,8 @@ ring_draw_presence(const GdkPixbuf *avatar, bool present) {
     /* draw rounded rectangle, with 3 pixel border
      * ie: 6 pixels higher, 6 pixels wider */
     int border_width = 5;
-    double rec_x = w - border_width * 2.5;
-    double rec_y = h - border_width * 2.5;
+    double rec_x = w - border_width * 3;
+    double rec_y = h - border_width * 3;
     double rec_w = border_width * 2;
     double rec_h = border_width * 2;
     double corner_radius = rec_h/2.5;
@@ -210,7 +210,10 @@ ring_draw_presence(const GdkPixbuf *avatar, bool present) {
         background.green,
         background.alpha
     );
-    cairo_fill(cr);
+    cairo_fill_preserve(cr);
+    cairo_set_source_rgb(cr, 1, 1, 1);
+    cairo_set_line_width(cr, 1.2);
+    cairo_stroke(cr);
 
     GdkPixbuf *pixbuf = gdk_pixbuf_get_from_surface(surface, 0, 0, w, h);
 
