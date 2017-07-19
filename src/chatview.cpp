@@ -76,7 +76,8 @@ struct _ChatViewPrivate
 
     QMetaObject::Connection new_message_connection;
     QMetaObject::Connection message_changed_connection;
-    QMetaObject::Connection update_chat_info;
+    QMetaObject::Connection update_name;
+    QMetaObject::Connection update_send_invitation;
 
     gulong webkit_ready;
     gulong webkit_send_text;
@@ -105,7 +106,8 @@ chat_view_dispose(GObject *object)
 
     QObject::disconnect(priv->new_message_connection);
     QObject::disconnect(priv->message_changed_connection);
-    QObject::disconnect(priv->update_chat_info);
+    QObject::disconnect(priv->update_name);
+    QObject::disconnect(priv->update_send_invitation);
 
     /* Destroying the box will also destroy its children, and we wouldn't
      * want that. So we remove the webkit_chat_container from the box. */
@@ -133,6 +135,28 @@ hide_chat_view(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
     g_signal_emit(G_OBJECT(self), chat_view_signals[HIDE_VIEW_CLICKED], 0);
 }
 
+ContactMethod*
+get_active_contactmethod(ChatView *self)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    if (priv->cm) {
+        return priv->cm;
+    } else if (priv->person) {
+        auto cms = priv->person->phoneNumbers();
+        if (cms.size() == 1) {
+            return cms.first();
+        } else if (cms.size() > 1) {
+            auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
+            if (active >= 0 && active < cms.size()) {
+                return cms.at(active);
+            }
+        }
+    }
+
+    return nullptr;
+}
+
 static void
 placecall_clicked(ChatView *self)
 {
@@ -140,9 +164,8 @@ placecall_clicked(ChatView *self)
 
     if (priv->person) {
         // get the chosen cm
-        auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
-        if (active >= 0) {
-            auto cm = priv->person->phoneNumbers().at(active);
+        auto cm = get_active_contactmethod(self);
+        if (cm) {
             place_new_call(cm);
         } else {
             g_warning("no ContactMethod chosen; cannot place call");
@@ -159,13 +182,8 @@ button_send_invitation_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    // get the account associated to the selected cm
-    auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
-
     if (priv->person) {
-        auto& numbers = priv->person->phoneNumbers();
-        if (not numbers.isEmpty())
-            priv->cm = numbers.at(active);
+        priv->cm = get_active_contactmethod(self);
     }
 
     if (!priv->cm) {
@@ -209,9 +227,8 @@ webkit_chat_container_send_text(G_GNUC_UNUSED GtkWidget* webview, gchar *message
             priv->call->addOutgoingMedia<Media::Text>()->send(messages);
         } else if (priv->person) {
             // get the chosen cm
-            auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
-            if (active >= 0) {
-                auto cm = priv->person->phoneNumbers().at(active);
+            auto cm = get_active_contactmethod(self);
+            if (cm) {
                 if (!cm->sendOfflineTextMessage(messages))
                     g_warning("message failed to send"); // TODO: warn the user about this in the UI
             } else {
@@ -293,20 +310,6 @@ print_message_to_buffer(ChatView* self, const QModelIndex &idx)
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
         idx
     );
-}
-
-ContactMethod*
-get_active_contactmethod(ChatView *self)
-{
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    auto cms = priv->person->phoneNumbers();
-    auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
-    if (active >= 0 && active < cms.size()) {
-        return cms.at(active);
-    } else {
-        return nullptr;
-    }
 }
 
 static void
@@ -424,6 +427,18 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
 }
 
 static void
+update_send_invitation(ChatView *self)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    auto cm = get_active_contactmethod(self);
+
+    if (cm && cm->isConfirmed()) {
+        gtk_widget_hide(priv->button_send_invitation);
+    }
+}
+
+static void
 selected_cm_changed(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
@@ -435,6 +450,13 @@ selected_cm_changed(ChatView *self)
     auto cm = get_active_contactmethod(self);
     if (cm){
         print_text_recording(cm->textRecording(), self);
+
+        QObject::disconnect(priv->update_send_invitation);
+        priv->update_send_invitation = QObject::connect(
+            get_active_contactmethod(self),
+            &ContactMethod::changed,
+            [self] () { update_send_invitation(self); }
+        );
     } else {
         g_warning("no valid ContactMethod selected to display chat conversation");
     }
@@ -546,7 +568,7 @@ update_contact_methods(ChatView *self)
 }
 
 static void
-update_chat_info(ChatView *self)
+update_name(ChatView *self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
@@ -557,9 +579,6 @@ update_chat_info(ChatView *self)
         name = priv->person->roleData(static_cast<int>(Ring::Role::Name)).toString();
     } else if (priv->cm) {
         name = priv->cm->roleData(static_cast<int>(Ring::Role::Name)).toString();
-        if (priv->cm->isConfirmed()) {
-            gtk_widget_hide(priv->button_send_invitation);
-        }
     } else if (priv->call) {
         name = priv->call->peerContactMethod()->roleData(static_cast<int>(Ring::Role::Name)).toString();
     }
@@ -599,25 +618,33 @@ build_chat_view(ChatView* self)
 
     /* keep name updated */
     if (priv->call) {
-        priv->update_chat_info = QObject::connect(
+        priv->update_name = QObject::connect(
             priv->call,
             &Call::changed,
-            [self] () { update_chat_info(self); }
+            [self] () { update_name(self); }
         );
     } else if (priv->cm) {
-        priv->update_chat_info = QObject::connect(
+        priv->update_name = QObject::connect(
             priv->cm,
             &ContactMethod::changed,
-            [self] () { update_chat_info(self); }
+            [self] () { update_name(self); }
         );
     } else if (priv->person) {
-        priv->update_chat_info = QObject::connect(
+        priv->update_name = QObject::connect(
             priv->person,
             &Person::changed,
-            [self] () { update_chat_info(self); }
+            [self] () { update_name(self); }
         );
     }
-    update_chat_info(self);
+
+    priv->update_send_invitation = QObject::connect(
+        get_active_contactmethod(self),
+        &ContactMethod::changed,
+        [self] () { update_send_invitation(self); }
+    );
+
+    update_name(self);
+    update_send_invitation(self);
 
     /* keep selected cm updated */
     update_contact_methods(self);

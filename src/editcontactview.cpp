@@ -24,6 +24,11 @@
 #include <personmodel.h>
 #include <numbercategorymodel.h>
 #include "utils/models.h"
+#include "utils/accounts.h"
+
+// LRC
+#include <account.h>
+
 
 enum
 {
@@ -104,6 +109,24 @@ save_cb(EditContactView *self)
         priv->person->setContactMethods(numbers);
 
         PersonModel::instance().addNewPerson(priv->person, collection);
+
+        // Send a request to the new contact
+        auto account = priv->cm->account();
+        if (not account) {
+
+            // get the choosen account
+            account = get_active_ring_account();
+
+            if (not account) {
+                g_warning("invalid account, cannot send invitation!");
+                g_signal_emit(self, edit_contact_signals[PERSON_SAVED], 0);
+                return;
+            }
+        }
+
+        // perform the request
+        if (not account->sendContactRequest(priv->cm))
+            g_warning("contact request not forwarded, cannot send invitation!");
     } else {
         auto numbers = priv->person->phoneNumbers();
         numbers << priv->cm;
