@@ -23,13 +23,15 @@
                 <property name="orientation">vertical</property>
                 <property name="spacing">15</property>
                 <child>
-                  <object class="GtkBox" id="hbox_account_creation_title">
+                  <object class="GtkBox" id="vbox_account_creation_title">
                     <property name="visible">True</property>
                     <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkLabel" id="label_welcome">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Welcome to </property>
+                        <property name="label" translatable="yes">Welcome to</property>
                         <attributes>
                           <attribute name="scale" value="2"/>
                         </attributes>
