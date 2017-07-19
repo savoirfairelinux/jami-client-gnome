@@ -10,7 +10,7 @@ xgettext -o ring-client-gnome.pot --keyword=_ --keyword=C_:1c,2 --keyword=N_ -D 
 
 Replace the first 3 lines of the generated header with:
 # Gettext PO translation template file for the GNOME client of the Ring project.
-# Copyright (C) 2015-2016 Savoir-faire Linux Inc.
+# Copyright (C) 2015-2017 Savoir-faire Linux Inc.
 # This file is distributed under the same license as the Ring package.
 
 The translation files are expected to be located in the /po dir using the

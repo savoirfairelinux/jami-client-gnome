@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2016 Savoir-faire Linux Inc.
+ *  Copyright (C) 2016-2017 Savoir-faire Linux Inc.
  *  Author: Nicolas Jager <nicolas.jager@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify

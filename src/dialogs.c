@@ -99,6 +99,7 @@ ring_about_dialog(GtkWidget *parent)
         "Emmanuel Lepage-Vallée",
         "Frédéric Guimont",
         "Guillaume Roguez",
+        "Hadrien De Sousa",
         "Julien Grossholtz",
         "Kateryna Kostiuk",
         "Loïc Siret",
