@@ -18,6 +18,7 @@
  */
 
 #include "contactpopupmenu.h"
+#include "utils/accounts.h"
 
 // GTK+ related
 #include <glib/gi18n.h>
@@ -27,6 +28,7 @@
 #include <person.h>
 #include <numbercategory.h>
 #include <call.h>
+#include <account.h>
 
 // Ring client
 #include "utils/calling.h"
@@ -94,7 +96,71 @@ remove_contact(GtkWidget *item, Person *person)
         person->remove();
     }
 
+
+    // try first to use the account associated to the contact method
+    for ( const auto cm : person->phoneNumbers() ) {
+        auto account = cm->account();
+        if (not account) {
+
+            // get the choosen account
+            account = get_active_ring_account();
+
+            if (not account) {
+                g_warning("invalid account, cannot send invitation!");
+                gtk_widget_destroy(dialog);
+                return;
+            }
+        }
+
+        // perform the request
+        if (not account->removeContact(cm))
+            g_warning("contact request not forwarded, cannot send invitation!");
+    }
+
     gtk_widget_destroy(dialog);
+}
+
+
+static void
+add_daemon_contact(GtkWidget *item, ContactMethod *cm)
+{
+    // Send a request to the new contact
+    auto account = cm->account();
+    if (not account) {
+
+        // get the choosen account
+        account = get_active_ring_account();
+
+        if (not account) {
+            g_warning("invalid account, cannot send invitation!");
+            return;
+        }
+    }
+
+    // perform the request
+    if (not account->sendContactRequest(cm))
+        g_warning("contact request not forwarded, cannot send invitation!");
+}
+
+static void
+rm_daemon_contact(GtkWidget *item, ContactMethod *cm)
+{
+    // Send a request to the new contact
+    auto account = cm->account();
+    if (not account) {
+
+        // get the choosen account
+        account = get_active_ring_account();
+
+        if (not account) {
+            g_warning("invalid account, cannot send invitation!");
+            return;
+        }
+    }
+
+    // perform the request
+    if (not account->removeContact(cm))
+        g_warning("contact request not forwarded, cannot send invitation!");
 }
 
 /**
@@ -290,46 +356,57 @@ update(GtkTreeSelection *selection, ContactPopupMenu *self)
     gtk_tree_view_convert_bin_window_to_widget_coords(priv->treeview, rect.x, rect.y, &rect.x, &rect.y);
     gtk_tree_path_free(path);
 
-    /* add to contact - only offer to add CMs which are not already associated with a Person */
+    // Get the current cm
+    ContactMethod* cm = nullptr;
     switch (type.value<Ring::ObjectType>()) {
         case Ring::ObjectType::Person:
-        // already a contact
+        {
+            auto cms = object.value<Person *>()->phoneNumbers();
+            if (cms.size() > 0)
+                cm = cms.at(0);
+        }
         break;
         case Ring::ObjectType::ContactMethod:
-        {
-            auto cm = object.value<ContactMethod *>();
-            if (!cm->contact()) {
-                gtk_widget_set_sensitive(GTK_WIDGET(add_to_contact_item), TRUE);
-                menu_item_add_to_contact(GTK_MENU_ITEM(add_to_contact_item), cm, GTK_WIDGET(priv->treeview), &rect);
-            }
-        }
+            cm = object.value<ContactMethod *>();
         break;
         case Ring::ObjectType::Call:
-        {
-            auto cm = object.value<Call *>()->peerContactMethod();
-            if (!cm->contact()) {
-                gtk_widget_set_sensitive(GTK_WIDGET(add_to_contact_item), TRUE);
-                menu_item_add_to_contact(GTK_MENU_ITEM(add_to_contact_item), cm, GTK_WIDGET(priv->treeview), &rect);
-            }
-        }
+            cm = object.value<Call *>()->peerContactMethod();
         break;
         case Ring::ObjectType::Media:
         case Ring::ObjectType::Certificate:
         case Ring::ObjectType::ContactRequest:
-        // nothing to do
         case Ring::ObjectType::COUNT__:
+            // nothing to do
         break;
     }
 
-     /* remove contact */
-     if (type.value<Ring::ObjectType>() == Ring::ObjectType::Person) {
-         gtk_widget_set_sensitive(GTK_WIDGET(remove_contact_item), TRUE);
-         auto person = object.value<Person *>();
-         g_signal_connect(remove_contact_item,
-                          "activate",
-                          G_CALLBACK(remove_contact),
-                          person);
-     }
+    // Check if it's a contact daemon
+    if (cm) {
+        auto account = cm->account();
+        if (not account) {
+            account = get_active_ring_account();
+        }
+
+        auto isADaemonContact = false;
+        if (account) {
+            auto contacts = account->getContacts();
+            isADaemonContact = contacts.indexOf(cm) != -1;
+        }
+
+        gtk_widget_set_sensitive(GTK_WIDGET(add_to_contact_item), !isADaemonContact);
+        gtk_widget_set_sensitive(GTK_WIDGET(remove_contact_item), isADaemonContact);
+        g_signal_connect(add_to_contact_item,
+                         "activate",
+                         G_CALLBACK(add_daemon_contact),
+                         cm);
+        g_signal_connect(remove_contact_item,
+                         "activate",
+                         G_CALLBACK(rm_daemon_contact),
+                         cm);
+    } else {
+        gtk_widget_set_sensitive(GTK_WIDGET(add_to_contact_item), false);
+        gtk_widget_set_sensitive(GTK_WIDGET(remove_contact_item), false);
+    }
 
      /* show all items */
      gtk_widget_show_all(GTK_WIDGET(self));
