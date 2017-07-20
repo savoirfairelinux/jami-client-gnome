@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-19 10:25-0400\n"
-"PO-Revision-Date: 2017-07-19 14:25+0000\n"
+"POT-Creation-Date: 2017-07-20 12:00-0400\n"
+"PO-Revision-Date: 2017-07-20 16:00+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -145,7 +145,7 @@ msgstr "UPnP habilitado"
 msgid "Select account export location"
 msgstr "Elegir lugar para exportar"
 
-#: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:82
+#: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:84
 #: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
 msgstr "Cancelar"
@@ -237,30 +237,30 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Contactos"
 
-#: src/contactpopupmenu.cpp:82
+#: src/contactpopupmenu.cpp:84
 #, c-format
 msgid ""
 "Are you sure you want to delete contact \"%s\"? It will be removed from your"
 " system's addressbook."
 msgstr "¿Estás seguro de eliminar el contacto \"%s\"? Se borrará de la libreta de direcciones del sistema."
 
-#: src/contactpopupmenu.cpp:114
+#: src/contactpopupmenu.cpp:180
 msgid "_Call"
 msgstr "_Llamar"
 
-#: src/contactpopupmenu.cpp:117
+#: src/contactpopupmenu.cpp:183
 msgid "_Copy name"
 msgstr "_Copiar nombre"
 
-#: src/contactpopupmenu.cpp:120
+#: src/contactpopupmenu.cpp:186
 msgid "_Copy number"
 msgstr "_Copiar número"
 
-#: src/contactpopupmenu.cpp:123
+#: src/contactpopupmenu.cpp:189
 msgid "_Add to contact"
 msgstr "_Añadir un contacto"
 
-#: src/contactpopupmenu.cpp:126
+#: src/contactpopupmenu.cpp:192
 msgid "_Remove contact"
 msgstr "_Eliminar contacto"
 
@@ -276,13 +276,13 @@ msgid ""
 "built on %.25s"
 msgstr ""
 
-#: src/dialogs.c:135
+#: src/dialogs.c:136
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "El cliente Ring de GNOME.\nRing es software libre de comunicaciones que respeta las libertades y la privacidad de sus usuarios."
 
-#: src/editcontactview.cpp:185
+#: src/editcontactview.cpp:208
 msgctxt "Phone number category"
 msgid "home"
 msgstr "inicio"
@@ -332,43 +332,43 @@ msgstr "Restaura el estado de ocultación de la ventana principal (únicamente l
 msgid "- GNOME client for Ring"
 msgstr "- Cliente Gnome para Ring"
 
-#: src/ringmainwindow.cpp:613
+#: src/ringmainwindow.cpp:614
 #, c-format
 msgid "Invalid Ring username: %s"
 msgstr "Usuario Ring no válido: %s"
 
-#: src/ringmainwindow.cpp:628
+#: src/ringmainwindow.cpp:629
 msgid "Error resolving username, nameserver is possibly unreachable"
 msgstr "Error en la resolución del nombre de usario, el nombre del servidor puede ser inaccesible."
 
-#: src/ringmainwindow.cpp:642
+#: src/ringmainwindow.cpp:643
 #, c-format
 msgid "Could not resolve Ring username: %s"
 msgstr "No se pudo encontrar el usuario Ring: %s"
 
-#: src/ringmainwindow.cpp:1150
+#: src/ringmainwindow.cpp:1152
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "llamar"
 
-#: src/ringmainwindow.cpp:1152
+#: src/ringmainwindow.cpp:1154
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Abrir chat"
 
-#: src/ringmainwindow.cpp:1232
+#: src/ringmainwindow.cpp:1234
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s..."
 msgstr "%s..."
 
-#: src/ringmainwindow.cpp:1238
+#: src/ringmainwindow.cpp:1240
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s (error)"
 msgstr "Error %s"
 
-#: src/ringmainwindow.cpp:1429
+#: src/ringmainwindow.cpp:1443
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -439,7 +439,7 @@ msgstr "No se pudo buscar el nombre de usuario"
 msgid "Looking up username availability..."
 msgstr "Comprobando disponibilidad del nombre de usuario..."
 
-#: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:485
+#: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:487
 msgid "Registering username..."
 msgstr "Registrando nombre de usuario..."
 
@@ -604,31 +604,31 @@ msgstr "Abajo"
 msgid "Audio Codecs"
 msgstr "Codecs de audio"
 
-#: ui/accountcreationwizard.ui:32
-msgid "Welcome to "
-msgstr "Bienvenido a"
+#: ui/accountcreationwizard.ui:34
+msgid "Welcome to"
+msgstr ""
 
-#: ui/accountcreationwizard.ui:66
+#: ui/accountcreationwizard.ui:68
 msgid "Create Ring Account"
 msgstr "Crear una cuenta Ring"
 
-#: ui/accountcreationwizard.ui:67
+#: ui/accountcreationwizard.ui:69
 msgid "Create a new Ring account (for new users)"
 msgstr "Crear una nueva cuenta Ring (para usuarios nuevos)"
 
-#: ui/accountcreationwizard.ui:74
+#: ui/accountcreationwizard.ui:76
 msgid "Link this device to an account"
 msgstr "Conectar este dispositivo a una cuenta"
 
-#: ui/accountcreationwizard.ui:75
+#: ui/accountcreationwizard.ui:77
 msgid "Link this devices to a Ring account created on another device"
 msgstr "Vincular este dispositivo con una cuenta Ring creada en otro"
 
-#: ui/accountcreationwizard.ui:103 ui/accountcreationwizard.ui:157
+#: ui/accountcreationwizard.ui:105 ui/accountcreationwizard.ui:159
 msgid "Link this device to an existing account"
 msgstr "Vincular este dispositivo con una cuenta existente"
 
-#: ui/accountcreationwizard.ui:118
+#: ui/accountcreationwizard.ui:120
 msgid ""
 "To link this device to another account, you first need to obtain a PIN code."
 " To generate the pin code, go to the account management setting of a "
@@ -637,77 +637,77 @@ msgid ""
 "form. The PIN is only valid for 10 minutes."
 msgstr "Para conectar este dispositivo a otra cuenta, primero necesita obtener un código PIN. Para generar el código pin, vaya a las opciones de administración de la cuenta en el dispositivo anterior, escoja la Cuenta Ring a usar y seleccione \"Conectar otro dispositivo a esta cuenta\". Obtendrá el PIN necesario para completar este formulario. El PIN es válido solamente durante 10 minutos."
 
-#: ui/accountcreationwizard.ui:126 ui/accountcreationwizard.ui:215
-#: ui/accountcreationwizard.ui:427
+#: ui/accountcreationwizard.ui:128 ui/accountcreationwizard.ui:217
+#: ui/accountcreationwizard.ui:429
 msgid "Previous"
 msgstr "Anterior"
 
-#: ui/accountcreationwizard.ui:134
+#: ui/accountcreationwizard.ui:136
 msgid "Okay, I have the PIN!"
 msgstr "¡Tengo el PIN!"
 
-#: ui/accountcreationwizard.ui:172
+#: ui/accountcreationwizard.ui:174
 msgid "Enter your pin:"
 msgstr "Escribe tu PIN:"
 
-#: ui/accountcreationwizard.ui:191
+#: ui/accountcreationwizard.ui:193
 msgid "Enter your password:"
 msgstr "Escribe tu contraseña:"
 
-#: ui/accountcreationwizard.ui:223 ui/accountcreationwizard.ui:435
+#: ui/accountcreationwizard.ui:225 ui/accountcreationwizard.ui:437
 msgid "Next"
 msgstr "Siguiente"
 
-#: ui/accountcreationwizard.ui:265
+#: ui/accountcreationwizard.ui:267
 msgid "Profile"
 msgstr "Perfil"
 
-#: ui/accountcreationwizard.ui:285
+#: ui/accountcreationwizard.ui:287
 msgid "Full name:"
 msgstr "Nombre y apellidos"
 
-#: ui/accountcreationwizard.ui:327
+#: ui/accountcreationwizard.ui:329
 msgid "Ring Account"
 msgstr "Cuenta Ring"
 
-#: ui/accountcreationwizard.ui:340
+#: ui/accountcreationwizard.ui:342
 msgid "Register public username (experimental):"
 msgstr "Registrar nombre de usuario público (experimental):"
 
-#: ui/accountcreationwizard.ui:346
+#: ui/accountcreationwizard.ui:348
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
 msgstr "Al marcar aquí, estarás registrando un nombre de usuario único en la red de Ring. Otras personas podrán utilizarlo para llamarte sin tener que utilizar tu identificador en Ring, RingID, de 40 caracteres."
 
-#: ui/accountcreationwizard.ui:369
+#: ui/accountcreationwizard.ui:371
 msgid "Password (confirm):"
 msgstr "Contraseña (confirmar):"
 
-#: ui/accountcreationwizard.ui:370
+#: ui/accountcreationwizard.ui:372
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "La contraseña se utilizará para cifrar los datos de tu cuenta y para conectar nuevos dispositivos a tu cuenta."
 
-#: ui/accountcreationwizard.ui:459
+#: ui/accountcreationwizard.ui:461
 msgid "Generating your Ring account..."
 msgstr "Generando tu cuenta Ring..."
 
-#: ui/accountcreationwizard.ui:492
+#: ui/accountcreationwizard.ui:494
 msgid "This may take a few minutes."
 msgstr "Esto puede llevar unos minutos."
 
-#: ui/accountcreationwizard.ui:518
+#: ui/accountcreationwizard.ui:520
 msgid "Retrieving your Ring account..."
 msgstr "Recuperando tu cuenta de Ring..."
 
-#: ui/accountcreationwizard.ui:544
+#: ui/accountcreationwizard.ui:546
 msgid "Error creating/loading account."
 msgstr "Error creando o cargando la cuenta."
 
-#: ui/accountcreationwizard.ui:549 ui/accountdevicestab.ui:217
+#: ui/accountcreationwizard.ui:551 ui/accountdevicestab.ui:217
 #: ui/accountdevicestab.ui:239
 msgid "OK"
 msgstr "OK"
@@ -1196,19 +1196,19 @@ msgstr "Cuentas"
 msgid "Settings"
 msgstr "Configuración"
 
-#: ui/ringmainwindow.ui:206
+#: ui/ringmainwindow.ui:215
 msgid "Conversations"
 msgstr "Conversaciones"
 
-#: ui/ringmainwindow.ui:228
+#: ui/ringmainwindow.ui:237
 msgid "Contacts"
 msgstr "Contactos"
 
-#: ui/ringmainwindow.ui:250
+#: ui/ringmainwindow.ui:259
 msgid "History"
 msgstr "Historial"
 
-#: ui/ringmainwindow.ui:272
+#: ui/ringmainwindow.ui:281
 msgid "Contact requests"
 msgstr "Solicitudes de contacto"
 
