@@ -106,16 +106,23 @@ ring_draw_conference_avatar(int size) {
     return pixbuf;
 }
 
+#include <iostream>
 
 GdkPixbuf *
 ring_frame_avatar(GdkPixbuf *avatar) {
 
     auto w = gdk_pixbuf_get_width(avatar);
     auto h = gdk_pixbuf_get_height(avatar);
-    auto new_size = std::min(h, w);
-    GdkPixbuf *crop_avatar = avatar;
+    auto crop_size = std::min(h, w);
+    auto new_size = std::max(h, w);
+    auto scale = (double)new_size/(double)crop_size;
+    GdkPixbuf *crop_avatar = gdk_pixbuf_new (
+                               gdk_pixbuf_get_colorspace (avatar),
+                               gdk_pixbuf_get_has_alpha (avatar),
+                               gdk_pixbuf_get_bits_per_sample (avatar),
+                               new_size, new_size);
     gdk_pixbuf_scale (avatar, crop_avatar, 0, 0, new_size, new_size,
-                      (w/2)-(new_size/2), (h/2)-(new_size/2), 0, 0,
+                      (w/2)-(new_size/2), (h/2)-(new_size/2), scale, scale,
                       GDK_INTERP_BILINEAR);
     auto extra_space = 10;
     auto offset = extra_space/2;
