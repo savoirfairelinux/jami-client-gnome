@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-20 12:00-0400\n"
-"PO-Revision-Date: 2017-07-20 16:00+0000\n"
+"POT-Creation-Date: 2017-07-23 23:09-0400\n"
+"PO-Revision-Date: 2017-07-21 16:26+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: French (Canada) (http://www.transifex.com/savoirfairelinux/ring/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
@@ -385,7 +385,7 @@ msgstr ""
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Ring est un logiciel libre de communication universel qui respecte la liberté et vie privée de ses utilisateurs."
 
 #: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
@@ -1099,7 +1099,7 @@ msgstr ""
 
 #: ui/incomingcallview.ui:142
 msgid "Accept"
-msgstr ""
+msgstr "Accepter"
 
 #: ui/incomingcallview.ui:163
 msgid "Reject"
