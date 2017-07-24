@@ -5,6 +5,7 @@
 # Translators:
 # Botho <botho.willer@gmx.net>, 2016
 # Ettore Atalan <atalanttore@googlemail.com>, 2016
+# hermannsan <hermann-san@gmx.de>, 2017
 # nautilusx, 2017
 # M. Utkun Uyar, 2016
 # resajo sceniar <resajo-transifex@munin-soft.de>, 2016
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-20 12:00-0400\n"
-"PO-Revision-Date: 2017-07-20 16:00+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-07-23 23:09-0400\n"
+"PO-Revision-Date: 2017-07-23 12:51+0000\n"
+"Last-Translator: hermannsan <hermann-san@gmx.de>\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/ring/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -186,7 +187,7 @@ msgstr "Erweitert"
 #: src/accountview.cpp:194
 msgctxt "List of banned peers"
 msgid "Bans"
-msgstr ""
+msgstr "Sperrungen"
 
 #: src/accountview.cpp:250
 #, c-format
@@ -270,7 +271,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Liberté, Égalité, Fraternité - Version 1.0\n"
 "built on %.25s"
-msgstr ""
+msgstr "Freiheit, Gleichheit, Brüderlichkeit - Version 1.0\nerstellt auf %.25s"
 
 #: src/dialogs.c:136
 msgid ""
@@ -356,13 +357,13 @@ msgstr "Chat öffnen"
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s..."
-msgstr ""
+msgstr "%s..."
 
 #: src/ringmainwindow.cpp:1240
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s (error)"
-msgstr ""
+msgstr "%s (Fehler)"
 
 #: src/ringmainwindow.cpp:1443
 msgctxt ""
@@ -602,7 +603,7 @@ msgstr "Audio Codecs"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
-msgstr ""
+msgstr "Willkommen bei"
 
 #: ui/accountcreationwizard.ui:68
 msgid "Create Ring Account"
@@ -801,7 +802,7 @@ msgstr "Aliasname:"
 
 #: ui/accountmigrationview.ui:102
 msgid "Please enter your password:"
-msgstr ""
+msgstr "Bitte Ihr Passwort eingeben"
 
 #: ui/accountmigrationview.ui:129
 msgid "Migrate account"
@@ -809,7 +810,7 @@ msgstr "Konto migrieren"
 
 #: ui/accountmigrationview.ui:148
 msgid "Migration failed, wrong password ?"
-msgstr ""
+msgstr "Migration fehlgeschlagen, falsches Passwort?"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -937,11 +938,11 @@ msgstr "Anrufen"
 
 #: ui/chatview.ui:60
 msgid "Send invitation"
-msgstr ""
+msgstr "Sende Einladung"
 
 #: ui/chatview.ui:130
 msgid "Send Invitation"
-msgstr ""
+msgstr "Sende Einladung"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
@@ -1110,7 +1111,7 @@ msgstr "Akzeptieren"
 
 #: ui/incomingcallview.ui:163
 msgid "Reject"
-msgstr ""
+msgstr "Abweisen"
 
 #: ui/incomingcallview.ui:186
 msgid "Hang up"
@@ -1158,11 +1159,11 @@ msgstr "Bildwiederholrate:"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "Hardwarebeschleunigung"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr ""
+msgstr "Aktiviere Hardwaredekoding"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"

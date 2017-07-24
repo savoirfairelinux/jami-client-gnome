@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Caner Başaran <basaran.caner@protonmail.com>, 2016
-# Emin Tufan <etcetin@gmail.com>, 2016
+# Emin Tufan <etcetin@gmail.com>, 2016-2017
 # koray arberk <korayarberk@yahoo.com>, 2016
 # mahmut özcan <mahmutozcan65@yahoo.com>, 2016
 # M. Utkun Uyar, 2016
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-20 12:00-0400\n"
-"PO-Revision-Date: 2017-07-20 16:00+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-07-23 23:09-0400\n"
+"PO-Revision-Date: 2017-07-21 19:08+0000\n"
+"Last-Translator: Emin Tufan <etcetin@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/ring/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -181,7 +181,7 @@ msgstr "Gelişmiş"
 #: src/accountview.cpp:194
 msgctxt "List of banned peers"
 msgid "Bans"
-msgstr ""
+msgstr "Engeller"
 
 #: src/accountview.cpp:250
 #, c-format
@@ -265,7 +265,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Liberté, Égalité, Fraternité - Version 1.0\n"
 "built on %.25s"
-msgstr ""
+msgstr "Liberté, Égalité, Fraternité - Sürüm 1.0\n%.25süzerinde inşa edildi"
 
 #: src/dialogs.c:136
 msgid ""
@@ -351,13 +351,13 @@ msgstr "konuşma aç"
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s..."
-msgstr ""
+msgstr "%s..."
 
 #: src/ringmainwindow.cpp:1240
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s (error)"
-msgstr ""
+msgstr "%s (hata)"
 
 #: src/ringmainwindow.cpp:1443
 msgctxt ""
@@ -597,7 +597,7 @@ msgstr "Ses çözücüleri"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
-msgstr ""
+msgstr "Hoş Geldiniz"
 
 #: ui/accountcreationwizard.ui:68
 msgid "Create Ring Account"
@@ -796,7 +796,7 @@ msgstr "Takma ad:"
 
 #: ui/accountmigrationview.ui:102
 msgid "Please enter your password:"
-msgstr ""
+msgstr "Lütfen parolanızı girin:"
 
 #: ui/accountmigrationview.ui:129
 msgid "Migrate account"
@@ -804,7 +804,7 @@ msgstr "Hesap göçü"
 
 #: ui/accountmigrationview.ui:148
 msgid "Migration failed, wrong password ?"
-msgstr ""
+msgstr "Taşıma başarısız, yanlış parola ?"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -932,11 +932,11 @@ msgstr "Ara"
 
 #: ui/chatview.ui:60
 msgid "Send invitation"
-msgstr ""
+msgstr "Davetiye gönder"
 
 #: ui/chatview.ui:130
 msgid "Send Invitation"
-msgstr ""
+msgstr "Davetiye Gönder"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
@@ -1105,7 +1105,7 @@ msgstr "Kabul et"
 
 #: ui/incomingcallview.ui:163
 msgid "Reject"
-msgstr ""
+msgstr "Reddet"
 
 #: ui/incomingcallview.ui:186
 msgid "Hang up"
@@ -1153,11 +1153,11 @@ msgstr "Kare hızı:"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "Donanım Hızlandırma"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr ""
+msgstr "Donanım çözmeyi etkinleştir:"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
