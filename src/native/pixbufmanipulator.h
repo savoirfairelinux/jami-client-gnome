@@ -55,8 +55,9 @@ public:
     QVariant   decorationRole(const Account* p) override;
 
 private:
+    std::shared_ptr<GdkPixbuf> generateAvatar(const ContactMethod* cm) const;
+
     std::shared_ptr<GdkPixbuf> scaleAndFrame(const GdkPixbuf *photo, const QSize& size, bool display_presence = false, bool is_present = false);
-    std::shared_ptr<GdkPixbuf> fallbackAvatar_;
     std::shared_ptr<GdkPixbuf> conferenceAvatar_;
 };
 
