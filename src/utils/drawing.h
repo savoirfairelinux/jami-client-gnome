@@ -22,7 +22,7 @@
 
 #include <gtk/gtk.h>
 
-GdkPixbuf *ring_draw_fallback_avatar(int size);
+GdkPixbuf *ring_draw_fallback_avatar(int size, const char letter, const char color = 0);
 
 GdkPixbuf *ring_draw_conference_avatar(int size);
 
