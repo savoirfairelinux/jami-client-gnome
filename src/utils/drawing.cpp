@@ -29,38 +29,50 @@ static constexpr GdkRGBA     MSG_COUNT_FONT_COLOUR = {1.0, 1.0, 1.0, 1.0}; // wh
 static constexpr GdkRGBA     MSG_COUNT_BACKGROUND  = {0.984, 0.282, 0.278, 0.9}; // red 251, 72, 71, 0.9
 static constexpr GdkRGBA     PRESENCE_PRESENT_BACKGROUND = {0, 0.4156827, 0.8, 1.0}; // green 112, 217, 6, 0.9
 static constexpr GdkRGBA     PRESENCE_ABSENT_BACKGROUND = {0.984, 0.282, 0.278, 1.0}; // red 251, 72, 71, 0.9
+// This is the color palette for default avatars
+static constexpr GdkRGBA     COLOR_PALETTE[] = {{0.956862, 0.262745, 0.211764, 1.0}, // red 244, green 67, blue 54, 1 (red)
+                                                {0.913725, 0.117647, 0.388235, 1.0}, // red 233, green 30, blue 99, 1 (pink)
+                                                {0.611764, 0.152941, 0.690196, 1.0}, // red 156, green 39, blue 176, 1 (purple)
+                                                {0.403921, 0.227450, 0.717648, 1.0}, // red 244, green 67, blue 54, 1 (deep purple)
+                                                {0.247058, 0.317647, 0.709803, 1.0}, // red 103, green 58, blue 183, 1 (indigo)
+                                                {0.129411, 0.588235, 0.952941, 1.0}, // red 63, green 81, blue 54, 1 (blue)
+                                                {0, 0.838254, 0.831372, 1.0},        // red 0, green 188, blue 212, 1 (cyan)
+                                                {0, 0.588235, 0.533333, 1.0},        // red 0, green 150, blue 136, 1 (teal)
+                                                {0.298039, 0.682745, 0.313725, 1.0}, // red 244, green 67, blue 54, 1 (green)
+                                                {0.545098, 0.764705, 0.290196, 1.0}, // red 138, green 194, blue 73, 1 (light green)
+                                                {0.619607, 0.619607, 0.619607, 1.0}, // red 157, green 157, blue 157, 1 (grey)
+                                                {0.803921, 0.862745, 0.223529, 1.0}, // red 204, green 219, blue 56, 1 (lime)
+                                                {1, 0.756862, 0.027450, 1.0},        // red 255, green 192, blue 6, 1 (amber)
+                                                {1, 0.341176, 0.133333, 1.0},        // red 255, green 86, blue 33, 1 (deep orange)
+                                                {0.474509, 0.333333, 0.282352, 1.0}, // red 120, green 84, blue 71, 1 (brown)
+                                                {0.376470, 0.490196, 0.545098, 1.0}};// red 95, green 124, blue 138, 1 (blue grey)
 
 GdkPixbuf *
-ring_draw_fallback_avatar(int size) {
+ring_draw_fallback_avatar(int size, const char letter, const char color) {
     cairo_surface_t *surface;
     cairo_t *cr;
 
+    // Fill the background
     surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, size, size);
     cr = cairo_create(surface);
-
-    cairo_pattern_t *linpat = cairo_pattern_create_linear(0, 0, 0, size);
-    cairo_pattern_add_color_stop_rgb(linpat, 0, 0.937, 0.937, 0.937);
-    cairo_pattern_add_color_stop_rgb(linpat, 1, 0.969, 0.969, 0.969);
-
-    cairo_set_source(cr, linpat);
+    auto bg_color = COLOR_PALETTE[color % 16];
+    cairo_set_source_rgb (cr, bg_color.red, bg_color.green, bg_color.blue);
     cairo_paint(cr);
 
-    cairo_pattern_destroy(linpat);
+    // Draw a letter at the center of the avatar
+    cairo_text_extents_t extents;
+    cairo_select_font_face (cr, "monospace", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
+    cairo_set_font_size(cr, size / 2);
+    cairo_set_source_rgb (cr, 1, 1, 1);
+    char first_letter[2] = {0};
+    first_letter[0] = letter;
+    cairo_text_extents (cr, first_letter, &extents);
+    auto x = size/2-(extents.width/2 + extents.x_bearing);
+    auto y = size/2-(extents.height/2 + extents.y_bearing);
+    cairo_move_to (cr, x, y);
+    cairo_show_text(cr, first_letter);
 
-    int avatar_size = size * 0.3;
-    GtkIconInfo *icon_info = gtk_icon_theme_lookup_icon(gtk_icon_theme_get_default(), "avatar-default-symbolic",
-                                                        avatar_size, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-    GdkPixbuf *pixbuf_icon = gtk_icon_info_load_icon(icon_info, NULL);
-    g_object_unref(icon_info);
-
-    if (pixbuf_icon != NULL) {
-        gdk_cairo_set_source_pixbuf(cr, pixbuf_icon, (size - avatar_size) / 2, (size - avatar_size) / 2);
-        g_object_unref(pixbuf_icon);
-        cairo_rectangle(cr, (size - avatar_size) / 2, (size - avatar_size) / 2, avatar_size, avatar_size);
-        cairo_fill(cr);
-    }
-
-    GdkPixbuf *pixbuf = gdk_pixbuf_get_from_surface(surface, 0, 0, size, size);
+    GdkPixbuf *pixbuf = gdk_pixbuf_get_from_surface(cairo_get_target(cr), 0, 0, size, size);
 
     /* free resources */
     cairo_destroy(cr);
