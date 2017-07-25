@@ -118,6 +118,7 @@ ring_notify_is_initted()
 #endif
 }
 
+#if USE_LIBNOTIFY
 static void
 ring_notify_show_cm(NotifyNotification*, char *, ContactMethod *cm)
 {
@@ -131,6 +132,7 @@ ring_notify_show_cm(NotifyNotification*, char *, ContactMethod *cm)
         RecentModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
     }
 }
+#endif
 
 gboolean
 ring_notify_incoming_call(
