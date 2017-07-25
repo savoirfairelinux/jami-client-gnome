@@ -566,6 +566,14 @@ insert_controls(CurrentCallView *view)
         /* Auto-quality is off by default */
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality), FALSE);
     }
+
+    // Get if the user wants to show the smartInfo box
+    auto display_smartinfo = g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "display-smartinfo");
+    if (g_variant_get_boolean(g_action_get_state(G_ACTION(display_smartinfo)))) {
+        gtk_widget_show(priv->vbox_call_smartInfo);
+    } else {
+        gtk_widget_hide(priv->vbox_call_smartInfo);
+    }
 }
 
 static void
