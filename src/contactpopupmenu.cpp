@@ -26,6 +26,7 @@
 // LRC
 #include <contactmethod.h>
 #include <person.h>
+#include <personmodel.h>
 #include <numbercategory.h>
 #include <call.h>
 #include <account.h>
@@ -76,59 +77,11 @@ call_contactmethod(G_GNUC_UNUSED GtkWidget *item, ContactMethod *cm)
 }
 
 static void
-remove_contact(GtkWidget *item, Person *person)
+add_daemon_contact(G_GNUC_UNUSED GtkWidget *item, ContactMethod *cm)
 {
-    GtkWidget *dialog = gtk_message_dialog_new(NULL,
-                            (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-                            GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
-                            _("Are you sure you want to delete contact \"%s\"?"
-                            " It will be removed from your system's addressbook."),
-                            person->formattedName().toUtf8().constData());
-
-    /* get parent window so we can center on it */
-    GtkWidget *parent = gtk_widget_get_toplevel(GTK_WIDGET(item));
-    if (gtk_widget_is_toplevel(parent)) {
-        gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(parent));
-        gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
-    }
-
-    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK) {
-        person->remove();
-    }
-
-
-    // try first to use the account associated to the contact method
-    for ( const auto cm : person->phoneNumbers() ) {
-        auto account = cm->account();
-        if (not account) {
-
-            // get the choosen account
-            account = get_active_ring_account();
-
-            if (not account) {
-                g_warning("invalid account, cannot send invitation!");
-                gtk_widget_destroy(dialog);
-                return;
-            }
-        }
-
-        // perform the request
-        if (not account->removeContact(cm))
-            g_warning("contact request not forwarded, cannot send invitation!");
-    }
-
-    gtk_widget_destroy(dialog);
-}
-
-
-static void
-add_daemon_contact(GtkWidget *item, ContactMethod *cm)
-{
-    // Send a request to the new contact
+    // get the choosen account
     auto account = cm->account();
     if (not account) {
-
-        // get the choosen account
         account = get_active_ring_account();
 
         if (not account) {
@@ -137,19 +90,48 @@ add_daemon_contact(GtkWidget *item, ContactMethod *cm)
         }
     }
 
-    // perform the request
+    // Send a request to the new contact
     if (not account->sendContactRequest(cm))
         g_warning("contact request not forwarded, cannot send invitation!");
 }
 
 static void
-rm_daemon_contact(GtkWidget *item, ContactMethod *cm)
+add_contact(G_GNUC_UNUSED GtkWidget *item, ContactMethod *cm)
 {
-    // Send a request to the new contact
+    const auto& collections = PersonModel::instance().enabledCollections();
+    CollectionInterface* collection = nullptr;
+    for (const auto c : collections) {
+        if (c->id() == QByteArray("ppc")) {
+            collection = c;
+        }
+    }
+
+    if (collection) {
+        // Create a new Person in PeerProfileCollection
+        auto person = new Person(collection);
+        person->setFormattedName(cm->bestName());
+
+        Person::ContactMethods numbers;
+        numbers << cm;
+        person->setContactMethods(numbers);
+
+        PersonModel::instance().addPeerProfile(person);
+        person->save();
+    } else {
+        g_warning("Can't find PeerProfileCollection");
+    }
+
+    // And add it in Daemon Contacts
+    add_daemon_contact(item, cm);
+}
+
+static void
+rm_daemon_contact(G_GNUC_UNUSED GtkWidget *item, ContactMethod *cm)
+{
+    // get the choosen account
     auto account = cm->account();
     if (not account) {
 
-        // get the choosen account
         account = get_active_ring_account();
 
         if (not account) {
@@ -158,9 +140,19 @@ rm_daemon_contact(GtkWidget *item, ContactMethod *cm)
         }
     }
 
-    // perform the request
     if (not account->removeContact(cm))
         g_warning("contact request not forwarded, cannot send invitation!");
+}
+
+static void
+remove_contact(GtkWidget *item, Person *person)
+{
+    // Remove the Person from PeerProfileCollection
+    person->remove();
+    // And the cm from Daemon Contacts
+    for ( const auto cm : person->phoneNumbers() ) {
+        rm_daemon_contact(item, cm);
+    }
 }
 
 /**
@@ -380,36 +372,60 @@ update(GtkTreeSelection *selection, ContactPopupMenu *self)
         break;
     }
 
-    // Check if it's a contact daemon
-    if (cm) {
-        auto account = cm->account();
-        if (not account) {
-            account = get_active_ring_account();
-        }
-
-        auto isADaemonContact = false;
-        if (account) {
-            auto contacts = account->getContacts();
-            isADaemonContact = contacts.indexOf(cm) != -1;
-        }
-
-        gtk_widget_set_sensitive(GTK_WIDGET(add_to_contact_item), !isADaemonContact);
-        gtk_widget_set_sensitive(GTK_WIDGET(remove_contact_item), isADaemonContact);
-        g_signal_connect(add_to_contact_item,
-                         "activate",
-                         G_CALLBACK(add_daemon_contact),
-                         cm);
-        g_signal_connect(remove_contact_item,
-                         "activate",
-                         G_CALLBACK(rm_daemon_contact),
-                         cm);
-    } else {
-        gtk_widget_set_sensitive(GTK_WIDGET(add_to_contact_item), false);
-        gtk_widget_set_sensitive(GTK_WIDGET(remove_contact_item), false);
+    auto account = cm->account();
+    if (not account) {
+        account = get_active_ring_account();
     }
 
-     /* show all items */
-     gtk_widget_show_all(GTK_WIDGET(self));
+    switch (type.value<Ring::ObjectType>()) {
+        case Ring::ObjectType::Person:
+        {
+            auto person = object.value<Person *>();
+            gtk_widget_set_sensitive(GTK_WIDGET(remove_contact_item), true);
+            // Remove to PeerProfileCollection and Daemon Contacts
+            g_signal_connect(remove_contact_item,
+                            "activate",
+                            G_CALLBACK(remove_contact),
+                            person);
+        }
+        break;
+        case Ring::ObjectType::ContactMethod:
+        case Ring::ObjectType::Call:
+        {
+            // Check if it's a daemon contact
+            auto isADaemonContact = false;
+            if (account) {
+                auto contacts = account->getContacts();
+                isADaemonContact = contacts.indexOf(cm) != -1;
+            }
+            gtk_widget_set_sensitive(GTK_WIDGET(add_to_contact_item), !isADaemonContact);
+            gtk_widget_set_sensitive(GTK_WIDGET(remove_contact_item), isADaemonContact);
+            // Add to PeerProfileCollection and Daemon Contacts
+            g_signal_connect(add_to_contact_item,
+                             "activate",
+                             G_CALLBACK(add_contact),
+                             cm);
+            // Remove from Daemon Contacts (it's not in PeerProfileCollection)
+            g_signal_connect(remove_contact_item,
+                             "activate",
+                             G_CALLBACK(rm_daemon_contact),
+                             cm);
+        }
+        break;
+        case Ring::ObjectType::Media:
+        case Ring::ObjectType::Certificate:
+        case Ring::ObjectType::ContactRequest:
+        case Ring::ObjectType::COUNT__:
+        {
+            // No CM to add or remove
+            gtk_widget_set_sensitive(GTK_WIDGET(add_to_contact_item), false);
+            gtk_widget_set_sensitive(GTK_WIDGET(remove_contact_item), false);
+        }
+        break;
+    }
+
+    /* show all items */
+    gtk_widget_show_all(GTK_WIDGET(self));
 }
 
 static void
@@ -459,7 +475,7 @@ contact_popup_menu_show(ContactPopupMenu *self, GdkEventButton *event)
     /* check for right click */
     if (event->type == GDK_BUTTON_PRESS && event->button == GDK_BUTTON_SECONDARY ) {
         /* the menu will automatically get updated when the selection changes */
-        gtk_menu_popup(GTK_MENU(self), NULL, NULL, NULL, NULL, event->button, event->time);
+        gtk_menu_popup_at_pointer(GTK_MENU(self), (GdkEvent*)event);
     }
 
     return GDK_EVENT_PROPAGATE; /* so that the item selection changes */
