@@ -427,6 +427,7 @@ build_view(WebKitChatContainer *view)
     /* Set the WebKitSettings */
     webkit_web_view_set_settings(WEBKIT_WEB_VIEW(priv->webview_chat), webkit_settings);
 
+    gtk_drag_dest_unset(priv->webview_chat); // remove drag and drop to prevent unwanted reloading
     g_signal_connect(priv->webview_chat, "load-changed", G_CALLBACK(webview_chat_load_changed), view);
     g_signal_connect_swapped(priv->webview_chat, "context-menu", G_CALLBACK(webview_chat_context_menu), view);
     g_signal_connect_swapped(priv->webview_chat, "script-dialog", G_CALLBACK(webview_send_text), view);
