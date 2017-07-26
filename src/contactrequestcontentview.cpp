@@ -145,6 +145,22 @@ contact_request_content_view_init(ContactRequestContentView *self)
 
     auto priv = CONTACT_REQUEST_CONTENT_VIEW_GET_PRIVATE(self);
 
+
+        // CSS styles
+        auto provider = gtk_css_provider_new();
+        gtk_css_provider_load_from_data(provider,
+            ".button { border: 0; border-radius: 5px; transition: all 0.3s ease; color: white; padding: 10px 20px 10px 20px; vertical-align: middle; } \
+            .button-green { background: #27ae60; } \
+            .button-green:hover { background: #219d55; } \
+            .button-red {background: #dc3a37; } \
+            .button-red:hover { background: #dc2719; } \
+            ",
+            -1, nullptr
+        );
+        gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
+                                                  GTK_STYLE_PROVIDER(provider),
+                                                  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
     g_signal_connect(priv->button_ignore_contact_request, "clicked", G_CALLBACK(button_ignore_contact_request_clicked), self);
     g_signal_connect(priv->button_accept_contact_request, "clicked", G_CALLBACK(button_accept_contact_request_clicked), self);
     g_signal_connect(priv->button_block_contact_request, "clicked", G_CALLBACK(button_block_contact_request_clicked), self);

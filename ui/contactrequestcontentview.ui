@@ -12,7 +12,7 @@
     <property name="can_focus">False</property>
     <property name="icon_name">go-previous-symbolic</property>
   </object>
-  <object class="GtkImage" id="image_hangup">
+  <object class="GtkImage" id="image_block">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="resource">/cx/ring/RingGnome/block</property>
@@ -20,7 +20,7 @@
   <object class="GtkImage" id="image_reject">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="resource">/cx/ring/RingGnome/end</property>
+    <property name="resource">/cx/ring/RingGnome/reject</property>
   </object>
   <template class="ContactRequestContentView" parent="GtkBox">
     <property name="visible">True</property>
@@ -76,6 +76,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
+            <property name="valign">center</property>
             <child>
               <object class="GtkLabel" id="page_label">
                 <property name="visible">True</property>
@@ -164,15 +165,20 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="valign">center</property>
+                <property name="halign">center</property>
                 <property name="border_width">20</property>
                 <property name="spacing">20</property>
                 <child>
                   <object class="GtkButton" id="button_accept_contact_request">
+                    <style>
+                      <class name="button"/>
+                      <class name="button-green"/>
+                    </style>
+                    <property name="image">image_accept</property>
                     <property name="label" translatable="yes">Accept</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="image">image_accept</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -182,11 +188,15 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_ignore_contact_request">
+                    <style>
+                      <class name="button"/>
+                      <class name="button-red"/>
+                    </style>
+                    <property name="image">image_reject</property>
                     <property name="label" translatable="yes">Reject</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="image">image_reject</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -196,11 +206,15 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_block_contact_request">
+                    <style>
+                      <class name="button"/>
+                      <class name="button-red"/>
+                    </style>
+                    <property name="image">image_block</property>
                     <property name="label" translatable="yes">Block</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="image">image_hangup</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
