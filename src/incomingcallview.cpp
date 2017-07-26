@@ -232,11 +232,7 @@ update_name_and_photo(IncomingCallView *view)
     /* get uri, if different from name */
     auto bestId = priv->call->peerContactMethod()->bestId();
     if (name != bestId) {
-        auto cat_bestId = g_strdup_printf("(%s) %s"
-                                       ,priv->call->peerContactMethod()->category()->name().toUtf8().constData()
-                                       ,bestId.toUtf8().constData());
-        gtk_label_set_text(GTK_LABEL(priv->label_bestId), cat_bestId);
-        g_free(cat_bestId);
+        gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.toUtf8().constData());
         gtk_widget_show(priv->label_bestId);
     }
 }
