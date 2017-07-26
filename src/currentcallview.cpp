@@ -690,11 +690,7 @@ update_name_and_photo(CurrentCallView *view)
     /* get contact best id, if different from name */
     auto contactId = priv->call->peerContactMethod()->bestId();
     if (name != contactId) {
-        auto cat_contactId = g_strdup_printf("(%s) %s"
-                                       ,priv->call->peerContactMethod()->category()->name().toUtf8().constData()
-                                       ,contactId.toUtf8().constData());
-        gtk_label_set_text(GTK_LABEL(priv->label_bestId), cat_contactId);
-        g_free(cat_contactId);
+        gtk_label_set_text(GTK_LABEL(priv->label_bestId), contactId.toUtf8().constData());
         gtk_widget_show(priv->label_bestId);
     }
 }

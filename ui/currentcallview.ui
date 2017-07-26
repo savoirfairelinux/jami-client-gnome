@@ -143,7 +143,7 @@
       <object class="GtkBox" id="vbox_peer_identity">
         <property name="visible">True</property>
         <property name="spacing">5</property>
-        <property name="valign">start</property>
+        <property name="valign">center</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkLabel" id="label_name">
@@ -154,7 +154,7 @@
             <property name="halign">start</property>
             <attributes>
               <attribute name="scale" value="1.25"/>
-              <attribute name="foreground" value="#ffffffffffff"/>
+              <attribute name="foreground" value="#ffffff"/>
             </attributes>
           </object>
           <packing>
@@ -167,9 +167,10 @@
             <property name="visible">False</property>
             <property name="can_focus">True</property>
             <property name="selectable">True</property>
+            <property name="halign">start</property>
             <property name="ellipsize">end</property>
             <attributes>
-              <attribute name="foreground" value="#ffffffffffff"/>
+              <attribute name="foreground" value="#ffffff"/>
             </attributes>
           </object>
           <packing>
