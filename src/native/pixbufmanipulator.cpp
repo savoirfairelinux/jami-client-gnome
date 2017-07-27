@@ -44,7 +44,16 @@ PixbufManipulator::generateAvatar(const ContactMethod* cm) const
         if (hashName.size() > 0) {
             cm_number = hashName.at(0);
         }
-        letter = cm->bestName().toUpper().at(0);
+        // Get the letter to draw
+        if (!cm->bestName().isEmpty()) {
+            // Prioritize the name
+            letter = cm->bestName().toUpper().at(0);
+        } else if (!cm->bestId().isEmpty()) {
+            // If the contact has no name, use the id
+            letter = cm->bestId().toUpper().at(0);
+        } else {
+            // R for ring is used
+        }
     }
 
     bool ok;
