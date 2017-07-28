@@ -98,7 +98,7 @@ a:hover {
 }
 
 input[placeholder], [placeholder], *[placeholder] {
-    color: #d3d3d3;
+  color: #d3d3d3;
 }
 
 #sendBtn {
@@ -166,18 +166,18 @@ input[placeholder], [placeholder], *[placeholder] {
 }
 
 .status-check {
-    stroke-dasharray: 17;
-    stroke-dashoffset: 17;
-    -webkit-animation: dash-check;
-    -webkit-animation-duration: 0.4s;
-    -webkit-animation-delay: 0.7s;
-    -webkit-animation-fill-mode: forwards;
-    -webkit-animation-timing-function: ease-in-out;
-    display: none;
+  stroke-dasharray: 17;
+  stroke-dashoffset: 17;
+  -webkit-animation: dash-check;
+  -webkit-animation-duration: 0.4s;
+  -webkit-animation-delay: 0.7s;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in-out;
+  display: none;
 }
 
 .message--sent .status-check {
-        display: inline-block;
+    display: inline-block;
 }
 
 @-webkit-keyframes dash-check{
@@ -208,35 +208,36 @@ input[placeholder], [placeholder], *[placeholder] {
 
 @-webkit-keyframes dash-x{
   from {
-    stroke-dashoffset: 12;
+  stroke-dashoffset: 12;
   }
   to {
-    stroke-dashoffset: 0;
+  stroke-dashoffset: 0;
   }
 }
 
 .message_wrapper {
-    transform: scale(0);
-    max-width: 70%;
-    margin: 10px 0;
-    display: inline-block;
-    padding: 10px;
-    border-radius: 10px;
-    position: relative;
-    -webkit-animation: talk;
-    -webkit-animation-duration: 0.3s;
-    -webkit-animation-delay: 0.1s;
-    -webkit-animation-fill-mode: forwards;
-    -webkit-animation-timing-function: ease-in-out;
+  transform: scale(0);
+  margin: 10px 0;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+  position: relative;
+  -webkit-animation: talk;
+  -webkit-animation-duration: 0.3s;
+  -webkit-animation-delay: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in-out;
+
 }
 
 .message {
-    font: 0.875em "Open sans",Helvetica,"Segoe UI",sans-serif;
-    margin: 0;
-    display: flex;
-    justify-content: flex-start;
-    align-items: top;
-    overflow: hidden;
+  font: 0.875em "Open sans",Helvetica,"Segoe UI",sans-serif;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: top;
+  overflow: hidden;
 }
 
 #msg_content img {
@@ -260,7 +261,7 @@ pre {
 }
 
 .message_out {
-    flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 .timestamp
@@ -277,63 +278,63 @@ pre {
 }
 
 .message_sender {
-    display: none;
+  display: none;
 }
 
 .sender_image {
-    border-radius: 50%;
-    transition: transform 0.2s ease-in-out;
-    margin: 10px;
+  border-radius: 50%;
+  transition: transform 0.2s ease-in-out;
+  margin: 10px;
 }
 
 .message_in .sender_image {
-    -webkit-animation-name: enter-stage-left;
-    -webkit-animation-duration: 0.2s;
-    -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-name: enter-stage-left;
+  -webkit-animation-duration: 0.2s;
+  -webkit-animation-timing-function: ease-in-out;
 }
 
 .message_out .sender_image {
-    -webkit-animation-name: enter-stage-right;
-    -webkit-animation-duration: 0.2s;
-    -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-name: enter-stage-right;
+  -webkit-animation-duration: 0.2s;
+  -webkit-animation-timing-function: ease-in-out;
 }
 
 @-webkit-keyframes enter-stage-left {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(0);
-    }
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @-webkit-keyframes enter-stage-right {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .message_out > .message_wrapper {
-    background-color: #cfebf5;
-    border-top-right-radius: 0;
-    transform-origin: top right;
+  background-color: #cfebf5;
+  border-top-right-radius: 0;
+  transform-origin: top right;
 }
 
 .message_out + .message_out > .message_wrapper {
-    border-top-right-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .message_in > .message_wrapper {
-    background-color: #DEDEE0;
-    border-top-left-radius: 0;
-    transform-origin: top left;
+  background-color: #DEDEE0;
+  border-top-left-radius: 0;
+  transform-origin: top left;
 }
 
 .message_in + .message_in > .message_wrapper {
-    border-top-left-radius: 10px;
+  border-top-left-radius: 10px;
 }
 
 .message_timestamp {
@@ -357,74 +358,74 @@ pre {
 }
 
 @-webkit-keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .message_text {
-    word-wrap: break-word;
-    display: block;
+  word-wrap: break-word;
+  display: block;
 }
 
 @-webkit-keyframes talk {
-    from {
-      transform: scale(0);
-    }
-    to {
-      transform: scale(1);
-    }
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 .message_in > .message_wrapper:before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    left: -10px;
-    top: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E %3Cpath d= 'M10,0 L0,0 C10,0 10,10 10,10' fill='%23DEDEE0'/%3E %3C/svg%3E");
-    transform-origin: top left;
+  content: "";
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  left: -10px;
+  top: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E %3Cpath d= 'M10,0 L0,0 C10,0 10,10 10,10' fill='%23DEDEE0'/%3E %3C/svg%3E");
+  transform-origin: top left;
 }
 
 .message_in + .message_in > .message_wrapper:before {
-    display: none;
+  display: none;
 }
 
 .message_out + .message_out > .message_wrapper:after {
-    display: none;
+  display: none;
 }
 
 .message_out > .message_wrapper:after {
-    content: "";
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    right: -10px;
-    top: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E %3Cpath d= 'M0,0 L10,0 C0,0 0,10 0,10' fill='%23cfebf5'/%3E %3C/svg%3E");
-    transform-origin: top right;
+  content: "";
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  right: -10px;
+  top: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E %3Cpath d= 'M0,0 L10,0 C0,0 0,10 0,10' fill='%23cfebf5'/%3E %3C/svg%3E");
+  transform-origin: top right;
 }
 
 .message_delivery_status {
-    margin: 10px 10px;
-    color: #A0A0A0;
-    opacity: 0;
-    -webkit-animation-name: fade-in;
-    -webkit-animation-duration: 0.2s;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-delay: 0.4s;
-    -webkit-animation-fill-mode: forwards;
-    transition: opacity 0.5s ease-in-out;
+  margin: 10px 10px;
+  color: #A0A0A0;
+  opacity: 0;
+  -webkit-animation-name: fade-in;
+  -webkit-animation-duration: 0.2s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 0.4s;
+  -webkit-animation-fill-mode: forwards;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .message_in + .message_in .sender_image {
-    opacity: 0;
+  opacity: 0;
 }
 
 .message_out + .message_out .sender_image {
-    opacity: 0;
+  opacity: 0;
 }
