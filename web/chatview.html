@@ -135,17 +135,112 @@ ring.chatview = (function(){
         return div.innerHTML;
     }
 
-    /**
-     * Returns HTML message from the message text.
-     * Cleaned and linkified.
-     */
-    function getMessageHtml(message_text)
-    {
-        var escaped_message = escapeHtml(message_text),
-            linkified_message = linkifyHtml(escaped_message, {});
 
-        return "<pre>" + linkified_message + "</pre>";
+  /**
+   * Get the youtube video id from a URI
+   */
+  function youtube_id(url) {
+    const regExp = /^.*(youtu\.be\/|v\/|\/u\/w|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length == 11) ? match[2] : null;
+  }
+
+
+  /**
+   * Show images/videos from links in a message.
+   */
+  function displayLinks(messageNode)
+  {
+    const finalMsg = document.createElement('div');
+    finalMsg.setAttribute('id', 'msg_content');
+    finalMsg.innerHTML = messageNode.outerHTML;
+
+    const parser = new DOMParser();
+    const DOMMsg = parser.parseFromString(messageNode.innerHTML, 'text/xml');
+    const links = DOMMsg.querySelectorAll('a');
+
+    const availableProtocols = ['http:', 'https:'];
+    const videoHostname = ['youtube.com', 'www.youtube.com', 'youtu.be'];
+    const availableContentTypes = ['image/png', 'image/jpeg'];
+
+    const cardElt = document.createElement('div');
+    cardElt.setAttribute('id', 'cardWrapper');
+
+    for (var l = 0 ; l < links.length ; ++l) {
+      // TODO cannot display multiple images.
+      const link = links[l].getAttribute('href');
+      const urlParser = document.createElement('a');
+      urlParser.href = link;
+
+      // Parse videos
+      if (availableProtocols.includes(urlParser.protocol) && videoHostname.includes(urlParser.hostname)) {
+        // Youtube
+        const ytid = youtube_id(link)
+        if (ytid) {
+            const linkElt = document.createElement('a');
+            linkElt.href = link;
+            const containerElt = document.createElement('div');
+            containerElt.setAttribute('id', 'containerVideo');
+            const imageElt = document.createElement('img');
+            imageElt.src = `http://img.youtube.com/vi/${ytid}/0.jpg`;
+            const playDiv = document.createElement('div');
+            playDiv.setAttribute('id', 'playVideo');
+            playDiv.innerHTML = '<svg fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\
+                <path d="M8 5v14l11-7z"/>\
+                <path d="M0 0h24v24H0z" fill="none"/>\
+            </svg>'
+            linkElt.appendChild(imageElt);
+            linkElt.appendChild(playDiv);
+            containerElt.appendChild(linkElt);
+            cardElt.appendChild(containerElt);
+            finalMsg.appendChild(cardElt);
+            messageNode.outerHTML = finalMsg.outerHTML;
+        }
+      } else {
+        // Other types
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', link, true);
+        xhr.timeout = 1000;
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            // Parse images
+            if (availableContentTypes.includes(xhr.getResponseHeader('content-type'))) {
+              const linkElt = document.createElement('a');
+              linkElt.href = xhr.responseURL;
+              const imageElt = document.createElement('img');
+              imageElt.src = xhr.responseURL;
+              linkElt.appendChild(imageElt);
+              cardElt.appendChild(linkElt);
+              finalMsg.appendChild(cardElt);
+              messageNode.outerHTML = finalMsg.outerHTML;
+            } else if (xhr.readyState === 4) {
+              // TODO embed card like twitter
+            }
+          }
+        }
+        xhr.onerror = function () {
+          // TODO there is a lot of CORS problems here.
+          // messageNode.outerHTML = ':(';
+        }
+        xhr.send();
+     }
     }
+  }
+
+  /**
+   * Returns HTML message from the message text.
+   * Cleaned and linkified.
+   */
+  function getMessageHtml(message_text)
+  {
+    const escaped_message = escapeHtml(message_text),
+      linkified_message = linkifyHtml(escaped_message, {});
+
+    const textPart = document.createElement('pre');
+    textPart.innerHTML = linkified_message;
+
+    return textPart.outerHTML;
+  }
 
     /**
      * Returns the message status, formatted for display
@@ -363,6 +458,8 @@ ring.chatview = (function(){
 
         // Set the variables
         chatview_message_text.innerHTML = getMessageHtml(message_text);
+        if (new_message)
+          displayLinks(chatview_message_text);
         chatview_message_sender.textContent = message_sender + ": ";
         chatview_message_delivery_status.innerHTML = getMessageDeliveryStatusText(message_delivery_status);
         chatview_message_timestamp.textContent = getMessageTimestampText(message_timestamp);
