@@ -58,24 +58,62 @@ function grow_text_area() {
     }
 }
 
+/*
+ * Update timestamps messages
+ */
+function updateView() {
+    if (ring.chatview) ring.chatview.updateTimestamps();
+}
+setInterval(updateView, 60000);
+
 var ring = {}; // ring namespace
 
 ring.chatview = (function(){
+    const avatar_size = 35;
     var dev = {}; // ring.chatview.dev namespace
     var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
     var messages = document.querySelector("#messages");
+
+    /**
+     * Transform a date to a string group likes 1 hour ago.
+     */
+    function formatDate(date) {
+        const seconds = Math.floor((new Date() - date) / 1000);
+        var interval = Math.floor(seconds / (3600 * 24));
+        if (interval > 5) {
+            return date.toLocaleString();
+        }
+        if (interval > 1) {
+            return interval + ' days ago';
+        }
+        if (interval === 1) {
+            return interval + ' day ago';
+        }
+        interval = Math.floor(seconds / 3600);
+        if (interval > 1) {
+            return interval + ' hours ago';
+        }
+        if (interval === 1) {
+            return interval + ' hour ago';
+        }
+        interval = Math.floor(seconds / 60);
+        if (interval > 1) {
+            return interval + ' minutes ago';
+        }
+        return 'just now';
+    }
 
     /**
      * Send #sendMessage #message value
      */
      function sendMessage()
      {
-       var input = document.querySelector("#sendMessage #message");
-       var message = input.value;
-       if (message.length > 0) {
-         input.value = '';
-         window.prompt(message);
-       }
+         var input = document.querySelector("#sendMessage #message");
+         var message = input.value;
+         if (message.length > 0) {
+             input.value = '';
+             window.prompt(message);
+         }
      }
 
     /**
@@ -143,9 +181,72 @@ ring.chatview = (function(){
     /**
      * Returns the message date, formatted for display
      */
-    function getMessageTimestampText(message_timestamp)
+    function getMessageTimestampText(message_timestamp, custom_format)
     {
-        return new Date(1000 * message_timestamp).toLocaleString();
+      const date = new Date(1000 * message_timestamp);
+      if(custom_format) {
+          return formatDate(date);
+      } else {
+          return date.toLocaleString();
+      }
+    }
+
+    /**
+     * Merge timestamps if they are from the same group (likes: "1 hour ago")
+     */
+    function cleanPreviousTimestamps (baseNode, endIndex) {
+        // Remove previous elements with the same formatted timestamp
+        for (var c = endIndex - 1 ; c >= 0 ; --c) {
+            const child = messages.children[c];
+            if (child.className.indexOf('timestamp') !== -1) {
+                if (child.className === baseNode.className &&
+                child.innerHTML === baseNode.innerHTML) {
+                    messages.removeChild(child);
+                } else {
+                    break; // A different timestamp is met, we can stop here.
+                }
+            }
+        }
+    }
+
+    /**
+     * Update padding if the sender image is displayed
+     */
+    function updateTimestampPadding (timestampNode, senderImage, direction) {
+        var new_padding = 20;
+        if (timestampNode.className.indexOf(`timestamp_${direction}`) &&
+          senderImage &&
+          senderImage.offsetHeight === avatar_size) {
+            new_padding += avatar_size;
+        }
+
+        if (direction == 'out')
+            timestampNode.style.paddingRight = new_padding;
+        else
+            timestampNode.style.paddingLeft = new_padding;
+    }
+
+    /**
+     * Update timestamps
+     */
+    function updateTimestamps() {
+        const timestamps = messages.querySelectorAll('.timestamp');
+        const image_out = messages.querySelector('.message_out .sender_image')
+        const image_in = messages.querySelector('.message_in .sender_image')
+        if (timestamps) {
+            for ( var c = 0 ; c < messages.children.length ; ++c) {
+              const child = messages.children[c];
+              if (child.className.indexOf('timestamp') !== -1) {
+                    // Update timestamp
+                    child.innerHTML = getMessageTimestampText(child.getAttribute('message_timestamp'), true)
+                    // Update padding
+                    updateTimestampPadding (child, image_out, 'out');
+                    updateTimestampPadding (child, image_in, 'in');
+                    // Remove previous elements with the same formatted timestamp
+                    cleanPreviousTimestamps(child, c);
+                }
+            }
+        }
     }
 
    /**
@@ -220,6 +321,28 @@ ring.chatview = (function(){
             chatview_message_div.appendChild(chatview_message_delivery_status);
             messages.appendChild(chatview_message_div);
 
+            // Get last message
+            const items = messages.querySelectorAll(".message");
+
+            // Add message
+            messages.appendChild(chatview_message_div);
+            // Get timestamp to add
+            const formattedTimestamp = getMessageTimestampText(message_timestamp, true);
+            // Create the timestamp object
+            const date_elt = document.createElement('div');
+            date_elt.innerHTML = formattedTimestamp;
+            timestamp_div_classes = [
+                "timestamp",
+                "timestamp_" + message_direction
+            ];
+            date_elt.setAttribute("class", timestamp_div_classes.join(" "));
+            date_elt.setAttribute("message_timestamp", message_timestamp);
+            // Remove last timestamp if it's the same
+            if (messages.querySelectorAll(".timestamp"))
+                cleanPreviousTimestamps(date_elt, messages.children.length);
+            // Add the new timestamp
+            messages.appendChild(date_elt);
+
         } else {
 
             chatview_message_div = document.querySelector("#message_" + message_id);
@@ -245,12 +368,12 @@ ring.chatview = (function(){
         chatview_message_timestamp.textContent = getMessageTimestampText(message_timestamp);
 
         if (new_message) {
-            chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_message_timestamp);
-
             if (message_direction === "out") {
                 chatview_sentCheckmark.innerHTML = sentAnimation;
                 chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_sentCheckmark);
             }
+
+            chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_message_timestamp);
         }
 
         if (message_direction === "out") {
@@ -258,6 +381,8 @@ ring.chatview = (function(){
                 chatview_message_div.classList.add("message--sent");
             }
         }
+
+        updateTimestamps();
     }
 
     /**
