@@ -210,6 +210,19 @@ pre {
     flex-direction: row-reverse;
 }
 
+.timestamp
+{
+  display: flex;
+  justify-content: flex-start;
+  color: #333;
+  font-size: 10px;
+  padding: 5px;
+}
+
+.timestamp_out {
+  flex-direction: row-reverse;
+}
+
 .message_sender {
     display: none;
 }
@@ -271,20 +284,23 @@ pre {
 }
 
 .message_timestamp {
-    font-size: 0.8em;
-    margin-top: 0.5em;
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-    line-height: 1em;
-    display: inline-block;
+  color: #333;
+  font-size: 0.8em;
+  margin-top: 0.5em;
+  transition: opacity 0.3s ease-in-out;
+  line-height: 1em;
+  display: inline-block;
+  opacity: 0;
+  float: right;
+}
+
+.message_wrapper:hover .message_timestamp {
+  opacity: 1;
 }
 
 .sent-checkmark {
-    margin-left: 0.313em;
-}
-
-.message_in .message_timestamp {
-    color: #9E9E9E;
+  margin-left: 0.313em;
+  float: right;
 }
 
 @-webkit-keyframes fade-in {
