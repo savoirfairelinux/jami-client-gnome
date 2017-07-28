@@ -255,7 +255,8 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     leave_full_screen(self);
-    gtk_container_remove(GTK_CONTAINER(priv->frame_call), old);
+    if (old)
+        gtk_container_remove(GTK_CONTAINER(priv->frame_call), old);
 
     GtkWidget *new_view = nullptr;
 
@@ -1278,6 +1279,8 @@ current_account_changed(RingMainWindow* self, Account* account)
     priv->account_request_discarded = QObject::connect(model, &PendingContactRequestModel::requestDiscarded, action);
 }
 
+#include <iostream>
+
 static void
 ring_main_window_init(RingMainWindow *win)
 {
@@ -1380,8 +1383,6 @@ ring_main_window_init(RingMainWindow *win)
     /* welcome/default view */
     priv->welcome_view = ring_welcome_view_new();
     g_object_ref(priv->welcome_view); // increase ref because don't want it to be destroyed when not displayed
-    gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
-    gtk_widget_show(priv->welcome_view);
 
     auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
     g_signal_connect(selection_conversations, "changed", G_CALLBACK(conversation_selection_changed), win);
@@ -1479,6 +1480,39 @@ ring_main_window_init(RingMainWindow *win)
 
     // initialize the pending contact request icon.
     current_account_changed(win, get_active_ring_account());
+
+    auto firstIndex = RecentModel::instance().peopleProxy()->index(0, 0);
+    auto type = firstIndex.data(static_cast<int>(Ring::Role::ObjectType));
+    auto object = firstIndex.data(static_cast<int>(Ring::Role::Object));
+
+    if (firstIndex.isValid() && type.isValid() && object.isValid()) {
+        switch(type.value<Ring::ObjectType>()) {
+        case Ring::ObjectType::Person:
+        {
+            auto person = object.value<Person *>();
+            change_view(win, nullptr, person, CHAT_VIEW_TYPE);
+            break;
+        }
+        case Ring::ObjectType::ContactMethod:
+        {
+            auto cm = object.value<ContactMethod *>();
+            change_view(win, nullptr, cm, CHAT_VIEW_TYPE);
+            break;
+        }
+        case Ring::ObjectType::Call:
+        case Ring::ObjectType::Media:
+        case Ring::ObjectType::Certificate:
+        case Ring::ObjectType::ContactRequest:
+        case Ring::ObjectType::COUNT__:
+            gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
+            gtk_widget_show(priv->welcome_view);
+            break;
+        }
+    } else {
+        // Show the welcome view
+        gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
+        gtk_widget_show(priv->welcome_view);
+    }
 }
 
 static void
