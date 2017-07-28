@@ -30,9 +30,12 @@
 
 <script>
 
-document.querySelector("#message").addEventListener("keydown", function (e) {
+/**
+ * Send messages when enter is pressed (and not shift or ctrl+enter)
+ */
+document.querySelector('#message').addEventListener('keydown', function (e) {
     e = e || event;
-    var map = {};
+    const map = {};
     map[e.keyCode] = e.type == 'keydown';
     if (e.ctrlKey || e.shiftKey) {
       return true;
@@ -44,321 +47,543 @@ document.querySelector("#message").addEventListener("keydown", function (e) {
     return true;
 });
 
+/**
+ * Modify the textarea.
+ */
 function grow_text_area() {
-    var messages = document.querySelector('#messages');
-    var is_at_bottom = messages.scrollTop === (messages.scrollHeight - messages.offsetHeight);
+    const messages = document.querySelector('#messages');
+    const is_at_bottom = messages.scrollTop === (messages.scrollHeight - messages.offsetHeight);
 
-    var area = document.querySelector("#message");
-    var old_height = area.style.height;
-    area.style.height = "auto";
-    area.style.height = area.scrollHeight +"px";
+    const area = document.querySelector('#message');
+    const old_height = area.style.height;
+    area.style.height = 'auto';
+    area.style.height = area.scrollHeight +'px';
 
     if (is_at_bottom) {
       messages.scrollTop = messages.scrollHeight;
     }
 }
 
+/*
+ * Update timestamps messages
+ */
+function updateView() {
+  if (ring.chatview) ring.chatview.updateTimestamps();
+}
+setInterval(updateView, 60000);
+
 var ring = {}; // ring namespace
 
-ring.chatview = (function(){
-    var dev = {}; // ring.chatview.dev namespace
-    var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
-    var messages = document.querySelector("#messages");
+ring.chatview = (function() {
+  const avatar_size = 35;
+  var dev = {}; // ring.chatview.dev namespace
+  const raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
+  const messages = document.querySelector('#messages');
 
-    /**
-     * Send #sendMessage #message value
-     */
-     function sendMessage()
-     {
-       var input = document.querySelector("#sendMessage #message");
-       var message = input.value;
-       if (message.length > 0) {
-         input.value = '';
-         window.prompt(message);
-       }
+  /**
+   * Transform a date to a string group likes 1 hour ago.
+   */
+  function formatDate(date) {
+    const seconds = Math.floor((new Date() - date) / 1000);
+    var interval = Math.floor(seconds / (3600 * 24));
+    if (interval > 5) {
+      return date.toLocaleString();
+    }
+    if (interval > 1) {
+      return interval + ' days ago';
+    }
+    if (interval === 1) {
+      return interval + ' day ago';
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+      return interval + ' hours ago';
+    }
+    if (interval === 1) {
+      return interval + ' hour ago';
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+      return interval + ' minutes ago';
+    }
+    return 'just now';
+  }
+
+  /**
+   * Send #sendMessage #message value
+   */
+   function sendMessage()
+   {
+     const input = document.querySelector('#sendMessage #message');
+     const message = input.value;
+     if (message.length > 0) {
+       input.value = '';
+       window.prompt(message);
      }
+   }
 
-    /**
-     * Clears all messages
-     */
-    function clearMessages()
-    {
-        messages.innerHTML = "";
-    }
+  /**
+   * Clear all messages
+   */
+  function clearMessages()
+  {
+    messages.innerHTML = '';
+  }
 
-    /**
-     * Converts text to HTML
-     */
-    function escapeHtml(html)
-    {
-        var text = document.createTextNode(html);
-        var div = document.createElement('div');
-        div.appendChild(text);
-        return div.innerHTML;
-    }
+  /**
+   * Converts text to HTML
+   */
+  function escapeHtml(html)
+  {
+    const text = document.createTextNode(html);
+    const div = document.createElement('div');
+    div.appendChild(text);
+    return div.innerHTML;
+  }
 
-    /**
-     * Returns HTML message from the message text.
-     * Cleaned and linkified.
-     */
-    function getMessageHtml(message_text)
-    {
-        var escaped_message = escapeHtml(message_text),
-            linkified_message = linkifyHtml(escaped_message, {});
+  /**
+   * Get the youtube video id from a URI
+   */
+  function youtube_id(url) {
+    const regExp = /^.*(youtu\.be\/|v\/|\/u\/w|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length == 11) ? match[2] : null;
+  }
 
-        return "<pre>" + linkified_message + "</pre>";
-    }
 
-    /**
-     * Returns the message status, formatted for display
-     */
-    function getMessageDeliveryStatusText(message_delivery_status)
-    {
-        var formatted_delivery_status = message_delivery_status;
+  /**
+   * Show images/videos from links in a message.
+   */
+  function displayLinks(messageNode)
+  {
+    const finalMsg = document.createElement('div');
+    finalMsg.setAttribute('id', 'msg_content');
+    finalMsg.innerHTML = messageNode.outerHTML;
 
-        switch(message_delivery_status)
-        {
-            case "unknown":
-                formatted_delivery_status = "";
-                break;
-            case "sending":
-                formatted_delivery_status = "Sending<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><circle class='status_circle anim-first' cx='4' cy='12' r='1'/><circle class='status_circle anim-second' cx='8' cy='12' r='1'/><circle class='status_circle anim-third' cx='12' cy='12' r='1'/></svg>"
-                break;
-            case "read":
-                break;
-            case "failure":
-                formatted_delivery_status = "Failure <svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-x x-first' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M4,4 L12,12'/><path class='status-x x-second' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M12,4 L4,12'/></svg>"
-                break;
-            case "sent":
-                formatted_delivery_status = "";
-                break;
-            default:
-                console.log("getMessageDeliveryStatusText: unknown delivery status: " + message_delivery_status);
-                break;
+    const parser = new DOMParser();
+    const DOMMsg = parser.parseFromString(messageNode.innerHTML, 'text/xml');
+    const links = DOMMsg.querySelectorAll('a');
+
+    const availableProtocols = ['http:', 'https:'];
+    const videoHostname = ['youtube.com', 'www.youtube.com', 'youtu.be'];
+    const availableContentTypes = ['image/png', 'image/jpeg'];
+
+    const cardElt = document.createElement('div');
+    cardElt.setAttribute('id', 'cardWrapper');
+
+    for (var l = 0 ; l < links.length ; ++l) {
+      // TODO cannot display multiple images.
+      const link = links[l].getAttribute('href');
+      const urlParser = document.createElement('a');
+      urlParser.href = link;
+
+      // Parse videos
+      if (availableProtocols.includes(urlParser.protocol) && videoHostname.includes(urlParser.hostname)) {
+        // Youtube
+        const ytid = youtube_id(link)
+        if (ytid) {
+            const linkElt = document.createElement('a');
+            linkElt.href = link;
+            const containerElt = document.createElement('div');
+            containerElt.setAttribute('id', 'containerVideo');
+            const imageElt = document.createElement('img');
+            imageElt.src = `http://img.youtube.com/vi/${ytid}/0.jpg`;
+            const playDiv = document.createElement('div');
+            playDiv.setAttribute('id', 'playVideo');
+            playDiv.innerHTML = '<svg fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\
+                <path d="M8 5v14l11-7z"/>\
+                <path d="M0 0h24v24H0z" fill="none"/>\
+            </svg>'
+            linkElt.appendChild(imageElt);
+            linkElt.appendChild(playDiv);
+            containerElt.appendChild(linkElt);
+            cardElt.appendChild(containerElt);
+            finalMsg.appendChild(cardElt);
+            messageNode.outerHTML = finalMsg.outerHTML;
         }
+      } else {
+        // Other types
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', link, true);
+        xhr.timeout = 1000;
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            // Parse images
+            if (availableContentTypes.includes(xhr.getResponseHeader('content-type'))) {
+              const linkElt = document.createElement('a');
+              linkElt.href = xhr.responseURL;
+              const imageElt = document.createElement('img');
+              imageElt.src = xhr.responseURL;
+              linkElt.appendChild(imageElt);
+              cardElt.appendChild(linkElt);
+              finalMsg.appendChild(cardElt);
+              messageNode.outerHTML = finalMsg.outerHTML;
+            } else if (xhr.readyState === 4) {
+              // TODO embed card like twitter
+            }
+          }
+        }
+        xhr.onerror = function () {
+          // TODO there is a lot of CORS problems here.
+          // messageNode.outerHTML = ':(';
+        }
+        xhr.send();
+     }
+    }
+  }
 
-        return formatted_delivery_status;
+  /**
+   * Returns HTML message from the message text.
+   * Cleaned and linkified.
+   */
+  function getMessageHtml(message_text)
+  {
+    const escaped_message = escapeHtml(message_text),
+      linkified_message = linkifyHtml(escaped_message, {});
+
+    const textPart = document.createElement('pre');
+    textPart.innerHTML = linkified_message;
+
+    return textPart.outerHTML;
+  }
+
+  /**
+   * Returns the message status, formatted for display
+   */
+  function getMessageDeliveryStatusText(message_delivery_status)
+  {
+    var formatted_delivery_status = message_delivery_status;
+
+    switch(message_delivery_status)
+    {
+      case "unknown":
+        formatted_delivery_status = "";
+        break;
+      case "sending":
+        formatted_delivery_status = "Sending<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><circle class='status_circle anim-first' cx='4' cy='12' r='1'/><circle class='status_circle anim-second' cx='8' cy='12' r='1'/><circle class='status_circle anim-third' cx='12' cy='12' r='1'/></svg>"
+        break;
+      case "read":
+          break;
+      case "failure":
+        formatted_delivery_status = "Failure <svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-x x-first' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M4,4 L12,12'/><path class='status-x x-second' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M12,4 L4,12'/></svg>"
+        break;
+      case "sent":
+        formatted_delivery_status = "";
+        break;
+      default:
+        console.log("getMessageDeliveryStatusText: unknown delivery status: " + message_delivery_status);
+        break;
     }
 
-    /**
-     * Returns the message date, formatted for display
-     */
-    function getMessageTimestampText(message_timestamp)
-    {
-        return new Date(1000 * message_timestamp).toLocaleString();
+    return formatted_delivery_status;
+  }
+
+  /**
+   * Returns the message date, formatted for display
+   */
+  function getMessageTimestampText(message_timestamp, custom_format)
+  {
+    const date = new Date(1000 * message_timestamp);
+    if(custom_format) {
+      return formatDate(date);
+    } else {
+      return date.toLocaleString();
     }
+  }
 
-   /**
-    * Adds a message to the buffer, or update it if new_message is
-    * TRUE
-    */
-    function addOrUpdateMessage(message_object, new_message)
-    {
-        // Properties of the message object
-        var message_id = message_object["id"],
-            message_text = message_object["text"],
-            message_sender = message_object["sender"],
-            message_sender_contact_method = message_object["sender_contact_method"],
-            message_timestamp = message_object["timestamp"],
-            message_direction = message_object["direction"],
-            message_delivery_status = message_object["delivery_status"],
-            message_div_classes,
-            chatview_message_div,
-            chatview_message_wrapper,
-            chatview_message_text,
-            chatview_message_sender,
-            chatview_message_delivery_status,
-            chatview_message_timestamp,
-            chatview_message_sender_span,
-            chatview_message_sender_image,
-            chatview_message_div,
-            sentAnimation = "<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-check' stroke='#008000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M2,8 L6,12 L14,4'/></svg>",
-            chatview_sentCheckmark = document.createElement('span');
-
-            chatview_sentCheckmark.setAttribute("class", "sent-checkmark");
-
-        chatview_message_div = document.querySelector("#message_" + message_id);
-        if (new_message)
-        {
-            message_div_classes = [
-                "message",
-                "message_" + message_direction
-            ];
-
-            chatview_message_div = document.createElement('div');
-            chatview_message_div.setAttribute("id", "message_" + message_id);
-            chatview_message_div.setAttribute("class", message_div_classes.join(" "));
-
-            chatview_message_wrapper = document.createElement('div');
-            chatview_message_wrapper.setAttribute("class", "message_wrapper wc");
-
-            chatview_message_text = document.createElement('span');
-            chatview_message_text.setAttribute("class", "message_text");
-
-            chatview_message_sender = document.createElement('span');
-            chatview_message_sender.setAttribute("class", "message_sender");
-
-            chatview_message_delivery_status = document.createElement('span');
-            chatview_message_delivery_status.setAttribute("class", "message_delivery_status");
-
-            chatview_message_timestamp = document.createElement('span');
-            chatview_message_timestamp.setAttribute("class", "message_timestamp");
-
-            chatview_message_wrapper.appendChild(chatview_message_text);
-            chatview_message_wrapper.appendChild(chatview_message_sender);
-
-            // Sender image
-            chatview_message_sender_span = document.createElement('span');
-            chatview_message_sender_span.setAttribute("class", "message_sender_image");
-
-            chatview_message_sender_image = document.createElement('span');
-            chatview_message_sender_image.setAttribute("class", "sender_image sender_image_" + message_sender_contact_method);
-
-            // Append elements to div
-            chatview_message_div.appendChild(chatview_message_sender_image);
-            chatview_message_div.appendChild(chatview_message_wrapper);
-            chatview_message_div.appendChild(chatview_message_delivery_status);
-            messages.appendChild(chatview_message_div);
-
+  /**
+   * Merge timestamps if they are from the same group (likes: "1 hour ago")
+   */
+  function cleanPreviousTimestamps (baseNode, endIndex) {
+    // Remove previous elements with the same formatted timestamp
+    for (var c = endIndex - 1 ; c >= 0 ; --c) {
+      const child = messages.children[c];
+      if (child.className.indexOf('timestamp') !== -1) {
+        if (child.className === baseNode.className &&
+        child.innerHTML === baseNode.innerHTML) {
+          messages.removeChild(child);
         } else {
-
-            chatview_message_div = document.querySelector("#message_" + message_id);
-
-            if (chatview_message_div) {
-                chatview_message_text = chatview_message_div.querySelector(".message_text");
-                chatview_message_sender_image = chatview_message_div.querySelector(".message_sender_image");
-                chatview_message_sender = chatview_message_div.querySelector(".message_sender");
-                chatview_message_delivery_status = chatview_message_div.querySelector(".message_delivery_status");
-                chatview_message_timestamp = chatview_message_div.querySelector(".message_timestamp");
-
-            } else {
-
-                console.log('no msg selector.');
-
-            }
+          break; // A different timestamp is met, we can stop here.
         }
+      }
+    }
+  }
 
-        // Set the variables
-        chatview_message_text.innerHTML = getMessageHtml(message_text);
-        chatview_message_sender.textContent = message_sender + ": ";
-        chatview_message_delivery_status.innerHTML = getMessageDeliveryStatusText(message_delivery_status);
-        chatview_message_timestamp.textContent = getMessageTimestampText(message_timestamp);
-
-        if (new_message) {
-            chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_message_timestamp);
-
-            if (message_direction === "out") {
-                chatview_sentCheckmark.innerHTML = sentAnimation;
-                chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_sentCheckmark);
-            }
-        }
-
-        if (message_direction === "out") {
-            if (message_delivery_status === "sent") {
-                chatview_message_div.classList.add("message--sent");
-            }
-        }
+  /**
+   * Update padding if the sender image is displayed
+   */
+  function updateTimestampPadding (timestampNode, senderImage, direction) {
+    var new_padding = 20;
+    if (timestampNode.className.indexOf(`timestamp_${direction}`) &&
+      senderImage &&
+      senderImage.offsetHeight === avatar_size) {
+      new_padding += avatar_size;
     }
 
-    /**
-     * Add a message to the buffer
-     */
-    function addMessage(message_object)
+    if (direction == 'out')
+      timestampNode.style.paddingRight = new_padding;
+    else
+      timestampNode.style.paddingLeft = new_padding;
+  }
+
+  /**
+   * Update timestamps
+   */
+  function updateTimestamps() {
+    const timestamps = messages.querySelectorAll('.timestamp');
+    const image_out = messages.querySelector('.message_out .sender_image')
+    const image_in = messages.querySelector('.message_in .sender_image')
+    if (timestamps) {
+      for ( var c = 0 ; c < messages.children.length ; ++c) {
+        const child = messages.children[c];
+        if (child.className.indexOf('timestamp') !== -1) {
+          // Update timestamp
+          child.innerHTML = getMessageTimestampText(child.getAttribute('message_timestamp'), true)
+          // Update padding
+          updateTimestampPadding (child, image_out, 'out');
+          updateTimestampPadding (child, image_in, 'in');
+          // Remove previous elements with the same formatted timestamp
+          cleanPreviousTimestamps(child, c);
+        }
+      }
+    }
+  }
+
+  /**
+  * Adds a message to the buffer, or update it if new_message is
+  * TRUE
+  */
+  function addOrUpdateMessage(message_object, new_message)
+  {
+    // Properties of the message object
+    var message_id = message_object['id'],
+        message_text = message_object['text'],
+        message_sender = message_object['sender'],
+        message_sender_contact_method = message_object['sender_contact_method'],
+        message_timestamp = message_object['timestamp'],
+        message_direction = message_object['direction'],
+        message_delivery_status = message_object['delivery_status'],
+        message_div_classes,
+        chatview_message_div,
+        chatview_message_wrapper,
+        chatview_message_text,
+        chatview_message_sender,
+        chatview_message_delivery_status,
+        chatview_message_timestamp,
+        chatview_message_sender_span,
+        chatview_message_sender_image,
+        chatview_message_div,
+        sentAnimation = "<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-check' stroke='#008000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M2,8 L6,12 L14,4'/></svg>",
+        chatview_sentCheckmark = document.createElement('span');
+
+    chatview_sentCheckmark.setAttribute("class", "sent-checkmark");
+
+    chatview_message_div = document.querySelector("#message_" + message_id);
+    if (new_message)
     {
-        var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - 5;
-        addOrUpdateMessage(message_object, true);
-        if (atEnd) {
-            var startTime = Date.now(),
-                durTime = 250.,
-                scrollStartHeight = messages.scrollHeight,
-                scrollStart = messages.scrollTop,
-                scrollDiff = scrollStartHeight - messages.clientHeight - scrollStart;
+      message_div_classes = [
+        "message",
+        "message_" + message_direction
+      ];
 
-            function loop() {
-                var time = Date.now() - startTime,
-                    scrollHeight = messages.scrollHeight,
-                    diff = messages.scrollTop - scrollStart; // If user scrolls up (diff > 0).
+      chatview_message_div = document.createElement('div');
+      chatview_message_div.setAttribute("id", "message_" + message_id);
+      chatview_message_div.setAttribute("class", message_div_classes.join(" "));
 
-                if (time >= durTime || scrollHeight != scrollStartHeight || diff < 0) {
-                    if (diff >= 0) { // User scrolled up, don't autoscroll.
-                        messages.scrollTop = scrollHeight;
-                    }
-                    return false;
-                } else {
-                    messages.scrollTop = scrollStart + (scrollDiff * (time/durTime));
-                    raf(loop);
-                }
-            }
-            raf(loop); // Start the animation loop
+      chatview_message_wrapper = document.createElement('div');
+      chatview_message_wrapper.setAttribute("class", "message_wrapper wc");
+
+      chatview_message_text = document.createElement('span');
+      chatview_message_text.setAttribute("class", "message_text");
+
+      chatview_message_sender = document.createElement('span');
+      chatview_message_sender.setAttribute("class", "message_sender");
+
+      chatview_message_delivery_status = document.createElement('span');
+      chatview_message_delivery_status.setAttribute("class", "message_delivery_status");
+
+      chatview_message_timestamp = document.createElement('span');
+      chatview_message_timestamp.setAttribute("class", "message_timestamp");
+
+      chatview_message_wrapper.appendChild(chatview_message_text);
+      chatview_message_wrapper.appendChild(chatview_message_sender);
+
+      // Sender image
+      chatview_message_sender_span = document.createElement('span');
+      chatview_message_sender_span.setAttribute("class", "message_sender_image");
+
+      chatview_message_sender_image = document.createElement('span');
+      chatview_message_sender_image.setAttribute("class", "sender_image sender_image_" + message_sender_contact_method);
+
+      // Append elements to div
+      chatview_message_div.appendChild(chatview_message_sender_image);
+      chatview_message_div.appendChild(chatview_message_wrapper);
+      chatview_message_div.appendChild(chatview_message_delivery_status);
+
+      // Get last message
+      const items = messages.querySelectorAll(".message");
+
+      // Add message
+      messages.appendChild(chatview_message_div);
+      // Get timestamp to add
+      const formattedTimestamp = getMessageTimestampText(message_timestamp, true);
+      // Create the timestamp object
+      const date_elt = document.createElement('div');
+      date_elt.innerHTML = formattedTimestamp;
+      timestamp_div_classes = [
+        "timestamp",
+        "timestamp_" + message_direction
+      ];
+      date_elt.setAttribute("class", timestamp_div_classes.join(" "));
+      date_elt.setAttribute("message_timestamp", message_timestamp);
+      // Remove last timestamp if it's the same
+      if (messages.querySelectorAll(".timestamp"))
+        cleanPreviousTimestamps(date_elt, messages.children.length);
+      // Add the new timestamp
+      messages.appendChild(date_elt);
+    } else {
+
+      chatview_message_div = document.querySelector("#message_" + message_id);
+
+      if (chatview_message_div) {
+        chatview_message_text = chatview_message_div.querySelector(".message_text");
+        chatview_message_sender_image = chatview_message_div.querySelector(".message_sender_image");
+        chatview_message_sender = chatview_message_div.querySelector(".message_sender");
+        chatview_message_delivery_status = chatview_message_div.querySelector(".message_delivery_status");
+        chatview_message_timestamp = chatview_message_div.querySelector(".message_timestamp");
+      } else {
+        console.log('no msg selector.');
+      }
+    }
+
+      // Set the variables
+      chatview_message_text.innerHTML = getMessageHtml(message_text);
+      if (new_message)
+      displayLinks(chatview_message_text);
+      chatview_message_sender.textContent = message_sender + ": ";
+      chatview_message_delivery_status.innerHTML = getMessageDeliveryStatusText(message_delivery_status);
+
+      chatview_message_timestamp.textContent = getMessageTimestampText(message_timestamp, false);
+
+      if (new_message) {
+          if (message_direction === "out") {
+              chatview_sentCheckmark.innerHTML = sentAnimation;
+              chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_sentCheckmark);
+          }
+
+          chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_message_timestamp);
+      }
+
+    if (message_direction === "out") {
+      if (message_delivery_status === "sent") {
+          chatview_message_div.classList.add("message--sent");
+      }
+    }
+
+    updateTimestamps();
+  }
+
+  /**
+   * Add a message to the buffer
+   */
+  function addMessage(message_object)
+  {
+    const atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - 5;
+    addOrUpdateMessage(message_object, true);
+    if (atEnd) {
+      const startTime = Date.now(),
+          durTime = 250.,
+          scrollStartHeight = messages.scrollHeight,
+          scrollStart = messages.scrollTop,
+          scrollDiff = scrollStartHeight - messages.clientHeight - scrollStart;
+
+      function loop() {
+        const time = Date.now() - startTime,
+            scrollHeight = messages.scrollHeight,
+            diff = messages.scrollTop - scrollStart; // If user scrolls up (diff > 0).
+
+        if (time >= durTime || scrollHeight != scrollStartHeight || diff < 0) {
+          if (diff >= 0) { // User scrolled up, don't autoscroll.
+              messages.scrollTop = scrollHeight;
+          }
+          return false;
+        } else {
+          messages.scrollTop = scrollStart + (scrollDiff * (time/durTime));
+          raf(loop);
         }
+      }
+      raf(loop); // Start the animation loop
+    }
+  }
+
+  /**
+   * Updated a message that was previously added with addMessage
+   */
+  function updateMessage(message_object)
+  {
+    addOrUpdateMessage(message_object, false);
+  }
+
+  /**
+   * Sets the image for a given sender
+   * set_sender_image object should contain the following keys:
+   * - sender: the name of the sender
+   * - sender_image: base64 png encoding of the sender image
+   */
+  function setSenderImage(set_sender_image_object)
+  {
+    var sender_contact_method = set_sender_image_object['sender_contact_method'],
+      sender_image = set_sender_image_object['sender_image'],
+      sender_image_id = "sender_image_" + sender_contact_method,
+      currentSenderImage = document.querySelector("#" + sender_image_id), // Remove the currently set sender image
+      style;
+
+    if (currentSenderImage) {
+      currentSenderImage.parentNode.removeChild(currentSenderImage);
     }
 
-    /**
-     * Updated a message that was previously added with addMessage
-     */
-    function updateMessage(message_object)
-    {
-        addOrUpdateMessage(message_object, false);
+    // Create a new style element
+    style = document.createElement('style');
+
+    style.type = 'text/css';
+    style.id = sender_image_id;
+    style.innerHTML = `.${sender_image_id} { \n content: url(data:image/png;base64,${sender_image}); \n height: ${avatar_size}px; \n width: ${avatar_size}px; \n }`;
+    document.head.appendChild(style);
+  }
+
+  /**
+   * Change the send icon
+   */
+  function setSendIcon(source)
+  {
+    const sendBtn = document.querySelector("#sendicon");
+    sendBtn.src = "data:image/png;base64," + source;
+  }
+
+  function clearSenderImages()
+  {
+    const styles = document.head.querySelectorAll("style"),
+        i = styles.length;
+
+    while (i--){
+      document.head.removeChild(styles[i]);
     }
+  }
 
-    /**
-     * Sets the image for a given sender
-     * set_sender_image object should contain the following keys:
-     * - sender: the name of the sender
-     * - sender_image: base64 png encoding of the sender image
-     */
-    function setSenderImage(set_sender_image_object)
-    {
-        var sender_contact_method = set_sender_image_object['sender_contact_method'],
-            sender_image = set_sender_image_object['sender_image'],
-            sender_image_id = "sender_image_" + sender_contact_method,
-            currentSenderImage = document.querySelector("#" + sender_image_id), // Remove the currently set sender image
-            style;
-
-        if (currentSenderImage) {
-            currentSenderImage.parentNode.removeChild(currentSenderImage);
-        }
-
-        // Create a new style element
-        style = document.createElement('style');
-
-        style.type = 'text/css';
-        style.id = sender_image_id;
-        style.innerHTML = '.' + sender_image_id + " { \n content: url(data:image/png;base64," + sender_image + "); \n height: 35px; \n width: 35px; \n }";
-        document.head.appendChild(style);
-    }
-
-    /**
-     * Change the send icon
-     */
-    function setSendIcon(source)
-    {
-        var sendBtn = document.querySelector("#sendicon");
-        sendBtn.src = "data:image/png;base64," + source;
-    }
-
-    function clearSenderImages()
-    {
-        var styles = document.head.querySelectorAll("style"),
-            i = styles.length;
-
-        while (i--){
-          document.head.removeChild(styles[i]);
-        }
-    }
-
-    return {
-        addMessage: addMessage,
-        updateMessage: updateMessage,
-        setSenderImage: setSenderImage,
-        setSendIcon: setSendIcon,
-        dev: dev,
-        clearMessages: clearMessages,
-        clearSenderImages: clearSenderImages,
-        sendMessage: sendMessage,
-    }
+  return {
+    addMessage: addMessage,
+    updateMessage: updateMessage,
+    setSenderImage: setSenderImage,
+    setSendIcon: setSendIcon,
+    dev: dev,
+    clearMessages: clearMessages,
+    clearSenderImages: clearSenderImages,
+    sendMessage: sendMessage,
+    updateTimestamps: updateTimestamps,
+  }
 
 })();
+
 
 /* DEV functions */
 ring.chatview.dev = (function(){
