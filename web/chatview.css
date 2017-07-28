@@ -3,6 +3,50 @@ body {
   overflow: hidden;
 }
 
+a:link {
+  text-decoration: none;
+  color: #0e649b;
+  transition: all 0.2s ease-in-out;
+  border-bottom: dotted 1px;
+}
+
+a:hover {
+  border: 0;
+}
+
+.message_out #cardWrapper {
+  display: inline-block;
+  text-align: right;
+  width: 100%;
+}
+
+.message_out #containerVideo {
+  float: right;
+}
+
+#playVideo {
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+  float: right;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  z-index: 3;
+}
+
+#containerVideo {
+  max-width: 350px;
+  position: relative;
+}
+
+#playVideo svg {
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+
 #container {
   position: relative;
   height: 100%;
@@ -173,7 +217,7 @@ input[placeholder], [placeholder], *[placeholder] {
 
 .message_wrapper {
     transform: scale(0);
-    max-width: 50%;
+    max-width: 70%;
     margin: 10px 0;
     display: inline-block;
     padding: 10px;
@@ -193,6 +237,15 @@ input[placeholder], [placeholder], *[placeholder] {
     justify-content: flex-start;
     align-items: top;
     overflow: hidden;
+}
+
+#msg_content img {
+  max-width: 300px;
+  align-content: center;
+}
+
+#msg_content img:first-of-type {
+  margin: 5px;
 }
 
 pre {
