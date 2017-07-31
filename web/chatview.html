@@ -73,6 +73,11 @@ ring.chatview = (function(){
     var dev = {}; // ring.chatview.dev namespace
     var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
     var messages = document.querySelector("#messages");
+    var displayLinksEnabled = false;
+
+    function setDisplayLinks(display) {
+      displayLinksEnabled = display;
+    }
 
     /**
      * Transform a date to a string group likes 1 hour ago.
@@ -443,7 +448,7 @@ ring.chatview = (function(){
 
         // Set the variables
         chatview_message_text.innerHTML = getMessageHtml(message_text);
-        if (new_message)
+        if (new_message && displayLinksEnabled)
           displayLinks(chatview_message_text);
         chatview_message_sender.textContent = message_sender + ": ";
         chatview_message_delivery_status.innerHTML = getMessageDeliveryStatusText(message_delivery_status);
@@ -563,6 +568,7 @@ ring.chatview = (function(){
         clearMessages: clearMessages,
         clearSenderImages: clearSenderImages,
         sendMessage: sendMessage,
+        setDisplayLinks: setDisplayLinks,
     }
 
 })();
