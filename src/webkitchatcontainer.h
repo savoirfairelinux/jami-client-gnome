@@ -45,5 +45,6 @@ void       webkit_chat_container_print_new_message   (WebKitChatContainer *view,
 void       webkit_chat_container_update_message      (WebKitChatContainer *view, const QModelIndex &idx);
 void       webkit_chat_container_set_sender_image    (WebKitChatContainer *view, ContactMethod *sender_contact_method, QVariant sender_image);
 gboolean   webkit_chat_container_is_ready            (WebKitChatContainer *view);
+void       webkit_chat_container_set_display_links   (WebKitChatContainer *view, bool display);
 
 G_END_DECLS

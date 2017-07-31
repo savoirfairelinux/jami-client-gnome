@@ -486,6 +486,22 @@ webkit_chat_container_new()
 }
 
 void
+webkit_chat_container_set_display_links(WebKitChatContainer *view, bool display)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+    gchar* function_call = g_strdup_printf("ring.chatview.setDisplayLinks(%s);",
+      display ? "true" : "false");
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+}
+
+void
 webkit_chat_container_clear_sender_images(WebKitChatContainer *view)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
