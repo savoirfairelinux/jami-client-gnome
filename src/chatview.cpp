@@ -34,6 +34,7 @@
 #include "numbercategory.h"
 #include <QtCore/QDateTime>
 #include "utils/calling.h"
+#include "utils/files.h"
 #include "webkitchatcontainer.h"
 
 // LRC
@@ -66,6 +67,8 @@ struct _ChatViewPrivate
     GtkWidget *button_close_chatview;
     GtkWidget *button_placecall;
     GtkWidget *button_send_invitation;
+
+    GSettings *settings;
 
     /* only one of the three following pointers should be non void;
      * either this is an in-call chat (and so the in-call chat APIs will be used)
@@ -155,6 +158,18 @@ get_active_contactmethod(ChatView *self)
     }
 
     return nullptr;
+}
+
+static void
+display_links_toggled(ChatView *self)
+{
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    if (priv->webkit_chat_container) {
+        webkit_chat_container_set_display_links(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            g_settings_get_boolean(priv->settings, "enable-display-links")
+        );
+    }
 }
 
 static void
@@ -249,6 +264,7 @@ chat_view_init(ChatView *view)
     gtk_widget_init_template(GTK_WIDGET(view));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(view);
+    priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
 
     g_signal_connect(priv->button_close_chatview, "clicked", G_CALLBACK(hide_chat_view), view);
     g_signal_connect_swapped(priv->button_placecall, "clicked", G_CALLBACK(placecall_clicked), view);
@@ -596,6 +612,8 @@ webkit_chat_container_ready(ChatView* self)
     webkit_chat_container_clear(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)
     );
+
+    display_links_toggled(self);
 
     /* print the text recordings */
     if (priv->call) {

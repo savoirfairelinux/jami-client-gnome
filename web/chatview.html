@@ -73,6 +73,11 @@ ring.chatview = (function(){
     var dev = {}; // ring.chatview.dev namespace
     var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
     var messages = document.querySelector("#messages");
+    var displayLinksEnabled = false;
+
+    function setDisplayLinks(display) {
+      displayLinksEnabled = display;
+    }
 
     /**
      * Transform a date to a string group likes 1 hour ago.
@@ -563,6 +568,7 @@ ring.chatview = (function(){
         clearMessages: clearMessages,
         clearSenderImages: clearSenderImages,
         sendMessage: sendMessage,
+        setDisplayLinks: setDisplayLinks,
     }
 
 })();
