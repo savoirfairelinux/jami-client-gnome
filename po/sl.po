@@ -3,19 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Андрей Шевчук <andrei@shvchk.com>, 2016
-# Anton Samarchyan <desecho@gmail.com>, 2016
-# Konstantin, 2016
-# Marat Gubaidullin <marat.gubaidullin@savoirfairelinux.com>, 2015
-# Natalia <sonaux@gmail.com>, 2015
-# ruwebstyle <ruwebstyle@ya.ru>, 2015
-# Viktor Filinkov <bruteforce@sigil.tk>, 2015
-# Yaroslav Molochko <onorua@gmail.com>, 2015
-# Александр, 2017
-# Александр Суслов <suslikkreal@gmail.com>, 2015
-# Александр Асланьян <asl174@yandex.ru>, 2015
-# Андрей Шевчук <andrei@shvchk.com>, 2016-2017
-# Чураков Александр, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
@@ -23,242 +10,242 @@ msgstr ""
 "POT-Creation-Date: 2017-07-30 23:09-0400\n"
 "PO-Revision-Date: 2017-07-31 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
-"Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
+"Language-Team: Slovenian (http://www.transifex.com/savoirfairelinux/ring/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #: src/accountadvancedtab.cpp:389
 msgid "_Remove server"
-msgstr "Удалить сервер"
+msgstr ""
 
 #: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
 msgid "Hostname"
-msgstr "Имя компьютера"
+msgstr "Strežnik"
 
 #: src/accountadvancedtab.cpp:510 ui/accountadvancedtab.ui:314
 msgid "Port"
-msgstr "Порт"
+msgstr "Vrata"
 
 #: src/accountaudiotab.cpp:175 src/accountvideotab.cpp:184
 msgid "Enabled"
-msgstr "Включён"
+msgstr ""
 
 #: src/accountaudiotab.cpp:181
 msgctxt "Name of the codec"
 msgid "Name"
-msgstr "Имя"
+msgstr "Ime"
 
 #: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
 msgid "Bitrate"
-msgstr "Битрейт"
+msgstr ""
 
 #: src/accountaudiotab.cpp:189
 msgid "Samplerate"
-msgstr "Частота дискретизации"
+msgstr ""
 
 #: src/accountcreationwizard.cpp:240
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
-msgstr "Ваш аккаунт был создан, но нам не удалось зарегистрировать ваше имя пользователя. Попробуйте снова из меню настроек."
+msgstr ""
 
 #: src/accountcreationwizard.cpp:283
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
-msgstr "Неизвестно"
+msgstr "Neznano"
 
 #: src/accountcreationwizard.cpp:461
 msgid "Passwords don't match"
-msgstr "Пароли не совпадают"
+msgstr ""
 
 #: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
 msgid "Bad password"
-msgstr "Недопустимый пароль"
+msgstr ""
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
-msgstr "Ошибка сети, попробуйте снова"
+msgstr ""
 
 #: src/accountdevicestab.cpp:213
 msgid "Could not initiate export to the Ring, try again"
-msgstr "Не удалось инициировать экспорт в Ring, попробуйте снова"
+msgstr ""
 
 #: src/accountdevicestab.cpp:246
 msgctxt "Device Name Column"
 msgid "Name"
-msgstr "Имя"
+msgstr "Ime"
 
 #: src/accountdevicestab.cpp:251
 msgctxt "Device ID Column"
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:185
 msgid "Alias"
-msgstr "Псевдоним "
+msgstr "Alias"
 
 #: src/accountgeneraltab.cpp:196
 msgid "Type"
-msgstr "Тип"
+msgstr "Tip"
 
 #: src/accountgeneraltab.cpp:222
 msgid "auto-generating..."
-msgstr "авто-генерация..."
+msgstr ""
 
 #: src/accountgeneraltab.cpp:235 src/accountgeneraltab.cpp:261
 msgid "Username"
-msgstr "Имя пользователя"
+msgstr "Uporabnik"
 
 #: src/accountgeneraltab.cpp:271
 msgid "Password"
-msgstr "Пароль"
+msgstr "Geslo"
 
 #: src/accountgeneraltab.cpp:284
 msgid "Show password"
-msgstr "Показать пароль"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:290
 msgid "Proxy"
-msgstr "Прокси"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:300
 msgid "Voicemail number"
-msgstr "Номер голосовой почты"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:312
 msgid "Name service URL"
-msgstr "Адрес сервиса имён"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:325
 msgid "Auto-answer calls"
-msgstr "Автоответчик"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:333
 msgid "UPnP enabled"
-msgstr "UPnP разрешен"
+msgstr ""
 
 #: src/accountimportexportview.cpp:99
 msgid "Select account export location"
-msgstr "Выбрать расположение для экспорта аккаунта"
+msgstr ""
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:84
 #: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "Prekliči"
 
 #: src/accountimportexportview.cpp:104
 msgid "Select"
-msgstr "Выбрать"
+msgstr ""
 
 #: src/accountimportexportview.cpp:211
 msgid "Error importing account(s)"
-msgstr "Ошибка импорта аккаунта(ов)"
+msgstr ""
 
 #: src/accountimportexportview.cpp:263
 msgid "Error exporting account(s)"
-msgstr "Ошибка экспорта аккаунта(ов)"
+msgstr ""
 
 #: src/accountvideotab.cpp:190
 msgctxt "The name of the codec"
 msgid "Name"
-msgstr "Имя"
+msgstr "Ime"
 
 #: src/accountview.cpp:168
 msgctxt "Account settings"
 msgid "General"
-msgstr "Общий"
+msgstr "Splošno"
 
 #: src/accountview.cpp:176
 msgctxt "Account settings"
 msgid "Devices"
-msgstr "Устройства"
+msgstr "Naprave"
 
 #: src/accountview.cpp:182
 msgctxt "Account settings"
 msgid "Security"
-msgstr "Безопасность"
+msgstr "Varnost"
 
 #: src/accountview.cpp:187
 msgctxt "Account settings"
 msgid "Advanced"
-msgstr "Дополнительно"
+msgstr "Napredno"
 
 #: src/accountview.cpp:194
 msgctxt "List of banned peers"
 msgid "Bans"
-msgstr "Заблокированные"
+msgstr ""
 
 #: src/accountview.cpp:250
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
-msgstr "Вы уверены что хотите удалить аккаунт \"%s\"?"
+msgstr ""
 
 #: src/accountview.cpp:377
 msgid "New Account"
-msgstr "Новый аккаунт"
+msgstr ""
 
 #: src/accountview.cpp:527
 msgctxt "Account state column"
 msgid "Enabled"
-msgstr "Включен"
+msgstr ""
 
 #: src/accountview.cpp:533
 msgctxt "Account alias (name) column"
 msgid "Alias"
-msgstr "Псевдоним"
+msgstr "Alias"
 
 #: src/accountview.cpp:541
 msgctxt "Account status column"
 msgid "Status"
-msgstr "Состояние"
+msgstr ""
 
 #: src/avatarmanipulation.cpp:380
 msgid "Open Avatar Image"
-msgstr "Открыть изображение аватара"
+msgstr ""
 
 #: src/avatarmanipulation.cpp:383
 msgid "_Cancel"
-msgstr "_Отмена"
+msgstr ""
 
 #: src/avatarmanipulation.cpp:385
 msgid "_Open"
-msgstr "_Открыть"
+msgstr ""
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
-msgstr "Неизвестная адресная книга EDS"
+msgstr ""
 
 #: src/backends/edscontactbackend.cpp:213
 msgctxt "Backend type"
 msgid "Contacts"
-msgstr "Контакты"
+msgstr "Stiki"
 
 #: src/contactpopupmenu.cpp:172
 msgid "_Call"
-msgstr "_Звонок"
+msgstr ""
 
 #: src/contactpopupmenu.cpp:175
 msgid "_Copy name"
-msgstr "_Копировать имя"
+msgstr ""
 
 #: src/contactpopupmenu.cpp:178
 msgid "_Copy number"
-msgstr "_Копировать номер"
+msgstr ""
 
 #: src/contactpopupmenu.cpp:181
 msgid "_Add to contact"
-msgstr "Добавить в контакт"
+msgstr ""
 
 #: src/contactpopupmenu.cpp:184
 msgid "_Remove contact"
-msgstr "_Удалить контакт"
+msgstr ""
 
 #: src/dialogs.c:53
 msgid "Working..."
-msgstr "Выполняю..."
+msgstr ""
 
 #: src/dialogs.c:84
 #, c-format
@@ -266,359 +253,359 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Liberté, Égalité, Fraternité - Version 1.0\n"
 "built on %.25s"
-msgstr "Свобода, равенство и братство — Версия 1.0\nсобрано %.25s"
+msgstr ""
 
 #: src/dialogs.c:136
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "Клиент GNOME для Ring.\nRing — это свободная программа для связи, уважающая свободу и конфиденциальность пользователей."
+msgstr ""
 
 #: src/editcontactview.cpp:208
 msgctxt "Phone number category"
 msgid "home"
-msgstr "дом"
+msgstr ""
 
 #: src/generalsettingsview.cpp:102
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr "Это разрушительная операция. Вы уверены, что хотите удалить всю вашу историю чатов и звонков?"
+msgstr ""
 
 #: src/historyview.cpp:293
 msgctxt "Call history"
 msgid "Call"
-msgstr "Звонок"
+msgstr "Kliči"
 
 #: src/historyview.cpp:338
 msgctxt "Call history"
 msgid "Date"
-msgstr "Дата"
+msgstr "Datum"
 
 #: src/ringnotify.cpp:148
 msgid "Incoming call"
-msgstr "Входящий звонок"
+msgstr "Dohodni klic"
 
 #: src/ringnotify.cpp:165 src/ringnotify.cpp:343
 msgctxt "notification action name"
 msgid "Show"
-msgstr "Показать"
+msgstr ""
 
 #: src/ringnotify.cpp:267
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
-msgstr "%s сказал:"
+msgstr ""
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
-msgstr "Включить отладку"
+msgstr ""
 
 #: src/ring_client_options.c:68
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr "Восстанавливает скрытую форму главного окна (только для первого образца)"
+msgstr ""
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Ring"
-msgstr "GNOME клиент для Ring"
+msgstr ""
 
 #: src/ringmainwindow.cpp:614
 #, c-format
 msgid "Invalid Ring username: %s"
-msgstr "Недопустимое имя Ring: %s"
+msgstr ""
 
 #: src/ringmainwindow.cpp:629
 msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr "Ошибка нахождения имени пользователя, сервер имен возможно недоступен"
+msgstr ""
 
 #: src/ringmainwindow.cpp:643
 #, c-format
 msgid "Could not resolve Ring username: %s"
-msgstr "Не удалось распознать имя Ring: %s"
+msgstr ""
 
 #: src/ringmainwindow.cpp:1152
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr "позвонить"
+msgstr ""
 
 #: src/ringmainwindow.cpp:1154
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr "открыть чат"
+msgstr ""
 
 #: src/ringmainwindow.cpp:1234
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s..."
-msgstr "%s..."
+msgstr ""
 
 #: src/ringmainwindow.cpp:1240
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s (error)"
-msgstr "%s (ошибка)"
+msgstr ""
 
 #: src/ringmainwindow.cpp:1443
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr "Найдите контакты или введите номер"
+msgstr ""
 
 #: src/ringwelcomeview.cpp:75
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr "Это ваше имя пользователя Ring.\nСкопируйте и поделитесь им со своими друзьями!"
+msgstr ""
 
 #: src/ringwelcomeview.cpp:83
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr "Это ваш RingID.\nСкопируйте и поделитесь им с вашими друзьями!"
+msgstr ""
 
 #: src/ringwelcomeview.cpp:90
 msgid "fetching RingID..."
-msgstr "получение RingID..."
+msgstr ""
 
 #: src/ringwelcomeview.cpp:148
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr "Ring — это свободная программа для связи, уважающая свободу и конфиденциальность пользователей."
+msgstr ""
 
 #: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr "Ring ID QR код"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
-msgstr "Указанное имя пользователя недоступно"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:129
 msgid "Username is not available"
-msgstr "Имя пользователя недоступно"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:138
 msgid "The entered username is not valid"
-msgstr "Указанное имя пользователя недопустимо"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:139
 msgid "Username is not valid"
-msgstr "Недопустимое имя пользователя"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:148
 msgid "The entered username is available"
-msgstr "Указанное имя пользователя доступно"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:149
 msgid "Username is available"
-msgstr "Имя пользователя доступно"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:158
 msgid "Failed to perform lookup"
-msgstr "Не удалось осуществить поиск"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:159
 msgid "Could not lookup username"
-msgstr "Не удалось найти имя пользователя"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:248
 msgid "Looking up username availability..."
-msgstr "Проверка доступности имени пользователя…"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:487
 msgid "Registering username..."
-msgstr "Регистрация имени пользователя…"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:319
 msgid "Could not initiate name registration, try again."
-msgstr "Не удалось инициировать регистрацию имени, попробуйте снова."
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:361
 msgid "Register this username on the blockchain"
-msgstr "Зарегистрировать это имя в блокчейн"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:397
 msgid "Invalid username"
-msgstr "Недопустимое имя пользователя"
+msgstr "Neveljavno uporabniško ime"
 
 #: src/usernameregistrationbox.cpp:411
 msgid "Username already taken"
-msgstr "Имя пользователя уже занято"
+msgstr "Uporabniško ime je že oddano"
 
 #: src/usernameregistrationbox.cpp:418
 msgid "Network error"
-msgstr "Ошибка сети"
+msgstr "Napaka mreže"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Ring Error"
-msgstr "Ошибка Ring"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr "Пробуем переподключиться к демону Ring (dring)…"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Ring daemon (dring).\n"
 "Ring will now quit."
-msgstr "Не удалось переподключиться к демону Ring (dring).\nЗавершение работы Ring."
+msgstr ""
 
 #: src/video/video_widget.cpp:525
 msgid "Share screen area"
-msgstr "Транслировать область экрана"
+msgstr ""
 
 #: src/video/video_widget.cpp:535
 msgid "Share file"
-msgstr "Поделиться файлом"
+msgstr ""
 
 #: src/video/video_widget.cpp:549
 msgid "Show advanced information"
-msgstr "Показать дополнительную информацию"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
-msgstr "Регистрация истекает через (секунды):"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:103
 msgid "Allow calls from unknown peers"
-msgstr "Разрешить вызовы от неизвестных участников"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:117
 msgid "Allow calls from peers in your call history"
-msgstr "Разрешить вызовы от участников из вашей истории звонков"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:131
 msgid "Allow calls from peers in your contacts list"
-msgstr "Разрешить звонки от пиров из вашего списка контактов"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:149
 msgid "Registration"
-msgstr "Регистрация"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:178
 msgid "Use random port"
-msgstr "Использовать случайный порт"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:199
 msgid "Local port:"
-msgstr "Локальный порт:"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:225
 msgid "Network Interface"
-msgstr "Сетевой интерфейс"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
-msgstr "Такие же, как и локальные параметры"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:268
 msgid "Set published address and port:"
-msgstr "Установить публикуемый адрес и порт:"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:292
 msgid "Address"
-msgstr "Адрес"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:340
 msgid "Use STUN"
-msgstr "Использовать STUN "
+msgstr ""
 
 #: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
 msgid "server URL"
-msgstr "URL сервера"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:389
 msgid "Use TURN"
-msgstr "Использовать TURN "
+msgstr "Uporabi TURN"
 
 #: ui/accountadvancedtab.ui:434
 msgid "username"
-msgstr "имя пользователя"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:455
 msgid "password"
-msgstr "пароль"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:479
 msgid "realm"
-msgstr "область "
+msgstr ""
 
 #: ui/accountadvancedtab.ui:508
 msgid "Published Address"
-msgstr "Публикуемый адрес"
+msgstr "Objavi naslov"
 
 #: ui/accountadvancedtab.ui:536
 msgid "Bootstrap Servers"
-msgstr "Серверы инициализации"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:593
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
-msgstr "Данные параметры используются только во время SDP согласования сессии в случае, если ICE не поддерживается сервером или пиром."
+msgstr ""
 
 #: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
 msgid "Min"
-msgstr "Минимум"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
 msgid "Max"
-msgstr "Максимум"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:665
 msgid "Audio RTP Port Range"
-msgstr "Диапазон портов для RTP аудио"
+msgstr "Omočje RTP vrat"
 
 #: ui/accountadvancedtab.ui:741
 msgid "Video RTP Port Range"
-msgstr "Диапазон портов для RTP видео"
+msgstr ""
 
 #: ui/accountadvancedtab.ui:759
 msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr "Согласование сесcии SDP (резерв ICE)"
+msgstr ""
 
 #: ui/accountaudiotab.ui:57 ui/accountvideotab.ui:80
 msgid "Up"
-msgstr "Вверх"
+msgstr "Gor"
 
 #: ui/accountaudiotab.ui:64 ui/accountvideotab.ui:87
 msgid "Down"
-msgstr "Вниз"
+msgstr "Dol"
 
 #: ui/accountaudiotab.ui:75
 msgid "Audio Codecs"
-msgstr "Аудио кодеки"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
-msgstr "Добро пожаловать в"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:68
 msgid "Create Ring Account"
-msgstr "Создать аккаунт Ring"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:69
 msgid "Create a new Ring account (for new users)"
-msgstr "Создать новый аккаунт Ring (для новых пользователей)"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:76
 msgid "Link this device to an account"
-msgstr "Привязать это устройство к аккаунту"
+msgstr "Poveži to napravo k računu"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Link this devices to a Ring account created on another device"
-msgstr "Привязать это устройство к аккаунту Ring, созданному на другом устройстве"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:105 ui/accountcreationwizard.ui:159
 msgid "Link this device to an existing account"
-msgstr "Привязать это устройство к существующему аккаунту"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:120
 msgid ""
@@ -627,587 +614,587 @@ msgid ""
 "previous device, choose the Ring Account to use and select \"Link another "
 "device to this account\". You will get the necessary PIN to complete this "
 "form. The PIN is only valid for 10 minutes."
-msgstr "Для привязки этого устройства к другому аккаунту вам нужно сначала получить PIN код. Чтобы сгенерировать PIN код, перейдите в настройки аккаунта на предыдущем устройстве, выберите аккаунт Ring, затем \"Привязать другое устройство к этому аккаунту\". Вы получите PIN, необходимый для заполнения этой формы. PIN код действителен только в течение 10 минут."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:128 ui/accountcreationwizard.ui:217
 #: ui/accountcreationwizard.ui:429
 msgid "Previous"
-msgstr "Назад"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:136
 msgid "Okay, I have the PIN!"
-msgstr "Окей, у меня есть PIN!"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:174
 msgid "Enter your pin:"
-msgstr "Введите ваш PIN:"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:193
 msgid "Enter your password:"
-msgstr "Введите ваш пароль:"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:225 ui/accountcreationwizard.ui:437
 msgid "Next"
-msgstr "Далее"
+msgstr "Naprej"
 
 #: ui/accountcreationwizard.ui:267
 msgid "Profile"
-msgstr "Профиль"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:287
 msgid "Full name:"
-msgstr "Полное имя:"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:329
 msgid "Ring Account"
-msgstr "Аккаунт Ring"
+msgstr "Ring račun"
 
 #: ui/accountcreationwizard.ui:342
 msgid "Register public username (experimental):"
-msgstr "Зарегистрировать публичное имя пользователя (экспериментальная функция):"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:348
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr "Отмечая это, вы зарегистрируете уникальное имя в сети Ring. Другие пользователи смогут использовать его чтобы связаться с вами вместо RingID, который 40 символов длинной."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:371
 msgid "Password (confirm):"
-msgstr "Пароль (подтверждение):"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:372
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr "Этот пароль будет использован для шифрования данных вашего аккаунта и для привязки новых устройств к вашему аккаунту."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:461
 msgid "Generating your Ring account..."
-msgstr "Создание вашего аккаунта Ring..."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:494
 msgid "This may take a few minutes."
-msgstr "Это может занять несколько минут."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:520
 msgid "Retrieving your Ring account..."
-msgstr "Загрузка вашего аккаунта Ring…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:546
 msgid "Error creating/loading account."
-msgstr "Ошибка создания/загрузки аккаунта."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:551 ui/accountdevicestab.ui:217
 #: ui/accountdevicestab.ui:239
 msgid "OK"
-msgstr "OK"
+msgstr ""
 
 #: ui/accountdevicestab.ui:21
 msgid "My Device ID:"
-msgstr "ID устройства:"
+msgstr ""
 
 #: ui/accountdevicestab.ui:40
 msgid "Devices"
-msgstr "Устройства"
+msgstr "Naprave"
 
 #: ui/accountdevicestab.ui:66
 msgid "Add device"
-msgstr "Добавить устройство"
+msgstr ""
 
 #: ui/accountdevicestab.ui:83
 msgid "Add New Device"
-msgstr "Добавить новое устройство"
+msgstr ""
 
 #: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr "Для привязки нового устройства к вашему аккаунту Ring вам нужно экспортировать ваш аккаунт в сеть Ring. Это сгенерирует PIN код, который потребуется ввести на вашем новом устройстве в течение 5 минут с момента его генерации."
+msgstr ""
 
 #: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
-msgstr "Пароль (обязательно):"
+msgstr ""
 
 #: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
-msgstr "Введите пароль архива"
+msgstr ""
 
 #: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
-msgstr "Экспорт в сеть Ring"
+msgstr ""
 
 #: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
-msgstr "Экспорт аккаунта в сеть Ring…"
+msgstr "Izvažam račun Ring..."
 
 #: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
-msgstr "Ваш сгенерированный PIN:"
+msgstr ""
 
 #: ui/accountgeneraltab.ui:69
 msgid "Account"
-msgstr "Аккаунт"
+msgstr "Račun"
 
 #: ui/accountgeneraltab.ui:126
 msgid "Parameters"
-msgstr "Параметры"
+msgstr ""
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
-msgstr "Экспортировать выбранный аккаунт"
+msgstr ""
 
 #: ui/accountimportexportview.ui:26
 msgid "Import accounts"
-msgstr "Импортировать аккаунты"
+msgstr ""
 
 #: ui/accountimportexportview.ui:49
 msgid "Location:"
-msgstr "Расположение:"
+msgstr ""
 
 #: ui/accountimportexportview.ui:70
 msgid "choose location"
-msgstr "выбрать расположение"
+msgstr ""
 
 #: ui/accountimportexportview.ui:76
 msgid "Choose export location"
-msgstr "Выберите расположение экспорта"
+msgstr ""
 
 #: ui/accountimportexportview.ui:95
 msgid "Choose archive location"
-msgstr "Выберите расположение архива"
+msgstr ""
 
 #: ui/accountimportexportview.ui:169 ui/accountview.ui:110
 msgid "Export"
-msgstr "Экспорт"
+msgstr ""
 
 #: ui/accountimportexportview.ui:181 ui/accountview.ui:103
 msgid "Import"
-msgstr "Импорт"
+msgstr ""
 
 #: ui/accountmigrationview.ui:14
 msgid "Account migration required"
-msgstr "Необходим перенос аккаунта"
+msgstr ""
 
 #: ui/accountmigrationview.ui:39
 msgid "Alias:"
-msgstr "Псевдоним:"
+msgstr ""
 
 #: ui/accountmigrationview.ui:102
 msgid "Please enter your password:"
-msgstr "Введите пароль:"
+msgstr ""
 
 #: ui/accountmigrationview.ui:129
 msgid "Migrate account"
-msgstr "Перенести аккаунт"
+msgstr ""
 
 #: ui/accountmigrationview.ui:148
 msgid "Migration failed, wrong password ?"
-msgstr "Ошибка миграции, неправильный пароль?"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
-msgstr "Шифровать медиа потоки (SRTP)"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:58
 msgid "Key exchange protocol"
-msgstr "Протокол обмена ключами "
+msgstr ""
 
 #: ui/accountsecuritytab.ui:76
 msgid "Fallback on RTP on encryption failure"
-msgstr "Использовать RTP, если шифрование отсутствует "
+msgstr ""
 
 #: ui/accountsecuritytab.ui:94
 msgid "Media Stream Encryption"
-msgstr "Шифрование медиапотока"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:123
 msgid "Encrypt negotiation (TLS)"
-msgstr "Шифровать разговор (TLS)"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:148
 msgid "CA certificate"
-msgstr "Сертификат удостоверяющего центра"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:185
 msgid "User certificate"
-msgstr "Пользовательский сертификат"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:222
 msgid "Private key"
-msgstr "Закрытый ключ"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:245
 msgid "Private key password"
-msgstr "Пароль к закрытому ключу"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:292
 msgid "TLS protocol method"
-msgstr "Метод протокола TSL"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:315
 msgid "Outgoing TLS server name"
-msgstr "Исходящее имя сервера TLS"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:337
 msgid "Negotiation timeout (seconds)"
-msgstr "Ожидание разговора (секунд)"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:371
 msgid "Use default ciphers"
-msgstr "Использовать шифрование по-умолчанию"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:387
 msgid "Use custom cipher list"
-msgstr "Использовать пользовательский список шифров"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:444
 msgid "Verify incoming certificates (server side)"
-msgstr "Проверять входящие сертификаты (на стороне сервера)"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:459
 msgid "Verify answer certificates (client side)"
-msgstr "Проверять исходящие сертификаты (на стороне клиента)"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:474
 msgid "Require a certificate for incoming TLS connections"
-msgstr "Требовать сертификат для входящих TLS соединений"
+msgstr ""
 
 #: ui/accountsecuritytab.ui:493
 msgid "Negotiation Encryption"
-msgstr "Шифрование разговора"
+msgstr ""
 
 #: ui/accountvideotab.ui:50
 msgid "Enable Video"
-msgstr "Включить видео"
+msgstr "Omogoči video"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
-msgstr "Видео кодеки"
+msgstr ""
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
-msgstr "Удалить выбранный аккаунт"
+msgstr ""
 
 #: ui/accountview.ui:63 ui/accountview.ui:66
 msgid "Add new account"
-msgstr "Добавить новый аккаунт"
+msgstr ""
 
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
-msgstr "Выбрать тип аккаунта"
+msgstr ""
 
 #: ui/accountview.ui:104
 msgid "Import archived account(s)"
-msgstr "Импортировать архивированный аккаунт(ы)"
+msgstr ""
 
 #: ui/accountview.ui:112
 msgid "Export selected account(s)"
-msgstr "Экспортировать выбранный аккаунт(ы)"
+msgstr ""
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr "Сделать фото"
+msgstr ""
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr "Выбрать изображение из файла"
+msgstr ""
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
-msgstr "Вернуться"
+msgstr ""
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
-msgstr "Установить выбранное в качестве изображения"
+msgstr ""
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
-msgstr "Скрыть чат"
+msgstr ""
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
-msgstr "Сделать звонок"
+msgstr ""
 
 #: ui/chatview.ui:60
 msgid "Send invitation"
-msgstr "Отправить приглашение"
+msgstr ""
 
 #: ui/chatview.ui:130
 msgid "Send Invitation"
-msgstr "Отправить приглашение"
+msgstr ""
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
-msgstr "Создать новый"
+msgstr ""
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
-msgstr "Завершить этот звонок"
+msgstr ""
 
 #: ui/currentcallview.ui:255 ui/currentcallview.ui:459
 msgid "End call"
-msgstr "Закончить звонок"
+msgstr ""
 
 #: ui/currentcallview.ui:276
 msgid "Toggle hold"
-msgstr "Переключить и удерживать"
+msgstr ""
 
 #: ui/currentcallview.ui:280 ui/currentcallview.ui:306
 #: ui/currentcallview.ui:450
 msgid "Hold"
-msgstr "Удержать"
+msgstr "Čakanje"
 
 #: ui/currentcallview.ui:302
 msgid "Toggle mute audio"
-msgstr "Заглушить звук"
+msgstr ""
 
 #: ui/currentcallview.ui:328
 msgid "Toggle mute video"
-msgstr "Выключить видео"
+msgstr ""
 
 #: ui/currentcallview.ui:332 ui/currentcallview.ui:441
 msgid "Mute video"
-msgstr "Отключить видео"
+msgstr "Utišaj video"
 
 #: ui/currentcallview.ui:355
 msgid "Toggle record audio"
-msgstr "Запись звука"
+msgstr ""
 
 #: ui/currentcallview.ui:358
 msgid "Record audio"
-msgstr "Запись аудио"
+msgstr ""
 
 #: ui/currentcallview.ui:378
 msgid "Adjust outgoing video quality"
-msgstr "Настроить качество исходящего видео"
+msgstr ""
 
 #: ui/currentcallview.ui:383 ui/currentcallview.ui:468
 msgid "Video quality"
-msgstr "Качество видео"
+msgstr ""
 
 #: ui/currentcallview.ui:402
 msgid "Toggle show chat"
-msgstr "Показать чат"
+msgstr ""
 
 #: ui/currentcallview.ui:406 ui/currentcallview.ui:423
 msgid "Chat"
-msgstr "Чат"
+msgstr ""
 
 #: ui/currentcallview.ui:432
 msgid "Mute audio"
-msgstr "Приглушить звук"
+msgstr "Ugasni avdio"
 
 #: ui/currentcallview.ui:477
 msgid "Record"
-msgstr "Запись"
+msgstr "Snemaj"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
-msgstr "Выберите адресную книгу"
+msgstr ""
 
 #: ui/editcontactview.ui:15
 msgid "Addressbook"
-msgstr "Адресная книга"
+msgstr ""
 
 #: ui/editcontactview.ui:29
 msgid "Name"
-msgstr "Имя"
+msgstr "Ime"
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
-msgstr "Имя контакта"
+msgstr ""
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
-msgstr "Выберете, как этот номер будет категоризирован"
+msgstr ""
 
 #: ui/editcontactview.ui:50
 msgid "Number category"
-msgstr "Категория номера"
+msgstr ""
 
 #: ui/editcontactview.ui:66
 msgid "Number or Ring ID to be added"
-msgstr "Номер или Ring ID для добавления"
+msgstr ""
 
 #: ui/editcontactview.ui:72
 msgid "Number or Ring ID"
-msgstr "Номер или Ring ID"
+msgstr ""
 
 #: ui/editcontactview.ui:83
 msgid "Save"
-msgstr "Сохранить"
+msgstr ""
 
 #: ui/generalsettingsview.ui:34
 msgid "Profile Settings"
-msgstr "Настройки профиля"
+msgstr ""
 
 #: ui/generalsettingsview.ui:76
 msgid "Ring Settings"
-msgstr "Настройки Ring"
+msgstr ""
 
 #: ui/generalsettingsview.ui:92
 msgid "Start Ring on login"
-msgstr "Автоматически запускать Ring при входе в систему"
+msgstr ""
 
 #: ui/generalsettingsview.ui:100
 msgid "Show Ring icon in the notification area (systray)."
-msgstr "Показывать значок Ring в области уведомлений (трей)."
+msgstr ""
 
 #: ui/generalsettingsview.ui:108
 msgid "Bring Ring to the foreground on incoming calls."
-msgstr "Выводить Ring на передний план при входящем звонке."
+msgstr ""
 
 #: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
-msgstr "Включить уведомления о входящих звонках."
+msgstr ""
 
 #: ui/generalsettingsview.ui:124
 msgid "Enable notifications for new chat messages."
-msgstr "Включить уведомления о новых сообщениях чата."
+msgstr ""
 
 #: ui/generalsettingsview.ui:132
 msgid "Entering a number in the search entry will place a new call."
-msgstr "Осуществлять звонок при вводе номера в области поиска."
+msgstr ""
 
 #: ui/generalsettingsview.ui:147
 msgid "Show chat on the right."
-msgstr "Показать чат справа."
+msgstr ""
 
 #: ui/generalsettingsview.ui:153
 msgid "Show chat on the bottom."
-msgstr "Показать чат снизу."
+msgstr ""
 
 #: ui/generalsettingsview.ui:177
 msgid "History Settings"
-msgstr "Настройки истории"
+msgstr ""
 
 #: ui/generalsettingsview.ui:195
 msgid "Keep history for (days):"
-msgstr "Хранить историю (дней):"
+msgstr ""
 
 #: ui/generalsettingsview.ui:216
 msgid "(set to 0 for unlimited history)"
-msgstr "(Поставьте 0 для хранения всей истории)"
+msgstr ""
 
 #: ui/generalsettingsview.ui:226
 msgid "Clear all history"
-msgstr "Удалить историю сообщений"
+msgstr ""
 
 #: ui/incomingcallview.ui:106
 msgid "Incoming..."
-msgstr "Входящий…"
+msgstr ""
 
 #: ui/incomingcallview.ui:142
 msgid "Accept"
-msgstr "Принять"
+msgstr "Sprejmi"
 
 #: ui/incomingcallview.ui:163
 msgid "Reject"
-msgstr "Отклонить"
+msgstr ""
 
 #: ui/incomingcallview.ui:186
 msgid "Hang up"
-msgstr "Повесить трубку"
+msgstr "Prekini"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
-msgstr "Настройки звука"
+msgstr ""
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
-msgstr "Менеджер звука: "
+msgstr ""
 
 #: ui/mediasettingsview.ui:52
 msgid "Ringtone device:"
-msgstr "Устройство для звонка:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
-msgstr "Устройство воспроизведения: "
+msgstr ""
 
 #: ui/mediasettingsview.ui:76
 msgid "Input device:"
-msgstr "Устройство для записи:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:134
 msgid "Camera Settings"
-msgstr "Настройки камеры"
+msgstr ""
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"
-msgstr "Устройство:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:162
 msgid "Channel:"
-msgstr "Канал:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:174
 msgid "Resolution:"
-msgstr "Разрешение:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
-msgstr "Частота кадров: "
+msgstr ""
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr "Аппаратное ускорение"
+msgstr ""
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr "Включить аппаратное декодирование:"
+msgstr ""
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr "_О Ring"
+msgstr ""
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr "_Выход"
+msgstr ""
 
 #: ui/ringmainwindow.ui:17
 msgid "Menu"
-msgstr "Меню"
+msgstr ""
 
 #: ui/ringmainwindow.ui:51
 msgid "General"
-msgstr "Общий"
+msgstr "Splošno"
 
 #: ui/ringmainwindow.ui:61
 msgid "Media"
-msgstr "Медиа"
+msgstr "Mediji"
 
 #: ui/ringmainwindow.ui:72
 msgid "Accounts"
-msgstr "Аккаунты"
+msgstr "Računi"
 
 #: ui/ringmainwindow.ui:102
 msgid "Settings"
-msgstr "Настройки"
+msgstr "Nastavitve"
 
 #: ui/ringmainwindow.ui:215
 msgid "Conversations"
-msgstr "Разговоры"
+msgstr ""
 
 #: ui/ringmainwindow.ui:237
 msgid "Contacts"
-msgstr "Контакты"
+msgstr "Stiki"
 
 #: ui/ringmainwindow.ui:259
 msgid "History"
-msgstr "История"
+msgstr "Zgodovina"
 
 #: ui/ringmainwindow.ui:281
 msgid "Contact requests"
-msgstr "Запросы на добавление в контакты"
+msgstr "Zahteve za povezavo"
 
 #: ui/usernameregistrationbox.ui:12
 msgid "enter username here"
-msgstr "введите имя пользователя здесь"
+msgstr ""
 
 #: ui/usernameregistrationbox.ui:24
 msgid "Register"
-msgstr "Регистрация"
+msgstr "Prijavi se"

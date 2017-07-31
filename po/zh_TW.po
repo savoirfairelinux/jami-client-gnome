@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Hsiu-Ming Chang <cges30901@gmail.com>, 2016
+# Hsiu-Ming Chang <cges30901@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-23 23:09-0400\n"
-"PO-Revision-Date: 2017-07-20 16:00+0000\n"
+"POT-Creation-Date: 2017-07-30 23:09-0400\n"
+"PO-Revision-Date: 2017-07-31 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: src/accountadvancedtab.cpp:389
 msgid "_Remove server"
-msgstr ""
+msgstr "移除伺服器"
 
 #: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
 msgid "Hostname"
@@ -51,7 +52,7 @@ msgstr "取樣率"
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
-msgstr ""
+msgstr "你的帳號已被建立，但無法註冊你的名字。請在設定選單重試一次"
 
 #: src/accountcreationwizard.cpp:283
 msgctxt "The default username / account alias, if none is set by the user"
@@ -64,7 +65,7 @@ msgstr "密碼不相符"
 
 #: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
 msgid "Bad password"
-msgstr "不好的密碼"
+msgstr "密碼錯誤"
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
@@ -72,7 +73,7 @@ msgstr "網路錯誤，請重試"
 
 #: src/accountdevicestab.cpp:213
 msgid "Could not initiate export to the Ring, try again"
-msgstr ""
+msgstr "無法啟用輸出到Ring, 請重試。"
 
 #: src/accountdevicestab.cpp:246
 msgctxt "Device Name Column"
@@ -82,7 +83,7 @@ msgstr "名稱"
 #: src/accountdevicestab.cpp:251
 msgctxt "Device ID Column"
 msgid "ID"
-msgstr ""
+msgstr "ID(設備ID 欄位)"
 
 #: src/accountgeneraltab.cpp:185
 msgid "Alias"
@@ -94,7 +95,7 @@ msgstr "類型"
 
 #: src/accountgeneraltab.cpp:222
 msgid "auto-generating..."
-msgstr ""
+msgstr "自動產生中..."
 
 #: src/accountgeneraltab.cpp:235 src/accountgeneraltab.cpp:261
 msgid "Username"
@@ -110,27 +111,27 @@ msgstr "顯示密碼"
 
 #: src/accountgeneraltab.cpp:290
 msgid "Proxy"
-msgstr "Proxy"
+msgstr "代理服務器"
 
 #: src/accountgeneraltab.cpp:300
 msgid "Voicemail number"
-msgstr ""
+msgstr "語音郵件號碼"
 
 #: src/accountgeneraltab.cpp:312
 msgid "Name service URL"
-msgstr ""
+msgstr "名稱服務 URL"
 
 #: src/accountgeneraltab.cpp:325
 msgid "Auto-answer calls"
-msgstr ""
+msgstr "自動回答呼叫"
 
 #: src/accountgeneraltab.cpp:333
 msgid "UPnP enabled"
-msgstr ""
+msgstr "UPnP啟動"
 
 #: src/accountimportexportview.cpp:99
 msgid "Select account export location"
-msgstr ""
+msgstr "選擇帳號輸出位置"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:84
 #: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
@@ -143,11 +144,11 @@ msgstr "選擇"
 
 #: src/accountimportexportview.cpp:211
 msgid "Error importing account(s)"
-msgstr ""
+msgstr "輸入帳號錯誤"
 
 #: src/accountimportexportview.cpp:263
 msgid "Error exporting account(s)"
-msgstr ""
+msgstr "輸出帳號錯誤"
 
 #: src/accountvideotab.cpp:190
 msgctxt "The name of the codec"
@@ -177,7 +178,7 @@ msgstr "進階"
 #: src/accountview.cpp:194
 msgctxt "List of banned peers"
 msgid "Bans"
-msgstr ""
+msgstr "黑名單"
 
 #: src/accountview.cpp:250
 #, c-format
@@ -205,7 +206,7 @@ msgstr "狀態"
 
 #: src/avatarmanipulation.cpp:380
 msgid "Open Avatar Image"
-msgstr ""
+msgstr "開啟具像化圖像"
 
 #: src/avatarmanipulation.cpp:383
 msgid "_Cancel"
@@ -217,39 +218,32 @@ msgstr "開啟(_O)"
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
-msgstr ""
+msgstr "未知的EDS聯絡簿"
 
 #: src/backends/edscontactbackend.cpp:213
 msgctxt "Backend type"
 msgid "Contacts"
 msgstr "聯絡人"
 
-#: src/contactpopupmenu.cpp:84
-#, c-format
-msgid ""
-"Are you sure you want to delete contact \"%s\"? It will be removed from your"
-" system's addressbook."
-msgstr ""
-
-#: src/contactpopupmenu.cpp:180
+#: src/contactpopupmenu.cpp:172
 msgid "_Call"
-msgstr ""
+msgstr "呼叫"
 
-#: src/contactpopupmenu.cpp:183
+#: src/contactpopupmenu.cpp:175
 msgid "_Copy name"
 msgstr "複製名稱(_C)"
 
-#: src/contactpopupmenu.cpp:186
+#: src/contactpopupmenu.cpp:178
 msgid "_Copy number"
 msgstr "複製號碼(_C)"
 
-#: src/contactpopupmenu.cpp:189
+#: src/contactpopupmenu.cpp:181
 msgid "_Add to contact"
 msgstr "加到聯絡人(_A)"
 
-#: src/contactpopupmenu.cpp:192
+#: src/contactpopupmenu.cpp:184
 msgid "_Remove contact"
-msgstr ""
+msgstr "刪除聯絡人"
 
 #: src/dialogs.c:53
 msgid "Working..."
@@ -283,7 +277,7 @@ msgstr ""
 #: src/historyview.cpp:293
 msgctxt "Call history"
 msgid "Call"
-msgstr ""
+msgstr "呼叫"
 
 #: src/historyview.cpp:338
 msgctxt "Call history"
@@ -307,13 +301,13 @@ msgstr "%s 說："
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
-msgstr ""
+msgstr "啟用除錯功能"
 
 #: src/ring_client_options.c:68
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr ""
+msgstr "還原主視窗的隱藏狀態(只適用於主程序)"
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Ring"
@@ -322,7 +316,7 @@ msgstr "- Ring 的 GNOME 用戶端"
 #: src/ringmainwindow.cpp:614
 #, c-format
 msgid "Invalid Ring username: %s"
-msgstr ""
+msgstr "無效的Ring用戶名: %s"
 
 #: src/ringmainwindow.cpp:629
 msgid "Error resolving username, nameserver is possibly unreachable"
@@ -904,7 +898,7 @@ msgstr ""
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr ""
+msgstr "照相"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
@@ -920,92 +914,92 @@ msgstr ""
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
-msgstr ""
+msgstr "隱藏聊天畫面"
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
-msgstr ""
+msgstr "開始呼叫"
 
 #: ui/chatview.ui:60
 msgid "Send invitation"
-msgstr ""
+msgstr "傳送邀請"
 
 #: ui/chatview.ui:130
 msgid "Send Invitation"
-msgstr ""
+msgstr "傳送邀請"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
-msgstr ""
+msgstr "建立新的(通話)"
 
-#: ui/currentcallview.ui:252
+#: ui/currentcallview.ui:251
 msgid "End this call"
 msgstr "結束這個通話"
 
-#: ui/currentcallview.ui:256 ui/currentcallview.ui:460
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:459
 msgid "End call"
 msgstr "結束通話"
 
-#: ui/currentcallview.ui:277
+#: ui/currentcallview.ui:276
 msgid "Toggle hold"
-msgstr ""
+msgstr "切換接聽/保留"
 
-#: ui/currentcallview.ui:281 ui/currentcallview.ui:307
-#: ui/currentcallview.ui:451
+#: ui/currentcallview.ui:280 ui/currentcallview.ui:306
+#: ui/currentcallview.ui:450
 msgid "Hold"
-msgstr ""
+msgstr "保留通話"
 
-#: ui/currentcallview.ui:303
+#: ui/currentcallview.ui:302
 msgid "Toggle mute audio"
-msgstr ""
+msgstr "切換靜音"
 
-#: ui/currentcallview.ui:329
+#: ui/currentcallview.ui:328
 msgid "Toggle mute video"
-msgstr ""
+msgstr "切換靜屏"
 
-#: ui/currentcallview.ui:333 ui/currentcallview.ui:442
+#: ui/currentcallview.ui:332 ui/currentcallview.ui:441
 msgid "Mute video"
-msgstr ""
+msgstr "視訊靜屏"
 
-#: ui/currentcallview.ui:356
+#: ui/currentcallview.ui:355
 msgid "Toggle record audio"
 msgstr ""
 
-#: ui/currentcallview.ui:359
+#: ui/currentcallview.ui:358
 msgid "Record audio"
 msgstr ""
 
-#: ui/currentcallview.ui:379
+#: ui/currentcallview.ui:378
 msgid "Adjust outgoing video quality"
 msgstr ""
 
-#: ui/currentcallview.ui:384 ui/currentcallview.ui:469
+#: ui/currentcallview.ui:383 ui/currentcallview.ui:468
 msgid "Video quality"
 msgstr ""
 
-#: ui/currentcallview.ui:403
+#: ui/currentcallview.ui:402
 msgid "Toggle show chat"
-msgstr ""
+msgstr "切換顯示聊天"
 
-#: ui/currentcallview.ui:407 ui/currentcallview.ui:424
+#: ui/currentcallview.ui:406 ui/currentcallview.ui:423
 msgid "Chat"
-msgstr ""
+msgstr "聊天"
 
-#: ui/currentcallview.ui:433
+#: ui/currentcallview.ui:432
 msgid "Mute audio"
-msgstr ""
+msgstr "靜音"
 
-#: ui/currentcallview.ui:478
+#: ui/currentcallview.ui:477
 msgid "Record"
-msgstr ""
+msgstr "記錄"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
-msgstr ""
+msgstr "選擇聯絡簿"
 
 #: ui/editcontactview.ui:15
 msgid "Addressbook"
-msgstr ""
+msgstr "聯絡簿"
 
 #: ui/editcontactview.ui:29
 msgid "Name"
@@ -1017,11 +1011,11 @@ msgstr "聯絡人名稱"
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
-msgstr ""
+msgstr "選定本號碼如何分類組"
 
 #: ui/editcontactview.ui:50
 msgid "Number category"
-msgstr ""
+msgstr "號碼類組"
 
 #: ui/editcontactview.ui:66
 msgid "Number or Ring ID to be added"
@@ -1037,11 +1031,11 @@ msgstr "儲存"
 
 #: ui/generalsettingsview.ui:34
 msgid "Profile Settings"
-msgstr ""
+msgstr "基本資料設定"
 
 #: ui/generalsettingsview.ui:76
 msgid "Ring Settings"
-msgstr ""
+msgstr "Ring 設定"
 
 #: ui/generalsettingsview.ui:92
 msgid "Start Ring on login"
@@ -1081,11 +1075,11 @@ msgstr "記錄設定"
 
 #: ui/generalsettingsview.ui:195
 msgid "Keep history for (days):"
-msgstr ""
+msgstr "保持記錄數日"
 
 #: ui/generalsettingsview.ui:216
 msgid "(set to 0 for unlimited history)"
-msgstr ""
+msgstr "(設定0 表示無限制記錄)"
 
 #: ui/generalsettingsview.ui:226
 msgid "Clear all history"
@@ -1097,11 +1091,11 @@ msgstr "來電..."
 
 #: ui/incomingcallview.ui:142
 msgid "Accept"
-msgstr ""
+msgstr "接聽"
 
 #: ui/incomingcallview.ui:163
 msgid "Reject"
-msgstr ""
+msgstr "拒接"
 
 #: ui/incomingcallview.ui:186
 msgid "Hang up"
@@ -1109,35 +1103,35 @@ msgstr "掛斷"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
-msgstr ""
+msgstr "音效設定"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
-msgstr ""
+msgstr "音效管理員"
 
 #: ui/mediasettingsview.ui:52
 msgid "Ringtone device:"
-msgstr ""
+msgstr "響鈴設備"
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
-msgstr ""
+msgstr "輸出設備"
 
 #: ui/mediasettingsview.ui:76
 msgid "Input device:"
-msgstr ""
+msgstr "輸入設備"
 
 #: ui/mediasettingsview.ui:134
 msgid "Camera Settings"
-msgstr ""
+msgstr "攝影機設定"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"
-msgstr ""
+msgstr "設備"
 
 #: ui/mediasettingsview.ui:162
 msgid "Channel:"
-msgstr ""
+msgstr "頻道"
 
 #: ui/mediasettingsview.ui:174
 msgid "Resolution:"
@@ -1145,15 +1139,15 @@ msgstr "解析度："
 
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
-msgstr ""
+msgstr "頁框率"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "硬體加速"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr ""
+msgstr "啟用硬體解碼:"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
@@ -1185,7 +1179,7 @@ msgstr "設定"
 
 #: ui/ringmainwindow.ui:215
 msgid "Conversations"
-msgstr ""
+msgstr "對話"
 
 #: ui/ringmainwindow.ui:237
 msgid "Contacts"
@@ -1197,11 +1191,11 @@ msgstr "記錄"
 
 #: ui/ringmainwindow.ui:281
 msgid "Contact requests"
-msgstr ""
+msgstr "加好友請求"
 
 #: ui/usernameregistrationbox.ui:12
 msgid "enter username here"
-msgstr ""
+msgstr "在此輸入名字"
 
 #: ui/usernameregistrationbox.ui:24
 msgid "Register"

@@ -8,6 +8,7 @@
 # David <stakewinner00@mykolab.com>, 2015
 # Emiliano Ariel Vazquez <emilianovazquez@gmail.com>, 2015
 # Ernesto Rodriguez Ortiz <ernesto.rodriguezortiz@savoirfairelinux.com>, 2015-2016
+# Jelid Leon <jelid.leon@gmail.com>, 2017
 # jsagarribay <jsagarribay@gmail.com>, 2016
 # Juanjo Faico <juanjofaico22@openmailbox.org>, 2016
 # Julie LeBrun <julie.lebrun@savoirfairelinux.com>, 2016
@@ -17,12 +18,13 @@
 # Laura Arjona Reina <larjona@larjona.net>, 2016
 # Miguel Angel NV <manvac@gmail.com>, 2017
 # Stepan Salenikovich, 2015
+# urkonn <urkonn@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-23 23:09-0400\n"
-"PO-Revision-Date: 2017-07-20 16:00+0000\n"
+"POT-Creation-Date: 2017-07-30 23:09-0400\n"
+"PO-Revision-Date: 2017-07-31 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -33,11 +35,11 @@ msgstr ""
 
 #: src/accountadvancedtab.cpp:389
 msgid "_Remove server"
-msgstr "Quita_r servidor"
+msgstr "Quitar servidor"
 
 #: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
 msgid "Hostname"
-msgstr "Nombre del host"
+msgstr "Nombre del servidor"
 
 #: src/accountadvancedtab.cpp:510 ui/accountadvancedtab.ui:314
 msgid "Port"
@@ -190,7 +192,7 @@ msgstr "Avanzado"
 #: src/accountview.cpp:194
 msgctxt "List of banned peers"
 msgid "Bans"
-msgstr ""
+msgstr "Vetado"
 
 #: src/accountview.cpp:250
 #, c-format
@@ -237,30 +239,23 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Contactos"
 
-#: src/contactpopupmenu.cpp:84
-#, c-format
-msgid ""
-"Are you sure you want to delete contact \"%s\"? It will be removed from your"
-" system's addressbook."
-msgstr "¿Estás seguro de eliminar el contacto \"%s\"? Se borrará de la libreta de direcciones del sistema."
-
-#: src/contactpopupmenu.cpp:180
+#: src/contactpopupmenu.cpp:172
 msgid "_Call"
 msgstr "_Llamar"
 
-#: src/contactpopupmenu.cpp:183
+#: src/contactpopupmenu.cpp:175
 msgid "_Copy name"
 msgstr "_Copiar nombre"
 
-#: src/contactpopupmenu.cpp:186
+#: src/contactpopupmenu.cpp:178
 msgid "_Copy number"
 msgstr "_Copiar número"
 
-#: src/contactpopupmenu.cpp:189
+#: src/contactpopupmenu.cpp:181
 msgid "_Add to contact"
 msgstr "_Añadir un contacto"
 
-#: src/contactpopupmenu.cpp:192
+#: src/contactpopupmenu.cpp:184
 msgid "_Remove contact"
 msgstr "_Eliminar contacto"
 
@@ -274,7 +269,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Liberté, Égalité, Fraternité - Version 1.0\n"
 "built on %.25s"
-msgstr ""
+msgstr "Liberté, Égalité, Fraternité - Versión 1.0\nconstruido en %.25s"
 
 #: src/dialogs.c:136
 msgid ""
@@ -606,7 +601,7 @@ msgstr "Codecs de audio"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
-msgstr ""
+msgstr "Bienvenido a"
 
 #: ui/accountcreationwizard.ui:68
 msgid "Create Ring Account"
@@ -945,70 +940,70 @@ msgstr "Enviar invitación"
 
 #: ui/chatview.ui:130
 msgid "Send Invitation"
-msgstr ""
+msgstr "Enviar invitación"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
 msgstr "Crear nuevo"
 
-#: ui/currentcallview.ui:252
+#: ui/currentcallview.ui:251
 msgid "End this call"
 msgstr "Finalizar esta llamada"
 
-#: ui/currentcallview.ui:256 ui/currentcallview.ui:460
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:459
 msgid "End call"
 msgstr "Finalizar llamada"
 
-#: ui/currentcallview.ui:277
+#: ui/currentcallview.ui:276
 msgid "Toggle hold"
 msgstr "Conmutar llamada en espera"
 
-#: ui/currentcallview.ui:281 ui/currentcallview.ui:307
-#: ui/currentcallview.ui:451
+#: ui/currentcallview.ui:280 ui/currentcallview.ui:306
+#: ui/currentcallview.ui:450
 msgid "Hold"
 msgstr "Espera"
 
-#: ui/currentcallview.ui:303
+#: ui/currentcallview.ui:302
 msgid "Toggle mute audio"
 msgstr "Conmutar volumen del audio"
 
-#: ui/currentcallview.ui:329
+#: ui/currentcallview.ui:328
 msgid "Toggle mute video"
 msgstr "Conmutar audio del vídeo"
 
-#: ui/currentcallview.ui:333 ui/currentcallview.ui:442
+#: ui/currentcallview.ui:332 ui/currentcallview.ui:441
 msgid "Mute video"
 msgstr "Silenciar vídeo"
 
-#: ui/currentcallview.ui:356
+#: ui/currentcallview.ui:355
 msgid "Toggle record audio"
 msgstr "Conmutar grabación de audio"
 
-#: ui/currentcallview.ui:359
+#: ui/currentcallview.ui:358
 msgid "Record audio"
 msgstr "Grabar audio"
 
-#: ui/currentcallview.ui:379
+#: ui/currentcallview.ui:378
 msgid "Adjust outgoing video quality"
 msgstr "Ajustar la calidad del vídeo de salida"
 
-#: ui/currentcallview.ui:384 ui/currentcallview.ui:469
+#: ui/currentcallview.ui:383 ui/currentcallview.ui:468
 msgid "Video quality"
 msgstr "Calidad de vídeo"
 
-#: ui/currentcallview.ui:403
+#: ui/currentcallview.ui:402
 msgid "Toggle show chat"
 msgstr "Mostrar/Ocultar chat"
 
-#: ui/currentcallview.ui:407 ui/currentcallview.ui:424
+#: ui/currentcallview.ui:406 ui/currentcallview.ui:423
 msgid "Chat"
 msgstr "Chat"
 
-#: ui/currentcallview.ui:433
+#: ui/currentcallview.ui:432
 msgid "Mute audio"
 msgstr "Silenciar el audio"
 
-#: ui/currentcallview.ui:478
+#: ui/currentcallview.ui:477
 msgid "Record"
 msgstr "Grabar"
 
@@ -1114,7 +1109,7 @@ msgstr "Aceptar"
 
 #: ui/incomingcallview.ui:163
 msgid "Reject"
-msgstr ""
+msgstr "Rechazar"
 
 #: ui/incomingcallview.ui:186
 msgid "Hang up"
@@ -1162,11 +1157,11 @@ msgstr "Cuadros por segundo:"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "Aceleración por hardware"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr ""
+msgstr "Habilitar descodificación por hardware"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
