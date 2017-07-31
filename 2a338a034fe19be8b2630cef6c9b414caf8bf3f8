@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba3841fe_f10b6729",
+        "filename": "ui/generalsettingsview.ui",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 103
+      },
+      "writtenOn": "2017-07-31T21:30:55Z",
+      "side": 1,
+      "message": "Too technical. Maybe something like \"show images and videos in chat\"?",
+      "revId": "2a338a034fe19be8b2630cef6c9b414caf8bf3f8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
