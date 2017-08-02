@@ -309,6 +309,8 @@ SET( SRC_FILES
    src/ringwelcomeview.cpp
    src/recentcontactsview.h
    src/recentcontactsview.cpp
+   src/recentcontactsview2.h
+   src/recentcontactsview2.cpp
    src/webkitchatcontainer.h
    src/webkitchatcontainer.cpp
    src/chatview.h

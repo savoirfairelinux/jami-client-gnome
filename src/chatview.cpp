@@ -39,6 +39,7 @@
 
 // LRC
 #include <account.h>
+#include <database.h>
 
 
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
@@ -81,6 +82,7 @@ struct _ChatViewPrivate
     QMetaObject::Connection message_changed_connection;
     QMetaObject::Connection update_name;
     QMetaObject::Connection update_send_invitation;
+    QMetaObject::Connection new_message_connection2;
 
     gulong webkit_ready;
     gulong webkit_send_text;
@@ -440,6 +442,12 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
             }
         }
     );
+    
+    priv->new_message_connection2 = QObject::connect(&DataBase::instance(), &DataBase::messageAdded,
+    [] (std::string msg) {
+        qDebug() << "FFF";
+        qDebug() << QString(msg.c_str());
+    });
 }
 
 static void

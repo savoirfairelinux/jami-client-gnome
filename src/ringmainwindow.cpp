@@ -76,6 +76,7 @@
 #include "utils/files.h"
 #include "pendingcontactrequests.h"
 #include "contactrequestcontentview.h"
+#include "recentcontactsview2.h"
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
@@ -382,7 +383,8 @@ selection_changed(RingMainWindow *win)
     auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
     auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
     auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
-
+    
+qDebug() << "toto";
     GtkTreeModel *model = nullptr;
     GtkTreeIter iter;
     QModelIndex idx;
@@ -1349,8 +1351,12 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect(priv->radiobutton_account_settings, "toggled", G_CALLBACK(show_account_settings), win);
     g_signal_connect(priv->radiobutton_general_settings, "toggled", G_CALLBACK(show_general_settings), win);
 
-    /* populate the notebook */
-    priv->treeview_conversations = recent_contacts_view_new();
+    /* populate the OLD notebook */
+    //~ priv->treeview_conversations = recent_contacts_view_new();
+    //~ gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
+
+    /* populate the NEW notebook */
+    priv->treeview_conversations = recent_contacts_view2_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
 
     priv->treeview_contacts = contacts_view_new();
