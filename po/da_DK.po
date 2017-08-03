@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-23 23:09-0400\n"
-"PO-Revision-Date: 2017-07-20 16:00+0000\n"
+"POT-Creation-Date: 2017-08-02 22:49-0400\n"
+"PO-Revision-Date: 2017-08-03 02:49+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/savoirfairelinux/ring/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
@@ -180,7 +180,7 @@ msgstr "Avanceret"
 #: src/accountview.cpp:194
 msgctxt "List of banned peers"
 msgid "Bans"
-msgstr ""
+msgstr "Blokeringer"
 
 #: src/accountview.cpp:250
 #, c-format
@@ -227,30 +227,23 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: src/contactpopupmenu.cpp:84
-#, c-format
-msgid ""
-"Are you sure you want to delete contact \"%s\"? It will be removed from your"
-" system's addressbook."
-msgstr "Er du sikker på at du vil slette kontakten \"%s\"? Den vil blive fjernet fra dit systems adressebog."
-
-#: src/contactpopupmenu.cpp:180
+#: src/contactpopupmenu.cpp:172
 msgid "_Call"
 msgstr "_Opkald"
 
-#: src/contactpopupmenu.cpp:183
+#: src/contactpopupmenu.cpp:175
 msgid "_Copy name"
 msgstr "_Kopier navn"
 
-#: src/contactpopupmenu.cpp:186
+#: src/contactpopupmenu.cpp:178
 msgid "_Copy number"
 msgstr "_Kopier nummer"
 
-#: src/contactpopupmenu.cpp:189
+#: src/contactpopupmenu.cpp:181
 msgid "_Add to contact"
 msgstr "_Tilføj til kontakt"
 
-#: src/contactpopupmenu.cpp:192
+#: src/contactpopupmenu.cpp:184
 msgid "_Remove contact"
 msgstr "_Fjern kontakt"
 
@@ -264,7 +257,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Liberté, Égalité, Fraternité - Version 1.0\n"
 "built on %.25s"
-msgstr ""
+msgstr "Liberté, Égalité, Fraternité - Version 1.0\nbygget den %.25s"
 
 #: src/dialogs.c:136
 msgid ""
@@ -277,7 +270,7 @@ msgctxt "Phone number category"
 msgid "home"
 msgstr "hjem"
 
-#: src/generalsettingsview.cpp:102
+#: src/generalsettingsview.cpp:103
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -596,7 +589,7 @@ msgstr "Audio-codec'er"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
-msgstr ""
+msgstr "Velkommen til "
 
 #: ui/accountcreationwizard.ui:68
 msgid "Create Ring Account"
@@ -935,70 +928,70 @@ msgstr "Send invitation"
 
 #: ui/chatview.ui:130
 msgid "Send Invitation"
-msgstr ""
+msgstr "Send Invitation"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
 msgstr "Opret ny"
 
-#: ui/currentcallview.ui:252
+#: ui/currentcallview.ui:251
 msgid "End this call"
 msgstr "Afslut dette opkald"
 
-#: ui/currentcallview.ui:256 ui/currentcallview.ui:460
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:459
 msgid "End call"
 msgstr "Afslut opkald"
 
-#: ui/currentcallview.ui:277
+#: ui/currentcallview.ui:276
 msgid "Toggle hold"
 msgstr "Skift parkerings-tilstand"
 
-#: ui/currentcallview.ui:281 ui/currentcallview.ui:307
-#: ui/currentcallview.ui:451
+#: ui/currentcallview.ui:280 ui/currentcallview.ui:306
+#: ui/currentcallview.ui:450
 msgid "Hold"
 msgstr "I kø"
 
-#: ui/currentcallview.ui:303
+#: ui/currentcallview.ui:302
 msgid "Toggle mute audio"
 msgstr "Skift dæmpning af lyd"
 
-#: ui/currentcallview.ui:329
+#: ui/currentcallview.ui:328
 msgid "Toggle mute video"
 msgstr "Skift video-tilstand"
 
-#: ui/currentcallview.ui:333 ui/currentcallview.ui:442
+#: ui/currentcallview.ui:332 ui/currentcallview.ui:441
 msgid "Mute video"
 msgstr "Mute video"
 
-#: ui/currentcallview.ui:356
+#: ui/currentcallview.ui:355
 msgid "Toggle record audio"
 msgstr "Skift lydoptagelse"
 
-#: ui/currentcallview.ui:359
+#: ui/currentcallview.ui:358
 msgid "Record audio"
 msgstr "Optag lyd"
 
-#: ui/currentcallview.ui:379
+#: ui/currentcallview.ui:378
 msgid "Adjust outgoing video quality"
 msgstr "Juster udgående videokvalitet"
 
-#: ui/currentcallview.ui:384 ui/currentcallview.ui:469
+#: ui/currentcallview.ui:383 ui/currentcallview.ui:468
 msgid "Video quality"
 msgstr "Videokvalitet"
 
-#: ui/currentcallview.ui:403
+#: ui/currentcallview.ui:402
 msgid "Toggle show chat"
 msgstr "Skift visning af chat"
 
-#: ui/currentcallview.ui:407 ui/currentcallview.ui:424
+#: ui/currentcallview.ui:406 ui/currentcallview.ui:423
 msgid "Chat"
 msgstr "Chat"
 
-#: ui/currentcallview.ui:433
+#: ui/currentcallview.ui:432
 msgid "Mute audio"
 msgstr "Mute lyd"
 
-#: ui/currentcallview.ui:478
+#: ui/currentcallview.ui:477
 msgid "Record"
 msgstr "Optag"
 
@@ -1067,30 +1060,34 @@ msgid "Enable notifications for new chat messages."
 msgstr "Aktiver notifikationer for nye beskeder"
 
 #: ui/generalsettingsview.ui:132
+msgid "Show images and videos in chat window."
+msgstr ""
+
+#: ui/generalsettingsview.ui:140
 msgid "Entering a number in the search entry will place a new call."
 msgstr "Indtastning af et nummer i søge-feltet vil foretage et opkald."
 
-#: ui/generalsettingsview.ui:147
+#: ui/generalsettingsview.ui:155
 msgid "Show chat on the right."
 msgstr "Vis chat på højre side."
 
-#: ui/generalsettingsview.ui:153
+#: ui/generalsettingsview.ui:161
 msgid "Show chat on the bottom."
 msgstr "Vis chat i bunden."
 
-#: ui/generalsettingsview.ui:177
+#: ui/generalsettingsview.ui:185
 msgid "History Settings"
 msgstr "Historik indstillinger"
 
-#: ui/generalsettingsview.ui:195
+#: ui/generalsettingsview.ui:203
 msgid "Keep history for (days):"
 msgstr "Behold historik i (dage):"
 
-#: ui/generalsettingsview.ui:216
+#: ui/generalsettingsview.ui:224
 msgid "(set to 0 for unlimited history)"
 msgstr "(brug 0 for uendelig historik)"
 
-#: ui/generalsettingsview.ui:226
+#: ui/generalsettingsview.ui:234
 msgid "Clear all history"
 msgstr "Slet al historik"
 
@@ -1104,7 +1101,7 @@ msgstr "Accepter"
 
 #: ui/incomingcallview.ui:163
 msgid "Reject"
-msgstr ""
+msgstr "Afvis"
 
 #: ui/incomingcallview.ui:186
 msgid "Hang up"
@@ -1152,11 +1149,11 @@ msgstr "Billedhastighed:"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "Hardware-acceleration"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr ""
+msgstr "Aktiver hardware-dekodning:"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
