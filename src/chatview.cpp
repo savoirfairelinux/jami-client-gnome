@@ -640,7 +640,7 @@ update_name(ChatView *self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    g_return_if_fail(priv->person || priv->cm || priv->call);
+    g_return_if_fail(priv->person || priv->cm || priv->call || priv->item);
 
     QString name;
     if (priv->person) {
@@ -649,6 +649,8 @@ update_name(ChatView *self)
         name = priv->cm->roleData(static_cast<int>(Ring::Role::Name)).toString();
     } else if (priv->call) {
         name = priv->call->peerContactMethod()->roleData(static_cast<int>(Ring::Role::Name)).toString();
+    } else if (priv->item) {
+        name = QString(priv->item->getTitle().c_str()); // TODO LOL remove that... convert string in QString then in string
     }
     gtk_label_set_text(GTK_LABEL(priv->label_peer), name.toUtf8().constData());
 }
@@ -717,7 +719,6 @@ build_chat_view(ChatView* self)
             &ContactMethod::changed,
             [self] () { update_send_invitation(self); }
         );
-        update_name(self);
         update_send_invitation(self);
         /* keep selected cm updated */
         update_contact_methods(self);
@@ -728,6 +729,8 @@ build_chat_view(ChatView* self)
             G_CALLBACK(webkit_chat_container_send_text),
             self);
     }
+
+    update_name(self);
 
     priv->webkit_ready = g_signal_connect_swapped(
         priv->webkit_chat_container,

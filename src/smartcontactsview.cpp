@@ -17,7 +17,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#include "recentcontactsview2.h"
+#include "smartcontactsview.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
@@ -51,19 +51,19 @@
 static constexpr const char* CALL_TARGET    = "CALL_TARGET";
 static constexpr int         CALL_TARGET_ID = 0;
 
-struct _RecentContactsView2
+struct _SmartContactsView
 {
     GtkTreeView parent;
 };
 
-struct _RecentContactsView2Class
+struct _SmartContactsViewClass
 {
     GtkTreeViewClass parent_class;
 };
 
-typedef struct _RecentContactsView2Private RecentContactsView2Private;
+typedef struct _SmartContactsViewPrivate SmartContactsViewPrivate;
 
-struct _RecentContactsView2Private
+struct _SmartContactsViewPrivate
 {
     GtkWidget *popup_menu;
 
@@ -76,9 +76,9 @@ struct _RecentContactsView2Private
 
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(RecentContactsView2, recent_contacts_view2, GTK_TYPE_TREE_VIEW);
+G_DEFINE_TYPE_WITH_PRIVATE(SmartContactsView, smart_contacts_view, GTK_TYPE_TREE_VIEW);
 
-#define RECENT_CONTACTS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RECENT_CONTACTS_VIEW_TYPE, RecentContactsView2Private))
+#define SMART_CONTACTS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), SMART_CONTACTS_VIEW_TYPE, SmartContactsViewPrivate))
 
 static void
 render_name_and_number(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
@@ -131,24 +131,24 @@ activate_smart_list_item(GtkTreeSelection *selection)
     gtk_tree_model_get(model, &iter,
                        0, &data,
                        -1);
-    
-    
+
+
     // get path
     auto path = gtk_tree_model_get_path(model, &iter);
-    
+
     auto idx = gtk_tree_path_get_indices(path);
     //~ gtk_tree_model_iter_
-    
+
     auto smart_list_item = SmartListModel::instance().getItem(idx[0]);
-    
+
     smart_list_item->action();
-    
+
 }
 
 static void
-recent_contacts_view2_init(RecentContactsView2 *self)
+smart_contacts_view_init(SmartContactsView *self)
 {
-    RecentContactsView2Private *privWIP = RECENT_CONTACTS_VIEW_GET_PRIVATE(self);
+    SmartContactsViewPrivate *privWIP = SMART_CONTACTS_VIEW_GET_PRIVATE(self);
 
     auto modelWIP = create_and_fill_model();
     gtk_tree_view_set_model(GTK_TREE_VIEW(self),
@@ -188,7 +188,7 @@ recent_contacts_view2_init(RecentContactsView2 *self)
     g_signal_connect(selectionNew, "changed", G_CALLBACK(activate_smart_list_item), NULL);
 
     // le signal ne devrait pas etre ici, mais dans chatview test only...
-    RecentContactsView2Private *priv = RECENT_CONTACTS_VIEW_GET_PRIVATE(self);
+    SmartContactsViewPrivate *priv = SMART_CONTACTS_VIEW_GET_PRIVATE(self);
     priv->new_message_connection2 = QObject::connect(&DataBase::instance(), &DataBase::messageAdded,
     [] (std::string msg) {
         qDebug() << QString(msg.c_str());
@@ -198,35 +198,35 @@ recent_contacts_view2_init(RecentContactsView2 *self)
 }
 
 static void
-recent_contacts_view2_dispose(GObject *object)
+smart_contacts_view_dispose(GObject *object)
 {
-    RecentContactsView2 *self = RECENT_CONTACTS_VIEW(object);
-    RecentContactsView2Private *priv = RECENT_CONTACTS_VIEW_GET_PRIVATE(self);
+    SmartContactsView *self = SMART_CONTACTS_VIEW(object);
+    SmartContactsViewPrivate *priv = SMART_CONTACTS_VIEW_GET_PRIVATE(self);
 
     QObject::disconnect(priv->selection_updated);
     QObject::disconnect(priv->layout_changed);
     gtk_widget_destroy(priv->popup_menu);
 
-    G_OBJECT_CLASS(recent_contacts_view2_parent_class)->dispose(object);
+    G_OBJECT_CLASS(smart_contacts_view_parent_class)->dispose(object);
 }
 
 static void
-recent_contacts_view2_finalize(GObject *object)
+smart_contacts_view_finalize(GObject *object)
 {
-    G_OBJECT_CLASS(recent_contacts_view2_parent_class)->finalize(object);
+    G_OBJECT_CLASS(smart_contacts_view_parent_class)->finalize(object);
 }
 
 static void
-recent_contacts_view2_class_init(RecentContactsView2Class *klass)
+smart_contacts_view_class_init(SmartContactsViewClass *klass)
 {
-    G_OBJECT_CLASS(klass)->finalize = recent_contacts_view2_finalize;
-    G_OBJECT_CLASS(klass)->dispose = recent_contacts_view2_dispose;
+    G_OBJECT_CLASS(klass)->finalize = smart_contacts_view_finalize;
+    G_OBJECT_CLASS(klass)->dispose = smart_contacts_view_dispose;
 }
 
 GtkWidget *
-recent_contacts_view2_new()
+smart_contacts_view_new()
 {
-    gpointer self = g_object_new(RECENT_CONTACTS_VIEW_TYPE, NULL);
+    gpointer self = g_object_new(SMART_CONTACTS_VIEW_TYPE, NULL);
 
     return (GtkWidget *)self;
 }

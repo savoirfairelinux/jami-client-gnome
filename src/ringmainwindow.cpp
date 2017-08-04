@@ -79,7 +79,7 @@
 #include "utils/files.h"
 #include "pendingcontactrequests.h"
 #include "contactrequestcontentview.h"
-#include "recentcontactsview2.h"
+#include "smartcontactsview.h"
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
@@ -1360,7 +1360,7 @@ ring_main_window_init(RingMainWindow *win)
     //~ gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
 
     /* populate the NEW notebook */
-    priv->treeview_conversations = recent_contacts_view2_new();
+    priv->treeview_conversations = smart_contacts_view_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
 
     priv->treeview_contacts = contacts_view_new();

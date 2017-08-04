@@ -23,16 +23,16 @@
 
 G_BEGIN_DECLS
 
-#define RECENT_CONTACTS_VIEW_TYPE            (recent_contacts_view2_get_type ())
-#define RECENT_CONTACTS_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), RECENT_CONTACTS_VIEW_TYPE, RecentContactsView2))
-#define RECENT_CONTACTS_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), RECENT_CONTACTS_VIEW_TYPE, RecentContactsView2Class))
-#define IS_RECENT_CONTACTS_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), RECENT_CONTACTS_VIEW_TYPE))
-#define IS_RECENT_CONTACTS_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), RECENT_CONTACTS_VIEW_TYPE))
+#define SMART_CONTACTS_VIEW_TYPE            (smart_contacts_view_get_type ())
+#define SMART_CONTACTS_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SMART_CONTACTS_VIEW_TYPE, SmartContactsView))
+#define SMART_CONTACTS_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SMART_CONTACTS_VIEW_TYPE, SmartContactsViewClass))
+#define IS_SMART_CONTACTS_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), SMART_CONTACTS_VIEW_TYPE))
+#define IS_SMART_CONTACTS_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), SMART_CONTACTS_VIEW_TYPE))
 
-typedef struct _RecentContactsView2      RecentContactsView2;
-typedef struct _RecentContactsView2Class RecentContactsView2Class;
+typedef struct _SmartContactsView      SmartContactsView;
+typedef struct _SmartContactsViewClass SmartContactsViewClass;
 
-GType      recent_contacts_view2_get_type (void) G_GNUC_CONST;
-GtkWidget *recent_contacts_view2_new      (void);
+GType      smart_contacts_view_get_type (void) G_GNUC_CONST;
+GtkWidget *smart_contacts_view_new      (void);
 
 G_END_DECLS
