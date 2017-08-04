@@ -208,6 +208,30 @@ message_index_to_json_message_object(const QModelIndex &idx)
     return QString(QJsonDocument(message_object).toJson(QJsonDocument::Compact));
 }
 
+/**
+ * TODO temp method. Just transform messages from database and breaks nothing in chatview.html for now
+ */
+QString
+message_to_json_message_object(const std::string& message)
+{
+    auto sender = "TODO";
+    auto sender_contact_method = "TODO";
+    auto timestamp = 0; //TODO
+    auto direction = "IN"; //TODO
+    auto message_id = 0; //TODO
+
+    QJsonObject message_object = QJsonObject();
+    message_object.insert("text", QJsonValue(QString(message.c_str())));
+    message_object.insert("id", QJsonValue(QString().setNum(message_id)));
+    message_object.insert("sender", QJsonValue(sender));
+    message_object.insert("sender_contact_method", QJsonValue("sender_contact_method_str"));
+    message_object.insert("timestamp", QJsonValue((int) timestamp));
+    message_object.insert("direction", QJsonValue("in")); //TODO
+    message_object.insert("delivery_status", QJsonValue("sent")); //TODO
+
+    return QString(QJsonDocument(message_object).toJson(QJsonDocument::Compact));
+}
+
 #if WEBKIT_CHECK_VERSION(2, 6, 0)
 static gboolean
 webview_chat_decide_policy (G_GNUC_UNUSED WebKitWebView *web_view,
@@ -537,6 +561,26 @@ webkit_chat_container_print_new_message(WebKitChatContainer *view, const QModelI
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
     auto message_object = message_index_to_json_message_object(idx).toUtf8();
+    gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", message_object.constData());
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+/**
+ * TODO temp method. Just transform messages from database and breaks nothing in chatview.html for now
+ */
+void
+webkit_chat_container_print_new_message2(WebKitChatContainer *view, const std::string &message)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    auto message_object = message_to_json_message_object(message).toUtf8();
     gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", message_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),

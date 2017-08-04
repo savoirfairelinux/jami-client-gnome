@@ -326,8 +326,12 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
                 [self] (Call*)
                 {g_idle_add((GSourceFunc)selection_changed, self);}
             );
+        } else if (auto item = qobject_cast<SmartListItem *>(object)) {
+            //TODO change  chat_view_new_smart_list_item to  chat_view_new or something
+            new_view = chat_view_new_smart_list_item(get_webkit_chat_container(self), item);
+            g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
         } else {
-            g_warning("Trying to display a veiw of type ChatView, but the object is neither a Person nor a ContactMethod");
+            g_warning("Trying to display a view of type ChatView, but the object is neither a Person nor a ContactMethod nor a SmartListItem");
         }
     } else if (g_type_is_a(CONTACT_REQUEST_CONTENT_VIEW_TYPE, type)) {
         if (auto contact_request = qobject_cast<ContactRequest *>(object)) {
@@ -386,8 +390,7 @@ selection_changed(RingMainWindow *win)
     auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
     auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
     auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
-    
-qDebug() << "toto";
+
     GtkTreeModel *model = nullptr;
     GtkTreeIter iter;
     QModelIndex idx;
@@ -530,9 +533,7 @@ qDebug() << "toto";
                 change_view(win, old_view, nullptr, RING_WELCOME_VIEW_TYPE);
         }
     } else {
-        /* selection isn't valid, display the welcome view */
-        if (old_view != priv->welcome_view)
-            change_view(win, old_view, nullptr, RING_WELCOME_VIEW_TYPE);
+        /* selection isn't valid, do nothing */
     }
 
     /* we force to check the pending contact request status */
@@ -1490,15 +1491,18 @@ ring_main_window_init(RingMainWindow *win)
     current_account_changed(win, get_active_ring_account());
 
     // example :
-    QObject::connect(&SmartListModel::instance(), &SmartListModel::showConversationView,[] (std::vector<std::string> messages) {
-        qDebug() << "yop";
-        
-        for(auto message : messages) {
-            qDebug() << "X: " << message.c_str();
-        }
-        
-        
-        });
+    QObject::connect(&SmartListModel::instance(), &SmartListModel::showConversationView,
+    [win, priv] (SmartListItem* origin) {
+        // Change the view if we want a different view.
+        auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+
+        SmartListItem *current_item = nullptr;
+        if (IS_CHAT_VIEW(old_view))
+            current_item = chat_view_get_item(CHAT_VIEW(old_view));
+
+        if (current_item != origin)
+            change_view(win, old_view, origin, CHAT_VIEW_TYPE);
+    });
 
 }
 

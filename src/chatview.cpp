@@ -40,6 +40,7 @@
 // LRC
 #include <account.h>
 #include <database.h>
+#include <smartlistitem.h>
 
 
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
@@ -74,14 +75,17 @@ struct _ChatViewPrivate
     /* only one of the three following pointers should be non void;
      * either this is an in-call chat (and so the in-call chat APIs will be used)
      * or it is an out of call chat (and so the account chat APIs will be used) */
+     // TODO remove call, person, cm we just need a smartitem
     Call          *call;
     Person        *person;
     ContactMethod *cm;
+    SmartListItem *item;
 
     QMetaObject::Connection new_message_connection;
     QMetaObject::Connection message_changed_connection;
     QMetaObject::Connection update_name;
     QMetaObject::Connection update_send_invitation;
+    // TODO temp connection to new messages. breaks nothing
     QMetaObject::Connection new_message_connection2;
 
     gulong webkit_ready;
@@ -110,6 +114,7 @@ chat_view_dispose(GObject *object)
     priv = CHAT_VIEW_GET_PRIVATE(view);
 
     QObject::disconnect(priv->new_message_connection);
+    QObject::disconnect(priv->new_message_connection2);
     QObject::disconnect(priv->message_changed_connection);
     QObject::disconnect(priv->update_name);
     QObject::disconnect(priv->update_send_invitation);
@@ -404,6 +409,7 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
 
     /* new model, disconnect from the old model updates and clear the text buffer */
     QObject::disconnect(priv->new_message_connection);
+    QObject::disconnect(priv->new_message_connection2);
 
     /* put all the messages in the im model into the text view */
     for (int row = 0; row < model->rowCount(); ++row) {
@@ -442,11 +448,49 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
             }
         }
     );
-    
+}
+
+/**
+ * TODO: Better desc. Print history of priv->item.
+ */
+static void
+print_history(ChatView *self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    if (!priv->item) return;
+
+     // TODO set the photos of the chat participants
+
+    // TODO REMOVE :
+    // new model, disconnect from the old model updates and clear the text buffer
+
+    // new model, disconnect from the old model updates
+    QObject::disconnect(priv->new_message_connection);
+    QObject::disconnect(priv->new_message_connection2);
+
+    // TODO Get messages and print them
+    const auto messages = DataBase::instance().getMessages(QString(priv->item->getTitle().c_str()));
+    for (const auto message : messages) {
+        webkit_chat_container_print_new_message2(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            message
+        );
+    }
+
+
+    // TODO Mark messages as read
+
+    // TODO update messages (for example, when messages are marked as read)
+
+    // Append incoming messages
+    // NOTE for njager: Here we print all new messages. But we want messages from this conversation.
     priv->new_message_connection2 = QObject::connect(&DataBase::instance(), &DataBase::messageAdded,
-    [] (std::string msg) {
-        qDebug() << "FFF";
-        qDebug() << QString(msg.c_str());
+    [priv] (std::string msg) {
+        webkit_chat_container_print_new_message2(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            msg
+        );
     });
 }
 
@@ -631,6 +675,9 @@ webkit_chat_container_ready(ChatView* self)
     } else if (priv->person) {
         /* get the selected cm and print the text recording */
         selected_cm_changed(self);
+    } else if (priv->item) {
+        // NOTE History is not just text records. So we need a better name than print_text_recording
+        print_history(self);
     }
 }
 
@@ -663,18 +710,24 @@ build_chat_view(ChatView* self)
         );
     }
 
-    priv->update_send_invitation = QObject::connect(
-        get_active_contactmethod(self),
-        &ContactMethod::changed,
-        [self] () { update_send_invitation(self); }
-    );
+    // TODO do that for SmartListItem
+    if (!priv->item){
+        priv->update_send_invitation = QObject::connect(
+            get_active_contactmethod(self),
+            &ContactMethod::changed,
+            [self] () { update_send_invitation(self); }
+        );
+        update_name(self);
+        update_send_invitation(self);
+        /* keep selected cm updated */
+        update_contact_methods(self);
+        g_signal_connect_swapped(priv->combobox_cm, "changed", G_CALLBACK(selected_cm_changed), self);
 
-    update_name(self);
-    update_send_invitation(self);
-
-    /* keep selected cm updated */
-    update_contact_methods(self);
-    g_signal_connect_swapped(priv->combobox_cm, "changed", G_CALLBACK(selected_cm_changed), self);
+        priv->webkit_send_text = g_signal_connect(priv->webkit_chat_container,
+            "send-message",
+            G_CALLBACK(webkit_chat_container_send_text),
+            self);
+    }
 
     priv->webkit_ready = g_signal_connect_swapped(
         priv->webkit_chat_container,
@@ -683,16 +736,12 @@ build_chat_view(ChatView* self)
         self
     );
 
-    priv->webkit_send_text = g_signal_connect(priv->webkit_chat_container,
-        "send-message",
-        G_CALLBACK(webkit_chat_container_send_text),
-        self);
-
     if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
         webkit_chat_container_ready(self);
 
-    /* we only show the chat info in the case of cm / person */
-    gtk_widget_set_visible(priv->hbox_chat_info, (priv->cm || priv->person));
+    // we only show the chat info in the case of cm / person / item
+    // TODO remove it when item in call
+    gtk_widget_set_visible(priv->hbox_chat_info, (priv->cm || priv->person || priv->item));
 }
 
 GtkWidget *
@@ -710,6 +759,23 @@ chat_view_new_call(WebKitChatContainer *webkit_chat_container, Call *call)
 
     return (GtkWidget *)self;
 }
+
+GtkWidget *
+chat_view_new_smart_list_item (WebKitChatContainer* webkit_chat_container, SmartListItem* item)
+{
+    g_return_val_if_fail(item, nullptr);
+
+    ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
+
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
+    priv->item = item;
+
+    build_chat_view(self);
+
+    return (GtkWidget *)self;
+}
+
 
 GtkWidget *
 chat_view_new_cm(WebKitChatContainer *webkit_chat_container, ContactMethod *cm)
@@ -768,6 +834,15 @@ chat_view_get_person(ChatView *self)
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
     return priv->person;
+}
+
+SmartListItem*
+chat_view_get_item(ChatView *self)
+{
+    g_return_val_if_fail(IS_CHAT_VIEW(self), nullptr);
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    return priv->item;
 }
 
 void
