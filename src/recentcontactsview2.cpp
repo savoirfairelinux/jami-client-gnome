@@ -132,10 +132,17 @@ activate_smart_list_item(GtkTreeSelection *selection)
                        0, &data,
                        -1);
     
-    auto titi = DataBase::instance().getMessages(QString(data));
-
-    for (auto it : titi)
-        qDebug() << "N : " << QString(it.c_str());
+    
+    // get path
+    auto path = gtk_tree_model_get_path(model, &iter);
+    
+    auto idx = gtk_tree_path_get_indices(path);
+    //~ gtk_tree_model_iter_
+    
+    auto smart_list_item = SmartListModel::instance().getItem(idx[0]);
+    
+    smart_list_item->action();
+    
 }
 
 static void

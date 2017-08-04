@@ -50,6 +50,9 @@
 #include <contactrequest.h>
 #include <pendingcontactrequestmodel.h>
 
+// new lrc
+#include <smartlistmodel.h>
+
 // Ring client
 #include "models/gtkqtreemodel.h"
 #include "incomingcallview.h"
@@ -1485,6 +1488,18 @@ ring_main_window_init(RingMainWindow *win)
 
     // initialize the pending contact request icon.
     current_account_changed(win, get_active_ring_account());
+
+    // example :
+    QObject::connect(&SmartListModel::instance(), &SmartListModel::showConversationView,[] (std::vector<std::string> messages) {
+        qDebug() << "yop";
+        
+        for(auto message : messages) {
+            qDebug() << "X: " << message.c_str();
+        }
+        
+        
+        });
+
 }
 
 static void
