@@ -453,6 +453,7 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
 /**
  * TODO: Better desc. Print history of priv->item.
  */
+#include <iostream>
 static void
 print_history(ChatView *self)
 {
@@ -471,7 +472,10 @@ print_history(ChatView *self)
 
     // TODO Get messages and print them
     const auto messages = DataBase::instance().getMessages(QString(priv->item->getTitle().c_str()));
+    std::cout << "####" << messages.size() << std::endl;
     for (const auto message : messages) {
+        std::cout << message.body << std::endl;
+
         webkit_chat_container_print_new_message2(
             WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
             message
@@ -486,7 +490,7 @@ print_history(ChatView *self)
     // Append incoming messages
     // NOTE for njager: Here we print all new messages. But we want messages from this conversation.
     priv->new_message_connection2 = QObject::connect(&DataBase::instance(), &DataBase::messageAdded,
-    [priv] (std::string msg) {
+    [priv] (DataBase::Message msg) {
         webkit_chat_container_print_new_message2(
             WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
             msg

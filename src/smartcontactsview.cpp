@@ -190,8 +190,8 @@ smart_contacts_view_init(SmartContactsView *self)
     // le signal ne devrait pas etre ici, mais dans chatview test only...
     SmartContactsViewPrivate *priv = SMART_CONTACTS_VIEW_GET_PRIVATE(self);
     priv->new_message_connection2 = QObject::connect(&DataBase::instance(), &DataBase::messageAdded,
-    [] (std::string msg) {
-        qDebug() << QString(msg.c_str());
+    [] (DataBase::Message msg) {
+        qDebug() << QString(msg.body.c_str());
     });
 
     return;

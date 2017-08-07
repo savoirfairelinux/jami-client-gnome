@@ -211,21 +211,23 @@ message_index_to_json_message_object(const QModelIndex &idx)
 /**
  * TODO temp method. Just transform messages from database and breaks nothing in chatview.html for now
  */
+#include <iostream>
 QString
-message_to_json_message_object(const std::string& message)
+message_to_json_message_object(const DataBase::Message message)
 {
     auto sender = "TODO";
     auto sender_contact_method = "TODO";
-    auto timestamp = 0; //TODO
+    std::cout << message.timestamp << std::endl;
+    auto timestamp = QString(message.timestamp.c_str());
     auto direction = "IN"; //TODO
     auto message_id = 0; //TODO
 
     QJsonObject message_object = QJsonObject();
-    message_object.insert("text", QJsonValue(QString(message.c_str())));
+    message_object.insert("text", QJsonValue(QString(message.body.c_str())));
     message_object.insert("id", QJsonValue(QString().setNum(message_id)));
     message_object.insert("sender", QJsonValue(sender));
     message_object.insert("sender_contact_method", QJsonValue("sender_contact_method_str"));
-    message_object.insert("timestamp", QJsonValue((int) timestamp));
+    message_object.insert("timestamp", QJsonValue(timestamp));
     message_object.insert("direction", QJsonValue("in")); //TODO
     message_object.insert("delivery_status", QJsonValue("sent")); //TODO
 
@@ -576,7 +578,7 @@ webkit_chat_container_print_new_message(WebKitChatContainer *view, const QModelI
  * TODO temp method. Just transform messages from database and breaks nothing in chatview.html for now
  */
 void
-webkit_chat_container_print_new_message2(WebKitChatContainer *view, const std::string &message)
+webkit_chat_container_print_new_message2(WebKitChatContainer *view, const DataBase::Message message)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
