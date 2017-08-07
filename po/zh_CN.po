@@ -5,13 +5,15 @@
 # Translators:
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2017
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2016
+# 李文睿 <happy.lwr@gmail.com>, 2017
+# 李文睿 <happy.lwr@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-23 23:09-0400\n"
-"PO-Revision-Date: 2017-07-20 16:00+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-08-06 23:09-0400\n"
+"PO-Revision-Date: 2017-08-06 09:47+0000\n"
+"Last-Translator: 李文睿 <happy.lwr@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/ring/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -178,7 +180,7 @@ msgstr "高级"
 #: src/accountview.cpp:194
 msgctxt "List of banned peers"
 msgid "Bans"
-msgstr ""
+msgstr "已屏蔽用户"
 
 #: src/accountview.cpp:250
 #, c-format
@@ -225,30 +227,23 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "通讯录"
 
-#: src/contactpopupmenu.cpp:84
-#, c-format
-msgid ""
-"Are you sure you want to delete contact \"%s\"? It will be removed from your"
-" system's addressbook."
-msgstr "确定删除联系人“%s”吗？该操作会将其从系统地址簿中删除。"
-
-#: src/contactpopupmenu.cpp:180
+#: src/contactpopupmenu.cpp:172
 msgid "_Call"
 msgstr "呼叫(_C)"
 
-#: src/contactpopupmenu.cpp:183
+#: src/contactpopupmenu.cpp:175
 msgid "_Copy name"
 msgstr "复制名称(_C)"
 
-#: src/contactpopupmenu.cpp:186
+#: src/contactpopupmenu.cpp:178
 msgid "_Copy number"
 msgstr "复制号码(_C)"
 
-#: src/contactpopupmenu.cpp:189
+#: src/contactpopupmenu.cpp:181
 msgid "_Add to contact"
 msgstr "添加至通讯录(_A)"
 
-#: src/contactpopupmenu.cpp:192
+#: src/contactpopupmenu.cpp:184
 msgid "_Remove contact"
 msgstr "删除联系人(_R)"
 
@@ -262,7 +257,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Liberté, Égalité, Fraternité - Version 1.0\n"
 "built on %.25s"
-msgstr ""
+msgstr "自由、平等、博爱 - 版本 1.0\nbuilt on %.25s"
 
 #: src/dialogs.c:136
 msgid ""
@@ -275,7 +270,7 @@ msgctxt "Phone number category"
 msgid "home"
 msgstr "主页"
 
-#: src/generalsettingsview.cpp:102
+#: src/generalsettingsview.cpp:103
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -594,7 +589,7 @@ msgstr "音频编码"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
-msgstr ""
+msgstr "欢迎来到"
 
 #: ui/accountcreationwizard.ui:68
 msgid "Create Ring Account"
@@ -933,70 +928,70 @@ msgstr "发送邀请"
 
 #: ui/chatview.ui:130
 msgid "Send Invitation"
-msgstr ""
+msgstr "发送邀请"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
 msgstr "创建新"
 
-#: ui/currentcallview.ui:252
+#: ui/currentcallview.ui:251
 msgid "End this call"
 msgstr "结束该通话"
 
-#: ui/currentcallview.ui:256 ui/currentcallview.ui:460
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:459
 msgid "End call"
 msgstr "结束通话"
 
-#: ui/currentcallview.ui:277
+#: ui/currentcallview.ui:276
 msgid "Toggle hold"
 msgstr "等待/取消等待"
 
-#: ui/currentcallview.ui:281 ui/currentcallview.ui:307
-#: ui/currentcallview.ui:451
+#: ui/currentcallview.ui:280 ui/currentcallview.ui:306
+#: ui/currentcallview.ui:450
 msgid "Hold"
 msgstr "等待"
 
-#: ui/currentcallview.ui:303
+#: ui/currentcallview.ui:302
 msgid "Toggle mute audio"
 msgstr "开启声音/静音"
 
-#: ui/currentcallview.ui:329
+#: ui/currentcallview.ui:328
 msgid "Toggle mute video"
 msgstr "开启/关闭视频"
 
-#: ui/currentcallview.ui:333 ui/currentcallview.ui:442
+#: ui/currentcallview.ui:332 ui/currentcallview.ui:441
 msgid "Mute video"
 msgstr "关闭视频"
 
-#: ui/currentcallview.ui:356
+#: ui/currentcallview.ui:355
 msgid "Toggle record audio"
 msgstr "音频录制开始/结束"
 
-#: ui/currentcallview.ui:359
+#: ui/currentcallview.ui:358
 msgid "Record audio"
 msgstr "录音"
 
-#: ui/currentcallview.ui:379
+#: ui/currentcallview.ui:378
 msgid "Adjust outgoing video quality"
 msgstr "设置我的视频画质"
 
-#: ui/currentcallview.ui:384 ui/currentcallview.ui:469
+#: ui/currentcallview.ui:383 ui/currentcallview.ui:468
 msgid "Video quality"
 msgstr "视频画质"
 
-#: ui/currentcallview.ui:403
+#: ui/currentcallview.ui:402
 msgid "Toggle show chat"
 msgstr "显示/隐藏聊天栏"
 
-#: ui/currentcallview.ui:407 ui/currentcallview.ui:424
+#: ui/currentcallview.ui:406 ui/currentcallview.ui:423
 msgid "Chat"
 msgstr "聊天"
 
-#: ui/currentcallview.ui:433
+#: ui/currentcallview.ui:432
 msgid "Mute audio"
 msgstr "静音"
 
-#: ui/currentcallview.ui:478
+#: ui/currentcallview.ui:477
 msgid "Record"
 msgstr "录制"
 
@@ -1065,30 +1060,34 @@ msgid "Enable notifications for new chat messages."
 msgstr "启用新消息通知。"
 
 #: ui/generalsettingsview.ui:132
+msgid "Show images and videos in chat window."
+msgstr "在聊天窗口中显示图片和视频"
+
+#: ui/generalsettingsview.ui:140
 msgid "Entering a number in the search entry will place a new call."
 msgstr "要直接拨打电话号码，请在搜索栏中输入该号码。"
 
-#: ui/generalsettingsview.ui:147
+#: ui/generalsettingsview.ui:155
 msgid "Show chat on the right."
 msgstr "在右侧显示聊天窗口。"
 
-#: ui/generalsettingsview.ui:153
+#: ui/generalsettingsview.ui:161
 msgid "Show chat on the bottom."
 msgstr "在下方显示聊天窗口。"
 
-#: ui/generalsettingsview.ui:177
+#: ui/generalsettingsview.ui:185
 msgid "History Settings"
 msgstr "历史记录设置"
 
-#: ui/generalsettingsview.ui:195
+#: ui/generalsettingsview.ui:203
 msgid "Keep history for (days):"
 msgstr "历史记录保存天数："
 
-#: ui/generalsettingsview.ui:216
+#: ui/generalsettingsview.ui:224
 msgid "(set to 0 for unlimited history)"
 msgstr "（设置为0则无限制）"
 
-#: ui/generalsettingsview.ui:226
+#: ui/generalsettingsview.ui:234
 msgid "Clear all history"
 msgstr "清除所有历史记录"
 
@@ -1102,7 +1101,7 @@ msgstr "接听"
 
 #: ui/incomingcallview.ui:163
 msgid "Reject"
-msgstr ""
+msgstr "拒绝"
 
 #: ui/incomingcallview.ui:186
 msgid "Hang up"

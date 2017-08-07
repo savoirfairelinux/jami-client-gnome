@@ -4,13 +4,15 @@
 # 
 # Translators:
 # Hsiu-Ming Chang <cges30901@gmail.com>, 2016
+# Hsiu-Ming Chang <cges30901@gmail.com>, 2016
+# Jeff Huang <s8321414@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-23 23:09-0400\n"
-"PO-Revision-Date: 2017-07-20 16:00+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-08-06 23:09-0400\n"
+"PO-Revision-Date: 2017-08-04 02:38+0000\n"
+"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +22,7 @@ msgstr ""
 
 #: src/accountadvancedtab.cpp:389
 msgid "_Remove server"
-msgstr ""
+msgstr "移除伺服器(_R)"
 
 #: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
 msgid "Hostname"
@@ -51,7 +53,7 @@ msgstr "取樣率"
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
-msgstr ""
+msgstr "你的帳號已被建立，但無法註冊你的名字。請在設定選單重試一次"
 
 #: src/accountcreationwizard.cpp:283
 msgctxt "The default username / account alias, if none is set by the user"
@@ -64,7 +66,7 @@ msgstr "密碼不相符"
 
 #: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
 msgid "Bad password"
-msgstr "不好的密碼"
+msgstr "密碼錯誤"
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
@@ -72,7 +74,7 @@ msgstr "網路錯誤，請重試"
 
 #: src/accountdevicestab.cpp:213
 msgid "Could not initiate export to the Ring, try again"
-msgstr ""
+msgstr "無法啟用輸出到 Ring，請重試。"
 
 #: src/accountdevicestab.cpp:246
 msgctxt "Device Name Column"
@@ -82,7 +84,7 @@ msgstr "名稱"
 #: src/accountdevicestab.cpp:251
 msgctxt "Device ID Column"
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: src/accountgeneraltab.cpp:185
 msgid "Alias"
@@ -94,7 +96,7 @@ msgstr "類型"
 
 #: src/accountgeneraltab.cpp:222
 msgid "auto-generating..."
-msgstr ""
+msgstr "自動產生中..."
 
 #: src/accountgeneraltab.cpp:235 src/accountgeneraltab.cpp:261
 msgid "Username"
@@ -110,27 +112,27 @@ msgstr "顯示密碼"
 
 #: src/accountgeneraltab.cpp:290
 msgid "Proxy"
-msgstr "Proxy"
+msgstr "代理服務器"
 
 #: src/accountgeneraltab.cpp:300
 msgid "Voicemail number"
-msgstr ""
+msgstr "語音郵件號碼"
 
 #: src/accountgeneraltab.cpp:312
 msgid "Name service URL"
-msgstr ""
+msgstr "名稱服務 URL"
 
 #: src/accountgeneraltab.cpp:325
 msgid "Auto-answer calls"
-msgstr ""
+msgstr "自動回答呼叫"
 
 #: src/accountgeneraltab.cpp:333
 msgid "UPnP enabled"
-msgstr ""
+msgstr "UPnP啟動"
 
 #: src/accountimportexportview.cpp:99
 msgid "Select account export location"
-msgstr ""
+msgstr "選擇帳號輸出位置"
 
 #: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:84
 #: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
@@ -143,11 +145,11 @@ msgstr "選擇"
 
 #: src/accountimportexportview.cpp:211
 msgid "Error importing account(s)"
-msgstr ""
+msgstr "輸入帳號錯誤"
 
 #: src/accountimportexportview.cpp:263
 msgid "Error exporting account(s)"
-msgstr ""
+msgstr "輸出帳號錯誤"
 
 #: src/accountvideotab.cpp:190
 msgctxt "The name of the codec"
@@ -177,7 +179,7 @@ msgstr "進階"
 #: src/accountview.cpp:194
 msgctxt "List of banned peers"
 msgid "Bans"
-msgstr ""
+msgstr "黑名單"
 
 #: src/accountview.cpp:250
 #, c-format
@@ -205,7 +207,7 @@ msgstr "狀態"
 
 #: src/avatarmanipulation.cpp:380
 msgid "Open Avatar Image"
-msgstr ""
+msgstr "開啟大頭貼圖片"
 
 #: src/avatarmanipulation.cpp:383
 msgid "_Cancel"
@@ -217,43 +219,36 @@ msgstr "開啟(_O)"
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
-msgstr ""
+msgstr "未知的 EDS 通訊錄"
 
 #: src/backends/edscontactbackend.cpp:213
 msgctxt "Backend type"
 msgid "Contacts"
 msgstr "聯絡人"
 
-#: src/contactpopupmenu.cpp:84
-#, c-format
-msgid ""
-"Are you sure you want to delete contact \"%s\"? It will be removed from your"
-" system's addressbook."
-msgstr ""
-
-#: src/contactpopupmenu.cpp:180
+#: src/contactpopupmenu.cpp:172
 msgid "_Call"
-msgstr ""
+msgstr "通話(_C)"
 
-#: src/contactpopupmenu.cpp:183
+#: src/contactpopupmenu.cpp:175
 msgid "_Copy name"
 msgstr "複製名稱(_C)"
 
-#: src/contactpopupmenu.cpp:186
+#: src/contactpopupmenu.cpp:178
 msgid "_Copy number"
 msgstr "複製號碼(_C)"
 
-#: src/contactpopupmenu.cpp:189
+#: src/contactpopupmenu.cpp:181
 msgid "_Add to contact"
 msgstr "加到聯絡人(_A)"
 
-#: src/contactpopupmenu.cpp:192
+#: src/contactpopupmenu.cpp:184
 msgid "_Remove contact"
-msgstr ""
+msgstr "刪除聯絡人(_R)"
 
 #: src/dialogs.c:53
 msgid "Working..."
-msgstr ""
+msgstr "正在運作..."
 
 #: src/dialogs.c:84
 #, c-format
@@ -261,29 +256,29 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Liberté, Égalité, Fraternité - Version 1.0\n"
 "built on %.25s"
-msgstr ""
+msgstr "Liberté, Égalité, Fraternité - 1.0 版\n建構於 %.25s"
 
 #: src/dialogs.c:136
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Ring 的 GNOME 客戶端。\nRing 是一套通用通訊的自由軟體，其尊重使用者的自由與隱私。"
 
 #: src/editcontactview.cpp:208
 msgctxt "Phone number category"
 msgid "home"
 msgstr "首頁"
 
-#: src/generalsettingsview.cpp:102
+#: src/generalsettingsview.cpp:103
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr ""
+msgstr "這是一個破壞性的操作。您確定您想要刪除您所有的聊天與通話紀錄嗎？"
 
 #: src/historyview.cpp:293
 msgctxt "Call history"
 msgid "Call"
-msgstr ""
+msgstr "通話"
 
 #: src/historyview.cpp:338
 msgctxt "Call history"
@@ -307,13 +302,13 @@ msgstr "%s 說："
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
-msgstr ""
+msgstr "啟用除錯功能"
 
 #: src/ring_client_options.c:68
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr ""
+msgstr "還原主視窗的隱藏狀態(只適用於主程序)"
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Ring"
@@ -322,38 +317,38 @@ msgstr "- Ring 的 GNOME 用戶端"
 #: src/ringmainwindow.cpp:614
 #, c-format
 msgid "Invalid Ring username: %s"
-msgstr ""
+msgstr "無效的 Ring 使用者名稱：%s"
 
 #: src/ringmainwindow.cpp:629
 msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr ""
+msgstr "解析使用者名稱時發生錯誤，名稱伺服器可能無法連線"
 
 #: src/ringmainwindow.cpp:643
 #, c-format
 msgid "Could not resolve Ring username: %s"
-msgstr ""
+msgstr "無法解析 Ring 使用者名稱：%s"
 
 #: src/ringmainwindow.cpp:1152
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr ""
+msgstr "開始通話"
 
 #: src/ringmainwindow.cpp:1154
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr ""
+msgstr "開啟聊天"
 
 #: src/ringmainwindow.cpp:1234
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s..."
-msgstr ""
+msgstr "%s..."
 
 #: src/ringmainwindow.cpp:1240
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s (error)"
-msgstr ""
+msgstr "%s （錯誤）"
 
 #: src/ringmainwindow.cpp:1443
 msgctxt ""
@@ -366,7 +361,7 @@ msgstr "搜尋聯絡人或輸入號碼"
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "這是你的 Ring 使用者名稱。\n複製並與你的朋友分享！"
 
 #: src/ringwelcomeview.cpp:83
 msgctxt "Do not translate \"RingID\""
@@ -377,66 +372,66 @@ msgstr "這是你的 RingID.\n複製並與你的朋友分享！"
 
 #: src/ringwelcomeview.cpp:90
 msgid "fetching RingID..."
-msgstr ""
+msgstr "正在擷取 RingID..."
 
 #: src/ringwelcomeview.cpp:148
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Ring 是一套通用通訊的自由軟體，其尊重使用者的自由與隱私。"
 
 #: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr ""
+msgstr "Ring ID QR code"
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
-msgstr ""
+msgstr "輸入的使用者名稱不可用"
 
 #: src/usernameregistrationbox.cpp:129
 msgid "Username is not available"
-msgstr ""
+msgstr "使用者名稱不可用"
 
 #: src/usernameregistrationbox.cpp:138
 msgid "The entered username is not valid"
-msgstr ""
+msgstr "輸入的使用者名稱無效"
 
 #: src/usernameregistrationbox.cpp:139
 msgid "Username is not valid"
-msgstr ""
+msgstr "使用者名稱無效"
 
 #: src/usernameregistrationbox.cpp:148
 msgid "The entered username is available"
-msgstr ""
+msgstr "輸入的使用者名稱可用"
 
 #: src/usernameregistrationbox.cpp:149
 msgid "Username is available"
-msgstr ""
+msgstr "使用者名稱可用"
 
 #: src/usernameregistrationbox.cpp:158
 msgid "Failed to perform lookup"
-msgstr ""
+msgstr "查詢失敗"
 
 #: src/usernameregistrationbox.cpp:159
 msgid "Could not lookup username"
-msgstr ""
+msgstr "無法查詢使用者名稱"
 
 #: src/usernameregistrationbox.cpp:248
 msgid "Looking up username availability..."
-msgstr ""
+msgstr "正在查詢使用者名稱的可用性…"
 
 #: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:487
 msgid "Registering username..."
-msgstr ""
+msgstr "正在註冊使用者名稱..."
 
 #: src/usernameregistrationbox.cpp:319
 msgid "Could not initiate name registration, try again."
-msgstr ""
+msgstr "無法啟動名稱註冊，請重試。"
 
 #: src/usernameregistrationbox.cpp:361
 msgid "Register this username on the blockchain"
-msgstr ""
+msgstr "在區塊鏈上註冊這個使用者名稱"
 
 #: src/usernameregistrationbox.cpp:397
 msgid "Invalid username"
@@ -444,7 +439,7 @@ msgstr "無效的使用者名稱"
 
 #: src/usernameregistrationbox.cpp:411
 msgid "Username already taken"
-msgstr ""
+msgstr "已取得的使用者名稱"
 
 #: src/usernameregistrationbox.cpp:418
 msgid "Network error"
@@ -453,21 +448,21 @@ msgstr "網路錯誤"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Ring Error"
-msgstr ""
+msgstr "Ring 錯誤"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr ""
+msgstr "正在重新連線到 Ring 幕後程式 (dring)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Ring daemon (dring).\n"
 "Ring will now quit."
-msgstr ""
+msgstr "無法重新連線到 Ring 幕後程式 (dring)。\nRing 將會結束。"
 
 #: src/video/video_widget.cpp:525
 msgid "Share screen area"
-msgstr ""
+msgstr "分享螢幕區域"
 
 #: src/video/video_widget.cpp:535
 msgid "Share file"
@@ -475,23 +470,23 @@ msgstr "分享檔案"
 
 #: src/video/video_widget.cpp:549
 msgid "Show advanced information"
-msgstr ""
+msgstr "顯示進階資訊"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
-msgstr ""
+msgstr "註冊過期逾時（秒）："
 
 #: ui/accountadvancedtab.ui:103
 msgid "Allow calls from unknown peers"
-msgstr ""
+msgstr "允許從未知他人而來的通話"
 
 #: ui/accountadvancedtab.ui:117
 msgid "Allow calls from peers in your call history"
-msgstr ""
+msgstr "允許從您的通話歷史而來的他人通話"
 
 #: ui/accountadvancedtab.ui:131
 msgid "Allow calls from peers in your contacts list"
-msgstr ""
+msgstr "允許從您的聯絡人清單而來的他人通話"
 
 #: ui/accountadvancedtab.ui:149
 msgid "Registration"
@@ -503,7 +498,7 @@ msgstr "使用隨機連接埠"
 
 #: ui/accountadvancedtab.ui:199
 msgid "Local port:"
-msgstr ""
+msgstr "本機連接埠："
 
 #: ui/accountadvancedtab.ui:225
 msgid "Network Interface"
@@ -511,15 +506,15 @@ msgstr "網路介面"
 
 #: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
-msgstr ""
+msgstr "與本機參數相同"
 
 #: ui/accountadvancedtab.ui:268
 msgid "Set published address and port:"
-msgstr ""
+msgstr "設定公開位置與連接埠："
 
 #: ui/accountadvancedtab.ui:292
 msgid "Address"
-msgstr ""
+msgstr "地址"
 
 #: ui/accountadvancedtab.ui:340
 msgid "Use STUN"
@@ -543,21 +538,21 @@ msgstr "密碼"
 
 #: ui/accountadvancedtab.ui:479
 msgid "realm"
-msgstr ""
+msgstr "領域"
 
 #: ui/accountadvancedtab.ui:508
 msgid "Published Address"
-msgstr ""
+msgstr "公開位置"
 
 #: ui/accountadvancedtab.ui:536
 msgid "Bootstrap Servers"
-msgstr ""
+msgstr "Bootstrap 伺服器"
 
 #: ui/accountadvancedtab.ui:593
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
-msgstr ""
+msgstr "這些設定將僅用於 SDP 工作階段協商，以防伺服器或對方不支援 ICE。"
 
 #: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
 msgid "Min"
@@ -573,35 +568,35 @@ msgstr "音訊 RTP 連接埠範圍"
 
 #: ui/accountadvancedtab.ui:741
 msgid "Video RTP Port Range"
-msgstr ""
+msgstr "視訊 RTP 連接埠範圍"
 
 #: ui/accountadvancedtab.ui:759
 msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr ""
+msgstr "SDP 工作階段協商（ICE 退回）"
 
 #: ui/accountaudiotab.ui:57 ui/accountvideotab.ui:80
 msgid "Up"
-msgstr ""
+msgstr "上"
 
 #: ui/accountaudiotab.ui:64 ui/accountvideotab.ui:87
 msgid "Down"
-msgstr ""
+msgstr "下"
 
 #: ui/accountaudiotab.ui:75
 msgid "Audio Codecs"
-msgstr ""
+msgstr "音訊編解碼器"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
-msgstr ""
+msgstr "歡迎來到"
 
 #: ui/accountcreationwizard.ui:68
 msgid "Create Ring Account"
-msgstr ""
+msgstr "建立 Ring 帳號"
 
 #: ui/accountcreationwizard.ui:69
 msgid "Create a new Ring account (for new users)"
-msgstr ""
+msgstr "建立一個新的 Ring 帳號（供新使用者使用）"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Link this device to an account"
@@ -609,11 +604,11 @@ msgstr "連結這個裝置到一個帳號"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Link this devices to a Ring account created on another device"
-msgstr ""
+msgstr "連結此裝置到一個在其他裝置上建立的 Ring 帳號"
 
 #: ui/accountcreationwizard.ui:105 ui/accountcreationwizard.ui:159
 msgid "Link this device to an existing account"
-msgstr ""
+msgstr "連結此裝置到既有的帳號"
 
 #: ui/accountcreationwizard.ui:120
 msgid ""
@@ -622,86 +617,86 @@ msgid ""
 "previous device, choose the Ring Account to use and select \"Link another "
 "device to this account\". You will get the necessary PIN to complete this "
 "form. The PIN is only valid for 10 minutes."
-msgstr ""
+msgstr "要連結此裝置到其他帳號，首先您需要取得 PIN 碼。要生成 PIN 碼，到先前裝置的帳號管理設定，選擇 Ring 帳號來使用並選取「連結其他裝置到這個帳號」。您將會得到需要 PIN 碼來完成這份表單。PIN 僅在 10 分鐘內有效。"
 
 #: ui/accountcreationwizard.ui:128 ui/accountcreationwizard.ui:217
 #: ui/accountcreationwizard.ui:429
 msgid "Previous"
-msgstr ""
+msgstr "前一個"
 
 #: ui/accountcreationwizard.ui:136
 msgid "Okay, I have the PIN!"
-msgstr ""
+msgstr "好的，我有 PIN 碼！"
 
 #: ui/accountcreationwizard.ui:174
 msgid "Enter your pin:"
-msgstr ""
+msgstr "輸入您的 PIN 碼："
 
 #: ui/accountcreationwizard.ui:193
 msgid "Enter your password:"
-msgstr ""
+msgstr "輸入您的密碼："
 
 #: ui/accountcreationwizard.ui:225 ui/accountcreationwizard.ui:437
 msgid "Next"
-msgstr ""
+msgstr "下一個"
 
 #: ui/accountcreationwizard.ui:267
 msgid "Profile"
-msgstr ""
+msgstr "設定檔"
 
 #: ui/accountcreationwizard.ui:287
 msgid "Full name:"
-msgstr ""
+msgstr "完整名稱："
 
 #: ui/accountcreationwizard.ui:329
 msgid "Ring Account"
-msgstr ""
+msgstr "Ring 帳號"
 
 #: ui/accountcreationwizard.ui:342
 msgid "Register public username (experimental):"
-msgstr ""
+msgstr "註冊公開的使用者名稱（實驗性）"
 
 #: ui/accountcreationwizard.ui:348
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "透過勾選這個，您將會在 Ring 網路上註冊一個獨一無二的使用者名稱。人們可以使用它來聯絡您，而不必使用長達 40 個字元的您的 RingID。"
 
 #: ui/accountcreationwizard.ui:371
 msgid "Password (confirm):"
-msgstr ""
+msgstr "密碼（確認）："
 
 #: ui/accountcreationwizard.ui:372
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "這個密碼將會用於加密您的帳號資料與連結新的裝置到您的帳號。"
 
 #: ui/accountcreationwizard.ui:461
 msgid "Generating your Ring account..."
-msgstr ""
+msgstr "正在生成您的 Ring 帳號..."
 
 #: ui/accountcreationwizard.ui:494
 msgid "This may take a few minutes."
-msgstr ""
+msgstr "這將會耗費數分鐘。"
 
 #: ui/accountcreationwizard.ui:520
 msgid "Retrieving your Ring account..."
-msgstr ""
+msgstr "正在擷取您的 RIng 帳號..."
 
 #: ui/accountcreationwizard.ui:546
 msgid "Error creating/loading account."
-msgstr ""
+msgstr "建立／載入帳號時發生錯誤。"
 
 #: ui/accountcreationwizard.ui:551 ui/accountdevicestab.ui:217
 #: ui/accountdevicestab.ui:239
 msgid "OK"
-msgstr ""
+msgstr "確定"
 
 #: ui/accountdevicestab.ui:21
 msgid "My Device ID:"
-msgstr ""
+msgstr "我的裝置 ID："
 
 #: ui/accountdevicestab.ui:40
 msgid "Devices"
@@ -709,38 +704,38 @@ msgstr "裝置"
 
 #: ui/accountdevicestab.ui:66
 msgid "Add device"
-msgstr ""
+msgstr "新增裝置"
 
 #: ui/accountdevicestab.ui:83
 msgid "Add New Device"
-msgstr ""
+msgstr "新增新裝置"
 
 #: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "要新增新裝置到您的 Ring 帳號，您要先在 Ring 上匯出您的帳號。這將會生成 PIN 碼，必須在生成後的 5 分鐘內輸入到您的新裝置上。"
 
 #: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
-msgstr ""
+msgstr "密碼（必要）："
 
 #: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
-msgstr ""
+msgstr "輸入檔案密碼"
 
 #: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
-msgstr ""
+msgstr "在 Ring 上匯出"
 
 #: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
-msgstr ""
+msgstr "正在 Ring 上匯出帳號..."
 
 #: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
-msgstr ""
+msgstr "您的已生成 PIN 碼："
 
 #: ui/accountgeneraltab.ui:69
 msgid "Account"
@@ -772,7 +767,7 @@ msgstr "選擇匯出位置"
 
 #: ui/accountimportexportview.ui:95
 msgid "Choose archive location"
-msgstr ""
+msgstr "選取存檔位置"
 
 #: ui/accountimportexportview.ui:169 ui/accountview.ui:110
 msgid "Export"
@@ -784,95 +779,95 @@ msgstr "匯入"
 
 #: ui/accountmigrationview.ui:14
 msgid "Account migration required"
-msgstr ""
+msgstr "需要帳號遷移"
 
 #: ui/accountmigrationview.ui:39
 msgid "Alias:"
-msgstr ""
+msgstr "別名："
 
 #: ui/accountmigrationview.ui:102
 msgid "Please enter your password:"
-msgstr ""
+msgstr "請輸入您的密碼："
 
 #: ui/accountmigrationview.ui:129
 msgid "Migrate account"
-msgstr ""
+msgstr "遷移帳號"
 
 #: ui/accountmigrationview.ui:148
 msgid "Migration failed, wrong password ?"
-msgstr ""
+msgstr "遷移失敗，錯誤的密碼？"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
-msgstr ""
+msgstr "加密媒體串流 (SRTP)"
 
 #: ui/accountsecuritytab.ui:58
 msgid "Key exchange protocol"
-msgstr ""
+msgstr "金鑰交換協定"
 
 #: ui/accountsecuritytab.ui:76
 msgid "Fallback on RTP on encryption failure"
-msgstr ""
+msgstr "在加密失敗時退回 RTP"
 
 #: ui/accountsecuritytab.ui:94
 msgid "Media Stream Encryption"
-msgstr ""
+msgstr "媒體串流加密"
 
 #: ui/accountsecuritytab.ui:123
 msgid "Encrypt negotiation (TLS)"
-msgstr ""
+msgstr "加密協商 (TLS)"
 
 #: ui/accountsecuritytab.ui:148
 msgid "CA certificate"
-msgstr ""
+msgstr "CA 證書"
 
 #: ui/accountsecuritytab.ui:185
 msgid "User certificate"
-msgstr ""
+msgstr "使用者證書"
 
 #: ui/accountsecuritytab.ui:222
 msgid "Private key"
-msgstr ""
+msgstr "私密金鑰"
 
 #: ui/accountsecuritytab.ui:245
 msgid "Private key password"
-msgstr ""
+msgstr "私密金鑰密碼"
 
 #: ui/accountsecuritytab.ui:292
 msgid "TLS protocol method"
-msgstr ""
+msgstr "TLS 協定方法"
 
 #: ui/accountsecuritytab.ui:315
 msgid "Outgoing TLS server name"
-msgstr ""
+msgstr "外連 TLS 伺服器名稱"
 
 #: ui/accountsecuritytab.ui:337
 msgid "Negotiation timeout (seconds)"
-msgstr ""
+msgstr "協商逾時（秒）"
 
 #: ui/accountsecuritytab.ui:371
 msgid "Use default ciphers"
-msgstr ""
+msgstr "使用預設加密法"
 
 #: ui/accountsecuritytab.ui:387
 msgid "Use custom cipher list"
-msgstr ""
+msgstr "使用自訂加密法清單"
 
 #: ui/accountsecuritytab.ui:444
 msgid "Verify incoming certificates (server side)"
-msgstr ""
+msgstr "驗證連入的證書（伺服器端）"
 
 #: ui/accountsecuritytab.ui:459
 msgid "Verify answer certificates (client side)"
-msgstr ""
+msgstr "驗證回覆證書（客戶端）"
 
 #: ui/accountsecuritytab.ui:474
 msgid "Require a certificate for incoming TLS connections"
-msgstr ""
+msgstr "連入的 TLS 連線需要證書"
 
 #: ui/accountsecuritytab.ui:493
 msgid "Negotiation Encryption"
-msgstr ""
+msgstr "協商加密"
 
 #: ui/accountvideotab.ui:50
 msgid "Enable Video"
@@ -880,132 +875,132 @@ msgstr "啟用視訊"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
-msgstr ""
+msgstr "視訊編解碼器"
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
-msgstr ""
+msgstr "移除選取的帳號"
 
 #: ui/accountview.ui:63 ui/accountview.ui:66
 msgid "Add new account"
-msgstr ""
+msgstr "加入新帳號"
 
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
-msgstr ""
+msgstr "選取帳號類型"
 
 #: ui/accountview.ui:104
 msgid "Import archived account(s)"
-msgstr ""
+msgstr "匯入已歸檔的帳號"
 
 #: ui/accountview.ui:112
 msgid "Export selected account(s)"
-msgstr ""
+msgstr "匯出選取的帳號"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr ""
+msgstr "照相"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr ""
+msgstr "從檔案選擇圖片"
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
-msgstr ""
+msgstr "恢復"
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
-msgstr ""
+msgstr "設定選擇為圖片"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
-msgstr ""
+msgstr "隱藏聊天視窗"
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
-msgstr ""
+msgstr "開始通話"
 
 #: ui/chatview.ui:60
 msgid "Send invitation"
-msgstr ""
+msgstr "傳送邀請"
 
 #: ui/chatview.ui:130
 msgid "Send Invitation"
-msgstr ""
+msgstr "傳送邀請"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
-msgstr ""
+msgstr "建立新（通話）"
 
-#: ui/currentcallview.ui:252
+#: ui/currentcallview.ui:251
 msgid "End this call"
 msgstr "結束這個通話"
 
-#: ui/currentcallview.ui:256 ui/currentcallview.ui:460
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:459
 msgid "End call"
 msgstr "結束通話"
 
-#: ui/currentcallview.ui:277
+#: ui/currentcallview.ui:276
 msgid "Toggle hold"
-msgstr ""
+msgstr "切換接聽／保留"
 
-#: ui/currentcallview.ui:281 ui/currentcallview.ui:307
-#: ui/currentcallview.ui:451
+#: ui/currentcallview.ui:280 ui/currentcallview.ui:306
+#: ui/currentcallview.ui:450
 msgid "Hold"
-msgstr ""
+msgstr "保留通話"
 
-#: ui/currentcallview.ui:303
+#: ui/currentcallview.ui:302
 msgid "Toggle mute audio"
-msgstr ""
+msgstr "切換靜音"
 
-#: ui/currentcallview.ui:329
+#: ui/currentcallview.ui:328
 msgid "Toggle mute video"
-msgstr ""
+msgstr "切換視訊靜音"
 
-#: ui/currentcallview.ui:333 ui/currentcallview.ui:442
+#: ui/currentcallview.ui:332 ui/currentcallview.ui:441
 msgid "Mute video"
-msgstr ""
+msgstr "視訊靜音"
 
-#: ui/currentcallview.ui:356
+#: ui/currentcallview.ui:355
 msgid "Toggle record audio"
-msgstr ""
+msgstr "切換記錄音訊"
 
-#: ui/currentcallview.ui:359
+#: ui/currentcallview.ui:358
 msgid "Record audio"
-msgstr ""
+msgstr "記錄音訊"
 
-#: ui/currentcallview.ui:379
+#: ui/currentcallview.ui:378
 msgid "Adjust outgoing video quality"
-msgstr ""
+msgstr "調整外連的視訊品質"
 
-#: ui/currentcallview.ui:384 ui/currentcallview.ui:469
+#: ui/currentcallview.ui:383 ui/currentcallview.ui:468
 msgid "Video quality"
-msgstr ""
+msgstr "視訊品質"
 
-#: ui/currentcallview.ui:403
+#: ui/currentcallview.ui:402
 msgid "Toggle show chat"
-msgstr ""
+msgstr "切換顯示聊天"
 
-#: ui/currentcallview.ui:407 ui/currentcallview.ui:424
+#: ui/currentcallview.ui:406 ui/currentcallview.ui:423
 msgid "Chat"
-msgstr ""
+msgstr "聊天"
 
-#: ui/currentcallview.ui:433
+#: ui/currentcallview.ui:432
 msgid "Mute audio"
-msgstr ""
+msgstr "靜音"
 
-#: ui/currentcallview.ui:478
+#: ui/currentcallview.ui:477
 msgid "Record"
-msgstr ""
+msgstr "記錄"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
-msgstr ""
+msgstr "選擇通訊錄"
 
 #: ui/editcontactview.ui:15
 msgid "Addressbook"
-msgstr ""
+msgstr "聯絡簿"
 
 #: ui/editcontactview.ui:29
 msgid "Name"
@@ -1017,11 +1012,11 @@ msgstr "聯絡人名稱"
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
-msgstr ""
+msgstr "選定本號碼如何分類"
 
 #: ui/editcontactview.ui:50
 msgid "Number category"
-msgstr ""
+msgstr "號碼分類"
 
 #: ui/editcontactview.ui:66
 msgid "Number or Ring ID to be added"
@@ -1037,11 +1032,11 @@ msgstr "儲存"
 
 #: ui/generalsettingsview.ui:34
 msgid "Profile Settings"
-msgstr ""
+msgstr "基本資料設定"
 
 #: ui/generalsettingsview.ui:76
 msgid "Ring Settings"
-msgstr ""
+msgstr "Ring 設定"
 
 #: ui/generalsettingsview.ui:92
 msgid "Start Ring on login"
@@ -1049,45 +1044,49 @@ msgstr "登入時啟動 Ring"
 
 #: ui/generalsettingsview.ui:100
 msgid "Show Ring icon in the notification area (systray)."
-msgstr ""
+msgstr "在通知區域（系統匣）中顯示 Ring 圖示。"
 
 #: ui/generalsettingsview.ui:108
 msgid "Bring Ring to the foreground on incoming calls."
-msgstr ""
+msgstr "有來電時將 Ring 帶到前景。"
 
 #: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
-msgstr ""
+msgstr "啟用來電通知。"
 
 #: ui/generalsettingsview.ui:124
 msgid "Enable notifications for new chat messages."
-msgstr ""
+msgstr "啟用新聊天訊息通知。"
 
 #: ui/generalsettingsview.ui:132
+msgid "Show images and videos in chat window."
+msgstr "在聊天室窗中顯示圖片與影片。"
+
+#: ui/generalsettingsview.ui:140
 msgid "Entering a number in the search entry will place a new call."
-msgstr ""
+msgstr "在搜尋項目中輸入號碼將會打一通新電話。"
 
-#: ui/generalsettingsview.ui:147
+#: ui/generalsettingsview.ui:155
 msgid "Show chat on the right."
-msgstr ""
+msgstr "在右邊顯示聊天。"
 
-#: ui/generalsettingsview.ui:153
+#: ui/generalsettingsview.ui:161
 msgid "Show chat on the bottom."
-msgstr ""
+msgstr "在底部顯示聊天。"
 
-#: ui/generalsettingsview.ui:177
+#: ui/generalsettingsview.ui:185
 msgid "History Settings"
 msgstr "記錄設定"
 
-#: ui/generalsettingsview.ui:195
+#: ui/generalsettingsview.ui:203
 msgid "Keep history for (days):"
-msgstr ""
+msgstr "保持記錄數日"
 
-#: ui/generalsettingsview.ui:216
+#: ui/generalsettingsview.ui:224
 msgid "(set to 0 for unlimited history)"
-msgstr ""
+msgstr "(設定0 表示無限制記錄)"
 
-#: ui/generalsettingsview.ui:226
+#: ui/generalsettingsview.ui:234
 msgid "Clear all history"
 msgstr "清除所有記錄"
 
@@ -1097,11 +1096,11 @@ msgstr "來電..."
 
 #: ui/incomingcallview.ui:142
 msgid "Accept"
-msgstr ""
+msgstr "接聽"
 
 #: ui/incomingcallview.ui:163
 msgid "Reject"
-msgstr ""
+msgstr "拒接"
 
 #: ui/incomingcallview.ui:186
 msgid "Hang up"
@@ -1109,35 +1108,35 @@ msgstr "掛斷"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
-msgstr ""
+msgstr "音效設定"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
-msgstr ""
+msgstr "音效管理員"
 
 #: ui/mediasettingsview.ui:52
 msgid "Ringtone device:"
-msgstr ""
+msgstr "響鈴設備"
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
-msgstr ""
+msgstr "輸出設備"
 
 #: ui/mediasettingsview.ui:76
 msgid "Input device:"
-msgstr ""
+msgstr "輸入設備"
 
 #: ui/mediasettingsview.ui:134
 msgid "Camera Settings"
-msgstr ""
+msgstr "攝影機設定"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"
-msgstr ""
+msgstr "設備"
 
 #: ui/mediasettingsview.ui:162
 msgid "Channel:"
-msgstr ""
+msgstr "頻道"
 
 #: ui/mediasettingsview.ui:174
 msgid "Resolution:"
@@ -1145,15 +1144,15 @@ msgstr "解析度："
 
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
-msgstr ""
+msgstr "頁框率"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "硬體加速"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr ""
+msgstr "啟用硬體解碼:"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
@@ -1185,7 +1184,7 @@ msgstr "設定"
 
 #: ui/ringmainwindow.ui:215
 msgid "Conversations"
-msgstr ""
+msgstr "對話"
 
 #: ui/ringmainwindow.ui:237
 msgid "Contacts"
@@ -1197,11 +1196,11 @@ msgstr "記錄"
 
 #: ui/ringmainwindow.ui:281
 msgid "Contact requests"
-msgstr ""
+msgstr "加好友請求"
 
 #: ui/usernameregistrationbox.ui:12
 msgid "enter username here"
-msgstr ""
+msgstr "在此輸入名字"
 
 #: ui/usernameregistrationbox.ui:24
 msgid "Register"

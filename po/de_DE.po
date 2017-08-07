@@ -5,13 +5,15 @@
 # Translators:
 # Blanca Iris Almagro, 2016
 # Guillaume Roguez, 2016
+# Arledrian <hvuzgr@gmail.com>, 2017
+# jhasse <jhasse@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-23 23:09-0400\n"
-"PO-Revision-Date: 2017-07-20 16:00+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-08-06 23:09-0400\n"
+"PO-Revision-Date: 2017-08-04 09:50+0000\n"
+"Last-Translator: jhasse <jhasse@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/savoirfairelinux/ring/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,11 +63,11 @@ msgstr "Unbekannt"
 
 #: src/accountcreationwizard.cpp:461
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Passwörter stimmen nicht überein"
 
 #: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
 msgid "Bad password"
-msgstr ""
+msgstr "Schwaches Passwort"
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
@@ -83,7 +85,7 @@ msgstr "Name"
 #: src/accountdevicestab.cpp:251
 msgctxt "Device ID Column"
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: src/accountgeneraltab.cpp:185
 msgid "Alias"
@@ -225,30 +227,23 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Kontakte"
 
-#: src/contactpopupmenu.cpp:84
-#, c-format
-msgid ""
-"Are you sure you want to delete contact \"%s\"? It will be removed from your"
-" system's addressbook."
-msgstr ""
-
-#: src/contactpopupmenu.cpp:180
+#: src/contactpopupmenu.cpp:172
 msgid "_Call"
-msgstr ""
+msgstr "_Anrufen"
 
-#: src/contactpopupmenu.cpp:183
+#: src/contactpopupmenu.cpp:175
 msgid "_Copy name"
 msgstr ""
 
-#: src/contactpopupmenu.cpp:186
+#: src/contactpopupmenu.cpp:178
 msgid "_Copy number"
 msgstr ""
 
-#: src/contactpopupmenu.cpp:189
+#: src/contactpopupmenu.cpp:181
 msgid "_Add to contact"
-msgstr ""
+msgstr "_Zu Kontakten hinzufügen"
 
-#: src/contactpopupmenu.cpp:192
+#: src/contactpopupmenu.cpp:184
 msgid "_Remove contact"
 msgstr ""
 
@@ -275,7 +270,7 @@ msgctxt "Phone number category"
 msgid "home"
 msgstr ""
 
-#: src/generalsettingsview.cpp:102
+#: src/generalsettingsview.cpp:103
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -384,7 +379,7 @@ msgstr ""
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Ring ist Freie Software für universelle Kommunikation, die die Freiheiten und die Privatsphäre ihrer Nutzer respektiert."
 
 #: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
@@ -441,15 +436,15 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:397
 msgid "Invalid username"
-msgstr ""
+msgstr "Ungültiger Benutzername"
 
 #: src/usernameregistrationbox.cpp:411
 msgid "Username already taken"
-msgstr ""
+msgstr "Benutzername bereits vergeben"
 
 #: src/usernameregistrationbox.cpp:418
 msgid "Network error"
-msgstr ""
+msgstr "Netzwerkfehler"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -464,7 +459,7 @@ msgstr ""
 msgid ""
 "Could not re-connect to the Ring daemon (dring).\n"
 "Ring will now quit."
-msgstr ""
+msgstr "Verbindung mit Ring-Hintergrundprozess (dring) konnte nicht wiederhergestellt werden.\nRing wird jetzt beendet."
 
 #: src/video/video_widget.cpp:525
 msgid "Share screen area"
@@ -536,11 +531,11 @@ msgstr "TURN benutzen"
 
 #: ui/accountadvancedtab.ui:434
 msgid "username"
-msgstr ""
+msgstr "Benutzername"
 
 #: ui/accountadvancedtab.ui:455
 msgid "password"
-msgstr ""
+msgstr "Passwort"
 
 #: ui/accountadvancedtab.ui:479
 msgid "realm"
@@ -598,7 +593,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:68
 msgid "Create Ring Account"
-msgstr ""
+msgstr "Ring-Konto erstellen"
 
 #: ui/accountcreationwizard.ui:69
 msgid "Create a new Ring account (for new users)"
@@ -606,7 +601,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:76
 msgid "Link this device to an account"
-msgstr ""
+msgstr "Dieses Gerät mit einem Ring-Konto verknüpfen"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Link this devices to a Ring account created on another device"
@@ -789,7 +784,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:39
 msgid "Alias:"
-msgstr ""
+msgstr "Alias:"
 
 #: ui/accountmigrationview.ui:102
 msgid "Please enter your password:"
@@ -939,64 +934,64 @@ msgstr ""
 msgid "Create New"
 msgstr ""
 
-#: ui/currentcallview.ui:252
+#: ui/currentcallview.ui:251
 msgid "End this call"
 msgstr ""
 
-#: ui/currentcallview.ui:256 ui/currentcallview.ui:460
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:459
 msgid "End call"
 msgstr ""
 
-#: ui/currentcallview.ui:277
+#: ui/currentcallview.ui:276
 msgid "Toggle hold"
 msgstr ""
 
-#: ui/currentcallview.ui:281 ui/currentcallview.ui:307
-#: ui/currentcallview.ui:451
+#: ui/currentcallview.ui:280 ui/currentcallview.ui:306
+#: ui/currentcallview.ui:450
 msgid "Hold"
 msgstr "In die Warteschleife schalten"
 
-#: ui/currentcallview.ui:303
+#: ui/currentcallview.ui:302
 msgid "Toggle mute audio"
 msgstr ""
 
-#: ui/currentcallview.ui:329
+#: ui/currentcallview.ui:328
 msgid "Toggle mute video"
 msgstr ""
 
-#: ui/currentcallview.ui:333 ui/currentcallview.ui:442
+#: ui/currentcallview.ui:332 ui/currentcallview.ui:441
 msgid "Mute video"
 msgstr ""
 
-#: ui/currentcallview.ui:356
+#: ui/currentcallview.ui:355
 msgid "Toggle record audio"
 msgstr ""
 
-#: ui/currentcallview.ui:359
+#: ui/currentcallview.ui:358
 msgid "Record audio"
 msgstr ""
 
-#: ui/currentcallview.ui:379
+#: ui/currentcallview.ui:378
 msgid "Adjust outgoing video quality"
 msgstr ""
 
-#: ui/currentcallview.ui:384 ui/currentcallview.ui:469
+#: ui/currentcallview.ui:383 ui/currentcallview.ui:468
 msgid "Video quality"
 msgstr ""
 
-#: ui/currentcallview.ui:403
+#: ui/currentcallview.ui:402
 msgid "Toggle show chat"
 msgstr ""
 
-#: ui/currentcallview.ui:407 ui/currentcallview.ui:424
+#: ui/currentcallview.ui:406 ui/currentcallview.ui:423
 msgid "Chat"
 msgstr ""
 
-#: ui/currentcallview.ui:433
+#: ui/currentcallview.ui:432
 msgid "Mute audio"
 msgstr ""
 
-#: ui/currentcallview.ui:478
+#: ui/currentcallview.ui:477
 msgid "Record"
 msgstr "Aufzeichnen"
 
@@ -1065,32 +1060,36 @@ msgid "Enable notifications for new chat messages."
 msgstr ""
 
 #: ui/generalsettingsview.ui:132
+msgid "Show images and videos in chat window."
+msgstr ""
+
+#: ui/generalsettingsview.ui:140
 msgid "Entering a number in the search entry will place a new call."
 msgstr ""
 
-#: ui/generalsettingsview.ui:147
+#: ui/generalsettingsview.ui:155
 msgid "Show chat on the right."
 msgstr ""
 
-#: ui/generalsettingsview.ui:153
+#: ui/generalsettingsview.ui:161
 msgid "Show chat on the bottom."
 msgstr ""
 
-#: ui/generalsettingsview.ui:177
+#: ui/generalsettingsview.ui:185
 msgid "History Settings"
 msgstr ""
 
-#: ui/generalsettingsview.ui:195
+#: ui/generalsettingsview.ui:203
 msgid "Keep history for (days):"
 msgstr ""
 
-#: ui/generalsettingsview.ui:216
+#: ui/generalsettingsview.ui:224
 msgid "(set to 0 for unlimited history)"
 msgstr ""
 
-#: ui/generalsettingsview.ui:226
+#: ui/generalsettingsview.ui:234
 msgid "Clear all history"
-msgstr ""
+msgstr "Gesamten Verlauf löschen"
 
 #: ui/incomingcallview.ui:106
 msgid "Incoming..."
@@ -1098,11 +1097,11 @@ msgstr ""
 
 #: ui/incomingcallview.ui:142
 msgid "Accept"
-msgstr ""
+msgstr "Akzeptieren"
 
 #: ui/incomingcallview.ui:163
 msgid "Reject"
-msgstr ""
+msgstr "Ablehnen"
 
 #: ui/incomingcallview.ui:186
 msgid "Hang up"
@@ -1130,7 +1129,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:134
 msgid "Camera Settings"
-msgstr ""
+msgstr "Kamera-Einstellungen"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"
@@ -1158,15 +1157,15 @@ msgstr ""
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr ""
+msgstr "_Über"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr ""
+msgstr "_Beenden"
 
 #: ui/ringmainwindow.ui:17
 msgid "Menu"
-msgstr ""
+msgstr "Menü"
 
 #: ui/ringmainwindow.ui:51
 msgid "General"
@@ -1198,7 +1197,7 @@ msgstr "Verlauf"
 
 #: ui/ringmainwindow.ui:281
 msgid "Contact requests"
-msgstr ""
+msgstr "Kontaktanfragen"
 
 #: ui/usernameregistrationbox.ui:12
 msgid "enter username here"
