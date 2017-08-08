@@ -28,6 +28,7 @@
 #include <contactmethod.h>
 #include <string>
 #include <algorithm>
+#include <smartlistitem.h>
 
 namespace Interfaces {
 
@@ -152,15 +153,16 @@ PixbufManipulator::callPhoto(const ContactMethod* n, const QSize& size, bool dis
 }
 
 QVariant
-PixbufManipulator::itemPhoto(const std::string& avatar, const std::string& alias, const std::string& uri, const QSize& size, bool displayPresence)
+PixbufManipulator::itemPhoto(const SmartListItem* item, const QSize& size, bool displayPresence)
 {
+    auto avatar = item->getAvatar();
     if (avatar.length() > 0)
     {
         QByteArray byteArray(avatar.c_str(), avatar.length());
         QVariant photo = personPhoto(byteArray);
         return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, true));
     } else {
-        return QVariant::fromValue(scaleAndFrame(generateAvatar(alias, uri).get(), size, displayPresence, true));
+        return QVariant::fromValue(scaleAndFrame(generateAvatar(item->getAlias(), item->getTitle()).get(), size, displayPresence, true));
     }
 
 }
@@ -342,6 +344,12 @@ QVariant PixbufManipulator::decorationRole(const Person* p)
 QVariant PixbufManipulator::decorationRole(const Account* p)
 {
     Q_UNUSED(p)
+    return QVariant();
+}
+
+QVariant PixbufManipulator::decorationRole(const SmartListItem* i)
+{
+    Q_UNUSED(i)
     return QVariant();
 }
 

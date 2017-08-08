@@ -38,7 +38,7 @@ public:
     QVariant callPhoto(const ContactMethod* n, const QSize& size, bool displayPresence = true) override;
     QVariant contactPhoto(Person* c, const QSize& size, bool displayPresence = true) override;
     //TODO directly from item?
-    QVariant itemPhoto(const std::string& avatar, const std::string& alias, const std::string& uri, const QSize& size, bool displayPresence = true) override;
+    QVariant itemPhoto(const SmartListItem* item, const QSize& size, bool displayPresence = true) override;
     QVariant personPhoto(const QByteArray& data, const QString& type = "PNG") override;
 
     /* TODO: the following methods return an empty QVariant/QByteArray */
@@ -55,6 +55,7 @@ public:
     QVariant   decorationRole(const ContactMethod* cm) override;
     QVariant   decorationRole(const Person* p) override;
     QVariant   decorationRole(const Account* p) override;
+    QVariant   decorationRole(const SmartListItem* i) override;
 
 private:
     std::shared_ptr<GdkPixbuf> generateAvatar(const ContactMethod* cm) const;
