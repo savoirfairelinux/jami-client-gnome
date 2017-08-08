@@ -37,6 +37,8 @@ public:
     QVariant callPhoto(Call* c, const QSize& size, bool displayPresence = true) override;
     QVariant callPhoto(const ContactMethod* n, const QSize& size, bool displayPresence = true) override;
     QVariant contactPhoto(Person* c, const QSize& size, bool displayPresence = true) override;
+    //TODO directly from item?
+    QVariant itemPhoto(const std::string& avatar, const std::string& alias, const std::string& uri, const QSize& size, bool displayPresence = true) override;
     QVariant personPhoto(const QByteArray& data, const QString& type = "PNG") override;
 
     /* TODO: the following methods return an empty QVariant/QByteArray */
@@ -56,6 +58,7 @@ public:
 
 private:
     std::shared_ptr<GdkPixbuf> generateAvatar(const ContactMethod* cm) const;
+    std::shared_ptr<GdkPixbuf> generateAvatar(const std::string& alias, const std::string& uri) const;
 
     std::shared_ptr<GdkPixbuf> scaleAndFrame(const GdkPixbuf *photo, const QSize& size, bool display_presence = false, bool is_present = false);
     std::shared_ptr<GdkPixbuf> conferenceAvatar_;

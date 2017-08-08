@@ -26,6 +26,8 @@
 #include <memory>
 #include <call.h>
 #include <contactmethod.h>
+#include <string>
+#include <algorithm>
 
 namespace Interfaces {
 
@@ -69,6 +71,25 @@ PixbufManipulator::generateAvatar(const ContactMethod* cm) const
         g_object_unref
     };
 }
+
+std::shared_ptr<GdkPixbuf>
+PixbufManipulator::generateAvatar(const std::string& alias, const std::string& uri) const
+{
+    auto name = alias;
+    std::transform(name.begin(), name.end(), name.begin(), ::toupper);
+    auto letter = name.length() > 0 ? name[0] : 'R';
+    auto color = uri.length() > 0 ? std::stoi(std::string(1, uri[0]), 0, 16) : 0;
+
+    return std::shared_ptr<GdkPixbuf> {
+        ring_draw_fallback_avatar(
+            FALLBACK_AVATAR_SIZE,
+            letter,
+            color
+        ),
+        g_object_unref
+    };
+}
+
 
 std::shared_ptr<GdkPixbuf>
 PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo, const QSize& size, bool display_presence, bool is_present)
@@ -129,6 +150,21 @@ PixbufManipulator::callPhoto(const ContactMethod* n, const QSize& size, bool dis
         return QVariant::fromValue(scaleAndFrame(generateAvatar(n).get(), size, displayPresence, n->isPresent()));
     }
 }
+
+QVariant
+PixbufManipulator::itemPhoto(const std::string& avatar, const std::string& alias, const std::string& uri, const QSize& size, bool displayPresence)
+{
+    if (avatar.length() > 0)
+    {
+        QByteArray byteArray(avatar.c_str(), avatar.length());
+        QVariant photo = personPhoto(byteArray);
+        return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, true));
+    } else {
+        return QVariant::fromValue(scaleAndFrame(generateAvatar(alias, uri).get(), size, displayPresence, true));
+    }
+
+}
+
 
 QVariant
 PixbufManipulator::contactPhoto(Person* c, const QSize& size, bool displayPresence)
