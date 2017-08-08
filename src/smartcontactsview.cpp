@@ -87,23 +87,17 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                      GtkTreeIter *iter,
                      G_GNUC_UNUSED gpointer data)
 {
-    gchar *uri;
-    gchar *avatar;
-    gchar *displayName;
+    auto path = gtk_tree_model_get_path(model, iter);
+    auto row = std::atoi(gtk_tree_path_to_string(path));
+    if (row == -1) return;
 
-    gtk_tree_model_get (model, iter,
-                        0 /* col# */, &uri /* data */,
-                        1 /* col# */, &displayName /* data */,
-                        2 /* col# */, &avatar /* data */,
-                        -1);
+    auto item = SmartListModel::instance().getItems()[row].get();
 
     std::shared_ptr<GdkPixbuf> image;
     QVariant var_photo = GlobalInstances::pixmapManipulator().itemPhoto(
-        std::string(avatar),
-        std::string(displayName),
-        std::string(uri),
+        item,
         QSize(50, 50),
-        true
+        item->getPresence()
     );
     image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
 
@@ -167,7 +161,6 @@ create_and_fill_model()
             0 /* col # */ , row->getTitle().c_str() /* celldata */,
             1 /* col # */ , row->getAlias().c_str() /* celldata */,
             2 /* col # */ , row->getAvatar().c_str() /* celldata */,
-            3 /* col # */ , row->getLastInteraction().c_str() /* celldata */,
             -1 /* end */);
     }
 
@@ -223,7 +216,7 @@ smart_contacts_view_init(SmartContactsView *self)
         columnWIP,
         rendererWIP,
         (GtkTreeCellDataFunc)render_contact_photo,
-        self,
+        NULL,
         NULL);
 
     /* renderer */
