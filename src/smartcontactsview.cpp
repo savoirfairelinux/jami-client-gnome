@@ -81,16 +81,43 @@ G_DEFINE_TYPE_WITH_PRIVATE(SmartContactsView, smart_contacts_view, GTK_TYPE_TREE
 #define SMART_CONTACTS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), SMART_CONTACTS_VIEW_TYPE, SmartContactsViewPrivate))
 
 static void
+render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                     GtkCellRenderer *cell,
+                     GtkTreeModel *model,
+                     GtkTreeIter *iter,
+                     G_GNUC_UNUSED gpointer data)
+{
+    auto path = gtk_tree_model_get_path(model, iter);
+    auto row = std::atoi(gtk_tree_path_to_string(path));
+    if (row == -1) return;
+
+    auto item = SmartListModel::instance().getItems()[row].get();
+
+    std::shared_ptr<GdkPixbuf> image;
+    QVariant var_photo = GlobalInstances::pixmapManipulator().itemPhoto(
+        item,
+        QSize(50, 50),
+        true
+    );
+    image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
+
+    // set the width of the cell rendered to the width of the photo
+    // so that the other renderers are shifted to the right
+    g_object_set(G_OBJECT(cell), "width", 50, NULL);
+    g_object_set(G_OBJECT(cell), "pixbuf", image.get(), NULL);
+}
+
+static void
 render_name_and_number(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                        GtkCellRenderer *cell,
                        GtkTreeModel *model,
                        GtkTreeIter *iter,
-                       GtkTreeView *treeview)
+                       G_GNUC_UNUSED GtkTreeView *treeview)
 {
     gchar *ringId;
 
     gtk_tree_model_get (model, iter,
-                        0 /* col# */, &ringId /* data */,
+                        1 /* col# */, &ringId /* data */,
                         -1);
 
 
@@ -100,11 +127,10 @@ render_name_and_number(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     return;
 }
 
-
 static GtkTreeModel*
 create_and_fill_model()
 {
-    GtkListStore* store = gtk_list_store_new (1 /* # of cols */ , G_TYPE_STRING, G_TYPE_UINT);
+    GtkListStore* store = gtk_list_store_new (3 /* # of cols */ , G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT);
     GtkTreeIter iter;
 
     // append les rows
@@ -112,6 +138,8 @@ create_and_fill_model()
         gtk_list_store_append (store, &iter);
         gtk_list_store_set (store, &iter,
             0 /* col # */ , row->getTitle().c_str() /* celldata */,
+            1 /* col # */ , row->getAlias().c_str() /* celldata */,
+            2 /* col # */ , row->getAvatar().c_str() /* celldata */,
             -1 /* end */);
     }
 
@@ -158,8 +186,20 @@ smart_contacts_view_init(SmartContactsView *self)
     GtkCellArea *areaWIP = gtk_cell_area_box_new();
     GtkTreeViewColumn *columnWIP = gtk_tree_view_column_new_with_area(areaWIP);
 
+    // TODO display photo!
+    GtkCellRenderer *rendererWIP = gtk_cell_renderer_pixbuf_new();
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(areaWIP), rendererWIP, FALSE, FALSE, FALSE);
+
+    /* get the photo */
+    gtk_tree_view_column_set_cell_data_func(
+        columnWIP,
+        rendererWIP,
+        (GtkTreeCellDataFunc)render_contact_photo,
+        NULL,
+        NULL);
+
     /* renderer */
-    GtkCellRenderer *rendererWIP = gtk_cell_renderer_text_new();
+    rendererWIP = gtk_cell_renderer_text_new();
     g_object_set(G_OBJECT(rendererWIP), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(areaWIP), rendererWIP, FALSE, FALSE, FALSE);
 
