@@ -41,6 +41,7 @@
 #include <account.h>
 #include <database.h>
 #include <smartlistitem.h>
+#include <contactitem.h>
 
 
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
@@ -237,6 +238,20 @@ static void
 webkit_chat_container_send_text(G_GNUC_UNUSED GtkWidget* webview, gchar *message, ChatView* self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    auto conversation = dynamic_cast<ContactItem*>(priv->item);
+
+    if (not conversation) {
+        g_warning("webkit_chat_container_send_text, invalid pointer");
+        return;
+    }
+
+    conversation->sendMessage(message);
+
+    // ↑↑ NEW ↑↑
+    return;
+    // ↓↓ OLD ↓↓
+
+    //~ ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     /* make sure there is more than just whitespace, but if so, send the original text */
     const auto text = QString(message);
@@ -727,12 +742,12 @@ build_chat_view(ChatView* self)
         /* keep selected cm updated */
         update_contact_methods(self);
         g_signal_connect_swapped(priv->combobox_cm, "changed", G_CALLBACK(selected_cm_changed), self);
-
-        priv->webkit_send_text = g_signal_connect(priv->webkit_chat_container,
-            "send-message",
-            G_CALLBACK(webkit_chat_container_send_text),
-            self);
     }
+
+    priv->webkit_send_text = g_signal_connect(priv->webkit_chat_container,
+        "send-message",
+        G_CALLBACK(webkit_chat_container_send_text),
+        self);
 
     update_name(self);
 
