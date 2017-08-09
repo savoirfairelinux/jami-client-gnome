@@ -184,6 +184,20 @@ static void
 placecall_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    auto conversation = dynamic_cast<ContactItem*>(priv->item);
+
+    if (not conversation) {
+        g_warning("placecall_clicked, invalid pointer");
+        return;
+    }
+
+    conversation->placeCall();
+
+    // ↑↑ NEW ↑↑
+    return;
+    // ↓↓ OLD ↓↓
+
+    //~ auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
     if (priv->person) {
         // get the chosen cm
