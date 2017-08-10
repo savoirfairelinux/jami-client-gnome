@@ -160,7 +160,7 @@ activate_smart_list_item(GtkTreeSelection *selection)
     GtkTreeModel *model = nullptr;
     gchar *data = nullptr;
 
-    gtk_tree_selection_get_selected(selection, &model, &iter);
+    if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return;
 
     gtk_tree_model_get(model, &iter,
                        0, &data,
