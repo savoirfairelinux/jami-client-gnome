@@ -321,6 +321,8 @@ SET( SRC_FILES
    src/accountimportexportview.cpp
    src/contactpopupmenu.h
    src/contactpopupmenu.cpp
+   src/itempopupmenu.h
+   src/itempopupmenu.cpp
    src/cc-crop-area.h
    src/cc-crop-area.c
    src/models/namenumberfilterproxymodel.h

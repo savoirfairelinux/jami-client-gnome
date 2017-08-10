@@ -40,7 +40,7 @@
 #include <QtCore/QMimeData>
 #include "utils/drawing.h"
 #include <numbercategory.h>
-#include "contactpopupmenu.h"
+#include "itempopupmenu.h"
 
 // Lrc WIP model
 #include <contactitem.h>
@@ -240,7 +240,8 @@ smart_contacts_view_init(SmartContactsView *self)
         qDebug() << QString(msg.body.c_str());
     });
 
-    return;
+    priv->popup_menu = item_popup_menu_new(GTK_TREE_VIEW(self));
+    g_signal_connect_swapped(self, "button-press-event", G_CALLBACK(item_popup_menu_show), priv->popup_menu);
 }
 
 static void
