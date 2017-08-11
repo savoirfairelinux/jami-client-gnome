@@ -121,13 +121,29 @@ render_name_and_number(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                        G_GNUC_UNUSED GtkTreeView *treeview)
 {
     gchar *ringId;
+    gchar *lastInformation;
+    gchar *text;
 
     gtk_tree_model_get (model, iter,
                         1 /* col# */, &ringId /* data */,
+                        3 /* col# */, &lastInformation /* data */,
                         -1);
 
+    // Limit the size of lastInformation
+    const auto maxSize = 20;
+    auto size = g_utf8_strlen (lastInformation, maxSize + 1);
+    if (size > maxSize) {
+        g_utf8_strncpy (lastInformation, lastInformation, 20);
+        lastInformation = g_markup_printf_escaped("%s…", lastInformation);
+    }
 
-    g_object_set(G_OBJECT(cell), "markup", ringId, NULL);
+    text = g_markup_printf_escaped(
+        "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\">%s</span>",
+        ringId,
+        lastInformation
+    );
+
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
     g_free(ringId);
 
     return;
@@ -136,7 +152,12 @@ render_name_and_number(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 static GtkTreeModel*
 create_and_fill_model()
 {
-    GtkListStore* store = gtk_list_store_new (3 /* # of cols */ , G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT);
+    GtkListStore* store = gtk_list_store_new (4 /* # of cols */ ,
+                                              G_TYPE_STRING,
+                                              G_TYPE_STRING,
+                                              G_TYPE_STRING,
+                                              G_TYPE_STRING,
+                                              G_TYPE_UINT);
     GtkTreeIter iter;
 
     // append les rows
@@ -146,6 +167,7 @@ create_and_fill_model()
             0 /* col # */ , row->getTitle().c_str() /* celldata */,
             1 /* col # */ , row->getAlias().c_str() /* celldata */,
             2 /* col # */ , row->getAvatar().c_str() /* celldata */,
+            3 /* col # */ , row->getLastInteraction().c_str() /* celldata */,
             -1 /* end */);
     }
 
