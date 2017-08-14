@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-06 23:09-0400\n"
-"PO-Revision-Date: 2017-08-03 02:49+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-08-13 23:09-0400\n"
+"PO-Revision-Date: 2017-08-07 13:40+0000\n"
+"Last-Translator: Balázs Meskó <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -145,11 +145,11 @@ msgstr "Választ"
 
 #: src/accountimportexportview.cpp:211
 msgid "Error importing account(s)"
-msgstr "Fiók(ok) importálása hiba"
+msgstr "Hiba történt a fiók(ok) importálásakor"
 
 #: src/accountimportexportview.cpp:263
 msgid "Error exporting account(s)"
-msgstr "Fiók(ok) exportálása hiba"
+msgstr "Hiba történt a fiók(ok) exportálásakor"
 
 #: src/accountvideotab.cpp:190
 msgctxt "The name of the codec"
@@ -179,12 +179,12 @@ msgstr "Haladó"
 #: src/accountview.cpp:194
 msgctxt "List of banned peers"
 msgid "Bans"
-msgstr ""
+msgstr "Tiltások"
 
 #: src/accountview.cpp:250
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
-msgstr "Biztos, hogy törölni szeretné a következő fiókot: \"%s\"?"
+msgstr "Biztos, hogy törölni szeretné a következő fiókot: „%s”?"
 
 #: src/accountview.cpp:377
 msgid "New Account"
@@ -207,7 +207,7 @@ msgstr "Állapot"
 
 #: src/avatarmanipulation.cpp:380
 msgid "Open Avatar Image"
-msgstr "Képmás megnyitása"
+msgstr "Avatar megnyitása"
 
 #: src/avatarmanipulation.cpp:383
 msgid "_Cancel"
@@ -224,11 +224,11 @@ msgstr "Ismeretlen EDS címjegyzék"
 #: src/backends/edscontactbackend.cpp:213
 msgctxt "Backend type"
 msgid "Contacts"
-msgstr "Névjegyzék"
+msgstr "Partnerek"
 
 #: src/contactpopupmenu.cpp:172
 msgid "_Call"
-msgstr "_Felhívása"
+msgstr "_Hívás"
 
 #: src/contactpopupmenu.cpp:175
 msgid "_Copy name"
@@ -236,15 +236,15 @@ msgstr "_Név másolása"
 
 #: src/contactpopupmenu.cpp:178
 msgid "_Copy number"
-msgstr "_Szám másolása"
+msgstr "Szá_m másolása"
 
 #: src/contactpopupmenu.cpp:181
 msgid "_Add to contact"
-msgstr "Névjegy _hozzáadása"
+msgstr "_Hozzáadás a partnerhez"
 
 #: src/contactpopupmenu.cpp:184
 msgid "_Remove contact"
-msgstr "Névjegy _törlése"
+msgstr "Partner _törlése"
 
 #: src/dialogs.c:53
 msgid "Working..."
@@ -256,13 +256,13 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "Liberté, Égalité, Fraternité - Version 1.0\n"
 "built on %.25s"
-msgstr "Szabadság, egyenlőség, testvériség - 1.0 verzió\nösszeállított %.25s"
+msgstr "Szabadság, egyenlőség, testvériség – 1.0 verzió\nösszeállítva: %.25s"
 
 #: src/dialogs.c:136
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "A GNOME kliens Ring-hez.\nRing a szabad szoftver az univerzális kommunikációhoz, amely tiszteletben tartja a felhasználók szabadságát és magánéletét."
+msgstr "A GNOME kliens a Ringhez.\nA Ring egy szabad szoftver az univerzális kommunikációhoz, amely tiszteletben tartja a felhasználók szabadságát és magánszféráját."
 
 #: src/editcontactview.cpp:208
 msgctxt "Phone number category"
@@ -650,7 +650,7 @@ msgstr "Teljes név:"
 
 #: ui/accountcreationwizard.ui:329
 msgid "Ring Account"
-msgstr "Ringfiók"
+msgstr "Ring fiók"
 
 #: ui/accountcreationwizard.ui:342
 msgid "Register public username (experimental):"
