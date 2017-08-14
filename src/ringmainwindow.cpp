@@ -606,6 +606,7 @@ lookup_username(RingMainWindow *self, URI uri, Account *account)
                 case NameDirectory::LookupStatus::SUCCESS:
                 {
                     URI result = URI("ring:" + address);
+                    SmartListModel::instance().openConversation(address.toStdString());
                     activate_contact_method(self, result, account);
                     break;
                 }
@@ -681,6 +682,7 @@ lookup_username(RingMainWindow *self, URI uri, Account *account)
  * visible in the Converstations list to the user. This is accomplished via the use of
  * currentDefaultAccount().
  */
+
 static void
 search_entry_activated(RingMainWindow *self)
 {

@@ -264,6 +264,14 @@ smart_contacts_view_init(SmartContactsView *self)
 
     priv->popup_menu = item_popup_menu_new(GTK_TREE_VIEW(self));
     g_signal_connect_swapped(self, "button-press-event", G_CALLBACK(item_popup_menu_show), priv->popup_menu);
+    QObject::connect(&SmartListModel::instance(), &SmartListModel::showConversationView,
+    [selectionNew, modelWIP] (SmartListItem* item) {
+        auto idx = SmartListModel::instance().find(item->getTitle());
+        if (idx == -1) return;
+        GtkTreeIter iter;
+        gtk_tree_model_get_iter_from_string(modelWIP, &iter, std::to_string(idx).c_str());
+        gtk_tree_selection_select_iter(selectionNew, &iter);
+    });
 }
 
 static void
