@@ -24,6 +24,7 @@
 #include <QString>
 
 // LRC
+#include <availableaccountmodel.h>
 #include <smartlistitem.h>
 #include <smartlistmodel.h>
 #include <database.h>
@@ -54,8 +55,11 @@ remove_history_item(G_GNUC_UNUSED GtkWidget *menu, gint* row)
 {
     auto item = SmartListModel::instance().getItem(*row);
     g_return_if_fail(item);
-    //TODO add item->getURI, modify removeHistory and update chatview.
-    DataBase::instance().removeHistory(QString(item->getAlias().c_str()));
+    auto account = AvailableAccountModel::instance().currentDefaultAccount();
+    g_return_if_fail(account);
+    //TODO add item->getURI and update chatview.
+    //TODO should not use Database here but item->removeHistory
+    DataBase::instance().removeHistory(QString(item->getAlias().c_str()), QString(account->id()));
 }
 
 /**

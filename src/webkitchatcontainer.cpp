@@ -219,7 +219,7 @@ message_to_json_message_object(const DataBase::Message message)
     auto sender_contact_method = "TODO";
     std::cout << message.timestamp << std::endl;
     auto timestamp = QString(message.timestamp.c_str());
-    auto direction = "IN"; //TODO
+    auto direction = message.is_outgoing ? QString("out") : QString("in");
     auto message_id = 0; //TODO
 
     QJsonObject message_object = QJsonObject();
@@ -228,7 +228,7 @@ message_to_json_message_object(const DataBase::Message message)
     message_object.insert("sender", QJsonValue(sender));
     message_object.insert("sender_contact_method", QJsonValue("sender_contact_method_str"));
     message_object.insert("timestamp", QJsonValue(timestamp));
-    message_object.insert("direction", QJsonValue("in")); //TODO
+    message_object.insert("direction", QJsonValue(direction));
     message_object.insert("delivery_status", QJsonValue("sent")); //TODO
 
     return QString(QJsonDocument(message_object).toJson(QJsonDocument::Compact));

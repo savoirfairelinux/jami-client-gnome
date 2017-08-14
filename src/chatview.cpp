@@ -39,6 +39,7 @@
 
 // LRC
 #include <account.h>
+#include <availableaccountmodel.h>
 #include <database.h>
 #include <smartlistitem.h>
 #include <contactitem.h>
@@ -500,15 +501,18 @@ print_history(ChatView *self)
     QObject::disconnect(priv->new_message_connection2);
 
     // TODO Get messages and print them
-    const auto messages = DataBase::instance().getMessages(QString(priv->item->getTitle().c_str()));
-    std::cout << "####" << messages.size() << std::endl;
-    for (const auto message : messages) {
-        std::cout << message.body << std::endl;
+    auto account = AvailableAccountModel::instance().currentDefaultAccount();
+    if (account) {
+        const auto messages = DataBase::instance().getMessages(QString(priv->item->getTitle().c_str()), QString(account->id()));
+        std::cout << "####" << messages.size() << std::endl;
+        for (const auto message : messages) {
+            std::cout << message.body << std::endl;
 
-        webkit_chat_container_print_new_message2(
+            webkit_chat_container_print_new_message2(
             WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
             message
-        );
+            );
+        }
     }
 
 
