@@ -105,6 +105,13 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     // so that the other renderers are shifted to the right
     g_object_set(G_OBJECT(cell), "width", 50, NULL);
     g_object_set(G_OBJECT(cell), "pixbuf", image.get(), NULL);
+    if (row == 0) {
+        g_object_set(cell, "cell-background-set", TRUE, NULL);
+        g_object_set(cell, "cell-background", "lightgrey", NULL);
+    } else {
+        g_object_set(cell, "cell-background-set", TRUE, NULL);
+        g_object_set(cell, "cell-background", "white", NULL);
+    }
 }
 
 static void
@@ -140,7 +147,15 @@ render_name_and_number(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
     g_free(ringId);
 
-    return;
+    auto path = gtk_tree_model_get_path(model, iter);
+    auto row = std::atoi(gtk_tree_path_to_string(path));
+    if (row == 0) {
+        g_object_set(cell, "cell-background-set", TRUE, NULL);
+        g_object_set(cell, "cell-background", "lightgrey", NULL);
+    } else {
+        g_object_set(cell, "cell-background-set", TRUE, NULL);
+        g_object_set(cell, "cell-background", "white", NULL);
+    }
 }
 
 static GtkTreeModel*
