@@ -62,6 +62,14 @@ remove_history_item(G_GNUC_UNUSED GtkWidget *menu, gint* row)
     DataBase::instance().removeHistory(QString(item->getAlias().c_str()), QString(account->id()));
 }
 
+static void
+remove_contact_item(G_GNUC_UNUSED GtkWidget *menu, gint* row)
+{
+    auto item = SmartListModel::instance().getItem(*row);
+    g_return_if_fail(item);
+    SmartListModel::instance().removeConversation(item->getTitle());
+}
+
 /**
  * Update the menu when the selected item in the treeview changes.
  */
@@ -77,7 +85,6 @@ update(GtkTreeSelection *selection, ItemPopupMenu *self)
     auto rm_history_item = gtk_menu_item_new_with_mnemonic(_("_Clear history"));
     gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_history_item);
     auto rm_contact_item = gtk_menu_item_new_with_mnemonic(_("_Remove contact"));
-    gtk_widget_set_sensitive(GTK_WIDGET(rm_contact_item), FALSE);
     gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_contact_item);
 
     // Retrieve item
@@ -89,6 +96,7 @@ update(GtkTreeSelection *selection, ItemPopupMenu *self)
     auto idx = gtk_tree_path_get_indices(path);
 
     g_signal_connect(rm_history_item, "activate", G_CALLBACK(remove_history_item), idx);
+    g_signal_connect(rm_contact_item, "activate", G_CALLBACK(remove_contact_item), idx);
 
 
     /* show all items */
