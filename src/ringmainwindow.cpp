@@ -907,6 +907,7 @@ search_entry_text_changed(GtkSearchEntry *search_entry, RingMainWindow *self)
     /* get the text from the entry */
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(search_entry));
 
+    SmartListModel::instance().setFilter(std::string(text));
     RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp(text, Qt::CaseInsensitive, QRegExp::FixedString));
     contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts), text);
     history_view_set_filter_string(HISTORY_VIEW(priv->treeview_history), text);
