@@ -596,7 +596,6 @@ update_contact_methods(ChatView *self)
 {
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
     g_return_if_fail(priv->call || priv->person || priv->cm);
 
     /* model for the combobox for the choice of ContactMethods */
@@ -760,6 +759,8 @@ build_chat_view(ChatView* self)
         /* keep selected cm updated */
         update_contact_methods(self);
         g_signal_connect_swapped(priv->combobox_cm, "changed", G_CALLBACK(selected_cm_changed), self);
+    } else {
+        gtk_widget_hide(priv->combobox_cm);
     }
 
     priv->webkit_send_text = g_signal_connect(priv->webkit_chat_container,
