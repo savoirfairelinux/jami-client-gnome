@@ -24,6 +24,7 @@
 #include "webkitchatcontainer.h"
 
 class Call;
+class ContactItem;
 
 G_BEGIN_DECLS
 
@@ -39,7 +40,10 @@ typedef struct _IncomingCallViewClass IncomingCallViewClass;
 
 GType      incoming_call_view_get_type      (void) G_GNUC_CONST;
 GtkWidget *incoming_call_view_new           (Call*, WebKitChatContainer*);
+GtkWidget *incoming_call_view_new_contact_item           (ContactItem*, WebKitChatContainer*);
 Call      *incoming_call_view_get_call      (IncomingCallView*);
+ContactItem *incoming_call_view_get_item   (IncomingCallView*);
+
 
 G_END_DECLS
 

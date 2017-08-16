@@ -54,6 +54,7 @@
 // new lrc
 #include <smartlistmodel.h>
 #include <newconversationitem.h>
+#include <contactitem.h>
 
 // Ring client
 #include "models/gtkqtreemodel.h"
@@ -283,6 +284,14 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
                 [self] ()
                 {g_idle_add((GSourceFunc)selection_changed, self);}
             );
+        } if (auto item = qobject_cast<SmartListItem *>(object))
+        {
+            auto conversationItem = dynamic_cast<ContactItem*>(item);
+
+            if (not conversationItem)
+                return;
+
+            new_view = incoming_call_view_new_contact_item(conversationItem, get_webkit_chat_container(self));
         } else
             g_warning("Trying to display a view of type IncomingCallView, but the object is not of type Call");
     } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
@@ -1509,7 +1518,6 @@ ring_main_window_init(RingMainWindow *win)
             change_view(win, old_view, origin, CHAT_VIEW_TYPE);
     });
 
-
     // New conversation chat view
     QObject::connect(&SmartListModel::instance(), &SmartListModel::newConversationItemActivated,
     [win, priv] (NewConversationItem* origin) {
@@ -1552,6 +1560,18 @@ ring_main_window_init(RingMainWindow *win)
         smart_list_item->activate();
     });
 
+
+    QObject::connect(&SmartListModel::instance(), &SmartListModel::ShowIncomingCallView,
+    [win, priv] (ContactItem* item) {
+        auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+
+        ContactItem *current_item = nullptr;
+        if (IS_INCOMING_CALL_VIEW(old_view))
+            current_item = incoming_call_view_get_item(INCOMING_CALL_VIEW(old_view));
+
+        if (current_item != item)
+            change_view(win, old_view, item, INCOMING_CALL_VIEW_TYPE);
+    });
 
 }
 
