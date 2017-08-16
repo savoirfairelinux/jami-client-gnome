@@ -32,6 +32,10 @@
 #include "chatview.h"
 #include "utils/files.h"
 
+#include <contactitem.h>
+#include <smartlistitem.h>
+#include <globals.h> // maybe change that name, wich is too generic....
+
 struct _IncomingCallView
 {
     GtkBox parent;
@@ -63,6 +67,7 @@ struct _IncomingCallViewPrivate
     GtkWidget *webkit_chat_container;
 
     Call *call;
+    ContactItem *item;
 
     QMetaObject::Connection state_change_connection;
     QMetaObject::Connection cm_changed_connection;
@@ -112,6 +117,54 @@ map_boolean_to_orientation(GValue *value, GVariant *variant, G_GNUC_UNUSED gpoin
 }
 
 static void
+reject_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
+{
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
+    priv->item->rejectIncomingCall();
+}
+
+static void
+accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
+{
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
+    priv->item->acceptIncomingCall();
+}
+
+static void
+update_state(IncomingCallView *view)
+{
+    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+
+    if (not priv->item) {
+        qDebug() << "update_state, nullptr";
+        return;
+    }
+
+    auto callStatus = priv->item->getCallStatus();
+    auto readableCallStatus = ContactItem::getReadableCallStatus(callStatus);
+
+    gchar *status = g_strdup_printf("%s", readableCallStatus.c_str());
+    gtk_label_set_text(GTK_LABEL(priv->label_status), status);
+    g_free(status);
+
+    /* change button(s) displayed */
+    gtk_widget_hide(priv->button_accept_incoming);
+    gtk_widget_hide(priv->button_reject_incoming);
+    gtk_widget_hide(priv->button_end_call);
+
+    switch(priv->item->getCallStatus()) {
+        case CallStatus::INCOMING_RINGING:
+            gtk_widget_show(priv->button_accept_incoming);
+            gtk_widget_show(priv->button_reject_incoming);
+            break;
+        default :
+            gtk_widget_show(priv->button_end_call);
+    }
+
+    gtk_widget_show(priv->spinner_status);
+}
+
+static void
 incoming_call_view_init(IncomingCallView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
@@ -139,6 +192,10 @@ incoming_call_view_init(IncomingCallView *view)
                                  G_SETTINGS_BIND_GET,
                                  map_boolean_to_orientation,
                                  nullptr, nullptr, nullptr);
+
+    g_signal_connect(priv->button_reject_incoming, "clicked", G_CALLBACK(reject_incoming_call), view);
+    g_signal_connect(priv->button_accept_incoming, "clicked", G_CALLBACK(accept_incoming_call), view);
+
 }
 
 static void
@@ -289,6 +346,26 @@ set_call_info(IncomingCallView *view, Call *call) {
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
 }
 
+static void
+set_call_info(IncomingCallView *view, ContactItem *contactItem) {
+    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+
+
+
+    /* change some things depending on call state */
+    update_state(view);
+    //~ update_person(view, priv->call->peerContactMethod()->contact());
+
+    auto item = static_cast<SmartListItem*>(contactItem);
+
+    /* show chat */
+    //~ auto chat_view = chat_view_new_smart_list_item(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), item);
+    //~ gtk_widget_show(chat_view);
+    //~ chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
+    //~ gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
+}
+
+
 GtkWidget *
 incoming_call_view_new(Call *call, WebKitChatContainer *webkit_chat_container)
 {
@@ -302,6 +379,30 @@ incoming_call_view_new(Call *call, WebKitChatContainer *webkit_chat_container)
     return GTK_WIDGET(self);
 }
 
+GtkWidget *
+incoming_call_view_new_contact_item(ContactItem *contactItem, WebKitChatContainer *webkit_chat_container)
+{
+    auto self = g_object_new(INCOMING_CALL_VIEW_TYPE, NULL);
+
+    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
+    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
+    priv->item = contactItem;
+
+    QObject::connect(priv->item, &ContactItem::CallStatusChanged, [priv] (const CallStatus status) {
+        switch(status) {
+        case CallStatus::INCOMING_RINGING :
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "incoming call");
+        case CallStatus::ENDED :
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "call ended");
+        }
+    });
+
+
+    set_call_info(INCOMING_CALL_VIEW(self), contactItem);
+
+    return GTK_WIDGET(self);
+}
+
 Call*
 incoming_call_view_get_call(IncomingCallView *self)
 {
@@ -309,4 +410,13 @@ incoming_call_view_get_call(IncomingCallView *self)
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
 
     return priv->call;
+}
+
+ContactItem*
+incoming_call_view_get_item(IncomingCallView *self)
+{
+    g_return_val_if_fail(IS_INCOMING_CALL_VIEW(self), nullptr);
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
+
+    return priv->item;
 }
