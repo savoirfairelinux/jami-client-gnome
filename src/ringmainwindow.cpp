@@ -1523,6 +1523,36 @@ ring_main_window_init(RingMainWindow *win)
         if (current_item != origin)
             change_view(win, old_view, origin, CHAT_VIEW_TYPE);
     });
+
+    // New conversation chat view
+    QObject::connect(&SmartListModel::instance(), &SmartListModel::modelUpdated,
+    [win, priv] () {
+        // Change the view if the current item was removed
+        auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+
+        SmartListItem *current_item = nullptr;
+        if (IS_CHAT_VIEW(old_view))
+            current_item = chat_view_get_item(CHAT_VIEW(old_view));
+
+        if (current_item) {
+            auto idx = SmartListModel::instance().find(current_item->getTitle());
+            if (idx != -1) return;
+        }
+        change_view(win, old_view, nullptr, RING_WELCOME_VIEW_TYPE);
+    });
+
+    // New conversation chat view
+    QObject::connect(&SmartListModel::instance(), &SmartListModel::newContactAdded,
+    [win, priv] (const std::string& id) {
+        // if temporary item changed, go to new item and remove search entry
+        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+        auto idx = SmartListModel::instance().find(id);
+        if (idx == -1) return;
+        auto smart_list_item = SmartListModel::instance().getItem(idx);
+        smart_list_item->activate();
+    });
+
+
 }
 
 static void
