@@ -81,7 +81,8 @@ struct _ChatViewPrivate
     Call          *call;
     Person        *person;
     ContactMethod *cm;
-    SmartListItem *item;
+    SmartListItem *item; //TODO change to ConversationItem
+    bool isTemporary; //If the Conversation is not with a contact
 
     QMetaObject::Connection new_message_connection;
     QMetaObject::Connection message_changed_connection;
@@ -715,6 +716,9 @@ webkit_chat_container_ready(ChatView* self)
         selected_cm_changed(self);
     } else if (priv->item) {
         // NOTE History is not just text records. So we need a better name than print_text_recording
+        if (priv->isTemporary) {
+            webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container));
+        }
         print_history(self);
     }
 }
@@ -761,6 +765,10 @@ build_chat_view(ChatView* self)
         g_signal_connect_swapped(priv->combobox_cm, "changed", G_CALLBACK(selected_cm_changed), self);
     } else {
         gtk_widget_hide(priv->combobox_cm);
+        if (!priv->isTemporary) {
+            // Already a contact
+            gtk_widget_hide(priv->button_send_invitation);
+        }
     }
 
     priv->webkit_send_text = g_signal_connect(priv->webkit_chat_container,
@@ -802,7 +810,7 @@ chat_view_new_call(WebKitChatContainer *webkit_chat_container, Call *call)
 }
 
 GtkWidget *
-chat_view_new_smart_list_item (WebKitChatContainer* webkit_chat_container, SmartListItem* item)
+chat_view_new (WebKitChatContainer* webkit_chat_container, SmartListItem* item, bool isTemporary)
 {
     g_return_val_if_fail(item, nullptr);
 
@@ -811,6 +819,7 @@ chat_view_new_smart_list_item (WebKitChatContainer* webkit_chat_container, Smart
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->item = item;
+    priv->isTemporary = isTemporary;
 
     build_chat_view(self);
 

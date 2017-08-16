@@ -40,7 +40,7 @@ typedef struct _ChatViewClass ChatViewClass;
 
 
 GType          chat_view_get_type   (void) G_GNUC_CONST;
-GtkWidget     *chat_view_new_smart_list_item (WebKitChatContainer* webkit_chat_container, SmartListItem* item);
+GtkWidget     *chat_view_new        (WebKitChatContainer* webkit_chat_container, SmartListItem* item, bool isTemporary = false);
 GtkWidget     *chat_view_new_call   (WebKitChatContainer* view, Call* call);
 GtkWidget     *chat_view_new_cm     (WebKitChatContainer* view, ContactMethod* cm);
 GtkWidget     *chat_view_new_person (WebKitChatContainer* view, Person* p);

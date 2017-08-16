@@ -612,6 +612,20 @@ webkit_chat_container_update_message(WebKitChatContainer *view, const QModelInde
 }
 
 void
+webkit_chat_container_set_temporary(WebKitChatContainer *view)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        "ring.chatview.setTemporary()",
+        NULL,
+        NULL,
+        NULL
+    );
+}
+
+void
 webkit_chat_container_set_sender_image(WebKitChatContainer *view, ContactMethod *sender_contact_method, QVariant sender_image)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);

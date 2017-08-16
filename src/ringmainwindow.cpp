@@ -52,6 +52,7 @@
 
 // new lrc
 #include <smartlistmodel.h>
+#include <newconversationitem.h>
 
 // Ring client
 #include "models/gtkqtreemodel.h"
@@ -327,8 +328,8 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
                 {g_idle_add((GSourceFunc)selection_changed, self);}
             );
         } else if (auto item = qobject_cast<SmartListItem *>(object)) {
-            //TODO change  chat_view_new_smart_list_item to  chat_view_new or something
-            new_view = chat_view_new_smart_list_item(get_webkit_chat_container(self), item);
+            auto isTemporary = qobject_cast<NewConversationItem*>(object); //TODO wait for enum LRC side to get type
+            new_view = chat_view_new(get_webkit_chat_container(self), item, isTemporary);
             g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
         } else {
             g_warning("Trying to display a view of type ChatView, but the object is neither a Person nor a ContactMethod nor a SmartListItem");
@@ -1507,6 +1508,20 @@ ring_main_window_init(RingMainWindow *win)
             change_view(win, old_view, origin, CHAT_VIEW_TYPE);
     });
 
+
+    // example :
+    QObject::connect(&SmartListModel::instance(), &SmartListModel::newConversationItemActivated,
+    [win, priv] (NewConversationItem* origin) {
+        // Change the view if we want a different view.
+        auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+
+        SmartListItem *current_item = nullptr;
+        if (IS_CHAT_VIEW(old_view))
+            current_item = chat_view_get_item(CHAT_VIEW(old_view));
+
+        if (current_item != origin)
+            change_view(win, old_view, origin, CHAT_VIEW_TYPE);
+    });
 }
 
 static void
