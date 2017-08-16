@@ -43,6 +43,7 @@
 #include <database.h>
 #include <smartlistitem.h>
 #include <contactitem.h>
+#include <newconversationitem.h>
 
 
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
@@ -81,6 +82,7 @@ struct _ChatViewPrivate
     Call          *call;
     Person        *person;
     ContactMethod *cm;
+    // TODO SmartListItem can be removed, need to change chatview
     SmartListItem *item; //TODO change to ConversationItem
     bool isTemporary; //If the Conversation is not with a contact
 
@@ -186,14 +188,25 @@ static void
 placecall_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-    auto conversation = dynamic_cast<ContactItem*>(priv->item);
+    if (priv->isTemporary) {
+        auto conversation = dynamic_cast<NewConversationItem*>(priv->item);
 
-    if (not conversation) {
-        g_warning("placecall_clicked, invalid pointer");
-        return;
+        if (not conversation) {
+            g_warning("webkit_chat_container_send_text, invalid pointer");
+            return;
+        }
+
+        conversation->placeCall();
+    } else {
+        auto conversation = dynamic_cast<ContactItem*>(priv->item);
+
+        if (not conversation) {
+            g_warning("webkit_chat_container_send_text, invalid pointer");
+            return;
+        }
+
+        conversation->placeCall();
     }
-
-    conversation->placeCall();
 
     // ↑↑ NEW ↑↑
     return;
@@ -221,6 +234,14 @@ button_send_invitation_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
+    if (priv->item && priv->isTemporary) {
+        auto contact = qobject_cast<NewConversationItem*>(priv->item);
+        if (contact) {
+            contact->sendInvitation();
+        }
+    }
+
+    // TODO remove what's next
     if (priv->person) {
         priv->cm = get_active_contactmethod(self);
     }
@@ -254,14 +275,25 @@ static void
 webkit_chat_container_send_text(G_GNUC_UNUSED GtkWidget* webview, gchar *message, ChatView* self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    auto conversation = dynamic_cast<ContactItem*>(priv->item);
+    if (priv->isTemporary) {
+        auto conversation = dynamic_cast<NewConversationItem*>(priv->item);
 
-    if (not conversation) {
-        g_warning("webkit_chat_container_send_text, invalid pointer");
-        return;
+        if (not conversation) {
+            g_warning("webkit_chat_container_send_text, invalid pointer");
+            return;
+        }
+
+        conversation->sendMessage(message);
+    } else {
+        auto conversation = dynamic_cast<ContactItem*>(priv->item);
+
+        if (not conversation) {
+            g_warning("webkit_chat_container_send_text, invalid pointer");
+            return;
+        }
+
+        conversation->sendMessage(message);
     }
-
-    conversation->sendMessage(message);
 
     // ↑↑ NEW ↑↑
     return;

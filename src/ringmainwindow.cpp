@@ -23,6 +23,7 @@
 // system
 #include <string.h>
 #include <memory>
+#include <iostream>
 
 // GTK+ related
 #include <glib/gi18n.h>
@@ -1494,7 +1495,7 @@ ring_main_window_init(RingMainWindow *win)
     // initialize the pending contact request icon.
     current_account_changed(win, get_active_ring_account());
 
-    // example :
+    // New conversation view
     QObject::connect(&SmartListModel::instance(), &SmartListModel::showConversationView,
     [win, priv] (SmartListItem* origin) {
         // Change the view if we want a different view.
@@ -1509,7 +1510,7 @@ ring_main_window_init(RingMainWindow *win)
     });
 
 
-    // example :
+    // New conversation chat view
     QObject::connect(&SmartListModel::instance(), &SmartListModel::newConversationItemActivated,
     [win, priv] (NewConversationItem* origin) {
         // Change the view if we want a different view.
