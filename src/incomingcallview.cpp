@@ -58,7 +58,7 @@ struct _IncomingCallViewPrivate
     GtkWidget *placeholder;
     GtkWidget *label_status;
     GtkWidget *button_accept_incoming;
-    GtkWidget *button_reject_incoming;
+    GtkWidget *button_reject_incoming; // isn't possible to merge it with button_end_call ?
     GtkWidget *button_end_call;
     GtkWidget *frame_chat;
 
@@ -140,6 +140,15 @@ accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
 }
 
 static void
+cancel_outgoing_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
+{
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
+    priv->item->cancelOutGoingCall();
+
+    g_signal_emit(G_OBJECT(self), incoming_call_view_signals[HIDE_VIEW_CLICKED], 0);
+}
+
+static void
 update_state(IncomingCallView *view)
 {
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
@@ -165,6 +174,12 @@ update_state(IncomingCallView *view)
         case CallStatus::INCOMING_RINGING:
             gtk_widget_show(priv->button_accept_incoming);
             gtk_widget_show(priv->button_reject_incoming);
+            gtk_widget_hide(priv->button_end_call);
+            break;
+        case CallStatus::SEARCHING:
+            gtk_widget_hide(priv->button_accept_incoming);
+            gtk_widget_hide(priv->button_reject_incoming);
+            gtk_widget_show(priv->button_end_call);
             break;
         default :
             gtk_widget_show(priv->button_end_call);
@@ -204,6 +219,7 @@ incoming_call_view_init(IncomingCallView *view)
 
     g_signal_connect(priv->button_reject_incoming, "clicked", G_CALLBACK(reject_incoming_call), view);
     g_signal_connect(priv->button_accept_incoming, "clicked", G_CALLBACK(accept_incoming_call), view);
+    g_signal_connect(priv->button_end_call, "clicked", G_CALLBACK(cancel_outgoing_call), view);
 
 }
 
@@ -414,6 +430,8 @@ incoming_call_view_new_contact_item(ContactItem *contactItem, WebKitChatContaine
             gtk_label_set_text(GTK_LABEL(priv->label_status), "incoming call");
         case CallStatus::ENDED :
             gtk_label_set_text(GTK_LABEL(priv->label_status), "call ended");
+        case CallStatus::OUTGOING_RINGING :
+            gtk_label_set_text(GTK_LABEL(priv->label_status), "outgoing call");
         }
     });
 
