@@ -927,6 +927,15 @@ chat_view_get_item(ChatView *self)
     return priv->item;
 }
 
+bool
+is_chat_view_temporary(ChatView *self)
+{
+    g_return_val_if_fail(IS_CHAT_VIEW(self), true);
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    return priv->isTemporary;
+}
+
 void
 chat_view_set_header_visible(ChatView *self, gboolean visible)
 {

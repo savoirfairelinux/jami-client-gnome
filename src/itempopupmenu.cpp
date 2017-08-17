@@ -28,6 +28,7 @@
 #include <smartlistitem.h>
 #include <smartlistmodel.h>
 #include <database.h>
+#include <newconversationitem.h>
 
 struct _ItemPopupMenu
 {
@@ -63,11 +64,19 @@ remove_history_item(G_GNUC_UNUSED GtkWidget *menu, gint* row)
 }
 
 static void
-remove_contact_item(G_GNUC_UNUSED GtkWidget *menu, gint* row)
+remove_conversation(G_GNUC_UNUSED GtkWidget *menu, gint* row)
 {
     auto item = SmartListModel::instance().getItem(*row);
     g_return_if_fail(item);
     SmartListModel::instance().removeConversation(item->getTitle());
+}
+
+static void
+add_conversation(G_GNUC_UNUSED GtkWidget *menu, gint* row)
+{
+    auto item = qobject_cast<NewConversationItem*>(SmartListModel::instance().getItem(*row).get());
+    g_return_if_fail(item);
+    item->sendInvitation();
 }
 
 /**
@@ -79,14 +88,6 @@ update(GtkTreeSelection *selection, ItemPopupMenu *self)
     /* clear the current menu */
     gtk_container_forall(GTK_CONTAINER(self), (GtkCallback)gtk_widget_destroy, nullptr);
 
-    /* we always build a menu, however in some cases some or all of the items will be deactivated;
-     * we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case
-     */
-    auto rm_history_item = gtk_menu_item_new_with_mnemonic(_("_Clear history"));
-    gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_history_item);
-    auto rm_contact_item = gtk_menu_item_new_with_mnemonic(_("_Remove contact"));
-    gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_contact_item);
-
     // Retrieve item
     GtkTreeIter iter;
     GtkTreeModel *model;
@@ -94,9 +95,27 @@ update(GtkTreeSelection *selection, ItemPopupMenu *self)
         return;
     auto path = gtk_tree_model_get_path(model, &iter);
     auto idx = gtk_tree_path_get_indices(path);
+    auto item = SmartListModel::instance().getItem(idx[0]);
+    auto temporaryItem = std::dynamic_pointer_cast<NewConversationItem>(item); //TODO wait for enum LRC side to get type
 
-    g_signal_connect(rm_history_item, "activate", G_CALLBACK(remove_history_item), idx);
-    g_signal_connect(rm_contact_item, "activate", G_CALLBACK(remove_contact_item), idx);
+    /* we always build a menu, however in some cases some or all of the items will be deactivated;
+     * we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case
+     */
+    if (temporaryItem) {
+        // If we can add this conversation
+        if (temporaryItem->getContact().uri.length() > 0) {
+            auto add_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Add conversation"));
+            gtk_menu_shell_append(GTK_MENU_SHELL(self), add_conversation_item);
+            g_signal_connect(add_conversation_item, "activate", G_CALLBACK(add_conversation), idx);
+        }
+    } else {
+        auto rm_history_item = gtk_menu_item_new_with_mnemonic(_("_Clear history"));
+        gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_history_item);
+        g_signal_connect(rm_history_item, "activate", G_CALLBACK(remove_history_item), idx);
+        auto rm_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Remove conversation"));
+        gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_conversation_item);
+        g_signal_connect(rm_conversation_item, "activate", G_CALLBACK(remove_conversation), idx);
+    }
 
 
     /* show all items */
