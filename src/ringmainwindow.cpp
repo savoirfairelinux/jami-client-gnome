@@ -1548,8 +1548,13 @@ ring_main_window_init(RingMainWindow *win)
             current_item = chat_view_get_item(CHAT_VIEW(old_view));
 
         if (current_item) {
-            auto idx = SmartListModel::instance().find(current_item->getTitle());
-            if (idx != -1) return;
+            // If the model is updated and the chat view is temporary,
+            // we need to change the view (search_item has changed)
+            auto isTemporary = is_chat_view_temporary(CHAT_VIEW(old_view));
+            if (!isTemporary) {
+                auto idx = SmartListModel::instance().find(current_item->getTitle());
+                if (idx != -1) return;
+            }
         }
         change_view(win, old_view, nullptr, RING_WELCOME_VIEW_TYPE);
     });
