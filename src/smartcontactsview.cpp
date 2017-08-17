@@ -271,6 +271,42 @@ smart_contacts_view_init(SmartContactsView *self)
         qDebug() << QString(msg.body.c_str());
     });
 
+    // used to select the item calling you
+    QObject::connect(&SmartListModel::instance(), &SmartListModel::incomingCallFromItem,
+    [self] (const unsigned int row) {
+        /* 1) get the tree view */
+        auto tree_view = GTK_TREE_VIEW(self);
+        if(not tree_view) {
+            g_warning("incomingCallFromItem (signal), invalid tree_view pointer");
+            return;
+        }
+
+        /* 2) get the model */
+        auto model = gtk_tree_view_get_model(tree_view);
+        if(not model) {
+            g_warning("incomingCallFromItem (signal), invalid model pointer");
+            return;
+        }
+
+        /* 3) get the path */
+        auto path = gtk_tree_path_new_from_indices(row, -1);
+        if(not path) {
+            g_warning("incomingCallFromItem (signal), invalid path pointer");
+            return;
+        }
+
+        /* 4) get iter */
+        GtkTreeIter iter;
+        gtk_tree_model_get_iter (model, &iter, path);
+        gtk_tree_path_free (path);
+
+        /* 5) get the current selection */
+        auto selection = gtk_tree_view_get_selection(tree_view);
+
+        /* 6) set the selection */
+        gtk_tree_selection_select_iter(selection, &iter);
+    });
+
     priv->popup_menu = item_popup_menu_new(GTK_TREE_VIEW(self));
     g_signal_connect_swapped(self, "button-press-event", G_CALLBACK(item_popup_menu_show), priv->popup_menu);
     QObject::connect(&SmartListModel::instance(), &SmartListModel::showConversationView,

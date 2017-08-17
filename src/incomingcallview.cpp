@@ -81,6 +81,13 @@ G_DEFINE_TYPE_WITH_PRIVATE(IncomingCallView, incoming_call_view, GTK_TYPE_BOX);
 
 #define INCOMING_CALL_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), INCOMING_CALL_VIEW_TYPE, IncomingCallViewPrivate))
 
+enum {
+    HIDE_VIEW_CLICKED,
+    LAST_SIGNAL
+};
+
+static guint incoming_call_view_signals[LAST_SIGNAL] = { 0 };
+
 static void
 incoming_call_view_dispose(GObject *object)
 {
@@ -121,6 +128,8 @@ reject_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
 {
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
     priv->item->rejectIncomingCall();
+
+    g_signal_emit(G_OBJECT(self), incoming_call_view_signals[HIDE_VIEW_CLICKED], 0);
 }
 
 static void
@@ -217,6 +226,17 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_reject_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_end_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, frame_chat);
+
+    incoming_call_view_signals[HIDE_VIEW_CLICKED] = g_signal_new (
+        "hide-view-clicked",
+        G_TYPE_FROM_CLASS(klass),
+        (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+        0,
+        nullptr,
+        nullptr,
+        g_cclosure_marshal_VOID__VOID,
+        G_TYPE_NONE, 0);
+
 }
 
 static void
@@ -359,10 +379,10 @@ set_call_info(IncomingCallView *view, ContactItem *contactItem) {
     auto item = static_cast<SmartListItem*>(contactItem);
 
     /* show chat */
-    //~ auto chat_view = chat_view_new_smart_list_item(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), item);
-    //~ gtk_widget_show(chat_view);
-    //~ chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
-    //~ gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
+    auto chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), item);
+    gtk_widget_show(chat_view);
+    chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
+    gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
 }
 
 

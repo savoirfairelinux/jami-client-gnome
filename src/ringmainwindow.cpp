@@ -240,6 +240,8 @@ set_pending_contact_request_tab_icon(const Account* account, RingMainWindow* sel
         : "/cx/ring/RingGnome/contact_requests_list");
 };
 
+static void change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type);
+
 static void
 hide_view_clicked(RingMainWindow *self)
 {
@@ -255,6 +257,7 @@ hide_view_clicked(RingMainWindow *self)
     auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_request));
 
+    change_view(self, nullptr, nullptr, RING_WELCOME_VIEW_TYPE);
 }
 
 static void
@@ -262,7 +265,8 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     leave_full_screen(self);
-    gtk_container_remove(GTK_CONTAINER(priv->frame_call), old);
+    // note : remove old use gtk_bin_get_child () to get directly the child
+    gtk_container_remove(GTK_CONTAINER(priv->frame_call), gtk_bin_get_child(GTK_BIN(priv->frame_call)));
 
     GtkWidget *new_view = nullptr;
 
@@ -292,6 +296,7 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
                 return;
 
             new_view = incoming_call_view_new_contact_item(conversationItem, get_webkit_chat_container(self));
+            g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
         } else
             g_warning("Trying to display a view of type IncomingCallView, but the object is not of type Call");
     } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
