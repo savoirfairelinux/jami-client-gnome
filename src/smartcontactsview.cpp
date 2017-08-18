@@ -47,7 +47,6 @@
 #include <newconversationitem.h>
 #include <smartlistmodel.h>
 #include <smartlistitem.h>
-#include <database.h>
 
 static constexpr const char* CALL_TARGET    = "CALL_TARGET";
 static constexpr int         CALL_TARGET_ID = 0;

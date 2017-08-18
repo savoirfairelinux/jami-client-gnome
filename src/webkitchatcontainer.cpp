@@ -32,6 +32,7 @@
 #include <media/textrecording.h>
 #include <globalinstances.h>
 #include <contactmethod.h>
+#include <message.h>
 
 // Ring Client
 #include "native/pixbufmanipulator.h"
@@ -213,7 +214,7 @@ message_index_to_json_message_object(const QModelIndex &idx)
  */
 #include <iostream>
 QString
-message_to_json_message_object(const DataBase::Message message)
+message_to_json_message_object(const Message message)
 {
     auto sender = "TODO";
     auto sender_contact_method = "TODO";
@@ -578,7 +579,7 @@ webkit_chat_container_print_new_message(WebKitChatContainer *view, const QModelI
  * TODO temp method. Just transform messages from database and breaks nothing in chatview.html for now
  */
 void
-webkit_chat_container_print_new_message2(WebKitChatContainer *view, const DataBase::Message message)
+webkit_chat_container_print_new_message2(WebKitChatContainer *view, const Message message)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 

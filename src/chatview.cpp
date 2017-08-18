@@ -40,10 +40,10 @@
 // LRC
 #include <account.h>
 #include <availableaccountmodel.h>
-#include <database.h>
 #include <smartlistitem.h>
 #include <contactitem.h>
 #include <newconversationitem.h>
+#include <message.h>
 
 
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
@@ -516,7 +516,6 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
 /**
  * TODO: Better desc. Print history of priv->item.
  */
-#include <iostream>
 static void
 print_history(ChatView *self)
 {
@@ -533,36 +532,27 @@ print_history(ChatView *self)
     QObject::disconnect(priv->new_message_connection);
     QObject::disconnect(priv->new_message_connection2);
 
-    // TODO Get messages and print them
-    auto account = AvailableAccountModel::instance().currentDefaultAccount();
-    if (account) {
-        const auto messages = DataBase::instance().getMessages(QString(priv->item->getTitle().c_str()), QString(account->id()));
-        std::cout << "####" << messages.size() << std::endl;
-        for (const auto message : messages) {
-            std::cout << message.body << std::endl;
-
-            webkit_chat_container_print_new_message2(
-            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-            message
-            );
-        }
+    // Get history
+    const auto messages = priv->item->getHistory();
+    for (const auto message : messages) {
+        webkit_chat_container_print_new_message2(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        message
+        );
     }
-
 
     // TODO Mark messages as read
 
     // TODO update messages (for example, when messages are marked as read)
 
     // Append incoming messages
-    if (priv->item) {
-        priv->new_message_connection2 = QObject::connect(priv->item, &ContactItem::newMessage,
-        [priv] (DataBase::Message msg) {
-            webkit_chat_container_print_new_message2(
-            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-            msg
-            );
-        });
-    }
+    priv->new_message_connection2 = QObject::connect(priv->item, &ContactItem::newMessage,
+    [priv] (Message msg) {
+        webkit_chat_container_print_new_message2(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        msg
+        );
+    });
 }
 
 static void
