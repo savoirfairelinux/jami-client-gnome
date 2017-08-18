@@ -189,16 +189,8 @@ call_smart_list_item(G_GNUC_UNUSED GtkTreeView *tree_view,
     auto row = std::atoi(gtk_tree_path_to_string(path));
     if (row == -1) return;
 
-    // TODO add method for double click in smartlistitem?
     auto item = SmartListModel::instance().getItems()[row].get();
-    auto temporaryItem = qobject_cast<NewConversationItem*>(item); // TODO
-    if (temporaryItem) {
-        temporaryItem->placeCall();
-    } else {
-        auto conversation = qobject_cast<ContactItem*>(item);
-        conversation->placeCall();
-    }
-
+    item->placeCall();
 }
 
 

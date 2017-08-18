@@ -83,13 +83,7 @@ place_call(G_GNUC_UNUSED GtkWidget *menu, gint* row)
 {
     auto item = SmartListModel::instance().getItem(*row).get();
     g_return_if_fail(item);
-    auto temporaryItem = qobject_cast<NewConversationItem*>(item); // TODO
-    if (temporaryItem) {
-        temporaryItem->placeCall();
-    } else {
-        auto conversation = qobject_cast<ContactItem*>(item);
-        conversation->placeCall();
-    }
+    item->placeCall();
 }
 
 /**
