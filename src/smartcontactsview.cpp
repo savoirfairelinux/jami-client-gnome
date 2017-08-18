@@ -72,9 +72,6 @@ struct _SmartContactsViewPrivate
     QMetaObject::Connection layout_changed;
     QMetaObject::Connection smartListModel_updated;
 
-    QMetaObject::Connection new_message_connection2; // test only
-
-
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(SmartContactsView, smart_contacts_view, GTK_TYPE_TREE_VIEW);
@@ -289,10 +286,6 @@ smart_contacts_view_init(SmartContactsView *self)
 
     // le signal ne devrait pas etre ici, mais dans chatview test only...
     SmartContactsViewPrivate *priv = SMART_CONTACTS_VIEW_GET_PRIVATE(self);
-    priv->new_message_connection2 = QObject::connect(&DataBase::instance(), &DataBase::messageAdded,
-    [] (DataBase::Message msg) {
-        qDebug() << QString(msg.body.c_str());
-    });
 
     // used to select the item calling you
     QObject::connect(&SmartListModel::instance(), &SmartListModel::incomingCallFromItem,

@@ -554,14 +554,15 @@ print_history(ChatView *self)
     // TODO update messages (for example, when messages are marked as read)
 
     // Append incoming messages
-    // NOTE for njager: Here we print all new messages. But we want messages from this conversation.
-    priv->new_message_connection2 = QObject::connect(&DataBase::instance(), &DataBase::messageAdded,
-    [priv] (DataBase::Message msg) {
-        webkit_chat_container_print_new_message2(
+    if (priv->item) {
+        priv->new_message_connection2 = QObject::connect(priv->item, &ContactItem::newMessage,
+        [priv] (DataBase::Message msg) {
+            webkit_chat_container_print_new_message2(
             WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
             msg
-        );
-    });
+            );
+        });
+    }
 }
 
 static void
