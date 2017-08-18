@@ -28,6 +28,7 @@
 #include <smartlistitem.h>
 #include <smartlistmodel.h>
 #include <database.h>
+#include <contactitem.h>
 #include <newconversationitem.h>
 
 struct _ItemPopupMenu
@@ -79,6 +80,20 @@ add_conversation(G_GNUC_UNUSED GtkWidget *menu, gint* row)
     item->sendInvitation();
 }
 
+static void
+place_call(G_GNUC_UNUSED GtkWidget *menu, gint* row)
+{
+    auto item = SmartListModel::instance().getItem(*row).get();
+    g_return_if_fail(item);
+    auto temporaryItem = qobject_cast<NewConversationItem*>(item); // TODO
+    if (temporaryItem) {
+        temporaryItem->placeCall();
+    } else {
+        auto conversation = qobject_cast<ContactItem*>(item);
+        conversation->placeCall();
+    }
+}
+
 /**
  * Update the menu when the selected item in the treeview changes.
  */
@@ -101,6 +116,9 @@ update(GtkTreeSelection *selection, ItemPopupMenu *self)
     /* we always build a menu, however in some cases some or all of the items will be deactivated;
      * we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case
      */
+    auto place_call_item = gtk_menu_item_new_with_mnemonic(_("_Place call"));
+    gtk_menu_shell_append(GTK_MENU_SHELL(self), place_call_item);
+    g_signal_connect(place_call_item, "activate", G_CALLBACK(place_call), idx);
     if (temporaryItem) {
         // If we can add this conversation
         if (temporaryItem->getContact().uri.length() > 0) {

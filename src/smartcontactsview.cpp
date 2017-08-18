@@ -44,6 +44,7 @@
 
 // Lrc WIP model
 #include <contactitem.h>
+#include <newconversationitem.h>
 #include <smartlistmodel.h>
 #include <smartlistitem.h>
 #include <database.h>
@@ -183,6 +184,27 @@ create_and_fill_model()
     return GTK_TREE_MODEL (store);
 }
 
+static void
+call_smart_list_item(G_GNUC_UNUSED GtkTreeView *tree_view,
+              GtkTreePath *path,
+              G_GNUC_UNUSED GtkTreeViewColumn *column,
+              G_GNUC_UNUSED gpointer user_data)
+{
+    auto row = std::atoi(gtk_tree_path_to_string(path));
+    if (row == -1) return;
+
+    // TODO add method for double click in smartlistitem?
+    auto item = SmartListModel::instance().getItems()[row].get();
+    auto temporaryItem = qobject_cast<NewConversationItem*>(item); // TODO
+    if (temporaryItem) {
+        temporaryItem->placeCall();
+    } else {
+        auto conversation = qobject_cast<ContactItem*>(item);
+        conversation->placeCall();
+    }
+
+}
+
 
 static void
 activate_smart_list_item(GtkTreeSelection *selection)
@@ -263,6 +285,7 @@ smart_contacts_view_init(SmartContactsView *self)
 
     GtkTreeSelection *selectionNew = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
     g_signal_connect(selectionNew, "changed", G_CALLBACK(activate_smart_list_item), NULL);
+    g_signal_connect(self, "row-activated", G_CALLBACK(call_smart_list_item), NULL);
 
     // le signal ne devrait pas etre ici, mais dans chatview test only...
     SmartContactsViewPrivate *priv = SMART_CONTACTS_VIEW_GET_PRIVATE(self);
