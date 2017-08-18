@@ -315,6 +315,9 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
                 [self] ()
                 {g_idle_add((GSourceFunc)selection_changed, self);}
             );
+        } else if (auto item = qobject_cast<ContactItem*>(object)) {
+            new_view =  current_call_view_new_smart_list_item(get_webkit_chat_container(self), item);
+
         } else
             g_warning("Trying to display a view of type CurrentCallView, but the object is not of type Call");
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
@@ -1581,6 +1584,19 @@ ring_main_window_init(RingMainWindow *win)
 
         if (current_item != item)
             change_view(win, old_view, item, INCOMING_CALL_VIEW_TYPE);
+    });
+
+    QObject::connect(&SmartListModel::instance(), &SmartListModel::showVideoViewFor,
+    [win, priv] (ContactItem* item) {
+        // jn TODO the code below is duplicate several times, move it to some local function
+        auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+
+        ContactItem *current_item = nullptr;
+        if (IS_INCOMING_CALL_VIEW(old_view))
+            current_item = incoming_call_view_get_item(INCOMING_CALL_VIEW(old_view));
+
+        if (current_item != item)
+            change_view(win, old_view, item, CURRENT_CALL_VIEW_TYPE);
     });
 
 }

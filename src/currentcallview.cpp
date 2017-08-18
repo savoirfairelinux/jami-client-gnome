@@ -43,6 +43,7 @@
 #include <itemdataroles.h>
 #include <numbercategory.h>
 #include <smartinfohub.h>
+#include "contactitem.h"
 
 static constexpr int CONTROLS_FADE_TIMEOUT = 3000000; /* microseconds */
 static constexpr int FADE_DURATION = 500; /* miliseconds */
@@ -94,6 +95,7 @@ struct _CurrentCallViewPrivate
     gboolean quality_scale_pressed;
 
     Call *call;
+    ContactItem* item;
 
     QMetaObject::Connection state_change_connection;
     QMetaObject::Connection call_details_connection;
@@ -465,6 +467,38 @@ quality_button_released(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent 
 }
 
 static void
+button_hangup_clicked(CurrentCallView *view)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    priv->item->hangUp();
+}
+
+static void
+togglebutton_hold_clicked(CurrentCallView *view)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    priv->item->togglePause();
+}
+
+static void
+togglebutton_muteaudio_clicked(CurrentCallView *view)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    priv->item->toggleMuteaUdio();
+}
+
+static void
+togglebutton_mutevideo_clicked(CurrentCallView *view)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    priv->item->toggleMuteVideo();
+}
+
+static void
 insert_controls(CurrentCallView *view)
 {
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
@@ -509,6 +543,12 @@ insert_controls(CurrentCallView *view)
 
     /* have a timer check every 1 second if the controls should fade out */
     priv->timer_fade = g_timeout_add(1000, (GSourceFunc)timeout_check_last_motion_event, view);
+
+    /* connect the controllers (new model) */
+    g_signal_connect_swapped(priv->button_hangup, "clicked", G_CALLBACK(button_hangup_clicked), view);
+    g_signal_connect_swapped(priv->togglebutton_hold, "clicked", G_CALLBACK(togglebutton_hold_clicked), view);
+    g_signal_connect_swapped(priv->togglebutton_muteaudio, "clicked", G_CALLBACK(togglebutton_muteaudio_clicked), view);
+    g_signal_connect_swapped(priv->togglebutton_mutevideo, "clicked", G_CALLBACK(togglebutton_mutevideo_clicked), view);
 
     /* connect to the mouse motion event to reset the last moved time */
     g_signal_connect_swapped(priv->video_widget, "motion-notify-event", G_CALLBACK(mouse_moved), view);
@@ -664,6 +704,26 @@ update_state(CurrentCallView *view, Call *call)
 }
 
 static void
+update_state(CurrentCallView *view)
+{
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    if (not priv->item) {
+        g_warning("update_state, invalid pointer");
+        return;
+    }
+
+    auto state = priv->item->getCallStatus();
+    auto readable_status = ContactItem::getReadableCallStatus(state);
+
+    gchar *status = g_strdup_printf("%s", readable_status.c_str());
+
+    gtk_label_set_text(GTK_LABEL(priv->label_status), status);
+
+    g_free(status);
+}
+
+static void
 update_details(CurrentCallView *view, Call *call)
 {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
@@ -671,6 +731,15 @@ update_details(CurrentCallView *view, Call *call)
     /* update call duration */
     QByteArray ba_length = call->length().toLocal8Bit();
     gtk_label_set_text(GTK_LABEL(priv->label_duration), ba_length.constData());
+}
+
+static void
+update_details(CurrentCallView *view)
+{
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    /* update call duration */
+    gtk_label_set_text(GTK_LABEL(priv->label_duration), "00:00");
 }
 
 static void
@@ -913,6 +982,63 @@ current_call_view_new(Call *call, WebKitChatContainer *webkit_chat_container)
 
     return GTK_WIDGET(self);
 }
+
+static void
+set_call_info(CurrentCallView *view) {
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    if (not priv->item) {
+        g_warning("set_call_info, invalid pointer");
+        return;
+    }
+
+    /* change some things depending on call state */
+    update_state(view);
+    update_details(view);
+
+    /* check if we already have a renderer */
+    video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                   priv->item->getRenderer(),
+                                   VIDEO_RENDERER_REMOTE);
+
+    /* local renderer */
+    if (Video::PreviewManager::instance().isPreviewing())
+        video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                       Video::PreviewManager::instance().previewRenderer(),
+                                       VIDEO_RENDERER_LOCAL);
+
+    /* callback for local renderer */
+    priv->local_renderer_connection = QObject::connect(
+        &Video::PreviewManager::instance(),
+        &Video::PreviewManager::previewStarted,
+        [priv](Video::Renderer *renderer) {
+            video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                           renderer,
+                                           VIDEO_RENDERER_LOCAL);
+        }
+    );
+
+    /* init chat view */
+    auto chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->item);
+    gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
+
+}
+
+
+GtkWidget *
+current_call_view_new_smart_list_item(WebKitChatContainer* webkit_chat_container, ContactItem* item)
+{
+    auto self = g_object_new(CURRENT_CALL_VIEW_TYPE, NULL);
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
+    priv->item = item;
+
+    set_call_info(CURRENT_CALL_VIEW(self));
+
+
+    return GTK_WIDGET(self);
+}
+
 
 Call*
 current_call_view_get_call(CurrentCallView *self)
