@@ -170,8 +170,8 @@ create_and_fill_model()
     for (auto row : SmartListModel::instance().getItems()) {
         gtk_list_store_append (store, &iter);
         gtk_list_store_set (store, &iter,
-            0 /* col # */ , row->getTitle().c_str() /* celldata */,
-            1 /* col # */ , row->getAlias().c_str() /* celldata */,
+            0 /* col # */ , row->getUID().c_str() /* celldata */,
+            1 /* col # */ , row->getTitle().c_str() /* celldata */,
             2 /* col # */ , row->getAvatar().c_str() /* celldata */,
             3 /* col # */ , row->getLastInteraction().c_str() /* celldata */,
             -1 /* end */);
@@ -318,7 +318,7 @@ smart_contacts_view_init(SmartContactsView *self)
     g_signal_connect_swapped(self, "button-press-event", G_CALLBACK(item_popup_menu_show), priv->popup_menu);
     QObject::connect(&SmartListModel::instance(), &SmartListModel::showConversationView,
     [selectionNew, modelWIP] (SmartListItem* item) {
-        auto idx = SmartListModel::instance().find(item->getTitle());
+        auto idx = SmartListModel::instance().find(item->getUID());
         if (idx == -1) return;
         GtkTreeIter iter;
         gtk_tree_model_get_iter_from_string(modelWIP, &iter, std::to_string(idx).c_str());

@@ -1555,7 +1555,7 @@ ring_main_window_init(RingMainWindow *win)
             // we need to change the view (search_item has changed)
             auto isTemporary = is_chat_view_temporary(CHAT_VIEW(old_view));
             if (!isTemporary) {
-                auto idx = SmartListModel::instance().find(current_item->getTitle());
+                auto idx = SmartListModel::instance().find(current_item->getUID());
                 if (idx != -1) return;
             }
         }

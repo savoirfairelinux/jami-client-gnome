@@ -67,7 +67,7 @@ remove_conversation(G_GNUC_UNUSED GtkWidget *menu, gint* row)
 {
     auto item = SmartListModel::instance().getItem(*row);
     g_return_if_fail(item);
-    SmartListModel::instance().removeConversation(item->getTitle());
+    SmartListModel::instance().removeConversation(item->getUID());
 }
 
 static void

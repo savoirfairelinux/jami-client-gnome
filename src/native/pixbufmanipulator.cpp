@@ -162,7 +162,7 @@ PixbufManipulator::itemPhoto(const SmartListItem* item, const QSize& size, bool 
         QVariant photo = personPhoto(byteArray);
         return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, true));
     } else {
-        return QVariant::fromValue(scaleAndFrame(generateAvatar(item->getAlias(), item->getTitle()).get(), size, displayPresence, true));
+        return QVariant::fromValue(scaleAndFrame(generateAvatar(item->getTitle(), item->getUID()).get(), size, displayPresence, true));
     }
 
 }
