@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Любомир Василев, 2016
+# Любомир Василев, 2016-2017
 # Симонъ Болокановъ <sbolokanov@abv.bg>, 2016
 # Симонъ Болокановъ <sbolokanov@abv.bg>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-06 23:09-0400\n"
-"PO-Revision-Date: 2017-08-03 02:49+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-08-20 23:09-0400\n"
+"PO-Revision-Date: 2017-08-18 21:29+0000\n"
+"Last-Translator: Любомир Василев\n"
 "Language-Team: Bulgarian (http://www.transifex.com/savoirfairelinux/ring/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -128,7 +128,7 @@ msgstr "Авт. отговор на обажданията"
 
 #: src/accountgeneraltab.cpp:333
 msgid "UPnP enabled"
-msgstr ""
+msgstr "UPnP е активиран"
 
 #: src/accountimportexportview.cpp:99
 msgid "Select account export location"
@@ -378,7 +378,7 @@ msgstr "изтегляне на ид. за Ring…"
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Ring е безплатен софтуер за универсална комуникация, който уважава свободата и личните данни на потребителите си."
 
 #: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
@@ -715,7 +715,7 @@ msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "За да добавите ново устройство в своя акаунт в Ring, трябва да изнесете акаунта си в Ring. Това ще Ви даде ПИН-код, който трябва да бъде въведен на новото устройство в рамките на 5 минути от създаването си."
 
 #: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
@@ -731,11 +731,11 @@ msgstr ""
 
 #: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
-msgstr ""
+msgstr "Изнасяне на акаунта в Ring…"
 
 #: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
-msgstr ""
+msgstr "Създаденият за Вас Ли"
 
 #: ui/accountgeneraltab.ui:69
 msgid "Account"
@@ -819,7 +819,7 @@ msgstr "Шифроване на договарянето (TLS)"
 
 #: ui/accountsecuritytab.ui:148
 msgid "CA certificate"
-msgstr "CA сертификат"
+msgstr "Сертификат от център за сертифициране"
 
 #: ui/accountsecuritytab.ui:185
 msgid "User certificate"
@@ -1196,7 +1196,7 @@ msgstr "История"
 
 #: ui/ringmainwindow.ui:281
 msgid "Contact requests"
-msgstr ""
+msgstr "Заявки за нови контакти"
 
 #: ui/usernameregistrationbox.ui:12
 msgid "enter username here"
