@@ -70,7 +70,7 @@
 #include "ringwelcomeview.h"
 #include "accountmigrationview.h"
 #include "accountcreationwizard.h"
-#include "recentcontactsview.h"
+#include "conversationsview.h"
 #include "chatview.h"
 #include "avatarmanipulation.h"
 #include "utils/files.h"
@@ -1349,8 +1349,12 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect(priv->radiobutton_account_settings, "toggled", G_CALLBACK(show_account_settings), win);
     g_signal_connect(priv->radiobutton_general_settings, "toggled", G_CALLBACK(show_general_settings), win);
 
-    /* populate the notebook */
-    priv->treeview_conversations = recent_contacts_view_new();
+    /* OLD notebook */
+    //~ priv->treeview_conversations = recent_contacts_view_new();
+    //~ gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
+
+    /* populate the NEW notebook */
+    priv->treeview_conversations = conversations_view_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
 
     priv->treeview_contacts = contacts_view_new();

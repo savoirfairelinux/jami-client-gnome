@@ -27,6 +27,9 @@
 #include <call.h>
 #include <contactmethod.h>
 
+#include <string>
+#include <algorithm>
+
 namespace Interfaces {
 
 PixbufManipulator::PixbufManipulator()
@@ -64,6 +67,24 @@ PixbufManipulator::generateAvatar(const ContactMethod* cm) const
         ring_draw_fallback_avatar(
             FALLBACK_AVATAR_SIZE,
             letter.toLatin1(),
+            color
+        ),
+        g_object_unref
+    };
+}
+
+std::shared_ptr<GdkPixbuf>
+PixbufManipulator::generateAvatar(const std::string& alias, const std::string& uri) const
+{
+    auto name = alias;
+    std::transform(name.begin(), name.end(), name.begin(), ::toupper);
+    auto letter = name.length() > 0 ? name[0] : 'R';
+    auto color = uri.length() > 0 ? std::stoi(std::string(1, uri[0]), 0, 16) : 0;
+
+    return std::shared_ptr<GdkPixbuf> {
+        ring_draw_fallback_avatar(
+            FALLBACK_AVATAR_SIZE,
+            letter,
             color
         ),
         g_object_unref
@@ -204,6 +225,23 @@ QVariant PixbufManipulator::personPhoto(const QByteArray& data, const QString& t
 }
 
 QVariant
+PixbufManipulator::conversationPhoto(const Conversation::Info& conversation, const QSize& size, bool displayPresence)
+{
+    auto contacts = conversation.participants_;
+    if (!contacts.empty() && contacts.front()->avatar_.length() > 0)
+    {
+        QByteArray byteArray(contacts.front()->avatar_.c_str(), contacts.front()->avatar_.length());
+        QVariant photo = personPhoto(byteArray);
+        return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, true));
+    } else {
+        auto alias = contacts.empty()? "" : contacts.front()->alias_;
+        auto uri = contacts.empty()? "" : contacts.front()->uri_;
+        return QVariant::fromValue(scaleAndFrame(generateAvatar(alias, uri).get(), size, displayPresence, true));
+    }
+
+}
+
+QVariant
 PixbufManipulator::numberCategoryIcon(const QVariant& p, const QSize& size, bool displayPresence, bool isPresent)
 {
     Q_UNUSED(p)
@@ -306,6 +344,12 @@ QVariant PixbufManipulator::decorationRole(const Person* p)
 QVariant PixbufManipulator::decorationRole(const Account* p)
 {
     Q_UNUSED(p)
+    return QVariant();
+}
+
+QVariant PixbufManipulator::decorationRole(const Conversation::Info* c)
+{
+    Q_UNUSED(c)
     return QVariant();
 }
 
