@@ -739,24 +739,22 @@ search_entry_activated(RingMainWindow *self)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
-    const auto *querry = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
-
-    URI uri = URI(querry);
+    /*TODO REMOVE URI uri = URI(querry);
 
     // nothing to do if querry is empty or just whitespace
     if (uri.isEmpty()) return;
 
-    /* get account to use */
+    /* get account to use * /
     Account *account = nullptr;
     if (uri.schemeType() != URI::SchemeType::NONE) {
-        /* explicit SIP, SIPS, or RING; make sure account is of right type */
+        /* explicit SIP, SIPS, or RING; make sure account is of right type * /
         account = AvailableAccountModel::instance().currentDefaultAccount(uri.schemeType());
         if (!account) {
             const gchar *type = uri.schemeType() == URI::SchemeType::RING ? "RING" : "SIP";
             g_warning("entered %s uri, but no active %s accounts", type, type);
         }
     } else {
-        /* just take the user selected account */
+        /* just take the user selected account * /
         account = AvailableAccountModel::instance().currentDefaultAccount();
     }
 
@@ -765,15 +763,15 @@ search_entry_activated(RingMainWindow *self)
         return;
     }
 
-    /* if RING and not RingID, perform lookup */
+    /* if RING and not RingID, perform lookup * /
     if (account->protocol() == Account::Protocol::RING &&
         uri.protocolHint() != URI::ProtocolHint::RING)
     {
         lookup_username(self, uri, account);
     } else {
-        /* no lookup, simply use the URI as is */
+        /* no lookup, simply use the URI as is * /
         activate_contact_method(self, uri, account);
-    }
+    }*/
 }
 
 static gboolean
@@ -957,6 +955,7 @@ search_entry_text_changed(GtkSearchEntry *search_entry, RingMainWindow *self)
 
     /* get the text from the entry */
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(search_entry));
+    priv->conversationModel_->setFilter(text);
 
     RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp(text, Qt::CaseInsensitive, QRegExp::FixedString));
     contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts), text);
