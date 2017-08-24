@@ -289,24 +289,6 @@ change_view(RingMainWindow *self, GtkWidget* old, std::shared_ptr<Conversation::
     gtk_widget_show(new_view);
 }
 
-static void
-change_view(RingMainWindow *self, GtkWidget* old)
-{
-    /*auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-    leave_full_screen(self);
-    gtk_container_remove(GTK_CONTAINER(priv->frame_call), old);
-
-    GtkWidget *new_view = nullptr;
-
-    QObject::disconnect(priv->selected_item_changed);
-    QObject::disconnect(priv->selected_call_over);
-
-    new_view = priv->welcome_view;
-
-    gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
-    gtk_widget_show(new_view);*/
-}
-
 /* TODO REMOVE
 static void
 change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
@@ -1563,6 +1545,28 @@ ring_main_window_init(RingMainWindow *win)
 
         if (current_item != origin)
             change_view(win, old_view, origin, CHAT_VIEW_TYPE);
+    });
+
+    QObject::connect(&*priv->conversationModel_, &ConversationModel::modelUpdated,
+    [win, priv] () {
+        // Change the view if we want a different view.
+        auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+
+        std::shared_ptr<Conversation::Info> current_item;
+        if (IS_CHAT_VIEW(old_view))
+            current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
+
+        if (!current_item || !current_item->isUsed_) {
+            // We were on a temporary chatview, go to welcome page
+            change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
+        } else {
+            // change view if contact was removed
+            auto contactModel =  priv->conversationModel_->getContactModel();
+            auto uri = current_item->participants_.front()->uri_;
+            if (!contactModel->isAContact(uri)) {
+                change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
+            }
+        }
     });
 }
 
