@@ -21,6 +21,12 @@
 
 #include <gtk/gtk.h>
 
+// std
+#include <memory>
+
+// lrc
+#include <conversationmodel.h>
+
 G_BEGIN_DECLS
 
 #define CONVERSATIONS_VIEW_TYPE            (conversations_view_get_type ())
@@ -33,6 +39,6 @@ typedef struct _ConversationsView      ConversationsView;
 typedef struct _ConversationsViewClass ConversationsViewClass;
 
 GType      conversations_view_get_type (void) G_GNUC_CONST;
-GtkWidget *conversations_view_new      (void);
+GtkWidget *conversations_view_new      (std::shared_ptr<ConversationModel>);
 
 G_END_DECLS
