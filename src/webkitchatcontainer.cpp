@@ -32,6 +32,7 @@
 #include <media/textrecording.h>
 #include <globalinstances.h>
 #include <contactmethod.h>
+#include <message.h>
 
 // Ring Client
 #include "native/pixbufmanipulator.h"
@@ -204,6 +205,28 @@ message_index_to_json_message_object(const QModelIndex &idx)
             break;
         }
     }
+
+    return QString(QJsonDocument(message_object).toJson(QJsonDocument::Compact));
+}
+
+
+QString
+message_to_json_message_object(const Message::Info& message)
+{
+    auto sender = "TODO";
+    auto sender_contact_method = "TODO";
+    auto timestamp = QString::number(message.timestamp_);
+    auto direction = message.isOutgoing_ ? QString("out") : QString("in");
+    auto message_id = 0; //TODO
+
+    QJsonObject message_object = QJsonObject();
+    message_object.insert("text", QJsonValue(QString(message.body_.c_str())));
+    message_object.insert("id", QJsonValue(QString().setNum(message_id)));
+    message_object.insert("sender", QJsonValue(sender));
+    message_object.insert("sender_contact_method", QJsonValue("sender_contact_method_str"));
+    message_object.insert("timestamp", QJsonValue(timestamp));
+    message_object.insert("direction", QJsonValue(direction));
+    message_object.insert("delivery_status", QJsonValue("sent")); //TODO from status
 
     return QString(QJsonDocument(message_object).toJson(QJsonDocument::Compact));
 }
@@ -531,12 +554,33 @@ webkit_chat_container_clear(WebKitChatContainer *view)
     webkit_chat_container_clear_sender_images(view);
 }
 
+/*
 void
 webkit_chat_container_print_new_message(WebKitChatContainer *view, const QModelIndex &idx)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
     auto message_object = message_index_to_json_message_object(idx).toUtf8();
+    gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", message_object.constData());
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+*/
+/**
+ * TODO temp method. Just transform messages from database and breaks nothing in chatview.html for now
+ */
+void
+webkit_chat_container_print_new_message(WebKitChatContainer *view, const Message::Info& message)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    auto message_object = message_to_json_message_object(message).toUtf8();
     gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", message_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
@@ -563,6 +607,20 @@ webkit_chat_container_update_message(WebKitChatContainer *view, const QModelInde
         NULL
     );
     g_free(function_call);
+}
+
+void
+webkit_chat_container_set_temporary(WebKitChatContainer *view)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        "ring.chatview.setTemporary()",
+        NULL,
+        NULL,
+        NULL
+    );
 }
 
 void

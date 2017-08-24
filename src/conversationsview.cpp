@@ -80,7 +80,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
             *conversation,
             QSize(50, 50),
-            false // TODO get presence
+            conversation->participants_.front()->isPresent_
         );
         image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
 
