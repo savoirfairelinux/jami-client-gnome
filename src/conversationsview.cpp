@@ -22,12 +22,7 @@
 // LRC
 #include <globalinstances.h>
 #include <conversationmodel.h>
-
-//TODO move model initialization before
-#include <newcallmodel.h>
-#include <contactmodel.h>
-#include <databasemanager.h>
-#include "availableaccountmodel.h"
+#include <availableaccountmodel.h>
 
 // Gnome client
 #include "native/pixbufmanipulator.h"
@@ -83,7 +78,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         auto conversation = priv->conversationModel_->getConversation(row);
         std::shared_ptr<GdkPixbuf> image;
         auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
-            conversation,
+            *conversation,
             QSize(50, 50),
             false // TODO get presence
         );
@@ -194,14 +189,13 @@ select_conversation(GtkTreeSelection *selection, ConversationsView *self)
 static void
 conversations_view_init(ConversationsView *self)
 {
+    // Nothing to do
+}
+
+static void
+build_conversations_view(ConversationsView *self)
+{
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
-    //TODO move model initialization before
-    auto dbManager = std::make_shared<DatabaseManager>();
-    auto contactModel = std::make_shared<ContactModel>(dbManager, AvailableAccountModel::instance().currentDefaultAccount());
-    auto callModel = std::make_shared<NewCallModel>();
-    priv->conversationModel_ = std::make_shared<ConversationModel>(callModel,
-                                   contactModel,
-                                   dbManager);
 
     auto model = create_and_fill_model(self);
     gtk_tree_view_set_model(GTK_TREE_VIEW(self),
@@ -281,9 +275,13 @@ conversations_view_class_init(ConversationsViewClass *klass)
 }
 
 GtkWidget *
-conversations_view_new()
+conversations_view_new(std::shared_ptr<ConversationModel> conversationModel)
 {
-    auto self = g_object_new(CONVERSATIONS_VIEW_TYPE, NULL);
+    auto self = CONVERSATIONS_VIEW(g_object_new(CONVERSATIONS_VIEW_TYPE, NULL));
+    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
+    priv->conversationModel_ = conversationModel;
+
+    build_conversations_view(self);
 
     return (GtkWidget *)self;
 }

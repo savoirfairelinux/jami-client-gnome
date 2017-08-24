@@ -70,12 +70,14 @@ struct _ChatViewPrivate
 
     GSettings *settings;
 
-    /* only one of the three following pointers should be non void;
+    /* TODO remove only one of the three following pointers should be non void;
      * either this is an in-call chat (and so the in-call chat APIs will be used)
      * or it is an out of call chat (and so the account chat APIs will be used) */
     Call          *call;
     Person        *person;
     ContactMethod *cm;
+    std::shared_ptr<Conversation::Info> conversation_; // TODO set const
+    std::shared_ptr<ConversationModel> conversationModel_; // TODO set const
 
     QMetaObject::Connection new_message_connection;
     QMetaObject::Connection message_changed_connection;
@@ -138,6 +140,7 @@ hide_chat_view(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
     g_signal_emit(G_OBJECT(self), chat_view_signals[HIDE_VIEW_CLICKED], 0);
 }
 
+/* TODO REMOVE
 ContactMethod*
 get_active_contactmethod(ChatView *self)
 {
@@ -158,7 +161,7 @@ get_active_contactmethod(ChatView *self)
     }
 
     return nullptr;
-}
+}*/
 
 static void
 display_links_toggled(ChatView *self)
@@ -177,6 +180,9 @@ placecall_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
+    priv->conversationModel_->placeCall(priv->conversation_->uid_);
+
+/* TODO remove
     if (priv->person) {
         // get the chosen cm
         auto cm = get_active_contactmethod(self);
@@ -190,13 +196,16 @@ placecall_clicked(ChatView *self)
     } else {
         g_warning("no Person or ContactMethod set; cannot place call");
     }
+    */
 }
 
 static void
 button_send_invitation_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    priv->conversationModel_->addConversation(priv->conversation_->uid_);
 
+/* TODO remove
     if (priv->person) {
         priv->cm = get_active_contactmethod(self);
     }
@@ -223,7 +232,7 @@ button_send_invitation_clicked(ChatView *self)
     if (not account->sendContactRequest(priv->cm))
         g_warning("contact request not forwarded, cannot send invitation!");
 
-    // TODO : add an entry in the conversation to tell the user an invitation was sent.
+    // TODO : add an entry in the conversation to tell the user an invitation was sent.*/
 }
 
 static void
@@ -232,11 +241,11 @@ webkit_chat_container_send_text(G_GNUC_UNUSED GtkWidget* webview, gchar *message
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     /* make sure there is more than just whitespace, but if so, send the original text */
-    const auto text = QString(message);
+    priv->conversationModel_->sendMessage(priv->conversation_->uid_, std::string(message));
+    /*TODO REMOVE const auto text = QString(message);
     if (!text.trimmed().isEmpty()) {
         QMap<QString, QString> messages;
         messages["text/plain"] = text;
-
         if (priv->call) {
             // in call message
             priv->call->addOutgoingMedia<Media::Text>()->send(messages);
@@ -255,7 +264,7 @@ webkit_chat_container_send_text(G_GNUC_UNUSED GtkWidget* webview, gchar *message
         } else {
             g_warning("no Call, Person, or ContactMethod set; message not sent");
         }
-    }
+    }*/
 }
 
 static void
@@ -333,11 +342,13 @@ set_participant_images(ChatView* self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
+    /* TODO
+
     webkit_chat_container_clear_sender_images(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)
     );
 
-    /* Set the sender image for the peer */
+    /* Set the sender image for the peer * /
     ContactMethod* sender_contact_method_peer;
     QVariant photo_variant_peer;
 
@@ -368,7 +379,7 @@ set_participant_images(ChatView* self)
         );
     }
 
-    /* set sender image for "ME" */
+    /* set sender image for "ME" * /
     auto profile = ProfileModel::instance().selectedProfile();
     if (profile)
     {
@@ -385,12 +396,13 @@ set_participant_images(ChatView* self)
                 );
             }
         }
-    }
+    }*/
 }
 
 static void
 print_text_recording(Media::TextRecording *recording, ChatView *self)
 {
+    // TODO
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
@@ -446,20 +458,23 @@ static void
 update_send_invitation(ChatView *self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    if(priv->conversation_->isUsed_)
+        gtk_widget_hide(priv->button_send_invitation);
 
-    auto cm = get_active_contactmethod(self);
+    /*auto cm = get_active_contactmethod(self);
 
     if (cm && cm->isConfirmed()) {
         gtk_widget_hide(priv->button_send_invitation);
-    }
+    }*/
 }
 
 static void
 selected_cm_changed(ChatView *self)
 {
+    /* TODO remove
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    /* make sure the webkit view is ready, in case we get this signal before it is */
+    /* make sure the webkit view is ready, in case we get this signal before it is * /
     if (!webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
         return;
 
@@ -475,7 +490,7 @@ selected_cm_changed(ChatView *self)
         );
     } else {
         g_warning("no valid ContactMethod selected to display chat conversation");
-    }
+    }*/
 }
 
 static void
@@ -485,6 +500,7 @@ render_contact_method(G_GNUC_UNUSED GtkCellLayout *cell_layout,
                      GtkTreeIter *iter,
                      G_GNUC_UNUSED gpointer data)
 {
+    /* TODO remove
     GValue value = G_VALUE_INIT;
     gtk_tree_model_get_value(model, iter, 0, &value);
     auto cm = (ContactMethod *)g_value_get_pointer(&value);
@@ -499,7 +515,7 @@ render_contact_method(G_GNUC_UNUSED GtkCellLayout *cell_layout,
     }
 
     g_object_set(G_OBJECT(cell), "text", number, NULL);
-    g_free(number);
+    g_free(number);*/
 }
 
 static void
@@ -508,13 +524,14 @@ update_contact_methods(ChatView *self)
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    g_return_if_fail(priv->call || priv->person || priv->cm);
+    // g_return_if_fail(priv->call || priv->person || priv->cm);
 
     /* model for the combobox for the choice of ContactMethods */
     auto cm_model = gtk_list_store_new(
         1, G_TYPE_POINTER
     );
 
+/*
     Person::ContactMethods cms;
 
     if (priv->person)
@@ -544,7 +561,7 @@ update_contact_methods(ChatView *self)
         (GtkCellLayoutDataFunc)render_contact_method,
         nullptr, nullptr);
 
-    /* select the last used cm */
+    /* select the last used cm * /
     if (!cms.isEmpty()) {
         auto last_used_cm = cms.at(0);
         int last_used_cm_idx = 0;
@@ -562,7 +579,7 @@ update_contact_methods(ChatView *self)
             gtk_widget_hide(priv->button_send_invitation);
     }
 
-    /* if there is only one CM, make the combo box insensitive */
+    /* if there is only one CM, make the combo box insensitive * /
     if (cms.size() < 2) {
         auto active = cms.at(gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm)));
         std::string ring_id = active->roleData(static_cast<int>(Ring::Role::Number)).toString().toUtf8().constData();
@@ -579,8 +596,10 @@ update_contact_methods(ChatView *self)
         gtk_widget_hide(priv->label_cm);
     }
 
-    /* if no CMs make the call button insensitive */
-    gtk_widget_set_sensitive(priv->button_placecall, !cms.isEmpty());
+    /* if no CMs make the call button insensitive * /
+    gtk_widget_set_sensitive(priv->button_placecall, !cms.isEmpty());*/
+    gtk_widget_hide(priv->combobox_cm);
+    gtk_widget_hide(priv->label_cm); // TODO
 }
 
 static void
@@ -588,7 +607,7 @@ update_name(ChatView *self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    g_return_if_fail(priv->person || priv->cm || priv->call);
+    /*g_return_if_fail(priv->person || priv->cm || priv->call);
 
     QString name;
     if (priv->person) {
@@ -598,7 +617,8 @@ update_name(ChatView *self)
     } else if (priv->call) {
         name = priv->call->peerContactMethod()->roleData(static_cast<int>(Ring::Role::Name)).toString();
     }
-    gtk_label_set_text(GTK_LABEL(priv->label_peer), name.toUtf8().constData());
+    gtk_label_set_text(GTK_LABEL(priv->label_peer), name.toUtf8().constData());*/
+    gtk_label_set_text(GTK_LABEL(priv->label_peer), priv->conversation_->participants_.front()->uri_.c_str());
 }
 
 static void
@@ -615,16 +635,17 @@ webkit_chat_container_ready(ChatView* self)
 
     display_links_toggled(self);
 
-    /* print the text recordings */
+    /* TODO REMOVE AND PRINT HISTORY  print the text recordings * /
     if (priv->call) {
         print_text_recording(priv->call->peerContactMethod()->textRecording(), self);
     } else if (priv->cm) {
         print_text_recording(priv->cm->textRecording(), self);
     } else if (priv->person) {
-        /* get the selected cm and print the text recording */
         selected_cm_changed(self);
-    }
+    }*/
 }
+
+#include <iostream>
 
 static void
 build_chat_view(ChatView* self)
@@ -634,7 +655,7 @@ build_chat_view(ChatView* self)
     gtk_container_add(GTK_CONTAINER(priv->box_webkit_chat_container), priv->webkit_chat_container);
     gtk_widget_show(priv->webkit_chat_container);
 
-    /* keep name updated */
+    /*TODO REMOVE keep name updated * /
     if (priv->call) {
         priv->update_name = QObject::connect(
             priv->call,
@@ -659,7 +680,7 @@ build_chat_view(ChatView* self)
         get_active_contactmethod(self),
         &ContactMethod::changed,
         [self] () { update_send_invitation(self); }
-    );
+    );*/
 
     update_name(self);
     update_send_invitation(self);
@@ -683,8 +704,8 @@ build_chat_view(ChatView* self)
     if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
         webkit_chat_container_ready(self);
 
-    /* we only show the chat info in the case of cm / person */
-    gtk_widget_set_visible(priv->hbox_chat_info, (priv->cm || priv->person));
+    gtk_widget_set_visible(priv->hbox_chat_info, TRUE);
+
 }
 
 GtkWidget *
@@ -697,6 +718,21 @@ chat_view_new_call(WebKitChatContainer *webkit_chat_container, Call *call)
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->call = call;
+
+    build_chat_view(self);
+
+    return (GtkWidget *)self;
+}
+
+GtkWidget *
+chat_view_new (WebKitChatContainer* webkit_chat_container, std::shared_ptr<ConversationModel> conversationModel, std::shared_ptr<Conversation::Info> conversation)
+{
+    ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
+
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
+    priv->conversation_ = conversation;
+    priv->conversationModel_ = conversationModel;
 
     build_chat_view(self);
 
@@ -743,6 +779,16 @@ chat_view_get_call(ChatView *self)
 
     return priv->call;
 }
+
+std::shared_ptr<Conversation::Info>
+chat_view_get_conversation(ChatView *self)
+{
+    g_return_val_if_fail(IS_CHAT_VIEW(self), nullptr);
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    return priv->conversation_;
+}
+
 
 ContactMethod*
 chat_view_get_cm(ChatView *self)

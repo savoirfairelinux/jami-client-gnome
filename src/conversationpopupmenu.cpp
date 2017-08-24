@@ -55,7 +55,7 @@ remove_history_conversation(GtkWidget *menu, gint* row)
     try
     {
         auto conversation = priv->conversationModel_->getConversation(*row);
-        priv->conversationModel_->cleanHistory(conversation.uid_);
+        priv->conversationModel_->cleanHistory(conversation->uid_);
     }
     catch (const std::exception&)
     {
@@ -70,7 +70,7 @@ remove_conversation(G_GNUC_UNUSED GtkWidget *menu, gint* row)
     try
     {
         auto conversation = priv->conversationModel_->getConversation(*row);
-        priv->conversationModel_->removeConversation(conversation.uid_);
+        priv->conversationModel_->removeConversation(conversation->uid_);
     }
     catch (const std::exception&)
     {
@@ -91,7 +91,7 @@ place_call(G_GNUC_UNUSED GtkWidget *menu, gint* row)
     try
     {
         auto conversation = priv->conversationModel_->getConversation(*row);
-        priv->conversationModel_->placeCall(conversation.uid_);
+        priv->conversationModel_->placeCall(conversation->uid_);
     }
     catch (const std::exception&)
     {
@@ -124,7 +124,7 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     auto place_call_conversation = gtk_menu_item_new_with_mnemonic(_("_Place call"));
     gtk_menu_shell_append(GTK_MENU_SHELL(self), place_call_conversation);
     g_signal_connect(place_call_conversation, "activate", G_CALLBACK(place_call), idx);
-    if (conversation.isUsed_) {
+    if (conversation->isUsed_) {
         // If we can add this conversation
         auto add_conversation_conversation = gtk_menu_item_new_with_mnemonic(_("_Add conversation"));
         gtk_menu_shell_append(GTK_MENU_SHELL(self), add_conversation_conversation);
