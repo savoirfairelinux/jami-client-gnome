@@ -322,18 +322,18 @@ chat_view_class_init(ChatViewClass *klass)
 
 
 static void
-print_message_to_buffer(ChatView* self, const QModelIndex &idx)
+print_message_to_buffer(ChatView* self, const Message::Info& msg)
 {
-    if (!idx.isValid()) {
+    /*if (!idx.isValid()) {
         g_warning("QModelIndex in im model is not valid");
         return;
-    }
+    }*/
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     webkit_chat_container_print_new_message(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-        idx
+        msg
     );
 }
 
@@ -400,32 +400,38 @@ set_participant_images(ChatView* self)
 }
 
 static void
-print_text_recording(Media::TextRecording *recording, ChatView *self)
+print_text_recording(/*Media::TextRecording *recording, */ChatView *self)
 {
     // TODO
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-     /* set the photos of the chat participants */
-     set_participant_images(self);
+    for (const auto& msg : priv->conversation_->messages_)
+    {
+        print_message_to_buffer(self, msg.second);
+    }
 
-    /* only text messages are supported for now */
-    auto model = recording->instantTextMessagingModel();
-
-    /* new model, disconnect from the old model updates and clear the text buffer */
     QObject::disconnect(priv->new_message_connection);
 
-    /* put all the messages in the im model into the text view */
+     /* set the photos of the chat participants * /
+     set_participant_images(self);
+
+    /* only text messages are supported for now * /
+    auto model = recording->instantTextMessagingModel();
+
+    /* new model, disconnect from the old model updates and clear the text buffer * /
+
+    /* put all the messages in the im model into the text view * /
     for (int row = 0; row < model->rowCount(); ++row) {
         QModelIndex idx = model->index(row, 0);
         print_message_to_buffer(self, idx);
     }
-    /* mark all messages as read */
+    /* mark all messages as read * /
     recording->setAllRead();
 
 
     /* messages modified */
-    /* connecting on instantMessagingModel and not textMessagingModel */
+    /* connecting on instantMessagingModel and not textMessagingModel * /
     priv->message_changed_connection = QObject::connect(
         model,
         &QAbstractItemModel::dataChanged,
@@ -438,7 +444,7 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
         }
     );
 
-    /* append new messages */
+    /* append new messages * /
     priv->new_message_connection = QObject::connect(
         model,
         &QAbstractItemModel::rowsInserted,
@@ -446,12 +452,13 @@ print_text_recording(Media::TextRecording *recording, ChatView *self)
             for (int row = first; row <= last; ++row) {
                 QModelIndex idx = model->index(row, 0, parent);
                 print_message_to_buffer(self, idx);
-                /* make sure these messages are marked as read */
+                /* make sure these messages are marked as read * /
                 model->setData(idx, true, static_cast<int>(Media::TextRecording::Role::IsRead));
                 g_signal_emit(G_OBJECT(self), chat_view_signals[NEW_MESSAGES_DISPLAYED], 0);
             }
         }
     );
+    */
 }
 
 static void
@@ -634,6 +641,16 @@ webkit_chat_container_ready(ChatView* self)
     );
 
     display_links_toggled(self);
+    print_text_recording(self);
+
+    priv->new_message_connection = QObject::connect(
+    &*priv->conversationModel_, &ConversationModel::newMessageAdded,
+    [self, priv](const std::string& uid, Message::Info msg) {
+        if(uid == priv->conversation_->uid_) {
+            print_message_to_buffer(self, msg);
+        }
+    });
+
 
     /* TODO REMOVE AND PRINT HISTORY  print the text recordings * /
     if (priv->call) {
