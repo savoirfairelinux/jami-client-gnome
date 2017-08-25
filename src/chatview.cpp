@@ -78,6 +78,7 @@ struct _ChatViewPrivate
     ContactMethod *cm;
     std::shared_ptr<Conversation::Info> conversation_; // TODO set const
     std::shared_ptr<ConversationModel> conversationModel_; // TODO set const
+    bool isTemporary_;
 
     QMetaObject::Connection new_message_connection;
     QMetaObject::Connection message_changed_connection;
@@ -651,6 +652,8 @@ webkit_chat_container_ready(ChatView* self)
         }
     });
 
+    priv->isTemporary_ = !priv->conversation_->isUsed_;
+    webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
 
     /* TODO REMOVE AND PRINT HISTORY  print the text recordings * /
     if (priv->call) {
@@ -795,6 +798,28 @@ chat_view_get_call(ChatView *self)
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
     return priv->call;
+}
+
+void
+chat_view_update_temporary(ChatView* self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    priv->isTemporary_ = !priv->conversation_->isUsed_;
+    if (!priv->isTemporary_) {
+        gtk_widget_hide(priv->button_send_invitation);
+    }
+    webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
+}
+
+bool
+chat_view_get_temporary(ChatView *self)
+{
+    g_return_val_if_fail(IS_CHAT_VIEW(self), false);
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    return priv->isTemporary_;
 }
 
 std::shared_ptr<Conversation::Info>

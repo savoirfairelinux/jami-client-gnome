@@ -23,6 +23,7 @@
 // system
 #include <string.h>
 #include <memory>
+#include <iostream>
 
 // GTK+ related
 #include <glib/gi18n.h>
@@ -83,6 +84,8 @@
 #include <contactmodel.h>
 #include <databasemanager.h>
 #include <availableaccountmodel.h>
+//#include <lrc.h>
+//#include <newaccountmodel.h>
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
@@ -1325,6 +1328,11 @@ ring_main_window_init(RingMainWindow *win)
     gtk_widget_init_template(GTK_WIDGET(win));
 
     //TODO move model initialization before
+    /*Lrc lrc;
+    auto accountModel = lrc.getAccountModel();
+    auto accountInfo = accountModel->getAccountInfo("198ae683bba0c6f8"); // TODO remove this
+    priv->conversationModel_ = accountInfo->conversationModel_;
+    */
     auto dbManager = std::make_shared<DatabaseManager>();
     auto contactModel = std::make_shared<ContactModel>(dbManager,
     AvailableAccountModel::instance().currentDefaultAccount());
@@ -1556,15 +1564,25 @@ ring_main_window_init(RingMainWindow *win)
         if (IS_CHAT_VIEW(old_view))
             current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
 
-        if (!current_item || !current_item->isUsed_) {
-            // We were on a temporary chatview, go to welcome page
+        if (!current_item) {
             change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
+        } else if (!current_item->isUsed_) {
+            auto contactModel =  priv->conversationModel_->getContactModel();
+            auto uri = current_item->participants_.front()->uri_;
+            if (!contactModel->isAContact(uri)) {
+                // We were on a temporary chatview, go to welcome page
+                change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
+            }
         } else {
-            // change view if contact was removed
+            // change view if contact was removed or added
             auto contactModel =  priv->conversationModel_->getContactModel();
             auto uri = current_item->participants_.front()->uri_;
             if (!contactModel->isAContact(uri)) {
                 change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
+            } else if (chat_view_get_temporary(CHAT_VIEW(old_view))){
+                // Conversation added
+                chat_view_update_temporary(CHAT_VIEW(old_view));
+                gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
             }
         }
     });

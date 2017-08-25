@@ -610,17 +610,20 @@ webkit_chat_container_update_message(WebKitChatContainer *view, const QModelInde
 }
 
 void
-webkit_chat_container_set_temporary(WebKitChatContainer *view)
+webkit_chat_container_set_temporary(WebKitChatContainer *view, bool temporary)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
+    gchar* function_call = g_strdup_printf("ring.chatview.setTemporary(%s)",
+    temporary ? "true" : "false");
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
-        "ring.chatview.setTemporary()",
+        function_call,
         NULL,
         NULL,
         NULL
     );
+    g_free(function_call);
 }
 
 void
