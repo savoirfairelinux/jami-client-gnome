@@ -280,10 +280,6 @@ SET( SRC_FILES
    src/backends/edscontactbackend.cpp
    src/native/pixbufmanipulator.h
    src/native/pixbufmanipulator.cpp
-   src/contactsview.h
-   src/contactsview.cpp
-   src/historyview.h
-   src/historyview.cpp
    src/utils/models.h
    src/utils/models.cpp
    src/utils/calling.h

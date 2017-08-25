@@ -63,8 +63,6 @@
 #include "native/pixbufmanipulator.h"
 #include "models/activeitemproxymodel.h"
 #include "utils/calling.h"
-#include "contactsview.h"
-#include "historyview.h"
 #include "utils/models.h"
 #include "generalsettingsview.h"
 #include "utils/accounts.h"
@@ -95,8 +93,6 @@ static constexpr const char* AUDIO_SETTINGS_VIEW_NAME   = "audio";
 static constexpr const char* MEDIA_SETTINGS_VIEW_NAME   = "media";
 static constexpr const char* ACCOUNT_SETTINGS_VIEW_NAME = "accounts";
 static constexpr const char* DEFAULT_VIEW_NAME          = "welcome";
-static constexpr const char* VIEW_CONTACTS              = "contacts";
-static constexpr const char* VIEW_HISTORY               = "history";
 static constexpr const char* VIEW_PRESENCE              = "presence";
 
 struct _RingMainWindow
@@ -120,10 +116,6 @@ struct _RingMainWindowPrivate
     GtkWidget *hbox_settings;
     GtkWidget *scrolled_window_smartview;
     GtkWidget *treeview_conversations;
-    GtkWidget *scrolled_window_contacts;
-    GtkWidget *treeview_contacts;
-    GtkWidget *scrolled_window_history;
-    GtkWidget *treeview_history;
     GtkWidget *vbox_left_pane;
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
@@ -253,10 +245,6 @@ hide_view_clicked(RingMainWindow *self)
     /* clear selection */
     auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
-    auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
-    gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contacts));
-    auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
-    gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
     auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_request));
 
@@ -942,9 +930,9 @@ search_entry_text_changed(GtkSearchEntry *search_entry, RingMainWindow *self)
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(search_entry));
     priv->conversationModel_->setFilter(text);
 
-    RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp(text, Qt::CaseInsensitive, QRegExp::FixedString));
+    /*TODO REMOVE RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp(text, Qt::CaseInsensitive, QRegExp::FixedString));
     contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts), text);
-    history_view_set_filter_string(HISTORY_VIEW(priv->treeview_history), text);
+    history_view_set_filter_string(HISTORY_VIEW(priv->treeview_history), text);*/
 }
 
 static gboolean
@@ -953,12 +941,12 @@ search_entry_key_released(G_GNUC_UNUSED GtkEntry *search_entry, GdkEventKey *key
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
     // if esc key pressed, clear the regex (keep the text, the user might not want to actually delete it)
-    if (key->keyval == GDK_KEY_Escape) {
+    /*if (key->keyval == GDK_KEY_Escape) {
         RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp());
         contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts), "");
         history_view_set_filter_string(HISTORY_VIEW(priv->treeview_history), "");
         return GDK_EVENT_STOP;
-    }
+    }*/
 
     return GDK_EVENT_PROPAGATE;
 }
@@ -1102,8 +1090,6 @@ unselect_if_different(GtkTreeSelection *selection1, GtkTreeView* treeview)
 
 static void
 sync_all_view_selection(GtkTreeSelection* selection,
-                        GtkTreeView* treeview1,
-                        GtkTreeView* treeview2,
                         GtkTreeView* treeview3)
 {
     GtkTreeIter iter;
@@ -1113,8 +1099,6 @@ sync_all_view_selection(GtkTreeSelection* selection,
          * all views since not all items exist in all 3 contact list views
          */
 
-        unselect_if_different(selection, treeview1);
-        unselect_if_different(selection, treeview2);
         unselect_if_different(selection, treeview3);
     }
 }
@@ -1126,13 +1110,12 @@ conversation_selection_changed(GtkTreeSelection* selection, RingMainWindow* self
 
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     sync_all_view_selection(selection,
-                            GTK_TREE_VIEW(priv->treeview_contacts),
-                            GTK_TREE_VIEW(priv->treeview_history),
                             GTK_TREE_VIEW(priv->treeview_contact_requests));
 
     //selection_changed(self);
 }
 
+/*
 static void
 contact_selection_changed(GtkTreeSelection* selection, RingMainWindow* self)
 {
@@ -1160,6 +1143,7 @@ history_selection_changed(GtkTreeSelection* selection, RingMainWindow* self)
 
     //selection_changed(self);
 }
+*/
 
 static void
 contact_request_selection_changed(GtkTreeSelection* selection, RingMainWindow* self)
@@ -1168,8 +1152,6 @@ contact_request_selection_changed(GtkTreeSelection* selection, RingMainWindow* s
 
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     sync_all_view_selection(selection,
-                            GTK_TREE_VIEW(priv->treeview_contacts),
-                            GTK_TREE_VIEW(priv->treeview_history),
                             GTK_TREE_VIEW(priv->treeview_conversations));
 
     //selection_changed(self);
@@ -1414,12 +1396,6 @@ ring_main_window_init(RingMainWindow *win)
     priv->treeview_conversations = conversations_view_new(priv->conversationModel_);
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
 
-    priv->treeview_contacts = contacts_view_new();
-    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contacts), priv->treeview_contacts);
-
-    priv->treeview_history = history_view_new();
-    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_history), priv->treeview_history);
-
     auto available_accounts_changed = [win, priv] {
         /* if we're hiding the settings it means we're in the migration or wizard view and we don't
          * want to show the combo box */
@@ -1446,12 +1422,6 @@ ring_main_window_init(RingMainWindow *win)
 
     auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
     g_signal_connect(selection_conversations, "changed", G_CALLBACK(conversation_selection_changed), win);
-
-    auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
-    g_signal_connect(selection_contacts, "changed", G_CALLBACK(contact_selection_changed), win);
-
-    auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
-    g_signal_connect(selection_history, "changed", G_CALLBACK(history_selection_changed), win);
 
     auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
     g_signal_connect(selection_contact_request, "changed", G_CALLBACK(contact_request_selection_changed), win);
@@ -1485,10 +1455,6 @@ ring_main_window_init(RingMainWindow *win)
             AvailableAccountModel::instance().selectionModel()->setCurrentIndex(idx,
                                                                                 QItemSelectionModel::ClearAndSelect);
 
-            // clear the regex to make sure the call is shown
-            RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp());
-            contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts),"");
-            history_view_set_filter_string(HISTORY_VIEW(priv->treeview_history), "");
 
             // now make sure its selected
             RecentModel::instance().selectionModel()->clearCurrentIndex();
@@ -1630,8 +1596,6 @@ ring_main_window_class_init(RingMainWindowClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_left_pane);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_smartview);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contacts);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_menu);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_ring);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_settings);
