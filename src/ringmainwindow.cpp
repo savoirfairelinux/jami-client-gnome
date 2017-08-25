@@ -84,8 +84,8 @@
 #include <contactmodel.h>
 #include <databasemanager.h>
 #include <availableaccountmodel.h>
-//#include <lrc.h>
-//#include <newaccountmodel.h>
+#include <lrc.h>
+#include <newaccountmodel.h>
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
@@ -1328,18 +1328,10 @@ ring_main_window_init(RingMainWindow *win)
     gtk_widget_init_template(GTK_WIDGET(win));
 
     //TODO move model initialization before
-    /*Lrc lrc;
+    Lrc lrc;
     auto accountModel = lrc.getAccountModel();
     auto accountInfo = accountModel->getAccountInfo("198ae683bba0c6f8"); // TODO remove this
     priv->conversationModel_ = accountInfo->conversationModel_;
-    */
-    auto dbManager = std::make_shared<DatabaseManager>();
-    auto contactModel = std::make_shared<ContactModel>(dbManager,
-    AvailableAccountModel::instance().currentDefaultAccount());
-    auto callModel = std::make_shared<NewCallModel>();
-    priv->conversationModel_ = std::make_shared<ConversationModel>(callModel,
-                                                                   contactModel,
-                                                                   dbManager);
 
     /* bind to window size settings */
     priv->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
