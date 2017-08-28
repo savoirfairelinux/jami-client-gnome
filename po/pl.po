@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-20 23:09-0400\n"
-"PO-Revision-Date: 2017-08-03 02:49+0000\n"
+"POT-Creation-Date: 2017-08-27 23:09-0400\n"
+"PO-Revision-Date: 2017-08-23 05:30+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Polish (http://www.transifex.com/savoirfairelinux/ring/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -162,7 +162,7 @@ msgstr "Generalne"
 #: src/accountview.cpp:176
 msgctxt "Account settings"
 msgid "Devices"
-msgstr ""
+msgstr "Urządzenia"
 
 #: src/accountview.cpp:182
 msgctxt "Account settings"
@@ -376,7 +376,7 @@ msgstr "Pobieranie RingID..."
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Ring jest wolnym oprogramowaniem do uniwersalnej komunikacji, respektującym wolności i prywatność swoich użytkowników"
 
 #: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
@@ -698,7 +698,7 @@ msgstr ""
 
 #: ui/accountdevicestab.ui:40
 msgid "Devices"
-msgstr ""
+msgstr "Urządzenia"
 
 #: ui/accountdevicestab.ui:66
 msgid "Add device"
