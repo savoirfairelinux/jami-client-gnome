@@ -22,6 +22,7 @@
 // LRC
 #include <globalinstances.h>
 #include <conversationmodel.h>
+#include <contactmodel.h>
 #include <availableaccountmodel.h>
 
 // Gnome client
@@ -30,6 +31,8 @@
 
 // GTK+ related
 #include <QSize>
+
+#include <iostream>
 
 static constexpr const char* CALL_TARGET    = "CALL_TARGET";
 static constexpr int         CALL_TARGET_ID = 0;
@@ -49,7 +52,7 @@ typedef struct _ConversationsViewPrivate ConversationsViewPrivate;
 struct _ConversationsViewPrivate
 {
     GtkWidget *popup_menu;
-    std::shared_ptr<ConversationModel> conversationModel_;
+    AccountInfoContainer* accountInfoContainer_;
 
     QMetaObject::Connection selection_updated;
     QMetaObject::Connection layout_changed;
@@ -75,12 +78,13 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     if (!priv) return;
     try
     {
-        auto conversation = priv->conversationModel_->getConversation(row);
+        auto conversation = priv->accountInfoContainer_->accountInfo.conversationModel->getConversation(row);
+        auto contact = priv->accountInfoContainer_->accountInfo.contactModel->getContact(conversation.participants.front());
         std::shared_ptr<GdkPixbuf> image;
         auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
-            *conversation,
+            conversation,
             QSize(50, 50),
-            conversation->participants_.front()->isPresent_
+            contact.isPresent
         );
         image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
 
@@ -143,17 +147,17 @@ create_and_fill_model(ConversationsView *self)
     GtkTreeIter iter;
 
     // append les rows
-    for (auto row : priv->conversationModel_->getConversations()) {
-        auto conversation = row.second;
-        if (conversation->participants_.empty()) break; // Should not
-        auto contact = conversation->participants_.front();
-        auto lastMessage = conversation->messages_.empty() ? "" :
-            conversation->messages_.at(conversation->lastMessageUid_).body_;
+    for (auto conversation : priv->accountInfoContainer_->accountInfo.conversationModel->getFilteredConversations()) {
+        if (conversation.participants.empty()) break; // Should not
+        auto contactUri = conversation.participants.front();
+        auto contact = priv->accountInfoContainer_->accountInfo.contactModel->getContact(contactUri);
+        auto lastMessage = conversation.messages.empty() ? "" :
+            conversation.messages.at(conversation.lastMessageUid).body;
         gtk_list_store_append (store, &iter);
         gtk_list_store_set (store, &iter,
-            0 /* col # */ , conversation->uid_.c_str() /* celldata */,
-            1 /* col # */ , contact->alias_.c_str() /* celldata */,
-            2 /* col # */ , contact->avatar_.c_str() /* celldata */,
+            0 /* col # */ , conversation.uid.c_str() /* celldata */,
+            1 /* col # */ , contact.alias.c_str() /* celldata */,
+            2 /* col # */ , contact.avatar.c_str() /* celldata */,
             3 /* col # */ , lastMessage.c_str() /* celldata */,
             -1 /* end */);
     }
@@ -183,7 +187,7 @@ select_conversation(GtkTreeSelection *selection, ConversationsView *self)
                        0, &conversationUid,
                        -1);
     ConversationsViewPrivate *priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
-    priv->conversationModel_->selectConversation(std::string(conversationUid));
+    priv->accountInfoContainer_->accountInfo.conversationModel->selectConversation(std::string(conversationUid));
 }
 
 static void
@@ -206,15 +210,15 @@ build_conversations_view(ConversationsView *self)
     auto column = gtk_tree_view_column_new_with_area(area);
 
     auto renderer = gtk_cell_renderer_pixbuf_new();
-    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
+    /*gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
 
-    /* get the photo */
+    /* get the photo * /
     gtk_tree_view_column_set_cell_data_func(
         column,
         renderer,
         (GtkTreeCellDataFunc)render_contact_photo,
         self,
-        NULL);
+        NULL);*/
 
     /* renderer */
     renderer = gtk_cell_renderer_text_new();
@@ -230,7 +234,9 @@ build_conversations_view(ConversationsView *self)
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
 
-    priv->conversationModelUpdated = QObject::connect(&*priv->conversationModel_, &ConversationModel::modelUpdated,
+    priv->conversationModelUpdated = QObject::connect(
+    &*priv->accountInfoContainer_->accountInfo.conversationModel,
+    &lrc::ConversationModel::modelUpdated,
     [self] () {
         auto model = create_and_fill_model(self);
 
@@ -244,7 +250,7 @@ build_conversations_view(ConversationsView *self)
     g_signal_connect(selectionNew, "changed", G_CALLBACK(select_conversation), self);
     g_signal_connect(self, "row-activated", G_CALLBACK(call_conversation), NULL);
 
-    priv->popup_menu = conversation_popup_menu_new(GTK_TREE_VIEW(self), priv->conversationModel_);
+    priv->popup_menu = conversation_popup_menu_new(GTK_TREE_VIEW(self), priv->accountInfoContainer_);
     g_signal_connect_swapped(self, "button-press-event", G_CALLBACK(conversation_popup_menu_show), priv->popup_menu);
 }
 
@@ -275,11 +281,11 @@ conversations_view_class_init(ConversationsViewClass *klass)
 }
 
 GtkWidget *
-conversations_view_new(std::shared_ptr<ConversationModel> conversationModel)
+conversations_view_new(AccountInfoContainer* accountInfoContainer)
 {
     auto self = CONVERSATIONS_VIEW(g_object_new(CONVERSATIONS_VIEW_TYPE, NULL));
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
-    priv->conversationModel_ = conversationModel;
+    priv->accountInfoContainer_ = accountInfoContainer;
 
     build_conversations_view(self);
 
