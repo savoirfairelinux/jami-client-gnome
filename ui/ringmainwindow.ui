@@ -226,7 +226,7 @@
                     <property name="visible">True</property>
                   </object>
                   <packing>
-                    <property name="position">3</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child type="tab">
@@ -238,7 +238,7 @@
                     <property name="hexpand">True</property>
                   </object>
                   <packing>
-                    <property name="position">3</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <!-- end pending contact requests list -->

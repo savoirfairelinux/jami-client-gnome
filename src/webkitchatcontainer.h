@@ -19,14 +19,12 @@
 
 #pragma once
 
+// Gtk
 #include <gtk/gtk.h>
-#include <string>
 
 // LRC
-#include <message.h>
+#include <api/message.h>
 
-class QModelIndex;
-class QString;
 class QVariant;
 class ContactMethod;
 
@@ -45,9 +43,7 @@ GType      webkit_chat_container_get_type            (void) G_GNUC_CONST;
 GtkWidget* webkit_chat_container_new                 (void);
 void       webkit_chat_container_clear               (WebKitChatContainer *view);
 void       webkit_chat_container_clear_sender_images (WebKitChatContainer *view);
-// void       webkit_chat_container_print_new_message   (WebKitChatContainer *view, const QModelIndex &idx);
-void       webkit_chat_container_print_new_message   (WebKitChatContainer *view, const Message::Info& message);
-void       webkit_chat_container_update_message      (WebKitChatContainer *view, const QModelIndex &idx);
+void       webkit_chat_container_print_new_message   (WebKitChatContainer *view, const lrc::api::message::Info& message);
 void       webkit_chat_container_set_sender_image    (WebKitChatContainer *view, ContactMethod *sender_contact_method, QVariant sender_image);
 gboolean   webkit_chat_container_is_ready            (WebKitChatContainer *view);
 void       webkit_chat_container_set_display_links   (WebKitChatContainer *view, bool display);

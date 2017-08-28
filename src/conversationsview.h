@@ -21,11 +21,7 @@
 
 #include <gtk/gtk.h>
 
-// std
-#include <memory>
-
-// lrc
-#include <conversationmodel.h>
+#include "accountcontainer.h"
 
 G_BEGIN_DECLS
 
@@ -39,6 +35,6 @@ typedef struct _ConversationsView      ConversationsView;
 typedef struct _ConversationsViewClass ConversationsViewClass;
 
 GType      conversations_view_get_type (void) G_GNUC_CONST;
-GtkWidget *conversations_view_new      (std::shared_ptr<ConversationModel>);
+GtkWidget *conversations_view_new(AccountContainer* accountContainer/* TODO, Type {ALL, CONTACT, PENDING}*/);
 
 G_END_DECLS
