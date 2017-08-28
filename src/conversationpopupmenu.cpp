@@ -41,7 +41,8 @@ struct _ConversationPopupMenuPrivate
 {
     GtkTreeView *treeview;
 
-    std::shared_ptr<ConversationModel> conversationModel_;
+    //std::shared_ptr<lrc::account::Info> accountInfo_;
+    AccountContainer* accountContainer_;
     int row_;
 };
 
@@ -54,8 +55,8 @@ remove_history_conversation(GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 {
     try
     {
-        auto conversation = priv->conversationModel_->getConversation(priv->row_);
-        priv->conversationModel_->cleanHistory(conversation->uid_);
+        auto conversation = priv->accountContainer_->accInfo.conversationModel->getConversation(priv->row_);
+        priv->accountContainer_->accInfo.conversationModel->clearHistory(conversation.uid);
     }
     catch (const std::exception&)
     {
@@ -68,8 +69,8 @@ remove_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate*
 {
     try
     {
-        auto conversation = priv->conversationModel_->getConversation(priv->row_);
-        priv->conversationModel_->removeConversation(conversation->uid_);
+        auto conversation = priv->accountContainer_->accInfo.conversationModel->getConversation(priv->row_);
+        priv->accountContainer_->accInfo.conversationModel->removeConversation(conversation.uid);
     }
     catch (const std::exception&)
     {
@@ -82,8 +83,8 @@ add_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
 {
     try
     {
-        auto conversation = priv->conversationModel_->getConversation(priv->row_);
-        priv->conversationModel_->addConversation(conversation->uid_);
+        auto conversation = priv->accountContainer_->accInfo.conversationModel->getConversation(priv->row_);
+        priv->accountContainer_->accInfo.conversationModel->addConversation(conversation.uid);
     }
     catch (const std::exception&)
     {
@@ -96,8 +97,8 @@ place_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 {
     try
     {
-        auto conversation = priv->conversationModel_->getConversation(priv->row_);
-        priv->conversationModel_->placeCall(conversation->uid_);
+        auto conversation = priv->accountContainer_->accInfo.conversationModel->getConversation(priv->row_);
+        priv->accountContainer_->accInfo.conversationModel->placeCall(conversation.uid);
     }
     catch (const std::exception&)
     {
@@ -111,8 +112,8 @@ place_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 static void
 update(GtkTreeSelection *selection, ConversationPopupMenu *self)
 {
-    ConversationPopupMenuPrivate *priv = CONVERSATION_POPUP_MENU_GET_PRIVATE(self);
-    /* clear the current menu */
+    /*ConversationPopupMenuPrivate *priv = CONVERSATION_POPUP_MENU_GET_PRIVATE(self);
+    /* clear the current menu * /
     gtk_container_forall(GTK_CONTAINER(self), (GtkCallback)gtk_widget_destroy, nullptr);
 
     // Retrieve conversation
@@ -122,16 +123,16 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
         return;
     auto path = gtk_tree_model_get_path(model, &iter);
     auto idx = gtk_tree_path_get_indices(path);
-    auto conversation = priv->conversationModel_->getConversation(idx[0]);
+    auto conversation = priv->accountContainer_->accInfo.conversationModel->getConversation(idx[0]);
     priv->row_ = idx[0];
 
     /* we always build a menu, however in some cases some or all of the conversations will be deactivated;
      * we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case
-     */
+     * /
     auto place_call_conversation = gtk_menu_item_new_with_mnemonic(_("_Place call"));
     gtk_menu_shell_append(GTK_MENU_SHELL(self), place_call_conversation);
     g_signal_connect(place_call_conversation, "activate", G_CALLBACK(place_call), priv);
-    if (!conversation->isUsed_) {
+    if (!conversation.isUsed) {
         // If we can add this conversation
         auto add_conversation_conversation = gtk_menu_item_new_with_mnemonic(_("_Add conversation"));
         gtk_menu_shell_append(GTK_MENU_SHELL(self), add_conversation_conversation);
@@ -145,8 +146,8 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
         g_signal_connect(rm_conversation_conversation, "activate", G_CALLBACK(remove_conversation), priv);
     }
 
-    /* show all conversations */
-    gtk_widget_show_all(GTK_WIDGET(self));
+    /* show all conversations * /
+    gtk_widget_show_all(GTK_WIDGET(self));*/
 }
 
 static void
@@ -176,11 +177,12 @@ conversation_popup_menu_init(G_GNUC_UNUSED ConversationPopupMenu *self)
 }
 
 GtkWidget *
-conversation_popup_menu_new(GtkTreeView *treeview, std::shared_ptr<ConversationModel> conversationModel)
+conversation_popup_menu_new (GtkTreeView *treeview, AccountContainer* accountContainer)
 {
     gpointer self = g_object_new(CONVERSATION_POPUP_MENU_TYPE, NULL);
     ConversationPopupMenuPrivate *priv = CONVERSATION_POPUP_MENU_GET_PRIVATE(self);
-    priv->conversationModel_ = conversationModel;
+    //priv->accountInfo_ = accountInfo;
+    priv->accountContainer_ = accountContainer;
 
     priv->treeview = treeview;
     GtkTreeSelection *selection = gtk_tree_view_get_selection(priv->treeview);

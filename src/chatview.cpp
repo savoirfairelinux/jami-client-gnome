@@ -39,6 +39,7 @@
 
 // LRC
 #include <account.h>
+#include <contactmodel.h>
 
 
 static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
@@ -76,8 +77,9 @@ struct _ChatViewPrivate
     Call          *call;
     Person        *person;
     ContactMethod *cm;
-    std::shared_ptr<Conversation::Info> conversation_; // TODO set const
-    std::shared_ptr<ConversationModel> conversationModel_; // TODO set const
+    lrc::conversation::Info conversation_;
+    //std::shared_ptr<lrc::account::Info> accountInfo_;
+    AccountContainer* accountContainer_;
     bool isTemporary_;
 
     QMetaObject::Connection new_message_connection;
@@ -181,7 +183,7 @@ placecall_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    priv->conversationModel_->placeCall(priv->conversation_->uid_);
+    priv->accountContainer_->accInfo.conversationModel->placeCall(priv->conversation_.uid);
 
 /* TODO remove
     if (priv->person) {
@@ -204,7 +206,7 @@ static void
 button_send_invitation_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-    priv->conversationModel_->addConversation(priv->conversation_->uid_);
+    priv->accountContainer_->accInfo.conversationModel->addConversation(priv->conversation_.uid);
 
 /* TODO remove
     if (priv->person) {
@@ -242,7 +244,7 @@ webkit_chat_container_send_text(G_GNUC_UNUSED GtkWidget* webview, gchar *message
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     /* make sure there is more than just whitespace, but if so, send the original text */
-    priv->conversationModel_->sendMessage(priv->conversation_->uid_, std::string(message));
+    priv->accountContainer_->accInfo.conversationModel->sendMessage(priv->conversation_.uid, std::string(message));
     /*TODO REMOVE const auto text = QString(message);
     if (!text.trimmed().isEmpty()) {
         QMap<QString, QString> messages;
@@ -323,7 +325,7 @@ chat_view_class_init(ChatViewClass *klass)
 
 
 static void
-print_message_to_buffer(ChatView* self, const Message::Info& msg)
+print_message_to_buffer(ChatView* self, const lrc::message::Info& msg)
 {
     /*if (!idx.isValid()) {
         g_warning("QModelIndex in im model is not valid");
@@ -407,7 +409,7 @@ print_text_recording(/*Media::TextRecording *recording, */ChatView *self)
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    for (const auto& msg : priv->conversation_->messages_)
+    for (const auto& msg : priv->conversation_.messages)
     {
         print_message_to_buffer(self, msg.second);
     }
@@ -466,7 +468,7 @@ static void
 update_send_invitation(ChatView *self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    if(priv->conversation_->isUsed_)
+    if(priv->conversation_.isUsed)
         gtk_widget_hide(priv->button_send_invitation);
 
     /*auto cm = get_active_contactmethod(self);
@@ -626,7 +628,9 @@ update_name(ChatView *self)
         name = priv->call->peerContactMethod()->roleData(static_cast<int>(Ring::Role::Name)).toString();
     }
     gtk_label_set_text(GTK_LABEL(priv->label_peer), name.toUtf8().constData());*/
-    gtk_label_set_text(GTK_LABEL(priv->label_peer), priv->conversation_->participants_.front()->uri_.c_str());
+    auto contactUri = priv->conversation_.participants.front();
+    auto contact = priv->accountContainer_->accInfo.contactModel->getContact(contactUri);
+    gtk_label_set_text(GTK_LABEL(priv->label_peer), contact.uri.c_str());
 }
 
 static void
@@ -645,14 +649,14 @@ webkit_chat_container_ready(ChatView* self)
     print_text_recording(self);
 
     priv->new_message_connection = QObject::connect(
-    &*priv->conversationModel_, &ConversationModel::newMessageAdded,
-    [self, priv](const std::string& uid, Message::Info msg) {
-        if(uid == priv->conversation_->uid_) {
+    &*priv->accountContainer_->accInfo.conversationModel, &lrc::ConversationModel::newMessageAdded,
+    [self, priv](const std::string& uid, lrc::message::Info msg) {
+        if(uid == priv->conversation_.uid) {
             print_message_to_buffer(self, msg);
         }
     });
 
-    priv->isTemporary_ = !priv->conversation_->isUsed_;
+    priv->isTemporary_ = !priv->conversation_.isUsed;
     webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
 
     /* TODO REMOVE AND PRINT HISTORY  print the text recordings * /
@@ -745,14 +749,21 @@ chat_view_new_call(WebKitChatContainer *webkit_chat_container, Call *call)
 }
 
 GtkWidget *
-chat_view_new (WebKitChatContainer* webkit_chat_container, std::shared_ptr<ConversationModel> conversationModel, std::shared_ptr<Conversation::Info> conversation)
+chat_view_new (WebKitChatContainer* webkit_chat_container, AccountContainer* accountContainer, lrc::conversation::Info conversation)
 {
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
-    priv->conversation_ = conversation;
-    priv->conversationModel_ = conversationModel;
+    priv->conversation_.uid = conversation.uid;
+    priv->conversation_.accountId = conversation.accountId;
+    priv->conversation_.participants = conversation.participants;
+    priv->conversation_.messages = conversation.messages;
+    priv->conversation_.lastMessageUid = conversation.lastMessageUid;
+    priv->conversation_.isUsed = conversation.isUsed;
+    priv->conversation_.unreadMessages = conversation.unreadMessages;
+    // priv->conversation_.callId = conversation.callId; // TODO there is  a problem here...
+    priv->accountContainer_ = accountContainer;
 
     build_chat_view(self);
 
@@ -806,7 +817,7 @@ chat_view_update_temporary(ChatView* self)
     g_return_if_fail(IS_CHAT_VIEW(self));
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    priv->isTemporary_ = !priv->conversation_->isUsed_;
+    priv->isTemporary_ = !priv->conversation_.isUsed;
     if (!priv->isTemporary_) {
         gtk_widget_hide(priv->button_send_invitation);
     }
@@ -822,10 +833,10 @@ chat_view_get_temporary(ChatView *self)
     return priv->isTemporary_;
 }
 
-std::shared_ptr<Conversation::Info>
+lrc::conversation::Info
 chat_view_get_conversation(ChatView *self)
 {
-    g_return_val_if_fail(IS_CHAT_VIEW(self), nullptr);
+    g_return_val_if_fail(IS_CHAT_VIEW(self), lrc::conversation::Info());
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
     return priv->conversation_;
