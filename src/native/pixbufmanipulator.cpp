@@ -30,6 +30,9 @@
 #include <string>
 #include <algorithm>
 
+// lrc
+#include <api/contactmodel.h>
+
 namespace Interfaces {
 
 PixbufManipulator::PixbufManipulator()
@@ -223,23 +226,32 @@ QVariant PixbufManipulator::personPhoto(const QByteArray& data, const QString& t
     /* could not load image, return emtpy QVariant */
     return QVariant();
 }
-
+/*
 QVariant
-PixbufManipulator::conversationPhoto(const Conversation::Info& conversation, const QSize& size, bool displayPresence)
+PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& conversation,
+                                     const lrc::api::account::Info& accountInfo,
+                                     const QSize& size,
+                                     bool displayPresence)
 {
-    auto contacts = conversation.participants_;
-    if (!contacts.empty() && contacts.front()->avatar_.length() > 0)
+    auto contacts = conversation.participants;
+    if (!contacts.empty())
     {
-        QByteArray byteArray(contacts.front()->avatar_.c_str(), contacts.front()->avatar_.length());
-        QVariant photo = personPhoto(byteArray);
-        return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, true));
-    } else {
-        auto alias = contacts.empty()? "" : contacts.front()->alias_;
-        auto uri = contacts.empty()? "" : contacts.front()->uri_;
-        return QVariant::fromValue(scaleAndFrame(generateAvatar(alias, uri).get(), size, displayPresence, true));
+        // Get first contact photo
+        auto contactUri = contacts.front();
+        auto contact = accountInfo.contactModel->getContact(contactUri);
+        auto contactPhoto = contact.avatar;
+        if (!contactPhoto.empty()) {
+            QByteArray byteArray(contactPhoto.c_str(), contactPhoto.length());
+            QVariant photo = personPhoto(byteArray);
+            return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, true));
+        } else {
+            return QVariant::fromValue(scaleAndFrame(generateAvatar(contact.alias, contact.uri).get(), size, displayPresence, true));
+        }
     }
+    // should not
+    return QVariant::fromValue(scaleAndFrame(generateAvatar("", "").get(), size, displayPresence, true));
 
-}
+}*/
 
 QVariant
 PixbufManipulator::numberCategoryIcon(const QVariant& p, const QSize& size, bool displayPresence, bool isPresent)
@@ -346,11 +358,13 @@ QVariant PixbufManipulator::decorationRole(const Account* p)
     Q_UNUSED(p)
     return QVariant();
 }
-
-QVariant PixbufManipulator::decorationRole(const Conversation::Info* c)
+/*
+QVariant PixbufManipulator::decorationRole(const lrc::api::conversation::Info& conversation,
+                                           const lrc::api::account::Info& accountInfo)
 {
-    Q_UNUSED(c)
+    Q_UNUSED(conversation)
+    Q_UNUSED(accountInfo)
     return QVariant();
-}
+}*/
 
 } // namespace Interfaces

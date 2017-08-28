@@ -289,12 +289,8 @@ SET( SRC_FILES
    src/utils/files.h
    src/utils/files.cpp
    ${GIT_REVISION_OUTPUT_FILE}
-   src/utils/menus.h
-   src/utils/menus.cpp
    src/utils/accounts.h
    src/utils/accounts.cpp
-   src/contactpopover.h
-   src/contactpopover.cpp
    src/choosecontactview.h
    src/choosecontactview.cpp
    src/editcontactview.h
@@ -303,8 +299,6 @@ SET( SRC_FILES
    src/native/dbuserrorhandler.cpp
    src/ringwelcomeview.h
    src/ringwelcomeview.cpp
-   src/recentcontactsview.h
-   src/recentcontactsview.cpp
    src/webkitchatcontainer.h
    src/webkitchatcontainer.cpp
    src/chatview.h
@@ -313,8 +307,6 @@ SET( SRC_FILES
    src/avatarmanipulation.cpp
    src/accountimportexportview.h
    src/accountimportexportview.cpp
-   src/contactpopupmenu.h
-   src/contactpopupmenu.cpp
    src/cc-crop-area.h
    src/cc-crop-area.c
    src/models/namenumberfilterproxymodel.h
@@ -331,6 +323,8 @@ SET( SRC_FILES
    src/conversationsview.cpp
    src/conversationpopupmenu.h
    src/conversationpopupmenu.cpp
+   src/accountcontainer.h
+   src/conversationcontainer.h
 )
 
 # compile glib resource files to c code
