@@ -283,10 +283,12 @@ set_call_info(IncomingCallView *view, Call *call) {
     );
 
     /* show chat */
+    /* TODO
     auto chat_view = chat_view_new_cm(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->call->peerContactMethod());
     gtk_widget_show(chat_view);
     chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
+    */
 }
 
 GtkWidget *
