@@ -49,7 +49,7 @@ typedef struct _ConversationsViewPrivate ConversationsViewPrivate;
 struct _ConversationsViewPrivate
 {
     GtkWidget *popup_menu;
-    std::shared_ptr<ConversationModel> conversationModel_;
+    std::shared_ptr<lrc::ConversationModel> conversationModel_;
 
     QMetaObject::Connection selection_updated;
     QMetaObject::Connection layout_changed;
@@ -78,9 +78,9 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         auto conversation = priv->conversationModel_->getConversation(row);
         std::shared_ptr<GdkPixbuf> image;
         auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
-            *conversation,
+            conversation,
             QSize(50, 50),
-            conversation->participants_.front()->isPresent_
+            conversation.participants.front().isPresent
         );
         image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
 
@@ -143,17 +143,16 @@ create_and_fill_model(ConversationsView *self)
     GtkTreeIter iter;
 
     // append les rows
-    for (auto row : priv->conversationModel_->getConversations()) {
-        auto conversation = row.second;
-        if (conversation->participants_.empty()) break; // Should not
-        auto contact = conversation->participants_.front();
-        auto lastMessage = conversation->messages_.empty() ? "" :
-            conversation->messages_.at(conversation->lastMessageUid_).body_;
+    for (auto conversation : priv->conversationModel_->getFilteredConversations()) {
+        if (conversation.participants.empty()) break; // Should not
+        auto contact = conversation.participants.front();
+        auto lastMessage = conversation.messages.empty() ? "" :
+            conversation.messages.at(conversation.lastMessageUid).body;
         gtk_list_store_append (store, &iter);
         gtk_list_store_set (store, &iter,
-            0 /* col # */ , conversation->uid_.c_str() /* celldata */,
-            1 /* col # */ , contact->alias_.c_str() /* celldata */,
-            2 /* col # */ , contact->avatar_.c_str() /* celldata */,
+            0 /* col # */ , conversation.uid.c_str() /* celldata */,
+            1 /* col # */ , contact.alias.c_str() /* celldata */,
+            2 /* col # */ , contact.avatar.c_str() /* celldata */,
             3 /* col # */ , lastMessage.c_str() /* celldata */,
             -1 /* end */);
     }
@@ -230,7 +229,8 @@ build_conversations_view(ConversationsView *self)
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
 
-    priv->conversationModelUpdated = QObject::connect(&*priv->conversationModel_, &ConversationModel::modelUpdated,
+    priv->conversationModelUpdated = QObject::connect(&*priv->conversationModel_,
+    &lrc::ConversationModel::modelUpdated,
     [self] () {
         auto model = create_and_fill_model(self);
 
@@ -275,7 +275,7 @@ conversations_view_class_init(ConversationsViewClass *klass)
 }
 
 GtkWidget *
-conversations_view_new(std::shared_ptr<ConversationModel> conversationModel)
+conversations_view_new(std::shared_ptr<lrc::ConversationModel> conversationModel)
 {
     auto self = CONVERSATIONS_VIEW(g_object_new(CONVERSATIONS_VIEW_TYPE, NULL));
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
