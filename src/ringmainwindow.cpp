@@ -82,8 +82,8 @@
 #include <contactmodel.h>
 #include <databasemanager.h>
 #include <availableaccountmodel.h>
-//#include <lrc.h>
-//#include <newaccountmodel.h>
+#include <lrc.h>
+#include <newaccountmodel.h>
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
@@ -159,7 +159,8 @@ struct _RingMainWindowPrivate
 
     GSettings *settings;
 
-    std::shared_ptr<ConversationModel> conversationModel_;
+    std::unique_ptr<lrc::Lrc> lrc_;
+    std::shared_ptr<lrc::ConversationModel> conversationModel_;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -251,7 +252,7 @@ hide_view_clicked(RingMainWindow *self)
 }
 
 static void
-change_view(RingMainWindow *self, GtkWidget* old, std::shared_ptr<Conversation::Info> conversation, GType type)
+change_view(RingMainWindow *self, GtkWidget* old, std::shared_ptr<lrc::conversation::Info> conversation, GType type)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     leave_full_screen(self);
@@ -1310,18 +1311,9 @@ ring_main_window_init(RingMainWindow *win)
     gtk_widget_init_template(GTK_WIDGET(win));
 
     //TODO move model initialization before
-    /*Lrc lrc;
-    auto accountModel = lrc.getAccountModel();
-    auto accountInfo = accountModel->getAccountInfo("198ae683bba0c6f8"); // TODO remove this
-    priv->conversationModel_ = accountInfo->conversationModel_;
-    */
-    auto dbManager = std::make_shared<DatabaseManager>();
-    auto contactModel = std::make_shared<ContactModel>(dbManager,
-    AvailableAccountModel::instance().currentDefaultAccount());
-    auto callModel = std::make_shared<NewCallModel>();
-    priv->conversationModel_ = std::make_shared<ConversationModel>(callModel,
-                                                                   contactModel,
-                                                                   dbManager);
+    priv->lrc_ = std::make_unique<lrc::Lrc>();;
+    auto accountInfo = priv->lrc_->getNewAccountModel()->getAccountInfo("a0ae994924d0a494"); // TODO remove this
+    priv->conversationModel_ = accountInfo.conversationModel;
 
     /* bind to window size settings */
     priv->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
@@ -1508,12 +1500,12 @@ ring_main_window_init(RingMainWindow *win)
     current_account_changed(win, get_active_ring_account());
 
     // New conversation view
-    QObject::connect(&*priv->conversationModel_, &ConversationModel::showChatView,
-    [win, priv] (std::shared_ptr<Conversation::Info> origin) {
+    QObject::connect(&*priv->conversationModel_, &lrc::ConversationModel::showChatView,
+    [win, priv] (std::shared_ptr<lrc::conversation::Info> origin) {
         // Change the view if we want a different view.
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
 
-        std::shared_ptr<Conversation::Info> current_item;
+        std::shared_ptr<lrc::conversation::Info> current_item;
         if (IS_CHAT_VIEW(old_view))
             current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
 
@@ -1521,29 +1513,29 @@ ring_main_window_init(RingMainWindow *win)
             change_view(win, old_view, origin, CHAT_VIEW_TYPE);
     });
 
-    QObject::connect(&*priv->conversationModel_, &ConversationModel::modelUpdated,
+    QObject::connect(&*priv->conversationModel_, &lrc::ConversationModel::modelUpdated,
     [win, priv] () {
         // Change the view if we want a different view.
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
 
-        std::shared_ptr<Conversation::Info> current_item;
+        std::shared_ptr<lrc::conversation::Info> current_item;
         if (IS_CHAT_VIEW(old_view))
             current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
 
         if (!current_item) {
             change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
-        } else if (!current_item->isUsed_) {
+        } else if (!current_item->isUsed) {
             auto contactModel =  priv->conversationModel_->getContactModel();
-            auto uri = current_item->participants_.front()->uri_;
-            if (!contactModel->isAContact(uri)) {
+            auto uri = current_item->participants.front()->uri;
+            if (!contactModel->getContact(uri)) {
                 // We were on a temporary chatview, go to welcome page
                 change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
             }
         } else {
             // change view if contact was removed or added
             auto contactModel =  priv->conversationModel_->getContactModel();
-            auto uri = current_item->participants_.front()->uri_;
-            if (!contactModel->isAContact(uri)) {
+            auto uri = current_item->participants.front()->uri;
+            if (!contactModel->getContact(uri)) {
                 change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
             } else if (chat_view_get_temporary(CHAT_VIEW(old_view))){
                 // Conversation added

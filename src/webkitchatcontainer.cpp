@@ -211,16 +211,16 @@ message_index_to_json_message_object(const QModelIndex &idx)
 
 
 QString
-message_to_json_message_object(const Message::Info& message)
+message_to_json_message_object(const lrc::message::Info& message)
 {
     auto sender = "TODO";
     auto sender_contact_method = "TODO";
-    auto timestamp = QString::number(message.timestamp_);
-    auto direction = message.isOutgoing_ ? QString("out") : QString("in");
+    auto timestamp = QString::number(message.timestamp);
+    auto direction = message.isOutgoing ? QString("out") : QString("in");
     auto message_id = 0; //TODO
 
     QJsonObject message_object = QJsonObject();
-    message_object.insert("text", QJsonValue(QString(message.body_.c_str())));
+    message_object.insert("text", QJsonValue(QString(message.body.c_str())));
     message_object.insert("id", QJsonValue(QString().setNum(message_id)));
     message_object.insert("sender", QJsonValue(sender));
     message_object.insert("sender_contact_method", QJsonValue("sender_contact_method_str"));
@@ -576,7 +576,7 @@ webkit_chat_container_print_new_message(WebKitChatContainer *view, const QModelI
  * TODO temp method. Just transform messages from database and breaks nothing in chatview.html for now
  */
 void
-webkit_chat_container_print_new_message(WebKitChatContainer *view, const Message::Info& message)
+webkit_chat_container_print_new_message(WebKitChatContainer *view, const lrc::message::Info& message)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
