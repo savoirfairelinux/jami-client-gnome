@@ -32,7 +32,6 @@
 #include <media/textrecording.h>
 #include <globalinstances.h>
 #include <contactmethod.h>
-#include <message.h>
 
 // Ring Client
 #include "native/pixbufmanipulator.h"
@@ -145,82 +144,16 @@ webview_chat_context_menu(WebKitChatContainer *self,
 }
 
 QString
-message_index_to_json_message_object(const QModelIndex &idx)
-{
-    auto message = idx.data().value<QString>();
-    auto sender = idx.data(static_cast<int>(Media::TextRecording::Role::AuthorDisplayname)).value<QString>();
-    auto sender_contact_method = idx.data(static_cast<int>(Media::TextRecording::Role::ContactMethod)).value<ContactMethod*>();
-    auto timestamp = idx.data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
-    auto direction = idx.data(static_cast<int>(Media::TextRecording::Role::Direction)).value<Media::Media::Direction>();
-    auto message_id = idx.row();
-
-    QString sender_contact_method_str;
-    if(direction == Media::Media::Direction::IN)
-    {
-        sender_contact_method_str = QString(g_strdup_printf("%p", sender_contact_method));
-    }
-    else
-    {
-        sender_contact_method_str = "self";
-    }
-
-    QJsonObject message_object = QJsonObject();
-    message_object.insert("text", QJsonValue(message));
-    message_object.insert("id", QJsonValue(QString().setNum(message_id)));
-    message_object.insert("sender", QJsonValue(sender));
-    message_object.insert("sender_contact_method", QJsonValue(sender_contact_method_str));
-    message_object.insert("timestamp", QJsonValue((int) timestamp));
-    message_object.insert("direction", QJsonValue((direction == Media::Media::Direction::IN) ? "in" : "out"));
-
-    switch(idx.data(static_cast<int>(Media::TextRecording::Role::DeliveryStatus)).value<Media::TextRecording::Status>())
-    {
-        case Media::TextRecording::Status::FAILURE:
-        {
-            message_object.insert("delivery_status", QJsonValue("failure"));
-            break;
-        }
-        case Media::TextRecording::Status::COUNT__:
-        {
-            message_object.insert("delivery_status", QJsonValue("count__"));
-            break;
-        }
-        case Media::TextRecording::Status::SENDING:
-        {
-            message_object.insert("delivery_status", QJsonValue("sending"));
-            break;
-        }
-        case Media::TextRecording::Status::UNKNOWN:
-        {
-            message_object.insert("delivery_status", QJsonValue("unknown"));
-            break;
-        }
-        case Media::TextRecording::Status::READ:
-        {
-            message_object.insert("delivery_status", QJsonValue("read"));
-            break;
-        }
-        case Media::TextRecording::Status::SENT:
-        {
-            message_object.insert("delivery_status", QJsonValue("sent"));
-            break;
-        }
-    }
-
-    return QString(QJsonDocument(message_object).toJson(QJsonDocument::Compact));
-}
-
-
-QString
-message_to_json_message_object(const Message::Info& message)
+message_to_json_message_object(const lrc::api::message::Info& message)
 {
     auto sender = "TODO";
     auto sender_contact_method = "TODO";
-    auto timestamp = QString::number(message.timestamp_);
-    auto direction = message.isOutgoing_ ? QString("out") : QString("in");
+    auto timestamp = QString::number(message.timestamp);
+    auto direction = message.status == lrc::api::message::Status::READ ? QString("in") : QString("out");
     auto message_id = 0; //TODO
 
     QJsonObject message_object = QJsonObject();
-    message_object.insert("text", QJsonValue(QString(message.body_.c_str())));
+    message_object.insert("text", QJsonValue(QString(message.body.c_str())));
     message_object.insert("id", QJsonValue(QString().setNum(message_id)));
     message_object.insert("sender", QJsonValue(sender));
     message_object.insert("sender_contact_method", QJsonValue("sender_contact_method_str"));
@@ -554,51 +487,17 @@ webkit_chat_container_clear(WebKitChatContainer *view)
     webkit_chat_container_clear_sender_images(view);
 }
 
-/*
-void
-webkit_chat_container_print_new_message(WebKitChatContainer *view, const QModelIndex &idx)
-{
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    auto message_object = message_index_to_json_message_object(idx).toUtf8();
-    gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", message_object.constData());
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        function_call,
-        NULL,
-        NULL,
-        NULL
-    );
-    g_free(function_call);
-}
-*/
 /**
  * TODO temp method. Just transform messages from database and breaks nothing in chatview.html for now
  */
 void
-webkit_chat_container_print_new_message(WebKitChatContainer *view, const Message::Info& message)
+webkit_chat_container_print_new_message(WebKitChatContainer *view, const lrc::api::message::Info& message)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
     auto message_object = message_to_json_message_object(message).toUtf8();
     gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", message_object.constData());
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        function_call,
-        NULL,
-        NULL,
-        NULL
-    );
-    g_free(function_call);
-}
-
-void
-webkit_chat_container_update_message(WebKitChatContainer *view, const QModelIndex &idx)
-{
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-
-    auto message_object = message_index_to_json_message_object(idx).toUtf8();
-    gchar* function_call = g_strdup_printf("ring.chatview.updateMessage(%s);", message_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,

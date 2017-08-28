@@ -25,7 +25,11 @@
 #include <memory>
 
 // lrc
-#include <conversationmodel.h>
+#include <api/account.h>
+#include <api/lrc.h>
+#include <api/conversationmodeli.h>
+
+#include "accountcontainer.h"
 
 G_BEGIN_DECLS
 
@@ -39,6 +43,7 @@ typedef struct _ConversationsView      ConversationsView;
 typedef struct _ConversationsViewClass ConversationsViewClass;
 
 GType      conversations_view_get_type (void) G_GNUC_CONST;
-GtkWidget *conversations_view_new      (std::shared_ptr<ConversationModel>);
+//GtkWidget *conversations_view_new(std::shared_ptr<lrc::account::Info> accountInfo);
+GtkWidget *conversations_view_new(AccountContainer* accountContainer);
 
 G_END_DECLS
