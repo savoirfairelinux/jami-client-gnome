@@ -892,15 +892,17 @@ set_call_info(CurrentCallView *view, Call *call) {
                                               priv->vbox_call_smartInfo);
 
     /* init chat view */
+    /* TODO
     auto chat_view = chat_view_new_call(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->call);
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
+    */
 
     /* check if there were any chat notifications and open the chat view if so */
     if (ring_notify_close_chat_notification(priv->call->peerContactMethod()))
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
 
     /* show chat view on any new incoming messages */
-    g_signal_connect_swapped(chat_view, "new-messages-displayed", G_CALLBACK(show_chat_view), view);
+    // g_signal_connect_swapped(chat_view, "new-messages-displayed", G_CALLBACK(show_chat_view), view);
 }
 
 GtkWidget *
