@@ -23,7 +23,7 @@
 #include "webkitchatcontainer.h"
 
 // LRC
-#include <conversation.h>
+#include <data/conversation.h>
 #include <conversationmodel.h>
 
 class Call; // TODO REMOVE
@@ -43,10 +43,10 @@ typedef struct _ChatViewClass ChatViewClass;
 
 
 GType          chat_view_get_type   (void) G_GNUC_CONST;
-GtkWidget     *chat_view_new        (WebKitChatContainer* view, std::shared_ptr<ConversationModel> conversationModel, std::shared_ptr<Conversation::Info> conversation);
+GtkWidget     *chat_view_new        (WebKitChatContainer* view, std::shared_ptr<lrc::ConversationModel> conversationModel, lrc::conversation::Info conversation);
 GtkWidget     *chat_view_new_call   (WebKitChatContainer* view, Call* call); // TODO remove
 GtkWidget     *chat_view_new_cm     (WebKitChatContainer* view, ContactMethod* cm);
-std::shared_ptr<Conversation::Info> chat_view_get_conversation(ChatView*);
+lrc::conversation::Info chat_view_get_conversation(ChatView*);
 bool chat_view_get_temporary(ChatView*);
 void chat_view_update_temporary(ChatView*);
 // GtkWidget     *chat_view_new_person (WebKitChatContainer* view, Person* p); // TODO remove

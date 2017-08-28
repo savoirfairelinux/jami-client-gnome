@@ -225,17 +225,17 @@ QVariant PixbufManipulator::personPhoto(const QByteArray& data, const QString& t
 }
 
 QVariant
-PixbufManipulator::conversationPhoto(const Conversation::Info& conversation, const QSize& size, bool displayPresence)
+PixbufManipulator::conversationPhoto(const lrc::conversation::Info& conversation, const QSize& size, bool displayPresence)
 {
-    auto contacts = conversation.participants_;
-    if (!contacts.empty() && contacts.front()->avatar_.length() > 0)
+    auto contacts = conversation.participants;
+    if (!contacts.empty() && contacts.front().avatar.length() > 0)
     {
-        QByteArray byteArray(contacts.front()->avatar_.c_str(), contacts.front()->avatar_.length());
+        QByteArray byteArray(contacts.front().avatar.c_str(), contacts.front().avatar.length());
         QVariant photo = personPhoto(byteArray);
         return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, true));
     } else {
-        auto alias = contacts.empty()? "" : contacts.front()->alias_;
-        auto uri = contacts.empty()? "" : contacts.front()->uri_;
+        auto alias = contacts.empty()? "" : contacts.front().alias;
+        auto uri = contacts.empty()? "" : contacts.front().uri;
         return QVariant::fromValue(scaleAndFrame(generateAvatar(alias, uri).get(), size, displayPresence, true));
     }
 
@@ -347,7 +347,7 @@ QVariant PixbufManipulator::decorationRole(const Account* p)
     return QVariant();
 }
 
-QVariant PixbufManipulator::decorationRole(const Conversation::Info* c)
+QVariant PixbufManipulator::decorationRole(const lrc::conversation::Info* c)
 {
     Q_UNUSED(c)
     return QVariant();
