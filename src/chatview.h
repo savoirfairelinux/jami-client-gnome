@@ -19,16 +19,13 @@
 
 #pragma once
 
+// Gtk
 #include <gtk/gtk.h>
+
+// Client related
+#include "accountcontainer.h"
+#include "conversationcontainer.h"
 #include "webkitchatcontainer.h"
-
-// LRC
-#include <conversation.h>
-#include <conversationmodel.h>
-
-class Call; // TODO REMOVE
-class ContactMethod; // TODO REMOVE
-class Person; // TODO REMOVE
 
 G_BEGIN_DECLS
 
@@ -43,16 +40,10 @@ typedef struct _ChatViewClass ChatViewClass;
 
 
 GType          chat_view_get_type   (void) G_GNUC_CONST;
-GtkWidget     *chat_view_new        (WebKitChatContainer* view, std::shared_ptr<ConversationModel> conversationModel, std::shared_ptr<Conversation::Info> conversation);
-GtkWidget     *chat_view_new_call   (WebKitChatContainer* view, Call* call); // TODO remove
-GtkWidget     *chat_view_new_cm     (WebKitChatContainer* view, ContactMethod* cm);
-std::shared_ptr<Conversation::Info> chat_view_get_conversation(ChatView*);
+GtkWidget     *chat_view_new        (WebKitChatContainer* view, AccountContainer* accountContainer, ConversationContainer* conversationContainer);
+lrc::api::conversation::Info chat_view_get_conversation(ChatView*);
 bool chat_view_get_temporary(ChatView*);
 void chat_view_update_temporary(ChatView*);
-// GtkWidget     *chat_view_new_person (WebKitChatContainer* view, Person* p); // TODO remove
-// Call          *chat_view_get_call   (ChatView*);
-// ContactMethod *chat_view_get_cm     (ChatView*);
-// Person        *chat_view_get_person (ChatView*);
 void           chat_view_set_header_visible(ChatView*, gboolean);
 
 G_END_DECLS

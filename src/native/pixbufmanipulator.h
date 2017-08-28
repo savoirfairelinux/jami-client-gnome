@@ -36,7 +36,10 @@ public:
 
     QVariant callPhoto(Call* c, const QSize& size, bool displayPresence = true) override;
     QVariant callPhoto(const ContactMethod* n, const QSize& size, bool displayPresence = true) override;
-    QVariant conversationPhoto(const Conversation::Info& conversation, const QSize& size, bool displayPresence = true) override;
+    /*QVariant conversationPhoto(const lrc::api::conversation::Info& conversation,
+                               const lrc::api::account::Info& accountInfo,
+                               const QSize& size,
+                               bool displayPresence = true) override;*/
     QVariant contactPhoto(Person* c, const QSize& size, bool displayPresence = true) override;
     QVariant personPhoto(const QByteArray& data, const QString& type = "PNG") override;
 
@@ -53,7 +56,8 @@ public:
     QVariant   decorationRole(const Call* c) override;
     QVariant   decorationRole(const ContactMethod* cm) override;
     QVariant   decorationRole(const Person* p) override;
-    QVariant   decorationRole(const Conversation::Info* c   ) override;
+    /*QVariant   decorationRole(const lrc::api::conversation::Info& conversation,
+                              const lrc::api::account::Info& accountInfo) override;*/
     QVariant   decorationRole(const Account* p) override;
 
 private:
