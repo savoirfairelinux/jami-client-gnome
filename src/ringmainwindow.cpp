@@ -80,10 +80,12 @@
 #include <conversationmodel.h>
 #include <newcallmodel.h>
 #include <contactmodel.h>
-#include <databasemanager.h>
 #include <availableaccountmodel.h>
-//#include <lrc.h>
-//#include <newaccountmodel.h>
+#include <lrc.h>
+#include <newaccountmodel.h>
+#include "accountcontainer.h"
+
+#include <iostream>
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
@@ -159,7 +161,8 @@ struct _RingMainWindowPrivate
 
     GSettings *settings;
 
-    std::shared_ptr<ConversationModel> conversationModel_;
+    std::unique_ptr<lrc::Lrc> lrc_;
+    AccountContainer* accountContainer_;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -251,7 +254,7 @@ hide_view_clicked(RingMainWindow *self)
 }
 
 static void
-change_view(RingMainWindow *self, GtkWidget* old, std::shared_ptr<Conversation::Info> conversation, GType type)
+change_view(RingMainWindow *self, GtkWidget* old, lrc::conversation::Info conversation, GType type)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     leave_full_screen(self);
@@ -267,7 +270,7 @@ change_view(RingMainWindow *self, GtkWidget* old, std::shared_ptr<Conversation::
     } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
         // TODO
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
-        new_view = chat_view_new(get_webkit_chat_container(self), priv->conversationModel_, conversation);
+        new_view = chat_view_new(get_webkit_chat_container(self), priv->accountContainer_, conversation);
         g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
     } else if (g_type_is_a(CONTACT_REQUEST_CONTENT_VIEW_TYPE, type)) {
         // TODO
@@ -278,473 +281,6 @@ change_view(RingMainWindow *self, GtkWidget* old, std::shared_ptr<Conversation::
 
     gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
     gtk_widget_show(new_view);
-}
-
-/* TODO REMOVE
-static void
-change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
-{
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-    leave_full_screen(self);
-    gtk_container_remove(GTK_CONTAINER(priv->frame_call), old);
-
-    GtkWidget *new_view = nullptr;
-
-    QObject::disconnect(priv->selected_item_changed);
-    QObject::disconnect(priv->selected_call_over);
-
-    if (g_type_is_a(INCOMING_CALL_VIEW_TYPE, type)) {
-        if (auto call = qobject_cast<Call *>(object)) {
-            new_view = incoming_call_view_new(call, get_webkit_chat_container(self));
-            priv->selected_item_changed = QObject::connect(
-                call,
-                &Call::lifeCycleStateChanged,
-                [self] (Call::LifeCycleState, Call::LifeCycleState)
-                {g_idle_add((GSourceFunc)selection_changed, self);}
-            );
-            priv->selected_call_over = QObject::connect(
-                call,
-                &Call::isOver,
-                [self] ()
-                {g_idle_add((GSourceFunc)selection_changed, self);}
-            );
-        } else
-            g_warning("Trying to display a view of type IncomingCallView, but the object is not of type Call");
-    } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
-        if (auto call = qobject_cast<Call *>(object)) {
-            new_view = current_call_view_new(call, get_webkit_chat_container(self));
-            g_signal_connect_swapped(new_view, "video-double-clicked", G_CALLBACK(video_double_clicked), self);
-            priv->selected_item_changed = QObject::connect(
-                call,
-                &Call::lifeCycleStateChanged,
-                [self] (Call::LifeCycleState, Call::LifeCycleState)
-                {g_idle_add((GSourceFunc)selection_changed, self);}
-            );
-            priv->selected_call_over = QObject::connect(
-                call,
-                &Call::isOver,
-                [self] ()
-                {g_idle_add((GSourceFunc)selection_changed, self);}
-            );
-        } else
-            g_warning("Trying to display a view of type CurrentCallView, but the object is not of type Call");
-    } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
-        if (auto person = qobject_cast<Person *>(object)) {
-            new_view = chat_view_new_person(get_webkit_chat_container(self), person);
-            g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
-
-            /* connect to the Person's callAdded signal, because we want to switch to the call view
-             * in this case * /
-            priv->selected_item_changed = QObject::connect(
-                person,
-                &Person::callAdded,
-                [self] (Call*)
-                {g_idle_add((GSourceFunc)selection_changed, self);}
-            );
-        } else if (auto cm = qobject_cast<ContactMethod *>(object)) {
-            new_view = chat_view_new_cm(get_webkit_chat_container(self), cm);
-            g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
-
-            /* connect to the ContactMethod's callAdded signal, because we want to switch to the
-             * call view in this case * /
-            priv->selected_item_changed = QObject::connect(
-                cm,
-                &ContactMethod::callAdded,
-                [self] (Call*)
-                {g_idle_add((GSourceFunc)selection_changed, self);}
-            );
-        } else {
-            g_warning("Trying to display a veiw of type ChatView, but the object is neither a Person nor a ContactMethod");
-        }
-    } else if (g_type_is_a(CONTACT_REQUEST_CONTENT_VIEW_TYPE, type)) {
-        if (auto contact_request = qobject_cast<ContactRequest *>(object)) {
-            new_view = contact_request_content_view_new(contact_request);
-            g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
-        }
-    } else {
-        // display the welcome view
-        new_view = priv->welcome_view;
-    }
-
-    gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
-    gtk_widget_show(new_view);
-}*/
-
-/** TODO REMOVE
- * This function determines which view to display in the right panel of the main window based on
- * which item is selected in one of the 3 contact list views (Conversations, Contacts, History). The
- * possible views ares:
- * - incoming call view
- * - current call view
- * - chat view
- * - contact request content view
- * - welcome view (if no valid item is selected)
- *
- * There should never be a conflict of which item should be displayed (ie: which item is selected),
- * as there should only ever be one selection at a time in the 3 views except in the case that the
- * same item is selected in more than one view (see the compare_treeview_selection() function).
- *
- * This function could be called from a g_idle source, so it returns a boolean to remove itself from
- * being called again. The boolean doesn't reflect success nor failure.
- * /
-static gboolean
-selection_changed(RingMainWindow *win)
-{
-
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(win), G_SOURCE_REMOVE);
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
-
-    auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
-
-    /* if we're showing the settings, then we need to make sure to remove any possible ongoing call
-     * view so that we don't have more than one VideoWidget at a time  * /
-    if (priv->show_settings) {
-        if (old_view != priv->welcome_view) {
-            leave_full_screen(win);
-            gtk_container_remove(GTK_CONTAINER(priv->frame_call), old_view);
-            gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
-            gtk_widget_show(priv->welcome_view);
-        }
-        return G_SOURCE_REMOVE;
-    }
-
-    /* there should only be one item selected at a time, get which one is selected * /
-    auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
-    auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
-    auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
-    auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
-
-    GtkTreeModel *model = nullptr;
-    GtkTreeIter iter;
-    QModelIndex idx;
-
-    if (gtk_tree_selection_get_selected(selection_conversations, &model, &iter)) {
-        idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
-    } else if (gtk_tree_selection_get_selected(selection_contacts, &model, &iter)) {
-        idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
-    } else if (gtk_tree_selection_get_selected(selection_history, &model, &iter)) {
-        idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
-    } else if (gtk_tree_selection_get_selected(selection_contact_request, &model, &iter)) {
-        idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
-    }
-
-    /* check which object type is selected * /
-    auto type = idx.data(static_cast<int>(Ring::Role::ObjectType));
-    auto object = idx.data(static_cast<int>(Ring::Role::Object));
-
-    if (idx.isValid() && type.isValid() && object.isValid()) {
-
-        /* we prioritize the views in the following order:
-         *  - call view (if there is an ongoing call associated with the item)
-         *  - chat view built from Person
-         *  - chat view built from ContactMethod
-         *  - contact request content view built from ContactRequest
-         * /
-
-        Person *person = nullptr;
-        ContactMethod *cm = nullptr;
-        Call *call = nullptr;
-        ContactRequest *contact_request = nullptr;
-
-        /* use the RecentModel to see if there are any ongoing calls associated with the selected item * /
-        switch(type.value<Ring::ObjectType>()) {
-            case Ring::ObjectType::Person:
-            {
-                person = object.value<Person *>();
-                auto recent_idx = RecentModel::instance().getIndex(person);
-                if (recent_idx.isValid()) {
-                    call = RecentModel::instance().getActiveCall(recent_idx);
-                }
-            }
-            break;
-            case Ring::ObjectType::ContactMethod:
-            {
-                cm = object.value<ContactMethod *>();
-                auto recent_idx = RecentModel::instance().getIndex(cm);
-                if (recent_idx.isValid()) {
-                    call = RecentModel::instance().getActiveCall(recent_idx);
-                }
-            }
-            break;
-            case Ring::ObjectType::Call:
-            {
-                /* if the call is over (eg: if it comes from the history model) then we first check
-                 * if there is an ongoing call with the same ContactMethod, otherwise we need to get
-                 * the associated Person or ContactMethod * /
-                call = object.value<Call *>();
-                if (call->isHistory()) {
-                    cm = call->peerContactMethod();
-                    call = nullptr;
-                    if (cm) {
-                        auto recent_idx = RecentModel::instance().getIndex(cm);
-                        if (recent_idx.isValid()) {
-                            call = RecentModel::instance().getActiveCall(recent_idx);
-                        }
-                        person = cm->contact();
-                    }
-                }
-            }
-            break;
-            case Ring::ObjectType::ContactRequest:
-            {
-                contact_request = object.value<ContactRequest *>();
-            }
-            break;
-            case Ring::ObjectType::Media:
-            case Ring::ObjectType::Certificate:
-            case Ring::ObjectType::COUNT__:
-            // nothing to do
-            break;
-        }
-
-        /* we prioritize showing the call view * /
-        if (call) {
-            auto state = call->lifeCycleState();
-
-            Call *current_call = nullptr;
-
-            switch(state) {
-                case Call::LifeCycleState::CREATION:
-                case Call::LifeCycleState::INITIALIZATION:
-                case Call::LifeCycleState::FINISHED:
-                    // check if we're already displaying this call
-                    if (IS_INCOMING_CALL_VIEW(old_view))
-                        current_call = incoming_call_view_get_call(INCOMING_CALL_VIEW(old_view));
-                    if (current_call != call)
-                        change_view(win, old_view, call, INCOMING_CALL_VIEW_TYPE);
-                    break;
-                case Call::LifeCycleState::PROGRESS:
-                    // check if we're already displaying this call
-                    if (IS_CURRENT_CALL_VIEW(old_view))
-                        current_call = current_call_view_get_call(CURRENT_CALL_VIEW(old_view));
-                    if (current_call != call)
-                        change_view(win, old_view, call, CURRENT_CALL_VIEW_TYPE);
-                    break;
-                case Call::LifeCycleState::COUNT__:
-                    g_warning("LifeCycleState should never be COUNT");
-                    break;
-            }
-
-        } else if (person) {
-            /* show chat view constructed from Person object * /
-
-            // check if we're already displaying the chat view for this person
-            Person *current_person = nullptr;
-            if (IS_CHAT_VIEW(old_view))
-                current_person = chat_view_get_person(CHAT_VIEW(old_view));
-
-            if (current_person != person)
-                change_view(win, old_view, person, CHAT_VIEW_TYPE);
-        } else if (cm) {
-            /* show chat view constructed from CM * /
-
-            // check if we're already displaying the chat view for this cm
-            ContactMethod *current_cm = nullptr;
-            if (IS_CHAT_VIEW(old_view))
-                current_cm = chat_view_get_cm(CHAT_VIEW(old_view));
-
-            if (current_cm != cm)
-                change_view(win, old_view, cm, CHAT_VIEW_TYPE);
-
-        } else if (contact_request) {
-            /* show the contact request page * /
-            change_view(win, old_view, contact_request, CONTACT_REQUEST_CONTENT_VIEW_TYPE);
-
-        } else {
-            /* not a supported object type, display the welcome view * /
-            if (old_view != priv->welcome_view)
-                change_view(win, old_view, nullptr, RING_WELCOME_VIEW_TYPE);
-        }
-    } else {
-        /* selection isn't valid, display the welcome view * /
-        if (old_view != priv->welcome_view)
-            change_view(win, old_view, nullptr, RING_WELCOME_VIEW_TYPE);
-    }
-
-    /* we force to check the pending contact request status * /
-    if (old_view != priv->welcome_view)
-        change_view(win, old_view);
-
-    return G_SOURCE_REMOVE;
-}*/
-
-static void
-activate_contact_method(RingMainWindow *self, URI uri, Account *account)
-{
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-
-    auto cm = PhoneDirectoryModel::instance().getNumber(uri, account);
-
-    if (g_settings_get_boolean(priv->settings, "search-entry-places-call")) {
-        place_new_call(cm);
-
-        /* move focus away from entry so that DTMF tones can be entered via the keyboard */
-        gtk_widget_child_focus(GTK_WIDGET(self), GTK_DIR_TAB_FORWARD);
-    } else {
-        // if its a new CM, bring it to the top
-        if (cm->lastUsed() == 0)
-            cm->setLastUsed(QDateTime::currentDateTime().toTime_t());
-
-        // select cm
-        RecentModel::instance().selectionModel()->setCurrentIndex(
-            RecentModel::instance().getIndex(cm),
-            QItemSelectionModel::ClearAndSelect
-        );
-    }
-    gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
-}
-
-static void
-lookup_username(RingMainWindow *self, URI uri, Account *account)
-{
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-
-    gtk_widget_show(priv->spinner_lookup);
-    gtk_spinner_start(GTK_SPINNER(priv->spinner_lookup));
-    gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
-
-    // we need to strip the Scheme section, or else some will contain "sip:"
-    QString querry = uri.format(URI::Section::USER_INFO|URI::Section::HOSTNAME|URI::Section::PORT);
-
-    /* disconect previous lookup */
-    QObject::disconnect(priv->username_lookup);
-
-    /* connect new lookup */
-    priv->username_lookup = QObject::connect(
-        &NameDirectory::instance(),
-        &NameDirectory::registeredNameFound,
-        [self, priv, querry] (Account* account, NameDirectory::LookupStatus status, const QString& address, const QString& name) {
-
-            g_debug("lookup results for %s is %s",
-                querry.toUtf8().constData(),
-                name.toUtf8().constData()
-            );
-
-            if ( name.compare(querry, Qt::CaseInsensitive) != 0 ) {
-                g_debug("not from the same lookup match");
-                return; // doesn't match
-            }
-
-            gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
-
-            switch(status)
-            {
-                case NameDirectory::LookupStatus::SUCCESS:
-                {
-                    URI result = URI("ring:" + address);
-                    activate_contact_method(self, result, account);
-                    break;
-                }
-                case NameDirectory::LookupStatus::INVALID_NAME:
-                {
-                    //Can't be a ring username, could be something else.
-                    auto dialog = gtk_message_dialog_new(
-                        GTK_WINDOW(self),
-                        GTK_DIALOG_DESTROY_WITH_PARENT,
-                        GTK_MESSAGE_ERROR,
-                        GTK_BUTTONS_CLOSE,
-                        _("Invalid Ring username: %s"),
-                        name.toUtf8().constData()
-                    );
-
-                    gtk_dialog_run (GTK_DIALOG (dialog));
-                    gtk_widget_destroy (dialog);
-                    break;
-                }
-                case NameDirectory::LookupStatus::ERROR:
-                {
-                    auto dialog = gtk_message_dialog_new(
-                        GTK_WINDOW(self),
-                        GTK_DIALOG_DESTROY_WITH_PARENT,
-                        GTK_MESSAGE_ERROR,
-                        GTK_BUTTONS_CLOSE,
-                        _("Error resolving username, nameserver is possibly unreachable")
-                    );
-
-                    gtk_dialog_run(GTK_DIALOG (dialog));
-                    gtk_widget_destroy(dialog);
-                    break;
-                }
-                case NameDirectory::LookupStatus::NOT_FOUND:
-                {
-                    auto dialog = gtk_message_dialog_new(
-                        GTK_WINDOW(self),
-                        GTK_DIALOG_DESTROY_WITH_PARENT,
-                        GTK_MESSAGE_ERROR,
-                        GTK_BUTTONS_CLOSE,
-                        _("Could not resolve Ring username: %s"),
-                        name.toUtf8().constData()
-                    );
-
-                    gtk_dialog_run(GTK_DIALOG (dialog));
-                    gtk_widget_destroy(dialog);
-                    break;
-                }
-            }
-            gtk_spinner_stop(GTK_SPINNER(priv->spinner_lookup));
-            gtk_widget_hide(priv->spinner_lookup);
-        }
-    );
-
-    /* lookup */
-    NameDirectory::instance().lookupName(account, "", querry);
-}
-
-/**
- * This is called when someone activates the search entry (clicks enter or on the button).
- * At this point the list is already filtered but on clicking enter we want to either contact a new
- * number or perform a search on the name service. Here we must decide which one the user wants.
- * We'll use the following rules to decide:
- *   * if a user explicitly specifies the scheme ("sip:" or "ring:") then we always use a
- *     corresponding account type (use currentDefaultAccount() with the scheme type)
- *   * if a user doesn't specify the scheme, then we decide based on the user selected account; if
- *     SIP account then we assume its a SIP URI; if RING account then we check if its a ringID,
- *     otherwise we perform a name lookup.
- *
- * Additionally, we need to make sure that the CM found/created either has the same account set as
- * selected by the user, no account set, or else we need to switch the user selected account to the
- * account of the CM (eg: in the case we're switching protocols), or else the item will not be
- * visible in the Converstations list to the user. This is accomplished via the use of
- * currentDefaultAccount().
- */
-static void
-search_entry_activated(RingMainWindow *self)
-{
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-
-    /*TODO REMOVE URI uri = URI(querry);
-
-    // nothing to do if querry is empty or just whitespace
-    if (uri.isEmpty()) return;
-
-    /* get account to use * /
-    Account *account = nullptr;
-    if (uri.schemeType() != URI::SchemeType::NONE) {
-        /* explicit SIP, SIPS, or RING; make sure account is of right type * /
-        account = AvailableAccountModel::instance().currentDefaultAccount(uri.schemeType());
-        if (!account) {
-            const gchar *type = uri.schemeType() == URI::SchemeType::RING ? "RING" : "SIP";
-            g_warning("entered %s uri, but no active %s accounts", type, type);
-        }
-    } else {
-        /* just take the user selected account * /
-        account = AvailableAccountModel::instance().currentDefaultAccount();
-    }
-
-    if (!account) {
-        g_critical("could not get an account for uri: %s", uri.full().toUtf8().constData());
-        return;
-    }
-
-    /* if RING and not RingID, perform lookup * /
-    if (account->protocol() == Account::Protocol::RING &&
-        uri.protocolHint() != URI::ProtocolHint::RING)
-    {
-        lookup_username(self, uri, account);
-    } else {
-        /* no lookup, simply use the URI as is * /
-        activate_contact_method(self, uri, account);
-    }*/
 }
 
 static gboolean
@@ -769,9 +305,6 @@ settings_clicked(RingMainWindow *win)
     if (!priv->show_settings) {
         /* show the settings */
         priv->show_settings = TRUE;
-
-        /* make sure we are not showing a call view so we don't have more than one clutter stage at a time */
-        //selection_changed(win);
 
         /* show settings */
         gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-ok-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
@@ -928,11 +461,7 @@ search_entry_text_changed(GtkSearchEntry *search_entry, RingMainWindow *self)
 
     /* get the text from the entry */
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(search_entry));
-    priv->conversationModel_->setFilter(text);
-
-    /*TODO REMOVE RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp(text, Qt::CaseInsensitive, QRegExp::FixedString));
-    contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts), text);
-    history_view_set_filter_string(HISTORY_VIEW(priv->treeview_history), text);*/
+    priv->accountContainer_->accInfo.conversationModel->setFilter(text);
 }
 
 static gboolean
@@ -941,12 +470,10 @@ search_entry_key_released(G_GNUC_UNUSED GtkEntry *search_entry, GdkEventKey *key
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
     // if esc key pressed, clear the regex (keep the text, the user might not want to actually delete it)
-    /*if (key->keyval == GDK_KEY_Escape) {
-        RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp());
-        contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts), "");
-        history_view_set_filter_string(HISTORY_VIEW(priv->treeview_history), "");
+    if (key->keyval == GDK_KEY_Escape) {
+        priv->accountContainer_->accInfo.conversationModel->setFilter("");
         return GDK_EVENT_STOP;
-    }*/
+    }
 
     return GDK_EVENT_PROPAGATE;
 }
@@ -1111,39 +638,7 @@ conversation_selection_changed(GtkTreeSelection* selection, RingMainWindow* self
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     sync_all_view_selection(selection,
                             GTK_TREE_VIEW(priv->treeview_contact_requests));
-
-    //selection_changed(self);
 }
-
-/*
-static void
-contact_selection_changed(GtkTreeSelection* selection, RingMainWindow* self)
-{
-    if (gtk_q_tree_model_ignore_selection_change(selection)) return;
-
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-    sync_all_view_selection(selection,
-                            GTK_TREE_VIEW(priv->treeview_conversations),
-                            GTK_TREE_VIEW(priv->treeview_history),
-                            GTK_TREE_VIEW(priv->treeview_contact_requests));
-
-    //selection_changed(self);
-}
-
-static void
-history_selection_changed(GtkTreeSelection* selection, RingMainWindow* self)
-{
-    if (gtk_q_tree_model_ignore_selection_change(selection)) return;
-
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-    sync_all_view_selection(selection,
-                            GTK_TREE_VIEW(priv->treeview_contacts),
-                            GTK_TREE_VIEW(priv->treeview_conversations),
-                            GTK_TREE_VIEW(priv->treeview_contact_requests));
-
-    //selection_changed(self);
-}
-*/
 
 static void
 contact_request_selection_changed(GtkTreeSelection* selection, RingMainWindow* self)
@@ -1153,8 +648,6 @@ contact_request_selection_changed(GtkTreeSelection* selection, RingMainWindow* s
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     sync_all_view_selection(selection,
                             GTK_TREE_VIEW(priv->treeview_conversations));
-
-    //selection_changed(self);
 }
 
 static gboolean
@@ -1309,19 +802,12 @@ ring_main_window_init(RingMainWindow *win)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
     gtk_widget_init_template(GTK_WIDGET(win));
 
-    //TODO move model initialization before
-    /*Lrc lrc;
-    auto accountModel = lrc.getAccountModel();
-    auto accountInfo = accountModel->getAccountInfo("198ae683bba0c6f8"); // TODO remove this
-    priv->conversationModel_ = accountInfo->conversationModel_;
-    */
-    auto dbManager = std::make_shared<DatabaseManager>();
-    auto contactModel = std::make_shared<ContactModel>(dbManager,
-    AvailableAccountModel::instance().currentDefaultAccount());
-    auto callModel = std::make_shared<NewCallModel>();
-    priv->conversationModel_ = std::make_shared<ConversationModel>(callModel,
-                                                                   contactModel,
-                                                                   dbManager);
+
+    // NOTE dirty hack for gtk...
+    // TODO move this
+    priv->lrc_ = std::unique_ptr<lrc::Lrc>(new lrc::Lrc());
+    priv->accountContainer_ = new AccountContainer(priv->lrc_->getAccountModel().getAccountInfo("a0ae994924d0a494"));
+    qDebug() << " CCCCC " << priv->accountContainer_->accInfo.id.c_str();
 
     /* bind to window size settings */
     priv->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
@@ -1388,12 +874,8 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect(priv->radiobutton_account_settings, "toggled", G_CALLBACK(show_account_settings), win);
     g_signal_connect(priv->radiobutton_general_settings, "toggled", G_CALLBACK(show_general_settings), win);
 
-    /* OLD notebook */
-    //~ priv->treeview_conversations = recent_contacts_view_new();
-    //~ gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
-
     /* populate the NEW notebook */
-    priv->treeview_conversations = conversations_view_new(priv->conversationModel_);
+    priv->treeview_conversations = conversations_view_new(priv->accountContainer_);
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
 
     auto available_accounts_changed = [win, priv] {
@@ -1426,8 +908,6 @@ ring_main_window_init(RingMainWindow *win)
     auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
     g_signal_connect(selection_contact_request, "changed", G_CALLBACK(contact_request_selection_changed), win);
 
-    g_signal_connect_swapped(priv->button_new_conversation, "clicked", G_CALLBACK(search_entry_activated), win);
-    g_signal_connect_swapped(priv->search_entry, "activate", G_CALLBACK(search_entry_activated), win);
     g_signal_connect(priv->search_entry, "search-changed", G_CALLBACK(search_entry_text_changed), win);
     g_signal_connect(priv->search_entry, "key-release-event", G_CALLBACK(search_entry_key_released), win);
 
@@ -1508,47 +988,53 @@ ring_main_window_init(RingMainWindow *win)
     current_account_changed(win, get_active_ring_account());
 
     // New conversation view
-    QObject::connect(&*priv->conversationModel_, &ConversationModel::showChatView,
-    [win, priv] (std::shared_ptr<Conversation::Info> origin) {
+    QObject::connect(&*priv->accountContainer_->accInfo.conversationModel,
+    &lrc::ConversationModel::showChatView,
+    [win, priv] (lrc::conversation::Info origin) {
         // Change the view if we want a different view.
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
 
-        std::shared_ptr<Conversation::Info> current_item;
+        lrc::conversation::Info current_item;
         if (IS_CHAT_VIEW(old_view))
             current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
 
-        if (current_item != origin)
+        if (current_item.uid != origin.uid) {
             change_view(win, old_view, origin, CHAT_VIEW_TYPE);
+        }
     });
 
-    QObject::connect(&*priv->conversationModel_, &ConversationModel::modelUpdated,
+    QObject::connect(&*priv->accountContainer_->accInfo.conversationModel,
+    &lrc::ConversationModel::modelUpdated,
     [win, priv] () {
         // Change the view if we want a different view.
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
 
-        std::shared_ptr<Conversation::Info> current_item;
+        lrc::conversation::Info current_item;
         if (IS_CHAT_VIEW(old_view))
             current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
 
-        if (!current_item) {
+        if (current_item.participants.empty()) {
             change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
-        } else if (!current_item->isUsed_) {
-            auto contactModel =  priv->conversationModel_->getContactModel();
-            auto uri = current_item->participants_.front()->uri_;
-            if (!contactModel->isAContact(uri)) {
-                // We were on a temporary chatview, go to welcome page
+        } else if (!current_item.isUsed) {
+            // if current conversation is temporary, change if it's not a contact
+            auto uri = current_item.participants.front();
+            try {
+                // else the contact was added
+                priv->accountContainer_->accInfo.contactModel->getContact(uri);
+                chat_view_update_temporary(CHAT_VIEW(old_view));
+                gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+            } catch (const std::out_of_range&) {
                 change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
             }
         } else {
-            // change view if contact was removed or added
-            auto contactModel =  priv->conversationModel_->getContactModel();
-            auto uri = current_item->participants_.front()->uri_;
-            if (!contactModel->isAContact(uri)) {
-                change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
-            } else if (chat_view_get_temporary(CHAT_VIEW(old_view))){
-                // Conversation added
-                chat_view_update_temporary(CHAT_VIEW(old_view));
+            // change view if contact was removed
+            auto uri = current_item.participants.front();
+            try {
+                priv->accountContainer_->accInfo.contactModel->getContact(uri);
+            } catch (const std::out_of_range&) {
+                // contact was removed
                 gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+                change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
             }
         }
     });
@@ -1559,6 +1045,8 @@ ring_main_window_dispose(GObject *object)
 {
     RingMainWindow *self = RING_MAIN_WINDOW(object);
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+
+    delete priv->accountContainer_;
 
     QObject::disconnect(priv->selected_item_changed);
     QObject::disconnect(priv->selected_call_over);
