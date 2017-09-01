@@ -208,6 +208,7 @@ message_index_to_json_message_object(const QModelIndex &idx)
     return QString(QJsonDocument(message_object).toJson(QJsonDocument::Compact));
 }
 
+#include <iostream>
 
 QString
 message_to_json_message_object(const lrc::message::Info& message)
@@ -215,6 +216,7 @@ message_to_json_message_object(const lrc::message::Info& message)
     auto sender = "TODO";
     auto sender_contact_method = "TODO";
     auto timestamp = QString::number(message.timestamp);
+    std::cout << (message.status == lrc::message::Status::READ) << std::endl;
     auto direction = message.status == lrc::message::Status::READ ? QString("in") : QString("out");
     auto message_id = 0; //TODO
 

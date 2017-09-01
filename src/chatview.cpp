@@ -78,7 +78,7 @@ struct _ChatViewPrivate
     Person        *person;
     ContactMethod *cm;
     lrc::conversation::Info conversation_;
-    AccountInfoContainer* accountInfoContainer_;
+    std::shared_ptr<lrc::account::Info> accountInfo_;
     bool isTemporary_;
 
     QMetaObject::Connection new_message_connection;
@@ -182,7 +182,7 @@ placecall_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    priv->accountInfoContainer_->accountInfo.conversationModel->placeCall(priv->conversation_.uid);
+    priv->accountInfo_->conversationModel->placeCall(priv->conversation_.uid);
 
 /* TODO remove
     if (priv->person) {
@@ -205,7 +205,7 @@ static void
 button_send_invitation_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-    priv->accountInfoContainer_->accountInfo.conversationModel->addConversation(priv->conversation_.uid);
+    priv->accountInfo_->conversationModel->addConversation(priv->conversation_.uid);
 
 /* TODO remove
     if (priv->person) {
@@ -243,7 +243,7 @@ webkit_chat_container_send_text(G_GNUC_UNUSED GtkWidget* webview, gchar *message
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     /* make sure there is more than just whitespace, but if so, send the original text */
-    priv->accountInfoContainer_->accountInfo.conversationModel->sendMessage(priv->conversation_.uid, std::string(message));
+    priv->accountInfo_->conversationModel->sendMessage(priv->conversation_.uid, std::string(message));
     /*TODO REMOVE const auto text = QString(message);
     if (!text.trimmed().isEmpty()) {
         QMap<QString, QString> messages;
@@ -628,7 +628,7 @@ update_name(ChatView *self)
     }
     gtk_label_set_text(GTK_LABEL(priv->label_peer), name.toUtf8().constData());*/
     auto contactUri = priv->conversation_.participants.front();
-    auto contact = priv->accountInfoContainer_->accountInfo.contactModel->getContact(contactUri);
+    auto contact = priv->accountInfo_->contactModel->getContact(contactUri);
     gtk_label_set_text(GTK_LABEL(priv->label_peer), contact.uri.c_str());
 }
 
@@ -648,7 +648,7 @@ webkit_chat_container_ready(ChatView* self)
     print_text_recording(self);
 
     priv->new_message_connection = QObject::connect(
-    &*priv->accountInfoContainer_->accountInfo.conversationModel, &lrc::ConversationModel::newMessageAdded,
+    &*priv->accountInfo_->conversationModel, &lrc::ConversationModel::newMessageAdded,
     [self, priv](const std::string& uid, lrc::message::Info msg) {
         if(uid == priv->conversation_.uid) {
             print_message_to_buffer(self, msg);
@@ -748,14 +748,21 @@ chat_view_new_call(WebKitChatContainer *webkit_chat_container, Call *call)
 }
 
 GtkWidget *
-chat_view_new (WebKitChatContainer* webkit_chat_container, AccountInfoContainer* accountInfoContainer, lrc::conversation::Info conversation)
+chat_view_new (WebKitChatContainer* webkit_chat_container, std::shared_ptr<lrc::account::Info> accountInfo, lrc::conversation::Info conversation)
 {
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
-    priv->conversation_ = conversation;
-    priv->accountInfoContainer_ = accountInfoContainer;
+    priv->conversation_.uid = conversation.uid;
+    priv->conversation_.accountId = conversation.accountId;
+    priv->conversation_.participants = conversation.participants;
+    priv->conversation_.messages = conversation.messages;
+    priv->conversation_.lastMessageUid = conversation.lastMessageUid;
+    priv->conversation_.isUsed = conversation.isUsed;
+    priv->conversation_.unreadMessages = conversation.unreadMessages;
+    // priv->conversation_.callId = conversation.callId; // TODO there is  a problem here...
+    priv->accountInfo_ = accountInfo;
 
     build_chat_view(self);
 

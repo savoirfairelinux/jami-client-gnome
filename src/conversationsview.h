@@ -29,6 +29,7 @@
 #include <conversationmodel.h>
 
 #include "accountinfocontainer.h"
+#include <data/account.h>
 
 G_BEGIN_DECLS
 
@@ -42,6 +43,6 @@ typedef struct _ConversationsView      ConversationsView;
 typedef struct _ConversationsViewClass ConversationsViewClass;
 
 GType      conversations_view_get_type (void) G_GNUC_CONST;
-GtkWidget *conversations_view_new(AccountInfoContainer* accountInfoContainer);
+GtkWidget *conversations_view_new(std::shared_ptr<lrc::account::Info> accountInfo);
 
 G_END_DECLS

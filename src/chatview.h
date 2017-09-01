@@ -27,6 +27,7 @@
 #include <conversationmodel.h>
 
 #include "accountinfocontainer.h"
+#include <data/account.h>
 
 class Call; // TODO REMOVE
 class ContactMethod; // TODO REMOVE
@@ -45,7 +46,7 @@ typedef struct _ChatViewClass ChatViewClass;
 
 
 GType          chat_view_get_type   (void) G_GNUC_CONST;
-GtkWidget     *chat_view_new        (WebKitChatContainer* view, AccountInfoContainer* accountInfoContainer, lrc::conversation::Info conversation);
+GtkWidget     *chat_view_new        (WebKitChatContainer* view, std::shared_ptr<lrc::account::Info> accountInfo, lrc::conversation::Info conversation);
 GtkWidget     *chat_view_new_call   (WebKitChatContainer* view, Call* call); // TODO remove
 GtkWidget     *chat_view_new_cm     (WebKitChatContainer* view, ContactMethod* cm);
 lrc::conversation::Info chat_view_get_conversation(ChatView*);
