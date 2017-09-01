@@ -50,7 +50,8 @@ typedef struct _ConversationsViewPrivate ConversationsViewPrivate;
 struct _ConversationsViewPrivate
 {
     GtkWidget *popup_menu;
-    std::shared_ptr<lrc::account::Info> accountInfo_;
+    //std::shared_ptr<lrc::account::Info> accountInfo_;
+    AccountInfoContainer* accountInfoContainer_;
 
     QMetaObject::Connection selection_updated;
     QMetaObject::Connection layout_changed;
@@ -76,8 +77,8 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     if (!priv) return;
     try
     {
-        auto conversation = priv->accountInfo_->conversationModel->getConversation(row);
-        auto contact = priv->accountInfo_->contactModel->getContact(conversation.participants.front());
+        auto conversation = priv->accountInfoContainer_->accountInfo.conversationModel->getConversation(row);
+        auto contact = priv->accountInfoContainer_->accountInfo.contactModel->getContact(conversation.participants.front());
         std::shared_ptr<GdkPixbuf> image;
         auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
             conversation,
@@ -145,10 +146,10 @@ create_and_fill_model(ConversationsView *self)
     GtkTreeIter iter;
 
     // append les rows
-    for (auto conversation : priv->accountInfo_->conversationModel->getFilteredConversations()) {
+    for (auto conversation : priv->accountInfoContainer_->accountInfo.conversationModel->getFilteredConversations()) {
         if (conversation.participants.empty()) break; // Should not
         auto contactUri = conversation.participants.front();
-        auto contact = priv->accountInfo_->contactModel->getContact(contactUri);
+        auto contact = priv->accountInfoContainer_->accountInfo.contactModel->getContact(contactUri);
         auto lastMessage = conversation.messages.empty() ? "" :
             conversation.messages.at(conversation.lastMessageUid).body;
         gtk_list_store_append (store, &iter);
@@ -188,9 +189,9 @@ select_conversation(GtkTreeSelection *selection, ConversationsView *self)
                        -1);
     ConversationsViewPrivate *priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
     qDebug() << " CCCCC " << self;
-    qDebug() << " CCCCC " << priv->accountInfo_->id.c_str();
+    qDebug() << " CCCCC " << priv->accountInfoContainer_->accountInfo.id.c_str();
 
-    priv->accountInfo_->conversationModel->selectConversation(std::string(conversationUid));
+    priv->accountInfoContainer_->accountInfo.conversationModel->selectConversation(std::string(conversationUid));
 }
 
 static void
@@ -238,7 +239,7 @@ build_conversations_view(ConversationsView *self)
     gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
 
     priv->conversationModelUpdated = QObject::connect(
-    &*priv->accountInfo_->conversationModel,
+    &*priv->accountInfoContainer_->accountInfo.conversationModel,
     &lrc::ConversationModel::modelUpdated,
     [self] () {
         auto model = create_and_fill_model(self);
@@ -253,7 +254,7 @@ build_conversations_view(ConversationsView *self)
     g_signal_connect(selectionNew, "changed", G_CALLBACK(select_conversation), self);
     g_signal_connect(self, "row-activated", G_CALLBACK(call_conversation), NULL);
 
-    priv->popup_menu = conversation_popup_menu_new(GTK_TREE_VIEW(self), priv->accountInfo_);
+    priv->popup_menu = conversation_popup_menu_new(GTK_TREE_VIEW(self), priv->accountInfoContainer_);
     g_signal_connect_swapped(self, "button-press-event", G_CALLBACK(conversation_popup_menu_show), priv->popup_menu);
     qDebug() << " CCCCC " << self;
 
@@ -285,6 +286,7 @@ conversations_view_class_init(ConversationsViewClass *klass)
     G_OBJECT_CLASS(klass)->dispose = conversations_view_dispose;
 }
 
+/*
 GtkWidget *
 conversations_view_new(std::shared_ptr<lrc::account::Info> accountInfo)
 {
@@ -292,6 +294,20 @@ conversations_view_new(std::shared_ptr<lrc::account::Info> accountInfo)
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
 
     priv->accountInfo_ = accountInfo;
+
+    build_conversations_view(self);
+
+    return (GtkWidget *)self;
+}
+*/
+
+GtkWidget *
+conversations_view_new(AccountInfoContainer* accountInfoContainer)
+{
+    auto self = CONVERSATIONS_VIEW(g_object_new(CONVERSATIONS_VIEW_TYPE, NULL));
+    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
+
+    priv->accountInfoContainer_ = accountInfoContainer;
 
     build_conversations_view(self);
 

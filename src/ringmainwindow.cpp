@@ -161,9 +161,9 @@ struct _RingMainWindowPrivate
 
     GSettings *settings;
 
-    //AccountInfoContainer* accountInfoContainer_;
-    std::shared_ptr<lrc::account::Info> accountInfo_;
-    std::unique_ptr<lrc::Lrc> lrc_;
+    AccountInfoContainer* accountInfoContainer_;
+    //std::shared_ptr<lrc::account::Info> accountInfo_;
+    //std::unique_ptr<lrc::Lrc> lrc_;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -271,7 +271,7 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::conversation::Info conver
     } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
         // TODO
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
-        new_view = chat_view_new(get_webkit_chat_container(self), priv->accountInfo_, conversation);
+        new_view = chat_view_new(get_webkit_chat_container(self), priv->accountInfoContainer_, conversation);
         g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
     } else if (g_type_is_a(CONTACT_REQUEST_CONTENT_VIEW_TYPE, type)) {
         // TODO
@@ -932,7 +932,7 @@ search_entry_text_changed(GtkSearchEntry *search_entry, RingMainWindow *self)
 
     /* get the text from the entry */
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(search_entry));
-    priv->accountInfo_->conversationModel->setFilter(text);
+    priv->accountInfoContainer_->accountInfo.conversationModel->setFilter(text);
 
     /*TODO REMOVE RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp(text, Qt::CaseInsensitive, QRegExp::FixedString));
     contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts), text);
@@ -1316,10 +1316,11 @@ ring_main_window_init(RingMainWindow *win)
 
     // NOTE dirty hack for gtk...
     // TODO move this
-    priv->lrc_ = std::unique_ptr<lrc::Lrc>(new lrc::Lrc());
-    priv->accountInfo_ = priv->lrc_->getAccountModel().getAccountInfo("a0ae994924d0a494");
-    //priv->accountInfoContainer_ = new AccountInfoContainer(temp);
-    //priv->accountInfoContainer_->accountInfo = priv->accountInfoContainer_->lrc.getAccountModel().getAccountInfo("a0ae994924d0a494"); // TODO remove this
+    //priv->lrc_ = std::unique_ptr<lrc::Lrc>(new lrc::Lrc());
+    //priv->accountInfo_ = priv->lrc_->getAccountModel().getAccountInfo("a0ae994924d0a494");
+    lrc::account::Info temp;
+    priv->accountInfoContainer_ = new AccountInfoContainer(temp);
+    priv->accountInfoContainer_->accountInfo = priv->accountInfoContainer_->lrc.getAccountModel().getAccountInfo("a0ae994924d0a494"); // TODO remove this
 
     /* bind to window size settings */
     priv->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
@@ -1391,7 +1392,7 @@ ring_main_window_init(RingMainWindow *win)
     //~ gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
 
     /* populate the NEW notebook */
-    priv->treeview_conversations = conversations_view_new(priv->accountInfo_);
+    priv->treeview_conversations = conversations_view_new(priv->accountInfoContainer_);
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
 
     auto available_accounts_changed = [win, priv] {
@@ -1506,7 +1507,7 @@ ring_main_window_init(RingMainWindow *win)
     current_account_changed(win, get_active_ring_account());
 
     // New conversation view
-    QObject::connect(&*priv->accountInfo_->conversationModel,
+    QObject::connect(&*priv->accountInfoContainer_->accountInfo.conversationModel,
     &lrc::ConversationModel::showChatView,
     [win, priv] (lrc::conversation::Info origin) {
         // Change the view if we want a different view.
@@ -1522,7 +1523,7 @@ ring_main_window_init(RingMainWindow *win)
         }
     });
 
-    QObject::connect(&*priv->accountInfo_->conversationModel,
+    QObject::connect(&*priv->accountInfoContainer_->accountInfo.conversationModel,
     &lrc::ConversationModel::modelUpdated,
     [win, priv] () {
         // Change the view if we want a different view.
@@ -1539,7 +1540,7 @@ ring_main_window_init(RingMainWindow *win)
             auto uri = current_item.participants.front();
             try {
                 // else the contact was added
-                priv->accountInfo_->contactModel->getContact(uri);
+                priv->accountInfoContainer_->accountInfo.contactModel->getContact(uri);
                 chat_view_update_temporary(CHAT_VIEW(old_view));
                 gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
             } catch (const std::out_of_range&) {
@@ -1549,7 +1550,7 @@ ring_main_window_init(RingMainWindow *win)
             // change view if contact was removed
             auto uri = current_item.participants.front();
             try {
-                priv->accountInfo_->contactModel->getContact(uri);
+                priv->accountInfoContainer_->accountInfo.contactModel->getContact(uri);
             } catch (const std::out_of_range&) {
                 // contact was removed
                 gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
@@ -1565,7 +1566,7 @@ ring_main_window_dispose(GObject *object)
     RingMainWindow *self = RING_MAIN_WINDOW(object);
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
-    //delete priv->accountInfoContainer_;
+    delete priv->accountInfoContainer_;
 
     QObject::disconnect(priv->selected_item_changed);
     QObject::disconnect(priv->selected_call_over);

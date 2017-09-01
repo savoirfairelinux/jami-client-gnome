@@ -43,6 +43,7 @@ typedef struct _ConversationsView      ConversationsView;
 typedef struct _ConversationsViewClass ConversationsViewClass;
 
 GType      conversations_view_get_type (void) G_GNUC_CONST;
-GtkWidget *conversations_view_new(std::shared_ptr<lrc::account::Info> accountInfo);
+//GtkWidget *conversations_view_new(std::shared_ptr<lrc::account::Info> accountInfo);
+GtkWidget *conversations_view_new(AccountInfoContainer* accountInfoContainer);
 
 G_END_DECLS

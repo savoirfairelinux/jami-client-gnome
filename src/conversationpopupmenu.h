@@ -43,7 +43,8 @@ typedef struct _ConversationPopupMenu      ConversationPopupMenu;
 typedef struct _ConversationPopupMenuClass ConversationPopupMenuClass;
 
 GType      conversation_popup_menu_get_type (void) G_GNUC_CONST;
-GtkWidget *conversation_popup_menu_new      (GtkTreeView *treeview, std::shared_ptr<lrc::account::Info> accountInfo);
+//GtkWidget *conversation_popup_menu_new      (GtkTreeView *treeview, std::shared_ptr<lrc::account::Info> accountInfo);
+GtkWidget *conversation_popup_menu_new      (GtkTreeView *treeview, AccountInfoContainer* accountInfoContainer);
 gboolean   conversation_popup_menu_show     (ConversationPopupMenu *self, GdkEventButton *event);
 
 G_END_DECLS
