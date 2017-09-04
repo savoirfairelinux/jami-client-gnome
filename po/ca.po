@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Carles Mateu <carlesm@carlesm.com>, 2017
 # David <stakewinner00@mykolab.com>, 2015
 # Jaume Zaragoza <retrasado.man@gmail.com>, 2016
 # Jaume Zaragoza <retrasado.man@gmail.com>, 2017
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-20 23:09-0400\n"
-"PO-Revision-Date: 2017-08-18 08:56+0000\n"
-"Last-Translator: Jaume Zaragoza <retrasado.man@gmail.com>\n"
+"POT-Creation-Date: 2017-09-03 23:09-0400\n"
+"PO-Revision-Date: 2017-08-22 23:18+0000\n"
+"Last-Translator: Carles Mateu <carlesm@carlesm.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/savoirfairelinux/ring/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +24,7 @@ msgstr ""
 
 #: src/accountadvancedtab.cpp:389
 msgid "_Remove server"
-msgstr "_Suprimeix el servidorinva"
+msgstr "_Suprimeix el servidor"
 
 #: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
 msgid "Hostname"
@@ -420,11 +421,11 @@ msgstr "No s'ha pogut trobar el nom d'usuari"
 
 #: src/usernameregistrationbox.cpp:248
 msgid "Looking up username availability..."
-msgstr ""
+msgstr "Comprovant disponibilitat del nom d'usuari..."
 
 #: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:487
 msgid "Registering username..."
-msgstr ""
+msgstr "Registrant nom d'usuari..."
 
 #: src/usernameregistrationbox.cpp:319
 msgid "Could not initiate name registration, try again."
@@ -440,7 +441,7 @@ msgstr "Nom d'usuari invalid"
 
 #: src/usernameregistrationbox.cpp:411
 msgid "Username already taken"
-msgstr ""
+msgstr "Nom d'usuari ja registrat."
 
 #: src/usernameregistrationbox.cpp:418
 msgid "Network error"
@@ -449,7 +450,7 @@ msgstr "Error de xarxa"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Ring Error"
-msgstr ""
+msgstr "Error de Ring"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)..."
@@ -471,7 +472,7 @@ msgstr "Compartir arxiu"
 
 #: src/video/video_widget.cpp:549
 msgid "Show advanced information"
-msgstr ""
+msgstr "Mostra informació avançada"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
@@ -491,7 +492,7 @@ msgstr "Permetre trucades de nodes de la vostra llista de contactes"
 
 #: ui/accountadvancedtab.ui:149
 msgid "Registration"
-msgstr ""
+msgstr "Registre"
 
 #: ui/accountadvancedtab.ui:178
 msgid "Use random port"
@@ -503,7 +504,7 @@ msgstr "Port local:"
 
 #: ui/accountadvancedtab.ui:225
 msgid "Network Interface"
-msgstr ""
+msgstr "Interfície de xarxa"
 
 #: ui/accountadvancedtab.ui:253
 msgid "Same as local parameters"
@@ -589,27 +590,27 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
-msgstr ""
+msgstr "Benvingut a"
 
 #: ui/accountcreationwizard.ui:68
 msgid "Create Ring Account"
-msgstr ""
+msgstr "Crear compte de Ring"
 
 #: ui/accountcreationwizard.ui:69
 msgid "Create a new Ring account (for new users)"
-msgstr ""
+msgstr "Crear un compte de Ring (per usuaris nous)"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Link this device to an account"
-msgstr ""
+msgstr "Enllaça aquest dispositiu a un compte"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Link this devices to a Ring account created on another device"
-msgstr ""
+msgstr "Enllaça aquest dispositiu a un compte de Ring creat a un altre dispositiu"
 
 #: ui/accountcreationwizard.ui:105 ui/accountcreationwizard.ui:159
 msgid "Link this device to an existing account"
-msgstr ""
+msgstr "Enllaça aquest dispositiu a un compte ja existent"
 
 #: ui/accountcreationwizard.ui:120
 msgid ""
@@ -631,11 +632,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:174
 msgid "Enter your pin:"
-msgstr ""
+msgstr "Entra el pin:"
 
 #: ui/accountcreationwizard.ui:193
 msgid "Enter your password:"
-msgstr ""
+msgstr "Entra la contrasenya:"
 
 #: ui/accountcreationwizard.ui:225 ui/accountcreationwizard.ui:437
 msgid "Next"
@@ -643,7 +644,7 @@ msgstr "Següent"
 
 #: ui/accountcreationwizard.ui:267
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
 #: ui/accountcreationwizard.ui:287
 msgid "Full name:"
@@ -651,11 +652,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:329
 msgid "Ring Account"
-msgstr ""
+msgstr "Compte de Ring"
 
 #: ui/accountcreationwizard.ui:342
 msgid "Register public username (experimental):"
-msgstr ""
+msgstr "Registrar nom d'usuari públic (experimental):"
 
 #: ui/accountcreationwizard.ui:348
 msgid ""
@@ -666,7 +667,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:371
 msgid "Password (confirm):"
-msgstr ""
+msgstr "Contrasenya (confirmar):"
 
 #: ui/accountcreationwizard.ui:372
 msgid ""
@@ -680,7 +681,7 @@ msgstr "Generant el vostre compte de Ring..."
 
 #: ui/accountcreationwizard.ui:494
 msgid "This may take a few minutes."
-msgstr ""
+msgstr "Això pot trigar uns minuts."
 
 #: ui/accountcreationwizard.ui:520
 msgid "Retrieving your Ring account..."
@@ -688,12 +689,12 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:546
 msgid "Error creating/loading account."
-msgstr ""
+msgstr "Error creant/carregant compte"
 
 #: ui/accountcreationwizard.ui:551 ui/accountdevicestab.ui:217
 #: ui/accountdevicestab.ui:239
 msgid "OK"
-msgstr ""
+msgstr "D'acord"
 
 #: ui/accountdevicestab.ui:21
 msgid "My Device ID:"
@@ -705,11 +706,11 @@ msgstr "Dispositius"
 
 #: ui/accountdevicestab.ui:66
 msgid "Add device"
-msgstr ""
+msgstr "Afegir dispositiu"
 
 #: ui/accountdevicestab.ui:83
 msgid "Add New Device"
-msgstr ""
+msgstr "Afegir nou dispositiu"
 
 #: ui/accountdevicestab.ui:98
 msgid ""
@@ -748,11 +749,11 @@ msgstr ""
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
-msgstr ""
+msgstr "Exporta compte seleccionats"
 
 #: ui/accountimportexportview.ui:26
 msgid "Import accounts"
-msgstr ""
+msgstr "Importa comptes"
 
 #: ui/accountimportexportview.ui:49
 msgid "Location:"
@@ -772,15 +773,15 @@ msgstr ""
 
 #: ui/accountimportexportview.ui:169 ui/accountview.ui:110
 msgid "Export"
-msgstr ""
+msgstr "Exporta"
 
 #: ui/accountimportexportview.ui:181 ui/accountview.ui:103
 msgid "Import"
-msgstr ""
+msgstr "Importa"
 
 #: ui/accountmigrationview.ui:14
 msgid "Account migration required"
-msgstr ""
+msgstr "Migració de compte requerida"
 
 #: ui/accountmigrationview.ui:39
 msgid "Alias:"
@@ -880,7 +881,7 @@ msgstr ""
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
-msgstr ""
+msgstr "Elimina compte seleccionats"
 
 #: ui/accountview.ui:63 ui/accountview.ui:66
 msgid "Add new account"
@@ -888,7 +889,7 @@ msgstr ""
 
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
-msgstr ""
+msgstr "Selecciona tipus de compte"
 
 #: ui/accountview.ui:104
 msgid "Import archived account(s)"
@@ -900,11 +901,11 @@ msgstr ""
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr ""
+msgstr "Fer foto"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr ""
+msgstr "Escull imatge de fitxer"
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
@@ -916,19 +917,19 @@ msgstr ""
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
-msgstr ""
+msgstr "Amaga finestra de xat"
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
-msgstr ""
+msgstr "Fer trucada"
 
 #: ui/chatview.ui:60
 msgid "Send invitation"
-msgstr ""
+msgstr "Enviar invitació"
 
 #: ui/chatview.ui:130
 msgid "Send Invitation"
-msgstr ""
+msgstr "Enviar Invitació"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
@@ -973,11 +974,11 @@ msgstr "Grava l'àudio"
 
 #: ui/currentcallview.ui:378
 msgid "Adjust outgoing video quality"
-msgstr ""
+msgstr "Ajusta la qualitat del vídeo sortint"
 
 #: ui/currentcallview.ui:383 ui/currentcallview.ui:468
 msgid "Video quality"
-msgstr ""
+msgstr "Qualitat de vídeo"
 
 #: ui/currentcallview.ui:402
 msgid "Toggle show chat"
@@ -1033,11 +1034,11 @@ msgstr "Desa"
 
 #: ui/generalsettingsview.ui:34
 msgid "Profile Settings"
-msgstr ""
+msgstr "Configuració del perfil"
 
 #: ui/generalsettingsview.ui:76
 msgid "Ring Settings"
-msgstr ""
+msgstr "Configuració de Ring"
 
 #: ui/generalsettingsview.ui:92
 msgid "Start Ring on login"
@@ -1045,7 +1046,7 @@ msgstr "Obre Ring a l'inici"
 
 #: ui/generalsettingsview.ui:100
 msgid "Show Ring icon in the notification area (systray)."
-msgstr ""
+msgstr "Mostrar Ring a l'àrea de notificació del sistema (systray)."
 
 #: ui/generalsettingsview.ui:108
 msgid "Bring Ring to the foreground on incoming calls."
@@ -1053,15 +1054,15 @@ msgstr "Torna Ring al primer pla amb les trucades entrants."
 
 #: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
-msgstr ""
+msgstr "Activa notificacions per trucades entrants."
 
 #: ui/generalsettingsview.ui:124
 msgid "Enable notifications for new chat messages."
-msgstr ""
+msgstr "Activa notificacions per missatges de xat nous"
 
 #: ui/generalsettingsview.ui:132
 msgid "Show images and videos in chat window."
-msgstr ""
+msgstr "Mostra imatges i vídeos a la finestra de xat"
 
 #: ui/generalsettingsview.ui:140
 msgid "Entering a number in the search entry will place a new call."
@@ -1077,7 +1078,7 @@ msgstr "Mostra el xat a la part inferior."
 
 #: ui/generalsettingsview.ui:185
 msgid "History Settings"
-msgstr ""
+msgstr "Preferències d'historial"
 
 #: ui/generalsettingsview.ui:203
 msgid "Keep history for (days):"
@@ -1109,7 +1110,7 @@ msgstr "Penjar"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
-msgstr ""
+msgstr "Preferències d'àudio"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
@@ -1129,7 +1130,7 @@ msgstr "Dispositiu d'entrada:"
 
 #: ui/mediasettingsview.ui:134
 msgid "Camera Settings"
-msgstr ""
+msgstr "Preferències de càmera"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"
@@ -1149,7 +1150,7 @@ msgstr "Velocitat de fotogrames"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "Acceleració per maquinari"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"

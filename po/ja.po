@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# futr <ilce.ma@gmail.com>, 2017
 # Masahiko Imanaka <chimantaea_mirabilis@yahoo.co.jp>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-20 23:09-0400\n"
-"PO-Revision-Date: 2017-08-03 02:49+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-09-03 23:09-0400\n"
+"PO-Revision-Date: 2017-08-31 07:06+0000\n"
+"Last-Translator: futr <ilce.ma@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/ring/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1074,7 +1075,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:185
 msgid "History Settings"
-msgstr ""
+msgstr "履歴の設定"
 
 #: ui/generalsettingsview.ui:203
 msgid "Keep history for (days):"
@@ -1086,11 +1087,11 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:234
 msgid "Clear all history"
-msgstr ""
+msgstr "履歴をすべて削除"
 
 #: ui/incomingcallview.ui:106
 msgid "Incoming..."
-msgstr ""
+msgstr "着信中..."
 
 #: ui/incomingcallview.ui:142
 msgid "Accept"
@@ -1098,7 +1099,7 @@ msgstr "受け入れ"
 
 #: ui/incomingcallview.ui:163
 msgid "Reject"
-msgstr ""
+msgstr "拒否"
 
 #: ui/incomingcallview.ui:186
 msgid "Hang up"
@@ -1142,27 +1143,27 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
-msgstr ""
+msgstr "フレームレート"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "ハードウェアアクセラレーション"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr ""
+msgstr "ハードウェアデコーディングを有効化"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr ""
+msgstr "Ringについて(_A)"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr ""
+msgstr "終了(_Q)"
 
 #: ui/ringmainwindow.ui:17
 msgid "Menu"
-msgstr ""
+msgstr "メニュー"
 
 #: ui/ringmainwindow.ui:51
 msgid "General"
@@ -1182,7 +1183,7 @@ msgstr "設定"
 
 #: ui/ringmainwindow.ui:215
 msgid "Conversations"
-msgstr ""
+msgstr "会話"
 
 #: ui/ringmainwindow.ui:237
 msgid "Contacts"
