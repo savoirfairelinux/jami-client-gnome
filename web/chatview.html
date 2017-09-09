@@ -6,6 +6,15 @@
 </head>
 
 <body>
+  <div id="invitation">
+    <div id="text">
+    </div>
+    <div id="actions">
+      <div id="accept-btn" class="flat-button button-green" onclick="ring.chatview.acceptInvitation()" >Accept</div>
+      <div id="refuse-btn" class="flat-button button-red" onclick="ring.chatview.refuseInvitation()" >Refuse</div>
+      <div id="block-btn" class="flat-button button-red" onclick="ring.chatview.blockConversation()" >Block</div>
+    </div>
+  </div>
     <div id="container">
       <div id="messages"></div>
 
@@ -117,9 +126,55 @@ ring.chatview = (function(){
          var message = input.value;
          if (message.length > 0) {
              input.value = '';
-             window.prompt(message);
+             window.prompt('SEND:' + message);
          }
      }
+
+    /**
+     * Accept an invite
+     */
+    function acceptInvitation()
+    {
+        window.prompt('ACCEPT');
+    }
+
+    /**
+     * Refuse an invite
+     */
+    function refuseInvitation()
+    {
+        window.prompt('REFUSE');
+    }
+
+    /**
+     * Accept an invite
+     */
+    function blockConversation()
+    {
+        window.prompt('BLOCK');
+    }
+
+    /**
+     * Change the content of the div invitation and show it
+     * @param  contactAlias
+     */
+    function showInvitation(contactAlias) {
+      const invitationText = document.querySelector('#text');
+      const invitation = document.querySelector('#invitation');
+      invitationText.innerHTML = '<h1>' + contactAlias + ' sends you an invitation</h1>'
+      + 'Do you want to add them to the conversations list?<br>'
+      + 'Note: you can automatically accept this invitation by sending a message.';
+      invitation.style.visibility = 'visible';
+    }
+
+    /**
+     * Hide the content of invitation
+     * @param  contactAlias
+     */
+    function hideInvitation() {
+      const invitation = document.querySelector('#invitation');
+      invitation.style.visibility = 'hidden';
+    }
 
     /**
      * Clears all messages
@@ -588,6 +643,11 @@ ring.chatview = (function(){
         sendMessage: sendMessage,
         setDisplayLinks: setDisplayLinks,
         setTemporary: setTemporary,
+        acceptInvitation: acceptInvitation,
+        refuseInvitation: refuseInvitation,
+        blockConversation: blockConversation,
+        showInvitation: showInvitation,
+        hideInvitation: hideInvitation,
     }
 
 })();
