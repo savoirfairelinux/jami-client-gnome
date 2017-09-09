@@ -24,6 +24,7 @@
 
 // Lrc
 #include <api/conversationmodel.h>
+#include <api/contactmodel.h>
 
 struct _ConversationPopupMenu
 {
@@ -70,6 +71,20 @@ remove_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate*
     {
         auto conversationUid = priv->accountContainer_->info.conversationModel->getConversation(priv->row_).uid;
         priv->accountContainer_->info.conversationModel->removeConversation(conversationUid);
+    }
+    catch (const std::exception&)
+    {
+        g_warning("Can't get conversation at row %i", priv->row_);
+    }
+}
+
+static void
+block_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
+{
+    try
+    {
+        auto conversationUid = priv->accountContainer_->info.conversationModel->getConversation(priv->row_).uid;
+        priv->accountContainer_->info.conversationModel->removeConversation(conversationUid, true);
     }
     catch (const std::exception&)
     {
@@ -125,6 +140,7 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     auto path = gtk_tree_model_get_path(model, &iter);
     auto idx = gtk_tree_path_get_indices(path);
     auto conversation = priv->accountContainer_->info.conversationModel->getConversation(idx[0]);
+    auto contact = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
     priv->row_ = idx[0];
 
     /* we always build a menu, however in some cases some or all of the conversations will be deactivated;
@@ -138,13 +154,24 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
         auto add_conversation_conversation = gtk_menu_item_new_with_mnemonic(_("_Add conversation"));
         gtk_menu_shell_append(GTK_MENU_SHELL(self), add_conversation_conversation);
         g_signal_connect(add_conversation_conversation, "activate", G_CALLBACK(add_conversation), priv);
+        if (contact.type == lrc::api::contact::Type::PENDING) {
+            auto rm_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Discard invitation"));
+            gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_conversation_item);
+            g_signal_connect(rm_conversation_item, "activate", G_CALLBACK(remove_conversation), priv);
+            auto block_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Block invitations"));
+            gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
+            g_signal_connect(block_conversation_item, "activate", G_CALLBACK(block_conversation), priv);
+        }
     } else {
         auto rm_history_conversation = gtk_menu_item_new_with_mnemonic(_("_Clear history"));
         gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_history_conversation);
         g_signal_connect(rm_history_conversation, "activate", G_CALLBACK(remove_history_conversation), priv);
-        auto rm_conversation_conversation = gtk_menu_item_new_with_mnemonic(_("_Remove conversation"));
-        gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_conversation_conversation);
-        g_signal_connect(rm_conversation_conversation, "activate", G_CALLBACK(remove_conversation), priv);
+        auto rm_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Remove conversation"));
+        gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_conversation_item);
+        g_signal_connect(rm_conversation_item, "activate", G_CALLBACK(remove_conversation), priv);
+        auto block_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Block contact"));
+        gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
+        g_signal_connect(block_conversation_item, "activate", G_CALLBACK(block_conversation), priv);
     }
 
     /* show all conversations */

@@ -53,7 +53,6 @@
 #include "conversationsview.h"
 #include "chatview.h"
 #include "utils/files.h"
-#include "contactrequestcontentview.h"
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
@@ -118,9 +117,6 @@ struct _RingMainWindowPrivate
 
     QMetaObject::Connection selected_item_changed;
     QMetaObject::Connection selected_call_over;
-    QMetaObject::Connection account_request_added;
-    QMetaObject::Connection account_request_accepted;
-    QMetaObject::Connection account_request_discarded;
     QMetaObject::Connection account_request_;
 
     gboolean   show_settings;
@@ -204,7 +200,7 @@ set_pending_contact_request_tab_icon(const Account* account, RingMainWindow* sel
         return;
 
     gtk_image_set_from_resource(GTK_IMAGE(priv->image_contact_requests_list),
-        (account->pendingContactRequestModel()->rowCount())
+        (priv->accountContainer_->info.contactModel->isPendingRequests())
         ? "/cx/ring/RingGnome/contact_requests_list_with_notification"
         : "/cx/ring/RingGnome/contact_requests_list");
 }
@@ -248,8 +244,6 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
         priv->chatViewConversation_ = new ConversationContainer(conversation);
         new_view = chat_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->chatViewConversation_);
         g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
-    } else if (g_type_is_a(CONTACT_REQUEST_CONTENT_VIEW_TYPE, type)) {
-        // TODO
     } else {
         // TODO change to first conversation?
         new_view = priv->welcome_view;
@@ -632,35 +626,6 @@ print_account_and_state(GtkCellLayout* cell_layout,
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
     g_free(accountId);
 }
-
-static void
-current_account_changed(RingMainWindow* self, Account* account)
-{
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-
-    /* disconnect previous PendingContactRequestModel */
-    QObject::disconnect(priv->account_request_added);
-    QObject::disconnect(priv->account_request_accepted);
-    QObject::disconnect(priv->account_request_discarded);
-
-    set_pending_contact_request_tab_icon(account, self);
-
-    bool is_ring = account && account->protocol() == Account::Protocol::RING;
-    if (not is_ring)
-        return;
-
-    auto model = account->pendingContactRequestModel();
-    auto action = [self, account](ContactRequest* r) {
-        (void) r; // UNUSED
-        set_pending_contact_request_tab_icon(account, self);
-    };
-
-    /* connect current PendingContactRequestModel */
-    priv->account_request_added = QObject::connect(model, &PendingContactRequestModel::requestAdded, action);
-    priv->account_request_accepted = QObject::connect(model, &PendingContactRequestModel::requestAccepted, action);
-    priv->account_request_discarded = QObject::connect(model, &PendingContactRequestModel::requestDiscarded, action);
-}
-
 static void
 ring_main_window_init(RingMainWindow *win)
 {
@@ -669,11 +634,12 @@ ring_main_window_init(RingMainWindow *win)
 
     // NOTE dirty hack for gtk...
     // TODO move this
+    // TODO update icon when refuse/accept/discard request + css chatview pending
     priv->lrc_ = std::unique_ptr<lrc::api::Lrc>(new lrc::api::Lrc());
     const auto accountIds = priv->lrc_->getAccountModel().getAccountList();
     if (!accountIds.empty()) {
         qDebug() << "ring_main_window_init: empty account list";
-        priv->accountContainer_ = new AccountContainer(priv->lrc_->getAccountModel().getAccountInfo(accountIds.back()));
+        priv->accountContainer_ = new AccountContainer(priv->lrc_->getAccountModel().getAccountInfo(accountIds.front()));
         priv->currentTypeFilter_ = lrc::api::contact::Type::RING;
         priv->accountContainer_->info.conversationModel->setFilter(priv->currentTypeFilter_);
     }
@@ -759,11 +725,11 @@ ring_main_window_init(RingMainWindow *win)
     // TODO connect to accountRemoved / accountAdded / changed
     QObject::connect(&AvailableAccountModel::instance(), &QAbstractItemModel::rowsRemoved, available_accounts_changed);
     QObject::connect(&AvailableAccountModel::instance(), &QAbstractItemModel::rowsInserted, available_accounts_changed);
-    QObject::connect(AvailableAccountModel::instance().selectionModel(), &QItemSelectionModel::currentChanged,
+    /*QObject::connect(AvailableAccountModel::instance().selectionModel(), &QItemSelectionModel::currentChanged,
     [win] (const QModelIndex& current, const QModelIndex& previous) {
         auto account = current.data(static_cast<int>(Account::Role::Object)).value<Account*>();
         current_account_changed(win, account);
-    });
+    });*/
 
     priv->treeview_contact_requests = conversations_view_new(priv->accountContainer_/*, PENDING */);
     // TODO remove pending view
@@ -867,7 +833,7 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect_swapped(priv->combobox_account_selector, "changed", G_CALLBACK(account_changed), win);
 
     // initialize the pending contact request icon.
-    current_account_changed(win, get_active_ring_account());
+    set_pending_contact_request_tab_icon(get_active_ring_account(), win);
 
     // New conversation view
     QObject::connect(&*priv->accountContainer_->info.conversationModel,
@@ -890,6 +856,8 @@ ring_main_window_init(RingMainWindow *win)
     QObject::connect(&*priv->accountContainer_->info.conversationModel,
     &lrc::api::ConversationModel::modelUpdated,
     [win, priv] () {
+
+        set_pending_contact_request_tab_icon(get_active_ring_account(), win);
         // Change the view if we want a different view.
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
 
@@ -938,9 +906,6 @@ ring_main_window_dispose(GObject *object)
     QObject::disconnect(priv->selected_item_changed);
     QObject::disconnect(priv->selected_call_over);
     QObject::disconnect(priv->username_lookup);
-    QObject::disconnect(priv->account_request_added);
-    QObject::disconnect(priv->account_request_accepted);
-    QObject::disconnect(priv->account_request_discarded);
     QObject::disconnect(priv->account_request_);
 
     g_clear_object(&priv->welcome_view);
