@@ -48,5 +48,6 @@ void       webkit_chat_container_set_sender_image    (WebKitChatContainer *view,
 gboolean   webkit_chat_container_is_ready            (WebKitChatContainer *view);
 void       webkit_chat_container_set_display_links   (WebKitChatContainer *view, bool display);
 void       webkit_chat_container_set_temporary       (WebKitChatContainer *view, bool temporary);
+void       webkit_chat_container_set_invitation      (WebKitChatContainer *view, bool show, const std::string& contactUri);
 
 G_END_DECLS
