@@ -311,8 +311,6 @@ SET( SRC_FILES
    src/cc-crop-area.c
    src/models/namenumberfilterproxymodel.h
    src/models/namenumberfilterproxymodel.cpp
-   src/contactrequestcontentview.h
-   src/contactrequestcontentview.cpp
    src/accountbanstab.h
    src/accountbanstab.cpp
    src/bannedcontactsview.h

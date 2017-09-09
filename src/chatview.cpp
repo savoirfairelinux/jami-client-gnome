@@ -145,10 +145,20 @@ button_send_invitation_clicked(ChatView *self)
 }
 
 static void
-webkit_chat_container_send_text(G_GNUC_UNUSED GtkWidget* webview, gchar *message, ChatView* self)
+webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *message, ChatView* self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    priv->accountContainer_->info.conversationModel->sendMessage(priv->conversation_->info.uid, std::string(message));
+    auto order = std::string(message);
+    if (order == "ACCEPT") {
+        priv->accountContainer_->info.conversationModel->addConversation(priv->conversation_->info.uid);
+    } else if (order == "REFUSE") {
+        priv->accountContainer_->info.conversationModel->removeConversation(priv->conversation_->info.uid);
+    } else if (order == "BLOCK") {
+        priv->accountContainer_->info.conversationModel->removeConversation(priv->conversation_->info.uid, true);
+    } else if (order.find("SEND:") == 0) {
+        auto toSend = order.substr(std::string("SEND:").size());
+        priv->accountContainer_->info.conversationModel->sendMessage(priv->conversation_->info.uid, toSend);
+    }
 }
 
 static void
@@ -284,6 +294,11 @@ webkit_chat_container_ready(ChatView* self)
 
     priv->isTemporary_ = !priv->conversation_->info.isUsed;
     webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
+    auto contactUri = priv->conversation_->info.participants.front();
+    auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
+    webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                                         (contact.type == lrc::api::contact::Type::PENDING),
+                                         contactUri);
 }
 
 static void
@@ -308,8 +323,8 @@ build_chat_view(ChatView* self)
     );
 
     priv->webkit_send_text = g_signal_connect(priv->webkit_chat_container,
-        "send-message",
-        G_CALLBACK(webkit_chat_container_send_text),
+        "script-dialog",
+        G_CALLBACK(webkit_chat_container_script_dialog),
         self);
 
     if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
@@ -345,6 +360,11 @@ chat_view_update_temporary(ChatView* self, bool newValue)
         gtk_widget_hide(priv->button_send_invitation);
     }
     webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
+    auto contactUri = priv->conversation_->info.participants.front();
+    auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
+    webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                                         (contact.type == lrc::api::contact::Type::PENDING),
+                                         contactUri);
 }
 
 bool

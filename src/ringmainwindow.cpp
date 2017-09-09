@@ -53,7 +53,6 @@
 #include "conversationsview.h"
 #include "chatview.h"
 #include "utils/files.h"
-#include "contactrequestcontentview.h"
 
 static constexpr const char* CALL_VIEW_NAME             = "calls";
 static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
@@ -248,8 +247,6 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
         priv->chatViewConversation_ = new ConversationContainer(conversation);
         new_view = chat_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->chatViewConversation_);
         g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
-    } else if (g_type_is_a(CONTACT_REQUEST_CONTENT_VIEW_TYPE, type)) {
-        // TODO
     } else {
         // TODO change to first conversation?
         new_view = priv->welcome_view;
@@ -669,11 +666,12 @@ ring_main_window_init(RingMainWindow *win)
 
     // NOTE dirty hack for gtk...
     // TODO move this
+    // TODO update icon when refuse/accept/discard request + css chatview pending
     priv->lrc_ = std::unique_ptr<lrc::api::Lrc>(new lrc::api::Lrc());
     const auto accountIds = priv->lrc_->getAccountModel().getAccountList();
     if (!accountIds.empty()) {
         qDebug() << "ring_main_window_init: empty account list";
-        priv->accountContainer_ = new AccountContainer(priv->lrc_->getAccountModel().getAccountInfo(accountIds.back()));
+        priv->accountContainer_ = new AccountContainer(priv->lrc_->getAccountModel().getAccountInfo(accountIds.front()));
         priv->currentTypeFilter_ = lrc::api::contact::Type::RING;
         priv->accountContainer_->info.conversationModel->setFilter(priv->currentTypeFilter_);
     }
