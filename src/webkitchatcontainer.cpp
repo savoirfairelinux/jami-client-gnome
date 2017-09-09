@@ -64,7 +64,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(WebKitChatContainer, webkit_chat_container, GTK_TYPE_
 /* signals */
 enum {
     READY,
-    SEND_MESSAGE,
+    SCRIPT_DIALOG,
     LAST_SIGNAL
 };
 
@@ -105,7 +105,7 @@ webkit_chat_container_class_init(WebKitChatContainerClass *klass)
         g_cclosure_marshal_VOID__VOID,
         G_TYPE_NONE, 0);
 
-    webkit_chat_container_signals[SEND_MESSAGE] = g_signal_new("send-message",
+    webkit_chat_container_signals[SCRIPT_DIALOG] = g_signal_new("script-dialog",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED),
         0,
@@ -234,12 +234,12 @@ webview_chat_decide_policy (G_GNUC_UNUSED WebKitWebView *web_view,
 #endif
 
 static gboolean
-webview_send_text(WebKitWebView      *self,
-                  WebKitScriptDialog *dialog,
-                  gpointer            user_data)
+webview_script_dialog(WebKitWebView      *self,
+                      WebKitScriptDialog *dialog,
+                      gpointer            user_data)
 {
     auto message = webkit_script_dialog_get_message(dialog);
-    g_signal_emit(G_OBJECT(self), webkit_chat_container_signals[SEND_MESSAGE], 0, message);
+    g_signal_emit(G_OBJECT(self), webkit_chat_container_signals[SCRIPT_DIALOG], 0, message);
     return true;
 }
 
@@ -398,7 +398,7 @@ build_view(WebKitChatContainer *view)
     gtk_drag_dest_unset(priv->webview_chat); // remove drag and drop to prevent unwanted reloading
     g_signal_connect(priv->webview_chat, "load-changed", G_CALLBACK(webview_chat_load_changed), view);
     g_signal_connect_swapped(priv->webview_chat, "context-menu", G_CALLBACK(webview_chat_context_menu), view);
-    g_signal_connect_swapped(priv->webview_chat, "script-dialog", G_CALLBACK(webview_send_text), view);
+    g_signal_connect_swapped(priv->webview_chat, "script-dialog", G_CALLBACK(webview_script_dialog), view);
 #if WEBKIT_CHECK_VERSION(2, 6, 0)
     g_signal_connect(priv->webview_chat, "decide-policy", G_CALLBACK(webview_chat_decide_policy), view);
 #endif
@@ -527,6 +527,30 @@ webkit_chat_container_set_temporary(WebKitChatContainer *view, bool temporary)
 
     gchar* function_call = g_strdup_printf("ring.chatview.setTemporary(%s)",
     temporary ? "true" : "false");
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
+webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
+                                     const std::string& contactUri)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    gchar* function_call = nullptr;
+    if (show) {
+        function_call = g_strdup_printf("ring.chatview.showInvitation('%s')",
+        contactUri.c_str());
+    } else {
+        function_call = g_strdup_printf("ring.chatview.hideInvitation()");
+    }
+
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,
