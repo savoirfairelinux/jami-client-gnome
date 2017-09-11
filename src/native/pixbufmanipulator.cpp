@@ -32,6 +32,8 @@
 
 // lrc
 #include <api/contactmodel.h>
+#include <iostream>
+
 
 namespace Interfaces {
 
@@ -240,7 +242,9 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
         auto contactUri = contacts.front();
         auto contact = accountInfo.contactModel->getContact(contactUri);
         auto contactPhoto = contact.avatar;
-        if (!contactPhoto.empty()) {
+        if (contact.type == lrc::api::contact::Type::SIP) {
+            return QVariant::fromValue(scaleAndFrame(generateAvatar(contact.alias, "").get(), size, displayPresence, true));
+        } else if (!contactPhoto.empty()) {
             QByteArray byteArray(contactPhoto.c_str(), contactPhoto.length());
             QVariant photo = personPhoto(byteArray);
             return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, true));
