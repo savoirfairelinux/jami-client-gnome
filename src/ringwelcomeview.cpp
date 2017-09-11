@@ -54,6 +54,8 @@ struct _RingWelcomeViewPrivate
     GtkWidget *revealer_qrcode;
 
     QMetaObject::Connection account_model_data_changed;
+
+    AccountContainer* accountContainer_;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_SCROLLED_WINDOW);
@@ -63,48 +65,38 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_SCROLLED
 static gboolean   draw_qrcode(GtkWidget*,cairo_t*,gpointer);
 static void       switch_qrcode(RingWelcomeView* self);
 
-static void
-update_view(RingWelcomeView *self) {
+void
+ring_welcome_update_view(RingWelcomeView *self) {
     auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
 
-    if (auto account = get_active_ring_account()) {
-        gchar *ring_id = nullptr;
-        if(!account->registeredName().isEmpty()){
-            gtk_label_set_text(
-                GTK_LABEL(priv->label_explanation),
-                _("This is your Ring username.\nCopy and share it with your friends!")
-            );
-            ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">ring:%s</span>",
-                                              account->registeredName().toUtf8().constData());
-        }
-        else if (!account->username().isEmpty()) {
-            gtk_label_set_text(
-                GTK_LABEL(priv->label_explanation),
-                C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!")
-            );
-            ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
-                                              account->username().toUtf8().constData());
-        } else {
-            gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
-            ring_id = g_markup_printf_escaped("<span fgcolor=\"gray\">%s</span>",
-                                              _("fetching RingID..."));
-        }
-        gtk_label_set_markup(GTK_LABEL(priv->label_ringid), ring_id);
-        gtk_widget_show(priv->label_explanation);
-        gtk_widget_show(priv->label_ringid);
-        gtk_widget_show(priv->button_qrcode);
-        gtk_widget_show(priv->revealer_qrcode);
-
-        g_free(ring_id);
-
-    } else { // any other protocols
-        gtk_widget_hide(priv->label_explanation);
-        gtk_widget_hide(priv->label_ringid);
-        gtk_widget_hide(priv->button_qrcode);
-        gtk_widget_hide(priv->revealer_qrcode);
-        gtk_revealer_set_reveal_child(GTK_REVEALER(priv->revealer_qrcode), FALSE);
-        gtk_widget_set_opacity(priv->box_overlay, 1.0);
+    gchar *ring_id = nullptr;
+    if(! priv->accountContainer_->info.contact.registeredName.empty()){
+        gtk_label_set_text(
+            GTK_LABEL(priv->label_explanation),
+            _("This is your Ring username.\nCopy and share it with your friends!")
+        );
+        ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">ring:%s</span>",
+                                          priv->accountContainer_->info.contact.registeredName.c_str());
     }
+    else if (!priv->accountContainer_->info.contact.alias.empty()) {
+        gtk_label_set_text(
+            GTK_LABEL(priv->label_explanation),
+            C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!")
+        );
+        ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
+                                          priv->accountContainer_->info.contact.alias.c_str());
+    } else {
+        gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
+        ring_id = g_markup_printf_escaped("<span fgcolor=\"gray\">%s</span>",
+                                          _("fetching RingID..."));
+    }
+    gtk_label_set_markup(GTK_LABEL(priv->label_ringid), ring_id);
+    gtk_widget_show(priv->label_explanation);
+    gtk_widget_show(priv->label_ringid);
+    gtk_widget_show(priv->button_qrcode);
+    gtk_widget_show(priv->revealer_qrcode);
+
+    g_free(ring_id);
 }
 
 static void
@@ -206,15 +198,6 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_set_no_show_all(priv->button_qrcode, TRUE);
     gtk_box_pack_start(GTK_BOX(box_main), priv->button_qrcode, TRUE, TRUE, 0);
 
-    update_view(self);
-    priv->account_model_data_changed = QObject::connect(
-        AvailableAccountModel::instance().selectionModel(),
-        &QItemSelectionModel::currentChanged,
-        [self] ()
-        {
-            update_view(self);
-        });
-
     gtk_widget_show_all(GTK_WIDGET(self));
 }
 
@@ -243,12 +226,16 @@ ring_welcome_view_class_init(RingWelcomeViewClass *klass)
 }
 
 GtkWidget *
-ring_welcome_view_new()
+ring_welcome_view_new(AccountContainer* accountContainer)
 {
     gpointer self = g_object_new(RING_WELCOME_VIEW_TYPE, NULL);
+    auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
+    priv->accountContainer_ = accountContainer;
+    ring_welcome_update_view(RING_WELCOME_VIEW(self));
 
     return (GtkWidget *)self;
 }
+
 
 static gboolean
 draw_qrcode(G_GNUC_UNUSED GtkWidget* diese,
