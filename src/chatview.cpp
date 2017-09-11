@@ -299,6 +299,8 @@ webkit_chat_container_ready(ChatView* self)
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                          (contact.type == lrc::api::contact::Type::PENDING),
                                          contactUri);
+    webkit_chat_disable_send_message(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                                     (contact.type == lrc::api::contact::Type::SIP));
 }
 
 static void

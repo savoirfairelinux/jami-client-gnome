@@ -47,6 +47,7 @@ void       webkit_chat_container_print_new_message   (WebKitChatContainer *view,
 void       webkit_chat_container_set_sender_image    (WebKitChatContainer *view, ContactMethod *sender_contact_method, QVariant sender_image);
 gboolean   webkit_chat_container_is_ready            (WebKitChatContainer *view);
 void       webkit_chat_container_set_display_links   (WebKitChatContainer *view, bool display);
+void       webkit_chat_disable_send_message          (WebKitChatContainer *view, bool isDisabled);
 void       webkit_chat_container_set_temporary       (WebKitChatContainer *view, bool temporary);
 void       webkit_chat_container_set_invitation      (WebKitChatContainer *view, bool show, const std::string& contactUri);
 

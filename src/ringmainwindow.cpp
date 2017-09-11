@@ -195,10 +195,10 @@ video_double_clicked(RingMainWindow *self)
 }
 
 static void
-set_pending_contact_request_tab_icon(const Account* account, RingMainWindow* self)
+set_pending_contact_request_tab_icon(RingMainWindow* self)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-    bool is_ring = account && account->protocol() == Account::Protocol::RING;
+    bool is_ring = priv->accountContainer_->info.contact.type == lrc::api::contact::Type::RING;;
     gtk_widget_set_visible(priv->scrolled_window_contact_requests, is_ring);
 
     if (not is_ring)
@@ -209,8 +209,6 @@ set_pending_contact_request_tab_icon(const Account* account, RingMainWindow* sel
         ? "/cx/ring/RingGnome/contact_requests_list_with_notification"
         : "/cx/ring/RingGnome/contact_requests_list");
 }
-
-#include <iostream>
 
 static void
 hide_view_clicked(RingMainWindow *self)
@@ -252,6 +250,8 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
     gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
     gtk_widget_show(new_view);
 }
+
+#include <iostream>
 
 static void
 ring_init_lrc(RingMainWindow *win, const std::string& accountId)
@@ -307,8 +307,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     &*priv->accountContainer_->info.conversationModel,
     &lrc::api::ConversationModel::modelUpdated,
     [win, priv] () {
-
-        set_pending_contact_request_tab_icon(get_active_ring_account(), win);
+        set_pending_contact_request_tab_icon(win);
         // Change the view if we want a different view.
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
 
@@ -345,6 +344,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     });
 
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
+    priv->currentTypeFilter_ = priv->accountContainer_->info.contact.type;
     priv->accountContainer_->info.conversationModel->setFilter(text);
     priv->accountContainer_->info.conversationModel->setFilter(priv->currentTypeFilter_);
 }
@@ -645,7 +645,7 @@ tab_changed(G_GNUC_UNUSED GtkNotebook* notebook,
             RingMainWindow* self)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-    auto newType = page_num == 0 ? lrc::api::contact::Type::RING : lrc::api::contact::Type::PENDING;
+    auto newType = page_num == 0 ? priv->accountContainer_->info.contact.type : lrc::api::contact::Type::PENDING;
     if (priv->currentTypeFilter_ != newType) {
         priv->currentTypeFilter_ = newType;
         priv->accountContainer_->info.conversationModel->setFilter(priv->currentTypeFilter_);
@@ -754,7 +754,6 @@ ring_main_window_init(RingMainWindow *win)
     const auto accountIds = priv->lrc_->getAccountModel().getAccountList();
     if (!accountIds.empty()) {
         qDebug() << "ring_main_window_init: empty account list";
-        priv->currentTypeFilter_ = lrc::api::contact::Type::RING;
         ring_init_lrc(win, accountIds.front());
     }
 
@@ -940,7 +939,7 @@ ring_main_window_init(RingMainWindow *win)
     g_signal_connect_swapped(priv->combobox_account_selector, "changed", G_CALLBACK(account_changed), win);
 
     // initialize the pending contact request icon.
-    set_pending_contact_request_tab_icon(get_active_ring_account(), win);
+    set_pending_contact_request_tab_icon(win);
 }
 
 static void
