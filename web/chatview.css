@@ -161,6 +161,10 @@ a:hover {
   outline: none;
 }
 
+#container[disabled] {
+  background-color: #ccc;
+}
+
 input[placeholder], [placeholder], *[placeholder] {
     color: #d3d3d3;
 }
