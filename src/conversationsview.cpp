@@ -265,6 +265,7 @@ conversations_view_dispose(GObject *object)
 
     QObject::disconnect(priv->selection_updated);
     QObject::disconnect(priv->layout_changed);
+    QObject::disconnect(priv->conversationModelUpdated);
     gtk_widget_destroy(priv->popup_menu);
 
     G_OBJECT_CLASS(conversations_view_parent_class)->dispose(object);

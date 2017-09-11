@@ -21,6 +21,8 @@
 
 #include <gtk/gtk.h>
 
+#include "accountcontainer.h"
+
 G_BEGIN_DECLS
 
 #define RING_WELCOME_VIEW_TYPE            (ring_welcome_view_get_type ())
@@ -33,6 +35,7 @@ typedef struct _RingWelcomeView      RingWelcomeView;
 typedef struct _RingWelcomeViewClass RingWelcomeViewClass;
 
 GType             ring_welcome_view_get_type (void) G_GNUC_CONST;
-GtkWidget*        ring_welcome_view_new      (void);
+GtkWidget*        ring_welcome_view_new      (AccountContainer* accountContainer);
+void              ring_welcome_update_view   (RingWelcomeView* self);
 
 G_END_DECLS
