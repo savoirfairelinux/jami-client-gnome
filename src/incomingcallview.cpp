@@ -32,6 +32,9 @@
 #include "chatview.h"
 #include "utils/files.h"
 
+#include <api/newcallmodel.h>
+#include <api/contactmodel.h>
+
 struct _IncomingCallView
 {
     GtkBox parent;
@@ -62,7 +65,8 @@ struct _IncomingCallViewPrivate
      * views */
     GtkWidget *webkit_chat_container;
 
-    Call *call;
+    ConversationContainer* conversation_;
+    AccountContainer* accountContainer_;
 
     QMetaObject::Connection state_change_connection;
     QMetaObject::Connection cm_changed_connection;
@@ -112,6 +116,20 @@ map_boolean_to_orientation(GValue *value, GVariant *variant, G_GNUC_UNUSED gpoin
 }
 
 static void
+reject_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
+{
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
+    priv->accountContainer_->info.callModel->hangUp(priv->conversation_->info.callId);
+}
+
+static void
+accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
+{
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
+    priv->accountContainer_->info.callModel->accept(priv->conversation_->info.callId);
+}
+
+static void
 incoming_call_view_init(IncomingCallView *view)
 {
     gtk_widget_init_template(GTK_WIDGET(view));
@@ -139,6 +157,9 @@ incoming_call_view_init(IncomingCallView *view)
                                  G_SETTINGS_BIND_GET,
                                  map_boolean_to_orientation,
                                  nullptr, nullptr, nullptr);
+
+    g_signal_connect(priv->button_reject_incoming, "clicked", G_CALLBACK(reject_incoming_call), view);
+    g_signal_connect(priv->button_accept_incoming, "clicked", G_CALLBACK(accept_incoming_call), view);
 }
 
 static void
@@ -163,56 +184,43 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
 }
 
 static void
-update_state(IncomingCallView *view, Call *call)
+update_state(IncomingCallView *view)
 {
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
-    /* change state label */
-    Call::State state = call->state();
+    // change state label
+    auto callId = priv->conversation_->info.callId;
+    auto call = priv->accountContainer_->info.callModel->getCall(callId);
 
-    gchar *status = g_strdup_printf("%s", call->toHumanStateName().toUtf8().constData());
+    gchar *status = g_strdup_printf("%s", lrc::api::NewCallModel::humanReadableStatus(call.status).c_str());
     gtk_label_set_text(GTK_LABEL(priv->label_status), status);
     g_free(status);
 
-    /* change button(s) displayed */
-    gtk_widget_hide(priv->button_accept_incoming);
-    gtk_widget_hide(priv->button_reject_incoming);
-    gtk_widget_hide(priv->button_end_call);
-
-    switch(state) {
-        case Call::State::INCOMING:
-            gtk_widget_show(priv->button_accept_incoming);
-            gtk_widget_show(priv->button_reject_incoming);
-            break;
-        case Call::State::NEW:
-        case Call::State::ABORTED:
-        case Call::State::RINGING:
-        case Call::State::CURRENT:
-        case Call::State::DIALING:
-        case Call::State::HOLD:
-        case Call::State::FAILURE:
-        case Call::State::BUSY:
-        case Call::State::TRANSFERRED:
-        case Call::State::TRANSF_HOLD:
-        case Call::State::OVER:
-        case Call::State::ERROR:
-        case Call::State::CONFERENCE:
-        case Call::State::CONFERENCE_HOLD:
-        case Call::State::INITIALIZATION:
-        case Call::State::CONNECTED:
-            gtk_widget_show(priv->button_end_call);
-            break;
-        case Call::State::COUNT__:
-            break;
+    switch(call.status)
+    {
+    case lrc::api::call::Status::INCOMING_RINGING:
+        gtk_widget_show(priv->button_accept_incoming);
+        gtk_widget_show(priv->button_reject_incoming);
+        break;
+    case lrc::api::call::Status::OUTGOING_REQUESTED:
+    case lrc::api::call::Status::OUTGOING_RINGING:
+    case lrc::api::call::Status::PAUSED:
+    case lrc::api::call::Status::IN_PROGRESS:
+    case lrc::api::call::Status::INVALID:
+    case lrc::api::call::Status::CONNECTING:
+    case lrc::api::call::Status::SEARCHING:
+    case lrc::api::call::Status::PEER_PAUSED:
+    case lrc::api::call::Status::INACTIVE:
+    case lrc::api::call::Status::ENDED:
+    case lrc::api::call::Status::TERMINATING:
+    case lrc::api::call::Status::CONNECTED:
+    case lrc::api::call::Status::AUTO_ANSWERING:
+        gtk_widget_hide(priv->button_accept_incoming);
+        gtk_widget_show(priv->button_reject_incoming);
+        break;
     }
 
-    if (call->lifeCycleState() == Call::LifeCycleState::INITIALIZATION) {
-        gtk_widget_show(priv->spinner_status);
-        gtk_widget_hide(priv->placeholder);
-    } else {
-        gtk_widget_show(priv->placeholder);
-        gtk_widget_hide(priv->spinner_status);
-    }
+    gtk_widget_show(priv->spinner_status);
 }
 
 static void
@@ -220,51 +228,38 @@ update_name_and_photo(IncomingCallView *view)
 {
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
-    /* get call image */
-    QVariant var_i = GlobalInstances::pixmapManipulator().callPhoto(priv->call, QSize(110, 110), false);
+    QVariant var_i = GlobalInstances::pixmapManipulator().conversationPhoto(
+        priv->conversation_->info,
+        priv->accountContainer_->info,
+        QSize(110, 110),
+        false
+    );
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), image.get());
 
-    /* get name */
-    auto name = priv->call->formattedName();
-    gtk_label_set_text(GTK_LABEL(priv->label_name), name.toUtf8().constData());
+    auto contact = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants.front());
 
-    /* get uri, if different from name */
-    auto bestId = priv->call->peerContactMethod()->bestId();
+    auto name = contact.alias;
+    gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
+
+    auto bestId = contact.uri;
     if (name != bestId) {
-        gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.toUtf8().constData());
+        gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.c_str());
         gtk_widget_show(priv->label_bestId);
     }
 }
 
 static void
-update_person(IncomingCallView *view, Person *new_person)
-{
-    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
-
-    update_name_and_photo(view);
-
-    QObject::disconnect(priv->person_changed_connection);
-    if (new_person) {
-        priv->person_changed_connection = QObject::connect(
-            new_person,
-            &Person::changed,
-            [view]() { update_name_and_photo(view); }
-        );
-    }
-}
-
-static void
-set_call_info(IncomingCallView *view, Call *call) {
+set_call_info(IncomingCallView *view) {
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
-    priv->call = call;
-
     /* change some things depending on call state */
-    update_state(view, call);
-    update_person(view, priv->call->peerContactMethod()->contact());
+    update_state(view);
+    update_name_and_photo(view);
 
-    priv->state_change_connection = QObject::connect(
+    // TODO connect if avatar or display name change
+
+    /* TODO priv->state_change_connection = QObject::connect(
         call,
         &Call::stateChanged,
         [=]() { update_state(view, call); }
@@ -282,8 +277,6 @@ set_call_info(IncomingCallView *view, Call *call) {
         [view] (Person* newPerson, Person*) { update_person(view, newPerson); }
     );
 
-    /* show chat */
-    /* TODO
     auto chat_view = chat_view_new_cm(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->call->peerContactMethod());
     gtk_widget_show(chat_view);
     chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
@@ -292,23 +285,25 @@ set_call_info(IncomingCallView *view, Call *call) {
 }
 
 GtkWidget *
-incoming_call_view_new(Call *call, WebKitChatContainer *webkit_chat_container)
+incoming_call_view_new(WebKitChatContainer* view, AccountContainer* accountContainer, ConversationContainer* conversationContainer)
 {
     auto self = g_object_new(INCOMING_CALL_VIEW_TYPE, NULL);
 
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
-    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
+    priv->webkit_chat_container = GTK_WIDGET(view);
+    priv->conversation_ = conversationContainer;
+    priv->accountContainer_ = accountContainer;
 
-    set_call_info(INCOMING_CALL_VIEW(self), call);
+    set_call_info(INCOMING_CALL_VIEW(self));
 
     return GTK_WIDGET(self);
 }
 
-Call*
-incoming_call_view_get_call(IncomingCallView *self)
+lrc::api::conversation::Info
+incoming_call_view_get_conversation(IncomingCallView *self)
 {
-    g_return_val_if_fail(IS_INCOMING_CALL_VIEW(self), nullptr);
+    g_return_val_if_fail(IS_INCOMING_CALL_VIEW(self), lrc::api::conversation::Info());
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
 
-    return priv->call;
+    return priv->conversation_->info;
 }
