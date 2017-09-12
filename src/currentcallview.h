@@ -21,6 +21,8 @@
 #define _CURRENTCALLVIEW_H
 
 #include <gtk/gtk.h>
+#include "accountcontainer.h"
+#include "conversationcontainer.h"
 #include "webkitchatcontainer.h"
 
 class Call;
@@ -38,8 +40,8 @@ typedef struct _CurrentCallViewClass CurrentCallViewClass;
 
 
 GType      current_call_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *current_call_view_new           (Call*, WebKitChatContainer*);
-Call      *current_call_view_get_call      (CurrentCallView*);
+GtkWidget *current_call_view_new           (WebKitChatContainer* view, AccountContainer* accountContainer, ConversationContainer* conversationContainer);
+lrc::api::conversation::Info current_call_view_get_conversation(CurrentCallView*);
 
 G_END_DECLS
 
