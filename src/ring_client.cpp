@@ -666,14 +666,14 @@ ring_client_startup(GApplication *app)
     /* add accelerators */
     ring_accelerators(RING_CLIENT(app));
 
-    /* Bind GActions to the UserActionModel */
+    /* Bind GActions to the UserActionModel * /
     UserActionModel* uam = CallModel::instance().userActionModel();
     QHash<int, GSimpleAction*> actionHash;
     actionHash[ (int)UserActionModel::Action::ACCEPT          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "accept"));
     actionHash[ (int)UserActionModel::Action::HOLD            ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "hold"));
     actionHash[ (int)UserActionModel::Action::MUTE_AUDIO      ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "mute_audio"));
     actionHash[ (int)UserActionModel::Action::MUTE_VIDEO      ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "mute_video"));
-    /* TODO: add commented actions when ready */
+    /* TODO: add commented actions when ready * /
     // actionHash[ (int)UserActionModel::Action::SERVER_TRANSFER ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "transfer"));
     actionHash[ (int)UserActionModel::Action::RECORD          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "record"));
     actionHash[ (int)UserActionModel::Action::HANGUP          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "hangup"));
@@ -685,16 +685,16 @@ ring_client_startup(GApplication *app)
         g_signal_connect(G_OBJECT(sa), "activate", G_CALLBACK(activate_action), user_data.ptr);
     }
 
-    /* change the state of the GActions based on the UserActionModel */
+    /* change the state of the GActions based on the UserActionModel * /
     priv->uam_updated = QObject::connect(uam,&UserActionModel::dataChanged, [actionHash,uam](const QModelIndex& tl, const QModelIndex& br) {
         const int first(tl.row()),last(br.row());
         for(int i = first; i <= last;i++) {
             const QModelIndex& idx = uam->index(i,0);
             GSimpleAction* sa = actionHash[(int)qvariant_cast<UserActionModel::Action>(idx.data(UserActionModel::Role::ACTION))];
             if (sa) {
-                /* enable/disable GAction based on UserActionModel */
+                /* enable/disable GAction based on UserActionModel * /
                 g_simple_action_set_enabled(sa, idx.flags() & Qt::ItemIsEnabled);
-                /* set the state of the action if its stateful */
+                /* set the state of the action if its stateful * /
                 if (g_action_get_state_type(G_ACTION(sa)) != NULL)
                     g_simple_action_set_state(sa, g_variant_new_boolean(idx.data(Qt::CheckStateRole) == Qt::Checked));
             }
