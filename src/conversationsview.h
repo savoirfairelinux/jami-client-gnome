@@ -35,6 +35,6 @@ typedef struct _ConversationsView      ConversationsView;
 typedef struct _ConversationsViewClass ConversationsViewClass;
 
 GType      conversations_view_get_type (void) G_GNUC_CONST;
-GtkWidget *conversations_view_new(AccountContainer* accountContainer/* TODO, Type {ALL, CONTACT, PENDING}*/);
+GtkWidget *conversations_view_new(AccountContainer* accountContainer);
 
 G_END_DECLS
