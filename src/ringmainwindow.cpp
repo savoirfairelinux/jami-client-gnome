@@ -133,6 +133,9 @@ struct _RingMainWindowPrivate
     lrc::api::contact::Type currentTypeFilter_;
 
     QMetaObject::Connection showChatViewConnection_;
+    QMetaObject::Connection showCallViewConnection_;
+    QMetaObject::Connection showIncomingViewConnection_;
+    QMetaObject::Connection changeAccountConnection_;
     QMetaObject::Connection modelUpdatedConnection_;
 
 };
@@ -234,9 +237,13 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
     QObject::disconnect(priv->selected_call_over);
 
     if (g_type_is_a(INCOMING_CALL_VIEW_TYPE, type)) {
-        // TODO
+        delete priv->chatViewConversation_;
+        priv->chatViewConversation_ = new ConversationContainer(conversation);
+        new_view = incoming_call_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->chatViewConversation_);
     } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
-        // TODO
+        delete priv->chatViewConversation_;
+        priv->chatViewConversation_ = new ConversationContainer(conversation);
+        new_view = current_call_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->chatViewConversation_);
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
         delete priv->chatViewConversation_;
         priv->chatViewConversation_ = new ConversationContainer(conversation);
@@ -251,13 +258,14 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
     gtk_widget_show(new_view);
 }
 
-#include <iostream>
-
 static void
 ring_init_lrc(RingMainWindow *win, const std::string& accountId)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
     QObject::disconnect(priv->showChatViewConnection_);
+    QObject::disconnect(priv->showIncomingViewConnection_);
+    QObject::disconnect(priv->changeAccountConnection_);
+    QObject::disconnect(priv->showCallViewConnection_);
     QObject::disconnect(priv->modelUpdatedConnection_);
 
     if (priv->accountContainer_) {
@@ -303,6 +311,69 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
         }
     });
 
+    // New call view
+    priv->showCallViewConnection_ = QObject::connect(
+    &*priv->accountContainer_->info.conversationModel,
+    &lrc::api::ConversationModel::showCallView,
+    [win, priv] (lrc::api::conversation::Info origin) {
+        // Change the view if we want a different view.
+        auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+
+        lrc::api::conversation::Info current_item;
+        if (IS_CURRENT_CALL_VIEW(old_view))
+            current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
+
+        if (current_item.uid != origin.uid) {
+            change_view(win, old_view, origin, CURRENT_CALL_VIEW_TYPE);
+        }
+    });
+
+    // New incoming call view on another account
+    priv->showIncomingViewConnection_ = QObject::connect(
+    &priv->lrc_->getAccountModel(),
+    &lrc::api::NewAccountModel::incomingCall,
+    [win, priv] (const std::string& accountId, const std::string& contactUri) {
+        if (accountId != priv->accountContainer_->info.id) {
+            // Go to welcome view
+            auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+            change_view(win, old_view, lrc::api::conversation::Info(), RING_WELCOME_VIEW_TYPE);
+            // Change combobox
+            auto accounts = priv->lrc_->getAccountModel().getAccountList();
+            auto i = 0;
+            for (; i < accounts.size(); ++i) {
+                auto id = accounts.at(i);
+                if (id == accountId) break;
+            }
+            gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), i);
+            // Show conversation panel
+            gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), 0);
+            // Reinit LRC
+            ring_init_lrc(win, std::string(accountId));
+            // Update the welcome view
+            ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view));
+            // TODO NOTE here conversation.uid == contactUri but it will change.
+            priv->accountContainer_->info.conversationModel->selectConversation(contactUri);
+        }
+        // else we already listen this signal
+    });
+
+    // New incoming call view
+    priv->showIncomingViewConnection_ = QObject::connect(
+    &*priv->accountContainer_->info.conversationModel,
+    &lrc::api::ConversationModel::showIncomingCallView,
+    [win, priv] (lrc::api::conversation::Info origin) {
+        // Change the view if we want a different view.
+        auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+
+        lrc::api::conversation::Info current_item;
+        if (IS_INCOMING_CALL_VIEW(old_view))
+            current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
+
+        if (current_item.uid != origin.uid) {
+            change_view(win, old_view, origin, INCOMING_CALL_VIEW_TYPE);
+        }
+    });
+
     priv->modelUpdatedConnection_ = QObject::connect(
     &*priv->accountContainer_->info.conversationModel,
     &lrc::api::ConversationModel::modelUpdated,
@@ -310,6 +381,9 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
         set_pending_contact_request_tab_icon(win);
         // Change the view if we want a different view.
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+
+        if (IS_CURRENT_CALL_VIEW(old_view) || IS_INCOMING_CALL_VIEW(old_view))
+            return;
 
         lrc::api::conversation::Info current_item;
         if (IS_CHAT_VIEW(old_view))
@@ -579,13 +653,13 @@ dtmf_pressed(RingMainWindow *win,
     if (GTK_IS_ENTRY(focus))
         return GDK_EVENT_PROPAGATE;
 
-    /* make sure that a call is selected*/
+    /* make sure that a call is selected* /
     QItemSelectionModel *selection = CallModel::instance().selectionModel();
     QModelIndex idx = selection->currentIndex();
     if (!idx.isValid())
         return GDK_EVENT_PROPAGATE;
 
-    /* make sure that the selected call is in progress */
+    /* make sure that the selected call is in progress * /
     Call *call = CallModel::instance().getCall(idx);
     Call::LifeCycleState state = call->lifeCycleState();
     if (state != Call::LifeCycleState::PROGRESS)
@@ -593,13 +667,13 @@ dtmf_pressed(RingMainWindow *win,
 
     /* filter out cretain MOD masked key presses so that, for example, 'Ctrl+c'
      * does not result in a 'c' being played.
-     * we filter Ctrl, Alt, and SUPER/HYPER/META keys */
+     * we filter Ctrl, Alt, and SUPER/HYPER/META keys * /
     if ( event->state
         & ( GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK ))
         return GDK_EVENT_PROPAGATE;
 
     /* pass the character that was entered to be played by the daemon;
-     * the daemon will filter out invalid DTMF characters */
+     * the daemon will filter out invalid DTMF characters * /
     guint32 unicode_val = gdk_keyval_to_unicode(event->keyval);
     QString val = QString::fromUcs4(&unicode_val, 1);
     call->playDTMF(val);
@@ -833,14 +907,9 @@ ring_main_window_init(RingMainWindow *win)
             show_combobox_account_selector(win, TRUE);
     };
 
-    // TODO connect to accountRemoved / accountAdded / changed
+    // TODO connect to accountRemoved / accountAdded
     QObject::connect(&AvailableAccountModel::instance(), &QAbstractItemModel::rowsRemoved, available_accounts_changed);
     QObject::connect(&AvailableAccountModel::instance(), &QAbstractItemModel::rowsInserted, available_accounts_changed);
-    /*QObject::connect(AvailableAccountModel::instance().selectionModel(), &QItemSelectionModel::currentChanged,
-    [win] (const QModelIndex& current, const QModelIndex& previous) {
-        auto account = current.data(static_cast<int>(Account::Role::Object)).value<Account*>();
-        current_account_changed(win, account);
-    });*/
 
     /* welcome/default view */
     priv->welcome_view = ring_welcome_view_new(priv->accountContainer_);
@@ -864,7 +933,7 @@ ring_main_window_init(RingMainWindow *win)
                                               GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
     /* TODO make sure the incoming call is the selected call in the CallModel */
-    QObject::connect(
+    /*QObject::connect(
         &CallModel::instance(),
         &CallModel::incomingCall,
         [priv](Call* call) {
@@ -880,7 +949,7 @@ ring_main_window_init(RingMainWindow *win)
             RecentModel::instance().selectionModel()->clearCurrentIndex();
             CallModel::instance().selectCall(call);
         }
-    );
+    );*/
 
     /* react to digit key press events */
     g_signal_connect(win, "key-press-event", G_CALLBACK(dtmf_pressed), NULL);
@@ -960,6 +1029,9 @@ ring_main_window_dispose(GObject *object)
 
 
     QObject::disconnect(priv->showChatViewConnection_);
+    QObject::disconnect(priv->showIncomingViewConnection_);
+    QObject::disconnect(priv->changeAccountConnection_);
+    QObject::disconnect(priv->showCallViewConnection_);
     QObject::disconnect(priv->modelUpdatedConnection_);
 
     g_clear_object(&priv->welcome_view);
