@@ -307,7 +307,9 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
         if (current_item.uid != origin.uid) {
             change_view(win, old_view, origin, CHAT_VIEW_TYPE);
         } else {
-            chat_view_update_temporary(CHAT_VIEW(old_view), !origin.isUsed);
+            auto contact = priv->accountContainer_->info.contactModel->getContact(origin.participants[0]);
+            auto isNotUsed = contact.type == lrc::api::contact::Type::TEMPORARY || contact.type == lrc::api::contact::Type::PENDING;
+            chat_view_update_temporary(CHAT_VIEW(old_view), isNotUsed);
         }
     });
 
@@ -391,29 +393,32 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
 
         if (current_item.participants.empty()) {
             change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
-        } else if (!current_item.isUsed) {
-            // if current conversation is temporary, change if it's not a contact
-            auto uri = current_item.participants.front();
-            try {
-                // else the contact was added
-                auto newContact = priv->accountContainer_->info.contactModel->getContact(uri);
-                if (uri != newContact.uri) {
-                    gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
-                    priv->accountContainer_->info.conversationModel->selectConversation(newContact.uri);
+            return;
+        }
+
+        try {
+            auto contact = priv->accountContainer_->info.contactModel->getContact(current_item.participants[0]);
+            if (contact.type == lrc::api::contact::Type::TEMPORARY || contact.type == lrc::api::contact::Type::PENDING) {
+                // if current conversation is temporary, change if it's not a contact
+                auto uri = current_item.participants.front();
+                try {
+                    auto newContact = priv->accountContainer_->info.contactModel->getContact(uri);
+                    if (uri != newContact.uri) {
+                        // the contact was added
+                        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+                        priv->accountContainer_->info.conversationModel->selectConversation(newContact.uri);
+                    } else {
+                        // else it was not.
+                        change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
+                    }
+                } catch (const std::out_of_range&) {
+                    change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
                 }
-            } catch (const std::out_of_range&) {
-                change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
             }
-        } else {
-            // change view if contact was removed
-            auto uri = current_item.participants.front();
-            try {
-                priv->accountContainer_->info.contactModel->getContact(uri);
-            } catch (const std::out_of_range&) {
-                // contact was removed
-                gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
-                change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
-            }
+        } catch (const std::out_of_range&) {
+            // contact was removed
+            gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+            change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
         }
     });
 
@@ -981,11 +986,13 @@ ring_main_window_init(RingMainWindow *win)
     // TODO listend for add/remove account
     for (const auto& accountId : accountIds) {
         const auto& account = priv->lrc_->getAccountModel().getAccountInfo(accountId);
-        gtk_list_store_append (store, &iter);
-        gtk_list_store_set (store, &iter,
-         0 /* col # */ , accountId.c_str() /* celldata */,
-         1 /* col # */ , account.contact.alias.c_str() /* celldata */,
-         -1 /* end */);
+        if (account.enabled) {
+            gtk_list_store_append (store, &iter);
+            gtk_list_store_set (store, &iter,
+            0 /* col # */ , accountId.c_str() /* celldata */,
+            1 /* col # */ , account.contact.alias.c_str() /* celldata */,
+            -1 /* end */);
+        }
     }
 
     gtk_combo_box_set_model(

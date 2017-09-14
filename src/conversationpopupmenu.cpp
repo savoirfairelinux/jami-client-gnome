@@ -149,7 +149,8 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     auto place_call_conversation = gtk_menu_item_new_with_mnemonic(_("_Place call"));
     gtk_menu_shell_append(GTK_MENU_SHELL(self), place_call_conversation);
     g_signal_connect(place_call_conversation, "activate", G_CALLBACK(place_call), priv);
-    if (!conversation.isUsed) {
+    if (contact.type == lrc::api::contact::Type::TEMPORARY ||
+        contact.type == lrc::api::contact::Type::PENDING) {
         // If we can add this conversation
         auto add_conversation_conversation = gtk_menu_item_new_with_mnemonic(_("_Add conversation"));
         gtk_menu_shell_append(GTK_MENU_SHELL(self), add_conversation_conversation);
