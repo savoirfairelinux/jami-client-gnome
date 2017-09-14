@@ -247,7 +247,9 @@ static void
 update_send_invitation(ChatView *self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    if(priv->conversation_->info.isUsed)
+
+    auto contact = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants[0]);
+    if(contact.type != lrc::api::contact::Type::TEMPORARY && contact.type != lrc::api::contact::Type::PENDING)
         gtk_widget_hide(priv->button_send_invitation);
 }
 
@@ -292,10 +294,10 @@ webkit_chat_container_ready(ChatView* self)
         }
     });
 
-    priv->isTemporary_ = !priv->conversation_->info.isUsed;
-    webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
     auto contactUri = priv->conversation_->info.participants.front();
     auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
+    priv->isTemporary_ = contact.type == lrc::api::contact::Type::TEMPORARY || contact.type == lrc::api::contact::Type::PENDING;
+    webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                          (contact.type == lrc::api::contact::Type::PENDING),
                                          contactUri);

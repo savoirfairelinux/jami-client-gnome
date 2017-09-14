@@ -32,6 +32,8 @@
 
 // lrc
 #include <api/contactmodel.h>
+#include <api/conversation.h>
+#include <api/account.h>
 #include <iostream>
 
 
