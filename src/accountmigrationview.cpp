@@ -174,14 +174,7 @@ password_entry_changed(G_GNUC_UNUSED GtkEntry* entry, AccountMigrationView *view
 
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
 
-    if (strlen(password) > 0)
-    {
-        gtk_widget_set_sensitive(priv->button_migrate_account, TRUE);
-    }
-    else
-    {
-        gtk_widget_set_sensitive(priv->button_migrate_account, FALSE);
-    }
+    gtk_widget_set_sensitive(priv->button_migrate_account, TRUE);
 }
 
 static void
