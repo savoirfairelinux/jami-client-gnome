@@ -542,7 +542,7 @@ entries_existing_account_changed(G_GNUC_UNUSED GtkEntry *entry, AccountCreationW
 
     gtk_widget_set_sensitive(
         priv->button_existing_account_step2_next,
-        (strlen(pin) > 0 && strlen(password) > 0)
+        (strlen(pin) > 0)
     );
 }
 
@@ -559,8 +559,6 @@ entries_new_account_changed(AccountCreationWizard *view)
 
     if (
             strlen(display_name) > 0 && // Display name is longer than 0
-            strlen(password) > 0 && // Password is longer than 0
-            strlen(password_confirm) > 0 && // Confirmation is also longer than 0
             (
                 (sign_up_blockchain && strlen(username) > 0 && priv->username_available) || // we are signing up, username is set and avaialble
                 !sign_up_blockchain // We are not signing up
