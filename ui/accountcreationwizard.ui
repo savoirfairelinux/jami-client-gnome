@@ -188,6 +188,15 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkFileChooserButton" id="entry_existing_account_archive">
+                        <property name="width_request">320</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">center</property>
+                        <property name="title" translatable="yes"/>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">Enter your password:</property>
