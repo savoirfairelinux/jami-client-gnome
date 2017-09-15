@@ -123,7 +123,7 @@ choose_export_location(AccountImportExportView *self)
 
             // if accounts and password are set then we're ready for export
             auto password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
-            if (priv->export_accounts_list && priv->export_accounts_list->data && strlen(password) > 0) {
+            if (priv->export_accounts_list && priv->export_accounts_list->data) {
                 gtk_widget_set_sensitive(priv->button_export, TRUE);
             }
             g_free (filename);
@@ -142,11 +142,7 @@ import_file_set(AccountImportExportView *self)
     // clear any existing error
     gtk_label_set_text(GTK_LABEL(priv->label_error), "");
 
-    // if password is set then we're ready for import
-    auto password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
-    if (strlen(password) > 0) {
-        gtk_widget_set_sensitive(priv->button_import, TRUE);
-    }
+    gtk_widget_set_sensitive(priv->button_import, TRUE);
 }
 
 static void
@@ -157,27 +153,18 @@ password_changed(AccountImportExportView *self)
     // clear any existing error
     gtk_label_set_text(GTK_LABEL(priv->label_error), "");
 
-    // if the password and other requirements are met then enable import/export
-    auto password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
-    if (strlen(password) > 0) {
+    // import
+    if (auto filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_import))) {
+        gtk_widget_set_sensitive(priv->button_import, TRUE);
+        g_free(filename);
+    }
 
-        // import
-        if (auto filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_import))) {
-            gtk_widget_set_sensitive(priv->button_import, TRUE);
-            g_free(filename);
-        }
-
-        // export
-        const auto filename = gtk_label_get_text(GTK_LABEL(priv->label_export_location));
-        if (strlen(filename) > 0) {
-            if (priv->export_accounts_list && priv->export_accounts_list->data) {
-                gtk_widget_set_sensitive(priv->button_export, TRUE);
-            }
-        }
-
-    } else {
-        gtk_widget_set_sensitive(priv->button_export, FALSE);
-        gtk_widget_set_sensitive(priv->button_import, FALSE);
+    // export
+    const auto filename = gtk_label_get_text(GTK_LABEL(priv->label_export_location));
+    if (strlen(filename) > 0
+        && priv->export_accounts_list
+        && priv->export_accounts_list->data) {
+            gtk_widget_set_sensitive(priv->button_export, TRUE);
     }
 }
 
@@ -199,21 +186,18 @@ import_account(AccountImportExportView *self)
 
     if (auto filepath = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_import))) {
         const auto password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
-        if (strlen(password) > 0) {
-            auto ret = AccountModel::instance().importAccounts(filepath, password);
-            switch(ret) {
-                case 0:
-                    // done
-                    g_signal_emit(G_OBJECT(self), account_importexport_view_signals[IMPORT_EXPORT_COMPLETED], 0);
-                break;
-                default:
-                    //failed
-                    gtk_label_set_text(GTK_LABEL(priv->label_error), _("Error importing account(s)"));
-                    g_warning("failed to import account(s), err: %d", ret);
-                break;
-            }
-        } else {
-            g_warning("no password set for account import");
+
+        auto ret = AccountModel::instance().importAccounts(filepath, password);
+        switch(ret) {
+            case 0:
+                // done
+                g_signal_emit(G_OBJECT(self), account_importexport_view_signals[IMPORT_EXPORT_COMPLETED], 0);
+            break;
+            default:
+                //failed
+                gtk_label_set_text(GTK_LABEL(priv->label_error), _("Error importing account(s)"));
+                g_warning("failed to import account(s), err: %d", ret);
+            break;
         }
         g_free(filepath);
     } else {
@@ -241,31 +225,26 @@ export_account(AccountImportExportView *self)
     // validate filepath
     if (strlen(filepath)) {
         const auto password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
-        if (strlen(password) > 0) {
+        // get account id strings
+        auto account_ids = QStringList();
+        auto list = priv->export_accounts_list;
+        while (list != nullptr) {
+            auto account = static_cast<Account *>(list->data);
+            account_ids << account->id();
+            list = g_list_next(list);
+        }
 
-            // get account id strings
-            auto account_ids = QStringList();
-            auto list = priv->export_accounts_list;
-            while (list != nullptr) {
-                auto account = static_cast<Account *>(list->data);
-                account_ids << account->id();
-                list = g_list_next(list);
-            }
-
-            auto ret = AccountModel::instance().exportAccounts(account_ids, filepath, password);
-            switch (ret) {
-                case 0:
-                    // done
-                    g_signal_emit(G_OBJECT(self), account_importexport_view_signals[IMPORT_EXPORT_COMPLETED], 0);
-                break;
-                default:
-                    //failed
-                    gtk_label_set_text(GTK_LABEL(priv->label_error), _("Error exporting account(s)"));
-                    g_warning("failed to export account(s), err: %d", ret);
-                break;
-            }
-        } else {
-            g_warning("no password set for account export");
+        auto ret = AccountModel::instance().exportAccounts(account_ids, filepath, password);
+        switch (ret) {
+            case 0:
+                // done
+                g_signal_emit(G_OBJECT(self), account_importexport_view_signals[IMPORT_EXPORT_COMPLETED], 0);
+            break;
+            default:
+                //failed
+                gtk_label_set_text(GTK_LABEL(priv->label_error), _("Error exporting account(s)"));
+                g_warning("failed to export account(s), err: %d", ret);
+            break;
         }
     } else {
         g_warning("no file selected for account export");
