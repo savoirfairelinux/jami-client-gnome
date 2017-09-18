@@ -496,3 +496,68 @@ pre {
 .message_out + .message_out .sender_image {
     opacity: 0;
 }
+
+.message_type_contact,
+.message_type_call {
+  width: 100%;
+}
+
+.message_type_call .sent-checkmark,
+.message_type_call .message_sender,
+.message_type_call .message_delivery_status,
+.message_type_call .message_timestamp,
+.message_type_call .message_sender_image,
+.message_type_contact .sent-checkmark,
+.message_type_contact .message_sender,
+.message_type_contact .message_delivery_status,
+.message_type_contact .message_timestamp,
+.message_type_contact .message_sender_image {
+  visibility: hidden;
+  display: none;
+}
+
+.message_type_contact .message_wrapper:before,
+.message_type_call .message_wrapper:before {
+    display: none;
+}
+
+.message_type_call .message_wrapper:after,
+.message_type_contact .message_wrapper:after {
+    display: none;
+}
+
+.message_type_call .message_wrapper,
+.message_type_contact .message_wrapper {
+  background: #fff;
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: #888;
+  font-style: italic;
+  border-radius: 0;
+}
+
+.message_type_call .message_text,
+.message_type_contact .message_text {
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+    margin-left: 20px;
+}
+
+.message_type_call .message_text {
+    border-bottom: 1px dotted #ccc;
+}
+
+#green {
+  color: green;
+}
+
+#red {
+  color: red;
+  font-size: 1.25em;
+}

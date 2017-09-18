@@ -287,10 +287,12 @@ ring.chatview = (function(){
    */
   function getMessageHtml(message_text)
   {
-    const escaped_message = escapeHtml(message_text),
-      linkified_message = linkifyHtml(escaped_message, {});
+    const escaped_message = escapeHtml(message_text);
+    var linkified_message = linkifyHtml(escaped_message, {});
 
     const textPart = document.createElement('pre');
+    var linkified_message = linkified_message.replace("📞", "<span id=\"green\">📞</span>")
+    var linkified_message = linkified_message.replace("🕽", "<span id=\"red\">🕽</span>")
     textPart.innerHTML = linkified_message;
 
     return textPart.outerHTML;
@@ -411,6 +413,7 @@ ring.chatview = (function(){
             message_sender_contact_method = message_object["sender_contact_method"],
             message_timestamp = message_object["timestamp"],
             message_direction = message_object["direction"],
+            message_type = message_object["type"],
             message_delivery_status = message_object["delivery_status"],
             message_div_classes,
             chatview_message_div,
@@ -432,7 +435,8 @@ ring.chatview = (function(){
         {
             message_div_classes = [
                 "message",
-                "message_" + message_direction
+                "message_" + message_direction,
+                "message_type_" + message_type
             ];
 
             chatview_message_div = document.createElement('div');

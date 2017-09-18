@@ -703,7 +703,7 @@ update_name_and_photo(CurrentCallView *view)
     auto name = contact.alias;
     gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
 
-    auto bestId = contact.uri;
+    auto bestId = contact.registeredName;
     if (name != bestId) {
         gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.c_str());
         gtk_widget_show(priv->label_bestId);
