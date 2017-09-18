@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-10 23:09-0400\n"
+"POT-Creation-Date: 2017-09-17 23:09-0400\n"
 "PO-Revision-Date: 2017-08-04 02:38+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
@@ -143,11 +143,11 @@ msgstr "取消"
 msgid "Select"
 msgstr "選擇"
 
-#: src/accountimportexportview.cpp:211
+#: src/accountimportexportview.cpp:198
 msgid "Error importing account(s)"
 msgstr "輸入帳號錯誤"
 
-#: src/accountimportexportview.cpp:263
+#: src/accountimportexportview.cpp:245
 msgid "Error exporting account(s)"
 msgstr "輸出帳號錯誤"
 

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-10 23:09-0400\n"
+"POT-Creation-Date: 2017-09-17 23:09-0400\n"
 "PO-Revision-Date: 2017-08-22 23:18+0000\n"
 "Last-Translator: Carles Mateu <carlesm@carlesm.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/savoirfairelinux/ring/language/ca/)\n"
@@ -145,11 +145,11 @@ msgstr "Cancel·la"
 msgid "Select"
 msgstr "Selecciona"
 
-#: src/accountimportexportview.cpp:211
+#: src/accountimportexportview.cpp:198
 msgid "Error importing account(s)"
 msgstr "Error important el(s) compte(s)"
 
-#: src/accountimportexportview.cpp:263
+#: src/accountimportexportview.cpp:245
 msgid "Error exporting account(s)"
 msgstr "Error exportant el(s) compte(s)"
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-10 23:09-0400\n"
+"POT-Creation-Date: 2017-09-17 23:09-0400\n"
 "PO-Revision-Date: 2017-08-22 14:52+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
@@ -143,11 +143,11 @@ msgstr "Atsisakyti"
 msgid "Select"
 msgstr "Pasirinkti"
 
-#: src/accountimportexportview.cpp:211
+#: src/accountimportexportview.cpp:198
 msgid "Error importing account(s)"
 msgstr "Klaida, importuojant paskyrą(-as)"
 
-#: src/accountimportexportview.cpp:263
+#: src/accountimportexportview.cpp:245
 msgid "Error exporting account(s)"
 msgstr "Klaida, eksportuojant paskyrą(-as)"
 
