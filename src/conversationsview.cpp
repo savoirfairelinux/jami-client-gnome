@@ -125,7 +125,7 @@ render_name_and_number(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     }
 
     text = g_markup_printf_escaped(
-        "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\">%s</span>",
+        "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
         ringId,
         lastInformation
     );

@@ -144,6 +144,9 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATIO
 
 #define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
 
+static void
+change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info conversation, GType type);
+
 static WebKitChatContainer*
 get_webkit_chat_container(RingMainWindow *win)
 {
@@ -222,6 +225,11 @@ hide_view_clicked(RingMainWindow *self)
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
     auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_request));
+    auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+    lrc::api::conversation::Info current_item;
+    if (IS_CHAT_VIEW(old_view))
+        current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
+    change_view(self, old_view, current_item, RING_WELCOME_VIEW_TYPE);
 }
 
 static void
