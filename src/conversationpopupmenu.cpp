@@ -26,6 +26,14 @@
 #include <api/conversationmodel.h>
 #include <api/contactmodel.h>
 
+
+// lrc
+#include <api/contactmodel.h>
+#include <iostream>
+#include <api/contact.h>
+#include <api/conversationmodel.h>
+#include <api/newcallmodel.h>
+
 struct _ConversationPopupMenu
 {
     GtkMenu parent;
@@ -84,7 +92,7 @@ block_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* 
     try
     {
         auto conversationUid = priv->accountContainer_->info.conversationModel->getConversation(priv->row_).uid;
-        priv->accountContainer_->info.conversationModel->removeConversation(conversationUid, true);
+        priv->accountContainer_->info.conversationModel->removeConversation(conversationUid/*, true*/);
     }
     catch (const std::exception&)
     {
@@ -149,20 +157,20 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     auto place_call_conversation = gtk_menu_item_new_with_mnemonic(_("_Place call"));
     gtk_menu_shell_append(GTK_MENU_SHELL(self), place_call_conversation);
     g_signal_connect(place_call_conversation, "activate", G_CALLBACK(place_call), priv);
-    if (contact.type == lrc::api::contact::Type::TEMPORARY ||
-        contact.type == lrc::api::contact::Type::PENDING) {
+    if (/*contact.type == lrc::api::contact::Type::TEMPORARY ||
+        contact.type == lrc::api::contact::Type::PENDING*/true) {
         // If we can add this conversation
         auto add_conversation_conversation = gtk_menu_item_new_with_mnemonic(_("_Add conversation"));
         gtk_menu_shell_append(GTK_MENU_SHELL(self), add_conversation_conversation);
         g_signal_connect(add_conversation_conversation, "activate", G_CALLBACK(add_conversation), priv);
-        if (contact.type == lrc::api::contact::Type::PENDING) {
+        //if (contact.type == lrc::api::contact::Type::PENDING) {
             auto rm_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Discard invitation"));
             gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_conversation_item);
             g_signal_connect(rm_conversation_item, "activate", G_CALLBACK(remove_conversation), priv);
             auto block_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Block invitations"));
             gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
             g_signal_connect(block_conversation_item, "activate", G_CALLBACK(block_conversation), priv);
-        }
+    //    }
     } else {
         auto rm_history_conversation = gtk_menu_item_new_with_mnemonic(_("_Clear history"));
         gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_history_conversation);

@@ -123,10 +123,10 @@ accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
     auto contactUri = priv->conversation_->info.participants[0];
     auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    if (contact.type == lrc::api::contact::Type::PENDING) {
+    /*if (contact.type == lrc::api::contact::Type::PENDING) {
         priv->accountContainer_->info.conversationModel->addConversation(contactUri);
-    }
-    priv->accountContainer_->info.callModel->accept(priv->conversation_->info.callId);
+    }*/
+    //~ priv->accountContainer_->info.callModel->accept(priv->conversation_->info.callId);
 }
 
 static void
@@ -186,41 +186,41 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
 static void
 update_state(IncomingCallView *view)
 {
-    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    //~ IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
-    // change state label
-    auto callId = priv->conversation_->info.callId;
-    auto call = priv->accountContainer_->info.callModel->getCall(callId);
+    //~ // change state label
+    //~ auto callId = priv->conversation_->info.callId;
+    //~ auto call = priv->accountContainer_->info.callModel->getCall(callId);
 
-    gchar *status = g_strdup_printf("%s", lrc::api::NewCallModel::humanReadableStatus(call.status).c_str());
-    gtk_label_set_text(GTK_LABEL(priv->label_status), status);
-    g_free(status);
+    //~ gchar *status = g_strdup_printf("%s", lrc::api::NewCallModel::humanReadableStatus(call.status).c_str());
+    //~ gtk_label_set_text(GTK_LABEL(priv->label_status), status);
+    //~ g_free(status);
 
-    switch(call.status)
-    {
-    case lrc::api::call::Status::INCOMING_RINGING:
-        gtk_widget_show(priv->button_accept_incoming);
-        gtk_widget_show(priv->button_reject_incoming);
-        break;
-    case lrc::api::call::Status::OUTGOING_REQUESTED:
-    case lrc::api::call::Status::OUTGOING_RINGING:
-    case lrc::api::call::Status::PAUSED:
-    case lrc::api::call::Status::IN_PROGRESS:
-    case lrc::api::call::Status::INVALID:
-    case lrc::api::call::Status::CONNECTING:
-    case lrc::api::call::Status::SEARCHING:
-    case lrc::api::call::Status::PEER_PAUSED:
-    case lrc::api::call::Status::INACTIVE:
-    case lrc::api::call::Status::ENDED:
-    case lrc::api::call::Status::TERMINATING:
-    case lrc::api::call::Status::CONNECTED:
-    case lrc::api::call::Status::AUTO_ANSWERING:
-        gtk_widget_hide(priv->button_accept_incoming);
-        gtk_widget_show(priv->button_reject_incoming);
-        break;
-    }
+    //~ switch(call.status)
+    //~ {
+    //~ case lrc::api::call::Status::INCOMING_RINGING:
+        //~ gtk_widget_show(priv->button_accept_incoming);
+        //~ gtk_widget_show(priv->button_reject_incoming);
+        //~ break;
+    //~ case lrc::api::call::Status::OUTGOING_REQUESTED:
+    //~ case lrc::api::call::Status::OUTGOING_RINGING:
+    //~ case lrc::api::call::Status::PAUSED:
+    //~ case lrc::api::call::Status::IN_PROGRESS:
+    //~ case lrc::api::call::Status::INVALID:
+    //~ case lrc::api::call::Status::CONNECTING:
+    //~ case lrc::api::call::Status::SEARCHING:
+    //~ case lrc::api::call::Status::PEER_PAUSED:
+    //~ case lrc::api::call::Status::INACTIVE:
+    //~ case lrc::api::call::Status::ENDED:
+    //~ case lrc::api::call::Status::TERMINATING:
+    //~ case lrc::api::call::Status::CONNECTED:
+    //~ case lrc::api::call::Status::AUTO_ANSWERING:
+        //~ gtk_widget_hide(priv->button_accept_incoming);
+        //~ gtk_widget_show(priv->button_reject_incoming);
+        //~ break;
+    //~ }
 
-    gtk_widget_show(priv->spinner_status);
+    //~ gtk_widget_show(priv->spinner_status);
 }
 
 static void
@@ -251,26 +251,26 @@ update_name_and_photo(IncomingCallView *view)
 
 static void
 set_call_info(IncomingCallView *view) {
-    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    //~ IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
-    /* change some things depending on call state */
-    update_state(view);
-    update_name_and_photo(view);
+    //~ /* change some things depending on call state */
+    //~ update_state(view);
+    //~ update_name_and_photo(view);
 
-    priv->state_change_connection = QObject::connect(
-    &*priv->accountContainer_->info.callModel,
-    &lrc::api::NewCallModel::callStatusChanged,
-    [view, priv] (const std::string& callId) {
-        if (callId == priv->conversation_->info.callId) {
-            update_state(view);
-            update_name_and_photo(view);
-        }
-    });
+    //~ priv->state_change_connection = QObject::connect(
+    //~ &*priv->accountContainer_->info.callModel,
+    //~ &lrc::api::NewCallModel::callStatusChanged,
+    //~ [view, priv] (const std::string& callId) {
+        //~ if (callId == priv->conversation_->info.callId) {
+            //~ update_state(view);
+            //~ update_name_and_photo(view);
+        //~ }
+    //~ });
 
-    auto chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->accountContainer_, priv->conversation_);
-    gtk_widget_show(chat_view);
-    chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
-    gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
+    //~ auto chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->accountContainer_, priv->conversation_);
+    //~ gtk_widget_show(chat_view);
+    //~ chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
+    //~ gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
 }
 
 GtkWidget *

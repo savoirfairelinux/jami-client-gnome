@@ -33,6 +33,10 @@
 // lrc
 #include <api/contactmodel.h>
 #include <iostream>
+#include <api/contact.h>
+#include <api/conversationmodel.h>
+#include <api/newcallmodel.h>
+#include <api/account.h>
 
 
 namespace Interfaces {
