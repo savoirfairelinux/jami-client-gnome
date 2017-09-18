@@ -39,6 +39,12 @@
 #include "accountcontainer.h"
 #include "conversationcontainer.h"
 
+// le fichier suivant ne devrait pas etre la, il est utilise pour QuerySelectError
+// #include <database.h>
+
+//Qt
+#include <QtSql/QSqlError>
+
 // Ring client
 #include "models/gtkqtreemodel.h"
 #include "incomingcallview.h"
@@ -201,16 +207,16 @@ static void
 set_pending_contact_request_tab_icon(RingMainWindow* self)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-    bool is_ring = priv->accountContainer_->info.contact.type == lrc::api::contact::Type::RING;;
+    bool is_ring = priv->accountContainer_->info.profile.type == lrc::api::contact::Type::RING;;
     gtk_widget_set_visible(priv->scrolled_window_contact_requests, is_ring);
 
     if (not is_ring)
         return;
 
-    gtk_image_set_from_resource(GTK_IMAGE(priv->image_contact_requests_list),
-        (priv->accountContainer_->info.contactModel->isPendingRequests())
+    /*gtk_image_set_from_resource(GTK_IMAGE(priv->image_contact_requests_list),
+        (priv->accountContainer_->info.contactModel->hasPendingRequests())
         ? "/cx/ring/RingGnome/contact_requests_list_with_notification"
-        : "/cx/ring/RingGnome/contact_requests_list");
+        : "/cx/ring/RingGnome/contact_requests_list");*/
 }
 
 static void
@@ -272,6 +278,10 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
         delete priv->accountContainer_;
     }
     priv->accountContainer_ = new AccountContainer(priv->lrc_->getAccountModel().getAccountInfo(accountId));
+           priv->accountContainer_->info.conversationModel->setFilter("text");
+    qDebug() << "totot";
+
+
 
     auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
@@ -282,6 +292,12 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
         gtk_container_remove(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
         gtk_widget_destroy(priv->treeview_conversations);
     }
+
+
+    priv->accountContainer_->info.conversationModel->setFilter("text");
+    qDebug() << "totot";
+
+    qDebug() << "ĜGG%";
     priv->treeview_conversations = conversations_view_new(priv->accountContainer_);
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
 
@@ -308,8 +324,8 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
             change_view(win, old_view, origin, CHAT_VIEW_TYPE);
         } else {
             auto contact = priv->accountContainer_->info.contactModel->getContact(origin.participants[0]);
-            auto isNotUsed = contact.type == lrc::api::contact::Type::TEMPORARY || contact.type == lrc::api::contact::Type::PENDING;
-            chat_view_update_temporary(CHAT_VIEW(old_view), isNotUsed);
+            //auto isNotUsed = contact.type == lrc::api::contact::Type::TEMPORARY || contact.type == lrc::api::contact::Type::PENDING;
+            //chat_view_update_temporary(CHAT_VIEW(old_view), isNotUsed);
         }
     });
 
@@ -331,7 +347,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     });
 
     // New incoming call view on another account
-    priv->showIncomingViewConnection_ = QObject::connect(
+    /*priv->showIncomingViewConnection_ = QObject::connect(
     &priv->lrc_->getAccountModel(),
     &lrc::api::NewAccountModel::incomingCall,
     [win, priv] (const std::string& accountId, const std::string& contactUri) {
@@ -357,7 +373,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
             priv->accountContainer_->info.conversationModel->selectConversation(contactUri);
         }
         // else we already listen this signal
-    });
+    });*/
 
     // New incoming call view
     priv->showIncomingViewConnection_ = QObject::connect(
@@ -398,7 +414,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
 
         try {
             auto contact = priv->accountContainer_->info.contactModel->getContact(current_item.participants[0]);
-            if (contact.type == lrc::api::contact::Type::TEMPORARY || contact.type == lrc::api::contact::Type::PENDING) {
+            /*if (contact.type == lrc::api::contact::Type::TEMPORARY || contact.type == lrc::api::contact::Type::PENDING) {
                 // if current conversation is temporary, change if it's not a contact
                 auto uri = current_item.participants.front();
                 try {
@@ -414,7 +430,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
                 } catch (const std::out_of_range&) {
                     change_view(win, old_view, current_item, RING_WELCOME_VIEW_TYPE);
                 }
-            }
+            }*/
         } catch (const std::out_of_range&) {
             // contact was removed
             gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
@@ -423,9 +439,9 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     });
 
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
-    priv->currentTypeFilter_ = priv->accountContainer_->info.contact.type;
-    priv->accountContainer_->info.conversationModel->setFilter(text);
-    priv->accountContainer_->info.conversationModel->setFilter(priv->currentTypeFilter_);
+    priv->currentTypeFilter_ = priv->accountContainer_->info.profile.type;
+    priv->accountContainer_->info.conversationModel->setFilter("text");
+    //priv->accountContainer_->info.conversationModel->setFilter(priv->currentTypeFilter_);
 }
 
 static void
@@ -627,7 +643,8 @@ search_entry_text_changed(GtkSearchEntry *search_entry, RingMainWindow *self)
 
     /* get the text from the entry */
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(search_entry));
-    priv->accountContainer_->info.conversationModel->setFilter(text);
+    qDebug() << "priv->accountContainer_->info";
+    priv->accountContainer_->info.conversationModel->setFilter("text");
 }
 
 static gboolean
@@ -726,11 +743,11 @@ tab_changed(G_GNUC_UNUSED GtkNotebook* notebook,
             RingMainWindow* self)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-    auto newType = page_num == 0 ? priv->accountContainer_->info.contact.type : lrc::api::contact::Type::PENDING;
+    /*auto newType = page_num == 0 ? priv->accountContainer_->info.profile.type : lrc::api::contact::Type::PENDING;
     if (priv->currentTypeFilter_ != newType) {
         priv->currentTypeFilter_ = newType;
-        priv->accountContainer_->info.conversationModel->setFilter(priv->currentTypeFilter_);
-    }
+        // priv->accountContainer_->info.conversationModel->setFilter(priv->currentTypeFilter_);
+    }*/
 }
 
 static gboolean
@@ -833,6 +850,9 @@ ring_main_window_init(RingMainWindow *win)
     // NOTE dirty hack for gtk...
     priv->lrc_ = std::unique_ptr<lrc::api::Lrc>(new lrc::api::Lrc());
     const auto accountIds = priv->lrc_->getAccountModel().getAccountList();
+
+    qDebug() << "$1 : " << accountIds.size() ;
+
     if (!accountIds.empty()) {
         qDebug() << "ring_main_window_init: empty account list";
         ring_init_lrc(win, accountIds.front());
@@ -985,14 +1005,16 @@ ring_main_window_init(RingMainWindow *win)
 
     // TODO listend for add/remove account
     for (const auto& accountId : accountIds) {
-        const auto& account = priv->lrc_->getAccountModel().getAccountInfo(accountId);
-        if (account.enabled) {
+        qDebug() << "*1* : " << accountIds.size();
+        const auto& accountInfo = priv->lrc_->getAccountModel().getAccountInfo(accountId);
+        //if (accountInfo.isEnabled) {
+            qDebug() << "*2* : " << accountId.c_str();
             gtk_list_store_append (store, &iter);
             gtk_list_store_set (store, &iter,
             0 /* col # */ , accountId.c_str() /* celldata */,
-            1 /* col # */ , account.contact.alias.c_str() /* celldata */,
+            1 /* col # */ , accountInfo.profile.alias.c_str() /* celldata */,
             -1 /* end */);
-        }
+        //}
     }
 
     gtk_combo_box_set_model(

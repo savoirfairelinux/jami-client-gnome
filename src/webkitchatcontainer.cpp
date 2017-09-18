@@ -144,7 +144,7 @@ message_to_json_message_object(const lrc::api::message::Info& message)
 {
     auto sender = QString(message.contact.c_str());
     auto timestamp = QString::number(message.timestamp);
-    auto direction = lrc::api::message::isOutgoing(message) ? QString("out") : QString("in");
+    //~ auto direction = lrc::api::message::isOutgoing(message) ? QString("out") : QString("in");
 
     QJsonObject message_object = QJsonObject();
     message_object.insert("text", QJsonValue(QString(message.body.c_str())));
@@ -152,7 +152,7 @@ message_to_json_message_object(const lrc::api::message::Info& message)
     message_object.insert("sender", QJsonValue(sender));
     message_object.insert("sender_contact_method", QJsonValue(sender));
     message_object.insert("timestamp", QJsonValue(timestamp));
-    message_object.insert("direction", QJsonValue(direction));
+    //~ message_object.insert("direction", QJsonValue(direction));
     switch (message.status)
     {
     case lrc::api::message::Status::READ:

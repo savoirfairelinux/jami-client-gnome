@@ -33,6 +33,13 @@
 // LRC
 #include <availableaccountmodel.h>
 
+// lrc
+#include <api/contactmodel.h>
+#include <iostream>
+#include <api/contact.h>
+#include <api/conversationmodel.h>
+#include <api/newcallmodel.h>
+
 struct _RingWelcomeView
 {
     GtkScrolledWindow parent;
@@ -70,21 +77,28 @@ ring_welcome_update_view(RingWelcomeView *self) {
     auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
 
     gchar *ring_id = nullptr;
-    if(! priv->accountContainer_->info.contact.registeredName.empty()){
+    // [jn] : le nom enregistré doit être recupéré depuis le blockchain
+    if(! priv->accountContainer_->info.profile.registeredName.empty()){
         gtk_label_set_text(
             GTK_LABEL(priv->label_explanation),
             _("This is your Ring username.\nCopy and share it with your friends!")
         );
         ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">ring:%s</span>",
-                                          priv->accountContainer_->info.contact.registeredName.c_str());
-    }
-    else if (!priv->accountContainer_->info.contact.alias.empty()) {
+                                          priv->accountContainer_->info.profile.registeredName.c_str());
+    } else if (!priv->accountContainer_->info.profile.alias.empty()) {
         gtk_label_set_text(
             GTK_LABEL(priv->label_explanation),
             C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!")
         );
         ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
-                                          priv->accountContainer_->info.contact.alias.c_str());
+                                          priv->accountContainer_->info.profile.alias.c_str());
+    } else if (!priv->accountContainer_->info.profile.uri.empty()) {
+        gtk_label_set_text(
+            GTK_LABEL(priv->label_explanation),
+            C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!")
+        );
+        ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
+                                          priv->accountContainer_->info.profile.uri.c_str());
     } else {
         gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
         ring_id = g_markup_printf_escaped("<span fgcolor=\"gray\">%s</span>",

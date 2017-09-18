@@ -27,6 +27,13 @@
 // Client
 #include "utils/files.h"
 
+// lrc
+#include <api/contactmodel.h>
+#include <iostream>
+#include <api/contact.h>
+#include <api/conversationmodel.h>
+#include <api/newcallmodel.h>
+
 struct _ChatView
 {
     GtkBox parent;
@@ -154,7 +161,7 @@ webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *mes
     } else if (order == "REFUSE") {
         priv->accountContainer_->info.conversationModel->removeConversation(priv->conversation_->info.uid);
     } else if (order == "BLOCK") {
-        priv->accountContainer_->info.conversationModel->removeConversation(priv->conversation_->info.uid, true);
+        priv->accountContainer_->info.conversationModel->removeConversation(priv->conversation_->info.uid/*, true*/);
     } else if (order.find("SEND:") == 0) {
         auto toSend = order.substr(std::string("SEND:").size());
         priv->accountContainer_->info.conversationModel->sendMessage(priv->conversation_->info.uid, toSend);
@@ -249,8 +256,8 @@ update_send_invitation(ChatView *self)
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     auto contact = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants[0]);
-    if(contact.type != lrc::api::contact::Type::TEMPORARY && contact.type != lrc::api::contact::Type::PENDING)
-        gtk_widget_hide(priv->button_send_invitation);
+    //~ if(contact.type != lrc::api::contact::Type::TEMPORARY && contact.type != lrc::api::contact::Type::PENDING)
+        //~ gtk_widget_hide(priv->button_send_invitation);
 }
 
 static void
@@ -296,11 +303,11 @@ webkit_chat_container_ready(ChatView* self)
 
     auto contactUri = priv->conversation_->info.participants.front();
     auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    priv->isTemporary_ = contact.type == lrc::api::contact::Type::TEMPORARY || contact.type == lrc::api::contact::Type::PENDING;
+    priv->isTemporary_ = true;//contact.type == lrc::api::contact::Type::TEMPORARY || contact.type == lrc::api::contact::Type::PENDING;
     webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
-    webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+    /*webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                          (contact.type == lrc::api::contact::Type::PENDING),
-                                         contactUri);
+                                         contactUri);*/
     webkit_chat_disable_send_message(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                      (contact.type == lrc::api::contact::Type::SIP));
 }
@@ -366,9 +373,9 @@ chat_view_update_temporary(ChatView* self, bool newValue)
     webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
     auto contactUri = priv->conversation_->info.participants.front();
     auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+    /*webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                          (contact.type == lrc::api::contact::Type::PENDING),
-                                         contactUri);
+                                         contactUri);*/
 }
 
 bool

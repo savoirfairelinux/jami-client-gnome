@@ -289,6 +289,7 @@ conversations_view_class_init(ConversationsViewClass *klass)
 GtkWidget *
 conversations_view_new(AccountContainer* accountContainer/* TODO, Type {ALL, CONTACT, PENDING}*/)
 {
+    qDebug() << "ytrytryr";
     auto self = CONVERSATIONS_VIEW(g_object_new(CONVERSATIONS_VIEW_TYPE, NULL));
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
 

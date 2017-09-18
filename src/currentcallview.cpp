@@ -39,6 +39,13 @@
 #include "video/video_widget.h"
 
 
+// lrc
+#include <api/contactmodel.h>
+#include <iostream>
+#include <api/contact.h>
+#include <api/conversationmodel.h>
+#include <api/newcallmodel.h>
+
 static constexpr int CONTROLS_FADE_TIMEOUT = 3000000; /* microseconds */
 static constexpr int FADE_DURATION = 500; /* miliseconds */
 
@@ -231,8 +238,8 @@ update_details(CurrentCallView *view)
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
     auto callId = priv->conversation_->info.callId;
-    gtk_label_set_text(GTK_LABEL(priv->label_duration),
-    priv->accountContainer_->info.callModel->getFormattedCallDuration(callId).c_str());
+    //~ gtk_label_set_text(GTK_LABEL(priv->label_duration),
+    //~ priv->accountContainer_->info.callModel->getFormattedCallDuration(callId).c_str());
 }
 
 
@@ -482,23 +489,23 @@ togglebutton_hold_clicked(CurrentCallView *view)
 static void
 togglebutton_muteaudio_clicked(CurrentCallView *view)
 {
-    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-    auto callId = priv->conversation_->info.callId;
-    auto muteAudioBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_muteaudio);
-    priv->accountContainer_->info.callModel->toggleMedia(callId,
-        lrc::api::NewCallModel::Media::AUDIO,
-        gtk_toggle_button_get_active(muteAudioBtn));
+    //~ auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    //~ auto callId = priv->conversation_->info.callId;
+    //~ auto muteAudioBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_muteaudio);
+    //~ priv->accountContainer_->info.callModel->toggleMedia(callId,
+        //~ lrc::api::NewCallModel::Media::AUDIO,
+        //~ gtk_toggle_button_get_active(muteAudioBtn));
 }
 
 static void
 togglebutton_mutevideo_clicked(CurrentCallView *view)
 {
-    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-    auto callId = priv->conversation_->info.callId;
-    auto muteVideoBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_mutevideo);
-    priv->accountContainer_->info.callModel->toggleMedia(callId,
-        lrc::api::NewCallModel::Media::VIDEO,
-        gtk_toggle_button_get_active(muteVideoBtn));
+    //~ auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    //~ auto callId = priv->conversation_->info.callId;
+    //~ auto muteVideoBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_mutevideo);
+    //~ priv->accountContainer_->info.callModel->toggleMedia(callId,
+        //~ lrc::api::NewCallModel::Media::VIDEO,
+        //~ gtk_toggle_button_get_active(muteVideoBtn));
 }
 
 static void
@@ -673,15 +680,15 @@ current_call_view_class_init(CurrentCallViewClass *klass)
 static void
 update_state(CurrentCallView *view)
 {
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    //~ CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    // change state label
-    auto callId = priv->conversation_->info.callId;
-    auto call = priv->accountContainer_->info.callModel->getCall(callId);
+    //~ // change state label
+    //~ auto callId = priv->conversation_->info.callId;
+    //~ auto call = priv->accountContainer_->info.callModel->getCall(callId);
 
-    gchar *status = g_strdup_printf("%s", lrc::api::NewCallModel::humanReadableStatus(call.status).c_str());
-    gtk_label_set_text(GTK_LABEL(priv->label_status), status);
-    g_free(status);
+    //~ gchar *status = g_strdup_printf("%s", lrc::api::NewCallModel::humanReadableStatus(call.status).c_str());
+    //~ gtk_label_set_text(GTK_LABEL(priv->label_status), status);
+    //~ g_free(status);
 }
 
 static void
@@ -806,54 +813,54 @@ set_call_info(CurrentCallView *view) {
     update_details(view);
 
     // check if we already have a renderer
-    video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                   priv->accountContainer_->info.callModel->getRenderer(priv->conversation_->info.callId),
-                                   VIDEO_RENDERER_REMOTE);
+    //~ video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                   //~ priv->accountContainer_->info.callModel->getRenderer(priv->conversation_->info.callId),
+                                   //~ VIDEO_RENDERER_REMOTE);
 
     // local renderer
-    if (Video::PreviewManager::instance().isPreviewing())
-        video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                       Video::PreviewManager::instance().previewRenderer(),
-                                       VIDEO_RENDERER_LOCAL);
+    //~ if (Video::PreviewManager::instance().isPreviewing())
+        //~ video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                       //~ Video::PreviewManager::instance().previewRenderer(),
+                                       //~ VIDEO_RENDERER_LOCAL);
 
     // callback for local renderer
-    priv->local_renderer_connection = QObject::connect(
-        &Video::PreviewManager::instance(),
-        &Video::PreviewManager::previewStarted,
-        [priv](Video::Renderer *renderer) {
-            video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                           renderer,
-                                           VIDEO_RENDERER_LOCAL);
-        }
-    );
+    //~ priv->local_renderer_connection = QObject::connect(
+        //~ &Video::PreviewManager::instance(),
+        //~ &Video::PreviewManager::previewStarted,
+        //~ [priv](Video::Renderer *renderer) {
+            //~ video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                           //~ renderer,
+                                           //~ VIDEO_RENDERER_LOCAL);
+        //~ }
+    //~ );
 
-    priv->smartinfo_refresh_connection = QObject::connect(
-        &SmartInfoHub::instance(),
-        &SmartInfoHub::changed,
-        [view, priv]() { update_smartInfo(view); }
-    );
+    //~ priv->smartinfo_refresh_connection = QObject::connect(
+        //~ &SmartInfoHub::instance(),
+        //~ &SmartInfoHub::changed,
+        //~ [view, priv]() { update_smartInfo(view); }
+    //~ );
 
-    priv->remote_renderer_connection = QObject::connect(
-        &*priv->accountContainer_->info.callModel,
-        &lrc::api::NewCallModel::remotePreviewStarted,
-        [priv](const std::string& callId, Video::Renderer *renderer) {
-            if (priv->conversation_->info.callId == callId) {
-                video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                    renderer,
-                    VIDEO_RENDERER_REMOTE);
-            }
-        }
-    );
+    //~ priv->remote_renderer_connection = QObject::connect(
+        //~ &*priv->accountContainer_->info.callModel,
+        //~ &lrc::api::NewCallModel::remotePreviewStarted,
+        //~ [priv](const std::string& callId, Video::Renderer *renderer) {
+            //~ if (priv->conversation_->info.callId == callId) {
+                //~ video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                    //~ renderer,
+                    //~ VIDEO_RENDERER_REMOTE);
+            //~ }
+        //~ }
+    //~ );
 
-    priv->state_change_connection = QObject::connect(
-    &*priv->accountContainer_->info.callModel,
-    &lrc::api::NewCallModel::callStatusChanged,
-    [view, priv] (const std::string& callId) {
-        if (callId == priv->conversation_->info.callId) {
-            update_state(view);
-            update_name_and_photo(view);
-        }
-    });
+    //~ priv->state_change_connection = QObject::connect(
+    //~ &*priv->accountContainer_->info.callModel,
+    //~ &lrc::api::NewCallModel::callStatusChanged,
+    //~ [view, priv] (const std::string& callId) {
+        //~ if (callId == priv->conversation_->info.callId) {
+            //~ update_state(view);
+            //~ update_name_and_photo(view);
+        //~ }
+    //~ });
 
 
     // catch double click to make full screen
