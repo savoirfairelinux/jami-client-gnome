@@ -138,6 +138,7 @@ webview_chat_context_menu(WebKitChatContainer *self,
     }
     return false;
 }
+#include <iostream>
 
 QString
 message_to_json_message_object(const lrc::api::message::Info& message)
@@ -153,6 +154,22 @@ message_to_json_message_object(const lrc::api::message::Info& message)
     message_object.insert("sender_contact_method", QJsonValue(sender));
     message_object.insert("timestamp", QJsonValue(timestamp));
     message_object.insert("direction", QJsonValue(direction));
+    switch (message.type)
+    {
+    case lrc::api::message::Type::TEXT:
+        message_object.insert("type", QJsonValue("text"));
+        break;
+    case lrc::api::message::Type::CALL:
+        message_object.insert("type", QJsonValue("call"));
+        break;
+    case lrc::api::message::Type::CONTACT:
+        message_object.insert("type", QJsonValue("contact"));
+        break;
+    case lrc::api::message::Type::INVALID:
+    default:
+        message_object.insert("type", QJsonValue(""));
+        break;
+    }
     switch (message.status)
     {
     case lrc::api::message::Status::READ:
