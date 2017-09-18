@@ -703,7 +703,7 @@ update_name_and_photo(CurrentCallView *view)
     auto name = contact.alias;
     gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
 
-    auto bestId = contact.uri;
+    auto bestId = contact.registeredName;
     if (name != bestId) {
         gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.c_str());
         gtk_widget_show(priv->label_bestId);
@@ -807,7 +807,7 @@ set_call_info(CurrentCallView *view) {
 
     // check if we already have a renderer
     video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                   Video::PreviewManager::instance().previewRenderer(),
+                                   priv->accountContainer_->info.callModel->getRenderer(priv->conversation_->info.callId),
                                    VIDEO_RENDERER_REMOTE);
 
     // local renderer
