@@ -554,7 +554,6 @@ entries_new_account_changed(AccountCreationWizard *view)
     const gchar *display_name = gtk_entry_get_text(GTK_ENTRY(priv->entry_display_name));
     const gchar *username = gtk_entry_get_text(GTK_ENTRY(priv->entry_username));
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
-    const gchar *password_confirm = gtk_entry_get_text(GTK_ENTRY(priv->entry_password_confirm));
     const gboolean sign_up_blockchain = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_sign_up_blockchain));
 
     if (
@@ -566,10 +565,16 @@ entries_new_account_changed(AccountCreationWizard *view)
         )
     {
         gtk_widget_set_sensitive(priv->button_account_creation_next, TRUE);
+        if (strlen(password) == 0) {
+            gtk_label_set_text(GTK_LABEL(priv->label_password_error), _("Warning: no password set for this account"));
+        } else {
+            gtk_label_set_text(GTK_LABEL(priv->label_password_error), "");
+        }
     }
     else
     {
         gtk_widget_set_sensitive(priv->button_account_creation_next, FALSE);
+        gtk_label_set_text(GTK_LABEL(priv->label_password_error), "");
     }
 }
 
