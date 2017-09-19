@@ -403,6 +403,18 @@
                               </object>
                             </child>
                             <child>
+                              <object class="GtkCheckButton" id="checkbutton_no_password">
+                                <property name="halign">center</property>
+                                <property name="label" translatable="yes">No password for this account</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="active">False</property>
+                                <property name="draw_indicator">True</property>
+                                <property name="tooltip_text" translatable="yes">By checking this, you will register an account without a password.</property>
+                              </object>
+                            </child>
+                            <child>
                               <object class="GtkLabel" id="label_password_error">
                                 <property name="visible">True</property>
                                 <attributes>
