@@ -73,8 +73,14 @@ static gboolean   draw_qrcode(GtkWidget*,cairo_t*,gpointer);
 static void       switch_qrcode(RingWelcomeView* self);
 
 void
-ring_welcome_update_view(RingWelcomeView *self) {
+ring_welcome_update_view(RingWelcomeView* self, AccountContainer* accountContainer) {
     auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
+
+    if (accountContainer)
+        priv->accountContainer_ = accountContainer;
+
+    if (not priv->accountContainer_ )
+        return;
 
     gchar *ring_id = nullptr;
     // [jn] : le nom enregistré doit être recupéré depuis le blockchain

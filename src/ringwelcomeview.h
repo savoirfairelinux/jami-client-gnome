@@ -36,6 +36,6 @@ typedef struct _RingWelcomeViewClass RingWelcomeViewClass;
 
 GType             ring_welcome_view_get_type (void) G_GNUC_CONST;
 GtkWidget*        ring_welcome_view_new      (AccountContainer* accountContainer);
-void              ring_welcome_update_view   (RingWelcomeView* self);
+void              ring_welcome_update_view   (RingWelcomeView* self, AccountContainer* accountContainer = nullptr);
 
 G_END_DECLS
