@@ -137,6 +137,7 @@ struct _RingMainWindowPrivate
     QMetaObject::Connection showIncomingViewConnection_;
     QMetaObject::Connection changeAccountConnection_;
     QMetaObject::Connection modelUpdatedConnection_;
+    QMetaObject::Connection accountStatusChangedConnection_;
 
 };
 
@@ -204,6 +205,10 @@ static void
 set_pending_contact_request_tab_icon(RingMainWindow* self)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    if (not priv->accountContainer_ )
+        return;
+
     bool is_ring = priv->accountContainer_->info.profile.type == lrc::api::contact::Type::RING;;
     gtk_widget_set_visible(priv->scrolled_window_contact_requests, is_ring);
 
@@ -839,13 +844,11 @@ ring_main_window_init(RingMainWindow *win)
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
     gtk_widget_init_template(GTK_WIDGET(win));
 
-    // NOTE dirty hack for gtk...
-    priv->lrc_ = std::unique_ptr<lrc::api::Lrc>(new lrc::api::Lrc());
+    priv->lrc_ = std::make_unique<lrc::api::Lrc>(); // [jn] we should better build this object sooner.
     const auto accountIds = priv->lrc_->getAccountModel().getAccountList();
-    if (!accountIds.empty()) {
-        qDebug() << "ring_main_window_init: empty account list";
+
+    if (not accountIds.empty())
         ring_init_lrc(win, accountIds.front());
-    }
 
     /* bind to window size settings */
     priv->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
@@ -924,6 +927,19 @@ ring_main_window_init(RingMainWindow *win)
     // TODO connect to accountRemoved / accountAdded
     QObject::connect(&AvailableAccountModel::instance(), &QAbstractItemModel::rowsRemoved, available_accounts_changed);
     QObject::connect(&AvailableAccountModel::instance(), &QAbstractItemModel::rowsInserted, available_accounts_changed);
+
+    /* account status changed */
+    priv->accountStatusChangedConnection_ = QObject::connect(
+    &priv->lrc_->getAccountModel(),
+    &lrc::api::NewAccountModel::accountStatusChanged,
+    [win, priv] (const std::string& accountId) {
+        if (not priv->accountContainer_ ) {
+            ring_init_lrc(win, accountId);
+
+            if (priv->accountContainer_)
+            ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), priv->accountContainer_);
+        }
+    });
 
     /* welcome/default view */
     priv->welcome_view = ring_welcome_view_new(priv->accountContainer_);
@@ -1049,6 +1065,7 @@ ring_main_window_dispose(GObject *object)
     QObject::disconnect(priv->changeAccountConnection_);
     QObject::disconnect(priv->showCallViewConnection_);
     QObject::disconnect(priv->modelUpdatedConnection_);
+    QObject::disconnect(priv->accountStatusChangedConnection_);
 
     g_clear_object(&priv->welcome_view);
     g_clear_object(&priv->webkit_chat_container);
