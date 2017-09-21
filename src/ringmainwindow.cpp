@@ -93,7 +93,7 @@ struct _RingMainWindowPrivate
     GtkWidget *vbox_call_view;
     GtkWidget *frame_call;
     GtkWidget *welcome_view;
-    GtkWidget *button_new_conversation  ;
+    GtkWidget *button_new_conversation;
     GtkWidget *account_settings_view;
     GtkWidget *media_settings_view;
     GtkWidget *general_settings_view;
@@ -109,9 +109,6 @@ struct _RingMainWindowPrivate
     GtkWidget *scrolled_window_contact_requests;
     GtkWidget *contact_request_view;
     GtkWidget *image_contact_requests_list;
-
-    /* Pending ring usernames lookup for the search entry */
-    QMetaObject::Connection username_lookup;
 
     /* The webkit_chat_container is created once, then reused for all chat views */
     GtkWidget *webkit_chat_container;
@@ -644,6 +641,17 @@ search_entry_text_changed(GtkSearchEntry *search_entry, RingMainWindow *self)
     priv->accountContainer_->info.conversationModel->setFilter(text);
 }
 
+static void
+search_entry_activated(RingMainWindow *self)
+{
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    auto& conversationModel = priv->accountContainer_->info.conversationModel;
+    auto conversations = conversationModel->getFilteredConversations();
+    if (!conversations.empty()) {
+        conversationModel->selectConversation(conversations[0].uid);
+    }
+}
+
 static gboolean
 search_entry_key_released(G_GNUC_UNUSED GtkEntry *search_entry, GdkEventKey *key, RingMainWindow *self)
 {
@@ -947,6 +955,8 @@ ring_main_window_init(RingMainWindow *win)
     gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
     gtk_widget_show(priv->welcome_view);
 
+    g_signal_connect_swapped(priv->search_entry, "activate", G_CALLBACK(search_entry_activated), win);
+    g_signal_connect_swapped(priv->button_new_conversation, "clicked", G_CALLBACK(search_entry_activated), win);
     g_signal_connect(priv->search_entry, "search-changed", G_CALLBACK(search_entry_text_changed), win);
     g_signal_connect(priv->search_entry, "key-release-event", G_CALLBACK(search_entry_key_released), win);
 
@@ -1056,7 +1066,6 @@ ring_main_window_dispose(GObject *object)
 
     QObject::disconnect(priv->selected_item_changed);
     QObject::disconnect(priv->selected_call_over);
-    QObject::disconnect(priv->username_lookup);
     QObject::disconnect(priv->account_request_);
 
 

@@ -182,20 +182,6 @@ mutevideo_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
 }
 
 static void
-hold_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
-{
-    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
-
-    if (gtk_toggle_button_get_active(togglebutton)) {
-        auto image_down = gtk_image_new_from_resource ("/cx/ring/RingGnome/play");
-        gtk_button_set_image(GTK_BUTTON(togglebutton), image_down);
-    } else {
-        auto image_up = gtk_image_new_from_resource ("/cx/ring/RingGnome/pause");
-        gtk_button_set_image(GTK_BUTTON(togglebutton), image_up);
-    }
-}
-
-static void
 chat_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
@@ -477,6 +463,14 @@ togglebutton_hold_clicked(CurrentCallView *view)
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
     auto callId = priv->conversation_->info.callId;
     priv->accountContainer_->info.callModel->togglePause(callId);
+    auto pauseBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_hold);
+    if (gtk_toggle_button_get_active(pauseBtn)) {
+        auto image_down = gtk_image_new_from_resource ("/cx/ring/RingGnome/play");
+        gtk_button_set_image(GTK_BUTTON(pauseBtn), image_down);
+    } else {
+        auto image_up = gtk_image_new_from_resource ("/cx/ring/RingGnome/pause");
+        gtk_button_set_image(GTK_BUTTON(pauseBtn), image_up);
+    }
 }
 
 static void
