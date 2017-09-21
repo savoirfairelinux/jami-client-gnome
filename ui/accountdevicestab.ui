@@ -66,6 +66,30 @@
                 <property name="label" translatable="yes">Add device</property>
               </object>
             </child>
+            <child>
+              <object class="GtkBox" id="export_account_hbox">
+                <property name="visible">True</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">15</property>
+                <property name="halign">center</property>
+                <child>
+                  <object class="GtkFileChooserButton" id="entry_export_account_archive">
+                    <property name="width_request">320</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">center</property>
+                    <property name="title" translatable="yes">Export account</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_validate_export">
+                    <property name="visible">True</property>
+                    <property name="halign">center</property>
+                    <property name="label" translatable="yes">Copy account archive</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
         <!-- End Manage devices view -->

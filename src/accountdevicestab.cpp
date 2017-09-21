@@ -20,6 +20,7 @@
 // GTK+ related
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+#include <QFile>
 
 // LRC
 #include <account.h>
@@ -63,7 +64,9 @@ struct _AccountDevicesTabPrivate
 
     /* add_device view */
     GtkWidget *add_device;
+    GtkWidget *entry_export_account_archive;
     GtkWidget *button_export_on_the_ring;
+    GtkWidget *button_validate_export;
     GtkWidget *button_add_device_cancel;
     GtkWidget *entry_password;
 
@@ -116,6 +119,8 @@ account_devices_tab_class_init(AccountDevicesTabClass *klass)
 
     /* add_device view */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, add_device);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, entry_export_account_archive);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, button_validate_export);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, button_export_on_the_ring);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, button_add_device_cancel);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountDevicesTab, entry_password);
@@ -216,14 +221,40 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, AccountDevicesTab *v
     }
 }
 
+#include <iostream>
+
+static void
+copy_account_archive(GtkButton *button, AccountDevicesTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_DEVICES_TAB(view));
+    AccountDevicesTabPrivate *priv = ACCOUNT_DEVICES_TAB_GET_PRIVATE(view);
+    auto directory = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(priv->entry_export_account_archive));
+    if (directory) {
+        auto from = priv->account->archivePath().toStdString();
+        auto destination = std::string(directory);
+        destination += "/" + priv->account->id().toStdString() + ".gz";
+        std::cout << from << ";" << destination << std::endl;
+        // TODO use std::copy
+        if (QFile::exists(from.c_str())) {
+            QFile::copy(from.c_str(), destination.c_str());
+            gtk_button_set_label(button, _("Copied!"));
+        }
+    }
+}
+
 static void
 build_tab_view(AccountDevicesTab *view)
 {
     g_return_if_fail(IS_ACCOUNT_DEVICES_TAB(view));
     AccountDevicesTabPrivate *priv = ACCOUNT_DEVICES_TAB_GET_PRIVATE(view);
 
+    auto *chooser = GTK_FILE_CHOOSER(priv->entry_export_account_archive);
+    gtk_file_chooser_set_action(chooser, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    gtk_file_chooser_set_do_overwrite_confirmation (chooser, TRUE);
+
     g_signal_connect_swapped(priv->button_add_device, "clicked", G_CALLBACK(show_add_device_view), view);
     g_signal_connect_swapped(priv->button_add_device_cancel, "clicked", G_CALLBACK(show_manage_devices_view), view);
+    g_signal_connect(priv->button_validate_export, "clicked", G_CALLBACK(copy_account_archive), view);
     g_signal_connect(priv->button_export_on_the_ring, "clicked", G_CALLBACK(export_on_the_ring_clicked), view);
     g_signal_connect_swapped(priv->button_generated_pin_ok, "clicked", G_CALLBACK(show_manage_devices_view), view);
     g_signal_connect_swapped(priv->button_export_on_ring_error_ok, "clicked", G_CALLBACK(show_add_device_view), view);
