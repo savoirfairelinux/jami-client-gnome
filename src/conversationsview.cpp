@@ -62,8 +62,6 @@ G_DEFINE_TYPE_WITH_PRIVATE(ConversationsView, conversations_view, GTK_TYPE_TREE_
 
 #define CONVERSATIONS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CONVERSATIONS_VIEW_TYPE, ConversationsViewPrivate))
 
-#include <iostream>
-
 static void
 render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                      GtkCellRenderer *cell,
@@ -205,6 +203,7 @@ static void
 build_conversations_view(ConversationsView *self)
 {
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
+    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(self), FALSE);
 
     auto model = create_and_fill_model(self);
     gtk_tree_view_set_model(GTK_TREE_VIEW(self),
