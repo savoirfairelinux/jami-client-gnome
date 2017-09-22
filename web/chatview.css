@@ -477,6 +477,7 @@ pre {
     transform-origin: top right;
 }
 
+/** NOTE: not implemented in the new LRC yet
 .message_delivery_status {
     margin: 10px 10px;
     color: #A0A0A0;
@@ -487,6 +488,11 @@ pre {
     -webkit-animation-delay: 0.4s;
     -webkit-animation-fill-mode: forwards;
     transition: opacity 0.5s ease-in-out;
+}
+**/
+.message_delivery_status {
+  visibility: hidden;
+  display: none;
 }
 
 .message_in + .message_in .sender_image {
