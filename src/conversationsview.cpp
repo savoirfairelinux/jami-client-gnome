@@ -49,7 +49,6 @@ typedef struct _ConversationsViewPrivate ConversationsViewPrivate;
 
 struct _ConversationsViewPrivate
 {
-    GtkWidget *popup_menu;
     AccountContainer* accountContainer_;
 
     QMetaObject::Connection selection_updated;
@@ -77,6 +76,8 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     try
     {
         auto conversation = priv->accountContainer_->info.conversationModel->getConversation(row);
+        if (conversation.uid.empty())
+            return;
         auto contact = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
         std::shared_ptr<GdkPixbuf> image;
         auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
@@ -200,6 +201,14 @@ conversations_view_init(ConversationsView *self)
 }
 
 static void
+show_popup_menu(ConversationsView *self, GdkEventButton *event)
+{
+    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
+    auto popup_menu = conversation_popup_menu_new(GTK_TREE_VIEW(self), priv->accountContainer_);
+    conversation_popup_menu_show(CONVERSATION_POPUP_MENU(popup_menu), event);
+}
+
+static void
 build_conversations_view(ConversationsView *self)
 {
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
@@ -254,8 +263,7 @@ build_conversations_view(ConversationsView *self)
     g_signal_connect(selectionNew, "changed", G_CALLBACK(select_conversation), self);
     g_signal_connect(self, "row-activated", G_CALLBACK(call_conversation), NULL);
 
-    priv->popup_menu = conversation_popup_menu_new(GTK_TREE_VIEW(self), priv->accountContainer_);
-    g_signal_connect_swapped(self, "button-press-event", G_CALLBACK(conversation_popup_menu_show), priv->popup_menu);
+    g_signal_connect_swapped(self, "button-press-event", G_CALLBACK(show_popup_menu), self);
 }
 
 static void
@@ -267,7 +275,6 @@ conversations_view_dispose(GObject *object)
     QObject::disconnect(priv->selection_updated);
     QObject::disconnect(priv->layout_changed);
     QObject::disconnect(priv->conversationModelUpdated);
-    gtk_widget_destroy(priv->popup_menu);
 
     G_OBJECT_CLASS(conversations_view_parent_class)->dispose(object);
 }
