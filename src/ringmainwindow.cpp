@@ -134,6 +134,7 @@ struct _RingMainWindowPrivate
     QMetaObject::Connection showIncomingViewConnection_;
     QMetaObject::Connection changeAccountConnection_;
     QMetaObject::Connection modelUpdatedConnection_;
+    QMetaObject::Connection historyClearedConnection_;
     QMetaObject::Connection accountStatusChangedConnection_;
 
 };
@@ -278,6 +279,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     QObject::disconnect(priv->changeAccountConnection_);
     QObject::disconnect(priv->showCallViewConnection_);
     QObject::disconnect(priv->modelUpdatedConnection_);
+    QObject::disconnect(priv->historyClearedConnection_);
 
     if (priv->accountContainer_) {
         delete priv->accountContainer_;
@@ -308,20 +310,9 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     &*priv->accountContainer_->info.conversationModel,
     &lrc::api::ConversationModel::showChatView,
     [win, priv] (lrc::api::conversation::Info origin) {
-        // Change the view if we want a different view.
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
-
-        lrc::api::conversation::Info current_item;
-        if (IS_CHAT_VIEW(old_view))
-            current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
-
-        if (current_item.uid != origin.uid) {
-            change_view(win, old_view, origin, CHAT_VIEW_TYPE);
-        } else {
-            auto contact = priv->accountContainer_->info.contactModel->getContact(origin.participants[0]);
-            auto isNotUsed = contact.type == lrc::api::contact::Type::TEMPORARY || contact.type == lrc::api::contact::Type::PENDING;
-            chat_view_update_temporary(CHAT_VIEW(old_view), isNotUsed);
-        }
+        if (IS_CURRENT_CALL_VIEW(old_view) || IS_INCOMING_CALL_VIEW(old_view)) return;
+        change_view(win, old_view, origin, CHAT_VIEW_TYPE);
     });
 
     // New call view
@@ -390,6 +381,25 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
             change_view(win, old_view, origin, INCOMING_CALL_VIEW_TYPE);
         }
     });
+
+    priv->historyClearedConnection_ = QObject::connect(
+    &*priv->accountContainer_->info.conversationModel,
+    &lrc::api::ConversationModel::conversationCleared,
+    [win, priv] (const std::string& uid) {
+        auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+        lrc::api::conversation::Info current_item;
+        if (IS_CHAT_VIEW(old_view))
+             current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
+         else
+             // if incoming or call view we don't want to change
+             return;
+         if (current_item.uid == uid) {
+             // We are on the conversation cleared.
+             // Go to welcome view because we don't want this conversation
+             // TODO go to first conversation.
+             change_view(win, old_view, lrc::api::conversation::Info(), RING_WELCOME_VIEW_TYPE);
+         }
+     });
 
     priv->modelUpdatedConnection_ = QObject::connect(
     &*priv->accountContainer_->info.conversationModel,
@@ -1071,6 +1081,7 @@ ring_main_window_dispose(GObject *object)
 
 
     QObject::disconnect(priv->showChatViewConnection_);
+    QObject::disconnect(priv->historyClearedConnection_);
     QObject::disconnect(priv->showIncomingViewConnection_);
     QObject::disconnect(priv->changeAccountConnection_);
     QObject::disconnect(priv->showCallViewConnection_);
