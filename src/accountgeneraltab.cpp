@@ -44,6 +44,12 @@ struct _AccountGeneralTabPrivate
     GtkWidget *grid_account;
     GtkWidget *grid_parameters;
 
+    GtkWidget* entry_current_password;
+    GtkWidget* entry_new_password;
+    GtkWidget* entry_confirm_password;
+    GtkWidget* button_validate_password;
+    GtkWidget* label_error_change_passowrd;
+
     QMetaObject::Connection account_updated;
 };
 
@@ -78,6 +84,14 @@ account_general_tab_class_init(AccountGeneralTabClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, grid_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, grid_parameters);
+
+    /* change password view */
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, entry_current_password);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, entry_new_password);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, entry_confirm_password);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, button_validate_password);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, label_error_change_passowrd);
+
 }
 
 static void
@@ -158,6 +172,28 @@ upnp_enabled(GtkToggleButton *checkbutton, AccountGeneralTab *view)
     g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
     AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
     priv->account->setUpnpEnabled(gtk_toggle_button_get_active(checkbutton));
+}
+
+static void
+change_password(AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+
+    std::string current_password = gtk_entry_get_text(GTK_ENTRY(priv->entry_current_password));
+    std::string new_password = gtk_entry_get_text(GTK_ENTRY(priv->entry_new_password));
+    std::string confirm_password = gtk_entry_get_text(GTK_ENTRY(priv->entry_confirm_password));
+    if (new_password != confirm_password) {
+        gtk_label_set_text(GTK_LABEL(priv->label_error_change_passowrd), _("New password and its confirmation are different"));
+        return;
+    }
+    if (priv->account->changePassword(current_password.c_str(), new_password.c_str())) {
+        gtk_button_set_label(GTK_BUTTON(priv->button_validate_password), _("Password changed!"));
+        gtk_label_set_text(GTK_LABEL(priv->label_error_change_passowrd), "");
+    } else {
+        gtk_button_set_label(GTK_BUTTON(priv->button_validate_password), _("Change password"));
+        gtk_label_set_text(GTK_LABEL(priv->label_error_change_passowrd), _("Incorrect password"));
+    }
 }
 
 static void
@@ -356,6 +392,9 @@ build_tab_view(AccountGeneralTab *view)
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_upnp), priv->account->isUpnpEnabled());
         }
     );
+
+    g_signal_connect_swapped(priv->button_validate_password, "clicked", G_CALLBACK(change_password), view);
+
 
     gtk_widget_show_all(priv->grid_parameters);
 
