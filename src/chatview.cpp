@@ -293,7 +293,7 @@ webkit_chat_container_ready(ChatView* self)
     print_text_recording(self);
 
     priv->new_message_connection = QObject::connect(
-    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newMessageAdded,
+    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newUnreadMessage,
     [self, priv](const std::string& uid, lrc::api::message::Info msg) {
         if(uid == priv->conversation_->info.uid) {
             print_message_to_buffer(self, msg);
