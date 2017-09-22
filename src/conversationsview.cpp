@@ -77,6 +77,8 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     try
     {
         auto conversation = priv->accountContainer_->info.conversationModel->getConversation(row);
+        if (conversation.uid.empty())
+            return;
         auto contact = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
         std::shared_ptr<GdkPixbuf> image;
         auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
