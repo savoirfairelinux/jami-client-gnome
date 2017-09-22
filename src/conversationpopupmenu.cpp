@@ -140,8 +140,10 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     auto path = gtk_tree_model_get_path(model, &iter);
     auto idx = gtk_tree_path_get_indices(path);
     auto conversation = priv->accountContainer_->info.conversationModel->getConversation(idx[0]);
-    auto contact = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
+    if (conversation.uid.empty())
+            return;
     priv->row_ = idx[0];
+    auto contact = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
 
     /* we always build a menu, however in some cases some or all of the conversations will be deactivated;
      * we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case

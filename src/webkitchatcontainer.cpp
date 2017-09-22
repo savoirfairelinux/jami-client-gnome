@@ -138,7 +138,6 @@ webview_chat_context_menu(WebKitChatContainer *self,
     }
     return false;
 }
-#include <iostream>
 
 QString
 message_to_json_message_object(const lrc::api::message::Info& message)

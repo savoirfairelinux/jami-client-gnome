@@ -312,6 +312,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
 
         lrc::api::conversation::Info current_item;
+        current_item.uid = "-1";
         if (IS_CHAT_VIEW(old_view))
             current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
 
