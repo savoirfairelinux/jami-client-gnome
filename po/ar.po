@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-10 23:09-0400\n"
-"PO-Revision-Date: 2017-08-03 02:49+0000\n"
+"POT-Creation-Date: 2017-09-24 23:09-0400\n"
+"PO-Revision-Date: 2017-09-25 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Arabic (http://www.transifex.com/savoirfairelinux/ring/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "_Remove server"
 msgstr ""
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
 msgid "Hostname"
 msgstr "اسم المضيف"
 
@@ -49,18 +49,18 @@ msgstr "معدل البت"
 msgid "Samplerate"
 msgstr "معدل العينة"
 
-#: src/accountcreationwizard.cpp:240
+#: src/accountcreationwizard.cpp:231
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:283
+#: src/accountcreationwizard.cpp:275
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "مجهول"
 
-#: src/accountcreationwizard.cpp:461
+#: src/accountcreationwizard.cpp:468
 msgid "Passwords don't match"
 msgstr ""
 
@@ -86,47 +86,64 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:185
+#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
+#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
+msgid "Change password"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:196
+msgid "New password and its confirmation are different"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:206
+msgid "Password changed!"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:209
+msgid "Incorrect password"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:236
 msgid "Alias"
 msgstr "الاسم المستعار"
 
-#: src/accountgeneraltab.cpp:196
+#: src/accountgeneraltab.cpp:247
 msgid "Type"
 msgstr "النوع"
 
-#: src/accountgeneraltab.cpp:222
+#: src/accountgeneraltab.cpp:273
 msgid "auto-generating..."
 msgstr "إنتاج تلقائي..."
 
-#: src/accountgeneraltab.cpp:235 src/accountgeneraltab.cpp:261
+#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: src/accountgeneraltab.cpp:271
+#: src/accountgeneraltab.cpp:322
 msgid "Password"
 msgstr "كلمة السر"
 
-#: src/accountgeneraltab.cpp:284
+#: src/accountgeneraltab.cpp:335
 msgid "Show password"
 msgstr "اكشف كلمة السر"
 
-#: src/accountgeneraltab.cpp:290
+#: src/accountgeneraltab.cpp:341
 msgid "Proxy"
 msgstr "الوكيل"
 
-#: src/accountgeneraltab.cpp:300
+#: src/accountgeneraltab.cpp:351
 msgid "Voicemail number"
 msgstr "رقم البريد الصوتي"
 
-#: src/accountgeneraltab.cpp:312
+#: src/accountgeneraltab.cpp:363
 msgid "Name service URL"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:325
+#: src/accountgeneraltab.cpp:376
 msgid "Auto-answer calls"
 msgstr "رد ألي على المكالمات"
 
-#: src/accountgeneraltab.cpp:333
+#: src/accountgeneraltab.cpp:384
 msgid "UPnP enabled"
 msgstr "UPnP مفعل"
 
@@ -143,11 +160,11 @@ msgstr "ألغِ"
 msgid "Select"
 msgstr ""
 
-#: src/accountimportexportview.cpp:211
+#: src/accountimportexportview.cpp:198
 msgid "Error importing account(s)"
 msgstr ""
 
-#: src/accountimportexportview.cpp:263
+#: src/accountimportexportview.cpp:245
 msgid "Error exporting account(s)"
 msgstr ""
 
@@ -606,34 +623,35 @@ msgstr ""
 msgid "Link this devices to a Ring account created on another device"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:105 ui/accountcreationwizard.ui:159
+#: ui/accountcreationwizard.ui:105
 msgid "Link this device to an existing account"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:120
 msgid ""
-"To link this device to another account, you first need to obtain a PIN code."
-" To generate the pin code, go to the account management setting of a "
-"previous device, choose the Ring Account to use and select \"Link another "
-"device to this account\". You will get the necessary PIN to complete this "
-"form. The PIN is only valid for 10 minutes."
+"To link this device to another account, you have two possibilities. You can "
+"import your account from the DHT, but first, you need to obtain a PIN code. "
+"To generate the PIN code, go to the account management setting of a previous"
+" device, choose the Ring Account to use and select \"Link another device to "
+"this account\". You will get the necessary PIN to complete this form. The "
+"PIN is only valid for 10 minutes. Or, you can directly import your account "
+"from an archive."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:128 ui/accountcreationwizard.ui:217
-#: ui/accountcreationwizard.ui:429
-msgid "Previous"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:136
-msgid "Okay, I have the PIN!"
+#: ui/accountcreationwizard.ui:146
+msgid "Enter your pin:"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:174
-msgid "Enter your pin:"
+msgid "Or import a file:"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:193
 msgid "Enter your password:"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:217 ui/accountcreationwizard.ui:429
+msgid "Previous"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:225 ui/accountcreationwizard.ui:437
@@ -741,9 +759,25 @@ msgstr ""
 msgid "Account"
 msgstr "حساب"
 
-#: ui/accountgeneraltab.ui:126
+#: ui/accountgeneraltab.ui:135
 msgid "Parameters"
 msgstr "المعلمات"
+
+#: ui/accountgeneraltab.ui:175
+msgid "Note: this will change the password only on this device."
+msgstr ""
+
+#: ui/accountgeneraltab.ui:194
+msgid "Current password"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:214
+msgid "New password"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:234
+msgid "Confirm password"
+msgstr ""
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"

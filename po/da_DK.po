@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-10 23:09-0400\n"
-"PO-Revision-Date: 2017-08-06 20:41+0000\n"
-"Last-Translator: Mikkel Kirkgaard Nielsen <memb_transifex@mikini.dk>\n"
+"POT-Creation-Date: 2017-09-24 23:09-0400\n"
+"PO-Revision-Date: 2017-09-25 03:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/savoirfairelinux/ring/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "_Remove server"
 msgstr "_Fjern server"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
 msgid "Hostname"
 msgstr "Værtsnavn"
 
@@ -50,24 +50,24 @@ msgstr "Bitrate"
 msgid "Samplerate"
 msgstr "Samplefrekvens"
 
-#: src/accountcreationwizard.cpp:240
+#: src/accountcreationwizard.cpp:231
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
 msgstr "Din konto blev oprettet, men vi kunne ikke registrere brugernavnet. Prøv igen fra menuen indstillinger."
 
-#: src/accountcreationwizard.cpp:283
+#: src/accountcreationwizard.cpp:275
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "Ukendt"
 
-#: src/accountcreationwizard.cpp:461
+#: src/accountcreationwizard.cpp:468
 msgid "Passwords don't match"
-msgstr "Kodeord stemmer ikke overens"
+msgstr "Adgangskoderne er ikke ens"
 
 #: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
 msgid "Bad password"
-msgstr "Forkert kodeord"
+msgstr "Forkert adgangskode"
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
@@ -87,47 +87,64 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/accountgeneraltab.cpp:185
+#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
+#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
+msgid "Change password"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:196
+msgid "New password and its confirmation are different"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:206
+msgid "Password changed!"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:209
+msgid "Incorrect password"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:236
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountgeneraltab.cpp:196
+#: src/accountgeneraltab.cpp:247
 msgid "Type"
 msgstr "Type"
 
-#: src/accountgeneraltab.cpp:222
+#: src/accountgeneraltab.cpp:273
 msgid "auto-generating..."
 msgstr "auto-genererer..."
 
-#: src/accountgeneraltab.cpp:235 src/accountgeneraltab.cpp:261
+#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
 msgid "Username"
 msgstr "Brugernavn"
 
-#: src/accountgeneraltab.cpp:271
+#: src/accountgeneraltab.cpp:322
 msgid "Password"
-msgstr "Kodeord"
+msgstr "Adgangskode"
 
-#: src/accountgeneraltab.cpp:284
+#: src/accountgeneraltab.cpp:335
 msgid "Show password"
-msgstr "Vis kodeord"
+msgstr "Vis adgangskode"
 
-#: src/accountgeneraltab.cpp:290
+#: src/accountgeneraltab.cpp:341
 msgid "Proxy"
 msgstr "Stedfortræder"
 
-#: src/accountgeneraltab.cpp:300
+#: src/accountgeneraltab.cpp:351
 msgid "Voicemail number"
 msgstr "Telefonsvarernummer"
 
-#: src/accountgeneraltab.cpp:312
+#: src/accountgeneraltab.cpp:363
 msgid "Name service URL"
-msgstr "Navne-service URL"
+msgstr "Navnetjeneste-URL"
 
-#: src/accountgeneraltab.cpp:325
+#: src/accountgeneraltab.cpp:376
 msgid "Auto-answer calls"
-msgstr "Svar automatisk opkald"
+msgstr "Besvar opkald automatisk"
 
-#: src/accountgeneraltab.cpp:333
+#: src/accountgeneraltab.cpp:384
 msgid "UPnP enabled"
 msgstr "UPnP aktiveret"
 
@@ -144,11 +161,11 @@ msgstr "Annuller"
 msgid "Select"
 msgstr "Vælg"
 
-#: src/accountimportexportview.cpp:211
+#: src/accountimportexportview.cpp:198
 msgid "Error importing account(s)"
 msgstr "Fejl ved import af konti"
 
-#: src/accountimportexportview.cpp:263
+#: src/accountimportexportview.cpp:245
 msgid "Error exporting account(s)"
 msgstr "Fejl ved eksport af konti"
 
@@ -185,7 +202,7 @@ msgstr "Blokeringer"
 #: src/accountview.cpp:250
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
-msgstr "Er du sikker på at du vil slette kontoen \"%s\"?"
+msgstr "Er du sikker på, at du vil slette kontoen \"%s\"?"
 
 #: src/accountview.cpp:377
 msgid "New Account"
@@ -233,11 +250,11 @@ msgstr "_Opkald"
 
 #: src/contactpopupmenu.cpp:175
 msgid "_Copy name"
-msgstr "_Kopier navn"
+msgstr "_Kopiér navn"
 
 #: src/contactpopupmenu.cpp:178
 msgid "_Copy number"
-msgstr "_Kopier nummer"
+msgstr "_Kopiér nummer"
 
 #: src/contactpopupmenu.cpp:181
 msgid "_Add to contact"
@@ -274,7 +291,7 @@ msgstr "hjem"
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr "Dette er en destruktiv handling. Er du sikker på at du vil slette al historik for beskeder og opkald?"
+msgstr "Dette er en destruktiv handling. Er du sikker på, at du vil slette al historik for beskeder og opkald?"
 
 #: src/historyview.cpp:293
 msgctxt "Call history"
@@ -337,7 +354,7 @@ msgstr "foretag opkald"
 #: src/ringmainwindow.cpp:1154
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr "åbn beskedvindue"
+msgstr "åbn chat"
 
 #: src/ringmainwindow.cpp:1234
 #, c-format
@@ -356,20 +373,20 @@ msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr "Søg kontakt eller indtast nummer"
+msgstr "Søg efter kontakt eller indtast nummer"
 
 #: src/ringwelcomeview.cpp:75
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr "Dette er dit Ring-brugernavn.\nKopier og del med dine venner!"
+msgstr "Dette er dit Ring-brugernavn.\nKopiér og del med dine venner!"
 
 #: src/ringwelcomeview.cpp:83
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr "Dette er dit RingID.\nKopier og del det med dine venner!"
+msgstr "Dette er dit RingID.\nKopiér og del det med dine venner!"
 
 #: src/ringwelcomeview.cpp:90
 msgid "fetching RingID..."
@@ -535,7 +552,7 @@ msgstr "brugernavn"
 
 #: ui/accountadvancedtab.ui:455
 msgid "password"
-msgstr "kodeord"
+msgstr "adgangskode"
 
 #: ui/accountadvancedtab.ui:479
 msgid "realm"
@@ -565,11 +582,11 @@ msgstr "Maks"
 
 #: ui/accountadvancedtab.ui:665
 msgid "Audio RTP Port Range"
-msgstr "Portinterval for Lyd-RTP"
+msgstr "Område for lyd RTP-port"
 
 #: ui/accountadvancedtab.ui:741
 msgid "Video RTP Port Range"
-msgstr "Video RTP-port Interval"
+msgstr "Område for video RTP-port"
 
 #: ui/accountadvancedtab.ui:759
 msgid "SDP Session Negotiation (ICE Fallback)"
@@ -607,35 +624,36 @@ msgstr "Tilknyt denne enhed til en konto"
 msgid "Link this devices to a Ring account created on another device"
 msgstr "Tilknyt denne enhed til en Ring-konto oprettet på en anden enhed"
 
-#: ui/accountcreationwizard.ui:105 ui/accountcreationwizard.ui:159
+#: ui/accountcreationwizard.ui:105
 msgid "Link this device to an existing account"
 msgstr "Tilnyt denne enhed til en eksisterende konto"
 
 #: ui/accountcreationwizard.ui:120
 msgid ""
-"To link this device to another account, you first need to obtain a PIN code."
-" To generate the pin code, go to the account management setting of a "
-"previous device, choose the Ring Account to use and select \"Link another "
-"device to this account\". You will get the necessary PIN to complete this "
-"form. The PIN is only valid for 10 minutes."
-msgstr "For at tilknytte denne enhed til en anden konto, skal du først have en PIN-kode. For at generere en PIN-kode skal du gå ind i konto-indstillinger på en anden enhed, vælge Ring-kontoen du vil bruge og vælge \"Tilknyt en anden enhed til denne konto\". Dette vil generere PIN-koden du skal anvende her. PIN-koden er kun gyldig i 10 minutter."
+"To link this device to another account, you have two possibilities. You can "
+"import your account from the DHT, but first, you need to obtain a PIN code. "
+"To generate the PIN code, go to the account management setting of a previous"
+" device, choose the Ring Account to use and select \"Link another device to "
+"this account\". You will get the necessary PIN to complete this form. The "
+"PIN is only valid for 10 minutes. Or, you can directly import your account "
+"from an archive."
+msgstr ""
 
-#: ui/accountcreationwizard.ui:128 ui/accountcreationwizard.ui:217
-#: ui/accountcreationwizard.ui:429
-msgid "Previous"
-msgstr "Tilbage"
-
-#: ui/accountcreationwizard.ui:136
-msgid "Okay, I have the PIN!"
-msgstr "Okay, jeg har PIN-koden!"
-
-#: ui/accountcreationwizard.ui:174
+#: ui/accountcreationwizard.ui:146
 msgid "Enter your pin:"
 msgstr "Indtast PIN-kode:"
 
+#: ui/accountcreationwizard.ui:174
+msgid "Or import a file:"
+msgstr ""
+
 #: ui/accountcreationwizard.ui:193
 msgid "Enter your password:"
-msgstr "Indtast dit kodeord:"
+msgstr "Indtast din adgangskode:"
+
+#: ui/accountcreationwizard.ui:217 ui/accountcreationwizard.ui:429
+msgid "Previous"
+msgstr "Tilbage"
 
 #: ui/accountcreationwizard.ui:225 ui/accountcreationwizard.ui:437
 msgid "Next"
@@ -666,13 +684,13 @@ msgstr "Ved at markere denne, får du mulighed for at registrere et unikt bruger
 
 #: ui/accountcreationwizard.ui:371
 msgid "Password (confirm):"
-msgstr "Kodeord (bekræft):"
+msgstr "Adgangskode (bekræft):"
 
 #: ui/accountcreationwizard.ui:372
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr "Dette kodeord vil blive brugt til at kryptere din kontos data og til at tilknytte nye enheder til din konto."
+msgstr "Denne adgangskode vil blive brugt til at kryptere din kontos data og til at tilknytte nye enheder til din konto."
 
 #: ui/accountcreationwizard.ui:461
 msgid "Generating your Ring account..."
@@ -720,11 +738,11 @@ msgstr "For at tilføje en ny enhed til din Ring-konto skal den eksporteres til 
 
 #: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
-msgstr "Kodeord (påkrævet):"
+msgstr "Adgangskode (påkrævet):"
 
 #: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
-msgstr "Indtast arkivets kodeord"
+msgstr "Indtast arkivets adgangskode"
 
 #: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
@@ -742,9 +760,25 @@ msgstr "Din genererede PIN-kode:"
 msgid "Account"
 msgstr "Konto"
 
-#: ui/accountgeneraltab.ui:126
+#: ui/accountgeneraltab.ui:135
 msgid "Parameters"
 msgstr "Parametre"
+
+#: ui/accountgeneraltab.ui:175
+msgid "Note: this will change the password only on this device."
+msgstr ""
+
+#: ui/accountgeneraltab.ui:194
+msgid "Current password"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:214
+msgid "New password"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:234
+msgid "Confirm password"
+msgstr ""
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -776,7 +810,7 @@ msgstr "Eksport"
 
 #: ui/accountimportexportview.ui:181 ui/accountview.ui:103
 msgid "Import"
-msgstr "Import"
+msgstr "Importér"
 
 #: ui/accountmigrationview.ui:14
 msgid "Account migration required"
@@ -788,7 +822,7 @@ msgstr "Alias:"
 
 #: ui/accountmigrationview.ui:102
 msgid "Please enter your password:"
-msgstr "Venligst indtast dit kodeord:"
+msgstr "Venligst indtast din adgangskode:"
 
 #: ui/accountmigrationview.ui:129
 msgid "Migrate account"
@@ -796,7 +830,7 @@ msgstr "Migrér konto"
 
 #: ui/accountmigrationview.ui:148
 msgid "Migration failed, wrong password ?"
-msgstr "Migreringen lykkedes ikke, forkert kodeord ?"
+msgstr "Migreringen lykkedes ikke, forkert adgangskode?"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -824,7 +858,7 @@ msgstr "CA-certifikat"
 
 #: ui/accountsecuritytab.ui:185
 msgid "User certificate"
-msgstr "Bruger-certifikat"
+msgstr "Brugercertifikat"
 
 #: ui/accountsecuritytab.ui:222
 msgid "Private key"
@@ -832,7 +866,7 @@ msgstr "Privat nøgle"
 
 #: ui/accountsecuritytab.ui:245
 msgid "Private key password"
-msgstr "Kodeord til privat nøgle"
+msgstr "Adgangskode til privat nøgle"
 
 #: ui/accountsecuritytab.ui:292
 msgid "TLS protocol method"
@@ -848,7 +882,7 @@ msgstr "Forhandlingstidsgrænse (sekunder)"
 
 #: ui/accountsecuritytab.ui:371
 msgid "Use default ciphers"
-msgstr "Brug standard-cifre"
+msgstr "Brug standardcifre"
 
 #: ui/accountsecuritytab.ui:387
 msgid "Use custom cipher list"
@@ -916,7 +950,7 @@ msgstr "Sæt markerede som billede"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
-msgstr "Gem beskedvindue"
+msgstr "Gem chatvisning"
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
@@ -981,7 +1015,7 @@ msgstr "Videokvalitet"
 
 #: ui/currentcallview.ui:402
 msgid "Toggle show chat"
-msgstr "Skift visning af beskedvindue"
+msgstr "Skift visning af chat"
 
 #: ui/currentcallview.ui:406 ui/currentcallview.ui:423
 msgid "Chat"
@@ -1049,7 +1083,7 @@ msgstr "Vis Ring-ikon i notifikationsområdet (systray)"
 
 #: ui/generalsettingsview.ui:108
 msgid "Bring Ring to the foreground on incoming calls."
-msgstr "Hæv Ring-vinduet til forgrunden ved indgående opkald."
+msgstr "Hæv Ring til forgrunden ved indgående opkald."
 
 #: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
@@ -1061,7 +1095,7 @@ msgstr "Aktiver notifikationer for nye beskeder."
 
 #: ui/generalsettingsview.ui:132
 msgid "Show images and videos in chat window."
-msgstr "Vis billeder og videoer i beskedvindue."
+msgstr "Vis billeder og videoer i chat-vindue."
 
 #: ui/generalsettingsview.ui:140
 msgid "Entering a number in the search entry will place a new call."
@@ -1069,15 +1103,15 @@ msgstr "Indtastning af et nummer i søge-feltet vil foretage et opkald."
 
 #: ui/generalsettingsview.ui:155
 msgid "Show chat on the right."
-msgstr "Vis beskedvindue på højre side."
+msgstr "Vis chat på højre side."
 
 #: ui/generalsettingsview.ui:161
 msgid "Show chat on the bottom."
-msgstr "Vis beskedvindue i bunden."
+msgstr "Vis chat i bunden."
 
 #: ui/generalsettingsview.ui:185
 msgid "History Settings"
-msgstr "Historik indstillinger"
+msgstr "Historik-indstillinger"
 
 #: ui/generalsettingsview.ui:203
 msgid "Keep history for (days):"

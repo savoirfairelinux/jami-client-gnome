@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-10 23:09-0400\n"
-"PO-Revision-Date: 2017-08-31 07:06+0000\n"
-"Last-Translator: futr <ilce.ma@gmail.com>\n"
+"POT-Creation-Date: 2017-09-24 23:09-0400\n"
+"PO-Revision-Date: 2017-09-25 03:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/ring/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "_Remove server"
 msgstr "サーバーを削除(_R)"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:251
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
 msgid "Hostname"
 msgstr "ホスト名"
 
@@ -48,18 +48,18 @@ msgstr "ビットレート"
 msgid "Samplerate"
 msgstr "サンプルレート"
 
-#: src/accountcreationwizard.cpp:240
+#: src/accountcreationwizard.cpp:231
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
 msgstr "アカウントが作成されましたが、あなたのユーザー名を登録できません。設定メニューからもう一度試してください。"
 
-#: src/accountcreationwizard.cpp:283
+#: src/accountcreationwizard.cpp:275
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "不明"
 
-#: src/accountcreationwizard.cpp:461
+#: src/accountcreationwizard.cpp:468
 msgid "Passwords don't match"
 msgstr "パスワードが一致しません"
 
@@ -85,47 +85,64 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/accountgeneraltab.cpp:185
+#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
+#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
+msgid "Change password"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:196
+msgid "New password and its confirmation are different"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:206
+msgid "Password changed!"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:209
+msgid "Incorrect password"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:236
 msgid "Alias"
 msgstr "別名"
 
-#: src/accountgeneraltab.cpp:196
+#: src/accountgeneraltab.cpp:247
 msgid "Type"
 msgstr "種類"
 
-#: src/accountgeneraltab.cpp:222
+#: src/accountgeneraltab.cpp:273
 msgid "auto-generating..."
 msgstr "自動生成..."
 
-#: src/accountgeneraltab.cpp:235 src/accountgeneraltab.cpp:261
+#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/accountgeneraltab.cpp:271
+#: src/accountgeneraltab.cpp:322
 msgid "Password"
 msgstr "パスワード"
 
-#: src/accountgeneraltab.cpp:284
+#: src/accountgeneraltab.cpp:335
 msgid "Show password"
 msgstr "パスワードを表示"
 
-#: src/accountgeneraltab.cpp:290
+#: src/accountgeneraltab.cpp:341
 msgid "Proxy"
 msgstr "プロキシ"
 
-#: src/accountgeneraltab.cpp:300
+#: src/accountgeneraltab.cpp:351
 msgid "Voicemail number"
 msgstr "ボイスメール番号"
 
-#: src/accountgeneraltab.cpp:312
+#: src/accountgeneraltab.cpp:363
 msgid "Name service URL"
 msgstr "名前サービス URL"
 
-#: src/accountgeneraltab.cpp:325
+#: src/accountgeneraltab.cpp:376
 msgid "Auto-answer calls"
 msgstr "自動応答呼び出し"
 
-#: src/accountgeneraltab.cpp:333
+#: src/accountgeneraltab.cpp:384
 msgid "UPnP enabled"
 msgstr "UPnP 有効"
 
@@ -142,11 +159,11 @@ msgstr "キャンセル"
 msgid "Select"
 msgstr "選択"
 
-#: src/accountimportexportview.cpp:211
+#: src/accountimportexportview.cpp:198
 msgid "Error importing account(s)"
 msgstr "アカウントの読み込みでエラーが発生しました"
 
-#: src/accountimportexportview.cpp:263
+#: src/accountimportexportview.cpp:245
 msgid "Error exporting account(s)"
 msgstr "アカウントの書き出しでエラーが発生しました"
 
@@ -272,7 +289,7 @@ msgstr "ホーム"
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr ""
+msgstr "この操作は取り消すことができません。本当にあなたのすべてのチャットと通話の履歴を削除しますか？"
 
 #: src/historyview.cpp:293
 msgctxt "Call history"
@@ -320,7 +337,7 @@ msgstr "不正な Ring ユーザー名: %s"
 
 #: src/ringmainwindow.cpp:629
 msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr ""
+msgstr "ユーザー名の解決に失敗しました。ネームサーバーが到達できない状態にある可能性があります。"
 
 #: src/ringmainwindow.cpp:643
 #, c-format
@@ -330,7 +347,7 @@ msgstr "Ring ユーザー名を解決できません: %s"
 #: src/ringmainwindow.cpp:1152
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr ""
+msgstr "通話を開始"
 
 #: src/ringmainwindow.cpp:1154
 msgctxt "button next to search entry will open chat"
@@ -341,13 +358,13 @@ msgstr "チャットを開く"
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s..."
-msgstr ""
+msgstr "%s..."
 
 #: src/ringmainwindow.cpp:1240
 #, c-format
 msgctxt "string format will be replaced by the account alias"
 msgid "%s (error)"
-msgstr ""
+msgstr "%s (エラー)"
 
 #: src/ringmainwindow.cpp:1443
 msgctxt ""
@@ -360,14 +377,14 @@ msgstr "連絡先または番号を検索"
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "これがあなたの Ring ユーザー名です。\nコピーして友達とシェアしましょう！"
 
 #: src/ringwelcomeview.cpp:83
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "これがあなたの RingID です。\nコピーして友達とシェアしましょう！"
 
 #: src/ringwelcomeview.cpp:90
 msgid "fetching RingID..."
@@ -382,7 +399,7 @@ msgstr "Ring は、ユーザーの自由とプライバシーを尊重する普�
 #: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr ""
+msgstr "Ring ID QRコード"
 
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
@@ -447,29 +464,29 @@ msgstr "ネットワークエラー"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Ring Error"
-msgstr ""
+msgstr "Ring エラー"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr ""
+msgstr "Ring デーモンへ再接続しています (dring)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Ring daemon (dring).\n"
 "Ring will now quit."
-msgstr ""
+msgstr "Ring デーモンへの再接続に失敗しました (dring)。\nRing を終了します。"
 
 #: src/video/video_widget.cpp:525
 msgid "Share screen area"
-msgstr ""
+msgstr "画面を共有"
 
 #: src/video/video_widget.cpp:535
 msgid "Share file"
-msgstr ""
+msgstr "ファイルを共有"
 
 #: src/video/video_widget.cpp:549
 msgid "Show advanced information"
-msgstr ""
+msgstr "詳細情報を表示"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
@@ -605,34 +622,35 @@ msgstr "この端末をアカウントへリンク"
 msgid "Link this devices to a Ring account created on another device"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:105 ui/accountcreationwizard.ui:159
+#: ui/accountcreationwizard.ui:105
 msgid "Link this device to an existing account"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:120
 msgid ""
-"To link this device to another account, you first need to obtain a PIN code."
-" To generate the pin code, go to the account management setting of a "
-"previous device, choose the Ring Account to use and select \"Link another "
-"device to this account\". You will get the necessary PIN to complete this "
-"form. The PIN is only valid for 10 minutes."
+"To link this device to another account, you have two possibilities. You can "
+"import your account from the DHT, but first, you need to obtain a PIN code. "
+"To generate the PIN code, go to the account management setting of a previous"
+" device, choose the Ring Account to use and select \"Link another device to "
+"this account\". You will get the necessary PIN to complete this form. The "
+"PIN is only valid for 10 minutes. Or, you can directly import your account "
+"from an archive."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:128 ui/accountcreationwizard.ui:217
-#: ui/accountcreationwizard.ui:429
-msgid "Previous"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:136
-msgid "Okay, I have the PIN!"
+#: ui/accountcreationwizard.ui:146
+msgid "Enter your pin:"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:174
-msgid "Enter your pin:"
+msgid "Or import a file:"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:193
 msgid "Enter your password:"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:217 ui/accountcreationwizard.ui:429
+msgid "Previous"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:225 ui/accountcreationwizard.ui:437
@@ -740,9 +758,25 @@ msgstr ""
 msgid "Account"
 msgstr "アカウント"
 
-#: ui/accountgeneraltab.ui:126
+#: ui/accountgeneraltab.ui:135
 msgid "Parameters"
 msgstr "パラメーター"
+
+#: ui/accountgeneraltab.ui:175
+msgid "Note: this will change the password only on this device."
+msgstr ""
+
+#: ui/accountgeneraltab.ui:194
+msgid "Current password"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:214
+msgid "New password"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:234
+msgid "Confirm password"
+msgstr ""
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -874,7 +908,7 @@ msgstr "動画を有効化"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
-msgstr ""
+msgstr "ビデオコーデック"
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
@@ -914,11 +948,11 @@ msgstr ""
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
-msgstr ""
+msgstr "チャットを隠す"
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
-msgstr ""
+msgstr "通話を開始"
 
 #: ui/chatview.ui:60
 msgid "Send invitation"
@@ -934,7 +968,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
-msgstr ""
+msgstr "通話を終了"
 
 #: ui/currentcallview.ui:255 ui/currentcallview.ui:459
 msgid "End call"
@@ -942,7 +976,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:276
 msgid "Toggle hold"
-msgstr ""
+msgstr "ホールド"
 
 #: ui/currentcallview.ui:280 ui/currentcallview.ui:306
 #: ui/currentcallview.ui:450
@@ -951,11 +985,11 @@ msgstr "保留"
 
 #: ui/currentcallview.ui:302
 msgid "Toggle mute audio"
-msgstr ""
+msgstr "音声をミュート"
 
 #: ui/currentcallview.ui:328
 msgid "Toggle mute video"
-msgstr ""
+msgstr "ビデオをミュート"
 
 #: ui/currentcallview.ui:332 ui/currentcallview.ui:441
 msgid "Mute video"
@@ -963,27 +997,27 @@ msgstr "動画オフ"
 
 #: ui/currentcallview.ui:355
 msgid "Toggle record audio"
-msgstr ""
+msgstr "音声を録音"
 
 #: ui/currentcallview.ui:358
 msgid "Record audio"
-msgstr ""
+msgstr "音声を録音"
 
 #: ui/currentcallview.ui:378
 msgid "Adjust outgoing video quality"
-msgstr ""
+msgstr "送信するビデオの品質を調整"
 
 #: ui/currentcallview.ui:383 ui/currentcallview.ui:468
 msgid "Video quality"
-msgstr ""
+msgstr "ビデオの品質"
 
 #: ui/currentcallview.ui:402
 msgid "Toggle show chat"
-msgstr ""
+msgstr "チャットを表示"
 
 #: ui/currentcallview.ui:406 ui/currentcallview.ui:423
 msgid "Chat"
-msgstr ""
+msgstr "チャット"
 
 #: ui/currentcallview.ui:432
 msgid "Mute audio"
@@ -1031,23 +1065,23 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:34
 msgid "Profile Settings"
-msgstr ""
+msgstr "プロファイルの設定"
 
 #: ui/generalsettingsview.ui:76
 msgid "Ring Settings"
-msgstr ""
+msgstr "Ringの設定"
 
 #: ui/generalsettingsview.ui:92
 msgid "Start Ring on login"
-msgstr ""
+msgstr "ログイン時にRingを起動する"
 
 #: ui/generalsettingsview.ui:100
 msgid "Show Ring icon in the notification area (systray)."
-msgstr ""
+msgstr "Ring アイコンを通知エリア (systray) に表示する。"
 
 #: ui/generalsettingsview.ui:108
 msgid "Bring Ring to the foreground on incoming calls."
-msgstr ""
+msgstr "着信時に Ring を最前面に表示する。"
 
 #: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
