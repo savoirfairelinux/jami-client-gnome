@@ -62,6 +62,8 @@ G_DEFINE_TYPE_WITH_PRIVATE(ConversationsView, conversations_view, GTK_TYPE_TREE_
 
 #define CONVERSATIONS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CONVERSATIONS_VIEW_TYPE, ConversationsViewPrivate))
 
+#include <iostream>
+
 static void
 render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                      GtkCellRenderer *cell,
@@ -148,11 +150,11 @@ create_and_fill_model(ConversationsView *self)
     GtkTreeIter iter;
 
     for (auto conversation : priv->accountContainer_->info.conversationModel->getFilteredConversations()) {
-        if (conversation.participants.empty()) break; // Should not
         auto contactUri = conversation.participants.front();
         auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
         auto lastMessage = conversation.messages.empty() ? "" :
             conversation.messages.at(conversation.lastMessageUid).body;
+        std::cout << "Add" << contactUri << std::endl;
         gtk_list_store_append (store, &iter);
         gtk_list_store_set (store, &iter,
             0 /* col # */ , conversation.uid.c_str() /* celldata */,
