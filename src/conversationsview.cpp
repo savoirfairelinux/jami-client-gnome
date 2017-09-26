@@ -53,7 +53,8 @@ struct _ConversationsViewPrivate
 
     QMetaObject::Connection selection_updated;
     QMetaObject::Connection layout_changed;
-    QMetaObject::Connection conversationmodelSorted;
+    QMetaObject::Connection modelSortedConnection_;
+    QMetaObject::Connection filterChangedConnection_;
 
 };
 
@@ -247,9 +248,19 @@ build_conversations_view(ConversationsView *self)
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
 
-    priv->conversationmodelSorted = QObject::connect(
+    priv->modelSortedConnection_ = QObject::connect(
     &*priv->accountContainer_->info.conversationModel,
     &lrc::api::ConversationModel::modelSorted,
+    [self] () {
+        auto model = create_and_fill_model(self);
+
+        gtk_tree_view_set_model(GTK_TREE_VIEW(self),
+                                GTK_TREE_MODEL(model));
+    });
+
+    priv->filterChangedConnection_ = QObject::connect(
+    &*priv->accountContainer_->info.conversationModel,
+    &lrc::api::ConversationModel::filterChanged,
     [self] () {
         auto model = create_and_fill_model(self);
 
@@ -274,7 +285,8 @@ conversations_view_dispose(GObject *object)
 
     QObject::disconnect(priv->selection_updated);
     QObject::disconnect(priv->layout_changed);
-    QObject::disconnect(priv->conversationmodelSorted);
+    QObject::disconnect(priv->modelSortedConnection_);
+    QObject::disconnect(priv->filterChangedConnection_);
 
     G_OBJECT_CLASS(conversations_view_parent_class)->dispose(object);
 }

@@ -407,6 +407,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     &*priv->accountContainer_->info.conversationModel,
     &lrc::api::ConversationModel::showIncomingCallView,
     [win, priv] (lrc::api::conversation::Info origin) {
+        std::cout << "@@@@@@showIncomingViewConnection_" << std::endl;
         // Change the view if we want a different view.
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
 
@@ -420,11 +421,12 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     });
 
     // New incoming call view on another account
-    priv->showIncomingViewConnection_ = QObject::connect(
+    priv->changeAccountConnection_ = QObject::connect(
     &priv->lrc_->getAccountModel(),
     &lrc::api::NewAccountModel::incomingCall,
     [win, priv] (const std::string& accountId, const std::string& contactUri) {
         if (accountId != priv->accountContainer_->info.id) {
+            std::cout << "@@@@@@showIncomingViewConnection_" << std::endl;
             // Go to welcome view
             auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
             change_view(win, old_view, lrc::api::conversation::Info(), RING_WELCOME_VIEW_TYPE);
