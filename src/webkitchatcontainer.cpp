@@ -142,7 +142,7 @@ webview_chat_context_menu(WebKitChatContainer *self,
 QString
 message_to_json_message_object(const lrc::api::message::Info& message)
 {
-    auto sender = QString(message.contact.c_str());
+    auto sender = QString(message.authorUri.c_str());
     auto timestamp = QString::number(message.timestamp);
     auto direction = lrc::api::message::isOutgoing(message) ? QString("out") : QString("in");
 
