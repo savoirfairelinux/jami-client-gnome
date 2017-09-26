@@ -25,6 +25,7 @@
 
 #include <account.h>
 #include <api/newcallmodel.h>
+#include <api/conversationmodel.h>
 #include <api/contactmodel.h>
 #include <codecmodel.h>
 #include <video/previewmanager.h>
@@ -94,6 +95,7 @@ struct _CurrentCallViewPrivate
     QMetaObject::Connection state_change_connection;
     QMetaObject::Connection local_renderer_connection;
     QMetaObject::Connection remote_renderer_connection;
+    QMetaObject::Connection new_message_connection;
 
     GSettings *settings;
 
@@ -134,6 +136,7 @@ current_call_view_dispose(GObject *object)
     QObject::disconnect(priv->local_renderer_connection);
     QObject::disconnect(priv->remote_renderer_connection);
     QObject::disconnect(priv->smartinfo_refresh_connection);
+    QObject::disconnect(priv->new_message_connection);
     g_clear_object(&priv->settings);
 
     g_source_remove(priv->timer_fade);
@@ -847,6 +850,12 @@ set_call_info(CurrentCallView *view) {
             update_state(view);
             update_name_and_photo(view);
         }
+    });
+
+    priv->new_message_connection = QObject::connect(
+    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newUnreadMessage,
+    [priv](const std::string& uid, lrc::api::message::Info msg) {
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
     });
 
 

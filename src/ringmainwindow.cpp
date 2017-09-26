@@ -420,7 +420,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     });
 
     // New incoming call view on another account
-    priv->showIncomingViewConnection_ = QObject::connect(
+    priv->changeAccountConnection_ = QObject::connect(
     &priv->lrc_->getAccountModel(),
     &lrc::api::NewAccountModel::incomingCall,
     [win, priv] (const std::string& accountId, const std::string& contactUri) {
