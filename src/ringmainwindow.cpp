@@ -133,6 +133,8 @@ struct _RingMainWindowPrivate
     QMetaObject::Connection showCallViewConnection_;
     QMetaObject::Connection showIncomingViewConnection_;
     QMetaObject::Connection changeAccountConnection_;
+    QMetaObject::Connection newAccountConnection_;
+    QMetaObject::Connection rmAccountConnection_;
     QMetaObject::Connection historyClearedConnection_;
     QMetaObject::Connection modelSortedConnection_;
     QMetaObject::Connection filterChangedConnection_;
@@ -273,6 +275,68 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
     gtk_widget_show(new_view);
 }
 
+static void
+show_combobox_account_selector(RingMainWindow *self, gboolean show)
+{
+    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    /* we only want to show the account selector when there is more than 1 eneabled account; so
+     * every time we want to show it, we should preform this check */
+    gtk_widget_set_visible(priv->combobox_account_selector,
+        show && priv->lrc_->getAccountModel().getAccountList().size() > 1);
+}
+
+static void
+on_account_creation_completed(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
+
+    /* destroy the wizard */
+    if (priv->account_creation_wizard)
+    {
+        gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), priv->account_creation_wizard);
+        gtk_widget_destroy(priv->account_creation_wizard);
+    }
+
+    /* show the settings button*/
+    gtk_widget_show(priv->ring_settings);
+
+    /* show the account selector */
+    show_combobox_account_selector(win, TRUE);
+
+    /* select the newly created account */
+    // TODO: the new account might not always be the first one; eg: if the user has an existing
+    //       SIP account
+    gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
+}
+
+static void
+show_account_creation_wizard(RingMainWindow *win)
+{
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (!priv->account_creation_wizard)
+    {
+        priv->account_creation_wizard = account_creation_wizard_new(false);
+        g_object_add_weak_pointer(G_OBJECT(priv->account_creation_wizard), (gpointer *)&priv->account_creation_wizard);
+        g_signal_connect_swapped(priv->account_creation_wizard, "account-creation-completed", G_CALLBACK(on_account_creation_completed), win);
+
+        gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
+                            priv->account_creation_wizard,
+                            ACCOUNT_CREATION_WIZARD_VIEW_NAME);
+    }
+
+    /* hide settings button until account creation is complete */
+    gtk_widget_hide(priv->ring_settings);
+    show_combobox_account_selector(win, FALSE);
+
+    gtk_widget_show(priv->account_creation_wizard);
+
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->account_creation_wizard);
+}
+
 #include <iostream>
 
 static void
@@ -282,6 +346,8 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     QObject::disconnect(priv->showChatViewConnection_);
     QObject::disconnect(priv->showIncomingViewConnection_);
     QObject::disconnect(priv->changeAccountConnection_);
+    QObject::disconnect(priv->newAccountConnection_);
+    QObject::disconnect(priv->rmAccountConnection_);
     QObject::disconnect(priv->showCallViewConnection_);
     QObject::disconnect(priv->modelSortedConnection_);
     QObject::disconnect(priv->historyClearedConnection_);
@@ -461,6 +527,75 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
         // else we already listen this signal
     });
 
+    // New account added
+    priv->newAccountConnection_ = QObject::connect(
+    &priv->lrc_->getAccountModel(),
+    &lrc::api::NewAccountModel::accountAdded,
+    [win, priv] (const std::string& idAdded) {
+        auto accounts = priv->lrc_->getAccountModel().getAccountList();
+        auto store = gtk_list_store_new (2 /* # of cols */ ,
+                                             G_TYPE_STRING,
+                                             G_TYPE_STRING,
+                                             G_TYPE_UINT);
+        auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_account_selector));
+        GtkTreeIter iter;
+        for (const auto& accountId : accounts) {
+            const auto& account = priv->lrc_->getAccountModel().getAccountInfo(accountId);
+            if (account.enabled) {
+                gtk_list_store_append (store, &iter);
+                gtk_list_store_set (store, &iter,
+                0 /* col # */ , accountId.c_str() /* celldata */,
+                1 /* col # */ , account.profile.alias.c_str() /* celldata */,
+                -1 /* end */);
+            }
+        }
+
+        gtk_combo_box_set_model(
+            GTK_COMBO_BOX(priv->combobox_account_selector),
+            GTK_TREE_MODEL (store)
+        );
+        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), currentIdx);
+    });
+
+    // New account removed
+    priv->rmAccountConnection_ = QObject::connect(
+    &priv->lrc_->getAccountModel(),
+    &lrc::api::NewAccountModel::accountRemoved,
+    [win, priv] (const std::string& idRemoved) {
+        auto accounts = priv->lrc_->getAccountModel().getAccountList();
+        if (accounts.empty()) {
+            show_account_creation_wizard(win);
+        } else {
+            auto store = gtk_list_store_new (2 /* # of cols */ ,
+            G_TYPE_STRING,
+            G_TYPE_STRING,
+            G_TYPE_UINT);
+            GtkTreeIter iter;
+            for (const auto& accountId : accounts) {
+                const auto& account = priv->lrc_->getAccountModel().getAccountInfo(accountId);
+                if (account.enabled) {
+                    gtk_list_store_append (store, &iter);
+                    gtk_list_store_set (store, &iter,
+                    0 /* col # */ , accountId.c_str() /* celldata */,
+                    1 /* col # */ , account.profile.alias.c_str() /* celldata */,
+                    -1 /* end */);
+                }
+            }
+
+            gtk_combo_box_set_model(
+            GTK_COMBO_BOX(priv->combobox_account_selector),
+            GTK_TREE_MODEL (store)
+            );
+            gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
+            // Show conversation panel
+            gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), 0);
+            // Reinit LRC
+            ring_init_lrc(win, std::string(accounts.at(0)));
+            // Update the welcome view
+            ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view));
+        }
+    });
+
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
     priv->currentTypeFilter_ = priv->accountContainer_->info.profile.type;
     priv->accountContainer_->info.conversationModel->setFilter(text);
@@ -595,68 +730,6 @@ show_general_settings(GtkToggleButton *navbutton, RingMainWindow *win)
     } else {
         general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(priv->general_settings_view), FALSE);
     }
-}
-
-static void
-show_combobox_account_selector(RingMainWindow *self, gboolean show)
-{
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-    /* we only want to show the account selector when there is more than 1 eneabled account; so
-     * every time we want to show it, we should preform this check */
-    gtk_widget_set_visible(priv->combobox_account_selector,
-        show && priv->lrc_->getAccountModel().getAccountList().size() > 1);
-}
-
-static void
-on_account_creation_completed(RingMainWindow *win)
-{
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-
-    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
-
-    /* destroy the wizard */
-    if (priv->account_creation_wizard)
-    {
-        gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), priv->account_creation_wizard);
-        gtk_widget_destroy(priv->account_creation_wizard);
-    }
-
-    /* show the settings button*/
-    gtk_widget_show(priv->ring_settings);
-
-    /* show the account selector */
-    show_combobox_account_selector(win, TRUE);
-
-    /* select the newly created account */
-    // TODO: the new account might not always be the first one; eg: if the user has an existing
-    //       SIP account
-    gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
-}
-
-static void
-show_account_creation_wizard(RingMainWindow *win)
-{
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-
-    if (!priv->account_creation_wizard)
-    {
-        priv->account_creation_wizard = account_creation_wizard_new(false);
-        g_object_add_weak_pointer(G_OBJECT(priv->account_creation_wizard), (gpointer *)&priv->account_creation_wizard);
-        g_signal_connect_swapped(priv->account_creation_wizard, "account-creation-completed", G_CALLBACK(on_account_creation_completed), win);
-
-        gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
-                            priv->account_creation_wizard,
-                            ACCOUNT_CREATION_WIZARD_VIEW_NAME);
-    }
-
-    /* hide settings button until account creation is complete */
-    gtk_widget_hide(priv->ring_settings);
-    show_combobox_account_selector(win, FALSE);
-
-    gtk_widget_show(priv->account_creation_wizard);
-
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->account_creation_wizard);
 }
 
 static void
@@ -1105,6 +1178,8 @@ ring_main_window_dispose(GObject *object)
     QObject::disconnect(priv->newConversationConnection_);
     QObject::disconnect(priv->conversationRemovedConnection_);
     QObject::disconnect(priv->changeAccountConnection_);
+    QObject::disconnect(priv->newAccountConnection_);
+    QObject::disconnect(priv->rmAccountConnection_);
     QObject::disconnect(priv->showCallViewConnection_);
     QObject::disconnect(priv->modelSortedConnection_);
     QObject::disconnect(priv->accountStatusChangedConnection_);
