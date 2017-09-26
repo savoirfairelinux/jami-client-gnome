@@ -305,15 +305,42 @@ conversations_view_class_init(ConversationsViewClass *klass)
 }
 
 GtkWidget *
-conversations_view_new(AccountContainer* accountContainer/* TODO, Type {ALL, CONTACT, PENDING}*/)
+conversations_view_new(AccountContainer* accountContainer)
 {
     auto self = CONVERSATIONS_VIEW(g_object_new(CONVERSATIONS_VIEW_TYPE, NULL));
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
 
     priv->accountContainer_ = accountContainer;
-    /* TODO priv->accountContainer_.info.conversationModel->setFilter(type)*/
 
     build_conversations_view(self);
 
     return (GtkWidget *)self;
+}
+
+void
+conversations_view_select_conversation(ConversationsView *self, const std::string& uid)
+{
+    auto idx = 0;
+    auto model = gtk_tree_view_get_model (GTK_TREE_VIEW(self));
+    auto iterIsCorrect = true;
+    GtkTreeIter iter;
+
+    while(iterIsCorrect) {
+        iterIsCorrect = gtk_tree_model_iter_nth_child (model, &iter, nullptr, idx);
+        if (!iterIsCorrect) {
+            break;
+        }
+        gchar *ringId;
+        gtk_tree_model_get (model, &iter,
+                            0 /* col# */, &ringId /* data */,
+                            -1);
+        if(std::string(ringId) == uid) {
+            auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
+            gtk_tree_selection_select_iter(selection, &iter);
+            g_free(ringId);
+            return;
+        }
+        g_free(ringId);
+        idx++;
+    }
 }

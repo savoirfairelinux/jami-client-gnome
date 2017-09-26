@@ -351,7 +351,6 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     QObject::disconnect(priv->showCallViewConnection_);
     QObject::disconnect(priv->modelSortedConnection_);
     QObject::disconnect(priv->historyClearedConnection_);
-    QObject::disconnect(priv->modelSortedConnection_);
     QObject::disconnect(priv->filterChangedConnection_);
     QObject::disconnect(priv->newConversationConnection_);
     QObject::disconnect(priv->conversationRemovedConnection_);
@@ -401,6 +400,17 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
      &*priv->accountContainer_->info.conversationModel,
      &lrc::api::ConversationModel::modelSorted,
      [win, priv] () {
+         // TODO filter type
+         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+         lrc::api::conversation::Info current_item;
+         current_item.uid = "-1";
+         if (IS_CHAT_VIEW(old_view))
+              current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
+         else if (IS_CURRENT_CALL_VIEW(old_view))
+               current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
+          else if (IS_INCOMING_CALL_VIEW(old_view))
+                current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
+         conversations_view_select_conversation(CONVERSATIONS_VIEW(priv->treeview_conversations), current_item.uid);
          set_pending_contact_request_tab_icon(win);
      });
 
@@ -409,6 +419,15 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
      &lrc::api::ConversationModel::filterChanged,
      [win, priv] () {
          auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+         lrc::api::conversation::Info current_item;
+         current_item.uid = "-1";
+         if (IS_CHAT_VIEW(old_view))
+              current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
+         else if (IS_CURRENT_CALL_VIEW(old_view))
+               current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
+          else if (IS_INCOMING_CALL_VIEW(old_view))
+                current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
+         conversations_view_select_conversation(CONVERSATIONS_VIEW(priv->treeview_conversations), current_item.uid);
          if (IS_CHAT_VIEW(old_view) && chat_view_get_temporary(CHAT_VIEW(old_view)))
             change_view(win, old_view, lrc::api::conversation::Info(), RING_WELCOME_VIEW_TYPE);
      });
@@ -447,7 +466,12 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     &lrc::api::ConversationModel::showChatView,
     [win, priv] (lrc::api::conversation::Info origin) {
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
-        change_view(win, old_view, origin, CHAT_VIEW_TYPE);
+        lrc::api::conversation::Info current_item;
+        current_item.uid = "-1";
+        if (IS_CHAT_VIEW(old_view))
+           current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
+        if (current_item.uid != origin.uid)
+            change_view(win, old_view, origin, CHAT_VIEW_TYPE);
     });
 
     // New call view
