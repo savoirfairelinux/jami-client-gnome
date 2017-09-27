@@ -25,6 +25,7 @@
 // Lrc
 #include <api/conversationmodel.h>
 #include <api/contactmodel.h>
+#include <api/contact.h>
 
 struct _ConversationPopupMenu
 {
@@ -140,7 +141,7 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     auto idx = gtk_tree_path_get_indices(path);
     auto conversation = priv->accountContainer_->info.conversationModel->getConversation(idx[0]);
     priv->row_ = idx[0];
-    auto contact = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
 
     /* we always build a menu, however in some cases some or all of the conversations will be deactivated;
      * we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case
@@ -148,13 +149,13 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     auto place_call_conversation = gtk_menu_item_new_with_mnemonic(_("_Place call"));
     gtk_menu_shell_append(GTK_MENU_SHELL(self), place_call_conversation);
     g_signal_connect(place_call_conversation, "activate", G_CALLBACK(place_call), priv);
-    if (contact.type == lrc::api::contact::Type::TEMPORARY ||
-        contact.type == lrc::api::contact::Type::PENDING) {
+    if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY ||
+        contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING) {
         // If we can add this conversation
         auto add_conversation_conversation = gtk_menu_item_new_with_mnemonic(_("_Add conversation"));
         gtk_menu_shell_append(GTK_MENU_SHELL(self), add_conversation_conversation);
         g_signal_connect(add_conversation_conversation, "activate", G_CALLBACK(add_conversation), priv);
-        if (contact.type == lrc::api::contact::Type::PENDING) {
+        if (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING) {
             auto rm_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Discard invitation"));
             gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_conversation_item);
             g_signal_connect(rm_conversation_item, "activate", G_CALLBACK(remove_conversation), priv);
@@ -176,7 +177,7 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
 
     /* show all conversations */
     gtk_widget_show_all(GTK_WIDGET(self));
-    return contact.uri.empty();
+    return contactInfo.profileInfo.uri.empty();
 
 }
 

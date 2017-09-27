@@ -23,6 +23,7 @@
 // LRC
 #include <api/contactmodel.h>
 #include <api/conversationmodel.h>
+#include <api/contact.h>
 
 // Client
 #include "utils/files.h"
@@ -246,8 +247,8 @@ update_send_invitation(ChatView *self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    auto contact = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants[0]);
-    if(contact.type != lrc::api::contact::Type::TEMPORARY && contact.type != lrc::api::contact::Type::PENDING)
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants[0]);
+    if(contactInfo.profileInfo.type != lrc::api::profile::Type::TEMPORARY && contactInfo.profileInfo.type != lrc::api::profile::Type::PENDING)
         gtk_widget_hide(priv->button_send_invitation);
 }
 
@@ -257,11 +258,11 @@ update_contact_methods(ChatView *self)
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     auto contactUri = priv->conversation_->info.participants.front();
-    auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    if (contact.alias == contact.registeredName) {
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+    if (contactInfo.profileInfo.alias == contactInfo.registeredName) {
         gtk_widget_hide(priv->label_cm);
     } else {
-        gtk_label_set_text(GTK_LABEL(priv->label_cm), contact.registeredName.c_str());
+        gtk_label_set_text(GTK_LABEL(priv->label_cm), contactInfo.registeredName.c_str());
         gtk_widget_show(priv->label_cm);
     }
 
@@ -273,8 +274,8 @@ update_name(ChatView *self)
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     auto contactUri = priv->conversation_->info.participants.front();
-    auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    gtk_label_set_text(GTK_LABEL(priv->label_peer), contact.alias.c_str());
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+    gtk_label_set_text(GTK_LABEL(priv->label_peer), contactInfo.profileInfo.alias.c_str());
 }
 
 static void
@@ -301,14 +302,14 @@ webkit_chat_container_ready(ChatView* self)
     });
 
     auto contactUri = priv->conversation_->info.participants.front();
-    auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    priv->isTemporary_ = contact.type == lrc::api::contact::Type::TEMPORARY || contact.type == lrc::api::contact::Type::PENDING;
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+    priv->isTemporary_ = contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY || contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
     webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                         (contact.type == lrc::api::contact::Type::PENDING),
-                                         contact.alias);
+                                         (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
+                                         contactInfo.profileInfo.alias);
     webkit_chat_disable_send_message(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                     (contact.type == lrc::api::contact::Type::SIP) && priv->conversation_->info.callId.empty());
+                                     (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP) && priv->conversation_->info.callId.empty());
 }
 
 static void
@@ -371,10 +372,10 @@ chat_view_update_temporary(ChatView* self, bool newValue)
     }
     webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
     auto contactUri = priv->conversation_->info.participants.front();
-    auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                         (contact.type == lrc::api::contact::Type::PENDING),
-                                         contact.alias);
+                                         (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
+                                         contactInfo.profileInfo.alias);
 }
 
 bool
