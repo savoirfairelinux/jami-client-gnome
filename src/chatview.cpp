@@ -308,7 +308,7 @@ webkit_chat_container_ready(ChatView* self)
                                          (contact.type == lrc::api::contact::Type::PENDING),
                                          contact.alias);
     webkit_chat_disable_send_message(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                     (contact.type == lrc::api::contact::Type::SIP));
+                                     (contact.type == lrc::api::contact::Type::SIP) && priv->conversation_->info.callId.empty());
 }
 
 static void
