@@ -869,7 +869,7 @@ set_call_info(CurrentCallView *view) {
 
     priv->new_message_connection = QObject::connect(
     &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newUnreadMessage,
-    [priv](const std::string& uid, lrc::api::message::Info msg) {
+    [priv](const std::string& uid, lrc::api::interaction::Info msg) {
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
     });
 

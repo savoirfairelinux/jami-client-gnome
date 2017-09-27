@@ -140,56 +140,56 @@ webview_chat_context_menu(WebKitChatContainer *self,
 }
 
 QString
-message_to_json_message_object(const lrc::api::message::Info& message)
+interaction_to_json_interaction_object(const lrc::api::interaction::Info& interaction)
 {
-    auto sender = QString(message.authorUri.c_str());
-    auto timestamp = QString::number(message.timestamp);
-    auto direction = lrc::api::message::isOutgoing(message) ? QString("out") : QString("in");
+    auto sender = QString(interaction.authorUri.c_str());
+    auto timestamp = QString::number(interaction.timestamp);
+    auto direction = lrc::api::interaction::isOutgoing(interaction) ? QString("out") : QString("in");
 
-    QJsonObject message_object = QJsonObject();
-    message_object.insert("text", QJsonValue(QString(message.body.c_str())));
-    message_object.insert("id", QJsonValue(QString().setNum(0))); // TODO unused?
-    message_object.insert("sender", QJsonValue(sender));
-    message_object.insert("sender_contact_method", QJsonValue(sender));
-    message_object.insert("timestamp", QJsonValue(timestamp));
-    message_object.insert("direction", QJsonValue(direction));
-    switch (message.type)
+    QJsonObject interaction_object = QJsonObject();
+    interaction_object.insert("text", QJsonValue(QString(interaction.body.c_str())));
+    interaction_object.insert("id", QJsonValue(QString().setNum(0))); // TODO unused?
+    interaction_object.insert("sender", QJsonValue(sender));
+    interaction_object.insert("sender_contact_method", QJsonValue(sender));
+    interaction_object.insert("timestamp", QJsonValue(timestamp));
+    interaction_object.insert("direction", QJsonValue(direction));
+    switch (interaction.type)
     {
-    case lrc::api::message::Type::TEXT:
-        message_object.insert("type", QJsonValue("text"));
+    case lrc::api::interaction::Type::TEXT:
+        interaction_object.insert("type", QJsonValue("text"));
         break;
-    case lrc::api::message::Type::CALL:
-        message_object.insert("type", QJsonValue("call"));
+    case lrc::api::interaction::Type::CALL:
+        interaction_object.insert("type", QJsonValue("call"));
         break;
-    case lrc::api::message::Type::CONTACT:
-        message_object.insert("type", QJsonValue("contact"));
+    case lrc::api::interaction::Type::CONTACT:
+        interaction_object.insert("type", QJsonValue("contact"));
         break;
-    case lrc::api::message::Type::INVALID:
+    case lrc::api::interaction::Type::INVALID:
     default:
-        message_object.insert("type", QJsonValue(""));
+        interaction_object.insert("type", QJsonValue(""));
         break;
     }
-    switch (message.status)
+    switch (interaction.status)
     {
-    case lrc::api::message::Status::READ:
-        message_object.insert("delivery_status", QJsonValue("read"));
+    case lrc::api::interaction::Status::READ:
+        interaction_object.insert("delivery_status", QJsonValue("read"));
         break;
-    case lrc::api::message::Status::SUCCEED:
-        message_object.insert("delivery_status", QJsonValue("sent"));
+    case lrc::api::interaction::Status::SUCCEED:
+        interaction_object.insert("delivery_status", QJsonValue("sent"));
         break;
-    case lrc::api::message::Status::FAILED:
-        message_object.insert("delivery_status", QJsonValue("failure"));
+    case lrc::api::interaction::Status::FAILED:
+        interaction_object.insert("delivery_status", QJsonValue("failure"));
         break;
-    case lrc::api::message::Status::SENDING:
-        message_object.insert("delivery_status", QJsonValue("sending"));
+    case lrc::api::interaction::Status::SENDING:
+        interaction_object.insert("delivery_status", QJsonValue("sending"));
         break;
-    case lrc::api::message::Status::INVALID:
+    case lrc::api::interaction::Status::INVALID:
     default:
-        message_object.insert("delivery_status", QJsonValue("unknown"));
+        interaction_object.insert("delivery_status", QJsonValue("unknown"));
         break;
     }
 
-    return QString(QJsonDocument(message_object).toJson(QJsonDocument::Compact));
+    return QString(QJsonDocument(interaction_object).toJson(QJsonDocument::Compact));
 }
 
 #if WEBKIT_CHECK_VERSION(2, 6, 0)
@@ -254,8 +254,8 @@ webview_script_dialog(WebKitWebView      *self,
                       WebKitScriptDialog *dialog,
                       gpointer            user_data)
 {
-    auto message = webkit_script_dialog_get_message(dialog);
-    g_signal_emit(G_OBJECT(self), webkit_chat_container_signals[SCRIPT_DIALOG], 0, message);
+    auto interaction = webkit_script_dialog_get_message(dialog);
+    g_signal_emit(G_OBJECT(self), webkit_chat_container_signals[SCRIPT_DIALOG], 0, interaction);
     return true;
 }
 
@@ -486,7 +486,7 @@ webkit_chat_container_set_display_links(WebKitChatContainer *view, bool display)
 }
 
 void
-webkit_chat_disable_send_message(WebKitChatContainer *view, bool isDisabled)
+webkit_chat_disable_send_interaction(WebKitChatContainer *view, bool isDisabled)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
     gchar* function_call = g_strdup_printf("ring.chatview.disableSendMessage(%s);",
@@ -534,15 +534,15 @@ webkit_chat_container_clear(WebKitChatContainer *view)
 
 
 /**
- * TODO temp method. Just transform messages from database and breaks nothing in chatview.html for now
+ * TODO temp method. Just transform interactions from database and breaks nothing in chatview.html for now
  */
 void
-webkit_chat_container_print_new_message(WebKitChatContainer *view, const lrc::api::message::Info& message)
+webkit_chat_container_print_new_interaction(WebKitChatContainer *view, const lrc::api::interaction::Info& interaction)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    auto message_object = message_to_json_message_object(message).toUtf8();
-    gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", message_object.constData());
+    auto interaction_object = interaction_to_json_interaction_object(interaction).toUtf8();
+    gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", interaction_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,
