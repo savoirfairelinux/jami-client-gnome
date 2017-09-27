@@ -814,6 +814,9 @@ set_call_info(CurrentCallView *view) {
     update_state(view);
     update_details(view);
 
+    // NOTE/TODO we need to rewrite the video_widget file to use the new LRC.
+    g_signal_connect(priv->video_widget, "button-press-event", G_CALLBACK(video_widget_on_button_press_in_screen_event), nullptr);
+
     // check if we already have a renderer
     video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
                                    priv->accountContainer_->info.callModel->getRenderer(priv->conversation_->info.callId),
