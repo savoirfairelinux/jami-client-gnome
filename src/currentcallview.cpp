@@ -77,6 +77,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *togglebutton_muteaudio;
     GtkWidget *togglebutton_mutevideo;
     GtkWidget *togglebutton_hold;
+    GtkWidget *togglebutton_record;
     GtkWidget *button_hangup;
     GtkWidget *scalebutton_quality;
     GtkWidget *checkbutton_autoquality;
@@ -478,6 +479,14 @@ togglebutton_hold_clicked(CurrentCallView *view)
 }
 
 static void
+togglebutton_record_clicked(CurrentCallView *view)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    auto callId = priv->conversation_->info.callId;
+    priv->accountContainer_->info.callModel->toggleAudioRecord(callId);
+}
+
+static void
 togglebutton_muteaudio_clicked(CurrentCallView *view)
 {
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
@@ -549,6 +558,7 @@ insert_controls(CurrentCallView *view)
     g_signal_connect_swapped(priv->button_hangup, "clicked", G_CALLBACK(button_hangup_clicked), view);
     g_signal_connect_swapped(priv->togglebutton_hold, "clicked", G_CALLBACK(togglebutton_hold_clicked), view);
     g_signal_connect_swapped(priv->togglebutton_muteaudio, "clicked", G_CALLBACK(togglebutton_muteaudio_clicked), view);
+    g_signal_connect_swapped(priv->togglebutton_record, "clicked", G_CALLBACK(togglebutton_record_clicked), view);
     g_signal_connect_swapped(priv->togglebutton_mutevideo, "clicked", G_CALLBACK(togglebutton_mutevideo_clicked), view);
 
     /* connect to the mouse motion event to reset the last moved time */
@@ -653,6 +663,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_hold);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_muteaudio);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_record);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_mutevideo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scalebutton_quality);
