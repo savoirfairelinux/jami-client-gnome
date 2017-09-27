@@ -52,6 +52,8 @@ struct _ConversationsViewPrivate
 {
     AccountContainer* accountContainer_;
 
+    GtkWidget* popupMenu_;
+
     QMetaObject::Connection selection_updated;
     QMetaObject::Connection layout_changed;
     QMetaObject::Connection modelSortedConnection_;
@@ -181,6 +183,14 @@ call_conversation(GtkTreeView *self,
 static void
 select_conversation(GtkTreeSelection *selection, ConversationsView *self)
 {
+    // Update popupMenu_
+    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
+    if (priv->popupMenu_) {
+        // Because popup menu is not up to date.
+        gtk_widget_hide(priv->popupMenu_);
+        gtk_widget_destroy(priv->popupMenu_);
+        priv->popupMenu_ = conversation_popup_menu_new(GTK_TREE_VIEW(self), priv->accountContainer_);
+    }
     GtkTreeIter iter;
     GtkTreeModel *model = nullptr;
     gchar *conversationUid = nullptr;
@@ -190,7 +200,6 @@ select_conversation(GtkTreeSelection *selection, ConversationsView *self)
     gtk_tree_model_get(model, &iter,
                        0, &conversationUid,
                        -1);
-    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
     priv->accountContainer_->info.conversationModel->selectConversation(std::string(conversationUid));
 }
 
@@ -204,8 +213,7 @@ static void
 show_popup_menu(ConversationsView *self, GdkEventButton *event)
 {
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
-    auto popup_menu = conversation_popup_menu_new(GTK_TREE_VIEW(self), priv->accountContainer_);
-    conversation_popup_menu_show(CONVERSATION_POPUP_MENU(popup_menu), event);
+    conversation_popup_menu_show(CONVERSATION_POPUP_MENU(priv->popupMenu_), event);
 }
 
 static void
@@ -273,6 +281,7 @@ build_conversations_view(ConversationsView *self)
     g_signal_connect(selectionNew, "changed", G_CALLBACK(select_conversation), self);
     g_signal_connect(self, "row-activated", G_CALLBACK(call_conversation), NULL);
 
+    priv->popupMenu_ = conversation_popup_menu_new(GTK_TREE_VIEW(self), priv->accountContainer_);
     g_signal_connect_swapped(self, "button-press-event", G_CALLBACK(show_popup_menu), self);
 }
 

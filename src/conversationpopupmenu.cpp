@@ -124,7 +124,7 @@ place_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 /**
  * Update the menu when the selected conversation in the treeview changes.
  */
-static bool
+static void
 update(GtkTreeSelection *selection, ConversationPopupMenu *self)
 {
     ConversationPopupMenuPrivate *priv = CONVERSATION_POPUP_MENU_GET_PRIVATE(self);
@@ -135,7 +135,7 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     GtkTreeIter iter;
     GtkTreeModel *model;
     if (!gtk_tree_selection_get_selected(selection, &model, &iter)) {
-        return true;
+        return;
     }
     auto path = gtk_tree_model_get_path(model, &iter);
     auto idx = gtk_tree_path_get_indices(path);
@@ -177,7 +177,6 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
 
     /* show all conversations */
     gtk_widget_show_all(GTK_WIDGET(self));
-    return contactInfo.profileInfo.uri.empty();
 
 }
 
@@ -218,19 +217,19 @@ conversation_popup_menu_new (GtkTreeView *treeview, AccountContainer* accountCon
     GtkTreeSelection *selection = gtk_tree_view_get_selection(priv->treeview);
 
     // build the menu for the first time
-    auto isEmpty = update(selection, CONVERSATION_POPUP_MENU(self));
+    update(selection, CONVERSATION_POPUP_MENU(self));
 
-    return isEmpty? nullptr : (GtkWidget *)self;
+    return (GtkWidget *)self;
 }
 
 gboolean
 conversation_popup_menu_show(ConversationPopupMenu *self, GdkEventButton *event)
 {
     if (!self) return GDK_EVENT_PROPAGATE;
-    // Check if the right click is on a valid element
+    // Update if right click
     if (event->type == GDK_BUTTON_PRESS
         && event->button == GDK_BUTTON_SECONDARY) {
-        // the menu will automatically get updated when the selection changes
+        // Show popup menu
         gtk_menu_popup(GTK_MENU(self), NULL, NULL, NULL, NULL, event->button, event->time);
     }
 
