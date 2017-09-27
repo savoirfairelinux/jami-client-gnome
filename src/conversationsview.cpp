@@ -26,6 +26,7 @@
 #include <globalinstances.h>
 #include <api/conversationmodel.h>
 #include <api/contactmodel.h>
+#include <api/contact.h>
 
 // Gnome client
 #include "native/pixbufmanipulator.h"
@@ -149,14 +150,14 @@ create_and_fill_model(ConversationsView *self)
     for (auto conversation : priv->accountContainer_->info.conversationModel->getFilteredConversations()) {
         if (conversation.participants.empty()) break; // Should not
         auto contactUri = conversation.participants.front();
-        auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
         auto lastMessage = conversation.messages.empty() ? "" :
             conversation.messages.at(conversation.lastMessageUid).body;
         gtk_list_store_append (store, &iter);
         gtk_list_store_set (store, &iter,
             0 /* col # */ , conversation.uid.c_str() /* celldata */,
-            1 /* col # */ , contact.alias.c_str() /* celldata */,
-            2 /* col # */ , contact.avatar.c_str() /* celldata */,
+            1 /* col # */ , contactInfo.profileInfo.alias.c_str() /* celldata */,
+            2 /* col # */ , contactInfo.profileInfo.avatar.c_str() /* celldata */,
             3 /* col # */ , lastMessage.c_str() /* celldata */,
             -1 /* end */);
     }

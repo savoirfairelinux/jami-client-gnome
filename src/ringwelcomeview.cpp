@@ -76,21 +76,21 @@ ring_welcome_update_view(RingWelcomeView* self, AccountContainer* accountContain
         return;
 
     gchar *ring_id = nullptr;
-    if(! priv->accountContainer_->info.profile.registeredName.empty()){
+    if(! priv->accountContainer_->info.registeredName.empty()){
         gtk_label_set_text(
             GTK_LABEL(priv->label_explanation),
             _("This is your Ring username.\nCopy and share it with your friends!")
         );
         ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">ring:%s</span>",
-                                          priv->accountContainer_->info.profile.registeredName.c_str());
+                                          priv->accountContainer_->info.registeredName.c_str());
     }
-    else if (!priv->accountContainer_->info.profile.alias.empty()) {
+    else if (!priv->accountContainer_->info.profileInfo.alias.empty()) {
         gtk_label_set_text(
             GTK_LABEL(priv->label_explanation),
             C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!")
         );
         ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
-                                          priv->accountContainer_->info.profile.alias.c_str());
+                                          priv->accountContainer_->info.profileInfo.alias.c_str());
     } else {
         gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
         ring_id = g_markup_printf_escaped("<span fgcolor=\"gray\">%s</span>",

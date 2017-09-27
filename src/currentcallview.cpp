@@ -30,6 +30,7 @@
 #include <video/previewmanager.h>
 #include <globalinstances.h>
 #include <smartinfohub.h>
+#include <api/contact.h>
 
 #include "chatview.h"
 #include "native/pixbufmanipulator.h"
@@ -673,7 +674,7 @@ update_state(CurrentCallView *view)
     auto callId = priv->conversation_->info.callId;
     auto call = priv->accountContainer_->info.callModel->getCall(callId);
 
-    gchar *status = g_strdup_printf("%s", lrc::api::NewCallModel::humanReadableStatus(call.status).c_str());
+    gchar *status = g_strdup_printf("%s", lrc::api::call::StatusToString(call.status).c_str());
     gtk_label_set_text(GTK_LABEL(priv->label_status), status);
     g_free(status);
 }
@@ -692,12 +693,12 @@ update_name_and_photo(CurrentCallView *view)
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
 
-    auto contact = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants.front());
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants.front());
 
-    auto name = contact.alias;
+    auto name = contactInfo.profileInfo.alias;
     gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
 
-    auto bestId = contact.registeredName;
+    auto bestId = contactInfo.registeredName;
     if (name != bestId) {
         gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.c_str());
         gtk_widget_show(priv->label_bestId);

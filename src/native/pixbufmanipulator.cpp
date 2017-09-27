@@ -34,6 +34,7 @@
 #include <api/contactmodel.h>
 #include <api/conversation.h>
 #include <api/account.h>
+#include <api/contact.h>
 #include <iostream>
 
 
@@ -242,16 +243,16 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
     {
         // Get first contact photo
         auto contactUri = contacts.front();
-        auto contact = accountInfo.contactModel->getContact(contactUri);
-        auto contactPhoto = contact.avatar;
-        if (contact.type == lrc::api::contact::Type::SIP) {
-            return QVariant::fromValue(scaleAndFrame(generateAvatar(contact.alias, "").get(), size, displayPresence, true));
+        auto contactInfo = accountInfo.contactModel->getContact(contactUri);
+        auto contactPhoto = contactInfo.profileInfo.avatar;
+        if (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP) {
+            return QVariant::fromValue(scaleAndFrame(generateAvatar(contactInfo.profileInfo.alias, "").get(), size, displayPresence, true));
         } else if (!contactPhoto.empty()) {
             QByteArray byteArray(contactPhoto.c_str(), contactPhoto.length());
             QVariant photo = personPhoto(byteArray);
             return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, true));
         } else {
-            return QVariant::fromValue(scaleAndFrame(generateAvatar(contact.alias, contact.uri).get(), size, displayPresence, true));
+            return QVariant::fromValue(scaleAndFrame(generateAvatar(contactInfo.profileInfo.alias, contactInfo.profileInfo.uri).get(), size, displayPresence, true));
         }
     }
     // should not

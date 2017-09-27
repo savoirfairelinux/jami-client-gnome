@@ -32,9 +32,11 @@
 #include "chatview.h"
 #include "utils/files.h"
 
+// lrc
 #include <api/newcallmodel.h>
 #include <api/contactmodel.h>
 #include <api/conversationmodel.h>
+#include <api/contact.h>
 
 struct _IncomingCallView
 {
@@ -123,7 +125,7 @@ accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
     auto contactUri = priv->conversation_->info.participants[0];
     auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    if (contact.type == lrc::api::contact::Type::PENDING) {
+    if (contact.profileInfo.type == lrc::api::profile::Type::PENDING) {
         priv->accountContainer_->info.conversationModel->addConversation(contactUri);
     }
     priv->accountContainer_->info.callModel->accept(priv->conversation_->info.callId);
@@ -192,7 +194,7 @@ update_state(IncomingCallView *view)
     auto callId = priv->conversation_->info.callId;
     auto call = priv->accountContainer_->info.callModel->getCall(callId);
 
-    gchar *status = g_strdup_printf("%s", lrc::api::NewCallModel::humanReadableStatus(call.status).c_str());
+    gchar *status = g_strdup_printf("%s", lrc::api::call::StatusToString(call.status).c_str());
     gtk_label_set_text(GTK_LABEL(priv->label_status), status);
     g_free(status);
 
@@ -237,12 +239,12 @@ update_name_and_photo(IncomingCallView *view)
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), image.get());
 
-    auto contact = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants.front());
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants.front());
 
-    auto name = contact.alias;
+    auto name = contactInfo.profileInfo.alias;
     gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
 
-    auto bestId = contact.registeredName;
+    auto bestId = contactInfo.registeredName;
     if (name != bestId) {
         gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.c_str());
         gtk_widget_show(priv->label_bestId);

@@ -127,7 +127,7 @@ struct _RingMainWindowPrivate
     std::unique_ptr<lrc::api::Lrc> lrc_;
     AccountContainer* accountContainer_;
     ConversationContainer* chatViewConversation_;
-    lrc::api::contact::Type currentTypeFilter_;
+    lrc::api::profile::Type currentTypeFilter_;
 
     QMetaObject::Connection showChatViewConnection_;
     QMetaObject::Connection showCallViewConnection_;
@@ -210,7 +210,7 @@ set_pending_contact_request_tab_icon(RingMainWindow* self)
     if (not priv->accountContainer_ )
         return;
 
-    bool is_ring = priv->accountContainer_->info.profile.type == lrc::api::contact::Type::RING;;
+    bool is_ring = priv->accountContainer_->info.profileInfo.type == lrc::api::profile::Type::RING;;
     gtk_widget_set_visible(priv->scrolled_window_contact_requests, is_ring);
 
     if (not is_ring)
@@ -450,7 +450,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
             }
             // Not found in classic contact, test pendings
             gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), 1);
-            priv->accountContainer_->info.conversationModel->setFilter(lrc::api::contact::Type::PENDING);
+            priv->accountContainer_->info.conversationModel->setFilter(lrc::api::profile::Type::PENDING);
             for (const auto& c : priv->accountContainer_->info.conversationModel->getFilteredConversations()) {
                 if (c.participants.front() == contactUri) {
                     priv->accountContainer_->info.conversationModel->selectConversation(c.uid);
@@ -462,7 +462,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     });
 
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
-    priv->currentTypeFilter_ = priv->accountContainer_->info.profile.type;
+    priv->currentTypeFilter_ = priv->accountContainer_->info.profileInfo.type;
     priv->accountContainer_->info.conversationModel->setFilter(text);
     priv->accountContainer_->info.conversationModel->setFilter(priv->currentTypeFilter_);
 }
@@ -776,7 +776,7 @@ tab_changed(G_GNUC_UNUSED GtkNotebook* notebook,
             RingMainWindow* self)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-    auto newType = page_num == 0 ? priv->accountContainer_->info.profile.type : lrc::api::contact::Type::PENDING;
+    auto newType = page_num == 0 ? priv->accountContainer_->info.profileInfo.type : lrc::api::profile::Type::PENDING;
     if (priv->currentTypeFilter_ != newType) {
         priv->currentTypeFilter_ = newType;
         priv->accountContainer_->info.conversationModel->setFilter(priv->currentTypeFilter_);
@@ -1048,12 +1048,12 @@ ring_main_window_init(RingMainWindow *win)
 
     // TODO listend for add/remove account
     for (const auto& accountId : accountIds) {
-        const auto& account = priv->lrc_->getAccountModel().getAccountInfo(accountId);
-        if (account.enabled) {
+        const auto& accountInfo = priv->lrc_->getAccountModel().getAccountInfo(accountId);
+        if (accountInfo.enabled) {
             gtk_list_store_append (store, &iter);
             gtk_list_store_set (store, &iter,
             0 /* col # */ , accountId.c_str() /* celldata */,
-            1 /* col # */ , account.profile.alias.c_str() /* celldata */,
+            1 /* col # */ , accountInfo.profileInfo.alias.c_str() /* celldata */,
             -1 /* end */);
         }
     }
