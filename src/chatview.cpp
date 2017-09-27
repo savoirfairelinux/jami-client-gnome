@@ -58,8 +58,8 @@ struct _ChatViewPrivate
     AccountContainer* accountContainer_;
     bool isTemporary_;
 
-    QMetaObject::Connection new_message_connection;
-    QMetaObject::Connection message_changed_connection;
+    QMetaObject::Connection new_interaction_connection;
+    QMetaObject::Connection interaction_changed_connection;
     QMetaObject::Connection update_send_invitation;
 
     gulong webkit_ready;
@@ -87,8 +87,8 @@ chat_view_dispose(GObject *object)
     view = CHAT_VIEW(object);
     priv = CHAT_VIEW_GET_PRIVATE(view);
 
-    QObject::disconnect(priv->new_message_connection);
-    QObject::disconnect(priv->message_changed_connection);
+    QObject::disconnect(priv->new_interaction_connection);
+    QObject::disconnect(priv->interaction_changed_connection);
     QObject::disconnect(priv->update_send_invitation);
 
     /* Destroying the box will also destroy its children, and we wouldn't
@@ -144,10 +144,10 @@ button_send_invitation_clicked(ChatView *self)
 }
 
 static void
-webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *message, ChatView* self)
+webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *interaction, ChatView* self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    auto order = std::string(message);
+    auto order = std::string(interaction);
     if (order == "ACCEPT") {
         priv->accountContainer_->info.conversationModel->addConversation(priv->conversation_->info.uid);
     } else if (order == "REFUSE") {
@@ -191,7 +191,7 @@ chat_view_class_init(ChatViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_send_invitation);
 
     chat_view_signals[NEW_MESSAGES_DISPLAYED] = g_signal_new (
-        "new-messages-displayed",
+        "new-interactions-displayed",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
         0,
@@ -212,11 +212,11 @@ chat_view_class_init(ChatViewClass *klass)
 }
 
 static void
-print_message_to_buffer(ChatView* self, const lrc::api::message::Info& msg)
+print_interaction_to_buffer(ChatView* self, const lrc::api::interaction::Info& msg)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    webkit_chat_container_print_new_message(
+    webkit_chat_container_print_new_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
         msg
     );
@@ -234,12 +234,12 @@ print_text_recording(ChatView *self)
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    for (const auto& msg : priv->conversation_->info.messages)
+    for (const auto& msg : priv->conversation_->info.interactions)
     {
-        print_message_to_buffer(self, msg.second);
+        print_interaction_to_buffer(self, msg.second);
     }
 
-    QObject::disconnect(priv->new_message_connection);
+    QObject::disconnect(priv->new_interaction_connection);
 }
 
 static void
@@ -293,11 +293,11 @@ webkit_chat_container_ready(ChatView* self)
     display_links_toggled(self);
     print_text_recording(self);
 
-    priv->new_message_connection = QObject::connect(
+    priv->new_interaction_connection = QObject::connect(
     &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newUnreadMessage,
-    [self, priv](const std::string& uid, lrc::api::message::Info msg) {
+    [self, priv](const std::string& uid, lrc::api::interaction::Info msg) {
         if(uid == priv->conversation_->info.uid) {
-            print_message_to_buffer(self, msg);
+            print_interaction_to_buffer(self, msg);
         }
     });
 
@@ -308,7 +308,7 @@ webkit_chat_container_ready(ChatView* self)
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                          (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
                                          contactInfo.profileInfo.alias);
-    webkit_chat_disable_send_message(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+    webkit_chat_disable_send_interaction(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                      (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP) && priv->conversation_->info.callId.empty());
 }
 

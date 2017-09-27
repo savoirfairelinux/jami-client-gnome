@@ -150,8 +150,8 @@ create_and_fill_model(ConversationsView *self)
         if (conversation.participants.empty()) break; // Should not
         auto contactUri = conversation.participants.front();
         auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
-        auto lastMessage = conversation.messages.empty() ? "" :
-            conversation.messages.at(conversation.lastMessageUid).body;
+        auto lastMessage = conversation.interactions.empty() ? "" :
+            conversation.interactions.at(conversation.lastMessageUid).body;
         gtk_list_store_append (store, &iter);
         gtk_list_store_set (store, &iter,
             0 /* col # */ , conversation.uid.c_str() /* celldata */,
