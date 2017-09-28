@@ -516,14 +516,6 @@ pre {
   display: none;
 }
 
-/* NOTE: This rule is temporary to deactivate status for message while the
-   patch for re-implementing status for interactions is not in LRC */
-.message_delivery_status
-{
-  visibility: hidden;
-  display: none;
-}
-
 .message_type_contact .message_wrapper:before,
 .message_type_call .message_wrapper:before {
     display: none;
