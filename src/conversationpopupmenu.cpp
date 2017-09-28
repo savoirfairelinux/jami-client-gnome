@@ -59,7 +59,7 @@ remove_history_conversation(GtkWidget *menu, ConversationPopupMenuPrivate* priv)
         auto conversation = priv->accountContainer_->info.conversationModel->getConversation(priv->row_);
         priv->accountContainer_->info.conversationModel->clearHistory(conversation.uid);
     }
-    catch (const std::exception&)
+    catch (...)
     {
         g_warning("Can't get conversation at row %i", priv->row_);
     }
@@ -73,7 +73,7 @@ remove_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate*
         auto conversationUid = priv->accountContainer_->info.conversationModel->getConversation(priv->row_).uid;
         priv->accountContainer_->info.conversationModel->removeConversation(conversationUid);
     }
-    catch (const std::exception&)
+    catch (...)
     {
         g_warning("Can't get conversation at row %i", priv->row_);
     }
@@ -87,7 +87,7 @@ block_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* 
         auto conversationUid = priv->accountContainer_->info.conversationModel->getConversation(priv->row_).uid;
         priv->accountContainer_->info.conversationModel->removeConversation(conversationUid, true);
     }
-    catch (const std::exception&)
+    catch (...)
     {
         g_warning("Can't get conversation at row %i", priv->row_);
     }
@@ -101,7 +101,7 @@ add_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
         auto conversation = priv->accountContainer_->info.conversationModel->getConversation(priv->row_);
         priv->accountContainer_->info.conversationModel->addConversation(conversation.uid);
     }
-    catch (const std::exception&)
+    catch (...)
     {
         g_warning("Can't get conversation at row %i", priv->row_);
     }
@@ -115,7 +115,7 @@ place_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
         auto conversation = priv->accountContainer_->info.conversationModel->getConversation(priv->row_);
         priv->accountContainer_->info.conversationModel->placeCall(conversation.uid);
     }
-    catch (const std::exception&)
+    catch (...)
     {
         g_warning("Can't get conversation at row %i", priv->row_);
     }
@@ -143,9 +143,8 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     priv->row_ = idx[0];
     auto contactInfo = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
 
-    /* we always build a menu, however in some cases some or all of the conversations will be deactivated;
-     * we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case
-     */
+    // we always build a menu, however in some cases some or all of the conversations will be deactivated
+    // we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case
     auto place_call_conversation = gtk_menu_item_new_with_mnemonic(_("_Place call"));
     gtk_menu_shell_append(GTK_MENU_SHELL(self), place_call_conversation);
     g_signal_connect(place_call_conversation, "activate", G_CALLBACK(place_call), priv);
@@ -226,10 +225,9 @@ gboolean
 conversation_popup_menu_show(ConversationPopupMenu *self, GdkEventButton *event)
 {
     if (!self) return GDK_EVENT_PROPAGATE;
-    // Update if right click
     if (event->type == GDK_BUTTON_PRESS
         && event->button == GDK_BUTTON_SECONDARY) {
-        // Show popup menu
+        // Show popup menu. Will be updated later.
         gtk_menu_popup(GTK_MENU(self), NULL, NULL, NULL, NULL, event->button, event->time);
     }
 

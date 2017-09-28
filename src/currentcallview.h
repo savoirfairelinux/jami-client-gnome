@@ -1,6 +1,8 @@
 /*
  *  Copyright (C) 2015-2017 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
+ *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,15 +19,12 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef _CURRENTCALLVIEW_H
-#define _CURRENTCALLVIEW_H
+#pragma once
 
 #include <gtk/gtk.h>
 #include "accountcontainer.h"
 #include "conversationcontainer.h"
 #include "webkitchatcontainer.h"
-
-class Call;
 
 G_BEGIN_DECLS
 
@@ -40,9 +39,9 @@ typedef struct _CurrentCallViewClass CurrentCallViewClass;
 
 
 GType      current_call_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *current_call_view_new           (WebKitChatContainer* view, AccountContainer* accountContainer, ConversationContainer* conversationContainer);
+GtkWidget *current_call_view_new           (WebKitChatContainer* view,
+                                           AccountContainer* accountContainer,
+                                           ConversationContainer* conversationContainer);
 lrc::api::conversation::Info current_call_view_get_conversation(CurrentCallView*);
 
 G_END_DECLS
-
-#endif /* _CURRENTCALLVIEW_H */

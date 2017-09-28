@@ -19,20 +19,23 @@
 
 #include "currentcallview.h"
 
+// Gtk
 #include <clutter-gtk/clutter-gtk.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 
+// Lrc
 #include <account.h>
-#include <api/newcallmodel.h>
 #include <api/conversationmodel.h>
+#include <api/contact.h>
 #include <api/contactmodel.h>
+#include <api/newcallmodel.h>
 #include <codecmodel.h>
-#include <video/previewmanager.h>
 #include <globalinstances.h>
 #include <smartinfohub.h>
-#include <api/contact.h>
+#include <video/previewmanager.h>
 
+// Client
 #include "chatview.h"
 #include "native/pixbufmanipulator.h"
 #include "ringnotify.h"
@@ -163,13 +166,10 @@ muteaudio_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
 
-    if (gtk_toggle_button_get_active(togglebutton)) {
-        auto image_down = gtk_image_new_from_resource ("/cx/ring/RingGnome/unmute_audio");
-        gtk_button_set_image(GTK_BUTTON(togglebutton), image_down);
-    } else {
-        auto image_up = gtk_image_new_from_resource ("/cx/ring/RingGnome/mute_audio");
-        gtk_button_set_image(GTK_BUTTON(togglebutton), image_up);
-    }
+    auto image = gtk_image_new_from_resource ("/cx/ring/RingGnome/mute_audio");
+    if (gtk_toggle_button_get_active(togglebutton))
+        image = gtk_image_new_from_resource ("/cx/ring/RingGnome/unmute_audio");
+    gtk_button_set_image(GTK_BUTTON(togglebutton), image);
 }
 
 static void
@@ -177,13 +177,10 @@ mutevideo_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
 
-    if (gtk_toggle_button_get_active(togglebutton)) {
-        auto image_down = gtk_image_new_from_resource ("/cx/ring/RingGnome/unmute_video");
-        gtk_button_set_image(GTK_BUTTON(togglebutton), image_down);
-    } else {
-        auto image_up = gtk_image_new_from_resource ("/cx/ring/RingGnome/mute_video");
-        gtk_button_set_image(GTK_BUTTON(togglebutton), image_up);
-    }
+    auto image = gtk_image_new_from_resource ("/cx/ring/RingGnome/mute_video");
+    if (gtk_toggle_button_get_active(togglebutton))
+        image = gtk_image_new_from_resource ("/cx/ring/RingGnome/unmute_video");
+    gtk_button_set_image(GTK_BUTTON(togglebutton), image);
 }
 
 static void
@@ -362,15 +359,12 @@ set_quality(Call *call, gboolean auto_quality_on, double desired_quality)
             const auto& idx = videoCodecs->index(i,0);
 
             if (auto_quality_on) {
-                // g_debug("enable auto quality");
                 videoCodecs->setData(idx, "true", CodecModel::Role::AUTO_QUALITY_ENABLED);
             } else {
                 auto min_bitrate = idx.data(static_cast<int>(CodecModel::Role::MIN_BITRATE)).toInt();
                 auto max_bitrate = idx.data(static_cast<int>(CodecModel::Role::MAX_BITRATE)).toInt();
                 auto min_quality = idx.data(static_cast<int>(CodecModel::Role::MIN_QUALITY)).toInt();
                 auto max_quality = idx.data(static_cast<int>(CodecModel::Role::MAX_QUALITY)).toInt();
-
-                // g_debug("bitrate min: %d, max: %d, quality min: %d, max: %d", min_bitrate, max_bitrate, min_quality, max_quality);
 
                 double bitrate;
                 bitrate = min_bitrate + (double)(max_bitrate - min_bitrate)*(desired_quality/100.0);
@@ -381,7 +375,6 @@ set_quality(Call *call, gboolean auto_quality_on, double desired_quality)
                 quality = (double)min_quality - (min_quality - max_quality)*(desired_quality/100.0);
                 if (quality < 0) quality = 0;
 
-                // g_debug("disable auto quality; %% quality: %d; bitrate: %d; quality: %d", (int)desired_quality, (int)bitrate, (int)quality);
                 videoCodecs->setData(idx, "false", CodecModel::Role::AUTO_QUALITY_ENABLED);
                 videoCodecs->setData(idx, QString::number((int)bitrate), CodecModel::Role::BITRATE);
                 videoCodecs->setData(idx, QString::number((int)quality), CodecModel::Role::QUALITY);
@@ -394,6 +387,7 @@ set_quality(Call *call, gboolean auto_quality_on, double desired_quality)
 static void
 autoquality_toggled(GtkToggleButton *button, CurrentCallView *self)
 {
+    // TODO
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
@@ -406,15 +400,12 @@ autoquality_toggled(GtkToggleButton *button, CurrentCallView *self)
     gtk_widget_set_sensitive(GTK_WIDGET(scale), !auto_quality_on);
     gtk_widget_set_sensitive(plus_button, !auto_quality_on);
     gtk_widget_set_sensitive(minus_button, !auto_quality_on);
-
-    double desired_quality = gtk_scale_button_get_value(GTK_SCALE_BUTTON(priv->scalebutton_quality));
-
-    // TODO
 }
 
 static void
 quality_changed(GtkScaleButton *button, G_GNUC_UNUSED gdouble value, CurrentCallView *self)
 {
+    // TODO
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
@@ -423,10 +414,6 @@ quality_changed(GtkScaleButton *button, G_GNUC_UNUSED gdouble value, CurrentCall
 
     /* only update if the scale button is released, to reduce the number of updates */
     if (priv->quality_scale_pressed) return;
-
-    /* we get the value directly from the widget, in case this function is not
-     * called from the event */
-    // TODO
 }
 
 static gboolean
@@ -434,7 +421,6 @@ quality_button_pressed(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent *
 {
     g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), FALSE);
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-
     priv->quality_scale_pressed = TRUE;
 
     return GDK_EVENT_PROPAGATE;
@@ -445,7 +431,6 @@ quality_button_released(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent 
 {
     g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), FALSE);
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-
     priv->quality_scale_pressed = FALSE;
 
     // now make sure the quality gets updated
@@ -469,13 +454,10 @@ togglebutton_hold_clicked(CurrentCallView *view)
     auto callId = priv->conversation_->info.callId;
     priv->accountContainer_->info.callModel->togglePause(callId);
     auto pauseBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_hold);
-    if (gtk_toggle_button_get_active(pauseBtn)) {
-        auto image_down = gtk_image_new_from_resource ("/cx/ring/RingGnome/play");
-        gtk_button_set_image(GTK_BUTTON(pauseBtn), image_down);
-    } else {
-        auto image_up = gtk_image_new_from_resource ("/cx/ring/RingGnome/pause");
-        gtk_button_set_image(GTK_BUTTON(pauseBtn), image_up);
-    }
+    auto image = gtk_image_new_from_resource ("/cx/ring/RingGnome/pause");
+    if (gtk_toggle_button_get_active(pauseBtn))
+        auto image = gtk_image_new_from_resource ("/cx/ring/RingGnome/play");
+    gtk_button_set_image(GTK_BUTTON(pauseBtn), image);
 }
 
 static void
