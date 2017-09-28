@@ -254,6 +254,23 @@ print_text_recording(ChatView *self)
         print_interaction_to_buffer(self, msg.first, msg.second);
     }
 
+    auto contact = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants[0]);
+    if (!contact.profileInfo.avatar.empty()) {
+        webkit_chat_container_set_sender_image(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            priv->accountContainer_->info.contactModel->getContactProfileId(priv->conversation_->info.participants[0]),
+            contact.profileInfo.avatar
+        );
+    }
+
+    if (!priv->accountContainer_->info.profileInfo.avatar.empty()) {
+        webkit_chat_container_set_sender_image(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            priv->accountContainer_->info.contactModel->getContactProfileId(priv->accountContainer_->info.profileInfo.uri),
+            priv->accountContainer_->info.profileInfo.avatar
+        );
+    }
+
     QObject::disconnect(priv->new_interaction_connection);
 }
 

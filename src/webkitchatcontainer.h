@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2016-2017 Savoir-faire Linux Inc.
  *  Author: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
+ *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,9 +26,6 @@
 // LRC
 #include <api/interaction.h>
 
-class QVariant;
-class ContactMethod;
-
 G_BEGIN_DECLS
 
 #define WEBKIT_CHAT_CONTAINER_TYPE            (webkit_chat_container_get_type ())
@@ -39,17 +37,17 @@ G_BEGIN_DECLS
 typedef struct _WebKitChatContainer      WebKitChatContainer;
 typedef struct _WebKitChatContainerClass WebKitChatContainerClass;
 
-GType      webkit_chat_container_get_type            (void) G_GNUC_CONST;
-GtkWidget* webkit_chat_container_new                 (void);
-void       webkit_chat_container_clear               (WebKitChatContainer *view);
-void       webkit_chat_container_clear_sender_images (WebKitChatContainer *view);
+GType      webkit_chat_container_get_type             (void) G_GNUC_CONST;
+GtkWidget* webkit_chat_container_new                  (void);
+void       webkit_chat_container_clear                (WebKitChatContainer *view);
+void       webkit_chat_container_clear_sender_images  (WebKitChatContainer *view);
 void       webkit_chat_container_print_new_interaction(WebKitChatContainer *view, uint64_t msgId, const lrc::api::interaction::Info& interaction);
-void       webkit_chat_container_update_interaction(WebKitChatContainer *view, uint64_t msgId, const lrc::api::interaction::Info& interaction);
-void       webkit_chat_container_set_sender_image    (WebKitChatContainer *view, ContactMethod *sender_contact_method, QVariant sender_image);
-gboolean   webkit_chat_container_is_ready            (WebKitChatContainer *view);
-void       webkit_chat_container_set_display_links   (WebKitChatContainer *view, bool display);
-void       webkit_chat_disable_send_interaction          (WebKitChatContainer *view, bool isDisabled);
-void       webkit_chat_container_set_temporary       (WebKitChatContainer *view, bool temporary);
-void       webkit_chat_container_set_invitation      (WebKitChatContainer *view, bool show, const std::string& contactUri);
+void       webkit_chat_container_update_interaction   (WebKitChatContainer *view, uint64_t msgId, const lrc::api::interaction::Info& interaction);
+void       webkit_chat_container_set_sender_image     (WebKitChatContainer *view, const std::string& sender, const std::string& senderImage);
+gboolean   webkit_chat_container_is_ready             (WebKitChatContainer *view);
+void       webkit_chat_container_set_display_links    (WebKitChatContainer *view, bool display);
+void       webkit_chat_disable_send_interaction       (WebKitChatContainer *view, bool isDisabled);
+void       webkit_chat_container_set_temporary        (WebKitChatContainer *view, bool temporary);
+void       webkit_chat_container_set_invitation       (WebKitChatContainer *view, bool show, const std::string& contactUri);
 
 G_END_DECLS
