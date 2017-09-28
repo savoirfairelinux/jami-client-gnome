@@ -29,6 +29,10 @@ class Person;
 
 namespace Interfaces {
 
+/**
+ * TODO remove old methods (methods which use Call, ContactMethod, Person, etc)
+ * But before, they should be removed from PixmapManipulatorI
+ */
 class PixbufManipulator : public PixmapManipulatorI {
     constexpr static int FALLBACK_AVATAR_SIZE {100};
 public:
@@ -43,7 +47,6 @@ public:
     QVariant contactPhoto(Person* c, const QSize& size, bool displayPresence = true) override;
     QVariant personPhoto(const QByteArray& data, const QString& type = "PNG") override;
 
-    /* TODO: the following methods return an empty QVariant/QByteArray */
     QVariant   numberCategoryIcon(const QVariant& p, const QSize& size, bool displayPresence = false, bool isPresent = false) override;
     QVariant   securityIssueIcon(const QModelIndex& index) override;
     QByteArray toByteArray(const QVariant& pxm) override;

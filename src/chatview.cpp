@@ -243,6 +243,8 @@ set_participant_images(ChatView* self)
     // TODO
 }
 
+#include <iostream>
+
 static void
 print_text_recording(ChatView *self)
 {
@@ -252,6 +254,15 @@ print_text_recording(ChatView *self)
     for (const auto& msg : priv->conversation_->info.interactions)
     {
         print_interaction_to_buffer(self, msg.first, msg.second);
+    }
+
+    auto contact = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants[0]);
+    if (!contact.profileInfo.avatar.empty()) {
+        webkit_chat_container_set_sender_image(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            "7", // TODO get profile ID from db
+            contact.profileInfo.avatar
+        );
     }
 
     QObject::disconnect(priv->new_interaction_connection);

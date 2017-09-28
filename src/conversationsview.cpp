@@ -72,6 +72,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                      GtkTreeIter *iter,
                      gpointer self)
 {
+    // Get active conversation
     auto path = gtk_tree_model_get_path(model, iter);
     auto row = std::atoi(gtk_tree_path_to_string(path));
     if (row == -1) return;
@@ -79,6 +80,8 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     if (!priv) return;
     try
     {
+        // Draw first contact.
+        // TODO handle conferences?
         auto conversation = priv->accountContainer_->info.conversationModel->getConversation(row);
         auto contact = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
         std::shared_ptr<GdkPixbuf> image;
@@ -102,33 +105,33 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 }
 
 static void
-render_name_and_number(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
-                       GtkCellRenderer *cell,
-                       GtkTreeModel *model,
-                       GtkTreeIter *iter,
-                       G_GNUC_UNUSED GtkTreeView *treeview)
+render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+                                 GtkCellRenderer *cell,
+                                 GtkTreeModel *model,
+                                 GtkTreeIter *iter,
+                                 G_GNUC_UNUSED GtkTreeView *treeview)
 {
     gchar *ringId;
-    gchar *lastInformation;
+    gchar *lastInteraction;
     gchar *text;
 
     gtk_tree_model_get (model, iter,
                         1 /* col# */, &ringId /* data */,
-                        3 /* col# */, &lastInformation /* data */,
+                        3 /* col# */, &lastInteraction /* data */,
                         -1);
 
-    // Limit the size of lastInformation
+    // Limit the size of lastInteraction to 20 chars and add …
     const auto maxSize = 20;
-    const auto size = g_utf8_strlen (lastInformation, maxSize + 1);
+    const auto size = g_utf8_strlen (lastInteraction, maxSize + 1);
     if (size > maxSize) {
-        g_utf8_strncpy (lastInformation, lastInformation, 20);
-        lastInformation = g_markup_printf_escaped("%s…", lastInformation);
+        g_utf8_strncpy (lastInteraction, lastInteraction, 20);
+        lastInteraction = g_markup_printf_escaped("%s…", lastInteraction);
     }
 
     text = g_markup_printf_escaped(
         "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
         ringId,
-        lastInformation
+        lastInteraction
     );
 
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
@@ -226,14 +229,14 @@ build_conversations_view(ConversationsView *self)
     gtk_tree_view_set_model(GTK_TREE_VIEW(self),
                             GTK_TREE_MODEL(model));
 
-    /* ringId method column */
+    // ringId method column
     auto area = gtk_cell_area_box_new();
     auto column = gtk_tree_view_column_new_with_area(area);
 
+    // render the photo
     auto renderer = gtk_cell_renderer_pixbuf_new();
     gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
 
-    /* get the photo */
     gtk_tree_view_column_set_cell_data_func(
         column,
         renderer,
@@ -241,7 +244,7 @@ build_conversations_view(ConversationsView *self)
         self,
         NULL);
 
-    /* renderer */
+    // render name and last interaction
     renderer = gtk_cell_renderer_text_new();
     g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
@@ -249,12 +252,13 @@ build_conversations_view(ConversationsView *self)
     gtk_tree_view_column_set_cell_data_func(
         column,
         renderer,
-        (GtkTreeCellDataFunc)render_name_and_number,
+        (GtkTreeCellDataFunc)render_name_and_last_interaction,
         self,
         NULL);
 
     gtk_tree_view_append_column(GTK_TREE_VIEW(self), column);
 
+    // This view should be synchronized and redraw at each update.
     priv->modelSortedConnection_ = QObject::connect(
     &*priv->accountContainer_->info.conversationModel,
     &lrc::api::ConversationModel::modelSorted,
@@ -278,10 +282,13 @@ build_conversations_view(ConversationsView *self)
     gtk_widget_show_all(GTK_WIDGET(self));
 
     auto selectionNew = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
+    // One left click to select the conversation
     g_signal_connect(selectionNew, "changed", G_CALLBACK(select_conversation), self);
+    // Two clicks to placeCall
     g_signal_connect(self, "row-activated", G_CALLBACK(call_conversation), NULL);
 
     priv->popupMenu_ = conversation_popup_menu_new(GTK_TREE_VIEW(self), priv->accountContainer_);
+    // Right clic to show actions
     g_signal_connect_swapped(self, "button-press-event", G_CALLBACK(show_popup_menu), self);
 }
 
@@ -325,6 +332,11 @@ conversations_view_new(AccountContainer* accountContainer)
     return (GtkWidget *)self;
 }
 
+/**
+ * Select a conversation by uid (used to synchronize the selection)
+ * @param self
+ * @param uid of the conversation
+ */
 void
 conversations_view_select_conversation(ConversationsView *self, const std::string& uid)
 {
@@ -335,9 +347,8 @@ conversations_view_select_conversation(ConversationsView *self, const std::strin
 
     while(iterIsCorrect) {
         iterIsCorrect = gtk_tree_model_iter_nth_child (model, &iter, nullptr, idx);
-        if (!iterIsCorrect) {
+        if (!iterIsCorrect)
             break;
-        }
         gchar *ringId;
         gtk_tree_model_get (model, &iter,
                             0 /* col# */, &ringId /* data */,

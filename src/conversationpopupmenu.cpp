@@ -59,7 +59,7 @@ remove_history_conversation(GtkWidget *menu, ConversationPopupMenuPrivate* priv)
         auto conversation = priv->accountContainer_->info.conversationModel->getConversation(priv->row_);
         priv->accountContainer_->info.conversationModel->clearHistory(conversation.uid);
     }
-    catch (const std::exception&)
+    catch (...)
     {
         g_warning("Can't get conversation at row %i", priv->row_);
     }
@@ -73,7 +73,7 @@ remove_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate*
         auto conversationUid = priv->accountContainer_->info.conversationModel->getConversation(priv->row_).uid;
         priv->accountContainer_->info.conversationModel->removeConversation(conversationUid);
     }
-    catch (const std::exception&)
+    catch (...)
     {
         g_warning("Can't get conversation at row %i", priv->row_);
     }
@@ -87,7 +87,7 @@ block_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* 
         auto conversationUid = priv->accountContainer_->info.conversationModel->getConversation(priv->row_).uid;
         priv->accountContainer_->info.conversationModel->removeConversation(conversationUid, true);
     }
-    catch (const std::exception&)
+    catch (...)
     {
         g_warning("Can't get conversation at row %i", priv->row_);
     }
@@ -101,7 +101,7 @@ add_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
         auto conversation = priv->accountContainer_->info.conversationModel->getConversation(priv->row_);
         priv->accountContainer_->info.conversationModel->addConversation(conversation.uid);
     }
-    catch (const std::exception&)
+    catch (...)
     {
         g_warning("Can't get conversation at row %i", priv->row_);
     }
@@ -115,7 +115,7 @@ place_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
         auto conversation = priv->accountContainer_->info.conversationModel->getConversation(priv->row_);
         priv->accountContainer_->info.conversationModel->placeCall(conversation.uid);
     }
-    catch (const std::exception&)
+    catch (...)
     {
         g_warning("Can't get conversation at row %i", priv->row_);
     }

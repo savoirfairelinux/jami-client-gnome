@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2016-2017 Savoir-faire Linux Inc.
  *  Author: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
+ *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -608,26 +609,13 @@ webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
 }
 
 void
-webkit_chat_container_set_sender_image(WebKitChatContainer *view, ContactMethod *sender_contact_method, QVariant sender_image)
+webkit_chat_container_set_sender_image(WebKitChatContainer *view, const std::string& sender, const std::string& senderImage)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    /* The sender_contact_method should be set to nullptr if the sender is self */
-    QString sender_contact_method_str;
-    if (sender_contact_method)
-    {
-        sender_contact_method_str =  QString().sprintf("%p", sender_contact_method);
-    }
-    else
-    {
-        sender_contact_method_str = "self";
-    }
-
-    auto sender_image_base64 = (QString) GlobalInstances::pixmapManipulator().toByteArray(sender_image).toBase64();
-
     QJsonObject set_sender_image_object = QJsonObject();
-    set_sender_image_object.insert("sender_contact_method", QJsonValue(sender_contact_method_str));
-    set_sender_image_object.insert("sender_image", QJsonValue(sender_image_base64));
+    set_sender_image_object.insert("sender_contact_method", QJsonValue(QString(sender.c_str())));
+    set_sender_image_object.insert("sender_image", QJsonValue(QString(senderImage.c_str())));
 
     auto set_sender_image_object_string = QString(QJsonDocument(set_sender_image_object).toJson(QJsonDocument::Compact));
 
