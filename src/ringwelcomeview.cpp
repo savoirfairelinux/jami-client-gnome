@@ -1,6 +1,8 @@
 /*
  *  Copyright (C) 2015-2017 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
+ *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,9 +23,6 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include "utils/accounts.h"
-#include <account.h>
-#include <accountmodel.h>
 #include <qrencode.h>
 
 // Qt
@@ -31,7 +30,7 @@
 #include <QItemSelectionModel>
 
 // LRC
-#include <availableaccountmodel.h>
+#include "utils/accounts.h"
 
 struct _RingWelcomeView
 {
@@ -53,8 +52,6 @@ struct _RingWelcomeViewPrivate
     GtkWidget *button_qrcode;
     GtkWidget *revealer_qrcode;
 
-    QMetaObject::Connection account_model_data_changed;
-
     AccountContainer* accountContainer_;
 };
 
@@ -75,6 +72,7 @@ ring_welcome_update_view(RingWelcomeView* self, AccountContainer* accountContain
     if (not priv->accountContainer_ )
         return;
 
+    // Only draw a basic view for SIP accounts
     if (priv->accountContainer_->info.profileInfo.type == lrc::api::profile::Type::SIP) {
         gtk_widget_hide(priv->button_qrcode);
         gtk_widget_hide(priv->label_ringid);
@@ -85,6 +83,7 @@ ring_welcome_update_view(RingWelcomeView* self, AccountContainer* accountContain
         return;
     }
 
+    // Get registeredName, else the Ring Id
     gchar *ring_id = nullptr;
     if(! priv->accountContainer_->info.registeredName.empty()){
         gtk_label_set_text(
@@ -103,8 +102,7 @@ ring_welcome_update_view(RingWelcomeView* self, AccountContainer* accountContain
                                           priv->accountContainer_->info.profileInfo.uri.c_str());
     } else {
         gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
-        ring_id = g_markup_printf_escaped("<span fgcolor=\"gray\">%s</span>",
-                                          _("fetching RingID..."));
+        ring_id = "";
     }
 
     gtk_label_set_markup(GTK_LABEL(priv->label_ringid), ring_id);
@@ -222,11 +220,6 @@ ring_welcome_view_init(RingWelcomeView *self)
 static void
 ring_welcome_view_dispose(GObject *object)
 {
-    RingWelcomeView *self = RING_WELCOME_VIEW(object);
-    RingWelcomeViewPrivate *priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
-
-    QObject::disconnect(priv->account_model_data_changed);
-
     G_OBJECT_CLASS(ring_welcome_view_parent_class)->dispose(object);
 }
 
@@ -249,7 +242,7 @@ ring_welcome_view_new(AccountContainer* accountContainer)
     gpointer self = g_object_new(RING_WELCOME_VIEW_TYPE, NULL);
     auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
     priv->accountContainer_ = accountContainer;
-    ring_welcome_update_view(RING_WELCOME_VIEW(self));
+    ring_welcome_update_view(RING_WELCOME_VIEW(self), accountContainer);
 
     return (GtkWidget *)self;
 }
