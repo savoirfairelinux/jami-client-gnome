@@ -2,6 +2,8 @@
  *  Copyright (C) 2016-2017 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *  Author: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
+ *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
+ *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -44,7 +46,6 @@ struct _ChatViewPrivate
 {
     GtkWidget *box_webkit_chat_container;
     GtkWidget *webkit_chat_container;
-    GtkWidget *scrolledwindow_chat;
     GtkWidget *hbox_chat_info;
     GtkWidget *label_peer;
     GtkWidget *label_cm;
@@ -60,7 +61,6 @@ struct _ChatViewPrivate
 
     QMetaObject::Connection new_interaction_connection;
     QMetaObject::Connection update_interaction_connection;
-    QMetaObject::Connection interaction_changed_connection;
     QMetaObject::Connection update_send_invitation;
 
     gulong webkit_ready;
@@ -90,7 +90,6 @@ chat_view_dispose(GObject *object)
 
     QObject::disconnect(priv->new_interaction_connection);
     QObject::disconnect(priv->update_interaction_connection);
-    QObject::disconnect(priv->interaction_changed_connection);
     QObject::disconnect(priv->update_send_invitation);
 
     /* Destroying the box will also destroy its children, and we wouldn't
@@ -107,7 +106,6 @@ chat_view_dispose(GObject *object)
             GTK_WIDGET(priv->webkit_chat_container)
         );
         priv->webkit_chat_container = nullptr;
-
     }
 
     G_OBJECT_CLASS(chat_view_parent_class)->dispose(object);
@@ -157,6 +155,7 @@ webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *int
     } else if (order == "BLOCK") {
         priv->accountContainer_->info.conversationModel->removeConversation(priv->conversation_->info.uid, true);
     } else if (order.find("SEND:") == 0) {
+        // Get text body
         auto toSend = order.substr(std::string("SEND:").size());
         priv->accountContainer_->info.conversationModel->sendMessage(priv->conversation_->info.uid, toSend);
     }
@@ -184,7 +183,6 @@ chat_view_class_init(ChatViewClass *klass)
                                                 "/cx/ring/RingGnome/chatview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, box_webkit_chat_container);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, scrolledwindow_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, hbox_chat_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_cm);
@@ -214,33 +212,52 @@ chat_view_class_init(ChatViewClass *klass)
 }
 
 static void
-print_interaction_to_buffer(ChatView* self, uint64_t msgId, const lrc::api::interaction::Info& msg)
+print_interaction_to_buffer(ChatView* self, uint64_t interactionId, const lrc::api::interaction::Info& interaction)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     webkit_chat_container_print_new_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-        msgId,
-        msg
+        interactionId,
+        interaction
     );
 }
 
 
 static void
-update_interaction(ChatView* self, uint64_t msgId, const lrc::api::interaction::Info& msg)
+update_interaction(ChatView* self, uint64_t interactionId, const lrc::api::interaction::Info& interaction)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     webkit_chat_container_update_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-        msgId,
-        msg
+        interactionId,
+        interaction
     );
 }
 
 static void
-set_participant_images(ChatView* self)
+load_participants_images(ChatView *self)
 {
-    // TODO
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    // Load images for participants
+    auto contact = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants[0]);
+    if (!contact.profileInfo.avatar.empty()) {
+        webkit_chat_container_set_sender_image(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            priv->accountContainer_->info.contactModel->getContactProfileId(priv->conversation_->info.participants[0]),
+            contact.profileInfo.avatar
+        );
+    }
+
+    if (!priv->accountContainer_->info.profileInfo.avatar.empty()) {
+        webkit_chat_container_set_sender_image(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            priv->accountContainer_->info.contactModel->getContactProfileId(priv->accountContainer_->info.profileInfo.uri),
+            priv->accountContainer_->info.profileInfo.avatar
+        );
+    }
 }
 
 static void
@@ -249,10 +266,8 @@ print_text_recording(ChatView *self)
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    for (const auto& msg : priv->conversation_->info.interactions)
-    {
-        print_interaction_to_buffer(self, msg.first, msg.second);
-    }
+    for (const auto& interaction : priv->conversation_->info.interactions)
+        print_interaction_to_buffer(self, interaction.first, interaction.second);
 
     QObject::disconnect(priv->new_interaction_connection);
 }
@@ -262,8 +277,10 @@ update_send_invitation(ChatView *self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants[0]);
-    if(contactInfo.profileInfo.type != lrc::api::profile::Type::TEMPORARY && contactInfo.profileInfo.type != lrc::api::profile::Type::PENDING)
+    auto participant = priv->conversation_->info.participants[0];
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(participant);
+    if(contactInfo.profileInfo.type != lrc::api::profile::Type::TEMPORARY
+       && contactInfo.profileInfo.type != lrc::api::profile::Type::PENDING)
         gtk_widget_hide(priv->button_send_invitation);
 }
 
@@ -307,32 +324,35 @@ webkit_chat_container_ready(ChatView* self)
 
     display_links_toggled(self);
     print_text_recording(self);
+    load_participants_images(self);
 
     priv->new_interaction_connection = QObject::connect(
     &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newUnreadMessage,
-    [self, priv](const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
+    [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
         if(uid == priv->conversation_->info.uid) {
-            print_interaction_to_buffer(self, msgId, msg);
+            print_interaction_to_buffer(self, interactionId, interaction);
         }
     });
 
     priv->update_interaction_connection = QObject::connect(
     &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::interactionStatusUpdated,
-    [self, priv](const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
+    [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
         if(uid == priv->conversation_->info.uid) {
-            update_interaction(self, msgId, msg);
+            update_interaction(self, interactionId, interaction);
         }
     });
 
     auto contactUri = priv->conversation_->info.participants.front();
     auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    priv->isTemporary_ = contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY || contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
+    priv->isTemporary_ = contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY
+                         || contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
     webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                          (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
                                          contactInfo.profileInfo.alias);
     webkit_chat_disable_send_interaction(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                     (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP) && priv->conversation_->info.callId.empty());
+                                        (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP)
+                                         && priv->conversation_->info.callId.empty());
 }
 
 static void
@@ -345,8 +365,6 @@ build_chat_view(ChatView* self)
 
     update_name(self);
     update_send_invitation(self);
-
-    /* keep selected cm updated */
     update_contact_methods(self);
 
     priv->webkit_ready = g_signal_connect_swapped(
@@ -369,7 +387,9 @@ build_chat_view(ChatView* self)
 }
 
 GtkWidget *
-chat_view_new (WebKitChatContainer* webkit_chat_container, AccountContainer* accountContainer,  ConversationContainer* conversationContainer)
+chat_view_new (WebKitChatContainer* webkit_chat_container,
+               AccountContainer* accountContainer,
+               ConversationContainer* conversationContainer)
 {
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
@@ -379,7 +399,6 @@ chat_view_new (WebKitChatContainer* webkit_chat_container, AccountContainer* acc
     priv->accountContainer_ = accountContainer;
 
     build_chat_view(self);
-
     return (GtkWidget *)self;
 }
 
@@ -406,7 +425,6 @@ chat_view_get_temporary(ChatView *self)
 {
     g_return_val_if_fail(IS_CHAT_VIEW(self), false);
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-
     return priv->isTemporary_;
 }
 
@@ -415,7 +433,6 @@ chat_view_get_conversation(ChatView *self)
 {
     g_return_val_if_fail(IS_CHAT_VIEW(self), lrc::api::conversation::Info());
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-
     return priv->conversation_->info;
 }
 
@@ -423,6 +440,5 @@ void
 chat_view_set_header_visible(ChatView *self, gboolean visible)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-
     gtk_widget_set_visible(priv->hbox_chat_info, visible);
 }

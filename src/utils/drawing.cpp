@@ -118,8 +118,6 @@ ring_draw_conference_avatar(int size) {
     return pixbuf;
 }
 
-#include <iostream>
-
 GdkPixbuf *
 ring_frame_avatar(GdkPixbuf *avatar) {
 
