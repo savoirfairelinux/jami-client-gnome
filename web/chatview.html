@@ -314,6 +314,7 @@ ring.chatview = (function(){
                 formatted_delivery_status = "Sending<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><circle class='status_circle anim-first' cx='4' cy='12' r='1'/><circle class='status_circle anim-second' cx='8' cy='12' r='1'/><circle class='status_circle anim-third' cx='12' cy='12' r='1'/></svg>"
                 break;
             case "read":
+                formatted_delivery_status = "";
                 break;
             case "failure":
                 formatted_delivery_status = "Failure <svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-x x-first' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M4,4 L12,12'/><path class='status-x x-second' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M12,4 L4,12'/></svg>"
