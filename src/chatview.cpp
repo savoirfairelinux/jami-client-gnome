@@ -59,6 +59,7 @@ struct _ChatViewPrivate
     bool isTemporary_;
 
     QMetaObject::Connection new_interaction_connection;
+    QMetaObject::Connection update_interaction_connection;
     QMetaObject::Connection interaction_changed_connection;
     QMetaObject::Connection update_send_invitation;
 
@@ -88,6 +89,7 @@ chat_view_dispose(GObject *object)
     priv = CHAT_VIEW_GET_PRIVATE(view);
 
     QObject::disconnect(priv->new_interaction_connection);
+    QObject::disconnect(priv->update_interaction_connection);
     QObject::disconnect(priv->interaction_changed_connection);
     QObject::disconnect(priv->update_send_invitation);
 
@@ -212,12 +214,25 @@ chat_view_class_init(ChatViewClass *klass)
 }
 
 static void
-print_interaction_to_buffer(ChatView* self, const lrc::api::interaction::Info& msg)
+print_interaction_to_buffer(ChatView* self, uint64_t msgId, const lrc::api::interaction::Info& msg)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     webkit_chat_container_print_new_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        msgId,
+        msg
+    );
+}
+
+
+static void
+update_interaction(ChatView* self, uint64_t msgId, const lrc::api::interaction::Info& msg)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    webkit_chat_container_update_interaction(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        msgId,
         msg
     );
 }
@@ -236,7 +251,7 @@ print_text_recording(ChatView *self)
 
     for (const auto& msg : priv->conversation_->info.interactions)
     {
-        print_interaction_to_buffer(self, msg.second);
+        print_interaction_to_buffer(self, msg.first, msg.second);
     }
 
     QObject::disconnect(priv->new_interaction_connection);
@@ -295,9 +310,17 @@ webkit_chat_container_ready(ChatView* self)
 
     priv->new_interaction_connection = QObject::connect(
     &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newUnreadMessage,
-    [self, priv](const std::string& uid, lrc::api::interaction::Info msg) {
+    [self, priv](const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
         if(uid == priv->conversation_->info.uid) {
-            print_interaction_to_buffer(self, msg);
+            print_interaction_to_buffer(self, msgId, msg);
+        }
+    });
+
+    priv->update_interaction_connection = QObject::connect(
+    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::interactionStatusUpdated,
+    [self, priv](const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
+        if(uid == priv->conversation_->info.uid) {
+            update_interaction(self, msgId, msg);
         }
     });
 

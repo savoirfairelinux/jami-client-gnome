@@ -140,7 +140,7 @@ webview_chat_context_menu(WebKitChatContainer *self,
 }
 
 QString
-interaction_to_json_interaction_object(const lrc::api::interaction::Info& interaction)
+interaction_to_json_interaction_object(const uint64_t msgId, const lrc::api::interaction::Info& interaction)
 {
     auto sender = QString(interaction.authorUri.c_str());
     auto timestamp = QString::number(interaction.timestamp);
@@ -148,7 +148,7 @@ interaction_to_json_interaction_object(const lrc::api::interaction::Info& intera
 
     QJsonObject interaction_object = QJsonObject();
     interaction_object.insert("text", QJsonValue(QString(interaction.body.c_str())));
-    interaction_object.insert("id", QJsonValue(QString().setNum(0))); // TODO unused?
+    interaction_object.insert("id", QJsonValue(QString::number(msgId)));
     interaction_object.insert("sender", QJsonValue(sender));
     interaction_object.insert("sender_contact_method", QJsonValue(sender));
     interaction_object.insert("timestamp", QJsonValue(timestamp));
@@ -532,16 +532,29 @@ webkit_chat_container_clear(WebKitChatContainer *view)
     webkit_chat_container_clear_sender_images(view);
 }
 
-
-/**
- * TODO temp method. Just transform interactions from database and breaks nothing in chatview.html for now
- */
 void
-webkit_chat_container_print_new_interaction(WebKitChatContainer *view, const lrc::api::interaction::Info& interaction)
+webkit_chat_container_update_interaction(WebKitChatContainer *view, uint64_t msgId, const lrc::api::interaction::Info& interaction)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    auto interaction_object = interaction_to_json_interaction_object(interaction).toUtf8();
+    auto interaction_object = interaction_to_json_interaction_object(msgId, interaction).toUtf8();
+    gchar* function_call = g_strdup_printf("ring.chatview.updateMessage(%s);", interaction_object.constData());
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
+webkit_chat_container_print_new_interaction(WebKitChatContainer *view, uint64_t msgId, const lrc::api::interaction::Info& interaction)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    auto interaction_object = interaction_to_json_interaction_object(msgId, interaction).toUtf8();
     gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", interaction_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
