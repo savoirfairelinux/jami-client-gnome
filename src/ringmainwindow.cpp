@@ -30,6 +30,7 @@
 #include <api/conversationmodel.h>
 #include <api/lrc.h>
 #include <api/newaccountmodel.h>
+#include <api/newcallmodel.h>
 #include "accountcontainer.h"
 #include "conversationcontainer.h"
 
@@ -785,7 +786,9 @@ dtmf_pressed(RingMainWindow *win,
               GdkEventKey *event,
               G_GNUC_UNUSED gpointer user_data)
 {
+    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
     g_return_val_if_fail(event->type == GDK_KEY_PRESS, GDK_EVENT_PROPAGATE);
+    g_return_val_if_fail(priv, GDK_EVENT_PROPAGATE);
 
     /* we want to react to digit key presses, as long as a GtkEntry is not the
      * input focus
@@ -794,34 +797,34 @@ dtmf_pressed(RingMainWindow *win,
     if (GTK_IS_ENTRY(focus))
         return GDK_EVENT_PROPAGATE;
 
-    // NOTE deactivated for now, because not implemented in the new models.
-    /* make sure that a call is selected* /
-    QItemSelectionModel *selection = CallModel::instance().selectionModel();
-    QModelIndex idx = selection->currentIndex();
-    if (!idx.isValid())
-        return GDK_EVENT_PROPAGATE;
-
-    /* make sure that the selected call is in progress * /
-    Call *call = CallModel::instance().getCall(idx);
-    Call::LifeCycleState state = call->lifeCycleState();
-    if (state != Call::LifeCycleState::PROGRESS)
+    if (priv->accountContainer_->info.profileInfo.type != lrc::api::profile::Type::SIP)
         return GDK_EVENT_PROPAGATE;
 
     /* filter out cretain MOD masked key presses so that, for example, 'Ctrl+c'
      * does not result in a 'c' being played.
-     * we filter Ctrl, Alt, and SUPER/HYPER/META keys * /
+     * we filter Ctrl, Alt, and SUPER/HYPER/META keys */
     if ( event->state
         & ( GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK ))
         return GDK_EVENT_PROPAGATE;
 
-    /* pass the character that was entered to be played by the daemon;
-     * the daemon will filter out invalid DTMF characters * /
+    // Get current conversation
+    auto current_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+    lrc::api::conversation::Info current_item;
+    if (IS_CURRENT_CALL_VIEW(current_view))
+        current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(current_view));
+    else
+        return GDK_EVENT_PROPAGATE;
+
+    if (current_item.callId.empty())
+        return GDK_EVENT_PROPAGATE;
+
+    // pass the character that was entered to be played by the daemon;
+    // the daemon will filter out invalid DTMF characters
     guint32 unicode_val = gdk_keyval_to_unicode(event->keyval);
     QString val = QString::fromUcs4(&unicode_val, 1);
-    call->playDTMF(val);
     g_debug("attemptingto play DTMF tone during ongoing call: %s", val.toUtf8().constData());
-
-    /* always propogate the key, so we don't steal accelerators/shortcuts */
+    priv->accountContainer_->info.callModel->playDTMF(current_item.callId, val.toStdString());
+    // always propogate the key, so we don't steal accelerators/shortcuts
     return GDK_EVENT_PROPAGATE;
 }
 
