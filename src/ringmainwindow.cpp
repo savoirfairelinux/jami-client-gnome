@@ -30,6 +30,7 @@
 #include <api/conversationmodel.h>
 #include <api/lrc.h>
 #include <api/newaccountmodel.h>
+#include <api/behaviourcontroller.h>
 #include "accountcontainer.h"
 #include "conversationcontainer.h"
 
@@ -452,8 +453,8 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
      });
 
     priv->showChatViewConnection_ = QObject::connect(
-    &*priv->accountContainer_->info.conversationModel,
-    &lrc::api::ConversationModel::showChatView,
+    &priv->lrc_->getBehaviourController(),
+    &lrc::api::BehaviourController::showChatView,
     [win, priv] (lrc::api::conversation::Info origin) {
         // Show chat view if not in call (unless if it's the same conversation)
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
@@ -466,8 +467,8 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     });
 
     priv->showCallViewConnection_ = QObject::connect(
-    &*priv->accountContainer_->info.conversationModel,
-    &lrc::api::ConversationModel::showCallView,
+    &priv->lrc_->getBehaviourController(),
+    &lrc::api::BehaviourController::showCallView,
     [win, priv] (lrc::api::conversation::Info origin) {
         // Change the view if we want a different view.
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
@@ -481,8 +482,8 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
     });
 
     priv->showIncomingViewConnection_ = QObject::connect(
-    &*priv->accountContainer_->info.conversationModel,
-    &lrc::api::ConversationModel::showIncomingCallView,
+    &priv->lrc_->getBehaviourController(),
+    &lrc::api::BehaviourController::showIncomingCallView,
     [win, priv] (lrc::api::conversation::Info origin) {
         // Change the view if we want a different view.
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
