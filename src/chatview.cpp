@@ -212,25 +212,25 @@ chat_view_class_init(ChatViewClass *klass)
 }
 
 static void
-print_interaction_to_buffer(ChatView* self, uint64_t interactionId, const lrc::api::interaction::Info& interaction)
+print_interaction_to_buffer(ChatView* self, /*uint64_t interactionId, */const lrc::api::interaction::Info& interaction)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     webkit_chat_container_print_new_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-        interactionId,
+        /*interactionId,*/0,
         interaction
     );
 }
 
 
 static void
-update_interaction(ChatView* self, uint64_t interactionId, const lrc::api::interaction::Info& interaction)
+update_interaction(ChatView* self, /*uint64_t interactionId,*/ const lrc::api::interaction::Info& interaction)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     webkit_chat_container_update_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-        interactionId,
+        /*interactionId,*/0,
         interaction
     );
 }
@@ -242,7 +242,7 @@ load_participants_images(ChatView *self)
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     // Load images for participants
-    auto contact = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants[0]);
+    /*auto contact = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants[0]);
     if (!contact.profileInfo.avatar.empty()) {
         webkit_chat_container_set_sender_image(
             WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
@@ -257,7 +257,7 @@ load_participants_images(ChatView *self)
             priv->accountContainer_->info.contactModel->getContactProfileId(priv->accountContainer_->info.profileInfo.uri),
             priv->accountContainer_->info.profileInfo.avatar
         );
-    }
+    }*/
 }
 
 static void
@@ -267,7 +267,7 @@ print_text_recording(ChatView *self)
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     for (const auto& interaction : priv->conversation_->info.interactions)
-        print_interaction_to_buffer(self, interaction.first, interaction.second);
+        print_interaction_to_buffer(self, /*interaction.first, */interaction.second);
 
     QObject::disconnect(priv->new_interaction_connection);
 }
@@ -328,19 +328,19 @@ webkit_chat_container_ready(ChatView* self)
 
     priv->new_interaction_connection = QObject::connect(
     &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newUnreadMessage,
-    [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
+    [self, priv](const std::string& uid, /*uint64_t interactionId, */lrc::api::interaction::Info interaction) {
         if(uid == priv->conversation_->info.uid) {
-            print_interaction_to_buffer(self, interactionId, interaction);
+            print_interaction_to_buffer(self, /*interactionId, */interaction);
         }
     });
 
-    priv->update_interaction_connection = QObject::connect(
+    /*priv->update_interaction_connection = QObject::connect(
     &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::interactionStatusUpdated,
     [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
         if(uid == priv->conversation_->info.uid) {
             update_interaction(self, interactionId, interaction);
         }
-    });
+    });*/
 
     auto contactUri = priv->conversation_->info.participants.front();
     auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
