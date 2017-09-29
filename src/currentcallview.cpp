@@ -221,6 +221,10 @@ update_details(CurrentCallView *view)
     auto callId = priv->conversation_->info.callId;
     gtk_label_set_text(GTK_LABEL(priv->label_duration),
     priv->accountContainer_->info.callModel->getFormattedCallDuration(callId).c_str());
+
+    auto call = priv->accountContainer_->info.callModel->getCall(callId);
+    gtk_widget_set_sensitive(GTK_WIDGET(priv->togglebutton_muteaudio), (call.type != lrc::api::call::Type::CONFERENCE));
+    gtk_widget_set_sensitive(GTK_WIDGET(priv->togglebutton_mutevideo), (call.type != lrc::api::call::Type::CONFERENCE));
 }
 
 
