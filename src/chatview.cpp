@@ -22,6 +22,9 @@
 
 #include "chatview.h"
 
+// std
+#include <algorithm>
+
 // LRC
 #include <api/contactmodel.h>
 #include <api/conversationmodel.h>
@@ -216,6 +219,8 @@ print_interaction_to_buffer(ChatView* self, /*uint64_t interactionId, */const lr
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
+    /*priv->accountContainer_->info.conversationModel->setMessageRead(interactionId);*/
+
     webkit_chat_container_print_new_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
         /*interactionId,*/0,
@@ -307,7 +312,9 @@ update_name(ChatView *self)
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     auto contactUri = priv->conversation_->info.participants.front();
     auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    gtk_label_set_text(GTK_LABEL(priv->label_peer), contactInfo.profileInfo.alias.c_str());
+    auto alias = contactInfo.profileInfo.alias;
+    alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
+    gtk_label_set_text(GTK_LABEL(priv->label_peer), alias.c_str());
 }
 
 static void
