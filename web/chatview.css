@@ -516,6 +516,13 @@ pre {
   display: none;
 }
 
+/* Not implemented yet. wait for the patch in LRC */
+.message_delivery_status
+{
+  visibility: hidden;
+  display: none;
+}
+
 .message_type_contact .message_wrapper:before,
 .message_type_call .message_wrapper:before {
     display: none;
