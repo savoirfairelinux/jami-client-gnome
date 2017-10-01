@@ -245,14 +245,15 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
         auto contactUri = contacts.front();
         auto contactInfo = accountInfo.contactModel->getContact(contactUri);
         auto contactPhoto = contactInfo.profileInfo.avatar;
+        auto bestName = contactInfo.profileInfo.alias.empty()? contactInfo.registeredName : contactInfo.profileInfo.alias;
         if (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP) {
-            return QVariant::fromValue(scaleAndFrame(generateAvatar(contactInfo.profileInfo.alias, "").get(), size, displayPresence, true));
+            return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, "").get(), size, displayPresence, true));
         } else if (!contactPhoto.empty()) {
             QByteArray byteArray(contactPhoto.c_str(), contactPhoto.length());
             QVariant photo = personPhoto(byteArray);
             return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, true));
         } else {
-            return QVariant::fromValue(scaleAndFrame(generateAvatar(contactInfo.profileInfo.alias, contactInfo.profileInfo.uri).get(), size, displayPresence, true));
+            return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, contactInfo.profileInfo.uri).get(), size, displayPresence, true));
         }
     }
     // should not
