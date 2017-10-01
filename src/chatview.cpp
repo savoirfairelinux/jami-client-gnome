@@ -216,6 +216,8 @@ print_interaction_to_buffer(ChatView* self, /*uint64_t interactionId, */const lr
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
+    /*priv->accountContainer_->info.conversationModel->setMessageRead(interactionId);*/
+
     webkit_chat_container_print_new_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
         /*interactionId,*/0,
