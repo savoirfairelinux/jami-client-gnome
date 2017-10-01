@@ -142,6 +142,7 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     auto conversation = priv->accountContainer_->info.conversationModel->getConversation(idx[0]);
     priv->row_ = idx[0];
     auto contactInfo = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
+    if (contactInfo.profileInfo.uri.empty()) return;
 
     // we always build a menu, however in some cases some or all of the conversations will be deactivated
     // we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case

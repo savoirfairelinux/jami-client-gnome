@@ -19,6 +19,9 @@
 
 #include "conversationsview.h"
 
+// std
+#include <algorithm>
+
 // GTK+ related
 #include <QSize>
 
@@ -26,7 +29,9 @@
 #include <globalinstances.h>
 #include <api/conversationmodel.h>
 #include <api/contactmodel.h>
+#include <api/call.h>
 #include <api/contact.h>
+#include <api/newcallmodel.h>
 
 // Gnome client
 #include "native/pixbufmanipulator.h"
@@ -111,13 +116,17 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                                  GtkTreeIter *iter,
                                  G_GNUC_UNUSED GtkTreeView *treeview)
 {
-    gchar *ringId;
+    gchar *alias;
+    gchar *registeredName;
     gchar *lastInteraction;
     gchar *text;
+    gchar *uid;
 
     gtk_tree_model_get (model, iter,
-                        1 /* col# */, &ringId /* data */,
-                        3 /* col# */, &lastInteraction /* data */,
+                        0 /* col# */, &uid /* data */,
+                        1 /* col# */, &alias /* data */,
+                        2 /* col# */, &registeredName /* data */,
+                        4 /* col# */, &lastInteraction /* data */,
                         -1);
 
     // Limit the size of lastInteraction to 20 chars and add …
@@ -128,21 +137,103 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         lastInteraction = g_markup_printf_escaped("%s…", lastInteraction);
     }
 
-    text = g_markup_printf_escaped(
-        "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
-        ringId,
-        lastInteraction
-    );
+    if (std::string(alias).empty()) {
+        text = g_markup_printf_escaped(
+            "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
+            registeredName,
+            lastInteraction
+        );
+    } else if (std::string(alias) == std::string(registeredName)
+        || std::string(registeredName).empty() || std::string(uid).empty()) {
+        text = g_markup_printf_escaped(
+            "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
+            alias,
+            lastInteraction
+        );
+    } else {
+        text = g_markup_printf_escaped(
+            "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
+            alias,
+            registeredName,
+            lastInteraction
+        );
+    }
 
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
-    g_free(ringId);
+    g_free(uid);
+    g_free(alias);
+    g_free(registeredName);
+}
+
+static void
+render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
+            GtkCellRenderer *cell,
+            GtkTreeModel *model,
+            GtkTreeIter *iter,
+            G_GNUC_UNUSED GtkTreeView *treeview)
+{
+
+    // Get active conversation
+    auto path = gtk_tree_model_get_path(model, iter);
+    auto row = std::atoi(gtk_tree_path_to_string(path));
+    if (row == -1) return;
+    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(treeview);
+    if (!priv) return;
+
+    gchar *text;
+
+    try
+    {
+        auto conversation = priv->accountContainer_->info.conversationModel->getConversation(row);
+        auto callId = conversation.callId;
+        if (!callId.empty()) {
+            auto call = priv->accountContainer_->info.callModel->getCall(callId);
+            text = g_markup_printf_escaped("%s",
+                lrc::api::call::StatusToString(call.status).c_str()
+            );
+        } else if (conversation.interactions.empty()) {
+            text = "";
+        } else {
+            auto lastUid = conversation.lastMessageUid;
+            if (conversation.interactions.find(lastUid) == conversation.interactions.end()) {
+                text = "";
+            } else {
+                std::time_t lastInteractionTimestamp = conversation.interactions[lastUid].timestamp;
+                std::time_t now = std::time(nullptr);
+                char interactionDay[100];
+                char nowDay[100];
+                std::strftime(interactionDay, sizeof(interactionDay), "%D", std::localtime(&lastInteractionTimestamp));
+                std::strftime(nowDay, sizeof(nowDay), "%D", std::localtime(&now));
+
+
+                if (std::string(interactionDay) == std::string(nowDay)) {
+                    char interactionTime[100];
+                    std::strftime(interactionTime, sizeof(interactionTime), "%R", std::localtime(&lastInteractionTimestamp));
+                    text = g_markup_printf_escaped("<span size=\"smaller\" color=\"#666\">%s</span>",
+                        &interactionTime
+                    );
+                } else {
+                    text = g_markup_printf_escaped("<span size=\"smaller\" color=\"#666\">%s</span>",
+                        &interactionDay
+                    );
+                }
+            }
+        }
+    }
+    catch (const std::exception&)
+    {
+        g_warning("Can't get conversation at row %i", row);
+    }
+
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
 }
 
 static GtkTreeModel*
 create_and_fill_model(ConversationsView *self)
 {
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
-    auto store = gtk_list_store_new (4 /* # of cols */ ,
+    auto store = gtk_list_store_new (5 /* # of cols */ ,
+                                     G_TYPE_STRING,
                                      G_TYPE_STRING,
                                      G_TYPE_STRING,
                                      G_TYPE_STRING,
@@ -157,12 +248,16 @@ create_and_fill_model(ConversationsView *self)
         auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
         auto lastMessage = conversation.interactions.empty() ? "" :
             conversation.interactions.at(conversation.lastMessageUid).body;
+        std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
         gtk_list_store_append (store, &iter);
+        auto alias = contactInfo.profileInfo.alias;
+        alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
         gtk_list_store_set (store, &iter,
             0 /* col # */ , conversation.uid.c_str() /* celldata */,
-            1 /* col # */ , contactInfo.profileInfo.alias.c_str() /* celldata */,
-            2 /* col # */ , contactInfo.profileInfo.avatar.c_str() /* celldata */,
-            3 /* col # */ , lastMessage.c_str() /* celldata */,
+            1 /* col # */ , alias.c_str() /* celldata */,
+            2 /* col # */ , contactInfo.registeredName.c_str() /* celldata */,
+            3 /* col # */ , contactInfo.profileInfo.avatar.c_str() /* celldata */,
+            4 /* col # */ , lastMessage.c_str() /* celldata */,
             -1 /* end */);
     }
 
@@ -195,8 +290,10 @@ select_conversation(GtkTreeSelection *selection, ConversationsView *self)
         gtk_widget_hide(priv->popupMenu_);
         gtk_widget_destroy(priv->popupMenu_);
         priv->popupMenu_ = conversation_popup_menu_new(GTK_TREE_VIEW(self), priv->accountContainer_);
+        auto children = gtk_container_get_children (GTK_CONTAINER(priv->popupMenu_));
+        auto nbItems = g_list_length(children);
         // Show the new popupMenu_ should be visible
-        if (isVisible)
+        if (isVisible && nbItems > 0)
             gtk_menu_popup_at_pointer(GTK_MENU(priv->popupMenu_), nullptr);
     }
     GtkTreeIter iter;
@@ -221,7 +318,11 @@ static void
 show_popup_menu(ConversationsView *self, GdkEventButton *event)
 {
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
-    conversation_popup_menu_show(CONVERSATION_POPUP_MENU(priv->popupMenu_), event);
+    auto children = gtk_container_get_children (GTK_CONTAINER(priv->popupMenu_));
+    auto nbItems = g_list_length(children);
+    // Show the new popupMenu_ should be visible
+    if (nbItems > 0)
+        conversation_popup_menu_show(CONVERSATION_POPUP_MENU(priv->popupMenu_), event);
 }
 
 static void
@@ -313,8 +414,6 @@ on_drag_motion(GtkWidget      *treeview,
     }
 }
 
-#include <iostream>
-
 static void
 on_drag_data_received(GtkWidget        *treeview,
                       GdkDragContext   *context,
@@ -402,6 +501,19 @@ build_conversations_view(ConversationsView *self)
         column,
         renderer,
         (GtkTreeCellDataFunc)render_name_and_last_interaction,
+        self,
+        NULL);
+
+    // render time of last interaction and number of unread
+    renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+    g_object_set(G_OBJECT(renderer), "xalign", 1.0, NULL);
+    gtk_cell_area_box_pack_start(GTK_CELL_AREA_BOX(area), renderer, FALSE, FALSE, FALSE);
+
+    gtk_tree_view_column_set_cell_data_func(
+        column,
+        renderer,
+        (GtkTreeCellDataFunc)render_time,
         self,
         NULL);
 
