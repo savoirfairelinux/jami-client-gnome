@@ -187,9 +187,10 @@ update_state(IncomingCallView *view)
 
     // change state label
     auto callId = priv->conversation_->info.callId;
+    if (!priv->accountContainer_->info.callModel->hasCall(callId)) return;
     auto call = priv->accountContainer_->info.callModel->getCall(callId);
 
-    gchar *status = g_strdup_printf("%s", lrc::api::call::StatusToString(call.status).c_str());
+    gchar *status = g_strdup_printf("%s", lrc::api::call::to_string(call.status).c_str());
     gtk_label_set_text(GTK_LABEL(priv->label_status), status);
     g_free(status);
 

@@ -674,7 +674,7 @@ update_state(CurrentCallView *view)
     auto callId = priv->conversation_->info.callId;
     auto call = priv->accountContainer_->info.callModel->getCall(callId);
 
-    gchar *status = g_strdup_printf("%s", lrc::api::call::StatusToString(call.status).c_str());
+    gchar *status = g_strdup_printf("%s", lrc::api::call::to_string(call.status).c_str());
     gtk_label_set_text(GTK_LABEL(priv->label_status), status);
     g_free(status);
 }
@@ -877,6 +877,7 @@ set_call_info(CurrentCallView *view) {
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
 
     g_signal_connect_swapped(chat_view, "new-messages-displayed", G_CALLBACK(show_chat_view), view);
+    chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
 
 }
 
