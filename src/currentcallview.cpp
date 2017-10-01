@@ -877,6 +877,7 @@ set_call_info(CurrentCallView *view) {
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
 
     g_signal_connect_swapped(chat_view, "new-messages-displayed", G_CALLBACK(show_chat_view), view);
+    chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
 
 }
 
