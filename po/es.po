@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# alexlikerock <alexlikerock@gmail.com>, 2017
+# Blanca Iris Almagro, 2016
 # Blanca Iris Almagro, 2016
 # Brian Peraza-Orozco <brian.peraza@gmail.com>, 2016
 # David <stakewinner00@mykolab.com>, 2015
 # Emiliano Ariel Vazquez <emilianovazquez@gmail.com>, 2015
 # Ernesto Rodriguez Ortiz <ernesto.rodriguezortiz@savoirfairelinux.com>, 2015-2016
+# fgp <komakino@wanadoo.es>, 2016
 # Gabriel Molina <gabriel@hackerdou.com>, 2017
 # Jelid Leon <jelid.leon@gmail.com>, 2017
+# jsagarribay <jsagarribay@gmail.com>, 2016
 # jsagarribay <jsagarribay@gmail.com>, 2016
 # Juanjo Faico <juanjofaico22@openmailbox.org>, 2016
 # Julie LeBrun <julie.lebrun@savoirfairelinux.com>, 2016
@@ -19,14 +23,16 @@
 # Laura Arjona Reina <larjona@larjona.net>, 2016
 # Miguel Angel NV <manvac@gmail.com>, 2017
 # Stepan Salenikovich, 2015
+# Stepan Salenikovich, 2015
+# urkonn <urkonn@gmail.com>, 2017
 # urkonn <urkonn@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-24 23:09-0400\n"
-"PO-Revision-Date: 2017-09-25 03:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-10-01 23:09-0400\n"
+"PO-Revision-Date: 2017-09-27 04:56+0000\n"
+"Last-Translator: alexlikerock <alexlikerock@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -103,19 +109,19 @@ msgstr "ID"
 #: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
 #: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
 msgid "Change password"
-msgstr ""
+msgstr "Cambiar contraseña"
 
 #: src/accountgeneraltab.cpp:196
 msgid "New password and its confirmation are different"
-msgstr ""
+msgstr "Nueva contraseña y  su confirmación es diferente"
 
 #: src/accountgeneraltab.cpp:206
 msgid "Password changed!"
-msgstr ""
+msgstr "Contraseña cambiada!"
 
 #: src/accountgeneraltab.cpp:209
 msgid "Incorrect password"
-msgstr ""
+msgstr "Contraseña incorrecta"
 
 #: src/accountgeneraltab.cpp:236
 msgid "Alias"
@@ -650,7 +656,7 @@ msgid ""
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr ""
+msgstr "Para enlazar este dispositivo hacia otra cuenta, usted tiene dos posibilidades. Usted puede importar el usuario desde el DHT, pero primero, usted necesita obtener el código PIN. Para generar el código PIN, vaya a la configuración de administrador de usuario del anterior dispositivo, elija el Ring Usuario usar  y seleccione   \"Enlazar a otro dispositivo a esta cuenta \". Usted deberá obtener el PIN necesariamente para completar este formulario. El PIN es solo valido por 10 minutos. O, usted puede importarlo directamente la cuenta desde un fichero."
 
 #: ui/accountcreationwizard.ui:146
 msgid "Enter your pin:"
@@ -658,7 +664,7 @@ msgstr "Escribe tu PIN:"
 
 #: ui/accountcreationwizard.ui:174
 msgid "Or import a file:"
-msgstr ""
+msgstr "o importar a un fichero:"
 
 #: ui/accountcreationwizard.ui:193
 msgid "Enter your password:"
@@ -779,19 +785,19 @@ msgstr "Parámetros"
 
 #: ui/accountgeneraltab.ui:175
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "Nota: esto cambiará la contraseña solo en este dispositivo"
 
 #: ui/accountgeneraltab.ui:194
 msgid "Current password"
-msgstr ""
+msgstr "Contraseña actual"
 
 #: ui/accountgeneraltab.ui:214
 msgid "New password"
-msgstr ""
+msgstr "Contraseña nueva"
 
 #: ui/accountgeneraltab.ui:234
 msgid "Confirm password"
-msgstr ""
+msgstr "Confirmar contraseña"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"

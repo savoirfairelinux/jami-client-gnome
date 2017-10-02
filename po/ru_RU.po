@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-24 23:09-0400\n"
+"POT-Creation-Date: 2017-10-01 23:09-0400\n"
 "PO-Revision-Date: 2017-09-25 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/savoirfairelinux/ring/language/ru_RU/)\n"
@@ -772,11 +772,11 @@ msgstr ""
 
 #: ui/accountgeneraltab.ui:214
 msgid "New password"
-msgstr ""
+msgstr "Новый пароль"
 
 #: ui/accountgeneraltab.ui:234
 msgid "Confirm password"
-msgstr ""
+msgstr "Подтвердите пароль"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
