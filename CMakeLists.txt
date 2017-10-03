@@ -83,7 +83,7 @@ ENDIF(LibRingClient_PROJECT_DIR)
 
 # find packages
 FIND_PACKAGE(PkgConfig REQUIRED)
-PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0>=3.10)
+PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0>=3.22)
 PKG_CHECK_MODULES(GLIB REQUIRED glib-2.0>=2.40)
 FIND_PACKAGE(Qt5Core REQUIRED)
 PKG_CHECK_MODULES(CLUTTER REQUIRED clutter-1.0)
@@ -334,6 +334,8 @@ SET( SRC_FILES
    src/accountcontainer.h
    src/conversationpopupmenu.h
    src/conversationpopupmenu.cpp
+   src/conversationsview.h
+   src/conversationsview.cpp
 )
 
 # compile glib resource files to c code
