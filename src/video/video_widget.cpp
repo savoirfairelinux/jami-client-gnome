@@ -439,8 +439,8 @@ switch_video_input_screen(G_GNUC_UNUSED GtkWidget *item, Call* call)
         height = gdk_screen_height();
     }
 
-    if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
-        out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
+    //if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+    //    out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
 }
 
 static void
@@ -496,10 +496,10 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
 
     Video::SourceModel *sourcemodel = nullptr;
     int active = -1;
-    if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT)) {
-        sourcemodel = out_media->sourceModel();
-        active = sourcemodel->activeIndex();
-    }
+    //if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT)) {
+    //    sourcemodel = out_media->sourceModel();
+    //    int active = sourcemodel->activeIndex();
+    //}
     /* if sourcemodel is null then we have no outgoing video */
 
     /* list available devices and check off the active device */
@@ -511,7 +511,7 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
         if (sourcemodel) {
             auto device_idx = sourcemodel->getDeviceIndex(device);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device_idx == active);
-            g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY,call);
+            //g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY,call);
             g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
         } else {
             gtk_widget_set_sensitive(item, FALSE);
@@ -536,7 +536,7 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     if (sourcemodel) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
-        g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
+        //g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
         g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), self);
     } else {
         gtk_widget_set_sensitive(item, FALSE);
