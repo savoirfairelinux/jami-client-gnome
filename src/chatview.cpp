@@ -232,7 +232,10 @@ webkit_chat_container_send_text(G_GNUC_UNUSED GtkWidget* webview, gchar *message
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     /* make sure there is more than just whitespace, but if so, send the original text */
-    const auto text = QString(message);
+    auto text = QString(message);
+    // NOTE for now, because we only have a send text action from the webkit.
+    if (text.startsWith("SEND:"))
+        text.remove(0, 5);
     if (!text.trimmed().isEmpty()) {
         QMap<QString, QString> messages;
         messages["text/plain"] = text;
