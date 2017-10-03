@@ -337,6 +337,9 @@ create_ring_account(AccountCreationWizard *view,
                                     case NameDirectory::RegisterNameStatus::NETWORK_ERROR:
                                     {
                                         could_not_register_username_dialog(view);
+                                        // Reload so that the username is displayed in the settings
+                                        account << Account::EditAction::RELOAD;
+                                        break;
                                     }
                                     case NameDirectory::RegisterNameStatus::SUCCESS:
                                     {
