@@ -235,7 +235,6 @@ autostart_toggled(GSettings *settings, G_GNUC_UNUSED gchar *key, G_GNUC_UNUSED g
     autostart_symlink(g_settings_get_boolean(settings, "start-on-login"));
 }
 
-
 static void
 show_main_window_toggled(RingClient *client)
 {
@@ -506,66 +505,9 @@ chat_notifications_toggled(RingClient *self)
 }
 
 static void
-selected_account_changed(RingClient *self)
-{
-    auto priv = RING_CLIENT_GET_PRIVATE(self);
-
-    QByteArray account_id;
-
-    const auto idx = AvailableAccountModel::instance().selectionModel()->currentIndex();
-    if (idx.isValid()) {
-        account_id = idx.data(static_cast<int>(Account::Role::Id)).toByteArray();
-        if (account_id.isEmpty())
-            g_warning("selected account id is empty; possibly newly created account");
-    }
-
-    g_settings_set_string(priv->settings, "selected-account", account_id.constData());
-}
-
-static void
-restore_selected_account(RingClient *self)
-{
-    auto priv = RING_CLIENT_GET_PRIVATE(self);
-
-    gchar *saved_account_id = g_settings_get_string(priv->settings, "selected-account");
-
-    QModelIndex saved_idx;
-
-    // try to find this account
-    if (strlen(saved_account_id) > 0) {
-        if (auto account = AccountModel::instance().getById(saved_account_id)) {
-            saved_idx = AvailableAccountModel::instance().mapFromSource(account->index());
-            if (!saved_idx.isValid())
-                g_warning("could not select saved selected-account; it is possibly not enabled");
-        } else {
-            g_warning("could not find saved selected-account; it has possibly been deleted");
-        }
-    }
-
-    g_free(saved_account_id);
-
-    /* if no account selected; lets pick in the order of priority:
-     * 1. the first available Ring account
-     * 2. the first available SIP account
-     * 5. none (can't pick not enabled accounts)
-     */
-    if (!saved_idx.isValid()) {
-        if (auto account = AvailableAccountModel::instance().currentDefaultAccount(URI::SchemeType::RING)) {
-            saved_idx = AvailableAccountModel::instance().mapFromSource(account->index());
-        }
-    }
-    if (!saved_idx.isValid()) {
-        if (auto account = AvailableAccountModel::instance().currentDefaultAccount(URI::SchemeType::SIP)) {
-            saved_idx = AvailableAccountModel::instance().mapFromSource(account->index());
-        }
-    }
-
-    AvailableAccountModel::instance().selectionModel()->setCurrentIndex(saved_idx, QItemSelectionModel::ClearAndSelect);
-}
-
-static void
 ring_client_startup(GApplication *app)
 {
+    // TODO still use old LRC models, in the future, we will init the LRC here.
     RingClient *client = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
@@ -666,41 +608,6 @@ ring_client_startup(GApplication *app)
     /* add accelerators */
     ring_accelerators(RING_CLIENT(app));
 
-    /* Bind GActions to the UserActionModel */
-    UserActionModel* uam = CallModel::instance().userActionModel();
-    QHash<int, GSimpleAction*> actionHash;
-    actionHash[ (int)UserActionModel::Action::ACCEPT          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "accept"));
-    actionHash[ (int)UserActionModel::Action::HOLD            ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "hold"));
-    actionHash[ (int)UserActionModel::Action::MUTE_AUDIO      ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "mute_audio"));
-    actionHash[ (int)UserActionModel::Action::MUTE_VIDEO      ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "mute_video"));
-    /* TODO: add commented actions when ready */
-    // actionHash[ (int)UserActionModel::Action::SERVER_TRANSFER ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "transfer"));
-    actionHash[ (int)UserActionModel::Action::RECORD          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "record"));
-    actionHash[ (int)UserActionModel::Action::HANGUP          ] = G_SIMPLE_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "hangup"));
-
-    for (QHash<int,GSimpleAction*>::const_iterator i = actionHash.begin(); i != actionHash.end(); ++i) {
-        GSimpleAction* sa = i.value();
-        int_ptr_t user_data;
-        user_data.value = i.key();
-        g_signal_connect(G_OBJECT(sa), "activate", G_CALLBACK(activate_action), user_data.ptr);
-    }
-
-    /* change the state of the GActions based on the UserActionModel */
-    priv->uam_updated = QObject::connect(uam,&UserActionModel::dataChanged, [actionHash,uam](const QModelIndex& tl, const QModelIndex& br) {
-        const int first(tl.row()),last(br.row());
-        for(int i = first; i <= last;i++) {
-            const QModelIndex& idx = uam->index(i,0);
-            GSimpleAction* sa = actionHash[(int)qvariant_cast<UserActionModel::Action>(idx.data(UserActionModel::Role::ACTION))];
-            if (sa) {
-                /* enable/disable GAction based on UserActionModel */
-                g_simple_action_set_enabled(sa, idx.flags() & Qt::ItemIsEnabled);
-                /* set the state of the action if its stateful */
-                if (g_action_get_state_type(G_ACTION(sa)) != NULL)
-                    g_simple_action_set_state(sa, g_variant_new_boolean(idx.data(Qt::CheckStateRole) == Qt::Checked));
-            }
-        }
-    });
-
     /* show window on incoming calls (if the option is set)*/
     QObject::connect(&CallModel::instance(), &CallModel::incomingCall,
         [app] (G_GNUC_UNUSED Call *call) {
@@ -722,13 +629,6 @@ ring_client_startup(GApplication *app)
      /* monitor the network using libnm to notify the daemon about connectivity chagnes */
      nm_client_new_async(priv->cancellable, (GAsyncReadyCallback)nm_client_cb, client);
 #endif
-
-    /* keep track of the selected account */
-    QObject::connect(AvailableAccountModel::instance().selectionModel(),
-        &QItemSelectionModel::currentChanged,
-        [app] () { selected_account_changed(RING_CLIENT(app)); }
-    );
-    restore_selected_account(RING_CLIENT(app));
 
     G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
 }
@@ -792,7 +692,7 @@ ring_client_class_init(RingClientClass *klass)
     G_APPLICATION_CLASS(klass)->shutdown = ring_client_shutdown;
 }
 
-RingClient *
+RingClient*
 ring_client_new(int argc, char *argv[])
 {
     RingClient *client = (RingClient *)g_object_new(ring_client_get_type(),
@@ -808,7 +708,7 @@ ring_client_new(int argc, char *argv[])
     return client;
 }
 
-GtkWindow  *
+GtkWindow*
 ring_client_get_main_window(RingClient *client)
 {
     g_return_val_if_fail(IS_RING_CLIENT(client), NULL);

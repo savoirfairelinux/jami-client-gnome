@@ -76,17 +76,6 @@
             <property name="pack-type">end</property>
           </packing>
         </child>
-        <child>
-          <object class="GtkComboBox" id="combobox_cm">
-            <property name="visible">True</property>
-            <property name="popup-fixed-width">False</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack-type">end</property>
-          </packing>
-        </child>
       </object>
       <packing>
         <property name="expand">False</property>
