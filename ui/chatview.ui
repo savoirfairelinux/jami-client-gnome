@@ -54,10 +54,10 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="button_send_invitation">
+          <object class="GtkButton" id="button_add_to_conversations">
             <property name="visible">True</property>
             <property name="image">image_invite</property>
-            <property name="tooltip-text" translatable="yes">Send invitation</property>
+            <property name="tooltip-text" translatable="yes">Add to conversations</property>
           </object>
           <packing>
             <property name="pack-type">end</property>
@@ -73,17 +73,6 @@
             </attributes>
           </object>
           <packing>
-            <property name="pack-type">end</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkComboBox" id="combobox_cm">
-            <property name="visible">True</property>
-            <property name="popup-fixed-width">False</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
             <property name="pack-type">end</property>
           </packing>
         </child>
