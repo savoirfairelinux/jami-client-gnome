@@ -190,7 +190,7 @@
             </child>
             <!-- end hbox search -->
             <!-- calls view will get put here programatically -->
-            <!-- start notebook with favorites, contacts -->
+            <!-- start notebook with favorites, contacts, history -->
             <child>
               <object class="GtkNotebook" id="notebook_contacts">
                 <property name="visible">True</property>
@@ -226,7 +226,7 @@
                     <property name="visible">True</property>
                   </object>
                   <packing>
-                    <property name="position">3</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child type="tab">
@@ -238,7 +238,7 @@
                     <property name="hexpand">True</property>
                   </object>
                   <packing>
-                    <property name="position">3</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <!-- end pending contact requests list -->
@@ -249,7 +249,7 @@
                 <property name="position">2</property>
               </packing>
             </child>
-            <!-- end notebook with favorites, contacts -->
+            <!-- end notebook with favorites, contacts, history -->
           </object>
           <packing>
             <property name="resize">False</property>
@@ -281,6 +281,10 @@
   <object class="GtkImage" id="image_contacts">
     <property name="visible">True</property>
     <property name="resource">/cx/ring/RingGnome/addressbook_small</property>
+  </object>
+  <object class="GtkImage" id="image_history">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/history_small</property>
   </object>
   <object class="GtkImage" id="image_presence">
     <property name="visible">True</property>

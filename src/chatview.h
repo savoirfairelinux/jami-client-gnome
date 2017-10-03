@@ -1,6 +1,8 @@
 /*
  *  Copyright (C) 2016-2017 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
+ *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,12 +21,13 @@
 
 #pragma once
 
+// Gtk
 #include <gtk/gtk.h>
-#include "webkitchatcontainer.h"
 
-class Call;
-class ContactMethod;
-class Person;
+// Client related
+#include "accountcontainer.h"
+#include "conversationcontainer.h"
+#include "webkitchatcontainer.h"
 
 G_BEGIN_DECLS
 
@@ -37,14 +40,13 @@ G_BEGIN_DECLS
 typedef struct _ChatView      ChatView;
 typedef struct _ChatViewClass ChatViewClass;
 
-
 GType          chat_view_get_type   (void) G_GNUC_CONST;
-GtkWidget     *chat_view_new_call   (WebKitChatContainer* view, Call* call);
-GtkWidget     *chat_view_new_cm     (WebKitChatContainer* view, ContactMethod* cm);
-GtkWidget     *chat_view_new_person (WebKitChatContainer* view, Person* p);
-Call          *chat_view_get_call   (ChatView*);
-ContactMethod *chat_view_get_cm     (ChatView*);
-Person        *chat_view_get_person (ChatView*);
-void           chat_view_set_header_visible(ChatView*, gboolean);
+GtkWidget     *chat_view_new        (WebKitChatContainer* view,
+                                     AccountContainer* accountContainer,
+                                     ConversationContainer* conversationContainer);
+lrc::api::conversation::Info chat_view_get_conversation(ChatView*);
+bool chat_view_get_temporary(ChatView*);
+void chat_view_update_temporary(ChatView*, bool);
+void chat_view_set_header_visible(ChatView*, gboolean);
 
 G_END_DECLS
