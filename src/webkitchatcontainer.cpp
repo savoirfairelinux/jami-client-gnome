@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2016-2017 Savoir-faire Linux Inc.
  *  Author: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
+ *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,7 +21,6 @@
 #include "webkitchatcontainer.h"
 
 // GTK+ related
-#include <gtk/gtk.h>
 #include <webkit2/webkit2.h>
 
 // Qt
@@ -29,13 +29,10 @@
 #include <QtCore/QJsonDocument>
 
 // LRC
-#include <media/textrecording.h>
 #include <globalinstances.h>
-#include <contactmethod.h>
 
 // Ring Client
 #include "native/pixbufmanipulator.h"
-#include "config.h"
 
 struct _WebKitChatContainer
 {
@@ -68,7 +65,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(WebKitChatContainer, webkit_chat_container, GTK_TYPE_
 /* signals */
 enum {
     READY,
-    SEND_MESSAGE,
+    SCRIPT_DIALOG,
     LAST_SIGNAL
 };
 
@@ -109,7 +106,7 @@ webkit_chat_container_class_init(WebKitChatContainerClass *klass)
         g_cclosure_marshal_VOID__VOID,
         G_TYPE_NONE, 0);
 
-    webkit_chat_container_signals[SEND_MESSAGE] = g_signal_new("send-message",
+    webkit_chat_container_signals[SCRIPT_DIALOG] = g_signal_new("script-dialog",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED),
         0,
@@ -144,68 +141,56 @@ webview_chat_context_menu(WebKitChatContainer *self,
 }
 
 QString
-message_index_to_json_message_object(const QModelIndex &idx)
+interaction_to_json_interaction_object(const uint64_t msgId, const lrc::api::interaction::Info& interaction)
 {
-    auto message = idx.data().value<QString>();
-    auto sender = idx.data(static_cast<int>(Media::TextRecording::Role::AuthorDisplayname)).value<QString>();
-    auto sender_contact_method = idx.data(static_cast<int>(Media::TextRecording::Role::ContactMethod)).value<ContactMethod*>();
-    auto timestamp = idx.data(static_cast<int>(Media::TextRecording::Role::Timestamp)).value<time_t>();
-    auto direction = idx.data(static_cast<int>(Media::TextRecording::Role::Direction)).value<Media::Media::Direction>();
-    auto message_id = idx.row();
+    auto sender = QString(interaction.authorUri.c_str());
+    auto timestamp = QString::number(interaction.timestamp);
+    auto direction = lrc::api::interaction::isOutgoing(interaction) ? QString("out") : QString("in");
 
-    QString sender_contact_method_str;
-    if(direction == Media::Media::Direction::IN)
+    QJsonObject interaction_object = QJsonObject();
+    interaction_object.insert("text", QJsonValue(QString(interaction.body.c_str())));
+    interaction_object.insert("id", QJsonValue(QString::number(msgId)));
+    interaction_object.insert("sender", QJsonValue(sender));
+    interaction_object.insert("sender_contact_method", QJsonValue(sender));
+    interaction_object.insert("timestamp", QJsonValue(timestamp));
+    interaction_object.insert("direction", QJsonValue(direction));
+    switch (interaction.type)
     {
-        sender_contact_method_str = QString(g_strdup_printf("%p", sender_contact_method));
+    case lrc::api::interaction::Type::TEXT:
+        interaction_object.insert("type", QJsonValue("text"));
+        break;
+    case lrc::api::interaction::Type::CALL:
+        interaction_object.insert("type", QJsonValue("call"));
+        break;
+    case lrc::api::interaction::Type::CONTACT:
+        interaction_object.insert("type", QJsonValue("contact"));
+        break;
+    case lrc::api::interaction::Type::INVALID:
+    default:
+        interaction_object.insert("type", QJsonValue(""));
+        break;
     }
-    else
+    switch (interaction.status)
     {
-        sender_contact_method_str = "self";
-    }
-
-    QJsonObject message_object = QJsonObject();
-    message_object.insert("text", QJsonValue(message));
-    message_object.insert("id", QJsonValue(QString().setNum(message_id)));
-    message_object.insert("sender", QJsonValue(sender));
-    message_object.insert("sender_contact_method", QJsonValue(sender_contact_method_str));
-    message_object.insert("timestamp", QJsonValue((int) timestamp));
-    message_object.insert("direction", QJsonValue((direction == Media::Media::Direction::IN) ? "in" : "out"));
-
-    switch(idx.data(static_cast<int>(Media::TextRecording::Role::DeliveryStatus)).value<Media::TextRecording::Status>())
-    {
-        case Media::TextRecording::Status::FAILURE:
-        {
-            message_object.insert("delivery_status", QJsonValue("failure"));
-            break;
-        }
-        case Media::TextRecording::Status::COUNT__:
-        {
-            message_object.insert("delivery_status", QJsonValue("count__"));
-            break;
-        }
-        case Media::TextRecording::Status::SENDING:
-        {
-            message_object.insert("delivery_status", QJsonValue("sending"));
-            break;
-        }
-        case Media::TextRecording::Status::UNKNOWN:
-        {
-            message_object.insert("delivery_status", QJsonValue("unknown"));
-            break;
-        }
-        case Media::TextRecording::Status::READ:
-        {
-            message_object.insert("delivery_status", QJsonValue("read"));
-            break;
-        }
-        case Media::TextRecording::Status::SENT:
-        {
-            message_object.insert("delivery_status", QJsonValue("sent"));
-            break;
-        }
+    case lrc::api::interaction::Status::READ:
+        interaction_object.insert("delivery_status", QJsonValue("read"));
+        break;
+    case lrc::api::interaction::Status::SUCCEED:
+        interaction_object.insert("delivery_status", QJsonValue("sent"));
+        break;
+    case lrc::api::interaction::Status::FAILED:
+        interaction_object.insert("delivery_status", QJsonValue("failure"));
+        break;
+    case lrc::api::interaction::Status::SENDING:
+        interaction_object.insert("delivery_status", QJsonValue("sending"));
+        break;
+    case lrc::api::interaction::Status::INVALID:
+    default:
+        interaction_object.insert("delivery_status", QJsonValue("unknown"));
+        break;
     }
 
-    return QString(QJsonDocument(message_object).toJson(QJsonDocument::Compact));
+    return QString(QJsonDocument(interaction_object).toJson(QJsonDocument::Compact));
 }
 
 #if WEBKIT_CHECK_VERSION(2, 6, 0)
@@ -266,12 +251,12 @@ webview_chat_decide_policy (G_GNUC_UNUSED WebKitWebView *web_view,
 #endif
 
 static gboolean
-webview_send_text(WebKitWebView      *self,
-                  WebKitScriptDialog *dialog,
-                  gpointer            user_data)
+webview_script_dialog(WebKitWebView      *self,
+                      WebKitScriptDialog *dialog,
+                      gpointer            user_data)
 {
-    auto message = webkit_script_dialog_get_message(dialog);
-    g_signal_emit(G_OBJECT(self), webkit_chat_container_signals[SEND_MESSAGE], 0, message);
+    auto interaction = webkit_script_dialog_get_message(dialog);
+    g_signal_emit(G_OBJECT(self), webkit_chat_container_signals[SCRIPT_DIALOG], 0, interaction);
     return true;
 }
 
@@ -430,7 +415,7 @@ build_view(WebKitChatContainer *view)
     gtk_drag_dest_unset(priv->webview_chat); // remove drag and drop to prevent unwanted reloading
     g_signal_connect(priv->webview_chat, "load-changed", G_CALLBACK(webview_chat_load_changed), view);
     g_signal_connect_swapped(priv->webview_chat, "context-menu", G_CALLBACK(webview_chat_context_menu), view);
-    g_signal_connect_swapped(priv->webview_chat, "script-dialog", G_CALLBACK(webview_send_text), view);
+    g_signal_connect_swapped(priv->webview_chat, "script-dialog", G_CALLBACK(webview_script_dialog), view);
 #if WEBKIT_CHECK_VERSION(2, 6, 0)
     g_signal_connect(priv->webview_chat, "decide-policy", G_CALLBACK(webview_chat_decide_policy), view);
 #endif
@@ -502,6 +487,22 @@ webkit_chat_container_set_display_links(WebKitChatContainer *view, bool display)
 }
 
 void
+webkit_chat_disable_send_interaction(WebKitChatContainer *view, bool isDisabled)
+{
+    auto priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+    gchar* function_call = g_strdup_printf("ring.chatview.disableSendMessage(%s);", isDisabled ? "true" : "false");
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+}
+
+
+void
 webkit_chat_container_clear_sender_images(WebKitChatContainer *view)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
@@ -532,12 +533,14 @@ webkit_chat_container_clear(WebKitChatContainer *view)
 }
 
 void
-webkit_chat_container_print_new_message(WebKitChatContainer *view, const QModelIndex &idx)
+webkit_chat_container_update_interaction(WebKitChatContainer *view,
+                                         uint64_t msgId,
+                                         const lrc::api::interaction::Info& interaction)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    auto message_object = message_index_to_json_message_object(idx).toUtf8();
-    gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", message_object.constData());
+    auto interaction_object = interaction_to_json_interaction_object(msgId, interaction).toUtf8();
+    gchar* function_call = g_strdup_printf("ring.chatview.updateMessage(%s);", interaction_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,
@@ -549,12 +552,14 @@ webkit_chat_container_print_new_message(WebKitChatContainer *view, const QModelI
 }
 
 void
-webkit_chat_container_update_message(WebKitChatContainer *view, const QModelIndex &idx)
+webkit_chat_container_print_new_interaction(WebKitChatContainer *view,
+                                            uint64_t msgId,
+                                            const lrc::api::interaction::Info& interaction)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    auto message_object = message_index_to_json_message_object(idx).toUtf8();
-    gchar* function_call = g_strdup_printf("ring.chatview.updateMessage(%s);", message_object.constData());
+    auto interaction_object = interaction_to_json_interaction_object(msgId, interaction).toUtf8();
+    gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", interaction_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,
@@ -566,26 +571,53 @@ webkit_chat_container_update_message(WebKitChatContainer *view, const QModelInde
 }
 
 void
-webkit_chat_container_set_sender_image(WebKitChatContainer *view, ContactMethod *sender_contact_method, QVariant sender_image)
+webkit_chat_container_set_temporary(WebKitChatContainer *view, bool temporary)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    /* The sender_contact_method should be set to nullptr if the sender is self */
-    QString sender_contact_method_str;
-    if (sender_contact_method)
-    {
-        sender_contact_method_str =  QString().sprintf("%p", sender_contact_method);
-    }
-    else
-    {
-        sender_contact_method_str = "self";
+    gchar* function_call = g_strdup_printf("ring.chatview.setTemporary(%s)", temporary ? "true" : "false");
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
+webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
+                                     const std::string& contactUri)
+{
+    auto priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+    gchar* function_call = nullptr;
+
+    if (show) {
+        function_call = g_strdup_printf("ring.chatview.showInvitation('%s')",
+        contactUri.c_str());
+    } else {
+        function_call = g_strdup_printf("ring.chatview.hideInvitation()");
     }
 
-    auto sender_image_base64 = (QString) GlobalInstances::pixmapManipulator().toByteArray(sender_image).toBase64();
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
+webkit_chat_container_set_sender_image(WebKitChatContainer *view, const std::string& sender, const std::string& senderImage)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
     QJsonObject set_sender_image_object = QJsonObject();
-    set_sender_image_object.insert("sender_contact_method", QJsonValue(sender_contact_method_str));
-    set_sender_image_object.insert("sender_image", QJsonValue(sender_image_base64));
+    set_sender_image_object.insert("sender_contact_method", QJsonValue(QString(sender.c_str())));
+    set_sender_image_object.insert("sender_image", QJsonValue(QString(senderImage.c_str())));
 
     auto set_sender_image_object_string = QString(QJsonDocument(set_sender_image_object).toJson(QJsonDocument::Compact));
 
