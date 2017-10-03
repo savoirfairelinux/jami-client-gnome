@@ -129,14 +129,6 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                         4 /* col# */, &lastInteraction /* data */,
                         -1);
 
-    // Limit the size of lastInteraction to 20 chars and add '…' at the end
-    const auto maxSize = 20;
-    const auto size = g_utf8_strlen (lastInteraction, maxSize + 1);
-    if (size > maxSize) {
-        g_utf8_strncpy (lastInteraction, lastInteraction, 20);
-        lastInteraction = g_markup_printf_escaped("%s…", lastInteraction);
-    }
-
     if (std::string(alias).empty()) {
         // For conversations with contacts with no alias
         text = g_markup_printf_escaped(
@@ -195,11 +187,9 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                 lrc::api::call::to_string(call.status).c_str()
             );
         } else if (conversation.interactions.empty()) {
-            text = "";
         } else {
             auto lastUid = conversation.lastMessageUid;
             if (conversation.interactions.find(lastUid) == conversation.interactions.end()) {
-                text = "";
             } else {
                 std::time_t lastInteractionTimestamp = conversation.interactions[lastUid].timestamp;
                 std::time_t now = std::time(nullptr);
@@ -212,13 +202,9 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                 if (std::string(interactionDay) == std::string(nowDay)) {
                     char interactionTime[100];
                     std::strftime(interactionTime, sizeof(interactionTime), "%R", std::localtime(&lastInteractionTimestamp));
-                    text = g_markup_printf_escaped("<span size=\"smaller\" color=\"#666\">%s</span>",
-                        &interactionTime
-                    );
+                    text = g_markup_printf_escaped("<span size=\"smaller\" color=\"#666\">%s</span>", &interactionTime[0]);
                 } else {
-                    text = g_markup_printf_escaped("<span size=\"smaller\" color=\"#666\">%s</span>",
-                        &interactionDay
-                    );
+                    text = g_markup_printf_escaped("<span size=\"smaller\" color=\"#666\">%s</span>", &interactionDay[0]);
                 }
             }
         }
@@ -312,7 +298,7 @@ select_conversation(GtkTreeSelection *selection, ConversationsView *self)
 }
 
 static void
-conversations_view_init(ConversationsView *self)
+conversations_view_init(G_GNUC_UNUSED ConversationsView *self)
 {
     // Nothing to do
 }
@@ -609,7 +595,8 @@ conversations_view_new(AccountContainer* accountContainer)
 
     priv->accountContainer_ = accountContainer;
 
-    build_conversations_view(self);
+    if (priv->accountContainer_)
+        build_conversations_view(self);
 
     return (GtkWidget *)self;
 }
