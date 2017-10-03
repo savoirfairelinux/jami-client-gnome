@@ -90,13 +90,6 @@
                         <property name="height-request">25</property>
                       </object>
                     </child>
-                    <child>
-                      <object class="GtkLabel" id="placeholder">
-                        <property name="visible">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="height-request">25</property>
-                      </object>
-                    </child>
                     <!-- end of call initialization progress -->
                     <!-- call state info -->
                     <child>
@@ -171,28 +164,6 @@
                       </packing>
                     </child>
                     <!-- end reject button -->
-                    <!-- end button -->
-                    <child>
-                      <object class="GtkButton" id="button_end_call">
-                        <style>
-                          <class name="red-button"/>
-                          <class name="flat-button"/>
-                        </style>
-                        <property name="width-request">48</property>
-                        <property name="height-request">48</property>
-                        <property name="visible">False</property>
-                        <property name="can_focus">True</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip-text" translatable="yes">Hang up</property>
-                        <property name="image">image_hangup</property>
-                        <property name="action-name">app.hangup</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                      </packing>
-                    </child>
-                    <!-- end end button -->
                   </object>
                   <packing>
                     <property name="expand">False</property>
