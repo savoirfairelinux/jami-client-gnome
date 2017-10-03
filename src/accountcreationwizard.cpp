@@ -337,6 +337,7 @@ create_ring_account(AccountCreationWizard *view,
                                     case NameDirectory::RegisterNameStatus::NETWORK_ERROR:
                                     {
                                         could_not_register_username_dialog(view);
+                                        [[gnu::fallthrough]];
                                     }
                                     case NameDirectory::RegisterNameStatus::SUCCESS:
                                     {
