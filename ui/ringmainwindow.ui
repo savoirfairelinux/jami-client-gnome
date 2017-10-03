@@ -220,28 +220,6 @@
                   </packing>
                 </child>
                 <!-- end "smart view" -->
-                <!-- contacts list -->
-                <child>
-                  <object class="GtkScrolledWindow" id="scrolled_window_contacts">
-                    <property name="visible">True</property>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child type="tab">
-                  <object class="GtkImage" id="image_contacts_list">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="resource">/cx/ring/RingGnome/contacts_list</property>
-                    <property name="tooltip_text" translatable="yes">Contacts</property>
-                    <property name="hexpand">True</property>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <!-- end contacts list -->
                 <!-- pending contact requests list -->
                 <child>
                   <object class="GtkScrolledWindow" id="scrolled_window_contact_requests">
