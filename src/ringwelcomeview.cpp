@@ -1,6 +1,8 @@
 /*
  *  Copyright (C) 2015-2017 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
+ *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,9 +23,6 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include "utils/accounts.h"
-#include <account.h>
-#include <accountmodel.h>
 #include <qrencode.h>
 
 // Qt
@@ -31,7 +30,7 @@
 #include <QItemSelectionModel>
 
 // LRC
-#include <availableaccountmodel.h>
+#include "utils/accounts.h"
 
 struct _RingWelcomeView
 {
@@ -53,58 +52,62 @@ struct _RingWelcomeViewPrivate
     GtkWidget *button_qrcode;
     GtkWidget *revealer_qrcode;
 
-    QMetaObject::Connection account_model_data_changed;
+    AccountContainer* accountContainer_;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_SCROLLED_WINDOW);
 
 #define RING_WELCOME_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_WELCOME_VIEW_TYPE, RingWelcomeViewPrivate))
 
-static gboolean   draw_qrcode(GtkWidget*,cairo_t*,gpointer);
+static gboolean   draw_qrcode(GtkWidget*,cairo_t*,RingWelcomeView*);
 static void       switch_qrcode(RingWelcomeView* self);
 
-static void
-update_view(RingWelcomeView *self) {
+void
+ring_welcome_update_view(RingWelcomeView* self, AccountContainer* accountContainer) {
     auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
 
-    if (auto account = get_active_ring_account()) {
-        gchar *ring_id = nullptr;
-        if(!account->registeredName().isEmpty()){
-            gtk_label_set_text(
-                GTK_LABEL(priv->label_explanation),
-                _("This is your Ring username.\nCopy and share it with your friends!")
-            );
-            ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">ring:%s</span>",
-                                              account->registeredName().toUtf8().constData());
-        }
-        else if (!account->username().isEmpty()) {
-            gtk_label_set_text(
-                GTK_LABEL(priv->label_explanation),
-                C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!")
-            );
-            ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
-                                              account->username().toUtf8().constData());
-        } else {
-            gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
-            ring_id = g_markup_printf_escaped("<span fgcolor=\"gray\">%s</span>",
-                                              _("fetching RingID..."));
-        }
-        gtk_label_set_markup(GTK_LABEL(priv->label_ringid), ring_id);
-        gtk_widget_show(priv->label_explanation);
-        gtk_widget_show(priv->label_ringid);
-        gtk_widget_show(priv->button_qrcode);
-        gtk_widget_show(priv->revealer_qrcode);
+    if (accountContainer)
+        priv->accountContainer_ = accountContainer;
 
-        g_free(ring_id);
-
-    } else { // any other protocols
-        gtk_widget_hide(priv->label_explanation);
-        gtk_widget_hide(priv->label_ringid);
+    // Only draw a basic view for SIP accounts
+    if (not accountContainer || priv->accountContainer_->info.profileInfo.type == lrc::api::profile::Type::SIP) {
         gtk_widget_hide(priv->button_qrcode);
+        gtk_widget_hide(priv->label_ringid);
+        gtk_widget_hide(priv->label_explanation);
         gtk_widget_hide(priv->revealer_qrcode);
-        gtk_revealer_set_reveal_child(GTK_REVEALER(priv->revealer_qrcode), FALSE);
         gtk_widget_set_opacity(priv->box_overlay, 1.0);
+        gtk_revealer_set_reveal_child(GTK_REVEALER(priv->revealer_qrcode), FALSE);
+        return;
     }
+
+    // Get registeredName, else the Ring Id
+    gchar *ring_id = nullptr;
+    if(! priv->accountContainer_->info.registeredName.empty()){
+        gtk_label_set_text(
+            GTK_LABEL(priv->label_explanation),
+            _("This is your Ring username.\nCopy and share it with your friends!")
+        );
+        ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">ring:%s</span>",
+                                          priv->accountContainer_->info.registeredName.c_str());
+    }
+    else if (!priv->accountContainer_->info.profileInfo.uri.empty()) {
+        gtk_label_set_text(
+            GTK_LABEL(priv->label_explanation),
+            C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!")
+        );
+        ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
+                                          priv->accountContainer_->info.profileInfo.uri.c_str());
+    } else {
+        gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
+        ring_id = "";
+    }
+
+    gtk_label_set_markup(GTK_LABEL(priv->label_ringid), ring_id);
+
+    gtk_widget_show(priv->label_explanation);
+    gtk_widget_show(priv->label_ringid);
+    gtk_widget_show(priv->button_qrcode);
+    gtk_widget_show(priv->revealer_qrcode);
 }
 
 static void
@@ -185,7 +188,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     auto drawingarea_qrcode = gtk_drawing_area_new();
     auto qrsize = 200;
     gtk_widget_set_size_request(drawingarea_qrcode, qrsize, qrsize);
-    g_signal_connect(drawingarea_qrcode, "draw", G_CALLBACK(draw_qrcode), NULL);
+    g_signal_connect(drawingarea_qrcode, "draw", G_CALLBACK(draw_qrcode), self);
     gtk_widget_set_visible(drawingarea_qrcode, TRUE);
 
     /* revealer which will show the qr code */
@@ -206,26 +209,12 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_set_no_show_all(priv->button_qrcode, TRUE);
     gtk_box_pack_start(GTK_BOX(box_main), priv->button_qrcode, TRUE, TRUE, 0);
 
-    update_view(self);
-    priv->account_model_data_changed = QObject::connect(
-        AvailableAccountModel::instance().selectionModel(),
-        &QItemSelectionModel::currentChanged,
-        [self] ()
-        {
-            update_view(self);
-        });
-
     gtk_widget_show_all(GTK_WIDGET(self));
 }
 
 static void
 ring_welcome_view_dispose(GObject *object)
 {
-    RingWelcomeView *self = RING_WELCOME_VIEW(object);
-    RingWelcomeViewPrivate *priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
-
-    QObject::disconnect(priv->account_model_data_changed);
-
     G_OBJECT_CLASS(ring_welcome_view_parent_class)->dispose(object);
 }
 
@@ -243,23 +232,25 @@ ring_welcome_view_class_init(RingWelcomeViewClass *klass)
 }
 
 GtkWidget *
-ring_welcome_view_new()
+ring_welcome_view_new(AccountContainer* accountContainer)
 {
     gpointer self = g_object_new(RING_WELCOME_VIEW_TYPE, NULL);
+    auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
+    priv->accountContainer_ = accountContainer;
+    ring_welcome_update_view(RING_WELCOME_VIEW(self), accountContainer);
 
     return (GtkWidget *)self;
 }
 
+
 static gboolean
 draw_qrcode(G_GNUC_UNUSED GtkWidget* diese,
             cairo_t*   cr,
-            G_GNUC_UNUSED gpointer   data)
+            RingWelcomeView* self)
 {
-    auto account = get_active_ring_account();
-    if (!account)
-        return TRUE;
+    auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
 
-    auto rcode = QRcode_encodeString(account->username().toStdString().c_str(),
+    auto rcode = QRcode_encodeString(priv->accountContainer_->info.profileInfo.uri.c_str(),
                                       0, //Let the version be decided by libqrencode
                                       QR_ECLEVEL_L, // Lowest level of error correction
                                       QR_MODE_8, // 8-bit data mode
@@ -283,18 +274,17 @@ draw_qrcode(G_GNUC_UNUSED GtkWidget* diese,
     cairo_rectangle(cr, 0, 0, qrwidth, qrwidth);
     cairo_fill (cr);
 
-    unsigned char *row, *p;
+    unsigned char *p;
     p = rcode->data;
     cairo_set_source_rgb(cr, 0, 0, 0); // back in black
     for(int y = 0; y < rcode->width; y++) {
-        row = (p + (y * rcode->width));
+        unsigned char* row = (p + (y * rcode->width));
         for(int x = 0; x < rcode->width; x++) {
             if(*(row + x) & 0x1) {
                 cairo_rectangle(cr, margin + x, margin + y, 1, 1);
                 cairo_fill(cr);
             }
         }
-
     }
 
     QRcode_free(rcode);
