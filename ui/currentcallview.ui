@@ -271,7 +271,6 @@
         <property name="receives_default">True</property>
         <property name="width-request">48</property>
         <property name="height-request">48</property>
-        <property name="action-name">app.hold</property>
         <property name="has_tooltip">True</property>
         <property name="tooltip-text" translatable="yes">Toggle hold</property>
         <property name="image">image_pause</property>
@@ -370,6 +369,7 @@
           <class name="call-button"/>
         </style>
         <property name="visible">True</property>
+        <property name="sensitive">False</property><!--not implemented in the new lrc-->
         <property name="can_focus">True</property>
         <property name="width-request">48</property>
         <property name="height-request">48</property>
