@@ -609,6 +609,7 @@ conversations_view_new(AccountContainer* accountContainer)
 
     priv->accountContainer_ = accountContainer;
 
+    if (priv->accountContainer_)
     build_conversations_view(self);
 
     return (GtkWidget *)self;
