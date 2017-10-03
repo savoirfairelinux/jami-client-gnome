@@ -190,7 +190,7 @@
             </child>
             <!-- end hbox search -->
             <!-- calls view will get put here programatically -->
-            <!-- start notebook with favorites, contacts, history -->
+            <!-- start notebook with favorites, contacts -->
             <child>
               <object class="GtkNotebook" id="notebook_contacts">
                 <property name="visible">True</property>
@@ -242,28 +242,6 @@
                   </packing>
                 </child>
                 <!-- end contacts list -->
-                <!-- history -->
-                <child>
-                  <object class="GtkScrolledWindow" id="scrolled_window_history">
-                    <property name="visible">True</property>
-                  </object>
-                  <packing>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-                <child type="tab">
-                  <object class="GtkImage" id="image_history_list">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="resource">/cx/ring/RingGnome/history_list</property>
-                    <property name="tooltip_text" translatable="yes">History</property>
-                    <property name="hexpand">True</property>
-                  </object>
-                  <packing>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-                <!-- end history -->
                 <!-- pending contact requests list -->
                 <child>
                   <object class="GtkScrolledWindow" id="scrolled_window_contact_requests">
@@ -293,7 +271,7 @@
                 <property name="position">2</property>
               </packing>
             </child>
-            <!-- end notebook with favorites, contacts, history -->
+            <!-- end notebook with favorites, contacts -->
           </object>
           <packing>
             <property name="resize">False</property>
@@ -325,10 +303,6 @@
   <object class="GtkImage" id="image_contacts">
     <property name="visible">True</property>
     <property name="resource">/cx/ring/RingGnome/addressbook_small</property>
-  </object>
-  <object class="GtkImage" id="image_history">
-    <property name="visible">True</property>
-    <property name="resource">/cx/ring/RingGnome/history_small</property>
   </object>
   <object class="GtkImage" id="image_presence">
     <property name="visible">True</property>
