@@ -1,247 +1,296 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.20.0 -->
 <!-- not recommended to open in Glade as it might not support some wdigets and delete them -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
+  <object class="GtkImage" id="image_account_settings">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">user-info-symbolic</property>
+    <property name="icon_size">2</property>
+  </object>
+  <object class="GtkImage" id="image_contact">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">avatar-default-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_contacts">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="resource">/cx/ring/RingGnome/addressbook_small</property>
+  </object>
+  <object class="GtkImage" id="image_general_settings">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">preferences-system-symbolic</property>
+    <property name="icon_size">2</property>
+  </object>
+  <object class="GtkImage" id="image_history">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="resource">/cx/ring/RingGnome/history_small</property>
+  </object>
+  <object class="GtkImage" id="image_media_settings">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">applications-multimedia-symbolic</property>
+    <property name="icon_size">2</property>
+  </object>
   <template class="RingMainWindow" parent="GtkApplicationWindow">
+    <property name="can_focus">False</property>
     <property name="show_menubar">False</property>
-    <!-- header definition -->
+    <child>
+      <object class="GtkStack" id="stack_main_view">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
     <child type="titlebar">
       <object class="GtkHeaderBar" id="header">
         <property name="visible">True</property>
-        <property name="show-close-button">True</property>
-        <!-- main menu button -->
+        <property name="can_focus">False</property>
+        <property name="show_close_button">True</property>
         <child>
           <object class="GtkMenuButton" id="ring_menu">
             <property name="visible">True</property>
-            <property name="direction">none</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
             <property name="tooltip_text" translatable="yes">Menu</property>
-            <style>
-              <class name="image-button"/>
-            </style>
+            <property name="direction">none</property>
             <child>
               <object class="GtkImage" id="image_ring">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
             </child>
+            <style>
+              <class name="image-button"/>
+            </style>
           </object>
-          <packing>
-            <property name="pack-type">GTK_PACK_START</property>
-          </packing>
         </child>
-        <!-- end main menu button -->
-        <!-- title box with where settings appear -->
         <child type="title">
           <object class="GtkBox" id="hbox_title">
             <property name="visible">True</property>
-            <property name="orientation">horizontal</property>
             <property name="can_focus">False</property>
-            <!-- hbox settings -->
             <child>
               <object class="GtkBox" id="hbox_settings">
-                <!-- start out as being not visible -->
-                <property name="visible">False</property>
-                <property name="orientation">horizontal</property>
                 <property name="can_focus">False</property>
-                <style>
-                  <class name="linked"/>
-                </style>
-                <!-- general settings -->
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_general_settings">
                     <property name="label" translatable="yes">General</property>
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
                     <property name="image">image_general_settings</property>
                     <property name="draw_indicator">False</property>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
-                <!-- end general settings -->
-                <!-- media settings -->
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_media_settings">
                     <property name="label" translatable="yes">Media</property>
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
                     <property name="image">image_media_settings</property>
                     <property name="draw_indicator">False</property>
                     <property name="group">radiobutton_general_settings</property>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
-                <!-- end media settings -->
-                <!-- account settings -->
                 <child>
                   <object class="GtkRadioButton" id="radiobutton_account_settings">
                     <property name="label" translatable="yes">Accounts</property>
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
                     <property name="image">image_account_settings</property>
                     <property name="draw_indicator">False</property>
                     <property name="group">radiobutton_general_settings</property>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
                 </child>
-                <!-- end account settings -->
+                <style>
+                  <class name="linked"/>
+                </style>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
             </child>
-            <!-- end hbox settings -->
           </object>
         </child>
-        <!-- end titel box with search or settings -->
-        <!-- choose account -->
         <child>
           <object class="GtkComboBox" id="combobox_account_selector">
             <property name="width_request">230</property>
             <property name="visible">True</property>
-            <property name="popup-fixed-width">False</property>
+            <property name="can_focus">False</property>
+            <property name="popup_fixed_width">False</property>
           </object>
           <packing>
-            <property name="pack-type">end</property>
+            <property name="pack_type">end</property>
+            <property name="position">1</property>
           </packing>
         </child>
-        <!-- end choose account -->
-        <!-- button settings -->
         <child>
           <object class="GtkButton" id="ring_settings">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
             <property name="tooltip_text" translatable="yes">Settings</property>
             <child>
               <object class="GtkImage" id="image_settings">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
             </child>
           </object>
           <packing>
-            <property name="pack-type">GTK_PACK_END</property>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
           </packing>
         </child>
-        <!-- end button settings -->
-      </object>
-    </child>
-    <!-- end header definition -->
-    <child>
-      <object class="GtkStack" id="stack_main_view">
-        <property name="visible">True</property>
-        <!-- disable transitions for Wayland, Tuleap: #1320 !-->
-        <property name="transition-type">GTK_STACK_TRANSITION_TYPE_NONE</property>
       </object>
     </child>
   </template>
-  <!-- main call view -->
+  <object class="GtkImage" id="image_new_conversation">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">list-add-symbolic</property>
+  </object>
   <object class="GtkBox" id="vbox_call_view">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <!-- <property name="border_width">5</property> -->
     <property name="orientation">vertical</property>
     <child>
-      <!-- start of Paned container -->
       <object class="GtkPaned" id="paned_main">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <!-- TODO: save the user set position of the pane -->
         <child>
           <object class="GtkBox" id="vbox_left_pane">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
-            <!-- hbox search -->
             <child>
               <object class="GtkBox" id="hbox_search">
                 <property name="visible">True</property>
-                <property name="orientation">horizontal</property>
                 <property name="can_focus">False</property>
                 <child>
                   <object class="GtkSearchEntry" id="search_entry">
+                    <property name="height_request">34</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="max_length">256</property>
+                    <property name="truncate_multiline">True</property>
                     <style>
                       <class name="search-entry-style"/>
                     </style>
-                    <property name="visible">True</property>
-                    <property name="truncate-multiline">True</property>
-                    <property name="max-length">256</property>
-                    <!-- ensure a min height (this is the natural height in adwiata)-->
-                    <property name="height-request">34</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="padding">0</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkSpinner" id="spinner_lookup">
+                    <property name="can_focus">False</property>
                     <style>
                       <class name="spinner-style"/>
                     </style>
-                    <property name="visible">False</property>
-                    <property name="active">False</property>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
                 <child>
                   <object class="GtkButton" id="button_new_conversation">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="image">image_new_conversation</property>
+                    <property name="relief">none</property>
                     <style>
                       <class name="new-conversation-style"/>
                     </style>
-                    <property name="image">image_new_conversation</property>
-                    <property name="visible">True</property>
-                    <property name="relief">none</property>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="padding">0</property>
+                <property name="position">0</property>
               </packing>
             </child>
-            <!-- end hbox search -->
-            <!-- calls view will get put here programatically -->
-            <!-- start notebook with favorites, contacts -->
             <child>
               <object class="GtkNotebook" id="notebook_contacts">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="show-border">False</property>
-                <property name="tab-pos">top</property>
-                <property name="scrollable">False</property>
-                <!-- "smart view" -->
+                <property name="show_border">False</property>
                 <child>
                   <object class="GtkScrolledWindow" id="scrolled_window_smartview">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                   </object>
-                  <packing>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
                 <child type="tab">
                   <object class="GtkImage" id="image_conversations_list">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="resource">/cx/ring/RingGnome/conversations_list</property>
                     <property name="tooltip_text" translatable="yes">Conversations</property>
                     <property name="hexpand">True</property>
+                    <property name="resource">/cx/ring/RingGnome/conversations_list</property>
                   </object>
                   <packing>
-                    <property name="position">0</property>
+                    <property name="tab_fill">False</property>
                   </packing>
                 </child>
-                <!-- end "smart view" -->
-                <!-- pending contact requests list -->
                 <child>
                   <object class="GtkScrolledWindow" id="scrolled_window_contact_requests">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                   </object>
                   <packing>
-                    <property name="position">3</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child type="tab">
                   <object class="GtkImage" id="image_contact_requests_list">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="resource">/cx/ring/RingGnome/contact_requests_list</property>
                     <property name="tooltip_text" translatable="yes">Contact requests</property>
                     <property name="hexpand">True</property>
+                    <property name="resource">/cx/ring/RingGnome/contact_requests_list</property>
                   </object>
                   <packing>
-                    <property name="position">3</property>
+                    <property name="position">1</property>
+                    <property name="tab_fill">False</property>
                   </packing>
                 </child>
-                <!-- end pending contact requests list -->
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -249,64 +298,35 @@
                 <property name="position">2</property>
               </packing>
             </child>
-            <!-- end notebook with favorites, contacts -->
           </object>
           <packing>
             <property name="resize">False</property>
             <property name="shrink">True</property>
           </packing>
         </child>
-        <!-- right side of pane, where the call will be inserted -->
         <child>
           <object class="GtkFrame" id="frame_call">
             <property name="visible">True</property>
-            <property name="shadow-type">GTK_SHADOW_NONE</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
           </object>
           <packing>
-            <property name="shrink">True</property>
             <property name="resize">True</property>
+            <property name="shrink">True</property>
           </packing>
         </child>
-        <!-- end of right side of pane -->
       </object>
-      <!-- end of Paned container -->
       <packing>
         <property name="expand">True</property>
         <property name="fill">True</property>
+        <property name="position">0</property>
       </packing>
     </child>
   </object>
-  <!-- end main call view -->
-  <!-- some images -->
-  <object class="GtkImage" id="image_contacts">
-    <property name="visible">True</property>
-    <property name="resource">/cx/ring/RingGnome/addressbook_small</property>
-  </object>
   <object class="GtkImage" id="image_presence">
     <property name="visible">True</property>
+    <property name="can_focus">False</property>
     <property name="resource">/cx/ring/RingGnome/users_small</property>
-  </object>
-  <object class="GtkImage" id="image_new_conversation">
-    <property name="visible">True</property>
-    <property name="icon-name">list-add-symbolic</property>
-  </object>
-  <object class="GtkImage" id="image_contact">
-    <property name="visible">True</property>
-    <property name="icon-name">avatar-default-symbolic</property>
-  </object>
-  <object class="GtkImage" id="image_general_settings">
-    <property name="visible">True</property>
-    <property name="icon-name">preferences-system-symbolic</property>
-    <property name="icon-size">2</property>
-  </object>
-  <object class="GtkImage" id="image_media_settings">
-    <property name="visible">True</property>
-    <property name="icon-name">applications-multimedia-symbolic</property>
-    <property name="icon-size">2</property>
-  </object>
-  <object class="GtkImage" id="image_account_settings">
-    <property name="visible">True</property>
-    <property name="icon-name">user-info-symbolic</property>
-    <property name="icon-size">2</property>
   </object>
 </interface>
