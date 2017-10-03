@@ -370,6 +370,7 @@
           <class name="call-button"/>
         </style>
         <property name="visible">True</property>
+        <property name="sensitive">False</property><!--not implemented in the new lrc-->
         <property name="can_focus">True</property>
         <property name="width-request">48</property>
         <property name="height-request">48</property>
