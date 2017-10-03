@@ -1,6 +1,8 @@
 /*
  *  Copyright (C) 2015-2017 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
+ *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,6 +23,8 @@
 
 #include <gtk/gtk.h>
 
+#include "accountcontainer.h"
+
 G_BEGIN_DECLS
 
 #define RING_WELCOME_VIEW_TYPE            (ring_welcome_view_get_type ())
@@ -33,6 +37,7 @@ typedef struct _RingWelcomeView      RingWelcomeView;
 typedef struct _RingWelcomeViewClass RingWelcomeViewClass;
 
 GType             ring_welcome_view_get_type (void) G_GNUC_CONST;
-GtkWidget*        ring_welcome_view_new      (void);
+GtkWidget*        ring_welcome_view_new      (AccountContainer* accountContainer);
+void              ring_welcome_update_view   (RingWelcomeView* self, AccountContainer* accountContainer = nullptr);
 
 G_END_DECLS
