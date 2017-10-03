@@ -247,17 +247,17 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
         auto contactPhoto = contactInfo.profileInfo.avatar;
         auto bestName = contactInfo.profileInfo.alias.empty()? contactInfo.registeredName : contactInfo.profileInfo.alias;
         if (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP) {
-            return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, "").get(), size, displayPresence, true));
+            return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, "").get(), size, displayPresence, contactInfo.isPresent));
         } else if (!contactPhoto.empty()) {
             QByteArray byteArray(contactPhoto.c_str(), contactPhoto.length());
             QVariant photo = personPhoto(byteArray);
-            return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, true));
+            return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, contactInfo.isPresent));
         } else {
-            return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, contactInfo.profileInfo.uri).get(), size, displayPresence, true));
+            return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, contactInfo.profileInfo.uri).get(), size, displayPresence, contactInfo.isPresent));
         }
     }
     // should not
-    return QVariant::fromValue(scaleAndFrame(generateAvatar("", "").get(), size, displayPresence, true));
+    return QVariant::fromValue(scaleAndFrame(generateAvatar("", "").get(), size, displayPresence, false));
 
 }
 
