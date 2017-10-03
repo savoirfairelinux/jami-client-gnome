@@ -183,7 +183,7 @@ connect_combo_box_qmodel(GtkComboBox *box, QAbstractItemModel *qmodel, QItemSele
 }
 
 static void
-hardware_decoding_toggled(GtkToggleButton *toggle_button, MediaSettingsView *self)
+hardware_decoding_toggled(GtkToggleButton *toggle_button, G_GNUC_UNUSED MediaSettingsView *self)
 {
     gboolean hardware_decoding = gtk_toggle_button_get_active(toggle_button);
     Video::ConfigurationProxy::setDecodingAccelerated(hardware_decoding);

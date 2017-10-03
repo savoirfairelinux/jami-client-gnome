@@ -52,7 +52,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(ConversationPopupMenu, conversation_popup_menu, GTK_T
 #define CONVERSATION_POPUP_MENU_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CONVERSATION_POPUP_MENU_TYPE, ConversationPopupMenuPrivate))
 
 static void
-remove_history_conversation(GtkWidget *menu, ConversationPopupMenuPrivate* priv)
+remove_history_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 {
     try
     {
@@ -150,7 +150,7 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY ||
         contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING) {
         // If we can add this conversation
-        auto add_conversation_conversation = gtk_menu_item_new_with_mnemonic(_("_Add conversation"));
+        auto add_conversation_conversation = gtk_menu_item_new_with_mnemonic(_("_Add to conversations"));
         gtk_menu_shell_append(GTK_MENU_SHELL(self), add_conversation_conversation);
         g_signal_connect(add_conversation_conversation, "activate", G_CALLBACK(add_conversation), priv);
         if (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING) {
