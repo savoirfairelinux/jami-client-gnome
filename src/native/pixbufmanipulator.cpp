@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2015-2017 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,6 +27,16 @@
 #include <memory>
 #include <call.h>
 #include <contactmethod.h>
+
+#include <string>
+#include <algorithm>
+
+// lrc
+#include <api/contactmodel.h>
+#include <api/conversation.h>
+#include <api/account.h>
+#include <api/contact.h>
+
 
 namespace Interfaces {
 
@@ -64,6 +75,24 @@ PixbufManipulator::generateAvatar(const ContactMethod* cm) const
         ring_draw_fallback_avatar(
             FALLBACK_AVATAR_SIZE,
             letter.toLatin1(),
+            color
+        ),
+        g_object_unref
+    };
+}
+
+std::shared_ptr<GdkPixbuf>
+PixbufManipulator::generateAvatar(const std::string& alias, const std::string& uri) const
+{
+    auto name = alias;
+    std::transform(name.begin(), name.end(), name.begin(), ::toupper);
+    auto letter = name.length() > 0 ? name[0] : 'R';
+    auto color = uri.length() > 0 ? std::stoi(std::string(1, uri[0]), 0, 16) : 0;
+
+    return std::shared_ptr<GdkPixbuf> {
+        ring_draw_fallback_avatar(
+            FALLBACK_AVATAR_SIZE,
+            letter,
             color
         ),
         g_object_unref
@@ -204,6 +233,35 @@ QVariant PixbufManipulator::personPhoto(const QByteArray& data, const QString& t
 }
 
 QVariant
+PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& conversation,
+                                     const lrc::api::account::Info& accountInfo,
+                                     const QSize& size,
+                                     bool displayPresence)
+{
+    auto contacts = conversation.participants;
+    if (!contacts.empty())
+    {
+        // Get first contact photo
+        auto contactUri = contacts.front();
+        auto contactInfo = accountInfo.contactModel->getContact(contactUri);
+        auto contactPhoto = contactInfo.profileInfo.avatar;
+        auto bestName = contactInfo.profileInfo.alias.empty()? contactInfo.registeredName : contactInfo.profileInfo.alias;
+        if (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP) {
+            return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, "").get(), size, displayPresence, true));
+        } else if (!contactPhoto.empty()) {
+            QByteArray byteArray(contactPhoto.c_str(), contactPhoto.length());
+            QVariant photo = personPhoto(byteArray);
+            return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, true));
+        } else {
+            return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, contactInfo.profileInfo.uri).get(), size, displayPresence, true));
+        }
+    }
+    // should not
+    return QVariant::fromValue(scaleAndFrame(generateAvatar("", "").get(), size, displayPresence, true));
+
+}
+
+QVariant
 PixbufManipulator::numberCategoryIcon(const QVariant& p, const QSize& size, bool displayPresence, bool isPresent)
 {
     Q_UNUSED(p)
@@ -306,6 +364,14 @@ QVariant PixbufManipulator::decorationRole(const Person* p)
 QVariant PixbufManipulator::decorationRole(const Account* p)
 {
     Q_UNUSED(p)
+    return QVariant();
+}
+
+QVariant PixbufManipulator::decorationRole(const lrc::api::conversation::Info& conversation,
+                                           const lrc::api::account::Info& accountInfo)
+{
+    Q_UNUSED(conversation)
+    Q_UNUSED(accountInfo)
     return QVariant();
 }
 

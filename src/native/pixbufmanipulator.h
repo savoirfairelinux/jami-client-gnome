@@ -29,6 +29,10 @@ class Person;
 
 namespace Interfaces {
 
+/**
+ * TODO remove old methods (methods which use Call, ContactMethod, Person, etc)
+ * But before, they should be removed from PixmapManipulatorI
+ */
 class PixbufManipulator : public PixmapManipulatorI {
     constexpr static int FALLBACK_AVATAR_SIZE {100};
 public:
@@ -36,10 +40,13 @@ public:
 
     QVariant callPhoto(Call* c, const QSize& size, bool displayPresence = true) override;
     QVariant callPhoto(const ContactMethod* n, const QSize& size, bool displayPresence = true) override;
+    QVariant conversationPhoto(const lrc::api::conversation::Info& conversation,
+                               const lrc::api::account::Info& accountInfo,
+                               const QSize& size,
+                               bool displayPresence = true) override;
     QVariant contactPhoto(Person* c, const QSize& size, bool displayPresence = true) override;
     QVariant personPhoto(const QByteArray& data, const QString& type = "PNG") override;
 
-    /* TODO: the following methods return an empty QVariant/QByteArray */
     QVariant   numberCategoryIcon(const QVariant& p, const QSize& size, bool displayPresence = false, bool isPresent = false) override;
     QVariant   securityIssueIcon(const QModelIndex& index) override;
     QByteArray toByteArray(const QVariant& pxm) override;
@@ -52,10 +59,13 @@ public:
     QVariant   decorationRole(const Call* c) override;
     QVariant   decorationRole(const ContactMethod* cm) override;
     QVariant   decorationRole(const Person* p) override;
+    QVariant   decorationRole(const lrc::api::conversation::Info& conversation,
+                              const lrc::api::account::Info& accountInfo) override;
     QVariant   decorationRole(const Account* p) override;
 
 private:
     std::shared_ptr<GdkPixbuf> generateAvatar(const ContactMethod* cm) const;
+    std::shared_ptr<GdkPixbuf> generateAvatar(const std::string& alias, const std::string& uri) const;
 
     std::shared_ptr<GdkPixbuf> scaleAndFrame(const GdkPixbuf *photo, const QSize& size, bool display_presence = false, bool is_present = false);
     std::shared_ptr<GdkPixbuf> conferenceAvatar_;
