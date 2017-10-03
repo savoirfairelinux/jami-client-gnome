@@ -122,7 +122,6 @@ choose_export_location(AccountImportExportView *self)
             gtk_label_set_text(GTK_LABEL(priv->label_export_location), filename);
 
             // if accounts and password are set then we're ready for export
-            auto password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
             if (priv->export_accounts_list && priv->export_accounts_list->data) {
                 gtk_widget_set_sensitive(priv->button_export, TRUE);
             }

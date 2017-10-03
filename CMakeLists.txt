@@ -328,6 +328,7 @@ SET( SRC_FILES
    src/bannedcontactsview.h
    src/bannedcontactsview.cpp
    src/accountcontainer.h
+   src/conversationcontainer.h
    src/conversationpopupmenu.h
    src/conversationpopupmenu.cpp
    src/conversationsview.h
