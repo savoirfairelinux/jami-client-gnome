@@ -2,6 +2,8 @@
  *  Copyright (C) 2016-2017 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *  Author: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
+ *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
+ *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,29 +21,17 @@
  */
 
 #include "chatview.h"
-#include "utils/accounts.h"
 
-#include <gtk/gtk.h>
-#include <call.h>
-#include <callmodel.h>
-#include <contactmethod.h>
-#include <person.h>
-#include <media/text.h>
-#include <media/textrecording.h>
-#include "ringnotify.h"
-#include "profilemodel.h"
-#include "profile.h"
-#include "numbercategory.h"
-#include <QtCore/QDateTime>
-#include "utils/calling.h"
-#include "utils/files.h"
-#include "webkitchatcontainer.h"
+// std
+#include <algorithm>
 
 // LRC
-#include <account.h>
+#include <api/contactmodel.h>
+#include <api/conversationmodel.h>
+#include <api/contact.h>
 
-
-static constexpr GdkRGBA RING_BLUE  = {0.0508, 0.594, 0.676, 1.0}; // outgoing msg color: (13, 152, 173)
+// Client
+#include "utils/files.h"
 
 struct _ChatView
 {
@@ -59,10 +49,8 @@ struct _ChatViewPrivate
 {
     GtkWidget *box_webkit_chat_container;
     GtkWidget *webkit_chat_container;
-    GtkWidget *scrolledwindow_chat;
     GtkWidget *hbox_chat_info;
     GtkWidget *label_peer;
-    GtkWidget *combobox_cm;
     GtkWidget *label_cm;
     GtkWidget *button_close_chatview;
     GtkWidget *button_placecall;
@@ -70,16 +58,12 @@ struct _ChatViewPrivate
 
     GSettings *settings;
 
-    /* only one of the three following pointers should be non void;
-     * either this is an in-call chat (and so the in-call chat APIs will be used)
-     * or it is an out of call chat (and so the account chat APIs will be used) */
-    Call          *call;
-    Person        *person;
-    ContactMethod *cm;
+    ConversationContainer* conversation_;
+    AccountContainer* accountContainer_;
+    bool isTemporary_;
 
-    QMetaObject::Connection new_message_connection;
-    QMetaObject::Connection message_changed_connection;
-    QMetaObject::Connection update_name;
+    QMetaObject::Connection new_interaction_connection;
+    QMetaObject::Connection update_interaction_connection;
     QMetaObject::Connection update_send_invitation;
 
     gulong webkit_ready;
@@ -107,9 +91,8 @@ chat_view_dispose(GObject *object)
     view = CHAT_VIEW(object);
     priv = CHAT_VIEW_GET_PRIVATE(view);
 
-    QObject::disconnect(priv->new_message_connection);
-    QObject::disconnect(priv->message_changed_connection);
-    QObject::disconnect(priv->update_name);
+    QObject::disconnect(priv->new_interaction_connection);
+    QObject::disconnect(priv->update_interaction_connection);
     QObject::disconnect(priv->update_send_invitation);
 
     /* Destroying the box will also destroy its children, and we wouldn't
@@ -126,7 +109,6 @@ chat_view_dispose(GObject *object)
             GTK_WIDGET(priv->webkit_chat_container)
         );
         priv->webkit_chat_container = nullptr;
-
     }
 
     G_OBJECT_CLASS(chat_view_parent_class)->dispose(object);
@@ -136,28 +118,6 @@ static void
 hide_chat_view(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
 {
     g_signal_emit(G_OBJECT(self), chat_view_signals[HIDE_VIEW_CLICKED], 0);
-}
-
-ContactMethod*
-get_active_contactmethod(ChatView *self)
-{
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    if (priv->cm) {
-        return priv->cm;
-    } else if (priv->person) {
-        auto cms = priv->person->phoneNumbers();
-        if (cms.size() == 1) {
-            return cms.first();
-        } else if (cms.size() > 1) {
-            auto active = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm));
-            if (active >= 0 && active < cms.size()) {
-                return cms.at(active);
-            }
-        }
-    }
-
-    return nullptr;
 }
 
 static void
@@ -176,88 +136,31 @@ static void
 placecall_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    if (priv->person) {
-        // get the chosen cm
-        auto cm = get_active_contactmethod(self);
-        if (cm) {
-            place_new_call(cm);
-        } else {
-            g_warning("no ContactMethod chosen; cannot place call");
-        }
-    } else if (priv->cm) {
-        place_new_call(priv->cm);
-    } else {
-        g_warning("no Person or ContactMethod set; cannot place call");
-    }
+    priv->accountContainer_->info.conversationModel->placeCall(priv->conversation_->info.uid);
 }
 
 static void
 button_send_invitation_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    if (priv->person) {
-        priv->cm = get_active_contactmethod(self);
-    }
-
-    if (!priv->cm) {
-        g_warning("invalid contact, cannot send invitation!");
-        return;
-    }
-
-    // try first to use the account associated to the contact method
-    auto account = priv->cm->account();
-    if (not account) {
-
-        // get the choosen account
-        account = get_active_ring_account();
-
-        if (not account) {
-            g_warning("invalid account, cannot send invitation!");
-            return;
-        }
-    }
-
-    // perform the request
-    if (not account->sendContactRequest(priv->cm))
-        g_warning("contact request not forwarded, cannot send invitation!");
-
-    // TODO : add an entry in the conversation to tell the user an invitation was sent.
+    priv->accountContainer_->info.conversationModel->addConversation(priv->conversation_->info.uid);
 }
 
 static void
-webkit_chat_container_send_text(G_GNUC_UNUSED GtkWidget* webview, gchar *message, ChatView* self)
+webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *interaction, ChatView* self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    /* make sure there is more than just whitespace, but if so, send the original text */
-    auto text = QString(message);
-    // NOTE for now, because we only have a send text action from the webkit.
-    if (text.startsWith("SEND:"))
-        text.remove(0, 5);
-    if (!text.trimmed().isEmpty()) {
-        QMap<QString, QString> messages;
-        messages["text/plain"] = text;
-
-        if (priv->call) {
-            // in call message
-            priv->call->addOutgoingMedia<Media::Text>()->send(messages);
-        } else if (priv->person) {
-            // get the chosen cm
-            auto cm = get_active_contactmethod(self);
-            if (cm) {
-                if (!cm->sendOfflineTextMessage(messages))
-                    g_warning("message failed to send"); // TODO: warn the user about this in the UI
-            } else {
-                g_warning("no ContactMethod chosen; message not sent");
-            }
-        } else if (priv->cm) {
-            if (!priv->cm->sendOfflineTextMessage(messages))
-                g_warning("message failed to send"); // TODO: warn the user about this in the UI
-        } else {
-            g_warning("no Call, Person, or ContactMethod set; message not sent");
-        }
+    auto order = std::string(interaction);
+    if (order == "ACCEPT") {
+        priv->accountContainer_->info.conversationModel->addConversation(priv->conversation_->info.uid);
+    } else if (order == "REFUSE") {
+        priv->accountContainer_->info.conversationModel->removeConversation(priv->conversation_->info.uid);
+    } else if (order == "BLOCK") {
+        priv->accountContainer_->info.conversationModel->removeConversation(priv->conversation_->info.uid, true);
+    } else if (order.find("SEND:") == 0) {
+        // Get text body
+        auto toSend = order.substr(std::string("SEND:").size());
+        priv->accountContainer_->info.conversationModel->sendMessage(priv->conversation_->info.uid, toSend);
     }
 }
 
@@ -283,17 +186,15 @@ chat_view_class_init(ChatViewClass *klass)
                                                 "/cx/ring/RingGnome/chatview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, box_webkit_chat_container);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, scrolledwindow_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, hbox_chat_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_cm);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, combobox_cm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_close_chatview);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_placecall);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_send_invitation);
 
     chat_view_signals[NEW_MESSAGES_DISPLAYED] = g_signal_new (
-        "new-messages-displayed",
+        "new-interactions-displayed",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
         0,
@@ -313,136 +214,67 @@ chat_view_class_init(ChatViewClass *klass)
         G_TYPE_NONE, 0);
 }
 
-
-
 static void
-print_message_to_buffer(ChatView* self, const QModelIndex &idx)
+print_interaction_to_buffer(ChatView* self, /*uint64_t interactionId, */const lrc::api::interaction::Info& interaction)
 {
-    if (!idx.isValid()) {
-        g_warning("QModelIndex in im model is not valid");
-        return;
-    }
-
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    webkit_chat_container_print_new_message(
+    /*priv->accountContainer_->info.conversationModel->setMessageRead(interactionId);*/
+
+    webkit_chat_container_print_new_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-        idx
+        /*interactionId,*/0,
+        interaction
     );
 }
 
+
 static void
-set_participant_images(ChatView* self)
+update_interaction(ChatView* self, /*uint64_t interactionId,*/ const lrc::api::interaction::Info& interaction)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    webkit_chat_container_clear_sender_images(
-        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)
+    webkit_chat_container_update_interaction(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        /*interactionId,*/0,
+        interaction
     );
-
-    /* Set the sender image for the peer */
-    ContactMethod* sender_contact_method_peer;
-    QVariant photo_variant_peer;
-
-    if (priv->person)
-    {
-        photo_variant_peer = priv->person->photo();
-        sender_contact_method_peer = get_active_contactmethod(self);
-    }
-    else
-    {
-        if (priv->cm)
-        {
-            sender_contact_method_peer = priv->cm;
-        }
-        else
-        {
-            sender_contact_method_peer = priv->call->peerContactMethod();
-        }
-        photo_variant_peer = sender_contact_method_peer->roleData((int) Call::Role::Photo);
-    }
-
-    if (photo_variant_peer.isValid())
-    {
-        webkit_chat_container_set_sender_image(
-            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-            sender_contact_method_peer,
-            photo_variant_peer
-        );
-    }
-
-    /* set sender image for "ME" */
-    auto profile = ProfileModel::instance().selectedProfile();
-    if (profile)
-    {
-        auto person = profile->person();
-        if (person)
-        {
-            auto photo_variant_me = person->photo();
-            if (photo_variant_me.isValid())
-            {
-                webkit_chat_container_set_sender_image(
-                    WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                    nullptr,
-                    photo_variant_me
-                );
-            }
-        }
-    }
 }
 
 static void
-print_text_recording(Media::TextRecording *recording, ChatView *self)
+load_participants_images(ChatView *self)
 {
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-     /* set the photos of the chat participants */
-     set_participant_images(self);
-
-    /* only text messages are supported for now */
-    auto model = recording->instantTextMessagingModel();
-
-    /* new model, disconnect from the old model updates and clear the text buffer */
-    QObject::disconnect(priv->new_message_connection);
-
-    /* put all the messages in the im model into the text view */
-    for (int row = 0; row < model->rowCount(); ++row) {
-        QModelIndex idx = model->index(row, 0);
-        print_message_to_buffer(self, idx);
+    // Load images for participants
+    /*auto contact = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants[0]);
+    if (!contact.profileInfo.avatar.empty()) {
+        webkit_chat_container_set_sender_image(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            priv->accountContainer_->info.contactModel->getContactProfileId(priv->conversation_->info.participants[0]),
+            contact.profileInfo.avatar
+        );
     }
-    /* mark all messages as read */
-    recording->setAllRead();
 
+    if (!priv->accountContainer_->info.profileInfo.avatar.empty()) {
+        webkit_chat_container_set_sender_image(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            priv->accountContainer_->info.contactModel->getContactProfileId(priv->accountContainer_->info.profileInfo.uri),
+            priv->accountContainer_->info.profileInfo.avatar
+        );
+    }*/
+}
 
-    /* messages modified */
-    /* connecting on instantMessagingModel and not textMessagingModel */
-    priv->message_changed_connection = QObject::connect(
-        model,
-        &QAbstractItemModel::dataChanged,
-        [self, priv] (const QModelIndex & topLeft, G_GNUC_UNUSED const QModelIndex & bottomRight)
-        {
-            webkit_chat_container_update_message(
-                WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                topLeft
-            );
-        }
-    );
+static void
+print_text_recording(ChatView *self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    /* append new messages */
-    priv->new_message_connection = QObject::connect(
-        model,
-        &QAbstractItemModel::rowsInserted,
-        [self, priv, model] (const QModelIndex &parent, int first, int last) {
-            for (int row = first; row <= last; ++row) {
-                QModelIndex idx = model->index(row, 0, parent);
-                print_message_to_buffer(self, idx);
-                /* make sure these messages are marked as read */
-                model->setData(idx, true, static_cast<int>(Media::TextRecording::Role::IsRead));
-                g_signal_emit(G_OBJECT(self), chat_view_signals[NEW_MESSAGES_DISPLAYED], 0);
-            }
-        }
-    );
+    for (const auto& interaction : priv->conversation_->info.interactions)
+        print_interaction_to_buffer(self, /*interaction.first, */interaction.second);
+
+    QObject::disconnect(priv->new_interaction_connection);
 }
 
 static void
@@ -450,59 +282,11 @@ update_send_invitation(ChatView *self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    auto cm = get_active_contactmethod(self);
-
-    if (cm && cm->isConfirmed()) {
+    auto participant = priv->conversation_->info.participants[0];
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(participant);
+    if(contactInfo.profileInfo.type != lrc::api::profile::Type::TEMPORARY
+       && contactInfo.profileInfo.type != lrc::api::profile::Type::PENDING)
         gtk_widget_hide(priv->button_send_invitation);
-    }
-}
-
-static void
-selected_cm_changed(ChatView *self)
-{
-    auto priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    /* make sure the webkit view is ready, in case we get this signal before it is */
-    if (!webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
-        return;
-
-    auto cm = get_active_contactmethod(self);
-    if (cm){
-        print_text_recording(cm->textRecording(), self);
-
-        QObject::disconnect(priv->update_send_invitation);
-        priv->update_send_invitation = QObject::connect(
-            get_active_contactmethod(self),
-            &ContactMethod::changed,
-            [self] () { update_send_invitation(self); }
-        );
-    } else {
-        g_warning("no valid ContactMethod selected to display chat conversation");
-    }
-}
-
-static void
-render_contact_method(G_GNUC_UNUSED GtkCellLayout *cell_layout,
-                     GtkCellRenderer *cell,
-                     GtkTreeModel *model,
-                     GtkTreeIter *iter,
-                     G_GNUC_UNUSED gpointer data)
-{
-    GValue value = G_VALUE_INIT;
-    gtk_tree_model_get_value(model, iter, 0, &value);
-    auto cm = (ContactMethod *)g_value_get_pointer(&value);
-
-    gchar *number = nullptr;
-    if (cm && cm->category()) {
-        // try to get the number category, eg: "home"
-        number = g_strdup_printf("(%s) %s", cm->category()->name().toUtf8().constData(),
-                                            cm->bestId().toUtf8().constData());
-    } else if (cm) {
-        number = g_strdup_printf("%s", cm->bestId().toUtf8().constData());
-    }
-
-    g_object_set(G_OBJECT(cell), "text", number, NULL);
-    g_free(number);
 }
 
 static void
@@ -510,98 +294,27 @@ update_contact_methods(ChatView *self)
 {
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    g_return_if_fail(priv->call || priv->person || priv->cm);
-
-    /* model for the combobox for the choice of ContactMethods */
-    auto cm_model = gtk_list_store_new(
-        1, G_TYPE_POINTER
-    );
-
-    Person::ContactMethods cms;
-
-    if (priv->person)
-        cms = priv->person->phoneNumbers();
-    else if (priv->cm)
-        cms << priv->cm;
-    else if (priv->call)
-        cms << priv->call->peerContactMethod();
-
-    for (int i = 0; i < cms.size(); ++i) {
-        GtkTreeIter iter;
-        gtk_list_store_append(cm_model, &iter);
-        gtk_list_store_set(cm_model, &iter,
-                           0, cms.at(i),
-                           -1);
-    }
-
-    gtk_combo_box_set_model(GTK_COMBO_BOX(priv->combobox_cm), GTK_TREE_MODEL(cm_model));
-    g_object_unref(cm_model);
-
-    auto renderer = gtk_cell_renderer_text_new();
-    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_cm), renderer, FALSE);
-    gtk_cell_layout_set_cell_data_func(
-        GTK_CELL_LAYOUT(priv->combobox_cm),
-        renderer,
-        (GtkCellLayoutDataFunc)render_contact_method,
-        nullptr, nullptr);
-
-    /* select the last used cm */
-    if (!cms.isEmpty()) {
-        auto last_used_cm = cms.at(0);
-        int last_used_cm_idx = 0;
-        for (int i = 1; i < cms.size(); ++i) {
-            auto new_cm = cms.at(i);
-            if (difftime(new_cm->lastUsed(), last_used_cm->lastUsed()) > 0) {
-                last_used_cm = new_cm;
-                last_used_cm_idx = i;
-            }
-        }
-
-        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_cm), last_used_cm_idx);
-
-        if (last_used_cm->isConfirmed())
-            gtk_widget_hide(priv->button_send_invitation);
-    }
-
-    /* if there is only one CM, make the combo box insensitive */
-    if (cms.size() < 2) {
-        auto active = cms.at(gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_cm)));
-        std::string ring_id = active->roleData(static_cast<int>(Ring::Role::Number)).toString().toUtf8().constData();
-        std::string displayed = gtk_label_get_text(GTK_LABEL(priv->label_peer));
-        gtk_label_set_text(GTK_LABEL(priv->label_cm), ring_id.c_str());
-        gtk_widget_hide(priv->combobox_cm);
-        if (displayed == ring_id) {
-            gtk_widget_hide(priv->label_cm);
-        } else {
-            gtk_widget_show(priv->label_cm);
-        }
-    } else {
-        gtk_widget_show(priv->combobox_cm);
+    auto contactUri = priv->conversation_->info.participants.front();
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+    if (contactInfo.profileInfo.alias == contactInfo.registeredName) {
         gtk_widget_hide(priv->label_cm);
+    } else {
+        gtk_label_set_text(GTK_LABEL(priv->label_cm), contactInfo.registeredName.c_str());
+        gtk_widget_show(priv->label_cm);
     }
 
-    /* if no CMs make the call button insensitive */
-    gtk_widget_set_sensitive(priv->button_placecall, !cms.isEmpty());
 }
 
 static void
 update_name(ChatView *self)
 {
+    g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    g_return_if_fail(priv->person || priv->cm || priv->call);
-
-    QString name;
-    if (priv->person) {
-        name = priv->person->roleData(static_cast<int>(Ring::Role::Name)).toString();
-    } else if (priv->cm) {
-        name = priv->cm->roleData(static_cast<int>(Ring::Role::Name)).toString();
-    } else if (priv->call) {
-        name = priv->call->peerContactMethod()->roleData(static_cast<int>(Ring::Role::Name)).toString();
-    }
-    gtk_label_set_text(GTK_LABEL(priv->label_peer), name.toUtf8().constData());
+    auto contactUri = priv->conversation_->info.participants.front();
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+    auto alias = contactInfo.profileInfo.alias;
+    alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
+    gtk_label_set_text(GTK_LABEL(priv->label_peer), alias.c_str());
 }
 
 static void
@@ -617,16 +330,36 @@ webkit_chat_container_ready(ChatView* self)
     );
 
     display_links_toggled(self);
+    print_text_recording(self);
+    load_participants_images(self);
 
-    /* print the text recordings */
-    if (priv->call) {
-        print_text_recording(priv->call->peerContactMethod()->textRecording(), self);
-    } else if (priv->cm) {
-        print_text_recording(priv->cm->textRecording(), self);
-    } else if (priv->person) {
-        /* get the selected cm and print the text recording */
-        selected_cm_changed(self);
-    }
+    priv->new_interaction_connection = QObject::connect(
+    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newUnreadMessage,
+    [self, priv](const std::string& uid, /*uint64_t interactionId, */lrc::api::interaction::Info interaction) {
+        if(uid == priv->conversation_->info.uid) {
+            print_interaction_to_buffer(self, /*interactionId, */interaction);
+        }
+    });
+
+    /*priv->update_interaction_connection = QObject::connect(
+    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::interactionStatusUpdated,
+    [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
+        if(uid == priv->conversation_->info.uid) {
+            update_interaction(self, interactionId, interaction);
+        }
+    });*/
+
+    auto contactUri = priv->conversation_->info.participants.front();
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+    priv->isTemporary_ = contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY
+                         || contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
+    webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
+    webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                                         (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
+                                         contactInfo.profileInfo.alias);
+    webkit_chat_disable_send_interaction(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                                        (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP)
+                                         && priv->conversation_->info.callId.empty());
 }
 
 static void
@@ -637,39 +370,9 @@ build_chat_view(ChatView* self)
     gtk_container_add(GTK_CONTAINER(priv->box_webkit_chat_container), priv->webkit_chat_container);
     gtk_widget_show(priv->webkit_chat_container);
 
-    /* keep name updated */
-    if (priv->call) {
-        priv->update_name = QObject::connect(
-            priv->call,
-            &Call::changed,
-            [self] () { update_name(self); }
-        );
-    } else if (priv->cm) {
-        priv->update_name = QObject::connect(
-            priv->cm,
-            &ContactMethod::changed,
-            [self] () { update_name(self); }
-        );
-    } else if (priv->person) {
-        priv->update_name = QObject::connect(
-            priv->person,
-            &Person::changed,
-            [self] () { update_name(self); }
-        );
-    }
-
-    priv->update_send_invitation = QObject::connect(
-        get_active_contactmethod(self),
-        &ContactMethod::changed,
-        [self] () { update_send_invitation(self); }
-    );
-
     update_name(self);
     update_send_invitation(self);
-
-    /* keep selected cm updated */
     update_contact_methods(self);
-    g_signal_connect_swapped(priv->combobox_cm, "changed", G_CALLBACK(selected_cm_changed), self);
 
     priv->webkit_ready = g_signal_connect_swapped(
         priv->webkit_chat_container,
@@ -679,96 +382,70 @@ build_chat_view(ChatView* self)
     );
 
     priv->webkit_send_text = g_signal_connect(priv->webkit_chat_container,
-        "send-message",
-        G_CALLBACK(webkit_chat_container_send_text),
+        "script-dialog",
+        G_CALLBACK(webkit_chat_container_script_dialog),
         self);
 
     if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
         webkit_chat_container_ready(self);
 
-    /* we only show the chat info in the case of cm / person */
-    gtk_widget_set_visible(priv->hbox_chat_info, (priv->cm || priv->person));
+    gtk_widget_set_visible(priv->hbox_chat_info, TRUE);
+
 }
 
 GtkWidget *
-chat_view_new_call(WebKitChatContainer *webkit_chat_container, Call *call)
+chat_view_new (WebKitChatContainer* webkit_chat_container,
+               AccountContainer* accountContainer,
+               ConversationContainer* conversationContainer)
 {
-    g_return_val_if_fail(call, nullptr);
-
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
-    priv->call = call;
+    priv->conversation_ = conversationContainer;
+    priv->accountContainer_ = accountContainer;
 
     build_chat_view(self);
-
     return (GtkWidget *)self;
 }
 
-GtkWidget *
-chat_view_new_cm(WebKitChatContainer *webkit_chat_container, ContactMethod *cm)
+void
+chat_view_update_temporary(ChatView* self, bool newValue)
 {
-    g_return_val_if_fail(cm, nullptr);
-
-    ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
-
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
-    priv->cm = cm;
-
-    build_chat_view(self);
-
-    return (GtkWidget *)self;
-}
-
-GtkWidget *
-chat_view_new_person(WebKitChatContainer *webkit_chat_container, Person *p)
-{
-    g_return_val_if_fail(p, nullptr);
-
-    ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
-
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
-    priv->person = p;
-
-    build_chat_view(self);
-
-    return (GtkWidget *)self;
-}
-
-Call*
-chat_view_get_call(ChatView *self)
-{
-    g_return_val_if_fail(IS_CHAT_VIEW(self), nullptr);
+    g_return_if_fail(IS_CHAT_VIEW(self));
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    return priv->call;
+    priv->isTemporary_ = newValue;
+    if (!priv->isTemporary_) {
+        gtk_widget_hide(priv->button_send_invitation);
+    }
+    webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
+    auto contactUri = priv->conversation_->info.participants.front();
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+    webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                                         newValue,
+                                         contactInfo.profileInfo.alias);
 }
 
-ContactMethod*
-chat_view_get_cm(ChatView *self)
+bool
+chat_view_get_temporary(ChatView *self)
 {
-    g_return_val_if_fail(IS_CHAT_VIEW(self), nullptr);
+    g_return_val_if_fail(IS_CHAT_VIEW(self), false);
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    return priv->cm;
+    return priv->isTemporary_;
 }
 
-Person*
-chat_view_get_person(ChatView *self)
+lrc::api::conversation::Info
+chat_view_get_conversation(ChatView *self)
 {
-    g_return_val_if_fail(IS_CHAT_VIEW(self), nullptr);
+    g_return_val_if_fail(IS_CHAT_VIEW(self), lrc::api::conversation::Info());
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    return priv->person;
+    return priv->conversation_->info;
 }
 
 void
 chat_view_set_header_visible(ChatView *self, gboolean visible)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-
     gtk_widget_set_visible(priv->hbox_chat_info, visible);
 }
