@@ -63,7 +63,6 @@
 #include "models/activeitemproxymodel.h"
 #include "utils/calling.h"
 #include "contactsview.h"
-#include "historyview.h"
 #include "utils/models.h"
 #include "generalsettingsview.h"
 #include "utils/accounts.h"
@@ -86,7 +85,6 @@ static constexpr const char* MEDIA_SETTINGS_VIEW_NAME   = "media";
 static constexpr const char* ACCOUNT_SETTINGS_VIEW_NAME = "accounts";
 static constexpr const char* DEFAULT_VIEW_NAME          = "welcome";
 static constexpr const char* VIEW_CONTACTS              = "contacts";
-static constexpr const char* VIEW_HISTORY               = "history";
 static constexpr const char* VIEW_PRESENCE              = "presence";
 
 struct _RingMainWindow
@@ -112,8 +110,6 @@ struct _RingMainWindowPrivate
     GtkWidget *treeview_conversations;
     GtkWidget *scrolled_window_contacts;
     GtkWidget *treeview_contacts;
-    GtkWidget *scrolled_window_history;
-    GtkWidget *treeview_history;
     GtkWidget *vbox_left_pane;
     GtkWidget *search_entry;
     GtkWidget *stack_main_view;
@@ -243,8 +239,6 @@ hide_view_clicked(RingMainWindow *self)
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
     auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contacts));
-    auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
-    gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_history));
     auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_request));
 
@@ -341,7 +335,7 @@ change_view(RingMainWindow *self, GtkWidget* old, QObject *object, GType type)
 
 /**
  * This function determines which view to display in the right panel of the main window based on
- * which item is selected in one of the 3 contact list views (Conversations, Contacts, History). The
+ * which item is selected in one of the 3 contact list views (Conversations, Contacts). The
  * possible views ares:
  * - incoming call view
  * - current call view
@@ -380,7 +374,6 @@ selection_changed(RingMainWindow *win)
     /* there should only be one item selected at a time, get which one is selected */
     auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
     auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
-    auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
     auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
 
     GtkTreeModel *model = nullptr;
@@ -390,8 +383,6 @@ selection_changed(RingMainWindow *win)
     if (gtk_tree_selection_get_selected(selection_conversations, &model, &iter)) {
         idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
     } else if (gtk_tree_selection_get_selected(selection_contacts, &model, &iter)) {
-        idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
-    } else if (gtk_tree_selection_get_selected(selection_history, &model, &iter)) {
         idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
     } else if (gtk_tree_selection_get_selected(selection_contact_request, &model, &iter)) {
         idx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
@@ -901,7 +892,6 @@ search_entry_text_changed(GtkSearchEntry *search_entry, RingMainWindow *self)
 
     RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp(text, Qt::CaseInsensitive, QRegExp::FixedString));
     contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts), text);
-    history_view_set_filter_string(HISTORY_VIEW(priv->treeview_history), text);
 }
 
 static gboolean
@@ -913,7 +903,6 @@ search_entry_key_released(G_GNUC_UNUSED GtkEntry *search_entry, GdkEventKey *key
     if (key->keyval == GDK_KEY_Escape) {
         RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp());
         contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts), "");
-        history_view_set_filter_string(HISTORY_VIEW(priv->treeview_history), "");
         return GDK_EVENT_STOP;
     }
 
@@ -965,7 +954,7 @@ dtmf_pressed(RingMainWindow *win,
 }
 
 /**
- * This function determines if two different contact list views (Conversations, Contacts, History)
+ * This function determines if two different contact list views (Conversations, Contacts)
  * have the same item selected. Note that the same item does not necessarily mean the same object.
  * For example, if the history view has a Call selected and the Conversations view has a Person
  * selected which is associated with the ContactMethod to which that Call was made, then this will
@@ -1060,8 +1049,7 @@ unselect_if_different(GtkTreeSelection *selection1, GtkTreeView* treeview)
 static void
 sync_all_view_selection(GtkTreeSelection* selection,
                         GtkTreeView* treeview1,
-                        GtkTreeView* treeview2,
-                        GtkTreeView* treeview3)
+                        GtkTreeView* treeview2)
 {
     GtkTreeIter iter;
     if (gtk_tree_selection_get_selected(selection, nullptr, &iter)) {
@@ -1072,7 +1060,6 @@ sync_all_view_selection(GtkTreeSelection* selection,
 
         unselect_if_different(selection, treeview1);
         unselect_if_different(selection, treeview2);
-        unselect_if_different(selection, treeview3);
     }
 }
 
@@ -1084,7 +1071,6 @@ conversation_selection_changed(GtkTreeSelection* selection, RingMainWindow* self
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     sync_all_view_selection(selection,
                             GTK_TREE_VIEW(priv->treeview_contacts),
-                            GTK_TREE_VIEW(priv->treeview_history),
                             GTK_TREE_VIEW(priv->treeview_contact_requests));
 
     selection_changed(self);
@@ -1097,21 +1083,6 @@ contact_selection_changed(GtkTreeSelection* selection, RingMainWindow* self)
 
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     sync_all_view_selection(selection,
-                            GTK_TREE_VIEW(priv->treeview_conversations),
-                            GTK_TREE_VIEW(priv->treeview_history),
-                            GTK_TREE_VIEW(priv->treeview_contact_requests));
-
-    selection_changed(self);
-}
-
-static void
-history_selection_changed(GtkTreeSelection* selection, RingMainWindow* self)
-{
-    if (gtk_q_tree_model_ignore_selection_change(selection)) return;
-
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
-    sync_all_view_selection(selection,
-                            GTK_TREE_VIEW(priv->treeview_contacts),
                             GTK_TREE_VIEW(priv->treeview_conversations),
                             GTK_TREE_VIEW(priv->treeview_contact_requests));
 
@@ -1126,7 +1097,6 @@ contact_request_selection_changed(GtkTreeSelection* selection, RingMainWindow* s
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
     sync_all_view_selection(selection,
                             GTK_TREE_VIEW(priv->treeview_contacts),
-                            GTK_TREE_VIEW(priv->treeview_history),
                             GTK_TREE_VIEW(priv->treeview_conversations));
 
     selection_changed(self);
@@ -1356,9 +1326,6 @@ ring_main_window_init(RingMainWindow *win)
     priv->treeview_contacts = contacts_view_new();
     gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contacts), priv->treeview_contacts);
 
-    priv->treeview_history = history_view_new();
-    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_history), priv->treeview_history);
-
     auto available_accounts_changed = [win, priv] {
         /* if we're hiding the settings it means we're in the migration or wizard view and we don't
          * want to show the combo box */
@@ -1388,9 +1355,6 @@ ring_main_window_init(RingMainWindow *win)
 
     auto selection_contacts = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contacts));
     g_signal_connect(selection_contacts, "changed", G_CALLBACK(contact_selection_changed), win);
-
-    auto selection_history = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_history));
-    g_signal_connect(selection_history, "changed", G_CALLBACK(history_selection_changed), win);
 
     auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
     g_signal_connect(selection_contact_request, "changed", G_CALLBACK(contact_request_selection_changed), win);
@@ -1427,7 +1391,6 @@ ring_main_window_init(RingMainWindow *win)
             // clear the regex to make sure the call is shown
             RecentModel::instance().peopleProxy()->setFilterRegExp(QRegExp());
             contacts_view_set_filter_string(CONTACTS_VIEW(priv->treeview_contacts),"");
-            history_view_set_filter_string(HISTORY_VIEW(priv->treeview_history), "");
 
             // now make sure its selected
             RecentModel::instance().selectionModel()->clearCurrentIndex();
@@ -1524,7 +1487,6 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_left_pane);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_smartview);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contacts);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_menu);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_ring);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_settings);
