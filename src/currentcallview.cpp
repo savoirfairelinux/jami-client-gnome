@@ -19,30 +19,30 @@
 
 #include "currentcallview.h"
 
+// Gtk
+#include <clutter-gtk/clutter-gtk.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <call.h>
-#include <callmodel.h>
-#include "utils/drawing.h"
-#include "video/video_widget.h"
-#include <video/previewmanager.h>
-#include <contactmethod.h>
-#include <person.h>
-#include <globalinstances.h>
-#include "native/pixbufmanipulator.h"
-#include <media/media.h>
-#include <media/text.h>
-#include <media/textrecording.h>
-#include "models/gtkqtreemodel.h"
-#include "ringnotify.h"
-#include <codecmodel.h>
+
+// Lrc
 #include <account.h>
-#include "utils/files.h"
-#include <clutter-gtk/clutter-gtk.h>
-#include "chatview.h"
-#include <itemdataroles.h>
-#include <numbercategory.h>
+#include <api/conversationmodel.h>
+#include <api/contact.h>
+#include <api/contactmodel.h>
+#include <api/newcallmodel.h>
+#include <codecmodel.h>
+#include <globalinstances.h>
 #include <smartinfohub.h>
+#include <video/previewmanager.h>
+
+// Client
+#include "chatview.h"
+#include "native/pixbufmanipulator.h"
+#include "ringnotify.h"
+#include "utils/drawing.h"
+#include "utils/files.h"
+#include "video/video_widget.h"
+
 
 static constexpr int CONTROLS_FADE_TIMEOUT = 3000000; /* microseconds */
 static constexpr int FADE_DURATION = 500; /* miliseconds */
@@ -80,6 +80,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *togglebutton_muteaudio;
     GtkWidget *togglebutton_mutevideo;
     GtkWidget *togglebutton_hold;
+    GtkWidget *togglebutton_record;
     GtkWidget *button_hangup;
     GtkWidget *scalebutton_quality;
     GtkWidget *checkbutton_autoquality;
@@ -93,15 +94,13 @@ struct _CurrentCallViewPrivate
      * scale button */
     gboolean quality_scale_pressed;
 
-    Call *call;
+    ConversationContainer* conversation_;
+    AccountContainer* accountContainer_;
 
     QMetaObject::Connection state_change_connection;
-    QMetaObject::Connection call_details_connection;
-    QMetaObject::Connection cm_changed_connection;
-    QMetaObject::Connection person_changed_connection;
-    QMetaObject::Connection cm_person_changed_connection;
     QMetaObject::Connection local_renderer_connection;
     QMetaObject::Connection remote_renderer_connection;
+    QMetaObject::Connection new_message_connection;
 
     GSettings *settings;
 
@@ -139,13 +138,10 @@ current_call_view_dispose(GObject *object)
     priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
     QObject::disconnect(priv->state_change_connection);
-    QObject::disconnect(priv->call_details_connection);
-    QObject::disconnect(priv->cm_changed_connection);
-    QObject::disconnect(priv->person_changed_connection);
-    QObject::disconnect(priv->cm_person_changed_connection);
     QObject::disconnect(priv->local_renderer_connection);
     QObject::disconnect(priv->remote_renderer_connection);
     QObject::disconnect(priv->smartinfo_refresh_connection);
+    QObject::disconnect(priv->new_message_connection);
     g_clear_object(&priv->settings);
 
     g_source_remove(priv->timer_fade);
@@ -170,13 +166,10 @@ muteaudio_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
 
-    if (gtk_toggle_button_get_active(togglebutton)) {
-        auto image_down = gtk_image_new_from_resource ("/cx/ring/RingGnome/unmute_audio");
-        gtk_button_set_image(GTK_BUTTON(togglebutton), image_down);
-    } else {
-        auto image_up = gtk_image_new_from_resource ("/cx/ring/RingGnome/mute_audio");
-        gtk_button_set_image(GTK_BUTTON(togglebutton), image_up);
-    }
+    auto image = gtk_image_new_from_resource ("/cx/ring/RingGnome/mute_audio");
+    if (gtk_toggle_button_get_active(togglebutton))
+        image = gtk_image_new_from_resource ("/cx/ring/RingGnome/unmute_audio");
+    gtk_button_set_image(GTK_BUTTON(togglebutton), image);
 }
 
 static void
@@ -184,27 +177,10 @@ mutevideo_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
 
-    if (gtk_toggle_button_get_active(togglebutton)) {
-        auto image_down = gtk_image_new_from_resource ("/cx/ring/RingGnome/unmute_video");
-        gtk_button_set_image(GTK_BUTTON(togglebutton), image_down);
-    } else {
-        auto image_up = gtk_image_new_from_resource ("/cx/ring/RingGnome/mute_video");
-        gtk_button_set_image(GTK_BUTTON(togglebutton), image_up);
-    }
-}
-
-static void
-hold_toggled(GtkToggleButton *togglebutton, CurrentCallView *self)
-{
-    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
-
-    if (gtk_toggle_button_get_active(togglebutton)) {
-        auto image_down = gtk_image_new_from_resource ("/cx/ring/RingGnome/play");
-        gtk_button_set_image(GTK_BUTTON(togglebutton), image_down);
-    } else {
-        auto image_up = gtk_image_new_from_resource ("/cx/ring/RingGnome/pause");
-        gtk_button_set_image(GTK_BUTTON(togglebutton), image_up);
-    }
+    auto image = gtk_image_new_from_resource ("/cx/ring/RingGnome/mute_video");
+    if (gtk_toggle_button_get_active(togglebutton))
+        image = gtk_image_new_from_resource ("/cx/ring/RingGnome/unmute_video");
+    gtk_button_set_image(GTK_BUTTON(togglebutton), image);
 }
 
 static void
@@ -237,6 +213,21 @@ map_boolean_to_orientation(GValue *value, GVariant *variant, G_GNUC_UNUSED gpoin
     return FALSE;
 }
 
+static void
+update_details(CurrentCallView *view)
+{
+    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    auto callId = priv->conversation_->info.callId;
+    gtk_label_set_text(GTK_LABEL(priv->label_duration),
+    priv->accountContainer_->info.callModel->getFormattedCallDuration(callId).c_str());
+
+    auto call = priv->accountContainer_->info.callModel->getCall(callId);
+    gtk_widget_set_sensitive(GTK_WIDGET(priv->togglebutton_muteaudio), (call.type != lrc::api::call::Type::CONFERENCE));
+    gtk_widget_set_sensitive(GTK_WIDGET(priv->togglebutton_mutevideo), (call.type != lrc::api::call::Type::CONFERENCE));
+}
+
+
 static gboolean
 timeout_check_last_motion_event(CurrentCallView *self)
 {
@@ -257,6 +248,8 @@ timeout_check_last_motion_event(CurrentCallView *self)
             }
         }
     }
+
+    update_details(self);
 
     return G_SOURCE_CONTINUE;
 }
@@ -370,15 +363,12 @@ set_quality(Call *call, gboolean auto_quality_on, double desired_quality)
             const auto& idx = videoCodecs->index(i,0);
 
             if (auto_quality_on) {
-                // g_debug("enable auto quality");
                 videoCodecs->setData(idx, "true", CodecModel::Role::AUTO_QUALITY_ENABLED);
             } else {
                 auto min_bitrate = idx.data(static_cast<int>(CodecModel::Role::MIN_BITRATE)).toInt();
                 auto max_bitrate = idx.data(static_cast<int>(CodecModel::Role::MAX_BITRATE)).toInt();
                 auto min_quality = idx.data(static_cast<int>(CodecModel::Role::MIN_QUALITY)).toInt();
                 auto max_quality = idx.data(static_cast<int>(CodecModel::Role::MAX_QUALITY)).toInt();
-
-                // g_debug("bitrate min: %d, max: %d, quality min: %d, max: %d", min_bitrate, max_bitrate, min_quality, max_quality);
 
                 double bitrate;
                 bitrate = min_bitrate + (double)(max_bitrate - min_bitrate)*(desired_quality/100.0);
@@ -389,7 +379,6 @@ set_quality(Call *call, gboolean auto_quality_on, double desired_quality)
                 quality = (double)min_quality - (min_quality - max_quality)*(desired_quality/100.0);
                 if (quality < 0) quality = 0;
 
-                // g_debug("disable auto quality; %% quality: %d; bitrate: %d; quality: %d", (int)desired_quality, (int)bitrate, (int)quality);
                 videoCodecs->setData(idx, "false", CodecModel::Role::AUTO_QUALITY_ENABLED);
                 videoCodecs->setData(idx, QString::number((int)bitrate), CodecModel::Role::BITRATE);
                 videoCodecs->setData(idx, QString::number((int)quality), CodecModel::Role::QUALITY);
@@ -402,6 +391,7 @@ set_quality(Call *call, gboolean auto_quality_on, double desired_quality)
 static void
 autoquality_toggled(GtkToggleButton *button, CurrentCallView *self)
 {
+    // TODO
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
@@ -414,16 +404,12 @@ autoquality_toggled(GtkToggleButton *button, CurrentCallView *self)
     gtk_widget_set_sensitive(GTK_WIDGET(scale), !auto_quality_on);
     gtk_widget_set_sensitive(plus_button, !auto_quality_on);
     gtk_widget_set_sensitive(minus_button, !auto_quality_on);
-
-    double desired_quality = gtk_scale_button_get_value(GTK_SCALE_BUTTON(priv->scalebutton_quality));
-
-    if (priv->call)
-        set_quality(priv->call, auto_quality_on, desired_quality);
 }
 
 static void
 quality_changed(GtkScaleButton *button, G_GNUC_UNUSED gdouble value, CurrentCallView *self)
 {
+    // TODO
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
@@ -432,11 +418,6 @@ quality_changed(GtkScaleButton *button, G_GNUC_UNUSED gdouble value, CurrentCall
 
     /* only update if the scale button is released, to reduce the number of updates */
     if (priv->quality_scale_pressed) return;
-
-    /* we get the value directly from the widget, in case this function is not
-     * called from the event */
-    if (priv->call)
-        set_quality(priv->call, FALSE, gtk_scale_button_get_value(button));
 }
 
 static gboolean
@@ -444,7 +425,6 @@ quality_button_pressed(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent *
 {
     g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), FALSE);
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-
     priv->quality_scale_pressed = TRUE;
 
     return GDK_EVENT_PROPAGATE;
@@ -455,13 +435,63 @@ quality_button_released(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent 
 {
     g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), FALSE);
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-
     priv->quality_scale_pressed = FALSE;
 
-    /* now make sure the quality gets updated */
+    // now make sure the quality gets updated
     quality_changed(GTK_SCALE_BUTTON(priv->scalebutton_quality), 0, self);
 
     return GDK_EVENT_PROPAGATE;
+}
+
+static void
+button_hangup_clicked(CurrentCallView *view)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    auto callId = priv->conversation_->info.callId;
+    priv->accountContainer_->info.callModel->hangUp(callId);
+}
+
+static void
+togglebutton_hold_clicked(CurrentCallView *view)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    auto callId = priv->conversation_->info.callId;
+    priv->accountContainer_->info.callModel->togglePause(callId);
+    auto pauseBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_hold);
+    auto image = gtk_image_new_from_resource ("/cx/ring/RingGnome/pause");
+    if (gtk_toggle_button_get_active(pauseBtn))
+        auto image = gtk_image_new_from_resource ("/cx/ring/RingGnome/play");
+    gtk_button_set_image(GTK_BUTTON(pauseBtn), image);
+}
+
+static void
+togglebutton_record_clicked(CurrentCallView *view)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    auto callId = priv->conversation_->info.callId;
+    priv->accountContainer_->info.callModel->toggleAudioRecord(callId);
+}
+
+static void
+togglebutton_muteaudio_clicked(CurrentCallView *view)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    auto callId = priv->conversation_->info.callId;
+    auto muteAudioBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_muteaudio);
+    priv->accountContainer_->info.callModel->toggleMedia(callId,
+        lrc::api::NewCallModel::Media::AUDIO,
+        gtk_toggle_button_get_active(muteAudioBtn));
+}
+
+static void
+togglebutton_mutevideo_clicked(CurrentCallView *view)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    auto callId = priv->conversation_->info.callId;
+    auto muteVideoBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_mutevideo);
+    priv->accountContainer_->info.callModel->toggleMedia(callId,
+        lrc::api::NewCallModel::Media::VIDEO,
+        gtk_toggle_button_get_active(muteVideoBtn));
 }
 
 static void
@@ -510,6 +540,13 @@ insert_controls(CurrentCallView *view)
     /* have a timer check every 1 second if the controls should fade out */
     priv->timer_fade = g_timeout_add(1000, (GSourceFunc)timeout_check_last_motion_event, view);
 
+    /* connect the controllers (new model) */
+    g_signal_connect_swapped(priv->button_hangup, "clicked", G_CALLBACK(button_hangup_clicked), view);
+    g_signal_connect_swapped(priv->togglebutton_hold, "clicked", G_CALLBACK(togglebutton_hold_clicked), view);
+    g_signal_connect_swapped(priv->togglebutton_muteaudio, "clicked", G_CALLBACK(togglebutton_muteaudio_clicked), view);
+    g_signal_connect_swapped(priv->togglebutton_record, "clicked", G_CALLBACK(togglebutton_record_clicked), view);
+    g_signal_connect_swapped(priv->togglebutton_mutevideo, "clicked", G_CALLBACK(togglebutton_mutevideo_clicked), view);
+
     /* connect to the mouse motion event to reset the last moved time */
     g_signal_connect_swapped(priv->video_widget, "motion-notify-event", G_CALLBACK(mouse_moved), view);
     g_signal_connect_swapped(priv->video_widget, "button-press-event", G_CALLBACK(mouse_moved), view);
@@ -518,11 +555,9 @@ insert_controls(CurrentCallView *view)
     /* manually handle the focus of the video widget to be able to focus on the call controls */
     g_signal_connect(priv->video_widget, "focus", G_CALLBACK(video_widget_focus), view);
 
+
     /* toggle whether or not the chat is displayed */
     g_signal_connect(priv->togglebutton_chat, "toggled", G_CALLBACK(chat_toggled), view);
-    g_signal_connect(priv->togglebutton_hold, "toggled", G_CALLBACK(hold_toggled), view);
-    g_signal_connect(priv->togglebutton_mutevideo, "toggled", G_CALLBACK(mutevideo_toggled), view);
-    g_signal_connect(priv->togglebutton_muteaudio, "toggled", G_CALLBACK(muteaudio_toggled), view);
 
     /* bind the chat orientation to the gsetting */
     priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
@@ -543,28 +578,6 @@ insert_controls(CurrentCallView *view)
     if (auto scale = gtk_scale_button_get_scale(GTK_SCALE_BUTTON(priv->scalebutton_quality))) {
         g_signal_connect(scale, "button-press-event", G_CALLBACK(quality_button_pressed), view);
         g_signal_connect(scale, "button-release-event", G_CALLBACK(quality_button_released), view);
-    }
-
-    /* by this time we should have the call already set, but we check to make sure */
-    if (priv->call) {
-        /* check if auto quality is enabled or not */
-        if (const auto& codecModel = priv->call->account()->codecModel()) {
-            const auto& videoCodecs = codecModel->videoCodecs();
-            if (videoCodecs->rowCount() > 0) {
-                /* we only need to check the first codec since by default it is ON for all, and the
-                 * gnome client sets its ON or OFF for all codecs as well */
-                const auto& idx = videoCodecs->index(0,0);
-                auto auto_quality_enabled = idx.data(static_cast<int>(CodecModel::Role::AUTO_QUALITY_ENABLED)).toString() == "true";
-                gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality), auto_quality_enabled);
-
-                // TODO: save the manual quality setting in the client and set the slider to that value here;
-                //       the daemon resets the bitrate/quality between each call, and the default may be
-                //       different for each codec, so there is no reason to check it here
-            }
-        }
-    } else {
-        /* Auto-quality is off by default */
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality), FALSE);
     }
 
     // Get if the user wants to show the smartInfo box
@@ -606,8 +619,8 @@ current_call_view_init(CurrentCallView *view)
     gtk_container_add(GTK_CONTAINER(priv->frame_video), priv->video_widget);
     gtk_widget_show_all(priv->frame_video);
 
-    /* add the overlay controls only once the view has been allocated a size to prevent size
-     * allocation warnings in the log */
+    // add the overlay controls only once the view has been allocated a size to prevent size
+    // allocation warnings in the log
     priv->insert_controls_id = g_signal_connect(view, "size-allocate", G_CALLBACK(insert_controls), nullptr);
 }
 
@@ -636,6 +649,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_hold);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_muteaudio);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_record);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_mutevideo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scalebutton_quality);
@@ -652,25 +666,17 @@ current_call_view_class_init(CurrentCallViewClass *klass)
 }
 
 static void
-update_state(CurrentCallView *view, Call *call)
+update_state(CurrentCallView *view)
 {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    gchar *status = g_strdup_printf("%s", call->toHumanStateName().toUtf8().constData());
+    // change state label
+    auto callId = priv->conversation_->info.callId;
+    auto call = priv->accountContainer_->info.callModel->getCall(callId);
 
+    gchar *status = g_strdup_printf("%s", lrc::api::call::to_string(call.status).c_str());
     gtk_label_set_text(GTK_LABEL(priv->label_status), status);
-
     g_free(status);
-}
-
-static void
-update_details(CurrentCallView *view, Call *call)
-{
-    CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-
-    /* update call duration */
-    QByteArray ba_length = call->length().toLocal8Bit();
-    gtk_label_set_text(GTK_LABEL(priv->label_duration), ba_length.constData());
 }
 
 static void
@@ -678,37 +684,24 @@ update_name_and_photo(CurrentCallView *view)
 {
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    /* get call image */
-    QVariant var_i = GlobalInstances::pixmapManipulator().callPhoto(priv->call, QSize(60, 60), false);
+    QVariant var_i = GlobalInstances::pixmapManipulator().conversationPhoto(
+        priv->conversation_->info,
+        priv->accountContainer_->info,
+        QSize(60, 60),
+        false
+    );
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
 
-    /* get name */
-    auto name = priv->call->formattedName();
-    gtk_label_set_text(GTK_LABEL(priv->label_name), name.toUtf8().constData());
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->info.participants.front());
 
-    /* get contact best id, if different from name */
-    auto contactId = priv->call->peerContactMethod()->bestId();
-    if (name != contactId) {
-        gtk_label_set_text(GTK_LABEL(priv->label_bestId), contactId.toUtf8().constData());
+    auto name = contactInfo.profileInfo.alias;
+    gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
+
+    auto bestId = contactInfo.registeredName;
+    if (name != bestId) {
+        gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.c_str());
         gtk_widget_show(priv->label_bestId);
-    }
-}
-
-static void
-update_person(CurrentCallView *view, Person *new_person)
-{
-    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-
-    update_name_and_photo(view);
-
-    QObject::disconnect(priv->person_changed_connection);
-    if (new_person) {
-        priv->person_changed_connection = QObject::connect(
-            new_person,
-            &Person::changed,
-            [view]() { update_name_and_photo(view); }
-        );
     }
 }
 
@@ -779,7 +772,7 @@ on_button_press_in_video_event(GtkWidget *self, GdkEventButton *event, CurrentCa
     g_return_val_if_fail(IS_VIDEO_WIDGET(self), FALSE);
     g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), FALSE);
 
-    /* on double click */
+    // on double click
     if (event->type == GDK_2BUTTON_PRESS) {
         g_debug("double click in video");
         g_signal_emit(G_OBJECT(view), current_call_view_signals[VIDEO_DOUBLE_CLICKED], 0);
@@ -798,71 +791,30 @@ toggle_smartinfo(GSimpleAction* action, G_GNUC_UNUSED GVariant* state, GtkWidget
     }
 }
 
+
 static void
-set_call_info(CurrentCallView *view, Call *call) {
+set_call_info(CurrentCallView *view) {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    priv->call = call;
+    // change some things depending on call state
+    update_state(view);
+    update_details(view);
 
+    // NOTE/TODO we need to rewrite the video_widget file to use the new LRC.
+    g_signal_connect(priv->video_widget, "button-press-event", G_CALLBACK(video_widget_on_button_press_in_screen_event), nullptr);
 
-    /* change some things depending on call state */
-    update_state(view, priv->call);
-    update_details(view, priv->call);
-    update_person(view, priv->call->peerContactMethod()->contact());
-
-    priv->smartinfo_refresh_connection = QObject::connect(
-        &SmartInfoHub::instance(),
-        &SmartInfoHub::changed,
-        [view, priv]() { update_smartInfo(view); }
-    );
-
-    priv->state_change_connection = QObject::connect(
-        priv->call,
-        &Call::stateChanged,
-        [view, priv]() { update_state(view, priv->call); }
-    );
-
-    priv->call_details_connection = QObject::connect(
-        priv->call,
-        &Call::changed,
-        [view, priv]() { update_details(view, priv->call); }
-    );
-
-    priv->cm_changed_connection = QObject::connect(
-        priv->call->peerContactMethod(),
-        &ContactMethod::changed,
-        [view]() { update_name_and_photo(view); }
-    );
-
-    priv->cm_person_changed_connection = QObject::connect(
-        priv->call->peerContactMethod(),
-        &ContactMethod::contactChanged,
-        [view] (Person* newPerson, Person*) { update_person(view, newPerson); }
-    );
-
-    /* check if we already have a renderer */
+    // check if we already have a renderer
     video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                   priv->call->videoRenderer(),
+                                   priv->accountContainer_->info.callModel->getRenderer(priv->conversation_->info.callId),
                                    VIDEO_RENDERER_REMOTE);
 
-    /* callback for remote renderer */
-    priv->remote_renderer_connection = QObject::connect(
-        priv->call,
-        &Call::videoStarted,
-        [priv](Video::Renderer *renderer) {
-            video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                           renderer,
-                                           VIDEO_RENDERER_REMOTE);
-        }
-    );
-
-    /* local renderer */
+    // local renderer
     if (Video::PreviewManager::instance().isPreviewing())
         video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
                                        Video::PreviewManager::instance().previewRenderer(),
                                        VIDEO_RENDERER_LOCAL);
 
-    /* callback for local renderer */
+    // callback for local renderer
     priv->local_renderer_connection = QObject::connect(
         &Video::PreviewManager::instance(),
         &Video::PreviewManager::previewStarted,
@@ -873,52 +825,80 @@ set_call_info(CurrentCallView *view, Call *call) {
         }
     );
 
-    /* handle video widget button click event */
-    g_signal_connect(priv->video_widget, "button-press-event", G_CALLBACK(video_widget_on_button_press_in_screen_event), priv->call);
+    priv->smartinfo_refresh_connection = QObject::connect(
+        &SmartInfoHub::instance(),
+        &SmartInfoHub::changed,
+        [view, priv]() { update_smartInfo(view); }
+    );
 
-    /* handle video widget drag and drop*/
-    g_signal_connect(priv->video_widget, "drag-data-received", G_CALLBACK(video_widget_on_drag_data_received), priv->call);
+    priv->remote_renderer_connection = QObject::connect(
+        &*priv->accountContainer_->info.callModel,
+        &lrc::api::NewCallModel::remotePreviewStarted,
+        [priv](const std::string& callId, Video::Renderer *renderer) {
+            if (priv->conversation_->info.callId == callId) {
+                video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                    renderer,
+                    VIDEO_RENDERER_REMOTE);
+            }
+        }
+    );
 
-    /* catch double click to make full screen */
+    priv->state_change_connection = QObject::connect(
+    &*priv->accountContainer_->info.callModel,
+    &lrc::api::NewCallModel::callStatusChanged,
+    [view, priv] (const std::string& callId) {
+        if (callId == priv->conversation_->info.callId) {
+            update_state(view);
+            update_name_and_photo(view);
+        }
+    });
+
+    priv->new_message_connection = QObject::connect(
+    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newUnreadMessage,
+    [priv](const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
+    });
+
+
+    // catch double click to make full screen
     g_signal_connect(priv->video_widget, "button-press-event",
                      G_CALLBACK(on_button_press_in_video_event),
                      view);
 
-    /* handle smartinfo in right click menu */
+    // handle smartinfo in right click menu
     auto display_smartinfo = g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "display-smartinfo");
     priv->smartinfo_action = g_signal_connect(display_smartinfo,
                                               "notify::state",
                                               G_CALLBACK(toggle_smartinfo),
                                               priv->vbox_call_smartInfo);
 
-    /* init chat view */
-    auto chat_view = chat_view_new_call(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->call);
+    // init chat view
+    auto chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->accountContainer_, priv->conversation_);
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
 
-    /* check if there were any chat notifications and open the chat view if so */
-    if (ring_notify_close_chat_notification(priv->call->peerContactMethod()))
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
-
-    /* show chat view on any new incoming messages */
     g_signal_connect_swapped(chat_view, "new-messages-displayed", G_CALLBACK(show_chat_view), view);
+    chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
+
 }
 
 GtkWidget *
-current_call_view_new(Call *call, WebKitChatContainer *webkit_chat_container)
+current_call_view_new(WebKitChatContainer* view, AccountContainer* accountContainer, ConversationContainer* conversationContainer)
 {
     auto self = g_object_new(CURRENT_CALL_VIEW_TYPE, NULL);
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-    priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
-    set_call_info(CURRENT_CALL_VIEW(self), call);
+    priv->webkit_chat_container = GTK_WIDGET(view);
+    priv->conversation_ = conversationContainer;
+    priv->accountContainer_ = accountContainer;
+    set_call_info(CURRENT_CALL_VIEW(self));
 
     return GTK_WIDGET(self);
 }
 
-Call*
-current_call_view_get_call(CurrentCallView *self)
+lrc::api::conversation::Info
+current_call_view_get_conversation(CurrentCallView *self)
 {
-    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), nullptr);
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), lrc::api::conversation::Info());
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
-    return priv->call;
+    return priv->conversation_->info;
 }
