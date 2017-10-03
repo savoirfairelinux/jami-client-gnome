@@ -129,14 +129,6 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                         4 /* col# */, &lastInteraction /* data */,
                         -1);
 
-    // Limit the size of lastInteraction to 20 chars and add '…' at the end
-    const auto maxSize = 20;
-    const auto size = g_utf8_strlen (lastInteraction, maxSize + 1);
-    if (size > maxSize) {
-        g_utf8_strncpy (lastInteraction, lastInteraction, 20);
-        lastInteraction = g_markup_printf_escaped("%s…", lastInteraction);
-    }
-
     if (std::string(alias).empty()) {
         // For conversations with contacts with no alias
         text = g_markup_printf_escaped(
@@ -609,7 +601,8 @@ conversations_view_new(AccountContainer* accountContainer)
 
     priv->accountContainer_ = accountContainer;
 
-    build_conversations_view(self);
+    if (priv->accountContainer_)
+        build_conversations_view(self);
 
     return (GtkWidget *)self;
 }
