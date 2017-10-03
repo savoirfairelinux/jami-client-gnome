@@ -331,6 +331,9 @@ SET( SRC_FILES
    src/accountbanstab.cpp
    src/bannedcontactsview.h
    src/bannedcontactsview.cpp
+   src/accountcontainer.h
+   src/conversationpopupmenu.h
+   src/conversationpopupmenu.cpp
 )
 
 # compile glib resource files to c code
