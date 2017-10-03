@@ -6,11 +6,21 @@
 </head>
 
 <body>
+  <div id="invitation">
+    <div id="text">
+    </div>
+    <div id="actions">
+      <div id="accept-btn" class="flat-button button-green" onclick="ring.chatview.acceptInvitation()" >Accept</div>
+      <div id="refuse-btn" class="flat-button button-red" onclick="ring.chatview.refuseInvitation()" >Refuse</div>
+      <div id="block-btn" class="flat-button button-red" onclick="ring.chatview.blockConversation()" >Block</div>
+    </div>
+  </div>
     <div id="container">
       <div id="messages"></div>
 
       <div id="sendMessage">
-        <textarea id="message" autofocus placeholder="Message" onkeyup="grow_text_area()" rows="1" ></textarea>
+        <!-- when SIP messages will be integrated in the client add 'disabled="false"' -->
+        <textarea id="message" autofocus placeholder="Message" onkeyup="grow_text_area()" rows="1"></textarea>
         <div id="sendBtn" onclick="ring.chatview.sendMessage()" title="Send">
           <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
               <path xmlns="http://www.w3.org/2000/svg" d="M12,11.874v4.357l7-6.69l-7-6.572v3.983c-8.775,0-11,9.732-11,9.732C3.484,12.296,7.237,11.874,12,11.874z"/>
@@ -117,9 +127,64 @@ ring.chatview = (function(){
          var message = input.value;
          if (message.length > 0) {
              input.value = '';
-             window.prompt(message);
+             window.prompt('SEND:' + message);
          }
      }
+
+   /**
+    * Disable or enable textarea
+    */
+    function disableSendMessage(isDisabled)
+    {
+        var input = document.querySelector("#sendMessage #message");
+        input.disabled = isDisabled;
+    }
+
+    /**
+     * Accept an invite
+     */
+    function acceptInvitation()
+    {
+        window.prompt('ACCEPT');
+    }
+
+    /**
+     * Refuse an invite
+     */
+    function refuseInvitation()
+    {
+        window.prompt('REFUSE');
+    }
+
+    /**
+     * Accept an invite
+     */
+    function blockConversation()
+    {
+        window.prompt('BLOCK');
+    }
+
+    /**
+     * Change the content of the div invitation and show it
+     * @param  contactAlias
+     */
+    function showInvitation(contactAlias) {
+      const invitationText = document.querySelector('#text');
+      const invitation = document.querySelector('#invitation');
+      invitationText.innerHTML = '<h1>' + contactAlias + ' sends you an invitation</h1>'
+      + 'Do you want to add them to the conversations list?<br>'
+      + 'Note: you can automatically accept this invitation by sending a message.';
+      invitation.style.visibility = 'visible';
+    }
+
+    /**
+     * Hide the content of invitation
+     * @param  contactAlias
+     */
+    function hideInvitation() {
+      const invitation = document.querySelector('#invitation');
+      invitation.style.visibility = 'hidden';
+    }
 
     /**
      * Clears all messages
@@ -223,10 +288,12 @@ ring.chatview = (function(){
    */
   function getMessageHtml(message_text)
   {
-    const escaped_message = escapeHtml(message_text),
-      linkified_message = linkifyHtml(escaped_message, {});
+    const escaped_message = escapeHtml(message_text);
+    var linkified_message = linkifyHtml(escaped_message, {});
 
     const textPart = document.createElement('pre');
+    var linkified_message = linkified_message.replace("📞", "<span id=\"green\">📞</span>")
+    var linkified_message = linkified_message.replace("🕽", "<span id=\"red\">🕽</span>")
     textPart.innerHTML = linkified_message;
 
     return textPart.outerHTML;
@@ -347,6 +414,7 @@ ring.chatview = (function(){
             message_sender_contact_method = message_object["sender_contact_method"],
             message_timestamp = message_object["timestamp"],
             message_direction = message_object["direction"],
+            message_type = message_object["type"],
             message_delivery_status = message_object["delivery_status"],
             message_div_classes,
             chatview_message_div,
@@ -368,7 +436,8 @@ ring.chatview = (function(){
         {
             message_div_classes = [
                 "message",
-                "message_" + message_direction
+                "message_" + message_direction,
+                "message_type_" + message_type
             ];
 
             chatview_message_div = document.createElement('div');
@@ -559,6 +628,24 @@ ring.chatview = (function(){
         }
     }
 
+    function setTemporary(temporary)
+    {
+      var area = document.querySelector("#message");
+      var sendBtn = document.querySelector("#sendBtn");
+      if (temporary) {
+          area.placeholder = "Note: an interaction will create a new contact.";
+          sendBtn.innerHTML = "<svg viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\
+          <path d=\"M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z\"/>\
+          <path d=\"M0 0h24v24H0z\" fill=\"none\"/>\
+          </svg>";
+      } else {
+          area.placeholder = "Message";
+          sendBtn.innerHTML = "<svg viewBox=\"0 0 30 30\" xmlns=\"http://www.w3.org/2000/svg\">\
+              <path xmlns=\"http://www.w3.org/2000/svg\"\ d=\"M12,11.874v4.357l7-6.69l-7-6.572v3.983c-8.775,0-11,9.732-11,9.732C3.484,12.296,7.237,11.874,12,11.874z\"/>\
+          </svg>";
+      }
+    }
+
     return {
         addMessage: addMessage,
         updateMessage: updateMessage,
@@ -569,6 +656,13 @@ ring.chatview = (function(){
         clearSenderImages: clearSenderImages,
         sendMessage: sendMessage,
         setDisplayLinks: setDisplayLinks,
+        setTemporary: setTemporary,
+        acceptInvitation: acceptInvitation,
+        refuseInvitation: refuseInvitation,
+        blockConversation: blockConversation,
+        showInvitation: showInvitation,
+        hideInvitation: hideInvitation,
+        disableSendMessage: disableSendMessage,
     }
 
 })();
