@@ -103,6 +103,8 @@ ring_about_dialog(GtkWidget *parent)
         "Julien Grossholtz",
         "Kateryna Kostiuk",
         "Loïc Siret",
+        "Marianne Forget",
+        "Michel Schmit",
         "Nicolas Jäger",
         "Nicolas Reynaud",
         "Olivier Gregoire",
@@ -110,19 +112,15 @@ ring_about_dialog(GtkWidget *parent)
         "Patrick Keroulas",
         "Philippe Gorley",
         "Romain Bertozzi",
+        "Saher Azer",
         "Sébastien Blin",
         "Seva Ivanov",
         "Silbino Gonçalves Matado",
         "Simon Désaulniers",
-        "Stepan Salenikovich",
         "Simon Zeni",
+        "Stepan Salenikovich",
         "Thibault Wittemberg",
         "Based on the SFLPhone project",
-        NULL,
-    };
-
-    const gchar *artists[] = {
-        "Marianne Forget",
         NULL,
     };
 
@@ -137,7 +135,6 @@ ring_about_dialog(GtkWidget *parent)
         "authors", authors,
         "website", "https://www.ring.cx/",
         "website-label", "www.ring.cx",
-        "artists", artists,
         "translator-credits", "https://www.transifex.com/savoirfairelinux/ring",
         NULL
     );
