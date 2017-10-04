@@ -103,6 +103,8 @@ ring_about_dialog(GtkWidget *parent)
         "Julien Grossholtz",
         "Kateryna Kostiuk",
         "Loïc Siret",
+        "Marianne Forget",
+        "Michel Schmit",
         "Nicolas Jäger",
         "Nicolas Reynaud",
         "Olivier Gregoire",
@@ -121,11 +123,6 @@ ring_about_dialog(GtkWidget *parent)
         NULL,
     };
 
-    const gchar *artists[] = {
-        "Marianne Forget",
-        NULL,
-    };
-
     gtk_show_about_dialog(
         GTK_WINDOW(parent),
         "program-name", "",
@@ -137,7 +134,6 @@ ring_about_dialog(GtkWidget *parent)
         "authors", authors,
         "website", "https://www.ring.cx/",
         "website-label", "www.ring.cx",
-        "artists", artists,
         "translator-credits", "https://www.transifex.com/savoirfairelinux/ring",
         NULL
     );
