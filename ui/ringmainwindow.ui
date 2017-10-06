@@ -257,12 +257,24 @@
                   </object>
                 </child>
                 <child type="tab">
-                  <object class="GtkImage" id="image_conversations_list">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="tooltip_text" translatable="yes">Conversations</property>
-                    <property name="hexpand">True</property>
-                    <property name="resource">/cx/ring/RingGnome/conversations_list</property>
+                    <child>
+                      <object class="GtkLabel" id="label_conversations">
+                        <property name="visible">False</property>
+                        <property name="label" translatable="yes">Conversations</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImage" id="image_conversations_list">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Conversations</property>
+                        <property name="hexpand">True</property>
+                        <property name="resource">/cx/ring/RingGnome/conversations_list</property>
+                      </object>
+                    </child>
                   </object>
                   <packing>
                     <property name="tab_fill">False</property>
@@ -278,12 +290,24 @@
                   </packing>
                 </child>
                 <child type="tab">
-                  <object class="GtkImage" id="image_contact_requests_list">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="tooltip_text" translatable="yes">Contact requests</property>
-                    <property name="hexpand">True</property>
-                    <property name="resource">/cx/ring/RingGnome/contact_requests_list</property>
+                    <child>
+                      <object class="GtkLabel" id="label_contact_requests">
+                        <property name="visible">False</property>
+                        <property name="label" translatable="yes">Contact requests</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImage" id="image_contact_requests_list">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Contact requests</property>
+                        <property name="hexpand">True</property>
+                        <property name="resource">/cx/ring/RingGnome/contact_requests_list</property>
+                      </object>
+                    </child>
                   </object>
                   <packing>
                     <property name="position">1</property>
