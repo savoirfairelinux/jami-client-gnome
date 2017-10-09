@@ -17,6 +17,7 @@
 # Guillaume Roguez, 2016-2017
 # Guillaume Roguez, 2015
 # Julie LeBrun <julie.lebrun@savoirfairelinux.com>, 2016-2017
+# khalil bennani <iterniter@gmail.com>, 2017
 # osoldano <burnobob@hotmail.com>, 2016
 # Pierre-Luc Soulé-Noulibos <plsn@outlook.fr>, 2017
 # Sylvain Etienne <seti@dadboo.eu>, 2016
@@ -24,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-24 23:09-0400\n"
-"PO-Revision-Date: 2017-09-25 03:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-10-08 23:08-0400\n"
+"PO-Revision-Date: 2017-10-05 14:50+0000\n"
+"Last-Translator: Guillaume Roguez\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -103,7 +104,7 @@ msgstr "ID"
 #: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
 #: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
 msgid "Change password"
-msgstr ""
+msgstr "changer le mot de passe"
 
 #: src/accountgeneraltab.cpp:196
 msgid "New password and its confirmation are different"
@@ -111,7 +112,7 @@ msgstr ""
 
 #: src/accountgeneraltab.cpp:206
 msgid "Password changed!"
-msgstr ""
+msgstr "mot de passe changé!"
 
 #: src/accountgeneraltab.cpp:209
 msgid "Incorrect password"
@@ -787,11 +788,11 @@ msgstr ""
 
 #: ui/accountgeneraltab.ui:214
 msgid "New password"
-msgstr ""
+msgstr "Nouveau mot de passe"
 
 #: ui/accountgeneraltab.ui:234
 msgid "Confirm password"
-msgstr ""
+msgstr "Confirmer le mot de passe"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"

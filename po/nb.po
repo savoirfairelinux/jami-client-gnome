@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-24 23:09-0400\n"
-"PO-Revision-Date: 2017-09-25 03:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-10-08 23:08-0400\n"
+"PO-Revision-Date: 2017-10-05 14:50+0000\n"
+"Last-Translator: Guillaume Roguez\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/savoirfairelinux/ring/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,7 +69,7 @@ msgstr "Dårlig passord"
 
 #: src/accountdevicestab.cpp:201
 msgid "Network error, try again"
-msgstr "Nettverksfeil, forsøk på nytt"
+msgstr "Nettverksfeil, prøv på nytt"
 
 #: src/accountdevicestab.cpp:213
 msgid "Could not initiate export to the Ring, try again"
@@ -88,19 +88,19 @@ msgstr "ID"
 #: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
 #: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
 msgid "Change password"
-msgstr ""
+msgstr "Endre passord"
 
 #: src/accountgeneraltab.cpp:196
 msgid "New password and its confirmation are different"
-msgstr ""
+msgstr "Nytt passord og bekreftelse av det er forskjellig"
 
 #: src/accountgeneraltab.cpp:206
 msgid "Password changed!"
-msgstr ""
+msgstr "Passord endret!"
 
 #: src/accountgeneraltab.cpp:209
 msgid "Incorrect password"
-msgstr ""
+msgstr "Feil passord"
 
 #: src/accountgeneraltab.cpp:236
 msgid "Alias"
@@ -112,7 +112,7 @@ msgstr "Type"
 
 #: src/accountgeneraltab.cpp:273
 msgid "auto-generating..."
-msgstr "autogenererer..."
+msgstr "autogenererer…"
 
 #: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
 msgid "Username"
@@ -128,7 +128,7 @@ msgstr "Vis passord"
 
 #: src/accountgeneraltab.cpp:341
 msgid "Proxy"
-msgstr "Proxy"
+msgstr "Mellomtjener"
 
 #: src/accountgeneraltab.cpp:351
 msgid "Voicemail number"
@@ -200,7 +200,7 @@ msgstr "Bannlysninger"
 #: src/accountview.cpp:250
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
-msgstr "Er du sikker på at du ønsker å slette konto «%s»?"
+msgstr "Er du sikker på at du ønsker å slette kontoen «%s»?"
 
 #: src/accountview.cpp:377
 msgid "New Account"
@@ -264,7 +264,7 @@ msgstr "_Fjern kontakt"
 
 #: src/dialogs.c:53
 msgid "Working..."
-msgstr "Arbeider..."
+msgstr "Arbeider…"
 
 #: src/dialogs.c:84
 #, c-format
@@ -388,7 +388,7 @@ msgstr "Dette er din RingID.\nKopier og del den med dine venner!"
 
 #: src/ringwelcomeview.cpp:90
 msgid "fetching RingID..."
-msgstr "Henter RingID..."
+msgstr "henter RingID…"
 
 #: src/ringwelcomeview.cpp:148
 msgid ""
@@ -538,7 +538,7 @@ msgstr "Bruk STUN"
 
 #: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
 msgid "server URL"
-msgstr "Tjener-URL"
+msgstr "tjener-URL"
 
 #: ui/accountadvancedtab.ui:389
 msgid "Use TURN"
@@ -568,7 +568,7 @@ msgstr "Oppstartssekvens-tjenere"
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
-msgstr "Disse innstillingene brukes kun for SDP-øktforhandling hvis ICE ikke støttes av tjeneren til motparten."
+msgstr "Disse innstillingene brukes kun for SDP-øktforhandling hvis ICE ikke støttes av tjeneren til motparten eller vedkommende."
 
 #: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
 msgid "Min"
@@ -635,7 +635,7 @@ msgid ""
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr ""
+msgstr "For å lenke denne enheten til en annen konto har du to muligheter. Du kan importere kontoen fra DHT, men først hente en PIN-kode. For å generere PIN-koden, gå til kontobehandlingsinnstillingne fra en tidligere enhet, velg Ring-kontoen du vil bruke og finn \"Lenk en annen enhet til denne kontoen\". Du vil få nødvendig PIN for å fullføre skjemaet. PIN-koden er bare gyldig i 10 minutter."
 
 #: ui/accountcreationwizard.ui:146
 msgid "Enter your pin:"
@@ -643,7 +643,7 @@ msgstr "Skriv inn din PIN:"
 
 #: ui/accountcreationwizard.ui:174
 msgid "Or import a file:"
-msgstr ""
+msgstr "Eller importer fil:"
 
 #: ui/accountcreationwizard.ui:193
 msgid "Enter your password:"
@@ -692,7 +692,7 @@ msgstr "Dette passordet vil brukes til å kryptere din kontodata og lenke nye en
 
 #: ui/accountcreationwizard.ui:461
 msgid "Generating your Ring account..."
-msgstr "Lager din Ring-konto..."
+msgstr "Lager din Ring-konto…"
 
 #: ui/accountcreationwizard.ui:494
 msgid "This may take a few minutes."
@@ -764,19 +764,19 @@ msgstr "Parameter"
 
 #: ui/accountgeneraltab.ui:175
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "Merk: Dette vil endre passordet kun på denne enheten."
 
 #: ui/accountgeneraltab.ui:194
 msgid "Current password"
-msgstr ""
+msgstr "Nåværende passord"
 
 #: ui/accountgeneraltab.ui:214
 msgid "New password"
-msgstr ""
+msgstr "Nytt passord"
 
 #: ui/accountgeneraltab.ui:234
 msgid "Confirm password"
-msgstr ""
+msgstr "Bekreft passord"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -828,7 +828,7 @@ msgstr "Overfør konto"
 
 #: ui/accountmigrationview.ui:148
 msgid "Migration failed, wrong password ?"
-msgstr "Overføring feilet, feil passord?"
+msgstr "Overføring mislyktes, feil passord?"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -880,11 +880,11 @@ msgstr "Tidsgrense for forhandling (sekunder)"
 
 #: ui/accountsecuritytab.ui:371
 msgid "Use default ciphers"
-msgstr "Bruk standardsifer"
+msgstr "Bruk forvalgte krypteringsalgoritmer"
 
 #: ui/accountsecuritytab.ui:387
 msgid "Use custom cipher list"
-msgstr "Bruk tilpasset siferliste"
+msgstr "Bruk tilpasset krypteringsalgoritme-liste"
 
 #: ui/accountsecuritytab.ui:444
 msgid "Verify incoming certificates (server side)"
@@ -1045,7 +1045,7 @@ msgstr "Kontaktnavn"
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
-msgstr "Velg hvordan dette nummeret vil bli kategorisert"
+msgstr "Velg hvordan dette nummeret kategoriseres"
 
 #: ui/editcontactview.ui:50
 msgid "Number category"
@@ -1125,7 +1125,7 @@ msgstr "Nullstill all historikk"
 
 #: ui/incomingcallview.ui:106
 msgid "Incoming..."
-msgstr "Innkommende..."
+msgstr "Innkommende…"
 
 #: ui/incomingcallview.ui:142
 msgid "Accept"
@@ -1149,7 +1149,7 @@ msgstr "Lydstyrer:"
 
 #: ui/mediasettingsview.ui:52
 msgid "Ringtone device:"
-msgstr "Ringetimeenhet:"
+msgstr "Ringetoneenhet:"
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
@@ -1177,7 +1177,7 @@ msgstr "Oppløsning:"
 
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
-msgstr "Bilderate:"
+msgstr "Bildetakt:"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-24 23:09-0400\n"
-"PO-Revision-Date: 2017-09-25 03:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-10-08 23:08-0400\n"
+"PO-Revision-Date: 2017-10-05 14:50+0000\n"
+"Last-Translator: Guillaume Roguez\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,19 +89,19 @@ msgstr "ID"
 #: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
 #: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
 msgid "Change password"
-msgstr ""
+msgstr "變更密碼"
 
 #: src/accountgeneraltab.cpp:196
 msgid "New password and its confirmation are different"
-msgstr ""
+msgstr "新密碼與其確認密碼不一樣"
 
 #: src/accountgeneraltab.cpp:206
 msgid "Password changed!"
-msgstr ""
+msgstr "密碼已變更！"
 
 #: src/accountgeneraltab.cpp:209
 msgid "Incorrect password"
-msgstr ""
+msgstr "不正確的密碼"
 
 #: src/accountgeneraltab.cpp:236
 msgid "Alias"
@@ -636,7 +636,7 @@ msgid ""
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr ""
+msgstr "要連結此裝置到其他帳號，您有兩個選擇。您可以從 DHT 匯入您的帳號，但首先您需要取得 PIN 碼。要生成 PIN 碼，到先前裝置的帳號管理設定，選擇 Ring 帳號來使用並選取「連結其他裝置到這個帳號」。您將會得到需要 PIN 碼來完成這份表單。PIN 僅在 10 分鐘內有效。或是您也可以從封存檔直接匯入您的帳號。"
 
 #: ui/accountcreationwizard.ui:146
 msgid "Enter your pin:"
@@ -644,7 +644,7 @@ msgstr "輸入您的 PIN 碼："
 
 #: ui/accountcreationwizard.ui:174
 msgid "Or import a file:"
-msgstr ""
+msgstr "或是匯入檔案："
 
 #: ui/accountcreationwizard.ui:193
 msgid "Enter your password:"
@@ -765,19 +765,19 @@ msgstr "參數"
 
 #: ui/accountgeneraltab.ui:175
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "注意：這將會僅會在此裝置上變更密碼。"
 
 #: ui/accountgeneraltab.ui:194
 msgid "Current password"
-msgstr ""
+msgstr "目前的密碼"
 
 #: ui/accountgeneraltab.ui:214
 msgid "New password"
-msgstr ""
+msgstr "新密碼"
 
 #: ui/accountgeneraltab.ui:234
 msgid "Confirm password"
-msgstr ""
+msgstr "確認密碼"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
