@@ -64,6 +64,7 @@ public:
     QVariant   decorationRole(const Account* p) override;
 
 private:
+    std::shared_ptr<GdkPixbuf> temporaryItemAvatar() const;
     std::shared_ptr<GdkPixbuf> generateAvatar(const ContactMethod* cm) const;
     std::shared_ptr<GdkPixbuf> generateAvatar(const std::string& alias, const std::string& uri) const;
 
