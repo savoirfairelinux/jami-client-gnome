@@ -29,7 +29,8 @@
   <file alias="add">add.svg</file>
   <file alias="reject">reject.svg</file>
 	<file alias="block">block.svg</file>
-	<file alias="invite">ic_person_add_black_24px.svg</file>
+  <file alias="invite">ic_person_add_black_24px.svg</file>
+	<file alias="temporary-item">ic_search_black_48px.svg</file>
 	<file alias="contact_requests_list_with_notification">ic_verified_user_black_24px_with_notification.svg</file>
   </gresource>
 </gresources>
