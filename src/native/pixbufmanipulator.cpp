@@ -46,6 +46,23 @@ PixbufManipulator::PixbufManipulator()
 }
 
 std::shared_ptr<GdkPixbuf>
+PixbufManipulator::temporaryItemAvatar() const
+{
+    GError *error = nullptr;
+    std::shared_ptr<GdkPixbuf> result(
+        gdk_pixbuf_new_from_resource("/cx/ring/RingGnome/temporary-item", &error),
+        g_object_unref
+    );
+
+    if (result == nullptr) {
+        g_debug("Could not load icon: %s", error->message);
+        g_clear_error(&error);
+        return generateAvatar("", "");
+    }
+    return result;
+}
+
+std::shared_ptr<GdkPixbuf>
 PixbufManipulator::generateAvatar(const ContactMethod* cm) const
 {
     auto cm_number = QString("0");
@@ -87,7 +104,12 @@ PixbufManipulator::generateAvatar(const std::string& alias, const std::string& u
     auto name = alias;
     std::transform(name.begin(), name.end(), name.begin(), ::toupper);
     auto letter = name.length() > 0 ? name[0] : 'R';
-    auto color = uri.length() > 0 ? std::stoi(std::string(1, uri[0]), 0, 16) : 0;
+    auto color = 0;
+    try {
+        color = uri.length() > 0 ? std::stoi(std::string(1, uri[0]), 0, 16) : 0;
+    } catch (...) {
+        // uri[0] not in "0123456789abcdef"
+    }
 
     return std::shared_ptr<GdkPixbuf> {
         ring_draw_fallback_avatar(
@@ -246,7 +268,9 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
         auto contactInfo = accountInfo.contactModel->getContact(contactUri);
         auto contactPhoto = contactInfo.profileInfo.avatar;
         auto bestName = contactInfo.profileInfo.alias.empty()? contactInfo.registeredName : contactInfo.profileInfo.alias;
-        if (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP) {
+        if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY && contactInfo.profileInfo.uri.empty()) {
+            return QVariant::fromValue(scaleAndFrame(temporaryItemAvatar().get(), size, false, true));
+        } else if (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP) {
             return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, "").get(), size, displayPresence, true));
         } else if (!contactPhoto.empty()) {
             QByteArray byteArray(contactPhoto.c_str(), contactPhoto.length());
