@@ -673,7 +673,8 @@ gtk_q_tree_model_finalize(GObject *object)
     g_free(priv->column_roles);
 
     /* delete the created proxy model */
-    delete priv->model;
+    if (not priv->model)
+        delete priv->model;
 
     G_OBJECT_CLASS(gtk_q_tree_model_parent_class)->finalize (object);
 }
