@@ -651,7 +651,10 @@ ring_client_shutdown(GApplication *app)
 
     /* free the QCoreApplication, which will destroy all libRingClient models
      * and thus send the Unregister signal over dbus to dring */
-    delete priv->qtapp;
+    if (priv->qtapp) {
+        delete priv->qtapp;
+        priv->qtapp = nullptr;
+    }
 
     /* free the copied cmd line args */
     g_strfreev(priv->argv);

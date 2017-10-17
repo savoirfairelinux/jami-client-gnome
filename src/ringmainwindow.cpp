@@ -247,11 +247,13 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
     QObject::disconnect(priv->selected_call_over);
 
     if (g_type_is_a(INCOMING_CALL_VIEW_TYPE, type)) {
-        delete priv->chatViewConversation_;
+        if (priv->chatViewConversation_)
+            delete priv->chatViewConversation_;
         priv->chatViewConversation_ = new ConversationContainer(conversation);
         new_view = incoming_call_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->chatViewConversation_);
     } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
-        delete priv->chatViewConversation_;
+        if (priv->chatViewConversation_)
+            delete priv->chatViewConversation_;
         priv->chatViewConversation_ = new ConversationContainer(conversation);
         new_view = current_call_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->chatViewConversation_);
 
@@ -264,7 +266,8 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
         } catch(...) { }
         g_signal_connect_swapped(new_view, "video-double-clicked", G_CALLBACK(video_double_clicked), self);
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
-        delete priv->chatViewConversation_;
+        if (priv->chatViewConversation_)
+            delete priv->chatViewConversation_;
         priv->chatViewConversation_ = new ConversationContainer(conversation);
         new_view = chat_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->chatViewConversation_);
         g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
