@@ -180,7 +180,10 @@ choose_contact_view_finalize(GObject *object)
     ChooseContactView *self = CHOOSE_CONTACT_VIEW(object);
     ChooseContactViewPrivate *priv = CHOOSE_CONTACT_VIEW_GET_PRIVATE(self);
 
-    delete priv->sorted_contacts;
+    if (priv->sorted_contacts) {
+        delete priv->sorted_contacts;
+        priv->sorted_contacts = nullptr;
+    }
 
     G_OBJECT_CLASS(choose_contact_view_parent_class)->finalize(object);
 }
