@@ -109,7 +109,10 @@ account_security_tab_finalize(GObject *object)
     AccountSecurityTab *view = ACCOUNT_SECURITY_TAB(object);
     AccountSecurityTabPrivate *priv = ACCOUNT_SECURITY_TAB_GET_PRIVATE(view);
 
-    delete priv->qmodel_key_exchange;
+    if (priv->qmodel_key_exchange) {
+        delete priv->qmodel_key_exchange;
+        priv->qmodel_key_exchange = nullptr;
+    }
 
     G_OBJECT_CLASS(account_security_tab_parent_class)->finalize(object);
 }

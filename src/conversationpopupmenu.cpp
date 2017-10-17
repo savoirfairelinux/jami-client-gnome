@@ -150,7 +150,7 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY ||
         contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING) {
         // If we can add this conversation
-        auto add_conversation_conversation = gtk_menu_item_new_with_mnemonic(_("_Add conversation"));
+        auto add_conversation_conversation = gtk_menu_item_new_with_mnemonic(_("_Add to conversations"));
         gtk_menu_shell_append(GTK_MENU_SHELL(self), add_conversation_conversation);
         g_signal_connect(add_conversation_conversation, "activate", G_CALLBACK(add_conversation), priv);
         if (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING) {

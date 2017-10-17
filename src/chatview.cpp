@@ -54,7 +54,7 @@ struct _ChatViewPrivate
     GtkWidget *label_cm;
     GtkWidget *button_close_chatview;
     GtkWidget *button_placecall;
-    GtkWidget *button_send_invitation;
+    GtkWidget *button_add_to_conversations;
 
     GSettings *settings;
 
@@ -64,7 +64,7 @@ struct _ChatViewPrivate
 
     QMetaObject::Connection new_interaction_connection;
     QMetaObject::Connection update_interaction_connection;
-    QMetaObject::Connection update_send_invitation;
+    QMetaObject::Connection update_add_to_conversations;
 
     gulong webkit_ready;
     gulong webkit_send_text;
@@ -93,7 +93,7 @@ chat_view_dispose(GObject *object)
 
     QObject::disconnect(priv->new_interaction_connection);
     QObject::disconnect(priv->update_interaction_connection);
-    QObject::disconnect(priv->update_send_invitation);
+    QObject::disconnect(priv->update_add_to_conversations);
 
     /* Destroying the box will also destroy its children, and we wouldn't
      * want that. So we remove the webkit_chat_container from the box. */
@@ -140,7 +140,7 @@ placecall_clicked(ChatView *self)
 }
 
 static void
-button_send_invitation_clicked(ChatView *self)
+button_add_to_conversations_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     priv->accountContainer_->info.conversationModel->makePermanent(priv->conversation_->info.uid);
@@ -174,7 +174,7 @@ chat_view_init(ChatView *view)
 
     g_signal_connect(priv->button_close_chatview, "clicked", G_CALLBACK(hide_chat_view), view);
     g_signal_connect_swapped(priv->button_placecall, "clicked", G_CALLBACK(placecall_clicked), view);
-    g_signal_connect_swapped(priv->button_send_invitation, "clicked", G_CALLBACK(button_send_invitation_clicked), view);
+    g_signal_connect_swapped(priv->button_add_to_conversations, "clicked", G_CALLBACK(button_add_to_conversations_clicked), view);
 }
 
 static void
@@ -191,7 +191,7 @@ chat_view_class_init(ChatViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_cm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_close_chatview);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_placecall);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_send_invitation);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_add_to_conversations);
 
     chat_view_signals[NEW_MESSAGES_DISPLAYED] = g_signal_new (
         "new-interactions-displayed",
@@ -278,7 +278,7 @@ print_text_recording(ChatView *self)
 }
 
 static void
-update_send_invitation(ChatView *self)
+update_add_to_conversations(ChatView *self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
@@ -286,7 +286,7 @@ update_send_invitation(ChatView *self)
     auto contactInfo = priv->accountContainer_->info.contactModel->getContact(participant);
     if(contactInfo.profileInfo.type != lrc::api::profile::Type::TEMPORARY
        && contactInfo.profileInfo.type != lrc::api::profile::Type::PENDING)
-        gtk_widget_hide(priv->button_send_invitation);
+        gtk_widget_hide(priv->button_add_to_conversations);
 }
 
 static void
@@ -376,7 +376,7 @@ build_chat_view(ChatView* self)
     gtk_widget_show(priv->webkit_chat_container);
 
     update_name(self);
-    update_send_invitation(self);
+    update_add_to_conversations(self);
     update_contact_methods(self);
 
     priv->webkit_ready = g_signal_connect_swapped(
@@ -422,7 +422,7 @@ chat_view_update_temporary(ChatView* self, bool newValue)
 
     priv->isTemporary_ = newValue;
     if (!priv->isTemporary_) {
-        gtk_widget_hide(priv->button_send_invitation);
+        gtk_widget_hide(priv->button_add_to_conversations);
     }
     webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
     auto contactUri = priv->conversation_->info.participants.front();
