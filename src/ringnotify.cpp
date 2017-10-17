@@ -376,7 +376,8 @@ show_message_if_unread(const QModelIndex *idx)
 static void
 delete_idx(QModelIndex *idx)
 {
-    delete idx;
+    if (idx)
+        delete idx;
 }
 
 #endif
