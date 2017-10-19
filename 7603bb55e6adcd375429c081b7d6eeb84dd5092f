@@ -16,6 +16,24 @@
       "revId": "7603bb55e6adcd375429c081b7d6eeb84dd5092f",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_24875663",
+        "filename": "src/dialogs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2017-10-19T13:01:29Z",
+      "side": 1,
+      "message": "Thank you, done!",
+      "parentUuid": "9a3d3df0_2573c84e",
+      "revId": "7603bb55e6adcd375429c081b7d6eeb84dd5092f",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
