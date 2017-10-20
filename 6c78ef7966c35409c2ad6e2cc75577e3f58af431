@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_44d38238",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-10-20T14:14:51Z",
+      "side": 1,
+      "message": "try to not mixing writting convention, even if you think that the current is not \"good\".\nkeep the code consistent first",
+      "range": {
+        "startLine": 61,
+        "startChar": 14,
+        "endLine": 63,
+        "endChar": 22
+      },
+      "revId": "6c78ef7966c35409c2ad6e2cc75577e3f58af431",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
