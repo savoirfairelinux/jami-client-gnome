@@ -22,6 +22,30 @@
       "revId": "947c043125d973a453e5b57c5e2873c8b3f57e95",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_c71f9408",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2017-10-20T16:53:55Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "7a42497e_e768d089",
+      "range": {
+        "startLine": 340,
+        "startChar": 40,
+        "endLine": 340,
+        "endChar": 61
+      },
+      "revId": "947c043125d973a453e5b57c5e2873c8b3f57e95",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
