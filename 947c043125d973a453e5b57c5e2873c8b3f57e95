@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_e768d089",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-10-20T16:11:12Z",
+      "side": 1,
+      "message": "client-gnome/src/accountcreationwizard.cpp: Dans la fonction lambda:\nclient-gnome/src/accountcreationwizard.cpp:340:41: attention : attributes at the beginning of statement are ignored [-Wattributes]\n                                         [[gnu::fallthrough]];",
+      "range": {
+        "startLine": 340,
+        "startChar": 40,
+        "endLine": 340,
+        "endChar": 61
+      },
+      "revId": "947c043125d973a453e5b57c5e2873c8b3f57e95",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
