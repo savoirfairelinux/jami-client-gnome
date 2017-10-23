@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_32795894",
+        "filename": "src/conversationcontainer.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-10-23T15:43:11Z",
+      "side": 1,
+      "message": "this class doesn\u0027t have any usage or needs.\nconvInfo is copied here, so why not make a simple new in the code?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 44
+      },
+      "revId": "da10cec54fe0b9cc4a92e978c56887c20e542db7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
