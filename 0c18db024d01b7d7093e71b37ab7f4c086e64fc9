@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_72aac0d5",
+        "filename": "src/chatview.h",
+        "patchSetId": 40
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-10-23T16:04:29Z",
+      "side": 1,
+      "message": "could you use forward declaration?",
+      "range": {
+        "startLine": 28,
+        "startChar": 29,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "0c18db024d01b7d7093e71b37ab7f4c086e64fc9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_92a5cc06",
+        "filename": "src/currentcallview.h",
+        "patchSetId": 40
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-10-23T16:04:29Z",
+      "side": 1,
+      "message": "could you use forward declaration?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 29
+      },
+      "revId": "0c18db024d01b7d7093e71b37ab7f4c086e64fc9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_32a038f4",
+        "filename": "src/incomingcallview.h",
+        "patchSetId": 40
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-10-23T16:04:29Z",
+      "side": 1,
+      "message": "could you use forward declaration?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "0c18db024d01b7d7093e71b37ab7f4c086e64fc9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
