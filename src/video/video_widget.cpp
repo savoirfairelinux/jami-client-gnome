@@ -35,6 +35,9 @@
 #include <call.h>
 #include "xrectsel.h"
 #include <smartinfohub.h>
+#include <baserender.h>
+#include <newshmrenderer.h>
+#include <api/lrc.h>
 
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
@@ -83,6 +86,7 @@ struct _VideoWidgetPrivate {
     GAsyncQueue             *new_renderer_queue;
 
     GtkWidget               *popup_menu;
+    std::shared_ptr<lrc::api::Lrc> lrc_;
 };
 
 struct _VideoWidgetRenderer {
@@ -94,6 +98,8 @@ struct _VideoWidgetRenderer {
     std::mutex               run_mutex;
     bool                     running;
     SnapshotStatus           snapshot_status;
+    lrc::api::NewShmRenderer* new_render;
+    //~ std::string new_render; // [jn] do not forget to init before any use.
 
     /* show_black_frame is used to request the actor to render a black image;
      * this will take over 'running', ie: a black frame will be rendered even if
@@ -293,6 +299,7 @@ on_drag_end(G_GNUC_UNUSED ClutterDragAction   *action,
 static void
 video_widget_init(VideoWidget *self)
 {
+    qDebug() << "#3#";
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
     auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(self));
@@ -440,8 +447,8 @@ switch_video_input_screen(G_GNUC_UNUSED GtkWidget *item, Call* call)
         height = gdk_screen_height();
     }
 
-    if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
-        out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
+    //if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+    //    out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
 }
 
 static void
@@ -497,6 +504,10 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
 
     Video::SourceModel *sourcemodel = nullptr;
     int active = -1;
+    //if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT)) {
+    //    sourcemodel = out_media->sourceModel();
+    //    int active = sourcemodel->activeIndex();
+    //}
     /* if sourcemodel is null then we have no outgoing video */
     for (const auto& activeCall: CallModel::instance().getActiveCalls())
         if (activeCall->videoRenderer() == priv->remote->renderer)
@@ -519,6 +530,7 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
             auto device_idx = sourcemodel->getDeviceIndex(device);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device_idx == active);
             g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
+            //g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY,call);
             g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
         } else {
             gtk_widget_set_sensitive(item, FALSE);
@@ -544,6 +556,7 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     if (sourcemodel) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
+        //g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
         g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), self);
     } else {
         gtk_widget_set_sensitive(item, FALSE);
@@ -574,6 +587,14 @@ free_pixels(guchar *pixels, gpointer)
 static void
 clutter_render_image(VideoWidgetRenderer* wg_renderer)
 {
+
+qDebug() << " () ";
+    
+    if (wg_renderer)
+        qDebug() << "wg_renderer : " << wg_renderer;
+    else
+        qDebug() << "wg_renderer nullptr ";
+    
     auto actor = wg_renderer->actor;
     g_return_if_fail(CLUTTER_IS_ACTOR(actor));
 
@@ -631,32 +652,47 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
          * received during rendering; otherwise the mem could become invalid */
         std::lock_guard<std::mutex> lock(wg_renderer->run_mutex);
 
-        if (!wg_renderer->running)
-            return;
 
-        auto renderer = wg_renderer->renderer;
+
+
+qDebug() << "^^^0";
+
+        //~ auto renderer = wg_renderer->renderer; // ancien
+        //~ auto rendererId = wg_renderer->new_render;
+        
+        auto renderer = wg_renderer->new_render;//(rendererId == "local") ? priv->lrc_->getPreviewRenderer() : priv->lrc_->getRenderer(rendererId);
+        
         if (renderer == nullptr)
             return;
+
+        if (!renderer->isRendering())
+            return;
+
+qDebug() << "^^^1";
 
         auto frame_ptr = renderer->currentFrame();
         auto frame_data = frame_ptr.ptr;
         if (!frame_data)
             return;
 
+
+
+qDebug() << "^^^2";
         image_new = clutter_image_new();
         g_return_if_fail(image_new);
 
-        const auto& res = renderer->size();
+        //~ const auto& res = renderer->size(); // ancien
         gint BPP = 4; /* BGRA */
-        gint ROW_STRIDE = BPP * res.width();
+        //~ gint ROW_STRIDE = BPP * renderer->getWidth(); // ancien
+        gint ROW_STRIDE = BPP * renderer->getWidth();
 
         GError *error = nullptr;
         clutter_image_set_data(
             CLUTTER_IMAGE(image_new),
             frame_data,
             COGL_PIXEL_FORMAT_BGRA_8888,
-            res.width(),
-            res.height(),
+            renderer->getWidth(),
+            renderer->getHeight(),
             ROW_STRIDE,
             &error);
         if (error) {
@@ -667,13 +703,13 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         }
 
         if (wg_renderer->snapshot_status == HAS_TO_TAKE_ONE) {
-            guchar *pixbuf_frame_data = (guchar *)g_malloc(res.width() * res.height() * 3);
+            guchar *pixbuf_frame_data = (guchar *)g_malloc(renderer->getWidth() * renderer->getHeight() * 3);
 
             BPP = 3; /* RGB */
-            gint ROW_STRIDE = BPP * res.width();
+            gint ROW_STRIDE = BPP * renderer->getWidth();
 
             /* conversion from BGRA to RGB */
-            for(int i = 0, j = 0 ; i < res.width() * res.height() * 4 ; i += 4, j += 3 ) {
+            for(int i = 0, j = 0 ; i < renderer->getWidth() * renderer->getHeight() * 4 ; i += 4, j += 3 ) {
                 pixbuf_frame_data[j + 0] = frame_data[i + 2];
                 pixbuf_frame_data[j + 1] = frame_data[i + 1];
                 pixbuf_frame_data[j + 2] = frame_data[i + 0];
@@ -686,7 +722,7 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
 
             wg_renderer->snapshot = gdk_pixbuf_new_from_data(pixbuf_frame_data,
                                                              GDK_COLORSPACE_RGB, FALSE, 8,
-                                                             res.width(), res.height(),
+                                                             renderer->getWidth(), renderer->getHeight(),
                                                              ROW_STRIDE, free_pixels, NULL);
 
             wg_renderer->snapshot_status = HAS_A_NEW_ONE;
@@ -758,13 +794,23 @@ video_widget_add_renderer(VideoWidget *self, VideoWidgetRenderer *new_video_rend
 {
     g_return_if_fail(IS_VIDEO_WIDGET(self));
     g_return_if_fail(new_video_renderer);
-    g_return_if_fail(new_video_renderer->renderer);
+    //~ g_return_if_fail(new_video_renderer->renderer);
 
+    qDebug() << "R!R";
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
+    // shortcut le switch, ne doit fonctionner que pour la video en remote
+    new_video_renderer->type = VIDEO_RENDERER_REMOTE;
+    
+    //~ if (new_video_renderer)
+        //~ qDebug() << "new_video_renderer : " << new_video_renderer;
+    //~ else 
+        //~ qDebug() << "new_video_renderer nullptr ";
+    
     /* update the renderer */
     switch(new_video_renderer->type) {
         case VIDEO_RENDERER_REMOTE:
+        qDebug() << "$!1!$";
             /* swap the remote renderer */
             new_video_renderer->actor = priv->remote->actor;
             free_video_widget_renderer(priv->remote);
@@ -796,11 +842,19 @@ check_renderer_queue(VideoWidget *self)
     g_return_val_if_fail(IS_VIDEO_WIDGET(self), G_SOURCE_REMOVE);
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
+    //~ qDebug() << "&1& 1";
+
     /* get all the renderers in the queue */
     VideoWidgetRenderer *new_video_renderer = (VideoWidgetRenderer *)g_async_queue_try_pop(priv->new_renderer_queue);
+    //~ lrc::BaseRender *new_video_new_renderer = (lrc::BaseRender *)g_async_queue_try_pop(priv->new_renderer_queue);
+    
+    //~ while (new_video_new_renderer) {
     while (new_video_renderer) {
+        qDebug() << "&1& 2";
         video_widget_add_renderer(self, new_video_renderer);
+        //~ video_widget_add_new_renderer(self, new_video_new_renderer);
         new_video_renderer = (VideoWidgetRenderer *)g_async_queue_try_pop(priv->new_renderer_queue);
+        //~ new_video_new_renderer = (lrc::BaseRender *)g_async_queue_try_pop(priv->new_renderer_queue);
     }
 
     return G_SOURCE_CONTINUE;
@@ -827,6 +881,7 @@ video_widget_new(void)
 void
 video_widget_push_new_renderer(VideoWidget *self, Video::Renderer *renderer, VideoRendererType type)
 {
+    qDebug() << "         JE NE DEVRAIS PAS ETRE APPELLE MOI!!! C POUR L'ANCIEN...";
     g_return_if_fail(IS_VIDEO_WIDGET(self));
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
@@ -883,4 +938,44 @@ video_widget_get_snapshot(VideoWidget *self)
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
     return priv->remote->snapshot;
+}
+
+void
+video_widget_push_new_newrenderer (VideoWidget* self, std::shared_ptr<lrc::api::Lrc> sp_lrc, const std::string rendererId)
+{
+    qDebug() << "         JE SUIS LA NOUVELLE FONCTION";
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    
+    priv->lrc_ = sp_lrc;
+
+    VideoWidgetRenderer *new_video_renderer = g_new0(VideoWidgetRenderer, 1);
+    //~ new_video_renderer->new_render = rendererId;
+    //~ auto renderer = sp_lrc->getRenderers().getRenderer(rendererId);
+    new_video_renderer->new_render = const_cast<lrc::api::Renderers&>(sp_lrc->getRenderers().getRenderer(rendererId));
+    auto renderer = new_video_renderer->new_render;
+    
+    
+    new_video_renderer->type = (rendererId == "local") ? VIDEO_RENDERER_LOCAL : VIDEO_RENDERER_REMOTE;
+
+    if (renderer->isRendering())
+        renderer_start(new_video_renderer);
+
+    //~ new_video_renderer->render_stop = QObject::connect(
+        //~ new_video_renderer->renderer,
+        //~ &Video::Renderer::stopped,
+        //~ [=]() {
+            //~ renderer_stop(new_video_renderer);
+        //~ }
+    //~ );
+
+    //~ new_video_renderer->render_start = QObject::connect(
+        //~ new_video_renderer->renderer,
+        //~ &Video::Renderer::started,
+        //~ [=]() {
+            //~ renderer_start(new_video_renderer);
+        //~ }
+    //~ );
+
+    g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
 }

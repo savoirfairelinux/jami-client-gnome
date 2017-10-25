@@ -116,7 +116,7 @@ struct _RingMainWindowPrivate
     GSettings *settings;
 
     // Lrc containers and signals
-    std::unique_ptr<lrc::api::Lrc> lrc_;
+    std::shared_ptr<lrc::api::Lrc> lrc_;
     AccountContainer* accountContainer_;
     ConversationContainer* chatViewConversation_;
     lrc::api::profile::Type currentTypeFilter_;
@@ -253,7 +253,7 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
     } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
         delete priv->chatViewConversation_;
         priv->chatViewConversation_ = new ConversationContainer(conversation);
-        new_view = current_call_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->chatViewConversation_);
+        new_view = current_call_view_new(get_webkit_chat_container(self), priv->lrc_, priv->accountContainer_, priv->chatViewConversation_);
 
         try {
             auto contactUri =  priv->chatViewConversation_->info.participants.front();
@@ -910,7 +910,7 @@ ring_main_window_init(RingMainWindow *win)
     // NOTE: When new models will be fully implemented, we need to move this
     // in rign_client.cpp.
     // Init LRC and the vew
-    priv->lrc_ = std::make_unique<lrc::api::Lrc>();
+    priv->lrc_ = std::make_shared<lrc::api::Lrc>();
     const auto accountIds = priv->lrc_->getAccountModel().getAccountList();
     auto isInitialized = false;
     if (not accountIds.empty()) {

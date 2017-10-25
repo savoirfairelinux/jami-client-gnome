@@ -34,6 +34,7 @@
 #include <globalinstances.h>
 #include <smartinfohub.h>
 #include <video/previewmanager.h>
+#include <api/lrc.h>
 
 // Client
 #include "chatview.h"
@@ -43,6 +44,12 @@
 #include "utils/files.h"
 #include "video/video_widget.h"
 
+//~ #include <clutter-gtk/clutter-gtk.h>
+//~ #include "chatview.h"
+//~ #include <itemdataroles.h>
+//~ #include <numbercategory.h>
+//~ #include <smartinfohub.h>
+#include <baserender.h>
 
 static constexpr int CONTROLS_FADE_TIMEOUT = 3000000; /* microseconds */
 static constexpr int FADE_DURATION = 500; /* miliseconds */
@@ -94,6 +101,7 @@ struct _CurrentCallViewPrivate
      * scale button */
     gboolean quality_scale_pressed;
 
+    std::shared_ptr<lrc::api::Lrc> lrc_;
     ConversationContainer* conversation_;
     AccountContainer* accountContainer_;
 
@@ -773,11 +781,11 @@ set_call_info(CurrentCallView *view) {
 
     // check if we already have a renderer
     auto callToRender = priv->conversation_->info.callId;
-    if (!priv->conversation_->info.confId.empty())
-        callToRender = priv->conversation_->info.confId;
-    video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                   priv->accountContainer_->info.callModel->getRenderer(callToRender),
-                                   VIDEO_RENDERER_REMOTE);
+    //~ if (!priv->conversation_->info.confId.empty())
+        //~ callToRender = priv->conversation_->info.confId;
+    //~ video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                                   //~ priv->accountContainer_->info.callModel->getRenderer(callToRender),
+                                   //~ VIDEO_RENDERER_REMOTE);
 
     // local renderer
     if (Video::PreviewManager::instance().isPreviewing())
@@ -818,10 +826,38 @@ set_call_info(CurrentCallView *view) {
     &*priv->accountContainer_->info.callModel,
     &lrc::api::NewCallModel::callStatusChanged,
     [view, priv] (const std::string& callId) {
+        if (priv->conversation_) // [jn] protège contre un segfault, if à mettre dans son propre patch
+            qDebug() << "ok";
+        else {
+            qDebug() << "pas ok";
+            return;
+        }
+
         if (callId == priv->conversation_->info.callId) {
             update_state(view);
             update_name_and_photo(view);
         }
+    });
+
+    priv->state_change_connection = QObject::connect(
+    &priv->lrc_->getRenderers(),
+    &lrc::api::Renderers::renderRemoteStarted,
+    [view, priv] (const std::string& callId) {
+        if (callId == priv->conversation_->info.callId) {
+            auto callInfo = priv->accountContainer_->info.callModel->getCall(callId);
+            qDebug() << "0000 0000 0000 0001";
+            video_widget_push_new_newrenderer(VIDEO_WIDGET(priv->video_widget), priv->lrc_, callId);
+        }
+    });
+    
+    // priv->state_change_SOME_connection =
+    QObject::connect(
+    &priv->lrc_->getRenderers(),
+    &lrc::api::Renderers::renderLocalStarted,
+    [view, priv] () {
+            qDebug() << "1111 1111 1111 1110";
+            video_widget_push_new_newrenderer(VIDEO_WIDGET(priv->video_widget), "local");
+        
     });
 
     priv->new_message_connection = QObject::connect(
@@ -856,11 +892,15 @@ set_call_info(CurrentCallView *view) {
 }
 
 GtkWidget *
-current_call_view_new(WebKitChatContainer* view, AccountContainer* accountContainer, ConversationContainer* conversationContainer)
+current_call_view_new(WebKitChatContainer* view,
+                      std::shared_ptr<lrc::api::Lrc> sp_lrc,
+                      AccountContainer* accountContainer,
+                      ConversationContainer* conversationContainer)
 {
     auto self = g_object_new(CURRENT_CALL_VIEW_TYPE, NULL);
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
     priv->webkit_chat_container = GTK_WIDGET(view);
+    priv->lrc_ = sp_lrc;
     priv->conversation_ = conversationContainer;
     priv->accountContainer_ = accountContainer;
     set_call_info(CURRENT_CALL_VIEW(self));

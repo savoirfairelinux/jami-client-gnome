@@ -22,8 +22,17 @@
 
 #include <gtk/gtk.h>
 #include <video/renderer.h>
+#include <memory>
 
 class Call;
+
+namespace lrc {
+namespace api {
+    class Lrc;
+} // namespace api
+} // namespace lrc
+
+
 
 G_BEGIN_DECLS
 
@@ -46,6 +55,7 @@ typedef enum {
 GType           video_widget_get_type          (void) G_GNUC_CONST;
 GtkWidget*      video_widget_new               (void);
 void            video_widget_push_new_renderer (VideoWidget *, Video::Renderer *, VideoRendererType);
+void            video_widget_push_new_newrenderer (VideoWidget *, std::shared_ptr<lrc::api::Lrc> sp_lrc, const std::string rendererId);
 void            video_widget_pause_rendering   (VideoWidget *self, gboolean pause);
 void            video_widget_on_drag_data_received (GtkWidget *self,
                                                     GdkDragContext *context,

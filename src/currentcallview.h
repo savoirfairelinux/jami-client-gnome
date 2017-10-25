@@ -25,6 +25,13 @@
 #include "accountcontainer.h"
 #include "conversationcontainer.h"
 #include "webkitchatcontainer.h"
+#include <memory>
+
+namespace lrc {
+namespace api {
+    class Lrc;
+} // namespace api
+} // namespace lrc
 
 G_BEGIN_DECLS
 
@@ -40,6 +47,7 @@ typedef struct _CurrentCallViewClass CurrentCallViewClass;
 
 GType      current_call_view_get_type      (void) G_GNUC_CONST;
 GtkWidget *current_call_view_new           (WebKitChatContainer* view,
+                                           std::shared_ptr<lrc::api::Lrc> sp_lrc,
                                            AccountContainer* accountContainer,
                                            ConversationContainer* conversationContainer);
 lrc::api::conversation::Info current_call_view_get_conversation(CurrentCallView*);
