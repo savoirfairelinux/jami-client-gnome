@@ -22,6 +22,30 @@
       "revId": "e2201cba32987e18d639ac5432f85cac24be81ee",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_65ff9502",
+        "filename": "src/native/pixbufmanipulator.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2017-11-03T16:03:01Z",
+      "side": 1,
+      "message": "Indeed. Much better solution",
+      "parentUuid": "7a42497e_73400257",
+      "range": {
+        "startLine": 106,
+        "startChar": 48,
+        "endLine": 106,
+        "endChar": 52
+      },
+      "revId": "e2201cba32987e18d639ac5432f85cac24be81ee",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
