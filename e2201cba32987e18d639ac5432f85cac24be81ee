@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_73400257",
+        "filename": "src/native/pixbufmanipulator.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 124
+      },
+      "writtenOn": "2017-11-03T15:45:09Z",
+      "side": 1,
+      "message": "why \u0027R\u0027 and not \u0027?\u0027 use a more neutral indicator in case of undefined value.",
+      "range": {
+        "startLine": 106,
+        "startChar": 48,
+        "endLine": 106,
+        "endChar": 52
+      },
+      "revId": "e2201cba32987e18d639ac5432f85cac24be81ee",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
