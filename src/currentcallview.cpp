@@ -84,6 +84,7 @@ struct _CurrentCallViewPrivate
     GtkWidget *button_hangup;
     GtkWidget *scalebutton_quality;
     GtkWidget *checkbutton_autoquality;
+    GtkWidget *chat_view;
 
     /* The webkit_chat_container is created once, then reused for all chat
      * views */
@@ -866,11 +867,11 @@ set_call_info(CurrentCallView *view) {
                                               priv->vbox_call_smartInfo);
 
     // init chat view
-    auto chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->accountContainer_, priv->conversation_);
-    gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
+    priv->chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->accountContainer_, priv->conversation_);
+    gtk_container_add(GTK_CONTAINER(priv->frame_chat), priv->chat_view);
 
-    g_signal_connect_swapped(chat_view, "new-messages-displayed", G_CALLBACK(show_chat_view), view);
-    chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
+    g_signal_connect_swapped(priv->chat_view, "new-interactions-displayed", G_CALLBACK(show_chat_view), view);
+    chat_view_set_header_visible(CHAT_VIEW(priv->chat_view), FALSE);
 
 }
 
@@ -894,4 +895,12 @@ current_call_view_get_conversation(CurrentCallView *self)
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
     return *priv->conversation_;
+}
+
+GtkWidget *
+current_call_view_get_chat_view(CurrentCallView *self)
+{
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), nullptr);
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    return priv->chat_view;
 }

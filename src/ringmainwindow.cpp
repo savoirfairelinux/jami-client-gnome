@@ -259,9 +259,12 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
         try {
             auto contactUri =  priv->chatViewConversation_->participants.front();
             auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
-            chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(priv->frame_call))),
-               contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING
-               || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY);
+            auto chat_view = current_call_view_get_chat_view(CURRENT_CALL_VIEW(new_view));
+            if (chat_view) {
+                chat_view_update_temporary(CHAT_VIEW(chat_view),
+                    contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING
+                    || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY);
+            }
         } catch(...) { }
         g_signal_connect_swapped(new_view, "video-double-clicked", G_CALLBACK(video_double_clicked), self);
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
