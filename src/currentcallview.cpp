@@ -427,8 +427,7 @@ togglebutton_muteaudio_clicked(CurrentCallView *view)
         callToMute = priv->conversation_->confId;
     auto muteAudioBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_muteaudio);
     priv->accountContainer_->info.callModel->toggleMedia(callToMute,
-        lrc::api::NewCallModel::Media::AUDIO,
-        gtk_toggle_button_get_active(muteAudioBtn));
+        lrc::api::NewCallModel::Media::AUDIO);
 
     auto togglebutton = GTK_TOGGLE_BUTTON(priv->togglebutton_muteaudio);
     auto image = gtk_image_new_from_resource ("/cx/ring/RingGnome/mute_audio");
@@ -447,8 +446,7 @@ togglebutton_mutevideo_clicked(CurrentCallView *view)
         callToMute = priv->conversation_->confId;
     auto muteVideoBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_mutevideo);
     priv->accountContainer_->info.callModel->toggleMedia(callToMute,
-        lrc::api::NewCallModel::Media::VIDEO,
-        gtk_toggle_button_get_active(muteVideoBtn));
+        lrc::api::NewCallModel::Media::VIDEO);
 
     auto togglebutton = GTK_TOGGLE_BUTTON(priv->togglebutton_mutevideo);
     auto image = gtk_image_new_from_resource ("/cx/ring/RingGnome/mute_video");
