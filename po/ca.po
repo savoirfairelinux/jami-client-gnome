@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-08 23:08-0400\n"
-"PO-Revision-Date: 2017-10-05 14:50+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"POT-Creation-Date: 2017-11-17 10:06-0500\n"
+"PO-Revision-Date: 2017-11-17 15:06+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Catalan (http://www.transifex.com/savoirfairelinux/ring/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,588 +22,151 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/accountadvancedtab.cpp:389
-msgid "_Remove server"
-msgstr "_Suprimeix el servidor"
+#: ui/ringgearsmenu.ui:13
+msgid "_About"
+msgstr "_Sobre"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
-msgid "Hostname"
-msgstr "Nom d'amfitrió"
+#: ui/ringgearsmenu.ui:19
+msgid "_Quit"
+msgstr "_Tanca"
 
-#: src/accountadvancedtab.cpp:510 ui/accountadvancedtab.ui:314
-msgid "Port"
-msgstr "Port"
+#: ui/choosecontactview.ui:34
+msgid "Create New"
+msgstr "Crea Nou"
 
-#: src/accountaudiotab.cpp:175 src/accountvideotab.cpp:184
-msgid "Enabled"
-msgstr "Habilitat"
+#: ui/accountmigrationview.ui:14
+msgid "Account migration required"
+msgstr "Migració de compte requerida"
 
-#: src/accountaudiotab.cpp:181
-msgctxt "Name of the codec"
-msgid "Name"
-msgstr "Nom"
-
-#: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
-msgid "Bitrate"
-msgstr "Taxa de bits"
-
-#: src/accountaudiotab.cpp:189
-msgid "Samplerate"
-msgstr "Freqüència de mostreig"
-
-#: src/accountcreationwizard.cpp:231
-msgid ""
-"Your account was created, but we could not register your username. Try again"
-" from the settings menu."
-msgstr "El teu compte ha sigut creat, però no hem pogut registrar el teu nom d'usuari. Prova de nou des del menú d'opcions."
-
-#: src/accountcreationwizard.cpp:275
-msgctxt "The default username / account alias, if none is set by the user"
-msgid "Unknown"
-msgstr "Desconegut"
-
-#: src/accountcreationwizard.cpp:468
-msgid "Passwords don't match"
-msgstr "No coincideixen les contrasenyes"
-
-#: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
-msgid "Bad password"
-msgstr "Mala contrasenya"
-
-#: src/accountdevicestab.cpp:201
-msgid "Network error, try again"
-msgstr "Error de xarxa, proveu de nou"
-
-#: src/accountdevicestab.cpp:213
-msgid "Could not initiate export to the Ring, try again"
-msgstr "No s'ha pogut iniciar la exportació a Ring, proveu de nou"
-
-#: src/accountdevicestab.cpp:246
-msgctxt "Device Name Column"
-msgid "Name"
-msgstr "Nom"
-
-#: src/accountdevicestab.cpp:251
-msgctxt "Device ID Column"
-msgid "ID"
-msgstr "ID"
-
-#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-msgid "Change password"
+#: ui/accountmigrationview.ui:39
+msgid "Alias:"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:196
-msgid "New password and its confirmation are different"
+#: ui/accountmigrationview.ui:102
+msgid "Please enter your password:"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:206
-msgid "Password changed!"
+#: ui/accountmigrationview.ui:129
+msgid "Migrate account"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:209
-msgid "Incorrect password"
+#: ui/accountmigrationview.ui:148
+msgid "Migration failed, wrong password ?"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:236
-msgid "Alias"
-msgstr "Àlies"
+#: ui/currentcallview.ui:251
+msgid "End this call"
+msgstr "Finalitza aquesta trucada"
 
-#: src/accountgeneraltab.cpp:247
-msgid "Type"
-msgstr "Tipus"
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:457
+msgid "End call"
+msgstr "Finalitza la trucada"
 
-#: src/accountgeneraltab.cpp:273
-msgid "auto-generating..."
-msgstr "autogenerant..."
+#: ui/currentcallview.ui:275
+msgid "Toggle hold"
+msgstr "Mantenir en espera"
 
-#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
-msgid "Username"
-msgstr "Nom d'usuari"
+#: ui/currentcallview.ui:279 ui/currentcallview.ui:304
+#: ui/currentcallview.ui:448
+msgid "Hold"
+msgstr "En espera"
 
-#: src/accountgeneraltab.cpp:322
-msgid "Password"
-msgstr "Contrasenya"
+#: ui/currentcallview.ui:300
+msgid "Toggle mute audio"
+msgstr "Activa silenci d'àudio"
 
-#: src/accountgeneraltab.cpp:335
-msgid "Show password"
-msgstr "Mostra la contrasenya"
+#: ui/currentcallview.ui:325
+msgid "Toggle mute video"
+msgstr "Activa silenci de vídeo"
 
-#: src/accountgeneraltab.cpp:341
-msgid "Proxy"
-msgstr "Intermediari"
+#: ui/currentcallview.ui:329 ui/currentcallview.ui:439
+msgid "Mute video"
+msgstr "Silencia el vídeo"
 
-#: src/accountgeneraltab.cpp:351
-msgid "Voicemail number"
-msgstr "Nombre de correu de veu"
+#: ui/currentcallview.ui:352
+msgid "Toggle record audio"
+msgstr "Activa silenci"
 
-#: src/accountgeneraltab.cpp:363
-msgid "Name service URL"
-msgstr "Direcció del servidor de noms"
+#: ui/currentcallview.ui:355
+msgid "Record audio"
+msgstr "Grava l'àudio"
 
-#: src/accountgeneraltab.cpp:376
-msgid "Auto-answer calls"
-msgstr "Autorespondre trucades"
+#: ui/currentcallview.ui:376
+msgid "Adjust outgoing video quality"
+msgstr "Ajusta la qualitat del vídeo sortint"
 
-#: src/accountgeneraltab.cpp:384
-msgid "UPnP enabled"
-msgstr "UPnP habitlitat"
+#: ui/currentcallview.ui:381 ui/currentcallview.ui:466
+msgid "Video quality"
+msgstr "Qualitat de vídeo"
 
-#: src/accountimportexportview.cpp:99
-msgid "Select account export location"
-msgstr "Seleccioneu el lloc on exportar el compte"
+#: ui/currentcallview.ui:400
+msgid "Toggle show chat"
+msgstr "Mostra el xat"
 
-#: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:84
-#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
-msgid "Cancel"
-msgstr "Cancel·la"
+#: ui/currentcallview.ui:404 ui/currentcallview.ui:421
+msgid "Chat"
+msgstr "Xat"
 
-#: src/accountimportexportview.cpp:104
-msgid "Select"
-msgstr "Selecciona"
+#: ui/currentcallview.ui:430
+msgid "Mute audio"
+msgstr "Silencia l'àudio"
 
-#: src/accountimportexportview.cpp:198
-msgid "Error importing account(s)"
-msgstr "Error important el(s) compte(s)"
+#: ui/currentcallview.ui:475
+msgid "Record"
+msgstr "Grava"
 
-#: src/accountimportexportview.cpp:245
-msgid "Error exporting account(s)"
-msgstr "Error exportant el(s) compte(s)"
+#: ui/accountdevicestab.ui:21
+msgid "My Device ID:"
+msgstr ""
 
-#: src/accountvideotab.cpp:190
-msgctxt "The name of the codec"
-msgid "Name"
-msgstr "Nom"
-
-#: src/accountview.cpp:168
-msgctxt "Account settings"
-msgid "General"
-msgstr "General"
-
-#: src/accountview.cpp:176
-msgctxt "Account settings"
+#: ui/accountdevicestab.ui:40
 msgid "Devices"
 msgstr "Dispositius"
 
-#: src/accountview.cpp:182
-msgctxt "Account settings"
-msgid "Security"
-msgstr "Seguretat"
+#: ui/accountdevicestab.ui:66
+msgid "Add device"
+msgstr "Afegir dispositiu"
 
-#: src/accountview.cpp:187
-msgctxt "Account settings"
-msgid "Advanced"
-msgstr "Avançat"
+#: ui/accountdevicestab.ui:83
+msgid "Add New Device"
+msgstr "Afegir nou dispositiu"
 
-#: src/accountview.cpp:194
-msgctxt "List of banned peers"
-msgid "Bans"
-msgstr "Prohibicions"
-
-#: src/accountview.cpp:250
-#, c-format
-msgid "Are you sure you want to delete account \"%s\"?"
-msgstr "Esteu segur que voleu esborrar el compte \"%s\"?"
-
-#: src/accountview.cpp:377
-msgid "New Account"
-msgstr "Compte Nou"
-
-#: src/accountview.cpp:527
-msgctxt "Account state column"
-msgid "Enabled"
-msgstr "Habilitat"
-
-#: src/accountview.cpp:533
-msgctxt "Account alias (name) column"
-msgid "Alias"
-msgstr "Àlies"
-
-#: src/accountview.cpp:541
-msgctxt "Account status column"
-msgid "Status"
-msgstr "Estat"
-
-#: src/avatarmanipulation.cpp:380
-msgid "Open Avatar Image"
-msgstr ""
-
-#: src/avatarmanipulation.cpp:383
-msgid "_Cancel"
-msgstr "_Cancel·la"
-
-#: src/avatarmanipulation.cpp:385
-msgid "_Open"
-msgstr "_Obre"
-
-#: src/backends/edscontactbackend.cpp:193
-msgid "Unknown EDS addressbook"
-msgstr "Llibreta d'adreces EDS desconeguda"
-
-#: src/backends/edscontactbackend.cpp:213
-msgctxt "Backend type"
-msgid "Contacts"
-msgstr "Contactes"
-
-#: src/contactpopupmenu.cpp:172
-msgid "_Call"
-msgstr "_Truca"
-
-#: src/contactpopupmenu.cpp:175
-msgid "_Copy name"
-msgstr "_Copia nom"
-
-#: src/contactpopupmenu.cpp:178
-msgid "_Copy number"
-msgstr "_Copia telèfon"
-
-#: src/contactpopupmenu.cpp:181
-msgid "_Add to contact"
-msgstr "_Afegir al contacte"
-
-#: src/contactpopupmenu.cpp:184
-msgid "_Remove contact"
-msgstr "_Elimina el contacte"
-
-#: src/dialogs.c:53
-msgid "Working..."
-msgstr "Treballant..."
-
-#: src/dialogs.c:84
-#, c-format
-msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+#: ui/accountdevicestab.ui:98
 msgid ""
-"Liberté, Égalité, Fraternité - Version 1.0\n"
-"built on %.25s"
-msgstr "Liberté, Égalité, Fraternité - Versió 1.0\nConstruït a %.25s"
-
-#: src/dialogs.c:136
-msgid ""
-"The GNOME client for Ring.\n"
-"Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "El client de GNOME per a Ring\nEl Ring és un programari per a comunicacions universals que respecta la llibertat i privacitat dels seus usuaris"
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
-msgstr "casa"
-
-#: src/generalsettingsview.cpp:103
-msgid ""
-"This is a destructive operation. Are you sure you want to delete all of your"
-" chat and call history?"
-msgstr "Açò és una operació destructiva. Esteu segur que voleu esborrar tot l'historial de xats i trucades?"
-
-#: src/historyview.cpp:293
-msgctxt "Call history"
-msgid "Call"
-msgstr "Trucada"
-
-#: src/historyview.cpp:338
-msgctxt "Call history"
-msgid "Date"
-msgstr "Data"
-
-#: src/ringnotify.cpp:148
-msgid "Incoming call"
-msgstr "Trucada entrant"
-
-#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
-msgctxt "notification action name"
-msgid "Show"
-msgstr "Mostra"
-
-#: src/ringnotify.cpp:267
-#, c-format
-msgctxt "Text message notification"
-msgid "%s says:"
-msgstr "%s diu:"
-
-#: src/ring_client_options.c:66
-msgid "Enable debug"
-msgstr "Habilitar depuració"
-
-#: src/ring_client_options.c:68
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
-msgstr "Restaura l'estat ocult de la finestra principal (només s'aplica a la instància principal)"
-
-#: src/ring_client_options.c:85
-msgid "- GNOME client for Ring"
-msgstr "- Client de GNOME per a Ring"
-
-#: src/ringmainwindow.cpp:614
-#, c-format
-msgid "Invalid Ring username: %s"
-msgstr "Usuari de Ring no vàlid: %s"
-
-#: src/ringmainwindow.cpp:629
-msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr "Error resolent el nom d'usuari, el servidor de noms possiblement siga inabastable."
-
-#: src/ringmainwindow.cpp:643
-#, c-format
-msgid "Could not resolve Ring username: %s"
-msgstr "No es pot resoldre l'usuari de Ring: %s"
-
-#: src/ringmainwindow.cpp:1152
-msgctxt "button next to search entry will place a new call"
-msgid "place call"
-msgstr "fer una trucada"
-
-#: src/ringmainwindow.cpp:1154
-msgctxt "button next to search entry will open chat"
-msgid "open chat"
-msgstr "obrir un xat"
-
-#: src/ringmainwindow.cpp:1234
-#, c-format
-msgctxt "string format will be replaced by the account alias"
-msgid "%s..."
-msgstr "%s..."
-
-#: src/ringmainwindow.cpp:1240
-#, c-format
-msgctxt "string format will be replaced by the account alias"
-msgid "%s (error)"
-msgstr "%s (error)"
-
-#: src/ringmainwindow.cpp:1443
-msgctxt ""
-"Please try to make the translation 50 chars or less so that it fits into the"
-" layout"
-msgid "Search contacts or enter number"
-msgstr "Busqueu contactes o introduïu el nombre"
-
-#: src/ringwelcomeview.cpp:75
-msgid ""
-"This is your Ring username.\n"
-"Copy and share it with your friends!"
-msgstr "Aquest és el vostre nom d'usuari de Ring.\nCopieu i compartiu amb les vostres amistats!"
-
-#: src/ringwelcomeview.cpp:83
-msgctxt "Do not translate \"RingID\""
-msgid ""
-"This is your RingID.\n"
-"Copy and share it with your friends!"
-msgstr "Aquest és el vostre RingID.\nCopieu i compartiu amb les vostres amistats!"
-
-#: src/ringwelcomeview.cpp:90
-msgid "fetching RingID..."
-msgstr "buscant RingID"
-
-#: src/ringwelcomeview.cpp:148
-msgid ""
-"Ring is free software for universal communication which respects the "
-"freedoms and privacy of its users."
-msgstr "El Ring és un programari per a comunicacions universals que respecta la llibertat i privacitat dels seus usuaris"
-
-#: src/ringwelcomeview.cpp:202
-msgctxt "Do not translate \"Ring ID\""
-msgid "Ring ID QR code"
-msgstr "Codi QR del Ring ID"
-
-#: src/usernameregistrationbox.cpp:128
-msgid "The entered username is not available"
-msgstr "El nom d'usuari introduït no està disponible"
-
-#: src/usernameregistrationbox.cpp:129
-msgid "Username is not available"
-msgstr "El nom d'usuari no està disponible"
-
-#: src/usernameregistrationbox.cpp:138
-msgid "The entered username is not valid"
-msgstr "El nom d'usuari introduït no és vàlid."
-
-#: src/usernameregistrationbox.cpp:139
-msgid "Username is not valid"
-msgstr "El nom d'usuari no és vàlid."
-
-#: src/usernameregistrationbox.cpp:148
-msgid "The entered username is available"
-msgstr "El nom d'usuari introduït està disponible"
-
-#: src/usernameregistrationbox.cpp:149
-msgid "Username is available"
-msgstr "El nom d'usuari està disponible"
-
-#: src/usernameregistrationbox.cpp:158
-msgid "Failed to perform lookup"
-msgstr "No s'ha pogut realitzar la cerca"
-
-#: src/usernameregistrationbox.cpp:159
-msgid "Could not lookup username"
-msgstr "No s'ha pogut trobar el nom d'usuari"
-
-#: src/usernameregistrationbox.cpp:248
-msgid "Looking up username availability..."
-msgstr "Comprovant disponibilitat del nom d'usuari..."
-
-#: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:487
-msgid "Registering username..."
-msgstr "Registrant nom d'usuari..."
-
-#: src/usernameregistrationbox.cpp:319
-msgid "Could not initiate name registration, try again."
+"To add a new device to your Ring account, you export your account on the "
+"Ring. This will generate a pin that must be entered on your new device "
+"within 5 minutes of its generation."
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:361
-msgid "Register this username on the blockchain"
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
+msgid "Password (required):"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:397
-msgid "Invalid username"
-msgstr "Nom d'usuari invalid"
-
-#: src/usernameregistrationbox.cpp:411
-msgid "Username already taken"
-msgstr "Nom d'usuari ja registrat."
-
-#: src/usernameregistrationbox.cpp:418
-msgid "Network error"
-msgstr "Error de xarxa"
-
-#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
-msgctxt "Name of error window (dialog)"
-msgid "Ring Error"
-msgstr "Error de Ring"
-
-#: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)..."
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
+msgid "Enter archive password"
 msgstr ""
 
-#: src/native/dbuserrorhandler.cpp:87
-msgid ""
-"Could not re-connect to the Ring daemon (dring).\n"
-"Ring will now quit."
+#: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
+#: ui/accountimportexportview.ui:161 src/accountimportexportview.cpp:102
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#: ui/accountdevicestab.ui:141
+msgid "Export on the Ring"
 msgstr ""
 
-#: src/video/video_widget.cpp:525
-msgid "Share screen area"
-msgstr "Compartir pantalla"
-
-#: src/video/video_widget.cpp:535
-msgid "Share file"
-msgstr "Compartir arxiu"
-
-#: src/video/video_widget.cpp:549
-msgid "Show advanced information"
-msgstr "Mostra informació avançada"
-
-#: ui/accountadvancedtab.ui:81
-msgid "Registration expire timeout (seconds):"
-msgstr "Temps d'expiració del registre (segons):"
-
-#: ui/accountadvancedtab.ui:103
-msgid "Allow calls from unknown peers"
-msgstr "Permetre trucades de nodes desconeguts"
-
-#: ui/accountadvancedtab.ui:117
-msgid "Allow calls from peers in your call history"
-msgstr "Permetre trucades de nodes del vostre historial de trucades"
-
-#: ui/accountadvancedtab.ui:131
-msgid "Allow calls from peers in your contacts list"
-msgstr "Permetre trucades de nodes de la vostra llista de contactes"
-
-#: ui/accountadvancedtab.ui:149
-msgid "Registration"
-msgstr "Registre"
-
-#: ui/accountadvancedtab.ui:178
-msgid "Use random port"
-msgstr "Fer servir un port aleatori"
-
-#: ui/accountadvancedtab.ui:199
-msgid "Local port:"
-msgstr "Port local:"
-
-#: ui/accountadvancedtab.ui:225
-msgid "Network Interface"
-msgstr "Interfície de xarxa"
-
-#: ui/accountadvancedtab.ui:253
-msgid "Same as local parameters"
-msgstr "Igual que els paràmetres locals"
-
-#: ui/accountadvancedtab.ui:268
-msgid "Set published address and port:"
-msgstr "Establir port i adreça publicats:"
-
-#: ui/accountadvancedtab.ui:292
-msgid "Address"
-msgstr "Adreça"
-
-#: ui/accountadvancedtab.ui:340
-msgid "Use STUN"
-msgstr "Utilitza STUN"
-
-#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
-msgid "server URL"
-msgstr "Direcció del servidor"
-
-#: ui/accountadvancedtab.ui:389
-msgid "Use TURN"
-msgstr "Utilitza TURN"
-
-#: ui/accountadvancedtab.ui:434
-msgid "username"
-msgstr "nom d'usuari"
-
-#: ui/accountadvancedtab.ui:455
-msgid "password"
-msgstr "contrasenya"
-
-#: ui/accountadvancedtab.ui:479
-msgid "realm"
+#: ui/accountdevicestab.ui:162
+msgid "Exporting account on the Ring..."
 msgstr ""
 
-#: ui/accountadvancedtab.ui:508
-msgid "Published Address"
-msgstr "Adreça publicada"
-
-#: ui/accountadvancedtab.ui:536
-msgid "Bootstrap Servers"
+#: ui/accountdevicestab.ui:186
+msgid "Your generated pin:"
 msgstr ""
 
-#: ui/accountadvancedtab.ui:593
-msgid ""
-"These settings are only used during SDP session negotiation in case ICE is "
-"not supported by the server or peer."
-msgstr ""
-
-#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
-msgid "Min"
-msgstr "Mín"
-
-#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
-msgid "Max"
-msgstr "Màx"
-
-#: ui/accountadvancedtab.ui:665
-msgid "Audio RTP Port Range"
-msgstr "Rang de ports de l'àudio RTP"
-
-#: ui/accountadvancedtab.ui:741
-msgid "Video RTP Port Range"
-msgstr ""
-
-#: ui/accountadvancedtab.ui:759
-msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr ""
-
-#: ui/accountaudiotab.ui:57 ui/accountvideotab.ui:80
-msgid "Up"
-msgstr "Amunt"
-
-#: ui/accountaudiotab.ui:64 ui/accountvideotab.ui:87
-msgid "Down"
-msgstr "Avall"
-
-#: ui/accountaudiotab.ui:75
-msgid "Audio Codecs"
-msgstr ""
+#: ui/accountdevicestab.ui:217 ui/accountdevicestab.ui:239
+#: ui/accountcreationwizard.ui:551
+msgid "OK"
+msgstr "D'acord"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
@@ -697,6 +260,10 @@ msgstr ""
 msgid "Generating your Ring account..."
 msgstr "Generant el vostre compte de Ring..."
 
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:310
+msgid "Registering username..."
+msgstr "Registrant nom d'usuari..."
+
 #: ui/accountcreationwizard.ui:494
 msgid "This may take a few minutes."
 msgstr "Això pot trigar uns minuts."
@@ -709,76 +276,140 @@ msgstr ""
 msgid "Error creating/loading account."
 msgstr "Error creant/carregant compte"
 
-#: ui/accountcreationwizard.ui:551 ui/accountdevicestab.ui:217
-#: ui/accountdevicestab.ui:239
-msgid "OK"
-msgstr "D'acord"
+#: ui/generalsettingsview.ui:34
+msgid "Profile Settings"
+msgstr "Configuració del perfil"
 
-#: ui/accountdevicestab.ui:21
-msgid "My Device ID:"
+#: ui/generalsettingsview.ui:76
+msgid "Ring Settings"
+msgstr "Configuració de Ring"
+
+#: ui/generalsettingsview.ui:92
+msgid "Start Ring on login"
+msgstr "Obre Ring a l'inici"
+
+#: ui/generalsettingsview.ui:100
+msgid "Show Ring icon in the notification area (systray)."
+msgstr "Mostrar Ring a l'àrea de notificació del sistema (systray)."
+
+#: ui/generalsettingsview.ui:108
+msgid "Bring Ring to the foreground on incoming calls."
+msgstr "Torna Ring al primer pla amb les trucades entrants."
+
+#: ui/generalsettingsview.ui:116
+msgid "Enable notifications for incoming calls."
+msgstr "Activa notificacions per trucades entrants."
+
+#: ui/generalsettingsview.ui:124
+msgid "Enable notifications for new chat messages."
+msgstr "Activa notificacions per missatges de xat nous"
+
+#: ui/generalsettingsview.ui:132
+msgid "Show images and videos in chat window."
+msgstr "Mostra imatges i vídeos a la finestra de xat"
+
+#: ui/generalsettingsview.ui:140
+msgid "Entering a number in the search entry will place a new call."
 msgstr ""
 
-#: ui/accountdevicestab.ui:40
-msgid "Devices"
-msgstr "Dispositius"
+#: ui/generalsettingsview.ui:155
+msgid "Show chat on the right."
+msgstr "Mostra el cat a la dreta."
 
-#: ui/accountdevicestab.ui:66
-msgid "Add device"
-msgstr "Afegir dispositiu"
+#: ui/generalsettingsview.ui:161
+msgid "Show chat on the bottom."
+msgstr "Mostra el xat a la part inferior."
 
-#: ui/accountdevicestab.ui:83
-msgid "Add New Device"
-msgstr "Afegir nou dispositiu"
+#: ui/generalsettingsview.ui:185
+msgid "History Settings"
+msgstr "Preferències d'historial"
 
-#: ui/accountdevicestab.ui:98
-msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
-"within 5 minutes of its generation."
-msgstr ""
+#: ui/generalsettingsview.ui:203
+msgid "Keep history for (days):"
+msgstr "Guarda l'historial durant (dies):"
 
-#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
-msgid "Password (required):"
-msgstr ""
+#: ui/generalsettingsview.ui:224
+msgid "(set to 0 for unlimited history)"
+msgstr "(posar a 0 per a historial il·limitat)"
 
-#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
-msgid "Enter archive password"
-msgstr ""
+#: ui/generalsettingsview.ui:234
+msgid "Clear all history"
+msgstr "Neteja l'historial"
 
-#: ui/accountdevicestab.ui:141
-msgid "Export on the Ring"
-msgstr ""
+#: ui/ringmainwindow.ui:61
+msgid "Menu"
+msgstr "Menú"
 
-#: ui/accountdevicestab.ui:162
-msgid "Exporting account on the Ring..."
-msgstr ""
+#: ui/ringmainwindow.ui:83
+msgid "General"
+msgstr "General"
 
-#: ui/accountdevicestab.ui:186
-msgid "Your generated pin:"
-msgstr ""
+#: ui/ringmainwindow.ui:98
+msgid "Media"
+msgstr "Mitjans"
 
-#: ui/accountgeneraltab.ui:69
-msgid "Account"
-msgstr "Compte"
+#: ui/ringmainwindow.ui:114
+msgid "Accounts"
+msgstr "Comptes"
 
-#: ui/accountgeneraltab.ui:135
-msgid "Parameters"
-msgstr ""
+#: ui/ringmainwindow.ui:157
+msgid "Settings"
+msgstr "Opcions"
 
-#: ui/accountgeneraltab.ui:175
-msgid "Note: this will change the password only on this device."
-msgstr ""
+#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
+msgid "Conversations"
+msgstr "Converses"
 
-#: ui/accountgeneraltab.ui:194
-msgid "Current password"
-msgstr ""
+#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
+msgid "Contact requests"
+msgstr "Peticions de contacte"
 
-#: ui/accountgeneraltab.ui:214
-msgid "New password"
-msgstr "Nova contrasenya"
+#: ui/mediasettingsview.ui:24
+msgid "Audio Settings"
+msgstr "Preferències d'àudio"
 
-#: ui/accountgeneraltab.ui:234
-msgid "Confirm password"
+#: ui/mediasettingsview.ui:40
+msgid "Audio manager:"
+msgstr "Gestor d'àudio:"
+
+#: ui/mediasettingsview.ui:52
+msgid "Ringtone device:"
+msgstr "Dispositiu de to de trucada"
+
+#: ui/mediasettingsview.ui:64
+msgid "Output device:"
+msgstr "Dispositiu de sortida:"
+
+#: ui/mediasettingsview.ui:76
+msgid "Input device:"
+msgstr "Dispositiu d'entrada:"
+
+#: ui/mediasettingsview.ui:134
+msgid "Camera Settings"
+msgstr "Preferències de càmera"
+
+#: ui/mediasettingsview.ui:150
+msgid "Device:"
+msgstr "Dispositiu"
+
+#: ui/mediasettingsview.ui:162
+msgid "Channel:"
+msgstr "Canal:"
+
+#: ui/mediasettingsview.ui:174
+msgid "Resolution:"
+msgstr "Resolució"
+
+#: ui/mediasettingsview.ui:186
+msgid "Frame rate:"
+msgstr "Velocitat de fotogrames"
+
+#: ui/mediasettingsview.ui:244
+msgid "Hardware Acceleration"
+msgstr "Acceleració per maquinari"
+
+#: ui/mediasettingsview.ui:260
+msgid "Enable hardware decoding:"
 msgstr ""
 
 #: ui/accountimportexportview.ui:14
@@ -813,24 +444,259 @@ msgstr "Exporta"
 msgid "Import"
 msgstr "Importa"
 
-#: ui/accountmigrationview.ui:14
-msgid "Account migration required"
-msgstr "Migració de compte requerida"
+#: ui/accountview.ui:42 ui/accountview.ui:45
+msgid "Remove selected account"
+msgstr "Elimina compte seleccionats"
 
-#: ui/accountmigrationview.ui:39
-msgid "Alias:"
+#: ui/accountview.ui:63 ui/accountview.ui:66
+msgid "Add new account"
 msgstr ""
 
-#: ui/accountmigrationview.ui:102
-msgid "Please enter your password:"
+#: ui/accountview.ui:75 ui/accountview.ui:78
+msgid "Select account type"
+msgstr "Selecciona tipus de compte"
+
+#: ui/accountview.ui:104
+msgid "Import archived account(s)"
 msgstr ""
 
-#: ui/accountmigrationview.ui:129
-msgid "Migrate account"
+#: ui/accountview.ui:112
+msgid "Export selected account(s)"
 msgstr ""
 
-#: ui/accountmigrationview.ui:148
-msgid "Migration failed, wrong password ?"
+#: ui/editcontactview.ui:12
+msgid "Select addressbook"
+msgstr "Selecciona la llibreta d'adreces"
+
+#: ui/editcontactview.ui:15
+msgid "Addressbook"
+msgstr "Llibreta d'adreces"
+
+#: ui/editcontactview.ui:29
+msgid "Name"
+msgstr "Nom"
+
+#: ui/editcontactview.ui:32
+msgid "Contact name"
+msgstr "Nom de contacte"
+
+#: ui/editcontactview.ui:47
+msgid "Select how this number will be categorized"
+msgstr "Selecciona la categoria del número de telèfon"
+
+#: ui/editcontactview.ui:50
+msgid "Number category"
+msgstr "Categoria del número"
+
+#: ui/editcontactview.ui:66
+msgid "Number or Ring ID to be added"
+msgstr "Número o Ring ID per a agefir"
+
+#: ui/editcontactview.ui:72
+msgid "Number or Ring ID"
+msgstr "Número o Ring ID"
+
+#: ui/editcontactview.ui:83
+msgid "Save"
+msgstr "Desa"
+
+#: ui/accountvideotab.ui:50
+msgid "Enable Video"
+msgstr "Habilita el vídeo"
+
+#: ui/accountvideotab.ui:80 ui/accountaudiotab.ui:57
+msgid "Up"
+msgstr "Amunt"
+
+#: ui/accountvideotab.ui:87 ui/accountaudiotab.ui:64
+msgid "Down"
+msgstr "Avall"
+
+#: ui/accountvideotab.ui:98
+msgid "Video Codecs"
+msgstr ""
+
+#: ui/accountadvancedtab.ui:81
+msgid "Registration expire timeout (seconds):"
+msgstr "Temps d'expiració del registre (segons):"
+
+#: ui/accountadvancedtab.ui:103
+msgid "Allow calls from unknown peers"
+msgstr "Permetre trucades de nodes desconeguts"
+
+#: ui/accountadvancedtab.ui:117
+msgid "Allow calls from peers in your call history"
+msgstr "Permetre trucades de nodes del vostre historial de trucades"
+
+#: ui/accountadvancedtab.ui:131
+msgid "Allow calls from peers in your contacts list"
+msgstr "Permetre trucades de nodes de la vostra llista de contactes"
+
+#: ui/accountadvancedtab.ui:149
+msgid "Registration"
+msgstr "Registre"
+
+#: ui/accountadvancedtab.ui:178
+msgid "Use random port"
+msgstr "Fer servir un port aleatori"
+
+#: ui/accountadvancedtab.ui:199
+msgid "Local port:"
+msgstr "Port local:"
+
+#: ui/accountadvancedtab.ui:225
+msgid "Network Interface"
+msgstr "Interfície de xarxa"
+
+#: ui/accountadvancedtab.ui:253
+msgid "Same as local parameters"
+msgstr "Igual que els paràmetres locals"
+
+#: ui/accountadvancedtab.ui:268
+msgid "Set published address and port:"
+msgstr "Establir port i adreça publicats:"
+
+#: ui/accountadvancedtab.ui:292
+msgid "Address"
+msgstr "Adreça"
+
+#: ui/accountadvancedtab.ui:314 src/accountadvancedtab.cpp:510
+msgid "Port"
+msgstr "Port"
+
+#: ui/accountadvancedtab.ui:340
+msgid "Use STUN"
+msgstr "Utilitza STUN"
+
+#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
+msgid "server URL"
+msgstr "Direcció del servidor"
+
+#: ui/accountadvancedtab.ui:389
+msgid "Use TURN"
+msgstr "Utilitza TURN"
+
+#: ui/accountadvancedtab.ui:434
+msgid "username"
+msgstr "nom d'usuari"
+
+#: ui/accountadvancedtab.ui:455
+msgid "password"
+msgstr "contrasenya"
+
+#: ui/accountadvancedtab.ui:479
+msgid "realm"
+msgstr ""
+
+#: ui/accountadvancedtab.ui:508
+msgid "Published Address"
+msgstr "Adreça publicada"
+
+#: ui/accountadvancedtab.ui:536
+msgid "Bootstrap Servers"
+msgstr ""
+
+#: ui/accountadvancedtab.ui:593
+msgid ""
+"These settings are only used during SDP session negotiation in case ICE is "
+"not supported by the server or peer."
+msgstr ""
+
+#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
+msgid "Min"
+msgstr "Mín"
+
+#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
+msgid "Max"
+msgstr "Màx"
+
+#: ui/accountadvancedtab.ui:665
+msgid "Audio RTP Port Range"
+msgstr "Rang de ports de l'àudio RTP"
+
+#: ui/accountadvancedtab.ui:741
+msgid "Video RTP Port Range"
+msgstr ""
+
+#: ui/accountadvancedtab.ui:759
+msgid "SDP Session Negotiation (ICE Fallback)"
+msgstr ""
+
+#: ui/accountaudiotab.ui:75
+msgid "Audio Codecs"
+msgstr ""
+
+#: ui/usernameregistrationbox.ui:12
+msgid "enter username here"
+msgstr ""
+
+#: ui/usernameregistrationbox.ui:24
+msgid "Register"
+msgstr "Registre"
+
+#: ui/accountbanstab.ui:18
+msgid "List of banned peers :"
+msgstr ""
+
+#: ui/accountbanstab.ui:62
+msgid "unban"
+msgstr ""
+
+#: ui/chatview.ui:19 ui/chatview.ui:22
+msgid "Hide chat view"
+msgstr "Amaga finestra de xat"
+
+#: ui/chatview.ui:45 ui/chatview.ui:48
+msgid "Place call"
+msgstr "Fer trucada"
+
+#: ui/chatview.ui:60
+msgid "Add to conversations"
+msgstr ""
+
+#: ui/chatview.ui:119
+msgid "Send Invitation"
+msgstr "Enviar Invitació"
+
+#: ui/accountgeneraltab.ui:69
+msgid "Account"
+msgstr "Compte"
+
+#: ui/accountgeneraltab.ui:135
+msgid "Parameters"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
+#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
+msgid "Change password"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:175
+msgid "Note: this will change the password only on this device."
+msgstr ""
+
+#: ui/accountgeneraltab.ui:194
+msgid "Current password"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:214
+msgid "New password"
+msgstr "Nova contrasenya"
+
+#: ui/accountgeneraltab.ui:234
+msgid "Confirm password"
+msgstr ""
+
+#: ui/incomingcallview.ui:99
+msgid "Incoming..."
+msgstr "Entrant..."
+
+#: ui/incomingcallview.ui:135
+msgid "Accept"
+msgstr "Accepta"
+
+#: ui/incomingcallview.ui:156
+msgid "Reject"
 msgstr ""
 
 #: ui/accountsecuritytab.ui:37
@@ -905,34 +771,6 @@ msgstr "Exigeix certificat per a les conexions TLS entrants"
 msgid "Negotiation Encryption"
 msgstr ""
 
-#: ui/accountvideotab.ui:50
-msgid "Enable Video"
-msgstr "Habilita el vídeo"
-
-#: ui/accountvideotab.ui:98
-msgid "Video Codecs"
-msgstr ""
-
-#: ui/accountview.ui:42 ui/accountview.ui:45
-msgid "Remove selected account"
-msgstr "Elimina compte seleccionats"
-
-#: ui/accountview.ui:63 ui/accountview.ui:66
-msgid "Add new account"
-msgstr ""
-
-#: ui/accountview.ui:75 ui/accountview.ui:78
-msgid "Select account type"
-msgstr "Selecciona tipus de compte"
-
-#: ui/accountview.ui:104
-msgid "Import archived account(s)"
-msgstr ""
-
-#: ui/accountview.ui:112
-msgid "Export selected account(s)"
-msgstr ""
-
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
 msgstr "Fer foto"
@@ -949,295 +787,448 @@ msgstr ""
 msgid "Set selection as image"
 msgstr ""
 
-#: ui/chatview.ui:19 ui/chatview.ui:22
-msgid "Hide chat view"
-msgstr "Amaga finestra de xat"
-
-#: ui/chatview.ui:45 ui/chatview.ui:48
-msgid "Place call"
-msgstr "Fer trucada"
-
-#: ui/chatview.ui:60
-msgid "Send invitation"
-msgstr "Enviar invitació"
-
-#: ui/chatview.ui:130
-msgid "Send Invitation"
-msgstr "Enviar Invitació"
-
-#: ui/choosecontactview.ui:34
-msgid "Create New"
-msgstr "Crea Nou"
-
-#: ui/currentcallview.ui:251
-msgid "End this call"
-msgstr "Finalitza aquesta trucada"
-
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:459
-msgid "End call"
-msgstr "Finalitza la trucada"
-
-#: ui/currentcallview.ui:276
-msgid "Toggle hold"
-msgstr "Mantenir en espera"
-
-#: ui/currentcallview.ui:280 ui/currentcallview.ui:306
-#: ui/currentcallview.ui:450
-msgid "Hold"
-msgstr "En espera"
-
-#: ui/currentcallview.ui:302
-msgid "Toggle mute audio"
-msgstr "Activa silenci d'àudio"
-
-#: ui/currentcallview.ui:328
-msgid "Toggle mute video"
-msgstr "Activa silenci de vídeo"
-
-#: ui/currentcallview.ui:332 ui/currentcallview.ui:441
-msgid "Mute video"
-msgstr "Silencia el vídeo"
-
-#: ui/currentcallview.ui:355
-msgid "Toggle record audio"
-msgstr "Activa silenci"
-
-#: ui/currentcallview.ui:358
-msgid "Record audio"
-msgstr "Grava l'àudio"
-
-#: ui/currentcallview.ui:378
-msgid "Adjust outgoing video quality"
-msgstr "Ajusta la qualitat del vídeo sortint"
-
-#: ui/currentcallview.ui:383 ui/currentcallview.ui:468
-msgid "Video quality"
-msgstr "Qualitat de vídeo"
-
-#: ui/currentcallview.ui:402
-msgid "Toggle show chat"
-msgstr "Mostra el xat"
-
-#: ui/currentcallview.ui:406 ui/currentcallview.ui:423
-msgid "Chat"
-msgstr "Xat"
-
-#: ui/currentcallview.ui:432
-msgid "Mute audio"
-msgstr "Silencia l'àudio"
-
-#: ui/currentcallview.ui:477
-msgid "Record"
-msgstr "Grava"
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr "Selecciona la llibreta d'adreces"
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr "Llibreta d'adreces"
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "Nom"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr "Nom de contacte"
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr "Selecciona la categoria del número de telèfon"
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr "Categoria del número"
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr "Número o Ring ID per a agefir"
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr "Número o Ring ID"
-
-#: ui/editcontactview.ui:83
-msgid "Save"
-msgstr "Desa"
-
-#: ui/generalsettingsview.ui:34
-msgid "Profile Settings"
-msgstr "Configuració del perfil"
-
-#: ui/generalsettingsview.ui:76
-msgid "Ring Settings"
-msgstr "Configuració de Ring"
-
-#: ui/generalsettingsview.ui:92
-msgid "Start Ring on login"
-msgstr "Obre Ring a l'inici"
-
-#: ui/generalsettingsview.ui:100
-msgid "Show Ring icon in the notification area (systray)."
-msgstr "Mostrar Ring a l'àrea de notificació del sistema (systray)."
-
-#: ui/generalsettingsview.ui:108
-msgid "Bring Ring to the foreground on incoming calls."
-msgstr "Torna Ring al primer pla amb les trucades entrants."
-
-#: ui/generalsettingsview.ui:116
-msgid "Enable notifications for incoming calls."
-msgstr "Activa notificacions per trucades entrants."
-
-#: ui/generalsettingsview.ui:124
-msgid "Enable notifications for new chat messages."
-msgstr "Activa notificacions per missatges de xat nous"
-
-#: ui/generalsettingsview.ui:132
-msgid "Show images and videos in chat window."
-msgstr "Mostra imatges i vídeos a la finestra de xat"
-
-#: ui/generalsettingsview.ui:140
-msgid "Entering a number in the search entry will place a new call."
+#: src/ring_client.cpp:147
+#, c-format
+msgid ""
+"Unable to initialize.\n"
+"Make sure the Ring daemon (dring) is running.\n"
+"Error: %s"
 msgstr ""
 
-#: ui/generalsettingsview.ui:155
-msgid "Show chat on the right."
-msgstr "Mostra el cat a la dreta."
-
-#: ui/generalsettingsview.ui:161
-msgid "Show chat on the bottom."
-msgstr "Mostra el xat a la part inferior."
-
-#: ui/generalsettingsview.ui:185
-msgid "History Settings"
-msgstr "Preferències d'historial"
-
-#: ui/generalsettingsview.ui:203
-msgid "Keep history for (days):"
-msgstr "Guarda l'historial durant (dies):"
-
-#: ui/generalsettingsview.ui:224
-msgid "(set to 0 for unlimited history)"
-msgstr "(posar a 0 per a historial il·limitat)"
-
-#: ui/generalsettingsview.ui:234
-msgid "Clear all history"
-msgstr "Neteja l'historial"
-
-#: ui/incomingcallview.ui:106
-msgid "Incoming..."
-msgstr "Entrant..."
-
-#: ui/incomingcallview.ui:142
-msgid "Accept"
-msgstr "Accepta"
-
-#: ui/incomingcallview.ui:163
-msgid "Reject"
+#: src/ring_client.cpp:150
+msgid "Ring Error"
 msgstr ""
 
-#: ui/incomingcallview.ui:186
-msgid "Hang up"
-msgstr "Penjar"
-
-#: ui/mediasettingsview.ui:24
-msgid "Audio Settings"
-msgstr "Preferències d'àudio"
-
-#: ui/mediasettingsview.ui:40
-msgid "Audio manager:"
-msgstr "Gestor d'àudio:"
-
-#: ui/mediasettingsview.ui:52
-msgid "Ringtone device:"
-msgstr "Dispositiu de to de trucada"
-
-#: ui/mediasettingsview.ui:64
-msgid "Output device:"
-msgstr "Dispositiu de sortida:"
-
-#: ui/mediasettingsview.ui:76
-msgid "Input device:"
-msgstr "Dispositiu d'entrada:"
-
-#: ui/mediasettingsview.ui:134
-msgid "Camera Settings"
-msgstr "Preferències de càmera"
-
-#: ui/mediasettingsview.ui:150
-msgid "Device:"
-msgstr "Dispositiu"
-
-#: ui/mediasettingsview.ui:162
-msgid "Channel:"
-msgstr "Canal:"
-
-#: ui/mediasettingsview.ui:174
-msgid "Resolution:"
-msgstr "Resolució"
-
-#: ui/mediasettingsview.ui:186
-msgid "Frame rate:"
-msgstr "Velocitat de fotogrames"
-
-#: ui/mediasettingsview.ui:244
-msgid "Hardware Acceleration"
-msgstr "Acceleració per maquinari"
-
-#: ui/mediasettingsview.ui:260
-msgid "Enable hardware decoding:"
+#: src/ring_client.cpp:292
+msgctxt ""
+"In the status icon menu, toggle action to show or hide the Ring main window"
+msgid "Show Ring"
 msgstr ""
 
-#: ui/ringgearsmenu.ui:13
-msgid "_About"
-msgstr "_Sobre"
+#: src/ring_client.cpp:296
+msgid "Quit"
+msgstr ""
 
-#: ui/ringgearsmenu.ui:19
-msgid "_Quit"
-msgstr "_Tanca"
+#: src/ringnotify.cpp:148
+msgid "Incoming call"
+msgstr "Trucada entrant"
 
-#: ui/ringmainwindow.ui:17
-msgid "Menu"
-msgstr "Menú"
+#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
+msgctxt "notification action name"
+msgid "Show"
+msgstr "Mostra"
 
-#: ui/ringmainwindow.ui:51
-msgid "General"
-msgstr "General"
+#: src/ringnotify.cpp:267
+#, c-format
+msgctxt "Text message notification"
+msgid "%s says:"
+msgstr "%s diu:"
 
-#: ui/ringmainwindow.ui:61
-msgid "Media"
-msgstr "Mitjans"
+#: src/accountimportexportview.cpp:99
+msgid "Select account export location"
+msgstr "Seleccioneu el lloc on exportar el compte"
 
-#: ui/ringmainwindow.ui:72
-msgid "Accounts"
-msgstr "Comptes"
+#: src/accountimportexportview.cpp:104
+msgid "Select"
+msgstr "Selecciona"
 
-#: ui/ringmainwindow.ui:102
-msgid "Settings"
-msgstr "Opcions"
+#: src/accountimportexportview.cpp:197
+msgid "Error importing account(s)"
+msgstr "Error important el(s) compte(s)"
 
-#: ui/ringmainwindow.ui:215
-msgid "Conversations"
-msgstr "Converses"
+#: src/accountimportexportview.cpp:244
+msgid "Error exporting account(s)"
+msgstr "Error exportant el(s) compte(s)"
 
-#: ui/ringmainwindow.ui:237
+#: src/usernameregistrationbox.cpp:128
+msgid "The entered username is not available"
+msgstr "El nom d'usuari introduït no està disponible"
+
+#: src/usernameregistrationbox.cpp:129
+msgid "Username is not available"
+msgstr "El nom d'usuari no està disponible"
+
+#: src/usernameregistrationbox.cpp:138
+msgid "The entered username is not valid"
+msgstr "El nom d'usuari introduït no és vàlid."
+
+#: src/usernameregistrationbox.cpp:139
+msgid "Username is not valid"
+msgstr "El nom d'usuari no és vàlid."
+
+#: src/usernameregistrationbox.cpp:148
+msgid "The entered username is available"
+msgstr "El nom d'usuari introduït està disponible"
+
+#: src/usernameregistrationbox.cpp:149
+msgid "Username is available"
+msgstr "El nom d'usuari està disponible"
+
+#: src/usernameregistrationbox.cpp:158
+msgid "Failed to perform lookup"
+msgstr "No s'ha pogut realitzar la cerca"
+
+#: src/usernameregistrationbox.cpp:159
+msgid "Could not lookup username"
+msgstr "No s'ha pogut trobar el nom d'usuari"
+
+#: src/usernameregistrationbox.cpp:248
+msgid "Looking up username availability..."
+msgstr "Comprovant disponibilitat del nom d'usuari..."
+
+#: src/usernameregistrationbox.cpp:319
+msgid "Could not initiate name registration, try again."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:361
+msgid "Register this username on the blockchain"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:397
+msgid "Invalid username"
+msgstr "Nom d'usuari invalid"
+
+#: src/usernameregistrationbox.cpp:404 src/accountdevicestab.cpp:195
+msgid "Bad password"
+msgstr "Mala contrasenya"
+
+#: src/usernameregistrationbox.cpp:411
+msgid "Username already taken"
+msgstr "Nom d'usuari ja registrat."
+
+#: src/usernameregistrationbox.cpp:418
+msgid "Network error"
+msgstr "Error de xarxa"
+
+#: src/generalsettingsview.cpp:103
+msgid ""
+"This is a destructive operation. Are you sure you want to delete all of your"
+" chat and call history?"
+msgstr "Açò és una operació destructiva. Esteu segur que voleu esborrar tot l'historial de xats i trucades?"
+
+#: src/backends/edscontactbackend.cpp:193
+msgid "Unknown EDS addressbook"
+msgstr "Llibreta d'adreces EDS desconeguda"
+
+#: src/backends/edscontactbackend.cpp:213
+msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Contactes"
 
-#: ui/ringmainwindow.ui:259
-msgid "History"
-msgstr "Historial"
+#: src/accountadvancedtab.cpp:389
+msgid "_Remove server"
+msgstr "_Suprimeix el servidor"
 
-#: ui/ringmainwindow.ui:281
-msgid "Contact requests"
-msgstr "Peticions de contacte"
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
+msgid "Hostname"
+msgstr "Nom d'amfitrió"
 
-#: ui/usernameregistrationbox.ui:12
-msgid "enter username here"
+#: src/accountgeneraltab.cpp:196
+msgid "New password and its confirmation are different"
 msgstr ""
 
-#: ui/usernameregistrationbox.ui:24
-msgid "Register"
-msgstr "Registre"
+#: src/accountgeneraltab.cpp:206
+msgid "Password changed!"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:209
+msgid "Incorrect password"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:236
+msgid "Alias"
+msgstr "Àlies"
+
+#: src/accountgeneraltab.cpp:247
+msgid "Type"
+msgstr "Tipus"
+
+#: src/accountgeneraltab.cpp:273
+msgid "auto-generating..."
+msgstr "autogenerant..."
+
+#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
+msgid "Username"
+msgstr "Nom d'usuari"
+
+#: src/accountgeneraltab.cpp:322
+msgid "Password"
+msgstr "Contrasenya"
+
+#: src/accountgeneraltab.cpp:335
+msgid "Show password"
+msgstr "Mostra la contrasenya"
+
+#: src/accountgeneraltab.cpp:341
+msgid "Proxy"
+msgstr "Intermediari"
+
+#: src/accountgeneraltab.cpp:351
+msgid "Voicemail number"
+msgstr "Nombre de correu de veu"
+
+#: src/accountgeneraltab.cpp:363
+msgid "Name service URL"
+msgstr "Direcció del servidor de noms"
+
+#: src/accountgeneraltab.cpp:376
+msgid "Auto-answer calls"
+msgstr "Autorespondre trucades"
+
+#: src/accountgeneraltab.cpp:384
+msgid "UPnP enabled"
+msgstr "UPnP habitlitat"
+
+#: src/video/video_widget.cpp:532
+msgid "Share screen area"
+msgstr "Compartir pantalla"
+
+#: src/video/video_widget.cpp:543
+msgid "Share file"
+msgstr "Compartir arxiu"
+
+#: src/video/video_widget.cpp:556
+msgid "Show advanced information"
+msgstr "Mostra informació avançada"
+
+#: src/avatarmanipulation.cpp:380
+msgid "Open Avatar Image"
+msgstr ""
+
+#: src/avatarmanipulation.cpp:383
+msgid "_Cancel"
+msgstr "_Cancel·la"
+
+#: src/avatarmanipulation.cpp:385
+msgid "_Open"
+msgstr "_Obre"
+
+#: src/dialogs.c:53
+msgid "Working..."
+msgstr "Treballant..."
+
+#: src/dialogs.c:84
+#, c-format
+msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+msgid ""
+"Liberté, Égalité, Fraternité - Version 1.0\n"
+"built on %.25s"
+msgstr "Liberté, Égalité, Fraternité - Versió 1.0\nConstruït a %.25s"
+
+#: src/dialogs.c:136
+msgid ""
+"The GNOME client for Ring.\n"
+"Ring is free software for universal communication which respects the freedoms and privacy of its users."
+msgstr "El client de GNOME per a Ring\nEl Ring és un programari per a comunicacions universals que respecta la llibertat i privacitat dels seus usuaris"
+
+#: src/accountdevicestab.cpp:201
+msgid "Network error, try again"
+msgstr "Error de xarxa, proveu de nou"
+
+#: src/accountdevicestab.cpp:213
+msgid "Could not initiate export to the Ring, try again"
+msgstr "No s'ha pogut iniciar la exportació a Ring, proveu de nou"
+
+#: src/accountdevicestab.cpp:246
+msgctxt "Device Name Column"
+msgid "Name"
+msgstr "Nom"
+
+#: src/accountdevicestab.cpp:251
+msgctxt "Device ID Column"
+msgid "ID"
+msgstr "ID"
+
+#: src/ringmainwindow.cpp:839
+msgctxt "button next to search entry will place a new call"
+msgid "place call"
+msgstr "fer una trucada"
+
+#: src/ringmainwindow.cpp:841
+msgctxt "button next to search entry will open chat"
+msgid "open chat"
+msgstr "obrir un xat"
+
+#: src/ringmainwindow.cpp:1165
+msgctxt ""
+"Please try to make the translation 50 chars or less so that it fits into the"
+" layout"
+msgid "Search contacts or enter number"
+msgstr "Busqueu contactes o introduïu el nombre"
+
+#: src/editcontactview.cpp:208
+msgctxt "Phone number category"
+msgid "home"
+msgstr "casa"
+
+#: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
+msgid "Enabled"
+msgstr "Habilitat"
+
+#: src/accountvideotab.cpp:190
+msgctxt "The name of the codec"
+msgid "Name"
+msgstr "Nom"
+
+#: src/accountvideotab.cpp:194 src/accountaudiotab.cpp:185
+msgid "Bitrate"
+msgstr "Taxa de bits"
+
+#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
+msgctxt "Name of error window (dialog)"
+msgid "Ring Error"
+msgstr "Error de Ring"
+
+#: src/native/dbuserrorhandler.cpp:57
+msgid "Trying to reconnect to the Ring daemon (dring)..."
+msgstr ""
+
+#: src/native/dbuserrorhandler.cpp:87
+msgid ""
+"Could not re-connect to the Ring daemon (dring).\n"
+"Ring will now quit."
+msgstr ""
+
+#: src/accountaudiotab.cpp:181
+msgctxt "Name of the codec"
+msgid "Name"
+msgstr "Nom"
+
+#: src/accountaudiotab.cpp:189
+msgid "Samplerate"
+msgstr "Freqüència de mostreig"
+
+#: src/conversationpopupmenu.cpp:147
+msgid "_Place call"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:153
+msgid "_Add to conversations"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:157
+msgid "_Discard invitation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:160
+msgid "_Block invitations"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:165
+msgid "_Clear history"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:168
+msgid "_Remove conversation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:171
+msgid "_Block contact"
+msgstr ""
+
+#: src/ring_client_options.c:66
+msgid "Enable debug"
+msgstr "Habilitar depuració"
+
+#: src/ring_client_options.c:68
+msgid ""
+"Restores the hidden state of the main window (only applicable to the primary"
+" instance)"
+msgstr "Restaura l'estat ocult de la finestra principal (només s'aplica a la instància principal)"
+
+#: src/ring_client_options.c:85
+msgid "- GNOME client for Ring"
+msgstr "- Client de GNOME per a Ring"
+
+#: src/accountcreationwizard.cpp:231
+msgid ""
+"Your account was created, but we could not register your username. Try again"
+" from the settings menu."
+msgstr "El teu compte ha sigut creat, però no hem pogut registrar el teu nom d'usuari. Prova de nou des del menú d'opcions."
+
+#: src/accountcreationwizard.cpp:275
+msgctxt "The default username / account alias, if none is set by the user"
+msgid "Unknown"
+msgstr "Desconegut"
+
+#: src/accountcreationwizard.cpp:471
+msgid "Passwords don't match"
+msgstr "No coincideixen les contrasenyes"
+
+#: src/ringwelcomeview.cpp:88
+msgid ""
+"This is your Ring username.\n"
+"Copy and share it with your friends!"
+msgstr "Aquest és el vostre nom d'usuari de Ring.\nCopieu i compartiu amb les vostres amistats!"
+
+#: src/ringwelcomeview.cpp:96
+msgctxt "Do not translate \"RingID\""
+msgid ""
+"This is your RingID.\n"
+"Copy and share it with your friends!"
+msgstr "Aquest és el vostre RingID.\nCopieu i compartiu amb les vostres amistats!"
+
+#: src/ringwelcomeview.cpp:151
+msgid ""
+"Ring is free software for universal communication which respects the "
+"freedoms and privacy of its users."
+msgstr "El Ring és un programari per a comunicacions universals que respecta la llibertat i privacitat dels seus usuaris"
+
+#: src/ringwelcomeview.cpp:205
+msgctxt "Do not translate \"Ring ID\""
+msgid "Ring ID QR code"
+msgstr "Codi QR del Ring ID"
+
+#: src/currentcallview.cpp:535
+msgctxt "Enable automatic video quality"
+msgid "Auto"
+msgstr ""
+
+#: src/accountview.cpp:168
+msgctxt "Account settings"
+msgid "General"
+msgstr "General"
+
+#: src/accountview.cpp:176
+msgctxt "Account settings"
+msgid "Devices"
+msgstr "Dispositius"
+
+#: src/accountview.cpp:182
+msgctxt "Account settings"
+msgid "Security"
+msgstr "Seguretat"
+
+#: src/accountview.cpp:187
+msgctxt "Account settings"
+msgid "Advanced"
+msgstr "Avançat"
+
+#: src/accountview.cpp:194
+msgctxt "List of banned peers"
+msgid "Bans"
+msgstr "Prohibicions"
+
+#: src/accountview.cpp:250
+#, c-format
+msgid "Are you sure you want to delete account \"%s\"?"
+msgstr "Esteu segur que voleu esborrar el compte \"%s\"?"
+
+#: src/accountview.cpp:377
+msgid "New Account"
+msgstr "Compte Nou"
+
+#: src/accountview.cpp:527
+msgctxt "Account state column"
+msgid "Enabled"
+msgstr "Habilitat"
+
+#: src/accountview.cpp:533
+msgctxt "Account alias (name) column"
+msgid "Alias"
+msgstr "Àlies"
+
+#: src/accountview.cpp:541
+msgctxt "Account status column"
+msgid "Status"
+msgstr "Estat"

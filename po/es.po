@@ -30,9 +30,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-08 23:08-0400\n"
-"PO-Revision-Date: 2017-10-05 14:50+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"POT-Creation-Date: 2017-11-17 10:06-0500\n"
+"PO-Revision-Date: 2017-11-17 15:06+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,588 +40,151 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/accountadvancedtab.cpp:389
-msgid "_Remove server"
-msgstr "Quitar servidor"
+#: ui/ringgearsmenu.ui:13
+msgid "_About"
+msgstr "_Acerca de"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
-msgid "Hostname"
-msgstr "Nombre del servidor"
+#: ui/ringgearsmenu.ui:19
+msgid "_Quit"
+msgstr "_Salir"
 
-#: src/accountadvancedtab.cpp:510 ui/accountadvancedtab.ui:314
-msgid "Port"
-msgstr "Puerto"
+#: ui/choosecontactview.ui:34
+msgid "Create New"
+msgstr "Crear nuevo"
 
-#: src/accountaudiotab.cpp:175 src/accountvideotab.cpp:184
-msgid "Enabled"
-msgstr "Habilitado"
+#: ui/accountmigrationview.ui:14
+msgid "Account migration required"
+msgstr "Es precisa la migración de la cuenta"
 
-#: src/accountaudiotab.cpp:181
-msgctxt "Name of the codec"
-msgid "Name"
-msgstr "Nombre"
+#: ui/accountmigrationview.ui:39
+msgid "Alias:"
+msgstr "Alias:"
 
-#: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
-msgid "Bitrate"
-msgstr "Tasa de transferencia (bit/s)"
+#: ui/accountmigrationview.ui:102
+msgid "Please enter your password:"
+msgstr "Introduce tu contraseña:"
 
-#: src/accountaudiotab.cpp:189
-msgid "Samplerate"
-msgstr "Frecuencia de muestreo"
+#: ui/accountmigrationview.ui:129
+msgid "Migrate account"
+msgstr "Migrar cuenta"
 
-#: src/accountcreationwizard.cpp:231
-msgid ""
-"Your account was created, but we could not register your username. Try again"
-" from the settings menu."
-msgstr "Se creó tu cuenta, pero no se pudo registrar tu nombre de usuario. Inténtalo de nuevo en el menú de configuración."
+#: ui/accountmigrationview.ui:148
+msgid "Migration failed, wrong password ?"
+msgstr "Migración incorrecta, ¿contraseña incorrecta?"
 
-#: src/accountcreationwizard.cpp:275
-msgctxt "The default username / account alias, if none is set by the user"
-msgid "Unknown"
-msgstr "Desconocido"
+#: ui/currentcallview.ui:251
+msgid "End this call"
+msgstr "Finalizar esta llamada"
 
-#: src/accountcreationwizard.cpp:468
-msgid "Passwords don't match"
-msgstr "Las contraseñas no coinciden"
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:457
+msgid "End call"
+msgstr "Finalizar llamada"
 
-#: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
-msgid "Bad password"
-msgstr "Contraseña errónea"
+#: ui/currentcallview.ui:275
+msgid "Toggle hold"
+msgstr "Conmutar llamada en espera"
 
-#: src/accountdevicestab.cpp:201
-msgid "Network error, try again"
-msgstr "Error en la red, inténtalo de nuevo"
+#: ui/currentcallview.ui:279 ui/currentcallview.ui:304
+#: ui/currentcallview.ui:448
+msgid "Hold"
+msgstr "Espera"
 
-#: src/accountdevicestab.cpp:213
-msgid "Could not initiate export to the Ring, try again"
-msgstr "No se ha podido exportar en Ring, inténtalo de nuevo"
+#: ui/currentcallview.ui:300
+msgid "Toggle mute audio"
+msgstr "Conmutar volumen del audio"
 
-#: src/accountdevicestab.cpp:246
-msgctxt "Device Name Column"
-msgid "Name"
-msgstr "Nombre"
+#: ui/currentcallview.ui:325
+msgid "Toggle mute video"
+msgstr "Conmutar audio del vídeo"
 
-#: src/accountdevicestab.cpp:251
-msgctxt "Device ID Column"
-msgid "ID"
-msgstr "ID"
+#: ui/currentcallview.ui:329 ui/currentcallview.ui:439
+msgid "Mute video"
+msgstr "Silenciar vídeo"
 
-#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-msgid "Change password"
-msgstr "Cambiar contraseña"
+#: ui/currentcallview.ui:352
+msgid "Toggle record audio"
+msgstr "Conmutar grabación de audio"
 
-#: src/accountgeneraltab.cpp:196
-msgid "New password and its confirmation are different"
-msgstr "Nueva contraseña y  su confirmación es diferente"
+#: ui/currentcallview.ui:355
+msgid "Record audio"
+msgstr "Grabar audio"
 
-#: src/accountgeneraltab.cpp:206
-msgid "Password changed!"
-msgstr "Contraseña cambiada!"
+#: ui/currentcallview.ui:376
+msgid "Adjust outgoing video quality"
+msgstr "Ajustar la calidad del vídeo de salida"
 
-#: src/accountgeneraltab.cpp:209
-msgid "Incorrect password"
-msgstr "Contraseña incorrecta"
+#: ui/currentcallview.ui:381 ui/currentcallview.ui:466
+msgid "Video quality"
+msgstr "Calidad de vídeo"
 
-#: src/accountgeneraltab.cpp:236
-msgid "Alias"
-msgstr "Alias"
+#: ui/currentcallview.ui:400
+msgid "Toggle show chat"
+msgstr "Mostrar/Ocultar chat"
 
-#: src/accountgeneraltab.cpp:247
-msgid "Type"
-msgstr "Tipo"
+#: ui/currentcallview.ui:404 ui/currentcallview.ui:421
+msgid "Chat"
+msgstr "Chat"
 
-#: src/accountgeneraltab.cpp:273
-msgid "auto-generating..."
-msgstr "auto-generando..."
+#: ui/currentcallview.ui:430
+msgid "Mute audio"
+msgstr "Silenciar el audio"
 
-#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
-msgid "Username"
-msgstr "Nombre de usuario"
+#: ui/currentcallview.ui:475
+msgid "Record"
+msgstr "Grabar"
 
-#: src/accountgeneraltab.cpp:322
-msgid "Password"
-msgstr "Contraseña"
+#: ui/accountdevicestab.ui:21
+msgid "My Device ID:"
+msgstr "Mi ID del dispositivo:"
 
-#: src/accountgeneraltab.cpp:335
-msgid "Show password"
-msgstr "Mostrar contraseña"
-
-#: src/accountgeneraltab.cpp:341
-msgid "Proxy"
-msgstr "Proxy"
-
-#: src/accountgeneraltab.cpp:351
-msgid "Voicemail number"
-msgstr "Número de Mensaje de Voz"
-
-#: src/accountgeneraltab.cpp:363
-msgid "Name service URL"
-msgstr "URL del servicio de nombres"
-
-#: src/accountgeneraltab.cpp:376
-msgid "Auto-answer calls"
-msgstr "Respuesta automática de llamadas"
-
-#: src/accountgeneraltab.cpp:384
-msgid "UPnP enabled"
-msgstr "UPnP habilitado"
-
-#: src/accountimportexportview.cpp:99
-msgid "Select account export location"
-msgstr "Elegir lugar para exportar"
-
-#: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:84
-#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: src/accountimportexportview.cpp:104
-msgid "Select"
-msgstr "Selección"
-
-#: src/accountimportexportview.cpp:198
-msgid "Error importing account(s)"
-msgstr "Error Importando cuenta(s)"
-
-#: src/accountimportexportview.cpp:245
-msgid "Error exporting account(s)"
-msgstr "Error Exportando cuenta(s)"
-
-#: src/accountvideotab.cpp:190
-msgctxt "The name of the codec"
-msgid "Name"
-msgstr "Nombre"
-
-#: src/accountview.cpp:168
-msgctxt "Account settings"
-msgid "General"
-msgstr "General"
-
-#: src/accountview.cpp:176
-msgctxt "Account settings"
+#: ui/accountdevicestab.ui:40
 msgid "Devices"
 msgstr "Dispositivos"
 
-#: src/accountview.cpp:182
-msgctxt "Account settings"
-msgid "Security"
-msgstr "Seguridad"
+#: ui/accountdevicestab.ui:66
+msgid "Add device"
+msgstr "Agregar dispositivo"
 
-#: src/accountview.cpp:187
-msgctxt "Account settings"
-msgid "Advanced"
-msgstr "Avanzado"
+#: ui/accountdevicestab.ui:83
+msgid "Add New Device"
+msgstr "Agregar nuevo dispositivo"
 
-#: src/accountview.cpp:194
-msgctxt "List of banned peers"
-msgid "Bans"
-msgstr "Vetado"
-
-#: src/accountview.cpp:250
-#, c-format
-msgid "Are you sure you want to delete account \"%s\"?"
-msgstr "¿Está seguro de querer eliminar la cuenta \"%s\"?"
-
-#: src/accountview.cpp:377
-msgid "New Account"
-msgstr "Nueva cuenta"
-
-#: src/accountview.cpp:527
-msgctxt "Account state column"
-msgid "Enabled"
-msgstr "Habilitado"
-
-#: src/accountview.cpp:533
-msgctxt "Account alias (name) column"
-msgid "Alias"
-msgstr "Alias"
-
-#: src/accountview.cpp:541
-msgctxt "Account status column"
-msgid "Status"
-msgstr "Estado"
-
-#: src/avatarmanipulation.cpp:380
-msgid "Open Avatar Image"
-msgstr "Abrir imagen de avatar"
-
-#: src/avatarmanipulation.cpp:383
-msgid "_Cancel"
-msgstr "_Cancelar"
-
-#: src/avatarmanipulation.cpp:385
-msgid "_Open"
-msgstr "_Abrir"
-
-#: src/backends/edscontactbackend.cpp:193
-msgid "Unknown EDS addressbook"
-msgstr "Libreta de direcciones EDS desconocida"
-
-#: src/backends/edscontactbackend.cpp:213
-msgctxt "Backend type"
-msgid "Contacts"
-msgstr "Contactos"
-
-#: src/contactpopupmenu.cpp:172
-msgid "_Call"
-msgstr "_Llamar"
-
-#: src/contactpopupmenu.cpp:175
-msgid "_Copy name"
-msgstr "_Copiar nombre"
-
-#: src/contactpopupmenu.cpp:178
-msgid "_Copy number"
-msgstr "_Copiar número"
-
-#: src/contactpopupmenu.cpp:181
-msgid "_Add to contact"
-msgstr "_Añadir un contacto"
-
-#: src/contactpopupmenu.cpp:184
-msgid "_Remove contact"
-msgstr "_Eliminar contacto"
-
-#: src/dialogs.c:53
-msgid "Working..."
-msgstr "Procesando..."
-
-#: src/dialogs.c:84
-#, c-format
-msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+#: ui/accountdevicestab.ui:98
 msgid ""
-"Liberté, Égalité, Fraternité - Version 1.0\n"
-"built on %.25s"
-msgstr "Liberté, Égalité, Fraternité - Versión 1.0\nconstruido en %.25s"
-
-#: src/dialogs.c:136
-msgid ""
-"The GNOME client for Ring.\n"
-"Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "El cliente Ring de GNOME.\nRing es software libre de comunicaciones que respeta las libertades y la privacidad de sus usuarios."
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
-msgstr "inicio"
-
-#: src/generalsettingsview.cpp:103
-msgid ""
-"This is a destructive operation. Are you sure you want to delete all of your"
-" chat and call history?"
-msgstr "Esta es una operación irreversible. ¿Estás seguro de eliminar todo el historial de chat y llamadas?"
-
-#: src/historyview.cpp:293
-msgctxt "Call history"
-msgid "Call"
-msgstr "Llamada"
-
-#: src/historyview.cpp:338
-msgctxt "Call history"
-msgid "Date"
-msgstr "Fecha"
-
-#: src/ringnotify.cpp:148
-msgid "Incoming call"
-msgstr "Llamada entrante"
-
-#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
-msgctxt "notification action name"
-msgid "Show"
-msgstr "Mostrar"
-
-#: src/ringnotify.cpp:267
-#, c-format
-msgctxt "Text message notification"
-msgid "%s says:"
-msgstr "%s dice:"
-
-#: src/ring_client_options.c:66
-msgid "Enable debug"
-msgstr "Habilitar depuración"
-
-#: src/ring_client_options.c:68
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
-msgstr "Restaura el estado de ocultación de la ventana principal (únicamente la primera vez)"
-
-#: src/ring_client_options.c:85
-msgid "- GNOME client for Ring"
-msgstr "- Cliente Gnome para Ring"
-
-#: src/ringmainwindow.cpp:614
-#, c-format
-msgid "Invalid Ring username: %s"
-msgstr "Usuario Ring no válido: %s"
-
-#: src/ringmainwindow.cpp:629
-msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr "Error en la resolución del nombre de usario, el nombre del servidor puede ser inaccesible."
-
-#: src/ringmainwindow.cpp:643
-#, c-format
-msgid "Could not resolve Ring username: %s"
-msgstr "No se pudo encontrar el usuario Ring: %s"
-
-#: src/ringmainwindow.cpp:1152
-msgctxt "button next to search entry will place a new call"
-msgid "place call"
-msgstr "llamar"
-
-#: src/ringmainwindow.cpp:1154
-msgctxt "button next to search entry will open chat"
-msgid "open chat"
-msgstr "Abrir chat"
-
-#: src/ringmainwindow.cpp:1234
-#, c-format
-msgctxt "string format will be replaced by the account alias"
-msgid "%s..."
-msgstr "%s..."
-
-#: src/ringmainwindow.cpp:1240
-#, c-format
-msgctxt "string format will be replaced by the account alias"
-msgid "%s (error)"
-msgstr "Error %s"
-
-#: src/ringmainwindow.cpp:1443
-msgctxt ""
-"Please try to make the translation 50 chars or less so that it fits into the"
-" layout"
-msgid "Search contacts or enter number"
-msgstr "Buscar contacto o introducir número"
-
-#: src/ringwelcomeview.cpp:75
-msgid ""
-"This is your Ring username.\n"
-"Copy and share it with your friends!"
-msgstr "Este es tu nombre de usuario en Ring.\n¡Cópialo y compártelo con tus amigos!"
-
-#: src/ringwelcomeview.cpp:83
-msgctxt "Do not translate \"RingID\""
-msgid ""
-"This is your RingID.\n"
-"Copy and share it with your friends!"
-msgstr "Este es tu RingID.\n¡Cópialo y compártelo con tus amigos!"
-
-#: src/ringwelcomeview.cpp:90
-msgid "fetching RingID..."
-msgstr "Buscando RingID..."
-
-#: src/ringwelcomeview.cpp:148
-msgid ""
-"Ring is free software for universal communication which respects the "
-"freedoms and privacy of its users."
-msgstr "Ring es software libre de comunicaciones que respeta las libertades y privacidad de sus usuarios."
-
-#: src/ringwelcomeview.cpp:202
-msgctxt "Do not translate \"Ring ID\""
-msgid "Ring ID QR code"
-msgstr "Código QR identificador Ring"
-
-#: src/usernameregistrationbox.cpp:128
-msgid "The entered username is not available"
-msgstr "El nombre de usuario tecleado no está disponible"
-
-#: src/usernameregistrationbox.cpp:129
-msgid "Username is not available"
-msgstr "Nombre de usuario no disponible"
-
-#: src/usernameregistrationbox.cpp:138
-msgid "The entered username is not valid"
-msgstr "El nombre de usuario tecleado no es válido"
-
-#: src/usernameregistrationbox.cpp:139
-msgid "Username is not valid"
-msgstr "Nombre de usuario no válido"
-
-#: src/usernameregistrationbox.cpp:148
-msgid "The entered username is available"
-msgstr "El nombre de usuario tecleado está disponible"
-
-#: src/usernameregistrationbox.cpp:149
-msgid "Username is available"
-msgstr "Nombre de usuario disponible"
-
-#: src/usernameregistrationbox.cpp:158
-msgid "Failed to perform lookup"
-msgstr "No se pudo llevar a cabo la búsqueda"
-
-#: src/usernameregistrationbox.cpp:159
-msgid "Could not lookup username"
-msgstr "No se pudo buscar el nombre de usuario"
-
-#: src/usernameregistrationbox.cpp:248
-msgid "Looking up username availability..."
-msgstr "Comprobando disponibilidad del nombre de usuario..."
-
-#: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:487
-msgid "Registering username..."
-msgstr "Registrando nombre de usuario..."
-
-#: src/usernameregistrationbox.cpp:319
-msgid "Could not initiate name registration, try again."
-msgstr "No se ha podido iniciar el registro del nombre, inténtelo de nuevo."
-
-#: src/usernameregistrationbox.cpp:361
-msgid "Register this username on the blockchain"
-msgstr "Registrar este nombre de usuario en la cadena de bloques"
-
-#: src/usernameregistrationbox.cpp:397
-msgid "Invalid username"
-msgstr "Nombre de usuario no válido"
-
-#: src/usernameregistrationbox.cpp:411
-msgid "Username already taken"
-msgstr "El nombre de usuario ya está en uso"
-
-#: src/usernameregistrationbox.cpp:418
-msgid "Network error"
-msgstr "Error en la red"
-
-#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
-msgctxt "Name of error window (dialog)"
-msgid "Ring Error"
-msgstr "Error de Ring"
-
-#: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr "Tratando de conectarse de nuevo al demonio Ring (dring)..."
-
-#: src/native/dbuserrorhandler.cpp:87
-msgid ""
-"Could not re-connect to the Ring daemon (dring).\n"
-"Ring will now quit."
-msgstr "No se pudo conectar con el demonio Ring (dring).\nRing se cerrará ahora."
-
-#: src/video/video_widget.cpp:525
-msgid "Share screen area"
-msgstr "Compartir la ventana"
-
-#: src/video/video_widget.cpp:535
-msgid "Share file"
-msgstr "Compartir archivo"
-
-#: src/video/video_widget.cpp:549
-msgid "Show advanced information"
-msgstr "Mostrar información avanzada"
-
-#: ui/accountadvancedtab.ui:81
-msgid "Registration expire timeout (seconds):"
-msgstr "Tiempo de espera de registro (seg):"
-
-#: ui/accountadvancedtab.ui:103
-msgid "Allow calls from unknown peers"
-msgstr "Permitir llamadas de desconocidos"
-
-#: ui/accountadvancedtab.ui:117
-msgid "Allow calls from peers in your call history"
-msgstr "Permitir llamadas de personas registradas en tu historial de llamadas"
-
-#: ui/accountadvancedtab.ui:131
-msgid "Allow calls from peers in your contacts list"
-msgstr "Permitir llamadas de personas registradas en tu lista de contactos"
-
-#: ui/accountadvancedtab.ui:149
-msgid "Registration"
-msgstr "Registro"
-
-#: ui/accountadvancedtab.ui:178
-msgid "Use random port"
-msgstr "Utilizar un puerto aleatorio"
-
-#: ui/accountadvancedtab.ui:199
-msgid "Local port:"
-msgstr "Puerto local:"
-
-#: ui/accountadvancedtab.ui:225
-msgid "Network Interface"
-msgstr "Interface de Red"
-
-#: ui/accountadvancedtab.ui:253
-msgid "Same as local parameters"
-msgstr "Igual que los parametros locales"
-
-#: ui/accountadvancedtab.ui:268
-msgid "Set published address and port:"
-msgstr "Configurar dirección publicada y puerto:"
-
-#: ui/accountadvancedtab.ui:292
-msgid "Address"
-msgstr "Dirección"
-
-#: ui/accountadvancedtab.ui:340
-msgid "Use STUN"
-msgstr "Utilizar STUN"
-
-#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
-msgid "server URL"
-msgstr "URL del servidor"
-
-#: ui/accountadvancedtab.ui:389
-msgid "Use TURN"
-msgstr "Utilizar TURN"
-
-#: ui/accountadvancedtab.ui:434
-msgid "username"
-msgstr "nombre de usuario"
-
-#: ui/accountadvancedtab.ui:455
-msgid "password"
-msgstr "contraseña"
-
-#: ui/accountadvancedtab.ui:479
-msgid "realm"
-msgstr "dominio"
-
-#: ui/accountadvancedtab.ui:508
-msgid "Published Address"
-msgstr "Dirección IP publicada"
-
-#: ui/accountadvancedtab.ui:536
-msgid "Bootstrap Servers"
-msgstr "Servidores de inicio"
-
-#: ui/accountadvancedtab.ui:593
-msgid ""
-"These settings are only used during SDP session negotiation in case ICE is "
-"not supported by the server or peer."
-msgstr "Estas configuraciones solo se usan durante una negociación de una sesión SDP en caso de que ICE no sea soportado por el servidor o el compañero"
-
-#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
-msgid "Min"
-msgstr "Mínimo"
-
-#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
-msgid "Max"
-msgstr "Máximo"
-
-#: ui/accountadvancedtab.ui:665
-msgid "Audio RTP Port Range"
-msgstr "Intervalo de puertos de audio RTP"
-
-#: ui/accountadvancedtab.ui:741
-msgid "Video RTP Port Range"
-msgstr "Rango de Puertos RTP de Video"
-
-#: ui/accountadvancedtab.ui:759
-msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr "Negociación de sesión SDP (Retorna a ICE)"
-
-#: ui/accountaudiotab.ui:57 ui/accountvideotab.ui:80
-msgid "Up"
-msgstr "Arriba"
-
-#: ui/accountaudiotab.ui:64 ui/accountvideotab.ui:87
-msgid "Down"
-msgstr "Abajo"
-
-#: ui/accountaudiotab.ui:75
-msgid "Audio Codecs"
-msgstr "Codecs de audio"
+"To add a new device to your Ring account, you export your account on the "
+"Ring. This will generate a pin that must be entered on your new device "
+"within 5 minutes of its generation."
+msgstr "Para agregar un dispositivo a tu cuenta se exportará la misma en Ring. Esto producirá un PIN que debes escribir en el nuevo dispositivo antes de que pasen 5 minutos."
+
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
+msgid "Password (required):"
+msgstr "Contraseña (necesario)"
+
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
+msgid "Enter archive password"
+msgstr "Introducir la contraseña del archivo"
+
+#: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
+#: ui/accountimportexportview.ui:161 src/accountimportexportview.cpp:102
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: ui/accountdevicestab.ui:141
+msgid "Export on the Ring"
+msgstr "Exportar en Ring"
+
+#: ui/accountdevicestab.ui:162
+msgid "Exporting account on the Ring..."
+msgstr "Exportando cuenta en Ring..."
+
+#: ui/accountdevicestab.ui:186
+msgid "Your generated pin:"
+msgstr "PIN generado:"
+
+#: ui/accountdevicestab.ui:217 ui/accountdevicestab.ui:239
+#: ui/accountcreationwizard.ui:551
+msgid "OK"
+msgstr "OK"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
@@ -715,6 +278,10 @@ msgstr "La contraseña se utilizará para cifrar los datos de tu cuenta y para c
 msgid "Generating your Ring account..."
 msgstr "Generando tu cuenta Ring..."
 
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:310
+msgid "Registering username..."
+msgstr "Registrando nombre de usuario..."
+
 #: ui/accountcreationwizard.ui:494
 msgid "This may take a few minutes."
 msgstr "Esto puede llevar unos minutos."
@@ -727,77 +294,141 @@ msgstr "Recuperando tu cuenta de Ring..."
 msgid "Error creating/loading account."
 msgstr "Error creando o cargando la cuenta."
 
-#: ui/accountcreationwizard.ui:551 ui/accountdevicestab.ui:217
-#: ui/accountdevicestab.ui:239
-msgid "OK"
-msgstr "OK"
+#: ui/generalsettingsview.ui:34
+msgid "Profile Settings"
+msgstr "Configuración de perfil"
 
-#: ui/accountdevicestab.ui:21
-msgid "My Device ID:"
-msgstr "Mi ID del dispositivo:"
+#: ui/generalsettingsview.ui:76
+msgid "Ring Settings"
+msgstr "Configuración de Ring"
 
-#: ui/accountdevicestab.ui:40
-msgid "Devices"
-msgstr "Dispositivos"
+#: ui/generalsettingsview.ui:92
+msgid "Start Ring on login"
+msgstr "Ejecutar Ring al iniciar la sesión"
 
-#: ui/accountdevicestab.ui:66
-msgid "Add device"
-msgstr "Agregar dispositivo"
+#: ui/generalsettingsview.ui:100
+msgid "Show Ring icon in the notification area (systray)."
+msgstr "Mostrar el icono de Ring en el área de notificaciones (systray)."
 
-#: ui/accountdevicestab.ui:83
-msgid "Add New Device"
-msgstr "Agregar nuevo dispositivo"
+#: ui/generalsettingsview.ui:108
+msgid "Bring Ring to the foreground on incoming calls."
+msgstr "Mostrar Ring al recibir llamadas"
 
-#: ui/accountdevicestab.ui:98
-msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
-"within 5 minutes of its generation."
-msgstr "Para agregar un dispositivo a tu cuenta se exportará la misma en Ring. Esto producirá un PIN que debes escribir en el nuevo dispositivo antes de que pasen 5 minutos."
+#: ui/generalsettingsview.ui:116
+msgid "Enable notifications for incoming calls."
+msgstr "Habilitar notificación de llamada entrante."
 
-#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
-msgid "Password (required):"
-msgstr "Contraseña (necesario)"
+#: ui/generalsettingsview.ui:124
+msgid "Enable notifications for new chat messages."
+msgstr "Habilitar notificación de mensajes de chat"
 
-#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
-msgid "Enter archive password"
-msgstr "Introducir la contraseña del archivo"
+#: ui/generalsettingsview.ui:132
+msgid "Show images and videos in chat window."
+msgstr "Mostrar imágenes y videos en la ventana de conversación"
 
-#: ui/accountdevicestab.ui:141
-msgid "Export on the Ring"
-msgstr "Exportar en Ring"
+#: ui/generalsettingsview.ui:140
+msgid "Entering a number in the search entry will place a new call."
+msgstr "Teclear un número en el cuadro de búsqueda hará una llamada."
 
-#: ui/accountdevicestab.ui:162
-msgid "Exporting account on the Ring..."
-msgstr "Exportando cuenta en Ring..."
+#: ui/generalsettingsview.ui:155
+msgid "Show chat on the right."
+msgstr "Mostrar chat a la derecha"
 
-#: ui/accountdevicestab.ui:186
-msgid "Your generated pin:"
-msgstr "PIN generado:"
+#: ui/generalsettingsview.ui:161
+msgid "Show chat on the bottom."
+msgstr "Mostrar chat abajo"
 
-#: ui/accountgeneraltab.ui:69
-msgid "Account"
-msgstr "Cuenta"
+#: ui/generalsettingsview.ui:185
+msgid "History Settings"
+msgstr "Configuración del Historial"
 
-#: ui/accountgeneraltab.ui:135
-msgid "Parameters"
-msgstr "Parámetros"
+#: ui/generalsettingsview.ui:203
+msgid "Keep history for (days):"
+msgstr "Guardar historial por (días):"
 
-#: ui/accountgeneraltab.ui:175
-msgid "Note: this will change the password only on this device."
-msgstr "Nota: esto cambiará la contraseña solo en este dispositivo"
+#: ui/generalsettingsview.ui:224
+msgid "(set to 0 for unlimited history)"
+msgstr "(0 para historial ilimitado)"
 
-#: ui/accountgeneraltab.ui:194
-msgid "Current password"
-msgstr "Contraseña actual"
+#: ui/generalsettingsview.ui:234
+msgid "Clear all history"
+msgstr "Limpiar todo el historial"
 
-#: ui/accountgeneraltab.ui:214
-msgid "New password"
-msgstr "Contraseña nueva"
+#: ui/ringmainwindow.ui:61
+msgid "Menu"
+msgstr "Menú"
 
-#: ui/accountgeneraltab.ui:234
-msgid "Confirm password"
-msgstr "Confirmar contraseña"
+#: ui/ringmainwindow.ui:83
+msgid "General"
+msgstr "General"
+
+#: ui/ringmainwindow.ui:98
+msgid "Media"
+msgstr "Medios"
+
+#: ui/ringmainwindow.ui:114
+msgid "Accounts"
+msgstr "Cuentas"
+
+#: ui/ringmainwindow.ui:157
+msgid "Settings"
+msgstr "Configuración"
+
+#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
+msgid "Conversations"
+msgstr "Conversaciones"
+
+#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
+msgid "Contact requests"
+msgstr "Solicitudes de contacto"
+
+#: ui/mediasettingsview.ui:24
+msgid "Audio Settings"
+msgstr "Configuración de audio"
+
+#: ui/mediasettingsview.ui:40
+msgid "Audio manager:"
+msgstr "Administrador de audio:"
+
+#: ui/mediasettingsview.ui:52
+msgid "Ringtone device:"
+msgstr "Dispositivo de tono de llamada"
+
+#: ui/mediasettingsview.ui:64
+msgid "Output device:"
+msgstr "Dispositivo de salida"
+
+#: ui/mediasettingsview.ui:76
+msgid "Input device:"
+msgstr "Dispositivo de entrada"
+
+#: ui/mediasettingsview.ui:134
+msgid "Camera Settings"
+msgstr "Configuración de cámara"
+
+#: ui/mediasettingsview.ui:150
+msgid "Device:"
+msgstr "Dispositivo:"
+
+#: ui/mediasettingsview.ui:162
+msgid "Channel:"
+msgstr "Canal:"
+
+#: ui/mediasettingsview.ui:174
+msgid "Resolution:"
+msgstr "Resolución:"
+
+#: ui/mediasettingsview.ui:186
+msgid "Frame rate:"
+msgstr "Cuadros por segundo:"
+
+#: ui/mediasettingsview.ui:244
+msgid "Hardware Acceleration"
+msgstr "Aceleración por hardware"
+
+#: ui/mediasettingsview.ui:260
+msgid "Enable hardware decoding:"
+msgstr "Habilitar descodificación por hardware"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -831,25 +462,260 @@ msgstr "Exportar"
 msgid "Import"
 msgstr "Importar"
 
-#: ui/accountmigrationview.ui:14
-msgid "Account migration required"
-msgstr "Es precisa la migración de la cuenta"
+#: ui/accountview.ui:42 ui/accountview.ui:45
+msgid "Remove selected account"
+msgstr "Borrar cuenta seleccionada"
 
-#: ui/accountmigrationview.ui:39
-msgid "Alias:"
-msgstr "Alias:"
+#: ui/accountview.ui:63 ui/accountview.ui:66
+msgid "Add new account"
+msgstr "Añadir una cuenta nueva"
 
-#: ui/accountmigrationview.ui:102
-msgid "Please enter your password:"
-msgstr "Introduce tu contraseña:"
+#: ui/accountview.ui:75 ui/accountview.ui:78
+msgid "Select account type"
+msgstr "Elegir el tipo de cuenta"
 
-#: ui/accountmigrationview.ui:129
-msgid "Migrate account"
-msgstr "Migrar cuenta"
+#: ui/accountview.ui:104
+msgid "Import archived account(s)"
+msgstr "Importar cuenta(s) almacenada(s)"
 
-#: ui/accountmigrationview.ui:148
-msgid "Migration failed, wrong password ?"
-msgstr "Migración incorrecta, ¿contraseña incorrecta?"
+#: ui/accountview.ui:112
+msgid "Export selected account(s)"
+msgstr "Exportar cuenta(s) seleccionada(s)"
+
+#: ui/editcontactview.ui:12
+msgid "Select addressbook"
+msgstr "Seleccionar libreta de direcciones"
+
+#: ui/editcontactview.ui:15
+msgid "Addressbook"
+msgstr "Libreta de direcciones"
+
+#: ui/editcontactview.ui:29
+msgid "Name"
+msgstr "Nombre"
+
+#: ui/editcontactview.ui:32
+msgid "Contact name"
+msgstr "Nombre del contacto"
+
+#: ui/editcontactview.ui:47
+msgid "Select how this number will be categorized"
+msgstr "Seleccione cómo archivará este número"
+
+#: ui/editcontactview.ui:50
+msgid "Number category"
+msgstr "Número de categoría"
+
+#: ui/editcontactview.ui:66
+msgid "Number or Ring ID to be added"
+msgstr "Numero o ID Ring a agregar"
+
+#: ui/editcontactview.ui:72
+msgid "Number or Ring ID"
+msgstr "Número o ID Ring"
+
+#: ui/editcontactview.ui:83
+msgid "Save"
+msgstr "Guardar"
+
+#: ui/accountvideotab.ui:50
+msgid "Enable Video"
+msgstr "Habilitar vídeo"
+
+#: ui/accountvideotab.ui:80 ui/accountaudiotab.ui:57
+msgid "Up"
+msgstr "Arriba"
+
+#: ui/accountvideotab.ui:87 ui/accountaudiotab.ui:64
+msgid "Down"
+msgstr "Abajo"
+
+#: ui/accountvideotab.ui:98
+msgid "Video Codecs"
+msgstr "Codecs de vídeo"
+
+#: ui/accountadvancedtab.ui:81
+msgid "Registration expire timeout (seconds):"
+msgstr "Tiempo de espera de registro (seg):"
+
+#: ui/accountadvancedtab.ui:103
+msgid "Allow calls from unknown peers"
+msgstr "Permitir llamadas de desconocidos"
+
+#: ui/accountadvancedtab.ui:117
+msgid "Allow calls from peers in your call history"
+msgstr "Permitir llamadas de personas registradas en tu historial de llamadas"
+
+#: ui/accountadvancedtab.ui:131
+msgid "Allow calls from peers in your contacts list"
+msgstr "Permitir llamadas de personas registradas en tu lista de contactos"
+
+#: ui/accountadvancedtab.ui:149
+msgid "Registration"
+msgstr "Registro"
+
+#: ui/accountadvancedtab.ui:178
+msgid "Use random port"
+msgstr "Utilizar un puerto aleatorio"
+
+#: ui/accountadvancedtab.ui:199
+msgid "Local port:"
+msgstr "Puerto local:"
+
+#: ui/accountadvancedtab.ui:225
+msgid "Network Interface"
+msgstr "Interface de Red"
+
+#: ui/accountadvancedtab.ui:253
+msgid "Same as local parameters"
+msgstr "Igual que los parametros locales"
+
+#: ui/accountadvancedtab.ui:268
+msgid "Set published address and port:"
+msgstr "Configurar dirección publicada y puerto:"
+
+#: ui/accountadvancedtab.ui:292
+msgid "Address"
+msgstr "Dirección"
+
+#: ui/accountadvancedtab.ui:314 src/accountadvancedtab.cpp:510
+msgid "Port"
+msgstr "Puerto"
+
+#: ui/accountadvancedtab.ui:340
+msgid "Use STUN"
+msgstr "Utilizar STUN"
+
+#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
+msgid "server URL"
+msgstr "URL del servidor"
+
+#: ui/accountadvancedtab.ui:389
+msgid "Use TURN"
+msgstr "Utilizar TURN"
+
+#: ui/accountadvancedtab.ui:434
+msgid "username"
+msgstr "nombre de usuario"
+
+#: ui/accountadvancedtab.ui:455
+msgid "password"
+msgstr "contraseña"
+
+#: ui/accountadvancedtab.ui:479
+msgid "realm"
+msgstr "dominio"
+
+#: ui/accountadvancedtab.ui:508
+msgid "Published Address"
+msgstr "Dirección IP publicada"
+
+#: ui/accountadvancedtab.ui:536
+msgid "Bootstrap Servers"
+msgstr "Servidores de inicio"
+
+#: ui/accountadvancedtab.ui:593
+msgid ""
+"These settings are only used during SDP session negotiation in case ICE is "
+"not supported by the server or peer."
+msgstr "Estas configuraciones solo se usan durante una negociación de una sesión SDP en caso de que ICE no sea soportado por el servidor o el compañero"
+
+#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
+msgid "Min"
+msgstr "Mínimo"
+
+#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
+msgid "Max"
+msgstr "Máximo"
+
+#: ui/accountadvancedtab.ui:665
+msgid "Audio RTP Port Range"
+msgstr "Intervalo de puertos de audio RTP"
+
+#: ui/accountadvancedtab.ui:741
+msgid "Video RTP Port Range"
+msgstr "Rango de Puertos RTP de Video"
+
+#: ui/accountadvancedtab.ui:759
+msgid "SDP Session Negotiation (ICE Fallback)"
+msgstr "Negociación de sesión SDP (Retorna a ICE)"
+
+#: ui/accountaudiotab.ui:75
+msgid "Audio Codecs"
+msgstr "Codecs de audio"
+
+#: ui/usernameregistrationbox.ui:12
+msgid "enter username here"
+msgstr "escribe el nombre de usuario aquí"
+
+#: ui/usernameregistrationbox.ui:24
+msgid "Register"
+msgstr "Registrar"
+
+#: ui/accountbanstab.ui:18
+msgid "List of banned peers :"
+msgstr ""
+
+#: ui/accountbanstab.ui:62
+msgid "unban"
+msgstr ""
+
+#: ui/chatview.ui:19 ui/chatview.ui:22
+msgid "Hide chat view"
+msgstr "Ocultar el chat"
+
+#: ui/chatview.ui:45 ui/chatview.ui:48
+msgid "Place call"
+msgstr "Llamar"
+
+#: ui/chatview.ui:60
+msgid "Add to conversations"
+msgstr ""
+
+#: ui/chatview.ui:119
+msgid "Send Invitation"
+msgstr "Enviar invitación"
+
+#: ui/accountgeneraltab.ui:69
+msgid "Account"
+msgstr "Cuenta"
+
+#: ui/accountgeneraltab.ui:135
+msgid "Parameters"
+msgstr "Parámetros"
+
+#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
+#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+#: ui/accountgeneraltab.ui:175
+msgid "Note: this will change the password only on this device."
+msgstr "Nota: esto cambiará la contraseña solo en este dispositivo"
+
+#: ui/accountgeneraltab.ui:194
+msgid "Current password"
+msgstr "Contraseña actual"
+
+#: ui/accountgeneraltab.ui:214
+msgid "New password"
+msgstr "Contraseña nueva"
+
+#: ui/accountgeneraltab.ui:234
+msgid "Confirm password"
+msgstr "Confirmar contraseña"
+
+#: ui/incomingcallview.ui:99
+msgid "Incoming..."
+msgstr "Llamada entrante..."
+
+#: ui/incomingcallview.ui:135
+msgid "Accept"
+msgstr "Aceptar"
+
+#: ui/incomingcallview.ui:156
+msgid "Reject"
+msgstr "Rechazar"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -923,34 +789,6 @@ msgstr "Exigir un certificado para las conexiones TLS entrantes"
 msgid "Negotiation Encryption"
 msgstr "Cifrado de negociación"
 
-#: ui/accountvideotab.ui:50
-msgid "Enable Video"
-msgstr "Habilitar vídeo"
-
-#: ui/accountvideotab.ui:98
-msgid "Video Codecs"
-msgstr "Codecs de vídeo"
-
-#: ui/accountview.ui:42 ui/accountview.ui:45
-msgid "Remove selected account"
-msgstr "Borrar cuenta seleccionada"
-
-#: ui/accountview.ui:63 ui/accountview.ui:66
-msgid "Add new account"
-msgstr "Añadir una cuenta nueva"
-
-#: ui/accountview.ui:75 ui/accountview.ui:78
-msgid "Select account type"
-msgstr "Elegir el tipo de cuenta"
-
-#: ui/accountview.ui:104
-msgid "Import archived account(s)"
-msgstr "Importar cuenta(s) almacenada(s)"
-
-#: ui/accountview.ui:112
-msgid "Export selected account(s)"
-msgstr "Exportar cuenta(s) seleccionada(s)"
-
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
 msgstr "Sacar una foto"
@@ -967,295 +805,448 @@ msgstr "Volver"
 msgid "Set selection as image"
 msgstr "Establecer la selección como imagen"
 
-#: ui/chatview.ui:19 ui/chatview.ui:22
-msgid "Hide chat view"
-msgstr "Ocultar el chat"
-
-#: ui/chatview.ui:45 ui/chatview.ui:48
-msgid "Place call"
-msgstr "Llamar"
-
-#: ui/chatview.ui:60
-msgid "Send invitation"
-msgstr "Enviar invitación"
-
-#: ui/chatview.ui:130
-msgid "Send Invitation"
-msgstr "Enviar invitación"
-
-#: ui/choosecontactview.ui:34
-msgid "Create New"
-msgstr "Crear nuevo"
-
-#: ui/currentcallview.ui:251
-msgid "End this call"
-msgstr "Finalizar esta llamada"
-
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:459
-msgid "End call"
-msgstr "Finalizar llamada"
-
-#: ui/currentcallview.ui:276
-msgid "Toggle hold"
-msgstr "Conmutar llamada en espera"
-
-#: ui/currentcallview.ui:280 ui/currentcallview.ui:306
-#: ui/currentcallview.ui:450
-msgid "Hold"
-msgstr "Espera"
-
-#: ui/currentcallview.ui:302
-msgid "Toggle mute audio"
-msgstr "Conmutar volumen del audio"
-
-#: ui/currentcallview.ui:328
-msgid "Toggle mute video"
-msgstr "Conmutar audio del vídeo"
-
-#: ui/currentcallview.ui:332 ui/currentcallview.ui:441
-msgid "Mute video"
-msgstr "Silenciar vídeo"
-
-#: ui/currentcallview.ui:355
-msgid "Toggle record audio"
-msgstr "Conmutar grabación de audio"
-
-#: ui/currentcallview.ui:358
-msgid "Record audio"
-msgstr "Grabar audio"
-
-#: ui/currentcallview.ui:378
-msgid "Adjust outgoing video quality"
-msgstr "Ajustar la calidad del vídeo de salida"
-
-#: ui/currentcallview.ui:383 ui/currentcallview.ui:468
-msgid "Video quality"
-msgstr "Calidad de vídeo"
-
-#: ui/currentcallview.ui:402
-msgid "Toggle show chat"
-msgstr "Mostrar/Ocultar chat"
-
-#: ui/currentcallview.ui:406 ui/currentcallview.ui:423
-msgid "Chat"
-msgstr "Chat"
-
-#: ui/currentcallview.ui:432
-msgid "Mute audio"
-msgstr "Silenciar el audio"
-
-#: ui/currentcallview.ui:477
-msgid "Record"
-msgstr "Grabar"
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr "Seleccionar libreta de direcciones"
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr "Libreta de direcciones"
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "Nombre"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr "Nombre del contacto"
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr "Seleccione cómo archivará este número"
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr "Número de categoría"
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr "Numero o ID Ring a agregar"
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr "Número o ID Ring"
-
-#: ui/editcontactview.ui:83
-msgid "Save"
-msgstr "Guardar"
-
-#: ui/generalsettingsview.ui:34
-msgid "Profile Settings"
-msgstr "Configuración de perfil"
-
-#: ui/generalsettingsview.ui:76
-msgid "Ring Settings"
-msgstr "Configuración de Ring"
-
-#: ui/generalsettingsview.ui:92
-msgid "Start Ring on login"
-msgstr "Ejecutar Ring al iniciar la sesión"
-
-#: ui/generalsettingsview.ui:100
-msgid "Show Ring icon in the notification area (systray)."
-msgstr "Mostrar el icono de Ring en el área de notificaciones (systray)."
-
-#: ui/generalsettingsview.ui:108
-msgid "Bring Ring to the foreground on incoming calls."
-msgstr "Mostrar Ring al recibir llamadas"
-
-#: ui/generalsettingsview.ui:116
-msgid "Enable notifications for incoming calls."
-msgstr "Habilitar notificación de llamada entrante."
-
-#: ui/generalsettingsview.ui:124
-msgid "Enable notifications for new chat messages."
-msgstr "Habilitar notificación de mensajes de chat"
-
-#: ui/generalsettingsview.ui:132
-msgid "Show images and videos in chat window."
-msgstr "Mostrar imágenes y videos en la ventana de conversación"
-
-#: ui/generalsettingsview.ui:140
-msgid "Entering a number in the search entry will place a new call."
-msgstr "Teclear un número en el cuadro de búsqueda hará una llamada."
-
-#: ui/generalsettingsview.ui:155
-msgid "Show chat on the right."
-msgstr "Mostrar chat a la derecha"
-
-#: ui/generalsettingsview.ui:161
-msgid "Show chat on the bottom."
-msgstr "Mostrar chat abajo"
-
-#: ui/generalsettingsview.ui:185
-msgid "History Settings"
-msgstr "Configuración del Historial"
-
-#: ui/generalsettingsview.ui:203
-msgid "Keep history for (days):"
-msgstr "Guardar historial por (días):"
-
-#: ui/generalsettingsview.ui:224
-msgid "(set to 0 for unlimited history)"
-msgstr "(0 para historial ilimitado)"
-
-#: ui/generalsettingsview.ui:234
-msgid "Clear all history"
-msgstr "Limpiar todo el historial"
-
-#: ui/incomingcallview.ui:106
-msgid "Incoming..."
-msgstr "Llamada entrante..."
-
-#: ui/incomingcallview.ui:142
-msgid "Accept"
-msgstr "Aceptar"
-
-#: ui/incomingcallview.ui:163
-msgid "Reject"
-msgstr "Rechazar"
-
-#: ui/incomingcallview.ui:186
-msgid "Hang up"
-msgstr "Colgar"
-
-#: ui/mediasettingsview.ui:24
-msgid "Audio Settings"
-msgstr "Configuración de audio"
-
-#: ui/mediasettingsview.ui:40
-msgid "Audio manager:"
-msgstr "Administrador de audio:"
-
-#: ui/mediasettingsview.ui:52
-msgid "Ringtone device:"
-msgstr "Dispositivo de tono de llamada"
-
-#: ui/mediasettingsview.ui:64
-msgid "Output device:"
-msgstr "Dispositivo de salida"
-
-#: ui/mediasettingsview.ui:76
-msgid "Input device:"
-msgstr "Dispositivo de entrada"
-
-#: ui/mediasettingsview.ui:134
-msgid "Camera Settings"
-msgstr "Configuración de cámara"
-
-#: ui/mediasettingsview.ui:150
-msgid "Device:"
-msgstr "Dispositivo:"
-
-#: ui/mediasettingsview.ui:162
-msgid "Channel:"
-msgstr "Canal:"
-
-#: ui/mediasettingsview.ui:174
-msgid "Resolution:"
-msgstr "Resolución:"
-
-#: ui/mediasettingsview.ui:186
-msgid "Frame rate:"
-msgstr "Cuadros por segundo:"
-
-#: ui/mediasettingsview.ui:244
-msgid "Hardware Acceleration"
-msgstr "Aceleración por hardware"
-
-#: ui/mediasettingsview.ui:260
-msgid "Enable hardware decoding:"
-msgstr "Habilitar descodificación por hardware"
-
-#: ui/ringgearsmenu.ui:13
-msgid "_About"
-msgstr "_Acerca de"
-
-#: ui/ringgearsmenu.ui:19
-msgid "_Quit"
-msgstr "_Salir"
-
-#: ui/ringmainwindow.ui:17
-msgid "Menu"
-msgstr "Menú"
-
-#: ui/ringmainwindow.ui:51
-msgid "General"
-msgstr "General"
-
-#: ui/ringmainwindow.ui:61
-msgid "Media"
-msgstr "Medios"
-
-#: ui/ringmainwindow.ui:72
-msgid "Accounts"
-msgstr "Cuentas"
-
-#: ui/ringmainwindow.ui:102
-msgid "Settings"
-msgstr "Configuración"
-
-#: ui/ringmainwindow.ui:215
-msgid "Conversations"
-msgstr "Conversaciones"
-
-#: ui/ringmainwindow.ui:237
+#: src/ring_client.cpp:147
+#, c-format
+msgid ""
+"Unable to initialize.\n"
+"Make sure the Ring daemon (dring) is running.\n"
+"Error: %s"
+msgstr ""
+
+#: src/ring_client.cpp:150
+msgid "Ring Error"
+msgstr ""
+
+#: src/ring_client.cpp:292
+msgctxt ""
+"In the status icon menu, toggle action to show or hide the Ring main window"
+msgid "Show Ring"
+msgstr ""
+
+#: src/ring_client.cpp:296
+msgid "Quit"
+msgstr ""
+
+#: src/ringnotify.cpp:148
+msgid "Incoming call"
+msgstr "Llamada entrante"
+
+#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
+msgctxt "notification action name"
+msgid "Show"
+msgstr "Mostrar"
+
+#: src/ringnotify.cpp:267
+#, c-format
+msgctxt "Text message notification"
+msgid "%s says:"
+msgstr "%s dice:"
+
+#: src/accountimportexportview.cpp:99
+msgid "Select account export location"
+msgstr "Elegir lugar para exportar"
+
+#: src/accountimportexportview.cpp:104
+msgid "Select"
+msgstr "Selección"
+
+#: src/accountimportexportview.cpp:197
+msgid "Error importing account(s)"
+msgstr "Error Importando cuenta(s)"
+
+#: src/accountimportexportview.cpp:244
+msgid "Error exporting account(s)"
+msgstr "Error Exportando cuenta(s)"
+
+#: src/usernameregistrationbox.cpp:128
+msgid "The entered username is not available"
+msgstr "El nombre de usuario tecleado no está disponible"
+
+#: src/usernameregistrationbox.cpp:129
+msgid "Username is not available"
+msgstr "Nombre de usuario no disponible"
+
+#: src/usernameregistrationbox.cpp:138
+msgid "The entered username is not valid"
+msgstr "El nombre de usuario tecleado no es válido"
+
+#: src/usernameregistrationbox.cpp:139
+msgid "Username is not valid"
+msgstr "Nombre de usuario no válido"
+
+#: src/usernameregistrationbox.cpp:148
+msgid "The entered username is available"
+msgstr "El nombre de usuario tecleado está disponible"
+
+#: src/usernameregistrationbox.cpp:149
+msgid "Username is available"
+msgstr "Nombre de usuario disponible"
+
+#: src/usernameregistrationbox.cpp:158
+msgid "Failed to perform lookup"
+msgstr "No se pudo llevar a cabo la búsqueda"
+
+#: src/usernameregistrationbox.cpp:159
+msgid "Could not lookup username"
+msgstr "No se pudo buscar el nombre de usuario"
+
+#: src/usernameregistrationbox.cpp:248
+msgid "Looking up username availability..."
+msgstr "Comprobando disponibilidad del nombre de usuario..."
+
+#: src/usernameregistrationbox.cpp:319
+msgid "Could not initiate name registration, try again."
+msgstr "No se ha podido iniciar el registro del nombre, inténtelo de nuevo."
+
+#: src/usernameregistrationbox.cpp:361
+msgid "Register this username on the blockchain"
+msgstr "Registrar este nombre de usuario en la cadena de bloques"
+
+#: src/usernameregistrationbox.cpp:397
+msgid "Invalid username"
+msgstr "Nombre de usuario no válido"
+
+#: src/usernameregistrationbox.cpp:404 src/accountdevicestab.cpp:195
+msgid "Bad password"
+msgstr "Contraseña errónea"
+
+#: src/usernameregistrationbox.cpp:411
+msgid "Username already taken"
+msgstr "El nombre de usuario ya está en uso"
+
+#: src/usernameregistrationbox.cpp:418
+msgid "Network error"
+msgstr "Error en la red"
+
+#: src/generalsettingsview.cpp:103
+msgid ""
+"This is a destructive operation. Are you sure you want to delete all of your"
+" chat and call history?"
+msgstr "Esta es una operación irreversible. ¿Estás seguro de eliminar todo el historial de chat y llamadas?"
+
+#: src/backends/edscontactbackend.cpp:193
+msgid "Unknown EDS addressbook"
+msgstr "Libreta de direcciones EDS desconocida"
+
+#: src/backends/edscontactbackend.cpp:213
+msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Contactos"
 
-#: ui/ringmainwindow.ui:259
-msgid "History"
-msgstr "Historial"
+#: src/accountadvancedtab.cpp:389
+msgid "_Remove server"
+msgstr "Quitar servidor"
 
-#: ui/ringmainwindow.ui:281
-msgid "Contact requests"
-msgstr "Solicitudes de contacto"
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
+msgid "Hostname"
+msgstr "Nombre del servidor"
 
-#: ui/usernameregistrationbox.ui:12
-msgid "enter username here"
-msgstr "escribe el nombre de usuario aquí"
+#: src/accountgeneraltab.cpp:196
+msgid "New password and its confirmation are different"
+msgstr "Nueva contraseña y  su confirmación es diferente"
 
-#: ui/usernameregistrationbox.ui:24
-msgid "Register"
-msgstr "Registrar"
+#: src/accountgeneraltab.cpp:206
+msgid "Password changed!"
+msgstr "Contraseña cambiada!"
+
+#: src/accountgeneraltab.cpp:209
+msgid "Incorrect password"
+msgstr "Contraseña incorrecta"
+
+#: src/accountgeneraltab.cpp:236
+msgid "Alias"
+msgstr "Alias"
+
+#: src/accountgeneraltab.cpp:247
+msgid "Type"
+msgstr "Tipo"
+
+#: src/accountgeneraltab.cpp:273
+msgid "auto-generating..."
+msgstr "auto-generando..."
+
+#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: src/accountgeneraltab.cpp:322
+msgid "Password"
+msgstr "Contraseña"
+
+#: src/accountgeneraltab.cpp:335
+msgid "Show password"
+msgstr "Mostrar contraseña"
+
+#: src/accountgeneraltab.cpp:341
+msgid "Proxy"
+msgstr "Proxy"
+
+#: src/accountgeneraltab.cpp:351
+msgid "Voicemail number"
+msgstr "Número de Mensaje de Voz"
+
+#: src/accountgeneraltab.cpp:363
+msgid "Name service URL"
+msgstr "URL del servicio de nombres"
+
+#: src/accountgeneraltab.cpp:376
+msgid "Auto-answer calls"
+msgstr "Respuesta automática de llamadas"
+
+#: src/accountgeneraltab.cpp:384
+msgid "UPnP enabled"
+msgstr "UPnP habilitado"
+
+#: src/video/video_widget.cpp:532
+msgid "Share screen area"
+msgstr "Compartir la ventana"
+
+#: src/video/video_widget.cpp:543
+msgid "Share file"
+msgstr "Compartir archivo"
+
+#: src/video/video_widget.cpp:556
+msgid "Show advanced information"
+msgstr "Mostrar información avanzada"
+
+#: src/avatarmanipulation.cpp:380
+msgid "Open Avatar Image"
+msgstr "Abrir imagen de avatar"
+
+#: src/avatarmanipulation.cpp:383
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: src/avatarmanipulation.cpp:385
+msgid "_Open"
+msgstr "_Abrir"
+
+#: src/dialogs.c:53
+msgid "Working..."
+msgstr "Procesando..."
+
+#: src/dialogs.c:84
+#, c-format
+msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+msgid ""
+"Liberté, Égalité, Fraternité - Version 1.0\n"
+"built on %.25s"
+msgstr "Liberté, Égalité, Fraternité - Versión 1.0\nconstruido en %.25s"
+
+#: src/dialogs.c:136
+msgid ""
+"The GNOME client for Ring.\n"
+"Ring is free software for universal communication which respects the freedoms and privacy of its users."
+msgstr "El cliente Ring de GNOME.\nRing es software libre de comunicaciones que respeta las libertades y la privacidad de sus usuarios."
+
+#: src/accountdevicestab.cpp:201
+msgid "Network error, try again"
+msgstr "Error en la red, inténtalo de nuevo"
+
+#: src/accountdevicestab.cpp:213
+msgid "Could not initiate export to the Ring, try again"
+msgstr "No se ha podido exportar en Ring, inténtalo de nuevo"
+
+#: src/accountdevicestab.cpp:246
+msgctxt "Device Name Column"
+msgid "Name"
+msgstr "Nombre"
+
+#: src/accountdevicestab.cpp:251
+msgctxt "Device ID Column"
+msgid "ID"
+msgstr "ID"
+
+#: src/ringmainwindow.cpp:839
+msgctxt "button next to search entry will place a new call"
+msgid "place call"
+msgstr "llamar"
+
+#: src/ringmainwindow.cpp:841
+msgctxt "button next to search entry will open chat"
+msgid "open chat"
+msgstr "Abrir chat"
+
+#: src/ringmainwindow.cpp:1165
+msgctxt ""
+"Please try to make the translation 50 chars or less so that it fits into the"
+" layout"
+msgid "Search contacts or enter number"
+msgstr "Buscar contacto o introducir número"
+
+#: src/editcontactview.cpp:208
+msgctxt "Phone number category"
+msgid "home"
+msgstr "inicio"
+
+#: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: src/accountvideotab.cpp:190
+msgctxt "The name of the codec"
+msgid "Name"
+msgstr "Nombre"
+
+#: src/accountvideotab.cpp:194 src/accountaudiotab.cpp:185
+msgid "Bitrate"
+msgstr "Tasa de transferencia (bit/s)"
+
+#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
+msgctxt "Name of error window (dialog)"
+msgid "Ring Error"
+msgstr "Error de Ring"
+
+#: src/native/dbuserrorhandler.cpp:57
+msgid "Trying to reconnect to the Ring daemon (dring)..."
+msgstr "Tratando de conectarse de nuevo al demonio Ring (dring)..."
+
+#: src/native/dbuserrorhandler.cpp:87
+msgid ""
+"Could not re-connect to the Ring daemon (dring).\n"
+"Ring will now quit."
+msgstr "No se pudo conectar con el demonio Ring (dring).\nRing se cerrará ahora."
+
+#: src/accountaudiotab.cpp:181
+msgctxt "Name of the codec"
+msgid "Name"
+msgstr "Nombre"
+
+#: src/accountaudiotab.cpp:189
+msgid "Samplerate"
+msgstr "Frecuencia de muestreo"
+
+#: src/conversationpopupmenu.cpp:147
+msgid "_Place call"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:153
+msgid "_Add to conversations"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:157
+msgid "_Discard invitation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:160
+msgid "_Block invitations"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:165
+msgid "_Clear history"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:168
+msgid "_Remove conversation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:171
+msgid "_Block contact"
+msgstr ""
+
+#: src/ring_client_options.c:66
+msgid "Enable debug"
+msgstr "Habilitar depuración"
+
+#: src/ring_client_options.c:68
+msgid ""
+"Restores the hidden state of the main window (only applicable to the primary"
+" instance)"
+msgstr "Restaura el estado de ocultación de la ventana principal (únicamente la primera vez)"
+
+#: src/ring_client_options.c:85
+msgid "- GNOME client for Ring"
+msgstr "- Cliente Gnome para Ring"
+
+#: src/accountcreationwizard.cpp:231
+msgid ""
+"Your account was created, but we could not register your username. Try again"
+" from the settings menu."
+msgstr "Se creó tu cuenta, pero no se pudo registrar tu nombre de usuario. Inténtalo de nuevo en el menú de configuración."
+
+#: src/accountcreationwizard.cpp:275
+msgctxt "The default username / account alias, if none is set by the user"
+msgid "Unknown"
+msgstr "Desconocido"
+
+#: src/accountcreationwizard.cpp:471
+msgid "Passwords don't match"
+msgstr "Las contraseñas no coinciden"
+
+#: src/ringwelcomeview.cpp:88
+msgid ""
+"This is your Ring username.\n"
+"Copy and share it with your friends!"
+msgstr "Este es tu nombre de usuario en Ring.\n¡Cópialo y compártelo con tus amigos!"
+
+#: src/ringwelcomeview.cpp:96
+msgctxt "Do not translate \"RingID\""
+msgid ""
+"This is your RingID.\n"
+"Copy and share it with your friends!"
+msgstr "Este es tu RingID.\n¡Cópialo y compártelo con tus amigos!"
+
+#: src/ringwelcomeview.cpp:151
+msgid ""
+"Ring is free software for universal communication which respects the "
+"freedoms and privacy of its users."
+msgstr "Ring es software libre de comunicaciones que respeta las libertades y privacidad de sus usuarios."
+
+#: src/ringwelcomeview.cpp:205
+msgctxt "Do not translate \"Ring ID\""
+msgid "Ring ID QR code"
+msgstr "Código QR identificador Ring"
+
+#: src/currentcallview.cpp:535
+msgctxt "Enable automatic video quality"
+msgid "Auto"
+msgstr ""
+
+#: src/accountview.cpp:168
+msgctxt "Account settings"
+msgid "General"
+msgstr "General"
+
+#: src/accountview.cpp:176
+msgctxt "Account settings"
+msgid "Devices"
+msgstr "Dispositivos"
+
+#: src/accountview.cpp:182
+msgctxt "Account settings"
+msgid "Security"
+msgstr "Seguridad"
+
+#: src/accountview.cpp:187
+msgctxt "Account settings"
+msgid "Advanced"
+msgstr "Avanzado"
+
+#: src/accountview.cpp:194
+msgctxt "List of banned peers"
+msgid "Bans"
+msgstr "Vetado"
+
+#: src/accountview.cpp:250
+#, c-format
+msgid "Are you sure you want to delete account \"%s\"?"
+msgstr "¿Está seguro de querer eliminar la cuenta \"%s\"?"
+
+#: src/accountview.cpp:377
+msgid "New Account"
+msgstr "Nueva cuenta"
+
+#: src/accountview.cpp:527
+msgctxt "Account state column"
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: src/accountview.cpp:533
+msgctxt "Account alias (name) column"
+msgid "Alias"
+msgstr "Alias"
+
+#: src/accountview.cpp:541
+msgctxt "Account status column"
+msgid "Status"
+msgstr "Estado"
