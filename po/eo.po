@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-08 23:08-0400\n"
-"PO-Revision-Date: 2017-10-05 14:50+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"POT-Creation-Date: 2017-11-19 22:09-0500\n"
+"PO-Revision-Date: 2017-11-17 15:07+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Esperanto (http://www.transifex.com/savoirfairelinux/ring/language/eo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,588 +20,151 @@ msgstr ""
 "Language: eo\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/accountadvancedtab.cpp:389
-msgid "_Remove server"
-msgstr "_Forigi servilon"
+#: ui/ringgearsmenu.ui:13
+msgid "_About"
+msgstr "_Pri"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
-msgid "Hostname"
-msgstr "Nomo de gastiga komputilo"
+#: ui/ringgearsmenu.ui:19
+msgid "_Quit"
+msgstr "_Eliri"
 
-#: src/accountadvancedtab.cpp:510 ui/accountadvancedtab.ui:314
-msgid "Port"
-msgstr "Pordo"
+#: ui/choosecontactview.ui:34
+msgid "Create New"
+msgstr "Krei Novan"
 
-#: src/accountaudiotab.cpp:175 src/accountvideotab.cpp:184
-msgid "Enabled"
-msgstr "Ŝaltita"
+#: ui/accountmigrationview.ui:14
+msgid "Account migration required"
+msgstr "Konta migrigo bezonata"
 
-#: src/accountaudiotab.cpp:181
-msgctxt "Name of the codec"
-msgid "Name"
-msgstr "Nomo"
+#: ui/accountmigrationview.ui:39
+msgid "Alias:"
+msgstr "Kaŝnomo:"
 
-#: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
-msgid "Bitrate"
-msgstr "Bitrapido"
-
-#: src/accountaudiotab.cpp:189
-msgid "Samplerate"
-msgstr "Specimenrapido"
-
-#: src/accountcreationwizard.cpp:231
-msgid ""
-"Your account was created, but we could not register your username. Try again"
-" from the settings menu."
-msgstr "Via konto estas kreita, sed ni ne povis registrigi vian uzantnomon. Reprovu per la agorda menuo."
-
-#: src/accountcreationwizard.cpp:275
-msgctxt "The default username / account alias, if none is set by the user"
-msgid "Unknown"
-msgstr "Nekonata"
-
-#: src/accountcreationwizard.cpp:468
-msgid "Passwords don't match"
-msgstr "Pasvortoj ne kongruas"
-
-#: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
-msgid "Bad password"
-msgstr "Malĝusta pasvorto"
-
-#: src/accountdevicestab.cpp:201
-msgid "Network error, try again"
-msgstr "Reteraro, reprovu poste"
-
-#: src/accountdevicestab.cpp:213
-msgid "Could not initiate export to the Ring, try again"
-msgstr "Ne eblis komenci la elporton por Ring, reprovu poste"
-
-#: src/accountdevicestab.cpp:246
-msgctxt "Device Name Column"
-msgid "Name"
-msgstr "Nomo"
-
-#: src/accountdevicestab.cpp:251
-msgctxt "Device ID Column"
-msgid "ID"
-msgstr "Identigaĵo"
-
-#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-msgid "Change password"
+#: ui/accountmigrationview.ui:102
+msgid "Please enter your password:"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:196
-msgid "New password and its confirmation are different"
+#: ui/accountmigrationview.ui:129
+msgid "Migrate account"
+msgstr "Migrigi konton"
+
+#: ui/accountmigrationview.ui:148
+msgid "Migration failed, wrong password ?"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:206
-msgid "Password changed!"
-msgstr ""
+#: ui/currentcallview.ui:251
+msgid "End this call"
+msgstr "Finigi tiun ĉi vokon"
 
-#: src/accountgeneraltab.cpp:209
-msgid "Incorrect password"
-msgstr ""
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:457
+msgid "End call"
+msgstr "Finigi vokon"
 
-#: src/accountgeneraltab.cpp:236
-msgid "Alias"
-msgstr "Kaŝnomo"
+#: ui/currentcallview.ui:275
+msgid "Toggle hold"
+msgstr "Ŝalti detenon"
 
-#: src/accountgeneraltab.cpp:247
-msgid "Type"
-msgstr "Tipo"
+#: ui/currentcallview.ui:279 ui/currentcallview.ui:304
+#: ui/currentcallview.ui:448
+msgid "Hold"
+msgstr "Deteni"
 
-#: src/accountgeneraltab.cpp:273
-msgid "auto-generating..."
-msgstr "aŭtomate generanta..."
+#: ui/currentcallview.ui:300
+msgid "Toggle mute audio"
+msgstr "Ŝalti aŭdion"
 
-#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
-msgid "Username"
-msgstr "Uzantnomo"
+#: ui/currentcallview.ui:325
+msgid "Toggle mute video"
+msgstr "Ŝalti videon"
 
-#: src/accountgeneraltab.cpp:322
-msgid "Password"
-msgstr "Pasvorto"
+#: ui/currentcallview.ui:329 ui/currentcallview.ui:439
+msgid "Mute video"
+msgstr "Kaŝi videon"
 
-#: src/accountgeneraltab.cpp:335
-msgid "Show password"
-msgstr "Montru pasvorton"
+#: ui/currentcallview.ui:352
+msgid "Toggle record audio"
+msgstr "Ŝalti registradon de aŭdio"
 
-#: src/accountgeneraltab.cpp:341
-msgid "Proxy"
-msgstr "Prokura servilo"
+#: ui/currentcallview.ui:355
+msgid "Record audio"
+msgstr "Registri aŭdion"
 
-#: src/accountgeneraltab.cpp:351
-msgid "Voicemail number"
-msgstr "Parolita mesaĝo"
+#: ui/currentcallview.ui:376
+msgid "Adjust outgoing video quality"
+msgstr "Agordi kvaliton de eliranta video"
 
-#: src/accountgeneraltab.cpp:363
-msgid "Name service URL"
-msgstr "URL de noma servo"
+#: ui/currentcallview.ui:381 ui/currentcallview.ui:466
+msgid "Video quality"
+msgstr "Videa kvalito"
 
-#: src/accountgeneraltab.cpp:376
-msgid "Auto-answer calls"
-msgstr "Aŭtomate respondi vokojn"
+#: ui/currentcallview.ui:400
+msgid "Toggle show chat"
+msgstr "Ŝalti babilon"
 
-#: src/accountgeneraltab.cpp:384
-msgid "UPnP enabled"
-msgstr "UPnP ŝaltita"
+#: ui/currentcallview.ui:404 ui/currentcallview.ui:421
+msgid "Chat"
+msgstr "Babilo"
 
-#: src/accountimportexportview.cpp:99
-msgid "Select account export location"
-msgstr "Elektu lokon de konta elporto"
+#: ui/currentcallview.ui:430
+msgid "Mute audio"
+msgstr "Silentigi aŭdion"
 
-#: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:84
-#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
-msgid "Cancel"
-msgstr "Rezigni"
+#: ui/currentcallview.ui:475
+msgid "Record"
+msgstr "Registri"
 
-#: src/accountimportexportview.cpp:104
-msgid "Select"
-msgstr "Elekti"
+#: ui/accountdevicestab.ui:21
+msgid "My Device ID:"
+msgstr "Identigaĵo de Mia Aparato:"
 
-#: src/accountimportexportview.cpp:198
-msgid "Error importing account(s)"
-msgstr "Eraro enportanta kontojn"
-
-#: src/accountimportexportview.cpp:245
-msgid "Error exporting account(s)"
-msgstr "Eraro elportanta kontojn"
-
-#: src/accountvideotab.cpp:190
-msgctxt "The name of the codec"
-msgid "Name"
-msgstr "Nomo"
-
-#: src/accountview.cpp:168
-msgctxt "Account settings"
-msgid "General"
-msgstr "Ĝenerala"
-
-#: src/accountview.cpp:176
-msgctxt "Account settings"
+#: ui/accountdevicestab.ui:40
 msgid "Devices"
 msgstr "Aparatoj"
 
-#: src/accountview.cpp:182
-msgctxt "Account settings"
-msgid "Security"
-msgstr "Sekurigo"
+#: ui/accountdevicestab.ui:66
+msgid "Add device"
+msgstr "Aldoni aparaton"
 
-#: src/accountview.cpp:187
-msgctxt "Account settings"
-msgid "Advanced"
-msgstr "Speciala"
+#: ui/accountdevicestab.ui:83
+msgid "Add New Device"
+msgstr "Aldoni Novan Aparaton"
 
-#: src/accountview.cpp:194
-msgctxt "List of banned peers"
-msgid "Bans"
-msgstr ""
-
-#: src/accountview.cpp:250
-#, c-format
-msgid "Are you sure you want to delete account \"%s\"?"
-msgstr "Ĉu vi certe volas forigi la konton \"%s\"?"
-
-#: src/accountview.cpp:377
-msgid "New Account"
-msgstr "Nova konto"
-
-#: src/accountview.cpp:527
-msgctxt "Account state column"
-msgid "Enabled"
-msgstr "Ŝaltita"
-
-#: src/accountview.cpp:533
-msgctxt "Account alias (name) column"
-msgid "Alias"
-msgstr "Kaŝnomo"
-
-#: src/accountview.cpp:541
-msgctxt "Account status column"
-msgid "Status"
-msgstr "Stato"
-
-#: src/avatarmanipulation.cpp:380
-msgid "Open Avatar Image"
-msgstr "Malfermi Profilbildon"
-
-#: src/avatarmanipulation.cpp:383
-msgid "_Cancel"
-msgstr "_Rezigni"
-
-#: src/avatarmanipulation.cpp:385
-msgid "_Open"
-msgstr "_Malfermi"
-
-#: src/backends/edscontactbackend.cpp:193
-msgid "Unknown EDS addressbook"
-msgstr "Nekonata EDS adresaro"
-
-#: src/backends/edscontactbackend.cpp:213
-msgctxt "Backend type"
-msgid "Contacts"
-msgstr "Kontaktoj"
-
-#: src/contactpopupmenu.cpp:172
-msgid "_Call"
-msgstr "_Voki"
-
-#: src/contactpopupmenu.cpp:175
-msgid "_Copy name"
-msgstr "_Kopii nomon"
-
-#: src/contactpopupmenu.cpp:178
-msgid "_Copy number"
-msgstr "_Kopii numeron"
-
-#: src/contactpopupmenu.cpp:181
-msgid "_Add to contact"
-msgstr "_Aldoni al kontakto"
-
-#: src/contactpopupmenu.cpp:184
-msgid "_Remove contact"
-msgstr "_Forigi kontakton"
-
-#: src/dialogs.c:53
-msgid "Working..."
-msgstr "Laboranta..."
-
-#: src/dialogs.c:84
-#, c-format
-msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+#: ui/accountdevicestab.ui:98
 msgid ""
-"Liberté, Égalité, Fraternité - Version 1.0\n"
-"built on %.25s"
-msgstr ""
-
-#: src/dialogs.c:136
-msgid ""
-"The GNOME client for Ring.\n"
-"Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "La GNOME kliento por Ring.\nRing estas libera programo por universala komunikado, kiu respektas liberon kaj privatecon de siaj uzantoj."
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
-msgstr "hejmo"
-
-#: src/generalsettingsview.cpp:103
-msgid ""
-"This is a destructive operation. Are you sure you want to delete all of your"
-" chat and call history?"
-msgstr "Tiu ĉi ago estas detrua. Ĉu vi certe volas forigi ĉiom da via babila kaj voka historio?"
-
-#: src/historyview.cpp:293
-msgctxt "Call history"
-msgid "Call"
-msgstr "Voki"
-
-#: src/historyview.cpp:338
-msgctxt "Call history"
-msgid "Date"
-msgstr "Dato"
-
-#: src/ringnotify.cpp:148
-msgid "Incoming call"
-msgstr "Envena voko"
-
-#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
-msgctxt "notification action name"
-msgid "Show"
-msgstr "Montri"
-
-#: src/ringnotify.cpp:267
-#, c-format
-msgctxt "Text message notification"
-msgid "%s says:"
-msgstr "%s diras:"
-
-#: src/ring_client_options.c:66
-msgid "Enable debug"
-msgstr "Ŝalti sencimigon"
-
-#: src/ring_client_options.c:68
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
-msgstr "Restaŭras kaŝecon de la ĉefa fenestro (nur por la ĉefa ekzemplo)"
-
-#: src/ring_client_options.c:85
-msgid "- GNOME client for Ring"
-msgstr "- GNOME kliento por Ring"
-
-#: src/ringmainwindow.cpp:614
-#, c-format
-msgid "Invalid Ring username: %s"
-msgstr "Nevalida Ring uzantnomo: %s"
-
-#: src/ringmainwindow.cpp:629
-msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr ""
-
-#: src/ringmainwindow.cpp:643
-#, c-format
-msgid "Could not resolve Ring username: %s"
-msgstr "Ne eblis trakti Ring uzantnomon: %s"
-
-#: src/ringmainwindow.cpp:1152
-msgctxt "button next to search entry will place a new call"
-msgid "place call"
-msgstr "voki"
-
-#: src/ringmainwindow.cpp:1154
-msgctxt "button next to search entry will open chat"
-msgid "open chat"
-msgstr "malfermi babilejon"
-
-#: src/ringmainwindow.cpp:1234
-#, c-format
-msgctxt "string format will be replaced by the account alias"
-msgid "%s..."
-msgstr ""
-
-#: src/ringmainwindow.cpp:1240
-#, c-format
-msgctxt "string format will be replaced by the account alias"
-msgid "%s (error)"
-msgstr ""
-
-#: src/ringmainwindow.cpp:1443
-msgctxt ""
-"Please try to make the translation 50 chars or less so that it fits into the"
-" layout"
-msgid "Search contacts or enter number"
-msgstr "Serĉu kontaktojn aŭ entajpu numeron"
-
-#: src/ringwelcomeview.cpp:75
-msgid ""
-"This is your Ring username.\n"
-"Copy and share it with your friends!"
-msgstr ""
-
-#: src/ringwelcomeview.cpp:83
-msgctxt "Do not translate \"RingID\""
-msgid ""
-"This is your RingID.\n"
-"Copy and share it with your friends!"
-msgstr "Tio ĉi estas via RingID.\nKopiu kaj kunhavigu ĝin kun viaj amikoj!"
-
-#: src/ringwelcomeview.cpp:90
-msgid "fetching RingID..."
-msgstr "alportanta RingID..."
-
-#: src/ringwelcomeview.cpp:148
-msgid ""
-"Ring is free software for universal communication which respects the "
-"freedoms and privacy of its users."
-msgstr "Ring estas libera programo por universala komunikado, kiu respektas liberon kaj privatecon de siaj uzantoj."
-
-#: src/ringwelcomeview.cpp:202
-msgctxt "Do not translate \"Ring ID\""
-msgid "Ring ID QR code"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:128
-msgid "The entered username is not available"
-msgstr "La enigita uzantnomo estas nehavebla"
-
-#: src/usernameregistrationbox.cpp:129
-msgid "Username is not available"
-msgstr "Uzantnomo nehavebla"
-
-#: src/usernameregistrationbox.cpp:138
-msgid "The entered username is not valid"
-msgstr "La enigita uzantnomo estas nevalida"
-
-#: src/usernameregistrationbox.cpp:139
-msgid "Username is not valid"
-msgstr "Uzantnomo nevalida"
-
-#: src/usernameregistrationbox.cpp:148
-msgid "The entered username is available"
-msgstr "La enigita uzantnomo estas havebla"
-
-#: src/usernameregistrationbox.cpp:149
-msgid "Username is available"
-msgstr "Uzantnomo havebla"
-
-#: src/usernameregistrationbox.cpp:158
-msgid "Failed to perform lookup"
-msgstr "Ne eblas serĉi"
-
-#: src/usernameregistrationbox.cpp:159
-msgid "Could not lookup username"
-msgstr "Ne eblis serĉi uzantnomon"
-
-#: src/usernameregistrationbox.cpp:248
-msgid "Looking up username availability..."
-msgstr "Serĉanta uzantnoman haveblecon..."
-
-#: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:487
-msgid "Registering username..."
-msgstr "Registranta uzantnomon..."
-
-#: src/usernameregistrationbox.cpp:319
-msgid "Could not initiate name registration, try again."
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:361
-msgid "Register this username on the blockchain"
-msgstr "Registru ĉi tiun uzantnomon je la blokĉeno"
-
-#: src/usernameregistrationbox.cpp:397
-msgid "Invalid username"
-msgstr "Nevalida uzantnomo"
-
-#: src/usernameregistrationbox.cpp:411
-msgid "Username already taken"
-msgstr "Uzantnomo jam prenita"
-
-#: src/usernameregistrationbox.cpp:418
-msgid "Network error"
-msgstr "Reta eraro"
-
-#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
-msgctxt "Name of error window (dialog)"
-msgid "Ring Error"
-msgstr "Ring Eraro"
-
-#: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr "Provanta rekonekti al la Ring demono (dring)..."
-
-#: src/native/dbuserrorhandler.cpp:87
-msgid ""
-"Could not re-connect to the Ring daemon (dring).\n"
-"Ring will now quit."
-msgstr "Ne povis rekonekti al la Ring demono (dring).\nRing nun ĉesos."
-
-#: src/video/video_widget.cpp:525
-msgid "Share screen area"
-msgstr "Kunhavigi areon de ekrano"
-
-#: src/video/video_widget.cpp:535
-msgid "Share file"
-msgstr "Kunhavigi dosieron"
-
-#: src/video/video_widget.cpp:549
-msgid "Show advanced information"
-msgstr "Montri specialajn informojn"
-
-#: ui/accountadvancedtab.ui:81
-msgid "Registration expire timeout (seconds):"
-msgstr "Tempolimo de registriĝo (sekunde):"
-
-#: ui/accountadvancedtab.ui:103
-msgid "Allow calls from unknown peers"
-msgstr "Permesi vokojn de nekonataj samtavolanoj"
-
-#: ui/accountadvancedtab.ui:117
-msgid "Allow calls from peers in your call history"
-msgstr "Permesi vokojn de samtavolanoj en via voka historio"
-
-#: ui/accountadvancedtab.ui:131
-msgid "Allow calls from peers in your contacts list"
-msgstr "Permesi vokojn de samtavolanoj en via listo de kontaktoj"
-
-#: ui/accountadvancedtab.ui:149
-msgid "Registration"
-msgstr "Registriĝo"
-
-#: ui/accountadvancedtab.ui:178
-msgid "Use random port"
-msgstr "Uzi hazardan pordon"
-
-#: ui/accountadvancedtab.ui:199
-msgid "Local port:"
-msgstr "Loka pordo:"
-
-#: ui/accountadvancedtab.ui:225
-msgid "Network Interface"
-msgstr "Reta Interfaco"
-
-#: ui/accountadvancedtab.ui:253
-msgid "Same as local parameters"
-msgstr "Same kiel lokaj parametroj"
-
-#: ui/accountadvancedtab.ui:268
-msgid "Set published address and port:"
-msgstr "Agordi publikan adreson kaj pordon:"
-
-#: ui/accountadvancedtab.ui:292
-msgid "Address"
-msgstr "Adreso"
-
-#: ui/accountadvancedtab.ui:340
-msgid "Use STUN"
-msgstr "Uzi STUN"
-
-#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
-msgid "server URL"
-msgstr "URL de servilo"
-
-#: ui/accountadvancedtab.ui:389
-msgid "Use TURN"
-msgstr "Uzi TURN"
-
-#: ui/accountadvancedtab.ui:434
-msgid "username"
-msgstr "uzantnomo"
-
-#: ui/accountadvancedtab.ui:455
-msgid "password"
-msgstr "pasvorto"
-
-#: ui/accountadvancedtab.ui:479
-msgid "realm"
-msgstr "regno"
-
-#: ui/accountadvancedtab.ui:508
-msgid "Published Address"
-msgstr "Publikita Adreso"
-
-#: ui/accountadvancedtab.ui:536
-msgid "Bootstrap Servers"
-msgstr "Praŝarĝaj Serviloj"
-
-#: ui/accountadvancedtab.ui:593
-msgid ""
-"These settings are only used during SDP session negotiation in case ICE is "
-"not supported by the server or peer."
-msgstr "Tiuj ĉi agordoj estas uzataj nur dum intertraktado de SDP seanco, se ICE ne estas subtenata de la servilo aŭ samtavolano."
-
-#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
-msgid "Min"
-msgstr "Min"
-
-#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
-msgid "Max"
-msgstr "Maks"
-
-#: ui/accountadvancedtab.ui:665
-msgid "Audio RTP Port Range"
-msgstr "Porda Amplekso de Aŭdia RTP"
-
-#: ui/accountadvancedtab.ui:741
-msgid "Video RTP Port Range"
-msgstr "Porda Amplekso de Videa RTP"
-
-#: ui/accountadvancedtab.ui:759
-msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr "Intertraktado de SDP seanco (ICE retropaŝo)"
-
-#: ui/accountaudiotab.ui:57 ui/accountvideotab.ui:80
-msgid "Up"
-msgstr "Supren"
-
-#: ui/accountaudiotab.ui:64 ui/accountvideotab.ui:87
-msgid "Down"
-msgstr "Suben"
-
-#: ui/accountaudiotab.ui:75
-msgid "Audio Codecs"
-msgstr ""
+"To add a new device to your Ring account, you export your account on the "
+"Ring. This will generate a pin that must be entered on your new device "
+"within 5 minutes of its generation."
+msgstr "Por aldoni novan aparaton al via Ring konto, vi elportu vian konton sur Ring. Vi akiros PIN kodon, kiun vi devos enigi en vian novan aparaton dum 5 minutoj."
+
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
+msgid "Password (required):"
+msgstr "Pasvorto (bezonata):"
+
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
+msgid "Enter archive password"
+msgstr "Entajpu arĥivan pasvorton"
+
+#: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
+#: ui/accountimportexportview.ui:161 src/accountimportexportview.cpp:102
+msgid "Cancel"
+msgstr "Rezigni"
+
+#: ui/accountdevicestab.ui:141
+msgid "Export on the Ring"
+msgstr "Elporti sur Ring"
+
+#: ui/accountdevicestab.ui:162
+msgid "Exporting account on the Ring..."
+msgstr "Elportanta konton sur Ring..."
+
+#: ui/accountdevicestab.ui:186
+msgid "Your generated pin:"
+msgstr "Via generita PIN:"
+
+#: ui/accountdevicestab.ui:217 ui/accountdevicestab.ui:239
+#: ui/accountcreationwizard.ui:551
+msgid "OK"
+msgstr "Okej"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
@@ -695,6 +258,10 @@ msgstr ""
 msgid "Generating your Ring account..."
 msgstr "Generanta vian Ring-an konton..."
 
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:310
+msgid "Registering username..."
+msgstr "Registranta uzantnomon..."
+
 #: ui/accountcreationwizard.ui:494
 msgid "This may take a few minutes."
 msgstr "Tio povas daŭri iom da minutoj."
@@ -707,77 +274,141 @@ msgstr "Ekstraktanta vian Ring konton..."
 msgid "Error creating/loading account."
 msgstr "Eraro kreante/ŝarĝante konton."
 
-#: ui/accountcreationwizard.ui:551 ui/accountdevicestab.ui:217
-#: ui/accountdevicestab.ui:239
-msgid "OK"
-msgstr "Okej"
+#: ui/generalsettingsview.ui:34
+msgid "Profile Settings"
+msgstr "Profilaj Agordoj"
 
-#: ui/accountdevicestab.ui:21
-msgid "My Device ID:"
-msgstr "Identigaĵo de Mia Aparato:"
+#: ui/generalsettingsview.ui:76
+msgid "Ring Settings"
+msgstr "Ring Agordoj"
 
-#: ui/accountdevicestab.ui:40
-msgid "Devices"
-msgstr "Aparatoj"
+#: ui/generalsettingsview.ui:92
+msgid "Start Ring on login"
+msgstr "Lanĉi Ring je ensaluto"
 
-#: ui/accountdevicestab.ui:66
-msgid "Add device"
-msgstr "Aldoni aparaton"
+#: ui/generalsettingsview.ui:100
+msgid "Show Ring icon in the notification area (systray)."
+msgstr "Montri Ring bildeton en la sciiga areo."
 
-#: ui/accountdevicestab.ui:83
-msgid "Add New Device"
-msgstr "Aldoni Novan Aparaton"
+#: ui/generalsettingsview.ui:108
+msgid "Bring Ring to the foreground on incoming calls."
+msgstr "Superigi Ring je envenaj vokoj."
 
-#: ui/accountdevicestab.ui:98
-msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
-"within 5 minutes of its generation."
-msgstr "Por aldoni novan aparaton al via Ring konto, vi elportu vian konton sur Ring. Vi akiros PIN kodon, kiun vi devos enigi en vian novan aparaton dum 5 minutoj."
+#: ui/generalsettingsview.ui:116
+msgid "Enable notifications for incoming calls."
+msgstr "Ŝalti sciigojn por envenaj vokoj."
 
-#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
-msgid "Password (required):"
-msgstr "Pasvorto (bezonata):"
+#: ui/generalsettingsview.ui:124
+msgid "Enable notifications for new chat messages."
+msgstr "Ŝalti sciigojn por novaj babilmesaĝoj."
 
-#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
-msgid "Enter archive password"
-msgstr "Entajpu arĥivan pasvorton"
-
-#: ui/accountdevicestab.ui:141
-msgid "Export on the Ring"
-msgstr "Elporti sur Ring"
-
-#: ui/accountdevicestab.ui:162
-msgid "Exporting account on the Ring..."
-msgstr "Elportanta konton sur Ring..."
-
-#: ui/accountdevicestab.ui:186
-msgid "Your generated pin:"
-msgstr "Via generita PIN:"
-
-#: ui/accountgeneraltab.ui:69
-msgid "Account"
-msgstr "Konto"
-
-#: ui/accountgeneraltab.ui:135
-msgid "Parameters"
-msgstr "Parametroj"
-
-#: ui/accountgeneraltab.ui:175
-msgid "Note: this will change the password only on this device."
+#: ui/generalsettingsview.ui:132
+msgid "Show images and videos in chat window."
 msgstr ""
 
-#: ui/accountgeneraltab.ui:194
-msgid "Current password"
+#: ui/generalsettingsview.ui:140
+msgid "Entering a number in the search entry will place a new call."
+msgstr "Enigi numeron en la serĉejon vokos la numeron."
+
+#: ui/generalsettingsview.ui:155
+msgid "Show chat on the right."
+msgstr "Montru babilon dekstre."
+
+#: ui/generalsettingsview.ui:161
+msgid "Show chat on the bottom."
+msgstr "Montru babilon sube."
+
+#: ui/generalsettingsview.ui:185
+msgid "History Settings"
+msgstr "Historiaj agordoj"
+
+#: ui/generalsettingsview.ui:203
+msgid "Keep history for (days):"
+msgstr "Konservi historian dum (tagoj):"
+
+#: ui/generalsettingsview.ui:224
+msgid "(set to 0 for unlimited history)"
+msgstr "(Agordu 0 por senlima historio)"
+
+#: ui/generalsettingsview.ui:234
+msgid "Clear all history"
+msgstr "Vakigi tutan historion"
+
+#: ui/ringmainwindow.ui:61
+msgid "Menu"
+msgstr "Menuo"
+
+#: ui/ringmainwindow.ui:83
+msgid "General"
+msgstr "Ĝenerala"
+
+#: ui/ringmainwindow.ui:98
+msgid "Media"
+msgstr "Aŭdvidaĵo"
+
+#: ui/ringmainwindow.ui:114
+msgid "Accounts"
+msgstr "Kontoj"
+
+#: ui/ringmainwindow.ui:157
+msgid "Settings"
+msgstr "Agordoj"
+
+#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
+msgid "Conversations"
+msgstr "Konversacioj"
+
+#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
+msgid "Contact requests"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:214
-msgid "New password"
-msgstr "Nova pasvorto"
+#: ui/mediasettingsview.ui:24
+msgid "Audio Settings"
+msgstr "Aŭdiaj Agordoj"
 
-#: ui/accountgeneraltab.ui:234
-msgid "Confirm password"
-msgstr "Konfirmu pasvorton"
+#: ui/mediasettingsview.ui:40
+msgid "Audio manager:"
+msgstr "Aŭdia mastrumilo:"
+
+#: ui/mediasettingsview.ui:52
+msgid "Ringtone device:"
+msgstr "Voksona aparato:"
+
+#: ui/mediasettingsview.ui:64
+msgid "Output device:"
+msgstr "Eliga aparato:"
+
+#: ui/mediasettingsview.ui:76
+msgid "Input device:"
+msgstr "Eniga aparato:"
+
+#: ui/mediasettingsview.ui:134
+msgid "Camera Settings"
+msgstr "Kameraaj Agordoj"
+
+#: ui/mediasettingsview.ui:150
+msgid "Device:"
+msgstr "Aparato:"
+
+#: ui/mediasettingsview.ui:162
+msgid "Channel:"
+msgstr "Kanalo:"
+
+#: ui/mediasettingsview.ui:174
+msgid "Resolution:"
+msgstr "Distingivo:"
+
+#: ui/mediasettingsview.ui:186
+msgid "Frame rate:"
+msgstr "Bildrapido:"
+
+#: ui/mediasettingsview.ui:244
+msgid "Hardware Acceleration"
+msgstr ""
+
+#: ui/mediasettingsview.ui:260
+msgid "Enable hardware decoding:"
+msgstr ""
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -811,24 +442,259 @@ msgstr "Elporti"
 msgid "Import"
 msgstr "Enporti"
 
-#: ui/accountmigrationview.ui:14
-msgid "Account migration required"
-msgstr "Konta migrigo bezonata"
+#: ui/accountview.ui:42 ui/accountview.ui:45
+msgid "Remove selected account"
+msgstr "Forigi elektitan konton"
 
-#: ui/accountmigrationview.ui:39
-msgid "Alias:"
-msgstr "Kaŝnomo:"
+#: ui/accountview.ui:63 ui/accountview.ui:66
+msgid "Add new account"
+msgstr "Aldoni novan konton"
 
-#: ui/accountmigrationview.ui:102
-msgid "Please enter your password:"
+#: ui/accountview.ui:75 ui/accountview.ui:78
+msgid "Select account type"
+msgstr "Elektu tipon de konto"
+
+#: ui/accountview.ui:104
+msgid "Import archived account(s)"
+msgstr "Enporti arĥivitajn kontojn"
+
+#: ui/accountview.ui:112
+msgid "Export selected account(s)"
+msgstr "Elporti elektitajn kontojn"
+
+#: ui/editcontactview.ui:12
+msgid "Select addressbook"
+msgstr "Elekti adresaron"
+
+#: ui/editcontactview.ui:15
+msgid "Addressbook"
+msgstr "Adresaro"
+
+#: ui/editcontactview.ui:29
+msgid "Name"
+msgstr "Nomo"
+
+#: ui/editcontactview.ui:32
+msgid "Contact name"
+msgstr "Nomo de kontakto"
+
+#: ui/editcontactview.ui:47
+msgid "Select how this number will be categorized"
+msgstr "Elektu kiel tiu ĉi numero estos ordata"
+
+#: ui/editcontactview.ui:50
+msgid "Number category"
+msgstr "Numera kategorio"
+
+#: ui/editcontactview.ui:66
+msgid "Number or Ring ID to be added"
+msgstr "Numero aŭ Ring ID por aldono"
+
+#: ui/editcontactview.ui:72
+msgid "Number or Ring ID"
+msgstr "Numero aŭ Ring ID"
+
+#: ui/editcontactview.ui:83
+msgid "Save"
+msgstr "Savi"
+
+#: ui/accountvideotab.ui:50
+msgid "Enable Video"
+msgstr "Ŝalti videon"
+
+#: ui/accountvideotab.ui:80 ui/accountaudiotab.ui:57
+msgid "Up"
+msgstr "Supren"
+
+#: ui/accountvideotab.ui:87 ui/accountaudiotab.ui:64
+msgid "Down"
+msgstr "Suben"
+
+#: ui/accountvideotab.ui:98
+msgid "Video Codecs"
 msgstr ""
 
-#: ui/accountmigrationview.ui:129
-msgid "Migrate account"
-msgstr "Migrigi konton"
+#: ui/accountadvancedtab.ui:81
+msgid "Registration expire timeout (seconds):"
+msgstr "Tempolimo de registriĝo (sekunde):"
 
-#: ui/accountmigrationview.ui:148
-msgid "Migration failed, wrong password ?"
+#: ui/accountadvancedtab.ui:103
+msgid "Allow calls from unknown peers"
+msgstr "Permesi vokojn de nekonataj samtavolanoj"
+
+#: ui/accountadvancedtab.ui:117
+msgid "Allow calls from peers in your call history"
+msgstr "Permesi vokojn de samtavolanoj en via voka historio"
+
+#: ui/accountadvancedtab.ui:131
+msgid "Allow calls from peers in your contacts list"
+msgstr "Permesi vokojn de samtavolanoj en via listo de kontaktoj"
+
+#: ui/accountadvancedtab.ui:149
+msgid "Registration"
+msgstr "Registriĝo"
+
+#: ui/accountadvancedtab.ui:178
+msgid "Use random port"
+msgstr "Uzi hazardan pordon"
+
+#: ui/accountadvancedtab.ui:199
+msgid "Local port:"
+msgstr "Loka pordo:"
+
+#: ui/accountadvancedtab.ui:225
+msgid "Network Interface"
+msgstr "Reta Interfaco"
+
+#: ui/accountadvancedtab.ui:253
+msgid "Same as local parameters"
+msgstr "Same kiel lokaj parametroj"
+
+#: ui/accountadvancedtab.ui:268
+msgid "Set published address and port:"
+msgstr "Agordi publikan adreson kaj pordon:"
+
+#: ui/accountadvancedtab.ui:292
+msgid "Address"
+msgstr "Adreso"
+
+#: ui/accountadvancedtab.ui:314 src/accountadvancedtab.cpp:510
+msgid "Port"
+msgstr "Pordo"
+
+#: ui/accountadvancedtab.ui:340
+msgid "Use STUN"
+msgstr "Uzi STUN"
+
+#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
+msgid "server URL"
+msgstr "URL de servilo"
+
+#: ui/accountadvancedtab.ui:389
+msgid "Use TURN"
+msgstr "Uzi TURN"
+
+#: ui/accountadvancedtab.ui:434
+msgid "username"
+msgstr "uzantnomo"
+
+#: ui/accountadvancedtab.ui:455
+msgid "password"
+msgstr "pasvorto"
+
+#: ui/accountadvancedtab.ui:479
+msgid "realm"
+msgstr "regno"
+
+#: ui/accountadvancedtab.ui:508
+msgid "Published Address"
+msgstr "Publikita Adreso"
+
+#: ui/accountadvancedtab.ui:536
+msgid "Bootstrap Servers"
+msgstr "Praŝarĝaj Serviloj"
+
+#: ui/accountadvancedtab.ui:593
+msgid ""
+"These settings are only used during SDP session negotiation in case ICE is "
+"not supported by the server or peer."
+msgstr "Tiuj ĉi agordoj estas uzataj nur dum intertraktado de SDP seanco, se ICE ne estas subtenata de la servilo aŭ samtavolano."
+
+#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
+msgid "Min"
+msgstr "Min"
+
+#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
+msgid "Max"
+msgstr "Maks"
+
+#: ui/accountadvancedtab.ui:665
+msgid "Audio RTP Port Range"
+msgstr "Porda Amplekso de Aŭdia RTP"
+
+#: ui/accountadvancedtab.ui:741
+msgid "Video RTP Port Range"
+msgstr "Porda Amplekso de Videa RTP"
+
+#: ui/accountadvancedtab.ui:759
+msgid "SDP Session Negotiation (ICE Fallback)"
+msgstr "Intertraktado de SDP seanco (ICE retropaŝo)"
+
+#: ui/accountaudiotab.ui:75
+msgid "Audio Codecs"
+msgstr ""
+
+#: ui/usernameregistrationbox.ui:12
+msgid "enter username here"
+msgstr "enigu uzantnomon ĉi tien"
+
+#: ui/usernameregistrationbox.ui:24
+msgid "Register"
+msgstr "Registri"
+
+#: ui/accountbanstab.ui:18
+msgid "List of banned peers :"
+msgstr ""
+
+#: ui/accountbanstab.ui:62
+msgid "unban"
+msgstr ""
+
+#: ui/chatview.ui:19 ui/chatview.ui:22
+msgid "Hide chat view"
+msgstr "Kaŝi babilejon"
+
+#: ui/chatview.ui:45 ui/chatview.ui:48
+msgid "Place call"
+msgstr "Voki"
+
+#: ui/chatview.ui:60
+msgid "Add to conversations"
+msgstr ""
+
+#: ui/chatview.ui:119
+msgid "Send Invitation"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:69
+msgid "Account"
+msgstr "Konto"
+
+#: ui/accountgeneraltab.ui:135
+msgid "Parameters"
+msgstr "Parametroj"
+
+#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
+#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
+msgid "Change password"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:175
+msgid "Note: this will change the password only on this device."
+msgstr ""
+
+#: ui/accountgeneraltab.ui:194
+msgid "Current password"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:214
+msgid "New password"
+msgstr "Nova pasvorto"
+
+#: ui/accountgeneraltab.ui:234
+msgid "Confirm password"
+msgstr "Konfirmu pasvorton"
+
+#: ui/incomingcallview.ui:99
+msgid "Incoming..."
+msgstr "Envena..."
+
+#: ui/incomingcallview.ui:135
+msgid "Accept"
+msgstr "Akcepti"
+
+#: ui/incomingcallview.ui:156
+msgid "Reject"
 msgstr ""
 
 #: ui/accountsecuritytab.ui:37
@@ -903,34 +769,6 @@ msgstr "Bezoni atestilon por envenaj TLS konektoj"
 msgid "Negotiation Encryption"
 msgstr "Ĉifrado de Intertraktado"
 
-#: ui/accountvideotab.ui:50
-msgid "Enable Video"
-msgstr "Ŝalti videon"
-
-#: ui/accountvideotab.ui:98
-msgid "Video Codecs"
-msgstr ""
-
-#: ui/accountview.ui:42 ui/accountview.ui:45
-msgid "Remove selected account"
-msgstr "Forigi elektitan konton"
-
-#: ui/accountview.ui:63 ui/accountview.ui:66
-msgid "Add new account"
-msgstr "Aldoni novan konton"
-
-#: ui/accountview.ui:75 ui/accountview.ui:78
-msgid "Select account type"
-msgstr "Elektu tipon de konto"
-
-#: ui/accountview.ui:104
-msgid "Import archived account(s)"
-msgstr "Enporti arĥivitajn kontojn"
-
-#: ui/accountview.ui:112
-msgid "Export selected account(s)"
-msgstr "Elporti elektitajn kontojn"
-
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
 msgstr "Foti"
@@ -947,295 +785,448 @@ msgstr "Reveni"
 msgid "Set selection as image"
 msgstr "Uzu elektaĵon kiel bildo"
 
-#: ui/chatview.ui:19 ui/chatview.ui:22
-msgid "Hide chat view"
-msgstr "Kaŝi babilejon"
-
-#: ui/chatview.ui:45 ui/chatview.ui:48
-msgid "Place call"
-msgstr "Voki"
-
-#: ui/chatview.ui:60
-msgid "Send invitation"
+#: src/ring_client.cpp:147
+#, c-format
+msgid ""
+"Unable to initialize.\n"
+"Make sure the Ring daemon (dring) is running.\n"
+"Error: %s"
 msgstr ""
 
-#: ui/chatview.ui:130
-msgid "Send Invitation"
+#: src/ring_client.cpp:150
+msgid "Ring Error"
+msgstr "Ring Eraro"
+
+#: src/ring_client.cpp:292
+msgctxt ""
+"In the status icon menu, toggle action to show or hide the Ring main window"
+msgid "Show Ring"
 msgstr ""
 
-#: ui/choosecontactview.ui:34
-msgid "Create New"
-msgstr "Krei Novan"
-
-#: ui/currentcallview.ui:251
-msgid "End this call"
-msgstr "Finigi tiun ĉi vokon"
-
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:459
-msgid "End call"
-msgstr "Finigi vokon"
-
-#: ui/currentcallview.ui:276
-msgid "Toggle hold"
-msgstr "Ŝalti detenon"
-
-#: ui/currentcallview.ui:280 ui/currentcallview.ui:306
-#: ui/currentcallview.ui:450
-msgid "Hold"
-msgstr "Deteni"
-
-#: ui/currentcallview.ui:302
-msgid "Toggle mute audio"
-msgstr "Ŝalti aŭdion"
-
-#: ui/currentcallview.ui:328
-msgid "Toggle mute video"
-msgstr "Ŝalti videon"
-
-#: ui/currentcallview.ui:332 ui/currentcallview.ui:441
-msgid "Mute video"
-msgstr "Kaŝi videon"
-
-#: ui/currentcallview.ui:355
-msgid "Toggle record audio"
-msgstr "Ŝalti registradon de aŭdio"
-
-#: ui/currentcallview.ui:358
-msgid "Record audio"
-msgstr "Registri aŭdion"
-
-#: ui/currentcallview.ui:378
-msgid "Adjust outgoing video quality"
-msgstr "Agordi kvaliton de eliranta video"
-
-#: ui/currentcallview.ui:383 ui/currentcallview.ui:468
-msgid "Video quality"
-msgstr "Videa kvalito"
-
-#: ui/currentcallview.ui:402
-msgid "Toggle show chat"
-msgstr "Ŝalti babilon"
-
-#: ui/currentcallview.ui:406 ui/currentcallview.ui:423
-msgid "Chat"
-msgstr "Babilo"
-
-#: ui/currentcallview.ui:432
-msgid "Mute audio"
-msgstr "Silentigi aŭdion"
-
-#: ui/currentcallview.ui:477
-msgid "Record"
-msgstr "Registri"
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr "Elekti adresaron"
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr "Adresaro"
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "Nomo"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr "Nomo de kontakto"
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr "Elektu kiel tiu ĉi numero estos ordata"
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr "Numera kategorio"
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr "Numero aŭ Ring ID por aldono"
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr "Numero aŭ Ring ID"
-
-#: ui/editcontactview.ui:83
-msgid "Save"
-msgstr "Savi"
-
-#: ui/generalsettingsview.ui:34
-msgid "Profile Settings"
-msgstr "Profilaj Agordoj"
-
-#: ui/generalsettingsview.ui:76
-msgid "Ring Settings"
-msgstr "Ring Agordoj"
-
-#: ui/generalsettingsview.ui:92
-msgid "Start Ring on login"
-msgstr "Lanĉi Ring je ensaluto"
-
-#: ui/generalsettingsview.ui:100
-msgid "Show Ring icon in the notification area (systray)."
-msgstr "Montri Ring bildeton en la sciiga areo."
-
-#: ui/generalsettingsview.ui:108
-msgid "Bring Ring to the foreground on incoming calls."
-msgstr "Superigi Ring je envenaj vokoj."
-
-#: ui/generalsettingsview.ui:116
-msgid "Enable notifications for incoming calls."
-msgstr "Ŝalti sciigojn por envenaj vokoj."
-
-#: ui/generalsettingsview.ui:124
-msgid "Enable notifications for new chat messages."
-msgstr "Ŝalti sciigojn por novaj babilmesaĝoj."
-
-#: ui/generalsettingsview.ui:132
-msgid "Show images and videos in chat window."
+#: src/ring_client.cpp:296
+msgid "Quit"
 msgstr ""
 
-#: ui/generalsettingsview.ui:140
-msgid "Entering a number in the search entry will place a new call."
-msgstr "Enigi numeron en la serĉejon vokos la numeron."
+#: src/ringnotify.cpp:148
+msgid "Incoming call"
+msgstr "Envena voko"
 
-#: ui/generalsettingsview.ui:155
-msgid "Show chat on the right."
-msgstr "Montru babilon dekstre."
+#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
+msgctxt "notification action name"
+msgid "Show"
+msgstr "Montri"
 
-#: ui/generalsettingsview.ui:161
-msgid "Show chat on the bottom."
-msgstr "Montru babilon sube."
+#: src/ringnotify.cpp:267
+#, c-format
+msgctxt "Text message notification"
+msgid "%s says:"
+msgstr "%s diras:"
 
-#: ui/generalsettingsview.ui:185
-msgid "History Settings"
-msgstr "Historiaj agordoj"
+#: src/accountimportexportview.cpp:99
+msgid "Select account export location"
+msgstr "Elektu lokon de konta elporto"
 
-#: ui/generalsettingsview.ui:203
-msgid "Keep history for (days):"
-msgstr "Konservi historian dum (tagoj):"
+#: src/accountimportexportview.cpp:104
+msgid "Select"
+msgstr "Elekti"
 
-#: ui/generalsettingsview.ui:224
-msgid "(set to 0 for unlimited history)"
-msgstr "(Agordu 0 por senlima historio)"
+#: src/accountimportexportview.cpp:197
+msgid "Error importing account(s)"
+msgstr "Eraro enportanta kontojn"
 
-#: ui/generalsettingsview.ui:234
-msgid "Clear all history"
-msgstr "Vakigi tutan historion"
+#: src/accountimportexportview.cpp:244
+msgid "Error exporting account(s)"
+msgstr "Eraro elportanta kontojn"
 
-#: ui/incomingcallview.ui:106
-msgid "Incoming..."
-msgstr "Envena..."
+#: src/usernameregistrationbox.cpp:128
+msgid "The entered username is not available"
+msgstr "La enigita uzantnomo estas nehavebla"
 
-#: ui/incomingcallview.ui:142
-msgid "Accept"
-msgstr "Akcepti"
+#: src/usernameregistrationbox.cpp:129
+msgid "Username is not available"
+msgstr "Uzantnomo nehavebla"
 
-#: ui/incomingcallview.ui:163
-msgid "Reject"
+#: src/usernameregistrationbox.cpp:138
+msgid "The entered username is not valid"
+msgstr "La enigita uzantnomo estas nevalida"
+
+#: src/usernameregistrationbox.cpp:139
+msgid "Username is not valid"
+msgstr "Uzantnomo nevalida"
+
+#: src/usernameregistrationbox.cpp:148
+msgid "The entered username is available"
+msgstr "La enigita uzantnomo estas havebla"
+
+#: src/usernameregistrationbox.cpp:149
+msgid "Username is available"
+msgstr "Uzantnomo havebla"
+
+#: src/usernameregistrationbox.cpp:158
+msgid "Failed to perform lookup"
+msgstr "Ne eblas serĉi"
+
+#: src/usernameregistrationbox.cpp:159
+msgid "Could not lookup username"
+msgstr "Ne eblis serĉi uzantnomon"
+
+#: src/usernameregistrationbox.cpp:248
+msgid "Looking up username availability..."
+msgstr "Serĉanta uzantnoman haveblecon..."
+
+#: src/usernameregistrationbox.cpp:319
+msgid "Could not initiate name registration, try again."
 msgstr ""
 
-#: ui/incomingcallview.ui:186
-msgid "Hang up"
-msgstr "Fini vokon"
+#: src/usernameregistrationbox.cpp:361
+msgid "Register this username on the blockchain"
+msgstr "Registru ĉi tiun uzantnomon je la blokĉeno"
 
-#: ui/mediasettingsview.ui:24
-msgid "Audio Settings"
-msgstr "Aŭdiaj Agordoj"
+#: src/usernameregistrationbox.cpp:397
+msgid "Invalid username"
+msgstr "Nevalida uzantnomo"
 
-#: ui/mediasettingsview.ui:40
-msgid "Audio manager:"
-msgstr "Aŭdia mastrumilo:"
+#: src/usernameregistrationbox.cpp:404 src/accountdevicestab.cpp:195
+msgid "Bad password"
+msgstr "Malĝusta pasvorto"
 
-#: ui/mediasettingsview.ui:52
-msgid "Ringtone device:"
-msgstr "Voksona aparato:"
+#: src/usernameregistrationbox.cpp:411
+msgid "Username already taken"
+msgstr "Uzantnomo jam prenita"
 
-#: ui/mediasettingsview.ui:64
-msgid "Output device:"
-msgstr "Eliga aparato:"
+#: src/usernameregistrationbox.cpp:418
+msgid "Network error"
+msgstr "Reta eraro"
 
-#: ui/mediasettingsview.ui:76
-msgid "Input device:"
-msgstr "Eniga aparato:"
+#: src/generalsettingsview.cpp:103
+msgid ""
+"This is a destructive operation. Are you sure you want to delete all of your"
+" chat and call history?"
+msgstr "Tiu ĉi ago estas detrua. Ĉu vi certe volas forigi ĉiom da via babila kaj voka historio?"
 
-#: ui/mediasettingsview.ui:134
-msgid "Camera Settings"
-msgstr "Kameraaj Agordoj"
+#: src/backends/edscontactbackend.cpp:193
+msgid "Unknown EDS addressbook"
+msgstr "Nekonata EDS adresaro"
 
-#: ui/mediasettingsview.ui:150
-msgid "Device:"
-msgstr "Aparato:"
-
-#: ui/mediasettingsview.ui:162
-msgid "Channel:"
-msgstr "Kanalo:"
-
-#: ui/mediasettingsview.ui:174
-msgid "Resolution:"
-msgstr "Distingivo:"
-
-#: ui/mediasettingsview.ui:186
-msgid "Frame rate:"
-msgstr "Bildrapido:"
-
-#: ui/mediasettingsview.ui:244
-msgid "Hardware Acceleration"
-msgstr ""
-
-#: ui/mediasettingsview.ui:260
-msgid "Enable hardware decoding:"
-msgstr ""
-
-#: ui/ringgearsmenu.ui:13
-msgid "_About"
-msgstr "_Pri"
-
-#: ui/ringgearsmenu.ui:19
-msgid "_Quit"
-msgstr "_Eliri"
-
-#: ui/ringmainwindow.ui:17
-msgid "Menu"
-msgstr "Menuo"
-
-#: ui/ringmainwindow.ui:51
-msgid "General"
-msgstr "Ĝenerala"
-
-#: ui/ringmainwindow.ui:61
-msgid "Media"
-msgstr "Aŭdvidaĵo"
-
-#: ui/ringmainwindow.ui:72
-msgid "Accounts"
-msgstr "Kontoj"
-
-#: ui/ringmainwindow.ui:102
-msgid "Settings"
-msgstr "Agordoj"
-
-#: ui/ringmainwindow.ui:215
-msgid "Conversations"
-msgstr "Konversacioj"
-
-#: ui/ringmainwindow.ui:237
+#: src/backends/edscontactbackend.cpp:213
+msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Kontaktoj"
 
-#: ui/ringmainwindow.ui:259
-msgid "History"
-msgstr "Historio"
+#: src/accountadvancedtab.cpp:389
+msgid "_Remove server"
+msgstr "_Forigi servilon"
 
-#: ui/ringmainwindow.ui:281
-msgid "Contact requests"
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
+msgid "Hostname"
+msgstr "Nomo de gastiga komputilo"
+
+#: src/accountgeneraltab.cpp:196
+msgid "New password and its confirmation are different"
 msgstr ""
 
-#: ui/usernameregistrationbox.ui:12
-msgid "enter username here"
-msgstr "enigu uzantnomon ĉi tien"
+#: src/accountgeneraltab.cpp:206
+msgid "Password changed!"
+msgstr ""
 
-#: ui/usernameregistrationbox.ui:24
-msgid "Register"
-msgstr "Registri"
+#: src/accountgeneraltab.cpp:209
+msgid "Incorrect password"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:236
+msgid "Alias"
+msgstr "Kaŝnomo"
+
+#: src/accountgeneraltab.cpp:247
+msgid "Type"
+msgstr "Tipo"
+
+#: src/accountgeneraltab.cpp:273
+msgid "auto-generating..."
+msgstr "aŭtomate generanta..."
+
+#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
+msgid "Username"
+msgstr "Uzantnomo"
+
+#: src/accountgeneraltab.cpp:322
+msgid "Password"
+msgstr "Pasvorto"
+
+#: src/accountgeneraltab.cpp:335
+msgid "Show password"
+msgstr "Montru pasvorton"
+
+#: src/accountgeneraltab.cpp:341
+msgid "Proxy"
+msgstr "Prokura servilo"
+
+#: src/accountgeneraltab.cpp:351
+msgid "Voicemail number"
+msgstr "Parolita mesaĝo"
+
+#: src/accountgeneraltab.cpp:363
+msgid "Name service URL"
+msgstr "URL de noma servo"
+
+#: src/accountgeneraltab.cpp:376
+msgid "Auto-answer calls"
+msgstr "Aŭtomate respondi vokojn"
+
+#: src/accountgeneraltab.cpp:384
+msgid "UPnP enabled"
+msgstr "UPnP ŝaltita"
+
+#: src/video/video_widget.cpp:532
+msgid "Share screen area"
+msgstr "Kunhavigi areon de ekrano"
+
+#: src/video/video_widget.cpp:543
+msgid "Share file"
+msgstr "Kunhavigi dosieron"
+
+#: src/video/video_widget.cpp:556
+msgid "Show advanced information"
+msgstr "Montri specialajn informojn"
+
+#: src/avatarmanipulation.cpp:380
+msgid "Open Avatar Image"
+msgstr "Malfermi Profilbildon"
+
+#: src/avatarmanipulation.cpp:383
+msgid "_Cancel"
+msgstr "_Rezigni"
+
+#: src/avatarmanipulation.cpp:385
+msgid "_Open"
+msgstr "_Malfermi"
+
+#: src/dialogs.c:53
+msgid "Working..."
+msgstr "Laboranta..."
+
+#: src/dialogs.c:84
+#, c-format
+msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+msgid ""
+"Liberté, Égalité, Fraternité - Version 1.0\n"
+"built on %.25s"
+msgstr ""
+
+#: src/dialogs.c:136
+msgid ""
+"The GNOME client for Ring.\n"
+"Ring is free software for universal communication which respects the freedoms and privacy of its users."
+msgstr "La GNOME kliento por Ring.\nRing estas libera programo por universala komunikado, kiu respektas liberon kaj privatecon de siaj uzantoj."
+
+#: src/accountdevicestab.cpp:201
+msgid "Network error, try again"
+msgstr "Reteraro, reprovu poste"
+
+#: src/accountdevicestab.cpp:213
+msgid "Could not initiate export to the Ring, try again"
+msgstr "Ne eblis komenci la elporton por Ring, reprovu poste"
+
+#: src/accountdevicestab.cpp:246
+msgctxt "Device Name Column"
+msgid "Name"
+msgstr "Nomo"
+
+#: src/accountdevicestab.cpp:251
+msgctxt "Device ID Column"
+msgid "ID"
+msgstr "Identigaĵo"
+
+#: src/ringmainwindow.cpp:839
+msgctxt "button next to search entry will place a new call"
+msgid "place call"
+msgstr "voki"
+
+#: src/ringmainwindow.cpp:841
+msgctxt "button next to search entry will open chat"
+msgid "open chat"
+msgstr "malfermi babilejon"
+
+#: src/ringmainwindow.cpp:1165
+msgctxt ""
+"Please try to make the translation 50 chars or less so that it fits into the"
+" layout"
+msgid "Search contacts or enter number"
+msgstr "Serĉu kontaktojn aŭ entajpu numeron"
+
+#: src/editcontactview.cpp:208
+msgctxt "Phone number category"
+msgid "home"
+msgstr "hejmo"
+
+#: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
+msgid "Enabled"
+msgstr "Ŝaltita"
+
+#: src/accountvideotab.cpp:190
+msgctxt "The name of the codec"
+msgid "Name"
+msgstr "Nomo"
+
+#: src/accountvideotab.cpp:194 src/accountaudiotab.cpp:185
+msgid "Bitrate"
+msgstr "Bitrapido"
+
+#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
+msgctxt "Name of error window (dialog)"
+msgid "Ring Error"
+msgstr "Ring Eraro"
+
+#: src/native/dbuserrorhandler.cpp:57
+msgid "Trying to reconnect to the Ring daemon (dring)..."
+msgstr "Provanta rekonekti al la Ring demono (dring)..."
+
+#: src/native/dbuserrorhandler.cpp:87
+msgid ""
+"Could not re-connect to the Ring daemon (dring).\n"
+"Ring will now quit."
+msgstr "Ne povis rekonekti al la Ring demono (dring).\nRing nun ĉesos."
+
+#: src/accountaudiotab.cpp:181
+msgctxt "Name of the codec"
+msgid "Name"
+msgstr "Nomo"
+
+#: src/accountaudiotab.cpp:189
+msgid "Samplerate"
+msgstr "Specimenrapido"
+
+#: src/conversationpopupmenu.cpp:147
+msgid "_Place call"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:153
+msgid "_Add to conversations"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:157
+msgid "_Discard invitation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:160
+msgid "_Block invitations"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:165
+msgid "_Clear history"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:168
+msgid "_Remove conversation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:171
+msgid "_Block contact"
+msgstr ""
+
+#: src/ring_client_options.c:66
+msgid "Enable debug"
+msgstr "Ŝalti sencimigon"
+
+#: src/ring_client_options.c:68
+msgid ""
+"Restores the hidden state of the main window (only applicable to the primary"
+" instance)"
+msgstr "Restaŭras kaŝecon de la ĉefa fenestro (nur por la ĉefa ekzemplo)"
+
+#: src/ring_client_options.c:85
+msgid "- GNOME client for Ring"
+msgstr "- GNOME kliento por Ring"
+
+#: src/accountcreationwizard.cpp:231
+msgid ""
+"Your account was created, but we could not register your username. Try again"
+" from the settings menu."
+msgstr "Via konto estas kreita, sed ni ne povis registrigi vian uzantnomon. Reprovu per la agorda menuo."
+
+#: src/accountcreationwizard.cpp:275
+msgctxt "The default username / account alias, if none is set by the user"
+msgid "Unknown"
+msgstr "Nekonata"
+
+#: src/accountcreationwizard.cpp:471
+msgid "Passwords don't match"
+msgstr "Pasvortoj ne kongruas"
+
+#: src/ringwelcomeview.cpp:88
+msgid ""
+"This is your Ring username.\n"
+"Copy and share it with your friends!"
+msgstr ""
+
+#: src/ringwelcomeview.cpp:96
+msgctxt "Do not translate \"RingID\""
+msgid ""
+"This is your RingID.\n"
+"Copy and share it with your friends!"
+msgstr "Tio ĉi estas via RingID.\nKopiu kaj kunhavigu ĝin kun viaj amikoj!"
+
+#: src/ringwelcomeview.cpp:151
+msgid ""
+"Ring is free software for universal communication which respects the "
+"freedoms and privacy of its users."
+msgstr "Ring estas libera programo por universala komunikado, kiu respektas liberon kaj privatecon de siaj uzantoj."
+
+#: src/ringwelcomeview.cpp:205
+msgctxt "Do not translate \"Ring ID\""
+msgid "Ring ID QR code"
+msgstr ""
+
+#: src/currentcallview.cpp:535
+msgctxt "Enable automatic video quality"
+msgid "Auto"
+msgstr "Aŭtomata"
+
+#: src/accountview.cpp:168
+msgctxt "Account settings"
+msgid "General"
+msgstr "Ĝenerala"
+
+#: src/accountview.cpp:176
+msgctxt "Account settings"
+msgid "Devices"
+msgstr "Aparatoj"
+
+#: src/accountview.cpp:182
+msgctxt "Account settings"
+msgid "Security"
+msgstr "Sekurigo"
+
+#: src/accountview.cpp:187
+msgctxt "Account settings"
+msgid "Advanced"
+msgstr "Speciala"
+
+#: src/accountview.cpp:194
+msgctxt "List of banned peers"
+msgid "Bans"
+msgstr ""
+
+#: src/accountview.cpp:250
+#, c-format
+msgid "Are you sure you want to delete account \"%s\"?"
+msgstr "Ĉu vi certe volas forigi la konton \"%s\"?"
+
+#: src/accountview.cpp:377
+msgid "New Account"
+msgstr "Nova konto"
+
+#: src/accountview.cpp:527
+msgctxt "Account state column"
+msgid "Enabled"
+msgstr "Ŝaltita"
+
+#: src/accountview.cpp:533
+msgctxt "Account alias (name) column"
+msgid "Alias"
+msgstr "Kaŝnomo"
+
+#: src/accountview.cpp:541
+msgctxt "Account status column"
+msgid "Status"
+msgstr "Stato"

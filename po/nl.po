@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-08 23:08-0400\n"
-"PO-Revision-Date: 2017-10-05 14:50+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"POT-Creation-Date: 2017-11-19 22:09-0500\n"
+"PO-Revision-Date: 2017-11-18 10:42+0000\n"
+"Last-Translator: Nathan Follens\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/ring/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,588 +20,151 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/accountadvancedtab.cpp:389
-msgid "_Remove server"
-msgstr "Server ve_rwijderen"
+#: ui/ringgearsmenu.ui:13
+msgid "_About"
+msgstr "_Over"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
-msgid "Hostname"
-msgstr "Hostnaam"
+#: ui/ringgearsmenu.ui:19
+msgid "_Quit"
+msgstr "_Afsluiten"
 
-#: src/accountadvancedtab.cpp:510 ui/accountadvancedtab.ui:314
-msgid "Port"
-msgstr "Poort"
+#: ui/choosecontactview.ui:34
+msgid "Create New"
+msgstr "Nieuw aanmaken"
 
-#: src/accountaudiotab.cpp:175 src/accountvideotab.cpp:184
-msgid "Enabled"
-msgstr "Ingeschakeld"
+#: ui/accountmigrationview.ui:14
+msgid "Account migration required"
+msgstr "Accountmigratie vereist"
 
-#: src/accountaudiotab.cpp:181
-msgctxt "Name of the codec"
-msgid "Name"
-msgstr "Naam"
+#: ui/accountmigrationview.ui:39
+msgid "Alias:"
+msgstr "Alias:"
 
-#: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
-msgid "Bitrate"
-msgstr "Bitrate"
+#: ui/accountmigrationview.ui:102
+msgid "Please enter your password:"
+msgstr "Voer je wachtwoord in:"
 
-#: src/accountaudiotab.cpp:189
-msgid "Samplerate"
-msgstr "Samplerate"
+#: ui/accountmigrationview.ui:129
+msgid "Migrate account"
+msgstr "Account migreren"
 
-#: src/accountcreationwizard.cpp:231
-msgid ""
-"Your account was created, but we could not register your username. Try again"
-" from the settings menu."
-msgstr "Je account is aangemaakt, maar we konden je gebruikersnaam niet registreren. Probeer het opnieuw via de instellingen."
+#: ui/accountmigrationview.ui:148
+msgid "Migration failed, wrong password ?"
+msgstr "Migratie mislukt, verkeerd wachtwoord?"
 
-#: src/accountcreationwizard.cpp:275
-msgctxt "The default username / account alias, if none is set by the user"
-msgid "Unknown"
-msgstr "Onbekend"
+#: ui/currentcallview.ui:251
+msgid "End this call"
+msgstr "Deze oproep beëindigen "
 
-#: src/accountcreationwizard.cpp:468
-msgid "Passwords don't match"
-msgstr "Wachtwoorden komen niet overeen"
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:457
+msgid "End call"
+msgstr "Oproep beëindigen"
 
-#: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
-msgid "Bad password"
-msgstr "Slecht wachtwoord"
+#: ui/currentcallview.ui:275
+msgid "Toggle hold"
+msgstr "Wacht in/uitschakelen"
 
-#: src/accountdevicestab.cpp:201
-msgid "Network error, try again"
-msgstr "Netwerkfout, probeer het opnieuw"
+#: ui/currentcallview.ui:279 ui/currentcallview.ui:304
+#: ui/currentcallview.ui:448
+msgid "Hold"
+msgstr "In wacht zetten"
 
-#: src/accountdevicestab.cpp:213
-msgid "Could not initiate export to the Ring, try again"
-msgstr "Kon export naar de Ring niet initialiseren, probeer het opnieuw"
+#: ui/currentcallview.ui:300
+msgid "Toggle mute audio"
+msgstr "Geluid in/uitschakelen"
 
-#: src/accountdevicestab.cpp:246
-msgctxt "Device Name Column"
-msgid "Name"
-msgstr "Naam"
+#: ui/currentcallview.ui:325
+msgid "Toggle mute video"
+msgstr "Video in/uitschakelen"
 
-#: src/accountdevicestab.cpp:251
-msgctxt "Device ID Column"
-msgid "ID"
-msgstr "ID"
+#: ui/currentcallview.ui:329 ui/currentcallview.ui:439
+msgid "Mute video"
+msgstr "Video uitschakelen"
 
-#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-msgid "Change password"
-msgstr "Wachtwoord wijzigen"
+#: ui/currentcallview.ui:352
+msgid "Toggle record audio"
+msgstr "Geluid opname in/uitschakelen"
 
-#: src/accountgeneraltab.cpp:196
-msgid "New password and its confirmation are different"
-msgstr "Nieuw wachtwoord en bevestiging komen niet overeen"
+#: ui/currentcallview.ui:355
+msgid "Record audio"
+msgstr "Geluid opnemen"
 
-#: src/accountgeneraltab.cpp:206
-msgid "Password changed!"
-msgstr "Wachtwoord gewijzigd!"
+#: ui/currentcallview.ui:376
+msgid "Adjust outgoing video quality"
+msgstr "Uitgaande videokwaliteit aanpassen"
 
-#: src/accountgeneraltab.cpp:209
-msgid "Incorrect password"
-msgstr "Onjuist wachtwoord"
+#: ui/currentcallview.ui:381 ui/currentcallview.ui:466
+msgid "Video quality"
+msgstr "Videokwaliteit"
 
-#: src/accountgeneraltab.cpp:236
-msgid "Alias"
-msgstr "Alias"
+#: ui/currentcallview.ui:400
+msgid "Toggle show chat"
+msgstr "Gesprek tonen/verbergen"
 
-#: src/accountgeneraltab.cpp:247
-msgid "Type"
-msgstr "Type"
+#: ui/currentcallview.ui:404 ui/currentcallview.ui:421
+msgid "Chat"
+msgstr "Gesprek"
 
-#: src/accountgeneraltab.cpp:273
-msgid "auto-generating..."
-msgstr "automatisch genereren..."
+#: ui/currentcallview.ui:430
+msgid "Mute audio"
+msgstr "Geluid dempen"
 
-#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
-msgid "Username"
-msgstr "Gebruikersnaam"
+#: ui/currentcallview.ui:475
+msgid "Record"
+msgstr "Opnemen"
 
-#: src/accountgeneraltab.cpp:322
-msgid "Password"
-msgstr "Wachtwoord"
+#: ui/accountdevicestab.ui:21
+msgid "My Device ID:"
+msgstr "Mijn apparaats-ID:"
 
-#: src/accountgeneraltab.cpp:335
-msgid "Show password"
-msgstr "Wachtwoord tonen"
-
-#: src/accountgeneraltab.cpp:341
-msgid "Proxy"
-msgstr "Proxy"
-
-#: src/accountgeneraltab.cpp:351
-msgid "Voicemail number"
-msgstr "Voicemailnummer"
-
-#: src/accountgeneraltab.cpp:363
-msgid "Name service URL"
-msgstr "Naamdienst-URL"
-
-#: src/accountgeneraltab.cpp:376
-msgid "Auto-answer calls"
-msgstr "Oproepen automatisch beantwoorden"
-
-#: src/accountgeneraltab.cpp:384
-msgid "UPnP enabled"
-msgstr "UPnP ingeschakeld"
-
-#: src/accountimportexportview.cpp:99
-msgid "Select account export location"
-msgstr "Selecteer account-exportlocatie"
-
-#: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:84
-#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
-msgid "Cancel"
-msgstr "Annuleren"
-
-#: src/accountimportexportview.cpp:104
-msgid "Select"
-msgstr "Selecteren"
-
-#: src/accountimportexportview.cpp:198
-msgid "Error importing account(s)"
-msgstr "Fout bij importeren van account(s)"
-
-#: src/accountimportexportview.cpp:245
-msgid "Error exporting account(s)"
-msgstr "Fout bij exporteren van account(s)"
-
-#: src/accountvideotab.cpp:190
-msgctxt "The name of the codec"
-msgid "Name"
-msgstr "Naam"
-
-#: src/accountview.cpp:168
-msgctxt "Account settings"
-msgid "General"
-msgstr "Algemeen"
-
-#: src/accountview.cpp:176
-msgctxt "Account settings"
+#: ui/accountdevicestab.ui:40
 msgid "Devices"
 msgstr "Apparaten"
 
-#: src/accountview.cpp:182
-msgctxt "Account settings"
-msgid "Security"
-msgstr "Beveiliging"
+#: ui/accountdevicestab.ui:66
+msgid "Add device"
+msgstr "Apparaat toevoegen"
 
-#: src/accountview.cpp:187
-msgctxt "Account settings"
-msgid "Advanced"
-msgstr "Geavanceerd"
+#: ui/accountdevicestab.ui:83
+msgid "Add New Device"
+msgstr "Nieuw apparaat toevoegen"
 
-#: src/accountview.cpp:194
-msgctxt "List of banned peers"
-msgid "Bans"
-msgstr "Geblokkeerd"
-
-#: src/accountview.cpp:250
-#, c-format
-msgid "Are you sure you want to delete account \"%s\"?"
-msgstr "Weet je zeker dat je account \"%s\" wil verwijderen?"
-
-#: src/accountview.cpp:377
-msgid "New Account"
-msgstr "Account aanmaken"
-
-#: src/accountview.cpp:527
-msgctxt "Account state column"
-msgid "Enabled"
-msgstr "Ingeschakeld"
-
-#: src/accountview.cpp:533
-msgctxt "Account alias (name) column"
-msgid "Alias"
-msgstr "Alias"
-
-#: src/accountview.cpp:541
-msgctxt "Account status column"
-msgid "Status"
-msgstr "Status"
-
-#: src/avatarmanipulation.cpp:380
-msgid "Open Avatar Image"
-msgstr "Avatarbestand openen"
-
-#: src/avatarmanipulation.cpp:383
-msgid "_Cancel"
-msgstr "_Annuleren"
-
-#: src/avatarmanipulation.cpp:385
-msgid "_Open"
-msgstr "_Openen"
-
-#: src/backends/edscontactbackend.cpp:193
-msgid "Unknown EDS addressbook"
-msgstr "Onbekend EDS-adresboek"
-
-#: src/backends/edscontactbackend.cpp:213
-msgctxt "Backend type"
-msgid "Contacts"
-msgstr "Contacten"
-
-#: src/contactpopupmenu.cpp:172
-msgid "_Call"
-msgstr "_Oproep"
-
-#: src/contactpopupmenu.cpp:175
-msgid "_Copy name"
-msgstr "Naam _kopiëren"
-
-#: src/contactpopupmenu.cpp:178
-msgid "_Copy number"
-msgstr "Nummer _kopiëren"
-
-#: src/contactpopupmenu.cpp:181
-msgid "_Add to contact"
-msgstr "_Aan contact toevoegen"
-
-#: src/contactpopupmenu.cpp:184
-msgid "_Remove contact"
-msgstr "Contact ve_rwijderen"
-
-#: src/dialogs.c:53
-msgid "Working..."
-msgstr "Bezig..."
-
-#: src/dialogs.c:84
-#, c-format
-msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+#: ui/accountdevicestab.ui:98
 msgid ""
-"Liberté, Égalité, Fraternité - Version 1.0\n"
-"built on %.25s"
-msgstr "Liberté, Égalité, Fraternité - versie 1.0\ngebouwd op %.25s"
-
-#: src/dialogs.c:136
-msgid ""
-"The GNOME client for Ring.\n"
-"Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "De GNOME-cliënt voor Ring.\nRing is vrije software voor universele communicatie, die de vrijheden en privacy van haar gebruikers eerbiedigt."
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
-msgstr "thuis"
-
-#: src/generalsettingsview.cpp:103
-msgid ""
-"This is a destructive operation. Are you sure you want to delete all of your"
-" chat and call history?"
-msgstr "Dit is een destructieve bewerking. Weet je zeker dat je je volledige gespreks- en oproepgeschiedenis wil wissen?"
-
-#: src/historyview.cpp:293
-msgctxt "Call history"
-msgid "Call"
-msgstr "Oproep"
-
-#: src/historyview.cpp:338
-msgctxt "Call history"
-msgid "Date"
-msgstr "Datum"
-
-#: src/ringnotify.cpp:148
-msgid "Incoming call"
-msgstr "Inkomende oproep"
-
-#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
-msgctxt "notification action name"
-msgid "Show"
-msgstr "Tonen"
-
-#: src/ringnotify.cpp:267
-#, c-format
-msgctxt "Text message notification"
-msgid "%s says:"
-msgstr "%s schrijft:"
-
-#: src/ring_client_options.c:66
-msgid "Enable debug"
-msgstr "Foutopsporing inschakelen"
-
-#: src/ring_client_options.c:68
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
-msgstr "Herstelt de verborgen status van het hoofdscherm (alleen van toepassing op het primaire proces)"
-
-#: src/ring_client_options.c:85
-msgid "- GNOME client for Ring"
-msgstr "- GNOME-cliënt voor Ring"
-
-#: src/ringmainwindow.cpp:614
-#, c-format
-msgid "Invalid Ring username: %s"
-msgstr "Ongeldige Ring-gebruikersnaam: %s"
-
-#: src/ringmainwindow.cpp:629
-msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr "Fout bij oplossen van gebruikersnaam, naamserver is misschien niet bereikbaar"
-
-#: src/ringmainwindow.cpp:643
-#, c-format
-msgid "Could not resolve Ring username: %s"
-msgstr "Kon Ring-gebruikersnaam niet oplossen: %s"
-
-#: src/ringmainwindow.cpp:1152
-msgctxt "button next to search entry will place a new call"
-msgid "place call"
-msgstr "oproep maken"
-
-#: src/ringmainwindow.cpp:1154
-msgctxt "button next to search entry will open chat"
-msgid "open chat"
-msgstr "gesprek openen"
-
-#: src/ringmainwindow.cpp:1234
-#, c-format
-msgctxt "string format will be replaced by the account alias"
-msgid "%s..."
-msgstr "%s..."
-
-#: src/ringmainwindow.cpp:1240
-#, c-format
-msgctxt "string format will be replaced by the account alias"
-msgid "%s (error)"
-msgstr "%s (fout)"
-
-#: src/ringmainwindow.cpp:1443
-msgctxt ""
-"Please try to make the translation 50 chars or less so that it fits into the"
-" layout"
-msgid "Search contacts or enter number"
-msgstr "Zoek contacten of geef nummer in"
-
-#: src/ringwelcomeview.cpp:75
-msgid ""
-"This is your Ring username.\n"
-"Copy and share it with your friends!"
-msgstr "Dit is je Ring-gebruikersnaam.\nDeel hem met je vrienden!"
-
-#: src/ringwelcomeview.cpp:83
-msgctxt "Do not translate \"RingID\""
-msgid ""
-"This is your RingID.\n"
-"Copy and share it with your friends!"
-msgstr "Dit is je Ring-ID.\nDeel hem met je vrienden!"
-
-#: src/ringwelcomeview.cpp:90
-msgid "fetching RingID..."
-msgstr "Ring-ID ophalen..."
-
-#: src/ringwelcomeview.cpp:148
-msgid ""
-"Ring is free software for universal communication which respects the "
-"freedoms and privacy of its users."
-msgstr "Ring is vrije software voor universele communicatie, die de vrijheden en privacy van haar gebruikers eerbiedigt."
-
-#: src/ringwelcomeview.cpp:202
-msgctxt "Do not translate \"Ring ID\""
-msgid "Ring ID QR code"
-msgstr "Ring-ID-QR-code"
-
-#: src/usernameregistrationbox.cpp:128
-msgid "The entered username is not available"
-msgstr "De ingevoerde gebruikersnaam is niet beschikbaar"
-
-#: src/usernameregistrationbox.cpp:129
-msgid "Username is not available"
-msgstr "Gebruikersnaam is niet beschikbaar"
-
-#: src/usernameregistrationbox.cpp:138
-msgid "The entered username is not valid"
-msgstr "De ingevoerde gebruikersnaam is niet geldig"
-
-#: src/usernameregistrationbox.cpp:139
-msgid "Username is not valid"
-msgstr "Gebruikersnaam is niet geldig"
-
-#: src/usernameregistrationbox.cpp:148
-msgid "The entered username is available"
-msgstr "De ingevoerde gebruikersnaam is beschikbaar"
-
-#: src/usernameregistrationbox.cpp:149
-msgid "Username is available"
-msgstr "Gebruikersnaam is beschikbaar"
-
-#: src/usernameregistrationbox.cpp:158
-msgid "Failed to perform lookup"
-msgstr "Opzoeken mislukt"
-
-#: src/usernameregistrationbox.cpp:159
-msgid "Could not lookup username"
-msgstr "Kon gebruikersnaam niet opzoeken"
-
-#: src/usernameregistrationbox.cpp:248
-msgid "Looking up username availability..."
-msgstr "Beschikbaarheid van gebruikersnaam wordt gecontroleerd..."
-
-#: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:487
-msgid "Registering username..."
-msgstr "Gebruikersnaam wordt geregistreerd..."
-
-#: src/usernameregistrationbox.cpp:319
-msgid "Could not initiate name registration, try again."
-msgstr "Kon naamregistratie niet initialiseren, probeer het opnieuw."
-
-#: src/usernameregistrationbox.cpp:361
-msgid "Register this username on the blockchain"
-msgstr "Registreer deze gebruikersnaam op de blokketen"
-
-#: src/usernameregistrationbox.cpp:397
-msgid "Invalid username"
-msgstr "Ongeldige gebruikersnaam"
-
-#: src/usernameregistrationbox.cpp:411
-msgid "Username already taken"
-msgstr "Gebruikersnaam reeds in gebruik"
-
-#: src/usernameregistrationbox.cpp:418
-msgid "Network error"
-msgstr "Netwerkfout"
-
-#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
-msgctxt "Name of error window (dialog)"
-msgid "Ring Error"
-msgstr "Ring-fout"
-
-#: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr "Opnieuw verbinding maken met de Ring-daemon (dring)..."
-
-#: src/native/dbuserrorhandler.cpp:87
-msgid ""
-"Could not re-connect to the Ring daemon (dring).\n"
-"Ring will now quit."
-msgstr "Kon niet opnieuw verbinding maken met de Ring-daemon (dring).\nRing zal nu afsluiten."
-
-#: src/video/video_widget.cpp:525
-msgid "Share screen area"
-msgstr "Schermruimte delen"
-
-#: src/video/video_widget.cpp:535
-msgid "Share file"
-msgstr "Bestand delen"
-
-#: src/video/video_widget.cpp:549
-msgid "Show advanced information"
-msgstr "Toon geavanceerde informatie"
-
-#: ui/accountadvancedtab.ui:81
-msgid "Registration expire timeout (seconds):"
-msgstr "Registratie verval time-out (seconden):"
-
-#: ui/accountadvancedtab.ui:103
-msgid "Allow calls from unknown peers"
-msgstr "Oproepen accepteren van onbekende gebruikers"
-
-#: ui/accountadvancedtab.ui:117
-msgid "Allow calls from peers in your call history"
-msgstr "Oproepen accepteren van gebruikers in de oproepgeschiedenis"
-
-#: ui/accountadvancedtab.ui:131
-msgid "Allow calls from peers in your contacts list"
-msgstr "Oproepen accepteren van gebruikers in de contactenlijst"
-
-#: ui/accountadvancedtab.ui:149
-msgid "Registration"
-msgstr "Registratie"
-
-#: ui/accountadvancedtab.ui:178
-msgid "Use random port"
-msgstr "Willekeurige poort gebruiken"
-
-#: ui/accountadvancedtab.ui:199
-msgid "Local port:"
-msgstr "Lokale poort:"
-
-#: ui/accountadvancedtab.ui:225
-msgid "Network Interface"
-msgstr "Netwerkinterface"
-
-#: ui/accountadvancedtab.ui:253
-msgid "Same as local parameters"
-msgstr "Gelijk aan lokale parameters"
-
-#: ui/accountadvancedtab.ui:268
-msgid "Set published address and port:"
-msgstr "Stel gepubliceerd adres en poort in:"
-
-#: ui/accountadvancedtab.ui:292
-msgid "Address"
-msgstr "Adres"
-
-#: ui/accountadvancedtab.ui:340
-msgid "Use STUN"
-msgstr "STUN gebruiken"
-
-#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
-msgid "server URL"
-msgstr "server-URL"
-
-#: ui/accountadvancedtab.ui:389
-msgid "Use TURN"
-msgstr "TURN gebruiken"
-
-#: ui/accountadvancedtab.ui:434
-msgid "username"
-msgstr "gebruikersnaam"
-
-#: ui/accountadvancedtab.ui:455
-msgid "password"
-msgstr "wachtwoord"
-
-#: ui/accountadvancedtab.ui:479
-msgid "realm"
-msgstr "realm"
-
-#: ui/accountadvancedtab.ui:508
-msgid "Published Address"
-msgstr "Gepubliceerd adres"
-
-#: ui/accountadvancedtab.ui:536
-msgid "Bootstrap Servers"
-msgstr "Bootstrapservers"
-
-#: ui/accountadvancedtab.ui:593
-msgid ""
-"These settings are only used during SDP session negotiation in case ICE is "
-"not supported by the server or peer."
-msgstr "Deze instellingen worden enkel gebruikt tijdens SDP-sessieonderhandelingen in geval ICE niet ondersteund wordt door de server of de gebruiker."
-
-#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
-msgid "Min"
-msgstr "Min"
-
-#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
-msgid "Max"
-msgstr "Max"
-
-#: ui/accountadvancedtab.ui:665
-msgid "Audio RTP Port Range"
-msgstr "Audio RTP-poortenreeks"
-
-#: ui/accountadvancedtab.ui:741
-msgid "Video RTP Port Range"
-msgstr "Video RTP-poortenreeks"
-
-#: ui/accountadvancedtab.ui:759
-msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr "SDP-sessieonderhandeling (ICE-terugvaloptie)"
-
-#: ui/accountaudiotab.ui:57 ui/accountvideotab.ui:80
-msgid "Up"
-msgstr "Hoger"
-
-#: ui/accountaudiotab.ui:64 ui/accountvideotab.ui:87
-msgid "Down"
-msgstr "Lager"
-
-#: ui/accountaudiotab.ui:75
-msgid "Audio Codecs"
-msgstr "Audiocodecs"
+"To add a new device to your Ring account, you export your account on the "
+"Ring. This will generate a pin that must be entered on your new device "
+"within 5 minutes of its generation."
+msgstr "Om een nieuw apparaat aan je Ring-account toe te voegen, moet je je account exporteren naar de Ring. Dit zal een pincode genereren die je binnen de 5 minuten op je nieuwe apparaat moet invoeren."
+
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
+msgid "Password (required):"
+msgstr "Wachtwoord (vereist):"
+
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
+msgid "Enter archive password"
+msgstr "Voer archiefwachtwoord in"
+
+#: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
+#: ui/accountimportexportview.ui:161 src/accountimportexportview.cpp:102
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: ui/accountdevicestab.ui:141
+msgid "Export on the Ring"
+msgstr "Exporteren naar de Ring"
+
+#: ui/accountdevicestab.ui:162
+msgid "Exporting account on the Ring..."
+msgstr "Account wordt geëxporteerd naar de Ring..."
+
+#: ui/accountdevicestab.ui:186
+msgid "Your generated pin:"
+msgstr "Je gegenereerde pincode:"
+
+#: ui/accountdevicestab.ui:217 ui/accountdevicestab.ui:239
+#: ui/accountcreationwizard.ui:551
+msgid "OK"
+msgstr "Oké"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
@@ -695,6 +258,10 @@ msgstr "Dit wachtwoord wordt gebruikt om je accountgegevens te versleutelen en n
 msgid "Generating your Ring account..."
 msgstr "Je Ring-account wordt aangemaakt..."
 
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:310
+msgid "Registering username..."
+msgstr "Gebruikersnaam wordt geregistreerd..."
+
 #: ui/accountcreationwizard.ui:494
 msgid "This may take a few minutes."
 msgstr "Dit kan enkele minuten duren."
@@ -707,77 +274,141 @@ msgstr "Je Ring-account wordt opgehaald..."
 msgid "Error creating/loading account."
 msgstr "Fout bij aanmaken/laden van account."
 
-#: ui/accountcreationwizard.ui:551 ui/accountdevicestab.ui:217
-#: ui/accountdevicestab.ui:239
-msgid "OK"
-msgstr "Oké"
+#: ui/generalsettingsview.ui:34
+msgid "Profile Settings"
+msgstr "Profielinstellingen"
 
-#: ui/accountdevicestab.ui:21
-msgid "My Device ID:"
-msgstr "Mijn apparaats-ID:"
+#: ui/generalsettingsview.ui:76
+msgid "Ring Settings"
+msgstr "Ring-instellingen"
 
-#: ui/accountdevicestab.ui:40
-msgid "Devices"
-msgstr "Apparaten"
+#: ui/generalsettingsview.ui:92
+msgid "Start Ring on login"
+msgstr "Ring opstarten bij het aanmelden"
 
-#: ui/accountdevicestab.ui:66
-msgid "Add device"
-msgstr "Apparaat toevoegen"
+#: ui/generalsettingsview.ui:100
+msgid "Show Ring icon in the notification area (systray)."
+msgstr "Ring-pictogram weergeven in de meldingen (systeemvak)."
 
-#: ui/accountdevicestab.ui:83
-msgid "Add New Device"
-msgstr "Nieuw apparaat toevoegen"
+#: ui/generalsettingsview.ui:108
+msgid "Bring Ring to the foreground on incoming calls."
+msgstr "Ring naar voorgrond brengen bij inkomende oproepen."
 
-#: ui/accountdevicestab.ui:98
-msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
-"within 5 minutes of its generation."
-msgstr "Om een nieuw apparaat aan je Ring-account toe te voegen, moet je je account exporteren naar de Ring. Dit zal een pincode genereren die je binnen de 5 minuten op je nieuwe apparaat moet invoeren."
+#: ui/generalsettingsview.ui:116
+msgid "Enable notifications for incoming calls."
+msgstr "Meldingen inschakelen voor inkomende oproepen."
 
-#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
-msgid "Password (required):"
-msgstr "Wachtwoord (vereist):"
+#: ui/generalsettingsview.ui:124
+msgid "Enable notifications for new chat messages."
+msgstr "Meldingen inschakelen voor nieuwe berichten."
 
-#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
-msgid "Enter archive password"
-msgstr "Voer archiefwachtwoord in"
+#: ui/generalsettingsview.ui:132
+msgid "Show images and videos in chat window."
+msgstr "Afbeeldingen en video's in chatvenster tonen."
 
-#: ui/accountdevicestab.ui:141
-msgid "Export on the Ring"
-msgstr "Exporteren naar de Ring"
+#: ui/generalsettingsview.ui:140
+msgid "Entering a number in the search entry will place a new call."
+msgstr "Een nummer in de zoekregel invoeren zal een nieuwe oproep maken."
 
-#: ui/accountdevicestab.ui:162
-msgid "Exporting account on the Ring..."
-msgstr "Account wordt geëxporteerd naar de Ring..."
+#: ui/generalsettingsview.ui:155
+msgid "Show chat on the right."
+msgstr "Gesprek rechts weergeven."
 
-#: ui/accountdevicestab.ui:186
-msgid "Your generated pin:"
-msgstr "Je gegenereerde pincode:"
+#: ui/generalsettingsview.ui:161
+msgid "Show chat on the bottom."
+msgstr "Gesprek onderaan weergeven."
 
-#: ui/accountgeneraltab.ui:69
-msgid "Account"
-msgstr "Account"
+#: ui/generalsettingsview.ui:185
+msgid "History Settings"
+msgstr "Geschiedenisinstellingen"
 
-#: ui/accountgeneraltab.ui:135
-msgid "Parameters"
-msgstr "Parameters"
+#: ui/generalsettingsview.ui:203
+msgid "Keep history for (days):"
+msgstr "Geschiedenis bewaren voor (dagen):"
 
-#: ui/accountgeneraltab.ui:175
-msgid "Note: this will change the password only on this device."
-msgstr "Let op: dit wijzigt enkel het wachtwoord op dit apparaat."
+#: ui/generalsettingsview.ui:224
+msgid "(set to 0 for unlimited history)"
+msgstr "(kies 0 voor onbeperkte geschiedenis)"
 
-#: ui/accountgeneraltab.ui:194
-msgid "Current password"
-msgstr "Huidig wachtwoord"
+#: ui/generalsettingsview.ui:234
+msgid "Clear all history"
+msgstr "Geschiedenis wissen"
 
-#: ui/accountgeneraltab.ui:214
-msgid "New password"
-msgstr "Nieuw wachtwoord"
+#: ui/ringmainwindow.ui:61
+msgid "Menu"
+msgstr "Menu"
 
-#: ui/accountgeneraltab.ui:234
-msgid "Confirm password"
-msgstr "Bevestig wachtwoord"
+#: ui/ringmainwindow.ui:83
+msgid "General"
+msgstr "Algemeen"
+
+#: ui/ringmainwindow.ui:98
+msgid "Media"
+msgstr "Media"
+
+#: ui/ringmainwindow.ui:114
+msgid "Accounts"
+msgstr "Accounts"
+
+#: ui/ringmainwindow.ui:157
+msgid "Settings"
+msgstr "Instellingen"
+
+#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
+msgid "Conversations"
+msgstr "Gesprekken"
+
+#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
+msgid "Contact requests"
+msgstr "Contactverzoeken"
+
+#: ui/mediasettingsview.ui:24
+msgid "Audio Settings"
+msgstr "Audio-instellingen"
+
+#: ui/mediasettingsview.ui:40
+msgid "Audio manager:"
+msgstr "Geluidsbeheerder:"
+
+#: ui/mediasettingsview.ui:52
+msgid "Ringtone device:"
+msgstr "Beltoonapparaat:"
+
+#: ui/mediasettingsview.ui:64
+msgid "Output device:"
+msgstr "Uitvoerapparaat:"
+
+#: ui/mediasettingsview.ui:76
+msgid "Input device:"
+msgstr "Invoerapparaat:"
+
+#: ui/mediasettingsview.ui:134
+msgid "Camera Settings"
+msgstr "Camera-instellingen"
+
+#: ui/mediasettingsview.ui:150
+msgid "Device:"
+msgstr "Apparaat:"
+
+#: ui/mediasettingsview.ui:162
+msgid "Channel:"
+msgstr "Kanaal:"
+
+#: ui/mediasettingsview.ui:174
+msgid "Resolution:"
+msgstr "Resolutie:"
+
+#: ui/mediasettingsview.ui:186
+msgid "Frame rate:"
+msgstr "Framesnelheid:"
+
+#: ui/mediasettingsview.ui:244
+msgid "Hardware Acceleration"
+msgstr "Hardwareversnelling"
+
+#: ui/mediasettingsview.ui:260
+msgid "Enable hardware decoding:"
+msgstr "Hardwaredecodering inschakelen:"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -811,25 +442,260 @@ msgstr "Exporteren"
 msgid "Import"
 msgstr "Importeren"
 
-#: ui/accountmigrationview.ui:14
-msgid "Account migration required"
-msgstr "Accountmigratie vereist"
+#: ui/accountview.ui:42 ui/accountview.ui:45
+msgid "Remove selected account"
+msgstr "Geselecteerde account verwijderen"
 
-#: ui/accountmigrationview.ui:39
-msgid "Alias:"
-msgstr "Alias:"
+#: ui/accountview.ui:63 ui/accountview.ui:66
+msgid "Add new account"
+msgstr "Nieuwe account toevoegen"
 
-#: ui/accountmigrationview.ui:102
-msgid "Please enter your password:"
-msgstr "Voer je wachtwoord in:"
+#: ui/accountview.ui:75 ui/accountview.ui:78
+msgid "Select account type"
+msgstr "Selecteer accounttype"
 
-#: ui/accountmigrationview.ui:129
-msgid "Migrate account"
-msgstr "Account migreren"
+#: ui/accountview.ui:104
+msgid "Import archived account(s)"
+msgstr "Gearchiveerde account(s) importeren"
 
-#: ui/accountmigrationview.ui:148
-msgid "Migration failed, wrong password ?"
-msgstr "Migratie mislukt, verkeerd wachtwoord?"
+#: ui/accountview.ui:112
+msgid "Export selected account(s)"
+msgstr "Geselecteerde account(s) exporteren"
+
+#: ui/editcontactview.ui:12
+msgid "Select addressbook"
+msgstr "Adresboek selecteren"
+
+#: ui/editcontactview.ui:15
+msgid "Addressbook"
+msgstr "Adresboek"
+
+#: ui/editcontactview.ui:29
+msgid "Name"
+msgstr "Naam"
+
+#: ui/editcontactview.ui:32
+msgid "Contact name"
+msgstr "Contactnaam"
+
+#: ui/editcontactview.ui:47
+msgid "Select how this number will be categorized"
+msgstr "Wijze van categorisatie voor dit nummer selecteren"
+
+#: ui/editcontactview.ui:50
+msgid "Number category"
+msgstr "Nummercategorie"
+
+#: ui/editcontactview.ui:66
+msgid "Number or Ring ID to be added"
+msgstr "Toe te voegen nummer of Ring-ID"
+
+#: ui/editcontactview.ui:72
+msgid "Number or Ring ID"
+msgstr "Nummer of Ring-ID"
+
+#: ui/editcontactview.ui:83
+msgid "Save"
+msgstr "Opslaan"
+
+#: ui/accountvideotab.ui:50
+msgid "Enable Video"
+msgstr "Video inschakelen"
+
+#: ui/accountvideotab.ui:80 ui/accountaudiotab.ui:57
+msgid "Up"
+msgstr "Hoger"
+
+#: ui/accountvideotab.ui:87 ui/accountaudiotab.ui:64
+msgid "Down"
+msgstr "Lager"
+
+#: ui/accountvideotab.ui:98
+msgid "Video Codecs"
+msgstr "Videocodecs"
+
+#: ui/accountadvancedtab.ui:81
+msgid "Registration expire timeout (seconds):"
+msgstr "Registratie verval time-out (seconden):"
+
+#: ui/accountadvancedtab.ui:103
+msgid "Allow calls from unknown peers"
+msgstr "Oproepen accepteren van onbekende gebruikers"
+
+#: ui/accountadvancedtab.ui:117
+msgid "Allow calls from peers in your call history"
+msgstr "Oproepen accepteren van gebruikers in de oproepgeschiedenis"
+
+#: ui/accountadvancedtab.ui:131
+msgid "Allow calls from peers in your contacts list"
+msgstr "Oproepen accepteren van gebruikers in de contactenlijst"
+
+#: ui/accountadvancedtab.ui:149
+msgid "Registration"
+msgstr "Registratie"
+
+#: ui/accountadvancedtab.ui:178
+msgid "Use random port"
+msgstr "Willekeurige poort gebruiken"
+
+#: ui/accountadvancedtab.ui:199
+msgid "Local port:"
+msgstr "Lokale poort:"
+
+#: ui/accountadvancedtab.ui:225
+msgid "Network Interface"
+msgstr "Netwerkinterface"
+
+#: ui/accountadvancedtab.ui:253
+msgid "Same as local parameters"
+msgstr "Gelijk aan lokale parameters"
+
+#: ui/accountadvancedtab.ui:268
+msgid "Set published address and port:"
+msgstr "Stel gepubliceerd adres en poort in:"
+
+#: ui/accountadvancedtab.ui:292
+msgid "Address"
+msgstr "Adres"
+
+#: ui/accountadvancedtab.ui:314 src/accountadvancedtab.cpp:510
+msgid "Port"
+msgstr "Poort"
+
+#: ui/accountadvancedtab.ui:340
+msgid "Use STUN"
+msgstr "STUN gebruiken"
+
+#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
+msgid "server URL"
+msgstr "server-URL"
+
+#: ui/accountadvancedtab.ui:389
+msgid "Use TURN"
+msgstr "TURN gebruiken"
+
+#: ui/accountadvancedtab.ui:434
+msgid "username"
+msgstr "gebruikersnaam"
+
+#: ui/accountadvancedtab.ui:455
+msgid "password"
+msgstr "wachtwoord"
+
+#: ui/accountadvancedtab.ui:479
+msgid "realm"
+msgstr "realm"
+
+#: ui/accountadvancedtab.ui:508
+msgid "Published Address"
+msgstr "Gepubliceerd adres"
+
+#: ui/accountadvancedtab.ui:536
+msgid "Bootstrap Servers"
+msgstr "Bootstrapservers"
+
+#: ui/accountadvancedtab.ui:593
+msgid ""
+"These settings are only used during SDP session negotiation in case ICE is "
+"not supported by the server or peer."
+msgstr "Deze instellingen worden enkel gebruikt tijdens SDP-sessieonderhandelingen in geval ICE niet ondersteund wordt door de server of de gebruiker."
+
+#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
+msgid "Min"
+msgstr "Min"
+
+#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
+msgid "Max"
+msgstr "Max"
+
+#: ui/accountadvancedtab.ui:665
+msgid "Audio RTP Port Range"
+msgstr "Audio RTP-poortenreeks"
+
+#: ui/accountadvancedtab.ui:741
+msgid "Video RTP Port Range"
+msgstr "Video RTP-poortenreeks"
+
+#: ui/accountadvancedtab.ui:759
+msgid "SDP Session Negotiation (ICE Fallback)"
+msgstr "SDP-sessieonderhandeling (ICE-terugvaloptie)"
+
+#: ui/accountaudiotab.ui:75
+msgid "Audio Codecs"
+msgstr "Audiocodecs"
+
+#: ui/usernameregistrationbox.ui:12
+msgid "enter username here"
+msgstr "voer gebruikersnaam hier in"
+
+#: ui/usernameregistrationbox.ui:24
+msgid "Register"
+msgstr "Registreren"
+
+#: ui/accountbanstab.ui:18
+msgid "List of banned peers :"
+msgstr "Lijst van verbannen peers:"
+
+#: ui/accountbanstab.ui:62
+msgid "unban"
+msgstr "verbanning opheffen"
+
+#: ui/chatview.ui:19 ui/chatview.ui:22
+msgid "Hide chat view"
+msgstr "Gespreksweergave verbergen"
+
+#: ui/chatview.ui:45 ui/chatview.ui:48
+msgid "Place call"
+msgstr "Oproep maken"
+
+#: ui/chatview.ui:60
+msgid "Add to conversations"
+msgstr "Aan gesprekken toevoegen"
+
+#: ui/chatview.ui:119
+msgid "Send Invitation"
+msgstr "Uitnodiging sturen"
+
+#: ui/accountgeneraltab.ui:69
+msgid "Account"
+msgstr "Account"
+
+#: ui/accountgeneraltab.ui:135
+msgid "Parameters"
+msgstr "Parameters"
+
+#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
+#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
+msgid "Change password"
+msgstr "Wachtwoord wijzigen"
+
+#: ui/accountgeneraltab.ui:175
+msgid "Note: this will change the password only on this device."
+msgstr "Let op: dit wijzigt enkel het wachtwoord op dit apparaat."
+
+#: ui/accountgeneraltab.ui:194
+msgid "Current password"
+msgstr "Huidig wachtwoord"
+
+#: ui/accountgeneraltab.ui:214
+msgid "New password"
+msgstr "Nieuw wachtwoord"
+
+#: ui/accountgeneraltab.ui:234
+msgid "Confirm password"
+msgstr "Bevestig wachtwoord"
+
+#: ui/incomingcallview.ui:99
+msgid "Incoming..."
+msgstr "Inkomend..."
+
+#: ui/incomingcallview.ui:135
+msgid "Accept"
+msgstr "Aanvaarden"
+
+#: ui/incomingcallview.ui:156
+msgid "Reject"
+msgstr "Afwijzen"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -903,34 +769,6 @@ msgstr "Certificaat voor inkomende TLS-verbindingen vereisen"
 msgid "Negotiation Encryption"
 msgstr "Onderhandelingsversleuteling"
 
-#: ui/accountvideotab.ui:50
-msgid "Enable Video"
-msgstr "Video inschakelen"
-
-#: ui/accountvideotab.ui:98
-msgid "Video Codecs"
-msgstr "Videocodecs"
-
-#: ui/accountview.ui:42 ui/accountview.ui:45
-msgid "Remove selected account"
-msgstr "Geselecteerde account verwijderen"
-
-#: ui/accountview.ui:63 ui/accountview.ui:66
-msgid "Add new account"
-msgstr "Nieuwe account toevoegen"
-
-#: ui/accountview.ui:75 ui/accountview.ui:78
-msgid "Select account type"
-msgstr "Selecteer accounttype"
-
-#: ui/accountview.ui:104
-msgid "Import archived account(s)"
-msgstr "Gearchiveerde account(s) importeren"
-
-#: ui/accountview.ui:112
-msgid "Export selected account(s)"
-msgstr "Geselecteerde account(s) exporteren"
-
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
 msgstr "Foto nemen"
@@ -947,295 +785,448 @@ msgstr "Terug"
 msgid "Set selection as image"
 msgstr "Selectie instellen als afbeelding"
 
-#: ui/chatview.ui:19 ui/chatview.ui:22
-msgid "Hide chat view"
-msgstr "Gespreksweergave verbergen"
-
-#: ui/chatview.ui:45 ui/chatview.ui:48
-msgid "Place call"
-msgstr "Oproep maken"
-
-#: ui/chatview.ui:60
-msgid "Send invitation"
-msgstr "Uitnodiging sturen"
-
-#: ui/chatview.ui:130
-msgid "Send Invitation"
-msgstr "Uitnodiging sturen"
-
-#: ui/choosecontactview.ui:34
-msgid "Create New"
-msgstr "Nieuw aanmaken"
-
-#: ui/currentcallview.ui:251
-msgid "End this call"
-msgstr "Deze oproep beëindigen "
-
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:459
-msgid "End call"
-msgstr "Oproep beëindigen"
-
-#: ui/currentcallview.ui:276
-msgid "Toggle hold"
-msgstr "Wacht in/uitschakelen"
-
-#: ui/currentcallview.ui:280 ui/currentcallview.ui:306
-#: ui/currentcallview.ui:450
-msgid "Hold"
-msgstr "In wacht zetten"
-
-#: ui/currentcallview.ui:302
-msgid "Toggle mute audio"
-msgstr "Geluid in/uitschakelen"
-
-#: ui/currentcallview.ui:328
-msgid "Toggle mute video"
-msgstr "Video in/uitschakelen"
-
-#: ui/currentcallview.ui:332 ui/currentcallview.ui:441
-msgid "Mute video"
-msgstr "Video uitschakelen"
-
-#: ui/currentcallview.ui:355
-msgid "Toggle record audio"
-msgstr "Geluid opname in/uitschakelen"
-
-#: ui/currentcallview.ui:358
-msgid "Record audio"
-msgstr "Geluid opnemen"
-
-#: ui/currentcallview.ui:378
-msgid "Adjust outgoing video quality"
-msgstr "Uitgaande videokwaliteit aanpassen"
-
-#: ui/currentcallview.ui:383 ui/currentcallview.ui:468
-msgid "Video quality"
-msgstr "Videokwaliteit"
-
-#: ui/currentcallview.ui:402
-msgid "Toggle show chat"
-msgstr "Gesprek tonen/verbergen"
-
-#: ui/currentcallview.ui:406 ui/currentcallview.ui:423
-msgid "Chat"
-msgstr "Gesprek"
-
-#: ui/currentcallview.ui:432
-msgid "Mute audio"
-msgstr "Geluid dempen"
-
-#: ui/currentcallview.ui:477
-msgid "Record"
-msgstr "Opnemen"
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr "Adresboek selecteren"
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr "Adresboek"
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "Naam"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr "Contactnaam"
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr "Wijze van categorisatie voor dit nummer selecteren"
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr "Nummercategorie"
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr "Toe te voegen nummer of Ring-ID"
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr "Nummer of Ring-ID"
-
-#: ui/editcontactview.ui:83
-msgid "Save"
-msgstr "Opslaan"
-
-#: ui/generalsettingsview.ui:34
-msgid "Profile Settings"
-msgstr "Profielinstellingen"
-
-#: ui/generalsettingsview.ui:76
-msgid "Ring Settings"
-msgstr "Ring-instellingen"
-
-#: ui/generalsettingsview.ui:92
-msgid "Start Ring on login"
-msgstr "Ring opstarten bij het aanmelden"
-
-#: ui/generalsettingsview.ui:100
-msgid "Show Ring icon in the notification area (systray)."
-msgstr "Ring-pictogram weergeven in de meldingen (systeemvak)."
-
-#: ui/generalsettingsview.ui:108
-msgid "Bring Ring to the foreground on incoming calls."
-msgstr "Ring naar voorgrond brengen bij inkomende oproepen."
-
-#: ui/generalsettingsview.ui:116
-msgid "Enable notifications for incoming calls."
-msgstr "Meldingen inschakelen voor inkomende oproepen."
-
-#: ui/generalsettingsview.ui:124
-msgid "Enable notifications for new chat messages."
-msgstr "Meldingen inschakelen voor nieuwe berichten."
-
-#: ui/generalsettingsview.ui:132
-msgid "Show images and videos in chat window."
-msgstr "Afbeeldingen en video's in chatvenster tonen."
-
-#: ui/generalsettingsview.ui:140
-msgid "Entering a number in the search entry will place a new call."
-msgstr "Een nummer in de zoekregel invoeren zal een nieuwe oproep maken."
-
-#: ui/generalsettingsview.ui:155
-msgid "Show chat on the right."
-msgstr "Gesprek rechts weergeven."
-
-#: ui/generalsettingsview.ui:161
-msgid "Show chat on the bottom."
-msgstr "Gesprek onderaan weergeven."
-
-#: ui/generalsettingsview.ui:185
-msgid "History Settings"
-msgstr "Geschiedenisinstellingen"
-
-#: ui/generalsettingsview.ui:203
-msgid "Keep history for (days):"
-msgstr "Geschiedenis bewaren voor (dagen):"
-
-#: ui/generalsettingsview.ui:224
-msgid "(set to 0 for unlimited history)"
-msgstr "(kies 0 voor onbeperkte geschiedenis)"
-
-#: ui/generalsettingsview.ui:234
-msgid "Clear all history"
-msgstr "Geschiedenis wissen"
-
-#: ui/incomingcallview.ui:106
-msgid "Incoming..."
-msgstr "Inkomend..."
-
-#: ui/incomingcallview.ui:142
-msgid "Accept"
-msgstr "Aanvaarden"
-
-#: ui/incomingcallview.ui:163
-msgid "Reject"
-msgstr "Afwijzen"
-
-#: ui/incomingcallview.ui:186
-msgid "Hang up"
-msgstr "Ophangen"
-
-#: ui/mediasettingsview.ui:24
-msgid "Audio Settings"
-msgstr "Audio-instellingen"
-
-#: ui/mediasettingsview.ui:40
-msgid "Audio manager:"
-msgstr "Geluidsbeheerder:"
-
-#: ui/mediasettingsview.ui:52
-msgid "Ringtone device:"
-msgstr "Beltoonapparaat:"
-
-#: ui/mediasettingsview.ui:64
-msgid "Output device:"
-msgstr "Uitvoerapparaat:"
-
-#: ui/mediasettingsview.ui:76
-msgid "Input device:"
-msgstr "Invoerapparaat:"
-
-#: ui/mediasettingsview.ui:134
-msgid "Camera Settings"
-msgstr "Camera-instellingen"
-
-#: ui/mediasettingsview.ui:150
-msgid "Device:"
-msgstr "Apparaat:"
-
-#: ui/mediasettingsview.ui:162
-msgid "Channel:"
-msgstr "Kanaal:"
-
-#: ui/mediasettingsview.ui:174
-msgid "Resolution:"
-msgstr "Resolutie:"
-
-#: ui/mediasettingsview.ui:186
-msgid "Frame rate:"
-msgstr "Framesnelheid:"
-
-#: ui/mediasettingsview.ui:244
-msgid "Hardware Acceleration"
-msgstr "Hardwareversnelling"
-
-#: ui/mediasettingsview.ui:260
-msgid "Enable hardware decoding:"
-msgstr "Hardwaredecodering inschakelen:"
-
-#: ui/ringgearsmenu.ui:13
-msgid "_About"
-msgstr "_Over"
-
-#: ui/ringgearsmenu.ui:19
-msgid "_Quit"
-msgstr "_Afsluiten"
-
-#: ui/ringmainwindow.ui:17
-msgid "Menu"
-msgstr "Menu"
-
-#: ui/ringmainwindow.ui:51
-msgid "General"
-msgstr "Algemeen"
-
-#: ui/ringmainwindow.ui:61
-msgid "Media"
-msgstr "Media"
-
-#: ui/ringmainwindow.ui:72
-msgid "Accounts"
-msgstr "Accounts"
-
-#: ui/ringmainwindow.ui:102
-msgid "Settings"
-msgstr "Instellingen"
-
-#: ui/ringmainwindow.ui:215
-msgid "Conversations"
-msgstr "Gesprekken"
-
-#: ui/ringmainwindow.ui:237
+#: src/ring_client.cpp:147
+#, c-format
+msgid ""
+"Unable to initialize.\n"
+"Make sure the Ring daemon (dring) is running.\n"
+"Error: %s"
+msgstr "Kan niet initialiseren.\nZorg dat de Ring-daemon (dring) wordt uitgevoerd.\nFout: %s"
+
+#: src/ring_client.cpp:150
+msgid "Ring Error"
+msgstr "Ring-fout"
+
+#: src/ring_client.cpp:292
+msgctxt ""
+"In the status icon menu, toggle action to show or hide the Ring main window"
+msgid "Show Ring"
+msgstr "Ring tonen"
+
+#: src/ring_client.cpp:296
+msgid "Quit"
+msgstr "Afsluiten"
+
+#: src/ringnotify.cpp:148
+msgid "Incoming call"
+msgstr "Inkomende oproep"
+
+#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
+msgctxt "notification action name"
+msgid "Show"
+msgstr "Tonen"
+
+#: src/ringnotify.cpp:267
+#, c-format
+msgctxt "Text message notification"
+msgid "%s says:"
+msgstr "%s schrijft:"
+
+#: src/accountimportexportview.cpp:99
+msgid "Select account export location"
+msgstr "Selecteer account-exportlocatie"
+
+#: src/accountimportexportview.cpp:104
+msgid "Select"
+msgstr "Selecteren"
+
+#: src/accountimportexportview.cpp:197
+msgid "Error importing account(s)"
+msgstr "Fout bij importeren van account(s)"
+
+#: src/accountimportexportview.cpp:244
+msgid "Error exporting account(s)"
+msgstr "Fout bij exporteren van account(s)"
+
+#: src/usernameregistrationbox.cpp:128
+msgid "The entered username is not available"
+msgstr "De ingevoerde gebruikersnaam is niet beschikbaar"
+
+#: src/usernameregistrationbox.cpp:129
+msgid "Username is not available"
+msgstr "Gebruikersnaam is niet beschikbaar"
+
+#: src/usernameregistrationbox.cpp:138
+msgid "The entered username is not valid"
+msgstr "De ingevoerde gebruikersnaam is niet geldig"
+
+#: src/usernameregistrationbox.cpp:139
+msgid "Username is not valid"
+msgstr "Gebruikersnaam is niet geldig"
+
+#: src/usernameregistrationbox.cpp:148
+msgid "The entered username is available"
+msgstr "De ingevoerde gebruikersnaam is beschikbaar"
+
+#: src/usernameregistrationbox.cpp:149
+msgid "Username is available"
+msgstr "Gebruikersnaam is beschikbaar"
+
+#: src/usernameregistrationbox.cpp:158
+msgid "Failed to perform lookup"
+msgstr "Opzoeken mislukt"
+
+#: src/usernameregistrationbox.cpp:159
+msgid "Could not lookup username"
+msgstr "Kon gebruikersnaam niet opzoeken"
+
+#: src/usernameregistrationbox.cpp:248
+msgid "Looking up username availability..."
+msgstr "Beschikbaarheid van gebruikersnaam wordt gecontroleerd..."
+
+#: src/usernameregistrationbox.cpp:319
+msgid "Could not initiate name registration, try again."
+msgstr "Kon naamregistratie niet initialiseren, probeer het opnieuw."
+
+#: src/usernameregistrationbox.cpp:361
+msgid "Register this username on the blockchain"
+msgstr "Registreer deze gebruikersnaam op de blokketen"
+
+#: src/usernameregistrationbox.cpp:397
+msgid "Invalid username"
+msgstr "Ongeldige gebruikersnaam"
+
+#: src/usernameregistrationbox.cpp:404 src/accountdevicestab.cpp:195
+msgid "Bad password"
+msgstr "Slecht wachtwoord"
+
+#: src/usernameregistrationbox.cpp:411
+msgid "Username already taken"
+msgstr "Gebruikersnaam reeds in gebruik"
+
+#: src/usernameregistrationbox.cpp:418
+msgid "Network error"
+msgstr "Netwerkfout"
+
+#: src/generalsettingsview.cpp:103
+msgid ""
+"This is a destructive operation. Are you sure you want to delete all of your"
+" chat and call history?"
+msgstr "Dit is een destructieve bewerking. Weet je zeker dat je je volledige gespreks- en oproepgeschiedenis wil wissen?"
+
+#: src/backends/edscontactbackend.cpp:193
+msgid "Unknown EDS addressbook"
+msgstr "Onbekend EDS-adresboek"
+
+#: src/backends/edscontactbackend.cpp:213
+msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Contacten"
 
-#: ui/ringmainwindow.ui:259
-msgid "History"
-msgstr "Geschiedenis"
+#: src/accountadvancedtab.cpp:389
+msgid "_Remove server"
+msgstr "Server ve_rwijderen"
 
-#: ui/ringmainwindow.ui:281
-msgid "Contact requests"
-msgstr "Contactverzoeken"
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
+msgid "Hostname"
+msgstr "Hostnaam"
 
-#: ui/usernameregistrationbox.ui:12
-msgid "enter username here"
-msgstr "voer gebruikersnaam hier in"
+#: src/accountgeneraltab.cpp:196
+msgid "New password and its confirmation are different"
+msgstr "Nieuw wachtwoord en bevestiging komen niet overeen"
 
-#: ui/usernameregistrationbox.ui:24
-msgid "Register"
-msgstr "Registreren"
+#: src/accountgeneraltab.cpp:206
+msgid "Password changed!"
+msgstr "Wachtwoord gewijzigd!"
+
+#: src/accountgeneraltab.cpp:209
+msgid "Incorrect password"
+msgstr "Onjuist wachtwoord"
+
+#: src/accountgeneraltab.cpp:236
+msgid "Alias"
+msgstr "Alias"
+
+#: src/accountgeneraltab.cpp:247
+msgid "Type"
+msgstr "Type"
+
+#: src/accountgeneraltab.cpp:273
+msgid "auto-generating..."
+msgstr "automatisch genereren..."
+
+#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: src/accountgeneraltab.cpp:322
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: src/accountgeneraltab.cpp:335
+msgid "Show password"
+msgstr "Wachtwoord tonen"
+
+#: src/accountgeneraltab.cpp:341
+msgid "Proxy"
+msgstr "Proxy"
+
+#: src/accountgeneraltab.cpp:351
+msgid "Voicemail number"
+msgstr "Voicemailnummer"
+
+#: src/accountgeneraltab.cpp:363
+msgid "Name service URL"
+msgstr "Naamdienst-URL"
+
+#: src/accountgeneraltab.cpp:376
+msgid "Auto-answer calls"
+msgstr "Oproepen automatisch beantwoorden"
+
+#: src/accountgeneraltab.cpp:384
+msgid "UPnP enabled"
+msgstr "UPnP ingeschakeld"
+
+#: src/video/video_widget.cpp:532
+msgid "Share screen area"
+msgstr "Schermruimte delen"
+
+#: src/video/video_widget.cpp:543
+msgid "Share file"
+msgstr "Bestand delen"
+
+#: src/video/video_widget.cpp:556
+msgid "Show advanced information"
+msgstr "Toon geavanceerde informatie"
+
+#: src/avatarmanipulation.cpp:380
+msgid "Open Avatar Image"
+msgstr "Avatarbestand openen"
+
+#: src/avatarmanipulation.cpp:383
+msgid "_Cancel"
+msgstr "_Annuleren"
+
+#: src/avatarmanipulation.cpp:385
+msgid "_Open"
+msgstr "_Openen"
+
+#: src/dialogs.c:53
+msgid "Working..."
+msgstr "Bezig..."
+
+#: src/dialogs.c:84
+#, c-format
+msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+msgid ""
+"Liberté, Égalité, Fraternité - Version 1.0\n"
+"built on %.25s"
+msgstr "Liberté, Égalité, Fraternité - versie 1.0\ngebouwd op %.25s"
+
+#: src/dialogs.c:136
+msgid ""
+"The GNOME client for Ring.\n"
+"Ring is free software for universal communication which respects the freedoms and privacy of its users."
+msgstr "De GNOME-cliënt voor Ring.\nRing is vrije software voor universele communicatie, die de vrijheden en privacy van haar gebruikers eerbiedigt."
+
+#: src/accountdevicestab.cpp:201
+msgid "Network error, try again"
+msgstr "Netwerkfout, probeer het opnieuw"
+
+#: src/accountdevicestab.cpp:213
+msgid "Could not initiate export to the Ring, try again"
+msgstr "Kon export naar de Ring niet initialiseren, probeer het opnieuw"
+
+#: src/accountdevicestab.cpp:246
+msgctxt "Device Name Column"
+msgid "Name"
+msgstr "Naam"
+
+#: src/accountdevicestab.cpp:251
+msgctxt "Device ID Column"
+msgid "ID"
+msgstr "ID"
+
+#: src/ringmainwindow.cpp:839
+msgctxt "button next to search entry will place a new call"
+msgid "place call"
+msgstr "oproep maken"
+
+#: src/ringmainwindow.cpp:841
+msgctxt "button next to search entry will open chat"
+msgid "open chat"
+msgstr "gesprek openen"
+
+#: src/ringmainwindow.cpp:1165
+msgctxt ""
+"Please try to make the translation 50 chars or less so that it fits into the"
+" layout"
+msgid "Search contacts or enter number"
+msgstr "Zoek contacten of geef nummer in"
+
+#: src/editcontactview.cpp:208
+msgctxt "Phone number category"
+msgid "home"
+msgstr "thuis"
+
+#: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: src/accountvideotab.cpp:190
+msgctxt "The name of the codec"
+msgid "Name"
+msgstr "Naam"
+
+#: src/accountvideotab.cpp:194 src/accountaudiotab.cpp:185
+msgid "Bitrate"
+msgstr "Bitrate"
+
+#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
+msgctxt "Name of error window (dialog)"
+msgid "Ring Error"
+msgstr "Ring-fout"
+
+#: src/native/dbuserrorhandler.cpp:57
+msgid "Trying to reconnect to the Ring daemon (dring)..."
+msgstr "Opnieuw verbinding maken met de Ring-daemon (dring)..."
+
+#: src/native/dbuserrorhandler.cpp:87
+msgid ""
+"Could not re-connect to the Ring daemon (dring).\n"
+"Ring will now quit."
+msgstr "Kon niet opnieuw verbinding maken met de Ring-daemon (dring).\nRing zal nu afsluiten."
+
+#: src/accountaudiotab.cpp:181
+msgctxt "Name of the codec"
+msgid "Name"
+msgstr "Naam"
+
+#: src/accountaudiotab.cpp:189
+msgid "Samplerate"
+msgstr "Samplerate"
+
+#: src/conversationpopupmenu.cpp:147
+msgid "_Place call"
+msgstr "Oproep _plaatsen"
+
+#: src/conversationpopupmenu.cpp:153
+msgid "_Add to conversations"
+msgstr "_Aan gesprekken toevoegen"
+
+#: src/conversationpopupmenu.cpp:157
+msgid "_Discard invitation"
+msgstr "Uitnodiging verwij_deren"
+
+#: src/conversationpopupmenu.cpp:160
+msgid "_Block invitations"
+msgstr "Uitnodigingen _blokkeren"
+
+#: src/conversationpopupmenu.cpp:165
+msgid "_Clear history"
+msgstr "Geschiedenis _wissen"
+
+#: src/conversationpopupmenu.cpp:168
+msgid "_Remove conversation"
+msgstr "Gesprek ve_rwijderen"
+
+#: src/conversationpopupmenu.cpp:171
+msgid "_Block contact"
+msgstr "Contact _blokkeren"
+
+#: src/ring_client_options.c:66
+msgid "Enable debug"
+msgstr "Foutopsporing inschakelen"
+
+#: src/ring_client_options.c:68
+msgid ""
+"Restores the hidden state of the main window (only applicable to the primary"
+" instance)"
+msgstr "Herstelt de verborgen status van het hoofdscherm (alleen van toepassing op het primaire proces)"
+
+#: src/ring_client_options.c:85
+msgid "- GNOME client for Ring"
+msgstr "- GNOME-cliënt voor Ring"
+
+#: src/accountcreationwizard.cpp:231
+msgid ""
+"Your account was created, but we could not register your username. Try again"
+" from the settings menu."
+msgstr "Je account is aangemaakt, maar we konden je gebruikersnaam niet registreren. Probeer het opnieuw via de instellingen."
+
+#: src/accountcreationwizard.cpp:275
+msgctxt "The default username / account alias, if none is set by the user"
+msgid "Unknown"
+msgstr "Onbekend"
+
+#: src/accountcreationwizard.cpp:471
+msgid "Passwords don't match"
+msgstr "Wachtwoorden komen niet overeen"
+
+#: src/ringwelcomeview.cpp:88
+msgid ""
+"This is your Ring username.\n"
+"Copy and share it with your friends!"
+msgstr "Dit is je Ring-gebruikersnaam.\nDeel hem met je vrienden!"
+
+#: src/ringwelcomeview.cpp:96
+msgctxt "Do not translate \"RingID\""
+msgid ""
+"This is your RingID.\n"
+"Copy and share it with your friends!"
+msgstr "Dit is je Ring-ID.\nDeel hem met je vrienden!"
+
+#: src/ringwelcomeview.cpp:151
+msgid ""
+"Ring is free software for universal communication which respects the "
+"freedoms and privacy of its users."
+msgstr "Ring is vrije software voor universele communicatie, die de vrijheden en privacy van haar gebruikers eerbiedigt."
+
+#: src/ringwelcomeview.cpp:205
+msgctxt "Do not translate \"Ring ID\""
+msgid "Ring ID QR code"
+msgstr "Ring-ID-QR-code"
+
+#: src/currentcallview.cpp:535
+msgctxt "Enable automatic video quality"
+msgid "Auto"
+msgstr "Auto"
+
+#: src/accountview.cpp:168
+msgctxt "Account settings"
+msgid "General"
+msgstr "Algemeen"
+
+#: src/accountview.cpp:176
+msgctxt "Account settings"
+msgid "Devices"
+msgstr "Apparaten"
+
+#: src/accountview.cpp:182
+msgctxt "Account settings"
+msgid "Security"
+msgstr "Beveiliging"
+
+#: src/accountview.cpp:187
+msgctxt "Account settings"
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+#: src/accountview.cpp:194
+msgctxt "List of banned peers"
+msgid "Bans"
+msgstr "Geblokkeerd"
+
+#: src/accountview.cpp:250
+#, c-format
+msgid "Are you sure you want to delete account \"%s\"?"
+msgstr "Weet je zeker dat je account \"%s\" wil verwijderen?"
+
+#: src/accountview.cpp:377
+msgid "New Account"
+msgstr "Account aanmaken"
+
+#: src/accountview.cpp:527
+msgctxt "Account state column"
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: src/accountview.cpp:533
+msgctxt "Account alias (name) column"
+msgid "Alias"
+msgstr "Alias"
+
+#: src/accountview.cpp:541
+msgctxt "Account status column"
+msgid "Status"
+msgstr "Status"

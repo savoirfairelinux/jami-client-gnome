@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-08 23:08-0400\n"
-"PO-Revision-Date: 2017-10-05 14:50+0000\n"
-"Last-Translator: Guillaume Roguez\n"
+"POT-Creation-Date: 2017-11-19 22:09-0500\n"
+"PO-Revision-Date: 2017-11-17 15:07+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/savoirfairelinux/ring/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,588 +19,151 @@ msgstr ""
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/accountadvancedtab.cpp:389
-msgid "_Remove server"
-msgstr "_Fjern tjener"
+#: ui/ringgearsmenu.ui:13
+msgid "_About"
+msgstr "_Om"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
-msgid "Hostname"
-msgstr "Vertsnavn"
+#: ui/ringgearsmenu.ui:19
+msgid "_Quit"
+msgstr "_Avslutt"
 
-#: src/accountadvancedtab.cpp:510 ui/accountadvancedtab.ui:314
-msgid "Port"
-msgstr "Port"
+#: ui/choosecontactview.ui:34
+msgid "Create New"
+msgstr "Lag ny"
 
-#: src/accountaudiotab.cpp:175 src/accountvideotab.cpp:184
-msgid "Enabled"
-msgstr "Aktiv"
+#: ui/accountmigrationview.ui:14
+msgid "Account migration required"
+msgstr "Krever kontooverføring"
 
-#: src/accountaudiotab.cpp:181
-msgctxt "Name of the codec"
-msgid "Name"
-msgstr "Navn"
-
-#: src/accountaudiotab.cpp:185 src/accountvideotab.cpp:194
-msgid "Bitrate"
-msgstr "Bitrate"
-
-#: src/accountaudiotab.cpp:189
-msgid "Samplerate"
-msgstr "Samplingsfrekvens"
-
-#: src/accountcreationwizard.cpp:231
-msgid ""
-"Your account was created, but we could not register your username. Try again"
-" from the settings menu."
-msgstr "Din konto ble opprettet, men vi kunne ikke registrer ditt brukernavn. Prøv igjen fra innstillingsmenyen."
-
-#: src/accountcreationwizard.cpp:275
-msgctxt "The default username / account alias, if none is set by the user"
-msgid "Unknown"
-msgstr "Ukjent"
-
-#: src/accountcreationwizard.cpp:468
-msgid "Passwords don't match"
-msgstr "Passordene er ikke like"
-
-#: src/accountdevicestab.cpp:195 src/usernameregistrationbox.cpp:404
-msgid "Bad password"
-msgstr "Dårlig passord"
-
-#: src/accountdevicestab.cpp:201
-msgid "Network error, try again"
-msgstr "Nettverksfeil, prøv på nytt"
-
-#: src/accountdevicestab.cpp:213
-msgid "Could not initiate export to the Ring, try again"
-msgstr "Kunne ikke igangsette eksportering til Ring, prøv igjen"
-
-#: src/accountdevicestab.cpp:246
-msgctxt "Device Name Column"
-msgid "Name"
-msgstr "Navn"
-
-#: src/accountdevicestab.cpp:251
-msgctxt "Device ID Column"
-msgid "ID"
-msgstr "ID"
-
-#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-msgid "Change password"
-msgstr "Endre passord"
-
-#: src/accountgeneraltab.cpp:196
-msgid "New password and its confirmation are different"
-msgstr "Nytt passord og bekreftelse av det er forskjellig"
-
-#: src/accountgeneraltab.cpp:206
-msgid "Password changed!"
-msgstr "Passord endret!"
-
-#: src/accountgeneraltab.cpp:209
-msgid "Incorrect password"
-msgstr "Feil passord"
-
-#: src/accountgeneraltab.cpp:236
-msgid "Alias"
+#: ui/accountmigrationview.ui:39
+msgid "Alias:"
 msgstr "Alias"
 
-#: src/accountgeneraltab.cpp:247
-msgid "Type"
-msgstr "Type"
+#: ui/accountmigrationview.ui:102
+msgid "Please enter your password:"
+msgstr "Skriv inn ditt passord:"
 
-#: src/accountgeneraltab.cpp:273
-msgid "auto-generating..."
-msgstr "autogenererer…"
+#: ui/accountmigrationview.ui:129
+msgid "Migrate account"
+msgstr "Overfør konto"
 
-#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
-msgid "Username"
-msgstr "Brukernavn"
+#: ui/accountmigrationview.ui:148
+msgid "Migration failed, wrong password ?"
+msgstr "Overføring mislyktes, feil passord?"
 
-#: src/accountgeneraltab.cpp:322
-msgid "Password"
-msgstr "Passord"
+#: ui/currentcallview.ui:251
+msgid "End this call"
+msgstr "Avslutt denne samtalen"
 
-#: src/accountgeneraltab.cpp:335
-msgid "Show password"
-msgstr "Vis passord"
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:457
+msgid "End call"
+msgstr "Avslutt samtale"
 
-#: src/accountgeneraltab.cpp:341
-msgid "Proxy"
-msgstr "Mellomtjener"
+#: ui/currentcallview.ui:275
+msgid "Toggle hold"
+msgstr "Styr parkering"
 
-#: src/accountgeneraltab.cpp:351
-msgid "Voicemail number"
-msgstr "Talepostkassenummer"
+#: ui/currentcallview.ui:279 ui/currentcallview.ui:304
+#: ui/currentcallview.ui:448
+msgid "Hold"
+msgstr "Parker"
 
-#: src/accountgeneraltab.cpp:363
-msgid "Name service URL"
-msgstr "Nettadresse for navnetjeneste"
+#: ui/currentcallview.ui:300
+msgid "Toggle mute audio"
+msgstr "Styr utkobling av lyd"
 
-#: src/accountgeneraltab.cpp:376
-msgid "Auto-answer calls"
-msgstr "Auto-svar på samtaler"
+#: ui/currentcallview.ui:325
+msgid "Toggle mute video"
+msgstr "Styr utkobling av video"
 
-#: src/accountgeneraltab.cpp:384
-msgid "UPnP enabled"
-msgstr "UPnP aktivt"
+#: ui/currentcallview.ui:329 ui/currentcallview.ui:439
+msgid "Mute video"
+msgstr "Koble ut video"
 
-#: src/accountimportexportview.cpp:99
-msgid "Select account export location"
-msgstr "Velg sted å eksportere konto til"
+#: ui/currentcallview.ui:352
+msgid "Toggle record audio"
+msgstr "Styr lydopptak"
 
-#: src/accountimportexportview.cpp:102 ui/accountcreationwizard.ui:84
-#: ui/accountdevicestab.ui:135 ui/accountimportexportview.ui:161
-msgid "Cancel"
-msgstr "Avbryt"
+#: ui/currentcallview.ui:355
+msgid "Record audio"
+msgstr "Ta opp lyd"
 
-#: src/accountimportexportview.cpp:104
-msgid "Select"
-msgstr "Velg"
+#: ui/currentcallview.ui:376
+msgid "Adjust outgoing video quality"
+msgstr "Juster utgående videokvalitet"
 
-#: src/accountimportexportview.cpp:198
-msgid "Error importing account(s)"
-msgstr "Feil ved importering av konto(er)"
+#: ui/currentcallview.ui:381 ui/currentcallview.ui:466
+msgid "Video quality"
+msgstr "Videokvalitet"
 
-#: src/accountimportexportview.cpp:245
-msgid "Error exporting account(s)"
-msgstr "Feil ved eksportering av konto(er)"
+#: ui/currentcallview.ui:400
+msgid "Toggle show chat"
+msgstr "Styr visning av meldinger"
 
-#: src/accountvideotab.cpp:190
-msgctxt "The name of the codec"
-msgid "Name"
-msgstr "Navn"
+#: ui/currentcallview.ui:404 ui/currentcallview.ui:421
+msgid "Chat"
+msgstr "Meldinger"
 
-#: src/accountview.cpp:168
-msgctxt "Account settings"
-msgid "General"
-msgstr "Generell"
+#: ui/currentcallview.ui:430
+msgid "Mute audio"
+msgstr "Koble ut lyden"
 
-#: src/accountview.cpp:176
-msgctxt "Account settings"
+#: ui/currentcallview.ui:475
+msgid "Record"
+msgstr "Ta opp"
+
+#: ui/accountdevicestab.ui:21
+msgid "My Device ID:"
+msgstr "Min enhets-ID"
+
+#: ui/accountdevicestab.ui:40
 msgid "Devices"
 msgstr "Enheter"
 
-#: src/accountview.cpp:182
-msgctxt "Account settings"
-msgid "Security"
-msgstr "Sikkerhet"
+#: ui/accountdevicestab.ui:66
+msgid "Add device"
+msgstr "Legg til enhet"
 
-#: src/accountview.cpp:187
-msgctxt "Account settings"
-msgid "Advanced"
-msgstr "Avansert"
+#: ui/accountdevicestab.ui:83
+msgid "Add New Device"
+msgstr "Legg til ny enhet"
 
-#: src/accountview.cpp:194
-msgctxt "List of banned peers"
-msgid "Bans"
-msgstr "Bannlysninger"
-
-#: src/accountview.cpp:250
-#, c-format
-msgid "Are you sure you want to delete account \"%s\"?"
-msgstr "Er du sikker på at du ønsker å slette kontoen «%s»?"
-
-#: src/accountview.cpp:377
-msgid "New Account"
-msgstr "Ny konto"
-
-#: src/accountview.cpp:527
-msgctxt "Account state column"
-msgid "Enabled"
-msgstr "Aktiv"
-
-#: src/accountview.cpp:533
-msgctxt "Account alias (name) column"
-msgid "Alias"
-msgstr "Alias"
-
-#: src/accountview.cpp:541
-msgctxt "Account status column"
-msgid "Status"
-msgstr "Status"
-
-#: src/avatarmanipulation.cpp:380
-msgid "Open Avatar Image"
-msgstr "Åpne avatarbilde"
-
-#: src/avatarmanipulation.cpp:383
-msgid "_Cancel"
-msgstr "_Avbryt"
-
-#: src/avatarmanipulation.cpp:385
-msgid "_Open"
-msgstr "_Åpne"
-
-#: src/backends/edscontactbackend.cpp:193
-msgid "Unknown EDS addressbook"
-msgstr "Ukjent EDS-adressebok"
-
-#: src/backends/edscontactbackend.cpp:213
-msgctxt "Backend type"
-msgid "Contacts"
-msgstr "Kontakter"
-
-#: src/contactpopupmenu.cpp:172
-msgid "_Call"
-msgstr "_Ring"
-
-#: src/contactpopupmenu.cpp:175
-msgid "_Copy name"
-msgstr "_Kopier navn"
-
-#: src/contactpopupmenu.cpp:178
-msgid "_Copy number"
-msgstr "_Kopier nummer"
-
-#: src/contactpopupmenu.cpp:181
-msgid "_Add to contact"
-msgstr "_Legg til kontakt"
-
-#: src/contactpopupmenu.cpp:184
-msgid "_Remove contact"
-msgstr "_Fjern kontakt"
-
-#: src/dialogs.c:53
-msgid "Working..."
-msgstr "Arbeider…"
-
-#: src/dialogs.c:84
-#, c-format
-msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+#: ui/accountdevicestab.ui:98
 msgid ""
-"Liberté, Égalité, Fraternité - Version 1.0\n"
-"built on %.25s"
-msgstr "Frihet, likhet, brorskap - Versjon 1.0\nbygd %.25s"
-
-#: src/dialogs.c:136
-msgid ""
-"The GNOME client for Ring.\n"
-"Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "GNOME-klienten for Ring.\nRing er fri programvare for universell kommunikasjon som respekterer privatlivets fred for dets brukere."
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
-msgstr "hjem"
-
-#: src/generalsettingsview.cpp:103
-msgid ""
-"This is a destructive operation. Are you sure you want to delete all of your"
-" chat and call history?"
-msgstr "Dette er en ødeleggende operasjon. Er du sikker på at du vil slette all din sludre- og samtale-historikk?"
-
-#: src/historyview.cpp:293
-msgctxt "Call history"
-msgid "Call"
-msgstr "Ring"
-
-#: src/historyview.cpp:338
-msgctxt "Call history"
-msgid "Date"
-msgstr "Dato"
-
-#: src/ringnotify.cpp:148
-msgid "Incoming call"
-msgstr "Innkommende samtale"
-
-#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
-msgctxt "notification action name"
-msgid "Show"
-msgstr "Vis"
-
-#: src/ringnotify.cpp:267
-#, c-format
-msgctxt "Text message notification"
-msgid "%s says:"
-msgstr "%s sier:"
-
-#: src/ring_client_options.c:66
-msgid "Enable debug"
-msgstr "Aktiver feilsøking"
-
-#: src/ring_client_options.c:68
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
-msgstr "Tilbakestiller den skjulte tilstanden til hovedvinduet (gjelder kun for primærinstansen)"
-
-#: src/ring_client_options.c:85
-msgid "- GNOME client for Ring"
-msgstr "- GNOME-klient for Ring"
-
-#: src/ringmainwindow.cpp:614
-#, c-format
-msgid "Invalid Ring username: %s"
-msgstr "Ugyldig Ring-brukernavn: %s"
-
-#: src/ringmainwindow.cpp:629
-msgid "Error resolving username, nameserver is possibly unreachable"
-msgstr "Feil ved oppslag av brukernavn, navnetjeneren kan antagelig ikke nås"
-
-#: src/ringmainwindow.cpp:643
-#, c-format
-msgid "Could not resolve Ring username: %s"
-msgstr "Kunne ikke slå opp Ring-brukernavn: %s"
-
-#: src/ringmainwindow.cpp:1152
-msgctxt "button next to search entry will place a new call"
-msgid "place call"
-msgstr "utfør samtale"
-
-#: src/ringmainwindow.cpp:1154
-msgctxt "button next to search entry will open chat"
-msgid "open chat"
-msgstr "åpne sludring"
-
-#: src/ringmainwindow.cpp:1234
-#, c-format
-msgctxt "string format will be replaced by the account alias"
-msgid "%s..."
-msgstr "%s…"
-
-#: src/ringmainwindow.cpp:1240
-#, c-format
-msgctxt "string format will be replaced by the account alias"
-msgid "%s (error)"
-msgstr "%s (feil)"
-
-#: src/ringmainwindow.cpp:1443
-msgctxt ""
-"Please try to make the translation 50 chars or less so that it fits into the"
-" layout"
-msgid "Search contacts or enter number"
-msgstr "Søk kontakter eller skriv inn nummer"
-
-#: src/ringwelcomeview.cpp:75
-msgid ""
-"This is your Ring username.\n"
-"Copy and share it with your friends!"
-msgstr "Dette er ditt Ring-brukernavn.\nKopier og del det med dine venner!"
-
-#: src/ringwelcomeview.cpp:83
-msgctxt "Do not translate \"RingID\""
-msgid ""
-"This is your RingID.\n"
-"Copy and share it with your friends!"
-msgstr "Dette er din RingID.\nKopier og del den med dine venner!"
-
-#: src/ringwelcomeview.cpp:90
-msgid "fetching RingID..."
-msgstr "henter RingID…"
-
-#: src/ringwelcomeview.cpp:148
-msgid ""
-"Ring is free software for universal communication which respects the "
-"freedoms and privacy of its users."
-msgstr "Ring er fri programvare for universell kommunikasjon som respekterer privatlivets fred for dets brukere."
-
-#: src/ringwelcomeview.cpp:202
-msgctxt "Do not translate \"Ring ID\""
-msgid "Ring ID QR code"
-msgstr "QR-kode for RingID"
-
-#: src/usernameregistrationbox.cpp:128
-msgid "The entered username is not available"
-msgstr "Innskrevet brukernavn er ikke tilgjengelig"
-
-#: src/usernameregistrationbox.cpp:129
-msgid "Username is not available"
-msgstr "Brukernavnet er ikke tilgjengelig"
-
-#: src/usernameregistrationbox.cpp:138
-msgid "The entered username is not valid"
-msgstr "Innskrevet brukernavn er ikke gyldig"
-
-#: src/usernameregistrationbox.cpp:139
-msgid "Username is not valid"
-msgstr "Brukernavnet er ikke gyldig"
-
-#: src/usernameregistrationbox.cpp:148
-msgid "The entered username is available"
-msgstr "Innskrevet brukernavn er tilgjengelig"
-
-#: src/usernameregistrationbox.cpp:149
-msgid "Username is available"
-msgstr "Brukernavnet er tilgjengelig"
-
-#: src/usernameregistrationbox.cpp:158
-msgid "Failed to perform lookup"
-msgstr "Klarte ikke å utføre oppslag"
-
-#: src/usernameregistrationbox.cpp:159
-msgid "Could not lookup username"
-msgstr "Kunne ikke sjekke brukernavn"
-
-#: src/usernameregistrationbox.cpp:248
-msgid "Looking up username availability..."
-msgstr "Sjekker hvorvidt brukernavnet er tilgjengelig…"
-
-#: src/usernameregistrationbox.cpp:310 ui/accountcreationwizard.ui:487
-msgid "Registering username..."
-msgstr "Registrerer brukernavn…"
-
-#: src/usernameregistrationbox.cpp:319
-msgid "Could not initiate name registration, try again."
-msgstr "Kunne ikke igangsette navneregistrering, prøv igjen."
-
-#: src/usernameregistrationbox.cpp:361
-msgid "Register this username on the blockchain"
-msgstr "Registrer dette brukernavnet på blokkjeden"
-
-#: src/usernameregistrationbox.cpp:397
-msgid "Invalid username"
-msgstr "Ugyldig brukernavn"
-
-#: src/usernameregistrationbox.cpp:411
-msgid "Username already taken"
-msgstr "Brukernavnet er allerede i bruk"
-
-#: src/usernameregistrationbox.cpp:418
-msgid "Network error"
-msgstr "Nettverksfeil"
-
-#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
-msgctxt "Name of error window (dialog)"
-msgid "Ring Error"
-msgstr "Feil med ring"
-
-#: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr "Prøver å koble til Ring-nissen igjen (dring)…"
-
-#: src/native/dbuserrorhandler.cpp:87
-msgid ""
-"Could not re-connect to the Ring daemon (dring).\n"
-"Ring will now quit."
-msgstr "Kunne ikke koble til Ring-nissen igjen (dring).\nRing vil nå avslutte."
-
-#: src/video/video_widget.cpp:525
-msgid "Share screen area"
-msgstr "Del skjermområde"
-
-#: src/video/video_widget.cpp:535
-msgid "Share file"
-msgstr "Del fil"
-
-#: src/video/video_widget.cpp:549
-msgid "Show advanced information"
-msgstr "Vis avansert informasjon"
-
-#: ui/accountadvancedtab.ui:81
-msgid "Registration expire timeout (seconds):"
-msgstr "Tidsgrense for registrering (sekunder):"
-
-#: ui/accountadvancedtab.ui:103
-msgid "Allow calls from unknown peers"
-msgstr "Tillatt samtaler fra ukjente motparter"
-
-#: ui/accountadvancedtab.ui:117
-msgid "Allow calls from peers in your call history"
-msgstr "Tillatt samtaler fra motparter i din samtalehistorikk"
-
-#: ui/accountadvancedtab.ui:131
-msgid "Allow calls from peers in your contacts list"
-msgstr "Tillatt samtaler fra motparter i kontaktlisten din"
-
-#: ui/accountadvancedtab.ui:149
-msgid "Registration"
-msgstr "Registrering"
-
-#: ui/accountadvancedtab.ui:178
-msgid "Use random port"
-msgstr "Bruk tilfeldig port"
-
-#: ui/accountadvancedtab.ui:199
-msgid "Local port:"
-msgstr "Lokal port:"
-
-#: ui/accountadvancedtab.ui:225
-msgid "Network Interface"
-msgstr "Nettverksgrensesnitt"
-
-#: ui/accountadvancedtab.ui:253
-msgid "Same as local parameters"
-msgstr "Samme som lokale parametre"
-
-#: ui/accountadvancedtab.ui:268
-msgid "Set published address and port:"
-msgstr "Oppgi publisert adresse og port:"
-
-#: ui/accountadvancedtab.ui:292
-msgid "Address"
-msgstr "Adresse"
-
-#: ui/accountadvancedtab.ui:340
-msgid "Use STUN"
-msgstr "Bruk STUN"
-
-#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
-msgid "server URL"
-msgstr "tjener-URL"
-
-#: ui/accountadvancedtab.ui:389
-msgid "Use TURN"
-msgstr "Bruk TURN"
-
-#: ui/accountadvancedtab.ui:434
-msgid "username"
-msgstr "brukernavn"
-
-#: ui/accountadvancedtab.ui:455
-msgid "password"
-msgstr "passord"
-
-#: ui/accountadvancedtab.ui:479
-msgid "realm"
-msgstr "område"
-
-#: ui/accountadvancedtab.ui:508
-msgid "Published Address"
-msgstr "Publisert adresse"
-
-#: ui/accountadvancedtab.ui:536
-msgid "Bootstrap Servers"
-msgstr "Oppstartssekvens-tjenere"
-
-#: ui/accountadvancedtab.ui:593
-msgid ""
-"These settings are only used during SDP session negotiation in case ICE is "
-"not supported by the server or peer."
-msgstr "Disse innstillingene brukes kun for SDP-øktforhandling hvis ICE ikke støttes av tjeneren til motparten eller vedkommende."
-
-#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
-msgid "Min"
-msgstr "Min"
-
-#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
-msgid "Max"
-msgstr "Maks"
-
-#: ui/accountadvancedtab.ui:665
-msgid "Audio RTP Port Range"
-msgstr "RTP-portintervall for tale"
-
-#: ui/accountadvancedtab.ui:741
-msgid "Video RTP Port Range"
-msgstr "RTP-portintervall for video"
-
-#: ui/accountadvancedtab.ui:759
-msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr "SDP-øktforhandling (ICE-reserve)"
-
-#: ui/accountaudiotab.ui:57 ui/accountvideotab.ui:80
-msgid "Up"
-msgstr "Opp"
-
-#: ui/accountaudiotab.ui:64 ui/accountvideotab.ui:87
-msgid "Down"
-msgstr "Ned"
-
-#: ui/accountaudiotab.ui:75
-msgid "Audio Codecs"
-msgstr "Lydkodeker"
+"To add a new device to your Ring account, you export your account on the "
+"Ring. This will generate a pin that must be entered on your new device "
+"within 5 minutes of its generation."
+msgstr "For å legge en ny enhet til din Ring-konto, eksporterer du din konto på Ring. Dette vil generere en PIN som må skrives inn på din nye enhet i løpet av 5 minutter."
+
+#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
+msgid "Password (required):"
+msgstr "Passord (påkrevd):"
+
+#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
+msgid "Enter archive password"
+msgstr "Skriv inn arkivpassord"
+
+#: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
+#: ui/accountimportexportview.ui:161 src/accountimportexportview.cpp:102
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: ui/accountdevicestab.ui:141
+msgid "Export on the Ring"
+msgstr "Eksporter på Ring"
+
+#: ui/accountdevicestab.ui:162
+msgid "Exporting account on the Ring..."
+msgstr "Eksporterer konto på Ring…"
+
+#: ui/accountdevicestab.ui:186
+msgid "Your generated pin:"
+msgstr "Din genererte PIN:"
+
+#: ui/accountdevicestab.ui:217 ui/accountdevicestab.ui:239
+#: ui/accountcreationwizard.ui:551
+msgid "OK"
+msgstr "OK"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
@@ -694,6 +257,10 @@ msgstr "Dette passordet vil brukes til å kryptere din kontodata og lenke nye en
 msgid "Generating your Ring account..."
 msgstr "Lager din Ring-konto…"
 
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:310
+msgid "Registering username..."
+msgstr "Registrerer brukernavn…"
+
 #: ui/accountcreationwizard.ui:494
 msgid "This may take a few minutes."
 msgstr "Dette kan ta noen minutter."
@@ -706,77 +273,141 @@ msgstr "Henter inn din Ring-konto…"
 msgid "Error creating/loading account."
 msgstr "Feil ved oppretting/innlasting av konto."
 
-#: ui/accountcreationwizard.ui:551 ui/accountdevicestab.ui:217
-#: ui/accountdevicestab.ui:239
-msgid "OK"
-msgstr "OK"
+#: ui/generalsettingsview.ui:34
+msgid "Profile Settings"
+msgstr "Profilinnstillinger"
 
-#: ui/accountdevicestab.ui:21
-msgid "My Device ID:"
-msgstr "Min enhets-ID"
+#: ui/generalsettingsview.ui:76
+msgid "Ring Settings"
+msgstr "Ring-innstillinger"
 
-#: ui/accountdevicestab.ui:40
-msgid "Devices"
-msgstr "Enheter"
+#: ui/generalsettingsview.ui:92
+msgid "Start Ring on login"
+msgstr "Start Ring ved innlogging"
 
-#: ui/accountdevicestab.ui:66
-msgid "Add device"
-msgstr "Legg til enhet"
+#: ui/generalsettingsview.ui:100
+msgid "Show Ring icon in the notification area (systray)."
+msgstr "Vis Ring-ikon i merknadsområdet (systemkurv)."
 
-#: ui/accountdevicestab.ui:83
-msgid "Add New Device"
-msgstr "Legg til ny enhet"
+#: ui/generalsettingsview.ui:108
+msgid "Bring Ring to the foreground on incoming calls."
+msgstr "Ta Ring i forgrunnen når noen ringer"
 
-#: ui/accountdevicestab.ui:98
-msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
-"within 5 minutes of its generation."
-msgstr "For å legge en ny enhet til din Ring-konto, eksporterer du din konto på Ring. Dette vil generere en PIN som må skrives inn på din nye enhet i løpet av 5 minutter."
+#: ui/generalsettingsview.ui:116
+msgid "Enable notifications for incoming calls."
+msgstr "Skru på varsler for innkommende anrop."
 
-#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
-msgid "Password (required):"
-msgstr "Passord (påkrevd):"
+#: ui/generalsettingsview.ui:124
+msgid "Enable notifications for new chat messages."
+msgstr "Skru på varsler for nye sludremeldinger."
 
-#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
-msgid "Enter archive password"
-msgstr "Skriv inn arkivpassord"
+#: ui/generalsettingsview.ui:132
+msgid "Show images and videos in chat window."
+msgstr "Vis bilder og videoer i sludrevindu."
 
-#: ui/accountdevicestab.ui:141
-msgid "Export on the Ring"
-msgstr "Eksporter på Ring"
+#: ui/generalsettingsview.ui:140
+msgid "Entering a number in the search entry will place a new call."
+msgstr "Inntasting av nummer i søkefeltet vil utføre ny samtale."
 
-#: ui/accountdevicestab.ui:162
-msgid "Exporting account on the Ring..."
-msgstr "Eksporterer konto på Ring…"
+#: ui/generalsettingsview.ui:155
+msgid "Show chat on the right."
+msgstr "Vis meldinger til høyre"
 
-#: ui/accountdevicestab.ui:186
-msgid "Your generated pin:"
-msgstr "Din genererte PIN:"
+#: ui/generalsettingsview.ui:161
+msgid "Show chat on the bottom."
+msgstr "Vis meldinger nederst"
 
-#: ui/accountgeneraltab.ui:69
-msgid "Account"
-msgstr "Konto"
+#: ui/generalsettingsview.ui:185
+msgid "History Settings"
+msgstr "Historikkinnstillinger"
 
-#: ui/accountgeneraltab.ui:135
-msgid "Parameters"
-msgstr "Parameter"
+#: ui/generalsettingsview.ui:203
+msgid "Keep history for (days):"
+msgstr "Behold historikk i (dager):"
 
-#: ui/accountgeneraltab.ui:175
-msgid "Note: this will change the password only on this device."
-msgstr "Merk: Dette vil endre passordet kun på denne enheten."
+#: ui/generalsettingsview.ui:224
+msgid "(set to 0 for unlimited history)"
+msgstr "(sett til 0 for ubegrenset historikk)"
 
-#: ui/accountgeneraltab.ui:194
-msgid "Current password"
-msgstr "Nåværende passord"
+#: ui/generalsettingsview.ui:234
+msgid "Clear all history"
+msgstr "Nullstill all historikk"
 
-#: ui/accountgeneraltab.ui:214
-msgid "New password"
-msgstr "Nytt passord"
+#: ui/ringmainwindow.ui:61
+msgid "Menu"
+msgstr "Meny"
 
-#: ui/accountgeneraltab.ui:234
-msgid "Confirm password"
-msgstr "Bekreft passord"
+#: ui/ringmainwindow.ui:83
+msgid "General"
+msgstr "Generell"
+
+#: ui/ringmainwindow.ui:98
+msgid "Media"
+msgstr "Media"
+
+#: ui/ringmainwindow.ui:114
+msgid "Accounts"
+msgstr "Kontoer"
+
+#: ui/ringmainwindow.ui:157
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
+msgid "Conversations"
+msgstr "Samtaler"
+
+#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
+msgid "Contact requests"
+msgstr "Kontaktforespørsler"
+
+#: ui/mediasettingsview.ui:24
+msgid "Audio Settings"
+msgstr "Lydinnstilinger"
+
+#: ui/mediasettingsview.ui:40
+msgid "Audio manager:"
+msgstr "Lydstyrer:"
+
+#: ui/mediasettingsview.ui:52
+msgid "Ringtone device:"
+msgstr "Ringetoneenhet:"
+
+#: ui/mediasettingsview.ui:64
+msgid "Output device:"
+msgstr "Utdataenhet:"
+
+#: ui/mediasettingsview.ui:76
+msgid "Input device:"
+msgstr "Inndataenhet:"
+
+#: ui/mediasettingsview.ui:134
+msgid "Camera Settings"
+msgstr "Kamerainnstillinger"
+
+#: ui/mediasettingsview.ui:150
+msgid "Device:"
+msgstr "Enhet:"
+
+#: ui/mediasettingsview.ui:162
+msgid "Channel:"
+msgstr "Kanal:"
+
+#: ui/mediasettingsview.ui:174
+msgid "Resolution:"
+msgstr "Oppløsning:"
+
+#: ui/mediasettingsview.ui:186
+msgid "Frame rate:"
+msgstr "Bildetakt:"
+
+#: ui/mediasettingsview.ui:244
+msgid "Hardware Acceleration"
+msgstr "Maskinvareakselerasjon"
+
+#: ui/mediasettingsview.ui:260
+msgid "Enable hardware decoding:"
+msgstr "Skru på maskinvaredekoding:"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
@@ -810,25 +441,260 @@ msgstr "Eksporter"
 msgid "Import"
 msgstr "Importer"
 
-#: ui/accountmigrationview.ui:14
-msgid "Account migration required"
-msgstr "Krever kontooverføring"
+#: ui/accountview.ui:42 ui/accountview.ui:45
+msgid "Remove selected account"
+msgstr "Fjern valgt konto"
 
-#: ui/accountmigrationview.ui:39
-msgid "Alias:"
-msgstr "Alias"
+#: ui/accountview.ui:63 ui/accountview.ui:66
+msgid "Add new account"
+msgstr "Legg til ny konto"
 
-#: ui/accountmigrationview.ui:102
-msgid "Please enter your password:"
-msgstr "Skriv inn ditt passord:"
+#: ui/accountview.ui:75 ui/accountview.ui:78
+msgid "Select account type"
+msgstr "Velg kontotype"
 
-#: ui/accountmigrationview.ui:129
-msgid "Migrate account"
-msgstr "Overfør konto"
+#: ui/accountview.ui:104
+msgid "Import archived account(s)"
+msgstr "Importer arkivert(e) konto(er)"
 
-#: ui/accountmigrationview.ui:148
-msgid "Migration failed, wrong password ?"
-msgstr "Overføring mislyktes, feil passord?"
+#: ui/accountview.ui:112
+msgid "Export selected account(s)"
+msgstr "Eksporter valgt(e) konto(er)"
+
+#: ui/editcontactview.ui:12
+msgid "Select addressbook"
+msgstr "Velg adressebok"
+
+#: ui/editcontactview.ui:15
+msgid "Addressbook"
+msgstr "Adressebok"
+
+#: ui/editcontactview.ui:29
+msgid "Name"
+msgstr "Navn"
+
+#: ui/editcontactview.ui:32
+msgid "Contact name"
+msgstr "Kontaktnavn"
+
+#: ui/editcontactview.ui:47
+msgid "Select how this number will be categorized"
+msgstr "Velg hvordan dette nummeret kategoriseres"
+
+#: ui/editcontactview.ui:50
+msgid "Number category"
+msgstr "Nummerkategori"
+
+#: ui/editcontactview.ui:66
+msgid "Number or Ring ID to be added"
+msgstr "Nummer eller Ring-ID som skal legges til"
+
+#: ui/editcontactview.ui:72
+msgid "Number or Ring ID"
+msgstr "Nummer eller Ring-ID"
+
+#: ui/editcontactview.ui:83
+msgid "Save"
+msgstr "Lagre"
+
+#: ui/accountvideotab.ui:50
+msgid "Enable Video"
+msgstr "Aktiver video"
+
+#: ui/accountvideotab.ui:80 ui/accountaudiotab.ui:57
+msgid "Up"
+msgstr "Opp"
+
+#: ui/accountvideotab.ui:87 ui/accountaudiotab.ui:64
+msgid "Down"
+msgstr "Ned"
+
+#: ui/accountvideotab.ui:98
+msgid "Video Codecs"
+msgstr "Video-kodeker"
+
+#: ui/accountadvancedtab.ui:81
+msgid "Registration expire timeout (seconds):"
+msgstr "Tidsgrense for registrering (sekunder):"
+
+#: ui/accountadvancedtab.ui:103
+msgid "Allow calls from unknown peers"
+msgstr "Tillatt samtaler fra ukjente motparter"
+
+#: ui/accountadvancedtab.ui:117
+msgid "Allow calls from peers in your call history"
+msgstr "Tillatt samtaler fra motparter i din samtalehistorikk"
+
+#: ui/accountadvancedtab.ui:131
+msgid "Allow calls from peers in your contacts list"
+msgstr "Tillatt samtaler fra motparter i kontaktlisten din"
+
+#: ui/accountadvancedtab.ui:149
+msgid "Registration"
+msgstr "Registrering"
+
+#: ui/accountadvancedtab.ui:178
+msgid "Use random port"
+msgstr "Bruk tilfeldig port"
+
+#: ui/accountadvancedtab.ui:199
+msgid "Local port:"
+msgstr "Lokal port:"
+
+#: ui/accountadvancedtab.ui:225
+msgid "Network Interface"
+msgstr "Nettverksgrensesnitt"
+
+#: ui/accountadvancedtab.ui:253
+msgid "Same as local parameters"
+msgstr "Samme som lokale parametre"
+
+#: ui/accountadvancedtab.ui:268
+msgid "Set published address and port:"
+msgstr "Oppgi publisert adresse og port:"
+
+#: ui/accountadvancedtab.ui:292
+msgid "Address"
+msgstr "Adresse"
+
+#: ui/accountadvancedtab.ui:314 src/accountadvancedtab.cpp:510
+msgid "Port"
+msgstr "Port"
+
+#: ui/accountadvancedtab.ui:340
+msgid "Use STUN"
+msgstr "Bruk STUN"
+
+#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
+msgid "server URL"
+msgstr "tjener-URL"
+
+#: ui/accountadvancedtab.ui:389
+msgid "Use TURN"
+msgstr "Bruk TURN"
+
+#: ui/accountadvancedtab.ui:434
+msgid "username"
+msgstr "brukernavn"
+
+#: ui/accountadvancedtab.ui:455
+msgid "password"
+msgstr "passord"
+
+#: ui/accountadvancedtab.ui:479
+msgid "realm"
+msgstr "område"
+
+#: ui/accountadvancedtab.ui:508
+msgid "Published Address"
+msgstr "Publisert adresse"
+
+#: ui/accountadvancedtab.ui:536
+msgid "Bootstrap Servers"
+msgstr "Oppstartssekvens-tjenere"
+
+#: ui/accountadvancedtab.ui:593
+msgid ""
+"These settings are only used during SDP session negotiation in case ICE is "
+"not supported by the server or peer."
+msgstr "Disse innstillingene brukes kun for SDP-øktforhandling hvis ICE ikke støttes av tjeneren til motparten eller vedkommende."
+
+#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
+msgid "Min"
+msgstr "Min"
+
+#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
+msgid "Max"
+msgstr "Maks"
+
+#: ui/accountadvancedtab.ui:665
+msgid "Audio RTP Port Range"
+msgstr "RTP-portintervall for tale"
+
+#: ui/accountadvancedtab.ui:741
+msgid "Video RTP Port Range"
+msgstr "RTP-portintervall for video"
+
+#: ui/accountadvancedtab.ui:759
+msgid "SDP Session Negotiation (ICE Fallback)"
+msgstr "SDP-øktforhandling (ICE-reserve)"
+
+#: ui/accountaudiotab.ui:75
+msgid "Audio Codecs"
+msgstr "Lydkodeker"
+
+#: ui/usernameregistrationbox.ui:12
+msgid "enter username here"
+msgstr "skriv inn brukernavn her"
+
+#: ui/usernameregistrationbox.ui:24
+msgid "Register"
+msgstr "Registrer"
+
+#: ui/accountbanstab.ui:18
+msgid "List of banned peers :"
+msgstr ""
+
+#: ui/accountbanstab.ui:62
+msgid "unban"
+msgstr ""
+
+#: ui/chatview.ui:19 ui/chatview.ui:22
+msgid "Hide chat view"
+msgstr "Skjul sludrevisning"
+
+#: ui/chatview.ui:45 ui/chatview.ui:48
+msgid "Place call"
+msgstr "Utfør anrop"
+
+#: ui/chatview.ui:60
+msgid "Add to conversations"
+msgstr ""
+
+#: ui/chatview.ui:119
+msgid "Send Invitation"
+msgstr "Send invitasjon"
+
+#: ui/accountgeneraltab.ui:69
+msgid "Account"
+msgstr "Konto"
+
+#: ui/accountgeneraltab.ui:135
+msgid "Parameters"
+msgstr "Parameter"
+
+#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
+#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
+msgid "Change password"
+msgstr "Endre passord"
+
+#: ui/accountgeneraltab.ui:175
+msgid "Note: this will change the password only on this device."
+msgstr "Merk: Dette vil endre passordet kun på denne enheten."
+
+#: ui/accountgeneraltab.ui:194
+msgid "Current password"
+msgstr "Nåværende passord"
+
+#: ui/accountgeneraltab.ui:214
+msgid "New password"
+msgstr "Nytt passord"
+
+#: ui/accountgeneraltab.ui:234
+msgid "Confirm password"
+msgstr "Bekreft passord"
+
+#: ui/incomingcallview.ui:99
+msgid "Incoming..."
+msgstr "Innkommende…"
+
+#: ui/incomingcallview.ui:135
+msgid "Accept"
+msgstr "Aksepter"
+
+#: ui/incomingcallview.ui:156
+msgid "Reject"
+msgstr "Avslå"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
@@ -902,34 +768,6 @@ msgstr "Krev sertifikat for innkommende TLS-forbindelser"
 msgid "Negotiation Encryption"
 msgstr "Forhandlingskryptering"
 
-#: ui/accountvideotab.ui:50
-msgid "Enable Video"
-msgstr "Aktiver video"
-
-#: ui/accountvideotab.ui:98
-msgid "Video Codecs"
-msgstr "Video-kodeker"
-
-#: ui/accountview.ui:42 ui/accountview.ui:45
-msgid "Remove selected account"
-msgstr "Fjern valgt konto"
-
-#: ui/accountview.ui:63 ui/accountview.ui:66
-msgid "Add new account"
-msgstr "Legg til ny konto"
-
-#: ui/accountview.ui:75 ui/accountview.ui:78
-msgid "Select account type"
-msgstr "Velg kontotype"
-
-#: ui/accountview.ui:104
-msgid "Import archived account(s)"
-msgstr "Importer arkivert(e) konto(er)"
-
-#: ui/accountview.ui:112
-msgid "Export selected account(s)"
-msgstr "Eksporter valgt(e) konto(er)"
-
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
 msgstr "Ta bilde"
@@ -946,295 +784,448 @@ msgstr "Tilbake"
 msgid "Set selection as image"
 msgstr "Bruk utvalg som bilde"
 
-#: ui/chatview.ui:19 ui/chatview.ui:22
-msgid "Hide chat view"
-msgstr "Skjul sludrevisning"
-
-#: ui/chatview.ui:45 ui/chatview.ui:48
-msgid "Place call"
-msgstr "Utfør anrop"
-
-#: ui/chatview.ui:60
-msgid "Send invitation"
-msgstr "Send invitasjon"
-
-#: ui/chatview.ui:130
-msgid "Send Invitation"
-msgstr "Send invitasjon"
-
-#: ui/choosecontactview.ui:34
-msgid "Create New"
-msgstr "Lag ny"
-
-#: ui/currentcallview.ui:251
-msgid "End this call"
-msgstr "Avslutt denne samtalen"
-
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:459
-msgid "End call"
-msgstr "Avslutt samtale"
-
-#: ui/currentcallview.ui:276
-msgid "Toggle hold"
-msgstr "Styr parkering"
-
-#: ui/currentcallview.ui:280 ui/currentcallview.ui:306
-#: ui/currentcallview.ui:450
-msgid "Hold"
-msgstr "Parker"
-
-#: ui/currentcallview.ui:302
-msgid "Toggle mute audio"
-msgstr "Styr utkobling av lyd"
-
-#: ui/currentcallview.ui:328
-msgid "Toggle mute video"
-msgstr "Styr utkobling av video"
-
-#: ui/currentcallview.ui:332 ui/currentcallview.ui:441
-msgid "Mute video"
-msgstr "Koble ut video"
-
-#: ui/currentcallview.ui:355
-msgid "Toggle record audio"
-msgstr "Styr lydopptak"
-
-#: ui/currentcallview.ui:358
-msgid "Record audio"
-msgstr "Ta opp lyd"
-
-#: ui/currentcallview.ui:378
-msgid "Adjust outgoing video quality"
-msgstr "Juster utgående videokvalitet"
-
-#: ui/currentcallview.ui:383 ui/currentcallview.ui:468
-msgid "Video quality"
-msgstr "Videokvalitet"
-
-#: ui/currentcallview.ui:402
-msgid "Toggle show chat"
-msgstr "Styr visning av meldinger"
-
-#: ui/currentcallview.ui:406 ui/currentcallview.ui:423
-msgid "Chat"
-msgstr "Meldinger"
-
-#: ui/currentcallview.ui:432
-msgid "Mute audio"
-msgstr "Koble ut lyden"
-
-#: ui/currentcallview.ui:477
-msgid "Record"
-msgstr "Ta opp"
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr "Velg adressebok"
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr "Adressebok"
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "Navn"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr "Kontaktnavn"
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr "Velg hvordan dette nummeret kategoriseres"
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr "Nummerkategori"
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr "Nummer eller Ring-ID som skal legges til"
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr "Nummer eller Ring-ID"
-
-#: ui/editcontactview.ui:83
-msgid "Save"
-msgstr "Lagre"
-
-#: ui/generalsettingsview.ui:34
-msgid "Profile Settings"
-msgstr "Profilinnstillinger"
-
-#: ui/generalsettingsview.ui:76
-msgid "Ring Settings"
-msgstr "Ring-innstillinger"
-
-#: ui/generalsettingsview.ui:92
-msgid "Start Ring on login"
-msgstr "Start Ring ved innlogging"
-
-#: ui/generalsettingsview.ui:100
-msgid "Show Ring icon in the notification area (systray)."
-msgstr "Vis Ring-ikon i merknadsområdet (systemkurv)."
-
-#: ui/generalsettingsview.ui:108
-msgid "Bring Ring to the foreground on incoming calls."
-msgstr "Ta Ring i forgrunnen når noen ringer"
-
-#: ui/generalsettingsview.ui:116
-msgid "Enable notifications for incoming calls."
-msgstr "Skru på varsler for innkommende anrop."
-
-#: ui/generalsettingsview.ui:124
-msgid "Enable notifications for new chat messages."
-msgstr "Skru på varsler for nye sludremeldinger."
-
-#: ui/generalsettingsview.ui:132
-msgid "Show images and videos in chat window."
-msgstr "Vis bilder og videoer i sludrevindu."
-
-#: ui/generalsettingsview.ui:140
-msgid "Entering a number in the search entry will place a new call."
-msgstr "Inntasting av nummer i søkefeltet vil utføre ny samtale."
-
-#: ui/generalsettingsview.ui:155
-msgid "Show chat on the right."
-msgstr "Vis meldinger til høyre"
-
-#: ui/generalsettingsview.ui:161
-msgid "Show chat on the bottom."
-msgstr "Vis meldinger nederst"
-
-#: ui/generalsettingsview.ui:185
-msgid "History Settings"
-msgstr "Historikkinnstillinger"
-
-#: ui/generalsettingsview.ui:203
-msgid "Keep history for (days):"
-msgstr "Behold historikk i (dager):"
-
-#: ui/generalsettingsview.ui:224
-msgid "(set to 0 for unlimited history)"
-msgstr "(sett til 0 for ubegrenset historikk)"
-
-#: ui/generalsettingsview.ui:234
-msgid "Clear all history"
-msgstr "Nullstill all historikk"
-
-#: ui/incomingcallview.ui:106
-msgid "Incoming..."
-msgstr "Innkommende…"
-
-#: ui/incomingcallview.ui:142
-msgid "Accept"
-msgstr "Aksepter"
-
-#: ui/incomingcallview.ui:163
-msgid "Reject"
-msgstr "Avslå"
-
-#: ui/incomingcallview.ui:186
-msgid "Hang up"
-msgstr "Legg på"
-
-#: ui/mediasettingsview.ui:24
-msgid "Audio Settings"
-msgstr "Lydinnstilinger"
-
-#: ui/mediasettingsview.ui:40
-msgid "Audio manager:"
-msgstr "Lydstyrer:"
-
-#: ui/mediasettingsview.ui:52
-msgid "Ringtone device:"
-msgstr "Ringetoneenhet:"
-
-#: ui/mediasettingsview.ui:64
-msgid "Output device:"
-msgstr "Utdataenhet:"
-
-#: ui/mediasettingsview.ui:76
-msgid "Input device:"
-msgstr "Inndataenhet:"
-
-#: ui/mediasettingsview.ui:134
-msgid "Camera Settings"
-msgstr "Kamerainnstillinger"
-
-#: ui/mediasettingsview.ui:150
-msgid "Device:"
-msgstr "Enhet:"
-
-#: ui/mediasettingsview.ui:162
-msgid "Channel:"
-msgstr "Kanal:"
-
-#: ui/mediasettingsview.ui:174
-msgid "Resolution:"
-msgstr "Oppløsning:"
-
-#: ui/mediasettingsview.ui:186
-msgid "Frame rate:"
-msgstr "Bildetakt:"
-
-#: ui/mediasettingsview.ui:244
-msgid "Hardware Acceleration"
-msgstr "Maskinvareakselerasjon"
-
-#: ui/mediasettingsview.ui:260
-msgid "Enable hardware decoding:"
-msgstr "Skru på maskinvaredekoding:"
-
-#: ui/ringgearsmenu.ui:13
-msgid "_About"
-msgstr "_Om"
-
-#: ui/ringgearsmenu.ui:19
-msgid "_Quit"
-msgstr "_Avslutt"
-
-#: ui/ringmainwindow.ui:17
-msgid "Menu"
-msgstr "Meny"
-
-#: ui/ringmainwindow.ui:51
-msgid "General"
-msgstr "Generell"
-
-#: ui/ringmainwindow.ui:61
-msgid "Media"
-msgstr "Media"
-
-#: ui/ringmainwindow.ui:72
-msgid "Accounts"
-msgstr "Kontoer"
-
-#: ui/ringmainwindow.ui:102
-msgid "Settings"
-msgstr "Innstillinger"
-
-#: ui/ringmainwindow.ui:215
-msgid "Conversations"
-msgstr "Samtaler"
-
-#: ui/ringmainwindow.ui:237
+#: src/ring_client.cpp:147
+#, c-format
+msgid ""
+"Unable to initialize.\n"
+"Make sure the Ring daemon (dring) is running.\n"
+"Error: %s"
+msgstr ""
+
+#: src/ring_client.cpp:150
+msgid "Ring Error"
+msgstr "Feil med ring"
+
+#: src/ring_client.cpp:292
+msgctxt ""
+"In the status icon menu, toggle action to show or hide the Ring main window"
+msgid "Show Ring"
+msgstr ""
+
+#: src/ring_client.cpp:296
+msgid "Quit"
+msgstr ""
+
+#: src/ringnotify.cpp:148
+msgid "Incoming call"
+msgstr "Innkommende samtale"
+
+#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
+msgctxt "notification action name"
+msgid "Show"
+msgstr "Vis"
+
+#: src/ringnotify.cpp:267
+#, c-format
+msgctxt "Text message notification"
+msgid "%s says:"
+msgstr "%s sier:"
+
+#: src/accountimportexportview.cpp:99
+msgid "Select account export location"
+msgstr "Velg sted å eksportere konto til"
+
+#: src/accountimportexportview.cpp:104
+msgid "Select"
+msgstr "Velg"
+
+#: src/accountimportexportview.cpp:197
+msgid "Error importing account(s)"
+msgstr "Feil ved importering av konto(er)"
+
+#: src/accountimportexportview.cpp:244
+msgid "Error exporting account(s)"
+msgstr "Feil ved eksportering av konto(er)"
+
+#: src/usernameregistrationbox.cpp:128
+msgid "The entered username is not available"
+msgstr "Innskrevet brukernavn er ikke tilgjengelig"
+
+#: src/usernameregistrationbox.cpp:129
+msgid "Username is not available"
+msgstr "Brukernavnet er ikke tilgjengelig"
+
+#: src/usernameregistrationbox.cpp:138
+msgid "The entered username is not valid"
+msgstr "Innskrevet brukernavn er ikke gyldig"
+
+#: src/usernameregistrationbox.cpp:139
+msgid "Username is not valid"
+msgstr "Brukernavnet er ikke gyldig"
+
+#: src/usernameregistrationbox.cpp:148
+msgid "The entered username is available"
+msgstr "Innskrevet brukernavn er tilgjengelig"
+
+#: src/usernameregistrationbox.cpp:149
+msgid "Username is available"
+msgstr "Brukernavnet er tilgjengelig"
+
+#: src/usernameregistrationbox.cpp:158
+msgid "Failed to perform lookup"
+msgstr "Klarte ikke å utføre oppslag"
+
+#: src/usernameregistrationbox.cpp:159
+msgid "Could not lookup username"
+msgstr "Kunne ikke sjekke brukernavn"
+
+#: src/usernameregistrationbox.cpp:248
+msgid "Looking up username availability..."
+msgstr "Sjekker hvorvidt brukernavnet er tilgjengelig…"
+
+#: src/usernameregistrationbox.cpp:319
+msgid "Could not initiate name registration, try again."
+msgstr "Kunne ikke igangsette navneregistrering, prøv igjen."
+
+#: src/usernameregistrationbox.cpp:361
+msgid "Register this username on the blockchain"
+msgstr "Registrer dette brukernavnet på blokkjeden"
+
+#: src/usernameregistrationbox.cpp:397
+msgid "Invalid username"
+msgstr "Ugyldig brukernavn"
+
+#: src/usernameregistrationbox.cpp:404 src/accountdevicestab.cpp:195
+msgid "Bad password"
+msgstr "Dårlig passord"
+
+#: src/usernameregistrationbox.cpp:411
+msgid "Username already taken"
+msgstr "Brukernavnet er allerede i bruk"
+
+#: src/usernameregistrationbox.cpp:418
+msgid "Network error"
+msgstr "Nettverksfeil"
+
+#: src/generalsettingsview.cpp:103
+msgid ""
+"This is a destructive operation. Are you sure you want to delete all of your"
+" chat and call history?"
+msgstr "Dette er en ødeleggende operasjon. Er du sikker på at du vil slette all din sludre- og samtale-historikk?"
+
+#: src/backends/edscontactbackend.cpp:193
+msgid "Unknown EDS addressbook"
+msgstr "Ukjent EDS-adressebok"
+
+#: src/backends/edscontactbackend.cpp:213
+msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: ui/ringmainwindow.ui:259
-msgid "History"
-msgstr "Historie"
+#: src/accountadvancedtab.cpp:389
+msgid "_Remove server"
+msgstr "_Fjern tjener"
 
-#: ui/ringmainwindow.ui:281
-msgid "Contact requests"
-msgstr "Kontaktforespørsler"
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
+msgid "Hostname"
+msgstr "Vertsnavn"
 
-#: ui/usernameregistrationbox.ui:12
-msgid "enter username here"
-msgstr "skriv inn brukernavn her"
+#: src/accountgeneraltab.cpp:196
+msgid "New password and its confirmation are different"
+msgstr "Nytt passord og bekreftelse av det er forskjellig"
 
-#: ui/usernameregistrationbox.ui:24
-msgid "Register"
-msgstr "Registrer"
+#: src/accountgeneraltab.cpp:206
+msgid "Password changed!"
+msgstr "Passord endret!"
+
+#: src/accountgeneraltab.cpp:209
+msgid "Incorrect password"
+msgstr "Feil passord"
+
+#: src/accountgeneraltab.cpp:236
+msgid "Alias"
+msgstr "Alias"
+
+#: src/accountgeneraltab.cpp:247
+msgid "Type"
+msgstr "Type"
+
+#: src/accountgeneraltab.cpp:273
+msgid "auto-generating..."
+msgstr "autogenererer…"
+
+#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
+msgid "Username"
+msgstr "Brukernavn"
+
+#: src/accountgeneraltab.cpp:322
+msgid "Password"
+msgstr "Passord"
+
+#: src/accountgeneraltab.cpp:335
+msgid "Show password"
+msgstr "Vis passord"
+
+#: src/accountgeneraltab.cpp:341
+msgid "Proxy"
+msgstr "Mellomtjener"
+
+#: src/accountgeneraltab.cpp:351
+msgid "Voicemail number"
+msgstr "Talepostkassenummer"
+
+#: src/accountgeneraltab.cpp:363
+msgid "Name service URL"
+msgstr "Nettadresse for navnetjeneste"
+
+#: src/accountgeneraltab.cpp:376
+msgid "Auto-answer calls"
+msgstr "Auto-svar på samtaler"
+
+#: src/accountgeneraltab.cpp:384
+msgid "UPnP enabled"
+msgstr "UPnP aktivt"
+
+#: src/video/video_widget.cpp:532
+msgid "Share screen area"
+msgstr "Del skjermområde"
+
+#: src/video/video_widget.cpp:543
+msgid "Share file"
+msgstr "Del fil"
+
+#: src/video/video_widget.cpp:556
+msgid "Show advanced information"
+msgstr "Vis avansert informasjon"
+
+#: src/avatarmanipulation.cpp:380
+msgid "Open Avatar Image"
+msgstr "Åpne avatarbilde"
+
+#: src/avatarmanipulation.cpp:383
+msgid "_Cancel"
+msgstr "_Avbryt"
+
+#: src/avatarmanipulation.cpp:385
+msgid "_Open"
+msgstr "_Åpne"
+
+#: src/dialogs.c:53
+msgid "Working..."
+msgstr "Arbeider…"
+
+#: src/dialogs.c:84
+#, c-format
+msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+msgid ""
+"Liberté, Égalité, Fraternité - Version 1.0\n"
+"built on %.25s"
+msgstr "Frihet, likhet, brorskap - Versjon 1.0\nbygd %.25s"
+
+#: src/dialogs.c:136
+msgid ""
+"The GNOME client for Ring.\n"
+"Ring is free software for universal communication which respects the freedoms and privacy of its users."
+msgstr "GNOME-klienten for Ring.\nRing er fri programvare for universell kommunikasjon som respekterer privatlivets fred for dets brukere."
+
+#: src/accountdevicestab.cpp:201
+msgid "Network error, try again"
+msgstr "Nettverksfeil, prøv på nytt"
+
+#: src/accountdevicestab.cpp:213
+msgid "Could not initiate export to the Ring, try again"
+msgstr "Kunne ikke igangsette eksportering til Ring, prøv igjen"
+
+#: src/accountdevicestab.cpp:246
+msgctxt "Device Name Column"
+msgid "Name"
+msgstr "Navn"
+
+#: src/accountdevicestab.cpp:251
+msgctxt "Device ID Column"
+msgid "ID"
+msgstr "ID"
+
+#: src/ringmainwindow.cpp:839
+msgctxt "button next to search entry will place a new call"
+msgid "place call"
+msgstr "utfør samtale"
+
+#: src/ringmainwindow.cpp:841
+msgctxt "button next to search entry will open chat"
+msgid "open chat"
+msgstr "åpne sludring"
+
+#: src/ringmainwindow.cpp:1165
+msgctxt ""
+"Please try to make the translation 50 chars or less so that it fits into the"
+" layout"
+msgid "Search contacts or enter number"
+msgstr "Søk kontakter eller skriv inn nummer"
+
+#: src/editcontactview.cpp:208
+msgctxt "Phone number category"
+msgid "home"
+msgstr "hjem"
+
+#: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
+msgid "Enabled"
+msgstr "Aktiv"
+
+#: src/accountvideotab.cpp:190
+msgctxt "The name of the codec"
+msgid "Name"
+msgstr "Navn"
+
+#: src/accountvideotab.cpp:194 src/accountaudiotab.cpp:185
+msgid "Bitrate"
+msgstr "Bitrate"
+
+#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
+msgctxt "Name of error window (dialog)"
+msgid "Ring Error"
+msgstr "Feil med ring"
+
+#: src/native/dbuserrorhandler.cpp:57
+msgid "Trying to reconnect to the Ring daemon (dring)..."
+msgstr "Prøver å koble til Ring-nissen igjen (dring)…"
+
+#: src/native/dbuserrorhandler.cpp:87
+msgid ""
+"Could not re-connect to the Ring daemon (dring).\n"
+"Ring will now quit."
+msgstr "Kunne ikke koble til Ring-nissen igjen (dring).\nRing vil nå avslutte."
+
+#: src/accountaudiotab.cpp:181
+msgctxt "Name of the codec"
+msgid "Name"
+msgstr "Navn"
+
+#: src/accountaudiotab.cpp:189
+msgid "Samplerate"
+msgstr "Samplingsfrekvens"
+
+#: src/conversationpopupmenu.cpp:147
+msgid "_Place call"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:153
+msgid "_Add to conversations"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:157
+msgid "_Discard invitation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:160
+msgid "_Block invitations"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:165
+msgid "_Clear history"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:168
+msgid "_Remove conversation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:171
+msgid "_Block contact"
+msgstr ""
+
+#: src/ring_client_options.c:66
+msgid "Enable debug"
+msgstr "Aktiver feilsøking"
+
+#: src/ring_client_options.c:68
+msgid ""
+"Restores the hidden state of the main window (only applicable to the primary"
+" instance)"
+msgstr "Tilbakestiller den skjulte tilstanden til hovedvinduet (gjelder kun for primærinstansen)"
+
+#: src/ring_client_options.c:85
+msgid "- GNOME client for Ring"
+msgstr "- GNOME-klient for Ring"
+
+#: src/accountcreationwizard.cpp:231
+msgid ""
+"Your account was created, but we could not register your username. Try again"
+" from the settings menu."
+msgstr "Din konto ble opprettet, men vi kunne ikke registrer ditt brukernavn. Prøv igjen fra innstillingsmenyen."
+
+#: src/accountcreationwizard.cpp:275
+msgctxt "The default username / account alias, if none is set by the user"
+msgid "Unknown"
+msgstr "Ukjent"
+
+#: src/accountcreationwizard.cpp:471
+msgid "Passwords don't match"
+msgstr "Passordene er ikke like"
+
+#: src/ringwelcomeview.cpp:88
+msgid ""
+"This is your Ring username.\n"
+"Copy and share it with your friends!"
+msgstr "Dette er ditt Ring-brukernavn.\nKopier og del det med dine venner!"
+
+#: src/ringwelcomeview.cpp:96
+msgctxt "Do not translate \"RingID\""
+msgid ""
+"This is your RingID.\n"
+"Copy and share it with your friends!"
+msgstr "Dette er din RingID.\nKopier og del den med dine venner!"
+
+#: src/ringwelcomeview.cpp:151
+msgid ""
+"Ring is free software for universal communication which respects the "
+"freedoms and privacy of its users."
+msgstr "Ring er fri programvare for universell kommunikasjon som respekterer privatlivets fred for dets brukere."
+
+#: src/ringwelcomeview.cpp:205
+msgctxt "Do not translate \"Ring ID\""
+msgid "Ring ID QR code"
+msgstr "QR-kode for RingID"
+
+#: src/currentcallview.cpp:535
+msgctxt "Enable automatic video quality"
+msgid "Auto"
+msgstr "Auto"
+
+#: src/accountview.cpp:168
+msgctxt "Account settings"
+msgid "General"
+msgstr "Generell"
+
+#: src/accountview.cpp:176
+msgctxt "Account settings"
+msgid "Devices"
+msgstr "Enheter"
+
+#: src/accountview.cpp:182
+msgctxt "Account settings"
+msgid "Security"
+msgstr "Sikkerhet"
+
+#: src/accountview.cpp:187
+msgctxt "Account settings"
+msgid "Advanced"
+msgstr "Avansert"
+
+#: src/accountview.cpp:194
+msgctxt "List of banned peers"
+msgid "Bans"
+msgstr "Bannlysninger"
+
+#: src/accountview.cpp:250
+#, c-format
+msgid "Are you sure you want to delete account \"%s\"?"
+msgstr "Er du sikker på at du ønsker å slette kontoen «%s»?"
+
+#: src/accountview.cpp:377
+msgid "New Account"
+msgstr "Ny konto"
+
+#: src/accountview.cpp:527
+msgctxt "Account state column"
+msgid "Enabled"
+msgstr "Aktiv"
+
+#: src/accountview.cpp:533
+msgctxt "Account alias (name) column"
+msgid "Alias"
+msgstr "Alias"
+
+#: src/accountview.cpp:541
+msgctxt "Account status column"
+msgid "Status"
+msgstr "Status"
