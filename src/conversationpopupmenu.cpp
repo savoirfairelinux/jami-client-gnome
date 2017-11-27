@@ -52,6 +52,27 @@ G_DEFINE_TYPE_WITH_PRIVATE(ConversationPopupMenu, conversation_popup_menu, GTK_T
 #define CONVERSATION_POPUP_MENU_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CONVERSATION_POPUP_MENU_TYPE, ConversationPopupMenuPrivate))
 
 static void
+copy_contact_info(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
+{
+    try
+    {
+        auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(priv->row_);
+        if (conversation.participants.empty()) return;
+        auto& contact = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
+        auto bestName = contact.registeredName.empty() ? contact.profileInfo.uri : contact.registeredName;
+        auto text = (gchar *)bestName.c_str();
+        GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+        gtk_clipboard_set_text(clip, text, -1);
+        clip = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+        gtk_clipboard_set_text(clip, text, -1);
+    }
+    catch (...)
+    {
+        g_warning("Can't get conversation at row %i", priv->row_);
+    }
+}
+
+static void
 remove_history_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 {
     try
@@ -147,6 +168,9 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     auto place_call_conversation = gtk_menu_item_new_with_mnemonic(_("_Place call"));
     gtk_menu_shell_append(GTK_MENU_SHELL(self), place_call_conversation);
     g_signal_connect(place_call_conversation, "activate", G_CALLBACK(place_call), priv);
+    auto copy_name = gtk_menu_item_new_with_mnemonic(_("_Copy name"));
+    gtk_menu_shell_append(GTK_MENU_SHELL(self), copy_name);
+    g_signal_connect(copy_name, "activate", G_CALLBACK(copy_contact_info), priv);
     if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY ||
         contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING) {
         // If we can add this conversation
@@ -162,7 +186,7 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
             g_signal_connect(block_conversation_item, "activate", G_CALLBACK(block_conversation), priv);
         }
     } else {
-        auto rm_history_conversation = gtk_menu_item_new_with_mnemonic(_("_Clear history"));
+        auto rm_history_conversation = gtk_menu_item_new_with_mnemonic(_("C_lear history"));
         gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_history_conversation);
         g_signal_connect(rm_history_conversation, "activate", G_CALLBACK(remove_history_conversation), priv);
         auto rm_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Remove conversation"));
