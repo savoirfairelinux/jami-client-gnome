@@ -447,6 +447,7 @@ switch_video_input_screen(G_GNUC_UNUSED GtkWidget *item, Call* call)
 static void
 switch_video_input_file(GtkWidget *item, GtkWidget *parent)
 {
+    auto* priv = VIDEO_WIDGET_GET_PRIVATE(parent);
     if (parent && GTK_IS_WIDGET(parent)) {
         /* get parent window */
         parent = gtk_widget_get_toplevel(GTK_WIDGET(parent));
@@ -462,10 +463,15 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
             NULL);
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
-        Call *call;
-        gpointer data = g_object_get_data(G_OBJECT(item),JOIN_CALL_KEY );
-        g_return_if_fail(data);
-        call = (Call*)data;
+        Call *call = nullptr;
+        for (const auto& activeCall: CallModel::instance().getActiveCalls()) {
+            if (activeCall->videoRenderer() == priv->remote->renderer) {
+                call = activeCall;
+                break;
+            }
+        }
+
+        if (!call) return;
 
         uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 
