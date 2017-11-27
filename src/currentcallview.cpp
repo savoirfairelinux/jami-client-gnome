@@ -609,6 +609,7 @@ insert_controls(CurrentCallView *view)
     auto renderer = priv->accountContainer_->info.callModel->getRenderer(callToRender);
     for (const auto& activeCall: CallModel::instance().getActiveCalls())
         if (activeCall->videoRenderer() == renderer) {
+            g_signal_connect(priv->video_widget, "drag-data-received", G_CALLBACK(video_widget_on_drag_data_received), activeCall);
             /* check if auto quality is enabled or not */
             if (const auto& codecModel = activeCall->account()->codecModel()) {
                 const auto& videoCodecs = codecModel->videoCodecs();
