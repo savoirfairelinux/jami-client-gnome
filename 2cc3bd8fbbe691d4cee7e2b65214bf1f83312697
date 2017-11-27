@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_0f9cea68",
+        "filename": "src/conversationpopupmenu.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-11-27T18:35:18Z",
+      "side": 1,
+      "message": "Could be a good idea to also add the text to GDK_SELECTION_PRIMARY (for X)",
+      "range": {
+        "startLine": 64,
+        "startChar": 9,
+        "endLine": 64,
+        "endChar": 72
+      },
+      "revId": "2cc3bd8fbbe691d4cee7e2b65214bf1f83312697",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
