@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_ef7b7e27",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-11-27T18:47:25Z",
+      "side": 1,
+      "message": "you can use auto* here (if you want)\nbetter if one day you need to change the name.",
+      "revId": "18abe83ff337ded7c42a96173d593afe8bf80834",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
