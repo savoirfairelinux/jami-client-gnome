@@ -1,118 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.20.1 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
-  <template class="ChatView" parent="GtkBox">
-    <property name="orientation">vertical</property>
-
-    <!-- chat info (only show for out of call conversations) -->
-    <child>
-      <object class="GtkBox" id="hbox_chat_info">
-        <property name="visible">False</property>
-        <property name="no-show-all">True</property>
-        <property name="orientation">horizontal</property>
-        <property name="spacing">5</property>
-        <child>
-          <object class="GtkButton" id="button_close_chatview">
-            <property name="image">image_back_arrow</property>
-            <property name="visible">True</property>
-            <property name="relief">none</property>
-            <property name="tooltip-text" translatable="yes">Hide chat view</property>
-            <child internal-child="accessible">
-              <object class="AtkObject" id="button_close_chatview-atkobject">
-                <property name="AtkObject::accessible-name" translatable="yes">Hide chat view</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label_peer">
-            <property name="visible">True</property>
-            <property name="selectable">True</property>
-            <property name="ellipsize">end</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="button_placecall">
-            <property name="visible">True</property>
-            <property name="image">image_place_call</property>
-            <property name="tooltip-text" translatable="yes">Place call</property>
-            <child internal-child="accessible">
-              <object class="AtkObject" id="button_placecall-atkobject">
-                <property name="AtkObject::accessible-name" translatable="yes">Place call</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="pack-type">end</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="button_add_to_conversations">
-            <property name="visible">True</property>
-            <property name="image">image_invite</property>
-            <property name="tooltip-text" translatable="yes">Add to conversations</property>
-          </object>
-          <packing>
-            <property name="pack-type">end</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label_cm">
-            <property name="visible">True</property>
-            <property name="selectable">True</property>
-            <property name="ellipsize">end</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="pack-type">end</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-      </packing>
-    </child>
-    <!-- end of chat info -->
-
-    <!-- start of chat text view -->
-    <child>
-      <object class="GtkScrolledWindow" id="scrolledwindow_chat">
-        <property name="visible">True</property>
-        <property name="min-content-height">100</property>
-        <child>
-          <object class="GtkBox" id="box_webkit_chat_container">
-            <property name="visible">True</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">True</property>
-        <property name="fill">True</property>
-      </packing>
-    </child>
-    <!-- end of chat text view -->
-
-  </template>
-
   <object class="GtkImage" id="image_back_arrow">
     <property name="visible">True</property>
-    <property name="icon-name">go-previous-symbolic</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">go-previous-symbolic</property>
   </object>
-
   <object class="GtkImage" id="image_invite">
     <property name="visible">True</property>
+    <property name="can_focus">False</property>
     <property name="resource">/cx/ring/RingGnome/invite</property>
     <child internal-child="accessible">
       <object class="AtkObject" id="image_invite-atkobject">
@@ -122,6 +19,137 @@
   </object>
   <object class="GtkImage" id="image_place_call">
     <property name="visible">True</property>
+    <property name="can_focus">False</property>
     <property name="resource">/cx/ring/RingGnome/call_start</property>
   </object>
+  <template class="ChatView" parent="GtkBox">
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox" id="hbox_chat_info">
+        <property name="can_focus">False</property>
+        <property name="no_show_all">True</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkButton" id="button_close_chatview">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Hide chat view</property>
+            <property name="image">image_back_arrow</property>
+            <property name="relief">none</property>
+            <child internal-child="accessible">
+              <object class="AtkObject" id="button_close_chatview-atkobject">
+                <property name="AtkObject::accessible-name" translatable="yes">Hide chat view</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_peer">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="selectable">True</property>
+            <property name="ellipsize">end</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="button_placecall">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Place call</property>
+            <property name="image">image_place_call</property>
+            <child internal-child="accessible">
+              <object class="AtkObject" id="button_placecall-atkobject">
+                <property name="AtkObject::accessible-name" translatable="yes">Place call</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="button_place_audio_call">
+            <property name="label" translatable="yes">button</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="button_add_to_conversations">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Add to conversations</property>
+            <property name="image">image_invite</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_cm">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="selectable">True</property>
+            <property name="ellipsize">end</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="scrolledwindow_chat">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="min_content_height">100</property>
+      </object>
+      <packing>
+        <property name="expand">True</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+  </template>
 </interface>

@@ -21,6 +21,7 @@
  */
 
 #include "chatview.h"
+#include "iostream"
 
 // std
 #include <algorithm>
@@ -55,6 +56,7 @@ struct _ChatViewPrivate
     GtkWidget *button_close_chatview;
     GtkWidget *button_placecall;
     GtkWidget *button_add_to_conversations;
+    GtkWidget *button_place_audio_call;
 
     GSettings *settings;
 
@@ -141,6 +143,15 @@ placecall_clicked(ChatView *self)
 }
 
 static void
+place_audio_call_clicked(ChatView *self)
+{
+    std::cout << "@1" << std::endl;
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    if (!priv->conversation_) return;
+    priv->accountContainer_->info.conversationModel->placeAudioCall(priv->conversation_->uid);
+}
+
+static void
 button_add_to_conversations_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
@@ -178,6 +189,7 @@ chat_view_init(ChatView *view)
     g_signal_connect(priv->button_close_chatview, "clicked", G_CALLBACK(hide_chat_view), view);
     g_signal_connect_swapped(priv->button_placecall, "clicked", G_CALLBACK(placecall_clicked), view);
     g_signal_connect_swapped(priv->button_add_to_conversations, "clicked", G_CALLBACK(button_add_to_conversations_clicked), view);
+    g_signal_connect_swapped(priv->button_place_audio_call, "clicked", G_CALLBACK(place_audio_call_clicked), view);
 }
 
 static void
@@ -195,6 +207,7 @@ chat_view_class_init(ChatViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_close_chatview);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_placecall);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_add_to_conversations);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_place_audio_call);
 
     chat_view_signals[NEW_MESSAGES_DISPLAYED] = g_signal_new (
         "new-interactions-displayed",
