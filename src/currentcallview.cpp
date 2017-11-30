@@ -653,8 +653,8 @@ current_call_view_init(CurrentCallView *view)
         @keyframes blink { 0% {opacity: 1;} 49% {opacity: 1;} 50% {opacity: 0;} 100% {opacity: 0;} } \
         .record-button { background: rgba(0, 0, 0, 1); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
         .record-button:checked { animation: blink 1s; animation-iteration-count: infinite; } \
-        .call-button { background: rgba(0, 0, 0, 0); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
-        .call-button:hover { background: rgba(200, 200, 200, 0.15); } \
+        .call-button { background: rgba(0, 0, 0, 0.35); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
+        .call-button:hover { background: rgba(0, 0, 0, 0.2); } \
         .call-button:disabled { opacity: 0.2; } \
         .can-be-disabled:checked { background: rgba(219, 58, 55, 1); } \
         .hangup-button-style { background: rgba(219, 58, 55, 1); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
