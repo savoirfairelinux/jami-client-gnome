@@ -378,7 +378,6 @@ set_quality(Call *call, gboolean auto_quality_on, double desired_quality)
 static void
 autoquality_toggled(GtkToggleButton *button, CurrentCallView *self)
 {
-    // TODO
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
@@ -406,7 +405,6 @@ autoquality_toggled(GtkToggleButton *button, CurrentCallView *self)
 static void
 quality_changed(G_GNUC_UNUSED GtkScaleButton *button, G_GNUC_UNUSED gdouble value, CurrentCallView *self)
 {
-    // TODO
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 

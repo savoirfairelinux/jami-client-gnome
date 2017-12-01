@@ -306,10 +306,11 @@ update_contact_methods(ChatView *self)
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
     auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    if (contactInfo.profileInfo.alias == contactInfo.registeredName) {
+    auto bestName = std::string(contactInfo.registeredName).empty() ? contactInfo.profileInfo.uri : contactInfo.registeredName;
+    if (contactInfo.profileInfo.alias == bestName) {
         gtk_widget_hide(priv->label_cm);
     } else {
-        gtk_label_set_text(GTK_LABEL(priv->label_cm), contactInfo.registeredName.c_str());
+        gtk_label_set_text(GTK_LABEL(priv->label_cm), bestName.c_str());
         gtk_widget_show(priv->label_cm);
     }
 

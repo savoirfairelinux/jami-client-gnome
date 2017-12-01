@@ -121,23 +121,26 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     gchar *lastInteraction;
     gchar *text;
     gchar *uid;
+    gchar *uri;
 
     gtk_tree_model_get (model, iter,
                         0 /* col# */, &uid /* data */,
                         1 /* col# */, &alias /* data */,
-                        2 /* col# */, &registeredName /* data */,
-                        4 /* col# */, &lastInteraction /* data */,
+                        2 /* col# */, &uri /* data */,
+                        3 /* col# */, &registeredName /* data */,
+                        5 /* col# */, &lastInteraction /* data */,
                         -1);
 
+    auto bestName = std::string(registeredName).empty() ? uri: registeredName;
     if (std::string(alias).empty()) {
         // For conversations with contacts with no alias
         text = g_markup_printf_escaped(
             "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
-            registeredName,
+            bestName,
             lastInteraction
         );
-    } else if (std::string(alias) == std::string(registeredName)
-        || std::string(registeredName).empty() || std::string(uid).empty()) {
+    } else if (std::string(alias) == std::string(bestName)
+        || std::string(bestName).empty() || std::string(uid).empty()) {
         // For temporary item
         text = g_markup_printf_escaped(
             "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
@@ -149,13 +152,14 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         text = g_markup_printf_escaped(
             "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
             alias,
-            registeredName,
+            bestName,
             lastInteraction
         );
     }
 
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
     g_free(uid);
+    g_free(uri);
     g_free(alias);
     g_free(registeredName);
 }
@@ -222,7 +226,8 @@ static GtkTreeModel*
 create_and_fill_model(ConversationsView *self)
 {
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
-    auto store = gtk_list_store_new (5 /* # of cols */ ,
+    auto store = gtk_list_store_new (6 /* # of cols */ ,
+                                     G_TYPE_STRING,
                                      G_TYPE_STRING,
                                      G_TYPE_STRING,
                                      G_TYPE_STRING,
@@ -245,9 +250,10 @@ create_and_fill_model(ConversationsView *self)
         gtk_list_store_set (store, &iter,
             0 /* col # */ , conversation.uid.c_str() /* celldata */,
             1 /* col # */ , alias.c_str() /* celldata */,
-            2 /* col # */ , contactInfo.registeredName.c_str() /* celldata */,
-            3 /* col # */ , contactInfo.profileInfo.avatar.c_str() /* celldata */,
-            4 /* col # */ , lastMessage.c_str() /* celldata */,
+            2 /* col # */ , contactInfo.profileInfo.uri.c_str() /* celldata */,
+            3 /* col # */ , contactInfo.registeredName.c_str() /* celldata */,
+            4 /* col # */ , contactInfo.profileInfo.avatar.c_str() /* celldata */,
+            5 /* col # */ , lastMessage.c_str() /* celldata */,
             -1 /* end */);
     }
 
