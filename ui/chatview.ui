@@ -54,6 +54,21 @@
           </packing>
         </child>
         <child>
+          <object class="GtkButton" id="button_place_audio_call">
+            <property name="image">image_place_audio_only_call</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="tooltip-text" translatable="yes">Place audio-only call</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkButton" id="button_add_to_conversations">
             <property name="visible">True</property>
             <property name="image">image_invite</property>
@@ -123,5 +138,9 @@
   <object class="GtkImage" id="image_place_call">
     <property name="visible">True</property>
     <property name="resource">/cx/ring/RingGnome/call_start</property>
+  </object>
+  <object class="GtkImage" id="image_place_audio_only_call">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/audio_only_call_start</property>
   </object>
 </interface>
