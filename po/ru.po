@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-26 22:09-0500\n"
-"PO-Revision-Date: 2017-11-17 15:07+0000\n"
+"POT-Creation-Date: 2017-12-03 22:09-0500\n"
+"PO-Revision-Date: 2017-12-04 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -988,15 +988,15 @@ msgstr "Автоответчик"
 msgid "UPnP enabled"
 msgstr "UPnP разрешен"
 
-#: src/video/video_widget.cpp:532
+#: src/video/video_widget.cpp:538
 msgid "Share screen area"
 msgstr "Транслировать область экрана"
 
-#: src/video/video_widget.cpp:543
+#: src/video/video_widget.cpp:549
 msgid "Share file"
 msgstr "Поделиться файлом"
 
-#: src/video/video_widget.cpp:556
+#: src/video/video_widget.cpp:562
 msgid "Show advanced information"
 msgstr "Показать дополнительную информацию"
 
@@ -1024,7 +1024,7 @@ msgid ""
 "built on %.25s"
 msgstr "Свобода, равенство и братство — Версия 1.0\nсобрано %.25s"
 
-#: src/dialogs.c:136
+#: src/dialogs.c:134
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1107,31 +1107,35 @@ msgstr "Имя"
 msgid "Samplerate"
 msgstr "Частота дискретизации"
 
-#: src/conversationpopupmenu.cpp:147
+#: src/conversationpopupmenu.cpp:168
 msgid "_Place call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:153
+#: src/conversationpopupmenu.cpp:171
+msgid "_Copy name"
+msgstr "_Копировать имя"
+
+#: src/conversationpopupmenu.cpp:177
 msgid "_Add to conversations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:157
+#: src/conversationpopupmenu.cpp:181
 msgid "_Discard invitation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:160
+#: src/conversationpopupmenu.cpp:184
 msgid "_Block invitations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:165
-msgid "_Clear history"
+#: src/conversationpopupmenu.cpp:189
+msgid "C_lear history"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:168
+#: src/conversationpopupmenu.cpp:192
 msgid "_Remove conversation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:171
+#: src/conversationpopupmenu.cpp:195
 msgid "_Block contact"
 msgstr ""
 
@@ -1188,7 +1192,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring ID QR код"
 
-#: src/currentcallview.cpp:535
+#: src/currentcallview.cpp:595
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Авто"

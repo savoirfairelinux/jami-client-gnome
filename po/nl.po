@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-26 22:09-0500\n"
-"PO-Revision-Date: 2017-11-18 10:42+0000\n"
-"Last-Translator: Nathan Follens\n"
+"POT-Creation-Date: 2017-12-03 22:09-0500\n"
+"PO-Revision-Date: 2017-12-04 03:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/ring/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -977,15 +977,15 @@ msgstr "Oproepen automatisch beantwoorden"
 msgid "UPnP enabled"
 msgstr "UPnP ingeschakeld"
 
-#: src/video/video_widget.cpp:532
+#: src/video/video_widget.cpp:538
 msgid "Share screen area"
 msgstr "Schermruimte delen"
 
-#: src/video/video_widget.cpp:543
+#: src/video/video_widget.cpp:549
 msgid "Share file"
 msgstr "Bestand delen"
 
-#: src/video/video_widget.cpp:556
+#: src/video/video_widget.cpp:562
 msgid "Show advanced information"
 msgstr "Toon geavanceerde informatie"
 
@@ -1013,7 +1013,7 @@ msgid ""
 "built on %.25s"
 msgstr "Liberté, Égalité, Fraternité - versie 1.0\ngebouwd op %.25s"
 
-#: src/dialogs.c:136
+#: src/dialogs.c:134
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1096,31 +1096,35 @@ msgstr "Naam"
 msgid "Samplerate"
 msgstr "Samplerate"
 
-#: src/conversationpopupmenu.cpp:147
+#: src/conversationpopupmenu.cpp:168
 msgid "_Place call"
 msgstr "Oproep _plaatsen"
 
-#: src/conversationpopupmenu.cpp:153
+#: src/conversationpopupmenu.cpp:171
+msgid "_Copy name"
+msgstr "Naam _kopiëren"
+
+#: src/conversationpopupmenu.cpp:177
 msgid "_Add to conversations"
 msgstr "_Aan gesprekken toevoegen"
 
-#: src/conversationpopupmenu.cpp:157
+#: src/conversationpopupmenu.cpp:181
 msgid "_Discard invitation"
 msgstr "Uitnodiging verwij_deren"
 
-#: src/conversationpopupmenu.cpp:160
+#: src/conversationpopupmenu.cpp:184
 msgid "_Block invitations"
 msgstr "Uitnodigingen _blokkeren"
 
-#: src/conversationpopupmenu.cpp:165
-msgid "_Clear history"
-msgstr "Geschiedenis _wissen"
+#: src/conversationpopupmenu.cpp:189
+msgid "C_lear history"
+msgstr ""
 
-#: src/conversationpopupmenu.cpp:168
+#: src/conversationpopupmenu.cpp:192
 msgid "_Remove conversation"
 msgstr "Gesprek ve_rwijderen"
 
-#: src/conversationpopupmenu.cpp:171
+#: src/conversationpopupmenu.cpp:195
 msgid "_Block contact"
 msgstr "Contact _blokkeren"
 
@@ -1177,7 +1181,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring-ID-QR-code"
 
-#: src/currentcallview.cpp:535
+#: src/currentcallview.cpp:595
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"

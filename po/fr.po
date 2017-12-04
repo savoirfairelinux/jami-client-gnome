@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-26 22:09-0500\n"
-"PO-Revision-Date: 2017-11-17 15:07+0000\n"
+"POT-Creation-Date: 2017-12-03 22:09-0500\n"
+"PO-Revision-Date: 2017-12-04 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -649,11 +649,11 @@ msgstr "Enregistrer"
 
 #: ui/accountbanstab.ui:18
 msgid "List of banned peers :"
-msgstr ""
+msgstr "Liste des utilisateurs bannis"
 
 #: ui/accountbanstab.ui:62
 msgid "unban"
-msgstr ""
+msgstr "ré-autoriser"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -665,7 +665,7 @@ msgstr "Appeler"
 
 #: ui/chatview.ui:60
 msgid "Add to conversations"
-msgstr ""
+msgstr "Ajouter aux conversations"
 
 #: ui/chatview.ui:119
 msgid "Send Invitation"
@@ -806,7 +806,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Ring daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Impossible de démarrer\nVérifier que le serveur Ring  fonctionne\nErreur: %s"
 
 #: src/ring_client.cpp:150
 msgid "Ring Error"
@@ -816,11 +816,11 @@ msgstr "Erreur Ring"
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
-msgstr ""
+msgstr "Afficher Ring"
 
 #: src/ring_client.cpp:296
 msgid "Quit"
-msgstr ""
+msgstr "Quitter"
 
 #: src/ringnotify.cpp:148
 msgid "Incoming call"
@@ -992,15 +992,15 @@ msgstr "Répondre automatiquement aux appels"
 msgid "UPnP enabled"
 msgstr "UPnP activé"
 
-#: src/video/video_widget.cpp:532
+#: src/video/video_widget.cpp:538
 msgid "Share screen area"
 msgstr "Partager une partie de l’écran"
 
-#: src/video/video_widget.cpp:543
+#: src/video/video_widget.cpp:549
 msgid "Share file"
 msgstr "Partager un fichier"
 
-#: src/video/video_widget.cpp:556
+#: src/video/video_widget.cpp:562
 msgid "Show advanced information"
 msgstr "Afficher les informations avancées"
 
@@ -1028,7 +1028,7 @@ msgid ""
 "built on %.25s"
 msgstr "Liberté, Égalité, Fraternité - Version 1.0\ncompilé le %.25s"
 
-#: src/dialogs.c:136
+#: src/dialogs.c:134
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1111,31 +1111,35 @@ msgstr "Nom"
 msgid "Samplerate"
 msgstr "Taux d’échantillonnage"
 
-#: src/conversationpopupmenu.cpp:147
+#: src/conversationpopupmenu.cpp:168
 msgid "_Place call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:153
+#: src/conversationpopupmenu.cpp:171
+msgid "_Copy name"
+msgstr "_Copier le nom"
+
+#: src/conversationpopupmenu.cpp:177
 msgid "_Add to conversations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:157
+#: src/conversationpopupmenu.cpp:181
 msgid "_Discard invitation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:160
+#: src/conversationpopupmenu.cpp:184
 msgid "_Block invitations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:165
-msgid "_Clear history"
+#: src/conversationpopupmenu.cpp:189
+msgid "C_lear history"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:168
+#: src/conversationpopupmenu.cpp:192
 msgid "_Remove conversation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:171
+#: src/conversationpopupmenu.cpp:195
 msgid "_Block contact"
 msgstr ""
 
@@ -1192,7 +1196,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Code QR Identifiant Ring"
 
-#: src/currentcallview.cpp:535
+#: src/currentcallview.cpp:595
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
