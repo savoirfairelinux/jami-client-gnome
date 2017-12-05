@@ -72,6 +72,8 @@ struct _AccountAdvancedTabPrivate
     GtkWidget *entry_turnusername;
     GtkWidget *entry_turnpassword;
     GtkWidget *entry_turnrealm;
+    GtkWidget *checkbutton_use_proxy;
+    GtkWidget *entry_proxyserver;
     GtkWidget *frame_ice_fallback;
     GtkWidget *adjustment_audio_port_min;
     GtkWidget *adjustment_audio_port_max;
@@ -143,6 +145,8 @@ account_advanced_tab_class_init(AccountAdvancedTabClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnusername);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnpassword);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_turnrealm);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, checkbutton_use_proxy);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, entry_proxyserver);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, frame_ice_fallback);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_audio_port_min);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, adjustment_audio_port_max);
@@ -233,6 +237,23 @@ stun_server_changed(GtkEntry *entry, AccountAdvancedTab *self)
     AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
 
     priv->account->setSipStunServer(gtk_entry_get_text(entry));
+}
+
+static void
+proxy_enabled_toggled(GtkToggleButton *toggle_button, AccountAdvancedTab *self)
+{
+    g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(self));
+    AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
+
+    gboolean use_proxy = gtk_toggle_button_get_active(toggle_button);
+
+    if (use_proxy && priv->entry_proxyserver) {
+        priv->account->setProxyServer(gtk_entry_get_text(GTK_ENTRY(priv->entry_proxyserver)));
+    }
+    priv->account->setProxyEnabled(use_proxy);
+
+    /* disactivate the turn server entry if turn is disabled */
+    gtk_widget_set_sensitive(priv->entry_proxyserver, !use_proxy);
 }
 
 static void
@@ -601,6 +622,15 @@ build_tab_view(AccountAdvancedTab *self)
     g_signal_connect(priv->entry_turnrealm,
                      "changed", G_CALLBACK(turn_serverrealm_changed), self);
 
+    // Proxy
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_use_proxy),
+                                 priv->account->isProxyEnabled());
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_proxyserver),
+                       priv->account->proxyServer().toUtf8().constData());
+    gtk_widget_set_sensitive(priv->entry_proxyserver, !priv->account->isProxyEnabled());
+    g_signal_connect(priv->checkbutton_use_proxy,
+                    "toggled", G_CALLBACK(proxy_enabled_toggled), self);
+
     /* audio/video rtp port range */
 
     /* ice fallback features are not relevant to Ring account, as every RING
@@ -702,6 +732,13 @@ build_tab_view(AccountAdvancedTab *self)
                                priv->account->turnServerPassword().toUtf8().constData());
             gtk_entry_set_text(GTK_ENTRY(priv->entry_turnrealm),
                                priv->account->turnServerRealm().toUtf8().constData());
+
+            // Proxy
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->checkbutton_use_proxy),
+                                        priv->account->isProxyEnabled());
+            gtk_widget_set_sensitive(priv->entry_proxyserver, !priv->account->isProxyEnabled());
+            gtk_entry_set_text(GTK_ENTRY(priv->entry_proxyserver),
+                               priv->account->proxyServer().toUtf8().constData());
 
             /* audio/video rtp port range */
             gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_audio_port_min),
