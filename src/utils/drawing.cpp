@@ -26,7 +26,7 @@
 static constexpr const char* MSG_COUNT_FONT        = "Sans";
 static constexpr int         MSG_COUNT_FONT_SIZE   = 12;
 static constexpr GdkRGBA     MSG_COUNT_FONT_COLOUR = {1.0, 1.0, 1.0, 1.0}; // white
-static constexpr GdkRGBA     MSG_COUNT_BACKGROUND  = {0.984, 0.282, 0.278, 0.9}; // red 251, 72, 71, 0.9
+static constexpr GdkRGBA     MSG_COUNT_BACKGROUND  = {0.984, 0.282, 0.278, 1.0}; // red 251, 72, 71, 1.0
 static constexpr GdkRGBA     PRESENCE_PRESENT_BACKGROUND = {0, 0.4156827, 0.8, 1.0}; // green 112, 217, 6, 0.9
 static constexpr GdkRGBA     PRESENCE_ABSENT_BACKGROUND = {0.984, 0.282, 0.278, 1.0}; // red 251, 72, 71, 0.9
 // This is the color palette for default avatars
@@ -263,7 +263,7 @@ ring_draw_unread_messages(const GdkPixbuf *avatar, int unread_count) {
     cairo_paint(cr);
 
     /* make text */
-    char *text = g_strdup_printf("%d", unread_count);
+    char *text = g_strdup_printf("%s", unread_count > 9 ? "9+" : std::to_string(unread_count).c_str());
     cairo_text_extents_t extents;
 
     cairo_select_font_face (cr, MSG_COUNT_FONT,
@@ -277,16 +277,18 @@ ring_draw_unread_messages(const GdkPixbuf *avatar, int unread_count) {
      * ie: 6 pixels higher, 6 pixels wider */
     int border_width = 3;
     double rec_x = w - extents.width - border_width * 2;
-    double rec_y = h - extents.height - border_width * 2;
+    double rec_y = 0;
     double rec_w = extents.width + border_width * 2;
     double rec_h = extents.height + border_width * 2;
     double corner_radius = rec_h/2.5;
     create_rounded_rectangle_path(cr, corner_radius, rec_x, rec_y, rec_w, rec_h);
-    cairo_set_source_rgba(cr, MSG_COUNT_BACKGROUND.red, MSG_COUNT_BACKGROUND.blue, MSG_COUNT_BACKGROUND.green, MSG_COUNT_BACKGROUND.alpha);
+    cairo_set_source_rgba(cr,
+                          MSG_COUNT_BACKGROUND.red,
+                          MSG_COUNT_BACKGROUND.blue, MSG_COUNT_BACKGROUND.green, MSG_COUNT_BACKGROUND.alpha);
     cairo_fill(cr);
 
     /* draw text */
-    cairo_move_to (cr, w-extents.width-border_width, h-border_width);
+    cairo_move_to (cr, w - extents.width-border_width, extents.height + border_width );
     cairo_set_source_rgb(cr, MSG_COUNT_FONT_COLOUR.red, MSG_COUNT_FONT_COLOUR.blue, MSG_COUNT_FONT_COLOUR.green);
     cairo_show_text (cr, text);
 
