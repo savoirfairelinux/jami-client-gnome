@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 22:09-0500\n"
-"PO-Revision-Date: 2017-12-04 03:09+0000\n"
+"POT-Creation-Date: 2017-12-10 22:09-0500\n"
+"PO-Revision-Date: 2017-12-11 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Bulgarian (http://www.transifex.com/savoirfairelinux/ring/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -648,11 +648,15 @@ msgstr "Скрий чат изгледа"
 msgid "Place call"
 msgstr "Започване на разговор"
 
-#: ui/chatview.ui:60
+#: ui/chatview.ui:62
+msgid "Place audio-only call"
+msgstr ""
+
+#: ui/chatview.ui:75
 msgid "Add to conversations"
 msgstr ""
 
-#: ui/chatview.ui:119
+#: ui/chatview.ui:134
 msgid "Send Invitation"
 msgstr ""
 
@@ -807,16 +811,16 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: src/ringnotify.cpp:148
+#: src/ringnotify.cpp:150
 msgid "Incoming call"
 msgstr "Входящо обаждане"
 
-#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
+#: src/ringnotify.cpp:167 src/ringnotify.cpp:345
 msgctxt "notification action name"
 msgid "Show"
 msgstr "Показване"
 
-#: src/ringnotify.cpp:267
+#: src/ringnotify.cpp:269
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
@@ -1181,7 +1185,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr ""
 
-#: src/currentcallview.cpp:595
+#: src/currentcallview.cpp:593
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Авт."

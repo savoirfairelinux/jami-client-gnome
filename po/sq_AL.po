@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 22:09-0500\n"
-"PO-Revision-Date: 2017-12-04 03:09+0000\n"
+"POT-Creation-Date: 2017-12-10 22:09-0500\n"
+"PO-Revision-Date: 2017-12-11 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -109,7 +109,7 @@ msgstr "Mbylli zërin"
 
 #: ui/currentcallview.ui:475
 msgid "Record"
-msgstr ""
+msgstr "Regjistroje"
 
 #: ui/accountdevicestab.ui:21
 msgid "My Device ID:"
@@ -358,7 +358,7 @@ msgstr "Biseda"
 
 #: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
 msgid "Contact requests"
-msgstr ""
+msgstr "Kërkesa kontakti"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
@@ -502,11 +502,11 @@ msgstr "Aktivizo Video"
 
 #: ui/accountvideotab.ui:80 ui/accountaudiotab.ui:57
 msgid "Up"
-msgstr ""
+msgstr "Ngjite sipër"
 
 #: ui/accountvideotab.ui:87 ui/accountaudiotab.ui:64
 msgid "Down"
-msgstr ""
+msgstr "Ule poshtë"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
@@ -608,7 +608,7 @@ msgstr "Maks."
 
 #: ui/accountadvancedtab.ui:665
 msgid "Audio RTP Port Range"
-msgstr ""
+msgstr "Interval Porte Audio RTP"
 
 #: ui/accountadvancedtab.ui:741
 msgid "Video RTP Port Range"
@@ -646,11 +646,15 @@ msgstr ""
 msgid "Place call"
 msgstr ""
 
-#: ui/chatview.ui:60
+#: ui/chatview.ui:62
+msgid "Place audio-only call"
+msgstr ""
+
+#: ui/chatview.ui:75
 msgid "Add to conversations"
 msgstr ""
 
-#: ui/chatview.ui:119
+#: ui/chatview.ui:134
 msgid "Send Invitation"
 msgstr ""
 
@@ -805,16 +809,16 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: src/ringnotify.cpp:148
+#: src/ringnotify.cpp:150
 msgid "Incoming call"
 msgstr "Thirrje ardhëse"
 
-#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
+#: src/ringnotify.cpp:167 src/ringnotify.cpp:345
 msgctxt "notification action name"
 msgid "Show"
 msgstr "Shfaqe"
 
-#: src/ringnotify.cpp:267
+#: src/ringnotify.cpp:269
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
@@ -862,7 +866,7 @@ msgstr "Emri i përdoruesit është i lirë"
 
 #: src/usernameregistrationbox.cpp:158
 msgid "Failed to perform lookup"
-msgstr ""
+msgstr "Kryerja e kërkimit   dështoi"
 
 #: src/usernameregistrationbox.cpp:159
 msgid "Could not lookup username"
@@ -1179,7 +1183,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Kod QR ID-je Ring-u"
 
-#: src/currentcallview.cpp:595
+#: src/currentcallview.cpp:593
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr ""

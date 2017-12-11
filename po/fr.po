@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 22:09-0500\n"
-"PO-Revision-Date: 2017-12-04 03:09+0000\n"
+"POT-Creation-Date: 2017-12-10 22:09-0500\n"
+"PO-Revision-Date: 2017-12-11 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -663,11 +663,15 @@ msgstr "Cacher la fenêtre de clavardage"
 msgid "Place call"
 msgstr "Appeler"
 
-#: ui/chatview.ui:60
+#: ui/chatview.ui:62
+msgid "Place audio-only call"
+msgstr ""
+
+#: ui/chatview.ui:75
 msgid "Add to conversations"
 msgstr "Ajouter aux conversations"
 
-#: ui/chatview.ui:119
+#: ui/chatview.ui:134
 msgid "Send Invitation"
 msgstr "Envoyer une invitation"
 
@@ -822,16 +826,16 @@ msgstr "Afficher Ring"
 msgid "Quit"
 msgstr "Quitter"
 
-#: src/ringnotify.cpp:148
+#: src/ringnotify.cpp:150
 msgid "Incoming call"
 msgstr "Appel entrant"
 
-#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
+#: src/ringnotify.cpp:167 src/ringnotify.cpp:345
 msgctxt "notification action name"
 msgid "Show"
 msgstr "Afficher"
 
-#: src/ringnotify.cpp:267
+#: src/ringnotify.cpp:269
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
@@ -1113,7 +1117,7 @@ msgstr "Taux d’échantillonnage"
 
 #: src/conversationpopupmenu.cpp:168
 msgid "_Place call"
-msgstr ""
+msgstr "_Appeler"
 
 #: src/conversationpopupmenu.cpp:171
 msgid "_Copy name"
@@ -1121,27 +1125,27 @@ msgstr "_Copier le nom"
 
 #: src/conversationpopupmenu.cpp:177
 msgid "_Add to conversations"
-msgstr ""
+msgstr "_Ajouter aux conversations"
 
 #: src/conversationpopupmenu.cpp:181
 msgid "_Discard invitation"
-msgstr ""
+msgstr "_Supprimer les invitations"
 
 #: src/conversationpopupmenu.cpp:184
 msgid "_Block invitations"
-msgstr ""
+msgstr "Bloquer les _invitations"
 
 #: src/conversationpopupmenu.cpp:189
 msgid "C_lear history"
-msgstr ""
+msgstr "_Effacer l'historique"
 
 #: src/conversationpopupmenu.cpp:192
 msgid "_Remove conversation"
-msgstr ""
+msgstr "_Supprimer la conversation"
 
 #: src/conversationpopupmenu.cpp:195
 msgid "_Block contact"
-msgstr ""
+msgstr "_Bloquer un contact"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
@@ -1196,7 +1200,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Code QR Identifiant Ring"
 
-#: src/currentcallview.cpp:595
+#: src/currentcallview.cpp:593
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
