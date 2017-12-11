@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 22:09-0500\n"
-"PO-Revision-Date: 2017-12-04 03:09+0000\n"
+"POT-Creation-Date: 2017-12-10 22:09-0500\n"
+"PO-Revision-Date: 2017-12-11 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -634,11 +634,11 @@ msgstr "註冊"
 
 #: ui/accountbanstab.ui:18
 msgid "List of banned peers :"
-msgstr ""
+msgstr "已被阻擋清單："
 
 #: ui/accountbanstab.ui:62
 msgid "unban"
-msgstr ""
+msgstr "取消阻擋"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -648,11 +648,15 @@ msgstr "隱藏聊天視窗"
 msgid "Place call"
 msgstr "開始通話"
 
-#: ui/chatview.ui:60
-msgid "Add to conversations"
+#: ui/chatview.ui:62
+msgid "Place audio-only call"
 msgstr ""
 
-#: ui/chatview.ui:119
+#: ui/chatview.ui:75
+msgid "Add to conversations"
+msgstr "新增到對話中"
+
+#: ui/chatview.ui:134
 msgid "Send Invitation"
 msgstr "傳送邀請"
 
@@ -791,7 +795,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Ring daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "無法初始化。\n請確定 Ring 幕後程式 (dring) 正在執行。\n錯誤：%s"
 
 #: src/ring_client.cpp:150
 msgid "Ring Error"
@@ -801,22 +805,22 @@ msgstr "Ring 錯誤"
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
-msgstr ""
+msgstr "顯示 Ring"
 
 #: src/ring_client.cpp:296
 msgid "Quit"
-msgstr ""
+msgstr "結束"
 
-#: src/ringnotify.cpp:148
+#: src/ringnotify.cpp:150
 msgid "Incoming call"
 msgstr "來電"
 
-#: src/ringnotify.cpp:165 src/ringnotify.cpp:343
+#: src/ringnotify.cpp:167 src/ringnotify.cpp:345
 msgctxt "notification action name"
 msgid "Show"
 msgstr "顯示"
 
-#: src/ringnotify.cpp:267
+#: src/ringnotify.cpp:269
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
@@ -1098,7 +1102,7 @@ msgstr "取樣率"
 
 #: src/conversationpopupmenu.cpp:168
 msgid "_Place call"
-msgstr ""
+msgstr "打電話(_P)"
 
 #: src/conversationpopupmenu.cpp:171
 msgid "_Copy name"
@@ -1106,27 +1110,27 @@ msgstr "複製名稱(_C)"
 
 #: src/conversationpopupmenu.cpp:177
 msgid "_Add to conversations"
-msgstr ""
+msgstr "新增到對話中(_A)"
 
 #: src/conversationpopupmenu.cpp:181
 msgid "_Discard invitation"
-msgstr ""
+msgstr "丟棄邀請(_D)"
 
 #: src/conversationpopupmenu.cpp:184
 msgid "_Block invitations"
-msgstr ""
+msgstr "阻擋邀請(_B)"
 
 #: src/conversationpopupmenu.cpp:189
 msgid "C_lear history"
-msgstr ""
+msgstr "清除歷史(_L)"
 
 #: src/conversationpopupmenu.cpp:192
 msgid "_Remove conversation"
-msgstr ""
+msgstr "移除對話(_R)"
 
 #: src/conversationpopupmenu.cpp:195
 msgid "_Block contact"
-msgstr ""
+msgstr "阻擋聯絡人(_B)"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
@@ -1181,7 +1185,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring ID QR code"
 
-#: src/currentcallview.cpp:595
+#: src/currentcallview.cpp:593
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自動"
