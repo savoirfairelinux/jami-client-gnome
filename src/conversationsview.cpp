@@ -87,14 +87,14 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     {
         // Draw first contact.
         // NOTE: We just draw the first contact, must change this for conferences when they will have their own object
-        auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(row);
-        auto contact = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
+        auto conversationInfo = priv->accountContainer_->info.conversationModel->filteredConversation(row);
+        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(conversationInfo.participants.front());
         std::shared_ptr<GdkPixbuf> image;
         auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
-            conversation,
+            conversationInfo,
             priv->accountContainer_->info,
             QSize(50, 50),
-            contact.isPresent
+            contactInfo.isPresent
         );
         image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
 
