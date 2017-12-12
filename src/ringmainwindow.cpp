@@ -119,7 +119,7 @@ struct _RingMainWindowPrivate
     // Lrc containers and signals
     std::unique_ptr<lrc::api::Lrc> lrc_;
     AccountContainer* accountContainer_;
-    lrc::api::conversation::Info* chatViewConversation_;
+    int conversationId_;
     lrc::api::profile::Type currentTypeFilter_;
 
     QMetaObject::Connection showChatViewConnection_;
@@ -236,9 +236,10 @@ hide_view_clicked(RingMainWindow *self)
 }
 
 static void
-change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info conversation, GType type)
+change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info conversationInfo, GType type)
 {
     auto priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    priv->conversationId_ = std::stoi(conversationInfo.uid);
     leave_full_screen(self);
     gtk_container_remove(GTK_CONTAINER(priv->frame_call), old);
 
@@ -248,16 +249,13 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
     QObject::disconnect(priv->selected_call_over);
 
     if (g_type_is_a(INCOMING_CALL_VIEW_TYPE, type)) {
-        delete priv->chatViewConversation_;
-        priv->chatViewConversation_ = new lrc::api::conversation::Info(conversation);
-        new_view = incoming_call_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->chatViewConversation_);
+        new_view = incoming_call_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->conversationId_);
     } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
-        delete priv->chatViewConversation_;
-        priv->chatViewConversation_ = new lrc::api::conversation::Info(conversation);
-        new_view = current_call_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->chatViewConversation_);
+        new_view = current_call_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->conversationId_);
 
         try {
-            auto contactUri =  priv->chatViewConversation_->participants.front();
+            auto conversationInfo = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+            auto contactUri =  conversationInfo.participants.front();
             auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
             auto chat_view = current_call_view_get_chat_view(CURRENT_CALL_VIEW(new_view));
             if (chat_view) {
@@ -268,9 +266,7 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
         } catch(...) { }
         g_signal_connect_swapped(new_view, "video-double-clicked", G_CALLBACK(video_double_clicked), self);
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
-        delete priv->chatViewConversation_;
-        priv->chatViewConversation_ = new lrc::api::conversation::Info(conversation);
-        new_view = chat_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->chatViewConversation_);
+        new_view = chat_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->conversationId_);
         g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
     } else {
         // TODO select first conversation?
@@ -482,7 +478,10 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
         if (IS_RING_WELCOME_VIEW(old_view) || (IS_CHAT_VIEW(old_view) && chat_view_get_temporary(CHAT_VIEW(old_view)))) {
             priv->accountContainer_->info.conversationModel->selectConversation(uid);
             try {
-                auto contactUri =  priv->chatViewConversation_->participants.front();
+                auto conversationInfo = priv->accountContainer_
+                                            ->info.conversationModel
+                                            ->getConversationInfo(std::to_string(priv->conversationId_));
+                auto contactUri =  conversationInfo.participants.front();
                 auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
                 chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(priv->frame_call))),
                    contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING
@@ -510,15 +509,11 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
             change_to_account(win, accountId);
         // Show chat view if not in call (unless if it's the same conversation)
         auto old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
-        lrc::api::conversation::Info current_item;
-        current_item.uid = "-1";
-        if (IS_CHAT_VIEW(old_view))
-           current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
-        if (current_item.uid != origin.uid) {
+        if ((priv->conversationId_ = std::stoi(origin.uid))) { // not ==
             if (origin.participants.empty()) return;
             auto firstContactUri = origin.participants.front();
             auto contactInfo = priv->accountContainer_->info.contactModel->getContact(firstContactUri);
-            if (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING && current_item.uid != "-1") return;
+            if (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING && priv->conversationId_ > 0) return;
             change_view(win, old_view, origin, CHAT_VIEW_TYPE);
         }
     };
@@ -1238,10 +1233,6 @@ ring_main_window_dispose(GObject *object)
     if (priv->accountContainer_) {
         delete priv->accountContainer_;
         priv->accountContainer_ = nullptr;
-    }
-    if (priv->chatViewConversation_) {
-        delete priv->chatViewConversation_;
-        priv->chatViewConversation_ = nullptr;
     }
 
     QObject::disconnect(priv->selected_item_changed);

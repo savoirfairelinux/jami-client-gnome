@@ -65,7 +65,7 @@ struct _IncomingCallViewPrivate
     // The webkit_chat_container is created once, then reused for all chat views
     GtkWidget *webkit_chat_container;
 
-    lrc::api::conversation::Info* conversation_;
+    uint conversationId_;
     AccountContainer* accountContainer_;
 
     QMetaObject::Connection state_change_connection;
@@ -113,20 +113,26 @@ static void
 reject_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
 {
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
-    priv->accountContainer_->info.callModel->hangUp(priv->conversation_->callId);
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+    auto callId = conversationInfo.callId;
+    priv->accountContainer_->info.callModel->hangUp(callId);
 }
 
 static void
 accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
 {
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
-    auto contactUri = priv->conversation_->participants[0];
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+    auto contactUri = conversationInfo.participants[0];
+    auto callId = conversationInfo.callId;
     auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
     // If the contact is pending, we should accept its request
     if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
         priv->accountContainer_->info.conversationModel->makePermanent(contactUri);
     // Accept call
-    priv->accountContainer_->info.callModel->accept(priv->conversation_->callId);
+    priv->accountContainer_->info.callModel->accept(callId);
 }
 
 static void
@@ -183,10 +189,12 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
 static void
 update_state(IncomingCallView *view)
 {
-    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
     // change state label
-    auto callId = priv->conversation_->callId;
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+    auto callId = conversationInfo.callId;
     if (!priv->accountContainer_->info.callModel->hasCall(callId)) return;
     auto call = priv->accountContainer_->info.callModel->getCall(callId);
 
@@ -207,9 +215,11 @@ static void
 update_name_and_photo(IncomingCallView *view)
 {
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
 
     QVariant var_i = GlobalInstances::pixmapManipulator().conversationPhoto(
-        *priv->conversation_,
+        conversationInfo,
         priv->accountContainer_->info,
         QSize(110, 110),
         false
@@ -217,7 +227,7 @@ update_name_and_photo(IncomingCallView *view)
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), image.get());
 
-    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->participants.front());
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(conversationInfo.participants.front());
 
     auto name = contactInfo.profileInfo.alias;
     gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
@@ -231,7 +241,9 @@ update_name_and_photo(IncomingCallView *view)
 
 static void
 set_call_info(IncomingCallView *view) {
-    IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
 
     update_state(view);
     update_name_and_photo(view);
@@ -240,8 +252,8 @@ set_call_info(IncomingCallView *view) {
     priv->state_change_connection = QObject::connect(
     &*priv->accountContainer_->info.callModel,
     &lrc::api::NewCallModel::callStatusChanged,
-    [view, priv] (const std::string& callId) {
-        if (callId == priv->conversation_->callId) {
+    [view, priv, &conversationInfo] (const std::string& callId) {
+        if (callId == conversationInfo.callId) {
             update_state(view);
             update_name_and_photo(view);
         }
@@ -249,7 +261,7 @@ set_call_info(IncomingCallView *view) {
 
     auto chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                                          priv->accountContainer_,
-                                                         priv->conversation_);
+                                                         priv->conversationId_);
     gtk_widget_show(chat_view);
     chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
@@ -258,13 +270,13 @@ set_call_info(IncomingCallView *view) {
 GtkWidget *
 incoming_call_view_new(WebKitChatContainer* view,
                        AccountContainer* accountContainer,
-                       lrc::api::conversation::Info* conversation)
+                       int conversationId)
 {
     auto self = g_object_new(INCOMING_CALL_VIEW_TYPE, NULL);
 
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
     priv->webkit_chat_container = GTK_WIDGET(view);
-    priv->conversation_ = conversation;
+    priv->conversationId_ = conversationId;
     priv->accountContainer_ = accountContainer;
 
     set_call_info(INCOMING_CALL_VIEW(self));
@@ -277,6 +289,8 @@ incoming_call_view_get_conversation(IncomingCallView *self)
 {
     g_return_val_if_fail(IS_INCOMING_CALL_VIEW(self), lrc::api::conversation::Info());
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
 
-    return *priv->conversation_;
+    return conversationInfo;
 }

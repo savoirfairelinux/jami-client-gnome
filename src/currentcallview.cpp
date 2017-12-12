@@ -96,7 +96,7 @@ struct _CurrentCallViewPrivate
      * scale button */
     gboolean quality_scale_pressed;
 
-    lrc::api::conversation::Info* conversation_;
+    int conversationId_;
     AccountContainer* accountContainer_;
 
     QMetaObject::Connection state_change_connection;
@@ -197,10 +197,13 @@ static void
 update_details(CurrentCallView *view)
 {
     auto *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-    auto callRendered = priv->conversation_->callId;
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
 
-    if (!priv->conversation_->confId.empty())
-        callRendered = priv->conversation_->confId;
+    auto callRendered = conversationInfo.callId;
+
+    if (!conversationInfo.confId.empty())
+        callRendered = conversationInfo.confId;
 
     gtk_label_set_text(GTK_LABEL(priv->label_duration),
     priv->accountContainer_->info.callModel->getFormattedCallDuration(callRendered).c_str());
@@ -393,9 +396,11 @@ autoquality_toggled(GtkToggleButton *button, CurrentCallView *self)
 
     double desired_quality = gtk_scale_button_get_value(GTK_SCALE_BUTTON(priv->scalebutton_quality));
 
-    auto callToRender = priv->conversation_->callId;
-    if (!priv->conversation_->confId.empty())
-        callToRender = priv->conversation_->confId;
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+    auto callToRender = conversationInfo.callId;
+    if (!conversationInfo.confId.empty())
+        callToRender = conversationInfo.confId;
     auto renderer = priv->accountContainer_->info.callModel->getRenderer(callToRender);
     for (const auto& activeCall: CallModel::instance().getActiveCalls())
         if (activeCall->videoRenderer() == renderer)
@@ -407,6 +412,8 @@ quality_changed(G_GNUC_UNUSED GtkScaleButton *button, G_GNUC_UNUSED gdouble valu
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
 
     /* no need to upate quality if auto quality is enabled */
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality))) return;
@@ -414,9 +421,9 @@ quality_changed(G_GNUC_UNUSED GtkScaleButton *button, G_GNUC_UNUSED gdouble valu
     /* only update if the scale button is released, to reduce the number of updates */
     if (priv->quality_scale_pressed) return;
 
-    auto callToRender = priv->conversation_->callId;
-    if (!priv->conversation_->confId.empty())
-        callToRender = priv->conversation_->confId;
+    auto callToRender = conversationInfo.callId;
+    if (!conversationInfo.confId.empty())
+        callToRender = conversationInfo.confId;
     auto renderer = priv->accountContainer_->info.callModel->getRenderer(callToRender);
     for (const auto& activeCall: CallModel::instance().getActiveCalls())
         if (activeCall->videoRenderer() == renderer)
@@ -450,9 +457,11 @@ static void
 button_hangup_clicked(CurrentCallView *view)
 {
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-    auto callToHangUp = priv->conversation_->callId;
-    if (!priv->conversation_->confId.empty())
-        callToHangUp = priv->conversation_->confId;
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+    auto callToHangUp = conversationInfo.callId;
+    if (!conversationInfo.confId.empty())
+        callToHangUp = conversationInfo.confId;
     priv->accountContainer_->info.callModel->hangUp(callToHangUp);
 }
 
@@ -460,9 +469,11 @@ static void
 togglebutton_hold_clicked(CurrentCallView *view)
 {
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-    auto callToHold = priv->conversation_->callId;
-    if (!priv->conversation_->confId.empty())
-        callToHold = priv->conversation_->confId;
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+    auto callToHold = conversationInfo.callId;
+    if (!conversationInfo.confId.empty())
+        callToHold = conversationInfo.confId;
     priv->accountContainer_->info.callModel->togglePause(callToHold);
 }
 
@@ -470,9 +481,11 @@ static void
 togglebutton_record_clicked(CurrentCallView *view)
 {
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-    auto callToRecord = priv->conversation_->callId;
-    if (!priv->conversation_->confId.empty())
-        callToRecord = priv->conversation_->confId;
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+    auto callToRecord = conversationInfo.callId;
+    if (!conversationInfo.confId.empty())
+        callToRecord = conversationInfo.confId;
     priv->accountContainer_->info.callModel->toggleAudioRecord(callToRecord);
 }
 
@@ -481,9 +494,11 @@ togglebutton_muteaudio_clicked(CurrentCallView *view)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-    auto callToMute = priv->conversation_->callId;
-    if (!priv->conversation_->confId.empty())
-        callToMute = priv->conversation_->confId;
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+    auto callToMute = conversationInfo.callId;
+    if (!conversationInfo.confId.empty())
+        callToMute = conversationInfo.confId;
     auto muteAudioBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_muteaudio);
     priv->accountContainer_->info.callModel->toggleMedia(callToMute,
         lrc::api::NewCallModel::Media::AUDIO);
@@ -500,9 +515,11 @@ togglebutton_mutevideo_clicked(CurrentCallView *view)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-    auto callToMute = priv->conversation_->callId;
-    if (!priv->conversation_->confId.empty())
-        callToMute = priv->conversation_->confId;
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+    auto callToMute = conversationInfo.callId;
+    if (!conversationInfo.confId.empty())
+        callToMute = conversationInfo.confId;
     auto muteVideoBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_mutevideo);
     priv->accountContainer_->info.callModel->toggleMedia(callToMute,
         lrc::api::NewCallModel::Media::VIDEO);
@@ -518,6 +535,9 @@ static void
 insert_controls(CurrentCallView *view)
 {
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+
 
     /* only add the controls once */
     g_signal_handler_disconnect(view, priv->insert_controls_id);
@@ -601,9 +621,9 @@ insert_controls(CurrentCallView *view)
     }
 
     /* by this time we should have the call already set, but we check to make sure */
-    auto callToRender = priv->conversation_->callId;
-    if (!priv->conversation_->confId.empty())
-        callToRender = priv->conversation_->confId;
+    auto callToRender = conversationInfo.callId;
+    if (!conversationInfo.confId.empty())
+        callToRender = conversationInfo.confId;
     auto renderer = priv->accountContainer_->info.callModel->getRenderer(callToRender);
     for (const auto& activeCall: CallModel::instance().getActiveCalls())
         if (activeCall->videoRenderer() == renderer) {
@@ -717,8 +737,12 @@ static void
 update_state(CurrentCallView *view)
 {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-    if (!priv || !priv->conversation_) return;
-    auto callId = priv->conversation_->callId;
+    if (!priv)
+        return;
+
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+    auto callId = conversationInfo.callId;
 
     try {
         auto call = priv->accountContainer_->info.callModel->getCall(callId);
@@ -755,17 +779,18 @@ static void
 update_name_and_photo(CurrentCallView *view)
 {
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
 
     QVariant var_i = GlobalInstances::pixmapManipulator().conversationPhoto(
-        *priv->conversation_,
+        conversationInfo,
         priv->accountContainer_->info,
         QSize(60, 60),
         false
     );
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
-
-    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->participants.front());
+    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(conversationInfo.participants.front());
 
     auto name = contactInfo.profileInfo.alias;
     gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
@@ -867,6 +892,9 @@ toggle_smartinfo(GSimpleAction* action, G_GNUC_UNUSED GVariant* state, GtkWidget
 static void
 set_call_info(CurrentCallView *view) {
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
+
 
     // change some things depending on call state
     update_state(view);
@@ -876,9 +904,9 @@ set_call_info(CurrentCallView *view) {
     g_signal_connect(priv->video_widget, "button-press-event", G_CALLBACK(video_widget_on_button_press_in_screen_event), nullptr);
 
     // check if we already have a renderer
-    auto callToRender = priv->conversation_->callId;
-    if (!priv->conversation_->confId.empty())
-        callToRender = priv->conversation_->confId;
+    auto callToRender = conversationInfo.callId;
+    if (!conversationInfo.confId.empty())
+        callToRender = conversationInfo.confId;
     video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
                                    priv->accountContainer_->info.callModel->getRenderer(callToRender),
                                    VIDEO_RENDERER_REMOTE);
@@ -909,8 +937,8 @@ set_call_info(CurrentCallView *view) {
     priv->remote_renderer_connection = QObject::connect(
         &*priv->accountContainer_->info.callModel,
         &lrc::api::NewCallModel::remotePreviewStarted,
-        [priv](const std::string& callId, Video::Renderer *renderer) {
-            if (priv->conversation_->callId == callId) {
+        [priv, &conversationInfo](const std::string& callId, Video::Renderer *renderer) {
+            if (conversationInfo.callId == callId) {
                 video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
                     renderer,
                     VIDEO_RENDERER_REMOTE);
@@ -921,8 +949,8 @@ set_call_info(CurrentCallView *view) {
     priv->state_change_connection = QObject::connect(
     &*priv->accountContainer_->info.callModel,
     &lrc::api::NewCallModel::callStatusChanged,
-    [view, priv] (const std::string& callId) {
-        if (callId == priv->conversation_->callId) {
+    [view, &conversationInfo] (const std::string& callId) {
+        if (callId == conversationInfo.callId) {
             update_state(view);
             update_name_and_photo(view);
         }
@@ -951,7 +979,7 @@ set_call_info(CurrentCallView *view) {
                                               priv->vbox_call_smartInfo);
 
     // init chat view
-    priv->chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->accountContainer_, priv->conversation_);
+    priv->chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->accountContainer_, priv->conversationId_);
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), priv->chat_view);
 
     g_signal_connect_swapped(priv->chat_view, "new-interactions-displayed", G_CALLBACK(show_chat_view), view);
@@ -960,12 +988,12 @@ set_call_info(CurrentCallView *view) {
 }
 
 GtkWidget *
-current_call_view_new(WebKitChatContainer* view, AccountContainer* accountContainer, lrc::api::conversation::Info* conversation)
+current_call_view_new(WebKitChatContainer* view, AccountContainer* accountContainer, int conversationUid)
 {
     auto self = g_object_new(CURRENT_CALL_VIEW_TYPE, NULL);
     CurrentCallViewPrivate *priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
     priv->webkit_chat_container = GTK_WIDGET(view);
-    priv->conversation_ = conversation;
+    priv->conversationId_ = conversationUid;
     priv->accountContainer_ = accountContainer;
     set_call_info(CURRENT_CALL_VIEW(self));
 
@@ -977,8 +1005,10 @@ current_call_view_get_conversation(CurrentCallView *self)
 {
     g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), lrc::api::conversation::Info());
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    auto conversationInfo
+          = priv->accountContainer_->info.conversationModel->getConversationInfo(std::to_string(priv->conversationId_));
 
-    return *priv->conversation_;
+    return conversationInfo;
 }
 
 GtkWidget *

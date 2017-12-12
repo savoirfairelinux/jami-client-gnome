@@ -54,7 +54,7 @@ typedef struct _IncomingCallViewClass IncomingCallViewClass;
 GType      incoming_call_view_get_type (void) G_GNUC_CONST;
 GtkWidget *incoming_call_view_new (WebKitChatContainer* view,
                                    AccountContainer* accountContainer,
-                                   lrc::api::conversation::Info* conversation);
+                                   int conversationId);
 lrc::api::conversation::Info incoming_call_view_get_conversation (IncomingCallView*);
 
 G_END_DECLS
