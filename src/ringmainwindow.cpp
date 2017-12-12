@@ -106,9 +106,6 @@ struct _RingMainWindowPrivate
     // The webkit_chat_container is created once, then reused for all chat views
     GtkWidget *webkit_chat_container;
 
-    QMetaObject::Connection selected_item_changed;
-    QMetaObject::Connection selected_call_over;
-
     gboolean   show_settings;
 
     /* fullscreen */
@@ -244,9 +241,6 @@ change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info c
     gtk_container_remove(GTK_CONTAINER(priv->frame_call), old);
 
     GtkWidget *new_view = nullptr;
-
-    QObject::disconnect(priv->selected_item_changed);
-    QObject::disconnect(priv->selected_call_over);
 
     if (g_type_is_a(INCOMING_CALL_VIEW_TYPE, type)) {
         new_view = incoming_call_view_new(get_webkit_chat_container(self), priv->accountContainer_, priv->conversationId_);
@@ -1235,8 +1229,6 @@ ring_main_window_dispose(GObject *object)
         priv->accountContainer_ = nullptr;
     }
 
-    QObject::disconnect(priv->selected_item_changed);
-    QObject::disconnect(priv->selected_call_over);
     QObject::disconnect(priv->showChatViewConnection_);
     QObject::disconnect(priv->showIncomingViewConnection_);
     QObject::disconnect(priv->historyClearedConnection_);
