@@ -156,8 +156,6 @@ public:
     bool show_settings = false;
     bool is_fullscreen = false;
 
-    QMetaObject::Connection selected_item_changed;
-    QMetaObject::Connection selected_call_over;
     QMetaObject::Connection showChatViewConnection_;
     QMetaObject::Connection showCallViewConnection_;
     QMetaObject::Connection showIncomingViewConnection_;
@@ -731,8 +729,6 @@ CppImpl::init()
 
 CppImpl::~CppImpl()
 {
-    QObject::disconnect(selected_item_changed);
-    QObject::disconnect(selected_call_over);
     QObject::disconnect(showChatViewConnection_);
     QObject::disconnect(showIncomingViewConnection_);
     QObject::disconnect(historyClearedConnection_);
@@ -757,9 +753,6 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
     leaveFullScreen();
     gtk_container_remove(GTK_CONTAINER(widgets->frame_call),
                          gtk_bin_get_child(GTK_BIN(widgets->frame_call)));
-
-    QObject::disconnect(selected_item_changed);
-    QObject::disconnect(selected_call_over);
 
     GtkWidget* new_view;
     if (g_type_is_a(INCOMING_CALL_VIEW_TYPE, type)) {
