@@ -147,7 +147,7 @@ public:
     void leaveSettingsView();
 
     RingMainWindow* self = nullptr; // The GTK widget itself
-    RingMainWindowPrivate* priv = nullptr;
+    RingMainWindowPrivate* widgets = nullptr;
 
     std::unique_ptr<lrc::api::Lrc> lrc_;
     AccountContainer* accountContainer_ = nullptr;
@@ -500,7 +500,7 @@ print_account_and_state(GtkCellLayout* cell_layout,
 
 CppImpl::CppImpl(RingMainWindow& widget)
     : self {&widget}
-    , priv {RING_MAIN_WINDOW_GET_PRIVATE(&widget)}
+    , widgets {RING_MAIN_WINDOW_GET_PRIVATE(&widget)}
     , lrc_ {std::make_unique<lrc::api::Lrc>()}
 {}
 
@@ -522,10 +522,10 @@ CppImpl::init()
             }
         }
         if (!isInitialized) {
-            priv->treeview_conversations = conversations_view_new(accountContainer_);
-            gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
-            priv->treeview_contact_requests = conversations_view_new(accountContainer_);
-            gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contact_requests), priv->treeview_contact_requests);
+            widgets->treeview_conversations = conversations_view_new(accountContainer_);
+            gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_smartview), widgets->treeview_conversations);
+            widgets->treeview_contact_requests = conversations_view_new(accountContainer_);
+            gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_contact_requests), widgets->treeview_contact_requests);
         }
     }
 
@@ -535,7 +535,7 @@ CppImpl::init()
             updateLrc(accountId);
 
             if (accountContainer_)
-                ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view),
+                ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view),
                                          accountContainer_);
         } else {
             auto accounts = lrc_->getAccountModel().getAccountList();
@@ -543,7 +543,7 @@ CppImpl::init()
                                                  G_TYPE_STRING,
                                                  G_TYPE_STRING,
                                                  G_TYPE_UINT);
-            auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_account_selector));
+            auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
             GtkTreeIter iter;
             auto enabledAccounts = 0;
             for (const auto& account : accounts) {
@@ -561,15 +561,15 @@ CppImpl::init()
             }
             // Redraw combobox
             gtk_combo_box_set_model(
-                GTK_COMBO_BOX(priv->combobox_account_selector),
+                GTK_COMBO_BOX(widgets->combobox_account_selector),
                 GTK_TREE_MODEL (store)
             );
-            gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), currentIdx);
+            gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), currentIdx);
             // if no account. reset the view.
             if (enabledAccounts == 0) {
                 updateLrc("");
                 changeView(RING_WELCOME_VIEW_TYPE);
-                ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), nullptr);
+                ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), nullptr);
             }
         }
     };
@@ -587,7 +587,7 @@ CppImpl::init()
                                           G_TYPE_STRING,
                                           G_TYPE_STRING,
                                           G_TYPE_UINT);
-        auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_account_selector));
+        auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
         GtkTreeIter iter;
         for (const auto& accountId : accounts) {
             const auto& account = lrc_->getAccountModel().getAccountInfo(accountId);
@@ -601,12 +601,12 @@ CppImpl::init()
         }
         // Redraw combobox
         gtk_combo_box_set_model(
-            GTK_COMBO_BOX(priv->combobox_account_selector),
+            GTK_COMBO_BOX(widgets->combobox_account_selector),
             GTK_TREE_MODEL (store)
         );
         // If no account selected, select the new account
         if (currentIdx == -1) currentIdx = 0;
-        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), currentIdx);
+        gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), currentIdx);
         showAccountSelectorWidget();
     };
 
@@ -637,17 +637,17 @@ CppImpl::init()
             }
 
             gtk_combo_box_set_model(
-            GTK_COMBO_BOX(priv->combobox_account_selector),
+            GTK_COMBO_BOX(widgets->combobox_account_selector),
             GTK_TREE_MODEL (store)
             );
-            gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
+            gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), 0);
             showAccountSelectorWidget();
             // Show conversation panel
-            gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), 0);
+            gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
             // Reinit LRC
             updateLrc(std::string(accounts.at(0)));
             // Update the welcome view
-            ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), accountContainer_);
+            ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_);
         }
     };
 
@@ -656,15 +656,15 @@ CppImpl::init()
                                                   slotAccountRemoved);
 
     /* bind to window size settings */
-    priv->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
-    auto width = g_settings_get_int(priv->settings, "window-width");
-    auto height = g_settings_get_int(priv->settings, "window-height");
+    widgets->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
+    auto width = g_settings_get_int(widgets->settings, "window-width");
+    auto height = g_settings_get_int(widgets->settings, "window-height");
     gtk_window_set_default_size(GTK_WINDOW(self), width, height);
     g_signal_connect(self, "configure-event", G_CALLBACK(on_window_size_changed), nullptr);
 
     /* search-entry-places-call setting */
-    on_search_entry_places_call_changed(priv->settings, "search-entry-places-call", self);
-    g_signal_connect(priv->settings, "changed::search-entry-places-call", G_CALLBACK(on_search_entry_places_call_changed), self);
+    on_search_entry_places_call_changed(widgets->settings, "search-entry-places-call", self);
+    g_signal_connect(widgets->settings, "changed::search-entry-places-call", G_CALLBACK(on_search_entry_places_call_changed), self);
 
      /* set window icon */
     GError *error = NULL;
@@ -682,56 +682,56 @@ CppImpl::init()
         g_debug("Could not load icon: %s", error->message);
         g_clear_error(&error);
     } else
-        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring), image_ring);
+        gtk_image_set_from_pixbuf(GTK_IMAGE(widgets->image_ring), image_ring);
 
     /* ring menu */
     GtkBuilder *builder = gtk_builder_new_from_resource("/cx/ring/RingGnome/ringgearsmenu.ui");
     GMenuModel *menu = G_MENU_MODEL(gtk_builder_get_object(builder, "menu"));
-    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(priv->ring_menu), menu);
+    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(widgets->ring_menu), menu);
     g_object_unref(builder);
 
     /* settings icon */
-    gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
 
     /* connect settings button signal */
-    g_signal_connect_swapped(priv->ring_settings, "clicked", G_CALLBACK(on_settings_clicked), self);
+    g_signal_connect_swapped(widgets->ring_settings, "clicked", G_CALLBACK(on_settings_clicked), self);
 
     /* add the call view to the main stack */
-    gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
-                        priv->vbox_call_view,
+    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view),
+                        widgets->vbox_call_view,
                         CALL_VIEW_NAME);
 
     /* init the settings views */
-    priv->account_settings_view = account_view_new();
-    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->account_settings_view, ACCOUNT_SETTINGS_VIEW_NAME);
+    widgets->account_settings_view = account_view_new();
+    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->account_settings_view, ACCOUNT_SETTINGS_VIEW_NAME);
 
-    priv->media_settings_view = media_settings_view_new();
-    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->media_settings_view, MEDIA_SETTINGS_VIEW_NAME);
+    widgets->media_settings_view = media_settings_view_new();
+    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->media_settings_view, MEDIA_SETTINGS_VIEW_NAME);
 
-    priv->general_settings_view = general_settings_view_new();
-    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->general_settings_view, GENERAL_SETTINGS_VIEW_NAME);
+    widgets->general_settings_view = general_settings_view_new();
+    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->general_settings_view, GENERAL_SETTINGS_VIEW_NAME);
 
     /* make the setting we will show first the active one */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_general_settings), TRUE);
-    priv->last_settings_view = priv->general_settings_view;
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->radiobutton_general_settings), TRUE);
+    widgets->last_settings_view = widgets->general_settings_view;
 
     /* connect the settings button signals to switch settings views */
-    g_signal_connect(priv->radiobutton_media_settings, "toggled", G_CALLBACK(on_show_media_settings), self);
-    g_signal_connect(priv->radiobutton_account_settings, "toggled", G_CALLBACK(on_show_account_settings), self);
-    g_signal_connect(priv->radiobutton_general_settings, "toggled", G_CALLBACK(on_show_general_settings), self);
+    g_signal_connect(widgets->radiobutton_media_settings, "toggled", G_CALLBACK(on_show_media_settings), self);
+    g_signal_connect(widgets->radiobutton_account_settings, "toggled", G_CALLBACK(on_show_account_settings), self);
+    g_signal_connect(widgets->radiobutton_general_settings, "toggled", G_CALLBACK(on_show_general_settings), self);
 
-    g_signal_connect(priv->notebook_contacts, "switch-page", G_CALLBACK(on_tab_changed), self);
+    g_signal_connect(widgets->notebook_contacts, "switch-page", G_CALLBACK(on_tab_changed), self);
 
     /* welcome/default view */
-    priv->welcome_view = ring_welcome_view_new(accountContainer_);
-    g_object_ref(priv->welcome_view); // increase ref because don't want it to be destroyed when not displayed
-    gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
-    gtk_widget_show(priv->welcome_view);
+    widgets->welcome_view = ring_welcome_view_new(accountContainer_);
+    g_object_ref(widgets->welcome_view); // increase ref because don't want it to be destroyed when not displayed
+    gtk_container_add(GTK_CONTAINER(widgets->frame_call), widgets->welcome_view);
+    gtk_widget_show(widgets->welcome_view);
 
-    g_signal_connect_swapped(priv->search_entry, "activate", G_CALLBACK(on_search_entry_activated), self);
-    g_signal_connect_swapped(priv->button_new_conversation, "clicked", G_CALLBACK(on_search_entry_activated), self);
-    g_signal_connect(priv->search_entry, "search-changed", G_CALLBACK(on_search_entry_text_changed), self);
-    g_signal_connect(priv->search_entry, "key-release-event", G_CALLBACK(on_search_entry_key_released), self);
+    g_signal_connect_swapped(widgets->search_entry, "activate", G_CALLBACK(on_search_entry_activated), self);
+    g_signal_connect_swapped(widgets->button_new_conversation, "clicked", G_CALLBACK(on_search_entry_activated), self);
+    g_signal_connect(widgets->search_entry, "search-changed", G_CALLBACK(on_search_entry_text_changed), self);
+    g_signal_connect(widgets->search_entry, "key-release-event", G_CALLBACK(on_search_entry_key_released), self);
 
     auto provider = gtk_css_provider_new();
     gtk_css_provider_load_from_data(provider,
@@ -750,7 +750,7 @@ CppImpl::init()
     g_signal_connect(self, "key-press-event", G_CALLBACK(on_dtmf_pressed), nullptr);
 
     /* set the search entry placeholder text */
-    gtk_entry_set_placeholder_text(GTK_ENTRY(priv->search_entry),
+    gtk_entry_set_placeholder_text(GTK_ENTRY(widgets->search_entry),
                                    C_("Please try to make the translation 50 chars or less so that it fits into the layout", "Search contacts or enter number"));
 
     /* init chat webkit container so that it starts loading before the first time we need it*/
@@ -758,7 +758,7 @@ CppImpl::init()
 
     if (has_ring_account()) {
         /* user has ring account, so show the call view right away */
-        gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
+        gtk_stack_set_visible_child(GTK_STACK(widgets->stack_main_view), widgets->vbox_call_view);
 
         on_handle_account_migrations(self);
     } else {
@@ -784,25 +784,25 @@ CppImpl::init()
     }
 
     gtk_combo_box_set_model(
-        GTK_COMBO_BOX(priv->combobox_account_selector),
+        GTK_COMBO_BOX(widgets->combobox_account_selector),
         GTK_TREE_MODEL (store)
     );
-    gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
+    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), 0);
 
     /* set visibility */
     showAccountSelectorWidget();
 
     /* layout */
     auto *renderer = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, FALSE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, "text", 0, NULL);
-    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_account_selector),
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(widgets->combobox_account_selector), renderer, FALSE);
+    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(widgets->combobox_account_selector), renderer, "text", 0, NULL);
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(widgets->combobox_account_selector),
                                        renderer,
                                        (GtkCellLayoutDataFunc)print_account_and_state,
                                        nullptr, nullptr);
 
     // we closing any view opened to avoid confusion (especially between SIP and Ring protocols).
-    g_signal_connect_swapped(priv->combobox_account_selector, "changed", G_CALLBACK(on_account_changed), self);
+    g_signal_connect_swapped(widgets->combobox_account_selector, "changed", G_CALLBACK(on_account_changed), self);
 
     // initialize the pending contact request icon.
     setPendingContactRequestTabIcon();
@@ -839,16 +839,16 @@ CppImpl::~CppImpl()
     QObject::disconnect(modelSortedConnection_);
     QObject::disconnect(accountStatusChangedConnection_);
 
-    g_clear_object(&priv->welcome_view);
-    g_clear_object(&priv->webkit_chat_container);
+    g_clear_object(&widgets->welcome_view);
+    g_clear_object(&widgets->webkit_chat_container);
 }
 
 void
 CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
 {
     leaveFullScreen();
-    gtk_container_remove(GTK_CONTAINER(priv->frame_call),
-                         gtk_bin_get_child(GTK_BIN(priv->frame_call)));
+    gtk_container_remove(GTK_CONTAINER(widgets->frame_call),
+                         gtk_bin_get_child(GTK_BIN(widgets->frame_call)));
 
     QObject::disconnect(selected_item_changed);
     QObject::disconnect(selected_call_over);
@@ -862,10 +862,10 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
         new_view = displayChatView(conversation);
     } else {
         // TODO select first conversation?
-        new_view = priv->welcome_view;
+        new_view = widgets->welcome_view;
     }
 
-    gtk_container_add(GTK_CONTAINER(priv->frame_call), new_view);
+    gtk_container_add(GTK_CONTAINER(widgets->frame_call), new_view);
     gtk_widget_show(new_view);
 }
 
@@ -913,20 +913,20 @@ CppImpl::displayChatView(lrc::api::conversation::Info conversation)
 WebKitChatContainer*
 CppImpl::webkitChatContainer() const
 {
-    if (!priv->webkit_chat_container) {
-        priv->webkit_chat_container = webkit_chat_container_new();
+    if (!widgets->webkit_chat_container) {
+        widgets->webkit_chat_container = webkit_chat_container_new();
 
         // We don't want it to be deleted, ever.
-        g_object_ref(priv->webkit_chat_container);
+        g_object_ref(widgets->webkit_chat_container);
     }
-    return WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container);
+    return WEBKIT_CHAT_CONTAINER(widgets->webkit_chat_container);
 }
 
 void
 CppImpl::enterFullScreen()
 {
     if (!is_fullscreen) {
-        gtk_widget_hide(priv->vbox_left_pane);
+        gtk_widget_hide(widgets->vbox_left_pane);
         gtk_window_fullscreen(GTK_WINDOW(self));
         is_fullscreen = true;
     }
@@ -936,7 +936,7 @@ void
 CppImpl::leaveFullScreen()
 {
     if (is_fullscreen) {
-        gtk_widget_show(priv->vbox_left_pane);
+        gtk_widget_show(widgets->vbox_left_pane);
         gtk_window_unfullscreen(GTK_WINDOW(self));
         is_fullscreen = false;
     }
@@ -955,11 +955,11 @@ CppImpl::toggleFullScreen()
 void
 CppImpl::resetToWelcome()
 {
-    auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
+    auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(widgets->treeview_conversations));
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
-    auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
+    auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(widgets->treeview_contact_requests));
     gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_request));
-    auto* old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+    auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
     lrc::api::conversation::Info current_item;
     if (IS_CHAT_VIEW(old_view))
         current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
@@ -973,12 +973,12 @@ CppImpl::setPendingContactRequestTabIcon()
         return;
 
     auto isRingAccount = accountContainer_->info.profileInfo.type == lrc::api::profile::Type::RING;
-    gtk_widget_set_visible(priv->scrolled_window_contact_requests, isRingAccount);
+    gtk_widget_set_visible(widgets->scrolled_window_contact_requests, isRingAccount);
 
     if (not isRingAccount)
         return;
 
-    gtk_image_set_from_resource(GTK_IMAGE(priv->image_contact_requests_list),
+    gtk_image_set_from_resource(GTK_IMAGE(widgets->image_contact_requests_list),
         (accountContainer_->info.contactModel->hasPendingRequests())
         ? "/cx/ring/RingGnome/contact_requests_list_with_notification"
         : "/cx/ring/RingGnome/contact_requests_list");
@@ -996,46 +996,46 @@ CppImpl::showAccountSelectorWidget(bool show)
         if (accountInfo.enabled)
             ++activatedAccount;
     }
-    gtk_widget_set_visible(priv->combobox_account_selector, show && activatedAccount > 1);
+    gtk_widget_set_visible(widgets->combobox_account_selector, show && activatedAccount > 1);
 }
 
 void
 CppImpl::enterAccountCreationWizard()
 {
-    if (!priv->account_creation_wizard) {
-        priv->account_creation_wizard = account_creation_wizard_new(false);
-        g_object_add_weak_pointer(G_OBJECT(priv->account_creation_wizard),
-                                  reinterpret_cast<gpointer*>(&priv->account_creation_wizard));
-        g_signal_connect_swapped(priv->account_creation_wizard, "account-creation-completed",
+    if (!widgets->account_creation_wizard) {
+        widgets->account_creation_wizard = account_creation_wizard_new(false);
+        g_object_add_weak_pointer(G_OBJECT(widgets->account_creation_wizard),
+                                  reinterpret_cast<gpointer*>(&widgets->account_creation_wizard));
+        g_signal_connect_swapped(widgets->account_creation_wizard, "account-creation-completed",
                                  G_CALLBACK(on_account_creation_completed), self);
 
-        gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
-                            priv->account_creation_wizard,
+        gtk_stack_add_named(GTK_STACK(widgets->stack_main_view),
+                            widgets->account_creation_wizard,
                             ACCOUNT_CREATION_WIZARD_VIEW_NAME);
     }
 
     /* hide settings button until account creation is complete */
-    gtk_widget_hide(priv->ring_settings);
+    gtk_widget_hide(widgets->ring_settings);
     showAccountSelectorWidget(false);
 
-    gtk_widget_show(priv->account_creation_wizard);
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->account_creation_wizard);
+    gtk_widget_show(widgets->account_creation_wizard);
+    gtk_stack_set_visible_child(GTK_STACK(widgets->stack_main_view), widgets->account_creation_wizard);
 }
 
 void
 CppImpl::leaveAccountCreationWizard()
 {
-    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
+    gtk_stack_set_visible_child_name(GTK_STACK(widgets->stack_main_view), CALL_VIEW_NAME);
 
     /* destroy the wizard */
-    if (priv->account_creation_wizard) {
-        gtk_container_remove(GTK_CONTAINER(priv->stack_main_view), priv->account_creation_wizard);
-        gtk_widget_destroy(priv->account_creation_wizard);
-        priv->account_creation_wizard = nullptr;
+    if (widgets->account_creation_wizard) {
+        gtk_container_remove(GTK_CONTAINER(widgets->stack_main_view), widgets->account_creation_wizard);
+        gtk_widget_destroy(widgets->account_creation_wizard);
+        widgets->account_creation_wizard = nullptr;
     }
 
     /* show the settings button */
-    gtk_widget_show(priv->ring_settings);
+    gtk_widget_show(widgets->ring_settings);
 
     /* show the account selector */
     showAccountSelectorWidget();
@@ -1057,13 +1057,13 @@ CppImpl::useAccount(const std::string& accountId)
 
     int row = it - accounts.begin();
 
-    gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), row);
+    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), row);
     // Show conversation panel
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), 0);
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
     // Reinit LRC
     updateLrc(std::string(accountId));
     // Update the welcome view
-    ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), accountContainer_);
+    ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_);
 }
 
 void
@@ -1071,11 +1071,11 @@ CppImpl::onAccountChanged(const std::string& accountId)
 {
     // Reinit view
     changeView(RING_WELCOME_VIEW_TYPE);
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), 0);
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
 
     // Change account
     updateLrc(accountId);
-    ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), accountContainer_);
+    ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_);
 }
 
 void
@@ -1085,21 +1085,21 @@ CppImpl::enterSettingsView()
     show_settings = true;
 
     /* show settings */
-    gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-ok-symbolic",
+    gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-ok-symbolic",
                                  GTK_ICON_SIZE_SMALL_TOOLBAR);
 
-    gtk_widget_show(priv->hbox_settings);
+    gtk_widget_show(widgets->hbox_settings);
 
     /* make sure to start preview if we're showing the video settings */
-    if (priv->last_settings_view == priv->media_settings_view)
-        media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(priv->media_settings_view), TRUE);
+    if (widgets->last_settings_view == widgets->media_settings_view)
+        media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(widgets->media_settings_view), TRUE);
 
     /* make sure to show the profile if we're showing the general settings */
-    if (priv->last_settings_view == priv->general_settings_view)
-        general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(priv->general_settings_view),
+    if (widgets->last_settings_view == widgets->general_settings_view)
+        general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(widgets->general_settings_view),
                                            TRUE);
 
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->last_settings_view);
+    gtk_stack_set_visible_child(GTK_STACK(widgets->stack_main_view), widgets->last_settings_view);
 }
 
 void
@@ -1120,17 +1120,17 @@ CppImpl::leaveSettingsView()
                        nullptr);
 
     /* show calls */
-    gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic",
+    gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-system-symbolic",
                                  GTK_ICON_SIZE_SMALL_TOOLBAR);
 
-    gtk_widget_hide(priv->hbox_settings);
+    gtk_widget_hide(widgets->hbox_settings);
 
     /* make sure video preview is stopped, in case it was started */
-    media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(priv->media_settings_view), FALSE);
-    general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(priv->general_settings_view),
+    media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(widgets->media_settings_view), FALSE);
+    general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(widgets->general_settings_view),
                                        FALSE);
 
-    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
+    gtk_stack_set_visible_child_name(GTK_STACK(widgets->stack_main_view), CALL_VIEW_NAME);
 
     /* show the view which was selected previously */
 }
@@ -1157,28 +1157,28 @@ CppImpl::updateLrc(const std::string& accountId)
         accountContainer_ = nullptr;
 
     // Reinit tree views
-    if (priv->treeview_conversations) {
-        auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
+    if (widgets->treeview_conversations) {
+        auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(widgets->treeview_conversations));
         gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
-        gtk_widget_destroy(priv->treeview_conversations);
+        gtk_widget_destroy(widgets->treeview_conversations);
     }
-    priv->treeview_conversations = conversations_view_new(accountContainer_);
-    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
+    widgets->treeview_conversations = conversations_view_new(accountContainer_);
+    gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_smartview), widgets->treeview_conversations);
 
-    if (priv->treeview_contact_requests) {
-        auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
+    if (widgets->treeview_contact_requests) {
+        auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(widgets->treeview_contact_requests));
         gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
-        gtk_widget_destroy(priv->treeview_contact_requests);
+        gtk_widget_destroy(widgets->treeview_contact_requests);
     }
-    priv->treeview_contact_requests = conversations_view_new(accountContainer_);
-    gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contact_requests), priv->treeview_contact_requests);
+    widgets->treeview_contact_requests = conversations_view_new(accountContainer_);
+    gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_contact_requests), widgets->treeview_contact_requests);
 
     if (!accountContainer_) return;
 
     // define slots (we are using this way because gtk is not a c++ lib)
     auto slotConversationCleared = [this] (const std::string& uid) {
         // Change the view when the history is cleared.
-        auto* old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+        auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
         lrc::api::conversation::Info current_item;
         current_item.uid = "-1"; // Because the Searching item has an empty uid
         if (IS_CHAT_VIEW(old_view))
@@ -1196,7 +1196,7 @@ CppImpl::updateLrc(const std::string& accountId)
 
     auto slotModelSorted = [this] () {
         // Synchronize selection when sorted and update pending icon
-        auto* old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+        auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
         lrc::api::conversation::Info current_item;
         current_item.uid = "-1";
         if (IS_CHAT_VIEW(old_view))
@@ -1205,13 +1205,13 @@ CppImpl::updateLrc(const std::string& accountId)
               current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
         else if (IS_INCOMING_CALL_VIEW(old_view))
               current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
-        conversations_view_select_conversation(CONVERSATIONS_VIEW(priv->treeview_conversations), current_item.uid);
+        conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), current_item.uid);
         setPendingContactRequestTabIcon();
     };
 
     auto slotFilterChanged = [this] () {
         // Synchronize selection when filter changes
-        auto* old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+        auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
         lrc::api::conversation::Info current_item;
         current_item.uid = "-1";
         if (IS_CHAT_VIEW(old_view))
@@ -1220,7 +1220,7 @@ CppImpl::updateLrc(const std::string& accountId)
               current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
         else if (IS_INCOMING_CALL_VIEW(old_view))
                current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
-        conversations_view_select_conversation(CONVERSATIONS_VIEW(priv->treeview_conversations), current_item.uid);
+        conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), current_item.uid);
         // Get if conversation still exists.
         auto& conversationModel = accountContainer_->info.conversationModel;
         auto conversations = conversationModel->allFilteredConversations();
@@ -1235,18 +1235,18 @@ CppImpl::updateLrc(const std::string& accountId)
     };
 
     auto slotNewConversation = [this] (const std::string& uid) {
-        gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), 0);
+        gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
         accountContainer_->info.conversationModel->setFilter(lrc::api::profile::Type::RING);
-        gtk_entry_set_text(GTK_ENTRY(priv->search_entry), "");
+        gtk_entry_set_text(GTK_ENTRY(widgets->search_entry), "");
         accountContainer_->info.conversationModel->setFilter("");
         // Select new conversation if contact added
-        auto* old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+        auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
         if (IS_RING_WELCOME_VIEW(old_view) || (IS_CHAT_VIEW(old_view) && chat_view_get_temporary(CHAT_VIEW(old_view)))) {
             accountContainer_->info.conversationModel->selectConversation(uid);
             try {
                 auto contactUri =  chatViewConversation_->participants.front();
                 auto contactInfo = accountContainer_->info.contactModel->getContact(contactUri);
-                chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(priv->frame_call))),
+                chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(widgets->frame_call))),
                    contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING
                    || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY);
             } catch(...) { }
@@ -1255,7 +1255,7 @@ CppImpl::updateLrc(const std::string& accountId)
 
     auto slotConversationRemoved = [this] (const std::string& uid) {
         // If contact is removed, go to welcome view
-        auto* old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+        auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
         lrc::api::conversation::Info current_item;
         if (IS_CHAT_VIEW(old_view))
            current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
@@ -1271,7 +1271,7 @@ CppImpl::updateLrc(const std::string& accountId)
         if (accountId != accountContainer_->info.id)
             useAccount(accountId);
         // Show chat view if not in call (unless if it's the same conversation)
-        auto* old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+        auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
         lrc::api::conversation::Info current_item;
         current_item.uid = "-1";
         if (IS_CHAT_VIEW(old_view))
@@ -1289,7 +1289,7 @@ CppImpl::updateLrc(const std::string& accountId)
         if (accountId != accountContainer_->info.id)
             useAccount(accountId);
         // Change the view if we want a different view.
-        auto* old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+        auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
 
         lrc::api::conversation::Info current_item;
         if (IS_CURRENT_CALL_VIEW(old_view))
@@ -1303,7 +1303,7 @@ CppImpl::updateLrc(const std::string& accountId)
         if (accountId != accountContainer_->info.id)
             useAccount(accountId);
         // Change the view if we want a different view.
-        auto* old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+        auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
 
         lrc::api::conversation::Info current_item;
         if (IS_INCOMING_CALL_VIEW(old_view))
@@ -1346,7 +1346,7 @@ CppImpl::updateLrc(const std::string& accountId)
                                                          &lrc::api::BehaviorController::showIncomingCallView,
                                                          slotShowIncomingCallView);
 
-    const gchar *text = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
+    const gchar *text = gtk_entry_get_text(GTK_ENTRY(widgets->search_entry));
     currentTypeFilter_ = accountContainer_->info.profileInfo.type;
     accountContainer_->info.conversationModel->setFilter(text);
     accountContainer_->info.conversationModel->setFilter(currentTypeFilter_);
