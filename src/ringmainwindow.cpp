@@ -150,8 +150,8 @@ public:
     RingMainWindowPrivate* widgets = nullptr;
 
     std::unique_ptr<lrc::api::Lrc> lrc_;
-    AccountContainer* accountContainer_ = nullptr;
-    lrc::api::conversation::Info* chatViewConversation_ = nullptr;
+    std::unique_ptr<AccountContainer> accountContainer_;
+    std::unique_ptr<lrc::api::conversation::Info> chatViewConversation_;
     lrc::api::profile::Type currentTypeFilter_;
     bool show_settings = false;
     bool is_fullscreen = false;
@@ -522,9 +522,9 @@ CppImpl::init()
             }
         }
         if (!isInitialized) {
-            widgets->treeview_conversations = conversations_view_new(accountContainer_);
+            widgets->treeview_conversations = conversations_view_new(accountContainer_.get());
             gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_smartview), widgets->treeview_conversations);
-            widgets->treeview_contact_requests = conversations_view_new(accountContainer_);
+            widgets->treeview_contact_requests = conversations_view_new(accountContainer_.get());
             gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_contact_requests), widgets->treeview_contact_requests);
         }
     }
@@ -536,7 +536,7 @@ CppImpl::init()
 
             if (accountContainer_)
                 ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view),
-                                         accountContainer_);
+                                         accountContainer_.get());
         } else {
             auto accounts = lrc_->getAccountModel().getAccountList();
             auto store = gtk_list_store_new (2 /* # of cols */ ,
@@ -647,7 +647,7 @@ CppImpl::init()
             // Reinit LRC
             updateLrc(std::string(accounts.at(0)));
             // Update the welcome view
-            ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_);
+            ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
         }
     };
 
@@ -723,7 +723,7 @@ CppImpl::init()
     g_signal_connect(widgets->notebook_contacts, "switch-page", G_CALLBACK(on_tab_changed), self);
 
     /* welcome/default view */
-    widgets->welcome_view = ring_welcome_view_new(accountContainer_);
+    widgets->welcome_view = ring_welcome_view_new(accountContainer_.get());
     g_object_ref(widgets->welcome_view); // increase ref because don't want it to be destroyed when not displayed
     gtk_container_add(GTK_CONTAINER(widgets->frame_call), widgets->welcome_view);
     gtk_widget_show(widgets->welcome_view);
@@ -820,9 +820,6 @@ CppImpl::init()
 
 CppImpl::~CppImpl()
 {
-    delete accountContainer_;
-    delete chatViewConversation_;
-
     QObject::disconnect(selected_item_changed);
     QObject::disconnect(selected_call_over);
     QObject::disconnect(showChatViewConnection_);
@@ -872,18 +869,16 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
 GtkWidget*
 CppImpl::displayIncomingView(lrc::api::conversation::Info conversation)
 {
-    delete chatViewConversation_;
-    chatViewConversation_ = new lrc::api::conversation::Info(conversation);
-    return incoming_call_view_new(webkitChatContainer(), accountContainer_, chatViewConversation_);
+    chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
+    return incoming_call_view_new(webkitChatContainer(), accountContainer_.get(), chatViewConversation_.get());
 }
 
 GtkWidget*
 CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation)
 {
-    delete chatViewConversation_;
-    chatViewConversation_ = new lrc::api::conversation::Info(conversation);
+    chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
     auto* new_view = current_call_view_new(webkitChatContainer(),
-                                           accountContainer_, chatViewConversation_);
+                                           accountContainer_.get(), chatViewConversation_.get());
 
     try {
         auto contactUri = chatViewConversation_->participants.front();
@@ -903,9 +898,8 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation)
 GtkWidget*
 CppImpl::displayChatView(lrc::api::conversation::Info conversation)
 {
-    delete chatViewConversation_;
-    chatViewConversation_ = new lrc::api::conversation::Info(conversation);
-    auto* new_view = chat_view_new(webkitChatContainer(), accountContainer_, chatViewConversation_);
+    chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
+    auto* new_view = chat_view_new(webkitChatContainer(), accountContainer_.get(), chatViewConversation_.get());
     g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(on_hide_view_clicked), self);
     return new_view;
 }
@@ -1063,7 +1057,7 @@ CppImpl::useAccount(const std::string& accountId)
     // Reinit LRC
     updateLrc(std::string(accountId));
     // Update the welcome view
-    ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_);
+    ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
 }
 
 void
@@ -1075,7 +1069,7 @@ CppImpl::onAccountChanged(const std::string& accountId)
 
     // Change account
     updateLrc(accountId);
-    ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_);
+    ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
 }
 
 void
@@ -1150,11 +1144,10 @@ CppImpl::updateLrc(const std::string& accountId)
     QObject::disconnect(conversationRemovedConnection_);
 
     // Get the account selected
-    if (accountContainer_) delete accountContainer_;
     if (!accountId.empty())
-        accountContainer_ = new AccountContainer(lrc_->getAccountModel().getAccountInfo(accountId));
+        accountContainer_.reset(new AccountContainer(lrc_->getAccountModel().getAccountInfo(accountId)));
     else
-        accountContainer_ = nullptr;
+        accountContainer_.reset();
 
     // Reinit tree views
     if (widgets->treeview_conversations) {
@@ -1162,7 +1155,7 @@ CppImpl::updateLrc(const std::string& accountId)
         gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
         gtk_widget_destroy(widgets->treeview_conversations);
     }
-    widgets->treeview_conversations = conversations_view_new(accountContainer_);
+    widgets->treeview_conversations = conversations_view_new(accountContainer_.get());
     gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_smartview), widgets->treeview_conversations);
 
     if (widgets->treeview_contact_requests) {
@@ -1170,7 +1163,7 @@ CppImpl::updateLrc(const std::string& accountId)
         gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
         gtk_widget_destroy(widgets->treeview_contact_requests);
     }
-    widgets->treeview_contact_requests = conversations_view_new(accountContainer_);
+    widgets->treeview_contact_requests = conversations_view_new(accountContainer_.get());
     gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_contact_requests), widgets->treeview_contact_requests);
 
     if (!accountContainer_) return;
