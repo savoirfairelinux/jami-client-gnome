@@ -139,8 +139,11 @@ public:
     void resetToWelcome();
     void setPendingContactRequestTabIcon();
     void showAccountSelectorWidget(bool show = true);
-    void useAccount(const std::string& accountId);
-    void onAccountChanged(const std::string& accountId);
+    void useAccount(const std::string& id);
+    void onAccountAddedFromLrc(const std::string& id);
+    void onAccountRemovedFromLrc(const std::string& id);
+    void onAccountChangeFromLrc(const std::string& id);
+    void onAccountChangeFromUI(const std::string& id);
     void enterAccountCreationWizard();
     void leaveAccountCreationWizard();
     void enterSettingsView();
@@ -233,7 +236,7 @@ on_account_changed(RingMainWindow* self)
     if (gtk_combo_box_get_active_iter(accountComboBox, &iter)) {
         gchar* accountId;
         gtk_tree_model_get(model, &iter, 0 /* col# */, &accountId /* data */, -1);
-        priv->cpp->onAccountChanged(accountId);
+        priv->cpp->onAccountChangeFromUI(accountId);
         g_free(accountId);
     }
 }
@@ -529,131 +532,15 @@ CppImpl::init()
         }
     }
 
-    // Account status changed
-    auto slotAccountStatusChanged = [this] (const std::string& accountId) {
-        if (not accountContainer_ ) {
-            updateLrc(accountId);
-
-            if (accountContainer_)
-                ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view),
-                                         accountContainer_.get());
-        } else {
-            auto accounts = lrc_->getAccountModel().getAccountList();
-            auto store = gtk_list_store_new (2 /* # of cols */ ,
-                                                 G_TYPE_STRING,
-                                                 G_TYPE_STRING,
-                                                 G_TYPE_UINT);
-            auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
-            GtkTreeIter iter;
-            auto enabledAccounts = 0;
-            for (const auto& account : accounts) {
-                const auto& accountInfo = lrc_->getAccountModel().getAccountInfo(account);
-                showAccountSelectorWidget();
-                if (accountId == account && !accountInfo.enabled) currentIdx = 0;
-                if (accountInfo.enabled) {
-                    ++enabledAccounts;
-                    gtk_list_store_append (store, &iter);
-                    gtk_list_store_set (store, &iter,
-                    0 /* col # */ , account.c_str() /* celldata */,
-                    1 /* col # */ , accountInfo.profileInfo.alias.c_str() /* celldata */,
-                    -1 /* end */);
-                }
-            }
-            // Redraw combobox
-            gtk_combo_box_set_model(
-                GTK_COMBO_BOX(widgets->combobox_account_selector),
-                GTK_TREE_MODEL (store)
-            );
-            gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), currentIdx);
-            // if no account. reset the view.
-            if (enabledAccounts == 0) {
-                updateLrc("");
-                changeView(RING_WELCOME_VIEW_TYPE);
-                ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), nullptr);
-            }
-        }
-    };
-
     accountStatusChangedConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                                        &lrc::api::NewAccountModel::accountStatusChanged,
-                                                       slotAccountStatusChanged);
-
-    // This signal must be connected if no account
-    auto slotAccountAdded = [this] (const std::string& idAdded) {
-        Q_UNUSED(idAdded)
-        // New account added. go to this account
-        auto accounts = lrc_->getAccountModel().getAccountList();
-        auto store = gtk_list_store_new (2 /* # of cols */ ,
-                                          G_TYPE_STRING,
-                                          G_TYPE_STRING,
-                                          G_TYPE_UINT);
-        auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
-        GtkTreeIter iter;
-        for (const auto& accountId : accounts) {
-            const auto& account = lrc_->getAccountModel().getAccountInfo(accountId);
-            if (account.enabled) {
-                gtk_list_store_append (store, &iter);
-                gtk_list_store_set (store, &iter,
-                0 /* col # */ , accountId.c_str() /* celldata */,
-                1 /* col # */ , account.profileInfo.alias.c_str() /* celldata */,
-                -1 /* end */);
-            }
-        }
-        // Redraw combobox
-        gtk_combo_box_set_model(
-            GTK_COMBO_BOX(widgets->combobox_account_selector),
-            GTK_TREE_MODEL (store)
-        );
-        // If no account selected, select the new account
-        if (currentIdx == -1) currentIdx = 0;
-        gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), currentIdx);
-        showAccountSelectorWidget();
-    };
-
+                                                       [this](const std::string& v){ onAccountChangeFromLrc(v); });
     newAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
-                                                &lrc::api::NewAccountModel::accountAdded,
-                                                slotAccountAdded);
-
-    auto slotAccountRemoved = [this] (G_GNUC_UNUSED const std::string& idRemoved) {
-        // Account removed, change account if it's the current account selected.
-        auto accounts = lrc_->getAccountModel().getAccountList();
-        if (accounts.empty()) {
-            enterAccountCreationWizard();
-        } else {
-            auto store = gtk_list_store_new (2 /* # of cols */ ,
-            G_TYPE_STRING,
-            G_TYPE_STRING,
-            G_TYPE_UINT);
-            GtkTreeIter iter;
-            for (const auto& accountId : accounts) {
-                const auto& account = lrc_->getAccountModel().getAccountInfo(accountId);
-                if (account.enabled) {
-                    gtk_list_store_append (store, &iter);
-                    gtk_list_store_set (store, &iter,
-                    0 /* col # */ , accountId.c_str() /* celldata */,
-                    1 /* col # */ , account.profileInfo.alias.c_str() /* celldata */,
-                    -1 /* end */);
-                }
-            }
-
-            gtk_combo_box_set_model(
-            GTK_COMBO_BOX(widgets->combobox_account_selector),
-            GTK_TREE_MODEL (store)
-            );
-            gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), 0);
-            showAccountSelectorWidget();
-            // Show conversation panel
-            gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
-            // Reinit LRC
-            updateLrc(std::string(accounts.at(0)));
-            // Update the welcome view
-            ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
-        }
-    };
-
+                                             &lrc::api::NewAccountModel::accountAdded,
+                                             [this](const std::string& v){ onAccountAddedFromLrc(v); });
     rmAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                                   &lrc::api::NewAccountModel::accountRemoved,
-                                                  slotAccountRemoved);
+                                                  [this](const std::string& v){ onAccountRemovedFromLrc(v); });
 
     /* bind to window size settings */
     widgets->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
@@ -1036,16 +923,16 @@ CppImpl::leaveAccountCreationWizard()
 }
 
 void
-CppImpl::useAccount(const std::string& accountId)
+CppImpl::useAccount(const std::string& id)
 {
     // Go to welcome view
     changeView(RING_WELCOME_VIEW_TYPE);
 
     // Change account selection widget
     auto accounts = lrc_->getAccountModel().getAccountList();
-    auto it = std::find(accounts.begin(), accounts.end(), accountId );
+    auto it = std::find(accounts.begin(), accounts.end(), id );
     if (it == accounts.end()) {
-        qDebug() << "useAccount, cannot find account " << accountId.c_str();
+        qDebug() << "useAccount, cannot find account " << id.c_str();
         return;
     }
 
@@ -1055,20 +942,141 @@ CppImpl::useAccount(const std::string& accountId)
     // Show conversation panel
     gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
     // Reinit LRC
-    updateLrc(std::string(accountId));
+    updateLrc(std::string(id));
     // Update the welcome view
     ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
 }
 
 void
-CppImpl::onAccountChanged(const std::string& accountId)
+CppImpl::onAccountAddedFromLrc(const std::string& id)
+{
+    (void)id;
+
+    // go to this account
+    auto accounts = lrc_->getAccountModel().getAccountList();
+    auto store = gtk_list_store_new (2 /* # of cols */ ,
+                                     G_TYPE_STRING,
+                                     G_TYPE_STRING,
+                                     G_TYPE_UINT);
+    auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
+    GtkTreeIter iter;
+    for (const auto& id : accounts) {
+        const auto& account = lrc_->getAccountModel().getAccountInfo(id);
+        if (account.enabled) {
+            gtk_list_store_append (store, &iter);
+            gtk_list_store_set (store, &iter,
+                                0 /* col # */ , id.c_str() /* celldata */,
+                                1 /* col # */ , account.profileInfo.alias.c_str() /* celldata */,
+                                -1 /* end */);
+        }
+    }
+    // Redraw combobox
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(widgets->combobox_account_selector),
+        GTK_TREE_MODEL (store)
+        );
+    // If no account selected, select the new account
+    if (currentIdx == -1) currentIdx = 0;
+    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), currentIdx);
+    showAccountSelectorWidget();
+}
+
+void
+CppImpl::onAccountRemovedFromLrc(const std::string& id)
+{
+    (void)id;
+
+    auto accounts = lrc_->getAccountModel().getAccountList();
+    if (accounts.empty()) {
+        enterAccountCreationWizard();
+        return;
+    }
+
+    auto store = gtk_list_store_new (2 /* # of cols */ ,
+                                     G_TYPE_STRING,
+                                     G_TYPE_STRING,
+                                     G_TYPE_UINT);
+    GtkTreeIter iter;
+    for (const auto& id : accounts) {
+        const auto& account = lrc_->getAccountModel().getAccountInfo(id);
+        if (account.enabled) {
+            gtk_list_store_append (store, &iter);
+            gtk_list_store_set (store, &iter,
+                                0 /* col # */ , id.c_str() /* celldata */,
+                                1 /* col # */ , account.profileInfo.alias.c_str() /* celldata */,
+                                -1 /* end */);
+        }
+    }
+
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(widgets->combobox_account_selector),
+        GTK_TREE_MODEL (store)
+        );
+    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), 0);
+    showAccountSelectorWidget();
+    // Show conversation panel
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
+    // Reinit LRC
+    updateLrc(std::string(accounts.at(0)));
+    // Update the welcome view
+    ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
+}
+
+void
+CppImpl::onAccountChangeFromLrc(const std::string& id)
+{
+    if (not accountContainer_ ) {
+        updateLrc(id);
+        if (accountContainer_)
+            ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view),
+                                     accountContainer_.get());
+        return;
+    }
+
+    auto accounts = lrc_->getAccountModel().getAccountList();
+    auto store = gtk_list_store_new (2 /* # of cols */ ,
+                                     G_TYPE_STRING,
+                                     G_TYPE_STRING,
+                                     G_TYPE_UINT);
+    auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
+    GtkTreeIter iter;
+    auto enabledAccounts = 0;
+    for (const auto& account : accounts) {
+        const auto& accountInfo = lrc_->getAccountModel().getAccountInfo(account);
+        showAccountSelectorWidget();
+        if (id == account && !accountInfo.enabled) currentIdx = 0;
+        if (accountInfo.enabled) {
+            ++enabledAccounts;
+            gtk_list_store_append (store, &iter);
+            gtk_list_store_set (store, &iter,
+                                0 /* col # */ , account.c_str() /* celldata */,
+                                1 /* col # */ , accountInfo.profileInfo.alias.c_str() /* celldata */,
+                                -1 /* end */);
+        }
+    }
+    // Redraw combobox
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(widgets->combobox_account_selector),
+        GTK_TREE_MODEL (store)
+        );
+    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), currentIdx);
+    // if no account. reset the view.
+    if (enabledAccounts == 0) {
+        updateLrc("");
+        changeView(RING_WELCOME_VIEW_TYPE);
+        ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), nullptr);
+    }
+}
+
+void
+CppImpl::onAccountChangeFromUI(const std::string& id)
 {
     // Reinit view
     changeView(RING_WELCOME_VIEW_TYPE);
     gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
 
     // Change account
-    updateLrc(accountId);
+    updateLrc(id);
     ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
 }
 
@@ -1130,7 +1138,7 @@ CppImpl::leaveSettingsView()
 }
 
 void
-CppImpl::updateLrc(const std::string& accountId)
+CppImpl::updateLrc(const std::string& id)
 {
     // Disconnect old signals.
     QObject::disconnect(showChatViewConnection_);
@@ -1144,8 +1152,8 @@ CppImpl::updateLrc(const std::string& accountId)
     QObject::disconnect(conversationRemovedConnection_);
 
     // Get the account selected
-    if (!accountId.empty())
-        accountContainer_.reset(new AccountContainer(lrc_->getAccountModel().getAccountInfo(accountId)));
+    if (!id.empty())
+        accountContainer_.reset(new AccountContainer(lrc_->getAccountModel().getAccountInfo(id)));
     else
         accountContainer_.reset();
 
@@ -1260,9 +1268,9 @@ CppImpl::updateLrc(const std::string& accountId)
             changeView(RING_WELCOME_VIEW_TYPE);
     };
 
-    auto slotShowChatView = [this] (const std::string& accountId, lrc::api::conversation::Info origin) {
-        if (accountId != accountContainer_->info.id)
-            useAccount(accountId);
+    auto slotShowChatView = [this] (const std::string& id, lrc::api::conversation::Info origin) {
+        if (id != accountContainer_->info.id)
+            useAccount(id);
         // Show chat view if not in call (unless if it's the same conversation)
         auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
         lrc::api::conversation::Info current_item;
@@ -1278,9 +1286,9 @@ CppImpl::updateLrc(const std::string& accountId)
         }
     };
 
-    auto slotShowCallView = [this] (const std::string& accountId, lrc::api::conversation::Info origin) {
-        if (accountId != accountContainer_->info.id)
-            useAccount(accountId);
+    auto slotShowCallView = [this] (const std::string& id, lrc::api::conversation::Info origin) {
+        if (id != accountContainer_->info.id)
+            useAccount(id);
         // Change the view if we want a different view.
         auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
 
@@ -1292,9 +1300,9 @@ CppImpl::updateLrc(const std::string& accountId)
             changeView(CURRENT_CALL_VIEW_TYPE, origin);
     };
 
-    auto slotShowIncomingCallView = [this] (const std::string& accountId, lrc::api::conversation::Info origin) {
-        if (accountId != accountContainer_->info.id)
-            useAccount(accountId);
+    auto slotShowIncomingCallView = [this] (const std::string& id, lrc::api::conversation::Info origin) {
+        if (id != accountContainer_->info.id)
+            useAccount(id);
         // Change the view if we want a different view.
         auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
 
