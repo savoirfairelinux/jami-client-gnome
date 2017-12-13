@@ -129,6 +129,7 @@ public:
     explicit CppImpl(RingMainWindow& widget);
 
     void changeView(GType type, lrc::api::conversation::Info conversation = {});
+    WebKitChatContainer* webkitChatContainer() const;
 
     RingMainWindow* self = nullptr; // The GTK widget itself
     RingMainWindowPrivate* priv = nullptr;
@@ -170,20 +171,6 @@ hide_view_clicked(RingMainWindow *self);
 
 static void
 ring_init_lrc(RingMainWindow *win, const std::string& accountId);
-
-static WebKitChatContainer*
-get_webkit_chat_container(RingMainWindow *win)
-{
-    RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-    if (!priv->webkit_chat_container)
-    {
-        priv->webkit_chat_container = webkit_chat_container_new();
-
-        //We don't want it to be deleted, ever.
-        g_object_ref(priv->webkit_chat_container);
-    }
-    return WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container);
-}
 
 static void
 enter_full_screen(RingMainWindow *self)
@@ -923,8 +910,7 @@ CppImpl::displayIncomingView(lrc::api::conversation::Info conversation)
 {
     delete chatViewConversation_;
     chatViewConversation_ = new lrc::api::conversation::Info(conversation);
-    return incoming_call_view_new(get_webkit_chat_container(self),
-                                  accountContainer_, chatViewConversation_);
+    return incoming_call_view_new(webkitChatContainer(), accountContainer_, chatViewConversation_);
 }
 
 GtkWidget*
@@ -932,7 +918,7 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation)
 {
     delete chatViewConversation_;
     chatViewConversation_ = new lrc::api::conversation::Info(conversation);
-    auto* new_view = current_call_view_new(get_webkit_chat_container(self),
+    auto* new_view = current_call_view_new(webkitChatContainer(),
                                            accountContainer_, chatViewConversation_);
 
     try {
@@ -954,10 +940,21 @@ CppImpl::displayChatView(lrc::api::conversation::Info conversation)
 {
     delete chatViewConversation_;
     chatViewConversation_ = new lrc::api::conversation::Info(conversation);
-    auto* new_view = chat_view_new(get_webkit_chat_container(self),
-                                   accountContainer_, chatViewConversation_);
+    auto* new_view = chat_view_new(webkitChatContainer(), accountContainer_, chatViewConversation_);
     g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(hide_view_clicked), self);
     return new_view;
+}
+
+WebKitChatContainer*
+CppImpl::webkitChatContainer() const
+{
+    if (!priv->webkit_chat_container) {
+        priv->webkit_chat_container = webkit_chat_container_new();
+
+        // We don't want it to be deleted, ever.
+        g_object_ref(priv->webkit_chat_container);
+    }
+    return WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container);
 }
 
 } // namespace details
@@ -1221,7 +1218,7 @@ ring_main_window_init(RingMainWindow *win)
                                    C_("Please try to make the translation 50 chars or less so that it fits into the layout", "Search contacts or enter number"));
 
     /* init chat webkit container so that it starts loading before the first time we need it*/
-    get_webkit_chat_container(win);
+    (void)priv->cpp->webkitChatContainer();
 
     if (has_ring_account()) {
         /* user has ring account, so show the call view right away */
