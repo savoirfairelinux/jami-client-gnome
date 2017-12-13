@@ -86,6 +86,8 @@ struct CppImpl
     void leaveFullScreen();
     void toggleFullScreen();
 
+    void resetToWelcome();
+
     WebKitChatContainer* webkitChatContainer() const;
 
     RingMainWindow* self = nullptr; // The GTK widget itself
@@ -185,19 +187,27 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATIO
 inline namespace impl
 {
 
-static void
-hide_view_clicked(RingMainWindow *self);
+// C callbacks
+extern "C"
+{
 
 static void
-ring_init_lrc(RingMainWindow *win, const std::string& accountId);
-
-static void
-video_double_clicked(RingMainWindow *self)
+video_double_clicked(RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
     priv->cpp.toggleFullScreen();
 }
+
+static void
+hide_view_clicked(RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    priv->cpp.resetToWelcome();
+}
+
+}; // extern "C" - C callbacks
 
 static void
 set_pending_contact_request_tab_icon(RingMainWindow* self)
@@ -220,20 +230,7 @@ set_pending_contact_request_tab_icon(RingMainWindow* self)
 }
 
 static void
-hide_view_clicked(RingMainWindow *self)
-{
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-    // clear selection and go to welcome page.
-    auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
-    gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
-    auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
-    gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_request));
-    auto* old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
-    lrc::api::conversation::Info current_item;
-    if (IS_CHAT_VIEW(old_view))
-        current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
-    priv->cpp.changeView(RING_WELCOME_VIEW_TYPE, current_item);
-}
+ring_init_lrc(RingMainWindow *win, const std::string& accountId);
 
 static void
 show_combobox_account_selector(RingMainWindow *self, gboolean show)
@@ -382,7 +379,7 @@ ring_init_lrc(RingMainWindow *win, const std::string& accountId)
              // We are on the conversation cleared.
              // Go to welcome view because user doesn't want this conversation
              // TODO go to first conversation?
-             hide_view_clicked(win);
+             priv->cpp.resetToWelcome();
          }
     };
 
@@ -975,6 +972,20 @@ CppImpl::toggleFullScreen()
         priv->cpp.enterFullScreen();
 }
 
+/// Clear selection and go to welcome page.
+void
+CppImpl::resetToWelcome()
+{
+    auto selection_conversations = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_conversations));
+    gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_conversations));
+    auto selection_contact_request = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_contact_requests));
+    gtk_tree_selection_unselect_all(GTK_TREE_SELECTION(selection_contact_request));
+    auto* old_view = gtk_bin_get_child(GTK_BIN(priv->frame_call));
+    lrc::api::conversation::Info current_item;
+    if (IS_CHAT_VIEW(old_view))
+        current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
+    changeView(RING_WELCOME_VIEW_TYPE, current_item);
+}
 
 } // namespace impl
 
