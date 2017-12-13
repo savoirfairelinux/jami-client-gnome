@@ -82,6 +82,10 @@ struct CppImpl
     GtkWidget* displayCurrentCallView(lrc::api::conversation::Info conversation);
     GtkWidget* displayChatView(lrc::api::conversation::Info conversation);
 
+    void enterFullScreen();
+    void leaveFullScreen();
+    void toggleFullScreen();
+
     WebKitChatContainer* webkitChatContainer() const;
 
     RingMainWindow* self = nullptr; // The GTK widget itself
@@ -188,42 +192,11 @@ static void
 ring_init_lrc(RingMainWindow *win, const std::string& accountId);
 
 static void
-enter_full_screen(RingMainWindow *self)
-{
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-
-    if (!priv->is_fullscreen) {
-        gtk_widget_hide(priv->vbox_left_pane);
-        gtk_window_fullscreen(GTK_WINDOW(self));
-        priv->is_fullscreen = TRUE;
-    }
-}
-
-static void
-leave_full_screen(RingMainWindow *self)
-{
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-
-    if (priv->is_fullscreen) {
-        gtk_widget_show(priv->vbox_left_pane);
-        gtk_window_unfullscreen(GTK_WINDOW(self));
-        priv->is_fullscreen = FALSE;
-    }
-}
-
-static void
 video_double_clicked(RingMainWindow *self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-
-    if (priv->is_fullscreen) {
-        leave_full_screen(self);
-    } else {
-        enter_full_screen(self);
-    }
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    priv->cpp.toggleFullScreen();
 }
 
 static void
@@ -897,7 +870,7 @@ CppImpl::CppImpl(RingMainWindow& widget)
 void
 CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
 {
-    leave_full_screen(self);
+    leaveFullScreen();
     gtk_container_remove(GTK_CONTAINER(priv->frame_call),
                          gtk_bin_get_child(GTK_BIN(priv->frame_call)));
 
@@ -946,7 +919,8 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation)
         }
     } catch(...) { }
 
-    g_signal_connect_swapped(new_view, "video-double-clicked", G_CALLBACK(video_double_clicked), self);
+    g_signal_connect_swapped(new_view, "video-double-clicked",
+                             G_CALLBACK(video_double_clicked), self);
     return new_view;
 }
 
@@ -971,6 +945,36 @@ CppImpl::webkitChatContainer() const
     }
     return WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container);
 }
+
+void
+CppImpl::enterFullScreen()
+{
+    if (!priv->is_fullscreen) {
+        gtk_widget_hide(priv->vbox_left_pane);
+        gtk_window_fullscreen(GTK_WINDOW(self));
+        priv->is_fullscreen = TRUE;
+    }
+}
+
+void
+CppImpl::leaveFullScreen()
+{
+    if (priv->is_fullscreen) {
+        gtk_widget_show(priv->vbox_left_pane);
+        gtk_window_unfullscreen(GTK_WINDOW(self));
+        priv->is_fullscreen = FALSE;
+    }
+}
+
+void
+CppImpl::toggleFullScreen()
+{
+    if (priv->is_fullscreen)
+        priv->cpp.leaveFullScreen();
+    else
+        priv->cpp.enterFullScreen();
+}
+
 
 } // namespace impl
 
