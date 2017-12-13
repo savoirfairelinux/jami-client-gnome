@@ -127,6 +127,7 @@ class CppImpl
 {
 public:
     explicit CppImpl(RingMainWindow& widget);
+    ~CppImpl();
 
     void updateLrc(const std::string& accountId);
     void changeView(GType type, lrc::api::conversation::Info conversation = {});
@@ -499,7 +500,343 @@ print_account_and_state(GtkCellLayout* cell_layout,
 CppImpl::CppImpl(RingMainWindow& widget)
     : self {&widget}
     , priv {RING_MAIN_WINDOW_GET_PRIVATE(&widget)}
-{}
+    , lrc_ {std::make_unique<lrc::api::Lrc>()}
+{
+    // NOTE: When new models will be fully implemented, we need to move this
+    // in rign_client.cpp->
+    // Init LRC and the vew
+    const auto accountIds = lrc_->getAccountModel().getAccountList();
+    auto isInitialized = false;
+    if (not accountIds.empty()) {
+        for (const auto& accountId : accountIds) {
+            const auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
+            if (accountInfo.enabled) {
+                updateLrc(accountId);
+                isInitialized = true;
+                break;
+            }
+        }
+        if (!isInitialized) {
+            priv->treeview_conversations = conversations_view_new(accountContainer_);
+            gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
+            priv->treeview_contact_requests = conversations_view_new(accountContainer_);
+            gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contact_requests), priv->treeview_contact_requests);
+        }
+    }
+
+    // Account status changed
+    auto slotAccountStatusChanged = [this] (const std::string& accountId) {
+        if (not accountContainer_ ) {
+            updateLrc(accountId);
+
+            if (accountContainer_)
+                ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view),
+                                         accountContainer_);
+        } else {
+            auto accounts = lrc_->getAccountModel().getAccountList();
+            auto store = gtk_list_store_new (2 /* # of cols */ ,
+                                                 G_TYPE_STRING,
+                                                 G_TYPE_STRING,
+                                                 G_TYPE_UINT);
+            auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_account_selector));
+            GtkTreeIter iter;
+            auto enabledAccounts = 0;
+            for (const auto& account : accounts) {
+                const auto& accountInfo = lrc_->getAccountModel().getAccountInfo(account);
+                showAccountSelectorWidget();
+                if (accountId == account && !accountInfo.enabled) currentIdx = 0;
+                if (accountInfo.enabled) {
+                    ++enabledAccounts;
+                    gtk_list_store_append (store, &iter);
+                    gtk_list_store_set (store, &iter,
+                    0 /* col # */ , account.c_str() /* celldata */,
+                    1 /* col # */ , accountInfo.profileInfo.alias.c_str() /* celldata */,
+                    -1 /* end */);
+                }
+            }
+            // Redraw combobox
+            gtk_combo_box_set_model(
+                GTK_COMBO_BOX(priv->combobox_account_selector),
+                GTK_TREE_MODEL (store)
+            );
+            gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), currentIdx);
+            // if no account. reset the view.
+            if (enabledAccounts == 0) {
+                updateLrc("");
+                changeView(RING_WELCOME_VIEW_TYPE);
+                ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), nullptr);
+            }
+        }
+    };
+
+    accountStatusChangedConnection_ = QObject::connect(&lrc_->getAccountModel(),
+                                                       &lrc::api::NewAccountModel::accountStatusChanged,
+                                                       slotAccountStatusChanged);
+
+    // This signal must be connected if no account
+    auto slotAccountAdded = [this] (const std::string& idAdded) {
+        Q_UNUSED(idAdded)
+        // New account added. go to this account
+        auto accounts = lrc_->getAccountModel().getAccountList();
+        auto store = gtk_list_store_new (2 /* # of cols */ ,
+                                          G_TYPE_STRING,
+                                          G_TYPE_STRING,
+                                          G_TYPE_UINT);
+        auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_account_selector));
+        GtkTreeIter iter;
+        for (const auto& accountId : accounts) {
+            const auto& account = lrc_->getAccountModel().getAccountInfo(accountId);
+            if (account.enabled) {
+                gtk_list_store_append (store, &iter);
+                gtk_list_store_set (store, &iter,
+                0 /* col # */ , accountId.c_str() /* celldata */,
+                1 /* col # */ , account.profileInfo.alias.c_str() /* celldata */,
+                -1 /* end */);
+            }
+        }
+        // Redraw combobox
+        gtk_combo_box_set_model(
+            GTK_COMBO_BOX(priv->combobox_account_selector),
+            GTK_TREE_MODEL (store)
+        );
+        // If no account selected, select the new account
+        if (currentIdx == -1) currentIdx = 0;
+        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), currentIdx);
+        showAccountSelectorWidget();
+    };
+
+    newAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
+                                                &lrc::api::NewAccountModel::accountAdded,
+                                                slotAccountAdded);
+
+    auto slotAccountRemoved = [this] (G_GNUC_UNUSED const std::string& idRemoved) {
+        // Account removed, change account if it's the current account selected.
+        auto accounts = lrc_->getAccountModel().getAccountList();
+        if (accounts.empty()) {
+            enterAccountCreationWizard();
+        } else {
+            auto store = gtk_list_store_new (2 /* # of cols */ ,
+            G_TYPE_STRING,
+            G_TYPE_STRING,
+            G_TYPE_UINT);
+            GtkTreeIter iter;
+            for (const auto& accountId : accounts) {
+                const auto& account = lrc_->getAccountModel().getAccountInfo(accountId);
+                if (account.enabled) {
+                    gtk_list_store_append (store, &iter);
+                    gtk_list_store_set (store, &iter,
+                    0 /* col # */ , accountId.c_str() /* celldata */,
+                    1 /* col # */ , account.profileInfo.alias.c_str() /* celldata */,
+                    -1 /* end */);
+                }
+            }
+
+            gtk_combo_box_set_model(
+            GTK_COMBO_BOX(priv->combobox_account_selector),
+            GTK_TREE_MODEL (store)
+            );
+            gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
+            showAccountSelectorWidget();
+            // Show conversation panel
+            gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), 0);
+            // Reinit LRC
+            updateLrc(std::string(accounts.at(0)));
+            // Update the welcome view
+            ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), accountContainer_);
+        }
+    };
+
+    rmAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
+                                                  &lrc::api::NewAccountModel::accountRemoved,
+                                                  slotAccountRemoved);
+
+    /* bind to window size settings */
+    priv->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
+    auto width = g_settings_get_int(priv->settings, "window-width");
+    auto height = g_settings_get_int(priv->settings, "window-height");
+    gtk_window_set_default_size(GTK_WINDOW(self), width, height);
+    g_signal_connect(self, "configure-event", G_CALLBACK(on_window_size_changed), nullptr);
+
+    /* search-entry-places-call setting */
+    on_search_entry_places_call_changed(priv->settings, "search-entry-places-call", self);
+    g_signal_connect(priv->settings, "changed::search-entry-places-call", G_CALLBACK(on_search_entry_places_call_changed), self);
+
+     /* set window icon */
+    GError *error = NULL;
+    GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/cx/ring/RingGnome/ring-symbol-blue", &error);
+    if (icon == NULL) {
+        g_debug("Could not load icon: %s", error->message);
+        g_clear_error(&error);
+    } else
+        gtk_window_set_icon(GTK_WINDOW(self), icon);
+
+    /* set menu icon */
+    GdkPixbuf* image_ring = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/ring-symbol-blue",
+                                                                  -1, 16, TRUE, &error);
+    if (image_ring == NULL) {
+        g_debug("Could not load icon: %s", error->message);
+        g_clear_error(&error);
+    } else
+        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring), image_ring);
+
+    /* ring menu */
+    GtkBuilder *builder = gtk_builder_new_from_resource("/cx/ring/RingGnome/ringgearsmenu.ui");
+    GMenuModel *menu = G_MENU_MODEL(gtk_builder_get_object(builder, "menu"));
+    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(priv->ring_menu), menu);
+    g_object_unref(builder);
+
+    /* settings icon */
+    gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
+
+    /* connect settings button signal */
+    g_signal_connect_swapped(priv->ring_settings, "clicked", G_CALLBACK(on_settings_clicked), self);
+
+    /* add the call view to the main stack */
+    gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
+                        priv->vbox_call_view,
+                        CALL_VIEW_NAME);
+
+    /* init the settings views */
+    priv->account_settings_view = account_view_new();
+    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->account_settings_view, ACCOUNT_SETTINGS_VIEW_NAME);
+
+    priv->media_settings_view = media_settings_view_new();
+    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->media_settings_view, MEDIA_SETTINGS_VIEW_NAME);
+
+    priv->general_settings_view = general_settings_view_new();
+    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->general_settings_view, GENERAL_SETTINGS_VIEW_NAME);
+
+    /* make the setting we will show first the active one */
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_general_settings), TRUE);
+    priv->last_settings_view = priv->general_settings_view;
+
+    /* connect the settings button signals to switch settings views */
+    g_signal_connect(priv->radiobutton_media_settings, "toggled", G_CALLBACK(on_show_media_settings), self);
+    g_signal_connect(priv->radiobutton_account_settings, "toggled", G_CALLBACK(on_show_account_settings), self);
+    g_signal_connect(priv->radiobutton_general_settings, "toggled", G_CALLBACK(on_show_general_settings), self);
+
+    g_signal_connect(priv->notebook_contacts, "switch-page", G_CALLBACK(on_tab_changed), self);
+
+    /* welcome/default view */
+    priv->welcome_view = ring_welcome_view_new(accountContainer_);
+    g_object_ref(priv->welcome_view); // increase ref because don't want it to be destroyed when not displayed
+    gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
+    gtk_widget_show(priv->welcome_view);
+
+    g_signal_connect_swapped(priv->search_entry, "activate", G_CALLBACK(on_search_entry_activated), self);
+    g_signal_connect_swapped(priv->button_new_conversation, "clicked", G_CALLBACK(on_search_entry_activated), self);
+    g_signal_connect(priv->search_entry, "search-changed", G_CALLBACK(on_search_entry_text_changed), self);
+    g_signal_connect(priv->search_entry, "key-release-event", G_CALLBACK(on_search_entry_key_released), self);
+
+    auto provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_data(provider,
+        ".search-entry-style { border: 0; border-radius: 0; } \
+        .spinner-style { border: 0; background: white; } \
+        .new-conversation-style { border: 0; background: white; transition: all 0.3s ease; border-radius: 0; } \
+        .new-conversation-style:hover {  background: #bae5f0; }",
+        -1, nullptr
+    );
+    gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
+                                              GTK_STYLE_PROVIDER(provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+
+    /* react to digit key press events */
+    g_signal_connect(self, "key-press-event", G_CALLBACK(on_dtmf_pressed), nullptr);
+
+    /* set the search entry placeholder text */
+    gtk_entry_set_placeholder_text(GTK_ENTRY(priv->search_entry),
+                                   C_("Please try to make the translation 50 chars or less so that it fits into the layout", "Search contacts or enter number"));
+
+    /* init chat webkit container so that it starts loading before the first time we need it*/
+    (void)webkitChatContainer();
+
+    if (has_ring_account()) {
+        /* user has ring account, so show the call view right away */
+        gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
+
+        on_handle_account_migrations(self);
+    } else {
+        /* user has to create the ring account */
+        enterAccountCreationWizard();
+    }
+
+    // setup account selector and select the first account
+    auto store = gtk_list_store_new (2 /* # of cols */ ,
+                                     G_TYPE_STRING,
+                                     G_TYPE_STRING,
+                                     G_TYPE_UINT);
+    GtkTreeIter iter;
+    for (const auto& accountId : accountIds) {
+        const auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
+        if (accountInfo.enabled) {
+            gtk_list_store_append (store, &iter);
+            gtk_list_store_set (store, &iter,
+            0 /* col # */ , accountId.c_str() /* celldata */,
+            1 /* col # */ , accountInfo.profileInfo.alias.c_str() /* celldata */,
+            -1 /* end */);
+        }
+    }
+
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(priv->combobox_account_selector),
+        GTK_TREE_MODEL (store)
+    );
+    gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
+
+    /* set visibility */
+    showAccountSelectorWidget();
+
+    /* layout */
+    auto *renderer = gtk_cell_renderer_text_new();
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, FALSE);
+    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, "text", 0, NULL);
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_account_selector),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc)print_account_and_state,
+                                       nullptr, nullptr);
+
+    // we closing any view opened to avoid confusion (especially between SIP and Ring protocols).
+    g_signal_connect_swapped(priv->combobox_account_selector, "changed", G_CALLBACK(on_account_changed), self);
+
+    // initialize the pending contact request icon.
+    setPendingContactRequestTabIcon();
+
+    if (isInitialized) {
+        auto& conversationModel = accountContainer_->info.conversationModel;
+        auto conversations = conversationModel->allFilteredConversations();
+        for (const auto& conversation: conversations) {
+            if (!conversation.callId.empty()) {
+                accountContainer_->info.conversationModel->selectConversation(conversation.uid);
+            }
+        }
+    }
+}
+
+CppImpl::~CppImpl()
+{
+    delete accountContainer_;
+    delete chatViewConversation_;
+
+    QObject::disconnect(selected_item_changed);
+    QObject::disconnect(selected_call_over);
+    QObject::disconnect(showChatViewConnection_);
+    QObject::disconnect(showIncomingViewConnection_);
+    QObject::disconnect(historyClearedConnection_);
+    QObject::disconnect(modelSortedConnection_);
+    QObject::disconnect(filterChangedConnection_);
+    QObject::disconnect(newConversationConnection_);
+    QObject::disconnect(conversationRemovedConnection_);
+    QObject::disconnect(changeAccountConnection_);
+    QObject::disconnect(newAccountConnection_);
+    QObject::disconnect(rmAccountConnection_);
+    QObject::disconnect(showCallViewConnection_);
+    QObject::disconnect(modelSortedConnection_);
+    QObject::disconnect(accountStatusChangedConnection_);
+
+    g_clear_object(&priv->welcome_view);
+    g_clear_object(&priv->webkit_chat_container);
+}
 
 void
 CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
@@ -721,7 +1058,7 @@ CppImpl::useAccount(const std::string& accountId)
     // Reinit LRC
     updateLrc(std::string(accountId));
     // Update the welcome view
-    ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), priv->cpp->accountContainer_);
+    ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), accountContainer_);
 }
 
 void
@@ -733,7 +1070,7 @@ CppImpl::onAccountChanged(const std::string& accountId)
 
     // Change account
     updateLrc(accountId);
-    ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), priv->cpp->accountContainer_);
+    ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), accountContainer_);
 }
 
 void
@@ -1022,317 +1359,6 @@ ring_main_window_init(RingMainWindow *win)
 
     // CppImpl ctor
     priv->cpp = new details::CppImpl {*win};
-
-    // NOTE: When new models will be fully implemented, we need to move this
-    // in rign_client.cpp->
-    // Init LRC and the vew
-    priv->cpp->lrc_ = std::make_unique<lrc::api::Lrc>();
-    const auto accountIds = priv->cpp->lrc_->getAccountModel().getAccountList();
-    auto isInitialized = false;
-    if (not accountIds.empty()) {
-        for (const auto& accountId : accountIds) {
-            const auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(accountId);
-            if (accountInfo.enabled) {
-                priv->cpp->updateLrc(accountId);
-                isInitialized = true;
-                break;
-            }
-        }
-        if (!isInitialized) {
-            priv->treeview_conversations = conversations_view_new(priv->cpp->accountContainer_);
-            gtk_container_add(GTK_CONTAINER(priv->scrolled_window_smartview), priv->treeview_conversations);
-            priv->treeview_contact_requests = conversations_view_new(priv->cpp->accountContainer_);
-            gtk_container_add(GTK_CONTAINER(priv->scrolled_window_contact_requests), priv->treeview_contact_requests);
-        }
-    }
-
-    // Account status changed
-    auto slotAccountStatusChanged = [win, priv] (const std::string& accountId) {
-        if (not priv->cpp->accountContainer_ ) {
-            priv->cpp->updateLrc(accountId);
-
-            if (priv->cpp->accountContainer_)
-                ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view),
-                                         priv->cpp->accountContainer_);
-        } else {
-            auto accounts = priv->cpp->lrc_->getAccountModel().getAccountList();
-            auto store = gtk_list_store_new (2 /* # of cols */ ,
-                                                 G_TYPE_STRING,
-                                                 G_TYPE_STRING,
-                                                 G_TYPE_UINT);
-            auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_account_selector));
-            GtkTreeIter iter;
-            auto enabledAccounts = 0;
-            for (const auto& account : accounts) {
-                const auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(account);
-                priv->cpp->showAccountSelectorWidget();
-                if (accountId == account && !accountInfo.enabled) currentIdx = 0;
-                if (accountInfo.enabled) {
-                    ++enabledAccounts;
-                    gtk_list_store_append (store, &iter);
-                    gtk_list_store_set (store, &iter,
-                    0 /* col # */ , account.c_str() /* celldata */,
-                    1 /* col # */ , accountInfo.profileInfo.alias.c_str() /* celldata */,
-                    -1 /* end */);
-                }
-            }
-            // Redraw combobox
-            gtk_combo_box_set_model(
-                GTK_COMBO_BOX(priv->combobox_account_selector),
-                GTK_TREE_MODEL (store)
-            );
-            gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), currentIdx);
-            // if no account. reset the view.
-            if (enabledAccounts == 0) {
-                priv->cpp->updateLrc("");
-                priv->cpp->changeView(RING_WELCOME_VIEW_TYPE);
-                ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), nullptr);
-            }
-        }
-    };
-
-    priv->cpp->accountStatusChangedConnection_ = QObject::connect(&priv->cpp->lrc_->getAccountModel(),
-                                                             &lrc::api::NewAccountModel::accountStatusChanged,
-                                                             slotAccountStatusChanged);
-
-    // This signal must be connected if no account
-    auto slotAccountAdded = [win, priv] (const std::string& idAdded) {
-        Q_UNUSED(idAdded)
-        // New account added. go to this account
-        auto accounts = priv->cpp->lrc_->getAccountModel().getAccountList();
-        auto store = gtk_list_store_new (2 /* # of cols */ ,
-                                          G_TYPE_STRING,
-                                          G_TYPE_STRING,
-                                          G_TYPE_UINT);
-        auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(priv->combobox_account_selector));
-        GtkTreeIter iter;
-        for (const auto& accountId : accounts) {
-            const auto& account = priv->cpp->lrc_->getAccountModel().getAccountInfo(accountId);
-            if (account.enabled) {
-                gtk_list_store_append (store, &iter);
-                gtk_list_store_set (store, &iter,
-                0 /* col # */ , accountId.c_str() /* celldata */,
-                1 /* col # */ , account.profileInfo.alias.c_str() /* celldata */,
-                -1 /* end */);
-            }
-        }
-        // Redraw combobox
-        gtk_combo_box_set_model(
-            GTK_COMBO_BOX(priv->combobox_account_selector),
-            GTK_TREE_MODEL (store)
-        );
-        // If no account selected, select the new account
-        if (currentIdx == -1) currentIdx = 0;
-        gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), currentIdx);
-        priv->cpp->showAccountSelectorWidget();
-    };
-
-    priv->cpp->newAccountConnection_ = QObject::connect(&priv->cpp->lrc_->getAccountModel(),
-                                                &lrc::api::NewAccountModel::accountAdded,
-                                                slotAccountAdded);
-
-    auto slotAccountRemoved = [win, priv] (G_GNUC_UNUSED const std::string& idRemoved) {
-        // Account removed, change account if it's the current account selected.
-        auto accounts = priv->cpp->lrc_->getAccountModel().getAccountList();
-        if (accounts.empty()) {
-            priv->cpp->enterAccountCreationWizard();
-        } else {
-            auto store = gtk_list_store_new (2 /* # of cols */ ,
-            G_TYPE_STRING,
-            G_TYPE_STRING,
-            G_TYPE_UINT);
-            GtkTreeIter iter;
-            for (const auto& accountId : accounts) {
-                const auto& account = priv->cpp->lrc_->getAccountModel().getAccountInfo(accountId);
-                if (account.enabled) {
-                    gtk_list_store_append (store, &iter);
-                    gtk_list_store_set (store, &iter,
-                    0 /* col # */ , accountId.c_str() /* celldata */,
-                    1 /* col # */ , account.profileInfo.alias.c_str() /* celldata */,
-                    -1 /* end */);
-                }
-            }
-
-            gtk_combo_box_set_model(
-            GTK_COMBO_BOX(priv->combobox_account_selector),
-            GTK_TREE_MODEL (store)
-            );
-            gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
-            priv->cpp->showAccountSelectorWidget();
-            // Show conversation panel
-            gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), 0);
-            // Reinit LRC
-            priv->cpp->updateLrc(std::string(accounts.at(0)));
-            // Update the welcome view
-            ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view), priv->cpp->accountContainer_);
-        }
-    };
-
-    priv->cpp->rmAccountConnection_ = QObject::connect(&priv->cpp->lrc_->getAccountModel(),
-                                                  &lrc::api::NewAccountModel::accountRemoved,
-                                                  slotAccountRemoved);
-
-    /* bind to window size settings */
-    priv->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
-    auto width = g_settings_get_int(priv->settings, "window-width");
-    auto height = g_settings_get_int(priv->settings, "window-height");
-    gtk_window_set_default_size(GTK_WINDOW(win), width, height);
-    g_signal_connect(win, "configure-event", G_CALLBACK(on_window_size_changed), nullptr);
-
-    /* search-entry-places-call setting */
-    on_search_entry_places_call_changed(priv->settings, "search-entry-places-call", win);
-    g_signal_connect(priv->settings, "changed::search-entry-places-call", G_CALLBACK(on_search_entry_places_call_changed), win);
-
-     /* set window icon */
-    GError *error = NULL;
-    GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/cx/ring/RingGnome/ring-symbol-blue", &error);
-    if (icon == NULL) {
-        g_debug("Could not load icon: %s", error->message);
-        g_clear_error(&error);
-    } else
-        gtk_window_set_icon(GTK_WINDOW(win), icon);
-
-    /* set menu icon */
-    GdkPixbuf* image_ring = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/ring-symbol-blue",
-                                                                  -1, 16, TRUE, &error);
-    if (image_ring == NULL) {
-        g_debug("Could not load icon: %s", error->message);
-        g_clear_error(&error);
-    } else
-        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_ring), image_ring);
-
-    /* ring menu */
-    GtkBuilder *builder = gtk_builder_new_from_resource("/cx/ring/RingGnome/ringgearsmenu.ui");
-    GMenuModel *menu = G_MENU_MODEL(gtk_builder_get_object(builder, "menu"));
-    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(priv->ring_menu), menu);
-    g_object_unref(builder);
-
-    /* settings icon */
-    gtk_image_set_from_icon_name(GTK_IMAGE(priv->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
-
-    /* connect settings button signal */
-    g_signal_connect_swapped(priv->ring_settings, "clicked", G_CALLBACK(on_settings_clicked), win);
-
-    /* add the call view to the main stack */
-    gtk_stack_add_named(GTK_STACK(priv->stack_main_view),
-                        priv->vbox_call_view,
-                        CALL_VIEW_NAME);
-
-    /* init the settings views */
-    priv->account_settings_view = account_view_new();
-    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->account_settings_view, ACCOUNT_SETTINGS_VIEW_NAME);
-
-    priv->media_settings_view = media_settings_view_new();
-    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->media_settings_view, MEDIA_SETTINGS_VIEW_NAME);
-
-    priv->general_settings_view = general_settings_view_new();
-    gtk_stack_add_named(GTK_STACK(priv->stack_main_view), priv->general_settings_view, GENERAL_SETTINGS_VIEW_NAME);
-
-    /* make the setting we will show first the active one */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->radiobutton_general_settings), TRUE);
-    priv->last_settings_view = priv->general_settings_view;
-
-    /* connect the settings button signals to switch settings views */
-    g_signal_connect(priv->radiobutton_media_settings, "toggled", G_CALLBACK(on_show_media_settings), win);
-    g_signal_connect(priv->radiobutton_account_settings, "toggled", G_CALLBACK(on_show_account_settings), win);
-    g_signal_connect(priv->radiobutton_general_settings, "toggled", G_CALLBACK(on_show_general_settings), win);
-
-    g_signal_connect(priv->notebook_contacts, "switch-page", G_CALLBACK(on_tab_changed), win);
-
-    /* welcome/default view */
-    priv->welcome_view = ring_welcome_view_new(priv->cpp->accountContainer_);
-    g_object_ref(priv->welcome_view); // increase ref because don't want it to be destroyed when not displayed
-    gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->welcome_view);
-    gtk_widget_show(priv->welcome_view);
-
-    g_signal_connect_swapped(priv->search_entry, "activate", G_CALLBACK(on_search_entry_activated), win);
-    g_signal_connect_swapped(priv->button_new_conversation, "clicked", G_CALLBACK(on_search_entry_activated), win);
-    g_signal_connect(priv->search_entry, "search-changed", G_CALLBACK(on_search_entry_text_changed), win);
-    g_signal_connect(priv->search_entry, "key-release-event", G_CALLBACK(on_search_entry_key_released), win);
-
-    auto provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_data(provider,
-        ".search-entry-style { border: 0; border-radius: 0; } \
-        .spinner-style { border: 0; background: white; } \
-        .new-conversation-style { border: 0; background: white; transition: all 0.3s ease; border-radius: 0; } \
-        .new-conversation-style:hover {  background: #bae5f0; }",
-        -1, nullptr
-    );
-    gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
-                                              GTK_STYLE_PROVIDER(provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-
-    /* react to digit key press events */
-    g_signal_connect(win, "key-press-event", G_CALLBACK(on_dtmf_pressed), nullptr);
-
-    /* set the search entry placeholder text */
-    gtk_entry_set_placeholder_text(GTK_ENTRY(priv->search_entry),
-                                   C_("Please try to make the translation 50 chars or less so that it fits into the layout", "Search contacts or enter number"));
-
-    /* init chat webkit container so that it starts loading before the first time we need it*/
-    (void)priv->cpp->webkitChatContainer();
-
-    if (has_ring_account()) {
-        /* user has ring account, so show the call view right away */
-        gtk_stack_set_visible_child(GTK_STACK(priv->stack_main_view), priv->vbox_call_view);
-
-        on_handle_account_migrations(win);
-    } else {
-        /* user has to create the ring account */
-        priv->cpp->enterAccountCreationWizard();
-    }
-
-    // setup account selector and select the first account
-    auto store = gtk_list_store_new (2 /* # of cols */ ,
-                                     G_TYPE_STRING,
-                                     G_TYPE_STRING,
-                                     G_TYPE_UINT);
-    GtkTreeIter iter;
-    for (const auto& accountId : accountIds) {
-        const auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(accountId);
-        if (accountInfo.enabled) {
-            gtk_list_store_append (store, &iter);
-            gtk_list_store_set (store, &iter,
-            0 /* col # */ , accountId.c_str() /* celldata */,
-            1 /* col # */ , accountInfo.profileInfo.alias.c_str() /* celldata */,
-            -1 /* end */);
-        }
-    }
-
-    gtk_combo_box_set_model(
-        GTK_COMBO_BOX(priv->combobox_account_selector),
-        GTK_TREE_MODEL (store)
-    );
-    gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_account_selector), 0);
-
-    /* set visibility */
-    priv->cpp->showAccountSelectorWidget();
-
-    /* layout */
-    auto *renderer = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, FALSE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(priv->combobox_account_selector), renderer, "text", 0, NULL);
-    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_account_selector),
-                                       renderer,
-                                       (GtkCellLayoutDataFunc)print_account_and_state,
-                                       nullptr, nullptr);
-
-    // we closing any view opened to avoid confusion (especially between SIP and Ring protocols).
-    g_signal_connect_swapped(priv->combobox_account_selector, "changed", G_CALLBACK(on_account_changed), win);
-
-    // initialize the pending contact request icon.
-    priv->cpp->setPendingContactRequestTabIcon();
-
-    if (isInitialized) {
-        auto& conversationModel = priv->cpp->accountContainer_->info.conversationModel;
-        auto conversations = conversationModel->allFilteredConversations();
-        for (const auto& conversation: conversations) {
-            if (!conversation.callId.empty()) {
-                priv->cpp->accountContainer_->info.conversationModel->selectConversation(conversation.uid);
-            }
-        }
-    }
 }
 
 static void
@@ -1341,35 +1367,6 @@ ring_main_window_dispose(GObject *object)
     auto* self = RING_MAIN_WINDOW(object);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
-    if (priv->cpp->accountContainer_) {
-        delete priv->cpp->accountContainer_;
-        priv->cpp->accountContainer_ = nullptr;
-    }
-    if (priv->cpp->chatViewConversation_) {
-        delete priv->cpp->chatViewConversation_;
-        priv->cpp->chatViewConversation_ = nullptr;
-    }
-
-    QObject::disconnect(priv->cpp->selected_item_changed);
-    QObject::disconnect(priv->cpp->selected_call_over);
-    QObject::disconnect(priv->cpp->showChatViewConnection_);
-    QObject::disconnect(priv->cpp->showIncomingViewConnection_);
-    QObject::disconnect(priv->cpp->historyClearedConnection_);
-    QObject::disconnect(priv->cpp->modelSortedConnection_);
-    QObject::disconnect(priv->cpp->filterChangedConnection_);
-    QObject::disconnect(priv->cpp->newConversationConnection_);
-    QObject::disconnect(priv->cpp->conversationRemovedConnection_);
-    QObject::disconnect(priv->cpp->changeAccountConnection_);
-    QObject::disconnect(priv->cpp->newAccountConnection_);
-    QObject::disconnect(priv->cpp->rmAccountConnection_);
-    QObject::disconnect(priv->cpp->showCallViewConnection_);
-    QObject::disconnect(priv->cpp->modelSortedConnection_);
-    QObject::disconnect(priv->cpp->accountStatusChangedConnection_);
-
-    g_clear_object(&priv->welcome_view);
-    g_clear_object(&priv->webkit_chat_container);
-
-    // C++ CppImpl dispose (must be last action before Gtk dispose)
     delete priv->cpp;
     priv->cpp = nullptr;
 
@@ -1418,7 +1415,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
 }
 
 GtkWidget *
-ring_main_window_new (GtkApplication *app)
+ring_main_window_new(GtkApplication *app)
 {
     gpointer win = g_object_new(RING_MAIN_WINDOW_TYPE, "application", app, NULL);
     return (GtkWidget *)win;
