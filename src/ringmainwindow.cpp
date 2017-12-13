@@ -53,12 +53,12 @@
 #include "utils/accounts.h"
 #include "utils/files.h"
 
-static constexpr const char* CALL_VIEW_NAME             = "calls";
-static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
-static constexpr const char* ACCOUNT_MIGRATION_VIEW_NAME       = "account-migration-view";
-static constexpr const char* GENERAL_SETTINGS_VIEW_NAME = "general";
-static constexpr const char* MEDIA_SETTINGS_VIEW_NAME   = "media";
-static constexpr const char* ACCOUNT_SETTINGS_VIEW_NAME = "accounts";
+//==============================================================================
+
+namespace details
+{
+class CppImpl;
+}
 
 struct _RingMainWindow
 {
@@ -70,9 +70,7 @@ struct _RingMainWindowClass
     GtkApplicationWindowClass parent_class;
 };
 
-typedef struct _RingMainWindowPrivate RingMainWindowPrivate;
-
-struct _RingMainWindowPrivate
+struct RingMainWindowPrivate
 {
     GtkWidget *ring_menu;
     GtkWidget *image_ring;
@@ -135,11 +133,38 @@ struct _RingMainWindowPrivate
     QMetaObject::Connection conversationRemovedConnection_;
     QMetaObject::Connection accountStatusChangedConnection_;
 
+    details::CppImpl* cpp; ///< Non-UI and C++ only code
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
 
 #define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
+
+//==============================================================================
+
+inline namespace details
+{
+
+static constexpr const char* CALL_VIEW_NAME                    = "calls";
+static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
+static constexpr const char* ACCOUNT_MIGRATION_VIEW_NAME       = "account-migration-view";
+static constexpr const char* GENERAL_SETTINGS_VIEW_NAME        = "general";
+static constexpr const char* MEDIA_SETTINGS_VIEW_NAME          = "media";
+static constexpr const char* ACCOUNT_SETTINGS_VIEW_NAME        = "accounts";
+
+class CppImpl
+{
+public:
+    explicit CppImpl(RingMainWindow& widget);
+
+    RingMainWindow* self = nullptr; // The GTK widget itself
+    RingMainWindowPrivate* priv = nullptr;
+
+private:
+    CppImpl() = delete;
+    CppImpl(const CppImpl&) = delete;
+    CppImpl& operator=(const CppImpl&) = delete;
+};
 
 static void
 change_view(RingMainWindow *self, GtkWidget* old, lrc::api::conversation::Info conversation, GType type);
@@ -909,12 +934,23 @@ print_account_and_state(G_GNUC_UNUSED GtkCellLayout* cell_layout,
     g_free(alias);
 }
 
+CppImpl::CppImpl(RingMainWindow& widget)
+    : self {&widget}
+    , priv {RING_MAIN_WINDOW_GET_PRIVATE(&widget)}
+{}
+
+} // namespace details
+
+//==============================================================================
 
 static void
 ring_main_window_init(RingMainWindow *win)
 {
     RingMainWindowPrivate *priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
     gtk_widget_init_template(GTK_WIDGET(win));
+
+    // CppImpl ctor
+    priv->cpp = new details::CppImpl {*win};
 
     // NOTE: When new models will be fully implemented, we need to move this
     // in rign_client.cpp.
@@ -1262,6 +1298,9 @@ ring_main_window_dispose(GObject *object)
 
     g_clear_object(&priv->welcome_view);
     g_clear_object(&priv->webkit_chat_container);
+
+    // C++ CppImpl dispose (must be last action before Gtk dispose)
+    delete priv->cpp;
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
 }
