@@ -123,6 +123,52 @@ static constexpr const char* GENERAL_SETTINGS_VIEW_NAME        = "general";
 static constexpr const char* MEDIA_SETTINGS_VIEW_NAME          = "media";
 static constexpr const char* ACCOUNT_SETTINGS_VIEW_NAME        = "accounts";
 
+inline namespace helpers
+{
+
+/**
+ * set the column value by printing the alias and the state of an account in combobox_account_selector.
+ */
+static void
+print_account_and_state(GtkCellLayout* cell_layout,
+                        GtkCellRenderer* cell,
+                        GtkTreeModel* model,
+                        GtkTreeIter* iter,
+                        gpointer* data)
+{
+    (void)cell_layout;
+    (void)data;
+
+    gchar *alias;
+    gchar *text;
+
+    gtk_tree_model_get (model, iter,
+                        1 /* col# */, &alias /* data */,
+                        -1);
+
+    text = g_markup_printf_escaped(
+        "<span fgcolor=\"gray\">%s</span>",
+        alias
+    );
+
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_free(alias);
+}
+
+inline static void
+foreachEnabledLrcAccount(const lrc::api::Lrc& lrc,
+                         const std::function<void(const lrc::api::account::Info&)>& func)
+{
+    auto& acc_model = lrc.getAccountModel();
+    for (const auto& id : acc_model.getAccountList()) {
+        const auto& accountInfo = acc_model.getAccountInfo(id);
+        if (accountInfo.enabled)
+            func(accountInfo);
+    }
+}
+
+} // namespace helpers
+
 class CppImpl
 {
 public:
@@ -479,47 +525,6 @@ on_handle_account_migrations(RingMainWindow* self)
 }
 
 } // namespace gtk_callbacks
-
-/**
- * set the column value by printing the alias and the state of an account in combobox_account_selector.
- */
-static void
-print_account_and_state(GtkCellLayout* cell_layout,
-                        GtkCellRenderer* cell,
-                        GtkTreeModel* model,
-                        GtkTreeIter* iter,
-                        gpointer* data)
-{
-    (void)cell_layout;
-    (void)data;
-
-    gchar *alias;
-    gchar *text;
-
-    gtk_tree_model_get (model, iter,
-                        1 /* col# */, &alias /* data */,
-                        -1);
-
-    text = g_markup_printf_escaped(
-        "<span fgcolor=\"gray\">%s</span>",
-        alias
-    );
-
-    g_object_set(G_OBJECT(cell), "markup", text, NULL);
-    g_free(alias);
-}
-
-inline static void
-foreachEnabledLrcAccount(const lrc::api::Lrc& lrc,
-                         const std::function<void(const lrc::api::account::Info&)>& func)
-{
-    auto& acc_model = lrc.getAccountModel();
-    for (const auto& id : acc_model.getAccountList()) {
-        const auto& accountInfo = acc_model.getAccountInfo(id);
-        if (accountInfo.enabled)
-            func(accountInfo);
-    }
-}
 
 CppImpl::CppImpl(RingMainWindow& widget)
     : self {&widget}
