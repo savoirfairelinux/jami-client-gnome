@@ -444,7 +444,7 @@ build_view(WebKitChatContainer *view)
 static gboolean
 webview_crashed(WebKitChatContainer *self)
 {
-    g_warning("Gtk Web Process crashed! Re-createing web view");
+    g_warning("Gtk Web Process crashed! Recreating web view");
 
     auto priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(self);
 
