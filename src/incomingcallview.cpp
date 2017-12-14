@@ -121,12 +121,16 @@ accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
 {
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
     auto contactUri = priv->conversation_->participants[0];
-    auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    // If the contact is pending, we should accept its request
-    if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
-        priv->accountContainer_->info.conversationModel->makePermanent(contactUri);
-    // Accept call
-    priv->accountContainer_->info.callModel->accept(priv->conversation_->callId);
+    try {
+        auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        // If the contact is pending, we should accept its request
+        if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
+            priv->accountContainer_->info.conversationModel->makePermanent(contactUri);
+        // Accept call
+        priv->accountContainer_->info.callModel->accept(priv->conversation_->callId);
+    } catch (const std::out_of_range&) {
+        // ContactModel::getContact() exception
+    }
 }
 
 static void
@@ -217,15 +221,19 @@ update_name_and_photo(IncomingCallView *view)
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), image.get());
 
-    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->participants.front());
+    try {
+        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->participants.front());
 
-    auto name = contactInfo.profileInfo.alias;
-    gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
+        auto name = contactInfo.profileInfo.alias;
+        gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
 
-    auto bestId = contactInfo.registeredName;
-    if (name != bestId) {
-        gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.c_str());
-        gtk_widget_show(priv->label_bestId);
+        auto bestId = contactInfo.registeredName;
+        if (name != bestId) {
+            gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.c_str());
+            gtk_widget_show(priv->label_bestId);
+        }
+    } catch (const std::out_of_range&) {
+        // ContactModel::getContact() exception
     }
 }
 
