@@ -139,8 +139,8 @@ public:
     void resetToWelcome();
     void setPendingContactRequestTabIcon();
     void showAccountSelectorWidget(bool show = true);
-    void useAccount(const std::string& id);
-    void onAccountChangeFromUI(const std::string& id);
+    void changeAccountSelection(const std::string& id);
+    void onAccountSelectionChange(const std::string& id);
     void enterAccountCreationWizard();
     void leaveAccountCreationWizard();
     void enterSettingsView();
@@ -246,7 +246,7 @@ on_account_changed(RingMainWindow* self)
     if (gtk_combo_box_get_active_iter(accountComboBox, &iter)) {
         gchar* accountId;
         gtk_tree_model_get(model, &iter, 0 /* col# */, &accountId /* data */, -1);
-        priv->cpp->onAccountChangeFromUI(accountId);
+        priv->cpp->onAccountSelectionChange(accountId);
         g_free(accountId);
     }
 }
@@ -941,40 +941,42 @@ CppImpl::leaveAccountCreationWizard()
     showAccountSelectorWidget();
 }
 
+/// Change the selection of the account ComboBox by account Id.
+/// Find in displayed accounts with one corresponding to the given id, then select it
 void
-CppImpl::useAccount(const std::string& id)
+CppImpl::changeAccountSelection(const std::string& id)
 {
-    // Go to welcome view
-    changeView(RING_WELCOME_VIEW_TYPE);
-
-    // Change account selection widget
-    auto accounts = lrc_->getAccountModel().getAccountList();
-    auto it = std::find(accounts.begin(), accounts.end(), id );
-    if (it == accounts.end()) {
-        qDebug() << "useAccount, cannot find account " << id.c_str();
+    // already selected?
+    if (id == accountContainer_->info.id)
         return;
+
+    if (auto* model = gtk_combo_box_get_model(GTK_COMBO_BOX(widgets->combobox_account_selector))) {
+        GtkTreeIter iter;
+        auto valid = gtk_tree_model_get_iter_first(model, &iter);
+        while (valid) {
+            const gchar* account_id;
+            gtk_tree_model_get(model, &iter, 0 /* col# */, &account_id /* data */, -1);
+            if (id == account_id) {
+                gtk_combo_box_set_active_iter(GTK_COMBO_BOX(widgets->combobox_account_selector), &iter);
+                return;
+            }
+            valid = gtk_tree_model_iter_next(model, &iter);
+        }
+
+        g_debug("BUGS: account not listed: %s", id.c_str());
     }
-
-    int row = it - accounts.begin();
-
-    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), row);
-    // Show conversation panel
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
-    // Reinit LRC
-    updateLrc(std::string(id));
-    // Update the welcome view
-    ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
 }
 
 void
-CppImpl::onAccountChangeFromUI(const std::string& id)
+CppImpl::onAccountSelectionChange(const std::string& id)
 {
-    // Reinit view
+    // Go to welcome view
     changeView(RING_WELCOME_VIEW_TYPE);
+    // Show conversation panel
     gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
-
-    // Change account
+    // Reinit LRC
     updateLrc(id);
+    // Update the welcome view
     ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
 }
 
@@ -1333,8 +1335,7 @@ CppImpl::slotConversationRemoved(const std::string& uid)
 void
 CppImpl::slotShowChatView(const std::string& id, lrc::api::conversation::Info origin)
 {
-    if (id != accountContainer_->info.id)
-        useAccount(id);
+    changeAccountSelection(id);
     // Show chat view if not in call (unless if it's the same conversation)
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
     lrc::api::conversation::Info current_item;
@@ -1353,8 +1354,7 @@ CppImpl::slotShowChatView(const std::string& id, lrc::api::conversation::Info or
 void
 CppImpl::slotShowCallView(const std::string& id, lrc::api::conversation::Info origin)
 {
-    if (id != accountContainer_->info.id)
-        useAccount(id);
+    changeAccountSelection(id);
     // Change the view if we want a different view.
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
 
@@ -1369,8 +1369,7 @@ CppImpl::slotShowCallView(const std::string& id, lrc::api::conversation::Info or
 void
 CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation::Info origin)
 {
-    if (id != accountContainer_->info.id)
-        useAccount(id);
+    changeAccountSelection(id);
     // Change the view if we want a different view.
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
 
