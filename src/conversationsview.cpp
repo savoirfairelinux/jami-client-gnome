@@ -240,21 +240,25 @@ create_and_fill_model(ConversationsView *self)
     for (auto conversation : priv->accountContainer_->info.conversationModel->allFilteredConversations()) {
         if (conversation.participants.empty()) break; // Should not
         auto contactUri = conversation.participants.front();
-        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
-        auto lastMessage = conversation.interactions.empty() ? "" :
-            conversation.interactions.at(conversation.lastMessageUid).body;
-        std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
-        gtk_list_store_append (store, &iter);
-        auto alias = contactInfo.profileInfo.alias;
-        alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
-        gtk_list_store_set (store, &iter,
-            0 /* col # */ , conversation.uid.c_str() /* celldata */,
-            1 /* col # */ , alias.c_str() /* celldata */,
-            2 /* col # */ , contactInfo.profileInfo.uri.c_str() /* celldata */,
-            3 /* col # */ , contactInfo.registeredName.c_str() /* celldata */,
-            4 /* col # */ , contactInfo.profileInfo.avatar.c_str() /* celldata */,
-            5 /* col # */ , lastMessage.c_str() /* celldata */,
-            -1 /* end */);
+        try {
+            auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+            auto lastMessage = conversation.interactions.empty() ? "" :
+                conversation.interactions.at(conversation.lastMessageUid).body;
+            std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
+            gtk_list_store_append (store, &iter);
+            auto alias = contactInfo.profileInfo.alias;
+            alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
+            gtk_list_store_set (store, &iter,
+                                0 /* col # */ , conversation.uid.c_str() /* celldata */,
+                                1 /* col # */ , alias.c_str() /* celldata */,
+                                2 /* col # */ , contactInfo.profileInfo.uri.c_str() /* celldata */,
+                                3 /* col # */ , contactInfo.registeredName.c_str() /* celldata */,
+                                4 /* col # */ , contactInfo.profileInfo.avatar.c_str() /* celldata */,
+                                5 /* col # */ , lastMessage.c_str() /* celldata */,
+                                -1 /* end */);
+        } catch (const std::out_of_range&) {
+            // ContactModel::getContact() exception
+        }
     }
 
     return GTK_TREE_MODEL (store);
