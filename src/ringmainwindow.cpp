@@ -501,6 +501,18 @@ print_account_and_state(GtkCellLayout* cell_layout,
     g_free(alias);
 }
 
+inline static void
+foreachEnabledLrcAccount(const lrc::api::Lrc& lrc,
+                         const std::function<void(const lrc::api::account::Info&)>& func)
+{
+    auto& acc_model = lrc.getAccountModel();
+    for (const auto& id : acc_model.getAccountList()) {
+        const auto& accountInfo = acc_model.getAccountInfo(id);
+        if (accountInfo.enabled)
+            func(accountInfo);
+    }
+}
+
 CppImpl::CppImpl(RingMainWindow& widget)
     : self {&widget}
     , widgets {RING_MAIN_WINDOW_GET_PRIVATE(&widget)}
@@ -659,16 +671,13 @@ CppImpl::init()
                                      G_TYPE_STRING,
                                      G_TYPE_UINT);
     GtkTreeIter iter;
-    for (const auto& accountId : accountIds) {
-        const auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
-        if (accountInfo.enabled) {
+    foreachEnabledLrcAccount(*lrc_, [&] (const auto& acc_info) {
             gtk_list_store_append (store, &iter);
             gtk_list_store_set (store, &iter,
-            0 /* col # */ , accountId.c_str() /* celldata */,
-            1 /* col # */ , accountInfo.profileInfo.alias.c_str() /* celldata */,
+            0 /* col # */ , acc_info.id.c_str() /* celldata */,
+            1 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
             -1 /* end */);
-        }
-    }
+        });
 
     gtk_combo_box_set_model(
         GTK_COMBO_BOX(widgets->combobox_account_selector),
@@ -870,13 +879,8 @@ CppImpl::showAccountSelectorWidget(bool show)
 {
     // we only want to show the account selector when there is more than 1 enabled
     // account; so every time we want to show it, we should preform this check
-    auto activatedAccount = 0;
-    auto accounts = lrc_->getAccountModel().getAccountList();
-    for (const auto& account : accounts) {
-        const auto& accountInfo = lrc_->getAccountModel().getAccountInfo(account);
-        if (accountInfo.enabled)
-            ++activatedAccount;
-    }
+    std::size_t activatedAccount = 0;
+    foreachEnabledLrcAccount(*lrc_, [&] (const auto&) { ++activatedAccount; });
     gtk_widget_set_visible(widgets->combobox_account_selector, show && activatedAccount > 1);
 }
 
@@ -960,16 +964,13 @@ CppImpl::onAccountAddedFromLrc(const std::string& id)
                                      G_TYPE_UINT);
     auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
     GtkTreeIter iter;
-    for (const auto& id : accounts) {
-        const auto& account = lrc_->getAccountModel().getAccountInfo(id);
-        if (account.enabled) {
+    foreachEnabledLrcAccount(*lrc_, [&] (const auto& acc_info) {
             gtk_list_store_append (store, &iter);
             gtk_list_store_set (store, &iter,
-                                0 /* col # */ , id.c_str() /* celldata */,
-                                1 /* col # */ , account.profileInfo.alias.c_str() /* celldata */,
+                                0 /* col # */ , acc_info.id.c_str() /* celldata */,
+                                1 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
                                 -1 /* end */);
-        }
-    }
+        });
     // Redraw combobox
     gtk_combo_box_set_model(
         GTK_COMBO_BOX(widgets->combobox_account_selector),
@@ -997,17 +998,13 @@ CppImpl::onAccountRemovedFromLrc(const std::string& id)
                                      G_TYPE_STRING,
                                      G_TYPE_UINT);
     GtkTreeIter iter;
-    for (const auto& id : accounts) {
-        const auto& account = lrc_->getAccountModel().getAccountInfo(id);
-        if (account.enabled) {
+    foreachEnabledLrcAccount(*lrc_, [&] (const auto& acc_info) {
             gtk_list_store_append (store, &iter);
             gtk_list_store_set (store, &iter,
-                                0 /* col # */ , id.c_str() /* celldata */,
-                                1 /* col # */ , account.profileInfo.alias.c_str() /* celldata */,
+                                0 /* col # */ , acc_info.id.c_str() /* celldata */,
+                                1 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
                                 -1 /* end */);
-        }
-    }
-
+        });
     gtk_combo_box_set_model(
         GTK_COMBO_BOX(widgets->combobox_account_selector),
         GTK_TREE_MODEL (store)
@@ -1038,22 +1035,24 @@ CppImpl::onAccountChangeFromLrc(const std::string& id)
                                      G_TYPE_STRING,
                                      G_TYPE_STRING,
                                      G_TYPE_UINT);
-    auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
+
+    gint currentIdx = 0;
+    std::size_t enabledAccounts = 0;
     GtkTreeIter iter;
-    auto enabledAccounts = 0;
-    for (const auto& account : accounts) {
-        const auto& accountInfo = lrc_->getAccountModel().getAccountInfo(account);
-        showAccountSelectorWidget();
-        if (id == account && !accountInfo.enabled) currentIdx = 0;
-        if (accountInfo.enabled) {
+    foreachEnabledLrcAccount(*lrc_, [&] (const auto& acc_info) {
             ++enabledAccounts;
             gtk_list_store_append (store, &iter);
             gtk_list_store_set (store, &iter,
-                                0 /* col # */ , account.c_str() /* celldata */,
-                                1 /* col # */ , accountInfo.profileInfo.alias.c_str() /* celldata */,
+                                0 /* col # */ , acc_info.id.c_str() /* celldata */,
+                                1 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
                                 -1 /* end */);
-        }
-    }
+            if (id == acc_info.id) {
+                // keep current selected account only if account status is enabled
+                currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
+            }
+        });
+    showAccountSelectorWidget();
+
     // Redraw combobox
     gtk_combo_box_set_model(
         GTK_COMBO_BOX(widgets->combobox_account_selector),
