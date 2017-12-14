@@ -267,13 +267,17 @@ load_participants_images(ChatView *self)
     // Contact
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
-    auto& contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    if (!contact.profileInfo.avatar.empty()) {
-        webkit_chat_container_set_sender_image(
-            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-            priv->accountContainer_->info.contactModel->getContactProfileId(contactUri),
-            contact.profileInfo.avatar
-        );
+    try{
+        auto& contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        if (!contact.profileInfo.avatar.empty()) {
+            webkit_chat_container_set_sender_image(
+                WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                priv->accountContainer_->info.contactModel->getContactProfileId(contactUri),
+                contact.profileInfo.avatar
+                );
+        }
+    } catch (const std::out_of_range&) {
+        // ContactModel::getContact() exception
     }
 
     // For this account
@@ -306,10 +310,14 @@ update_add_to_conversations(ChatView *self)
 
     if (!priv->conversation_) return;
     auto participant = priv->conversation_->participants[0];
-    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(participant);
-    if(contactInfo.profileInfo.type != lrc::api::profile::Type::TEMPORARY
-       && contactInfo.profileInfo.type != lrc::api::profile::Type::PENDING)
-        gtk_widget_hide(priv->button_add_to_conversations);
+    try {
+        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(participant);
+        if(contactInfo.profileInfo.type != lrc::api::profile::Type::TEMPORARY
+           && contactInfo.profileInfo.type != lrc::api::profile::Type::PENDING)
+            gtk_widget_hide(priv->button_add_to_conversations);
+    } catch (const std::out_of_range&) {
+        // ContactModel::getContact() exception
+    }
 }
 
 static void
@@ -319,15 +327,18 @@ update_contact_methods(ChatView *self)
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
-    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    auto bestId = std::string(contactInfo.registeredName).empty() ? contactInfo.profileInfo.uri : contactInfo.registeredName;
-    if (contactInfo.profileInfo.alias == bestId) {
-        gtk_widget_hide(priv->label_cm);
-    } else {
-        gtk_label_set_text(GTK_LABEL(priv->label_cm), bestId.c_str());
-        gtk_widget_show(priv->label_cm);
+    try {
+        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        auto bestId = std::string(contactInfo.registeredName).empty() ? contactInfo.profileInfo.uri : contactInfo.registeredName;
+        if (contactInfo.profileInfo.alias == bestId) {
+            gtk_widget_hide(priv->label_cm);
+        } else {
+            gtk_label_set_text(GTK_LABEL(priv->label_cm), bestId.c_str());
+            gtk_widget_show(priv->label_cm);
+        }
+    } catch (const std::out_of_range&) {
+        // ContactModel::getContact() exception
     }
-
 }
 
 static void
@@ -337,10 +348,14 @@ update_name(ChatView *self)
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
-    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    auto alias = contactInfo.profileInfo.alias;
-    alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
-    gtk_label_set_text(GTK_LABEL(priv->label_peer), alias.c_str());
+    try {
+        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        auto alias = contactInfo.profileInfo.alias;
+        alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
+        gtk_label_set_text(GTK_LABEL(priv->label_peer), alias.c_str());
+    } catch (const std::out_of_range&) {
+        // ContactModel::getContact() exception
+    }
 }
 
 static void
@@ -379,22 +394,26 @@ webkit_chat_container_ready(ChatView* self)
 
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
-    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    priv->isTemporary_ = contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY
-                         || contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
-    webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
-    auto bestName = contactInfo.profileInfo.alias;
-    if (bestName.empty())
-        bestName = contactInfo.registeredName;
-    if (bestName.empty())
-        bestName = contactInfo.profileInfo.uri;
-    bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
-    webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                         (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
-                                         bestName);
-    webkit_chat_disable_send_interaction(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                        (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP)
-                                         && priv->conversation_->callId.empty());
+    try {
+        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        priv->isTemporary_ = contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY
+            || contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
+        webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
+        auto bestName = contactInfo.profileInfo.alias;
+        if (bestName.empty())
+            bestName = contactInfo.registeredName;
+        if (bestName.empty())
+            bestName = contactInfo.profileInfo.uri;
+        bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
+        webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                                             (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
+                                             bestName);
+        webkit_chat_disable_send_interaction(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                                             (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP)
+                                             && priv->conversation_->callId.empty());
+    } catch (const std::out_of_range&) {
+        // ContactModel::getContact() exception
+    }
 }
 
 static void
@@ -457,15 +476,19 @@ chat_view_update_temporary(ChatView* self, bool newValue)
     webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
-    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
-    auto bestName = contactInfo.profileInfo.alias;
-    if (bestName.empty())
-        bestName = contactInfo.registeredName;
-    if (bestName.empty())
-        bestName = contactInfo.profileInfo.uri;
-    webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                         newValue,
-                                         bestName);
+    try {
+        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        auto bestName = contactInfo.profileInfo.alias;
+        if (bestName.empty())
+            bestName = contactInfo.registeredName;
+        if (bestName.empty())
+            bestName = contactInfo.profileInfo.uri;
+        webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                                             newValue,
+                                             bestName);
+    } catch (const std::out_of_range&) {
+        // ContactModel::getContact() exception
+    }
 }
 
 bool

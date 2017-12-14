@@ -269,27 +269,27 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
                                      bool displayPresence)
 {
     auto contacts = conversationInfo.participants;
-    if (!contacts.empty())
-    {
-        // Get first contact photo
-        auto contactUri = contacts.front();
-        auto contactInfo = accountInfo.contactModel->getContact(contactUri);
-        auto contactPhoto = contactInfo.profileInfo.avatar;
-        auto bestName = contactInfo.profileInfo.alias.empty()? contactInfo.registeredName : contactInfo.profileInfo.alias;
-        auto unreadMessages = conversationInfo.unreadMessages;
-        if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY && contactInfo.profileInfo.uri.empty()) {
-            return QVariant::fromValue(scaleAndFrame(temporaryItemAvatar().get(), size, false, false, unreadMessages));
-        } else if (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP) {
-            return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, "").get(), size, displayPresence, contactInfo.isPresent));
-        } else if (!contactPhoto.empty()) {
-            QByteArray byteArray(contactPhoto.c_str(), contactPhoto.length());
-            QVariant photo = personPhoto(byteArray);
-            return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, contactInfo.isPresent, unreadMessages));
-        } else {
-            return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, contactInfo.profileInfo.uri).get(), size, displayPresence, contactInfo.isPresent, unreadMessages));
-        }
+    if (!contacts.empty()) {
+        try {
+            // Get first contact photo
+            auto contactUri = contacts.front();
+            auto contactInfo = accountInfo.contactModel->getContact(contactUri);
+            auto contactPhoto = contactInfo.profileInfo.avatar;
+            auto bestName = contactInfo.profileInfo.alias.empty()? contactInfo.registeredName : contactInfo.profileInfo.alias;
+            auto unreadMessages = conversationInfo.unreadMessages;
+            if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY && contactInfo.profileInfo.uri.empty()) {
+                return QVariant::fromValue(scaleAndFrame(temporaryItemAvatar().get(), size, false, false, unreadMessages));
+            } else if (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP) {
+                return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, "").get(), size, displayPresence, contactInfo.isPresent));
+            } else if (!contactPhoto.empty()) {
+                QByteArray byteArray(contactPhoto.c_str(), contactPhoto.length());
+                QVariant photo = personPhoto(byteArray);
+                return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayPresence, contactInfo.isPresent, unreadMessages));
+            } else {
+                return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, contactInfo.profileInfo.uri).get(), size, displayPresence, contactInfo.isPresent, unreadMessages));
+            }
+        } catch (...) {}
     }
-    // should not
     return QVariant::fromValue(scaleAndFrame(generateAvatar("", "").get(), size, displayPresence, false));
 
 }

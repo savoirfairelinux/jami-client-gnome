@@ -765,15 +765,18 @@ update_name_and_photo(CurrentCallView *view)
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_peer), image.get());
 
-    auto contactInfo = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->participants.front());
+    try {
+        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->participants.front());
+        auto name = contactInfo.profileInfo.alias;
+        gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
 
-    auto name = contactInfo.profileInfo.alias;
-    gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
-
-    auto bestId = contactInfo.registeredName;
-    if (name != bestId) {
-        gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.c_str());
-        gtk_widget_show(priv->label_bestId);
+        auto bestId = contactInfo.registeredName;
+        if (name != bestId) {
+            gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.c_str());
+            gtk_widget_show(priv->label_bestId);
+        }
+    } catch (const std::out_of_range&) {
+        // ContactModel::getContact() exception
     }
 }
 
