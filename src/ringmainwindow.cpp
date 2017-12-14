@@ -563,9 +563,10 @@ CppImpl::init()
 
     /* search-entry-places-call setting */
     on_search_entry_places_call_changed(widgets->settings, "search-entry-places-call", self);
-    g_signal_connect(widgets->settings, "changed::search-entry-places-call", G_CALLBACK(on_search_entry_places_call_changed), self);
+    g_signal_connect(widgets->settings, "changed::search-entry-places-call",
+                     G_CALLBACK(on_search_entry_places_call_changed), self);
 
-     /* set window icon */
+    /* set window icon */
     GError *error = NULL;
     GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/cx/ring/RingGnome/ring-symbol-blue", &error);
     if (icon == NULL) {
@@ -590,25 +591,29 @@ CppImpl::init()
     g_object_unref(builder);
 
     /* settings icon */
-    gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-system-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-system-symbolic",
+                                 GTK_ICON_SIZE_SMALL_TOOLBAR);
 
     /* connect settings button signal */
-    g_signal_connect_swapped(widgets->ring_settings, "clicked", G_CALLBACK(on_settings_clicked), self);
+    g_signal_connect_swapped(widgets->ring_settings, "clicked",
+                             G_CALLBACK(on_settings_clicked), self);
 
     /* add the call view to the main stack */
-    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view),
-                        widgets->vbox_call_view,
+    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->vbox_call_view,
                         CALL_VIEW_NAME);
 
     /* init the settings views */
     widgets->account_settings_view = account_view_new();
-    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->account_settings_view, ACCOUNT_SETTINGS_VIEW_NAME);
+    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->account_settings_view,
+                        ACCOUNT_SETTINGS_VIEW_NAME);
 
     widgets->media_settings_view = media_settings_view_new();
-    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->media_settings_view, MEDIA_SETTINGS_VIEW_NAME);
+    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->media_settings_view,
+                        MEDIA_SETTINGS_VIEW_NAME);
 
     widgets->general_settings_view = general_settings_view_new();
-    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->general_settings_view, GENERAL_SETTINGS_VIEW_NAME);
+    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->general_settings_view,
+                        GENERAL_SETTINGS_VIEW_NAME);
 
     /* make the setting we will show first the active one */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->radiobutton_general_settings), TRUE);
@@ -618,7 +623,6 @@ CppImpl::init()
     g_signal_connect(widgets->radiobutton_media_settings, "toggled", G_CALLBACK(on_show_media_settings), self);
     g_signal_connect(widgets->radiobutton_account_settings, "toggled", G_CALLBACK(on_show_account_settings), self);
     g_signal_connect(widgets->radiobutton_general_settings, "toggled", G_CALLBACK(on_show_general_settings), self);
-
     g_signal_connect(widgets->notebook_contacts, "switch-page", G_CALLBACK(on_tab_changed), self);
 
     /* welcome/default view */
@@ -650,7 +654,8 @@ CppImpl::init()
 
     /* set the search entry placeholder text */
     gtk_entry_set_placeholder_text(GTK_ENTRY(widgets->search_entry),
-                                   C_("Please try to make the translation 50 chars or less so that it fits into the layout", "Search contacts or enter number"));
+                                   C_("Please try to make the translation 50 chars or less so that it fits into the layout",
+                                      "Search contacts or enter number"));
 
     /* init chat webkit container so that it starts loading before the first time we need it*/
     (void)webkitChatContainer();
