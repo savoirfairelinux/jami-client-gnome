@@ -583,6 +583,10 @@ ring_client_startup(GApplication *app)
     g_object_set(G_OBJECT(gtk_settings), "gtk-button-images",
                  TRUE, NULL);
 
+    /* enable sound (for notification) */
+    g_object_set(G_OBJECT(gtk_settings), "gtk-enable-event-sounds",
+                 TRUE, NULL);
+
     /* add GActions */
     g_action_map_add_action_entries(
         G_ACTION_MAP(app), ring_actions, G_N_ELEMENTS(ring_actions), app);

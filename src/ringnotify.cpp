@@ -21,6 +21,10 @@
 #include "config.h"
 #include "ring_client.h"
 
+#if USE_CANBERRA
+#include <canberra-gtk.h>
+#endif // USE_CANBERRA
+
 #if USE_LIBNOTIFY
 #include <glib/gi18n.h>
 #include <libnotify/notify.h>
@@ -40,6 +44,8 @@
 
 static constexpr int MAX_NOTIFICATIONS = 10; // max unread chat msgs to display from the same contact
 static constexpr const char* SERVER_NOTIFY_OSD = "notify-osd";
+static constexpr const char* NOTIFICATION_FILE = SOUNDSDIR "/ringtone_notify.wav";
+
 
 /* struct to store the parsed list of the notify server capabilities */
 struct RingNotifyServerInfo
@@ -351,6 +357,17 @@ ring_notify_show_text_message(ContactMethod *cm, const QModelIndex& idx)
 
     GError *error = nullptr;
     success = notify_notification_show(notification_new, &error);
+
+#if USE_CANBERRA
+    auto status = ca_context_play(ca_gtk_context_get(),
+                                  0,
+                                  CA_PROP_MEDIA_FILENAME,
+                                  NOTIFICATION_FILE,
+                                  NULL);
+    if (status != 0)
+        g_warning("ca_context_play: %s", ca_strerror(status));
+#endif // USE_CANBERRA
+
     if (!success) {
         g_warning("failed to show notification: %s", error->message);
         g_clear_error(&error);

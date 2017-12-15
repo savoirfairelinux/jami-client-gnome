@@ -90,6 +90,7 @@ PKG_CHECK_MODULES(CLUTTER REQUIRED clutter-1.0)
 PKG_CHECK_MODULES(CLUTTERGTK REQUIRED clutter-gtk-1.0)
 PKG_CHECK_MODULES(EBOOK REQUIRED libebook-1.2>=3.10)
 PKG_CHECK_MODULES(LIBNOTIFY libnotify>=0.7.6) #optional
+pkg_check_modules(CANBERRA libcanberra-gtk3>=0.25) #optional
 FIND_PACKAGE(Gettext) #optional for translations
 PKG_CHECK_MODULES(LIBQRENCODE libqrencode>=3.4)
 PKG_CHECK_MODULES(LIBNM libnm>=1.0) #optional to detect changes in the network
@@ -111,6 +112,7 @@ INCLUDE_DIRECTORIES(${LIBNOTIFY_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${APPINDICATOR_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${LIBNM_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${WEBKIT_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(${CANBERRA_INCLUDE_DIRS})
 
 # link libs
 LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
@@ -123,6 +125,7 @@ LINK_DIRECTORIES(${LIBNOTIFY_LIBRARY_DIRS})
 LINK_DIRECTORIES(${APPINDICATOR_LIBRARY_DIRS})
 LINK_DIRECTORIES(${LIBNM_LIBRARY_DIRS})
 LINK_DIRECTORIES(${WEBKIT_LIBRARY_DIRS})
+LINK_DIRECTORIES(${CANBERRA_LIBRARY_DIRS})
 
 # lib compiler flags
 ADD_DEFINITIONS(${GTK3_CFLAGS})
@@ -136,6 +139,7 @@ ADD_DEFINITIONS(${LIBNOTIFY_CFLAGS})
 ADD_DEFINITIONS(${APPINDICATOR_CFLAGS})
 ADD_DEFINITIONS(${LIBNM_CFLAGS})
 ADD_DEFINITIONS(${WEBKIT_CFLAGS})
+ADD_DEFINITIONS(${CANBERRA_CFLAGS})
 
 IF(NOT ${ENABLE_STATIC} MATCHES false)
   SET(QT5_MODULE_PATH ${QT5_PATH}/lib/cmake)
@@ -328,6 +332,7 @@ GLIB_COMPILE_RESOURCES( GLIB_RESOURCES_RING
       pixmaps/pixmaps.gresource.xml
       ui/ui.gresource.xml
       web/web.gresource.xml
+      sounds/sounds.gresource.xml
 )
 
 # IF(${ENABLE_TEST} MATCHES true)
@@ -379,6 +384,7 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${LIBNM_LIBRARIES}
    ${WEBKIT_LIBRARIES}
    ${LIBQRENCODE_LIBRARIES}
+   ${CANBERRA_LIBRARIES}
    -lpthread
    -lrt
    )
@@ -395,12 +401,14 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${LIBNM_LIBRARIES}
    ${WEBKIT_LIBRARIES}
    ${LIBQRENCODE_LIBRARIES}
+   ${CANBERRA_LIBRARIES}
    )
 ENDIF()
 
 # configure libnotify variable for config.h file
 IF( LIBNOTIFY_FOUND )
    SET(USE_LIBNOTIFY 1)
+   SET(USE_CANBERRA 1)
 ELSE()
    SET(USE_LIBNOTIFY 0)
 ENDIF()
@@ -419,6 +427,13 @@ ELSE()
     SET(HAVE_APPINDICATOR 0)
 ENDIF()
 
+# configure libcanberra variable for config.h file
+IF( CANBERRA_FOUND )
+   SET(USE_CANBERRA 1)
+ELSE()
+   SET(USE_CANBERRA 0)
+ENDIF()
+
 # create config header file to pass cmake settings to source code
 CONFIGURE_FILE (
    "${PROJECT_SOURCE_DIR}/src/config.h.in"
@@ -432,6 +447,11 @@ INSTALL(TARGETS gnome-ring
 # install .desktop in XDG desktop dir so that it is recognized by the system
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/gnome-ring.desktop
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications
+)
+
+# install audio files
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/sounds/ringtone_notify.wav
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/sounds/gnome-ring
 )
 
 # install .desktop in the gnome-ring data dir, so that it can be copied to the
