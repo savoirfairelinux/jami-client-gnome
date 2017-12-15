@@ -21,6 +21,10 @@
 #include "config.h"
 #include "ring_client.h"
 
+#if USE_CANBERRA
+#include <canberra-gtk.h>
+#endif // USE_CANBERRA
+
 #if USE_LIBNOTIFY
 #include <glib/gi18n.h>
 #include <libnotify/notify.h>
@@ -351,6 +355,21 @@ ring_notify_show_text_message(ContactMethod *cm, const QModelIndex& idx)
 
     GError *error = nullptr;
     success = notify_notification_show(notification_new, &error);
+
+#if USE_CANBERRA
+    auto sound_file = std::string(SOUNDSDIR) + std::string("/receive.wav");
+
+    ca_context *mailnotification = nullptr;
+    ca_context_create (&mailnotification);
+    auto status = ca_context_play(mailnotification,
+                                  0,
+                                  CA_PROP_MEDIA_FILENAME,
+                                  sound_file.c_str(),
+                                  NULL);
+    if (status != 0)
+        g_warning("ca_context_play: %s", ca_strerror(status));
+#endif // USE_CANBERRA
+
     if (!success) {
         g_warning("failed to show notification: %s", error->message);
         g_clear_error(&error);
