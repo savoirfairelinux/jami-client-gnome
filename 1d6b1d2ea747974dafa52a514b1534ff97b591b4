@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_e957f000",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2017-12-15T21:15:14Z",
+      "side": 1,
+      "message": "this file is missing in your patch",
+      "range": {
+        "startLine": 335,
+        "startChar": 0,
+        "endLine": 335,
+        "endChar": 33
+      },
+      "revId": "1d6b1d2ea747974dafa52a514b1534ff97b591b4",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
