@@ -1,7 +1,7 @@
 /*
  *  Copyright (C) 2015-2017 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
- *  Author: Guillaume Roguew <guillaume.roguez@savoirfairelinux.com>
+ *  Author: Guillaume Roguez <guillaume.roguez@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -162,11 +162,11 @@ inline static void
 foreachEnabledLrcAccount(const lrc::api::Lrc& lrc,
                          const std::function<void(const lrc::api::account::Info&)>& func)
 {
-    auto& acc_model = lrc.getAccountModel();
-    for (const auto& id : acc_model.getAccountList()) {
-        const auto& accountInfo = acc_model.getAccountInfo(id);
-        if (accountInfo.enabled)
-            func(accountInfo);
+    auto& account_model = lrc.getAccountModel();
+    for (const auto& account_id : account_model.getAccountList()) {
+        const auto& account_info = account_model.getAccountInfo(account_id);
+        if (account_info.enabled)
+            func(account_info);
     }
 }
 
@@ -181,19 +181,22 @@ public:
     void init();
     void updateLrc(const std::string& accountId);
     void changeView(GType type, lrc::api::conversation::Info conversation = {});
-    WebKitChatContainer* webkitChatContainer() const;
     void enterFullScreen();
     void leaveFullScreen();
     void toggleFullScreen();
     void resetToWelcome();
     void refreshPendingContactRequestTab();
-    void showAccountSelectorWidget(bool show = true);
     void changeAccountSelection(const std::string& id);
     void onAccountSelectionChange(const std::string& id);
     void enterAccountCreationWizard();
     void leaveAccountCreationWizard();
     void enterSettingsView();
     void leaveSettingsView();
+
+    void showAccountSelectorWidget(bool show = true);
+    std::size_t refreshAccountSelectorWidget(int selection_row = -1, bool show = true);
+
+    WebKitChatContainer* webkitChatContainer() const;
 
     RingMainWindow* self = nullptr; // The GTK widget itself
     RingMainWindowPrivate* widgets = nullptr;
@@ -755,27 +758,7 @@ CppImpl::init()
     }
 
     // setup account selector and select the first account
-    auto store = gtk_list_store_new (2 /* # of cols */ ,
-                                     G_TYPE_STRING,
-                                     G_TYPE_STRING,
-                                     G_TYPE_UINT);
-    GtkTreeIter iter;
-    foreachEnabledLrcAccount(*lrc_, [&] (const auto& acc_info) {
-            gtk_list_store_append (store, &iter);
-            gtk_list_store_set (store, &iter,
-            0 /* col # */ , acc_info.id.c_str() /* celldata */,
-            1 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
-            -1 /* end */);
-        });
-
-    gtk_combo_box_set_model(
-        GTK_COMBO_BOX(widgets->combobox_account_selector),
-        GTK_TREE_MODEL (store)
-    );
-    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), 0);
-
-    /* set visibility */
-    showAccountSelectorWidget();
+    refreshAccountSelectorWidget(0);
 
     /* layout */
     auto *renderer = gtk_cell_renderer_text_new();
@@ -989,9 +972,41 @@ CppImpl::showAccountSelectorWidget(bool show)
 {
     // we only want to show the account selector when there is more than 1 enabled
     // account; so every time we want to show it, we should preform this check
-    std::size_t activatedAccount = 0;
-    foreachEnabledLrcAccount(*lrc_, [&] (const auto&) { ++activatedAccount; });
-    gtk_widget_set_visible(widgets->combobox_account_selector, show && activatedAccount > 1);
+    std::size_t enabled_accounts = 0;
+    foreachEnabledLrcAccount(*lrc_, [&] (const auto&) { ++enabled_accounts; });
+    gtk_widget_set_visible(widgets->combobox_account_selector, show && enabled_accounts > 1);
+}
+
+/// Update the account GtkComboBox from LRC data and select the given entry.
+/// The widget visibility is changed depending on number of account found.
+/// /note Default selection_row is -1, meaning no selection.
+/// /note Default visibility mode is true, meaning showing the widget.
+std::size_t
+CppImpl::refreshAccountSelectorWidget(int selection_row, bool show)
+{
+    auto store = gtk_list_store_new(2 /* # of cols */ ,
+                                    G_TYPE_STRING,
+                                    G_TYPE_STRING,
+                                    G_TYPE_UINT);
+    GtkTreeIter iter;
+    std::size_t enabled_accounts = 0;
+    foreachEnabledLrcAccount(*lrc_, [&] (const auto& acc_info) {
+            ++enabled_accounts;
+            gtk_list_store_append(store, &iter);
+            gtk_list_store_set(store, &iter,
+                               0 /* col # */ , acc_info.id.c_str() /* celldata */,
+                               1 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
+                               -1 /* end */);
+        });
+
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(widgets->combobox_account_selector),
+        GTK_TREE_MODEL (store)
+    );
+    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), selection_row);
+    gtk_widget_set_visible(widgets->combobox_account_selector, show && enabled_accounts > 1);
+
+    return enabled_accounts;
 }
 
 void
@@ -1222,31 +1237,10 @@ void
 CppImpl::slotAccountAddedFromLrc(const std::string& id)
 {
     (void)id;
-
-    // go to this account
-    auto accounts = lrc_->getAccountModel().getAccountList();
-    auto store = gtk_list_store_new (2 /* # of cols */ ,
-                                     G_TYPE_STRING,
-                                     G_TYPE_STRING,
-                                     G_TYPE_UINT);
     auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
-    GtkTreeIter iter;
-    foreachEnabledLrcAccount(*lrc_, [&] (const auto& acc_info) {
-            gtk_list_store_append (store, &iter);
-            gtk_list_store_set (store, &iter,
-                                0 /* col # */ , acc_info.id.c_str() /* celldata */,
-                                1 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
-                                -1 /* end */);
-        });
-    // Redraw combobox
-    gtk_combo_box_set_model(
-        GTK_COMBO_BOX(widgets->combobox_account_selector),
-        GTK_TREE_MODEL (store)
-        );
-    // If no account selected, select the new account
-    if (currentIdx == -1) currentIdx = 0;
-    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), currentIdx);
-    showAccountSelectorWidget();
+    if (currentIdx == -1)
+        currentIdx = 0; // If no account selected, select the first account
+    refreshAccountSelectorWidget(currentIdx);
 }
 
 void
@@ -1260,24 +1254,8 @@ CppImpl::slotAccountRemovedFromLrc(const std::string& id)
         return;
     }
 
-    auto store = gtk_list_store_new (2 /* # of cols */ ,
-                                     G_TYPE_STRING,
-                                     G_TYPE_STRING,
-                                     G_TYPE_UINT);
-    GtkTreeIter iter;
-    foreachEnabledLrcAccount(*lrc_, [&] (const auto& acc_info) {
-            gtk_list_store_append (store, &iter);
-            gtk_list_store_set (store, &iter,
-                                0 /* col # */ , acc_info.id.c_str() /* celldata */,
-                                1 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
-                                -1 /* end */);
-        });
-    gtk_combo_box_set_model(
-        GTK_COMBO_BOX(widgets->combobox_account_selector),
-        GTK_TREE_MODEL (store)
-        );
-    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), 0);
-    showAccountSelectorWidget();
+    // Update Account selector
+    refreshAccountSelectorWidget(0);
     // Show conversation panel
     gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
     // Reinit LRC
@@ -1291,41 +1269,21 @@ CppImpl::slotAccountStatusChanged(const std::string& id)
 {
     if (not accountContainer_ ) {
         updateLrc(id);
-        if (accountContainer_)
-            ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view),
-                                     accountContainer_.get());
+        ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view),
+                                 accountContainer_.get());
         return;
     }
 
-    auto accounts = lrc_->getAccountModel().getAccountList();
-    auto store = gtk_list_store_new (2 /* # of cols */ ,
-                                     G_TYPE_STRING,
-                                     G_TYPE_STRING,
-                                     G_TYPE_UINT);
+    auto selectionIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
 
-    gint currentIdx = 0;
-    std::size_t enabledAccounts = 0;
-    GtkTreeIter iter;
-    foreachEnabledLrcAccount(*lrc_, [&] (const auto& acc_info) {
-            ++enabledAccounts;
-            gtk_list_store_append (store, &iter);
-            gtk_list_store_set (store, &iter,
-                                0 /* col # */ , acc_info.id.c_str() /* celldata */,
-                                1 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
-                                -1 /* end */);
-            if (id == acc_info.id) {
-                // keep current selected account only if account status is enabled
-                currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
-            }
-        });
-    showAccountSelectorWidget();
+    // keep current selected account only if account status is enabled
+    try {
+        if (!lrc_->getAccountModel().getAccountInfo(id).enabled)
+            selectionIdx = 0;
+    } catch (...) {}
 
-    // Redraw combobox
-    gtk_combo_box_set_model(
-        GTK_COMBO_BOX(widgets->combobox_account_selector),
-        GTK_TREE_MODEL (store)
-        );
-    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), currentIdx);
+    auto enabledAccounts = refreshAccountSelectorWidget(selectionIdx);
+
     // if no account. reset the view.
     if (enabledAccounts == 0) {
         updateLrc("");
