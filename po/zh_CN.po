@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-10 22:09-0500\n"
+"POT-Creation-Date: 2017-12-17 22:09-0500\n"
 "PO-Revision-Date: 2017-12-11 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/ring/language/zh_CN/)\n"
@@ -1042,17 +1042,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:839
+#: src/ringmainwindow.cpp:480
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "拨出"
 
-#: src/ringmainwindow.cpp:841
+#: src/ringmainwindow.cpp:483
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "发起聊天"
 
-#: src/ringmainwindow.cpp:1165
+#: src/ringmainwindow.cpp:671
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1101,35 +1101,35 @@ msgstr "姓名"
 msgid "Samplerate"
 msgstr "采样率"
 
-#: src/conversationpopupmenu.cpp:168
+#: src/conversationpopupmenu.cpp:169
 msgid "_Place call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:171
+#: src/conversationpopupmenu.cpp:172
 msgid "_Copy name"
 msgstr "复制名称(_C)"
 
-#: src/conversationpopupmenu.cpp:177
+#: src/conversationpopupmenu.cpp:178
 msgid "_Add to conversations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:181
+#: src/conversationpopupmenu.cpp:182
 msgid "_Discard invitation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:184
+#: src/conversationpopupmenu.cpp:185
 msgid "_Block invitations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:189
+#: src/conversationpopupmenu.cpp:190
 msgid "C_lear history"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:192
+#: src/conversationpopupmenu.cpp:193
 msgid "_Remove conversation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:195
+#: src/conversationpopupmenu.cpp:196
 msgid "_Block contact"
 msgstr ""
 

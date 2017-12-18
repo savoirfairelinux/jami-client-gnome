@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-10 22:09-0500\n"
-"PO-Revision-Date: 2017-12-11 03:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-12-17 22:09-0500\n"
+"PO-Revision-Date: 2017-12-12 01:52+0000\n"
+"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/savoirfairelinux/ring/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -136,11 +136,11 @@ msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr "Pour associer un nouvel appareil à un compte Ring, vous exportez votre compte sur le réseau Ring. Cela générera un numéro PIN que vous devrez saisir dans votre nouvel appareil dans les 10 minutes."
+msgstr "Pour associer un nouvel appareil à un compte Ring, vous exportez votre compte sur le réseau Ring. Cela générera un NIP que vous devrez saisir dans votre nouvel appareil dans les 10 minutes."
 
 #: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
-msgstr "Mot de passe (requis):"
+msgstr "Mot de passe (obligatoire):"
 
 #: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
@@ -201,7 +201,7 @@ msgid ""
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr "Pour associer cet appareil à un compte Ring déjà existant sur un autre appareil, vous avez deux possibilités:\nVous pouvez importer votre compte via le DHT. Pour cela vous devez obtenir un code PIN du premier appareil. Aller dans la gestion du compte du premier appareil et choisissez \"Associer un autre appareil à ce compte\". Vous obtiendrez alors un code PIN qui sera valide 10 minutes sur le réseau.\nVous pouvez également importer votre compte en important une archive de compte Ring."
+msgstr "Pour associer cet appareil à un compte Ring déjà existant sur un autre appareil, vous avez deux possibilités:\nVous pouvez importer votre compte via le réseau Ring. Pour cela vous devez obtenir un NIP du premier appareil. Aller dans la gestion du compte du premier appareil et choisissez \"Associer un autre appareil à ce compte\". Vous obtiendrez alors un NIP qui sera valide 10 minutes sur le réseau.\nVous pouvez également importer votre compte en important une archive de compte Ring."
 
 #: ui/accountcreationwizard.ui:146
 msgid "Enter your pin:"
@@ -298,7 +298,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
-msgstr ""
+msgstr "Activer les notifications pour les appels entrants."
 
 #: ui/generalsettingsview.ui:124
 msgid "Enable notifications for new chat messages."
@@ -1043,17 +1043,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "Identifiant"
 
-#: src/ringmainwindow.cpp:839
+#: src/ringmainwindow.cpp:480
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Appeler"
 
-#: src/ringmainwindow.cpp:841
+#: src/ringmainwindow.cpp:483
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Ouvrir le clavardage"
 
-#: src/ringmainwindow.cpp:1165
+#: src/ringmainwindow.cpp:671
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1102,35 +1102,35 @@ msgstr "Nom"
 msgid "Samplerate"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:168
+#: src/conversationpopupmenu.cpp:169
 msgid "_Place call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:171
+#: src/conversationpopupmenu.cpp:172
 msgid "_Copy name"
 msgstr "_Copier nom"
 
-#: src/conversationpopupmenu.cpp:177
+#: src/conversationpopupmenu.cpp:178
 msgid "_Add to conversations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:181
+#: src/conversationpopupmenu.cpp:182
 msgid "_Discard invitation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:184
+#: src/conversationpopupmenu.cpp:185
 msgid "_Block invitations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:189
+#: src/conversationpopupmenu.cpp:190
 msgid "C_lear history"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:192
+#: src/conversationpopupmenu.cpp:193
 msgid "_Remove conversation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:195
+#: src/conversationpopupmenu.cpp:196
 msgid "_Block contact"
 msgstr ""
 

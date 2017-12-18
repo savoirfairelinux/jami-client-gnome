@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Herbert Koenigg, 2016
+# Cleiton Floss, 2016
 # Gabriel Moura <gabriel.all@yandex.com>, 2016
 # Gustavo H. M. Silva <gustavohmsilva@tuta.io>, 2016
 # Gustavo H. M. Silva <gustavohmsilva@tuta.io>, 2017
@@ -13,13 +13,14 @@
 # Ramiro Varandas Jr <ramirovjnr@gmail.com>, 2016
 # Raul Dipeas <rauldipeas@outlook.com>, 2015
 # Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatic4@gmail.com>, 2016
+# The Cats, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-10 22:09-0500\n"
-"PO-Revision-Date: 2017-12-11 03:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2017-12-17 22:09-0500\n"
+"PO-Revision-Date: 2017-12-14 13:09+0000\n"
+"Last-Translator: The Cats\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/ring/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -641,11 +642,11 @@ msgstr "Registrar"
 
 #: ui/accountbanstab.ui:18
 msgid "List of banned peers :"
-msgstr ""
+msgstr "Lista de parceiros banidos:"
 
 #: ui/accountbanstab.ui:62
 msgid "unban"
-msgstr ""
+msgstr "Cancelar banimento"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -657,11 +658,11 @@ msgstr "Fazer ligação"
 
 #: ui/chatview.ui:62
 msgid "Place audio-only call"
-msgstr ""
+msgstr "Fazer chamada somente com áudio"
 
 #: ui/chatview.ui:75
 msgid "Add to conversations"
-msgstr ""
+msgstr "Adicionar às conversas"
 
 #: ui/chatview.ui:134
 msgid "Send Invitation"
@@ -802,7 +803,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Ring daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Não foi possível iniciar.\nCertifique-se que o processo Ring (dring) está sendo executado.\nErro: %s"
 
 #: src/ring_client.cpp:150
 msgid "Ring Error"
@@ -812,11 +813,11 @@ msgstr "Erro do Ring"
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
-msgstr ""
+msgstr "Exibir Ring"
 
 #: src/ring_client.cpp:296
 msgid "Quit"
-msgstr ""
+msgstr "Sair"
 
 #: src/ringnotify.cpp:150
 msgid "Incoming call"
@@ -1048,17 +1049,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:839
+#: src/ringmainwindow.cpp:480
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "fazer ligação"
 
-#: src/ringmainwindow.cpp:841
+#: src/ringmainwindow.cpp:483
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "abrir chat"
 
-#: src/ringmainwindow.cpp:1165
+#: src/ringmainwindow.cpp:671
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1107,37 +1108,37 @@ msgstr "Nome"
 msgid "Samplerate"
 msgstr "Taxa de transmissão"
 
-#: src/conversationpopupmenu.cpp:168
+#: src/conversationpopupmenu.cpp:169
 msgid "_Place call"
-msgstr ""
+msgstr "_Fazer chamada"
 
-#: src/conversationpopupmenu.cpp:171
+#: src/conversationpopupmenu.cpp:172
 msgid "_Copy name"
 msgstr "_Copiar nome"
 
-#: src/conversationpopupmenu.cpp:177
+#: src/conversationpopupmenu.cpp:178
 msgid "_Add to conversations"
-msgstr ""
+msgstr "_Adicionar a conversas"
 
-#: src/conversationpopupmenu.cpp:181
+#: src/conversationpopupmenu.cpp:182
 msgid "_Discard invitation"
-msgstr ""
+msgstr "_Recusar convite"
 
-#: src/conversationpopupmenu.cpp:184
+#: src/conversationpopupmenu.cpp:185
 msgid "_Block invitations"
-msgstr ""
+msgstr "_Bloquear convites"
 
-#: src/conversationpopupmenu.cpp:189
+#: src/conversationpopupmenu.cpp:190
 msgid "C_lear history"
-msgstr ""
+msgstr "_Limpar histórico"
 
-#: src/conversationpopupmenu.cpp:192
+#: src/conversationpopupmenu.cpp:193
 msgid "_Remove conversation"
-msgstr ""
+msgstr "_Apagar conversa"
 
-#: src/conversationpopupmenu.cpp:195
+#: src/conversationpopupmenu.cpp:196
 msgid "_Block contact"
-msgstr ""
+msgstr "_Bloquear contato"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
