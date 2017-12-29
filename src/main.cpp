@@ -20,12 +20,23 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <cstdlib>
+#include <iostream>
+#include <csignal>
+#include <cerrno>
+#include <cstring>
 #include "config.h"
 #include "ring_client.h"
+
+static void
+sigusr1Handler(int signum)
+{
+    std::cout << "Received SIGUSR1 with errno (" << errno << "):" << strerror(errno) << std::endl;
+}
 
 int
 main(int argc, char *argv[])
 {
+    signal(SIGUSR1, sigusr1Handler);
     setenv("GDK_BACKEND", "x11", true); // workaround for Wayland
 
     /* Internationalization; localization is done automatically by gtk during init */
