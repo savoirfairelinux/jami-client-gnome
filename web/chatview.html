@@ -20,9 +20,15 @@
 
       <div id="sendMessage">
         <textarea id="message" autofocus placeholder="Message" onkeyup="grow_text_area()" rows="1" disabled="false"></textarea>
-        <div id="sendBtn" onclick="ring.chatview.sendMessage()" title="Send">
+        <div id="sendBtn" onclick="ring.chatview.sendMessage()" title="Send message">
           <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
               <path xmlns="http://www.w3.org/2000/svg" d="M12,11.874v4.357l7-6.69l-7-6.572v3.983c-8.775,0-11,9.732-11,9.732C3.484,12.296,7.237,11.874,12,11.874z"/>
+          </svg>
+        </div>
+        <div id="add-file-button" onclick="ring.chatview.sendFile()" title="Send file">
+          <svg viewBox="0 0 30 30">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
           </svg>
         </div>
       </div>
@@ -128,6 +134,14 @@ ring.chatview = (function(){
              input.value = '';
              window.prompt('SEND:' + message);
          }
+     }
+
+    /**
+     * send file
+     */
+     function sendFile()
+     {
+         window.prompt('SEND_FILE:')
      }
 
    /**
@@ -663,6 +677,7 @@ ring.chatview = (function(){
         showInvitation: showInvitation,
         hideInvitation: hideInvitation,
         disableSendMessage: disableSendMessage,
+        sendFile: sendFile,
     }
 
 })();
