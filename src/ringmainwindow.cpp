@@ -183,7 +183,7 @@ public:
     void leaveFullScreen();
     void toggleFullScreen();
     void resetToWelcome();
-    void setPendingContactRequestTabIcon();
+    void setPendingContactRequestTabIcon(RingMainWindow *win);
     void showAccountSelectorWidget(bool show = true);
     void changeAccountSelection(const std::string& id);
     void onAccountSelectionChange(const std::string& id);
@@ -291,6 +291,8 @@ on_account_changed(RingMainWindow* self)
         gchar* accountId;
         gtk_tree_model_get(model, &iter, 0 /* col# */, &accountId /* data */, -1);
         priv->cpp->onAccountSelectionChange(accountId);
+        gtk_notebook_set_show_tabs(GTK_NOTEBOOK(priv->notebook_contacts),
+                                   priv->cpp->accountContainer_->info.contactModel->hasPendingRequests());
         g_free(accountId);
     }
 }
@@ -719,7 +721,7 @@ CppImpl::init()
     g_signal_connect_swapped(widgets->combobox_account_selector, "changed", G_CALLBACK(on_account_changed), self);
 
     // initialize the pending contact request icon.
-    setPendingContactRequestTabIcon();
+    setPendingContactRequestTabIcon(self);
 
     if (isInitialized) {
         auto& conversationModel = accountContainer_->info.conversationModel;
@@ -769,6 +771,15 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
     } else {
         // TODO select first conversation?
         new_view = widgets->welcome_view;
+
+        // refresh the tabs
+        auto hasPendingRequests = accountContainer_->info.contactModel->hasPendingRequests();
+
+        gtk_notebook_set_show_tabs(GTK_NOTEBOOK(widgets->notebook_contacts), hasPendingRequests);
+
+        if (not hasPendingRequests) {
+            gtk_notebook_prev_page(GTK_NOTEBOOK(widgets->notebook_contacts));
+        }
     }
 
     gtk_container_add(GTK_CONTAINER(widgets->frame_call), new_view);
@@ -870,9 +881,11 @@ CppImpl::resetToWelcome()
 }
 
 void
-CppImpl::setPendingContactRequestTabIcon()
+CppImpl::setPendingContactRequestTabIcon(RingMainWindow *win)
 {
-    if (not accountContainer_)
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+
+    if (not accountContainer_ or not priv->cpp->accountContainer_->info.contactModel->hasPendingRequests())
         return;
 
     auto isRingAccount = accountContainer_->info.profileInfo.type == lrc::api::profile::Type::RING;
@@ -880,6 +893,8 @@ CppImpl::setPendingContactRequestTabIcon()
 
     if (not isRingAccount)
         return;
+
+    gtk_notebook_set_show_tabs(GTK_NOTEBOOK(priv->notebook_contacts), true);
 
     gtk_image_set_from_resource(GTK_IMAGE(widgets->image_contact_requests_list),
         (accountContainer_->info.contactModel->hasPendingRequests())
@@ -1263,7 +1278,7 @@ CppImpl::slotModelSorted()
     else if (IS_INCOMING_CALL_VIEW(old_view))
         current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
     conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), current_item.uid);
-    setPendingContactRequestTabIcon();
+    setPendingContactRequestTabIcon(self);
 }
 
 void

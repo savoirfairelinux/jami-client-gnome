@@ -250,6 +250,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="show_border">False</property>
+                <property name="show_tabs">False</property>
                 <child>
                   <object class="GtkScrolledWindow" id="scrolled_window_smartview">
                     <property name="visible">True</property>
