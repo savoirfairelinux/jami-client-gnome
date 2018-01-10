@@ -561,3 +561,22 @@ pre {
   color: red;
   font-size: 1.25em;
 }
+
+#add-file-button {
+  border-radius: 50%;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  align-self: center;
+  transition: all 0.3s ease;
+}
+
+#add-file-button.hover,
+#add-file-button:hover {
+  background: #bae5f0;
+}
+
+#add-file-button.hover svg,
+#add-file-button:hover svg {
+  fill: black;
+}

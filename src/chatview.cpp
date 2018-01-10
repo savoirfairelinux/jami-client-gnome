@@ -24,6 +24,8 @@
 
 // std
 #include <algorithm>
+#include <cstring>
+#include <glib/gi18n.h>
 
 // LRC
 #include <api/contactmodel.h>
@@ -69,6 +71,7 @@ struct _ChatViewPrivate
 
     gulong webkit_ready;
     gulong webkit_send_text;
+    gchar* filename;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ChatView, chat_view, GTK_TYPE_BOX);
@@ -160,6 +163,34 @@ button_add_to_conversations_clicked(ChatView *self)
     priv->accountContainer_->info.conversationModel->makePermanent(priv->conversation_->uid);
 }
 
+gchar*
+file_to_send(GtkWindow *top_window)
+{
+    GtkWidget *dialog;
+    GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
+    gint res;
+    gchar* filename = nullptr;
+
+    dialog = gtk_file_chooser_dialog_new ("Open File",
+                                          top_window,
+                                          action,
+                                          _("_Cancel"),
+                                          GTK_RESPONSE_CANCEL,
+                                          _("_Open"),
+                                          GTK_RESPONSE_ACCEPT,
+                                          NULL);
+
+    res = gtk_dialog_run (GTK_DIALOG (dialog));
+
+    if (res == GTK_RESPONSE_ACCEPT) {
+        GtkFileChooser *chooser = GTK_FILE_CHOOSER (dialog);
+        filename = gtk_file_chooser_get_filename (chooser);
+    }
+    gtk_widget_destroy (dialog);
+
+    return filename;
+}
+
 static void
 webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *interaction, ChatView* self)
 {
@@ -176,6 +207,17 @@ webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *int
         // Get text body
         auto toSend = order.substr(std::string("SEND:").size());
         priv->accountContainer_->info.conversationModel->sendMessage(priv->conversation_->uid, toSend);
+
+    } else if (order == "SEND_FILE:") {
+        priv->filename = file_to_send(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))));
+
+        // send file if any
+        if (priv->filename) {
+            auto filename = std::string(priv->filename);
+            g_free(priv->filename);
+
+            priv->accountContainer_->info.conversationModel->sendFile(priv->conversation_->uid, filename, "");
+        }
     }
 }
 
