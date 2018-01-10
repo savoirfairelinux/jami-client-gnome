@@ -561,3 +561,13 @@ pre {
   color: red;
   font-size: 1.25em;
 }
+
+#add-file-button {
+  width: 50px;
+  height: 30px;
+}
+    
+#add-file-button svg {
+  width: 25px;
+  height: 25px;
+}
