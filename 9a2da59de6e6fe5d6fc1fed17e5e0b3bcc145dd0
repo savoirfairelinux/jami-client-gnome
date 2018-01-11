@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_83b62289",
+        "filename": "src/ringnotify.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2018-01-11T19:10:25Z",
+      "side": 1,
+      "message": "static const",
+      "range": {
+        "startLine": 360,
+        "startChar": 9,
+        "endLine": 360,
+        "endChar": 19
+      },
+      "revId": "9a2da59de6e6fe5d6fc1fed17e5e0b3bcc145dd0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
