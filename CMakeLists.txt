@@ -90,7 +90,9 @@ PKG_CHECK_MODULES(CLUTTER REQUIRED clutter-1.0)
 PKG_CHECK_MODULES(CLUTTERGTK REQUIRED clutter-gtk-1.0)
 PKG_CHECK_MODULES(EBOOK REQUIRED libebook-1.2>=3.10)
 PKG_CHECK_MODULES(LIBNOTIFY libnotify>=0.7.6) #optional
-pkg_check_modules(CANBERRA libcanberra-gtk3>=0.25) #optional
+IF( LIBNOTIFY_FOUND )
+    pkg_check_modules(CANBERRA REQUIRED libcanberra-gtk3>=0.25)
+ENDIF()
 FIND_PACKAGE(Gettext) #optional for translations
 PKG_CHECK_MODULES(LIBQRENCODE libqrencode>=3.4)
 PKG_CHECK_MODULES(LIBNM libnm>=1.0) #optional to detect changes in the network
