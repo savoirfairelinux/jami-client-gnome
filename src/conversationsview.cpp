@@ -305,6 +305,7 @@ select_conversation(GtkTreeSelection *selection, ConversationsView *self)
     gtk_tree_model_get(model, &iter,
                        0, &conversationUid,
                        -1);
+
     priv->accountContainer_->info.conversationModel->selectConversation(std::string(conversationUid));
 }
 
