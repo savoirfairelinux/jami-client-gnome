@@ -22,6 +22,8 @@
 
 #include <gtk/gtk.h>
 
+#include "accountcontainer.h"
+
 G_BEGIN_DECLS
 
 #define GENERAL_SETTINGS_VIEW_TYPE            (general_settings_view_get_type ())
@@ -34,8 +36,9 @@ typedef struct _GeneralSettingsView      GeneralSettingsView;
 typedef struct _GeneralSettingsViewClass GeneralSettingsViewClass;
 
 GType      general_settings_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *general_settings_view_new           (void);
-void       general_settings_view_show_profile  (GeneralSettingsView *self, gboolean show_profile);
+GtkWidget *general_settings_view_new           (AccountContainer* accountContainer);
+void       general_settings_view_show_profile  (GeneralSettingsView *self, gboolean show_profile, AccountContainer* accountContainer = nullptr);
+//~ void       updateAccountContainer(AccountContainer* accountContainer)
 
 G_END_DECLS
 
