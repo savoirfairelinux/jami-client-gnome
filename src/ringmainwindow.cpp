@@ -342,8 +342,10 @@ on_show_general_settings(GtkToggleButton* navbutton, RingMainWindow* self)
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
 
+    qDebug() << "FFFGG";
+
     if (gtk_toggle_button_get_active(navbutton)) {
-        general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(priv->general_settings_view), TRUE);
+        general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(priv->general_settings_view), TRUE, priv->cpp->accountContainer_.get());
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), GENERAL_SETTINGS_VIEW_NAME);
         priv->last_settings_view = priv->general_settings_view;
     } else {
@@ -534,6 +536,30 @@ CppImpl::CppImpl(RingMainWindow& widget)
     , lrc_ {std::make_unique<lrc::api::Lrc>()}
 {}
 
+static int
+on_clear_all_history_foreach(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter,void* self)
+{
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    const gchar* account_id;
+
+    gtk_tree_model_get(model, iter, 0 /* col# */, &account_id /* data */, -1);
+
+    auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(account_id);
+    accountInfo.conversationModel->clearAllHistory();
+}
+
+static void
+on_clear_all_history_clicked(RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    auto accountComboBox = GTK_COMBO_BOX(priv->combobox_account_selector);
+    auto model = gtk_combo_box_get_model(accountComboBox);
+
+    gtk_tree_model_foreach (model, on_clear_all_history_foreach, self);
+
+}
+
 void
 CppImpl::init()
 {
@@ -626,9 +652,11 @@ CppImpl::init()
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->media_settings_view,
                         MEDIA_SETTINGS_VIEW_NAME);
 
-    widgets->general_settings_view = general_settings_view_new();
+    widgets->general_settings_view = general_settings_view_new(accountContainer_.get());
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->general_settings_view,
                         GENERAL_SETTINGS_VIEW_NAME);
+    g_signal_connect_swapped(widgets->general_settings_view, "clear-all-history", G_CALLBACK(on_clear_all_history_clicked), self);
+
 
     /* make the setting we will show first the active one */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->radiobutton_general_settings), TRUE);
@@ -1012,8 +1040,8 @@ CppImpl::enterSettingsView()
     /* make sure to show the profile if we're showing the general settings */
     if (widgets->last_settings_view == widgets->general_settings_view)
         general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(widgets->general_settings_view),
-                                           TRUE);
-
+                                           TRUE, accountContainer_.get());
+qDebug() << "RT";
     gtk_stack_set_visible_child(GTK_STACK(widgets->stack_main_view), widgets->last_settings_view);
 }
 
