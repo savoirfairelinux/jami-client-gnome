@@ -73,6 +73,13 @@ G_DEFINE_TYPE_WITH_PRIVATE(GeneralSettingsView, general_settings_view, GTK_TYPE_
 
 #define GENERAL_SETTINGS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), GENERAL_SETTINGS_VIEW_TYPE, GeneralSettingsViewPrivate))
 
+enum {
+    CLEAR_ALL_HISTORY,
+    LAST_SIGNAL
+};
+
+static guint general_settings_view_signals[LAST_SIGNAL] = { 0 };
+
 static void
 general_settings_view_dispose(GObject *object)
 {
@@ -122,11 +129,10 @@ static void
 clear_history(G_GNUC_UNUSED GtkWidget *button, GeneralSettingsView *self)
 {
     g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
+    auto priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
 
-    if (clear_history_dialog(self) ) {
-        CategorizedHistoryModel::instance().clear();
-        Media::RecordingModel::instance().clear();
-    }
+    if (clear_history_dialog(self) )
+        g_signal_emit(G_OBJECT(self), general_settings_view_signals[CLEAR_ALL_HISTORY], 0);
 }
 
 static void
@@ -194,6 +200,18 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_history_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_clear_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, box_profil_settings);
+
+    general_settings_view_signals[CLEAR_ALL_HISTORY] = g_signal_new (
+        "clear-all-history",
+        G_TYPE_FROM_CLASS(klass),
+        (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+        0,
+        nullptr,
+        nullptr,
+        g_cclosure_marshal_VOID__VOID,
+        G_TYPE_NONE, 0);
+
+
 }
 
 GtkWidget *
