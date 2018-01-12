@@ -36,6 +36,11 @@
 #include <api/newcallmodel.h>
 #include <api/behaviorcontroller.h>
 #include "accountcontainer.h"
+#include <callmodel.h>
+#include <media/textrecording.h>
+#include <media/recordingmodel.h>
+#include <media/text.h>
+
 
 // Ring client
 #include "accountview.h"
@@ -52,6 +57,8 @@
 #include "ringwelcomeview.h"
 #include "utils/accounts.h"
 #include "utils/files.h"
+#include "ringnotify.h"
+
 
 //==============================================================================
 
@@ -99,7 +106,6 @@ struct RingMainWindowPrivate
     GtkWidget *combobox_account_selector;
     GtkWidget *treeview_contact_requests;
     GtkWidget *scrolled_window_contact_requests;
-    GtkWidget *image_contact_requests_list;
     GtkWidget *webkit_chat_container; ///< The webkit_chat_container is created once, then reused for all chat views
 
     GSettings *settings;
@@ -214,6 +220,7 @@ public:
     QMetaObject::Connection newConversationConnection_;
     QMetaObject::Connection conversationRemovedConnection_;
     QMetaObject::Connection accountStatusChangedConnection_;
+    QMetaObject::Connection chat_notification_;
 
 private:
     CppImpl() = delete;
@@ -749,6 +756,7 @@ CppImpl::~CppImpl()
     QObject::disconnect(showCallViewConnection_);
     QObject::disconnect(modelSortedConnection_);
     QObject::disconnect(accountStatusChangedConnection_);
+    QObject::disconnect(chat_notification_);
 
     g_clear_object(&widgets->welcome_view);
     g_clear_object(&widgets->webkit_chat_container);
@@ -769,6 +777,8 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
         new_view = displayChatView(conversation);
     } else {
+        chatViewConversation_.reset(nullptr);
+
         // TODO select first conversation?
         new_view = widgets->welcome_view;
 
@@ -885,21 +895,13 @@ CppImpl::setPendingContactRequestTabIcon(RingMainWindow *win)
 {
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
-    if (not accountContainer_ or not priv->cpp->accountContainer_->info.contactModel->hasPendingRequests())
+    if (not accountContainer_)
         return;
 
-    auto isRingAccount = accountContainer_->info.profileInfo.type == lrc::api::profile::Type::RING;
-    gtk_widget_set_visible(widgets->scrolled_window_contact_requests, isRingAccount);
+    auto hasPendingRequest = priv->cpp->accountContainer_->info.contactModel->hasPendingRequests();
 
-    if (not isRingAccount)
-        return;
-
-    gtk_notebook_set_show_tabs(GTK_NOTEBOOK(priv->notebook_contacts), true);
-
-    gtk_image_set_from_resource(GTK_IMAGE(widgets->image_contact_requests_list),
-        (accountContainer_->info.contactModel->hasPendingRequests())
-        ? "/cx/ring/RingGnome/contact_requests_list_with_notification"
-        : "/cx/ring/RingGnome/contact_requests_list");
+    gtk_widget_set_visible(widgets->scrolled_window_contact_requests, hasPendingRequest);
+    gtk_notebook_set_show_tabs(GTK_NOTEBOOK(priv->notebook_contacts), hasPendingRequest);
 }
 
 void
@@ -1399,6 +1401,24 @@ CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation:
 //==============================================================================
 
 static void
+chat_notifications(RingMainWindow *win)
+{
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+    priv->cpp->chat_notification_ = QObject::connect(
+        &Media::RecordingModel::instance(),
+        &Media::RecordingModel::newTextMessage,
+        [win, priv] (Media::TextRecording* t, ContactMethod* cm) {
+            if ((priv->cpp->chatViewConversation_
+                && priv->cpp->chatViewConversation_->participants[0] == cm->uri().toStdString())
+                || not g_settings_get_boolean(priv->settings, "enable-chat-notifications"))
+                    return;
+
+            ring_notify_message(cm, t);
+        }
+    );
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -1407,6 +1427,9 @@ ring_main_window_init(RingMainWindow *win)
     // CppImpl ctor
     priv->cpp = new details::CppImpl {*win};
     priv->cpp->init();
+
+    // setup chat notification
+    chat_notifications(win);
 }
 
 static void
@@ -1459,7 +1482,6 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_account_selector);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contact_requests);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_contact_requests_list);
 }
 
 GtkWidget *
