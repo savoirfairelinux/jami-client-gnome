@@ -36,6 +36,11 @@
 #include <api/newcallmodel.h>
 #include <api/behaviorcontroller.h>
 #include "accountcontainer.h"
+#include <callmodel.h>
+#include <media/textrecording.h>
+#include <media/recordingmodel.h>
+#include <media/text.h>
+
 
 // Ring client
 #include "accountview.h"
@@ -52,6 +57,8 @@
 #include "ringwelcomeview.h"
 #include "utils/accounts.h"
 #include "utils/files.h"
+#include "ringnotify.h"
+
 
 //==============================================================================
 
@@ -213,6 +220,7 @@ public:
     QMetaObject::Connection newConversationConnection_;
     QMetaObject::Connection conversationRemovedConnection_;
     QMetaObject::Connection accountStatusChangedConnection_;
+    QMetaObject::Connection chat_notification_;
 
 private:
     CppImpl() = delete;
@@ -748,6 +756,7 @@ CppImpl::~CppImpl()
     QObject::disconnect(showCallViewConnection_);
     QObject::disconnect(modelSortedConnection_);
     QObject::disconnect(accountStatusChangedConnection_);
+    QObject::disconnect(chat_notification_);
 
     g_clear_object(&widgets->welcome_view);
     g_clear_object(&widgets->webkit_chat_container);
@@ -768,6 +777,8 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
         new_view = displayChatView(conversation);
     } else {
+        chatViewConversation_.reset(nullptr);
+
         // TODO select first conversation?
         new_view = widgets->welcome_view;
 
@@ -1390,6 +1401,24 @@ CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation:
 //==============================================================================
 
 static void
+chat_notifications(RingMainWindow *win)
+{
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+    priv->cpp->chat_notification_ = QObject::connect(
+        &Media::RecordingModel::instance(),
+        &Media::RecordingModel::newTextMessage,
+        [win, priv] (Media::TextRecording* t, ContactMethod* cm) {
+            if ((priv->cpp->chatViewConversation_
+                && priv->cpp->chatViewConversation_->participants[0] == cm->uri().toStdString())
+                || not g_settings_get_boolean(priv->settings, "enable-chat-notifications"))
+                    return;
+
+            ring_notify_message(cm, t);
+        }
+    );
+}
+
+static void
 ring_main_window_init(RingMainWindow *win)
 {
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -1398,6 +1427,9 @@ ring_main_window_init(RingMainWindow *win)
     // CppImpl ctor
     priv->cpp = new details::CppImpl {*win};
     priv->cpp->init();
+
+    // setup chat notification
+    chat_notifications(win);
 }
 
 static void

@@ -21,7 +21,7 @@
 #define RING_NOTIFY_H_
 
 #include <gtk/gtk.h>
-#include "ring_client.h"
+#include "ringmainwindow.h"
 
 class Call;
 class ContactMethod;
@@ -35,7 +35,7 @@ void     ring_notify_init();
 void     ring_notify_uninit();
 gboolean ring_notify_is_initted();
 gboolean ring_notify_incoming_call(Call*);
-void     ring_notify_message(ContactMethod*, Media::TextRecording*, RingClient*);
+void     ring_notify_message(ContactMethod*, Media::TextRecording*);
 gboolean ring_notify_close_chat_notification(ContactMethod*);
 
 G_END_DECLS
