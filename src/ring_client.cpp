@@ -43,7 +43,6 @@
 #include <personmodel.h>
 #include <fallbackpersoncollection.h>
 #include <localhistorycollection.h>
-#include <media/text.h>
 #include <numbercategorymodel.h>
 #include <globalinstances.h>
 #include <profilemodel.h>
@@ -52,7 +51,6 @@
 #include <localprofilecollection.h>
 #include <accountmodel.h>
 #include <smartinfohub.h>
-#include <media/textrecording.h>
 #include <media/recordingmodel.h>
 #include <availableaccountmodel.h>
 
@@ -122,7 +120,6 @@ struct _RingClientPrivate {
 
     /* notifications */
     QMetaObject::Connection call_notification;
-    QMetaObject::Connection chat_notification;
 };
 
 /* this union is used to pass ints as pointers and vice versa for GAction parameters*/
@@ -474,23 +471,6 @@ call_notifications_toggled(RingClient *self)
 }
 
 static void
-chat_notifications_toggled(RingClient *self)
-{
-    auto priv = RING_CLIENT_GET_PRIVATE(self);
-
-    if (g_settings_get_boolean(priv->settings, "enable-chat-notifications")) {
-        priv->chat_notification = QObject::connect(
-            &Media::RecordingModel::instance(),
-            &Media::RecordingModel::newTextMessage,
-            [self] (Media::TextRecording* t, ContactMethod* cm)
-            { ring_notify_message(cm, t, self); }
-        );
-    } else {
-        QObject::disconnect(priv->chat_notification);
-    }
-}
-
-static void
 ring_client_startup(GApplication *app)
 {
     // TODO still use old LRC models, in the future, we will init the LRC here.
@@ -611,9 +591,7 @@ ring_client_startup(GApplication *app)
     /* enable notifications based on settings */
     ring_notify_init();
     call_notifications_toggled(client);
-    chat_notifications_toggled(client);
     g_signal_connect_swapped(priv->settings, "changed::enable-call-notifications", G_CALLBACK(call_notifications_toggled), client);
-    g_signal_connect_swapped(priv->settings, "changed::enable-chat-notifications", G_CALLBACK(chat_notifications_toggled), client);
 
 #if USE_LIBNM
      /* monitor the network using libnm to notify the daemon about connectivity chagnes */
@@ -637,7 +615,6 @@ ring_client_shutdown(GApplication *app)
 
     QObject::disconnect(priv->uam_updated);
     QObject::disconnect(priv->call_notification);
-    QObject::disconnect(priv->chat_notification);
 
     /* free the QCoreApplication, which will destroy all libRingClient models
      * and thus send the Unregister signal over dbus to dring */

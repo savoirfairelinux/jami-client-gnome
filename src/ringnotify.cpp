@@ -406,36 +406,22 @@ delete_idx(QModelIndex *idx)
 void
 ring_notify_message(
 #if !USE_LIBNOTIFY
-    ContactMethod*, Media::TextRecording*, RingClient*)
+    ContactMethod*, Media::TextRecording*)
 #else
-    ContactMethod *cm, Media::TextRecording *t, RingClient *client)
+    ContactMethod *cm, Media::TextRecording *t)
 #endif
 {
 
 #if USE_LIBNOTIFY
-    g_return_if_fail(cm && t && client);
+    g_return_if_fail(cm && t);
 
     // get the message
     auto model = t->instantMessagingModel();
     auto msg_idx = model->index(model->rowCount()-1, 0);
 
-    // make sure its a text message, or else there is nothing to do
-    if (msg_idx.data(static_cast<int>(Media::TextRecording::Role::HasText)).toBool()) {
-        auto main_window = ring_client_get_main_window(client);
-        if ( main_window && gtk_window_is_active(main_window)) {
-            /* in this case we only want to show the notification if the message is not marked as
-             * read; this will only possibly be done after the the chatview has displayed it in
-             * response to this or another signal; so we must check for the read status after the
-             * chat view handler has completed, we do so via a g_idle function.
-             */
-            auto new_idx = new QModelIndex(msg_idx);
-            g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, (GSourceFunc)show_message_if_unread, new_idx, (GDestroyNotify)delete_idx);
-        } else {
-            /* always show a notification if the window is not active/visible */
-            ring_notify_show_text_message(cm, msg_idx);
-        }
+    ring_notify_show_text_message(cm, msg_idx);
 
-    }
+    return;
 #endif
 }
 
