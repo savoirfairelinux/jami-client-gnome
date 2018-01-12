@@ -99,7 +99,6 @@ struct RingMainWindowPrivate
     GtkWidget *combobox_account_selector;
     GtkWidget *treeview_contact_requests;
     GtkWidget *scrolled_window_contact_requests;
-    GtkWidget *image_contact_requests_list;
     GtkWidget *webkit_chat_container; ///< The webkit_chat_container is created once, then reused for all chat views
 
     GSettings *settings;
@@ -885,21 +884,13 @@ CppImpl::setPendingContactRequestTabIcon(RingMainWindow *win)
 {
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
 
-    if (not accountContainer_ or not priv->cpp->accountContainer_->info.contactModel->hasPendingRequests())
+    if (not accountContainer_)
         return;
 
-    auto isRingAccount = accountContainer_->info.profileInfo.type == lrc::api::profile::Type::RING;
-    gtk_widget_set_visible(widgets->scrolled_window_contact_requests, isRingAccount);
+    auto hasPendingRequest = priv->cpp->accountContainer_->info.contactModel->hasPendingRequests();
 
-    if (not isRingAccount)
-        return;
-
-    gtk_notebook_set_show_tabs(GTK_NOTEBOOK(priv->notebook_contacts), true);
-
-    gtk_image_set_from_resource(GTK_IMAGE(widgets->image_contact_requests_list),
-        (accountContainer_->info.contactModel->hasPendingRequests())
-        ? "/cx/ring/RingGnome/contact_requests_list_with_notification"
-        : "/cx/ring/RingGnome/contact_requests_list");
+    gtk_widget_set_visible(widgets->scrolled_window_contact_requests, hasPendingRequest);
+    gtk_notebook_set_show_tabs(GTK_NOTEBOOK(priv->notebook_contacts), hasPendingRequest);
 }
 
 void
@@ -1459,7 +1450,6 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_account_selector);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contact_requests);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_contact_requests_list);
 }
 
 GtkWidget *
