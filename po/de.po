@@ -7,8 +7,10 @@
 # Botho <botho.willer@gmx.net>, 2016
 # chkmue <ch-dev@t-online.de>, 2017
 # Ettore Atalan <atalanttore@googlemail.com>, 2016
+# Georg Rieger, 2018
+# frederikh <harwath@cs.uni-frankfurt.de>, 2018
 # hermannsan <hermann-san@gmx.de>, 2017
-# nautilusx, 2017
+# nautilusx, 2017-2018
 # M. Utkun Uyar, 2016
 # resajo sceniar <resajo-transifex@munin-soft.de>, 2016
 # rezor92 <rezor92@googlemail.com>, 2016
@@ -20,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-17 22:09-0500\n"
-"PO-Revision-Date: 2017-12-11 03:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-01-14 22:09-0500\n"
+"PO-Revision-Date: 2018-01-13 12:22+0000\n"
+"Last-Translator: Georg Rieger\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/ring/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -364,11 +366,11 @@ msgstr "Konten"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
+#: ui/ringmainwindow.ui:267 ui/ringmainwindow.ui:274
 msgid "Conversations"
 msgstr "Unterhaltungen"
 
-#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
+#: ui/ringmainwindow.ui:300 ui/ringmainwindow.ui:307
 msgid "Contact requests"
 msgstr "Kontaktanfragen"
 
@@ -644,11 +646,11 @@ msgstr "Registrieren"
 
 #: ui/accountbanstab.ui:18
 msgid "List of banned peers :"
-msgstr ""
+msgstr "Liste der gebannten Peers :"
 
 #: ui/accountbanstab.ui:62
 msgid "unban"
-msgstr ""
+msgstr "entbannen"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -660,11 +662,11 @@ msgstr "Anrufen"
 
 #: ui/chatview.ui:62
 msgid "Place audio-only call"
-msgstr ""
+msgstr "Nur-Audio-Anruf tätigen"
 
 #: ui/chatview.ui:75
 msgid "Add to conversations"
-msgstr ""
+msgstr "Zu Konversationen hinzufügen"
 
 #: ui/chatview.ui:134
 msgid "Send Invitation"
@@ -805,7 +807,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Ring daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Initialisierung fehlgeschlagen.\nGehen Sie sicher, dass der Ring Daemon (dring) läuft.\nFehler: %s "
 
 #: src/ring_client.cpp:150
 msgid "Ring Error"
@@ -815,22 +817,22 @@ msgstr "Ring Fehler"
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
-msgstr ""
+msgstr "Ring anzeigen"
 
 #: src/ring_client.cpp:296
 msgid "Quit"
-msgstr ""
+msgstr "Beenden"
 
-#: src/ringnotify.cpp:150
+#: src/ringnotify.cpp:156
 msgid "Incoming call"
 msgstr "Eingehender Anruf"
 
-#: src/ringnotify.cpp:167 src/ringnotify.cpp:345
+#: src/ringnotify.cpp:173 src/ringnotify.cpp:351
 msgctxt "notification action name"
 msgid "Show"
 msgstr "Anzeigen"
 
-#: src/ringnotify.cpp:269
+#: src/ringnotify.cpp:275
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
@@ -1051,17 +1053,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:480
+#: src/ringmainwindow.cpp:481
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Anrufen"
 
-#: src/ringmainwindow.cpp:483
+#: src/ringmainwindow.cpp:484
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Chat öffnen"
 
-#: src/ringmainwindow.cpp:671
+#: src/ringmainwindow.cpp:672
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1112,7 +1114,7 @@ msgstr "Samplerate"
 
 #: src/conversationpopupmenu.cpp:169
 msgid "_Place call"
-msgstr ""
+msgstr "_Anrufen"
 
 #: src/conversationpopupmenu.cpp:172
 msgid "_Copy name"
@@ -1120,27 +1122,27 @@ msgstr "Name _kopieren"
 
 #: src/conversationpopupmenu.cpp:178
 msgid "_Add to conversations"
-msgstr ""
+msgstr "_Zu Konversationen hinzufügen"
 
 #: src/conversationpopupmenu.cpp:182
 msgid "_Discard invitation"
-msgstr ""
+msgstr "Einladung _verwerfen"
 
 #: src/conversationpopupmenu.cpp:185
 msgid "_Block invitations"
-msgstr ""
+msgstr "_Einladungen blockieren"
 
 #: src/conversationpopupmenu.cpp:190
 msgid "C_lear history"
-msgstr ""
+msgstr "Verlauf _löschen"
 
 #: src/conversationpopupmenu.cpp:193
 msgid "_Remove conversation"
-msgstr ""
+msgstr "Unterhaltung _löschen"
 
 #: src/conversationpopupmenu.cpp:196
 msgid "_Block contact"
-msgstr ""
+msgstr "Kontakt _blockieren"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"

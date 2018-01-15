@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-17 22:09-0500\n"
+"POT-Creation-Date: 2018-01-14 22:09-0500\n"
 "PO-Revision-Date: 2017-12-11 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Esperanto (http://www.transifex.com/savoirfairelinux/ring/language/eo/)\n"
@@ -354,11 +354,11 @@ msgstr "Kontoj"
 msgid "Settings"
 msgstr "Agordoj"
 
-#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
+#: ui/ringmainwindow.ui:267 ui/ringmainwindow.ui:274
 msgid "Conversations"
 msgstr "Konversacioj"
 
-#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
+#: ui/ringmainwindow.ui:300 ui/ringmainwindow.ui:307
 msgid "Contact requests"
 msgstr ""
 
@@ -811,16 +811,16 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: src/ringnotify.cpp:150
+#: src/ringnotify.cpp:156
 msgid "Incoming call"
 msgstr "Envena voko"
 
-#: src/ringnotify.cpp:167 src/ringnotify.cpp:345
+#: src/ringnotify.cpp:173 src/ringnotify.cpp:351
 msgctxt "notification action name"
 msgid "Show"
 msgstr "Montri"
 
-#: src/ringnotify.cpp:269
+#: src/ringnotify.cpp:275
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
@@ -1041,17 +1041,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "Identigaĵo"
 
-#: src/ringmainwindow.cpp:480
+#: src/ringmainwindow.cpp:481
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "voki"
 
-#: src/ringmainwindow.cpp:483
+#: src/ringmainwindow.cpp:484
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "malfermi babilejon"
 
-#: src/ringmainwindow.cpp:671
+#: src/ringmainwindow.cpp:672
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"

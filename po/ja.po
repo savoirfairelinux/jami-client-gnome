@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-17 22:09-0500\n"
+"POT-Creation-Date: 2018-01-14 22:09-0500\n"
 "PO-Revision-Date: 2017-12-11 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/ring/language/ja/)\n"
@@ -353,11 +353,11 @@ msgstr "アカウント"
 msgid "Settings"
 msgstr "設定"
 
-#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
+#: ui/ringmainwindow.ui:267 ui/ringmainwindow.ui:274
 msgid "Conversations"
 msgstr "会話"
 
-#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
+#: ui/ringmainwindow.ui:300 ui/ringmainwindow.ui:307
 msgid "Contact requests"
 msgstr "連絡先のリクエスト"
 
@@ -810,16 +810,16 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: src/ringnotify.cpp:150
+#: src/ringnotify.cpp:156
 msgid "Incoming call"
 msgstr "着信"
 
-#: src/ringnotify.cpp:167 src/ringnotify.cpp:345
+#: src/ringnotify.cpp:173 src/ringnotify.cpp:351
 msgctxt "notification action name"
 msgid "Show"
 msgstr "表示"
 
-#: src/ringnotify.cpp:269
+#: src/ringnotify.cpp:275
 #, c-format
 msgctxt "Text message notification"
 msgid "%s says:"
@@ -1040,17 +1040,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:480
+#: src/ringmainwindow.cpp:481
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "通話を開始"
 
-#: src/ringmainwindow.cpp:483
+#: src/ringmainwindow.cpp:484
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "チャットを開く"
 
-#: src/ringmainwindow.cpp:671
+#: src/ringmainwindow.cpp:672
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
