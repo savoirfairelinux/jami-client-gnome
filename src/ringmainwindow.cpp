@@ -751,6 +751,19 @@ CppImpl::init()
             }
         }
     }
+
+    // setup chat notification
+    chat_notifications(win);
+
+    // delete obsolete history
+    const auto accountIds = priv->cpp->lrc_->getAccountModel().getAccountList();
+    if (not accountIds.empty()) {
+        auto days = g_settings_get_int(priv->settings, "history-limit");
+        for (auto& accountId : accountIds) {
+            auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(accountId);
+            accountInfo.conversationModel->deleteObsoleteHistory(days);
+        }
+    }
 }
 
 CppImpl::~CppImpl()
@@ -1444,9 +1457,6 @@ ring_main_window_init(RingMainWindow *win)
     // CppImpl ctor
     priv->cpp = new details::CppImpl {*win};
     priv->cpp->init();
-
-    // setup chat notification
-    chat_notifications(win);
 }
 
 static void
