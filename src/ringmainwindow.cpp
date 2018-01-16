@@ -220,7 +220,7 @@ public:
     QMetaObject::Connection newConversationConnection_;
     QMetaObject::Connection conversationRemovedConnection_;
     QMetaObject::Connection accountStatusChangedConnection_;
-    QMetaObject::Connection chat_notification_;
+    QMetaObject::Connection chatNotification_;
 
 private:
     CppImpl() = delete;
@@ -231,6 +231,7 @@ private:
     GtkWidget* displayIncomingView(lrc::api::conversation::Info);
     GtkWidget* displayCurrentCallView(lrc::api::conversation::Info);
     GtkWidget* displayChatView(lrc::api::conversation::Info);
+    void chatNotifications();
 
     // Callbacks used as LRC Qt slot
     void slotAccountAddedFromLrc(const std::string& id);
@@ -543,6 +544,23 @@ CppImpl::CppImpl(RingMainWindow& widget)
 {}
 
 void
+CppImpl::chatNotifications()
+{
+    chatNotification_ = QObject::connect(
+        &Media::RecordingModel::instance(),
+        &Media::RecordingModel::newTextMessage,
+        [this] (Media::TextRecording* t, ContactMethod* cm) {
+            if ((chatViewConversation_
+                && chatViewConversation_->participants[0] == cm->uri().toStdString())
+                || not g_settings_get_boolean(widgets->settings, "enable-chat-notifications"))
+                    return;
+
+            ring_notify_message(cm, t);
+        }
+    );
+}
+
+void
 CppImpl::init()
 {
     // Remember the tabs page number for easier selection later
@@ -751,6 +769,19 @@ CppImpl::init()
             }
         }
     }
+
+    // setup chat notification
+    chatNotifications();
+
+    // delete obsolete history
+    if (not accountIds.empty()) {
+        auto days = g_settings_get_int(widgets->settings, "history-limit");
+        for (auto& accountId : accountIds) {
+            auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
+            accountInfo.conversationModel->deleteObsoleteHistory(days);
+        }
+    }
+
 }
 
 CppImpl::~CppImpl()
@@ -768,7 +799,7 @@ CppImpl::~CppImpl()
     QObject::disconnect(showCallViewConnection_);
     QObject::disconnect(modelSortedConnection_);
     QObject::disconnect(accountStatusChangedConnection_);
-    QObject::disconnect(chat_notification_);
+    QObject::disconnect(chatNotification_);
 
     g_clear_object(&widgets->welcome_view);
     g_clear_object(&widgets->webkit_chat_container);
@@ -1418,24 +1449,6 @@ CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation:
 //==============================================================================
 
 static void
-chat_notifications(RingMainWindow *win)
-{
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-    priv->cpp->chat_notification_ = QObject::connect(
-        &Media::RecordingModel::instance(),
-        &Media::RecordingModel::newTextMessage,
-        [win, priv] (Media::TextRecording* t, ContactMethod* cm) {
-            if ((priv->cpp->chatViewConversation_
-                && priv->cpp->chatViewConversation_->participants[0] == cm->uri().toStdString())
-                || not g_settings_get_boolean(priv->settings, "enable-chat-notifications"))
-                    return;
-
-            ring_notify_message(cm, t);
-        }
-    );
-}
-
-static void
 ring_main_window_init(RingMainWindow *win)
 {
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
@@ -1445,8 +1458,6 @@ ring_main_window_init(RingMainWindow *win)
     priv->cpp = new details::CppImpl {*win};
     priv->cpp->init();
 
-    // setup chat notification
-    chat_notifications(win);
 }
 
 static void
