@@ -157,6 +157,10 @@ button_add_to_conversations_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->conversation_) return;
+
+
+    qDebug() << "f : " << priv->conversation_->uid.c_str();
+    
     priv->accountContainer_->info.conversationModel->makePermanent(priv->conversation_->uid);
 }
 

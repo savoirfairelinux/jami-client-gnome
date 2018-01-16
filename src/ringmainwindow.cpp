@@ -369,14 +369,17 @@ on_search_entry_text_changed(GtkSearchEntry* search_entry, RingMainWindow* self)
 static void
 on_search_entry_activated(RingMainWindow* self)
 {
+    qDebug() << "on_search_entry_activated";
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
 
     // Select the first conversation of the list
     auto& conversationModel = priv->cpp->accountContainer_->info.conversationModel;
-    auto conversations = conversationModel->allFilteredConversations();
-    if (!conversations.empty())
-        conversationModel->selectConversation(conversations[0].uid);
+    //~ auto conversations = conversationModel->allFilteredConversations();
+    //~ if (!conversations.empty()) {
+        //~ qDebug() << "v : " << conversations[0].uid.c_str();
+        conversationModel->selectConversation("");
+    //~ }
 }
 
 static gboolean
