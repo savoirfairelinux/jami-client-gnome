@@ -86,13 +86,6 @@ general_settings_view_dispose(GObject *object)
     G_OBJECT_CLASS(general_settings_view_parent_class)->dispose(object);
 }
 
-static void
-history_limit_changed(GtkAdjustment *adjustment, G_GNUC_UNUSED gpointer user_data)
-{
-    int limit = (int)gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
-    CategorizedHistoryModel::instance().setHistoryLimit(limit);
-}
-
 static gboolean
 clear_history_dialog(GeneralSettingsView *self)
 {
@@ -173,12 +166,9 @@ general_settings_view_init(GeneralSettingsView *self)
     g_settings_bind(priv->settings, "chat-pane-horizontal",
                     priv->radiobutton_chatbottom, "active",
                     (GSettingsBindFlags) (G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_INVERT_BOOLEAN));
-
-    /* history limit */
-    gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_history_duration),
-                             CategorizedHistoryModel::instance().historyLimit());
-    g_signal_connect(priv->adjustment_history_duration,
-                     "value-changed", G_CALLBACK(history_limit_changed), NULL);
+    g_settings_bind(priv->settings, "history-limit",
+                    priv->adjustment_history_duration, "value",
+                    G_SETTINGS_BIND_DEFAULT);
 
     /* clear history */
     g_signal_connect(priv->button_clear_history, "clicked", G_CALLBACK(clear_history), self);
