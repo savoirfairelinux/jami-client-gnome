@@ -58,5 +58,10 @@
         <summary>The user selected account.</summary>
         <description>The account id of the user selected account; if empty there is no valid account selected.</description>
     </key>
+    <key name="history-limit" type="i">
+        <default>0</default>
+        <summary>Number of days to store the history.</summary>
+        <description>Keep history only within the limit. 0 for unlimited history.</description>
+    </key>
   </schema>
 </schemalist>
