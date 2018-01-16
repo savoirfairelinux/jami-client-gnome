@@ -1398,6 +1398,19 @@ ring_main_window_init(RingMainWindow *win)
     // CppImpl ctor
     priv->cpp = new details::CppImpl {*win};
     priv->cpp->init();
+
+    // delete obsolete history */
+    auto days = g_settings_get_int(priv->settings, "history-limit");
+
+    const auto accountIds = priv->cpp->lrc_->getAccountModel().getAccountList();
+    if (not accountIds.empty()) {
+        for (const auto& accountId : accountIds) {
+            const auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(accountId);
+            accountInfo.conversationModel->deletObsoleteHistory(days);
+        }
+    }
+
+    
 }
 
 static void

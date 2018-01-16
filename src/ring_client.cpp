@@ -587,6 +587,9 @@ ring_client_startup(GApplication *app)
     g_object_set(G_OBJECT(gtk_settings), "gtk-enable-event-sounds",
                  TRUE, NULL);
 
+    /* delete obsolete history */
+    auto days = g_settings_get_int(priv->settings, "history-limit");
+
     /* add GActions */
     g_action_map_add_action_entries(
         G_ACTION_MAP(app), ring_actions, G_N_ELEMENTS(ring_actions), app);
