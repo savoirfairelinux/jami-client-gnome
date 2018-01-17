@@ -125,7 +125,7 @@ accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
         auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
         // If the contact is pending, we should accept its request
         if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
-            priv->accountContainer_->info.conversationModel->makePermanent(contactUri);
+            priv->accountContainer_->info.conversationModel->makePermanent(priv->conversation_->uid);
         // Accept call
         priv->accountContainer_->info.callModel->accept(priv->conversation_->callId);
     } catch (const std::out_of_range&) {
