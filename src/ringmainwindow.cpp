@@ -779,13 +779,15 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
         // TODO select first conversation?
         new_view = widgets->welcome_view;
 
-        // refresh the tabs
-        auto hasPendingRequests = accountContainer_->info.contactModel->hasPendingRequests();
+        if (accountContainer_) {
+            // refresh the tabs
+            auto hasPendingRequests = accountContainer_->info.contactModel->hasPendingRequests();
 
-        gtk_notebook_set_show_tabs(GTK_NOTEBOOK(widgets->notebook_contacts), hasPendingRequests);
+            gtk_notebook_set_show_tabs(GTK_NOTEBOOK(widgets->notebook_contacts), hasPendingRequests);
 
-        if (not hasPendingRequests) {
-            gtk_notebook_prev_page(GTK_NOTEBOOK(widgets->notebook_contacts));
+            if (not hasPendingRequests) {
+                gtk_notebook_prev_page(GTK_NOTEBOOK(widgets->notebook_contacts));
+            }
         }
     }
 
