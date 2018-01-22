@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-14 22:09-0500\n"
+"POT-Creation-Date: 2018-01-21 22:09-0500\n"
 "PO-Revision-Date: 2017-12-11 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Indonesian (http://www.transifex.com/savoirfairelinux/ring/language/id/)\n"
@@ -786,7 +786,7 @@ msgstr ""
 msgid "Set selection as image"
 msgstr ""
 
-#: src/ring_client.cpp:147
+#: src/ring_client.cpp:144
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -794,17 +794,17 @@ msgid ""
 "Error: %s"
 msgstr ""
 
-#: src/ring_client.cpp:150
+#: src/ring_client.cpp:147
 msgid "Ring Error"
 msgstr ""
 
-#: src/ring_client.cpp:292
+#: src/ring_client.cpp:289
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr ""
 
-#: src/ring_client.cpp:296
+#: src/ring_client.cpp:293
 msgid "Quit"
 msgstr ""
 
@@ -899,7 +899,7 @@ msgstr ""
 msgid "Network error"
 msgstr ""
 
-#: src/generalsettingsview.cpp:103
+#: src/generalsettingsview.cpp:96
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -1038,17 +1038,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr ""
 
-#: src/ringmainwindow.cpp:481
+#: src/ringmainwindow.cpp:486
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:484
+#: src/ringmainwindow.cpp:489
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/ringmainwindow.cpp:672
+#: src/ringmainwindow.cpp:677
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"

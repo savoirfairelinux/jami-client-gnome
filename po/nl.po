@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-14 22:09-0500\n"
+"POT-Creation-Date: 2018-01-21 22:09-0500\n"
 "PO-Revision-Date: 2017-12-11 17:28+0000\n"
 "Last-Translator: Nathan Follens\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/ring/language/nl/)\n"
@@ -789,7 +789,7 @@ msgstr "Terug"
 msgid "Set selection as image"
 msgstr "Selectie instellen als afbeelding"
 
-#: src/ring_client.cpp:147
+#: src/ring_client.cpp:144
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -797,17 +797,17 @@ msgid ""
 "Error: %s"
 msgstr "Kan niet initialiseren.\nZorg dat de Ring-daemon (dring) wordt uitgevoerd.\nFout: %s"
 
-#: src/ring_client.cpp:150
+#: src/ring_client.cpp:147
 msgid "Ring Error"
 msgstr "Ring-fout"
 
-#: src/ring_client.cpp:292
+#: src/ring_client.cpp:289
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr "Ring tonen"
 
-#: src/ring_client.cpp:296
+#: src/ring_client.cpp:293
 msgid "Quit"
 msgstr "Afsluiten"
 
@@ -902,7 +902,7 @@ msgstr "Gebruikersnaam reeds in gebruik"
 msgid "Network error"
 msgstr "Netwerkfout"
 
-#: src/generalsettingsview.cpp:103
+#: src/generalsettingsview.cpp:96
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -1041,17 +1041,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:481
+#: src/ringmainwindow.cpp:486
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "oproep maken"
 
-#: src/ringmainwindow.cpp:484
+#: src/ringmainwindow.cpp:489
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "gesprek openen"
 
-#: src/ringmainwindow.cpp:672
+#: src/ringmainwindow.cpp:677
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"

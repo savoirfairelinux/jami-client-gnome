@@ -12,7 +12,7 @@
 # ruwebstyle <ruwebstyle@ya.ru>, 2015
 # Viktor Filinkov <bruteforce@sigil.tk>, 2015
 # Yaroslav Molochko <onorua@gmail.com>, 2015
-# Alexander Filev, 2017
+# Александр, 2017
 # Александр Суслов <suslikkreal@gmail.com>, 2015
 # Александр Асланьян <asl174@yandex.ru>, 2015
 # Андрей Шевчук <andrei@shvchk.com>, 2016-2017
@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-14 22:09-0500\n"
+"POT-Creation-Date: 2018-01-21 22:09-0500\n"
 "PO-Revision-Date: 2017-12-11 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
@@ -800,7 +800,7 @@ msgstr "Вернуться"
 msgid "Set selection as image"
 msgstr "Установить выбранное в качестве изображения"
 
-#: src/ring_client.cpp:147
+#: src/ring_client.cpp:144
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -808,17 +808,17 @@ msgid ""
 "Error: %s"
 msgstr ""
 
-#: src/ring_client.cpp:150
+#: src/ring_client.cpp:147
 msgid "Ring Error"
 msgstr "Ошибка Ring"
 
-#: src/ring_client.cpp:292
+#: src/ring_client.cpp:289
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr ""
 
-#: src/ring_client.cpp:296
+#: src/ring_client.cpp:293
 msgid "Quit"
 msgstr ""
 
@@ -913,7 +913,7 @@ msgstr "Имя пользователя уже занято"
 msgid "Network error"
 msgstr "Ошибка сети"
 
-#: src/generalsettingsview.cpp:103
+#: src/generalsettingsview.cpp:96
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -1052,17 +1052,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:481
+#: src/ringmainwindow.cpp:486
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "позвонить"
 
-#: src/ringmainwindow.cpp:484
+#: src/ringmainwindow.cpp:489
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "открыть чат"
 
-#: src/ringmainwindow.cpp:672
+#: src/ringmainwindow.cpp:677
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
