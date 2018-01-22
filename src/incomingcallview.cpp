@@ -277,6 +277,9 @@ incoming_call_view_new(WebKitChatContainer* view,
 
     set_call_info(INCOMING_CALL_VIEW(self));
 
+
+qDebug() << "     YYYYY    : " << priv->conversation_->uid.c_str();
+
     return GTK_WIDGET(self);
 }
 
@@ -285,6 +288,8 @@ incoming_call_view_get_conversation(IncomingCallView *self)
 {
     g_return_val_if_fail(IS_INCOMING_CALL_VIEW(self), lrc::api::conversation::Info());
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
+
+    qDebug() << "     JJJJ    : " << priv->conversation_->uid.c_str();
 
     return *priv->conversation_;
 }

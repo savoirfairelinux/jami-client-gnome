@@ -305,6 +305,11 @@ select_conversation(GtkTreeSelection *selection, ConversationsView *self)
     gtk_tree_model_get(model, &iter,
                        0, &conversationUid,
                        -1);
+    qDebug() << "X X X X X" << conversationUid;
+
+    if ( g_strcmp0(conversationUid, "44") == 0)
+        qDebug() << "toto";
+    
     priv->accountContainer_->info.conversationModel->selectConversation(std::string(conversationUid));
 }
 
@@ -620,6 +625,11 @@ conversations_view_new(AccountContainer* accountContainer)
 void
 conversations_view_select_conversation(ConversationsView *self, const std::string& uid)
 {
+    qDebug() << "uid DDDDDDD : " << uid.c_str();
+    //~ return;
+    if (uid == "-1")
+        return;
+
     auto idx = 0;
     auto model = gtk_tree_view_get_model (GTK_TREE_VIEW(self));
     auto iterIsCorrect = true;
@@ -629,17 +639,18 @@ conversations_view_select_conversation(ConversationsView *self, const std::strin
         iterIsCorrect = gtk_tree_model_iter_nth_child (model, &iter, nullptr, idx);
         if (!iterIsCorrect)
             break;
-        gchar *ringId;
+        gchar *uid2;
         gtk_tree_model_get (model, &iter,
-                            0 /* col# */, &ringId /* data */,
+                            0 /* col# */, &uid2 /* data */,
                             -1);
-        if(std::string(ringId) == uid) {
+        qDebug() << "ringId" << uid2;
+        if(std::string(uid2) == uid) {
             auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
             gtk_tree_selection_select_iter(selection, &iter);
-            g_free(ringId);
+            g_free(uid2);
             return;
         }
-        g_free(ringId);
+        g_free(uid2);
         idx++;
     }
 }

@@ -765,6 +765,7 @@ CppImpl::~CppImpl()
 void
 CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
 {
+    qDebug() << "yop" << conversation.uid.c_str();
     leaveFullScreen();
     gtk_container_remove(GTK_CONTAINER(widgets->frame_call),
                          gtk_bin_get_child(GTK_BIN(widgets->frame_call)));
@@ -1279,6 +1280,7 @@ CppImpl::slotModelSorted()
         current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
     else if (IS_INCOMING_CALL_VIEW(old_view))
         current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
+    qDebug() << "DDDDD" << current_item.uid.c_str();
     conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), current_item.uid);
     setPendingContactRequestTabIcon(self);
 }
@@ -1296,6 +1298,7 @@ CppImpl::slotFilterChanged()
         current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
     else if (IS_INCOMING_CALL_VIEW(old_view))
         current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
+    qDebug() << "FFFFF";
     conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), current_item.uid);
     // Get if conversation still exists.
     auto& conversationModel = accountContainer_->info.conversationModel;
@@ -1384,6 +1387,7 @@ CppImpl::slotShowCallView(const std::string& id, lrc::api::conversation::Info or
 void
 CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation::Info origin)
 {
+    qDebug() << "EEEEE : " << origin.uid.c_str();
     changeAccountSelection(id);
     // Change the view if we want a different view.
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
