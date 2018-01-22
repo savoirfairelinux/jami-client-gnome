@@ -186,7 +186,7 @@ public:
     void leaveFullScreen();
     void toggleFullScreen();
     void resetToWelcome();
-    void setPendingContactRequestTabIcon(RingMainWindow *win);
+    void setPendingContactRequestTabIcon();
     void showAccountSelectorWidget(bool show = true);
     void changeAccountSelection(const std::string& id);
     void onAccountSelectionChange(const std::string& id);
@@ -204,6 +204,8 @@ public:
     lrc::api::profile::Type currentTypeFilter_;
     bool show_settings = false;
     bool is_fullscreen = false;
+
+    int contactRequestsPageNum = 0;
 
     QMetaObject::Connection showChatViewConnection_;
     QMetaObject::Connection showCallViewConnection_;
@@ -224,6 +226,7 @@ private:
     CppImpl(const CppImpl&) = delete;
     CppImpl& operator=(const CppImpl&) = delete;
 
+    GtkWidget* displayWelcomeView(lrc::api::conversation::Info);
     GtkWidget* displayIncomingView(lrc::api::conversation::Info);
     GtkWidget* displayCurrentCallView(lrc::api::conversation::Info);
     GtkWidget* displayChatView(lrc::api::conversation::Info);
@@ -541,26 +544,34 @@ CppImpl::CppImpl(RingMainWindow& widget)
 void
 CppImpl::init()
 {
+    // Remember the tab page number of contact requests list
+    contactRequestsPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(widgets->notebook_contacts),
+                                                   widgets->scrolled_window_contact_requests);
+
     // NOTE: When new models will be fully implemented, we need to move this
     // in rign_client.cpp->
     // Init LRC and the vew
     const auto accountIds = lrc_->getAccountModel().getAccountList();
-    auto isInitialized = false;
+    decltype(accountIds)::value_type activeAccountId; // non-empty if a enabled account is found below
+
     if (not accountIds.empty()) {
-        for (const auto& accountId : accountIds) {
-            const auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
+        for (const auto& id : accountIds) {
+            const auto& accountInfo = lrc_->getAccountModel().getAccountInfo(id);
             if (accountInfo.enabled) {
-                updateLrc(accountId);
-                isInitialized = true;
+                activeAccountId = id;
                 break;
             }
         }
-        if (!isInitialized) {
-            widgets->treeview_conversations = conversations_view_new(accountContainer_.get());
-            gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_smartview), widgets->treeview_conversations);
-            widgets->treeview_contact_requests = conversations_view_new(accountContainer_.get());
-            gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_contact_requests), widgets->treeview_contact_requests);
-        }
+    }
+
+    if (!activeAccountId.empty()) {
+        updateLrc(activeAccountId);
+    } else {
+        // No enabled account: create empty widgets
+        widgets->treeview_conversations = conversations_view_new(nullptr);
+        gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_smartview), widgets->treeview_conversations);
+        widgets->treeview_contact_requests = conversations_view_new(nullptr);
+        gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_contact_requests), widgets->treeview_contact_requests);
     }
 
     accountStatusChangedConnection_ = QObject::connect(&lrc_->getAccountModel(),
@@ -725,9 +736,9 @@ CppImpl::init()
     g_signal_connect_swapped(widgets->combobox_account_selector, "changed", G_CALLBACK(on_account_changed), self);
 
     // initialize the pending contact request icon.
-    setPendingContactRequestTabIcon(self);
+    setPendingContactRequestTabIcon();
 
-    if (isInitialized) {
+    if (accountContainer_) {
         auto& conversationModel = accountContainer_->info.conversationModel;
         auto conversations = conversationModel->allFilteredConversations();
         for (const auto& conversation: conversations) {
@@ -774,25 +785,24 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
         new_view = displayChatView(conversation);
     } else {
-        chatViewConversation_.reset(nullptr);
-
-        // TODO select first conversation?
-        new_view = widgets->welcome_view;
-
-        if (accountContainer_) {
-            // refresh the tabs
-            auto hasPendingRequests = accountContainer_->info.contactModel->hasPendingRequests();
-
-            gtk_notebook_set_show_tabs(GTK_NOTEBOOK(widgets->notebook_contacts), hasPendingRequests);
-
-            if (not hasPendingRequests) {
-                gtk_notebook_prev_page(GTK_NOTEBOOK(widgets->notebook_contacts));
-            }
-        }
+        new_view = displayWelcomeView(conversation);
     }
 
     gtk_container_add(GTK_CONTAINER(widgets->frame_call), new_view);
     gtk_widget_show(new_view);
+}
+
+GtkWidget*
+CppImpl::displayWelcomeView(lrc::api::conversation::Info conversation)
+{
+    (void) conversation;
+
+    // TODO select first conversation?
+
+    chatViewConversation_.reset(nullptr);
+    setPendingContactRequestTabIcon();
+
+    return widgets->welcome_view;;
 }
 
 GtkWidget*
@@ -890,17 +900,21 @@ CppImpl::resetToWelcome()
 }
 
 void
-CppImpl::setPendingContactRequestTabIcon(RingMainWindow *win)
+CppImpl::setPendingContactRequestTabIcon()
 {
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
-
     if (not accountContainer_)
         return;
 
-    auto hasPendingRequest = priv->cpp->accountContainer_->info.contactModel->hasPendingRequests();
+    auto hasPendingRequests = accountContainer_->info.contactModel->hasPendingRequests();
+    gtk_widget_set_visible(widgets->scrolled_window_contact_requests, hasPendingRequests);
+    gtk_notebook_set_show_tabs(GTK_NOTEBOOK(widgets->notebook_contacts), hasPendingRequests);
 
-    gtk_widget_set_visible(widgets->scrolled_window_contact_requests, hasPendingRequest);
-    gtk_notebook_set_show_tabs(GTK_NOTEBOOK(priv->notebook_contacts), hasPendingRequest);
+    // show conversation page if PendingRequests list is empty
+    if (not hasPendingRequests) {
+        auto current_page = gtk_notebook_get_current_page(GTK_NOTEBOOK(widgets->notebook_contacts));
+        if (current_page == contactRequestsPageNum)
+            gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
+    }
 }
 
 void
@@ -1279,7 +1293,7 @@ CppImpl::slotModelSorted()
     else if (IS_INCOMING_CALL_VIEW(old_view))
         current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
     conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), current_item.uid);
-    setPendingContactRequestTabIcon(self);
+    setPendingContactRequestTabIcon();
 }
 
 void
