@@ -102,6 +102,30 @@
       "revId": "19cc0417b7532a83a9c2e109cfff9c9220fc7596",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f251aed9",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 83
+      },
+      "writtenOn": "2018-01-23T17:33:36Z",
+      "side": 1,
+      "message": "I added some comment above this code in patchset 20",
+      "parentUuid": "5a3f45e8_32d5d643",
+      "range": {
+        "startLine": 1097,
+        "startChar": 3,
+        "endLine": 1101,
+        "endChar": 5
+      },
+      "revId": "19cc0417b7532a83a9c2e109cfff9c9220fc7596",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
