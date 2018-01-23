@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_b26446e6",
+        "filename": "src/ring_client.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-01-23T14:16:37Z",
+      "side": 1,
+      "message": "unused variable??",
+      "range": {
+        "startLine": 570,
+        "startChar": 3,
+        "endLine": 571,
+        "endChar": 68
+      },
+      "revId": "ee038789c0104d4fb51b5ea9588b81d9c2b8b12c",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f25ece11",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1452,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-01-23T14:16:37Z",
+      "side": 1,
+      "message": "this line could be moved into the \"if\" scope below (for optim)",
+      "range": {
+        "startLine": 1452,
+        "startChar": 4,
+        "endLine": 1452,
+        "endChar": 68
+      },
+      "revId": "ee038789c0104d4fb51b5ea9588b81d9c2b8b12c",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_529b42c9",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1460,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-01-23T14:16:37Z",
+      "side": 1,
+      "message": "all \"const\" not needed and have zero meaning here",
+      "range": {
+        "startLine": 1454,
+        "startChar": 3,
+        "endLine": 1460,
+        "endChar": 5
+      },
+      "revId": "ee038789c0104d4fb51b5ea9588b81d9c2b8b12c",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_32a036f4",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1461,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-01-23T14:16:37Z",
+      "side": 1,
+      "message": "move all the code below priv-\u003ecpp-\u003einit(); line into the init() method.\ncaveat: keep GTK-class methods (like ring_main_window_init) as simple as possible and business logic outside of GTK logic",
+      "range": {
+        "startLine": 1450,
+        "startChar": 0,
+        "endLine": 1461,
+        "endChar": 1
+      },
+      "revId": "ee038789c0104d4fb51b5ea9588b81d9c2b8b12c",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
