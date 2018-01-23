@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_520502c1",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-01-23T17:53:00Z",
+      "side": 1,
+      "message": "could you move that into \"helpers\" namespace (above)",
+      "range": {
+        "startLine": 545,
+        "startChar": 0,
+        "endLine": 561,
+        "endChar": 1
+      },
+      "revId": "84032242d2470ae79c07e62bb0a9cc51b51ad0f2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
