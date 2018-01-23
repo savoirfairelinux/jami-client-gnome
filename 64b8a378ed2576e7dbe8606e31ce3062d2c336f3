@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_72b0fef4",
+        "filename": "src/generalsettingsview.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-01-23T18:47:13Z",
+      "side": 1,
+      "message": "unused variable",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 56
+      },
+      "revId": "64b8a378ed2576e7dbe8606e31ce3062d2c336f3",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
