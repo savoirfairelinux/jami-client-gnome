@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_f2e36e31",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-01-23T15:09:44Z",
+      "side": 1,
+      "message": "returns must be a gboolean\nhttps://developer.gnome.org/gtk3/stable/GtkTreeModel.html#GtkTreeModelForeachFunc",
+      "range": {
+        "startLine": 546,
+        "startChar": 7,
+        "endLine": 546,
+        "endChar": 10
+      },
+      "revId": "19cc0417b7532a83a9c2e109cfff9c9220fc7596",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_52d06253",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-01-23T15:09:44Z",
+      "side": 1,
+      "message": "gpointer than void*",
+      "range": {
+        "startLine": 547,
+        "startChar": 87,
+        "endLine": 547,
+        "endChar": 92
+      },
+      "revId": "19cc0417b7532a83a9c2e109cfff9c9220fc7596",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_52e98219",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-01-23T15:09:44Z",
+      "side": 1,
+      "message": "missing:\ng_return_val_if_fail(IS_RING_MAIN_WINDOW(self), TRUE);",
+      "revId": "19cc0417b7532a83a9c2e109cfff9c9220fc7596",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_12e7fa41",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-01-23T15:09:44Z",
+      "side": 1,
+      "message": "missing:\nreturn FALSE;",
+      "revId": "19cc0417b7532a83a9c2e109cfff9c9220fc7596",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_32d5d643",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-01-23T15:09:44Z",
+      "side": 1,
+      "message": "I don\u0027t  understand well the point to use \"has_cleared_all_history\" bi-stable variable",
+      "range": {
+        "startLine": 1097,
+        "startChar": 3,
+        "endLine": 1101,
+        "endChar": 5
+      },
+      "revId": "19cc0417b7532a83a9c2e109cfff9c9220fc7596",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
