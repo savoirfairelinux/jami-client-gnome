@@ -59,10 +59,10 @@
 
 //==============================================================================
 
-namespace details
+namespace { namespace details
 {
 class CppImpl;
-}
+}}
 
 struct _RingMainWindow
 {
@@ -116,7 +116,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATIO
 
 //==============================================================================
 
-inline namespace details
+namespace { namespace details
 {
 
 static constexpr const char* CALL_VIEW_NAME                    = "calls";
@@ -1442,7 +1442,7 @@ CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation:
         changeView(INCOMING_CALL_VIEW_TYPE, origin);
 }
 
-} // namespace details
+}} // namespace <anonymous>::details
 
 //==============================================================================
 
