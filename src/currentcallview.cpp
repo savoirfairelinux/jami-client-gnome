@@ -932,7 +932,7 @@ set_call_info(CurrentCallView *view) {
     });
 
     priv->new_message_connection = QObject::connect(
-    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newUnreadMessage,
+    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newInteraction,
     [priv](const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
         Q_UNUSED(uid)
         Q_UNUSED(msgId)
