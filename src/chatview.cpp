@@ -375,7 +375,7 @@ webkit_chat_container_ready(ChatView* self)
     load_participants_images(self);
 
     priv->new_interaction_connection = QObject::connect(
-    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newUnreadMessage,
+    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newInteraction,
     [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
         if (!priv->conversation_) return;
         if(uid == priv->conversation_->uid) {
