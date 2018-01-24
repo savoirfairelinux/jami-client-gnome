@@ -672,7 +672,7 @@ CppImpl::setCallInfo()
 
     new_message_connection = QObject::connect(
         &*accountContainer->info.conversationModel,
-        &lrc::api::ConversationModel::newUnreadMessage,
+        &lrc::api::ConversationModel::newInteraction,
         [this] (const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
             Q_UNUSED(uid)
             Q_UNUSED(msgId)
