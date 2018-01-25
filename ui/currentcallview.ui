@@ -362,7 +362,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScaleButton" id="scalebutton_quality">
+      <object class="GtkMenuButton" id="media_quality">
         <style>
           <class name="call-button"/>
         </style>
@@ -375,9 +375,9 @@
         <property name="relief">normal</property>
         <property name="tooltip-text" translatable="yes">Adjust outgoing video quality</property>
         <property name="image">image_quality</property>
-        <property name="adjustment">adjustment_quality</property>
+        <property name="direction">up</property>
         <child internal-child="accessible">
-          <object class="AtkObject" id="scalebutton_quality-atkobject">
+          <object class="AtkObject" id="media_quality-atkobject">
             <property name="AtkObject::accessible-name" translatable="yes">Video quality</property>
           </object>
         </child>

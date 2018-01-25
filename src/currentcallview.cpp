@@ -82,10 +82,17 @@ struct CurrentCallViewPrivate
     GtkWidget *togglebutton_hold;
     GtkWidget *togglebutton_record;
     GtkWidget *button_hangup;
-    GtkWidget *scalebutton_quality;
-    GtkWidget *checkbutton_autoquality;
+    GtkWidget *media_quality;
     GtkWidget *chat_view;
     GtkWidget *webkit_chat_container; // The webkit_chat_container is created once, then reused for all chat views
+
+    // Quality Menu Items
+    GtkWidget *quality_item_ludicrous;
+    GtkWidget *quality_item_high;
+    GtkWidget *quality_item_normal;
+    GtkWidget *quality_item_low;
+    GtkWidget *quality_item_extralow;
+    GtkWidget *quality_item_automatic;
 
     GSettings *settings;
 
@@ -256,12 +263,9 @@ public:
     gint64 time_last_mouse_motion = 0;
     guint timer_fade = 0;
 
-    /* flag used to keep track of the video quality scale pressed state;
-     * we do not want to update the codec bitrate until the user releases the
-     * scale button */
-    gboolean quality_scale_pressed = FALSE;
     gulong insert_controls_id = 0;
     guint smartinfo_action = 0;
+    double desired_quality = 50;
 
 private:
     CppImpl() = delete;
@@ -419,22 +423,31 @@ on_mouse_moved(CurrentCallView* view)
 }
 
 static void
-on_autoquality_toggled(GtkToggleButton* button, CurrentCallView* view)
+on_autoquality_toggled(GtkWidget* widget, CurrentCallView* view)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    gboolean auto_quality_on = gtk_toggle_button_get_active(button);
+    gboolean auto_quality_on = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 
-    auto scale = gtk_scale_button_get_scale(GTK_SCALE_BUTTON(priv->scalebutton_quality));
-    auto plus_button = gtk_scale_button_get_plus_button(GTK_SCALE_BUTTON(priv->scalebutton_quality));
-    auto minus_button = gtk_scale_button_get_minus_button(GTK_SCALE_BUTTON(priv->scalebutton_quality));
+    gtk_widget_set_sensitive(priv->quality_item_ludicrous, !auto_quality_on);
+    gtk_widget_set_sensitive(priv->quality_item_high, !auto_quality_on);
+    gtk_widget_set_sensitive(priv->quality_item_normal, !auto_quality_on);
+    gtk_widget_set_sensitive(priv->quality_item_low, !auto_quality_on);
+    gtk_widget_set_sensitive(priv->quality_item_extralow, !auto_quality_on);
 
-    gtk_widget_set_sensitive(GTK_WIDGET(scale), !auto_quality_on);
-    gtk_widget_set_sensitive(plus_button, !auto_quality_on);
-    gtk_widget_set_sensitive(minus_button, !auto_quality_on);
-
-    double desired_quality = gtk_scale_button_get_value(GTK_SCALE_BUTTON(priv->scalebutton_quality));
+    if (not auto_quality_on) {
+        if (priv->cpp->desired_quality >= 95)
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(priv->quality_item_ludicrous), true);
+        else if (priv->cpp->desired_quality >= 70)
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(priv->quality_item_high), true);
+        else if (priv->cpp->desired_quality >= 40)
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(priv->quality_item_normal), true);
+        else if (priv->cpp->desired_quality >= 10)
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(priv->quality_item_low), true);
+        else
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(priv->quality_item_extralow), true);
+    }
 
     auto callToRender = priv->cpp->conversation->callId;
     if (!priv->cpp->conversation->confId.empty())
@@ -442,57 +455,37 @@ on_autoquality_toggled(GtkToggleButton* button, CurrentCallView* view)
     auto renderer = priv->cpp->accountContainer->info.callModel->getRenderer(callToRender);
     for (auto* activeCall: CallModel::instance().getActiveCalls()) {
         if (activeCall and activeCall->videoRenderer() == renderer)
-            set_call_quality(*activeCall, auto_quality_on, desired_quality);
+            set_call_quality(*activeCall, auto_quality_on, priv->cpp->desired_quality);
     }
 }
 
 static void
-on_quality_changed(G_GNUC_UNUSED GtkScaleButton *button, G_GNUC_UNUSED gdouble value,
-                   CurrentCallView* view)
+on_quality_toggled(GtkWidget* widget, CurrentCallView* view)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    /* no need to upate quality if auto quality is enabled */
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality))) return;
+    auto active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 
-    /* only update if the scale button is released, to reduce the number of updates */
-    if (priv->cpp->quality_scale_pressed) return;
+    if (widget == priv->quality_item_ludicrous)
+        priv->cpp->desired_quality = 100;
+    else if (widget == priv->quality_item_high)
+        priv->cpp->desired_quality = 90;
+    else if (widget == priv->quality_item_normal)
+        priv->cpp->desired_quality = 66;
+    else if (widget == priv->quality_item_low)
+        priv->cpp->desired_quality = 33;
+    else if (widget == priv->quality_item_extralow)
+        priv->cpp->desired_quality = 0;
 
     auto callToRender = priv->cpp->conversation->callId;
     if (!priv->cpp->conversation->confId.empty())
         callToRender = priv->cpp->conversation->confId;
     auto renderer = priv->cpp->accountContainer->info.callModel->getRenderer(callToRender);
-    for (auto* activeCall: CallModel::instance().getActiveCalls())
+    for (auto* activeCall: CallModel::instance().getActiveCalls()) {
         if (activeCall and activeCall->videoRenderer() == renderer)
-            set_call_quality(*activeCall, false, gtk_scale_button_get_value(button));
-}
-
-static gboolean
-on_quality_button_pressed(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent *event,
-                          CurrentCallView* view)
-{
-    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), FALSE);
-    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-
-    priv->cpp->quality_scale_pressed = TRUE;
-
-    return GDK_EVENT_PROPAGATE;
-}
-
-static gboolean
-on_quality_button_released(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEvent *event,
-                           CurrentCallView* view)
-{
-    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), FALSE);
-    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-
-    priv->cpp->quality_scale_pressed = FALSE;
-
-    // now make sure the quality gets updated
-    on_quality_changed(GTK_SCALE_BUTTON(priv->scalebutton_quality), 0, view);
-
-    return GDK_EVENT_PROPAGATE;
+            set_call_quality(*activeCall, false, priv->cpp->desired_quality);
+    }
 }
 
 static gboolean
@@ -773,20 +766,26 @@ CppImpl::insertControls()
                                  map_boolean_to_orientation,
                                  nullptr, nullptr, nullptr);
 
-    g_signal_connect(widgets->scalebutton_quality, "value-changed", G_CALLBACK(on_quality_changed), self);
+    /* quality menu */
+    auto* builder = gtk_builder_new_from_resource("/cx/ring/RingGnome/mediaqualitymenu.ui");
+    auto* menu = GTK_WIDGET(gtk_builder_get_object(builder, "quality_menu"));
+    widgets->quality_item_ludicrous = GTK_WIDGET(gtk_builder_get_object(builder, "quality_item_ludicrous"));
+    widgets->quality_item_high = GTK_WIDGET(gtk_builder_get_object(builder, "quality_item_high"));
+    widgets->quality_item_normal = GTK_WIDGET(gtk_builder_get_object(builder, "quality_item_normal"));
+    widgets->quality_item_low = GTK_WIDGET(gtk_builder_get_object(builder, "quality_item_low"));
+    widgets->quality_item_extralow = GTK_WIDGET(gtk_builder_get_object(builder, "quality_item_extralow"));
+    widgets->quality_item_automatic = GTK_WIDGET(gtk_builder_get_object(builder, "quality_item_automatic"));
+    gtk_menu_button_set_popup(GTK_MENU_BUTTON(widgets->media_quality), menu);
+    g_object_unref(builder);
 
-    /* customize the quality button scale */
-    if (auto scale_box = gtk_scale_button_get_box(GTK_SCALE_BUTTON(widgets->scalebutton_quality))) {
-        widgets->checkbutton_autoquality = gtk_check_button_new_with_label(C_("Enable automatic video quality",
-                                                                              "Auto"));
-        gtk_widget_show(widgets->checkbutton_autoquality);
-        gtk_box_pack_start(GTK_BOX(scale_box), widgets->checkbutton_autoquality, FALSE, TRUE, 0);
-        g_signal_connect(widgets->checkbutton_autoquality, "toggled", G_CALLBACK(on_autoquality_toggled), self);
-    }
-    if (auto scale = gtk_scale_button_get_scale(GTK_SCALE_BUTTON(widgets->scalebutton_quality))) {
-        g_signal_connect(scale, "button-press-event", G_CALLBACK(on_quality_button_pressed), self);
-        g_signal_connect(scale, "button-release-event", G_CALLBACK(on_quality_button_released), self);
-    }
+    g_signal_connect(widgets->quality_item_automatic, "toggled", G_CALLBACK(on_autoquality_toggled), self);
+    g_signal_connect(widgets->quality_item_ludicrous, "toggled", G_CALLBACK(on_quality_toggled), self);
+    g_signal_connect(widgets->quality_item_high, "toggled", G_CALLBACK(on_quality_toggled), self);
+    g_signal_connect(widgets->quality_item_normal, "toggled", G_CALLBACK(on_quality_toggled), self);
+    g_signal_connect(widgets->quality_item_low, "toggled", G_CALLBACK(on_quality_toggled), self);
+    g_signal_connect(widgets->quality_item_extralow, "toggled", G_CALLBACK(on_quality_toggled), self);
+
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(widgets->quality_item_automatic), true);
 
     /* by this time we should have the call already set, but we check to make sure */
     auto callToRender = conversation->callId;
@@ -805,8 +804,8 @@ CppImpl::insertControls()
                      * gnome client sets its ON or OFF for all codecs as well */
                     const auto& idx = videoCodecs->index(0,0);
                     auto auto_quality_enabled = idx.data(static_cast<int>(CodecModel::Role::AUTO_QUALITY_ENABLED)).toString() == "true";
-                    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->checkbutton_autoquality),
-                                                 auto_quality_enabled);
+                    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(widgets->quality_item_automatic),
+                                                   auto_quality_enabled);
 
                     // TODO: save the manual quality setting in the client and set the slider to that value here;
                     //       the daemon resets the bitrate/quality between each call, and the default may be
@@ -815,7 +814,7 @@ CppImpl::insertControls()
             }
         } else {
             /* Auto-quality is off by default */
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->checkbutton_autoquality), FALSE);
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(widgets->quality_item_automatic), 0);
         }
 
     // Get if the user wants to show the smartInfo box
@@ -1065,7 +1064,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_record);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_mutevideo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scalebutton_quality);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, media_quality);
 
     details::current_call_view_signals[VIDEO_DOUBLE_CLICKED] = g_signal_new (
         "video-double-clicked",

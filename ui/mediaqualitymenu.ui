@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<interface>
+	<requires lib="gtk+" version="3.10"/>
+	<object class="GtkMenu" id="quality_menu">
+		<property name="visible">True</property>
+		<property name="can_focus">False</property>
+		<child>
+			<object class="GtkMenuItem">
+				<property name="sensitive">False</property>
+				<property name="visible">True</property>
+				<property name="can_focus">False</property>
+				<property name="label" translatable="yes">Outgoing Video Quality</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkSeparatorMenuItem">
+				<property name="visible">True</property>
+				<property name="can_focus">False</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkRadioMenuItem" id="quality_item_ludicrous">
+				<property name="sensitive">False</property>
+				<property name="visible">True</property>
+				<property name="can_focus">False</property>
+				<property name="label" translatable="yes">ludicrous</property>
+				<property name="use_underline">True</property>
+				<property name="draw_as_radio">True</property>
+				<property name="group">quality_item_normal</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkRadioMenuItem" id="quality_item_high">
+				<property name="sensitive">False</property>
+				<property name="visible">True</property>
+				<property name="can_focus">False</property>
+				<property name="label" translatable="yes">high</property>
+				<property name="use_underline">True</property>
+				<property name="draw_as_radio">True</property>
+				<property name="group">quality_item_normal</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkRadioMenuItem" id="quality_item_normal">
+				<property name="sensitive">False</property>
+				<property name="visible">True</property>
+				<property name="can_focus">False</property>
+				<property name="label" translatable="yes">normal</property>
+				<property name="use_underline">True</property>
+				<property name="draw_as_radio">True</property>
+				<property name="group">quality_item_normal</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkRadioMenuItem" id="quality_item_low">
+				<property name="sensitive">False</property>
+				<property name="visible">True</property>
+				<property name="can_focus">False</property>
+				<property name="label" translatable="yes">low</property>
+				<property name="use_underline">True</property>
+				<property name="draw_as_radio">True</property>
+				<property name="group">quality_item_normal</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkRadioMenuItem" id="quality_item_extralow">
+				<property name="sensitive">False</property>
+				<property name="visible">True</property>
+				<property name="can_focus">False</property>
+				<property name="label" translatable="yes">I love pixels</property>
+				<property name="use_underline">True</property>
+				<property name="draw_as_radio">True</property>
+				<property name="group">quality_item_normal</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkSeparatorMenuItem">
+				<property name="visible">True</property>
+				<property name="can_focus">False</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkCheckMenuItem" id="quality_item_automatic">
+				<property name="visible">True</property>
+				<property name="can_focus">False</property>
+				<property name="label" translatable="yes">automatic</property>
+				<property name="use_underline">True</property>
+				<property name="active">True</property>
+			</object>
+		</child>
+	</object>
+</interface>
