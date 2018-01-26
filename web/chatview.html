@@ -321,23 +321,25 @@ ring.chatview = (function(){
 
         switch(message_delivery_status)
         {
-            case "unknown":
+            case "INVALID":
+            case "UNKNOWN":
+            case "UNREAD":
                 formatted_delivery_status = "";
                 break;
-            case "sending":
+            case "SENDING":
                 formatted_delivery_status = "Sending<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><circle class='status_circle anim-first' cx='4' cy='12' r='1'/><circle class='status_circle anim-second' cx='8' cy='12' r='1'/><circle class='status_circle anim-third' cx='12' cy='12' r='1'/></svg>"
                 break;
-            case "read":
+            case "READ":
                 formatted_delivery_status = "";
                 break;
-            case "failure":
+            case "FAILED":
                 formatted_delivery_status = "Failure <svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-x x-first' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M4,4 L12,12'/><path class='status-x x-second' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M12,4 L4,12'/></svg>"
                 break;
-            case "sent":
+            case "SUCCEED":
                 formatted_delivery_status = "";
                 break;
             default:
-                console.log("getMessageDeliveryStatusText: unknown delivery status: " + message_delivery_status);
+                console.logconsole.log("getMessageDeliveryStatusText: unknown delivery status: " + message_delivery_status);
                 break;
         }
 
@@ -443,116 +445,121 @@ ring.chatview = (function(){
             sentAnimation = "<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-check' stroke='#008000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M2,8 L6,12 L14,4'/></svg>",
             chatview_sentCheckmark = document.createElement('span');
 
-            chatview_sentCheckmark.setAttribute("class", "sent-checkmark");
+        chatview_sentCheckmark.setAttribute("class", "sent-checkmark");
 
         chatview_message_div = document.querySelector("#message_" + message_id);
-        if (new_message)
+
+        if (message_type === "TEXT" || message_type === "CALL" || message_type === "CONTACT")
         {
-            message_div_classes = [
-                "message",
-                "message_" + message_direction,
-                "message_type_" + message_type
-            ];
+            if (new_message)
+            {
+                message_div_classes = [
+                    "message",
+                    "message_" + message_direction,
+                    "message_type_" + message_type
+                ];
 
-            chatview_message_div = document.createElement('div');
-            chatview_message_div.setAttribute("id", "message_" + message_id);
-            chatview_message_div.setAttribute("class", message_div_classes.join(" "));
+                chatview_message_div = document.createElement('div');
+                chatview_message_div.setAttribute("id", "message_" + message_id);
+                chatview_message_div.setAttribute("class", message_div_classes.join(" "));
 
-            chatview_message_wrapper = document.createElement('div');
-            chatview_message_wrapper.setAttribute("class", "message_wrapper wc");
+                chatview_message_wrapper = document.createElement('div');
+                chatview_message_wrapper.setAttribute("class", "message_wrapper wc");
 
-            chatview_message_text = document.createElement('span');
-            chatview_message_text.setAttribute("class", "message_text");
+                chatview_message_text = document.createElement('span');
+                chatview_message_text.setAttribute("class", "message_text");
 
-            chatview_message_sender = document.createElement('span');
-            chatview_message_sender.setAttribute("class", "message_sender");
+                chatview_message_sender = document.createElement('span');
+                chatview_message_sender.setAttribute("class", "message_sender");
 
-            chatview_message_delivery_status = document.createElement('span');
-            chatview_message_delivery_status.setAttribute("class", "message_delivery_status");
+                chatview_message_delivery_status = document.createElement('span');
+                chatview_message_delivery_status.setAttribute("class", "message_delivery_status");
 
-            chatview_message_timestamp = document.createElement('span');
-            chatview_message_timestamp.setAttribute("class", "message_timestamp");
+                chatview_message_timestamp = document.createElement('span');
+                chatview_message_timestamp.setAttribute("class", "message_timestamp");
 
-            chatview_message_wrapper.appendChild(chatview_message_text);
-            chatview_message_wrapper.appendChild(chatview_message_sender);
+                chatview_message_wrapper.appendChild(chatview_message_text);
+                chatview_message_wrapper.appendChild(chatview_message_sender);
 
-            // Sender image
-            chatview_message_sender_span = document.createElement('span');
-            chatview_message_sender_span.setAttribute("class", "message_sender_image");
+                // Sender image
+                chatview_message_sender_span = document.createElement('span');
+                chatview_message_sender_span.setAttribute("class", "message_sender_image");
 
-            chatview_message_sender_image = document.createElement('span');
-            chatview_message_sender_image.setAttribute("class", "sender_image sender_image_" + message_sender_contact_method);
+                chatview_message_sender_image = document.createElement('span');
+                chatview_message_sender_image.setAttribute("class", "sender_image sender_image_" + message_sender_contact_method);
 
-            // Append elements to div
-            chatview_message_div.appendChild(chatview_message_sender_image);
-            chatview_message_div.appendChild(chatview_message_wrapper);
-            chatview_message_div.appendChild(chatview_message_delivery_status);
-            messages.appendChild(chatview_message_div);
+                // Append elements to div
+                chatview_message_div.appendChild(chatview_message_sender_image);
+                chatview_message_div.appendChild(chatview_message_wrapper);
+                chatview_message_div.appendChild(chatview_message_delivery_status);
+                messages.appendChild(chatview_message_div);
 
-            // Get last message
-            const items = messages.querySelectorAll(".message");
+                // Get last message
+                const items = messages.querySelectorAll(".message");
 
-            // Add message
-            messages.appendChild(chatview_message_div);
-            // Get timestamp to add
-            const formattedTimestamp = getMessageTimestampText(message_timestamp, true);
-            // Create the timestamp object
-            const date_elt = document.createElement('div');
-            date_elt.innerHTML = formattedTimestamp;
-            timestamp_div_classes = [
-                "timestamp",
-                "timestamp_" + message_direction
-            ];
-            date_elt.setAttribute("class", timestamp_div_classes.join(" "));
-            date_elt.setAttribute("message_timestamp", message_timestamp);
-            // Remove last timestamp if it's the same
-            if (messages.querySelectorAll(".timestamp"))
-                cleanPreviousTimestamps(date_elt, messages.children.length);
-            // Add the new timestamp
-            messages.appendChild(date_elt);
-
-        } else {
-
-            chatview_message_div = document.querySelector("#message_" + message_id);
-
-            if (chatview_message_div) {
-                chatview_message_text = chatview_message_div.querySelector(".message_text");
-                chatview_message_sender_image = chatview_message_div.querySelector(".message_sender_image");
-                chatview_message_sender = chatview_message_div.querySelector(".message_sender");
-                chatview_message_delivery_status = chatview_message_div.querySelector(".message_delivery_status");
-                chatview_message_timestamp = chatview_message_div.querySelector(".message_timestamp");
+                // Add message
+                messages.appendChild(chatview_message_div);
+                // Get timestamp to add
+                const formattedTimestamp = getMessageTimestampText(message_timestamp, true);
+                // Create the timestamp object
+                const date_elt = document.createElement('div');
+                date_elt.innerHTML = formattedTimestamp;
+                timestamp_div_classes = [
+                    "timestamp",
+                    "timestamp_" + message_direction
+                ];
+                date_elt.setAttribute("class", timestamp_div_classes.join(" "));
+                date_elt.setAttribute("message_timestamp", message_timestamp);
+                // Remove last timestamp if it's the same
+                if (messages.querySelectorAll(".timestamp"))
+                    cleanPreviousTimestamps(date_elt, messages.children.length);
+                // Add the new timestamp
+                messages.appendChild(date_elt);
 
             } else {
 
-                console.log('no msg selector.');
+                chatview_message_div = document.querySelector("#message_" + message_id);
 
+                if (chatview_message_div) {
+                    chatview_message_text = chatview_message_div.querySelector(".message_text");
+                    chatview_message_sender_image = chatview_message_div.querySelector(".message_sender_image");
+                    chatview_message_sender = chatview_message_div.querySelector(".message_sender");
+                    chatview_message_delivery_status = chatview_message_div.querySelector(".message_delivery_status");
+                    chatview_message_timestamp = chatview_message_div.querySelector(".message_timestamp");
+
+                } else {
+
+                    console.log('no msg selector.');
+
+                }
             }
-        }
 
-        // Set the variables
-        chatview_message_text.innerHTML = getMessageHtml(message_text);
-        if (new_message && displayLinksEnabled)
-            displayLinks(chatview_message_text);
-        chatview_message_sender.textContent = message_sender + ": ";
-        chatview_message_delivery_status.innerHTML = getMessageDeliveryStatusText(message_delivery_status);
-        chatview_message_timestamp.textContent = getMessageTimestampText(message_timestamp);
+            // Set the variables
+            chatview_message_text.innerHTML = getMessageHtml(message_text);
+            if (new_message && displayLinksEnabled)
+                displayLinks(chatview_message_text);
+            chatview_message_sender.textContent = message_sender + ": ";
+            chatview_message_delivery_status.innerHTML = getMessageDeliveryStatusText(message_delivery_status);
+            chatview_message_timestamp.textContent = getMessageTimestampText(message_timestamp);
 
-        if (new_message) {
+            if (new_message) {
+                if (message_direction === "out") {
+                    chatview_sentCheckmark.innerHTML = sentAnimation;
+                    chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_sentCheckmark);
+                }
+
+                chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_message_timestamp);
+            }
+
             if (message_direction === "out") {
-                chatview_sentCheckmark.innerHTML = sentAnimation;
-                chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_sentCheckmark);
+                if (message_delivery_status === "SUCCED") {
+                    chatview_message_div.classList.add("message--sent");
+                }
             }
 
-            chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_message_timestamp);
+            updateTimestamps();
         }
 
-        if (message_direction === "out") {
-            if (message_delivery_status === "sent") {
-                chatview_message_div.classList.add("message--sent");
-            }
-        }
-
-        updateTimestamps();
     }
 
     /**

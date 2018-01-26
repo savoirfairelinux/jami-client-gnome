@@ -154,43 +154,8 @@ interaction_to_json_interaction_object(const uint64_t msgId, const lrc::api::int
     interaction_object.insert("sender_contact_method", QJsonValue(sender));
     interaction_object.insert("timestamp", QJsonValue(timestamp));
     interaction_object.insert("direction", QJsonValue(direction));
-    switch (interaction.type)
-    {
-    case lrc::api::interaction::Type::TEXT:
-        interaction_object.insert("type", QJsonValue("text"));
-        break;
-    case lrc::api::interaction::Type::CALL:
-        interaction_object.insert("type", QJsonValue("call"));
-        break;
-    case lrc::api::interaction::Type::CONTACT:
-        interaction_object.insert("type", QJsonValue("contact"));
-        break;
-    case lrc::api::interaction::Type::INVALID:
-    default:
-        interaction_object.insert("type", QJsonValue(""));
-        break;
-    }
-    switch (interaction.status)
-    {
-    case lrc::api::interaction::Status::READ:
-        interaction_object.insert("delivery_status", QJsonValue("read"));
-        break;
-    case lrc::api::interaction::Status::SUCCEED:
-        interaction_object.insert("delivery_status", QJsonValue("sent"));
-        break;
-    case lrc::api::interaction::Status::FAILED:
-        interaction_object.insert("delivery_status", QJsonValue("failure"));
-        break;
-    case lrc::api::interaction::Status::SENDING:
-        interaction_object.insert("delivery_status", QJsonValue("sending"));
-        break;
-    case lrc::api::interaction::Status::INVALID:
-    case lrc::api::interaction::Status::UNKNOWN:
-    case lrc::api::interaction::Status::UNREAD:
-    default:
-        interaction_object.insert("delivery_status", QJsonValue("unknown"));
-        break;
-    }
+    interaction_object.insert("type", QJsonValue(lrc::api::interaction::to_string(interaction.type).c_str()));
+    interaction_object.insert("delivery_status", QJsonValue(lrc::api::interaction::to_string(interaction.status).c_str()));
 
     return QString(QJsonDocument(interaction_object).toJson(QJsonDocument::Compact));
 }
@@ -396,6 +361,7 @@ build_view(WebKitChatContainer *view)
         "enable-plugins", FALSE,
         "enable-site-specific-quirks", FALSE,
         "enable-smooth-scrolling", TRUE,
+        "enable-write-console-messages-to-stdout", TRUE,
         NULL
     );
 
