@@ -317,6 +317,7 @@ ring.chatview = (function(){
      */
     function getMessageDeliveryStatusText(message_delivery_status)
     {
+        console.log(' <<<< yop1 >>>> ', message_delivery_status)
         var formatted_delivery_status = message_delivery_status;
 
         switch(message_delivery_status)
@@ -447,6 +448,8 @@ ring.chatview = (function(){
             chatview_sentCheckmark = document.createElement('span');
 
         console.log('message_type >>>>',message_type);
+        console.log('message_delivery_status >>>>',message_delivery_status);
+
         chatview_sentCheckmark.setAttribute("class", "sent-checkmark");
 
         chatview_message_div = document.querySelector("#message_" + message_id);
@@ -520,35 +523,55 @@ ring.chatview = (function(){
 
             } else {
 
-                console.log('no msg selector.');
+                chatview_message_div = document.querySelector("#message_" + message_id);
 
+                if (chatview_message_div) {
+                    chatview_message_text = chatview_message_div.querySelector(".message_text");
+                    chatview_message_sender_image = chatview_message_div.querySelector(".message_sender_image");
+                    chatview_message_sender = chatview_message_div.querySelector(".message_sender");
+                    chatview_message_delivery_status = chatview_message_div.querySelector(".message_delivery_status");
+                    chatview_message_timestamp = chatview_message_div.querySelector(".message_timestamp");
+
+                } else {
+
+                    console.log('no msg selector.');
+
+                }
             }
-        }
 
-        // Set the variables
-        chatview_message_text.innerHTML = getMessageHtml(message_text);
-        if (new_message && displayLinksEnabled)
-            displayLinks(chatview_message_text);
-        chatview_message_sender.textContent = message_sender + ": ";
-        chatview_message_delivery_status.innerHTML = getMessageDeliveryStatusText(message_delivery_status);
-        chatview_message_timestamp.textContent = getMessageTimestampText(message_timestamp);
+            // Set the variables
+            chatview_message_text.innerHTML = getMessageHtml(message_text);
+            if (new_message && displayLinksEnabled)
+                displayLinks(chatview_message_text);
+            chatview_message_sender.textContent = message_sender + ": ";
+            chatview_message_delivery_status.innerHTML = getMessageDeliveryStatusText(message_delivery_status);
+            chatview_message_timestamp.textContent = getMessageTimestampText(message_timestamp);
 
-        if (new_message) {
+            if (new_message) {
+                if (message_direction === "out") {
+                    chatview_sentCheckmark.innerHTML = sentAnimation;
+                    chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_sentCheckmark);
+                }
+
+                chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_message_timestamp);
+            }
+
             if (message_direction === "out") {
-                chatview_sentCheckmark.innerHTML = sentAnimation;
-                chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_sentCheckmark);
+                console.log(">>>>> HHHHHH ", message_delivery_status)
+                if (message_delivery_status === "SUCCED") {
+                    chatview_message_div.classList.add("message--sent");
+                }
             }
 
-            chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_message_timestamp);
+            updateTimestamps();
         }
+        //~ else if (message_type === "data_transfer")
+        //~ {
+            //~ console.log('hello world');
+        //~ }
 
-        if (message_direction === "out") {
-            if (message_delivery_status === "sent") {
-                chatview_message_div.classList.add("message--sent");
-            }
-        }
+    //~ console.log('TOTO >> %s', message_type);
 
-        updateTimestamps();
     }
 
     /**
