@@ -336,11 +336,10 @@ ring.chatview = (function(){
                 formatted_delivery_status = "Failure <svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-x x-first' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M4,4 L12,12'/><path class='status-x x-second' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M12,4 L4,12'/></svg>"
                 break;
             case "SUCCEED":
-            console.log(' <<<< yop >>>>')
                 formatted_delivery_status = "";
                 break;
             default:
-                console.log("getMessageDeliveryStatusText: unknown delivery status: " + message_delivery_status);
+                console.logconsole.log("getMessageDeliveryStatusText: unknown delivery status: " + message_delivery_status);
                 break;
         }
 
@@ -446,7 +445,6 @@ ring.chatview = (function(){
             sentAnimation = "<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-check' stroke='#008000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M2,8 L6,12 L14,4'/></svg>",
             chatview_sentCheckmark = document.createElement('span');
 
-        console.log('message_type >>>>',message_type);
         chatview_sentCheckmark.setAttribute("class", "sent-checkmark");
 
         chatview_message_div = document.querySelector("#message_" + message_id);
@@ -520,35 +518,48 @@ ring.chatview = (function(){
 
             } else {
 
-                console.log('no msg selector.');
+                chatview_message_div = document.querySelector("#message_" + message_id);
 
+                if (chatview_message_div) {
+                    chatview_message_text = chatview_message_div.querySelector(".message_text");
+                    chatview_message_sender_image = chatview_message_div.querySelector(".message_sender_image");
+                    chatview_message_sender = chatview_message_div.querySelector(".message_sender");
+                    chatview_message_delivery_status = chatview_message_div.querySelector(".message_delivery_status");
+                    chatview_message_timestamp = chatview_message_div.querySelector(".message_timestamp");
+
+                } else {
+
+                    console.log('no msg selector.');
+
+                }
             }
-        }
 
-        // Set the variables
-        chatview_message_text.innerHTML = getMessageHtml(message_text);
-        if (new_message && displayLinksEnabled)
-            displayLinks(chatview_message_text);
-        chatview_message_sender.textContent = message_sender + ": ";
-        chatview_message_delivery_status.innerHTML = getMessageDeliveryStatusText(message_delivery_status);
-        chatview_message_timestamp.textContent = getMessageTimestampText(message_timestamp);
+            // Set the variables
+            chatview_message_text.innerHTML = getMessageHtml(message_text);
+            if (new_message && displayLinksEnabled)
+                displayLinks(chatview_message_text);
+            chatview_message_sender.textContent = message_sender + ": ";
+            chatview_message_delivery_status.innerHTML = getMessageDeliveryStatusText(message_delivery_status);
+            chatview_message_timestamp.textContent = getMessageTimestampText(message_timestamp);
 
-        if (new_message) {
+            if (new_message) {
+                if (message_direction === "out") {
+                    chatview_sentCheckmark.innerHTML = sentAnimation;
+                    chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_sentCheckmark);
+                }
+
+                chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_message_timestamp);
+            }
+
             if (message_direction === "out") {
-                chatview_sentCheckmark.innerHTML = sentAnimation;
-                chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_sentCheckmark);
+                if (message_delivery_status === "SUCCED") {
+                    chatview_message_div.classList.add("message--sent");
+                }
             }
 
-            chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_message_timestamp);
+            updateTimestamps();
         }
 
-        if (message_direction === "out") {
-            if (message_delivery_status === "sent") {
-                chatview_message_div.classList.add("message--sent");
-            }
-        }
-
-        updateTimestamps();
     }
 
     /**
