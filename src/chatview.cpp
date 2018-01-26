@@ -276,6 +276,14 @@ chat_view_class_init(ChatViewClass *klass)
 static void
 print_interaction_to_buffer(ChatView* self, uint64_t interactionId, const lrc::api::interaction::Info& interaction)
 {
+    //~ qDebug() << "";
+    //~ qDebug() << "";
+    //~ qDebug() << "";
+    //~ qDebug() << "";
+    //~ qDebug() << "SSSSSSSSS";
+    //~ qDebug() << "";
+    //~ qDebug() << "";
+    //~ qDebug() << "";
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     if (!priv->conversation_) return;

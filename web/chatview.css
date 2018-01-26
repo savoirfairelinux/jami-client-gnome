@@ -386,6 +386,9 @@ pre {
 
 .message_out > .message_wrapper {
     background-color: #cfebf5;
+/*
+    background-color: #f00;
+*/
     border-top-right-radius: 0;
     transform-origin: top right;
 }
