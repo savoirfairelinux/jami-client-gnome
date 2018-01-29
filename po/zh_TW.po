@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-21 22:09-0500\n"
+"POT-Creation-Date: 2018-01-28 22:09-0500\n"
 "PO-Revision-Date: 2017-12-11 07:06+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
@@ -902,7 +902,7 @@ msgstr "已取得的使用者名稱"
 msgid "Network error"
 msgstr "網路錯誤"
 
-#: src/generalsettingsview.cpp:96
+#: src/generalsettingsview.cpp:103
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -1041,17 +1041,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:486
+#: src/ringmainwindow.cpp:495
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "開始通話"
 
-#: src/ringmainwindow.cpp:489
+#: src/ringmainwindow.cpp:498
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "開啟聊天"
 
-#: src/ringmainwindow.cpp:677
+#: src/ringmainwindow.cpp:745
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1185,7 +1185,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring ID QR code"
 
-#: src/currentcallview.cpp:593
+#: src/currentcallview.cpp:781
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自動"

@@ -4,14 +4,14 @@
 # 
 # Translators:
 # Bert Frederiks <bert2017@elektroaandrijving.nl>, 2017
-# Nathan Follens, 2016-2017
+# Nathan Follens, 2016-2018
 # Niels van Duijkeren <nielsvanduijkeren@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-21 22:09-0500\n"
-"PO-Revision-Date: 2017-12-11 17:28+0000\n"
+"POT-Creation-Date: 2018-01-28 22:09-0500\n"
+"PO-Revision-Date: 2018-01-22 20:12+0000\n"
 "Last-Translator: Nathan Follens\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/ring/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -235,7 +235,7 @@ msgstr "Ring-account"
 
 #: ui/accountcreationwizard.ui:342
 msgid "Register public username (experimental):"
-msgstr "Registreer een publieke gebruikersnaam (experimenteel):"
+msgstr "Registreer een openbare gebruikersnaam (experimenteel):"
 
 #: ui/accountcreationwizard.ui:348
 msgid ""
@@ -308,7 +308,7 @@ msgstr "Afbeeldingen en video's in chatvenster tonen."
 
 #: ui/generalsettingsview.ui:140
 msgid "Entering a number in the search entry will place a new call."
-msgstr "Een nummer in de zoekregel invoeren zal een nieuwe oproep maken."
+msgstr "Een nummer in de zoekregel invoeren zal een nieuwe oproep plaatsen."
 
 #: ui/generalsettingsview.ui:155
 msgid "Show chat on the right."
@@ -520,15 +520,15 @@ msgstr "Registratie verval time-out (seconden):"
 
 #: ui/accountadvancedtab.ui:103
 msgid "Allow calls from unknown peers"
-msgstr "Oproepen accepteren van onbekende gebruikers"
+msgstr "Oproepen van onbekende gebruikers aanvaarden"
 
 #: ui/accountadvancedtab.ui:117
 msgid "Allow calls from peers in your call history"
-msgstr "Oproepen accepteren van gebruikers in de oproepgeschiedenis"
+msgstr "Oproepen van gebruikers in de oproepgeschiedenis aanvaarden"
 
 #: ui/accountadvancedtab.ui:131
 msgid "Allow calls from peers in your contacts list"
-msgstr "Oproepen accepteren van gebruikers in de contactenlijst"
+msgstr "Oproepen van gebruikers in de contactenlijst aanvaarden"
 
 #: ui/accountadvancedtab.ui:149
 msgid "Registration"
@@ -646,11 +646,11 @@ msgstr "Gespreksweergave verbergen"
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
-msgstr "Oproep maken"
+msgstr "Oproep plaatsen"
 
 #: ui/chatview.ui:62
 msgid "Place audio-only call"
-msgstr "Audio-oproep maken"
+msgstr "Audio-oproep plaatsen"
 
 #: ui/chatview.ui:75
 msgid "Add to conversations"
@@ -902,7 +902,7 @@ msgstr "Gebruikersnaam reeds in gebruik"
 msgid "Network error"
 msgstr "Netwerkfout"
 
-#: src/generalsettingsview.cpp:96
+#: src/generalsettingsview.cpp:103
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -1041,17 +1041,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:486
+#: src/ringmainwindow.cpp:495
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr "oproep maken"
+msgstr "oproep plaatsen"
 
-#: src/ringmainwindow.cpp:489
+#: src/ringmainwindow.cpp:498
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "gesprek openen"
 
-#: src/ringmainwindow.cpp:677
+#: src/ringmainwindow.cpp:745
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1185,7 +1185,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring-ID-QR-code"
 
-#: src/currentcallview.cpp:593
+#: src/currentcallview.cpp:781
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
