@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-28 22:09-0500\n"
-"PO-Revision-Date: 2017-12-11 03:09+0000\n"
+"POT-Creation-Date: 2018-02-04 22:09-0500\n"
+"PO-Revision-Date: 2018-02-05 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Ukrainian (http://www.transifex.com/savoirfairelinux/ring/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -1017,7 +1017,7 @@ msgstr "Працюємо..."
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"Liberté, Égalité, Fraternité - Version 1.0\n"
+"\"In varietate concordia\"\n"
 "built on %.25s"
 msgstr ""
 
@@ -1182,7 +1182,7 @@ msgstr "Це Ваш RingID.\nКопіюйте й поширюйте його с�
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Ring - це безкоштовне програмне забезпечення для спілкування, яке поважає свободу та конфіденційність своїх користувачів."
 
 #: src/ringwelcomeview.cpp:205
 msgctxt "Do not translate \"Ring ID\""

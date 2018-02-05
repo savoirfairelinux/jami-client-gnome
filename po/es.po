@@ -22,6 +22,7 @@
 # fgp <komakino@wanadoo.es>, 2016
 # Laura Arjona Reina <larjona@larjona.net>, 2016
 # Miguel Angel NV <manvac@gmail.com>, 2017
+# Rodrigo I. Avila D., 2018
 # Stepan Salenikovich, 2015
 # Stepan Salenikovich, 2015
 # urkonn <urkonn@gmail.com>, 2017
@@ -30,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-28 22:09-0500\n"
-"PO-Revision-Date: 2017-12-11 03:09+0000\n"
+"POT-Creation-Date: 2018-02-04 22:09-0500\n"
+"PO-Revision-Date: 2018-02-05 03:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -654,11 +655,11 @@ msgstr "Registrar"
 
 #: ui/accountbanstab.ui:18
 msgid "List of banned peers :"
-msgstr ""
+msgstr "Lista de pares bloqueados :"
 
 #: ui/accountbanstab.ui:62
 msgid "unban"
-msgstr ""
+msgstr "desbloquear"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -670,11 +671,11 @@ msgstr "Llamar"
 
 #: ui/chatview.ui:62
 msgid "Place audio-only call"
-msgstr ""
+msgstr "Realizar llamada de voz"
 
 #: ui/chatview.ui:75
 msgid "Add to conversations"
-msgstr ""
+msgstr "Añadir a conversaciones"
 
 #: ui/chatview.ui:134
 msgid "Send Invitation"
@@ -815,7 +816,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Ring daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Incapaz de inicializar.\nAsegurese que el daemon de Ring (dring) esté activo.\nError: %s"
 
 #: src/ring_client.cpp:147
 msgid "Ring Error"
@@ -825,11 +826,11 @@ msgstr "Error de Ring"
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
-msgstr ""
+msgstr "Abrir Ring"
 
 #: src/ring_client.cpp:293
 msgid "Quit"
-msgstr ""
+msgstr "Salir"
 
 #: src/ringnotify.cpp:156
 msgid "Incoming call"
@@ -1033,9 +1034,9 @@ msgstr "Procesando..."
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"Liberté, Égalité, Fraternité - Version 1.0\n"
+"\"In varietate concordia\"\n"
 "built on %.25s"
-msgstr "Liberté, Égalité, Fraternité - Versión 1.0\nconstruido en %.25s"
+msgstr ""
 
 #: src/dialogs.c:134
 msgid ""
@@ -1122,7 +1123,7 @@ msgstr "Frecuencia de muestreo"
 
 #: src/conversationpopupmenu.cpp:169
 msgid "_Place call"
-msgstr ""
+msgstr "_Llamar"
 
 #: src/conversationpopupmenu.cpp:172
 msgid "_Copy name"
@@ -1130,27 +1131,27 @@ msgstr "_Copiar nombre"
 
 #: src/conversationpopupmenu.cpp:178
 msgid "_Add to conversations"
-msgstr ""
+msgstr "_Añadir a conversaciones"
 
 #: src/conversationpopupmenu.cpp:182
 msgid "_Discard invitation"
-msgstr ""
+msgstr "_Descartar invitación"
 
 #: src/conversationpopupmenu.cpp:185
 msgid "_Block invitations"
-msgstr ""
+msgstr "_Bloquear invitaciones"
 
 #: src/conversationpopupmenu.cpp:190
 msgid "C_lear history"
-msgstr ""
+msgstr "L_impiar historial"
 
 #: src/conversationpopupmenu.cpp:193
 msgid "_Remove conversation"
-msgstr ""
+msgstr "_Eliminar conversación"
 
 #: src/conversationpopupmenu.cpp:196
 msgid "_Block contact"
-msgstr ""
+msgstr "_Bloquear contacto"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
