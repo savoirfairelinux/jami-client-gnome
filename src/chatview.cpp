@@ -25,6 +25,9 @@
 // std
 #include <algorithm>
 
+// GTK
+#include <glib/gi18n.h>
+
 // LRC
 #include <api/contactmodel.h>
 #include <api/conversationmodel.h>
@@ -160,6 +163,34 @@ button_add_to_conversations_clicked(ChatView *self)
     priv->accountContainer_->info.conversationModel->makePermanent(priv->conversation_->uid);
 }
 
+static gchar*
+file_to_manipulate(GtkWindow* top_window, bool send)
+{
+    GtkWidget* dialog;
+    GtkFileChooserAction action = send? GTK_FILE_CHOOSER_ACTION_OPEN : GTK_FILE_CHOOSER_ACTION_SAVE;
+    gint res;
+    gchar* filename = nullptr;
+
+    dialog = gtk_file_chooser_dialog_new(send? _("Send File") : _("Save File"),
+                                         top_window,
+                                         action,
+                                         _("_Cancel"),
+                                         GTK_RESPONSE_CANCEL,
+                                         send? _("_Open"): _("_Save"),
+                                         GTK_RESPONSE_ACCEPT,
+                                         nullptr);
+
+    res = gtk_dialog_run (GTK_DIALOG(dialog));
+
+    if (res == GTK_RESPONSE_ACCEPT) {
+        auto chooser = GTK_FILE_CHOOSER(dialog);
+        filename = gtk_file_chooser_get_filename(chooser);
+    }
+    gtk_widget_destroy (dialog);
+
+    return filename;
+}
+
 static void
 webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *interaction, ChatView* self)
 {
@@ -176,6 +207,42 @@ webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *int
         // Get text body
         auto toSend = order.substr(std::string("SEND:").size());
         priv->accountContainer_->info.conversationModel->sendMessage(priv->conversation_->uid, toSend);
+    } else if (order.find("SEND_FILE") == 0) {
+        if (auto model = priv->accountContainer_->info.conversationModel.get()) {
+            if (auto filename = file_to_manipulate(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))), true))
+                model->sendFile(priv->conversation_->uid, filename, g_path_get_basename(filename));
+        }
+    } else if (order.find("ACCEPT_FILE:") == 0) {
+        if (auto model = priv->accountContainer_->info.conversationModel.get()) {
+            try {
+                auto interactionId = std::stoull(order.substr(std::string("ACCEPT_FILE:").size()));
+                if (auto filename = file_to_manipulate(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))), false))
+                    model->acceptTransfer(priv->conversation_->uid, interactionId, filename);
+                else
+                    model->cancelTransfer(priv->conversation_->uid, interactionId);
+            } catch (...) {
+                // ignore
+            }
+        }
+    } else if (order.find("REFUSE_FILE:") == 0) {
+        if (auto model = priv->accountContainer_->info.conversationModel.get()) {
+            try {
+                auto interactionId = std::stoull(order.substr(std::string("REFUSE_FILE:").size()));
+                model->cancelTransfer(priv->conversation_->uid, interactionId);
+            } catch (...) {
+                // ignore
+            }
+        }
+    } else if (order.find("OPEN_FILE:") == 0) {
+        // Get text body
+        auto filename {"file://" + order.substr(std::string("OPEN_FILE:").size())};
+        filename.erase(std::find_if(filename.rbegin(), filename.rend(),
+            std::not1(std::ptr_fun<int, int>(std::isspace))).base(), filename.end());
+        GError* error = nullptr;
+        if (!gtk_show_uri(nullptr, filename.c_str(), GDK_CURRENT_TIME, &error)) {
+            g_debug("Could not open file: %s", error->message);
+            g_error_free(error);
+        }
     }
 }
 
@@ -242,6 +309,7 @@ print_interaction_to_buffer(ChatView* self, uint64_t interactionId, const lrc::a
 
     webkit_chat_container_print_new_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        *priv->accountContainer_->info.conversationModel,
         interactionId,
         interaction
     );
@@ -253,6 +321,7 @@ update_interaction(ChatView* self, uint64_t interactionId, const lrc::api::inter
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     webkit_chat_container_update_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        *priv->accountContainer_->info.conversationModel,
         interactionId,
         interaction
     );
@@ -299,6 +368,7 @@ print_text_recording(ChatView *self)
     if (!priv->conversation_) return;
     webkit_chat_container_print_history(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        *priv->accountContainer_->info.conversationModel,
         priv->conversation_->interactions
     );
 
