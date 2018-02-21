@@ -412,36 +412,56 @@ switch_video_input(GtkWidget *widget, Video::Device *device)
 }
 
 static void
-switch_video_input_screen(G_GNUC_UNUSED GtkWidget *item, Call* call)
+switch_video_input_screen(GtkWidget *item, Call* call)
 {
+    (void) item;
     unsigned x, y;
     unsigned width, height;
+    int display_num = 0;
 
+#if 0 // not used, but if someone need to use DISPLAY var. env., some work is needed.
     /* try to get the dispaly or default to 0 */
     QString display_env{getenv("DISPLAY")};
-    int display = 0;
 
     if (!display_env.isEmpty()) {
         auto list = display_env.split(":", QString::SkipEmptyParts);
         /* should only be one display, so get the first one */
         if (list.size() > 0) {
-            display = list.at(0).toInt();
-            g_debug("sharing screen from DISPLAY %d", display);
+            display_num = list.at(0).toInt();
+            g_debug("sharing screen from DISPLAY %d", display_num);
         }
     }
+#endif
 
     x = y = width = height = 0;
-
     xrectsel(&x, &y, &width, &height);
 
     if (!width || !height) {
-        x = y = 0;
-        width = gdk_screen_width();
-        height = gdk_screen_height();
+        auto* display = gdk_display_get_default();
+        if (!display)
+            return;
+        auto* monitor = gdk_display_get_monitor_at_point(display, x, y);
+        if (!monitor)
+            return;
+        GdkRectangle geometry;
+        gdk_monitor_get_geometry(monitor, &geometry);
+        x = geometry.x;
+        y = geometry.y;
+        width = geometry.width;
+        height = geometry.height;
+
+        // try to obtain the display number from its name (fallback to 0)
+        auto* name = gdk_display_get_name(display);
+        if (name) {
+            auto list = QString(name).split(":");
+            if (list.size() > 1)
+                display_num = list.at(1).toInt();
+        }
     }
 
+    g_debug("sharing screen area: display %d, (%u, %u) - (%u, %u)", display_num, x, y, width, height);
     if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
-        out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
+        out_media->sourceModel()->setDisplay(display_num, QRect(x,y,width,height));
 }
 
 static void
