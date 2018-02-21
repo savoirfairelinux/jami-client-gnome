@@ -83,6 +83,8 @@ ring.chatview = (function(){
     var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
     var messages = document.querySelector("#messages");
     var displayLinksEnabled = false;
+    var historyBufferIndex = 0; // When showing a large amount of interactions, this counter store the interaction's index to show
+    var historyBuffer = []; // Before showing a large amount of interactions, this array is used as a buffer.
 
     function setDisplayLinks(display) {
       displayLinksEnabled = display;
@@ -405,7 +407,7 @@ ring.chatview = (function(){
     * Adds a message to the buffer, or update it if new_message is
     * TRUE
     */
-    function addOrUpdateMessage(message_object, new_message)
+    function addOrUpdateMessage(message_object, new_message, insert_after = true)
     {
         // Properties of the message object
         var message_id = message_object["id"],
@@ -473,13 +475,7 @@ ring.chatview = (function(){
             chatview_message_div.appendChild(chatview_message_sender_image);
             chatview_message_div.appendChild(chatview_message_wrapper);
             chatview_message_div.appendChild(chatview_message_delivery_status);
-            messages.appendChild(chatview_message_div);
 
-            // Get last message
-            const items = messages.querySelectorAll(".message");
-
-            // Add message
-            messages.appendChild(chatview_message_div);
             // Get timestamp to add
             const formattedTimestamp = getMessageTimestampText(message_timestamp, true);
             // Create the timestamp object
@@ -494,9 +490,15 @@ ring.chatview = (function(){
             // Remove last timestamp if it's the same
             if (messages.querySelectorAll(".timestamp"))
                 cleanPreviousTimestamps(date_elt, messages.children.length);
-            // Add the new timestamp
-            messages.appendChild(date_elt);
 
+            // Add message and the new timestamp
+            if (insert_after) {
+              messages.appendChild(chatview_message_div);
+              messages.appendChild(date_elt);
+            } else {
+              messages.insertBefore(date_elt, messages.firstChild);
+              messages.insertBefore(chatview_message_div, messages.firstChild);
+            }
         } else {
 
             chatview_message_div = document.querySelector("#message_" + message_id);
@@ -575,6 +577,36 @@ ring.chatview = (function(){
     }
 
     /**
+     * Show the history in reverse order and avoid the process to consumes a lot of ressources
+     */
+    function printHistoryPart () {
+      var previousScrollHeightMinusTop = messages.scrollHeight - messages.scrollTop;
+      // Show 10 messages
+      for (var i = 0; i < 10; ++i) {
+        addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false);
+        historyBufferIndex ++;
+        if (historyBufferIndex === historyBuffer.length)
+          break;
+      }
+      // Replace the scrollbar to the wanted position
+      messages.scrollTop = messages.scrollHeight - previousScrollHeightMinusTop;
+      // Make a short pause to minimizes ressources consumption
+      // show quickly the first hundred messages
+      if (historyBufferIndex !== historyBuffer.length)
+        setTimeout(printHistoryPart, (historyBufferIndex > 100) ? 100 : 1);
+    }
+
+    /**
+     * Show the whole history in the chatview.
+     */
+    function printHistory(messages_array)
+    {
+        historyBuffer = messages_array;
+        historyBufferIndex = 0;
+        setTimeout(printHistoryPart, 1);
+    }
+
+    /**
      * Updated a message that was previously added with addMessage
      */
     function updateMessage(message_object)
@@ -648,6 +680,7 @@ ring.chatview = (function(){
 
     return {
         addMessage: addMessage,
+        printHistory: printHistory,
         updateMessage: updateMessage,
         setSenderImage: setSenderImage,
         setSendIcon: setSendIcon,
