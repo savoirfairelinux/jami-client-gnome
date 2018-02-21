@@ -26,6 +26,10 @@
 // LRC
 #include <api/interaction.h>
 
+namespace lrc { namespace api {
+class ConversationModel;
+}};
+
 G_BEGIN_DECLS
 
 #define WEBKIT_CHAT_CONTAINER_TYPE            (webkit_chat_container_get_type ())
@@ -41,8 +45,8 @@ GType      webkit_chat_container_get_type             (void) G_GNUC_CONST;
 GtkWidget* webkit_chat_container_new                  (void);
 void       webkit_chat_container_clear                (WebKitChatContainer *view);
 void       webkit_chat_container_clear_sender_images  (WebKitChatContainer *view);
-void       webkit_chat_container_print_new_interaction(WebKitChatContainer *view, uint64_t msgId, const lrc::api::interaction::Info& interaction);
-void       webkit_chat_container_update_interaction   (WebKitChatContainer *view, uint64_t msgId, const lrc::api::interaction::Info& interaction);
+void       webkit_chat_container_print_new_interaction(WebKitChatContainer *view, lrc::api::ConversationModel& conversation_model, uint64_t msgId, const lrc::api::interaction::Info& interaction);
+void       webkit_chat_container_update_interaction   (WebKitChatContainer *view, lrc::api::ConversationModel& conversation_model, uint64_t msgId, const lrc::api::interaction::Info& interaction);
 void       webkit_chat_container_set_sender_image     (WebKitChatContainer *view, const std::string& sender, const std::string& senderImage);
 gboolean   webkit_chat_container_is_ready             (WebKitChatContainer *view);
 void       webkit_chat_container_set_display_links    (WebKitChatContainer *view, bool display);
