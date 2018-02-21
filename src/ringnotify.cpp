@@ -379,28 +379,6 @@ ring_notify_show_text_message(ContactMethod *cm, const QModelIndex& idx)
     return success;
 }
 
-static gboolean
-show_message_if_unread(const QModelIndex *idx)
-{
-    g_return_val_if_fail(idx && idx->isValid(), G_SOURCE_REMOVE);
-
-    if (!idx->data(static_cast<int>(Media::TextRecording::Role::IsRead)).toBool()) {
-        auto cm = idx->data(static_cast<int>(Media::TextRecording::Role::ContactMethod)).value<ContactMethod *>();
-        ring_notify_show_text_message(cm, *idx);
-    }
-
-    return G_SOURCE_REMOVE;
-}
-
-static void
-delete_idx(QModelIndex *idx)
-{
-    if (idx) {
-        delete idx;
-        idx = nullptr;
-    }
-}
-
 #endif
 
 void

@@ -567,6 +567,7 @@ CppImpl::chatNotifications()
 static gboolean
 on_clear_all_history_foreach(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer self)
 {
+    (void)path;
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), TRUE);
 
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));

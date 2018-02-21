@@ -254,7 +254,7 @@ conversation_popup_menu_show(ConversationPopupMenu *self, GdkEventButton *event)
     if (event->type == GDK_BUTTON_PRESS
         && event->button == GDK_BUTTON_SECONDARY) {
         // Show popup menu. Will be updated later.
-        gtk_menu_popup(GTK_MENU(self), NULL, NULL, NULL, NULL, event->button, event->time);
+        gtk_menu_popup_at_pointer(GTK_MENU(self), reinterpret_cast<GdkEvent*>(event));
     }
 
     return GDK_EVENT_PROPAGATE; // so that the conversation selection changes

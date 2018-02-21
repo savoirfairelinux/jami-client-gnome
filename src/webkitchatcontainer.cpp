@@ -229,7 +229,7 @@ webview_chat_decide_policy (G_GNUC_UNUSED WebKitWebView *web_view,
                     WebKitURIRequest* uri_request = webkit_navigation_action_get_request(navigation_action);
                     const gchar* uri = webkit_uri_request_get_uri(uri_request);
 
-                    gtk_show_uri(NULL, uri, GDK_CURRENT_TIME, NULL);
+                    gtk_show_uri_on_window(nullptr, uri, GDK_CURRENT_TIME, nullptr);
                 }
             }
 

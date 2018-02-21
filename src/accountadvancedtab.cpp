@@ -368,7 +368,7 @@ remove_bootstrap_server(GtkWidget *item, AccountAdvancedTab *view)
 }
 
 static gboolean
-bootstrap_servers_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *event, AccountAdvancedTab *view)
+bootstrap_servers_popup_menu(GtkWidget* widget, GdkEventButton *event, AccountAdvancedTab *view)
 {
     g_return_val_if_fail(IS_ACCOUNT_ADVANCED_TAB(view), FALSE);
     AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(view);
@@ -396,7 +396,8 @@ bootstrap_servers_popup_menu(G_GNUC_UNUSED GtkWidget *widget, GdkEventButton *ev
 
     /* show menu */
     gtk_widget_show_all(menu);
-    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+    gtk_menu_popup_at_widget(GTK_MENU(menu), widget, GDK_GRAVITY_SOUTH_WEST, GDK_GRAVITY_NORTH_WEST,
+                             reinterpret_cast<GdkEvent*>(event));
 
     return TRUE; /* we handled the event */
 }

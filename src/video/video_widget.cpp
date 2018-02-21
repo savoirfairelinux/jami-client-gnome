@@ -447,6 +447,7 @@ switch_video_input_screen(G_GNUC_UNUSED GtkWidget *item, Call* call)
 static void
 switch_video_input_file(GtkWidget *item, GtkWidget *parent)
 {
+    (void)item;
     auto* priv = VIDEO_WIDGET_GET_PRIVATE(parent);
     if (parent && GTK_IS_WIDGET(parent)) {
         /* get parent window */
@@ -566,7 +567,7 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
 
     /* show menu */
     gtk_widget_show_all(menu);
-    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+    gtk_menu_popup_at_pointer(GTK_MENU(menu), reinterpret_cast<GdkEvent*>(event));
 
     return TRUE; /* event has been fully handled */
 }

@@ -294,7 +294,7 @@ select_conversation(GtkTreeSelection *selection, ConversationsView *self)
         auto nbItems = g_list_length(children);
         // Show the new popupMenu_ should be visible
         if (isVisible && nbItems > 0)
-            gtk_menu_popup(GTK_MENU(priv->popupMenu_), nullptr, nullptr, nullptr, nullptr, 0, gtk_get_current_event_time());
+            gtk_menu_popup_at_pointer(GTK_MENU(priv->popupMenu_), gtk_get_current_event());
     }
     GtkTreeIter iter;
     GtkTreeModel *model = nullptr;
