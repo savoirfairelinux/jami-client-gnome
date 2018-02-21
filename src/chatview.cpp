@@ -297,8 +297,10 @@ print_text_recording(ChatView *self)
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     if (!priv->conversation_) return;
-    for (const auto& interaction : priv->conversation_->interactions)
-        print_interaction_to_buffer(self, interaction.first, interaction.second);
+    webkit_chat_container_print_history(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        priv->conversation_->interactions
+    );
 
     QObject::disconnect(priv->new_interaction_connection);
 }

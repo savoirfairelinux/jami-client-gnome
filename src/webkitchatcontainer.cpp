@@ -24,6 +24,7 @@
 #include <webkit2/webkit2.h>
 
 // Qt
+#include <QtCore/QJsonArray>
 #include <QtCore/QJsonValue>
 #include <QtCore/QJsonObject>
 #include <QtCore/QJsonDocument>
@@ -140,8 +141,8 @@ webview_chat_context_menu(G_GNUC_UNUSED WebKitChatContainer *self,
     return false;
 }
 
-QString
-interaction_to_json_interaction_object(const uint64_t msgId, const lrc::api::interaction::Info& interaction)
+QJsonObject
+build_interaction_json(const uint64_t msgId, const lrc::api::interaction::Info& interaction)
 {
     auto sender = QString(interaction.authorUri.c_str());
     auto timestamp = QString::number(interaction.timestamp);
@@ -191,8 +192,22 @@ interaction_to_json_interaction_object(const uint64_t msgId, const lrc::api::int
         interaction_object.insert("delivery_status", QJsonValue("unknown"));
         break;
     }
+    return interaction_object;
+}
 
+QString
+interaction_to_json_interaction_object(const uint64_t msgId, const lrc::api::interaction::Info& interaction)
+{
+    auto interaction_object = build_interaction_json(msgId, interaction);
     return QString(QJsonDocument(interaction_object).toJson(QJsonDocument::Compact));
+}
+
+QString
+interactions_to_json_array_object(const std::map<uint64_t, lrc::api::interaction::Info> interactions) {
+    QJsonArray array;
+    for (const auto& interaction: interactions)
+        array.append(build_interaction_json(interaction.first, interaction.second));
+    return QString(QJsonDocument(array).toJson(QJsonDocument::Compact));
 }
 
 #if WEBKIT_CHECK_VERSION(2, 6, 0)
@@ -562,6 +577,23 @@ webkit_chat_container_print_new_interaction(WebKitChatContainer *view,
 
     auto interaction_object = interaction_to_json_interaction_object(msgId, interaction).toUtf8();
     gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", interaction_object.constData());
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
+webkit_chat_container_print_history(WebKitChatContainer *view, const std::map<uint64_t, lrc::api::interaction::Info> interactions)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    auto interactions_str = interactions_to_json_array_object(interactions).toUtf8();
+    gchar* function_call = g_strdup_printf("ring.chatview.printHistory(%s)", interactions_str.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,
