@@ -1001,7 +1001,7 @@ CppImpl::refreshAccountSelectorWidget(int selection_row, bool show)
 
     gtk_combo_box_set_model(
         GTK_COMBO_BOX(widgets->combobox_account_selector),
-        GTK_TREE_MODEL (store)
+        GTK_TREE_MODEL(store)
     );
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), selection_row);
     gtk_widget_set_visible(widgets->combobox_account_selector, show && enabled_accounts > 1);

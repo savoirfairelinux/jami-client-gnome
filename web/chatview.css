@@ -32,7 +32,6 @@ body {
   color: white;
   padding: 10px 20px 10px 20px;
   vertical-align: middle;
-
 }
 
 .button-green {
@@ -169,7 +168,7 @@ input[placeholder], [placeholder], *[placeholder] {
     color: #d3d3d3;
 }
 
-#sendBtn {
+.msg-button {
   border-radius: 50%;
   border: 0;
   width: 40px;
@@ -178,13 +177,13 @@ input[placeholder], [placeholder], *[placeholder] {
   transition: all 0.3s ease;
 }
 
-#sendBtn.hover,
-#sendBtn:hover {
+.msg-button.hover,
+.msg-button:hover {
   background: #bae5f0;
 }
 
-#sendBtn.hover svg,
-#sendBtn:hover svg {
+.msg-button.hover svg,
+.msg-button:hover svg {
   fill: black;
 }
 
@@ -502,26 +501,34 @@ pre {
   width: 100%;
 }
 
+.message_type_data_transfer .message_timestamp,
+.message_type_data_transfer .message_delivery_status,
+.message_type_data_transfer .sent-checkmark,
 .message_type_call .sent-checkmark,
 .message_type_call .message_sender,
 .message_type_call .message_delivery_status,
 .message_type_call .message_timestamp,
 .message_type_call .message_sender_image,
+.message_type_call .message_progress_bar,
 .message_type_contact .sent-checkmark,
 .message_type_contact .message_sender,
 .message_type_contact .message_delivery_status,
 .message_type_contact .message_timestamp,
-.message_type_contact .message_sender_image {
+.message_type_contact .message_sender_image,
+.message_type_contact .message_progress_bar,
+.message_type_text .message_progress_bar {
   visibility: hidden;
   display: none;
 }
 
 .message_type_contact .message_wrapper:before,
+.message_type_data_transfer .message_wrapper:before,
 .message_type_call .message_wrapper:before {
     display: none;
 }
 
 .message_type_call .message_wrapper:after,
+.message_type_data_transfer .message_wrapper:after,
 .message_type_contact .message_wrapper:after {
     display: none;
 }
@@ -560,4 +567,65 @@ pre {
 #red {
   color: red;
   font-size: 1.25em;
+}
+
+.message_type_data_transfer .message_wrapper
+{
+  padding: 0;
+  width: 30%;
+  background-color: #ddd;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.message_type_data_transfer #left_buttons
+{
+  width: 25%;
+  display: flex;
+  padding-left: 5px;
+  overflow: hidden;
+}
+
+.message_type_data_transfer #text
+{
+  width: 70%;
+  text-align: center;
+  padding-top: 14px;
+  margin-bottom: 12px;
+}
+
+.message_type_data_transfer #filename
+{
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.message_type_data_transfer #informations
+{
+  color: #555;
+  font-size: 0.8em;
+}
+
+.message_progress_bar {
+  margin-top: 12px;
+	width: 100%;
+	height: 12px;
+	position: relative;
+	overflow: hidden;
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+.message_progress_bar > span {
+	display: inline;
+	height: 100%;
+	background-color: #01a2b8;
+	position: absolute;
+	overflow: hidden;
+}
+
+.message_type_data_transfer .flat-button
+{
+  padding: 0;
 }
