@@ -169,7 +169,7 @@ input[placeholder], [placeholder], *[placeholder] {
     color: #d3d3d3;
 }
 
-#sendBtn {
+.msg-button {
   border-radius: 50%;
   border: 0;
   width: 40px;
@@ -178,13 +178,13 @@ input[placeholder], [placeholder], *[placeholder] {
   transition: all 0.3s ease;
 }
 
-#sendBtn.hover,
-#sendBtn:hover {
+.msg-button.hover,
+.msg-button:hover {
   background: #bae5f0;
 }
 
-#sendBtn.hover svg,
-#sendBtn:hover svg {
+.msg-button.hover svg,
+.msg-button:hover svg {
   fill: black;
 }
 
@@ -498,20 +498,35 @@ pre {
 }
 
 .message_type_contact,
+.message_type_data_transfer,
 .message_type_call {
   width: 100%;
 }
+
+.message_type_data_transfer
+{
+  background: #ccc;
+}
+/*
+.message_type_data_transfer .message_text
+{
+  font-weight: bold;
+}
+*/
 
 .message_type_call .sent-checkmark,
 .message_type_call .message_sender,
 .message_type_call .message_delivery_status,
 .message_type_call .message_timestamp,
 .message_type_call .message_sender_image,
+.message_type_call .message_progress_bar,
 .message_type_contact .sent-checkmark,
 .message_type_contact .message_sender,
 .message_type_contact .message_delivery_status,
 .message_type_contact .message_timestamp,
-.message_type_contact .message_sender_image {
+.message_type_contact .message_sender_image,
+.message_type_contact .message_progress_bar,
+.message_type_text .message_progress_bar {
   visibility: hidden;
   display: none;
 }
@@ -560,4 +575,23 @@ pre {
 #red {
   color: red;
   font-size: 1.25em;
+}
+
+.message_progress_bar {
+	display: inline-block;
+	width: 100%;
+	height: 12px;
+	position: relative;
+	overflow: hidden;
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+.message_progress_bar > span {
+	display: inline;
+	height: 100%;
+	background-color: #01a2b8;
+	position: absolute;
+	overflow: hidden;
 }

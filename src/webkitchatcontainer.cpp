@@ -30,6 +30,7 @@
 
 // LRC
 #include <globalinstances.h>
+#include <api/conversationmodel.h>
 
 // Ring Client
 #include "native/pixbufmanipulator.h"
@@ -140,8 +141,10 @@ webview_chat_context_menu(G_GNUC_UNUSED WebKitChatContainer *self,
     return false;
 }
 
-QString
-interaction_to_json_interaction_object(const uint64_t msgId, const lrc::api::interaction::Info& interaction)
+static QString
+interaction_to_json_interaction_object(lrc::api::ConversationModel& conversation_model,
+                                       const uint64_t msgId,
+                                       const lrc::api::interaction::Info& interaction)
 {
     auto sender = QString(interaction.authorUri.c_str());
     auto timestamp = QString::number(interaction.timestamp);
@@ -154,6 +157,7 @@ interaction_to_json_interaction_object(const uint64_t msgId, const lrc::api::int
     interaction_object.insert("sender_contact_method", QJsonValue(sender));
     interaction_object.insert("timestamp", QJsonValue(timestamp));
     interaction_object.insert("direction", QJsonValue(direction));
+
     switch (interaction.type)
     {
     case lrc::api::interaction::Type::TEXT:
@@ -165,11 +169,23 @@ interaction_to_json_interaction_object(const uint64_t msgId, const lrc::api::int
     case lrc::api::interaction::Type::CONTACT:
         interaction_object.insert("type", QJsonValue("contact"));
         break;
+    case lrc::api::interaction::Type::OUTGOING_DATA_TRANSFER:
+    case lrc::api::interaction::Type::INCOMING_DATA_TRANSFER: {
+        interaction_object.insert("type", QJsonValue("data_transfer"));
+        lrc::api::datatransfer::Info info = {};
+        conversation_model.getTransferInfo(msgId, info);
+        if (info.status != lrc::api::datatransfer::Status::INVALID) {
+            interaction_object.insert("totalSize", QJsonValue(qint64(info.totalSize)));
+            interaction_object.insert("progress", QJsonValue(qint64(info.progress)));
+        }
+        break;
+    }
     case lrc::api::interaction::Type::INVALID:
     default:
         interaction_object.insert("type", QJsonValue(""));
         break;
     }
+
     switch (interaction.status)
     {
     case lrc::api::interaction::Status::READ:
@@ -179,10 +195,29 @@ interaction_to_json_interaction_object(const uint64_t msgId, const lrc::api::int
         interaction_object.insert("delivery_status", QJsonValue("sent"));
         break;
     case lrc::api::interaction::Status::FAILED:
+    case lrc::api::interaction::Status::TRANSFER_ERROR:
         interaction_object.insert("delivery_status", QJsonValue("failure"));
         break;
     case lrc::api::interaction::Status::SENDING:
         interaction_object.insert("delivery_status", QJsonValue("sending"));
+        break;
+    case lrc::api::interaction::Status::TRANSFER_CREATED:
+        interaction_object.insert("delivery_status", QJsonValue("created"));
+        break;
+    case lrc::api::interaction::Status::TRANSFER_ACCEPTED:
+        interaction_object.insert("delivery_status", QJsonValue("accepted"));
+        break;
+    case lrc::api::interaction::Status::TRANSFER_CANCELED:
+        interaction_object.insert("delivery_status", QJsonValue("canceled"));
+        break;
+    case lrc::api::interaction::Status::TRANSFER_ONGOING:
+        interaction_object.insert("delivery_status", QJsonValue("ongoing"));
+        break;
+    case lrc::api::interaction::Status::TRANSFER_AWAITING:
+        interaction_object.insert("delivery_status", QJsonValue("awaiting"));
+        break;
+    case lrc::api::interaction::Status::TRANSFER_FINISHED:
+        interaction_object.insert("delivery_status", QJsonValue("finished"));
         break;
     case lrc::api::interaction::Status::INVALID:
     case lrc::api::interaction::Status::UNKNOWN:
@@ -536,12 +571,13 @@ webkit_chat_container_clear(WebKitChatContainer *view)
 
 void
 webkit_chat_container_update_interaction(WebKitChatContainer *view,
+                                         lrc::api::ConversationModel& conversation_model,
                                          uint64_t msgId,
                                          const lrc::api::interaction::Info& interaction)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    auto interaction_object = interaction_to_json_interaction_object(msgId, interaction).toUtf8();
+    auto interaction_object = interaction_to_json_interaction_object(conversation_model, msgId, interaction).toUtf8();
     gchar* function_call = g_strdup_printf("ring.chatview.updateMessage(%s);", interaction_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
@@ -555,12 +591,13 @@ webkit_chat_container_update_interaction(WebKitChatContainer *view,
 
 void
 webkit_chat_container_print_new_interaction(WebKitChatContainer *view,
+                                            lrc::api::ConversationModel& conversation_model,
                                             uint64_t msgId,
                                             const lrc::api::interaction::Info& interaction)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    auto interaction_object = interaction_to_json_interaction_object(msgId, interaction).toUtf8();
+    auto interaction_object = interaction_to_json_interaction_object(conversation_model, msgId, interaction).toUtf8();
     gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", interaction_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),

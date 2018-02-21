@@ -20,10 +20,16 @@
 
       <div id="sendMessage">
         <textarea id="message" autofocus placeholder="Message" onkeyup="grow_text_area()" rows="1" disabled="false"></textarea>
-        <div id="sendBtn" onclick="ring.chatview.sendMessage()" title="Send">
+        <div id="sendBtn" class="msg-button" onclick="ring.chatview.sendMessage()" title="Send">
           <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
               <path xmlns="http://www.w3.org/2000/svg" d="M12,11.874v4.357l7-6.69l-7-6.572v3.983c-8.775,0-11,9.732-11,9.732C3.484,12.296,7.237,11.874,12,11.874z"/>
           </svg>
+        </div>
+		<div id="send-file-btn" class="msg-button" onclick="ring.chatview.sendFile()" title="Send File">
+          <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 0h24v24H0z" fill="none"/>
+			<path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+		  </svg>
         </div>
       </div>
       </form>
@@ -307,19 +313,17 @@ ring.chatview = (function(){
 
         switch(message_delivery_status)
         {
-            case "unknown":
-                formatted_delivery_status = "";
-                break;
             case "sending":
-                formatted_delivery_status = "Sending<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><circle class='status_circle anim-first' cx='4' cy='12' r='1'/><circle class='status_circle anim-second' cx='8' cy='12' r='1'/><circle class='status_circle anim-third' cx='12' cy='12' r='1'/></svg>"
+			case "ongoing":
+                formatted_delivery_status = "Sending<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><circle class='status_circle anim-first' cx='4' cy='12' r='1'/><circle class='status_circle anim-second' cx='8' cy='12' r='1'/><circle class='status_circle anim-third' cx='12' cy='12' r='1'/></svg>";
                 break;
-            case "read":
-                formatted_delivery_status = "";
-                break;
-            case "failure":
-                formatted_delivery_status = "Failure <svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-x x-first' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M4,4 L12,12'/><path class='status-x x-second' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M12,4 L4,12'/></svg>"
-                break;
+			case "failure":
+                formatted_delivery_status = "Failure <svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-x x-first' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M4,4 L12,12'/><path class='status-x x-second' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M12,4 L4,12'/></svg>";
+				break;
             case "sent":
+            case "finished":
+			case "unknown":
+            case "read":
                 formatted_delivery_status = "";
                 break;
             default:
@@ -449,6 +453,12 @@ ring.chatview = (function(){
 
             chatview_message_text = document.createElement('span');
             chatview_message_text.setAttribute("class", "message_text");
+            if (message_type === 'data_transfer') {
+              chatview_message_text.addEventListener('click', function (event) {
+                // ask the soft to open the file
+                window.prompt('SEND:' + message_text);
+              });
+            }
 
             chatview_message_sender = document.createElement('span');
             chatview_message_sender.setAttribute("class", "message_sender");
@@ -468,6 +478,24 @@ ring.chatview = (function(){
 
             chatview_message_sender_image = document.createElement('span');
             chatview_message_sender_image.setAttribute("class", "sender_image sender_image_" + message_sender_contact_method);
+
+      			// DataTransfer progress bar
+      			chatview_message_transfer_progress_bar = document.createElement('span');
+      			chatview_message_transfer_progress_bar.setAttribute("class", "message_progress_bar");
+      			chatview_message_transfer_progress_completion = document.createElement('span');
+      			if ("progress" in message_object && message_delivery_status != "failure") {
+              var progress_percent = (100 * message_object["progress"] / message_object["totalSize"]);
+              if (progress_percent !== 100)
+                chatview_message_transfer_progress_completion.setAttribute("style", "width: " + progress_percent + "%");
+              else
+        					chatview_message_transfer_progress_bar.setAttribute("style", "display: none");
+            }
+      			else
+      					chatview_message_transfer_progress_bar.setAttribute("style", "display: none");
+      			chatview_message_transfer_progress_completion.setAttribute("class", "progress-bar-completion");
+      			chatview_message_transfer_progress_completion.setAttribute("id", "transfer-progress-bar");
+      			chatview_message_transfer_progress_bar.appendChild(chatview_message_transfer_progress_completion);
+      			chatview_message_wrapper.appendChild(chatview_message_transfer_progress_bar);
 
             // Append elements to div
             chatview_message_div.appendChild(chatview_message_sender_image);
@@ -491,27 +519,57 @@ ring.chatview = (function(){
             ];
             date_elt.setAttribute("class", timestamp_div_classes.join(" "));
             date_elt.setAttribute("message_timestamp", message_timestamp);
-            // Remove last timestamp if it's the same
+            // Remove last timestamp if it's the same<h6></h6>
             if (messages.querySelectorAll(".timestamp"))
                 cleanPreviousTimestamps(date_elt, messages.children.length);
             // Add the new timestamp
             messages.appendChild(date_elt);
-
         } else {
 
             chatview_message_div = document.querySelector("#message_" + message_id);
-
             if (chatview_message_div) {
+                if (message_delivery_status === 'awaiting') {
+                  // add buttons to accept or refuse a call.
+                  chatview_message_wrapper = chatview_message_div.querySelector(".message_wrapper");
+                  var accept_button = document.createElement('div');
+                  accept_button.innerText = 'Accept';
+                  accept_button.setAttribute("id", "accept-btn");
+                  accept_button.setAttribute("class", "flat-button button-green");
+                  accept_button.onclick = function() {
+                    window.prompt('ACCEPT_FILE:' + message_id);
+                  }
+                  chatview_message_wrapper.appendChild(accept_button);
+                  var refuse_button = document.createElement('div');
+                  refuse_button.innerText = 'Refuse';
+                  refuse_button.setAttribute("id", "refuse-btn");
+                  refuse_button.setAttribute("class", "flat-button button-red");
+                  refuse_button.onclick = function() {
+                    window.prompt('REFUSE_FILE:' + message_id);
+                  }
+                  chatview_message_wrapper.appendChild(refuse_button);
+                } else {
+                 chatview_message_div.querySelectorAll(".flat-button")
+                                     .forEach(function(el) {
+                   el.style.display= 'none';
+                 })
+               }
                 chatview_message_text = chatview_message_div.querySelector(".message_text");
                 chatview_message_sender_image = chatview_message_div.querySelector(".message_sender_image");
                 chatview_message_sender = chatview_message_div.querySelector(".message_sender");
                 chatview_message_delivery_status = chatview_message_div.querySelector(".message_delivery_status");
                 chatview_message_timestamp = chatview_message_div.querySelector(".message_timestamp");
-
+        				chatview_message_transfer_progress_bar = chatview_message_div.querySelector(".message_progress_bar");
+        				if ("progress" in message_object && message_delivery_status != "failure" && message_object["progress"] !== 100) {
+        					console.log("progress: " + message_object["progress"] + ", total: " + message_object["totalSize"]);
+                   var progress_percent = (100 * message_object["progress"] / message_object["totalSize"]);
+                   if (progress_percent !== 100)
+                     chatview_message_transfer_progress_bar.childNodes[0].setAttribute("style", "width: " + progress_percent + "%");
+                   else
+                     chatview_message_transfer_progress_bar.setAttribute("style", "display: none");
+        				} else
+        					chatview_message_transfer_progress_bar.setAttribute("style", "display: none");
             } else {
-
                 console.log('no msg selector.');
-
             }
         }
 
@@ -524,6 +582,9 @@ ring.chatview = (function(){
         chatview_message_timestamp.textContent = getMessageTimestampText(message_timestamp);
 
         if (new_message) {
+			if (message_delivery_status == "ongoing")
+				chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_message_transfer_progress_bar);
+
             if (message_direction === "out") {
                 chatview_sentCheckmark.innerHTML = sentAnimation;
                 chatview_message_div.querySelector(".message_wrapper").appendChild(chatview_sentCheckmark);
@@ -533,7 +594,7 @@ ring.chatview = (function(){
         }
 
         if (message_direction === "out") {
-            if (message_delivery_status === "sent") {
+            if (message_delivery_status === "sent" || message_delivery_status === "finished") {
                 chatview_message_div.classList.add("message--sent");
             }
         }
@@ -646,6 +707,11 @@ ring.chatview = (function(){
       }
     }
 
+	function sendFile()
+	{
+	  window.prompt('SEND_FILE');
+	}
+
     return {
         addMessage: addMessage,
         updateMessage: updateMessage,
@@ -663,6 +729,8 @@ ring.chatview = (function(){
         showInvitation: showInvitation,
         hideInvitation: hideInvitation,
         disableSendMessage: disableSendMessage,
+	    updateTimestamps: updateTimestamps,
+	    sendFile: sendFile,
     }
 
 })();
