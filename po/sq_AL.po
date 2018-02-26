@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Besnik <besnik@programeshqip.org>, 2016-2017
+# Besnik <besnik@programeshqip.org>, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-19 03:09-0500\n"
-"PO-Revision-Date: 2018-02-05 03:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-02-26 03:09-0500\n"
+"PO-Revision-Date: 2018-02-20 22:03+0000\n"
+"Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,15 +20,15 @@ msgstr ""
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr ""
+msgstr "_Rreth"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr ""
+msgstr "_Dil"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
-msgstr ""
+msgstr "Krijo të Ri"
 
 #: ui/accountmigrationview.ui:14
 msgid "Account migration required"
@@ -36,31 +36,31 @@ msgstr "Lyp migrim llogarie"
 
 #: ui/accountmigrationview.ui:39
 msgid "Alias:"
-msgstr ""
+msgstr "Alias:"
 
 #: ui/accountmigrationview.ui:102
 msgid "Please enter your password:"
-msgstr ""
+msgstr "Ju lutemi, jepni fjalëkalimin tuaj:"
 
 #: ui/accountmigrationview.ui:129
 msgid "Migrate account"
-msgstr ""
+msgstr "Migroni llogari"
 
 #: ui/accountmigrationview.ui:148
 msgid "Migration failed, wrong password ?"
-msgstr ""
+msgstr "Migrimi dështoi, fjalëkalim i gabuar?"
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
-msgstr ""
+msgstr "Përfundoje këtë thirrje"
 
 #: ui/currentcallview.ui:255 ui/currentcallview.ui:457
 msgid "End call"
-msgstr ""
+msgstr "Përfundoje thirrjen"
 
 #: ui/currentcallview.ui:275
 msgid "Toggle hold"
-msgstr ""
+msgstr "Mbaje/Braktise"
 
 #: ui/currentcallview.ui:279 ui/currentcallview.ui:304
 #: ui/currentcallview.ui:448
@@ -69,11 +69,11 @@ msgstr "Mbaje"
 
 #: ui/currentcallview.ui:300
 msgid "Toggle mute audio"
-msgstr ""
+msgstr "Vini/hiqni heshtje audioje"
 
 #: ui/currentcallview.ui:325
 msgid "Toggle mute video"
-msgstr ""
+msgstr "Vini/hiqni heshtje videoje"
 
 #: ui/currentcallview.ui:329 ui/currentcallview.ui:439
 msgid "Mute video"
@@ -81,27 +81,27 @@ msgstr "Mbylli videon"
 
 #: ui/currentcallview.ui:352
 msgid "Toggle record audio"
-msgstr ""
+msgstr "Nisni/ndalni incizim audioje"
 
 #: ui/currentcallview.ui:355
 msgid "Record audio"
-msgstr ""
+msgstr "Regjistro audion"
 
 #: ui/currentcallview.ui:376
 msgid "Adjust outgoing video quality"
-msgstr ""
+msgstr "Rregulloni cilësinë e videos së dërguar"
 
 #: ui/currentcallview.ui:381 ui/currentcallview.ui:466
 msgid "Video quality"
-msgstr ""
+msgstr "Cilësi videoje"
 
 #: ui/currentcallview.ui:400
 msgid "Toggle show chat"
-msgstr ""
+msgstr "Shfaqni/fshihni fjalosje"
 
 #: ui/currentcallview.ui:404 ui/currentcallview.ui:421
 msgid "Chat"
-msgstr ""
+msgstr "Fjalosje"
 
 #: ui/currentcallview.ui:430
 msgid "Mute audio"
@@ -113,7 +113,7 @@ msgstr "Regjistroje"
 
 #: ui/accountdevicestab.ui:21
 msgid "My Device ID:"
-msgstr ""
+msgstr "ID-a e Pajisjes Time:"
 
 #: ui/accountdevicestab.ui:40
 msgid "Devices"
@@ -121,26 +121,26 @@ msgstr "Pajisje"
 
 #: ui/accountdevicestab.ui:66
 msgid "Add device"
-msgstr ""
+msgstr "Shtoni pajisje"
 
 #: ui/accountdevicestab.ui:83
 msgid "Add New Device"
-msgstr ""
+msgstr "Shtoni Pajisje të Re"
 
 #: ui/accountdevicestab.ui:98
 msgid ""
 "To add a new device to your Ring account, you export your account on the "
 "Ring. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "Që t’i shtoni llogarisë tuaj Ring një pajisje të re, eksportoni llogarinë tuaj në Ring. Kjo do të prodhojë një PIN që duhet dhënë te pajisja juaj e re brenda 5 minutash nga çasti i prodhimit."
 
 #: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
 msgid "Password (required):"
-msgstr ""
+msgstr "Fjalëkalim (i domosdoshëm):"
 
 #: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
 msgid "Enter archive password"
-msgstr ""
+msgstr "Jepni fjalëkalim arkivi"
 
 #: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
 #: ui/accountimportexportview.ui:161 src/accountimportexportview.cpp:102
@@ -149,15 +149,15 @@ msgstr "Anuloje"
 
 #: ui/accountdevicestab.ui:141
 msgid "Export on the Ring"
-msgstr ""
+msgstr "Eksportoje te Ring-u"
 
 #: ui/accountdevicestab.ui:162
 msgid "Exporting account on the Ring..."
-msgstr ""
+msgstr "Po eksportohet llogari te Ring-u…"
 
 #: ui/accountdevicestab.ui:186
 msgid "Your generated pin:"
-msgstr ""
+msgstr "PIN-i juaj i prodhuar:"
 
 #: ui/accountdevicestab.ui:217 ui/accountdevicestab.ui:239
 #: ui/accountcreationwizard.ui:551
@@ -166,15 +166,15 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
-msgstr ""
+msgstr "Mirë se vini te"
 
 #: ui/accountcreationwizard.ui:68
 msgid "Create Ring Account"
-msgstr ""
+msgstr "Krijoni Llogari Ring"
 
 #: ui/accountcreationwizard.ui:69
 msgid "Create a new Ring account (for new users)"
-msgstr ""
+msgstr "Krijoni një llogari të ri Ring (për përdorues të rinj)"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Link this device to an account"
@@ -182,11 +182,11 @@ msgstr "Lidheni këtë pajisje me një llogari"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Link this devices to a Ring account created on another device"
-msgstr ""
+msgstr "Lidheni këtë pajisje me një llogari Ring të krijuar te pajisja tjetër"
 
 #: ui/accountcreationwizard.ui:105
 msgid "Link this device to an existing account"
-msgstr ""
+msgstr "Lidheni këtë pajisje me një llogari ekzistuese"
 
 #: ui/accountcreationwizard.ui:120
 msgid ""
@@ -197,23 +197,23 @@ msgid ""
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr ""
+msgstr "Për të lidhur këtë pajisje me një llogari tjetër, keni dy mundësi. Mund të importoni llogarinë tuaj nga DHT, por së pari, lypset të merrni një kod PIN. Që të prodhohet kodi PIN, kaloni te ndarja e administrimit të llogarive, te pajisja e mëparshme, zgjidhni Llogari Ring që duhet përdorur dhe përzgjidhni \"Lidhni me këtë llogari një pajisje tjetër\". Do të merrni PIN-in e nevojshëm për të plotësuar këtë formular. PIN-i vlen vetëm për 10 minuta. Ose mund të importoni drejtpërsëdrejti llogarinë tuaj nga një arkiv."
 
 #: ui/accountcreationwizard.ui:146
 msgid "Enter your pin:"
-msgstr ""
+msgstr "Jepni PIN-in tuaj:"
 
 #: ui/accountcreationwizard.ui:174
 msgid "Or import a file:"
-msgstr ""
+msgstr "Ose importoni një kartelë:"
 
 #: ui/accountcreationwizard.ui:193
 msgid "Enter your password:"
-msgstr ""
+msgstr "Jepni fjalëkalimin tuaj:"
 
 #: ui/accountcreationwizard.ui:217 ui/accountcreationwizard.ui:429
 msgid "Previous"
-msgstr ""
+msgstr "I mëparshmi"
 
 #: ui/accountcreationwizard.ui:225 ui/accountcreationwizard.ui:437
 msgid "Next"
@@ -225,7 +225,7 @@ msgstr "Profil"
 
 #: ui/accountcreationwizard.ui:287
 msgid "Full name:"
-msgstr ""
+msgstr "Emër i plotë:"
 
 #: ui/accountcreationwizard.ui:329
 msgid "Ring Account"
@@ -233,28 +233,28 @@ msgstr "Llogari Ring"
 
 #: ui/accountcreationwizard.ui:342
 msgid "Register public username (experimental):"
-msgstr ""
+msgstr "Regjistroni emër përdoruesi publik (eksperimentale):"
 
 #: ui/accountcreationwizard.ui:348
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Duke i vënë shenjë kësaj, do të regjistroni një emër përdoruesi unik në rrjetin Ring. Njerëzit mund ta përdorin për t’u lidhur me ju, në vend se të ID-së tuaj Ring, që është 40 shenja i gjatë."
 
 #: ui/accountcreationwizard.ui:371
 msgid "Password (confirm):"
-msgstr ""
+msgstr "Fjalëkalim (ripohojeni):"
 
 #: ui/accountcreationwizard.ui:372
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "Ky fjalëkalim do të përdoret për të fshehtëzuar të dhënat e llogarisë tuaj dhe për të lidhur pajisje të reja në të."
 
 #: ui/accountcreationwizard.ui:461
 msgid "Generating your Ring account..."
-msgstr ""
+msgstr "Po prodhohet llogaria juaj Ring…"
 
 #: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:310
 msgid "Registering username..."
@@ -262,59 +262,59 @@ msgstr "Po regjistrohet emri i përdoruesit…"
 
 #: ui/accountcreationwizard.ui:494
 msgid "This may take a few minutes."
-msgstr ""
+msgstr "Kjo mund të hajë pak minuta."
 
 #: ui/accountcreationwizard.ui:520
 msgid "Retrieving your Ring account..."
-msgstr ""
+msgstr "Po merret llogaria juaj Ring…"
 
 #: ui/accountcreationwizard.ui:546
 msgid "Error creating/loading account."
-msgstr ""
+msgstr "Gabim në krijim/ngarkim llogarie."
 
 #: ui/generalsettingsview.ui:34
 msgid "Profile Settings"
-msgstr ""
+msgstr "Rregullime Profili"
 
 #: ui/generalsettingsview.ui:76
 msgid "Ring Settings"
-msgstr ""
+msgstr "Rregullime Ring-u"
 
 #: ui/generalsettingsview.ui:92
 msgid "Start Ring on login"
-msgstr ""
+msgstr "Nise Ring-un kur bëni hyrjen në sistem"
 
 #: ui/generalsettingsview.ui:100
 msgid "Show Ring icon in the notification area (systray)."
-msgstr ""
+msgstr "Shfaq ikonë Ring-u te fusha e njoftimeve (systray)."
 
 #: ui/generalsettingsview.ui:108
 msgid "Bring Ring to the foreground on incoming calls."
-msgstr ""
+msgstr "Sille Ring-un përpara për thirrje ardhëse."
 
 #: ui/generalsettingsview.ui:116
 msgid "Enable notifications for incoming calls."
-msgstr ""
+msgstr "Aktivizo njoftimet për thirrje ardhëse."
 
 #: ui/generalsettingsview.ui:124
 msgid "Enable notifications for new chat messages."
-msgstr ""
+msgstr "Aktivizo njoftimet për mesazhe të reja fjalosjesh."
 
 #: ui/generalsettingsview.ui:132
 msgid "Show images and videos in chat window."
-msgstr ""
+msgstr "Shfaq te dritarja e fjalosjes figura dhe video."
 
 #: ui/generalsettingsview.ui:140
 msgid "Entering a number in the search entry will place a new call."
-msgstr ""
+msgstr "Dhënia e një numri te fusha e kërkimeve do të kryejë një thirrje të re."
 
 #: ui/generalsettingsview.ui:155
 msgid "Show chat on the right."
-msgstr ""
+msgstr "Shfaqe fjalosjen djathtas."
 
 #: ui/generalsettingsview.ui:161
 msgid "Show chat on the bottom."
-msgstr ""
+msgstr "Shfaqe fjalosjen poshtë."
 
 #: ui/generalsettingsview.ui:185
 msgid "History Settings"
@@ -322,19 +322,19 @@ msgstr "Rregullime Historiku"
 
 #: ui/generalsettingsview.ui:203
 msgid "Keep history for (days):"
-msgstr ""
+msgstr "Mbaje historikun për (ditë):"
 
 #: ui/generalsettingsview.ui:224
 msgid "(set to 0 for unlimited history)"
-msgstr ""
+msgstr "(vëreni 0 për historik të pakufizuar)"
 
 #: ui/generalsettingsview.ui:234
 msgid "Clear all history"
-msgstr ""
+msgstr "Pastro krejt historikun"
 
 #: ui/ringmainwindow.ui:61
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: ui/ringmainwindow.ui:83
 msgid "General"
@@ -362,111 +362,111 @@ msgstr "Kërkesa kontakti"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
-msgstr ""
+msgstr "Rregullime për Video"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
-msgstr ""
+msgstr "Përgjegjës tingulli:"
 
 #: ui/mediasettingsview.ui:52
 msgid "Ringtone device:"
-msgstr ""
+msgstr "Pajisje zilesh:"
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
-msgstr ""
+msgstr "Pajisje në dalje:"
 
 #: ui/mediasettingsview.ui:76
 msgid "Input device:"
-msgstr ""
+msgstr "Pajisje në hyrje:"
 
 #: ui/mediasettingsview.ui:134
 msgid "Camera Settings"
-msgstr ""
+msgstr "Rregullime Kamere"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"
-msgstr ""
+msgstr "Pajisje:"
 
 #: ui/mediasettingsview.ui:162
 msgid "Channel:"
-msgstr ""
+msgstr "Kanal:"
 
 #: ui/mediasettingsview.ui:174
 msgid "Resolution:"
-msgstr ""
+msgstr "Qartësi"
 
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
-msgstr ""
+msgstr "Shpejtësi kuadrosh:"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "Përshpejtim Hardware"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr ""
+msgstr "Aktivizo shkodim hardware:"
 
 #: ui/accountimportexportview.ui:14
 msgid "Export selected account"
-msgstr ""
+msgstr "Eksporto llogarinë e përzgjedhur"
 
 #: ui/accountimportexportview.ui:26
 msgid "Import accounts"
-msgstr ""
+msgstr "Importo llogari"
 
 #: ui/accountimportexportview.ui:49
 msgid "Location:"
-msgstr ""
+msgstr "Vendndodhje:"
 
 #: ui/accountimportexportview.ui:70
 msgid "choose location"
-msgstr ""
+msgstr "zgjidhni vendndodhje"
 
 #: ui/accountimportexportview.ui:76
 msgid "Choose export location"
-msgstr ""
+msgstr "Zgjidhni vendndodhje eksportimi"
 
 #: ui/accountimportexportview.ui:95
 msgid "Choose archive location"
-msgstr ""
+msgstr "Zgjidhni vendndodhje arkivi"
 
 #: ui/accountimportexportview.ui:169 ui/accountview.ui:110
 msgid "Export"
-msgstr ""
+msgstr "Eksportoje"
 
 #: ui/accountimportexportview.ui:181 ui/accountview.ui:103
 msgid "Import"
-msgstr ""
+msgstr "Importoje"
 
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
-msgstr ""
+msgstr "Hiqe llogarinë e përzgjedhur"
 
 #: ui/accountview.ui:63 ui/accountview.ui:66
 msgid "Add new account"
-msgstr ""
+msgstr "Shtoni llogari të re"
 
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
-msgstr ""
+msgstr "Përzgjidhni lloj llogarie"
 
 #: ui/accountview.ui:104
 msgid "Import archived account(s)"
-msgstr ""
+msgstr "Importo llogari të arkivuar"
 
 #: ui/accountview.ui:112
 msgid "Export selected account(s)"
-msgstr ""
+msgstr "Eksporto llogarinë e përzgjedhur"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
-msgstr ""
+msgstr "Përzgjidhni libër adresash"
 
 #: ui/editcontactview.ui:15
 msgid "Addressbook"
-msgstr ""
+msgstr "Libër adresash"
 
 #: ui/editcontactview.ui:29
 msgid "Name"
@@ -474,27 +474,27 @@ msgstr "Emër"
 
 #: ui/editcontactview.ui:32
 msgid "Contact name"
-msgstr ""
+msgstr "Emër kontakti"
 
 #: ui/editcontactview.ui:47
 msgid "Select how this number will be categorized"
-msgstr ""
+msgstr "Përzgjidhni se si do të kategorizohet ky numër"
 
 #: ui/editcontactview.ui:50
 msgid "Number category"
-msgstr ""
+msgstr "Kategori numrash"
 
 #: ui/editcontactview.ui:66
 msgid "Number or Ring ID to be added"
-msgstr ""
+msgstr "Numër ose ID Ring-u për t’u shtuar"
 
 #: ui/editcontactview.ui:72
 msgid "Number or Ring ID"
-msgstr ""
+msgstr "Numër ose ID Ring-u"
 
 #: ui/editcontactview.ui:83
 msgid "Save"
-msgstr ""
+msgstr "Ruaje"
 
 #: ui/accountvideotab.ui:50
 msgid "Enable Video"
@@ -510,7 +510,7 @@ msgstr "Ule poshtë"
 
 #: ui/accountvideotab.ui:98
 msgid "Video Codecs"
-msgstr ""
+msgstr "Kodekë Video"
 
 #: ui/accountadvancedtab.ui:81
 msgid "Registration expire timeout (seconds):"
@@ -534,7 +534,7 @@ msgstr "Regjistrim"
 
 #: ui/accountadvancedtab.ui:178
 msgid "Use random port"
-msgstr ""
+msgstr "Përdor portë kuturu"
 
 #: ui/accountadvancedtab.ui:199
 msgid "Local port:"
@@ -550,7 +550,7 @@ msgstr "Njësoj si parametrat vendorë"
 
 #: ui/accountadvancedtab.ui:268
 msgid "Set published address and port:"
-msgstr ""
+msgstr "Caktoni adresë dhe portë të publikuar:"
 
 #: ui/accountadvancedtab.ui:292
 msgid "Address"
@@ -582,7 +582,7 @@ msgstr "fjalëkalim"
 
 #: ui/accountadvancedtab.ui:479
 msgid "realm"
-msgstr ""
+msgstr "shtrirje"
 
 #: ui/accountadvancedtab.ui:508
 msgid "Published Address"
@@ -590,13 +590,13 @@ msgstr "Adresë e Publikuar"
 
 #: ui/accountadvancedtab.ui:536
 msgid "Bootstrap Servers"
-msgstr ""
+msgstr "Shërbyes Bootstrap"
 
 #: ui/accountadvancedtab.ui:593
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
-msgstr ""
+msgstr "Këto rregullime përdoren vetëm gjatë tratativash sesioni SDP kur ICE nuk mbulohet nga shërbyesi ose ana tjetër e komunikimit."
 
 #: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
 msgid "Min"
@@ -612,15 +612,15 @@ msgstr "Interval Porte Audio RTP"
 
 #: ui/accountadvancedtab.ui:741
 msgid "Video RTP Port Range"
-msgstr ""
+msgstr "Interval Porte Video RTP"
 
 #: ui/accountadvancedtab.ui:759
 msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr ""
+msgstr "Tratativa Sesioni SDP (ICE Fallback)"
 
 #: ui/accountaudiotab.ui:75
 msgid "Audio Codecs"
-msgstr ""
+msgstr "Kodekë Audio"
 
 #: ui/usernameregistrationbox.ui:12
 msgid "enter username here"
@@ -632,31 +632,31 @@ msgstr "Regjistrohuni"
 
 #: ui/accountbanstab.ui:18
 msgid "List of banned peers :"
-msgstr ""
+msgstr "Listë personash të dëbuar :"
 
 #: ui/accountbanstab.ui:62
 msgid "unban"
-msgstr ""
+msgstr "hiqja dëbim"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
-msgstr ""
+msgstr "Fshihe pamjen fjalosje"
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
-msgstr ""
+msgstr "Bëni një thirrje"
 
 #: ui/chatview.ui:62
 msgid "Place audio-only call"
-msgstr ""
+msgstr "Bëni një thirrje vetëm audio"
 
 #: ui/chatview.ui:75
 msgid "Add to conversations"
-msgstr ""
+msgstr "Shtoje te biseda"
 
 #: ui/chatview.ui:134
 msgid "Send Invitation"
-msgstr ""
+msgstr "Dërgoni Ftesë"
 
 #: ui/accountgeneraltab.ui:69
 msgid "Account"
@@ -669,15 +669,15 @@ msgstr "Parametra"
 #: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
 #: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
 msgid "Change password"
-msgstr ""
+msgstr "Ndryshoni fjalëkalimin"
 
 #: ui/accountgeneraltab.ui:175
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "Shënim: kjo do të ndryshojë fjalëkalimi vetëm në këtë pajisje."
 
 #: ui/accountgeneraltab.ui:194
 msgid "Current password"
-msgstr ""
+msgstr "Fjalëkalimi i tanishëm"
 
 #: ui/accountgeneraltab.ui:214
 msgid "New password"
@@ -689,7 +689,7 @@ msgstr "Ripohoni fjalëkalimin"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming..."
-msgstr ""
+msgstr "Ardhëse…"
 
 #: ui/incomingcallview.ui:135
 msgid "Accept"
@@ -697,27 +697,27 @@ msgstr "Pranoje"
 
 #: ui/incomingcallview.ui:156
 msgid "Reject"
-msgstr ""
+msgstr "Hidhe poshtë"
 
 #: ui/accountsecuritytab.ui:37
 msgid "Encrypt media streams (SRTP)"
-msgstr ""
+msgstr "Fshehtëzo rrjedha media (SRTP)"
 
 #: ui/accountsecuritytab.ui:58
 msgid "Key exchange protocol"
-msgstr ""
+msgstr "Protokoll shkëmbimi kyçesh"
 
 #: ui/accountsecuritytab.ui:76
 msgid "Fallback on RTP on encryption failure"
-msgstr ""
+msgstr "Në rast dështimi fshehtëzimi, riktheju RTP-së"
 
 #: ui/accountsecuritytab.ui:94
 msgid "Media Stream Encryption"
-msgstr ""
+msgstr "Fshehtëzim Rrjedhash Media"
 
 #: ui/accountsecuritytab.ui:123
 msgid "Encrypt negotiation (TLS)"
-msgstr ""
+msgstr "Tratativë fshehtëzimi (TLS)"
 
 #: ui/accountsecuritytab.ui:148
 msgid "CA certificate"
@@ -741,11 +741,11 @@ msgstr "Metodë protokolli TLS"
 
 #: ui/accountsecuritytab.ui:315
 msgid "Outgoing TLS server name"
-msgstr ""
+msgstr "Emër shërbyesi TLS dërgimesh"
 
 #: ui/accountsecuritytab.ui:337
 msgid "Negotiation timeout (seconds)"
-msgstr ""
+msgstr "Mbarim kohe tratative (sekonda)"
 
 #: ui/accountsecuritytab.ui:371
 msgid "Use default ciphers"
@@ -769,7 +769,7 @@ msgstr "Kërko një dëshmi për lidhje TLS ardhëse"
 
 #: ui/accountsecuritytab.ui:493
 msgid "Negotiation Encryption"
-msgstr ""
+msgstr "Fshehtëzim Tratative"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
@@ -777,7 +777,7 @@ msgstr "Bëni një foto"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr ""
+msgstr "Zgjidhni figurë prej kartele"
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
@@ -785,7 +785,7 @@ msgstr ""
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
-msgstr ""
+msgstr "Si figurë cakto përzgjedhjen"
 
 #: src/ring_client.cpp:144
 #, c-format
@@ -793,7 +793,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Ring daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "S’arrihet të gatitet.\nSigurohuni që demoni Ring (dring) është në punë e sipër.\nGabim: %s"
 
 #: src/ring_client.cpp:147
 msgid "Ring Error"
@@ -803,11 +803,11 @@ msgstr "Gabim Ring"
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
-msgstr ""
+msgstr "Shfaqe Ring-un"
 
 #: src/ring_client.cpp:293
 msgid "Quit"
-msgstr ""
+msgstr "Dilni"
 
 #: src/ringnotify.cpp:156
 msgid "Incoming call"
@@ -870,7 +870,7 @@ msgstr "Kryerja e kërkimit   dështoi"
 
 #: src/usernameregistrationbox.cpp:159
 msgid "Could not lookup username"
-msgstr ""
+msgstr "S’u bë dot kërkim emri përdoruesi"
 
 #: src/usernameregistrationbox.cpp:248
 msgid "Looking up username availability..."
@@ -882,7 +882,7 @@ msgstr "S’u fillua dot regjistrimi i emrit, riprovoni."
 
 #: src/usernameregistrationbox.cpp:361
 msgid "Register this username on the blockchain"
-msgstr ""
+msgstr "Regjistrojeni këtë emër përdoruesi te <em>blockchain</em>"
 
 #: src/usernameregistrationbox.cpp:397
 msgid "Invalid username"
@@ -925,15 +925,15 @@ msgstr "Strehëemër"
 
 #: src/accountgeneraltab.cpp:196
 msgid "New password and its confirmation are different"
-msgstr ""
+msgstr "Fjalëkalimi i ri dhe ripohimi për të janë të ndryshëm"
 
 #: src/accountgeneraltab.cpp:206
 msgid "Password changed!"
-msgstr ""
+msgstr "Fjalëkalimi ndryshoi!"
 
 #: src/accountgeneraltab.cpp:209
 msgid "Incorrect password"
-msgstr ""
+msgstr "Fjalëkalim i pasaktë"
 
 #: src/accountgeneraltab.cpp:236
 msgid "Alias"
@@ -969,7 +969,7 @@ msgstr "Numër voicemail"
 
 #: src/accountgeneraltab.cpp:363
 msgid "Name service URL"
-msgstr ""
+msgstr "URL shërbimi emrash"
 
 #: src/accountgeneraltab.cpp:376
 msgid "Auto-answer calls"
@@ -977,15 +977,15 @@ msgstr "Vetëpërgjigju thirrjeve"
 
 #: src/accountgeneraltab.cpp:384
 msgid "UPnP enabled"
-msgstr ""
+msgstr "Me UPnP të aktivizuar"
 
 #: src/video/video_widget.cpp:538
 msgid "Share screen area"
-msgstr ""
+msgstr "Ndani me të tjerët zonën e ekranit"
 
 #: src/video/video_widget.cpp:549
 msgid "Share file"
-msgstr ""
+msgstr "Ndani kartelë me të tjerë"
 
 #: src/video/video_widget.cpp:562
 msgid "Show advanced information"
@@ -1005,7 +1005,7 @@ msgstr "_Hape"
 
 #: src/dialogs.c:53
 msgid "Working..."
-msgstr ""
+msgstr "Po punohet…"
 
 #: src/dialogs.c:84
 #, c-format
@@ -1013,7 +1013,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"In varietate concordia\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"In varietate concordia\"\nmontuar më %.25s"
 
 #: src/dialogs.c:134
 msgid ""
@@ -1042,7 +1042,7 @@ msgstr "ID"
 #: src/ringmainwindow.cpp:495
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr ""
+msgstr "bëni një thirrje"
 
 #: src/ringmainwindow.cpp:498
 msgctxt "button next to search entry will open chat"
@@ -1054,16 +1054,16 @@ msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr "Përzgjidhni kontake ose jepni një numër"
+msgstr "Përzgjidhni kontakte ose jepni një numër"
 
 #: src/editcontactview.cpp:208
 msgctxt "Phone number category"
 msgid "home"
-msgstr ""
+msgstr "shtëpie"
 
 #: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
 msgid "Enabled"
-msgstr ""
+msgstr "Aktivizuar"
 
 #: src/accountvideotab.cpp:190
 msgctxt "The name of the codec"
@@ -1077,17 +1077,17 @@ msgstr ""
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Ring Error"
-msgstr "Gabim Ring"
+msgstr "Gabim Ring-u"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr ""
+msgstr "Po provohet rilidhja me demonin Ring (dring)…"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Ring daemon (dring).\n"
 "Ring will now quit."
-msgstr ""
+msgstr "S’u rilidh dot me demonin Ring (dring).\nRing-u tani do të dalë."
 
 #: src/accountaudiotab.cpp:181
 msgctxt "Name of the codec"
@@ -1100,7 +1100,7 @@ msgstr ""
 
 #: src/conversationpopupmenu.cpp:169
 msgid "_Place call"
-msgstr ""
+msgstr "_Bëni thirrje"
 
 #: src/conversationpopupmenu.cpp:172
 msgid "_Copy name"
@@ -1108,27 +1108,27 @@ msgstr "_Kopjoji emrin"
 
 #: src/conversationpopupmenu.cpp:178
 msgid "_Add to conversations"
-msgstr ""
+msgstr "_Shtoje te biseda"
 
 #: src/conversationpopupmenu.cpp:182
 msgid "_Discard invitation"
-msgstr ""
+msgstr "_Hidhe tej ftesën"
 
 #: src/conversationpopupmenu.cpp:185
 msgid "_Block invitations"
-msgstr ""
+msgstr "_Blloko ftesat"
 
 #: src/conversationpopupmenu.cpp:190
 msgid "C_lear history"
-msgstr ""
+msgstr "_Pastroje historikun"
 
 #: src/conversationpopupmenu.cpp:193
 msgid "_Remove conversation"
-msgstr ""
+msgstr "Hi_qe bisedën"
 
 #: src/conversationpopupmenu.cpp:196
 msgid "_Block contact"
-msgstr ""
+msgstr "B_llokoje kontakt"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
@@ -1138,11 +1138,11 @@ msgstr "Aktivizo diagnostikim"
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr ""
+msgstr "Rikthen gjendjen e fshehur të dritares kryesore (e zbatueshme vetëm për instancën parësore)"
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Ring"
-msgstr ""
+msgstr "- Klienti Ring për GNOME"
 
 #: src/accountcreationwizard.cpp:231
 msgid ""
@@ -1153,7 +1153,7 @@ msgstr "Llogaria juaj u krijua, por s’regjistruam dot emrin tuaj të përdorue
 #: src/accountcreationwizard.cpp:275
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
-msgstr "E panjohur"
+msgstr "I panjohur"
 
 #: src/accountcreationwizard.cpp:471
 msgid "Passwords don't match"
@@ -1186,7 +1186,7 @@ msgstr "Kod QR ID-je Ring-u"
 #: src/currentcallview.cpp:781
 msgctxt "Enable automatic video quality"
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 #: src/accountview.cpp:168
 msgctxt "Account settings"
@@ -1211,7 +1211,7 @@ msgstr "Të mëtejshme"
 #: src/accountview.cpp:194
 msgctxt "List of banned peers"
 msgid "Bans"
-msgstr ""
+msgstr "Dëbime"
 
 #: src/accountview.cpp:250
 #, c-format
@@ -1225,7 +1225,7 @@ msgstr "Llogari e Re"
 #: src/accountview.cpp:527
 msgctxt "Account state column"
 msgid "Enabled"
-msgstr ""
+msgstr "E aktivizuar"
 
 #: src/accountview.cpp:533
 msgctxt "Account alias (name) column"
