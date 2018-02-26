@@ -99,7 +99,7 @@ ring_welcome_update_view(RingWelcomeView* self, AccountContainer* accountContain
                                           priv->accountContainer_->info.profileInfo.uri.c_str());
     } else {
         gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
-        ring_id[0] = '\0';
+        ring_id = {};
     }
 
     gtk_label_set_markup(GTK_LABEL(priv->label_ringid), ring_id);
