@@ -365,7 +365,13 @@ print_text_recording(ChatView *self)
     g_return_if_fail(IS_CHAT_VIEW(self));
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
+    // Read interactions
     if (!priv->conversation_) return;
+    for (const auto& it: priv->conversation_->interactions) {
+        if (it.second.status == lrc::api::interaction::Status::UNREAD)
+            priv->accountContainer_->info.conversationModel->setInteractionRead(priv->conversation_->uid, it.first);
+    }
+
     webkit_chat_container_print_history(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
         *priv->accountContainer_->info.conversationModel,
