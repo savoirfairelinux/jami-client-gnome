@@ -536,12 +536,12 @@ chat_view_new (WebKitChatContainer* webkit_chat_container,
 }
 
 void
-chat_view_update_temporary(ChatView* self, bool newValue)
+chat_view_update_temporary(ChatView* self, bool showAddButton, bool showInvitation)
 {
     g_return_if_fail(IS_CHAT_VIEW(self));
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    priv->isTemporary_ = newValue;
+    priv->isTemporary_ = showAddButton;
     if (!priv->isTemporary_) {
         gtk_widget_hide(priv->button_add_to_conversations);
     }
@@ -556,7 +556,7 @@ chat_view_update_temporary(ChatView* self, bool newValue)
         if (bestName.empty())
             bestName = contactInfo.profileInfo.uri;
         webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                             newValue,
+                                             showInvitation,
                                              bestName);
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception

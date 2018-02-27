@@ -873,9 +873,10 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation)
         auto contactUri = chatViewConversation_->participants.front();
         auto contactInfo = accountContainer_->info.contactModel->getContact(contactUri);
         if (auto chat_view = current_call_view_get_chat_view(CURRENT_CALL_VIEW(new_view))) {
+            auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
             chat_view_update_temporary(CHAT_VIEW(chat_view),
-                                       contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING
-                                       || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY);
+                                       isPending || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY,
+                                       isPending);
         }
     } catch(...) { }
 
@@ -1370,9 +1371,10 @@ CppImpl::slotNewConversation(const std::string& uid)
         try {
             auto contactUri =  chatViewConversation_->participants.front();
             auto contactInfo = accountContainer_->info.contactModel->getContact(contactUri);
+            auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
             chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(widgets->frame_call))),
-                                       contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING
-                                       || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY);
+                                       isPending || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY,
+                                       isPending);
         } catch(...) { }
     }
 }
@@ -1403,12 +1405,18 @@ CppImpl::slotShowChatView(const std::string& id, lrc::api::conversation::Info or
     current_item.uid = "-1";
     if (IS_CHAT_VIEW(old_view))
         current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
+    // Do not show a conversation without any participants
+    if (origin.participants.empty()) return;
+    auto firstContactUri = origin.participants.front();
+    auto contactInfo = accountContainer_->info.contactModel->getContact(firstContactUri);
+    // change view if necessary or just update temporary
     if (current_item.uid != origin.uid) {
-        if (origin.participants.empty()) return;
-        auto firstContactUri = origin.participants.front();
-        auto contactInfo = accountContainer_->info.contactModel->getContact(firstContactUri);
-        if (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING && current_item.uid != "-1") return;
         changeView(CHAT_VIEW_TYPE, origin);
+    } else {
+        auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
+        chat_view_update_temporary(CHAT_VIEW(old_view),
+                                   isPending || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY,
+                                   isPending);
     }
 }
 
