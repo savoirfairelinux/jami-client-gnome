@@ -42,6 +42,7 @@ struct _AccountGeneralTabPrivate
 {
     Account   *account;
     GtkWidget *grid_account;
+    GtkWidget* frame_parameters;
     GtkWidget *grid_parameters;
 
     GtkWidget* entry_current_password;
@@ -86,6 +87,7 @@ account_general_tab_class_init(AccountGeneralTabClass *klass)
                                                 "/cx/ring/RingGnome/accountgeneraltab.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, grid_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, frame_parameters);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, grid_parameters);
 
     /* change password view */
@@ -109,14 +111,6 @@ account_alias_changed(GtkEditable *entry, AccountGeneralTab *view)
     priv->account->setAlias(QString(gtk_editable_get_chars(entry, 0, -1)));
     if (priv->account->protocol() == Account::Protocol::RING)
         priv->account->setDisplayName(gtk_entry_get_text(GTK_ENTRY(entry)));
-}
-
-static void
-entry_name_service_url_changed(GtkEditable *entry, AccountGeneralTab *view)
-{
-    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
-    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
-    priv->account->setNameServiceURL(QString(gtk_editable_get_chars(entry, 0, -1)));
 }
 
 static void
@@ -163,22 +157,6 @@ account_mailbox_changed(GtkEditable *entry, AccountGeneralTab *view)
     g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
     AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
     priv->account->setMailbox(QString(gtk_editable_get_chars(entry, 0, -1)));
-}
-
-static void
-auto_answer(GtkToggleButton *checkbutton, AccountGeneralTab *view)
-{
-    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
-    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
-    priv->account->setAutoAnswer(gtk_toggle_button_get_active(checkbutton));
-}
-
-static void
-upnp_enabled(GtkToggleButton *checkbutton, AccountGeneralTab *view)
-{
-    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
-    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
-    priv->account->setUpnpEnabled(gtk_toggle_button_get_active(checkbutton));
 }
 
 static void
@@ -275,8 +253,6 @@ build_tab_view(AccountGeneralTab *view)
     GtkWidget *entry_password = NULL;
     GtkWidget *entry_proxy = NULL;
     GtkWidget *entry_voicemail = NULL;
-    GtkWidget *checkbutton_autoanswer = NULL;
-    GtkWidget *checkbutton_upnp = NULL;
 
     /* build account grid */
 
@@ -404,37 +380,11 @@ build_tab_view(AccountGeneralTab *view)
         g_signal_connect(entry_voicemail, "changed", G_CALLBACK(account_mailbox_changed), view);
         gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry_voicemail, 1, grid_row, 1, 1);
         ++grid_row;
+
     } else {
-        /* RING account */
-
-        /* Name service */
-        label = gtk_label_new(_("Name service URL"));
-        gtk_widget_set_halign(label, GTK_ALIGN_START);
-        gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
-        GtkWidget* entry_name_service_url = gtk_entry_new();
-        gtk_widget_set_halign(entry_name_service_url, GTK_ALIGN_START);
-        gtk_entry_set_text(GTK_ENTRY(entry_name_service_url), priv->account->nameServiceURL().toLocal8Bit().constData());
-        gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry_name_service_url, 1, grid_row, 1, 1);
-        g_signal_connect(entry_name_service_url, "changed", G_CALLBACK(entry_name_service_url_changed), view);
-        ++grid_row;
-
+        gtk_widget_hide(priv->frame_parameters);
     }
-
-    /* auto answer */
-    checkbutton_autoanswer = gtk_check_button_new_with_label(_("Auto-answer calls"));
-    gtk_widget_set_halign(checkbutton_autoanswer, GTK_ALIGN_START);
-    gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_autoanswer, 0, grid_row, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_autoanswer), priv->account->isAutoAnswer());
-    g_signal_connect(checkbutton_autoanswer, "toggled", G_CALLBACK(auto_answer), view);
-    ++grid_row;
-
-    /* upnp */
-    checkbutton_upnp = gtk_check_button_new_with_label(_("UPnP enabled"));
-    gtk_widget_set_halign(checkbutton_upnp, GTK_ALIGN_START);
-    gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_upnp, 0, grid_row, 1, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_upnp), priv->account->isUpnpEnabled());
-    g_signal_connect(checkbutton_upnp, "toggled", G_CALLBACK(upnp_enabled), view);
-    ++grid_row;
+    gtk_widget_show_all(priv->grid_parameters);
 
     /* update account parameters if model is updated */
     priv->account_updated = QObject::connect(
@@ -450,9 +400,6 @@ build_tab_view(AccountGeneralTab *view)
                 gtk_entry_set_text(GTK_ENTRY(entry_proxy), priv->account->proxy().toLocal8Bit().constData());
                 gtk_entry_set_text(GTK_ENTRY(entry_voicemail), priv->account->mailbox().toLocal8Bit().constData());
             }
-
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_autoanswer), priv->account->isAutoAnswer());
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_upnp), priv->account->isUpnpEnabled());
         }
     );
 
@@ -462,8 +409,6 @@ build_tab_view(AccountGeneralTab *view)
     g_signal_connect_swapped(priv->entry_confirm_password, "changed", G_CALLBACK(reset_change_password), view);
     g_signal_connect_swapped(priv->button_choose_file, "clicked", G_CALLBACK(choose_export_file), view);
     gtk_widget_set_visible(priv->entry_current_password, priv->account->archiveHasPassword());
-
-    gtk_widget_show_all(priv->grid_parameters);
 
 }
 
