@@ -278,6 +278,7 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
             auto contactInfo = accountInfo.contactModel->getContact(contactUri);
             auto contactPhoto = contactInfo.profileInfo.avatar;
             auto bestName = contactInfo.profileInfo.alias.empty()? contactInfo.registeredName : contactInfo.profileInfo.alias;
+            if (bestName.empty()) bestName = contactInfo.profileInfo.uri;
             auto unreadMessages = conversationInfo.unreadMessages;
             if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY && contactInfo.profileInfo.uri.empty()) {
                 return QVariant::fromValue(scaleAndFrame(temporaryItemAvatar().get(), size, false, false, unreadMessages));
