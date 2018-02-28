@@ -45,6 +45,7 @@ struct _AccountAdvancedTabPrivate
 {
     Account   *account;
     GtkWidget *vbox_main;
+    GtkWidget *grid_parameters;
     GtkWidget *frame_registration;
     GtkWidget *box_registration;
     GtkWidget *box_registration_expire;
@@ -116,6 +117,7 @@ account_advanced_tab_class_init(AccountAdvancedTabClass *klass)
                                                 "/cx/ring/RingGnome/accountadvancedtab.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, vbox_main);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, grid_parameters);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, frame_registration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, box_registration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountAdvancedTab, box_registration_expire);
@@ -424,12 +426,76 @@ bootstrap_server_edited(GtkCellRendererText *renderer, gchar *path, gchar *new_t
         );
     }
 }
+static void
+entry_name_service_url_changed(GtkEditable *entry, AccountAdvancedTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(view));
+    AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(view);
+    priv->account->setNameServiceURL(QString(gtk_editable_get_chars(entry, 0, -1)));
+}
+
+static void
+auto_answer(GtkToggleButton *checkbutton, AccountAdvancedTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(view));
+    AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(view);
+    priv->account->setAutoAnswer(gtk_toggle_button_get_active(checkbutton));
+}
+
+static void
+upnp_enabled(GtkToggleButton *checkbutton, AccountAdvancedTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(view));
+    AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(view);
+    priv->account->setUpnpEnabled(gtk_toggle_button_get_active(checkbutton));
+}
+
 
 static void
 build_tab_view(AccountAdvancedTab *self)
 {
     g_return_if_fail(IS_ACCOUNT_ADVANCED_TAB(self));
     AccountAdvancedTabPrivate *priv = ACCOUNT_ADVANCED_TAB_GET_PRIVATE(self);
+
+    // separate pointers for each so that we reference them in the account changed callback
+    GtkWidget *checkbutton_autoanswer = NULL;
+    GtkWidget *checkbutton_upnp = NULL;
+
+    // build parameters grid
+    int grid_row = 0;
+    GtkWidget *label = NULL;
+    if (priv->account->protocol() == Account::Protocol::RING) {
+        // RING account
+
+        // Name service
+        label = gtk_label_new(_("Name service URL"));
+        gtk_widget_set_halign(label, GTK_ALIGN_START);
+        gtk_grid_attach(GTK_GRID(priv->grid_parameters), label, 0, grid_row, 1, 1);
+        GtkWidget* entry_name_service_url = gtk_entry_new();
+        gtk_widget_set_halign(entry_name_service_url, GTK_ALIGN_START);
+        gtk_entry_set_text(GTK_ENTRY(entry_name_service_url), priv->account->nameServiceURL().toLocal8Bit().constData());
+        gtk_grid_attach(GTK_GRID(priv->grid_parameters), entry_name_service_url, 1, grid_row, 1, 1);
+        g_signal_connect(entry_name_service_url, "changed", G_CALLBACK(entry_name_service_url_changed), self);
+        ++grid_row;
+    }
+
+    // auto answer
+    checkbutton_autoanswer = gtk_check_button_new_with_label(_("Auto-answer calls"));
+    gtk_widget_set_halign(checkbutton_autoanswer, GTK_ALIGN_START);
+    gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_autoanswer, 0, grid_row, 1, 1);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_autoanswer), priv->account->isAutoAnswer());
+    g_signal_connect(checkbutton_autoanswer, "toggled", G_CALLBACK(auto_answer), self);
+    ++grid_row;
+
+    // upnp
+    checkbutton_upnp = gtk_check_button_new_with_label(_("UPnP enabled"));
+    gtk_widget_set_halign(checkbutton_upnp, GTK_ALIGN_START);
+    gtk_grid_attach(GTK_GRID(priv->grid_parameters), checkbutton_upnp, 0, grid_row, 1, 1);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_upnp), priv->account->isUpnpEnabled());
+    g_signal_connect(checkbutton_upnp, "toggled", G_CALLBACK(upnp_enabled), self);
+    ++grid_row;
+
+    gtk_widget_show_all(priv->grid_parameters);
 
     /* only show registration timeout for SIP account */
     if (priv->account->protocol() != Account::Protocol::SIP) {
@@ -646,6 +712,10 @@ build_tab_view(AccountAdvancedTab *self)
         priv->account,
         &Account::changed,
         [=] () {
+            // upnp and auto answer
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_autoanswer), priv->account->isAutoAnswer());
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton_upnp), priv->account->isUpnpEnabled());
+
             /* only show registration timeout for SIP account */
             if ( priv->box_registration_expire ) {
                 gtk_adjustment_set_value(GTK_ADJUSTMENT(priv->adjustment_registration_timeout),
