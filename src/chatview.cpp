@@ -164,7 +164,7 @@ button_add_to_conversations_clicked(ChatView *self)
 }
 
 static gchar*
-file_to_manipulate(GtkWindow* top_window, bool send)
+file_to_manipulate(GtkWindow* top_window, bool send, const std::string& displayName = "")
 {
     GtkWidget* dialog;
     GtkFileChooserAction action = send? GTK_FILE_CHOOSER_ACTION_OPEN : GTK_FILE_CHOOSER_ACTION_SAVE;
@@ -179,6 +179,9 @@ file_to_manipulate(GtkWindow* top_window, bool send)
                                          send? _("_Open"): _("_Save"),
                                          GTK_RESPONSE_ACCEPT,
                                          nullptr);
+    // Set default save name
+    if (!send)
+        gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(dialog), displayName.c_str());
 
     res = gtk_dialog_run (GTK_DIALOG(dialog));
 
@@ -216,7 +219,11 @@ webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *int
         if (auto model = priv->accountContainer_->info.conversationModel.get()) {
             try {
                 auto interactionId = std::stoull(order.substr(std::string("ACCEPT_FILE:").size()));
-                if (auto filename = file_to_manipulate(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))), false))
+
+                lrc::api::datatransfer::Info info = {};
+                priv->accountContainer_->info.conversationModel->getTransferInfo(interactionId, info);
+
+                if (auto filename = file_to_manipulate(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))), false, info.displayName))
                     model->acceptTransfer(priv->conversation_->uid, interactionId, filename);
                 else
                     model->cancelTransfer(priv->conversation_->uid, interactionId);
