@@ -311,8 +311,6 @@ SET( SRC_FILES
    src/chatview.cpp
    src/avatarmanipulation.h
    src/avatarmanipulation.cpp
-   src/accountimportexportview.h
-   src/accountimportexportview.cpp
    src/cc-crop-area.h
    src/cc-crop-area.c
    src/models/namenumberfilterproxymodel.h
