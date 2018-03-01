@@ -479,17 +479,19 @@ ring.chatview = (function(){
        // Update flat buttons
        var left_buttons = message_div.querySelector("#left_buttons");
        left_buttons.innerHTML = '';
-       if (message_delivery_status === 'awaiting') {
-         // add buttons to accept or refuse a call.
-         var accept_button = document.createElement('div');
-         accept_button.innerHTML = acceptSvg;
-         accept_button.setAttribute("id", "accept-btn");
-         accept_button.setAttribute("title", "Accept");
-         accept_button.setAttribute("class", "flat-button button-green");
-         accept_button.onclick = function() {
-           window.prompt('ACCEPT_FILE:' + message_id);
+       if (message_delivery_status.indexOf('awaiting') === 0) {
+         if (message_delivery_status.indexOf('awaiting_host') === 0) {
+           // add buttons to accept or refuse a call.
+           var accept_button = document.createElement('div');
+           accept_button.innerHTML = acceptSvg;
+           accept_button.setAttribute("id", "accept-btn");
+           accept_button.setAttribute("title", "Accept");
+           accept_button.setAttribute("class", "flat-button button-green");
+           accept_button.onclick = function() {
+             window.prompt('ACCEPT_FILE:' + message_id);
+           }
+           left_buttons.appendChild(accept_button);
          }
-         left_buttons.appendChild(accept_button);
          var refuse_button = document.createElement('div');
          refuse_button.innerHTML = refuseSvg;
          refuse_button.setAttribute("id", "refuse-btn");

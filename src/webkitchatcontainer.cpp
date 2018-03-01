@@ -217,8 +217,11 @@ build_interaction_json(lrc::api::ConversationModel& conversation_model,
     case lrc::api::interaction::Status::TRANSFER_ONGOING:
         interaction_object.insert("delivery_status", QJsonValue("ongoing"));
         break;
-    case lrc::api::interaction::Status::TRANSFER_AWAITING:
-        interaction_object.insert("delivery_status", QJsonValue("awaiting"));
+    case lrc::api::interaction::Status::TRANSFER_AWAITING_PEER:
+        interaction_object.insert("delivery_status", QJsonValue("awaiting peer"));
+        break;
+    case lrc::api::interaction::Status::TRANSFER_AWAITING_HOST:
+        interaction_object.insert("delivery_status", QJsonValue("awaiting host"));
         break;
     case lrc::api::interaction::Status::TRANSFER_FINISHED:
         interaction_object.insert("delivery_status", QJsonValue("finished"));
