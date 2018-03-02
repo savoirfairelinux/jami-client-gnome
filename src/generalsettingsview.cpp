@@ -22,6 +22,7 @@
 // GTK+ related
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+#include <glib.h>
 
 // LRC
 #include <person.h>
@@ -63,6 +64,7 @@ struct _GeneralSettingsViewPrivate
     GtkWidget *box_profil_settings;
     GtkWidget *avatarmanipulation;
     GtkWidget *profile_name;
+    GtkWidget *directory_chooser;
 
     /* history settings */
     GtkWidget *adjustment_history_duration;
@@ -135,6 +137,17 @@ clear_history(G_GNUC_UNUSED GtkWidget *button, GeneralSettingsView *self)
 }
 
 static void
+change_prefered_directory (GtkFileChooserButton *widget, GeneralSettingsView *self)
+{
+    g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+
+    priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
+    auto download_directory_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (priv->directory_chooser));
+    g_settings_set_value(priv->settings, "download-folder", g_variant_new("s", download_directory_value));
+}
+
+static void
 general_settings_view_init(GeneralSettingsView *self)
 {
     gtk_widget_init_template(GTK_WIDGET(self));
@@ -175,8 +188,19 @@ general_settings_view_init(GeneralSettingsView *self)
                     priv->adjustment_history_duration, "value",
                     G_SETTINGS_BIND_DEFAULT);
 
+    auto* download_directory_variant = g_settings_get_value(priv->settings, "download-folder");
+    char* download_directory_value;
+    g_variant_get(download_directory_variant, "&s", &download_directory_value);
+    std::string default_download_dir = g_get_user_special_dir (G_USER_DIRECTORY_DOWNLOAD);
+    auto current_value = std::string(download_directory_value);
+    if (current_value.empty()) {
+        g_settings_set_value(priv->settings, "download-folder", g_variant_new("s", default_download_dir.c_str()));
+    }
+    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (priv->directory_chooser), current_value.empty()? default_download_dir.c_str() : download_directory_value);
+
     /* clear history */
     g_signal_connect(priv->button_clear_history, "clicked", G_CALLBACK(clear_history), self);
+    g_signal_connect(priv->directory_chooser, "file-set", G_CALLBACK(change_prefered_directory), self);
 }
 
 static void
@@ -199,6 +223,7 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_history_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_clear_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, box_profil_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, directory_chooser);
 
     general_settings_view_signals[CLEAR_ALL_HISTORY] = g_signal_new (
         "clear-all-history",
