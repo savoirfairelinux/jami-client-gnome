@@ -164,7 +164,7 @@ button_add_to_conversations_clicked(ChatView *self)
 }
 
 static gchar*
-file_to_manipulate(GtkWindow* top_window, bool send, const std::string& displayName = "")
+file_to_manipulate(GtkWindow* top_window, bool send)
 {
     GtkWidget* dialog;
     GtkFileChooserAction action = send? GTK_FILE_CHOOSER_ACTION_OPEN : GTK_FILE_CHOOSER_ACTION_SAVE;
@@ -179,9 +179,6 @@ file_to_manipulate(GtkWindow* top_window, bool send, const std::string& displayN
                                          send? _("_Open"): _("_Save"),
                                          GTK_RESPONSE_ACCEPT,
                                          nullptr);
-    // Set default save name
-    if (!send)
-        gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(dialog), displayName.c_str());
 
     res = gtk_dialog_run (GTK_DIALOG(dialog));
 
@@ -223,10 +220,20 @@ webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *int
                 lrc::api::datatransfer::Info info = {};
                 priv->accountContainer_->info.conversationModel->getTransferInfo(interactionId, info);
 
-                if (auto filename = file_to_manipulate(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))), false, info.displayName))
-                    model->acceptTransfer(priv->conversation_->uid, interactionId, filename);
-                else
-                    model->cancelTransfer(priv->conversation_->uid, interactionId);
+                // get prefered directory destination.
+                auto* download_directory_variant = g_settings_get_value(priv->settings, "download-folder");
+                char* download_directory_value;
+                g_variant_get(download_directory_variant, "&s", &download_directory_value);
+                std::string default_download_dir = g_get_user_special_dir (G_USER_DIRECTORY_DOWNLOAD);
+                auto current_value = std::string(download_directory_value);
+                if (current_value.empty()) {
+                    g_settings_set_value(priv->settings, "download-folder", g_variant_new("s", default_download_dir.c_str()));
+                }
+                // get full path
+                std::string filename = current_value.empty()? default_download_dir.c_str() : download_directory_value;
+                filename += info.displayName;
+
+                model->acceptTransfer(priv->conversation_->uid, interactionId, filename);
             } catch (...) {
                 // ignore
             }
