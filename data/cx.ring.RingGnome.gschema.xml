@@ -63,5 +63,10 @@
         <summary>Number of days to store the history.</summary>
         <description>Keep history only within the limit. 0 for unlimited history.</description>
     </key>
+    <key name="download-folder" type="s">
+        <default>""</default>
+        <summary>Where ring downloads files.</summary>
+        <description>When a contact sends a file, this file will be stored in the folder previously described.</description>
+    </key>
   </schema>
 </schemalist>

@@ -143,8 +143,34 @@
                         <property name="draw_indicator">True</property>
                       </object>
                     </child>
-
-
+                    <child>
+                      <object class="GtkBox" id="hbox_file_directory">
+                        <property name="visible">True</property>
+                        <property name="orientation">horizontal</property>
+                        <property name="spacing">12</property>
+                        <child>
+                          <object class="GtkLabel" id="label_file_directory">
+                            <property name="label" translatable="yes">Download folder</property>
+                              <property name="visible">True</property>
+                              <property name="can_focus">False</property>
+                              <property name="halign">start</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkFileChooserButton"  id="directory_chooser">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="action">select-folder</property>
+                            <property name="title" translatable="yes"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
                     <child>
                       <object class="GtkBox" id="box_position_chat">
                       <property name="visible">True</property>
