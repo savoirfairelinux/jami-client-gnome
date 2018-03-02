@@ -50,6 +50,8 @@ struct _AccountGeneralTabPrivate
     GtkWidget* button_validate_password;
     GtkWidget* label_error_change_passowrd;
 
+    GtkWidget* username_registration_box;
+
     GtkWidget* button_choose_file;
     GtkWidget* label_export_informations;
 
@@ -117,6 +119,9 @@ entry_name_service_url_changed(GtkEditable *entry, AccountGeneralTab *view)
     g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
     AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
     priv->account->setNameServiceURL(QString(gtk_editable_get_chars(entry, 0, -1)));
+    // Reperform a query on the NS
+    if (priv->username_registration_box)
+        lookup_username((UsernameRegistrationBox *)priv->username_registration_box);
 }
 
 static void
@@ -334,8 +339,8 @@ build_tab_view(AccountGeneralTab *view)
         label = gtk_label_new(_("Username"));
         gtk_widget_set_halign(label, GTK_ALIGN_START);
         gtk_grid_attach(GTK_GRID(priv->grid_account), label, 0, grid_row, 1, 1);
-        auto username_registration_box = username_registration_box_new(priv->account, TRUE);
-        gtk_grid_attach(GTK_GRID(priv->grid_account), username_registration_box, 1, grid_row, 2, 2);
+        priv->username_registration_box = username_registration_box_new(priv->account, TRUE);
+        gtk_grid_attach(GTK_GRID(priv->grid_account), priv->username_registration_box, 1, grid_row, 2, 2);
         grid_row+=2;
     }
 

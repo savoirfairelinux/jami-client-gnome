@@ -38,5 +38,6 @@ GType      username_registration_box_get_type           (void) G_GNUC_CONST;
 GtkWidget *username_registration_box_new                (Account *account, gboolean register_button);
 GtkEntry*  username_registration_box_get_entry          (UsernameRegistrationBox *view);
 void       username_registration_box_set_use_blockchain (UsernameRegistrationBox* view, gboolean use_blockchain);
+gboolean lookup_username(UsernameRegistrationBox *view);
 
 G_END_DECLS

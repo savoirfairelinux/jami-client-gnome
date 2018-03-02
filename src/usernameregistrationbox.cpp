@@ -200,7 +200,7 @@ username_registration_box_class_init(UsernameRegistrationBoxClass *klass)
                  G_TYPE_NONE, 0);
 }
 
-static gboolean
+gboolean
 lookup_username(UsernameRegistrationBox *view)
 {
     g_return_val_if_fail(IS_USERNAME_REGISTRATION_BOX(view), G_SOURCE_REMOVE);
@@ -209,8 +209,7 @@ lookup_username(UsernameRegistrationBox *view)
 
     const auto username = gtk_entry_get_text(GTK_ENTRY(priv->entry_username));
 
-    NameDirectory::instance().lookupName(nullptr, QString(), username);
-
+    NameDirectory::instance().lookupName(nullptr, priv->account->nameServiceURL(), username);
 
     priv->lookup_timeout = 0;
     return G_SOURCE_REMOVE;
