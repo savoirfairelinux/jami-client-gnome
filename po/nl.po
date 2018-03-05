@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-26 03:09-0500\n"
-"PO-Revision-Date: 2018-02-05 12:31+0000\n"
+"POT-Creation-Date: 2018-03-05 03:09-0500\n"
+"PO-Revision-Date: 2018-03-05 08:09+0000\n"
 "Last-Translator: Nathan Follens\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/ring/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -660,34 +660,42 @@ msgstr "Aan gesprekken toevoegen"
 msgid "Send Invitation"
 msgstr "Uitnodiging sturen"
 
-#: ui/accountgeneraltab.ui:69
+#: ui/accountgeneraltab.ui:74
 msgid "Account"
 msgstr "Account"
 
-#: ui/accountgeneraltab.ui:135
+#: ui/accountgeneraltab.ui:140
 msgid "Parameters"
 msgstr "Parameters"
 
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
+#: ui/accountgeneraltab.ui:164 ui/accountgeneraltab.ui:250
+#: src/accountgeneraltab.cpp:190 src/accountgeneraltab.cpp:256
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
 
-#: ui/accountgeneraltab.ui:175
+#: ui/accountgeneraltab.ui:180
 msgid "Note: this will change the password only on this device."
 msgstr "Let op: dit wijzigt enkel het wachtwoord op dit apparaat."
 
-#: ui/accountgeneraltab.ui:194
+#: ui/accountgeneraltab.ui:199
 msgid "Current password"
 msgstr "Huidig wachtwoord"
 
-#: ui/accountgeneraltab.ui:214
+#: ui/accountgeneraltab.ui:219
 msgid "New password"
 msgstr "Nieuw wachtwoord"
 
-#: ui/accountgeneraltab.ui:234
+#: ui/accountgeneraltab.ui:239
 msgid "Confirm password"
 msgstr "Bevestig wachtwoord"
+
+#: ui/accountgeneraltab.ui:296
+msgid "Export account"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:309
+msgid "Choose destination..."
+msgstr ""
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming..."
@@ -921,63 +929,80 @@ msgstr "Contacten"
 msgid "_Remove server"
 msgstr "Server ve_rwijderen"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:350
 msgid "Hostname"
 msgstr "Hostnaam"
 
-#: src/accountgeneraltab.cpp:196
+#: src/accountgeneraltab.cpp:205 src/chatview.cpp:174
+msgid "Save File"
+msgstr "Bestand opslaan"
+
+#: src/accountgeneraltab.cpp:208 src/avatarmanipulation.cpp:383
+#: src/chatview.cpp:177
+msgid "_Cancel"
+msgstr "_Annuleren"
+
+#: src/accountgeneraltab.cpp:210 src/chatview.cpp:179
+msgid "_Save"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:230
+msgid "File exported to destination: "
+msgstr ""
+
+#: src/accountgeneraltab.cpp:244
 msgid "New password and its confirmation are different"
 msgstr "Nieuw wachtwoord en bevestiging komen niet overeen"
 
-#: src/accountgeneraltab.cpp:206
+#: src/accountgeneraltab.cpp:254
 msgid "Password changed!"
 msgstr "Wachtwoord gewijzigd!"
 
-#: src/accountgeneraltab.cpp:209
+#: src/accountgeneraltab.cpp:257
 msgid "Incorrect password"
 msgstr "Onjuist wachtwoord"
 
-#: src/accountgeneraltab.cpp:236
+#: src/accountgeneraltab.cpp:284
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountgeneraltab.cpp:247
+#: src/accountgeneraltab.cpp:295
 msgid "Type"
 msgstr "Type"
 
-#: src/accountgeneraltab.cpp:273
+#: src/accountgeneraltab.cpp:321
 msgid "auto-generating..."
 msgstr "automatisch genereren…"
 
-#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
+#: src/accountgeneraltab.cpp:334 src/accountgeneraltab.cpp:360
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: src/accountgeneraltab.cpp:322
+#: src/accountgeneraltab.cpp:370
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: src/accountgeneraltab.cpp:335
+#: src/accountgeneraltab.cpp:383
 msgid "Show password"
 msgstr "Wachtwoord tonen"
 
-#: src/accountgeneraltab.cpp:341
+#: src/accountgeneraltab.cpp:389
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/accountgeneraltab.cpp:351
+#: src/accountgeneraltab.cpp:399
 msgid "Voicemail number"
 msgstr "Voicemailnummer"
 
-#: src/accountgeneraltab.cpp:363
+#: src/accountgeneraltab.cpp:411
 msgid "Name service URL"
 msgstr "Naamdienst-URL"
 
-#: src/accountgeneraltab.cpp:376
+#: src/accountgeneraltab.cpp:424
 msgid "Auto-answer calls"
 msgstr "Oproepen automatisch beantwoorden"
 
-#: src/accountgeneraltab.cpp:384
+#: src/accountgeneraltab.cpp:432
 msgid "UPnP enabled"
 msgstr "UPnP ingeschakeld"
 
@@ -997,11 +1022,7 @@ msgstr "Toon geavanceerde informatie"
 msgid "Open Avatar Image"
 msgstr "Avatarbestand openen"
 
-#: src/avatarmanipulation.cpp:383
-msgid "_Cancel"
-msgstr "_Annuleren"
-
-#: src/avatarmanipulation.cpp:385
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:179
 msgid "_Open"
 msgstr "_Openen"
 
@@ -1184,6 +1205,10 @@ msgstr "Ring is vrije software voor universele communicatie, die de vrijheden en
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring-ID-QR-code"
+
+#: src/chatview.cpp:174
+msgid "Send File"
+msgstr ""
 
 #: src/currentcallview.cpp:781
 msgctxt "Enable automatic video quality"

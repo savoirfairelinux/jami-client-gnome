@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-26 03:09-0500\n"
-"PO-Revision-Date: 2018-02-05 03:09+0000\n"
+"POT-Creation-Date: 2018-03-05 03:09-0500\n"
+"PO-Revision-Date: 2018-03-05 08:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Galician (http://www.transifex.com/savoirfairelinux/ring/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -657,33 +657,41 @@ msgstr ""
 msgid "Send Invitation"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:69
+#: ui/accountgeneraltab.ui:74
 msgid "Account"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:135
+#: ui/accountgeneraltab.ui:140
 msgid "Parameters"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
+#: ui/accountgeneraltab.ui:164 ui/accountgeneraltab.ui:250
+#: src/accountgeneraltab.cpp:190 src/accountgeneraltab.cpp:256
 msgid "Change password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:175
+#: ui/accountgeneraltab.ui:180
 msgid "Note: this will change the password only on this device."
 msgstr ""
 
-#: ui/accountgeneraltab.ui:194
+#: ui/accountgeneraltab.ui:199
 msgid "Current password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:214
+#: ui/accountgeneraltab.ui:219
 msgid "New password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:234
+#: ui/accountgeneraltab.ui:239
 msgid "Confirm password"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:296
+msgid "Export account"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:309
+msgid "Choose destination..."
 msgstr ""
 
 #: ui/incomingcallview.ui:99
@@ -918,63 +926,80 @@ msgstr ""
 msgid "_Remove server"
 msgstr ""
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:350
 msgid "Hostname"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:196
+#: src/accountgeneraltab.cpp:205 src/chatview.cpp:174
+msgid "Save File"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:208 src/avatarmanipulation.cpp:383
+#: src/chatview.cpp:177
+msgid "_Cancel"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:210 src/chatview.cpp:179
+msgid "_Save"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:230
+msgid "File exported to destination: "
+msgstr ""
+
+#: src/accountgeneraltab.cpp:244
 msgid "New password and its confirmation are different"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:206
+#: src/accountgeneraltab.cpp:254
 msgid "Password changed!"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:209
+#: src/accountgeneraltab.cpp:257
 msgid "Incorrect password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:236
+#: src/accountgeneraltab.cpp:284
 msgid "Alias"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:247
+#: src/accountgeneraltab.cpp:295
 msgid "Type"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:273
+#: src/accountgeneraltab.cpp:321
 msgid "auto-generating..."
 msgstr ""
 
-#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
+#: src/accountgeneraltab.cpp:334 src/accountgeneraltab.cpp:360
 msgid "Username"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:322
+#: src/accountgeneraltab.cpp:370
 msgid "Password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:335
+#: src/accountgeneraltab.cpp:383
 msgid "Show password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:341
+#: src/accountgeneraltab.cpp:389
 msgid "Proxy"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:351
+#: src/accountgeneraltab.cpp:399
 msgid "Voicemail number"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:363
+#: src/accountgeneraltab.cpp:411
 msgid "Name service URL"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:376
+#: src/accountgeneraltab.cpp:424
 msgid "Auto-answer calls"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:384
+#: src/accountgeneraltab.cpp:432
 msgid "UPnP enabled"
 msgstr ""
 
@@ -994,11 +1019,7 @@ msgstr ""
 msgid "Open Avatar Image"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:383
-msgid "_Cancel"
-msgstr ""
-
-#: src/avatarmanipulation.cpp:385
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:179
 msgid "_Open"
 msgstr ""
 
@@ -1180,6 +1201,10 @@ msgstr ""
 #: src/ringwelcomeview.cpp:205
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
+msgstr ""
+
+#: src/chatview.cpp:174
+msgid "Send File"
 msgstr ""
 
 #: src/currentcallview.cpp:781
