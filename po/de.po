@@ -5,7 +5,7 @@
 # Translators:
 # BiNZGi, 2017
 # Botho <botho.willer@gmx.net>, 2016
-# chkmue <ch-dev@t-online.de>, 2017
+# Chris <ch-dev@mailbox.org>, 2017
 # Ettore Atalan <atalanttore@googlemail.com>, 2016
 # Georg Rieger, 2018
 # frederikh <harwath@cs.uni-frankfurt.de>, 2018
@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-26 03:09-0500\n"
-"PO-Revision-Date: 2018-02-05 03:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-03-05 03:09-0500\n"
+"PO-Revision-Date: 2018-03-05 08:09+0000\n"
+"Last-Translator: Botho <botho.willer@gmx.net>\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/ring/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -672,34 +672,42 @@ msgstr "Zu Konversationen hinzufügen"
 msgid "Send Invitation"
 msgstr "Sende Einladung"
 
-#: ui/accountgeneraltab.ui:69
+#: ui/accountgeneraltab.ui:74
 msgid "Account"
 msgstr "Konto"
 
-#: ui/accountgeneraltab.ui:135
+#: ui/accountgeneraltab.ui:140
 msgid "Parameters"
 msgstr "Einstellungen"
 
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:183 src/accountgeneraltab.cpp:208
+#: ui/accountgeneraltab.ui:164 ui/accountgeneraltab.ui:250
+#: src/accountgeneraltab.cpp:190 src/accountgeneraltab.cpp:256
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: ui/accountgeneraltab.ui:175
+#: ui/accountgeneraltab.ui:180
 msgid "Note: this will change the password only on this device."
 msgstr "Hinweis: Dies wird das Passwort nur auf diesem Gerät ändern."
 
-#: ui/accountgeneraltab.ui:194
+#: ui/accountgeneraltab.ui:199
 msgid "Current password"
 msgstr "Aktuelles Passwort"
 
-#: ui/accountgeneraltab.ui:214
+#: ui/accountgeneraltab.ui:219
 msgid "New password"
 msgstr "Neues Passwort"
 
-#: ui/accountgeneraltab.ui:234
+#: ui/accountgeneraltab.ui:239
 msgid "Confirm password"
 msgstr "Passwort bestätigen"
+
+#: ui/accountgeneraltab.ui:296
+msgid "Export account"
+msgstr "Konten exportieren"
+
+#: ui/accountgeneraltab.ui:309
+msgid "Choose destination..."
+msgstr ""
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming..."
@@ -933,63 +941,80 @@ msgstr "Kontakte"
 msgid "_Remove server"
 msgstr "_Server entfernen"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:302
+#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:350
 msgid "Hostname"
 msgstr "Rechnername"
 
-#: src/accountgeneraltab.cpp:196
+#: src/accountgeneraltab.cpp:205 src/chatview.cpp:174
+msgid "Save File"
+msgstr "Datei speichern"
+
+#: src/accountgeneraltab.cpp:208 src/avatarmanipulation.cpp:383
+#: src/chatview.cpp:177
+msgid "_Cancel"
+msgstr "_Abbrechen"
+
+#: src/accountgeneraltab.cpp:210 src/chatview.cpp:179
+msgid "_Save"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:230
+msgid "File exported to destination: "
+msgstr ""
+
+#: src/accountgeneraltab.cpp:244
 msgid "New password and its confirmation are different"
 msgstr "Das neue Passwort und die Bestätigung sind unterschiedlich"
 
-#: src/accountgeneraltab.cpp:206
+#: src/accountgeneraltab.cpp:254
 msgid "Password changed!"
 msgstr "Passwort geändert!"
 
-#: src/accountgeneraltab.cpp:209
+#: src/accountgeneraltab.cpp:257
 msgid "Incorrect password"
 msgstr "Falsches Passwort"
 
-#: src/accountgeneraltab.cpp:236
+#: src/accountgeneraltab.cpp:284
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountgeneraltab.cpp:247
+#: src/accountgeneraltab.cpp:295
 msgid "Type"
 msgstr "Typ"
 
-#: src/accountgeneraltab.cpp:273
+#: src/accountgeneraltab.cpp:321
 msgid "auto-generating..."
 msgstr "Automatische Erstellung..."
 
-#: src/accountgeneraltab.cpp:286 src/accountgeneraltab.cpp:312
+#: src/accountgeneraltab.cpp:334 src/accountgeneraltab.cpp:360
 msgid "Username"
 msgstr "Benutzername"
 
-#: src/accountgeneraltab.cpp:322
+#: src/accountgeneraltab.cpp:370
 msgid "Password"
 msgstr "Passwort"
 
-#: src/accountgeneraltab.cpp:335
+#: src/accountgeneraltab.cpp:383
 msgid "Show password"
 msgstr "Passwort anzeigen"
 
-#: src/accountgeneraltab.cpp:341
+#: src/accountgeneraltab.cpp:389
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/accountgeneraltab.cpp:351
+#: src/accountgeneraltab.cpp:399
 msgid "Voicemail number"
 msgstr "Nummer des Anrufbeantworters"
 
-#: src/accountgeneraltab.cpp:363
+#: src/accountgeneraltab.cpp:411
 msgid "Name service URL"
 msgstr "URL des Namensservers"
 
-#: src/accountgeneraltab.cpp:376
+#: src/accountgeneraltab.cpp:424
 msgid "Auto-answer calls"
 msgstr "Anrufe automatisch beantworten"
 
-#: src/accountgeneraltab.cpp:384
+#: src/accountgeneraltab.cpp:432
 msgid "UPnP enabled"
 msgstr "UPnP aktiviert"
 
@@ -1009,11 +1034,7 @@ msgstr "Erweiterte Informationen anzeigen"
 msgid "Open Avatar Image"
 msgstr "Profilbild öffnen"
 
-#: src/avatarmanipulation.cpp:383
-msgid "_Cancel"
-msgstr "_Abbrechen"
-
-#: src/avatarmanipulation.cpp:385
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:179
 msgid "_Open"
 msgstr "_Öffnen"
 
@@ -1196,6 +1217,10 @@ msgstr "Ring ist eine Freie Software für universelle Kommunikation und respekti
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "QR-Code Ihrer Ring-ID"
+
+#: src/chatview.cpp:174
+msgid "Send File"
+msgstr ""
 
 #: src/currentcallview.cpp:781
 msgctxt "Enable automatic video quality"
