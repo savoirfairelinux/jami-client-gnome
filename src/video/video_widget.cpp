@@ -412,7 +412,7 @@ switch_video_input(GtkWidget *widget, Video::Device *device)
 }
 
 static void
-switch_video_input_screen(G_GNUC_UNUSED GtkWidget *item, Call* call)
+switch_video_input_screen_area(G_GNUC_UNUSED GtkWidget *item, Call* call)
 {
     unsigned x, y;
     unsigned width, height;
@@ -443,6 +443,34 @@ switch_video_input_screen(G_GNUC_UNUSED GtkWidget *item, Call* call)
     if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
         out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
 }
+
+static void
+switch_video_input_monitor(G_GNUC_UNUSED GtkWidget *item, Call* call)
+{
+    unsigned x, y;
+    unsigned width, height;
+
+    /* try to get the dispaly or default to 0 */
+    QString display_env{getenv("DISPLAY")};
+    int display = 0;
+
+    if (!display_env.isEmpty()) {
+        auto list = display_env.split(":", QString::SkipEmptyParts);
+        /* should only be one display, so get the first one */
+        if (list.size() > 0) {
+            display = list.at(0).toInt();
+            g_debug("sharing screen from DISPLAY %d", display);
+        }
+    }
+
+    x = y = 0;
+    width = gdk_screen_width();
+    height = gdk_screen_height();
+
+    if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+        out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
+}
+
 
 static void
 switch_video_input_file(GtkWidget *item, GtkWidget *parent)
@@ -535,18 +563,29 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
     /* add screen area as an input */
-    GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(_("Share screen area"));
+    GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(_("Share _screen area"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     if (sourcemodel) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
         g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
-        g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen), call);
+        g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen_area), call);
+    } else {
+        gtk_widget_set_sensitive(item, FALSE);
+    }
+
+    /* add screen area as an input */
+    item = gtk_check_menu_item_new_with_mnemonic(_("Share _monitor"));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    if (sourcemodel) {
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
+        g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
+        g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_monitor), call);
     } else {
         gtk_widget_set_sensitive(item, FALSE);
     }
 
     /* add file as an input */
-    item = gtk_check_menu_item_new_with_mnemonic(_("Share file"));
+    item = gtk_check_menu_item_new_with_mnemonic(_("Stream _file"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     if (sourcemodel) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
