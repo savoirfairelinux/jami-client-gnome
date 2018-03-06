@@ -129,15 +129,25 @@ add_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
 }
 
 static void
-place_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
+place_video_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 {
     try
     {
         auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(priv->row_);
         priv->accountContainer_->info.conversationModel->placeCall(conversation.uid);
+    } catch (...) {
+        g_warning("Can't get conversation at row %i", priv->row_);
     }
-    catch (...)
+}
+
+static void
+place_audio_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
+{
+    try
     {
+        auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(priv->row_);
+        priv->accountContainer_->info.conversationModel->placeAudioOnlyCall(conversation.uid);
+    } catch (...) {
         g_warning("Can't get conversation at row %i", priv->row_);
     }
 }
@@ -166,12 +176,14 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
 
         // we always build a menu, however in some cases some or all of the conversations will be deactivated
         // we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case
-        auto place_call_conversation = gtk_menu_item_new_with_mnemonic(_("_Place call"));
-        gtk_menu_shell_append(GTK_MENU_SHELL(self), place_call_conversation);
-        g_signal_connect(place_call_conversation, "activate", G_CALLBACK(place_call), priv);
-        auto copy_name = gtk_menu_item_new_with_mnemonic(_("_Copy name"));
-        gtk_menu_shell_append(GTK_MENU_SHELL(self), copy_name);
-        g_signal_connect(copy_name, "activate", G_CALLBACK(copy_contact_info), priv);
+        auto callId = conversation.confId.empty() ? conversation.callId : conversation.confId;
+        // Not in call
+        auto place_video_call_conversation = gtk_menu_item_new_with_mnemonic(_("Place _video call"));
+        gtk_menu_shell_append(GTK_MENU_SHELL(self), place_video_call_conversation);
+        g_signal_connect(place_video_call_conversation, "activate", G_CALLBACK(place_video_call), priv);
+        auto place_audio_call_conversation = gtk_menu_item_new_with_mnemonic(_("Place _audio call"));
+        gtk_menu_shell_append(GTK_MENU_SHELL(self), place_audio_call_conversation);
+        g_signal_connect(place_audio_call_conversation, "activate", G_CALLBACK(place_audio_call), priv);
         if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY ||
             contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING) {
             // If we can add this conversation
@@ -197,6 +209,10 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
             gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
             g_signal_connect(block_conversation_item, "activate", G_CALLBACK(block_conversation), priv);
         }
+
+        auto copy_name = gtk_menu_item_new_with_mnemonic(_("_Copy name"));
+        gtk_menu_shell_append(GTK_MENU_SHELL(self), copy_name);
+        g_signal_connect(copy_name, "activate", G_CALLBACK(copy_contact_info), priv);
 
         /* show all conversations */
         gtk_widget_show_all(GTK_WIDGET(self));
