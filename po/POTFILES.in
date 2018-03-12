@@ -7,7 +7,6 @@ ui/accountcreationwizard.ui
 ui/generalsettingsview.ui
 ui/ringmainwindow.ui
 ui/mediasettingsview.ui
-ui/accountimportexportview.ui
 ui/accountview.ui
 ui/editcontactview.ui
 ui/accountvideotab.ui
@@ -27,7 +26,6 @@ src/accountsecuritytab.cpp
 src/mediasettingsview.cpp
 src/ring_client.cpp
 src/ringnotify.cpp
-src/accountimportexportview.cpp
 src/usernameregistrationbox.cpp
 src/generalsettingsview.cpp
 src/backends/edscontactbackend.cpp
