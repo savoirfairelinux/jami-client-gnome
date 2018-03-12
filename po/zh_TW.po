@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-05 03:09-0500\n"
-"PO-Revision-Date: 2018-03-05 08:09+0000\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
+"POT-Creation-Date: 2018-03-12 03:09-0400\n"
+"PO-Revision-Date: 2018-03-12 07:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -136,16 +136,15 @@ msgid ""
 "within 5 minutes of its generation."
 msgstr "要新增新裝置到您的 Ring 帳號，您要先在 Ring 上匯出您的帳號。這將會生成 PIN 碼，必須在生成後的 5 分鐘內輸入到您的新裝置上。"
 
-#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:107
 msgid "Password (required):"
 msgstr "密碼（必要）："
 
-#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:118
 msgid "Enter archive password"
 msgstr "輸入檔案密碼"
 
 #: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
-#: ui/accountimportexportview.ui:161 src/accountimportexportview.cpp:102
 msgid "Cancel"
 msgstr "取消"
 
@@ -258,7 +257,7 @@ msgstr "這個密碼將會用於加密您的帳號資料與連結新的裝置到
 msgid "Generating your Ring account..."
 msgstr "正在生成您的 Ring 帳號..."
 
-#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:310
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:309
 msgid "Registering username..."
 msgstr "正在註冊使用者名稱..."
 
@@ -410,38 +409,6 @@ msgstr "硬體加速"
 msgid "Enable hardware decoding:"
 msgstr "啟用硬體解碼:"
 
-#: ui/accountimportexportview.ui:14
-msgid "Export selected account"
-msgstr "匯出選取的帳號"
-
-#: ui/accountimportexportview.ui:26
-msgid "Import accounts"
-msgstr "匯入帳號"
-
-#: ui/accountimportexportview.ui:49
-msgid "Location:"
-msgstr "位置："
-
-#: ui/accountimportexportview.ui:70
-msgid "choose location"
-msgstr "選擇位置"
-
-#: ui/accountimportexportview.ui:76
-msgid "Choose export location"
-msgstr "選擇匯出位置"
-
-#: ui/accountimportexportview.ui:95
-msgid "Choose archive location"
-msgstr "選取存檔位置"
-
-#: ui/accountimportexportview.ui:169 ui/accountview.ui:110
-msgid "Export"
-msgstr "匯出"
-
-#: ui/accountimportexportview.ui:181 ui/accountview.ui:103
-msgid "Import"
-msgstr "匯入"
-
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
 msgstr "移除選取的帳號"
@@ -453,14 +420,6 @@ msgstr "加入新帳號"
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
 msgstr "選取帳號類型"
-
-#: ui/accountview.ui:104
-msgid "Import archived account(s)"
-msgstr "匯入已歸檔的帳號"
-
-#: ui/accountview.ui:112
-msgid "Export selected account(s)"
-msgstr "匯出選取的帳號"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
@@ -514,109 +473,113 @@ msgstr "下"
 msgid "Video Codecs"
 msgstr "視訊編解碼器"
 
-#: ui/accountadvancedtab.ui:81
+#: ui/accountadvancedtab.ui:93
+msgid "Auto-answer and UPnP"
+msgstr ""
+
+#: ui/accountadvancedtab.ui:129
 msgid "Registration expire timeout (seconds):"
 msgstr "註冊過期逾時（秒）："
 
-#: ui/accountadvancedtab.ui:103
+#: ui/accountadvancedtab.ui:151
 msgid "Allow calls from unknown peers"
 msgstr "允許從未知他人而來的通話"
 
-#: ui/accountadvancedtab.ui:117
+#: ui/accountadvancedtab.ui:165
 msgid "Allow calls from peers in your call history"
 msgstr "允許從您的通話歷史而來的他人通話"
 
-#: ui/accountadvancedtab.ui:131
+#: ui/accountadvancedtab.ui:179
 msgid "Allow calls from peers in your contacts list"
 msgstr "允許從您的聯絡人清單而來的他人通話"
 
-#: ui/accountadvancedtab.ui:149
+#: ui/accountadvancedtab.ui:197
 msgid "Registration"
 msgstr "註冊"
 
-#: ui/accountadvancedtab.ui:178
+#: ui/accountadvancedtab.ui:226
 msgid "Use random port"
 msgstr "使用隨機連接埠"
 
-#: ui/accountadvancedtab.ui:199
+#: ui/accountadvancedtab.ui:247
 msgid "Local port:"
 msgstr "本機連接埠："
 
-#: ui/accountadvancedtab.ui:225
+#: ui/accountadvancedtab.ui:273
 msgid "Network Interface"
 msgstr "網路介面"
 
-#: ui/accountadvancedtab.ui:253
+#: ui/accountadvancedtab.ui:301
 msgid "Same as local parameters"
 msgstr "與本機參數相同"
 
-#: ui/accountadvancedtab.ui:268
+#: ui/accountadvancedtab.ui:316
 msgid "Set published address and port:"
 msgstr "設定公開位置與連接埠："
 
-#: ui/accountadvancedtab.ui:292
+#: ui/accountadvancedtab.ui:340
 msgid "Address"
 msgstr "地址"
 
-#: ui/accountadvancedtab.ui:314 src/accountadvancedtab.cpp:510
+#: ui/accountadvancedtab.ui:362 src/accountadvancedtab.cpp:576
 msgid "Port"
 msgstr "連接埠"
 
-#: ui/accountadvancedtab.ui:340
+#: ui/accountadvancedtab.ui:388
 msgid "Use STUN"
 msgstr "使用 STUN"
 
-#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
+#: ui/accountadvancedtab.ui:411 ui/accountadvancedtab.ui:460
 msgid "server URL"
 msgstr "伺服器網址"
 
-#: ui/accountadvancedtab.ui:389
+#: ui/accountadvancedtab.ui:437
 msgid "Use TURN"
 msgstr "使用 TURN"
 
-#: ui/accountadvancedtab.ui:434
+#: ui/accountadvancedtab.ui:482
 msgid "username"
 msgstr "使用者名稱"
 
-#: ui/accountadvancedtab.ui:455
+#: ui/accountadvancedtab.ui:503
 msgid "password"
 msgstr "密碼"
 
-#: ui/accountadvancedtab.ui:479
+#: ui/accountadvancedtab.ui:527
 msgid "realm"
 msgstr "領域"
 
-#: ui/accountadvancedtab.ui:508
+#: ui/accountadvancedtab.ui:556
 msgid "Published Address"
 msgstr "公開位置"
 
-#: ui/accountadvancedtab.ui:536
+#: ui/accountadvancedtab.ui:584
 msgid "Bootstrap Servers"
 msgstr "Bootstrap 伺服器"
 
-#: ui/accountadvancedtab.ui:593
+#: ui/accountadvancedtab.ui:641
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
 msgstr "這些設定將僅用於 SDP 工作階段協商，以防伺服器或對方不支援 ICE。"
 
-#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
+#: ui/accountadvancedtab.ui:666 ui/accountadvancedtab.ui:742
 msgid "Min"
 msgstr "最小值"
 
-#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
+#: ui/accountadvancedtab.ui:689 ui/accountadvancedtab.ui:765
 msgid "Max"
 msgstr "最大值"
 
-#: ui/accountadvancedtab.ui:665
+#: ui/accountadvancedtab.ui:713
 msgid "Audio RTP Port Range"
 msgstr "音訊 RTP 連接埠範圍"
 
-#: ui/accountadvancedtab.ui:741
+#: ui/accountadvancedtab.ui:789
 msgid "Video RTP Port Range"
 msgstr "視訊 RTP 連接埠範圍"
 
-#: ui/accountadvancedtab.ui:759
+#: ui/accountadvancedtab.ui:807
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP 工作階段協商（ICE 退回）"
 
@@ -664,38 +627,38 @@ msgstr "傳送邀請"
 msgid "Account"
 msgstr "帳號"
 
-#: ui/accountgeneraltab.ui:140
+#: ui/accountgeneraltab.ui:134
 msgid "Parameters"
 msgstr "參數"
 
-#: ui/accountgeneraltab.ui:164 ui/accountgeneraltab.ui:250
-#: src/accountgeneraltab.cpp:190 src/accountgeneraltab.cpp:256
+#: ui/accountgeneraltab.ui:158 ui/accountgeneraltab.ui:244
+#: src/accountgeneraltab.cpp:168 src/accountgeneraltab.cpp:234
 msgid "Change password"
 msgstr "變更密碼"
 
-#: ui/accountgeneraltab.ui:180
+#: ui/accountgeneraltab.ui:174
 msgid "Note: this will change the password only on this device."
 msgstr "注意：這將會僅會在此裝置上變更密碼。"
 
-#: ui/accountgeneraltab.ui:199
+#: ui/accountgeneraltab.ui:193
 msgid "Current password"
 msgstr "目前的密碼"
 
-#: ui/accountgeneraltab.ui:219
+#: ui/accountgeneraltab.ui:213
 msgid "New password"
 msgstr "新密碼"
 
-#: ui/accountgeneraltab.ui:239
+#: ui/accountgeneraltab.ui:233
 msgid "Confirm password"
 msgstr "確認密碼"
 
-#: ui/accountgeneraltab.ui:296
+#: ui/accountgeneraltab.ui:290
 msgid "Export account"
-msgstr ""
+msgstr "匯出帳號"
 
-#: ui/accountgeneraltab.ui:309
+#: ui/accountgeneraltab.ui:303
 msgid "Choose destination..."
-msgstr ""
+msgstr "選擇目標位置……"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming..."
@@ -834,22 +797,6 @@ msgctxt "Text message notification"
 msgid "%s says:"
 msgstr "%s 說："
 
-#: src/accountimportexportview.cpp:99
-msgid "Select account export location"
-msgstr "選擇帳號輸出位置"
-
-#: src/accountimportexportview.cpp:104
-msgid "Select"
-msgstr "選擇"
-
-#: src/accountimportexportview.cpp:197
-msgid "Error importing account(s)"
-msgstr "輸入帳號錯誤"
-
-#: src/accountimportexportview.cpp:244
-msgid "Error exporting account(s)"
-msgstr "輸出帳號錯誤"
-
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
 msgstr "輸入的使用者名稱不可用"
@@ -882,31 +829,31 @@ msgstr "查詢失敗"
 msgid "Could not lookup username"
 msgstr "無法查詢使用者名稱"
 
-#: src/usernameregistrationbox.cpp:248
+#: src/usernameregistrationbox.cpp:247
 msgid "Looking up username availability..."
 msgstr "正在查詢使用者名稱的可用性…"
 
-#: src/usernameregistrationbox.cpp:319
+#: src/usernameregistrationbox.cpp:318
 msgid "Could not initiate name registration, try again."
 msgstr "無法啟動名稱註冊，請重試。"
 
-#: src/usernameregistrationbox.cpp:361
+#: src/usernameregistrationbox.cpp:360
 msgid "Register this username on the blockchain"
 msgstr "在區塊鏈上註冊這個使用者名稱"
 
-#: src/usernameregistrationbox.cpp:397
+#: src/usernameregistrationbox.cpp:396
 msgid "Invalid username"
 msgstr "無效的使用者名稱"
 
-#: src/usernameregistrationbox.cpp:404 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:403 src/accountdevicestab.cpp:195
 msgid "Bad password"
 msgstr "密碼錯誤"
 
-#: src/usernameregistrationbox.cpp:411
+#: src/usernameregistrationbox.cpp:410
 msgid "Username already taken"
 msgstr "已取得的使用者名稱"
 
-#: src/usernameregistrationbox.cpp:418
+#: src/usernameregistrationbox.cpp:417
 msgid "Network error"
 msgstr "網路錯誤"
 
@@ -925,86 +872,86 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "聯絡人"
 
-#: src/accountadvancedtab.cpp:389
+#: src/accountadvancedtab.cpp:391
 msgid "_Remove server"
 msgstr "移除伺服器(_R)"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:350
+#: src/accountadvancedtab.cpp:471
+msgid "Name service URL"
+msgstr "名稱服務 URL"
+
+#: src/accountadvancedtab.cpp:483
+msgid "Auto-answer calls"
+msgstr "自動回答呼叫"
+
+#: src/accountadvancedtab.cpp:491
+msgid "UPnP enabled"
+msgstr "UPnP啟動"
+
+#: src/accountadvancedtab.cpp:568 src/accountgeneraltab.cpp:326
 msgid "Hostname"
 msgstr "主機名稱"
 
-#: src/accountgeneraltab.cpp:205 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:183 src/chatview.cpp:174
 msgid "Save File"
 msgstr "儲存檔案"
 
-#: src/accountgeneraltab.cpp:208 src/avatarmanipulation.cpp:383
+#: src/accountgeneraltab.cpp:186 src/avatarmanipulation.cpp:383
 #: src/chatview.cpp:177
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: src/accountgeneraltab.cpp:210 src/chatview.cpp:179
+#: src/accountgeneraltab.cpp:188 src/chatview.cpp:179
 msgid "_Save"
-msgstr ""
+msgstr "儲存(_S)"
 
-#: src/accountgeneraltab.cpp:230
+#: src/accountgeneraltab.cpp:208
 msgid "File exported to destination: "
-msgstr ""
+msgstr "檔案已匯出至目標位置"
 
-#: src/accountgeneraltab.cpp:244
+#: src/accountgeneraltab.cpp:222
 msgid "New password and its confirmation are different"
 msgstr "新密碼與其確認密碼不一樣"
 
-#: src/accountgeneraltab.cpp:254
+#: src/accountgeneraltab.cpp:232
 msgid "Password changed!"
 msgstr "密碼已變更！"
 
-#: src/accountgeneraltab.cpp:257
+#: src/accountgeneraltab.cpp:235
 msgid "Incorrect password"
 msgstr "不正確的密碼"
 
-#: src/accountgeneraltab.cpp:284
+#: src/accountgeneraltab.cpp:260
 msgid "Alias"
 msgstr "別名"
 
-#: src/accountgeneraltab.cpp:295
+#: src/accountgeneraltab.cpp:271
 msgid "Type"
 msgstr "類型"
 
-#: src/accountgeneraltab.cpp:321
+#: src/accountgeneraltab.cpp:297
 msgid "auto-generating..."
 msgstr "自動產生中..."
 
-#: src/accountgeneraltab.cpp:334 src/accountgeneraltab.cpp:360
+#: src/accountgeneraltab.cpp:310 src/accountgeneraltab.cpp:336
 msgid "Username"
 msgstr "使用者名稱"
 
-#: src/accountgeneraltab.cpp:370
+#: src/accountgeneraltab.cpp:346
 msgid "Password"
 msgstr "密碼"
 
-#: src/accountgeneraltab.cpp:383
+#: src/accountgeneraltab.cpp:359
 msgid "Show password"
 msgstr "顯示密碼"
 
-#: src/accountgeneraltab.cpp:389
+#: src/accountgeneraltab.cpp:365
 msgid "Proxy"
 msgstr "代理服務器"
 
-#: src/accountgeneraltab.cpp:399
+#: src/accountgeneraltab.cpp:375
 msgid "Voicemail number"
 msgstr "語音郵件號碼"
-
-#: src/accountgeneraltab.cpp:411
-msgid "Name service URL"
-msgstr "名稱服務 URL"
-
-#: src/accountgeneraltab.cpp:424
-msgid "Auto-answer calls"
-msgstr "自動回答呼叫"
-
-#: src/accountgeneraltab.cpp:432
-msgid "UPnP enabled"
-msgstr "UPnP啟動"
 
 #: src/video/video_widget.cpp:538
 msgid "Share screen area"
@@ -1208,58 +1155,58 @@ msgstr "Ring ID QR code"
 
 #: src/chatview.cpp:174
 msgid "Send File"
-msgstr ""
+msgstr "傳送檔案"
 
 #: src/currentcallview.cpp:781
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自動"
 
-#: src/accountview.cpp:168
+#: src/accountview.cpp:162
 msgctxt "Account settings"
 msgid "General"
 msgstr "一般"
 
-#: src/accountview.cpp:176
+#: src/accountview.cpp:170
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "裝置"
 
-#: src/accountview.cpp:182
+#: src/accountview.cpp:176
 msgctxt "Account settings"
 msgid "Security"
 msgstr "安全性"
 
-#: src/accountview.cpp:187
+#: src/accountview.cpp:181
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "進階"
 
-#: src/accountview.cpp:194
+#: src/accountview.cpp:188
 msgctxt "List of banned peers"
 msgid "Bans"
 msgstr "黑名單"
 
-#: src/accountview.cpp:250
+#: src/accountview.cpp:243
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "你確定要刪除帳號 \"%s\" 嗎？"
 
-#: src/accountview.cpp:377
+#: src/accountview.cpp:370
 msgid "New Account"
 msgstr "新增帳號"
 
-#: src/accountview.cpp:527
+#: src/accountview.cpp:457
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "啟用"
 
-#: src/accountview.cpp:533
+#: src/accountview.cpp:463
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "別名"
 
-#: src/accountview.cpp:541
+#: src/accountview.cpp:471
 msgctxt "Account status column"
 msgid "Status"
 msgstr "狀態"

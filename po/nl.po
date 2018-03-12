@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-05 03:09-0500\n"
-"PO-Revision-Date: 2018-03-05 08:09+0000\n"
-"Last-Translator: Nathan Follens\n"
+"POT-Creation-Date: 2018-03-12 03:09-0400\n"
+"PO-Revision-Date: 2018-03-12 07:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/ring/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -136,16 +136,15 @@ msgid ""
 "within 5 minutes of its generation."
 msgstr "Om een nieuw apparaat aan je Ring-account toe te voegen, moet je je account exporteren naar de Ring. Dit zal een pincode genereren die je binnen de 5 minuten op je nieuwe apparaat moet invoeren."
 
-#: ui/accountdevicestab.ui:107 ui/accountimportexportview.ui:111
+#: ui/accountdevicestab.ui:107
 msgid "Password (required):"
 msgstr "Wachtwoord (vereist):"
 
-#: ui/accountdevicestab.ui:118 ui/accountimportexportview.ui:126
+#: ui/accountdevicestab.ui:118
 msgid "Enter archive password"
 msgstr "Voer archiefwachtwoord in"
 
 #: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
-#: ui/accountimportexportview.ui:161 src/accountimportexportview.cpp:102
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -258,7 +257,7 @@ msgstr "Dit wachtwoord wordt gebruikt om je accountgegevens te versleutelen en n
 msgid "Generating your Ring account..."
 msgstr "Je Ring-account wordt aangemaakt…"
 
-#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:310
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:309
 msgid "Registering username..."
 msgstr "Gebruikersnaam wordt geregistreerd…"
 
@@ -410,38 +409,6 @@ msgstr "Hardwareversnelling"
 msgid "Enable hardware decoding:"
 msgstr "Hardwaredecodering inschakelen:"
 
-#: ui/accountimportexportview.ui:14
-msgid "Export selected account"
-msgstr "Geselecteerde account exporteren"
-
-#: ui/accountimportexportview.ui:26
-msgid "Import accounts"
-msgstr "Accounts importeren"
-
-#: ui/accountimportexportview.ui:49
-msgid "Location:"
-msgstr "Locatie:"
-
-#: ui/accountimportexportview.ui:70
-msgid "choose location"
-msgstr "kies locatie"
-
-#: ui/accountimportexportview.ui:76
-msgid "Choose export location"
-msgstr "Kies exportlocatie"
-
-#: ui/accountimportexportview.ui:95
-msgid "Choose archive location"
-msgstr "Kies archieflocatie"
-
-#: ui/accountimportexportview.ui:169 ui/accountview.ui:110
-msgid "Export"
-msgstr "Exporteren"
-
-#: ui/accountimportexportview.ui:181 ui/accountview.ui:103
-msgid "Import"
-msgstr "Importeren"
-
 #: ui/accountview.ui:42 ui/accountview.ui:45
 msgid "Remove selected account"
 msgstr "Geselecteerde account verwijderen"
@@ -453,14 +420,6 @@ msgstr "Nieuwe account toevoegen"
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
 msgstr "Selecteer accounttype"
-
-#: ui/accountview.ui:104
-msgid "Import archived account(s)"
-msgstr "Gearchiveerde account(s) importeren"
-
-#: ui/accountview.ui:112
-msgid "Export selected account(s)"
-msgstr "Geselecteerde account(s) exporteren"
 
 #: ui/editcontactview.ui:12
 msgid "Select addressbook"
@@ -514,109 +473,113 @@ msgstr "Lager"
 msgid "Video Codecs"
 msgstr "Videocodecs"
 
-#: ui/accountadvancedtab.ui:81
+#: ui/accountadvancedtab.ui:93
+msgid "Auto-answer and UPnP"
+msgstr ""
+
+#: ui/accountadvancedtab.ui:129
 msgid "Registration expire timeout (seconds):"
 msgstr "Registratie verval time-out (seconden):"
 
-#: ui/accountadvancedtab.ui:103
+#: ui/accountadvancedtab.ui:151
 msgid "Allow calls from unknown peers"
 msgstr "Oproepen van onbekende gebruikers aanvaarden"
 
-#: ui/accountadvancedtab.ui:117
+#: ui/accountadvancedtab.ui:165
 msgid "Allow calls from peers in your call history"
 msgstr "Oproepen van gebruikers in de oproepgeschiedenis aanvaarden"
 
-#: ui/accountadvancedtab.ui:131
+#: ui/accountadvancedtab.ui:179
 msgid "Allow calls from peers in your contacts list"
 msgstr "Oproepen van gebruikers in de contactenlijst aanvaarden"
 
-#: ui/accountadvancedtab.ui:149
+#: ui/accountadvancedtab.ui:197
 msgid "Registration"
 msgstr "Registratie"
 
-#: ui/accountadvancedtab.ui:178
+#: ui/accountadvancedtab.ui:226
 msgid "Use random port"
 msgstr "Willekeurige poort gebruiken"
 
-#: ui/accountadvancedtab.ui:199
+#: ui/accountadvancedtab.ui:247
 msgid "Local port:"
 msgstr "Lokale poort:"
 
-#: ui/accountadvancedtab.ui:225
+#: ui/accountadvancedtab.ui:273
 msgid "Network Interface"
 msgstr "Netwerkinterface"
 
-#: ui/accountadvancedtab.ui:253
+#: ui/accountadvancedtab.ui:301
 msgid "Same as local parameters"
 msgstr "Gelijk aan lokale parameters"
 
-#: ui/accountadvancedtab.ui:268
+#: ui/accountadvancedtab.ui:316
 msgid "Set published address and port:"
 msgstr "Stel gepubliceerd adres en poort in:"
 
-#: ui/accountadvancedtab.ui:292
+#: ui/accountadvancedtab.ui:340
 msgid "Address"
 msgstr "Adres"
 
-#: ui/accountadvancedtab.ui:314 src/accountadvancedtab.cpp:510
+#: ui/accountadvancedtab.ui:362 src/accountadvancedtab.cpp:576
 msgid "Port"
 msgstr "Poort"
 
-#: ui/accountadvancedtab.ui:340
+#: ui/accountadvancedtab.ui:388
 msgid "Use STUN"
 msgstr "STUN gebruiken"
 
-#: ui/accountadvancedtab.ui:363 ui/accountadvancedtab.ui:412
+#: ui/accountadvancedtab.ui:411 ui/accountadvancedtab.ui:460
 msgid "server URL"
 msgstr "server-URL"
 
-#: ui/accountadvancedtab.ui:389
+#: ui/accountadvancedtab.ui:437
 msgid "Use TURN"
 msgstr "TURN gebruiken"
 
-#: ui/accountadvancedtab.ui:434
+#: ui/accountadvancedtab.ui:482
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: ui/accountadvancedtab.ui:455
+#: ui/accountadvancedtab.ui:503
 msgid "password"
 msgstr "wachtwoord"
 
-#: ui/accountadvancedtab.ui:479
+#: ui/accountadvancedtab.ui:527
 msgid "realm"
 msgstr "realm"
 
-#: ui/accountadvancedtab.ui:508
+#: ui/accountadvancedtab.ui:556
 msgid "Published Address"
 msgstr "Gepubliceerd adres"
 
-#: ui/accountadvancedtab.ui:536
+#: ui/accountadvancedtab.ui:584
 msgid "Bootstrap Servers"
 msgstr "Bootstrapservers"
 
-#: ui/accountadvancedtab.ui:593
+#: ui/accountadvancedtab.ui:641
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
 msgstr "Deze instellingen worden enkel gebruikt tijdens SDP-sessieonderhandelingen in geval ICE niet ondersteund wordt door de server of de gebruiker."
 
-#: ui/accountadvancedtab.ui:618 ui/accountadvancedtab.ui:694
+#: ui/accountadvancedtab.ui:666 ui/accountadvancedtab.ui:742
 msgid "Min"
 msgstr "Min"
 
-#: ui/accountadvancedtab.ui:641 ui/accountadvancedtab.ui:717
+#: ui/accountadvancedtab.ui:689 ui/accountadvancedtab.ui:765
 msgid "Max"
 msgstr "Max"
 
-#: ui/accountadvancedtab.ui:665
+#: ui/accountadvancedtab.ui:713
 msgid "Audio RTP Port Range"
 msgstr "Audio RTP-poortenreeks"
 
-#: ui/accountadvancedtab.ui:741
+#: ui/accountadvancedtab.ui:789
 msgid "Video RTP Port Range"
 msgstr "Video RTP-poortenreeks"
 
-#: ui/accountadvancedtab.ui:759
+#: ui/accountadvancedtab.ui:807
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP-sessieonderhandeling (ICE-terugvaloptie)"
 
@@ -664,38 +627,38 @@ msgstr "Uitnodiging sturen"
 msgid "Account"
 msgstr "Account"
 
-#: ui/accountgeneraltab.ui:140
+#: ui/accountgeneraltab.ui:134
 msgid "Parameters"
 msgstr "Parameters"
 
-#: ui/accountgeneraltab.ui:164 ui/accountgeneraltab.ui:250
-#: src/accountgeneraltab.cpp:190 src/accountgeneraltab.cpp:256
+#: ui/accountgeneraltab.ui:158 ui/accountgeneraltab.ui:244
+#: src/accountgeneraltab.cpp:168 src/accountgeneraltab.cpp:234
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
 
-#: ui/accountgeneraltab.ui:180
+#: ui/accountgeneraltab.ui:174
 msgid "Note: this will change the password only on this device."
 msgstr "Let op: dit wijzigt enkel het wachtwoord op dit apparaat."
 
-#: ui/accountgeneraltab.ui:199
+#: ui/accountgeneraltab.ui:193
 msgid "Current password"
 msgstr "Huidig wachtwoord"
 
-#: ui/accountgeneraltab.ui:219
+#: ui/accountgeneraltab.ui:213
 msgid "New password"
 msgstr "Nieuw wachtwoord"
 
-#: ui/accountgeneraltab.ui:239
+#: ui/accountgeneraltab.ui:233
 msgid "Confirm password"
 msgstr "Bevestig wachtwoord"
 
-#: ui/accountgeneraltab.ui:296
+#: ui/accountgeneraltab.ui:290
 msgid "Export account"
-msgstr ""
+msgstr "Account exporteren"
 
-#: ui/accountgeneraltab.ui:309
+#: ui/accountgeneraltab.ui:303
 msgid "Choose destination..."
-msgstr ""
+msgstr "Kies locatie…"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming..."
@@ -834,22 +797,6 @@ msgctxt "Text message notification"
 msgid "%s says:"
 msgstr "%s schrijft:"
 
-#: src/accountimportexportview.cpp:99
-msgid "Select account export location"
-msgstr "Selecteer account-exportlocatie"
-
-#: src/accountimportexportview.cpp:104
-msgid "Select"
-msgstr "Selecteren"
-
-#: src/accountimportexportview.cpp:197
-msgid "Error importing account(s)"
-msgstr "Fout bij importeren van account(s)"
-
-#: src/accountimportexportview.cpp:244
-msgid "Error exporting account(s)"
-msgstr "Fout bij exporteren van account(s)"
-
 #: src/usernameregistrationbox.cpp:128
 msgid "The entered username is not available"
 msgstr "De ingevoerde gebruikersnaam is niet beschikbaar"
@@ -882,31 +829,31 @@ msgstr "Opzoeken mislukt"
 msgid "Could not lookup username"
 msgstr "Kon gebruikersnaam niet opzoeken"
 
-#: src/usernameregistrationbox.cpp:248
+#: src/usernameregistrationbox.cpp:247
 msgid "Looking up username availability..."
 msgstr "Beschikbaarheid van gebruikersnaam wordt gecontroleerd…"
 
-#: src/usernameregistrationbox.cpp:319
+#: src/usernameregistrationbox.cpp:318
 msgid "Could not initiate name registration, try again."
 msgstr "Kon naamregistratie niet initialiseren, probeer het opnieuw."
 
-#: src/usernameregistrationbox.cpp:361
+#: src/usernameregistrationbox.cpp:360
 msgid "Register this username on the blockchain"
 msgstr "Registreer deze gebruikersnaam op de blokketen"
 
-#: src/usernameregistrationbox.cpp:397
+#: src/usernameregistrationbox.cpp:396
 msgid "Invalid username"
 msgstr "Ongeldige gebruikersnaam"
 
-#: src/usernameregistrationbox.cpp:404 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:403 src/accountdevicestab.cpp:195
 msgid "Bad password"
 msgstr "Slecht wachtwoord"
 
-#: src/usernameregistrationbox.cpp:411
+#: src/usernameregistrationbox.cpp:410
 msgid "Username already taken"
 msgstr "Gebruikersnaam reeds in gebruik"
 
-#: src/usernameregistrationbox.cpp:418
+#: src/usernameregistrationbox.cpp:417
 msgid "Network error"
 msgstr "Netwerkfout"
 
@@ -925,86 +872,86 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Contacten"
 
-#: src/accountadvancedtab.cpp:389
+#: src/accountadvancedtab.cpp:391
 msgid "_Remove server"
 msgstr "Server ve_rwijderen"
 
-#: src/accountadvancedtab.cpp:502 src/accountgeneraltab.cpp:350
+#: src/accountadvancedtab.cpp:471
+msgid "Name service URL"
+msgstr "Naamdienst-URL"
+
+#: src/accountadvancedtab.cpp:483
+msgid "Auto-answer calls"
+msgstr "Oproepen automatisch beantwoorden"
+
+#: src/accountadvancedtab.cpp:491
+msgid "UPnP enabled"
+msgstr "UPnP ingeschakeld"
+
+#: src/accountadvancedtab.cpp:568 src/accountgeneraltab.cpp:326
 msgid "Hostname"
 msgstr "Hostnaam"
 
-#: src/accountgeneraltab.cpp:205 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:183 src/chatview.cpp:174
 msgid "Save File"
 msgstr "Bestand opslaan"
 
-#: src/accountgeneraltab.cpp:208 src/avatarmanipulation.cpp:383
+#: src/accountgeneraltab.cpp:186 src/avatarmanipulation.cpp:383
 #: src/chatview.cpp:177
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: src/accountgeneraltab.cpp:210 src/chatview.cpp:179
+#: src/accountgeneraltab.cpp:188 src/chatview.cpp:179
 msgid "_Save"
-msgstr ""
+msgstr "Op_slaan"
 
-#: src/accountgeneraltab.cpp:230
+#: src/accountgeneraltab.cpp:208
 msgid "File exported to destination: "
-msgstr ""
+msgstr "Bestand geëxporteerd naar locatie:"
 
-#: src/accountgeneraltab.cpp:244
+#: src/accountgeneraltab.cpp:222
 msgid "New password and its confirmation are different"
 msgstr "Nieuw wachtwoord en bevestiging komen niet overeen"
 
-#: src/accountgeneraltab.cpp:254
+#: src/accountgeneraltab.cpp:232
 msgid "Password changed!"
 msgstr "Wachtwoord gewijzigd!"
 
-#: src/accountgeneraltab.cpp:257
+#: src/accountgeneraltab.cpp:235
 msgid "Incorrect password"
 msgstr "Onjuist wachtwoord"
 
-#: src/accountgeneraltab.cpp:284
+#: src/accountgeneraltab.cpp:260
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountgeneraltab.cpp:295
+#: src/accountgeneraltab.cpp:271
 msgid "Type"
 msgstr "Type"
 
-#: src/accountgeneraltab.cpp:321
+#: src/accountgeneraltab.cpp:297
 msgid "auto-generating..."
 msgstr "automatisch genereren…"
 
-#: src/accountgeneraltab.cpp:334 src/accountgeneraltab.cpp:360
+#: src/accountgeneraltab.cpp:310 src/accountgeneraltab.cpp:336
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: src/accountgeneraltab.cpp:370
+#: src/accountgeneraltab.cpp:346
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: src/accountgeneraltab.cpp:383
+#: src/accountgeneraltab.cpp:359
 msgid "Show password"
 msgstr "Wachtwoord tonen"
 
-#: src/accountgeneraltab.cpp:389
+#: src/accountgeneraltab.cpp:365
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/accountgeneraltab.cpp:399
+#: src/accountgeneraltab.cpp:375
 msgid "Voicemail number"
 msgstr "Voicemailnummer"
-
-#: src/accountgeneraltab.cpp:411
-msgid "Name service URL"
-msgstr "Naamdienst-URL"
-
-#: src/accountgeneraltab.cpp:424
-msgid "Auto-answer calls"
-msgstr "Oproepen automatisch beantwoorden"
-
-#: src/accountgeneraltab.cpp:432
-msgid "UPnP enabled"
-msgstr "UPnP ingeschakeld"
 
 #: src/video/video_widget.cpp:538
 msgid "Share screen area"
@@ -1208,58 +1155,58 @@ msgstr "Ring-ID-QR-code"
 
 #: src/chatview.cpp:174
 msgid "Send File"
-msgstr ""
+msgstr "Bestand versturen"
 
 #: src/currentcallview.cpp:781
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/accountview.cpp:168
+#: src/accountview.cpp:162
 msgctxt "Account settings"
 msgid "General"
 msgstr "Algemeen"
 
-#: src/accountview.cpp:176
+#: src/accountview.cpp:170
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "Apparaten"
 
-#: src/accountview.cpp:182
+#: src/accountview.cpp:176
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Beveiliging"
 
-#: src/accountview.cpp:187
+#: src/accountview.cpp:181
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Geavanceerd"
 
-#: src/accountview.cpp:194
+#: src/accountview.cpp:188
 msgctxt "List of banned peers"
 msgid "Bans"
 msgstr "Geblokkeerd"
 
-#: src/accountview.cpp:250
+#: src/accountview.cpp:243
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "Weet je zeker dat je account ‘%s’ wil verwijderen?"
 
-#: src/accountview.cpp:377
+#: src/accountview.cpp:370
 msgid "New Account"
 msgstr "Account aanmaken"
 
-#: src/accountview.cpp:527
+#: src/accountview.cpp:457
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
-#: src/accountview.cpp:533
+#: src/accountview.cpp:463
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountview.cpp:541
+#: src/accountview.cpp:471
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Status"
