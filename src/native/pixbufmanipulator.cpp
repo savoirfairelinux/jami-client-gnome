@@ -37,7 +37,6 @@
 #include <api/account.h>
 #include <api/contact.h>
 
-
 namespace Interfaces {
 
 PixbufManipulator::PixbufManipulator()
@@ -66,19 +65,19 @@ std::shared_ptr<GdkPixbuf>
 PixbufManipulator::generateAvatar(const ContactMethod* cm) const
 {
     auto cm_number = QString("0");
-    auto letter = QChar('?'); // R for ring
+    QString bestName;
     if (cm) {
         auto hashName = cm->uri().userinfo();
         if (hashName.size() > 0) {
             cm_number = hashName.at(0);
         }
-        // Get the letter to draw
+        // Get the bestName to draw
         if (!cm->bestName().isEmpty()) {
             // Prioritize the name
-            letter = cm->bestName().toUpper().at(0);
+            bestName = cm->bestName().toUpper();
         } else if (!cm->bestId().isEmpty()) {
             // If the contact has no name, use the id
-            letter = cm->bestId().toUpper().at(0);
+            bestName = cm->bestId().toUpper();
         } else {
             // R for ring is used
         }
@@ -88,22 +87,27 @@ PixbufManipulator::generateAvatar(const ContactMethod* cm) const
     auto color = cm_number.toUInt(&ok, 16);
     if (!ok) color = 0;
 
+    // Retrieve first character
+    auto letter = bestName.isEmpty() ? "" : QString(bestName.at(0)).toStdString();
+
     return std::shared_ptr<GdkPixbuf> {
         ring_draw_fallback_avatar(
             FALLBACK_AVATAR_SIZE,
-            letter.toLatin1(),
+            letter,
             color
         ),
         g_object_unref
     };
+
 }
 
 std::shared_ptr<GdkPixbuf>
 PixbufManipulator::generateAvatar(const std::string& alias, const std::string& uri) const
 {
     auto name = alias;
-    std::transform(name.begin(), name.end(), name.begin(), ::toupper);
-    auto letter = name.length() > 0 ? name[0] : '?';
+    std::string letter = {};
+    if (!name.empty())
+        letter = QString(QString(name.c_str()).toUpper().at(0)).toStdString();
     auto color = 0;
     try {
         color = uri.length() > 0 ? std::stoi(std::string(1, uri[0]), 0, 16) : 0;

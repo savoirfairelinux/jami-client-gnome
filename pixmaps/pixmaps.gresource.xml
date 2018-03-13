@@ -32,5 +32,6 @@
     <file alias="invite">ic_person_add_black_24px.svg</file>
     <file alias="temporary-item">ic_search_black_48px.svg</file>
     <file alias="audio_only_call_start">ic_call_black_24px.svg</file>
+    <file alias="fallbackavatar">fallbackavatar.svg</file>
   </gresource>
 </gresources>
