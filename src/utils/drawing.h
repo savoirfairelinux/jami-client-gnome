@@ -21,8 +21,9 @@
 #define _DRAWING_H
 
 #include <gtk/gtk.h>
+#include <string>
 
-GdkPixbuf *ring_draw_fallback_avatar(int size, const char letter, const char color = 0);
+GdkPixbuf *ring_draw_fallback_avatar(int size, const std::string& letter, const char color = 0);
 
 GdkPixbuf *ring_draw_conference_avatar(int size);
 

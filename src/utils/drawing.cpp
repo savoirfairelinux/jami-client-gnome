@@ -49,7 +49,7 @@ static constexpr GdkRGBA     COLOR_PALETTE[] = {{0.956862, 0.262745, 0.211764, 1
                                                 {0.376470, 0.490196, 0.545098, 1.0}};// red 95, green 124, blue 138, 1 (blue grey)
 
 GdkPixbuf *
-ring_draw_fallback_avatar(int size, const char letter, const char color) {
+ring_draw_fallback_avatar(int size, const std::string& letter, const char color) {
     cairo_surface_t *surface;
     cairo_t *cr;
 
@@ -60,18 +60,27 @@ ring_draw_fallback_avatar(int size, const char letter, const char color) {
     cairo_set_source_rgb (cr, bg_color.red, bg_color.green, bg_color.blue);
     cairo_paint(cr);
 
-    // Draw a letter at the center of the avatar
-    cairo_text_extents_t extents;
-    cairo_select_font_face (cr, "monospace", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
-    cairo_set_font_size(cr, size / 2);
-    cairo_set_source_rgb (cr, 1, 1, 1);
-    char first_letter[2] = {0};
-    first_letter[0] = letter;
-    cairo_text_extents (cr, first_letter, &extents);
-    auto x = size/2-(extents.width/2 + extents.x_bearing);
-    auto y = size/2-(extents.height/2 + extents.y_bearing);
-    cairo_move_to (cr, x, y);
-    cairo_show_text(cr, first_letter);
+    if (!letter.empty()) {
+        // Draw a letter at the center of the avatar
+        cairo_text_extents_t extents;
+        cairo_select_font_face(cr, "monospace", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
+        cairo_set_font_size(cr, size / 2);
+        cairo_set_source_rgb(cr, 1, 1, 1);
+        cairo_text_extents(cr, letter.c_str(), &extents);
+        auto x = size/2-(extents.width/2 + extents.x_bearing);
+        auto y = size/2-(extents.height/2 + extents.y_bearing);
+        cairo_move_to(cr, x, y);
+        cairo_show_text(cr, letter.c_str());
+    } else {
+        // Compose from fallback svg if no letter found
+        GError *error = nullptr;
+        auto* finalAvatar = gdk_pixbuf_get_from_surface(cairo_get_target(cr), 0, 0, size, size);
+        auto* fallbackavatar = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/fallbackavatar", size, size, true, &error);
+        gdk_pixbuf_composite (fallbackavatar, finalAvatar, 0, 0, size, size, 0, 0, 1, 1, GDK_INTERP_BILINEAR, 0xff);
+
+        return finalAvatar;
+    }
+
 
     GdkPixbuf *pixbuf = gdk_pixbuf_get_from_surface(cairo_get_target(cr), 0, 0, size, size);
 
@@ -118,8 +127,6 @@ ring_draw_conference_avatar(int size) {
 
     return pixbuf;
 }
-
-#include <iostream>
 
 GdkPixbuf *
 ring_frame_avatar(GdkPixbuf *avatar) {
