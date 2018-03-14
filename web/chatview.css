@@ -1,7 +1,10 @@
 body {
   margin: 0;
   overflow: hidden;
+  background-color: #f2f2f2;
 }
+
+/** TODO invitation bar like Tirifto mock up */
 
 #invitation {
   visibility: hidden;
@@ -29,7 +32,7 @@ body {
   border: 0;
   border-radius: 5px;
   transition: all 0.3s ease;
-  color: white;
+  color: #f9f9f9;
   padding: 10px 20px 10px 20px;
   vertical-align: middle;
 }
@@ -73,43 +76,6 @@ a:hover {
   border: 0;
 }
 
-.message_out #cardWrapper {
-  display: inline-block;
-  text-align: right;
-  width: 100%;
-}
-
-.message_out #cardWrapper a {
-  border: 0;
-}
-
-.message_out #containerVideo {
-  float: right;
-}
-
-#playVideo {
-  background-color: rgba(0, 0, 0, 0.4);
-  height: 50px;
-  width: 50px;
-  border-radius: 5px;
-  float: right;
-  position: absolute;
-  top: calc(50% - 25px);
-  left: calc(50% - 25px);
-  z-index: 3;
-}
-
-#containerVideo {
-  max-width: 350px;
-  position: relative;
-}
-
-#playVideo svg {
-  height: 40px;
-  width: 40px;
-  margin: 5px;
-}
-
 #container {
   position: relative;
   height: 100%;
@@ -127,16 +93,16 @@ a:hover {
   width: 100%;
   overflow-y: scroll;
   height: auto;
+  padding-bottom: 1em;
   max-height: calc(100% - 50px);
 }
 
 #sendMessage {
+  background-color: white;
   display: flex;
   position: relative;
-  border-top : 2px solid #d3d3d3;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding-left: 8px;
+  padding-right: 10px;
+  padding-left: 18px;
   overflow: hidden;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -168,25 +134,6 @@ input[placeholder], [placeholder], *[placeholder] {
     color: #d3d3d3;
 }
 
-.msg-button {
-  border-radius: 50%;
-  border: 0;
-  width: 40px;
-  height: 40px;
-  align-self: center;
-  transition: all 0.3s ease;
-}
-
-.msg-button.hover,
-.msg-button:hover {
-  background: #bae5f0;
-}
-
-.msg-button.hover svg,
-.msg-button:hover svg {
-  fill: black;
-}
-
 #sendMessage svg {
   fill: #666;
   padding: 5px;
@@ -195,99 +142,18 @@ input[placeholder], [placeholder], *[placeholder] {
   transition: all 0.3s ease;
 }
 
+/* General messages */
 
 .wc {
   will-change: transform;
 }
 
-.status_circle {
-  fill: #A0A0A0;
-  -webkit-animation: circle-dance;
-  -webkit-animation-duration: 0.8s;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-direction: alternate;
-  -webkit-animation-timing-function: ease-in-out;
-}
-
-.anim-first {
-  -webkit-animation-delay: 0.7s;
-}
-
-.anim-second {
-  -webkit-animation-delay: 0.9s;
-}
-
-.anim-third {
-  -webkit-animation-delay: 1.1s;
-}
-
-@-webkit-keyframes circle-dance {
-  0%,50% {
-    -webkit-transform: translateY(0);
-    fill: #A0A0A0;
-  }
-  100% {
-    -webkit-transform: translateY(-8px);
-    fill: #000;
-  }
-}
-
-.status-check {
-    stroke-dasharray: 17;
-    stroke-dashoffset: 17;
-    -webkit-animation: dash-check;
-    -webkit-animation-duration: 0.4s;
-    -webkit-animation-delay: 0.7s;
-    -webkit-animation-fill-mode: forwards;
-    -webkit-animation-timing-function: ease-in-out;
-    display: none;
-}
-
-.message--sent .status-check {
-        display: inline-block;
-}
-
-@-webkit-keyframes dash-check{
-  from {
-    stroke-dashoffset: 17;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.status-x {
-  stroke-dasharray: 12;
-  stroke-dashoffset: 12;
-  -webkit-animation: dash-x;
-  -webkit-animation-duration: 0.2s;
-  -webkit-animation-fill-mode: forwards;
-  -webkit-animation-timing-function: ease-in-out;
-}
-
-.x-first {
-  -webkit-animation-delay: 0.7s;
-}
-
-.x-second {
-  -webkit-animation-delay: 0.9s;
-}
-
-@-webkit-keyframes dash-x{
-  from {
-    stroke-dashoffset: 12;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
 .message_wrapper {
     transform: scale(0);
     max-width: 70%;
-    margin: 10px 0;
+    margin: 8px 0 0 0;
     display: inline-block;
-    padding: 10px;
+    padding: 1em;
     border-radius: 10px;
     position: relative;
     -webkit-animation: talk;
@@ -306,41 +172,63 @@ input[placeholder], [placeholder], *[placeholder] {
     overflow: hidden;
 }
 
-#msg_content img {
-  max-width: 300px;
-  align-content: center;
-}
-
-#msg_content img:first-of-type {
-  margin: 5px;
-}
-
-pre {
-  font : inherit;
-  font-family : inherit;
-  font-size : inherit;
-  font-style : inherit;
-  font-variant : inherit;
-  font-weight : inherit;
-  margin: 0;
-  padding: 0;
+.message_in {
+  padding-left: 25%;
 }
 
 .message_out {
-    flex-direction: row-reverse;
-}
-
-.timestamp
-{
-  display: flex;
-  justify-content: flex-start;
-  color: #333;
-  font-size: 10px;
-  padding: 5px;
-}
-
-.timestamp_out {
+  padding-right: 25%;
   flex-direction: row-reverse;
+}
+
+.message_in + .message_in .sender_image {
+    opacity: 0;
+}
+
+.message_out + .message_out .sender_image {
+    opacity: 0;
+}
+
+.message_in > .message_wrapper:before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left: -10px;
+    top: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E %3Cpath d= 'M10,0 L0,0 C10,0 10,10 10,10' fill='%23fdfdfd'/%3E %3C/svg%3E");
+    transform-origin: top left;
+}
+
+.message_in + .message_in > .message_wrapper:before {
+    display: none;
+}
+
+.message_out + .message_out > .message_wrapper:after {
+    display: none;
+}
+
+.message_out > .message_wrapper:after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    right: -10px;
+    top: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E %3Cpath d= 'M0,0 L10,0 C0,0 0,10 0,10' fill='%23cfd8dc'/%3E %3C/svg%3E");
+    transform-origin: top right;
+}
+
+.message_delivery_status {
+    margin: 10px 10px;
+    color: #A0A0A0;
+    opacity: 0;
+    -webkit-animation-name: fade-in;
+    -webkit-animation-duration: 0.2s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-delay: 0.4s;
+    -webkit-animation-fill-mode: forwards;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .message_sender {
@@ -384,7 +272,7 @@ pre {
 }
 
 .message_out > .message_wrapper {
-    background-color: #cfebf5;
+    background-color: #cfd8dc;
     border-top-right-radius: 0;
     transform-origin: top right;
 }
@@ -394,7 +282,7 @@ pre {
 }
 
 .message_in > .message_wrapper {
-    background-color: #DEDEE0;
+    background-color: #fdfdfd;
     border-top-left-radius: 0;
     transform-origin: top left;
 }
@@ -403,25 +291,6 @@ pre {
     border-top-left-radius: 10px;
 }
 
-.message_timestamp {
-  color: #333;
-  font-size: 0.8em;
-  margin-top: 0.5em;
-  transition: opacity 0.3s ease-in-out;
-  line-height: 1em;
-  display: inline-block;
-  opacity: 0;
-  float: right;
-}
-
-.message_wrapper:hover .message_timestamp {
-  opacity: 1;
-}
-
-.sent-checkmark {
-  margin-left: 0.313em;
-  float: right;
-}
 
 @-webkit-keyframes fade-in {
     from {
@@ -430,11 +299,6 @@ pre {
     to {
       opacity: 1;
     }
-}
-
-.message_text {
-    word-wrap: break-word;
-    display: block;
 }
 
 @-webkit-keyframes talk {
@@ -446,173 +310,207 @@ pre {
     }
 }
 
-.message_in > .message_wrapper:before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    left: -10px;
-    top: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E %3Cpath d= 'M10,0 L0,0 C10,0 10,10 10,10' fill='%23DEDEE0'/%3E %3C/svg%3E");
-    transform-origin: top left;
+.timestamp {
+  display: flex;
+  justify-content: flex-start;
+  color: #333;
+  font-size: 10px;
+  padding: 5px;
 }
 
-.message_in + .message_in > .message_wrapper:before {
-    display: none;
+.timestamp_out {
+  padding-right: 25%;
+  flex-direction: row-reverse;
 }
 
-.message_out + .message_out > .message_wrapper:after {
-    display: none;
+.timestamp_in {
+  padding-left: 25%;
 }
 
-.message_out > .message_wrapper:after {
-    content: "";
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    right: -10px;
-    top: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E %3Cpath d= 'M0,0 L10,0 C0,0 0,10 0,10' fill='%23cfebf5'/%3E %3C/svg%3E");
-    transform-origin: top right;
+/* Buttons */
+
+.flat-button {
+  flex: 1;
+  padding: 0;
 }
 
-.message_delivery_status {
-    margin: 10px 10px;
-    color: #A0A0A0;
-    opacity: 0;
-    -webkit-animation-name: fade-in;
-    -webkit-animation-duration: 0.2s;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-delay: 0.4s;
-    -webkit-animation-fill-mode: forwards;
-    transition: opacity 0.5s ease-in-out;
+.left_buttons {
+  display: flex;
+  align-self: center;
+  max-width: 90px;
+  padding-left: 1em;
 }
 
-.message_in + .message_in .sender_image {
-    opacity: 0;
+.msg-button {
+  border-radius: 50%;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  align-self: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.message_out + .message_out .sender_image {
-    opacity: 0;
+.msg-button.hover,
+.msg-button:hover {
+  background: #bae5f0;
 }
 
-.message_type_contact,
-.message_type_call {
-  width: 100%;
+
+/* Status */
+
+.status_circle {
+  fill: #A0A0A0;
+  -webkit-animation: circle-dance;
+  -webkit-animation-duration: 0.8s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  -webkit-animation-timing-function: ease-in-out;
 }
 
-.message_type_data_transfer .message_timestamp,
-.message_type_data_transfer .message_delivery_status,
-.message_type_data_transfer .sent-checkmark,
-.message_type_call .sent-checkmark,
-.message_type_call .message_sender,
-.message_type_call .message_delivery_status,
-.message_type_call .message_timestamp,
-.message_type_call .message_sender_image,
-.message_type_call .message_progress_bar,
-.message_type_contact .sent-checkmark,
-.message_type_contact .message_sender,
-.message_type_contact .message_delivery_status,
-.message_type_contact .message_timestamp,
-.message_type_contact .message_sender_image,
-.message_type_contact .message_progress_bar,
-.message_type_text .message_progress_bar {
-  visibility: hidden;
-  display: none;
+.anim-first {
+  -webkit-animation-delay: 0.7s;
+}
+
+.anim-second {
+  -webkit-animation-delay: 0.9s;
+}
+
+.anim-third {
+  -webkit-animation-delay: 1.1s;
+}
+
+@-webkit-keyframes circle-dance {
+  0%,50% {
+    -webkit-transform: translateY(0);
+    fill: #A0A0A0;
+  }
+  100% {
+    -webkit-transform: translateY(-8px);
+    fill: #000;
+  }
+}
+
+.status-x {
+  stroke-dasharray: 12;
+  stroke-dashoffset: 12;
+  -webkit-animation: dash-x;
+  -webkit-animation-duration: 0.2s;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in-out;
+}
+
+.x-first {
+  -webkit-animation-delay: 0.7s;
+}
+
+.x-second {
+  -webkit-animation-delay: 0.9s;
+}
+
+@-webkit-keyframes dash-x{
+  from {
+    stroke-dashoffset: 12;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+/* Contact + Call interactions */
+.message_type_contact .message_wrapper,
+.message_type_call .message_wrapper {
+  width: auto;
+  margin-left: 30%;
+  margin-right: 30%;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #e6eaed;
+  padding: 0;
 }
 
 .message_type_contact .message_wrapper:before,
-.message_type_data_transfer .message_wrapper:before,
 .message_type_call .message_wrapper:before {
     display: none;
 }
 
 .message_type_call .message_wrapper:after,
-.message_type_data_transfer .message_wrapper:after,
 .message_type_contact .message_wrapper:after {
     display: none;
 }
 
-.message_type_call .message_wrapper,
-.message_type_contact .message_wrapper {
-  background: #fff;
-  width: 100%;
-  max-width: 100%;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  color: #888;
-  font-style: italic;
-  border-radius: 0;
+.message_type_contact .text,
+.message_type_call .text {
+  align-self: center;
+  font-size: 1.2em;
+  padding: 1em;
 }
 
-.message_type_call .message_text,
-.message_type_contact .message_text {
-    overflow: hidden;
-    text-align: center;
-    padding-bottom: 5px;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #ccc;
-    margin-left: 20px;
-}
+/* file interactions */
 
-.message_type_call .message_text {
-    border-bottom: 1px dotted #ccc;
-}
-
-#green {
-  color: green;
-}
-
-#red {
-  color: red;
-  font-size: 1.25em;
-}
-
-.message_type_data_transfer .message_wrapper
-{
+.message_type_data_transfer .message_wrapper {
   padding: 0;
   width: 30%;
   display: flex;
   flex-wrap: wrap;
 }
 
-.message_type_data_transfer #left_buttons
-{
-  width: 25%;
-  display: flex;
-  padding-left: 5px;
+.accept, .refuse {
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.accept svg,
+.refuse svg {
+  padding: 8px;
+  width: 24px;
+  height: 24px;
+}
+
+.accept {
+  fill: #219d55;
+}
+
+.accept:hover {
+  fill: white;
+  background: #219d55;
+}
+
+.refuse {
+  fill: #dc2719;
+}
+
+.refuse:hover {
+  fill: white;
+  background: #dc2719;
+}
+
+.message_type_data_transfer .text {
+  padding: 1em;
+  text-align: left;
+  align-self: left;
+  max-width: calc(100% - 180px);
+}
+
+.message_type_data_transfer .filename {
+  cursor: pointer;
+  font-size: 1.1em;
   overflow: hidden;
 }
 
-.message_type_data_transfer #text
-{
-  width: 70%;
-  text-align: center;
-  padding-top: 14px;
-  margin-bottom: 12px;
-}
-
-.message_type_data_transfer #filename
-{
-  font-weight: bold;
-  overflow: hidden;
-}
-
-.message_type_data_transfer #informations
-{
+.message_type_data_transfer .informations {
   color: #555;
   font-size: 0.8em;
 }
 
 .message_progress_bar {
-  margin-top: 12px;
   width: 100%;
-  height: 12px;
+  height: 1em;
   position: relative;
   overflow: hidden;
   background-color: #eee;
-  border-radius: 2px;
+  border-radius: 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
 
@@ -624,7 +522,155 @@ pre {
   overflow: hidden;
 }
 
-.message_type_data_transfer .flat-button
-{
+/* text interactions */
+
+.message_type_text .message_wrapper {
+  max-width: 40%;
+}
+
+.message_type_text .message_text {
+  padding: 0px;
+}
+
+.message_text {
+    hyphens: auto; /* When webkitgtk+ will supports this, intelligent word-breaking */
+    word-break: break-word;
+    word-wrap: break-word;
+    display: block;
+}
+
+pre {
+  font : inherit;
+  font-family : inherit;
+  font-size : inherit;
+  font-style : inherit;
+  font-variant : inherit;
+  font-weight : inherit;
+  margin: 0;
   padding: 0;
+}
+
+/* Media interactions */
+.media_wrapper img {
+  max-width: 800px;
+  max-height: 700px;
+  margin: 5px 0 0 0;
+}
+
+.playVideo {
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+  float: right;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  z-index: 3;
+}
+
+.containerVideo {
+  width: 100%;
+  position: relative;
+}
+
+.playVideo svg {
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+
+/* Text interaction */
+.failure,
+.sending {
+  margin: 10px 10px;
+  color: #A0A0A0;
+  opacity: 0;
+  -webkit-animation-name: fade-in;
+  -webkit-animation-duration: 0.2s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 0.4s;
+  -webkit-animation-fill-mode: forwards;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Classic screens */
+@media screen and (max-width: 1920px), screen and (max-height: 1080px) {
+  .message_in {
+    padding-left: 15%;
+  }
+
+  .message_out {
+    padding-right: 15%;
+  }
+
+  .timestamp_out {
+    padding-right: 15%;
+  }
+
+  .timestamp_in {
+    padding-left: 15%;
+  }
+
+  .message_type_text .message_wrapper {
+    max-width: 60%;
+  }
+
+  /* File interactions */
+  .message_type_data_transfer .message_wrapper {
+    width: 40%;
+  }
+
+  /* Media interactions */
+  .media_wrapper img {
+    max-width: 450px;
+    max-height: 450px;
+  }
+}
+
+/* lower resolutions */
+@media screen and (max-width: 1000px), screen and (max-height: 480px) {
+  .message_in {
+    padding-left: 0;
+  }
+
+  .message_out {
+    padding-right: 0;
+  }
+
+  .timestamp_out {
+    padding-right: 0;
+  }
+
+  .timestamp_in {
+    padding-left: 0;
+  }
+
+  .message_type_text .message_wrapper {
+    max-width: 90%;
+  }
+
+  /* File interactions */
+  .message_type_data_transfer .message_wrapper {
+    width: 70%;
+  }
+
+  /* Media interactions */
+  .media_wrapper img {
+    max-width: 200px;
+    max-height: 200px;
+  }
+}
+
+/* Special case */
+@media screen and (max-width: 300px) {
+  /* File interactions */
+  .message_type_data_transfer .left_buttons {
+    max-width: 100%;
+  }
+
+  .message_type_data_transfer .text {
+    max-width: 100%;
+    padding-left: 0;
+  }
 }
