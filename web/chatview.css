@@ -628,3 +628,8 @@ pre {
 {
   padding: 0;
 }
+
+#media_wrapper img {
+  max-width: 300px;
+  max-height: 300px;
+}
