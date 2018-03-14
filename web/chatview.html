@@ -272,7 +272,7 @@ ring.chatview = (function(){
                     messageNode.outerHTML = finalMsg.outerHTML;
                 }
             } else {
-              // Try to display images.
+                // Try to display images.
                 const linkElt = document.createElement('a');
                 linkElt.href = link;
                 const imageElt = document.createElement('img');
@@ -452,18 +452,16 @@ ring.chatview = (function(){
      * Update a data transfer interaction
      */
      function updateDataTransferInteraction(message_div, message_object) {
-       var acceptSvg = '<svg fill="#ffffff" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg" style="width:50%; display:block; margin:auto;"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>',
-           refuseSvg = '<svg fill="#ffffff" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg" style="width:50%; display:block; margin:auto;"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
-           fileSvg = '<svg fill="#000000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg" style="width:50%;"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
-           warningSvg = '<svg fill="#000000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg" style="width:50%;"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>',
-           incomingSvg = '<svg fill="#000000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg" style="width:50%;"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 5.41L18.59 4 7 15.59V9H5v10h10v-2H8.41z"/></svg>',
-           outgoingSvg = '<svg fill="#000000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg" style="width:50%;"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5z"/></svg>';
+       var acceptSvg = '<svg fill="#ffffff" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>',
+           refuseSvg = '<svg fill="#ffffff" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
+           fileSvg = '<svg fill="#000000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
+           warningSvg = '<svg fill="#000000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>'
        var message_delivery_status = message_object["delivery_status"];
        var message_direction = message_object["direction"];
        var message_id = message_object["id"];
 
        // Set informations text
-       var informations_div = message_div.querySelector("#informations");
+       var informations_div = message_div.querySelector(".informations");
        var informations_txt = getMessageTimestampText(message_object["timestamp"], true);
        if (message_object["totalSize"] && message_object["progress"]) {
          if (message_delivery_status === 'finished') {
@@ -477,7 +475,7 @@ ring.chatview = (function(){
        informations_div.innerText = informations_txt;
 
        // Update flat buttons
-       var left_buttons = message_div.querySelector("#left_buttons");
+       var left_buttons = message_div.querySelector(".left_buttons");
        left_buttons.innerHTML = '';
        if (message_delivery_status.indexOf('awaiting') === 0) {
          if (message_direction === 'in') {
@@ -509,13 +507,10 @@ ring.chatview = (function(){
          status_button.innerHTML = statusFile;
          status_button.setAttribute("class", "flat-button");
          left_buttons.appendChild(status_button);
-         var direction_button = document.createElement('div');
-         var directionFile = message_direction === 'out' ? outgoingSvg: incomingSvg;
-         direction_button.innerHTML = directionFile;
-         direction_button.setAttribute("class", "flat-button");
-         left_buttons.appendChild(direction_button);
        }
-       updateProgressBar(chatview_message_transfer_progress_bar, message_object);
+
+       message_div.querySelector('.filename').innerText = message_object['text']
+       updateProgressBar(message_div.querySelector('.message_progress_bar'), message_object);
      }
 
    /**
@@ -566,20 +561,20 @@ ring.chatview = (function(){
 
             if (message_type === 'data_transfer') {
               var leftbuttons_div = document.createElement('div');
-              leftbuttons_div.setAttribute("id", "left_buttons");
+              leftbuttons_div.setAttribute("class", "left_buttons");
               chatview_message_wrapper.appendChild(leftbuttons_div);
 
               var text_div = document.createElement('div');
-              text_div.setAttribute("id", "text");
+              text_div.setAttribute("class", "text");
               text_div.addEventListener('click', function (event) {
                 // ask the soft to open the file
-                var filename = document.querySelector("#message_" + message_id + " #filename").innerText;
+                var filename = document.querySelector("#message_" + message_id + " .filename").innerText;
                 window.prompt('OPEN_FILE:' + filename);
               });
               chatview_message_text = document.createElement('div');
-              chatview_message_text.setAttribute("id", "filename");
+              chatview_message_text.setAttribute("class", "filename");
               var informations_div = document.createElement('div');
-              informations_div.setAttribute("id", "informations");
+              informations_div.setAttribute("class", "informations");
               text_div.appendChild(chatview_message_text);
               text_div.appendChild(informations_div);
               chatview_message_wrapper.appendChild(text_div);
@@ -641,7 +636,7 @@ ring.chatview = (function(){
         } else {
             if (chatview_message_div) {
               if (message_type === 'data_transfer') {
-                chatview_message_text = chatview_message_div.querySelector("#filename");
+                chatview_message_text = chatview_message_div.querySelector(".filename");
               } else {
                 chatview_message_text = chatview_message_div.querySelector(".message_text");
                 chatview_message_delivery_status = chatview_message_div.querySelector(".message_delivery_status");
@@ -682,7 +677,174 @@ ring.chatview = (function(){
         }
 
         updateTimestamps();
+
+        addOrUpdateMessage2(message_object, new_message, insert_after)
     }
+
+    function fileInteraction(message_id) {
+      var message_wrapper = document.createElement('div')
+      message_wrapper.setAttribute('class', 'message_wrapper')
+
+      // An file interaction contains buttons at the left of the interaction
+      // for the status or accept/refuse
+      var left_buttons = document.createElement('div')
+      left_buttons.setAttribute('class', 'left_buttons')
+      message_wrapper.appendChild(left_buttons)
+      // Also contains a bold clickable text
+      var text_div = document.createElement('div')
+      text_div.setAttribute('class', 'text')
+      text_div.addEventListener('click', function (event) {
+        // ask ring to open the file
+        var filename = document.querySelector('#message_' + message_id + ' .filename').innerText
+        window.prompt('OPEN_FILE:' + filename)
+      });
+      var message_text = document.createElement('div')
+      message_text.setAttribute('class', 'filename')
+      // And some informations like size or error message.
+      var informations_div = document.createElement('div')
+      informations_div.setAttribute('class', 'informations')
+      text_div.appendChild(message_text)
+      text_div.appendChild(informations_div)
+      message_wrapper.appendChild(text_div)
+      // And finally, a progress bar
+      message_transfer_progress_bar = document.createElement('span')
+      message_transfer_progress_bar.setAttribute('class', 'message_progress_bar')
+      message_transfer_progress_completion = document.createElement('span')
+      message_transfer_progress_bar.appendChild(message_transfer_progress_completion)
+      message_wrapper.appendChild(message_transfer_progress_bar)
+      return message_wrapper
+    }
+
+    function isImage(file) {
+      return file.match(/\.(jpeg|jpg|gif|png)$/) !== null
+    }
+
+    function isVideo(file) {
+      return file.match(/\.(webm|mp4)$/) !== null
+    }
+
+
+    function mediaInteraction(message_id, link) {
+      // TODO promise
+      // Try to display images.
+      const media_wrapper = document.createElement('div')
+      media_wrapper.setAttribute('id', 'media_wrapper')
+      const linkElt = document.createElement('a')
+      linkElt.href = link
+      linkElt.style = 'text-decoration: none;'
+      const imageElt = document.createElement('img')
+      // Note, here, we don't check the size of the image.
+      // in the future, we can check the content-type and content-length with a request
+      // and maybe disable svg
+      imageElt.setAttribute('onerror', 'this.style.display=\'none\'')
+      imageElt.src = link
+      linkElt.appendChild(imageElt)
+      media_wrapper.appendChild(linkElt)
+      return media_wrapper
+    }
+
+    function textInteraction(message_id, htmlText) {
+      const message_wrapper = document.createElement('div')
+      message_wrapper.setAttribute('class', 'message_wrapper')
+      var message_text = document.createElement('span')
+      message_text.setAttribute('class', 'message_text')
+      message_text.innerHTML = htmlText
+      message_wrapper.appendChild(message_text)
+      // TODO STATUS
+      return message_wrapper
+    }
+
+    function addOrUpdateMessage2(message_object, new_message, insert_after = true) {
+      var message_id = message_object['id']
+      const message_direction = message_object['direction']
+      const message_type = message_object['type']
+      const message_timestamp = message_object['timestamp']
+      const message_text = message_object['text']
+      const delivery_status = message_object['delivery_status']
+      const message_sender_contact_method = message_object['sender_contact_method']
+      message_id += '0000' // TODO remove, just for tests
+
+      var message_div = document.querySelector('#message_' + message_id);
+      var type = ''
+      if (new_message) {
+        // Build new message
+        var classes = [
+            'message',
+            `message_${message_direction}`,
+            `message_type_${message_type}`
+        ]
+
+        message_div = document.createElement('div')
+        message_div.setAttribute('id', `message__${message_id}`)
+        message_div.setAttribute('class', classes.join(' '))
+
+        // Build message for each types.
+        // Add sender images if necessary (like if the interaction doesn't take the whole width)
+        const need_sender = (message_type === 'data_transfer' || message_type === 'text');
+        if (need_sender) {
+          var message_sender_image = document.createElement('span')
+          message_sender_image.setAttribute('class', `sender_image sender_image_${message_sender_contact_method}`)
+          message_div.appendChild(message_sender_image)
+        }
+
+        // Build main content
+        if (message_type === 'data_transfer') {
+            type = 'fileInteraction'
+            message_div.append(fileInteraction(message_id))
+        } else if (message_type === 'text') {
+          // TODO add the possibility to update messages (remove and rebuild)
+          const htmlText = getMessageHtml(message_text)
+          if (displayLinksEnabled) {
+            const parser = new DOMParser();
+            const DOMMsg = parser.parseFromString(htmlText, 'text/xml');
+            const links = DOMMsg.querySelectorAll('a');
+            if (DOMMsg.childNodes.length && links.length) {
+              let isTextToShow = (DOMMsg.childNodes[0].childNodes.length > 1)
+              if (!isTextToShow && (isVideo(message_text) || isImage(message_text))) {
+                type = 'media'
+                message_div.append(mediaInteraction(message_id, message_text))
+              }
+            }
+          }
+          if (type !== 'media') {
+            type = 'text'
+            message_div.append(textInteraction(message_id, htmlText))
+          }
+        }
+
+        // Get timestamp to add
+        const formattedTimestamp = getMessageTimestampText(message_timestamp, true)
+        // Create the timestamp object
+        const date_elt = document.createElement('div')
+        date_elt.innerHTML = formattedTimestamp
+        timestamp_div_classes = [
+            'timestamp',
+            `timestamp_${message_direction}`
+        ]
+        date_elt.setAttribute('class', timestamp_div_classes.join(' '))
+        date_elt.setAttribute('message_timestamp', message_timestamp)
+        // Remove last timestamp if it's the same<h6></h6>
+        if (messages.querySelectorAll('.timestamp'))
+            cleanPreviousTimestamps(date_elt, messages.children.length)
+
+        // Add message and the new timestamp
+        if (insert_after) {
+          messages.appendChild(message_div)
+          messages.appendChild(date_elt)
+        } else {
+          messages.insertBefore(date_elt, messages.firstChild)
+          messages.insertBefore(message_div, messages.firstChild)
+        }
+      }
+
+      // Update informations if needed
+      if (type === 'fileInteraction')
+        updateDataTransferInteraction(message_div, message_object)
+
+      // Clean timestamps
+      updateTimestamps();
+    }
+
 
     /**
      * Add a message to the buffer
