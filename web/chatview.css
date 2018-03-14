@@ -1,6 +1,7 @@
 body {
   margin: 0;
   overflow: hidden;
+  background-color: #f2f2f2;
 }
 
 #invitation {
@@ -29,7 +30,7 @@ body {
   border: 0;
   border-radius: 5px;
   transition: all 0.3s ease;
-  color: white;
+  color: #f9f9f9;
   padding: 10px 20px 10px 20px;
   vertical-align: middle;
 }
@@ -87,29 +88,6 @@ a:hover {
   float: right;
 }
 
-#playVideo {
-  background-color: rgba(0, 0, 0, 0.4);
-  height: 50px;
-  width: 50px;
-  border-radius: 5px;
-  float: right;
-  position: absolute;
-  top: calc(50% - 25px);
-  left: calc(50% - 25px);
-  z-index: 3;
-}
-
-#containerVideo {
-  max-width: 350px;
-  position: relative;
-}
-
-#playVideo svg {
-  height: 40px;
-  width: 40px;
-  margin: 5px;
-}
-
 #container {
   position: relative;
   height: 100%;
@@ -131,12 +109,11 @@ a:hover {
 }
 
 #sendMessage {
+  background-color: white;
   display: flex;
   position: relative;
-  border-top : 2px solid #d3d3d3;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding-left: 8px;
+  padding-right: 10px;
+  padding-left: 18px;
   overflow: hidden;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -285,7 +262,7 @@ input[placeholder], [placeholder], *[placeholder] {
 .message_wrapper {
     transform: scale(0);
     max-width: 70%;
-    margin: 10px 0;
+    margin: 3px 0 0 0;
     display: inline-block;
     padding: 10px;
     border-radius: 10px;
@@ -324,23 +301,6 @@ pre {
   font-weight : inherit;
   margin: 0;
   padding: 0;
-}
-
-.message_out {
-    flex-direction: row-reverse;
-}
-
-.timestamp
-{
-  display: flex;
-  justify-content: flex-start;
-  color: #333;
-  font-size: 10px;
-  padding: 5px;
-}
-
-.timestamp_out {
-  flex-direction: row-reverse;
 }
 
 .message_sender {
@@ -384,7 +344,7 @@ pre {
 }
 
 .message_out > .message_wrapper {
-    background-color: #cfebf5;
+    background-color: #cfd8dc;
     border-top-right-radius: 0;
     transform-origin: top right;
 }
@@ -394,7 +354,7 @@ pre {
 }
 
 .message_in > .message_wrapper {
-    background-color: #DEDEE0;
+    background-color: #fdfdfd;
     border-top-left-radius: 0;
     transform-origin: top left;
 }
@@ -496,6 +456,8 @@ pre {
     opacity: 0;
 }
 
+/*
+
 .message_type_contact,
 .message_type_call {
   width: 100%;
@@ -521,17 +483,6 @@ pre {
   display: none;
 }
 
-.message_type_contact .message_wrapper:before,
-.message_type_data_transfer .message_wrapper:before,
-.message_type_call .message_wrapper:before {
-    display: none;
-}
-
-.message_type_call .message_wrapper:after,
-.message_type_data_transfer .message_wrapper:after,
-.message_type_contact .message_wrapper:after {
-    display: none;
-}
 
 .message_type_call .message_wrapper,
 .message_type_contact .message_wrapper {
@@ -559,6 +510,7 @@ pre {
 .message_type_call .message_text {
     border-bottom: 1px dotted #ccc;
 }
+*/
 
 #green {
   color: green;
@@ -569,50 +521,120 @@ pre {
   font-size: 1.25em;
 }
 
-.message_type_data_transfer .message_wrapper
-{
+
+
+
+
+/** NEW **/
+
+/* Action interactions */
+.message_type_contact .message_wrapper,
+.message_type_call .message_wrapper {
+  width: auto;
+  margin-left: 30%;
+  margin-right: 30%;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #e6eaed;
+  padding: 0;
+}
+
+.message_type_contact .message_wrapper:before,
+.message_type_call .message_wrapper:before {
+    display: none;
+}
+
+.message_type_call .message_wrapper:after,
+.message_type_contact .message_wrapper:after {
+    display: none;
+}
+
+.message_type_text .message_wrapper,
+.message_type_data_transfer .message_wrapper {
   padding: 0;
   width: 30%;
   display: flex;
   flex-wrap: wrap;
 }
 
-.message_type_data_transfer #left_buttons
-{
-  width: 25%;
+.message_in {
+  padding-left: 25%;
+}
+
+.message_out {
+  padding-right: 25%;
+  flex-direction: row-reverse;
+}
+
+.timestamp {
   display: flex;
+  justify-content: flex-start;
+  color: #333;
+  font-size: 10px;
+  padding: 5px;
+}
+
+.timestamp_out {
+  padding-right: 25%;
+  flex-direction: row-reverse;
+}
+
+.timestamp_in {
+  padding-left: 25%;
+}
+
+/* File interactions */
+.message_type_call .button,
+.message_type_data_transfer .flat-button {
+  flex: 1;
+  padding: 0;
+}
+
+.message_type_call .left_buttons,
+.message_type_data_transfer .left_buttons {
   padding-left: 5px;
-  overflow: hidden;
+  display: flex;
+  align-self: center;
+  max-width: 90px;
 }
 
-.message_type_data_transfer #text
-{
-  width: 70%;
+.message_type_text .message_text {
+  padding: 10px;
+}
+
+.message_type_contact .text,
+.message_type_call .text {
+  align-self: center;
+  padding-right: 15px;
+  font-size: 1.2em;
+}
+
+.message_type_data_transfer .text {
   text-align: center;
-  padding-top: 14px;
-  margin-bottom: 12px;
+  align-self: center;
+  max-width: calc(100% - 90px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.message_type_data_transfer #filename
-{
-  font-weight: bold;
+.message_type_data_transfer .filename {
+  cursor: pointer;
+  font-size: 1.2em;
   overflow: hidden;
 }
 
-.message_type_data_transfer #informations
-{
+.message_type_data_transfer .informations {
   color: #555;
   font-size: 0.8em;
 }
 
 .message_progress_bar {
-  margin-top: 12px;
   width: 100%;
-  height: 12px;
+  height: 1em;
   position: relative;
   overflow: hidden;
   background-color: #eee;
-  border-radius: 2px;
+  border-radius: 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
 
@@ -624,7 +646,123 @@ pre {
   overflow: hidden;
 }
 
-.message_type_data_transfer .flat-button
-{
-  padding: 0;
+/* Media interactions */
+#media_wrapper img {
+  max-width: 800px;
+  max-height: 700px;
+  margin: 3px 0 0 0;
+}
+
+.playVideo {
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+  float: right;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  z-index: 3;
+}
+
+.containerVideo {
+  width: 100%;
+  position: relative;
+}
+
+.playVideo svg {
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+
+/* Text interaction */
+.failure,
+.sending {
+  margin: 10px 10px;
+  color: #A0A0A0;
+  opacity: 0;
+  -webkit-animation-name: fade-in;
+  -webkit-animation-duration: 0.2s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 0.4s;
+  -webkit-animation-fill-mode: forwards;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Classic screens */
+@media screen and (max-width: 1920px), screen and (max-height: 1080px) {
+  .message_in {
+    padding-left: 15%;
+  }
+
+  .message_out {
+    padding-right: 15%;
+  }
+
+  .timestamp_out {
+    padding-right: 15%;
+  }
+
+  .timestamp_in {
+    padding-left: 15%;
+  }
+
+  /* File interactions */
+  .message_type_text .message_wrapper,
+  .message_type_data_transfer .message_wrapper {
+    width: 40%;
+  }
+
+  /* Media interactions */
+  #media_wrapper img {
+    max-width: 450px;
+    max-height: 450px;
+  }
+}
+
+/* lower resolutions */
+@media screen and (max-width: 640px), screen and (max-height: 480px) {
+  .message_in {
+    padding-left: 0;
+  }
+
+  .message_out {
+    padding-right: 0;
+  }
+
+  .timestamp_out {
+    padding-right: 0;
+  }
+
+  .timestamp_in {
+    padding-left: 0;
+  }
+
+  /* File interactions */
+  .message_type_text .message_wrapper,
+  .message_type_data_transfer .message_wrapper {
+    width: 70%;
+  }
+
+  /* Media interactions */
+  #media_wrapper img {
+    max-width: 200px;
+    max-height: 200px;
+  }
+}
+
+/* Special case */
+@media screen and (max-width: 300px) {
+  /* File interactions */
+  .message_type_data_transfer #left_buttons {
+    padding-left: 0;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .message_type_data_transfer #text {
+    max-width: 100%;
+  }
 }

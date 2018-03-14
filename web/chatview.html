@@ -272,7 +272,7 @@ ring.chatview = (function(){
                     messageNode.outerHTML = finalMsg.outerHTML;
                 }
             } else {
-              // Try to display images.
+                // Try to display images.
                 const linkElt = document.createElement('a');
                 linkElt.href = link;
                 const imageElt = document.createElement('img');
@@ -368,23 +368,6 @@ ring.chatview = (function(){
     }
 
     /**
-     * Update padding if the sender image is displayed
-     */
-    function updateTimestampPadding (timestampNode, senderImage, direction) {
-        var new_padding = 20;
-        if (timestampNode.className.indexOf(`timestamp_${direction}`) &&
-          senderImage &&
-          senderImage.offsetHeight === avatar_size) {
-            new_padding += avatar_size;
-        }
-
-        if (direction == 'out')
-            timestampNode.style.paddingRight = new_padding;
-        else
-            timestampNode.style.paddingLeft = new_padding;
-    }
-
-    /**
      * Update timestamps
      */
     function updateTimestamps() {
@@ -397,9 +380,6 @@ ring.chatview = (function(){
               if (child.className.indexOf('timestamp') !== -1) {
                     // Update timestamp
                     child.innerHTML = getMessageTimestampText(child.getAttribute('message_timestamp'), true)
-                    // Update padding
-                    updateTimestampPadding (child, image_out, 'out');
-                    updateTimestampPadding (child, image_in, 'in');
                     // Remove previous elements with the same formatted timestamp
                     cleanPreviousTimestamps(child, c);
                 }
@@ -452,18 +432,16 @@ ring.chatview = (function(){
      * Update a data transfer interaction
      */
      function updateDataTransferInteraction(message_div, message_object) {
-       var acceptSvg = '<svg fill="#ffffff" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg" style="width:50%; display:block; margin:auto;"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>',
-           refuseSvg = '<svg fill="#ffffff" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg" style="width:50%; display:block; margin:auto;"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
-           fileSvg = '<svg fill="#000000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg" style="width:50%;"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
-           warningSvg = '<svg fill="#000000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg" style="width:50%;"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>',
-           incomingSvg = '<svg fill="#000000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg" style="width:50%;"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 5.41L18.59 4 7 15.59V9H5v10h10v-2H8.41z"/></svg>',
-           outgoingSvg = '<svg fill="#000000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg" style="width:50%;"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5z"/></svg>';
+       var acceptSvg = '<svg fill="#ffffff" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>',
+           refuseSvg = '<svg fill="#ffffff" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
+           fileSvg = '<svg fill="#000000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
+           warningSvg = '<svg fill="#000000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>'
        var message_delivery_status = message_object["delivery_status"];
        var message_direction = message_object["direction"];
        var message_id = message_object["id"];
 
        // Set informations text
-       var informations_div = message_div.querySelector("#informations");
+       var informations_div = message_div.querySelector(".informations");
        var informations_txt = getMessageTimestampText(message_object["timestamp"], true);
        if (message_object["totalSize"] && message_object["progress"]) {
          if (message_delivery_status === 'finished') {
@@ -477,7 +455,7 @@ ring.chatview = (function(){
        informations_div.innerText = informations_txt;
 
        // Update flat buttons
-       var left_buttons = message_div.querySelector("#left_buttons");
+       var left_buttons = message_div.querySelector(".left_buttons");
        left_buttons.innerHTML = '';
        if (message_delivery_status.indexOf('awaiting') === 0) {
          if (message_direction === 'in') {
@@ -509,13 +487,11 @@ ring.chatview = (function(){
          status_button.innerHTML = statusFile;
          status_button.setAttribute("class", "flat-button");
          left_buttons.appendChild(status_button);
-         var direction_button = document.createElement('div');
-         var directionFile = message_direction === 'out' ? outgoingSvg: incomingSvg;
-         direction_button.innerHTML = directionFile;
-         direction_button.setAttribute("class", "flat-button");
-         left_buttons.appendChild(direction_button);
        }
-       updateProgressBar(chatview_message_transfer_progress_bar, message_object);
+
+       message_div.querySelector('.full').innerText = message_object['text']
+       message_div.querySelector('.filename').innerText = message_object['text'].split('/').pop()
+       updateProgressBar(message_div.querySelector('.message_progress_bar'), message_object);
      }
 
    /**
@@ -524,7 +500,7 @@ ring.chatview = (function(){
     */
     function addOrUpdateMessage(message_object, new_message, insert_after = true)
     {
-        // Properties of the message object
+        /*// Properties of the message object
         var message_id = message_object["id"],
             message_text = message_object["text"],
             message_sender = message_object["sender"],
@@ -566,20 +542,20 @@ ring.chatview = (function(){
 
             if (message_type === 'data_transfer') {
               var leftbuttons_div = document.createElement('div');
-              leftbuttons_div.setAttribute("id", "left_buttons");
+              leftbuttons_div.setAttribute("class", "left_buttons");
               chatview_message_wrapper.appendChild(leftbuttons_div);
 
               var text_div = document.createElement('div');
-              text_div.setAttribute("id", "text");
+              text_div.setAttribute("class", "text");
               text_div.addEventListener('click', function (event) {
                 // ask the soft to open the file
-                var filename = document.querySelector("#message_" + message_id + " #filename").innerText;
+                var filename = document.querySelector("#message_" + message_id + " .filename").innerText;
                 window.prompt('OPEN_FILE:' + filename);
               });
               chatview_message_text = document.createElement('div');
-              chatview_message_text.setAttribute("id", "filename");
+              chatview_message_text.setAttribute("class", "filename");
               var informations_div = document.createElement('div');
-              informations_div.setAttribute("id", "informations");
+              informations_div.setAttribute("class", "informations");
               text_div.appendChild(chatview_message_text);
               text_div.appendChild(informations_div);
               chatview_message_wrapper.appendChild(text_div);
@@ -641,7 +617,7 @@ ring.chatview = (function(){
         } else {
             if (chatview_message_div) {
               if (message_type === 'data_transfer') {
-                chatview_message_text = chatview_message_div.querySelector("#filename");
+                chatview_message_text = chatview_message_div.querySelector(".filename");
               } else {
                 chatview_message_text = chatview_message_div.querySelector(".message_text");
                 chatview_message_delivery_status = chatview_message_div.querySelector(".message_delivery_status");
@@ -681,8 +657,321 @@ ring.chatview = (function(){
             }
         }
 
-        updateTimestamps();
+        updateTimestamps();*/
+
+        addOrUpdateMessage2(message_object, new_message, insert_after)
     }
+
+    function fileInteraction(message_id) {
+      var message_wrapper = document.createElement('div')
+      message_wrapper.setAttribute('class', 'message_wrapper')
+
+      // An file interaction contains buttons at the left of the interaction
+      // for the status or accept/refuse
+      var left_buttons = document.createElement('div')
+      left_buttons.setAttribute('class', 'left_buttons')
+      message_wrapper.appendChild(left_buttons)
+      // Also contains a bold clickable text
+      var text_div = document.createElement('div')
+      text_div.setAttribute('class', 'text')
+      text_div.addEventListener('click', function (event) {
+        // ask ring to open the file
+        const filename = document.querySelector('#message_' + message_id + ' .full').innerText
+        window.prompt('OPEN_FILE:' + filename)
+      });
+      var full_div = document.createElement('div')
+      full_div.setAttribute('class', 'full')
+      full_div.style = 'visibility: hidden; display: none;'
+      var message_text = document.createElement('div')
+      message_text.setAttribute('class', 'filename')
+      // And some informations like size or error message.
+      var informations_div = document.createElement('div')
+      informations_div.setAttribute('class', 'informations')
+      text_div.appendChild(message_text)
+      text_div.appendChild(full_div)
+      text_div.appendChild(informations_div)
+      message_wrapper.appendChild(text_div)
+      // And finally, a progress bar
+      message_transfer_progress_bar = document.createElement('span')
+      message_transfer_progress_bar.setAttribute('class', 'message_progress_bar')
+      message_transfer_progress_completion = document.createElement('span')
+      message_transfer_progress_bar.appendChild(message_transfer_progress_completion)
+      message_wrapper.appendChild(message_transfer_progress_bar)
+      return message_wrapper
+    }
+
+    function isImage(file) {
+      return file.match(/\.(jpeg|jpg|gif|png)$/) !== null
+    }
+
+    function isVideo(file) {
+      const availableProtocols = ['http:', 'https:']
+      const videoHostname = ['youtube.com', 'www.youtube.com', 'youtu.be']
+      const urlParser = document.createElement('a')
+      urlParser.href = file
+      return (availableProtocols.includes(urlParser.protocol) && videoHostname.includes(urlParser.hostname))
+    }
+
+
+    function mediaInteraction(message_id, link, ytid) {
+      // TODO promise
+      // Try to display images.
+      const media_wrapper = document.createElement('div')
+      media_wrapper.setAttribute('id', 'media_wrapper')
+      const linkElt = document.createElement('a')
+      linkElt.href = link
+      linkElt.style = 'text-decoration: none;'
+      const imageElt = document.createElement('img')
+      // Note, here, we don't check the size of the image.
+      // in the future, we can check the content-type and content-length with a request
+      // and maybe disable svg
+      imageElt.setAttribute('onerror', 'this.style.display=\'none\'')
+      if (ytid) {
+        imageElt.src = `http://img.youtube.com/vi/${ytid}/0.jpg`
+      } else {
+        imageElt.src = link
+      }
+      linkElt.appendChild(imageElt)
+      if (ytid) {
+        const containerElt = document.createElement('div');
+        containerElt.setAttribute('class', 'containerVideo');
+        const playDiv = document.createElement('div')
+        playDiv.setAttribute('class', 'playVideo')
+        playDiv.innerHTML = '<svg fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\
+            <path d="M8 5v14l11-7z"/>\
+            <path d="M0 0h24v24H0z" fill="none"/>\
+        </svg>'
+        //linkElt.innerHTML = '<p>' + playDiv.innerHTML + '</p>'
+        linkElt.appendChild(playDiv)
+        containerElt.appendChild(linkElt)
+        media_wrapper.appendChild(containerElt)
+      } else {
+        media_wrapper.appendChild(linkElt)
+      }
+      return media_wrapper
+    }
+
+    function textInteraction(message_id, htmlText) {
+      const message_wrapper = document.createElement('div')
+      message_wrapper.setAttribute('class', 'message_wrapper')
+      var message_text = document.createElement('span')
+      message_text.setAttribute('class', 'message_text')
+      message_text.innerHTML = htmlText
+      message_wrapper.appendChild(message_text)
+      // TODO STATUS
+      return message_wrapper
+    }
+
+    function formatTextStatus(message_div, delivery_status) {
+      if (!message_div.querySelector('.message_text')) return // media
+      switch(delivery_status)
+      {
+        case "ongoing":
+        case "sending":
+          var sending_div = message_div.querySelector('.sending')
+          if (!sending_div) {
+            sending_div = document.createElement('div')
+            sending_div.setAttribute('class', 'sending')
+            sending_div.innerHTML = '<svg overflow="hidden" viewBox="0 -2 16 14" height="16px" width="16px"><circle class="status_circle anim-first" cx="4" cy="12" r="1"/><circle class="status_circle anim-second" cx="8" cy="12" r="1"/><circle class="status_circle anim-third" cx="12" cy="12" r="1"/></svg>'
+            // add sending animation to message
+            message_div.appendChild(sending_div)
+          }
+          message_div.querySelector('.message_text').style = 'color: #888'
+          break
+        case "failure":
+          // change text color to red
+          message_div.querySelector('.message_wrapper').style = 'background-color: #f3a6a6'
+          message_div.querySelector('.message_text').style = 'color: #000'
+          var failure_div = message_div.querySelector('.failure')
+          if (!failure_div) {
+            failure_div = document.createElement('div')
+            failure_div.setAttribute('class', 'failure')
+            failure_div.innerHTML = '<svg overflow="visible" viewBox="0 -2 16 14" height="16px" width="16px"><path class="status-x x-first" stroke="#AA0000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" fill="none" d="M4,4 L12,12"/><path class="status-x x-second" stroke="#AA0000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" fill="none" d="M12,4 L4,12"/></svg>'
+            // add failure animation to message
+            message_div.appendChild(failure_div)
+          }
+          var sending = message_div.querySelector('.sending')
+          if (sending) sending.style.visibility = 'hidden'
+          break
+        case "sent":
+        case "finished":
+        case "unknown":
+        case "read":
+          // change text color to black
+          message_div.querySelector('.message_text').style = 'color: #000'
+          var sending = message_div.querySelector('.sending')
+          if (sending) sending.style.visibility = 'hidden'
+          break
+        default:
+          console.log("getMessageDeliveryStatusText: unknown delivery status: " + delivery_status)
+          break
+      }
+    }
+
+    function actionInteraction(message_id) {
+      var message_wrapper = document.createElement('div')
+      message_wrapper.setAttribute('class', 'message_wrapper')
+
+      // An file interaction contains buttons at the left of the interaction
+      // for the status or accept/refuse
+      var left_buttons = document.createElement('div')
+      left_buttons.setAttribute('class', 'left_buttons')
+      message_wrapper.appendChild(left_buttons)
+      // Also contains a bold clickable text
+      var text_div = document.createElement('div')
+      text_div.setAttribute('class', 'text')
+      message_wrapper.appendChild(text_div)
+      return message_wrapper
+    }
+
+    /**
+     * Update a data transfer interaction
+     */
+     function updateCall(message_div, message_object) {
+       const outgoingCall = '<svg fill="#219d55" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5z"/></svg>'
+       const callMissed = '<svg fill="#dc2719" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M19.59 7L12 14.59 6.41 9H11V7H3v8h2v-4.59l7 7 9-9z"/></svg>'
+       const outgoingMissed = '<svg fill="#dc2719" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M24 24H0V0h24v24z" id="a"/></defs><clipPath id="b"><use overflow="visible" xlink:href="#a"/></clipPath><path clip-path="url(#b)" d="M3 8.41l9 9 7-7V15h2V7h-8v2h4.59L12 14.59 4.41 7 3 8.41z"/></svg>'
+       const callReceived = '<svg fill="#219d55" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 5.41L18.59 4 7 15.59V9H5v10h10v-2H8.41z"/></svg>'
+
+       const message_text = message_object['text']
+       const message_direction = (message_text.toLowerCase().indexOf('incoming') !== -1) ? 'in' : 'out'
+       const missed = message_text.indexOf('Missed') !== -1
+
+       message_div.querySelector('.text').innerText = message_text.substring(2)
+
+       var left_buttons = message_div.querySelector('.left_buttons')
+       left_buttons.innerHTML = ''
+       var status_button = document.createElement('div')
+       var statusFile = ''
+       if (missed)
+        statusFile = (message_direction === 'in') ? callMissed : outgoingMissed
+       else
+        statusFile = (message_direction === 'in') ? callReceived : outgoingCall
+       status_button.innerHTML = statusFile
+       status_button.setAttribute('class', 'flat-button')
+       left_buttons.appendChild(status_button)
+     }
+
+     /**
+      * Update a contact interaction
+      */
+      function updateContact(message_div, message_object) {
+        const message_text = message_object['text']
+
+        message_div.querySelector('.text').innerText = message_text
+
+        var left_buttons = message_div.querySelector('.left_buttons')
+        left_buttons.innerHTML = ''
+        var status_button = document.createElement('div')
+        status_button.innerHTML = '<?xml version="1.0" ?><svg height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M8.013766 23.107838l0.00465 -0.810382 0.033095 -0.133474c0.1495327 -0.603099 0.50107 -1.099452 1.1411917 -1.611311 0.1690725 -0.135195 0.5493165 -0.388522 0.7866284 -0.524069 1.4449359 -0.825313 3.6497829 -1.439907 5.5693029 -1.552424 0.268992 -0.01577 0.866138 -0.0085 1.131356 0.01373 1.873734 0.157215 3.884055 0.729268 5.262712 1.497544 1.031356 0.574739 1.70347 1.254543 1.937152 1.959316 0.101301 0.305518 0.100213 0.293393 0.105924 1.180132l0.0051 0.791314 -7.990878 0 -7.990878 0 0.00465 -0.810381z" fill="#000000"/><path d="M15.641818 15.906151c-0.512638 -0.04757 -0.970838 -0.177847 -1.424519 -0.40503 -0.534623 -0.267715 -0.972855 -0.622072 -1.344489 -1.087162 -0.500329 -0.626146 -0.797007 -1.385268 -0.858271 -2.196087 -0.01377 -0.182277 -0.0068 -0.568261 0.01341 -0.738308 0.137062 -1.155519 0.73576 -2.1602655 1.685808 -2.8291565 1.010233 -0.711264 2.333521 -0.90809 3.519055 -0.523424 0.511977 0.166119 0.9845 0.434474 1.39324 0.791249 0.103105 0.09 0.316993 0.304905 0.402137 0.404056 0.848222 0.9877635 1.16007 2.3144245 0.843044 3.5864705 -0.116312 0.466694 -0.339476 0.947863 -0.621858 1.340798 -0.695617 0.967955 -1.761735 1.568261 -2.95044 1.661324 -0.155481 0.01217 -0.501821 0.0097 -0.657113 -0.0047z" fill="#000000"/></svg>'
+        status_button.setAttribute('class', 'flat-button')
+        left_buttons.appendChild(status_button)
+      }
+
+    function addOrUpdateMessage2(message_object, new_message, insert_after = true) {
+      const message_id = message_object['id']
+      const message_type = message_object['type']
+      const message_text = message_object['text']
+      const message_direction = message_object['direction']
+      const message_timestamp = message_object['timestamp']
+      const delivery_status = message_object['delivery_status']
+      const message_sender_contact_method = message_object['sender_contact_method']
+
+      var message_div = document.querySelector('#message_' + message_id);
+      var type = ''
+      if (new_message) {
+        // Build new message
+        var classes = [
+            'message',
+            `message_${message_direction}`,
+            `message_type_${message_type}`
+        ]
+
+        message_div = document.createElement('div')
+        message_div.setAttribute('id', `message_${message_id}`)
+        message_div.setAttribute('class', classes.join(' '))
+
+        // Build message for each types.
+        // Add sender images if necessary (like if the interaction doesn't take the whole width)
+        const need_sender = (message_type === 'data_transfer' || message_type === 'text');
+        if (need_sender) {
+          var message_sender_image = document.createElement('span')
+          message_sender_image.setAttribute('class', `sender_image sender_image_${message_sender_contact_method}`)
+          message_div.appendChild(message_sender_image)
+        }
+
+        // Build main content
+        if (message_type === 'data_transfer') {
+            type = 'fileInteraction'
+            message_div.append(fileInteraction(message_id))
+        } else if (message_type === 'text') {
+          // TODO add the possibility to update messages (remove and rebuild)
+          const htmlText = getMessageHtml(message_text)
+          if (displayLinksEnabled) {
+            const parser = new DOMParser();
+            const DOMMsg = parser.parseFromString(htmlText, 'text/xml');
+            const links = DOMMsg.querySelectorAll('a');
+            if (DOMMsg.childNodes.length && links.length) {
+              var isTextToShow = (DOMMsg.childNodes[0].childNodes.length > 1)
+              const ytid = (isVideo(message_text))? youtube_id(message_text) : ''
+              if (!isTextToShow && (ytid || isImage(message_text))) {
+                type = 'media'
+                message_div.append(mediaInteraction(message_id, message_text, ytid))
+              }
+            }
+          }
+          if (type !== 'media') {
+            type = 'text'
+            message_div.append(textInteraction(message_id, htmlText))
+          }
+        } else if (message_type === 'call' || message_type === 'contact') {
+          message_div.append(actionInteraction(message_id))
+        } else {
+          const temp = document.createElement('div')
+          temp.innerText = message_type
+          message_div.appendChild(temp)
+        }
+
+        // Get timestamp to add
+        const formattedTimestamp = getMessageTimestampText(message_timestamp, true)
+        // Create the timestamp object
+        const date_elt = document.createElement('div')
+        date_elt.innerHTML = formattedTimestamp
+        timestamp_div_classes = [
+            'timestamp',
+            `timestamp_${message_direction}`
+        ]
+        date_elt.setAttribute('class', timestamp_div_classes.join(' '))
+        date_elt.setAttribute('message_timestamp', message_timestamp)
+        // Remove last timestamp if it's the same<h6></h6>
+        if (messages.querySelectorAll('.timestamp'))
+            cleanPreviousTimestamps(date_elt, messages.children.length)
+
+        // Add message and the new timestamp
+        if (insert_after) {
+          messages.appendChild(message_div)
+          messages.appendChild(date_elt)
+        } else {
+          messages.insertBefore(date_elt, messages.firstChild)
+          messages.insertBefore(message_div, messages.firstChild)
+        }
+      }
+
+      // Update informations if needed
+      if (message_type === 'data_transfer')
+        updateDataTransferInteraction(message_div, message_object)
+      if (message_type === 'text' && message_direction === 'out')
+        // Modify sent status if necessary
+        formatTextStatus(message_div, delivery_status)
+      if (message_type === 'call')
+        updateCall(message_div, message_object)
+      if (message_type === 'contact')
+        updateContact(message_div, message_object)
+
+      // Clean timestamps
+      updateTimestamps();
+    }
+
 
     /**
      * Add a message to the buffer
