@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-12 03:09-0400\n"
-"PO-Revision-Date: 2018-03-12 07:09+0000\n"
+"POT-Creation-Date: 2018-03-19 03:09-0400\n"
+"PO-Revision-Date: 2018-03-19 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -309,27 +309,31 @@ msgstr "在聊天室窗中顯示圖片與影片。"
 msgid "Entering a number in the search entry will place a new call."
 msgstr "在搜尋項目中輸入號碼將會打一通新電話。"
 
-#: ui/generalsettingsview.ui:155
+#: ui/generalsettingsview.ui:153
+msgid "Download folder"
+msgstr ""
+
+#: ui/generalsettingsview.ui:181
 msgid "Show chat on the right."
 msgstr "在右邊顯示聊天。"
 
-#: ui/generalsettingsview.ui:161
+#: ui/generalsettingsview.ui:187
 msgid "Show chat on the bottom."
 msgstr "在底部顯示聊天。"
 
-#: ui/generalsettingsview.ui:185
+#: ui/generalsettingsview.ui:211
 msgid "History Settings"
 msgstr "記錄設定"
 
-#: ui/generalsettingsview.ui:203
+#: ui/generalsettingsview.ui:229
 msgid "Keep history for (days):"
 msgstr "保持記錄數日"
 
-#: ui/generalsettingsview.ui:224
+#: ui/generalsettingsview.ui:250
 msgid "(set to 0 for unlimited history)"
 msgstr "(設定0 表示無限制記錄)"
 
-#: ui/generalsettingsview.ui:234
+#: ui/generalsettingsview.ui:260
 msgid "Clear all history"
 msgstr "清除所有記錄"
 
@@ -475,7 +479,7 @@ msgstr "視訊編解碼器"
 
 #: ui/accountadvancedtab.ui:93
 msgid "Auto-answer and UPnP"
-msgstr ""
+msgstr "自動應答與 UPnP"
 
 #: ui/accountadvancedtab.ui:129
 msgid "Registration expire timeout (seconds):"
@@ -521,7 +525,7 @@ msgstr "設定公開位置與連接埠："
 msgid "Address"
 msgstr "地址"
 
-#: ui/accountadvancedtab.ui:362 src/accountadvancedtab.cpp:576
+#: ui/accountadvancedtab.ui:362 src/accountadvancedtab.cpp:606
 msgid "Port"
 msgstr "連接埠"
 
@@ -530,6 +534,7 @@ msgid "Use STUN"
 msgstr "使用 STUN"
 
 #: ui/accountadvancedtab.ui:411 ui/accountadvancedtab.ui:460
+#: ui/accountadvancedtab.ui:575
 msgid "server URL"
 msgstr "伺服器網址"
 
@@ -549,37 +554,41 @@ msgstr "密碼"
 msgid "realm"
 msgstr "領域"
 
-#: ui/accountadvancedtab.ui:556
+#: ui/accountadvancedtab.ui:552
+msgid "Use Proxy"
+msgstr ""
+
+#: ui/accountadvancedtab.ui:605
 msgid "Published Address"
 msgstr "公開位置"
 
-#: ui/accountadvancedtab.ui:584
+#: ui/accountadvancedtab.ui:633
 msgid "Bootstrap Servers"
 msgstr "Bootstrap 伺服器"
 
-#: ui/accountadvancedtab.ui:641
+#: ui/accountadvancedtab.ui:690
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
 msgstr "這些設定將僅用於 SDP 工作階段協商，以防伺服器或對方不支援 ICE。"
 
-#: ui/accountadvancedtab.ui:666 ui/accountadvancedtab.ui:742
+#: ui/accountadvancedtab.ui:715 ui/accountadvancedtab.ui:791
 msgid "Min"
 msgstr "最小值"
 
-#: ui/accountadvancedtab.ui:689 ui/accountadvancedtab.ui:765
+#: ui/accountadvancedtab.ui:738 ui/accountadvancedtab.ui:814
 msgid "Max"
 msgstr "最大值"
 
-#: ui/accountadvancedtab.ui:713
+#: ui/accountadvancedtab.ui:762
 msgid "Audio RTP Port Range"
 msgstr "音訊 RTP 連接埠範圍"
 
-#: ui/accountadvancedtab.ui:789
+#: ui/accountadvancedtab.ui:838
 msgid "Video RTP Port Range"
 msgstr "視訊 RTP 連接埠範圍"
 
-#: ui/accountadvancedtab.ui:807
+#: ui/accountadvancedtab.ui:856
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP 工作階段協商（ICE 退回）"
 
@@ -857,7 +866,7 @@ msgstr "已取得的使用者名稱"
 msgid "Network error"
 msgstr "網路錯誤"
 
-#: src/generalsettingsview.cpp:103
+#: src/generalsettingsview.cpp:105
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -872,23 +881,23 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "聯絡人"
 
-#: src/accountadvancedtab.cpp:391
+#: src/accountadvancedtab.cpp:421
 msgid "_Remove server"
 msgstr "移除伺服器(_R)"
 
-#: src/accountadvancedtab.cpp:471
+#: src/accountadvancedtab.cpp:501
 msgid "Name service URL"
 msgstr "名稱服務 URL"
 
-#: src/accountadvancedtab.cpp:483
+#: src/accountadvancedtab.cpp:513
 msgid "Auto-answer calls"
 msgstr "自動回答呼叫"
 
-#: src/accountadvancedtab.cpp:491
+#: src/accountadvancedtab.cpp:521
 msgid "UPnP enabled"
 msgstr "UPnP啟動"
 
-#: src/accountadvancedtab.cpp:568 src/accountgeneraltab.cpp:326
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:326
 msgid "Hostname"
 msgstr "主機名稱"
 
@@ -953,15 +962,19 @@ msgstr "代理服務器"
 msgid "Voicemail number"
 msgstr "語音郵件號碼"
 
-#: src/video/video_widget.cpp:538
-msgid "Share screen area"
-msgstr "分享螢幕區域"
+#: src/video/video_widget.cpp:566
+msgid "Share _screen area"
+msgstr ""
 
-#: src/video/video_widget.cpp:549
-msgid "Share file"
-msgstr "分享檔案"
+#: src/video/video_widget.cpp:577
+msgid "Share _monitor"
+msgstr ""
 
-#: src/video/video_widget.cpp:562
+#: src/video/video_widget.cpp:588
+msgid "Stream _file"
+msgstr ""
+
+#: src/video/video_widget.cpp:601
 msgid "Show advanced information"
 msgstr "顯示進階資訊"
 
@@ -1068,37 +1081,41 @@ msgstr "名稱"
 msgid "Samplerate"
 msgstr "取樣率"
 
-#: src/conversationpopupmenu.cpp:169
-msgid "_Place call"
-msgstr "打電話(_P)"
+#: src/conversationpopupmenu.cpp:181
+msgid "Place _video call"
+msgstr ""
 
-#: src/conversationpopupmenu.cpp:172
-msgid "_Copy name"
-msgstr "複製名稱(_C)"
+#: src/conversationpopupmenu.cpp:184
+msgid "Place _audio call"
+msgstr ""
 
-#: src/conversationpopupmenu.cpp:178
+#: src/conversationpopupmenu.cpp:190
 msgid "_Add to conversations"
 msgstr "新增到對話中(_A)"
 
-#: src/conversationpopupmenu.cpp:182
+#: src/conversationpopupmenu.cpp:194
 msgid "_Discard invitation"
 msgstr "丟棄邀請(_D)"
 
-#: src/conversationpopupmenu.cpp:185
+#: src/conversationpopupmenu.cpp:197
 msgid "_Block invitations"
 msgstr "阻擋邀請(_B)"
 
-#: src/conversationpopupmenu.cpp:190
+#: src/conversationpopupmenu.cpp:202
 msgid "C_lear history"
 msgstr "清除歷史(_L)"
 
-#: src/conversationpopupmenu.cpp:193
+#: src/conversationpopupmenu.cpp:205
 msgid "_Remove conversation"
 msgstr "移除對話(_R)"
 
-#: src/conversationpopupmenu.cpp:196
+#: src/conversationpopupmenu.cpp:208
 msgid "_Block contact"
 msgstr "阻擋聯絡人(_B)"
+
+#: src/conversationpopupmenu.cpp:213
+msgid "_Copy name"
+msgstr "複製名稱(_C)"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
