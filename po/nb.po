@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-12 03:09-0400\n"
-"PO-Revision-Date: 2018-03-12 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-03-22 23:14-0400\n"
+"PO-Revision-Date: 2018-03-20 04:05+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/savoirfairelinux/ring/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -98,11 +98,11 @@ msgstr "Videokvalitet"
 
 #: ui/currentcallview.ui:400
 msgid "Toggle show chat"
-msgstr "Styr visning av meldinger"
+msgstr "Styr visning av sludring"
 
 #: ui/currentcallview.ui:404 ui/currentcallview.ui:421
 msgid "Chat"
-msgstr "Meldinger"
+msgstr "Sludring"
 
 #: ui/currentcallview.ui:430
 msgid "Mute audio"
@@ -308,27 +308,31 @@ msgstr "Vis bilder og videoer i sludrevindu."
 msgid "Entering a number in the search entry will place a new call."
 msgstr "Inntasting av nummer i søkefeltet vil utføre ny samtale."
 
-#: ui/generalsettingsview.ui:155
+#: ui/generalsettingsview.ui:153
+msgid "Download folder"
+msgstr "Nedlastingsmappe"
+
+#: ui/generalsettingsview.ui:181
 msgid "Show chat on the right."
-msgstr "Vis meldinger til høyre"
+msgstr "Vis sludring til høyre."
 
-#: ui/generalsettingsview.ui:161
+#: ui/generalsettingsview.ui:187
 msgid "Show chat on the bottom."
-msgstr "Vis meldinger nederst"
+msgstr "Vis sludring nederst."
 
-#: ui/generalsettingsview.ui:185
+#: ui/generalsettingsview.ui:211
 msgid "History Settings"
 msgstr "Historikkinnstillinger"
 
-#: ui/generalsettingsview.ui:203
+#: ui/generalsettingsview.ui:229
 msgid "Keep history for (days):"
 msgstr "Behold historikk i (dager):"
 
-#: ui/generalsettingsview.ui:224
+#: ui/generalsettingsview.ui:250
 msgid "(set to 0 for unlimited history)"
 msgstr "(sett til 0 for ubegrenset historikk)"
 
-#: ui/generalsettingsview.ui:234
+#: ui/generalsettingsview.ui:260
 msgid "Clear all history"
 msgstr "Nullstill all historikk"
 
@@ -474,7 +478,7 @@ msgstr "Video-kodeker"
 
 #: ui/accountadvancedtab.ui:93
 msgid "Auto-answer and UPnP"
-msgstr ""
+msgstr "Auto-svar og UPnP"
 
 #: ui/accountadvancedtab.ui:129
 msgid "Registration expire timeout (seconds):"
@@ -520,7 +524,7 @@ msgstr "Oppgi publisert adresse og port:"
 msgid "Address"
 msgstr "Adresse"
 
-#: ui/accountadvancedtab.ui:362 src/accountadvancedtab.cpp:576
+#: ui/accountadvancedtab.ui:362 src/accountadvancedtab.cpp:606
 msgid "Port"
 msgstr "Port"
 
@@ -529,6 +533,7 @@ msgid "Use STUN"
 msgstr "Bruk STUN"
 
 #: ui/accountadvancedtab.ui:411 ui/accountadvancedtab.ui:460
+#: ui/accountadvancedtab.ui:575
 msgid "server URL"
 msgstr "tjener-URL"
 
@@ -548,37 +553,41 @@ msgstr "passord"
 msgid "realm"
 msgstr "område"
 
-#: ui/accountadvancedtab.ui:556
+#: ui/accountadvancedtab.ui:552
+msgid "Use Proxy"
+msgstr "Bruk mellomtjener"
+
+#: ui/accountadvancedtab.ui:605
 msgid "Published Address"
 msgstr "Publisert adresse"
 
-#: ui/accountadvancedtab.ui:584
+#: ui/accountadvancedtab.ui:633
 msgid "Bootstrap Servers"
 msgstr "Oppstartssekvens-tjenere"
 
-#: ui/accountadvancedtab.ui:641
+#: ui/accountadvancedtab.ui:690
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
 msgstr "Disse innstillingene brukes kun for SDP-øktforhandling hvis ICE ikke støttes av tjeneren til motparten eller vedkommende."
 
-#: ui/accountadvancedtab.ui:666 ui/accountadvancedtab.ui:742
+#: ui/accountadvancedtab.ui:715 ui/accountadvancedtab.ui:791
 msgid "Min"
 msgstr "Min"
 
-#: ui/accountadvancedtab.ui:689 ui/accountadvancedtab.ui:765
+#: ui/accountadvancedtab.ui:738 ui/accountadvancedtab.ui:814
 msgid "Max"
 msgstr "Maks"
 
-#: ui/accountadvancedtab.ui:713
+#: ui/accountadvancedtab.ui:762
 msgid "Audio RTP Port Range"
 msgstr "RTP-portintervall for tale"
 
-#: ui/accountadvancedtab.ui:789
+#: ui/accountadvancedtab.ui:838
 msgid "Video RTP Port Range"
 msgstr "RTP-portintervall for video"
 
-#: ui/accountadvancedtab.ui:807
+#: ui/accountadvancedtab.ui:856
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP-øktforhandling (ICE-reserve)"
 
@@ -653,11 +662,11 @@ msgstr "Bekreft passord"
 
 #: ui/accountgeneraltab.ui:290
 msgid "Export account"
-msgstr ""
+msgstr "Eksporter konto"
 
 #: ui/accountgeneraltab.ui:303
 msgid "Choose destination..."
-msgstr ""
+msgstr "Velg mål…"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming..."
@@ -856,7 +865,7 @@ msgstr "Brukernavnet er allerede i bruk"
 msgid "Network error"
 msgstr "Nettverksfeil"
 
-#: src/generalsettingsview.cpp:103
+#: src/generalsettingsview.cpp:105
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -871,23 +880,23 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: src/accountadvancedtab.cpp:391
+#: src/accountadvancedtab.cpp:421
 msgid "_Remove server"
 msgstr "_Fjern tjener"
 
-#: src/accountadvancedtab.cpp:471
+#: src/accountadvancedtab.cpp:501
 msgid "Name service URL"
 msgstr "Nettadresse for navnetjeneste"
 
-#: src/accountadvancedtab.cpp:483
+#: src/accountadvancedtab.cpp:513
 msgid "Auto-answer calls"
 msgstr "Auto-svar på samtaler"
 
-#: src/accountadvancedtab.cpp:491
+#: src/accountadvancedtab.cpp:521
 msgid "UPnP enabled"
 msgstr "UPnP aktivt"
 
-#: src/accountadvancedtab.cpp:568 src/accountgeneraltab.cpp:326
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:326
 msgid "Hostname"
 msgstr "Vertsnavn"
 
@@ -902,11 +911,11 @@ msgstr "_Avbryt"
 
 #: src/accountgeneraltab.cpp:188 src/chatview.cpp:179
 msgid "_Save"
-msgstr ""
+msgstr "_Lagre"
 
 #: src/accountgeneraltab.cpp:208
 msgid "File exported to destination: "
-msgstr ""
+msgstr "Fil eksportert til mål:"
 
 #: src/accountgeneraltab.cpp:222
 msgid "New password and its confirmation are different"
@@ -952,15 +961,19 @@ msgstr "Mellomtjener"
 msgid "Voicemail number"
 msgstr "Talepostkassenummer"
 
-#: src/video/video_widget.cpp:538
-msgid "Share screen area"
-msgstr "Del skjermområde"
+#: src/video/video_widget.cpp:566
+msgid "Share _screen area"
+msgstr "Del _skjermområde"
 
-#: src/video/video_widget.cpp:549
-msgid "Share file"
-msgstr "Del fil"
+#: src/video/video_widget.cpp:577
+msgid "Share _monitor"
+msgstr "Del _monitor"
 
-#: src/video/video_widget.cpp:562
+#: src/video/video_widget.cpp:588
+msgid "Stream _file"
+msgstr "Strømme_fil"
+
+#: src/video/video_widget.cpp:601
 msgid "Show advanced information"
 msgstr "Vis avansert informasjon"
 
@@ -1067,37 +1080,41 @@ msgstr "Navn"
 msgid "Samplerate"
 msgstr "Samplingsfrekvens"
 
-#: src/conversationpopupmenu.cpp:169
-msgid "_Place call"
-msgstr "_Utfør anrop"
+#: src/conversationpopupmenu.cpp:181
+msgid "Place _video call"
+msgstr "Utfør _videosamtale"
 
-#: src/conversationpopupmenu.cpp:172
-msgid "_Copy name"
-msgstr "_Kopier navn"
+#: src/conversationpopupmenu.cpp:184
+msgid "Place _audio call"
+msgstr "Utfør _lydsamtale"
 
-#: src/conversationpopupmenu.cpp:178
+#: src/conversationpopupmenu.cpp:190
 msgid "_Add to conversations"
 msgstr "_Legg til i samtaler"
 
-#: src/conversationpopupmenu.cpp:182
+#: src/conversationpopupmenu.cpp:194
 msgid "_Discard invitation"
 msgstr "_Forkast invitasjon"
 
-#: src/conversationpopupmenu.cpp:185
+#: src/conversationpopupmenu.cpp:197
 msgid "_Block invitations"
 msgstr "_Blokker invitasjoner"
 
-#: src/conversationpopupmenu.cpp:190
+#: src/conversationpopupmenu.cpp:202
 msgid "C_lear history"
 msgstr "T_øm historikk"
 
-#: src/conversationpopupmenu.cpp:193
+#: src/conversationpopupmenu.cpp:205
 msgid "_Remove conversation"
 msgstr "_Fjern samtale"
 
-#: src/conversationpopupmenu.cpp:196
+#: src/conversationpopupmenu.cpp:208
 msgid "_Block contact"
 msgstr "_Blokker kontakt"
+
+#: src/conversationpopupmenu.cpp:213
+msgid "_Copy name"
+msgstr "_Kopier navn"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
@@ -1154,7 +1171,7 @@ msgstr "QR-kode for RingID"
 
 #: src/chatview.cpp:174
 msgid "Send File"
-msgstr ""
+msgstr "Send fil"
 
 #: src/currentcallview.cpp:781
 msgctxt "Enable automatic video quality"

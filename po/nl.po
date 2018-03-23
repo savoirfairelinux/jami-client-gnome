@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-12 03:09-0400\n"
-"PO-Revision-Date: 2018-03-12 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-03-22 23:14-0400\n"
+"PO-Revision-Date: 2018-03-19 16:25+0000\n"
+"Last-Translator: Nathan Follens\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/ring/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,7 @@ msgstr "_Over"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr "_Afsluiten"
+msgstr "Af_sluiten"
 
 #: ui/choosecontactview.ui:34
 msgid "Create New"
@@ -309,27 +309,31 @@ msgstr "Afbeeldingen en video's in chatvenster tonen."
 msgid "Entering a number in the search entry will place a new call."
 msgstr "Een nummer in de zoekregel invoeren zal een nieuwe oproep plaatsen."
 
-#: ui/generalsettingsview.ui:155
+#: ui/generalsettingsview.ui:153
+msgid "Download folder"
+msgstr "Downloadmap"
+
+#: ui/generalsettingsview.ui:181
 msgid "Show chat on the right."
 msgstr "Gesprek rechts weergeven."
 
-#: ui/generalsettingsview.ui:161
+#: ui/generalsettingsview.ui:187
 msgid "Show chat on the bottom."
 msgstr "Gesprek onderaan weergeven."
 
-#: ui/generalsettingsview.ui:185
+#: ui/generalsettingsview.ui:211
 msgid "History Settings"
 msgstr "Geschiedenisinstellingen"
 
-#: ui/generalsettingsview.ui:203
+#: ui/generalsettingsview.ui:229
 msgid "Keep history for (days):"
 msgstr "Geschiedenis bewaren voor (dagen):"
 
-#: ui/generalsettingsview.ui:224
+#: ui/generalsettingsview.ui:250
 msgid "(set to 0 for unlimited history)"
 msgstr "(kies 0 voor onbeperkte geschiedenis)"
 
-#: ui/generalsettingsview.ui:234
+#: ui/generalsettingsview.ui:260
 msgid "Clear all history"
 msgstr "Geschiedenis wissen"
 
@@ -475,7 +479,7 @@ msgstr "Videocodecs"
 
 #: ui/accountadvancedtab.ui:93
 msgid "Auto-answer and UPnP"
-msgstr ""
+msgstr "Automatisch beantwoorden en UPnP"
 
 #: ui/accountadvancedtab.ui:129
 msgid "Registration expire timeout (seconds):"
@@ -521,7 +525,7 @@ msgstr "Stel gepubliceerd adres en poort in:"
 msgid "Address"
 msgstr "Adres"
 
-#: ui/accountadvancedtab.ui:362 src/accountadvancedtab.cpp:576
+#: ui/accountadvancedtab.ui:362 src/accountadvancedtab.cpp:606
 msgid "Port"
 msgstr "Poort"
 
@@ -530,6 +534,7 @@ msgid "Use STUN"
 msgstr "STUN gebruiken"
 
 #: ui/accountadvancedtab.ui:411 ui/accountadvancedtab.ui:460
+#: ui/accountadvancedtab.ui:575
 msgid "server URL"
 msgstr "server-URL"
 
@@ -549,37 +554,41 @@ msgstr "wachtwoord"
 msgid "realm"
 msgstr "realm"
 
-#: ui/accountadvancedtab.ui:556
+#: ui/accountadvancedtab.ui:552
+msgid "Use Proxy"
+msgstr "Proxy gebruiken"
+
+#: ui/accountadvancedtab.ui:605
 msgid "Published Address"
 msgstr "Gepubliceerd adres"
 
-#: ui/accountadvancedtab.ui:584
+#: ui/accountadvancedtab.ui:633
 msgid "Bootstrap Servers"
 msgstr "Bootstrapservers"
 
-#: ui/accountadvancedtab.ui:641
+#: ui/accountadvancedtab.ui:690
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
 msgstr "Deze instellingen worden enkel gebruikt tijdens SDP-sessieonderhandelingen in geval ICE niet ondersteund wordt door de server of de gebruiker."
 
-#: ui/accountadvancedtab.ui:666 ui/accountadvancedtab.ui:742
+#: ui/accountadvancedtab.ui:715 ui/accountadvancedtab.ui:791
 msgid "Min"
 msgstr "Min"
 
-#: ui/accountadvancedtab.ui:689 ui/accountadvancedtab.ui:765
+#: ui/accountadvancedtab.ui:738 ui/accountadvancedtab.ui:814
 msgid "Max"
 msgstr "Max"
 
-#: ui/accountadvancedtab.ui:713
+#: ui/accountadvancedtab.ui:762
 msgid "Audio RTP Port Range"
 msgstr "Audio RTP-poortenreeks"
 
-#: ui/accountadvancedtab.ui:789
+#: ui/accountadvancedtab.ui:838
 msgid "Video RTP Port Range"
 msgstr "Video RTP-poortenreeks"
 
-#: ui/accountadvancedtab.ui:807
+#: ui/accountadvancedtab.ui:856
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP-sessieonderhandeling (ICE-terugvaloptie)"
 
@@ -857,7 +866,7 @@ msgstr "Gebruikersnaam reeds in gebruik"
 msgid "Network error"
 msgstr "Netwerkfout"
 
-#: src/generalsettingsview.cpp:103
+#: src/generalsettingsview.cpp:105
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -872,23 +881,23 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Contacten"
 
-#: src/accountadvancedtab.cpp:391
+#: src/accountadvancedtab.cpp:421
 msgid "_Remove server"
 msgstr "Server ve_rwijderen"
 
-#: src/accountadvancedtab.cpp:471
+#: src/accountadvancedtab.cpp:501
 msgid "Name service URL"
 msgstr "Naamdienst-URL"
 
-#: src/accountadvancedtab.cpp:483
+#: src/accountadvancedtab.cpp:513
 msgid "Auto-answer calls"
 msgstr "Oproepen automatisch beantwoorden"
 
-#: src/accountadvancedtab.cpp:491
+#: src/accountadvancedtab.cpp:521
 msgid "UPnP enabled"
 msgstr "UPnP ingeschakeld"
 
-#: src/accountadvancedtab.cpp:568 src/accountgeneraltab.cpp:326
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:326
 msgid "Hostname"
 msgstr "Hostnaam"
 
@@ -953,15 +962,19 @@ msgstr "Proxy"
 msgid "Voicemail number"
 msgstr "Voicemailnummer"
 
-#: src/video/video_widget.cpp:538
-msgid "Share screen area"
-msgstr "Schermruimte delen"
+#: src/video/video_widget.cpp:566
+msgid "Share _screen area"
+msgstr "_Schermruimte delen"
 
-#: src/video/video_widget.cpp:549
-msgid "Share file"
-msgstr "Bestand delen"
+#: src/video/video_widget.cpp:577
+msgid "Share _monitor"
+msgstr "Beeldscher_m delen"
 
-#: src/video/video_widget.cpp:562
+#: src/video/video_widget.cpp:588
+msgid "Stream _file"
+msgstr "Bes_tand streamen"
+
+#: src/video/video_widget.cpp:601
 msgid "Show advanced information"
 msgstr "Toon geavanceerde informatie"
 
@@ -1068,37 +1081,41 @@ msgstr "Naam"
 msgid "Samplerate"
 msgstr "Samplerate"
 
-#: src/conversationpopupmenu.cpp:169
-msgid "_Place call"
-msgstr "Oproep _plaatsen"
+#: src/conversationpopupmenu.cpp:181
+msgid "Place _video call"
+msgstr "Video-oproep plaatsen"
 
-#: src/conversationpopupmenu.cpp:172
-msgid "_Copy name"
-msgstr "Naam _kopiëren"
+#: src/conversationpopupmenu.cpp:184
+msgid "Place _audio call"
+msgstr "_Audio-oproep plaatsen"
 
-#: src/conversationpopupmenu.cpp:178
+#: src/conversationpopupmenu.cpp:190
 msgid "_Add to conversations"
 msgstr "_Aan gesprekken toevoegen"
 
-#: src/conversationpopupmenu.cpp:182
+#: src/conversationpopupmenu.cpp:194
 msgid "_Discard invitation"
 msgstr "Uitnodiging verwij_deren"
 
-#: src/conversationpopupmenu.cpp:185
+#: src/conversationpopupmenu.cpp:197
 msgid "_Block invitations"
 msgstr "Uitnodigingen _blokkeren"
 
-#: src/conversationpopupmenu.cpp:190
+#: src/conversationpopupmenu.cpp:202
 msgid "C_lear history"
 msgstr "_Geschiedenis wissen"
 
-#: src/conversationpopupmenu.cpp:193
+#: src/conversationpopupmenu.cpp:205
 msgid "_Remove conversation"
 msgstr "Gesprek ve_rwijderen"
 
-#: src/conversationpopupmenu.cpp:196
+#: src/conversationpopupmenu.cpp:208
 msgid "_Block contact"
 msgstr "Contact _blokkeren"
+
+#: src/conversationpopupmenu.cpp:213
+msgid "_Copy name"
+msgstr "Naam _kopiëren"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"

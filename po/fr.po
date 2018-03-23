@@ -19,15 +19,15 @@
 # Julie LeBrun <julie.lebrun@savoirfairelinux.com>, 2016-2017
 # khalil bennani <iterniter@gmail.com>, 2017
 # osoldano <olivier.soldano@savoirfairelinux.com>, 2016
-# Pierre-Luc Soulé-Noulibos <plsn@outlook.fr>, 2017
+# PS, 2017
 # Sylvain Etienne <seti@dadboo.eu>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-12 03:09-0400\n"
-"PO-Revision-Date: 2018-03-12 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-03-22 23:14-0400\n"
+"PO-Revision-Date: 2018-03-19 07:09+0000\n"
+"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -324,27 +324,31 @@ msgstr "Afficher les images et vidéos dans le fenêtre de clavardage."
 msgid "Entering a number in the search entry will place a new call."
 msgstr "Pour appeler, entrer le numéro de téléphone dans la zone de recherche."
 
-#: ui/generalsettingsview.ui:155
+#: ui/generalsettingsview.ui:153
+msgid "Download folder"
+msgstr ""
+
+#: ui/generalsettingsview.ui:181
 msgid "Show chat on the right."
 msgstr "Afficher les discussions texte à droite"
 
-#: ui/generalsettingsview.ui:161
+#: ui/generalsettingsview.ui:187
 msgid "Show chat on the bottom."
 msgstr "Afficher les discussions texte en bas"
 
-#: ui/generalsettingsview.ui:185
+#: ui/generalsettingsview.ui:211
 msgid "History Settings"
 msgstr "Paramètres de l’historique"
 
-#: ui/generalsettingsview.ui:203
+#: ui/generalsettingsview.ui:229
 msgid "Keep history for (days):"
 msgstr "Garder l’historique pendant (jours) :"
 
-#: ui/generalsettingsview.ui:224
+#: ui/generalsettingsview.ui:250
 msgid "(set to 0 for unlimited history)"
 msgstr "(mettre à 0 pour garder indéfiniment)"
 
-#: ui/generalsettingsview.ui:234
+#: ui/generalsettingsview.ui:260
 msgid "Clear all history"
 msgstr "Effacer tout l’historique"
 
@@ -490,7 +494,7 @@ msgstr "Codecs vidéo"
 
 #: ui/accountadvancedtab.ui:93
 msgid "Auto-answer and UPnP"
-msgstr ""
+msgstr "UPnP et réponse automatique"
 
 #: ui/accountadvancedtab.ui:129
 msgid "Registration expire timeout (seconds):"
@@ -536,7 +540,7 @@ msgstr "Spécifier l’adresse publiée et le port :"
 msgid "Address"
 msgstr "Adresse"
 
-#: ui/accountadvancedtab.ui:362 src/accountadvancedtab.cpp:576
+#: ui/accountadvancedtab.ui:362 src/accountadvancedtab.cpp:606
 msgid "Port"
 msgstr "Port"
 
@@ -545,6 +549,7 @@ msgid "Use STUN"
 msgstr "Utiliser STUN"
 
 #: ui/accountadvancedtab.ui:411 ui/accountadvancedtab.ui:460
+#: ui/accountadvancedtab.ui:575
 msgid "server URL"
 msgstr "URL du serveur"
 
@@ -564,37 +569,41 @@ msgstr "mot de passe"
 msgid "realm"
 msgstr "domaine"
 
-#: ui/accountadvancedtab.ui:556
+#: ui/accountadvancedtab.ui:552
+msgid "Use Proxy"
+msgstr "Utiliser un serveur délégataire"
+
+#: ui/accountadvancedtab.ui:605
 msgid "Published Address"
 msgstr "Adresse publiée"
 
-#: ui/accountadvancedtab.ui:584
+#: ui/accountadvancedtab.ui:633
 msgid "Bootstrap Servers"
 msgstr "Nœuds d’amorçage"
 
-#: ui/accountadvancedtab.ui:641
+#: ui/accountadvancedtab.ui:690
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
 msgstr "Ces paramètres sont uniquement utilisés durant la négociation de la session SDP au cas où ICE ne serait pas supporté par le serveur ou le correspondant."
 
-#: ui/accountadvancedtab.ui:666 ui/accountadvancedtab.ui:742
+#: ui/accountadvancedtab.ui:715 ui/accountadvancedtab.ui:791
 msgid "Min"
 msgstr "Minimum"
 
-#: ui/accountadvancedtab.ui:689 ui/accountadvancedtab.ui:765
+#: ui/accountadvancedtab.ui:738 ui/accountadvancedtab.ui:814
 msgid "Max"
 msgstr "Maximum"
 
-#: ui/accountadvancedtab.ui:713
+#: ui/accountadvancedtab.ui:762
 msgid "Audio RTP Port Range"
 msgstr "Plage des ports Audio RTP"
 
-#: ui/accountadvancedtab.ui:789
+#: ui/accountadvancedtab.ui:838
 msgid "Video RTP Port Range"
 msgstr "Plage des ports Vidéo RTP"
 
-#: ui/accountadvancedtab.ui:807
+#: ui/accountadvancedtab.ui:856
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "Négociation de session SDP (en cas d’échec ICE)"
 
@@ -872,7 +881,7 @@ msgstr "Ce nom d'utilisateur est déjà utilisé"
 msgid "Network error"
 msgstr "Erreur de réseau"
 
-#: src/generalsettingsview.cpp:103
+#: src/generalsettingsview.cpp:105
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -887,23 +896,23 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Contacts"
 
-#: src/accountadvancedtab.cpp:391
+#: src/accountadvancedtab.cpp:421
 msgid "_Remove server"
 msgstr "_Supprimer le serveur"
 
-#: src/accountadvancedtab.cpp:471
+#: src/accountadvancedtab.cpp:501
 msgid "Name service URL"
 msgstr "URL du service de noms"
 
-#: src/accountadvancedtab.cpp:483
+#: src/accountadvancedtab.cpp:513
 msgid "Auto-answer calls"
 msgstr "Répondre automatiquement aux appels"
 
-#: src/accountadvancedtab.cpp:491
+#: src/accountadvancedtab.cpp:521
 msgid "UPnP enabled"
 msgstr "UPnP activé"
 
-#: src/accountadvancedtab.cpp:568 src/accountgeneraltab.cpp:326
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:326
 msgid "Hostname"
 msgstr "Nom d’hôte"
 
@@ -968,15 +977,19 @@ msgstr "Serveur mandataire"
 msgid "Voicemail number"
 msgstr "Numéro de boîte vocale"
 
-#: src/video/video_widget.cpp:538
-msgid "Share screen area"
-msgstr "Partager une partie de l’écran"
+#: src/video/video_widget.cpp:566
+msgid "Share _screen area"
+msgstr ""
 
-#: src/video/video_widget.cpp:549
-msgid "Share file"
-msgstr "Partager un fichier"
+#: src/video/video_widget.cpp:577
+msgid "Share _monitor"
+msgstr ""
 
-#: src/video/video_widget.cpp:562
+#: src/video/video_widget.cpp:588
+msgid "Stream _file"
+msgstr ""
+
+#: src/video/video_widget.cpp:601
 msgid "Show advanced information"
 msgstr "Afficher les informations avancées"
 
@@ -1083,37 +1096,41 @@ msgstr "Nom"
 msgid "Samplerate"
 msgstr "Taux d’échantillonnage"
 
-#: src/conversationpopupmenu.cpp:169
-msgid "_Place call"
-msgstr "_Appeler"
+#: src/conversationpopupmenu.cpp:181
+msgid "Place _video call"
+msgstr ""
 
-#: src/conversationpopupmenu.cpp:172
-msgid "_Copy name"
-msgstr "_Copier le nom"
+#: src/conversationpopupmenu.cpp:184
+msgid "Place _audio call"
+msgstr ""
 
-#: src/conversationpopupmenu.cpp:178
+#: src/conversationpopupmenu.cpp:190
 msgid "_Add to conversations"
 msgstr "_Ajouter aux conversations"
 
-#: src/conversationpopupmenu.cpp:182
+#: src/conversationpopupmenu.cpp:194
 msgid "_Discard invitation"
 msgstr "_Supprimer les invitations"
 
-#: src/conversationpopupmenu.cpp:185
+#: src/conversationpopupmenu.cpp:197
 msgid "_Block invitations"
 msgstr "Bloquer les _invitations"
 
-#: src/conversationpopupmenu.cpp:190
+#: src/conversationpopupmenu.cpp:202
 msgid "C_lear history"
 msgstr "_Effacer l'historique"
 
-#: src/conversationpopupmenu.cpp:193
+#: src/conversationpopupmenu.cpp:205
 msgid "_Remove conversation"
 msgstr "_Supprimer la conversation"
 
-#: src/conversationpopupmenu.cpp:196
+#: src/conversationpopupmenu.cpp:208
 msgid "_Block contact"
 msgstr "_Bloquer un contact"
+
+#: src/conversationpopupmenu.cpp:213
+msgid "_Copy name"
+msgstr "_Copier le nom"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"

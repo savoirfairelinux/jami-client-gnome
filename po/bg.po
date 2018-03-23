@@ -4,14 +4,14 @@
 # 
 # Translators:
 # Любомир Василев, 2016-2017
-# Симонъ Болокановъ <sbolokanov@abv.bg>, 2016
-# Симонъ Болокановъ <sbolokanov@abv.bg>, 2016
+# Симонъ–Севаръ С. Болокановъ <sbolokanov@abv.bg>, 2016
+# Симонъ–Севаръ С. Болокановъ <sbolokanov@abv.bg>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-12 03:09-0400\n"
-"PO-Revision-Date: 2018-03-12 07:09+0000\n"
+"POT-Creation-Date: 2018-03-22 23:14-0400\n"
+"PO-Revision-Date: 2018-03-19 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Bulgarian (http://www.transifex.com/savoirfairelinux/ring/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -309,27 +309,31 @@ msgstr ""
 msgid "Entering a number in the search entry will place a new call."
 msgstr ""
 
-#: ui/generalsettingsview.ui:155
+#: ui/generalsettingsview.ui:153
+msgid "Download folder"
+msgstr ""
+
+#: ui/generalsettingsview.ui:181
 msgid "Show chat on the right."
 msgstr "Показване на съобщенията отдясно."
 
-#: ui/generalsettingsview.ui:161
+#: ui/generalsettingsview.ui:187
 msgid "Show chat on the bottom."
 msgstr "Показване на съобщенията отдолу."
 
-#: ui/generalsettingsview.ui:185
+#: ui/generalsettingsview.ui:211
 msgid "History Settings"
 msgstr "Настройки на историята"
 
-#: ui/generalsettingsview.ui:203
+#: ui/generalsettingsview.ui:229
 msgid "Keep history for (days):"
 msgstr "Пазене на историята (в дни):"
 
-#: ui/generalsettingsview.ui:224
+#: ui/generalsettingsview.ui:250
 msgid "(set to 0 for unlimited history)"
 msgstr "(0 означава безкрайна история)"
 
-#: ui/generalsettingsview.ui:234
+#: ui/generalsettingsview.ui:260
 msgid "Clear all history"
 msgstr "Изчистване на цялата история"
 
@@ -521,7 +525,7 @@ msgstr "Задаване на публикувания адрес и порт:"
 msgid "Address"
 msgstr "Адрес"
 
-#: ui/accountadvancedtab.ui:362 src/accountadvancedtab.cpp:576
+#: ui/accountadvancedtab.ui:362 src/accountadvancedtab.cpp:606
 msgid "Port"
 msgstr "Порт"
 
@@ -530,6 +534,7 @@ msgid "Use STUN"
 msgstr "Използване на STUN"
 
 #: ui/accountadvancedtab.ui:411 ui/accountadvancedtab.ui:460
+#: ui/accountadvancedtab.ui:575
 msgid "server URL"
 msgstr "Адрес на сървъра"
 
@@ -549,37 +554,41 @@ msgstr "парола"
 msgid "realm"
 msgstr "област"
 
-#: ui/accountadvancedtab.ui:556
+#: ui/accountadvancedtab.ui:552
+msgid "Use Proxy"
+msgstr ""
+
+#: ui/accountadvancedtab.ui:605
 msgid "Published Address"
 msgstr "Публикуван адрес"
 
-#: ui/accountadvancedtab.ui:584
+#: ui/accountadvancedtab.ui:633
 msgid "Bootstrap Servers"
 msgstr ""
 
-#: ui/accountadvancedtab.ui:641
+#: ui/accountadvancedtab.ui:690
 msgid ""
 "These settings are only used during SDP session negotiation in case ICE is "
 "not supported by the server or peer."
 msgstr ""
 
-#: ui/accountadvancedtab.ui:666 ui/accountadvancedtab.ui:742
+#: ui/accountadvancedtab.ui:715 ui/accountadvancedtab.ui:791
 msgid "Min"
 msgstr "Минимум"
 
-#: ui/accountadvancedtab.ui:689 ui/accountadvancedtab.ui:765
+#: ui/accountadvancedtab.ui:738 ui/accountadvancedtab.ui:814
 msgid "Max"
 msgstr "Максимум"
 
-#: ui/accountadvancedtab.ui:713
+#: ui/accountadvancedtab.ui:762
 msgid "Audio RTP Port Range"
 msgstr ""
 
-#: ui/accountadvancedtab.ui:789
+#: ui/accountadvancedtab.ui:838
 msgid "Video RTP Port Range"
 msgstr ""
 
-#: ui/accountadvancedtab.ui:807
+#: ui/accountadvancedtab.ui:856
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr ""
 
@@ -857,7 +866,7 @@ msgstr "Потребителското име вече е заето"
 msgid "Network error"
 msgstr "Мрежова грешка"
 
-#: src/generalsettingsview.cpp:103
+#: src/generalsettingsview.cpp:105
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
@@ -872,23 +881,23 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Контакти"
 
-#: src/accountadvancedtab.cpp:391
+#: src/accountadvancedtab.cpp:421
 msgid "_Remove server"
 msgstr ""
 
-#: src/accountadvancedtab.cpp:471
+#: src/accountadvancedtab.cpp:501
 msgid "Name service URL"
 msgstr ""
 
-#: src/accountadvancedtab.cpp:483
+#: src/accountadvancedtab.cpp:513
 msgid "Auto-answer calls"
 msgstr "Авт. отговор на обажданията"
 
-#: src/accountadvancedtab.cpp:491
+#: src/accountadvancedtab.cpp:521
 msgid "UPnP enabled"
 msgstr "UPnP е активиран"
 
-#: src/accountadvancedtab.cpp:568 src/accountgeneraltab.cpp:326
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:326
 msgid "Hostname"
 msgstr "Име на сървъра"
 
@@ -953,15 +962,19 @@ msgstr "Прокс"
 msgid "Voicemail number"
 msgstr "Номер на гласова поща"
 
-#: src/video/video_widget.cpp:538
-msgid "Share screen area"
-msgstr "Споделяне на област от екрана"
+#: src/video/video_widget.cpp:566
+msgid "Share _screen area"
+msgstr ""
 
-#: src/video/video_widget.cpp:549
-msgid "Share file"
-msgstr "Споделяне на файл"
+#: src/video/video_widget.cpp:577
+msgid "Share _monitor"
+msgstr ""
 
-#: src/video/video_widget.cpp:562
+#: src/video/video_widget.cpp:588
+msgid "Stream _file"
+msgstr ""
+
+#: src/video/video_widget.cpp:601
 msgid "Show advanced information"
 msgstr "Покажи разширена информация"
 
@@ -1068,37 +1081,41 @@ msgstr "Име"
 msgid "Samplerate"
 msgstr "Чест. на дискр."
 
-#: src/conversationpopupmenu.cpp:169
-msgid "_Place call"
+#: src/conversationpopupmenu.cpp:181
+msgid "Place _video call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:172
-msgid "_Copy name"
-msgstr "_Копиране на името"
-
-#: src/conversationpopupmenu.cpp:178
-msgid "_Add to conversations"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:182
-msgid "_Discard invitation"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:185
-msgid "_Block invitations"
+#: src/conversationpopupmenu.cpp:184
+msgid "Place _audio call"
 msgstr ""
 
 #: src/conversationpopupmenu.cpp:190
+msgid "_Add to conversations"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:194
+msgid "_Discard invitation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:197
+msgid "_Block invitations"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:202
 msgid "C_lear history"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:193
+#: src/conversationpopupmenu.cpp:205
 msgid "_Remove conversation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:196
+#: src/conversationpopupmenu.cpp:208
 msgid "_Block contact"
 msgstr ""
+
+#: src/conversationpopupmenu.cpp:213
+msgid "_Copy name"
+msgstr "_Копиране на името"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
