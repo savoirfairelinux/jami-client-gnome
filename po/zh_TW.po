@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-19 03:09-0400\n"
-"PO-Revision-Date: 2018-03-19 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-03-22 23:18-0400\n"
+"PO-Revision-Date: 2018-03-19 12:17+0000\n"
+"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -311,7 +311,7 @@ msgstr "在搜尋項目中輸入號碼將會打一通新電話。"
 
 #: ui/generalsettingsview.ui:153
 msgid "Download folder"
-msgstr ""
+msgstr "下載資料夾"
 
 #: ui/generalsettingsview.ui:181
 msgid "Show chat on the right."
@@ -556,7 +556,7 @@ msgstr "領域"
 
 #: ui/accountadvancedtab.ui:552
 msgid "Use Proxy"
-msgstr ""
+msgstr "使用代理伺服器"
 
 #: ui/accountadvancedtab.ui:605
 msgid "Published Address"
@@ -964,15 +964,15 @@ msgstr "語音郵件號碼"
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
-msgstr ""
+msgstr "分享螢幕區域(_S)"
 
 #: src/video/video_widget.cpp:577
 msgid "Share _monitor"
-msgstr ""
+msgstr "分享螢幕(_M)"
 
 #: src/video/video_widget.cpp:588
 msgid "Stream _file"
-msgstr ""
+msgstr "串流檔案(_F)"
 
 #: src/video/video_widget.cpp:601
 msgid "Show advanced information"
@@ -1083,11 +1083,11 @@ msgstr "取樣率"
 
 #: src/conversationpopupmenu.cpp:181
 msgid "Place _video call"
-msgstr ""
+msgstr "撥出視訊通話"
 
 #: src/conversationpopupmenu.cpp:184
 msgid "Place _audio call"
-msgstr ""
+msgstr "撥出音訊通話"
 
 #: src/conversationpopupmenu.cpp:190
 msgid "_Add to conversations"

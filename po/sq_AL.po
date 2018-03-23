@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-19 03:09-0400\n"
-"PO-Revision-Date: 2018-03-19 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-03-22 23:18-0400\n"
+"PO-Revision-Date: 2018-03-19 09:26+0000\n"
+"Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -309,7 +309,7 @@ msgstr "Dhënia e një numri te fusha e kërkimeve do të kryejë një thirrje t
 
 #: ui/generalsettingsview.ui:153
 msgid "Download folder"
-msgstr ""
+msgstr "Dosje Shkarkimi"
 
 #: ui/generalsettingsview.ui:181
 msgid "Show chat on the right."
@@ -554,7 +554,7 @@ msgstr "shtrirje"
 
 #: ui/accountadvancedtab.ui:552
 msgid "Use Proxy"
-msgstr ""
+msgstr "Përdor Ndërmjetës"
 
 #: ui/accountadvancedtab.ui:605
 msgid "Published Address"
@@ -962,11 +962,11 @@ msgstr "Numër voicemail"
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
-msgstr ""
+msgstr "Ndani me të tjerë zonë _ekrani"
 
 #: src/video/video_widget.cpp:577
 msgid "Share _monitor"
-msgstr ""
+msgstr "Ndani me të tjerë _monitor"
 
 #: src/video/video_widget.cpp:588
 msgid "Stream _file"

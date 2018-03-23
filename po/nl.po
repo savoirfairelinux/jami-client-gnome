@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-19 03:09-0400\n"
-"PO-Revision-Date: 2018-03-19 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-03-22 23:18-0400\n"
+"PO-Revision-Date: 2018-03-19 16:25+0000\n"
+"Last-Translator: Nathan Follens\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/ring/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -311,7 +311,7 @@ msgstr "Een nummer in de zoekregel invoeren zal een nieuwe oproep plaatsen."
 
 #: ui/generalsettingsview.ui:153
 msgid "Download folder"
-msgstr ""
+msgstr "Downloadmap"
 
 #: ui/generalsettingsview.ui:181
 msgid "Show chat on the right."
@@ -556,7 +556,7 @@ msgstr "realm"
 
 #: ui/accountadvancedtab.ui:552
 msgid "Use Proxy"
-msgstr ""
+msgstr "Proxy gebruiken"
 
 #: ui/accountadvancedtab.ui:605
 msgid "Published Address"
@@ -964,15 +964,15 @@ msgstr "Voicemailnummer"
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
-msgstr ""
+msgstr "_Schermruimte delen"
 
 #: src/video/video_widget.cpp:577
 msgid "Share _monitor"
-msgstr ""
+msgstr "Beeldscher_m delen"
 
 #: src/video/video_widget.cpp:588
 msgid "Stream _file"
-msgstr ""
+msgstr "Bes_tand streamen"
 
 #: src/video/video_widget.cpp:601
 msgid "Show advanced information"
@@ -1083,11 +1083,11 @@ msgstr "Samplerate"
 
 #: src/conversationpopupmenu.cpp:181
 msgid "Place _video call"
-msgstr ""
+msgstr "Video-oproep plaatsen"
 
 #: src/conversationpopupmenu.cpp:184
 msgid "Place _audio call"
-msgstr ""
+msgstr "_Audio-oproep plaatsen"
 
 #: src/conversationpopupmenu.cpp:190
 msgid "_Add to conversations"

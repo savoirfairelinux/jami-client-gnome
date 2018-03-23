@@ -19,13 +19,13 @@
 # Julie LeBrun <julie.lebrun@savoirfairelinux.com>, 2016-2017
 # khalil bennani <iterniter@gmail.com>, 2017
 # osoldano <olivier.soldano@savoirfairelinux.com>, 2016
-# Pierre-Luc Soulé-Noulibos <plsn@outlook.fr>, 2017
+# PS, 2017
 # Sylvain Etienne <seti@dadboo.eu>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-19 03:09-0400\n"
+"POT-Creation-Date: 2018-03-22 23:18-0400\n"
 "PO-Revision-Date: 2018-03-19 07:09+0000\n"
 "Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
