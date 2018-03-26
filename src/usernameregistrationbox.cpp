@@ -209,7 +209,11 @@ lookup_username(UsernameRegistrationBox *view)
 
     const auto username = gtk_entry_get_text(GTK_ENTRY(priv->entry_username));
 
-    NameDirectory::instance().lookupName(priv->account, priv->account->nameServiceURL(), username);
+    if (priv->account) {
+        NameDirectory::instance().lookupName(priv->account, priv->account->nameServiceURL(), username);
+    } else {
+        NameDirectory::instance().lookupName(nullptr, QString(), username);
+    }
 
     priv->lookup_timeout = 0;
     return G_SOURCE_REMOVE;
