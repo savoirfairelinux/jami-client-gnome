@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-26 03:09-0400\n"
+"POT-Creation-Date: 2018-04-02 03:09-0400\n"
 "PO-Revision-Date: 2018-03-19 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
@@ -268,7 +268,7 @@ msgstr "Этот пароль будет использован для шифр�
 msgid "Generating your Ring account..."
 msgstr "Создание вашего аккаунта Ring..."
 
-#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:309
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:313
 msgid "Registering username..."
 msgstr "Регистрация имени пользователя…"
 
@@ -849,31 +849,31 @@ msgstr "Не удалось осуществить поиск"
 msgid "Could not lookup username"
 msgstr "Не удалось найти имя пользователя"
 
-#: src/usernameregistrationbox.cpp:247
+#: src/usernameregistrationbox.cpp:251
 msgid "Looking up username availability..."
 msgstr "Проверка доступности имени пользователя…"
 
-#: src/usernameregistrationbox.cpp:318
+#: src/usernameregistrationbox.cpp:322
 msgid "Could not initiate name registration, try again."
 msgstr "Не удалось инициировать регистрацию имени, попробуйте снова."
 
-#: src/usernameregistrationbox.cpp:360
+#: src/usernameregistrationbox.cpp:364
 msgid "Register this username on the blockchain"
 msgstr "Зарегистрировать это имя в блокчейн"
 
-#: src/usernameregistrationbox.cpp:396
+#: src/usernameregistrationbox.cpp:400
 msgid "Invalid username"
 msgstr "Недопустимое имя пользователя"
 
-#: src/usernameregistrationbox.cpp:403 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:407 src/accountdevicestab.cpp:195
 msgid "Bad password"
 msgstr "Недопустимый пароль"
 
-#: src/usernameregistrationbox.cpp:410
+#: src/usernameregistrationbox.cpp:414
 msgid "Username already taken"
 msgstr "Имя пользователя уже занято"
 
-#: src/usernameregistrationbox.cpp:417
+#: src/usernameregistrationbox.cpp:421
 msgid "Network error"
 msgstr "Ошибка сети"
 

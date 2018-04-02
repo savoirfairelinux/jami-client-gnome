@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-26 03:09-0400\n"
+"POT-Creation-Date: 2018-04-02 03:09-0400\n"
 "PO-Revision-Date: 2018-03-19 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Chinese (http://www.transifex.com/savoirfairelinux/ring/language/zh/)\n"
@@ -257,7 +257,7 @@ msgstr ""
 msgid "Generating your Ring account..."
 msgstr "Ring 帳號產生中..."
 
-#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:309
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:313
 msgid "Registering username..."
 msgstr ""
 
@@ -838,31 +838,31 @@ msgstr ""
 msgid "Could not lookup username"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:247
+#: src/usernameregistrationbox.cpp:251
 msgid "Looking up username availability..."
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:318
+#: src/usernameregistrationbox.cpp:322
 msgid "Could not initiate name registration, try again."
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:360
+#: src/usernameregistrationbox.cpp:364
 msgid "Register this username on the blockchain"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:396
+#: src/usernameregistrationbox.cpp:400
 msgid "Invalid username"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:403 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:407 src/accountdevicestab.cpp:195
 msgid "Bad password"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:410
+#: src/usernameregistrationbox.cpp:414
 msgid "Username already taken"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:417
+#: src/usernameregistrationbox.cpp:421
 msgid "Network error"
 msgstr ""
 

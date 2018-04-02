@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-26 03:09-0400\n"
+"POT-Creation-Date: 2018-04-02 03:09-0400\n"
 "PO-Revision-Date: 2018-03-19 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/ring/language/de/)\n"
@@ -269,7 +269,7 @@ msgstr "Mit diesem Passwort werden Ihre Kontodaten geschützt und Sie können ne
 msgid "Generating your Ring account..."
 msgstr "Ihr Ring-Konto wird generiert..."
 
-#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:309
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:313
 msgid "Registering username..."
 msgstr "Benutzername wird registriert..."
 
@@ -850,31 +850,31 @@ msgstr "Fehler beim Nachschlagen"
 msgid "Could not lookup username"
 msgstr "Benutzername konnte nicht nachgeschlagen werden"
 
-#: src/usernameregistrationbox.cpp:247
+#: src/usernameregistrationbox.cpp:251
 msgid "Looking up username availability..."
 msgstr "Prüfe, ob der Benutzername frei ist ..."
 
-#: src/usernameregistrationbox.cpp:318
+#: src/usernameregistrationbox.cpp:322
 msgid "Could not initiate name registration, try again."
 msgstr "Namensregistrierung konnte nicht eingeleitet werden, bitte erneut versuchen."
 
-#: src/usernameregistrationbox.cpp:360
+#: src/usernameregistrationbox.cpp:364
 msgid "Register this username on the blockchain"
 msgstr "Registriere den Benutzername in der Blockchain"
 
-#: src/usernameregistrationbox.cpp:396
+#: src/usernameregistrationbox.cpp:400
 msgid "Invalid username"
 msgstr "Ungültiger Benutzername"
 
-#: src/usernameregistrationbox.cpp:403 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:407 src/accountdevicestab.cpp:195
 msgid "Bad password"
 msgstr "Unsicheres Passwort"
 
-#: src/usernameregistrationbox.cpp:410
+#: src/usernameregistrationbox.cpp:414
 msgid "Username already taken"
 msgstr "Dieser Benutzername ist bereits vergeben"
 
-#: src/usernameregistrationbox.cpp:417
+#: src/usernameregistrationbox.cpp:421
 msgid "Network error"
 msgstr "Netzwerkfehler"
 

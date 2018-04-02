@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-26 03:09-0400\n"
+"POT-Creation-Date: 2018-04-02 03:09-0400\n"
 "PO-Revision-Date: 2018-03-19 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/ring/language/tr/)\n"
@@ -259,7 +259,7 @@ msgstr "Bu parola hesap bilgilerinizi şifrelemek ve hesabınızı yeni aygıtla
 msgid "Generating your Ring account..."
 msgstr "Ring hesabınız oluşturuluyor..."
 
-#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:309
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:313
 msgid "Registering username..."
 msgstr "Kullanıcı adı kaydediliyor..."
 
@@ -840,31 +840,31 @@ msgstr "Bakma başarısız"
 msgid "Could not lookup username"
 msgstr "Kullanıcı adına bakılamıyor"
 
-#: src/usernameregistrationbox.cpp:247
+#: src/usernameregistrationbox.cpp:251
 msgid "Looking up username availability..."
 msgstr "Kullanıcı adının uygunluğuna bakılıyor..."
 
-#: src/usernameregistrationbox.cpp:318
+#: src/usernameregistrationbox.cpp:322
 msgid "Could not initiate name registration, try again."
 msgstr "Ad kaydı başlatılamıyor, yeniden deneyin."
 
-#: src/usernameregistrationbox.cpp:360
+#: src/usernameregistrationbox.cpp:364
 msgid "Register this username on the blockchain"
 msgstr "Bu kullanıcı adını makaralı zincirde kaydet"
 
-#: src/usernameregistrationbox.cpp:396
+#: src/usernameregistrationbox.cpp:400
 msgid "Invalid username"
 msgstr "Geçersiz kullanıcı adı"
 
-#: src/usernameregistrationbox.cpp:403 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:407 src/accountdevicestab.cpp:195
 msgid "Bad password"
 msgstr "Geçersiz parola"
 
-#: src/usernameregistrationbox.cpp:410
+#: src/usernameregistrationbox.cpp:414
 msgid "Username already taken"
 msgstr "Kullanıcı adı önceden alınmış"
 
-#: src/usernameregistrationbox.cpp:417
+#: src/usernameregistrationbox.cpp:421
 msgid "Network error"
 msgstr "Ağ hatası"
 
