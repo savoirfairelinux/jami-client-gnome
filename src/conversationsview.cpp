@@ -62,6 +62,7 @@ struct _ConversationsViewPrivate
     QMetaObject::Connection selection_updated;
     QMetaObject::Connection layout_changed;
     QMetaObject::Connection modelSortedConnection_;
+    QMetaObject::Connection conversationUpdatedConnection_;
     QMetaObject::Connection filterChangedConnection_;
 
 };
@@ -220,6 +221,50 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     }
 
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
+}
+
+void
+update_conversation(ConversationsView *self, const std::string& uid) {
+    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
+    auto model = gtk_tree_view_get_model (GTK_TREE_VIEW(self));
+
+    auto idx = 0;
+    auto iterIsCorrect = true;
+    GtkTreeIter iter;
+
+    while(iterIsCorrect) {
+        iterIsCorrect = gtk_tree_model_iter_nth_child (model, &iter, nullptr, idx);
+        if (!iterIsCorrect)
+            break;
+        gchar *ringId;
+        gtk_tree_model_get (model, &iter,
+                            0 /* col# */, &ringId /* data */,
+                            -1);
+        if(std::string(ringId) == uid) {
+            // Get informations
+            auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(idx);
+            auto contactUri = conversation.participants.front();
+            auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+            auto lastMessage = conversation.interactions.empty() ? "" :
+                conversation.interactions.at(conversation.lastMessageUid).body;
+            std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
+            auto alias = contactInfo.profileInfo.alias;
+            alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
+            // Update iter
+            gtk_list_store_set (GTK_LIST_STORE(model), &iter,
+                                0 /* col # */ , conversation.uid.c_str() /* celldata */,
+                                1 /* col # */ , alias.c_str() /* celldata */,
+                                2 /* col # */ , contactInfo.profileInfo.uri.c_str() /* celldata */,
+                                3 /* col # */ , contactInfo.registeredName.c_str() /* celldata */,
+                                4 /* col # */ , contactInfo.profileInfo.avatar.c_str() /* celldata */,
+                                5 /* col # */ , lastMessage.c_str() /* celldata */,
+                                -1 /* end */);
+            g_free(ringId);
+            return;
+        }
+        g_free(ringId);
+        idx++;
+    }
 }
 
 static GtkTreeModel*
@@ -529,6 +574,12 @@ build_conversations_view(ConversationsView *self)
         gtk_tree_view_set_model(GTK_TREE_VIEW(self),
                                 GTK_TREE_MODEL(model));
     });
+    priv->conversationUpdatedConnection_ = QObject::connect(
+    &*priv->accountContainer_->info.conversationModel,
+    &lrc::api::ConversationModel::conversationUpdated,
+    [self] (const std::string& uid) {
+        update_conversation(self, uid);
+    });
 
     priv->filterChangedConnection_ = QObject::connect(
     &*priv->accountContainer_->info.conversationModel,
@@ -578,6 +629,7 @@ conversations_view_dispose(GObject *object)
     QObject::disconnect(priv->selection_updated);
     QObject::disconnect(priv->layout_changed);
     QObject::disconnect(priv->modelSortedConnection_);
+    QObject::disconnect(priv->conversationUpdatedConnection_);
     QObject::disconnect(priv->filterChangedConnection_);
 
     gtk_widget_destroy(priv->popupMenu_);
