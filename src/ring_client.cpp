@@ -253,6 +253,7 @@ on_close_window(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, RingClient *cl
     if (g_settings_get_boolean(priv->settings, "show-status-icon")) {
         /* we want to simply hide the window and keep the client running */
         ring_window_hide(client);
+        ring_main_window_reset(RING_MAIN_WINDOW(window));
         return TRUE; /* do not propogate event */
     } else {
         /* we want to quit the application, so just propogate the event */

@@ -37,6 +37,7 @@ typedef struct _RingMainWindowClass RingMainWindowClass;
 
 GType      ring_main_window_get_type (void) G_GNUC_CONST;
 GtkWidget *ring_main_window_new      (GtkApplication *app);
+void       ring_main_window_reset    (RingMainWindow *win);
 
 G_END_DECLS
 
