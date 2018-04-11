@@ -696,7 +696,8 @@ CppImpl::init()
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->media_settings_view,
                         MEDIA_SETTINGS_VIEW_NAME);
 
-    widgets->general_settings_view = general_settings_view_new();
+    widgets->general_settings_view = general_settings_view_new(GTK_WIDGET(self));
+
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->general_settings_view,
                         GENERAL_SETTINGS_VIEW_NAME);
     g_signal_connect_swapped(widgets->general_settings_view, "clear-all-history", G_CALLBACK(on_clear_all_history_clicked), self);
@@ -796,7 +797,6 @@ CppImpl::init()
             accountInfo.conversationModel->deleteObsoleteHistory(days);
         }
     }
-
 }
 
 CppImpl::~CppImpl()
@@ -1463,7 +1463,6 @@ ring_main_window_init(RingMainWindow *win)
     // CppImpl ctor
     priv->cpp = new details::CppImpl {*win};
     priv->cpp->init();
-
 }
 
 static void
