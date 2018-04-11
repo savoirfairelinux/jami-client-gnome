@@ -59,6 +59,8 @@
 
 //==============================================================================
 
+GtkWidget *ring_main_window_pnt;
+
 namespace { namespace details
 {
 class CppImpl;
@@ -596,6 +598,9 @@ on_clear_all_history_clicked(RingMainWindow* self)
 void
 CppImpl::init()
 {
+    // Pointer to the main window. Needed by children like GeneralSettingsView which lack proper link to parent.
+    ring_main_window_pnt = GTK_WIDGET(self);
+
     // Remember the tabs page number for easier selection later
     smartviewPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(widgets->notebook_contacts),
                                              widgets->scrolled_window_smartview);
@@ -796,7 +801,6 @@ CppImpl::init()
             accountInfo.conversationModel->deleteObsoleteHistory(days);
         }
     }
-
 }
 
 CppImpl::~CppImpl()
@@ -1463,7 +1467,6 @@ ring_main_window_init(RingMainWindow *win)
     // CppImpl ctor
     priv->cpp = new details::CppImpl {*win};
     priv->cpp->init();
-
 }
 
 static void
