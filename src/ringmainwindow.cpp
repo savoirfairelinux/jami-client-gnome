@@ -1452,6 +1452,15 @@ CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation:
 
 }} // namespace <anonymous>::details
 
+void
+ring_main_window_reset(RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    if (priv->cpp->show_settings)
+        priv->cpp->leaveSettingsView();
+}
+
 //==============================================================================
 
 static void
