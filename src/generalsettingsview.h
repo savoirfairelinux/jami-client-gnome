@@ -34,7 +34,7 @@ typedef struct _GeneralSettingsView      GeneralSettingsView;
 typedef struct _GeneralSettingsViewClass GeneralSettingsViewClass;
 
 GType      general_settings_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *general_settings_view_new           (void);
+GtkWidget *general_settings_view_new           (GtkWidget* ring_main_window_pnt);
 void       general_settings_view_show_profile  (GeneralSettingsView *self, gboolean show_profile);
 
 G_END_DECLS

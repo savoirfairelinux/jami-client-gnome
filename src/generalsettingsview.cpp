@@ -35,6 +35,11 @@
 #include "utils/files.h"
 #include "avatarmanipulation.h"
 
+enum
+{
+  PROP_RING_MAIN_WIN_PNT = 1,
+};
+
 struct _GeneralSettingsView
 {
     GtkScrolledWindow parent;
@@ -64,11 +69,14 @@ struct _GeneralSettingsViewPrivate
     GtkWidget *box_profil_settings;
     GtkWidget *avatarmanipulation;
     GtkWidget *profile_name;
-    GtkWidget *directory_chooser;
+    GtkWidget *button_choose_downloads_directory;
 
     /* history settings */
     GtkWidget *adjustment_history_duration;
     GtkWidget *button_clear_history;
+
+    /* ring main window pointer */
+    GtkWidget* ring_main_window_pnt;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(GeneralSettingsView, general_settings_view, GTK_TYPE_SCROLLED_WINDOW);
@@ -137,14 +145,62 @@ clear_history(G_GNUC_UNUSED GtkWidget *button, GeneralSettingsView *self)
 }
 
 static void
-change_prefered_directory (GtkFileChooserButton *widget, GeneralSettingsView *self)
+update_downloads_button_label(GeneralSettingsView *self)
+{
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+
+    // Get folder name
+    const gchar *folder_dirname = g_path_get_basename(g_variant_get_string(g_settings_get_value(priv->settings, "download-folder"), NULL));
+    gtk_button_set_label(GTK_BUTTON(priv->button_choose_downloads_directory), folder_dirname);
+}
+
+static void
+change_prefered_directory (gchar * directory, GeneralSettingsView *self)
 {
     g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
 
     priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
-    auto download_directory_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (priv->directory_chooser));
-    g_settings_set_value(priv->settings, "download-folder", g_variant_new("s", download_directory_value));
+    g_settings_set_value(priv->settings, "download-folder", g_variant_new("s", directory));
+    update_downloads_button_label(self);
+}
+
+static void
+choose_downloads_directory(GeneralSettingsView *self)
+{
+    g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
+
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+
+    gint res;
+    gchar* filename = nullptr;
+
+    if (!priv->ring_main_window_pnt) {
+        g_debug("Internal error: NULL main window pointer in GeneralSettingsView.");
+        return;
+    }
+
+    GtkWidget *dialog = gtk_file_chooser_dialog_new (_("Choose download folder"),
+                                      GTK_WINDOW(priv->ring_main_window_pnt),
+                                      GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                                      _("_Cancel"),
+                                      GTK_RESPONSE_CANCEL,
+                                      _("_Save"),
+                                      GTK_RESPONSE_ACCEPT,
+                                      NULL);
+
+    res = gtk_dialog_run (GTK_DIALOG(dialog));
+
+    if (res == GTK_RESPONSE_ACCEPT) {
+        auto chooser = GTK_FILE_CHOOSER(dialog);
+        filename = gtk_file_chooser_get_filename(chooser);
+    }
+    gtk_widget_destroy (dialog);
+
+    if (!filename) return;
+
+    // set download folder
+    change_prefered_directory(filename, self);
 }
 
 static void
@@ -188,6 +244,7 @@ general_settings_view_init(GeneralSettingsView *self)
                     priv->adjustment_history_duration, "value",
                     G_SETTINGS_BIND_DEFAULT);
 
+    /* Set-up download directory settings, default if none specified */
     auto* download_directory_variant = g_settings_get_value(priv->settings, "download-folder");
     char* download_directory_value;
     g_variant_get(download_directory_variant, "&s", &download_directory_value);
@@ -196,17 +253,61 @@ general_settings_view_init(GeneralSettingsView *self)
     if (current_value.empty()) {
         g_settings_set_value(priv->settings, "download-folder", g_variant_new("s", default_download_dir.c_str()));
     }
-    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (priv->directory_chooser), current_value.empty()? default_download_dir.c_str() : download_directory_value);
+    update_downloads_button_label(self);
 
     /* clear history */
     g_signal_connect(priv->button_clear_history, "clicked", G_CALLBACK(clear_history), self);
-    g_signal_connect(priv->directory_chooser, "file-set", G_CALLBACK(change_prefered_directory), self);
+}
+
+
+static void
+general_settings_view_set_property (GObject      *object,
+                                    guint         property_id,
+                                    const GValue *value,
+                                    GParamSpec   *pspec)
+{
+    GeneralSettingsView *self = GENERAL_SETTINGS_VIEW (object);
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+
+    if (property_id == PROP_RING_MAIN_WIN_PNT) {
+        GtkWidget *ring_main_window_pnt = (GtkWidget*) g_value_get_pointer(value);
+
+        if (!ring_main_window_pnt) {
+            g_debug("Internal error: NULL main window pointer passed to set_property");
+            return;
+        }
+
+        priv->ring_main_window_pnt = ring_main_window_pnt;
+    }
+    else {
+        // Invalid property id passed
+        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+    }
+}
+
+static void
+general_settings_view_get_property (GObject    *object,
+                                    guint       property_id,
+                                    GValue     *value,
+                                    GParamSpec *pspec)
+{
+    GeneralSettingsView *self = GENERAL_SETTINGS_VIEW (object);
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+
+    if (property_id == PROP_RING_MAIN_WIN_PNT) {
+        g_value_set_pointer(value, priv->ring_main_window_pnt);
+    }
+    else {
+        // Invalid property id passed
+        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+    }
 }
 
 static void
 general_settings_view_class_init(GeneralSettingsViewClass *klass)
 {
-    G_OBJECT_CLASS(klass)->dispose = general_settings_view_dispose;
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+    object_class->dispose = general_settings_view_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/generalsettingsview.ui");
@@ -223,7 +324,7 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_history_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_clear_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, box_profil_settings);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, directory_chooser);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_choose_downloads_directory);
 
     general_settings_view_signals[CLEAR_ALL_HISTORY] = g_signal_new (
         "clear-all-history",
@@ -235,13 +336,32 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
         g_cclosure_marshal_VOID__VOID,
         G_TYPE_NONE, 0);
 
+    /* Define class properties: e.g. pointer to main window, etc.*/
+    object_class->set_property = general_settings_view_set_property;
+    object_class->get_property = general_settings_view_get_property;
 
+    GParamFlags flags = (GParamFlags) (G_PARAM_READWRITE);
+    g_object_class_install_property (object_class, PROP_RING_MAIN_WIN_PNT,
+        g_param_spec_pointer ("ring_main_window_pnt",
+                              "RingMainWindow pointer",
+                              "Pointer to the Ring Main Window. This property is used by modal dialogs.",
+                              flags));
 }
 
 GtkWidget *
-general_settings_view_new()
+general_settings_view_new(GtkWidget* ring_main_window_pointer)
 {
     gpointer view = g_object_new(GENERAL_SETTINGS_VIEW_TYPE, NULL);
+
+    // set_up ring main window pointer (needed by modal dialogs)
+    GValue val = G_VALUE_INIT;
+    g_value_init (&val, G_TYPE_POINTER);
+    g_value_set_pointer (&val, ring_main_window_pointer);
+    g_object_set_property (G_OBJECT (view), "ring_main_window_pnt", &val);
+    g_value_unset (&val);
+
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(GENERAL_SETTINGS_VIEW (view));
+    g_signal_connect_swapped(priv->button_choose_downloads_directory, "clicked", G_CALLBACK(choose_downloads_directory), view);
 
     return (GtkWidget *)view;
 }
