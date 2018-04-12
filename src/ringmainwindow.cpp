@@ -1081,12 +1081,12 @@ CppImpl::changeAccountSelection(const std::string& id)
 void
 CppImpl::onAccountSelectionChange(const std::string& id)
 {
+    // Reinit LRC
+    updateLrc(id);
     // Go to welcome view
     changeView(RING_WELCOME_VIEW_TYPE);
     // Show conversation panel
     gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
-    // Reinit LRC
-    updateLrc(id);
     // Update the welcome view
     ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
 }
@@ -1257,12 +1257,6 @@ CppImpl::slotAccountRemovedFromLrc(const std::string& id)
 
     // Update Account selector
     refreshAccountSelectorWidget(0);
-    // Show conversation panel
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
-    // Reinit LRC
-    updateLrc(std::string(accounts.at(0)));
-    // Update the welcome view
-    ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
 }
 
 void
