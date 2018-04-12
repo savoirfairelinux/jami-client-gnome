@@ -179,7 +179,7 @@ public:
     ~CppImpl();
 
     void init();
-    void updateLrc(const std::string& accountId);
+    void updateLrc(const std::string& accountId, const std::string& accountIdToFlagFreeable = "");
     void changeView(GType type, lrc::api::conversation::Info conversation = {});
     void enterFullScreen();
     void leaveFullScreen();
@@ -1081,12 +1081,12 @@ CppImpl::changeAccountSelection(const std::string& id)
 void
 CppImpl::onAccountSelectionChange(const std::string& id)
 {
+    // Reinit LRC
+    updateLrc(id);
     // Go to welcome view
     changeView(RING_WELCOME_VIEW_TYPE);
     // Show conversation panel
     gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
-    // Reinit LRC
-    updateLrc(id);
     // Update the welcome view
     ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
 }
@@ -1157,7 +1157,7 @@ CppImpl::leaveSettingsView()
 }
 
 void
-CppImpl::updateLrc(const std::string& id)
+CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFreeable)
 {
     // Disconnect old signals.
     QObject::disconnect(showChatViewConnection_);
@@ -1169,6 +1169,18 @@ CppImpl::updateLrc(const std::string& id)
     QObject::disconnect(filterChangedConnection_);
     QObject::disconnect(newConversationConnection_);
     QObject::disconnect(conversationRemovedConnection_);
+
+    if (!accountIdToFlagFreeable.empty()) {
+        g_debug("Account %s flagged for removal. Mark it freeable.", accountIdToFlagFreeable.c_str());
+        try {
+            lrc_->getAccountModel().flagFreeable(accountIdToFlagFreeable);
+        } catch (std::exception& e) {
+            g_debug("Error while flagging %s for removal: '%s'.", accountIdToFlagFreeable.c_str(), e.what());
+            g_debug("This is most likely an internal error, please report this bug.");
+        } catch (...) {
+            g_debug("Unexpected failure while flagging %s for removal.", accountIdToFlagFreeable.c_str());
+        }
+    }
 
     // Get the account selected
     if (!id.empty())
@@ -1249,20 +1261,20 @@ CppImpl::slotAccountRemovedFromLrc(const std::string& id)
 {
     (void)id;
 
+    /* Before doing anything, we need to update the struct pointers
+       and tell the LRC it can free the old structures. */
+    updateLrc("", id);
+
     auto accounts = lrc_->getAccountModel().getAccountList();
     if (accounts.empty()) {
         enterAccountCreationWizard();
         return;
     }
 
-    // Update Account selector
+    /* Update Account selector. This will trigger an update of the LRC
+       and of all elements of the main view, we don't need to do it
+       manually here. */
     refreshAccountSelectorWidget(0);
-    // Show conversation panel
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
-    // Reinit LRC
-    updateLrc(std::string(accounts.at(0)));
-    // Update the welcome view
-    ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view), accountContainer_.get());
 }
 
 void
