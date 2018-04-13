@@ -487,10 +487,11 @@ build_view(WebKitChatContainer *view)
         NULL
     );
 
+    // file:// allow the webview to load local files
     webkit_web_view_load_html(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         (gchar*) g_bytes_get_data(chatview_bytes, NULL),
-        NULL
+        "file://"
     );
 
     /* Now we wait for the load-changed event, before we
