@@ -85,6 +85,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(GeneralSettingsView, general_settings_view, GTK_TYPE_
 
 enum {
     CLEAR_ALL_HISTORY,
+    UPDATE_DOWNLOAD_FOLDER,
     LAST_SIGNAL
 };
 
@@ -201,6 +202,8 @@ choose_downloads_directory(GeneralSettingsView *self)
 
     // set download folder
     change_prefered_directory(filename, self);
+
+    g_signal_emit(G_OBJECT(self), general_settings_view_signals[UPDATE_DOWNLOAD_FOLDER], 0, filename);
 }
 
 static void
@@ -339,6 +342,16 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
         nullptr,
         g_cclosure_marshal_VOID__VOID,
         G_TYPE_NONE, 0);
+
+    general_settings_view_signals[UPDATE_DOWNLOAD_FOLDER] = g_signal_new("update-download-folder",
+        G_TYPE_FROM_CLASS(klass),
+        (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+        0,
+        nullptr,
+        nullptr,
+        g_cclosure_marshal_VOID__BOOLEAN,
+        G_TYPE_NONE,
+        1, G_TYPE_STRING);
 
     /* Define class properties: e.g. pointer to main window, etc.*/
     object_class->set_property = general_settings_view_set_property;
