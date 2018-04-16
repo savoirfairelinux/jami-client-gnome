@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 03:09-0400\n"
-"PO-Revision-Date: 2018-03-19 07:09+0000\n"
+"POT-Creation-Date: 2018-04-16 03:09-0400\n"
+"PO-Revision-Date: 2018-04-16 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Malay (http://www.transifex.com/savoirfairelinux/ring/language/ms/)\n"
 "MIME-Version: 1.0\n"
@@ -270,67 +270,67 @@ msgstr ""
 msgid "Error creating/loading account."
 msgstr ""
 
-#: ui/generalsettingsview.ui:34
+#: ui/generalsettingsview.ui:44
 msgid "Profile Settings"
 msgstr ""
 
-#: ui/generalsettingsview.ui:76
+#: ui/generalsettingsview.ui:86
 msgid "Ring Settings"
 msgstr ""
 
-#: ui/generalsettingsview.ui:92
+#: ui/generalsettingsview.ui:102
 msgid "Start Ring on login"
 msgstr ""
 
-#: ui/generalsettingsview.ui:100
+#: ui/generalsettingsview.ui:110
 msgid "Show Ring icon in the notification area (systray)."
 msgstr ""
 
-#: ui/generalsettingsview.ui:108
+#: ui/generalsettingsview.ui:118
 msgid "Bring Ring to the foreground on incoming calls."
 msgstr ""
 
-#: ui/generalsettingsview.ui:116
+#: ui/generalsettingsview.ui:126
 msgid "Enable notifications for incoming calls."
 msgstr ""
 
-#: ui/generalsettingsview.ui:124
+#: ui/generalsettingsview.ui:134
 msgid "Enable notifications for new chat messages."
 msgstr ""
 
-#: ui/generalsettingsview.ui:132
+#: ui/generalsettingsview.ui:142
 msgid "Show images and videos in chat window."
 msgstr ""
 
-#: ui/generalsettingsview.ui:140
+#: ui/generalsettingsview.ui:150
 msgid "Entering a number in the search entry will place a new call."
 msgstr ""
 
-#: ui/generalsettingsview.ui:153
-msgid "Download folder"
+#: ui/generalsettingsview.ui:163
+msgid "Download folder:"
 msgstr ""
 
-#: ui/generalsettingsview.ui:181
+#: ui/generalsettingsview.ui:190
 msgid "Show chat on the right."
 msgstr ""
 
-#: ui/generalsettingsview.ui:187
+#: ui/generalsettingsview.ui:196
 msgid "Show chat on the bottom."
 msgstr ""
 
-#: ui/generalsettingsview.ui:211
+#: ui/generalsettingsview.ui:220
 msgid "History Settings"
 msgstr ""
 
-#: ui/generalsettingsview.ui:229
+#: ui/generalsettingsview.ui:238
 msgid "Keep history for (days):"
 msgstr ""
 
-#: ui/generalsettingsview.ui:250
+#: ui/generalsettingsview.ui:259
 msgid "(set to 0 for unlimited history)"
 msgstr ""
 
-#: ui/generalsettingsview.ui:260
+#: ui/generalsettingsview.ui:269
 msgid "Clear all history"
 msgstr ""
 
@@ -629,40 +629,40 @@ msgstr ""
 msgid "Send Invitation"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:74
+#: ui/accountgeneraltab.ui:75
 msgid "Account"
 msgstr "Akaun"
 
-#: ui/accountgeneraltab.ui:134
+#: ui/accountgeneraltab.ui:135
 msgid "Parameters"
 msgstr "Butiran"
 
-#: ui/accountgeneraltab.ui:158 ui/accountgeneraltab.ui:244
+#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
 #: src/accountgeneraltab.cpp:168 src/accountgeneraltab.cpp:234
 msgid "Change password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:174
+#: ui/accountgeneraltab.ui:175
 msgid "Note: this will change the password only on this device."
 msgstr ""
 
-#: ui/accountgeneraltab.ui:193
+#: ui/accountgeneraltab.ui:194
 msgid "Current password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:213
+#: ui/accountgeneraltab.ui:214
 msgid "New password"
 msgstr "Kata laluan baharu"
 
-#: ui/accountgeneraltab.ui:233
+#: ui/accountgeneraltab.ui:234
 msgid "Confirm password"
 msgstr "Sahkan kata laluan"
 
-#: ui/accountgeneraltab.ui:290
+#: ui/accountgeneraltab.ui:291
 msgid "Export account"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:303
+#: ui/accountgeneraltab.ui:304
 msgid "Choose destination..."
 msgstr ""
 
@@ -778,13 +778,13 @@ msgstr ""
 msgid "Ring Error"
 msgstr ""
 
-#: src/ring_client.cpp:289
+#: src/ring_client.cpp:290
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr ""
 
-#: src/ring_client.cpp:293
+#: src/ring_client.cpp:294
 msgid "Quit"
 msgstr ""
 
@@ -863,10 +863,24 @@ msgstr "Nama pengguna telah digunakan pengguna lain"
 msgid "Network error"
 msgstr "Rangkaian gagal"
 
-#: src/generalsettingsview.cpp:105
+#: src/generalsettingsview.cpp:113
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
+msgstr ""
+
+#: src/generalsettingsview.cpp:183
+msgid "Choose download folder"
+msgstr ""
+
+#: src/generalsettingsview.cpp:186 src/accountgeneraltab.cpp:186
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
+msgid "_Cancel"
+msgstr ""
+
+#: src/generalsettingsview.cpp:188 src/accountgeneraltab.cpp:188
+#: src/chatview.cpp:179
+msgid "_Save"
 msgstr ""
 
 #: src/backends/edscontactbackend.cpp:193
@@ -900,15 +914,6 @@ msgstr "Alamat server"
 
 #: src/accountgeneraltab.cpp:183 src/chatview.cpp:174
 msgid "Save File"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:186 src/avatarmanipulation.cpp:383
-#: src/chatview.cpp:177
-msgid "_Cancel"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:188 src/chatview.cpp:179
-msgid "_Save"
 msgstr ""
 
 #: src/accountgeneraltab.cpp:208
@@ -1029,7 +1034,7 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/ringmainwindow.cpp:745
+#: src/ringmainwindow.cpp:746
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"

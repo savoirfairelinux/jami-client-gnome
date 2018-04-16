@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 03:09-0400\n"
-"PO-Revision-Date: 2018-03-26 17:59+0000\n"
-"Last-Translator: Mikkel Kirkgaard Nielsen <memb_transifex@mikini.dk>\n"
+"POT-Creation-Date: 2018-04-16 03:09-0400\n"
+"PO-Revision-Date: 2018-04-16 07:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/savoirfairelinux/ring/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -274,67 +274,67 @@ msgstr "Henter din Ring-konto..."
 msgid "Error creating/loading account."
 msgstr "Fejl ved oprettelse/hentning af konto."
 
-#: ui/generalsettingsview.ui:34
+#: ui/generalsettingsview.ui:44
 msgid "Profile Settings"
 msgstr "Profilindstilliinger"
 
-#: ui/generalsettingsview.ui:76
+#: ui/generalsettingsview.ui:86
 msgid "Ring Settings"
 msgstr "Ring-indstillinger"
 
-#: ui/generalsettingsview.ui:92
+#: ui/generalsettingsview.ui:102
 msgid "Start Ring on login"
 msgstr "Start Ring ved login"
 
-#: ui/generalsettingsview.ui:100
+#: ui/generalsettingsview.ui:110
 msgid "Show Ring icon in the notification area (systray)."
 msgstr "Vis Ring-ikon i notifikationsområdet (systray)"
 
-#: ui/generalsettingsview.ui:108
+#: ui/generalsettingsview.ui:118
 msgid "Bring Ring to the foreground on incoming calls."
 msgstr "Hæv Ring til forgrunden ved indgående opkald."
 
-#: ui/generalsettingsview.ui:116
+#: ui/generalsettingsview.ui:126
 msgid "Enable notifications for incoming calls."
 msgstr "Aktiver notifikationer for indgående opkald"
 
-#: ui/generalsettingsview.ui:124
+#: ui/generalsettingsview.ui:134
 msgid "Enable notifications for new chat messages."
 msgstr "Aktiver notifikationer for nye beskeder."
 
-#: ui/generalsettingsview.ui:132
+#: ui/generalsettingsview.ui:142
 msgid "Show images and videos in chat window."
 msgstr "Vis billeder og videoer i chat-vindue."
 
-#: ui/generalsettingsview.ui:140
+#: ui/generalsettingsview.ui:150
 msgid "Entering a number in the search entry will place a new call."
 msgstr "Indtastning af et nummer i søge-feltet vil foretage et opkald."
 
-#: ui/generalsettingsview.ui:153
-msgid "Download folder"
-msgstr "Hent mappe"
+#: ui/generalsettingsview.ui:163
+msgid "Download folder:"
+msgstr ""
 
-#: ui/generalsettingsview.ui:181
+#: ui/generalsettingsview.ui:190
 msgid "Show chat on the right."
 msgstr "Vis chat på højre side."
 
-#: ui/generalsettingsview.ui:187
+#: ui/generalsettingsview.ui:196
 msgid "Show chat on the bottom."
 msgstr "Vis chat i bunden."
 
-#: ui/generalsettingsview.ui:211
+#: ui/generalsettingsview.ui:220
 msgid "History Settings"
 msgstr "Historik-indstillinger"
 
-#: ui/generalsettingsview.ui:229
+#: ui/generalsettingsview.ui:238
 msgid "Keep history for (days):"
 msgstr "Behold historik i (dage):"
 
-#: ui/generalsettingsview.ui:250
+#: ui/generalsettingsview.ui:259
 msgid "(set to 0 for unlimited history)"
 msgstr "(brug 0 for uendelig historik)"
 
-#: ui/generalsettingsview.ui:260
+#: ui/generalsettingsview.ui:269
 msgid "Clear all history"
 msgstr "Slet al historik"
 
@@ -633,40 +633,40 @@ msgstr "Tilføj til samtaler"
 msgid "Send Invitation"
 msgstr "Send Invitation"
 
-#: ui/accountgeneraltab.ui:74
+#: ui/accountgeneraltab.ui:75
 msgid "Account"
 msgstr "Konto"
 
-#: ui/accountgeneraltab.ui:134
+#: ui/accountgeneraltab.ui:135
 msgid "Parameters"
 msgstr "Parametre"
 
-#: ui/accountgeneraltab.ui:158 ui/accountgeneraltab.ui:244
+#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
 #: src/accountgeneraltab.cpp:168 src/accountgeneraltab.cpp:234
 msgid "Change password"
 msgstr "Skift adgangskode"
 
-#: ui/accountgeneraltab.ui:174
+#: ui/accountgeneraltab.ui:175
 msgid "Note: this will change the password only on this device."
 msgstr "Bemærk: dette vil kun ændre adgangskoden på denne enhed."
 
-#: ui/accountgeneraltab.ui:193
+#: ui/accountgeneraltab.ui:194
 msgid "Current password"
 msgstr "Nuværende adgangskode"
 
-#: ui/accountgeneraltab.ui:213
+#: ui/accountgeneraltab.ui:214
 msgid "New password"
 msgstr "Ny adgangskode"
 
-#: ui/accountgeneraltab.ui:233
+#: ui/accountgeneraltab.ui:234
 msgid "Confirm password"
 msgstr "Bekræft adgangskode"
 
-#: ui/accountgeneraltab.ui:290
+#: ui/accountgeneraltab.ui:291
 msgid "Export account"
 msgstr "Eksporter konto"
 
-#: ui/accountgeneraltab.ui:303
+#: ui/accountgeneraltab.ui:304
 msgid "Choose destination..."
 msgstr "Vælg destination..."
 
@@ -782,13 +782,13 @@ msgstr "Kan ikke initialisere.\nSikr dig at Ring-daemon (dring) kører.\nFejl: %
 msgid "Ring Error"
 msgstr "Ring-fejl"
 
-#: src/ring_client.cpp:289
+#: src/ring_client.cpp:290
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr "Vis Ring"
 
-#: src/ring_client.cpp:293
+#: src/ring_client.cpp:294
 msgid "Quit"
 msgstr "Afslut"
 
@@ -867,11 +867,25 @@ msgstr "Brugernavn er allerede taget"
 msgid "Network error"
 msgstr "Netværksfejl"
 
-#: src/generalsettingsview.cpp:105
+#: src/generalsettingsview.cpp:113
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Dette er en destruktiv handling. Er du sikker på, at du vil slette al historik for beskeder og opkald?"
+
+#: src/generalsettingsview.cpp:183
+msgid "Choose download folder"
+msgstr ""
+
+#: src/generalsettingsview.cpp:186 src/accountgeneraltab.cpp:186
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
+msgid "_Cancel"
+msgstr "_Annuller"
+
+#: src/generalsettingsview.cpp:188 src/accountgeneraltab.cpp:188
+#: src/chatview.cpp:179
+msgid "_Save"
+msgstr "_Gem"
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
@@ -905,15 +919,6 @@ msgstr "Værtsnavn"
 #: src/accountgeneraltab.cpp:183 src/chatview.cpp:174
 msgid "Save File"
 msgstr "Gem fil"
-
-#: src/accountgeneraltab.cpp:186 src/avatarmanipulation.cpp:383
-#: src/chatview.cpp:177
-msgid "_Cancel"
-msgstr "_Annuller"
-
-#: src/accountgeneraltab.cpp:188 src/chatview.cpp:179
-msgid "_Save"
-msgstr "_Gem"
 
 #: src/accountgeneraltab.cpp:208
 msgid "File exported to destination: "
@@ -1033,7 +1038,7 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "åbn chat"
 
-#: src/ringmainwindow.cpp:745
+#: src/ringmainwindow.cpp:746
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
