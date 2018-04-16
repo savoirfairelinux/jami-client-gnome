@@ -31,6 +31,7 @@
 #include <api/contactmodel.h>
 #include <api/conversation.h>
 #include <api/conversationmodel.h>
+#include <api/datatransfermodel.h>
 #include <api/lrc.h>
 #include <api/newaccountmodel.h>
 #include <api/newcallmodel.h>
@@ -108,6 +109,8 @@ struct RingMainWindowPrivate
     GSettings *settings;
 
     details::CppImpl* cpp; ///< Non-UI and C++ only code
+
+    gulong update_download_folder;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -596,6 +599,27 @@ on_clear_all_history_clicked(RingMainWindow* self)
     priv->cpp->has_cleared_all_history = true;
 }
 
+static void
+update_data_transfer(lrc::api::DataTransferModel& model, GSettings* settings)
+{
+    char* download_directory_value;
+    auto* download_directory_variant = g_settings_get_value(settings, "download-folder");
+    g_variant_get(download_directory_variant, "&s", &download_directory_value);
+    std::string download_dir = download_directory_value;
+    if (!download_dir.empty() && download_dir.back() != '/')
+        download_dir += "/";
+    model.downloadDirectory = download_dir;
+}
+
+static void
+update_download_folder(RingMainWindow* self)
+{
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(priv);
+
+    update_data_transfer(priv->cpp->lrc_->getDataTransferModel(), priv->settings);
+}
+
 void
 CppImpl::init()
 {
@@ -649,6 +673,8 @@ CppImpl::init()
     gtk_window_set_default_size(GTK_WINDOW(self), width, height);
     g_signal_connect(self, "configure-event", G_CALLBACK(on_window_size_changed), nullptr);
 
+    update_data_transfer(lrc_->getDataTransferModel(), widgets->settings);
+
     /* search-entry-places-call setting */
     on_search_entry_places_call_changed(widgets->settings, "search-entry-places-call", self);
     g_signal_connect(widgets->settings, "changed::search-entry-places-call",
@@ -700,6 +726,12 @@ CppImpl::init()
                         MEDIA_SETTINGS_VIEW_NAME);
 
     widgets->general_settings_view = general_settings_view_new(GTK_WIDGET(self));
+    widgets->update_download_folder = g_signal_connect_swapped(
+        widgets->general_settings_view,
+        "update-download-folder",
+        G_CALLBACK(update_download_folder),
+        self
+    );
 
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->general_settings_view,
                         GENERAL_SETTINGS_VIEW_NAME);
@@ -1500,6 +1532,11 @@ ring_main_window_dispose(GObject *object)
     priv->cpp = nullptr;
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
+
+    if (priv->general_settings_view) {
+        g_signal_handler_disconnect(priv->general_settings_view, priv->update_download_folder);
+        priv->update_download_folder = 0;
+    }
 }
 
 static void
