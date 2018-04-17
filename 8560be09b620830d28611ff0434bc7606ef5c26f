@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_1547c820",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-04-17T13:55:50Z",
+      "side": 1,
+      "message": "Should be surrounded by a try catch block cause can throw a out_of_range exception",
+      "range": {
+        "startLine": 1175,
+        "startChar": 8,
+        "endLine": 1175,
+        "endChar": 70
+      },
+      "revId": "8560be09b620830d28611ff0434bc7606ef5c26f",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
