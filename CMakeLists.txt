@@ -340,6 +340,7 @@ SET( SRC_FILES
    src/conversationpopupmenu.h
    src/conversationpopupmenu.cpp
    src/accountcontainer.h
+   src/accountcontainer.cpp
 )
 
 # compile glib resource files to c code
