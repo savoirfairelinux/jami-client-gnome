@@ -20,7 +20,7 @@
 
       <div id="sendMessage">
         <textarea id="message" autofocus placeholder="Message" onkeyup="grow_text_area()" rows="1" disabled="false"></textarea>
-        <div class="msg-button" onclick="ring.chatview.sendMessage()" title="Send">
+        <div id="sendBtn" class="msg-button" onclick="ring.chatview.sendMessage()" title="Send">
           <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
               <path xmlns="http://www.w3.org/2000/svg" d="M12,11.874v4.357l7-6.69l-7-6.572v3.983c-8.775,0-11,9.732-11,9.732C3.484,12.296,7.237,11.874,12,11.874z"/>
           </svg>
@@ -626,7 +626,7 @@ ring.chatview = (function(){
             sending_div.setAttribute('class', 'sending')
             sending_div.innerHTML = '<svg overflow="hidden" viewBox="0 -2 16 14" height="16px" width="16px"><circle class="status_circle anim-first" cx="4" cy="12" r="1"/><circle class="status_circle anim-second" cx="8" cy="12" r="1"/><circle class="status_circle anim-third" cx="12" cy="12" r="1"/></svg>'
             // add sending animation to message
-            message_div.appendChild(sending_div)
+            message_div.insertBefore(sending_div, message_div.querySelector('.menu_interaction'))
           }
           message_div.querySelector('.message_text').style = 'color: #888'
           break
@@ -640,7 +640,7 @@ ring.chatview = (function(){
             failure_div.setAttribute('class', 'failure')
             failure_div.innerHTML = '<svg overflow="visible" viewBox="0 -2 16 14" height="16px" width="16px"><path class="status-x x-first" stroke="#AA0000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" fill="none" d="M4,4 L12,12"/><path class="status-x x-second" stroke="#AA0000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" fill="none" d="M12,4 L4,12"/></svg>'
             // add failure animation to message
-            message_div.appendChild(failure_div)
+            message_div.insertBefore(failure_div, message_div.querySelector('.menu_interaction'))
           }
           var sending = message_div.querySelector('.sending')
           if (sending) sending.style.visibility = 'hidden'
@@ -731,6 +731,23 @@ ring.chatview = (function(){
       left_buttons.appendChild(status_button)
     }
 
+    function removeInteraction(interaction_id) {
+      var interaction = document.querySelector(`#message_${interaction_id}`);
+      var child = interaction;
+      var messages = document.querySelector('#messages');
+      var i = 0;
+      while( (child = child.previousSibling) != null )
+        i++;
+      if (interaction)  interaction.parentNode.removeChild(interaction)
+      if (i < messages.children.length) {
+        var timestampAfter = messages.children[i].classList.contains('timestamp')
+        var timestampBefore = messages.children[i].classList.contains('timestamp')
+        if (timestampAfter && timestampBefore) {
+          messages.children[i].parentNode.removeChild(messages.children[i])
+        }
+      }
+    }
+
     /**
      * Add a message to the conversation.
      * @param message_object to treat
@@ -778,7 +795,7 @@ ring.chatview = (function(){
             message_div.querySelector('img').onerror = function() {
               message_div = document.querySelector('#message_' + this.id);
               if (message_div.querySelector('.message_wrapper')) {
-                wrapper = message_div.querySelector('.message_wrapper')
+                var wrapper = message_div.querySelector('.message_wrapper')
                 wrapper.parentNode.removeChild(wrapper)
               }
               message_div.append(fileInteraction(message_id))
@@ -813,6 +830,44 @@ ring.chatview = (function(){
           const temp = document.createElement('div')
           temp.innerText = message_type
           message_div.appendChild(temp)
+        }
+
+        const menu_element = document.createElement('div')
+        menu_element.setAttribute('class', 'menu_interaction')
+        menu_element.innerHTML = '<label for="showmenu">\
+          <svg fill="#888888" height="12" viewBox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg">\
+            <path d="M0 0h24v24H0z" fill="none"/>\
+            <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>\
+          </svg>\
+        </label>\
+        <input type="checkbox" id="showmenu" hidden />'
+        menu_element.onclick = function() {
+          const button = this.querySelector("#showmenu");
+          button.checked = !button.checked;
+        }
+        menu_element.onmouseleave = function() {
+          const button = this.querySelector("#showmenu");
+          button.checked = false;
+        }
+        const dropdown = document.createElement('div')
+        dropdown_classes = [
+          'dropdown',
+          `dropdown_${message_id}`
+        ]
+        dropdown.setAttribute('class', dropdown_classes.join(' '))
+        const remove = document.createElement('div')
+        remove.innerHTML = 'Delete'
+        remove.msg_id = message_id
+        remove.onclick = function() {
+          window.prompt(`DELETE_INTERACTION:${this.msg_id}`)
+        }
+        dropdown.appendChild(remove)
+        menu_element.appendChild(dropdown)
+        if (message_type !== 'call') {
+          message_div.appendChild(menu_element)
+        } else {
+          var wrapper = message_div.querySelector('.message_wrapper')
+          wrapper.insertBefore(menu_element, wrapper.firstChild)
         }
 
         // Get timestamp to add
@@ -1015,6 +1070,7 @@ ring.chatview = (function(){
 
     return {
         addMessage: addMessage,
+        removeInteraction: removeInteraction,
         printHistory: printHistory,
         updateMessage: updateMessage,
         setSenderImage: setSenderImage,
