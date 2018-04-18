@@ -25,7 +25,7 @@
 #include <gtk/gtk.h>
 
 // Client related
-#include "accountcontainer.h"
+#include "api/account.h"
 #include "webkitchatcontainer.h"
 
 namespace lrc
@@ -52,7 +52,7 @@ typedef struct _ChatViewClass ChatViewClass;
 
 GType          chat_view_get_type   (void) G_GNUC_CONST;
 GtkWidget     *chat_view_new        (WebKitChatContainer* view,
-                                     AccountContainer* accountContainer,
+                                     const lrc::api::account::Info*const & accountInfo,
                                      lrc::api::conversation::Info* conversation);
 lrc::api::conversation::Info chat_view_get_conversation(ChatView*);
 bool chat_view_get_temporary(ChatView*);

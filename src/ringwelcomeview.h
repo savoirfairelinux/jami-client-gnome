@@ -23,7 +23,7 @@
 
 #include <gtk/gtk.h>
 
-#include "accountcontainer.h"
+#include "api/account.h"
 
 G_BEGIN_DECLS
 
@@ -37,7 +37,7 @@ typedef struct _RingWelcomeView      RingWelcomeView;
 typedef struct _RingWelcomeViewClass RingWelcomeViewClass;
 
 GType             ring_welcome_view_get_type (void) G_GNUC_CONST;
-GtkWidget*        ring_welcome_view_new      (AccountContainer* accountContainer);
-void              ring_welcome_update_view   (RingWelcomeView* self, AccountContainer* accountContainer = nullptr);
+GtkWidget*        ring_welcome_view_new      (const lrc::api::account::Info*& accountInfo);
+void              ring_welcome_update_view   (RingWelcomeView* self);
 
 G_END_DECLS
