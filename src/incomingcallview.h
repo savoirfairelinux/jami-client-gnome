@@ -25,7 +25,7 @@
 #include <gtk/gtk.h>
 
 // client
-#include "accountcontainer.h"
+#include "api/account.h"
 #include "webkitchatcontainer.h"
 
 namespace lrc
@@ -53,7 +53,7 @@ typedef struct _IncomingCallViewClass IncomingCallViewClass;
 
 GType      incoming_call_view_get_type (void) G_GNUC_CONST;
 GtkWidget *incoming_call_view_new (WebKitChatContainer* view,
-                                   AccountContainer* accountContainer,
+                                   const lrc::api::account::Info* const & accountInfo,
                                    lrc::api::conversation::Info* conversation);
 lrc::api::conversation::Info incoming_call_view_get_conversation (IncomingCallView*);
 

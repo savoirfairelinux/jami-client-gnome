@@ -66,7 +66,7 @@ struct _IncomingCallViewPrivate
     GtkWidget *webkit_chat_container;
 
     lrc::api::conversation::Info* conversation_;
-    AccountContainer* accountContainer_;
+    const lrc::api::account::Info* const * accountInfo_;
 
     QMetaObject::Connection state_change_connection;
 
@@ -113,7 +113,7 @@ static void
 reject_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
 {
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
-    priv->accountContainer_->info.callModel->hangUp(priv->conversation_->callId);
+    (*priv->accountInfo_)->callModel->hangUp(priv->conversation_->callId);
 }
 
 static void
@@ -122,12 +122,12 @@ accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
     auto contactUri = priv->conversation_->participants[0];
     try {
-        auto contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        auto contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         // If the contact is pending, we should accept its request
         if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
-            priv->accountContainer_->info.conversationModel->makePermanent(priv->conversation_->uid);
+            (*priv->accountInfo_)->conversationModel->makePermanent(priv->conversation_->uid);
         // Accept call
-        priv->accountContainer_->info.callModel->accept(priv->conversation_->callId);
+        (*priv->accountInfo_)->callModel->accept(priv->conversation_->callId);
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
     }
@@ -191,8 +191,8 @@ update_state(IncomingCallView *view)
 
     // change state label
     auto callId = priv->conversation_->callId;
-    if (!priv->accountContainer_->info.callModel->hasCall(callId)) return;
-    auto call = priv->accountContainer_->info.callModel->getCall(callId);
+    if (!(*priv->accountInfo_)->callModel->hasCall(callId)) return;
+    auto call = (*priv->accountInfo_)->callModel->getCall(callId);
 
     gchar *status = g_strdup_printf("%s", lrc::api::call::to_string(call.status).c_str());
     gtk_label_set_text(GTK_LABEL(priv->label_status), status);
@@ -214,7 +214,7 @@ update_name_and_photo(IncomingCallView *view)
 
     QVariant var_i = GlobalInstances::pixmapManipulator().conversationPhoto(
         *priv->conversation_,
-        priv->accountContainer_->info,
+        **(priv->accountInfo_),
         QSize(110, 110),
         false
     );
@@ -222,7 +222,7 @@ update_name_and_photo(IncomingCallView *view)
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), image.get());
 
     try {
-        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(priv->conversation_->participants.front());
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(priv->conversation_->participants.front());
 
         auto name = contactInfo.profileInfo.alias;
         gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
@@ -246,7 +246,7 @@ set_call_info(IncomingCallView *view) {
 
     // Update view if call state changes
     priv->state_change_connection = QObject::connect(
-    &*priv->accountContainer_->info.callModel,
+    &*(*priv->accountInfo_)->callModel,
     &lrc::api::NewCallModel::callStatusChanged,
     [view, priv] (const std::string& callId) {
         if (callId == priv->conversation_->callId) {
@@ -256,7 +256,7 @@ set_call_info(IncomingCallView *view) {
     });
 
     auto chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                                         priv->accountContainer_,
+                                                         *priv->accountInfo_,
                                                          priv->conversation_);
     gtk_widget_show(chat_view);
     chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
@@ -265,7 +265,7 @@ set_call_info(IncomingCallView *view) {
 
 GtkWidget *
 incoming_call_view_new(WebKitChatContainer* view,
-                       AccountContainer* accountContainer,
+                       const lrc::api::account::Info* const & accountInfo,
                        lrc::api::conversation::Info* conversation)
 {
     auto self = g_object_new(INCOMING_CALL_VIEW_TYPE, NULL);
@@ -273,7 +273,7 @@ incoming_call_view_new(WebKitChatContainer* view,
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
     priv->webkit_chat_container = GTK_WIDGET(view);
     priv->conversation_ = conversation;
-    priv->accountContainer_ = accountContainer;
+    priv->accountInfo_ = &accountInfo;
 
     set_call_info(INCOMING_CALL_VIEW(self));
 
