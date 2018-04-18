@@ -55,7 +55,7 @@ typedef struct _ConversationsViewPrivate ConversationsViewPrivate;
 
 struct _ConversationsViewPrivate
 {
-    AccountContainer* accountContainer_;
+    std::shared_ptr<AccountContainer> accountContainer_;
 
     GtkWidget* popupMenu_;
 
@@ -88,12 +88,12 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     {
         // Draw first contact.
         // NOTE: We just draw the first contact, must change this for conferences when they will have their own object
-        auto conversationInfo = priv->accountContainer_->info.conversationModel->filteredConversation(row);
-        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(conversationInfo.participants.front());
+        auto conversationInfo = priv->accountContainer_->info->conversationModel->filteredConversation(row);
+        auto contactInfo = priv->accountContainer_->info->contactModel->getContact(conversationInfo.participants.front());
         std::shared_ptr<GdkPixbuf> image;
         auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
             conversationInfo,
-            priv->accountContainer_->info,
+            *priv->accountContainer_->info,
             QSize(50, 50),
             contactInfo.isPresent
         );
@@ -185,10 +185,10 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
     try
     {
-        auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(row);
+        auto conversation = priv->accountContainer_->info->conversationModel->filteredConversation(row);
         auto callId = conversation.confId.empty() ? conversation.callId : conversation.confId;
         if (!callId.empty()) {
-            auto call = priv->accountContainer_->info.callModel->getCall(callId);
+            auto call = priv->accountContainer_->info->callModel->getCall(callId);
             text = g_markup_printf_escaped("%s",
                 lrc::api::call::to_string(call.status).c_str()
             );
@@ -242,9 +242,9 @@ update_conversation(ConversationsView *self, const std::string& uid) {
                             -1);
         if(std::string(ringId) == uid) {
             // Get informations
-            auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(idx);
+            auto conversation = priv->accountContainer_->info->conversationModel->filteredConversation(idx);
             auto contactUri = conversation.participants.front();
-            auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+            auto contactInfo = priv->accountContainer_->info->contactModel->getContact(contactUri);
             auto lastMessage = conversation.interactions.empty() ? "" :
                 conversation.interactions.at(conversation.lastMessageUid).body;
             std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
@@ -282,11 +282,11 @@ create_and_fill_model(ConversationsView *self)
     if(!priv) GTK_TREE_MODEL (store);
     GtkTreeIter iter;
 
-    for (auto conversation : priv->accountContainer_->info.conversationModel->allFilteredConversations()) {
+    for (auto conversation : priv->accountContainer_->info->conversationModel->allFilteredConversations()) {
         if (conversation.participants.empty()) break; // Should not
         auto contactUri = conversation.participants.front();
         try {
-            auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+            auto contactInfo = priv->accountContainer_->info->contactModel->getContact(contactUri);
             auto lastMessage = conversation.interactions.empty() ? "" :
                 conversation.interactions.at(conversation.lastMessageUid).body;
             std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
@@ -319,8 +319,8 @@ call_conversation(GtkTreeView *self,
     if (row == -1) return;
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
     if (!priv) return;
-    auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(row);
-    priv->accountContainer_->info.conversationModel->placeCall(conversation.uid);
+    auto conversation = priv->accountContainer_->info->conversationModel->filteredConversation(row);
+    priv->accountContainer_->info->conversationModel->placeCall(conversation.uid);
 }
 
 static void
@@ -350,7 +350,7 @@ select_conversation(GtkTreeSelection *selection, ConversationsView *self)
     gtk_tree_model_get(model, &iter,
                        0, &conversationUid,
                        -1);
-    priv->accountContainer_->info.conversationModel->selectConversation(std::string(conversationUid));
+    priv->accountContainer_->info->conversationModel->selectConversation(std::string(conversationUid));
 }
 
 static void
@@ -500,7 +500,7 @@ on_drag_data_received(GtkWidget        *treeview,
                                0, &conversationUidDest,
                                -1);
 
-            priv->accountContainer_->info.conversationModel->joinConversations(
+            priv->accountContainer_->info->conversationModel->joinConversations(
                 conversationUidSrc,
                 conversationUidDest
             );
@@ -566,7 +566,7 @@ build_conversations_view(ConversationsView *self)
 
     // This view should be synchronized and redraw at each update.
     priv->modelSortedConnection_ = QObject::connect(
-    &*priv->accountContainer_->info.conversationModel,
+    &*priv->accountContainer_->info->conversationModel,
     &lrc::api::ConversationModel::modelSorted,
     [self] () {
         auto model = create_and_fill_model(self);
@@ -575,14 +575,14 @@ build_conversations_view(ConversationsView *self)
                                 GTK_TREE_MODEL(model));
     });
     priv->conversationUpdatedConnection_ = QObject::connect(
-    &*priv->accountContainer_->info.conversationModel,
+    &*priv->accountContainer_->info->conversationModel,
     &lrc::api::ConversationModel::conversationUpdated,
     [self] (const std::string& uid) {
         update_conversation(self, uid);
     });
 
     priv->filterChangedConnection_ = QObject::connect(
-    &*priv->accountContainer_->info.conversationModel,
+    &*priv->accountContainer_->info->conversationModel,
     &lrc::api::ConversationModel::filterChanged,
     [self] () {
         auto model = create_and_fill_model(self);
@@ -651,7 +651,7 @@ conversations_view_class_init(ConversationsViewClass *klass)
 }
 
 GtkWidget *
-conversations_view_new(AccountContainer* accountContainer)
+conversations_view_new(std::shared_ptr<AccountContainer> accountContainer)
 {
     auto self = CONVERSATIONS_VIEW(g_object_new(CONVERSATIONS_VIEW_TYPE, NULL));
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);

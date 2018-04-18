@@ -1,7 +1,8 @@
 /****************************************************************************
- *   Copyright (C) 2017-2018 Savoir-faire Linux                                  *
+ *   Copyright (C) 2017-2018 Savoir-faire Linux                             *
  *   Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>             *
  *   Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>           *
+ *   Author: Hugo Lefeuvre <hugo.lefeuvre@savoirfairelinux.com>             *
  *                                                                          *
  *   This library is free software; you can redistribute it and/or          *
  *   modify it under the terms of the GNU Lesser General Public             *
@@ -29,9 +30,11 @@
 class AccountContainer {
 
 public:
-    explicit AccountContainer (const lrc::api::account::Info& accInfo)
-    : info(accInfo)
-    {}
+    AccountContainer() {}
 
-    const lrc::api::account::Info& info;
+    void updateInfo(const lrc::api::account::Info& accInfo);
+    void resetInfo();
+    bool isEmpty();
+
+    const lrc::api::account::Info* info;
 };
