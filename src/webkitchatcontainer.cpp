@@ -615,6 +615,23 @@ webkit_chat_container_update_interaction(WebKitChatContainer *view,
 }
 
 void
+webkit_chat_container_remove_interaction(WebKitChatContainer *view, uint64_t interactionId)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    gchar* function_call = g_strdup_printf("ring.chatview.removeInteraction(%i);", interactionId);
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+
+void
 webkit_chat_container_print_new_interaction(WebKitChatContainer *view,
                                             lrc::api::ConversationModel& conversation_model,
                                             uint64_t msgId,
