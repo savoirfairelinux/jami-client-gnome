@@ -339,7 +339,7 @@ SET( SRC_FILES
    src/conversationsview.cpp
    src/conversationpopupmenu.h
    src/conversationpopupmenu.cpp
-   src/accountcontainer.h
+   src/accountinfopointer.h
 )
 
 # compile glib resource files to c code
