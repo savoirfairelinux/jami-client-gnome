@@ -60,6 +60,7 @@ struct _ChatViewPrivate
     AccountInfoPointer const * accountInfo_;
 
     QMetaObject::Connection new_interaction_connection;
+    QMetaObject::Connection interaction_removed;
     QMetaObject::Connection update_interaction_connection;
     QMetaObject::Connection update_add_to_conversations;
 
@@ -90,6 +91,7 @@ chat_view_dispose(GObject *object)
 
     QObject::disconnect(priv->new_interaction_connection);
     QObject::disconnect(priv->update_interaction_connection);
+    QObject::disconnect(priv->interaction_removed);
     QObject::disconnect(priv->update_add_to_conversations);
 
     /* Destroying the box will also destroy its children, and we wouldn't
@@ -269,6 +271,14 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         }
     } else if (order.find("ADD_TO_CONVERSATIONS") == 0) {
         button_add_to_conversations_clicked(self);
+    } else if (order.find("DELETE_INTERACTION:") == 0) {
+        try {
+            auto interactionId = std::stoull(order.substr(std::string("DELETE_INTERACTION:").size()));
+            if (!priv->conversation_) return;
+            (*priv->accountInfo_)->conversationModel->clearInteractionFromConversation(priv->conversation_->uid, interactionId);
+        } catch (...) {
+            g_warning("delete interaction failed: can't find %s", order.substr(std::string("DELETE_INTERACTION:").size()).c_str());
+        }
     }
 }
 
@@ -338,6 +348,16 @@ update_interaction(ChatView* self, uint64_t interactionId, const lrc::api::inter
         *(*priv->accountInfo_)->conversationModel,
         interactionId,
         interaction
+    );
+}
+
+static void
+remove_interaction(ChatView* self, uint64_t interactionId)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    webkit_chat_container_remove_interaction(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        interactionId
     );
 }
 
@@ -415,7 +435,7 @@ webkit_chat_container_ready(ChatView* self)
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newInteraction,
     [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
         if (!priv->conversation_) return;
-        if(uid == priv->conversation_->uid) {
+        if (uid == priv->conversation_->uid) {
             print_interaction_to_buffer(self, interactionId, interaction);
         }
     });
@@ -424,8 +444,17 @@ webkit_chat_container_ready(ChatView* self)
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::interactionStatusUpdated,
     [self, priv](const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
         if (!priv->conversation_) return;
-        if(uid == priv->conversation_->uid) {
+        if (uid == priv->conversation_->uid) {
             update_interaction(self, msgId, msg);
+        }
+    });
+
+    priv->interaction_removed = QObject::connect(
+    &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::interactionRemoved,
+    [self, priv](const std::string& convUid, uint64_t interactionId) {
+        if (!priv->conversation_) return;
+        if (convUid == priv->conversation_->uid) {
+            remove_interaction(self, interactionId);
         }
     });
 
