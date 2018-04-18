@@ -35,6 +35,7 @@
 
 // Client
 #include "utils/files.h"
+#include "accountinfopointer.h"
 
 struct _ChatView
 {
@@ -63,7 +64,7 @@ struct _ChatViewPrivate
     GSettings *settings;
 
     lrc::api::conversation::Info* conversation_;
-    AccountContainer* accountContainer_;
+    AccountInfoPointer const * accountInfo_;
     bool isTemporary_;
 
     QMetaObject::Connection new_interaction_connection;
@@ -141,7 +142,7 @@ placecall_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->conversation_) return;
-    priv->accountContainer_->info.conversationModel->placeCall(priv->conversation_->uid);
+    (*priv->accountInfo_)->conversationModel->placeCall(priv->conversation_->uid);
 }
 
 static void
@@ -152,7 +153,7 @@ place_audio_call_clicked(ChatView *self)
     if (!priv->conversation_)
         return;
 
-    priv->accountContainer_->info.conversationModel->placeAudioOnlyCall(priv->conversation_->uid);
+    (*priv->accountInfo_)->conversationModel->placeAudioOnlyCall(priv->conversation_->uid);
 }
 
 static void
@@ -160,7 +161,7 @@ button_add_to_conversations_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->conversation_) return;
-    priv->accountContainer_->info.conversationModel->makePermanent(priv->conversation_->uid);
+    (*priv->accountInfo_)->conversationModel->makePermanent(priv->conversation_->uid);
 }
 
 static gchar*
@@ -198,27 +199,27 @@ webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *int
     auto order = std::string(interaction);
     if (!priv->conversation_) return;
     if (order == "ACCEPT") {
-        priv->accountContainer_->info.conversationModel->makePermanent(priv->conversation_->uid);
+        (*priv->accountInfo_)->conversationModel->makePermanent(priv->conversation_->uid);
     } else if (order == "REFUSE") {
-        priv->accountContainer_->info.conversationModel->removeConversation(priv->conversation_->uid);
+        (*priv->accountInfo_)->conversationModel->removeConversation(priv->conversation_->uid);
     } else if (order == "BLOCK") {
-        priv->accountContainer_->info.conversationModel->removeConversation(priv->conversation_->uid, true);
+        (*priv->accountInfo_)->conversationModel->removeConversation(priv->conversation_->uid, true);
     } else if (order.find("SEND:") == 0) {
         // Get text body
         auto toSend = order.substr(std::string("SEND:").size());
-        priv->accountContainer_->info.conversationModel->sendMessage(priv->conversation_->uid, toSend);
+        (*priv->accountInfo_)->conversationModel->sendMessage(priv->conversation_->uid, toSend);
     } else if (order.find("SEND_FILE") == 0) {
-        if (auto model = priv->accountContainer_->info.conversationModel.get()) {
+        if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
             if (auto filename = file_to_manipulate(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))), true))
                 model->sendFile(priv->conversation_->uid, filename, g_path_get_basename(filename));
         }
     } else if (order.find("ACCEPT_FILE:") == 0) {
-        if (auto model = priv->accountContainer_->info.conversationModel.get()) {
+        if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
             try {
                 auto interactionId = std::stoull(order.substr(std::string("ACCEPT_FILE:").size()));
 
                 lrc::api::datatransfer::Info info = {};
-                priv->accountContainer_->info.conversationModel->getTransferInfo(interactionId, info);
+                (*priv->accountInfo_)->conversationModel->getTransferInfo(interactionId, info);
 
                 // get prefered directory destination.
                 auto* download_directory_variant = g_settings_get_value(priv->settings, "download-folder");
@@ -240,7 +241,7 @@ webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *int
             }
         }
     } else if (order.find("REFUSE_FILE:") == 0) {
-        if (auto model = priv->accountContainer_->info.conversationModel.get()) {
+        if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
             try {
                 auto interactionId = std::stoull(order.substr(std::string("REFUSE_FILE:").size()));
                 model->cancelTransfer(priv->conversation_->uid, interactionId);
@@ -320,11 +321,11 @@ print_interaction_to_buffer(ChatView* self, uint64_t interactionId, const lrc::a
 
     if (!priv->conversation_) return;
     if (interaction.status == lrc::api::interaction::Status::UNREAD)
-        priv->accountContainer_->info.conversationModel->setInteractionRead(priv->conversation_->uid, interactionId);
+        (*priv->accountInfo_)->conversationModel->setInteractionRead(priv->conversation_->uid, interactionId);
 
     webkit_chat_container_print_new_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-        *priv->accountContainer_->info.conversationModel,
+        *(*priv->accountInfo_)->conversationModel,
         interactionId,
         interaction
     );
@@ -336,7 +337,7 @@ update_interaction(ChatView* self, uint64_t interactionId, const lrc::api::inter
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     webkit_chat_container_update_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-        *priv->accountContainer_->info.conversationModel,
+        *(*priv->accountInfo_)->conversationModel,
         interactionId,
         interaction
     );
@@ -352,11 +353,11 @@ load_participants_images(ChatView *self)
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
     try{
-        auto& contact = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        auto& contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         if (!contact.profileInfo.avatar.empty()) {
             webkit_chat_container_set_sender_image(
                 WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                priv->accountContainer_->info.contactModel->getContactProfileId(contactUri),
+                (*priv->accountInfo_)->contactModel->getContactProfileId(contactUri),
                 contact.profileInfo.avatar
                 );
         }
@@ -365,11 +366,11 @@ load_participants_images(ChatView *self)
     }
 
     // For this account
-    if (!priv->accountContainer_->info.profileInfo.avatar.empty()) {
+    if (!(*priv->accountInfo_)->profileInfo.avatar.empty()) {
         webkit_chat_container_set_sender_image(
             WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-            priv->accountContainer_->info.contactModel->getContactProfileId(priv->accountContainer_->info.profileInfo.uri),
-            priv->accountContainer_->info.profileInfo.avatar
+            (*priv->accountInfo_)->contactModel->getContactProfileId((*priv->accountInfo_)->profileInfo.uri),
+            (*priv->accountInfo_)->profileInfo.avatar
         );
     }
 }
@@ -384,12 +385,12 @@ print_text_recording(ChatView *self)
     if (!priv->conversation_) return;
     for (const auto& it: priv->conversation_->interactions) {
         if (it.second.status == lrc::api::interaction::Status::UNREAD)
-            priv->accountContainer_->info.conversationModel->setInteractionRead(priv->conversation_->uid, it.first);
+            (*priv->accountInfo_)->conversationModel->setInteractionRead(priv->conversation_->uid, it.first);
     }
 
     webkit_chat_container_print_history(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-        *priv->accountContainer_->info.conversationModel,
+        *(*priv->accountInfo_)->conversationModel,
         priv->conversation_->interactions
     );
 
@@ -404,7 +405,7 @@ update_add_to_conversations(ChatView *self)
     if (!priv->conversation_) return;
     auto participant = priv->conversation_->participants[0];
     try {
-        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(participant);
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(participant);
         if(contactInfo.profileInfo.type != lrc::api::profile::Type::TEMPORARY
            && contactInfo.profileInfo.type != lrc::api::profile::Type::PENDING)
             gtk_widget_hide(priv->button_add_to_conversations);
@@ -421,7 +422,7 @@ update_contact_methods(ChatView *self)
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
     try {
-        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         auto bestId = std::string(contactInfo.registeredName).empty() ? contactInfo.profileInfo.uri : contactInfo.registeredName;
         if (contactInfo.profileInfo.alias == bestId) {
             gtk_widget_hide(priv->label_cm);
@@ -442,7 +443,7 @@ update_name(ChatView *self)
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
     try {
-        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         auto alias = contactInfo.profileInfo.alias;
         alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
         gtk_label_set_text(GTK_LABEL(priv->label_peer), alias.c_str());
@@ -468,7 +469,7 @@ webkit_chat_container_ready(ChatView* self)
     load_participants_images(self);
 
     priv->new_interaction_connection = QObject::connect(
-    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::newInteraction,
+    &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newInteraction,
     [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
         if (!priv->conversation_) return;
         if(uid == priv->conversation_->uid) {
@@ -477,7 +478,7 @@ webkit_chat_container_ready(ChatView* self)
     });
 
     priv->update_interaction_connection = QObject::connect(
-    &*priv->accountContainer_->info.conversationModel, &lrc::api::ConversationModel::interactionStatusUpdated,
+    &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::interactionStatusUpdated,
     [self, priv](const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
         if (!priv->conversation_) return;
         if(uid == priv->conversation_->uid) {
@@ -488,7 +489,7 @@ webkit_chat_container_ready(ChatView* self)
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
     try {
-        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         priv->isTemporary_ = contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY
             || contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
         webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
@@ -542,7 +543,7 @@ build_chat_view(ChatView* self)
 
 GtkWidget *
 chat_view_new (WebKitChatContainer* webkit_chat_container,
-               AccountContainer* accountContainer,
+               AccountInfoPointer const & accountInfo,
                lrc::api::conversation::Info* conversation)
 {
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
@@ -550,7 +551,7 @@ chat_view_new (WebKitChatContainer* webkit_chat_container,
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
     priv->conversation_ = conversation;
-    priv->accountContainer_ = accountContainer;
+    priv->accountInfo_ = &accountInfo;
 
     build_chat_view(self);
     return (GtkWidget *)self;
@@ -570,7 +571,7 @@ chat_view_update_temporary(ChatView* self, bool showAddButton, bool showInvitati
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
     try {
-        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(contactUri);
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         auto bestName = contactInfo.profileInfo.alias;
         if (bestName.empty())
             bestName = contactInfo.registeredName;

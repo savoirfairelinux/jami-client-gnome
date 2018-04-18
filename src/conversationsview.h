@@ -20,7 +20,9 @@
 
 #include <gtk/gtk.h>
 
-#include "accountcontainer.h"
+#include "api/account.h"
+
+#include "accountinfopointer.h"
 
 G_BEGIN_DECLS
 
@@ -34,7 +36,7 @@ typedef struct _ConversationsView      ConversationsView;
 typedef struct _ConversationsViewClass ConversationsViewClass;
 
 GType      conversations_view_get_type            (void) G_GNUC_CONST;
-GtkWidget *conversations_view_new                 (AccountContainer* accountContainer);
+GtkWidget *conversations_view_new                 (AccountInfoPointer const & accountInfo);
 void       conversations_view_select_conversation (ConversationsView *self, const std::string& uid);
 
 G_END_DECLS
