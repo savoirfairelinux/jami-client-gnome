@@ -27,6 +27,8 @@
 #include <api/contactmodel.h>
 #include <api/contact.h>
 
+#include "accountinfopointer.h"
+
 struct _ConversationPopupMenu
 {
     GtkMenu parent;
@@ -43,7 +45,7 @@ struct _ConversationPopupMenuPrivate
 {
     GtkTreeView *treeview;
 
-    AccountContainer* accountContainer_;
+    AccountInfoPointer const *accountInfo_;
     int row_;
 };
 
@@ -56,9 +58,9 @@ copy_contact_info(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* p
 {
     try
     {
-        auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(priv->row_);
+        auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
         if (conversation.participants.empty()) return;
-        auto& contact = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
+        auto& contact = (*priv->accountInfo_)->contactModel->getContact(conversation.participants.front());
         auto bestName = contact.registeredName.empty() ? contact.profileInfo.uri : contact.registeredName;
         auto text = (gchar *)bestName.c_str();
         GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -77,8 +79,8 @@ remove_history_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenu
 {
     try
     {
-        auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(priv->row_);
-        priv->accountContainer_->info.conversationModel->clearHistory(conversation.uid);
+        auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
+        (*priv->accountInfo_)->conversationModel->clearHistory(conversation.uid);
     }
     catch (...)
     {
@@ -91,8 +93,8 @@ remove_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate*
 {
     try
     {
-        auto conversationUid = priv->accountContainer_->info.conversationModel->filteredConversation(priv->row_).uid;
-        priv->accountContainer_->info.conversationModel->removeConversation(conversationUid);
+        auto conversationUid = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_).uid;
+        (*priv->accountInfo_)->conversationModel->removeConversation(conversationUid);
     }
     catch (...)
     {
@@ -105,8 +107,8 @@ block_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* 
 {
     try
     {
-        auto conversationUid = priv->accountContainer_->info.conversationModel->filteredConversation(priv->row_).uid;
-        priv->accountContainer_->info.conversationModel->removeConversation(conversationUid, true);
+        auto conversationUid = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_).uid;
+        (*priv->accountInfo_)->conversationModel->removeConversation(conversationUid, true);
     }
     catch (...)
     {
@@ -119,8 +121,8 @@ add_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
 {
     try
     {
-        auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(priv->row_);
-        priv->accountContainer_->info.conversationModel->makePermanent(conversation.uid);
+        auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
+        (*priv->accountInfo_)->conversationModel->makePermanent(conversation.uid);
     }
     catch (...)
     {
@@ -133,8 +135,8 @@ place_video_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
 {
     try
     {
-        auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(priv->row_);
-        priv->accountContainer_->info.conversationModel->placeCall(conversation.uid);
+        auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
+        (*priv->accountInfo_)->conversationModel->placeCall(conversation.uid);
     } catch (...) {
         g_warning("Can't get conversation at row %i", priv->row_);
     }
@@ -145,8 +147,8 @@ place_audio_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
 {
     try
     {
-        auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(priv->row_);
-        priv->accountContainer_->info.conversationModel->placeAudioOnlyCall(conversation.uid);
+        auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
+        (*priv->accountInfo_)->conversationModel->placeAudioOnlyCall(conversation.uid);
     } catch (...) {
         g_warning("Can't get conversation at row %i", priv->row_);
     }
@@ -168,10 +170,10 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return;
     auto path = gtk_tree_model_get_path(model, &iter);
     auto idx = gtk_tree_path_get_indices(path);
-    auto conversation = priv->accountContainer_->info.conversationModel->filteredConversation(idx[0]);
+    auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(idx[0]);
     priv->row_ = idx[0];
     try {
-        auto contactInfo = priv->accountContainer_->info.contactModel->getContact(conversation.participants.front());
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(conversation.participants.front());
         if (contactInfo.profileInfo.uri.empty()) return;
 
         // we always build a menu, however in some cases some or all of the conversations will be deactivated
@@ -248,11 +250,11 @@ conversation_popup_menu_init(G_GNUC_UNUSED ConversationPopupMenu *self)
 }
 
 GtkWidget *
-conversation_popup_menu_new (GtkTreeView *treeview, AccountContainer* accountContainer)
+conversation_popup_menu_new (GtkTreeView *treeview, AccountInfoPointer const & accountInfo)
 {
     gpointer self = g_object_new(CONVERSATION_POPUP_MENU_TYPE, NULL);
     ConversationPopupMenuPrivate *priv = CONVERSATION_POPUP_MENU_GET_PRIVATE(self);
-    priv->accountContainer_ = accountContainer;
+    priv->accountInfo_ = &accountInfo;
 
     priv->treeview = treeview;
     GtkTreeSelection *selection = gtk_tree_view_get_selection(priv->treeview);
