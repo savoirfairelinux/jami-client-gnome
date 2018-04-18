@@ -48,6 +48,7 @@ void       webkit_chat_container_clear                (WebKitChatContainer *view
 void       webkit_chat_container_clear_sender_images  (WebKitChatContainer *view);
 void       webkit_chat_container_print_new_interaction(WebKitChatContainer *view, lrc::api::ConversationModel& conversation_model, uint64_t msgId, const lrc::api::interaction::Info& interaction);
 void       webkit_chat_container_update_interaction   (WebKitChatContainer *view, lrc::api::ConversationModel& conversation_model, uint64_t msgId, const lrc::api::interaction::Info& interaction);
+void       webkit_chat_container_remove_interaction   (WebKitChatContainer *view, uint64_t interactionId);
 void       webkit_chat_container_print_history        (WebKitChatContainer *view, lrc::api::ConversationModel& conversation_model, const std::map<uint64_t, lrc::api::interaction::Info> interactions);
 void       webkit_chat_container_set_sender_image     (WebKitChatContainer *view, const std::string& sender, const std::string& senderImage);
 gboolean   webkit_chat_container_is_ready             (WebKitChatContainer *view);
