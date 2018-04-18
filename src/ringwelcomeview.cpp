@@ -20,6 +20,7 @@
  */
 
 #include "ringwelcomeview.h"
+#include "accountinfopointer.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
@@ -52,7 +53,7 @@ struct _RingWelcomeViewPrivate
     GtkWidget *button_qrcode;
     GtkWidget *revealer_qrcode;
 
-    AccountContainer* accountContainer_;
+    accountInfoPointer const *accountInfo_;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_SCROLLED_WINDOW);
@@ -63,14 +64,11 @@ static gboolean   draw_qrcode(GtkWidget*,cairo_t*,RingWelcomeView*);
 static void       switch_qrcode(RingWelcomeView* self);
 
 void
-ring_welcome_update_view(RingWelcomeView* self, AccountContainer* accountContainer) {
+ring_welcome_update_view(RingWelcomeView* self) {
     auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
 
-    if (accountContainer)
-        priv->accountContainer_ = accountContainer;
-
     // Only draw a basic view for SIP accounts
-    if (not accountContainer || priv->accountContainer_->info.profileInfo.type == lrc::api::profile::Type::SIP) {
+    if (not *priv->accountInfo_ || (*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::SIP) {
         gtk_widget_hide(priv->button_qrcode);
         gtk_widget_hide(priv->label_ringid);
         gtk_widget_hide(priv->label_explanation);
@@ -82,21 +80,21 @@ ring_welcome_update_view(RingWelcomeView* self, AccountContainer* accountContain
 
     // Get registeredName, else the Ring Id
     gchar *ring_id = nullptr;
-    if(! priv->accountContainer_->info.registeredName.empty()){
+    if(! (*priv->accountInfo_)->registeredName.empty()){
         gtk_label_set_text(
             GTK_LABEL(priv->label_explanation),
             _("This is your Ring username.\nCopy and share it with your friends!")
         );
         ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">ring:%s</span>",
-                                          priv->accountContainer_->info.registeredName.c_str());
+                                          (*priv->accountInfo_)->registeredName.c_str());
     }
-    else if (!priv->accountContainer_->info.profileInfo.uri.empty()) {
+    else if (!(*priv->accountInfo_)->profileInfo.uri.empty()) {
         gtk_label_set_text(
             GTK_LABEL(priv->label_explanation),
             C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!")
         );
         ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
-                                          priv->accountContainer_->info.profileInfo.uri.c_str());
+                                          (*priv->accountInfo_)->profileInfo.uri.c_str());
     } else {
         gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
         ring_id = {};
@@ -232,12 +230,12 @@ ring_welcome_view_class_init(RingWelcomeViewClass *klass)
 }
 
 GtkWidget *
-ring_welcome_view_new(AccountContainer* accountContainer)
+ring_welcome_view_new(accountInfoPointer const & accountInfo)
 {
     gpointer self = g_object_new(RING_WELCOME_VIEW_TYPE, NULL);
     auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
-    priv->accountContainer_ = accountContainer;
-    ring_welcome_update_view(RING_WELCOME_VIEW(self), accountContainer);
+    priv->accountInfo_ = &accountInfo;
+    ring_welcome_update_view(RING_WELCOME_VIEW(self));
 
     return (GtkWidget *)self;
 }
@@ -250,7 +248,7 @@ draw_qrcode(G_GNUC_UNUSED GtkWidget* diese,
 {
     auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
 
-    auto rcode = QRcode_encodeString(priv->accountContainer_->info.profileInfo.uri.c_str(),
+    auto rcode = QRcode_encodeString((*priv->accountInfo_)->profileInfo.uri.c_str(),
                                       0, //Let the version be decided by libqrencode
                                       QR_ECLEVEL_L, // Lowest level of error correction
                                       QR_MODE_8, // 8-bit data mode
