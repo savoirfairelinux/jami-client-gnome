@@ -96,7 +96,7 @@ ENDIF()
 FIND_PACKAGE(Gettext) #optional for translations
 PKG_CHECK_MODULES(LIBQRENCODE libqrencode>=3.4)
 PKG_CHECK_MODULES(LIBNM libnm>=1.0) #optional to detect changes in the network
-PKG_CHECK_MODULES(APPINDICATOR appindicator3-0.1) #optional, ideal for use with Unity
+PKG_CHECK_MODULES(APPINDICATOR ayatana-appindicator3-0.1) #optional, ideal for use with Unity
 
 PKG_CHECK_MODULES(WEBKIT webkit2gtk-4.0)
 IF(NOT WEBKIT_FOUND)

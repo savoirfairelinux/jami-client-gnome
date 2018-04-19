@@ -69,7 +69,7 @@
 #include "utils/calling.h"
 
 #if HAVE_APPINDICATOR
-#include <libappindicator/app-indicator.h>
+#include <libayatana-appindicator/app-indicator.h>
 #endif
 
 #if USE_LIBNM
