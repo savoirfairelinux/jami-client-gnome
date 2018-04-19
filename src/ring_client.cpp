@@ -68,7 +68,9 @@
 #include "utils/accounts.h"
 #include "utils/calling.h"
 
-#if HAVE_APPINDICATOR
+#if HAVE_AYATANAAPPINDICATOR
+#include <libayatana-appindicator/app-indicator.h>
+#elif HAVE_APPINDICATOR
 #include <libappindicator/app-indicator.h>
 #endif
 
