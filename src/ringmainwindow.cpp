@@ -384,7 +384,10 @@ on_search_entry_activated(RingMainWindow* self)
     // Select the first conversation of the list
     auto& conversationModel = priv->cpp->accountContainer_->info.conversationModel;
     auto conversations = conversationModel->allFilteredConversations();
-    if (!conversations.empty())
+
+    const gchar *text = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
+
+    if (!conversations.empty() && text && !std::string(text).empty())
         conversationModel->selectConversation(conversations[0].uid);
 }
 
