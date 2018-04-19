@@ -96,7 +96,23 @@ ENDIF()
 FIND_PACKAGE(Gettext) #optional for translations
 PKG_CHECK_MODULES(LIBQRENCODE libqrencode>=3.4)
 PKG_CHECK_MODULES(LIBNM libnm>=1.0) #optional to detect changes in the network
-PKG_CHECK_MODULES(APPINDICATOR appindicator3-0.1) #optional, ideal for use with Unity
+
+# Both appindicators are optional. ayatana-appindicator is better
+# maintained and it works best across all desktop environments.
+PKG_CHECK_MODULES(APPINDICATOR ayatana-appindicator3-0.1)
+IF( APPINDICATOR_FOUND )
+    SET(HAVE_AYATANAAPPINDICATOR 1)
+    SET(HAVE_APPINDICATOR 1)
+ELSE()
+    PKG_CHECK_MODULES(APPINDICATOR appindicator3-0.1)
+    IF( APPINDICATOR_FOUND )
+        SET(HAVE_AYATANAAPPINDICATOR 0)
+        SET(HAVE_APPINDICATOR 1)
+    ELSE()
+        SET(HAVE_AYATANAAPPINDICATOR 0)
+        SET(HAVE_APPINDICATOR 0)
+    ENDIF()
+ENDIF()
 
 PKG_CHECK_MODULES(WEBKIT webkit2gtk-4.0)
 IF(NOT WEBKIT_FOUND)
@@ -418,13 +434,6 @@ IF( LIBNM_FOUND )
    SET(USE_LIBNM 1)
 ELSE()
    SET(USE_LIBNM 0)
-ENDIF()
-
-# configure appindicator variable for config.h file
-IF( APPINDICATOR_FOUND )
-    SET(HAVE_APPINDICATOR 1)
-ELSE()
-    SET(HAVE_APPINDICATOR 0)
 ENDIF()
 
 # configure libcanberra variable for config.h file
