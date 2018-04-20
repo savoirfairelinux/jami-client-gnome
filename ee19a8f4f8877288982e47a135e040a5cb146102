@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_b006e21e",
+        "filename": "src/accountcontainer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-04-20T20:11:25Z",
+      "side": 1,
+      "message": "why all these methods exist as the info member below is public (so can be accessed as it).\nRemoving them makes more clear the fact this structure doesn\u0027t give an utility.",
+      "range": {
+        "startLine": 35,
+        "startChar": 1,
+        "endLine": 37,
+        "endChar": 19
+      },
+      "revId": "ee19a8f4f8877288982e47a135e040a5cb146102",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_50095e30",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-04-20T20:11:25Z",
+      "side": 1,
+      "message": "general note: with smart_Pointer is safer to use fonctional allocators like this:\naccountContainer_ {std::make_shared\u003cAccountContainer\u003e()}",
+      "range": {
+        "startLine": 551,
+        "startChar": 25,
+        "endLine": 551,
+        "endChar": 47
+      },
+      "revId": "ee19a8f4f8877288982e47a135e040a5cb146102",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
