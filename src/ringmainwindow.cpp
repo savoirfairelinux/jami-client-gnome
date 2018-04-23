@@ -24,6 +24,7 @@
 #include <glib/gi18n.h>
 // std
 #include <algorithm>
+#include <sstream>
 
 // Qt
 #include <QSize>
@@ -117,6 +118,7 @@ struct RingMainWindowPrivate
     GtkWidget *notifier;
 
     GSettings *settings;
+    bool dark_theme_enabled;
 
     details::CppImpl* cpp; ///< Non-UI and C++ only code
 
@@ -1201,6 +1203,12 @@ CppImpl::init()
 
     update_data_transfer(lrc_->getDataTransferModel(), widgets->settings);
 
+    GtkSettings *general_settings;
+    bool theme_name {false};
+    general_settings = gtk_settings_get_default();
+    g_object_get(general_settings, "gtk-application-prefer-dark-theme", theme_name, NULL);
+    widgets->dark_theme_enabled = theme_name;
+
     /* search-entry-places-call setting */
     on_search_entry_places_call_changed(widgets->settings, "search-entry-places-call", self);
     g_signal_connect(widgets->settings, "changed::search-entry-places-call",
@@ -1290,12 +1298,27 @@ CppImpl::init()
     g_signal_connect(widgets->search_entry, "search-changed", G_CALLBACK(on_search_entry_text_changed), self);
     g_signal_connect(widgets->search_entry, "key-release-event", G_CALLBACK(on_search_entry_key_released), self);
 
+    // NOTE: Use of deprecated gtk_widget_get_style cause new methods do not return theme color
+    // TODO get theme colors from another method + detect theme change
+    auto context = gtk_widget_get_style(GTK_WIDGET(self));
+    auto color = context->bg[GTK_STATE_NORMAL];
+    if ((color.red + color.green + color.blue) / 3 < 65536 / 2) {
+        g_warning("@@@ DARK THEME");
+    } else {
+        g_warning("@@@ LIGHT THEME");
+    }
+    std::stringstream background;
+    // TODO move into a function. This is ugly
+    background << "#" << std::hex << (int)(((float)color.red / 65536.) * 256) << (int)(((float)color.green / 65536.) * 256) << (int)(((float)color.blue / 65536.) * 256);
+
     auto provider = gtk_css_provider_new();
+    std::string background_search_entry = "background: " + background.str() + ";";
+    std::string css_style = ".search-entry-style { border: 0; border-radius: 0; } \
+    .spinner-style { border: 0; background: white; } \
+    .new-conversation-style { border: 0; " + background_search_entry + " transition: all 0.3s ease; border-radius: 0; } \
+    .new-conversation-style:hover {  background: #bae5f0; }";
     gtk_css_provider_load_from_data(provider,
-        ".search-entry-style { border: 0; border-radius: 0; } \
-        .spinner-style { border: 0; background: white; } \
-        .new-conversation-style { border: 0; background: white; transition: all 0.3s ease; border-radius: 0; } \
-        .new-conversation-style:hover {  background: #bae5f0; }",
+        css_style.c_str(),
         -1, nullptr
     );
     gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
