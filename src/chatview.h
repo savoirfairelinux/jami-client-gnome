@@ -59,5 +59,6 @@ GtkWidget     *chat_view_new        (WebKitChatContainer* view,
 lrc::api::conversation::Info chat_view_get_conversation(ChatView*);
 void chat_view_update_temporary(ChatView*);
 void chat_view_set_header_visible(ChatView*, gboolean);
+void chat_view_set_dark_mode(ChatView*, gboolean);
 
 G_END_DECLS

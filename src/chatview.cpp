@@ -33,6 +33,10 @@
 // Qt
 #include <QSize>
 
+
+#include <chrono>
+#include <thread>
+
 // LRC
 #include <api/contactmodel.h>
 #include <api/conversationmodel.h>
@@ -89,7 +93,19 @@ struct _ChatViewPrivate
     gulong webkit_drag_drop;
 
     bool ready_ {false};
+    bool readyToRecord_ {false};
+    bool useDarkTheme {false};
     CppImpl* cpp_;
+
+    bool video_started_by_settings;
+    GtkWidget* video_widget;
+    GtkWidget* record_popover;
+    GtkWidget* button_retry;
+    GtkWidget* button_main_action;
+    GtkWidget* label_time;
+    guint timer_duration = 0;
+    uint32_t duration = 0;
+
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ChatView, chat_view, GTK_TYPE_BOX);
@@ -141,6 +157,23 @@ chat_view_dispose(GObject *object)
     }
 
     G_OBJECT_CLASS(chat_view_parent_class)->dispose(object);
+}
+
+gboolean
+on_redraw(GtkWidget*, cairo_t*, ChatView* self)
+{
+    g_return_val_if_fail(IS_CHAT_VIEW(self), G_SOURCE_REMOVE);
+    auto* priv = CHAT_VIEW_GET_PRIVATE(CHAT_VIEW(self));
+
+    // NOTE: Use of deprecated gtk_widget_get_style cause new methods do not return theme color
+    // TODO get theme colors from another method + detect theme change
+    auto context = gtk_widget_get_style(GTK_WIDGET(self));
+    auto color = context->bg[GTK_STATE_NORMAL];
+    bool current_theme = (color.red + color.green + color.blue) / 3 < 65536 / 2;
+    if (priv->useDarkTheme != current_theme) {
+        chat_view_set_dark_mode(self, current_theme);
+    }
+    return false;
 }
 
 static void
@@ -539,6 +572,7 @@ webkit_chat_container_ready(ChatView* self)
     display_links_toggled(self);
     print_text_recording(self);
     load_participants_images(self);
+    webkit_chat_set_dark_mode(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->useDarkTheme);
 
     priv->ready_ = true;
     for (const auto& interaction: priv->cpp_->interactionsBuffer_) {
@@ -707,6 +741,13 @@ build_chat_view(ChatView* self)
         self
     );
 
+    g_signal_connect(
+        self,
+        "draw",
+        G_CALLBACK(on_redraw),
+        self
+    );
+
     priv->new_interaction_connection = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newInteraction,
     [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
@@ -762,3 +803,13 @@ chat_view_set_header_visible(ChatView *self, gboolean visible)
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     webkit_chat_set_header_visible(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), visible);
 }
+
+void
+chat_view_set_dark_mode(ChatView *self, gboolean darkMode)
+{
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    priv->useDarkTheme = darkMode;
+    if (!priv->ready_) return;
+    webkit_chat_set_dark_mode(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), darkMode);
+}
+
