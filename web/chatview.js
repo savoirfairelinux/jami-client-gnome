@@ -923,8 +923,8 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
 
     var acceptSvg = "<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z\"/></svg>",
         refuseSvg = "<svg height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>",
-        fileSvg = "<svg fill=\"#000000\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>",
-        warningSvg = "<svg fill=\"#000000\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"/></svg>"
+        fileSvg = "<svg class=\"filesvg\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>",
+        warningSvg = "<svg class=\"filesvg\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z\"/></svg>"
     var message_delivery_status = message_object["delivery_status"]
     var message_direction = message_object["direction"]
     var message_id = message_object["id"]
@@ -1224,7 +1224,10 @@ function textInteraction(message_id, htmlText) {
  * @param delivery_status the status of the message
  */
 function updateTextInteraction(message_div, delivery_status) {
-    if (!message_div.querySelector(".message_text")) return // media
+    const message_text = message_div.querySelector(".message_text")
+    if (!message_text) return // media
+    const message_in = message_text.innerHTML.toLowerCase().indexOf("incoming") !== -1
+
     var sending = message_div.querySelector(".sending")
     switch(delivery_status)
     {
@@ -1237,11 +1240,9 @@ function updateTextInteraction(message_div, delivery_status) {
             // add sending animation to message
             message_div.insertBefore(sending, message_div.querySelector(".menu_interaction"))
         }
-        message_div.querySelector(".message_text").style.color = "#888"
+        message_text.style.color = "#888"
         break
     case "failure":
-        // change text color to red
-        message_div.querySelector(".message_text").color = "#000"
         var failure_div = message_div.querySelector(".failure")
         if (!failure_div) {
             failure_div = document.createElement("div")
@@ -1250,7 +1251,10 @@ function updateTextInteraction(message_div, delivery_status) {
             // add failure animation to message
             message_div.insertBefore(failure_div, message_div.querySelector(".menu_interaction"))
         }
-        message_div.querySelector(".message_text").style.color = "#000"
+        if (message_in)
+            message_text.style.color = "var(--message-in-txt)"
+        else
+            message_text.style.color = "var(--message-out-txt)"
         if (sending) sending.style.display = "none"
         break
     case "sent":
@@ -1258,7 +1262,10 @@ function updateTextInteraction(message_div, delivery_status) {
     case "unknown":
     case "read":
         // change text color to black
-        message_div.querySelector(".message_text").style.color = "#000"
+        if (message_in)
+            message_text.style.color = "var(--message-in-txt)"
+        else
+            message_text.style.color = "var(--message-out-txt)"
         if (sending) sending.style.display = "none"
         break
     default:
@@ -2132,4 +2139,64 @@ function replaceText(text) {
     var output = [currentContent.slice(0, start), text, currentContent.slice(end)].join("")
     input.value = output
     setCaretPosition(input, start + text.length)
+}
+
+/**
+ * Change theme to light or dark
+ * @param darkMode  If we want darkTheme
+ */
+function setDarkMode(darkMode) {
+    let root = document.documentElement;
+    root.setAttribute("style", "\
+        --jami-light-blue: rgba(59, 193, 211, 0.3);\
+        --jami-dark-blue: #003b4e;\
+        --jami-green: #219d55;\
+        --jami-green-hover: #1f8b4c;\
+        --jami-red: #dc2719;\
+        --jami-red-hover: #b02e2c;\
+        --text-color: black;\
+        --timestamp-color: #333;\
+        --message-out-bg: #cfd8dc;\
+        --message-out-txt: black;\
+        --message-in-bg: #fdfdfd;\
+        --message-in-txt: black;\
+        --file-in-timestamp-color: #555;\
+        --file-out-timestamp-color: #555;\
+        --bg-color: #f2f2f2;\
+        --navbar-height: 40px;\
+        --navbar-padding-top: 8px;\
+        --navbar-padding-bottom: var(--navbar-padding-top);\
+        --textarea-max-height: 150px;\
+        --placeholder-text-color: #d3d3d3;\
+        --action-icon-color: var(--jami-dark-blue);\
+        --deactivated-icon-color: #BEBEBE;\
+        --action-icon-hover-color: var(--jami-light-blue);\
+        --action-critical-icon-hover-color: rgba(211, 77, 59, 0.3);\
+        --action-critical-icon-press-color: rgba(211, 77, 59, 0.5);\
+        --action-critical-icon-color: #4E1300;\
+        --non-action-icon-color: #212121;\
+        --action-icon-press-color: rgba(59, 193, 211, 0.5);\
+        --invite-hover-color: white;\
+        --hairline-color: #d9d9d9;\
+        --hairline-thickness: 0.2px;\
+    ")
+    if (darkMode) {
+        root.setAttribute("style", "\
+            --jami-light-blue: #003b4e;\
+            --jami-dark-blue: #28b1ed;\
+            --text-color: white;\
+            --timestamp-color: #bbb;\
+            --message-out-bg: #28b1ed;\
+            --message-out-txt: white;\
+            --message-in-bg: #616161;\
+            --message-in-txt: white;\
+            --file-in-timestamp-color: #999;\
+            --file-out-timestamp-color: #eee;\
+            --bg-color: #0c0c0c;\
+            --non-action-icon-color: white;\
+            --placeholder-text-color: #2b2b2b;\
+            --invite-hover-color: black;\
+            --hairline-color: #262626;\
+        ")
+    }
 }

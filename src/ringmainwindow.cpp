@@ -24,6 +24,7 @@
 #include <glib/gi18n.h>
 // std
 #include <algorithm>
+#include <sstream>
 
 // Qt
 #include <QSize>
@@ -117,6 +118,7 @@ struct RingMainWindowPrivate
     GtkWidget *notifier;
 
     GSettings *settings;
+    bool useDarkTheme {false};
 
     details::CppImpl* cpp; ///< Non-UI and C++ only code
 
@@ -482,6 +484,40 @@ send_text_event(RingMainWindow* self)
         priv->cpp->accountInfo_->conversationModel->sendMessage(priv->cpp->eventUid_, priv->cpp->eventBody_);
 
     return G_SOURCE_REMOVE;
+}
+
+gboolean
+on_redraw(GtkWidget*, cairo_t*, RingMainWindow* self)
+{
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), G_SOURCE_REMOVE);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    // NOTE: Use of deprecated gtk_widget_get_style cause new methods do not return theme color
+    // TODO get theme colors from another method + detect theme change
+    auto context = gtk_widget_get_style(GTK_WIDGET(self));
+    auto color = context->bg[GTK_STATE_NORMAL];
+    bool current_theme = (color.red + color.green + color.blue) / 3 < 65536 / 2;
+    if (priv->useDarkTheme != current_theme) {
+        priv->useDarkTheme = current_theme;
+
+        std::stringstream background;
+        // TODO move into a function. This is ugly
+        background << "#" << std::hex << (int)(((float)color.red / 65536.) * 256) << (int)(((float)color.green / 65536.) * 256) << (int)(((float)color.blue / 65536.) * 256);
+
+        auto provider = gtk_css_provider_new();
+        std::string background_search_entry = "background: " + background.str() + ";";
+        std::string css_style = ".search-entry-style { border: 0; border-radius: 0; } \
+        .spinner-style { border: 0; background: white; } \
+        .new-conversation-style { border: 0; " + background_search_entry + " transition: all 0.3s ease; border-radius: 0; } \
+        .new-conversation-style:hover {  background: " + (priv->useDarkTheme ? "#003b4e" : "#bae5f0") + "; }";
+        gtk_css_provider_load_from_data(provider,
+            css_style.c_str(),
+            -1, nullptr
+        );
+        gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
+                                                GTK_STYLE_PROVIDER(provider),
+                                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    }
 }
 
 static void
@@ -1289,18 +1325,7 @@ CppImpl::init()
     g_signal_connect_swapped(widgets->button_new_conversation, "clicked", G_CALLBACK(on_search_entry_activated), self);
     g_signal_connect(widgets->search_entry, "search-changed", G_CALLBACK(on_search_entry_text_changed), self);
     g_signal_connect(widgets->search_entry, "key-release-event", G_CALLBACK(on_search_entry_key_released), self);
-
-    auto provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_data(provider,
-        ".search-entry-style { border: 0; border-radius: 0; } \
-        .spinner-style { border: 0; background: white; } \
-        .new-conversation-style { border: 0; background: white; transition: all 0.3s ease; border-radius: 0; } \
-        .new-conversation-style:hover {  background: #bae5f0; }",
-        -1, nullptr
-    );
-    gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
-                                              GTK_STYLE_PROVIDER(provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    g_signal_connect(widgets->search_entry, "draw", G_CALLBACK(on_redraw), self);
 
 
     /* react to digit key press/release events */

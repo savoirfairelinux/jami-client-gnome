@@ -762,6 +762,14 @@ webkit_chat_set_header_visible(WebKitChatContainer *view, bool isVisible)
 }
 
 void
+webkit_chat_set_dark_mode(WebKitChatContainer *view, bool darkMode)
+{
+    gchar* function_call = g_strdup_printf("setDarkMode(%s)", darkMode ? "true" : "false");
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
+}
+
+void
 webkit_chat_update_chatview_frame(WebKitChatContainer *view, bool accountEnabled, bool isBanned, bool isTemporary, const gchar* alias, const gchar* bestId)
 {
     gchar* function_call = g_strdup_printf("update_chatview_frame(%s, %s, %s, \"%s\", \"%s\")",
