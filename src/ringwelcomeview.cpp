@@ -52,6 +52,8 @@ struct _RingWelcomeViewPrivate
     GtkWidget *button_qrcode;
     GtkWidget *revealer_qrcode;
 
+    bool useDarkTheme {false};
+
     AccountInfoPointer const *accountInfo_;
     QMetaObject::Connection nameRegistrationEnded_;
 
@@ -80,6 +82,8 @@ ring_welcome_update_view(RingWelcomeView* self) {
         return;
     }
 
+    auto color = priv->useDarkTheme? "white" : "black"; 
+
     // Get registeredName, else the ID
     gchar *ring_id = nullptr;
     if(! (*priv->accountInfo_)->registeredName.empty()){
@@ -87,7 +91,7 @@ ring_welcome_update_view(RingWelcomeView* self) {
             GTK_LABEL(priv->label_explanation),
             _("This is your Jami username.\nCopy and share it with your friends!")
         );
-        ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
+        ring_id = g_markup_printf_escaped("<span fgcolor=\"%s\">%s</span>", color,
                                           (*priv->accountInfo_)->registeredName.c_str());
     }
     else if (!(*priv->accountInfo_)->profileInfo.uri.empty()) {
@@ -95,7 +99,7 @@ ring_welcome_update_view(RingWelcomeView* self) {
             GTK_LABEL(priv->label_explanation),
             _("This is your ID.\nCopy and share it with your friends!")
         );
-        ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
+        ring_id = g_markup_printf_escaped("<span fgcolor=\"%s\">%s</span>", color,
                                           (*priv->accountInfo_)->profileInfo.uri.c_str());
     } else {
         gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
@@ -112,6 +116,18 @@ ring_welcome_update_view(RingWelcomeView* self) {
 
     g_free(ring_id);
 
+
+    GError *error = NULL;
+    GdkPixbuf *image_qr = gdk_pixbuf_new_from_resource_at_scale(priv->useDarkTheme? "/net/jami/JamiGnome/qrcode-white" : "/net/jami/JamiGnome/qrcode",
+                                                                  -1, 16, TRUE, &error);
+    if (!image_qr) {
+        g_warning("Could not load icon: %s", error->message);
+        g_clear_error(&error);
+    } else {
+        auto image = gtk_image_new_from_pixbuf(image_qr);
+        gtk_button_set_image(GTK_BUTTON(priv->button_qrcode), image);
+    }
+
     priv->nameRegistrationEnded_ = QObject::connect(
         (*priv->accountInfo_)->accountModel,
         &lrc::api::NewAccountModel::nameRegistrationEnded,
@@ -120,7 +136,7 @@ ring_welcome_update_view(RingWelcomeView* self) {
             if (accountId == (*priv->accountInfo_)->id
                 && status == lrc::api::account::RegisterNameStatus::SUCCESS)
                 {
-                    gchar *markup = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
+                    gchar *markup = g_markup_printf_escaped("<span fgcolor=\"%s\">%s</span>", color,
                         name.c_str());
                     gtk_label_set_markup(GTK_LABEL(priv->label_ringid), markup);
                     g_free(markup);
@@ -128,10 +144,20 @@ ring_welcome_update_view(RingWelcomeView* self) {
         });
 }
 
+void
+ring_welcome_set_theme(RingWelcomeView* self, bool useDarkTheme)
+{
+    g_return_if_fail(IS_RING_WELCOME_VIEW(self));
+    auto* priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
+    priv->useDarkTheme = useDarkTheme;
+}
+
+
 static void
 ring_welcome_view_init(RingWelcomeView *self)
 {
-    RingWelcomeViewPrivate *priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
+    g_return_if_fail(IS_RING_WELCOME_VIEW(self));
+    auto* priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
 
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(self), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 
@@ -229,7 +255,7 @@ ring_welcome_view_init(RingWelcomeView *self)
 
     /* QR code button */
     priv->button_qrcode = gtk_button_new();
-    GdkPixbuf *image_qr = gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/qrcode",
+    GdkPixbuf *image_qr = gdk_pixbuf_new_from_resource_at_scale(priv->useDarkTheme? "/net/jami/JamiGnome/qrcode-white" : "/net/jami/JamiGnome/qrcode",
                                                                   -1, 16, TRUE, &error);
     if (!image_qr) {
         g_warning("Could not load icon: %s", error->message);
