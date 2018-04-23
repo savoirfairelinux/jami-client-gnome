@@ -8,6 +8,14 @@
   --jami-green-hover: #1f8b4c;
   --jami-red: #dc2719;
   --jami-red-hover: #b02e2c;
+  --text-color: black;
+  --timestamp-color: #333;
+  --message-out-bg: #cfd8dc;
+  --message-out-txt: black;
+  --message-in-bg: #fdfdfd;
+  --message-in-txt: black;
+  --file-in-timestamp-color: #555;
+  --file-out-timestamp-color: #555;
 
   /* main properties */
   --bg-color: #f2f2f2; /* same as macOS client */
@@ -37,6 +45,30 @@
   --hairline-thickness: 0.2px;
 }
 
+/** /
+:root {
+    --jami-light-blue: #003b4e;
+    --jami-dark-blue: #28b1ed;
+    --text-color: white;
+    --timestamp-color: #bbb;
+    --message-out-bg: #28b1ed;
+    --message-out-txt: white;
+    --message-in-bg: #616161;
+    --message-in-txt: white;
+    --file-in-timestamp-color: #999;
+    --file-out-timestamp-color: #eee;
+
+    --bg-color: #0c0c0c;
+
+    --non-action-icon-color: white;
+
+    --placeholder-text-color: #2b2b2b;
+
+    --invite-hover-color: black;
+
+    --hairline-color: #262626;
+  }
+/**/
 @font-face {
     font-family: emoji;
 
@@ -64,6 +96,7 @@ body {
     --messagebar-size: 57px;
     margin: 0;
     overflow: hidden;
+    color: var(--text-color);
     background-color: var(--bg-color);
     padding-bottom: var(--messagebar-size);
     /* disable selection highlight because it looks very bad */
@@ -207,6 +240,14 @@ body {
   fill: var(--deactivated-icon-color);
 }
 
+.message_out .filesvg {
+    fill: var(--message-out-txt);
+}
+
+.message_in .filesvg {
+    fill: var(--message-in-txt);
+}
+
 .non-action-button svg {
   fill: var(--non-action-icon-color);
 }
@@ -332,7 +373,7 @@ body {
   background-color: var(--bg-color);
   border: 0;
   overflow-y: scroll;
-  color: black;
+  color: var(--text-color);
   max-height: var(--textarea-max-height);
   margin-right: 10px;
   resize: none;
@@ -407,7 +448,8 @@ a:hover {
     border: 2px solid lightgray;
     padding: 20px;
     border-bottom: none;
-    background-color: #cfdbdd;
+    color: var(--message-out-txt);
+    background-color: var(--message-out-bg);
     overflow-x: overlay;
 }
 
@@ -430,7 +472,7 @@ a:hover {
     border: 3px solid rgba(255,255,255,0);
     padding: 30px;
     border-radius: 20px;
-    background-color: #cfdbdd;
+    background-color: var(--message-out-bg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -464,7 +506,7 @@ a:hover {
 
 .img_wrapper .btn:focus {
     outline: none;
-    color: black;
+    color: var(--text-color);
 }
 
 .file_wrapper {
@@ -691,18 +733,15 @@ div.last_message > span {
 .message_out .message_wrapper {
     border-top-right-radius: 0;
     transform-origin: top right;
+    background-color: var(--message-out-bg);
+    color: var(--message-out-txt);
 }
 
 .message_in .message_wrapper {
     border-top-left-radius: 0;
     transform-origin: top left;
-}
-
-.message_out .message_wrapper {
-    background-color: #cfd8dc;
-}
-.message_in .message_wrapper {
-    background-color: #fdfdfd;
+    background-color: var(--message-in-bg);
+    color: var(--message-in-txt);
 }
 
 @-webkit-keyframes fade-in {
@@ -718,7 +757,7 @@ div.last_message > span {
     display: inline-flex;
     justify-content: flex-start;
     align-self: stretch;
-    color: #333;
+    color: var(--timestamp-color);
     font-size: 10px;
     padding: 5px;
 }
@@ -977,8 +1016,13 @@ input[type=checkbox] {
     font-size: 1.1em;
 }
 
-.message_type_data_transfer .informations {
-    color: #555;
+.message_in .informations {
+    color: var(--file-in-timestamp-color);
+    font-size: 0.8em;
+}
+
+.message_out .informations {
+    color: var(--file-out-timestamp-color);
     font-size: 0.8em;
 }
 
