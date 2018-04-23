@@ -106,6 +106,7 @@ struct RingMainWindowPrivate
     GtkWidget *webkit_chat_container; ///< The webkit_chat_container is created once, then reused for all chat views
 
     GSettings *settings;
+    bool dark_theme_enabled;
 
     details::CppImpl* cpp; ///< Non-UI and C++ only code
 };
@@ -649,6 +650,12 @@ CppImpl::init()
     gtk_window_set_default_size(GTK_WINDOW(self), width, height);
     g_signal_connect(self, "configure-event", G_CALLBACK(on_window_size_changed), nullptr);
 
+    GtkSettings *general_settings;
+    bool theme_name {false};
+    general_settings = gtk_settings_get_default();
+    g_object_get(general_settings, "gtk-application-prefer-dark-theme", theme_name, NULL);
+    widgets->dark_theme_enabled = theme_name;
+
     /* search-entry-places-call setting */
     on_search_entry_places_call_changed(widgets->settings, "search-entry-places-call", self);
     g_signal_connect(widgets->settings, "changed::search-entry-places-call",
@@ -728,11 +735,13 @@ CppImpl::init()
     g_signal_connect(widgets->search_entry, "key-release-event", G_CALLBACK(on_search_entry_key_released), self);
 
     auto provider = gtk_css_provider_new();
+    std::string background_search_entry = widgets->dark_theme_enabled? "" : " background: white;";
+    std::string css_style = ".search-entry-style { border: 0; border-radius: 0; } \
+    .spinner-style { border: 0; background: white; } \
+    .new-conversation-style { border: 0; " + background_search_entry + " transition: all 0.3s ease; border-radius: 0; } \
+    .new-conversation-style:hover {  background: #bae5f0; }";
     gtk_css_provider_load_from_data(provider,
-        ".search-entry-style { border: 0; border-radius: 0; } \
-        .spinner-style { border: 0; background: white; } \
-        .new-conversation-style { border: 0; background: white; transition: all 0.3s ease; border-radius: 0; } \
-        .new-conversation-style:hover {  background: #bae5f0; }",
+        css_style.c_str(),
         -1, nullptr
     );
     gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
