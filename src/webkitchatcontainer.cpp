@@ -762,6 +762,34 @@ webkit_chat_set_header_visible(WebKitChatContainer *view, bool isVisible)
 }
 
 void
+webkit_chat_set_dark_mode(WebKitChatContainer *view, bool darkMode, const std::string& background)
+{
+    std::string theme = "";
+    if (darkMode) {
+        theme = "\
+            --jami-light-blue: #003b4e;\
+            --jami-dark-blue: #28b1ed;\
+            --text-color: white;\
+            --timestamp-color: #bbb;\
+            --message-out-bg: #28b1ed;\
+            --message-out-txt: white;\
+            --message-in-bg: #616161;\
+            --message-in-txt: white;\
+            --file-in-timestamp-color: #999;\
+            --file-out-timestamp-color: #eee;\
+            --bg-color: " + background + ";\
+            --non-action-icon-color: white;\
+            --placeholder-text-color: #2b2b2b;\
+            --invite-hover-color: black;\
+            --hairline-color: #262626;\
+        ";
+    }
+    gchar* function_call = g_strdup_printf("setTheme(\"%s\")", theme.c_str());
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
+}
+
+void
 webkit_chat_update_chatview_frame(WebKitChatContainer *view, bool accountEnabled, bool isBanned, bool isTemporary, const gchar* alias, const gchar* bestId)
 {
     gchar* function_call = g_strdup_printf("update_chatview_frame(%s, %s, %s, \"%s\", \"%s\")",

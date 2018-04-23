@@ -41,5 +41,6 @@ typedef struct _RingWelcomeViewClass RingWelcomeViewClass;
 GType             ring_welcome_view_get_type (void) G_GNUC_CONST;
 GtkWidget*        ring_welcome_view_new      (AccountInfoPointer const & accountInfo);
 void              ring_welcome_update_view   (RingWelcomeView* self);
+void              ring_welcome_set_theme     (RingWelcomeView* self, bool useDarkTheme);
 
 G_END_DECLS

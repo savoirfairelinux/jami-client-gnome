@@ -63,6 +63,8 @@ struct _ConversationsViewPrivate
 
     GtkWidget* popupMenu_;
 
+    bool useDarkTheme {false};
+
     QMetaObject::Connection selection_updated;
     QMetaObject::Connection layout_changed;
     QMetaObject::Connection modelSortedConnection_;
@@ -143,6 +145,8 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     auto contactUri = conversation.participants.front();
     auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
 
+    auto grey = priv->useDarkTheme? "#bbb" : "#666";
+
     gtk_tree_model_get (model, iter,
                         0 /* col# */, &uid /* data */,
                         1 /* col# */, &alias /* data */,
@@ -161,23 +165,27 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     } else if (std::string(alias).empty()) {
         // If no alias to show, use the best id
         text = g_markup_printf_escaped(
-            "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
+            "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"%s\">%s</span>",
             bestId,
+            grey,
             lastInteraction
         );
     } else if (std::string(alias) == std::string(bestId)) {
         // If the alias and the best id are identical, show only the alias
         text = g_markup_printf_escaped(
-            "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
+            "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"%s\">%s</span>",
             alias,
+            grey,
             lastInteraction
         );
     } else {
         // If the alias is not empty and not equals to the best id, show both the alias and the best id
         text = g_markup_printf_escaped(
-            "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
+            "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"%s\">%s</span>\n<span size=\"smaller\" color=\"%s\">%s</span>",
             alias,
+            grey,
             bestId,
+            grey,
             lastInteraction
         );
     }
@@ -783,3 +791,11 @@ conversations_view_get_current_selected(ConversationsView *self)
     }
     return -1;
 }
+
+void
+conversations_view_set_theme(ConversationsView *self, bool darkTheme) {
+    g_return_if_fail(IS_CONVERSATIONS_VIEW(self));
+    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
+    priv->useDarkTheme = darkTheme;
+}
+
