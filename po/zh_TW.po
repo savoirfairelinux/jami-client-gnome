@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-16 03:09-0400\n"
-"PO-Revision-Date: 2018-04-16 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-04-23 03:09-0400\n"
+"PO-Revision-Date: 2018-04-16 23:40+0000\n"
+"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -311,7 +311,7 @@ msgstr "在搜尋項目中輸入號碼將會打一通新電話。"
 
 #: ui/generalsettingsview.ui:163
 msgid "Download folder:"
-msgstr ""
+msgstr "下載資料夾："
 
 #: ui/generalsettingsview.ui:190
 msgid "Show chat on the right."
@@ -769,7 +769,7 @@ msgstr "恢復"
 msgid "Set selection as image"
 msgstr "設定選擇為圖片"
 
-#: src/ring_client.cpp:144
+#: src/ring_client.cpp:146
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -777,17 +777,17 @@ msgid ""
 "Error: %s"
 msgstr "無法初始化。\n請確定 Ring 幕後程式 (dring) 正在執行。\n錯誤：%s"
 
-#: src/ring_client.cpp:147
+#: src/ring_client.cpp:149
 msgid "Ring Error"
 msgstr "Ring 錯誤"
 
-#: src/ring_client.cpp:290
+#: src/ring_client.cpp:292
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr "顯示 Ring"
 
-#: src/ring_client.cpp:294
+#: src/ring_client.cpp:296
 msgid "Quit"
 msgstr "結束"
 
@@ -874,7 +874,7 @@ msgstr "這是一個破壞性的操作。您確定您想要刪除您所有的聊
 
 #: src/generalsettingsview.cpp:183
 msgid "Choose download folder"
-msgstr ""
+msgstr "選擇下載資料夾"
 
 #: src/generalsettingsview.cpp:186 src/accountgeneraltab.cpp:186
 #: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
@@ -1027,17 +1027,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:495
+#: src/ringmainwindow.cpp:498
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "開始通話"
 
-#: src/ringmainwindow.cpp:498
+#: src/ringmainwindow.cpp:501
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "開啟聊天"
 
-#: src/ringmainwindow.cpp:746
+#: src/ringmainwindow.cpp:749
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"

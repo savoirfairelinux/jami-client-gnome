@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-16 03:09-0400\n"
+"POT-Creation-Date: 2018-04-23 03:09-0400\n"
 "PO-Revision-Date: 2018-04-16 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/savoirfairelinux/ring/language/et_EE/)\n"
@@ -766,7 +766,7 @@ msgstr ""
 msgid "Set selection as image"
 msgstr ""
 
-#: src/ring_client.cpp:144
+#: src/ring_client.cpp:146
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -774,17 +774,17 @@ msgid ""
 "Error: %s"
 msgstr ""
 
-#: src/ring_client.cpp:147
+#: src/ring_client.cpp:149
 msgid "Ring Error"
 msgstr ""
 
-#: src/ring_client.cpp:290
+#: src/ring_client.cpp:292
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr ""
 
-#: src/ring_client.cpp:294
+#: src/ring_client.cpp:296
 msgid "Quit"
 msgstr ""
 
@@ -1024,17 +1024,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr ""
 
-#: src/ringmainwindow.cpp:495
+#: src/ringmainwindow.cpp:498
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:498
+#: src/ringmainwindow.cpp:501
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/ringmainwindow.cpp:746
+#: src/ringmainwindow.cpp:749
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
