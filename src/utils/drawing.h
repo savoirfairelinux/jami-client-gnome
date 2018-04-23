@@ -44,4 +44,6 @@ enum class IconStatus {
 };
 GdkPixbuf *ring_draw_status(const GdkPixbuf *avatar, IconStatus status);
 
+GdkRGBA get_ambient_color(GtkWidget* widget);
+
 #endif /* _DRAWING */
