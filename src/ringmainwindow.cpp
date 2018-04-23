@@ -24,6 +24,7 @@
 #include <glib/gi18n.h>
 // std
 #include <algorithm>
+#include <sstream>
 
 // Qt
 #include <QSize>
@@ -56,6 +57,7 @@
 #include "mediasettingsview.h"
 #include "models/gtkqtreemodel.h"
 #include "ringwelcomeview.h"
+#include "utils/drawing.h"
 #include "utils/files.h"
 #include "ringnotify.h"
 #include "accountinfopointer.h"
@@ -113,10 +115,13 @@ struct RingMainWindowPrivate
     GtkWidget *treeview_contact_requests;
     GtkWidget *scrolled_window_contact_requests;
     GtkWidget *webkit_chat_container; ///< The webkit_chat_container is created once, then reused for all chat views
+    GtkWidget *image_contact_requests_list;
+    GtkWidget *image_conversations_list;
 
     GtkWidget *notifier;
 
     GSettings *settings;
+    bool useDarkTheme {false};
 
     details::CppImpl* cpp; ///< Non-UI and C++ only code
 
@@ -483,6 +488,47 @@ send_text_event(RingMainWindow* self)
         priv->cpp->accountInfo_->conversationModel->sendMessage(priv->cpp->eventUid_, priv->cpp->eventBody_);
 
     return G_SOURCE_REMOVE;
+}
+
+gboolean
+on_redraw(GtkWidget*, cairo_t*, RingMainWindow* self)
+{
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), G_SOURCE_REMOVE);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    auto color = get_ambient_color(GTK_WIDGET(self));
+    bool current_theme = (color.red + color.green + color.blue) / 3 < .5;
+    conversations_view_set_theme(CONVERSATIONS_VIEW(priv->treeview_conversations), current_theme);
+    if (priv->useDarkTheme != current_theme) {
+        ring_welcome_set_theme(RING_WELCOME_VIEW(priv->welcome_view), current_theme);
+        ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view));
+
+        gtk_image_set_from_resource(GTK_IMAGE(priv->image_contact_requests_list), current_theme?
+            "/net/jami/JamiGnome/contact_requests_list_white" : "/net/jami/JamiGnome/contact_requests_list");
+        gtk_image_set_from_resource(GTK_IMAGE(priv->image_conversations_list), current_theme?
+            "/net/jami/JamiGnome/conversations_list_white" : "/net/jami/JamiGnome/conversations_list");
+
+        priv->useDarkTheme = current_theme;
+
+        std::stringstream background;
+        background << "#" << std::hex << (int)(color.red * 256)
+                          << (int)(color.green * 256)
+                          << (int)(color.blue * 256);
+
+        auto provider = gtk_css_provider_new();
+        std::string background_search_entry = "background: " + background.str() + ";";
+        std::string css_style = ".search-entry-style { border: 0; border-radius: 0; } \
+        .spinner-style { border: 0; background: white; } \
+        .new-conversation-style { border: 0; " + background_search_entry + " transition: all 0.3s ease; border-radius: 0; } \
+        .new-conversation-style:hover {  background: " + (priv->useDarkTheme ? "#003b4e" : "#bae5f0") + "; }";
+        gtk_css_provider_load_from_data(provider,
+            css_style.c_str(),
+            -1, nullptr
+        );
+        gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
+                                                  GTK_STYLE_PROVIDER(provider),
+                                                  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    }
 }
 
 static void
@@ -1290,18 +1336,7 @@ CppImpl::init()
     g_signal_connect_swapped(widgets->button_new_conversation, "clicked", G_CALLBACK(on_search_entry_activated), self);
     g_signal_connect(widgets->search_entry, "search-changed", G_CALLBACK(on_search_entry_text_changed), self);
     g_signal_connect(widgets->search_entry, "key-release-event", G_CALLBACK(on_search_entry_key_released), self);
-
-    auto provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_data(provider,
-        ".search-entry-style { border: 0; border-radius: 0; } \
-        .spinner-style { border: 0; background: white; } \
-        .new-conversation-style { border: 0; background: white; transition: all 0.3s ease; border-radius: 0; } \
-        .new-conversation-style:hover {  background: #bae5f0; }",
-        -1, nullptr
-    );
-    gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
-                                              GTK_STYLE_PROVIDER(provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    g_signal_connect(widgets->search_entry, "draw", G_CALLBACK(on_redraw), self);
 
 
     /* react to digit key press/release events */
@@ -2842,6 +2877,8 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_new_account_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_account_selector);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contact_requests);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_contact_requests_list);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_conversations_list);
 }
 
 GtkWidget *

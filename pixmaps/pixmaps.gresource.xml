@@ -30,7 +30,9 @@
     <file alias="quality">ic_high_quality_white_24px.svg</file>
     <file alias="contacts_list">ic_people_black_24px.svg</file>
     <file alias="conversations_list">ic_question_answer_black_24px.svg</file>
+    <file alias="conversations_list_white">ic_question_answer_white_24px.svg</file>
     <file alias="contact_requests_list">ic_verified_user_black_24px_with_notification.svg</file>
+    <file alias="contact_requests_list_white">ic_verified_user_white_24px_with_notification.svg</file>
     <file alias="history_list">ic_history_black_24px.svg</file>
     <file alias="add">add.svg</file>
     <file alias="reject">reject.svg</file>
@@ -54,6 +56,7 @@
     <file alias="bottom_arrow">bottom_arrow.svg</file>
     <file alias="up_arrow">up_arrow.svg</file>
     <file alias="qrcode">qrcode.svg</file>
+    <file alias="qrcode-white">qrcode-white.png</file>
     <file alias="retry">retry.svg</file>
   </gresource>
 </gresources>
