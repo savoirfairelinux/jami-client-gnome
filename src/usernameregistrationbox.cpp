@@ -110,6 +110,7 @@ username_registration_box_init(UsernameRegistrationBox *view)
 
             // compare to the current username entry
             const auto username_lookup = gtk_entry_get_text(GTK_ENTRY(priv->entry_username));
+
             if (name.compare(username_lookup) != 0) {
                 // assume result is for older lookup
                 return;
@@ -118,6 +119,14 @@ username_registration_box_init(UsernameRegistrationBox *view)
             //We may now stop the spinner
             gtk_spinner_stop(GTK_SPINNER(priv->spinner));
             gtk_widget_hide(priv->spinner);
+
+            // We don't want to display any icon/label in case of empty lookup
+            if (!username_lookup || !*username_lookup) {
+                gtk_widget_set_sensitive(priv->button_register_username, FALSE);
+                gtk_widget_hide(priv->label_status);
+                gtk_widget_hide(priv->icon_username_availability);
+                return;
+            }
 
             switch(status)
             {
@@ -239,6 +248,7 @@ entry_username_changed(UsernameRegistrationBox *view)
         if (strlen(username) == 0) {
             // don't lookup empty username
             gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon_username_availability), "error", GTK_ICON_SIZE_SMALL_TOOLBAR);
+            gtk_widget_set_tooltip_text(priv->icon_username_availability, _("The entered username is not valid"));
             gtk_widget_show(priv->icon_username_availability);
 
             gtk_widget_hide(priv->spinner);
