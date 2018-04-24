@@ -1270,6 +1270,7 @@ CppImpl::slotAccountRemovedFromLrc(const std::string& id)
 
     auto accounts = lrc_->getAccountModel().getAccountList();
     if (accounts.empty()) {
+        leaveSettingsView();
         enterAccountCreationWizard();
         return;
     }
