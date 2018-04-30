@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-23 03:09-0400\n"
-"PO-Revision-Date: 2018-04-16 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-04-30 03:09-0400\n"
+"PO-Revision-Date: 2018-04-24 21:44+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/savoirfairelinux/ring/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -256,7 +256,7 @@ msgstr "Dette passordet vil brukes til å kryptere din kontodata og lenke nye en
 msgid "Generating your Ring account..."
 msgstr "Lager din Ring-konto…"
 
-#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:313
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:323
 msgid "Registering username..."
 msgstr "Registrerer brukernavn…"
 
@@ -310,7 +310,7 @@ msgstr "Inntasting av nummer i søkefeltet vil utføre ny samtale."
 
 #: ui/generalsettingsview.ui:163
 msgid "Download folder:"
-msgstr ""
+msgstr "Nedlastingsmappe:"
 
 #: ui/generalsettingsview.ui:190
 msgid "Show chat on the right."
@@ -805,63 +805,63 @@ msgctxt "Text message notification"
 msgid "%s says:"
 msgstr "%s sier:"
 
-#: src/usernameregistrationbox.cpp:128
+#: src/usernameregistrationbox.cpp:137
 msgid "The entered username is not available"
 msgstr "Innskrevet brukernavn er ikke tilgjengelig"
 
-#: src/usernameregistrationbox.cpp:129
+#: src/usernameregistrationbox.cpp:138
 msgid "Username is not available"
 msgstr "Brukernavnet er ikke tilgjengelig"
 
-#: src/usernameregistrationbox.cpp:138
+#: src/usernameregistrationbox.cpp:147 src/usernameregistrationbox.cpp:251
 msgid "The entered username is not valid"
 msgstr "Innskrevet brukernavn er ikke gyldig"
 
-#: src/usernameregistrationbox.cpp:139
+#: src/usernameregistrationbox.cpp:148
 msgid "Username is not valid"
 msgstr "Brukernavnet er ikke gyldig"
 
-#: src/usernameregistrationbox.cpp:148
+#: src/usernameregistrationbox.cpp:157
 msgid "The entered username is available"
 msgstr "Innskrevet brukernavn er tilgjengelig"
 
-#: src/usernameregistrationbox.cpp:149
+#: src/usernameregistrationbox.cpp:158
 msgid "Username is available"
 msgstr "Brukernavnet er tilgjengelig"
 
-#: src/usernameregistrationbox.cpp:158
+#: src/usernameregistrationbox.cpp:167
 msgid "Failed to perform lookup"
 msgstr "Klarte ikke å utføre oppslag"
 
-#: src/usernameregistrationbox.cpp:159
+#: src/usernameregistrationbox.cpp:168
 msgid "Could not lookup username"
 msgstr "Kunne ikke sjekke brukernavn"
 
-#: src/usernameregistrationbox.cpp:251
+#: src/usernameregistrationbox.cpp:261
 msgid "Looking up username availability..."
 msgstr "Sjekker hvorvidt brukernavnet er tilgjengelig…"
 
-#: src/usernameregistrationbox.cpp:322
+#: src/usernameregistrationbox.cpp:332
 msgid "Could not initiate name registration, try again."
 msgstr "Kunne ikke igangsette navneregistrering, prøv igjen."
 
-#: src/usernameregistrationbox.cpp:364
+#: src/usernameregistrationbox.cpp:374
 msgid "Register this username on the blockchain"
 msgstr "Registrer dette brukernavnet på blokkjeden"
 
-#: src/usernameregistrationbox.cpp:400
+#: src/usernameregistrationbox.cpp:410
 msgid "Invalid username"
 msgstr "Ugyldig brukernavn"
 
-#: src/usernameregistrationbox.cpp:407 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:417 src/accountdevicestab.cpp:195
 msgid "Bad password"
 msgstr "Dårlig passord"
 
-#: src/usernameregistrationbox.cpp:414
+#: src/usernameregistrationbox.cpp:424
 msgid "Username already taken"
 msgstr "Brukernavnet er allerede i bruk"
 
-#: src/usernameregistrationbox.cpp:421
+#: src/usernameregistrationbox.cpp:431
 msgid "Network error"
 msgstr "Nettverksfeil"
 
@@ -873,7 +873,7 @@ msgstr "Dette er en ødeleggende operasjon. Er du sikker på at du vil slette al
 
 #: src/generalsettingsview.cpp:183
 msgid "Choose download folder"
-msgstr ""
+msgstr "Velg nedlastingsmappe"
 
 #: src/generalsettingsview.cpp:186 src/accountgeneraltab.cpp:186
 #: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
@@ -1002,7 +1002,7 @@ msgid ""
 "built on %.25s"
 msgstr "\"In varietate concordia\"\nbygd den %.25s"
 
-#: src/dialogs.c:134
+#: src/dialogs.c:137
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."

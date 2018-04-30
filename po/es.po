@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# advocatux, 2018
 # alexlikerock <alexlikerock@gmail.com>, 2017
 # Blanca Iris Almagro, 2016
 # Blanca Iris Almagro, 2016
@@ -31,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-23 03:09-0400\n"
-"PO-Revision-Date: 2018-04-16 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-04-30 03:09-0400\n"
+"PO-Revision-Date: 2018-04-24 08:26+0000\n"
+"Last-Translator: advocatux\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +56,7 @@ msgstr "Crear nuevo"
 
 #: ui/accountmigrationview.ui:14
 msgid "Account migration required"
-msgstr "Es precisa la migración de la cuenta"
+msgstr "Se necesita la migración de la cuenta"
 
 #: ui/accountmigrationview.ui:39
 msgid "Alias:"
@@ -278,7 +279,7 @@ msgstr "La contraseña se utilizará para cifrar los datos de tu cuenta y para c
 msgid "Generating your Ring account..."
 msgstr "Generando tu cuenta Ring..."
 
-#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:313
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:323
 msgid "Registering username..."
 msgstr "Registrando nombre de usuario..."
 
@@ -332,7 +333,7 @@ msgstr "Teclear un número en el cuadro de búsqueda hará una llamada."
 
 #: ui/generalsettingsview.ui:163
 msgid "Download folder:"
-msgstr ""
+msgstr "Carpeta de descargas:"
 
 #: ui/generalsettingsview.ui:190
 msgid "Show chat on the right."
@@ -500,7 +501,7 @@ msgstr "Codecs de vídeo"
 
 #: ui/accountadvancedtab.ui:93
 msgid "Auto-answer and UPnP"
-msgstr ""
+msgstr "Respuesta automática y UPnP"
 
 #: ui/accountadvancedtab.ui:129
 msgid "Registration expire timeout (seconds):"
@@ -577,7 +578,7 @@ msgstr "dominio"
 
 #: ui/accountadvancedtab.ui:552
 msgid "Use Proxy"
-msgstr ""
+msgstr "Usar proxy"
 
 #: ui/accountadvancedtab.ui:605
 msgid "Published Address"
@@ -684,11 +685,11 @@ msgstr "Confirmar contraseña"
 
 #: ui/accountgeneraltab.ui:291
 msgid "Export account"
-msgstr ""
+msgstr "Exportar la cuenta"
 
 #: ui/accountgeneraltab.ui:304
 msgid "Choose destination..."
-msgstr ""
+msgstr "Elegir destino..."
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming..."
@@ -827,63 +828,63 @@ msgctxt "Text message notification"
 msgid "%s says:"
 msgstr "%s dice:"
 
-#: src/usernameregistrationbox.cpp:128
+#: src/usernameregistrationbox.cpp:137
 msgid "The entered username is not available"
 msgstr "El nombre de usuario tecleado no está disponible"
 
-#: src/usernameregistrationbox.cpp:129
+#: src/usernameregistrationbox.cpp:138
 msgid "Username is not available"
 msgstr "Nombre de usuario no disponible"
 
-#: src/usernameregistrationbox.cpp:138
+#: src/usernameregistrationbox.cpp:147 src/usernameregistrationbox.cpp:251
 msgid "The entered username is not valid"
 msgstr "El nombre de usuario tecleado no es válido"
 
-#: src/usernameregistrationbox.cpp:139
+#: src/usernameregistrationbox.cpp:148
 msgid "Username is not valid"
 msgstr "Nombre de usuario no válido"
 
-#: src/usernameregistrationbox.cpp:148
+#: src/usernameregistrationbox.cpp:157
 msgid "The entered username is available"
 msgstr "El nombre de usuario tecleado está disponible"
 
-#: src/usernameregistrationbox.cpp:149
+#: src/usernameregistrationbox.cpp:158
 msgid "Username is available"
 msgstr "Nombre de usuario disponible"
 
-#: src/usernameregistrationbox.cpp:158
+#: src/usernameregistrationbox.cpp:167
 msgid "Failed to perform lookup"
 msgstr "No se pudo llevar a cabo la búsqueda"
 
-#: src/usernameregistrationbox.cpp:159
+#: src/usernameregistrationbox.cpp:168
 msgid "Could not lookup username"
 msgstr "No se pudo buscar el nombre de usuario"
 
-#: src/usernameregistrationbox.cpp:251
+#: src/usernameregistrationbox.cpp:261
 msgid "Looking up username availability..."
 msgstr "Comprobando disponibilidad del nombre de usuario..."
 
-#: src/usernameregistrationbox.cpp:322
+#: src/usernameregistrationbox.cpp:332
 msgid "Could not initiate name registration, try again."
 msgstr "No se ha podido iniciar el registro del nombre, inténtelo de nuevo."
 
-#: src/usernameregistrationbox.cpp:364
+#: src/usernameregistrationbox.cpp:374
 msgid "Register this username on the blockchain"
 msgstr "Registrar este nombre de usuario en la cadena de bloques"
 
-#: src/usernameregistrationbox.cpp:400
+#: src/usernameregistrationbox.cpp:410
 msgid "Invalid username"
 msgstr "Nombre de usuario no válido"
 
-#: src/usernameregistrationbox.cpp:407 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:417 src/accountdevicestab.cpp:195
 msgid "Bad password"
 msgstr "Contraseña errónea"
 
-#: src/usernameregistrationbox.cpp:414
+#: src/usernameregistrationbox.cpp:424
 msgid "Username already taken"
 msgstr "El nombre de usuario ya está en uso"
 
-#: src/usernameregistrationbox.cpp:421
+#: src/usernameregistrationbox.cpp:431
 msgid "Network error"
 msgstr "Error en la red"
 
@@ -895,7 +896,7 @@ msgstr "Esta es una operación irreversible. ¿Estás seguro de eliminar todo el
 
 #: src/generalsettingsview.cpp:183
 msgid "Choose download folder"
-msgstr ""
+msgstr "Elegir la carpeta de descargas"
 
 #: src/generalsettingsview.cpp:186 src/accountgeneraltab.cpp:186
 #: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
@@ -905,7 +906,7 @@ msgstr "_Cancelar"
 #: src/generalsettingsview.cpp:188 src/accountgeneraltab.cpp:188
 #: src/chatview.cpp:179
 msgid "_Save"
-msgstr ""
+msgstr "_Guardar"
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
@@ -942,7 +943,7 @@ msgstr "Guardar fichero"
 
 #: src/accountgeneraltab.cpp:208
 msgid "File exported to destination: "
-msgstr ""
+msgstr "Archivo exportado al destino:"
 
 #: src/accountgeneraltab.cpp:222
 msgid "New password and its confirmation are different"
@@ -990,15 +991,15 @@ msgstr "Número de Mensaje de Voz"
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
-msgstr ""
+msgstr "Compartir el área de _pantalla"
 
 #: src/video/video_widget.cpp:577
 msgid "Share _monitor"
-msgstr ""
+msgstr "Compartir el _monitor"
 
 #: src/video/video_widget.cpp:588
 msgid "Stream _file"
-msgstr ""
+msgstr "_Archivo de transmisión"
 
 #: src/video/video_widget.cpp:601
 msgid "Show advanced information"
@@ -1022,9 +1023,9 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"In varietate concordia\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"In varietate concordia\"\nconstruido en %.25s"
 
-#: src/dialogs.c:134
+#: src/dialogs.c:137
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1109,11 +1110,11 @@ msgstr "Frecuencia de muestreo"
 
 #: src/conversationpopupmenu.cpp:181
 msgid "Place _video call"
-msgstr ""
+msgstr "Hacer una _videoconferencia"
 
 #: src/conversationpopupmenu.cpp:184
 msgid "Place _audio call"
-msgstr ""
+msgstr "Hacer una llamada de _voz"
 
 #: src/conversationpopupmenu.cpp:190
 msgid "_Add to conversations"
@@ -1198,7 +1199,7 @@ msgstr "Código QR identificador Ring"
 
 #: src/chatview.cpp:174
 msgid "Send File"
-msgstr ""
+msgstr "Enviar archivo"
 
 #: src/currentcallview.cpp:781
 msgctxt "Enable automatic video quality"

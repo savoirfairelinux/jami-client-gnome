@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-23 03:09-0400\n"
+"POT-Creation-Date: 2018-04-30 03:09-0400\n"
 "PO-Revision-Date: 2018-04-16 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
@@ -257,7 +257,7 @@ msgstr "Ez a jelszó a fiókadatainak titkosítására lesz használva, és arra
 msgid "Generating your Ring account..."
 msgstr "A Ring fiókja létrehozása…"
 
-#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:313
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:323
 msgid "Registering username..."
 msgstr "Felhasználónév regisztrálása…"
 
@@ -806,63 +806,63 @@ msgctxt "Text message notification"
 msgid "%s says:"
 msgstr "%s üzenete:"
 
-#: src/usernameregistrationbox.cpp:128
+#: src/usernameregistrationbox.cpp:137
 msgid "The entered username is not available"
 msgstr "A beírt felhasználónév nem érhető el"
 
-#: src/usernameregistrationbox.cpp:129
+#: src/usernameregistrationbox.cpp:138
 msgid "Username is not available"
 msgstr "A felhasználónév nem érhető el"
 
-#: src/usernameregistrationbox.cpp:138
+#: src/usernameregistrationbox.cpp:147 src/usernameregistrationbox.cpp:251
 msgid "The entered username is not valid"
 msgstr "A beírt felhasználónév érvénytelen"
 
-#: src/usernameregistrationbox.cpp:139
+#: src/usernameregistrationbox.cpp:148
 msgid "Username is not valid"
 msgstr "A felhasználónév érvénytelen"
 
-#: src/usernameregistrationbox.cpp:148
+#: src/usernameregistrationbox.cpp:157
 msgid "The entered username is available"
 msgstr "A beírt felhasználónév elérhető"
 
-#: src/usernameregistrationbox.cpp:149
+#: src/usernameregistrationbox.cpp:158
 msgid "Username is available"
 msgstr "A felhasználónév elérhető"
 
-#: src/usernameregistrationbox.cpp:158
+#: src/usernameregistrationbox.cpp:167
 msgid "Failed to perform lookup"
 msgstr "A kikeresés meghiúsult"
 
-#: src/usernameregistrationbox.cpp:159
+#: src/usernameregistrationbox.cpp:168
 msgid "Could not lookup username"
 msgstr "A felhasználónév nem kereshető ki"
 
-#: src/usernameregistrationbox.cpp:251
+#: src/usernameregistrationbox.cpp:261
 msgid "Looking up username availability..."
 msgstr "Felhasználónév elérhetőségének ellenőrzése…"
 
-#: src/usernameregistrationbox.cpp:322
+#: src/usernameregistrationbox.cpp:332
 msgid "Could not initiate name registration, try again."
 msgstr "A regisztráció elindítása nem sikerült, próbálja újra."
 
-#: src/usernameregistrationbox.cpp:364
+#: src/usernameregistrationbox.cpp:374
 msgid "Register this username on the blockchain"
 msgstr "A felhasználónév regisztrálása a blokkláncon"
 
-#: src/usernameregistrationbox.cpp:400
+#: src/usernameregistrationbox.cpp:410
 msgid "Invalid username"
 msgstr "Érvénytelen felhasználónév"
 
-#: src/usernameregistrationbox.cpp:407 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:417 src/accountdevicestab.cpp:195
 msgid "Bad password"
 msgstr "Hibás jelszó"
 
-#: src/usernameregistrationbox.cpp:414
+#: src/usernameregistrationbox.cpp:424
 msgid "Username already taken"
 msgstr "A felhasználónév már regisztrálva van"
 
-#: src/usernameregistrationbox.cpp:421
+#: src/usernameregistrationbox.cpp:431
 msgid "Network error"
 msgstr "Hálózati hiba"
 
@@ -1003,7 +1003,7 @@ msgid ""
 "built on %.25s"
 msgstr ""
 
-#: src/dialogs.c:134
+#: src/dialogs.c:137
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."

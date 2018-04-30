@@ -11,6 +11,7 @@
 # Natalia <sonaux@gmail.com>, 2015
 # ruwebstyle <ruwebstyle@ya.ru>, 2015
 # Viktor Filinkov <bruteforce@sigil.tk>, 2015
+# Vladimir Stoiakin, 2018
 # Yaroslav Molochko <onorua@gmail.com>, 2015
 # Александр, 2017
 # Александр Суслов <suslikkreal@gmail.com>, 2015
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-23 03:09-0400\n"
-"PO-Revision-Date: 2018-04-16 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-04-30 03:09-0400\n"
+"PO-Revision-Date: 2018-04-28 14:53+0000\n"
+"Last-Translator: Vladimir Stoiakin\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -217,7 +218,7 @@ msgstr "Введите ваш PIN:"
 
 #: ui/accountcreationwizard.ui:174
 msgid "Or import a file:"
-msgstr ""
+msgstr "Или импортируйте из файла:"
 
 #: ui/accountcreationwizard.ui:193
 msgid "Enter your password:"
@@ -268,7 +269,7 @@ msgstr "Этот пароль будет использован для шифр�
 msgid "Generating your Ring account..."
 msgstr "Создание вашего аккаунта Ring..."
 
-#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:313
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:323
 msgid "Registering username..."
 msgstr "Регистрация имени пользователя…"
 
@@ -322,7 +323,7 @@ msgstr "Осуществлять звонок при вводе номера в 
 
 #: ui/generalsettingsview.ui:163
 msgid "Download folder:"
-msgstr ""
+msgstr "Папка для загрузок:"
 
 #: ui/generalsettingsview.ui:190
 msgid "Show chat on the right."
@@ -490,7 +491,7 @@ msgstr "Видео кодеки"
 
 #: ui/accountadvancedtab.ui:93
 msgid "Auto-answer and UPnP"
-msgstr ""
+msgstr "Автоответчик и UPnP"
 
 #: ui/accountadvancedtab.ui:129
 msgid "Registration expire timeout (seconds):"
@@ -567,7 +568,7 @@ msgstr "область "
 
 #: ui/accountadvancedtab.ui:552
 msgid "Use Proxy"
-msgstr ""
+msgstr "Использовать прокси"
 
 #: ui/accountadvancedtab.ui:605
 msgid "Published Address"
@@ -617,11 +618,11 @@ msgstr "Регистрация"
 
 #: ui/accountbanstab.ui:18
 msgid "List of banned peers :"
-msgstr ""
+msgstr "Список заблокированных пиров:"
 
 #: ui/accountbanstab.ui:62
 msgid "unban"
-msgstr ""
+msgstr "Разблокировать"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -633,7 +634,7 @@ msgstr "Сделать звонок"
 
 #: ui/chatview.ui:62
 msgid "Place audio-only call"
-msgstr ""
+msgstr "Сделать аудиозвонок"
 
 #: ui/chatview.ui:75
 msgid "Add to conversations"
@@ -654,15 +655,15 @@ msgstr "Параметры"
 #: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
 #: src/accountgeneraltab.cpp:168 src/accountgeneraltab.cpp:234
 msgid "Change password"
-msgstr ""
+msgstr "Изменить пароль"
 
 #: ui/accountgeneraltab.ui:175
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "Замечание: это изменит пароль только на данном устройстве."
 
 #: ui/accountgeneraltab.ui:194
 msgid "Current password"
-msgstr ""
+msgstr "Текущий пароль"
 
 #: ui/accountgeneraltab.ui:214
 msgid "New password"
@@ -674,11 +675,11 @@ msgstr "Подтвердить пароль"
 
 #: ui/accountgeneraltab.ui:291
 msgid "Export account"
-msgstr ""
+msgstr "Экспортировать аккаунт"
 
 #: ui/accountgeneraltab.ui:304
 msgid "Choose destination..."
-msgstr ""
+msgstr "Выберите папку назначения…"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming..."
@@ -786,7 +787,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Ring daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Ошибка инициализации.\nУбедитесь, что демон Ring (dring) запущен.\nКод ошибки: %s"
 
 #: src/ring_client.cpp:149
 msgid "Ring Error"
@@ -796,11 +797,11 @@ msgstr "Ошибка Ring"
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
-msgstr ""
+msgstr "Показать Ring"
 
 #: src/ring_client.cpp:296
 msgid "Quit"
-msgstr ""
+msgstr "Выход"
 
 #: src/ringnotify.cpp:156
 msgid "Incoming call"
@@ -817,63 +818,63 @@ msgctxt "Text message notification"
 msgid "%s says:"
 msgstr "%s сказал:"
 
-#: src/usernameregistrationbox.cpp:128
+#: src/usernameregistrationbox.cpp:137
 msgid "The entered username is not available"
 msgstr "Указанное имя пользователя недоступно"
 
-#: src/usernameregistrationbox.cpp:129
+#: src/usernameregistrationbox.cpp:138
 msgid "Username is not available"
 msgstr "Имя пользователя недоступно"
 
-#: src/usernameregistrationbox.cpp:138
+#: src/usernameregistrationbox.cpp:147 src/usernameregistrationbox.cpp:251
 msgid "The entered username is not valid"
 msgstr "Указанное имя пользователя недопустимо"
 
-#: src/usernameregistrationbox.cpp:139
+#: src/usernameregistrationbox.cpp:148
 msgid "Username is not valid"
 msgstr "Недопустимое имя пользователя"
 
-#: src/usernameregistrationbox.cpp:148
+#: src/usernameregistrationbox.cpp:157
 msgid "The entered username is available"
 msgstr "Указанное имя пользователя доступно"
 
-#: src/usernameregistrationbox.cpp:149
+#: src/usernameregistrationbox.cpp:158
 msgid "Username is available"
 msgstr "Имя пользователя доступно"
 
-#: src/usernameregistrationbox.cpp:158
+#: src/usernameregistrationbox.cpp:167
 msgid "Failed to perform lookup"
 msgstr "Не удалось осуществить поиск"
 
-#: src/usernameregistrationbox.cpp:159
+#: src/usernameregistrationbox.cpp:168
 msgid "Could not lookup username"
 msgstr "Не удалось найти имя пользователя"
 
-#: src/usernameregistrationbox.cpp:251
+#: src/usernameregistrationbox.cpp:261
 msgid "Looking up username availability..."
 msgstr "Проверка доступности имени пользователя…"
 
-#: src/usernameregistrationbox.cpp:322
+#: src/usernameregistrationbox.cpp:332
 msgid "Could not initiate name registration, try again."
 msgstr "Не удалось инициировать регистрацию имени, попробуйте снова."
 
-#: src/usernameregistrationbox.cpp:364
+#: src/usernameregistrationbox.cpp:374
 msgid "Register this username on the blockchain"
 msgstr "Зарегистрировать это имя в блокчейн"
 
-#: src/usernameregistrationbox.cpp:400
+#: src/usernameregistrationbox.cpp:410
 msgid "Invalid username"
 msgstr "Недопустимое имя пользователя"
 
-#: src/usernameregistrationbox.cpp:407 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:417 src/accountdevicestab.cpp:195
 msgid "Bad password"
 msgstr "Недопустимый пароль"
 
-#: src/usernameregistrationbox.cpp:414
+#: src/usernameregistrationbox.cpp:424
 msgid "Username already taken"
 msgstr "Имя пользователя уже занято"
 
-#: src/usernameregistrationbox.cpp:421
+#: src/usernameregistrationbox.cpp:431
 msgid "Network error"
 msgstr "Ошибка сети"
 
@@ -885,7 +886,7 @@ msgstr "Это разрушительная операция. Вы уверен�
 
 #: src/generalsettingsview.cpp:183
 msgid "Choose download folder"
-msgstr ""
+msgstr "Выберите папку для загрузок"
 
 #: src/generalsettingsview.cpp:186 src/accountgeneraltab.cpp:186
 #: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
@@ -895,7 +896,7 @@ msgstr "_Отмена"
 #: src/generalsettingsview.cpp:188 src/accountgeneraltab.cpp:188
 #: src/chatview.cpp:179
 msgid "_Save"
-msgstr ""
+msgstr "_Сохранить"
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
@@ -932,19 +933,19 @@ msgstr "Сохранить файл"
 
 #: src/accountgeneraltab.cpp:208
 msgid "File exported to destination: "
-msgstr ""
+msgstr "Файл экспортирован в:"
 
 #: src/accountgeneraltab.cpp:222
 msgid "New password and its confirmation are different"
-msgstr ""
+msgstr "Новый пароль и его подтверждение не совпадают"
 
 #: src/accountgeneraltab.cpp:232
 msgid "Password changed!"
-msgstr ""
+msgstr "Пароль изменён!"
 
 #: src/accountgeneraltab.cpp:235
 msgid "Incorrect password"
-msgstr ""
+msgstr "Неверный пароль"
 
 #: src/accountgeneraltab.cpp:260
 msgid "Alias"
@@ -980,11 +981,11 @@ msgstr "Номер голосовой почты"
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
-msgstr ""
+msgstr "Показать _область экрана"
 
 #: src/video/video_widget.cpp:577
 msgid "Share _monitor"
-msgstr ""
+msgstr "Показать _экран"
 
 #: src/video/video_widget.cpp:588
 msgid "Stream _file"
@@ -1012,9 +1013,9 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"In varietate concordia\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"In varietate concordia\"\nсобрано %.25s"
 
-#: src/dialogs.c:134
+#: src/dialogs.c:137
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1099,11 +1100,11 @@ msgstr "Частота дискретизации"
 
 #: src/conversationpopupmenu.cpp:181
 msgid "Place _video call"
-msgstr ""
+msgstr "Сделать _видеозвонок"
 
 #: src/conversationpopupmenu.cpp:184
 msgid "Place _audio call"
-msgstr ""
+msgstr "Сделать _аудиозвонок"
 
 #: src/conversationpopupmenu.cpp:190
 msgid "_Add to conversations"
@@ -1111,23 +1112,23 @@ msgstr ""
 
 #: src/conversationpopupmenu.cpp:194
 msgid "_Discard invitation"
-msgstr ""
+msgstr "_Отклонить приглашение"
 
 #: src/conversationpopupmenu.cpp:197
 msgid "_Block invitations"
-msgstr ""
+msgstr "За_блокировать приглашения"
 
 #: src/conversationpopupmenu.cpp:202
 msgid "C_lear history"
-msgstr ""
+msgstr "_Очистить историю"
 
 #: src/conversationpopupmenu.cpp:205
 msgid "_Remove conversation"
-msgstr ""
+msgstr "_Удалить разговор"
 
 #: src/conversationpopupmenu.cpp:208
 msgid "_Block contact"
-msgstr ""
+msgstr "За_блокировать контакт"
 
 #: src/conversationpopupmenu.cpp:213
 msgid "_Copy name"
@@ -1188,7 +1189,7 @@ msgstr "Ring ID QR код"
 
 #: src/chatview.cpp:174
 msgid "Send File"
-msgstr ""
+msgstr "Отправить файл"
 
 #: src/currentcallview.cpp:781
 msgctxt "Enable automatic video quality"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-23 03:09-0400\n"
+"POT-Creation-Date: 2018-04-30 03:09-0400\n"
 "PO-Revision-Date: 2018-04-16 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/savoirfairelinux/ring/language/it_IT/)\n"
@@ -258,7 +258,7 @@ msgstr "Questa password verrà utilizzata per crittografare i tuoi dati dell'acc
 msgid "Generating your Ring account..."
 msgstr "Generazione del tuo account Ring..."
 
-#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:313
+#: ui/accountcreationwizard.ui:487 src/usernameregistrationbox.cpp:323
 msgid "Registering username..."
 msgstr "Registro nome utente..."
 
@@ -807,63 +807,63 @@ msgctxt "Text message notification"
 msgid "%s says:"
 msgstr "%s dice:"
 
-#: src/usernameregistrationbox.cpp:128
+#: src/usernameregistrationbox.cpp:137
 msgid "The entered username is not available"
 msgstr "Il nome utente inserito non è disponibile"
 
-#: src/usernameregistrationbox.cpp:129
+#: src/usernameregistrationbox.cpp:138
 msgid "Username is not available"
 msgstr "Nome utente non disponibile"
 
-#: src/usernameregistrationbox.cpp:138
+#: src/usernameregistrationbox.cpp:147 src/usernameregistrationbox.cpp:251
 msgid "The entered username is not valid"
 msgstr "Il nome utente inserito non è valido"
 
-#: src/usernameregistrationbox.cpp:139
+#: src/usernameregistrationbox.cpp:148
 msgid "Username is not valid"
 msgstr "Nome utente non valido"
 
-#: src/usernameregistrationbox.cpp:148
+#: src/usernameregistrationbox.cpp:157
 msgid "The entered username is available"
 msgstr "Il nome utente inserito è disponibile"
 
-#: src/usernameregistrationbox.cpp:149
+#: src/usernameregistrationbox.cpp:158
 msgid "Username is available"
 msgstr "Nome utente disponibile"
 
-#: src/usernameregistrationbox.cpp:158
+#: src/usernameregistrationbox.cpp:167
 msgid "Failed to perform lookup"
 msgstr "Non è stato possibile eseguire la ricerca"
 
-#: src/usernameregistrationbox.cpp:159
+#: src/usernameregistrationbox.cpp:168
 msgid "Could not lookup username"
 msgstr "Non è stato possibile cercare il nome utente"
 
-#: src/usernameregistrationbox.cpp:251
+#: src/usernameregistrationbox.cpp:261
 msgid "Looking up username availability..."
 msgstr "Ricerca disponibilità del nome utente..."
 
-#: src/usernameregistrationbox.cpp:322
+#: src/usernameregistrationbox.cpp:332
 msgid "Could not initiate name registration, try again."
 msgstr "Non è stato possibile iniziare la registrazione del nome, riprova"
 
-#: src/usernameregistrationbox.cpp:364
+#: src/usernameregistrationbox.cpp:374
 msgid "Register this username on the blockchain"
 msgstr "Registra questo nome utente nella blockchain"
 
-#: src/usernameregistrationbox.cpp:400
+#: src/usernameregistrationbox.cpp:410
 msgid "Invalid username"
 msgstr "Nome utente non valido"
 
-#: src/usernameregistrationbox.cpp:407 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:417 src/accountdevicestab.cpp:195
 msgid "Bad password"
 msgstr "Password scarsa"
 
-#: src/usernameregistrationbox.cpp:414
+#: src/usernameregistrationbox.cpp:424
 msgid "Username already taken"
 msgstr "Il nome utente è già utilizzato"
 
-#: src/usernameregistrationbox.cpp:421
+#: src/usernameregistrationbox.cpp:431
 msgid "Network error"
 msgstr "Errore di rete"
 
@@ -1004,7 +1004,7 @@ msgid ""
 "built on %.25s"
 msgstr ""
 
-#: src/dialogs.c:134
+#: src/dialogs.c:137
 msgid ""
 "The GNOME client for Ring.\n"
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
