@@ -398,6 +398,32 @@ print_text_recording(ChatView *self)
 }
 
 static void
+update_if_banned(ChatView *self)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    if (!priv->conversation_) return;
+    auto participant = priv->conversation_->participants[0];
+    try {
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(participant);
+        if (contactInfo.isBanned) {
+            gtk_widget_set_sensitive (priv->button_placecall, FALSE);
+            gtk_widget_set_tooltip_text(priv->button_placecall, "Can't place call with banned contact");
+            gtk_widget_set_sensitive (priv->button_add_to_conversations, FALSE);
+            gtk_widget_set_tooltip_text(priv->button_add_to_conversations, "Can't add banned contact to conversations");
+            gtk_widget_set_sensitive (priv->button_place_audio_call, FALSE);
+            gtk_widget_set_tooltip_text(priv->button_place_audio_call, "Can't place audio call with banned contact");
+        } else {
+            gtk_widget_set_sensitive (priv->button_placecall, TRUE);
+            gtk_widget_set_sensitive (priv->button_add_to_conversations, TRUE);
+            gtk_widget_set_sensitive (priv->button_place_audio_call, TRUE);
+        }
+    } catch (const std::out_of_range&) {
+        // ContactModel::getContact() exception
+    }
+}
+
+static void
 update_add_to_conversations(ChatView *self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
@@ -521,6 +547,7 @@ build_chat_view(ChatView* self)
     update_name(self);
     update_add_to_conversations(self);
     update_contact_methods(self);
+    update_if_banned(self);
 
     priv->webkit_ready = g_signal_connect_swapped(
         priv->webkit_chat_container,
@@ -538,7 +565,6 @@ build_chat_view(ChatView* self)
         webkit_chat_container_ready(self);
 
     gtk_widget_set_visible(priv->hbox_chat_info, TRUE);
-
 }
 
 GtkWidget *
