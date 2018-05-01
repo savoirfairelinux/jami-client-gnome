@@ -376,6 +376,7 @@ ring.chatview = (function(){
      */
     function isErrorStatus(status) {
       return (status === 'failure'
+             || status === 'awaiting peer timeout'
              || status === 'canceled'
              || status === 'unjoinable peer');
     }
@@ -478,7 +479,7 @@ ring.chatview = (function(){
        // Update flat buttons
        var left_buttons = message_div.querySelector(".left_buttons");
        left_buttons.innerHTML = '';
-       if (message_delivery_status.indexOf('awaiting') === 0 || message_delivery_status.indexOf('ongoing') === 0) {
+       if (message_delivery_status === 'awaiting peer' || message_delivery_status === 'awaiting host' || message_delivery_status.indexOf('ongoing') === 0) {
          if (message_direction === 'in' && message_delivery_status.indexOf('ongoing') !== 0) {
            // add buttons to accept or refuse a call.
            var accept_button = document.createElement('div');
