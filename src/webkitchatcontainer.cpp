@@ -223,6 +223,9 @@ build_interaction_json(lrc::api::ConversationModel& conversation_model,
     case lrc::api::interaction::Status::TRANSFER_AWAITING_HOST:
         interaction_object.insert("delivery_status", QJsonValue("awaiting host"));
         break;
+    case lrc::api::interaction::Status::TRANSFER_TIMEOUT_EXPIRED:
+        interaction_object.insert("delivery_status", QJsonValue("awaiting peer timeout"));
+        break;
     case lrc::api::interaction::Status::TRANSFER_FINISHED:
         interaction_object.insert("delivery_status", QJsonValue("finished"));
         break;
