@@ -152,6 +152,18 @@ ring.chatview = (function(){
     }
 
     /**
+     * Change the value of the progress bar
+     */
+    function hideMessageBar(isHidden) {
+        const messageBar = document.querySelector('#sendMessage');
+        if (isHidden) {
+            messageBar.style.visibility = 'hidden';
+        } else {
+            messageBar.style.visibility = 'visible';
+        }
+    }
+
+    /**
      * Accept an invite
      */
     function acceptInvitation()
@@ -1018,6 +1030,7 @@ ring.chatview = (function(){
         blockConversation: blockConversation,
         showInvitation: showInvitation,
         hideInvitation: hideInvitation,
+        hideMessageBar: hideMessageBar,
         disableSendMessage: disableSendMessage,
         updateTimestamps: updateTimestamps,
         sendFile: sendFile,
