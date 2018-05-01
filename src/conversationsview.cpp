@@ -114,7 +114,7 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                                  GtkCellRenderer *cell,
                                  GtkTreeModel *model,
                                  GtkTreeIter *iter,
-                                 G_GNUC_UNUSED GtkTreeView *treeview)
+                                 GtkTreeView *treeview)
 {
     gchar *alias;
     gchar *registeredName;
@@ -122,6 +122,18 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     gchar *text;
     gchar *uid;
     gchar *uri;
+
+    // Get active conversation
+    auto path = gtk_tree_model_get_path(model, iter);
+    auto row = std::atoi(gtk_tree_path_to_string(path));
+    if (row == -1) return;
+
+    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(treeview);
+    if (!priv) return;
+
+    auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(row);
+    auto contactUri = conversation.participants.front();
+    auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
 
     gtk_tree_model_get (model, iter,
                         0 /* col# */, &uid /* data */,
@@ -132,7 +144,13 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                         -1);
 
     auto bestId = std::string(registeredName).empty() ? uri: registeredName;
-    if (std::string(alias).empty()) {
+    if (contactInfo.isBanned) {
+        // Contact is banned, display it clearly
+        text = g_markup_printf_escaped(
+            "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" font_weight=\"bold\" color=\"#ed5136\">Banned contact</span>",
+            bestId
+        );
+    } else if (std::string(alias).empty()) {
         // For conversations with contacts with no alias
         text = g_markup_printf_escaped(
             "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
