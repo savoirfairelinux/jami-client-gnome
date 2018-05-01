@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_80beeffd",
+        "filename": "src/accountinfopointer.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 3
+      },
+      "writtenOn": "2018-05-01T15:48:04Z",
+      "side": 1,
+      "message": "the coding rules for this projet requires type name to start with an uppercase letter.\nThe  notation used here is for global variables",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 58
+      },
+      "revId": "99e6eb5a913a14635112696fb3d4f9d2e219cb7a",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
