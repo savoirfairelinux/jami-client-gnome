@@ -563,6 +563,20 @@ webkit_chat_disable_send_interaction(WebKitChatContainer *view, bool isDisabled)
     );
 }
 
+void
+webkit_chat_hide_message_bar(WebKitChatContainer *view, bool isHidden)
+{
+    auto priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+    gchar* function_call = g_strdup_printf("ring.chatview.hideMessageBar(%s);", isHidden ? "true" : "false");
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+}
 
 void
 webkit_chat_container_clear_sender_images(WebKitChatContainer *view)

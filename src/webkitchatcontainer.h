@@ -53,6 +53,7 @@ void       webkit_chat_container_set_sender_image     (WebKitChatContainer *view
 gboolean   webkit_chat_container_is_ready             (WebKitChatContainer *view);
 void       webkit_chat_container_set_display_links    (WebKitChatContainer *view, bool display);
 void       webkit_chat_disable_send_interaction       (WebKitChatContainer *view, bool isDisabled);
+void       webkit_chat_hide_message_bar               (WebKitChatContainer *view, bool isHidden);
 void       webkit_chat_container_set_temporary        (WebKitChatContainer *view, bool temporary);
 void       webkit_chat_container_set_invitation       (WebKitChatContainer *view, bool show, const std::string& contactUri);
 
