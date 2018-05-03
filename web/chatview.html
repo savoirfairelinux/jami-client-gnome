@@ -1108,6 +1108,17 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
           `dropdown_${message_id}`
         ]
         dropdown.setAttribute('class', dropdown_classes.join(' '))
+
+        if (isErrorStatus(delivery_status) && message_direction == 'out') {
+          const retry = document.createElement('div')
+          retry.innerHTML = 'Retry'
+          retry.msg_id = message_id
+          retry.onclick = function() {
+            window.prompt(`RETRY_INTERACTION:${this.msg_id}`)
+          }
+          dropdown.appendChild(retry)
+        }
+
         const remove = document.createElement('div')
         remove.innerHTML = 'Delete'
         remove.msg_id = message_id
@@ -1115,6 +1126,7 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
           window.prompt(`DELETE_INTERACTION:${this.msg_id}`)
         }
         dropdown.appendChild(remove)
+
         menu_element.appendChild(dropdown)
         if (message_type !== 'call') {
           message_div.appendChild(menu_element)
