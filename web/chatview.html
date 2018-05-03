@@ -865,7 +865,6 @@ function textInteraction(message_id, htmlText) {
  * Update a text interaction (text)
  * @param message_div the message to update
  * @param delivery_status the status of the message
- * @TODO retry button
  */
 function updateTextInteraction(message_div, delivery_status) {
     if (!message_div.querySelector(".message_text")) return // media
@@ -1109,13 +1108,16 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
             `dropdown_${message_id}`
         ]
         dropdown.setAttribute("class", dropdown_classes.join(" "))
+
         const remove = document.createElement("div")
+        remove.setAttribute("class", "delete")
         remove.innerHTML = "Delete"
         remove.msg_id = message_id
         remove.onclick = function() {
             window.prompt(`DELETE_INTERACTION:${this.msg_id}`)
         }
         dropdown.appendChild(remove)
+
         menu_element.appendChild(dropdown)
         if (message_type !== "call") {
             message_div.appendChild(menu_element)
@@ -1156,6 +1158,17 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
                 messages.insertBefore(message_div, messages.firstChild)
             }
         }
+    }
+
+    if (isErrorStatus(delivery_status) && message_direction === "out") {
+        const dropdown = document.querySelector(`.dropdown_${message_id}`)
+        const retry = document.createElement("div")
+        retry.innerHTML = "Retry"
+        retry.msg_id = message_id
+        retry.onclick = function() {
+            window.prompt(`RETRY_INTERACTION:${this.msg_id}`)
+        }
+        dropdown.insertBefore(retry, message_div.querySelector(".delete"))
     }
 
     // Update informations if needed
