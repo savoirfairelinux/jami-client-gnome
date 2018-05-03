@@ -279,6 +279,14 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         } catch (...) {
             g_warning("delete interaction failed: can't find %s", order.substr(std::string("DELETE_INTERACTION:").size()).c_str());
         }
+    } else if (order.find("RETRY_INTERACTION:") == 0) {
+        try {
+            auto interactionId = std::stoull(order.substr(std::string("RETRY_INTERACTION:").size()));
+            if (!priv->conversation_) return;
+            (*priv->accountInfo_)->conversationModel->retryInteraction(priv->conversation_->uid, interactionId);
+        } catch (...) {
+            g_warning("delete interaction failed: can't find %s", order.substr(std::string("RETRY_INTERACTION:").size()).c_str());
+        }
     }
 }
 
