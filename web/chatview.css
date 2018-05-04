@@ -550,6 +550,7 @@ pre {
   max-width: 800px;
   max-height: 700px;
   margin: 5px 0 0 0;
+  border-radius: 10px;
 }
 
 .playVideo {
