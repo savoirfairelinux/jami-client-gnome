@@ -1395,13 +1395,21 @@ CppImpl::slotFilterChanged()
     // Get if conversation still exists.
     auto& conversationModel = accountInfo_->conversationModel;
     auto conversations = conversationModel->allFilteredConversations();
-    auto isInConv = std::find_if(
+    auto conversation = std::find_if(
         conversations.begin(), conversations.end(),
         [current_item](const lrc::api::conversation::Info& conversation) {
             return current_item.uid == conversation.uid;
         });
-    if (IS_CHAT_VIEW(old_view) && isInConv == conversations.end()) {
-        changeView(RING_WELCOME_VIEW_TYPE);
+    bool isInConv = conversation == conversations.end();
+
+    if (IS_CHAT_VIEW(old_view)) {
+        if (isInConv) {
+            changeView(RING_WELCOME_VIEW_TYPE);
+        } else {
+            /* Refresh chat view. In some cases (like when a contact is unbanned)
+               a changing filter also implies the need of redrawing the chat */
+            changeView(CHAT_VIEW_TYPE, *conversation);
+        }
     }
 }
 
