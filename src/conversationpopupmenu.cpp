@@ -23,11 +23,17 @@
 #include <glib/gi18n.h>
 
 // Lrc
+#include <accountmodel.h>
+#include <bannedcontactmodel.h>
+#include <contactmethod.h>
 #include <api/conversationmodel.h>
 #include <api/contactmodel.h>
 #include <api/contact.h>
 
 #include "accountinfopointer.h"
+
+// Qt
+#include <QItemSelectionModel>
 
 struct _ConversationPopupMenu
 {
@@ -95,6 +101,29 @@ remove_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate*
     {
         auto conversationUid = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_).uid;
         (*priv->accountInfo_)->conversationModel->removeConversation(conversationUid);
+    }
+    catch (...)
+    {
+        g_warning("Can't get conversation at row %i", priv->row_);
+    }
+}
+
+static void
+unblock_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
+{
+    try
+    {
+        auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
+        auto uri = conversation.participants[0];
+
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(uri);
+
+        if (!contactInfo.isBanned) {
+            g_debug("unblock_conversation: trying to unban a contact which isn't banned !");
+            return;
+        }
+
+        (*priv->accountInfo_)->contactModel->addContact(contactInfo);
     }
     catch (...)
     {
@@ -179,13 +208,17 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
         // we always build a menu, however in some cases some or all of the conversations will be deactivated
         // we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case
         auto callId = conversation.confId.empty() ? conversation.callId : conversation.confId;
+
         // Not in call
-        auto place_video_call_conversation = gtk_menu_item_new_with_mnemonic(_("Place _video call"));
-        gtk_menu_shell_append(GTK_MENU_SHELL(self), place_video_call_conversation);
-        g_signal_connect(place_video_call_conversation, "activate", G_CALLBACK(place_video_call), priv);
-        auto place_audio_call_conversation = gtk_menu_item_new_with_mnemonic(_("Place _audio call"));
-        gtk_menu_shell_append(GTK_MENU_SHELL(self), place_audio_call_conversation);
-        g_signal_connect(place_audio_call_conversation, "activate", G_CALLBACK(place_audio_call), priv);
+        if (!contactInfo.isBanned) {
+            auto place_video_call_conversation = gtk_menu_item_new_with_mnemonic(_("Place _video call"));
+            gtk_menu_shell_append(GTK_MENU_SHELL(self), place_video_call_conversation);
+            g_signal_connect(place_video_call_conversation, "activate", G_CALLBACK(place_video_call), priv);
+            auto place_audio_call_conversation = gtk_menu_item_new_with_mnemonic(_("Place _audio call"));
+            gtk_menu_shell_append(GTK_MENU_SHELL(self), place_audio_call_conversation);
+            g_signal_connect(place_audio_call_conversation, "activate", G_CALLBACK(place_audio_call), priv);
+        }
+
         if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY ||
             contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING) {
             // If we can add this conversation
@@ -207,9 +240,16 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
             auto rm_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Remove conversation"));
             gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_conversation_item);
             g_signal_connect(rm_conversation_item, "activate", G_CALLBACK(remove_conversation), priv);
-            auto block_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Block contact"));
-            gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
-            g_signal_connect(block_conversation_item, "activate", G_CALLBACK(block_conversation), priv);
+
+            if (!contactInfo.isBanned) {
+                auto block_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Block contact"));
+                gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
+                g_signal_connect(block_conversation_item, "activate", G_CALLBACK(block_conversation), priv);
+            } else {
+                auto block_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Unblock contact"));
+                gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
+                g_signal_connect(block_conversation_item, "activate", G_CALLBACK(unblock_conversation), priv);
+            }
         }
 
         auto copy_name = gtk_menu_item_new_with_mnemonic(_("_Copy name"));
