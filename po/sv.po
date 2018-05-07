@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-30 03:09-0400\n"
+"POT-Creation-Date: 2018-05-07 03:09-0400\n"
 "PO-Revision-Date: 2018-04-16 09:14+0000\n"
 "Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/ring/language/sv/)\n"
@@ -864,22 +864,22 @@ msgstr "Användarnamnet finns redan"
 msgid "Network error"
 msgstr "Nätverksfel"
 
-#: src/generalsettingsview.cpp:113
+#: src/generalsettingsview.cpp:114
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Detta är en destruktiv åtgärd. Vill du verkligen ta bort all din chatt- och samtalshistorik?"
 
-#: src/generalsettingsview.cpp:183
+#: src/generalsettingsview.cpp:184
 msgid "Choose download folder"
 msgstr "Välj nerladdningsmapp"
 
-#: src/generalsettingsview.cpp:186 src/accountgeneraltab.cpp:186
+#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:186
 #: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
 msgid "_Cancel"
 msgstr "_Avbryt"
 
-#: src/generalsettingsview.cpp:188 src/accountgeneraltab.cpp:188
+#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:188
 #: src/chatview.cpp:179
 msgid "_Save"
 msgstr "_Spara"
@@ -1025,17 +1025,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:498
+#: src/ringmainwindow.cpp:502
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "starta samtal"
 
-#: src/ringmainwindow.cpp:501
+#: src/ringmainwindow.cpp:505
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "öppna chatt"
 
-#: src/ringmainwindow.cpp:749
+#: src/ringmainwindow.cpp:782
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1084,39 +1084,39 @@ msgstr "Namn"
 msgid "Samplerate"
 msgstr "Samplingsfrekvens"
 
-#: src/conversationpopupmenu.cpp:181
+#: src/conversationpopupmenu.cpp:183
 msgid "Place _video call"
 msgstr "Placera  _videosamtal"
 
-#: src/conversationpopupmenu.cpp:184
+#: src/conversationpopupmenu.cpp:186
 msgid "Place _audio call"
 msgstr "Placera _röstsamtal"
 
-#: src/conversationpopupmenu.cpp:190
+#: src/conversationpopupmenu.cpp:192
 msgid "_Add to conversations"
 msgstr "_Lägg till i konversationer"
 
-#: src/conversationpopupmenu.cpp:194
+#: src/conversationpopupmenu.cpp:196
 msgid "_Discard invitation"
 msgstr "_Avvisa inbjudan"
 
-#: src/conversationpopupmenu.cpp:197
+#: src/conversationpopupmenu.cpp:199
 msgid "_Block invitations"
 msgstr "_Blockera inbjudningar"
 
-#: src/conversationpopupmenu.cpp:202
+#: src/conversationpopupmenu.cpp:204
 msgid "C_lear history"
 msgstr "_Rensa historiken"
 
-#: src/conversationpopupmenu.cpp:205
+#: src/conversationpopupmenu.cpp:207
 msgid "_Remove conversation"
 msgstr "_Ta bort konversation"
 
-#: src/conversationpopupmenu.cpp:208
+#: src/conversationpopupmenu.cpp:210
 msgid "_Block contact"
 msgstr "B_lockera kontakt"
 
-#: src/conversationpopupmenu.cpp:213
+#: src/conversationpopupmenu.cpp:215
 msgid "_Copy name"
 msgstr "_Kopiera namn"
 
@@ -1149,26 +1149,26 @@ msgstr "Okänd"
 msgid "Passwords don't match"
 msgstr "Lösenorden stämmer inte"
 
-#: src/ringwelcomeview.cpp:88
+#: src/ringwelcomeview.cpp:85
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
 msgstr "Detta är ditt Ring-användarnamn.\nKopiera och dela det med dina vänner!"
 
-#: src/ringwelcomeview.cpp:96
+#: src/ringwelcomeview.cpp:93
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
 msgstr "Detta är ditt Ring-ID.\nKopiera och dela det med dina vänner!"
 
-#: src/ringwelcomeview.cpp:151
+#: src/ringwelcomeview.cpp:148
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
 msgstr "Ring är fri mjukvara för universell kommunikation, med respekt för användarens frihet och integritet."
 
-#: src/ringwelcomeview.cpp:205
+#: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring-ID som QR-kod"

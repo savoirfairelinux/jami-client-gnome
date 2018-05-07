@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-30 03:09-0400\n"
+"POT-Creation-Date: 2018-05-07 03:09-0400\n"
 "PO-Revision-Date: 2018-04-16 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Indonesian (http://www.transifex.com/savoirfairelinux/ring/language/id/)\n"
@@ -863,22 +863,22 @@ msgstr ""
 msgid "Network error"
 msgstr ""
 
-#: src/generalsettingsview.cpp:113
+#: src/generalsettingsview.cpp:114
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr ""
 
-#: src/generalsettingsview.cpp:183
+#: src/generalsettingsview.cpp:184
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:186 src/accountgeneraltab.cpp:186
+#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:186
 #: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
 msgid "_Cancel"
 msgstr ""
 
-#: src/generalsettingsview.cpp:188 src/accountgeneraltab.cpp:188
+#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:188
 #: src/chatview.cpp:179
 msgid "_Save"
 msgstr ""
@@ -1024,17 +1024,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr ""
 
-#: src/ringmainwindow.cpp:498
+#: src/ringmainwindow.cpp:502
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:501
+#: src/ringmainwindow.cpp:505
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/ringmainwindow.cpp:749
+#: src/ringmainwindow.cpp:782
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1083,39 +1083,39 @@ msgstr "Nama"
 msgid "Samplerate"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:181
+#: src/conversationpopupmenu.cpp:183
 msgid "Place _video call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:184
+#: src/conversationpopupmenu.cpp:186
 msgid "Place _audio call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:190
+#: src/conversationpopupmenu.cpp:192
 msgid "_Add to conversations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:194
+#: src/conversationpopupmenu.cpp:196
 msgid "_Discard invitation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:197
+#: src/conversationpopupmenu.cpp:199
 msgid "_Block invitations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:202
+#: src/conversationpopupmenu.cpp:204
 msgid "C_lear history"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:205
+#: src/conversationpopupmenu.cpp:207
 msgid "_Remove conversation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:208
+#: src/conversationpopupmenu.cpp:210
 msgid "_Block contact"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:213
+#: src/conversationpopupmenu.cpp:215
 msgid "_Copy name"
 msgstr ""
 
@@ -1148,26 +1148,26 @@ msgstr "Tidak diketahui"
 msgid "Passwords don't match"
 msgstr ""
 
-#: src/ringwelcomeview.cpp:88
+#: src/ringwelcomeview.cpp:85
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
 msgstr ""
 
-#: src/ringwelcomeview.cpp:96
+#: src/ringwelcomeview.cpp:93
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
 msgstr ""
 
-#: src/ringwelcomeview.cpp:151
+#: src/ringwelcomeview.cpp:148
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
 msgstr ""
 
-#: src/ringwelcomeview.cpp:205
+#: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr ""
