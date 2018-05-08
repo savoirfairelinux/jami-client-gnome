@@ -1117,12 +1117,12 @@ CppImpl::changeAccountSelection(const std::string& id)
 void
 CppImpl::onAccountSelectionChange(const std::string& id)
 {
-    // Reinit LRC
-    updateLrc(id);
     // Go to welcome view
     changeView(RING_WELCOME_VIEW_TYPE);
     // Show conversation panel
     gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
+    // Reinit LRC
+    updateLrc(id);
     // Update the welcome view
     ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
 }
