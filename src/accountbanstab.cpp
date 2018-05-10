@@ -23,6 +23,8 @@
 
 // LRC
 #include <accountmodel.h>
+#include <api/contactmodel.h>
+#include <api/contact.h>
 #include <bannedcontactmodel.h>
 #include <contactmethod.h>
 #include <personmodel.h>
@@ -60,6 +62,8 @@ typedef struct _AccountBansTabPrivate AccountBansTabPrivate;
  */
 struct _AccountBansTabPrivate
 {
+    AccountInfoPointer const *accountInfo_;
+
     Account   *account;
     GtkWidget *scrolled_window_bans_tab;
     GtkWidget *treeview_bans;
@@ -112,20 +116,17 @@ button_unban_clicked(AccountBansTab* view)
     GtkTreeIter iter;
 
     if (gtk_tree_selection_get_selected(tsel , &tm , &iter)) {
-        /* get Account */
-        const auto idx_account = AccountModel::instance().selectionModel()->currentIndex();
-        auto account = idx_account.data(static_cast<int>(Account::Role::Object)).value<Account*>();
+        // get uri of contact to unban
+        gchar *uri;
+        gtk_tree_model_get (tm, &iter,
+                            0 /* col# */, &uri /* data */,
+                            -1);
 
-        /* get ContactMethod */
-        const auto idx_cm = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(gtk_tree_view_get_model(treeview)), &iter);
-        auto cm = idx_cm.data(static_cast<int>(ContactMethod::Role::Object)).value<ContactMethod*>();
+        // get contactInfo
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(std::string(uri));
 
-        if (not cm or not account) {
-            g_error("cannot unban, invalid pointer(s). cm(%p), account(%p)", cm, account);
-            return;
-        }
-
-        account->bannedContactModel()->remove(cm);
+        // unban contact
+        (*priv->accountInfo_)->contactModel->addContact(contactInfo);
     }
 }
 
@@ -175,7 +176,7 @@ account_bans_tab_class_init(AccountBansTabClass *klass)
  * gtk new function
  */
 GtkWidget *
-account_bans_tab_new(Account *account)
+account_bans_tab_new(Account *account, AccountInfoPointer const & accountInfo)
 {
     g_return_val_if_fail(account != NULL, NULL);
 
@@ -183,6 +184,9 @@ account_bans_tab_new(Account *account)
 
     AccountBansTabPrivate *priv = ACCOUNT_BANS_TAB_GET_PRIVATE(view);
     priv->account = account;
+
+    priv->accountInfo_ = &accountInfo;
+    set_accountInfo_pointer((BannedContactsView*) priv->treeview_bans, *priv->accountInfo_);
 
     return (GtkWidget *)view;
 }

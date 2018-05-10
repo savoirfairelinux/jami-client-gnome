@@ -21,6 +21,8 @@
 
 #include <gtk/gtk.h>
 
+#include "accountinfopointer.h"
+
 class Account;
 
 G_BEGIN_DECLS
@@ -35,6 +37,6 @@ typedef struct _AccountBansTab      AccountBansTab;
 typedef struct _AccountBansTabClass AccountBansTabClass;
 
 GType      account_bans_tab_get_type      (void) G_GNUC_CONST;
-GtkWidget *account_bans_tab_new           (Account *account);
+GtkWidget *account_bans_tab_new           (Account *account, AccountInfoPointer const & accountInfo);
 
 G_END_DECLS

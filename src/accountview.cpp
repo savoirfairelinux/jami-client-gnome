@@ -53,6 +53,8 @@ typedef struct _AccountViewPrivate AccountViewPrivate;
 
 struct _AccountViewPrivate
 {
+    AccountInfoPointer const *accountInfo_;
+
     GtkWidget *treeview_account_list;
     GtkWidget *stack_account;
     GtkWidget *button_remove_account;
@@ -181,7 +183,7 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
                                  gtk_label_new(C_("Account settings", "Advanced")));
 
         if (account->protocol() == Account::Protocol::RING) {
-            auto banned_tab = create_scrolled_account_view(account_bans_tab_new(account));
+            auto banned_tab = create_scrolled_account_view(account_bans_tab_new(account, *priv->accountInfo_));
             gtk_widget_show(banned_tab);
             gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                      banned_tab,
@@ -539,7 +541,11 @@ account_view_class_init(AccountViewClass *klass)
 }
 
 GtkWidget *
-account_view_new(void)
+account_view_new(AccountInfoPointer const & accountInfo)
 {
-    return (GtkWidget *)g_object_new(ACCOUNT_VIEW_TYPE, NULL);
+    auto view = g_object_new(ACCOUNT_VIEW_TYPE, NULL);
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
+    priv->accountInfo_ = &accountInfo;
+
+    return (GtkWidget *) view;
 }

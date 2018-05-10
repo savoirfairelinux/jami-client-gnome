@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2017-2018 Savoir-faire Linux Inc.
  *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
+ *  Author: Hugo Lefeuvre <hugo.lefeuvre@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,6 +22,8 @@
 
 #include <gtk/gtk.h>
 
+#include "accountinfopointer.h"
+
 G_BEGIN_DECLS
 
 #define BANNED_CONTACTS_VIEW_TYPE            (banned_contacts_view_get_type ())
@@ -34,5 +37,7 @@ typedef struct _BannedContactsViewClass BannedContactsViewClass;
 
 GType      banned_contacts_view_get_type (void) G_GNUC_CONST;
 GtkWidget *banned_contacts_view_new      (void);
+
+void       set_accountInfo_pointer       (BannedContactsView* view, AccountInfoPointer const & accountInfo);
 
 G_END_DECLS
