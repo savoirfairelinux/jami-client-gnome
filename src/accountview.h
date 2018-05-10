@@ -22,6 +22,8 @@
 
 #include <gtk/gtk.h>
 
+#include "accountinfopointer.h"
+
 G_BEGIN_DECLS
 
 #define ACCOUNT_VIEW_TYPE            (account_view_get_type ())
@@ -34,7 +36,7 @@ typedef struct _AccountView      AccountView;
 typedef struct _AccountViewClass AccountViewClass;
 
 GType      account_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *account_view_new           (void);
+GtkWidget *account_view_new           (AccountInfoPointer const & accountInfo);
 
 G_END_DECLS
 

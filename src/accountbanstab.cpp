@@ -60,6 +60,8 @@ typedef struct _AccountBansTabPrivate AccountBansTabPrivate;
  */
 struct _AccountBansTabPrivate
 {
+    AccountInfoPointer const *accountInfo_;
+
     Account   *account;
     GtkWidget *scrolled_window_bans_tab;
     GtkWidget *treeview_bans;
@@ -175,7 +177,7 @@ account_bans_tab_class_init(AccountBansTabClass *klass)
  * gtk new function
  */
 GtkWidget *
-account_bans_tab_new(Account *account)
+account_bans_tab_new(Account *account, AccountInfoPointer const & accountInfo)
 {
     g_return_val_if_fail(account != NULL, NULL);
 
@@ -183,6 +185,9 @@ account_bans_tab_new(Account *account)
 
     AccountBansTabPrivate *priv = ACCOUNT_BANS_TAB_GET_PRIVATE(view);
     priv->account = account;
+
+    priv->accountInfo_ = &accountInfo;
+    set_accountInfo_pointer((BannedContactsView*) priv->treeview_bans, *priv->accountInfo_);
 
     return (GtkWidget *)view;
 }

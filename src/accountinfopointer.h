@@ -17,4 +17,6 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
+#include <api/account.h>
+
 typedef const lrc::api::account::Info* AccountInfoPointer;
