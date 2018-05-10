@@ -191,7 +191,7 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
                                  gtk_label_new(C_("Account settings", "Advanced")));
 
         if (account->protocol() == Account::Protocol::RING) {
-            auto banned_tab = create_scrolled_account_view(account_bans_tab_new(account));
+            auto banned_tab = create_scrolled_account_view(account_bans_tab_new(account, priv->selectedInfo_));
             gtk_widget_show(banned_tab);
             gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                      banned_tab,
