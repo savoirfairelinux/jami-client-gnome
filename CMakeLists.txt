@@ -279,8 +279,6 @@ SET( SRC_FILES
    src/usernameregistrationbox.cpp
    src/accountaudiotab.h
    src/accountaudiotab.cpp
-   src/accountdevicestab.h
-   src/accountdevicestab.cpp
    src/accountvideotab.h
    src/accountvideotab.cpp
    src/accountadvancedtab.h
