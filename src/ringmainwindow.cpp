@@ -718,7 +718,7 @@ CppImpl::init()
                         CALL_VIEW_NAME);
 
     /* init the settings views */
-    widgets->account_settings_view = account_view_new();
+    widgets->account_settings_view = account_view_new(accountInfo_);
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->account_settings_view,
                         ACCOUNT_SETTINGS_VIEW_NAME);
 

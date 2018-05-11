@@ -37,6 +37,8 @@
 #include "utils/models.h"
 #include "accountbanstab.h"
 
+#include <api/newaccountmodel.h>
+
 static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creation-wizard";
 
 struct _AccountView
@@ -53,6 +55,9 @@ typedef struct _AccountViewPrivate AccountViewPrivate;
 
 struct _AccountViewPrivate
 {
+    AccountInfoPointer const *accountInfo_ = nullptr;
+    AccountInfoPointer selectedInfo_ = nullptr;
+
     GtkWidget *treeview_account_list;
     GtkWidget *stack_account;
     GtkWidget *button_remove_account;
@@ -154,8 +159,13 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
         gtk_notebook_set_show_border(GTK_NOTEBOOK(account_notebook), FALSE);
         gtk_box_pack_start(GTK_BOX(hbox_account), account_notebook, TRUE, TRUE, 0);
 
+        // Build a new AccountInfoPointer pointing on selected account in this view, not in the app
+        // TODO in the future, get rid of the Account class (pass the selected id)
+        auto selectedId = account->id().toStdString();
+        priv->selectedInfo_ = &(*priv->accountInfo_)->accountModel->getAccountInfo(selectedId);
+
         /* customize account view based on account */
-        auto general_tab = create_scrolled_account_view(account_general_tab_new(account));
+        auto general_tab = create_scrolled_account_view(account_general_tab_new(account, priv->selectedInfo_));
         gtk_widget_show(general_tab);
         gtk_notebook_append_page(GTK_NOTEBOOK(account_notebook),
                                  general_tab,
@@ -539,7 +549,10 @@ account_view_class_init(AccountViewClass *klass)
 }
 
 GtkWidget *
-account_view_new(void)
+account_view_new(AccountInfoPointer const & accountInfo)
 {
-    return (GtkWidget *)g_object_new(ACCOUNT_VIEW_TYPE, NULL);
+    auto* view = g_object_new(ACCOUNT_VIEW_TYPE, NULL);
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
+    priv->accountInfo_ = &accountInfo;
+    return (GtkWidget *)view;
 }
