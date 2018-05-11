@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_0f0de890",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-05-11T17:57:19Z",
+      "side": 1,
+      "message": "I think it will be better to open a ticket and add a Tuleap: #ticket in the commit message",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 51
+      },
+      "revId": "10a83420b47d61b59882e7e658a0d7be707be810",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
