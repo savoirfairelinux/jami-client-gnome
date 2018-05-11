@@ -313,6 +313,7 @@ hide_account_creation_wizard(AccountView *view)
     auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_account));
     if (IS_ACCOUNT_CREATION_WIZARD(old_view))
     {
+        account_creation_wizard_show_preview(ACCOUNT_CREATION_WIZARD(old_view), FALSE);
         gtk_container_remove(GTK_CONTAINER(priv->stack_account), old_view);
     }
 
