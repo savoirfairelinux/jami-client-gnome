@@ -33,5 +33,10 @@
     <file alias="temporary-item">ic_search_black_48px.svg</file>
     <file alias="audio_only_call_start">ic_call_black_24px.svg</file>
     <file alias="fallbackavatar">fallbackavatar.svg</file>
+    <file alias="revoke">revoke.svg</file>
+    <file alias="edit">edit.svg</file>
+    <file alias="add-device">add-device.svg</file>
+    <file alias="devices">devices.svg</file>
+    <file alias="save">save.svg</file>
   </gresource>
 </gresources>
