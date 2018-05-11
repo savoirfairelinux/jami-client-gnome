@@ -1,7 +1,8 @@
 /*
  *  Copyright (C) 2015-2018 Savoir-faire Linux Inc.
- *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
  *  Author: Sebastien Blin <sebastien.blin@savoirfairelinux.com>
+ *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,7 +28,15 @@
 #include "utils/models.h"
 #include "usernameregistrationbox.h"
 
+#include <iostream>
+#include <api/newdevicemodel.h>
 #include <api/newaccountmodel.h>
+
+// TODO don't show devices for SIP
+// TODO remove account-> from new code
+// TODO design
+// TODO add error label if an error occurs
+// TODO clean (add to list mainly)
 
 struct _AccountGeneralTab
 {
@@ -46,6 +55,9 @@ struct _AccountGeneralTabPrivate
     Account   *account;
     AccountInfoPointer const *accountInfo_;
 
+    GtkWidget *stack_account_general;
+    GtkWidget *account_general;
+
     GtkWidget *grid_account;
     GtkWidget* frame_parameters;
     GtkWidget *grid_parameters;
@@ -59,7 +71,33 @@ struct _AccountGeneralTabPrivate
     GtkWidget* button_choose_file;
     GtkWidget* label_export_informations;
 
+    GtkWidget* list_devices;
+    GtkWidget *button_add_device;
+
+    /* generated_pin view */
+    GtkWidget *generated_pin;
+    GtkWidget *label_generated_pin;
+    GtkWidget *button_generated_pin_ok;
+
+    /* add_device view */
+    GtkWidget *add_device_box;
+    GtkWidget *button_export_on_the_ring;
+    GtkWidget *button_add_device_cancel;
+    GtkWidget *entry_password;
+
+    /* generating account spinner */
+    GtkWidget *vbox_generating_pin_spinner;
+
+    /* export on ring error */
+    GtkWidget *export_on_ring_error;
+    GtkWidget *label_export_on_ring_error;
+    GtkWidget* button_export_on_ring_error_ok;
+
     QMetaObject::Connection account_updated;
+    QMetaObject::Connection new_device_added_connection;
+    QMetaObject::Connection device_updated_connection;
+    QMetaObject::Connection device_removed_connection;
+    QMetaObject::Connection export_on_ring_ended;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AccountGeneralTab, account_general_tab, GTK_TYPE_BOX);
@@ -73,6 +111,10 @@ account_general_tab_dispose(GObject *object)
     AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
 
     QObject::disconnect(priv->account_updated);
+    QObject::disconnect(priv->new_device_added_connection);
+    QObject::disconnect(priv->device_updated_connection);
+    QObject::disconnect(priv->device_removed_connection);
+    QObject::disconnect(priv->export_on_ring_ended);
 
     G_OBJECT_CLASS(account_general_tab_parent_class)->dispose(object);
 }
@@ -91,6 +133,9 @@ account_general_tab_class_init(AccountGeneralTabClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/cx/ring/RingGnome/accountgeneraltab.ui");
 
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, stack_account_general);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, account_general);
+
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, grid_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, frame_parameters);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, grid_parameters);
@@ -106,6 +151,120 @@ account_general_tab_class_init(AccountGeneralTabClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, button_choose_file);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, label_export_informations);
 
+    // Devices
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, list_devices);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, button_add_device);
+
+    // add_device view
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, add_device_box);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, button_export_on_the_ring);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, button_add_device_cancel);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, entry_password);
+
+    // generating pin spinner
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, vbox_generating_pin_spinner);
+
+    // export on ring error
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, export_on_ring_error);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, label_export_on_ring_error);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, button_export_on_ring_error_ok);
+
+    // generated_pin view
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, generated_pin);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, label_generated_pin);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, button_generated_pin_ok);
+}
+
+static void
+show_account_general_view(AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_general), priv->account_general);
+}
+
+#include <iostream>
+
+static void
+show_add_device_view(AccountGeneralTab *view)
+{
+    std::cout << "XXX" << std::endl;
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_general), priv->add_device_box);
+}
+
+static void
+show_generated_pin_view(AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+    gtk_widget_show(priv->generated_pin);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_general), priv->generated_pin);
+}
+
+static void
+show_generating_pin_spinner(AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_general), priv->vbox_generating_pin_spinner);
+}
+
+static void
+show_export_on_ring_error(AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_general), priv->export_on_ring_error);
+}
+
+static void
+export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+
+    auto password = QString(gtk_entry_get_text(GTK_ENTRY(priv->entry_password)));
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_password), "");
+
+    priv->export_on_ring_ended = QObject::connect(
+        priv->account,
+        &Account::exportOnRingEnded,
+        [=] (Account::ExportOnRingStatus status, QString pin) {
+            QObject::disconnect(priv->export_on_ring_ended);
+            switch (status)
+            {
+                case Account::ExportOnRingStatus::SUCCESS:
+                {
+                    gtk_label_set_text(GTK_LABEL(priv->label_generated_pin), pin.toStdString().c_str());
+                    show_generated_pin_view(view);
+                    break;
+                }
+                case Account::ExportOnRingStatus::WRONG_PASSWORD:
+                {
+                    gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Bad password"));
+                    show_export_on_ring_error(view);
+                    break;
+                }
+                case Account::ExportOnRingStatus::NETWORK_ERROR:
+                {
+                    gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Network error, try again"));
+                    show_export_on_ring_error(view);
+                    break;
+                }
+            }
+        }
+    );
+
+    show_generating_pin_spinner(view);
+    if (!priv->account->exportOnRing(password))
+    {
+        QObject::disconnect(priv->export_on_ring_ended);
+        gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Could not initiate export to the Ring, try again"));
+        g_debug("Could not initiate exportOnRing operation");
+        show_export_on_ring_error(view);
+    }
 }
 
 static void
@@ -173,7 +332,6 @@ reset_change_password(AccountGeneralTab *view)
     gtk_button_set_label(GTK_BUTTON(priv->button_validate_password), _("Change password"));
 }
 
-
 static void
 choose_export_file(AccountGeneralTab *view)
 {
@@ -212,6 +370,79 @@ choose_export_file(AccountGeneralTab *view)
     // Set informations label
     std::string label = std::string(_("File exported to destination: ")) + std::string(filename);
     gtk_label_set_text(GTK_LABEL(priv->label_export_informations), label.c_str());
+}
+
+static void
+save_name(GtkButton* button, AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+
+    auto row = 0;
+    while (auto children = gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_devices), row)) {
+        auto box = gtk_bin_get_child(GTK_BIN(children));
+        auto list_iterator = gtk_container_get_children(GTK_CONTAINER(box));
+        auto current_child = g_list_first(list_iterator);
+        auto action_button = current_child->data;
+        if (GTK_BUTTON(action_button) == button) {
+            current_child = g_list_next(current_child);
+            auto entry_name = current_child->data;
+            std::string newName = gtk_entry_get_text(GTK_ENTRY(entry_name));
+            (*priv->accountInfo_)->deviceModel->setCurrentDeviceName(newName);
+        }
+        ++row;
+    }
+}
+
+static void
+revoke_device(GtkButton* button, AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+
+    auto row = 0;
+    while (auto children = gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_devices), row)) {
+        auto box = gtk_bin_get_child(GTK_BIN(children));
+        auto list_iterator = gtk_container_get_children(GTK_CONTAINER(box));
+        auto current_child = g_list_first(list_iterator);
+        auto action_button = current_child->data;
+        if (GTK_BUTTON(action_button) == button) {
+            current_child = g_list_next(current_child);  // device.name
+            current_child = g_list_next(current_child);  // device.id
+            auto deviceId = gtk_label_get_text(GTK_LABEL(current_child->data));
+            auto password = "";
+            if (priv->account->archiveHasPassword()) {
+                // TODO show modal
+
+                auto* top_window = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view)));
+                auto* password_dialog = gtk_message_dialog_new(top_window,
+                    GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
+                    _("password:"), nullptr
+                );
+                gtk_window_set_title(GTK_WINDOW(password_dialog), _("Enter password to revoke device"));
+                gtk_dialog_set_default_response(GTK_DIALOG(password_dialog), GTK_RESPONSE_OK);
+
+                auto* message_area = gtk_message_dialog_get_message_area(GTK_MESSAGE_DIALOG(password_dialog));
+                auto* password_entry = gtk_entry_new();
+                gtk_entry_set_visibility(GTK_ENTRY(password_entry), false);
+                gtk_entry_set_invisible_char(GTK_ENTRY(password_entry), '*');
+                gtk_box_pack_start(GTK_BOX(message_area), password_entry, true, true, 0);
+                gtk_widget_show_all(password_dialog);
+
+                auto res = gtk_dialog_run (GTK_DIALOG(password_dialog));
+
+                if (res == GTK_RESPONSE_OK) {
+                    password = gtk_entry_get_text(GTK_ENTRY(password_entry));
+                    (*priv->accountInfo_)->deviceModel->revokeDevice(deviceId, password);
+                }
+                gtk_widget_destroy (password_dialog);
+
+            } else {
+                (*priv->accountInfo_)->deviceModel->revokeDevice(deviceId, password);
+            }
+        }
+        ++row;
+    }
 }
 
 static void
@@ -408,13 +639,152 @@ build_tab_view(AccountGeneralTab *view)
         }
     );
 
+    priv->new_device_added_connection = QObject::connect(
+        &*(*priv->accountInfo_)->deviceModel,
+        &lrc::api::NewDeviceModel::deviceAdded,
+        [view] (const std::string& id) {
+            AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+            // Retrieve added device
+            auto device = (*priv->accountInfo_)->deviceModel->getDevice(id);
+            if (device.id.empty()) {
+                g_debug("Can't add device with id: %s", device.id.c_str());
+                return;
+            }
+            // if exists, add to list
+            auto* device_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+            auto label_button = device.isCurrent ? "Save" : "Revoke";
+            auto* action_device_button = gtk_button_new_with_label(label_button);
+            std::string label_btn = "action_btn_" + device.id;
+            gtk_widget_set_name(action_device_button, label_btn.c_str());
+            if (device.isCurrent)
+                g_signal_connect(action_device_button, "clicked", G_CALLBACK(save_name), view);
+            else
+                g_signal_connect(action_device_button, "clicked", G_CALLBACK(revoke_device), view);
+            gtk_container_add(GTK_CONTAINER(device_box), action_device_button);
+            if (device.isCurrent) {
+                auto* entry_name = gtk_entry_new();
+                gtk_entry_set_text(GTK_ENTRY(entry_name), device.name.c_str());
+                gtk_container_add(GTK_CONTAINER(device_box), entry_name);
+            } else {
+                auto* label_name = gtk_label_new(device.name.c_str());
+                gtk_container_add(GTK_CONTAINER(device_box), label_name);
+            }
+            auto* label_id = gtk_label_new(device.id.c_str());
+            gtk_container_add(GTK_CONTAINER(device_box), label_id);
+            gtk_list_box_insert(GTK_LIST_BOX(priv->list_devices), device_box, -1);
+            gtk_widget_show_all(priv->list_devices);
+        }
+    );
+
+    priv->device_updated_connection = QObject::connect(
+        &*(*priv->accountInfo_)->deviceModel,
+        &lrc::api::NewDeviceModel::deviceRevoked,
+        [view] (const std::string& id, const lrc::api::NewDeviceModel::Status status) {
+            AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+            auto row = 0;
+            while (auto children = gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_devices), row)) {
+                auto box = gtk_bin_get_child(GTK_BIN(children));
+                auto list_iterator = gtk_container_get_children(GTK_CONTAINER(box));
+                auto current_child = g_list_first(list_iterator);
+                current_child = g_list_next(current_child);  // device.name
+                current_child = g_list_next(current_child);  // device.id
+                auto deviceId = gtk_label_get_text(GTK_LABEL(current_child->data));
+                if (deviceId == id) {
+                    switch (status)
+                    {
+                    case lrc::api::NewDeviceModel::Status::SUCCESS:
+                        // remove device's line
+                        gtk_container_remove(GTK_CONTAINER(priv->list_devices), GTK_WIDGET(children));
+                        return;
+                    case lrc::api::NewDeviceModel::Status::WRONG_PASSWORD:
+                        // TODO set error label for this row
+                        break;
+                    case lrc::api::NewDeviceModel::Status::UNKNOWN_DEVICE:
+                        // TODO set error label for this row
+                        break;
+                    default:
+                        g_debug("unknown status for revoked device. BUG?");
+                        return;
+                    }
+                }
+                ++row;
+            }
+        }
+    );
+
+    priv->device_removed_connection = QObject::connect(
+        &*(*priv->accountInfo_)->deviceModel,
+        &lrc::api::NewDeviceModel::deviceUpdated,
+        [view] (const std::string& id) {
+            AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+            // Retrieve added device
+            auto device = (*priv->accountInfo_)->deviceModel->getDevice(id);
+            if (device.id.empty()) {
+                g_debug("Can't add device with id: %s", device.id.c_str());
+                return;
+            }
+            // if exists, update
+            auto row = 0;
+            while (auto children = gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_devices), row)) {
+                auto box = gtk_bin_get_child(GTK_BIN(children));
+                auto list_iterator = gtk_container_get_children(GTK_CONTAINER(box));
+                auto current_child = g_list_first(list_iterator);
+                current_child = g_list_next(current_child);  // device.name
+                auto device_name = current_child->data;
+                current_child = g_list_next(current_child);  // device.id
+                auto deviceId = gtk_label_get_text(GTK_LABEL(current_child->data));
+                if (deviceId == id) {
+                    if (device.isCurrent) {
+                        gtk_entry_set_text(GTK_ENTRY(device_name), device.name.c_str());
+                    } else {
+                        gtk_label_set_text(GTK_LABEL(device_name), device.name.c_str());
+                    }
+                }
+                ++row;
+            }
+            g_debug("deviceUpdated signal received, but device not found");
+        }
+    );
+
+
     g_signal_connect_swapped(priv->button_validate_password, "clicked", G_CALLBACK(change_password), view);
     g_signal_connect_swapped(priv->entry_current_password, "changed", G_CALLBACK(reset_change_password), view);
     g_signal_connect_swapped(priv->entry_new_password, "changed", G_CALLBACK(reset_change_password), view);
     g_signal_connect_swapped(priv->entry_confirm_password, "changed", G_CALLBACK(reset_change_password), view);
     g_signal_connect_swapped(priv->button_choose_file, "clicked", G_CALLBACK(choose_export_file), view);
+    g_signal_connect_swapped(priv->button_add_device, "clicked", G_CALLBACK(show_add_device_view), view);
+    g_signal_connect_swapped(priv->button_add_device_cancel, "clicked", G_CALLBACK(show_account_general_view), view);
+    g_signal_connect(priv->button_export_on_the_ring, "clicked", G_CALLBACK(export_on_the_ring_clicked), view);
+    g_signal_connect_swapped(priv->button_generated_pin_ok, "clicked", G_CALLBACK(show_account_general_view), view);
+    g_signal_connect_swapped(priv->button_export_on_ring_error_ok, "clicked", G_CALLBACK(show_add_device_view), view);
     gtk_widget_set_visible(priv->entry_current_password, priv->account->archiveHasPassword());
 
+    auto devices = (*priv->accountInfo_)->deviceModel->getAllDevices();
+    auto i = 0;
+    for (const auto& device : devices) {
+        auto* device_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+        auto label_button = device.isCurrent ? "Save" : "Revoke";
+        auto* action_device_button = gtk_button_new_with_label(label_button);
+        std::string label_btn = "action_btn_" + device.id;
+        gtk_widget_set_name(action_device_button, label_btn.c_str());
+        if (device.isCurrent)
+            g_signal_connect(action_device_button, "clicked", G_CALLBACK(save_name), view);
+        else
+            g_signal_connect(action_device_button, "clicked", G_CALLBACK(revoke_device), view);
+        gtk_container_add(GTK_CONTAINER(device_box), action_device_button);
+        if (device.isCurrent) {
+            auto* entry_name = gtk_entry_new();
+            gtk_entry_set_text(GTK_ENTRY(entry_name), device.name.c_str());
+            gtk_container_add(GTK_CONTAINER(device_box), entry_name);
+        } else {
+            auto* label_name = gtk_label_new(device.name.c_str());
+            gtk_container_add(GTK_CONTAINER(device_box), label_name);
+        }
+        auto* label_id = gtk_label_new(device.id.c_str());
+        gtk_container_add(GTK_CONTAINER(device_box), label_id);
+        gtk_list_box_insert(GTK_LIST_BOX(priv->list_devices), device_box, i);
+    }
+    gtk_widget_show_all(priv->list_devices);
 }
 
 GtkWidget *

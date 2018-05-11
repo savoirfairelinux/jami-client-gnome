@@ -10,156 +10,78 @@
   </object>
   <template class="AccountGeneralTab" parent="GtkBox">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="orientation">vertical</property>
     <child>
-      <object class="GtkBox" id="vbox_main">
+      <object class="GtkStack" id="stack_account_general">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="border_width">10</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">10</property>
+        <property name="transition-type">GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</property>
+        <property name="transition-duration">300</property>
+
         <child>
-          <object class="GtkFrame" id="frame_account">
+          <object class="GtkBox" id="account_general">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label_xalign">0</property>
-            <property name="shadow_type">none</property>
-            <child>
-              <object class="GtkAlignment" id="alignment_account">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="top_padding">10</property>
-                <property name="left_padding">10</property>
-                <child>
-                  <object class="GtkGrid" id="grid_account">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="row_spacing">10</property>
-                    <property name="column_spacing">10</property>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child type="label">
-              <object class="GtkLabel" id="label_account">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Account</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkFrame" id="frame_parameters">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label_xalign">0</property>
-            <property name="shadow_type">none</property>
-            <child>
-              <object class="GtkAlignment" id="alignment_parameters">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="top_padding">10</property>
-                <property name="left_padding">10</property>
-                <child>
-                  <object class="GtkGrid" id="grid_parameters">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="row_spacing">10</property>
-                    <property name="column_spacing">10</property>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child type="label">
-              <object class="GtkLabel" id="label_parameters">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Parameters</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="vbox_change_passowrd">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="border_width">10</property>
             <property name="orientation">vertical</property>
             <property name="spacing">10</property>
             <child>
-              <object class="GtkLabel" id="label_change_password">
+              <object class="GtkFrame" id="frame_account">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Change password</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkAlignment" id="alignment_account">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="top_padding">10</property>
+                    <property name="left_padding">10</property>
+                    <child>
+                      <object class="GtkGrid" id="grid_account">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="row_spacing">10</property>
+                        <property name="column_spacing">10</property>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child type="label">
+                  <object class="GtkLabel" id="label_account">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Account</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -168,11 +90,58 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label_informations">
+              <object class="GtkFrame" id="frame_parameters">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Note: this will change the password only on this device.</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkAlignment" id="alignment_parameters">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="top_padding">10</property>
+                    <property name="left_padding">10</property>
+                    <child>
+                      <object class="GtkGrid" id="grid_parameters">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="row_spacing">10</property>
+                        <property name="column_spacing">10</property>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child type="label">
+                  <object class="GtkLabel" id="label_parameters">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Parameters</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -181,18 +150,130 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entry_current_password">
+              <object class="GtkBox" id="vbox_change_passowrd">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="has_default">True</property>
-                <property name="halign">start</property>
-                <property name="visibility">False</property>
-                <property name="width_chars">40</property>
-                <property name="xalign">0.5</property>
-                <property name="primary_icon_stock">gtk-dialog-authentication</property>
-                <property name="placeholder_text" translatable="yes">Current password</property>
-                <property name="input_purpose">password</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">10</property>
+                <child>
+                  <object class="GtkLabel" id="label_change_password">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Change password</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_informations">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Note: this will change the password only on this device.</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="entry_current_password">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="can_default">True</property>
+                    <property name="has_default">True</property>
+                    <property name="halign">start</property>
+                    <property name="visibility">False</property>
+                    <property name="width_chars">40</property>
+                    <property name="xalign">0.5</property>
+                    <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                    <property name="placeholder_text" translatable="yes">Current password</property>
+                    <property name="input_purpose">password</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="entry_new_password">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="can_default">True</property>
+                    <property name="has_default">True</property>
+                    <property name="halign">start</property>
+                    <property name="visibility">False</property>
+                    <property name="width_chars">40</property>
+                    <property name="xalign">0.5</property>
+                    <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                    <property name="placeholder_text" translatable="yes">New password</property>
+                    <property name="input_purpose">password</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="entry_confirm_password">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="can_default">True</property>
+                    <property name="has_default">True</property>
+                    <property name="halign">start</property>
+                    <property name="visibility">False</property>
+                    <property name="width_chars">40</property>
+                    <property name="xalign">0.5</property>
+                    <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                    <property name="placeholder_text" translatable="yes">Confirm password</property>
+                    <property name="input_purpose">password</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_validate_password">
+                    <property name="label" translatable="yes">Change password</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">5</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_error_change_passowrd">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="foreground" value="#cccc00000000"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">6</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -201,18 +282,57 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entry_new_password">
+              <object class="GtkBox" id="vbox_export_account">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="has_default">True</property>
-                <property name="halign">start</property>
-                <property name="visibility">False</property>
-                <property name="width_chars">40</property>
-                <property name="xalign">0.5</property>
-                <property name="primary_icon_stock">gtk-dialog-authentication</property>
-                <property name="placeholder_text" translatable="yes">New password</property>
-                <property name="input_purpose">password</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">10</property>
+                <child>
+                  <object class="GtkLabel" id="label_export_account">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Export account</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_choose_file">
+                    <property name="label" translatable="yes">Choose destination...</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="image">image-file</property>
+                    <property name="halign">start</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_export_informations">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -220,19 +340,55 @@
                 <property name="position">3</property>
               </packing>
             </child>
+
+
             <child>
-              <object class="GtkEntry" id="entry_confirm_password">
+              <object class="GtkBox" id="vbox_devices">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="has_default">True</property>
-                <property name="halign">start</property>
-                <property name="visibility">False</property>
-                <property name="width_chars">40</property>
-                <property name="xalign">0.5</property>
-                <property name="primary_icon_stock">gtk-dialog-authentication</property>
-                <property name="placeholder_text" translatable="yes">Confirm password</property>
-                <property name="input_purpose">password</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">10</property>
+                <child>
+                  <object class="GtkLabel" id="label_devices_menu">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Devices</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_add_device">
+                    <property name="label" translatable="yes">Add device</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">start</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkListBox" id="list_devices">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -240,107 +396,192 @@
                 <property name="position">4</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkButton" id="button_validate_password">
-                <property name="label" translatable="yes">Change password</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">5</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_error_change_passowrd">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                  <attribute name="foreground" value="#cccc00000000"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">6</property>
-              </packing>
-            </child>
+
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">2</property>
+            <property name="position">0</property>
           </packing>
         </child>
+
+        <!-- Add device view -->
         <child>
-          <object class="GtkBox" id="vbox_export_account">
+          <object class="GtkBox" id="add_device_box">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
-            <property name="spacing">10</property>
+            <property name="spacing">15</property>
+            <!-- Title Row -->
             <child>
-              <object class="GtkLabel" id="label_export_account">
+              <object class="GtkLabel" id="label_devices">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Export account</property>
+                <property name="label" translatable="yes">Add New Device</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
+                <property name="use_markup">True</property>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
             </child>
+            <!-- Explaination row -->
             <child>
-              <object class="GtkButton" id="button_choose_file">
-                <property name="label" translatable="yes">Choose destination...</property>
+              <object class="GtkLabel" id="label_explaination">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="image">image-file</property>
-                <property name="halign">start</property>
+                <property name="halign">center</property>
+                <property name="max-width-chars">80</property>
+                <property name="can_focus">False</property>
+                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">To add a new device to your Ring account, you export your account on the Ring. This will generate a pin that must be entered on your new device within 5 minutes of its generation.</property>
+                <property name="wrap">True</property>
+              </object>
+            </child>
+            <!-- End of Explaination row -->
+            <!-- Password entry -->
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Password (required):</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="entry_password">
+                <property name="visible">True</property>
+                <property name="halign">center</property>
+                <property name="width-chars">40</property>
+                <property name="visibility">False</property>
+                <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                <property name="input_purpose">password</property>
+                <property name="tooltip-text" translatable="yes">Enter archive password</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
+                <property name="fill">False</property>
               </packing>
             </child>
+            <!-- End of password entry row -->
+            <!-- Cancel and export on ring buttons -->
             <child>
-              <object class="GtkLabel" id="label_export_informations">
+              <object class="GtkButtonBox" id="buttonbox_confirm">
+                <property name="visible">True</property>
+                <property name="layout-style">spread</property>
+                <property name="spacing">10</property>
+                <child>
+                  <object class="GtkButton" id="button_add_device_cancel">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Cancel</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_export_on_the_ring">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Export on the Ring</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <!-- end Cancel and Generate pin buttons -->
+          </object>
+        </child>
+        <!-- End add device view -->
+        <!-- Generating pin spinner  -->
+        <child>
+          <object class="GtkBox" id="vbox_generating_pin_spinner">
+            <property name="visible">True</property>
+            <property name="valign">center</property>
+            <property name="border_width">10</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">15</property>
+            <child>
+              <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
+                <property name="label" translatable="yes">Exporting account on the Ring...</property>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinner">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="active">True</property>
+                <property name="height_request">50</property>
+              </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
         </child>
+        <!-- End Generating account spinner -->
+        <!-- Generated pin view -->
+        <child>
+          <object class="GtkBox" id="generated_pin">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">15</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Your generated pin:</property>
+                <property name="use_markup">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label_generated_pin">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="label">PIN HERE</property>
+                <property name="selectable">True</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="max-width-chars">80</property>
+                <property name="label">This pin and the account password should be entered on your new device within 5 minutes. On most client, this is done from the "Existing Ring account" menu. You may generate a new pin at any moment.</property>
+                <property name="use_markup">True</property>
+                <property name="wrap">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="button_generated_pin_ok">
+                <property name="visible">True</property>
+                <property name="halign">center</property>
+                <property name="width-request">100</property>
+                <property name="label" translatable="yes">OK</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <!-- End Generated pin view -->
+        <!-- Export on Ring error -->
+        <child>
+          <object class="GtkBox" id="export_on_ring_error">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">15</property>
+            <child>
+              <object class="GtkLabel" id="label_export_on_ring_error">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="use_markup">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="button_export_on_ring_error_ok">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">OK</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <!-- End export on Ring error -->
       </object>
       <packing>
-        <property name="expand">False</property>
+        <property name="expand">True</property>
         <property name="fill">True</property>
-        <property name="position">0</property>
       </packing>
     </child>
   </template>
