@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2015-2018 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Sebastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,6 +27,13 @@
 #include "utils/models.h"
 #include "usernameregistrationbox.h"
 
+#include <iostream>
+#include <api/newdevicemodel.h>
+#include <api/newaccountmodel.h>
+
+#include <iostream>
+
+
 struct _AccountGeneralTab
 {
     GtkBox parent;
@@ -41,6 +49,8 @@ typedef struct _AccountGeneralTabPrivate AccountGeneralTabPrivate;
 struct _AccountGeneralTabPrivate
 {
     Account   *account;
+    AccountInfoPointer const *accountInfo_;
+
     GtkWidget *grid_account;
     GtkWidget* frame_parameters;
     GtkWidget *grid_parameters;
@@ -53,6 +63,9 @@ struct _AccountGeneralTabPrivate
 
     GtkWidget* button_choose_file;
     GtkWidget* label_export_informations;
+
+    GtkWidget* list_devices;
+
 
     QMetaObject::Connection account_updated;
 };
@@ -101,6 +114,8 @@ account_general_tab_class_init(AccountGeneralTabClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, button_choose_file);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, label_export_informations);
 
+    // Devices
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, list_devices);
 }
 
 static void
@@ -168,7 +183,6 @@ reset_change_password(AccountGeneralTab *view)
     gtk_button_set_label(GTK_BUTTON(priv->button_validate_password), _("Change password"));
 }
 
-
 static void
 choose_export_file(AccountGeneralTab *view)
 {
@@ -207,6 +221,40 @@ choose_export_file(AccountGeneralTab *view)
     // Set informations label
     std::string label = std::string(_("File exported to destination: ")) + std::string(filename);
     gtk_label_set_text(GTK_LABEL(priv->label_export_informations), label.c_str());
+}
+
+static void
+save_name(GtkButton* button, AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+    const auto& selectedAccountInfo = (*priv->accountInfo_)->accountModel->getAccountInfo(priv->account->id().toStdString());
+
+    auto row = 0;
+    while (auto children = gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_devices), row)) {
+        auto box = gtk_bin_get_child(GTK_BIN(children));
+        auto list_iterator = gtk_container_get_children(GTK_CONTAINER(box));
+        auto current_child = g_list_first(list_iterator);
+        auto action_button = current_child->data;
+        if (GTK_BUTTON(action_button) == button) {
+            current_child = g_list_next(current_child);
+            auto entry_name = current_child->data;
+            std::string newName = gtk_entry_get_text(GTK_ENTRY(entry_name));
+            selectedAccountInfo.deviceModel->setCurrentDeviceName(newName);
+        }
+        ++row;
+    }
+
+}
+
+static void
+revoke_device(GtkButton* button, AccountGeneralTab *view)
+{
+    g_return_if_fail(IS_ACCOUNT_GENERAL_TAB(view));
+    AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
+    const auto& selectedAccountInfo = (*priv->accountInfo_)->accountModel->getAccountInfo(priv->account->id().toStdString());
+
+    // TODO
 }
 
 static void
@@ -410,10 +458,38 @@ build_tab_view(AccountGeneralTab *view)
     g_signal_connect_swapped(priv->button_choose_file, "clicked", G_CALLBACK(choose_export_file), view);
     gtk_widget_set_visible(priv->entry_current_password, priv->account->archiveHasPassword());
 
+    const auto& selectedAccountInfo = (*priv->accountInfo_)->accountModel->getAccountInfo(priv->account->id().toStdString());
+    auto devices = selectedAccountInfo.deviceModel->getAllDevices();
+    auto i = 0;
+    for (const auto& device : devices) {
+        auto* device_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+        auto label_button = device.isCurrent ? "Save" : "Revoke";
+        auto* action_device_button = gtk_button_new_with_label(label_button);
+        std::string label_btn = "action_btn" + std::to_string(i);
+        gtk_widget_set_name(action_device_button, label_btn.c_str());
+        if (device.isCurrent)
+            g_signal_connect(action_device_button, "clicked", G_CALLBACK(save_name), view);
+        else
+            g_signal_connect(action_device_button, "clicked", G_CALLBACK(revoke_device), view);
+        gtk_container_add(GTK_CONTAINER(device_box), action_device_button);
+        if (device.isCurrent) {
+            auto* entry_name = gtk_entry_new();
+            gtk_entry_set_text(GTK_ENTRY(entry_name), device.name.c_str());
+            gtk_container_add(GTK_CONTAINER(device_box), entry_name);
+        } else {
+            auto* label_name = gtk_label_new(device.name.c_str());
+            gtk_container_add(GTK_CONTAINER(device_box), label_name);
+        }
+        auto* label_id = gtk_label_new(device.id.c_str());
+        gtk_container_add(GTK_CONTAINER(device_box), label_id);
+        gtk_list_box_insert(GTK_LIST_BOX(priv->list_devices), device_box, i);
+    }
+    gtk_widget_show_all(priv->list_devices);
+
 }
 
 GtkWidget *
-account_general_tab_new(Account *account)
+account_general_tab_new(Account *account, AccountInfoPointer const & accountInfo)
 {
     g_return_val_if_fail(account != NULL, NULL);
 
@@ -421,6 +497,7 @@ account_general_tab_new(Account *account)
 
     AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
     priv->account = account;
+    priv->accountInfo_ = &accountInfo;
 
     build_tab_view(ACCOUNT_GENERAL_TAB(view));
 
