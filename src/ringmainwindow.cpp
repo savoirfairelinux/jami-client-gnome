@@ -348,6 +348,7 @@ on_show_account_settings(GtkToggleButton* navbutton, RingMainWindow* self)
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
 
     if (gtk_toggle_button_get_active(navbutton)) {
+        account_settings_view_show(ACCOUNT_VIEW(priv->account_settings_view), TRUE);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_SETTINGS_VIEW_NAME);
         priv->last_settings_view = priv->account_settings_view;
     }
@@ -1175,6 +1176,7 @@ CppImpl::leaveSettingsView()
     gtk_widget_hide(widgets->hbox_settings);
 
     /* make sure video preview is stopped, in case it was started */
+    account_settings_view_show(ACCOUNT_VIEW(widgets->account_settings_view), FALSE);
     media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(widgets->media_settings_view), FALSE);
     general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(widgets->general_settings_view),
                                        FALSE);
