@@ -1175,6 +1175,7 @@ CppImpl::leaveSettingsView()
     gtk_widget_hide(widgets->hbox_settings);
 
     /* make sure video preview is stopped, in case it was started */
+    account_settings_view_show(ACCOUNT_VIEW(widgets->account_settings_view), FALSE);
     media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(widgets->media_settings_view), FALSE);
     general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(widgets->general_settings_view),
                                        FALSE);

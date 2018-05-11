@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2016-2018 Savoir-faire Linux Inc.
  *  Author: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
+ *  Author: Hugo Lefeuvre <hugo.lefeuvre@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,7 +17,6 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
-
 
 // GTK+ related
 #include <glib/gi18n.h>
@@ -35,7 +35,6 @@
 #include "avatarmanipulation.h"
 #include "accountcreationwizard.h"
 #include "usernameregistrationbox.h"
-
 
 struct _AccountCreationWizard
 {
@@ -116,25 +115,13 @@ enum {
 static guint account_creation_wizard_signals[LAST_SIGNAL] = { 0 };
 
 static void
-destroy_avatar_manipulation(AccountCreationWizard *view)
-{
-    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
-
-    /* make sure the AvatarManipulation widget is destroyed so the VideoWidget inside of it is too;
-     * NOTE: destorying its parent (box_avatarselection) first will cause a mystery 'BadDrawable'
-     * crash due to X error */
-    if (priv->avatar_manipulation)
-    {
-        gtk_container_remove(GTK_CONTAINER(priv->box_avatarselection), priv->avatar_manipulation);
-        priv->avatar_manipulation = nullptr;
-    }
-}
-
-static void
 account_creation_wizard_dispose(GObject *object)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(object);
-    destroy_avatar_manipulation(ACCOUNT_CREATION_WIZARD(object));
+
+    // make sure preview is stopped and destroyed
+    account_creation_wizard_show_preview(ACCOUNT_CREATION_WIZARD(object), FALSE);
+
     QObject::disconnect(priv->account_state_changed);
     G_OBJECT_CLASS(account_creation_wizard_parent_class)->dispose(object);
 }
@@ -257,7 +244,7 @@ create_ring_account(AccountCreationWizard *view,
     priv->username = new QString(username);
     priv->password = new QString(password);
 
-    g_object_ref(view); // ref so its not desroyed too early
+    g_object_ref(view); // ref so its not destroyed too early
 
     /* create account and set UPnP enabled, as its not by default in the daemon */
     Account *account = nullptr;
@@ -412,6 +399,10 @@ create_new_ring_account(AccountCreationWizard *win)
 
     auto status = create_ring_account(win, display_name, username, password, nullptr, nullptr);
 
+    // Now that we've use the preview to generate the avatar, we can safely close it. Don't
+    // assume owner will do it for us, this might not always be the case
+    account_creation_wizard_show_preview(win, FALSE);
+
     g_free(display_name);
     g_free(password);
     g_free(username);
@@ -508,6 +499,14 @@ show_choose_account_type(AccountCreationWizard *view)
 }
 
 static void
+account_creation_previous_clicked(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *view)
+{
+    // make sure to stop preview before going back to choose account type
+    account_creation_wizard_show_preview(view, FALSE);
+    show_choose_account_type(view);
+}
+
+static void
 show_existing_account(AccountCreationWizard *view)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
@@ -515,24 +514,9 @@ show_existing_account(AccountCreationWizard *view)
 }
 
 static void
-show_account_creation(AccountCreationWizard *win)
-{
-    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
-
-    /* avatar manipulation widget */
-    if (!priv->avatar_manipulation)
-    {
-        priv->avatar_manipulation = avatar_manipulation_new_from_wizard();
-        gtk_box_pack_start(GTK_BOX(priv->box_avatarselection), priv->avatar_manipulation, true, true, 0);
-    }
-
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->account_creation);
-}
-
-static void
 wizard_cancel_clicked(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *view)
 {
-    g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_CANCELED], 0);
+    account_creation_wizard_cancel(view);
 }
 
 static void
@@ -660,14 +644,14 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
     gtk_widget_set_visible(priv->button_wizard_cancel, show_cancel_button);
 
     /* choose_account_type signals */
-    g_signal_connect_swapped(priv->button_new_account, "clicked", G_CALLBACK(show_account_creation), view);
+    g_signal_connect_swapped(priv->button_new_account, "clicked", G_CALLBACK(account_creation_wizard_show_preview), view);
     g_signal_connect_swapped(priv->button_existing_account, "clicked", G_CALLBACK(show_existing_account), view);
     g_signal_connect(priv->button_wizard_cancel, "clicked", G_CALLBACK(wizard_cancel_clicked), view);
 
     /* account_creation signals */
-    g_signal_connect_swapped(priv->button_account_creation_previous, "clicked", G_CALLBACK(show_choose_account_type), view);
     g_signal_connect_swapped(priv->entry_username, "changed", G_CALLBACK(entries_new_account_changed), view);
     g_signal_connect(priv->button_account_creation_next, "clicked", G_CALLBACK(account_creation_next_clicked), view);
+    g_signal_connect(priv->button_account_creation_previous, "clicked", G_CALLBACK(account_creation_previous_clicked), view);
     g_signal_connect_swapped(priv->entry_password, "changed", G_CALLBACK(entries_new_account_changed), view);
     g_signal_connect_swapped(priv->entry_password_confirm, "changed", G_CALLBACK(entries_new_account_changed), view);
     g_signal_connect_swapped(priv->entry_username, "changed", G_CALLBACK(entries_new_account_changed), view);
@@ -695,4 +679,33 @@ account_creation_wizard_new(bool show_cancel_button)
 
     build_creation_wizard_view(ACCOUNT_CREATION_WIZARD(view), show_cancel_button);
     return (GtkWidget *)view;
+}
+
+void
+account_creation_wizard_show_preview(AccountCreationWizard *win, gboolean show_preview)
+{
+    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
+
+    /* Similarily to general settings view, we construct and destroy the avatar manipulation widget
+       each time the profile is made visible / hidden. While not the most elegant solution, this
+       allows us to run the preview if and only if it is displayed, and always stop it when hidden. */
+    if (show_preview && !priv->avatar_manipulation) {
+        priv->avatar_manipulation = avatar_manipulation_new_from_wizard();
+        gtk_box_pack_start(GTK_BOX(priv->box_avatarselection), priv->avatar_manipulation, true, true, 0);
+        gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->account_creation);
+    } else if (priv->avatar_manipulation) {
+        /* make sure the AvatarManipulation widget is destroyed so the VideoWidget inside of it is too;
+         * NOTE: destorying its parent (box_avatarselection) first will cause a mystery 'BadDrawable'
+         * crash due to X error */
+        gtk_container_remove(GTK_CONTAINER(priv->box_avatarselection), priv->avatar_manipulation);
+        priv->avatar_manipulation = nullptr;
+    }
+}
+
+void
+account_creation_wizard_cancel(AccountCreationWizard *win)
+{
+    // make sure to stop preview before doing something else
+    account_creation_wizard_show_preview(win, FALSE);
+    g_signal_emit(G_OBJECT(win), account_creation_wizard_signals[ACCOUNT_CREATION_CANCELED], 0);
 }
