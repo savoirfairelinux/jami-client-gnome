@@ -121,18 +121,27 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
     auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_account));
     if(IS_ACCOUNT_CREATION_WIZARD(old_view))
     {
-        /* When using the account creation wizard, The user might create
-         * accounts that will be deleted by the daemon. The fact that the
-         * selection has changed should be ignored. The account creation wizard
-         * should be responsible to remove itself of the stack and then call
-         * account_selection_changed.
-         */
+        // cancel account creation, this will call hide_account_creation_wizard via callback
+        account_creation_wizard_cancel(ACCOUNT_CREATION_WIZARD(old_view));
         return;
     }
 
     QModelIndex account_idx = get_index_from_selection(selection);
     if (!account_idx.isValid()) {
-        /* it nothing is slected, simply display something empty */
+        g_debug("accountview: invalid account selection");
+
+        /* If no account is selected, check for account list size. If not 0, select
+           the first account. */
+        GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->treeview_account_list));
+        if (gtk_tree_model_iter_n_children(model, NULL)) {
+            g_debug("accountview: other accounts are available, selecting first one");
+            GtkTreePath *path = gtk_tree_path_new_from_indices(0, -1);
+            gtk_tree_selection_select_path(gtk_tree_view_get_selection (GTK_TREE_VIEW(priv->treeview_account_list)), path);
+            gtk_tree_path_free(path);
+            return;
+        }
+
+        /* there is no account to select, display empty */
         GtkWidget *empty_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
         gtk_widget_show(empty_box);
         gtk_stack_add_named(GTK_STACK(priv->stack_account), empty_box, "placeholder");
@@ -313,6 +322,7 @@ hide_account_creation_wizard(AccountView *view)
     auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_account));
     if (IS_ACCOUNT_CREATION_WIZARD(old_view))
     {
+        account_creation_wizard_show_preview(ACCOUNT_CREATION_WIZARD(old_view), FALSE);
         gtk_container_remove(GTK_CONTAINER(priv->stack_account), old_view);
     }
 
@@ -359,7 +369,13 @@ add_account(G_GNUC_UNUSED GtkWidget *entry, AccountView *view)
         Account::Protocol protocol = qvariant_cast<Account::Protocol>(idx.data((int)ProtocolModel::Role::Protocol));
         if (protocol == Account::Protocol::RING)
         {
-            show_account_creation_wizard(view);
+            auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_account));
+            if (IS_ACCOUNT_CREATION_WIZARD(old_view))
+            {
+                account_creation_wizard_cancel(ACCOUNT_CREATION_WIZARD(old_view));
+            } else {
+                show_account_creation_wizard(view);
+            }
         }
         else
         {
