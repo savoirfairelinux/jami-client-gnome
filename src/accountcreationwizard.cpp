@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2016-2018 Savoir-faire Linux Inc.
  *  Author: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
+ *  Author: Hugo Lefeuvre <hugo.lefeuvre@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -515,18 +516,22 @@ show_existing_account(AccountCreationWizard *view)
 }
 
 static void
-show_account_creation(AccountCreationWizard *win)
+show_account_creation(AccountCreationWizard *win, gboolean show_preview = true)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
 
-    /* avatar manipulation widget */
-    if (!priv->avatar_manipulation)
-    {
+    /* Similarily to general settings view, we construct and destroy the avatar manipulation widget
+       each time the profile is made visible / hidden. While not the most elegant solution, this
+       allows us to run the preview if and only if it is displayed, and always stop it when hidden. */
+    if (show_preview) {
+        /* avatar manipulation widget */
         priv->avatar_manipulation = avatar_manipulation_new_from_wizard();
         gtk_box_pack_start(GTK_BOX(priv->box_avatarselection), priv->avatar_manipulation, true, true, 0);
+        gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->account_creation);
+    } else if (priv->avatar_manipulation) {
+        gtk_container_remove(GTK_CONTAINER(priv->box_avatarselection), priv->avatar_manipulation);
+        priv->avatar_manipulation = nullptr;
     }
-
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->account_creation);
 }
 
 static void
