@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2015-2018 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Sebastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,6 +27,8 @@
 #include "utils/models.h"
 #include "usernameregistrationbox.h"
 
+#include <api/newaccountmodel.h>
+
 struct _AccountGeneralTab
 {
     GtkBox parent;
@@ -41,6 +44,8 @@ typedef struct _AccountGeneralTabPrivate AccountGeneralTabPrivate;
 struct _AccountGeneralTabPrivate
 {
     Account   *account;
+    AccountInfoPointer const *accountInfo_;
+
     GtkWidget *grid_account;
     GtkWidget* frame_parameters;
     GtkWidget *grid_parameters;
@@ -413,7 +418,7 @@ build_tab_view(AccountGeneralTab *view)
 }
 
 GtkWidget *
-account_general_tab_new(Account *account)
+account_general_tab_new(Account *account, AccountInfoPointer const & accountInfo)
 {
     g_return_val_if_fail(account != NULL, NULL);
 
@@ -421,6 +426,7 @@ account_general_tab_new(Account *account)
 
     AccountGeneralTabPrivate *priv = ACCOUNT_GENERAL_TAB_GET_PRIVATE(view);
     priv->account = account;
+    priv->accountInfo_ = &accountInfo;
 
     build_tab_view(ACCOUNT_GENERAL_TAB(view));
 

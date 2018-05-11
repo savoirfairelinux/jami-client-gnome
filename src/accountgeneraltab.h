@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2015-2018 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Sebastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,6 +23,10 @@
 
 #include <gtk/gtk.h>
 
+#include <api/account.h>
+
+#include "accountinfopointer.h"
+
 class Account;
 
 G_BEGIN_DECLS
@@ -36,7 +41,7 @@ typedef struct _AccountGeneralTab      AccountGeneralTab;
 typedef struct _AccountGeneralTabClass AccountGeneralTabClass;
 
 GType      account_general_tab_get_type      (void) G_GNUC_CONST;
-GtkWidget *account_general_tab_new           (Account *account);
+GtkWidget *account_general_tab_new           (Account *account, AccountInfoPointer const & accountInfo);
 
 G_END_DECLS
 
