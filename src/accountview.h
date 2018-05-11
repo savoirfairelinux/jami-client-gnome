@@ -40,6 +40,8 @@ typedef struct _AccountViewClass AccountViewClass;
 GType      account_view_get_type      (void) G_GNUC_CONST;
 GtkWidget *account_view_new           (AccountInfoPointer const & accountInfo);
 
+void       account_settings_view_show (AccountView *view, gboolean show);
+
 G_END_DECLS
 
 #endif /* _ACCOUNTVIEW_H */
