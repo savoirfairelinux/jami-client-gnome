@@ -35,4 +35,7 @@ typedef struct _AccountCreationWizardClass AccountCreationWizardClass;
 GType      account_creation_wizard_get_type      (void) G_GNUC_CONST;
 GtkWidget *account_creation_wizard_new           (bool cancel_button);
 
+void       account_creation_wizard_show_preview  (AccountCreationWizard *win, gboolean show_preview = TRUE);
+void       account_creation_wizard_cancel        (AccountCreationWizard *win);
+
 G_END_DECLS
