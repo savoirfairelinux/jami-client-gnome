@@ -56,5 +56,8 @@ void       webkit_chat_disable_send_interaction       (WebKitChatContainer *view
 void       webkit_chat_hide_message_bar               (WebKitChatContainer *view, bool isHidden);
 void       webkit_chat_container_set_temporary        (WebKitChatContainer *view, bool temporary);
 void       webkit_chat_container_set_invitation       (WebKitChatContainer *view, bool show, const std::string& contactUri);
+void       webkit_chat_container_update_name          (WebKitChatContainer *view, const gchar* alias, const gchar* bestId);
+void       webkit_chat_show_add_to_conversations      (WebKitChatContainer *view, bool show);
+void       webkit_chat_enable_banned                  (WebKitChatContainer *view, bool banned);
 
 G_END_DECLS

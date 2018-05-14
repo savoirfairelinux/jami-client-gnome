@@ -536,6 +536,25 @@ webkit_chat_container_new()
 }
 
 void
+webkit_chat_container_update_name(WebKitChatContainer *view,
+                                  const gchar* alias,
+                                  const gchar* bestId)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    // TODO better escape names
+    gchar* function_call = g_strdup_printf("ring.chatview.updateContactName(\"%s\", \"%s\");", alias, bestId);
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
 webkit_chat_container_set_display_links(WebKitChatContainer *view, bool display)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
@@ -694,6 +713,7 @@ webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
     gchar* function_call = nullptr;
 
     if (show) {
+        // TODO better escape names
         function_call = g_strdup_printf("ring.chatview.showInvitation('%s')",
         contactUri.c_str());
     } else {
@@ -731,4 +751,38 @@ webkit_chat_container_is_ready(WebKitChatContainer *view)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
     return priv->js_libs_loaded;
+}
+
+void
+webkit_chat_show_add_to_conversations(WebKitChatContainer *view, bool show)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    gchar* function_call = g_strdup_printf("ring.chatview.showAddToConversationsButton(%s)", show ? "true" : "false");
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
+webkit_chat_enable_banned(WebKitChatContainer *view, bool banned)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    gchar* function_call = g_strdup_printf("ring.chatview.enableBanned(%s)", banned ? "true" : "false");
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
 }
