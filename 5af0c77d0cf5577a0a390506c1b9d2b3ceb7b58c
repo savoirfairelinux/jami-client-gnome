@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_52f958e8",
+        "filename": "src/accountview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-05-14T21:15:17Z",
+      "side": 1,
+      "message": "account_settings_view_show is meant to be called several times during the object\u0027s life, are you sure you want the connection to be defined that many times ? If so, this should probably be made clear in a comment. Also, you should probably disconnect before connecting again.",
+      "range": {
+        "startLine": 568,
+        "startChar": 4,
+        "endLine": 568,
+        "endChar": 55
+      },
+      "revId": "5af0c77d0cf5577a0a390506c1b9d2b3ceb7b58c",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
