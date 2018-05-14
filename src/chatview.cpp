@@ -192,7 +192,7 @@ file_to_manipulate(GtkWindow* top_window, bool send)
 }
 
 static void
-webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *interaction, ChatView* self)
+webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, ChatView* self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     auto order = std::string(interaction);
@@ -203,6 +203,12 @@ webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *int
         (*priv->accountInfo_)->conversationModel->removeConversation(priv->conversation_->uid);
     } else if (order == "BLOCK") {
         (*priv->accountInfo_)->conversationModel->removeConversation(priv->conversation_->uid, true);
+    } else if (order.find("PLACE_CALL") == 0) {
+        placecall_clicked(self);
+    } else if (order.find("PLACE_AUDIO_CALL") == 0) {
+        place_audio_call_clicked(self);
+    } else if (order.find("CLOSE_CHATVIEW") == 0) {
+        hide_chat_view(webview, self);
     } else if (order.find("SEND:") == 0) {
         // Get text body
         auto toSend = order.substr(std::string("SEND:").size());
@@ -565,7 +571,7 @@ build_chat_view(ChatView* self)
     if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
         webkit_chat_container_ready(self);
 
-    gtk_widget_set_visible(priv->hbox_chat_info, TRUE);
+    //gtk_widget_set_visible(priv->hbox_chat_info, TRUE);
 }
 
 GtkWidget *
@@ -632,5 +638,5 @@ void
 chat_view_set_header_visible(ChatView *self, gboolean visible)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-    gtk_widget_set_visible(priv->hbox_chat_info, visible);
+    //gtk_widget_set_visible(priv->hbox_chat_info, visible);
 }
