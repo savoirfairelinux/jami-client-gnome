@@ -15,6 +15,62 @@
       <div id="block-btn" class="invitation-button button-red" onclick="blockConversation()" >Block</div>
     </div>
   </div>
+      <div class="navbar-wrapper">
+          <div id="navbar">
+            <div id="backButton" class="nav-button non-action-button nav-left" onmouseover="addBackButtonHoverProperty()" onclick="backToWelcomeView()" title="Hide chat view">
+                <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                    <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z"/>
+                    <path fill="none" d="M0 0h24v24H0z"/>
+                </svg>
+            </div>
+            <div id="nav-contactid" class="nav-left">
+                <div id="nav-contactid-alias"></div>
+                <div id="nav-contactid-bestId"></div>
+            </div>
+            <div class="nav-button action-button nav-right" onclick="moreOptions()" title="Options">
+                <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+            </div>
+            <div id="callButtons"> <!-- callButtons block allows more efficient hiding of placeCallButton and placeAudioCallButton -->
+                <div id="placeCallButton" class="nav-button action-button nav-right" onclick="placeCall()" title="Place video call">
+                    <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+                    </svg>
+                </div>
+                <div id="placeAudioCallButton" class="nav-button action-button nav-right" onclick="placeAudioCall()" title="Place audio call">
+                    <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="none" d="M0 0h24v24H0z"/>
+                        <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+                    </svg>
+                </div>
+            </div>
+            <div id="addToConversationsButton" class="nav-button action-button nav-right" onclick="addToConversations()" title="Add to conversations">
+                <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+            </div>
+            <div id="addBannedContactButton" class="nav-button action-critical-button nav-right" onclick="addBannedContact()" title="Unban banned contact">
+                <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="none" d="M0 0h24v24H0V0z"/>
+                    <circle cx="15" cy="8" r="4"/>
+                    <path d="M23 20v-2c0-2.3-4.1-3.7-6.9-3.9l6 5.9h.9zm-11.6-5.5C9.2 15.1 7 16.3 7 18v2h9.9l4 4 1.3-1.3-21-20.9L0 3.1l4 4V10H1v2h3v3h2v-3h2.9l2.5 2.5zM6 10v-.9l.9.9H6z"/>
+                </svg>
+            </div>
+          </div>
+          <div id="invitation">
+            <div id="text">
+            </div>
+            <div id="actions">
+              <div id="accept-btn" class="invitation-button button-green" onclick="acceptInvitation()" >Accept</div>
+              <div id="refuse-btn" class="invitation-button button-red" onclick="refuseInvitation()" >Refuse</div>
+              <div id="block-btn" class="invitation-button button-red" onclick="blockConversation()" >Block</div>
+            </div>
+          </div>
+      </div>
     <div id="container">
       <div id="messages"></div>
       <div id="sendMessage">
@@ -46,16 +102,24 @@ var hoverBackButtonAllowed = true;
 
 /* We retrieve refs to the most used navbar and message bar elements for efficiency purposes */
 /* NOTE: always use getElementById when possible, way more efficient */
+const backButton        = document.getElementById("backButton");
+const aliasField        = document.getElementById("nav-contactid-alias");
+const bestIdField       = document.getElementById("nav-contactid-bestId");
+const idField           = document.getElementById("nav-contactid");
 const messageBar        = document.getElementById('sendMessage');
 const messageBarInput   = document.getElementById("message");
 const messages          = document.getElementById("messages");
+const addToConvButton   = document.getElementById("addToConversationsButton");
 const invitation        = document.getElementById("invitation");
-const invitationText    = document.getElementById('text');
+const callButtons       = document.getElementById("callButtons");
+const addBannedContactButton = document.getElementById("addBannedContactButton");
 
 /* States: allows us to avoid re-doing something if it isn't meaningful */
+var isBanned = false;
+var isTemporary = false;
 var hasInvitation = false;
 
-messageBarInput.addEventListener("keydown", function (e) {
+document.querySelector("#message").addEventListener("keydown", function (e) {
     e = e || event;
     var map = {};
     map[e.keyCode] = e.type == 'keydown';
@@ -69,16 +133,50 @@ messageBarInput.addEventListener("keydown", function (e) {
     return true;
 });
 
+/* Update general view info */
+function update_chatview_frame(banned, invited, alias, bestid) {
+  console.log("updating chatview frame");
+  navbar.style.display = "none";
+
+  hoverBackButtonAllowed = true;
+
+  aliasField.innerHTML = (alias ? alias : bestid);
+
+  if(alias) {
+      bestIdField.innerHTML = bestid;
+      idField.classList.remove("oneEntry");
+  } else {
+      idField.classList.add("oneEntry");
+  }
+
+  if (isBanned != banned) {
+      isBanned = banned;
+      hideMessageBar(banned);
+
+      if(banned) {
+          // contact is banned. update navbar and states
+          navbar.classList.add('onBannedState');
+      } else {
+          navbar.classList.remove('onBannedState');
+      }
+  } else if (isTemporary == invited) {
+      isTemporary = invited;
+      addToConvButton.style.display = (invited ? 'flex' : '');
+  }
+
+  navbar.style.display = "";
+}
+
 function grow_text_area() {
-    var is_at_bottom = messages.scrollTop === (messages.scrollHeight - messages.offsetHeight);
+  var is_at_bottom = messages.scrollTop === (messages.scrollHeight - messages.offsetHeight);
 
-    var old_height = messageBarInput.style.height;
-    messageBarInput.style.height = "auto";
-    messageBarInput.style.height = messageBarInput.scrollHeight +"px";
+  var old_height = messageBarInput.style.height;
+  messageBarInput.style.height = "auto";
+  messageBarInput.style.height = messageBarInput.scrollHeight +"px";
 
-    if (is_at_bottom) {
-      messages.scrollTop = messages.scrollHeight;
-    }
+  if (is_at_bottom) {
+    messages.scrollTop = messages.scrollHeight;
+  }
 }
 
 /*
@@ -91,15 +189,97 @@ function updateView() {
 setInterval(updateView, 60000);
 
 window.onresize = function(event) {
-    updateTimestamps();
+  updateTimestamps();
 };
+
+function displayNavbar(isVisible)
+{
+  isVisible ? navbar.classList.add("hiddenState") : navbar.classList.remove("hiddenState");
+}
+
+function addBannedContact()
+{
+  ;
+}
+
+function enableBanned(banned)
+{
+  if (isBanned == banned) {
+      // update not needed
+      return;
+  }
+
+  isBanned = banned;
+  hideMessageBar(banned);
+
+  if(banned) {
+      // contact is banned. update navbar and states
+      navbar.classList.add('onBannedState');
+  } else {
+      navbar.classList.remove('onBannedState');
+  }
+}
+
+function updateContactName(alias, bestid)
+{
+  hoverBackButtonAllowed = true;
+
+  aliasField.innerHTML = (alias ? alias : bestid);
+
+  if(alias) {
+      bestIdField.innerHTML = bestid;
+      idField.classList.remove("oneEntry");
+  } else {
+      idField.classList.add("oneEntry");
+  }
+}
+
+function addToConversations()
+{
+  window.prompt('ADD_TO_CONVERSATIONS');
+}
+
+function showAddToConversationsButton(display)
+{
+  if (isTemporary == display) {
+      // update not needed
+      return;
+  }
+
+  isTemporary = display;
+  addToConvButton.style.display = (display ? 'flex' : '');
+}
+
+function addBackButtonHoverProperty()
+{
+  if(hoverBackButtonAllowed) {
+      backButton.classList.add("non-action-button");
+  }
+}
+
+function placeCall()
+{
+  window.prompt('PLACE_CALL');
+}
+
+function placeAudioCall()
+{
+  window.prompt('PLACE_AUDIO_CALL');
+}
+
+function backToWelcomeView()
+{
+  backButton.classList.remove("non-action-button");
+  hoverBackButtonAllowed = false;
+  window.prompt('CLOSE_CHATVIEW');
+}
 
 function setDisplayLinks(display) {
   displayLinksEnabled = display;
 }
 
 /**
- * Transform a date to a string group like "1 hour ago".
+ * Transform a date to a string group likes 1 hour ago.
  */
 function formatDate(date) {
     const seconds = Math.floor((new Date() - date) / 1000);
@@ -183,6 +363,8 @@ function blockConversation()
  * @param  contactAlias
  */
 function showInvitation(contactAlias) {
+  const invitationText = document.getElementById("text");
+
   hasInvitation = true;
   invitationText.innerHTML = '<h1>' + contactAlias + ' sends you an invitation</h1>'
   + 'Do you want to add them to the conversations list?<br>'
@@ -194,10 +376,13 @@ function showInvitation(contactAlias) {
  * Hide the content of invitation
  */
 function hideInvitation() {
-  if (hasInvitation) {
-      hasInvitation = false;
-      invitation.style.visibility = 'hidden';
+  if(!hasInvitation) {
+      // do not hide invitation if it's already hidden
+      return;
   }
+
+  hasInvitation = false;
+  invitation.style.visibility = 'hidden';
 }
 
 /**
@@ -454,7 +639,7 @@ function fileInteraction(message_id) {
      message_div.querySelector('img').id = message_id
      message_div.querySelector('img').msg_obj = message_object
      message_div.querySelector('img').onerror = function() {
-       message_div = document.getElementById('#message_' + this.id);
+       message_div = document.querySelector('#message_' + this.id);
        if (message_div.querySelector('.message_wrapper')) {
          wrapper = message_div.querySelector('.message_wrapper')
          wrapper.parentNode.removeChild(wrapper)
@@ -714,10 +899,9 @@ function updateContactInteraction(message_div, message_object) {
   var left_buttons = message_div.querySelector('.left_buttons')
   left_buttons.innerHTML = ''
   var status_button = document.createElement('div')
-  status_button.innerHTML = '<?xml version="1.0" ?><svg height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg">\
-                              <path d="M8.013766 23.107838l0.00465 -0.810382 0.033095 -0.133474c0.1495327 -0.603099 0.50107 -1.099452 1.1411917 -1.611311 0.1690725 -0.135195 0.5493165 -0.388522 0.7866284 -0.524069 1.4449359 -0.825313 3.6497829 -1.439907 5.5693029 -1.552424 0.268992 -0.01577 0.866138 -0.0085 1.131356 0.01373 1.873734 0.157215 3.884055 0.729268 5.262712 1.497544 1.031356 0.574739 1.70347 1.254543 1.937152 1.959316 0.101301 0.305518 0.100213 0.293393 0.105924 1.180132l0.0051 0.791314 -7.990878 0 -7.990878 0 0.00465 -0.810381z" fill="#000000"/>\
-                              <path d="M15.641818 15.906151c-0.512638 -0.04757 -0.970838 -0.177847 -1.424519 -0.40503 -0.534623 -0.267715 -0.972855 -0.622072 -1.344489 -1.087162 -0.500329 -0.626146 -0.797007 -1.385268 -0.858271 -2.196087 -0.01377 -0.182277 -0.0068 -0.568261 0.01341 -0.738308 0.137062 -1.155519 0.73576 -2.1602655 1.685808 -2.8291565 1.010233 -0.711264 2.333521 -0.90809 3.519055 -0.523424 0.511977 0.166119 0.9845 0.434474 1.39324 0.791249 0.103105 0.09 0.316993 0.304905 0.402137 0.404056 0.848222 0.9877635 1.16007 2.3144245 0.843044 3.5864705 -0.116312 0.466694 -0.339476 0.947863 -0.621858 1.340798 -0.695617 0.967955 -1.761735 1.568261 -2.95044 1.661324 -0.155481 0.01217 -0.501821 0.0097 -0.657113 -0.0047z" fill="#000000"/>\
-                              </svg>'
+  status_button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">\
+<path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>\
+<path d="M0 0h24v24H0z" fill="none"/></svg>'
   status_button.setAttribute('class', 'flat-button')
   left_buttons.appendChild(status_button)
 }
@@ -767,7 +951,7 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
         message_div.querySelector('img').id = message_id
         message_div.querySelector('img').msg_obj = message_object
         message_div.querySelector('img').onerror = function() {
-          message_div = document.getElementById('#message_' + this.id);
+          message_div = document.querySelector('#message_' + this.id);
           if (message_div.querySelector('.message_wrapper')) {
             wrapper = message_div.querySelector('.message_wrapper')
             wrapper.parentNode.removeChild(wrapper)
@@ -898,10 +1082,16 @@ function addMessage(message_object)
 }
 
 /**
- * Show the history in reverse order and avoid the process to consumes a lot of ressources
+ * Show the history in reverse order
  */
 function printHistoryPart () {
+  if(historyBuffer.length == 0) {
+      // nothing to print
+      return;
+  }
+
   var previousScrollHeightMinusTop = messages.scrollHeight - messages.scrollTop;
+
   // Show 10 messages
   for (var i = 0; i < 10; ++i) {
     addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false);
@@ -909,9 +1099,11 @@ function printHistoryPart () {
     if (historyBufferIndex === historyBuffer.length)
       break;
   }
+
   // Replace the scrollbar to the wanted position
   messages.scrollTop = messages.scrollHeight - previousScrollHeightMinusTop;
-  // Make a short pause to minimizes ressources consumption
+
+  // Make a short pause to minimize ressources consumption
   // show quickly the first hundred messages
   if (historyBufferIndex !== historyBuffer.length)
     setTimeout(printHistoryPart, (historyBufferIndex > 100) ? 100 : 1);
@@ -924,7 +1116,7 @@ function printHistory(messages_array)
 {
     historyBuffer = messages_array;
     historyBufferIndex = 0;
-    setTimeout(printHistoryPart, 1);
+    setTimeout(printHistoryPart, 0);
 }
 
 /**
@@ -946,7 +1138,7 @@ function setSenderImage(set_sender_image_object)
     var sender_contact_method = set_sender_image_object['sender_contact_method'],
         sender_image = set_sender_image_object['sender_image'],
         sender_image_id = "sender_image_" + sender_contact_method,
-        currentSenderImage = document.getElementById("#" + sender_image_id), // Remove the currently set sender image
+        currentSenderImage = document.querySelector("#" + sender_image_id), // Remove the currently set sender image
         style;
 
     if (currentSenderImage) {
@@ -958,22 +1150,14 @@ function setSenderImage(set_sender_image_object)
 
     style.type = 'text/css';
     style.id = sender_image_id;
-    style.innerHTML = '.' + sender_image_id + " { \n content: url(data:image/png;base64," + sender_image + "); \n height: 35px; \n width: 35px; \n }";
+    style.innerHTML = '.' + sender_image_id + " {content: url(data:image/png;base64," + sender_image + ");height: 35px;width: 35px;}";
     document.head.appendChild(style);
-}
-
-/**
- * Change the send icon
- */
-function setSendIcon(source)
-{
-    sendBtn.src = "data:image/png;base64," + source;
 }
 
 function clearSenderImages()
 {
     var styles = document.head.querySelectorAll("style"),
-        i = styles.length;
+    i = styles.length;
 
     while (i--){
       document.head.removeChild(styles[i]);
@@ -982,11 +1166,7 @@ function clearSenderImages()
 
 function setTemporary(temporary)
 {
-  if (temporary) {
-      messageBarInput.placeholder = "Note: an interaction will create a new contact.";
-  } else {
-      messageBarInput.placeholder = "Type a message";
-  }
+  messageBarInput.placeholder = (temporary ? "Note: an interaction will create a new contact." : "Type a message");
 }
 
 function sendFile()
@@ -995,5 +1175,4 @@ function sendFile()
 }
 
 </script>
-
 </html>

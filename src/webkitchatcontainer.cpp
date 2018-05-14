@@ -536,6 +536,25 @@ webkit_chat_container_new()
 }
 
 void
+webkit_chat_container_update_name(WebKitChatContainer *view,
+                                  const gchar* alias,
+                                  const gchar* bestId)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    // TODO better escape names
+    gchar* function_call = g_strdup_printf("updateContactName(\"%s\", \"%s\");", alias, bestId);
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
 webkit_chat_container_set_display_links(WebKitChatContainer *view, bool display)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
@@ -658,6 +677,7 @@ webkit_chat_container_print_history(WebKitChatContainer *view,
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
+    g_debug("webkit_chat_container_print_history");
     auto interactions_str = interactions_to_json_array_object(conversation_model, interactions).toUtf8();
     gchar* function_call = g_strdup_printf("printHistory(%s)", interactions_str.constData());
     webkit_web_view_run_javascript(
@@ -693,7 +713,9 @@ webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
     auto priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
     gchar* function_call = nullptr;
 
+    g_debug("webkit_chat_set_invitation");
     if (show) {
+        // TODO better escape names
         function_call = g_strdup_printf("showInvitation('%s')",
         contactUri.c_str());
     } else {
@@ -715,6 +737,7 @@ webkit_chat_container_set_sender_image(WebKitChatContainer *view, const std::str
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
+    g_debug("webkit_chat_set_sender_image");
     QJsonObject set_sender_image_object = QJsonObject();
     set_sender_image_object.insert("sender_contact_method", QJsonValue(QString(sender.c_str())));
     set_sender_image_object.insert("sender_image", QJsonValue(QString(senderImage.c_str())));
@@ -731,4 +754,77 @@ webkit_chat_container_is_ready(WebKitChatContainer *view)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
     return priv->js_libs_loaded;
+}
+
+void
+webkit_chat_show_add_to_conversations(WebKitChatContainer *view, bool show)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    g_debug("webkit_chat_show_add_to_conversations");
+    gchar* function_call = g_strdup_printf("showAddToConversationsButton(%s)", show ? "true" : "false");
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
+webkit_chat_enable_banned(WebKitChatContainer *view, bool isBanned)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    g_debug("webkit_chat_enable_banned");
+    gchar* function_call = g_strdup_printf("enableBanned(%s)", isBanned ? "true" : "false");
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
+webkit_chat_set_header_visible(WebKitChatContainer *view, bool isVisible)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    g_debug("webkit_chat_set_header_visible");
+    gchar* function_call = g_strdup_printf("displayNavbar(%s)", isVisible ? "true" : "false");
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
+webkit_chat_update_chatview_frame(WebKitChatContainer *view, bool banned, bool invited, const gchar* alias, const gchar* bestId)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    g_debug("webkit_chat_update_chatview_frame");
+    gchar* function_call = g_strdup_printf("update_chatview_frame(%s, %s, \"%s\", \"%s\")", banned ? "true" : "false", invited ? "true" : "false", alias, bestId);
+    g_debug("calling: %s; fyi: %llu, %llu", function_call, alias, bestId);
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
 }
