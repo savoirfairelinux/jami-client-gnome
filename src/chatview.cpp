@@ -4,6 +4,7 @@
  *  Author: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
  *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
  *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
+ *  Author: Hugo Lefeuvre <hugo.lefeuvre@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -52,13 +53,6 @@ struct _ChatViewPrivate
 {
     GtkWidget *box_webkit_chat_container;
     GtkWidget *webkit_chat_container;
-    GtkWidget *hbox_chat_info;
-    GtkWidget *label_peer;
-    GtkWidget *label_cm;
-    GtkWidget *button_close_chatview;
-    GtkWidget *button_placecall;
-    GtkWidget *button_add_to_conversations;
-    GtkWidget *button_place_audio_call;
 
     GSettings *settings;
 
@@ -191,8 +185,10 @@ file_to_manipulate(GtkWindow* top_window, bool send)
     return filename;
 }
 
+static void update_chatview_frame(ChatView *self);
+
 static void
-webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *interaction, ChatView* self)
+webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, ChatView* self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     auto order = std::string(interaction);
@@ -203,6 +199,20 @@ webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *int
         (*priv->accountInfo_)->conversationModel->removeConversation(priv->conversation_->uid);
     } else if (order == "BLOCK") {
         (*priv->accountInfo_)->conversationModel->removeConversation(priv->conversation_->uid, true);
+    } else if (order == "UNBLOCK") {
+        try {
+            auto contactUri = priv->conversation_->participants.front();
+            auto& contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
+            (*priv->accountInfo_)->contactModel->addContact(contact);
+        } catch (std::out_of_range) {
+            g_debug("webkit_chat_container_script_dialog: oor while retrieving invalid contact info. Chatview bug ?");
+        }
+    } else if (order.find("PLACE_CALL") == 0) {
+        placecall_clicked(self);
+    } else if (order.find("PLACE_AUDIO_CALL") == 0) {
+        place_audio_call_clicked(self);
+    } else if (order.find("CLOSE_CHATVIEW") == 0) {
+        hide_chat_view(webview, self);
     } else if (order.find("SEND:") == 0) {
         // Get text body
         auto toSend = order.substr(std::string("SEND:").size());
@@ -258,6 +268,8 @@ webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *int
             g_debug("Could not open file: %s", error->message);
             g_error_free(error);
         }
+    } else if (order.find("ADD_TO_CONVERSATIONS") == 0) {
+        button_add_to_conversations_clicked(self);
     }
 }
 
@@ -268,11 +280,6 @@ chat_view_init(ChatView *view)
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(view);
     priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
-
-    g_signal_connect(priv->button_close_chatview, "clicked", G_CALLBACK(hide_chat_view), view);
-    g_signal_connect_swapped(priv->button_placecall, "clicked", G_CALLBACK(placecall_clicked), view);
-    g_signal_connect_swapped(priv->button_add_to_conversations, "clicked", G_CALLBACK(button_add_to_conversations_clicked), view);
-    g_signal_connect_swapped(priv->button_place_audio_call, "clicked", G_CALLBACK(place_audio_call_clicked), view);
 }
 
 static void
@@ -284,13 +291,6 @@ chat_view_class_init(ChatViewClass *klass)
                                                 "/cx/ring/RingGnome/chatview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, box_webkit_chat_container);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, hbox_chat_info);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_peer);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, label_cm);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_close_chatview);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_placecall);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_add_to_conversations);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, button_place_audio_call);
 
     chat_view_signals[NEW_MESSAGES_DISPLAYED] = g_signal_new (
         "new-interactions-displayed",
@@ -397,89 +397,6 @@ print_text_recording(ChatView *self)
 }
 
 static void
-update_if_banned(ChatView *self)
-{
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    if (!priv->conversation_) return;
-    auto participant = priv->conversation_->participants[0];
-    try {
-        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(participant);
-        if (contactInfo.isBanned) {
-            gtk_widget_set_sensitive (priv->button_placecall, FALSE);
-            gtk_widget_set_tooltip_text(priv->button_placecall, _("Can't place call with banned contact"));
-            gtk_widget_set_sensitive (priv->button_add_to_conversations, FALSE);
-            gtk_widget_set_tooltip_text(priv->button_add_to_conversations, _("Can't start conversation with banned contact"));
-            gtk_widget_set_sensitive (priv->button_place_audio_call, FALSE);
-            gtk_widget_set_tooltip_text(priv->button_place_audio_call, _("Can't place audio call with banned contact"));
-            webkit_chat_hide_message_bar(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), true);
-        } else {
-            gtk_widget_set_sensitive (priv->button_placecall, TRUE);
-            gtk_widget_set_sensitive (priv->button_add_to_conversations, TRUE);
-            gtk_widget_set_sensitive (priv->button_place_audio_call, TRUE);
-            webkit_chat_hide_message_bar(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), false);
-        }
-    } catch (const std::out_of_range&) {
-        // ContactModel::getContact() exception
-    }
-}
-
-static void
-update_add_to_conversations(ChatView *self)
-{
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    if (!priv->conversation_) return;
-    auto participant = priv->conversation_->participants[0];
-    try {
-        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(participant);
-        if(contactInfo.profileInfo.type != lrc::api::profile::Type::TEMPORARY
-           && contactInfo.profileInfo.type != lrc::api::profile::Type::PENDING)
-            gtk_widget_hide(priv->button_add_to_conversations);
-    } catch (const std::out_of_range&) {
-        // ContactModel::getContact() exception
-    }
-}
-
-static void
-update_contact_methods(ChatView *self)
-{
-    g_return_if_fail(IS_CHAT_VIEW(self));
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    if (!priv->conversation_) return;
-    auto contactUri = priv->conversation_->participants.front();
-    try {
-        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
-        auto bestId = std::string(contactInfo.registeredName).empty() ? contactInfo.profileInfo.uri : contactInfo.registeredName;
-        if (contactInfo.profileInfo.alias == bestId) {
-            gtk_widget_hide(priv->label_cm);
-        } else {
-            gtk_label_set_text(GTK_LABEL(priv->label_cm), bestId.c_str());
-            gtk_widget_show(priv->label_cm);
-        }
-    } catch (const std::out_of_range&) {
-        // ContactModel::getContact() exception
-    }
-}
-
-static void
-update_name(ChatView *self)
-{
-    g_return_if_fail(IS_CHAT_VIEW(self));
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-    if (!priv->conversation_) return;
-    auto contactUri = priv->conversation_->participants.front();
-    try {
-        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
-        auto alias = contactInfo.profileInfo.alias;
-        alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
-        gtk_label_set_text(GTK_LABEL(priv->label_peer), alias.c_str());
-    } catch (const std::out_of_range&) {
-        // ContactModel::getContact() exception
-    }
-}
-
-static void
 webkit_chat_container_ready(ChatView* self)
 {
     /* The webkit chat container has loaded the javascript libraries, we can
@@ -535,6 +452,40 @@ webkit_chat_container_ready(ChatView* self)
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
     }
+
+    update_chatview_frame(self);
+}
+
+static void
+update_chatview_frame(ChatView* self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    if (!priv->conversation_) return;
+
+    auto contactUri = priv->conversation_->participants.front();
+
+    lrc::api::contact::Info contactInfo;
+    try {
+        contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
+    } catch (const std::out_of_range&) {
+        g_debug("update_chatview_frame: failed to retrieve contactInfo");
+        return;
+    }
+
+    // get alias and bestName
+    auto alias = contactInfo.profileInfo.alias;
+    auto bestName = contactInfo.registeredName;
+    if (bestName.empty())
+        bestName = contactInfo.profileInfo.uri;
+    bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
+    alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
+
+    // get invitation status
+    bool invited;
+    invited = contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY || contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
+
+    webkit_chat_update_chatview_frame(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), contactInfo.isBanned, invited, alias.c_str(), bestName.c_str());
 }
 
 static void
@@ -545,10 +496,7 @@ build_chat_view(ChatView* self)
     gtk_container_add(GTK_CONTAINER(priv->box_webkit_chat_container), priv->webkit_chat_container);
     gtk_widget_show(priv->webkit_chat_container);
 
-    update_name(self);
-    update_add_to_conversations(self);
-    update_contact_methods(self);
-    update_if_banned(self);
+    update_chatview_frame(self);
 
     priv->webkit_ready = g_signal_connect_swapped(
         priv->webkit_chat_container,
@@ -564,8 +512,6 @@ build_chat_view(ChatView* self)
 
     if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
         webkit_chat_container_ready(self);
-
-    gtk_widget_set_visible(priv->hbox_chat_info, TRUE);
 }
 
 GtkWidget *
@@ -590,26 +536,7 @@ chat_view_update_temporary(ChatView* self, bool showAddButton, bool showInvitati
     g_return_if_fail(IS_CHAT_VIEW(self));
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    priv->isTemporary_ = showAddButton;
-    if (!priv->isTemporary_) {
-        gtk_widget_hide(priv->button_add_to_conversations);
-    }
-    webkit_chat_container_set_temporary(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->isTemporary_);
-    if (!priv->conversation_) return;
-    auto contactUri = priv->conversation_->participants.front();
-    try {
-        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
-        auto bestName = contactInfo.profileInfo.alias;
-        if (bestName.empty())
-            bestName = contactInfo.registeredName;
-        if (bestName.empty())
-            bestName = contactInfo.profileInfo.uri;
-        webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                             showInvitation,
-                                             bestName);
-    } catch (const std::out_of_range&) {
-        // ContactModel::getContact() exception
-    }
+    update_chatview_frame(self);
 }
 
 bool
@@ -627,10 +554,9 @@ chat_view_get_conversation(ChatView *self)
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     return *priv->conversation_;
 }
-
 void
 chat_view_set_header_visible(ChatView *self, gboolean visible)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-    gtk_widget_set_visible(priv->hbox_chat_info, visible);
+    webkit_chat_set_header_visible(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), visible);
 }
