@@ -3,6 +3,7 @@
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
  *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
+ *  Author: Hugo Lefeuvre <hugo.lefeuvre@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -56,7 +57,6 @@ GtkWidget     *chat_view_new        (WebKitChatContainer* view,
                                      AccountInfoPointer const & accountInfo,
                                      lrc::api::conversation::Info* conversation);
 lrc::api::conversation::Info chat_view_get_conversation(ChatView*);
-bool chat_view_get_temporary(ChatView*);
 void chat_view_update_temporary(ChatView*, bool, bool);
 void chat_view_set_header_visible(ChatView*, gboolean);
 
