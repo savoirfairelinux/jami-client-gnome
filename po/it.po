@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-07 03:09-0400\n"
-"PO-Revision-Date: 2018-04-16 07:09+0000\n"
+"POT-Creation-Date: 2018-05-14 03:09-0400\n"
+"PO-Revision-Date: 2018-05-14 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Italian (http://www.transifex.com/savoirfairelinux/ring/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1085,39 +1085,43 @@ msgstr "Nome"
 msgid "Samplerate"
 msgstr "Frequenza di campionamento"
 
-#: src/conversationpopupmenu.cpp:183
+#: src/conversationpopupmenu.cpp:214
 msgid "Place _video call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:186
+#: src/conversationpopupmenu.cpp:217
 msgid "Place _audio call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:192
+#: src/conversationpopupmenu.cpp:225
 msgid "_Add to conversations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:196
+#: src/conversationpopupmenu.cpp:229
 msgid "_Discard invitation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:199
+#: src/conversationpopupmenu.cpp:232
 msgid "_Block invitations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:204
+#: src/conversationpopupmenu.cpp:237
 msgid "C_lear history"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:207
+#: src/conversationpopupmenu.cpp:240
 msgid "_Remove conversation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:210
+#: src/conversationpopupmenu.cpp:245
 msgid "_Block contact"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:215
+#: src/conversationpopupmenu.cpp:249
+msgid "_Unblock contact"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:255
 msgid "_Copy name"
 msgstr "_Copiare il nome"
 
@@ -1176,6 +1180,18 @@ msgstr ""
 
 #: src/chatview.cpp:174
 msgid "Send File"
+msgstr ""
+
+#: src/chatview.cpp:410
+msgid "Can't place call with banned contact"
+msgstr ""
+
+#: src/chatview.cpp:412
+msgid "Can't start conversation with banned contact"
+msgstr ""
+
+#: src/chatview.cpp:414
+msgid "Can't place audio call with banned contact"
 msgstr ""
 
 #: src/currentcallview.cpp:781
