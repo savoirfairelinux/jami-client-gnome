@@ -694,6 +694,7 @@ webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
     gchar* function_call = nullptr;
 
     if (show) {
+        // TODO better escape names
         function_call = g_strdup_printf("showInvitation('%s')",
         contactUri.c_str());
     } else {
@@ -731,4 +732,38 @@ webkit_chat_container_is_ready(WebKitChatContainer *view)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
     return priv->js_libs_loaded;
+}
+
+void
+webkit_chat_set_header_visible(WebKitChatContainer *view, bool isVisible)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    gchar* function_call = g_strdup_printf("displayNavbar(%s)", isVisible ? "true" : "false");
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
+webkit_chat_update_chatview_frame(WebKitChatContainer *view, bool banned, bool invited, const gchar* alias, const gchar* bestId)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    gchar* function_call = g_strdup_printf("update_chatview_frame(%s, %s, \"%s\", \"%s\")", banned ? "true" : "false", invited ? "true" : "false", alias, bestId);
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
 }
