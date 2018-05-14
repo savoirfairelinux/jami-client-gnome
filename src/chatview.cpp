@@ -192,7 +192,7 @@ file_to_manipulate(GtkWindow* top_window, bool send)
 }
 
 static void
-webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *interaction, ChatView* self)
+webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, ChatView* self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     auto order = std::string(interaction);
@@ -203,6 +203,12 @@ webkit_chat_container_script_dialog(G_GNUC_UNUSED GtkWidget* webview, gchar *int
         (*priv->accountInfo_)->conversationModel->removeConversation(priv->conversation_->uid);
     } else if (order == "BLOCK") {
         (*priv->accountInfo_)->conversationModel->removeConversation(priv->conversation_->uid, true);
+    } else if (order.find("PLACE_CALL") == 0) {
+        placecall_clicked(self);
+    } else if (order.find("PLACE_AUDIO_CALL") == 0) {
+        place_audio_call_clicked(self);
+    } else if (order.find("CLOSE_CHATVIEW") == 0) {
+        hide_chat_view(webview, self);
     } else if (order.find("SEND:") == 0) {
         // Get text body
         auto toSend = order.substr(std::string("SEND:").size());
@@ -472,8 +478,13 @@ update_name(ChatView *self)
     try {
         auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         auto alias = contactInfo.profileInfo.alias;
+        auto bestName = contactInfo.registeredName;
+        if (bestName.empty())
+            bestName = contactInfo.profileInfo.uri;
+        bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
         alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
         gtk_label_set_text(GTK_LABEL(priv->label_peer), alias.c_str());
+        webkit_chat_container_update_name(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), alias.c_str(), bestName.c_str());
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
     }
