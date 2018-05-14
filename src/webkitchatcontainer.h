@@ -54,7 +54,8 @@ gboolean   webkit_chat_container_is_ready             (WebKitChatContainer *view
 void       webkit_chat_container_set_display_links    (WebKitChatContainer *view, bool display);
 void       webkit_chat_disable_send_interaction       (WebKitChatContainer *view, bool isDisabled);
 void       webkit_chat_hide_message_bar               (WebKitChatContainer *view, bool isHidden);
-void       webkit_chat_container_set_temporary        (WebKitChatContainer *view, bool temporary);
 void       webkit_chat_container_set_invitation       (WebKitChatContainer *view, bool show, const std::string& contactUri);
+void       webkit_chat_set_header_visible             (WebKitChatContainer *view, bool isVisible);
+void       webkit_chat_update_chatview_frame          (WebKitChatContainer *view, bool isBanned, bool isInvited, const gchar* alias, const gchar* bestId);
 
 G_END_DECLS
