@@ -1031,6 +1031,11 @@ current_call_view_dispose(GObject *object)
     auto* view = CURRENT_CALL_VIEW(object);
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
+    // navbar was hidden during setCallInfo, we need to make it visible again before view destruction
+    auto children = gtk_container_get_children(GTK_CONTAINER(priv->frame_chat));
+    auto chat_view = children->data;
+    chat_view_set_header_visible(CHAT_VIEW(chat_view), TRUE);
+
     delete priv->cpp;
     priv->cpp = nullptr;
 
