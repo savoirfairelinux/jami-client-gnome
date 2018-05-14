@@ -6,37 +6,110 @@
 </head>
 
 <body>
-  <div id="invitation">
-    <div id="text">
-    </div>
-    <div id="actions">
-      <div id="accept-btn" class="invitation-button button-green" onclick="ring.chatview.acceptInvitation()" >Accept</div>
-      <div id="refuse-btn" class="invitation-button button-red" onclick="ring.chatview.refuseInvitation()" >Refuse</div>
-      <div id="block-btn" class="invitation-button button-red" onclick="ring.chatview.blockConversation()" >Block</div>
-    </div>
-  </div>
+      <div class="navbar-wrapper">
+          <div id="navbar">
+            <div id="backButton" class="nav-button non-action-button nav-left" onmouseover="addBackButtonHoverProperty()" onclick="backToWelcomeView()" title="Hide chat view">
+                <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                    <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z"/>
+                    <path fill="none" d="M0 0h24v24H0z"/>
+                </svg>
+            </div>
+            <div id="nav-contactid" class="nav-left">
+                <div id="nav-contactid-alias"></div>
+                <div id="nav-contactid-bestId"></div>
+            </div>
+            <div class="nav-button action-button nav-right" onclick="moreOptions()" title="Options">
+                <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+            </div>
+            <div id="callButtons"> <!-- callButtons block allows more efficient hiding of placeCallButton and placeAudioCallButton -->
+                <div id="placeCallButton" class="nav-button action-button nav-right" onclick="placeCall()" title="Place video call">
+                    <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+                    </svg>
+                </div>
+                <div id="placeAudioCallButton" class="nav-button action-button nav-right" onclick="placeAudioCall()" title="Place audio call">
+                    <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="none" d="M0 0h24v24H0z"/>
+                        <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+                    </svg>
+                </div>
+            </div>
+            <div id="addToConversationsButton" class="nav-button action-button nav-right" onclick="addToConversations()" title="Add to conversations">
+                <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+            </div>
+            <div id="addBannedContactButton" class="nav-button action-critical-button nav-right" onclick="addBannedContact()" title="Unban banned contact">
+                <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="none" d="M0 0h24v24H0V0z"/>
+                    <circle cx="15" cy="8" r="4"/>
+                    <path d="M23 20v-2c0-2.3-4.1-3.7-6.9-3.9l6 5.9h.9zm-11.6-5.5C9.2 15.1 7 16.3 7 18v2h9.9l4 4 1.3-1.3-21-20.9L0 3.1l4 4V10H1v2h3v3h2v-3h2.9l2.5 2.5zM6 10v-.9l.9.9H6z"/>
+                </svg>
+            </div>
+          </div>
+          <div id="invitation">
+            <div id="text">
+            </div>
+            <div id="actions">
+              <div id="accept-btn" class="invitation-button button-green" onclick="acceptInvitation()" >Accept</div>
+              <div id="refuse-btn" class="invitation-button button-red" onclick="refuseInvitation()" >Refuse</div>
+              <div id="block-btn" class="invitation-button button-red" onclick="blockConversation()" >Block</div>
+            </div>
+          </div>
+      </div>
     <div id="container">
       <div id="messages"></div>
 
       <div id="sendMessage">
-        <textarea id="message" autofocus placeholder="Message" onkeyup="grow_text_area()" rows="1" disabled="false"></textarea>
-        <div class="msg-button" onclick="ring.chatview.sendMessage()" title="Send">
-          <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-              <path xmlns="http://www.w3.org/2000/svg" d="M12,11.874v4.357l7-6.69l-7-6.572v3.983c-8.775,0-11,9.732-11,9.732C3.484,12.296,7.237,11.874,12,11.874z"/>
-          </svg>
+        <div class="msg-button action-button" onclick="sendFile()" title="Send File">
+            <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
         </div>
-        <div class="msg-button" onclick="ring.chatview.sendFile()" title="Send File">
-          <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 0h24v24H0z" fill="none" />
-              <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
-          </svg>
+        <textarea id="message" autofocus placeholder="Message" onkeyup="grow_text_area()" rows="1" disabled="false"></textarea>
+        <div class="msg-button action-button" onclick="sendMessage()" title="Send">
+            <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
         </div>
       </div>
-      </form>
     </div>
 </body>
 
 <script>
+
+const avatar_size = 35;
+var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
+var displayLinksEnabled = false;
+var historyBufferIndex = 0; // When showing a large amount of interactions, this counter store the interaction's index to show
+var historyBuffer = []; // Before showing a large amount of interactions, this array is used as a buffer.
+var hoverBackButtonAllowed = true;
+
+/* We retrieve refs to the most used navbar and message bar elements for efficiency purposes */
+/* NOTE: always use getElementById when possible, way more efficient */
+const backButton        = document.getElementById("backButton");
+const aliasField        = document.getElementById("nav-contactid-alias");
+const bestIdField       = document.getElementById("nav-contactid-bestId");
+const idField           = document.getElementById("nav-contactid");
+const messageBar        = document.getElementById('sendMessage');
+const messageBarInput   = document.getElementById("message");
+const messages          = document.getElementById("messages");
+const addToConvButton   = document.getElementById("addToConversationsButton");
+const invitation        = document.getElementById("invitation");
+const callButtons       = document.getElementById("callButtons");
+const addBannedContactButton = document.getElementById("addBannedContactButton");
+
+/* States: allows us to avoid re-doing something if it isn't meaningful */
+var isBanned = false;
+var isTemporary = false;
+var hasInvitation = false;
 
 document.querySelector("#message").addEventListener("keydown", function (e) {
     e = e || event;
@@ -46,1114 +119,1017 @@ document.querySelector("#message").addEventListener("keydown", function (e) {
       return true;
     }
     if (map[13]) {
-      ring.chatview.sendMessage();
+      sendMessage();
       e.preventDefault();
     }
     return true;
 });
 
 function grow_text_area() {
-    var messages = document.querySelector('#messages');
-    var is_at_bottom = messages.scrollTop === (messages.scrollHeight - messages.offsetHeight);
+  var is_at_bottom = messages.scrollTop === (messages.scrollHeight - messages.offsetHeight);
 
-    var area = document.querySelector("#message");
-    var old_height = area.style.height;
-    area.style.height = "auto";
-    area.style.height = area.scrollHeight +"px";
+  var old_height = messageBarInput.style.height;
+  messageBarInput.style.height = "auto";
+  messageBarInput.style.height = messageBarInput.scrollHeight +"px";
 
-    if (is_at_bottom) {
-      messages.scrollTop = messages.scrollHeight;
-    }
+  if (is_at_bottom) {
+    messages.scrollTop = messages.scrollHeight;
+  }
 }
 
 /*
  * Update timestamps messages
  */
 function updateView() {
-    if (ring.chatview) ring.chatview.updateTimestamps();
+    updateTimestamps();
 }
 setInterval(updateView, 60000);
 
 window.onresize = function(event) {
-    if (ring.chatview) ring.chatview.updateTimestamps();
+  updateTimestamps();
 };
 
-var ring = {}; // ring namespace
+function displayNavbar(isVisible)
+{
+  isVisible ? navbar.classList.add("hiddenState") : navbar.classList.remove("hiddenState");
+}
 
-ring.chatview = (function(){
-    const avatar_size = 35;
-    var dev = {}; // ring.chatview.dev namespace
-    var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
-    var messages = document.querySelector("#messages");
-    var displayLinksEnabled = false;
-    var historyBufferIndex = 0; // When showing a large amount of interactions, this counter store the interaction's index to show
-    var historyBuffer = []; // Before showing a large amount of interactions, this array is used as a buffer.
+function addBannedContact()
+{
+  ;
+}
 
-    function setDisplayLinks(display) {
-      displayLinksEnabled = display;
+function enableBanned(banned)
+{
+  if (isBanned == banned) {
+      // update not needed
+      return;
+  }
+
+  isBanned = banned;
+  hideMessageBar(banned);
+
+  if(banned) {
+      // contact is banned. update navbar and states
+      navbar.classList.add('onBannedState');
+  } else {
+      navbar.classList.remove('onBannedState');
+  }
+}
+
+function updateContactName(alias, bestid)
+{
+  hoverBackButtonAllowed = true;
+
+  aliasField.innerHTML = (alias ? alias : bestid);
+
+  if(alias) {
+      bestIdField.innerHTML = bestid;
+      idField.classList.remove("oneEntry");
+  } else {
+      idField.classList.add("oneEntry");
+  }
+}
+
+function addToConversations()
+{
+  window.prompt('ADD_TO_CONVERSATIONS');
+}
+
+function showAddToConversationsButton(display)
+{
+  if (isTemporary == display) {
+      // update not needed
+      return;
+  }
+
+  isTemporary = display;
+  addToConvButton.style.display = (display ? 'flex' : '');
+}
+
+function addBackButtonHoverProperty()
+{
+  if(hoverBackButtonAllowed) {
+      backButton.classList.add("non-action-button");
+  }
+}
+
+function placeCall()
+{
+  window.prompt('PLACE_CALL');
+}
+
+function placeAudioCall()
+{
+  window.prompt('PLACE_AUDIO_CALL');
+}
+
+function backToWelcomeView()
+{
+  backButton.classList.remove("non-action-button");
+  hoverBackButtonAllowed = false;
+  window.prompt('CLOSE_CHATVIEW');
+}
+
+function setDisplayLinks(display) {
+  displayLinksEnabled = display;
+}
+
+/**
+ * Transform a date to a string group likes 1 hour ago.
+ */
+function formatDate(date) {
+    const seconds = Math.floor((new Date() - date) / 1000);
+    var interval = Math.floor(seconds / (3600 * 24));
+    if (interval > 5) {
+        return date.toLocaleDateString();
     }
-
-    /**
-     * Transform a date to a string group likes 1 hour ago.
-     */
-    function formatDate(date) {
-        const seconds = Math.floor((new Date() - date) / 1000);
-        var interval = Math.floor(seconds / (3600 * 24));
-        if (interval > 5) {
-            return date.toLocaleDateString();
-        }
-        if (interval > 1) {
-            return interval + ' days ago';
-        }
-        if (interval === 1) {
-            return interval + ' day ago';
-        }
-        interval = Math.floor(seconds / 3600);
-        if (interval > 1) {
-            return interval + ' hours ago';
-        }
-        if (interval === 1) {
-            return interval + ' hour ago';
-        }
-        interval = Math.floor(seconds / 60);
-        if (interval > 1) {
-            return interval + ' minutes ago';
-        }
-        return 'just now';
+    if (interval > 1) {
+        return interval + ' days ago';
     }
+    if (interval === 1) {
+        return interval + ' day ago';
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+        return interval + ' hours ago';
+    }
+    if (interval === 1) {
+        return interval + ' hour ago';
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+        return interval + ' minutes ago';
+    }
+    return 'just now';
+}
 
-    /**
-     * Send #sendMessage #message value
-     */
-     function sendMessage()
-     {
-         var input = document.querySelector("#sendMessage #message");
-         var message = input.value;
-         if (message.length > 0) {
-             input.value = '';
-             window.prompt('SEND:' + message);
-         }
+/**
+ * Send #sendMessage #message value
+ */
+ function sendMessage()
+ {
+     var message = messageBarInput.value;
+     if (message.length > 0) {
+         messageBarInput.value = '';
+         window.prompt('SEND:' + message);
      }
+ }
 
-   /**
-    * Disable or enable textarea
-    */
-    function disableSendMessage(isDisabled)
+/**
+* Disable or enable textarea
+*/
+function disableSendMessage(isDisabled)
+{
+    messageBarInput.disabled = isDisabled;
+}
+
+/**
+ * Change the value of the progress bar
+ */
+function hideMessageBar(isHidden) {
+    isHidden ? messageBar.classList.add("hiddenState") : messageBar.classList.remove("hiddenState");
+}
+
+/**
+ * Accept an invite
+ */
+function acceptInvitation()
+{
+    window.prompt('ACCEPT');
+}
+
+/**
+ * Refuse an invite
+ */
+function refuseInvitation()
+{
+    window.prompt('REFUSE');
+}
+
+/**
+ * Accept an invite
+ */
+function blockConversation()
+{
+    window.prompt('BLOCK');
+}
+
+/**
+ * Change the content of the div invitation and show it
+ * @param  contactAlias
+ */
+function showInvitation(contactAlias) {
+  const invitationText = document.getElementById("text");
+
+  hasInvitation = true;
+  invitationText.innerHTML = '<h1>' + contactAlias + ' sends you an invitation</h1>'
+  + 'Do you want to add them to the conversations list?<br>'
+  + 'Note: you can automatically accept this invitation by sending a message.';
+  invitation.style.visibility = 'visible';
+}
+
+/**
+ * Hide the content of invitation
+ */
+function hideInvitation() {
+  if(!hasInvitation) {
+      // do not hide invitation if it's already hidden
+      return;
+  }
+
+  hasInvitation = false;
+  invitation.style.visibility = 'hidden';
+}
+
+/**
+ * Clears all messages
+ */
+function clearMessages()
+{
+    messages.innerHTML = "";
+}
+
+/**
+ * Converts text to HTML
+ */
+function escapeHtml(html)
+{
+    var text = document.createTextNode(html);
+    var div = document.createElement('div');
+    div.appendChild(text);
+    return div.innerHTML;
+}
+
+
+/**
+ * Get the youtube video id from a URI
+ */
+function youtube_id(url) {
+    const regExp = /^.*(youtu\.be\/|v\/|\/u\/w|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length == 11) ? match[2] : null;
+}
+
+/**
+ * Returns HTML message from the message text.
+ * Cleaned and linkified.
+ */
+function getMessageHtml(message_text)
+{
+  const escaped_message = escapeHtml(message_text);
+  var linkified_message = linkifyHtml(escaped_message, {});
+
+  const textPart = document.createElement('pre');
+  textPart.innerHTML = linkified_message;
+
+  return textPart.outerHTML;
+}
+
+/**
+ * Returns the message status, formatted for display
+ */
+function getMessageDeliveryStatusText(message_delivery_status)
+{
+    var formatted_delivery_status = message_delivery_status;
+
+    switch(message_delivery_status)
     {
-        var input = document.querySelector("#sendMessage #message");
-        input.disabled = isDisabled;
-    }
-
-    /**
-     * Change the value of the progress bar
-     */
-    function hideMessageBar(isHidden) {
-        const messageBar = document.querySelector('#sendMessage');
-        if (isHidden) {
-            messageBar.style.visibility = 'hidden';
-        } else {
-            messageBar.style.visibility = 'visible';
-        }
-    }
-
-    /**
-     * Accept an invite
-     */
-    function acceptInvitation()
-    {
-        window.prompt('ACCEPT');
-    }
-
-    /**
-     * Refuse an invite
-     */
-    function refuseInvitation()
-    {
-        window.prompt('REFUSE');
-    }
-
-    /**
-     * Accept an invite
-     */
-    function blockConversation()
-    {
-        window.prompt('BLOCK');
-    }
-
-    /**
-     * Change the content of the div invitation and show it
-     * @param  contactAlias
-     */
-    function showInvitation(contactAlias) {
-      const invitationText = document.querySelector('#text');
-      const invitation = document.querySelector('#invitation');
-      invitationText.innerHTML = '<h1>' + contactAlias + ' sends you an invitation</h1>'
-      + 'Do you want to add them to the conversations list?<br>'
-      + 'Note: you can automatically accept this invitation by sending a message.';
-      invitation.style.visibility = 'visible';
-    }
-
-    /**
-     * Hide the content of invitation
-     * @param  contactAlias
-     */
-    function hideInvitation() {
-      const invitation = document.querySelector('#invitation');
-      invitation.style.visibility = 'hidden';
-    }
-
-    /**
-     * Clears all messages
-     */
-    function clearMessages()
-    {
-        messages.innerHTML = "";
-    }
-
-    /**
-     * Converts text to HTML
-     */
-    function escapeHtml(html)
-    {
-        var text = document.createTextNode(html);
-        var div = document.createElement('div');
-        div.appendChild(text);
-        return div.innerHTML;
-    }
-
-
-    /**
-     * Get the youtube video id from a URI
-     */
-    function youtube_id(url) {
-        const regExp = /^.*(youtu\.be\/|v\/|\/u\/w|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        const match = url.match(regExp);
-        return (match && match[2].length == 11) ? match[2] : null;
-    }
-
-    /**
-     * Returns HTML message from the message text.
-     * Cleaned and linkified.
-     */
-    function getMessageHtml(message_text)
-    {
-      const escaped_message = escapeHtml(message_text);
-      var linkified_message = linkifyHtml(escaped_message, {});
-
-      const textPart = document.createElement('pre');
-      textPart.innerHTML = linkified_message;
-
-      return textPart.outerHTML;
-    }
-
-    /**
-     * Returns the message status, formatted for display
-     */
-    function getMessageDeliveryStatusText(message_delivery_status)
-    {
-        var formatted_delivery_status = message_delivery_status;
-
-        switch(message_delivery_status)
-        {
-            case "sending":
-            case "ongoing":
-                formatted_delivery_status = "Sending<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><circle class='status_circle anim-first' cx='4' cy='12' r='1'/><circle class='status_circle anim-second' cx='8' cy='12' r='1'/><circle class='status_circle anim-third' cx='12' cy='12' r='1'/></svg>";
-                break;
-            case "failure":
-                formatted_delivery_status = "Failure <svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-x x-first' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M4,4 L12,12'/><path class='status-x x-second' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M12,4 L4,12'/></svg>";
-                break;
-            case "sent":
-            case "finished":
-            case "unknown":
-            case "read":
-                formatted_delivery_status = "";
-                break;
-            default:
-                console.log("getMessageDeliveryStatusText: unknown delivery status: " + message_delivery_status);
-                break;
-        }
-
-        return formatted_delivery_status;
-    }
-
-    /**
-     * Returns the message date, formatted for display
-     */
-    function getMessageTimestampText(message_timestamp, custom_format)
-    {
-      const date = new Date(1000 * message_timestamp);
-      if(custom_format) {
-          return formatDate(date);
-      } else {
-          return date.toLocaleString();
-      }
-    }
-
-    /**
-     * Merge timestamps if they are from the same group (likes: "1 hour ago")
-     */
-    function cleanPreviousTimestamps (baseNode, endIndex) {
-        // Remove previous elements with the same formatted timestamp
-        for (var c = endIndex - 1 ; c >= 0 ; --c) {
-            const child = messages.children[c];
-            if (child.className.indexOf('timestamp') !== -1) {
-                if (child.className === baseNode.className &&
-                child.innerHTML === baseNode.innerHTML) {
-                    messages.removeChild(child);
-                } else {
-                    break; // A different timestamp is met, we can stop here.
-                }
-            }
-        }
-    }
-
-    /**
-     * Update timestamps
-     */
-    function updateTimestamps() {
-        const timestamps = messages.querySelectorAll('.timestamp');
-        const is_image_out = messages.querySelector('.message_out .sender_image')
-        const is_image_in = messages.querySelector('.message_in .sender_image')
-        if (timestamps) {
-            for ( var c = 0 ; c < messages.children.length ; ++c) {
-              const child = messages.children[c];
-              if (child.className.indexOf('timestamp') !== -1) {
-                    // Update timestamp
-                    child.innerHTML = getMessageTimestampText(child.getAttribute('message_timestamp'), true)
-
-                    var desktop_margin = '25%'
-                    const height = document.body.clientHeight
-                    const width = document.body.clientWidth
-                    if (width <= 1920 || height <= 1080) {
-                      desktop_margin = '15%'
-                    }
-                    if (width <= 1000 || height <= 480) {
-                      desktop_margin = '0px'
-                    }
-                    if (child.className.indexOf('timestamp_out') !== -1) {
-                      const avatar_px = is_image_out ? (is_image_out.offsetHeight === avatar_size ? '60px' : '20px') : '20px'
-                      child.style.paddingRight = `calc(${desktop_margin} + ${avatar_px})`
-                    } else if (child.className.indexOf('timestamp_in') !== -1) {
-                      const avatar_px = is_image_in ? (is_image_in.offsetHeight === avatar_size ? '60px' : '20px') : '20px'
-                      child.style.paddingLeft = `calc(${desktop_margin} + ${avatar_px})`
-                    }
-                    // Remove previous elements with the same formatted timestamp
-                    cleanPreviousTimestamps(child, c);
-                }
-            }
-        }
-    }
-
-    /**
-     * Convert a value in filesize
-     */
-     function humanFileSize(bytes) {
-        var thresh = 1024;
-        if(Math.abs(bytes) < thresh) {
-            return bytes + ' B';
-        }
-        var units = ['kB','MB','GB','TB','PB','EB','ZB','YB']
-        var u = -1;
-        do {
-            bytes /= thresh;
-            ++u;
-        } while(Math.abs(bytes) >= thresh && u < units.length - 1);
-        return bytes.toFixed(1)+' '+units[u];
-    }
-
-    /**
-     * Change the value of the progress bar
-     */
-    function updateProgressBar(progress_bar, message_object, message_delivery_status) {
-      var delivery_status = message_object["delivery_status"];
-      if ("progress" in message_object && !isErrorStatus(delivery_status) && message_object["progress"] !== 100) {
-        var progress_percent = (100 * message_object["progress"] / message_object["totalSize"]);
-        if (progress_percent !== 100)
-          progress_bar.childNodes[0].setAttribute("style", "width: " + progress_percent + "%");
-        else
-          progress_bar.setAttribute("style", "display: none");
-      } else
-        progress_bar.setAttribute("style", "display: none");
-    }
-
-    /**
-     * Check if a status is an error status
-     */
-    function isErrorStatus(status) {
-      return (status === 'failure'
-             || status === 'awaiting peer timeout'
-             || status === 'canceled'
-             || status === 'unjoinable peer');
-    }
-
-    /**
-     * Build a new file interaction
-     * @param message_id
-     */
-    function fileInteraction(message_id) {
-      var message_wrapper = document.createElement('div')
-      message_wrapper.setAttribute('class', 'message_wrapper')
-
-      // An file interaction contains buttons at the left of the interaction
-      // for the status or accept/refuse
-      var left_buttons = document.createElement('div')
-      left_buttons.setAttribute('class', 'left_buttons')
-      message_wrapper.appendChild(left_buttons)
-      // Also contains a bold clickable text
-      var text_div = document.createElement('div')
-      text_div.setAttribute('class', 'text')
-      text_div.addEventListener('click', function (event) {
-        // ask ring to open the file
-        const filename = document.querySelector('#message_' + message_id + ' .full').innerText
-        window.prompt('OPEN_FILE:' + filename)
-      });
-      var full_div = document.createElement('div')
-      full_div.setAttribute('class', 'full')
-      full_div.style = 'visibility: hidden; display: none;'
-      var message_text = document.createElement('div')
-      message_text.setAttribute('class', 'filename')
-      // And some informations like size or error message.
-      var informations_div = document.createElement('div')
-      informations_div.setAttribute('class', 'informations')
-      text_div.appendChild(message_text)
-      text_div.appendChild(full_div)
-      text_div.appendChild(informations_div)
-      message_wrapper.appendChild(text_div)
-      // And finally, a progress bar
-      message_transfer_progress_bar = document.createElement('span')
-      message_transfer_progress_bar.setAttribute('class', 'message_progress_bar')
-      message_transfer_progress_completion = document.createElement('span')
-      message_transfer_progress_bar.appendChild(message_transfer_progress_completion)
-      message_wrapper.appendChild(message_transfer_progress_bar)
-      return message_wrapper
-    }
-
-    /**
-     * Update a file interaction (icons + filename + status + progress bar)
-     * @param message_div the message to update
-     * @param message_object new informations
-     */
-     function updateFileInteraction(message_div, message_object, forceTypeToFile = false) {
-       if (!message_div.querySelector('.informations')) return // media
-
-       var acceptSvg = '<svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>',
-           refuseSvg = '<svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
-           fileSvg = '<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
-           warningSvg = '<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>'
-       var message_delivery_status = message_object["delivery_status"]
-       var message_direction = message_object["direction"]
-       var message_id = message_object["id"]
-       var message_text = message_object['text']
-
-
-       if (isImage(message_text) && message_delivery_status === 'finished' && displayLinksEnabled && !forceTypeToFile) {
-         // Replace the old wrapper by the downloaded image
-         if (message_div.querySelector('.message_wrapper')) {
-           wrapper = message_div.querySelector('.message_wrapper')
-           wrapper.parentNode.removeChild(wrapper)
-         }
-         message_div.append(mediaInteraction(message_id, message_text))
-         message_div.querySelector('img').id = message_id
-         message_div.querySelector('img').msg_obj = message_object
-         message_div.querySelector('img').onerror = function() {
-           message_div = document.querySelector('#message_' + this.id);
-           if (message_div.querySelector('.message_wrapper')) {
-             wrapper = message_div.querySelector('.message_wrapper')
-             wrapper.parentNode.removeChild(wrapper)
-           }
-           message_div.append(fileInteraction(message_id))
-           updateFileInteraction(message_div, this.msg_obj, true)
-         }
-         return
-       }
-
-       // Set informations text
-       var informations_div = message_div.querySelector(".informations");
-       var informations_txt = getMessageTimestampText(message_object["timestamp"], true);
-       if (message_object["totalSize"] && message_object["progress"]) {
-         if (message_delivery_status === 'finished') {
-           informations_txt += " - " + humanFileSize(message_object["totalSize"]);
-         } else {
-           informations_txt += " - " + humanFileSize(message_object["progress"])
-                             + " / " + humanFileSize(message_object["totalSize"]);
-         }
-       }
-       informations_txt += " - " + message_delivery_status;
-       informations_div.innerText = informations_txt;
-
-       // Update flat buttons
-       var left_buttons = message_div.querySelector(".left_buttons");
-       left_buttons.innerHTML = '';
-       if (message_delivery_status === 'awaiting peer' || message_delivery_status === 'awaiting host' || message_delivery_status.indexOf('ongoing') === 0) {
-         if (message_direction === 'in' && message_delivery_status.indexOf('ongoing') !== 0) {
-           // add buttons to accept or refuse a call.
-           var accept_button = document.createElement('div');
-           accept_button.innerHTML = acceptSvg;
-           accept_button.setAttribute("title", "Accept");
-           accept_button.setAttribute("class", "flat-button accept");
-           accept_button.onclick = function() {
-             window.prompt('ACCEPT_FILE:' + message_id);
-           }
-           left_buttons.appendChild(accept_button);
-         }
-         var refuse_button = document.createElement('div');
-         refuse_button.innerHTML = refuseSvg;
-         refuse_button.setAttribute("title", "Refuse");
-         refuse_button.setAttribute("class", "flat-button refuse");
-         refuse_button.onclick = function() {
-           window.prompt('REFUSE_FILE:' + message_id);
-         }
-         left_buttons.appendChild(refuse_button);
-       } else {
-         var status_button = document.createElement('div');
-         var statusFile = fileSvg;
-         if (isErrorStatus(message_delivery_status))
-           statusFile = warningSvg;
-         status_button.innerHTML = statusFile;
-         status_button.setAttribute("class", "flat-button");
-         left_buttons.appendChild(status_button);
-       }
-
-       message_div.querySelector('.full').innerText = message_text
-       message_div.querySelector('.filename').innerText = message_text.split('/').pop()
-       message_div.querySelector('.filename').innerText = message_text.split('/').pop()
-       updateProgressBar(message_div.querySelector('.message_progress_bar'), message_object);
-       updateProgressBar(message_div.querySelector('.message_progress_bar'), message_object);
-     }
-
-    /**
-     * Return if a file is an image
-     * @param file
-     */
-    function isImage(file) {
-      return file.toLowerCase().match(/\.(jpeg|jpg|gif|png)$/) !== null
-    }
-
-    /**
-     * Return if a file is a youtube video
-     * @param file
-     */
-    function isVideo(file) {
-      const availableProtocols = ['http:', 'https:']
-      const videoHostname = ['youtube.com', 'www.youtube.com', 'youtu.be']
-      const urlParser = document.createElement('a')
-      urlParser.href = file
-      return (availableProtocols.includes(urlParser.protocol) && videoHostname.includes(urlParser.hostname))
-    }
-
-    /**
-     * Try to show an image or a video link (youtube for now)
-     * @param message_id
-     * @param link to show
-     * @param ytid if it's a youtube video
-     */
-    function mediaInteraction(message_id, link, ytid, noerror) {
-      // TODO promise?
-      // Try to display images.
-      const media_wrapper = document.createElement('div')
-      media_wrapper.setAttribute('class', 'media_wrapper')
-      const linkElt = document.createElement('a')
-      linkElt.href = link
-      linkElt.style = 'text-decoration: none;'
-      const imageElt = document.createElement('img')
-      // Note, here, we don't check the size of the image.
-      // in the future, we can check the content-type and content-length with a request
-      // and maybe disable svg
-      if (noerror)
-        imageElt.setAttribute('onerror', 'this.style.display=\'none\'')
-      if (ytid) {
-        imageElt.src = `http://img.youtube.com/vi/${ytid}/0.jpg`
-      } else {
-        imageElt.src = link
-      }
-      linkElt.appendChild(imageElt)
-      if (ytid) {
-        const containerElt = document.createElement('div');
-        containerElt.setAttribute('class', 'containerVideo');
-        const playDiv = document.createElement('div')
-        playDiv.setAttribute('class', 'playVideo')
-        playDiv.innerHTML = '<svg fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\
-            <path d="M8 5v14l11-7z"/>\
-            <path d="M0 0h24v24H0z" fill="none"/>\
-        </svg>'
-        linkElt.appendChild(playDiv)
-        containerElt.appendChild(linkElt)
-        media_wrapper.appendChild(containerElt)
-      } else {
-        media_wrapper.appendChild(linkElt)
-      }
-      return media_wrapper
-    }
-
-    /**
-     * Build a new text interaction
-     * @param message_id
-     * @param htmlText the DOM to show
-     */
-    function textInteraction(message_id, htmlText) {
-      const message_wrapper = document.createElement('div')
-      message_wrapper.setAttribute('class', 'message_wrapper')
-      var message_text = document.createElement('span')
-      message_text.setAttribute('class', 'message_text')
-      message_text.innerHTML = htmlText
-      message_wrapper.appendChild(message_text)
-      // TODO STATUS
-      return message_wrapper
-    }
-
-    /**
-     * Update a text interaction (text)
-     * @param message_div the message to update
-     * @param delivery_status the status of the message
-     * @TODO retry button
-     */
-    function updateTextInteraction(message_div, delivery_status) {
-      if (!message_div.querySelector('.message_text')) return // media
-      switch(delivery_status)
-      {
-        case "ongoing":
         case "sending":
-          var sending_div = message_div.querySelector('.sending')
-          if (!sending_div) {
-            sending_div = document.createElement('div')
-            sending_div.setAttribute('class', 'sending')
-            sending_div.innerHTML = '<svg overflow="hidden" viewBox="0 -2 16 14" height="16px" width="16px"><circle class="status_circle anim-first" cx="4" cy="12" r="1"/><circle class="status_circle anim-second" cx="8" cy="12" r="1"/><circle class="status_circle anim-third" cx="12" cy="12" r="1"/></svg>'
-            // add sending animation to message
-            message_div.appendChild(sending_div)
-          }
-          message_div.querySelector('.message_text').style = 'color: #888'
-          break
+        case "ongoing":
+            formatted_delivery_status = "Sending<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><circle class='status_circle anim-first' cx='4' cy='12' r='1'/><circle class='status_circle anim-second' cx='8' cy='12' r='1'/><circle class='status_circle anim-third' cx='12' cy='12' r='1'/></svg>";
+            break;
         case "failure":
-          // change text color to red
-          message_div.querySelector('.message_wrapper').style = 'background-color: #f3a6a6'
-          message_div.querySelector('.message_text').style = 'color: #000'
-          var failure_div = message_div.querySelector('.failure')
-          if (!failure_div) {
-            failure_div = document.createElement('div')
-            failure_div.setAttribute('class', 'failure')
-            failure_div.innerHTML = '<svg overflow="visible" viewBox="0 -2 16 14" height="16px" width="16px"><path class="status-x x-first" stroke="#AA0000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" fill="none" d="M4,4 L12,12"/><path class="status-x x-second" stroke="#AA0000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" fill="none" d="M12,4 L4,12"/></svg>'
-            // add failure animation to message
-            message_div.appendChild(failure_div)
-          }
-          var sending = message_div.querySelector('.sending')
-          if (sending) sending.style.visibility = 'hidden'
-          break
+            formatted_delivery_status = "Failure <svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-x x-first' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M4,4 L12,12'/><path class='status-x x-second' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M12,4 L4,12'/></svg>";
+            break;
         case "sent":
         case "finished":
         case "unknown":
         case "read":
-          // change text color to black
-          message_div.querySelector('.message_text').style = 'color: #000'
-          var sending = message_div.querySelector('.sending')
-          if (sending) sending.style.visibility = 'hidden'
-          break
+            formatted_delivery_status = "";
+            break;
         default:
-          console.log("getMessageDeliveryStatusText: unknown delivery status: " + delivery_status)
-          break
-      }
+            console.log("getMessageDeliveryStatusText: unknown delivery status: " + message_delivery_status);
+            break;
     }
 
-    /**
-     * Build a new interaction (call or contact)
-     * @param message_id
-     */
-    function actionInteraction(message_id) {
-      var message_wrapper = document.createElement('div')
-      message_wrapper.setAttribute('class', 'message_wrapper')
+    return formatted_delivery_status;
+}
 
-      // An file interaction contains buttons at the left of the interaction
-      // for the status or accept/refuse
-      var left_buttons = document.createElement('div')
-      left_buttons.setAttribute('class', 'left_buttons')
-      message_wrapper.appendChild(left_buttons)
-      // Also contains a bold clickable text
-      var text_div = document.createElement('div')
-      text_div.setAttribute('class', 'text')
-      message_wrapper.appendChild(text_div)
-      return message_wrapper
-    }
+/**
+ * Returns the message date, formatted for display
+ */
+function getMessageTimestampText(message_timestamp, custom_format)
+{
+  const date = new Date(1000 * message_timestamp);
+  if(custom_format) {
+      return formatDate(date);
+  } else {
+      return date.toLocaleString();
+  }
+}
 
-    /**
-     * Update a call interaction (icon + text)
-     * @param message_div the message to update
-     * @param message_object new informations
-     */
-    function updateCallInteraction(message_div, message_object) {
-      const outgoingCall = '<svg fill="#219d55" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5z"/></svg>'
-      const callMissed = '<svg fill="#dc2719" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M19.59 7L12 14.59 6.41 9H11V7H3v8h2v-4.59l7 7 9-9z"/></svg>'
-      const outgoingMissed = '<svg fill="#dc2719" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M24 24H0V0h24v24z" id="a"/></defs><clipPath id="b"><use overflow="visible" xlink:href="#a"/></clipPath><path clip-path="url(#b)" d="M3 8.41l9 9 7-7V15h2V7h-8v2h4.59L12 14.59 4.41 7 3 8.41z"/></svg>'
-      const callReceived = '<svg fill="#219d55" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 5.41L18.59 4 7 15.59V9H5v10h10v-2H8.41z"/></svg>'
-
-      const message_text = message_object['text']
-      const message_direction = (message_text.toLowerCase().indexOf('incoming') !== -1) ? 'in' : 'out'
-      const missed = message_text.indexOf('Missed') !== -1
-
-      message_div.querySelector('.text').innerText = message_text.substring(2)
-
-      var left_buttons = message_div.querySelector('.left_buttons')
-      left_buttons.innerHTML = ''
-      var status_button = document.createElement('div')
-      var statusFile = ''
-      if (missed)
-        statusFile = (message_direction === 'in') ? callMissed : outgoingMissed
-      else
-        statusFile = (message_direction === 'in') ? callReceived : outgoingCall
-      status_button.innerHTML = statusFile
-      status_button.setAttribute('class', 'flat-button')
-      left_buttons.appendChild(status_button)
-    }
-
-    /**
-     * Update a contact interaction (icon + text)
-     * @param message_div the message to update
-     * @param message_object new informations
-     */
-    function updateContactInteraction(message_div, message_object) {
-      const message_text = message_object['text']
-
-      message_div.querySelector('.text').innerText = message_text
-
-      var left_buttons = message_div.querySelector('.left_buttons')
-      left_buttons.innerHTML = ''
-      var status_button = document.createElement('div')
-      status_button.innerHTML = '<?xml version="1.0" ?><svg height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg">\
-                                  <path d="M8.013766 23.107838l0.00465 -0.810382 0.033095 -0.133474c0.1495327 -0.603099 0.50107 -1.099452 1.1411917 -1.611311 0.1690725 -0.135195 0.5493165 -0.388522 0.7866284 -0.524069 1.4449359 -0.825313 3.6497829 -1.439907 5.5693029 -1.552424 0.268992 -0.01577 0.866138 -0.0085 1.131356 0.01373 1.873734 0.157215 3.884055 0.729268 5.262712 1.497544 1.031356 0.574739 1.70347 1.254543 1.937152 1.959316 0.101301 0.305518 0.100213 0.293393 0.105924 1.180132l0.0051 0.791314 -7.990878 0 -7.990878 0 0.00465 -0.810381z" fill="#000000"/>\
-                                  <path d="M15.641818 15.906151c-0.512638 -0.04757 -0.970838 -0.177847 -1.424519 -0.40503 -0.534623 -0.267715 -0.972855 -0.622072 -1.344489 -1.087162 -0.500329 -0.626146 -0.797007 -1.385268 -0.858271 -2.196087 -0.01377 -0.182277 -0.0068 -0.568261 0.01341 -0.738308 0.137062 -1.155519 0.73576 -2.1602655 1.685808 -2.8291565 1.010233 -0.711264 2.333521 -0.90809 3.519055 -0.523424 0.511977 0.166119 0.9845 0.434474 1.39324 0.791249 0.103105 0.09 0.316993 0.304905 0.402137 0.404056 0.848222 0.9877635 1.16007 2.3144245 0.843044 3.5864705 -0.116312 0.466694 -0.339476 0.947863 -0.621858 1.340798 -0.695617 0.967955 -1.761735 1.568261 -2.95044 1.661324 -0.155481 0.01217 -0.501821 0.0097 -0.657113 -0.0047z" fill="#000000"/>\
-                                  </svg>'
-      status_button.setAttribute('class', 'flat-button')
-      left_buttons.appendChild(status_button)
-    }
-
-    /**
-     * Add a message to the conversation.
-     * @param message_object to treat
-     * @param new_message if it's a new message or if we need to update
-     * @param insert_after if we want the message at the end or the top of the conversation
-     */
-    function addOrUpdateMessage(message_object, new_message, insert_after = true) {
-      const message_id = message_object['id']
-      const message_type = message_object['type']
-      const message_text = message_object['text']
-      const message_direction = message_object['direction']
-      const message_timestamp = message_object['timestamp']
-      const delivery_status = message_object['delivery_status']
-      const message_sender_contact_method = message_object['sender_contact_method']
-
-      var message_div = document.querySelector('#message_' + message_id);
-      var type = ''
-      if (new_message) {
-        // Build new message
-        var classes = [
-            'message',
-            `message_${message_direction}`,
-            `message_type_${message_type}`
-        ]
-
-        message_div = document.createElement('div')
-        message_div.setAttribute('id', `message_${message_id}`)
-        message_div.setAttribute('class', classes.join(' '))
-
-        // Build message for each types.
-        // Add sender images if necessary (like if the interaction doesn't take the whole width)
-        const need_sender = (message_type === 'data_transfer' || message_type === 'text');
-        if (need_sender) {
-          var message_sender_image = document.createElement('span')
-          message_sender_image.setAttribute('class', `sender_image sender_image_${message_sender_contact_method}`)
-          message_div.appendChild(message_sender_image)
-        }
-
-        // Build main content
-        if (message_type === 'data_transfer') {
-          if (isImage(message_text) && delivery_status === 'finished' && displayLinksEnabled) {
-            message_div.append(mediaInteraction(message_id, message_text, null, false))
-            message_div.querySelector('img').id = message_id
-            message_div.querySelector('img').msg_obj = message_object
-            message_div.querySelector('img').onerror = function() {
-              message_div = document.querySelector('#message_' + this.id);
-              if (message_div.querySelector('.message_wrapper')) {
-                wrapper = message_div.querySelector('.message_wrapper')
-                wrapper.parentNode.removeChild(wrapper)
-              }
-              message_div.append(fileInteraction(message_id))
-              updateFileInteraction(message_div, this.msg_obj, true)
+/**
+ * Merge timestamps if they are from the same group (likes: "1 hour ago")
+ */
+function cleanPreviousTimestamps (baseNode, endIndex) {
+    // Remove previous elements with the same formatted timestamp
+    for (var c = endIndex - 1 ; c >= 0 ; --c) {
+        const child = messages.children[c];
+        if (child.className.indexOf('timestamp') !== -1) {
+            if (child.className === baseNode.className &&
+            child.innerHTML === baseNode.innerHTML) {
+                messages.removeChild(child);
+            } else {
+                break; // A different timestamp is met, we can stop here.
             }
-          } else {
-            message_div.append(fileInteraction(message_id))
-          }
-        } else if (message_type === 'text') {
-          // TODO add the possibility to update messages (remove and rebuild)
-          const htmlText = getMessageHtml(message_text)
-          if (displayLinksEnabled) {
-            const parser = new DOMParser();
-            const DOMMsg = parser.parseFromString(htmlText, 'text/xml');
-            const links = DOMMsg.querySelectorAll('a');
-            if (DOMMsg.childNodes.length && links.length) {
-              var isTextToShow = (DOMMsg.childNodes[0].childNodes.length > 1)
-              const ytid = (isVideo(message_text))? youtube_id(message_text) : ''
-              if (!isTextToShow && (ytid || isImage(message_text))) {
-                type = 'media'
-                message_div.append(mediaInteraction(message_id, message_text, ytid))
-              }
-            }
-          }
-          if (type !== 'media') {
-            type = 'text'
-            message_div.append(textInteraction(message_id, htmlText))
-          }
-        } else if (message_type === 'call' || message_type === 'contact') {
-          message_div.append(actionInteraction(message_id))
-        } else {
-          const temp = document.createElement('div')
-          temp.innerText = message_type
-          message_div.appendChild(temp)
         }
-
-        // Get timestamp to add
-        const formattedTimestamp = getMessageTimestampText(message_timestamp, true)
-        // Create the timestamp object
-        const date_elt = document.createElement('div')
-        date_elt.innerText = formattedTimestamp
-        if (message_type === 'call' || message_type === 'contact') {
-          timestamp_div_classes = [
-            'timestamp',
-            `timestamp_action`
-          ]
-        } else {
-          timestamp_div_classes = [
-            'timestamp',
-            `timestamp_${message_direction}`
-          ]
-        }
-        date_elt.setAttribute('class', timestamp_div_classes.join(' '))
-        date_elt.setAttribute('message_timestamp', message_timestamp)
-        // Remove last timestamp if it's the same<h6></h6>
-        if (messages.querySelectorAll('.timestamp'))
-            cleanPreviousTimestamps(date_elt, messages.children.length)
-
-        // Add message and the new timestamp
-        if (insert_after) {
-          if (message_type === 'call' || message_type === 'contact') {
-            message_div.querySelector('.message_wrapper').appendChild(date_elt)
-            messages.appendChild(message_div)
-          } else {
-            messages.appendChild(message_div)
-            messages.appendChild(date_elt)
-          }
-        } else {
-          if (message_type === 'call' || message_type === 'contact') {
-            message_div.querySelector('.message_wrapper').appendChild(date_elt)
-            messages.insertBefore(message_div, messages.firstChild)
-          } else {
-            messages.insertBefore(date_elt, messages.firstChild)
-            messages.insertBefore(message_div, messages.firstChild)
-          }
-        }
-      }
-
-      // Update informations if needed
-      if (message_type === 'data_transfer')
-        updateFileInteraction(message_div, message_object)
-      if (message_type === 'text' && message_direction === 'out')
-        // Modify sent status if necessary
-        updateTextInteraction(message_div, delivery_status)
-      if (message_type === 'call')
-        updateCallInteraction(message_div, message_object)
-      if (message_type === 'contact')
-        updateContactInteraction(message_div, message_object)
-
-      // Clean timestamps
-      updateTimestamps();
     }
+}
 
+/**
+ * Update timestamps
+ */
+function updateTimestamps() {
+    const timestamps = messages.querySelectorAll('.timestamp');
+    const is_image_out = messages.querySelector('.message_out .sender_image')
+    const is_image_in = messages.querySelector('.message_in .sender_image')
+    if (timestamps) {
+        for ( var c = 0 ; c < messages.children.length ; ++c) {
+          const child = messages.children[c];
+          if (child.className.indexOf('timestamp') !== -1) {
+                // Update timestamp
+                child.innerHTML = getMessageTimestampText(child.getAttribute('message_timestamp'), true)
 
-    /**
-     * Add a message to the buffer
-     */
-    function addMessage(message_object)
-    {
-        var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - 5;
-        addOrUpdateMessage(message_object, true);
-        if (atEnd) {
-            var startTime = Date.now(),
-                durTime = 250.,
-                scrollStartHeight = messages.scrollHeight,
-                scrollStart = messages.scrollTop,
-                scrollDiff = scrollStartHeight - messages.clientHeight - scrollStart;
-
-            function loop() {
-                var time = Date.now() - startTime,
-                    scrollHeight = messages.scrollHeight,
-                    diff = messages.scrollTop - scrollStart; // If user scrolls up (diff > 0).
-
-                if (time >= durTime || scrollHeight != scrollStartHeight || diff < 0) {
-                    if (diff >= 0) { // User scrolled up, don't autoscroll.
-                        messages.scrollTop = scrollHeight;
-                    }
-                    return false;
-                } else {
-                    messages.scrollTop = scrollStart + (scrollDiff * (time/durTime));
-                    raf(loop);
+                var desktop_margin = '25%'
+                const height = document.body.clientHeight
+                const width = document.body.clientWidth
+                if (width <= 1920 || height <= 1080) {
+                  desktop_margin = '15%'
                 }
+                if (width <= 1000 || height <= 480) {
+                  desktop_margin = '0px'
+                }
+                if (child.className.indexOf('timestamp_out') !== -1) {
+                  const avatar_px = is_image_out ? (is_image_out.offsetHeight === avatar_size ? '60px' : '20px') : '20px'
+                  child.style.paddingRight = `calc(${desktop_margin} + ${avatar_px})`
+                } else if (child.className.indexOf('timestamp_in') !== -1) {
+                  const avatar_px = is_image_in ? (is_image_in.offsetHeight === avatar_size ? '60px' : '20px') : '20px'
+                  child.style.paddingLeft = `calc(${desktop_margin} + ${avatar_px})`
+                }
+                // Remove previous elements with the same formatted timestamp
+                cleanPreviousTimestamps(child, c);
             }
-            raf(loop); // Start the animation loop
         }
     }
+}
 
-    /**
-     * Show the history in reverse order and avoid the process to consumes a lot of ressources
-     */
-    function printHistoryPart () {
-      var previousScrollHeightMinusTop = messages.scrollHeight - messages.scrollTop;
-      // Show 10 messages
-      for (var i = 0; i < 10; ++i) {
-        addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false);
-        historyBufferIndex ++;
-        if (historyBufferIndex === historyBuffer.length)
-          break;
+/**
+ * Convert a value in filesize
+ */
+ function humanFileSize(bytes) {
+    var thresh = 1024;
+    if(Math.abs(bytes) < thresh) {
+        return bytes + ' B';
+    }
+    var units = ['kB','MB','GB','TB','PB','EB','ZB','YB']
+    var u = -1;
+    do {
+        bytes /= thresh;
+        ++u;
+    } while(Math.abs(bytes) >= thresh && u < units.length - 1);
+    return bytes.toFixed(1)+' '+units[u];
+}
+
+/**
+ * Change the value of the progress bar
+ */
+function updateProgressBar(progress_bar, message_object, message_delivery_status) {
+  var delivery_status = message_object["delivery_status"];
+  if ("progress" in message_object && !isErrorStatus(delivery_status) && message_object["progress"] !== 100) {
+    var progress_percent = (100 * message_object["progress"] / message_object["totalSize"]);
+    if (progress_percent !== 100)
+      progress_bar.childNodes[0].setAttribute("style", "width: " + progress_percent + "%");
+    else
+      progress_bar.setAttribute("style", "display: none");
+  } else
+    progress_bar.setAttribute("style", "display: none");
+}
+
+/**
+ * Check if a status is an error status
+ */
+function isErrorStatus(status) {
+  return (status === 'failure'
+         || status === 'awaiting peer timeout'
+         || status === 'canceled'
+         || status === 'unjoinable peer');
+}
+
+/**
+ * Build a new file interaction
+ * @param message_id
+ */
+function fileInteraction(message_id) {
+  var message_wrapper = document.createElement('div')
+  message_wrapper.setAttribute('class', 'message_wrapper')
+
+  // An file interaction contains buttons at the left of the interaction
+  // for the status or accept/refuse
+  var left_buttons = document.createElement('div')
+  left_buttons.setAttribute('class', 'left_buttons')
+  message_wrapper.appendChild(left_buttons)
+  // Also contains a bold clickable text
+  var text_div = document.createElement('div')
+  text_div.setAttribute('class', 'text')
+  text_div.addEventListener('click', function (event) {
+    // ask ring to open the file
+    const filename = document.querySelector('#message_' + message_id + ' .full').innerText
+    window.prompt('OPEN_FILE:' + filename)
+  });
+  var full_div = document.createElement('div')
+  full_div.setAttribute('class', 'full')
+  full_div.style = 'visibility: hidden; display: none;'
+  var message_text = document.createElement('div')
+  message_text.setAttribute('class', 'filename')
+  // And some informations like size or error message.
+  var informations_div = document.createElement('div')
+  informations_div.setAttribute('class', 'informations')
+  text_div.appendChild(message_text)
+  text_div.appendChild(full_div)
+  text_div.appendChild(informations_div)
+  message_wrapper.appendChild(text_div)
+  // And finally, a progress bar
+  message_transfer_progress_bar = document.createElement('span')
+  message_transfer_progress_bar.setAttribute('class', 'message_progress_bar')
+  message_transfer_progress_completion = document.createElement('span')
+  message_transfer_progress_bar.appendChild(message_transfer_progress_completion)
+  message_wrapper.appendChild(message_transfer_progress_bar)
+  return message_wrapper
+}
+
+/**
+ * Update a file interaction (icons + filename + status + progress bar)
+ * @param message_div the message to update
+ * @param message_object new informations
+ */
+ function updateFileInteraction(message_div, message_object, forceTypeToFile = false) {
+   if (!message_div.querySelector('.informations')) return // media
+
+   var acceptSvg = '<svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>',
+       refuseSvg = '<svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
+       fileSvg = '<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
+       warningSvg = '<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>'
+   var message_delivery_status = message_object["delivery_status"]
+   var message_direction = message_object["direction"]
+   var message_id = message_object["id"]
+   var message_text = message_object['text']
+
+
+   if (isImage(message_text) && message_delivery_status === 'finished' && displayLinksEnabled && !forceTypeToFile) {
+     // Replace the old wrapper by the downloaded image
+     if (message_div.querySelector('.message_wrapper')) {
+       wrapper = message_div.querySelector('.message_wrapper')
+       wrapper.parentNode.removeChild(wrapper)
+     }
+     message_div.append(mediaInteraction(message_id, message_text))
+     message_div.querySelector('img').id = message_id
+     message_div.querySelector('img').msg_obj = message_object
+     message_div.querySelector('img').onerror = function() {
+       message_div = document.querySelector('#message_' + this.id);
+       if (message_div.querySelector('.message_wrapper')) {
+         wrapper = message_div.querySelector('.message_wrapper')
+         wrapper.parentNode.removeChild(wrapper)
+       }
+       message_div.append(fileInteraction(message_id))
+       updateFileInteraction(message_div, this.msg_obj, true)
+     }
+     return
+   }
+
+   // Set informations text
+   var informations_div = message_div.querySelector(".informations");
+   var informations_txt = getMessageTimestampText(message_object["timestamp"], true);
+   if (message_object["totalSize"] && message_object["progress"]) {
+     if (message_delivery_status === 'finished') {
+       informations_txt += " - " + humanFileSize(message_object["totalSize"]);
+     } else {
+       informations_txt += " - " + humanFileSize(message_object["progress"])
+                         + " / " + humanFileSize(message_object["totalSize"]);
+     }
+   }
+   informations_txt += " - " + message_delivery_status;
+   informations_div.innerText = informations_txt;
+
+   // Update flat buttons
+   var left_buttons = message_div.querySelector(".left_buttons");
+   left_buttons.innerHTML = '';
+   if (message_delivery_status === 'awaiting peer' || message_delivery_status === 'awaiting host' || message_delivery_status.indexOf('ongoing') === 0) {
+     if (message_direction === 'in' && message_delivery_status.indexOf('ongoing') !== 0) {
+       // add buttons to accept or refuse a call.
+       var accept_button = document.createElement('div');
+       accept_button.innerHTML = acceptSvg;
+       accept_button.setAttribute("title", "Accept");
+       accept_button.setAttribute("class", "flat-button accept");
+       accept_button.onclick = function() {
+         window.prompt('ACCEPT_FILE:' + message_id);
+       }
+       left_buttons.appendChild(accept_button);
+     }
+     var refuse_button = document.createElement('div');
+     refuse_button.innerHTML = refuseSvg;
+     refuse_button.setAttribute("title", "Refuse");
+     refuse_button.setAttribute("class", "flat-button refuse");
+     refuse_button.onclick = function() {
+       window.prompt('REFUSE_FILE:' + message_id);
+     }
+     left_buttons.appendChild(refuse_button);
+   } else {
+     var status_button = document.createElement('div');
+     var statusFile = fileSvg;
+     if (isErrorStatus(message_delivery_status))
+       statusFile = warningSvg;
+     status_button.innerHTML = statusFile;
+     status_button.setAttribute("class", "flat-button");
+     left_buttons.appendChild(status_button);
+   }
+
+   message_div.querySelector('.full').innerText = message_text
+   message_div.querySelector('.filename').innerText = message_text.split('/').pop()
+   message_div.querySelector('.filename').innerText = message_text.split('/').pop()
+   updateProgressBar(message_div.querySelector('.message_progress_bar'), message_object);
+   updateProgressBar(message_div.querySelector('.message_progress_bar'), message_object);
+ }
+
+/**
+ * Return if a file is an image
+ * @param file
+ */
+function isImage(file) {
+  return file.toLowerCase().match(/\.(jpeg|jpg|gif|png)$/) !== null
+}
+
+/**
+ * Return if a file is a youtube video
+ * @param file
+ */
+function isVideo(file) {
+  const availableProtocols = ['http:', 'https:']
+  const videoHostname = ['youtube.com', 'www.youtube.com', 'youtu.be']
+  const urlParser = document.createElement('a')
+  urlParser.href = file
+  return (availableProtocols.includes(urlParser.protocol) && videoHostname.includes(urlParser.hostname))
+}
+
+/**
+ * Try to show an image or a video link (youtube for now)
+ * @param message_id
+ * @param link to show
+ * @param ytid if it's a youtube video
+ */
+function mediaInteraction(message_id, link, ytid, noerror) {
+  // TODO promise?
+  // Try to display images.
+  const media_wrapper = document.createElement('div')
+  media_wrapper.setAttribute('class', 'media_wrapper')
+  const linkElt = document.createElement('a')
+  linkElt.href = link
+  linkElt.style = 'text-decoration: none;'
+  const imageElt = document.createElement('img')
+  // Note, here, we don't check the size of the image.
+  // in the future, we can check the content-type and content-length with a request
+  // and maybe disable svg
+  if (noerror)
+    imageElt.setAttribute('onerror', 'this.style.display=\'none\'')
+  if (ytid) {
+    imageElt.src = `http://img.youtube.com/vi/${ytid}/0.jpg`
+  } else {
+    imageElt.src = link
+  }
+  linkElt.appendChild(imageElt)
+  if (ytid) {
+    const containerElt = document.createElement('div');
+    containerElt.setAttribute('class', 'containerVideo');
+    const playDiv = document.createElement('div')
+    playDiv.setAttribute('class', 'playVideo')
+    playDiv.innerHTML = '<svg fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\
+        <path d="M8 5v14l11-7z"/>\
+        <path d="M0 0h24v24H0z" fill="none"/>\
+    </svg>'
+    linkElt.appendChild(playDiv)
+    containerElt.appendChild(linkElt)
+    media_wrapper.appendChild(containerElt)
+  } else {
+    media_wrapper.appendChild(linkElt)
+  }
+  return media_wrapper
+}
+
+/**
+ * Build a new text interaction
+ * @param message_id
+ * @param htmlText the DOM to show
+ */
+function textInteraction(message_id, htmlText) {
+  const message_wrapper = document.createElement('div')
+  message_wrapper.setAttribute('class', 'message_wrapper')
+  var message_text = document.createElement('span')
+  message_text.setAttribute('class', 'message_text')
+  message_text.innerHTML = htmlText
+  message_wrapper.appendChild(message_text)
+  // TODO STATUS
+  return message_wrapper
+}
+
+/**
+ * Update a text interaction (text)
+ * @param message_div the message to update
+ * @param delivery_status the status of the message
+ * @TODO retry button
+ */
+function updateTextInteraction(message_div, delivery_status) {
+  if (!message_div.querySelector('.message_text')) return // media
+  switch(delivery_status)
+  {
+    case "ongoing":
+    case "sending":
+      var sending_div = message_div.querySelector('.sending')
+      if (!sending_div) {
+        sending_div = document.createElement('div')
+        sending_div.setAttribute('class', 'sending')
+        sending_div.innerHTML = '<svg overflow="hidden" viewBox="0 -2 16 14" height="16px" width="16px"><circle class="status_circle anim-first" cx="4" cy="12" r="1"/><circle class="status_circle anim-second" cx="8" cy="12" r="1"/><circle class="status_circle anim-third" cx="12" cy="12" r="1"/></svg>'
+        // add sending animation to message
+        message_div.appendChild(sending_div)
       }
-      // Replace the scrollbar to the wanted position
-      messages.scrollTop = messages.scrollHeight - previousScrollHeightMinusTop;
-      // Make a short pause to minimizes ressources consumption
-      // show quickly the first hundred messages
-      if (historyBufferIndex !== historyBuffer.length)
-        setTimeout(printHistoryPart, (historyBufferIndex > 100) ? 100 : 1);
+      message_div.querySelector('.message_text').style = 'color: #888'
+      break
+    case "failure":
+      // change text color to red
+      message_div.querySelector('.message_wrapper').style = 'background-color: #f3a6a6'
+      message_div.querySelector('.message_text').style = 'color: #000'
+      var failure_div = message_div.querySelector('.failure')
+      if (!failure_div) {
+        failure_div = document.createElement('div')
+        failure_div.setAttribute('class', 'failure')
+        failure_div.innerHTML = '<svg overflow="visible" viewBox="0 -2 16 14" height="16px" width="16px"><path class="status-x x-first" stroke="#AA0000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" fill="none" d="M4,4 L12,12"/><path class="status-x x-second" stroke="#AA0000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" fill="none" d="M12,4 L4,12"/></svg>'
+        // add failure animation to message
+        message_div.appendChild(failure_div)
+      }
+      var sending = message_div.querySelector('.sending')
+      if (sending) sending.style.visibility = 'hidden'
+      break
+    case "sent":
+    case "finished":
+    case "unknown":
+    case "read":
+      // change text color to black
+      message_div.querySelector('.message_text').style = 'color: #000'
+      var sending = message_div.querySelector('.sending')
+      if (sending) sending.style.visibility = 'hidden'
+      break
+    default:
+      console.log("getMessageDeliveryStatusText: unknown delivery status: " + delivery_status)
+      break
+  }
+}
+
+/**
+ * Build a new interaction (call or contact)
+ * @param message_id
+ */
+function actionInteraction(message_id) {
+  var message_wrapper = document.createElement('div')
+  message_wrapper.setAttribute('class', 'message_wrapper')
+
+  // An file interaction contains buttons at the left of the interaction
+  // for the status or accept/refuse
+  var left_buttons = document.createElement('div')
+  left_buttons.setAttribute('class', 'left_buttons')
+  message_wrapper.appendChild(left_buttons)
+  // Also contains a bold clickable text
+  var text_div = document.createElement('div')
+  text_div.setAttribute('class', 'text')
+  message_wrapper.appendChild(text_div)
+  return message_wrapper
+}
+
+/**
+ * Update a call interaction (icon + text)
+ * @param message_div the message to update
+ * @param message_object new informations
+ */
+function updateCallInteraction(message_div, message_object) {
+  const outgoingCall = '<svg fill="#219d55" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5z"/></svg>'
+  const callMissed = '<svg fill="#dc2719" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M19.59 7L12 14.59 6.41 9H11V7H3v8h2v-4.59l7 7 9-9z"/></svg>'
+  const outgoingMissed = '<svg fill="#dc2719" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M24 24H0V0h24v24z" id="a"/></defs><clipPath id="b"><use overflow="visible" xlink:href="#a"/></clipPath><path clip-path="url(#b)" d="M3 8.41l9 9 7-7V15h2V7h-8v2h4.59L12 14.59 4.41 7 3 8.41z"/></svg>'
+  const callReceived = '<svg fill="#219d55" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 5.41L18.59 4 7 15.59V9H5v10h10v-2H8.41z"/></svg>'
+
+  const message_text = message_object['text']
+  const message_direction = (message_text.toLowerCase().indexOf('incoming') !== -1) ? 'in' : 'out'
+  const missed = message_text.indexOf('Missed') !== -1
+
+  message_div.querySelector('.text').innerText = message_text.substring(2)
+
+  var left_buttons = message_div.querySelector('.left_buttons')
+  left_buttons.innerHTML = ''
+  var status_button = document.createElement('div')
+  var statusFile = ''
+  if (missed)
+    statusFile = (message_direction === 'in') ? callMissed : outgoingMissed
+  else
+    statusFile = (message_direction === 'in') ? callReceived : outgoingCall
+  status_button.innerHTML = statusFile
+  status_button.setAttribute('class', 'flat-button')
+  left_buttons.appendChild(status_button)
+}
+
+/**
+ * Update a contact interaction (icon + text)
+ * @param message_div the message to update
+ * @param message_object new informations
+ */
+function updateContactInteraction(message_div, message_object) {
+  const message_text = message_object['text']
+
+  message_div.querySelector('.text').innerText = message_text
+
+  var left_buttons = message_div.querySelector('.left_buttons')
+  left_buttons.innerHTML = ''
+  var status_button = document.createElement('div')
+  status_button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">\
+<path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>\
+<path d="M0 0h24v24H0z" fill="none"/></svg>'
+  status_button.setAttribute('class', 'flat-button')
+  left_buttons.appendChild(status_button)
+}
+
+/**
+ * Add a message to the conversation.
+ * @param message_object to treat
+ * @param new_message if it's a new message or if we need to update
+ * @param insert_after if we want the message at the end or the top of the conversation
+ */
+function addOrUpdateMessage(message_object, new_message, insert_after = true) {
+  const message_id = message_object['id']
+  const message_type = message_object['type']
+  const message_text = message_object['text']
+  const message_direction = message_object['direction']
+  const message_timestamp = message_object['timestamp']
+  const delivery_status = message_object['delivery_status']
+  const message_sender_contact_method = message_object['sender_contact_method']
+
+  var message_div = document.querySelector('#message_' + message_id);
+  var type = ''
+  if (new_message) {
+    // Build new message
+    var classes = [
+        'message',
+        `message_${message_direction}`,
+        `message_type_${message_type}`
+    ]
+
+    message_div = document.createElement('div')
+    message_div.setAttribute('id', `message_${message_id}`)
+    message_div.setAttribute('class', classes.join(' '))
+
+    // Build message for each types.
+    // Add sender images if necessary (like if the interaction doesn't take the whole width)
+    const need_sender = (message_type === 'data_transfer' || message_type === 'text');
+    if (need_sender) {
+      var message_sender_image = document.createElement('span')
+      message_sender_image.setAttribute('class', `sender_image sender_image_${message_sender_contact_method}`)
+      message_div.appendChild(message_sender_image)
     }
 
-    /**
-     * Show the whole history in the chatview.
-     */
-    function printHistory(messages_array)
-    {
-        historyBuffer = messages_array;
-        historyBufferIndex = 0;
-        setTimeout(printHistoryPart, 1);
-    }
-
-    /**
-     * Updated a message that was previously added with addMessage
-     */
-    function updateMessage(message_object)
-    {
-        addOrUpdateMessage(message_object, false);
-    }
-
-    /**
-     * Sets the image for a given sender
-     * set_sender_image object should contain the following keys:
-     * - sender: the name of the sender
-     * - sender_image: base64 png encoding of the sender image
-     */
-    function setSenderImage(set_sender_image_object)
-    {
-        var sender_contact_method = set_sender_image_object['sender_contact_method'],
-            sender_image = set_sender_image_object['sender_image'],
-            sender_image_id = "sender_image_" + sender_contact_method,
-            currentSenderImage = document.querySelector("#" + sender_image_id), // Remove the currently set sender image
-            style;
-
-        if (currentSenderImage) {
-            currentSenderImage.parentNode.removeChild(currentSenderImage);
+    // Build main content
+    if (message_type === 'data_transfer') {
+      if (isImage(message_text) && delivery_status === 'finished' && displayLinksEnabled) {
+        message_div.append(mediaInteraction(message_id, message_text, null, false))
+        message_div.querySelector('img').id = message_id
+        message_div.querySelector('img').msg_obj = message_object
+        message_div.querySelector('img').onerror = function() {
+          message_div = document.querySelector('#message_' + this.id);
+          if (message_div.querySelector('.message_wrapper')) {
+            wrapper = message_div.querySelector('.message_wrapper')
+            wrapper.parentNode.removeChild(wrapper)
+          }
+          message_div.append(fileInteraction(message_id))
+          updateFileInteraction(message_div, this.msg_obj, true)
         }
-
-        // Create a new style element
-        style = document.createElement('style');
-
-        style.type = 'text/css';
-        style.id = sender_image_id;
-        style.innerHTML = '.' + sender_image_id + " { \n content: url(data:image/png;base64," + sender_image + "); \n height: 35px; \n width: 35px; \n }";
-        document.head.appendChild(style);
-    }
-
-    /**
-     * Change the send icon
-     */
-    function setSendIcon(source)
-    {
-        var sendBtn = document.querySelector("#sendicon");
-        sendBtn.src = "data:image/png;base64," + source;
-    }
-
-    function clearSenderImages()
-    {
-        var styles = document.head.querySelectorAll("style"),
-            i = styles.length;
-
-        while (i--){
-          document.head.removeChild(styles[i]);
-        }
-    }
-
-    function setTemporary(temporary)
-    {
-      var area = document.querySelector("#message");
-      var sendBtn = document.querySelector("#sendBtn");
-      if (temporary) {
-          area.placeholder = "Note: an interaction will create a new contact.";
-          sendBtn.innerHTML = "<svg viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\
-          <path d=\"M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z\"/>\
-          <path d=\"M0 0h24v24H0z\" fill=\"none\"/>\
-          </svg>";
       } else {
-          area.placeholder = "Message";
-          sendBtn.innerHTML = "<svg viewBox=\"0 0 30 30\" xmlns=\"http://www.w3.org/2000/svg\">\
-              <path xmlns=\"http://www.w3.org/2000/svg\"\ d=\"M12,11.874v4.357l7-6.69l-7-6.572v3.983c-8.775,0-11,9.732-11,9.732C3.484,12.296,7.237,11.874,12,11.874z\"/>\
-          </svg>";
+        message_div.append(fileInteraction(message_id))
+      }
+    } else if (message_type === 'text') {
+      // TODO add the possibility to update messages (remove and rebuild)
+      const htmlText = getMessageHtml(message_text)
+      if (displayLinksEnabled) {
+        const parser = new DOMParser();
+        const DOMMsg = parser.parseFromString(htmlText, 'text/xml');
+        const links = DOMMsg.querySelectorAll('a');
+        if (DOMMsg.childNodes.length && links.length) {
+          var isTextToShow = (DOMMsg.childNodes[0].childNodes.length > 1)
+          const ytid = (isVideo(message_text))? youtube_id(message_text) : ''
+          if (!isTextToShow && (ytid || isImage(message_text))) {
+            type = 'media'
+            message_div.append(mediaInteraction(message_id, message_text, ytid))
+          }
+        }
+      }
+      if (type !== 'media') {
+        type = 'text'
+        message_div.append(textInteraction(message_id, htmlText))
+      }
+    } else if (message_type === 'call' || message_type === 'contact') {
+      message_div.append(actionInteraction(message_id))
+    } else {
+      const temp = document.createElement('div')
+      temp.innerText = message_type
+      message_div.appendChild(temp)
+    }
+
+    // Get timestamp to add
+    const formattedTimestamp = getMessageTimestampText(message_timestamp, true)
+    // Create the timestamp object
+    const date_elt = document.createElement('div')
+    date_elt.innerText = formattedTimestamp
+    if (message_type === 'call' || message_type === 'contact') {
+      timestamp_div_classes = [
+        'timestamp',
+        `timestamp_action`
+      ]
+    } else {
+      timestamp_div_classes = [
+        'timestamp',
+        `timestamp_${message_direction}`
+      ]
+    }
+    date_elt.setAttribute('class', timestamp_div_classes.join(' '))
+    date_elt.setAttribute('message_timestamp', message_timestamp)
+    // Remove last timestamp if it's the same<h6></h6>
+    if (messages.querySelectorAll('.timestamp'))
+        cleanPreviousTimestamps(date_elt, messages.children.length)
+
+    // Add message and the new timestamp
+    if (insert_after) {
+      if (message_type === 'call' || message_type === 'contact') {
+        message_div.querySelector('.message_wrapper').appendChild(date_elt)
+        messages.appendChild(message_div)
+      } else {
+        messages.appendChild(message_div)
+        messages.appendChild(date_elt)
+      }
+    } else {
+      if (message_type === 'call' || message_type === 'contact') {
+        message_div.querySelector('.message_wrapper').appendChild(date_elt)
+        messages.insertBefore(message_div, messages.firstChild)
+      } else {
+        messages.insertBefore(date_elt, messages.firstChild)
+        messages.insertBefore(message_div, messages.firstChild)
       }
     }
+  }
 
-    function sendFile()
-    {
-      window.prompt('SEND_FILE');
+  // Update informations if needed
+  if (message_type === 'data_transfer')
+    updateFileInteraction(message_div, message_object)
+  if (message_type === 'text' && message_direction === 'out')
+    // Modify sent status if necessary
+    updateTextInteraction(message_div, delivery_status)
+  if (message_type === 'call')
+    updateCallInteraction(message_div, message_object)
+  if (message_type === 'contact')
+    updateContactInteraction(message_div, message_object)
+
+  // Clean timestamps
+  updateTimestamps();
+}
+
+
+/**
+ * Add a message to the buffer
+ */
+function addMessage(message_object)
+{
+    var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - 5;
+    addOrUpdateMessage(message_object, true);
+    if (atEnd) {
+        var startTime = Date.now(),
+            durTime = 250.,
+            scrollStartHeight = messages.scrollHeight,
+            scrollStart = messages.scrollTop,
+            scrollDiff = scrollStartHeight - messages.clientHeight - scrollStart;
+
+        function loop() {
+            var time = Date.now() - startTime,
+                scrollHeight = messages.scrollHeight,
+                diff = messages.scrollTop - scrollStart; // If user scrolls up (diff > 0).
+
+            if (time >= durTime || scrollHeight != scrollStartHeight || diff < 0) {
+                if (diff >= 0) { // User scrolled up, don't autoscroll.
+                    messages.scrollTop = scrollHeight;
+                }
+                return false;
+            } else {
+                messages.scrollTop = scrollStart + (scrollDiff * (time/durTime));
+                raf(loop);
+            }
+        }
+        raf(loop); // Start the animation loop
+    }
+}
+
+/**
+ * Show the history in reverse order
+ */
+function printHistoryPart () {
+  if(historyBuffer.length == 0) {
+      // nothing to print
+      return;
+  }
+
+  var previousScrollHeightMinusTop = messages.scrollHeight - messages.scrollTop;
+
+  // Show 10 messages
+  for (var i = 0; i < 10; ++i) {
+    addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false);
+    historyBufferIndex ++;
+    if (historyBufferIndex === historyBuffer.length)
+      break;
+  }
+
+  // Replace the scrollbar to the wanted position
+  messages.scrollTop = messages.scrollHeight - previousScrollHeightMinusTop;
+
+  // Make a short pause to minimize ressources consumption
+  // show quickly the first hundred messages
+  if (historyBufferIndex !== historyBuffer.length)
+    setTimeout(printHistoryPart, (historyBufferIndex > 100) ? 100 : 1);
+}
+
+/**
+ * Show the whole history in the chatview.
+ */
+function printHistory(messages_array)
+{
+    historyBuffer = messages_array;
+    historyBufferIndex = 0;
+    setTimeout(printHistoryPart, 0);
+}
+
+/**
+ * Updated a message that was previously added with addMessage
+ */
+function updateMessage(message_object)
+{
+    addOrUpdateMessage(message_object, false);
+}
+
+/**
+ * Sets the image for a given sender
+ * set_sender_image object should contain the following keys:
+ * - sender: the name of the sender
+ * - sender_image: base64 png encoding of the sender image
+ */
+function setSenderImage(set_sender_image_object)
+{
+    var sender_contact_method = set_sender_image_object['sender_contact_method'],
+        sender_image = set_sender_image_object['sender_image'],
+        sender_image_id = "sender_image_" + sender_contact_method,
+        currentSenderImage = document.querySelector("#" + sender_image_id), // Remove the currently set sender image
+        style;
+
+    if (currentSenderImage) {
+        currentSenderImage.parentNode.removeChild(currentSenderImage);
     }
 
-    return {
-        addMessage: addMessage,
-        printHistory: printHistory,
-        updateMessage: updateMessage,
-        setSenderImage: setSenderImage,
-        setSendIcon: setSendIcon,
-        dev: dev,
-        clearMessages: clearMessages,
-        clearSenderImages: clearSenderImages,
-        sendMessage: sendMessage,
-        setDisplayLinks: setDisplayLinks,
-        setTemporary: setTemporary,
-        acceptInvitation: acceptInvitation,
-        refuseInvitation: refuseInvitation,
-        blockConversation: blockConversation,
-        showInvitation: showInvitation,
-        hideInvitation: hideInvitation,
-        hideMessageBar: hideMessageBar,
-        disableSendMessage: disableSendMessage,
-        updateTimestamps: updateTimestamps,
-        sendFile: sendFile,
+    // Create a new style element
+    style = document.createElement('style');
+
+    style.type = 'text/css';
+    style.id = sender_image_id;
+    style.innerHTML = '.' + sender_image_id + " {content: url(data:image/png;base64," + sender_image + ");height: 35px;width: 35px;}";
+    document.head.appendChild(style);
+}
+
+function clearSenderImages()
+{
+    var styles = document.head.querySelectorAll("style"),
+    i = styles.length;
+
+    while (i--){
+      document.head.removeChild(styles[i]);
     }
+}
 
-})();
+function setTemporary(temporary)
+{
+  messageBarInput.placeholder = (temporary ? "Note: an interaction will create a new contact." : "Type a message");
+}
 
-/* DEV functions */
-ring.chatview.dev = (function(){
-    /**
-     * Fills the backlog with bogus messages
-     */
-    function fillMessages()
-    {
-        ring.chatview.clearMessages();
-
-        profile_picture = "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";
-
-        profile_picture = "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";
-
-        // Set the profile pictures
-        ring.chatview.setSenderImage(
-            {
-                "sender_contact_method": "self",
-                "sender_image": profile_picture,
-            }
-        );
-
-        ring.chatview.setSenderImage(
-            {
-                "sender_contact_method": "0x3345",
-                "sender_image": profile_picture,
-            }
-        )
-
-
-        // Create messages
-        ring.chatview.addMessage(
-            {
-                "id": 0,
-                "text": "Hello! This message's status will be updated to sent.",
-                "sender": "Me",
-                "sender_contact_method": "self",
-                "timestamp": 1475275399,
-                "direction": "out",
-                "delivery_status": "sending",
-            }
-        );
-
-        ring.chatview.updateMessage(
-            {
-                "id": 0,
-                "text": "Hello! This message's status will be updated to sent.",
-                "sender": "Me",
-                "sender_contact_method": "self",
-                "timestamp": 1475275399,
-                "direction": "out",
-                "delivery_status": "sending",
-            }
-        );
-
-        ring.chatview.addMessage(
-            {
-                "id": 1,
-                "text": "Hey! This message's status is 'Unknown', we shouldn't display that to the user.",
-                "sender": "Other Guy",
-                "sender_contact_method": "0x3345",
-                "timestamp": 1475275399,
-                "direction": "in",
-                "delivery_status": "unknown",
-            }
-        );
-
-        ring.chatview.addMessage(
-            {
-                "id": 1,
-                "text": "This is the second message in a row from me. Don't bother displaying my profile picture twice.",
-                "sender": "Other Guy",
-                "sender_contact_method": "0x3345",
-                "timestamp": 1475275399,
-                "direction": "in",
-                "delivery_status": "unknown",
-            }
-        );
-
-        ring.chatview.addMessage(
-            {
-                "id": 0,
-                "text": "Now its my turn to speak!",
-                "sender": "Me",
-                "sender_contact_method": "self",
-                "timestamp": 1475275399,
-                "direction": "out",
-                "delivery_status": "sent",
-            }
-        );
-
-         ring.chatview.addMessage(
-             {
-               "id": 5,
-               "text": "Hello! This message's status will be updated to sent.",
-               "sender": "Me",
-               "sender_contact_method": "self",
-               "timestamp": 1475275399,
-               "direction": "out",
-               "delivery_status": "sending",
-             }
-             );
-
-
-         ring.chatview.updateMessage(
-             {
-               "id": 5,
-               "text": "Hello! This message's status will be updated to sent.",
-               "sender": "Me",
-               "sender_contact_method": "self",
-               "timestamp": 1475275399,
-               "direction": "out",
-               "delivery_status": "failure",
-             }
-             );
-
-    }
-
-    return {
-        fillMessages: fillMessages,
-    }
-
-})();
+function sendFile()
+{
+  window.prompt('SEND_FILE');
+}
 
 </script>
-
 </html>
