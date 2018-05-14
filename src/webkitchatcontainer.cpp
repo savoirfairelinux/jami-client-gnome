@@ -68,6 +68,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(WebKitChatContainer, webkit_chat_container, GTK_TYPE_
 enum {
     READY,
     SCRIPT_DIALOG,
+    WEB_PROCESS_CRASHED,
     LAST_SIGNAL
 };
 
@@ -116,6 +117,15 @@ webkit_chat_container_class_init(WebKitChatContainerClass *klass)
         nullptr,
         g_cclosure_marshal_VOID__STRING,
         G_TYPE_NONE, 1, G_TYPE_STRING);
+
+    webkit_chat_container_signals[WEB_PROCESS_CRASHED] = g_signal_new("web-process-crashed",
+        G_TYPE_FROM_CLASS(klass),
+        (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+        0,
+        nullptr,
+        nullptr,
+        g_cclosure_marshal_VOID__VOID,
+        G_TYPE_NONE, 0);
 }
 
 static gboolean
@@ -518,6 +528,7 @@ webview_crashed(WebKitChatContainer *self)
     }
 
     build_view(self);
+    g_signal_emit(G_OBJECT(self), webkit_chat_container_signals[WEB_PROCESS_CRASHED], 0);
 
     return G_SOURCE_CONTINUE;
 }
@@ -533,6 +544,25 @@ webkit_chat_container_new()
     build_view(WEBKIT_CHAT_CONTAINER(view));
 
     return (GtkWidget *)view;
+}
+
+void
+webkit_chat_container_update_name(WebKitChatContainer *view,
+                                  const gchar* alias,
+                                  const gchar* bestId)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    // TODO better escape names
+    gchar* function_call = g_strdup_printf("ring.chatview.updateContactName(\"%s\", \"%s\");", alias, bestId);
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
 }
 
 void
@@ -694,6 +724,7 @@ webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
     gchar* function_call = nullptr;
 
     if (show) {
+        // TODO better escape names
         function_call = g_strdup_printf("ring.chatview.showInvitation('%s')",
         contactUri.c_str());
     } else {
@@ -731,4 +762,39 @@ webkit_chat_container_is_ready(WebKitChatContainer *view)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
     return priv->js_libs_loaded;
+}
+
+void
+webkit_chat_show_add_to_conversations(WebKitChatContainer *view, bool show)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    gchar* function_call = g_strdup_printf("ring.chatview.showAddToConversationsButton(%s)", show ? "true" : "false");
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
+}
+
+void
+webkit_chat_enable_banned(WebKitChatContainer *view, bool banned)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+
+    g_debug("webkit_chat_enable_banned: updating view to match banned status");
+    gchar* function_call = g_strdup_printf("ring.chatview.enableBanned(%s)", banned ? "true" : "false");
+
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+    g_free(function_call);
 }
