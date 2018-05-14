@@ -1424,7 +1424,7 @@ CppImpl::slotNewConversation(const std::string& uid)
     accountInfo_->conversationModel->setFilter("");
     // Select new conversation if contact added
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
-    if (IS_RING_WELCOME_VIEW(old_view) || (IS_CHAT_VIEW(old_view) && chat_view_get_temporary(CHAT_VIEW(old_view)))) {
+    if (IS_RING_WELCOME_VIEW(old_view)) {
         accountInfo_->conversationModel->selectConversation(uid);
         try {
             auto contactUri =  chatViewConversation_->participants.front();

@@ -86,6 +86,11 @@ incoming_call_view_dispose(GObject *object)
     view = INCOMING_CALL_VIEW(object);
     priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
+    // navbar was hidden during init, we need to make it visible again before view destruction
+    auto children = gtk_container_get_children(GTK_CONTAINER(priv->frame_chat));
+    auto chat_view = children->data;
+    chat_view_set_header_visible(CHAT_VIEW(chat_view), TRUE);
+
     QObject::disconnect(priv->state_change_connection);
 
     g_clear_object(&priv->settings);
