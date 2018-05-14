@@ -103,7 +103,7 @@ a:hover {
   display: flex;
   position: relative;
   padding-right: 10px;
-  padding-left: 18px;
+  padding-left: 8px;
   overflow: hidden;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -118,7 +118,7 @@ a:hover {
   overflow-y: scroll;
   color: black;
   max-height: 150px;
-  padding-left: 8px;
+  padding-left: 12px;
   resize: none;
 }
 
@@ -136,11 +136,15 @@ input[placeholder], [placeholder], *[placeholder] {
 }
 
 #sendMessage svg {
-  fill: #666;
-  padding: 5px;
-  width: 100%;
+  display: block;
+  margin: auto;
   height: 100%;
+  fill: #666;
   transition: all 0.3s ease;
+}
+
+#sendMessage svg:hover {
+  fill: #515151;
 }
 
 /* General messages */
@@ -363,16 +367,11 @@ input[placeholder], [placeholder], *[placeholder] {
   border: 0;
   width: 40px;
   height: 40px;
+  display: flex;
   align-self: center;
   transition: all 0.3s ease;
   cursor: pointer;
 }
-
-.msg-button.hover,
-.msg-button:hover {
-  background: #bae5f0;
-}
-
 
 /* Status */
 
