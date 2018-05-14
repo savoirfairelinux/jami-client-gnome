@@ -171,7 +171,12 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
         // Build a new AccountInfoPointer pointing on selected account in this view, not in the app
         // TODO in the future, get rid of the Account class (pass the selected id)
         auto selectedId = account->id().toStdString();
-        priv->selectedInfo_ = &(*priv->accountInfo_)->accountModel->getAccountInfo(selectedId);
+        try {
+            priv->selectedInfo_ = &(*priv->accountInfo_)->accountModel->getAccountInfo(selectedId);
+        } catch (std::out_of_range& e) {
+            g_debug("Can't load account %s", selectedId.c_str());
+            return;
+        }
 
         /* customize account view based on account */
         auto general_tab = create_scrolled_account_view(account_general_tab_new(account, priv->selectedInfo_));
@@ -521,25 +526,6 @@ account_view_init(AccountView *view)
         AccountModel::instance().protocolModel()->selectionModel()
     );
 
-    /* connect signals to and from the selection model of the account model */
-    priv->account_selection_changed = QObject::connect(
-        AccountModel::instance().selectionModel(),
-        &QItemSelectionModel::currentChanged,
-        [=](const QModelIndex & current, G_GNUC_UNUSED const QModelIndex & previous) {
-            GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
-
-            /* select the current */
-            if (current.isValid()) {
-                GtkTreeIter new_iter;
-                if (gtk_q_tree_model_source_index_to_iter(account_model, current, &new_iter)) {
-                    gtk_tree_selection_select_iter(selection, &new_iter);
-                } else {
-                    g_warning("SelectionModel of AccountModel changed to invalid QModelIndex?");
-                }
-            }
-        }
-    );
-
     GtkTreeSelection *account_selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
     g_signal_connect(account_selection, "changed", G_CALLBACK(update_account_model_selection), NULL);
     g_signal_connect(account_selection, "changed", G_CALLBACK(account_selection_changed), view);
@@ -564,12 +550,47 @@ account_view_class_init(AccountViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountView, combobox_account_type);
 }
 
+static void
+build_account_view(AccountView *view) {
+    g_return_if_fail(IS_ACCOUNT_VIEW(view));
+    AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
+
+    // NOTE: this is temporary. We still use AccountModel here, so if a new account is added,
+    // we should select it!
+    priv->account_selection_changed = QObject::connect(
+        &*(*priv->accountInfo_)->accountModel,
+        &lrc::api::NewAccountModel::accountAdded,
+        [=] (const std::string& id) {
+            auto idx = 0;
+            auto iterIsCorrect = true;
+            GtkTreeIter iter;
+            auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->treeview_account_list));
+            GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->treeview_account_list));
+
+            while (iterIsCorrect) {
+                iterIsCorrect = gtk_tree_model_iter_nth_child(model, &iter, nullptr, idx);
+                if (!iterIsCorrect)
+                    break;
+                QModelIndex accountIdx = gtk_q_tree_model_get_source_idx(GTK_Q_TREE_MODEL(model), &iter);
+                if (accountIdx.isValid()) {
+                    auto account = AccountModel::instance().getAccountByModelIndex(accountIdx);
+                    if (account->id().toStdString() == id)
+                        gtk_tree_selection_select_iter(selection, &iter);
+                }
+                idx++;
+            }
+        }
+    );
+}
+
 GtkWidget *
 account_view_new(AccountInfoPointer const & accountInfo)
 {
     auto* view = g_object_new(ACCOUNT_VIEW_TYPE, NULL);
     AccountViewPrivate *priv = ACCOUNT_VIEW_GET_PRIVATE(view);
     priv->accountInfo_ = &accountInfo;
+    if (*priv->accountInfo_)
+        build_account_view(ACCOUNT_VIEW(view));
     return (GtkWidget *)view;
 }
 
