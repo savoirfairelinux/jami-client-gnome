@@ -29,6 +29,7 @@
 #include <profile.h>
 #include <accountmodel.h>
 #include <personmodel.h>
+#include "api/newaccountmodel.h"
 
 // Ring Client
 #include "utils/models.h"
@@ -64,6 +65,8 @@ struct _AccountCreationWizardPrivate
     GtkWidget *button_new_account;
     GtkWidget *button_existing_account;
     GtkWidget *button_wizard_cancel;
+    GtkWidget *button_show_advanced;
+    GtkWidget *button_new_sip_account;
 
     /* existing account */
     GtkWidget *existing_account;
@@ -148,6 +151,8 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_new_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_wizard_cancel);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_show_advanced);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_new_sip_account);
 
     /* existing account */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, existing_account);
@@ -520,6 +525,21 @@ wizard_cancel_clicked(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *vi
 }
 
 static void
+show_advanced(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *view)
+{
+    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+    gtk_widget_set_visible(GTK_WIDGET(priv->button_new_sip_account), !gtk_widget_is_visible(GTK_WIDGET(priv->button_new_sip_account)));
+}
+
+static void
+create_new_sip_account(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *view)
+{
+    lrc::api::NewAccountModel::addNewSIPAccount();
+    g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED], 0);
+    g_object_unref(view);
+}
+
+static void
 entries_existing_account_changed(G_GNUC_UNUSED GtkEntry *entry, AccountCreationWizard *view)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
@@ -619,7 +639,7 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
         gtk_image_set_from_pixbuf(GTK_IMAGE(priv->choose_account_type_ring_logo), logo_ring);
 
     /* create the username_registration_box */
-    priv->username_registration_box = username_registration_box_new(nullptr, FALSE);
+    priv->username_registration_box = username_registration_box_new_empty(false);
     gtk_container_add(GTK_CONTAINER(priv->box_username_entry), priv->username_registration_box);
     gtk_widget_show(priv->username_registration_box);
     priv->entry_username = GTK_WIDGET(
@@ -647,6 +667,8 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
     g_signal_connect_swapped(priv->button_new_account, "clicked", G_CALLBACK(account_creation_wizard_show_preview), view);
     g_signal_connect_swapped(priv->button_existing_account, "clicked", G_CALLBACK(show_existing_account), view);
     g_signal_connect(priv->button_wizard_cancel, "clicked", G_CALLBACK(wizard_cancel_clicked), view);
+    g_signal_connect(priv->button_show_advanced, "clicked", G_CALLBACK(show_advanced), view);
+    g_signal_connect(priv->button_new_sip_account, "clicked", G_CALLBACK(create_new_sip_account), view);
 
     /* account_creation signals */
     g_signal_connect_swapped(priv->entry_username, "changed", G_CALLBACK(entries_new_account_changed), view);
