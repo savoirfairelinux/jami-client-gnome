@@ -294,6 +294,8 @@ SET( SRC_FILES
    src/dialogs.c
    src/mediasettingsview.h
    src/mediasettingsview.cpp
+   src/newaccountsettingsview.h
+   src/newaccountsettingsview.cpp
    src/generalsettingsview.h
    src/generalsettingsview.cpp
    src/backends/edscontactbackend.h
