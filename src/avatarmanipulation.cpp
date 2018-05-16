@@ -38,8 +38,8 @@
 #include <glib/gi18n.h>
 
 /* size of avatar */
-static constexpr int AVATAR_WIDTH  = 100; /* px */
-static constexpr int AVATAR_HEIGHT = 100; /* px */
+static constexpr int AVATAR_WIDTH  = 200; /* px */
+static constexpr int AVATAR_HEIGHT = 200; /* px */
 
 /* size of video widget */
 static constexpr int VIDEO_WIDTH = 300; /* px */
