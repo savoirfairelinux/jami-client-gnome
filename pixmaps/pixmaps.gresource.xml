@@ -35,9 +35,6 @@
     <file alias="fallbackavatar">fallbackavatar.svg</file>
     <file alias="transfer">transfer.svg</file>
     <file alias="revoke">revoke.svg</file>
-    <file alias="edit">edit.svg</file>
-    <file alias="add-device">add-device.svg</file>
-    <file alias="devices">devices.svg</file>
     <file alias="save">save.svg</file>
   </gresource>
 </gresources>
