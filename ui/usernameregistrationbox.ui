@@ -2,65 +2,57 @@
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <template class="UsernameRegistrationBox" parent="GtkGrid">
-    <property name="column-spacing">10</property>
-    <property name="row-spacing">5</property>
     <child>
-      <object class="GtkEntry" id="entry_username">
+      <object class="GtkLabel" id="label_username">
         <property name="visible">True</property>
-        <property name="editable">False</property>
-        <property name="max-width-chars">40</property>
-        <property name="placeholder-text" translatable="yes">enter username here</property>
-        <property name="xalign">0.5</property>
+        <property name="can_focus">False</property>
+        <property name="selectable">True</property>
       </object>
-      <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">0</property>
-      </packing>
     </child>
     <child>
-      <object class="GtkButton" id="button_register_username">
-        <property name="visible">False</property>
-        <property name="no-show-all">True</property>
-        <property name="label" translatable="yes">Register</property>
-      </object>
-      <packing>
-        <property name="left-attach">1</property>
-        <property name="top-attach">0</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkSpinner" id="spinner">
-        <property name="visible">False</property>
-        <property name="no-show-all">True</property>
-        <property name="halign">center</property>
-      </object>
-      <packing>
-        <property name="left-attach">2</property>
-        <property name="top-attach">0</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkImage" id="icon_username_availability">
+      <object class="GtkFrame" id="frame_username">
         <property name="visible">True</property>
-        <property name="no-show-all">True</property>
-        <property name="halign">center</property>
+        <property name="can_focus">False</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">out</property>
+        <child>
+          <object class="GtkBox" id="hbox_search">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="spacing">0</property>
+            <child>
+              <object class="GtkEntry" id="entry_username">
+                <property name="visible">True</property>
+                <property name="max_length">256</property>
+                <property name="truncate_multiline">True</property>
+                <property name="placeholder-text" translatable="yes">register username</property>
+                <style>
+                  <class name="search-entry-style"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSpinner" id="spinner">
+                <property name="can_focus">False</property>
+                <style>
+                  <class name="spinner-style"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="button_register_username">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="receives_default">False</property>
+                <property name="relief">none</property>
+                <style>
+                  <class name="new-conversation-style"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
-      <packing>
-        <property name="left-attach">2</property>
-        <property name="top-attach">0</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label_status">
-        <property name="visible">True</property>
-        <style>
-          <class name="dim-label"/>
-        </style>
-      </object>
-      <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">1</property>
-      </packing>
     </child>
   </template>
 </interface>
