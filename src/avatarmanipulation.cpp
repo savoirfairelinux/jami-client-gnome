@@ -21,10 +21,10 @@
 #include "avatarmanipulation.h"
 
 /* LRC */
+#include <api/newaccountmodel.h>
 #include <globalinstances.h>
 #include <person.h>
 #include <profile.h>
-#include <profilemodel.h>
 #include <video/configurationproxy.h>
 #include <video/previewmanager.h>
 #include <video/devicemodel.h>
@@ -38,12 +38,12 @@
 #include <glib/gi18n.h>
 
 /* size of avatar */
-static constexpr int AVATAR_WIDTH  = 100; /* px */
-static constexpr int AVATAR_HEIGHT = 100; /* px */
+static constexpr int AVATAR_WIDTH  = 150; /* px */
+static constexpr int AVATAR_HEIGHT = 150; /* px */
 
 /* size of video widget */
-static constexpr int VIDEO_WIDTH = 300; /* px */
-static constexpr int VIDEO_HEIGHT = 200; /* px */
+static constexpr int VIDEO_WIDTH = 150; /* px */
+static constexpr int VIDEO_HEIGHT = 150; /* px */
 
 struct _AvatarManipulation
 {
@@ -59,6 +59,9 @@ typedef struct _AvatarManipulationPrivate AvatarManipulationPrivate;
 
 struct _AvatarManipulationPrivate
 {
+    AccountInfoPointer const *accountInfo_ = nullptr;
+    gchar* temporaryAvatar = nullptr;
+
     GtkWidget *stack_avatar_manipulation;
     GtkWidget *video_widget;
     GtkWidget *box_views_and_controls;
@@ -131,27 +134,39 @@ avatar_manipulation_finalize(GObject *object)
 }
 
 GtkWidget*
-avatar_manipulation_new(void)
+avatar_manipulation_new(AccountInfoPointer const & accountInfo)
 {
     // a profile must exist
-    g_return_val_if_fail(ProfileModel::instance().selectedProfile(), NULL);
+    gpointer view = g_object_new(AVATAR_MANIPULATION_TYPE, NULL);
 
-    return (GtkWidget *)g_object_new(AVATAR_MANIPULATION_TYPE, NULL);
+    auto* priv = AVATAR_MANIPULATION_GET_PRIVATE(view);
+    priv->accountInfo_ = &accountInfo;
+
+    set_state(AVATAR_MANIPULATION(view), AVATAR_MANIPULATION_STATE_CURRENT);
+
+    return reinterpret_cast<GtkWidget*>(view);
 }
 
 GtkWidget*
 avatar_manipulation_new_from_wizard(void)
 {
-    auto self = avatar_manipulation_new();
+    // a profile must exist
+    gpointer view = g_object_new(AVATAR_MANIPULATION_TYPE, NULL);
 
-    /* in this mode, we want to automatically go to the PHOTO avatar state, unless one already exists */
-    if (!ProfileModel::instance().selectedProfile()->person()->photo().isValid()) {
-        // check if there is a camera
-        if (Video::DeviceModel::instance().rowCount() > 0)
-            set_state(AVATAR_MANIPULATION(self), AVATAR_MANIPULATION_STATE_PHOTO);
-    }
+    auto* priv = AVATAR_MANIPULATION_GET_PRIVATE(view);
+    priv->accountInfo_ = nullptr;
 
-    return self;
+    set_state(AVATAR_MANIPULATION(view), AVATAR_MANIPULATION_STATE_CURRENT);
+
+    return reinterpret_cast<GtkWidget*>(view);
+}
+
+gchar*
+avatar_manipulation_get_temporary(AvatarManipulation *view)
+{
+    g_return_val_if_fail(IS_AVATAR_MANIPULATION(view), nullptr);
+    AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(view);
+    return priv->temporaryAvatar;
 }
 
 static void
@@ -215,17 +230,19 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
         case AVATAR_MANIPULATION_STATE_CURRENT:
         {
             /* get the current or default profile avatar */
-            auto photo = GlobalInstances::pixmapManipulator().contactPhoto(
-                            ProfileModel::instance().selectedProfile()->person(),
-                            QSize(AVATAR_WIDTH, AVATAR_HEIGHT),
-                            false);
-            std::shared_ptr<GdkPixbuf> pixbuf_photo = photo.value<std::shared_ptr<GdkPixbuf>>();
-
-            if (photo.isValid()) {
-                gtk_image_set_from_pixbuf (GTK_IMAGE(priv->image_avatar),  pixbuf_photo.get());
-            } else {
-                g_warning("invlid pixbuf");
+            auto default_avatar = Interfaces::PixbufManipulator().generateAvatar("", "");
+            auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
+            auto photo = default_scaled;
+            if ((priv->accountInfo_ && (*priv->accountInfo_)) || priv->temporaryAvatar) {
+                auto photostr = priv->temporaryAvatar? priv->temporaryAvatar : (*priv->accountInfo_)->profileInfo.avatar;
+                QByteArray byteArray(photostr.c_str(), photostr.length());
+                QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
+                auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
+                if (avatar.isValid()) {
+                    photo = pixbuf_photo;
+                }
             }
+            gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_avatar), photo.get());
 
             gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_views), "page_avatar");
 
@@ -341,9 +358,15 @@ set_avatar(AvatarManipulation *self)
     QByteArray png_q_byte_array = QByteArray::fromRawData(png_buffer_signed, png_buffer_size).toBase64();
 
     /* save in profile */
-    QVariant photo = GlobalInstances::pixmapManipulator().personPhoto(png_q_byte_array);
-    ProfileModel::instance().selectedProfile()->person()->setPhoto(photo);
-    ProfileModel::instance().selectedProfile()->save();
+    if (priv->accountInfo_ && (*priv->accountInfo_)) {
+        try {
+            (*priv->accountInfo_)->accountModel->setAvatar((*priv->accountInfo_)->id, png_q_byte_array.toStdString());
+        } catch (std::out_of_range&) {
+            g_warning("Can't set avatar for unknown account");
+        }
+    } else {
+        priv->temporaryAvatar = g_strdup(png_q_byte_array.toStdString().c_str());
+    }
 
     g_free(png_buffer_signed);
     g_object_unref(selector_pixbuf);
