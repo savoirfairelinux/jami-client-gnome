@@ -29,6 +29,7 @@
     <file alias="add">add.svg</file>
     <file alias="reject">reject.svg</file>
     <file alias="block">block.svg</file>
+    <file alias="block_black">block_black.svg</file>
     <file alias="invite">ic_person_add_black_24px.svg</file>
     <file alias="temporary-item">ic_search_black_48px.svg</file>
     <file alias="audio_only_call_start">ic_call_black_24px.svg</file>
@@ -38,5 +39,10 @@
     <file alias="add-device">add-device.svg</file>
     <file alias="devices">devices.svg</file>
     <file alias="save">save.svg</file>
+    <file alias="settings">settings.svg</file>
+    <file alias="export">export.svg</file>
+    <file alias="account">account.svg</file>
+    <file alias="bottom_arrow">bottom_arrow.svg</file>
+    <file alias="up_arrow">up_arrow.svg</file>
   </gresource>
 </gresources>
