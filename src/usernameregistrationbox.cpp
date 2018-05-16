@@ -22,6 +22,8 @@
 #include <glib/gi18n.h>
 
 // LRC
+#include <api/newaccountmodel.h>
+#include <namedirectory.h>
 #include <account.h>
 
 // Ring Client
@@ -42,7 +44,8 @@ typedef struct _UsernameRegistrationBoxPrivate UsernameRegistrationBoxPrivate;
 
 struct _UsernameRegistrationBoxPrivate
 {
-    Account   *account;
+    AccountInfoPointer const *accountInfo_ = nullptr;
+    bool withAccount;
 
     //Widgets
     GtkWidget *entry_username;
@@ -110,7 +113,6 @@ username_registration_box_init(UsernameRegistrationBox *view)
 
             // compare to the current username entry
             const auto username_lookup = gtk_entry_get_text(GTK_ENTRY(priv->entry_username));
-
             if (name.compare(username_lookup) != 0) {
                 // assume result is for older lookup
                 return;
@@ -120,7 +122,8 @@ username_registration_box_init(UsernameRegistrationBox *view)
             gtk_spinner_stop(GTK_SPINNER(priv->spinner));
             gtk_widget_hide(priv->spinner);
 
-            // We don't want to display any icon/label in case of empty lookup
+
+             // We don't want to display any icon/label in case of empty lookup
             if (!username_lookup || !*username_lookup) {
                 gtk_widget_set_sensitive(priv->button_register_username, FALSE);
                 gtk_widget_hide(priv->label_status);
@@ -171,8 +174,7 @@ username_registration_box_init(UsernameRegistrationBox *view)
                     break;
                 }
             }
-        }
-    );
+        });
 }
 
 static void
@@ -218,11 +220,8 @@ lookup_username(UsernameRegistrationBox *view)
 
     const auto username = gtk_entry_get_text(GTK_ENTRY(priv->entry_username));
 
-    if (priv->account) {
-        NameDirectory::instance().lookupName(priv->account, priv->account->nameServiceURL(), username);
-    } else {
-        NameDirectory::instance().lookupName(nullptr, QString(), username);
-    }
+    NameDirectory::instance().lookupName(nullptr, QString(), username);
+
 
     priv->lookup_timeout = 0;
     return G_SOURCE_REMOVE;
@@ -248,7 +247,6 @@ entry_username_changed(UsernameRegistrationBox *view)
         if (strlen(username) == 0) {
             // don't lookup empty username
             gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon_username_availability), "error", GTK_ICON_SIZE_SMALL_TOOLBAR);
-            gtk_widget_set_tooltip_text(priv->icon_username_availability, _("The entered username is not valid"));
             gtk_widget_show(priv->icon_username_availability);
 
             gtk_widget_hide(priv->spinner);
@@ -304,7 +302,7 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
     gtk_widget_show(entry_password);
 
     gint result = gtk_dialog_run(GTK_DIALOG(password_dialog));
-    const QString password = QString(gtk_entry_get_text(GTK_ENTRY(entry_password)));
+    const std::string password = gtk_entry_get_text(GTK_ENTRY(entry_password));
     gtk_widget_destroy(password_dialog);
 
     switch(result)
@@ -322,7 +320,7 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
 
             gtk_label_set_text(GTK_LABEL(priv->label_status), _("Registering username..."));
 
-            if (!priv->account->registerName(password, username))
+            if (!(*priv->accountInfo_)->accountModel->registerName((*priv->accountInfo_)->id, password, username))
             {
                 gtk_spinner_stop(GTK_SPINNER(priv->spinner));
                 gtk_widget_hide(priv->spinner);
@@ -346,18 +344,13 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
 {
     UsernameRegistrationBoxPrivate *priv = USERNAME_REGISTRATION_BOX_GET_PRIVATE(view);
 
-    QString registered_name;
-    if(priv->account)
-    {
-        registered_name = priv->account->registeredName();
+    std::string registered_name = {};
+    if(priv->withAccount) {
+        registered_name = (*priv->accountInfo_)->registeredName;
     }
-    else
-    {
-        registered_name = QString();
-    }
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_username), registered_name.toLocal8Bit().constData());
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_username), registered_name.c_str());
 
-    if (registered_name.isEmpty())
+    if (registered_name.empty())
     {
         //Make the entry editable
         g_object_set(G_OBJECT(priv->entry_username), "editable", TRUE, NULL);
@@ -367,7 +360,7 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
         gtk_widget_show(priv->icon_username_availability);
 
         //Show the register button
-        if (register_button && priv->account)
+        if (register_button && priv->withAccount)
         {
             gtk_widget_show(priv->button_register_username);
             gtk_widget_set_sensitive(priv->button_register_username, FALSE);
@@ -378,18 +371,19 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
         //Show the status label
         gtk_widget_show(priv->label_status);
 
-        if (priv->account) {
+        if (priv->withAccount) {
             priv->name_registration_ended = QObject::connect(
-                priv->account,
-                &Account::nameRegistrationEnded,
-                [=] (NameDirectory::RegisterNameStatus status, G_GNUC_UNUSED const QString& name) {
+                (*priv->accountInfo_)->accountModel,
+                &lrc::api::NewAccountModel::nameRegistrationEnded,
+                [=] (const std::string& accountId, lrc::api::account::RegisterNameStatus status, const std::string& name) {
+                    if (accountId != (*priv->accountInfo_)->id) return;
                     gtk_spinner_stop(GTK_SPINNER(priv->spinner));
                     gtk_widget_hide(priv->spinner);
                     gtk_widget_set_sensitive(priv->entry_username, TRUE);
 
                     switch(status)
                     {
-                        case NameDirectory::RegisterNameStatus::SUCCESS:
+                    case lrc::api::account::RegisterNameStatus::SUCCESS:
                         {
                             // update the entry to what was registered, just to be sure
                             // don't do more lookups
@@ -397,35 +391,35 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
                                 g_signal_handler_disconnect(priv->entry_username, priv->entry_changed);
                                 priv->entry_changed = 0;
                             }
-                            gtk_entry_set_text(GTK_ENTRY(priv->entry_username), name.toUtf8().constData());
+                            gtk_entry_set_text(GTK_ENTRY(priv->entry_username), name.c_str());
                             gtk_label_set_text(GTK_LABEL(priv->label_status), NULL);
                             g_object_set(G_OBJECT(priv->entry_username), "editable", FALSE, NULL);
                             gtk_widget_hide(priv->button_register_username);
                             g_signal_emit(G_OBJECT(view), username_registration_box_signals[USERNAME_REGISTRATION_COMPLETED], 0);
                             break;
                         }
-                        case NameDirectory::RegisterNameStatus::INVALID_NAME:
+                    case lrc::api::account::RegisterNameStatus::INVALID_NAME:
                         {
                             gtk_widget_set_sensitive(priv->button_register_username, TRUE);
                             gtk_label_set_text(GTK_LABEL(priv->label_status), _("Invalid username"));
                             gtk_widget_show(priv->icon_username_availability);
                             break;
                         }
-                        case NameDirectory::RegisterNameStatus::WRONG_PASSWORD:
+                    case lrc::api::account::RegisterNameStatus::WRONG_PASSWORD:
                         {
                             gtk_widget_set_sensitive(priv->button_register_username, TRUE);
                             gtk_label_set_text(GTK_LABEL(priv->label_status), _("Bad password"));
                             gtk_widget_show(priv->icon_username_availability);
                             break;
                         }
-                        case NameDirectory::RegisterNameStatus::ALREADY_TAKEN:
+                    case lrc::api::account::RegisterNameStatus::ALREADY_TAKEN:
                         {
                             gtk_widget_set_sensitive(priv->button_register_username, TRUE);
                             gtk_label_set_text(GTK_LABEL(priv->label_status), _("Username already taken"));
                             gtk_widget_show(priv->icon_username_availability);
                             break;
                         }
-                        case NameDirectory::RegisterNameStatus::NETWORK_ERROR:
+                    case lrc::api::account::RegisterNameStatus::NETWORK_ERROR:
                         {
                             gtk_widget_set_sensitive(priv->button_register_username, TRUE);
                             gtk_label_set_text(GTK_LABEL(priv->label_status), _("Network error"));
@@ -440,14 +434,30 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
 }
 
 GtkWidget *
-username_registration_box_new(Account* account, gboolean register_button)
+username_registration_box_new_empty(bool register_button)
 {
     gpointer view = g_object_new(USERNAME_REGISTRATION_BOX_TYPE, NULL);
 
     UsernameRegistrationBoxPrivate *priv = USERNAME_REGISTRATION_BOX_GET_PRIVATE(view);
-    priv->account = account;
+    priv->withAccount = false;
+    priv->use_blockchain = true;
     priv->show_register_button = register_button;
-    priv->use_blockchain = TRUE; // default to true
+
+    build_view(USERNAME_REGISTRATION_BOX(view), register_button);
+
+    return (GtkWidget *)view;
+}
+
+GtkWidget *
+username_registration_box_new(AccountInfoPointer const & accountInfo, bool register_button)
+{
+    gpointer view = g_object_new(USERNAME_REGISTRATION_BOX_TYPE, NULL);
+
+    UsernameRegistrationBoxPrivate *priv = USERNAME_REGISTRATION_BOX_GET_PRIVATE(view);
+    priv->accountInfo_ = &accountInfo;
+    priv->withAccount = true;
+    priv->use_blockchain = true;
+    priv->show_register_button = register_button;
 
     build_view(USERNAME_REGISTRATION_BOX(view), register_button);
 
