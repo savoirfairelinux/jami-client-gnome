@@ -23,6 +23,7 @@
 
 // LRC
 #include <api/newaccountmodel.h>
+#include <namedirectory.h>
 #include <account.h>
 
 // Ring Client
@@ -388,6 +389,7 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
                             gtk_label_set_text(GTK_LABEL(priv->label_username), name.c_str());
                             gtk_widget_hide(priv->frame_username);
                             gtk_widget_show(priv->label_username);
+                            gtk_widget_set_can_focus(priv->label_username, true);
                             g_signal_emit(G_OBJECT(view), username_registration_box_signals[USERNAME_REGISTRATION_COMPLETED], 0);
                             break;
                         }
