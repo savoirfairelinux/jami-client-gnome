@@ -21,6 +21,12 @@
 
 #include <gtk/gtk.h>
 
+#include <string>
+
+#include <api/account.h>
+
+#include "accountinfopointer.h"
+
 G_BEGIN_DECLS
 
 #define ACCOUNT_CREATION_WIZARD_TYPE            (account_creation_wizard_get_type ())
@@ -37,5 +43,7 @@ GtkWidget *account_creation_wizard_new           (bool cancel_button);
 
 void       account_creation_wizard_show_preview  (AccountCreationWizard *win, gboolean show_preview = TRUE);
 void       account_creation_wizard_cancel        (AccountCreationWizard *win);
+void       account_creation_wizard_account_added (AccountCreationWizard *view, AccountInfoPointer const & accountInfo);
+void       account_creation_show_error_view      (AccountCreationWizard *view, const std::string& id);
 
 G_END_DECLS
