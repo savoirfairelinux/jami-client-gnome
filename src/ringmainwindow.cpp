@@ -22,6 +22,7 @@
 
 // GTK+ related
 #include <glib/gi18n.h>
+#include <iostream>
 
 // LRC
 #include <accountmodel.h> // Old lrc but still used
@@ -41,7 +42,9 @@
 #include <media/recordingmodel.h>
 #include <media/text.h>
 
+
 // Ring client
+#include "newaccountsettingsview.h"
 #include "accountview.h"
 #include "accountmigrationview.h"
 #include "accountcreationwizard.h"
@@ -58,6 +61,7 @@
 #include "utils/files.h"
 #include "ringnotify.h"
 #include "accountinfopointer.h"
+#include "native/pixbufmanipulator.h"
 
 //==============================================================================
 
@@ -93,13 +97,14 @@ struct RingMainWindowPrivate
     GtkWidget *frame_call;
     GtkWidget *welcome_view;
     GtkWidget *button_new_conversation;
-    GtkWidget *account_settings_view;
     GtkWidget *media_settings_view;
+    GtkWidget *new_account_settings_view;
     GtkWidget *general_settings_view;
     GtkWidget *last_settings_view;
+    GtkWidget *radiobutton_new_account_settings;
     GtkWidget *radiobutton_general_settings;
     GtkWidget *radiobutton_media_settings;
-    GtkWidget *radiobutton_account_settings;
+    GtkWidget *ring_add_new_account;
     GtkWidget *account_creation_wizard;
     GtkWidget *account_migration_view;
     GtkWidget *combobox_account_selector;
@@ -128,7 +133,7 @@ static constexpr const char* ACCOUNT_CREATION_WIZARD_VIEW_NAME = "account-creati
 static constexpr const char* ACCOUNT_MIGRATION_VIEW_NAME       = "account-migration-view";
 static constexpr const char* GENERAL_SETTINGS_VIEW_NAME        = "general";
 static constexpr const char* MEDIA_SETTINGS_VIEW_NAME          = "media";
-static constexpr const char* ACCOUNT_SETTINGS_VIEW_NAME        = "accounts";
+static constexpr const char* NEW_ACCOUNT_SETTINGS_VIEW_NAME    = "account";
 
 inline namespace helpers
 {
@@ -143,33 +148,92 @@ print_account_and_state(GtkCellLayout* cell_layout,
                         GtkTreeIter* iter,
                         gpointer* data)
 {
-    (void)cell_layout;
-    (void)data;
-
     gchar *alias;
+    gchar *registeredName;
+    gchar *uri;
     gchar *text;
 
     gtk_tree_model_get (model, iter,
-                        1 /* col# */, &alias /* data */,
+                        3 /* col# */, &uri /* data */,
+                        4 /* col# */, &alias /* data */,
+                        5 /* col# */, &registeredName /* data */,
                         -1);
 
-    text = g_markup_printf_escaped(
-        "<span fgcolor=\"gray\">%s</span>",
-        alias
-    );
+    if (g_strcmp0("", registeredName) == 0) {
+        if (g_strcmp0(uri, alias) == 0) {
+            text = g_markup_printf_escaped(
+                "<span font=\"10\">%s</span>",
+                alias
+            );
+        } else {
+            text = g_markup_printf_escaped(
+                "<span font=\"10\">%s</span>\n<span font=\"7\">%s</span>",
+                alias, uri
+            );
+        }
+    } else {
+        if (g_strcmp0(alias, registeredName) == 0) {
+            text = g_markup_printf_escaped(
+                "<span font=\"10\">%s</span>",
+                alias
+            );
+        } else {
+            text = g_markup_printf_escaped(
+                "<span font=\"10\">%s</span>\n<span font=\"7\">%s</span>",
+                alias, registeredName
+            );
+        }
+    }
 
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_object_set(G_OBJECT(cell), "height", 17, NULL);
+    g_object_set(G_OBJECT(cell), "ypad", 0, NULL);
+    g_object_set(G_OBJECT(cell), "yalign", 0, NULL);
     g_free(alias);
 }
 
+static void
+render_account_avatar(GtkCellLayout* cell_layout,
+                      GtkCellRenderer *cell,
+                      GtkTreeModel *model,
+                      GtkTreeIter *iter,
+                      gpointer data)
+{
+    gchar *avatar;
+    bool enabled;
+
+    gtk_tree_model_get (model, iter,
+                        1 /* col# */, &enabled /* data */,
+                        2 /* col# */, &avatar /* data */,
+                        -1);
+
+    auto default_avatar = Interfaces::PixbufManipulator().generateAvatar("", "");
+    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(32, 32), true, enabled);
+    auto photo = default_scaled;
+    std::string photostr = avatar;
+    if (!photostr.empty()) {
+        QByteArray byteArray(photostr.c_str(), photostr.length());
+        QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
+        auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(32, 32), true, enabled);
+        if (avatar.isValid()) {
+            photo = pixbuf_photo;
+        }
+    }
+
+    g_object_set(G_OBJECT(cell), "width", 32, nullptr);
+    g_object_set(G_OBJECT(cell), "height", 32, nullptr);
+    g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), nullptr);
+
+    g_free(avatar);
+}
+
 inline static void
-foreachEnabledLrcAccount(const lrc::api::Lrc& lrc,
-                         const std::function<void(const lrc::api::account::Info&)>& func)
+foreachLrcAccount(const lrc::api::Lrc& lrc,
+                  const std::function<void(const lrc::api::account::Info&)>& func)
 {
     auto& account_model = lrc.getAccountModel();
     for (const auto& account_id : account_model.getAccountList()) {
         const auto& account_info = account_model.getAccountInfo(account_id);
-        if (account_info.enabled)
             func(account_info);
     }
 }
@@ -198,7 +262,7 @@ public:
     void leaveSettingsView();
 
     void showAccountSelectorWidget(bool show = true);
-    std::size_t refreshAccountSelectorWidget(int selection_row = -1, bool show = true);
+    std::size_t refreshAccountSelectorWidget(int selection_row = -1, bool show = true, const std::string& selected = "");
 
     WebKitChatContainer* webkitChatContainer() const;
 
@@ -222,6 +286,7 @@ public:
     QMetaObject::Connection changeAccountConnection_;
     QMetaObject::Connection newAccountConnection_;
     QMetaObject::Connection rmAccountConnection_;
+    QMetaObject::Connection invalidAccountConnection_;
     QMetaObject::Connection historyClearedConnection_;
     QMetaObject::Connection modelSortedConnection_;
     QMetaObject::Connection filterChangedConnection_;
@@ -244,6 +309,7 @@ private:
     // Callbacks used as LRC Qt slot
     void slotAccountAddedFromLrc(const std::string& id);
     void slotAccountRemovedFromLrc(const std::string& id);
+    void slotInvalidAccountFromLrc(const std::string& id);
     void slotAccountStatusChanged(const std::string& id);
     void slotConversationCleared(const std::string& uid);
     void slotModelSorted();
@@ -342,15 +408,46 @@ on_show_media_settings(GtkToggleButton* navbutton, RingMainWindow* self)
 }
 
 static void
-on_show_account_settings(GtkToggleButton* navbutton, RingMainWindow* self)
+on_show_add_account(RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    if (priv->cpp->show_settings) {
+        auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_main_view));
+        if(IS_ACCOUNT_CREATION_WIZARD(old_view)) {
+            gtk_stack_set_visible_child(GTK_STACK(priv->cpp->widgets->stack_main_view), priv->cpp->widgets->last_settings_view);
+        } else {
+            if (!priv->cpp->widgets->account_creation_wizard) {
+                priv->cpp->widgets->account_creation_wizard = account_creation_wizard_new(false);
+                g_object_add_weak_pointer(G_OBJECT(priv->cpp->widgets->account_creation_wizard),
+                                          reinterpret_cast<gpointer*>(&priv->cpp->widgets->account_creation_wizard));
+                g_signal_connect_swapped(priv->cpp->widgets->account_creation_wizard, "account-creation-completed",
+                                         G_CALLBACK(on_account_creation_completed), self);
+
+                gtk_stack_add_named(GTK_STACK(priv->cpp->widgets->stack_main_view),
+                                    priv->cpp->widgets->account_creation_wizard,
+                                    ACCOUNT_CREATION_WIZARD_VIEW_NAME);
+            }
+            gtk_widget_show(priv->cpp->widgets->account_creation_wizard);
+            gtk_stack_set_visible_child(GTK_STACK(priv->cpp->widgets->stack_main_view), priv->cpp->widgets->account_creation_wizard);
+        }
+    }
+}
+
+
+static void
+on_show_new_account_settings(GtkToggleButton* navbutton, RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
 
     if (gtk_toggle_button_get_active(navbutton)) {
-        account_settings_view_show(ACCOUNT_VIEW(priv->account_settings_view), TRUE);
-        gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_SETTINGS_VIEW_NAME);
-        priv->last_settings_view = priv->account_settings_view;
+        new_account_settings_view_show(NEW_ACCOUNT_SETTINGS_VIEW(priv->new_account_settings_view), TRUE);
+        gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), NEW_ACCOUNT_SETTINGS_VIEW_NAME);
+        priv->last_settings_view = priv->new_account_settings_view;
+    } else {
+        new_account_settings_view_show(NEW_ACCOUNT_SETTINGS_VIEW(priv->new_account_settings_view), FALSE);
     }
 }
 
@@ -361,11 +458,8 @@ on_show_general_settings(GtkToggleButton* navbutton, RingMainWindow* self)
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
 
     if (gtk_toggle_button_get_active(navbutton)) {
-        general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(priv->general_settings_view), TRUE);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), GENERAL_SETTINGS_VIEW_NAME);
         priv->last_settings_view = priv->general_settings_view;
-    } else {
-        general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(priv->general_settings_view), FALSE);
     }
 }
 
@@ -667,6 +761,9 @@ CppImpl::init()
     rmAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                             &lrc::api::NewAccountModel::accountRemoved,
                                             [this](const std::string& id){ slotAccountRemovedFromLrc(id); });
+    invalidAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
+                                                 &lrc::api::NewAccountModel::invalidAccountDetected,
+                                                 [this](const std::string& id){ slotInvalidAccountFromLrc(id); });
 
     /* bind to window size settings */
     widgets->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
@@ -718,14 +815,15 @@ CppImpl::init()
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->vbox_call_view,
                         CALL_VIEW_NAME);
 
-    /* init the settings views */
-    widgets->account_settings_view = account_view_new(accountInfo_);
-    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->account_settings_view,
-                        ACCOUNT_SETTINGS_VIEW_NAME);
-
     widgets->media_settings_view = media_settings_view_new();
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->media_settings_view,
                         MEDIA_SETTINGS_VIEW_NAME);
+
+    if (not accountIds.empty()) {
+        widgets->new_account_settings_view = new_account_settings_view_new(accountInfo_);
+        gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->new_account_settings_view,
+                            NEW_ACCOUNT_SETTINGS_VIEW_NAME);
+    }
 
     widgets->general_settings_view = general_settings_view_new(GTK_WIDGET(self));
     widgets->update_download_folder = g_signal_connect_swapped(
@@ -734,7 +832,6 @@ CppImpl::init()
         G_CALLBACK(update_download_folder),
         self
     );
-
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->general_settings_view,
                         GENERAL_SETTINGS_VIEW_NAME);
     g_signal_connect_swapped(widgets->general_settings_view, "clear-all-history", G_CALLBACK(on_clear_all_history_clicked), self);
@@ -746,8 +843,9 @@ CppImpl::init()
 
     /* connect the settings button signals to switch settings views */
     g_signal_connect(widgets->radiobutton_media_settings, "toggled", G_CALLBACK(on_show_media_settings), self);
-    g_signal_connect(widgets->radiobutton_account_settings, "toggled", G_CALLBACK(on_show_account_settings), self);
+    g_signal_connect_swapped(widgets->ring_add_new_account, "clicked", G_CALLBACK(on_show_add_account), self);
     g_signal_connect(widgets->radiobutton_general_settings, "toggled", G_CALLBACK(on_show_general_settings), self);
+    g_signal_connect(widgets->radiobutton_new_account_settings, "toggled", G_CALLBACK(on_show_new_account_settings), self);
     g_signal_connect(widgets->notebook_contacts, "switch-page", G_CALLBACK(on_tab_changed), self);
 
     /* welcome/default view */
@@ -785,27 +883,27 @@ CppImpl::init()
     /* init chat webkit container so that it starts loading before the first time we need it*/
     (void)webkitChatContainer();
 
-    if (has_ring_account()) {
-        /* user has ring account, so show the call view right away */
-        gtk_stack_set_visible_child(GTK_STACK(widgets->stack_main_view), widgets->vbox_call_view);
-
-        on_handle_account_migrations(self);
-    } else {
-        /* user has to create the ring account */
-        enterAccountCreationWizard();
-    }
-
     // setup account selector and select the first account
     refreshAccountSelectorWidget(0);
 
     /* layout */
-    auto *renderer = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(widgets->combobox_account_selector), renderer, FALSE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(widgets->combobox_account_selector), renderer, "text", 0, NULL);
+    auto* model = gtk_combo_box_get_model(GTK_COMBO_BOX(widgets->combobox_account_selector));
+
+
+    auto* renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(widgets->combobox_account_selector), renderer, true);
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(widgets->combobox_account_selector),
                                        renderer,
-                                       (GtkCellLayoutDataFunc)print_account_and_state,
-                                       nullptr, nullptr);
+                                       (GtkCellLayoutDataFunc )render_account_avatar,
+                                       widgets, nullptr);
+
+
+    renderer = gtk_cell_renderer_text_new();
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(widgets->combobox_account_selector), renderer, true);
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(widgets->combobox_account_selector),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc )print_account_and_state,
+                                       widgets, nullptr);
 
     // we closing any view opened to avoid confusion (especially between SIP and Ring protocols).
     g_signal_connect_swapped(widgets->combobox_account_selector, "changed", G_CALLBACK(on_account_changed), self);
@@ -834,6 +932,12 @@ CppImpl::init()
             accountInfo.conversationModel->deleteObsoleteHistory(days);
         }
     }
+
+    // No account? Show wizard
+    auto accounts = lrc_->getAccountModel().getAccountList();
+    if (accounts.empty()) {
+        enterAccountCreationWizard();
+    }
 }
 
 CppImpl::~CppImpl()
@@ -848,6 +952,7 @@ CppImpl::~CppImpl()
     QObject::disconnect(changeAccountConnection_);
     QObject::disconnect(newAccountConnection_);
     QObject::disconnect(rmAccountConnection_);
+    QObject::disconnect(invalidAccountConnection_);
     QObject::disconnect(showCallViewConnection_);
     QObject::disconnect(modelSortedConnection_);
     QObject::disconnect(accountStatusChangedConnection_);
@@ -1011,7 +1116,7 @@ CppImpl::showAccountSelectorWidget(bool show)
     // we only want to show the account selector when there is more than 1 enabled
     // account; so every time we want to show it, we should preform this check
     std::size_t enabled_accounts = 0;
-    foreachEnabledLrcAccount(*lrc_, [&] (const auto&) { ++enabled_accounts; });
+    foreachLrcAccount(*lrc_, [&] (const auto&) { ++enabled_accounts; });
     gtk_widget_set_visible(widgets->combobox_account_selector, show && enabled_accounts > 1);
 }
 
@@ -1019,22 +1124,36 @@ CppImpl::showAccountSelectorWidget(bool show)
 /// The widget visibility is changed depending on number of account found.
 /// /note Default selection_row is -1, meaning no selection.
 /// /note Default visibility mode is true, meaning showing the widget.
+/// /note Default selected is "", meaning no forcing
 std::size_t
-CppImpl::refreshAccountSelectorWidget(int selection_row, bool show)
+CppImpl::refreshAccountSelectorWidget(int selection_row, bool show, const std::string& selected)
 {
-    auto store = gtk_list_store_new(2 /* # of cols */ ,
+    auto store = gtk_list_store_new(6 /* # of cols */ ,
+                                    G_TYPE_STRING,
+                                    G_TYPE_BOOLEAN,
+                                    G_TYPE_STRING,
+                                    G_TYPE_STRING,
                                     G_TYPE_STRING,
                                     G_TYPE_STRING,
                                     G_TYPE_UINT);
     GtkTreeIter iter;
     std::size_t enabled_accounts = 0;
-    foreachEnabledLrcAccount(*lrc_, [&] (const auto& acc_info) {
+    std::size_t idx = 0;
+    foreachLrcAccount(*lrc_, [&] (const auto& acc_info) {
             ++enabled_accounts;
+            if (!selected.empty() && selected == acc_info.id) {
+                selection_row = idx;
+            }
             gtk_list_store_append(store, &iter);
             gtk_list_store_set(store, &iter,
                                0 /* col # */ , acc_info.id.c_str() /* celldata */,
-                               1 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
+                               1 /* col # */ , acc_info.enabled /* celldata */,
+                               2 /* col # */ , acc_info.profileInfo.avatar.c_str() /* celldata */,
+                               3 /* col # */ , acc_info.profileInfo.uri.c_str() /* celldata */,
+                               4 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
+                               5 /* col # */ , acc_info.registeredName.c_str() /* celldata */,
                                -1 /* end */);
+            ++idx;
         });
 
     gtk_combo_box_set_model(
@@ -1073,7 +1192,10 @@ CppImpl::enterAccountCreationWizard()
 void
 CppImpl::leaveAccountCreationWizard()
 {
-    gtk_stack_set_visible_child_name(GTK_STACK(widgets->stack_main_view), CALL_VIEW_NAME);
+    if (show_settings)
+        gtk_stack_set_visible_child(GTK_STACK(widgets->stack_main_view), widgets->last_settings_view);
+    else
+        gtk_stack_set_visible_child_name(GTK_STACK(widgets->stack_main_view), CALL_VIEW_NAME);
 
     /* destroy the wizard */
     if (widgets->account_creation_wizard) {
@@ -1126,6 +1248,9 @@ CppImpl::onAccountSelectionChange(const std::string& id)
     updateLrc(id);
     // Update the welcome view
     ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
+    // Update account settings
+    if (widgets->new_account_settings_view)
+        new_account_settings_view_update(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view));
 }
 
 void
@@ -1144,12 +1269,17 @@ CppImpl::enterSettingsView()
     if (widgets->last_settings_view == widgets->media_settings_view)
         media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(widgets->media_settings_view), TRUE);
 
-    /* make sure to show the profile if we're showing the general settings */
-    if (widgets->last_settings_view == widgets->general_settings_view)
-        general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(widgets->general_settings_view),
-                                           TRUE);
-
     gtk_stack_set_visible_child(GTK_STACK(widgets->stack_main_view), widgets->last_settings_view);
+
+    // Show disabled accounts for account settings
+    auto selectionIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
+
+    std::string id = "";
+    if (accountInfo_)
+        id = accountInfo_->id;
+
+    refreshAccountSelectorWidget(selectionIdx, true);
+    gtk_widget_show(widgets->ring_add_new_account);
 }
 
 void
@@ -1158,16 +1288,7 @@ CppImpl::leaveSettingsView()
     /* hide the settings */
     show_settings = false;
 
-    /* show working dialog in case save operation takes time */
-    auto working = ring_dialog_working(GTK_WIDGET(self), nullptr);
-    gtk_window_present(GTK_WINDOW(working));
-
-    /* now save after the time it takes to transition back to the call view (400ms)
-     * the save doesn't happen before the "working" dialog is presented
-     * the timeout function should destroy the "working" dialog when done saving
-     */
-    g_timeout_add_full(G_PRIORITY_DEFAULT, 400, GSourceFunc(on_save_accounts_timeout), working,
-                       nullptr);
+    AccountModel::instance().save();
 
     /* show calls */
     gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-system-symbolic",
@@ -1176,10 +1297,9 @@ CppImpl::leaveSettingsView()
     gtk_widget_hide(widgets->hbox_settings);
 
     /* make sure video preview is stopped, in case it was started */
-    account_settings_view_show(ACCOUNT_VIEW(widgets->account_settings_view), FALSE);
     media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(widgets->media_settings_view), FALSE);
-    general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(widgets->general_settings_view),
-                                       FALSE);
+    new_account_settings_view_show(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view),
+                                   FALSE);
 
     gtk_stack_set_visible_child_name(GTK_STACK(widgets->stack_main_view), CALL_VIEW_NAME);
 
@@ -1192,6 +1312,16 @@ CppImpl::leaveSettingsView()
         resetToWelcome();
         has_cleared_all_history = false;
     }
+
+    // Show disabled accounts for account settings
+    auto selectionIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
+
+    std::string id = "";
+    if (accountInfo_)
+        id = accountInfo_->id;
+
+    refreshAccountSelectorWidget(selectionIdx, true);
+    gtk_widget_hide(widgets->ring_add_new_account);
 }
 
 void
@@ -1287,18 +1417,42 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
 void
 CppImpl::slotAccountAddedFromLrc(const std::string& id)
 {
-    (void)id;
     auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
     if (currentIdx == -1)
         currentIdx = 0; // If no account selected, select the first account
-    refreshAccountSelectorWidget(currentIdx);
+
+    try {
+        auto& account_model = lrc_->getAccountModel();
+
+        const auto& account_info = account_model.getAccountInfo(id);
+        auto old_view = gtk_stack_get_visible_child(GTK_STACK(widgets->stack_main_view));
+        if(IS_ACCOUNT_CREATION_WIZARD(old_view)) {
+            // TODO finalize (set avatar + register name)
+            account_creation_wizard_account_added(ACCOUNT_CREATION_WIZARD(old_view), &account_info);
+        }
+        if (!accountInfo_) {
+            updateLrc(id);
+            if (!gtk_stack_get_child_by_name(GTK_STACK(widgets->stack_main_view), NEW_ACCOUNT_SETTINGS_VIEW_NAME)) {
+                widgets->new_account_settings_view = new_account_settings_view_new(accountInfo_);
+                gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->new_account_settings_view,
+                                    NEW_ACCOUNT_SETTINGS_VIEW_NAME);
+            }
+        }
+        if (account_info.profileInfo.type == lrc::api::profile::Type::SIP) {
+            refreshAccountSelectorWidget(currentIdx, false, id);
+            enterSettingsView();
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->radiobutton_new_account_settings), true);
+        } else {
+            refreshAccountSelectorWidget(currentIdx, true, id);
+        }
+    } catch (...) {
+        refreshAccountSelectorWidget(currentIdx, true, id);
+    }
 }
 
 void
 CppImpl::slotAccountRemovedFromLrc(const std::string& id)
 {
-    (void)id;
-
     /* Before doing anything, we need to update the struct pointers
        and tell the LRC it can free the old structures. */
     updateLrc("", id);
@@ -1317,6 +1471,15 @@ CppImpl::slotAccountRemovedFromLrc(const std::string& id)
 }
 
 void
+CppImpl::slotInvalidAccountFromLrc(const std::string& id)
+{
+    auto old_view = gtk_stack_get_visible_child(GTK_STACK(widgets->stack_main_view));
+    if(IS_ACCOUNT_CREATION_WIZARD(old_view)) {
+        account_creation_show_error_view(ACCOUNT_CREATION_WIZARD(old_view), id);
+    }
+}
+
+void
 CppImpl::slotAccountStatusChanged(const std::string& id)
 {
     if (!accountInfo_) {
@@ -1326,12 +1489,6 @@ CppImpl::slotAccountStatusChanged(const std::string& id)
     }
 
     auto selectionIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
-
-    // keep current selected account only if account status is enabled
-    try {
-        if (!lrc_->getAccountModel().getAccountInfo(id).enabled)
-            selectionIdx = 0;
-    } catch (...) {}
 
     auto enabledAccounts = refreshAccountSelectorWidget(selectionIdx);
 
@@ -1583,8 +1740,9 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, frame_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_new_conversation  );
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_add_new_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_media_settings);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_new_account_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_account_selector);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contact_requests);
 }
