@@ -21,6 +21,10 @@
 #define _AVATARMANIPULATION_H
 
 #include <gtk/gtk.h>
+#include <api/account.h>
+#include <api/profile.h>
+
+#include "accountinfopointer.h"
 
 G_BEGIN_DECLS
 
@@ -53,12 +57,13 @@ typedef enum
 } AvatarManipulationState;
 
 
-GType      avatar_manipulation_get_type       (void) G_GNUC_CONST;
-GtkWidget *avatar_manipulation_new            (void);
+GType      avatar_manipulation_get_type        (void) G_GNUC_CONST;
+GtkWidget *avatar_manipulation_new             (AccountInfoPointer const & accountInfo);
 
 /* used from the account creation wizard */
 GtkWidget *avatar_manipulation_new_from_wizard(void);
 void       avatar_manipulation_wizard_completed(AvatarManipulation *);
+gchar*     avatar_manipulation_get_temporary   (AvatarManipulation *view);
 
 G_END_DECLS
 
