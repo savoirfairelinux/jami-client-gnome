@@ -85,6 +85,24 @@
                         <property name="can_focus">True</property>
                       </object>
                     </child>
+                    <child>
+                      <object class="GtkButton" id="button_show_advanced">
+                        <property name="label" translatable="yes">Advanced...</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <style>
+                          <class name="transparent-button"/>
+                          <class name="black"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="button_new_sip_account">
+                        <property name="label" translatable="yes">Add a new SIP account</property>
+                        <property name="visible">False</property>
+                        <property name="can_focus">True</property>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
