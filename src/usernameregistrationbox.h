@@ -21,6 +21,9 @@
 
 #include <gtk/gtk.h>
 
+#include <api/account.h>
+#include "accountinfopointer.h"
+
 class Account;
 
 G_BEGIN_DECLS
@@ -35,7 +38,8 @@ typedef struct _UsernameRegistrationBox      UsernameRegistrationBox;
 typedef struct _UsernameRegistrationBoxClass UsernameRegistrationBoxClass;
 
 GType      username_registration_box_get_type           (void) G_GNUC_CONST;
-GtkWidget *username_registration_box_new                (Account *account, gboolean register_button);
+GtkWidget *username_registration_box_new_empty          (bool register_button);
+GtkWidget *username_registration_box_new                (AccountInfoPointer const & accountInfo, bool register_button);
 GtkEntry*  username_registration_box_get_entry          (UsernameRegistrationBox *view);
 void       username_registration_box_set_use_blockchain (UsernameRegistrationBox* view, gboolean use_blockchain);
 
