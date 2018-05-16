@@ -619,7 +619,7 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
         gtk_image_set_from_pixbuf(GTK_IMAGE(priv->choose_account_type_ring_logo), logo_ring);
 
     /* create the username_registration_box */
-    priv->username_registration_box = username_registration_box_new(nullptr, FALSE);
+    priv->username_registration_box = username_registration_box_new_empty(false);
     gtk_container_add(GTK_CONTAINER(priv->box_username_entry), priv->username_registration_box);
     gtk_widget_show(priv->username_registration_box);
     priv->entry_username = GTK_WIDGET(
