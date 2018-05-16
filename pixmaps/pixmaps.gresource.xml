@@ -38,5 +38,10 @@
     <file alias="add-device">add-device.svg</file>
     <file alias="devices">devices.svg</file>
     <file alias="save">save.svg</file>
+    <file alias="settings">settings.svg</file>
+    <file alias="export">export.svg</file>
+    <file alias="account">account.svg</file>
+    <file alias="bottom_arrow">bottom_arrow.svg</file>
+    <file alias="up_arrow">up_arrow.svg</file>
   </gresource>
 </gresources>
