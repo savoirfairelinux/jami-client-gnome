@@ -613,21 +613,6 @@ webkit_chat_disable_send_interaction(WebKitChatContainer *view, bool isDisabled)
 }
 
 void
-webkit_chat_hide_message_bar(WebKitChatContainer *view, bool isHidden)
-{
-    auto priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-    gchar* function_call = g_strdup_printf("hideMessageBar(%s);", isHidden ? "true" : "false");
-
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        function_call,
-        NULL,
-        NULL,
-        NULL
-    );
-}
-
-void
 webkit_chat_container_clear_sender_images(WebKitChatContainer *view)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
@@ -794,11 +779,12 @@ webkit_chat_set_header_visible(WebKitChatContainer *view, bool isVisible)
 }
 
 void
-webkit_chat_update_chatview_frame(WebKitChatContainer *view, bool isBanned, bool isTemporary, const gchar* alias, const gchar* bestId)
+webkit_chat_update_chatview_frame(WebKitChatContainer *view, bool accountEnabled, bool isBanned, bool isTemporary, const gchar* alias, const gchar* bestId)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    gchar* function_call = g_strdup_printf("update_chatview_frame(%s, %s, \"%s\", \"%s\")",
+    gchar* function_call = g_strdup_printf("update_chatview_frame(%s, %s, %s, \"%s\", \"%s\")",
+                                           accountEnabled ? "true" : "false",
                                            isBanned ? "true" : "false", isTemporary ? "true" : "false", alias, bestId);
 
     webkit_web_view_run_javascript(
