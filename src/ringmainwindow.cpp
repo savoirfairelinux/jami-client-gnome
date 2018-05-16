@@ -42,6 +42,7 @@
 #include <media/text.h>
 
 // Ring client
+#include "newaccountsettingsview.h"
 #include "accountview.h"
 #include "accountmigrationview.h"
 #include "accountcreationwizard.h"
@@ -95,8 +96,10 @@ struct RingMainWindowPrivate
     GtkWidget *button_new_conversation;
     GtkWidget *account_settings_view;
     GtkWidget *media_settings_view;
+    GtkWidget *new_account_settings_view;
     GtkWidget *general_settings_view;
     GtkWidget *last_settings_view;
+    GtkWidget *radiobutton_new_account_settings;
     GtkWidget *radiobutton_general_settings;
     GtkWidget *radiobutton_media_settings;
     GtkWidget *radiobutton_account_settings;
@@ -129,6 +132,7 @@ static constexpr const char* ACCOUNT_MIGRATION_VIEW_NAME       = "account-migrat
 static constexpr const char* GENERAL_SETTINGS_VIEW_NAME        = "general";
 static constexpr const char* MEDIA_SETTINGS_VIEW_NAME          = "media";
 static constexpr const char* ACCOUNT_SETTINGS_VIEW_NAME        = "accounts";
+static constexpr const char* NEW_ACCOUNT_SETTINGS_VIEW_NAME    = "account";
 
 inline namespace helpers
 {
@@ -351,6 +355,21 @@ on_show_account_settings(GtkToggleButton* navbutton, RingMainWindow* self)
         account_settings_view_show(ACCOUNT_VIEW(priv->account_settings_view), TRUE);
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), ACCOUNT_SETTINGS_VIEW_NAME);
         priv->last_settings_view = priv->account_settings_view;
+    }
+}
+
+static void
+on_show_new_account_settings(GtkToggleButton* navbutton, RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    if (gtk_toggle_button_get_active(navbutton)) {
+        new_account_settings_view_show(NEW_ACCOUNT_SETTINGS_VIEW(priv->new_account_settings_view), TRUE);
+        gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), NEW_ACCOUNT_SETTINGS_VIEW_NAME);
+        priv->last_settings_view = priv->new_account_settings_view;
+    } else {
+        new_account_settings_view_show(NEW_ACCOUNT_SETTINGS_VIEW(priv->new_account_settings_view), FALSE);
     }
 }
 
@@ -727,6 +746,11 @@ CppImpl::init()
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->media_settings_view,
                         MEDIA_SETTINGS_VIEW_NAME);
 
+    widgets->new_account_settings_view = new_account_settings_view_new(accountInfo_);
+    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->new_account_settings_view,
+                        NEW_ACCOUNT_SETTINGS_VIEW_NAME);
+
+
     widgets->general_settings_view = general_settings_view_new(GTK_WIDGET(self));
     widgets->update_download_folder = g_signal_connect_swapped(
         widgets->general_settings_view,
@@ -734,7 +758,6 @@ CppImpl::init()
         G_CALLBACK(update_download_folder),
         self
     );
-
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->general_settings_view,
                         GENERAL_SETTINGS_VIEW_NAME);
     g_signal_connect_swapped(widgets->general_settings_view, "clear-all-history", G_CALLBACK(on_clear_all_history_clicked), self);
@@ -748,6 +771,7 @@ CppImpl::init()
     g_signal_connect(widgets->radiobutton_media_settings, "toggled", G_CALLBACK(on_show_media_settings), self);
     g_signal_connect(widgets->radiobutton_account_settings, "toggled", G_CALLBACK(on_show_account_settings), self);
     g_signal_connect(widgets->radiobutton_general_settings, "toggled", G_CALLBACK(on_show_general_settings), self);
+    g_signal_connect(widgets->radiobutton_new_account_settings, "toggled", G_CALLBACK(on_show_new_account_settings), self);
     g_signal_connect(widgets->notebook_contacts, "switch-page", G_CALLBACK(on_tab_changed), self);
 
     /* welcome/default view */
@@ -1126,6 +1150,9 @@ CppImpl::onAccountSelectionChange(const std::string& id)
     updateLrc(id);
     // Update the welcome view
     ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
+    // Update account settings
+    if (widgets->new_account_settings_view)
+        new_account_settings_view_update(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view));
 }
 
 void
@@ -1180,6 +1207,8 @@ CppImpl::leaveSettingsView()
     media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(widgets->media_settings_view), FALSE);
     general_settings_view_show_profile(GENERAL_SETTINGS_VIEW(widgets->general_settings_view),
                                        FALSE);
+    new_account_settings_view_show(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view),
+                                   FALSE);
 
     gtk_stack_set_visible_child_name(GTK_STACK(widgets->stack_main_view), CALL_VIEW_NAME);
 
@@ -1583,8 +1612,9 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, frame_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_new_conversation  );
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_media_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_account_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_media_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_new_account_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_account_selector);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contact_requests);
 }
