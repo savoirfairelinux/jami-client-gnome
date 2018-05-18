@@ -170,12 +170,14 @@ account_selection_changed(GtkTreeSelection *selection, AccountView *self)
 
         // Build a new AccountInfoPointer pointing on selected account in this view, not in the app
         // TODO in the future, get rid of the Account class (pass the selected id)
-        auto selectedId = account->id().toStdString();
-        try {
-            priv->selectedInfo_ = &(*priv->accountInfo_)->accountModel->getAccountInfo(selectedId);
-        } catch (std::out_of_range& e) {
-            g_debug("Can't load account %s", selectedId.c_str());
-            return;
+        if (account) {
+            auto selectedId = account->id().toStdString();
+            try {
+                priv->selectedInfo_ = &(*priv->accountInfo_)->accountModel->getAccountInfo(selectedId);
+            } catch (std::out_of_range& e) {
+                g_debug("Can't load account %s", selectedId.c_str());
+                return;
+            }
         }
 
         /* customize account view based on account */
