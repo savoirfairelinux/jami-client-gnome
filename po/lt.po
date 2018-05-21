@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 03:09-0400\n"
+"POT-Creation-Date: 2018-05-21 03:09-0400\n"
 "PO-Revision-Date: 2018-05-14 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
@@ -641,7 +641,7 @@ msgid "Parameters"
 msgstr "Parametrai"
 
 #: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:168 src/accountgeneraltab.cpp:234
+#: src/accountgeneraltab.cpp:173 src/accountgeneraltab.cpp:239
 msgid "Change password"
 msgstr "Pakeisti slaptažodį"
 
@@ -876,12 +876,12 @@ msgstr "Tai yra naikinamasis veiksmas. Ar tikrai norite ištrinti visą savo pok
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:186
+#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
 #: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
 msgid "_Cancel"
 msgstr "_Atsisakyti"
 
-#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:188
+#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
 #: src/chatview.cpp:179
 msgid "_Save"
 msgstr ""
@@ -911,59 +911,59 @@ msgstr "Automatiškai atsiliepti į skambučius"
 msgid "UPnP enabled"
 msgstr "UPnP įjungta"
 
-#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:326
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:331
 msgid "Hostname"
 msgstr "Kompiuterio vardas"
 
-#: src/accountgeneraltab.cpp:183 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
 msgid "Save File"
 msgstr "Įrašyti failą"
 
-#: src/accountgeneraltab.cpp:208
+#: src/accountgeneraltab.cpp:213
 msgid "File exported to destination: "
 msgstr ""
 
-#: src/accountgeneraltab.cpp:222
+#: src/accountgeneraltab.cpp:227
 msgid "New password and its confirmation are different"
 msgstr "Naujas slaptažodis ir jo patvirtinimas nesutampa"
 
-#: src/accountgeneraltab.cpp:232
+#: src/accountgeneraltab.cpp:237
 msgid "Password changed!"
 msgstr "Slaptažodis pakeistas!"
 
-#: src/accountgeneraltab.cpp:235
+#: src/accountgeneraltab.cpp:240
 msgid "Incorrect password"
 msgstr "Neteisingas slaptažodis"
 
-#: src/accountgeneraltab.cpp:260
+#: src/accountgeneraltab.cpp:265
 msgid "Alias"
 msgstr "Slapyvardis"
 
-#: src/accountgeneraltab.cpp:271
+#: src/accountgeneraltab.cpp:276
 msgid "Type"
 msgstr "Tipas"
 
-#: src/accountgeneraltab.cpp:297
+#: src/accountgeneraltab.cpp:302
 msgid "auto-generating..."
 msgstr "automatiškai kuriama..."
 
-#: src/accountgeneraltab.cpp:310 src/accountgeneraltab.cpp:336
+#: src/accountgeneraltab.cpp:315 src/accountgeneraltab.cpp:341
 msgid "Username"
 msgstr "Naudotojo vardas"
 
-#: src/accountgeneraltab.cpp:346
+#: src/accountgeneraltab.cpp:351
 msgid "Password"
 msgstr "Slaptažodis"
 
-#: src/accountgeneraltab.cpp:359
+#: src/accountgeneraltab.cpp:364
 msgid "Show password"
 msgstr "Rodyti slaptažodį"
 
-#: src/accountgeneraltab.cpp:365
+#: src/accountgeneraltab.cpp:370
 msgid "Proxy"
 msgstr "Įgaliotasis serveris"
 
-#: src/accountgeneraltab.cpp:375
+#: src/accountgeneraltab.cpp:380
 msgid "Voicemail number"
 msgstr "Balso pašto numeris"
 
@@ -1027,17 +1027,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:502
+#: src/ringmainwindow.cpp:503
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "skambinti"
 
-#: src/ringmainwindow.cpp:505
+#: src/ringmainwindow.cpp:506
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "atverti pokalbį"
 
-#: src/ringmainwindow.cpp:782
+#: src/ringmainwindow.cpp:783
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1140,18 +1140,18 @@ msgstr "Atkuria pagrindinio lango paslėptą būseną (pritaikoma tik pirminiam 
 msgid "- GNOME client for Ring"
 msgstr "- GNOME kliento programa, skirta Ring"
 
-#: src/accountcreationwizard.cpp:231
+#: src/accountcreationwizard.cpp:218
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
 msgstr "Jūsų paskyra buvo sukurta, tačiau mums nepavyko užregistruoti jūsų naudotojo vardo. Pabandykite dar kartą iš nustatymų meniu."
 
-#: src/accountcreationwizard.cpp:275
+#: src/accountcreationwizard.cpp:262
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "Nežinoma"
 
-#: src/accountcreationwizard.cpp:471
+#: src/accountcreationwizard.cpp:462
 msgid "Passwords don't match"
 msgstr "Slaptažodžiai nesutampa"
 
@@ -1200,51 +1200,51 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automatinė"
 
-#: src/accountview.cpp:162
+#: src/accountview.cpp:188
 msgctxt "Account settings"
 msgid "General"
 msgstr "Bendra"
 
-#: src/accountview.cpp:170
+#: src/accountview.cpp:196
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "Įrenginiai"
 
-#: src/accountview.cpp:176
+#: src/accountview.cpp:202
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Saugumas"
 
-#: src/accountview.cpp:181
+#: src/accountview.cpp:207
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Išplėstiniai"
 
-#: src/accountview.cpp:188
+#: src/accountview.cpp:214
 msgctxt "List of banned peers"
 msgid "Bans"
 msgstr "Blokavimai"
 
-#: src/accountview.cpp:243
+#: src/accountview.cpp:269
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "Ar tikrai norite ištrinti paskyrą \"%s\"?"
 
-#: src/accountview.cpp:370
+#: src/accountview.cpp:403
 msgid "New Account"
 msgstr "Nauja paskyra"
 
-#: src/accountview.cpp:457
+#: src/accountview.cpp:490
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Įjungta"
 
-#: src/accountview.cpp:463
+#: src/accountview.cpp:496
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Slapyvardis"
 
-#: src/accountview.cpp:471
+#: src/accountview.cpp:504
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Būsena"
