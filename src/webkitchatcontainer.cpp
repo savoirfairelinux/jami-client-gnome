@@ -539,7 +539,7 @@ void
 webkit_chat_container_set_display_links(WebKitChatContainer *view, bool display)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-    gchar* function_call = g_strdup_printf("ring.chatview.setDisplayLinks(%s);",
+    gchar* function_call = g_strdup_printf("setDisplayLinks(%s);",
       display ? "true" : "false");
 
     webkit_web_view_run_javascript(
@@ -555,7 +555,7 @@ void
 webkit_chat_disable_send_interaction(WebKitChatContainer *view, bool isDisabled)
 {
     auto priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-    gchar* function_call = g_strdup_printf("ring.chatview.disableSendMessage(%s);", isDisabled ? "true" : "false");
+    gchar* function_call = g_strdup_printf("disableSendMessage(%s);", isDisabled ? "true" : "false");
 
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
@@ -570,7 +570,7 @@ void
 webkit_chat_hide_message_bar(WebKitChatContainer *view, bool isHidden)
 {
     auto priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-    gchar* function_call = g_strdup_printf("ring.chatview.hideMessageBar(%s);", isHidden ? "true" : "false");
+    gchar* function_call = g_strdup_printf("hideMessageBar(%s);", isHidden ? "true" : "false");
 
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
@@ -588,7 +588,7 @@ webkit_chat_container_clear_sender_images(WebKitChatContainer *view)
 
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
-        "ring.chatview.clearSenderImages()",
+        "clearSenderImages()",
         NULL,
         NULL,
         NULL
@@ -602,7 +602,7 @@ webkit_chat_container_clear(WebKitChatContainer *view)
 
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
-        "ring.chatview.clearMessages()",
+        "clearMessages()",
         NULL,
         NULL,
         NULL
@@ -620,7 +620,7 @@ webkit_chat_container_update_interaction(WebKitChatContainer *view,
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
     auto interaction_object = interaction_to_json_interaction_object(conversation_model, msgId, interaction).toUtf8();
-    gchar* function_call = g_strdup_printf("ring.chatview.updateMessage(%s);", interaction_object.constData());
+    gchar* function_call = g_strdup_printf("updateMessage(%s);", interaction_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,
@@ -640,7 +640,7 @@ webkit_chat_container_print_new_interaction(WebKitChatContainer *view,
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
     auto interaction_object = interaction_to_json_interaction_object(conversation_model, msgId, interaction).toUtf8();
-    gchar* function_call = g_strdup_printf("ring.chatview.addMessage(%s);", interaction_object.constData());
+    gchar* function_call = g_strdup_printf("addMessage(%s);", interaction_object.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,
@@ -659,7 +659,7 @@ webkit_chat_container_print_history(WebKitChatContainer *view,
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
     auto interactions_str = interactions_to_json_array_object(conversation_model, interactions).toUtf8();
-    gchar* function_call = g_strdup_printf("ring.chatview.printHistory(%s)", interactions_str.constData());
+    gchar* function_call = g_strdup_printf("printHistory(%s)", interactions_str.constData());
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,
@@ -675,7 +675,7 @@ webkit_chat_container_set_temporary(WebKitChatContainer *view, bool temporary)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    gchar* function_call = g_strdup_printf("ring.chatview.setTemporary(%s)", temporary ? "true" : "false");
+    gchar* function_call = g_strdup_printf("setTemporary(%s)", temporary ? "true" : "false");
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,
@@ -694,10 +694,10 @@ webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
     gchar* function_call = nullptr;
 
     if (show) {
-        function_call = g_strdup_printf("ring.chatview.showInvitation('%s')",
+        function_call = g_strdup_printf("showInvitation('%s')",
         contactUri.c_str());
     } else {
-        function_call = g_strdup_printf("ring.chatview.hideInvitation()");
+        function_call = g_strdup_printf("hideInvitation()");
     }
 
     webkit_web_view_run_javascript(
@@ -721,7 +721,7 @@ webkit_chat_container_set_sender_image(WebKitChatContainer *view, const std::str
 
     auto set_sender_image_object_string = QString(QJsonDocument(set_sender_image_object).toJson(QJsonDocument::Compact));
 
-    gchar* function_call = g_strdup_printf("ring.chatview.setSenderImage(%s);", set_sender_image_object_string.toUtf8().constData());
+    gchar* function_call = g_strdup_printf("setSenderImage(%s);", set_sender_image_object_string.toUtf8().constData());
     webkit_web_view_run_javascript(WEBKIT_WEB_VIEW(priv->webview_chat), function_call, NULL, NULL, NULL);
     g_free(function_call);
 }
