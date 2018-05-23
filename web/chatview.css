@@ -143,6 +143,10 @@ input[placeholder], [placeholder], *[placeholder] {
   transition: all 0.3s ease;
 }
 
+#sendMessage.hiddenState {
+  visibility: hidden;
+}
+
 /* General messages */
 
 .wc {
