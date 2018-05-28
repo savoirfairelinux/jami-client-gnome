@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 03:09-0400\n"
+"POT-Creation-Date: 2018-05-28 03:09-0400\n"
 "PO-Revision-Date: 2018-05-14 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Korean (Korea) (http://www.transifex.com/savoirfairelinux/ring/language/ko_KR/)\n"
@@ -638,7 +638,7 @@ msgid "Parameters"
 msgstr "인자들"
 
 #: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:168 src/accountgeneraltab.cpp:234
+#: src/accountgeneraltab.cpp:173 src/accountgeneraltab.cpp:239
 msgid "Change password"
 msgstr ""
 
@@ -873,12 +873,12 @@ msgstr ""
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:186
+#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
 #: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
 msgid "_Cancel"
 msgstr ""
 
-#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:188
+#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
 #: src/chatview.cpp:179
 msgid "_Save"
 msgstr ""
@@ -908,59 +908,59 @@ msgstr "자동 응답 횟수"
 msgid "UPnP enabled"
 msgstr "UPnP 가능여부"
 
-#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:326
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:331
 msgid "Hostname"
 msgstr "호스트명"
 
-#: src/accountgeneraltab.cpp:183 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
 msgid "Save File"
 msgstr "파일 저장"
 
-#: src/accountgeneraltab.cpp:208
+#: src/accountgeneraltab.cpp:213
 msgid "File exported to destination: "
 msgstr ""
 
-#: src/accountgeneraltab.cpp:222
+#: src/accountgeneraltab.cpp:227
 msgid "New password and its confirmation are different"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:232
+#: src/accountgeneraltab.cpp:237
 msgid "Password changed!"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:235
+#: src/accountgeneraltab.cpp:240
 msgid "Incorrect password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:260
+#: src/accountgeneraltab.cpp:265
 msgid "Alias"
 msgstr "별칭"
 
-#: src/accountgeneraltab.cpp:271
+#: src/accountgeneraltab.cpp:276
 msgid "Type"
 msgstr "유형"
 
-#: src/accountgeneraltab.cpp:297
+#: src/accountgeneraltab.cpp:302
 msgid "auto-generating..."
 msgstr ""
 
-#: src/accountgeneraltab.cpp:310 src/accountgeneraltab.cpp:336
+#: src/accountgeneraltab.cpp:315 src/accountgeneraltab.cpp:341
 msgid "Username"
 msgstr "사용자명"
 
-#: src/accountgeneraltab.cpp:346
+#: src/accountgeneraltab.cpp:351
 msgid "Password"
 msgstr "암호"
 
-#: src/accountgeneraltab.cpp:359
+#: src/accountgeneraltab.cpp:364
 msgid "Show password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:365
+#: src/accountgeneraltab.cpp:370
 msgid "Proxy"
 msgstr "프록시"
 
-#: src/accountgeneraltab.cpp:375
+#: src/accountgeneraltab.cpp:380
 msgid "Voicemail number"
 msgstr "음성메일 번호"
 
@@ -1024,17 +1024,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr ""
 
-#: src/ringmainwindow.cpp:502
+#: src/ringmainwindow.cpp:503
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:505
+#: src/ringmainwindow.cpp:506
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/ringmainwindow.cpp:782
+#: src/ringmainwindow.cpp:783
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1137,18 +1137,18 @@ msgstr ""
 msgid "- GNOME client for Ring"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:231
+#: src/accountcreationwizard.cpp:218
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:275
+#: src/accountcreationwizard.cpp:262
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:471
+#: src/accountcreationwizard.cpp:462
 msgid "Passwords don't match"
 msgstr ""
 
@@ -1197,51 +1197,51 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "자동"
 
-#: src/accountview.cpp:162
+#: src/accountview.cpp:188
 msgctxt "Account settings"
 msgid "General"
 msgstr "일반"
 
-#: src/accountview.cpp:170
+#: src/accountview.cpp:196
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "장치"
 
-#: src/accountview.cpp:176
+#: src/accountview.cpp:202
 msgctxt "Account settings"
 msgid "Security"
 msgstr "보안"
 
-#: src/accountview.cpp:181
+#: src/accountview.cpp:207
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr ""
 
-#: src/accountview.cpp:188
+#: src/accountview.cpp:214
 msgctxt "List of banned peers"
 msgid "Bans"
 msgstr ""
 
-#: src/accountview.cpp:243
+#: src/accountview.cpp:269
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr ""
 
-#: src/accountview.cpp:370
+#: src/accountview.cpp:403
 msgid "New Account"
 msgstr "새 계정"
 
-#: src/accountview.cpp:457
+#: src/accountview.cpp:490
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr ""
 
-#: src/accountview.cpp:463
+#: src/accountview.cpp:496
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "별칭"
 
-#: src/accountview.cpp:471
+#: src/accountview.cpp:504
 msgctxt "Account status column"
 msgid "Status"
 msgstr ""
