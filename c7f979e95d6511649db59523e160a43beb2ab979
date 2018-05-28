@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_a32248ff",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-05-28T14:18:06Z",
+      "side": 1,
+      "message": "Sounds odd.\n\nMaybe something like: \"Packaging Ring allows easier installation by end-users and in this sense it\u0027s an excellent way of contributing to Ring ! If your distribution doesn\u0027t have a Ring package you can create one, and if somebody is already maintaining a Ring package for your distribution, you can help him out !\"",
+      "range": {
+        "startLine": 8,
+        "startChar": 11,
+        "endLine": 8,
+        "endChar": 50
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_032054f6",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-05-28T14:18:06Z",
+      "side": 1,
+      "message": "Maybe: \"Ring aims to be a universal platform of communication, accessible and usable by everybody. If you find issues with the client, or simply want to suggest improvement ideas, the bug tracker is the perfect place to submit them !\"",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 50
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_638830e8",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-05-28T14:18:06Z",
+      "side": 1,
+      "message": "should be as up-to-date as",
+      "range": {
+        "startLine": 21,
+        "startChar": 18,
+        "endLine": 21,
+        "endChar": 45
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_4379acfb",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-05-28T14:18:06Z",
+      "side": 1,
+      "message": "no an needed IMO",
+      "range": {
+        "startLine": 26,
+        "startChar": 20,
+        "endLine": 26,
+        "endChar": 22
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_237e38e5",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-05-28T14:18:06Z",
+      "side": 1,
+      "message": "continuous ?",
+      "range": {
+        "startLine": 26,
+        "startChar": 23,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_e31c40c4",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-05-28T14:18:06Z",
+      "side": 1,
+      "message": "fill",
+      "range": {
+        "startLine": 28,
+        "startChar": 12,
+        "endLine": 28,
+        "endChar": 19
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_8383c4cb",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-05-28T14:18:06Z",
+      "side": 1,
+      "message": "Maybe: \"Sometimes interpreting bug reports is difficult for us, for example because we can\u0027t reproduce the bug or understand what exactly the issue is. This is usually because the bug report lacks of details / is too vague.\n\nIn order to make your bug report as helpful as possible, think about providing as many details, clear explanations and scenarios as possible ! Also, we\u0027ve written a guide on how to report bugs, if you\u0027re unsure, check it out ! ;) \"",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 49
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
