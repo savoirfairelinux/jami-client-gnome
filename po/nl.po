@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 03:09-0400\n"
-"PO-Revision-Date: 2018-05-14 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-05-28 03:09-0400\n"
+"PO-Revision-Date: 2018-05-14 14:36+0000\n"
+"Last-Translator: Nathan Follens\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/ring/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -641,7 +641,7 @@ msgid "Parameters"
 msgstr "Parameters"
 
 #: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:168 src/accountgeneraltab.cpp:234
+#: src/accountgeneraltab.cpp:173 src/accountgeneraltab.cpp:239
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
 
@@ -876,12 +876,12 @@ msgstr "Dit is een destructieve bewerking. Weet je zeker dat je je volledige ges
 msgid "Choose download folder"
 msgstr "Kies downloadmap"
 
-#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:186
+#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
 #: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:188
+#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
 #: src/chatview.cpp:179
 msgid "_Save"
 msgstr "Op_slaan"
@@ -911,59 +911,59 @@ msgstr "Oproepen automatisch beantwoorden"
 msgid "UPnP enabled"
 msgstr "UPnP ingeschakeld"
 
-#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:326
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:331
 msgid "Hostname"
 msgstr "Hostnaam"
 
-#: src/accountgeneraltab.cpp:183 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
 msgid "Save File"
 msgstr "Bestand opslaan"
 
-#: src/accountgeneraltab.cpp:208
+#: src/accountgeneraltab.cpp:213
 msgid "File exported to destination: "
 msgstr "Bestand geëxporteerd naar locatie:"
 
-#: src/accountgeneraltab.cpp:222
+#: src/accountgeneraltab.cpp:227
 msgid "New password and its confirmation are different"
 msgstr "Nieuw wachtwoord en bevestiging komen niet overeen"
 
-#: src/accountgeneraltab.cpp:232
+#: src/accountgeneraltab.cpp:237
 msgid "Password changed!"
 msgstr "Wachtwoord gewijzigd!"
 
-#: src/accountgeneraltab.cpp:235
+#: src/accountgeneraltab.cpp:240
 msgid "Incorrect password"
 msgstr "Onjuist wachtwoord"
 
-#: src/accountgeneraltab.cpp:260
+#: src/accountgeneraltab.cpp:265
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountgeneraltab.cpp:271
+#: src/accountgeneraltab.cpp:276
 msgid "Type"
 msgstr "Type"
 
-#: src/accountgeneraltab.cpp:297
+#: src/accountgeneraltab.cpp:302
 msgid "auto-generating..."
 msgstr "automatisch genereren…"
 
-#: src/accountgeneraltab.cpp:310 src/accountgeneraltab.cpp:336
+#: src/accountgeneraltab.cpp:315 src/accountgeneraltab.cpp:341
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: src/accountgeneraltab.cpp:346
+#: src/accountgeneraltab.cpp:351
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: src/accountgeneraltab.cpp:359
+#: src/accountgeneraltab.cpp:364
 msgid "Show password"
 msgstr "Wachtwoord tonen"
 
-#: src/accountgeneraltab.cpp:365
+#: src/accountgeneraltab.cpp:370
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/accountgeneraltab.cpp:375
+#: src/accountgeneraltab.cpp:380
 msgid "Voicemail number"
 msgstr "Voicemailnummer"
 
@@ -1027,17 +1027,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:502
+#: src/ringmainwindow.cpp:503
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "oproep plaatsen"
 
-#: src/ringmainwindow.cpp:505
+#: src/ringmainwindow.cpp:506
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "gesprek openen"
 
-#: src/ringmainwindow.cpp:782
+#: src/ringmainwindow.cpp:783
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1120,7 +1120,7 @@ msgstr "Contact _blokkeren"
 
 #: src/conversationpopupmenu.cpp:249
 msgid "_Unblock contact"
-msgstr ""
+msgstr "Contact _deblokkeren"
 
 #: src/conversationpopupmenu.cpp:255
 msgid "_Copy name"
@@ -1140,18 +1140,18 @@ msgstr "Herstelt de verborgen status van het hoofdscherm (alleen van toepassing 
 msgid "- GNOME client for Ring"
 msgstr "- GNOME-cliënt voor Ring"
 
-#: src/accountcreationwizard.cpp:231
+#: src/accountcreationwizard.cpp:218
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
 msgstr "Je account is aangemaakt, maar we konden je gebruikersnaam niet registreren. Probeer het opnieuw via de instellingen."
 
-#: src/accountcreationwizard.cpp:275
+#: src/accountcreationwizard.cpp:262
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: src/accountcreationwizard.cpp:471
+#: src/accountcreationwizard.cpp:462
 msgid "Passwords don't match"
 msgstr "Wachtwoorden komen niet overeen"
 
@@ -1185,66 +1185,66 @@ msgstr "Bestand versturen"
 
 #: src/chatview.cpp:410
 msgid "Can't place call with banned contact"
-msgstr ""
+msgstr "Kan geen oproep maken met contact"
 
 #: src/chatview.cpp:412
 msgid "Can't start conversation with banned contact"
-msgstr ""
+msgstr "Kan geen gesprek beginnen met verbannen contact"
 
 #: src/chatview.cpp:414
 msgid "Can't place audio call with banned contact"
-msgstr ""
+msgstr "Kan geen audio-oproep maken met verbannen contact"
 
 #: src/currentcallview.cpp:781
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/accountview.cpp:162
+#: src/accountview.cpp:188
 msgctxt "Account settings"
 msgid "General"
 msgstr "Algemeen"
 
-#: src/accountview.cpp:170
+#: src/accountview.cpp:196
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "Apparaten"
 
-#: src/accountview.cpp:176
+#: src/accountview.cpp:202
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Beveiliging"
 
-#: src/accountview.cpp:181
+#: src/accountview.cpp:207
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Geavanceerd"
 
-#: src/accountview.cpp:188
+#: src/accountview.cpp:214
 msgctxt "List of banned peers"
 msgid "Bans"
 msgstr "Geblokkeerd"
 
-#: src/accountview.cpp:243
+#: src/accountview.cpp:269
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "Weet je zeker dat je account ‘%s’ wil verwijderen?"
 
-#: src/accountview.cpp:370
+#: src/accountview.cpp:403
 msgid "New Account"
 msgstr "Account aanmaken"
 
-#: src/accountview.cpp:457
+#: src/accountview.cpp:490
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
-#: src/accountview.cpp:463
+#: src/accountview.cpp:496
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountview.cpp:471
+#: src/accountview.cpp:504
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Status"

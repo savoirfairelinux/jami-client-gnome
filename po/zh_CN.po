@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 03:09-0400\n"
+"POT-Creation-Date: 2018-05-28 03:09-0400\n"
 "PO-Revision-Date: 2018-05-14 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/ring/language/zh_CN/)\n"
@@ -642,7 +642,7 @@ msgid "Parameters"
 msgstr "参数"
 
 #: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:168 src/accountgeneraltab.cpp:234
+#: src/accountgeneraltab.cpp:173 src/accountgeneraltab.cpp:239
 msgid "Change password"
 msgstr ""
 
@@ -877,12 +877,12 @@ msgstr "该操作不可撤销。确定删除您的所有聊天与通话记录吗
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:186
+#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
 #: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:188
+#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
 #: src/chatview.cpp:179
 msgid "_Save"
 msgstr ""
@@ -912,59 +912,59 @@ msgstr "自动应答来电"
 msgid "UPnP enabled"
 msgstr "UPnP已启用"
 
-#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:326
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:331
 msgid "Hostname"
 msgstr "主机名"
 
-#: src/accountgeneraltab.cpp:183 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
 msgid "Save File"
 msgstr "保存文件"
 
-#: src/accountgeneraltab.cpp:208
+#: src/accountgeneraltab.cpp:213
 msgid "File exported to destination: "
 msgstr ""
 
-#: src/accountgeneraltab.cpp:222
+#: src/accountgeneraltab.cpp:227
 msgid "New password and its confirmation are different"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:232
+#: src/accountgeneraltab.cpp:237
 msgid "Password changed!"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:235
+#: src/accountgeneraltab.cpp:240
 msgid "Incorrect password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:260
+#: src/accountgeneraltab.cpp:265
 msgid "Alias"
 msgstr "别名"
 
-#: src/accountgeneraltab.cpp:271
+#: src/accountgeneraltab.cpp:276
 msgid "Type"
 msgstr "类别"
 
-#: src/accountgeneraltab.cpp:297
+#: src/accountgeneraltab.cpp:302
 msgid "auto-generating..."
 msgstr "自动生成中…"
 
-#: src/accountgeneraltab.cpp:310 src/accountgeneraltab.cpp:336
+#: src/accountgeneraltab.cpp:315 src/accountgeneraltab.cpp:341
 msgid "Username"
 msgstr "用户名"
 
-#: src/accountgeneraltab.cpp:346
+#: src/accountgeneraltab.cpp:351
 msgid "Password"
 msgstr "密码"
 
-#: src/accountgeneraltab.cpp:359
+#: src/accountgeneraltab.cpp:364
 msgid "Show password"
 msgstr "显示密码"
 
-#: src/accountgeneraltab.cpp:365
+#: src/accountgeneraltab.cpp:370
 msgid "Proxy"
 msgstr "代理"
 
-#: src/accountgeneraltab.cpp:375
+#: src/accountgeneraltab.cpp:380
 msgid "Voicemail number"
 msgstr "语音信箱号码"
 
@@ -1028,17 +1028,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:502
+#: src/ringmainwindow.cpp:503
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "拨出"
 
-#: src/ringmainwindow.cpp:505
+#: src/ringmainwindow.cpp:506
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "发起聊天"
 
-#: src/ringmainwindow.cpp:782
+#: src/ringmainwindow.cpp:783
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1141,18 +1141,18 @@ msgstr "恢复主窗口的隐藏状态（仅应用于主实例）"
 msgid "- GNOME client for Ring"
 msgstr "- Ring的GNOME客户端"
 
-#: src/accountcreationwizard.cpp:231
+#: src/accountcreationwizard.cpp:218
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
 msgstr "您的帐户已建立，但无法注册您的用户名。请前往“设置”菜单重试。"
 
-#: src/accountcreationwizard.cpp:275
+#: src/accountcreationwizard.cpp:262
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "未知"
 
-#: src/accountcreationwizard.cpp:471
+#: src/accountcreationwizard.cpp:462
 msgid "Passwords don't match"
 msgstr "密码不匹配"
 
@@ -1201,51 +1201,51 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自动"
 
-#: src/accountview.cpp:162
+#: src/accountview.cpp:188
 msgctxt "Account settings"
 msgid "General"
 msgstr "通用"
 
-#: src/accountview.cpp:170
+#: src/accountview.cpp:196
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "设备"
 
-#: src/accountview.cpp:176
+#: src/accountview.cpp:202
 msgctxt "Account settings"
 msgid "Security"
 msgstr "安全"
 
-#: src/accountview.cpp:181
+#: src/accountview.cpp:207
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "高级"
 
-#: src/accountview.cpp:188
+#: src/accountview.cpp:214
 msgctxt "List of banned peers"
 msgid "Bans"
 msgstr "已屏蔽用户"
 
-#: src/accountview.cpp:243
+#: src/accountview.cpp:269
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "确定删除帐户“%s”吗？"
 
-#: src/accountview.cpp:370
+#: src/accountview.cpp:403
 msgid "New Account"
 msgstr "新帐户"
 
-#: src/accountview.cpp:457
+#: src/accountview.cpp:490
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "已启用"
 
-#: src/accountview.cpp:463
+#: src/accountview.cpp:496
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "别名"
 
-#: src/accountview.cpp:471
+#: src/accountview.cpp:504
 msgctxt "Account status column"
 msgid "Status"
 msgstr "状态"

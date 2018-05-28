@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 03:09-0400\n"
+"POT-Creation-Date: 2018-05-28 03:09-0400\n"
 "PO-Revision-Date: 2018-05-14 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Greek (http://www.transifex.com/savoirfairelinux/ring/language/el/)\n"
@@ -641,7 +641,7 @@ msgid "Parameters"
 msgstr "Παράμετροι"
 
 #: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:168 src/accountgeneraltab.cpp:234
+#: src/accountgeneraltab.cpp:173 src/accountgeneraltab.cpp:239
 msgid "Change password"
 msgstr ""
 
@@ -876,12 +876,12 @@ msgstr "Αυτή είναι μια καταστροφική λειτουργία
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:186
+#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
 #: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
 msgid "_Cancel"
 msgstr "Άκυρο"
 
-#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:188
+#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
 #: src/chatview.cpp:179
 msgid "_Save"
 msgstr ""
@@ -911,59 +911,59 @@ msgstr "Αυτόματη απάντηση κλήσεων"
 msgid "UPnP enabled"
 msgstr "UPnP ενεργοποιημένο"
 
-#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:326
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:331
 msgid "Hostname"
 msgstr "Hostname"
 
-#: src/accountgeneraltab.cpp:183 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
 msgid "Save File"
 msgstr "Αποθήκευση αρχείου"
 
-#: src/accountgeneraltab.cpp:208
+#: src/accountgeneraltab.cpp:213
 msgid "File exported to destination: "
 msgstr ""
 
-#: src/accountgeneraltab.cpp:222
+#: src/accountgeneraltab.cpp:227
 msgid "New password and its confirmation are different"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:232
+#: src/accountgeneraltab.cpp:237
 msgid "Password changed!"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:235
+#: src/accountgeneraltab.cpp:240
 msgid "Incorrect password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:260
+#: src/accountgeneraltab.cpp:265
 msgid "Alias"
 msgstr "Ψευδώνυμο"
 
-#: src/accountgeneraltab.cpp:271
+#: src/accountgeneraltab.cpp:276
 msgid "Type"
 msgstr "Τύπος"
 
-#: src/accountgeneraltab.cpp:297
+#: src/accountgeneraltab.cpp:302
 msgid "auto-generating..."
 msgstr "αυτόματη-παραγωγή..."
 
-#: src/accountgeneraltab.cpp:310 src/accountgeneraltab.cpp:336
+#: src/accountgeneraltab.cpp:315 src/accountgeneraltab.cpp:341
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
-#: src/accountgeneraltab.cpp:346
+#: src/accountgeneraltab.cpp:351
 msgid "Password"
 msgstr "Συνθηματικό"
 
-#: src/accountgeneraltab.cpp:359
+#: src/accountgeneraltab.cpp:364
 msgid "Show password"
 msgstr "Εμφάνιση συνθηματικού"
 
-#: src/accountgeneraltab.cpp:365
+#: src/accountgeneraltab.cpp:370
 msgid "Proxy"
 msgstr "Διαμεσολαβητής"
 
-#: src/accountgeneraltab.cpp:375
+#: src/accountgeneraltab.cpp:380
 msgid "Voicemail number"
 msgstr "Αριθμός Voicemail"
 
@@ -1027,17 +1027,17 @@ msgctxt "Device ID Column"
 msgid "ID"
 msgstr "ID"
 
-#: src/ringmainwindow.cpp:502
+#: src/ringmainwindow.cpp:503
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "έναρξη κλήσης"
 
-#: src/ringmainwindow.cpp:505
+#: src/ringmainwindow.cpp:506
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "άνοιγμα συνομιλίας"
 
-#: src/ringmainwindow.cpp:782
+#: src/ringmainwindow.cpp:783
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1140,18 +1140,18 @@ msgstr "Επαναφέρει την κρυμένη κατάσταση του κ�
 msgid "- GNOME client for Ring"
 msgstr "- Πελάτης GNOME για το Ring"
 
-#: src/accountcreationwizard.cpp:231
+#: src/accountcreationwizard.cpp:218
 msgid ""
 "Your account was created, but we could not register your username. Try again"
 " from the settings menu."
 msgstr "Ο λογαριασμός σας έχει δημιουργηθεί, αλλά δεν μπορέσαμε να καταχωρήσετε το όνομα χρήστη σας. Δοκιμάστε ξανά από το μενού ρυθμίσεων."
 
-#: src/accountcreationwizard.cpp:275
+#: src/accountcreationwizard.cpp:262
 msgctxt "The default username / account alias, if none is set by the user"
 msgid "Unknown"
 msgstr "Άγνωστοι"
 
-#: src/accountcreationwizard.cpp:471
+#: src/accountcreationwizard.cpp:462
 msgid "Passwords don't match"
 msgstr "Τα συνθηματικά δεν ταιριάζουν"
 
@@ -1200,51 +1200,51 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr ""
 
-#: src/accountview.cpp:162
+#: src/accountview.cpp:188
 msgctxt "Account settings"
 msgid "General"
 msgstr "Γενικά"
 
-#: src/accountview.cpp:170
+#: src/accountview.cpp:196
 msgctxt "Account settings"
 msgid "Devices"
 msgstr "Συσκευές"
 
-#: src/accountview.cpp:176
+#: src/accountview.cpp:202
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Ασφάλεια"
 
-#: src/accountview.cpp:181
+#: src/accountview.cpp:207
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Για προχωρημένους"
 
-#: src/accountview.cpp:188
+#: src/accountview.cpp:214
 msgctxt "List of banned peers"
 msgid "Bans"
 msgstr ""
 
-#: src/accountview.cpp:243
+#: src/accountview.cpp:269
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "Είσαι σίγουρος ότι θέλεις να διαγράψεις τον λογαριασμό  \"%s\";"
 
-#: src/accountview.cpp:370
+#: src/accountview.cpp:403
 msgid "New Account"
 msgstr "Νέος λογαριασμός"
 
-#: src/accountview.cpp:457
+#: src/accountview.cpp:490
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Ενεργοποιημένο"
 
-#: src/accountview.cpp:463
+#: src/accountview.cpp:496
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Ψευδώνυμο"
 
-#: src/accountview.cpp:471
+#: src/accountview.cpp:504
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Κατάσταση"
