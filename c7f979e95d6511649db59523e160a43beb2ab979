@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_43952ce3",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-05-28T15:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_a32248ff",
+      "range": {
+        "startLine": 8,
+        "startChar": 11,
+        "endLine": 8,
+        "endChar": 50
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_032054f6",
         "filename": "CONTRIBUTING.md",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_239ab814",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-05-28T15:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_032054f6",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 50
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_638830e8",
         "filename": "CONTRIBUTING.md",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2018-05-28T14:18:06Z",
       "side": 1,
       "message": "should be as up-to-date as",
+      "range": {
+        "startLine": 21,
+        "startChar": 18,
+        "endLine": 21,
+        "endChar": 45
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_839f4403",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-05-28T15:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_638830e8",
       "range": {
         "startLine": 21,
         "startChar": 18,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_63a4b057",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-05-28T15:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_237e38e5",
+      "range": {
+        "startLine": 26,
+        "startChar": 23,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_e31c40c4",
         "filename": "CONTRIBUTING.md",
         "patchSetId": 1
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_c3881cc9",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-05-28T15:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_e31c40c4",
+      "range": {
+        "startLine": 28,
+        "startChar": 12,
+        "endLine": 28,
+        "endChar": 19
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_8383c4cb",
         "filename": "CONTRIBUTING.md",
         "patchSetId": 1
@@ -151,6 +271,30 @@
       "writtenOn": "2018-05-28T14:18:06Z",
       "side": 1,
       "message": "Maybe: \"Sometimes interpreting bug reports is difficult for us, for example because we can\u0027t reproduce the bug or understand what exactly the issue is. This is usually because the bug report lacks of details / is too vague.\n\nIn order to make your bug report as helpful as possible, think about providing as many details, clear explanations and scenarios as possible ! Also, we\u0027ve written a guide on how to report bugs, if you\u0027re unsure, check it out ! ;) \"",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 49
+      },
+      "revId": "c7f979e95d6511649db59523e160a43beb2ab979",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_a38528af",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-05-28T15:40:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_8383c4cb",
       "range": {
         "startLine": 29,
         "startChar": 0,
