@@ -206,19 +206,32 @@ function displayNavbar(isVisible)
 function hideMessageBar(isHidden) {
     if (isHidden) {
         messageBar.classList.add("hiddenState");
-        document.documentElement.style.setProperty('--messagebar-size', '0');
+        document.body.style.setProperty('--messagebar-size', '0');
     } else {
         messageBar.classList.remove("hiddenState");
-        document.documentElement.style.removeProperty('--messagebar-size');
+        document.body.style.removeProperty('--messagebar-size');
     }
 }
 
+/**
+ * This event handler dynamically resizes the message bar depending on the amount of
+ * text entered, while adjusting the body paddings so that that the message bar doesn't
+ * overlap messages when it grows.
+ */
 function grow_text_area() {
   var is_at_bottom = messages.scrollTop === (messages.scrollHeight - messages.offsetHeight);
 
-  var old_height = messageBarInput.style.height;
-  messageBarInput.style.height = "auto";
-  messageBarInput.style.height = messageBarInput.scrollHeight +"px";
+  var old_height = window.getComputedStyle(messageBar).height;
+  messageBarInput.style.height = "auto"; /* <-- necessary, no clue why */
+  messageBarInput.style.height = messageBarInput.scrollHeight + "px";
+  var new_height = window.getComputedStyle(messageBar).height;
+
+  var msgbar_size = window.getComputedStyle(document.body).getPropertyValue('--messagebar-size');
+  var total_size = parseInt(msgbar_size) + parseInt(new_height) - parseInt(old_height);
+
+  console.log("total " + total_size);
+
+  document.body.style.setProperty('--messagebar-size', total_size.toString() + "px");
 
   if (is_at_bottom) {
     messages.scrollTop = messages.scrollHeight;
@@ -449,31 +462,31 @@ function cleanPreviousTimestamps (baseNode, endIndex) {
  * Update timestamps
  */
 function updateTimestamps() {
-    const timestamps = messages.querySelectorAll('.timestamp');
-    const is_image_out = messages.querySelector('.message_out .sender_image')
-    const is_image_in = messages.querySelector('.message_in .sender_image')
+    const timestamps = messages.getElementsByClassName('.timestamp');
+    const is_image_out = messages.querySelector('.message_out .sender_image');
+    const is_image_in = messages.querySelector('.message_in .sender_image');
     if (timestamps) {
         for ( var c = 0 ; c < messages.children.length ; ++c) {
           const child = messages.children[c];
           if (child.className.indexOf('timestamp') !== -1) {
                 // Update timestamp
-                child.innerHTML = getMessageTimestampText(child.getAttribute('message_timestamp'), true)
+                child.innerHTML = getMessageTimestampText(child.getAttribute('message_timestamp'), true);
 
-                var desktop_margin = '25%'
-                const height = document.body.clientHeight
-                const width = document.body.clientWidth
+                var desktop_margin = '25%';
+                const height = document.body.clientHeight;
+                const width = document.body.clientWidth;
                 if (width <= 1920 || height <= 1080) {
-                  desktop_margin = '15%'
+                  desktop_margin = '15%';
                 }
                 if (width <= 1000 || height <= 480) {
-                  desktop_margin = '0px'
+                  desktop_margin = '0px';
                 }
                 if (child.className.indexOf('timestamp_out') !== -1) {
-                  const avatar_px = is_image_out ? (is_image_out.offsetHeight === avatar_size ? '60px' : '20px') : '20px'
-                  child.style.paddingRight = `calc(${desktop_margin} + ${avatar_px})`
+                  const avatar_px = is_image_out ? (is_image_out.offsetHeight === avatar_size ? '60px' : '20px') : '20px';
+                  child.style.paddingRight = `calc(${desktop_margin} + ${avatar_px})`;
                 } else if (child.className.indexOf('timestamp_in') !== -1) {
-                  const avatar_px = is_image_in ? (is_image_in.offsetHeight === avatar_size ? '60px' : '20px') : '20px'
-                  child.style.paddingLeft = `calc(${desktop_margin} + ${avatar_px})`
+                  const avatar_px = is_image_in ? (is_image_in.offsetHeight === avatar_size ? '60px' : '20px') : '20px';
+                  child.style.paddingLeft = `calc(${desktop_margin} + ${avatar_px})`;
                 }
                 // Remove previous elements with the same formatted timestamp
                 cleanPreviousTimestamps(child, c);
@@ -876,7 +889,7 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
   const delivery_status = message_object['delivery_status']
   const message_sender_contact_method = message_object['sender_contact_method']
 
-  var message_div = document.querySelector('#message_' + message_id);
+  var message_div = document.getElementById('message_' + message_id);
   var type = ''
   if (new_message) {
     // Build new message
@@ -964,7 +977,7 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
     date_elt.setAttribute('class', timestamp_div_classes.join(' '))
     date_elt.setAttribute('message_timestamp', message_timestamp)
     // Remove last timestamp if it's the same<h6></h6>
-    if (messages.querySelectorAll('.timestamp'))
+    if (messages.getElementsByClassName('.timestamp'))
         cleanPreviousTimestamps(date_elt, messages.children.length)
 
     // Add message and the new timestamp
@@ -1039,8 +1052,8 @@ function addMessage(message_object)
 /**
  * Show the history in reverse order
  */
-function printHistoryPart () {
-  if(historyBuffer.length == 0) {
+function printHistoryPart() {
+  if(historyBuffer.length == 0 || historyBufferIndex === historyBuffer.length) {
       // nothing to print
       return;
   }
@@ -1051,6 +1064,7 @@ function printHistoryPart () {
   for (var i = 0; i < 10; ++i) {
     addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false);
     historyBufferIndex ++;
+
     if (historyBufferIndex === historyBuffer.length)
       break;
   }
