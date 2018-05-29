@@ -12,8 +12,9 @@
   --navbar-height: 40px;
   --navbar-padding-top: 8px;
   --navbar-padding-bottom: var(--navbar-padding-top);
-  --navbar-size: calc(var(--navbar-height) + var(--navbar-padding-top) + var(--navbar-padding-bottom));
-  --messagebar-size: 57px; /* FIXME clean this up */
+
+  /* message bar properties */
+  --textarea-max-height: 150px;
 
   /* button properties */
   --action-icon-color: var(--ring-dark-blue);
@@ -54,6 +55,9 @@
 /** Body */
 
 body {
+  --navbar-size: calc(var(--navbar-height) + var(--navbar-padding-top) + var(--navbar-padding-bottom));
+  --messagebar-size: 57px; /* FIXME clean this up */
+
   margin: 0;
   overflow: hidden;
   background-color: var(--bg-color);
@@ -298,7 +302,7 @@ body {
   border: 0;
   overflow-y: scroll;
   color: black;
-  max-height: 150px;
+  max-height: var(--textarea-max-height);
   margin-right: 10px;
   resize: none;
 }
