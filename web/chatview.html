@@ -449,7 +449,7 @@ function cleanPreviousTimestamps (baseNode, endIndex) {
  * Update timestamps
  */
 function updateTimestamps() {
-    const timestamps = messages.querySelectorAll('.timestamp');
+    const timestamps = messages.getElementsByClassName('.timestamp');
     const is_image_out = messages.querySelector('.message_out .sender_image')
     const is_image_in = messages.querySelector('.message_in .sender_image')
     if (timestamps) {
@@ -876,7 +876,7 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
   const delivery_status = message_object['delivery_status']
   const message_sender_contact_method = message_object['sender_contact_method']
 
-  var message_div = document.querySelector('#message_' + message_id);
+  var message_div = document.getElementById('#message_' + message_id);
   var type = ''
   if (new_message) {
     // Build new message
@@ -964,7 +964,7 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
     date_elt.setAttribute('class', timestamp_div_classes.join(' '))
     date_elt.setAttribute('message_timestamp', message_timestamp)
     // Remove last timestamp if it's the same<h6></h6>
-    if (messages.querySelectorAll('.timestamp'))
+    if (messages.getElementsByClassName('.timestamp'))
         cleanPreviousTimestamps(date_elt, messages.children.length)
 
     // Add message and the new timestamp
@@ -1049,10 +1049,11 @@ function printHistoryPart () {
 
   // Show 10 messages
   for (var i = 0; i < 10; ++i) {
-    addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false);
-    historyBufferIndex ++;
     if (historyBufferIndex === historyBuffer.length)
       break;
+
+    addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false);
+    historyBufferIndex ++;
   }
 
   // Replace the scrollbar to the wanted position
