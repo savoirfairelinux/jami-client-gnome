@@ -532,7 +532,6 @@ chat_view_update_temporary(ChatView* self, bool showAddButton, bool showInvitati
     g_return_if_fail(IS_CHAT_VIEW(self));
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
 
-    g_debug("chat_view_update_temporary(%s, %s)", showAddButton ? "true":"false", showInvitation ? "true":"false");
     update_chatview_frame(self);
 }
 
