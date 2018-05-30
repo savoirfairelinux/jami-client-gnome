@@ -79,6 +79,7 @@ struct CurrentCallViewPrivate
     GtkWidget *togglebutton_chat;
     GtkWidget *togglebutton_muteaudio;
     GtkWidget *togglebutton_mutevideo;
+    GtkWidget *togglebutton_transfer;
     GtkWidget *togglebutton_hold;
     GtkWidget *togglebutton_record;
     GtkWidget *button_hangup;
@@ -605,6 +606,12 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
     conversation = conv_info;
     accountInfo = &account_info;
     setCallInfo();
+
+    if ((*accountInfo)->profileInfo.type == lrc::api::profile::Type::RING) {
+        gtk_widget_hide(widgets->togglebutton_transfer);
+    } else {
+        gtk_widget_show(widgets->togglebutton_transfer);
+    }
 }
 
 void
@@ -1065,6 +1072,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_transfer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_hold);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_muteaudio);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_record);
