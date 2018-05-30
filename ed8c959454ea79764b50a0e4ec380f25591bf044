@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_09c87573",
+        "filename": "src/webkitchatcontainer.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-05-30T18:29:14Z",
+      "side": 1,
+      "message": "Do you want to fix this in this patch?",
+      "range": {
+        "startLine": 681,
+        "startChar": 3,
+        "endLine": 681,
+        "endChar": 31
+      },
+      "revId": "ed8c959454ea79764b50a0e4ec380f25591bf044",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_e9c42161",
+        "filename": "web/chatview.html",
+        "patchSetId": 30
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-05-30T18:29:14Z",
+      "side": 1,
+      "message": "!\u003d\u003d",
+      "range": {
+        "startLine": 145,
+        "startChar": 15,
+        "endLine": 145,
+        "endChar": 17
+      },
+      "revId": "ed8c959454ea79764b50a0e4ec380f25591bf044",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_49a1cda8",
+        "filename": "web/chatview.html",
+        "patchSetId": 30
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-05-30T18:29:14Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 155,
+        "startChar": 25,
+        "endLine": 155,
+        "endChar": 27
+      },
+      "revId": "ed8c959454ea79764b50a0e4ec380f25591bf044",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
