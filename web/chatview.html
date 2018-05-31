@@ -1091,40 +1091,22 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
 }
 
 /**
- * Add a message to the buffer.
+ * Wrapper for addOrUpdateMessage.
+ *
+ * This function adds or updates a message and makes sure the scrollbar position
+ * is refreshed correctly: If the scrollbar was at the end of the scroll buffer,
+ * put it back at the end. Otherwise the user has scrolled and we don't want to
+ * change scrollbar position.
  *
  * @param message_object message to be added
  */
 /* exported addMessage */
 function addMessage(message_object)
 {
-    var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - 5
-    addOrUpdateMessage(message_object, true)
-    if (atEnd) {
-        var startTime = Date.now(),
-            durTime = 250.,
-            scrollStartHeight = messages.scrollHeight,
-            scrollStart = messages.scrollTop,
-            scrollDiff = scrollStartHeight - messages.clientHeight - scrollStart
-        function loop() {
-            var time = Date.now() - startTime,
-                scrollHeight = messages.scrollHeight,
-                diff = messages.scrollTop - scrollStart // If user scrolls up (diff > 0).
-
-            if (time >= durTime || scrollHeight != scrollStartHeight || diff < 0) {
-                if (diff >= 0) { // User scrolled up, don't autoscroll.
-                    messages.scrollTop = scrollHeight
-                }
-                return false
-            } else {
-                messages.scrollTop = scrollStart + (scrollDiff * (time/durTime))
-                raf(loop)
-            }
-        }
-
-
-        raf(loop) // Start the animation loop
-    }
+    var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - 100;
+    addOrUpdateMessage(message_object, true);
+    if (atEnd)
+        messages.scrollTop = messages.scrollHeight;
 }
 
 /**
