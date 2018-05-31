@@ -88,11 +88,14 @@
 /* Constants used at several places*/
 const messageBarPlaceHolder = "Type a message"
 const avatar_size = 35
-var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame
-var displayLinksEnabled = false
+// scrollDetectionThresh represents the number of pixels a user can scroll
+// without disabling the automatic go-back-to-bottom when a new message is
+// received
+const scrollDetectionThresh = 150
+
+/* Buffers */
 var historyBufferIndex = 0 // When showing a large amount of interactions, this counter store the interaction's index to show
 var historyBuffer = [] // Before showing a large amount of interactions, this array is used as a buffer.
-var hoverBackButtonAllowed = true
 
 /* We retrieve refs to the most used navbar and message bar elements for efficiency purposes */
 /* NOTE: always use getElementById when possible, way more efficient */
@@ -109,9 +112,25 @@ const navbar            = document.getElementById("navbar")
 const invitationText    = document.getElementById("text")
 
 /* States: allows us to avoid re-doing something if it isn't meaningful */
-var isBanned = false
-var isTemporary = false
+var displayLinksEnabled = false
+var hoverBackButtonAllowed = true
 var hasInvitation = false
+var isTemporary = false
+var isBanned = false
+
+/**
+ * Generic wrapper. Execute passed function keeping scroll position identical.
+ *
+ * @param func function to execute
+ * @param args parameters as array
+ */
+function exec_keeping_scroll_position(func, args) {
+    var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - scrollDetectionThresh
+    func(...args)
+    if (atEnd) {
+        messages.scrollTop = messages.scrollHeight
+    }
+}
 
 /**
  * Update common frame between conversations.
@@ -234,21 +253,17 @@ function setDisplayLinks(display) {
  */
 /* exported grow_text_area */
 function grow_text_area() {
-    var is_at_bottom = messages.scrollTop === (messages.scrollHeight - messages.offsetHeight)
+    exec_keeping_scroll_position(function(){
+        var old_height = window.getComputedStyle(messageBar).height
+        messageBarInput.style.height = "auto" /* <-- necessary, no clue why */
+        messageBarInput.style.height = messageBarInput.scrollHeight + "px"
+        var new_height = window.getComputedStyle(messageBar).height
 
-    var old_height = window.getComputedStyle(messageBar).height
-    messageBarInput.style.height = "auto" /* <-- necessary, no clue why */
-    messageBarInput.style.height = messageBarInput.scrollHeight + "px"
-    var new_height = window.getComputedStyle(messageBar).height
+        var msgbar_size = window.getComputedStyle(document.body).getPropertyValue("--messagebar-size")
+        var total_size = parseInt(msgbar_size) + parseInt(new_height) - parseInt(old_height)
 
-    var msgbar_size = window.getComputedStyle(document.body).getPropertyValue("--messagebar-size")
-    var total_size = parseInt(msgbar_size) + parseInt(new_height) - parseInt(old_height)
-
-    document.body.style.setProperty("--messagebar-size", total_size.toString() + "px")
-
-    if (is_at_bottom) {
-        messages.scrollTop = messages.scrollHeight
-    }
+        document.body.style.setProperty("--messagebar-size", total_size.toString() + "px")
+    }, [])
 }
 
 /**
@@ -538,37 +553,39 @@ function cleanPreviousTimestamps (baseNode, endIndex) {
  * Update timestamps.
  */
 function updateTimestamps() {
-    const timestamps = messages.getElementsByClassName(".timestamp")
-    const is_image_out = messages.querySelector(".message_out .sender_image")
-    const is_image_in = messages.querySelector(".message_in .sender_image")
-    if (timestamps) {
-        for ( var c = 0 ; c < messages.children.length ; ++c) {
-            const child = messages.children[c]
-            if (child.className.indexOf("timestamp") !== -1) {
+    exec_keeping_scroll_position(function() {
+        const timestamps = messages.getElementsByClassName(".timestamp")
+        const is_image_out = messages.querySelector(".message_out .sender_image")
+        const is_image_in = messages.querySelector(".message_in .sender_image")
+        if (timestamps) {
+            for ( var c = 0 ; c < messages.children.length ; ++c) {
+                const child = messages.children[c]
+                if (child.className.indexOf("timestamp") !== -1) {
                 // Update timestamp
-                child.innerHTML = getMessageTimestampText(child.getAttribute("message_timestamp"), true)
+                    child.innerHTML = getMessageTimestampText(child.getAttribute("message_timestamp"), true)
 
-                var desktop_margin = "25%"
-                const height = document.body.clientHeight
-                const width = document.body.clientWidth
-                if (width <= 1920 || height <= 1080) {
-                    desktop_margin = "15%"
+                    var desktop_margin = "25%"
+                    const height = document.body.clientHeight
+                    const width = document.body.clientWidth
+                    if (width <= 1920 || height <= 1080) {
+                        desktop_margin = "15%"
+                    }
+                    if (width <= 1000 || height <= 480) {
+                        desktop_margin = "0px"
+                    }
+                    if (child.className.indexOf("timestamp_out") !== -1) {
+                        const avatar_px = is_image_out ? (is_image_out.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
+                        child.style.paddingRight = `calc(${desktop_margin} + ${avatar_px})`
+                    } else if (child.className.indexOf("timestamp_in") !== -1) {
+                        const avatar_px = is_image_in ? (is_image_in.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
+                        child.style.paddingLeft = `calc(${desktop_margin} + ${avatar_px})`
+                    }
+                    // Remove previous elements with the same formatted timestamp
+                    cleanPreviousTimestamps(child, c)
                 }
-                if (width <= 1000 || height <= 480) {
-                    desktop_margin = "0px"
-                }
-                if (child.className.indexOf("timestamp_out") !== -1) {
-                    const avatar_px = is_image_out ? (is_image_out.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
-                    child.style.paddingRight = `calc(${desktop_margin} + ${avatar_px})`
-                } else if (child.className.indexOf("timestamp_in") !== -1) {
-                    const avatar_px = is_image_in ? (is_image_in.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
-                    child.style.paddingLeft = `calc(${desktop_margin} + ${avatar_px})`
-                }
-                // Remove previous elements with the same formatted timestamp
-                cleanPreviousTimestamps(child, c)
             }
         }
-    }
+    }, [])
 }
 
 /**
@@ -684,22 +701,24 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
 
     if (isImage(message_text) && message_delivery_status === "finished" && displayLinksEnabled && !forceTypeToFile) {
         // Replace the old wrapper by the downloaded image
-        if (message_div.querySelector(".message_wrapper")) {
-            var wrapper = message_div.querySelector(".message_wrapper")
-            wrapper.parentNode.removeChild(wrapper)
-        }
-        message_div.append(mediaInteraction(message_id, message_text))
-        message_div.querySelector("img").id = message_id
-        message_div.querySelector("img").msg_obj = message_object
-        message_div.querySelector("img").onerror = function() {
-            message_div = document.getElementById("#message_" + this.id)
-            var wrapper = message_div.querySelector(".message_wrapper")
-            if (wrapper) {
+        exec_keeping_scroll_position(function() {
+            if (message_div.querySelector(".message_wrapper")) {
+                var wrapper = message_div.querySelector(".message_wrapper")
                 wrapper.parentNode.removeChild(wrapper)
             }
-            message_div.append(fileInteraction(message_id))
-            updateFileInteraction(message_div, this.msg_obj, true)
-        }
+            message_div.append(mediaInteraction(message_id, message_text))
+            message_div.querySelector("img").id = message_id
+            message_div.querySelector("img").msg_obj = message_object
+            message_div.querySelector("img").onerror = function() {
+                message_div = document.getElementById("#message_" + this.id)
+                var wrapper = message_div.querySelector(".message_wrapper")
+                if (wrapper) {
+                    wrapper.parentNode.removeChild(wrapper)
+                }
+                message_div.append(fileInteraction(message_id))
+                updateFileInteraction(message_div, this.msg_obj, true)
+            }
+        }, [])
         return
     }
 
@@ -1051,7 +1070,7 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
         date_elt.setAttribute("class", timestamp_div_classes.join(" "))
         date_elt.setAttribute("message_timestamp", message_timestamp)
 
-        // Remove last timestamp if it's the same<h6></h6>
+        // Remove last timestamp if it's the same
         if (messages.getElementsByClassName(".timestamp"))
             cleanPreviousTimestamps(date_elt, messages.children.length)
 
@@ -1091,69 +1110,46 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
 }
 
 /**
- * Add a message to the buffer.
+ * Wrapper for addOrUpdateMessage.
+ *
+ * This function adds or updates a message and makes sure the scrollbar position
+ * is refreshed correctly.
  *
  * @param message_object message to be added
  */
 /* exported addMessage */
 function addMessage(message_object)
 {
-    var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - 5
-    addOrUpdateMessage(message_object, true)
-    if (atEnd) {
-        var startTime = Date.now(),
-            durTime = 250.,
-            scrollStartHeight = messages.scrollHeight,
-            scrollStart = messages.scrollTop,
-            scrollDiff = scrollStartHeight - messages.clientHeight - scrollStart
-        function loop() {
-            var time = Date.now() - startTime,
-                scrollHeight = messages.scrollHeight,
-                diff = messages.scrollTop - scrollStart // If user scrolls up (diff > 0).
-
-            if (time >= durTime || scrollHeight != scrollStartHeight || diff < 0) {
-                if (diff >= 0) { // User scrolled up, don't autoscroll.
-                    messages.scrollTop = scrollHeight
-                }
-                return false
-            } else {
-                messages.scrollTop = scrollStart + (scrollDiff * (time/durTime))
-                raf(loop)
-            }
-        }
-
-
-        raf(loop) // Start the animation loop
-    }
+    exec_keeping_scroll_position(addOrUpdateMessage, [message_object, true])
 }
 
+
 /**
- * Show the history in reverse order
+ * This function displays the history in reverse order and makes sure the
+ * scrollbar position is refreshed correctly.
  */
-function printHistoryPart() {
-    if(historyBuffer.length == 0 || historyBufferIndex === historyBuffer.length) {
+function printHistoryPart()
+{
+    exec_keeping_scroll_position(function() {
+        if(historyBuffer.length == 0 || historyBufferIndex === historyBuffer.length) {
         // nothing to print
-        return
-    }
+            return
+        }
 
-    var previousScrollHeightMinusTop = messages.scrollHeight - messages.scrollTop
+        // Show 10 messages
+        for (var i = 0; i < 10; ++i) {
+            addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false)
+            historyBufferIndex ++
 
-    // Show 10 messages
-    for (var i = 0; i < 10; ++i) {
-        addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false)
-        historyBufferIndex ++
+            if (historyBufferIndex === historyBuffer.length)
+                break
+        }
 
-        if (historyBufferIndex === historyBuffer.length)
-            break
-    }
-
-    // Replace the scrollbar to the wanted position
-    messages.scrollTop = messages.scrollHeight - previousScrollHeightMinusTop
-
-    // Make a short pause to minimize ressources consumption
-    // show quickly the first hundred messages
-    if (historyBufferIndex !== historyBuffer.length)
-        setTimeout(printHistoryPart, (historyBufferIndex > 100) ? 100 : 1)
+        // Make a short pause to minimize ressources consumption
+        // show quickly the first hundred messages
+        if (historyBufferIndex !== historyBuffer.length)
+            setTimeout(printHistoryPart, (historyBufferIndex > 100) ? 100 : 1)
+    }, [])
 }
 
 /**
