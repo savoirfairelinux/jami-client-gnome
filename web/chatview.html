@@ -88,11 +88,10 @@
 /* Constants used at several places*/
 const messageBarPlaceHolder = "Type a message"
 const avatar_size = 35
-var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame
-var displayLinksEnabled = false
+
+/* Buffers */
 var historyBufferIndex = 0 // When showing a large amount of interactions, this counter store the interaction's index to show
 var historyBuffer = [] // Before showing a large amount of interactions, this array is used as a buffer.
-var hoverBackButtonAllowed = true
 
 /* We retrieve refs to the most used navbar and message bar elements for efficiency purposes */
 /* NOTE: always use getElementById when possible, way more efficient */
@@ -109,9 +108,11 @@ const navbar            = document.getElementById("navbar")
 const invitationText    = document.getElementById("text")
 
 /* States: allows us to avoid re-doing something if it isn't meaningful */
-var isBanned = false
-var isTemporary = false
+var displayLinksEnabled = false
+var hoverBackButtonAllowed = true
 var hasInvitation = false
+var isTemporary = false
+var isBanned = false
 
 /**
  * Update common frame between conversations.
@@ -1091,40 +1092,22 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
 }
 
 /**
- * Add a message to the buffer.
+ * Wrapper for addOrUpdateMessage.
+ *
+ * This function adds or updates a message and makes sure the scrollbar position
+ * is refreshed correctly: If the scrollbar was at the end of the scroll buffer,
+ * put it back at the end. Otherwise the user has scrolled and we don't want to
+ * change scrollbar position.
  *
  * @param message_object message to be added
  */
 /* exported addMessage */
 function addMessage(message_object)
 {
-    var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - 5
+    var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - 100
     addOrUpdateMessage(message_object, true)
-    if (atEnd) {
-        var startTime = Date.now(),
-            durTime = 250.,
-            scrollStartHeight = messages.scrollHeight,
-            scrollStart = messages.scrollTop,
-            scrollDiff = scrollStartHeight - messages.clientHeight - scrollStart
-        function loop() {
-            var time = Date.now() - startTime,
-                scrollHeight = messages.scrollHeight,
-                diff = messages.scrollTop - scrollStart // If user scrolls up (diff > 0).
-
-            if (time >= durTime || scrollHeight != scrollStartHeight || diff < 0) {
-                if (diff >= 0) { // User scrolled up, don't autoscroll.
-                    messages.scrollTop = scrollHeight
-                }
-                return false
-            } else {
-                messages.scrollTop = scrollStart + (scrollDiff * (time/durTime))
-                raf(loop)
-            }
-        }
-
-
-        raf(loop) // Start the animation loop
-    }
+    if (atEnd)
+        messages.scrollTop = messages.scrollHeight
 }
 
 /**
