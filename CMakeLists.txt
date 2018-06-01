@@ -315,8 +315,6 @@ SET( SRC_FILES
    src/utils/accounts.cpp
    src/choosecontactview.h
    src/choosecontactview.cpp
-   src/editcontactview.h
-   src/editcontactview.cpp
    src/native/dbuserrorhandler.h
    src/native/dbuserrorhandler.cpp
    src/ringwelcomeview.h
