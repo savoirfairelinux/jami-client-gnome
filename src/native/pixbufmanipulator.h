@@ -63,12 +63,14 @@ public:
                               const lrc::api::account::Info& accountInfo) override;
     QVariant   decorationRole(const Account* p) override;
 
-private:
+    // Helpers
     std::shared_ptr<GdkPixbuf> temporaryItemAvatar() const;
     std::shared_ptr<GdkPixbuf> generateAvatar(const ContactMethod* cm) const;
     std::shared_ptr<GdkPixbuf> generateAvatar(const std::string& alias, const std::string& uri) const;
 
     std::shared_ptr<GdkPixbuf> scaleAndFrame(const GdkPixbuf *photo, const QSize& size, bool displayInformation = false, bool is_present = false, uint unreadMessages = 0);
+
+private:
     std::shared_ptr<GdkPixbuf> conferenceAvatar_;
 };
 

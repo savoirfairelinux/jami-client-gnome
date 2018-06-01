@@ -33,7 +33,7 @@ static constexpr GdkRGBA     PRESENCE_ABSENT_BACKGROUND = {0.984, 0.282, 0.278, 
 static constexpr GdkRGBA     COLOR_PALETTE[] = {{0.956862, 0.262745, 0.211764, 1.0}, // red 244, green 67, blue 54, 1 (red)
                                                 {0.913725, 0.117647, 0.388235, 1.0}, // red 233, green 30, blue 99, 1 (pink)
                                                 {0.611764, 0.152941, 0.690196, 1.0}, // red 156, green 39, blue 176, 1 (purple)
-                                                {0.956862, 0.262745, 0.211764, 1.0}, // red 244, green 67, blue 54, 1 (deep purple)
+                                                {0.270588, 0.152941, 0.627450, 1.0}, // red 69, green 39, blue 160, 1 (deep purple)
                                                 {0.403921, 0.227450, 0.717647, 1.0}, // red 103, green 58, blue 183, 1 (indigo)
                                                 {0.247058, 0.317647, 0.211764, 1.0}, // red 63, green 81, blue 54, 1 (blue)
                                                 {0, 0.737254, 0.831372, 1.0},        // red 0, green 188, blue 212, 1 (cyan)

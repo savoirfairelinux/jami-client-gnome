@@ -102,15 +102,15 @@ PixbufManipulator::generateAvatar(const ContactMethod* cm) const
 std::shared_ptr<GdkPixbuf>
 PixbufManipulator::generateAvatar(const std::string& alias, const std::string& uri) const
 {
-    auto name = alias;
     std::string letter = {};
-    if (!name.empty())
-        letter = QString(QString(name.c_str()).toUpper().at(0)).toStdString();
-    auto color = 0;
-    try {
-        color = uri.length() > 0 ? std::stoi(std::string(1, uri[0]), 0, 16) : 0;
-    } catch (...) {
-        // uri[0] not in "0123456789abcdef"
+    if (!alias.empty()) {
+        // Use QString for special characters like ø for example
+        letter = QString(QString(alias.c_str()).toUpper().at(0)).toStdString();
+    }
+    auto color = 10;
+    if (uri.length() > 0) {
+        auto* md5 = g_compute_checksum_for_string(G_CHECKSUM_MD5, uri.c_str(), -1);
+        color = std::string("0123456789abcdef").find(md5[0]);
     }
 
     return std::shared_ptr<GdkPixbuf> {
@@ -284,13 +284,13 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
             if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY && contactInfo.profileInfo.uri.empty()) {
                 return QVariant::fromValue(scaleAndFrame(temporaryItemAvatar().get(), size, false, false, unreadMessages));
             } else if (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP) {
-                return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, "").get(), size, displayInformation, contactInfo.isPresent));
+                return QVariant::fromValue(scaleAndFrame(generateAvatar("", "sip:" + contactInfo.profileInfo.uri).get(), size, displayInformation, contactInfo.isPresent));
             } else if (!contactPhoto.empty()) {
                 QByteArray byteArray(contactPhoto.c_str(), contactPhoto.length());
                 QVariant photo = personPhoto(byteArray);
                 return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayInformation, contactInfo.isPresent, unreadMessages));
             } else {
-                return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, contactInfo.profileInfo.uri).get(), size, displayInformation, contactInfo.isPresent, unreadMessages));
+                return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, "ring:" + contactInfo.profileInfo.uri).get(), size, displayInformation, contactInfo.isPresent, unreadMessages));
             }
         } catch (...) {}
     }
