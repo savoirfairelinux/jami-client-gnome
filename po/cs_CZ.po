@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-28 03:09-0400\n"
-"PO-Revision-Date: 2018-05-14 07:09+0000\n"
+"POT-Creation-Date: 2018-06-04 03:09-0400\n"
+"PO-Revision-Date: 2018-06-04 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/savoirfairelinux/ring/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
@@ -425,42 +425,6 @@ msgstr "Přidat nový účet"
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
 msgstr "Vyberte typ účtu"
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr "Vybrat knihu adres"
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr "Kniha adres"
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "Jméno"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr "Název kontaktu"
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr "Zvolte, jak bude toto číslo zařazeno"
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr "Číselná kategorie"
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr "Číslo nebo Ring ID, jež bude přidáno"
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr "Číslo nebo Ring ID"
-
-#: ui/editcontactview.ui:83
-msgid "Save"
-msgstr "Uložit"
 
 #: ui/accountvideotab.ui:50
 msgid "Enable Video"
@@ -878,12 +842,12 @@ msgid "Choose download folder"
 msgstr ""
 
 #: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:170
 msgid "_Cancel"
 msgstr "_Zrušit"
 
 #: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
-#: src/chatview.cpp:179
+#: src/chatview.cpp:172
 msgid "_Save"
 msgstr ""
 
@@ -916,7 +880,7 @@ msgstr "UPnP povoleno"
 msgid "Hostname"
 msgstr "Hostitelské jméno"
 
-#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:188 src/chatview.cpp:167
 msgid "Save File"
 msgstr "Uložit soubor"
 
@@ -988,7 +952,7 @@ msgstr "Ukázat pokročilé informace"
 msgid "Open Avatar Image"
 msgstr "Otevřít profilový obrázek"
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:172
 msgid "_Open"
 msgstr "_Otevřít"
 
@@ -1044,11 +1008,6 @@ msgctxt ""
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Hledat kontakty nebo zadat číslo"
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
-msgstr "domov"
 
 #: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
 msgid "Enabled"
@@ -1180,20 +1139,8 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Kód QR ID Ringu"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:167
 msgid "Send File"
-msgstr ""
-
-#: src/chatview.cpp:410
-msgid "Can't place call with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:412
-msgid "Can't start conversation with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:414
-msgid "Can't place audio call with banned contact"
 msgstr ""
 
 #: src/currentcallview.cpp:781

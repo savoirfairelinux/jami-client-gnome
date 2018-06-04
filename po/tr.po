@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-28 03:09-0400\n"
-"PO-Revision-Date: 2018-05-14 07:09+0000\n"
+"POT-Creation-Date: 2018-06-04 03:09-0400\n"
+"PO-Revision-Date: 2018-06-04 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/ring/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -426,42 +426,6 @@ msgstr "Yeni hesap ekle"
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
 msgstr "Hesap türünü seç"
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr "Yer defteri seç"
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr "Yer defteri"
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "Ad"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr "Kişi adı"
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr "Bu numaranın nasıl sınıflandırılacağını seç"
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr "Numara sınıfı"
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr "Eklenecek Ring ID ya da numarası"
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr "Numara ya da Ring ID"
-
-#: ui/editcontactview.ui:83
-msgid "Save"
-msgstr "Kaydet"
 
 #: ui/accountvideotab.ui:50
 msgid "Enable Video"
@@ -879,12 +843,12 @@ msgid "Choose download folder"
 msgstr ""
 
 #: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:170
 msgid "_Cancel"
 msgstr "_İptal"
 
 #: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
-#: src/chatview.cpp:179
+#: src/chatview.cpp:172
 msgid "_Save"
 msgstr ""
 
@@ -917,7 +881,7 @@ msgstr "UPnP etkin"
 msgid "Hostname"
 msgstr "Sunucu adı"
 
-#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:188 src/chatview.cpp:167
 msgid "Save File"
 msgstr "Dosyayı Kaydet"
 
@@ -989,7 +953,7 @@ msgstr "İleri bilgileri göster"
 msgid "Open Avatar Image"
 msgstr "Avatar Resmi Aç"
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:172
 msgid "_Open"
 msgstr "_Aç"
 
@@ -1045,11 +1009,6 @@ msgctxt ""
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Kişileri ara veya numara gir"
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
-msgstr "ev"
 
 #: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
 msgid "Enabled"
@@ -1181,20 +1140,8 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "OR kod Ring Kimliği"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:167
 msgid "Send File"
-msgstr ""
-
-#: src/chatview.cpp:410
-msgid "Can't place call with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:412
-msgid "Can't start conversation with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:414
-msgid "Can't place audio call with banned contact"
 msgstr ""
 
 #: src/currentcallview.cpp:781

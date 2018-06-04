@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-28 03:09-0400\n"
-"PO-Revision-Date: 2018-05-14 07:09+0000\n"
+"POT-Creation-Date: 2018-06-04 03:09-0400\n"
+"PO-Revision-Date: 2018-06-04 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Ukrainian (http://www.transifex.com/savoirfairelinux/ring/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -428,42 +428,6 @@ msgstr "Додати новий аккаунт"
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
 msgstr "Оберіть тип аккаунту"
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr "Оберіть адресну книгу"
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr "Адреска книга"
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "Ім’я"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr "Ім'я контакту"
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr "Виберіть категорію для даного номеру"
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr "Категорія номерів"
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr "Номер або Ring ID буде додано"
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr "Номер або Ring ID"
-
-#: ui/editcontactview.ui:83
-msgid "Save"
-msgstr "Зберігти"
 
 #: ui/accountvideotab.ui:50
 msgid "Enable Video"
@@ -881,12 +845,12 @@ msgid "Choose download folder"
 msgstr ""
 
 #: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:170
 msgid "_Cancel"
 msgstr ""
 
 #: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
-#: src/chatview.cpp:179
+#: src/chatview.cpp:172
 msgid "_Save"
 msgstr ""
 
@@ -919,7 +883,7 @@ msgstr "UPnP увімкнено"
 msgid "Hostname"
 msgstr "Ім'я хоста"
 
-#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:188 src/chatview.cpp:167
 msgid "Save File"
 msgstr "Зберегти файл"
 
@@ -991,7 +955,7 @@ msgstr ""
 msgid "Open Avatar Image"
 msgstr "Відкрити зображення Аватару."
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:172
 msgid "_Open"
 msgstr ""
 
@@ -1047,11 +1011,6 @@ msgctxt ""
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Пошук контактів чи введіть номер"
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
-msgstr "Додому"
 
 #: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
 msgid "Enabled"
@@ -1183,20 +1142,8 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr ""
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:167
 msgid "Send File"
-msgstr ""
-
-#: src/chatview.cpp:410
-msgid "Can't place call with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:412
-msgid "Can't start conversation with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:414
-msgid "Can't place audio call with banned contact"
 msgstr ""
 
 #: src/currentcallview.cpp:781
