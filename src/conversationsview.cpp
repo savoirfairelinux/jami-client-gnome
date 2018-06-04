@@ -164,8 +164,7 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             bestId,
             lastInteraction
         );
-    } else if (std::string(alias) == std::string(bestId)
-        || std::string(bestId).empty() || std::string(uid).empty()) {
+    } else if (std::string(alias) == std::string(bestId) || std::string(bestId).empty()) {
         // For temporary item
         text = g_markup_printf_escaped(
             "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
