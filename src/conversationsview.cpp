@@ -158,22 +158,21 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             bestId
         );
     } else if (std::string(alias).empty()) {
-        // For conversations with contacts with no alias
+        // If no alias to show, use the best id
         text = g_markup_printf_escaped(
             "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
             bestId,
             lastInteraction
         );
-    } else if (std::string(alias) == std::string(bestId)
-        || std::string(bestId).empty() || std::string(uid).empty()) {
-        // For temporary item
+    } else if (std::string(alias) == std::string(bestId)) {
+        // If the alias and the best id are identical, show only the alias
         text = g_markup_printf_escaped(
             "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
             alias,
             lastInteraction
         );
     } else {
-        // For conversations with contacts with alias
+        // If the alias is not empty and not equals to the best id, show both the alias and the best id
         text = g_markup_printf_escaped(
             "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
             alias,
