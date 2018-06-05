@@ -5,6 +5,8 @@
     <file preprocess="xml-stripblanks">ringgearsmenu.ui</file>
     <file preprocess="xml-stripblanks">incomingcallview.ui</file>
     <file preprocess="xml-stripblanks">currentcallview.ui</file>
+    <file preprocess="xml-stripblanks">selfieview.ui</file>
+    <file preprocess="xml-stripblanks">selfiewidget.ui</file>
     <file preprocess="xml-stripblanks">accountcreationwizard.ui</file>
     <file preprocess="xml-stripblanks">accountmigrationview.ui</file>
     <file preprocess="xml-stripblanks">newaccountsettingsview.ui</file>
