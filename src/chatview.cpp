@@ -36,6 +36,7 @@
 
 // Client
 #include "utils/files.h"
+#include "selfiewidget.h"
 
 struct _ChatView
 {
@@ -186,6 +187,22 @@ file_to_manipulate(GtkWindow* top_window, bool send)
     return filename;
 }
 
+static void
+run_take_and_send(ChatView *self)
+{
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    //GtkWidget *selfie_popup = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    //GtkWidget *selfie_view = selfie_view_new();
+    //gtk_container_add (GTK_CONTAINER (selfie_popup), selfie_view);
+    //gtk_widget_show(selfie_view);
+    //gtk_widget_show(selfie_popup);
+
+    GtkWidget *selfie_dialog = selfie_widget_new();
+    gtk_dialog_run (GTK_DIALOG (selfie_dialog));
+    return selfie_widget_get_filename(SELFIE_WIDGET(selfie_dialog));
+}
+
 static void update_chatview_frame(ChatView *self);
 
 static void
@@ -208,6 +225,8 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         } catch (std::out_of_range) {
             g_debug("webkit_chat_container_script_dialog: oor while retrieving invalid contact info. Chatview bug ?");
         }
+    } else if (order == "TAKEANDSEND") {
+        run_take_and_send(self);
     } else if (order.find("PLACE_CALL") == 0) {
         placecall_clicked(self);
     } else if (order.find("PLACE_AUDIO_CALL") == 0) {
