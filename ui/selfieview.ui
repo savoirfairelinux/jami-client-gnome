@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.10"/>
+
+  <!-- IMAGES -->
+  <object class="GtkImage" id="image_camera_photo">
+    <property name="visible">True</property>
+    <property name="icon_name">camera-photo-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_camera_video">
+    <property name="visible">True</property>
+    <property name="icon_name">camera-video-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_record_audio">
+    <property name="visible">True</property>
+    <property name="icon_name">audio-input-microphone-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_quit">
+    <property name="visible">True</property>
+    <property name="icon_name">application-exit-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_send">
+    <property name="visible">True</property>
+    <property name="icon_name">document-send</property>
+  </object>
+  <object class="GtkImage" id="image_stop_record">
+    <property name="visible">True</property>
+    <property name="icon_name">media-playback-stop-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_back_to_init">
+    <property name="visible">True</property>
+    <property name="icon_name">edit-undo-symbolic</property>
+  </object>
+
+  <!-- SELFIE VIEW -->
+  <template class="SelfieView" parent="GtkBox">
+    <property name="visible">True</property>
+    <property name="expand">True</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox" id="box_views_and_controls">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkStack" id="stack_views">
+            <property name="visible">True</property>
+
+            <!-- VIEW 1: Display live video -->
+            <child>
+              <object class="GtkFrame" id="frame_video">
+                <property name="visible">True</property>
+                <property name="shadow-type">GTK_SHADOW_NONE</property>
+                <property name="height-request">300</property>
+                <property name="width-request">450</property>
+              </object>
+              <packing>
+                <property name="name">page_photobooth</property>
+              </packing>
+            </child>
+
+            <!-- VIEW 2: Display audio recording animation -->
+            <child>
+              <object class="GtkBox" id="frame_audio">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="name">page_audio_recording</property>
+              </packing>
+            </child>
+
+            <!-- VIEW 3: Display photo -->
+            <child>
+              <object class="GtkBox" id="frame_pic">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="name">page_displaypic</property>
+              </packing>
+            </child>
+
+            <!-- VIEW 4: Display recorded audio / video -->
+            <child>
+              <object class="GtkBox" id="frame_audio_video_final">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="name">page_audio_video_final</property>
+              </packing>
+            </child>
+
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box_controls">
+            <property name="visible">True</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+
+            <!-- initial state -->
+            <child>
+              <object class="GtkBox" id="button_box_init">
+                <style>
+                  <class name="linked"/>
+                </style>
+                <child>
+                  <object class="GtkButton" id="button_take_photo">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_camera_photo</property>
+                    <property name="tooltip-text" translatable="yes">Take photo</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_take_video">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_camera_video</property>
+                    <property name="tooltip-text" translatable="yes">Record video</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_take_sound">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_record_audio</property>
+                    <property name="tooltip-text" translatable="yes">Record audio</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_quit">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_quit</property>
+                    <property name="tooltip-text" translatable="yes">Cancel</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+              </packing>
+            </child>
+
+            <!-- 2nd state: recording audio or video -->
+            <child>
+              <object class="GtkBox" id="button_box_recording">
+                <style>
+                  <class name="linked"/>
+                </style>
+                <child>
+                  <object class="GtkButton" id="button_stop_record">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_stop_record</property>
+                    <property name="tooltip-text" translatable="yes">Stop record</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+              </packing>
+            </child>
+
+            <!-- 3rd state: validate file or return -->
+            <child>
+              <object class="GtkBox" id="button_box_validate">
+                <style>
+                  <class name="linked"/>
+                </style>
+                <child>
+                  <object class="GtkButton" id="button_back_to_init">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_back_to_init</property>
+                    <property name="tooltip-text" translatable="yes">Back to menu</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_send">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_send</property>
+                    <property name="tooltip-text" translatable="yes">Send message !</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+              </packing>
+            </child>
+
+            <!-- 4th state: timer while taking photo -->
+            <child>
+              <object class="GtkBox" id="button_box_timer">
+                <style>
+                  <class name="linked"/>
+                </style>
+                <child>
+                  <object class="GtkButton" id="button_timer">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="tooltip-text" translatable="yes">TODO: Timer</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+              </packing>
+            </child>
+
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">True</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+  </template>
+</interface>
