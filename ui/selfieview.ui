@@ -25,7 +25,7 @@
     <property name="visible">True</property>
     <property name="icon_name">edit-undo-symbolic</property>
   </object>
-  <template class="AvatarManipulation" parent="GtkBox">
+  <template class="SelfieView" parent="GtkBox">
     <property name="visible">True</property>
     <property name="halign">center</property>
     <property name="valign">center</property>
