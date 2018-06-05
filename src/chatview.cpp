@@ -38,6 +38,7 @@
 
 // Client
 #include "utils/files.h"
+#include "selfiewidget.h"
 
 struct _ChatView
 {
@@ -69,6 +70,7 @@ struct _ChatViewPrivate
     gulong webkit_ready;
     gulong webkit_send_text;
     gulong webkit_drag_drop;
+    gulong selfiewidget_send_handler;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ChatView, chat_view, GTK_TYPE_BOX);
@@ -191,6 +193,65 @@ file_to_manipulate(GtkWindow* top_window, bool send)
     return filename;
 }
 
+static void
+on_selfie_widget_send_received(ChatView *self, SelfieWidget *widget) {
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    /* XXX We assume that passed self pointer is valid. This is fine as long as
+       the selfie widget stays modal as we can be sure that the chatview won't
+       be modified in between; otherwise self could very well point to freed
+       memory/random stuff. This is most likely not the best way to do it and
+       should absolutely be fixed if the selfie widget is made non modal. */
+
+    gtk_widget_set_visible (GTK_WIDGET(widget), FALSE);
+
+    g_signal_handler_disconnect(widget, priv->selfiewidget_send_handler);
+
+    if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
+        if (auto filename = selfie_widget_get_filename(SELFIE_WIDGET(widget))) {
+            model->sendFile(priv->conversation_->uid, filename, g_path_get_basename(filename));
+        }
+    }
+
+    gtk_widget_destroy(GTK_WIDGET(widget));
+}
+
+static void
+run_take_and_send(ChatView *self)
+{
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    std::string bestName = "";
+    if (priv->conversation_) {
+        auto contactUri = priv->conversation_->participants.front();
+        try {
+            auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
+            bestName = contactInfo.profileInfo.alias;
+            if (bestName.empty())
+                bestName = contactInfo.registeredName;
+            if (bestName.empty())
+                bestName = contactInfo.profileInfo.uri;
+            bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
+        } catch (const std::out_of_range&) {
+            // ContactModel::getContact() exception
+        }
+    }
+
+    GtkWidget *selfie_dialog = selfie_widget_new();
+
+    if (!bestName.empty()) {
+        selfie_widget_set_peer_name(SELFIE_WIDGET(selfie_dialog), bestName);
+    }
+
+    // This function doesn't block or wait until selfiewidget is done, we use a callback
+    priv->selfiewidget_send_handler = g_signal_connect_swapped(selfie_dialog,
+                                                               "response",
+                                                               G_CALLBACK(on_selfie_widget_send_received),
+                                                               self);
+
+    gtk_widget_set_visible (GTK_WIDGET(selfie_dialog), TRUE);
+}
+
 static void update_chatview_frame(ChatView *self);
 
 static void
@@ -213,6 +274,8 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         } catch (std::out_of_range&) {
             g_debug("webkit_chat_container_script_dialog: oor while retrieving invalid contact info. Chatview bug ?");
         }
+    } else if (order == "TAKEANDSEND") {
+        run_take_and_send(self);
     } else if (order.find("PLACE_CALL") == 0) {
         placecall_clicked(self);
     } else if (order.find("PLACE_AUDIO_CALL") == 0) {
