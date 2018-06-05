@@ -45,5 +45,11 @@
     <file alias="account">account.svg</file>
     <file alias="bottom_arrow">bottom_arrow.svg</file>
     <file alias="up_arrow">up_arrow.svg</file>
+    <file alias="cancel-white">cancel-white.svg</file>
+    <file alias="exit-to-app-white">exit_to_app-white.svg</file>
+    <file alias="keyboard-voice-white">keyboard_voice-white.svg</file>
+    <file alias="send-white">send-white.svg</file>
+    <file alias="videocam-white">videocam-white.svg</file>
+    <file alias="photo-camera-white">photo_camera-white.svg</file>
   </gresource>
 </gresources>
