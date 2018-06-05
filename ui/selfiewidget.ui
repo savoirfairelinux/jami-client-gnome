@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.10"/>
+
+  <!-- SELFIE WIDGET -->
+  <template class="SelfieWidget" parent="GtkWindow">
+    <property name="visible">True</property>
+    <child>
+      <object class="SelfieView" id="selfie_view">
+        <property name="visible">True</property>
+      </object>
+    </child>
+  </template>
+</interface>
