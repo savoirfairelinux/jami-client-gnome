@@ -259,6 +259,10 @@ SET( SRC_FILES
    src/incomingcallview.cpp
    src/currentcallview.h
    src/currentcallview.cpp
+   src/selfieview.h
+   src/selfieview.cpp
+   src/selfiewidget.h
+   src/selfiewidget.cpp
    src/models/gtkaccessproxymodel.h
    src/models/gtkaccessproxymodel.cpp
    src/models/gtkqtreemodel.h
