@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.10"/>
+  <object class="GtkImage" id="image_add_symbolic">
+    <property name="visible">True</property>
+    <property name="icon_name">list-add-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_camera_photo">
+    <property name="visible">True</property>
+    <property name="icon_name">camera-photo-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_take_photo">
+    <property name="visible">True</property>
+    <property name="icon_name">object-select-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_select_area">
+    <property name="visible">True</property>
+    <property name="icon_name">object-select-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_return_photo">
+    <property name="visible">True</property>
+    <property name="icon_name">edit-undo-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_return_edit">
+    <property name="visible">True</property>
+    <property name="icon_name">edit-undo-symbolic</property>
+  </object>
+  <template class="AvatarManipulation" parent="GtkBox">
+    <property name="visible">True</property>
+    <property name="halign">center</property>
+    <property name="valign">center</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox" id="box_views_and_controls">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkStack" id="stack_views">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkImage" id="image_avatar">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="name">page_avatar</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFrame" id="frame_video">
+                <property name="visible">True</property>
+                <property name="shadow-type">GTK_SHADOW_NONE</property>
+              </object>
+              <packing>
+                <property name="name">page_photobooth</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box_controls">
+            <property name="visible">True</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+
+            <!-- initial state: take photo or choose image -->
+            <child>
+              <object class="GtkBox" id="button_box_current">
+                <style>
+                  <class name="linked"/>
+                </style>
+                <child>
+                  <object class="GtkButton" id="button_start_camera">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_camera_photo</property>
+                    <property name="tooltip-text" translatable="yes">Take photo</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_choose_picture">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_add_symbolic</property>
+                    <property name="tooltip-text" translatable="yes">Choose image from file</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+              </packing>
+            </child>
+
+            <!-- 2nd state: snap photo or return -->
+            <child>
+              <object class="GtkBox" id="button_box_photo">
+                <style>
+                  <class name="linked"/>
+                </style>
+                <child>
+                  <object class="GtkButton" id="button_take_photo">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_take_photo</property>
+                    <property name="tooltip-text" translatable="yes">Take photo</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_return_photo">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_return_photo</property>
+                    <property name="tooltip-text" translatable="yes">Return</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+              </packing>
+            </child>
+
+            <!-- 3rd state: select photo area or return -->
+            <child>
+              <object class="GtkBox" id="button_box_edit">
+                <style>
+                  <class name="linked"/>
+                </style>
+                <child>
+                  <object class="GtkButton" id="button_set_avatar">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_select_area</property>
+                    <property name="tooltip-text" translatable="yes">Set selection as image</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_return_edit">
+                    <property name="visible">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="image">image_return_edit</property>
+                    <property name="tooltip-text" translatable="yes">Return</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+              </packing>
+            </child>
+
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+  </template>
+</interface>
