@@ -480,7 +480,7 @@ ring_client_startup(GApplication *app)
     RingClient *client = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
-    g_message("Ring GNOME client version: %d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+    g_message("Ring GNOME client version: %d", VERSION);
     g_message("git ref: %s", RING_CLIENT_REVISION);
 
     /* make sure that the system corresponds to the autostart setting */
