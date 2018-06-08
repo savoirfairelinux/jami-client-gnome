@@ -295,6 +295,16 @@ on_new_chat_interactions(CurrentCallView* view)
 }
 
 static void
+set_record_animation(CurrentCallViewPrivate* priv)
+{
+    auto callToRender = priv->cpp->conversation->callId;
+    if (!priv->cpp->conversation->confId.empty())
+        callToRender = priv->cpp->conversation->confId;
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_record),
+                                (*priv->cpp->accountInfo)->callModel->isRecording(callToRender));
+}
+
+static void
 on_togglebutton_chat_toggled(GtkToggleButton* widget, CurrentCallView* view)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
@@ -360,6 +370,8 @@ on_togglebutton_record_clicked(CurrentCallView* view)
     if (!priv->cpp->conversation->confId.empty())
         callToRecord = priv->cpp->conversation->confId;
     (*priv->cpp->accountInfo)->callModel->toggleAudioRecord(callToRecord);
+
+    set_record_animation(priv);
 }
 
 static void
@@ -748,6 +760,8 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
         gtk_widget_show_all(widgets->list_conversations);
         gtk_widget_show(widgets->togglebutton_transfer);
     }
+
+    set_record_animation(widgets);
 }
 
 void
