@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-28 03:09-0400\n"
-"PO-Revision-Date: 2018-05-14 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-06-11 03:09-0400\n"
+"PO-Revision-Date: 2018-06-11 07:09+0000\n"
+"Last-Translator: Goran Kavrecic <goran.kavrecic@indea.si>\n"
 "Language-Team: Slovenian (http://www.transifex.com/savoirfairelinux/ring/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,114 +54,70 @@ msgstr "Migracija ni uspela, je mogoče geslo napačno ?"
 msgid "End this call"
 msgstr "Zaključi ta klic"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:457
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:483
 msgid "End call"
 msgstr "Zaključi klic"
 
 #: ui/currentcallview.ui:275
+msgid "Toggle transfer"
+msgstr ""
+
+#: ui/currentcallview.ui:294
 msgid "Toggle hold"
 msgstr "Preklopi čakanje"
 
-#: ui/currentcallview.ui:279 ui/currentcallview.ui:304
-#: ui/currentcallview.ui:448
+#: ui/currentcallview.ui:298 ui/currentcallview.ui:323
+#: ui/currentcallview.ui:465
 msgid "Hold"
 msgstr "Čakanje"
 
-#: ui/currentcallview.ui:300
+#: ui/currentcallview.ui:319
 msgid "Toggle mute audio"
 msgstr ""
 
-#: ui/currentcallview.ui:325
+#: ui/currentcallview.ui:344
 msgid "Toggle mute video"
 msgstr ""
 
-#: ui/currentcallview.ui:329 ui/currentcallview.ui:439
+#: ui/currentcallview.ui:348 ui/currentcallview.ui:456
 msgid "Mute video"
 msgstr "Utišaj video"
 
-#: ui/currentcallview.ui:352
-msgid "Toggle record audio"
+#: ui/currentcallview.ui:369
+msgid "Toggle recording"
 msgstr ""
 
-#: ui/currentcallview.ui:355
-msgid "Record audio"
-msgstr "Snemaj avdio"
-
-#: ui/currentcallview.ui:376
-msgid "Adjust outgoing video quality"
-msgstr ""
-
-#: ui/currentcallview.ui:381 ui/currentcallview.ui:466
-msgid "Video quality"
-msgstr "Video kvaliteta"
-
-#: ui/currentcallview.ui:400
-msgid "Toggle show chat"
-msgstr ""
-
-#: ui/currentcallview.ui:404 ui/currentcallview.ui:421
-msgid "Chat"
-msgstr "Pogovor"
-
-#: ui/currentcallview.ui:430
-msgid "Mute audio"
-msgstr "Ugasni avdio"
-
-#: ui/currentcallview.ui:475
+#: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 msgid "Record"
 msgstr "Snemaj"
 
-#: ui/accountdevicestab.ui:21
-msgid "My Device ID:"
-msgstr "ID moje naprave:"
+#: ui/currentcallview.ui:393
+msgid "Adjust outgoing video quality"
+msgstr ""
 
-#: ui/accountdevicestab.ui:40
-msgid "Devices"
-msgstr "Naprave"
+#: ui/currentcallview.ui:398 ui/currentcallview.ui:492
+msgid "Video quality"
+msgstr "Video kvaliteta"
 
-#: ui/accountdevicestab.ui:66
-msgid "Add device"
-msgstr "Dodaj napravo"
+#: ui/currentcallview.ui:417
+msgid "Toggle show chat"
+msgstr ""
 
-#: ui/accountdevicestab.ui:83
-msgid "Add New Device"
-msgstr "Dodaj novo napravo"
+#: ui/currentcallview.ui:421 ui/currentcallview.ui:438
+msgid "Chat"
+msgstr "Pogovor"
 
-#: ui/accountdevicestab.ui:98
-msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
-"within 5 minutes of its generation."
-msgstr "Za dodati novo napravo v tvoj Ring račun, moraš izvoziti tvoj račun na Ring. To bo ustvarilo PIN, ki ga moraš vnesti na novi napravi v roku 5 minut."
+#: ui/currentcallview.ui:447
+msgid "Mute audio"
+msgstr "Ugasni avdio"
 
-#: ui/accountdevicestab.ui:107
-msgid "Password (required):"
-msgstr "Geslo (zahtevano)"
+#: ui/currentcallview.ui:474
+msgid "Transfer"
+msgstr "Prevezava"
 
-#: ui/accountdevicestab.ui:118
-msgid "Enter archive password"
-msgstr "Vnesi arhivsko geslo"
-
-#: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
-msgid "Cancel"
-msgstr "Prekliči"
-
-#: ui/accountdevicestab.ui:141
-msgid "Export on the Ring"
-msgstr "Izvozi v Ring"
-
-#: ui/accountdevicestab.ui:162
-msgid "Exporting account on the Ring..."
-msgstr "Izvažam račun Ring..."
-
-#: ui/accountdevicestab.ui:186
-msgid "Your generated pin:"
-msgstr "Tvoj ustvarjen PIN:"
-
-#: ui/accountdevicestab.ui:217 ui/accountdevicestab.ui:239
-#: ui/accountcreationwizard.ui:551
-msgid "OK"
-msgstr "OK"
+#: ui/currentcallview.ui:524
+msgid "Transfer to"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
@@ -182,6 +138,10 @@ msgstr "Poveži to napravo k računu"
 #: ui/accountcreationwizard.ui:77
 msgid "Link this devices to a Ring account created on another device"
 msgstr "Poveži to napravo k Ring računu ustvarjenem na drugi napravi"
+
+#: ui/accountcreationwizard.ui:84 ui/accountgeneraltab.ui:507
+msgid "Cancel"
+msgstr "Prekliči"
 
 #: ui/accountcreationwizard.ui:105
 msgid "Link this device to an existing account"
@@ -270,6 +230,11 @@ msgstr "Prevzemam tvoj Ring račun..."
 #: ui/accountcreationwizard.ui:546
 msgid "Error creating/loading account."
 msgstr "Napaka pri ustvarjanju/branju računa"
+
+#: ui/accountcreationwizard.ui:551 ui/accountgeneraltab.ui:589
+#: ui/accountgeneraltab.ui:611
+msgid "OK"
+msgstr "OK"
 
 #: ui/generalsettingsview.ui:44
 msgid "Profile Settings"
@@ -422,42 +387,6 @@ msgstr "Dodaj nov račun"
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
 msgstr "Izberi tip računa"
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr "Izberi imenik"
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr "Imenik"
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "Ime"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr "Ime stika"
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr ""
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr "Kategorija številke"
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr ""
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr "Številka ali RingID"
-
-#: ui/editcontactview.ui:83
-msgid "Save"
-msgstr "Shrani"
 
 #: ui/accountvideotab.ui:50
 msgid "Enable Video"
@@ -630,42 +559,85 @@ msgstr ""
 msgid "Send Invitation"
 msgstr "Pošlji vabilo"
 
-#: ui/accountgeneraltab.ui:75
+#: ui/accountgeneraltab.ui:16
+msgid "Add device"
+msgstr "Dodaj napravo"
+
+#: ui/accountgeneraltab.ui:88
 msgid "Account"
 msgstr "Račun"
 
-#: ui/accountgeneraltab.ui:135
+#: ui/accountgeneraltab.ui:148
 msgid "Parameters"
 msgstr "Parametri"
 
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:173 src/accountgeneraltab.cpp:239
+#: ui/accountgeneraltab.ui:185
+msgid "Known devices linked to this Ring account"
+msgstr "Poznane naprave povezane s tem Ring računom"
+
+#: ui/accountgeneraltab.ui:226
+msgid "Link another device to this account"
+msgstr "Poveži drugo napravo s tem računom"
+
+#: ui/accountgeneraltab.ui:257 ui/accountgeneraltab.ui:343
+#: src/accountgeneraltab.cpp:326 src/accountgeneraltab.cpp:529
 msgid "Change password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:175
+#: ui/accountgeneraltab.ui:273
 msgid "Note: this will change the password only on this device."
 msgstr ""
 
-#: ui/accountgeneraltab.ui:194
+#: ui/accountgeneraltab.ui:292
 msgid "Current password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:214
+#: ui/accountgeneraltab.ui:312
 msgid "New password"
 msgstr "Novo geslo"
 
-#: ui/accountgeneraltab.ui:234
+#: ui/accountgeneraltab.ui:332
 msgid "Confirm password"
 msgstr "Potrdi geslo"
 
-#: ui/accountgeneraltab.ui:291
+#: ui/accountgeneraltab.ui:389
 msgid "Export account"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:304
+#: ui/accountgeneraltab.ui:402
 msgid "Choose destination..."
 msgstr ""
+
+#: ui/accountgeneraltab.ui:455
+msgid "Add New Device"
+msgstr "Dodaj novo napravo"
+
+#: ui/accountgeneraltab.ui:470
+msgid ""
+"To add a new device to your Ring account, you export your account on the "
+"Ring. This will generate a pin that must be entered on your new device "
+"within 5 minutes of its generation."
+msgstr "Za dodati novo napravo v tvoj Ring račun, moraš izvoziti tvoj račun na Ring. To bo ustvarilo PIN, ki ga moraš vnesti na novi napravi v roku 5 minut."
+
+#: ui/accountgeneraltab.ui:479
+msgid "Password (required):"
+msgstr "Geslo (zahtevano)"
+
+#: ui/accountgeneraltab.ui:490
+msgid "Enter archive password"
+msgstr "Vnesi arhivsko geslo"
+
+#: ui/accountgeneraltab.ui:513
+msgid "Export on the Ring"
+msgstr "Izvozi v Ring"
+
+#: ui/accountgeneraltab.ui:534
+msgid "Exporting account on the Ring..."
+msgstr "Izvažam račun Ring..."
+
+#: ui/accountgeneraltab.ui:558
+msgid "Your generated pin:"
+msgstr "Tvoj ustvarjen PIN:"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming..."
@@ -852,7 +824,7 @@ msgstr ""
 msgid "Invalid username"
 msgstr "Neveljavno uporabniško ime"
 
-#: src/usernameregistrationbox.cpp:417 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:417 src/accountgeneraltab.cpp:240
 msgid "Bad password"
 msgstr "Neveljavno geslo"
 
@@ -874,13 +846,13 @@ msgstr ""
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
+#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:343
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:172
 msgid "_Cancel"
 msgstr "_Prekliči"
 
-#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
-#: src/chatview.cpp:179
+#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:345
+#: src/chatview.cpp:174
 msgid "_Save"
 msgstr ""
 
@@ -909,61 +881,99 @@ msgstr "Samodejno odgovori klice"
 msgid "UPnP enabled"
 msgstr "UPnP omogočen"
 
-#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:331
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:686
 msgid "Hostname"
 msgstr "Strežnik"
 
-#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:246
+msgid "Network error, try again"
+msgstr "Napaka mreže. Prosim poskusi ponovno."
+
+#: src/accountgeneraltab.cpp:258
+msgid "Could not initiate export to the Ring, try again"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:169
 msgid "Save File"
 msgstr "Shrani datoteko"
 
-#: src/accountgeneraltab.cpp:213
+#: src/accountgeneraltab.cpp:365
 msgid "File exported to destination: "
 msgstr ""
 
-#: src/accountgeneraltab.cpp:227
+#: src/accountgeneraltab.cpp:478
+msgid ""
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
+msgstr ""
+
+#: src/accountgeneraltab.cpp:479
+msgid "Enter password to revoke device"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:517
 msgid "New password and its confirmation are different"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:237
+#: src/accountgeneraltab.cpp:527
 msgid "Password changed!"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:240
+#: src/accountgeneraltab.cpp:530
 msgid "Incorrect password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:265
+#: src/accountgeneraltab.cpp:561
+msgid "Save name"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:561
+msgid "Revoke device"
+msgstr "Odpokliči napravo"
+
+#: src/accountgeneraltab.cpp:582
+msgid "Error when revoking device"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:620
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountgeneraltab.cpp:276
+#: src/accountgeneraltab.cpp:631
 msgid "Type"
 msgstr "Tip"
 
-#: src/accountgeneraltab.cpp:302
+#: src/accountgeneraltab.cpp:657
 msgid "auto-generating..."
 msgstr "samodejno ustvarjam..."
 
-#: src/accountgeneraltab.cpp:315 src/accountgeneraltab.cpp:341
+#: src/accountgeneraltab.cpp:670 src/accountgeneraltab.cpp:696
 msgid "Username"
 msgstr "Uporabnik"
 
-#: src/accountgeneraltab.cpp:351
+#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "Geslo"
 
-#: src/accountgeneraltab.cpp:364
+#: src/accountgeneraltab.cpp:719
 msgid "Show password"
 msgstr "Prikaži geslo"
 
-#: src/accountgeneraltab.cpp:370
+#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/accountgeneraltab.cpp:380
+#: src/accountgeneraltab.cpp:735
 msgid "Voicemail number"
 msgstr "Številka glasovnega predala"
+
+#: src/accountgeneraltab.cpp:799
+msgid "Error: wrong password!"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:802
+msgid "Error: unknown device!"
+msgstr ""
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
@@ -985,7 +995,7 @@ msgstr "Prikaži napredne informacije"
 msgid "Open Avatar Image"
 msgstr "Odpri avatar sliko"
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:174
 msgid "_Open"
 msgstr "_Odpri"
 
@@ -1007,24 +1017,6 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "GNOME klient za Ring.\nRing je zastonj programska oprema za univerzalno komunikacijo, ki spoštuje svoboščine in zasebnost uporabnikov."
 
-#: src/accountdevicestab.cpp:201
-msgid "Network error, try again"
-msgstr "Napaka mreže. Prosim poskusi ponovno."
-
-#: src/accountdevicestab.cpp:213
-msgid "Could not initiate export to the Ring, try again"
-msgstr ""
-
-#: src/accountdevicestab.cpp:246
-msgctxt "Device Name Column"
-msgid "Name"
-msgstr "Ime"
-
-#: src/accountdevicestab.cpp:251
-msgctxt "Device ID Column"
-msgid "ID"
-msgstr "ID"
-
 #: src/ringmainwindow.cpp:503
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
@@ -1041,11 +1033,6 @@ msgctxt ""
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Poišči stik ali vnesi številko"
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
-msgstr "domov"
 
 #: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
 msgid "Enabled"
@@ -1177,72 +1164,55 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring ID QR koda"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:169
 msgid "Send File"
 msgstr ""
 
-#: src/chatview.cpp:410
-msgid "Can't place call with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:412
-msgid "Can't start conversation with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:414
-msgid "Can't place audio call with banned contact"
-msgstr ""
-
-#: src/currentcallview.cpp:781
+#: src/currentcallview.cpp:956
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Samodejno"
 
-#: src/accountview.cpp:188
+#: src/accountview.cpp:187
 msgctxt "Account settings"
 msgid "General"
 msgstr "Splošno"
 
-#: src/accountview.cpp:196
-msgctxt "Account settings"
-msgid "Devices"
-msgstr "Naprave"
-
-#: src/accountview.cpp:202
+#: src/accountview.cpp:193
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Varnost"
 
-#: src/accountview.cpp:207
+#: src/accountview.cpp:198
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Napredno"
 
-#: src/accountview.cpp:214
+#: src/accountview.cpp:205
 msgctxt "List of banned peers"
 msgid "Bans"
 msgstr "Zavrnitve"
 
-#: src/accountview.cpp:269
+#: src/accountview.cpp:260
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "Ali resnično želiš pobrisati račun \"%s\"?"
 
-#: src/accountview.cpp:403
+#: src/accountview.cpp:394
 msgid "New Account"
 msgstr "Nov račun"
 
-#: src/accountview.cpp:490
+#: src/accountview.cpp:481
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Omogočeno"
 
-#: src/accountview.cpp:496
+#: src/accountview.cpp:487
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountview.cpp:504
+#: src/accountview.cpp:495
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Stanje"

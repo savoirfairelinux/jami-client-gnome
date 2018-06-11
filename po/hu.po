@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-28 03:09-0400\n"
-"PO-Revision-Date: 2018-05-14 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-06-11 03:09-0400\n"
+"PO-Revision-Date: 2018-06-11 07:09+0000\n"
+"Last-Translator: Zsolt <maxigaz@protonmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,114 +56,70 @@ msgstr "A migráció meghiúsult, hibás jelszó?"
 msgid "End this call"
 msgstr "A jelenlegi hívás befejezése"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:457
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:483
 msgid "End call"
 msgstr "Hívás befejezése"
 
 #: ui/currentcallview.ui:275
+msgid "Toggle transfer"
+msgstr ""
+
+#: ui/currentcallview.ui:294
 msgid "Toggle hold"
 msgstr "Tartás be-/kikapcsolása"
 
-#: ui/currentcallview.ui:279 ui/currentcallview.ui:304
-#: ui/currentcallview.ui:448
+#: ui/currentcallview.ui:298 ui/currentcallview.ui:323
+#: ui/currentcallview.ui:465
 msgid "Hold"
 msgstr "Tartás"
 
-#: ui/currentcallview.ui:300
+#: ui/currentcallview.ui:319
 msgid "Toggle mute audio"
 msgstr "Hangnémítás be-/kikapcsolása"
 
-#: ui/currentcallview.ui:325
+#: ui/currentcallview.ui:344
 msgid "Toggle mute video"
 msgstr "Videónémítás be-/kikapcsolása"
 
-#: ui/currentcallview.ui:329 ui/currentcallview.ui:439
+#: ui/currentcallview.ui:348 ui/currentcallview.ui:456
 msgid "Mute video"
 msgstr "Videó némítása"
 
-#: ui/currentcallview.ui:352
-msgid "Toggle record audio"
-msgstr "Hangfelvétel be-/kikapcsolása"
+#: ui/currentcallview.ui:369
+msgid "Toggle recording"
+msgstr ""
 
-#: ui/currentcallview.ui:355
-msgid "Record audio"
-msgstr "Hang rögzítése"
-
-#: ui/currentcallview.ui:376
-msgid "Adjust outgoing video quality"
-msgstr "Kimenő videó minőségének állítása"
-
-#: ui/currentcallview.ui:381 ui/currentcallview.ui:466
-msgid "Video quality"
-msgstr "Videó minőség"
-
-#: ui/currentcallview.ui:400
-msgid "Toggle show chat"
-msgstr "Csevegés mutatása/elrejtése"
-
-#: ui/currentcallview.ui:404 ui/currentcallview.ui:421
-msgid "Chat"
-msgstr "Csevegés"
-
-#: ui/currentcallview.ui:430
-msgid "Mute audio"
-msgstr "Hang némítása"
-
-#: ui/currentcallview.ui:475
+#: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 msgid "Record"
 msgstr "Felvétel"
 
-#: ui/accountdevicestab.ui:21
-msgid "My Device ID:"
-msgstr "Eszközazonosító:"
+#: ui/currentcallview.ui:393
+msgid "Adjust outgoing video quality"
+msgstr "Kimenő videó minőségének állítása"
 
-#: ui/accountdevicestab.ui:40
-msgid "Devices"
-msgstr "Eszközök"
+#: ui/currentcallview.ui:398 ui/currentcallview.ui:492
+msgid "Video quality"
+msgstr "Videó minőség"
 
-#: ui/accountdevicestab.ui:66
-msgid "Add device"
-msgstr "Eszköz hozzáadása"
+#: ui/currentcallview.ui:417
+msgid "Toggle show chat"
+msgstr "Csevegés mutatása/elrejtése"
 
-#: ui/accountdevicestab.ui:83
-msgid "Add New Device"
-msgstr "Új eszköz hozzáadása"
+#: ui/currentcallview.ui:421 ui/currentcallview.ui:438
+msgid "Chat"
+msgstr "Csevegés"
 
-#: ui/accountdevicestab.ui:98
-msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
-"within 5 minutes of its generation."
-msgstr "Ahhoz hogy új eszközt adjon a Ring fiókjához, exportálnia kell a fiókját a Ringen. Ez előállít egy PIN-t, amit meg kell adnia az új eszközén, az előállítástól számított 5 percen belül."
+#: ui/currentcallview.ui:447
+msgid "Mute audio"
+msgstr "Hang némítása"
 
-#: ui/accountdevicestab.ui:107
-msgid "Password (required):"
-msgstr "Jelszó (kötelező):"
+#: ui/currentcallview.ui:474
+msgid "Transfer"
+msgstr "Átvitel"
 
-#: ui/accountdevicestab.ui:118
-msgid "Enter archive password"
-msgstr "Adja meg az archívum jelszavát"
-
-#: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
-msgid "Cancel"
-msgstr "Mégse"
-
-#: ui/accountdevicestab.ui:141
-msgid "Export on the Ring"
-msgstr "Exportálás a Ringen"
-
-#: ui/accountdevicestab.ui:162
-msgid "Exporting account on the Ring..."
-msgstr "Fiók exportálása a Ringen…"
-
-#: ui/accountdevicestab.ui:186
-msgid "Your generated pin:"
-msgstr "Az előállított PIN:"
-
-#: ui/accountdevicestab.ui:217 ui/accountdevicestab.ui:239
-#: ui/accountcreationwizard.ui:551
-msgid "OK"
-msgstr "OK"
+#: ui/currentcallview.ui:524
+msgid "Transfer to"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
@@ -184,6 +140,10 @@ msgstr "Ezen eszköz fiókhoz kapcsolása"
 #: ui/accountcreationwizard.ui:77
 msgid "Link this devices to a Ring account created on another device"
 msgstr "Ezen eszköz, egy másik eszközön létrehozott Ring fiókhoz kapcsolása"
+
+#: ui/accountcreationwizard.ui:84 ui/accountgeneraltab.ui:507
+msgid "Cancel"
+msgstr "Mégse"
 
 #: ui/accountcreationwizard.ui:105
 msgid "Link this device to an existing account"
@@ -272,6 +232,11 @@ msgstr "A Ring fiókja lekérése…"
 #: ui/accountcreationwizard.ui:546
 msgid "Error creating/loading account."
 msgstr "Hiba a fiók létrehozása/betöltése során."
+
+#: ui/accountcreationwizard.ui:551 ui/accountgeneraltab.ui:589
+#: ui/accountgeneraltab.ui:611
+msgid "OK"
+msgstr "OK"
 
 #: ui/generalsettingsview.ui:44
 msgid "Profile Settings"
@@ -424,42 +389,6 @@ msgstr "Új fiók hozzáadása"
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
 msgstr "Válasszon fióktípust"
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr "Névjegyzék kiválasztása"
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr "Névjegyzék"
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "Név"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr "Névjegy név"
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr "Válassza ki, hogyan legyen besorolva ez a szám"
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr "Számbesorolás"
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr "Hozzáadandó szám vagy Ring azonosító"
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr "Szám vagy Ring azonosító"
-
-#: ui/editcontactview.ui:83
-msgid "Save"
-msgstr "Mentés"
 
 #: ui/accountvideotab.ui:50
 msgid "Enable Video"
@@ -632,42 +561,85 @@ msgstr ""
 msgid "Send Invitation"
 msgstr "Meghívás küldése"
 
-#: ui/accountgeneraltab.ui:75
+#: ui/accountgeneraltab.ui:16
+msgid "Add device"
+msgstr "Eszköz hozzáadása"
+
+#: ui/accountgeneraltab.ui:88
 msgid "Account"
 msgstr "Fiók"
 
-#: ui/accountgeneraltab.ui:135
+#: ui/accountgeneraltab.ui:148
 msgid "Parameters"
 msgstr "Paraméterek"
 
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:173 src/accountgeneraltab.cpp:239
+#: ui/accountgeneraltab.ui:185
+msgid "Known devices linked to this Ring account"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:226
+msgid "Link another device to this account"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:257 ui/accountgeneraltab.ui:343
+#: src/accountgeneraltab.cpp:326 src/accountgeneraltab.cpp:529
 msgid "Change password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:175
+#: ui/accountgeneraltab.ui:273
 msgid "Note: this will change the password only on this device."
 msgstr ""
 
-#: ui/accountgeneraltab.ui:194
+#: ui/accountgeneraltab.ui:292
 msgid "Current password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:214
+#: ui/accountgeneraltab.ui:312
 msgid "New password"
 msgstr "Új jelszó"
 
-#: ui/accountgeneraltab.ui:234
+#: ui/accountgeneraltab.ui:332
 msgid "Confirm password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:291
+#: ui/accountgeneraltab.ui:389
 msgid "Export account"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:304
+#: ui/accountgeneraltab.ui:402
 msgid "Choose destination..."
 msgstr ""
+
+#: ui/accountgeneraltab.ui:455
+msgid "Add New Device"
+msgstr "Új eszköz hozzáadása"
+
+#: ui/accountgeneraltab.ui:470
+msgid ""
+"To add a new device to your Ring account, you export your account on the "
+"Ring. This will generate a pin that must be entered on your new device "
+"within 5 minutes of its generation."
+msgstr "Ahhoz hogy új eszközt adjon a Ring fiókjához, exportálnia kell a fiókját a Ringen. Ez előállít egy PIN-t, amit meg kell adnia az új eszközén, az előállítástól számított 5 percen belül."
+
+#: ui/accountgeneraltab.ui:479
+msgid "Password (required):"
+msgstr "Jelszó (kötelező):"
+
+#: ui/accountgeneraltab.ui:490
+msgid "Enter archive password"
+msgstr "Adja meg az archívum jelszavát"
+
+#: ui/accountgeneraltab.ui:513
+msgid "Export on the Ring"
+msgstr "Exportálás a Ringen"
+
+#: ui/accountgeneraltab.ui:534
+msgid "Exporting account on the Ring..."
+msgstr "Fiók exportálása a Ringen…"
+
+#: ui/accountgeneraltab.ui:558
+msgid "Your generated pin:"
+msgstr "Az előállított PIN:"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming..."
@@ -854,7 +826,7 @@ msgstr "A felhasználónév regisztrálása a blokkláncon"
 msgid "Invalid username"
 msgstr "Érvénytelen felhasználónév"
 
-#: src/usernameregistrationbox.cpp:417 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:417 src/accountgeneraltab.cpp:240
 msgid "Bad password"
 msgstr "Hibás jelszó"
 
@@ -876,13 +848,13 @@ msgstr "Ez egy destruktív művelet. Biztosan törli az összes csevegést és h
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
+#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:343
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:172
 msgid "_Cancel"
 msgstr "Mé_gse"
 
-#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
-#: src/chatview.cpp:179
+#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:345
+#: src/chatview.cpp:174
 msgid "_Save"
 msgstr ""
 
@@ -911,61 +883,99 @@ msgstr "Hívások automatikus fogadása"
 msgid "UPnP enabled"
 msgstr "UPnP engedélyezve"
 
-#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:331
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:686
 msgid "Hostname"
 msgstr "Kiszolgálónév"
 
-#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:246
+msgid "Network error, try again"
+msgstr "Hálózati hiba, próbálja újra"
+
+#: src/accountgeneraltab.cpp:258
+msgid "Could not initiate export to the Ring, try again"
+msgstr "A Ring export elindítása nem sikerült, próbálja újra"
+
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:169
 msgid "Save File"
 msgstr "Fájl mentése"
 
-#: src/accountgeneraltab.cpp:213
+#: src/accountgeneraltab.cpp:365
 msgid "File exported to destination: "
 msgstr ""
 
-#: src/accountgeneraltab.cpp:227
+#: src/accountgeneraltab.cpp:478
+msgid ""
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
+msgstr ""
+
+#: src/accountgeneraltab.cpp:479
+msgid "Enter password to revoke device"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:517
 msgid "New password and its confirmation are different"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:237
+#: src/accountgeneraltab.cpp:527
 msgid "Password changed!"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:240
+#: src/accountgeneraltab.cpp:530
 msgid "Incorrect password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:265
+#: src/accountgeneraltab.cpp:561
+msgid "Save name"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:561
+msgid "Revoke device"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:582
+msgid "Error when revoking device"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:620
 msgid "Alias"
 msgstr "Álnév"
 
-#: src/accountgeneraltab.cpp:276
+#: src/accountgeneraltab.cpp:631
 msgid "Type"
 msgstr "Típus"
 
-#: src/accountgeneraltab.cpp:302
+#: src/accountgeneraltab.cpp:657
 msgid "auto-generating..."
 msgstr "Automatikus generálás…"
 
-#: src/accountgeneraltab.cpp:315 src/accountgeneraltab.cpp:341
+#: src/accountgeneraltab.cpp:670 src/accountgeneraltab.cpp:696
 msgid "Username"
 msgstr "Felhasználónév"
 
-#: src/accountgeneraltab.cpp:351
+#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "Jelszó"
 
-#: src/accountgeneraltab.cpp:364
+#: src/accountgeneraltab.cpp:719
 msgid "Show password"
 msgstr "Jelszó megjelenítése"
 
-#: src/accountgeneraltab.cpp:370
+#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/accountgeneraltab.cpp:380
+#: src/accountgeneraltab.cpp:735
 msgid "Voicemail number"
 msgstr "Hangpostaszám"
+
+#: src/accountgeneraltab.cpp:799
+msgid "Error: wrong password!"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:802
+msgid "Error: unknown device!"
+msgstr ""
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
@@ -987,7 +997,7 @@ msgstr "Speciális információk megjelenítése"
 msgid "Open Avatar Image"
 msgstr "Avatar megnyitása"
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:174
 msgid "_Open"
 msgstr "_Megnyitás"
 
@@ -1009,24 +1019,6 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "A GNOME kliens a Ringhez.\nA Ring egy szabad szoftver az univerzális kommunikációhoz, amely tiszteletben tartja a felhasználók szabadságát és magánszféráját."
 
-#: src/accountdevicestab.cpp:201
-msgid "Network error, try again"
-msgstr "Hálózati hiba, próbálja újra"
-
-#: src/accountdevicestab.cpp:213
-msgid "Could not initiate export to the Ring, try again"
-msgstr "A Ring export elindítása nem sikerült, próbálja újra"
-
-#: src/accountdevicestab.cpp:246
-msgctxt "Device Name Column"
-msgid "Name"
-msgstr "Név"
-
-#: src/accountdevicestab.cpp:251
-msgctxt "Device ID Column"
-msgid "ID"
-msgstr "Azonosító"
-
 #: src/ringmainwindow.cpp:503
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
@@ -1043,11 +1035,6 @@ msgctxt ""
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Partnerek keresése vagy szám beírása"
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
-msgstr "Főoldal"
 
 #: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
 msgid "Enabled"
@@ -1179,72 +1166,55 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring azonosító QR-kód"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:169
 msgid "Send File"
 msgstr ""
 
-#: src/chatview.cpp:410
-msgid "Can't place call with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:412
-msgid "Can't start conversation with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:414
-msgid "Can't place audio call with banned contact"
-msgstr ""
-
-#: src/currentcallview.cpp:781
+#: src/currentcallview.cpp:956
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr ""
 
-#: src/accountview.cpp:188
+#: src/accountview.cpp:187
 msgctxt "Account settings"
 msgid "General"
 msgstr "Általános"
 
-#: src/accountview.cpp:196
-msgctxt "Account settings"
-msgid "Devices"
-msgstr "Eszközök"
-
-#: src/accountview.cpp:202
+#: src/accountview.cpp:193
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Biztonság"
 
-#: src/accountview.cpp:207
+#: src/accountview.cpp:198
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Speciális"
 
-#: src/accountview.cpp:214
+#: src/accountview.cpp:205
 msgctxt "List of banned peers"
 msgid "Bans"
 msgstr "Tiltások"
 
-#: src/accountview.cpp:269
+#: src/accountview.cpp:260
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "Biztos, hogy törölni szeretné a következő fiókot: „%s”?"
 
-#: src/accountview.cpp:403
+#: src/accountview.cpp:394
 msgid "New Account"
 msgstr "Új fiók"
 
-#: src/accountview.cpp:490
+#: src/accountview.cpp:481
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Engedélyezve"
 
-#: src/accountview.cpp:496
+#: src/accountview.cpp:487
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Álnév"
 
-#: src/accountview.cpp:504
+#: src/accountview.cpp:495
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Állapot"

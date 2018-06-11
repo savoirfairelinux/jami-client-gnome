@@ -32,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-28 03:09-0400\n"
-"PO-Revision-Date: 2018-05-14 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-06-11 03:09-0400\n"
+"PO-Revision-Date: 2018-06-11 07:09+0000\n"
+"Last-Translator: Brian Peraza-Orozco <brian.peraza@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,114 +78,70 @@ msgstr "Migración incorrecta, ¿contraseña incorrecta?"
 msgid "End this call"
 msgstr "Finalizar esta llamada"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:457
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:483
 msgid "End call"
 msgstr "Finalizar llamada"
 
 #: ui/currentcallview.ui:275
+msgid "Toggle transfer"
+msgstr ""
+
+#: ui/currentcallview.ui:294
 msgid "Toggle hold"
 msgstr "Conmutar llamada en espera"
 
-#: ui/currentcallview.ui:279 ui/currentcallview.ui:304
-#: ui/currentcallview.ui:448
+#: ui/currentcallview.ui:298 ui/currentcallview.ui:323
+#: ui/currentcallview.ui:465
 msgid "Hold"
 msgstr "Espera"
 
-#: ui/currentcallview.ui:300
+#: ui/currentcallview.ui:319
 msgid "Toggle mute audio"
 msgstr "Conmutar volumen del audio"
 
-#: ui/currentcallview.ui:325
+#: ui/currentcallview.ui:344
 msgid "Toggle mute video"
 msgstr "Conmutar audio del vídeo"
 
-#: ui/currentcallview.ui:329 ui/currentcallview.ui:439
+#: ui/currentcallview.ui:348 ui/currentcallview.ui:456
 msgid "Mute video"
 msgstr "Silenciar vídeo"
 
-#: ui/currentcallview.ui:352
-msgid "Toggle record audio"
-msgstr "Conmutar grabación de audio"
+#: ui/currentcallview.ui:369
+msgid "Toggle recording"
+msgstr ""
 
-#: ui/currentcallview.ui:355
-msgid "Record audio"
-msgstr "Grabar audio"
-
-#: ui/currentcallview.ui:376
-msgid "Adjust outgoing video quality"
-msgstr "Ajustar la calidad del vídeo de salida"
-
-#: ui/currentcallview.ui:381 ui/currentcallview.ui:466
-msgid "Video quality"
-msgstr "Calidad de vídeo"
-
-#: ui/currentcallview.ui:400
-msgid "Toggle show chat"
-msgstr "Mostrar/Ocultar chat"
-
-#: ui/currentcallview.ui:404 ui/currentcallview.ui:421
-msgid "Chat"
-msgstr "Chat"
-
-#: ui/currentcallview.ui:430
-msgid "Mute audio"
-msgstr "Silenciar el audio"
-
-#: ui/currentcallview.ui:475
+#: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 msgid "Record"
 msgstr "Grabar"
 
-#: ui/accountdevicestab.ui:21
-msgid "My Device ID:"
-msgstr "Mi ID del dispositivo:"
+#: ui/currentcallview.ui:393
+msgid "Adjust outgoing video quality"
+msgstr "Ajustar la calidad del vídeo de salida"
 
-#: ui/accountdevicestab.ui:40
-msgid "Devices"
-msgstr "Dispositivos"
+#: ui/currentcallview.ui:398 ui/currentcallview.ui:492
+msgid "Video quality"
+msgstr "Calidad de vídeo"
 
-#: ui/accountdevicestab.ui:66
-msgid "Add device"
-msgstr "Agregar dispositivo"
+#: ui/currentcallview.ui:417
+msgid "Toggle show chat"
+msgstr "Mostrar/Ocultar chat"
 
-#: ui/accountdevicestab.ui:83
-msgid "Add New Device"
-msgstr "Agregar nuevo dispositivo"
+#: ui/currentcallview.ui:421 ui/currentcallview.ui:438
+msgid "Chat"
+msgstr "Chat"
 
-#: ui/accountdevicestab.ui:98
-msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
-"within 5 minutes of its generation."
-msgstr "Para agregar un dispositivo a tu cuenta se exportará la misma en Ring. Esto producirá un PIN que debes escribir en el nuevo dispositivo antes de que pasen 5 minutos."
+#: ui/currentcallview.ui:447
+msgid "Mute audio"
+msgstr "Silenciar el audio"
 
-#: ui/accountdevicestab.ui:107
-msgid "Password (required):"
-msgstr "Contraseña (necesario)"
+#: ui/currentcallview.ui:474
+msgid "Transfer"
+msgstr "Transferir"
 
-#: ui/accountdevicestab.ui:118
-msgid "Enter archive password"
-msgstr "Introducir la contraseña del archivo"
-
-#: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: ui/accountdevicestab.ui:141
-msgid "Export on the Ring"
-msgstr "Exportar en Ring"
-
-#: ui/accountdevicestab.ui:162
-msgid "Exporting account on the Ring..."
-msgstr "Exportando cuenta en Ring..."
-
-#: ui/accountdevicestab.ui:186
-msgid "Your generated pin:"
-msgstr "PIN generado:"
-
-#: ui/accountdevicestab.ui:217 ui/accountdevicestab.ui:239
-#: ui/accountcreationwizard.ui:551
-msgid "OK"
-msgstr "OK"
+#: ui/currentcallview.ui:524
+msgid "Transfer to"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
@@ -206,6 +162,10 @@ msgstr "Conectar este dispositivo a una cuenta"
 #: ui/accountcreationwizard.ui:77
 msgid "Link this devices to a Ring account created on another device"
 msgstr "Vincular este dispositivo con una cuenta Ring creada en otro"
+
+#: ui/accountcreationwizard.ui:84 ui/accountgeneraltab.ui:507
+msgid "Cancel"
+msgstr "Cancelar"
 
 #: ui/accountcreationwizard.ui:105
 msgid "Link this device to an existing account"
@@ -294,6 +254,11 @@ msgstr "Recuperando tu cuenta de Ring..."
 #: ui/accountcreationwizard.ui:546
 msgid "Error creating/loading account."
 msgstr "Error creando o cargando la cuenta."
+
+#: ui/accountcreationwizard.ui:551 ui/accountgeneraltab.ui:589
+#: ui/accountgeneraltab.ui:611
+msgid "OK"
+msgstr "OK"
 
 #: ui/generalsettingsview.ui:44
 msgid "Profile Settings"
@@ -446,42 +411,6 @@ msgstr "Añadir una cuenta nueva"
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
 msgstr "Elegir el tipo de cuenta"
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr "Seleccionar libreta de direcciones"
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr "Libreta de direcciones"
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "Nombre"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr "Nombre del contacto"
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr "Seleccione cómo archivará este número"
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr "Número de categoría"
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr "Numero o ID Ring a agregar"
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr "Número o ID Ring"
-
-#: ui/editcontactview.ui:83
-msgid "Save"
-msgstr "Guardar"
 
 #: ui/accountvideotab.ui:50
 msgid "Enable Video"
@@ -654,42 +583,85 @@ msgstr "Añadir a conversaciones"
 msgid "Send Invitation"
 msgstr "Enviar invitación"
 
-#: ui/accountgeneraltab.ui:75
+#: ui/accountgeneraltab.ui:16
+msgid "Add device"
+msgstr "Agregar dispositivo"
+
+#: ui/accountgeneraltab.ui:88
 msgid "Account"
 msgstr "Cuenta"
 
-#: ui/accountgeneraltab.ui:135
+#: ui/accountgeneraltab.ui:148
 msgid "Parameters"
 msgstr "Parámetros"
 
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:173 src/accountgeneraltab.cpp:239
+#: ui/accountgeneraltab.ui:185
+msgid "Known devices linked to this Ring account"
+msgstr "Dispositivos conocidos conectados a esta cuenta de Ring"
+
+#: ui/accountgeneraltab.ui:226
+msgid "Link another device to this account"
+msgstr "Conectar otro dispositivo a esta cuenta"
+
+#: ui/accountgeneraltab.ui:257 ui/accountgeneraltab.ui:343
+#: src/accountgeneraltab.cpp:326 src/accountgeneraltab.cpp:529
 msgid "Change password"
 msgstr "Cambiar contraseña"
 
-#: ui/accountgeneraltab.ui:175
+#: ui/accountgeneraltab.ui:273
 msgid "Note: this will change the password only on this device."
 msgstr "Nota: esto cambiará la contraseña solo en este dispositivo"
 
-#: ui/accountgeneraltab.ui:194
+#: ui/accountgeneraltab.ui:292
 msgid "Current password"
 msgstr "Contraseña actual"
 
-#: ui/accountgeneraltab.ui:214
+#: ui/accountgeneraltab.ui:312
 msgid "New password"
 msgstr "Contraseña nueva"
 
-#: ui/accountgeneraltab.ui:234
+#: ui/accountgeneraltab.ui:332
 msgid "Confirm password"
 msgstr "Confirmar contraseña"
 
-#: ui/accountgeneraltab.ui:291
+#: ui/accountgeneraltab.ui:389
 msgid "Export account"
 msgstr "Exportar la cuenta"
 
-#: ui/accountgeneraltab.ui:304
+#: ui/accountgeneraltab.ui:402
 msgid "Choose destination..."
 msgstr "Elegir destino..."
+
+#: ui/accountgeneraltab.ui:455
+msgid "Add New Device"
+msgstr "Agregar nuevo dispositivo"
+
+#: ui/accountgeneraltab.ui:470
+msgid ""
+"To add a new device to your Ring account, you export your account on the "
+"Ring. This will generate a pin that must be entered on your new device "
+"within 5 minutes of its generation."
+msgstr "Para agregar un dispositivo a tu cuenta se exportará la misma en Ring. Esto producirá un PIN que debes escribir en el nuevo dispositivo antes de que pasen 5 minutos."
+
+#: ui/accountgeneraltab.ui:479
+msgid "Password (required):"
+msgstr "Contraseña (necesario)"
+
+#: ui/accountgeneraltab.ui:490
+msgid "Enter archive password"
+msgstr "Introducir la contraseña del archivo"
+
+#: ui/accountgeneraltab.ui:513
+msgid "Export on the Ring"
+msgstr "Exportar en Ring"
+
+#: ui/accountgeneraltab.ui:534
+msgid "Exporting account on the Ring..."
+msgstr "Exportando cuenta en Ring..."
+
+#: ui/accountgeneraltab.ui:558
+msgid "Your generated pin:"
+msgstr "PIN generado:"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming..."
@@ -876,7 +848,7 @@ msgstr "Registrar este nombre de usuario en la cadena de bloques"
 msgid "Invalid username"
 msgstr "Nombre de usuario no válido"
 
-#: src/usernameregistrationbox.cpp:417 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:417 src/accountgeneraltab.cpp:240
 msgid "Bad password"
 msgstr "Contraseña errónea"
 
@@ -898,13 +870,13 @@ msgstr "Esta es una operación irreversible. ¿Estás seguro de eliminar todo el
 msgid "Choose download folder"
 msgstr "Elegir la carpeta de descargas"
 
-#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
+#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:343
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:172
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
-#: src/chatview.cpp:179
+#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:345
+#: src/chatview.cpp:174
 msgid "_Save"
 msgstr "_Guardar"
 
@@ -933,61 +905,99 @@ msgstr "Respuesta automática de llamadas"
 msgid "UPnP enabled"
 msgstr "UPnP habilitado"
 
-#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:331
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:686
 msgid "Hostname"
 msgstr "Nombre del servidor"
 
-#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:246
+msgid "Network error, try again"
+msgstr "Error en la red, inténtalo de nuevo"
+
+#: src/accountgeneraltab.cpp:258
+msgid "Could not initiate export to the Ring, try again"
+msgstr "No se ha podido exportar en Ring, inténtalo de nuevo"
+
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:169
 msgid "Save File"
 msgstr "Guardar fichero"
 
-#: src/accountgeneraltab.cpp:213
+#: src/accountgeneraltab.cpp:365
 msgid "File exported to destination: "
 msgstr "Archivo exportado al destino:"
 
-#: src/accountgeneraltab.cpp:227
+#: src/accountgeneraltab.cpp:478
+msgid ""
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
+msgstr ""
+
+#: src/accountgeneraltab.cpp:479
+msgid "Enter password to revoke device"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:517
 msgid "New password and its confirmation are different"
 msgstr "Nueva contraseña y  su confirmación es diferente"
 
-#: src/accountgeneraltab.cpp:237
+#: src/accountgeneraltab.cpp:527
 msgid "Password changed!"
 msgstr "Contraseña cambiada!"
 
-#: src/accountgeneraltab.cpp:240
+#: src/accountgeneraltab.cpp:530
 msgid "Incorrect password"
 msgstr "Contraseña incorrecta"
 
-#: src/accountgeneraltab.cpp:265
+#: src/accountgeneraltab.cpp:561
+msgid "Save name"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:561
+msgid "Revoke device"
+msgstr "Anular dispositivo"
+
+#: src/accountgeneraltab.cpp:582
+msgid "Error when revoking device"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:620
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountgeneraltab.cpp:276
+#: src/accountgeneraltab.cpp:631
 msgid "Type"
 msgstr "Tipo"
 
-#: src/accountgeneraltab.cpp:302
+#: src/accountgeneraltab.cpp:657
 msgid "auto-generating..."
 msgstr "auto-generando..."
 
-#: src/accountgeneraltab.cpp:315 src/accountgeneraltab.cpp:341
+#: src/accountgeneraltab.cpp:670 src/accountgeneraltab.cpp:696
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: src/accountgeneraltab.cpp:351
+#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "Contraseña"
 
-#: src/accountgeneraltab.cpp:364
+#: src/accountgeneraltab.cpp:719
 msgid "Show password"
 msgstr "Mostrar contraseña"
 
-#: src/accountgeneraltab.cpp:370
+#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/accountgeneraltab.cpp:380
+#: src/accountgeneraltab.cpp:735
 msgid "Voicemail number"
 msgstr "Número de Mensaje de Voz"
+
+#: src/accountgeneraltab.cpp:799
+msgid "Error: wrong password!"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:802
+msgid "Error: unknown device!"
+msgstr ""
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
@@ -1009,7 +1019,7 @@ msgstr "Mostrar información avanzada"
 msgid "Open Avatar Image"
 msgstr "Abrir imagen de avatar"
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:174
 msgid "_Open"
 msgstr "_Abrir"
 
@@ -1031,24 +1041,6 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "El cliente Ring de GNOME.\nRing es software libre de comunicaciones que respeta las libertades y la privacidad de sus usuarios."
 
-#: src/accountdevicestab.cpp:201
-msgid "Network error, try again"
-msgstr "Error en la red, inténtalo de nuevo"
-
-#: src/accountdevicestab.cpp:213
-msgid "Could not initiate export to the Ring, try again"
-msgstr "No se ha podido exportar en Ring, inténtalo de nuevo"
-
-#: src/accountdevicestab.cpp:246
-msgctxt "Device Name Column"
-msgid "Name"
-msgstr "Nombre"
-
-#: src/accountdevicestab.cpp:251
-msgctxt "Device ID Column"
-msgid "ID"
-msgstr "ID"
-
 #: src/ringmainwindow.cpp:503
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
@@ -1065,11 +1057,6 @@ msgctxt ""
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Buscar contacto o introducir número"
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
-msgstr "inicio"
 
 #: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
 msgid "Enabled"
@@ -1201,72 +1188,55 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Código QR identificador Ring"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:169
 msgid "Send File"
 msgstr "Enviar archivo"
 
-#: src/chatview.cpp:410
-msgid "Can't place call with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:412
-msgid "Can't start conversation with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:414
-msgid "Can't place audio call with banned contact"
-msgstr ""
-
-#: src/currentcallview.cpp:781
+#: src/currentcallview.cpp:956
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/accountview.cpp:188
+#: src/accountview.cpp:187
 msgctxt "Account settings"
 msgid "General"
 msgstr "General"
 
-#: src/accountview.cpp:196
-msgctxt "Account settings"
-msgid "Devices"
-msgstr "Dispositivos"
-
-#: src/accountview.cpp:202
+#: src/accountview.cpp:193
 msgctxt "Account settings"
 msgid "Security"
 msgstr "Seguridad"
 
-#: src/accountview.cpp:207
+#: src/accountview.cpp:198
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "Avanzado"
 
-#: src/accountview.cpp:214
+#: src/accountview.cpp:205
 msgctxt "List of banned peers"
 msgid "Bans"
 msgstr "Vetado"
 
-#: src/accountview.cpp:269
+#: src/accountview.cpp:260
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "¿Está seguro de querer eliminar la cuenta \"%s\"?"
 
-#: src/accountview.cpp:403
+#: src/accountview.cpp:394
 msgid "New Account"
 msgstr "Nueva cuenta"
 
-#: src/accountview.cpp:490
+#: src/accountview.cpp:481
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "Habilitado"
 
-#: src/accountview.cpp:496
+#: src/accountview.cpp:487
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "Alias"
 
-#: src/accountview.cpp:504
+#: src/accountview.cpp:495
 msgctxt "Account status column"
 msgid "Status"
 msgstr "Estado"

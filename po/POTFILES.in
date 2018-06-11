@@ -2,13 +2,11 @@ ui/ringgearsmenu.ui
 ui/choosecontactview.ui
 ui/accountmigrationview.ui
 ui/currentcallview.ui
-ui/accountdevicestab.ui
 ui/accountcreationwizard.ui
 ui/generalsettingsview.ui
 ui/ringmainwindow.ui
 ui/mediasettingsview.ui
 ui/accountview.ui
-ui/editcontactview.ui
 ui/accountvideotab.ui
 ui/accountadvancedtab.ui
 ui/accountaudiotab.ui
@@ -44,11 +42,9 @@ src/video/video_widget.cpp
 src/video/xrectsel.c
 src/avatarmanipulation.cpp
 src/dialogs.c
-src/accountdevicestab.cpp
 src/cc-crop-area.c
 src/main.cpp
 src/ringmainwindow.cpp
-src/editcontactview.cpp
 src/accountvideotab.cpp
 src/native/dbuserrorhandler.cpp
 src/native/pixbufmanipulator.cpp

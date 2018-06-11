@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-28 03:09-0400\n"
-"PO-Revision-Date: 2018-05-14 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-06-11 03:09-0400\n"
+"PO-Revision-Date: 2018-06-11 07:09+0000\n"
+"Last-Translator: Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/ring/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -57,114 +57,70 @@ msgstr "迁移失败。密码错误？"
 msgid "End this call"
 msgstr "结束该通话"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:457
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:483
 msgid "End call"
 msgstr "结束通话"
 
 #: ui/currentcallview.ui:275
+msgid "Toggle transfer"
+msgstr ""
+
+#: ui/currentcallview.ui:294
 msgid "Toggle hold"
 msgstr "等待/取消等待"
 
-#: ui/currentcallview.ui:279 ui/currentcallview.ui:304
-#: ui/currentcallview.ui:448
+#: ui/currentcallview.ui:298 ui/currentcallview.ui:323
+#: ui/currentcallview.ui:465
 msgid "Hold"
 msgstr "等待"
 
-#: ui/currentcallview.ui:300
+#: ui/currentcallview.ui:319
 msgid "Toggle mute audio"
 msgstr "开启声音/静音"
 
-#: ui/currentcallview.ui:325
+#: ui/currentcallview.ui:344
 msgid "Toggle mute video"
 msgstr "开启/关闭视频"
 
-#: ui/currentcallview.ui:329 ui/currentcallview.ui:439
+#: ui/currentcallview.ui:348 ui/currentcallview.ui:456
 msgid "Mute video"
 msgstr "关闭视频"
 
-#: ui/currentcallview.ui:352
-msgid "Toggle record audio"
-msgstr "音频录制开始/结束"
+#: ui/currentcallview.ui:369
+msgid "Toggle recording"
+msgstr ""
 
-#: ui/currentcallview.ui:355
-msgid "Record audio"
-msgstr "录音"
-
-#: ui/currentcallview.ui:376
-msgid "Adjust outgoing video quality"
-msgstr "设置我的视频画质"
-
-#: ui/currentcallview.ui:381 ui/currentcallview.ui:466
-msgid "Video quality"
-msgstr "视频画质"
-
-#: ui/currentcallview.ui:400
-msgid "Toggle show chat"
-msgstr "显示/隐藏聊天栏"
-
-#: ui/currentcallview.ui:404 ui/currentcallview.ui:421
-msgid "Chat"
-msgstr "聊天"
-
-#: ui/currentcallview.ui:430
-msgid "Mute audio"
-msgstr "静音"
-
-#: ui/currentcallview.ui:475
+#: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 msgid "Record"
 msgstr "录制"
 
-#: ui/accountdevicestab.ui:21
-msgid "My Device ID:"
-msgstr "我的设备ID："
+#: ui/currentcallview.ui:393
+msgid "Adjust outgoing video quality"
+msgstr "设置我的视频画质"
 
-#: ui/accountdevicestab.ui:40
-msgid "Devices"
-msgstr "设备"
+#: ui/currentcallview.ui:398 ui/currentcallview.ui:492
+msgid "Video quality"
+msgstr "视频画质"
 
-#: ui/accountdevicestab.ui:66
-msgid "Add device"
-msgstr "添加设备"
+#: ui/currentcallview.ui:417
+msgid "Toggle show chat"
+msgstr "显示/隐藏聊天栏"
 
-#: ui/accountdevicestab.ui:83
-msgid "Add New Device"
-msgstr "添加新设备"
+#: ui/currentcallview.ui:421 ui/currentcallview.ui:438
+msgid "Chat"
+msgstr "聊天"
 
-#: ui/accountdevicestab.ui:98
-msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
-"within 5 minutes of its generation."
-msgstr "要在新设备上添加您的Ring帐户，您需要使用Ring导出该帐户。您会获得一个PIN，并且有5分钟时间将该PIN输入您的新设备。"
+#: ui/currentcallview.ui:447
+msgid "Mute audio"
+msgstr "静音"
 
-#: ui/accountdevicestab.ui:107
-msgid "Password (required):"
-msgstr "密码（必填）："
+#: ui/currentcallview.ui:474
+msgid "Transfer"
+msgstr "已转接"
 
-#: ui/accountdevicestab.ui:118
-msgid "Enter archive password"
-msgstr "输入档案密码"
-
-#: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
-msgid "Cancel"
-msgstr "取消"
-
-#: ui/accountdevicestab.ui:141
-msgid "Export on the Ring"
-msgstr "Ring导出"
-
-#: ui/accountdevicestab.ui:162
-msgid "Exporting account on the Ring..."
-msgstr "Ring正在导出帐户…"
-
-#: ui/accountdevicestab.ui:186
-msgid "Your generated pin:"
-msgstr "您的PIN："
-
-#: ui/accountdevicestab.ui:217 ui/accountdevicestab.ui:239
-#: ui/accountcreationwizard.ui:551
-msgid "OK"
-msgstr "确定"
+#: ui/currentcallview.ui:524
+msgid "Transfer to"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
@@ -185,6 +141,10 @@ msgstr "将此设备与一个帐户进行连接"
 #: ui/accountcreationwizard.ui:77
 msgid "Link this devices to a Ring account created on another device"
 msgstr "将此设备与其他设备创建的Ring帐户进行连接"
+
+#: ui/accountcreationwizard.ui:84 ui/accountgeneraltab.ui:507
+msgid "Cancel"
+msgstr "取消"
 
 #: ui/accountcreationwizard.ui:105
 msgid "Link this device to an existing account"
@@ -273,6 +233,11 @@ msgstr "正在获取您的Ring帐户…"
 #: ui/accountcreationwizard.ui:546
 msgid "Error creating/loading account."
 msgstr "创建或载入帐户时发生错误。"
+
+#: ui/accountcreationwizard.ui:551 ui/accountgeneraltab.ui:589
+#: ui/accountgeneraltab.ui:611
+msgid "OK"
+msgstr "确定"
 
 #: ui/generalsettingsview.ui:44
 msgid "Profile Settings"
@@ -425,42 +390,6 @@ msgstr "添加新帐户"
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
 msgstr "选择帐户类型"
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr "选择地址簿"
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr "地址簿"
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "姓名"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr "联系人名称"
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr "选择该号码如何归类"
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr "号码类别"
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr "要添加的号码或RingID"
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr "号码或RingID"
-
-#: ui/editcontactview.ui:83
-msgid "Save"
-msgstr "保存"
 
 #: ui/accountvideotab.ui:50
 msgid "Enable Video"
@@ -633,42 +562,85 @@ msgstr ""
 msgid "Send Invitation"
 msgstr "发送邀请"
 
-#: ui/accountgeneraltab.ui:75
+#: ui/accountgeneraltab.ui:16
+msgid "Add device"
+msgstr "添加设备"
+
+#: ui/accountgeneraltab.ui:88
 msgid "Account"
 msgstr "帐户"
 
-#: ui/accountgeneraltab.ui:135
+#: ui/accountgeneraltab.ui:148
 msgid "Parameters"
 msgstr "参数"
 
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:173 src/accountgeneraltab.cpp:239
+#: ui/accountgeneraltab.ui:185
+msgid "Known devices linked to this Ring account"
+msgstr "与该Ring帐户连接的已知设备"
+
+#: ui/accountgeneraltab.ui:226
+msgid "Link another device to this account"
+msgstr "将另一设备与该帐户进行连接"
+
+#: ui/accountgeneraltab.ui:257 ui/accountgeneraltab.ui:343
+#: src/accountgeneraltab.cpp:326 src/accountgeneraltab.cpp:529
 msgid "Change password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:175
+#: ui/accountgeneraltab.ui:273
 msgid "Note: this will change the password only on this device."
 msgstr ""
 
-#: ui/accountgeneraltab.ui:194
+#: ui/accountgeneraltab.ui:292
 msgid "Current password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:214
+#: ui/accountgeneraltab.ui:312
 msgid "New password"
 msgstr "新密码"
 
-#: ui/accountgeneraltab.ui:234
+#: ui/accountgeneraltab.ui:332
 msgid "Confirm password"
 msgstr "确认密码"
 
-#: ui/accountgeneraltab.ui:291
+#: ui/accountgeneraltab.ui:389
 msgid "Export account"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:304
+#: ui/accountgeneraltab.ui:402
 msgid "Choose destination..."
 msgstr ""
+
+#: ui/accountgeneraltab.ui:455
+msgid "Add New Device"
+msgstr "添加新设备"
+
+#: ui/accountgeneraltab.ui:470
+msgid ""
+"To add a new device to your Ring account, you export your account on the "
+"Ring. This will generate a pin that must be entered on your new device "
+"within 5 minutes of its generation."
+msgstr "要在新设备上添加您的Ring帐户，您需要使用Ring导出该帐户。您会获得一个PIN，并且有5分钟时间将该PIN输入您的新设备。"
+
+#: ui/accountgeneraltab.ui:479
+msgid "Password (required):"
+msgstr "密码（必填）："
+
+#: ui/accountgeneraltab.ui:490
+msgid "Enter archive password"
+msgstr "输入档案密码"
+
+#: ui/accountgeneraltab.ui:513
+msgid "Export on the Ring"
+msgstr "Ring导出"
+
+#: ui/accountgeneraltab.ui:534
+msgid "Exporting account on the Ring..."
+msgstr "Ring正在导出帐户…"
+
+#: ui/accountgeneraltab.ui:558
+msgid "Your generated pin:"
+msgstr "您的PIN："
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming..."
@@ -855,7 +827,7 @@ msgstr "在区块链上注册该用户名"
 msgid "Invalid username"
 msgstr "非法用户名"
 
-#: src/usernameregistrationbox.cpp:417 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:417 src/accountgeneraltab.cpp:240
 msgid "Bad password"
 msgstr "密码错误"
 
@@ -877,13 +849,13 @@ msgstr "该操作不可撤销。确定删除您的所有聊天与通话记录吗
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
+#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:343
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:172
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
-#: src/chatview.cpp:179
+#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:345
+#: src/chatview.cpp:174
 msgid "_Save"
 msgstr ""
 
@@ -912,61 +884,99 @@ msgstr "自动应答来电"
 msgid "UPnP enabled"
 msgstr "UPnP已启用"
 
-#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:331
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:686
 msgid "Hostname"
 msgstr "主机名"
 
-#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:246
+msgid "Network error, try again"
+msgstr "网络错误，请重试"
+
+#: src/accountgeneraltab.cpp:258
+msgid "Could not initiate export to the Ring, try again"
+msgstr "无法导出至Ring，请重试"
+
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:169
 msgid "Save File"
 msgstr "保存文件"
 
-#: src/accountgeneraltab.cpp:213
+#: src/accountgeneraltab.cpp:365
 msgid "File exported to destination: "
 msgstr ""
 
-#: src/accountgeneraltab.cpp:227
+#: src/accountgeneraltab.cpp:478
+msgid ""
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
+msgstr ""
+
+#: src/accountgeneraltab.cpp:479
+msgid "Enter password to revoke device"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:517
 msgid "New password and its confirmation are different"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:237
+#: src/accountgeneraltab.cpp:527
 msgid "Password changed!"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:240
+#: src/accountgeneraltab.cpp:530
 msgid "Incorrect password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:265
+#: src/accountgeneraltab.cpp:561
+msgid "Save name"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:561
+msgid "Revoke device"
+msgstr "吊销设备"
+
+#: src/accountgeneraltab.cpp:582
+msgid "Error when revoking device"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:620
 msgid "Alias"
 msgstr "别名"
 
-#: src/accountgeneraltab.cpp:276
+#: src/accountgeneraltab.cpp:631
 msgid "Type"
 msgstr "类别"
 
-#: src/accountgeneraltab.cpp:302
+#: src/accountgeneraltab.cpp:657
 msgid "auto-generating..."
 msgstr "自动生成中…"
 
-#: src/accountgeneraltab.cpp:315 src/accountgeneraltab.cpp:341
+#: src/accountgeneraltab.cpp:670 src/accountgeneraltab.cpp:696
 msgid "Username"
 msgstr "用户名"
 
-#: src/accountgeneraltab.cpp:351
+#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "密码"
 
-#: src/accountgeneraltab.cpp:364
+#: src/accountgeneraltab.cpp:719
 msgid "Show password"
 msgstr "显示密码"
 
-#: src/accountgeneraltab.cpp:370
+#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "代理"
 
-#: src/accountgeneraltab.cpp:380
+#: src/accountgeneraltab.cpp:735
 msgid "Voicemail number"
 msgstr "语音信箱号码"
+
+#: src/accountgeneraltab.cpp:799
+msgid "Error: wrong password!"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:802
+msgid "Error: unknown device!"
+msgstr ""
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
@@ -988,7 +998,7 @@ msgstr "显示高级信息"
 msgid "Open Avatar Image"
 msgstr "打开头像图片"
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:174
 msgid "_Open"
 msgstr "打开(_O)"
 
@@ -1010,24 +1020,6 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "Ring：GNOME客户端\nRing是自由软件，尊重用户的通讯自由与隐私。"
 
-#: src/accountdevicestab.cpp:201
-msgid "Network error, try again"
-msgstr "网络错误，请重试"
-
-#: src/accountdevicestab.cpp:213
-msgid "Could not initiate export to the Ring, try again"
-msgstr "无法导出至Ring，请重试"
-
-#: src/accountdevicestab.cpp:246
-msgctxt "Device Name Column"
-msgid "Name"
-msgstr "姓名"
-
-#: src/accountdevicestab.cpp:251
-msgctxt "Device ID Column"
-msgid "ID"
-msgstr "ID"
-
 #: src/ringmainwindow.cpp:503
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
@@ -1044,11 +1036,6 @@ msgctxt ""
 " layout"
 msgid "Search contacts or enter number"
 msgstr "查找通讯录或输入号码"
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
-msgstr "主页"
 
 #: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
 msgid "Enabled"
@@ -1180,72 +1167,55 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "RingID二维码"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:169
 msgid "Send File"
 msgstr ""
 
-#: src/chatview.cpp:410
-msgid "Can't place call with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:412
-msgid "Can't start conversation with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:414
-msgid "Can't place audio call with banned contact"
-msgstr ""
-
-#: src/currentcallview.cpp:781
+#: src/currentcallview.cpp:956
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自动"
 
-#: src/accountview.cpp:188
+#: src/accountview.cpp:187
 msgctxt "Account settings"
 msgid "General"
 msgstr "通用"
 
-#: src/accountview.cpp:196
-msgctxt "Account settings"
-msgid "Devices"
-msgstr "设备"
-
-#: src/accountview.cpp:202
+#: src/accountview.cpp:193
 msgctxt "Account settings"
 msgid "Security"
 msgstr "安全"
 
-#: src/accountview.cpp:207
+#: src/accountview.cpp:198
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr "高级"
 
-#: src/accountview.cpp:214
+#: src/accountview.cpp:205
 msgctxt "List of banned peers"
 msgid "Bans"
 msgstr "已屏蔽用户"
 
-#: src/accountview.cpp:269
+#: src/accountview.cpp:260
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr "确定删除帐户“%s”吗？"
 
-#: src/accountview.cpp:403
+#: src/accountview.cpp:394
 msgid "New Account"
 msgstr "新帐户"
 
-#: src/accountview.cpp:490
+#: src/accountview.cpp:481
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr "已启用"
 
-#: src/accountview.cpp:496
+#: src/accountview.cpp:487
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "别名"
 
-#: src/accountview.cpp:504
+#: src/accountview.cpp:495
 msgctxt "Account status column"
 msgid "Status"
 msgstr "状态"

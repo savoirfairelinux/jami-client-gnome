@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-28 03:09-0400\n"
-"PO-Revision-Date: 2018-05-14 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-06-11 03:09-0400\n"
+"PO-Revision-Date: 2018-06-11 07:09+0000\n"
+"Last-Translator: JAE HO LEE <spectrick@gmail.com>\n"
 "Language-Team: Korean (Korea) (http://www.transifex.com/savoirfairelinux/ring/language/ko_KR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,113 +53,69 @@ msgstr ""
 msgid "End this call"
 msgstr ""
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:457
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:483
 msgid "End call"
 msgstr ""
 
 #: ui/currentcallview.ui:275
+msgid "Toggle transfer"
+msgstr ""
+
+#: ui/currentcallview.ui:294
 msgid "Toggle hold"
 msgstr ""
 
-#: ui/currentcallview.ui:279 ui/currentcallview.ui:304
-#: ui/currentcallview.ui:448
+#: ui/currentcallview.ui:298 ui/currentcallview.ui:323
+#: ui/currentcallview.ui:465
 msgid "Hold"
 msgstr ""
 
-#: ui/currentcallview.ui:300
+#: ui/currentcallview.ui:319
 msgid "Toggle mute audio"
 msgstr ""
 
-#: ui/currentcallview.ui:325
+#: ui/currentcallview.ui:344
 msgid "Toggle mute video"
 msgstr ""
 
-#: ui/currentcallview.ui:329 ui/currentcallview.ui:439
+#: ui/currentcallview.ui:348 ui/currentcallview.ui:456
 msgid "Mute video"
 msgstr ""
 
-#: ui/currentcallview.ui:352
-msgid "Toggle record audio"
+#: ui/currentcallview.ui:369
+msgid "Toggle recording"
 msgstr ""
 
-#: ui/currentcallview.ui:355
-msgid "Record audio"
-msgstr ""
-
-#: ui/currentcallview.ui:376
-msgid "Adjust outgoing video quality"
-msgstr ""
-
-#: ui/currentcallview.ui:381 ui/currentcallview.ui:466
-msgid "Video quality"
-msgstr ""
-
-#: ui/currentcallview.ui:400
-msgid "Toggle show chat"
-msgstr ""
-
-#: ui/currentcallview.ui:404 ui/currentcallview.ui:421
-msgid "Chat"
-msgstr "대화하기"
-
-#: ui/currentcallview.ui:430
-msgid "Mute audio"
-msgstr ""
-
-#: ui/currentcallview.ui:475
+#: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 msgid "Record"
 msgstr ""
 
-#: ui/accountdevicestab.ui:21
-msgid "My Device ID:"
+#: ui/currentcallview.ui:393
+msgid "Adjust outgoing video quality"
 msgstr ""
 
-#: ui/accountdevicestab.ui:40
-msgid "Devices"
-msgstr "장치"
-
-#: ui/accountdevicestab.ui:66
-msgid "Add device"
-msgstr "장치 추가"
-
-#: ui/accountdevicestab.ui:83
-msgid "Add New Device"
+#: ui/currentcallview.ui:398 ui/currentcallview.ui:492
+msgid "Video quality"
 msgstr ""
 
-#: ui/accountdevicestab.ui:98
-msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
-"within 5 minutes of its generation."
+#: ui/currentcallview.ui:417
+msgid "Toggle show chat"
 msgstr ""
 
-#: ui/accountdevicestab.ui:107
-msgid "Password (required):"
+#: ui/currentcallview.ui:421 ui/currentcallview.ui:438
+msgid "Chat"
+msgstr "대화하기"
+
+#: ui/currentcallview.ui:447
+msgid "Mute audio"
 msgstr ""
 
-#: ui/accountdevicestab.ui:118
-msgid "Enter archive password"
-msgstr ""
+#: ui/currentcallview.ui:474
+msgid "Transfer"
+msgstr "보내기"
 
-#: ui/accountdevicestab.ui:135 ui/accountcreationwizard.ui:84
-msgid "Cancel"
-msgstr "취소"
-
-#: ui/accountdevicestab.ui:141
-msgid "Export on the Ring"
-msgstr ""
-
-#: ui/accountdevicestab.ui:162
-msgid "Exporting account on the Ring..."
-msgstr ""
-
-#: ui/accountdevicestab.ui:186
-msgid "Your generated pin:"
-msgstr ""
-
-#: ui/accountdevicestab.ui:217 ui/accountdevicestab.ui:239
-#: ui/accountcreationwizard.ui:551
-msgid "OK"
+#: ui/currentcallview.ui:524
+msgid "Transfer to"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:34
@@ -181,6 +137,10 @@ msgstr "이 장치를 계정에 연결하기"
 #: ui/accountcreationwizard.ui:77
 msgid "Link this devices to a Ring account created on another device"
 msgstr ""
+
+#: ui/accountcreationwizard.ui:84 ui/accountgeneraltab.ui:507
+msgid "Cancel"
+msgstr "취소"
 
 #: ui/accountcreationwizard.ui:105
 msgid "Link this device to an existing account"
@@ -268,6 +228,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:546
 msgid "Error creating/loading account."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:551 ui/accountgeneraltab.ui:589
+#: ui/accountgeneraltab.ui:611
+msgid "OK"
 msgstr ""
 
 #: ui/generalsettingsview.ui:44
@@ -420,42 +385,6 @@ msgstr ""
 
 #: ui/accountview.ui:75 ui/accountview.ui:78
 msgid "Select account type"
-msgstr ""
-
-#: ui/editcontactview.ui:12
-msgid "Select addressbook"
-msgstr ""
-
-#: ui/editcontactview.ui:15
-msgid "Addressbook"
-msgstr ""
-
-#: ui/editcontactview.ui:29
-msgid "Name"
-msgstr "이름"
-
-#: ui/editcontactview.ui:32
-msgid "Contact name"
-msgstr ""
-
-#: ui/editcontactview.ui:47
-msgid "Select how this number will be categorized"
-msgstr ""
-
-#: ui/editcontactview.ui:50
-msgid "Number category"
-msgstr ""
-
-#: ui/editcontactview.ui:66
-msgid "Number or Ring ID to be added"
-msgstr ""
-
-#: ui/editcontactview.ui:72
-msgid "Number or Ring ID"
-msgstr ""
-
-#: ui/editcontactview.ui:83
-msgid "Save"
 msgstr ""
 
 #: ui/accountvideotab.ui:50
@@ -629,41 +558,84 @@ msgstr ""
 msgid "Send Invitation"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:75
+#: ui/accountgeneraltab.ui:16
+msgid "Add device"
+msgstr "장치 추가"
+
+#: ui/accountgeneraltab.ui:88
 msgid "Account"
 msgstr "계정"
 
-#: ui/accountgeneraltab.ui:135
+#: ui/accountgeneraltab.ui:148
 msgid "Parameters"
 msgstr "인자들"
 
-#: ui/accountgeneraltab.ui:159 ui/accountgeneraltab.ui:245
-#: src/accountgeneraltab.cpp:173 src/accountgeneraltab.cpp:239
+#: ui/accountgeneraltab.ui:185
+msgid "Known devices linked to this Ring account"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:226
+msgid "Link another device to this account"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:257 ui/accountgeneraltab.ui:343
+#: src/accountgeneraltab.cpp:326 src/accountgeneraltab.cpp:529
 msgid "Change password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:175
+#: ui/accountgeneraltab.ui:273
 msgid "Note: this will change the password only on this device."
 msgstr ""
 
-#: ui/accountgeneraltab.ui:194
+#: ui/accountgeneraltab.ui:292
 msgid "Current password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:214
+#: ui/accountgeneraltab.ui:312
 msgid "New password"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:234
+#: ui/accountgeneraltab.ui:332
 msgid "Confirm password"
 msgstr "암호 확인"
 
-#: ui/accountgeneraltab.ui:291
+#: ui/accountgeneraltab.ui:389
 msgid "Export account"
 msgstr ""
 
-#: ui/accountgeneraltab.ui:304
+#: ui/accountgeneraltab.ui:402
 msgid "Choose destination..."
+msgstr ""
+
+#: ui/accountgeneraltab.ui:455
+msgid "Add New Device"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:470
+msgid ""
+"To add a new device to your Ring account, you export your account on the "
+"Ring. This will generate a pin that must be entered on your new device "
+"within 5 minutes of its generation."
+msgstr ""
+
+#: ui/accountgeneraltab.ui:479
+msgid "Password (required):"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:490
+msgid "Enter archive password"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:513
+msgid "Export on the Ring"
+msgstr ""
+
+#: ui/accountgeneraltab.ui:534
+msgid "Exporting account on the Ring..."
+msgstr ""
+
+#: ui/accountgeneraltab.ui:558
+msgid "Your generated pin:"
 msgstr ""
 
 #: ui/incomingcallview.ui:99
@@ -851,7 +823,7 @@ msgstr ""
 msgid "Invalid username"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:417 src/accountdevicestab.cpp:195
+#: src/usernameregistrationbox.cpp:417 src/accountgeneraltab.cpp:240
 msgid "Bad password"
 msgstr ""
 
@@ -873,13 +845,13 @@ msgstr ""
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:191
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:177
+#: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:343
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:172
 msgid "_Cancel"
 msgstr ""
 
-#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:193
-#: src/chatview.cpp:179
+#: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:345
+#: src/chatview.cpp:174
 msgid "_Save"
 msgstr ""
 
@@ -908,61 +880,99 @@ msgstr "자동 응답 횟수"
 msgid "UPnP enabled"
 msgstr "UPnP 가능여부"
 
-#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:331
+#: src/accountadvancedtab.cpp:598 src/accountgeneraltab.cpp:686
 msgid "Hostname"
 msgstr "호스트명"
 
-#: src/accountgeneraltab.cpp:188 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:246
+msgid "Network error, try again"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:258
+msgid "Could not initiate export to the Ring, try again"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:169
 msgid "Save File"
 msgstr "파일 저장"
 
-#: src/accountgeneraltab.cpp:213
+#: src/accountgeneraltab.cpp:365
 msgid "File exported to destination: "
 msgstr ""
 
-#: src/accountgeneraltab.cpp:227
+#: src/accountgeneraltab.cpp:478
+msgid ""
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
+msgstr ""
+
+#: src/accountgeneraltab.cpp:479
+msgid "Enter password to revoke device"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:517
 msgid "New password and its confirmation are different"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:237
+#: src/accountgeneraltab.cpp:527
 msgid "Password changed!"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:240
+#: src/accountgeneraltab.cpp:530
 msgid "Incorrect password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:265
+#: src/accountgeneraltab.cpp:561
+msgid "Save name"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:561
+msgid "Revoke device"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:582
+msgid "Error when revoking device"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:620
 msgid "Alias"
 msgstr "별칭"
 
-#: src/accountgeneraltab.cpp:276
+#: src/accountgeneraltab.cpp:631
 msgid "Type"
 msgstr "유형"
 
-#: src/accountgeneraltab.cpp:302
+#: src/accountgeneraltab.cpp:657
 msgid "auto-generating..."
 msgstr ""
 
-#: src/accountgeneraltab.cpp:315 src/accountgeneraltab.cpp:341
+#: src/accountgeneraltab.cpp:670 src/accountgeneraltab.cpp:696
 msgid "Username"
 msgstr "사용자명"
 
-#: src/accountgeneraltab.cpp:351
+#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "암호"
 
-#: src/accountgeneraltab.cpp:364
+#: src/accountgeneraltab.cpp:719
 msgid "Show password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:370
+#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "프록시"
 
-#: src/accountgeneraltab.cpp:380
+#: src/accountgeneraltab.cpp:735
 msgid "Voicemail number"
 msgstr "음성메일 번호"
+
+#: src/accountgeneraltab.cpp:799
+msgid "Error: wrong password!"
+msgstr ""
+
+#: src/accountgeneraltab.cpp:802
+msgid "Error: unknown device!"
+msgstr ""
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
@@ -984,7 +994,7 @@ msgstr ""
 msgid "Open Avatar Image"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:174
 msgid "_Open"
 msgstr ""
 
@@ -1006,24 +1016,6 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr ""
 
-#: src/accountdevicestab.cpp:201
-msgid "Network error, try again"
-msgstr ""
-
-#: src/accountdevicestab.cpp:213
-msgid "Could not initiate export to the Ring, try again"
-msgstr ""
-
-#: src/accountdevicestab.cpp:246
-msgctxt "Device Name Column"
-msgid "Name"
-msgstr "이름"
-
-#: src/accountdevicestab.cpp:251
-msgctxt "Device ID Column"
-msgid "ID"
-msgstr ""
-
 #: src/ringmainwindow.cpp:503
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
@@ -1039,11 +1031,6 @@ msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr ""
-
-#: src/editcontactview.cpp:208
-msgctxt "Phone number category"
-msgid "home"
 msgstr ""
 
 #: src/accountvideotab.cpp:184 src/accountaudiotab.cpp:175
@@ -1176,72 +1163,55 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr ""
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:169
 msgid "Send File"
 msgstr ""
 
-#: src/chatview.cpp:410
-msgid "Can't place call with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:412
-msgid "Can't start conversation with banned contact"
-msgstr ""
-
-#: src/chatview.cpp:414
-msgid "Can't place audio call with banned contact"
-msgstr ""
-
-#: src/currentcallview.cpp:781
+#: src/currentcallview.cpp:956
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "자동"
 
-#: src/accountview.cpp:188
+#: src/accountview.cpp:187
 msgctxt "Account settings"
 msgid "General"
 msgstr "일반"
 
-#: src/accountview.cpp:196
-msgctxt "Account settings"
-msgid "Devices"
-msgstr "장치"
-
-#: src/accountview.cpp:202
+#: src/accountview.cpp:193
 msgctxt "Account settings"
 msgid "Security"
 msgstr "보안"
 
-#: src/accountview.cpp:207
+#: src/accountview.cpp:198
 msgctxt "Account settings"
 msgid "Advanced"
 msgstr ""
 
-#: src/accountview.cpp:214
+#: src/accountview.cpp:205
 msgctxt "List of banned peers"
 msgid "Bans"
 msgstr ""
 
-#: src/accountview.cpp:269
+#: src/accountview.cpp:260
 #, c-format
 msgid "Are you sure you want to delete account \"%s\"?"
 msgstr ""
 
-#: src/accountview.cpp:403
+#: src/accountview.cpp:394
 msgid "New Account"
 msgstr "새 계정"
 
-#: src/accountview.cpp:490
+#: src/accountview.cpp:481
 msgctxt "Account state column"
 msgid "Enabled"
 msgstr ""
 
-#: src/accountview.cpp:496
+#: src/accountview.cpp:487
 msgctxt "Account alias (name) column"
 msgid "Alias"
 msgstr "별칭"
 
-#: src/accountview.cpp:504
+#: src/accountview.cpp:495
 msgctxt "Account status column"
 msgid "Status"
 msgstr ""
