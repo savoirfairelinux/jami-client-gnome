@@ -55,6 +55,7 @@ struct _WebKitChatContainerPrivate
     GtkWidget* box_webview_chat;
 
     bool       chatview_debug;
+    gchar*     data_received;
 
     /* Array of javascript libraries to load. Used during initialization */
     GList*     js_libs_to_load;
@@ -69,6 +70,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(WebKitChatContainer, webkit_chat_container, GTK_TYPE_
 enum {
     READY,
     SCRIPT_DIALOG,
+    DATA_DROPPED,
     LAST_SIGNAL
 };
 
@@ -110,6 +112,15 @@ webkit_chat_container_class_init(WebKitChatContainerClass *klass)
         G_TYPE_NONE, 0);
 
     webkit_chat_container_signals[SCRIPT_DIALOG] = g_signal_new("script-dialog",
+        G_TYPE_FROM_CLASS(klass),
+        (GSignalFlags) (G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED),
+        0,
+        nullptr,
+        nullptr,
+        g_cclosure_marshal_VOID__STRING,
+        G_TYPE_NONE, 1, G_TYPE_STRING);
+
+    webkit_chat_container_signals[DATA_DROPPED] = g_signal_new("data-dropped",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED),
         0,
@@ -420,6 +431,39 @@ webview_chat_load_changed(WebKitWebView  *webview_chat,
 }
 
 static void
+webview_chat_on_drag_data_received(GtkWidget*,
+                                   GdkDragContext*,
+                                   gint,
+                                   gint,
+                                   GtkSelectionData *data,
+                                   guint,
+                                   guint32,
+                                   WebKitChatContainer* self)
+{
+    g_return_if_fail(IS_WEBKIT_CHAT_CONTAINER(self));
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(self);
+    auto* filename = (gchar*)(gtk_selection_data_get_data(data));
+    if (filename) {
+        priv->data_received = g_strdup_printf("%s", filename);
+    }
+}
+
+
+static gboolean
+webview_chat_on_drag_data(GtkWidget*,
+                          GdkDragContext*,
+                          gint,
+                          gint,
+                          guint,
+                          WebKitChatContainer* self)
+{
+    g_return_val_if_fail(IS_WEBKIT_CHAT_CONTAINER(self), true);
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(self);
+    g_signal_emit(G_OBJECT(self), webkit_chat_container_signals[DATA_DROPPED], 0, priv->data_received);
+    return true;
+}
+
+static void
 build_view(WebKitChatContainer *view)
 {
     g_return_if_fail(IS_WEBKIT_CHAT_CONTAINER(view));
@@ -477,7 +521,8 @@ build_view(WebKitChatContainer *view)
     /* Set the WebKitSettings */
     webkit_web_view_set_settings(WEBKIT_WEB_VIEW(priv->webview_chat), webkit_settings);
 
-    gtk_drag_dest_unset(priv->webview_chat); // remove drag and drop to prevent unwanted reloading
+    g_signal_connect(priv->webview_chat, "drag-data-received", G_CALLBACK(webview_chat_on_drag_data_received), view);
+    g_signal_connect(priv->webview_chat, "drag-drop", G_CALLBACK(webview_chat_on_drag_data), view);
     g_signal_connect(priv->webview_chat, "load-changed", G_CALLBACK(webview_chat_load_changed), view);
     g_signal_connect_swapped(priv->webview_chat, "context-menu", G_CALLBACK(webview_chat_context_menu), view);
     g_signal_connect_swapped(priv->webview_chat, "script-dialog", G_CALLBACK(webview_script_dialog), view);
@@ -637,7 +682,7 @@ webkit_chat_container_remove_interaction(WebKitChatContainer *view, uint64_t int
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    gchar* function_call = g_strdup_printf("removeInteraction(%i);", interactionId);
+    gchar* function_call = g_strdup_printf("removeInteraction(%lu);", interactionId);
     webkit_web_view_run_javascript(
         WEBKIT_WEB_VIEW(priv->webview_chat),
         function_call,
