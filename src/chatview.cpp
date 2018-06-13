@@ -66,6 +66,7 @@ struct _ChatViewPrivate
 
     gulong webkit_ready;
     gulong webkit_send_text;
+    gulong webkit_drag_drop;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ChatView, chat_view, GTK_TYPE_BOX);
@@ -102,6 +103,8 @@ chat_view_dispose(GObject *object)
         priv->webkit_ready = 0;
         g_signal_handler_disconnect(priv->webkit_chat_container, priv->webkit_send_text);
         priv->webkit_send_text = 0;
+        g_signal_handler_disconnect(priv->webkit_chat_container, priv->webkit_drag_drop);
+        priv->webkit_drag_drop = 0;
 
         gtk_container_remove(
             GTK_CONTAINER(priv->box_webkit_chat_container),
@@ -205,7 +208,7 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
             auto contactUri = priv->conversation_->participants.front();
             auto& contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
             (*priv->accountInfo_)->contactModel->addContact(contact);
-        } catch (std::out_of_range) {
+        } catch (std::out_of_range&) {
             g_debug("webkit_chat_container_script_dialog: oor while retrieving invalid contact info. Chatview bug ?");
         }
     } else if (order.find("PLACE_CALL") == 0) {
@@ -521,6 +524,31 @@ update_chatview_frame(ChatView* self)
                                              bestName);
 }
 
+
+static void
+on_webkit_drag_drop(GtkWidget*, gchar* data, ChatView* self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    if (!priv->conversation_) return;
+    if (!data) return;
+
+    std::string data_str = data;
+    // Only take files
+    if (data_str.find("file://") != 0) return;
+    if (data_str.find("\r\n") == std::string::npos) return;
+    const auto LEN_URI = std::string("file://").length();
+    const auto LEN_END = std::string("\r\n").length();
+    if (data_str.length() > LEN_URI + LEN_END) {
+        // remove file and \r\n from the string
+        data_str = data_str.substr(LEN_URI, data_str.length() - LEN_URI - LEN_END);
+    }
+
+    if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
+        model->sendFile(priv->conversation_->uid, data_str, g_path_get_basename(data_str.c_str()));
+    }
+}
+
 static void
 build_chat_view(ChatView* self)
 {
@@ -542,6 +570,13 @@ build_chat_view(ChatView* self)
         "script-dialog",
         G_CALLBACK(webkit_chat_container_script_dialog),
         self);
+
+    priv->webkit_drag_drop = g_signal_connect(
+        priv->webkit_chat_container,
+        "data-dropped",
+        G_CALLBACK(on_webkit_drag_drop),
+        self
+    );
 
     if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
         webkit_chat_container_ready(self);
@@ -567,8 +602,6 @@ void
 chat_view_update_temporary(ChatView* self, bool showAddButton, bool showInvitation)
 {
     g_return_if_fail(IS_CHAT_VIEW(self));
-    auto priv = CHAT_VIEW_GET_PRIVATE(self);
-
     update_chatview_frame(self);
 }
 
