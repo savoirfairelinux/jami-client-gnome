@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-11 03:09-0400\n"
-"PO-Revision-Date: 2018-06-11 07:09+0000\n"
+"POT-Creation-Date: 2018-06-18 03:09-0400\n"
+"PO-Revision-Date: 2018-06-12 09:44+0000\n"
 "Last-Translator: Nathan Follens\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/savoirfairelinux/ring/language/nl_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -848,12 +848,12 @@ msgid "Choose download folder"
 msgstr "Kiesd downloadmap"
 
 #: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:172
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:175
 msgid "_Cancel"
 msgstr "_Annuleren"
 
 #: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:174
+#: src/chatview.cpp:177
 msgid "_Save"
 msgstr "Op_slaan"
 
@@ -894,7 +894,7 @@ msgstr "Netwerkfout, probeerd het opnieuw"
 msgid "Could not initiate export to the Ring, try again"
 msgstr "Kon export naar de Ring nie initialiseren, probeerd het opnieuw"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:169
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:172
 msgid "Save File"
 msgstr "Bestand opslaan"
 
@@ -926,7 +926,7 @@ msgstr "Onjuist paswoord"
 
 #: src/accountgeneraltab.cpp:561
 msgid "Save name"
-msgstr ""
+msgstr "Naam opslaan"
 
 #: src/accountgeneraltab.cpp:561
 msgid "Revoke device"
@@ -996,7 +996,7 @@ msgstr "Toond geavanceerde informatie"
 msgid "Open Avatar Image"
 msgstr "Avatarbestand openen"
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:174
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:177
 msgid "_Open"
 msgstr "_Openen"
 
@@ -1165,7 +1165,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring-ID-QR-code"
 
-#: src/chatview.cpp:169
+#: src/chatview.cpp:172
 msgid "Send File"
 msgstr "Bestand versturen"
 

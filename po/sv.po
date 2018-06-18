@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-11 03:09-0400\n"
-"PO-Revision-Date: 2018-06-11 07:09+0000\n"
+"POT-Creation-Date: 2018-06-18 03:09-0400\n"
+"PO-Revision-Date: 2018-06-11 09:26+0000\n"
 "Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/ring/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +60,7 @@ msgstr "Avsluta samtal"
 
 #: ui/currentcallview.ui:275
 msgid "Toggle transfer"
-msgstr ""
+msgstr "Överföring av/på"
 
 #: ui/currentcallview.ui:294
 msgid "Toggle hold"
@@ -85,7 +85,7 @@ msgstr "Pausa video"
 
 #: ui/currentcallview.ui:369
 msgid "Toggle recording"
-msgstr ""
+msgstr "Inspelning av/på"
 
 #: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 msgid "Record"
@@ -117,7 +117,7 @@ msgstr "Överför"
 
 #: ui/currentcallview.ui:524
 msgid "Transfer to"
-msgstr ""
+msgstr "Överför till"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
@@ -847,12 +847,12 @@ msgid "Choose download folder"
 msgstr "Välj nerladdningsmapp"
 
 #: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:172
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:175
 msgid "_Cancel"
 msgstr "_Avbryt"
 
 #: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:174
+#: src/chatview.cpp:177
 msgid "_Save"
 msgstr "_Spara"
 
@@ -893,7 +893,7 @@ msgstr "Nätverksfel, försök igen"
 msgid "Could not initiate export to the Ring, try again"
 msgstr "Kunde inte starta export till Ring, försök igen"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:169
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:172
 msgid "Save File"
 msgstr "Spara fil"
 
@@ -905,11 +905,11 @@ msgstr "Fil exporterad till:"
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Varning! Denna åtgärd kommer att återkalla enheten!\nNotera att åtgärden inte kan ångras."
 
 #: src/accountgeneraltab.cpp:479
 msgid "Enter password to revoke device"
-msgstr ""
+msgstr "Ange lösenord för att återkalla enheten"
 
 #: src/accountgeneraltab.cpp:517
 msgid "New password and its confirmation are different"
@@ -925,7 +925,7 @@ msgstr "Felaktigt lösenord"
 
 #: src/accountgeneraltab.cpp:561
 msgid "Save name"
-msgstr ""
+msgstr "Spara namn"
 
 #: src/accountgeneraltab.cpp:561
 msgid "Revoke device"
@@ -933,7 +933,7 @@ msgstr "Återkalla enhet"
 
 #: src/accountgeneraltab.cpp:582
 msgid "Error when revoking device"
-msgstr ""
+msgstr "Kunde inte återkalla enheten"
 
 #: src/accountgeneraltab.cpp:620
 msgid "Alias"
@@ -969,11 +969,11 @@ msgstr "Nummer till röstbrevlåda"
 
 #: src/accountgeneraltab.cpp:799
 msgid "Error: wrong password!"
-msgstr ""
+msgstr "Fel: Fel lösenord!"
 
 #: src/accountgeneraltab.cpp:802
 msgid "Error: unknown device!"
-msgstr ""
+msgstr "Fel: Okänd enhet!"
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
@@ -995,7 +995,7 @@ msgstr "Visa avancerad information"
 msgid "Open Avatar Image"
 msgstr "Öppna avatarbild"
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:174
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:177
 msgid "_Open"
 msgstr "_Öppna"
 
@@ -1164,7 +1164,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring-ID som QR-kod"
 
-#: src/chatview.cpp:169
+#: src/chatview.cpp:172
 msgid "Send File"
 msgstr "Skicka fil"
 

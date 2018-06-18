@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-11 03:09-0400\n"
-"PO-Revision-Date: 2018-06-11 07:09+0000\n"
+"POT-Creation-Date: 2018-06-18 03:09-0400\n"
+"PO-Revision-Date: 2018-06-12 09:15+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -117,7 +117,7 @@ msgstr "Shpërngule"
 
 #: ui/currentcallview.ui:524
 msgid "Transfer to"
-msgstr ""
+msgstr "Shpërngule te"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
@@ -847,12 +847,12 @@ msgid "Choose download folder"
 msgstr "Zgjidhni dosje shkarkimesh"
 
 #: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:172
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:175
 msgid "_Cancel"
 msgstr "_Anuloje"
 
 #: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:174
+#: src/chatview.cpp:177
 msgid "_Save"
 msgstr "_Ruaje"
 
@@ -893,7 +893,7 @@ msgstr "Gabim rrjeti, riprovoni"
 msgid "Could not initiate export to the Ring, try again"
 msgstr "S’u fillua dot eksportimi te Ring, riprovoni"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:169
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:172
 msgid "Save File"
 msgstr "Ruaje Kartelën"
 
@@ -905,11 +905,11 @@ msgstr "Kartela u eksportua te vendmbërritja:"
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Kujdes! Ky veprim do të shfuqizojë pajisjen!\nShënim: ky veprim s’mund të zhbëhet."
 
 #: src/accountgeneraltab.cpp:479
 msgid "Enter password to revoke device"
-msgstr ""
+msgstr "Që të shfuqizohet pajisja, jepni fjalëkalimin"
 
 #: src/accountgeneraltab.cpp:517
 msgid "New password and its confirmation are different"
@@ -925,7 +925,7 @@ msgstr "Fjalëkalim i pasaktë"
 
 #: src/accountgeneraltab.cpp:561
 msgid "Save name"
-msgstr ""
+msgstr "Ruaje emrin"
 
 #: src/accountgeneraltab.cpp:561
 msgid "Revoke device"
@@ -933,7 +933,7 @@ msgstr "Shfuqizoje pajisjen"
 
 #: src/accountgeneraltab.cpp:582
 msgid "Error when revoking device"
-msgstr ""
+msgstr "Gabim gjatë shfuqizimit të pajisjes"
 
 #: src/accountgeneraltab.cpp:620
 msgid "Alias"
@@ -969,11 +969,11 @@ msgstr "Numër voicemail"
 
 #: src/accountgeneraltab.cpp:799
 msgid "Error: wrong password!"
-msgstr ""
+msgstr "Gabim: fjalëkalim i gabuar!"
 
 #: src/accountgeneraltab.cpp:802
 msgid "Error: unknown device!"
-msgstr ""
+msgstr "Gabim: pajisje e panjohur!"
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
@@ -995,7 +995,7 @@ msgstr "Shfaq informacion të thelluar"
 msgid "Open Avatar Image"
 msgstr "Hap Figurë Avatari"
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:174
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:177
 msgid "_Open"
 msgstr "_Hape"
 
@@ -1164,7 +1164,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Kod QR ID-je Ring-u"
 
-#: src/chatview.cpp:169
+#: src/chatview.cpp:172
 msgid "Send File"
 msgstr "Dërgo Kartelë"
 

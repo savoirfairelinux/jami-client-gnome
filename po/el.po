@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-11 03:09-0400\n"
+"POT-Creation-Date: 2018-06-18 03:09-0400\n"
 "PO-Revision-Date: 2018-06-11 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"Last-Translator: Vassilis Kehayas <vkehayas@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/savoirfairelinux/ring/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -115,7 +115,7 @@ msgstr "Σίγαση ήχου"
 
 #: ui/currentcallview.ui:474
 msgid "Transfer"
-msgstr ""
+msgstr "Μεταφορά"
 
 #: ui/currentcallview.ui:524
 msgid "Transfer to"
@@ -579,7 +579,7 @@ msgstr ""
 
 #: ui/accountgeneraltab.ui:226
 msgid "Link another device to this account"
-msgstr ""
+msgstr "Σύνδεση μιας άλλης συσκευής σε αυτόν το λογαριασμό"
 
 #: ui/accountgeneraltab.ui:257 ui/accountgeneraltab.ui:343
 #: src/accountgeneraltab.cpp:326 src/accountgeneraltab.cpp:529
@@ -849,12 +849,12 @@ msgid "Choose download folder"
 msgstr ""
 
 #: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:172
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:175
 msgid "_Cancel"
 msgstr "Άκυρο"
 
 #: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:174
+#: src/chatview.cpp:177
 msgid "_Save"
 msgstr ""
 
@@ -895,7 +895,7 @@ msgstr "Σφάλμα δικτύου, δοκιμάστε ξανά"
 msgid "Could not initiate export to the Ring, try again"
 msgstr "Δεν μπορεί να κινήσει την εξαγωγή προς το Ring, προσπαθήστε ξανά"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:169
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:172
 msgid "Save File"
 msgstr "Αποθήκευση αρχείου"
 
@@ -997,7 +997,7 @@ msgstr "Εμφάνιση προχωρημένων πληροφοριών"
 msgid "Open Avatar Image"
 msgstr "Άνοιγμα εικόνας avatar"
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:174
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:177
 msgid "_Open"
 msgstr "Άνοιγμα"
 
@@ -1166,7 +1166,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Κώδικας QR του Ring ID"
 
-#: src/chatview.cpp:169
+#: src/chatview.cpp:172
 msgid "Send File"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-11 03:09-0400\n"
+"POT-Creation-Date: 2018-06-18 03:09-0400\n"
 "PO-Revision-Date: 2018-06-11 07:09+0000\n"
 "Last-Translator: YASMINA BAHLOUL <yasmina.bahloul@savoirfairelinux.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/savoirfairelinux/ring/language/fr_FR/)\n"
@@ -846,12 +846,12 @@ msgid "Choose download folder"
 msgstr ""
 
 #: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:172
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:175
 msgid "_Cancel"
 msgstr ""
 
 #: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:174
+#: src/chatview.cpp:177
 msgid "_Save"
 msgstr ""
 
@@ -892,7 +892,7 @@ msgstr ""
 msgid "Could not initiate export to the Ring, try again"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:169
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:172
 msgid "Save File"
 msgstr ""
 
@@ -994,7 +994,7 @@ msgstr ""
 msgid "Open Avatar Image"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:174
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:177
 msgid "_Open"
 msgstr ""
 
@@ -1163,7 +1163,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr ""
 
-#: src/chatview.cpp:169
+#: src/chatview.cpp:172
 msgid "Send File"
 msgstr ""
 

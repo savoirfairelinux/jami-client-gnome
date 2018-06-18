@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-11 03:09-0400\n"
-"PO-Revision-Date: 2018-06-11 07:09+0000\n"
+"POT-Creation-Date: 2018-06-18 03:09-0400\n"
+"PO-Revision-Date: 2018-06-11 23:48+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +62,7 @@ msgstr "結束通話"
 
 #: ui/currentcallview.ui:275
 msgid "Toggle transfer"
-msgstr ""
+msgstr "切換轉移"
 
 #: ui/currentcallview.ui:294
 msgid "Toggle hold"
@@ -87,7 +87,7 @@ msgstr "視訊靜音"
 
 #: ui/currentcallview.ui:369
 msgid "Toggle recording"
-msgstr ""
+msgstr "切換錄製"
 
 #: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 msgid "Record"
@@ -119,7 +119,7 @@ msgstr "轉送"
 
 #: ui/currentcallview.ui:524
 msgid "Transfer to"
-msgstr ""
+msgstr "轉移至"
 
 #: ui/accountcreationwizard.ui:34
 msgid "Welcome to"
@@ -849,12 +849,12 @@ msgid "Choose download folder"
 msgstr "選擇下載資料夾"
 
 #: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:172
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:175
 msgid "_Cancel"
 msgstr "取消(_C)"
 
 #: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:174
+#: src/chatview.cpp:177
 msgid "_Save"
 msgstr "儲存(_S)"
 
@@ -895,7 +895,7 @@ msgstr "網路錯誤，請重試"
 msgid "Could not initiate export to the Ring, try again"
 msgstr "無法啟用輸出到 Ring，請重試。"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:169
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:172
 msgid "Save File"
 msgstr "儲存檔案"
 
@@ -907,11 +907,11 @@ msgstr "檔案已匯出至目標位置"
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "警告！這個動作將會撤銷裝置！\n注意：這個動作無法復原。"
 
 #: src/accountgeneraltab.cpp:479
 msgid "Enter password to revoke device"
-msgstr ""
+msgstr "輸入密碼以撤銷裝置"
 
 #: src/accountgeneraltab.cpp:517
 msgid "New password and its confirmation are different"
@@ -927,7 +927,7 @@ msgstr "不正確的密碼"
 
 #: src/accountgeneraltab.cpp:561
 msgid "Save name"
-msgstr ""
+msgstr "儲存名稱"
 
 #: src/accountgeneraltab.cpp:561
 msgid "Revoke device"
@@ -935,7 +935,7 @@ msgstr "撤銷裝置"
 
 #: src/accountgeneraltab.cpp:582
 msgid "Error when revoking device"
-msgstr ""
+msgstr "當撤銷裝置時發生錯誤"
 
 #: src/accountgeneraltab.cpp:620
 msgid "Alias"
@@ -971,11 +971,11 @@ msgstr "語音郵件號碼"
 
 #: src/accountgeneraltab.cpp:799
 msgid "Error: wrong password!"
-msgstr ""
+msgstr "錯誤：不正確的密碼！"
 
 #: src/accountgeneraltab.cpp:802
 msgid "Error: unknown device!"
-msgstr ""
+msgstr "錯誤：未知的裝置！"
 
 #: src/video/video_widget.cpp:566
 msgid "Share _screen area"
@@ -997,7 +997,7 @@ msgstr "顯示進階資訊"
 msgid "Open Avatar Image"
 msgstr "開啟大頭貼圖片"
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:174
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:177
 msgid "_Open"
 msgstr "開啟(_O)"
 
@@ -1166,7 +1166,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring ID QR code"
 
-#: src/chatview.cpp:169
+#: src/chatview.cpp:172
 msgid "Send File"
 msgstr "傳送檔案"
 

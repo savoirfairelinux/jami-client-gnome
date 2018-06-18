@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-11 03:09-0400\n"
+"POT-Creation-Date: 2018-06-18 03:09-0400\n"
 "PO-Revision-Date: 2018-06-11 07:09+0000\n"
 "Last-Translator: Emin Tufan <etcetin@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/ring/language/tr/)\n"
@@ -851,12 +851,12 @@ msgid "Choose download folder"
 msgstr ""
 
 #: src/generalsettingsview.cpp:187 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:383 src/chatview.cpp:172
+#: src/avatarmanipulation.cpp:383 src/chatview.cpp:175
 msgid "_Cancel"
 msgstr "_İptal"
 
 #: src/generalsettingsview.cpp:189 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:174
+#: src/chatview.cpp:177
 msgid "_Save"
 msgstr ""
 
@@ -897,7 +897,7 @@ msgstr "Ağ hatası, yeniden deneyin"
 msgid "Could not initiate export to the Ring, try again"
 msgstr "Ring dışa aktarımı başlatılamadı, yeniden deneyin"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:169
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:172
 msgid "Save File"
 msgstr "Dosyayı Kaydet"
 
@@ -999,7 +999,7 @@ msgstr "İleri bilgileri göster"
 msgid "Open Avatar Image"
 msgstr "Avatar Resmi Aç"
 
-#: src/avatarmanipulation.cpp:385 src/chatview.cpp:174
+#: src/avatarmanipulation.cpp:385 src/chatview.cpp:177
 msgid "_Open"
 msgstr "_Aç"
 
@@ -1168,7 +1168,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "OR kod Ring Kimliği"
 
-#: src/chatview.cpp:169
+#: src/chatview.cpp:172
 msgid "Send File"
 msgstr ""
 
