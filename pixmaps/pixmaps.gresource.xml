@@ -56,5 +56,6 @@
     <file alias="send-white">send-white.svg</file>
     <file alias="videocam-white">videocam-white.svg</file>
     <file alias="photo-camera-white">photo_camera-white.svg</file>
+    <file alias="stop-recording-white">stop-recording-white.svg</file>
   </gresource>
 </gresources>
