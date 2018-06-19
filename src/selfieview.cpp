@@ -173,20 +173,23 @@ on_resize(GtkWidget *widget, GtkAllocation *allocation, gpointer *self)
 }
 
 static std::string
-get_saves_directory() {
+get_saves_directory()
+{
     std::string dir = QStandardPaths::writableLocation(QStandardPaths::DataLocation).toStdString() + "/" + SAVES_DIR;
     g_mkdir (dir.c_str(), SAVES_DIR_PERMS);
     return dir;
 }
 
 static bool
-directory_exists(const std::string& name) {
+directory_exists(const std::string& name)
+{
     std::ifstream f(name.c_str());
     return f.good();
 }
 
 static std::string
-get_file_name_with_ext(const char *ext) {
+get_file_name_with_ext(const std::string& ext)
+{
     std::chrono::time_point<std::chrono::system_clock> time_now = std::chrono::system_clock::now();
     std::time_t time_now_t = std::chrono::system_clock::to_time_t(time_now);
     std::tm now_tm = *std::localtime(&time_now_t);
@@ -196,16 +199,17 @@ get_file_name_with_ext(const char *ext) {
     std::string file_name = get_saves_directory() + "/" + ss.str();
 
     // Add suffix if necessary;
-    if (directory_exists(file_name + "." + ext)) {
+    if (directory_exists(!ext.empty() ? file_name + "." + ext.c_str() : file_name)) {
         int suffix = 0;
         file_name += "-";
-        while (directory_exists(file_name + std::to_string(suffix) + "." + ext)) {
+        while (directory_exists(!ext.empty() ? file_name + std::to_string(suffix) + "." + ext.c_str()
+                                            : file_name + std::to_string(suffix))) {
             suffix++;
         }
         file_name += std::to_string(suffix);
     }
 
-    return file_name + "." + ext;
+    return (!ext.empty() ? file_name + "." + ext.c_str() : file_name);
 }
 
 static void
@@ -434,7 +438,9 @@ static void
 on_record_video_button_pressed(SelfieView *self)
 {
     SelfieViewPrivate *priv = SELFIE_VIEW_GET_PRIVATE(self);
-    // TODO
+    set_state(self, SELFIE_VIEW_STATE_VIDEO);
+    priv->save_file_name.assign(get_file_name_with_ext(""));
+    Video::PreviewManager::instance().startLocalRecorder(false, priv->save_file_name);
 }
 
 static void
@@ -448,7 +454,9 @@ static void
 on_stop_record_button_pressed(SelfieView *self)
 {
     SelfieViewPrivate *priv = SELFIE_VIEW_GET_PRIVATE(self);
-    // TODO
+    // recorder should always be stopped before preview
+    Video::PreviewManager::instance().stopLocalRecorder();
+    set_state(self, SELFIE_VIEW_STATE_VIDEO_END);
 }
 
 static void
