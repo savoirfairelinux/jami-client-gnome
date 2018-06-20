@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_1306e420",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1263,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-06-20T19:02:31Z",
+      "side": 1,
+      "message": "Duplicate code (update_certificate, update_private_key, update_password...). It would probably be interesting to create a new method in this case",
+      "range": {
+        "startLine": 1246,
+        "startChar": 0,
+        "endLine": 1263,
+        "endChar": 1
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_73400057",
         "filename": "src/ringmainwindow.cpp",
         "patchSetId": 38
