@@ -94,6 +94,52 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_8e20079d",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-06-20T19:45:39Z",
+      "side": 1,
+      "message": "See below",
+      "range": {
+        "startLine": 1694,
+        "startChar": 4,
+        "endLine": 1702,
+        "endChar": 5
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_2e2bbb83",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1732,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-06-20T19:45:39Z",
+      "side": 1,
+      "message": "Could be smaller. Why not something like\n\ngtk_container_foreach (GTK_CONTAINER (priv-\u003elist_audio_codecs), (GtkCallback) gtk_container_remove, NULL)",
+      "range": {
+        "startLine": 1724,
+        "startChar": 4,
+        "endLine": 1732,
+        "endChar": 5
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_2e045b14",
         "filename": "src/newaccountsettingsview.cpp",
         "patchSetId": 38
