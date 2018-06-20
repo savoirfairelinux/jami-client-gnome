@@ -48,6 +48,75 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_4eff0f02",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1593,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-06-20T19:14:05Z",
+      "side": 1,
+      "message": "You could probably use auto and the cast doesn\u0027t seem to be necessary IMO",
+      "range": {
+        "startLine": 1593,
+        "startChar": 4,
+        "endLine": 1593,
+        "endChar": 38
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_2e045b14",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1772,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-06-20T19:14:05Z",
+      "side": 1,
+      "message": "same here ?",
+      "range": {
+        "startLine": 1772,
+        "startChar": 8,
+        "endLine": 1772,
+        "endChar": 42
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_8e09272f",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1918,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-06-20T19:14:05Z",
+      "side": 1,
+      "message": "Should be auto* ? gtk_entry_get_text returns a pointer IIRC",
+      "range": {
+        "startLine": 1918,
+        "startChar": 4,
+        "endLine": 1918,
+        "endChar": 17
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_73400057",
         "filename": "src/ringmainwindow.cpp",
         "patchSetId": 38
