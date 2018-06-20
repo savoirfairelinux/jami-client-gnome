@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da5c1566_d30bcc29",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-06-20T18:57:20Z",
+      "side": 1,
+      "message": "Leaked memory",
+      "range": {
+        "startLine": 1153,
+        "startChar": 4,
+        "endLine": 1154,
+        "endChar": 16
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_73400057",
         "filename": "src/ringmainwindow.cpp",
         "patchSetId": 38
