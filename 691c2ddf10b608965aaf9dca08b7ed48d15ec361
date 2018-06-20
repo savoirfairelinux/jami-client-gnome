@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_933b14eb",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-06-20T18:32:18Z",
+      "side": 1,
+      "message": "Duplicate code \u003d\u003e new method ?",
+      "range": {
+        "startLine": 1332,
+        "startChar": 4,
+        "endLine": 1344,
+        "endChar": 53
+      },
+      "revId": "691c2ddf10b608965aaf9dca08b7ed48d15ec361",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    }
+  ]
+}
