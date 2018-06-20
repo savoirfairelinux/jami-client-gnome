@@ -735,6 +735,7 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
                                                              ROW_STRIDE, free_pixels, NULL);
 
             wg_renderer->snapshot_status = HAS_A_NEW_ONE;
+            g_free(pixbuf_frame_data);
 
         }
     }
