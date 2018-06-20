@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_8e576702",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-06-20T20:11:00Z",
+      "side": 1,
+      "message": "should be auto* ?",
+      "range": {
+        "startLine": 546,
+        "startChar": 8,
+        "endLine": 546,
+        "endChar": 18
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_6e5c9326",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-06-20T20:11:00Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 552,
+        "startChar": 8,
+        "endLine": 552,
+        "endChar": 18
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_4e4d4f72",
         "filename": "src/newaccountsettingsview.cpp",
         "patchSetId": 38
