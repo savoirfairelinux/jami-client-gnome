@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_0e6cf79b",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-06-21T14:10:48Z",
+      "side": 1,
+      "message": "Ooops",
+      "parentUuid": "da5c1566_ce12ff57",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 3,
+        "endChar": 74
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_8e576702",
         "filename": "src/newaccountsettingsview.cpp",
         "patchSetId": 38
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-20T20:11:00Z",
       "side": 1,
       "message": "should be auto* ?",
+      "range": {
+        "startLine": 546,
+        "startChar": 8,
+        "endLine": 546,
+        "endChar": 18
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ee68a389",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-06-21T14:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_8e576702",
       "range": {
         "startLine": 546,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_4e054fc1",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-06-21T14:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_6e5c9326",
+      "range": {
+        "startLine": 552,
+        "startChar": 8,
+        "endLine": 552,
+        "endChar": 18
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_4e4d4f72",
         "filename": "src/newaccountsettingsview.cpp",
         "patchSetId": 38
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-20T20:05:36Z",
       "side": 1,
       "message": "Bad type ? gtk_entry_get_text returns a const gchar *",
+      "range": {
+        "startLine": 606,
+        "startChar": 12,
+        "endLine": 606,
+        "endChar": 31
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_2e0a9bd2",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-06-21T14:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_4e4d4f72",
       "range": {
         "startLine": 606,
         "startChar": 12,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_8e0f67e1",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-06-21T14:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_0e34f7dc",
+      "range": {
+        "startLine": 826,
+        "startChar": 4,
+        "endLine": 826,
+        "endChar": 19
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_d30bcc29",
         "filename": "src/newaccountsettingsview.cpp",
         "patchSetId": 38
@@ -128,6 +248,30 @@
       "writtenOn": "2018-06-20T18:57:20Z",
       "side": 1,
       "message": "Leaked memory",
+      "range": {
+        "startLine": 1153,
+        "startChar": 4,
+        "endLine": 1154,
+        "endChar": 16
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_6e1493f5",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-06-21T14:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_d30bcc29",
       "range": {
         "startLine": 1153,
         "startChar": 4,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_cef83fc7",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1263,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-06-21T14:10:48Z",
+      "side": 1,
+      "message": "Not really possible in fact, but I move the first lines in a external function",
+      "parentUuid": "da5c1566_1306e420",
+      "range": {
+        "startLine": 1246,
+        "startChar": 0,
+        "endLine": 1263,
+        "endChar": 1
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_4eff0f02",
         "filename": "src/newaccountsettingsview.cpp",
         "patchSetId": 38
@@ -174,6 +342,30 @@
       "writtenOn": "2018-06-20T19:14:05Z",
       "side": 1,
       "message": "You could probably use auto and the cast doesn\u0027t seem to be necessary IMO",
+      "range": {
+        "startLine": 1593,
+        "startChar": 4,
+        "endLine": 1593,
+        "endChar": 38
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_aef50bcd",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1593,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-06-21T14:10:48Z",
+      "side": 1,
+      "message": "Indeed, done",
+      "parentUuid": "da5c1566_4eff0f02",
       "range": {
         "startLine": 1593,
         "startChar": 4,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_6e2bf330",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-06-21T14:10:48Z",
+      "side": 1,
+      "message": "This will work gtk_container_foreach(GTK_CONTAINER(priv-\u003elist_audio_codecs), (GtkCallback)remove_cb, priv-\u003elist_audio_codecs);",
+      "parentUuid": "da5c1566_8e20079d",
+      "range": {
+        "startLine": 1694,
+        "startChar": 4,
+        "endLine": 1702,
+        "endChar": 5
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_2e2bbb83",
         "filename": "src/newaccountsettingsview.cpp",
         "patchSetId": 38
@@ -220,6 +436,30 @@
       "writtenOn": "2018-06-20T19:45:39Z",
       "side": 1,
       "message": "Could be smaller. Why not something like\n\ngtk_container_foreach (GTK_CONTAINER (priv-\u003elist_audio_codecs), (GtkCallback) gtk_container_remove, NULL)",
+      "range": {
+        "startLine": 1724,
+        "startChar": 4,
+        "endLine": 1732,
+        "endChar": 5
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ce1f9f08",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1732,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-06-21T14:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_2e2bbb83",
       "range": {
         "startLine": 1724,
         "startChar": 4,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_ae1ceb14",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1772,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-06-21T14:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_2e045b14",
+      "range": {
+        "startLine": 1772,
+        "startChar": 8,
+        "endLine": 1772,
+        "endChar": 42
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_8e09272f",
         "filename": "src/newaccountsettingsview.cpp",
         "patchSetId": 38
@@ -266,6 +530,30 @@
       "writtenOn": "2018-06-20T19:14:05Z",
       "side": 1,
       "message": "Should be auto* ? gtk_entry_get_text returns a pointer IIRC",
+      "range": {
+        "startLine": 1918,
+        "startChar": 4,
+        "endLine": 1918,
+        "endChar": 17
+      },
+      "revId": "d9b6878333ebe58ed92d18b3b63e4993d2e3e9e9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_0e1a3717",
+        "filename": "src/newaccountsettingsview.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1918,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-06-21T14:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_8e09272f",
       "range": {
         "startLine": 1918,
         "startChar": 4,
