@@ -225,6 +225,7 @@ show_main_window_toggled(RingClient *client)
 {
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
+    gtk_window_set_default_size(GTK_WINDOW(priv->win), 925, 540);
     if (g_settings_get_boolean(priv->settings, "show-main-window")) {
         gtk_window_present(GTK_WINDOW(priv->win));
     } else {
