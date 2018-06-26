@@ -92,6 +92,15 @@ const avatar_size = 35
 // without disabling the automatic go-back-to-bottom when a new message is
 // received
 const scrollDetectionThresh = 200
+// printHistoryPart loads blocks of messages. Each block contains
+// scrollBuffer messages
+const scrollBuffer = 20
+// The first time a conversation is loaded, the lazy loading system makes
+// sure at least initialScrollBufferFactor screens of messages are loaded
+const initialScrollBufferFactor = 3
+// Some signal like the onscrolled signals are debounced so that the their
+// assigned function isn't fired too often
+const debounceTime = 200
 
 /* Buffers */
 var historyBufferIndex = 0 // When showing a large amount of interactions, this counter store the interaction's index to show
@@ -118,6 +127,28 @@ var hasInvitation = false
 var isTemporary = false
 var isBanned = false
 var isInitialLoading = false
+var imagesLoadingCounter = 0
+
+function onScrolled_() {
+    const messages = document.getElementById("messages")
+    if (messages.scrollTop == 0 && historyBufferIndex != historyBuffer.length) {
+        /* At the top and there's something to print */
+        printHistoryPart(messages.cloneNode(true), true, messages.scrollHeight)
+    }
+}
+
+const debounce = (fn, time) => {
+  let timeout;
+
+  return function() {
+    const functionCall = () => fn.apply(this, arguments);
+
+    clearTimeout(timeout);
+    timeout = setTimeout(functionCall, time);
+  }
+}
+
+var onScrolled = debounce(onScrolled_, debounceTime)
 
 /**
  * Generic wrapper. Execute passed function keeping scroll position identical.
@@ -141,13 +172,20 @@ function exec_keeping_scroll_position(func, args) {
 }
 
 /**
+ * Set scrollbar at position scroll.
+ */
+function back_to_scroll(scroll) {
+    const messages = document.getElementById("messages")
+    if (messages) {
+        messages.scrollTop = messages.scrollHeight - scroll
+    }
+}
+
+/**
  * Set scrollbar at bottom.
  */
 function back_to_bottom() {
-    const messages = document.getElementById("messages")
-    if (messages) {
-        messages.scrollTop = messages.scrollHeight
-    }
+    back_to_scroll(0)
 }
 
 /**
@@ -165,6 +203,9 @@ function back_to_bottom() {
  */
 /* exported update_chatview_frame */
 function update_chatview_frame(banned, temporary, alias, bestid) {
+    /* This function updates lots of things in the navbar and we don't want to
+       trigger that many DOM updates. Instead set display to none so DOM is
+       updated only once. */
     navbar.style.display = "none"
 
     hoverBackButtonAllowed = true
@@ -314,6 +355,17 @@ function process_messagebar_keydown(key) {
 function disableSendMessage(isDisabled)
 {
     messageBarInput.disabled = isDisabled
+}
+
+/* exported clearSenderImages */
+function clearSenderImages()
+{
+    var styles = document.head.querySelectorAll("style"),
+        i = styles.length
+
+    while (i--){
+        document.head.removeChild(styles[i])
+    }
 }
 
 /**
@@ -772,7 +824,10 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
     // Update flat buttons
     var left_buttons = message_div.querySelector(".left_buttons")
     left_buttons.innerHTML = ""
-    if (message_delivery_status === "awaiting peer" || message_delivery_status === "awaiting host" || message_delivery_status.indexOf("ongoing") === 0) {
+    if (message_delivery_status === "awaiting peer" ||
+        message_delivery_status === "awaiting host" ||
+        message_delivery_status.indexOf("ongoing") === 0) {
+
         if (message_direction === "in" && message_delivery_status.indexOf("ongoing") !== 0) {
             // add buttons to accept or refuse a call.
             var accept_button = document.createElement("div")
@@ -784,6 +839,7 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
             }
             left_buttons.appendChild(accept_button)
         }
+
         var refuse_button = document.createElement("div")
         refuse_button.innerHTML = refuseSvg
         refuse_button.setAttribute("title", "Refuse")
@@ -862,6 +918,7 @@ function mediaInteraction(message_id, link, ytid, noerror) {
     linkElt.href = link
     linkElt.style = "text-decoration: none; border:none;"
     const imageElt = document.createElement("img")
+
     /* Note, here, we don't check the size of the image.
      in the future, we can check the content-type and content-length with a request
      and maybe disable svg */
@@ -869,15 +926,28 @@ function mediaInteraction(message_id, link, ytid, noerror) {
         imageElt.setAttribute("onerror", "this.style.display='none'")
 
     imageElt.src = ytid ? `http://img.youtube.com/vi/${ytid}/0.jpg` : link
-    if (isInitialLoading || messages.scrollTop >= messages.scrollHeight - messages.clientHeight - scrollDetectionThresh) {
-        /* Hack to keep the scrollbar at the bottom.
-           Images are loaded asynchronously and the scrollbar position is
-           changed each time an image is loaded and displayed. In order to
-           make sure the scrollbar stays at the bottom, reset scrollbar
+
+    if (isInitialLoading) {
+        /* During initial load, make sure the scrollbar stays at the bottom.
+           Also, the final scrollHeight is only known after the last image was
+           loaded. We want to display a specific number of messages screens so
+           we have to set up a callback (on_image_load_finished) which will
+           check on that and reschedule a new display batch if not enough
+           messages have been loaded in the DOM. */
+        imageElt.onload = function() {
+            back_to_bottom()
+            on_image_load_finished()
+        }
+    } else if (messages.scrollTop >= messages.scrollHeight - messages.clientHeight - scrollDetectionThresh) {
+        /* Keep the scrollbar at the bottom. Images are loaded asynchronously and
+           the scrollbar position is changed each time an image is loaded and displayed.
+           In order to make sure the scrollbar stays at the bottom, reset scrollbar
            position each time an image was loaded. */
         imageElt.onload = back_to_bottom
     }
+
     linkElt.appendChild(imageElt)
+    imagesLoadingCounter++
 
     if (ytid) {
         media_wrapper.appendChild(buildVideoContainer(linkElt))
@@ -958,8 +1028,8 @@ function actionInteraction() {
     var message_wrapper = document.createElement("div")
     message_wrapper.setAttribute("class", "message_wrapper")
 
-    // An file interaction contains buttons at the left of the interaction
-    // for the status or accept/refuse
+    // A file interaction contains buttons at the left of the interaction
+    // for the status or accept/refuse buttons
     var left_buttons = document.createElement("div")
     left_buttons.setAttribute("class", "left_buttons")
     message_wrapper.appendChild(left_buttons)
@@ -1287,33 +1357,76 @@ function updateMessage(message_object)
 }
 
 /**
- * Display history in reverse order
- * This function operates on passed root div.
- *
- * @param messages_div root div to modify
- * @param setMessages if true and #messages doesn't exist, #messages is set to the resulting messages div
+ * Make sure at least initialScrollBufferFactor screens of messages are
+ * available in the DOM.
  */
-function printHistoryPart(messages_div, setMessages = false)
-{
-    isInitialLoading = true
+function on_image_load_finished() {
+    imagesLoadingCounter--
 
-    for (; historyBufferIndex < historyBuffer.length; ++historyBufferIndex) {
+    if (!imagesLoadingCounter) {
+        /* All images have been loaded and scrollHeight has now its final value.
+           Make sure enough messages have been displayed. */
+        const messages = document.getElementById("messages")
+        if (messages.scrollHeight < initialScrollBufferFactor * messages.clientHeight
+            && historyBufferIndex !== historyBuffer.length) {
+            /* Not enough messages loaded, print a new batch. Enable isInitialLoading
+               as reloading a single batch might not be sufficient to fulfill our
+               criteria (we want to be called back again to check on that) */
+            isInitialLoading = true
+            printHistoryPart(messages.cloneNode(true), true, 0)
+            isInitialLoading = false
+        }
+    }
+}
+
+/**
+ * Display 'scrollBuffer' messages from history in passed div (reverse order).
+ *
+ * @param messages_div that should be modified
+ * @param setMessages if enabled, #messages will be set to the resulting messages
+ *                    div after being modified. If #messages already exists it will
+ *                    be removed and replaced by the new div.
+ * @param fixedAt if setMessages is enabled, maintain scrollbar at the specified
+ *                position (otherwise modifying #messages would result in
+ *                changing the position of the scrollbar)
+ */
+function printHistoryPart(messages_div, setMessages = false, fixedAt)
+{
+    if (historyBufferIndex === historyBuffer.length) {
+        return
+    }
+
+    for (var i = 0; i < scrollBuffer && historyBufferIndex < historyBuffer.length; ++historyBufferIndex && ++i) {
         addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false, messages_div)
     }
 
     messages_div.lastChild.classList.add("last-message")
 
-    const messages = document.getElementById("messages")
-    if (!messages && setMessages) {
-        container.prepend(messages_div)
-    }
+    if (setMessages) {
+        if (!document.getElementById("messages")) {
+            container.prepend(messages_div)
+        } else {
+            messages.parentNode.removeChild(messages)
+            container.prepend(messages_div)
+        }
 
-    isInitialLoading = false
+        if (fixedAt !== undefined) {
+            /* setTimeout makes sure that the scrollbar update will be realized
+               *after* the DOM update/redisplay. Doing it without timeout wouldn't
+               do anything. */
+            setTimeout(function() {back_to_scroll(fixedAt)}, 0)
+        }
+    }
 }
 
 /**
- * Show the whole history in the chatview.
- * @param messages_array array containing history to be printed
+ * Set history buffer, initialize messages div and display a first batch
+ * of messages.
+ *
+ * Make sure that enough messages are displayed to fill initialScrollBufferFactor
+ * screens of messages (if enough messages are present in the conversation)
+ *
+ * @param messages_array should contain history to be printed
  */
 /* exported printHistory */
 function printHistory(messages_array)
@@ -1323,13 +1436,15 @@ function printHistory(messages_array)
 
     var messages_div = document.createElement("div")
     messages_div.setAttribute("id", "messages")
+    messages_div.setAttribute("onscroll", "onScrolled()")
 
-    printHistoryPart(messages_div, true)
-    setTimeout(back_to_bottom, 0)
+    isInitialLoading = true
+    printHistoryPart(messages_div, true, 0)
+    isInitialLoading = false
 }
 
 /**
- * Sets the image for a given sender
+ * Set the image for a given sender
  * set_sender_image object should contain the following keys:
  * - sender: the name of the sender
  * - sender_image: base64 png encoding of the sender image
@@ -1356,17 +1471,6 @@ function setSenderImage(set_sender_image_object)
     style.id = sender_image_id
     style.innerHTML = "." + sender_image_id + " {content: url(data:image/png;base64," + sender_image + ");height: 35px;width: 35px;}"
     document.head.appendChild(style)
-}
-
-/* exported clearSenderImages */
-function clearSenderImages()
-{
-    var styles = document.head.querySelectorAll("style"),
-        i = styles.length
-
-    while (i--){
-        document.head.removeChild(styles[i])
-    }
 }
 
 </script>
