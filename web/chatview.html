@@ -63,7 +63,7 @@
           </div>
       </div>
     <div id="container">
-      <div id="messages"></div>
+      <div id="messages" onscroll="onScrolled()"></div>
       <div id="sendMessage">
         <div class="nav-button action-button" onclick="sendFile()" title="Send File">
             <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -91,7 +91,10 @@ const avatar_size = 35
 // scrollDetectionThresh represents the number of pixels a user can scroll
 // without disabling the automatic go-back-to-bottom when a new message is
 // received
-const scrollDetectionThresh = 200
+const scrollDetectionThresh = 300
+const scrollBufferFactor = 3
+const initialScrollBuffer = 4
+const debounceTime = 250
 
 /* Buffers */
 var historyBufferIndex = 0 // When showing a large amount of interactions, this counter store the interaction's index to show
@@ -118,6 +121,44 @@ var hasInvitation = false
 var isTemporary = false
 var isBanned = false
 
+function onScrolled_() {
+    if (messages.scrollTop <= scrollDetectionThresh && historyBufferIndex != historyBuffer.length) {
+        /* Almost at the top and there's something to print */
+        var oldScroll = messages.scrollHeight - messages.scrollTop
+        printHistoryPart(oldScroll)
+    }
+}
+
+function back_to_scroll(scroll) {
+    messages.scrollTop = messages.scrollHeight - scroll
+}
+
+// Returns a function, that, as long as it continues to be invoked, will not
+// be triggered. The function will be called after it stops being called for
+// N milliseconds. If `immediate` is passed, trigger the function on the
+// leading edge, instead of the trailing.
+function debounce(func, wait, immediate) {
+    var timeout
+    return function() {
+        var context = this, args = arguments
+        var later = function() {
+            timeout = null
+            if (!immediate) func.apply(context, args)
+        }
+        var callNow = immediate && !timeout
+        clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+        if (callNow) func.apply(context, args)
+    }
+}
+
+/* exported onScrolled */
+var onScrolled = debounce(onScrolled_, debounceTime)
+
+window.onresize = function() {
+    updateTimestamps()
+}
+
 /**
  * Generic wrapper. Execute passed function keeping scroll position identical.
  *
@@ -128,7 +169,7 @@ function exec_keeping_scroll_position(func, args) {
     var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - scrollDetectionThresh
     func(...args)
     if (atEnd) {
-        messages.scrollTop = messages.scrollHeight
+        setTimeout(function() {back_to_scroll(0)}, 0)
     }
 }
 
@@ -147,6 +188,9 @@ function exec_keeping_scroll_position(func, args) {
  */
 /* exported update_chatview_frame */
 function update_chatview_frame(banned, temporary, alias, bestid) {
+    /* This function updates lots of things in the navbar and we don't want to
+       trigger that many DOM updates. Instead set display to none so DOM is
+       updated only once. */
     navbar.style.display = "none"
 
     hoverBackButtonAllowed = true
@@ -333,10 +377,6 @@ function updateView() {
 }
 
 setInterval(updateView, 60000)
-
-window.onresize = function() {
-    updateTimestamps()
-}
 
 /* exported addBannedContact */
 function addBannedContact()
@@ -535,8 +575,7 @@ function getMessageTimestampText(message_timestamp, custom_format)
  * @param endIndex
  */
 function cleanPreviousTimestamps (baseNode, endIndex) {
-    // Remove previous elements with the same formatted timestamp
-    exec_keeping_scroll_position(function() {
+        // Remove previous elements with the same formatted timestamp
         for (var c = endIndex - 1 ; c >= 0 ; --c) {
             const child = messages.children[c]
             if (child.className.indexOf("timestamp") !== -1) {
@@ -548,46 +587,43 @@ function cleanPreviousTimestamps (baseNode, endIndex) {
                 }
             }
         }
-    }, [])
 }
 
 /**
  * Update timestamps.
  */
 function updateTimestamps() {
-    exec_keeping_scroll_position(function() {
-        const timestamps = messages.getElementsByClassName(".timestamp")
-        const is_image_out = messages.querySelector(".message_out .sender_image")
-        const is_image_in = messages.querySelector(".message_in .sender_image")
-        if (timestamps) {
-            for ( var c = 0 ; c < messages.children.length ; ++c) {
-                const child = messages.children[c]
-                if (child.className.indexOf("timestamp") !== -1) {
+    const timestamps = messages.getElementsByClassName(".timestamp")
+    const is_image_out = messages.querySelector(".message_out .sender_image")
+    const is_image_in = messages.querySelector(".message_in .sender_image")
+    if (timestamps) {
+        for ( var c = 0 ; c < messages.children.length ; ++c) {
+            const child = messages.children[c]
+            if (child.className.indexOf("timestamp") !== -1) {
                 // Update timestamp
-                    child.innerHTML = getMessageTimestampText(child.getAttribute("message_timestamp"), true)
+                child.innerHTML = getMessageTimestampText(child.getAttribute("message_timestamp"), true)
 
-                    var desktop_margin = "25%"
-                    const height = document.body.clientHeight
-                    const width = document.body.clientWidth
-                    if (width <= 1920 || height <= 1080) {
-                        desktop_margin = "15%"
-                    }
-                    if (width <= 1000 || height <= 480) {
-                        desktop_margin = "0px"
-                    }
-                    if (child.className.indexOf("timestamp_out") !== -1) {
-                        const avatar_px = is_image_out ? (is_image_out.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
-                        child.style.paddingRight = `calc(${desktop_margin} + ${avatar_px})`
-                    } else if (child.className.indexOf("timestamp_in") !== -1) {
-                        const avatar_px = is_image_in ? (is_image_in.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
-                        child.style.paddingLeft = `calc(${desktop_margin} + ${avatar_px})`
-                    }
-                    // Remove previous elements with the same formatted timestamp
-                    cleanPreviousTimestamps(child, c)
+                var desktop_margin = "25%"
+                const height = document.body.clientHeight
+                const width = document.body.clientWidth
+                if (width <= 1920 || height <= 1080) {
+                    desktop_margin = "15%"
                 }
+                if (width <= 1000 || height <= 480) {
+                    desktop_margin = "0px"
+                }
+                if (child.className.indexOf("timestamp_out") !== -1) {
+                    const avatar_px = is_image_out ? (is_image_out.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
+                    child.style.paddingRight = `calc(${desktop_margin} + ${avatar_px})`
+                } else if (child.className.indexOf("timestamp_in") !== -1) {
+                    const avatar_px = is_image_in ? (is_image_in.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
+                    child.style.paddingLeft = `calc(${desktop_margin} + ${avatar_px})`
+                }
+                // Remove previous elements with the same formatted timestamp
+                cleanPreviousTimestamps(child, c)
             }
         }
-    }, [])
+    }
 }
 
 /**
@@ -614,17 +650,15 @@ function humanFileSize(bytes) {
  * @param message_object
  */
 function updateProgressBar(progress_bar, message_object) {
-    exec_keeping_scroll_position(function() {
-        var delivery_status = message_object["delivery_status"]
-        if ("progress" in message_object && !isErrorStatus(delivery_status) && message_object["progress"] !== 100) {
-            var progress_percent = (100 * message_object["progress"] / message_object["totalSize"])
-            if (progress_percent !== 100)
-                progress_bar.childNodes[0].setAttribute("style", "width: " + progress_percent + "%")
-            else
-                progress_bar.setAttribute("style", "display: none")
-        } else
+    var delivery_status = message_object["delivery_status"]
+    if ("progress" in message_object && !isErrorStatus(delivery_status) && message_object["progress"] !== 100) {
+        var progress_percent = (100 * message_object["progress"] / message_object["totalSize"])
+        if (progress_percent !== 100)
+            progress_bar.childNodes[0].setAttribute("style", "width: " + progress_percent + "%")
+        else
             progress_bar.setAttribute("style", "display: none")
-    }, [])
+    } else
+        progress_bar.setAttribute("style", "display: none")
 }
 
 /**
@@ -705,15 +739,14 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
 
     if (isImage(message_text) && message_delivery_status === "finished" && displayLinksEnabled && !forceTypeToFile) {
         // Replace the old wrapper by the downloaded image
-        exec_keeping_scroll_position(function() {
-            if (message_div.querySelector(".message_wrapper")) {
-                var wrapper = message_div.querySelector(".message_wrapper")
-                wrapper.parentNode.removeChild(wrapper)
-            }
-            message_div.append(mediaInteraction(message_id, message_text))
-            message_div.querySelector("img").id = message_id
-            message_div.querySelector("img").msg_obj = message_object
-            message_div.querySelector("img").onerror = function() {
+        if (message_div.querySelector(".message_wrapper")) {
+            var wrapper = message_div.querySelector(".message_wrapper")
+            wrapper.parentNode.removeChild(wrapper)
+        }
+        message_div.append(mediaInteraction(message_id, message_text))
+        message_div.querySelector("img").id = message_id
+        message_div.querySelector("img").msg_obj = message_object
+        message_div.querySelector("img").onerror = function() {
                 message_div = document.getElementById("#message_" + this.id)
                 var wrapper = message_div.querySelector(".message_wrapper")
                 if (wrapper) {
@@ -722,7 +755,6 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
                 message_div.append(fileInteraction(message_id))
                 updateFileInteraction(message_div, this.msg_obj, true)
             }
-        }, [])
         return
     }
 
@@ -775,8 +807,6 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
 
     message_div.querySelector(".full").innerText = message_text
     message_div.querySelector(".filename").innerText = message_text.split("/").pop()
-    message_div.querySelector(".filename").innerText = message_text.split("/").pop()
-    updateProgressBar(message_div.querySelector(".message_progress_bar"), message_object)
     updateProgressBar(message_div.querySelector(".message_progress_bar"), message_object)
 }
 
@@ -816,11 +846,12 @@ function mediaInteraction(message_id, link, ytid, noerror) {
     linkElt.href = link
     linkElt.style = "text-decoration: none; border:none;"
     const imageElt = document.createElement("img")
+
     /* Note, here, we don't check the size of the image.
      in the future, we can check the content-type and content-length with a request
      and maybe disable svg */
     if (noerror)
-        imageElt.setAttribute("onerror", "this.style.display='none'")
+         imageElt.setAttribute("onerror", "this.style.display='none'")
     if (ytid) {
         imageElt.src = `http://img.youtube.com/vi/${ytid}/0.jpg`
     } else {
@@ -1002,6 +1033,8 @@ function removeInteraction(interaction_id) {
 
 /**
  * Add a message to the conversation.
+ * This function DOES NOT keep scrolling position.
+ *
  * @param message_object to treat
  * @param new_message if it's a new message or if we need to update
  * @param insert_after if we want the message at the end or the top of the conversation
@@ -1182,7 +1215,6 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
     if (message_type === "contact")
         updateContactInteraction(message_div, message_object)
 
-    // Clean timestamps
     updateTimestamps()
 }
 
@@ -1214,28 +1246,20 @@ function updateMessage(message_object)
  * This function displays the history in reverse order and makes sure the
  * scrollbar position is refreshed correctly.
  */
-function printHistoryPart()
+function printHistoryPart(fixedAt, scrollFactor = scrollBufferFactor)
 {
     if(historyBuffer.length == 0 || historyBufferIndex === historyBuffer.length) {
         // nothing to print
         return
     }
 
-    exec_keeping_scroll_position(function() {
-        // Show 10 messages
-        for (var i = 0; i < 10; ++i) {
-            addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false)
-            historyBufferIndex ++
+    addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false)
+    historyBufferIndex ++
 
-            if (historyBufferIndex === historyBuffer.length)
-                break
-        }
-    }, [])
+    setTimeout(function() {back_to_scroll(fixedAt)}, 0)
 
-    // Make a short pause to minimize ressources consumption
-    // show quickly the first hundred messages
-    if (historyBufferIndex !== historyBuffer.length)
-        setTimeout(printHistoryPart, (historyBufferIndex > 100) ? 100 : 1)
+    if (messages.scrollTop < scrollFactor * messages.clientHeight)
+        setTimeout(function() {printHistoryPart(fixedAt, scrollFactor)}, 0)
 }
 
 /**
@@ -1247,7 +1271,7 @@ function printHistory(messages_array)
 {
     historyBuffer = messages_array
     historyBufferIndex = 0
-    setTimeout(printHistoryPart, 0)
+    setTimeout(function() {printHistoryPart(0, initialScrollBuffer)}, 0)
 }
 
 /**
