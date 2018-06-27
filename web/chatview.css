@@ -355,7 +355,10 @@ a:hover {
   overflow-y: scroll;
   height: auto;
   padding-top: 0.5em;
-  padding-bottom: 1em;
+}
+
+.last-message {
+  padding-bottom: 1em !important;
 }
 
 /* General messages */
