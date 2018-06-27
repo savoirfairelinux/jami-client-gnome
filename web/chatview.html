@@ -63,7 +63,7 @@
           </div>
       </div>
     <div id="container">
-      <div id="messages"></div>
+      <!-- messages are dynamically inserted here -->
       <div id="sendMessage">
         <div class="nav-button action-button" onclick="sendFile()" title="Send File">
             <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -105,7 +105,7 @@ const bestIdField       = document.getElementById("nav-contactid-bestId")
 const idField           = document.getElementById("nav-contactid")
 const messageBar        = document.getElementById("sendMessage")
 const messageBarInput   = document.getElementById("message")
-const messages          = document.getElementById("messages")
+const container         = document.getElementById("container")
 const addToConvButton   = document.getElementById("addToConversationsButton")
 const invitation        = document.getElementById("invitation")
 const navbar            = document.getElementById("navbar")
@@ -117,6 +117,7 @@ var hoverBackButtonAllowed = true
 var hasInvitation = false
 var isTemporary = false
 var isBanned = false
+var isInitialLoading = false
 
 /**
  * Generic wrapper. Execute passed function keeping scroll position identical.
@@ -125,11 +126,39 @@ var isBanned = false
  * @param args parameters as array
  */
 function exec_keeping_scroll_position(func, args) {
-    var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - scrollDetectionThresh
-    func(...args)
-    if (atEnd) {
-        messages.scrollTop = messages.scrollHeight
+    const messages = document.getElementById("messages")
+
+    if (messages) {
+        var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - scrollDetectionThresh
+        func(...args)
+        if (atEnd) {
+            messages.scrollTop = messages.scrollHeight
+        }
+    } else {
+        // should not happen
+        func(...args)
     }
+}
+
+/**
+ * Reset scrollbar at a given position.
+ * @param scroll position at which the scrollbar should be set.
+ *               Here position means the number of pixels scrolled,
+ *               i.e. scroll = 0 resets the scrollbar at the bottom.
+ */
+
+function back_to_scroll(scroll) {
+    const messages = document.getElementById("messages")
+    if (messages) {
+        messages.scrollTop = messages.scrollHeight - scroll
+    }
+}
+
+/**
+ * Reset scrollbar at bottom.
+ */
+function back_to_bottom() {
+    back_to_scroll(0)
 }
 
 /**
@@ -267,7 +296,7 @@ function grow_text_area() {
 }
 
 /**
- * This event handler processes keydown events in the navbar. When pressed key is
+ * This event handler processes keydown events from the message bar. When pressed key is
  * the enter key, send the message unless shift or control was pressed too.
  *
  * @param key the pressed key
@@ -329,13 +358,20 @@ function addBackButtonHoverProperty()
  * Update timestamps messages.
  */
 function updateView() {
-    updateTimestamps()
+    const messages = document.getElementById("messages")
+    if (messages)
+        updateTimestamps(messages)
 }
 
 setInterval(updateView, 60000)
 
+/*
+ * FIXME updateTimestamps has to be called when the window is resized because
+ * updateTimestamps also handles timestamp repositioning (responsive view). This
+ * task should be done in a separate function.
+ */
 window.onresize = function() {
-    updateTimestamps()
+    updateView()
 }
 
 /* exported addBannedContact */
@@ -402,7 +438,7 @@ function formatDate(date) {
 }
 
 /**
- * Send #sendMessage #message value
+ * Send content of message bar
  */
 function sendMessage()
 {
@@ -443,7 +479,10 @@ function sendFile()
 /* exported clearMessages */
 function clearMessages()
 {
-    messages.innerHTML = ""
+    const messages = document.getElementById("messages")
+    if (messages) {
+        messages.parentNode.removeChild(messages)
+    }
 }
 
 /**
@@ -533,61 +572,60 @@ function getMessageTimestampText(message_timestamp, custom_format)
  *
  * @param baseNode
  * @param endIndex
+ * @param message_div
  */
-function cleanPreviousTimestamps (baseNode, endIndex) {
+function cleanPreviousTimestamps (baseNode, endIndex, messages_div) {
     // Remove previous elements with the same formatted timestamp
-    exec_keeping_scroll_position(function() {
-        for (var c = endIndex - 1 ; c >= 0 ; --c) {
-            const child = messages.children[c]
-            if (child.className.indexOf("timestamp") !== -1) {
-                if (child.className === baseNode.className &&
-            child.innerHTML === baseNode.innerHTML) {
-                    messages.removeChild(child)
-                } else {
-                    break // A different timestamp is met, we can stop here.
-                }
+    for (var c = endIndex - 1 ; c >= 0 ; --c) {
+        const child = messages_div.children[c]
+        if (child.className.indexOf("timestamp") !== -1) {
+            if (child.className === baseNode.className &&
+                    child.innerHTML === baseNode.innerHTML) {
+                messages_div.removeChild(child)
+            } else {
+                break // A different timestamp is met, we can stop here.
             }
         }
-    }, [])
+    }
 }
 
 /**
  * Update timestamps.
+ * @param message_div
  */
-function updateTimestamps() {
-    exec_keeping_scroll_position(function() {
-        const timestamps = messages.getElementsByClassName(".timestamp")
-        const is_image_out = messages.querySelector(".message_out .sender_image")
-        const is_image_in = messages.querySelector(".message_in .sender_image")
-        if (timestamps) {
-            for ( var c = 0 ; c < messages.children.length ; ++c) {
-                const child = messages.children[c]
-                if (child.className.indexOf("timestamp") !== -1) {
+function updateTimestamps(messages_div) {
+    const timestamps = messages_div.querySelector(".timestamp")
+    const is_image_out = messages_div.querySelector(".message_out .sender_image")
+    const is_image_in = messages_div.querySelector(".message_in .sender_image")
+    if (timestamps) {
+        for ( var c = 0 ; c < messages_div.children.length ; ++c) {
+            const child = messages_div.children[c]
+            if (child.className.indexOf("timestamp") !== -1) {
                 // Update timestamp
-                    child.innerHTML = getMessageTimestampText(child.getAttribute("message_timestamp"), true)
+                child.innerHTML = getMessageTimestampText(child.getAttribute("message_timestamp"), true)
 
-                    var desktop_margin = "25%"
-                    const height = document.body.clientHeight
-                    const width = document.body.clientWidth
-                    if (width <= 1920 || height <= 1080) {
-                        desktop_margin = "15%"
-                    }
-                    if (width <= 1000 || height <= 480) {
-                        desktop_margin = "0px"
-                    }
-                    if (child.className.indexOf("timestamp_out") !== -1) {
-                        const avatar_px = is_image_out ? (is_image_out.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
-                        child.style.paddingRight = `calc(${desktop_margin} + ${avatar_px})`
-                    } else if (child.className.indexOf("timestamp_in") !== -1) {
-                        const avatar_px = is_image_in ? (is_image_in.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
-                        child.style.paddingLeft = `calc(${desktop_margin} + ${avatar_px})`
-                    }
-                    // Remove previous elements with the same formatted timestamp
-                    cleanPreviousTimestamps(child, c)
+                // FIXME this is EVIL HACK. Responsive behaviour should be handled by CSS, not JS
+                var desktop_margin = "25%"
+                const height = document.body.clientHeight
+                const width = document.body.clientWidth
+                if (width <= 1920 || height <= 1080) {
+                    desktop_margin = "15%"
                 }
+                if (width <= 1000 || height <= 480) {
+                    desktop_margin = "0px"
+                }
+                if (child.className.indexOf("timestamp_out") !== -1) {
+                    const avatar_px = is_image_out ? (is_image_out.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
+                    child.style.paddingRight = `calc(${desktop_margin} + ${avatar_px})`
+                } else if (child.className.indexOf("timestamp_in") !== -1) {
+                    const avatar_px = is_image_in ? (is_image_in.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
+                    child.style.paddingLeft = `calc(${desktop_margin} + ${avatar_px})`
+                }
+                // Remove previous elements with the same formatted timestamp
+                cleanPreviousTimestamps(child, c, messages_div)
             }
         }
-    }, [])
+    }
 }
 
 /**
@@ -614,17 +652,15 @@ function humanFileSize(bytes) {
  * @param message_object
  */
 function updateProgressBar(progress_bar, message_object) {
-    exec_keeping_scroll_position(function() {
-        var delivery_status = message_object["delivery_status"]
-        if ("progress" in message_object && !isErrorStatus(delivery_status) && message_object["progress"] !== 100) {
-            var progress_percent = (100 * message_object["progress"] / message_object["totalSize"])
-            if (progress_percent !== 100)
-                progress_bar.childNodes[0].setAttribute("style", "width: " + progress_percent + "%")
-            else
-                progress_bar.setAttribute("style", "display: none")
-        } else
+    var delivery_status = message_object["delivery_status"]
+    if ("progress" in message_object && !isErrorStatus(delivery_status) && message_object["progress"] !== 100) {
+        var progress_percent = (100 * message_object["progress"] / message_object["totalSize"])
+        if (progress_percent !== 100)
+            progress_bar.childNodes[0].setAttribute("style", "width: " + progress_percent + "%")
+        else
             progress_bar.setAttribute("style", "display: none")
-    }, [])
+    } else
+        progress_bar.setAttribute("style", "display: none")
 }
 
 /**
@@ -684,6 +720,25 @@ function fileInteraction(message_id) {
 }
 
 /**
+ * Build information text for passed file interaction message object
+ *
+ * @param message_object message object containing file interaction info
+ */
+function buildFileInformationText(message_object) {
+    var informations_txt = getMessageTimestampText(message_object["timestamp"], true)
+    if (message_object["totalSize"] && message_object["progress"]) {
+        if (message_object["delivery_status"] === "finished") {
+            informations_txt += " - " + humanFileSize(message_object["totalSize"])
+        } else {
+            informations_txt += " - " + humanFileSize(message_object["progress"])
+                         + " / " + humanFileSize(message_object["totalSize"])
+        }
+    }
+
+    return informations_txt + " - " + message_object["delivery_status"]
+}
+
+/**
  * Update a file interaction (icons + filename + status + progress bar)
  *
  * @param message_div the message to update
@@ -705,40 +760,28 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
 
     if (isImage(message_text) && message_delivery_status === "finished" && displayLinksEnabled && !forceTypeToFile) {
         // Replace the old wrapper by the downloaded image
-        exec_keeping_scroll_position(function() {
-            if (message_div.querySelector(".message_wrapper")) {
-                var wrapper = message_div.querySelector(".message_wrapper")
+        if (message_div.querySelector(".message_wrapper")) {
+            var wrapper = message_div.querySelector(".message_wrapper")
+            wrapper.parentNode.removeChild(wrapper)
+        }
+        message_div.append(mediaInteraction(message_id, message_text))
+        message_div.querySelector("img").id = message_id
+        message_div.querySelector("img").msg_obj = message_object
+        message_div.querySelector("img").onerror = function() {
+            message_div = document.getElementById("message_" + this.id)
+            var wrapper = message_div.querySelector(".message_wrapper")
+            if (wrapper) {
                 wrapper.parentNode.removeChild(wrapper)
             }
-            message_div.append(mediaInteraction(message_id, message_text))
-            message_div.querySelector("img").id = message_id
-            message_div.querySelector("img").msg_obj = message_object
-            message_div.querySelector("img").onerror = function() {
-                message_div = document.getElementById("#message_" + this.id)
-                var wrapper = message_div.querySelector(".message_wrapper")
-                if (wrapper) {
-                    wrapper.parentNode.removeChild(wrapper)
-                }
-                message_div.append(fileInteraction(message_id))
-                updateFileInteraction(message_div, this.msg_obj, true)
-            }
-        }, [])
+            message_div.append(fileInteraction(message_id))
+            updateFileInteraction(message_div, this.msg_obj, true)
+        }
         return
     }
 
     // Set informations text
     var informations_div = message_div.querySelector(".informations")
-    var informations_txt = getMessageTimestampText(message_object["timestamp"], true)
-    if (message_object["totalSize"] && message_object["progress"]) {
-        if (message_delivery_status === "finished") {
-            informations_txt += " - " + humanFileSize(message_object["totalSize"])
-        } else {
-            informations_txt += " - " + humanFileSize(message_object["progress"])
-                         + " / " + humanFileSize(message_object["totalSize"])
-        }
-    }
-    informations_txt += " - " + message_delivery_status
-    informations_div.innerText = informations_txt
+    informations_div.innerText = buildFileInformationText(message_object)
 
     // Update flat buttons
     var left_buttons = message_div.querySelector(".left_buttons")
@@ -775,8 +818,6 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
 
     message_div.querySelector(".full").innerText = message_text
     message_div.querySelector(".filename").innerText = message_text.split("/").pop()
-    message_div.querySelector(".filename").innerText = message_text.split("/").pop()
-    updateProgressBar(message_div.querySelector(".message_progress_bar"), message_object)
     updateProgressBar(message_div.querySelector(".message_progress_bar"), message_object)
 }
 
@@ -801,6 +842,25 @@ function isVideo(file) {
 }
 
 /**
+ * Build a container for passed video thumbnail
+ * @param linkElt video thumbnail div
+ */
+function buildVideoContainer(linkElt) {
+    const containerElt = document.createElement("div")
+    containerElt.setAttribute("class", "containerVideo")
+    const playDiv = document.createElement("div")
+    playDiv.setAttribute("class", "playVideo")
+    playDiv.innerHTML = "<svg fill=\"#ffffff\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\
+        <path d=\"M8 5v14l11-7z\"/>\
+        <path d=\"M0 0h24v24H0z\" fill=\"none\"/>\
+    </svg>"
+    linkElt.appendChild(playDiv)
+    containerElt.appendChild(linkElt)
+
+    return containerElt
+}
+
+/**
  * Try to show an image or a video link (youtube for now)
  * @param message_id
  * @param link to show
@@ -821,24 +881,20 @@ function mediaInteraction(message_id, link, ytid, noerror) {
      and maybe disable svg */
     if (noerror)
         imageElt.setAttribute("onerror", "this.style.display='none'")
-    if (ytid) {
-        imageElt.src = `http://img.youtube.com/vi/${ytid}/0.jpg`
-    } else {
-        imageElt.src = link
+
+    imageElt.src = ytid ? `http://img.youtube.com/vi/${ytid}/0.jpg` : link
+    if (isInitialLoading || messages.scrollTop >= messages.scrollHeight - messages.clientHeight - scrollDetectionThresh) {
+        /* Hack to keep the scrollbar at the bottom.
+           Images are loaded asynchronously and the scrollbar position is
+           changed each time an image is loaded and displayed. In order to
+           make sure the scrollbar stays at the bottom, reset scrollbar
+           position each time an image was loaded. */
+        imageElt.onload = back_to_bottom
     }
     linkElt.appendChild(imageElt)
+
     if (ytid) {
-        const containerElt = document.createElement("div")
-        containerElt.setAttribute("class", "containerVideo")
-        const playDiv = document.createElement("div")
-        playDiv.setAttribute("class", "playVideo")
-        playDiv.innerHTML = "<svg fill=\"#ffffff\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\
-        <path d=\"M8 5v14l11-7z\"/>\
-        <path d=\"M0 0h24v24H0z\" fill=\"none\"/>\
-    </svg>"
-        linkElt.appendChild(playDiv)
-        containerElt.appendChild(linkElt)
-        media_wrapper.appendChild(containerElt)
+        media_wrapper.appendChild(buildVideoContainer(linkElt))
     } else {
         media_wrapper.appendChild(linkElt)
     }
@@ -984,9 +1040,9 @@ function updateContactInteraction(message_div, message_object) {
  */
 /* exported removeInteraction */
 function removeInteraction(interaction_id) {
+    const messages = document.getElementById("messages")
     var interaction = document.querySelector(`#message_${interaction_id}`)
     var child = interaction
-    var messages = document.querySelector("#messages")
     var i = 0
     while( (child = child.previousSibling) != null )
         i++
@@ -1001,167 +1057,195 @@ function removeInteraction(interaction_id) {
 }
 
 /**
- * Add a message to the conversation.
+ * Build a message div for passed message object
  * @param message_object to treat
- * @param new_message if it's a new message or if we need to update
- * @param insert_after if we want the message at the end or the top of the conversation
  */
-function addOrUpdateMessage(message_object, new_message, insert_after = true) {
+function buildNewMessage(message_object) {
     const message_id = message_object["id"]
     const message_type = message_object["type"]
     const message_text = message_object["text"]
     const message_direction = message_object["direction"]
-    const message_timestamp = message_object["timestamp"]
     const delivery_status = message_object["delivery_status"]
     const message_sender_contact_method = message_object["sender_contact_method"]
 
-    var message_div = document.getElementById("message_" + message_id)
+    var classes = [
+        "message",
+        `message_${message_direction}`,
+        `message_type_${message_type}`
+    ]
+
     var type = ""
-    if (new_message) {
-    // Build new message
-        var classes = [
-            "message",
-            `message_${message_direction}`,
-            `message_type_${message_type}`
-        ]
+    var message_div = document.createElement("div")
+    message_div.setAttribute("id", `message_${message_id}`)
+    message_div.setAttribute("class", classes.join(" "))
 
-        message_div = document.createElement("div")
-        message_div.setAttribute("id", `message_${message_id}`)
-        message_div.setAttribute("class", classes.join(" "))
+    // Build message for each types.
+    // Add sender images if necessary (like if the interaction doesn't take the whole width)
+    const need_sender = (message_type === "data_transfer" || message_type === "text")
+    if (need_sender) {
+        var message_sender_image = document.createElement("span")
+        message_sender_image.setAttribute("class", `sender_image sender_image_${message_sender_contact_method}`)
+        message_div.appendChild(message_sender_image)
+    }
 
-        // Build message for each types.
-        // Add sender images if necessary (like if the interaction doesn't take the whole width)
-        const need_sender = (message_type === "data_transfer" || message_type === "text")
-        if (need_sender) {
-            var message_sender_image = document.createElement("span")
-            message_sender_image.setAttribute("class", `sender_image sender_image_${message_sender_contact_method}`)
-            message_div.appendChild(message_sender_image)
-        }
-
-        // Build main content
-        if (message_type === "data_transfer") {
-            if (isImage(message_text) && delivery_status === "finished" && displayLinksEnabled) {
-                message_div.append(mediaInteraction(message_id, message_text, null, false))
-                message_div.querySelector("img").id = message_id
-                message_div.querySelector("img").msg_obj = message_object
-                message_div.querySelector("img").onerror = function() {
-                    message_div = document.getElementById("#message_" + this.id)
-                    /* FIXME in many cases, message_div is null here and this code doesn't do anything */
-                    if (message_div.querySelector(".message_wrapper")) {
-                        var wrapper = message_div.querySelector(".message_wrapper")
-                        wrapper.parentNode.removeChild(wrapper)
-                    }
-                    message_div.append(fileInteraction(message_id))
-                    updateFileInteraction(message_div, this.msg_obj, true)
+    // Build main content
+    if (message_type === "data_transfer") {
+        if (isImage(message_text) && delivery_status === "finished" && displayLinksEnabled) {
+            message_div.append(mediaInteraction(message_id, message_text, null, false))
+            message_div.querySelector("img").id = message_id
+            message_div.querySelector("img").msg_obj = message_object
+            /* FIXME in case of error during image load, we should display the standard file
+               transfer box. This feature is broken and should be repared. */
+            /* message_div.querySelector("img").onerror = function() {
+                message_div = .getElementById("message_" + this.id)
+                if (message_div.querySelector(".message_wrapper")) {
+                    var wrapper = message_div.querySelector(".message_wrapper")
+                    wrapper.parentNode.removeChild(wrapper)
                 }
-            } else {
                 message_div.append(fileInteraction(message_id))
-            }
-        } else if (message_type === "text") {
-            // TODO add the possibility to update messages (remove and rebuild)
-            const htmlText = getMessageHtml(message_text)
-            if (displayLinksEnabled) {
-                const parser = new DOMParser()
-                const DOMMsg = parser.parseFromString(htmlText, "text/xml")
-                const links = DOMMsg.querySelectorAll("a")
-                if (DOMMsg.childNodes.length && links.length) {
-                    var isTextToShow = (DOMMsg.childNodes[0].childNodes.length > 1)
-                    const ytid = (isVideo(message_text))? youtube_id(message_text) : ""
-                    if (!isTextToShow && (ytid || isImage(message_text))) {
-                        type = "media"
-                        message_div.append(mediaInteraction(message_id, message_text, ytid))
-                    }
+                updateFileInteraction(message_div, this.msg_obj, true)
+            } */
+        } else {
+            message_div.append(fileInteraction(message_id))
+        }
+    } else if (message_type === "text") {
+        // TODO add the possibility to update messages (remove and rebuild)
+        const htmlText = getMessageHtml(message_text)
+        if (displayLinksEnabled) {
+            const parser = new DOMParser()
+            const DOMMsg = parser.parseFromString(htmlText, "text/xml")
+            const links = DOMMsg.querySelectorAll("a")
+            if (DOMMsg.childNodes.length && links.length) {
+                var isTextToShow = (DOMMsg.childNodes[0].childNodes.length > 1)
+                const ytid = (isVideo(message_text))? youtube_id(message_text) : ""
+                if (!isTextToShow && (ytid || isImage(message_text))) {
+                    type = "media"
+                    message_div.append(mediaInteraction(message_id, message_text, ytid))
                 }
             }
-            if (type !== "media") {
-                type = "text"
-                message_div.append(textInteraction(message_id, htmlText))
-            }
-        } else if (message_type === "call" || message_type === "contact") {
-            message_div.append(actionInteraction())
-        } else {
-            const temp = document.createElement("div")
-            temp.innerText = message_type
-            message_div.appendChild(temp)
         }
-
-        const menu_element = document.createElement("div")
-        menu_element.setAttribute("class", "menu_interaction")
-        menu_element.innerHTML = "<label for=\"showmenu\">\
-          <svg fill=\"#888888\" height=\"12\" viewBox=\"0 0 24 24\" width=\"12\" xmlns=\"http://www.w3.org/2000/svg\">\
-            <path d=\"M0 0h24v24H0z\" fill=\"none\"/>\
-            <path d=\"M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z\"/>\
-          </svg>\
-        </label>\
-        <input type=\"checkbox\" id=\"showmenu\" hidden />"
-        menu_element.onclick = function() {
-            const button = this.querySelector("#showmenu")
-            button.checked = !button.checked
+        if (type !== "media") {
+            type = "text"
+            message_div.append(textInteraction(message_id, htmlText))
         }
-        menu_element.onmouseleave = function() {
-            const button = this.querySelector("#showmenu")
-            button.checked = false
-        }
-        const dropdown = document.createElement("div")
-        const dropdown_classes = [
-            "dropdown",
-            `dropdown_${message_id}`
-        ]
-        dropdown.setAttribute("class", dropdown_classes.join(" "))
+    } else if (message_type === "call" || message_type === "contact") {
+        message_div.append(actionInteraction())
+    } else {
+        const temp = document.createElement("div")
+        temp.innerText = message_type
+        message_div.appendChild(temp)
+    }
 
-        const remove = document.createElement("div")
-        remove.setAttribute("class", "delete")
-        remove.innerHTML = "Delete"
-        remove.msg_id = message_id
-        remove.onclick = function() {
-            window.prompt(`DELETE_INTERACTION:${this.msg_id}`)
-        }
-        dropdown.appendChild(remove)
+    const menu_element = document.createElement("div")
+    menu_element.setAttribute("class", "menu_interaction")
+    menu_element.innerHTML = "<label for=\"showmenu\">\
+      <svg fill=\"#888888\" height=\"12\" viewBox=\"0 0 24 24\" width=\"12\" xmlns=\"http://www.w3.org/2000/svg\">\
+        <path d=\"M0 0h24v24H0z\" fill=\"none\"/>\
+        <path d=\"M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z\"/>\
+      </svg>\
+    </label>\
+    <input type=\"checkbox\" id=\"showmenu\" hidden />"
+    menu_element.onclick = function() {
+        const button = this.querySelector("#showmenu")
+        button.checked = !button.checked
+    }
+    menu_element.onmouseleave = function() {
+        const button = this.querySelector("#showmenu")
+        button.checked = false
+    }
+    const dropdown = document.createElement("div")
+    const dropdown_classes = [
+        "dropdown",
+        `dropdown_${message_id}`
+    ]
+    dropdown.setAttribute("class", dropdown_classes.join(" "))
 
-        menu_element.appendChild(dropdown)
-        if (message_type !== "call") {
-            message_div.appendChild(menu_element)
-        } else {
-            var wrapper = message_div.querySelector(".message_wrapper")
-            wrapper.insertBefore(menu_element, wrapper.firstChild)
-        }
+    const remove = document.createElement("div")
+    remove.setAttribute("class", "delete")
+    remove.innerHTML = "Delete"
+    remove.msg_id = message_id
+    remove.onclick = function() {
+        window.prompt(`DELETE_INTERACTION:${this.msg_id}`)
+    }
+    dropdown.appendChild(remove)
 
-        // Get timestamp to add
-        const formattedTimestamp = getMessageTimestampText(message_timestamp, true)
-        // Create the timestamp object
-        const date_elt = document.createElement("div")
-        date_elt.innerText = formattedTimestamp
-        var typeIsCallOrContact = (message_type === "call" || message_type === "contact")
-        var timestamp_div_classes = ["timestamp", typeIsCallOrContact ? "timestamp_action" : `timestamp_${message_direction}`]
-        date_elt.setAttribute("class", timestamp_div_classes.join(" "))
-        date_elt.setAttribute("message_timestamp", message_timestamp)
+    menu_element.appendChild(dropdown)
+    if (message_type !== "call") {
+        message_div.appendChild(menu_element)
+    } else {
+        var wrapper = message_div.querySelector(".message_wrapper")
+        wrapper.insertBefore(menu_element, wrapper.firstChild)
+    }
 
+    return message_div
+}
+
+/**
+ * Build a timestamp for passed message object
+ * @param message_object to treat
+ */
+function buildNewTimestamp(message_object) {
+    const message_type = message_object["type"]
+    const message_direction = message_object["direction"]
+    const message_timestamp = message_object["timestamp"]
+
+    const formattedTimestamp = getMessageTimestampText(message_timestamp, true)
+    const date_elt = document.createElement("div")
+
+    date_elt.innerText = formattedTimestamp
+    var typeIsCallOrContact = (message_type === "call" || message_type === "contact")
+    var timestamp_div_classes = ["timestamp", typeIsCallOrContact ? "timestamp_action" : `timestamp_${message_direction}`]
+    date_elt.setAttribute("class", timestamp_div_classes.join(" "))
+    date_elt.setAttribute("message_timestamp", message_timestamp)
+
+    return date_elt
+}
+
+/**
+ * Add a message to the conversation.
+ * @param message_object to treat
+ * @param new_message if it's a new message or if we need to update
+ * @param insert_after if we want the message at the end or the top of the conversation
+ * @param messages_div
+ */
+function addOrUpdateMessage(message_object, new_message, insert_after = true, messages_div) {
+    const message_id = message_object["id"]
+    const message_type = message_object["type"]
+    const message_direction = message_object["direction"]
+    const delivery_status = message_object["delivery_status"]
+
+    var message_div = messages_div.querySelector("#message_" + message_id)
+    if (new_message) {
+        message_div = buildNewMessage(message_object)
+
+        var date_elt = buildNewTimestamp(message_object)
         // Remove last timestamp if it's the same
-        if (messages.getElementsByClassName(".timestamp"))
-            cleanPreviousTimestamps(date_elt, messages.children.length)
+        if (messages_div.querySelector(".timestamp"))
+            cleanPreviousTimestamps(date_elt, messages_div.children.length, messages_div)
 
         // Add message and the new timestamp
+        if (message_type === "call" || message_type === "contact") {
+            message_div.querySelector(".message_wrapper").appendChild(date_elt)
+        }
+
         if (insert_after) {
-            if (message_type === "call" || message_type === "contact") {
-                message_div.querySelector(".message_wrapper").appendChild(date_elt)
-                messages.appendChild(message_div)
-            } else {
-                messages.appendChild(message_div)
-                messages.appendChild(date_elt)
+            messages_div.lastChild.classList.remove("last-message")
+            messages_div.appendChild(message_div)
+            if (! (message_type === "call" || message_type === "contact")) {
+                messages_div.appendChild(date_elt)
             }
+            messages_div.lastChild.classList.add("last-message")
         } else {
-            if (message_type === "call" || message_type === "contact") {
-                message_div.querySelector(".message_wrapper").appendChild(date_elt)
-                messages.insertBefore(message_div, messages.firstChild)
-            } else {
-                messages.insertBefore(date_elt, messages.firstChild)
-                messages.insertBefore(message_div, messages.firstChild)
+            if (! (message_type === "call" || message_type === "contact")) {
+                messages_div.prepend(date_elt)
             }
+
+            messages_div.prepend(message_div)
         }
     }
 
     if (isErrorStatus(delivery_status) && message_direction === "out") {
-        const dropdown = document.querySelector(`.dropdown_${message_id}`)
+        const dropdown = messages_div.querySelector(`.dropdown_${message_id}`)
         const retry = document.createElement("div")
         retry.innerHTML = "Retry"
         retry.msg_id = message_id
@@ -1183,59 +1267,62 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true) {
         updateContactInteraction(message_div, message_object)
 
     // Clean timestamps
-    updateTimestamps()
+    updateTimestamps(messages_div)
 }
 
 /**
  * Wrapper for addOrUpdateMessage.
  *
- * This function adds or updates a message and makes sure the scrollbar position
- * is refreshed correctly.
+ * Add or update a message and make sure the scrollbar position
+ * is refreshed correctly
  *
  * @param message_object message to be added
  */
 /* exported addMessage */
 function addMessage(message_object)
 {
-    exec_keeping_scroll_position(addOrUpdateMessage, [message_object, true])
+    const messages = document.getElementById("messages")
+    if (messages)
+        exec_keeping_scroll_position(addOrUpdateMessage, [message_object, true, undefined, messages])
 }
 
 /**
- * Update a message that was previously added with addMessage
+ * Update a message that was previously added with addMessage and
+ * make sure the scrollbar position is refreshed correctly
+ *
  * @param message_object message to be updated
  */
 /* exported updateMessage */
 function updateMessage(message_object)
 {
-    exec_keeping_scroll_position(addOrUpdateMessage, [message_object, false])
+    const messages = document.getElementById("messages")
+    if (messages)
+        exec_keeping_scroll_position(addOrUpdateMessage, [message_object, false, undefined, messages])
 }
 
 /**
- * This function displays the history in reverse order and makes sure the
- * scrollbar position is refreshed correctly.
+ * Display history in reverse order
+ * This function operates on passed root div.
+ *
+ * @param messages_div root div to modify
+ * @param setMessages if true and #messages doesn't exist, #messages is set to the resulting messages div
  */
-function printHistoryPart()
+function printHistoryPart(messages_div, setMessages = false)
 {
-    if(historyBuffer.length == 0 || historyBufferIndex === historyBuffer.length) {
-        // nothing to print
-        return
+    isInitialLoading = true
+
+    for (; historyBufferIndex < historyBuffer.length; ++historyBufferIndex) {
+        addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false, messages_div)
     }
 
-    exec_keeping_scroll_position(function() {
-        // Show 10 messages
-        for (var i = 0; i < 10; ++i) {
-            addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false)
-            historyBufferIndex ++
+    messages_div.lastChild.classList.add("last-message")
 
-            if (historyBufferIndex === historyBuffer.length)
-                break
-        }
-    }, [])
+    const messages = document.getElementById("messages")
+    if (!messages && setMessages) {
+        container.prepend(messages_div)
+    }
 
-    // Make a short pause to minimize ressources consumption
-    // show quickly the first hundred messages
-    if (historyBufferIndex !== historyBuffer.length)
-        setTimeout(printHistoryPart, (historyBufferIndex > 100) ? 100 : 1)
+    isInitialLoading = false
 }
 
 /**
@@ -1247,7 +1334,12 @@ function printHistory(messages_array)
 {
     historyBuffer = messages_array
     historyBufferIndex = 0
-    setTimeout(printHistoryPart, 0)
+
+    var messages_div = document.createElement("div")
+    messages_div.setAttribute("id", "messages")
+
+    printHistoryPart(messages_div, true)
+    setTimeout(back_to_bottom, 0)
 }
 
 /**
@@ -1264,7 +1356,7 @@ function setSenderImage(set_sender_image_object)
     var sender_contact_method = set_sender_image_object["sender_contact_method"],
         sender_image = set_sender_image_object["sender_image"],
         sender_image_id = "sender_image_" + sender_contact_method,
-        currentSenderImage = document.getElementById("#" + sender_image_id), // Remove the currently set sender image
+        currentSenderImage = document.getElementById(sender_image_id), // Remove the currently set sender image
         style
 
     if (currentSenderImage) {
