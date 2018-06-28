@@ -45,7 +45,6 @@
 
 // Ring client
 #include "newaccountsettingsview.h"
-#include "accountview.h"
 #include "accountmigrationview.h"
 #include "accountcreationwizard.h"
 #include "chatview.h"
@@ -319,18 +318,6 @@ private:
 
 inline namespace gtk_callbacks
 {
-
-static gboolean
-on_save_accounts_timeout(GtkWidget* working_dialog)
-{
-    /* save changes to accounts */
-    AccountModel::instance().save();
-
-    if (working_dialog)
-        gtk_widget_destroy(working_dialog);
-
-    return G_SOURCE_REMOVE;
-}
 
 static void
 on_video_double_clicked(RingMainWindow* self)
@@ -1283,8 +1270,6 @@ CppImpl::leaveSettingsView()
 {
     /* hide the settings */
     show_settings = false;
-
-    AccountModel::instance().save();
 
     /* show calls */
     gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-system-symbolic",

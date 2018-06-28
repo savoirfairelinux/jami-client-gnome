@@ -267,24 +267,12 @@ SET( SRC_FILES
    src/utils/drawing.cpp
    src/video/video_widget.h
    src/video/video_widget.cpp
-   src/accountview.h
-   src/accountview.cpp
    src/accountcreationwizard.h
    src/accountcreationwizard.cpp
    src/accountmigrationview.h
    src/accountmigrationview.cpp
-   src/accountgeneraltab.h
-   src/accountgeneraltab.cpp
    src/usernameregistrationbox.h
    src/usernameregistrationbox.cpp
-   src/accountaudiotab.h
-   src/accountaudiotab.cpp
-   src/accountvideotab.h
-   src/accountvideotab.cpp
-   src/accountadvancedtab.h
-   src/accountadvancedtab.cpp
-   src/accountsecuritytab.h
-   src/accountsecuritytab.cpp
    src/models/activeitemproxymodel.h
    src/models/activeitemproxymodel.cpp
    src/defines.h
@@ -313,8 +301,6 @@ SET( SRC_FILES
    ${GIT_REVISION_OUTPUT_FILE}
    src/utils/accounts.h
    src/utils/accounts.cpp
-   src/choosecontactview.h
-   src/choosecontactview.cpp
    src/native/dbuserrorhandler.h
    src/native/dbuserrorhandler.cpp
    src/ringwelcomeview.h
@@ -329,10 +315,6 @@ SET( SRC_FILES
    src/cc-crop-area.c
    src/models/namenumberfilterproxymodel.h
    src/models/namenumberfilterproxymodel.cpp
-   src/accountbanstab.h
-   src/accountbanstab.cpp
-   src/bannedcontactsview.h
-   src/bannedcontactsview.cpp
    src/conversationsview.h
    src/conversationsview.cpp
    src/conversationpopupmenu.h
