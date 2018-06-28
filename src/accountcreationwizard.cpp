@@ -216,27 +216,6 @@ account_creation_show_error_view(AccountCreationWizard *view, const std::string&
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->error_view);
 }
 
-static void
-could_not_register_username_dialog(AccountCreationWizard *view)
-{
-    GtkWidget* dialog = gtk_message_dialog_new(
-        GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
-                    GTK_DIALOG_DESTROY_WITH_PARENT,
-                    GTK_MESSAGE_ERROR,
-                    GTK_BUTTONS_OK,
-                    _("Your account was created, but we could not register your username. Try again from the settings menu.")
-    );
-    gtk_dialog_run(GTK_DIALOG (dialog));
-    gtk_widget_destroy(dialog);
-}
-
-static void
-show_registering_on_blockchain_spinner(AccountCreationWizard *view)
-{
-    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->vbox_registering_username_spinner);
-}
-
 static gboolean
 create_ring_account(AccountCreationWizard *view,
                     gchar *display_name,
