@@ -25,12 +25,6 @@
 class Account;
 
 /**
- * returns TRUE if a RING account exists; FALSE otherwise
- */
-gboolean
-has_ring_account();
-
-/**
  * iterates through all existing accounts and make sure all RING accounts have
  * a display name set; if a display name is empty, it is set to the alias of the
  * account
