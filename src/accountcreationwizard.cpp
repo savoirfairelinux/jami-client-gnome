@@ -85,13 +85,13 @@ struct _AccountCreationWizardPrivate
     GtkWidget *entry_username;
     GtkWidget *entry_password;
     GtkWidget *entry_password_confirm;
+    GtkWidget *label_password_error;
     GtkWidget *button_account_creation_next;
     GtkWidget *button_account_creation_previous;
     GtkWidget *box_avatarselection;
     GtkWidget *avatar_manipulation;
-    GtkWidget *label_password_error;
     GtkWidget *box_username_entry;
-    GtkWidget *checkbutton_sign_up_blockchain;
+    GtkWidget *switch_register;
     GtkWidget *username_registration_box;
     GtkWidget *entry_display_name;
 
@@ -175,7 +175,7 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, box_avatarselection);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, label_password_error);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, box_username_entry);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, checkbutton_sign_up_blockchain);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, switch_register);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_display_name);
 
     /* generating_account_spinner */
@@ -459,7 +459,7 @@ entries_new_account_changed(AccountCreationWizard *view)
 
     const gchar *display_name = gtk_entry_get_text(GTK_ENTRY(priv->entry_display_name));
     const gchar *username = gtk_entry_get_text(GTK_ENTRY(priv->entry_username));
-    const gboolean sign_up_blockchain = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_sign_up_blockchain));
+    const gboolean sign_up_blockchain = gtk_switch_get_active(GTK_SWITCH(priv->switch_register));
 
     if (
             strlen(display_name) > 0 && // Display name is longer than 0
@@ -478,11 +478,10 @@ entries_new_account_changed(AccountCreationWizard *view)
 }
 
 static void
-checkbutton_sign_up_blockchain_toggled(GtkToggleButton *toggle_button, AccountCreationWizard *view)
+sign_up_blockchain_switched(GtkSwitch* switch_btn, GParamSpec*, AccountCreationWizard *view)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
-    gboolean sign_up_blockchain = gtk_toggle_button_get_active(toggle_button);
-
+    gboolean sign_up_blockchain = gtk_switch_get_active(switch_btn);
 
     username_registration_box_set_use_blockchain(
         USERNAME_REGISTRATION_BOX(priv->username_registration_box),
@@ -498,7 +497,7 @@ checkbutton_sign_up_blockchain_toggled(GtkToggleButton *toggle_button, AccountCr
 
     /* Unchecking blockchain signup when there is an empty username should
      * result in activating the next button.
-    */
+     */
     entries_new_account_changed(view);
 }
 
@@ -528,7 +527,7 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
 
     /* create the username_registration_box */
     priv->username_registration_box = username_registration_box_new_empty(false);
-    gtk_container_add(GTK_CONTAINER(priv->box_username_entry), priv->username_registration_box);
+    gtk_box_pack_end(GTK_BOX(priv->box_username_entry), GTK_WIDGET(priv->username_registration_box), false, false, 0);
     gtk_widget_show(priv->username_registration_box);
     priv->entry_username = GTK_WIDGET(
         username_registration_box_get_entry(
@@ -564,9 +563,8 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
     g_signal_connect(priv->button_account_creation_previous, "clicked", G_CALLBACK(account_creation_previous_clicked), view);
     g_signal_connect_swapped(priv->entry_password, "changed", G_CALLBACK(entries_new_account_changed), view);
     g_signal_connect_swapped(priv->entry_password_confirm, "changed", G_CALLBACK(entries_new_account_changed), view);
-    g_signal_connect_swapped(priv->entry_username, "changed", G_CALLBACK(entries_new_account_changed), view);
     g_signal_connect_swapped(priv->entry_display_name, "changed", G_CALLBACK(entries_new_account_changed), view);
-    g_signal_connect(priv->checkbutton_sign_up_blockchain, "toggled", G_CALLBACK(checkbutton_sign_up_blockchain_toggled), view);
+    g_signal_connect(priv->switch_register, "notify::active", G_CALLBACK(sign_up_blockchain_switched), view);
     g_signal_connect_swapped(priv->username_registration_box, "username-availability-changed", G_CALLBACK(username_availability_changed), view);
 
     /* existing_account signals */
@@ -580,6 +578,8 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
     g_signal_connect_swapped(priv->button_error_view_ok, "clicked", G_CALLBACK(show_choose_account_type), view);
 
     show_choose_account_type(view);
+
+    gtk_button_set_relief(GTK_BUTTON(priv->button_show_advanced), GTK_RELIEF_NONE);
 
     auto provider = gtk_css_provider_new();
     gtk_css_provider_load_from_data(provider,
