@@ -122,6 +122,7 @@ const invitation        = document.getElementById("invitation")
 const navbar            = document.getElementById("navbar")
 const invitationText    = document.getElementById("text")
 var   messages          = document.getElementById("messages")
+const callButtons       = document.getElementById("callButtons")
 
 /* States: allows us to avoid re-doing something if it isn't meaningful */
 var displayLinksEnabled = false
@@ -129,6 +130,7 @@ var hoverBackButtonAllowed = true
 var hasInvitation = false
 var isTemporary = false
 var isBanned = false
+var isAccountEnabled = true
 var isInitialLoading = false
 var imagesLoadingCounter = 0
 
@@ -192,13 +194,14 @@ function back_to_bottom() {
  * handles most of the required work (except the showing/hiding the invitation,
  * which is handled by showInvitation()).
  *
+ * @param accountEnabled 	whether account is enabled or not
  * @param banned 	whether contact is banned or not
  * @param temporary	whether contact is temporary or not
  * @param alias
  * @param bestId
  */
 /* exported update_chatview_frame */
-function update_chatview_frame(banned, temporary, alias, bestid) {
+function update_chatview_frame(accountEnabled, banned, temporary, alias, bestid) {
     /* This function updates lots of things in the navbar and we don't want to
        trigger that many DOM updates. Instead set display to none so DOM is
        updated only once. */
@@ -213,6 +216,12 @@ function update_chatview_frame(banned, temporary, alias, bestid) {
         idField.classList.remove("oneEntry")
     } else {
         idField.classList.add("oneEntry")
+    }
+
+    if (isAccountEnabled !== accountEnabled) {
+        isAccountEnabled = accountEnabled
+        hideMessageBar(!accountEnabled)
+        hideControls(accountEnabled)
     }
 
     if (isBanned !== banned) {
@@ -677,6 +686,18 @@ function humanFileSize(bytes) {
         ++u
     } while(Math.abs(bytes) >= thresh && u < units.length - 1)
     return bytes.toFixed(1)+" "+units[u]
+}
+
+/**
+ * Hide or show add to conversations/calls whether the account is enabled
+ * @param accountEnabled true if account is enabled
+ */
+function hideControls(accountEnabled) {
+    if (!accountEnabled) {
+        callButtons.setAttribute("style", "display: none")
+    } else {
+        callButtons.setAttribute("style", "display: block")
+    }
 }
 
 /**
