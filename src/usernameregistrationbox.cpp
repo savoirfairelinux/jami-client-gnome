@@ -152,6 +152,10 @@ username_registration_box_init(UsernameRegistrationBox *view)
             gtk_spinner_stop(GTK_SPINNER(priv->spinner));
             gtk_widget_hide(priv->spinner);
 
+            if (priv->show_register_button)
+                gtk_widget_show(priv->button_register_username);
+            else
+                gtk_widget_hide(priv->button_register_username);
 
              // We don't want to display any icon/label in case of empty lookup
             if (!username_lookup || !*username_lookup) {
@@ -475,7 +479,8 @@ username_registration_box_set_use_blockchain(UsernameRegistrationBox* view, gboo
     if (use_blockchain) {
         if (priv->show_register_button)
             gtk_widget_show(priv->button_register_username);
-
+        else
+            gtk_widget_hide(priv->button_register_username);
     } else {
         gtk_widget_hide(priv->button_register_username);
     }
