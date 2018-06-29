@@ -670,12 +670,15 @@ build_tab_view(AccountGeneralTab *view)
         label = gtk_label_new(_("Username"));
         gtk_widget_set_halign(label, GTK_ALIGN_START);
         gtk_grid_attach(GTK_GRID(priv->grid_account), label, 0, grid_row, 1, 1);
-        auto username_registration_box = username_registration_box_new(priv->account, TRUE);
+        gtk_widget_show_all(priv->grid_account);
+
+        auto username_registration_box = username_registration_box_new(*priv->accountInfo_, TRUE);
         gtk_grid_attach(GTK_GRID(priv->grid_account), username_registration_box, 1, grid_row, 2, 2);
+        gtk_widget_show(username_registration_box);
+
         grid_row+=2;
     }
 
-    gtk_widget_show_all(priv->grid_account);
 
     /* build parameters grid */
     grid_row = 0;
