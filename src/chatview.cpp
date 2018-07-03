@@ -524,7 +524,6 @@ update_chatview_frame(ChatView* self)
                                              bestName);
 }
 
-
 static void
 on_webkit_drag_drop(GtkWidget*, gchar* data, ChatView* self)
 {
@@ -533,15 +532,19 @@ on_webkit_drag_drop(GtkWidget*, gchar* data, ChatView* self)
     if (!priv->conversation_) return;
     if (!data) return;
 
-    std::string data_str = data;
+    GError *error = nullptr;
+    std::string data_str = g_filename_from_uri(data, nullptr, &error);
+    if (error) {
+        g_warning("Unable to exec g_filename_from_uri on %s", data);
+        g_error_free(error);
+        return;
+    }
     // Only take files
-    if (data_str.find("file://") != 0) return;
     if (data_str.find("\r\n") == std::string::npos) return;
-    const auto LEN_URI = std::string("file://").length();
     const auto LEN_END = std::string("\r\n").length();
-    if (data_str.length() > LEN_URI + LEN_END) {
+    if (data_str.length() > LEN_END) {
         // remove file and \r\n from the string
-        data_str = data_str.substr(LEN_URI, data_str.length() - LEN_URI - LEN_END);
+        data_str = data_str.substr(0, data_str.length() - LEN_END);
     }
 
     if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
