@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ab23ef6b_641c9e7e",
+        "filename": "web/chatview.html",
+        "patchSetId": 4
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-07-03T20:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9caf82b2_10f22b20",
+      "range": {
+        "startLine": 518,
+        "startChar": 49,
+        "endLine": 518,
+        "endChar": 50
+      },
+      "revId": "22dcfe20d37668f79e217b28bbb689c99f0b6fe9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27972a31_83fcf9d5",
         "filename": "web/chatview.html",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "22dcfe20d37668f79e217b28bbb689c99f0b6fe9",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d8a013f_98143bc6",
+        "filename": "web/chatview.html",
+        "patchSetId": 4
+      },
+      "lineNbr": 1403,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-07-03T20:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27972a31_83fcf9d5",
+      "range": {
+        "startLine": 1403,
+        "startChar": 51,
+        "endLine": 1403,
+        "endChar": 52
+      },
+      "revId": "22dcfe20d37668f79e217b28bbb689c99f0b6fe9",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
