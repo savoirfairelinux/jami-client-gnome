@@ -63,7 +63,7 @@
           </div>
       </div>
     <div id="container">
-      <!-- messages are dynamically inserted here -->
+      <div id="messages" onscroll="onScrolled()"></div>
       <div id="sendMessage">
         <div class="nav-button action-button" onclick="sendFile()" title="Send File">
             <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -121,6 +121,7 @@ const addToConvButton   = document.getElementById("addToConversationsButton")
 const invitation        = document.getElementById("invitation")
 const navbar            = document.getElementById("navbar")
 const invitationText    = document.getElementById("text")
+var   messages          = document.getElementById("messages")
 
 /* States: allows us to avoid re-doing something if it isn't meaningful */
 var displayLinksEnabled = false
@@ -132,7 +133,6 @@ var isInitialLoading = false
 var imagesLoadingCounter = 0
 
 function onScrolled_() {
-    const messages = document.getElementById("messages")
     if (messages.scrollTop == 0 && historyBufferIndex != historyBuffer.length) {
         /* At the top and there's something to print */
         printHistoryPart(messages.cloneNode(true), true, messages.scrollHeight)
@@ -160,17 +160,10 @@ var onScrolled = debounce(onScrolled_, debounceTime)
  * @param args parameters as array
  */
 function exec_keeping_scroll_position(func, args) {
-    const messages = document.getElementById("messages")
-
-    if (messages) {
-        var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - scrollDetectionThresh
-        func(...args)
-        if (atEnd) {
-            messages.scrollTop = messages.scrollHeight
-        }
-    } else {
-        // should not happen
-        func(...args)
+    var atEnd = messages.scrollTop >= messages.scrollHeight - messages.clientHeight - scrollDetectionThresh
+    func(...args)
+    if (atEnd) {
+        messages.scrollTop = messages.scrollHeight
     }
 }
 
@@ -181,10 +174,7 @@ function exec_keeping_scroll_position(func, args) {
  *               i.e. scroll = 0 resets the scrollbar at the bottom.
  */
 function back_to_scroll(scroll) {
-    const messages = document.getElementById("messages")
-    if (messages) {
-        messages.scrollTop = messages.scrollHeight - scroll
-    }
+    messages.scrollTop = messages.scrollHeight - scroll
 }
 
 /**
@@ -405,9 +395,7 @@ function addBackButtonHoverProperty()
  * Update timestamps messages.
  */
 function updateView() {
-    const messages = document.getElementById("messages")
-    if (messages)
-        updateTimestamps(messages)
+    updateTimestamps(messages)
 }
 
 setInterval(updateView, 60000)
@@ -526,9 +514,8 @@ function sendFile()
 /* exported clearMessages */
 function clearMessages()
 {
-    const messages = document.getElementById("messages")
-    if (messages) {
-        messages.parentNode.removeChild(messages)
+    while (messages.firstChild) {
+        messages.removeChild(messages.firstChild);
     }
 }
 
@@ -936,7 +923,6 @@ function mediaInteraction(message_id, link, ytid, noerror) {
 
     imageElt.src = ytid ? `http://img.youtube.com/vi/${ytid}/0.jpg` : link
 
-    const messages = document.getElementById("messages")
     if (isInitialLoading) {
         /* During initial load, make sure the scrollbar stays at the bottom.
            Also, the final scrollHeight is only known after the last image was
@@ -1106,7 +1092,6 @@ function updateContactInteraction(message_div, message_object) {
  */
 /* exported removeInteraction */
 function removeInteraction(interaction_id) {
-    const messages = document.getElementById("messages")
     var interaction = document.querySelector(`#message_${interaction_id}`)
     var child = interaction
     var i = 0
@@ -1347,9 +1332,7 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true, me
 /* exported addMessage */
 function addMessage(message_object)
 {
-    const messages = document.getElementById("messages")
-    if (messages)
-        exec_keeping_scroll_position(addOrUpdateMessage, [message_object, true, undefined, messages])
+    exec_keeping_scroll_position(addOrUpdateMessage, [message_object, true, undefined, messages])
 }
 
 /**
@@ -1361,9 +1344,7 @@ function addMessage(message_object)
 /* exported updateMessage */
 function updateMessage(message_object)
 {
-    const messages = document.getElementById("messages")
-    if (messages)
-        exec_keeping_scroll_position(addOrUpdateMessage, [message_object, false, undefined, messages])
+    exec_keeping_scroll_position(addOrUpdateMessage, [message_object, false, undefined, messages])
 }
 
 /**
@@ -1376,7 +1357,6 @@ function on_image_load_finished() {
     if (!imagesLoadingCounter) {
         /* All images have been loaded and scrollHeight has now its final value.
            Make sure enough messages have been displayed. */
-        const messages = document.getElementById("messages")
         if (messages.scrollHeight < initialScrollBufferFactor * messages.clientHeight
             && historyBufferIndex !== historyBuffer.length) {
             /* Not enough messages loaded, print a new batch. Enable isInitialLoading
@@ -1406,6 +1386,11 @@ function printHistoryPart(messages_div, setMessages = false, fixedAt)
         return
     }
 
+    /* If first element is a spinner, remove it */
+    if (messages_div.firstChild && messages_div.firstChild.id === "lazyloading-icon") {
+        messages_div.removeChild(messages_div.firstChild)
+    }
+
     for (var i = 0; i < scrollBuffer && historyBufferIndex < historyBuffer.length; ++historyBufferIndex && ++i) {
         // TODO on-screen messages should be removed from the buffer
         addOrUpdateMessage(historyBuffer[historyBuffer.length - 1 - historyBufferIndex], true, false, messages_div)
@@ -1413,14 +1398,18 @@ function printHistoryPart(messages_div, setMessages = false, fixedAt)
 
     messages_div.lastChild.classList.add("last-message")
 
+    /* Add spinner */
+    if (historyBufferIndex < historyBuffer.length) {
+        var llicon = document.createElement("span");
+        llicon.id = "lazyloading-icon"
+        llicon.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"#888888\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z\"/></svg>"
+        messages_div.prepend(llicon)
+    }
+
+
     if (setMessages) {
-        const messages = document.getElementById("messages")
-        if (!document.getElementById("messages")) {
-            container.prepend(messages_div)
-        } else {
-            messages.parentNode.removeChild(messages)
-            container.prepend(messages_div)
-        }
+        container.replaceChild(messages_div, messages)
+        messages = document.getElementById("messages")
 
         if (fixedAt !== undefined) {
             /* update scrollbar position to take text-message -related
@@ -1453,12 +1442,8 @@ function printHistory(messages_array)
     historyBuffer = messages_array
     historyBufferIndex = 0
 
-    var messages_div = document.createElement("div")
-    messages_div.setAttribute("id", "messages")
-    messages_div.setAttribute("onscroll", "onScrolled()")
-
     isInitialLoading = true
-    printHistoryPart(messages_div, true, 0)
+    printHistoryPart(messages.cloneNode(true), true, 0)
     isInitialLoading = false
 }
 
