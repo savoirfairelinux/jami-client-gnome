@@ -341,11 +341,7 @@ on_button_hangup_clicked(CurrentCallView* view)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-
-    auto callToHangUp = priv->cpp->conversation->callId;
-    if (!priv->cpp->conversation->confId.empty())
-        callToHangUp = priv->cpp->conversation->confId;
-    (*priv->cpp->accountInfo)->callModel->hangUp(callToHangUp);
+    (*priv->cpp->accountInfo)->callModel->hangUp(priv->cpp->conversation->callId);
 }
 
 static void
