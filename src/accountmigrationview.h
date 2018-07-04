@@ -21,7 +21,8 @@
 
 #include <gtk/gtk.h>
 
-class Account;
+#include <api/account.h>
+#include "accountinfopointer.h"
 
 G_BEGIN_DECLS
 
@@ -35,6 +36,6 @@ typedef struct _AccountMigrationView      AccountMigrationView;
 typedef struct _AccountMigrationViewClass AccountMigrationViewClass;
 
 GType      account_migration_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *account_migration_view_new           (Account *account);
+GtkWidget *account_migration_view_new           (AccountInfoPointer const& accountInfo);
 
 G_END_DECLS
