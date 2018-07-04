@@ -24,6 +24,8 @@
 #include <glib/gi18n.h>
 #include <iostream>
 
+#include <iostream>
+
 // LRC
 #include <accountmodel.h> // Old lrc but still used
 #include <api/account.h>
@@ -270,6 +272,7 @@ public:
 
     std::unique_ptr<lrc::api::Lrc> lrc_;
     AccountInfoPointer accountInfo_ = nullptr;
+    AccountInfoPointer accountInfoForMigration_ = nullptr;
     std::unique_ptr<lrc::api::conversation::Info> chatViewConversation_;
     lrc::api::profile::Type currentTypeFilter_;
     bool show_settings = false;
@@ -612,32 +615,40 @@ on_handle_account_migrations(RingMainWindow* self)
         priv->account_migration_view = nullptr;
     }
 
-    auto accounts = AccountModel::instance().accountsToMigrate();
-    if (!accounts.isEmpty()) {
-        auto* account = accounts.first();
+    auto accounts = priv->cpp->lrc_->getAccountModel().getAccountList();
+    for (const auto& accountId : accounts) {
+        priv->cpp->accountInfoForMigration_ = &priv->cpp->lrc_->getAccountModel().getAccountInfo(accountId);
+        if (priv->cpp->accountInfoForMigration_->status == lrc::api::account::Status::ERROR_NEED_MIGRATION) {
+            std::cout << "DO MIGRATION" << std::endl;
+            priv->account_migration_view = account_migration_view_new(priv->cpp->accountInfoForMigration_);
+            g_signal_connect_swapped(priv->account_migration_view, "account-migration-completed",
+                                     G_CALLBACK(on_handle_account_migrations), self);
+            g_signal_connect_swapped(priv->account_migration_view, "account-migration-failed",
+                                     G_CALLBACK(on_handle_account_migrations), self);
 
-        priv->account_migration_view = account_migration_view_new(account);
-        g_signal_connect_swapped(priv->account_migration_view, "account-migration-completed",
-                                 G_CALLBACK(on_handle_account_migrations), self);
-        g_signal_connect_swapped(priv->account_migration_view, "account-migration-failed",
-                                 G_CALLBACK(on_handle_account_migrations), self);
-
-        gtk_widget_hide(priv->ring_settings);
-        priv->cpp->showAccountSelectorWidget(false);
-        gtk_widget_show(priv->account_migration_view);
-        gtk_stack_add_named(
-            GTK_STACK(priv->stack_main_view),
-            priv->account_migration_view,
-            ACCOUNT_MIGRATION_VIEW_NAME
-        );
-        gtk_stack_set_visible_child_name(
-            GTK_STACK(priv->stack_main_view),
-            ACCOUNT_MIGRATION_VIEW_NAME
-        );
-    } else {
-        gtk_widget_show(priv->ring_settings);
-        priv->cpp->showAccountSelectorWidget();
+            gtk_widget_hide(priv->ring_settings);
+            priv->cpp->showAccountSelectorWidget(false);
+            gtk_widget_show(priv->account_migration_view);
+            gtk_stack_add_named(
+                GTK_STACK(priv->stack_main_view),
+                priv->account_migration_view,
+                ACCOUNT_MIGRATION_VIEW_NAME);
+            gtk_stack_set_visible_child_name(
+                GTK_STACK(priv->stack_main_view),
+                ACCOUNT_MIGRATION_VIEW_NAME);
+            return;
+        }
     }
+
+    priv->cpp->accountInfoForMigration_ = nullptr;
+    for (const auto& accountId : accounts) {
+        auto* accountInfo = &priv->cpp->lrc_->getAccountModel().getAccountInfo(accountId);
+        if (accountInfo->enabled) {
+            priv->cpp->updateLrc(accountId);
+        }
+    }
+    gtk_widget_show(priv->ring_settings);
+    priv->cpp->showAccountSelectorWidget();
 }
 
 } // namespace gtk_callbacks
@@ -732,6 +743,7 @@ CppImpl::init()
     decltype(accountIds)::value_type activeAccountId; // non-empty if a enabled account is found below
 
     if (not accountIds.empty()) {
+        on_handle_account_migrations(self);
         for (const auto& id : accountIds) {
             const auto& accountInfo = lrc_->getAccountModel().getAccountInfo(id);
             if (accountInfo.enabled) {
