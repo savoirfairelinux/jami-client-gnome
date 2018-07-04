@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "febd484d_aa079296",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-07-04T21:21:28Z",
+      "side": 1,
+      "message": "if this cond is not fulfilled we should return",
+      "range": {
+        "startLine": 545,
+        "startChar": 4,
+        "endLine": 545,
+        "endChar": 38
+      },
+      "revId": "a20c73d2ce2d0338baa0dab071be1b7936d26a47",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "037dfe89_f5a818c9",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-07-04T21:21:28Z",
+      "side": 1,
+      "message": "update comment",
+      "range": {
+        "startLine": 546,
+        "startChar": 8,
+        "endLine": 546,
+        "endChar": 47
+      },
+      "revId": "a20c73d2ce2d0338baa0dab071be1b7936d26a47",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
