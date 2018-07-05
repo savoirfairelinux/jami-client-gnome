@@ -23,7 +23,6 @@
 
 // LRC
 #include <api/newaccountmodel.h>
-#include <namedirectory.h>
 #include <account.h>
 
 // Ring Client
@@ -152,12 +151,8 @@ username_registration_box_init(UsernameRegistrationBox *view)
             gtk_spinner_stop(GTK_SPINNER(priv->spinner));
             gtk_widget_hide(priv->spinner);
 
-            if (priv->show_register_button)
-                gtk_widget_show(priv->button_register_username);
-            else
-                gtk_widget_hide(priv->button_register_username);
 
-             // We don't want to display any icon/label in case of empty lookup
+            // We don't want to display any icon/label in case of empty lookup
             if (!username_lookup || !*username_lookup) {
                 gtk_widget_set_sensitive(priv->button_register_username, FALSE);
                 show_error(view, false, _("Register this username on the name server"));
@@ -241,7 +236,12 @@ lookup_username(UsernameRegistrationBox *view)
 
     const auto username = gtk_entry_get_text(GTK_ENTRY(priv->entry_username));
 
-    NameDirectory::instance().lookupName(nullptr, QString(), username);
+    if (priv->accountInfo_) {
+        auto prop = (*priv->accountInfo_)->accountModel->getAccountConfig((*priv->accountInfo_)->id);
+        NameDirectory::instance().lookupName(nullptr, prop.RingNS.uri.c_str(), username);
+    } else {
+        NameDirectory::instance().lookupName(nullptr, QString(), username);
+    }
 
 
     priv->lookup_timeout = 0;
@@ -393,7 +393,6 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
                             gtk_label_set_text(GTK_LABEL(priv->label_username), name.c_str());
                             gtk_widget_hide(priv->frame_username);
                             gtk_widget_show(priv->label_username);
-                            gtk_widget_set_can_focus(priv->label_username, true);
                             g_signal_emit(G_OBJECT(view), username_registration_box_signals[USERNAME_REGISTRATION_COMPLETED], 0);
                             break;
                         }
@@ -417,11 +416,6 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
         gtk_widget_show(priv->label_username);
     }
 
-    if (priv->show_register_button)
-        gtk_widget_show(priv->button_register_username);
-    else
-        gtk_widget_hide(priv->button_register_username);
-
     // CSS styles
     auto provider = gtk_css_provider_new();
     std::string css = ".box_error { background: #de8484; }";
@@ -437,6 +431,7 @@ username_registration_box_new_empty(bool register_button)
     gpointer view = g_object_new(USERNAME_REGISTRATION_BOX_TYPE, NULL);
 
     UsernameRegistrationBoxPrivate *priv = USERNAME_REGISTRATION_BOX_GET_PRIVATE(view);
+    priv->accountInfo_ = nullptr;
     priv->withAccount = false;
     priv->use_blockchain = true;
     priv->show_register_button = register_button;
@@ -485,8 +480,7 @@ username_registration_box_set_use_blockchain(UsernameRegistrationBox* view, gboo
     if (use_blockchain) {
         if (priv->show_register_button)
             gtk_widget_show(priv->button_register_username);
-        else
-            gtk_widget_hide(priv->button_register_username);
+
     } else {
         gtk_widget_hide(priv->button_register_username);
     }
