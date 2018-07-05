@@ -423,6 +423,7 @@ on_account_changed(RingMainWindow* self)
             priv->cpp->enterAccountCreationWizard(true);
         } else {
             priv->cpp->leaveAccountCreationWizard();
+            priv->cpp->accountInfo_->accountModel->setTopAccount(accountId);
             priv->cpp->onAccountSelectionChange(accountId);
             gtk_notebook_set_show_tabs(GTK_NOTEBOOK(priv->notebook_contacts),
                 priv->cpp->accountInfo_->contactModel->hasPendingRequests());
