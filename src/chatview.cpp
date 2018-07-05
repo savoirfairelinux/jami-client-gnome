@@ -33,6 +33,8 @@
 #include <api/contactmodel.h>
 #include <api/conversationmodel.h>
 #include <api/contact.h>
+#include <api/newcallmodel.h>
+#include <api/call.h>
 
 // Client
 #include "utils/files.h"
@@ -524,6 +526,26 @@ update_chatview_frame(ChatView* self)
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                              (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
                                              bestName);
+
+    // hide navbar if we are in call
+    try {
+        std::string callId;
+        if (priv->conversation_->confId.empty()) {
+            callId = priv->conversation_->callId;
+        } else {
+            callId = priv->conversation_->confId;
+        }
+
+        if (*priv->accountInfo_) {
+            const lrc::api::call::Status& status = (*priv->accountInfo_)->callModel->getCall(callId).status;
+            if (status != lrc::api::call::Status::ENDED &&
+                status != lrc::api::call::Status::INVALID &&
+                status != lrc::api::call::Status::TERMINATING) {
+                g_debug("call has status %s, hiding", lrc::api::call::to_string(status).c_str());
+                chat_view_set_header_visible(self, FALSE);
+            }
+        }
+    } catch (const std::out_of_range&) {}
 }
 
 static void
