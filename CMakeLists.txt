@@ -170,6 +170,9 @@ ENDIF()
 
 # warnings
 ADD_DEFINITIONS(
+   -fsanitize=address
+   -O0
+   -g
    -Wall
    -Wextra
    -Wno-cpp
@@ -383,6 +386,7 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${CANBERRA_LIBRARIES}
    -lpthread
    -lrt
+   -fsanitize=address
    )
 ELSE()
 TARGET_LINK_LIBRARIES(gnome-ring
@@ -398,6 +402,7 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${WEBKIT_LIBRARIES}
    ${LIBQRENCODE_LIBRARIES}
    ${CANBERRA_LIBRARIES}
+   -fsanitize=address
    )
 ENDIF()
 
