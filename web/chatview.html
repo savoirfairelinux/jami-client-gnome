@@ -72,7 +72,7 @@
             </svg>
         </div>
         <textarea id="message" autofocus placeholder="Type a message" onkeyup="grow_text_area()" onkeydown="process_messagebar_keydown()" rows="1" disabled="false"></textarea>
-        <div class="nav-button action-button" onclick="sendMessage()" title="Send">
+        <div class="nav-button action-button" onclick="sendMessage(); grow_text_area()" title="Send">
             <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                 <path d="M0 0h24v24H0z" fill="none"/>
@@ -609,17 +609,13 @@ function getMessageTimestampText(message_timestamp, custom_format)
  * @param message_div
  */
 function cleanPreviousTimestamps (baseNode, endIndex, messages_div) {
-    // Remove previous elements with the same formatted timestamp
-    for (var c = endIndex - 1 ; c >= 0 ; --c) {
-        const child = messages_div.children[c]
-        if (child.className.indexOf("timestamp") !== -1) {
-            if (child.className === baseNode.className &&
-                    child.innerHTML === baseNode.innerHTML) {
-                messages_div.removeChild(child)
-            } else {
-                break // A different timestamp is met, we can stop here.
-            }
-        }
+    const timestamps = messages_div.getElementsByClassName("timestamp")
+
+    var idx = endIndex > timestamps.length ? timestamps.length - 1 : endIndex - 1
+    var timestamp = timestamps.item(idx)
+    while(timestamp && timestamp.className === baseNode.className && timestamp.innerHTML === baseNode.innerHTML) {
+        timestamp.parentNode.removeChild(timestamp)
+        timestamp = timestamps.item(--idx)
     }
 }
 
@@ -628,37 +624,11 @@ function cleanPreviousTimestamps (baseNode, endIndex, messages_div) {
  * @param message_div
  */
 function updateTimestamps(messages_div) {
-    const timestamps = messages_div.querySelector(".timestamp")
-    const is_image_out = messages_div.querySelector(".message_out .sender_image")
-    const is_image_in = messages_div.querySelector(".message_in .sender_image")
-    if (timestamps) {
-        for ( var c = 0 ; c < messages_div.children.length ; ++c) {
-            const child = messages_div.children[c]
-            if (child.className.indexOf("timestamp") !== -1) {
-                // Update timestamp
-                child.innerHTML = getMessageTimestampText(child.getAttribute("message_timestamp"), true)
+    const timestamps = messages_div.getElementsByClassName("timestamp")
 
-                // FIXME this is EVIL HACK. Responsive behaviour should be handled by CSS, not JS
-                var desktop_margin = "25%"
-                const height = document.body.clientHeight
-                const width = document.body.clientWidth
-                if (width <= 1920 || height <= 1080) {
-                    desktop_margin = "15%"
-                }
-                if (width <= 1000 || height <= 480) {
-                    desktop_margin = "0px"
-                }
-                if (child.className.indexOf("timestamp_out") !== -1) {
-                    const avatar_px = is_image_out ? (is_image_out.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
-                    child.style.paddingRight = `calc(${desktop_margin} + ${avatar_px})`
-                } else if (child.className.indexOf("timestamp_in") !== -1) {
-                    const avatar_px = is_image_in ? (is_image_in.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
-                    child.style.paddingLeft = `calc(${desktop_margin} + ${avatar_px})`
-                }
-                // Remove previous elements with the same formatted timestamp
-                cleanPreviousTimestamps(child, c, messages_div)
-            }
-        }
+    for (var c = timestamps.length - 1; c >= 0 ; --c) {
+        var timestamp = timestamps.item(c)
+        timestamp.innerHTML = getMessageTimestampText(timestamp.getAttribute("message_timestamp"), true)
     }
 }
 
@@ -750,7 +720,12 @@ function fileInteraction(message_id) {
     var message_transfer_progress_completion = document.createElement("span")
     message_transfer_progress_bar.appendChild(message_transfer_progress_completion)
     message_wrapper.appendChild(message_transfer_progress_bar)
-    return message_wrapper
+
+    const internal_mes_wrapper = document.createElement("div")
+    internal_mes_wrapper.setAttribute("class", "internal_mes_wrapper")
+    internal_mes_wrapper.appendChild(message_wrapper)
+
+    return internal_mes_wrapper
 }
 
 /**
@@ -950,7 +925,12 @@ function mediaInteraction(message_id, link, ytid, noerror) {
     } else {
         media_wrapper.appendChild(linkElt)
     }
-    return media_wrapper
+
+    const internal_mes_wrapper = document.createElement("div")
+    internal_mes_wrapper.setAttribute("class", "internal_mes_wrapper")
+    internal_mes_wrapper.appendChild(media_wrapper)
+
+    return internal_mes_wrapper
 }
 
 /**
@@ -961,12 +941,17 @@ function mediaInteraction(message_id, link, ytid, noerror) {
 function textInteraction(message_id, htmlText) {
     const message_wrapper = document.createElement("div")
     message_wrapper.setAttribute("class", "message_wrapper")
-    var message_text = document.createElement("span")
+    var message_text = document.createElement("div")
     message_text.setAttribute("class", "message_text")
     message_text.innerHTML = htmlText
     message_wrapper.appendChild(message_text)
     // TODO STATUS
-    return message_wrapper
+
+    const internal_mes_wrapper = document.createElement("div")
+    internal_mes_wrapper.setAttribute("class", "internal_mes_wrapper")
+    internal_mes_wrapper.appendChild(message_wrapper)
+
+    return internal_mes_wrapper
 }
 
 /**
@@ -1108,6 +1093,48 @@ function removeInteraction(interaction_id) {
 }
 
 /**
+ * Build message dropdown
+ * @return a message dropdown for passed message id
+ */
+function buildMessageDropdown(message_id) {
+    const menu_element = document.createElement("div")
+    menu_element.setAttribute("class", "menu_interaction")
+    menu_element.innerHTML = "<label for=\"showmenu\">\
+      <svg fill=\"#888888\" height=\"12\" viewBox=\"0 0 24 24\" width=\"12\" xmlns=\"http://www.w3.org/2000/svg\">\
+        <path d=\"M0 0h24v24H0z\" fill=\"none\"/>\
+        <path d=\"M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z\"/>\
+      </svg>\
+    </label>\
+    <input type=\"checkbox\" id=\"showmenu\" hidden />"
+    menu_element.onclick = function() {
+        const button = this.querySelector("#showmenu")
+        button.checked = !button.checked
+    }
+    menu_element.onmouseleave = function() {
+        const button = this.querySelector("#showmenu")
+        button.checked = false
+    }
+    const dropdown = document.createElement("div")
+    const dropdown_classes = [
+        "dropdown",
+        `dropdown_${message_id}`
+    ]
+    dropdown.setAttribute("class", dropdown_classes.join(" "))
+
+    const remove = document.createElement("div")
+    remove.setAttribute("class", "delete")
+    remove.innerHTML = "Delete"
+    remove.msg_id = message_id
+    remove.onclick = function() {
+        window.prompt(`DELETE_INTERACTION:${this.msg_id}`)
+    }
+    dropdown.appendChild(remove)
+    menu_element.appendChild(dropdown)
+
+    return menu_element
+}
+
+/**
  * Build a message div for passed message object
  * @param message_object to treat
  */
@@ -1187,45 +1214,12 @@ function buildNewMessage(message_object) {
         message_div.appendChild(temp)
     }
 
-    const menu_element = document.createElement("div")
-    menu_element.setAttribute("class", "menu_interaction")
-    menu_element.innerHTML = "<label for=\"showmenu\">\
-      <svg fill=\"#888888\" height=\"12\" viewBox=\"0 0 24 24\" width=\"12\" xmlns=\"http://www.w3.org/2000/svg\">\
-        <path d=\"M0 0h24v24H0z\" fill=\"none\"/>\
-        <path d=\"M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z\"/>\
-      </svg>\
-    </label>\
-    <input type=\"checkbox\" id=\"showmenu\" hidden />"
-    menu_element.onclick = function() {
-        const button = this.querySelector("#showmenu")
-        button.checked = !button.checked
-    }
-    menu_element.onmouseleave = function() {
-        const button = this.querySelector("#showmenu")
-        button.checked = false
-    }
-    const dropdown = document.createElement("div")
-    const dropdown_classes = [
-        "dropdown",
-        `dropdown_${message_id}`
-    ]
-    dropdown.setAttribute("class", dropdown_classes.join(" "))
-
-    const remove = document.createElement("div")
-    remove.setAttribute("class", "delete")
-    remove.innerHTML = "Delete"
-    remove.msg_id = message_id
-    remove.onclick = function() {
-        window.prompt(`DELETE_INTERACTION:${this.msg_id}`)
-    }
-    dropdown.appendChild(remove)
-
-    menu_element.appendChild(dropdown)
+    var message_dropdown = buildMessageDropdown(message_id)
     if (message_type !== "call") {
-        message_div.appendChild(menu_element)
+        message_div.appendChild(message_dropdown)
     } else {
         var wrapper = message_div.querySelector(".message_wrapper")
-        wrapper.insertBefore(menu_element, wrapper.firstChild)
+        wrapper.insertBefore(message_dropdown, wrapper.firstChild)
     }
 
     return message_div
@@ -1277,20 +1271,15 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true, me
         // Add message and the new timestamp
         if (message_type === "call" || message_type === "contact") {
             message_div.querySelector(".message_wrapper").appendChild(date_elt)
+        } else if (! (message_type === "call" || message_type === "contact")) {
+            message_div.querySelector(".internal_mes_wrapper").appendChild(date_elt)
         }
 
         if (insert_after) {
             messages_div.lastChild.classList.remove("last-message")
             messages_div.appendChild(message_div)
-            if (! (message_type === "call" || message_type === "contact")) {
-                messages_div.appendChild(date_elt)
-            }
             messages_div.lastChild.classList.add("last-message")
         } else {
-            if (! (message_type === "call" || message_type === "contact")) {
-                messages_div.prepend(date_elt)
-            }
-
             messages_div.prepend(message_div)
         }
     }
