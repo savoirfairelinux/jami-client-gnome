@@ -72,7 +72,7 @@
             </svg>
         </div>
         <textarea id="message" autofocus placeholder="Type a message" onkeyup="grow_text_area()" onkeydown="process_messagebar_keydown()" rows="1" disabled="false"></textarea>
-        <div class="nav-button action-button" onclick="sendMessage()" title="Send">
+        <div class="nav-button action-button" onclick="sendMessage(); grow_text_area()" title="Send">
             <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                 <path d="M0 0h24v24H0z" fill="none"/>
@@ -87,7 +87,6 @@
 
 /* Constants used at several places*/
 const messageBarPlaceHolder = "Type a message"
-const avatar_size = 35
 // scrollDetectionThresh represents the number of pixels a user can scroll
 // without disabling the automatic go-back-to-bottom when a new message is
 // received
@@ -272,11 +271,13 @@ function showInvitation(contactAlias) {
 function displayNavbar(isVisible)
 {
     if (isVisible) {
+        console.log("Showing navbar")
         navbar.classList.remove("hiddenState")
-        document.documentElement.style.setProperty("--navbar-size", undefined)
+        document.body.style.setProperty("--navbar-size", undefined)
     } else {
+        console.log("Hiding navbar")
         navbar.classList.add("hiddenState")
-        document.documentElement.style.setProperty("--navbar-size", "0")
+        document.body.style.setProperty("--navbar-size", "0")
     }
 }
 
@@ -399,15 +400,6 @@ function updateView() {
 }
 
 setInterval(updateView, 60000)
-
-/*
- * FIXME updateTimestamps has to be called when the window is resized because
- * updateTimestamps also handles timestamp repositioning (responsive view). This
- * task should be done in a separate function.
- */
-window.onresize = function() {
-    updateView()
-}
 
 /* exported addBannedContact */
 function addBannedContact()
@@ -601,64 +593,14 @@ function getMessageTimestampText(message_timestamp, custom_format)
 }
 
 /**
- * Merge timestamps if they are from the same group. For instance, several "1 hour ago"
- * timestamps will be merged into a single one.
- *
- * @param baseNode
- * @param endIndex
- * @param message_div
- */
-function cleanPreviousTimestamps (baseNode, endIndex, messages_div) {
-    // Remove previous elements with the same formatted timestamp
-    for (var c = endIndex - 1 ; c >= 0 ; --c) {
-        const child = messages_div.children[c]
-        if (child.className.indexOf("timestamp") !== -1) {
-            if (child.className === baseNode.className &&
-                    child.innerHTML === baseNode.innerHTML) {
-                messages_div.removeChild(child)
-            } else {
-                break // A different timestamp is met, we can stop here.
-            }
-        }
-    }
-}
-
-/**
  * Update timestamps.
  * @param message_div
  */
 function updateTimestamps(messages_div) {
-    const timestamps = messages_div.querySelector(".timestamp")
-    const is_image_out = messages_div.querySelector(".message_out .sender_image")
-    const is_image_in = messages_div.querySelector(".message_in .sender_image")
-    if (timestamps) {
-        for ( var c = 0 ; c < messages_div.children.length ; ++c) {
-            const child = messages_div.children[c]
-            if (child.className.indexOf("timestamp") !== -1) {
-                // Update timestamp
-                child.innerHTML = getMessageTimestampText(child.getAttribute("message_timestamp"), true)
-
-                // FIXME this is EVIL HACK. Responsive behaviour should be handled by CSS, not JS
-                var desktop_margin = "25%"
-                const height = document.body.clientHeight
-                const width = document.body.clientWidth
-                if (width <= 1920 || height <= 1080) {
-                    desktop_margin = "15%"
-                }
-                if (width <= 1000 || height <= 480) {
-                    desktop_margin = "0px"
-                }
-                if (child.className.indexOf("timestamp_out") !== -1) {
-                    const avatar_px = is_image_out ? (is_image_out.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
-                    child.style.paddingRight = `calc(${desktop_margin} + ${avatar_px})`
-                } else if (child.className.indexOf("timestamp_in") !== -1) {
-                    const avatar_px = is_image_in ? (is_image_in.offsetHeight === avatar_size ? "60px" : "20px") : "20px"
-                    child.style.paddingLeft = `calc(${desktop_margin} + ${avatar_px})`
-                }
-                // Remove previous elements with the same formatted timestamp
-                cleanPreviousTimestamps(child, c, messages_div)
-            }
-        }
+    const timestamps = messages_div.getElementsByClassName("timestamp")
+    for (var c = timestamps.length - 1; c >= 0 ; --c) {
+        var timestamp = timestamps.item(c)
+        timestamp.innerHTML = getMessageTimestampText(timestamp.getAttribute("message_timestamp"), true)
     }
 }
 
@@ -716,41 +658,57 @@ function fileInteraction(message_id) {
     var message_wrapper = document.createElement("div")
     message_wrapper.setAttribute("class", "message_wrapper")
 
-    /* A file interaction contains buttons at the left for status information
-       or accept/refuse actions. The text is bold and clickable. */
+    var transfer_info_wrapper = document.createElement("div")
+    transfer_info_wrapper.setAttribute("class", "transfer_info_wrapper")
+    message_wrapper.appendChild(transfer_info_wrapper)
+
+    /* Buttons at the left for status information or accept/refuse actions.
+       The text is bold and clickable. */
     var left_buttons = document.createElement("div")
     left_buttons.setAttribute("class", "left_buttons")
-    message_wrapper.appendChild(left_buttons)
+    transfer_info_wrapper.appendChild(left_buttons)
+
+    var full_div = document.createElement("div")
+    full_div.setAttribute("class", "full")
+    full_div.style = "visibility: hidden; display: none;"
+
+    var filename_wrapper = document.createElement("div")
+    filename_wrapper.setAttribute("class", "truncate-ellipsis")
+
+    var message_text = document.createElement("span")
+    message_text.setAttribute("class", "filename")
+    filename_wrapper.appendChild(message_text)
+
+    // And information like size or error message.
+    var informations_div = document.createElement("div")
+    informations_div.setAttribute("class", "informations")
+
     var text_div = document.createElement("div")
     text_div.setAttribute("class", "text")
-
     text_div.addEventListener("click", function () {
         // ask ring to open the file
         const filename = document.querySelector("#message_" + message_id + " .full").innerText
         window.prompt("OPEN_FILE:" + filename)
     })
 
-    var full_div = document.createElement("div")
-    full_div.setAttribute("class", "full")
-    full_div.style = "visibility: hidden; display: none;"
-    var message_text = document.createElement("div")
-    message_text.setAttribute("class", "filename")
-
-    // And some informations like size or error message.
-    var informations_div = document.createElement("div")
-    informations_div.setAttribute("class", "informations")
-    text_div.appendChild(message_text)
+    text_div.appendChild(filename_wrapper)
     text_div.appendChild(full_div)
     text_div.appendChild(informations_div)
-    message_wrapper.appendChild(text_div)
+    transfer_info_wrapper.appendChild(text_div)
 
     // And finally, a progress bar
     var message_transfer_progress_bar = document.createElement("span")
     message_transfer_progress_bar.setAttribute("class", "message_progress_bar")
+
     var message_transfer_progress_completion = document.createElement("span")
     message_transfer_progress_bar.appendChild(message_transfer_progress_completion)
     message_wrapper.appendChild(message_transfer_progress_bar)
-    return message_wrapper
+
+    const internal_mes_wrapper = document.createElement("div")
+    internal_mes_wrapper.setAttribute("class", "internal_mes_wrapper")
+    internal_mes_wrapper.appendChild(message_wrapper)
+
+    return internal_mes_wrapper
 }
 
 /**
@@ -903,9 +861,9 @@ function buildVideoContainer(linkElt) {
  * @param message_id
  * @param link to show
  * @param ytid if it's a youtube video
- * @param noerror
+ * @param errorHandler the new media's onerror field will be set to this function
  */
-function mediaInteraction(message_id, link, ytid, noerror) {
+function mediaInteraction(message_id, link, ytid, errorHandler) {
     /* TODO promise?
      Try to display images. */
     const media_wrapper = document.createElement("div")
@@ -918,8 +876,8 @@ function mediaInteraction(message_id, link, ytid, noerror) {
     /* Note, here, we don't check the size of the image.
      in the future, we can check the content-type and content-length with a request
      and maybe disable svg */
-    if (noerror)
-        imageElt.setAttribute("onerror", "this.style.display='none'")
+    if (errorHandler)
+        imageElt.onerror = errorHandler
 
     imageElt.src = ytid ? `http://img.youtube.com/vi/${ytid}/0.jpg` : link
 
@@ -950,7 +908,12 @@ function mediaInteraction(message_id, link, ytid, noerror) {
     } else {
         media_wrapper.appendChild(linkElt)
     }
-    return media_wrapper
+
+    const internal_mes_wrapper = document.createElement("div")
+    internal_mes_wrapper.setAttribute("class", "internal_mes_wrapper")
+    internal_mes_wrapper.appendChild(media_wrapper)
+
+    return internal_mes_wrapper
 }
 
 /**
@@ -961,12 +924,17 @@ function mediaInteraction(message_id, link, ytid, noerror) {
 function textInteraction(message_id, htmlText) {
     const message_wrapper = document.createElement("div")
     message_wrapper.setAttribute("class", "message_wrapper")
-    var message_text = document.createElement("span")
+    var message_text = document.createElement("div")
     message_text.setAttribute("class", "message_text")
     message_text.innerHTML = htmlText
     message_wrapper.appendChild(message_text)
     // TODO STATUS
-    return message_wrapper
+
+    const internal_mes_wrapper = document.createElement("div")
+    internal_mes_wrapper.setAttribute("class", "internal_mes_wrapper")
+    internal_mes_wrapper.appendChild(message_wrapper)
+
+    return internal_mes_wrapper
 }
 
 /**
@@ -1108,6 +1076,49 @@ function removeInteraction(interaction_id) {
 }
 
 /**
+ * Build message dropdown
+ * @return a message dropdown for passed message id
+ */
+function buildMessageDropdown(message_id) {
+    const menu_element = document.createElement("div")
+    menu_element.setAttribute("class", "menu_interaction")
+    menu_element.innerHTML =
+    `<input type="checkbox" id="showmenu${message_id}" class="showmenu">
+     <label for="showmenu${message_id}">
+       <svg fill="#888888" height="12" viewBox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg">
+         <path d="M0 0h24v24H0z" fill="none"/>
+         <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+       </svg>
+     </label>`
+    menu_element.onclick = function() {
+        const button = this.querySelector(".showmenu")
+        button.checked = !button.checked
+    }
+    menu_element.onmouseleave = function() {
+        const button = this.querySelector(".showmenu")
+        button.checked = false
+    }
+    const dropdown = document.createElement("div")
+    const dropdown_classes = [
+        "dropdown",
+        `dropdown_${message_id}`
+    ]
+    dropdown.setAttribute("class", dropdown_classes.join(" "))
+
+    const remove = document.createElement("div")
+    remove.setAttribute("class", "delete")
+    remove.innerHTML = "Delete"
+    remove.msg_id = message_id
+    remove.onclick = function() {
+        window.prompt(`DELETE_INTERACTION:${this.msg_id}`)
+    }
+    dropdown.appendChild(remove)
+    menu_element.appendChild(dropdown)
+
+    return menu_element
+}
+
+/**
  * Build a message div for passed message object
  * @param message_object to treat
  */
@@ -1142,20 +1153,26 @@ function buildNewMessage(message_object) {
     // Build main content
     if (message_type === "data_transfer") {
         if (isImage(message_text) && delivery_status === "finished" && displayLinksEnabled) {
-            message_div.append(mediaInteraction(message_id, message_text, null, false))
+            var errorHandler = function() {
+                var wrapper = message_div.querySelector(".internal_mes_wrapper")
+                var message_wrapper = message_div.querySelector(".message_wrapper")
+                if (message_wrapper) {
+                    message_wrapper.parentNode.removeChild(message_wrapper)
+                }
+
+                var media_wrapper = message_div.querySelector(".media_wrapper")
+                if (media_wrapper) {
+                    media_wrapper.parentNode.removeChild(media_wrapper)
+                }
+
+                var new_interaction = fileInteraction(message_id)
+                var new_message_wrapper = new_interaction.querySelector(".message_wrapper")
+                wrapper.prepend(new_message_wrapper)
+                updateFileInteraction(message_div, this.msg_obj, true)
+            }
+            message_div.append(mediaInteraction(message_id, message_text, null, errorHandler))
             message_div.querySelector("img").id = message_id
             message_div.querySelector("img").msg_obj = message_object
-            /* FIXME in case of error during image load, we should display the standard file
-               transfer box. This feature is broken and should be repared. */
-            /* message_div.querySelector("img").onerror = function() {
-                message_div = .getElementById("message_" + this.id)
-                if (message_div.querySelector(".message_wrapper")) {
-                    var wrapper = message_div.querySelector(".message_wrapper")
-                    wrapper.parentNode.removeChild(wrapper)
-                }
-                message_div.append(fileInteraction(message_id))
-                updateFileInteraction(message_div, this.msg_obj, true)
-            } */
         } else {
             message_div.append(fileInteraction(message_id))
         }
@@ -1187,45 +1204,12 @@ function buildNewMessage(message_object) {
         message_div.appendChild(temp)
     }
 
-    const menu_element = document.createElement("div")
-    menu_element.setAttribute("class", "menu_interaction")
-    menu_element.innerHTML = "<label for=\"showmenu\">\
-      <svg fill=\"#888888\" height=\"12\" viewBox=\"0 0 24 24\" width=\"12\" xmlns=\"http://www.w3.org/2000/svg\">\
-        <path d=\"M0 0h24v24H0z\" fill=\"none\"/>\
-        <path d=\"M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z\"/>\
-      </svg>\
-    </label>\
-    <input type=\"checkbox\" id=\"showmenu\" hidden />"
-    menu_element.onclick = function() {
-        const button = this.querySelector("#showmenu")
-        button.checked = !button.checked
-    }
-    menu_element.onmouseleave = function() {
-        const button = this.querySelector("#showmenu")
-        button.checked = false
-    }
-    const dropdown = document.createElement("div")
-    const dropdown_classes = [
-        "dropdown",
-        `dropdown_${message_id}`
-    ]
-    dropdown.setAttribute("class", dropdown_classes.join(" "))
-
-    const remove = document.createElement("div")
-    remove.setAttribute("class", "delete")
-    remove.innerHTML = "Delete"
-    remove.msg_id = message_id
-    remove.onclick = function() {
-        window.prompt(`DELETE_INTERACTION:${this.msg_id}`)
-    }
-    dropdown.appendChild(remove)
-
-    menu_element.appendChild(dropdown)
+    var message_dropdown = buildMessageDropdown(message_id)
     if (message_type !== "call") {
-        message_div.appendChild(menu_element)
+        message_div.appendChild(message_dropdown)
     } else {
         var wrapper = message_div.querySelector(".message_wrapper")
-        wrapper.insertBefore(menu_element, wrapper.firstChild)
+        wrapper.insertBefore(message_dropdown, wrapper.firstChild)
     }
 
     return message_div
@@ -1269,41 +1253,56 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true, me
     if (new_message) {
         message_div = buildNewMessage(message_object)
 
-        var date_elt = buildNewTimestamp(message_object)
-        // Remove last timestamp if it's the same
-        if (messages_div.querySelector(".timestamp"))
-            cleanPreviousTimestamps(date_elt, messages_div.children.length, messages_div)
+        /* Show timestamp if either:
+           - message has type call or contact
+           - or most recently added timestamp in this set is different
+           - or message is the first message in this set */
 
-        // Add message and the new timestamp
+        var date_elt = buildNewTimestamp(message_object)
+        var timestamp = messages_div.querySelector(".timestamp")
+
         if (message_type === "call" || message_type === "contact") {
             message_div.querySelector(".message_wrapper").appendChild(date_elt)
+        } else if (!timestamp || timestamp.className !== date_elt.className
+                              || timestamp.innerHTML !== date_elt.innerHTML) {
+            message_div.querySelector(".internal_mes_wrapper").appendChild(date_elt)
+
+            /* When inserting at the bottom we should also check that the
+               previously sent message does not have the same timestamp.
+               If it's the case, remove it.*/
+            if (insert_after) {
+                var timestamps = messages_div.querySelectorAll(".timestamp")
+                if (timestamps.length) {
+                    var last_entry = timestamps[timestamps.length - 1]
+                    if (last_entry.className === date_elt.className ||
+                        last_entry.innerHTML === date_elt.innerHTML) {
+                        last_entry.parentNode.removeChild(last_entry)
+                    }
+                }
+            }
         }
 
         if (insert_after) {
             messages_div.lastChild.classList.remove("last-message")
             messages_div.appendChild(message_div)
-            if (! (message_type === "call" || message_type === "contact")) {
-                messages_div.appendChild(date_elt)
-            }
             messages_div.lastChild.classList.add("last-message")
         } else {
-            if (! (message_type === "call" || message_type === "contact")) {
-                messages_div.prepend(date_elt)
-            }
-
             messages_div.prepend(message_div)
         }
     }
 
     if (isErrorStatus(delivery_status) && message_direction === "out") {
         const dropdown = messages_div.querySelector(`.dropdown_${message_id}`)
-        const retry = document.createElement("div")
-        retry.innerHTML = "Retry"
-        retry.msg_id = message_id
-        retry.onclick = function() {
-            window.prompt(`RETRY_INTERACTION:${this.msg_id}`)
+        if (!dropdown.querySelector(".retry")) {
+            const retry = document.createElement("div")
+            retry.setAttribute("class", "retry")
+            retry.innerHTML = "Retry"
+            retry.msg_id = message_id
+            retry.onclick = function() {
+                window.prompt(`RETRY_INTERACTION:${this.msg_id}`)
+            }
+            dropdown.insertBefore(retry, message_div.querySelector(".delete"))
         }
-        dropdown.insertBefore(retry, message_div.querySelector(".delete"))
     }
 
     // Update informations if needed
