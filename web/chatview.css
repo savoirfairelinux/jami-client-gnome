@@ -15,6 +15,7 @@
 
   /* message bar properties */
   --textarea-max-height: 150px;
+  --placeholder-text-color: #d3d3d3;
 
   /* button properties */
   --action-icon-color: var(--ring-dark-blue);
@@ -93,10 +94,13 @@ body {
 
   /* hairline */
   border-bottom: var(--hairline-thickness) solid var(--hairline-color);
+
+  display: flex;
 }
 
-#navbar.hiddenState {
-  visibility: hidden;
+.hiddenState {
+  /* Used to hide navbar and message bar */
+  display: none;
 }
 
 .svgicon {
@@ -108,9 +112,9 @@ body {
 .nav-button {
   width: 40px;
   height: 40px;
-  align-self: center;
   display: flex;
   cursor: pointer;
+  align-self: center;
   border-radius: 50%;
 }
 
@@ -124,11 +128,11 @@ body {
 }
 
 .nav-right {
-  float: right;
+  align-self: flex-end;
 }
 
 .nav-left {
-  float: left;
+  align-self: flex-start;
 }
 
 #nav-contactid {
@@ -140,26 +144,44 @@ body {
 
   /* enable selection (it is globally disabled in the body) */
   -webkit-user-select: auto;
+
+  /* contactid field should take as much place as possible, but it should
+     also be the first one to shrink if necesary. */
+  flex-grow: 2;
+  flex-shrink: 2;
+  min-width: 0; /* necessary for child to be able to shrink correctly */
+
+  /* center vertically */
+  display: flex;
+  align-items: center;
 }
 
-#nav-contactid.oneEntry {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#nav-contactid-wrapper {
+  width: 100%;
 }
 
 #nav-contactid-alias {
   font-size: 14px;
   font-weight: bold;
-  margin: 5px 0px 3px;
+  margin-bottom: 3px;
+
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #nav-contactid-bestId {
   font-size: 11px;
+
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .oneEntry #nav-contactid-bestId {
-  visibility: hidden;
+  display: none;
 }
 
 .action-button svg {
@@ -198,6 +220,10 @@ body {
   background: var(--action-critical-icon-press-color);
 }
 
+#callButtons {
+  display: flex;
+}
+
 #navbar #addBannedContactButton, #navbar #addToConversationsButton {
   display: none;
 }
@@ -222,13 +248,30 @@ body {
   border-bottom: var(--hairline-thickness) solid var(--hairline-color);
 }
 
-#actions
-{
+#invitation #actions {
   margin: 10px;
   list-style: none;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  /* enable selection (it is globally disabled in the body) */
+  -webkit-user-select: auto;
+}
+
+#invitation #text h1 {
+  font-size: 1.5em;
+}
+
+#invitation #text {
+  text-align: center;
+  width: 90%;
+  margin: auto;
+  margin-top: 10px;
+  font-size: 0.8em;
+
+  /* enable selection (it is globally disabled in the body) */
+  -webkit-user-select: auto;
 }
 
 .invitation-button,
@@ -259,18 +302,6 @@ body {
   background: #b02e2c;
 }
 
-#invitation #text h1 {
-  font-size: 1.5em;
-}
-
-#invitation #text {
-  text-align: center;
-  width: 90%;
-  margin: auto;
-  margin-top: 10px;
-  font-size: 0.8em;
-}
-
 /** Messaging bar */
 
 #sendMessage {
@@ -290,10 +321,6 @@ body {
   bottom: 0;
   /* hairline */
   border-top: var(--hairline-thickness) solid var(--hairline-color);
-}
-
-#sendMessage.hiddenState {
-  visibility: hidden;
 }
 
 #message {
@@ -321,7 +348,7 @@ body {
 }
 
 input[placeholder], [placeholder], *[placeholder] {
-    color: #d3d3d3;
+    color: var(--placeholder-text-color);
 }
 
 /** Main chat view */
@@ -336,14 +363,19 @@ input[placeholder], [placeholder], *[placeholder] {
 }
 
 #container {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-  justify-content: flex-end;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    /* When there are not enough messages to occupy full height of the
+       container, make sure they are displayed at the bottom, not at the
+       top. */
+    justify-content: flex-end;
 }
 
 a:link {
@@ -367,18 +399,53 @@ a:hover {
 }
 
 .last-message {
+  /* The last message gets a bigger bottom padding so that it is not
+     "glued" to the message bar. */
   padding-bottom: 1.5em !important;
 }
 
 /* General messages */
 
-.message_wrapper {
+.internal_mes_wrapper {
     max-width: 70%;
     margin: 8px 0 0 0;
-    display: inline-block;
-    padding: 1em;
+
+    display: flex;
+    flex-direction: column;
+
+    /* If a message is smaller (in width) than the timestamp, do not fill
+       full width and pack message at the left. */
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.message_out > .internal_mes_wrapper {
+    /* If message is in the outgoing direction, pack at the right. */
+    align-items: flex-end;
+    align-content: flex-end;
+}
+
+.message_wrapper {
+    max-width: calc(100% - 2em);
     border-radius: 10px;
+    padding: 1em;
     position: relative;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.message_type_data_transfer .message_wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: 450px;
+    max-width: none;
+}
+
+.transfer_info_wrapper {
+    display: flex;
+    flex-direction: row;
 }
 
 .message {
@@ -393,6 +460,112 @@ a:hover {
   -webkit-user-select: auto;
 }
 
+.message_in {
+    padding-left: 25%;
+}
+
+.message_out {
+    padding-right: 25%;
+
+    /* Message sent by the user should be displayed at the right side of
+       the screen. */
+    flex-direction: row-reverse;
+}
+
+.message_delivery_status {
+    margin: 10px 10px;
+    color: #A0A0A0;
+}
+
+.message_sender {
+    display: none;
+}
+
+.sender_image {
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.message_out .message_wrapper {
+    border-top-right-radius: 0;
+    transform-origin: top right;
+}
+
+.message_in .message_wrapper {
+    border-top-left-radius: 0;
+    transform-origin: top left;
+}
+
+.message_out .message_wrapper {
+    background-color: #cfd8dc;
+}
+
+.message_in .message_wrapper {
+    background-color: #fdfdfd;
+}
+
+/* Only the first message of a serie of messages has an angular
+ * top-right / top-left corner. Others get a rounded one.
+ * Same for avatars: do not show it for every single message,
+ * only for the first one of a serie. */
+
+.message_out + .message_out .message_wrapper {
+    border-top-right-radius: 10px;
+}
+
+.message_in + .message_in .message_wrapper {
+    border-top-left-radius: 10px;
+}
+
+.message_in + .message_in .sender_image {
+    visibility: hidden;
+}
+
+.message_out + .message_out .sender_image {
+    visibility: hidden;
+}
+
+@-webkit-keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+
+.timestamp {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-self:stretch;
+    color: #333;
+    font-size: 10px;
+    padding: 5px;
+}
+
+.timestamp_out {
+    flex-direction: row-reverse;
+}
+
+.timestamp_action {
+    margin: auto;
+    padding: 0;
+    vertical-align: center;
+    opacity:0;
+    transition: visibility 0.3s linear, opacity 0.3s linear;
+}
+
+.message_type_contact .message_wrapper:hover .timestamp_action,
+.message_type_call .message_wrapper:hover .timestamp_action {
+    opacity: 1;
+}
+
+/* Ellipsis - dropdown menu */
+
+input[type=checkbox]{
+    display: none;
+}
+
 .menu_interaction
 {
     margin: 5px;
@@ -400,7 +573,7 @@ a:hover {
     padding-top: 0;
     opacity: 0;
     height: 20px;
-    transition:visibility 0.3s linear,opacity 0.3s linear;
+    transition:visibility 0.3s linear, opacity 0.3s linear;
 }
 
 .message_type_contact .menu_interaction
@@ -447,81 +620,8 @@ a:hover {
     background-color: #ddd;
 }
 
-#showmenu:checked ~ .dropdown{
-    display:block;
-}
-
-.message_in {
-    padding-left: 25%;
-}
-
-.message_out {
-    padding-right: 25%;
-    flex-direction: row-reverse;
-}
-
-.message_in + .message_in .sender_image {
-    opacity: 0;
-}
-
-.message_out + .message_out .sender_image {
-    opacity: 0;
-}
-
-.message_delivery_status {
-    margin: 10px 10px;
-    color: #A0A0A0;
-}
-
-.message_sender {
-    display: none;
-}
-
-.sender_image {
-    border-radius: 50%;
-    margin: 10px;
-}
-
-.message_out > .message_wrapper {
-    background-color: #cfd8dc;
-    border-top-right-radius: 0;
-    transform-origin: top right;
-}
-
-.message_out + .message_out > .message_wrapper {
-    border-top-right-radius: 10px;
-}
-
-.message_in > .message_wrapper {
-    background-color: #fdfdfd;
-    border-top-left-radius: 0;
-    transform-origin: top left;
-}
-
-.message_in + .message_in > .message_wrapper {
-    border-top-left-radius: 10px;
-}
-
-
-@-webkit-keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-}
-
-.timestamp {
-    display: flex;
-    justify-content: flex-start;
-    color: #333;
-    font-size: 10px;
-    padding: 5px;
-}
-
-.timestamp_out {
-    flex-direction: row-reverse;
+.showmenu:checked ~ .dropdown{
+    display: block;
 }
 
 /* Buttons */
@@ -532,7 +632,6 @@ a:hover {
 }
 
 .left_buttons {
-    display: flex;
     align-self: center;
     max-width: 90px;
     padding-left: 1em;
@@ -602,9 +701,8 @@ a:hover {
 
 /* file interactions */
 
-.message_type_data_transfer .message_wrapper {
+.message_type_data_transfer .internal_mes_wrapper {
     padding: 0;
-    width: 30%;
     display: flex;
     flex-wrap: wrap;
 }
@@ -640,16 +738,27 @@ a:hover {
 }
 
 .message_type_data_transfer .text {
-    padding: 1em;
     text-align: left;
     align-self: left;
-    max-width: calc(100% - 180px);
+    padding: 1em;
+}
+
+.truncate-ellipsis {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.truncate-ellipsis > * {
+    display: table-cell;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .message_type_data_transfer .filename {
     cursor: pointer;
     font-size: 1.1em;
-    overflow: hidden;
 }
 
 .message_type_data_transfer .informations {
@@ -677,11 +786,7 @@ a:hover {
 
 /* text interactions */
 
-.message_type_text .message_wrapper {
-    max-width: 40%;
-}
-
-.message_type_text .message_text {
+.message_type_text .internal_mes_wrapper {
     padding: 0px;
 }
 
@@ -689,7 +794,11 @@ a:hover {
     hyphens: auto; /* When webkitgtk+ will supports this, intelligent word-breaking */
     word-break: break-word;
     word-wrap: break-word;
-    display: block;
+    max-width: 100%;
+}
+
+.message_text pre {
+    display: inline;
 }
 
 pre {
@@ -741,7 +850,7 @@ pre {
     color: #A0A0A0;
 }
 
-/* Classic screens */
+/* classic screens */
 @media screen and (max-width: 1920px), screen and (max-height: 1080px) {
   .message_in {
       padding-left: 15%;
@@ -751,17 +860,14 @@ pre {
       padding-right: 15%;
   }
 
-  .message_type_text .message_wrapper {
+  .internal_mes_wrapper {
       max-width: 60%;
   }
 
-  /* File interactions */
-  .message_type_data_transfer .message_wrapper {
-      width: 40%;
-  }
-
-  /* Media interactions */
   .media_wrapper img {
+      /* It is perfectly fine to specify max-widths in px when the
+         wrapper's max-width is in %, as long as the max-width in px
+         doesn't exceed the one in %. */
       max-width: 450px;
       max-height: 450px;
   }
@@ -791,13 +897,8 @@ pre {
       max-width: 100%;
   }
 
-  .message_type_text .message_wrapper {
+  .internal_mes_wrapper {
       max-width: 90%;
-  }
-
-  /* File interactions */
-  .message_type_data_transfer .message_wrapper {
-      width: 70%;
   }
 
   /* Media interactions */
@@ -807,10 +908,15 @@ pre {
   }
 }
 
+@media screen and (max-width: 550px) {
+  .message_type_data_transfer .message_wrapper {
+      width: 250px;
+  }
+}
+
 /* Special case */
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 350px) {
   .sender_image {
-      visibility: hidden;
       display: none;
   }
 
@@ -823,17 +929,8 @@ pre {
       max-width: 100%;
       padding-left: 0;
   }
-}
 
-.message_type_contact .message_wrapper:hover .timestamp_action,
-.message_type_call .message_wrapper:hover .timestamp_action {
-    opacity: 1;
-}
-
-.timestamp_action {
-    margin: auto;
-    padding: 0;
-    vertical-align: center;
-    opacity:0;
-    transition:visibility 0.3s linear,opacity 0.3s linear;
+  .message_type_data_transfer .message_wrapper {
+      width: 200px;
+  }
 }
