@@ -367,17 +367,22 @@ a:hover {
 }
 
 .last-message {
+  /* The last message gets a bigger bottom padding so that it is not
+     "glued" to the message bar. */
   padding-bottom: 1.5em !important;
 }
 
 /* General messages */
 
-.message_wrapper {
+.internal_mes_wrapper {
     max-width: 70%;
     margin: 8px 0 0 0;
     display: inline-block;
-    padding: 1em;
+}
+
+.message_wrapper {
     border-radius: 10px;
+    padding: 1em;
     position: relative;
 }
 
@@ -451,21 +456,13 @@ a:hover {
     display:block;
 }
 
-.message_in {
+/*.message_in {
     padding-left: 25%;
-}
+}*/
 
 .message_out {
-    padding-right: 25%;
+    /*padding-right: 25%;*/
     flex-direction: row-reverse;
-}
-
-.message_in + .message_in .sender_image {
-    opacity: 0;
-}
-
-.message_out + .message_out .sender_image {
-    opacity: 0;
 }
 
 .message_delivery_status {
@@ -482,26 +479,44 @@ a:hover {
     margin: 10px;
 }
 
-.message_out > .message_wrapper {
-    background-color: #cfd8dc;
+.message_out .internal_mes_wrapper {
     border-top-right-radius: 0;
     transform-origin: top right;
 }
 
-.message_out + .message_out > .message_wrapper {
-    border-top-right-radius: 10px;
-}
-
-.message_in > .message_wrapper {
-    background-color: #fdfdfd;
+.message_in .internal_mes_wrapper {
     border-top-left-radius: 0;
     transform-origin: top left;
 }
 
-.message_in + .message_in > .message_wrapper {
+.message_out .message_wrapper {
+    background-color: #cfd8dc;
+}
+
+.message_in .message_wrapper {
+    background-color: #fdfdfd;
+}
+
+/* Only the first message of a serie of messages has an angular
+ * top-right / top-left corner. Others get a rounded one.
+ * Same for avatars: do not show it for every single message,
+ * only for the first one of a serie. */
+
+.message_out + .message_out .message_wrapper {
+    border-top-right-radius: 10px;
+}
+
+.message_in + .message_in .message_wrapper {
     border-top-left-radius: 10px;
 }
 
+.message_in + .message_in .sender_image {
+    visibility: none;
+}
+
+.message_out + .message_out .sender_image {
+    visibility: none;
+}
 
 @-webkit-keyframes fade-in {
     from {
@@ -514,7 +529,7 @@ a:hover {
 
 .timestamp {
     display: flex;
-    justify-content: flex-start;
+    /*justify-content: flex-start;*/
     color: #333;
     font-size: 10px;
     padding: 5px;
@@ -602,9 +617,9 @@ a:hover {
 
 /* file interactions */
 
-.message_type_data_transfer .message_wrapper {
+.message_type_data_transfer .internal_mes_wrapper {
     padding: 0;
-    width: 30%;
+    /*width: 30%;*/
     display: flex;
     flex-wrap: wrap;
 }
@@ -643,7 +658,7 @@ a:hover {
     padding: 1em;
     text-align: left;
     align-self: left;
-    max-width: calc(100% - 180px);
+    /*max-width: calc(100% - 180px);*/
 }
 
 .message_type_data_transfer .filename {
@@ -677,11 +692,11 @@ a:hover {
 
 /* text interactions */
 
-.message_type_text .message_wrapper {
+.message_type_text .internal_mes_wrapper {
     max-width: 40%;
 }
 
-.message_type_text .message_text {
+.message_type_text .internal_mes_wrapper {
     padding: 0px;
 }
 
@@ -751,13 +766,13 @@ pre {
       padding-right: 15%;
   }
 
-  .message_type_text .message_wrapper {
+  .message_type_text .internal_mes_wrapper {
       max-width: 60%;
   }
 
   /* File interactions */
-  .message_type_data_transfer .message_wrapper {
-      width: 40%;
+  .message_type_data_transfer .internal_mes_wrapper {
+      max-width: 40%;
   }
 
   /* Media interactions */
@@ -791,13 +806,13 @@ pre {
       max-width: 100%;
   }
 
-  .message_type_text .message_wrapper {
+  .message_type_text .internal_mes_wrapper {
       max-width: 90%;
   }
 
   /* File interactions */
-  .message_type_data_transfer .message_wrapper {
-      width: 70%;
+  .message_type_data_transfer .internal_mes_wrapper {
+      max-width: 70%;
   }
 
   /* Media interactions */
