@@ -23,7 +23,6 @@
 
 // LRC
 #include <api/newaccountmodel.h>
-#include <namedirectory.h>
 #include <account.h>
 
 // Ring Client
@@ -399,7 +398,6 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
                             gtk_label_set_text(GTK_LABEL(priv->label_username), name.c_str());
                             gtk_widget_hide(priv->frame_username);
                             gtk_widget_show(priv->label_username);
-                            gtk_widget_set_can_focus(priv->label_username, true);
                             g_signal_emit(G_OBJECT(view), username_registration_box_signals[USERNAME_REGISTRATION_COMPLETED], 0);
                             break;
                         }
@@ -422,11 +420,6 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
         gtk_label_set_text(GTK_LABEL(priv->label_username), registered_name.c_str());
         gtk_widget_show(priv->label_username);
     }
-
-    if (priv->show_register_button)
-        gtk_widget_show(priv->button_register_username);
-    else
-        gtk_widget_hide(priv->button_register_username);
 
     // CSS styles
     auto provider = gtk_css_provider_new();
@@ -492,8 +485,7 @@ username_registration_box_set_use_blockchain(UsernameRegistrationBox* view, gboo
     if (use_blockchain) {
         if (priv->show_register_button)
             gtk_widget_show(priv->button_register_username);
-        else
-            gtk_widget_hide(priv->button_register_username);
+
     } else {
         gtk_widget_hide(priv->button_register_username);
     }
