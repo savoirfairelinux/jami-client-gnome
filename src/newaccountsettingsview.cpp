@@ -1890,7 +1890,7 @@ build_settings_view(NewAccountSettingsView* view)
     g_signal_connect(priv->filechooserbutton_ca_list, "file-set", G_CALLBACK(update_ca_list), view);
     g_signal_connect(priv->filechooserbutton_certificate, "file-set", G_CALLBACK(update_certificate), view);
     g_signal_connect(priv->filechooserbutton_private_key, "file-set", G_CALLBACK(update_private_key), view);
-    g_signal_connect(priv->entry_password, "file-set", G_CALLBACK(update_custom_ringtone), view);
+    g_signal_connect(priv->entry_password, "focus-out-event", G_CALLBACK(update_password), view);
     g_signal_connect(priv->spinbutton_registration_timeout, "value-changed", G_CALLBACK(update_registration_timeout), view);
     g_signal_connect(priv->spinbutton_negotiation_timeout, "value-changed", G_CALLBACK(update_negotiation_timeout), view);
     g_signal_connect(priv->spinbutton_network_interface, "value-changed", G_CALLBACK(update_network_interface), view);
