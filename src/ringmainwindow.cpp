@@ -1285,6 +1285,8 @@ CppImpl::onAccountSelectionChange(const std::string& id)
     updateLrc(id);
     // Update the welcome view
     ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
+    // Show pending contacts tab if necessary
+    refreshPendingContactRequestTab();
     // Update account settings
     if (widgets->new_account_settings_view)
         new_account_settings_view_update(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view), !idChanged);
