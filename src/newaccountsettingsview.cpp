@@ -697,7 +697,7 @@ show_revokation_error_dialog(NewAccountSettingsView *view, const std::string& te
     auto* top_window = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view)));
     auto* error_dialog = gtk_message_dialog_new(top_window,
         GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
-        text.c_str());
+        "%s", text.c_str());
     gtk_window_set_title(GTK_WINDOW(error_dialog), _("Error when revoking device"));
     gtk_dialog_set_default_response(GTK_DIALOG(error_dialog), GTK_RESPONSE_OK);
 
