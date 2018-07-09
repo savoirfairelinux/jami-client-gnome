@@ -15,9 +15,30 @@ set (CMAKE_CXX_STANDARD 14)
 
 # set project name and version
 PROJECT(ring-client-gnome)
-SET(PROJECT_VERSION_MAJOR 2018)
-SET(PROJECT_VERSION_MINOR 06)
-SET(PROJECT_VERSION_PATCH 06)
+execute_process(
+  COMMAND git log -n 1 --pretty='format:%cd' --date=format:'%Y'
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  OUTPUT_VARIABLE YEARSTR
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+string(REGEX REPLACE "\'format:\'([0-9]+)\'\'" "(\\1)" YEAR "${YEARSTR}")
+SET(PROJECT_VERSION_MAJOR "${YEAR}")
+execute_process(
+  COMMAND git log -n 1 --pretty='format:%cd' --date=format:'%m'
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  OUTPUT_VARIABLE MONTHSTR
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+string(REGEX REPLACE "\'format:\'(0?(.*))\'\'" "(\\2)" MONTH "${MONTHSTR}")
+SET(PROJECT_VERSION_MINOR "${MONTH}")
+execute_process(
+  COMMAND git log -n 1 --pretty='format:%cd' --date=format:'%d'
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  OUTPUT_VARIABLE DAYSTR
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+string(REGEX REPLACE "\'format:\'(0?(.*))\'\'" "(\\2)" DAY "${DAYSTR}")
+SET(PROJECT_VERSION_PATCH "${DAY}")
 
 # set build date
 IF( NOT ("$ENV{SOURCE_DATE_EPOCH}" STREQUAL ""))
