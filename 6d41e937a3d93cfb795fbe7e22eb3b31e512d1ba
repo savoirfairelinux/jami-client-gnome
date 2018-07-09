@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb59d2fd_f9fd0d3b",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2018-07-09T21:02:10Z",
+      "side": 1,
+      "message": "What if building a tarball or more generally not in a git repo ?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "6d41e937a3d93cfb795fbe7e22eb3b31e512d1ba",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
