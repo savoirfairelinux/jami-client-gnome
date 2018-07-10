@@ -1314,8 +1314,9 @@ CppImpl::enterSettingsView()
     show_settings = true;
 
     /* show settings */
-    gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-ok-symbolic",
+    gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "go-previous-symbolic",
                                  GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_widget_set_tooltip_text(GTK_WIDGET(widgets->ring_settings), _("Leave settings page"));
 
     gtk_widget_show(widgets->hbox_settings);
 
@@ -1337,6 +1338,7 @@ CppImpl::leaveSettingsView()
     /* show calls */
     gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-system-symbolic",
                                  GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_widget_set_tooltip_text(GTK_WIDGET(widgets->ring_settings), _("Settings"));
 
     gtk_widget_hide(widgets->hbox_settings);
 
