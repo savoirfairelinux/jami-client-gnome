@@ -1324,15 +1324,6 @@ CppImpl::enterSettingsView()
         media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(widgets->media_settings_view), TRUE);
 
     gtk_stack_set_visible_child(GTK_STACK(widgets->stack_main_view), widgets->last_settings_view);
-
-    // Show disabled accounts for account settings
-    auto selectionIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
-
-    std::string id = "";
-    if (accountInfo_)
-        id = accountInfo_->id;
-
-    refreshAccountSelectorWidget(selectionIdx, true);
 }
 
 void
@@ -1365,15 +1356,6 @@ CppImpl::leaveSettingsView()
         resetToWelcome();
         has_cleared_all_history = false;
     }
-
-    // Show disabled accounts for account settings
-    auto selectionIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
-
-    std::string id = "";
-    if (accountInfo_)
-        id = accountInfo_->id;
-
-    refreshAccountSelectorWidget(selectionIdx, true);
 }
 
 void
