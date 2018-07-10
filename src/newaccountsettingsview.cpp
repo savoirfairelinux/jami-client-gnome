@@ -1677,6 +1677,10 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, NewAccountSettingsVi
     auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
 
     auto* password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password_export));
+    std::string passwordStr = {};
+    if (password) {
+        passwordStr = password;
+    }
     gtk_entry_set_text(GTK_ENTRY(priv->entry_password_export), "");
 
     priv->export_on_ring_ended = QObject::connect(
@@ -1719,7 +1723,7 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, NewAccountSettingsVi
     );
 
     show_generating_pin_spinner(view);
-    if (!(*priv->accountInfo_)->accountModel->exportOnRing((*priv->accountInfo_)->id, password))
+    if (!(*priv->accountInfo_)->accountModel->exportOnRing((*priv->accountInfo_)->id, passwordStr))
     {
         QObject::disconnect(priv->export_on_ring_ended);
         gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Could not initiate export to the Ring, try again"));
