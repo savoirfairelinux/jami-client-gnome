@@ -1988,6 +1988,8 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_widget_show_all(priv->account_options_box);
         // Show ring id
         gtk_label_set_text(GTK_LABEL(priv->label_type_info), (*priv->accountInfo_)->profileInfo.uri.c_str());
+        // Update export label
+        gtk_button_set_label(GTK_BUTTON(priv->button_export_account), _("Export account"));
         // Build devices list
         while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_devices), 0)))
             gtk_container_remove(GTK_CONTAINER(priv->list_devices), children);
