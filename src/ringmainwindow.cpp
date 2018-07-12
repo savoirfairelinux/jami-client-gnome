@@ -62,6 +62,7 @@
 #include "ringnotify.h"
 #include "accountinfopointer.h"
 #include "native/pixbufmanipulator.h"
+#include "ringnotify.h"
 
 //==============================================================================
 
@@ -110,6 +111,8 @@ struct RingMainWindowPrivate
     GtkWidget *treeview_contact_requests;
     GtkWidget *scrolled_window_contact_requests;
     GtkWidget *webkit_chat_container; ///< The webkit_chat_container is created once, then reused for all chat views
+
+    GtkWidget *notifier;
 
     GSettings *settings;
 
@@ -310,6 +313,8 @@ public:
     QMetaObject::Connection invalidAccountConnection_;
     QMetaObject::Connection historyClearedConnection_;
     QMetaObject::Connection modelSortedConnection_;
+    QMetaObject::Connection callChangedConnection_;
+    QMetaObject::Connection newIncomingCallConnection_;
     QMetaObject::Connection filterChangedConnection_;
     QMetaObject::Connection newConversationConnection_;
     QMetaObject::Connection conversationRemovedConnection_;
@@ -334,6 +339,8 @@ private:
     void slotAccountStatusChanged(const std::string& id);
     void slotConversationCleared(const std::string& uid);
     void slotModelSorted();
+    void slotNewIncomingCall(const std::string& callId);
+    void slotCallStatusChanged(const std::string& callId);
     void slotFilterChanged();
     void slotNewConversation(const std::string& uid);
     void slotConversationRemoved(const std::string& uid);
@@ -983,6 +990,8 @@ CppImpl::~CppImpl()
     QObject::disconnect(showIncomingViewConnection_);
     QObject::disconnect(historyClearedConnection_);
     QObject::disconnect(modelSortedConnection_);
+    QObject::disconnect(callChangedConnection_);
+    QObject::disconnect(newIncomingCallConnection_);
     QObject::disconnect(filterChangedConnection_);
     QObject::disconnect(newConversationConnection_);
     QObject::disconnect(conversationRemovedConnection_);
@@ -991,7 +1000,6 @@ CppImpl::~CppImpl()
     QObject::disconnect(rmAccountConnection_);
     QObject::disconnect(invalidAccountConnection_);
     QObject::disconnect(showCallViewConnection_);
-    QObject::disconnect(modelSortedConnection_);
     QObject::disconnect(accountStatusChangedConnection_);
     QObject::disconnect(chatNotification_);
 
@@ -1367,6 +1375,8 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     QObject::disconnect(changeAccountConnection_);
     QObject::disconnect(showCallViewConnection_);
     QObject::disconnect(modelSortedConnection_);
+    QObject::disconnect(callChangedConnection_);
+    QObject::disconnect(newIncomingCallConnection_);
     QObject::disconnect(historyClearedConnection_);
     QObject::disconnect(filterChangedConnection_);
     QObject::disconnect(newConversationConnection_);
@@ -1417,6 +1427,14 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     modelSortedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                               &lrc::api::ConversationModel::modelSorted,
                                               [this] { slotModelSorted(); });
+
+    callChangedConnection_ = QObject::connect(&*accountInfo_->callModel,
+                                              &lrc::api::NewCallModel::callStatusChanged,
+                                              [this] (const std::string& callId) { slotCallStatusChanged(callId); });
+
+    newIncomingCallConnection_ = QObject::connect(&*accountInfo_->callModel,
+                                                  &lrc::api::NewCallModel::newIncomingCall,
+                                                  [this] (const std::string&, const std::string& callId) { slotNewIncomingCall(callId); });
 
     filterChangedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                 &lrc::api::ConversationModel::filterChanged,
@@ -1572,6 +1590,87 @@ CppImpl::slotModelSorted()
 }
 
 void
+CppImpl::slotCallStatusChanged(const std::string& callId)
+{
+    // TODO (sblin group get contactInfos)
+    if (!accountInfo_) {
+        return;
+    }
+    try {
+        auto call = accountInfo_->callModel->getCall(callId);
+        auto peer = call.peer;
+        if (accountInfo_->profileInfo.type == lrc::api::profile::Type::RING && peer.find("ring:") == 0) {
+            peer = peer.substr(5);
+        }
+        auto& contactModel = accountInfo_->contactModel;
+        std::string avatar = "", name = "", notifId = "";
+        try {
+            auto contactInfo = contactModel->getContact(peer);
+            avatar = contactInfo.profileInfo.avatar;
+            name = contactInfo.profileInfo.alias;
+            if (name.empty()) {
+                name = contactInfo.registeredName;
+                if (name.empty()) {
+                    name = contactInfo.profileInfo.uri;
+                }
+            }
+            notifId = accountInfo_->id + ":call:" + contactInfo.profileInfo.uri;
+        } catch (...) {
+            g_warning("Can't get contact for account %s. Don't show notification", accountInfo_->id.c_str());
+            return;
+        }
+
+        if (call.status == lrc::api::call::Status::IN_PROGRESS
+            || call.status == lrc::api::call::Status::ENDED) {
+            // Call ended, close the notification
+            // TODO(sblin) = MISSED CALLS
+            ring_hide_notification(RING_NOTIFIER(widgets->notifier), notifId);
+        }
+    } catch (const std::exception& e) {
+        g_warning("Can't get call %lu for this account.", callId);
+    }
+}
+
+void
+CppImpl::slotNewIncomingCall(const std::string& callId)
+{
+    if (!accountInfo_) {
+        return;
+    }
+    try {
+        auto call = accountInfo_->callModel->getCall(callId);
+        auto peer = call.peer;
+        if (accountInfo_->profileInfo.type == lrc::api::profile::Type::RING && peer.find("ring:") == 0) {
+            peer = peer.substr(5);
+        }
+        auto& contactModel = accountInfo_->contactModel;
+        std::string avatar = "", name = "", notifId = "";
+        try {
+            auto contactInfo = contactModel->getContact(peer);
+            avatar = contactInfo.profileInfo.avatar;
+            name = contactInfo.profileInfo.alias;
+            if (name.empty()) {
+                name = contactInfo.registeredName;
+                if (name.empty()) {
+                    name = contactInfo.profileInfo.uri;
+                }
+            }
+            notifId = accountInfo_->id + ":call:" + contactInfo.profileInfo.uri;
+        } catch (...) {
+            g_warning("Can't get contact for account %s. Don't show notification", accountInfo_->id.c_str());
+            return;
+        }
+
+        if (g_settings_get_boolean(widgets->settings, "enable-call-notifications")) {
+            auto body = name + _(" is calling you!");
+            ring_show_notification(RING_NOTIFIER(widgets->notifier), notifId, avatar, _("Incoming call"), body, true);
+        }
+    } catch (const std::exception& e) {
+        g_warning("Can't get call %lu for this account.", callId);
+    }
+}
+
+void
 CppImpl::slotFilterChanged()
 {
     // Synchronize selection when filter changes
@@ -1688,6 +1787,7 @@ void
 CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation::Info origin)
 {
     changeAccountSelection(id);
+
     // Change the view if we want a different view.
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
 
@@ -1721,6 +1821,7 @@ ring_main_window_init(RingMainWindow *win)
     // CppImpl ctor
     priv->cpp = new details::CppImpl {*win};
     priv->cpp->init();
+    priv->notifier = ring_notifier_new();
 }
 
 static void
@@ -1731,6 +1832,8 @@ ring_main_window_dispose(GObject *object)
 
     delete priv->cpp;
     priv->cpp = nullptr;
+    delete priv->notifier;
+    priv->notifier = nullptr;
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
 
