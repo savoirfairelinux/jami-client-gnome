@@ -1324,6 +1324,11 @@ CppImpl::enterSettingsView()
     if (widgets->last_settings_view == widgets->media_settings_view)
         media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(widgets->media_settings_view), TRUE);
 
+    /* make sure avatar widget is restored properly if we're showing general settings */
+    if (widgets->last_settings_view == widgets->new_account_settings_view)
+        new_account_settings_view_show(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view),
+                                       TRUE);
+
     gtk_stack_set_visible_child(GTK_STACK(widgets->stack_main_view), widgets->last_settings_view);
 }
 
