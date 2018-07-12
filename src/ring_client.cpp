@@ -119,9 +119,6 @@ struct _RingClientPrivate {
     NMClient *nm_client;
     NMActiveConnection *primary_connection;
 #endif
-
-    /* notifications */
-    QMetaObject::Connection call_notification;
 };
 
 /* this union is used to pass ints as pointers and vice versa for GAction parameters*/
@@ -458,22 +455,6 @@ nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result, RingCli
 #endif /* USE_LIBNM */
 
 static void
-call_notifications_toggled(RingClient *self)
-{
-    auto priv = RING_CLIENT_GET_PRIVATE(self);
-
-    if (g_settings_get_boolean(priv->settings, "enable-call-notifications")) {
-        priv->call_notification = QObject::connect(
-            &CallModel::instance(),
-            &CallModel::incomingCall,
-            [] (Call *call) { ring_notify_incoming_call(call); }
-        );
-    } else {
-        QObject::disconnect(priv->call_notification);
-    }
-}
-
-static void
 ring_client_startup(GApplication *app)
 {
     // TODO still use old LRC models, in the future, we will init the LRC here.
@@ -590,12 +571,6 @@ ring_client_startup(GApplication *app)
                 ring_window_show(client);
         }
     );
-
-    /* enable notifications based on settings */
-    ring_notify_init();
-    call_notifications_toggled(client);
-    g_signal_connect_swapped(priv->settings, "changed::enable-call-notifications", G_CALLBACK(call_notifications_toggled), client);
-
 #if USE_LIBNM
      /* monitor the network using libnm to notify the daemon about connectivity chagnes */
      nm_client_new_async(priv->cancellable, (GAsyncReadyCallback)nm_client_cb, client);
@@ -617,7 +592,6 @@ ring_client_shutdown(GApplication *app)
     g_object_unref(priv->cancellable);
 
     QObject::disconnect(priv->uam_updated);
-    QObject::disconnect(priv->call_notification);
 
     /* free the QCoreApplication, which will destroy all libRingClient models
      * and thus send the Unregister signal over dbus to dring */
@@ -630,8 +604,6 @@ ring_client_shutdown(GApplication *app)
     g_strfreev(priv->argv);
 
     g_clear_object(&priv->settings);
-
-    ring_notify_uninit();
 
 #if USE_LIBNM
     /* clear NetworkManager client if it was used */
