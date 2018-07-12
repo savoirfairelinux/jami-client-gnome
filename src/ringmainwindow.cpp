@@ -62,6 +62,7 @@
 #include "ringnotify.h"
 #include "accountinfopointer.h"
 #include "native/pixbufmanipulator.h"
+#include "ringnotify.h"
 
 //==============================================================================
 
@@ -110,6 +111,8 @@ struct RingMainWindowPrivate
     GtkWidget *treeview_contact_requests;
     GtkWidget *scrolled_window_contact_requests;
     GtkWidget *webkit_chat_container; ///< The webkit_chat_container is created once, then reused for all chat views
+
+    GtkWidget *notifier;
 
     GSettings *settings;
 
@@ -1688,6 +1691,27 @@ void
 CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation::Info origin)
 {
     changeAccountSelection(id);
+
+    if (accountInfo_ && !origin.participants.empty()) {
+        // TODO only if notifications for incoming calls are activated
+        auto& contactModel = accountInfo_->contactModel;
+        try {
+            auto contactInfo = contactModel->getContact(origin.participants.front());
+            auto avatar = contactInfo.profileInfo.avatar;
+            auto name = contactInfo.profileInfo.alias;
+            if (name.empty()) {
+                name = contactInfo.registeredName;
+                if (name.empty()) {
+                    name = contactInfo.profileInfo.uri;
+                }
+            }
+            auto body = name + _(" is calling you!");
+            ring_show_notification(RING_NOTIFIER(widgets->notifier), "call:" + id, avatar, _("Incoming call"), body, true);
+        } catch (...) {
+            g_warning("Can't get contact for account %s. Don't show notification", accountInfo_->id.c_str());
+        }
+    }
+
     // Change the view if we want a different view.
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
 
@@ -1721,6 +1745,7 @@ ring_main_window_init(RingMainWindow *win)
     // CppImpl ctor
     priv->cpp = new details::CppImpl {*win};
     priv->cpp->init();
+    priv->notifier = ring_notifier_new();
 }
 
 static void
@@ -1731,6 +1756,8 @@ ring_main_window_dispose(GObject *object)
 
     delete priv->cpp;
     priv->cpp = nullptr;
+    delete priv->notifier;
+    priv->notifier = nullptr;
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
 
