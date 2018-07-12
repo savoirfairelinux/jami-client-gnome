@@ -21,22 +21,27 @@
 #define RING_NOTIFY_H_
 
 #include <gtk/gtk.h>
-#include "ringmainwindow.h"
-
-class Call;
-class ContactMethod;
-namespace Media {
-class TextRecording;
-}
+#include <string>
 
 G_BEGIN_DECLS
+#define RING_NOTIFIER_TYPE            (ring_notifier_get_type ())
+#define RING_NOTIFIER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), RING_NOTIFIER_TYPE, RingNotifier))
+#define RING_NOTIFIER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), RING_NOTIFIER_TYPE, RingNotifierClass))
+#define IS_RING_NOTIFIER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), RING_NOTIFIER_TYPE))
+#define IS_RING_NOTIFIER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), RING_NOTIFIER_TYPE))
 
-void     ring_notify_init();
-void     ring_notify_uninit();
-gboolean ring_notify_is_initted();
-gboolean ring_notify_incoming_call(Call*);
-void     ring_notify_message(ContactMethod*, Media::TextRecording*);
-gboolean ring_notify_close_chat_notification(ContactMethod*);
+typedef struct _RingNotifier      RingNotifier;
+typedef struct _RingNotifierClass RingNotifierClass;
+
+GType      ring_notifier_get_type             (void) G_GNUC_CONST;
+GtkWidget* ring_notifier_new                  (void);
+
+gboolean    ring_show_notification(RingNotifier* view, const std::string& id,
+                                   const std::string& icon,
+                                   const std::string& title,
+                                   const std::string& body,
+                                   bool urgent = false, bool playSound = true);
+gboolean    ring_hide_notification(RingNotifier* view, const std::string& id);
 
 G_END_DECLS
 

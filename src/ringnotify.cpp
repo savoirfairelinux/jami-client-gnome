@@ -46,7 +46,6 @@ static constexpr int MAX_NOTIFICATIONS = 10; // max unread chat msgs to display 
 static constexpr const char* SERVER_NOTIFY_OSD = "notify-osd";
 static constexpr const char* NOTIFICATION_FILE = SOUNDSDIR "/ringtone_notify.wav";
 
-
 /* struct to store the parsed list of the notify server capabilities */
 struct RingNotifyServerInfo
 {
@@ -69,22 +68,106 @@ struct RingNotifyServerInfo
     }
 };
 
-static struct RingNotifyServerInfo server_info;
+namespace details
+{
+class CppImpl;
+}
+
+struct _RingNotifier
+{
+    GtkBox parent;
+};
+
+struct _RingNotifierClass
+{
+    GtkBoxClass parent_class;
+};
+
+typedef struct _RingNotifierPrivate RingNotifierPrivate;
+
+struct _RingNotifierPrivate
+{
+    RingNotifyServerInfo serverInfo;
+
+    details::CppImpl* cpp; ///< Non-UI and C++ only code0
+};
+
+G_DEFINE_TYPE_WITH_PRIVATE(RingNotifier, ring_notifier, GTK_TYPE_BOX);
+
+#define RING_NOTIFIER_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_NOTIFIER_TYPE, RingNotifierPrivate))
+
+/* signals */
+enum {
+    SHOW_CONVERSATION,
+    LAST_SIGNAL
+};
+
+static guint ring_notifier_signals[LAST_SIGNAL] = { 0 };
+
+namespace details
+{
+
+class CppImpl
+{
+public:
+    explicit CppImpl(RingNotifier& widget);
+    ~CppImpl();
+
+    RingNotifier* self = nullptr; // The GTK widget itself
+    RingNotifierPrivate* priv = nullptr; // The GTK widget itself
+
+    std::map<std::string, std::shared_ptr<NotifyNotification>> notifications_;
+private:
+    CppImpl() = delete;
+    CppImpl(const CppImpl&) = delete;
+    CppImpl& operator=(const CppImpl&) = delete;
+
+};
+
+CppImpl::CppImpl(RingNotifier& widget)
+    : self {&widget}
+{}
+
+CppImpl::~CppImpl()
+{}
+
+}
+
+static void
+ring_notifier_dispose(GObject *object)
+{
+    auto* self = RING_NOTIFIER(object);
+    auto* priv = RING_NOTIFIER_GET_PRIVATE(self);
+
+    delete priv->cpp;
+    priv->cpp = nullptr;
+
+#if USE_LIBNOTIFY
+    if (notify_is_initted())
+        notify_uninit();
 #endif
 
-void
-ring_notify_init()
+    G_OBJECT_CLASS(ring_notifier_parent_class)->dispose(object);
+}
+
+static void
+ring_notifier_init(RingNotifier *view)
 {
+    gtk_widget_init_template(GTK_WIDGET(view));
+
+    RingNotifierPrivate *priv = RING_NOTIFIER_GET_PRIVATE(view);
+    priv->cpp = new details::CppImpl {*view};
+
 #if USE_LIBNOTIFY
     notify_init("Ring");
 
     /* get notify server info */
-    if (notify_get_server_info(&server_info.name,
-                               &server_info.vendor,
-                               &server_info.version,
-                               &server_info.spec)) {
+    if (notify_get_server_info(&(priv->serverInfo).name,
+                               &(priv->serverInfo).vendor,
+                               &(priv->serverInfo).version,
+                               &(priv->serverInfo).spec)) {
         g_debug("notify server name: %s, vendor: %s, version: %s, spec: %s",
-                server_info.name, server_info.vendor, server_info.version, server_info.spec);
+                priv->serverInfo.name, priv->serverInfo.vendor, priv->serverInfo.version, priv->serverInfo.spec);
     }
 
     /* check  notify server capabilities */
@@ -92,10 +175,10 @@ ring_notify_init()
     while (list) {
         if (g_strcmp0((const char *)list->data, "append") == 0 ||
             g_strcmp0((const char *)list->data, "x-canonical-append") == 0) {
-            server_info.append = TRUE;
+            priv->serverInfo.append = TRUE;
         }
         if (g_strcmp0((const char *)list->data, "actions") == 0) {
-            server_info.actions = TRUE;
+            priv->serverInfo.actions = TRUE;
         }
 
         list = g_list_next(list);
@@ -105,105 +188,70 @@ ring_notify_init()
 #endif
 }
 
-void
-ring_notify_uninit()
-{
-#if USE_LIBNOTIFY
-    if (notify_is_initted())
-        notify_uninit();
-#endif
-}
-
-gboolean
-ring_notify_is_initted()
-{
-#if USE_LIBNOTIFY
-    return notify_is_initted();
-#else
-    return FALSE;
-#endif
-}
-
-#if USE_LIBNOTIFY
 static void
-ring_notify_show_cm(NotifyNotification*, char *, ContactMethod *cm)
+ring_notifier_class_init(RingNotifierClass *klass)
 {
-    /* show the main window in case its hidden */
-    if (auto action = g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()), "show-main-window")) {
-        g_action_change_state(action, g_variant_new_boolean(TRUE));
-    }
-    /* select the relevant cm */
-    auto idx = RecentModel::instance().getIndex(cm);
-    if (idx.isValid()) {
-        RecentModel::instance().selectionModel()->setCurrentIndex(idx, QItemSelectionModel::ClearAndSelect);
-    }
+    G_OBJECT_CLASS(klass)->dispose = ring_notifier_dispose;
 }
-#endif
+
+GtkWidget *
+ring_notifier_new()
+{
+    gpointer view = g_object_new(RING_NOTIFIER_TYPE, NULL);
+    return (GtkWidget *)view;
+}
 
 gboolean
-ring_notify_incoming_call(
-#if !USE_LIBNOTIFY
-    G_GNUC_UNUSED
-#endif
-    Call* call)
+ring_show_notification(RingNotifier* view, const std::string& id, const std::string& icon, const std::string& title, const std::string& body, bool urgent, bool playSound)
 {
+    g_return_val_if_fail(IS_RING_NOTIFIER(view), false);
     gboolean success = FALSE;
+    RingNotifierPrivate *priv = RING_NOTIFIER_GET_PRIVATE(view);
+
 #if USE_LIBNOTIFY
-    g_return_val_if_fail(call, FALSE);
-
-    gchar *body = g_markup_escape_text(call->formattedName().toUtf8().constData(), -1);
     std::shared_ptr<NotifyNotification> notification(
-        notify_notification_new(_("Incoming call"), body, NULL), g_object_unref);
-    g_free(body);
+        notify_notification_new(title.c_str(), body.c_str(), nullptr), g_object_unref);
+    priv->cpp->notifications_.emplace(id, notification);
 
-    /* get photo */
-    QVariant var_p = GlobalInstances::pixmapManipulator().callPhoto(
-        call->peerContactMethod(), QSize(50, 50), false);
-    std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
+    // Draw icon
+    auto default_avatar = Interfaces::PixbufManipulator().generateAvatar("", "");
+    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(50, 50));
+    auto photo = default_scaled;
+    if (!icon.empty()) {
+        QByteArray byteArray(icon.c_str(), icon.length());
+        QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
+        auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(50, 50));
+        if (avatar.isValid()) {
+            photo = pixbuf_photo;
+        }
+    }
     notify_notification_set_image_from_pixbuf(notification.get(), photo.get());
 
-    /* calls have highest urgency */
-    notify_notification_set_urgency(notification.get(), NOTIFY_URGENCY_CRITICAL);
-    notify_notification_set_timeout(notification.get(), NOTIFY_EXPIRES_DEFAULT);
-
-    /* if the notification server supports actions, make the default action to show the call */
-    if (server_info.actions) {
-        notify_notification_add_action(notification.get(),
-                                       "default",
-                                       C_("notification action name", "Show"),
-                                       (NotifyActionCallback)ring_notify_show_cm,
-                                       call->peerContactMethod(),
-                                       nullptr);
+    if (urgent) {
+        notify_notification_set_urgency(notification.get(), NOTIFY_URGENCY_CRITICAL);
+        notify_notification_set_timeout(notification.get(), NOTIFY_EXPIRES_DEFAULT);
+    } else {
+        notify_notification_set_urgency(notification.get(), NOTIFY_URGENCY_NORMAL);
     }
 
-    GError *error = NULL;
+#if USE_CANBERRA
+    if (playSound) {
+        auto status = ca_context_play(ca_gtk_context_get(),
+                                      0,
+                                      CA_PROP_MEDIA_FILENAME,
+                                      NOTIFICATION_FILE,
+                                      nullptr);
+        if (status != 0)
+            g_warning("ca_context_play: %s", ca_strerror(status));
+    }
+#endif // USE_CANBERRA
+
+    // TODO (sblin) add actions
+
+    GError *error = nullptr;
     success = notify_notification_show(notification.get(), &error);
 
-    if (success) {
-        /* monitor the life cycle of the call and try to close the notification
-         * once the call has been aswered */
-        auto state_changed_conn = std::make_shared<QMetaObject::Connection>();
-        *state_changed_conn = QObject::connect(
-            call,
-            &Call::lifeCycleStateChanged,
-            [notification, state_changed_conn] (Call::LifeCycleState newState, G_GNUC_UNUSED Call::LifeCycleState previousState)
-                {
-                    g_return_if_fail(NOTIFY_IS_NOTIFICATION(notification.get()));
-                    if (newState > Call::LifeCycleState::INITIALIZATION) {
-                        /* note: not all systems will actually close the notification
-                         * even if the above function returns as true */
-                        if (!notify_notification_close(notification.get(), NULL))
-                            g_warning("could not close notification");
-
-                        /* once we (try to) close the notification, we can
-                         * disconnect from this signal; this should also destroy
-                         * the notification shared_ptr as its ref count will
-                         * drop to 0 */
-                        QObject::disconnect(*state_changed_conn);
-                    }
-                }
-            );
-    } else {
+    if (error) {
         g_warning("failed to show notification: %s", error->message);
         g_clear_error(&error);
     }
@@ -211,60 +259,71 @@ ring_notify_incoming_call(
     return success;
 }
 
+gboolean
+ring_hide_notification(RingNotifier* view, const std::string& id)
+{
+    g_return_val_if_fail(IS_RING_NOTIFIER(view), false);
+    gboolean success = FALSE;
+    RingNotifierPrivate *priv = RING_NOTIFIER_GET_PRIVATE(view);
+
 #if USE_LIBNOTIFY
-
-static void
-ring_notify_free_list(gpointer, GList *value, gpointer)
-{
-    if (value) {
-        g_object_unref(G_OBJECT(value->data));
-        g_list_free(value);
+    // Search
+    auto notification = priv->cpp->notifications_.find(id);
+    if (notification == priv->cpp->notifications_.end()) {
+        return success;
     }
-}
-
-static void
-ring_notify_free_chat_table(GHashTable *table) {
-    if (table) {
-        g_hash_table_foreach(table, (GHFunc)ring_notify_free_list, nullptr);
-        g_hash_table_destroy(table);
+    // Close
+    GError *error = nullptr;
+    if (!notify_notification_close(notification->second.get(), &error)) {
+        g_warning("could not close notification: %s", error->message);
+        g_clear_error(&error);
     }
+    // Erase
+    priv->cpp->notifications_.erase(id);
+#endif
+    return success;
 }
 
-/**
- * Returns a pointer to a GHashTable which contains key,value pairs where a ContactMethod pointer
- * is the key and a GList of notifications for that CM is the vlue.
- */
-GHashTable *
-ring_notify_get_chat_table()
-{
-    static std::unique_ptr<GHashTable, decltype(ring_notify_free_chat_table)&> chat_table(
-        nullptr, ring_notify_free_chat_table);
 
-    if (chat_table.get() == nullptr)
-        chat_table.reset(g_hash_table_new(NULL, NULL));
 
-    return chat_table.get();
-}
 
-static void
-notification_closed(NotifyNotification *notification, ContactMethod *cm)
-{
-    g_return_if_fail(cm);
 
-    /* remove from the list */
-    auto chat_table = ring_notify_get_chat_table();
-    if (auto list = (GList *)g_hash_table_lookup(chat_table, cm)) {
-        list = g_list_remove(list, notification);
-        if (list) {
-            // the head of the list may have changed
-            g_hash_table_replace(chat_table, cm, list);
-        } else {
-            g_hash_table_remove(chat_table, cm);
-        }
-    }
 
-    g_object_unref(notification);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+static struct RingNotifyServerInfo server_info;
+#endif
+
+#if USE_LIBNOTIFY
 
 static gboolean
 ring_notify_show_text_message(ContactMethod *cm, const QModelIndex& idx)
@@ -272,13 +331,13 @@ ring_notify_show_text_message(ContactMethod *cm, const QModelIndex& idx)
     g_return_val_if_fail(idx.isValid() && cm, FALSE);
     gboolean success = FALSE;
 
-    auto title = g_markup_printf_escaped(C_("Text message notification", "%s says:"), idx.data(static_cast<int>(Ring::Role::Name)).toString().toUtf8().constData());
+    /*auto title = g_markup_printf_escaped(C_("Text message notification", "%s says:"), idx.data(static_cast<int>(Ring::Role::Name)).toString().toUtf8().constData());
     auto body = g_markup_escape_text(idx.data(Qt::DisplayRole).toString().toUtf8().constData(), -1);
 
     NotifyNotification *notification_new = nullptr;
     NotifyNotification *notification_old = nullptr;
 
-    /* try to get the previous notification */
+    /* try to get the previous notification * /
     auto chat_table = ring_notify_get_chat_table();
     auto list = (GList *)g_hash_table_lookup(chat_table, cm);
     if (list)
@@ -296,15 +355,15 @@ ring_notify_show_text_message(ContactMethod *cm, const QModelIndex& idx)
      *    the old notification body manually to only contain the unread messages
      * 3. the 3rd case is that the server supports append but is not notify-osd, then we simply use
      *    the append feature
-     */
+     * /
 
     if (notification_old && !server_info.append) {
-        /* case 1 */
+        /* case 1 * /
         notify_notification_update(notification_old, title, body, nullptr);
         notification_new = notification_old;
     } else if (notification_old && g_strcmp0(server_info.name, SERVER_NOTIFY_OSD) == 0) {
-        /* case 2 */
-        /* print up to MAX_NOTIFICATIONS unread messages */
+        /* case 2 * /
+        /* print up to MAX_NOTIFICATIONS unread messages * /
         int msg_count = 0;
         auto idx_next = idx.sibling(idx.row() - 1, idx.column());
         auto read = idx_next.data(static_cast<int>(Media::TextRecording::Role::IsRead)).toBool();
@@ -323,28 +382,24 @@ ring_notify_show_text_message(ContactMethod *cm, const QModelIndex& idx)
 
         notification_new = notification_old;
     } else {
-        /* need new notification for case 1, 2, or 3 */
+        /* need new notification for case 1, 2, or 3 * /
         notification_new = notify_notification_new(title, body, nullptr);
 
-        /* track in hash table */
+        /* track in hash table * /
         auto list = (GList *)g_hash_table_lookup(chat_table, cm);
         list = g_list_append(list, notification_new);
         g_hash_table_replace(chat_table, cm, list);
 
-        /* get photo */
+        /* get photo * /
         QVariant var_p = GlobalInstances::pixmapManipulator().callPhoto(
             cm, QSize(50, 50), false);
         std::shared_ptr<GdkPixbuf> photo = var_p.value<std::shared_ptr<GdkPixbuf>>();
         notify_notification_set_image_from_pixbuf(notification_new, photo.get());
 
-        /* normal priority for messages */
+        /* normal priority for messages * /
         notify_notification_set_urgency(notification_new, NOTIFY_URGENCY_NORMAL);
 
-        /* remove the key and value from the hash table once the notification is
-         * closed; note that this will also unref the notification */
-        g_signal_connect(notification_new, "closed", G_CALLBACK(notification_closed), cm);
-
-        /* if the notification server supports actions, make the default action to show the chat view */
+        /* if the notification server supports actions, make the default action to show the chat view * /
         if (server_info.actions) {
             notify_notification_add_action(notification_new,
                                            "default",
@@ -374,90 +429,10 @@ ring_notify_show_text_message(ContactMethod *cm, const QModelIndex& idx)
     }
 
     g_free(title);
-    g_free(body);
+    g_free(body);*/
 
     return success;
 }
 
-static gboolean
-show_message_if_unread(const QModelIndex *idx)
-{
-    g_return_val_if_fail(idx && idx->isValid(), G_SOURCE_REMOVE);
-
-    if (!idx->data(static_cast<int>(Media::TextRecording::Role::IsRead)).toBool()) {
-        auto cm = idx->data(static_cast<int>(Media::TextRecording::Role::ContactMethod)).value<ContactMethod *>();
-        ring_notify_show_text_message(cm, *idx);
-    }
-
-    return G_SOURCE_REMOVE;
-}
-
-static void
-delete_idx(QModelIndex *idx)
-{
-    if (idx) {
-        delete idx;
-        idx = nullptr;
-    }
-}
 
 #endif
-
-void
-ring_notify_message(
-#if !USE_LIBNOTIFY
-    ContactMethod*, Media::TextRecording*)
-#else
-    ContactMethod *cm, Media::TextRecording *t)
-#endif
-{
-
-#if USE_LIBNOTIFY
-    g_return_if_fail(cm && t);
-
-    // get the message
-    auto model = t->instantMessagingModel();
-    auto msg_idx = model->index(model->rowCount()-1, 0);
-
-    ring_notify_show_text_message(cm, msg_idx);
-
-    return;
-#endif
-}
-
-gboolean
-ring_notify_close_chat_notification(
-#if !USE_LIBNOTIFY
-    G_GNUC_UNUSED
-#endif
-    ContactMethod *cm)
-{
-    gboolean notification_existed = FALSE;
-
-#if USE_LIBNOTIFY
-    /* checks if there exists a chat notification associated with the given ContactMethod
-     * and tries to close it; if it did exist, then the function returns TRUE */
-    g_return_val_if_fail(cm, FALSE);
-
-
-    auto chat_table = ring_notify_get_chat_table();
-
-    if (auto list = (GList *)g_hash_table_lookup(chat_table, cm)) {
-        while (list) {
-            notification_existed = TRUE;
-            auto notification = (NotifyNotification *)list->data;
-
-            GError *error = NULL;
-            if (!notify_notification_close(notification, &error)) {
-                g_warning("could not close notification: %s", error->message);
-                g_clear_error(&error);
-            }
-
-            list = g_list_next(list);
-        }
-    }
-
-#endif
-
-    return notification_existed;
-}
