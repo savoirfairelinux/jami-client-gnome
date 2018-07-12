@@ -59,6 +59,7 @@ struct _GeneralSettingsViewPrivate
     GtkWidget *checkbutton_showstatusicon;
     GtkWidget *checkbutton_bringtofront;
     GtkWidget *checkbutton_callnotifications;
+    GtkWidget *checkbutton_pendingnotifications;
     GtkWidget *checkbutton_chatnotifications;
     GtkWidget *checkbutton_chatdisplaylinks;
     GtkWidget *checkbutton_searchentryplacescall;
@@ -223,6 +224,9 @@ general_settings_view_init(GeneralSettingsView *self)
     g_settings_bind(priv->settings, "enable-display-links",
                     priv->checkbutton_chatdisplaylinks, "active",
                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind(priv->settings, "enable-pending-notifications",
+                    priv->checkbutton_pendingnotifications, "active",
+                    G_SETTINGS_BIND_DEFAULT);
     g_settings_bind(priv->settings, "enable-chat-notifications",
                     priv->checkbutton_chatnotifications, "active",
                     G_SETTINGS_BIND_DEFAULT);
@@ -316,6 +320,7 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_bringtofront);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_callnotifications);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_chatdisplaylinks);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_pendingnotifications);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_chatnotifications);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_searchentryplacescall);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, radiobutton_chatright);

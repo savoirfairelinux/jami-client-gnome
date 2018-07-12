@@ -90,6 +90,14 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkCheckButton" id="checkbutton_pendingnotifications">
+                        <property name="label" translatable="yes">Enable notifications for pending requests.</property>
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkCheckButton" id="checkbutton_chatnotifications">
                         <property name="label" translatable="yes">Enable notifications for new chat messages.</property>
                         <property name="visible">True</property>
