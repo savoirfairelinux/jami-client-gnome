@@ -1291,20 +1291,22 @@ void
 CppImpl::onAccountSelectionChange(const std::string& id)
 {
     auto oldId = accountInfo_? accountInfo_->id : "";
-    auto idChanged = id == oldId;
-    // Go to welcome view
-    changeView(RING_WELCOME_VIEW_TYPE);
-    // Show conversation panel
-    gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
-    // Reinit LRC
-    updateLrc(id);
-    // Update the welcome view
-    ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
-    // Show pending contacts tab if necessary
-    refreshPendingContactRequestTab();
-    // Update account settings
-    if (widgets->new_account_settings_view)
-        new_account_settings_view_update(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view), !idChanged);
+
+    if (id != oldId) {
+        // Go to welcome view
+        changeView(RING_WELCOME_VIEW_TYPE);
+        // Show conversation panel
+        gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
+        // Reinit LRC
+        updateLrc(id);
+        // Update the welcome view
+        ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
+        // Show pending contacts tab if necessary
+        refreshPendingContactRequestTab();
+        // Update account settings
+        if (widgets->new_account_settings_view)
+            new_account_settings_view_update(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view), true);
+    }
 }
 
 void
@@ -1527,17 +1529,6 @@ CppImpl::slotAccountStatusChanged(const std::string& id)
         updateLrc(id);
         ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
         return;
-    }
-
-    auto selectionIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
-
-    auto enabledAccounts = refreshAccountSelectorWidget(selectionIdx);
-
-    // if no account. reset the view.
-    if (enabledAccounts == 0) {
-        updateLrc("");
-        changeView(RING_WELCOME_VIEW_TYPE);
-        ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
     }
 }
 
