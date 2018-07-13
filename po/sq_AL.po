@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-09 03:09-0400\n"
-"PO-Revision-Date: 2018-07-09 07:09+0000\n"
-"Last-Translator: Besnik <besnik@programeshqip.org>\n"
+"POT-Creation-Date: 2018-07-13 18:14-0400\n"
+"PO-Revision-Date: 2018-07-13 22:14+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +32,7 @@ msgstr "Lyp migrim llogarie"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "Kjo llogari është e keqformuar, ju lutemi, jepni fjalëkalimin tuaj"
 
 #: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:620
 msgid "Alias"
@@ -40,7 +40,7 @@ msgstr "Alias"
 
 #: ui/accountmigrationview.ui:126
 msgid "Ring ID"
-msgstr ""
+msgstr "ID Ring-u"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:457
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
@@ -60,7 +60,7 @@ msgstr "Fshije llogarinë"
 
 #: ui/accountmigrationview.ui:231
 msgid "Migration failed, wrong password?"
-msgstr ""
+msgstr "Migrimi dështoi, fjalëkalim i gabuar?"
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
@@ -158,11 +158,11 @@ msgstr "Anuloje"
 
 #: ui/accountcreationwizard.ui:90
 msgid "Advanced..."
-msgstr ""
+msgstr "Të mëtejshme…"
 
 #: ui/accountcreationwizard.ui:101
 msgid "Add a new SIP account"
-msgstr ""
+msgstr "Shtoni një llogari SIP të re"
 
 #: ui/accountcreationwizard.ui:123
 msgid "Link this device to an existing account"
@@ -210,7 +210,7 @@ msgstr "Llogari"
 
 #: ui/accountcreationwizard.ui:393
 msgid "Register username"
-msgstr ""
+msgstr "Regjistroni emër përdoruesi"
 
 #: ui/accountcreationwizard.ui:394
 msgid ""
@@ -332,7 +332,7 @@ msgstr "Të përgjithshme"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:145
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1348
 msgid "Settings"
 msgstr "Rregullime"
 
@@ -433,19 +433,19 @@ msgstr "ID"
 
 #: ui/newaccountsettingsview.ui:538
 msgid "Click to change password"
-msgstr ""
+msgstr "Klikoni që të ndryshohet fjalëkalimi"
 
-#: ui/newaccountsettingsview.ui:566
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1996
 msgid "Export account"
 msgstr "Eksportoni llogari"
 
 #: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:908
 msgid "Enable account"
-msgstr ""
+msgstr "Aktivizoje llogarinë"
 
 #: ui/newaccountsettingsview.ui:697
 msgid "SIP server"
-msgstr ""
+msgstr "Shërbyes SIP"
 
 #: ui/newaccountsettingsview.ui:781
 msgid "password"
@@ -458,7 +458,7 @@ msgstr "Ndërmjetës"
 
 #: ui/newaccountsettingsview.ui:848
 msgid "Voicemail"
-msgstr ""
+msgstr "Voicemail"
 
 #: ui/newaccountsettingsview.ui:959
 msgid "Known devices linked to this Ring account"
@@ -466,11 +466,11 @@ msgstr "Pajisje të njohura që lidhen te kjo llogari Ring"
 
 #: ui/newaccountsettingsview.ui:967
 msgid "Link another device"
-msgstr ""
+msgstr "Lidhni një pajisje tjetër"
 
 #: ui/newaccountsettingsview.ui:1032
 msgid "Banned contacts"
-msgstr ""
+msgstr "Kontakte të dëbuar"
 
 #: ui/newaccountsettingsview.ui:1088
 msgid "Advanced settings"
@@ -478,27 +478,27 @@ msgstr "Rregullime të mëtejshme"
 
 #: ui/newaccountsettingsview.ui:1128
 msgid "General settings"
-msgstr ""
+msgstr "Rregullime të përgjithshme"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Call settings"
-msgstr ""
+msgstr "Rregullime për thirrjet"
 
 #: ui/newaccountsettingsview.ui:1184
 msgid "Allow call from untrusted peers"
-msgstr ""
+msgstr "Lejo thirrje prej personash të pabesuar"
 
 #: ui/newaccountsettingsview.ui:1219
 msgid "Auto answer calls"
-msgstr ""
+msgstr "Vetëpërgjigju thirrjeve"
 
 #: ui/newaccountsettingsview.ui:1255
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Zile vetjake"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
-msgstr ""
+msgstr "Shërbyes emrash"
 
 #: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2489
 msgid "Address"
@@ -506,7 +506,7 @@ msgstr "Adresë"
 
 #: ui/newaccountsettingsview.ui:1370
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "Formësim i OpenDHT-së"
 
 #: ui/newaccountsettingsview.ui:1454
 msgid "Bootstrap"
@@ -518,7 +518,7 @@ msgstr "Fshehtëzo rrjedha media (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1549
 msgid "Enable SDES for key exchange protocol"
-msgstr ""
+msgstr "Aktivizo SDES për protokoll shkëmbimi kyçesh"
 
 #: ui/newaccountsettingsview.ui:1585
 msgid "Fallback on RTP on encryption failure"
@@ -574,15 +574,15 @@ msgstr "Siguri"
 
 #: ui/newaccountsettingsview.ui:2027
 msgid "Connectivity"
-msgstr ""
+msgstr "Aftësi lidhjeje"
 
 #: ui/newaccountsettingsview.ui:2065
 msgid "Registration expire timeout (seconds)"
-msgstr ""
+msgstr "Kohë skadimi regjistrimi (në sekonda)"
 
 #: ui/newaccountsettingsview.ui:2102
 msgid "Network interface"
-msgstr ""
+msgstr "Ndërfaqe rrjeti"
 
 #: ui/newaccountsettingsview.ui:2138
 msgid "UPnP"
@@ -594,19 +594,19 @@ msgstr "Përdor TURN"
 
 #: ui/newaccountsettingsview.ui:2208
 msgid "(TURN) address"
-msgstr ""
+msgstr "(TURN) adresë"
 
 #: ui/newaccountsettingsview.ui:2243
 msgid "(TURN) username"
-msgstr ""
+msgstr "(TURN) emër përdoruesi"
 
 #: ui/newaccountsettingsview.ui:2277
 msgid "(TURN) password"
-msgstr ""
+msgstr "(TURN) fjalëkalim"
 
 #: ui/newaccountsettingsview.ui:2314
 msgid "(TURN) realm"
-msgstr ""
+msgstr "(TURN) shtrirje"
 
 #: ui/newaccountsettingsview.ui:2348
 msgid "Use STUN"
@@ -614,15 +614,15 @@ msgstr "Përdor STUN"
 
 #: ui/newaccountsettingsview.ui:2383
 msgid "(STUN) address"
-msgstr ""
+msgstr "(STUN) adresë"
 
 #: ui/newaccountsettingsview.ui:2416
 msgid "Published address"
-msgstr ""
+msgstr "Adresë e publikuar"
 
 #: ui/newaccountsettingsview.ui:2453
 msgid "Use custom address and port"
-msgstr ""
+msgstr "Përdor adresë dhe portë vetjake"
 
 #: ui/newaccountsettingsview.ui:2524
 msgid "Port"
@@ -634,7 +634,7 @@ msgstr "Kodekë video"
 
 #: ui/newaccountsettingsview.ui:2623
 msgid "Enable video"
-msgstr ""
+msgstr "Aktivizo video"
 
 #: ui/newaccountsettingsview.ui:2650
 msgid "Audio codecs"
@@ -646,27 +646,27 @@ msgstr "Tratativa Sesioni SDP (ICE Fallback)"
 
 #: ui/newaccountsettingsview.ui:2732
 msgid "Only used during SDP negotiation in case ICE is not supported."
-msgstr ""
+msgstr "Përdorur vetëm gjatë tratativash sesioni SDP, në rast se ICE nuk mbulohet."
 
 #: ui/newaccountsettingsview.ui:2766
 msgid "Audio RTP Min port"
-msgstr ""
+msgstr "Interval Minimum Porte Audio RTP"
 
 #: ui/newaccountsettingsview.ui:2801
 msgid "Audio RTP Max port"
-msgstr ""
+msgstr "Interval Maksimum Porte Audio RTP"
 
 #: ui/newaccountsettingsview.ui:2836
 msgid "Video RTP Min port"
-msgstr ""
+msgstr "Interval Minimum Porte Video RTP"
 
 #: ui/newaccountsettingsview.ui:2871
 msgid "Video RTP Max port"
-msgstr ""
+msgstr "Interval Maksimum Porte Video RTP"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "regjistroni emër përdoruesi"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -755,7 +755,7 @@ msgstr "%s thotë:"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
-msgstr ""
+msgstr "Regjistroje këtë emër përdoruesi te shërbyesi i emrave"
 
 #: src/usernameregistrationbox.cpp:173
 msgid "Username already taken"
@@ -767,15 +767,15 @@ msgstr "Emër përdoruesi i pavlefshëm"
 
 #: src/usernameregistrationbox.cpp:194
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "Kërkimi s’bëhet dot, kontrolloni lidhjen tuaj në rrjet"
 
 #: src/usernameregistrationbox.cpp:274
 msgid "Performing lookup..."
-msgstr ""
+msgstr "Po kryhet kërkimi…"
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress..."
-msgstr ""
+msgstr "Regjistrim në kryerje e sipër…"
 
 #: src/generalsettingsview.cpp:106
 msgid ""
@@ -788,13 +788,13 @@ msgid "Choose download folder"
 msgstr "Zgjidhni dosje shkarkimesh"
 
 #: src/generalsettingsview.cpp:179 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:406 src/chatview.cpp:175
+#: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "_Anuloje"
 
 #: src/generalsettingsview.cpp:181 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:177 src/newaccountsettingsview.cpp:928
+#: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "_Ruaje"
 
@@ -807,15 +807,15 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Kontakte"
 
-#: src/accountgeneraltab.cpp:240 src/newaccountsettingsview.cpp:1701
+#: src/accountgeneraltab.cpp:240 src/newaccountsettingsview.cpp:1705
 msgid "Bad password"
 msgstr "Fjalëkalim i gabuar"
 
-#: src/accountgeneraltab.cpp:246 src/newaccountsettingsview.cpp:1707
+#: src/accountgeneraltab.cpp:246 src/newaccountsettingsview.cpp:1711
 msgid "Network error, try again"
 msgstr "Gabim rrjeti, riprovoni"
 
-#: src/accountgeneraltab.cpp:258 src/newaccountsettingsview.cpp:1725
+#: src/accountgeneraltab.cpp:258 src/newaccountsettingsview.cpp:1729
 msgid "Could not initiate export to the Ring, try again"
 msgstr "S’u fillua dot eksportimi te Ring, riprovoni"
 
@@ -825,7 +825,7 @@ msgstr "S’u fillua dot eksportimi te Ring, riprovoni"
 msgid "Change password"
 msgstr "Ndryshoni fjalëkalimin"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:172
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:174
 #: src/newaccountsettingsview.cpp:923
 msgid "Save File"
 msgstr "Ruaje Kartelën"
@@ -888,11 +888,11 @@ msgstr "Shfaqe fjalëkalimin"
 msgid "Voicemail number"
 msgstr "Numër voicemail"
 
-#: src/accountgeneraltab.cpp:800 src/newaccountsettingsview.cpp:1784
+#: src/accountgeneraltab.cpp:800 src/newaccountsettingsview.cpp:1788
 msgid "Error: wrong password!"
 msgstr "Gabim: fjalëkalim i gabuar!"
 
-#: src/accountgeneraltab.cpp:803 src/newaccountsettingsview.cpp:1787
+#: src/accountgeneraltab.cpp:803 src/newaccountsettingsview.cpp:1791
 msgid "Error: unknown device!"
 msgstr "Gabim: pajisje e panjohur!"
 
@@ -906,7 +906,7 @@ msgstr "Ndani me të tjerë _monitor"
 
 #: src/video/video_widget.cpp:588
 msgid "Stream _file"
-msgstr ""
+msgstr "_Kartelë rrjedhe"
 
 #: src/video/video_widget.cpp:601
 msgid "Show advanced information"
@@ -916,7 +916,7 @@ msgstr "Shfaq informacion të thelluar"
 msgid "Open Avatar Image"
 msgstr "Hap Figurë Avatari"
 
-#: src/avatarmanipulation.cpp:408 src/chatview.cpp:177
+#: src/avatarmanipulation.cpp:408 src/chatview.cpp:179
 msgid "_Open"
 msgstr "_Hape"
 
@@ -940,24 +940,28 @@ msgstr "Klienti Ring për GNOME.\nRing është software i lirë për komunikim u
 
 #: src/ringmainwindow.cpp:166
 msgid "Add account..."
-msgstr ""
+msgstr "Shtoni llogari…"
 
-#: src/ringmainwindow.cpp:624
+#: src/ringmainwindow.cpp:626
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "bëni një thirrje"
 
-#: src/ringmainwindow.cpp:627
+#: src/ringmainwindow.cpp:629
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "hape fjalosjen"
 
-#: src/ringmainwindow.cpp:916
+#: src/ringmainwindow.cpp:918
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Përzgjidhni kontakte ose jepni një numër"
+
+#: src/ringmainwindow.cpp:1321
+msgid "Leave settings page"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1056,7 +1060,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Kod QR ID-je Ring-u"
 
-#: src/chatview.cpp:172
+#: src/chatview.cpp:174
 msgid "Send File"
 msgstr "Dërgo Kartelë"
 
@@ -1064,28 +1068,28 @@ msgstr "Dërgo Kartelë"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
+msgstr "Kujdes! Ky veprim do të shkaktojë heqjen e kësaj llogarie në këtë pajisje!\nShënim: ky veprim s’mund të zhbëhet. Veç kësaj, mund të humbë emri që keni regjistruar!"
 
-#: src/currentcallview.cpp:952
+#: src/currentcallview.cpp:956
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
 #: src/newaccountsettingsview.cpp:679
 msgid "Edit name"
-msgstr ""
+msgstr "Përpunoni emrin"
 
 #: src/newaccountsettingsview.cpp:774
 msgid "Unban"
-msgstr ""
+msgstr "Zhdëboje"
 
 #: src/newaccountsettingsview.cpp:810
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "Fjalëkalimi i ri dhe ripohimi për të janë të ndryshëm!"
 
 #: src/newaccountsettingsview.cpp:821
 msgid "Incorrect password!"
-msgstr ""
+msgstr "Fjalëkalim i pasaktë!"
 
 #: src/newaccountsettingsview.cpp:858
 msgid "Note: this will change the password only on this device."
@@ -1101,40 +1105,40 @@ msgstr "Fjalëkalim i ri"
 
 #: src/newaccountsettingsview.cpp:947
 msgid "Account exported!"
-msgstr ""
+msgstr "Llogaria u eksportua!"
 
 #: src/newaccountsettingsview.cpp:947
 msgid "Export account failure."
-msgstr ""
+msgstr "Dështim eksportimi llogarie."
 
-#: src/newaccountsettingsview.cpp:1713
+#: src/newaccountsettingsview.cpp:1717
 msgid "Unknown error"
 msgstr "Gabim i panjohur"
 
-#: src/newaccountsettingsview.cpp:1959
+#: src/newaccountsettingsview.cpp:1963
 msgid "Initializing..."
-msgstr ""
+msgstr "Po gatitet…"
 
-#: src/newaccountsettingsview.cpp:1962
+#: src/newaccountsettingsview.cpp:1966
 msgid "Offline"
 msgstr "Jo në linjë"
 
-#: src/newaccountsettingsview.cpp:1965
+#: src/newaccountsettingsview.cpp:1969
 msgid "Connecting..."
-msgstr ""
+msgstr "Po bëhet lidhja…"
 
-#: src/newaccountsettingsview.cpp:1968
+#: src/newaccountsettingsview.cpp:1972
 msgid "Online"
 msgstr "Në linjë"
 
-#: src/newaccountsettingsview.cpp:1972
+#: src/newaccountsettingsview.cpp:1976
 msgid "Unknown status"
-msgstr ""
+msgstr "Gjendje e panjohur"
 
-#: src/newaccountsettingsview.cpp:2001
+#: src/newaccountsettingsview.cpp:2007
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2001
+#: src/newaccountsettingsview.cpp:2007
 msgid "no password set"
-msgstr ""
+msgstr "s’ka fjalëkalim të caktuar"

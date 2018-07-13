@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-09 03:09-0400\n"
-"PO-Revision-Date: 2018-07-09 07:09+0000\n"
-"Last-Translator: Laura Galita <laura.galita@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2018-07-13 18:14-0400\n"
+"PO-Revision-Date: 2018-07-13 22:14+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -175,11 +175,11 @@ msgstr "Annuler"
 
 #: ui/accountcreationwizard.ui:90
 msgid "Advanced..."
-msgstr ""
+msgstr "Avancé..."
 
 #: ui/accountcreationwizard.ui:101
 msgid "Add a new SIP account"
-msgstr ""
+msgstr "Ajouter un nouveau compte SIP"
 
 #: ui/accountcreationwizard.ui:123
 msgid "Link this device to an existing account"
@@ -227,7 +227,7 @@ msgstr "Compte"
 
 #: ui/accountcreationwizard.ui:393
 msgid "Register username"
-msgstr ""
+msgstr "Enregistrer le nom d'utilisateur"
 
 #: ui/accountcreationwizard.ui:394
 msgid ""
@@ -349,7 +349,7 @@ msgstr "Général"
 msgid "Media"
 msgstr "Médias"
 
-#: ui/ringmainwindow.ui:145
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1348
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -450,19 +450,19 @@ msgstr "ID"
 
 #: ui/newaccountsettingsview.ui:538
 msgid "Click to change password"
-msgstr ""
+msgstr "Cliquer ici pour changer le mot de passe"
 
-#: ui/newaccountsettingsview.ui:566
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1996
 msgid "Export account"
 msgstr "Exporter compte"
 
 #: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:908
 msgid "Enable account"
-msgstr ""
+msgstr "Activer le compte"
 
 #: ui/newaccountsettingsview.ui:697
 msgid "SIP server"
-msgstr ""
+msgstr "Adresse du serveur SIP"
 
 #: ui/newaccountsettingsview.ui:781
 msgid "password"
@@ -475,7 +475,7 @@ msgstr "Serveur mandataire"
 
 #: ui/newaccountsettingsview.ui:848
 msgid "Voicemail"
-msgstr ""
+msgstr "Boîte vocale"
 
 #: ui/newaccountsettingsview.ui:959
 msgid "Known devices linked to this Ring account"
@@ -483,11 +483,11 @@ msgstr "Liste des appareils connus liés à votre compte Ring"
 
 #: ui/newaccountsettingsview.ui:967
 msgid "Link another device"
-msgstr ""
+msgstr "Associer un nouvel appareil"
 
 #: ui/newaccountsettingsview.ui:1032
 msgid "Banned contacts"
-msgstr ""
+msgstr "Contacts bannis"
 
 #: ui/newaccountsettingsview.ui:1088
 msgid "Advanced settings"
@@ -495,23 +495,23 @@ msgstr "Réglages avancés"
 
 #: ui/newaccountsettingsview.ui:1128
 msgid "General settings"
-msgstr ""
+msgstr "Paramètres généraux"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Call settings"
-msgstr ""
+msgstr "Paramètres d'appel"
 
 #: ui/newaccountsettingsview.ui:1184
 msgid "Allow call from untrusted peers"
-msgstr ""
+msgstr "Autoriser les appels de correspondants non vérifiés"
 
 #: ui/newaccountsettingsview.ui:1219
 msgid "Auto answer calls"
-msgstr ""
+msgstr "Répondre automatiquement aux appels"
 
 #: ui/newaccountsettingsview.ui:1255
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Sonnerie personnalisée"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -523,7 +523,7 @@ msgstr "Adresse"
 
 #: ui/newaccountsettingsview.ui:1370
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "Configuration d'OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1454
 msgid "Bootstrap"
@@ -591,7 +591,7 @@ msgstr "Sécurité"
 
 #: ui/newaccountsettingsview.ui:2027
 msgid "Connectivity"
-msgstr ""
+msgstr "Connectivité"
 
 #: ui/newaccountsettingsview.ui:2065
 msgid "Registration expire timeout (seconds)"
@@ -599,7 +599,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2102
 msgid "Network interface"
-msgstr ""
+msgstr "Interface réseau"
 
 #: ui/newaccountsettingsview.ui:2138
 msgid "UPnP"
@@ -611,7 +611,7 @@ msgstr "Utiliser TURN"
 
 #: ui/newaccountsettingsview.ui:2208
 msgid "(TURN) address"
-msgstr ""
+msgstr "Adresse du serveur TURN"
 
 #: ui/newaccountsettingsview.ui:2243
 msgid "(TURN) username"
@@ -635,11 +635,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2416
 msgid "Published address"
-msgstr ""
+msgstr "Adresse publiée"
 
 #: ui/newaccountsettingsview.ui:2453
 msgid "Use custom address and port"
-msgstr ""
+msgstr "Utiliser une adresse et un port personnalisés"
 
 #: ui/newaccountsettingsview.ui:2524
 msgid "Port"
@@ -667,23 +667,23 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2766
 msgid "Audio RTP Min port"
-msgstr ""
+msgstr "Port audio RTP minimum"
 
 #: ui/newaccountsettingsview.ui:2801
 msgid "Audio RTP Max port"
-msgstr ""
+msgstr "Port audio RTP maximum"
 
 #: ui/newaccountsettingsview.ui:2836
 msgid "Video RTP Min port"
-msgstr ""
+msgstr "Port vidéo RTP minimum"
 
 #: ui/newaccountsettingsview.ui:2871
 msgid "Video RTP Max port"
-msgstr ""
+msgstr "Port vidéo RTP maximum"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "Enregistrer un nom d'utilisateur"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -772,7 +772,7 @@ msgstr "%s a dit :"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
-msgstr ""
+msgstr "Enregistrer un nom d'utilisateur sur le serveur de nom"
 
 #: src/usernameregistrationbox.cpp:173
 msgid "Username already taken"
@@ -792,7 +792,7 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress..."
-msgstr ""
+msgstr "Enregistrement en cours ..."
 
 #: src/generalsettingsview.cpp:106
 msgid ""
@@ -805,13 +805,13 @@ msgid "Choose download folder"
 msgstr "Choisissez le dossier de téléchargement"
 
 #: src/generalsettingsview.cpp:179 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:406 src/chatview.cpp:175
+#: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "_Annuler"
 
 #: src/generalsettingsview.cpp:181 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:177 src/newaccountsettingsview.cpp:928
+#: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "_Sauvegarder"
 
@@ -824,15 +824,15 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Contacts"
 
-#: src/accountgeneraltab.cpp:240 src/newaccountsettingsview.cpp:1701
+#: src/accountgeneraltab.cpp:240 src/newaccountsettingsview.cpp:1705
 msgid "Bad password"
 msgstr "Mot de passe incorrect"
 
-#: src/accountgeneraltab.cpp:246 src/newaccountsettingsview.cpp:1707
+#: src/accountgeneraltab.cpp:246 src/newaccountsettingsview.cpp:1711
 msgid "Network error, try again"
 msgstr "Erreur réseau, veuillez réessayer."
 
-#: src/accountgeneraltab.cpp:258 src/newaccountsettingsview.cpp:1725
+#: src/accountgeneraltab.cpp:258 src/newaccountsettingsview.cpp:1729
 msgid "Could not initiate export to the Ring, try again"
 msgstr "Impossible de lancer l'exportation vers Ring, réessayez"
 
@@ -842,7 +842,7 @@ msgstr "Impossible de lancer l'exportation vers Ring, réessayez"
 msgid "Change password"
 msgstr "changer le mot de passe"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:172
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:174
 #: src/newaccountsettingsview.cpp:923
 msgid "Save File"
 msgstr "Sauvegarder"
@@ -905,11 +905,11 @@ msgstr "Afficher le mot de passe"
 msgid "Voicemail number"
 msgstr "Numéro de boîte vocale"
 
-#: src/accountgeneraltab.cpp:800 src/newaccountsettingsview.cpp:1784
+#: src/accountgeneraltab.cpp:800 src/newaccountsettingsview.cpp:1788
 msgid "Error: wrong password!"
 msgstr "Erreur :  mot de passe incorrect"
 
-#: src/accountgeneraltab.cpp:803 src/newaccountsettingsview.cpp:1787
+#: src/accountgeneraltab.cpp:803 src/newaccountsettingsview.cpp:1791
 msgid "Error: unknown device!"
 msgstr "Erreur : appareil inconnu"
 
@@ -933,7 +933,7 @@ msgstr "Afficher les informations avancées"
 msgid "Open Avatar Image"
 msgstr "Ouvrir l’image de profil"
 
-#: src/avatarmanipulation.cpp:408 src/chatview.cpp:177
+#: src/avatarmanipulation.cpp:408 src/chatview.cpp:179
 msgid "_Open"
 msgstr "_Ouvrir"
 
@@ -959,22 +959,26 @@ msgstr "Ring pour GNOME.\nRing est un logiciel libre de communication universel 
 msgid "Add account..."
 msgstr ""
 
-#: src/ringmainwindow.cpp:624
+#: src/ringmainwindow.cpp:626
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Appeler"
 
-#: src/ringmainwindow.cpp:627
+#: src/ringmainwindow.cpp:629
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Ouvrir la discussion"
 
-#: src/ringmainwindow.cpp:916
+#: src/ringmainwindow.cpp:918
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Rechercher dans les contacts ou appeler un numéro"
+
+#: src/ringmainwindow.cpp:1321
+msgid "Leave settings page"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1073,7 +1077,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Code QR Identifiant Ring"
 
-#: src/chatview.cpp:172
+#: src/chatview.cpp:174
 msgid "Send File"
 msgstr "Envoyez un fichier"
 
@@ -1083,7 +1087,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:952
+#: src/currentcallview.cpp:956
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
@@ -1102,7 +1106,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:821
 msgid "Incorrect password!"
-msgstr ""
+msgstr "Mot de passe incorrect !"
 
 #: src/newaccountsettingsview.cpp:858
 msgid "Note: this will change the password only on this device."
@@ -1124,34 +1128,34 @@ msgstr ""
 msgid "Export account failure."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1713
+#: src/newaccountsettingsview.cpp:1717
 msgid "Unknown error"
 msgstr "Erreur inconnue"
 
-#: src/newaccountsettingsview.cpp:1959
+#: src/newaccountsettingsview.cpp:1963
 msgid "Initializing..."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1962
+#: src/newaccountsettingsview.cpp:1966
 msgid "Offline"
 msgstr "Déconnecté"
 
-#: src/newaccountsettingsview.cpp:1965
+#: src/newaccountsettingsview.cpp:1969
 msgid "Connecting..."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1968
+#: src/newaccountsettingsview.cpp:1972
 msgid "Online"
 msgstr "En ligne"
 
-#: src/newaccountsettingsview.cpp:1972
+#: src/newaccountsettingsview.cpp:1976
 msgid "Unknown status"
-msgstr ""
+msgstr "État inconnu"
 
-#: src/newaccountsettingsview.cpp:2001
+#: src/newaccountsettingsview.cpp:2007
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2001
+#: src/newaccountsettingsview.cpp:2007
 msgid "no password set"
 msgstr ""

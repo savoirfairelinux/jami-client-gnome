@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-09 03:09-0400\n"
+"POT-Creation-Date: 2018-07-13 18:14-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -331,7 +331,7 @@ msgstr ""
 msgid "Media"
 msgstr ""
 
-#: ui/ringmainwindow.ui:145
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1348
 msgid "Settings"
 msgstr ""
 
@@ -434,7 +434,7 @@ msgstr ""
 msgid "Click to change password"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:566
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1996
 msgid "Export account"
 msgstr ""
 
@@ -787,13 +787,13 @@ msgid "Choose download folder"
 msgstr ""
 
 #: src/generalsettingsview.cpp:179 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:406 src/chatview.cpp:175
+#: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr ""
 
 #: src/generalsettingsview.cpp:181 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:177 src/newaccountsettingsview.cpp:928
+#: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr ""
 
@@ -806,15 +806,15 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:240 src/newaccountsettingsview.cpp:1701
+#: src/accountgeneraltab.cpp:240 src/newaccountsettingsview.cpp:1705
 msgid "Bad password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:246 src/newaccountsettingsview.cpp:1707
+#: src/accountgeneraltab.cpp:246 src/newaccountsettingsview.cpp:1711
 msgid "Network error, try again"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:258 src/newaccountsettingsview.cpp:1725
+#: src/accountgeneraltab.cpp:258 src/newaccountsettingsview.cpp:1729
 msgid "Could not initiate export to the Ring, try again"
 msgstr ""
 
@@ -824,7 +824,7 @@ msgstr ""
 msgid "Change password"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:172
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:174
 #: src/newaccountsettingsview.cpp:923
 msgid "Save File"
 msgstr ""
@@ -887,11 +887,11 @@ msgstr ""
 msgid "Voicemail number"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:800 src/newaccountsettingsview.cpp:1784
+#: src/accountgeneraltab.cpp:800 src/newaccountsettingsview.cpp:1788
 msgid "Error: wrong password!"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:803 src/newaccountsettingsview.cpp:1787
+#: src/accountgeneraltab.cpp:803 src/newaccountsettingsview.cpp:1791
 msgid "Error: unknown device!"
 msgstr ""
 
@@ -915,7 +915,7 @@ msgstr ""
 msgid "Open Avatar Image"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:408 src/chatview.cpp:177
+#: src/avatarmanipulation.cpp:408 src/chatview.cpp:179
 msgid "_Open"
 msgstr ""
 
@@ -942,21 +942,25 @@ msgstr ""
 msgid "Add account..."
 msgstr ""
 
-#: src/ringmainwindow.cpp:624
+#: src/ringmainwindow.cpp:626
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:627
+#: src/ringmainwindow.cpp:629
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/ringmainwindow.cpp:916
+#: src/ringmainwindow.cpp:918
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the "
 "layout"
 msgid "Search contacts or enter number"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1321
+msgid "Leave settings page"
 msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
@@ -1056,7 +1060,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr ""
 
-#: src/chatview.cpp:172
+#: src/chatview.cpp:174
 msgid "Send File"
 msgstr ""
 
@@ -1066,7 +1070,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:952
+#: src/currentcallview.cpp:956
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr ""
@@ -1107,34 +1111,34 @@ msgstr ""
 msgid "Export account failure."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1713
+#: src/newaccountsettingsview.cpp:1717
 msgid "Unknown error"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1959
+#: src/newaccountsettingsview.cpp:1963
 msgid "Initializing..."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1962
+#: src/newaccountsettingsview.cpp:1966
 msgid "Offline"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1965
+#: src/newaccountsettingsview.cpp:1969
 msgid "Connecting..."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1968
+#: src/newaccountsettingsview.cpp:1972
 msgid "Online"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1972
+#: src/newaccountsettingsview.cpp:1976
 msgid "Unknown status"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2001
+#: src/newaccountsettingsview.cpp:2007
 msgid "••••••••"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2001
+#: src/newaccountsettingsview.cpp:2007
 msgid "no password set"
 msgstr ""
