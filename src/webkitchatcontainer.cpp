@@ -154,6 +154,19 @@ webview_chat_context_menu(G_GNUC_UNUSED WebKitChatContainer *self,
     return false;
 }
 
+static void
+webkit_chat_container_execute_js(WebKitChatContainer *view, gchar* function_call)
+{
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+    webkit_web_view_run_javascript(
+        WEBKIT_WEB_VIEW(priv->webview_chat),
+        function_call,
+        NULL,
+        NULL,
+        NULL
+    );
+}
+
 QJsonObject
 build_interaction_json(lrc::api::ConversationModel& conversation_model,
                        const uint64_t msgId,
@@ -584,46 +597,23 @@ webkit_chat_container_new()
 void
 webkit_chat_container_set_display_links(WebKitChatContainer *view, bool display)
 {
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
     gchar* function_call = g_strdup_printf("setDisplayLinks(%s);",
       display ? "true" : "false");
-
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        function_call,
-        NULL,
-        NULL,
-        NULL
-    );
+    webkit_chat_container_execute_js(view, function_call);
 }
 
 void
 webkit_chat_disable_send_interaction(WebKitChatContainer *view, bool isDisabled)
 {
-    auto priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
     gchar* function_call = g_strdup_printf("disableSendMessage(%s);", isDisabled ? "true" : "false");
 
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        function_call,
-        NULL,
-        NULL,
-        NULL
-    );
+    webkit_chat_container_execute_js(view, function_call);
 }
 
 void
 webkit_chat_container_clear_sender_images(WebKitChatContainer *view)
 {
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        "clearSenderImages()",
-        NULL,
-        NULL,
-        NULL
-    );
+    webkit_chat_container_execute_js(view, "clearSenderImages()");
 }
 
 void
@@ -631,14 +621,7 @@ webkit_chat_container_clear(WebKitChatContainer *view)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        "clearMessages()",
-        NULL,
-        NULL,
-        NULL
-    );
-
+    webkit_chat_container_execute_js(view, "clearMessages()");
     webkit_chat_container_clear_sender_images(view);
 }
 
@@ -648,33 +631,17 @@ webkit_chat_container_update_interaction(WebKitChatContainer *view,
                                          uint64_t msgId,
                                          const lrc::api::interaction::Info& interaction)
 {
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-
     auto interaction_object = interaction_to_json_interaction_object(conversation_model, msgId, interaction).toUtf8();
     gchar* function_call = g_strdup_printf("updateMessage(%s);", interaction_object.constData());
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        function_call,
-        NULL,
-        NULL,
-        NULL
-    );
+    webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
 
 void
 webkit_chat_container_remove_interaction(WebKitChatContainer *view, uint64_t interactionId)
 {
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-
     gchar* function_call = g_strdup_printf("removeInteraction(%lu);", interactionId);
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        function_call,
-        NULL,
-        NULL,
-        NULL
-    );
+    webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
 
@@ -685,17 +652,9 @@ webkit_chat_container_print_new_interaction(WebKitChatContainer *view,
                                             uint64_t msgId,
                                             const lrc::api::interaction::Info& interaction)
 {
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-
     auto interaction_object = interaction_to_json_interaction_object(conversation_model, msgId, interaction).toUtf8();
     gchar* function_call = g_strdup_printf("addMessage(%s);", interaction_object.constData());
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        function_call,
-        NULL,
-        NULL,
-        NULL
-    );
+    webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
 
@@ -704,17 +663,9 @@ webkit_chat_container_print_history(WebKitChatContainer *view,
                                     lrc::api::ConversationModel& conversation_model,
                                     const std::map<uint64_t, lrc::api::interaction::Info> interactions)
 {
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-
     auto interactions_str = interactions_to_json_array_object(conversation_model, interactions).toUtf8();
     gchar* function_call = g_strdup_printf("printHistory(%s)", interactions_str.constData());
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        function_call,
-        NULL,
-        NULL,
-        NULL
-    );
+    webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
 
@@ -722,19 +673,9 @@ void
 webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
                                      const std::string& contactUri)
 {
-    auto priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-    gchar* function_call = nullptr;
-
     // TODO better escape names
-    function_call = g_strdup_printf(show ? "showInvitation(\"%s\")" : "showInvitation()", contactUri.c_str());
-
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        function_call,
-        NULL,
-        NULL,
-        NULL
-    );
+    gchar* function_call = g_strdup_printf(show ? "showInvitation(\"%s\")" : "showInvitation()", contactUri.c_str());
+    webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
 
@@ -764,35 +705,17 @@ webkit_chat_container_is_ready(WebKitChatContainer *view)
 void
 webkit_chat_set_header_visible(WebKitChatContainer *view, bool isVisible)
 {
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-
     gchar* function_call = g_strdup_printf("displayNavbar(%s)", isVisible ? "true" : "false");
-
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        function_call,
-        NULL,
-        NULL,
-        NULL
-    );
+    webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
 
 void
 webkit_chat_update_chatview_frame(WebKitChatContainer *view, bool accountEnabled, bool isBanned, bool isTemporary, const gchar* alias, const gchar* bestId)
 {
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-
     gchar* function_call = g_strdup_printf("update_chatview_frame(%s, %s, %s, \"%s\", \"%s\")",
                                            accountEnabled ? "true" : "false",
                                            isBanned ? "true" : "false", isTemporary ? "true" : "false", alias, bestId);
-
-    webkit_web_view_run_javascript(
-        WEBKIT_WEB_VIEW(priv->webview_chat),
-        function_call,
-        NULL,
-        NULL,
-        NULL
-    );
+    webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
