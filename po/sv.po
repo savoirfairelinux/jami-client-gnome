@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-13 18:14-0400\n"
-"PO-Revision-Date: 2018-07-13 22:14+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-07-16 03:09-0400\n"
+"PO-Revision-Date: 2018-07-14 05:50+0000\n"
+"Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/ring/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -961,7 +961,7 @@ msgstr "Sök i kontakter eller ange nummer"
 
 #: src/ringmainwindow.cpp:1321
 msgid "Leave settings page"
-msgstr ""
+msgstr "Lämna inställningssidan"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"

@@ -22,21 +22,22 @@
 # Jusore Mondos <jusore@gmail.com>, 2016
 # fgp <komakino@wanadoo.es>, 2016
 # Laura Arjona Reina <larjona@larjona.net>, 2016
+# Markel <wakutiteo@protonmail.com>, 2018
 # Miguel Angel NV <manvac@gmail.com>, 2017
 # Rodrigo I. Avila D., 2018
 # Stepan Salenikovich, 2015
 # Stepan Salenikovich, 2015
 # urkonn <urkonn@gmail.com>, 2017
 # urkonn <urkonn@gmail.com>, 2017
-# wakutiteo <wakutiteo@protonmail.com>, 2018
-# wakutiteo <wakutiteo@protonmail.com>, 2018
+# Markel <wakutiteo@protonmail.com>, 2018
+# Markel <wakutiteo@protonmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-13 18:14-0400\n"
-"PO-Revision-Date: 2018-07-13 22:14+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-07-16 03:09-0400\n"
+"PO-Revision-Date: 2018-07-15 22:59+0000\n"
+"Last-Translator: Markel <wakutiteo@protonmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -184,7 +185,7 @@ msgstr "Cancelar"
 
 #: ui/accountcreationwizard.ui:90
 msgid "Advanced..."
-msgstr ""
+msgstr "Avanzado..."
 
 #: ui/accountcreationwizard.ui:101
 msgid "Add a new SIP account"
@@ -236,7 +237,7 @@ msgstr "Cuenta"
 
 #: ui/accountcreationwizard.ui:393
 msgid "Register username"
-msgstr ""
+msgstr "Registrar nombre de usuario"
 
 #: ui/accountcreationwizard.ui:394
 msgid ""
@@ -459,7 +460,7 @@ msgstr "ID"
 
 #: ui/newaccountsettingsview.ui:538
 msgid "Click to change password"
-msgstr ""
+msgstr "Haga clic para cambiar la contraseña"
 
 #: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1996
 msgid "Export account"
@@ -467,11 +468,11 @@ msgstr "Exportar la cuenta"
 
 #: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:908
 msgid "Enable account"
-msgstr ""
+msgstr "Habilitar cuenta"
 
 #: ui/newaccountsettingsview.ui:697
 msgid "SIP server"
-msgstr ""
+msgstr "Servidor SIP"
 
 #: ui/newaccountsettingsview.ui:781
 msgid "password"
@@ -484,7 +485,7 @@ msgstr "Proxy"
 
 #: ui/newaccountsettingsview.ui:848
 msgid "Voicemail"
-msgstr ""
+msgstr "Mensaje de voz"
 
 #: ui/newaccountsettingsview.ui:959
 msgid "Known devices linked to this Ring account"
@@ -492,11 +493,11 @@ msgstr "Dispositivos conocidos conectados a esta cuenta de Ring"
 
 #: ui/newaccountsettingsview.ui:967
 msgid "Link another device"
-msgstr ""
+msgstr "Vincular otro dispositivo"
 
 #: ui/newaccountsettingsview.ui:1032
 msgid "Banned contacts"
-msgstr ""
+msgstr "Contactos bloqueados"
 
 #: ui/newaccountsettingsview.ui:1088
 msgid "Advanced settings"
@@ -504,27 +505,27 @@ msgstr "Ajustes avanzados"
 
 #: ui/newaccountsettingsview.ui:1128
 msgid "General settings"
-msgstr ""
+msgstr "Ajustes generales"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Call settings"
-msgstr ""
+msgstr "Ajustes de llamada"
 
 #: ui/newaccountsettingsview.ui:1184
 msgid "Allow call from untrusted peers"
-msgstr ""
+msgstr "Permitir llamadas de pares no confiables"
 
 #: ui/newaccountsettingsview.ui:1219
 msgid "Auto answer calls"
-msgstr ""
+msgstr "Respuesta automática de llamadas"
 
 #: ui/newaccountsettingsview.ui:1255
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Tono de llamada personalizado"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
-msgstr ""
+msgstr "Nombre del servidor"
 
 #: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2489
 msgid "Address"
@@ -532,7 +533,7 @@ msgstr "Dirección"
 
 #: ui/newaccountsettingsview.ui:1370
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "Configuración de OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1454
 msgid "Bootstrap"
@@ -600,7 +601,7 @@ msgstr "Seguridad"
 
 #: ui/newaccountsettingsview.ui:2027
 msgid "Connectivity"
-msgstr ""
+msgstr "Conectividad"
 
 #: ui/newaccountsettingsview.ui:2065
 msgid "Registration expire timeout (seconds)"
@@ -608,7 +609,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2102
 msgid "Network interface"
-msgstr ""
+msgstr "Interfaz de red"
 
 #: ui/newaccountsettingsview.ui:2138
 msgid "UPnP"
@@ -644,11 +645,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2416
 msgid "Published address"
-msgstr ""
+msgstr "Dirección publicada"
 
 #: ui/newaccountsettingsview.ui:2453
 msgid "Use custom address and port"
-msgstr ""
+msgstr "Usar dirección y puerto personalizados"
 
 #: ui/newaccountsettingsview.ui:2524
 msgid "Port"
@@ -692,7 +693,7 @@ msgstr ""
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "registrar nombre de usuario"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -801,7 +802,7 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress..."
-msgstr ""
+msgstr "Registro en curso..."
 
 #: src/generalsettingsview.cpp:106
 msgid ""
@@ -966,7 +967,7 @@ msgstr "El cliente Ring de GNOME.\nRing es software libre de comunicaciones que 
 
 #: src/ringmainwindow.cpp:166
 msgid "Add account..."
-msgstr ""
+msgstr "Añadir cuenta..."
 
 #: src/ringmainwindow.cpp:626
 msgctxt "button next to search entry will place a new call"
@@ -1103,19 +1104,19 @@ msgstr "Auto"
 
 #: src/newaccountsettingsview.cpp:679
 msgid "Edit name"
-msgstr ""
+msgstr "Editar nombre"
 
 #: src/newaccountsettingsview.cpp:774
 msgid "Unban"
-msgstr ""
+msgstr "Desbloquear"
 
 #: src/newaccountsettingsview.cpp:810
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "¡La nueva contraseña y su confirmación es diferente!"
 
 #: src/newaccountsettingsview.cpp:821
 msgid "Incorrect password!"
-msgstr ""
+msgstr "¡Contraseña incorrecta!"
 
 #: src/newaccountsettingsview.cpp:858
 msgid "Note: this will change the password only on this device."
@@ -1131,7 +1132,7 @@ msgstr "Contraseña nueva"
 
 #: src/newaccountsettingsview.cpp:947
 msgid "Account exported!"
-msgstr ""
+msgstr "¡Cuenta exportada!"
 
 #: src/newaccountsettingsview.cpp:947
 msgid "Export account failure."
@@ -1143,7 +1144,7 @@ msgstr "Error desconocido"
 
 #: src/newaccountsettingsview.cpp:1963
 msgid "Initializing..."
-msgstr ""
+msgstr "Inicializando…"
 
 #: src/newaccountsettingsview.cpp:1966
 msgid "Offline"
@@ -1151,7 +1152,7 @@ msgstr "Desconectado"
 
 #: src/newaccountsettingsview.cpp:1969
 msgid "Connecting..."
-msgstr ""
+msgstr "Conectando..."
 
 #: src/newaccountsettingsview.cpp:1972
 msgid "Online"
@@ -1159,12 +1160,12 @@ msgstr "En línea"
 
 #: src/newaccountsettingsview.cpp:1976
 msgid "Unknown status"
-msgstr ""
+msgstr "Estado desconocido"
 
 #: src/newaccountsettingsview.cpp:2007
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2007
 msgid "no password set"
-msgstr ""
+msgstr "sin contraseña establecida"
