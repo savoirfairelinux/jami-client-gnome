@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b715fee8_9f86315c",
+        "filename": "src/webkitchatcontainer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-07-16T20:11:02Z",
+      "side": 1,
+      "message": "leak",
+      "range": {
+        "startLine": 600,
+        "startChar": 27,
+        "endLine": 600,
+        "endChar": 51
+      },
+      "revId": "4c41240cd864e4b399386d4784ecd2bde437a796",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
