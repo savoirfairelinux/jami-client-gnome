@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad8dfe80_836801ef",
+        "filename": "ui/accountcreationwizard.ui",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-07-17T21:01:43Z",
+      "side": 1,
+      "message": "Buttons are not aligned properly but GTK boxing system is driving me nuts",
+      "range": {
+        "startLine": 225,
+        "startChar": 20,
+        "endLine": 244,
+        "endChar": 32
+      },
+      "revId": "fee188cab08bfe687a3c3250018c4f13f4cb43a2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
