@@ -38,12 +38,12 @@
 
 struct _AccountCreationWizard
 {
-    GtkBox parent;
+    GtkScrolledWindow parent;
 };
 
 struct _AccountCreationWizardClass
 {
-    GtkBoxClass parent_class;
+    GtkScrolledWindowClass parent_class;
 };
 
 typedef struct _AccountCreationWizardPrivate AccountCreationWizardPrivate;
@@ -106,7 +106,7 @@ struct _AccountCreationWizardPrivate
 
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(AccountCreationWizard, account_creation_wizard, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE(AccountCreationWizard, account_creation_wizard, GTK_TYPE_SCROLLED_WINDOW);
 
 #define ACCOUNT_CREATION_WIZARD_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), ACCOUNT_CREATION_WIZARD_TYPE, AccountCreationWizardPrivate))
 
@@ -387,6 +387,12 @@ static void
 show_choose_account_type(AccountCreationWizard *view)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+
+    /* Make sure other stack elements are hidden, otherwise their width will prevent
+       the window to be correctly resized at this stage. */
+    gtk_widget_hide(priv->account_creation);
+    gtk_widget_hide(priv->existing_account);
+
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->choose_account_type_vbox);
 }
 
@@ -402,6 +408,8 @@ static void
 show_existing_account(AccountCreationWizard *view)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+
+    gtk_widget_show(priv->existing_account);
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->existing_account);
 }
 
@@ -605,7 +613,14 @@ account_creation_wizard_show_preview(AccountCreationWizard *win, gboolean show_p
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
 
-    /* Similarly to general settings view, we construct and destroy the avatar manipulation widget
+    if (priv->account_creation) {
+        if (show_preview)
+            gtk_widget_show(priv->account_creation);
+        else
+            gtk_widget_hide(priv->account_creation);
+    }
+
+    /* Similarily to general settings view, we construct and destroy the avatar manipulation widget
        each time the profile is made visible / hidden. While not the most elegant solution, this
        allows us to run the preview if and only if it is displayed, and always stop it when hidden. */
     if (show_preview && !priv->avatar_manipulation) {
