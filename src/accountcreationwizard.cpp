@@ -39,12 +39,12 @@
 
 struct _AccountCreationWizard
 {
-    GtkBox parent;
+    GtkScrolledWindow parent;
 };
 
 struct _AccountCreationWizardClass
 {
-    GtkBoxClass parent_class;
+    GtkScrolledWindowClass parent_class;
 };
 
 typedef struct _AccountCreationWizardPrivate AccountCreationWizardPrivate;
@@ -107,7 +107,7 @@ struct _AccountCreationWizardPrivate
 
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(AccountCreationWizard, account_creation_wizard, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE(AccountCreationWizard, account_creation_wizard, GTK_TYPE_SCROLLED_WINDOW);
 
 #define ACCOUNT_CREATION_WIZARD_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), ACCOUNT_CREATION_WIZARD_TYPE, AccountCreationWizardPrivate))
 
