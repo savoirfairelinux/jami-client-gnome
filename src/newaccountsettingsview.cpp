@@ -1876,7 +1876,6 @@ build_settings_view(NewAccountSettingsView* view)
     g_signal_connect(priv->entry_sip_username, "focus-out-event", G_CALLBACK(update_sip_username), view);
     g_signal_connect(priv->entry_sip_password, "focus-out-event", G_CALLBACK(update_sip_password), view);
     g_signal_connect(priv->entry_sip_proxy, "focus-out-event", G_CALLBACK(update_sip_proxy), view);
-    g_signal_connect(priv->entry_sip_password, "focus-out-event", G_CALLBACK(update_sip_password), view);
     g_signal_connect_swapped(priv->button_export_account, "clicked", G_CALLBACK(choose_export_file), view);
     g_signal_connect_swapped(priv->button_delete_account, "clicked", G_CALLBACK(remove_account), view);
     g_signal_connect_swapped(priv->sip_button_delete_account, "clicked", G_CALLBACK(remove_account), view);
