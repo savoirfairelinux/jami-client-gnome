@@ -23,9 +23,9 @@
 #include <glib/gi18n.h>
 
 // Lrc
-#include <api/conversationmodel.h>
-#include <api/contactmodel.h>
 #include <api/contact.h>
+#include <api/contactmodel.h>
+#include <api/conversationmodel.h>
 
 #include "accountinfopointer.h"
 

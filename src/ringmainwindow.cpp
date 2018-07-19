@@ -24,12 +24,14 @@
 #include <glib/gi18n.h>
 // std
 #include <algorithm>
+
+// Qt
 #include <QSize>
 
 // LRC
 #include <api/account.h>
+#include <api/behaviorcontroller.h>
 #include <api/contact.h>
-#include <api/profile.h>
 #include <api/contactmodel.h>
 #include <api/conversation.h>
 #include <api/conversationmodel.h>
@@ -37,10 +39,11 @@
 #include <api/lrc.h>
 #include <api/newaccountmodel.h>
 #include <api/newcallmodel.h>
-#include <api/behaviorcontroller.h>
+#include <api/profile.h>
 
 
 // Ring client
+#include "config.h"
 #include "newaccountsettingsview.h"
 #include "accountmigrationview.h"
 #include "accountcreationwizard.h"
@@ -59,6 +62,10 @@
 #include "accountinfopointer.h"
 #include "native/pixbufmanipulator.h"
 #include "ringnotify.h"
+
+#if USE_LIBNM
+#include <NetworkManager.h>
+#endif
 
 //==============================================================================
 
@@ -120,6 +127,13 @@ struct RingMainWindowPrivate
     gulong notif_refuse_pending;
     gulong notif_accept_call;
     gulong notif_decline_call;
+
+    GCancellable *cancellable;
+#if USE_LIBNM
+    /* NetworkManager */
+    NMClient *nm_client;
+    NMActiveConnection *primary_connection;
+#endif
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -359,7 +373,6 @@ private:
 
 inline namespace gtk_callbacks
 {
-
 static void
 on_video_double_clicked(RingMainWindow* self)
 {
@@ -859,9 +872,77 @@ update_download_folder(RingMainWindow* self)
     update_data_transfer(priv->cpp->lrc_->getDataTransferModel(), priv->settings);
 }
 
+#if USE_LIBNM
+
+static void
+log_connection_info(NMActiveConnection *connection)
+{
+    if (connection) {
+        g_debug("primary network connection: %s, default: %s",
+                nm_active_connection_get_uuid(connection),
+                nm_active_connection_get_default(connection) ? "yes" : "no");
+    } else {
+        g_warning("no primary network connection detected, check network settings");
+    }
+}
+
+static void
+primary_connection_changed(NMClient *nm,  GParamSpec*, RingMainWindow* self)
+{
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    auto connection = nm_client_get_primary_connection(nm);
+
+    if (priv->primary_connection != connection) {
+        /* make sure the connection really changed
+         * on client start it seems to always emit the notify::primary-connection signal though it
+         * hasn't changed */
+        log_connection_info(connection);
+        priv->primary_connection = connection;
+        priv->cpp->lrc_->connectivityChanged();
+    }
+}
+
+static void
+nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result,  RingMainWindow* self)
+{
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    GError* error = nullptr;
+    if (auto nm_client = nm_client_new_finish(result, &error)) {
+        priv->nm_client = nm_client;
+        g_debug("NetworkManager client initialized, version: %s\ndaemon running: %s\nnnetworking enabled: %s",
+                nm_client_get_version(nm_client),
+                nm_client_get_nm_running(nm_client) ? "yes" : "no",
+                nm_client_networking_get_enabled(nm_client) ? "yes" : "no");
+
+        auto connection = nm_client_get_primary_connection(nm_client);
+        log_connection_info(connection);
+        priv->primary_connection = connection;
+
+        /* We monitor the primary connection and notify the daemon to re-load its connections
+         * (accounts, UPnP, ...) when it changes. For example, on most systems, if we have an
+         * ethernet connection and then also connect to wifi, the primary connection will not change;
+         * however it will change in the opposite case because an ethernet connection is preferred.
+         */
+        g_signal_connect(nm_client, "notify::primary-connection", G_CALLBACK(primary_connection_changed), self);
+
+    } else {
+        g_warning("error initializing NetworkManager client: %s", error->message);
+        g_clear_error(&error);
+    }
+}
+
+#endif /* USE_LIBNM */
+
 void
 CppImpl::init()
 {
+    widgets->cancellable = g_cancellable_new();
+#if USE_LIBNM
+     // monitor the network using libnm to notify the daemon about connectivity changes
+     nm_client_new_async(widgets->cancellable, (GAsyncReadyCallback)nm_client_cb, self);
+#endif
+
     // Remember the tabs page number for easier selection later
     smartviewPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(widgets->notebook_contacts),
                                              widgets->scrolled_window_smartview);
@@ -1750,6 +1831,9 @@ CppImpl::slotNewIncomingCall(const std::string& callId)
     if (!accountInfo_) {
         return;
     }
+    if (g_settings_get_boolean(widgets->settings, "bring-window-to-front")) {
+        g_settings_set_boolean(widgets->settings, "show-main-window", TRUE);
+    }
     try {
         auto call = accountInfo_->callModel->getCall(callId);
         auto peer = call.peer;
@@ -2047,6 +2131,14 @@ ring_main_window_dispose(GObject *object)
     priv->cpp = nullptr;
     delete priv->notifier;
     priv->notifier = nullptr;
+
+    // cancel any pending cancellable operations
+    g_cancellable_cancel(priv->cancellable);
+    g_object_unref(priv->cancellable);
+#if USE_LIBNM
+    // clear NetworkManager client if it was used
+    g_clear_object(&priv->nm_client);
+#endif
 
     G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
 

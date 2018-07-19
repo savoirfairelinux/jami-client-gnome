@@ -19,7 +19,6 @@
 
 #include "video_widget.h"
 
-#include <callmodel.h>
 #include <glib/gi18n.h>
 #include <clutter/clutter.h>
 #include <clutter-gtk/clutter-gtk.h>
@@ -393,7 +392,7 @@ void video_widget_on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
 
     /* only play the first selection */
     if (uris && *uris){
-        if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+        if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
             out_media->sourceModel()->setFile(QUrl(*uris));
     }
 
@@ -407,7 +406,7 @@ switch_video_input(GtkWidget *widget, Video::Device *device)
     g_return_if_fail(data);
     Call *call = (Call*)data;
 
-    if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+    if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
         out_media->sourceModel()->switchTo(device);
 }
 
@@ -440,7 +439,7 @@ switch_video_input_screen_area(G_GNUC_UNUSED GtkWidget *item, Call* call)
         height = gdk_screen_height();
     }
 
-    if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+    if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
         out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
 }
 
@@ -467,7 +466,7 @@ switch_video_input_monitor(G_GNUC_UNUSED GtkWidget *item, Call* call)
     width = gdk_screen_width();
     height = gdk_screen_height();
 
-    if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+    if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
         out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
 }
 
@@ -490,7 +489,8 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
             "_Open", GTK_RESPONSE_ACCEPT,
             NULL);
 
-    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+    // TODO (sblin)
+    /*if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
         Call *call = nullptr;
         for (const auto& activeCall: CallModel::instance().getActiveCalls()) {
             if (activeCall->videoRenderer() == priv->remote->renderer) {
@@ -503,9 +503,10 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
 
         uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 
-        if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+        if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
             out_media->sourceModel()->setFile(QUrl(uri));
-    }
+    }*/
+
 
     gtk_widget_destroy(dialog);
     g_free(uri);
@@ -532,16 +533,17 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
     Video::SourceModel *sourcemodel = nullptr;
     int active = -1;
     /* if sourcemodel is null then we have no outgoing video */
-    for (const auto& activeCall: CallModel::instance().getActiveCalls())
+    /*for (const auto& activeCall: CallModel::instance().getActiveCalls())
         if (activeCall->videoRenderer() == priv->remote->renderer)
             call = activeCall;
 
     if (call) {
-        if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT)) {
+        if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT)) {
             sourcemodel = out_media->sourceModel();
             active = sourcemodel->activeIndex();
         }
-    }
+    }*/
+    // TODO (sblin)
 
     /* list available devices and check off the active device */
     auto device_list = Video::DeviceModel::instance().devices();
