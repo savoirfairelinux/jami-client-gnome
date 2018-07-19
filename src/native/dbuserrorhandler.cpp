@@ -105,16 +105,17 @@ check_connection_cb(GtkWidget *warning_dialog)
 
     gtk_widget_destroy(warning_dialog);
 
-    if ((!CallModel::instance().isConnected()) || (!CallModel::instance().isValid())) {
+    // TODO is connected !!!
+    /*if ((!CallModel::instance().isConnected()) || (!CallModel::instance().isValid())) {
         g_warning("could not reconnect to the daemon");
 
         auto quit_dialog = ring_quitting_dialog();
 
-        /* wait for the user to exit the dialog */
+        /* wait for the user to exit the dialog * /
         gtk_dialog_run(GTK_DIALOG(quit_dialog));
         gtk_widget_destroy(quit_dialog);
 
-        /* quit */
+        /* quit * /
         if (auto app = g_application_get_default()) {
             auto quit_action = G_ACTION(g_action_map_lookup_action(G_ACTION_MAP(app), "quit"));
             g_action_activate(quit_action, NULL);
@@ -122,9 +123,9 @@ check_connection_cb(GtkWidget *warning_dialog)
             g_warning("no default GApplication exists");
         }
     } else {
-        /* we're done handling the error */
+        /* we're done handling the error * /
         static_cast<DBusErrorHandler&>(GlobalInstances::dBusErrorHandler()).finishedHandlingError();
-    }
+    }*/
 
     return G_SOURCE_REMOVE;
 }
