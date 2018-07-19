@@ -36,6 +36,7 @@
 #include <call.h>
 #include "xrectsel.h"
 #include <smartinfohub.h>
+#include <iostream>
 
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
@@ -100,7 +101,7 @@ struct _VideoWidgetPrivate {
 
 struct _VideoWidgetRenderer {
 
-    std::unique_ptr<NeuralNetwork> net;
+    NeuralNetwork* net;
 
     VideoRendererType        type;
     ClutterActor            *actor;
@@ -151,6 +152,8 @@ static guint video_widget_signals[LAST_SIGNAL] = { 0 };
 static void
 video_widget_dispose(GObject *object)
 {
+    std::cout << "yiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"<< std::endl ;
+
     VideoWidget *self = VIDEO_WIDGET(object);
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
@@ -185,6 +188,7 @@ video_widget_dispose(GObject *object)
 static void
 video_widget_finalize(GObject *object)
 {
+    std::cout << "yoooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"<< std::endl ;
     VideoWidget *self = VIDEO_WIDGET(object);
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
@@ -859,7 +863,10 @@ free_video_widget_renderer(VideoWidgetRenderer *renderer)
 
     if (renderer->net){
 
-        renderer->net.reset();
+        //renderer->net.reset();
+        std::cout << "yoplait     hait"<< std::endl ;
+        delete (renderer->net);
+        renderer->net= nullptr;
     }
     g_free(renderer);
 }
@@ -947,7 +954,7 @@ video_widget_push_new_renderer(VideoWidget *self, Video::Renderer *renderer, Vid
     VideoWidgetRenderer *new_video_renderer = g_new0(VideoWidgetRenderer, 1);
     new_video_renderer->renderer = renderer;
     new_video_renderer->type = type;
-    new_video_renderer->net = std::make_unique<NeuralNetwork>(arg1testdetect, arg2testdetect, arg3testdetect, thresh, hier_thresh);
+    new_video_renderer->net = new NeuralNetwork(arg1testdetect, arg2testdetect, arg3testdetect, thresh, hier_thresh);
    
 
     if (new_video_renderer->renderer->isRendering())

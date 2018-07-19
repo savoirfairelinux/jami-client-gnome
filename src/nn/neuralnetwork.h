@@ -13,11 +13,15 @@ extern "C" {
 #include <darknet.h>
 }
 
+#include <iostream>
+
+
 static void destroyImage(image* img) {
     free_image(*img);
 }
 
 static void destroyNet(network* net_) {
+std::cout << "yapla    yaapla"<< std::endl ;
     free_network(net_);
 }
 

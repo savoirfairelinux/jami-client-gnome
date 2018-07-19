@@ -172,7 +172,9 @@ action_quit(G_GNUC_UNUSED GSimpleAction *simple,
 #if GLIB_CHECK_VERSION(2,32,0)
     g_application_quit(G_APPLICATION(user_data));
 #else
+
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
+     
     gtk_widget_destroy(priv->win);
 #endif
 }
