@@ -292,8 +292,6 @@ SET( SRC_FILES
    src/native/pixbufmanipulator.cpp
    src/utils/models.h
    src/utils/models.cpp
-   src/utils/calling.h
-   src/utils/calling.cpp
    src/ringnotify.h
    src/ringnotify.cpp
    src/utils/files.h
