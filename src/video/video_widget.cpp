@@ -19,7 +19,6 @@
 
 #include "video_widget.h"
 
-#include <callmodel.h>
 #include <glib/gi18n.h>
 #include <clutter/clutter.h>
 #include <clutter-gtk/clutter-gtk.h>
@@ -392,7 +391,7 @@ void video_widget_on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
     g_return_if_fail(priv);
     gchar **uris = gtk_selection_data_get_uris(selection_data);
 
-    Call *call = nullptr;
+    /*Call *call = nullptr;
     for (const auto& activeCall: CallModel::instance().getActiveCalls()) {
         if (activeCall->videoRenderer() == priv->remote->renderer) {
             call = activeCall;
@@ -408,7 +407,7 @@ void video_widget_on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
     if (uris && *uris){
         if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
             out_media->sourceModel()->setFile(QUrl(*uris));
-    }
+    }*/
 
     g_strfreev(uris);
 }
@@ -502,7 +501,8 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
             "_Open", GTK_RESPONSE_ACCEPT,
             NULL);
 
-    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+    // TODO (sblin)
+    /*if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
         Call *call = nullptr;
         for (const auto& activeCall: CallModel::instance().getActiveCalls()) {
             if (activeCall->videoRenderer() == priv->remote->renderer) {
@@ -518,12 +518,10 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
 
         gchar *uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 
-        if (uri) {
-            if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
-                out_media->sourceModel()->setFile(QUrl(uri));
-            g_free(uri);
-        }
-    }
+        if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
+            out_media->sourceModel()->setFile(QUrl(uri));
+    }*/
+
 
     gtk_widget_destroy(dialog);
 }
@@ -549,7 +547,7 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
     Video::SourceModel *sourcemodel = nullptr;
     int active = -1;
     /* if sourcemodel is null then we have no outgoing video */
-    for (const auto& activeCall: CallModel::instance().getActiveCalls())
+    /*for (const auto& activeCall: CallModel::instance().getActiveCalls())
         if (activeCall->videoRenderer() == priv->remote->renderer)
             call = activeCall;
 
@@ -558,7 +556,8 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
             sourcemodel = out_media->sourceModel();
             active = sourcemodel->activeIndex();
         }
-    }
+    }*/
+    // TODO (sblin)
 
     /* list available devices and check off the active device */
     auto device_list = Video::DeviceModel::instance().devices();

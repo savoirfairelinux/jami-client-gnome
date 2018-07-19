@@ -41,6 +41,7 @@
 #include <api/newcallmodel.h>
 #include <api/profile.h>
 
+
 // Ring client
 #include "config.h"
 #include "newaccountsettingsview.h"
