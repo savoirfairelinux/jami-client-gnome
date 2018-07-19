@@ -282,7 +282,7 @@ public:
     void leaveSettingsView();
 
     void showAccountSelectorWidget(bool show = true);
-    std::size_t refreshAccountSelectorWidget(int selection_row = -1, bool show = true, const std::string& selected = "");
+    std::size_t refreshAccountSelectorWidget(int selection_row = -1, const std::string& selected = "");
 
     WebKitChatContainer* webkitChatContainer() const;
 
@@ -1150,10 +1150,6 @@ CppImpl::refreshPendingContactRequestTab()
 void
 CppImpl::showAccountSelectorWidget(bool show)
 {
-    // we only want to show the account selector when there is more than 1 enabled
-    // account; so every time we want to show it, we should preform this check
-    std::size_t enabled_accounts = 0;
-    foreachLrcAccount(*lrc_, [&] (const auto&) { ++enabled_accounts; });
     gtk_widget_set_visible(widgets->combobox_account_selector, show);
 }
 
@@ -1163,7 +1159,7 @@ CppImpl::showAccountSelectorWidget(bool show)
 /// /note Default visibility mode is true, meaning showing the widget.
 /// /note Default selected is "", meaning no forcing
 std::size_t
-CppImpl::refreshAccountSelectorWidget(int selection_row, bool show, const std::string& selected)
+CppImpl::refreshAccountSelectorWidget(int selection_row, const std::string& selected)
 {
     auto store = gtk_list_store_new(6 /* # of cols */ ,
                                     G_TYPE_STRING,
@@ -1208,7 +1204,6 @@ CppImpl::refreshAccountSelectorWidget(int selection_row, bool show, const std::s
         GTK_TREE_MODEL(store)
     );
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), selection_row);
-    gtk_widget_set_visible(widgets->combobox_account_selector, show);
 
     return enabled_accounts;
 }
@@ -1481,15 +1476,13 @@ CppImpl::slotAccountAddedFromLrc(const std::string& id)
                                     NEW_ACCOUNT_SETTINGS_VIEW_NAME);
             }
         }
+        refreshAccountSelectorWidget(currentIdx, id);
         if (account_info.profileInfo.type == lrc::api::profile::Type::SIP) {
-            refreshAccountSelectorWidget(currentIdx, false, id);
             enterSettingsView();
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->radiobutton_new_account_settings), true);
-        } else {
-            refreshAccountSelectorWidget(currentIdx, true, id);
         }
     } catch (...) {
-        refreshAccountSelectorWidget(currentIdx, true, id);
+        refreshAccountSelectorWidget(currentIdx, id);
     }
 }
 
