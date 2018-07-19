@@ -34,6 +34,7 @@
 #include <globalinstances.h>
 #include <smartinfohub.h>
 #include <video/previewmanager.h>
+#include <QSize>
 
 // Client
 #include "chatview.h"

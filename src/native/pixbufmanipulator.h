@@ -39,8 +39,6 @@ class PixbufManipulator : public PixmapManipulatorI {
 public:
     PixbufManipulator();
 
-    QVariant callPhoto(Call* c, const QSize& size, bool displayInformation = true) override;
-    QVariant callPhoto(const ContactMethod* n, const QSize& size, bool displayInformation = true) override;
     QVariant conversationPhoto(const lrc::api::conversation::Info& conversation,
                                const lrc::api::account::Info& accountInfo,
                                const QSize& size,
@@ -55,7 +53,6 @@ public:
     QVariant   securityLevelIcon(const SecurityEvaluationModel::SecurityLevel level) const override;
     QVariant   userActionIcon(const UserActionElement& state) const override;
     QVariant   decorationRole(const QModelIndex& index) override;
-    QVariant   decorationRole(const Call* c) override;
     QVariant   decorationRole(const ContactMethod* cm) override;
     QVariant   decorationRole(const Person* p) override;
     QVariant   decorationRole(const lrc::api::conversation::Info& conversation,

@@ -174,26 +174,6 @@ PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo,
 }
 
 QVariant
-PixbufManipulator::callPhoto(Call* c, const QSize& size, bool displayInformation)
-{
-    if (c->type() == Call::Type::CONFERENCE) {
-        /* conferences are always "online" */
-        return QVariant::fromValue(scaleAndFrame(conferenceAvatar_.get(), size, displayInformation, TRUE));
-    }
-    return callPhoto(c->peerContactMethod(), size, displayInformation);
-}
-
-QVariant
-PixbufManipulator::callPhoto(const ContactMethod* n, const QSize& size, bool displayInformation)
-{
-    if (n->contact()) {
-        return contactPhoto(n->contact(), size, displayInformation);
-    } else {
-        return QVariant::fromValue(scaleAndFrame(generateAvatar(n).get(), size, displayInformation, n->isPresent()));
-    }
-}
-
-QVariant
 PixbufManipulator::contactPhoto(Person* c, const QSize& size, bool displayInformation)
 {
     /**
@@ -368,12 +348,6 @@ PixbufManipulator::userActionIcon(const UserActionElement& state) const
 QVariant PixbufManipulator::decorationRole(const QModelIndex& index)
 {
     Q_UNUSED(index)
-    return QVariant();
-}
-
-QVariant PixbufManipulator::decorationRole(const Call* c)
-{
-    Q_UNUSED(c)
     return QVariant();
 }
 
