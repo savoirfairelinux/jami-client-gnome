@@ -23,6 +23,7 @@
 #include <string>
 
 // gtk
+#include <glib/gi18n.h>
 #include <clutter/clutter.h>
 #include <clutter-gtk/clutter-gtk.h>
 #include <glib/gi18n.h>

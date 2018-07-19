@@ -37,7 +37,6 @@
 #include <QtCore/QStandardPaths>
 
 // LRC
-#include <useractionmodel.h>
 #include <categorizedhistorymodel.h>
 #include <personmodel.h>
 #include <fallbackpersoncollection.h>
@@ -373,11 +372,7 @@ ring_client_open(GApplication *app, GFile **file, gint /*arg3*/, const gchar* /*
             cm->setUri(URI(QString::fromStdString(call_id)));
             cm.release();
         }
-
-        g_free(call_id);
     }
-
-    g_free(file_uri_scheme);
 }
 
 static void
@@ -452,9 +447,6 @@ ring_client_startup(GApplication *app)
      */
     NumberCategoryModel::instance().addCategory("work", QVariant());
     NumberCategoryModel::instance().addCategory("home", QVariant());
-
-    /* EDS backend(s) */
-    load_eds_sources(priv->cancellable);
 
     /* Override theme since we don't have appropriate icons for a dark them (yet) */
     GtkSettings *gtk_settings = gtk_settings_get_default();
