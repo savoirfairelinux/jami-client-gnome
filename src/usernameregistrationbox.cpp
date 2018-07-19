@@ -23,7 +23,6 @@
 
 // LRC
 #include <api/newaccountmodel.h>
-#include <namedirectory.h>
 #include <account.h>
 
 // Ring Client
@@ -132,6 +131,7 @@ username_registration_box_init(UsernameRegistrationBox *view)
 
     auto priv = USERNAME_REGISTRATION_BOX_GET_PRIVATE(view);
 
+    /* TODO
     priv->registered_name_found = QObject::connect(
         &NameDirectory::instance(),
         &NameDirectory::registeredNameFound,
@@ -196,7 +196,7 @@ username_registration_box_init(UsernameRegistrationBox *view)
                     break;
                 }
             }
-        });
+        });*/
 }
 
 static void
@@ -244,9 +244,9 @@ lookup_username(UsernameRegistrationBox *view)
 
     if (priv->accountInfo_) {
         auto prop = (*priv->accountInfo_)->accountModel->getAccountConfig((*priv->accountInfo_)->id);
-        NameDirectory::instance().lookupName(nullptr, prop.RingNS.uri.c_str(), username);
+        // TODO NameDirectory::instance().lookupName(nullptr, prop.RingNS.uri.c_str(), username);
     } else {
-        NameDirectory::instance().lookupName(nullptr, QString(), username);
+        // TODO NameDirectory::instance().lookupName(nullptr, QString(), username);
     }
 
 
