@@ -42,6 +42,7 @@
 #include <api/newcallmodel.h>
 #include <api/profile.h>
 
+
 // Ring client
 #include "config.h"
 #include "newaccountsettingsview.h"
@@ -56,7 +57,6 @@
 #include "mediasettingsview.h"
 #include "models/gtkqtreemodel.h"
 #include "ringwelcomeview.h"
-#include "utils/accounts.h"
 #include "utils/files.h"
 #include "ringnotify.h"
 #include "accountinfopointer.h"
@@ -950,7 +950,6 @@ nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result,  RingMa
 void
 CppImpl::init()
 {
-    lrc_->getAVModel().deactivateOldVideoModels();
     widgets->cancellable = g_cancellable_new();
 #if USE_LIBNM
      // monitor the network using libnm to notify the daemon about connectivity changes

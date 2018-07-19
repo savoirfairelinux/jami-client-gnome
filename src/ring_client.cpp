@@ -37,20 +37,8 @@
 #include <QtCore/QStandardPaths>
 
 // LRC
-#include <useractionmodel.h>
-#include <categorizedhistorymodel.h>
-#include <personmodel.h>
-#include <fallbackpersoncollection.h>
-#include <localhistorycollection.h>
-#include <numbercategorymodel.h>
-#include <globalinstances.h>
-#include <profilemodel.h>
-#include <profile.h>
-#include <peerprofilecollection.h>
-#include <accountmodel.h>
 #include <smartinfohub.h>
-#include <media/recordingmodel.h>
-#include <availableaccountmodel.h>
+#include <globalinstances.h>
 
 // Ring client
 #include "ring_client_options.h"
@@ -62,7 +50,6 @@
 #include "config.h"
 #include "utils/files.h"
 #include "revision.h"
-#include "utils/accounts.h"
 
 #if HAVE_AYATANAAPPINDICATOR
 #include <libayatana-appindicator/app-indicator.h>
@@ -364,26 +351,11 @@ ring_client_open(GApplication *app, GFile **file, gint /*arg3*/, const gchar* /*
     ring_client_activate(app);
 
     // TODO migrate place call at begining
-    if (strcmp(g_file_get_uri_scheme(*file), "ring") == 0) {
-        const char * call_id = g_file_get_basename(*file);
-        std::regex format {"^[[:xdigit:]]{40}$"};
-
-        if (std::regex_match(call_id, format)) {
-            auto cm = std::unique_ptr<TemporaryContactMethod>(new TemporaryContactMethod);
-            cm->setUri(URI(QString::fromStdString(call_id)));
-            cm.release();
-        }
-
-        g_free(call_id);
-    }
-
-    g_free(file_uri_scheme);
 }
 
 static void
 ring_client_startup(GApplication *app)
 {
-    // TODO still use old LRC models, in the future, we will init the LRC here.
     RingClient *client = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
@@ -441,20 +413,6 @@ ring_client_startup(GApplication *app)
     /* init delegates */
     GlobalInstances::setPixmapManipulator(std::unique_ptr<Interfaces::PixbufManipulator>(new Interfaces::PixbufManipulator()));
     GlobalInstances::setDBusErrorHandler(std::unique_ptr<Interfaces::DBusErrorHandler>(new Interfaces::DBusErrorHandler()));
-
-    /* make sure all RING accounts have a display name... this basically makes sure
-     * that all accounts created before the display name patch have a display name
-     * set... a bit of a hack as this should maybe be done in LRC */
-    force_ring_display_name();
-
-    /* make sure basic number categories exist, in case user has no contacts
-     * from which these would be automatically created
-     */
-    NumberCategoryModel::instance().addCategory("work", QVariant());
-    NumberCategoryModel::instance().addCategory("home", QVariant());
-
-    /* EDS backend(s) */
-    load_eds_sources(priv->cancellable);
 
     /* Override theme since we don't have appropriate icons for a dark them (yet) */
     GtkSettings *gtk_settings = gtk_settings_get_default();

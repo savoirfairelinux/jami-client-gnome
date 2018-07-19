@@ -24,6 +24,7 @@
 #include <api/newaccountmodel.h>
 #include <api/avmodel.h>
 #include <globalinstances.h>
+#include <QSize>
 
 /* client */
 #include "native/pixbufmanipulator.h"

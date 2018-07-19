@@ -29,9 +29,6 @@
 #include <QObject>
 #include <QItemSelectionModel>
 
-// LRC
-#include "utils/accounts.h"
-
 struct _RingWelcomeView
 {
     GtkScrolledWindow parent;

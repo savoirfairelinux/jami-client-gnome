@@ -295,8 +295,6 @@ SET( SRC_FILES
    src/utils/files.h
    src/utils/files.cpp
    ${GIT_REVISION_OUTPUT_FILE}
-   src/utils/accounts.h
-   src/utils/accounts.cpp
    src/native/dbuserrorhandler.h
    src/native/dbuserrorhandler.cpp
    src/ringwelcomeview.h
