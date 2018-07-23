@@ -25,13 +25,11 @@
 #include <glib/gi18n.h>
 
 // Lrc
-#include <account.h>
 #include <api/conversationmodel.h>
 #include <api/contact.h>
 #include <api/contactmodel.h>
 #include <api/newcallmodel.h>
-#include <callmodel.h>
-#include <codecmodel.h>
+#include <api/newcodecmodel.h>
 #include <globalinstances.h>
 #include <smartinfohub.h>
 #include <video/previewmanager.h>
@@ -187,47 +185,6 @@ gtk_scale_button_get_scale(GtkScaleButton* button)
     return scale;
 }
 
-static void
-set_call_quality(Call& call, bool auto_quality_on, double desired_quality)
-{
-    /* set auto quality true or false, also set the bitrate and quality values;
-     * the slider is from 0 to 100, use the min and max vals to scale each value accordingly */
-    if (const auto& codecModel = call.account()->codecModel()) {
-        const auto& videoCodecs = codecModel->videoCodecs();
-
-        for (int i=0; i < videoCodecs->rowCount();i++) {
-            const auto& idx = videoCodecs->index(i,0);
-
-            if (auto_quality_on) {
-                // g_debug("enable auto quality");
-                videoCodecs->setData(idx, "true", CodecModel::Role::AUTO_QUALITY_ENABLED);
-            } else {
-                auto min_bitrate = idx.data(static_cast<int>(CodecModel::Role::MIN_BITRATE)).toInt();
-                auto max_bitrate = idx.data(static_cast<int>(CodecModel::Role::MAX_BITRATE)).toInt();
-                auto min_quality = idx.data(static_cast<int>(CodecModel::Role::MIN_QUALITY)).toInt();
-                auto max_quality = idx.data(static_cast<int>(CodecModel::Role::MAX_QUALITY)).toInt();
-
-                // g_debug("bitrate min: %d, max: %d, quality min: %d, max: %d", min_bitrate, max_bitrate, min_quality, max_quality);
-
-                double bitrate;
-                bitrate = min_bitrate + (double)(max_bitrate - min_bitrate)*(desired_quality/100.0);
-                if (bitrate < 0) bitrate = 0;
-
-                double quality;
-                // note: a lower value means higher quality
-                quality = (double)min_quality - (min_quality - max_quality)*(desired_quality/100.0);
-                if (quality < 0) quality = 0;
-
-                // g_debug("disable auto quality; %% quality: %d; bitrate: %d; quality: %d", (int)desired_quality, (int)bitrate, (int)quality);
-                videoCodecs->setData(idx, "false", CodecModel::Role::AUTO_QUALITY_ENABLED);
-                videoCodecs->setData(idx, QString::number((int)bitrate), CodecModel::Role::BITRATE);
-                videoCodecs->setData(idx, QString::number((int)quality), CodecModel::Role::QUALITY);
-            }
-        }
-        codecModel << CodecModel::EditAction::SAVE;
-    }
-}
-
 } // namespace
 
 class CppImpl
@@ -284,6 +241,40 @@ private:
 
 inline namespace gtk_callbacks
 {
+
+static void
+set_call_quality(CurrentCallView* view, bool auto_quality_on, double desired_quality)
+{
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    auto videoCodecs = (*priv->cpp->accountInfo)->codecModel->getVideoCodecs();
+    for (const auto& codec : videoCodecs) {
+        if (auto_quality_on) {
+            (*priv->cpp->accountInfo)->codecModel->autoQuality(codec.id, true);
+        } else {
+            (*priv->cpp->accountInfo)->codecModel->autoQuality(codec.id, false);
+            double min_bitrate = 0., max_bitrate = 0., min_quality = 0., max_quality = 0.;
+            try {
+                min_bitrate = std::stoi(codec.min_bitrate);
+                max_bitrate = std::stoi(codec.max_bitrate);
+                min_quality = std::stoi(codec.min_quality);
+                max_quality = std::stoi(codec.max_quality);
+            } catch (...) {
+                g_error("Cannot convert a codec value to an int, abort");
+                break;
+            }
+
+            double bitrate = min_bitrate + (max_bitrate - min_bitrate)*(desired_quality/100.0);
+            if (bitrate < 0) bitrate = 0;
+            (*priv->cpp->accountInfo)->codecModel->bitrate(codec.id, bitrate);
+
+            // note: a lower value means higher quality
+            double quality = min_quality - (min_quality - max_quality)*(desired_quality/100.0);
+            if (quality < 0) quality = 0;
+            (*priv->cpp->accountInfo)->codecModel->quality(codec.id, quality);
+        }
+    }
+}
 
 static void
 on_new_chat_interactions(CurrentCallView* view)
@@ -455,14 +446,7 @@ on_autoquality_toggled(GtkToggleButton* button, CurrentCallView* view)
 
     double desired_quality = gtk_scale_button_get_value(GTK_SCALE_BUTTON(priv->scalebutton_quality));
 
-    auto callToRender = priv->cpp->conversation->callId;
-    if (!priv->cpp->conversation->confId.empty())
-        callToRender = priv->cpp->conversation->confId;
-    auto renderer = (*priv->cpp->accountInfo)->callModel->getRenderer(callToRender);
-    for (auto* activeCall: CallModel::instance().getActiveCalls()) {
-        if (activeCall and activeCall->videoRenderer() == renderer)
-            set_call_quality(*activeCall, auto_quality_on, desired_quality);
-    }
+    set_call_quality(view, auto_quality_on, desired_quality);
 }
 
 static void
@@ -478,13 +462,7 @@ on_quality_changed(G_GNUC_UNUSED GtkScaleButton *button, G_GNUC_UNUSED gdouble v
     /* only update if the scale button is released, to reduce the number of updates */
     if (priv->cpp->quality_scale_pressed) return;
 
-    auto callToRender = priv->cpp->conversation->callId;
-    if (!priv->cpp->conversation->confId.empty())
-        callToRender = priv->cpp->conversation->confId;
-    auto renderer = (*priv->cpp->accountInfo)->callModel->getRenderer(callToRender);
-    for (auto* activeCall: CallModel::instance().getActiveCalls())
-        if (activeCall and activeCall->videoRenderer() == renderer)
-            set_call_quality(*activeCall, false, gtk_scale_button_get_value(button));
+    set_call_quality(view, false, gtk_scale_button_get_value(button));
 }
 
 static gboolean
@@ -963,35 +941,15 @@ CppImpl::insertControls()
         g_signal_connect(scale, "button-release-event", G_CALLBACK(on_quality_button_released), self);
     }
 
-    /* by this time we should have the call already set, but we check to make sure */
-    auto callToRender = conversation->callId;
-    if (!conversation->confId.empty())
-        callToRender = conversation->confId;
-    auto renderer = (*accountInfo)->callModel->getRenderer(callToRender);
-    for (auto* activeCall: CallModel::instance().getActiveCalls())
-        if (activeCall and activeCall->videoRenderer() == renderer) {
-            g_signal_connect(widgets->video_widget, "drag-data-received",
-                             G_CALLBACK(video_widget_on_drag_data_received), activeCall);
-            /* check if auto quality is enabled or not */
-            if (const auto& codecModel = activeCall->account()->codecModel()) {
-                const auto& videoCodecs = codecModel->videoCodecs();
-                if (videoCodecs->rowCount() > 0) {
-                    /* we only need to check the first codec since by default it is ON for all, and the
-                     * gnome client sets its ON or OFF for all codecs as well */
-                    const auto& idx = videoCodecs->index(0,0);
-                    auto auto_quality_enabled = idx.data(static_cast<int>(CodecModel::Role::AUTO_QUALITY_ENABLED)).toString() == "true";
-                    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->checkbutton_autoquality),
-                                                 auto_quality_enabled);
-
-                    // TODO: save the manual quality setting in the client and set the slider to that value here;
-                    //       the daemon resets the bitrate/quality between each call, and the default may be
-                    //       different for each codec, so there is no reason to check it here
-                }
-            }
-        } else {
-            /* Auto-quality is off by default */
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->checkbutton_autoquality), FALSE);
-        }
+    auto videoCodecs = (*accountInfo)->codecModel->getVideoCodecs();
+    if (!videoCodecs.empty()) {
+        bool autoQualityEnabled = videoCodecs.front().auto_quality_enabled;
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->checkbutton_autoquality),
+                                     autoQualityEnabled);
+    } else {
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->checkbutton_autoquality),
+                                     false);
+    }
 
     // Get if the user wants to show the smartInfo box
     auto display_smartinfo = g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()),
