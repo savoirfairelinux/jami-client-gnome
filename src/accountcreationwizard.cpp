@@ -24,7 +24,6 @@
 
 // LRC
 #include <account.h>
-#include <codecmodel.h>
 #include <profilemodel.h>
 #include <profile.h>
 #include <accountmodel.h>
