@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-16 03:09-0400\n"
-"PO-Revision-Date: 2018-07-13 22:14+0000\n"
+"POT-Creation-Date: 2018-07-23 03:09-0400\n"
+"PO-Revision-Date: 2018-07-23 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgstr "Migration de compte nécessaire"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "Ce compte est inconsistant, veuillez entrer votre mot de passe."
 
 #: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:620
 msgid "Alias"
@@ -77,7 +77,7 @@ msgstr "Supprimer le compte"
 
 #: ui/accountmigrationview.ui:231
 msgid "Migration failed, wrong password?"
-msgstr ""
+msgstr "La migration a échoué, mot de passe erroné ?"
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
@@ -515,7 +515,7 @@ msgstr "Sonnerie personnalisée"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
-msgstr ""
+msgstr "serveur de nom"
 
 #: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2489
 msgid "Address"
@@ -535,7 +535,7 @@ msgstr "Chiffrer les flux média (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1549
 msgid "Enable SDES for key exchange protocol"
-msgstr ""
+msgstr "Activer SDES pour le protocole d'échange de clé"
 
 #: ui/newaccountsettingsview.ui:1585
 msgid "Fallback on RTP on encryption failure"
@@ -595,7 +595,7 @@ msgstr "Connectivité"
 
 #: ui/newaccountsettingsview.ui:2065
 msgid "Registration expire timeout (seconds)"
-msgstr ""
+msgstr "Délai d'enregistrement maximum (secondes)"
 
 #: ui/newaccountsettingsview.ui:2102
 msgid "Network interface"
@@ -615,15 +615,15 @@ msgstr "Adresse du serveur TURN"
 
 #: ui/newaccountsettingsview.ui:2243
 msgid "(TURN) username"
-msgstr ""
+msgstr "Nom d'utilisateur TURN"
 
 #: ui/newaccountsettingsview.ui:2277
 msgid "(TURN) password"
-msgstr ""
+msgstr "Mot de passe TURN"
 
 #: ui/newaccountsettingsview.ui:2314
 msgid "(TURN) realm"
-msgstr ""
+msgstr "Domaine TURN"
 
 #: ui/newaccountsettingsview.ui:2348
 msgid "Use STUN"
@@ -631,7 +631,7 @@ msgstr "Utiliser STUN"
 
 #: ui/newaccountsettingsview.ui:2383
 msgid "(STUN) address"
-msgstr ""
+msgstr "Adresse STUN"
 
 #: ui/newaccountsettingsview.ui:2416
 msgid "Published address"
@@ -663,7 +663,7 @@ msgstr "Négociation de session SDP (en cas d’échec ICE)"
 
 #: ui/newaccountsettingsview.ui:2732
 msgid "Only used during SDP negotiation in case ICE is not supported."
-msgstr ""
+msgstr "Ces paramètres sont uniquement utilisés durant la négociation de la session SDP au cas où ICE ne serait pas supporté."
 
 #: ui/newaccountsettingsview.ui:2766
 msgid "Audio RTP Min port"
@@ -784,11 +784,11 @@ msgstr "Nom d'utilisateur incorrect"
 
 #: src/usernameregistrationbox.cpp:194
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "La recherche est indisponible, vérifier votre connexion réseau"
 
 #: src/usernameregistrationbox.cpp:274
 msgid "Performing lookup..."
-msgstr ""
+msgstr "Recherche en cours ..."
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress..."
@@ -945,9 +945,9 @@ msgstr "Traitement en cours…"
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"\"In varietate concordia\"\n"
+"\"Live Free or Die\"\n"
 "built on %.25s"
-msgstr "\"In varietate concordia\"\nle %.25s"
+msgstr ""
 
 #: src/dialogs.c:137
 msgid ""
@@ -957,7 +957,7 @@ msgstr "Ring pour GNOME.\nRing est un logiciel libre de communication universel 
 
 #: src/ringmainwindow.cpp:166
 msgid "Add account..."
-msgstr ""
+msgstr "Ajouter un compte ..."
 
 #: src/ringmainwindow.cpp:626
 msgctxt "button next to search entry will place a new call"
@@ -978,7 +978,7 @@ msgstr "Rechercher dans les contacts ou appeler un numéro"
 
 #: src/ringmainwindow.cpp:1321
 msgid "Leave settings page"
-msgstr ""
+msgstr "Quitter la page des réglages"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1085,7 +1085,7 @@ msgstr "Envoyez un fichier"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
+msgstr "Attention ! Cette opération supprimera votre compte de l'appareil.\nVous pourriez perdre définitivement le nom d'enregistrement !"
 
 #: src/currentcallview.cpp:956
 msgctxt "Enable automatic video quality"
@@ -1094,15 +1094,15 @@ msgstr "Auto"
 
 #: src/newaccountsettingsview.cpp:679
 msgid "Edit name"
-msgstr ""
+msgstr "Modifier le nom"
 
 #: src/newaccountsettingsview.cpp:774
 msgid "Unban"
-msgstr ""
+msgstr "Ré-autoriser"
 
 #: src/newaccountsettingsview.cpp:810
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "Les deux mots de passe sont différents !"
 
 #: src/newaccountsettingsview.cpp:821
 msgid "Incorrect password!"
@@ -1122,11 +1122,11 @@ msgstr "Nouveau mot de passe"
 
 #: src/newaccountsettingsview.cpp:947
 msgid "Account exported!"
-msgstr ""
+msgstr "Le compte a été exporté."
 
 #: src/newaccountsettingsview.cpp:947
 msgid "Export account failure."
-msgstr ""
+msgstr "Échec de l'export de compte."
 
 #: src/newaccountsettingsview.cpp:1717
 msgid "Unknown error"
@@ -1134,7 +1134,7 @@ msgstr "Erreur inconnue"
 
 #: src/newaccountsettingsview.cpp:1963
 msgid "Initializing..."
-msgstr ""
+msgstr "Initialisation ..."
 
 #: src/newaccountsettingsview.cpp:1966
 msgid "Offline"
@@ -1142,7 +1142,7 @@ msgstr "Déconnecté"
 
 #: src/newaccountsettingsview.cpp:1969
 msgid "Connecting..."
-msgstr ""
+msgstr "En cours de connexion ..."
 
 #: src/newaccountsettingsview.cpp:1972
 msgid "Online"
@@ -1158,4 +1158,4 @@ msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2007
 msgid "no password set"
-msgstr ""
+msgstr "Pas de mot de passe"

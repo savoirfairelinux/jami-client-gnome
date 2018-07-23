@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-16 03:09-0400\n"
-"PO-Revision-Date: 2018-07-13 22:14+0000\n"
+"POT-Creation-Date: 2018-07-23 03:09-0400\n"
+"PO-Revision-Date: 2018-07-23 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr "Необходим перенос аккаунта"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "Данный аккаунт имеет некорректный формат. Пожалуйста, введите ваш пароль"
 
 #: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:620
 msgid "Alias"
@@ -54,7 +54,7 @@ msgstr "Псевдоним "
 
 #: ui/accountmigrationview.ui:126
 msgid "Ring ID"
-msgstr ""
+msgstr "RingID"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:457
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
@@ -74,7 +74,7 @@ msgstr "Удалить аккаунт"
 
 #: ui/accountmigrationview.ui:231
 msgid "Migration failed, wrong password?"
-msgstr ""
+msgstr "Ошибка переноса, неверный пароль?"
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
@@ -172,11 +172,11 @@ msgstr "Отмена"
 
 #: ui/accountcreationwizard.ui:90
 msgid "Advanced..."
-msgstr ""
+msgstr "Дополнительно…"
 
 #: ui/accountcreationwizard.ui:101
 msgid "Add a new SIP account"
-msgstr "Добавить новый аккаунт SIP"
+msgstr "Создать новый аккаунт SIP"
 
 #: ui/accountcreationwizard.ui:123
 msgid "Link this device to an existing account"
@@ -224,7 +224,7 @@ msgstr "Аккаунт"
 
 #: ui/accountcreationwizard.ui:393
 msgid "Register username"
-msgstr ""
+msgstr "Зарегистрировать имя пользователя"
 
 #: ui/accountcreationwizard.ui:394
 msgid ""
@@ -340,7 +340,7 @@ msgstr "Меню"
 
 #: ui/ringmainwindow.ui:78
 msgid "General"
-msgstr "Общий"
+msgstr "Общие"
 
 #: ui/ringmainwindow.ui:93
 msgid "Media"
@@ -372,7 +372,7 @@ msgstr "Устройство для звонка:"
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
-msgstr "Устройство воспроизведения: "
+msgstr "Устройство для воспроизведения: "
 
 #: ui/mediasettingsview.ui:76
 msgid "Input device:"
@@ -480,7 +480,7 @@ msgstr "Устройства, привязанные к этому аккаун�
 
 #: ui/newaccountsettingsview.ui:967
 msgid "Link another device"
-msgstr ""
+msgstr "Привязать другое устройство"
 
 #: ui/newaccountsettingsview.ui:1032
 msgid "Banned contacts"
@@ -492,11 +492,11 @@ msgstr "Дополнительные настройки"
 
 #: ui/newaccountsettingsview.ui:1128
 msgid "General settings"
-msgstr ""
+msgstr "Основные настройки"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Call settings"
-msgstr ""
+msgstr "Настройки вызовов"
 
 #: ui/newaccountsettingsview.ui:1184
 msgid "Allow call from untrusted peers"
@@ -504,11 +504,11 @@ msgstr "Разрешить вызовы от недоверенных участ
 
 #: ui/newaccountsettingsview.ui:1219
 msgid "Auto answer calls"
-msgstr ""
+msgstr "Автоматически принимать входящие вызовы"
 
 #: ui/newaccountsettingsview.ui:1255
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Мелодия звонка"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -548,7 +548,7 @@ msgstr "Сертификат удостоверяющего центра"
 
 #: ui/newaccountsettingsview.ui:1691
 msgid "User certificate"
-msgstr "Пользовательский сертификат"
+msgstr "Сертификат пользователя"
 
 #: ui/newaccountsettingsview.ui:1727
 msgid "Private key"
@@ -588,11 +588,11 @@ msgstr "Безопасность"
 
 #: ui/newaccountsettingsview.ui:2027
 msgid "Connectivity"
-msgstr ""
+msgstr "Связь"
 
 #: ui/newaccountsettingsview.ui:2065
 msgid "Registration expire timeout (seconds)"
-msgstr ""
+msgstr "Ожидание завершения регистрации (секунды)"
 
 #: ui/newaccountsettingsview.ui:2102
 msgid "Network interface"
@@ -608,19 +608,19 @@ msgstr "Использовать TURN "
 
 #: ui/newaccountsettingsview.ui:2208
 msgid "(TURN) address"
-msgstr ""
+msgstr "(TURN) адрес"
 
 #: ui/newaccountsettingsview.ui:2243
 msgid "(TURN) username"
-msgstr ""
+msgstr "(TURN) имя пользователя"
 
 #: ui/newaccountsettingsview.ui:2277
 msgid "(TURN) password"
-msgstr ""
+msgstr "(TURN) пароль"
 
 #: ui/newaccountsettingsview.ui:2314
 msgid "(TURN) realm"
-msgstr ""
+msgstr "(TURN) область"
 
 #: ui/newaccountsettingsview.ui:2348
 msgid "Use STUN"
@@ -628,7 +628,7 @@ msgstr "Использовать STUN "
 
 #: ui/newaccountsettingsview.ui:2383
 msgid "(STUN) address"
-msgstr ""
+msgstr "(STUN) адрес"
 
 #: ui/newaccountsettingsview.ui:2416
 msgid "Published address"
@@ -680,7 +680,7 @@ msgstr "Максимальный порт RTP для видео"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "Зарегистрировать имя пользователя"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -736,7 +736,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Ring daemon (dring) is running.\n"
 "Error: %s"
-msgstr "Ошибка инициализации.\nУбедитесь, что демон Ring (dring) запущен.\nОшибка: %s"
+msgstr "Инициализация не выполнена.\nУбедитесь, что демон Ring (dring) запущен.\nОшибка: %s"
 
 #: src/ring_client.cpp:149
 msgid "Ring Error"
@@ -781,11 +781,11 @@ msgstr "Недопустимое имя пользователя"
 
 #: src/usernameregistrationbox.cpp:194
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "Проверка занятости недоступна, проверьте сетевое соединение"
 
 #: src/usernameregistrationbox.cpp:274
 msgid "Performing lookup..."
-msgstr ""
+msgstr "Проверяется занятость…"
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress..."
@@ -876,7 +876,7 @@ msgstr "Сохранить имя"
 
 #: src/accountgeneraltab.cpp:561 src/newaccountsettingsview.cpp:679
 msgid "Revoke device"
-msgstr "Отозвать доступ устройства"
+msgstr "Отозвать устройство"
 
 #: src/accountgeneraltab.cpp:582 src/newaccountsettingsview.cpp:701
 msgid "Error when revoking device"
@@ -942,9 +942,9 @@ msgstr "Выполняю..."
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"\"In varietate concordia\"\n"
+"\"Live Free or Die\"\n"
 "built on %.25s"
-msgstr "\"In varietate concordia\"\nсобрано %.25s"
+msgstr ""
 
 #: src/dialogs.c:137
 msgid ""
@@ -975,7 +975,7 @@ msgstr "Найдите контакты или введите номер"
 
 #: src/ringmainwindow.cpp:1321
 msgid "Leave settings page"
-msgstr ""
+msgstr "Выйти из настроек"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1139,7 +1139,7 @@ msgstr "Не в сети"
 
 #: src/newaccountsettingsview.cpp:1969
 msgid "Connecting..."
-msgstr ""
+msgstr "Соединение…"
 
 #: src/newaccountsettingsview.cpp:1972
 msgid "Online"
@@ -1147,12 +1147,12 @@ msgstr "В сети"
 
 #: src/newaccountsettingsview.cpp:1976
 msgid "Unknown status"
-msgstr ""
+msgstr "Неизвестный статус"
 
 #: src/newaccountsettingsview.cpp:2007
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2007
 msgid "no password set"
-msgstr ""
+msgstr "пароль не установлен"
