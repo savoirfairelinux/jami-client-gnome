@@ -914,7 +914,7 @@ choose_export_file(NewAccountSettingsView *view)
 {
     g_return_if_fail(IS_NEW_ACCOUNT_SETTINGS_VIEW(view));
     auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
-    // Get prefered path
+    // Get preferred path
     GtkWidget* dialog;
     GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_SAVE;
     gint res;

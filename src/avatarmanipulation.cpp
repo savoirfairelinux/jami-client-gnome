@@ -219,7 +219,7 @@ avatar_manipulation_init(AvatarManipulation *self)
 static void
 set_state(AvatarManipulation *self, AvatarManipulationState state)
 {
-    // note: this funciton does not check if the state transition is valid, this is assumed to have
+    // note: this function does not check if the state transition is valid, this is assumed to have
     // been done by the caller
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
 

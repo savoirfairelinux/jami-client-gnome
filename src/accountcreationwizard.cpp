@@ -606,7 +606,7 @@ account_creation_wizard_show_preview(AccountCreationWizard *win, gboolean show_p
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
 
-    /* Similarily to general settings view, we construct and destroy the avatar manipulation widget
+    /* Similarly to general settings view, we construct and destroy the avatar manipulation widget
        each time the profile is made visible / hidden. While not the most elegant solution, this
        allows us to run the preview if and only if it is displayed, and always stop it when hidden. */
     if (show_preview && !priv->avatar_manipulation) {
