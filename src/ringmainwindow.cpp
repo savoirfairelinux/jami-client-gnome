@@ -580,7 +580,7 @@ on_dtmf_pressed(RingMainWindow* self, GdkEventKey* event, gpointer user_data)
     QString val = QString::fromUcs4(&unicode_val, 1);
     g_debug("attemptingto play DTMF tone during ongoing call: %s", val.toUtf8().constData());
     priv->cpp->accountInfo_->callModel->playDTMF(current_item.callId, val.toStdString());
-    // always propogate the key, so we don't steal accelerators/shortcuts
+    // always propagate the key, so we don't steal accelerators/shortcuts
     return GDK_EVENT_PROPAGATE;
 }
 
