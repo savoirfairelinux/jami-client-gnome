@@ -22,16 +22,17 @@
 
 // GTK+ related
 #include <glib/gi18n.h>
-
 // std
 #include <algorithm>
 
+// Qt
+#include <QSize>
+
 // LRC
-#include <accountmodel.h> // Old lrc but still used
 #include <api/account.h>
 #include <api/avmodel.h>
+#include <api/behaviorcontroller.h>
 #include <api/contact.h>
-#include <api/profile.h>
 #include <api/contactmodel.h>
 #include <api/conversation.h>
 #include <api/conversationmodel.h>
@@ -39,13 +40,11 @@
 #include <api/lrc.h>
 #include <api/newaccountmodel.h>
 #include <api/newcallmodel.h>
-#include <api/behaviorcontroller.h>
-#include "api/account.h"
-#include <media/textrecording.h>
-#include <media/recordingmodel.h>
-#include <media/text.h>
+#include <api/profile.h>
+
 
 // Ring client
+#include "config.h"
 #include "newaccountsettingsview.h"
 #include "accountmigrationview.h"
 #include "accountcreationwizard.h"
@@ -58,12 +57,15 @@
 #include "mediasettingsview.h"
 #include "models/gtkqtreemodel.h"
 #include "ringwelcomeview.h"
-#include "utils/accounts.h"
 #include "utils/files.h"
 #include "ringnotify.h"
 #include "accountinfopointer.h"
 #include "native/pixbufmanipulator.h"
 #include "ringnotify.h"
+
+#if USE_LIBNM
+#include <NetworkManager.h>
+#endif
 
 //==============================================================================
 
@@ -151,11 +153,11 @@ inline namespace helpers
  * set the column value by printing the alias and the state of an account in combobox_account_selector.
  */
 static void
-print_account_and_state(G_GNUC_UNUSED GtkCellLayout* cell_layout,
+print_account_and_state(GtkCellLayout*,
                         GtkCellRenderer* cell,
                         GtkTreeModel* model,
                         GtkTreeIter* iter,
-                        G_GNUC_UNUSED gpointer* data)
+                        gpointer*)
 {
     gchar *id;
     gchar *alias;
@@ -213,11 +215,11 @@ print_account_and_state(G_GNUC_UNUSED GtkCellLayout* cell_layout,
 }
 
 static void
-render_account_avatar(G_GNUC_UNUSED GtkCellLayout* cell_layout,
+render_account_avatar(GtkCellLayout*,
                       GtkCellRenderer *cell,
                       GtkTreeModel *model,
                       GtkTreeIter *iter,
-                      G_GNUC_UNUSED gpointer data)
+                      gpointer)
 {
     gchar *id;
     gchar* avatar;
@@ -387,7 +389,6 @@ private:
 
 inline namespace gtk_callbacks
 {
-
 static void
 on_video_double_clicked(RingMainWindow* self)
 {
@@ -774,8 +775,7 @@ on_notification_refuse_pending(GtkWidget*, gchar *title, RingMainWindow* self)
 }
 
 static void
-on_notification_accept_call(G_GNUC_UNUSED GtkWidget* notifier,
-                            gchar *title, RingMainWindow* self)
+on_notification_accept_call(GtkWidget*, gchar *title, RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self) && title);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
@@ -807,7 +807,7 @@ on_notification_accept_call(G_GNUC_UNUSED GtkWidget* notifier,
 }
 
 static void
-on_notification_decline_call(G_GNUC_UNUSED GtkWidget* notifier, gchar *title, RingMainWindow* self)
+on_notification_decline_call(GtkWidget*, gchar *title, RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self) && title);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
@@ -843,7 +843,7 @@ CppImpl::CppImpl(RingMainWindow& widget)
 {}
 
 static gboolean
-on_clear_all_history_foreach(GtkTreeModel *model, G_GNUC_UNUSED GtkTreePath *path, GtkTreeIter *iter, gpointer self)
+on_clear_all_history_foreach(GtkTreeModel *model, GtkTreePath*, GtkTreeIter *iter, gpointer self)
 {
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), TRUE);
 
@@ -897,7 +897,7 @@ void
 CppImpl::init()
 {
     lrc_->getAVModel().deactivateOldVideoModels();
-    // Remember the tabs page number for easier selection later
+
     smartviewPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(widgets->notebook_contacts),
                                              widgets->scrolled_window_smartview);
     contactRequestsPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(widgets->notebook_contacts),
@@ -1069,7 +1069,6 @@ CppImpl::init()
     // setup account selector and select the first account
     refreshAccountSelectorWidget(0);
 
-    /* layout */
     auto* renderer = gtk_cell_renderer_pixbuf_new();
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(widgets->combobox_account_selector), renderer, true);
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(widgets->combobox_account_selector),
@@ -1518,8 +1517,6 @@ CppImpl::leaveSettingsView()
     /* hide the settings */
     show_settings = false;
 
-    AccountModel::instance().save();
-
     /* show calls */
     gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-system-symbolic",
                                  GTK_ICON_SIZE_SMALL_TOOLBAR);
@@ -1837,6 +1834,9 @@ CppImpl::slotNewIncomingCall(const std::string& callId)
 {
     if (!accountInfo_) {
         return;
+    }
+    if (g_settings_get_boolean(widgets->settings, "bring-window-to-front")) {
+        g_settings_set_boolean(widgets->settings, "show-main-window", TRUE);
     }
     try {
         auto call = accountInfo_->callModel->getCall(callId);
