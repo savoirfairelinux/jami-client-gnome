@@ -37,7 +37,6 @@
 #include <QtCore/QStandardPaths>
 
 // LRC
-#include <callmodel.h>
 #include <useractionmodel.h>
 #include <categorizedhistorymodel.h>
 #include <personmodel.h>
@@ -58,7 +57,6 @@
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
 #include "dialogs.h"
-#include "backends/edscontactbackend.h"
 #include "native/pixbufmanipulator.h"
 #include "native/dbuserrorhandler.h"
 #include "ringnotify.h"
@@ -66,16 +64,11 @@
 #include "utils/files.h"
 #include "revision.h"
 #include "utils/accounts.h"
-#include "utils/calling.h"
 
 #if HAVE_AYATANAAPPINDICATOR
 #include <libayatana-appindicator/app-indicator.h>
 #elif HAVE_APPINDICATOR
 #include <libappindicator/app-indicator.h>
-#endif
-
-#if USE_LIBNM
-#include <NetworkManager.h>
 #endif
 
 struct _RingClientClass
@@ -107,18 +100,10 @@ struct _RingClientPrivate {
     std::unique_ptr<QTranslator> translator_lang;
     std::unique_ptr<QTranslator> translator_full;
 
-    GCancellable *cancellable;
-
     gboolean restore_window_state;
 
     gpointer systray_icon;
     GtkWidget *icon_menu;
-
-#if USE_LIBNM
-    /* NetworkManager */
-    NMClient *nm_client;
-    NMActiveConnection *primary_connection;
-#endif
 };
 
 /* this union is used to pass ints as pointers and vice versa for GAction parameters*/
@@ -373,21 +358,20 @@ ring_client_activate(GApplication *app)
     }
 }
 
+// TODO add some args!
 static void
 ring_client_open(GApplication *app, GFile **file, gint /*arg3*/, const gchar* /*arg4*/)
 {
     ring_client_activate(app);
 
-    gchar *file_uri_scheme = g_file_get_uri_scheme(*file);
-    if (strcmp(file_uri_scheme, "ring") == 0) {
-        char * call_id = g_file_get_basename(*file);
+    // TODO migrate place call at begining
+    if (strcmp(g_file_get_uri_scheme(*file), "ring") == 0) {
+        const char * call_id = g_file_get_basename(*file);
         std::regex format {"^[[:xdigit:]]{40}$"};
 
         if (std::regex_match(call_id, format)) {
             auto cm = std::unique_ptr<TemporaryContactMethod>(new TemporaryContactMethod);
             cm->setUri(URI(QString::fromStdString(call_id)));
-
-            place_new_call(cm.get());
             cm.release();
         }
 
@@ -396,68 +380,6 @@ ring_client_open(GApplication *app, GFile **file, gint /*arg3*/, const gchar* /*
 
     g_free(file_uri_scheme);
 }
-
-#if USE_LIBNM
-
-static void
-log_connection_info(NMActiveConnection *connection)
-{
-    if (connection) {
-        g_debug("primary network connection: %s, default: %s",
-                nm_active_connection_get_uuid(connection),
-                nm_active_connection_get_default(connection) ? "yes" : "no");
-    } else {
-        g_warning("no primary network connection detected, check network settings");
-    }
-}
-
-static void
-primary_connection_changed(NMClient *nm,  GParamSpec*, RingClient *self)
-{
-    auto priv = RING_CLIENT_GET_PRIVATE(self);
-    auto connection = nm_client_get_primary_connection(nm);
-
-    if (priv->primary_connection != connection) {
-        /* make sure the connection really changed
-         * on client start it seems to always emit the notify::primary-connection signal though it
-         * hasn't changed */
-        log_connection_info(connection);
-        priv->primary_connection = connection;
-        AccountModel::instance().slotConnectivityChanged();
-    }
-}
-
-static void
-nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result, RingClient *self)
-{
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
-
-    GError* error = nullptr;
-    if (auto nm_client = nm_client_new_finish(result, &error)) {
-        priv->nm_client = nm_client;
-        g_debug("NetworkManager client initialized, version: %s\ndaemon running: %s\nnnetworking enabled: %s",
-                nm_client_get_version(nm_client),
-                nm_client_get_nm_running(nm_client) ? "yes" : "no",
-                nm_client_networking_get_enabled(nm_client) ? "yes" : "no");
-
-        auto connection = nm_client_get_primary_connection(nm_client);
-        log_connection_info(connection);
-        priv->primary_connection = connection;
-
-        /* We monitor the primary connection and notify the daemon to re-load its connections
-         * (accounts, UPnP, ...) when it changes. For example, on most systems, if we have an
-         * ethernet connection and then also connect to wifi, the primary connection will not change;
-         * however it will change in the opposite case because an ethernet connection is preferred.
-         */
-        g_signal_connect(nm_client, "notify::primary-connection", G_CALLBACK(primary_connection_changed), self);
-
-    } else {
-        g_warning("error initializing NetworkManager client: %s", error->message);
-        g_clear_error(&error);
-    }
-}
-
-#endif /* USE_LIBNM */
 
 static void
 ring_client_startup(GApplication *app)
@@ -484,7 +406,6 @@ ring_client_startup(GApplication *app)
     try {
         priv->qtapp = new QCoreApplication(priv->argc, priv->argv);
         /* the call model will try to connect to dring via dbus */
-        CallModel::instance();
     } catch(const char * msg) {
         exception_dialog(msg);
         exit(1);
@@ -541,9 +462,6 @@ ring_client_startup(GApplication *app)
     /* fallback backend for vcards */
     PersonModel::instance().addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
 
-    /* EDS backend(s) */
-    load_eds_sources(priv->cancellable);
-
     /* Override theme since we don't have appropriate icons for a dark them (yet) */
     GtkSettings *gtk_settings = gtk_settings_get_default();
     g_object_set(G_OBJECT(gtk_settings), "gtk-application-prefer-dark-theme",
@@ -567,20 +485,6 @@ ring_client_startup(GApplication *app)
     /* add accelerators */
     ring_accelerators(RING_CLIENT(app));
 
-    /* show window on incoming calls (if the option is set)*/
-    QObject::connect(&CallModel::instance(), &CallModel::incomingCall,
-        [app] (G_GNUC_UNUSED Call *call) {
-            RingClient *client = RING_CLIENT(app);
-            RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
-            if (g_settings_get_boolean(priv->settings, "bring-window-to-front"))
-                ring_window_show(client);
-        }
-    );
-#if USE_LIBNM
-     /* monitor the network using libnm to notify the daemon about connectivity chagnes */
-     nm_client_new_async(priv->cancellable, (GAsyncReadyCallback)nm_client_cb, client);
-#endif
-
     G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
 }
 
@@ -591,10 +495,6 @@ ring_client_shutdown(GApplication *app)
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
 
     g_debug("quitting");
-
-    /* cancel any pending cancellable operations */
-    g_cancellable_cancel(priv->cancellable);
-    g_object_unref(priv->cancellable);
 
     QObject::disconnect(priv->uam_updated);
 
@@ -610,11 +510,6 @@ ring_client_shutdown(GApplication *app)
 
     g_clear_object(&priv->settings);
 
-#if USE_LIBNM
-    /* clear NetworkManager client if it was used */
-    g_clear_object(&priv->nm_client);
-#endif
-
     /* Chain up to the parent class */
     G_APPLICATION_CLASS(ring_client_parent_class)->shutdown(app);
 }
@@ -626,7 +521,6 @@ ring_client_init(RingClient *self)
 
     priv->win = NULL;
     priv->qtapp = NULL;
-    priv->cancellable = g_cancellable_new();
     priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
 
     /* add custom cmd line options */
