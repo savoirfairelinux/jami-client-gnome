@@ -47,7 +47,6 @@
 #include <profilemodel.h>
 #include <profile.h>
 #include <peerprofilecollection.h>
-#include <localprofilecollection.h>
 #include <accountmodel.h>
 #include <smartinfohub.h>
 #include <media/recordingmodel.h>
@@ -454,13 +453,8 @@ ring_client_startup(GApplication *app)
     NumberCategoryModel::instance().addCategory("work", QVariant());
     NumberCategoryModel::instance().addCategory("home", QVariant());
 
-    /* add backends */
-    CategorizedHistoryModel::instance().addCollection<LocalHistoryCollection>(LoadOptions::FORCE_ENABLED);
-    PersonModel::instance().addCollection<PeerProfileCollection>(LoadOptions::FORCE_ENABLED);
-    ProfileModel::instance().addCollection<LocalProfileCollection>(LoadOptions::FORCE_ENABLED);
-
-    /* fallback backend for vcards */
-    PersonModel::instance().addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
+    /* EDS backend(s) */
+    load_eds_sources(priv->cancellable);
 
     /* Override theme since we don't have appropriate icons for a dark them (yet) */
     GtkSettings *gtk_settings = gtk_settings_get_default();
