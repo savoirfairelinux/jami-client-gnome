@@ -358,18 +358,7 @@ PixbufManipulator::securityLevelIcon(const SecurityEvaluationModel::SecurityLeve
     Q_UNUSED(level)
     return QVariant();
 }
-QVariant
-PixbufManipulator::historySortingCategoryIcon(const CategorizedHistoryModel::SortedProxy::Categories cat) const
-{
-    Q_UNUSED(cat)
-    return QVariant();
-}
-QVariant
-PixbufManipulator::contactSortingCategoryIcon(const CategorizedContactModel::SortedProxy::Categories cat) const
-{
-    Q_UNUSED(cat)
-    return QVariant();
-}
+
 QVariant
 PixbufManipulator::userActionIcon(const UserActionElement& state) const
 {
