@@ -32,13 +32,7 @@
 #include <memory>
 #include <globalinstances.h>
 #include "native/pixbufmanipulator.h"
-#include <call.h>
 #include <QtCore/QSize>
-#include <media/text.h>
-#include <callmodel.h>
-#include <media/textrecording.h>
-#include <media/recordingmodel.h>
-#include <recentmodel.h>
 #endif
 
 

@@ -24,11 +24,6 @@
 #include <glib/gi18n.h>
 #include <glib.h>
 
-// LRC
-#include <person.h>
-#include <categorizedhistorymodel.h>
-#include <media/recordingmodel.h>
-
 // Ring client
 #include "utils/files.h"
 #include "avatarmanipulation.h"

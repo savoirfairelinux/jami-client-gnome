@@ -286,14 +286,10 @@ SET( SRC_FILES
    src/newaccountsettingsview.cpp
    src/generalsettingsview.h
    src/generalsettingsview.cpp
-   src/backends/edscontactbackend.h
-   src/backends/edscontactbackend.cpp
    src/native/pixbufmanipulator.h
    src/native/pixbufmanipulator.cpp
    src/utils/models.h
    src/utils/models.cpp
-   src/utils/calling.h
-   src/utils/calling.cpp
    src/ringnotify.h
    src/ringnotify.cpp
    src/utils/files.h
@@ -315,8 +311,6 @@ SET( SRC_FILES
    src/avatarmanipulation.cpp
    src/cc-crop-area.h
    src/cc-crop-area.c
-   src/models/namenumberfilterproxymodel.h
-   src/models/namenumberfilterproxymodel.cpp
    src/conversationsview.h
    src/conversationsview.cpp
    src/conversationpopupmenu.h

@@ -23,7 +23,7 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <account.h>
+
 #include "defines.h"
 #include "utils/models.h"
 #include "usernameregistrationbox.h"

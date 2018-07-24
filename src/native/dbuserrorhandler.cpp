@@ -19,9 +19,9 @@
 #include "dbuserrorhandler.h"
 
 #include <glib/gi18n.h>
-#include <callmodel.h>
 #include <globalinstances.h>
 #include "../ring_client.h"
+#include <api/lrc.h>
 
 namespace Interfaces {
 
@@ -105,7 +105,7 @@ check_connection_cb(GtkWidget *warning_dialog)
 
     gtk_widget_destroy(warning_dialog);
 
-    if ((!CallModel::instance().isConnected()) || (!CallModel::instance().isValid())) {
+    if ((!lrc::api::Lrc::isConnected()) || (!lrc::api::Lrc::dbusIsValid())) {
         g_warning("could not reconnect to the daemon");
 
         auto quit_dialog = ring_quitting_dialog();

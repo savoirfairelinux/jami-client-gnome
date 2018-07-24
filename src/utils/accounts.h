@@ -32,15 +32,4 @@ class Account;
 void
 force_ring_display_name();
 
-/**
- * Finds and returns the first RING account, in order of priority:
- * 1. registered
- * 2. enabled
- * 3. existing
- *
- * Returns a nullptr if no RING acconts exist
- */
-Account*
-get_active_ring_account();
-
 #endif /* _ACCOUNTS_H */

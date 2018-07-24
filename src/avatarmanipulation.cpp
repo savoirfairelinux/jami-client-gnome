@@ -24,8 +24,6 @@
 #include <api/newaccountmodel.h>
 #include <api/avmodel.h>
 #include <globalinstances.h>
-#include <person.h>
-#include <profile.h>
 
 /* client */
 #include "native/pixbufmanipulator.h"
