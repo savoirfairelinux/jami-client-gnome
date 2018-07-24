@@ -34,6 +34,7 @@
 #include <globalinstances.h>
 #include <smartinfohub.h>
 #include <video/previewmanager.h>
+#include <QSize>
 
 // Client
 #include "chatview.h"
@@ -42,10 +43,6 @@
 #include "utils/drawing.h"
 #include "utils/files.h"
 #include "video/video_widget.h"
-
-// std
-#include <memory> // for std::shared_ptr
-#include <string>
 
 namespace { namespace details
 {
