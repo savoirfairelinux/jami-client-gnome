@@ -22,11 +22,9 @@
 
 // GTK+ related
 #include <glib/gi18n.h>
-
-#include <iostream>
+#include <QSize>
 
 // LRC
-#include <accountmodel.h> // Old lrc but still used
 #include <api/account.h>
 #include <api/contact.h>
 #include <api/profile.h>
@@ -38,10 +36,6 @@
 #include <api/newaccountmodel.h>
 #include <api/newcallmodel.h>
 #include <api/behaviorcontroller.h>
-#include "api/account.h"
-#include <media/textrecording.h>
-#include <media/recordingmodel.h>
-#include <media/text.h>
 
 
 // Ring client
@@ -149,11 +143,11 @@ inline namespace helpers
  * set the column value by printing the alias and the state of an account in combobox_account_selector.
  */
 static void
-print_account_and_state(GtkCellLayout* cell_layout,
+print_account_and_state(GtkCellLayout*,
                         GtkCellRenderer* cell,
                         GtkTreeModel* model,
                         GtkTreeIter* iter,
-                        gpointer* data)
+                        gpointer*)
 {
     gchar *id;
     gchar *alias;
@@ -206,11 +200,11 @@ print_account_and_state(GtkCellLayout* cell_layout,
 }
 
 static void
-render_account_avatar(GtkCellLayout* cell_layout,
+render_account_avatar(GtkCellLayout*,
                       GtkCellRenderer *cell,
                       GtkTreeModel *model,
                       GtkTreeIter *iter,
-                      gpointer data)
+                      gpointer)
 {
     gchar *id;
     gchar* avatar;
@@ -364,18 +358,6 @@ private:
 inline namespace gtk_callbacks
 {
 
-static gboolean
-on_save_accounts_timeout(GtkWidget* working_dialog)
-{
-    /* save changes to accounts */
-    AccountModel::instance().save();
-
-    if (working_dialog)
-        gtk_widget_destroy(working_dialog);
-
-    return G_SOURCE_REMOVE;
-}
-
 static void
 on_video_double_clicked(RingMainWindow* self)
 {
@@ -398,34 +380,6 @@ on_account_creation_completed(RingMainWindow* self)
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
     priv->cpp->leaveAccountCreationWizard();
-}
-
-static void
-on_show_add_account(RingMainWindow* self)
-{
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-
-    if (priv->cpp->show_settings) {
-        auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_main_view));
-        if(IS_ACCOUNT_CREATION_WIZARD(old_view)) {
-            gtk_stack_set_visible_child(GTK_STACK(priv->cpp->widgets->stack_main_view), priv->cpp->widgets->last_settings_view);
-        } else {
-            if (!priv->cpp->widgets->account_creation_wizard) {
-                priv->cpp->widgets->account_creation_wizard = account_creation_wizard_new(false);
-                g_object_add_weak_pointer(G_OBJECT(priv->cpp->widgets->account_creation_wizard),
-                                          reinterpret_cast<gpointer*>(&priv->cpp->widgets->account_creation_wizard));
-                g_signal_connect_swapped(priv->cpp->widgets->account_creation_wizard, "account-creation-completed",
-                                         G_CALLBACK(on_account_creation_completed), self);
-
-                gtk_stack_add_named(GTK_STACK(priv->cpp->widgets->stack_main_view),
-                                    priv->cpp->widgets->account_creation_wizard,
-                                    ACCOUNT_CREATION_WIZARD_VIEW_NAME);
-            }
-            gtk_widget_show(priv->cpp->widgets->account_creation_wizard);
-            gtk_stack_set_visible_child(GTK_STACK(priv->cpp->widgets->stack_main_view), priv->cpp->widgets->account_creation_wizard);
-        }
-    }
 }
 
 static void
@@ -786,7 +740,7 @@ on_notification_refuse_pending(GtkWidget*, gchar *title, RingMainWindow* self)
 }
 
 static void
-on_notification_accept_call(GtkWidget* notifier, gchar *title, RingMainWindow* self)
+on_notification_accept_call(GtkWidget*, gchar *title, RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self) && title);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
@@ -813,12 +767,12 @@ on_notification_accept_call(GtkWidget* notifier, gchar *title, RingMainWindow* s
         auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id);
         accountInfo.callModel->accept(information);
     } catch (const std::out_of_range& e) {
-        g_warning("Can't get account %i: %s", id.c_str(), e.what());
+        g_warning("Can't get account %s: %s", id.c_str(), e.what());
     }
 }
 
 static void
-on_notification_decline_call(GtkWidget* notifier, gchar *title, RingMainWindow* self)
+on_notification_decline_call(GtkWidget*, gchar *title, RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self) && title);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
@@ -841,7 +795,7 @@ on_notification_decline_call(GtkWidget* notifier, gchar *title, RingMainWindow* 
         auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id);
         accountInfo.callModel->hangUp(information);
     } catch (const std::out_of_range& e) {
-        g_warning("Can't get account %i: %s", id.c_str(), e.what());
+        g_warning("Can't get account %s: %s", id.c_str(), e.what());
     }
 }
 
@@ -854,7 +808,7 @@ CppImpl::CppImpl(RingMainWindow& widget)
 {}
 
 static gboolean
-on_clear_all_history_foreach(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer self)
+on_clear_all_history_foreach(GtkTreeModel *model, GtkTreePath*, GtkTreeIter *iter, gpointer self)
 {
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), TRUE);
 
@@ -1073,10 +1027,6 @@ CppImpl::init()
     // setup account selector and select the first account
     refreshAccountSelectorWidget(0);
 
-    /* layout */
-    auto* model = gtk_combo_box_get_model(GTK_COMBO_BOX(widgets->combobox_account_selector));
-
-
     auto* renderer = gtk_cell_renderer_pixbuf_new();
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(widgets->combobox_account_selector), renderer, true);
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(widgets->combobox_account_selector),
@@ -1213,10 +1163,7 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation)
         auto contactUri = chatViewConversation_->participants.front();
         auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
         if (auto chat_view = current_call_view_get_chat_view(CURRENT_CALL_VIEW(new_view))) {
-            auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
-            chat_view_update_temporary(CHAT_VIEW(chat_view),
-                                       isPending || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY,
-                                       isPending);
+            chat_view_update_temporary(CHAT_VIEW(chat_view));
         }
     } catch(...) { }
 
@@ -1504,8 +1451,6 @@ CppImpl::leaveSettingsView()
 {
     /* hide the settings */
     show_settings = false;
-
-    AccountModel::instance().save();
 
     /* show calls */
     gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-system-symbolic",
@@ -1802,7 +1747,7 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
             ring_hide_notification(RING_NOTIFIER(widgets->notifier), notifId);
         }
     } catch (const std::exception& e) {
-        g_warning("Can't get call %lu for this account.", callId);
+        g_warning("Can't get call %s for this account.", callId.c_str());
     }
 }
 
@@ -1841,7 +1786,7 @@ CppImpl::slotNewIncomingCall(const std::string& callId)
             ring_show_notification(RING_NOTIFIER(widgets->notifier), avatar, notifId, _("Incoming call"), body, NotificationType::CALL);
         }
     } catch (const std::exception& e) {
-        g_warning("Can't get call %lu for this account.", callId);
+        g_warning("Can't get call %s for this account.", callId.c_str());
     }
 }
 
@@ -1891,14 +1836,7 @@ CppImpl::slotNewConversation(const std::string& uid)
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
     if (IS_RING_WELCOME_VIEW(old_view)) {
         accountInfo_->conversationModel->selectConversation(uid);
-        try {
-            auto contactUri =  chatViewConversation_->participants.front();
-            auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
-            auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
-            chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(widgets->frame_call))),
-                                       isPending || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY,
-                                       isPending);
-        } catch(...) { }
+        chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(widgets->frame_call))));
     }
 }
 
@@ -1936,10 +1874,7 @@ CppImpl::slotShowChatView(const std::string& id, lrc::api::conversation::Info or
     if (current_item.uid != origin.uid) {
         changeView(CHAT_VIEW_TYPE, origin);
     } else {
-        auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
-        chat_view_update_temporary(CHAT_VIEW(old_view),
-                                   isPending || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY,
-                                   isPending);
+        chat_view_update_temporary(CHAT_VIEW(old_view));
     }
 }
 

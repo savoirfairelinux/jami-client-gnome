@@ -42,7 +42,6 @@
 #include <categorizedhistorymodel.h>
 #include <personmodel.h>
 #include <fallbackpersoncollection.h>
-#include <localhistorycollection.h>
 #include <numbercategorymodel.h>
 #include <globalinstances.h>
 #include <profilemodel.h>
