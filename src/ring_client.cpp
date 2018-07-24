@@ -256,9 +256,9 @@ on_close_window(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, RingClient *cl
         /* we want to simply hide the window and keep the client running */
         ring_window_hide(client);
         ring_main_window_reset(RING_MAIN_WINDOW(window));
-        return TRUE; /* do not propogate event */
+        return TRUE; /* do not propagate event */
     } else {
-        /* we want to quit the application, so just propogate the event */
+        /* we want to quit the application, so just propagate the event */
         return FALSE;
     }
 }
@@ -491,7 +491,7 @@ ring_client_startup(GApplication *app)
     int clutter_error;
     if ((clutter_error = gtk_clutter_init(&priv->argc, &priv->argv)) != CLUTTER_INIT_SUCCESS) {
         g_error("Could not init clutter : %d\n", clutter_error);
-        exit(1); /* the g_error above should normally cause the applicaiton to exit */
+        exit(1); /* the g_error above should normally cause the application to exit */
     }
 
     /* init libRingClient and make sure its connected to the dbus */
