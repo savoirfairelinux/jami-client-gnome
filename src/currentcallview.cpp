@@ -42,8 +42,6 @@
 #include "utils/files.h"
 #include "video/video_widget.h"
 
-#include <iostream>
-
 namespace { namespace details
 {
 class CppImpl;
