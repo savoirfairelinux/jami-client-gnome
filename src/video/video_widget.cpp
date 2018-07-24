@@ -25,6 +25,7 @@
 #include <string>
 
 // gtk
+#include <glib/gi18n.h>
 #include <clutter/clutter.h>
 #include <clutter-gtk/clutter-gtk.h>
 #include <glib/gi18n.h>
@@ -32,6 +33,7 @@
 // LRC
 #include <api/avmodel.h>
 #include <smartinfohub.h>
+#include <QSize>
 
 // gnome client
 #include "../defines.h"
