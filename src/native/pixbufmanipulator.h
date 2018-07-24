@@ -54,8 +54,6 @@ public:
     QByteArray toByteArray(const QVariant& pxm) override;
     QVariant   collectionIcon(const CollectionInterface* interface, PixmapManipulatorI::CollectionIconHint hint = PixmapManipulatorI::CollectionIconHint::NONE) const override;
     QVariant   securityLevelIcon(const SecurityEvaluationModel::SecurityLevel level) const override;
-    QVariant   historySortingCategoryIcon(const CategorizedHistoryModel::SortedProxy::Categories cat) const override;
-    QVariant   contactSortingCategoryIcon(const CategorizedContactModel::SortedProxy::Categories cat) const override;
     QVariant   userActionIcon(const UserActionElement& state) const override;
     QVariant   decorationRole(const QModelIndex& index) override;
     QVariant   decorationRole(const Call* c) override;
