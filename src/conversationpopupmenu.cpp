@@ -23,9 +23,6 @@
 #include <glib/gi18n.h>
 
 // Lrc
-#include <accountmodel.h>
-#include <bannedcontactmodel.h>
-#include <contactmethod.h>
 #include <api/conversationmodel.h>
 #include <api/contactmodel.h>
 #include <api/contact.h>
