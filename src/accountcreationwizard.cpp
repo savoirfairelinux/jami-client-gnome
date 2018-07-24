@@ -23,11 +23,6 @@
 #include <gtk/gtk.h>
 
 // LRC
-#include <account.h>
-#include <profilemodel.h>
-#include <profile.h>
-#include <accountmodel.h>
-#include <personmodel.h>
 #include "api/newaccountmodel.h"
 
 // Ring Client
