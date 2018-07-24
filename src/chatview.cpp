@@ -236,7 +236,7 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
                 lrc::api::datatransfer::Info info = {};
                 (*priv->accountInfo_)->conversationModel->getTransferInfo(interactionId, info);
 
-                // get prefered directory destination.
+                // get preferred directory destination.
                 auto* download_directory_variant = g_settings_get_value(priv->settings, "download-folder");
                 char* download_directory_value;
                 g_variant_get(download_directory_variant, "&s", &download_directory_value);

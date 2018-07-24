@@ -434,7 +434,7 @@ on_mouse_moved(CurrentCallView* view)
         }
     }
 
-    return FALSE; // propogate event
+    return FALSE; // propagate event
 }
 
 static void
@@ -532,7 +532,7 @@ on_video_widget_focus(GtkWidget* widget, GtkDirectionType direction, CurrentCall
         return TRUE;
     }
 
-    // did not select the next child, propogate the event
+    // did not select the next child, propagate the event
     return FALSE;
 }
 
