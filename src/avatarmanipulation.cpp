@@ -23,8 +23,6 @@
 /* LRC */
 #include <api/newaccountmodel.h>
 #include <globalinstances.h>
-#include <person.h>
-#include <profile.h>
 #include <video/configurationproxy.h>
 #include <video/previewmanager.h>
 #include <video/devicemodel.h>
