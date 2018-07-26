@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f7e8fa4_49368dd6",
+        "filename": "src/ringnotify.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-07-26T20:13:43Z",
+      "side": 1,
+      "message": "nitpicking: copy and pasted comment ?",
+      "range": {
+        "startLine": 120,
+        "startChar": 41,
+        "endLine": 120,
+        "endChar": 65
+      },
+      "revId": "65d6c935aabca7dde4fd083f4c68f9839f72c243",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6361680c_40049700",
+        "filename": "src/ringnotify.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-07-26T20:13:43Z",
+      "side": 1,
+      "message": "merge?",
+      "range": {
+        "startLine": 308,
+        "startChar": 4,
+        "endLine": 309,
+        "endChar": 32
+      },
+      "revId": "65d6c935aabca7dde4fd083f4c68f9839f72c243",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
