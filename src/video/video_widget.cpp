@@ -18,6 +18,7 @@
  */
 
 #include "video_widget.h"
+#include "../nn/neuralnetwork.h"
 
 #include <callmodel.h>
 #include <glib/gi18n.h>
@@ -35,10 +36,23 @@
 #include <call.h>
 #include "xrectsel.h"
 #include <smartinfohub.h>
+#include <iostream>
 
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
 static constexpr const char* JOIN_CALL_KEY = "call_data";
+
+static constexpr const char *arg1testdetect="/home/tmenais/combidarknetring/darknet/cfg/coco.data";
+static constexpr const char *arg2testdetect="/home/tmenais/combidarknetring/darknet/cfg/yolov3.cfg";
+static constexpr const char *arg3testdetect="/home/tmenais/combidarknetring/darknet/yolov3.weights";
+
+//static constexpr const char *arg1testdetect="/home/tmenais/combidarknetring/darknet/cfg/face.data";
+//static constexpr const char *arg2testdetect="/home/tmenais/combidarknetring/darknet/cfg/yolo-face.cfg";
+//static constexpr const char *arg3testdetect="/home/tmenais/combidarknetring/darknet/yolo-face_final.weights";
+
+static constexpr float thresh =0.8; // threshold for object confidence
+static constexpr float hier_thresh =0.5; // threshold for category animal-> feline -> cat , see darknet doc
+
 
 /* check video frame queues at this rate;
  * use 30 ms (about 30 fps) since we don't expect to
@@ -86,6 +100,9 @@ struct _VideoWidgetPrivate {
 };
 
 struct _VideoWidgetRenderer {
+
+    NeuralNetwork* net;
+
     VideoRendererType        type;
     ClutterActor            *actor;
     ClutterAction           *drag_action;
@@ -135,6 +152,8 @@ static guint video_widget_signals[LAST_SIGNAL] = { 0 };
 static void
 video_widget_dispose(GObject *object)
 {
+    std::cout << "yiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"<< std::endl ;
+
     VideoWidget *self = VIDEO_WIDGET(object);
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
@@ -169,6 +188,7 @@ video_widget_dispose(GObject *object)
 static void
 video_widget_finalize(GObject *object)
 {
+    std::cout << "yoooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"<< std::endl ;
     VideoWidget *self = VIDEO_WIDGET(object);
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
@@ -625,6 +645,8 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
     if (wg_renderer->pause_rendering)
         return;
 
+    //std::cout << "clutter_render_image" << std::endl;
+
     if (wg_renderer->show_black_frame) {
         /* render a black frame set the bool back to false, this is likely done
          * when the renderer is stopped so we ignore whether or not it is running
@@ -676,38 +698,70 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
          * received during rendering; otherwise the mem could become invalid */
         std::lock_guard<std::mutex> lock(wg_renderer->run_mutex);
 
-        if (!wg_renderer->running)
+        if (!wg_renderer->running) {
             return;
+        }
 
         auto renderer = wg_renderer->renderer;
-        if (renderer == nullptr)
+        if (renderer == nullptr) {            
             return;
+        }
+        const auto& res = renderer->size();
 
         auto frame_ptr = renderer->currentFrame();
-        auto frame_data = frame_ptr.ptr;
-        if (!frame_data)
+
+        if (! frame_ptr.ptr) {
             return;
+        }
+
+        size_t buffer_size = sizeof(uint8_t) * frame_ptr.size;
+        uint8_t* frame_data_yoloboxed = new uint8_t[frame_ptr.size];
+        memcpy(frame_data_yoloboxed, frame_ptr.ptr, buffer_size);
+        //uint8_t* frame_data_yoloboxed = frame_ptr.ptr;
+
+
+        if (wg_renderer->net) {
+            wg_renderer->net->addImage(frame_ptr.ptr, res.width(), res.height());
+            if (auto result = wg_renderer->net->getResult()) {
+                const auto& yolobox = *result;
+               
+
+                    /* conversion from BGRA to RGB */
+                for(int i = 0, j = 0 ; i < res.width() * res.height() * 4 ; i += 4, j += 3 ) {
+
+                    if(!(yolobox[j]==255 && yolobox[j+1]==255 && yolobox[j+2]==255))//remove white pixels
+                    {
+                    frame_data_yoloboxed[i + 2] = yolobox[j + 0]; //return to 0-255 range
+                    frame_data_yoloboxed[i + 1] = yolobox[j + 1];
+                    frame_data_yoloboxed[i + 0] = yolobox[j + 2];
+                    }
+                }
+            } 
+        }
 
         image_new = clutter_image_new();
         g_return_if_fail(image_new);
 
-        const auto& res = renderer->size();
         gint BPP = 4; /* BGRA */
         gint ROW_STRIDE = BPP * res.width();
 
         GError *error = nullptr;
         clutter_image_set_data(
             CLUTTER_IMAGE(image_new),
-            frame_data,
+            frame_data_yoloboxed,
             COGL_PIXEL_FORMAT_BGRA_8888,
             res.width(),
             res.height(),
             ROW_STRIDE,
             &error);
+        
+
+
         if (error) {
             g_warning("error rendering image to clutter: %s", error->message);
             g_clear_error(&error);
             g_object_unref (image_new);
+            if (frame_data_yoloboxed){delete(frame_data_yoloboxed);}
             return;
         }
 
@@ -717,11 +771,21 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
             BPP = 3; /* RGB */
             gint ROW_STRIDE = BPP * res.width();
 
-            /* conversion from BGRA to RGB */
-            for(int i = 0, j = 0 ; i < res.width() * res.height() * 4 ; i += 4, j += 3 ) {
-                pixbuf_frame_data[j + 0] = frame_data[i + 2];
-                pixbuf_frame_data[j + 1] = frame_data[i + 1];
-                pixbuf_frame_data[j + 2] = frame_data[i + 0];
+            if (frame_data_yoloboxed){
+                for(int i = 0, j = 0 ; i < res.width() * res.height() * 4 ; i += 4, j += 3 ) {
+                    pixbuf_frame_data[j + 0] = frame_data_yoloboxed[i + 2];
+                    pixbuf_frame_data[j + 1] = frame_data_yoloboxed[i + 1];
+                    pixbuf_frame_data[j + 2] = frame_data_yoloboxed[i + 0];
+                }
+            delete(frame_data_yoloboxed);
+            }else{
+
+                /* conversion from BGRA to RGB */
+                for(int i = 0, j = 0 ; i < res.width() * res.height() * 4 ; i += 4, j += 3 ) {
+                    pixbuf_frame_data[j + 0] = frame_ptr.ptr[i + 2];
+                    pixbuf_frame_data[j + 1] = frame_ptr.ptr[i + 1];
+                    pixbuf_frame_data[j + 2] = frame_ptr.ptr[i + 0];
+                }
             }
 
             if (wg_renderer->snapshot) {
@@ -736,8 +800,12 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
 
             wg_renderer->snapshot_status = HAS_A_NEW_ONE;
 
+            if (frame_data_yoloboxed){delete(frame_data_yoloboxed);}
+
         }
+    if (frame_data_yoloboxed){delete(frame_data_yoloboxed);}
     }
+
 
     clutter_actor_set_content(actor, image_new);
     g_object_unref (image_new);
@@ -795,6 +863,14 @@ free_video_widget_renderer(VideoWidgetRenderer *renderer)
     QObject::disconnect(renderer->render_start);
     if (renderer->snapshot)
         g_object_unref(renderer->snapshot);
+
+    if (renderer->net){
+
+        //renderer->net.reset();
+        std::cout << "yoplait     hait"<< std::endl ;
+        delete (renderer->net);
+        renderer->net= nullptr;
+    }
     g_free(renderer);
 }
 
@@ -881,6 +957,8 @@ video_widget_push_new_renderer(VideoWidget *self, Video::Renderer *renderer, Vid
     VideoWidgetRenderer *new_video_renderer = g_new0(VideoWidgetRenderer, 1);
     new_video_renderer->renderer = renderer;
     new_video_renderer->type = type;
+    new_video_renderer->net = new NeuralNetwork(arg1testdetect, arg2testdetect, arg3testdetect, thresh, hier_thresh);
+   
 
     if (new_video_renderer->renderer->isRendering())
         renderer_start(new_video_renderer);
