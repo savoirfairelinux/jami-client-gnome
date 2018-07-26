@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfbaf730_5ad1f2f8",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-07-26T21:27:47Z",
+      "side": 1,
+      "message": "double ?",
+      "range": {
+        "startLine": 256,
+        "startChar": 12,
+        "endLine": 256,
+        "endChar": 83
+      },
+      "revId": "5b661cf1e72f3bc65d6e4e4e0b3e09829cbb02c2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41be6d5e_12fa522e",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-07-26T21:27:47Z",
+      "side": 1,
+      "message": "...or int here",
+      "range": {
+        "startLine": 267,
+        "startChar": 12,
+        "endLine": 267,
+        "endChar": 27
+      },
+      "revId": "5b661cf1e72f3bc65d6e4e4e0b3e09829cbb02c2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
