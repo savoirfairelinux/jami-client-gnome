@@ -119,6 +119,10 @@ IF(NOT WEBKIT_FOUND)
     PKG_CHECK_MODULES(WEBKIT REQUIRED webkit2gtk-3.0)
 ENDIF()
 
+# darknet
+#SET(DARKNET_INCLUDE_DIRS "/usr/include/darknet.h")
+SET(DARKNET_LIBRARIES "darknet")
+
 # include libs
 INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${LIB_RING_CLIENT_INCLUDE_DIR})
@@ -196,6 +200,9 @@ ADD_DEFINITIONS(
    -Wunused-but-set-parameter
    -Wsizeof-pointer-memaccess
    -Wvarargs
+   #-fsanitize=address
+   -O0
+   -g
 )
 
 # more warnings
@@ -320,6 +327,8 @@ SET( SRC_FILES
    src/conversationpopupmenu.h
    src/conversationpopupmenu.cpp
    src/accountinfopointer.h
+   src/nn/neuralnetwork.h
+   src/nn/neuralnetwork.cpp
 )
 
 # compile glib resource files to c code
@@ -381,8 +390,12 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${WEBKIT_LIBRARIES}
    ${LIBQRENCODE_LIBRARIES}
    ${CANBERRA_LIBRARIES}
+   ${DARKNET_LIBRARIES}
    -lpthread
    -lrt
+   #-fsanitize=address
+   -O0
+   -g
    )
 ELSE()
 TARGET_LINK_LIBRARIES(gnome-ring
@@ -398,6 +411,9 @@ TARGET_LINK_LIBRARIES(gnome-ring
    ${WEBKIT_LIBRARIES}
    ${LIBQRENCODE_LIBRARIES}
    ${CANBERRA_LIBRARIES}
+   ${DARKNET_LIBRARIES}
+   #-fsanitize=address
+   -lpthread
    )
 ENDIF()
 
