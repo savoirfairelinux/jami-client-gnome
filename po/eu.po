@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-23 03:09-0400\n"
-"PO-Revision-Date: 2018-07-23 07:09+0000\n"
+"POT-Creation-Date: 2018-07-30 03:09-0400\n"
+"PO-Revision-Date: 2018-07-30 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Basque (http://www.transifex.com/savoirfairelinux/ring/language/eu/)\n"
 "MIME-Version: 1.0\n"
@@ -281,42 +281,46 @@ msgid "Enable notifications for incoming calls."
 msgstr ""
 
 #: ui/generalsettingsview.ui:94
-msgid "Enable notifications for new chat messages."
+msgid "Enable notifications for pending requests."
 msgstr ""
 
 #: ui/generalsettingsview.ui:102
-msgid "Show images and videos in chat window."
+msgid "Enable notifications for new chat messages."
 msgstr ""
 
 #: ui/generalsettingsview.ui:110
+msgid "Show images and videos in chat window."
+msgstr ""
+
+#: ui/generalsettingsview.ui:118
 msgid "Entering a number in the search entry will place a new call."
 msgstr ""
 
-#: ui/generalsettingsview.ui:123
+#: ui/generalsettingsview.ui:131
 msgid "Download folder:"
 msgstr ""
 
-#: ui/generalsettingsview.ui:150
+#: ui/generalsettingsview.ui:158
 msgid "Show chat on the right."
 msgstr ""
 
-#: ui/generalsettingsview.ui:156
+#: ui/generalsettingsview.ui:164
 msgid "Show chat on the bottom."
 msgstr ""
 
-#: ui/generalsettingsview.ui:180
+#: ui/generalsettingsview.ui:188
 msgid "History Settings"
 msgstr ""
 
-#: ui/generalsettingsview.ui:198
+#: ui/generalsettingsview.ui:206
 msgid "Keep history for (days):"
 msgstr ""
 
-#: ui/generalsettingsview.ui:219
+#: ui/generalsettingsview.ui:227
 msgid "(set to 0 for unlimited history)"
 msgstr ""
 
-#: ui/generalsettingsview.ui:229
+#: ui/generalsettingsview.ui:237
 msgid "Clear all history"
 msgstr ""
 
@@ -332,7 +336,7 @@ msgstr "Orokorra"
 msgid "Media"
 msgstr ""
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1348
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1514
 msgid "Settings"
 msgstr ""
 
@@ -435,7 +439,7 @@ msgstr ""
 msgid "Click to change password"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1996
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1995
 msgid "Export account"
 msgstr ""
 
@@ -716,7 +720,7 @@ msgstr ""
 msgid "Set selection as image"
 msgstr ""
 
-#: src/ring_client.cpp:146
+#: src/ring_client.cpp:143
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -724,33 +728,38 @@ msgid ""
 "Error: %s"
 msgstr ""
 
-#: src/ring_client.cpp:149
+#: src/ring_client.cpp:146
 msgid "Ring Error"
 msgstr ""
 
-#: src/ring_client.cpp:292
+#: src/ring_client.cpp:289
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr ""
 
-#: src/ring_client.cpp:296
+#: src/ring_client.cpp:293
 msgid "Quit"
 msgstr ""
 
-#: src/ringnotify.cpp:156
-msgid "Incoming call"
+#: src/ringnotify.cpp:347
+msgctxt ""
+msgid "Open conversation"
 msgstr ""
 
-#: src/ringnotify.cpp:173 src/ringnotify.cpp:351
-msgctxt "notification action name"
-msgid "Show"
+#: src/ringnotify.cpp:355 src/ringnotify.cpp:371
+msgctxt ""
+msgid "Accept"
 msgstr ""
 
-#: src/ringnotify.cpp:275
-#, c-format
-msgctxt "Text message notification"
-msgid "%s says:"
+#: src/ringnotify.cpp:362
+msgctxt ""
+msgid "Refuse"
+msgstr ""
+
+#: src/ringnotify.cpp:378
+msgctxt ""
+msgid "Decline"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
@@ -777,23 +786,23 @@ msgstr ""
 msgid "Registration in progress..."
 msgstr ""
 
-#: src/generalsettingsview.cpp:106
+#: src/generalsettingsview.cpp:107
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr ""
 
-#: src/generalsettingsview.cpp:176
+#: src/generalsettingsview.cpp:177
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:179 src/accountgeneraltab.cpp:343
+#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
 #: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr ""
 
-#: src/generalsettingsview.cpp:181 src/accountgeneraltab.cpp:345
+#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
 #: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr ""
@@ -938,29 +947,49 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr ""
 
-#: src/ringmainwindow.cpp:166
+#: src/ringmainwindow.cpp:175
 msgid "Add account..."
 msgstr ""
 
-#: src/ringmainwindow.cpp:626
+#: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:629
+#: src/ringmainwindow.cpp:649
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/ringmainwindow.cpp:918
+#: src/ringmainwindow.cpp:1069
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1321
+#: src/ringmainwindow.cpp:1487
 msgid "Leave settings page"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1834
+msgid " is calling you!"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1835
+msgid "Incoming call"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1980
+msgid "New request from "
+msgstr ""
+
+#: src/ringmainwindow.cpp:1981
+msgid "Trust request"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2038
+msgid "New message"
 msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
@@ -1115,30 +1144,30 @@ msgstr ""
 msgid "Unknown error"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1963
+#: src/newaccountsettingsview.cpp:1962
 msgid "Initializing..."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1966
+#: src/newaccountsettingsview.cpp:1965
 msgid "Offline"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1969
+#: src/newaccountsettingsview.cpp:1968
 msgid "Connecting..."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1972
+#: src/newaccountsettingsview.cpp:1971
 msgid "Online"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1976
+#: src/newaccountsettingsview.cpp:1975
 msgid "Unknown status"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2006
 msgid "••••••••"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2006
 msgid "no password set"
 msgstr ""

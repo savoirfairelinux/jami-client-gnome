@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-23 03:09-0400\n"
-"PO-Revision-Date: 2018-07-23 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-07-30 03:09-0400\n"
+"PO-Revision-Date: 2018-07-30 07:09+0000\n"
+"Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -283,42 +283,46 @@ msgid "Enable notifications for incoming calls."
 msgstr "Įjungti pranešimus gaunamiesiems skambučiams."
 
 #: ui/generalsettingsview.ui:94
+msgid "Enable notifications for pending requests."
+msgstr ""
+
+#: ui/generalsettingsview.ui:102
 msgid "Enable notifications for new chat messages."
 msgstr "Įjungti pranešimus naujoms pokalbio žinutėms."
 
-#: ui/generalsettingsview.ui:102
+#: ui/generalsettingsview.ui:110
 msgid "Show images and videos in chat window."
 msgstr "Rodyti pokalbių lange paveikslus ir vaizdo įrašus."
 
-#: ui/generalsettingsview.ui:110
+#: ui/generalsettingsview.ui:118
 msgid "Entering a number in the search entry will place a new call."
 msgstr "Įvedus numerį į paieškos įrašą, bus pradedama skambinti."
 
-#: ui/generalsettingsview.ui:123
+#: ui/generalsettingsview.ui:131
 msgid "Download folder:"
 msgstr "Atsiuntimų aplankas:"
 
-#: ui/generalsettingsview.ui:150
+#: ui/generalsettingsview.ui:158
 msgid "Show chat on the right."
 msgstr "Rodyti pokalbį dešinėje."
 
-#: ui/generalsettingsview.ui:156
+#: ui/generalsettingsview.ui:164
 msgid "Show chat on the bottom."
 msgstr "Rodyti pokalbį apačioje."
 
-#: ui/generalsettingsview.ui:180
+#: ui/generalsettingsview.ui:188
 msgid "History Settings"
 msgstr "Istorijos nustatymai"
 
-#: ui/generalsettingsview.ui:198
+#: ui/generalsettingsview.ui:206
 msgid "Keep history for (days):"
 msgstr "Laikyti istoriją (dienų):"
 
-#: ui/generalsettingsview.ui:219
+#: ui/generalsettingsview.ui:227
 msgid "(set to 0 for unlimited history)"
 msgstr "(nustatykite 0 neribotai istorijai)"
 
-#: ui/generalsettingsview.ui:229
+#: ui/generalsettingsview.ui:237
 msgid "Clear all history"
 msgstr "Išvalyti visą istoriją"
 
@@ -334,7 +338,7 @@ msgstr "Bendra"
 msgid "Media"
 msgstr "Medija"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1348
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1514
 msgid "Settings"
 msgstr "Nustatymai"
 
@@ -437,7 +441,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Spustelėkite, norėdami pakeisti slaptažodį"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1996
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1995
 msgid "Export account"
 msgstr "Eksportuoti paskyrą"
 
@@ -460,7 +464,7 @@ msgstr "Įgaliotasis serveris"
 
 #: ui/newaccountsettingsview.ui:848
 msgid "Voicemail"
-msgstr ""
+msgstr "Balso paštas"
 
 #: ui/newaccountsettingsview.ui:959
 msgid "Known devices linked to this Ring account"
@@ -718,7 +722,7 @@ msgstr "Grįžti"
 msgid "Set selection as image"
 msgstr "Nustatyti pažymėtą sritį kaip paveikslą"
 
-#: src/ring_client.cpp:146
+#: src/ring_client.cpp:143
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -726,34 +730,39 @@ msgid ""
 "Error: %s"
 msgstr "Nepavyko inicijuoti.\nĮsitikinkite, kad Ring tarnyba (dring) yra paleista.\nKlaida: %s"
 
-#: src/ring_client.cpp:149
+#: src/ring_client.cpp:146
 msgid "Ring Error"
 msgstr "Ring klaida"
 
-#: src/ring_client.cpp:292
+#: src/ring_client.cpp:289
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr "Rodyti Ring"
 
-#: src/ring_client.cpp:296
+#: src/ring_client.cpp:293
 msgid "Quit"
 msgstr "Išeiti"
 
-#: src/ringnotify.cpp:156
-msgid "Incoming call"
-msgstr "Gaunamasis skambutis"
+#: src/ringnotify.cpp:347
+msgctxt ""
+msgid "Open conversation"
+msgstr ""
 
-#: src/ringnotify.cpp:173 src/ringnotify.cpp:351
-msgctxt "notification action name"
-msgid "Show"
-msgstr "Rodyti"
+#: src/ringnotify.cpp:355 src/ringnotify.cpp:371
+msgctxt ""
+msgid "Accept"
+msgstr "Priimti"
 
-#: src/ringnotify.cpp:275
-#, c-format
-msgctxt "Text message notification"
-msgid "%s says:"
-msgstr "%s sako:"
+#: src/ringnotify.cpp:362
+msgctxt ""
+msgid "Refuse"
+msgstr "Atmesti"
+
+#: src/ringnotify.cpp:378
+msgctxt ""
+msgid "Decline"
+msgstr "Atmesti"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
@@ -779,23 +788,23 @@ msgstr ""
 msgid "Registration in progress..."
 msgstr "Vyksta registracija..."
 
-#: src/generalsettingsview.cpp:106
+#: src/generalsettingsview.cpp:107
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Tai yra naikinamasis veiksmas. Ar tikrai norite ištrinti visą savo pokalbių ir skambučių istoriją?"
 
-#: src/generalsettingsview.cpp:176
+#: src/generalsettingsview.cpp:177
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:179 src/accountgeneraltab.cpp:343
+#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
 #: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "_Atsisakyti"
 
-#: src/generalsettingsview.cpp:181 src/accountgeneraltab.cpp:345
+#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
 #: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "Į_rašyti"
@@ -940,29 +949,49 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "GNOME klientas, skirtas Ring.\nRing yra visuotiniam susisiekimui skirta laisva programinė įranga, kuri gerbia savo naudotojų laisves ir privatumą."
 
-#: src/ringmainwindow.cpp:166
+#: src/ringmainwindow.cpp:175
 msgid "Add account..."
 msgstr "Pridėti paskyrą..."
 
-#: src/ringmainwindow.cpp:626
+#: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "skambinti"
 
-#: src/ringmainwindow.cpp:629
+#: src/ringmainwindow.cpp:649
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "atverti pokalbį"
 
-#: src/ringmainwindow.cpp:918
+#: src/ringmainwindow.cpp:1069
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Ieškokite kontaktus arba įveskite numerį"
 
-#: src/ringmainwindow.cpp:1321
+#: src/ringmainwindow.cpp:1487
 msgid "Leave settings page"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1834
+msgid " is calling you!"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1835
+msgid "Incoming call"
+msgstr "Gaunamasis skambutis"
+
+#: src/ringmainwindow.cpp:1980
+msgid "New request from "
+msgstr ""
+
+#: src/ringmainwindow.cpp:1981
+msgid "Trust request"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2038
+msgid "New message"
 msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
@@ -1117,30 +1146,30 @@ msgstr "Paskyros eksportavimas nepavyko."
 msgid "Unknown error"
 msgstr "Nežinoma klaida"
 
-#: src/newaccountsettingsview.cpp:1963
+#: src/newaccountsettingsview.cpp:1962
 msgid "Initializing..."
 msgstr "Inicijuojama..."
 
-#: src/newaccountsettingsview.cpp:1966
+#: src/newaccountsettingsview.cpp:1965
 msgid "Offline"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1969
+#: src/newaccountsettingsview.cpp:1968
 msgid "Connecting..."
 msgstr "Jungiamasi..."
 
-#: src/newaccountsettingsview.cpp:1972
+#: src/newaccountsettingsview.cpp:1971
 msgid "Online"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1976
+#: src/newaccountsettingsview.cpp:1975
 msgid "Unknown status"
 msgstr "Nežinoma būsena"
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2006
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2006
 msgid "no password set"
 msgstr "slaptažodis nėra nustatytas"

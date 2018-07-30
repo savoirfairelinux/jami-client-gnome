@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-23 03:09-0400\n"
-"PO-Revision-Date: 2018-07-23 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-07-30 03:09-0400\n"
+"PO-Revision-Date: 2018-07-30 07:09+0000\n"
+"Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/ring/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -281,42 +281,46 @@ msgid "Enable notifications for incoming calls."
 msgstr "Aktivera avisering för inkommande samtal."
 
 #: ui/generalsettingsview.ui:94
+msgid "Enable notifications for pending requests."
+msgstr ""
+
+#: ui/generalsettingsview.ui:102
 msgid "Enable notifications for new chat messages."
 msgstr "Aktivera avisering för nya chattmeddelanden."
 
-#: ui/generalsettingsview.ui:102
+#: ui/generalsettingsview.ui:110
 msgid "Show images and videos in chat window."
 msgstr "Visa bilder och filmer i chattfönster"
 
-#: ui/generalsettingsview.ui:110
+#: ui/generalsettingsview.ui:118
 msgid "Entering a number in the search entry will place a new call."
 msgstr "Ange ett nummer i sökfältet för att starta ett nytt samtal."
 
-#: ui/generalsettingsview.ui:123
+#: ui/generalsettingsview.ui:131
 msgid "Download folder:"
 msgstr "Nerladdningsmapp:"
 
-#: ui/generalsettingsview.ui:150
+#: ui/generalsettingsview.ui:158
 msgid "Show chat on the right."
 msgstr "Visa chatten till höger"
 
-#: ui/generalsettingsview.ui:156
+#: ui/generalsettingsview.ui:164
 msgid "Show chat on the bottom."
 msgstr "Visa chatten nederst"
 
-#: ui/generalsettingsview.ui:180
+#: ui/generalsettingsview.ui:188
 msgid "History Settings"
 msgstr "Historikinställningar"
 
-#: ui/generalsettingsview.ui:198
+#: ui/generalsettingsview.ui:206
 msgid "Keep history for (days):"
 msgstr "Spara historiken i (dagar):"
 
-#: ui/generalsettingsview.ui:219
+#: ui/generalsettingsview.ui:227
 msgid "(set to 0 for unlimited history)"
 msgstr "(Ange 0 för obegränsad historik)"
 
-#: ui/generalsettingsview.ui:229
+#: ui/generalsettingsview.ui:237
 msgid "Clear all history"
 msgstr "Rensa all historik"
 
@@ -332,7 +336,7 @@ msgstr "Allmänt"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1348
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1514
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -435,7 +439,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Klicka för att byta lösenord"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1996
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1995
 msgid "Export account"
 msgstr "Exportera konto"
 
@@ -716,7 +720,7 @@ msgstr "Återvänd"
 msgid "Set selection as image"
 msgstr "Ange markerat som bild"
 
-#: src/ring_client.cpp:146
+#: src/ring_client.cpp:143
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -724,34 +728,39 @@ msgid ""
 "Error: %s"
 msgstr "Kan inte starta.\nTillse att Ring-tjänsten (dring) körs.\nFel: %s"
 
-#: src/ring_client.cpp:149
+#: src/ring_client.cpp:146
 msgid "Ring Error"
 msgstr "Ring-fel"
 
-#: src/ring_client.cpp:292
+#: src/ring_client.cpp:289
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr "Visa Ring"
 
-#: src/ring_client.cpp:296
+#: src/ring_client.cpp:293
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/ringnotify.cpp:156
-msgid "Incoming call"
-msgstr "Inkommande samtal"
+#: src/ringnotify.cpp:347
+msgctxt ""
+msgid "Open conversation"
+msgstr ""
 
-#: src/ringnotify.cpp:173 src/ringnotify.cpp:351
-msgctxt "notification action name"
-msgid "Show"
-msgstr "Visa"
+#: src/ringnotify.cpp:355 src/ringnotify.cpp:371
+msgctxt ""
+msgid "Accept"
+msgstr "Acceptera"
 
-#: src/ringnotify.cpp:275
-#, c-format
-msgctxt "Text message notification"
-msgid "%s says:"
-msgstr "%s säger:"
+#: src/ringnotify.cpp:362
+msgctxt ""
+msgid "Refuse"
+msgstr "Neka"
+
+#: src/ringnotify.cpp:378
+msgctxt ""
+msgid "Decline"
+msgstr "Avslå"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
@@ -777,23 +786,23 @@ msgstr "Utför sökning..."
 msgid "Registration in progress..."
 msgstr "Registrering pågår..."
 
-#: src/generalsettingsview.cpp:106
+#: src/generalsettingsview.cpp:107
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Detta är en destruktiv åtgärd. Vill du verkligen ta bort all din chatt- och samtalshistorik?"
 
-#: src/generalsettingsview.cpp:176
+#: src/generalsettingsview.cpp:177
 msgid "Choose download folder"
 msgstr "Välj nerladdningsmapp"
 
-#: src/generalsettingsview.cpp:179 src/accountgeneraltab.cpp:343
+#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
 #: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "_Avbryt"
 
-#: src/generalsettingsview.cpp:181 src/accountgeneraltab.cpp:345
+#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
 #: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "_Spara"
@@ -930,7 +939,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Live Free or Die\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Lev fritt eller dö\"\nkompilerat %.25s"
 
 #: src/dialogs.c:137
 msgid ""
@@ -938,30 +947,50 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "GNOME-klient för Ring\nRing är fri mjukvara för universell kommunikation, med respekt för användarens frihet och integritet."
 
-#: src/ringmainwindow.cpp:166
+#: src/ringmainwindow.cpp:175
 msgid "Add account..."
 msgstr "Lägg till konto..."
 
-#: src/ringmainwindow.cpp:626
+#: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "starta samtal"
 
-#: src/ringmainwindow.cpp:629
+#: src/ringmainwindow.cpp:649
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "öppna chatt"
 
-#: src/ringmainwindow.cpp:918
+#: src/ringmainwindow.cpp:1069
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Sök i kontakter eller ange nummer"
 
-#: src/ringmainwindow.cpp:1321
+#: src/ringmainwindow.cpp:1487
 msgid "Leave settings page"
 msgstr "Lämna inställningssidan"
+
+#: src/ringmainwindow.cpp:1834
+msgid " is calling you!"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1835
+msgid "Incoming call"
+msgstr "Inkommande samtal"
+
+#: src/ringmainwindow.cpp:1980
+msgid "New request from "
+msgstr ""
+
+#: src/ringmainwindow.cpp:1981
+msgid "Trust request"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2038
+msgid "New message"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1115,30 +1144,30 @@ msgstr "Kontoexport misslyckades."
 msgid "Unknown error"
 msgstr "Okänt fel"
 
-#: src/newaccountsettingsview.cpp:1963
+#: src/newaccountsettingsview.cpp:1962
 msgid "Initializing..."
 msgstr "Startar..."
 
-#: src/newaccountsettingsview.cpp:1966
+#: src/newaccountsettingsview.cpp:1965
 msgid "Offline"
 msgstr "Nerkopplad"
 
-#: src/newaccountsettingsview.cpp:1969
+#: src/newaccountsettingsview.cpp:1968
 msgid "Connecting..."
 msgstr "Ansluter..."
 
-#: src/newaccountsettingsview.cpp:1972
+#: src/newaccountsettingsview.cpp:1971
 msgid "Online"
 msgstr "Uppkopplad"
 
-#: src/newaccountsettingsview.cpp:1976
+#: src/newaccountsettingsview.cpp:1975
 msgid "Unknown status"
 msgstr "Okänd status"
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2006
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2006
 msgid "no password set"
 msgstr "Lösenord saknas"

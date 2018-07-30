@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-23 03:09-0400\n"
-"PO-Revision-Date: 2018-07-23 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-07-30 03:09-0400\n"
+"PO-Revision-Date: 2018-07-30 07:09+0000\n"
+"Last-Translator: Stepan Salenikovich\n"
 "Language-Team: Esperanto (http://www.transifex.com/savoirfairelinux/ring/language/eo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -283,42 +283,46 @@ msgid "Enable notifications for incoming calls."
 msgstr "Ŝalti sciigojn por envenaj vokoj."
 
 #: ui/generalsettingsview.ui:94
+msgid "Enable notifications for pending requests."
+msgstr ""
+
+#: ui/generalsettingsview.ui:102
 msgid "Enable notifications for new chat messages."
 msgstr "Ŝalti sciigojn por novaj babilmesaĝoj."
 
-#: ui/generalsettingsview.ui:102
+#: ui/generalsettingsview.ui:110
 msgid "Show images and videos in chat window."
 msgstr ""
 
-#: ui/generalsettingsview.ui:110
+#: ui/generalsettingsview.ui:118
 msgid "Entering a number in the search entry will place a new call."
 msgstr "Enigi numeron en la serĉejon vokos la numeron."
 
-#: ui/generalsettingsview.ui:123
+#: ui/generalsettingsview.ui:131
 msgid "Download folder:"
 msgstr ""
 
-#: ui/generalsettingsview.ui:150
+#: ui/generalsettingsview.ui:158
 msgid "Show chat on the right."
 msgstr "Montru babilon dekstre."
 
-#: ui/generalsettingsview.ui:156
+#: ui/generalsettingsview.ui:164
 msgid "Show chat on the bottom."
 msgstr "Montru babilon sube."
 
-#: ui/generalsettingsview.ui:180
+#: ui/generalsettingsview.ui:188
 msgid "History Settings"
 msgstr "Historiaj agordoj"
 
-#: ui/generalsettingsview.ui:198
+#: ui/generalsettingsview.ui:206
 msgid "Keep history for (days):"
 msgstr "Konservi historian dum (tagoj):"
 
-#: ui/generalsettingsview.ui:219
+#: ui/generalsettingsview.ui:227
 msgid "(set to 0 for unlimited history)"
 msgstr "(Agordu 0 por senlima historio)"
 
-#: ui/generalsettingsview.ui:229
+#: ui/generalsettingsview.ui:237
 msgid "Clear all history"
 msgstr "Vakigi tutan historion"
 
@@ -334,7 +338,7 @@ msgstr "Ĝenerala"
 msgid "Media"
 msgstr "Aŭdvidaĵo"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1348
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1514
 msgid "Settings"
 msgstr "Agordoj"
 
@@ -437,7 +441,7 @@ msgstr "Identigaĵo"
 msgid "Click to change password"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1996
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1995
 msgid "Export account"
 msgstr ""
 
@@ -718,7 +722,7 @@ msgstr "Reveni"
 msgid "Set selection as image"
 msgstr "Uzu elektaĵon kiel bildo"
 
-#: src/ring_client.cpp:146
+#: src/ring_client.cpp:143
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -726,34 +730,39 @@ msgid ""
 "Error: %s"
 msgstr ""
 
-#: src/ring_client.cpp:149
+#: src/ring_client.cpp:146
 msgid "Ring Error"
 msgstr "Ring Eraro"
 
-#: src/ring_client.cpp:292
+#: src/ring_client.cpp:289
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr ""
 
-#: src/ring_client.cpp:296
+#: src/ring_client.cpp:293
 msgid "Quit"
 msgstr ""
 
-#: src/ringnotify.cpp:156
-msgid "Incoming call"
-msgstr "Envena voko"
+#: src/ringnotify.cpp:347
+msgctxt ""
+msgid "Open conversation"
+msgstr ""
 
-#: src/ringnotify.cpp:173 src/ringnotify.cpp:351
-msgctxt "notification action name"
-msgid "Show"
-msgstr "Montri"
+#: src/ringnotify.cpp:355 src/ringnotify.cpp:371
+msgctxt ""
+msgid "Accept"
+msgstr "Akcepti"
 
-#: src/ringnotify.cpp:275
-#, c-format
-msgctxt "Text message notification"
-msgid "%s says:"
-msgstr "%s diras:"
+#: src/ringnotify.cpp:362
+msgctxt ""
+msgid "Refuse"
+msgstr "Rifuzi"
+
+#: src/ringnotify.cpp:378
+msgctxt ""
+msgid "Decline"
+msgstr "Rifuzi"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
@@ -779,23 +788,23 @@ msgstr ""
 msgid "Registration in progress..."
 msgstr ""
 
-#: src/generalsettingsview.cpp:106
+#: src/generalsettingsview.cpp:107
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Tiu ĉi ago estas detrua. Ĉu vi certe volas forigi ĉiom da via babila kaj voka historio?"
 
-#: src/generalsettingsview.cpp:176
+#: src/generalsettingsview.cpp:177
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:179 src/accountgeneraltab.cpp:343
+#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
 #: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "_Rezigni"
 
-#: src/generalsettingsview.cpp:181 src/accountgeneraltab.cpp:345
+#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
 #: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr ""
@@ -940,29 +949,49 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "La GNOME kliento por Ring.\nRing estas libera programo por universala komunikado, kiu respektas liberon kaj privatecon de siaj uzantoj."
 
-#: src/ringmainwindow.cpp:166
+#: src/ringmainwindow.cpp:175
 msgid "Add account..."
 msgstr ""
 
-#: src/ringmainwindow.cpp:626
+#: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "voki"
 
-#: src/ringmainwindow.cpp:629
+#: src/ringmainwindow.cpp:649
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "malfermi babilejon"
 
-#: src/ringmainwindow.cpp:918
+#: src/ringmainwindow.cpp:1069
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Serĉu kontaktojn aŭ entajpu numeron"
 
-#: src/ringmainwindow.cpp:1321
+#: src/ringmainwindow.cpp:1487
 msgid "Leave settings page"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1834
+msgid " is calling you!"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1835
+msgid "Incoming call"
+msgstr "Envena voko"
+
+#: src/ringmainwindow.cpp:1980
+msgid "New request from "
+msgstr ""
+
+#: src/ringmainwindow.cpp:1981
+msgid "Trust request"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2038
+msgid "New message"
 msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
@@ -1117,30 +1146,30 @@ msgstr ""
 msgid "Unknown error"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1963
+#: src/newaccountsettingsview.cpp:1962
 msgid "Initializing..."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1966
+#: src/newaccountsettingsview.cpp:1965
 msgid "Offline"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1969
+#: src/newaccountsettingsview.cpp:1968
 msgid "Connecting..."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1972
+#: src/newaccountsettingsview.cpp:1971
 msgid "Online"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1976
+#: src/newaccountsettingsview.cpp:1975
 msgid "Unknown status"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2006
 msgid "••••••••"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2006
 msgid "no password set"
 msgstr ""

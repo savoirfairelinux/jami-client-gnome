@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-23 03:09-0400\n"
-"PO-Revision-Date: 2018-07-23 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-07-30 03:09-0400\n"
+"PO-Revision-Date: 2018-07-30 07:09+0000\n"
+"Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -281,42 +281,46 @@ msgid "Enable notifications for incoming calls."
 msgstr "Aktivizo njoftimet për thirrje ardhëse."
 
 #: ui/generalsettingsview.ui:94
+msgid "Enable notifications for pending requests."
+msgstr ""
+
+#: ui/generalsettingsview.ui:102
 msgid "Enable notifications for new chat messages."
 msgstr "Aktivizo njoftimet për mesazhe të reja fjalosjesh."
 
-#: ui/generalsettingsview.ui:102
+#: ui/generalsettingsview.ui:110
 msgid "Show images and videos in chat window."
 msgstr "Shfaq te dritarja e fjalosjes figura dhe video."
 
-#: ui/generalsettingsview.ui:110
+#: ui/generalsettingsview.ui:118
 msgid "Entering a number in the search entry will place a new call."
 msgstr "Dhënia e një numri te fusha e kërkimeve do të kryejë një thirrje të re."
 
-#: ui/generalsettingsview.ui:123
+#: ui/generalsettingsview.ui:131
 msgid "Download folder:"
 msgstr "Dosje shkarkimesh:"
 
-#: ui/generalsettingsview.ui:150
+#: ui/generalsettingsview.ui:158
 msgid "Show chat on the right."
 msgstr "Shfaqe fjalosjen djathtas."
 
-#: ui/generalsettingsview.ui:156
+#: ui/generalsettingsview.ui:164
 msgid "Show chat on the bottom."
 msgstr "Shfaqe fjalosjen poshtë."
 
-#: ui/generalsettingsview.ui:180
+#: ui/generalsettingsview.ui:188
 msgid "History Settings"
 msgstr "Rregullime Historiku"
 
-#: ui/generalsettingsview.ui:198
+#: ui/generalsettingsview.ui:206
 msgid "Keep history for (days):"
 msgstr "Mbaje historikun për (ditë):"
 
-#: ui/generalsettingsview.ui:219
+#: ui/generalsettingsview.ui:227
 msgid "(set to 0 for unlimited history)"
 msgstr "(vëreni 0 për historik të pakufizuar)"
 
-#: ui/generalsettingsview.ui:229
+#: ui/generalsettingsview.ui:237
 msgid "Clear all history"
 msgstr "Pastro krejt historikun"
 
@@ -332,7 +336,7 @@ msgstr "Të përgjithshme"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1348
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1514
 msgid "Settings"
 msgstr "Rregullime"
 
@@ -435,7 +439,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Klikoni që të ndryshohet fjalëkalimi"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1996
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1995
 msgid "Export account"
 msgstr "Eksportoni llogari"
 
@@ -716,7 +720,7 @@ msgstr "Kthehu"
 msgid "Set selection as image"
 msgstr "Si figurë cakto përzgjedhjen"
 
-#: src/ring_client.cpp:146
+#: src/ring_client.cpp:143
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -724,34 +728,39 @@ msgid ""
 "Error: %s"
 msgstr "S’arrihet të gatitet.\nSigurohuni që demoni Ring (dring) është në punë e sipër.\nGabim: %s"
 
-#: src/ring_client.cpp:149
+#: src/ring_client.cpp:146
 msgid "Ring Error"
 msgstr "Gabim Ring"
 
-#: src/ring_client.cpp:292
+#: src/ring_client.cpp:289
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr "Shfaqe Ring-un"
 
-#: src/ring_client.cpp:296
+#: src/ring_client.cpp:293
 msgid "Quit"
 msgstr "Dilni"
 
-#: src/ringnotify.cpp:156
-msgid "Incoming call"
-msgstr "Thirrje ardhëse"
+#: src/ringnotify.cpp:347
+msgctxt ""
+msgid "Open conversation"
+msgstr ""
 
-#: src/ringnotify.cpp:173 src/ringnotify.cpp:351
-msgctxt "notification action name"
-msgid "Show"
-msgstr "Shfaqe"
+#: src/ringnotify.cpp:355 src/ringnotify.cpp:371
+msgctxt ""
+msgid "Accept"
+msgstr "Pranoje"
 
-#: src/ringnotify.cpp:275
-#, c-format
-msgctxt "Text message notification"
-msgid "%s says:"
-msgstr "%s thotë:"
+#: src/ringnotify.cpp:362
+msgctxt ""
+msgid "Refuse"
+msgstr "Hidhe tej"
+
+#: src/ringnotify.cpp:378
+msgctxt ""
+msgid "Decline"
+msgstr "Hidhe tej"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
@@ -777,23 +786,23 @@ msgstr "Po kryhet kërkimi…"
 msgid "Registration in progress..."
 msgstr "Regjistrim në kryerje e sipër…"
 
-#: src/generalsettingsview.cpp:106
+#: src/generalsettingsview.cpp:107
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Ky është veprim me pasoja shkatërruese. Jeni i sigurt se doni të fshihet krejt historiku juaj i fjalosjeve dhe thirrjeve?"
 
-#: src/generalsettingsview.cpp:176
+#: src/generalsettingsview.cpp:177
 msgid "Choose download folder"
 msgstr "Zgjidhni dosje shkarkimesh"
 
-#: src/generalsettingsview.cpp:179 src/accountgeneraltab.cpp:343
+#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
 #: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "_Anuloje"
 
-#: src/generalsettingsview.cpp:181 src/accountgeneraltab.cpp:345
+#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
 #: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "_Ruaje"
@@ -938,30 +947,50 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "Klienti Ring për GNOME.\nRing është software i lirë për komunikim universal që respekton privatësinë e përdoruesve të tij."
 
-#: src/ringmainwindow.cpp:166
+#: src/ringmainwindow.cpp:175
 msgid "Add account..."
 msgstr "Shtoni llogari…"
 
-#: src/ringmainwindow.cpp:626
+#: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "bëni një thirrje"
 
-#: src/ringmainwindow.cpp:629
+#: src/ringmainwindow.cpp:649
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "hape fjalosjen"
 
-#: src/ringmainwindow.cpp:918
+#: src/ringmainwindow.cpp:1069
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Përzgjidhni kontakte ose jepni një numër"
 
-#: src/ringmainwindow.cpp:1321
+#: src/ringmainwindow.cpp:1487
 msgid "Leave settings page"
 msgstr "Braktise faqen e rregullimeve"
+
+#: src/ringmainwindow.cpp:1834
+msgid " is calling you!"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1835
+msgid "Incoming call"
+msgstr "Thirrje ardhëse"
+
+#: src/ringmainwindow.cpp:1980
+msgid "New request from "
+msgstr ""
+
+#: src/ringmainwindow.cpp:1981
+msgid "Trust request"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2038
+msgid "New message"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1115,30 +1144,30 @@ msgstr "Dështim eksportimi llogarie."
 msgid "Unknown error"
 msgstr "Gabim i panjohur"
 
-#: src/newaccountsettingsview.cpp:1963
+#: src/newaccountsettingsview.cpp:1962
 msgid "Initializing..."
 msgstr "Po gatitet…"
 
-#: src/newaccountsettingsview.cpp:1966
+#: src/newaccountsettingsview.cpp:1965
 msgid "Offline"
 msgstr "Jo në linjë"
 
-#: src/newaccountsettingsview.cpp:1969
+#: src/newaccountsettingsview.cpp:1968
 msgid "Connecting..."
 msgstr "Po bëhet lidhja…"
 
-#: src/newaccountsettingsview.cpp:1972
+#: src/newaccountsettingsview.cpp:1971
 msgid "Online"
 msgstr "Në linjë"
 
-#: src/newaccountsettingsview.cpp:1976
+#: src/newaccountsettingsview.cpp:1975
 msgid "Unknown status"
 msgstr "Gjendje e panjohur"
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2006
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2006
 msgid "no password set"
 msgstr "s’ka fjalëkalim të caktuar"
