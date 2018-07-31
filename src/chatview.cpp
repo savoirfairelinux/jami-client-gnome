@@ -25,6 +25,7 @@
 
 // std
 #include <algorithm>
+#include <fstream>
 
 // GTK
 #include <glib/gi18n.h>
@@ -248,9 +249,13 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
                 // get full path
                 std::string filename = current_value.empty()? default_download_dir.c_str() : download_directory_value;
                 if (!filename.empty() && filename.back() != '/') filename += "/";
-                filename += info.displayName;
-
-                model->acceptTransfer(priv->conversation_->uid, interactionId, filename);
+                auto wantedFilename = filename + info.displayName;
+                auto duplicate = 0;
+                while (std::ifstream(wantedFilename).good()) {
+                    wantedFilename = filename + "(" + std::to_string(duplicate) + ")" + info.displayName;
+                    ++duplicate;
+                }
+                model->acceptTransfer(priv->conversation_->uid, interactionId, wantedFilename);
             } catch (...) {
                 // ignore
             }
