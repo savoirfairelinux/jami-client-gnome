@@ -241,8 +241,8 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                 std::time_t now = std::time(nullptr);
                 char interactionDay[100];
                 char nowDay[100];
-                std::strftime(interactionDay, sizeof(interactionDay), "%D", std::localtime(&lastInteractionTimestamp));
-                std::strftime(nowDay, sizeof(nowDay), "%D", std::localtime(&now));
+                std::strftime(interactionDay, sizeof(interactionDay), "%x", std::localtime(&lastInteractionTimestamp));
+                std::strftime(nowDay, sizeof(nowDay), "%x", std::localtime(&now));
 
                 if (std::string(interactionDay) == std::string(nowDay)) {
                     char interactionTime[100];
