@@ -393,7 +393,7 @@ void video_widget_on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
 
     /* only play the first selection */
     if (uris && *uris){
-        if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+        if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
             out_media->sourceModel()->setFile(QUrl(*uris));
     }
 
@@ -407,7 +407,7 @@ switch_video_input(GtkWidget *widget, Video::Device *device)
     g_return_if_fail(data);
     Call *call = (Call*)data;
 
-    if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+    if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
         out_media->sourceModel()->switchTo(device);
 }
 
@@ -440,7 +440,7 @@ switch_video_input_screen_area(G_GNUC_UNUSED GtkWidget *item, Call* call)
         height = gdk_screen_height();
     }
 
-    if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+    if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
         out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
 }
 
@@ -467,7 +467,7 @@ switch_video_input_monitor(G_GNUC_UNUSED GtkWidget *item, Call* call)
     width = gdk_screen_width();
     height = gdk_screen_height();
 
-    if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+    if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
         out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
 }
 
@@ -503,7 +503,7 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
 
         uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 
-        if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT))
+        if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
             out_media->sourceModel()->setFile(QUrl(uri));
     }
 
@@ -537,7 +537,7 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
             call = activeCall;
 
     if (call) {
-        if (auto out_media = call->firstMedia<Media::Video>(Media::Media::Direction::OUT)) {
+        if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT)) {
             sourcemodel = out_media->sourceModel();
             active = sourcemodel->activeIndex();
         }
