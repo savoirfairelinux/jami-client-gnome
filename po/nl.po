@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 03:09-0400\n"
+"POT-Creation-Date: 2018-08-06 03:09-0400\n"
 "PO-Revision-Date: 2018-07-30 07:09+0000\n"
 "Last-Translator: Niels van Duijkeren <nielsvanduijkeren@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/ring/language/nl/)\n"
@@ -1063,7 +1063,7 @@ msgstr "Herstelt de verborgen status van het hoofdscherm (alleen van toepassing 
 msgid "- GNOME client for Ring"
 msgstr "- GNOME-cliënt voor Ring"
 
-#: src/accountcreationwizard.cpp:355
+#: src/accountcreationwizard.cpp:354
 msgid "Passwords don't match"
 msgstr "Wachtwoorden komen niet overeen"
 
@@ -1101,7 +1101,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:956
+#: src/currentcallview.cpp:934
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"

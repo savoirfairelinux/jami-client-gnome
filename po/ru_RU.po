@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Still Swamp <still.swamp@gmail.com>, 2016
+# Vladimir Stoiakin, 2018
 # Pavel Klimenko <dzy4yzd@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 07:09+0000\n"
-"Last-Translator: Nerozya Igor <khaker666@gmail.com>\n"
+"POT-Creation-Date: 2018-08-06 03:09-0400\n"
+"PO-Revision-Date: 2018-08-03 17:44+0000\n"
+"Last-Translator: Vladimir Stoiakin\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/savoirfairelinux/ring/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +22,7 @@ msgstr ""
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr "_О продукте"
+msgstr "_О программе"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
@@ -77,7 +78,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:294
 msgid "Toggle hold"
-msgstr "Переключение удержания"
+msgstr ""
 
 #: ui/currentcallview.ui:298 ui/currentcallview.ui:323
 #: ui/currentcallview.ui:465
@@ -86,11 +87,11 @@ msgstr "Удержание"
 
 #: ui/currentcallview.ui:319
 msgid "Toggle mute audio"
-msgstr "Выключатель звука"
+msgstr ""
 
 #: ui/currentcallview.ui:344
 msgid "Toggle mute video"
-msgstr "Выключатель видео"
+msgstr ""
 
 #: ui/currentcallview.ui:348 ui/currentcallview.ui:456
 msgid "Mute video"
@@ -224,7 +225,7 @@ msgstr ""
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:670
 #: src/accountgeneraltab.cpp:697
 msgid "Username"
-msgstr "Пользователь"
+msgstr "Имя пользователя"
 
 #: ui/accountcreationwizard.ui:458
 msgid ""
@@ -234,11 +235,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:497 src/newaccountsettingsview.cpp:873
 msgid "Confirm password"
-msgstr "Подтвердите пароль"
+msgstr "Подтверждение пароля"
 
 #: ui/accountcreationwizard.ui:568
 msgid "Generating your Ring account..."
-msgstr "Создать вашу учетную запись Ring"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:594
 msgid "Registering username..."
@@ -303,19 +304,19 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:158
 msgid "Show chat on the right."
-msgstr "Чат справа."
+msgstr "Показывать чат справа."
 
 #: ui/generalsettingsview.ui:164
 msgid "Show chat on the bottom."
-msgstr "Чат внизу."
+msgstr "Показывать чат внизу."
 
 #: ui/generalsettingsview.ui:188
 msgid "History Settings"
-msgstr "История настроек"
+msgstr "Настройки истории"
 
 #: ui/generalsettingsview.ui:206
 msgid "Keep history for (days):"
-msgstr "Длительность хранения истории в днях:"
+msgstr ""
 
 #: ui/generalsettingsview.ui:227
 msgid "(set to 0 for unlimited history)"
@@ -343,7 +344,7 @@ msgstr "Настройки"
 
 #: ui/ringmainwindow.ui:265 ui/ringmainwindow.ui:272
 msgid "Conversations"
-msgstr "Беседы"
+msgstr "Разговоры"
 
 #: ui/ringmainwindow.ui:298 ui/ringmainwindow.ui:305
 msgid "Contact requests"
@@ -351,23 +352,23 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
-msgstr "Звуковые настройки"
+msgstr "Настройки звука"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
-msgstr "Управление звуком:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:52
 msgid "Ringtone device:"
-msgstr "Устройство рингтона:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
-msgstr "Устройство вывода:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:76
 msgid "Input device:"
-msgstr "Устройство ввода:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:134
 msgid "Camera Settings"
@@ -387,7 +388,7 @@ msgstr "Разрешение:"
 
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
-msgstr "Кадры:"
+msgstr "Частота кадров:"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
@@ -535,7 +536,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1655
 msgid "CA certificate"
-msgstr "CA сертификат"
+msgstr "Сертификат удостоверяющего центра"
 
 #: ui/newaccountsettingsview.ui:1691
 msgid "User certificate"
@@ -707,15 +708,15 @@ msgstr ""
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr "Фотографировать"
+msgstr ""
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr "Выбрать изображение из файлов"
+msgstr ""
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
-msgstr "Возврат"
+msgstr "Вернуться"
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
@@ -761,7 +762,7 @@ msgstr ""
 #: src/ringnotify.cpp:378
 msgctxt ""
 msgid "Decline"
-msgstr "Отказаться"
+msgstr "Отклонить"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
@@ -801,7 +802,7 @@ msgstr ""
 #: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
-msgstr "_Отменить"
+msgstr ""
 
 #: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
 #: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
@@ -810,7 +811,7 @@ msgstr ""
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
-msgstr "Неизвестно ЭЦП адресной книги"
+msgstr ""
 
 #: src/backends/edscontactbackend.cpp:213
 msgctxt "Backend type"
@@ -884,15 +885,15 @@ msgstr "Тип"
 
 #: src/accountgeneraltab.cpp:657
 msgid "auto-generating..."
-msgstr "Автогенерация..."
+msgstr "автогенерация..."
 
 #: src/accountgeneraltab.cpp:687
 msgid "Hostname"
-msgstr "Узел"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:720
 msgid "Show password"
-msgstr "Показать"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:736
 msgid "Voicemail number"
@@ -924,7 +925,7 @@ msgstr ""
 
 #: src/avatarmanipulation.cpp:403
 msgid "Open Avatar Image"
-msgstr "Открыть аватар"
+msgstr ""
 
 #: src/avatarmanipulation.cpp:408 src/chatview.cpp:179
 msgid "_Open"
@@ -932,7 +933,7 @@ msgstr "_Открыть"
 
 #: src/dialogs.c:53
 msgid "Working..."
-msgstr "Работаем..."
+msgstr ""
 
 #: src/dialogs.c:84
 #, c-format
@@ -1060,9 +1061,9 @@ msgstr ""
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Ring"
-msgstr " - GNOME клиент для Ring"
+msgstr " - клиент GNOME для Ring"
 
-#: src/accountcreationwizard.cpp:355
+#: src/accountcreationwizard.cpp:354
 msgid "Passwords don't match"
 msgstr ""
 
@@ -1100,7 +1101,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:956
+#: src/currentcallview.cpp:934
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Автоматически"

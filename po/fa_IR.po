@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 07:09+0000\n"
-"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
+"POT-Creation-Date: 2018-08-06 03:09-0400\n"
+"PO-Revision-Date: 2018-08-01 14:51+0000\n"
+"Last-Translator: Amir Taherizadeh\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/ring/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -346,7 +346,7 @@ msgstr "تنظیمات"
 
 #: ui/ringmainwindow.ui:265 ui/ringmainwindow.ui:272
 msgid "Conversations"
-msgstr ""
+msgstr " گفتگو"
 
 #: ui/ringmainwindow.ui:298 ui/ringmainwindow.ui:305
 msgid "Contact requests"
@@ -710,7 +710,7 @@ msgstr ""
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr ""
+msgstr "عکس  بگیرید!"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
@@ -1065,7 +1065,7 @@ msgstr ""
 msgid "- GNOME client for Ring"
 msgstr "- نرم‌افزار Ring تحت GNOME"
 
-#: src/accountcreationwizard.cpp:355
+#: src/accountcreationwizard.cpp:354
 msgid "Passwords don't match"
 msgstr "گذرواژه‌ها یکسان نیستند"
 
@@ -1103,7 +1103,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:956
+#: src/currentcallview.cpp:934
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr ""
@@ -1146,7 +1146,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:1717
 msgid "Unknown error"
-msgstr ""
+msgstr "خطای ناشناخته"
 
 #: src/newaccountsettingsview.cpp:1962
 msgid "Initializing..."

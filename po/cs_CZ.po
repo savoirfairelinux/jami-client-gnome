@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 03:09-0400\n"
+"POT-Creation-Date: 2018-08-06 03:09-0400\n"
 "PO-Revision-Date: 2018-07-30 07:09+0000\n"
 "Last-Translator: Stepan Salenikovich\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/savoirfairelinux/ring/language/cs_CZ/)\n"
@@ -1064,7 +1064,7 @@ msgstr "Obnoví skrytý stav hlavního okna (platí pouze pro primární instanc
 msgid "- GNOME client for Ring"
 msgstr "- Klient GNOME pro Ring"
 
-#: src/accountcreationwizard.cpp:355
+#: src/accountcreationwizard.cpp:354
 msgid "Passwords don't match"
 msgstr "Hesla se neshodují"
 
@@ -1102,7 +1102,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:956
+#: src/currentcallview.cpp:934
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automaticky"

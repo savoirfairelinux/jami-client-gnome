@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 07:09+0000\n"
-"Last-Translator: Hsiu-Ming Chang <cges30901@gmail.com>\n"
+"POT-Creation-Date: 2018-08-06 03:09-0400\n"
+"PO-Revision-Date: 2018-07-30 07:39+0000\n"
+"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -284,7 +284,7 @@ msgstr "啟用來電通知。"
 
 #: ui/generalsettingsview.ui:94
 msgid "Enable notifications for pending requests."
-msgstr ""
+msgstr "啟用擱置中請求的通知。"
 
 #: ui/generalsettingsview.ui:102
 msgid "Enable notifications for new chat messages."
@@ -747,7 +747,7 @@ msgstr "結束"
 #: src/ringnotify.cpp:347
 msgctxt ""
 msgid "Open conversation"
-msgstr ""
+msgstr "開啟對話"
 
 #: src/ringnotify.cpp:355 src/ringnotify.cpp:371
 msgctxt ""
@@ -976,7 +976,7 @@ msgstr "離開設定頁面"
 
 #: src/ringmainwindow.cpp:1834
 msgid " is calling you!"
-msgstr ""
+msgstr "正在與您通話！"
 
 #: src/ringmainwindow.cpp:1835
 msgid "Incoming call"
@@ -984,15 +984,15 @@ msgstr "來電"
 
 #: src/ringmainwindow.cpp:1980
 msgid "New request from "
-msgstr ""
+msgstr "新請求從"
 
 #: src/ringmainwindow.cpp:1981
 msgid "Trust request"
-msgstr ""
+msgstr "信任請求"
 
 #: src/ringmainwindow.cpp:2038
 msgid "New message"
-msgstr ""
+msgstr "新訊息"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1063,7 +1063,7 @@ msgstr "還原主視窗的隱藏狀態(只適用於主程序)"
 msgid "- GNOME client for Ring"
 msgstr "- Ring 的 GNOME 用戶端"
 
-#: src/accountcreationwizard.cpp:355
+#: src/accountcreationwizard.cpp:354
 msgid "Passwords don't match"
 msgstr "密碼不相符"
 
@@ -1101,7 +1101,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "警告！此動作將會在此裝置上移除此帳號！\n注意：此動作無法復原。同時，您已註冊的名稱也將會遺失！"
 
-#: src/currentcallview.cpp:956
+#: src/currentcallview.cpp:934
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自動"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 07:09+0000\n"
+"POT-Creation-Date: 2018-08-06 03:09-0400\n"
+"PO-Revision-Date: 2018-07-30 22:30+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -212,7 +212,7 @@ msgstr "Paskyra"
 
 #: ui/accountcreationwizard.ui:393
 msgid "Register username"
-msgstr ""
+msgstr "Registruoti naudotojo vardą"
 
 #: ui/accountcreationwizard.ui:394
 msgid ""
@@ -1063,7 +1063,7 @@ msgstr "Atkuria pagrindinio lango paslėptą būseną (pritaikoma tik pirminiam 
 msgid "- GNOME client for Ring"
 msgstr "- GNOME kliento programa, skirta Ring"
 
-#: src/accountcreationwizard.cpp:355
+#: src/accountcreationwizard.cpp:354
 msgid "Passwords don't match"
 msgstr "Slaptažodžiai nesutampa"
 
@@ -1101,7 +1101,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:956
+#: src/currentcallview.cpp:934
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automatinė"
@@ -1116,7 +1116,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:810
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "Naujas slaptažodis ir jo patvirtinimas nesutampa!"
 
 #: src/newaccountsettingsview.cpp:821
 msgid "Incorrect password!"
@@ -1152,7 +1152,7 @@ msgstr "Inicijuojama..."
 
 #: src/newaccountsettingsview.cpp:1965
 msgid "Offline"
-msgstr ""
+msgstr "Atsijungęs"
 
 #: src/newaccountsettingsview.cpp:1968
 msgid "Connecting..."
@@ -1160,7 +1160,7 @@ msgstr "Jungiamasi..."
 
 #: src/newaccountsettingsview.cpp:1971
 msgid "Online"
-msgstr ""
+msgstr "Prisijungęs"
 
 #: src/newaccountsettingsview.cpp:1975
 msgid "Unknown status"

@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 07:09+0000\n"
-"Last-Translator: Ecko <edric.milaret@gmail.com>\n"
+"POT-Creation-Date: 2018-08-06 03:09-0400\n"
+"PO-Revision-Date: 2018-07-30 19:38+0000\n"
+"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,7 +49,7 @@ msgstr "Migration de compte nécessaire"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr "Ce compte est inconsistant, veuillez entrer votre mot de passe."
+msgstr "Ce compte est inconsistant, veuillez entrer votre mot de passe"
 
 #: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:620
 msgid "Alias"
@@ -299,7 +299,7 @@ msgstr "Activer les notifications d'appel entrant"
 
 #: ui/generalsettingsview.ui:94
 msgid "Enable notifications for pending requests."
-msgstr ""
+msgstr "Activer les notifications pour les invitations"
 
 #: ui/generalsettingsview.ui:102
 msgid "Enable notifications for new chat messages."
@@ -762,7 +762,7 @@ msgstr "Quitter"
 #: src/ringnotify.cpp:347
 msgctxt ""
 msgid "Open conversation"
-msgstr ""
+msgstr "Ouvrir la conversation"
 
 #: src/ringnotify.cpp:355 src/ringnotify.cpp:371
 msgctxt ""
@@ -991,7 +991,7 @@ msgstr "Quitter la page des réglages"
 
 #: src/ringmainwindow.cpp:1834
 msgid " is calling you!"
-msgstr ""
+msgstr "vous appelle"
 
 #: src/ringmainwindow.cpp:1835
 msgid "Incoming call"
@@ -999,15 +999,15 @@ msgstr "Appel entrant"
 
 #: src/ringmainwindow.cpp:1980
 msgid "New request from "
-msgstr ""
+msgstr "Nouvelle demande de "
 
 #: src/ringmainwindow.cpp:1981
 msgid "Trust request"
-msgstr ""
+msgstr "Invitation"
 
 #: src/ringmainwindow.cpp:2038
 msgid "New message"
-msgstr ""
+msgstr "Nouveau message"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1078,7 +1078,7 @@ msgstr "Restaurer l’état caché de la fenêtre principale (applicable seuleme
 msgid "- GNOME client for Ring"
 msgstr "- Ring pour GNOME"
 
-#: src/accountcreationwizard.cpp:355
+#: src/accountcreationwizard.cpp:354
 msgid "Passwords don't match"
 msgstr "Les mots de passes ne correspondent pas"
 
@@ -1116,7 +1116,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Attention ! Cette opération supprimera votre compte de l'appareil.\nVous pourriez perdre définitivement le nom d'enregistrement !"
 
-#: src/currentcallview.cpp:956
+#: src/currentcallview.cpp:934
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
