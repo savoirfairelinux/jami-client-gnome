@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-06 03:09-0400\n"
+"POT-Creation-Date: 2018-08-13 03:09-0400\n"
 "PO-Revision-Date: 2018-07-30 09:28+0000\n"
 "Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/ring/language/sv/)\n"
@@ -42,7 +42,7 @@ msgstr "Alias"
 msgid "Ring ID"
 msgstr "Ring-ID"
 
-#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:457
+#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 #: src/accountgeneraltab.cpp:707
 msgid "Password"
@@ -131,44 +131,44 @@ msgstr "Överför"
 msgid "Transfer to"
 msgstr "Överför till"
 
-#: ui/accountcreationwizard.ui:34
+#: ui/accountcreationwizard.ui:30
 msgid "Welcome to"
 msgstr "Välkommen till"
 
-#: ui/accountcreationwizard.ui:68
+#: ui/accountcreationwizard.ui:64
 msgid "Create Ring Account"
 msgstr "Skapa Ring-konto"
 
-#: ui/accountcreationwizard.ui:69
+#: ui/accountcreationwizard.ui:65
 msgid "Create a new Ring account (for new users)"
 msgstr "Skapa ett nytt Ring-konto (för nya användare)"
 
-#: ui/accountcreationwizard.ui:76
+#: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
 msgstr "Koppla denna enhet till ett konto"
 
-#: ui/accountcreationwizard.ui:77
+#: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Ring account created on another device"
 msgstr "Koppla den här enheten till ett Ring-konto, skapat på en annan enhet"
 
-#: ui/accountcreationwizard.ui:84 ui/newaccountsettingsview.ui:183
+#: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:883
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ui/accountcreationwizard.ui:90
+#: ui/accountcreationwizard.ui:86
 msgid "Advanced..."
 msgstr "Avancerat..."
 
-#: ui/accountcreationwizard.ui:101
+#: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
 msgstr "Lägg till nytt SIP-konto"
 
-#: ui/accountcreationwizard.ui:123
+#: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
 msgstr "Koppla den här enheten till ett befintligt konto"
 
-#: ui/accountcreationwizard.ui:138
+#: ui/accountcreationwizard.ui:134
 msgid ""
 "To link this device to another account, you have two possibilities. You can "
 "import your account from the DHT, but first, you need to obtain a PIN code. "
@@ -179,83 +179,83 @@ msgid ""
 "from an archive."
 msgstr "För att länka denna enhet till ett annat konto, har du två alternativ. Du kan importera ditt konto från DHT, men måste först ha en PIN-kod. För att generera PIN-koden, går du till kontoinställningarna på en tidigare konfigurerad enhet, väljer det Ring-konto du vill använda och \"lägger till en enhet\". Där får du den nödvändiga PIN-koden för att avsluta detta formulär. PIN-koden är giltig i endast 10 minuter. Du kan också direktimportera ditt konto från en arkivfil."
 
-#: ui/accountcreationwizard.ui:164
+#: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
 msgstr "Ange din PIN-kod:"
 
-#: ui/accountcreationwizard.ui:192
+#: ui/accountcreationwizard.ui:190
 msgid "Or import a file:"
 msgstr "Eller importera en fil:"
 
-#: ui/accountcreationwizard.ui:211
+#: ui/accountcreationwizard.ui:209
 msgid "Enter your password:"
 msgstr "Ange ditt lösenord:"
 
-#: ui/accountcreationwizard.ui:235 ui/accountcreationwizard.ui:536
+#: ui/accountcreationwizard.ui:231 ui/accountcreationwizard.ui:534
 msgid "Previous"
 msgstr "Föregående"
 
-#: ui/accountcreationwizard.ui:243 ui/accountcreationwizard.ui:544
+#: ui/accountcreationwizard.ui:239 ui/accountcreationwizard.ui:542
 msgid "Next"
 msgstr "Nästa"
 
-#: ui/accountcreationwizard.ui:275 ui/newaccountsettingsview.ui:334
+#: ui/accountcreationwizard.ui:273 ui/newaccountsettingsview.ui:334
 msgid "Profile"
 msgstr "Profil"
 
-#: ui/accountcreationwizard.ui:356 ui/ringmainwindow.ui:109
+#: ui/accountcreationwizard.ui:354 ui/ringmainwindow.ui:109
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "Konto"
 
-#: ui/accountcreationwizard.ui:393
+#: ui/accountcreationwizard.ui:391
 msgid "Register username"
 msgstr "Registrera användarnamn"
 
-#: ui/accountcreationwizard.ui:394
+#: ui/accountcreationwizard.ui:392
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
 msgstr "Genom att aktivera detta, registrerar du ett unikt användarnamn på Ring-nätverket. Folk kan använda det för att kontakta dig, istället för att använda ditt Ring-ID, som är 40 tecken långt."
 
-#: ui/accountcreationwizard.ui:430 ui/newaccountsettingsview.ui:503
+#: ui/accountcreationwizard.ui:428 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:670
 #: src/accountgeneraltab.cpp:697
 msgid "Username"
 msgstr "Användarnamn"
 
-#: ui/accountcreationwizard.ui:458
+#: ui/accountcreationwizard.ui:456
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "Detta lösenord kommer att användas för att kryptera din kontodata och för att länka nya enheter till ditt konto."
 
-#: ui/accountcreationwizard.ui:497 src/newaccountsettingsview.cpp:873
+#: ui/accountcreationwizard.ui:495 src/newaccountsettingsview.cpp:873
 msgid "Confirm password"
 msgstr "Bekräfta lösenord"
 
-#: ui/accountcreationwizard.ui:568
+#: ui/accountcreationwizard.ui:566
 msgid "Generating your Ring account..."
 msgstr "Genererar ditt Ring-konto..."
 
-#: ui/accountcreationwizard.ui:594
+#: ui/accountcreationwizard.ui:592
 msgid "Registering username..."
 msgstr "Registrerar användarnamn..."
 
-#: ui/accountcreationwizard.ui:601
+#: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
 msgstr "Detta kan ta några få minuter."
 
-#: ui/accountcreationwizard.ui:627
+#: ui/accountcreationwizard.ui:625
 msgid "Retrieving your Ring account..."
 msgstr "Hämtar ditt Ring-konto..."
 
-#: ui/accountcreationwizard.ui:653
+#: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
 msgstr "Fel vid skapande/inläsning av konto."
 
-#: ui/accountcreationwizard.ui:658 ui/newaccountsettingsview.ui:266
+#: ui/accountcreationwizard.ui:656 ui/newaccountsettingsview.ui:266
 #: ui/newaccountsettingsview.ui:289
 msgid "OK"
 msgstr "OK"
@@ -797,13 +797,13 @@ msgid "Choose download folder"
 msgstr "Välj nerladdningsmapp"
 
 #: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
+#: src/avatarmanipulation.cpp:406 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "_Avbryt"
 
 #: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
+#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "_Spara"
 
@@ -834,7 +834,7 @@ msgstr "Kunde inte starta export till Ring, försök igen"
 msgid "Change password"
 msgstr "Byt lösenord"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:175
 #: src/newaccountsettingsview.cpp:923
 msgid "Save File"
 msgstr "Spara fil"
@@ -925,7 +925,7 @@ msgstr "Visa avancerad information"
 msgid "Open Avatar Image"
 msgstr "Öppna avatarbild"
 
-#: src/avatarmanipulation.cpp:408 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:408 src/chatview.cpp:180
 msgid "_Open"
 msgstr "_Öppna"
 
@@ -1089,7 +1089,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring-ID som QR-kod"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:175
 msgid "Send File"
 msgstr "Skicka fil"
 

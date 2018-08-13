@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-06 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 07:09+0000\n"
+"POT-Creation-Date: 2018-08-13 03:09-0400\n"
+"PO-Revision-Date: 2018-08-06 11:29+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "Alias"
 msgid "Ring ID"
 msgstr "ID Ring-u"
 
-#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:457
+#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 #: src/accountgeneraltab.cpp:707
 msgid "Password"
@@ -131,44 +131,44 @@ msgstr "Shpërngule"
 msgid "Transfer to"
 msgstr "Shpërngule te"
 
-#: ui/accountcreationwizard.ui:34
+#: ui/accountcreationwizard.ui:30
 msgid "Welcome to"
 msgstr "Mirë se vini te"
 
-#: ui/accountcreationwizard.ui:68
+#: ui/accountcreationwizard.ui:64
 msgid "Create Ring Account"
 msgstr "Krijoni Llogari Ring"
 
-#: ui/accountcreationwizard.ui:69
+#: ui/accountcreationwizard.ui:65
 msgid "Create a new Ring account (for new users)"
 msgstr "Krijoni një llogari të ri Ring (për përdorues të rinj)"
 
-#: ui/accountcreationwizard.ui:76
+#: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
 msgstr "Lidheni këtë pajisje me një llogari"
 
-#: ui/accountcreationwizard.ui:77
+#: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Ring account created on another device"
 msgstr "Lidheni këtë pajisje me një llogari Ring të krijuar te pajisja tjetër"
 
-#: ui/accountcreationwizard.ui:84 ui/newaccountsettingsview.ui:183
+#: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:883
 msgid "Cancel"
 msgstr "Anuloje"
 
-#: ui/accountcreationwizard.ui:90
+#: ui/accountcreationwizard.ui:86
 msgid "Advanced..."
 msgstr "Të mëtejshme…"
 
-#: ui/accountcreationwizard.ui:101
+#: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
 msgstr "Shtoni një llogari SIP të re"
 
-#: ui/accountcreationwizard.ui:123
+#: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
 msgstr "Lidheni këtë pajisje me një llogari ekzistuese"
 
-#: ui/accountcreationwizard.ui:138
+#: ui/accountcreationwizard.ui:134
 msgid ""
 "To link this device to another account, you have two possibilities. You can "
 "import your account from the DHT, but first, you need to obtain a PIN code. "
@@ -179,83 +179,83 @@ msgid ""
 "from an archive."
 msgstr "Për të lidhur këtë pajisje me një llogari tjetër, keni dy mundësi. Mund të importoni llogarinë tuaj nga DHT, por së pari, lypset të merrni një kod PIN. Që të prodhohet kodi PIN, kaloni te ndarja e administrimit të llogarive, te pajisja e mëparshme, zgjidhni Llogari Ring që duhet përdorur dhe përzgjidhni \"Lidhni me këtë llogari një pajisje tjetër\". Do të merrni PIN-in e nevojshëm për të plotësuar këtë formular. PIN-i vlen vetëm për 10 minuta. Ose mund të importoni drejtpërsëdrejti llogarinë tuaj nga një arkiv."
 
-#: ui/accountcreationwizard.ui:164
+#: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
 msgstr "Jepni PIN-in tuaj:"
 
-#: ui/accountcreationwizard.ui:192
+#: ui/accountcreationwizard.ui:190
 msgid "Or import a file:"
 msgstr "Ose importoni një kartelë:"
 
-#: ui/accountcreationwizard.ui:211
+#: ui/accountcreationwizard.ui:209
 msgid "Enter your password:"
 msgstr "Jepni fjalëkalimin tuaj:"
 
-#: ui/accountcreationwizard.ui:235 ui/accountcreationwizard.ui:536
+#: ui/accountcreationwizard.ui:231 ui/accountcreationwizard.ui:534
 msgid "Previous"
 msgstr "I mëparshmi"
 
-#: ui/accountcreationwizard.ui:243 ui/accountcreationwizard.ui:544
+#: ui/accountcreationwizard.ui:239 ui/accountcreationwizard.ui:542
 msgid "Next"
 msgstr "Pasuesi"
 
-#: ui/accountcreationwizard.ui:275 ui/newaccountsettingsview.ui:334
+#: ui/accountcreationwizard.ui:273 ui/newaccountsettingsview.ui:334
 msgid "Profile"
 msgstr "Profil"
 
-#: ui/accountcreationwizard.ui:356 ui/ringmainwindow.ui:109
+#: ui/accountcreationwizard.ui:354 ui/ringmainwindow.ui:109
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "Llogari"
 
-#: ui/accountcreationwizard.ui:393
+#: ui/accountcreationwizard.ui:391
 msgid "Register username"
 msgstr "Regjistroni emër përdoruesi"
 
-#: ui/accountcreationwizard.ui:394
+#: ui/accountcreationwizard.ui:392
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
 msgstr "Duke i vënë shenjë kësaj, do të regjistroni një emër përdoruesi unik në rrjetin Ring. Njerëzit mund ta përdorin për t’u lidhur me ju, në vend se të ID-së tuaj Ring, që është 40 shenja i gjatë."
 
-#: ui/accountcreationwizard.ui:430 ui/newaccountsettingsview.ui:503
+#: ui/accountcreationwizard.ui:428 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:670
 #: src/accountgeneraltab.cpp:697
 msgid "Username"
 msgstr "Emër përdoruesi"
 
-#: ui/accountcreationwizard.ui:458
+#: ui/accountcreationwizard.ui:456
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "Ky fjalëkalim do të përdoret për të fshehtëzuar të dhënat e llogarisë tuaj dhe për të lidhur pajisje të reja në të."
 
-#: ui/accountcreationwizard.ui:497 src/newaccountsettingsview.cpp:873
+#: ui/accountcreationwizard.ui:495 src/newaccountsettingsview.cpp:873
 msgid "Confirm password"
 msgstr "Ripohoni fjalëkalimin"
 
-#: ui/accountcreationwizard.ui:568
+#: ui/accountcreationwizard.ui:566
 msgid "Generating your Ring account..."
 msgstr "Po prodhohet llogaria juaj Ring…"
 
-#: ui/accountcreationwizard.ui:594
+#: ui/accountcreationwizard.ui:592
 msgid "Registering username..."
 msgstr "Po regjistrohet emri i përdoruesit…"
 
-#: ui/accountcreationwizard.ui:601
+#: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
 msgstr "Kjo mund të hajë pak minuta."
 
-#: ui/accountcreationwizard.ui:627
+#: ui/accountcreationwizard.ui:625
 msgid "Retrieving your Ring account..."
 msgstr "Po merret llogaria juaj Ring…"
 
-#: ui/accountcreationwizard.ui:653
+#: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
 msgstr "Gabim në krijim/ngarkim llogarie."
 
-#: ui/accountcreationwizard.ui:658 ui/newaccountsettingsview.ui:266
+#: ui/accountcreationwizard.ui:656 ui/newaccountsettingsview.ui:266
 #: ui/newaccountsettingsview.ui:289
 msgid "OK"
 msgstr "OK"
@@ -282,7 +282,7 @@ msgstr "Aktivizo njoftimet për thirrje ardhëse."
 
 #: ui/generalsettingsview.ui:94
 msgid "Enable notifications for pending requests."
-msgstr ""
+msgstr "Aktivizo njoftime për kërkesa pezull."
 
 #: ui/generalsettingsview.ui:102
 msgid "Enable notifications for new chat messages."
@@ -745,7 +745,7 @@ msgstr "Dilni"
 #: src/ringnotify.cpp:347
 msgctxt ""
 msgid "Open conversation"
-msgstr ""
+msgstr "Hap bisedë"
 
 #: src/ringnotify.cpp:355 src/ringnotify.cpp:371
 msgctxt ""
@@ -797,13 +797,13 @@ msgid "Choose download folder"
 msgstr "Zgjidhni dosje shkarkimesh"
 
 #: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
+#: src/avatarmanipulation.cpp:406 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "_Anuloje"
 
 #: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
+#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "_Ruaje"
 
@@ -834,7 +834,7 @@ msgstr "S’u fillua dot eksportimi te Ring, riprovoni"
 msgid "Change password"
 msgstr "Ndryshoni fjalëkalimin"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:175
 #: src/newaccountsettingsview.cpp:923
 msgid "Save File"
 msgstr "Ruaje Kartelën"
@@ -925,7 +925,7 @@ msgstr "Shfaq informacion të thelluar"
 msgid "Open Avatar Image"
 msgstr "Hap Figurë Avatari"
 
-#: src/avatarmanipulation.cpp:408 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:408 src/chatview.cpp:180
 msgid "_Open"
 msgstr "_Hape"
 
@@ -939,7 +939,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Live Free or Die\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Live Free or Die\"\nngritur mbi %.25s"
 
 #: src/dialogs.c:137
 msgid ""
@@ -982,7 +982,7 @@ msgstr "Thirrje ardhëse"
 
 #: src/ringmainwindow.cpp:1980
 msgid "New request from "
-msgstr ""
+msgstr "Kërkesë e re nga"
 
 #: src/ringmainwindow.cpp:1981
 msgid "Trust request"
@@ -990,7 +990,7 @@ msgstr ""
 
 #: src/ringmainwindow.cpp:2038
 msgid "New message"
-msgstr ""
+msgstr "Mesazh i ri"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1089,7 +1089,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Kod QR ID-je Ring-u"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:175
 msgid "Send File"
 msgstr "Dërgo Kartelë"
 

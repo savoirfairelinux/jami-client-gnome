@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-06 03:09-0400\n"
+"POT-Creation-Date: 2018-08-13 03:09-0400\n"
 "PO-Revision-Date: 2018-07-30 07:09+0000\n"
 "Last-Translator: Nathan Follens\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/savoirfairelinux/ring/language/nl_BE/)\n"
@@ -43,7 +43,7 @@ msgstr "Alias"
 msgid "Ring ID"
 msgstr ""
 
-#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:457
+#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 #: src/accountgeneraltab.cpp:707
 msgid "Password"
@@ -132,44 +132,44 @@ msgstr "Overdracht"
 msgid "Transfer to"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:34
+#: ui/accountcreationwizard.ui:30
 msgid "Welcome to"
 msgstr "Welkom bij"
 
-#: ui/accountcreationwizard.ui:68
+#: ui/accountcreationwizard.ui:64
 msgid "Create Ring Account"
 msgstr "Ring-account aanmaken"
 
-#: ui/accountcreationwizard.ui:69
+#: ui/accountcreationwizard.ui:65
 msgid "Create a new Ring account (for new users)"
 msgstr "Ne Ring-account aanmaken (voor nieuwe gebruikers)"
 
-#: ui/accountcreationwizard.ui:76
+#: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
 msgstr "Dit apparaat aan nen account koppelen"
 
-#: ui/accountcreationwizard.ui:77
+#: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Ring account created on another device"
 msgstr "Dit apparaat koppelen aan ne Ring-account aangemaakt op een ander apparaat"
 
-#: ui/accountcreationwizard.ui:84 ui/newaccountsettingsview.ui:183
+#: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:883
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: ui/accountcreationwizard.ui:90
+#: ui/accountcreationwizard.ui:86
 msgid "Advanced..."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:101
+#: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:123
+#: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
 msgstr "Dit apparaat aan nen bestaanden account koppelen"
 
-#: ui/accountcreationwizard.ui:138
+#: ui/accountcreationwizard.ui:134
 msgid ""
 "To link this device to another account, you have two possibilities. You can "
 "import your account from the DHT, but first, you need to obtain a PIN code. "
@@ -180,83 +180,83 @@ msgid ""
 "from an archive."
 msgstr "Voor dit apparaat aan nen anderen account te koppelen hebd ge twee mogelijkheden. Ge kund uwen account importeren uit den DHT, maar eerst moet g’een pincode verkrijgen. Ga’ voor de pincode te genereren naar d’accountbeheerinstellingen van een vorig apparaat, kiesd de Ring-account die ge wild gebruiken en selecteerd ‘Een ander apparaat aan dezen account koppelen’. Ge ga’ de pincode krijgen die ge nodig hebd voor dit proces te voltooien. De pincode is slechts 10 minuten geldig. Ge kund uwen account ook rechtstreeks uit een archiefbestand importeren."
 
-#: ui/accountcreationwizard.ui:164
+#: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
 msgstr "Voerd uw pincode in:"
 
-#: ui/accountcreationwizard.ui:192
+#: ui/accountcreationwizard.ui:190
 msgid "Or import a file:"
 msgstr "Of importeerd een bestand:"
 
-#: ui/accountcreationwizard.ui:211
+#: ui/accountcreationwizard.ui:209
 msgid "Enter your password:"
 msgstr "Voerd uw paswoord in:"
 
-#: ui/accountcreationwizard.ui:235 ui/accountcreationwizard.ui:536
+#: ui/accountcreationwizard.ui:231 ui/accountcreationwizard.ui:534
 msgid "Previous"
 msgstr "Vorige"
 
-#: ui/accountcreationwizard.ui:243 ui/accountcreationwizard.ui:544
+#: ui/accountcreationwizard.ui:239 ui/accountcreationwizard.ui:542
 msgid "Next"
 msgstr "Volgende"
 
-#: ui/accountcreationwizard.ui:275 ui/newaccountsettingsview.ui:334
+#: ui/accountcreationwizard.ui:273 ui/newaccountsettingsview.ui:334
 msgid "Profile"
 msgstr "Profiel"
 
-#: ui/accountcreationwizard.ui:356 ui/ringmainwindow.ui:109
+#: ui/accountcreationwizard.ui:354 ui/ringmainwindow.ui:109
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "Account"
 
-#: ui/accountcreationwizard.ui:393
+#: ui/accountcreationwizard.ui:391
 msgid "Register username"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:394
+#: ui/accountcreationwizard.ui:392
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
 msgstr "Als ge dit aanvinkt ga’ ge nen unieke gebruikersnaam op het Ring-netwerk registreren. Andere personen kunnen deze gebruikersnaam gebruiken voor u te bellen, ipv uwe 40 tekens lange Ring-ID."
 
-#: ui/accountcreationwizard.ui:430 ui/newaccountsettingsview.ui:503
+#: ui/accountcreationwizard.ui:428 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:670
 #: src/accountgeneraltab.cpp:697
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: ui/accountcreationwizard.ui:458
+#: ui/accountcreationwizard.ui:456
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "Dit paswoord word gebruikt voor uw accountgegevens te versleutelen en nieuwe apparaten aan uwen account te koppelen."
 
-#: ui/accountcreationwizard.ui:497 src/newaccountsettingsview.cpp:873
+#: ui/accountcreationwizard.ui:495 src/newaccountsettingsview.cpp:873
 msgid "Confirm password"
 msgstr "Bevestigd paswoord"
 
-#: ui/accountcreationwizard.ui:568
+#: ui/accountcreationwizard.ui:566
 msgid "Generating your Ring account..."
 msgstr "Uwe Ring-account word aangemaakt…"
 
-#: ui/accountcreationwizard.ui:594
+#: ui/accountcreationwizard.ui:592
 msgid "Registering username..."
 msgstr "Gebruikersnaam word geregistreerd…"
 
-#: ui/accountcreationwizard.ui:601
+#: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
 msgstr "Dit kan enkele minuten duren."
 
-#: ui/accountcreationwizard.ui:627
+#: ui/accountcreationwizard.ui:625
 msgid "Retrieving your Ring account..."
 msgstr "Uwe Ring-account word opg’haald…"
 
-#: ui/accountcreationwizard.ui:653
+#: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
 msgstr "Fout bij aanmaken/laden van account."
 
-#: ui/accountcreationwizard.ui:658 ui/newaccountsettingsview.ui:266
+#: ui/accountcreationwizard.ui:656 ui/newaccountsettingsview.ui:266
 #: ui/newaccountsettingsview.ui:289
 msgid "OK"
 msgstr "Oké"
@@ -798,13 +798,13 @@ msgid "Choose download folder"
 msgstr "Kiesd downloadmap"
 
 #: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
+#: src/avatarmanipulation.cpp:406 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "_Annuleren"
 
 #: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
+#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "Op_slaan"
 
@@ -835,7 +835,7 @@ msgstr "Kon export naar de Ring nie initialiseren, probeerd het opnieuw"
 msgid "Change password"
 msgstr "Paswoord wijzigen"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:175
 #: src/newaccountsettingsview.cpp:923
 msgid "Save File"
 msgstr "Bestand opslaan"
@@ -926,7 +926,7 @@ msgstr "Toond geavanceerde informatie"
 msgid "Open Avatar Image"
 msgstr "Avatarbestand openen"
 
-#: src/avatarmanipulation.cpp:408 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:408 src/chatview.cpp:180
 msgid "_Open"
 msgstr "_Openen"
 
@@ -1090,7 +1090,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring-ID-QR-code"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:175
 msgid "Send File"
 msgstr "Bestand versturen"
 

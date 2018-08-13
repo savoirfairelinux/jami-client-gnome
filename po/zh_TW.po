@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-06 03:09-0400\n"
+"POT-Creation-Date: 2018-08-13 03:09-0400\n"
 "PO-Revision-Date: 2018-07-30 07:39+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
@@ -44,7 +44,7 @@ msgstr "別名"
 msgid "Ring ID"
 msgstr "Ring ID"
 
-#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:457
+#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 #: src/accountgeneraltab.cpp:707
 msgid "Password"
@@ -133,44 +133,44 @@ msgstr "轉送"
 msgid "Transfer to"
 msgstr "轉移至"
 
-#: ui/accountcreationwizard.ui:34
+#: ui/accountcreationwizard.ui:30
 msgid "Welcome to"
 msgstr "歡迎來到"
 
-#: ui/accountcreationwizard.ui:68
+#: ui/accountcreationwizard.ui:64
 msgid "Create Ring Account"
 msgstr "建立 Ring 帳號"
 
-#: ui/accountcreationwizard.ui:69
+#: ui/accountcreationwizard.ui:65
 msgid "Create a new Ring account (for new users)"
 msgstr "建立一個新的 Ring 帳號（供新使用者使用）"
 
-#: ui/accountcreationwizard.ui:76
+#: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
 msgstr "連結這個裝置到一個帳號"
 
-#: ui/accountcreationwizard.ui:77
+#: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Ring account created on another device"
 msgstr "連結此裝置到一個在其他裝置上建立的 Ring 帳號"
 
-#: ui/accountcreationwizard.ui:84 ui/newaccountsettingsview.ui:183
+#: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:883
 msgid "Cancel"
 msgstr "取消"
 
-#: ui/accountcreationwizard.ui:90
+#: ui/accountcreationwizard.ui:86
 msgid "Advanced..."
 msgstr "進階……"
 
-#: ui/accountcreationwizard.ui:101
+#: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
 msgstr "新增新的 SIP 帳號"
 
-#: ui/accountcreationwizard.ui:123
+#: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
 msgstr "連結此裝置到既有的帳號"
 
-#: ui/accountcreationwizard.ui:138
+#: ui/accountcreationwizard.ui:134
 msgid ""
 "To link this device to another account, you have two possibilities. You can "
 "import your account from the DHT, but first, you need to obtain a PIN code. "
@@ -181,83 +181,83 @@ msgid ""
 "from an archive."
 msgstr "要連結此裝置到其他帳號，您有兩個選擇。您可以從 DHT 匯入您的帳號，但首先您需要取得 PIN 碼。要生成 PIN 碼，到先前裝置的帳號管理設定，選擇 Ring 帳號來使用並選取「連結其他裝置到這個帳號」。您將會得到需要 PIN 碼來完成這份表單。PIN 僅在 10 分鐘內有效。或是您也可以從封存檔直接匯入您的帳號。"
 
-#: ui/accountcreationwizard.ui:164
+#: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
 msgstr "輸入您的 PIN 碼："
 
-#: ui/accountcreationwizard.ui:192
+#: ui/accountcreationwizard.ui:190
 msgid "Or import a file:"
 msgstr "或是匯入檔案："
 
-#: ui/accountcreationwizard.ui:211
+#: ui/accountcreationwizard.ui:209
 msgid "Enter your password:"
 msgstr "輸入您的密碼："
 
-#: ui/accountcreationwizard.ui:235 ui/accountcreationwizard.ui:536
+#: ui/accountcreationwizard.ui:231 ui/accountcreationwizard.ui:534
 msgid "Previous"
 msgstr "前一個"
 
-#: ui/accountcreationwizard.ui:243 ui/accountcreationwizard.ui:544
+#: ui/accountcreationwizard.ui:239 ui/accountcreationwizard.ui:542
 msgid "Next"
 msgstr "下一個"
 
-#: ui/accountcreationwizard.ui:275 ui/newaccountsettingsview.ui:334
+#: ui/accountcreationwizard.ui:273 ui/newaccountsettingsview.ui:334
 msgid "Profile"
 msgstr "設定檔"
 
-#: ui/accountcreationwizard.ui:356 ui/ringmainwindow.ui:109
+#: ui/accountcreationwizard.ui:354 ui/ringmainwindow.ui:109
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "帳號"
 
-#: ui/accountcreationwizard.ui:393
+#: ui/accountcreationwizard.ui:391
 msgid "Register username"
 msgstr "註冊使用者名稱"
 
-#: ui/accountcreationwizard.ui:394
+#: ui/accountcreationwizard.ui:392
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
 msgstr "透過勾選這個，您將會在 Ring 網路上註冊一個獨一無二的使用者名稱。人們可以使用它來聯絡您，而不必使用長達 40 個字元的您的 RingID。"
 
-#: ui/accountcreationwizard.ui:430 ui/newaccountsettingsview.ui:503
+#: ui/accountcreationwizard.ui:428 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:670
 #: src/accountgeneraltab.cpp:697
 msgid "Username"
 msgstr "使用者名稱"
 
-#: ui/accountcreationwizard.ui:458
+#: ui/accountcreationwizard.ui:456
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "這個密碼將會用於加密您的帳號資料與連結新的裝置到您的帳號。"
 
-#: ui/accountcreationwizard.ui:497 src/newaccountsettingsview.cpp:873
+#: ui/accountcreationwizard.ui:495 src/newaccountsettingsview.cpp:873
 msgid "Confirm password"
 msgstr "確認密碼"
 
-#: ui/accountcreationwizard.ui:568
+#: ui/accountcreationwizard.ui:566
 msgid "Generating your Ring account..."
 msgstr "正在生成您的 Ring 帳號..."
 
-#: ui/accountcreationwizard.ui:594
+#: ui/accountcreationwizard.ui:592
 msgid "Registering username..."
 msgstr "正在註冊使用者名稱..."
 
-#: ui/accountcreationwizard.ui:601
+#: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
 msgstr "這將會耗費數分鐘。"
 
-#: ui/accountcreationwizard.ui:627
+#: ui/accountcreationwizard.ui:625
 msgid "Retrieving your Ring account..."
 msgstr "正在擷取您的 RIng 帳號..."
 
-#: ui/accountcreationwizard.ui:653
+#: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
 msgstr "建立／載入帳號時發生錯誤。"
 
-#: ui/accountcreationwizard.ui:658 ui/newaccountsettingsview.ui:266
+#: ui/accountcreationwizard.ui:656 ui/newaccountsettingsview.ui:266
 #: ui/newaccountsettingsview.ui:289
 msgid "OK"
 msgstr "確定"
@@ -799,13 +799,13 @@ msgid "Choose download folder"
 msgstr "選擇下載資料夾"
 
 #: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
+#: src/avatarmanipulation.cpp:406 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "取消(_C)"
 
 #: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
+#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "儲存(_S)"
 
@@ -836,7 +836,7 @@ msgstr "無法啟用輸出到 Ring，請重試。"
 msgid "Change password"
 msgstr "變更密碼"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:175
 #: src/newaccountsettingsview.cpp:923
 msgid "Save File"
 msgstr "儲存檔案"
@@ -927,7 +927,7 @@ msgstr "顯示進階資訊"
 msgid "Open Avatar Image"
 msgstr "開啟大頭貼圖片"
 
-#: src/avatarmanipulation.cpp:408 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:408 src/chatview.cpp:180
 msgid "_Open"
 msgstr "開啟(_O)"
 
@@ -1091,7 +1091,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring ID QR code"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:175
 msgid "Send File"
 msgstr "傳送檔案"
 

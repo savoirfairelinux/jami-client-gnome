@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Adrien Béraud <adrien.beraud@savoirfairelinux.com>, 2017
-# Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>, 2015,2017
+# Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>, 2015,2017-2018
 # Julie LeBrun <julie.lebrun@savoirfairelinux.com>, 2017
 # Julien Legault <julienlegault96@gmail.com>, 2017
 # Olivier Naud-Dulude <olivier.naud-dulude@hotmail.com>, 2017
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-06 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 07:09+0000\n"
-"Last-Translator: Laura Galita <laura.galita@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2018-08-13 03:09-0400\n"
+"PO-Revision-Date: 2018-08-07 02:15+0000\n"
+"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/savoirfairelinux/ring/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +46,7 @@ msgstr "Alias"
 msgid "Ring ID"
 msgstr ""
 
-#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:457
+#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 #: src/accountgeneraltab.cpp:707
 msgid "Password"
@@ -135,44 +135,44 @@ msgstr "Transfert"
 msgid "Transfer to"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:34
+#: ui/accountcreationwizard.ui:30
 msgid "Welcome to"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:68
+#: ui/accountcreationwizard.ui:64
 msgid "Create Ring Account"
 msgstr "Créer un compte Ring"
 
-#: ui/accountcreationwizard.ui:69
+#: ui/accountcreationwizard.ui:65
 msgid "Create a new Ring account (for new users)"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:76
+#: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
 msgstr "Lier cet appareil à un compte"
 
-#: ui/accountcreationwizard.ui:77
+#: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Ring account created on another device"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:84 ui/newaccountsettingsview.ui:183
+#: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:883
 msgid "Cancel"
 msgstr "Annuler"
 
-#: ui/accountcreationwizard.ui:90
+#: ui/accountcreationwizard.ui:86
 msgid "Advanced..."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:101
+#: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:123
+#: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
 msgstr "Associer cet appareil avec un compte existant"
 
-#: ui/accountcreationwizard.ui:138
+#: ui/accountcreationwizard.ui:134
 msgid ""
 "To link this device to another account, you have two possibilities. You can "
 "import your account from the DHT, but first, you need to obtain a PIN code. "
@@ -183,83 +183,83 @@ msgid ""
 "from an archive."
 msgstr "Pour associer cet appareil à un compte Ring déjà existant sur un autre appareil, vous avez deux possibilités:\nVous pouvez importer votre compte via le réseau Ring. Pour cela vous devez obtenir un NIP du premier appareil. Aller dans la gestion du compte du premier appareil et choisissez \"Associer un autre appareil à ce compte\". Vous obtiendrez alors un NIP qui sera valide 10 minutes sur le réseau.\nVous pouvez également importer votre compte en important une archive de compte Ring."
 
-#: ui/accountcreationwizard.ui:164
+#: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
-msgstr "Entrer votre NIP:"
+msgstr "Entrer votre NIP :"
 
-#: ui/accountcreationwizard.ui:192
+#: ui/accountcreationwizard.ui:190
 msgid "Or import a file:"
 msgstr "Ou importer une archive de compte Ring :"
 
-#: ui/accountcreationwizard.ui:211
+#: ui/accountcreationwizard.ui:209
 msgid "Enter your password:"
-msgstr "Entrer votre mot de passe:"
+msgstr "Entrer votre mot de passe :"
 
-#: ui/accountcreationwizard.ui:235 ui/accountcreationwizard.ui:536
+#: ui/accountcreationwizard.ui:231 ui/accountcreationwizard.ui:534
 msgid "Previous"
 msgstr "Précédent"
 
-#: ui/accountcreationwizard.ui:243 ui/accountcreationwizard.ui:544
+#: ui/accountcreationwizard.ui:239 ui/accountcreationwizard.ui:542
 msgid "Next"
 msgstr "Suivant"
 
-#: ui/accountcreationwizard.ui:275 ui/newaccountsettingsview.ui:334
+#: ui/accountcreationwizard.ui:273 ui/newaccountsettingsview.ui:334
 msgid "Profile"
 msgstr "Profil"
 
-#: ui/accountcreationwizard.ui:356 ui/ringmainwindow.ui:109
+#: ui/accountcreationwizard.ui:354 ui/ringmainwindow.ui:109
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "Compte"
 
-#: ui/accountcreationwizard.ui:393
+#: ui/accountcreationwizard.ui:391
 msgid "Register username"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:394
+#: ui/accountcreationwizard.ui:392
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:430 ui/newaccountsettingsview.ui:503
+#: ui/accountcreationwizard.ui:428 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:670
 #: src/accountgeneraltab.cpp:697
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: ui/accountcreationwizard.ui:458
+#: ui/accountcreationwizard.ui:456
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:497 src/newaccountsettingsview.cpp:873
+#: ui/accountcreationwizard.ui:495 src/newaccountsettingsview.cpp:873
 msgid "Confirm password"
-msgstr "confirmer le mot de passe"
+msgstr "Confirmer le mot de passe"
 
-#: ui/accountcreationwizard.ui:568
+#: ui/accountcreationwizard.ui:566
 msgid "Generating your Ring account..."
-msgstr "Génération de votre compte Ring ..."
+msgstr "Création de votre compte Ring ..."
 
-#: ui/accountcreationwizard.ui:594
+#: ui/accountcreationwizard.ui:592
 msgid "Registering username..."
 msgstr "Enregistrement du nom d'utilisateur ..."
 
-#: ui/accountcreationwizard.ui:601
+#: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
 msgstr "Cette opération peut prendre plusieurs minutes."
 
-#: ui/accountcreationwizard.ui:627
+#: ui/accountcreationwizard.ui:625
 msgid "Retrieving your Ring account..."
 msgstr "Je retrouve votre compte Ring ..."
 
-#: ui/accountcreationwizard.ui:653
+#: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:658 ui/newaccountsettingsview.ui:266
+#: ui/accountcreationwizard.ui:656 ui/newaccountsettingsview.ui:266
 #: ui/newaccountsettingsview.ui:289
 msgid "OK"
 msgstr "OK"
@@ -362,7 +362,7 @@ msgstr "Gestionnaire audio"
 
 #: ui/mediasettingsview.ui:52
 msgid "Ringtone device:"
-msgstr "Sonnerie de l'appareil:"
+msgstr "Sonnerie de l'appareil :"
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
@@ -390,7 +390,7 @@ msgstr "Résolution:"
 
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
-msgstr "Images par seconde:"
+msgstr "Images par seconde :"
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
@@ -433,7 +433,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
-msgstr "Votre nip généré"
+msgstr "Votre NIP généré :"
 
 #: ui/newaccountsettingsview.ui:460
 msgid "ID"
@@ -801,13 +801,13 @@ msgid "Choose download folder"
 msgstr ""
 
 #: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
-#: src/avatarmanipulation.cpp:406 src/chatview.cpp:177
+#: src/avatarmanipulation.cpp:406 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "_Annuler"
 
 #: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
-#: src/chatview.cpp:179 src/newaccountsettingsview.cpp:928
+#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr ""
 
@@ -838,7 +838,7 @@ msgstr "Ne peut pas initier l'exportation sur le Ring"
 msgid "Change password"
 msgstr "Changer mot de passe"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:174
+#: src/accountgeneraltab.cpp:340 src/chatview.cpp:175
 #: src/newaccountsettingsview.cpp:923
 msgid "Save File"
 msgstr "Enregistrer le fichier"
@@ -929,7 +929,7 @@ msgstr "Afficher l'information avancée "
 msgid "Open Avatar Image"
 msgstr "Ouvrir l'image de l'avatar"
 
-#: src/avatarmanipulation.cpp:408 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:408 src/chatview.cpp:180
 msgid "_Open"
 msgstr "_Ouvrir"
 
@@ -1073,7 +1073,7 @@ msgstr "Les mots de passes en sont pas identiques"
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr "Ceci est votre nom d'utilisateur Ring.\nCopiez-le et partagez-le avec vos amis!"
+msgstr "Ceci est votre nom d'utilisateur Ring.\nCopiez-le et partagez-le avec vos amis !"
 
 #: src/ringwelcomeview.cpp:93
 msgctxt "Do not translate \"RingID\""
@@ -1093,7 +1093,7 @@ msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Code QR de votre identifiant Ring"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:175
 msgid "Send File"
 msgstr ""
 
