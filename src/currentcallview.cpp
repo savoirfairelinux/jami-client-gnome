@@ -941,6 +941,9 @@ CppImpl::insertControls()
         g_signal_connect(scale, "button-release-event", G_CALLBACK(on_quality_button_released), self);
     }
 
+    g_signal_connect(widgets->video_widget, "drag-data-received",
+                     G_CALLBACK(video_widget_on_drag_data_received), nullptr);
+
     auto videoCodecs = (*accountInfo)->codecModel->getVideoCodecs();
     if (!videoCodecs.empty()) {
         bool autoQualityEnabled = videoCodecs.front().auto_quality_enabled;
