@@ -386,12 +386,22 @@ void video_widget_on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
                                                       GtkSelectionData *selection_data,
                                         G_GNUC_UNUSED guint info,
                                         G_GNUC_UNUSED guint32 time,
-                                                      Call *call)
+                                        G_GNUC_UNUSED gpointer data)
 {
-    g_return_if_fail(call);
+    auto* priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    g_return_if_fail(priv);
     gchar **uris = gtk_selection_data_get_uris(selection_data);
 
-    /* only play the first selection */
+    Call *call = nullptr;
+    for (const auto& activeCall: CallModel::instance().getActiveCalls()) {
+        if (activeCall->videoRenderer() == priv->remote->renderer) {
+            call = activeCall;
+            break;
+        }
+    }
+
+    if (!call) return;
+
     if (uris && *uris){
         if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
             out_media->sourceModel()->setFile(QUrl(*uris));

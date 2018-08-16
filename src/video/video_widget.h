@@ -54,7 +54,7 @@ void            video_widget_on_drag_data_received (GtkWidget *self,
                                                     GtkSelectionData *selection_data,
                                                     guint info,
                                                     guint32 time,
-                                                    Call* call);
+                                                    gpointer data);
 gboolean        video_widget_on_button_press_in_screen_event (VideoWidget *self,
                                                               GdkEventButton *event,
                                                               Call* call);
