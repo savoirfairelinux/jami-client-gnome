@@ -329,6 +329,7 @@ public:
     QMetaObject::Connection newConversationConnection_;
     QMetaObject::Connection conversationRemovedConnection_;
     QMetaObject::Connection accountStatusChangedConnection_;
+    QMetaObject::Connection profileUpdatedConnection_;
 
 private:
     CppImpl() = delete;
@@ -944,6 +945,14 @@ CppImpl::init()
     accountStatusChangedConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                                        &lrc::api::NewAccountModel::accountStatusChanged,
                                                        [this](const std::string& id){ slotAccountStatusChanged(id); });
+    profileUpdatedConnection_ = QObject::connect(&lrc_->getAccountModel(),
+                                                 &lrc::api::NewAccountModel::profileUpdated,
+                                                 [this](const std::string& id){
+                                                     auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
+                                                     if (currentIdx == -1)
+                                                         currentIdx = 0; // If no account selected, select the first account
+                                                    refreshAccountSelectorWidget(currentIdx, id);
+                                                 });
     newAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                              &lrc::api::NewAccountModel::accountAdded,
                                              [this](const std::string& id){ slotAccountAddedFromLrc(id); });
@@ -1156,6 +1165,7 @@ CppImpl::~CppImpl()
     QObject::disconnect(slotNewInteraction_);
     QObject::disconnect(slotReadInteraction_);
     QObject::disconnect(accountStatusChangedConnection_);
+    QObject::disconnect(profileUpdatedConnection_);
 
     g_clear_object(&widgets->welcome_view);
     g_clear_object(&widgets->webkit_chat_container);
