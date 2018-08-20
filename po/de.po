@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-13 03:09-0400\n"
+"POT-Creation-Date: 2018-08-20 03:09-0400\n"
 "PO-Revision-Date: 2018-07-30 07:09+0000\n"
 "Last-Translator: Stefan Langenmaier <stefan.langenmaier@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/ring/language/de/)\n"
@@ -919,19 +919,19 @@ msgstr ""
 msgid "Error: unknown device!"
 msgstr ""
 
-#: src/video/video_widget.cpp:566
+#: src/video/video_widget.cpp:576
 msgid "Share _screen area"
 msgstr ""
 
-#: src/video/video_widget.cpp:577
+#: src/video/video_widget.cpp:587
 msgid "Share _monitor"
 msgstr ""
 
-#: src/video/video_widget.cpp:588
+#: src/video/video_widget.cpp:598
 msgid "Stream _file"
 msgstr ""
 
-#: src/video/video_widget.cpp:601
+#: src/video/video_widget.cpp:611
 msgid "Show advanced information"
 msgstr "Erweiterte Informationen anzeigen"
 

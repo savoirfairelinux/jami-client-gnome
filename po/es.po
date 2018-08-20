@@ -6,7 +6,7 @@
 # advocatux, 2018
 # alexlikerock <alexlikerock@gmail.com>, 2017
 # Blanca Iris Almagro, 2016
-# Blanca Iris Almagro, 2016
+# Blanca Iris Almagro, 2016,2018
 # Brian Peraza-Orozco <brian.peraza@gmail.com>, 2016
 # David <stakewinner00@mykolab.com>, 2015
 # Emiliano Ariel Vazquez <emilianovazquez@gmail.com>, 2015
@@ -35,8 +35,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-13 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 07:09+0000\n"
+"POT-Creation-Date: 2018-08-20 03:09-0400\n"
+"PO-Revision-Date: 2018-08-19 21:52+0000\n"
 "Last-Translator: Blanca Iris Almagro\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +59,7 @@ msgstr "Se necesita la migración de la cuenta"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "Esta cuenta tiene un formato incorrecto, introduzca su contraseña"
 
 #: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:620
 msgid "Alias"
@@ -99,7 +99,7 @@ msgstr "Finalizar llamada"
 
 #: ui/currentcallview.ui:275
 msgid "Toggle transfer"
-msgstr ""
+msgstr "Alternar transferencia"
 
 #: ui/currentcallview.ui:294
 msgid "Toggle hold"
@@ -124,7 +124,7 @@ msgstr "Silenciar vídeo"
 
 #: ui/currentcallview.ui:369
 msgid "Toggle recording"
-msgstr ""
+msgstr "Alternar grabación"
 
 #: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 msgid "Record"
@@ -189,7 +189,7 @@ msgstr "Avanzado..."
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
-msgstr ""
+msgstr "Añada una nueva cuenta SIP"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
@@ -309,7 +309,7 @@ msgstr "Habilitar notificación de llamada entrante."
 
 #: ui/generalsettingsview.ui:94
 msgid "Enable notifications for pending requests."
-msgstr ""
+msgstr "Habilite las notificaciones sobre peticiones pendientes."
 
 #: ui/generalsettingsview.ui:102
 msgid "Enable notifications for new chat messages."
@@ -549,7 +549,7 @@ msgstr "Flujo de medio cifrado (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1549
 msgid "Enable SDES for key exchange protocol"
-msgstr ""
+msgstr "Habilite SDES para el protocolo de intercambio de claves"
 
 #: ui/newaccountsettingsview.ui:1585
 msgid "Fallback on RTP on encryption failure"
@@ -609,7 +609,7 @@ msgstr "Conectividad"
 
 #: ui/newaccountsettingsview.ui:2065
 msgid "Registration expire timeout (seconds)"
-msgstr ""
+msgstr "Tiempo de expiración del registro (segundos)"
 
 #: ui/newaccountsettingsview.ui:2102
 msgid "Network interface"
@@ -772,7 +772,7 @@ msgstr "Salir"
 #: src/ringnotify.cpp:347
 msgctxt ""
 msgid "Open conversation"
-msgstr ""
+msgstr "Conversación abierta"
 
 #: src/ringnotify.cpp:355 src/ringnotify.cpp:371
 msgctxt ""
@@ -791,7 +791,7 @@ msgstr "Rechazar"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
-msgstr ""
+msgstr "Registre el nombre de usuario en el servidor de nombres"
 
 #: src/usernameregistrationbox.cpp:173
 msgid "Username already taken"
@@ -803,11 +803,11 @@ msgstr "Nombre de usuario no válido"
 
 #: src/usernameregistrationbox.cpp:194
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "Búsqueda no disponible, compruebe su conexión a la red"
 
 #: src/usernameregistrationbox.cpp:274
 msgid "Performing lookup..."
-msgstr ""
+msgstr "Buscando..."
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress..."
@@ -932,19 +932,19 @@ msgstr "Error: ¡Contraseña incorrecta!"
 msgid "Error: unknown device!"
 msgstr "Error: ¡dispositivo desconocido!"
 
-#: src/video/video_widget.cpp:566
+#: src/video/video_widget.cpp:576
 msgid "Share _screen area"
 msgstr "Compartir el área de _pantalla"
 
-#: src/video/video_widget.cpp:577
+#: src/video/video_widget.cpp:587
 msgid "Share _monitor"
 msgstr "Compartir el _monitor"
 
-#: src/video/video_widget.cpp:588
+#: src/video/video_widget.cpp:598
 msgid "Stream _file"
 msgstr "_Archivo de transmisión"
 
-#: src/video/video_widget.cpp:601
+#: src/video/video_widget.cpp:611
 msgid "Show advanced information"
 msgstr "Mostrar información avanzada"
 
@@ -966,7 +966,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Live Free or Die\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Live Free or Die\"\nintegrado en %.25s"
 
 #: src/dialogs.c:137
 msgid ""
@@ -997,11 +997,11 @@ msgstr "Buscar contacto o introducir número"
 
 #: src/ringmainwindow.cpp:1487
 msgid "Leave settings page"
-msgstr ""
+msgstr "Abandonar la página de configuración"
 
 #: src/ringmainwindow.cpp:1834
 msgid " is calling you!"
-msgstr ""
+msgstr "te está llamando."
 
 #: src/ringmainwindow.cpp:1835
 msgid "Incoming call"
@@ -1009,15 +1009,15 @@ msgstr "Llamada entrante"
 
 #: src/ringmainwindow.cpp:1980
 msgid "New request from "
-msgstr ""
+msgstr "Nueva petición de"
 
 #: src/ringmainwindow.cpp:1981
 msgid "Trust request"
-msgstr ""
+msgstr "Solicitud de confianza"
 
 #: src/ringmainwindow.cpp:2038
 msgid "New message"
-msgstr ""
+msgstr "Nuevo mensaje"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1124,7 +1124,7 @@ msgstr "Enviar archivo"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
+msgstr "Esta acción eliminará esta cuenta de este dispositivo.\nNota: Este acción no puede deshacerse. Se perderá el nombre registrado."
 
 #: src/currentcallview.cpp:934
 msgctxt "Enable automatic video quality"
@@ -1165,7 +1165,7 @@ msgstr "¡Cuenta exportada!"
 
 #: src/newaccountsettingsview.cpp:947
 msgid "Export account failure."
-msgstr ""
+msgstr "Fallo al exportar la cuenta."
 
 #: src/newaccountsettingsview.cpp:1717
 msgid "Unknown error"

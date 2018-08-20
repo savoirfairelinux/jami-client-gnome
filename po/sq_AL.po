@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-13 03:09-0400\n"
+"POT-Creation-Date: 2018-08-20 03:09-0400\n"
 "PO-Revision-Date: 2018-08-06 11:29+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
@@ -905,19 +905,19 @@ msgstr "Gabim: fjalëkalim i gabuar!"
 msgid "Error: unknown device!"
 msgstr "Gabim: pajisje e panjohur!"
 
-#: src/video/video_widget.cpp:566
+#: src/video/video_widget.cpp:576
 msgid "Share _screen area"
 msgstr "Ndani me të tjerë zonë _ekrani"
 
-#: src/video/video_widget.cpp:577
+#: src/video/video_widget.cpp:587
 msgid "Share _monitor"
 msgstr "Ndani me të tjerë _monitor"
 
-#: src/video/video_widget.cpp:588
+#: src/video/video_widget.cpp:598
 msgid "Stream _file"
 msgstr "_Kartelë rrjedhe"
 
-#: src/video/video_widget.cpp:601
+#: src/video/video_widget.cpp:611
 msgid "Show advanced information"
 msgstr "Shfaq informacion të thelluar"
 

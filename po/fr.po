@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-13 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 19:38+0000\n"
+"POT-Creation-Date: 2018-08-20 03:09-0400\n"
+"PO-Revision-Date: 2018-08-18 19:16+0000\n"
 "Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -430,7 +430,7 @@ msgstr "Pour ajouter un nouvel appareil à votre compte Ring, vous devez exporte
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
-msgstr "Mot de passe (requis) :"
+msgstr "Mot de passe :"
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
@@ -922,19 +922,19 @@ msgstr "Erreur :  mot de passe incorrect"
 msgid "Error: unknown device!"
 msgstr "Erreur : appareil inconnu"
 
-#: src/video/video_widget.cpp:566
+#: src/video/video_widget.cpp:576
 msgid "Share _screen area"
 msgstr "Partager une partie de votre écran"
 
-#: src/video/video_widget.cpp:577
+#: src/video/video_widget.cpp:587
 msgid "Share _monitor"
 msgstr "Partager votre écran"
 
-#: src/video/video_widget.cpp:588
+#: src/video/video_widget.cpp:598
 msgid "Stream _file"
 msgstr "Diffuser un fichier"
 
-#: src/video/video_widget.cpp:601
+#: src/video/video_widget.cpp:611
 msgid "Show advanced information"
 msgstr "Afficher les informations avancées"
 

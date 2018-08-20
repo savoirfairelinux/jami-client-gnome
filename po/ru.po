@@ -6,6 +6,7 @@
 # Андрей Шевчук <andrei@shvchk.com>, 2016
 # Andrey, 2017
 # Anton Samarchyan <desecho@gmail.com>, 2016
+# Dmitri Kazankov <kazankov_dv@outlook.com>, 2018
 # Konstantin, 2016
 # Marat Gubaidullin <marat.gubaidullin@savoirfairelinux.com>, 2015
 # Natalia <sonaux@gmail.com>, 2015
@@ -22,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-13 03:09-0400\n"
-"PO-Revision-Date: 2018-08-09 16:01+0000\n"
-"Last-Translator: Vladimir Stoiakin\n"
+"POT-Creation-Date: 2018-08-20 03:09-0400\n"
+"PO-Revision-Date: 2018-08-18 20:41+0000\n"
+"Last-Translator: Dmitri Kazankov <kazankov_dv@outlook.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -86,7 +87,7 @@ msgstr "Завершить вызов"
 
 #: ui/currentcallview.ui:275
 msgid "Toggle transfer"
-msgstr ""
+msgstr "Переключить перенаправление"
 
 #: ui/currentcallview.ui:294
 msgid "Toggle hold"
@@ -95,7 +96,7 @@ msgstr "Поставить/снять с удержания"
 #: ui/currentcallview.ui:298 ui/currentcallview.ui:323
 #: ui/currentcallview.ui:465
 msgid "Hold"
-msgstr ""
+msgstr "Удерживать"
 
 #: ui/currentcallview.ui:319
 msgid "Toggle mute audio"
@@ -143,7 +144,7 @@ msgstr "Перевод"
 
 #: ui/currentcallview.ui:524
 msgid "Transfer to"
-msgstr ""
+msgstr "Перенаправить на"
 
 #: ui/accountcreationwizard.ui:30
 msgid "Welcome to"
@@ -296,7 +297,7 @@ msgstr "Включить уведомления о входящих звонка
 
 #: ui/generalsettingsview.ui:94
 msgid "Enable notifications for pending requests."
-msgstr ""
+msgstr "Разрешить уведомления для ожидающих запросов."
 
 #: ui/generalsettingsview.ui:102
 msgid "Enable notifications for new chat messages."
@@ -568,7 +569,7 @@ msgstr "Метод протокола TLS"
 
 #: ui/newaccountsettingsview.ui:1837
 msgid "Outgoing TLS server name"
-msgstr ""
+msgstr "Имя исходящего сервера TLS"
 
 #: ui/newaccountsettingsview.ui:1872
 msgid "Negotiation timeout (seconds)"
@@ -759,7 +760,7 @@ msgstr "Выход"
 #: src/ringnotify.cpp:347
 msgctxt ""
 msgid "Open conversation"
-msgstr ""
+msgstr "Открыть беседу"
 
 #: src/ringnotify.cpp:355 src/ringnotify.cpp:371
 msgctxt ""
@@ -919,19 +920,19 @@ msgstr "Ошибка: неверный пароль!"
 msgid "Error: unknown device!"
 msgstr "Ошибка: неизвестное устройство!"
 
-#: src/video/video_widget.cpp:566
+#: src/video/video_widget.cpp:576
 msgid "Share _screen area"
 msgstr "Показать _область экрана"
 
-#: src/video/video_widget.cpp:577
+#: src/video/video_widget.cpp:587
 msgid "Share _monitor"
 msgstr "Показать _экран"
 
-#: src/video/video_widget.cpp:588
+#: src/video/video_widget.cpp:598
 msgid "Stream _file"
 msgstr "Транслировать _файл"
 
-#: src/video/video_widget.cpp:601
+#: src/video/video_widget.cpp:611
 msgid "Show advanced information"
 msgstr "Показать дополнительную информацию"
 
@@ -996,11 +997,11 @@ msgstr "Входящий звонок"
 
 #: src/ringmainwindow.cpp:1980
 msgid "New request from "
-msgstr ""
+msgstr "Новый запрос от"
 
 #: src/ringmainwindow.cpp:1981
 msgid "Trust request"
-msgstr ""
+msgstr "Доверять запросу"
 
 #: src/ringmainwindow.cpp:2038
 msgid "New message"
