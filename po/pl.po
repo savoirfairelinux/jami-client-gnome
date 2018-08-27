@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 03:09-0400\n"
-"PO-Revision-Date: 2018-08-19 23:22+0000\n"
+"POT-Creation-Date: 2018-08-27 03:09-0400\n"
+"PO-Revision-Date: 2018-08-20 12:22+0000\n"
 "Last-Translator: Adam Smith <grzybowawspulnota@cock.li>\n"
 "Language-Team: Polish (http://www.transifex.com/savoirfairelinux/ring/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -495,7 +495,7 @@ msgstr "Zezwól na połączenia od nieznanych użytkowników"
 
 #: ui/newaccountsettingsview.ui:1219
 msgid "Auto answer calls"
-msgstr ""
+msgstr "Automatycznie odbieraj połączenia"
 
 #: ui/newaccountsettingsview.ui:1255
 msgid "Custom ringtone"
@@ -727,7 +727,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Ring daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Nie udało się uruchomić.\nUpewnij się że daemon Ring (dring) jest uruchomiony.\nBłąd: %s"
 
 #: src/ring_client.cpp:146
 msgid "Ring Error"
@@ -777,11 +777,11 @@ msgstr "Nieprawidłowa nazwa użytkownika"
 
 #: src/usernameregistrationbox.cpp:194
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "Wyszukiwanie niedostępne, sprawdź swoje połączenie sieciowe"
 
 #: src/usernameregistrationbox.cpp:274
 msgid "Performing lookup..."
-msgstr ""
+msgstr "Wyszukiwanie..."
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress..."
@@ -827,7 +827,7 @@ msgstr "Błąd sieci, spróbuj ponownie"
 
 #: src/accountgeneraltab.cpp:258 src/newaccountsettingsview.cpp:1729
 msgid "Could not initiate export to the Ring, try again"
-msgstr ""
+msgstr "Nie udało się wyeksportować, spróbuj później"
 
 #: src/accountgeneraltab.cpp:326 src/accountgeneraltab.cpp:529
 #: src/newaccountsettingsview.cpp:797 src/newaccountsettingsview.cpp:820
@@ -842,21 +842,21 @@ msgstr "Zapisz plik"
 
 #: src/accountgeneraltab.cpp:365
 msgid "File exported to destination: "
-msgstr ""
+msgstr "Plik został wyeksportowany do: "
 
 #: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:620
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Uwaga! Ta operacja usunie to urządzenie!\nNie można tego cofnąć."
 
 #: src/accountgeneraltab.cpp:479 src/newaccountsettingsview.cpp:621
 msgid "Enter password to revoke device"
-msgstr ""
+msgstr "Wprowadź hasło, aby usunąć urządzenie"
 
 #: src/accountgeneraltab.cpp:517
 msgid "New password and its confirmation are different"
-msgstr ""
+msgstr "Nowe hasło i jego potwierdzenie się różnią"
 
 #: src/accountgeneraltab.cpp:527
 msgid "Password changed!"
@@ -876,7 +876,7 @@ msgstr "Odwołaj urządzenie"
 
 #: src/accountgeneraltab.cpp:582 src/newaccountsettingsview.cpp:701
 msgid "Error when revoking device"
-msgstr ""
+msgstr "Błąd podczas usuwania urządzenia"
 
 #: src/accountgeneraltab.cpp:631
 msgid "Type"
@@ -900,31 +900,31 @@ msgstr "Numer poczty głosowej"
 
 #: src/accountgeneraltab.cpp:800 src/newaccountsettingsview.cpp:1788
 msgid "Error: wrong password!"
-msgstr ""
+msgstr "Błąd: złe hasło!"
 
 #: src/accountgeneraltab.cpp:803 src/newaccountsettingsview.cpp:1791
 msgid "Error: unknown device!"
-msgstr ""
+msgstr "Błąd: nieznane urządzenie!"
 
 #: src/video/video_widget.cpp:576
 msgid "Share _screen area"
-msgstr ""
+msgstr "Udostępnij _obszar ekranu"
 
 #: src/video/video_widget.cpp:587
 msgid "Share _monitor"
-msgstr ""
+msgstr "Udostępnij _ekran"
 
 #: src/video/video_widget.cpp:598
 msgid "Stream _file"
-msgstr ""
+msgstr "Prześlij _plik"
 
 #: src/video/video_widget.cpp:611
 msgid "Show advanced information"
-msgstr ""
+msgstr "Pokaż zaawansowane informacje"
 
 #: src/avatarmanipulation.cpp:403
 msgid "Open Avatar Image"
-msgstr ""
+msgstr "Otwórz obraz awatara"
 
 #: src/avatarmanipulation.cpp:408 src/chatview.cpp:180
 msgid "_Open"
@@ -950,17 +950,17 @@ msgstr "Ring jest wolnym oprogramowaniem do uniwersalnej komunikacji, respektuj�
 
 #: src/ringmainwindow.cpp:175
 msgid "Add account..."
-msgstr ""
+msgstr "Dodaj konto..."
 
 #: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr ""
+msgstr "Zadzwoń"
 
 #: src/ringmainwindow.cpp:649
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr ""
+msgstr "Otwórz chat"
 
 #: src/ringmainwindow.cpp:1069
 msgctxt ""
@@ -971,11 +971,11 @@ msgstr "Szukaj kontakty lub wpisz numer"
 
 #: src/ringmainwindow.cpp:1487
 msgid "Leave settings page"
-msgstr ""
+msgstr "Opuść stronę ustawień"
 
 #: src/ringmainwindow.cpp:1834
 msgid " is calling you!"
-msgstr ""
+msgstr "dzwoni do Ciebie!"
 
 #: src/ringmainwindow.cpp:1835
 msgid "Incoming call"
@@ -983,15 +983,15 @@ msgstr "Połączenie przychodzące"
 
 #: src/ringmainwindow.cpp:1980
 msgid "New request from "
-msgstr ""
+msgstr "Nowe zaproszenie od"
 
 #: src/ringmainwindow.cpp:1981
 msgid "Trust request"
-msgstr ""
+msgstr "Rządanie zaufania"
 
 #: src/ringmainwindow.cpp:2038
 msgid "New message"
-msgstr ""
+msgstr "Nowa wiadomość"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1000,49 +1000,49 @@ msgstr "Błąd Ring"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr ""
+msgstr "Próba połączenia z daemonem Ring (dring)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Ring daemon (dring).\n"
 "Ring will now quit."
-msgstr ""
+msgstr "Nie udało się ponownie połączyć z daemonem Ring (dring).\nRing się teraz wyłączy."
 
 #: src/conversationpopupmenu.cpp:214
 msgid "Place _video call"
-msgstr ""
+msgstr "Rozmowa _wideo"
 
 #: src/conversationpopupmenu.cpp:217
 msgid "Place _audio call"
-msgstr ""
+msgstr "Rozmowa _głosowa"
 
 #: src/conversationpopupmenu.cpp:225
 msgid "_Add to conversations"
-msgstr ""
+msgstr "_Dodaj do kontaktów"
 
 #: src/conversationpopupmenu.cpp:229
 msgid "_Discard invitation"
-msgstr ""
+msgstr "_Odrzuć zaproszenie"
 
 #: src/conversationpopupmenu.cpp:232
 msgid "_Block invitations"
-msgstr ""
+msgstr "_Blokuj zaproszenia"
 
 #: src/conversationpopupmenu.cpp:237
 msgid "C_lear history"
-msgstr ""
+msgstr "_Wyczyść historię"
 
 #: src/conversationpopupmenu.cpp:240
 msgid "_Remove conversation"
-msgstr ""
+msgstr "_Usuń rozmowę"
 
 #: src/conversationpopupmenu.cpp:245
 msgid "_Block contact"
-msgstr ""
+msgstr "_Zablokuj kontakt"
 
 #: src/conversationpopupmenu.cpp:249
 msgid "_Unblock contact"
-msgstr ""
+msgstr "_Odblokuj kontakt"
 
 #: src/conversationpopupmenu.cpp:255
 msgid "_Copy name"
@@ -1064,13 +1064,13 @@ msgstr "- Klient GNOME dla Ring"
 
 #: src/accountcreationwizard.cpp:354
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Hasła nie pasują"
 
 #: src/ringwelcomeview.cpp:85
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "To jest twoja nazwa użytkownika Ring.\nSkopiuj i podziel się nią z przyjaciółmi!"
 
 #: src/ringwelcomeview.cpp:93
 msgctxt "Do not translate \"RingID\""
@@ -1088,17 +1088,17 @@ msgstr "Ring jest wolnym oprogramowaniem do uniwersalnej komunikacji, respektuj�
 #: src/ringwelcomeview.cpp:202
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
-msgstr ""
+msgstr "Kod QR Ring ID"
 
 #: src/chatview.cpp:175
 msgid "Send File"
-msgstr ""
+msgstr "Wyślij plik"
 
 #: src/accountmigrationview.cpp:175 src/newaccountsettingsview.cpp:962
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
+msgstr "Uwaga! Ta operacja usunie to urządzenie!\nNie można tego cofnąć. Jeżeli usuwasz swoje jedyne urządzenie, możesz utracić zarejestrowaną nazwę!"
 
 #: src/currentcallview.cpp:934
 msgctxt "Enable automatic video quality"
@@ -1107,27 +1107,27 @@ msgstr "Automatycznie"
 
 #: src/newaccountsettingsview.cpp:679
 msgid "Edit name"
-msgstr ""
+msgstr "Edytuj nazwę"
 
 #: src/newaccountsettingsview.cpp:774
 msgid "Unban"
-msgstr ""
+msgstr "Odblokuj"
 
 #: src/newaccountsettingsview.cpp:810
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "Nowe hasło i jego potwierdzenie się różnią!"
 
 #: src/newaccountsettingsview.cpp:821
 msgid "Incorrect password!"
-msgstr ""
+msgstr "Niepoprawne hasło!"
 
 #: src/newaccountsettingsview.cpp:858
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "Uwaga: to zmieni hasło tylko na tym urządzeniu."
 
 #: src/newaccountsettingsview.cpp:861
 msgid "Current password"
-msgstr ""
+msgstr "Bieżące hasło"
 
 #: src/newaccountsettingsview.cpp:867
 msgid "New password"
@@ -1135,11 +1135,11 @@ msgstr "Nowe hasło"
 
 #: src/newaccountsettingsview.cpp:947
 msgid "Account exported!"
-msgstr ""
+msgstr "Konto wyeksportowane!"
 
 #: src/newaccountsettingsview.cpp:947
 msgid "Export account failure."
-msgstr ""
+msgstr "Błąd podczas eksportowania"
 
 #: src/newaccountsettingsview.cpp:1717
 msgid "Unknown error"
@@ -1147,7 +1147,7 @@ msgstr "Nieoczekiwany błąd"
 
 #: src/newaccountsettingsview.cpp:1962
 msgid "Initializing..."
-msgstr ""
+msgstr "Inicjalizacja..."
 
 #: src/newaccountsettingsview.cpp:1965
 msgid "Offline"
@@ -1155,7 +1155,7 @@ msgstr "Offline"
 
 #: src/newaccountsettingsview.cpp:1968
 msgid "Connecting..."
-msgstr ""
+msgstr "Łączenie..."
 
 #: src/newaccountsettingsview.cpp:1971
 msgid "Online"
@@ -1163,12 +1163,12 @@ msgstr "Online"
 
 #: src/newaccountsettingsview.cpp:1975
 msgid "Unknown status"
-msgstr ""
+msgstr "Nieznany status"
 
 #: src/newaccountsettingsview.cpp:2006
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2006
 msgid "no password set"
-msgstr ""
+msgstr "nie ustawiono hasła"
