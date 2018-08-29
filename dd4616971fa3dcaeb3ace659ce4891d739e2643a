@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e959bd49_d70e63fa",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-08-29T21:19:14Z",
+      "side": 1,
+      "message": "This piece of code deserves its own slotProfileUpdated method IMO. A lambda makes it somewhat unreadable :/",
+      "range": {
+        "startLine": 950,
+        "startChar": 49,
+        "endLine": 955,
+        "endChar": 50
+      },
+      "revId": "dd4616971fa3dcaeb3ace659ce4891d739e2643a",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
