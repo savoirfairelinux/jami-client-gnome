@@ -351,6 +351,9 @@ ring_client_activate(GApplication *app)
         // activate being called for the first time
         priv->win = ring_main_window_new(GTK_APPLICATION(app));
 
+        // set main window title
+        gtk_window_set_title(GTK_WINDOW(priv->win), "Ring");
+
         /* make sure win is set to NULL when the window is destroyed */
         g_object_add_weak_pointer(G_OBJECT(priv->win), (gpointer *)&priv->win);
 
