@@ -654,7 +654,7 @@ build_tab_view(AccountGeneralTab *view)
         gtk_grid_attach(GTK_GRID(priv->grid_account), label, 0, grid_row, 1, 1);
         entry_username = gtk_entry_new();
         gtk_widget_set_halign(entry_username, GTK_ALIGN_START);
-        gtk_entry_set_placeholder_text(GTK_ENTRY(entry_username), _("auto-generating..."));
+        gtk_entry_set_placeholder_text(GTK_ENTRY(entry_username), _("auto-generating…"));
         gtk_entry_set_text(GTK_ENTRY(entry_username), priv->account->username().toLocal8Bit().constData());
         g_object_set(G_OBJECT(entry_username), "editable", FALSE, NULL);
         g_object_set(G_OBJECT(entry_username), "max-width-chars", 50, NULL);

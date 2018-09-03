@@ -172,7 +172,7 @@ print_account_and_state(GtkCellLayout* cell_layout,
     if (g_strcmp0("", id) == 0) {
         text = g_markup_printf_escaped(
             "<span font=\"10\">%s</span>",
-            _("Add account...")
+            _("Add account…")
         );
     } else if (g_strcmp0("", registeredName) == 0) {
         if (g_strcmp0(uri, alias) == 0) {

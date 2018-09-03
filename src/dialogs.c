@@ -50,7 +50,7 @@ ring_dialog_working(GtkWidget *parent, const gchar *msg)
     if (msg) {
         message = gtk_label_new(msg);
     } else {
-        message = gtk_label_new(_("Working..."));
+        message = gtk_label_new(_("Working…"));
     }
 
     gtk_box_pack_start(GTK_BOX(content_area), message, FALSE, TRUE, 0);

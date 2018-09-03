@@ -271,7 +271,7 @@ entry_username_changed(UsernameRegistrationBox *view)
 
     if (priv->use_blockchain) {
 
-        show_error(view, false, _("Performing lookup..."));
+        show_error(view, false, _("Performing lookup…"));
         if (strlen(username) == 0) {
             gtk_widget_hide(priv->spinner);
             gtk_spinner_stop(GTK_SPINNER(priv->spinner));
@@ -341,7 +341,7 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
                 gtk_widget_set_sensitive(priv->entry_username, TRUE);
 
                 gtk_widget_set_sensitive(priv->button_register_username, TRUE);
-                show_error(view, false, _("Registration in progress..."));
+                show_error(view, false, _("Registration in progress…"));
             }
             break;
         }

@@ -1959,13 +1959,13 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
     switch ((*priv->accountInfo_)->status)
     {
     case lrc::api::account::Status::INITIALIZING:
-        gtk_label_set_text(GTK_LABEL(label_status), _("Initializing..."));
+        gtk_label_set_text(GTK_LABEL(label_status), _("Initializing…"));
         break;
     case lrc::api::account::Status::UNREGISTERED:
         gtk_label_set_text(GTK_LABEL(label_status), _("Offline"));
         break;
     case lrc::api::account::Status::TRYING:
-        gtk_label_set_text(GTK_LABEL(label_status), _("Connecting..."));
+        gtk_label_set_text(GTK_LABEL(label_status), _("Connecting…"));
         break;
     case lrc::api::account::Status::REGISTERED:
         gtk_label_set_text(GTK_LABEL(label_status), _("Online"));
