@@ -54,7 +54,7 @@ dring_crash_dialog()
     gtk_widget_set_margin_top(content_area, 25);
 
     auto message = gtk_label_new(
-        _("Trying to reconnect to the Ring daemon (dring)...")
+        _("Trying to reconnect to the Ring daemon (dring)…")
     );
 
     gtk_box_pack_start(GTK_BOX(content_area), message, FALSE, TRUE, 0);

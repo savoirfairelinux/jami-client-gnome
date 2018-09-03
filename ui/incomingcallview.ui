@@ -96,7 +96,7 @@
                       <object class="GtkLabel" id="label_status">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Incoming...</property>
+                        <property name="label" translatable="yes">Incoming…</property>
                         <property name="ellipsize">end</property>
                         <style>
                           <class name="dim-label"/>
