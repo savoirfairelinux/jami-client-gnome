@@ -3,6 +3,7 @@
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
  *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
+ *  Author: Hugo Lefeuvre <hugo.lefeuvre@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,8 +22,15 @@
 
 #include "incomingcallview.h"
 
-// Gtk
+/* std */
+#include <stdexcept>
+
+// GTK+ related
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
+#include <glib/gstdio.h>
+
+// Qt
 #include <QSize>
 
 // Lrc
@@ -61,6 +69,7 @@ struct _IncomingCallViewPrivate
     GtkWidget *button_accept_incoming;
     GtkWidget *button_reject_incoming;
     GtkWidget *frame_chat;
+    GtkWidget *messaging_widget;
 
     // The webkit_chat_container is created once, then reused for all chat views
     GtkWidget *webkit_chat_container;
@@ -101,6 +110,7 @@ incoming_call_view_dispose(GObject *object)
 static gboolean
 map_boolean_to_orientation(GValue *value, GVariant *variant, G_GNUC_UNUSED gpointer user_data)
 {
+    bool ret = FALSE
     if (g_variant_is_of_type(variant, G_VARIANT_TYPE_BOOLEAN)) {
         if (g_variant_get_boolean(variant)) {
             // true, chat should be horizontal (to the right)
@@ -109,9 +119,9 @@ map_boolean_to_orientation(GValue *value, GVariant *variant, G_GNUC_UNUSED gpoin
             // false, chat should be vertical (at the bottom)
             g_value_set_enum(value, GTK_ORIENTATION_VERTICAL);
         }
-        return TRUE;
+        ret = TRUE;
     }
-    return FALSE;
+    return ret;
 }
 
 static void
@@ -125,8 +135,9 @@ static void
 accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
 {
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
-    auto contactUri = priv->conversation_->participants[0];
+
     try {
+        auto contactUri = priv->conversation_->participants.at(0);
         auto contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         // If the contact is pending, we should accept its request
         if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
@@ -136,6 +147,14 @@ accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
     }
+}
+
+static void
+on_leave_action(IncomingCallView *view)
+{
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    (*priv->accountInfo_)->conversationModel->selectConversation(priv->conversation_->uid);
 }
 
 static void
@@ -152,6 +171,7 @@ incoming_call_view_init(IncomingCallView *view)
         .green-button:hover { background: #219d55; }",
         -1, nullptr
     );
+
     gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
                                               GTK_STYLE_PROVIDER(provider),
                                               GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -168,6 +188,7 @@ incoming_call_view_init(IncomingCallView *view)
 
     g_signal_connect(priv->button_reject_incoming, "clicked", G_CALLBACK(reject_incoming_call), view);
     g_signal_connect(priv->button_accept_incoming, "clicked", G_CALLBACK(accept_incoming_call), view);
+    g_signal_connect_swapped(priv->messaging_widget, "leave-action", G_CALLBACK(on_leave_action), view);
 }
 
 static void
@@ -184,8 +205,8 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_bestId);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, spinner_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_status);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_reject_incoming);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, frame_chat);
 }
 
@@ -207,9 +228,6 @@ update_state(IncomingCallView *view)
         gtk_widget_show(priv->button_accept_incoming);
     else
         gtk_widget_hide(priv->button_accept_incoming);
-    gtk_widget_show(priv->button_reject_incoming);
-
-    gtk_widget_show(priv->spinner_status);
 }
 
 static void
@@ -292,4 +310,18 @@ incoming_call_view_get_conversation(IncomingCallView *self)
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
 
     return *priv->conversation_;
+}
+
+void
+incoming_call_view_let_a_message(IncomingCallView* view, const std::string& id, lrc::api::conversation::Info conv)
+{
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    g_return_if_fail(priv->conversation_->uid == conv.uid);
+
+    gtk_widget_hide(priv->spinner_status);
+    gtk_widget_hide(priv->label_status);
+    gtk_widget_hide(priv->button_accept_incoming);
+    gtk_widget_hide(priv->button_reject_incoming);
+    gtk_widget_show(priv->messaging_widget);
 }
