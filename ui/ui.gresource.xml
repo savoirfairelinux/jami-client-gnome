@@ -11,6 +11,7 @@
     <file preprocess="xml-stripblanks">mediasettingsview.ui</file>
     <file preprocess="xml-stripblanks">generalsettingsview.ui</file>
     <file preprocess="xml-stripblanks">chatview.ui</file>
+    <file preprocess="xml-stripblanks">messagingwidget.ui</file>
     <file preprocess="xml-stripblanks">avatarmanipulation.ui</file>
     <file preprocess="xml-stripblanks">webkitchatcontainer.ui</file>
     <file preprocess="xml-stripblanks">usernameregistrationbox.ui</file>
