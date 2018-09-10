@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.10"/>
+  <template class="MessagingWidget" parent="GtkVBox">
+    <child>
+      <object class="GtkLabel" id="label_letmessage">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="box-timer">
+        <property name="visible">False</property>
+        <property name="halign">center</property>
+        <property name="margin-top">15px</property>
+        <property name="margin-bottom">5px</property>
+        <style>
+          <class name="timer-box"/>
+        </style>
+        <child>
+          <object class="GtkBox" id="box_red_dot">
+            <property name="visible">False</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="resource">/cx/ring/RingGnome/record</property>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="image_record-atkobject">
+                    <property name="AtkObject::accessible-description" translatable="yes">Record</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="label">REC</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_duration">
+            <style>
+              <class name="time-label"/>
+            </style>
+            <property name="visible">False</property>
+            <property name="label">00:00</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="hbox_action_bar">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">20</property>
+        <property name="border_width">20</property>
+        <property name="valign">center</property>
+        <property name="halign">center</property>
+        <child>
+          <object class="GtkButton" id="button_record_audio">
+            <style>
+              <class name="grey-button"/>
+              <class name="flat-button"/>
+            </style>
+            <property name="width-request">48</property>
+            <property name="height-request">48</property>
+            <property name="visible">False</property>
+            <property name="can_focus">True</property>
+            <property name="has_tooltip">True</property>
+            <property name="tooltip-text" translatable="yes">Record audio message</property>
+            <property name="image">image_record_audio</property>
+            <property name="action-name">app.record-audio</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="button_end_without_message">
+            <style>
+              <class name="grey-button"/>
+              <class name="flat-button"/>
+            </style>
+            <property name="width-request">48</property>
+            <property name="height-request">48</property>
+            <property name="visible">False</property>
+            <property name="can_focus">True</property>
+            <property name="has_tooltip">True</property>
+            <property name="tooltip-text" translatable="yes">End without message</property>
+            <property name="image">image_end_without_message</property>
+            <property name="action-name">app.end-without-message</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+  <object class="GtkImage" id="image_record_audio">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/record_audio</property>
+  </object>
+  <object class="GtkImage" id="image_stop">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/stop</property>
+  </object>
+  <object class="GtkImage" id="image_end_without_message">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/quit</property>
+  </object>
+  <object class="GtkImage" id="image_send">
+    <property name="visible">True</property>
+    <property name="resource">/cx/ring/RingGnome/send</property>
+  </object>
+</interface>
