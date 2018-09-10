@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-03 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 07:09+0000\n"
-"Last-Translator: Emin Tufan <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2018-09-10 03:09-0400\n"
+"PO-Revision-Date: 2018-09-10 07:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/ring/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -161,7 +161,7 @@ msgid "Cancel"
 msgstr "İptal"
 
 #: ui/accountcreationwizard.ui:86
-msgid "Advanced..."
+msgid "Advanced…"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:97
@@ -240,20 +240,20 @@ msgid "Confirm password"
 msgstr "Parolayı onayla"
 
 #: ui/accountcreationwizard.ui:566
-msgid "Generating your Ring account..."
-msgstr "Ring hesabınız oluşturuluyor..."
+msgid "Generating your Ring account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:592
-msgid "Registering username..."
-msgstr "Kullanıcı adı kaydediliyor..."
+msgid "Registering username…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
 msgstr "Bu bir kaç dakika sürebilir."
 
 #: ui/accountcreationwizard.ui:625
-msgid "Retrieving your Ring account..."
-msgstr "Ring hesabınız alınıyor..."
+msgid "Retrieving your Ring account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
@@ -428,8 +428,8 @@ msgid "Export on the Ring"
 msgstr "Ring'de Dışa Aktar"
 
 #: ui/newaccountsettingsview.ui:210
-msgid "Exporting account on the Ring..."
-msgstr "Ring'de hesap dışa aktarılıyor..."
+msgid "Exporting account on the Ring…"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -697,8 +697,8 @@ msgid "Send Invitation"
 msgstr "Davetiye Gönder"
 
 #: ui/incomingcallview.ui:99
-msgid "Incoming..."
-msgstr "Gelen..."
+msgid "Incoming…"
+msgstr ""
 
 #: ui/incomingcallview.ui:135
 msgid "Accept"
@@ -783,11 +783,11 @@ msgid "Lookup unavailable, check your network connection"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:274
-msgid "Performing lookup..."
+msgid "Performing lookup…"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
-msgid "Registration in progress..."
+msgid "Registration in progress…"
 msgstr ""
 
 #: src/generalsettingsview.cpp:107
@@ -886,8 +886,8 @@ msgid "Type"
 msgstr "Tür"
 
 #: src/accountgeneraltab.cpp:657
-msgid "auto-generating..."
-msgstr "kendiliğinden oluşturuluyor..."
+msgid "auto-generating…"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:687
 msgid "Hostname"
@@ -934,8 +934,8 @@ msgid "_Open"
 msgstr "_Aç"
 
 #: src/dialogs.c:53
-msgid "Working..."
-msgstr "Çalışıyor..."
+msgid "Working…"
+msgstr ""
 
 #: src/dialogs.c:84
 #, c-format
@@ -952,7 +952,7 @@ msgid ""
 msgstr "Ring için GNOME istemcisi.\nRing; kullanıcılarının özgürlüklerine ve gizliliğine önem veren, evrensel iletişim için özgür yazılımdır."
 
 #: src/ringmainwindow.cpp:175
-msgid "Add account..."
+msgid "Add account…"
 msgstr ""
 
 #: src/ringmainwindow.cpp:646
@@ -1002,8 +1002,8 @@ msgid "Ring Error"
 msgstr "Ring Hatası"
 
 #: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr "Ring artalan sürecine (dring) yeniden bağlanmaya çalışılıyor..."
+msgid "Trying to reconnect to the Ring daemon (dring)…"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
@@ -1149,7 +1149,7 @@ msgid "Unknown error"
 msgstr ""
 
 #: src/newaccountsettingsview.cpp:1962
-msgid "Initializing..."
+msgid "Initializing…"
 msgstr ""
 
 #: src/newaccountsettingsview.cpp:1965
@@ -1157,7 +1157,7 @@ msgid "Offline"
 msgstr "Çevrimdışı"
 
 #: src/newaccountsettingsview.cpp:1968
-msgid "Connecting..."
+msgid "Connecting…"
 msgstr ""
 
 #: src/newaccountsettingsview.cpp:1971

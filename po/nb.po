@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-03 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 07:09+0000\n"
+"POT-Creation-Date: 2018-09-10 03:09-0400\n"
+"PO-Revision-Date: 2018-09-10 07:09+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/savoirfairelinux/ring/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -158,7 +158,7 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 #: ui/accountcreationwizard.ui:86
-msgid "Advanced..."
+msgid "Advanced…"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:97
@@ -237,20 +237,20 @@ msgid "Confirm password"
 msgstr "Bekreft passord"
 
 #: ui/accountcreationwizard.ui:566
-msgid "Generating your Ring account..."
-msgstr "Lager din Ring-konto…"
+msgid "Generating your Ring account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:592
-msgid "Registering username..."
-msgstr "Registrerer brukernavn…"
+msgid "Registering username…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
 msgstr "Dette kan ta noen minutter."
 
 #: ui/accountcreationwizard.ui:625
-msgid "Retrieving your Ring account..."
-msgstr "Henter inn din Ring-konto…"
+msgid "Retrieving your Ring account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
@@ -425,8 +425,8 @@ msgid "Export on the Ring"
 msgstr "Eksporter på Ring"
 
 #: ui/newaccountsettingsview.ui:210
-msgid "Exporting account on the Ring..."
-msgstr "Eksporterer konto på Ring…"
+msgid "Exporting account on the Ring…"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -694,8 +694,8 @@ msgid "Send Invitation"
 msgstr "Send invitasjon"
 
 #: ui/incomingcallview.ui:99
-msgid "Incoming..."
-msgstr "Innkommende…"
+msgid "Incoming…"
+msgstr ""
 
 #: ui/incomingcallview.ui:135
 msgid "Accept"
@@ -780,11 +780,11 @@ msgid "Lookup unavailable, check your network connection"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:274
-msgid "Performing lookup..."
+msgid "Performing lookup…"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
-msgid "Registration in progress..."
+msgid "Registration in progress…"
 msgstr ""
 
 #: src/generalsettingsview.cpp:107
@@ -883,8 +883,8 @@ msgid "Type"
 msgstr "Type"
 
 #: src/accountgeneraltab.cpp:657
-msgid "auto-generating..."
-msgstr "autogenererer…"
+msgid "auto-generating…"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:687
 msgid "Hostname"
@@ -931,8 +931,8 @@ msgid "_Open"
 msgstr "_Åpne"
 
 #: src/dialogs.c:53
-msgid "Working..."
-msgstr "Arbeider…"
+msgid "Working…"
+msgstr ""
 
 #: src/dialogs.c:84
 #, c-format
@@ -949,7 +949,7 @@ msgid ""
 msgstr "GNOME-klienten for Ring.\nRing er fri programvare for universell kommunikasjon som respekterer privatlivets fred for dets brukere."
 
 #: src/ringmainwindow.cpp:175
-msgid "Add account..."
+msgid "Add account…"
 msgstr ""
 
 #: src/ringmainwindow.cpp:646
@@ -999,8 +999,8 @@ msgid "Ring Error"
 msgstr "Feil med ring"
 
 #: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr "Prøver å koble til Ring-nissen igjen (dring)…"
+msgid "Trying to reconnect to the Ring daemon (dring)…"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
@@ -1146,15 +1146,15 @@ msgid "Unknown error"
 msgstr "Ukjent feil"
 
 #: src/newaccountsettingsview.cpp:1962
-msgid "Initializing..."
-msgstr ""
+msgid "Initializing…"
+msgstr "Starter…"
 
 #: src/newaccountsettingsview.cpp:1965
 msgid "Offline"
 msgstr "Frakoblet"
 
 #: src/newaccountsettingsview.cpp:1968
-msgid "Connecting..."
+msgid "Connecting…"
 msgstr ""
 
 #: src/newaccountsettingsview.cpp:1971

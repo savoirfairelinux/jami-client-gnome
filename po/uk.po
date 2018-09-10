@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-03 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 07:09+0000\n"
-"Last-Translator: patriotyk <patriotyk@gmail.com>\n"
+"POT-Creation-Date: 2018-09-10 03:09-0400\n"
+"PO-Revision-Date: 2018-09-10 07:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Ukrainian (http://www.transifex.com/savoirfairelinux/ring/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -163,7 +163,7 @@ msgid "Cancel"
 msgstr "Відміна"
 
 #: ui/accountcreationwizard.ui:86
-msgid "Advanced..."
+msgid "Advanced…"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:97
@@ -242,11 +242,11 @@ msgid "Confirm password"
 msgstr "Підтвердити пароль"
 
 #: ui/accountcreationwizard.ui:566
-msgid "Generating your Ring account..."
-msgstr "Генерація вашого облікового запису Ring..."
+msgid "Generating your Ring account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:592
-msgid "Registering username..."
+msgid "Registering username…"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:599
@@ -254,7 +254,7 @@ msgid "This may take a few minutes."
 msgstr ""
 
 #: ui/accountcreationwizard.ui:625
-msgid "Retrieving your Ring account..."
+msgid "Retrieving your Ring account…"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:651
@@ -430,7 +430,7 @@ msgid "Export on the Ring"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:210
-msgid "Exporting account on the Ring..."
+msgid "Exporting account on the Ring…"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:235
@@ -699,8 +699,8 @@ msgid "Send Invitation"
 msgstr ""
 
 #: ui/incomingcallview.ui:99
-msgid "Incoming..."
-msgstr "Вхідний..."
+msgid "Incoming…"
+msgstr ""
 
 #: ui/incomingcallview.ui:135
 msgid "Accept"
@@ -785,11 +785,11 @@ msgid "Lookup unavailable, check your network connection"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:274
-msgid "Performing lookup..."
+msgid "Performing lookup…"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
-msgid "Registration in progress..."
+msgid "Registration in progress…"
 msgstr ""
 
 #: src/generalsettingsview.cpp:107
@@ -888,8 +888,8 @@ msgid "Type"
 msgstr "Тип"
 
 #: src/accountgeneraltab.cpp:657
-msgid "auto-generating..."
-msgstr "автогенеруємо..."
+msgid "auto-generating…"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:687
 msgid "Hostname"
@@ -936,8 +936,8 @@ msgid "_Open"
 msgstr ""
 
 #: src/dialogs.c:53
-msgid "Working..."
-msgstr "Працюємо..."
+msgid "Working…"
+msgstr ""
 
 #: src/dialogs.c:84
 #, c-format
@@ -954,7 +954,7 @@ msgid ""
 msgstr ""
 
 #: src/ringmainwindow.cpp:175
-msgid "Add account..."
+msgid "Add account…"
 msgstr ""
 
 #: src/ringmainwindow.cpp:646
@@ -1004,8 +1004,8 @@ msgid "Ring Error"
 msgstr "Помилка Ring"
 
 #: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr "Намагагаємось перепідключитись до демону Ring (dring)..."
+msgid "Trying to reconnect to the Ring daemon (dring)…"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
@@ -1151,7 +1151,7 @@ msgid "Unknown error"
 msgstr ""
 
 #: src/newaccountsettingsview.cpp:1962
-msgid "Initializing..."
+msgid "Initializing…"
 msgstr ""
 
 #: src/newaccountsettingsview.cpp:1965
@@ -1159,7 +1159,7 @@ msgid "Offline"
 msgstr ""
 
 #: src/newaccountsettingsview.cpp:1968
-msgid "Connecting..."
+msgid "Connecting…"
 msgstr ""
 
 #: src/newaccountsettingsview.cpp:1971

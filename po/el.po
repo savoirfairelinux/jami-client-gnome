@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-03 03:09-0400\n"
-"PO-Revision-Date: 2018-07-30 07:09+0000\n"
-"Last-Translator: Lio Vasileiou <lvasileiou@outlook.com>\n"
+"POT-Creation-Date: 2018-09-10 03:09-0400\n"
+"PO-Revision-Date: 2018-09-10 07:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Greek (http://www.transifex.com/savoirfairelinux/ring/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -159,7 +159,7 @@ msgid "Cancel"
 msgstr "Ακύρωση"
 
 #: ui/accountcreationwizard.ui:86
-msgid "Advanced..."
+msgid "Advanced…"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:97
@@ -238,20 +238,20 @@ msgid "Confirm password"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:566
-msgid "Generating your Ring account..."
-msgstr "Γίνεται δημιουργία του λογαριασμού σας Ring..."
+msgid "Generating your Ring account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:592
-msgid "Registering username..."
-msgstr "Καταχώρηση ονόματος χρήστη..."
+msgid "Registering username…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
 msgstr "Αυτό μπορεί να διαρκέσει λίγα λεπτά."
 
 #: ui/accountcreationwizard.ui:625
-msgid "Retrieving your Ring account..."
-msgstr "Ανάκτηση του Ring λογαριασμού σας..."
+msgid "Retrieving your Ring account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
@@ -426,8 +426,8 @@ msgid "Export on the Ring"
 msgstr "Εξαγωγή στο Ring"
 
 #: ui/newaccountsettingsview.ui:210
-msgid "Exporting account on the Ring..."
-msgstr "Εξαγωγή λογαριασμού στο Ring..."
+msgid "Exporting account on the Ring…"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -695,8 +695,8 @@ msgid "Send Invitation"
 msgstr ""
 
 #: ui/incomingcallview.ui:99
-msgid "Incoming..."
-msgstr "Εισερχόμενη..."
+msgid "Incoming…"
+msgstr ""
 
 #: ui/incomingcallview.ui:135
 msgid "Accept"
@@ -781,11 +781,11 @@ msgid "Lookup unavailable, check your network connection"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:274
-msgid "Performing lookup..."
+msgid "Performing lookup…"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
-msgid "Registration in progress..."
+msgid "Registration in progress…"
 msgstr ""
 
 #: src/generalsettingsview.cpp:107
@@ -884,8 +884,8 @@ msgid "Type"
 msgstr "Τύπος"
 
 #: src/accountgeneraltab.cpp:657
-msgid "auto-generating..."
-msgstr "αυτόματη-παραγωγή..."
+msgid "auto-generating…"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:687
 msgid "Hostname"
@@ -932,8 +932,8 @@ msgid "_Open"
 msgstr "Άνοιγμα"
 
 #: src/dialogs.c:53
-msgid "Working..."
-msgstr "Γίνεται εργασία..."
+msgid "Working…"
+msgstr ""
 
 #: src/dialogs.c:84
 #, c-format
@@ -950,7 +950,7 @@ msgid ""
 msgstr "Ο GNOME πελάτης για το Ring.\nRing είναι ελεύθερο λογισμικό για την καθολική επικοινωνία που σέβεται τις ελευθερίες και την ιδιωτική ζωή των χρηστών του."
 
 #: src/ringmainwindow.cpp:175
-msgid "Add account..."
+msgid "Add account…"
 msgstr ""
 
 #: src/ringmainwindow.cpp:646
@@ -1000,8 +1000,8 @@ msgid "Ring Error"
 msgstr "Σφάλμα Ring"
 
 #: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr "Προσπάθεια για επανασύνδεση στον δαίμονα του Ring (dring)..."
+msgid "Trying to reconnect to the Ring daemon (dring)…"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
@@ -1147,7 +1147,7 @@ msgid "Unknown error"
 msgstr ""
 
 #: src/newaccountsettingsview.cpp:1962
-msgid "Initializing..."
+msgid "Initializing…"
 msgstr ""
 
 #: src/newaccountsettingsview.cpp:1965
@@ -1155,7 +1155,7 @@ msgid "Offline"
 msgstr ""
 
 #: src/newaccountsettingsview.cpp:1968
-msgid "Connecting..."
+msgid "Connecting…"
 msgstr ""
 
 #: src/newaccountsettingsview.cpp:1971
