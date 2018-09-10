@@ -3,6 +3,7 @@
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
  *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
+ *  Author: Hugo Lefeuvre <hugo.lefeuvre@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,8 +22,11 @@
 
 #include "incomingcallview.h"
 
-// Gtk
+// GTK+ related
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
+
+// Qt
 #include <QSize>
 
 // Lrc
@@ -54,12 +58,16 @@ struct _IncomingCallViewPrivate
 {
     GtkWidget *paned_call;
     GtkWidget *image_incoming;
+    GtkWidget *image_recording_audio;
     GtkWidget *label_name;
     GtkWidget *label_bestId;
+    GtkWidget *label_letamessage;
     GtkWidget *spinner_status;
+    GtkWidget *image_call_failed;
     GtkWidget *label_status;
     GtkWidget *button_accept_incoming;
     GtkWidget *button_reject_incoming;
+    GtkWidget *button_record_audio;
     GtkWidget *frame_chat;
 
     // The webkit_chat_container is created once, then reused for all chat views
@@ -125,8 +133,9 @@ static void
 accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
 {
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
-    auto contactUri = priv->conversation_->participants[0];
+
     try {
+        auto contactUri = priv->conversation_->participants.at(0);
         auto contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         // If the contact is pending, we should accept its request
         if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
@@ -148,10 +157,13 @@ incoming_call_view_init(IncomingCallView *view)
         ".flat-button { border: 0; border-radius: 50%; transition: all 0.3s ease; } \
         .red-button { background: #dc3a37; } \
         .green-button { background: #27ae60; } \
+        .grey-button { background: #d7d7d7; } \
+        .grey-button:hover { background: #acacac; } \
         .red-button:hover { background: #dc2719; } \
         .green-button:hover { background: #219d55; }",
         -1, nullptr
     );
+
     gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
                                               GTK_STYLE_PROVIDER(provider),
                                               GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -180,12 +192,16 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, paned_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_incoming);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_call_failed);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_recording_audio);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_name);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_bestId);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_letamessage);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, spinner_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_status);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_record_audio);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_reject_incoming);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, frame_chat);
 }
 
@@ -292,4 +308,21 @@ incoming_call_view_get_conversation(IncomingCallView *self)
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
 
     return *priv->conversation_;
+}
+
+void
+incoming_call_view_let_a_message(IncomingCallView* view, const std::string& id, lrc::api::conversation::Info conv)
+{
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    g_return_if_fail(priv->conversation_->uid == conv.uid);
+
+    gtk_widget_hide(priv->spinner_status);
+    gtk_widget_hide(priv->button_accept_incoming);
+
+    gtk_label_set_text(GTK_LABEL(priv->label_letamessage), _("Oops, contact is busy. Want to let a message ?"));
+
+    gtk_widget_show(priv->label_letamessage);
+    gtk_widget_show(priv->image_call_failed);
+    gtk_widget_show(priv->button_record_audio);
 }

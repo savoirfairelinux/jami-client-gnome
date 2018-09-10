@@ -11,7 +11,10 @@
     <file alias="call">call.svg</file>
     <file alias="call_start">ic_video_call_black_24px.svg</file>
     <file alias="call_end">ic_call_end_white_24px.svg</file>
+    <file alias="call_missed">baseline-call_missed-24px.svg</file>
     <file alias="record">ic_fiber_manual_record_red_24px.svg</file>
+    <file alias="record_audio">baseline-mic-24px.svg</file>
+    <file alias="recording_audio">baseline-mic-recording-24px.svg</file>
     <file alias="contact">contact.svg</file>
     <file alias="accept">accept.svg</file>
     <file alias="chat">ic_chat_white_24px.svg</file>
