@@ -22,22 +22,22 @@
 # Jusore Mondos <jusore@gmail.com>, 2016
 # fgp <komakino@wanadoo.es>, 2016
 # Laura Arjona Reina <larjona@larjona.net>, 2016
-# Markel <wakutiteo@protonmail.com>, 2018
+# Markel, 2018
 # Miguel Angel NV <manvac@gmail.com>, 2017
 # Rodrigo I. Avila D., 2018
 # Stepan Salenikovich, 2015
 # Stepan Salenikovich, 2015
 # urkonn <urkonn@gmail.com>, 2017
 # urkonn <urkonn@gmail.com>, 2017
-# Markel <wakutiteo@protonmail.com>, 2018
-# Markel <wakutiteo@protonmail.com>, 2018
+# Markel, 2018
+# Markel, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-03 03:09-0400\n"
-"PO-Revision-Date: 2018-08-19 21:52+0000\n"
-"Last-Translator: Blanca Iris Almagro\n"
+"POT-Creation-Date: 2018-09-10 03:09-0400\n"
+"PO-Revision-Date: 2018-09-10 07:09+0000\n"
+"Last-Translator: Markel\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -184,8 +184,8 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: ui/accountcreationwizard.ui:86
-msgid "Advanced..."
-msgstr "Avanzado..."
+msgid "Advanced…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
@@ -263,20 +263,20 @@ msgid "Confirm password"
 msgstr "Confirmar contraseña"
 
 #: ui/accountcreationwizard.ui:566
-msgid "Generating your Ring account..."
-msgstr "Generando tu cuenta Ring..."
+msgid "Generating your Ring account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:592
-msgid "Registering username..."
-msgstr "Registrando nombre de usuario..."
+msgid "Registering username…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
 msgstr "Esto puede llevar unos minutos."
 
 #: ui/accountcreationwizard.ui:625
-msgid "Retrieving your Ring account..."
-msgstr "Recuperando tu cuenta de Ring..."
+msgid "Retrieving your Ring account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
@@ -451,8 +451,8 @@ msgid "Export on the Ring"
 msgstr "Exportar en Ring"
 
 #: ui/newaccountsettingsview.ui:210
-msgid "Exporting account on the Ring..."
-msgstr "Exportando cuenta en Ring..."
+msgid "Exporting account on the Ring…"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -720,8 +720,8 @@ msgid "Send Invitation"
 msgstr "Enviar invitación"
 
 #: ui/incomingcallview.ui:99
-msgid "Incoming..."
-msgstr "Llamada entrante..."
+msgid "Incoming…"
+msgstr ""
 
 #: ui/incomingcallview.ui:135
 msgid "Accept"
@@ -806,12 +806,12 @@ msgid "Lookup unavailable, check your network connection"
 msgstr "Búsqueda no disponible, compruebe su conexión a la red"
 
 #: src/usernameregistrationbox.cpp:274
-msgid "Performing lookup..."
-msgstr "Buscando..."
+msgid "Performing lookup…"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
-msgid "Registration in progress..."
-msgstr "Registro en curso..."
+msgid "Registration in progress…"
+msgstr ""
 
 #: src/generalsettingsview.cpp:107
 msgid ""
@@ -909,8 +909,8 @@ msgid "Type"
 msgstr "Tipo"
 
 #: src/accountgeneraltab.cpp:657
-msgid "auto-generating..."
-msgstr "auto-generando..."
+msgid "auto-generating…"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:687
 msgid "Hostname"
@@ -957,8 +957,8 @@ msgid "_Open"
 msgstr "_Abrir"
 
 #: src/dialogs.c:53
-msgid "Working..."
-msgstr "Procesando..."
+msgid "Working…"
+msgstr ""
 
 #: src/dialogs.c:84
 #, c-format
@@ -975,8 +975,8 @@ msgid ""
 msgstr "El cliente Ring de GNOME.\nRing es software libre de comunicaciones que respeta las libertades y la privacidad de sus usuarios."
 
 #: src/ringmainwindow.cpp:175
-msgid "Add account..."
-msgstr "Añadir cuenta..."
+msgid "Add account…"
+msgstr ""
 
 #: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will place a new call"
@@ -1025,8 +1025,8 @@ msgid "Ring Error"
 msgstr "Error de Ring"
 
 #: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr "Tratando de conectarse de nuevo al demonio Ring (dring)..."
+msgid "Trying to reconnect to the Ring daemon (dring)…"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
@@ -1172,7 +1172,7 @@ msgid "Unknown error"
 msgstr "Error desconocido"
 
 #: src/newaccountsettingsview.cpp:1962
-msgid "Initializing..."
+msgid "Initializing…"
 msgstr "Inicializando…"
 
 #: src/newaccountsettingsview.cpp:1965
@@ -1180,8 +1180,8 @@ msgid "Offline"
 msgstr "Desconectado"
 
 #: src/newaccountsettingsview.cpp:1968
-msgid "Connecting..."
-msgstr "Conectando..."
+msgid "Connecting…"
+msgstr ""
 
 #: src/newaccountsettingsview.cpp:1971
 msgid "Online"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-03 03:09-0400\n"
-"PO-Revision-Date: 2018-08-06 11:29+0000\n"
+"POT-Creation-Date: 2018-09-10 03:09-0400\n"
+"PO-Revision-Date: 2018-09-10 07:09+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -157,8 +157,8 @@ msgid "Cancel"
 msgstr "Anuloje"
 
 #: ui/accountcreationwizard.ui:86
-msgid "Advanced..."
-msgstr "Të mëtejshme…"
+msgid "Advanced…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
@@ -236,20 +236,20 @@ msgid "Confirm password"
 msgstr "Ripohoni fjalëkalimin"
 
 #: ui/accountcreationwizard.ui:566
-msgid "Generating your Ring account..."
-msgstr "Po prodhohet llogaria juaj Ring…"
+msgid "Generating your Ring account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:592
-msgid "Registering username..."
-msgstr "Po regjistrohet emri i përdoruesit…"
+msgid "Registering username…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
 msgstr "Kjo mund të hajë pak minuta."
 
 #: ui/accountcreationwizard.ui:625
-msgid "Retrieving your Ring account..."
-msgstr "Po merret llogaria juaj Ring…"
+msgid "Retrieving your Ring account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
@@ -424,8 +424,8 @@ msgid "Export on the Ring"
 msgstr "Eksportoje te Ring-u"
 
 #: ui/newaccountsettingsview.ui:210
-msgid "Exporting account on the Ring..."
-msgstr "Po eksportohet llogari te Ring-u…"
+msgid "Exporting account on the Ring…"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -693,8 +693,8 @@ msgid "Send Invitation"
 msgstr "Dërgoni Ftesë"
 
 #: ui/incomingcallview.ui:99
-msgid "Incoming..."
-msgstr "Ardhëse…"
+msgid "Incoming…"
+msgstr ""
 
 #: ui/incomingcallview.ui:135
 msgid "Accept"
@@ -779,12 +779,12 @@ msgid "Lookup unavailable, check your network connection"
 msgstr "Kërkimi s’bëhet dot, kontrolloni lidhjen tuaj në rrjet"
 
 #: src/usernameregistrationbox.cpp:274
-msgid "Performing lookup..."
-msgstr "Po kryhet kërkimi…"
+msgid "Performing lookup…"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
-msgid "Registration in progress..."
-msgstr "Regjistrim në kryerje e sipër…"
+msgid "Registration in progress…"
+msgstr ""
 
 #: src/generalsettingsview.cpp:107
 msgid ""
@@ -882,8 +882,8 @@ msgid "Type"
 msgstr "Lloj"
 
 #: src/accountgeneraltab.cpp:657
-msgid "auto-generating..."
-msgstr "po vetëprodhohet…"
+msgid "auto-generating…"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:687
 msgid "Hostname"
@@ -930,8 +930,8 @@ msgid "_Open"
 msgstr "_Hape"
 
 #: src/dialogs.c:53
-msgid "Working..."
-msgstr "Po punohet…"
+msgid "Working…"
+msgstr ""
 
 #: src/dialogs.c:84
 #, c-format
@@ -948,8 +948,8 @@ msgid ""
 msgstr "Klienti Ring për GNOME.\nRing është software i lirë për komunikim universal që respekton privatësinë e përdoruesve të tij."
 
 #: src/ringmainwindow.cpp:175
-msgid "Add account..."
-msgstr "Shtoni llogari…"
+msgid "Add account…"
+msgstr ""
 
 #: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will place a new call"
@@ -998,8 +998,8 @@ msgid "Ring Error"
 msgstr "Gabim Ring-u"
 
 #: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)..."
-msgstr "Po provohet rilidhja me demonin Ring (dring)…"
+msgid "Trying to reconnect to the Ring daemon (dring)…"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
@@ -1145,7 +1145,7 @@ msgid "Unknown error"
 msgstr "Gabim i panjohur"
 
 #: src/newaccountsettingsview.cpp:1962
-msgid "Initializing..."
+msgid "Initializing…"
 msgstr "Po gatitet…"
 
 #: src/newaccountsettingsview.cpp:1965
@@ -1153,8 +1153,8 @@ msgid "Offline"
 msgstr "Jo në linjë"
 
 #: src/newaccountsettingsview.cpp:1968
-msgid "Connecting..."
-msgstr "Po bëhet lidhja…"
+msgid "Connecting…"
+msgstr ""
 
 #: src/newaccountsettingsview.cpp:1971
 msgid "Online"
