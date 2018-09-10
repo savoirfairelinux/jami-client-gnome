@@ -69,6 +69,7 @@ struct _IncomingCallViewPrivate
     AccountInfoPointer const * accountInfo_;
 
     QMetaObject::Connection state_change_connection;
+    QMetaObject::Connection show_let_a_message_connection;
 
     GSettings *settings;
 };
@@ -92,6 +93,7 @@ incoming_call_view_dispose(GObject *object)
     chat_view_set_header_visible(CHAT_VIEW(chat_view), TRUE);
 
     QObject::disconnect(priv->state_change_connection);
+    QObject::disconnect(priv->show_let_a_message_connection);
 
     g_clear_object(&priv->settings);
 
@@ -190,6 +192,13 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
 }
 
 static void
+update_letamessage(const std::string& id, lrc::api::conversation::Info conv)
+{
+    // TODO not implemented yet
+    g_debug("let a message!");
+}
+
+static void
 update_state(IncomingCallView *view)
 {
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
@@ -258,6 +267,13 @@ set_call_info(IncomingCallView *view) {
             update_state(view);
             update_name_and_photo(view);
         }
+    });
+
+    priv->show_let_a_message_connection = QObject::connect(
+    &lrc_->getBehaviorController(),
+    &lrc::api::BehaviorController::showLetMessageView,
+    [view] (const std::string& id, lrc::api::conversation::Info conv) {
+        update_letmessage(id, conv);
     });
 
     auto chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
