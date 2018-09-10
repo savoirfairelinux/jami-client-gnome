@@ -311,6 +311,7 @@ public:
     int contactRequestsPageNum = 0;
 
     QMetaObject::Connection showChatViewConnection_;
+    QMetaObject::Connection showLetMessageViewConnection_;
     QMetaObject::Connection showCallViewConnection_;
     QMetaObject::Connection showIncomingViewConnection_;
     QMetaObject::Connection newTrustRequestNotification_;
@@ -353,6 +354,7 @@ private:
     void slotNewConversation(const std::string& uid);
     void slotConversationRemoved(const std::string& uid);
     void slotShowChatView(const std::string& id, lrc::api::conversation::Info origin);
+    void slotShowLetMessageView(const std::string& id, lrc::api::conversation::Info conv);
     void slotShowCallView(const std::string& id, lrc::api::conversation::Info origin);
     void slotShowIncomingCallView(const std::string& id, lrc::api::conversation::Info origin);
     void slotNewTrustRequest(const std::string& id, const std::string& contactUri);
@@ -1137,6 +1139,7 @@ CppImpl::init()
 
 CppImpl::~CppImpl()
 {
+    QObject::disconnect(showLetMessageViewConnection_);
     QObject::disconnect(showChatViewConnection_);
     QObject::disconnect(showIncomingViewConnection_);
     QObject::disconnect(historyClearedConnection_);
@@ -1537,6 +1540,7 @@ void
 CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFreeable)
 {
     // Disconnect old signals.
+    QObject::disconnect(showLetMessageViewConnection_);
     QObject::disconnect(showChatViewConnection_);
     QObject::disconnect(showIncomingViewConnection_);
     QObject::disconnect(changeAccountConnection_);
@@ -1622,6 +1626,10 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     showChatViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showChatView,
                                                [this] (const std::string& id, lrc::api::conversation::Info origin) { slotShowChatView(id, origin); });
+
+    showLetMessageViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
+                                               &lrc::api::BehaviorController::showLetMessageView,
+                                               [this] (const std::string& id, lrc::api::conversation::Info conv) { slotShowLetMessageView(id, conv); });
 
     showCallViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showCallView,
@@ -1935,6 +1943,12 @@ CppImpl::slotShowChatView(const std::string& id, lrc::api::conversation::Info or
                                    isPending || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY,
                                    isPending);
     }
+}
+
+void
+CppImpl::slotShowLetMessageView(const std::string& id, lrc::api::conversation::Info conv)
+{
+    // TODO not implemented yet
 }
 
 void
