@@ -318,6 +318,7 @@ public:
     int contactRequestsPageNum = 0;
 
     QMetaObject::Connection showChatViewConnection_;
+    QMetaObject::Connection showLeaveMessageViewConnection_;
     QMetaObject::Connection showCallViewConnection_;
     QMetaObject::Connection showIncomingViewConnection_;
     QMetaObject::Connection newTrustRequestNotification_;
@@ -361,6 +362,7 @@ private:
     void slotNewConversation(const std::string& uid);
     void slotConversationRemoved(const std::string& uid);
     void slotShowChatView(const std::string& id, lrc::api::conversation::Info origin);
+    void slotShowLeaveMessageView(lrc::api::conversation::Info conv);
     void slotShowCallView(const std::string& id, lrc::api::conversation::Info origin);
     void slotShowIncomingCallView(const std::string& id, lrc::api::conversation::Info origin);
     void slotNewTrustRequest(const std::string& id, const std::string& contactUri);
@@ -1138,6 +1140,7 @@ CppImpl::init()
 
 CppImpl::~CppImpl()
 {
+    QObject::disconnect(showLeaveMessageViewConnection_);
     QObject::disconnect(showChatViewConnection_);
     QObject::disconnect(showIncomingViewConnection_);
     QObject::disconnect(historyClearedConnection_);
@@ -1202,7 +1205,7 @@ GtkWidget*
 CppImpl::displayIncomingView(lrc::api::conversation::Info conversation)
 {
     chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
-    return incoming_call_view_new(webkitChatContainer(), accountInfo_, chatViewConversation_.get());
+    return incoming_call_view_new(webkitChatContainer(), lrc_->getAVModel(), accountInfo_, chatViewConversation_.get());
 }
 
 GtkWidget*
@@ -1541,6 +1544,7 @@ void
 CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFreeable)
 {
     // Disconnect old signals.
+    QObject::disconnect(showLeaveMessageViewConnection_);
     QObject::disconnect(showChatViewConnection_);
     QObject::disconnect(showIncomingViewConnection_);
     QObject::disconnect(changeAccountConnection_);
@@ -1626,6 +1630,10 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     showChatViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showChatView,
                                                [this] (const std::string& id, lrc::api::conversation::Info origin) { slotShowChatView(id, origin); });
+
+    showLeaveMessageViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
+                                               &lrc::api::BehaviorController::showLeaveMessageView,
+                                               [this] (const std::string&, lrc::api::conversation::Info conv) { slotShowLeaveMessageView(conv); });
 
     showCallViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showCallView,
@@ -1941,6 +1949,15 @@ CppImpl::slotShowChatView(const std::string& id, lrc::api::conversation::Info or
 }
 
 void
+CppImpl::slotShowLeaveMessageView(lrc::api::conversation::Info conv)
+{
+    auto* current_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
+    if (IS_INCOMING_CALL_VIEW(current_view)) {
+        incoming_call_view_let_a_message(INCOMING_CALL_VIEW(current_view), conv);
+    }
+}
+
+void
 CppImpl::slotShowCallView(const std::string& id, lrc::api::conversation::Info origin)
 {
     changeAccountSelection(id);
@@ -2071,12 +2088,10 @@ CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation:
     // Change the view if we want a different view.
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
 
-    lrc::api::conversation::Info current_item;
-    if (IS_INCOMING_CALL_VIEW(old_view))
-        current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
-
-    if (current_item.uid != origin.uid)
-        changeView(INCOMING_CALL_VIEW_TYPE, origin);
+    /* call changeView even if we are already in an incoming call view, since
+       the incoming call view holds a copy of the conversation info which has
+       the be updated */
+    changeView(INCOMING_CALL_VIEW_TYPE, origin);
 }
 
 void
