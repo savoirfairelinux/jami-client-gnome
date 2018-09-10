@@ -308,6 +308,8 @@ SET( SRC_FILES
    src/webkitchatcontainer.h
    src/webkitchatcontainer.cpp
    src/chatview.h
+   src/messagingwidget.h
+   src/messagingwidget.cpp
    src/chatview.cpp
    src/avatarmanipulation.h
    src/avatarmanipulation.cpp
