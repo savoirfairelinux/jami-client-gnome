@@ -11,7 +11,10 @@
     <file alias="call">call.svg</file>
     <file alias="call_start">ic_video_call_black_24px.svg</file>
     <file alias="call_end">ic_call_end_white_24px.svg</file>
+    <file alias="call_missed">baseline-call_missed-24px.svg</file>
     <file alias="record">ic_fiber_manual_record_red_24px.svg</file>
+    <file alias="record_audio">baseline-mic-24px.svg</file>
+    <file alias="recording_audio">baseline-mic-recording-24px.svg</file>
     <file alias="contact">contact.svg</file>
     <file alias="accept">accept.svg</file>
     <file alias="chat">ic_chat_white_24px.svg</file>
@@ -20,6 +23,8 @@
     <file alias="unmute_video">ic_videocam_off_white_24px.svg</file>
     <file alias="mute_video">ic_videocam_white_24px.svg</file>
     <file alias="pause">ic_pause_white_24px.svg</file>
+    <file alias="stop">baseline-stop-24px.svg</file>
+    <file alias="send">baseline-send-24px.svg</file>
     <file alias="play">ic_play_arrow_white_24px.svg</file>
     <file alias="quality">ic_high_quality_white_24px.svg</file>
     <file alias="contacts_list">ic_people_black_24px.svg</file>
@@ -28,6 +33,7 @@
     <file alias="history_list">ic_history_black_24px.svg</file>
     <file alias="add">add.svg</file>
     <file alias="reject">reject.svg</file>
+    <file alias="quit">baseline-exit_to_app-24px.svg</file>
     <file alias="block">block.svg</file>
     <file alias="block_black">block_black.svg</file>
     <file alias="invite">ic_person_add_black_24px.svg</file>
