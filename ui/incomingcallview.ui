@@ -91,6 +91,21 @@
                       </object>
                     </child>
                     <!-- end of call initialization progress -->
+                    <!-- call failed image -->
+                    <child>
+                      <object class="GtkImage" id="image_call_failed">
+                        <property name="visible">False</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">center</property>
+                        <property name="xpad">10</property>
+                        <property name="ypad">10</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                    <!-- end of call failed image -->
                     <!-- call state info -->
                     <child>
                       <object class="GtkLabel" id="label_status">
@@ -101,6 +116,13 @@
                         <style>
                           <class name="dim-label"/>
                         </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_letamessage">
+                        <property name="visible">False</property>
+                        <property name="can_focus">False</property>
+                        <property name="ellipsize">end</property>
                       </object>
                     </child>
                   </object>
@@ -142,6 +164,28 @@
                       </packing>
                     </child>
                     <!-- end accept button -->
+                    <!-- record audio button -->
+                    <child>
+                      <object class="GtkButton" id="button_record_audio">
+                        <style>
+                          <class name="grey-button"/>
+                          <class name="flat-button"/>
+                        </style>
+                        <property name="width-request">48</property>
+                        <property name="height-request">48</property>
+                        <property name="visible">False</property>
+                        <property name="can_focus">True</property>
+                        <property name="has_tooltip">True</property>
+                        <property name="tooltip-text" translatable="yes">Record audio message</property>
+                        <property name="image">image_record_audio</property>
+                        <property name="action-name">app.record-audio</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                    <!-- end record audio button -->
                     <!-- reject button -->
                     <child>
                       <object class="GtkButton" id="button_reject_incoming">
