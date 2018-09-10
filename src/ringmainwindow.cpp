@@ -318,6 +318,7 @@ public:
     int contactRequestsPageNum = 0;
 
     QMetaObject::Connection showChatViewConnection_;
+    QMetaObject::Connection showLetMessageViewConnection_;
     QMetaObject::Connection showCallViewConnection_;
     QMetaObject::Connection showIncomingViewConnection_;
     QMetaObject::Connection newTrustRequestNotification_;
@@ -361,6 +362,7 @@ private:
     void slotNewConversation(const std::string& uid);
     void slotConversationRemoved(const std::string& uid);
     void slotShowChatView(const std::string& id, lrc::api::conversation::Info origin);
+    void slotShowLetMessageView(const std::string& id, lrc::api::conversation::Info conv);
     void slotShowCallView(const std::string& id, lrc::api::conversation::Info origin);
     void slotShowIncomingCallView(const std::string& id, lrc::api::conversation::Info origin);
     void slotNewTrustRequest(const std::string& id, const std::string& contactUri);
@@ -1138,6 +1140,7 @@ CppImpl::init()
 
 CppImpl::~CppImpl()
 {
+    QObject::disconnect(showLetMessageViewConnection_);
     QObject::disconnect(showChatViewConnection_);
     QObject::disconnect(showIncomingViewConnection_);
     QObject::disconnect(historyClearedConnection_);
@@ -1202,7 +1205,7 @@ GtkWidget*
 CppImpl::displayIncomingView(lrc::api::conversation::Info conversation)
 {
     chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
-    return incoming_call_view_new(webkitChatContainer(), accountInfo_, chatViewConversation_.get());
+    return incoming_call_view_new(webkitChatContainer(), lrc_->getAVModel(), accountInfo_, chatViewConversation_.get());
 }
 
 GtkWidget*
@@ -1541,6 +1544,7 @@ void
 CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFreeable)
 {
     // Disconnect old signals.
+    QObject::disconnect(showLetMessageViewConnection_);
     QObject::disconnect(showChatViewConnection_);
     QObject::disconnect(showIncomingViewConnection_);
     QObject::disconnect(changeAccountConnection_);
@@ -1626,6 +1630,10 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     showChatViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showChatView,
                                                [this] (const std::string& id, lrc::api::conversation::Info origin) { slotShowChatView(id, origin); });
+
+    showLetMessageViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
+                                               &lrc::api::BehaviorController::showLetMessageView,
+                                               [this] (const std::string& id, lrc::api::conversation::Info conv) { slotShowLetMessageView(id, conv); });
 
     showCallViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showCallView,
@@ -1937,6 +1945,15 @@ CppImpl::slotShowChatView(const std::string& id, lrc::api::conversation::Info or
         chat_view_update_temporary(CHAT_VIEW(old_view),
                                    isPending || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY,
                                    isPending);
+    }
+}
+
+void
+CppImpl::slotShowLetMessageView(const std::string& id, lrc::api::conversation::Info conv)
+{
+    auto* current_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
+    if (IS_INCOMING_CALL_VIEW(current_view)) {
+        incoming_call_view_let_a_message(INCOMING_CALL_VIEW(current_view), id, conv);
     }
 }
 
