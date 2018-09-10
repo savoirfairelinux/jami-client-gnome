@@ -111,6 +111,23 @@
                 </child>
                 <!-- end info vbox -->
 
+                <!-- box action bar -->
+                <child>
+                  <object class="GtkBox" id="box_messaging_widget">
+                    <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">20</property>
+                    <property name="border_width">20</property>
+                    <property name="valign">center</property>
+                    <property name="halign">center</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
+                <!-- end box messaging widget -->
+
                 <!-- hbox action bar -->
                 <child>
                   <object class="GtkBox" id="hbox_action_bar">
