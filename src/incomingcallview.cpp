@@ -293,3 +293,13 @@ incoming_call_view_get_conversation(IncomingCallView *self)
 
     return *priv->conversation_;
 }
+
+void
+incoming_call_view_let_a_message(IncomingCallView* view, const std::string& id, lrc::api::conversation::Info conv)
+{
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(self));
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
+    g_return_if_fail(*priv->conversation_.uid == conv.uid);
+
+    g_debug("Let a message !");
+}
