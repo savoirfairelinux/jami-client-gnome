@@ -3,6 +3,7 @@
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>
  *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
+ *  Author: Hugo Lefeuvre <hugo.lefeuvre@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,9 +22,19 @@
 
 #include "incomingcallview.h"
 
-// Gtk
+/* std */
+#include <chrono>
+#include <iomanip>
+#include <fstream>
+
+// GTK+ related
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
+#include <glib/gstdio.h>
+
+// Qt
 #include <QSize>
+#include <QtCore/QStandardPaths>
 
 // Lrc
 #include <api/newcallmodel.h>
@@ -31,12 +42,16 @@
 #include <api/conversationmodel.h>
 #include <api/contact.h>
 #include <globalinstances.h>
+#include <video/previewmanager.h>
 
 // Client
 #include "chatview.h"
 #include "native/pixbufmanipulator.h"
 #include "utils/drawing.h"
 #include "utils/files.h"
+
+#define SAVES_DIR "sent_data"
+#define SAVES_DIR_PERMS 755
 
 struct _IncomingCallView
 {
@@ -54,12 +69,20 @@ struct _IncomingCallViewPrivate
 {
     GtkWidget *paned_call;
     GtkWidget *image_incoming;
+    GtkWidget *image_send;
+    GtkWidget *image_record_audio;
     GtkWidget *label_name;
     GtkWidget *label_bestId;
+    GtkWidget *label_letamessage;
     GtkWidget *spinner_status;
+    GtkWidget *image_call_failed;
+    GtkWidget *image_stop;
     GtkWidget *label_status;
+    GtkWidget *label_duration;
     GtkWidget *button_accept_incoming;
     GtkWidget *button_reject_incoming;
+    GtkWidget *button_record_audio;
+    GtkWidget *button_end_without_message;
     GtkWidget *frame_chat;
 
     // The webkit_chat_container is created once, then reused for all chat views
@@ -67,6 +90,10 @@ struct _IncomingCallViewPrivate
 
     lrc::api::conversation::Info* conversation_;
     AccountInfoPointer const * accountInfo_;
+
+    bool recording = false;
+    bool ready = false;
+    std::string save_file_name;
 
     QMetaObject::Connection state_change_connection;
 
@@ -127,8 +154,9 @@ accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, IncomingCallView *self)
 {
     g_return_if_fail(IS_INCOMING_CALL_VIEW(self));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
-    auto contactUri = priv->conversation_->participants[0];
+
     try {
+        auto contactUri = priv->conversation_->participants.at(0);
         auto contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         // If the contact is pending, we should accept its request
         if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
@@ -138,6 +166,94 @@ accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, IncomingCallView *self)
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
     }
+}
+
+static std::string
+get_saves_directory()	
+{
+    std::string dir = QStandardPaths::writableLocation(QStandardPaths::DataLocation).toStdString() + "/" + SAVES_DIR;
+    g_mkdir (dir.c_str(), SAVES_DIR_PERMS);
+    return dir;
+}
+
+static bool
+directory_exists(const std::string& name)	
+{
+    std::ifstream f(name.c_str());
+    return f.good();
+}
+
+
+static std::string
+get_file_name_with_ext(const std::string& ext)
+{
+    std::chrono::time_point<std::chrono::system_clock> time_now = std::chrono::system_clock::now();
+    std::time_t time_now_t = std::chrono::system_clock::to_time_t(time_now);
+    std::tm now_tm = *std::localtime(&time_now_t);
+    std::stringstream ss;
+    ss << std::put_time(&now_tm, "%Y%m%d-%H%M%S");
+    std::string file_name = get_saves_directory() + "/" + ss.str();
+    // Add suffix if necessary;
+    if (directory_exists(!ext.empty() ? file_name + "." + ext.c_str() : file_name)) {
+        int suffix = 0;
+        file_name += "-";
+        while (directory_exists(!ext.empty() ? file_name + std::to_string(suffix) + "." + ext.c_str()	
+                                             : file_name + std::to_string(suffix))) {
+            suffix++;
+        }
+        file_name += std::to_string(suffix);
+    }
+    return (!ext.empty() ? file_name + "." + ext.c_str() : file_name);
+}
+
+static void
+end_without_message(GtkWidget *button, IncomingCallView *view)
+{
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    (*priv->accountInfo_)->conversationModel->selectConversation(priv->conversation_->uid);
+}
+
+static void
+record_audio(GtkWidget *button, IncomingCallView *view)
+{
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+
+    if (!priv->recording && !priv->ready) {
+        std::string tmp_file_name = get_file_name_with_ext("");
+        std::string final_file_name = Video::PreviewManager::instance().startLocalRecorder(true, tmp_file_name);
+        if (final_file_name.empty()) {
+            return;	
+        }
+        priv->save_file_name.assign(final_file_name);
+        priv->recording = true;
+
+        gtk_button_set_image(GTK_BUTTON(priv->button_record_audio), priv->image_stop);
+        gtk_widget_set_tooltip_text(GTK_WIDGET(priv->button_record_audio), _("Stop recording"));
+    } else if (priv->recording) {
+        Video::PreviewManager::instance().stopLocalRecorder();
+        priv->recording = false;
+        priv->ready = true;
+
+        gtk_button_set_image(GTK_BUTTON(priv->button_record_audio), priv->image_send);
+        gtk_widget_set_tooltip_text(GTK_WIDGET(priv->button_record_audio), _("Send recorded message"));
+    } else {
+        if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
+            model->sendFile(priv->conversation_->uid, priv->save_file_name, g_path_get_basename(priv->save_file_name.c_str()));
+            end_without_message(NULL, view);
+	}
+    }
+}
+
+static gboolean
+timer_update(IncomingCallView* view)
+{
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+
+    gtk_label_set_text(GTK_LABEL(priv->label_duration), "" /* TODO formatted time here */);
+    return TRUE;
 }
 
 static void
@@ -150,10 +266,13 @@ incoming_call_view_init(IncomingCallView *view)
         ".flat-button { border: 0; border-radius: 50%; transition: all 0.3s ease; } \
         .red-button { background: #dc3a37; } \
         .green-button { background: #27ae60; } \
+        .grey-button { background: #d7d7d7; } \
+        .grey-button:hover { background: #acacac; } \
         .red-button:hover { background: #dc2719; } \
         .green-button:hover { background: #219d55; }",
         -1, nullptr
     );
+
     gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
                                               GTK_STYLE_PROVIDER(provider),
                                               GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -170,6 +289,8 @@ incoming_call_view_init(IncomingCallView *view)
 
     g_signal_connect(priv->button_reject_incoming, "clicked", G_CALLBACK(reject_incoming_call), view);
     g_signal_connect(priv->button_accept_incoming, "clicked", G_CALLBACK(accept_incoming_call), view);
+    g_signal_connect(priv->button_record_audio, "clicked", G_CALLBACK(record_audio), view);
+    g_signal_connect(priv->button_end_without_message, "clicked", G_CALLBACK(end_without_message), view);
 }
 
 static void
@@ -182,12 +303,20 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, paned_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_incoming);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_send);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_stop);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_call_failed);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_record_audio);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_name);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_bestId);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_duration);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_letamessage);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, spinner_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_status);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_record_audio);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_end_without_message);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_reject_incoming);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, frame_chat);
 }
 
@@ -210,9 +339,12 @@ update_state(IncomingCallView *view)
         gtk_widget_show(priv->button_accept_incoming);
     else
         gtk_widget_hide(priv->button_accept_incoming);
-    gtk_widget_show(priv->button_reject_incoming);
 
-    gtk_widget_show(priv->spinner_status);
+    if (call.status != lrc::api::call::Status::PEER_BUSY &&
+             call.status != lrc::api::call::Status::ENDED_RECORDING_MESSAGE) {
+        gtk_widget_show(priv->spinner_status);
+        gtk_widget_show(priv->button_reject_incoming);
+    }
 }
 
 static void
@@ -297,4 +429,26 @@ incoming_call_view_get_conversation(IncomingCallView *self)
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
 
     return *priv->conversation_;
+}
+
+void
+incoming_call_view_let_a_message(IncomingCallView* view, const std::string& id, lrc::api::conversation::Info conv)
+{
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    g_return_if_fail(priv->conversation_->uid == conv.uid);
+
+    gtk_widget_hide(priv->spinner_status);
+    gtk_widget_hide(priv->label_status);
+    gtk_widget_hide(priv->button_accept_incoming);
+    gtk_widget_hide(priv->button_reject_incoming);
+
+    gtk_label_set_text(GTK_LABEL(priv->label_letamessage), _("Oops, contact is busy. Want to let a message ?"));
+
+    gtk_widget_show(priv->label_letamessage);
+    //gtk_widget_show(priv->image_call_failed);
+    gtk_widget_show(priv->button_record_audio);
+    gtk_widget_set_sensitive(priv->button_record_audio, true);
+    gtk_widget_show(priv->button_end_without_message);
+    gtk_widget_set_sensitive(priv->button_end_without_message, true);
 }
