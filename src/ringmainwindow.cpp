@@ -1802,7 +1802,7 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
             ring_hide_notification(RING_NOTIFIER(widgets->notifier), notifId);
         }
     } catch (const std::exception& e) {
-        g_warning("Can't get call %lu for this account.", callId);
+        g_warning("Can't get call %s for this account.", callId.c_str());
     }
 }
 
@@ -1843,7 +1843,7 @@ CppImpl::slotNewIncomingCall(const std::string& callId)
             ring_show_notification(RING_NOTIFIER(widgets->notifier), avatar, uri, name, notifId, _("Incoming call"), body, NotificationType::CALL);
         }
     } catch (const std::exception& e) {
-        g_warning("Can't get call %lu for this account.", callId);
+        g_warning("Can't get call %s for this account.", callId.c_str());
     }
 }
 
