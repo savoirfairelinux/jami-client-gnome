@@ -284,6 +284,7 @@
       <object class="GtkToggleButton" id="togglebutton_hold">
         <style>
           <class name="call-button"/>
+          <class name="blink-button"/>
         </style>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
@@ -359,6 +360,7 @@
         <style>
           <class name="call-button"/>
           <class name="record-button"/>
+          <class name="blink-button"/>
         </style>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
