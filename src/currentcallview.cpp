@@ -456,10 +456,10 @@ on_quality_changed(G_GNUC_UNUSED GtkScaleButton *button, G_GNUC_UNUSED gdouble v
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    /* no need to upate quality if auto quality is enabled */
+    /* no need to update quality if auto quality is enabled */
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality))) return;
 
-    /* only update if the scale button is released, to reduce the number of updates */
+    /* update only if the scale button is released (reduces the number of updates) */
     if (priv->cpp->quality_scale_pressed) return;
 
     set_call_quality(view, false, gtk_scale_button_get_value(button));
@@ -486,7 +486,7 @@ on_quality_button_released(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEve
 
     priv->cpp->quality_scale_pressed = FALSE;
 
-    // now make sure the quality gets updated
+    // make sure the quality gets updated
     on_quality_changed(GTK_SCALE_BUTTON(priv->scalebutton_quality), 0, view);
 
     return GDK_EVENT_PROPAGATE;
@@ -522,7 +522,6 @@ on_button_press_in_video_event(GtkWidget* widget, GdkEventButton *event, Current
 
     // on double click
     if (event->type == GDK_2BUTTON_PRESS) {
-        g_debug("double click in video");
         g_signal_emit(G_OBJECT(view), current_call_view_signals[VIDEO_DOUBLE_CLICKED], 0);
     }
 
@@ -693,7 +692,7 @@ CppImpl::init()
         .smartinfo-block-style { color: #8ae234; background-color: rgba(1, 1, 1, 0.33); } \
         @keyframes blink { 0% {opacity: 1;} 49% {opacity: 1;} 50% {opacity: 0;} 100% {opacity: 0;} } \
         .record-button { background: rgba(0, 0, 0, 1); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
-        .record-button:checked { animation: blink 1s; animation-iteration-count: infinite; } \
+        .blink-button:checked, .pause { animation: blink 1s; animation-iteration-count: infinite; } \
         .call-button { background: rgba(0, 0, 0, 0.35); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
         .call-button:hover { background: rgba(0, 0, 0, 0.2); } \
         .call-button:disabled { opacity: 0.2; } \
