@@ -456,10 +456,10 @@ on_quality_changed(G_GNUC_UNUSED GtkScaleButton *button, G_GNUC_UNUSED gdouble v
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
-    /* no need to upate quality if auto quality is enabled */
+    /* no need to update quality if auto quality is enabled */
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->checkbutton_autoquality))) return;
 
-    /* only update if the scale button is released, to reduce the number of updates */
+    /* update only if the scale button is released (reduces the number of updates) */
     if (priv->cpp->quality_scale_pressed) return;
 
     set_call_quality(view, false, gtk_scale_button_get_value(button));
@@ -486,7 +486,7 @@ on_quality_button_released(G_GNUC_UNUSED GtkWidget *widget, G_GNUC_UNUSED GdkEve
 
     priv->cpp->quality_scale_pressed = FALSE;
 
-    // now make sure the quality gets updated
+    // make sure the quality gets updated
     on_quality_changed(GTK_SCALE_BUTTON(priv->scalebutton_quality), 0, view);
 
     return GDK_EVENT_PROPAGATE;
@@ -522,7 +522,6 @@ on_button_press_in_video_event(GtkWidget* widget, GdkEventButton *event, Current
 
     // on double click
     if (event->type == GDK_2BUTTON_PRESS) {
-        g_debug("double click in video");
         g_signal_emit(G_OBJECT(view), current_call_view_signals[VIDEO_DOUBLE_CLICKED], 0);
     }
 
@@ -985,7 +984,7 @@ CppImpl::updateDetails()
 void
 CppImpl::updateState()
 {
-    if (conversation) return;
+    if (!conversation) return;
 
     auto callId = conversation->callId;
 
