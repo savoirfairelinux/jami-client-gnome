@@ -77,7 +77,7 @@ enum {
 static guint webkit_chat_container_signals[LAST_SIGNAL] = { 0 };
 
 /* functions */
-static gboolean webview_crashed(WebKitChatContainer *self);
+static void webview_terminated(WebKitWebView *web_view, WebKitWebProcessTerminationReason reason, WebKitChatContainer *self);
 
 static void
 webkit_chat_container_dispose(GObject *object)
@@ -560,13 +560,16 @@ build_view(WebKitChatContainer *view)
      * start loading javascript libraries */
 
     /* handle web view crash */
-    g_signal_connect_swapped(priv->webview_chat, "web-process-crashed", G_CALLBACK(webview_crashed), view);
+    g_signal_connect(priv->webview_chat, "web-process-terminated", G_CALLBACK(webview_terminated), view);
 }
 
-static gboolean
-webview_crashed(WebKitChatContainer *self)
+static void
+webview_terminated(G_GNUC_UNUSED WebKitWebView *web_view,
+                   WebKitWebProcessTerminationReason reason, WebKitChatContainer *self)
 {
-    g_warning("Gtk Web Process crashed! Recreating web view");
+    g_warning("Gtk Web Process terminated (reason: %s)! Recreating web view.",
+              reason == WebKitWebProcessTerminationReason::WEBKIT_WEB_PROCESS_CRASHED
+              ? "webprocess crashed" : "webprocess exceeded memory");
 
     auto priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(self);
 
@@ -577,8 +580,6 @@ webview_crashed(WebKitChatContainer *self)
     }
 
     build_view(self);
-
-    return G_SOURCE_CONTINUE;
 }
 
 GtkWidget *
