@@ -1,5 +1,5 @@
 /****************************************************************************
- *   Copyright (C) 2017-2018 Savoir-faire Linux                                  *
+ *   Copyright (C) 2017-2018 Savoir-faire Linux                             *
  *   Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>             *
  *   Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>           *
  *                                                                          *
@@ -63,7 +63,7 @@ struct _ConversationsViewPrivate
     QMetaObject::Connection modelSortedConnection_;
     QMetaObject::Connection conversationUpdatedConnection_;
     QMetaObject::Connection filterChangedConnection_;
-
+    QMetaObject::Connection callChangedConnection_;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ConversationsView, conversations_view, GTK_TYPE_TREE_VIEW);
@@ -634,6 +634,27 @@ build_conversations_view(ConversationsView *self)
                                 GTK_TREE_MODEL(model));
     });
 
+    priv->callChangedConnection_ = QObject::connect(
+    &*(*priv->accountInfo_)->callModel,
+    &lrc::api::NewCallModel::callStatusChanged,
+    [self, priv] (const std::string& callId) {
+        // retrieve currently selected conversation
+        GtkTreeIter iter;
+        GtkTreeModel *model = nullptr;
+        gchar *conversationUid = nullptr;
+
+        auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
+        if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return;
+        gtk_tree_model_get(model, &iter, 0, &conversationUid, -1);
+
+        // create updated model
+        auto new_model = create_and_fill_model(self);
+        gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(new_model));
+
+        // make sure conversation remains selected
+        conversations_view_select_conversation(self, conversationUid);
+    });
+
     gtk_widget_show_all(GTK_WIDGET(self));
 
     auto selectionNew = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
@@ -674,6 +695,7 @@ conversations_view_dispose(GObject *object)
     QObject::disconnect(priv->modelSortedConnection_);
     QObject::disconnect(priv->conversationUpdatedConnection_);
     QObject::disconnect(priv->filterChangedConnection_);
+    QObject::disconnect(priv->callChangedConnection_);
 
     gtk_widget_destroy(priv->popupMenu_);
 
