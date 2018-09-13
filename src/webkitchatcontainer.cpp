@@ -325,8 +325,6 @@ webview_chat_decide_policy (G_GNUC_UNUSED WebKitWebView *web_view,
         }
         case WEBKIT_POLICY_DECISION_TYPE_RESPONSE:
         {
-            //WebKitResponsePolicyDecision *response = WEBKIT_RESPONSE_POLICY_DECISION (decision);
-            //break;
             return FALSE;
         }
         default:
@@ -615,16 +613,18 @@ webkit_chat_disable_send_interaction(WebKitChatContainer *view, bool isDisabled)
 void
 webkit_chat_container_clear_sender_images(WebKitChatContainer *view)
 {
-    webkit_chat_container_execute_js(view, "clearSenderImages()");
+    gchar* function_call = g_strdup("clearSenderImages();");
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
 }
 
 void
 webkit_chat_container_clear(WebKitChatContainer *view)
 {
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-
-    webkit_chat_container_execute_js(view, "clearMessages()");
+    gchar* function_call = g_strdup("clearMessages();");
+    webkit_chat_container_execute_js(view, function_call);
     webkit_chat_container_clear_sender_images(view);
+    g_free(function_call);
 }
 
 void
