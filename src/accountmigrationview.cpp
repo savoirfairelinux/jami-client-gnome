@@ -26,7 +26,8 @@
 // Qt
 #include <QSize>
 
-#include <iostream>
+// std
+#include <memory> // for std::shared_ptr
 
 // LRC
 #include <api/newaccountmodel.h>
@@ -205,8 +206,9 @@ build_migration_view(AccountMigrationView *view)
     g_signal_connect_swapped(priv->entry_password, "activate", G_CALLBACK(migrate), view);
 
     gtk_label_set_text(GTK_LABEL(priv->label_account_alias), (*priv->accountInfo_)->profileInfo.alias.c_str());
+
     // display the ringID (without "ring:")
-    std::cout << "MIGRATE FOR " << (*priv->accountInfo_)->id << std::endl;
+    g_debug("MIGRATE FOR %s", (*priv->accountInfo_)->id.c_str());
     std::string username = (*priv->accountInfo_)->profileInfo.uri;
     if (username.empty()) {
         username = (*priv->accountInfo_)->profileInfo.uri;
