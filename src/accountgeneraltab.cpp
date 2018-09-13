@@ -28,7 +28,6 @@
 #include "utils/models.h"
 #include "usernameregistrationbox.h"
 
-#include <iostream>
 #include <api/newdevicemodel.h>
 #include <api/newaccountmodel.h>
 

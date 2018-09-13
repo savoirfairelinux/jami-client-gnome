@@ -400,7 +400,10 @@ void video_widget_on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
         }
     }
 
-    if (!call) return;
+    if (!call) {
+        g_strfreev(uris);
+        return;
+    }
 
     if (uris && *uris){
         if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
@@ -413,7 +416,7 @@ void video_widget_on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
 static void
 switch_video_input(GtkWidget *widget, Video::Device *device)
 {
-    gpointer data = g_object_get_data(G_OBJECT(widget),JOIN_CALL_KEY );
+    gpointer data = g_object_get_data(G_OBJECT(widget), JOIN_CALL_KEY);
     g_return_if_fail(data);
     Call *call = (Call*)data;
 
@@ -491,7 +494,6 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
         parent = gtk_widget_get_toplevel(GTK_WIDGET(parent));
     }
 
-    gchar *uri = NULL;
     GtkWidget *dialog = gtk_file_chooser_dialog_new(
             "Choose File",
             GTK_WINDOW(parent),
@@ -509,16 +511,21 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
             }
         }
 
-        if (!call) return;
+        if (!call) {
+            gtk_widget_destroy(dialog);
+            return;
+        }
 
-        uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+        gchar *uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 
-        if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
-            out_media->sourceModel()->setFile(QUrl(uri));
+        if (uri) {
+            if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
+                out_media->sourceModel()->setFile(QUrl(uri));
+            g_free(uri);
+        }
     }
 
     gtk_widget_destroy(dialog);
-    g_free(uri);
 }
 
 /*

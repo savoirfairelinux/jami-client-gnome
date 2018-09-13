@@ -45,28 +45,6 @@
 static constexpr const char* SERVER_NOTIFY_OSD = "notify-osd";
 static constexpr const char* NOTIFICATION_FILE = SOUNDSDIR "/ringtone_notify.wav";
 
-/* struct to store the parsed list of the notify server capabilities */
-struct RingNotifyServerInfo
-{
-    /* info */
-    char *name;
-    char *vendor;
-    char *version;
-    char *spec;
-
-    /* capabilities */
-    gboolean append;
-    gboolean actions;
-
-    /* the info strings must be freed */
-    ~RingNotifyServerInfo() {
-        g_free(name);
-        g_free(vendor);
-        g_free(version);
-        g_free(spec);
-    }
-};
-
 namespace details
 {
 class CppImpl;
@@ -86,8 +64,6 @@ typedef struct _RingNotifierPrivate RingNotifierPrivate;
 
 struct _RingNotifierPrivate
 {
-    RingNotifyServerInfo serverInfo;
-
     details::CppImpl* cpp; ///< Non-UI and C++ only code0
 };
 
@@ -119,22 +95,39 @@ public:
     RingNotifier* self = nullptr; // The GTK widget itself
     RingNotifierPrivate* priv = nullptr;
 
+    /* server info and capabilities */
+    char *name = nullptr;
+    char *vendor = nullptr;
+    char *version = nullptr;
+    char *spec = nullptr;
+    gboolean append;
+    gboolean actions;
+
     std::map<std::string, std::shared_ptr<NotifyNotification>> notifications_;
 private:
     CppImpl() = delete;
     CppImpl(const CppImpl&) = delete;
     CppImpl& operator=(const CppImpl&) = delete;
-
 };
 
 CppImpl::CppImpl(RingNotifier& widget)
-    : self {&widget}
-{}
+: self {&widget}
+{
+}
 
 CppImpl::~CppImpl()
-{}
-
+{
+    if (name)
+        g_free(name);
+    if (vendor)
+        g_free(vendor);
+    if (version)
+        g_free(version);
+    if (spec)
+        g_free(spec);
 }
+
+} // namespace details
 
 static void
 ring_notifier_dispose(GObject *object)
@@ -165,12 +158,12 @@ ring_notifier_init(RingNotifier *view)
     notify_init("Ring");
 
     /* get notify server info */
-    if (notify_get_server_info(&(priv->serverInfo).name,
-                               &(priv->serverInfo).vendor,
-                               &(priv->serverInfo).version,
-                               &(priv->serverInfo).spec)) {
+    if (notify_get_server_info(&priv->cpp->name,
+                               &priv->cpp->vendor,
+                               &priv->cpp->version,
+                               &priv->cpp->spec)) {
         g_debug("notify server name: %s, vendor: %s, version: %s, spec: %s",
-                priv->serverInfo.name, priv->serverInfo.vendor, priv->serverInfo.version, priv->serverInfo.spec);
+                priv->cpp->name, priv->cpp->vendor, priv->cpp->version, priv->cpp->spec);
     }
 
     /* check  notify server capabilities */
@@ -178,10 +171,10 @@ ring_notifier_init(RingNotifier *view)
     while (list) {
         if (g_strcmp0((const char *)list->data, "append") == 0 ||
             g_strcmp0((const char *)list->data, "x-canonical-append") == 0) {
-            priv->serverInfo.append = TRUE;
+            priv->cpp->append = TRUE;
         }
         if (g_strcmp0((const char *)list->data, "actions") == 0) {
-            priv->serverInfo.actions = TRUE;
+            priv->cpp->actions = TRUE;
         }
 
         list = g_list_next(list);
@@ -340,7 +333,7 @@ ring_show_notification(RingNotifier* view, const std::string& icon,
 #endif // USE_CANBERRA
 
     // if the notification server supports actions, make the default action to show the chat view
-    if (priv->serverInfo.actions) {
+    if (priv->cpp->actions) {
         if (type != NotificationType::CALL) {
             notify_notification_add_action(notification.get(),
                 id.c_str(),
@@ -397,23 +390,26 @@ gboolean
 ring_hide_notification(RingNotifier* view, const std::string& id)
 {
     g_return_val_if_fail(IS_RING_NOTIFIER(view), false);
-    gboolean success = FALSE;
     RingNotifierPrivate *priv = RING_NOTIFIER_GET_PRIVATE(view);
 
 #if USE_LIBNOTIFY
     // Search
     auto notification = priv->cpp->notifications_.find(id);
     if (notification == priv->cpp->notifications_.end()) {
-        return success;
+        return FALSE;
     }
+
     // Close
     GError *error = nullptr;
     if (!notify_notification_close(notification->second.get(), &error)) {
         g_warning("could not close notification: %s", error->message);
         g_clear_error(&error);
+        return FALSE;
     }
+
     // Erase
     priv->cpp->notifications_.erase(id);
 #endif
-    return success;
+
+    return TRUE;
 }

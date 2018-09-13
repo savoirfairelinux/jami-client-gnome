@@ -151,11 +151,12 @@ webview_chat_context_menu(G_GNUC_UNUSED WebKitChatContainer *self,
             webkit_context_menu_remove(menu, item);
         }
     }
-    return false;
+
+    return true;
 }
 
 static void
-webkit_chat_container_execute_js(WebKitChatContainer *view, gchar* function_call)
+webkit_chat_container_execute_js(WebKitChatContainer *view, const gchar* function_call)
 {
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
     webkit_web_view_run_javascript(
@@ -325,8 +326,6 @@ webview_chat_decide_policy (G_GNUC_UNUSED WebKitWebView *web_view,
         }
         case WEBKIT_POLICY_DECISION_TYPE_RESPONSE:
         {
-            //WebKitResponsePolicyDecision *response = WEBKIT_RESPONSE_POLICY_DECISION (decision);
-            //break;
             return FALSE;
         }
         default:
@@ -614,15 +613,13 @@ webkit_chat_disable_send_interaction(WebKitChatContainer *view, bool isDisabled)
 void
 webkit_chat_container_clear_sender_images(WebKitChatContainer *view)
 {
-    webkit_chat_container_execute_js(view, "clearSenderImages()");
+    webkit_chat_container_execute_js(view, "clearSenderImages();");
 }
 
 void
 webkit_chat_container_clear(WebKitChatContainer *view)
 {
-    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
-
-    webkit_chat_container_execute_js(view, "clearMessages()");
+    webkit_chat_container_execute_js(view, "clearMessages();");
     webkit_chat_container_clear_sender_images(view);
 }
 
