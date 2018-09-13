@@ -310,7 +310,7 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
         (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
         GTK_MESSAGE_QUESTION,
         GTK_BUTTONS_OK_CANCEL,
-        "Enter the password of your Ring account"
+        _("Enter the password of your Ring account")
     );
 
     GtkWidget* entry_password = gtk_entry_new();
