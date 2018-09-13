@@ -150,11 +150,11 @@ inline namespace helpers
  * set the column value by printing the alias and the state of an account in combobox_account_selector.
  */
 static void
-print_account_and_state(GtkCellLayout* cell_layout,
+print_account_and_state(G_GNUC_UNUSED GtkCellLayout* cell_layout,
                         GtkCellRenderer* cell,
                         GtkTreeModel* model,
                         GtkTreeIter* iter,
-                        gpointer* data)
+                        G_GNUC_UNUSED gpointer* data)
 {
     gchar *id;
     gchar *alias;
@@ -203,15 +203,20 @@ print_account_and_state(GtkCellLayout* cell_layout,
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
     g_object_set(G_OBJECT(cell), "height", 17, NULL);
     g_object_set(G_OBJECT(cell), "ypad", 0, NULL);
+
+    g_free(id);
     g_free(alias);
+    g_free(registeredName);
+    g_free(uri);
+    g_free(text);
 }
 
 static void
-render_account_avatar(GtkCellLayout* cell_layout,
+render_account_avatar(G_GNUC_UNUSED GtkCellLayout* cell_layout,
                       GtkCellRenderer *cell,
                       GtkTreeModel *model,
                       GtkTreeIter *iter,
-                      gpointer data)
+                      G_GNUC_UNUSED gpointer data)
 {
     gchar *id;
     gchar* avatar;
@@ -366,18 +371,6 @@ private:
 
 inline namespace gtk_callbacks
 {
-
-static gboolean
-on_save_accounts_timeout(GtkWidget* working_dialog)
-{
-    /* save changes to accounts */
-    AccountModel::instance().save();
-
-    if (working_dialog)
-        gtk_widget_destroy(working_dialog);
-
-    return G_SOURCE_REMOVE;
-}
 
 static void
 on_video_double_clicked(RingMainWindow* self)
@@ -740,7 +733,6 @@ action_notification(gchar* title, RingMainWindow* self, Action action)
             conversations_view_select_conversation(CONVERSATIONS_VIEW(priv->treeview_conversations), information);
         } else if (type == "request") {
             for (const auto& conversation : priv->cpp->accountInfo_->conversationModel->getFilteredConversations(lrc::api::profile::Type::PENDING)) {
-                auto current_page = gtk_notebook_get_current_page(GTK_NOTEBOOK(priv->notebook_contacts));
                 auto contactRequestsPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(priv->notebook_contacts),
                                                                priv->scrolled_window_contact_requests);
                 gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), contactRequestsPageNum);
@@ -764,14 +756,15 @@ action_notification(gchar* title, RingMainWindow* self, Action action)
                 }
             }
         } catch (const std::out_of_range& e) {
-            g_warning("Can't get account %i: %s", id.c_str(), e.what());
+            g_warning("Can't get account %s: %s", id.c_str(), e.what());
         }
     }
 
 }
 
 static void
-on_notification_chat_clicked(GtkWidget* notifier, gchar *title, RingMainWindow* self)
+on_notification_chat_clicked(G_GNUC_UNUSED GtkWidget* notifier,
+                             gchar *title, RingMainWindow* self)
 {
     action_notification(title, self, Action::SELECT);
 }
@@ -789,7 +782,8 @@ on_notification_refuse_pending(GtkWidget*, gchar *title, RingMainWindow* self)
 }
 
 static void
-on_notification_accept_call(GtkWidget* notifier, gchar *title, RingMainWindow* self)
+on_notification_accept_call(G_GNUC_UNUSED GtkWidget* notifier,
+                            gchar *title, RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self) && title);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
@@ -816,12 +810,12 @@ on_notification_accept_call(GtkWidget* notifier, gchar *title, RingMainWindow* s
         auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id);
         accountInfo.callModel->accept(information);
     } catch (const std::out_of_range& e) {
-        g_warning("Can't get account %i: %s", id.c_str(), e.what());
+        g_warning("Can't get account %s: %s", id.c_str(), e.what());
     }
 }
 
 static void
-on_notification_decline_call(GtkWidget* notifier, gchar *title, RingMainWindow* self)
+on_notification_decline_call(G_GNUC_UNUSED GtkWidget* notifier, gchar *title, RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self) && title);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
@@ -844,7 +838,7 @@ on_notification_decline_call(GtkWidget* notifier, gchar *title, RingMainWindow* 
         auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id);
         accountInfo.callModel->hangUp(information);
     } catch (const std::out_of_range& e) {
-        g_warning("Can't get account %i: %s", id.c_str(), e.what());
+        g_warning("Can't get account %s: %s", id.c_str(), e.what());
     }
 }
 
@@ -857,7 +851,7 @@ CppImpl::CppImpl(RingMainWindow& widget)
 {}
 
 static gboolean
-on_clear_all_history_foreach(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer self)
+on_clear_all_history_foreach(GtkTreeModel *model, G_GNUC_UNUSED GtkTreePath *path, GtkTreeIter *iter, gpointer self)
 {
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), TRUE);
 
@@ -1082,9 +1076,6 @@ CppImpl::init()
     refreshAccountSelectorWidget(0);
 
     /* layout */
-    auto* model = gtk_combo_box_get_model(GTK_COMBO_BOX(widgets->combobox_account_selector));
-
-
     auto* renderer = gtk_cell_renderer_pixbuf_new();
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(widgets->combobox_account_selector), renderer, true);
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(widgets->combobox_account_selector),
@@ -1787,7 +1778,6 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
         if (accountInfo_->profileInfo.type == lrc::api::profile::Type::RING && peer.find("ring:") == 0) {
             peer = peer.substr(5);
         }
-        auto& contactModel = accountInfo_->contactModel;
         std::string notifId = "";
         try {
             notifId = accountInfo_->id + ":call:" + callId;

@@ -96,7 +96,7 @@ ring_welcome_update_view(RingWelcomeView* self) {
                                           (*priv->accountInfo_)->profileInfo.uri.c_str());
     } else {
         gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
-        ring_id = {};
+        ring_id = g_strdup("");
     }
 
     gtk_label_set_markup(GTK_LABEL(priv->label_ringid), ring_id);
@@ -105,6 +105,8 @@ ring_welcome_update_view(RingWelcomeView* self) {
     gtk_widget_show(priv->label_ringid);
     gtk_widget_show(priv->button_qrcode);
     gtk_widget_show(priv->revealer_qrcode);
+
+    g_free(ring_id);
 }
 
 static void
@@ -255,7 +257,7 @@ draw_qrcode(G_GNUC_UNUSED GtkWidget* diese,
 
     if (!rcode) { // no rcode, no draw
         g_warning("Failed to generate QR code");
-        return TRUE;
+        return FALSE;
     }
 
     auto margin = 5;
@@ -286,7 +288,6 @@ draw_qrcode(G_GNUC_UNUSED GtkWidget* diese,
 
     QRcode_free(rcode);
     return TRUE;
-
 }
 
 static void
