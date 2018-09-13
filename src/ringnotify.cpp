@@ -397,23 +397,25 @@ gboolean
 ring_hide_notification(RingNotifier* view, const std::string& id)
 {
     g_return_val_if_fail(IS_RING_NOTIFIER(view), false);
-    gboolean success = FALSE;
     RingNotifierPrivate *priv = RING_NOTIFIER_GET_PRIVATE(view);
 
 #if USE_LIBNOTIFY
     // Search
     auto notification = priv->cpp->notifications_.find(id);
     if (notification == priv->cpp->notifications_.end()) {
-        return success;
+        return FALSE;
     }
+
     // Close
     GError *error = nullptr;
     if (!notify_notification_close(notification->second.get(), &error)) {
         g_warning("could not close notification: %s", error->message);
         g_clear_error(&error);
     }
+
     // Erase
     priv->cpp->notifications_.erase(id);
 #endif
-    return success;
+
+    return TRUE;
 }
