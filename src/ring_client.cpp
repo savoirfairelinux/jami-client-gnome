@@ -378,7 +378,8 @@ ring_client_open(GApplication *app, GFile **file, gint /*arg3*/, const gchar* /*
 {
     ring_client_activate(app);
 
-    if (strcmp(g_file_get_uri_scheme(*file), "ring") == 0) {
+    gchar *file_uri_scheme = g_file_get_uri_scheme(*file);
+    if (strcmp(file_uri_scheme, "ring") == 0) {
         const char * call_id = g_file_get_basename(*file);
         std::regex format {"^[[:xdigit:]]{40}$"};
 
@@ -389,7 +390,11 @@ ring_client_open(GApplication *app, GFile **file, gint /*arg3*/, const gchar* /*
             place_new_call(cm.get());
             cm.release();
         }
+
+        g_free(call_id);
     }
+
+    g_free(file_uri_scheme);
 }
 
 #if USE_LIBNM

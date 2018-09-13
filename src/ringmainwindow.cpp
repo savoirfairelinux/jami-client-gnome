@@ -367,18 +367,6 @@ private:
 inline namespace gtk_callbacks
 {
 
-static gboolean
-on_save_accounts_timeout(GtkWidget* working_dialog)
-{
-    /* save changes to accounts */
-    AccountModel::instance().save();
-
-    if (working_dialog)
-        gtk_widget_destroy(working_dialog);
-
-    return G_SOURCE_REMOVE;
-}
-
 static void
 on_video_double_clicked(RingMainWindow* self)
 {
@@ -764,7 +752,7 @@ action_notification(gchar* title, RingMainWindow* self, Action action)
                 }
             }
         } catch (const std::out_of_range& e) {
-            g_warning("Can't get account %i: %s", id.c_str(), e.what());
+            g_warning("Can't get account %s: %s", id.c_str(), e.what());
         }
     }
 
@@ -816,12 +804,12 @@ on_notification_accept_call(GtkWidget* notifier, gchar *title, RingMainWindow* s
         auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id);
         accountInfo.callModel->accept(information);
     } catch (const std::out_of_range& e) {
-        g_warning("Can't get account %i: %s", id.c_str(), e.what());
+        g_warning("Can't get account %s: %s", id.c_str(), e.what());
     }
 }
 
 static void
-on_notification_decline_call(GtkWidget* notifier, gchar *title, RingMainWindow* self)
+on_notification_decline_call(G_GNUC_UNUSED GtkWidget* notifier, gchar *title, RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self) && title);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
@@ -844,7 +832,7 @@ on_notification_decline_call(GtkWidget* notifier, gchar *title, RingMainWindow* 
         auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id);
         accountInfo.callModel->hangUp(information);
     } catch (const std::out_of_range& e) {
-        g_warning("Can't get account %i: %s", id.c_str(), e.what());
+        g_warning("Can't get account %s: %s", id.c_str(), e.what());
     }
 }
 
@@ -857,7 +845,7 @@ CppImpl::CppImpl(RingMainWindow& widget)
 {}
 
 static gboolean
-on_clear_all_history_foreach(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer self)
+on_clear_all_history_foreach(GtkTreeModel *model, G_GNUC_UNUSED GtkTreePath *path, GtkTreeIter *iter, gpointer self)
 {
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), TRUE);
 
@@ -1787,7 +1775,6 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
         if (accountInfo_->profileInfo.type == lrc::api::profile::Type::RING && peer.find("ring:") == 0) {
             peer = peer.substr(5);
         }
-        auto& contactModel = accountInfo_->contactModel;
         std::string notifId = "";
         try {
             notifId = accountInfo_->id + ":call:" + callId;
