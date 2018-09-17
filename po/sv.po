@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 03:09-0400\n"
-"PO-Revision-Date: 2018-09-10 07:09+0000\n"
-"Last-Translator: Åke Engelbrektson\n"
+"POT-Creation-Date: 2018-09-17 03:09-0400\n"
+"PO-Revision-Date: 2018-09-17 07:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/ring/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +34,7 @@ msgstr "Kontomigrering krävs"
 msgid "This account is malformed, please enter your password"
 msgstr "Detta konto är felaktigt, ange ditt lösenord"
 
-#: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:620
+#: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:619
 msgid "Alias"
 msgstr "Alias"
 
@@ -44,7 +44,7 @@ msgstr "Ring-ID"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
-#: src/accountgeneraltab.cpp:707
+#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "Lösenord"
 
@@ -53,7 +53,7 @@ msgid "Migrate account"
 msgstr "Migrera konto"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
-#: ui/newaccountsettingsview.ui:876 src/accountmigrationview.cpp:176
+#: ui/newaccountsettingsview.ui:876 src/accountmigrationview.cpp:177
 #: src/newaccountsettingsview.cpp:963
 msgid "Delete account"
 msgstr "Ta bort konto"
@@ -158,7 +158,7 @@ msgstr "Avbryt"
 
 #: ui/accountcreationwizard.ui:86
 msgid "Advanced…"
-msgstr ""
+msgstr "Avancerat..."
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
@@ -220,8 +220,8 @@ msgid ""
 msgstr "Genom att aktivera detta, registrerar du ett unikt användarnamn på Ring-nätverket. Folk kan använda det för att kontakta dig, istället för att använda ditt Ring-ID, som är 40 tecken långt."
 
 #: ui/accountcreationwizard.ui:428 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:670
-#: src/accountgeneraltab.cpp:697
+#: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
+#: src/accountgeneraltab.cpp:696
 msgid "Username"
 msgstr "Användarnamn"
 
@@ -237,11 +237,11 @@ msgstr "Bekräfta lösenord"
 
 #: ui/accountcreationwizard.ui:566
 msgid "Generating your Ring account…"
-msgstr ""
+msgstr "Skapar ditt Ring-konto..."
 
 #: ui/accountcreationwizard.ui:592
 msgid "Registering username…"
-msgstr ""
+msgstr "Registrerar användarnamn..."
 
 #: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
@@ -249,7 +249,7 @@ msgstr "Detta kan ta några få minuter."
 
 #: ui/accountcreationwizard.ui:625
 msgid "Retrieving your Ring account…"
-msgstr ""
+msgstr "Hämtar ditt Ring-konto..."
 
 #: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
@@ -336,7 +336,7 @@ msgstr "Allmänt"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1514
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1518
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -425,7 +425,7 @@ msgstr "Export på Ring"
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Ring…"
-msgstr ""
+msgstr "Exporterar konto på Ring..."
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -456,7 +456,7 @@ msgid "password"
 msgstr "Lösenord"
 
 #: ui/newaccountsettingsview.ui:812 ui/newaccountsettingsview.ui:1409
-#: src/accountgeneraltab.cpp:726
+#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Proxy"
 
@@ -694,7 +694,7 @@ msgstr "Skicka inbjudan"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
-msgstr ""
+msgstr "Inkommande..."
 
 #: ui/incomingcallview.ui:135
 msgid "Accept"
@@ -742,22 +742,22 @@ msgstr "Visa Ring"
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/ringnotify.cpp:347
+#: src/ringnotify.cpp:340
 msgctxt ""
 msgid "Open conversation"
 msgstr "Öppna konversation"
 
-#: src/ringnotify.cpp:355 src/ringnotify.cpp:371
+#: src/ringnotify.cpp:348 src/ringnotify.cpp:364
 msgctxt ""
 msgid "Accept"
 msgstr "Acceptera"
 
-#: src/ringnotify.cpp:362
+#: src/ringnotify.cpp:355
 msgctxt ""
 msgid "Refuse"
 msgstr "Neka"
 
-#: src/ringnotify.cpp:378
+#: src/ringnotify.cpp:371
 msgctxt ""
 msgid "Decline"
 msgstr "Avslå"
@@ -780,11 +780,15 @@ msgstr "Sök efter ej tillgängliga, kontrollera din nätverksanslutning"
 
 #: src/usernameregistrationbox.cpp:274
 msgid "Performing lookup…"
+msgstr "Utför uppslagning..."
+
+#: src/usernameregistrationbox.cpp:313
+msgid "Enter the password of your Ring account"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
-msgstr ""
+msgstr "Registrering pågår..."
 
 #: src/generalsettingsview.cpp:107
 msgid ""
@@ -796,13 +800,13 @@ msgstr "Detta är en destruktiv åtgärd. Vill du verkligen ta bort all din chat
 msgid "Choose download folder"
 msgstr "Välj nerladdningsmapp"
 
-#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
+#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:342
 #: src/avatarmanipulation.cpp:406 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "_Avbryt"
 
-#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
+#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:344
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "_Spara"
@@ -816,108 +820,108 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: src/accountgeneraltab.cpp:240 src/newaccountsettingsview.cpp:1705
+#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1705
 msgid "Bad password"
 msgstr "Fel lösenord"
 
-#: src/accountgeneraltab.cpp:246 src/newaccountsettingsview.cpp:1711
+#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1711
 msgid "Network error, try again"
 msgstr "Nätverksfel, försök igen"
 
-#: src/accountgeneraltab.cpp:258 src/newaccountsettingsview.cpp:1729
+#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1729
 msgid "Could not initiate export to the Ring, try again"
 msgstr "Kunde inte starta export till Ring, försök igen"
 
-#: src/accountgeneraltab.cpp:326 src/accountgeneraltab.cpp:529
+#: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
 #: src/newaccountsettingsview.cpp:797 src/newaccountsettingsview.cpp:820
 #: src/newaccountsettingsview.cpp:844 src/newaccountsettingsview.cpp:880
 msgid "Change password"
 msgstr "Byt lösenord"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:175
+#: src/accountgeneraltab.cpp:339 src/chatview.cpp:175
 #: src/newaccountsettingsview.cpp:923
 msgid "Save File"
 msgstr "Spara fil"
 
-#: src/accountgeneraltab.cpp:365
+#: src/accountgeneraltab.cpp:364
 msgid "File exported to destination: "
 msgstr "Fil exporterad till:"
 
-#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:620
+#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:620
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Varning! Denna åtgärd kommer att återkalla enheten!\nNotera att åtgärden inte kan ångras."
 
-#: src/accountgeneraltab.cpp:479 src/newaccountsettingsview.cpp:621
+#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:621
 msgid "Enter password to revoke device"
 msgstr "Ange lösenord för att återkalla enheten"
 
-#: src/accountgeneraltab.cpp:517
+#: src/accountgeneraltab.cpp:516
 msgid "New password and its confirmation are different"
 msgstr "Det nya lösenordet och bekräftelsen är olika"
 
-#: src/accountgeneraltab.cpp:527
+#: src/accountgeneraltab.cpp:526
 msgid "Password changed!"
 msgstr "Lösenordet ändrat!"
 
-#: src/accountgeneraltab.cpp:530
+#: src/accountgeneraltab.cpp:529
 msgid "Incorrect password"
 msgstr "Felaktigt lösenord"
 
-#: src/accountgeneraltab.cpp:561
+#: src/accountgeneraltab.cpp:560
 msgid "Save name"
 msgstr "Spara namn"
 
-#: src/accountgeneraltab.cpp:561 src/newaccountsettingsview.cpp:679
+#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:679
 msgid "Revoke device"
 msgstr "Återkalla enhet"
 
-#: src/accountgeneraltab.cpp:582 src/newaccountsettingsview.cpp:701
+#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:701
 msgid "Error when revoking device"
 msgstr "Kunde inte återkalla enheten"
 
-#: src/accountgeneraltab.cpp:631
+#: src/accountgeneraltab.cpp:630
 msgid "Type"
 msgstr "Typ"
 
-#: src/accountgeneraltab.cpp:657
+#: src/accountgeneraltab.cpp:656
 msgid "auto-generating…"
-msgstr ""
+msgstr "autogenererar..."
 
-#: src/accountgeneraltab.cpp:687
+#: src/accountgeneraltab.cpp:686
 msgid "Hostname"
 msgstr "Värdnamn"
 
-#: src/accountgeneraltab.cpp:720
+#: src/accountgeneraltab.cpp:719
 msgid "Show password"
 msgstr "Visa lösenord"
 
-#: src/accountgeneraltab.cpp:736
+#: src/accountgeneraltab.cpp:735
 msgid "Voicemail number"
 msgstr "Nummer till röstbrevlåda"
 
-#: src/accountgeneraltab.cpp:800 src/newaccountsettingsview.cpp:1788
+#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1788
 msgid "Error: wrong password!"
 msgstr "Fel: Fel lösenord!"
 
-#: src/accountgeneraltab.cpp:803 src/newaccountsettingsview.cpp:1791
+#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1791
 msgid "Error: unknown device!"
 msgstr "Fel: Okänd enhet!"
 
-#: src/video/video_widget.cpp:576
+#: src/video/video_widget.cpp:583
 msgid "Share _screen area"
 msgstr "Dela _skärmområde"
 
-#: src/video/video_widget.cpp:587
+#: src/video/video_widget.cpp:594
 msgid "Share _monitor"
 msgstr "Dela _hela skärmen"
 
-#: src/video/video_widget.cpp:598
+#: src/video/video_widget.cpp:605
 msgid "Stream _file"
 msgstr "Strömma _fil"
 
-#: src/video/video_widget.cpp:611
+#: src/video/video_widget.cpp:618
 msgid "Show advanced information"
 msgstr "Visa avancerad information"
 
@@ -931,7 +935,7 @@ msgstr "_Öppna"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "Arbetar..."
 
 #: src/dialogs.c:84
 #, c-format
@@ -947,48 +951,48 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "GNOME-klient för Ring\nRing är fri mjukvara för universell kommunikation, med respekt för användarens frihet och integritet."
 
-#: src/ringmainwindow.cpp:175
+#: src/ringmainwindow.cpp:174
 msgid "Add account…"
-msgstr ""
+msgstr "Lägg till konto..."
 
-#: src/ringmainwindow.cpp:646
+#: src/ringmainwindow.cpp:643
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "starta samtal"
 
-#: src/ringmainwindow.cpp:649
+#: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "öppna chatt"
 
-#: src/ringmainwindow.cpp:1069
+#: src/ringmainwindow.cpp:1073
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Sök i kontakter eller ange nummer"
 
-#: src/ringmainwindow.cpp:1487
+#: src/ringmainwindow.cpp:1491
 msgid "Leave settings page"
 msgstr "Lämna inställningssidan"
 
-#: src/ringmainwindow.cpp:1834
+#: src/ringmainwindow.cpp:1837
 msgid " is calling you!"
 msgstr "ringer dig!"
 
-#: src/ringmainwindow.cpp:1835
+#: src/ringmainwindow.cpp:1838
 msgid "Incoming call"
 msgstr "Inkommande samtal"
 
-#: src/ringmainwindow.cpp:1980
+#: src/ringmainwindow.cpp:1983
 msgid "New request from "
 msgstr "Ny förfrågan från"
 
-#: src/ringmainwindow.cpp:1981
+#: src/ringmainwindow.cpp:1984
 msgid "Trust request"
 msgstr "Lita på begäran"
 
-#: src/ringmainwindow.cpp:2038
+#: src/ringmainwindow.cpp:2041
 msgid "New message"
 msgstr "Nytt meddelande"
 
@@ -999,7 +1003,7 @@ msgstr "Ring-fel"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)…"
-msgstr ""
+msgstr "Försöker återansluta till Ring-tjänsten (dring)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
@@ -1078,13 +1082,13 @@ msgid ""
 "Copy and share it with your friends!"
 msgstr "Detta är ditt Ring-ID.\nKopiera och dela det med dina vänner!"
 
-#: src/ringwelcomeview.cpp:148
+#: src/ringwelcomeview.cpp:150
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
 msgstr "Ring är fri mjukvara för universell kommunikation, med respekt för användarens frihet och integritet."
 
-#: src/ringwelcomeview.cpp:202
+#: src/ringwelcomeview.cpp:204
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring-ID som QR-kod"
@@ -1093,13 +1097,13 @@ msgstr "Ring-ID som QR-kod"
 msgid "Send File"
 msgstr "Skicka fil"
 
-#: src/accountmigrationview.cpp:175 src/newaccountsettingsview.cpp:962
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:962
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Varning! Denna åtgärd kommer att ta bort detta konto på denna enhet!\nNotera att åtgärden inte kan ångras och att ditt registrerade användarnamn kan förloras!"
 
-#: src/currentcallview.cpp:934
+#: src/currentcallview.cpp:935
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
@@ -1154,7 +1158,7 @@ msgstr "Nerkopplad"
 
 #: src/newaccountsettingsview.cpp:1968
 msgid "Connecting…"
-msgstr ""
+msgstr "Ansluter..."
 
 #: src/newaccountsettingsview.cpp:1971
 msgid "Online"

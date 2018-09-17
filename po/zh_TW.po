@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 03:09-0400\n"
-"PO-Revision-Date: 2018-09-10 07:09+0000\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
+"POT-Creation-Date: 2018-09-17 03:09-0400\n"
+"PO-Revision-Date: 2018-09-17 07:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgstr "需要帳號遷移"
 msgid "This account is malformed, please enter your password"
 msgstr "這個帳號格式錯誤，請輸入您的密碼"
 
-#: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:620
+#: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:619
 msgid "Alias"
 msgstr "別名"
 
@@ -46,7 +46,7 @@ msgstr "Ring ID"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
-#: src/accountgeneraltab.cpp:707
+#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "密碼"
 
@@ -55,7 +55,7 @@ msgid "Migrate account"
 msgstr "遷移帳號"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
-#: ui/newaccountsettingsview.ui:876 src/accountmigrationview.cpp:176
+#: ui/newaccountsettingsview.ui:876 src/accountmigrationview.cpp:177
 #: src/newaccountsettingsview.cpp:963
 msgid "Delete account"
 msgstr "刪除帳號"
@@ -160,7 +160,7 @@ msgstr "取消"
 
 #: ui/accountcreationwizard.ui:86
 msgid "Advanced…"
-msgstr ""
+msgstr "進階……"
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
@@ -222,8 +222,8 @@ msgid ""
 msgstr "透過勾選這個，您將會在 Ring 網路上註冊一個獨一無二的使用者名稱。人們可以使用它來聯絡您，而不必使用長達 40 個字元的您的 RingID。"
 
 #: ui/accountcreationwizard.ui:428 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:670
-#: src/accountgeneraltab.cpp:697
+#: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
+#: src/accountgeneraltab.cpp:696
 msgid "Username"
 msgstr "使用者名稱"
 
@@ -239,11 +239,11 @@ msgstr "確認密碼"
 
 #: ui/accountcreationwizard.ui:566
 msgid "Generating your Ring account…"
-msgstr ""
+msgstr "正在生成您的 Ring 帳號……"
 
 #: ui/accountcreationwizard.ui:592
 msgid "Registering username…"
-msgstr ""
+msgstr "正在註冊使用者名稱……"
 
 #: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
@@ -251,7 +251,7 @@ msgstr "這將會耗費數分鐘。"
 
 #: ui/accountcreationwizard.ui:625
 msgid "Retrieving your Ring account…"
-msgstr ""
+msgstr "正在擷取您的 Ring 帳號……"
 
 #: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
@@ -338,7 +338,7 @@ msgstr "一般"
 msgid "Media"
 msgstr "媒體"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1514
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1518
 msgid "Settings"
 msgstr "設定"
 
@@ -427,7 +427,7 @@ msgstr "在 Ring 上匯出"
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Ring…"
-msgstr ""
+msgstr "正在匯出 Ring 上的帳號……"
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -458,7 +458,7 @@ msgid "password"
 msgstr "密碼"
 
 #: ui/newaccountsettingsview.ui:812 ui/newaccountsettingsview.ui:1409
-#: src/accountgeneraltab.cpp:726
+#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "代理服務器"
 
@@ -696,7 +696,7 @@ msgstr "傳送邀請"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
-msgstr ""
+msgstr "來電……"
 
 #: ui/incomingcallview.ui:135
 msgid "Accept"
@@ -744,22 +744,22 @@ msgstr "顯示 Ring"
 msgid "Quit"
 msgstr "結束"
 
-#: src/ringnotify.cpp:347
+#: src/ringnotify.cpp:340
 msgctxt ""
 msgid "Open conversation"
 msgstr "開啟對話"
 
-#: src/ringnotify.cpp:355 src/ringnotify.cpp:371
+#: src/ringnotify.cpp:348 src/ringnotify.cpp:364
 msgctxt ""
 msgid "Accept"
 msgstr "接聽"
 
-#: src/ringnotify.cpp:362
+#: src/ringnotify.cpp:355
 msgctxt ""
 msgid "Refuse"
 msgstr "拒絕"
 
-#: src/ringnotify.cpp:378
+#: src/ringnotify.cpp:371
 msgctxt ""
 msgid "Decline"
 msgstr "拒絕"
@@ -782,11 +782,15 @@ msgstr "查詢不可用，檢查您的網錄連線"
 
 #: src/usernameregistrationbox.cpp:274
 msgid "Performing lookup…"
+msgstr "正在執行查詢……"
+
+#: src/usernameregistrationbox.cpp:313
+msgid "Enter the password of your Ring account"
 msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
-msgstr ""
+msgstr "正在註冊……"
 
 #: src/generalsettingsview.cpp:107
 msgid ""
@@ -798,13 +802,13 @@ msgstr "這是一個破壞性的操作。您確定您想要刪除您所有的聊
 msgid "Choose download folder"
 msgstr "選擇下載資料夾"
 
-#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
+#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:342
 #: src/avatarmanipulation.cpp:406 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
+#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:344
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "儲存(_S)"
@@ -818,108 +822,108 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "聯絡人"
 
-#: src/accountgeneraltab.cpp:240 src/newaccountsettingsview.cpp:1705
+#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1705
 msgid "Bad password"
 msgstr "密碼錯誤"
 
-#: src/accountgeneraltab.cpp:246 src/newaccountsettingsview.cpp:1711
+#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1711
 msgid "Network error, try again"
 msgstr "網路錯誤，請重試"
 
-#: src/accountgeneraltab.cpp:258 src/newaccountsettingsview.cpp:1729
+#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1729
 msgid "Could not initiate export to the Ring, try again"
 msgstr "無法啟用輸出到 Ring，請重試。"
 
-#: src/accountgeneraltab.cpp:326 src/accountgeneraltab.cpp:529
+#: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
 #: src/newaccountsettingsview.cpp:797 src/newaccountsettingsview.cpp:820
 #: src/newaccountsettingsview.cpp:844 src/newaccountsettingsview.cpp:880
 msgid "Change password"
 msgstr "變更密碼"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:175
+#: src/accountgeneraltab.cpp:339 src/chatview.cpp:175
 #: src/newaccountsettingsview.cpp:923
 msgid "Save File"
 msgstr "儲存檔案"
 
-#: src/accountgeneraltab.cpp:365
+#: src/accountgeneraltab.cpp:364
 msgid "File exported to destination: "
 msgstr "檔案已匯出至目標位置"
 
-#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:620
+#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:620
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "警告！這個動作將會撤銷裝置！\n注意：這個動作無法復原。"
 
-#: src/accountgeneraltab.cpp:479 src/newaccountsettingsview.cpp:621
+#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:621
 msgid "Enter password to revoke device"
 msgstr "輸入密碼以撤銷裝置"
 
-#: src/accountgeneraltab.cpp:517
+#: src/accountgeneraltab.cpp:516
 msgid "New password and its confirmation are different"
 msgstr "新密碼與其確認密碼不一樣"
 
-#: src/accountgeneraltab.cpp:527
+#: src/accountgeneraltab.cpp:526
 msgid "Password changed!"
 msgstr "密碼已變更！"
 
-#: src/accountgeneraltab.cpp:530
+#: src/accountgeneraltab.cpp:529
 msgid "Incorrect password"
 msgstr "不正確的密碼"
 
-#: src/accountgeneraltab.cpp:561
+#: src/accountgeneraltab.cpp:560
 msgid "Save name"
 msgstr "儲存名稱"
 
-#: src/accountgeneraltab.cpp:561 src/newaccountsettingsview.cpp:679
+#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:679
 msgid "Revoke device"
 msgstr "撤銷裝置"
 
-#: src/accountgeneraltab.cpp:582 src/newaccountsettingsview.cpp:701
+#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:701
 msgid "Error when revoking device"
 msgstr "當撤銷裝置時發生錯誤"
 
-#: src/accountgeneraltab.cpp:631
+#: src/accountgeneraltab.cpp:630
 msgid "Type"
 msgstr "類型"
 
-#: src/accountgeneraltab.cpp:657
+#: src/accountgeneraltab.cpp:656
 msgid "auto-generating…"
-msgstr ""
+msgstr "正在自動生成……"
 
-#: src/accountgeneraltab.cpp:687
+#: src/accountgeneraltab.cpp:686
 msgid "Hostname"
 msgstr "主機名稱"
 
-#: src/accountgeneraltab.cpp:720
+#: src/accountgeneraltab.cpp:719
 msgid "Show password"
 msgstr "顯示密碼"
 
-#: src/accountgeneraltab.cpp:736
+#: src/accountgeneraltab.cpp:735
 msgid "Voicemail number"
 msgstr "語音郵件號碼"
 
-#: src/accountgeneraltab.cpp:800 src/newaccountsettingsview.cpp:1788
+#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1788
 msgid "Error: wrong password!"
 msgstr "錯誤：不正確的密碼！"
 
-#: src/accountgeneraltab.cpp:803 src/newaccountsettingsview.cpp:1791
+#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1791
 msgid "Error: unknown device!"
 msgstr "錯誤：未知的裝置！"
 
-#: src/video/video_widget.cpp:576
+#: src/video/video_widget.cpp:583
 msgid "Share _screen area"
 msgstr "分享螢幕區域(_S)"
 
-#: src/video/video_widget.cpp:587
+#: src/video/video_widget.cpp:594
 msgid "Share _monitor"
 msgstr "分享螢幕(_M)"
 
-#: src/video/video_widget.cpp:598
+#: src/video/video_widget.cpp:605
 msgid "Stream _file"
 msgstr "串流檔案(_F)"
 
-#: src/video/video_widget.cpp:611
+#: src/video/video_widget.cpp:618
 msgid "Show advanced information"
 msgstr "顯示進階資訊"
 
@@ -933,7 +937,7 @@ msgstr "開啟(_O)"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "正在運作……"
 
 #: src/dialogs.c:84
 #, c-format
@@ -949,48 +953,48 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "Ring 的 GNOME 客戶端。\nRing 是一套通用通訊的自由軟體，其尊重使用者的自由與隱私。"
 
-#: src/ringmainwindow.cpp:175
+#: src/ringmainwindow.cpp:174
 msgid "Add account…"
-msgstr ""
+msgstr "新增帳號……"
 
-#: src/ringmainwindow.cpp:646
+#: src/ringmainwindow.cpp:643
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "開始通話"
 
-#: src/ringmainwindow.cpp:649
+#: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "開啟聊天"
 
-#: src/ringmainwindow.cpp:1069
+#: src/ringmainwindow.cpp:1073
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "搜尋聯絡人或輸入號碼"
 
-#: src/ringmainwindow.cpp:1487
+#: src/ringmainwindow.cpp:1491
 msgid "Leave settings page"
 msgstr "離開設定頁面"
 
-#: src/ringmainwindow.cpp:1834
+#: src/ringmainwindow.cpp:1837
 msgid " is calling you!"
 msgstr "正在與您通話！"
 
-#: src/ringmainwindow.cpp:1835
+#: src/ringmainwindow.cpp:1838
 msgid "Incoming call"
 msgstr "來電"
 
-#: src/ringmainwindow.cpp:1980
+#: src/ringmainwindow.cpp:1983
 msgid "New request from "
 msgstr "新請求從"
 
-#: src/ringmainwindow.cpp:1981
+#: src/ringmainwindow.cpp:1984
 msgid "Trust request"
 msgstr "信任請求"
 
-#: src/ringmainwindow.cpp:2038
+#: src/ringmainwindow.cpp:2041
 msgid "New message"
 msgstr "新訊息"
 
@@ -1001,7 +1005,7 @@ msgstr "Ring 錯誤"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)…"
-msgstr ""
+msgstr "正在嘗試重新連線到 Ring 幕後程式 (dring)……"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
@@ -1080,13 +1084,13 @@ msgid ""
 "Copy and share it with your friends!"
 msgstr "這是你的 RingID.\n複製並與你的朋友分享！"
 
-#: src/ringwelcomeview.cpp:148
+#: src/ringwelcomeview.cpp:150
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
 msgstr "Ring 是一套通用通訊的自由軟體，其尊重使用者的自由與隱私。"
 
-#: src/ringwelcomeview.cpp:202
+#: src/ringwelcomeview.cpp:204
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring ID QR code"
@@ -1095,13 +1099,13 @@ msgstr "Ring ID QR code"
 msgid "Send File"
 msgstr "傳送檔案"
 
-#: src/accountmigrationview.cpp:175 src/newaccountsettingsview.cpp:962
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:962
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "警告！此動作將會在此裝置上移除此帳號！\n注意：此動作無法復原。同時，您已註冊的名稱也將會遺失！"
 
-#: src/currentcallview.cpp:934
+#: src/currentcallview.cpp:935
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自動"
@@ -1156,7 +1160,7 @@ msgstr "離線"
 
 #: src/newaccountsettingsview.cpp:1968
 msgid "Connecting…"
-msgstr ""
+msgstr "正在連線……"
 
 #: src/newaccountsettingsview.cpp:1971
 msgid "Online"
