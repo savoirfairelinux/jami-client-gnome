@@ -1744,8 +1744,8 @@ build_settings_view(NewAccountSettingsView* view)
     css += ".transparent-button:hover { border: 0; background-color: rgba(0,0,0,0);}";
     css += ".show-button { padding: 0;}";
     css += ".boxitem { padding: 12px; }";
-    css += ".green_label { color: white; background: #27ae60; width: 100%; border-radius: 3px; padding: 5px;}";
-    css += ".red_label { color: white; background: #dc3a37; width: 100%; border-radius: 3px; padding: 5px;}";
+    css += ".green_label { color: white; background: #27ae60; border-radius: 3px; padding: 5px;}";
+    css += ".red_label { color: white; background: #dc3a37; border-radius: 3px; padding: 5px;}";
     css += ".button_red { color: white; background: #dc3a37; border: 0; }";
     css += ".button_red:hover { background: #dc2719; }";
     css += ".larger { font-size: 300%; }";
