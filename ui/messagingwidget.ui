@@ -3,7 +3,7 @@
   <requires lib="gtk+" version="3.10"/>
   <template class="MessagingWidget" parent="GtkGrid">
     <child>
-      <object class="GtkLabel" id="label_letamessage">
+      <object class="GtkLabel" id="label_letmessage">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
       </object>
@@ -37,10 +37,6 @@
             <property name="image">image_record_audio</property>
             <property name="action-name">app.record-audio</property>
           </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-          </packing>
         </child>
         <child>
           <object class="GtkButton" id="button_end_without_message">
@@ -57,16 +53,8 @@
             <property name="image">image_end_without_message</property>
             <property name="action-name">app.end-without-message</property>
           </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-          </packing>
         </child>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-      </packing>
     </child>
   </template>
   <object class="GtkImage" id="image_record_audio">

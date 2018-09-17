@@ -38,7 +38,7 @@ class CppImpl;
 
 struct _MessagingWidget
 {
-    GtkWindow parent;
+    GtkGrid parent;
 };
 
 struct _MessagingWidgetClass

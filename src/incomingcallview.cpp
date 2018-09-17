@@ -128,15 +128,17 @@ map_boolean_to_orientation(GValue *value, GVariant *variant, G_GNUC_UNUSED gpoin
 }
 
 static void
-reject_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
+reject_incoming_call(G_GNUC_UNUSED GtkWidget *widget, IncomingCallView *self)
 {
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(self));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
     (*priv->accountInfo_)->callModel->hangUp(priv->conversation_->callId);
 }
 
 static void
-accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
+accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, IncomingCallView *self)
 {
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(self));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
 
     try {
@@ -191,7 +193,6 @@ incoming_call_view_init(IncomingCallView *view)
 
     g_signal_connect(priv->button_reject_incoming, "clicked", G_CALLBACK(reject_incoming_call), view);
     g_signal_connect(priv->button_accept_incoming, "clicked", G_CALLBACK(accept_incoming_call), view);
-    g_signal_connect_swapped(priv->messaging_widget, "leave-action", G_CALLBACK(on_leave_action), view);
 }
 
 static void
@@ -217,6 +218,7 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
 static void
 update_state(IncomingCallView *view)
 {
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
     // change state label
@@ -232,11 +234,15 @@ update_state(IncomingCallView *view)
         gtk_widget_show(priv->button_accept_incoming);
     else
         gtk_widget_hide(priv->button_accept_incoming);
+
+    gtk_widget_show(priv->button_reject_incoming);
+    gtk_widget_show(priv->spinner_status);
 }
 
 static void
 update_name_and_photo(IncomingCallView *view)
 {
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
     QVariant var_i = GlobalInstances::pixmapManipulator().conversationPhoto(
@@ -266,6 +272,7 @@ update_name_and_photo(IncomingCallView *view)
 
 static void
 set_call_info(IncomingCallView *view) {
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
     update_state(view);
@@ -305,6 +312,7 @@ incoming_call_view_new(WebKitChatContainer* view,
 
     priv->messaging_widget = messaging_widget_new(avModel, conversation, accountInfo);
     gtk_box_pack_start(GTK_BOX(priv->box_messaging_widget), priv->messaging_widget, TRUE, TRUE, 0);
+    g_signal_connect_swapped(priv->messaging_widget, "leave-action", G_CALLBACK(on_leave_action), view);
 
     set_call_info(INCOMING_CALL_VIEW(self));
 
@@ -327,8 +335,8 @@ incoming_call_view_let_a_message(IncomingCallView* view, const std::string& id, 
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
     g_return_if_fail(priv->conversation_->uid == conv.uid);
 
-    gtk_widget_hide(priv->spinner_status);
     gtk_widget_hide(priv->label_status);
+    gtk_widget_hide(priv->spinner_status);
     gtk_widget_hide(priv->button_accept_incoming);
     gtk_widget_hide(priv->button_reject_incoming);
 
