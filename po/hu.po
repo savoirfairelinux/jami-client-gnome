@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 03:09-0400\n"
-"PO-Revision-Date: 2018-09-10 07:09+0000\n"
-"Last-Translator: . . <ovari123@zoho.com>\n"
+"POT-Creation-Date: 2018-09-17 03:09-0400\n"
+"PO-Revision-Date: 2018-09-17 07:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgstr "Fiók migrálás szükséges"
 msgid "This account is malformed, please enter your password"
 msgstr "Ez a fiók meghibásodott, kérjük, adja meg a jelszavát"
 
-#: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:620
+#: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:619
 msgid "Alias"
 msgstr "Álnév"
 
@@ -46,7 +46,7 @@ msgstr "Ring azonosító"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
-#: src/accountgeneraltab.cpp:707
+#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "Jelszó"
 
@@ -55,7 +55,7 @@ msgid "Migrate account"
 msgstr "Fiók migrálása"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
-#: ui/newaccountsettingsview.ui:876 src/accountmigrationview.cpp:176
+#: ui/newaccountsettingsview.ui:876 src/accountmigrationview.cpp:177
 #: src/newaccountsettingsview.cpp:963
 msgid "Delete account"
 msgstr "Fiók törlése"
@@ -222,8 +222,8 @@ msgid ""
 msgstr "Ezt bejelölve, regisztrál egy egyedi felhasználónevet a Ring hálózaton. Az emberek ezt a Ring azonosítója (amely 40 karakter hosszú) helyett használhatják, hogy elérjék Önt."
 
 #: ui/accountcreationwizard.ui:428 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:670
-#: src/accountgeneraltab.cpp:697
+#: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
+#: src/accountgeneraltab.cpp:696
 msgid "Username"
 msgstr "Felhasználónév"
 
@@ -338,7 +338,7 @@ msgstr "Általános"
 msgid "Media"
 msgstr "Média"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1514
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1518
 msgid "Settings"
 msgstr "Beállítások"
 
@@ -458,7 +458,7 @@ msgid "password"
 msgstr "jelszó"
 
 #: ui/newaccountsettingsview.ui:812 ui/newaccountsettingsview.ui:1409
-#: src/accountgeneraltab.cpp:726
+#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Proxy"
 
@@ -744,22 +744,22 @@ msgstr "A Ring megnyitása"
 msgid "Quit"
 msgstr "Kilépés"
 
-#: src/ringnotify.cpp:347
+#: src/ringnotify.cpp:340
 msgctxt ""
 msgid "Open conversation"
 msgstr "Beszélgetés megnyitása"
 
-#: src/ringnotify.cpp:355 src/ringnotify.cpp:371
+#: src/ringnotify.cpp:348 src/ringnotify.cpp:364
 msgctxt ""
 msgid "Accept"
 msgstr "Elfogadás"
 
-#: src/ringnotify.cpp:362
+#: src/ringnotify.cpp:355
 msgctxt ""
 msgid "Refuse"
 msgstr "Elutasítás"
 
-#: src/ringnotify.cpp:378
+#: src/ringnotify.cpp:371
 msgctxt ""
 msgid "Decline"
 msgstr "Elutasítás"
@@ -784,6 +784,10 @@ msgstr "A keresése nem érhető el, ellenőrizze a hálózati kapcsolatot"
 msgid "Performing lookup…"
 msgstr ""
 
+#: src/usernameregistrationbox.cpp:313
+msgid "Enter the password of your Ring account"
+msgstr ""
+
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
 msgstr ""
@@ -798,13 +802,13 @@ msgstr "Ez egy destruktív művelet. Biztosan törli az összes csevegést és h
 msgid "Choose download folder"
 msgstr "Letöltési mappa kiválasztása"
 
-#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:343
+#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:342
 #: src/avatarmanipulation.cpp:406 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:926
 msgid "_Cancel"
 msgstr "_Mégse"
 
-#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:345
+#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:344
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "_Mentés"
@@ -818,108 +822,108 @@ msgctxt "Backend type"
 msgid "Contacts"
 msgstr "Partnerek"
 
-#: src/accountgeneraltab.cpp:240 src/newaccountsettingsview.cpp:1705
+#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1705
 msgid "Bad password"
 msgstr "Hibás jelszó"
 
-#: src/accountgeneraltab.cpp:246 src/newaccountsettingsview.cpp:1711
+#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1711
 msgid "Network error, try again"
 msgstr "Hálózati hiba, próbálja újra"
 
-#: src/accountgeneraltab.cpp:258 src/newaccountsettingsview.cpp:1729
+#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1729
 msgid "Could not initiate export to the Ring, try again"
 msgstr "A Ring export elindítása nem sikerült, próbálja újra"
 
-#: src/accountgeneraltab.cpp:326 src/accountgeneraltab.cpp:529
+#: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
 #: src/newaccountsettingsview.cpp:797 src/newaccountsettingsview.cpp:820
 #: src/newaccountsettingsview.cpp:844 src/newaccountsettingsview.cpp:880
 msgid "Change password"
 msgstr "Jelszó megváltoztatása"
 
-#: src/accountgeneraltab.cpp:340 src/chatview.cpp:175
+#: src/accountgeneraltab.cpp:339 src/chatview.cpp:175
 #: src/newaccountsettingsview.cpp:923
 msgid "Save File"
 msgstr "Fájl mentése"
 
-#: src/accountgeneraltab.cpp:365
+#: src/accountgeneraltab.cpp:364
 msgid "File exported to destination: "
 msgstr "Fájlok mentése:"
 
-#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:620
+#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:620
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Figyelmeztetés! Ez a művelet visszavonja az eszközt!\nMegjegyzés: ez a művelet nem vonható vissza."
 
-#: src/accountgeneraltab.cpp:479 src/newaccountsettingsview.cpp:621
+#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:621
 msgid "Enter password to revoke device"
 msgstr "Jelszó megadása az eszköz visszavonásához"
 
-#: src/accountgeneraltab.cpp:517
+#: src/accountgeneraltab.cpp:516
 msgid "New password and its confirmation are different"
 msgstr "Az új jelszó és megerősítése más"
 
-#: src/accountgeneraltab.cpp:527
+#: src/accountgeneraltab.cpp:526
 msgid "Password changed!"
 msgstr "Jelszó megváltozott!"
 
-#: src/accountgeneraltab.cpp:530
+#: src/accountgeneraltab.cpp:529
 msgid "Incorrect password"
 msgstr "Hibás jelszó"
 
-#: src/accountgeneraltab.cpp:561
+#: src/accountgeneraltab.cpp:560
 msgid "Save name"
 msgstr "Név mentése"
 
-#: src/accountgeneraltab.cpp:561 src/newaccountsettingsview.cpp:679
+#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:679
 msgid "Revoke device"
 msgstr "Eszköz visszavonása"
 
-#: src/accountgeneraltab.cpp:582 src/newaccountsettingsview.cpp:701
+#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:701
 msgid "Error when revoking device"
 msgstr "Hiba történt az eszköz visszavonásakor"
 
-#: src/accountgeneraltab.cpp:631
+#: src/accountgeneraltab.cpp:630
 msgid "Type"
 msgstr "Típus"
 
-#: src/accountgeneraltab.cpp:657
+#: src/accountgeneraltab.cpp:656
 msgid "auto-generating…"
 msgstr ""
 
-#: src/accountgeneraltab.cpp:687
+#: src/accountgeneraltab.cpp:686
 msgid "Hostname"
 msgstr "Kiszolgálónév"
 
-#: src/accountgeneraltab.cpp:720
+#: src/accountgeneraltab.cpp:719
 msgid "Show password"
 msgstr "Jelszó megjelenítése"
 
-#: src/accountgeneraltab.cpp:736
+#: src/accountgeneraltab.cpp:735
 msgid "Voicemail number"
 msgstr "Hangpostaszám"
 
-#: src/accountgeneraltab.cpp:800 src/newaccountsettingsview.cpp:1788
+#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1788
 msgid "Error: wrong password!"
 msgstr "Hiba: hibás jelszó!"
 
-#: src/accountgeneraltab.cpp:803 src/newaccountsettingsview.cpp:1791
+#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1791
 msgid "Error: unknown device!"
 msgstr "Hiba: ismeretlen eszköz!"
 
-#: src/video/video_widget.cpp:576
+#: src/video/video_widget.cpp:583
 msgid "Share _screen area"
 msgstr "_Képernyő részének megosztása"
 
-#: src/video/video_widget.cpp:587
+#: src/video/video_widget.cpp:594
 msgid "Share _monitor"
 msgstr "_Monitor megosztása"
 
-#: src/video/video_widget.cpp:598
+#: src/video/video_widget.cpp:605
 msgid "Stream _file"
 msgstr "Stream _fájl"
 
-#: src/video/video_widget.cpp:611
+#: src/video/video_widget.cpp:618
 msgid "Show advanced information"
 msgstr "Speciális információk megjelenítése"
 
@@ -949,48 +953,48 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "A GNOME kliens a Ringhez.\nA Ring egy szabad szoftver az univerzális kommunikációhoz, amely tiszteletben tartja a felhasználók szabadságát és magánszféráját."
 
-#: src/ringmainwindow.cpp:175
+#: src/ringmainwindow.cpp:174
 msgid "Add account…"
 msgstr ""
 
-#: src/ringmainwindow.cpp:646
+#: src/ringmainwindow.cpp:643
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Hívás kezdeményezése"
 
-#: src/ringmainwindow.cpp:649
+#: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Csevegés megnyitása"
 
-#: src/ringmainwindow.cpp:1069
+#: src/ringmainwindow.cpp:1073
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Partnerek keresése vagy szám beírása"
 
-#: src/ringmainwindow.cpp:1487
+#: src/ringmainwindow.cpp:1491
 msgid "Leave settings page"
 msgstr "A beállítási oldal elhagyása"
 
-#: src/ringmainwindow.cpp:1834
+#: src/ringmainwindow.cpp:1837
 msgid " is calling you!"
 msgstr " hív!"
 
-#: src/ringmainwindow.cpp:1835
+#: src/ringmainwindow.cpp:1838
 msgid "Incoming call"
 msgstr "Bejövő hívás"
 
-#: src/ringmainwindow.cpp:1980
+#: src/ringmainwindow.cpp:1983
 msgid "New request from "
 msgstr "Új kérés"
 
-#: src/ringmainwindow.cpp:1981
+#: src/ringmainwindow.cpp:1984
 msgid "Trust request"
 msgstr "Megbízható kérelem"
 
-#: src/ringmainwindow.cpp:2038
+#: src/ringmainwindow.cpp:2041
 msgid "New message"
 msgstr "Új üzenet"
 
@@ -1080,13 +1084,13 @@ msgid ""
 "Copy and share it with your friends!"
 msgstr "Ez az ön Ring azonosítója.\nMásolja ki, és ossza meg a barátaival!"
 
-#: src/ringwelcomeview.cpp:148
+#: src/ringwelcomeview.cpp:150
 msgid ""
 "Ring is free software for universal communication which respects the "
 "freedoms and privacy of its users."
 msgstr "A Ring egy szabad szoftver az univerzális kommunikációhoz, amely tiszteletben tartja a felhasználók szabadságát és magánszféráját."
 
-#: src/ringwelcomeview.cpp:202
+#: src/ringwelcomeview.cpp:204
 msgctxt "Do not translate \"Ring ID\""
 msgid "Ring ID QR code"
 msgstr "Ring azonosító QR-kód"
@@ -1095,13 +1099,13 @@ msgstr "Ring azonosító QR-kód"
 msgid "Send File"
 msgstr "Fájl küldése"
 
-#: src/accountmigrationview.cpp:175 src/newaccountsettingsview.cpp:962
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:962
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Figyelmeztetés! Ez a művelet eltávolítja ezt a fiókot az eszközön!\nMegjegyzés: ez a művelet nem vonható vissza. A regisztrált neved is elveszhet!"
 
-#: src/currentcallview.cpp:934
+#: src/currentcallview.cpp:935
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automatikus"
