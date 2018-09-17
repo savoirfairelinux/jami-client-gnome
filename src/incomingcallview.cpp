@@ -115,15 +115,17 @@ map_boolean_to_orientation(GValue *value, GVariant *variant, G_GNUC_UNUSED gpoin
 }
 
 static void
-reject_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
+reject_incoming_call(G_GNUC_UNUSED GtkWidget *widget, IncomingCallView *self)
 {
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(self));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
     (*priv->accountInfo_)->callModel->hangUp(priv->conversation_->callId);
 }
 
 static void
-accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, ChatView *self)
+accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, IncomingCallView *self)
 {
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(self));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
     auto contactUri = priv->conversation_->participants[0];
     try {
@@ -192,6 +194,7 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
 static void
 update_state(IncomingCallView *view)
 {
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
     // change state label
@@ -215,6 +218,7 @@ update_state(IncomingCallView *view)
 static void
 update_name_and_photo(IncomingCallView *view)
 {
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
     QVariant var_i = GlobalInstances::pixmapManipulator().conversationPhoto(
@@ -244,6 +248,7 @@ update_name_and_photo(IncomingCallView *view)
 
 static void
 set_call_info(IncomingCallView *view) {
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
     update_state(view);
