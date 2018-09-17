@@ -149,8 +149,6 @@ ring_notifier_dispose(GObject *object)
 static void
 ring_notifier_init(RingNotifier *view)
 {
-    gtk_widget_init_template(GTK_WIDGET(view));
-
     RingNotifierPrivate *priv = RING_NOTIFIER_GET_PRIVATE(view);
     priv->cpp = new details::CppImpl {*view};
 
