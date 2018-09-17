@@ -880,11 +880,6 @@
                                         <property name="receives_default">True</property>
                                         <property name="halign">fill</property>
                                       </object>
-                                      <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
-                                      </packing>
                                     </child>
                                   </object>
                                 </child>
@@ -1098,10 +1093,6 @@
               </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-          </packing>
           </child>
           <!-- Advanced settings -->
           <child>

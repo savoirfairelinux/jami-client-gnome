@@ -275,9 +275,6 @@
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
                 <property name="left_attach">1</property>
                 <property name="top_attach">11</property>
               </packing>
