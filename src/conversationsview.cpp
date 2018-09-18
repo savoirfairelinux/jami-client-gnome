@@ -2,6 +2,7 @@
  *   Copyright (C) 2017-2018 Savoir-faire Linux                             *
  *   Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>             *
  *   Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>           *
+ *   Author: Hugo Lefeuvre <hugo.lefeuvre@savoirfairelinux.com>             *
  *                                                                          *
  *   This library is free software; you can redistribute it and/or          *
  *   modify it under the terms of the GNU Lesser General Public             *
@@ -21,6 +22,8 @@
 
 // std
 #include <algorithm>
+#include <iomanip> // for std::put_time
+#include <string>
 
 // GTK+ related
 #include <QSize>
@@ -104,11 +107,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         g_object_set(G_OBJECT(cell), "pixbuf", image.get(), NULL);
 
         // Banned contacts should be displayed with grey bg
-        if (contactInfo.isBanned) {
-            g_object_set(G_OBJECT(cell), "cell-background", "#BDBDBD", NULL);
-        } else {
-            g_object_set(G_OBJECT(cell), "cell-background", NULL, NULL);
-        }
+        g_object_set(G_OBJECT(cell), "cell-background", contactInfo.isBanned ? "#BDBDBD" : NULL, NULL);
     }
     catch (const std::exception&)
     {
@@ -182,13 +181,10 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     }
 
     // Banned contacts should be displayed with grey bg
-    if (contactInfo.isBanned) {
-        g_object_set(G_OBJECT(cell), "cell-background", "#BDBDBD", NULL);
-    } else {
-        g_object_set(G_OBJECT(cell), "cell-background", NULL, NULL);
-    }
+    g_object_set(G_OBJECT(cell), "cell-background", contactInfo.isBanned ? "#BDBDBD" : NULL, NULL);
 
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_free(text);
     g_free(uid);
     g_free(uri);
     g_free(alias);
@@ -202,64 +198,49 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             GtkTreeIter *iter,
             G_GNUC_UNUSED GtkTreeView *treeview)
 {
+    g_return_if_fail(IS_CONVERSATIONS_VIEW(treeview));
+    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(treeview);
+    g_return_if_fail(priv);
 
     // Get active conversation
     auto path = gtk_tree_model_get_path(model, iter);
     auto row = std::atoi(gtk_tree_path_to_string(path));
-    if (row == -1) return;
-    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(treeview);
-    if (!priv) return;
+    g_return_if_fail(row != -1);
 
-    char empty[] = {'\0'};
-    gchar *text = empty;
-
-    try
-    {
+    try {
         auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(row);
         auto contactUri = conversation.participants.front();
-        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
+        auto& interactions = conversation.interactions;
+        auto lastUid = conversation.lastMessageUid;
+        auto& contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
 
         // Banned contacts should be displayed with grey bg
-        if (contactInfo.isBanned) {
-            g_object_set(G_OBJECT(cell), "cell-background", "#BDBDBD", NULL);
-        } else {
-            g_object_set(G_OBJECT(cell), "cell-background", NULL, NULL);
-        }
+        g_object_set(G_OBJECT(cell), "cell-background", contactInfo.isBanned ? "#BDBDBD" : NULL, NULL);
 
         auto callId = conversation.confId.empty() ? conversation.callId : conversation.confId;
-        if (!callId.empty()) {
+        if (!callId.empty() && call.status != lrc::api::call::Status::OVER) {
             auto call = (*priv->accountInfo_)->callModel->getCall(callId);
-            text = g_markup_printf_escaped("%s",
-                lrc::api::call::to_string(call.status).c_str()
-            );
-        } else if (conversation.interactions.empty()) {
+            g_object_set(G_OBJECT(cell), "markup", lrc::api::call::to_string(call.status).c_str(), NULL);
+        } else if (!interactions.empty() && interactions.find(lastUid) != interactions.end()) {
+            std::time_t lastInteractionTimestamp = interactions[lastUid].timestamp;
+            std::tm lastInteractionTm = *std::localtime(&lastInteractionTimestamp);
+
+            const char fmt;
+            if (!(std::time(nullptr) - std::time(lastInteractionTimestamp)))
+                fmt = "%R";
+            else
+                fmt = "%x";
+
+            gchar* text = g_markup_printf_escaped("<span size=\"smaller\" color=\"#666\">%s</span>", std::put_time(lastInteractionTm, fmt));
+            g_object_set(G_OBJECT(cell), "markup", lrc::api::call::to_string(call.status).c_str(), NULL);
+            g_free(text);
         } else {
-            auto lastUid = conversation.lastMessageUid;
-            if (conversation.interactions.find(lastUid) == conversation.interactions.end()) {
-            } else {
-                std::time_t lastInteractionTimestamp = conversation.interactions[lastUid].timestamp;
-                std::time_t now = std::time(nullptr);
-                char interactionDay[100];
-                char nowDay[100];
-                std::strftime(interactionDay, sizeof(interactionDay), "%x", std::localtime(&lastInteractionTimestamp));
-                std::strftime(nowDay, sizeof(nowDay), "%x", std::localtime(&now));
-
-                if (std::string(interactionDay) == std::string(nowDay)) {
-                    char interactionTime[100];
-                    std::strftime(interactionTime, sizeof(interactionTime), "%R", std::localtime(&lastInteractionTimestamp));
-                    text = g_markup_printf_escaped("<span size=\"smaller\" color=\"#666\">%s</span>", &interactionTime[0]);
-                } else {
-                    text = g_markup_printf_escaped("<span size=\"smaller\" color=\"#666\">%s</span>", &interactionDay[0]);
-                }
-            }
+            g_object_set(G_OBJECT(cell), "markup", "", NULL);
         }
-    }
-    catch (const std::exception&)
-    {
+    } catch (const std::exception&) {
         g_warning("Can't get conversation at row %i", row);
+        g_object_set(G_OBJECT(cell), "markup", "", NULL);
     }
-
-    g_object_set(G_OBJECT(cell), "markup", text, NULL);
 }
 
 void
@@ -525,7 +506,7 @@ on_drag_data_received(GtkWidget        *treeview,
         g_debug("source path: %s", path_str_source);
 
         /* get the destination path */
-        GtkTreePath *dest_path = NULL;
+        GtkTreePath *dest_path = nullptr;
         if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(treeview), x, y, &dest_path, NULL)) {
             auto model = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
 
@@ -549,6 +530,10 @@ on_drag_data_received(GtkWidget        *treeview,
             );
 
             gtk_tree_path_free(dest_path);
+            g_free(conversationUidSrc);
+            g_free(conversationUidDest);
+
+            success = TRUE;
         }
     }
 
