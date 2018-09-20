@@ -152,7 +152,8 @@ webview_chat_context_menu(G_GNUC_UNUSED WebKitChatContainer *self,
         }
     }
 
-    return true;
+    // FALSE = custom menu, TRUE would mean no menu
+    return FALSE;
 }
 
 static void
