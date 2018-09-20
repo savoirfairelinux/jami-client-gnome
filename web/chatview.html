@@ -690,7 +690,8 @@ function fileInteraction(message_id) {
 
     var full_div = document.createElement("div")
     full_div.setAttribute("class", "full")
-    full_div.style = "visibility: hidden; display: none;"
+    full_div.style.visibility = "hidden"
+    full_div.style.display = "none"
 
     var filename_wrapper = document.createElement("div")
     filename_wrapper.setAttribute("class", "truncate-ellipsis")
@@ -901,7 +902,8 @@ function mediaInteraction(message_id, link, ytid, errorHandler) {
     media_wrapper.setAttribute("class", "media_wrapper")
     const linkElt = document.createElement("a")
     linkElt.href = link
-    linkElt.style = "text-decoration: none; border:none;"
+    linkElt.style.textDecoration = "none"
+    linkElt.style.border = "none"
     const imageElt = document.createElement("img")
 
     imageElt.src = ytid ? `http://img.youtube.com/vi/${ytid}/0.jpg` : link
@@ -1002,12 +1004,12 @@ function updateTextInteraction(message_div, delivery_status) {
             // add sending animation to message;
             message_div.insertBefore(sending, message_div.querySelector(".menu_interaction"))
         }
-        message_div.querySelector(".message_text").style = "color: #888"
+        message_div.querySelector(".message_text").style.color = "#888"
         break
     case "failure":
         // change text color to red
-        message_div.querySelector(".message_wrapper").style = "background-color: #f3a6a6"
-        message_div.querySelector(".message_text").style = "color: #000"
+        message_div.querySelector(".message_wrapper").style.backgroundColor = "#f3a6a6"
+        message_div.querySelector(".message_text").color = "#000"
         var failure_div = message_div.querySelector(".failure")
         if (!failure_div) {
             failure_div = document.createElement("div")
@@ -1023,7 +1025,7 @@ function updateTextInteraction(message_div, delivery_status) {
     case "unknown":
     case "read":
         // change text color to black
-        message_div.querySelector(".message_text").style = "color: #000"
+        message_div.querySelector(".message_text").style.color = "#000"
         if (sending) sending.style.display = "none"
         break
     default:
