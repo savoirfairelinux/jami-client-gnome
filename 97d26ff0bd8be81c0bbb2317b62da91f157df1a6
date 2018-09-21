@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2227eff_ee83581d",
+        "filename": "src/messagingwidget.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-09-21T00:50:35Z",
+      "side": 1,
+      "message": "here too",
+      "range": {
+        "startLine": 13,
+        "startChar": 48,
+        "endLine": 13,
+        "endChar": 49
+      },
+      "revId": "97d26ff0bd8be81c0bbb2317b62da91f157df1a6",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "226c188b_dd8cab60",
+        "filename": "src/messagingwidget.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-09-21T00:50:35Z",
+      "side": 1,
+      "message": "typo, remove non breaking narrow space here",
+      "range": {
+        "startLine": 112,
+        "startChar": 109,
+        "endLine": 112,
+        "endChar": 110
+      },
+      "revId": "97d26ff0bd8be81c0bbb2317b62da91f157df1a6",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4463f983_3ce8cfd7",
+        "filename": "src/messagingwidget.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-09-21T00:50:35Z",
+      "side": 1,
+      "message": "lot of trailing spaces/tabs",
+      "range": {
+        "startLine": 22,
+        "startChar": 20,
+        "endLine": 22,
+        "endChar": 21
+      },
+      "revId": "97d26ff0bd8be81c0bbb2317b62da91f157df1a6",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
