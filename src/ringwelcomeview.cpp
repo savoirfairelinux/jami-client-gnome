@@ -77,7 +77,7 @@ ring_welcome_update_view(RingWelcomeView* self) {
         return;
     }
 
-    // Get registeredName, else the Ring Id
+    // Get registeredName, else the RingID
     gchar *ring_id = nullptr;
     if(! (*priv->accountInfo_)->registeredName.empty()){
         gtk_label_set_text(
@@ -201,7 +201,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_set_visible(priv->revealer_qrcode, FALSE);
 
     /* QR code button */
-    priv->button_qrcode = gtk_button_new_with_label(C_("Do not translate \"Ring ID\"", "Ring ID QR code"));
+    priv->button_qrcode = gtk_button_new_with_label(C_("Do not translate \"RingID\"", "RingID QR code"));
     gtk_widget_set_hexpand(priv->button_qrcode, FALSE);
     gtk_widget_set_size_request(priv->button_qrcode,10,10);
     g_signal_connect_swapped(priv->button_qrcode, "clicked", G_CALLBACK(switch_qrcode), self);
