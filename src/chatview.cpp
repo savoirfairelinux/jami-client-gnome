@@ -564,12 +564,15 @@ on_webkit_drag_drop(GtkWidget*, gchar* data, ChatView* self)
     if (!data) return;
 
     GError *error = nullptr;
-    std::string data_str = g_filename_from_uri(data, nullptr, &error);
+    auto* filename_uri = g_filename_from_uri(data, nullptr, &error);
     if (error) {
         g_warning("Unable to exec g_filename_from_uri on %s", data);
         g_error_free(error);
         return;
     }
+    std::string data_str = filename_uri;
+    g_free(filename_uri);
+
     // Only take files
     if (data_str.find("\r\n") == std::string::npos) return;
     const auto LEN_END = std::string("\r\n").length();
