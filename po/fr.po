@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 03:09-0400\n"
-"PO-Revision-Date: 2018-09-17 07:09+0000\n"
+"POT-Creation-Date: 2018-09-24 03:09-0400\n"
+"PO-Revision-Date: 2018-09-24 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -56,8 +56,8 @@ msgid "Alias"
 msgstr "Nom du compte"
 
 #: ui/accountmigrationview.ui:126
-msgid "Ring ID"
-msgstr "Identifiant Ring"
+msgid "RingID"
+msgstr "RingID"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
@@ -460,7 +460,7 @@ msgstr "Cliquer ici pour changer le mot de passe"
 msgid "Export account"
 msgstr "Exporter compte"
 
-#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:908
+#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:903
 msgid "Enable account"
 msgstr "Activer le compte"
 
@@ -472,7 +472,7 @@ msgstr "Adresse du serveur SIP"
 msgid "password"
 msgstr "mot de passe"
 
-#: ui/newaccountsettingsview.ui:812 ui/newaccountsettingsview.ui:1409
+#: ui/newaccountsettingsview.ui:812 ui/newaccountsettingsview.ui:1400
 #: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Serveur mandataire"
@@ -481,207 +481,207 @@ msgstr "Serveur mandataire"
 msgid "Voicemail"
 msgstr "Boîte vocale"
 
-#: ui/newaccountsettingsview.ui:959
+#: ui/newaccountsettingsview.ui:954
 msgid "Known devices linked to this Ring account"
 msgstr "Liste des appareils connus liés à votre compte Ring"
 
-#: ui/newaccountsettingsview.ui:967
+#: ui/newaccountsettingsview.ui:962
 msgid "Link another device"
 msgstr "Associer un nouvel appareil"
 
-#: ui/newaccountsettingsview.ui:1032
+#: ui/newaccountsettingsview.ui:1027
 msgid "Banned contacts"
 msgstr "Contacts bannis"
 
-#: ui/newaccountsettingsview.ui:1088
+#: ui/newaccountsettingsview.ui:1083
 msgid "Advanced settings"
 msgstr "Réglages avancés"
 
-#: ui/newaccountsettingsview.ui:1128
+#: ui/newaccountsettingsview.ui:1119
 msgid "General settings"
 msgstr "Paramètres généraux"
 
-#: ui/newaccountsettingsview.ui:1146
+#: ui/newaccountsettingsview.ui:1137
 msgid "Call settings"
 msgstr "Paramètres d'appel"
 
-#: ui/newaccountsettingsview.ui:1184
+#: ui/newaccountsettingsview.ui:1175
 msgid "Allow call from untrusted peers"
 msgstr "Autoriser les appels de correspondants non vérifiés"
 
-#: ui/newaccountsettingsview.ui:1219
+#: ui/newaccountsettingsview.ui:1210
 msgid "Auto answer calls"
 msgstr "Répondre automatiquement aux appels"
 
-#: ui/newaccountsettingsview.ui:1255
+#: ui/newaccountsettingsview.ui:1246
 msgid "Custom ringtone"
 msgstr "Sonnerie personnalisée"
 
-#: ui/newaccountsettingsview.ui:1299
+#: ui/newaccountsettingsview.ui:1290
 msgid "Name server"
 msgstr "serveur de nom"
 
-#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2489
+#: ui/newaccountsettingsview.ui:1327 ui/newaccountsettingsview.ui:2480
 msgid "Address"
 msgstr "Adresse"
 
-#: ui/newaccountsettingsview.ui:1370
+#: ui/newaccountsettingsview.ui:1361
 msgid "OpenDHT configuration"
 msgstr "Configuration d'OpenDHT"
 
-#: ui/newaccountsettingsview.ui:1454
+#: ui/newaccountsettingsview.ui:1445
 msgid "Bootstrap"
 msgstr "Adresse du nœud d'amorçage"
 
-#: ui/newaccountsettingsview.ui:1514
+#: ui/newaccountsettingsview.ui:1505
 msgid "Encrypt media streams (SRTP)"
 msgstr "Chiffrer les flux média (SRTP)"
 
-#: ui/newaccountsettingsview.ui:1549
+#: ui/newaccountsettingsview.ui:1540
 msgid "Enable SDES for key exchange protocol"
 msgstr "Activer SDES pour le protocole d'échange de clé"
 
-#: ui/newaccountsettingsview.ui:1585
+#: ui/newaccountsettingsview.ui:1576
 msgid "Fallback on RTP on encryption failure"
 msgstr "Basculer en mode RTP si le chiffrement échoue"
 
-#: ui/newaccountsettingsview.ui:1620
+#: ui/newaccountsettingsview.ui:1611
 msgid "Encrypt negotiation (TLS)"
 msgstr "Chiffrer les négociations (TLS)"
 
-#: ui/newaccountsettingsview.ui:1655
+#: ui/newaccountsettingsview.ui:1646
 msgid "CA certificate"
 msgstr "Certificat de la CA"
 
-#: ui/newaccountsettingsview.ui:1691
+#: ui/newaccountsettingsview.ui:1682
 msgid "User certificate"
 msgstr "Certificat utilisateur"
 
-#: ui/newaccountsettingsview.ui:1727
+#: ui/newaccountsettingsview.ui:1718
 msgid "Private key"
 msgstr "Clé privée"
 
-#: ui/newaccountsettingsview.ui:1763
+#: ui/newaccountsettingsview.ui:1754
 msgid "Private key password"
 msgstr "Mot de passe de la clé privée"
 
-#: ui/newaccountsettingsview.ui:1801
+#: ui/newaccountsettingsview.ui:1792
 msgid "TLS protocol method"
 msgstr "Méthode du protocole TLS"
 
-#: ui/newaccountsettingsview.ui:1837
+#: ui/newaccountsettingsview.ui:1828
 msgid "Outgoing TLS server name"
 msgstr "Adresse du serveur TLS sortant"
 
-#: ui/newaccountsettingsview.ui:1872
+#: ui/newaccountsettingsview.ui:1863
 msgid "Negotiation timeout (seconds)"
 msgstr "Délai de négociation (en secondes)"
 
-#: ui/newaccountsettingsview.ui:1908
+#: ui/newaccountsettingsview.ui:1899
 msgid "Verify incoming certificates (server side)"
 msgstr "Vérifier les certificats entrants (coté serveur)"
 
-#: ui/newaccountsettingsview.ui:1943
+#: ui/newaccountsettingsview.ui:1934
 msgid "Verify answer certificates (client side)"
 msgstr "Vérifier les réponses des certificats (coté client)"
 
-#: ui/newaccountsettingsview.ui:1978
+#: ui/newaccountsettingsview.ui:1969
 msgid "Require a certificate for incoming TLS connections"
 msgstr "Exiger un certificat pour les connexions TLS entrantes"
 
-#: ui/newaccountsettingsview.ui:2002
+#: ui/newaccountsettingsview.ui:1993
 msgid "Security"
 msgstr "Sécurité"
 
-#: ui/newaccountsettingsview.ui:2027
+#: ui/newaccountsettingsview.ui:2018
 msgid "Connectivity"
 msgstr "Connectivité"
 
-#: ui/newaccountsettingsview.ui:2065
+#: ui/newaccountsettingsview.ui:2056
 msgid "Registration expire timeout (seconds)"
 msgstr "Délai d'enregistrement maximum (secondes)"
 
-#: ui/newaccountsettingsview.ui:2102
+#: ui/newaccountsettingsview.ui:2093
 msgid "Network interface"
 msgstr "Interface réseau"
 
-#: ui/newaccountsettingsview.ui:2138
+#: ui/newaccountsettingsview.ui:2129
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2173
+#: ui/newaccountsettingsview.ui:2164
 msgid "Use TURN"
 msgstr "Utiliser TURN"
 
-#: ui/newaccountsettingsview.ui:2208
+#: ui/newaccountsettingsview.ui:2199
 msgid "(TURN) address"
 msgstr "Adresse du serveur TURN"
 
-#: ui/newaccountsettingsview.ui:2243
+#: ui/newaccountsettingsview.ui:2234
 msgid "(TURN) username"
 msgstr "Nom d'utilisateur TURN"
 
-#: ui/newaccountsettingsview.ui:2277
+#: ui/newaccountsettingsview.ui:2268
 msgid "(TURN) password"
 msgstr "Mot de passe TURN"
 
-#: ui/newaccountsettingsview.ui:2314
+#: ui/newaccountsettingsview.ui:2305
 msgid "(TURN) realm"
 msgstr "Domaine TURN"
 
-#: ui/newaccountsettingsview.ui:2348
+#: ui/newaccountsettingsview.ui:2339
 msgid "Use STUN"
 msgstr "Utiliser STUN"
 
-#: ui/newaccountsettingsview.ui:2383
+#: ui/newaccountsettingsview.ui:2374
 msgid "(STUN) address"
 msgstr "Adresse STUN"
 
-#: ui/newaccountsettingsview.ui:2416
+#: ui/newaccountsettingsview.ui:2407
 msgid "Published address"
 msgstr "Adresse publiée"
 
-#: ui/newaccountsettingsview.ui:2453
+#: ui/newaccountsettingsview.ui:2444
 msgid "Use custom address and port"
 msgstr "Utiliser une adresse et un port personnalisés"
 
-#: ui/newaccountsettingsview.ui:2524
+#: ui/newaccountsettingsview.ui:2515
 msgid "Port"
 msgstr "Port"
 
-#: ui/newaccountsettingsview.ui:2560
+#: ui/newaccountsettingsview.ui:2551
 msgid "Video codecs"
 msgstr "Codecs vidéo"
 
-#: ui/newaccountsettingsview.ui:2623
+#: ui/newaccountsettingsview.ui:2614
 msgid "Enable video"
 msgstr "Activer la vidéo"
 
-#: ui/newaccountsettingsview.ui:2650
+#: ui/newaccountsettingsview.ui:2641
 msgid "Audio codecs"
 msgstr "Codecs audio"
 
-#: ui/newaccountsettingsview.ui:2720
+#: ui/newaccountsettingsview.ui:2711
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "Négociation de session SDP (en cas d’échec ICE)"
 
-#: ui/newaccountsettingsview.ui:2732
+#: ui/newaccountsettingsview.ui:2723
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Ces paramètres sont uniquement utilisés durant la négociation de la session SDP au cas où ICE ne serait pas supporté."
 
-#: ui/newaccountsettingsview.ui:2766
+#: ui/newaccountsettingsview.ui:2757
 msgid "Audio RTP Min port"
 msgstr "Port audio RTP minimum"
 
-#: ui/newaccountsettingsview.ui:2801
+#: ui/newaccountsettingsview.ui:2792
 msgid "Audio RTP Max port"
 msgstr "Port audio RTP maximum"
 
-#: ui/newaccountsettingsview.ui:2836
+#: ui/newaccountsettingsview.ui:2827
 msgid "Video RTP Min port"
 msgstr "Port vidéo RTP minimum"
 
-#: ui/newaccountsettingsview.ui:2871
+#: ui/newaccountsettingsview.ui:2862
 msgid "Video RTP Max port"
 msgstr "Port vidéo RTP maximum"
 
@@ -759,22 +759,22 @@ msgstr "Afficher Ring"
 msgid "Quit"
 msgstr "Quitter"
 
-#: src/ringnotify.cpp:340
+#: src/ringnotify.cpp:338
 msgctxt ""
 msgid "Open conversation"
 msgstr "Ouvrir la conversation"
 
-#: src/ringnotify.cpp:348 src/ringnotify.cpp:364
+#: src/ringnotify.cpp:346 src/ringnotify.cpp:362
 msgctxt ""
 msgid "Accept"
 msgstr "Accepter"
 
-#: src/ringnotify.cpp:355
+#: src/ringnotify.cpp:353
 msgctxt ""
 msgid "Refuse"
 msgstr "Refuser"
 
-#: src/ringnotify.cpp:371
+#: src/ringnotify.cpp:369
 msgctxt ""
 msgid "Decline"
 msgstr "Décliner"
@@ -801,7 +801,7 @@ msgstr "Recherche en cours ..."
 
 #: src/usernameregistrationbox.cpp:313
 msgid "Enter the password of your Ring account"
-msgstr ""
+msgstr "Entrez le mot de passe de votre compte Ring"
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
@@ -1106,9 +1106,9 @@ msgid ""
 msgstr "Ring est un logiciel libre de communication universel qui respecte les libertés et la vie privée de ses utilisateurs."
 
 #: src/ringwelcomeview.cpp:204
-msgctxt "Do not translate \"Ring ID\""
-msgid "Ring ID QR code"
-msgstr "Code QR Identifiant Ring"
+msgctxt "Do not translate \"RingID\""
+msgid "RingID QR code"
+msgstr ""
 
 #: src/chatview.cpp:175
 msgid "Send File"

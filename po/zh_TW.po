@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 03:09-0400\n"
-"PO-Revision-Date: 2018-09-17 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-09-24 03:09-0400\n"
+"PO-Revision-Date: 2018-09-24 07:09+0000\n"
+"Last-Translator: Hsiu-Ming Chang <cges30901@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,8 +41,8 @@ msgid "Alias"
 msgstr "別名"
 
 #: ui/accountmigrationview.ui:126
-msgid "Ring ID"
-msgstr "Ring ID"
+msgid "RingID"
+msgstr "RingID"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
@@ -445,7 +445,7 @@ msgstr "點選以變更密碼"
 msgid "Export account"
 msgstr "匯出帳號"
 
-#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:908
+#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:903
 msgid "Enable account"
 msgstr "啟用帳號"
 
@@ -457,7 +457,7 @@ msgstr "SIP 伺服器"
 msgid "password"
 msgstr "密碼"
 
-#: ui/newaccountsettingsview.ui:812 ui/newaccountsettingsview.ui:1409
+#: ui/newaccountsettingsview.ui:812 ui/newaccountsettingsview.ui:1400
 #: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "代理服務器"
@@ -466,207 +466,207 @@ msgstr "代理服務器"
 msgid "Voicemail"
 msgstr "語音信箱"
 
-#: ui/newaccountsettingsview.ui:959
+#: ui/newaccountsettingsview.ui:954
 msgid "Known devices linked to this Ring account"
 msgstr "連結到這個 Ring 帳號的已知裝置"
 
-#: ui/newaccountsettingsview.ui:967
+#: ui/newaccountsettingsview.ui:962
 msgid "Link another device"
 msgstr "連結其他裝置"
 
-#: ui/newaccountsettingsview.ui:1032
+#: ui/newaccountsettingsview.ui:1027
 msgid "Banned contacts"
 msgstr "已被阻擋的連絡人"
 
-#: ui/newaccountsettingsview.ui:1088
+#: ui/newaccountsettingsview.ui:1083
 msgid "Advanced settings"
 msgstr "進階設定"
 
-#: ui/newaccountsettingsview.ui:1128
+#: ui/newaccountsettingsview.ui:1119
 msgid "General settings"
 msgstr "一般設定"
 
-#: ui/newaccountsettingsview.ui:1146
+#: ui/newaccountsettingsview.ui:1137
 msgid "Call settings"
 msgstr "通話設定"
 
-#: ui/newaccountsettingsview.ui:1184
+#: ui/newaccountsettingsview.ui:1175
 msgid "Allow call from untrusted peers"
 msgstr "允許從不被信任的他人而來的通話"
 
-#: ui/newaccountsettingsview.ui:1219
+#: ui/newaccountsettingsview.ui:1210
 msgid "Auto answer calls"
 msgstr "自動回覆通話"
 
-#: ui/newaccountsettingsview.ui:1255
+#: ui/newaccountsettingsview.ui:1246
 msgid "Custom ringtone"
 msgstr "自訂鈴聲"
 
-#: ui/newaccountsettingsview.ui:1299
+#: ui/newaccountsettingsview.ui:1290
 msgid "Name server"
 msgstr "名稱伺服器"
 
-#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2489
+#: ui/newaccountsettingsview.ui:1327 ui/newaccountsettingsview.ui:2480
 msgid "Address"
 msgstr "地址"
 
-#: ui/newaccountsettingsview.ui:1370
+#: ui/newaccountsettingsview.ui:1361
 msgid "OpenDHT configuration"
 msgstr "OpenDHT 設定"
 
-#: ui/newaccountsettingsview.ui:1454
+#: ui/newaccountsettingsview.ui:1445
 msgid "Bootstrap"
 msgstr "Bootstrap"
 
-#: ui/newaccountsettingsview.ui:1514
+#: ui/newaccountsettingsview.ui:1505
 msgid "Encrypt media streams (SRTP)"
 msgstr "加密媒體串流 (SRTP)"
 
-#: ui/newaccountsettingsview.ui:1549
+#: ui/newaccountsettingsview.ui:1540
 msgid "Enable SDES for key exchange protocol"
 msgstr "啟用 SDES 以供金鑰交換協定使用"
 
-#: ui/newaccountsettingsview.ui:1585
+#: ui/newaccountsettingsview.ui:1576
 msgid "Fallback on RTP on encryption failure"
 msgstr "在加密失敗時退回 RTP"
 
-#: ui/newaccountsettingsview.ui:1620
+#: ui/newaccountsettingsview.ui:1611
 msgid "Encrypt negotiation (TLS)"
 msgstr "加密協商 (TLS)"
 
-#: ui/newaccountsettingsview.ui:1655
+#: ui/newaccountsettingsview.ui:1646
 msgid "CA certificate"
 msgstr "CA 證書"
 
-#: ui/newaccountsettingsview.ui:1691
+#: ui/newaccountsettingsview.ui:1682
 msgid "User certificate"
 msgstr "使用者證書"
 
-#: ui/newaccountsettingsview.ui:1727
+#: ui/newaccountsettingsview.ui:1718
 msgid "Private key"
 msgstr "私密金鑰"
 
-#: ui/newaccountsettingsview.ui:1763
+#: ui/newaccountsettingsview.ui:1754
 msgid "Private key password"
 msgstr "私密金鑰密碼"
 
-#: ui/newaccountsettingsview.ui:1801
+#: ui/newaccountsettingsview.ui:1792
 msgid "TLS protocol method"
 msgstr "TLS 協定方法"
 
-#: ui/newaccountsettingsview.ui:1837
+#: ui/newaccountsettingsview.ui:1828
 msgid "Outgoing TLS server name"
 msgstr "外連 TLS 伺服器名稱"
 
-#: ui/newaccountsettingsview.ui:1872
+#: ui/newaccountsettingsview.ui:1863
 msgid "Negotiation timeout (seconds)"
 msgstr "協商逾時（秒）"
 
-#: ui/newaccountsettingsview.ui:1908
+#: ui/newaccountsettingsview.ui:1899
 msgid "Verify incoming certificates (server side)"
 msgstr "驗證連入的證書（伺服器端）"
 
-#: ui/newaccountsettingsview.ui:1943
+#: ui/newaccountsettingsview.ui:1934
 msgid "Verify answer certificates (client side)"
 msgstr "驗證回覆證書（客戶端）"
 
-#: ui/newaccountsettingsview.ui:1978
+#: ui/newaccountsettingsview.ui:1969
 msgid "Require a certificate for incoming TLS connections"
 msgstr "連入的 TLS 連線需要證書"
 
-#: ui/newaccountsettingsview.ui:2002
+#: ui/newaccountsettingsview.ui:1993
 msgid "Security"
 msgstr "安全性"
 
-#: ui/newaccountsettingsview.ui:2027
+#: ui/newaccountsettingsview.ui:2018
 msgid "Connectivity"
 msgstr "連線"
 
-#: ui/newaccountsettingsview.ui:2065
+#: ui/newaccountsettingsview.ui:2056
 msgid "Registration expire timeout (seconds)"
 msgstr "註冊過期逾時（秒）"
 
-#: ui/newaccountsettingsview.ui:2102
+#: ui/newaccountsettingsview.ui:2093
 msgid "Network interface"
 msgstr "網路介面"
 
-#: ui/newaccountsettingsview.ui:2138
+#: ui/newaccountsettingsview.ui:2129
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2173
+#: ui/newaccountsettingsview.ui:2164
 msgid "Use TURN"
 msgstr "使用 TURN"
 
-#: ui/newaccountsettingsview.ui:2208
+#: ui/newaccountsettingsview.ui:2199
 msgid "(TURN) address"
 msgstr "(TURN) 地址"
 
-#: ui/newaccountsettingsview.ui:2243
+#: ui/newaccountsettingsview.ui:2234
 msgid "(TURN) username"
 msgstr "(TURN) 使用者名稱"
 
-#: ui/newaccountsettingsview.ui:2277
+#: ui/newaccountsettingsview.ui:2268
 msgid "(TURN) password"
 msgstr "(TURN) 密碼"
 
-#: ui/newaccountsettingsview.ui:2314
+#: ui/newaccountsettingsview.ui:2305
 msgid "(TURN) realm"
 msgstr "(TURN) 範圍"
 
-#: ui/newaccountsettingsview.ui:2348
+#: ui/newaccountsettingsview.ui:2339
 msgid "Use STUN"
 msgstr "使用 STUN"
 
-#: ui/newaccountsettingsview.ui:2383
+#: ui/newaccountsettingsview.ui:2374
 msgid "(STUN) address"
 msgstr "(STUN) 地址"
 
-#: ui/newaccountsettingsview.ui:2416
+#: ui/newaccountsettingsview.ui:2407
 msgid "Published address"
 msgstr "已發佈的地址"
 
-#: ui/newaccountsettingsview.ui:2453
+#: ui/newaccountsettingsview.ui:2444
 msgid "Use custom address and port"
 msgstr "使用自訂地址與通訊埠"
 
-#: ui/newaccountsettingsview.ui:2524
+#: ui/newaccountsettingsview.ui:2515
 msgid "Port"
 msgstr "連接埠"
 
-#: ui/newaccountsettingsview.ui:2560
+#: ui/newaccountsettingsview.ui:2551
 msgid "Video codecs"
 msgstr "視訊編解碼器"
 
-#: ui/newaccountsettingsview.ui:2623
+#: ui/newaccountsettingsview.ui:2614
 msgid "Enable video"
 msgstr "啟用視訊"
 
-#: ui/newaccountsettingsview.ui:2650
+#: ui/newaccountsettingsview.ui:2641
 msgid "Audio codecs"
 msgstr "音訊編解碼器"
 
-#: ui/newaccountsettingsview.ui:2720
+#: ui/newaccountsettingsview.ui:2711
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP 工作階段協商（ICE 退回）"
 
-#: ui/newaccountsettingsview.ui:2732
+#: ui/newaccountsettingsview.ui:2723
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "僅在 SDP 協商期間使用，以防不支援 ICE。"
 
-#: ui/newaccountsettingsview.ui:2766
+#: ui/newaccountsettingsview.ui:2757
 msgid "Audio RTP Min port"
 msgstr "音訊 RTP 最小通訊埠"
 
-#: ui/newaccountsettingsview.ui:2801
+#: ui/newaccountsettingsview.ui:2792
 msgid "Audio RTP Max port"
 msgstr "音訊 RTP 最大通訊埠"
 
-#: ui/newaccountsettingsview.ui:2836
+#: ui/newaccountsettingsview.ui:2827
 msgid "Video RTP Min port"
 msgstr "視訊 RTP 最小通訊埠"
 
-#: ui/newaccountsettingsview.ui:2871
+#: ui/newaccountsettingsview.ui:2862
 msgid "Video RTP Max port"
 msgstr "視訊 RTP 最大通訊埠"
 
@@ -744,22 +744,22 @@ msgstr "顯示 Ring"
 msgid "Quit"
 msgstr "結束"
 
-#: src/ringnotify.cpp:340
+#: src/ringnotify.cpp:338
 msgctxt ""
 msgid "Open conversation"
 msgstr "開啟對話"
 
-#: src/ringnotify.cpp:348 src/ringnotify.cpp:364
+#: src/ringnotify.cpp:346 src/ringnotify.cpp:362
 msgctxt ""
 msgid "Accept"
 msgstr "接聽"
 
-#: src/ringnotify.cpp:355
+#: src/ringnotify.cpp:353
 msgctxt ""
 msgid "Refuse"
 msgstr "拒絕"
 
-#: src/ringnotify.cpp:371
+#: src/ringnotify.cpp:369
 msgctxt ""
 msgid "Decline"
 msgstr "拒絕"
@@ -786,7 +786,7 @@ msgstr "正在執行查詢……"
 
 #: src/usernameregistrationbox.cpp:313
 msgid "Enter the password of your Ring account"
-msgstr ""
+msgstr "輸入您 Ring 帳號的密碼"
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
@@ -1091,9 +1091,9 @@ msgid ""
 msgstr "Ring 是一套通用通訊的自由軟體，其尊重使用者的自由與隱私。"
 
 #: src/ringwelcomeview.cpp:204
-msgctxt "Do not translate \"Ring ID\""
-msgid "Ring ID QR code"
-msgstr "Ring ID QR code"
+msgctxt "Do not translate \"RingID\""
+msgid "RingID QR code"
+msgstr ""
 
 #: src/chatview.cpp:175
 msgid "Send File"

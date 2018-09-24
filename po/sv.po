@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 03:09-0400\n"
-"PO-Revision-Date: 2018-09-17 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-09-24 03:09-0400\n"
+"PO-Revision-Date: 2018-09-24 07:09+0000\n"
+"Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/ring/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +39,7 @@ msgid "Alias"
 msgstr "Alias"
 
 #: ui/accountmigrationview.ui:126
-msgid "Ring ID"
+msgid "RingID"
 msgstr "Ring-ID"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
@@ -443,7 +443,7 @@ msgstr "Klicka för att byta lösenord"
 msgid "Export account"
 msgstr "Exportera konto"
 
-#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:908
+#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:903
 msgid "Enable account"
 msgstr "Aktivera konto"
 
@@ -455,7 +455,7 @@ msgstr "SIP-server"
 msgid "password"
 msgstr "Lösenord"
 
-#: ui/newaccountsettingsview.ui:812 ui/newaccountsettingsview.ui:1409
+#: ui/newaccountsettingsview.ui:812 ui/newaccountsettingsview.ui:1400
 #: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Proxy"
@@ -464,207 +464,207 @@ msgstr "Proxy"
 msgid "Voicemail"
 msgstr "Röstbrevlåda"
 
-#: ui/newaccountsettingsview.ui:959
+#: ui/newaccountsettingsview.ui:954
 msgid "Known devices linked to this Ring account"
 msgstr "Kända enheter, länkade till detta Ring-konto"
 
-#: ui/newaccountsettingsview.ui:967
+#: ui/newaccountsettingsview.ui:962
 msgid "Link another device"
 msgstr "Koppla en annan enhet"
 
-#: ui/newaccountsettingsview.ui:1032
+#: ui/newaccountsettingsview.ui:1027
 msgid "Banned contacts"
 msgstr "Bannlysta kontakter"
 
-#: ui/newaccountsettingsview.ui:1088
+#: ui/newaccountsettingsview.ui:1083
 msgid "Advanced settings"
 msgstr "Avancerade inställningar"
 
-#: ui/newaccountsettingsview.ui:1128
+#: ui/newaccountsettingsview.ui:1119
 msgid "General settings"
 msgstr "Allmänna inställningar"
 
-#: ui/newaccountsettingsview.ui:1146
+#: ui/newaccountsettingsview.ui:1137
 msgid "Call settings"
 msgstr "Samtalsinställningar"
 
-#: ui/newaccountsettingsview.ui:1184
+#: ui/newaccountsettingsview.ui:1175
 msgid "Allow call from untrusted peers"
 msgstr "Tillåt samtal från ej betrodda användare"
 
-#: ui/newaccountsettingsview.ui:1219
+#: ui/newaccountsettingsview.ui:1210
 msgid "Auto answer calls"
 msgstr "Besvara samtal automatiskt"
 
-#: ui/newaccountsettingsview.ui:1255
+#: ui/newaccountsettingsview.ui:1246
 msgid "Custom ringtone"
 msgstr "Anpassad ringsignal"
 
-#: ui/newaccountsettingsview.ui:1299
+#: ui/newaccountsettingsview.ui:1290
 msgid "Name server"
 msgstr "Namnserver"
 
-#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2489
+#: ui/newaccountsettingsview.ui:1327 ui/newaccountsettingsview.ui:2480
 msgid "Address"
 msgstr "Adress"
 
-#: ui/newaccountsettingsview.ui:1370
+#: ui/newaccountsettingsview.ui:1361
 msgid "OpenDHT configuration"
 msgstr "OpenDHT-konfiguration"
 
-#: ui/newaccountsettingsview.ui:1454
+#: ui/newaccountsettingsview.ui:1445
 msgid "Bootstrap"
 msgstr "Bootstrap"
 
-#: ui/newaccountsettingsview.ui:1514
+#: ui/newaccountsettingsview.ui:1505
 msgid "Encrypt media streams (SRTP)"
 msgstr "Kryptera mediaströmmar (SRTP)"
 
-#: ui/newaccountsettingsview.ui:1549
+#: ui/newaccountsettingsview.ui:1540
 msgid "Enable SDES for key exchange protocol"
 msgstr "Aktivera SDES för nyckelutbytesprotokoll"
 
-#: ui/newaccountsettingsview.ui:1585
+#: ui/newaccountsettingsview.ui:1576
 msgid "Fallback on RTP on encryption failure"
 msgstr "Fall tillbaka på RTP vid krypteringsfel"
 
-#: ui/newaccountsettingsview.ui:1620
+#: ui/newaccountsettingsview.ui:1611
 msgid "Encrypt negotiation (TLS)"
 msgstr "Kryptera förhandling (TLS)"
 
-#: ui/newaccountsettingsview.ui:1655
+#: ui/newaccountsettingsview.ui:1646
 msgid "CA certificate"
 msgstr "CA-certifikat"
 
-#: ui/newaccountsettingsview.ui:1691
+#: ui/newaccountsettingsview.ui:1682
 msgid "User certificate"
 msgstr "Användarcertifikat"
 
-#: ui/newaccountsettingsview.ui:1727
+#: ui/newaccountsettingsview.ui:1718
 msgid "Private key"
 msgstr "Privat nyckel"
 
-#: ui/newaccountsettingsview.ui:1763
+#: ui/newaccountsettingsview.ui:1754
 msgid "Private key password"
 msgstr "Lösenord för privat nyckel"
 
-#: ui/newaccountsettingsview.ui:1801
+#: ui/newaccountsettingsview.ui:1792
 msgid "TLS protocol method"
 msgstr "TLS-protokollmetod"
 
-#: ui/newaccountsettingsview.ui:1837
+#: ui/newaccountsettingsview.ui:1828
 msgid "Outgoing TLS server name"
 msgstr "Utgående TLS-servernamn"
 
-#: ui/newaccountsettingsview.ui:1872
+#: ui/newaccountsettingsview.ui:1863
 msgid "Negotiation timeout (seconds)"
 msgstr "Tidsgräns för förhandling (sekunder)"
 
-#: ui/newaccountsettingsview.ui:1908
+#: ui/newaccountsettingsview.ui:1899
 msgid "Verify incoming certificates (server side)"
 msgstr "Verifiera inkommande certifikat (serversidan)"
 
-#: ui/newaccountsettingsview.ui:1943
+#: ui/newaccountsettingsview.ui:1934
 msgid "Verify answer certificates (client side)"
 msgstr "Verifiera svarscertifikat (klientsidan)"
 
-#: ui/newaccountsettingsview.ui:1978
+#: ui/newaccountsettingsview.ui:1969
 msgid "Require a certificate for incoming TLS connections"
 msgstr "Kräv certifikat för inkommande TLS-anslutningar"
 
-#: ui/newaccountsettingsview.ui:2002
+#: ui/newaccountsettingsview.ui:1993
 msgid "Security"
 msgstr "Säkerhet"
 
-#: ui/newaccountsettingsview.ui:2027
+#: ui/newaccountsettingsview.ui:2018
 msgid "Connectivity"
 msgstr "Anslutningsbarhet"
 
-#: ui/newaccountsettingsview.ui:2065
+#: ui/newaccountsettingsview.ui:2056
 msgid "Registration expire timeout (seconds)"
 msgstr "Tidsgräns för registrering (sekunder)"
 
-#: ui/newaccountsettingsview.ui:2102
+#: ui/newaccountsettingsview.ui:2093
 msgid "Network interface"
 msgstr "Nätverksgränssnitt"
 
-#: ui/newaccountsettingsview.ui:2138
+#: ui/newaccountsettingsview.ui:2129
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2173
+#: ui/newaccountsettingsview.ui:2164
 msgid "Use TURN"
 msgstr "Använd TURN"
 
-#: ui/newaccountsettingsview.ui:2208
+#: ui/newaccountsettingsview.ui:2199
 msgid "(TURN) address"
 msgstr "(TURN) adress"
 
-#: ui/newaccountsettingsview.ui:2243
+#: ui/newaccountsettingsview.ui:2234
 msgid "(TURN) username"
 msgstr "(TURN) användarnamn"
 
-#: ui/newaccountsettingsview.ui:2277
+#: ui/newaccountsettingsview.ui:2268
 msgid "(TURN) password"
 msgstr "(TURN) lösenord"
 
-#: ui/newaccountsettingsview.ui:2314
+#: ui/newaccountsettingsview.ui:2305
 msgid "(TURN) realm"
 msgstr "TURN domän"
 
-#: ui/newaccountsettingsview.ui:2348
+#: ui/newaccountsettingsview.ui:2339
 msgid "Use STUN"
 msgstr "Använd STUN"
 
-#: ui/newaccountsettingsview.ui:2383
+#: ui/newaccountsettingsview.ui:2374
 msgid "(STUN) address"
 msgstr "(STUN) adress"
 
-#: ui/newaccountsettingsview.ui:2416
+#: ui/newaccountsettingsview.ui:2407
 msgid "Published address"
 msgstr "Publiserad adress"
 
-#: ui/newaccountsettingsview.ui:2453
+#: ui/newaccountsettingsview.ui:2444
 msgid "Use custom address and port"
 msgstr "Använd anpassad adress och port"
 
-#: ui/newaccountsettingsview.ui:2524
+#: ui/newaccountsettingsview.ui:2515
 msgid "Port"
 msgstr "Port"
 
-#: ui/newaccountsettingsview.ui:2560
+#: ui/newaccountsettingsview.ui:2551
 msgid "Video codecs"
 msgstr "Videokodekar"
 
-#: ui/newaccountsettingsview.ui:2623
+#: ui/newaccountsettingsview.ui:2614
 msgid "Enable video"
 msgstr "Aktivera video"
 
-#: ui/newaccountsettingsview.ui:2650
+#: ui/newaccountsettingsview.ui:2641
 msgid "Audio codecs"
 msgstr "Ljudkodekar"
 
-#: ui/newaccountsettingsview.ui:2720
+#: ui/newaccountsettingsview.ui:2711
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP sessionsförhandling (ICE-reserv)"
 
-#: ui/newaccountsettingsview.ui:2732
+#: ui/newaccountsettingsview.ui:2723
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Används endast under SDP-sessionsförhandling, om ICE inte stöds."
 
-#: ui/newaccountsettingsview.ui:2766
+#: ui/newaccountsettingsview.ui:2757
 msgid "Audio RTP Min port"
 msgstr "Audio RTP min. port"
 
-#: ui/newaccountsettingsview.ui:2801
+#: ui/newaccountsettingsview.ui:2792
 msgid "Audio RTP Max port"
 msgstr "Audio RTP max. port"
 
-#: ui/newaccountsettingsview.ui:2836
+#: ui/newaccountsettingsview.ui:2827
 msgid "Video RTP Min port"
 msgstr "Video RTP min. port"
 
-#: ui/newaccountsettingsview.ui:2871
+#: ui/newaccountsettingsview.ui:2862
 msgid "Video RTP Max port"
 msgstr "Video RTP max. port"
 
@@ -742,22 +742,22 @@ msgstr "Visa Ring"
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/ringnotify.cpp:340
+#: src/ringnotify.cpp:338
 msgctxt ""
 msgid "Open conversation"
 msgstr "Öppna konversation"
 
-#: src/ringnotify.cpp:348 src/ringnotify.cpp:364
+#: src/ringnotify.cpp:346 src/ringnotify.cpp:362
 msgctxt ""
 msgid "Accept"
 msgstr "Acceptera"
 
-#: src/ringnotify.cpp:355
+#: src/ringnotify.cpp:353
 msgctxt ""
 msgid "Refuse"
 msgstr "Neka"
 
-#: src/ringnotify.cpp:371
+#: src/ringnotify.cpp:369
 msgctxt ""
 msgid "Decline"
 msgstr "Avslå"
@@ -784,7 +784,7 @@ msgstr "Utför uppslagning..."
 
 #: src/usernameregistrationbox.cpp:313
 msgid "Enter the password of your Ring account"
-msgstr ""
+msgstr "Ange lösenordet för ditt Ring-konto"
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
@@ -1089,9 +1089,9 @@ msgid ""
 msgstr "Ring är fri mjukvara för universell kommunikation, med respekt för användarens frihet och integritet."
 
 #: src/ringwelcomeview.cpp:204
-msgctxt "Do not translate \"Ring ID\""
-msgid "Ring ID QR code"
-msgstr "Ring-ID som QR-kod"
+msgctxt "Do not translate \"RingID\""
+msgid "RingID QR code"
+msgstr ""
 
 #: src/chatview.cpp:175
 msgid "Send File"

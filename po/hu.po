@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-17 03:09-0400\n"
-"PO-Revision-Date: 2018-09-17 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-09-24 03:09-0400\n"
+"PO-Revision-Date: 2018-09-24 07:09+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgid "Alias"
 msgstr "Álnév"
 
 #: ui/accountmigrationview.ui:126
-msgid "Ring ID"
+msgid "RingID"
 msgstr "Ring azonosító"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
@@ -160,7 +160,7 @@ msgstr "Mégse"
 
 #: ui/accountcreationwizard.ui:86
 msgid "Advanced…"
-msgstr ""
+msgstr "Speciális…"
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
@@ -239,11 +239,11 @@ msgstr "Jelszó megerősítése"
 
 #: ui/accountcreationwizard.ui:566
 msgid "Generating your Ring account…"
-msgstr ""
+msgstr "A Ring-fiókja létrehozása…"
 
 #: ui/accountcreationwizard.ui:592
 msgid "Registering username…"
-msgstr ""
+msgstr "Felhasználónév regisztrálása…"
 
 #: ui/accountcreationwizard.ui:599
 msgid "This may take a few minutes."
@@ -251,7 +251,7 @@ msgstr "Ez néhány percet is igénybe vehet."
 
 #: ui/accountcreationwizard.ui:625
 msgid "Retrieving your Ring account…"
-msgstr ""
+msgstr "A Ring-fiókja lekérése…"
 
 #: ui/accountcreationwizard.ui:651
 msgid "Error creating/loading account."
@@ -427,7 +427,7 @@ msgstr "Exportálás a Ringen"
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Ring…"
-msgstr ""
+msgstr "Fiók exportálása a Ringen…"
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -445,7 +445,7 @@ msgstr "Kattintson a jelszó módosításához"
 msgid "Export account"
 msgstr "Felhasználó fiók exportálása"
 
-#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:908
+#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:903
 msgid "Enable account"
 msgstr "Fiók engedélyezése"
 
@@ -457,7 +457,7 @@ msgstr "SIP szerver"
 msgid "password"
 msgstr "jelszó"
 
-#: ui/newaccountsettingsview.ui:812 ui/newaccountsettingsview.ui:1409
+#: ui/newaccountsettingsview.ui:812 ui/newaccountsettingsview.ui:1400
 #: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Proxy"
@@ -466,207 +466,207 @@ msgstr "Proxy"
 msgid "Voicemail"
 msgstr "Hangposta"
 
-#: ui/newaccountsettingsview.ui:959
+#: ui/newaccountsettingsview.ui:954
 msgid "Known devices linked to this Ring account"
 msgstr "Ring-fiókhoz kapcsolódó ismert eszközök"
 
-#: ui/newaccountsettingsview.ui:967
+#: ui/newaccountsettingsview.ui:962
 msgid "Link another device"
 msgstr "Csatlakoztasson másik eszközt"
 
-#: ui/newaccountsettingsview.ui:1032
+#: ui/newaccountsettingsview.ui:1027
 msgid "Banned contacts"
 msgstr "Letiltott partnerek"
 
-#: ui/newaccountsettingsview.ui:1088
+#: ui/newaccountsettingsview.ui:1083
 msgid "Advanced settings"
 msgstr "Speciális beállítások"
 
-#: ui/newaccountsettingsview.ui:1128
+#: ui/newaccountsettingsview.ui:1119
 msgid "General settings"
 msgstr "Általános beállítások"
 
-#: ui/newaccountsettingsview.ui:1146
+#: ui/newaccountsettingsview.ui:1137
 msgid "Call settings"
 msgstr "Hívás beállítások"
 
-#: ui/newaccountsettingsview.ui:1184
+#: ui/newaccountsettingsview.ui:1175
 msgid "Allow call from untrusted peers"
 msgstr "Hívás engedélyezése nem megbízható személyektől"
 
-#: ui/newaccountsettingsview.ui:1219
+#: ui/newaccountsettingsview.ui:1210
 msgid "Auto answer calls"
 msgstr "Hívások automatikus fogadása"
 
-#: ui/newaccountsettingsview.ui:1255
+#: ui/newaccountsettingsview.ui:1246
 msgid "Custom ringtone"
 msgstr "Egyéni csengőhang"
 
-#: ui/newaccountsettingsview.ui:1299
+#: ui/newaccountsettingsview.ui:1290
 msgid "Name server"
 msgstr "Névszerver"
 
-#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2489
+#: ui/newaccountsettingsview.ui:1327 ui/newaccountsettingsview.ui:2480
 msgid "Address"
 msgstr "Cím"
 
-#: ui/newaccountsettingsview.ui:1370
+#: ui/newaccountsettingsview.ui:1361
 msgid "OpenDHT configuration"
 msgstr "OpenDHT konfiguráció"
 
-#: ui/newaccountsettingsview.ui:1454
+#: ui/newaccountsettingsview.ui:1445
 msgid "Bootstrap"
 msgstr "Betöltés"
 
-#: ui/newaccountsettingsview.ui:1514
+#: ui/newaccountsettingsview.ui:1505
 msgid "Encrypt media streams (SRTP)"
 msgstr "Média-adatfolyamok titkosítása (SRTP)"
 
-#: ui/newaccountsettingsview.ui:1549
+#: ui/newaccountsettingsview.ui:1540
 msgid "Enable SDES for key exchange protocol"
 msgstr "Engedélyezze a SDES kulcscsere protokollt"
 
-#: ui/newaccountsettingsview.ui:1585
+#: ui/newaccountsettingsview.ui:1576
 msgid "Fallback on RTP on encryption failure"
 msgstr "Titkosításhiba esetén RTP használata"
 
-#: ui/newaccountsettingsview.ui:1620
+#: ui/newaccountsettingsview.ui:1611
 msgid "Encrypt negotiation (TLS)"
 msgstr "Titkosítási tárgyalás (TLS)"
 
-#: ui/newaccountsettingsview.ui:1655
+#: ui/newaccountsettingsview.ui:1646
 msgid "CA certificate"
 msgstr "CA tanúsítvány"
 
-#: ui/newaccountsettingsview.ui:1691
+#: ui/newaccountsettingsview.ui:1682
 msgid "User certificate"
 msgstr "Felhasználói tanúsítvány"
 
-#: ui/newaccountsettingsview.ui:1727
+#: ui/newaccountsettingsview.ui:1718
 msgid "Private key"
 msgstr "Titkos kulcs"
 
-#: ui/newaccountsettingsview.ui:1763
+#: ui/newaccountsettingsview.ui:1754
 msgid "Private key password"
 msgstr "Titkos kulcs jelszava"
 
-#: ui/newaccountsettingsview.ui:1801
+#: ui/newaccountsettingsview.ui:1792
 msgid "TLS protocol method"
 msgstr "TLS protokoll metódus"
 
-#: ui/newaccountsettingsview.ui:1837
+#: ui/newaccountsettingsview.ui:1828
 msgid "Outgoing TLS server name"
 msgstr "Kimenő TLS kiszolgálónév"
 
-#: ui/newaccountsettingsview.ui:1872
+#: ui/newaccountsettingsview.ui:1863
 msgid "Negotiation timeout (seconds)"
 msgstr "Tárgyalási időtúllépés (másodpercben)"
 
-#: ui/newaccountsettingsview.ui:1908
+#: ui/newaccountsettingsview.ui:1899
 msgid "Verify incoming certificates (server side)"
 msgstr "Bejövő tanúsítványok ellenőrzése (kiszolgáló oldalon)"
 
-#: ui/newaccountsettingsview.ui:1943
+#: ui/newaccountsettingsview.ui:1934
 msgid "Verify answer certificates (client side)"
 msgstr "Válasz tanúsítványok ellenőrzése (kliens oldalon)"
 
-#: ui/newaccountsettingsview.ui:1978
+#: ui/newaccountsettingsview.ui:1969
 msgid "Require a certificate for incoming TLS connections"
 msgstr "Tanúsítvány megkövetelése a bejövő TLS kapcsolatokhoz"
 
-#: ui/newaccountsettingsview.ui:2002
+#: ui/newaccountsettingsview.ui:1993
 msgid "Security"
 msgstr "Biztonság"
 
-#: ui/newaccountsettingsview.ui:2027
+#: ui/newaccountsettingsview.ui:2018
 msgid "Connectivity"
 msgstr "Kapcsolódás"
 
-#: ui/newaccountsettingsview.ui:2065
+#: ui/newaccountsettingsview.ui:2056
 msgid "Registration expire timeout (seconds)"
 msgstr "Regisztráció érvényességének lejárta (másodpercekben)"
 
-#: ui/newaccountsettingsview.ui:2102
+#: ui/newaccountsettingsview.ui:2093
 msgid "Network interface"
 msgstr "Hálózati felület"
 
-#: ui/newaccountsettingsview.ui:2138
+#: ui/newaccountsettingsview.ui:2129
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2173
+#: ui/newaccountsettingsview.ui:2164
 msgid "Use TURN"
 msgstr "TURN használata"
 
-#: ui/newaccountsettingsview.ui:2208
+#: ui/newaccountsettingsview.ui:2199
 msgid "(TURN) address"
 msgstr "(TURN) cím"
 
-#: ui/newaccountsettingsview.ui:2243
+#: ui/newaccountsettingsview.ui:2234
 msgid "(TURN) username"
 msgstr "(TURN) felhasználónév"
 
-#: ui/newaccountsettingsview.ui:2277
+#: ui/newaccountsettingsview.ui:2268
 msgid "(TURN) password"
 msgstr "(TURN) jelszó"
 
-#: ui/newaccountsettingsview.ui:2314
+#: ui/newaccountsettingsview.ui:2305
 msgid "(TURN) realm"
 msgstr "(TURN) birodalom"
 
-#: ui/newaccountsettingsview.ui:2348
+#: ui/newaccountsettingsview.ui:2339
 msgid "Use STUN"
 msgstr "STUN használata"
 
-#: ui/newaccountsettingsview.ui:2383
+#: ui/newaccountsettingsview.ui:2374
 msgid "(STUN) address"
 msgstr "(STUN) cím"
 
-#: ui/newaccountsettingsview.ui:2416
+#: ui/newaccountsettingsview.ui:2407
 msgid "Published address"
 msgstr "Nyilvános cím"
 
-#: ui/newaccountsettingsview.ui:2453
+#: ui/newaccountsettingsview.ui:2444
 msgid "Use custom address and port"
 msgstr "Használjon egyéni címet és portot"
 
-#: ui/newaccountsettingsview.ui:2524
+#: ui/newaccountsettingsview.ui:2515
 msgid "Port"
 msgstr "Port"
 
-#: ui/newaccountsettingsview.ui:2560
+#: ui/newaccountsettingsview.ui:2551
 msgid "Video codecs"
 msgstr "Videócodekek"
 
-#: ui/newaccountsettingsview.ui:2623
+#: ui/newaccountsettingsview.ui:2614
 msgid "Enable video"
 msgstr "Videó engedélyezése"
 
-#: ui/newaccountsettingsview.ui:2650
+#: ui/newaccountsettingsview.ui:2641
 msgid "Audio codecs"
 msgstr "Hangcodekek"
 
-#: ui/newaccountsettingsview.ui:2720
+#: ui/newaccountsettingsview.ui:2711
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP munkamenet targyalás (az ICE tartaléka)"
 
-#: ui/newaccountsettingsview.ui:2732
+#: ui/newaccountsettingsview.ui:2723
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Csak az SDP-tárgyalások során használatos ha az ICE nem támogatott."
 
-#: ui/newaccountsettingsview.ui:2766
+#: ui/newaccountsettingsview.ui:2757
 msgid "Audio RTP Min port"
 msgstr "Hang RTP min port"
 
-#: ui/newaccountsettingsview.ui:2801
+#: ui/newaccountsettingsview.ui:2792
 msgid "Audio RTP Max port"
 msgstr "Hang RTP max port"
 
-#: ui/newaccountsettingsview.ui:2836
+#: ui/newaccountsettingsview.ui:2827
 msgid "Video RTP Min port"
 msgstr "Videó RTP min port"
 
-#: ui/newaccountsettingsview.ui:2871
+#: ui/newaccountsettingsview.ui:2862
 msgid "Video RTP Max port"
 msgstr "Videó RTP max port"
 
@@ -696,7 +696,7 @@ msgstr "Meghívás küldése"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
-msgstr ""
+msgstr "Bejövő…"
 
 #: ui/incomingcallview.ui:135
 msgid "Accept"
@@ -744,22 +744,22 @@ msgstr "A Ring megnyitása"
 msgid "Quit"
 msgstr "Kilépés"
 
-#: src/ringnotify.cpp:340
+#: src/ringnotify.cpp:338
 msgctxt ""
 msgid "Open conversation"
 msgstr "Beszélgetés megnyitása"
 
-#: src/ringnotify.cpp:348 src/ringnotify.cpp:364
+#: src/ringnotify.cpp:346 src/ringnotify.cpp:362
 msgctxt ""
 msgid "Accept"
 msgstr "Elfogadás"
 
-#: src/ringnotify.cpp:355
+#: src/ringnotify.cpp:353
 msgctxt ""
 msgid "Refuse"
 msgstr "Elutasítás"
 
-#: src/ringnotify.cpp:371
+#: src/ringnotify.cpp:369
 msgctxt ""
 msgid "Decline"
 msgstr "Elutasítás"
@@ -778,19 +778,19 @@ msgstr "Érvénytelen felhasználónév"
 
 #: src/usernameregistrationbox.cpp:194
 msgid "Lookup unavailable, check your network connection"
-msgstr "A keresése nem érhető el, ellenőrizze a hálózati kapcsolatot"
+msgstr "A betekintése nem érhető el, ellenőrizze a hálózati kapcsolatot"
 
 #: src/usernameregistrationbox.cpp:274
 msgid "Performing lookup…"
-msgstr ""
+msgstr "Betekintés végrehajtása…"
 
 #: src/usernameregistrationbox.cpp:313
 msgid "Enter the password of your Ring account"
-msgstr ""
+msgstr "Adja meg a Ring-fiókja jelszavát"
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
-msgstr ""
+msgstr "Regisztráció folyamatban…"
 
 #: src/generalsettingsview.cpp:107
 msgid ""
@@ -889,7 +889,7 @@ msgstr "Típus"
 
 #: src/accountgeneraltab.cpp:656
 msgid "auto-generating…"
-msgstr ""
+msgstr "automatikus generálás…"
 
 #: src/accountgeneraltab.cpp:686
 msgid "Hostname"
@@ -937,7 +937,7 @@ msgstr "_Megnyitás"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "Dolgozik…"
 
 #: src/dialogs.c:84
 #, c-format
@@ -955,7 +955,7 @@ msgstr "A GNOME kliens a Ringhez.\nA Ring egy szabad szoftver az univerzális ko
 
 #: src/ringmainwindow.cpp:174
 msgid "Add account…"
-msgstr ""
+msgstr "Fiók hozzáadása…"
 
 #: src/ringmainwindow.cpp:643
 msgctxt "button next to search entry will place a new call"
@@ -1005,7 +1005,7 @@ msgstr "Ring hiba"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)…"
-msgstr ""
+msgstr "Újrakapcsolódás a Ring démonhoz (dring)…"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
@@ -1091,9 +1091,9 @@ msgid ""
 msgstr "A Ring egy szabad szoftver az univerzális kommunikációhoz, amely tiszteletben tartja a felhasználók szabadságát és magánszféráját."
 
 #: src/ringwelcomeview.cpp:204
-msgctxt "Do not translate \"Ring ID\""
-msgid "Ring ID QR code"
-msgstr "Ring azonosító QR-kód"
+msgctxt "Do not translate \"RingID\""
+msgid "RingID QR code"
+msgstr ""
 
 #: src/chatview.cpp:175
 msgid "Send File"
@@ -1160,7 +1160,7 @@ msgstr "Nem elérhető"
 
 #: src/newaccountsettingsview.cpp:1968
 msgid "Connecting…"
-msgstr ""
+msgstr "Kapcsolódás…"
 
 #: src/newaccountsettingsview.cpp:1971
 msgid "Online"
