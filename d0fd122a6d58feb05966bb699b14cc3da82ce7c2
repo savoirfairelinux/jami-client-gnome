@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddebd46b_f4f4efd0",
+        "filename": "src/messagingwidget.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-09-24T23:02:40Z",
+      "side": 1,
+      "message": "mix of coding style. If we want to be consistent with other cppimpl, should be saveFileName_",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 30
+      },
+      "revId": "d0fd122a6d58feb05966bb699b14cc3da82ce7c2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "153dd77a_6a9525d9",
+        "filename": "src/messagingwidget.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2018-09-24T23:02:40Z",
+      "side": 1,
+      "message": "also useless space. Not an issue.",
+      "range": {
+        "startLine": 158,
+        "startChar": 29,
+        "endLine": 158,
+        "endChar": 30
+      },
+      "revId": "d0fd122a6d58feb05966bb699b14cc3da82ce7c2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
