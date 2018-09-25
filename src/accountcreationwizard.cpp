@@ -57,8 +57,6 @@ struct _AccountCreationWizardPrivate
     gchar* avatar;
 
     GtkWidget *stack_account_creation;
-    QMetaObject::Connection account_state_changed;
-    QMetaObject::Connection name_registration_ended;
     gboolean username_available;
 
     /* choose_account_type_vbox */
@@ -127,7 +125,6 @@ account_creation_wizard_dispose(GObject *object)
     // make sure preview is stopped and destroyed
     account_creation_wizard_show_preview(ACCOUNT_CREATION_WIZARD(object), FALSE);
 
-    QObject::disconnect(priv->account_state_changed);
     G_OBJECT_CLASS(account_creation_wizard_parent_class)->dispose(object);
 }
 
@@ -311,22 +308,19 @@ create_existing_ring_account(AccountCreationWizard *win)
     gchar *password = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_existing_account_password)));
     gtk_entry_set_text(GTK_ENTRY(priv->entry_existing_account_password), "");
 
-    gchar *pin = nullptr;
-    auto curPin = gtk_entry_get_text(GTK_ENTRY(priv->entry_existing_account_pin));
-    if (curPin and strlen(curPin) > 0) {
-        pin = g_strdup(curPin);
+    gchar *pin = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_existing_account_pin)));
+    if (pin and strlen(pin) > 0) {
         gtk_entry_set_text(GTK_ENTRY(priv->entry_existing_account_pin), "");
     }
 
-    gchar *archive = nullptr;
-    auto archivePath = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(priv->entry_existing_account_archive));
-    if (archivePath) {
-        archive = g_strdup(archivePath);
+    gchar *archive = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(priv->entry_existing_account_archive)));
+    if (archive) {
         gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->entry_existing_account_archive), nullptr);
     }
 
     auto status = create_ring_account(win, NULL, NULL, password, pin, archive);
 
+    g_free(archive);
     g_free(password);
     g_free(pin);
 
@@ -440,7 +434,7 @@ entries_existing_account_changed(G_GNUC_UNUSED GtkEntry *entry, AccountCreationW
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
 
     const gchar *pin = gtk_entry_get_text(GTK_ENTRY(priv->entry_existing_account_pin));
-    const gchar *archive_path = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(priv->entry_existing_account_archive));
+    gchar *archive_path = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(priv->entry_existing_account_archive));
 
     bool hasPin = pin and strlen(pin) > 0;
     bool hasArchive = archive_path and strlen(archive_path) > 0;
@@ -457,6 +451,8 @@ entries_existing_account_changed(G_GNUC_UNUSED GtkEntry *entry, AccountCreationW
         priv->button_existing_account_next,
         (hasArchive || hasPin)
     );
+
+    g_free(archive_path);
 }
 
 static void
