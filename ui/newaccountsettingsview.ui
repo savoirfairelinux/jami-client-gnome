@@ -773,8 +773,6 @@
                                           <object class="GtkEntry" id="entry_sip_password">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="can_default">True</property>
-                                            <property name="has_default">True</property>
                                             <property name="halign">fill</property>
                                             <property name="visibility">False</property>
                                             <property name="primary_icon_stock">gtk-dialog-authentication</property>

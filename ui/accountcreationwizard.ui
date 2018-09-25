@@ -168,8 +168,6 @@
                                 <property name="width-chars">40</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="can_default">True</property>
-                                <property name="has_default">True</property>
                                 <property name="xalign">0.5</property>
                                 <property name="primary_icon_stock">gtk-dialog-authentication</property>
                                 <property name="input_purpose">password</property>
@@ -215,8 +213,6 @@
                         <property name="width-chars">40</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="can_default">True</property>
-                        <property name="has_default">True</property>
                         <property name="xalign">0.5</property>
                         <property name="primary_icon_stock">gtk-dialog-authentication</property>
                         <property name="input_purpose">password</property>
