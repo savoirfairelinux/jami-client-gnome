@@ -237,9 +237,9 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
                 auto photostr = priv->temporaryAvatar? priv->temporaryAvatar : (*priv->accountInfo_)->profileInfo.avatar;
                 QByteArray byteArray(photostr.c_str(), photostr.length());
                 QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
-                auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
                 if (avatar.isValid()) {
-                    photo = pixbuf_photo;
+                    auto size = QSize(AVATAR_WIDTH, AVATAR_HEIGHT);
+                    photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), size);
                 }
             }
             gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_avatar), photo.get());
