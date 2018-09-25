@@ -57,6 +57,7 @@ struct _MessagingWidgetPrivate
     GtkWidget *label_duration;
     GtkWidget *image_send;
     GtkWidget *image_stop;
+    GtkWidget *box_red_dot;
     GtkWidget *image_record_audio;
     GtkWidget *button_record_audio;
     GtkWidget *button_end_without_message;
@@ -121,18 +122,13 @@ on_timer_update(gpointer user_data)
     if (priv->cpp->state_ != MESSAGING_WIDGET_REC_AUDIO) {
         // state changed, stop timer
         ret = FALSE;
-    } else if (priv->cpp->timeElapsed_ == priv->cpp->timeLimit) {
-        // time limit reached, stop timer and change state
-        priv->cpp->set_state(MESSAGING_WIDGET_AUDIO_REC_SUCCESS);
-        ret = FALSE;
     } else {
         priv->cpp->timeElapsed_++;
     }
 
     std::time_t elapsed = priv->cpp->timeElapsed_.count();
-    std::tm tm = *std::localtime(&elapsed);
     std::stringstream ss;
-    ss << std::put_time(&tm, ret ? "REC %M:%S": "%M:%S");
+    ss << std::put_time(std::localtime(&elapsed), "%M:%S");
     gtk_label_set_text(GTK_LABEL(priv->label_duration), ss.str().c_str());
 
     return ret;
@@ -191,7 +187,8 @@ CppImpl::init()
         ".flat-button { border: 0; border-radius: 50%; transition: all 0.3s ease; } \
         .grey-button { background: #dfdfdf; } \
         .grey-button:hover { background: #cecece; } \
-        .timer-box { border: solid 2px; border-radius: 6px; padding: 5px; }",
+        .time-label { padding: 5px; } \
+        .timer-box { border: solid 2px; border-radius: 6px; }",
         -1, nullptr
     );
 
@@ -241,6 +238,7 @@ CppImpl::set_state(MessagingWidgetState state)
 
         timerCallbackId_ = g_timeout_add_seconds(1, on_timer_update, self);
         gtk_widget_show(widgets->label_duration);
+        gtk_widget_show(widgets->box_red_dot);
         gtk_button_set_image(GTK_BUTTON(widgets->button_record_audio), widgets->image_stop);
         gtk_widget_set_tooltip_text(GTK_WIDGET(widgets->button_record_audio), _("Stop recording"));
         break;
@@ -250,6 +248,7 @@ CppImpl::set_state(MessagingWidgetState state)
             avModel_->stopLocalRecorder(save_file_name_);
         }
 
+        gtk_widget_hide(widgets->box_red_dot);
         if (timerCallbackId_) {
             g_source_remove(timerCallbackId_);
         }
@@ -307,6 +306,7 @@ messaging_widget_class_init(MessagingWidgetClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MessagingWidget, image_send);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MessagingWidget, image_stop);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MessagingWidget, image_record_audio);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MessagingWidget, box_red_dot);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MessagingWidget, button_record_audio);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MessagingWidget, button_end_without_message);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MessagingWidget, label_duration);
@@ -345,10 +345,4 @@ messaging_widget_new(lrc::api::AVModel& avModel,
     priv->cpp->setup(avModel, conversation, accountInfo);
 
     return GTK_WIDGET(self);
-}
-
-void
-messaging_widget_set_peer_name(MessagingWidget *self, std::string name)
-{
-    /* TODO */
 }

@@ -9,16 +9,45 @@
       </object>
     </child>
     <child>
-      <object class="GtkLabel" id="label_duration">
-        <style>
-          <class name="timer-box"/>
-        </style>
-        <property name="visible">False</property>
-        <property name="can_focus">False</property>
-        <property name="label">00:00</property>
+      <object class="GtkBox">
+        <property name="visible">True</property>
         <property name="halign">center</property>
         <property name="margin-top">15px</property>
         <property name="margin-bottom">5px</property>
+        <style>
+          <class name="timer-box"/>
+        </style>
+        <child>
+          <object class="GtkBox" id="box_red_dot">
+            <property name="visible">False</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="resource">/cx/ring/RingGnome/record</property>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="image_record-atkobject">
+                    <property name="AtkObject::accessible-description" translatable="yes">Record</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="label">REC</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_duration">
+            <style>
+              <class name="time-label"/>
+            </style>
+            <property name="visible">False</property>
+            <property name="label">00:00</property>
+          </object>
+        </child>
       </object>
       <packing>
         <property name="expand">False</property>
