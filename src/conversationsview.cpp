@@ -715,8 +715,11 @@ conversations_view_new(AccountInfoPointer const & accountInfo)
 
     priv->accountInfo_ = &accountInfo;
 
-    if (*priv->accountInfo_)
+    if (*priv->accountInfo_) {
         build_conversations_view(self);
+    } else {
+        g_debug("building conversationsview for inexistant account (just removed ?)");
+    }
 
     return (GtkWidget *)self;
 }
