@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df7f1ab6_9acb182b",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 579
+      },
+      "writtenOn": "2018-09-25T19:17:41Z",
+      "side": 1,
+      "message": "useless, this is exactly what the if (error) does. The issue is rather that we convert the gchar* to std::string before checking for errors, right?",
+      "range": {
+        "startLine": 568,
+        "startChar": 4,
+        "endLine": 568,
+        "endChar": 30
+      },
+      "revId": "cb443fa82b3fed1d50f8f5a9c07cff4ca3ab4639",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
