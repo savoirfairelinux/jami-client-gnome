@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-24 03:09-0400\n"
-"PO-Revision-Date: 2018-09-24 07:09+0000\n"
-"Last-Translator: Goran Kavrecic <goran.kavrecic@indea.si>\n"
+"POT-Creation-Date: 2018-10-01 03:09-0400\n"
+"PO-Revision-Date: 2018-10-01 07:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Slovenian (http://www.transifex.com/savoirfairelinux/ring/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgstr "Alias"
 msgid "RingID"
 msgstr "RingID"
 
-#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:455
+#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:451
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 #: src/accountgeneraltab.cpp:706
 msgid "Password"
@@ -53,7 +53,7 @@ msgid "Migrate account"
 msgstr "Migriraj račun"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
-#: ui/newaccountsettingsview.ui:876 src/accountmigrationview.cpp:177
+#: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
 #: src/newaccountsettingsview.cpp:963
 msgid "Delete account"
 msgstr "Pobriši račun"
@@ -100,6 +100,7 @@ msgid "Toggle recording"
 msgstr ""
 
 #: ui/currentcallview.ui:372 ui/currentcallview.ui:501
+#: ui/messagingwidget.ui:29
 msgid "Record"
 msgstr "Snemaj"
 
@@ -183,79 +184,79 @@ msgstr ""
 msgid "Enter your pin:"
 msgstr "Vnesi svoj PIN:"
 
-#: ui/accountcreationwizard.ui:190
+#: ui/accountcreationwizard.ui:188
 msgid "Or import a file:"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:209
+#: ui/accountcreationwizard.ui:207
 msgid "Enter your password:"
 msgstr "Vnesi svoje geslo:"
 
-#: ui/accountcreationwizard.ui:231 ui/accountcreationwizard.ui:534
+#: ui/accountcreationwizard.ui:227 ui/accountcreationwizard.ui:530
 msgid "Previous"
 msgstr "Nazaj"
 
-#: ui/accountcreationwizard.ui:239 ui/accountcreationwizard.ui:542
+#: ui/accountcreationwizard.ui:235 ui/accountcreationwizard.ui:538
 msgid "Next"
 msgstr "Naprej"
 
-#: ui/accountcreationwizard.ui:273 ui/newaccountsettingsview.ui:334
+#: ui/accountcreationwizard.ui:269 ui/newaccountsettingsview.ui:334
 msgid "Profile"
 msgstr "Profil"
 
-#: ui/accountcreationwizard.ui:354 ui/ringmainwindow.ui:109
+#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:109
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "Račun"
 
-#: ui/accountcreationwizard.ui:391
+#: ui/accountcreationwizard.ui:387
 msgid "Register username"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:392
+#: ui/accountcreationwizard.ui:388
 msgid ""
 "By checking this, you will register a unique username on the Ring network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:428 ui/newaccountsettingsview.ui:503
+#: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
 #: src/accountgeneraltab.cpp:696
 msgid "Username"
 msgstr "Uporabnik"
 
-#: ui/accountcreationwizard.ui:456
+#: ui/accountcreationwizard.ui:452
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:495 src/newaccountsettingsview.cpp:873
+#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:873
 msgid "Confirm password"
 msgstr "Potrdi geslo"
 
-#: ui/accountcreationwizard.ui:566
+#: ui/accountcreationwizard.ui:562
 msgid "Generating your Ring account…"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:592
+#: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:599
+#: ui/accountcreationwizard.ui:595
 msgid "This may take a few minutes."
 msgstr "To lahko traja nekaj minut."
 
-#: ui/accountcreationwizard.ui:625
+#: ui/accountcreationwizard.ui:621
 msgid "Retrieving your Ring account…"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:651
+#: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
 msgstr "Napaka pri ustvarjanju/branju računa"
 
-#: ui/accountcreationwizard.ui:656 ui/newaccountsettingsview.ui:266
+#: ui/accountcreationwizard.ui:652 ui/newaccountsettingsview.ui:266
 #: ui/newaccountsettingsview.ui:289
 msgid "OK"
 msgstr "OK"
@@ -336,7 +337,7 @@ msgstr "Splošno"
 msgid "Media"
 msgstr "Mediji"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1518
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1521
 msgid "Settings"
 msgstr "Nastavitve"
 
@@ -443,7 +444,7 @@ msgstr ""
 msgid "Export account"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:903
+#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:901
 msgid "Enable account"
 msgstr ""
 
@@ -451,220 +452,220 @@ msgstr ""
 msgid "SIP server"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:781
+#: ui/newaccountsettingsview.ui:779
 msgid "password"
 msgstr "geslo"
 
-#: ui/newaccountsettingsview.ui:812 ui/newaccountsettingsview.ui:1400
+#: ui/newaccountsettingsview.ui:810 ui/newaccountsettingsview.ui:1398
 #: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Proxy"
 
-#: ui/newaccountsettingsview.ui:848
+#: ui/newaccountsettingsview.ui:846
 msgid "Voicemail"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:954
+#: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Ring account"
 msgstr "Poznane naprave povezane s tem Ring računom"
 
-#: ui/newaccountsettingsview.ui:962
+#: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1027
+#: ui/newaccountsettingsview.ui:1025
 msgid "Banned contacts"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1083
+#: ui/newaccountsettingsview.ui:1081
 msgid "Advanced settings"
 msgstr "Napredne nastavitve"
 
-#: ui/newaccountsettingsview.ui:1119
+#: ui/newaccountsettingsview.ui:1117
 msgid "General settings"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1137
+#: ui/newaccountsettingsview.ui:1135
 msgid "Call settings"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1175
+#: ui/newaccountsettingsview.ui:1173
 msgid "Allow call from untrusted peers"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1210
+#: ui/newaccountsettingsview.ui:1208
 msgid "Auto answer calls"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1246
+#: ui/newaccountsettingsview.ui:1244
 msgid "Custom ringtone"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1290
+#: ui/newaccountsettingsview.ui:1288
 msgid "Name server"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1327 ui/newaccountsettingsview.ui:2480
+#: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2478
 msgid "Address"
 msgstr "Naslov"
 
-#: ui/newaccountsettingsview.ui:1361
+#: ui/newaccountsettingsview.ui:1359
 msgid "OpenDHT configuration"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1445
+#: ui/newaccountsettingsview.ui:1443
 msgid "Bootstrap"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1505
+#: ui/newaccountsettingsview.ui:1503
 msgid "Encrypt media streams (SRTP)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1540
+#: ui/newaccountsettingsview.ui:1538
 msgid "Enable SDES for key exchange protocol"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1576
+#: ui/newaccountsettingsview.ui:1574
 msgid "Fallback on RTP on encryption failure"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1611
+#: ui/newaccountsettingsview.ui:1609
 msgid "Encrypt negotiation (TLS)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1646
+#: ui/newaccountsettingsview.ui:1644
 msgid "CA certificate"
 msgstr "CA Certifikat"
 
-#: ui/newaccountsettingsview.ui:1682
+#: ui/newaccountsettingsview.ui:1680
 msgid "User certificate"
 msgstr "Osebni certifikat"
 
-#: ui/newaccountsettingsview.ui:1718
+#: ui/newaccountsettingsview.ui:1716
 msgid "Private key"
 msgstr "Zasebni ključ"
 
-#: ui/newaccountsettingsview.ui:1754
+#: ui/newaccountsettingsview.ui:1752
 msgid "Private key password"
 msgstr "Geslo zasebnega ključa"
 
-#: ui/newaccountsettingsview.ui:1792
+#: ui/newaccountsettingsview.ui:1790
 msgid "TLS protocol method"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1828
+#: ui/newaccountsettingsview.ui:1826
 msgid "Outgoing TLS server name"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1863
+#: ui/newaccountsettingsview.ui:1861
 msgid "Negotiation timeout (seconds)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1899
+#: ui/newaccountsettingsview.ui:1897
 msgid "Verify incoming certificates (server side)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1934
+#: ui/newaccountsettingsview.ui:1932
 msgid "Verify answer certificates (client side)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1969
+#: ui/newaccountsettingsview.ui:1967
 msgid "Require a certificate for incoming TLS connections"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1993
+#: ui/newaccountsettingsview.ui:1991
 msgid "Security"
 msgstr "Varnost"
 
-#: ui/newaccountsettingsview.ui:2018
+#: ui/newaccountsettingsview.ui:2016
 msgid "Connectivity"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2056
+#: ui/newaccountsettingsview.ui:2054
 msgid "Registration expire timeout (seconds)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2093
+#: ui/newaccountsettingsview.ui:2091
 msgid "Network interface"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2129
+#: ui/newaccountsettingsview.ui:2127
 msgid "UPnP"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2164
+#: ui/newaccountsettingsview.ui:2162
 msgid "Use TURN"
 msgstr "Uporabi TURN"
 
-#: ui/newaccountsettingsview.ui:2199
+#: ui/newaccountsettingsview.ui:2197
 msgid "(TURN) address"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2234
+#: ui/newaccountsettingsview.ui:2232
 msgid "(TURN) username"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2268
+#: ui/newaccountsettingsview.ui:2266
 msgid "(TURN) password"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2305
+#: ui/newaccountsettingsview.ui:2303
 msgid "(TURN) realm"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2339
+#: ui/newaccountsettingsview.ui:2337
 msgid "Use STUN"
 msgstr "Uporabi STUN"
 
-#: ui/newaccountsettingsview.ui:2374
+#: ui/newaccountsettingsview.ui:2372
 msgid "(STUN) address"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2407
+#: ui/newaccountsettingsview.ui:2405
 msgid "Published address"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2444
+#: ui/newaccountsettingsview.ui:2442
 msgid "Use custom address and port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2515
+#: ui/newaccountsettingsview.ui:2513
 msgid "Port"
 msgstr "Vrata"
 
-#: ui/newaccountsettingsview.ui:2551
+#: ui/newaccountsettingsview.ui:2549
 msgid "Video codecs"
 msgstr "Video kodeki"
 
-#: ui/newaccountsettingsview.ui:2614
+#: ui/newaccountsettingsview.ui:2612
 msgid "Enable video"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2641
+#: ui/newaccountsettingsview.ui:2639
 msgid "Audio codecs"
 msgstr "Avdio kodeki"
 
-#: ui/newaccountsettingsview.ui:2711
+#: ui/newaccountsettingsview.ui:2709
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "Dogovarjanje seje SDP (ICE Fallback)"
 
-#: ui/newaccountsettingsview.ui:2723
+#: ui/newaccountsettingsview.ui:2721
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2757
+#: ui/newaccountsettingsview.ui:2755
 msgid "Audio RTP Min port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2792
+#: ui/newaccountsettingsview.ui:2790
 msgid "Audio RTP Max port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2827
+#: ui/newaccountsettingsview.ui:2825
 msgid "Video RTP Min port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2862
+#: ui/newaccountsettingsview.ui:2860
 msgid "Video RTP Max port"
 msgstr ""
 
@@ -692,15 +693,23 @@ msgstr ""
 msgid "Send Invitation"
 msgstr "Pošlji vabilo"
 
+#: ui/messagingwidget.ui:76
+msgid "Record audio message"
+msgstr ""
+
+#: ui/messagingwidget.ui:96
+msgid "End without message"
+msgstr ""
+
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
 msgstr ""
 
-#: ui/incomingcallview.ui:135
+#: ui/incomingcallview.ui:152
 msgid "Accept"
 msgstr "Sprejmi"
 
-#: ui/incomingcallview.ui:156
+#: ui/incomingcallview.ui:173
 msgid "Reject"
 msgstr "Zavrni"
 
@@ -951,48 +960,60 @@ msgid ""
 "Ring is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr "GNOME klient za Ring.\nRing je zastonj programska oprema za univerzalno komunikacijo, ki spoštuje svoboščine in zasebnost uporabnikov."
 
+#: src/messagingwidget.cpp:223
+msgid "Contact appears to be busy. Leave a message ?"
+msgstr ""
+
+#: src/messagingwidget.cpp:245
+msgid "Stop recording"
+msgstr ""
+
+#: src/messagingwidget.cpp:259
+msgid "Send recorded message"
+msgstr ""
+
 #: src/ringmainwindow.cpp:174
 msgid "Add account…"
 msgstr ""
 
-#: src/ringmainwindow.cpp:643
+#: src/ringmainwindow.cpp:645
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "izvedi klic"
 
-#: src/ringmainwindow.cpp:646
+#: src/ringmainwindow.cpp:648
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "odpri pogovor"
 
-#: src/ringmainwindow.cpp:1073
+#: src/ringmainwindow.cpp:1075
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Poišči stik ali vnesi številko"
 
-#: src/ringmainwindow.cpp:1491
+#: src/ringmainwindow.cpp:1494
 msgid "Leave settings page"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1837
+#: src/ringmainwindow.cpp:1845
 msgid " is calling you!"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1838
+#: src/ringmainwindow.cpp:1846
 msgid "Incoming call"
 msgstr "Dohodni klic"
 
-#: src/ringmainwindow.cpp:1983
+#: src/ringmainwindow.cpp:2000
 msgid "New request from "
 msgstr ""
 
-#: src/ringmainwindow.cpp:1984
+#: src/ringmainwindow.cpp:2001
 msgid "Trust request"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2041
+#: src/ringmainwindow.cpp:2058
 msgid "New message"
 msgstr ""
 
@@ -1065,7 +1086,7 @@ msgstr ""
 msgid "- GNOME client for Ring"
 msgstr "- GNOME klient za Ring"
 
-#: src/accountcreationwizard.cpp:354
+#: src/accountcreationwizard.cpp:348
 msgid "Passwords don't match"
 msgstr "Gesli nista enaki"
 

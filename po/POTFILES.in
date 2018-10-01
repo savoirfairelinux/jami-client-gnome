@@ -9,6 +9,7 @@ ui/newaccountsettingsview.ui
 ui/usernameregistrationbox.ui
 ui/webkitchatcontainer.ui
 ui/chatview.ui
+ui/messagingwidget.ui
 ui/incomingcallview.ui
 ui/avatarmanipulation.ui
 src/conversationsview.cpp
@@ -32,6 +33,7 @@ src/video/video_widget.cpp
 src/video/xrectsel.c
 src/avatarmanipulation.cpp
 src/dialogs.c
+src/messagingwidget.cpp
 src/cc-crop-area.c
 src/main.cpp
 src/ringmainwindow.cpp
