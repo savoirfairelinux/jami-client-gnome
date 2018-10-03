@@ -1951,7 +1951,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         return;
     }
 
-    auto& label_status = priv->label_status;
+    auto label_status = priv->label_status;
     if ((*priv->accountInfo_)->profileInfo.type != lrc::api::profile::Type::RING) {
         label_status = priv->sip_label_status;
     }
