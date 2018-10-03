@@ -401,34 +401,6 @@ on_account_creation_completed(RingMainWindow* self)
 }
 
 static void
-on_show_add_account(RingMainWindow* self)
-{
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-
-    if (priv->cpp->show_settings) {
-        auto old_view = gtk_stack_get_visible_child(GTK_STACK(priv->stack_main_view));
-        if(IS_ACCOUNT_CREATION_WIZARD(old_view)) {
-            gtk_stack_set_visible_child(GTK_STACK(priv->cpp->widgets->stack_main_view), priv->cpp->widgets->last_settings_view);
-        } else {
-            if (!priv->cpp->widgets->account_creation_wizard) {
-                priv->cpp->widgets->account_creation_wizard = account_creation_wizard_new(false);
-                g_object_add_weak_pointer(G_OBJECT(priv->cpp->widgets->account_creation_wizard),
-                                          reinterpret_cast<gpointer*>(&priv->cpp->widgets->account_creation_wizard));
-                g_signal_connect_swapped(priv->cpp->widgets->account_creation_wizard, "account-creation-completed",
-                                         G_CALLBACK(on_account_creation_completed), self);
-
-                gtk_stack_add_named(GTK_STACK(priv->cpp->widgets->stack_main_view),
-                                    priv->cpp->widgets->account_creation_wizard,
-                                    ACCOUNT_CREATION_WIZARD_VIEW_NAME);
-            }
-            gtk_widget_show(priv->cpp->widgets->account_creation_wizard);
-            gtk_stack_set_visible_child(GTK_STACK(priv->cpp->widgets->stack_main_view), priv->cpp->widgets->account_creation_wizard);
-        }
-    }
-}
-
-static void
 on_account_changed(RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
@@ -1739,6 +1711,12 @@ CppImpl::slotAccountStatusChanged(const std::string& id)
         updateLrc(id);
         ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
         return;
+    } else {
+        new_account_settings_view_update(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view), false);
+        auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
+        if (currentIdx == -1)
+            currentIdx = 0; // If no account selected, select the first account
+        refreshAccountSelectorWidget(currentIdx, id);
     }
 }
 
@@ -2084,9 +2062,6 @@ void
 CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation::Info origin)
 {
     changeAccountSelection(id);
-
-    // Change the view if we want a different view.
-    auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
 
     /* call changeView even if we are already in an incoming call view, since
        the incoming call view holds a copy of the conversation info which has
