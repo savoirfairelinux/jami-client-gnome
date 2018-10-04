@@ -1976,6 +1976,8 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         break;
     }
 
+    gtk_widget_set_sensitive(priv->button_add_device,
+        ((*priv->accountInfo_)->status) == lrc::api::account::Status::REGISTERED);
     gtk_entry_set_text(GTK_ENTRY(priv->entry_display_name), (*priv->accountInfo_)->profileInfo.alias.c_str());
 
     if ((*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::RING) {
