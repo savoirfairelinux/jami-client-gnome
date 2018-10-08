@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 03:09-0400\n"
+"POT-Creation-Date: 2018-10-08 03:09-0400\n"
 "PO-Revision-Date: 2018-10-01 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Polish (http://www.transifex.com/savoirfairelinux/ring/language/pl/)\n"
@@ -338,7 +338,7 @@ msgstr "Generalne"
 msgid "Media"
 msgstr "Multimedia"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1521
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1493
 msgid "Settings"
 msgstr "Ustawienia"
 
@@ -977,44 +977,44 @@ msgstr ""
 msgid "Add account…"
 msgstr "Dodaj konto..."
 
-#: src/ringmainwindow.cpp:645
+#: src/ringmainwindow.cpp:617
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Zadzwoń"
 
-#: src/ringmainwindow.cpp:648
+#: src/ringmainwindow.cpp:620
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Otwórz chat"
 
-#: src/ringmainwindow.cpp:1075
+#: src/ringmainwindow.cpp:1047
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Szukaj kontakty lub wpisz numer"
 
-#: src/ringmainwindow.cpp:1494
+#: src/ringmainwindow.cpp:1466
 msgid "Leave settings page"
 msgstr "Opuść stronę ustawień"
 
-#: src/ringmainwindow.cpp:1845
+#: src/ringmainwindow.cpp:1823
 msgid " is calling you!"
 msgstr "dzwoni do Ciebie!"
 
-#: src/ringmainwindow.cpp:1846
+#: src/ringmainwindow.cpp:1824
 msgid "Incoming call"
 msgstr "Połączenie przychodzące"
 
-#: src/ringmainwindow.cpp:2000
+#: src/ringmainwindow.cpp:1978
 msgid "New request from "
 msgstr "Nowe zaproszenie od"
 
-#: src/ringmainwindow.cpp:2001
+#: src/ringmainwindow.cpp:1979
 msgid "Trust request"
 msgstr "Rządanie zaufania"
 
-#: src/ringmainwindow.cpp:2058
+#: src/ringmainwindow.cpp:2036
 msgid "New message"
 msgstr "Nowa wiadomość"
 

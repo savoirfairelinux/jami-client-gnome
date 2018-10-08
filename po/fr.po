@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 03:09-0400\n"
-"PO-Revision-Date: 2018-10-01 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-10-08 03:09-0400\n"
+"PO-Revision-Date: 2018-10-01 15:37+0000\n"
+"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -354,7 +354,7 @@ msgstr "Général"
 msgid "Media"
 msgstr "Médias"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1521
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1493
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -712,11 +712,11 @@ msgstr "Envoyer une invitation"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
-msgstr ""
+msgstr "Enregistrer un message vocal"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "Terminer sans laisser de message"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
@@ -979,58 +979,58 @@ msgstr "Ring pour GNOME.\nRing est un logiciel libre de communication universel 
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
-msgstr ""
+msgstr "Votre interlocuteur semble occupé. Souhaitez-vous lui laisser une message ?"
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "Arrêter l'enregistrement "
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
-msgstr ""
+msgstr "Envoyer le message enregistré"
 
 #: src/ringmainwindow.cpp:174
 msgid "Add account…"
 msgstr "Ajouter un compte ..."
 
-#: src/ringmainwindow.cpp:645
+#: src/ringmainwindow.cpp:617
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Appeler"
 
-#: src/ringmainwindow.cpp:648
+#: src/ringmainwindow.cpp:620
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Ouvrir la discussion"
 
-#: src/ringmainwindow.cpp:1075
+#: src/ringmainwindow.cpp:1047
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Rechercher dans les contacts ou appeler un numéro"
 
-#: src/ringmainwindow.cpp:1494
+#: src/ringmainwindow.cpp:1466
 msgid "Leave settings page"
 msgstr "Quitter la page des réglages"
 
-#: src/ringmainwindow.cpp:1845
+#: src/ringmainwindow.cpp:1823
 msgid " is calling you!"
 msgstr "vous appelle"
 
-#: src/ringmainwindow.cpp:1846
+#: src/ringmainwindow.cpp:1824
 msgid "Incoming call"
 msgstr "Appel entrant"
 
-#: src/ringmainwindow.cpp:2000
+#: src/ringmainwindow.cpp:1978
 msgid "New request from "
 msgstr "Nouvelle demande de "
 
-#: src/ringmainwindow.cpp:2001
+#: src/ringmainwindow.cpp:1979
 msgid "Trust request"
 msgstr "Invitation"
 
-#: src/ringmainwindow.cpp:2058
+#: src/ringmainwindow.cpp:2036
 msgid "New message"
 msgstr "Nouveau message"
 
