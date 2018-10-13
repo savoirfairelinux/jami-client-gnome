@@ -1,4 +1,4 @@
-# Ring client Gnome
+Ring client Gnome
 
 [![Build Status](https://jenkins.ring.cx/buildStatus/icon?job=client-gnome)](https://jenkins.ring.cx/job/client-gnome/)
 
