@@ -67,8 +67,9 @@ copy_contact_info(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* p
         auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
         if (conversation.participants.empty()) return;
         auto& contact = (*priv->accountInfo_)->contactModel->getContact(conversation.participants.front());
-        auto bestName = contact.registeredName.empty() ? contact.profileInfo.uri : contact.registeredName;
-        auto text = (gchar *)bestName.c_str();
+        std::string fullUri = (*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::SIP ? "sip:" : "ring:";
+        fullUri += contact.profileInfo.uri;
+        auto text = (gchar *)fullUri.c_str();
         GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
         gtk_clipboard_set_text(clip, text, -1);
         clip = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
