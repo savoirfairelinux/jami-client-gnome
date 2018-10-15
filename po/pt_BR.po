@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 03:09-0400\n"
+"POT-Creation-Date: 2018-10-15 03:09-0400\n"
 "PO-Revision-Date: 2018-10-01 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/ring/language/pt_BR/)\n"
@@ -453,7 +453,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Clique para mudar a senha"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1995
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1997
 msgid "Export account"
 msgstr "Exportar conta"
 
@@ -1202,10 +1202,10 @@ msgstr "Online"
 msgid "Unknown status"
 msgstr "Status desconhecido"
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2008
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2008
 msgid "no password set"
 msgstr "Nenhuma senha definida"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 03:09-0400\n"
+"POT-Creation-Date: 2018-10-15 03:09-0400\n"
 "PO-Revision-Date: 2018-10-02 11:06+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
@@ -440,7 +440,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Klikoni që të ndryshohet fjalëkalimi"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1995
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1997
 msgid "Export account"
 msgstr "Eksportoni llogari"
 
@@ -1189,10 +1189,10 @@ msgstr "Në linjë"
 msgid "Unknown status"
 msgstr "Gjendje e panjohur"
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2008
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2008
 msgid "no password set"
 msgstr "s’ka fjalëkalim të caktuar"

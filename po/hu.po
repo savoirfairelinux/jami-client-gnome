@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 03:09-0400\n"
+"POT-Creation-Date: 2018-10-15 03:09-0400\n"
 "PO-Revision-Date: 2018-10-01 21:35+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
@@ -442,7 +442,7 @@ msgstr "Azonosító"
 msgid "Click to change password"
 msgstr "Kattintson a jelszó módosításához"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1995
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1997
 msgid "Export account"
 msgstr "Felhasználó fiók exportálása"
 
@@ -1191,10 +1191,10 @@ msgstr "Elérhető"
 msgid "Unknown status"
 msgstr "Ismeretlen állapot"
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2008
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2008
 msgid "no password set"
 msgstr "nincs jelszó beállítva"

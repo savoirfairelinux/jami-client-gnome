@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 03:09-0400\n"
+"POT-Creation-Date: 2018-10-15 03:09-0400\n"
 "PO-Revision-Date: 2018-10-02 04:35+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
@@ -442,7 +442,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "點選以變更密碼"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1995
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1997
 msgid "Export account"
 msgstr "匯出帳號"
 
@@ -1191,10 +1191,10 @@ msgstr "線上"
 msgid "Unknown status"
 msgstr "未知狀態"
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2008
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2008
 msgid "no password set"
 msgstr "未設定密碼"

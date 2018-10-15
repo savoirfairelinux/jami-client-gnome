@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 03:09-0400\n"
+"POT-Creation-Date: 2018-10-15 03:09-0400\n"
 "PO-Revision-Date: 2018-10-01 11:29+0000\n"
 "Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/ring/language/sv/)\n"
@@ -440,7 +440,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Klicka för att byta lösenord"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1995
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1997
 msgid "Export account"
 msgstr "Exportera konto"
 
@@ -1189,10 +1189,10 @@ msgstr "Uppkopplad"
 msgid "Unknown status"
 msgstr "Okänd status"
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2008
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2008
 msgid "no password set"
 msgstr "Lösenord saknas"
