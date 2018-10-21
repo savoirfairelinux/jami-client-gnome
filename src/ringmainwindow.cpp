@@ -982,7 +982,7 @@ CppImpl::init()
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->vbox_call_view,
                         CALL_VIEW_NAME);
 
-    widgets->media_settings_view = media_settings_view_new();
+    widgets->media_settings_view = media_settings_view_new(lrc_->getAVModel());
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->media_settings_view,
                         MEDIA_SETTINGS_VIEW_NAME);
 
