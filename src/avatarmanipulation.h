@@ -26,6 +26,14 @@
 
 #include "accountinfopointer.h"
 
+namespace lrc
+{
+namespace api
+{
+    class AVModel;
+}
+}
+
 G_BEGIN_DECLS
 
 #define AVATAR_MANIPULATION_TYPE            (avatar_manipulation_get_type ())
@@ -58,10 +66,10 @@ typedef enum
 
 
 GType      avatar_manipulation_get_type        (void) G_GNUC_CONST;
-GtkWidget *avatar_manipulation_new             (AccountInfoPointer const & accountInfo);
+GtkWidget *avatar_manipulation_new             (AccountInfoPointer const & accountInfo, lrc::api::AVModel* avModel);
 
 /* used from the account creation wizard */
-GtkWidget *avatar_manipulation_new_from_wizard(void);
+GtkWidget *avatar_manipulation_new_from_wizard(lrc::api::AVModel* avModel);
 void       avatar_manipulation_wizard_completed(AvatarManipulation *);
 gchar*     avatar_manipulation_get_temporary   (AvatarManipulation *view);
 

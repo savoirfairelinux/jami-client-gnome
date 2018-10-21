@@ -102,6 +102,8 @@ struct _AccountCreationWizardPrivate
     GtkWidget *error_view;
     GtkWidget *button_error_view_ok;
 
+    lrc::api::AVModel* avModel_;
+
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AccountCreationWizard, account_creation_wizard, GTK_TYPE_SCROLLED_WINDOW);
@@ -594,9 +596,12 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
 }
 
 GtkWidget *
-account_creation_wizard_new(bool show_cancel_button)
+account_creation_wizard_new(bool show_cancel_button, lrc::api::AVModel& avModel)
 {
     gpointer view = g_object_new(ACCOUNT_CREATION_WIZARD_TYPE, NULL);
+
+    auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+    priv->avModel_ = &avModel;
 
     build_creation_wizard_view(ACCOUNT_CREATION_WIZARD(view), show_cancel_button);
     return (GtkWidget *)view;
@@ -618,7 +623,7 @@ account_creation_wizard_show_preview(AccountCreationWizard *win, gboolean show_p
        each time the profile is made visible / hidden. While not the most elegant solution, this
        allows us to run the preview if and only if it is displayed, and always stop it when hidden. */
     if (show_preview && !priv->avatar_manipulation) {
-        priv->avatar_manipulation = avatar_manipulation_new_from_wizard();
+        priv->avatar_manipulation = avatar_manipulation_new_from_wizard(priv->avModel_);
         gtk_box_pack_start(GTK_BOX(priv->box_avatarselection), priv->avatar_manipulation, true, true, 0);
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->account_creation);
     } else if (priv->avatar_manipulation) {
