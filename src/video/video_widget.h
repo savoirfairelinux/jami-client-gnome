@@ -22,8 +22,15 @@
 
 #include <gtk/gtk.h>
 #include <video/renderer.h>
+#include <api/newvideo.h>
 
-class Call;
+namespace lrc
+{
+namespace api
+{
+    class AVModel;
+}
+}
 
 G_BEGIN_DECLS
 
@@ -45,7 +52,7 @@ typedef enum {
 /* Public interface */
 GType           video_widget_get_type          (void) G_GNUC_CONST;
 GtkWidget*      video_widget_new               (void);
-void            video_widget_push_new_renderer (VideoWidget *, Video::Renderer *, VideoRendererType);
+void            video_widget_add_new_renderer (VideoWidget*, lrc::api::AVModel* avModel, const lrc::api::video::Renderer*, VideoRendererType);
 void            video_widget_pause_rendering   (VideoWidget *self, gboolean pause);
 void            video_widget_on_drag_data_received (GtkWidget *self,
                                                     GdkDragContext *context,
@@ -57,7 +64,7 @@ void            video_widget_on_drag_data_received (GtkWidget *self,
                                                     gpointer data);
 gboolean        video_widget_on_button_press_in_screen_event (VideoWidget *self,
                                                               GdkEventButton *event,
-                                                              Call* call);
+                                                              G_GNUC_UNUSED gpointer);
 void            video_widget_take_snapshot (VideoWidget *self);
 GdkPixbuf*      video_widget_get_snapshot  (VideoWidget *self);
 
