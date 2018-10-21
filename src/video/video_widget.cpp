@@ -19,22 +19,21 @@
 
 #include "video_widget.h"
 
-#include <callmodel.h>
-#include <glib/gi18n.h>
+// std
+#include <string>
+
+// gtk
 #include <clutter/clutter.h>
 #include <clutter-gtk/clutter-gtk.h>
-#include <video/renderer.h>
-#include <video/sourcemodel.h>
-#include <media/video.h>
-#include <video/devicemodel.h>
-#include <QtCore/QUrl>
-#include "../defines.h"
-#include <stdlib.h>
-#include <atomic>
-#include <mutex>
-#include <call.h>
-#include "xrectsel.h"
+#include <glib/gi18n.h>
+
+// LRC
+#include <api/avmodel.h>
 #include <smartinfohub.h>
+
+// gnome client
+#include "../defines.h"
+#include "xrectsel.h"
 
 static constexpr int VIDEO_LOCAL_SIZE            = 150;
 static constexpr int VIDEO_LOCAL_OPACITY_DEFAULT = 255; /* out of 255 */
@@ -83,13 +82,15 @@ struct _VideoWidgetPrivate {
     GAsyncQueue             *new_renderer_queue;
 
     GtkWidget               *popup_menu;
+
+    lrc::api::AVModel* avModel_;
 };
 
 struct _VideoWidgetRenderer {
     VideoRendererType        type;
     ClutterActor            *actor;
     ClutterAction           *drag_action;
-    Video::Renderer         *renderer;
+    const lrc::api::video::Renderer* v_renderer;
     GdkPixbuf               *snapshot;
     std::mutex               run_mutex;
     bool                     running;
@@ -391,42 +392,29 @@ void video_widget_on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
     auto* priv = VIDEO_WIDGET_GET_PRIVATE(self);
     g_return_if_fail(priv);
     gchar **uris = gtk_selection_data_get_uris(selection_data);
-
-    Call *call = nullptr;
-    for (const auto& activeCall: CallModel::instance().getActiveCalls()) {
-        if (activeCall->videoRenderer() == priv->remote->renderer) {
-            call = activeCall;
-            break;
-        }
+    if (uris && *uris && priv->avModel_) {
+        priv->avModel_->setInputFile(*uris);
     }
-
-    if (!call) {
-        g_strfreev(uris);
-        return;
-    }
-
-    if (uris && *uris){
-        if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
-            out_media->sourceModel()->setFile(QUrl(*uris));
-    }
-
     g_strfreev(uris);
 }
 
 static void
-switch_video_input(GtkWidget *widget, Video::Device *device)
+switch_video_input(GtkWidget *widget, GtkWidget *parent)
 {
-    gpointer data = g_object_get_data(G_OBJECT(widget), JOIN_CALL_KEY);
-    g_return_if_fail(data);
-    Call *call = (Call*)data;
+    auto* priv = VIDEO_WIDGET_GET_PRIVATE(parent);
+    g_return_if_fail(priv);
 
-    if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
-        out_media->sourceModel()->switchTo(device);
+    auto* label = gtk_menu_item_get_label(GTK_MENU_ITEM(widget));
+    g_return_if_fail(label);
+
+    if (priv->avModel_)
+        priv->avModel_->switchInputTo(label);
 }
 
 static void
-switch_video_input_screen_area(G_GNUC_UNUSED GtkWidget *item, Call* call)
+switch_video_input_screen_area(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
 {
+    auto* priv = VIDEO_WIDGET_GET_PRIVATE(parent);
     unsigned x, y;
     unsigned width, height;
 
@@ -453,13 +441,14 @@ switch_video_input_screen_area(G_GNUC_UNUSED GtkWidget *item, Call* call)
         height = gdk_screen_height();
     }
 
-    if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
-        out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
+    if (priv->avModel_)
+        priv->avModel_->setDisplay(display, x, y, width, height);
 }
 
 static void
-switch_video_input_monitor(G_GNUC_UNUSED GtkWidget *item, Call* call)
+switch_video_input_monitor(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
 {
+    auto* priv = VIDEO_WIDGET_GET_PRIVATE(parent);
     unsigned x, y;
     unsigned width, height;
 
@@ -480,17 +469,17 @@ switch_video_input_monitor(G_GNUC_UNUSED GtkWidget *item, Call* call)
     width = gdk_screen_width();
     height = gdk_screen_height();
 
-    if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
-        out_media->sourceModel()->setDisplay(display, QRect(x,y,width,height));
+    if (priv->avModel_)
+        priv->avModel_->setDisplay(display, x, y, width, height);
 }
 
 
 static void
-switch_video_input_file(GtkWidget *item, GtkWidget *parent)
+switch_video_input_file(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
 {
     auto* priv = VIDEO_WIDGET_GET_PRIVATE(parent);
     if (parent && GTK_IS_WIDGET(parent)) {
-        /* get parent window */
+        // get parent window
         parent = gtk_widget_get_toplevel(GTK_WIDGET(parent));
     }
 
@@ -503,24 +492,10 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
             NULL);
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
-        Call *call = nullptr;
-        for (const auto& activeCall: CallModel::instance().getActiveCalls()) {
-            if (activeCall->videoRenderer() == priv->remote->renderer) {
-                call = activeCall;
-                break;
-            }
-        }
-
-        if (!call) {
-            gtk_widget_destroy(dialog);
-            return;
-        }
-
         gchar *uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 
-        if (uri) {
-            if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT))
-                out_media->sourceModel()->setFile(QUrl(uri));
+        if (uri && priv->avModel_) {
+            priv->avModel_->setInputFile(uri);
             g_free(uri);
         }
     }
@@ -534,97 +509,74 @@ switch_video_input_file(GtkWidget *item, GtkWidget *parent)
  * Handle button event in the video screen.
  */
 gboolean
-video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton *event, Call* call)
+video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton *event, G_GNUC_UNUSED gpointer)
 {
-    /* check for right click */
+    // check for right click
     if (event->button != BUTTON_RIGHT_CLICK || event->type != GDK_BUTTON_PRESS)
         return FALSE;
 
-    /* update menu with available video sources */
+    // update menu with available video sources
     auto priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    g_return_val_if_fail(priv->remote->v_renderer, false);
     auto menu = priv->popup_menu;
 
-    gtk_container_forall(GTK_CONTAINER(menu), (GtkCallback)gtk_widget_destroy, nullptr);
+    gtk_container_forall(GTK_CONTAINER(menu), (GtkCallback)gtk_widget_destroy,
+        nullptr);
 
-    Video::SourceModel *sourcemodel = nullptr;
-    int active = -1;
-    /* if sourcemodel is null then we have no outgoing video */
-    for (const auto& activeCall: CallModel::instance().getActiveCalls())
-        if (activeCall->videoRenderer() == priv->remote->renderer)
-            call = activeCall;
+    // list available devices and check off the active device
+    auto device_list = priv->avModel_->getDevices();
+    auto active_device = priv->avModel_->getCurrentRenderedDevice(
+        priv->remote->v_renderer->getId());
 
-    if (call) {
-        if (auto out_media = call->firstMedia<media::Video>(media::Media::Direction::OUT)) {
-            sourcemodel = out_media->sourceModel();
-            active = sourcemodel->activeIndex();
-        }
-    }
-
-    /* list available devices and check off the active device */
-    auto device_list = Video::DeviceModel::instance().devices();
-
-    for( auto device: device_list) {
-        GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(device->name().toLocal8Bit().constData());
+    for (auto device : device_list) {
+        GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(device.c_str());
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-        if (sourcemodel) {
-            auto device_idx = sourcemodel->getDeviceIndex(device);
-            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), device_idx == active);
-            g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
-            g_signal_connect(item, "activate", G_CALLBACK(switch_video_input), device);
-        } else {
-            gtk_widget_set_sensitive(item, FALSE);
-        }
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item),
+            device == active_device.name
+            && active_device.type == lrc::api::video::DeviceType::CAMERA);
+        g_signal_connect(item, "activate", G_CALLBACK(switch_video_input),
+            self);
     }
 
     /* add separator */
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
-    /* add screen area as an input */
+    // add screen area as an input
     GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(_("Share _screen area"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-    if (sourcemodel) {
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
-        g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
-        g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen_area), call);
-    } else {
-        gtk_widget_set_sensitive(item, FALSE);
-    }
+    // TODO(sblin) only set active if fullscreen
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item),
+        active_device.type == lrc::api::video::DeviceType::DISPLAY);
+    g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_screen_area), self);
 
-    /* add screen area as an input */
+    // add screen area as an input
     item = gtk_check_menu_item_new_with_mnemonic(_("Share _monitor"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-    if (sourcemodel) {
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::SCREEN == active);
-        g_object_set_data(G_OBJECT(item), JOIN_CALL_KEY, call);
-        g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_monitor), call);
-    } else {
-        gtk_widget_set_sensitive(item, FALSE);
-    }
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item),
+        active_device.type == lrc::api::video::DeviceType::DISPLAY);
+    g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_monitor), self);
 
-    /* add file as an input */
+    // add file as an input
     item = gtk_check_menu_item_new_with_mnemonic(_("Stream _file"));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-    if (sourcemodel) {
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), Video::SourceModel::ExtendedDeviceList::FILE == active);
-        g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), self);
-    } else {
-        gtk_widget_set_sensitive(item, FALSE);
-    }
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item),
+        active_device.type == lrc::api::video::DeviceType::FILE);
+    g_signal_connect(item, "activate", G_CALLBACK(switch_video_input_file), self);
 
-    /* add separator */
+    // add separator
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
 
-    /* add SmartInfo */
+    // add SmartInfo
     item = gtk_check_menu_item_new_with_mnemonic(_("Show advanced information"));
     gtk_actionable_set_action_name(GTK_ACTIONABLE(item), "app.display-smartinfo");
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     gtk_widget_insert_action_group(menu, "app", G_ACTION_GROUP(g_application_get_default()));
 
-    /* show menu */
+    // show menu
     gtk_widget_show_all(menu);
     gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 
-    return TRUE; /* event has been fully handled */
+    return TRUE; // event has been fully handled
 }
 
 static void
@@ -696,19 +648,20 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         if (!wg_renderer->running)
             return;
 
-        auto renderer = wg_renderer->renderer;
-        if (renderer == nullptr)
+        if (!wg_renderer->v_renderer)
             return;
 
-        auto frame_ptr = renderer->currentFrame();
-        auto frame_data = frame_ptr.ptr;
+        auto v_renderer = wg_renderer->v_renderer;
+        if (!v_renderer)
+            return;
+        auto frame_data = v_renderer->currentFrame().ptr;
         if (!frame_data)
             return;
 
         image_new = clutter_image_new();
         g_return_if_fail(image_new);
 
-        const auto& res = renderer->size();
+        const auto& res = v_renderer->size();
         gint BPP = 4; /* BGRA */
         gint ROW_STRIDE = BPP * res.width();
 
@@ -820,7 +773,7 @@ video_widget_add_renderer(VideoWidget *self, VideoWidgetRenderer *new_video_rend
 {
     g_return_if_fail(IS_VIDEO_WIDGET(self));
     g_return_if_fail(new_video_renderer);
-    g_return_if_fail(new_video_renderer->renderer);
+    g_return_if_fail(new_video_renderer->v_renderer);
 
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
@@ -880,43 +833,37 @@ video_widget_new(void)
     return self;
 }
 
-/**
- * video_widget_push_new_renderer()
- *
- * This function is used add a new Video::Renderer to the VideoWidget in a
- * thread-safe manner.
- */
 void
-video_widget_push_new_renderer(VideoWidget *self, Video::Renderer *renderer, VideoRendererType type)
+video_widget_add_new_renderer(VideoWidget* self, lrc::api::AVModel* avModel,
+    const lrc::api::video::Renderer* renderer, VideoRendererType type)
 {
     g_return_if_fail(IS_VIDEO_WIDGET(self));
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    priv->avModel_ = avModel;
 
     /* if the renderer is nullptr, there is nothing to be done */
     if (!renderer) return;
 
     VideoWidgetRenderer *new_video_renderer = g_new0(VideoWidgetRenderer, 1);
-    new_video_renderer->renderer = renderer;
+    new_video_renderer->v_renderer = renderer;
     new_video_renderer->type = type;
 
-    if (new_video_renderer->renderer->isRendering())
+    if (renderer->isRendering())
         renderer_start(new_video_renderer);
 
     new_video_renderer->render_stop = QObject::connect(
-        new_video_renderer->renderer,
-        &Video::Renderer::stopped,
-        [=]() {
+        &*avModel,
+        &lrc::api::AVModel::rendererStopped,
+        [=](const std::string&) {
             renderer_stop(new_video_renderer);
-        }
-    );
+        });
 
     new_video_renderer->render_start = QObject::connect(
-        new_video_renderer->renderer,
-        &Video::Renderer::started,
-        [=]() {
+        &*avModel,
+        &lrc::api::AVModel::rendererStarted,
+        [=](const std::string&) {
             renderer_start(new_video_renderer);
-        }
-    );
+        });
 
     g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
 }
