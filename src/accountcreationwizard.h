@@ -27,6 +27,14 @@
 
 #include "accountinfopointer.h"
 
+namespace lrc
+{
+namespace api
+{
+    class AVModel;
+}
+}
+
 G_BEGIN_DECLS
 
 #define ACCOUNT_CREATION_WIZARD_TYPE            (account_creation_wizard_get_type ())
@@ -39,7 +47,7 @@ typedef struct _AccountCreationWizard      AccountCreationWizard;
 typedef struct _AccountCreationWizardClass AccountCreationWizardClass;
 
 GType      account_creation_wizard_get_type      (void) G_GNUC_CONST;
-GtkWidget *account_creation_wizard_new           (bool cancel_button);
+GtkWidget *account_creation_wizard_new           (bool cancel_button, lrc::api::AVModel& avModel);
 
 void       account_creation_wizard_show_preview  (AccountCreationWizard *win, gboolean show_preview = TRUE);
 void       account_creation_wizard_cancel        (AccountCreationWizard *win);
