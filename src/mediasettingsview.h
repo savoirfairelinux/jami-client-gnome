@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2015-2018 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,6 +23,14 @@
 
 #include <gtk/gtk.h>
 
+namespace lrc
+{
+namespace api
+{
+    class AVModel;
+}
+}
+
 G_BEGIN_DECLS
 
 #define MEDIA_SETTINGS_VIEW_TYPE            (media_settings_view_get_type ())
@@ -34,7 +43,7 @@ typedef struct _MediaSettingsView      MediaSettingsView;
 typedef struct _MediaSettingsViewClass MediaSettingsViewClass;
 
 GType      media_settings_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *media_settings_view_new           (void);
+GtkWidget *media_settings_view_new           (lrc::api::AVModel& avModel);
 void       media_settings_view_show_preview  (MediaSettingsView *self, gboolean show_preview);
 
 G_END_DECLS
