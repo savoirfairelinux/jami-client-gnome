@@ -982,12 +982,12 @@ CppImpl::init()
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->vbox_call_view,
                         CALL_VIEW_NAME);
 
-    widgets->media_settings_view = media_settings_view_new();
+    widgets->media_settings_view = media_settings_view_new(lrc_->getAVModel());
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->media_settings_view,
                         MEDIA_SETTINGS_VIEW_NAME);
 
     if (not accountIds.empty()) {
-        widgets->new_account_settings_view = new_account_settings_view_new(accountInfo_);
+        widgets->new_account_settings_view = new_account_settings_view_new(accountInfo_, lrc_->getAVModel());
         gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->new_account_settings_view,
                             NEW_ACCOUNT_SETTINGS_VIEW_NAME);
     }
@@ -1185,7 +1185,9 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation)
 {
     chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
     auto* new_view = current_call_view_new(webkitChatContainer(),
-                                           accountInfo_, chatViewConversation_.get());
+                                           accountInfo_,
+                                           chatViewConversation_.get(),
+                                           lrc_->getAVModel());
 
     try {
         auto contactUri = chatViewConversation_->participants.front();
@@ -1360,7 +1362,7 @@ void
 CppImpl::enterAccountCreationWizard(bool showControls)
 {
     if (!widgets->account_creation_wizard) {
-        widgets->account_creation_wizard = account_creation_wizard_new(false);
+        widgets->account_creation_wizard = account_creation_wizard_new(false, lrc_->getAVModel());
         g_object_add_weak_pointer(G_OBJECT(widgets->account_creation_wizard),
                                   reinterpret_cast<gpointer*>(&widgets->account_creation_wizard));
         g_signal_connect_swapped(widgets->account_creation_wizard, "account-creation-completed",
@@ -1660,7 +1662,7 @@ CppImpl::slotAccountAddedFromLrc(const std::string& id)
         if (!accountInfo_) {
             updateLrc(id);
             if (!gtk_stack_get_child_by_name(GTK_STACK(widgets->stack_main_view), NEW_ACCOUNT_SETTINGS_VIEW_NAME)) {
-                widgets->new_account_settings_view = new_account_settings_view_new(accountInfo_);
+                widgets->new_account_settings_view = new_account_settings_view_new(accountInfo_, lrc_->getAVModel());
                 gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->new_account_settings_view,
                                     NEW_ACCOUNT_SETTINGS_VIEW_NAME);
             }

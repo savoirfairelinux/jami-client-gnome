@@ -22,12 +22,10 @@
 
 /* LRC */
 #include <api/newaccountmodel.h>
+#include <api/avmodel.h>
 #include <globalinstances.h>
 #include <person.h>
 #include <profile.h>
-#include <video/configurationproxy.h>
-#include <video/previewmanager.h>
-#include <video/devicemodel.h>
 
 /* client */
 #include "native/pixbufmanipulator.h"
@@ -94,6 +92,8 @@ struct _AvatarManipulationPrivate
     gboolean video_started_by_avatar_manipulation;
 
     GtkWidget *crop_area;
+
+    lrc::api::AVModel* avModel_;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AvatarManipulation, avatar_manipulation, GTK_TYPE_BOX);
@@ -118,7 +118,7 @@ avatar_manipulation_dispose(GObject *object)
 
     /* make sure we stop the preview and the video widget */
     if (priv->video_started_by_avatar_manipulation)
-        Video::PreviewManager::instance().stopPreview();
+        priv->avModel_->stopPreview();
     if (priv->video_widget) {
         gtk_container_remove(GTK_CONTAINER(priv->frame_video), priv->video_widget);
         priv->video_widget = NULL;
@@ -134,13 +134,14 @@ avatar_manipulation_finalize(GObject *object)
 }
 
 GtkWidget*
-avatar_manipulation_new(AccountInfoPointer const & accountInfo)
+avatar_manipulation_new(AccountInfoPointer const & accountInfo, lrc::api::AVModel* avModel)
 {
     // a profile must exist
     gpointer view = g_object_new(AVATAR_MANIPULATION_TYPE, NULL);
 
     auto* priv = AVATAR_MANIPULATION_GET_PRIVATE(view);
     priv->accountInfo_ = &accountInfo;
+    priv->avModel_ = avModel;
 
     set_state(AVATAR_MANIPULATION(view), AVATAR_MANIPULATION_STATE_CURRENT);
 
@@ -148,13 +149,14 @@ avatar_manipulation_new(AccountInfoPointer const & accountInfo)
 }
 
 GtkWidget*
-avatar_manipulation_new_from_wizard(void)
+avatar_manipulation_new_from_wizard(lrc::api::AVModel* avModel)
 {
     // a profile must exist
     gpointer view = g_object_new(AVATAR_MANIPULATION_TYPE, NULL);
 
     auto* priv = AVATAR_MANIPULATION_GET_PRIVATE(view);
     priv->accountInfo_ = nullptr;
+    priv->avModel_ = avModel;
 
     set_state(AVATAR_MANIPULATION(view), AVATAR_MANIPULATION_STATE_CURRENT);
 
@@ -247,7 +249,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
             gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_views), "page_avatar");
 
             /* available actions: start camera (if available) or choose image */
-            if (Video::DeviceModel::instance().rowCount() > 0) {
+            if (priv->avModel_->getDevices().size() > 0) {
                 // TODO: update if a video device gets inserted while in this state
                 gtk_widget_set_visible(priv->button_start_camera, true);
             }
@@ -257,7 +259,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
 
             /* make sure video widget and camera is not running */
             if (priv->video_started_by_avatar_manipulation)
-                Video::PreviewManager::instance().stopPreview();
+                priv->avModel_->stopPreview();
             if (priv->video_widget) {
                 gtk_container_remove(GTK_CONTAINER(priv->frame_video), priv->video_widget);
                 priv->video_widget = NULL;
@@ -276,14 +278,17 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
             gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_views), "page_photobooth");
 
 
-            /* local renderer, but set as "remote" so that it takes up the whole screen */
-            video_widget_push_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                                           Video::PreviewManager::instance().previewRenderer(),
-                                           VIDEO_RENDERER_REMOTE);
+            // local renderer, but set as "remote" so that it takes up the whole screen
+            const lrc::api::video::Renderer* previewRenderer =
+                &priv->avModel_->getRenderer(
+                lrc::api::video::PREVIEW_RENDERER_ID);
+            video_widget_add_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                priv->avModel_,
+                previewRenderer, VIDEO_RENDERER_REMOTE);
 
-            if (!Video::PreviewManager::instance().isPreviewing()) {
+            if (!previewRenderer->isRendering()) {
                 priv->video_started_by_avatar_manipulation = TRUE;
-                Video::PreviewManager::instance().startPreview();
+                priv->avModel_->startPreview();
             } else {
                 priv->video_started_by_avatar_manipulation = FALSE;
             }
@@ -298,7 +303,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
         {
             /* make sure video widget and camera is not running */
             if (priv->video_started_by_avatar_manipulation)
-                Video::PreviewManager::instance().stopPreview();
+                priv->avModel_->stopPreview();
             if (priv->video_widget) {
                 gtk_container_remove(GTK_CONTAINER(priv->frame_video), priv->video_widget);
                 priv->video_widget = NULL;
