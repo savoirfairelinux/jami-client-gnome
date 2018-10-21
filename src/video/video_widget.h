@@ -22,6 +22,7 @@
 
 #include <gtk/gtk.h>
 #include <video/renderer.h>
+#include <api/newvideo.h>
 
 class Call;
 
@@ -46,6 +47,7 @@ typedef enum {
 GType           video_widget_get_type          (void) G_GNUC_CONST;
 GtkWidget*      video_widget_new               (void);
 void            video_widget_push_new_renderer (VideoWidget *, Video::Renderer *, VideoRendererType);
+void            video_widget_add_new_renderer (VideoWidget*, const lrc::api::video::Renderer*, VideoRendererType);
 void            video_widget_pause_rendering   (VideoWidget *self, gboolean pause);
 void            video_widget_on_drag_data_received (GtkWidget *self,
                                                     GdkDragContext *context,

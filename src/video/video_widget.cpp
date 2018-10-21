@@ -20,6 +20,8 @@
 #include "video_widget.h"
 
 #include <callmodel.h>
+#include <iostream>
+#include <string>
 #include <glib/gi18n.h>
 #include <clutter/clutter.h>
 #include <clutter-gtk/clutter-gtk.h>
@@ -90,6 +92,7 @@ struct _VideoWidgetRenderer {
     ClutterActor            *actor;
     ClutterAction           *drag_action;
     Video::Renderer         *renderer;
+    const lrc::api::video::Renderer* v_renderer;
     GdkPixbuf               *snapshot;
     std::mutex               run_mutex;
     bool                     running;
@@ -696,19 +699,25 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         if (!wg_renderer->running)
             return;
 
-        auto renderer = wg_renderer->renderer;
-        if (renderer == nullptr)
+        if (!wg_renderer->renderer && !wg_renderer->v_renderer) {
             return;
+        }
 
-        auto frame_ptr = renderer->currentFrame();
-        auto frame_data = frame_ptr.ptr;
+        bool use_renderer = wg_renderer->renderer;
+
+        auto renderer = wg_renderer->renderer;
+        auto v_renderer = wg_renderer->v_renderer;
+
+        auto frame_data = use_renderer? renderer->currentFrame().ptr: v_renderer->currentFrame().ptr;
         if (!frame_data)
             return;
 
         image_new = clutter_image_new();
         g_return_if_fail(image_new);
 
-        const auto& res = renderer->size();
+
+
+        const auto& res = use_renderer? renderer->size() : v_renderer->size();
         gint BPP = 4; /* BGRA */
         gint ROW_STRIDE = BPP * res.width();
 
@@ -820,7 +829,8 @@ video_widget_add_renderer(VideoWidget *self, VideoWidgetRenderer *new_video_rend
 {
     g_return_if_fail(IS_VIDEO_WIDGET(self));
     g_return_if_fail(new_video_renderer);
-    g_return_if_fail(new_video_renderer->renderer);
+    g_return_if_fail(new_video_renderer->renderer
+        || new_video_renderer->v_renderer);
 
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
@@ -917,6 +927,39 @@ video_widget_push_new_renderer(VideoWidget *self, Video::Renderer *renderer, Vid
             renderer_start(new_video_renderer);
         }
     );
+
+    g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
+}
+
+void
+video_widget_add_new_renderer(VideoWidget* self, const lrc::api::video::Renderer* renderer, VideoRendererType type)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    /* if the renderer is nullptr, there is nothing to be done */
+    if (!renderer) return;
+
+    VideoWidgetRenderer *new_video_renderer = g_new0(VideoWidgetRenderer, 1);
+    new_video_renderer->v_renderer = renderer;
+    new_video_renderer->type = type;
+
+    if (renderer->isRendering())
+        renderer_start(new_video_renderer);
+
+    new_video_renderer->render_stop = QObject::connect(
+        &*renderer,
+        &lrc::api::video::Renderer::stopped,
+        [=](const std::string&) {
+            renderer_stop(new_video_renderer);
+        });
+
+    new_video_renderer->render_start = QObject::connect(
+        &*renderer,
+        &lrc::api::video::Renderer::started,
+        [=](const std::string&) {
+            renderer_start(new_video_renderer);
+        });
 
     g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
 }
