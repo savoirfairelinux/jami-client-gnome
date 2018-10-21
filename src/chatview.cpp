@@ -518,6 +518,8 @@ update_chatview_frame(ChatView* self)
     auto bestName = contactInfo.registeredName;
     if (bestName.empty())
         bestName = contactInfo.profileInfo.uri;
+    if (bestName == alias)
+        alias = "";
     bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
     alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
 
