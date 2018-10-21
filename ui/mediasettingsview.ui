@@ -82,7 +82,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="combobox_manager">
+              <object class="GtkComboBoxText" id="combobox_manager">
                 <property name="visible">True</property>
                 <property name="popup-fixed-width">False</property>
                 <property name="margin_left">10</property>
@@ -93,7 +93,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="combobox_ringtone">
+              <object class="GtkComboBoxText" id="combobox_ringtone">
                 <property name="visible">True</property>
                 <property name="popup-fixed-width">False</property>
                 <property name="margin_left">10</property>
@@ -104,7 +104,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="combobox_output">
+              <object class="GtkComboBoxText" id="combobox_output">
                 <property name="visible">True</property>
                 <property name="popup-fixed-width">False</property>
                 <property name="margin_left">10</property>
@@ -115,7 +115,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="combobox_input">
+              <object class="GtkComboBoxText" id="combobox_input">
                 <property name="visible">True</property>
                 <property name="popup-fixed-width">False</property>
                 <property name="margin_left">10</property>
@@ -192,7 +192,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="combobox_device">
+              <object class="GtkComboBoxText" id="combobox_device">
                 <property name="visible">True</property>
                 <property name="popup-fixed-width">False</property>
                 <property name="margin_left">10</property>
@@ -203,7 +203,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="combobox_channel">
+              <object class="GtkComboBoxText" id="combobox_channel">
                 <property name="visible">True</property>
                 <property name="popup-fixed-width">False</property>
                 <property name="margin_left">10</property>
@@ -214,7 +214,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="combobox_resolution">
+              <object class="GtkComboBoxText" id="combobox_resolution">
                 <property name="visible">True</property>
                 <property name="popup-fixed-width">False</property>
                 <property name="margin_left">10</property>
@@ -225,7 +225,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="combobox_framerate">
+              <object class="GtkComboBoxText" id="combobox_framerate">
                 <property name="visible">True</property>
                 <property name="popup-fixed-width">False</property>
                 <property name="margin_left">10</property>
