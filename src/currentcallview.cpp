@@ -24,7 +24,10 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 
+#include <iostream>
+
 // Lrc
+#include <api/avmodel.h>
 #include <api/conversationmodel.h>
 #include <api/contact.h>
 #include <api/contactmodel.h>
@@ -198,7 +201,8 @@ public:
     void init();
     void setup(WebKitChatContainer* chat_widget,
                AccountInfoPointer const & account_info,
-               lrc::api::conversation::Info* conversation);
+               lrc::api::conversation::Info* conversation,
+               lrc::api::AVModel& avModel);
     void add_transfer_contact(const std::string& uri);
 
     void insertControls();
@@ -209,10 +213,10 @@ public:
 
     lrc::api::conversation::Info* conversation = nullptr;
     AccountInfoPointer const *accountInfo = nullptr;
+    lrc::api::AVModel* avModel_;
 
     QMetaObject::Connection state_change_connection;
-    QMetaObject::Connection local_renderer_connection;
-    QMetaObject::Connection remote_renderer_connection;
+    QMetaObject::Connection renderer_connection;
     QMetaObject::Connection new_message_connection;
     QMetaObject::Connection smartinfo_refresh_connection;
 
@@ -671,8 +675,7 @@ CppImpl::CppImpl(CurrentCallView& widget)
 CppImpl::~CppImpl()
 {
     QObject::disconnect(state_change_connection);
-    QObject::disconnect(local_renderer_connection);
-    QObject::disconnect(remote_renderer_connection);
+    QObject::disconnect(renderer_connection);
     QObject::disconnect(smartinfo_refresh_connection);
     QObject::disconnect(new_message_connection);
     g_clear_object(&widgets->settings);
@@ -719,11 +722,13 @@ CppImpl::init()
 void
 CppImpl::setup(WebKitChatContainer* chat_widget,
                AccountInfoPointer const & account_info,
-               lrc::api::conversation::Info* conv_info)
+               lrc::api::conversation::Info* conv_info,
+               lrc::api::AVModel& avModel)
 {
     widgets->webkit_chat_container = GTK_WIDGET(chat_widget);
     conversation = conv_info;
     accountInfo = &account_info;
+    avModel_ = &avModel;
     setCallInfo();
 
     if ((*accountInfo)->profileInfo.type == lrc::api::profile::Type::RING)
@@ -772,43 +777,66 @@ CppImpl::setCallInfo()
     auto callToRender = conversation->callId;
     if (!conversation->confId.empty())
         callToRender = conversation->confId;
-    video_widget_push_new_renderer(VIDEO_WIDGET(widgets->video_widget),
-                                   (*accountInfo)->callModel->getRenderer(callToRender),
-                                   VIDEO_RENDERER_REMOTE);
 
-    // local renderer
-    if (Video::PreviewManager::instance().isPreviewing())
-        video_widget_push_new_renderer(VIDEO_WIDGET(widgets->video_widget),
-                                       Video::PreviewManager::instance().previewRenderer(),
-                                       VIDEO_RENDERER_LOCAL);
+    try {
+        // local renderer
+        const lrc::api::video::Renderer* previewRenderer =
+             &avModel_->getRenderer(
+             lrc::api::video::PREVIEW_RENDERER_ID);
+        if (previewRenderer->isRendering())
+             video_widget_add_new_renderer(VIDEO_WIDGET(widgets->video_widget),
+                    avModel_, previewRenderer, VIDEO_RENDERER_LOCAL);
+
+        const lrc::api::video::Renderer* vRenderer =
+            &avModel_->getRenderer(
+            callToRender);
+
+        video_widget_add_new_renderer(VIDEO_WIDGET(widgets->video_widget),
+            avModel_, vRenderer, VIDEO_RENDERER_REMOTE);
+
+    } catch (...) {
+        // The renderer doesn't exist for now. Ignore
+    }
+
+
 
     // callback for local renderer
-    local_renderer_connection = QObject::connect(
-        &Video::PreviewManager::instance(),
-        &Video::PreviewManager::previewStarted,
-        [this] (Video::Renderer* renderer) {
-            video_widget_push_new_renderer(VIDEO_WIDGET(widgets->video_widget),
-                                           renderer,
-                                           VIDEO_RENDERER_LOCAL);
-        }
-    );
+    renderer_connection = QObject::connect(
+        &*avModel_,
+        &lrc::api::AVModel::rendererStarted,
+        [=](const std::string& id) {
+            std::cout << "ID" << id << " " << conversation->callId << std::endl;
+            if (id == lrc::api::video::PREVIEW_RENDERER_ID) {
+                try {
+                    // local renderer
+                    const lrc::api::video::Renderer* previewRenderer =
+                        &avModel_->getRenderer(lrc::api::video::PREVIEW_RENDERER_ID);
+                    if (previewRenderer->isRendering()) {
+                        video_widget_add_new_renderer(VIDEO_WIDGET(widgets->video_widget),
+                            avModel_, previewRenderer, VIDEO_RENDERER_LOCAL);
+                    }
+                } catch (...) {
+                    std::cout << "Preview renderer is not accessible! This should not happen" << std::endl;
+                    g_warning("Preview renderer is not accessible! This should not happen");
+                }
+            } else if (id == conversation->callId) {
+                try {
+                    const lrc::api::video::Renderer* vRenderer =
+                        &avModel_->getRenderer(
+                        callToRender);
+                    video_widget_add_new_renderer(VIDEO_WIDGET(widgets->video_widget),
+                        avModel_, vRenderer, VIDEO_RENDERER_REMOTE);
+                } catch (...) {
+                    g_warning("Remote renderer is not accessible! This should not happen");
+                }
+            }
+        });
 
     smartinfo_refresh_connection = QObject::connect(
         &SmartInfoHub::instance(),
         &SmartInfoHub::changed,
         [this] { updateSmartInfo(); }
     );
-
-    remote_renderer_connection = QObject::connect(
-        &*(*accountInfo)->callModel,
-        &lrc::api::NewCallModel::remotePreviewStarted,
-        [this] (const std::string& callId, Video::Renderer* renderer) {
-            if (conversation->callId == callId) {
-                video_widget_push_new_renderer(VIDEO_WIDGET(widgets->video_widget),
-                                               renderer,
-                                               VIDEO_RENDERER_REMOTE);
-            }
-        });
 
     state_change_connection = QObject::connect(
         &*(*accountInfo)->callModel,
@@ -1235,11 +1263,12 @@ current_call_view_class_init(CurrentCallViewClass *klass)
 GtkWidget *
 current_call_view_new(WebKitChatContainer* chat_widget,
                       AccountInfoPointer const & accountInfo,
-                      lrc::api::conversation::Info* conversation)
+                      lrc::api::conversation::Info* conversation,
+                      lrc::api::AVModel& avModel)
 {
     auto* self = g_object_new(CURRENT_CALL_VIEW_TYPE, NULL);
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
-    priv->cpp->setup(chat_widget, accountInfo, conversation);
+    priv->cpp->setup(chat_widget, accountInfo, conversation, avModel);
     return GTK_WIDGET(self);
 }
