@@ -27,6 +27,14 @@
 
 #include "accountinfopointer.h"
 
+namespace lrc
+{
+namespace api
+{
+    class AVModel;
+}
+}
+
 G_BEGIN_DECLS
 
 #define NEW_ACCOUNT_SETTINGS_VIEW_TYPE            (new_account_settings_view_get_type ())
@@ -39,7 +47,7 @@ typedef struct _NewAccountSettingsView      NewAccountSettingsView;
 typedef struct _NewAccountSettingsViewClass NewAccountSettingsViewClass;
 
 GType      new_account_settings_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *new_account_settings_view_new           (AccountInfoPointer const & accountInfo);
+GtkWidget *new_account_settings_view_new           (AccountInfoPointer const & accountInfo, lrc::api::AVModel& avModel);
 void       new_account_settings_view_show          (NewAccountSettingsView *view, gboolean show_profile);
 void       new_account_settings_view_update        (NewAccountSettingsView *view, gboolean reset_view = true);
 void       new_account_settings_view_save_account  (NewAccountSettingsView *view);

@@ -200,6 +200,8 @@ struct _NewAccountSettingsViewPrivate
     QMetaObject::Connection device_removed_connection;
     QMetaObject::Connection banned_status_changed_connection;
     QMetaObject::Connection export_on_ring_ended;
+
+    lrc::api::AVModel* avModel_;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(NewAccountSettingsView, new_account_settings_view, GTK_TYPE_SCROLLED_WINDOW);
@@ -2195,7 +2197,7 @@ new_account_settings_view_save_account(NewAccountSettingsView *view)
 }
 
 GtkWidget*
-new_account_settings_view_new(AccountInfoPointer const & accountInfo)
+new_account_settings_view_new(AccountInfoPointer const & accountInfo, lrc::api::AVModel& avModel)
 {
     gpointer view = g_object_new(NEW_ACCOUNT_SETTINGS_VIEW_TYPE, NULL);
     auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
@@ -2203,6 +2205,7 @@ new_account_settings_view_new(AccountInfoPointer const & accountInfo)
     if (*priv->accountInfo_) {
         build_settings_view(NEW_ACCOUNT_SETTINGS_VIEW(view));
     }
+    priv->avModel_ = &avModel;
 
     return reinterpret_cast<GtkWidget*>(view);
 }
@@ -2219,7 +2222,7 @@ new_account_settings_view_show(NewAccountSettingsView *self, gboolean show_profi
     }
     if (show_profile) {
         /* avatar manipulation widget */
-        priv->avatarmanipulation = avatar_manipulation_new(*priv->accountInfo_);
+        priv->avatarmanipulation = avatar_manipulation_new(*priv->accountInfo_, priv->avModel_);
         gtk_widget_set_halign(priv->avatar_box, GtkAlign::GTK_ALIGN_CENTER);
         gtk_box_pack_start(GTK_BOX(priv->avatar_box), priv->avatarmanipulation, true, true, 0);
         gtk_widget_set_visible(priv->avatarmanipulation, true);
