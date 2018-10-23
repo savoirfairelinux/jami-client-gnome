@@ -355,9 +355,8 @@ call_conversation(GtkTreeView *self,
 }
 
 static void
-select_conversation(GtkTreeSelection *selection, ConversationsView *self)
+refresh_popup_menu(ConversationsView *self)
 {
-    // Update popupMenu_
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
     if (priv->popupMenu_) {
         // Because popup menu is not up to date, we need to update it.
@@ -372,6 +371,13 @@ select_conversation(GtkTreeSelection *selection, ConversationsView *self)
         if (isVisible && nbItems > 0)
             gtk_menu_popup(GTK_MENU(priv->popupMenu_), nullptr, nullptr, nullptr, nullptr, 0, gtk_get_current_event_time());
     }
+}
+
+static void
+select_conversation(GtkTreeSelection *selection, ConversationsView *self)
+{
+    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
+    refresh_popup_menu(self);
     GtkTreeIter iter;
     GtkTreeModel *model = nullptr;
     gchar *conversationUid = nullptr;
@@ -748,6 +754,7 @@ conversations_view_select_conversation(ConversationsView *self, const std::strin
         if(std::string(ringId) == uid) {
             auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
             gtk_tree_selection_select_iter(selection, &iter);
+            refresh_popup_menu(self);
             g_free(ringId);
             return;
         }
