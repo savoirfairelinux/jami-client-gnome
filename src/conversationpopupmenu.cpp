@@ -1,5 +1,5 @@
 /****************************************************************************
- *   Copyright (C) 2017-2018 Savoir-faire Linux                                  *
+ *   Copyright (C) 2017-2018 Savoir-faire Linux                             *
  *   Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>             *
  *   Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>           *
  *                                                                          *
@@ -210,7 +210,7 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
         auto callId = conversation.confId.empty() ? conversation.callId : conversation.confId;
 
         // Not in call
-        if (!contactInfo.isBanned) {
+        if (!contactInfo.isBanned && (*priv->accountInfo_)->enabled) {
             auto place_video_call_conversation = gtk_menu_item_new_with_mnemonic(_("Place _video call"));
             gtk_menu_shell_append(GTK_MENU_SHELL(self), place_video_call_conversation);
             g_signal_connect(place_video_call_conversation, "activate", G_CALLBACK(place_video_call), priv);
