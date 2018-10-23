@@ -641,7 +641,7 @@ chat_view_new (WebKitChatContainer* webkit_chat_container,
 }
 
 void
-chat_view_update_temporary(ChatView* self, bool showAddButton, bool showInvitation)
+chat_view_update_temporary(ChatView* self)
 {
     g_return_if_fail(IS_CHAT_VIEW(self));
     update_chatview_frame(self);
