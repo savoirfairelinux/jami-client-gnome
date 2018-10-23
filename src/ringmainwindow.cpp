@@ -297,6 +297,8 @@ public:
     void enterSettingsView();
     void leaveSettingsView();
 
+    lrc::api::conversation::Info getCurrentConversation();
+
     void showAccountSelectorWidget(bool show = true);
     std::size_t refreshAccountSelectorWidget(int selection_row = -1, const std::string& selected = "");
 
@@ -1192,9 +1194,7 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation)
         auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
         if (auto chat_view = current_call_view_get_chat_view(CURRENT_CALL_VIEW(new_view))) {
             auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
-            chat_view_update_temporary(CHAT_VIEW(chat_view),
-                                       isPending || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY,
-                                       isPending);
+            chat_view_update_temporary(CHAT_VIEW(chat_view));
         }
     } catch(...) { }
 
@@ -1704,6 +1704,24 @@ CppImpl::slotInvalidAccountFromLrc(const std::string& id)
     }
 }
 
+lrc::api::conversation::Info
+CppImpl::getCurrentConversation()
+{
+    auto* frame_call = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
+    lrc::api::conversation::Info current_item;
+    current_item.uid = "-1";
+    if (IS_CHAT_VIEW(frame_call)) {
+        current_item = chat_view_get_conversation(CHAT_VIEW(frame_call));
+        chat_view_update_temporary(CHAT_VIEW(frame_call));
+    } else if (IS_CURRENT_CALL_VIEW(frame_call)) {
+        current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(frame_call));
+    } else if (IS_INCOMING_CALL_VIEW(frame_call)) {
+        current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(frame_call));
+    }
+
+    return current_item;
+}
+
 void
 CppImpl::slotAccountStatusChanged(const std::string& id)
 {
@@ -1711,13 +1729,15 @@ CppImpl::slotAccountStatusChanged(const std::string& id)
         updateLrc(id);
         ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
         return;
-    } else {
-        new_account_settings_view_update(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view), false);
-        auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
-        if (currentIdx == -1)
-            currentIdx = 0; // If no account selected, select the first account
-        refreshAccountSelectorWidget(currentIdx, id);
     }
+
+    new_account_settings_view_update(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view), false);
+    auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
+    if (currentIdx == -1)
+        currentIdx = 0; // If no account selected, select the first account
+    refreshAccountSelectorWidget(currentIdx, id);
+
+    conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), getCurrentConversation().uid);
 }
 
 void
@@ -1744,16 +1764,7 @@ void
 CppImpl::slotModelSorted()
 {
     // Synchronize selection when sorted and update pending icon
-    auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
-    lrc::api::conversation::Info current_item;
-    current_item.uid = "-1";
-    if (IS_CHAT_VIEW(old_view))
-        current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
-    else if (IS_CURRENT_CALL_VIEW(old_view))
-        current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
-    else if (IS_INCOMING_CALL_VIEW(old_view))
-        current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
-    conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), current_item.uid);
+    conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), getCurrentConversation().uid);
     refreshPendingContactRequestTab();
 }
 
@@ -1832,16 +1843,9 @@ void
 CppImpl::slotFilterChanged()
 {
     // Synchronize selection when filter changes
-    auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
-    lrc::api::conversation::Info current_item;
-    current_item.uid = "-1";
-    if (IS_CHAT_VIEW(old_view))
-        current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
-    else if (IS_CURRENT_CALL_VIEW(old_view))
-        current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
-    else if (IS_INCOMING_CALL_VIEW(old_view))
-        current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
+    auto current_item = getCurrentConversation();
     conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), current_item.uid);
+
     // Get if conversation still exists.
     auto& conversationModel = accountInfo_->conversationModel;
     auto conversations = conversationModel->allFilteredConversations();
@@ -1852,6 +1856,7 @@ CppImpl::slotFilterChanged()
         });
     bool isInConv = conversation == conversations.end();
 
+    auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
     if (IS_CHAT_VIEW(old_view)) {
         if (isInConv) {
             changeView(RING_WELCOME_VIEW_TYPE);
@@ -1878,9 +1883,7 @@ CppImpl::slotNewConversation(const std::string& uid)
             auto contactUri =  chatViewConversation_->participants.front();
             auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
             auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
-            chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(widgets->frame_call))),
-                                       isPending || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY,
-                                       isPending);
+            chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(widgets->frame_call))));
         } catch(...) { }
     }
 }
@@ -1920,9 +1923,7 @@ CppImpl::slotShowChatView(const std::string& id, lrc::api::conversation::Info or
         changeView(CHAT_VIEW_TYPE, origin);
     } else {
         auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
-        chat_view_update_temporary(CHAT_VIEW(old_view),
-                                   isPending || contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY,
-                                   isPending);
+        chat_view_update_temporary(CHAT_VIEW(old_view));
     }
 }
 
