@@ -6,13 +6,14 @@
 # Aputsiak Niels Janussen (Skjalden) <aj@isit.gl>, 2016
 # ricorselt ricorselt, 2017
 # scootergrisen, 2017
+# scootergrisen, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-22 03:09-0400\n"
-"PO-Revision-Date: 2018-10-21 16:52+0000\n"
-"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2018-10-29 03:09-0400\n"
+"PO-Revision-Date: 2018-10-24 19:13+0000\n"
+"Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/savoirfairelinux/ring/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +35,7 @@ msgstr "Konto-migrering påkrævet"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "Kontoen er forkert udformet - indtast venligst din adgangskode"
 
 #: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:619
 msgid "Alias"
@@ -62,7 +63,7 @@ msgstr "Slet konto"
 
 #: ui/accountmigrationview.ui:231
 msgid "Migration failed, wrong password?"
-msgstr ""
+msgstr "Migrering mislykkedes - forkert adgangskode?"
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
@@ -132,7 +133,7 @@ msgstr "Overfør"
 
 #: ui/currentcallview.ui:524
 msgid "Transfer to"
-msgstr ""
+msgstr "Overfør til"
 
 #: ui/accountcreationwizard.ui:30
 msgid "Welcome to"
@@ -161,11 +162,11 @@ msgstr "Annuller"
 
 #: ui/accountcreationwizard.ui:86
 msgid "Advanced…"
-msgstr ""
+msgstr "Avanceret…"
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
-msgstr ""
+msgstr "Tilføj en ny SIP-konto"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
@@ -213,7 +214,7 @@ msgstr "Konto"
 
 #: ui/accountcreationwizard.ui:387
 msgid "Register username"
-msgstr ""
+msgstr "Registrer brugernavn"
 
 #: ui/accountcreationwizard.ui:388
 msgid ""
@@ -240,11 +241,11 @@ msgstr "Bekræft adgangskode"
 
 #: ui/accountcreationwizard.ui:562
 msgid "Generating your Ring account…"
-msgstr ""
+msgstr "Genererer din Ring-konto…"
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
-msgstr ""
+msgstr "Registrer brugernavn…"
 
 #: ui/accountcreationwizard.ui:595
 msgid "This may take a few minutes."
@@ -301,7 +302,7 @@ msgstr "Indtastning af et nummer i søge-feltet vil foretage et opkald."
 
 #: ui/generalsettingsview.ui:131
 msgid "Download folder:"
-msgstr ""
+msgstr "Downloadmappe:"
 
 #: ui/generalsettingsview.ui:158
 msgid "Show chat on the right."
@@ -448,11 +449,11 @@ msgstr "Eksporter konto"
 
 #: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:901
 msgid "Enable account"
-msgstr ""
+msgstr "Aktivér konto"
 
 #: ui/newaccountsettingsview.ui:697
 msgid "SIP server"
-msgstr ""
+msgstr "SIP-server"
 
 #: ui/newaccountsettingsview.ui:779
 msgid "password"
@@ -485,11 +486,11 @@ msgstr "Avancerede indstillinger"
 
 #: ui/newaccountsettingsview.ui:1117
 msgid "General settings"
-msgstr ""
+msgstr "Generelle indstillinger"
 
 #: ui/newaccountsettingsview.ui:1135
 msgid "Call settings"
-msgstr ""
+msgstr "Opkaldsindstillinger"
 
 #: ui/newaccountsettingsview.ui:1173
 msgid "Allow call from untrusted peers"
@@ -505,7 +506,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1288
 msgid "Name server"
-msgstr ""
+msgstr "Navneserver"
 
 #: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2478
 msgid "Address"
@@ -589,7 +590,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2091
 msgid "Network interface"
-msgstr ""
+msgstr "Netværksgrænseflade"
 
 #: ui/newaccountsettingsview.ui:2127
 msgid "UPnP"
@@ -641,11 +642,11 @@ msgstr "Video-codec'er"
 
 #: ui/newaccountsettingsview.ui:2612
 msgid "Enable video"
-msgstr ""
+msgstr "Aktivér video"
 
 #: ui/newaccountsettingsview.ui:2639
 msgid "Audio codecs"
-msgstr "Audio-codec'er"
+msgstr "Lydcodec'er"
 
 #: ui/newaccountsettingsview.ui:2709
 msgid "SDP Session Negotiation (ICE Fallback)"
@@ -705,7 +706,7 @@ msgstr ""
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
-msgstr ""
+msgstr "Indgående…"
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
@@ -882,7 +883,7 @@ msgstr "Forkert adgangskode"
 
 #: src/accountgeneraltab.cpp:560
 msgid "Save name"
-msgstr ""
+msgstr "Gem navn"
 
 #: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:679
 msgid "Revoke device"
@@ -946,7 +947,7 @@ msgstr "_Åbn"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "Arbejder…"
 
 #: src/dialogs.c:84
 #, c-format
@@ -968,7 +969,7 @@ msgstr ""
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "Stop optagelse"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
@@ -976,7 +977,7 @@ msgstr ""
 
 #: src/ringmainwindow.cpp:174
 msgid "Add account…"
-msgstr ""
+msgstr "Tilføj konto…"
 
 #: src/ringmainwindow.cpp:617
 msgctxt "button next to search entry will place a new call"
@@ -1017,7 +1018,7 @@ msgstr ""
 
 #: src/ringmainwindow.cpp:2036
 msgid "New message"
-msgstr ""
+msgstr "Ny besked"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1036,11 +1037,11 @@ msgstr "Kunne ikke forbinde til Ring-daemon igen (dring).\nRing afsluttes nu."
 
 #: src/conversationpopupmenu.cpp:214
 msgid "Place _video call"
-msgstr "Foretag _video-opkald"
+msgstr "Foretag _videoopkald"
 
 #: src/conversationpopupmenu.cpp:217
 msgid "Place _audio call"
-msgstr "Foretag _audio-opkald"
+msgstr "Foretag _lydopkald"
 
 #: src/conversationpopupmenu.cpp:225
 msgid "_Add to conversations"
@@ -1096,14 +1097,14 @@ msgstr "Adgangskoderne er ikke ens"
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr "Dette er dit Ring-brugernavn.\nKopiér og del med dine venner!"
+msgstr "Her er dit Ring-brugernavn.\nKopiér og del med dine venner!"
 
 #: src/ringwelcomeview.cpp:93
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr "Dette er dit RingID.\nKopiér og del det med dine venner!"
+msgstr "Her er dit RingID.\nKopiér og del det med dine venner!"
 
 #: src/ringwelcomeview.cpp:150
 msgid ""
@@ -1133,7 +1134,7 @@ msgstr "Auto"
 
 #: src/newaccountsettingsview.cpp:679
 msgid "Edit name"
-msgstr ""
+msgstr "Rediger navn"
 
 #: src/newaccountsettingsview.cpp:774
 msgid "Unban"
@@ -1189,7 +1190,7 @@ msgstr "Forbundet"
 
 #: src/newaccountsettingsview.cpp:1975
 msgid "Unknown status"
-msgstr ""
+msgstr "Ukendt status"
 
 #: src/newaccountsettingsview.cpp:2008
 msgid "••••••••"
