@@ -61,8 +61,8 @@
                     <property name="homogeneous">True</property>
                     <child>
                       <object class="GtkButton" id="button_new_account">
-                        <property name="label" translatable="yes">Create Ring Account</property>
-                        <property name="tooltip_text" translatable="yes">Create a new Ring account (for new users)</property>
+                        <property name="label" translatable="yes">Create Jami Account</property>
+                        <property name="tooltip_text" translatable="yes">Create a new Jami account (for new users)</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
@@ -70,7 +70,7 @@
                     <child>
                       <object class="GtkButton" id="button_existing_account">
                         <property name="label" translatable="yes">Link this device to an account</property>
-                        <property name="tooltip_text" translatable="yes">Link this devices to a Ring account created on another device</property>
+                        <property name="tooltip_text" translatable="yes">Link this devices to a Jami account created on another device</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
@@ -131,7 +131,7 @@
                     <property name="can_focus">True</property>
                     <property name="wrap">True</property>
                     <property name="justify">fill</property>
-                    <property name="label" translatable="yes">To link this device to another account, you have two possibilities. You can import your account from the DHT, but first, you need to obtain a PIN code. To generate the PIN code, go to the account management setting of a previous device, choose the Ring Account to use and select "Link another device to this account". You will get the necessary PIN to complete this form. The PIN is only valid for 10 minutes. Or, you can directly import your account from an archive.</property>
+                    <property name="label" translatable="yes">To link this device to another account, you have two possibilities. You can import your account from the DHT, but first, you need to obtain a PIN code. To generate the PIN code, go to the account management setting of a previous device, choose the Jami Account to use and select "Link another device to this account". You will get the necessary PIN to complete this form. The PIN is only valid for 10 minutes. Or, you can directly import your account from an archive.</property>
                   </object>
                 </child>
                 <child>
@@ -385,7 +385,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="label" translatable="yes">Register username</property>
-                                        <property name="tooltip_text" translatable="yes">By checking this, you will register a unique username on the Ring network. People can use it to contact you instead of using your RingID, which is 40 characters long.</property>
+                                        <property name="tooltip_text" translatable="yes">By checking this, you will register a unique username on the Jami network. People can use it to contact you instead of using your RingID, which is 40 characters long.</property>
                                       </object>
                                     </child>
                                     <child>
@@ -559,7 +559,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Generating your Ring account…</property>
+                    <property name="label" translatable="yes">Generating your Jami account…</property>
                   </object>
                 </child>
                 <child>
@@ -618,7 +618,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Retrieving your Ring account…</property>
+                    <property name="label" translatable="yes">Retrieving your Jami account…</property>
                   </object>
                 </child>
                 <child>

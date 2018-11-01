@@ -245,7 +245,7 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     object_class->dispose = new_account_settings_view_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS(klass),
-                                                "/cx/ring/RingGnome/newaccountsettingsview.ui");
+                                                "/cx/jami/JamiGnome/newaccountsettingsview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, stack_account);
 
@@ -1726,7 +1726,7 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, NewAccountSettingsVi
     if (!(*priv->accountInfo_)->accountModel->exportOnRing((*priv->accountInfo_)->id, passwordStr))
     {
         QObject::disconnect(priv->export_on_ring_ended);
-        gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Could not initiate export to the Ring, try again"));
+        gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Could not initiate export to the Jami, try again"));
         g_debug("Could not initiate exportOnRing operation");
         show_export_on_ring_error(view);
     }

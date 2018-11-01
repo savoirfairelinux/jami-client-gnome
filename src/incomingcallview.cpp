@@ -201,7 +201,7 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
     G_OBJECT_CLASS(klass)->dispose = incoming_call_view_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/cx/ring/RingGnome/incomingcallview.ui");
+                                                "/cx/jami/JamiGnome/incomingcallview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, paned_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, image_incoming);
