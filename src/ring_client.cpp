@@ -140,10 +140,10 @@ exception_dialog(const char* msg)
     GtkWidget *dialog = gtk_message_dialog_new(NULL,
                             (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
                             GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
-                            _("Unable to initialize.\nMake sure the Ring daemon (dring) is running.\nError: %s"),
+                            _("Unable to initialize.\nMake sure the Jami daemon (dring) is running.\nError: %s"),
                             msg);
 
-    gtk_window_set_title(GTK_WINDOW(dialog), _("Ring Error"));
+    gtk_window_set_title(GTK_WINDOW(dialog), _("Jami Error"));
     gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
 }
@@ -288,7 +288,7 @@ init_systray(RingClient *client)
         priv->icon_menu = gtk_menu_new();
         g_object_ref_sink(priv->icon_menu);
 
-        auto item = gtk_check_menu_item_new_with_label(C_("In the status icon menu, toggle action to show or hide the Ring main window", "Show Ring"));
+        auto item = gtk_check_menu_item_new_with_label(C_("In the status icon menu, toggle action to show or hide the Jami main window", "Show Jami"));
         gtk_actionable_set_action_name(GTK_ACTIONABLE(item), "app.show-main-window");
         gtk_menu_shell_append(GTK_MENU_SHELL(priv->icon_menu), item);
 
@@ -468,7 +468,7 @@ ring_client_startup(GApplication *app)
     RingClient *client = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
 
-    g_message("Ring GNOME client version: %d.%02d.%02d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+    g_message("Jami GNOME client version: %d.%02d.%02d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
     g_message("git ref: %s", RING_CLIENT_REVISION);
 
     /* make sure that the system corresponds to the autostart setting */
