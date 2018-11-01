@@ -33,7 +33,7 @@ dring_crash_dialog()
     gtk_window_set_resizable(GTK_WINDOW(dialog), FALSE);
     gtk_window_set_decorated(GTK_WINDOW(dialog), FALSE);
     gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
-    gtk_window_set_title(GTK_WINDOW(dialog), C_("Name of error window (dialog)","Ring Error"));
+    gtk_window_set_title(GTK_WINDOW(dialog), C_("Name of error window (dialog)","Jami Error"));
 
     /* get the main window */
     if (auto app = g_application_get_default()) {
@@ -54,7 +54,7 @@ dring_crash_dialog()
     gtk_widget_set_margin_top(content_area, 25);
 
     auto message = gtk_label_new(
-        _("Trying to reconnect to the Ring daemon (dring)…")
+        _("Trying to reconnect to the Jami daemon (dring)…")
     );
 
     gtk_box_pack_start(GTK_BOX(content_area), message, FALSE, TRUE, 0);
@@ -84,7 +84,7 @@ ring_quitting_dialog()
         win,
         (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
         GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
-        _("Could not re-connect to the Ring daemon (dring).\nRing will now quit.")
+        _("Could not re-connect to the Jami daemon (dring).\nJami will now quit.")
     );
 
     if (win) {
@@ -92,7 +92,7 @@ ring_quitting_dialog()
     } else {
         gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
     }
-    gtk_window_set_title(GTK_WINDOW(dialog), C_("Name of error window (dialog)","Ring Error"));
+    gtk_window_set_title(GTK_WINDOW(dialog), C_("Name of error window (dialog)","Jami Error"));
     gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
 
     return dialog;

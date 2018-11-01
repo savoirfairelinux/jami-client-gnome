@@ -205,7 +205,7 @@ username_registration_box_class_init(UsernameRegistrationBoxClass *klass)
     G_OBJECT_CLASS(klass)->dispose = username_registration_box_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/cx/ring/RingGnome/usernameregistrationbox.ui");
+                                                "/cx/jami/JamiGnome/usernameregistrationbox.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), UsernameRegistrationBox, label_username);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), UsernameRegistrationBox, frame_username);
@@ -310,7 +310,7 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
         (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
         GTK_MESSAGE_QUESTION,
         GTK_BUTTONS_OK_CANCEL,
-        _("Enter the password of your Ring account")
+        _("Enter the password of your Jami account")
     );
 
     GtkWidget* entry_password = gtk_entry_new();

@@ -82,7 +82,7 @@ ring_client_add_options(GApplication *app) {
 GOptionContext *
 ring_client_options_get_context()
 {
-    GOptionContext *context = g_option_context_new(_("- GNOME client for Ring"));
+    GOptionContext *context = g_option_context_new(_("- GNOME client for Jami"));
     g_option_context_set_ignore_unknown_options(context, TRUE);
     g_option_context_add_main_entries(context, all_options, PACKAGE_NAME);
     g_option_context_add_group(context, gtk_get_option_group(TRUE));

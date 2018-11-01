@@ -76,7 +76,7 @@ ring_draw_fallback_avatar(int size, const std::string& letter, const char color)
         // Compose from fallback svg if no letter found
         GError *error = nullptr;
         auto* finalAvatar = gdk_pixbuf_get_from_surface(cairo_get_target(cr), 0, 0, size, size);
-        auto* fallbackavatar = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/fallbackavatar", size, size, true, &error);
+        auto* fallbackavatar = gdk_pixbuf_new_from_resource_at_scale("/cx/jami/JamiGnome/fallbackavatar", size, size, true, &error);
         gdk_pixbuf_composite (fallbackavatar, finalAvatar, 0, 0, size, size, 0, 0, 1, 1, GDK_INTERP_BILINEAR, 0xff);
 
         return finalAvatar;

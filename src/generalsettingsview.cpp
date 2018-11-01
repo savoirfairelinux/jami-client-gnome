@@ -313,7 +313,7 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     object_class->dispose = general_settings_view_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/cx/ring/RingGnome/generalsettingsview.ui");
+                                                "/cx/jami/JamiGnome/generalsettingsview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_autostart);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_showstatusicon);
