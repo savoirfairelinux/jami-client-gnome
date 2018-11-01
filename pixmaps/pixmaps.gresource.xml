@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/cx/ring/RingGnome">
-    <file alias="ring-symbol-blue">ring.svg</file>
-    <file alias="ring-logo-blue">logo-ring-standard-coul.svg</file>
+  <gresource prefix="/cx/jami/JamiGnome">
+    <file alias="jami-symbol-blue">jami.svg</file>
+    <file alias="jami-logo-blue">logo-jami-standard-coul.svg</file>
     <file alias="addressbook_small">addressbook.svg</file>
     <file alias="history_small">history.svg</file>
     <file alias="clear_history">ic_delete_forever_black_24px.svg</file>
@@ -50,5 +50,6 @@
     <file alias="account">account.svg</file>
     <file alias="bottom_arrow">bottom_arrow.svg</file>
     <file alias="up_arrow">up_arrow.svg</file>
+    <file alias="qrcode">qrcode.svg</file>
   </gresource>
 </gresources>

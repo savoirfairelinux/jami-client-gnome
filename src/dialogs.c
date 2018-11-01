@@ -74,7 +74,7 @@ ring_about_dialog(GtkWidget *parent)
 
     /* get logo */
     GError *error = NULL;
-    GdkPixbuf* logo = gdk_pixbuf_new_from_resource("/cx/ring/RingGnome/ring-logo-blue", &error);
+    GdkPixbuf* logo = gdk_pixbuf_new_from_resource("/cx/jami/JamiGnome/jami-logo-blue", &error);
     if (logo == NULL) {
         g_debug("Could not load logo: %s", error->message);
         g_clear_error(&error);
@@ -134,10 +134,10 @@ ring_about_dialog(GtkWidget *parent)
         "license-type", GTK_LICENSE_GPL_3_0,
         "logo", logo,
         "version", version,
-        "comments", _("The GNOME client for Ring.\nRing is free software for universal communication which respects the freedoms and privacy of its users."),
+        "comments", _("The GNOME client for Jami.\nJami is free software for universal communication which respects the freedoms and privacy of its users."),
         "authors", authors,
-        "website", "https://www.ring.cx/",
-        "website-label", "www.ring.cx",
+        "website", "https://jami.net/",
+        "website-label", "jami.net",
         "translator-credits", "https://www.transifex.com/savoirfairelinux/ring",
         NULL
     );
