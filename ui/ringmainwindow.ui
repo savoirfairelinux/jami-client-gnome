@@ -23,7 +23,7 @@
   <object class="GtkImage" id="image_history">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="resource">/cx/ring/RingGnome/history_small</property>
+    <property name="resource">/cx/jami/JamiGnome/history_small</property>
   </object>
   <object class="GtkImage" id="image_media_settings">
     <property name="visible">True</property>
@@ -271,7 +271,7 @@
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">Conversations</property>
                         <property name="hexpand">True</property>
-                        <property name="resource">/cx/ring/RingGnome/conversations_list</property>
+                        <property name="resource">/cx/jami/JamiGnome/conversations_list</property>
                       </object>
                     </child>
                   </object>
@@ -304,7 +304,7 @@
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">Contact requests</property>
                         <property name="hexpand">True</property>
-                        <property name="resource">/cx/ring/RingGnome/contact_requests_list</property>
+                        <property name="resource">/cx/jami/JamiGnome/contact_requests_list</property>
                       </object>
                     </child>
                   </object>
@@ -349,6 +349,6 @@
   <object class="GtkImage" id="image_presence">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="resource">/cx/ring/RingGnome/users_small</property>
+    <property name="resource">/cx/jami/JamiGnome/users_small</property>
   </object>
 </interface>

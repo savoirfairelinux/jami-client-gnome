@@ -138,7 +138,7 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     G_OBJECT_CLASS(klass)->dispose = account_creation_wizard_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/cx/ring/RingGnome/accountcreationwizard.ui");
+                                                "/cx/jami/JamiGnome/accountcreationwizard.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, stack_account_creation);
 
@@ -518,7 +518,7 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
 
     /* set ring logo */
     GError *error = NULL;
-    GdkPixbuf* logo_ring = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/ring-logo-blue",
+    GdkPixbuf* logo_ring = gdk_pixbuf_new_from_resource_at_scale("/cx/jami/JamiGnome/jami-logo-blue",
                                                                   -1, 50, TRUE, &error);
     if (logo_ring == NULL) {
         g_debug("Could not load logo: %s", error->message);
