@@ -457,7 +457,7 @@ INSTALL(FILES ${PROJECT_SOURCE_DIR}/gnome-ring.desktop.autostart
       gnome-ring.desktop
 )
 
-INSTALL(FILES pixmaps/ring.svg
+INSTALL(FILES pixmaps/jami.svg
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps
 )
 

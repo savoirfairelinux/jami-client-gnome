@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/cx/ring/RingGnome">
+  <gresource prefix="/cx/jami/JamiGnome">
     <file preprocess="xml-stripblanks">ringmainwindow.ui</file>
     <file preprocess="xml-stripblanks">ringgearsmenu.ui</file>
     <file preprocess="xml-stripblanks">incomingcallview.ui</file>

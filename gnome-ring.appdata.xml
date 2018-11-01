@@ -4,12 +4,12 @@
  <id>gnome-ring.desktop</id>
  <metadata_license>CC-BY-SA-3.0</metadata_license>
  <project_license>GPL-3.0+</project_license>
- <name>Ring</name>
- <summary>Gnome client for Ring</summary>
+ <name>Jami</name>
+ <summary>Gnome client for Jami</summary>
  <description>
   <p>
-   Ring is a secure, distributed communication software and a SIP client.
+   Jami is a secure, distributed communication software and a SIP client.
   </p>
  </description>
- <url type="homepage">https://www.ring.cx</url>
+ <url type="homepage">https://jami.net</url>
 </component>
