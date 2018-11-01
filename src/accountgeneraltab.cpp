@@ -254,7 +254,7 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, AccountGeneralTab *v
     if (!priv->account->exportOnRing(password))
     {
         QObject::disconnect(priv->export_on_ring_ended);
-        gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Could not initiate export to the Ring, try again"));
+        gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Could not initiate export to the Jami, try again"));
         g_debug("Could not initiate exportOnRing operation");
         show_export_on_ring_error(view);
     }

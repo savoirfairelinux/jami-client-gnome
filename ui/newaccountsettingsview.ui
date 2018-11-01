@@ -143,7 +143,7 @@
                 <property name="max-width-chars">80</property>
                 <property name="can_focus">False</property>
                 <property name="use_markup">True</property>
-                <property name="label" translatable="yes">To add a new device to your Ring account, you export your account on the Ring. This will generate a pin that must be entered on your new device within 5 minutes of its generation.</property>
+                <property name="label" translatable="yes">To add a new device to your Jami account, you export your account on the Jami. This will generate a pin that must be entered on your new device within 5 minutes of its generation.</property>
                 <property name="wrap">True</property>
               </object>
             </child>
@@ -186,7 +186,7 @@
                 <child>
                   <object class="GtkButton" id="button_export_on_the_ring">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">Export on the Ring</property>
+                    <property name="label" translatable="yes">Export on the Jami</property>
                   </object>
                 </child>
               </object>
@@ -207,7 +207,7 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Exporting account on the Ring…</property>
+                <property name="label" translatable="yes">Exporting account on the Jami…</property>
               </object>
             </child>
             <child>
@@ -253,7 +253,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">center</property>
                 <property name="max-width-chars">80</property>
-                <property name="label">This pin and the account password should be entered on your new device within 5 minutes. On most client, this is done from the "Existing Ring account" menu. You may generate a new pin at any moment.</property>
+                <property name="label">This pin and the account password should be entered on your new device within 5 minutes. On most client, this is done from the "Existing Jami account" menu. You may generate a new pin at any moment.</property>
                 <property name="use_markup">True</property>
                 <property name="wrap">True</property>
               </object>
@@ -269,7 +269,7 @@
           </object>
         </child>
         <!-- End Generated pin view -->
-        <!-- Export on Ring error -->
+        <!-- Export on Jami error -->
         <child>
           <object class="GtkBox" id="export_on_ring_error">
             <property name="visible">False</property>
@@ -291,7 +291,7 @@
             </child>
           </object>
         </child>
-        <!-- End export on Ring error -->
+        <!-- End export on Jami error -->
         <child>
           <!-- General settings -->
           <object class="GtkBox" id="general_settings_box">
@@ -949,7 +949,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
-                            <property name="label" translatable="yes">Known devices linked to this Ring account</property>
+                            <property name="label" translatable="yes">Known devices linked to this Jami account</property>
                             <attributes>
                               <attribute name="weight" value="bold"/>
                             </attributes>

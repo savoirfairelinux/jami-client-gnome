@@ -82,7 +82,7 @@ ring_welcome_update_view(RingWelcomeView* self) {
     if(! (*priv->accountInfo_)->registeredName.empty()){
         gtk_label_set_text(
             GTK_LABEL(priv->label_explanation),
-            _("This is your Ring username.\nCopy and share it with your friends!")
+            _("This is your Jami username.\nCopy and share it with your friends!")
         );
         ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">ring:%s</span>",
                                           (*priv->accountInfo_)->registeredName.c_str());
@@ -147,7 +147,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     }
 
     /* welcome text */
-    auto label_welcome_text = gtk_label_new(_("Ring is free software for universal communication which respects the freedoms and privacy of its users."));
+    auto label_welcome_text = gtk_label_new(_("Jami is free software for universal communication which respects the freedoms and privacy of its users."));
     gtk_label_set_justify(GTK_LABEL(label_welcome_text), GTK_JUSTIFY_CENTER);
     PangoAttrList *attrs_welcome_text = pango_attr_list_new();
     PangoAttribute *font_desc_welcome_text = pango_attr_font_desc_new(pango_font_description_from_string("12"));

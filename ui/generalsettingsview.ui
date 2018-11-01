@@ -43,7 +43,7 @@
                   <child type="label">
                     <object class="GtkLabel" id="label_ring_settings">
                       <property name="visible">True</property>
-                      <property name="label" translatable="yes">Ring Settings</property>
+                      <property name="label" translatable="yes">Jami Settings</property>
                       <attributes>
                         <attribute name="weight" value="bold"/>
                       </attributes>
@@ -59,7 +59,7 @@
                     <property name="margin_top">10</property>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_autostart">
-                        <property name="label" translatable="yes">Start Ring on login</property>
+                        <property name="label" translatable="yes">Start Jami on login</property>
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
@@ -67,7 +67,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_showstatusicon">
-                        <property name="label" translatable="yes">Show Ring icon in the notification area (systray).</property>
+                        <property name="label" translatable="yes">Show Jami icon in the notification area (systray).</property>
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
@@ -75,7 +75,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="checkbutton_bringtofront">
-                        <property name="label" translatable="yes">Bring Ring to the foreground on incoming calls.</property>
+                        <property name="label" translatable="yes">Bring Jami to the foreground on incoming calls.</property>
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>

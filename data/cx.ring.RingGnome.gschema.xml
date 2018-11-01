@@ -3,13 +3,13 @@
   <schema path="/cx/ring/RingGnome/" id="cx.ring.RingGnome">
     <key name="start-on-login" type="b">
         <default>true</default>
-        <summary>Start Ring on login.</summary>
-        <description>Start Ring on login. Only supported on XDG compliant desktop environments.</description>
+        <summary>Start Jami on login.</summary>
+        <description>Start Jami on login. Only supported on XDG compliant desktop environments.</description>
     </key>
     <key name="show-status-icon" type="b">
         <default>true</default>
         <summary>Show status (system tray) icon.</summary>
-        <description>When set to true Ring will continue to run if the main window is closed.</description>
+        <description>When set to true Jami will continue to run if the main window is closed.</description>
     </key>
     <key name="bring-window-to-front" type="b">
         <default>true</default>
@@ -19,7 +19,7 @@
     <key name="show-main-window" type="b">
         <default>true</default>
         <summary>Saves whether or not the main window is currently visible or not.</summary>
-        <description>This is used when launching the application with the '--restore-last-window-state' option, which will launch the application with the main window in the same state as when Ring was last quit.</description>
+        <description>This is used when launching the application with the '--restore-last-window-state' option, which will launch the application with the main window in the same state as when Jami was last quit.</description>
     </key>
     <key name="chat-pane-horizontal" type="b">
         <default>true</default>
