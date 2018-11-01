@@ -126,7 +126,7 @@ account_general_tab_class_init(AccountGeneralTabClass *klass)
     G_OBJECT_CLASS(klass)->dispose = account_general_tab_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/cx/ring/RingGnome/accountgeneraltab.ui");
+                                                "/cx/jami/JamiGnome/accountgeneraltab.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, stack_account_general);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountGeneralTab, account_general);
@@ -254,7 +254,7 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, AccountGeneralTab *v
     if (!priv->account->exportOnRing(password))
     {
         QObject::disconnect(priv->export_on_ring_ended);
-        gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Could not initiate export to the Ring, try again"));
+        gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Could not initiate export to the Jami, try again"));
         g_debug("Could not initiate exportOnRing operation");
         show_export_on_ring_error(view);
     }
@@ -409,13 +409,13 @@ replace_name_from_row(GtkWidget* row, const std::string& name, const std::string
         auto* new_label_name = gtk_label_new(name.c_str());
         gtk_container_add(GTK_CONTAINER(box_info->data), new_label_name);
         gtk_widget_set_halign(GTK_WIDGET(new_label_name), GTK_ALIGN_START);
-        auto image = gtk_image_new_from_resource("/cx/ring/RingGnome/edit");
+        auto image = gtk_image_new_from_resource("/cx/jami/JamiGnome/edit");
         gtk_button_set_image(GTK_BUTTON(action_button->data), image);
     } else {
         auto* entry_name = gtk_entry_new();
         gtk_entry_set_text(GTK_ENTRY(entry_name), name.c_str());
         gtk_container_add(GTK_CONTAINER(box_info->data), entry_name);
-        auto image = gtk_image_new_from_resource("/cx/ring/RingGnome/save");
+        auto image = gtk_image_new_from_resource("/cx/jami/JamiGnome/save");
         gtk_button_set_image(GTK_BUTTON(action_button->data), image);
     }
     auto* new_label_id = gtk_label_new("");
@@ -553,9 +553,9 @@ add_device(AccountGeneralTab *view, const lrc::api::Device& device)
     gtk_container_add(GTK_CONTAINER(device_info_box), label_id);
     gtk_container_add(GTK_CONTAINER(device_box), device_info_box);
     // Add action button
-    auto image = gtk_image_new_from_resource("/cx/ring/RingGnome/edit");
+    auto image = gtk_image_new_from_resource("/cx/jami/JamiGnome/edit");
     if (!device.isCurrent)
-        image = gtk_image_new_from_resource("/cx/ring/RingGnome/revoke");
+        image = gtk_image_new_from_resource("/cx/jami/JamiGnome/revoke");
     auto* action_device_button = gtk_button_new();
     gtk_widget_set_tooltip_text(action_device_button, device.isCurrent ? _("Save name") : _("Revoke device"));
     gtk_button_set_image(GTK_BUTTON(action_device_button), image);

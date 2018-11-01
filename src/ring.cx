@@ -32,7 +32,7 @@ fi
 
 # No clients installd
 if [ $HAS_KDE == "0" ] && [ $HAS_GNOME == "0" ]; then
-  echo "Ring not found" >&2
+  echo "Jami not found" >&2
   exit 1
 fi
 

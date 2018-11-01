@@ -47,8 +47,9 @@ typedef struct _RingWelcomeViewPrivate RingWelcomeViewPrivate;
 struct _RingWelcomeViewPrivate
 {
     GtkWidget *box_overlay;
-    GtkWidget *label_ringid;
     GtkWidget *label_explanation;
+    GtkWidget *hbox_idlayout;
+    GtkWidget *label_ringid;
     GtkWidget *button_qrcode;
     GtkWidget *revealer_qrcode;
 
@@ -69,6 +70,7 @@ ring_welcome_update_view(RingWelcomeView* self) {
     // Only draw a basic view for SIP accounts
     if (not *priv->accountInfo_ || (*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::SIP) {
         gtk_widget_hide(priv->button_qrcode);
+        gtk_widget_hide(priv->hbox_idlayout);
         gtk_widget_hide(priv->label_ringid);
         gtk_widget_hide(priv->label_explanation);
         gtk_widget_hide(priv->revealer_qrcode);
@@ -82,7 +84,7 @@ ring_welcome_update_view(RingWelcomeView* self) {
     if(! (*priv->accountInfo_)->registeredName.empty()){
         gtk_label_set_text(
             GTK_LABEL(priv->label_explanation),
-            _("This is your Ring username.\nCopy and share it with your friends!")
+            _("This is your Jami username.\nCopy and share it with your friends!")
         );
         ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">ring:%s</span>",
                                           (*priv->accountInfo_)->registeredName.c_str());
@@ -90,7 +92,7 @@ ring_welcome_update_view(RingWelcomeView* self) {
     else if (!(*priv->accountInfo_)->profileInfo.uri.empty()) {
         gtk_label_set_text(
             GTK_LABEL(priv->label_explanation),
-            C_("Do not translate \"RingID\"", "This is your RingID.\nCopy and share it with your friends!")
+            _("This is your ID.\nCopy and share it with your friends!")
         );
         ring_id = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
                                           (*priv->accountInfo_)->profileInfo.uri.c_str());
@@ -102,6 +104,7 @@ ring_welcome_update_view(RingWelcomeView* self) {
     gtk_label_set_markup(GTK_LABEL(priv->label_ringid), ring_id);
 
     gtk_widget_show(priv->label_explanation);
+    gtk_widget_show(priv->hbox_idlayout);
     gtk_widget_show(priv->label_ringid);
     gtk_widget_show(priv->button_qrcode);
     gtk_widget_show(priv->revealer_qrcode);
@@ -135,7 +138,7 @@ ring_welcome_view_init(RingWelcomeView *self)
 
     /* get logo */
     GError *error = NULL;
-    GdkPixbuf* logo = gdk_pixbuf_new_from_resource_at_scale("/cx/ring/RingGnome/ring-logo-blue",
+    GdkPixbuf* logo = gdk_pixbuf_new_from_resource_at_scale("/cx/jami/JamiGnome/jami-logo-blue",
                                                             350, -1, TRUE, &error);
     if (logo == NULL) {
         g_debug("Could not load logo: %s", error->message);
@@ -147,7 +150,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     }
 
     /* welcome text */
-    auto label_welcome_text = gtk_label_new(_("Ring is free software for universal communication which respects the freedoms and privacy of its users."));
+    auto label_welcome_text = gtk_label_new(_("Jami is free software for universal communication which respects the freedoms and privacy of its users."));
     gtk_label_set_justify(GTK_LABEL(label_welcome_text), GTK_JUSTIFY_CENTER);
     PangoAttrList *attrs_welcome_text = pango_attr_list_new();
     PangoAttribute *font_desc_welcome_text = pango_attr_font_desc_new(pango_font_description_from_string("12"));
@@ -161,7 +164,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_box_pack_start(GTK_BOX(priv->box_overlay), label_welcome_text, FALSE, TRUE, 0);
     gtk_widget_set_visible(GTK_WIDGET(label_welcome_text), TRUE);
 
-    /* RingID explanation */
+    /* ID explanation */
     priv->label_explanation = gtk_label_new(NULL);
     auto context = gtk_widget_get_style_context(priv->label_explanation);
     gtk_style_context_add_class(context, GTK_STYLE_CLASS_DIM_LABEL);
@@ -171,7 +174,16 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_set_no_show_all(priv->label_explanation, TRUE);
     gtk_box_pack_start(GTK_BOX(priv->box_overlay), priv->label_explanation, FALSE, TRUE, 0);
 
-    /* RingID label */
+    priv->hbox_idlayout = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 15);
+    gtk_container_add(GTK_CONTAINER(self), priv->hbox_idlayout);
+    gtk_box_set_baseline_position(GTK_BOX(priv->hbox_idlayout), GTK_BASELINE_POSITION_CENTER);
+    gtk_widget_set_vexpand(GTK_WIDGET(priv->hbox_idlayout), FALSE);
+    gtk_widget_set_hexpand(GTK_WIDGET(priv->hbox_idlayout), FALSE);
+    gtk_widget_set_valign(GTK_WIDGET(priv->hbox_idlayout), GTK_ALIGN_CENTER);
+    gtk_widget_set_halign(GTK_WIDGET(priv->hbox_idlayout), GTK_ALIGN_CENTER);
+    gtk_widget_set_visible(GTK_WIDGET(priv->hbox_idlayout), TRUE);
+
+    /* ID label */
     priv->label_ringid = gtk_label_new(NULL);
     gtk_label_set_selectable(GTK_LABEL(priv->label_ringid), TRUE);
     PangoAttrList *attrs_ringid = pango_attr_list_new();
@@ -180,8 +192,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_label_set_attributes(GTK_LABEL(priv->label_ringid), attrs_ringid);
     pango_attr_list_unref(attrs_ringid);
     gtk_widget_set_no_show_all(priv->label_ringid, TRUE);
-    gtk_box_pack_start(GTK_BOX(box_main), priv->label_ringid, FALSE, TRUE, 0);
-    gtk_label_set_ellipsize(GTK_LABEL(priv->label_ringid), PANGO_ELLIPSIZE_END);
+    gtk_box_pack_start(GTK_BOX(priv->hbox_idlayout), priv->label_ringid, FALSE, TRUE, 0);
 
     /* QR drawing area */
     auto drawingarea_qrcode = gtk_drawing_area_new();
@@ -201,12 +212,24 @@ ring_welcome_view_init(RingWelcomeView *self)
     gtk_widget_set_visible(priv->revealer_qrcode, FALSE);
 
     /* QR code button */
-    priv->button_qrcode = gtk_button_new_with_label(C_("Do not translate \"RingID\"", "RingID QR code"));
+    priv->button_qrcode = gtk_button_new();
+    GdkPixbuf *image_qr = gdk_pixbuf_new_from_resource_at_scale("/cx/jami/JamiGnome/qrcode",
+                                                                  -1, 16, TRUE, &error);
+    if (!image_qr) {
+        g_warning("Could not load icon: %s", error->message);
+        g_clear_error(&error);
+    } else {
+        auto image = gtk_image_new_from_pixbuf(image_qr);
+        gtk_button_set_image(GTK_BUTTON(priv->button_qrcode), image);
+    }
     gtk_widget_set_hexpand(priv->button_qrcode, FALSE);
     gtk_widget_set_size_request(priv->button_qrcode,10,10);
     g_signal_connect_swapped(priv->button_qrcode, "clicked", G_CALLBACK(switch_qrcode), self);
     gtk_widget_set_no_show_all(priv->button_qrcode, TRUE);
-    gtk_box_pack_start(GTK_BOX(box_main), priv->button_qrcode, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(priv->hbox_idlayout), priv->button_qrcode, TRUE, TRUE, 0);
+
+    gtk_box_pack_start(GTK_BOX(box_main), priv->hbox_idlayout, FALSE, TRUE, 0);
+    gtk_label_set_ellipsize(GTK_LABEL(priv->label_ringid), PANGO_ELLIPSIZE_END);
 
     gtk_widget_show_all(GTK_WIDGET(self));
 }

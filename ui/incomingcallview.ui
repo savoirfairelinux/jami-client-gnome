@@ -224,14 +224,14 @@
   </template>
   <object class="GtkImage" id="image_accept">
     <property name="visible">True</property>
-    <property name="resource">/cx/ring/RingGnome/accept</property>
+    <property name="resource">/cx/jami/JamiGnome/accept</property>
   </object>
   <object class="GtkImage" id="image_reject">
     <property name="visible">True</property>
-    <property name="resource">/cx/ring/RingGnome/call_end</property>
+    <property name="resource">/cx/jami/JamiGnome/call_end</property>
   </object>
   <object class="GtkImage" id="image_hangup">
     <property name="visible">True</property>
-    <property name="resource">/cx/ring/RingGnome/call_end</property>
+    <property name="resource">/cx/jami/JamiGnome/call_end</property>
   </object>
 </interface>
