@@ -97,7 +97,7 @@ webkit_chat_container_class_init(WebKitChatContainerClass *klass)
     G_OBJECT_CLASS(klass)->dispose = webkit_chat_container_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/cx/ring/RingGnome/webkitchatcontainer.ui");
+                                                "/cx/jami/JamiGnome/webkitchatcontainer.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), WebKitChatContainer, box_webview_chat);
 
@@ -400,9 +400,9 @@ load_javascript_libs(WebKitWebView *webview_chat,
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(self);
 
     /* Create the list of libraries to load */
-    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/ring/RingGnome/linkify.js");
-    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/ring/RingGnome/linkify-string.js");
-    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/ring/RingGnome/linkify-html.js");
+    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/jami/JamiGnome/linkify.js");
+    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/jami/JamiGnome/linkify-string.js");
+    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/jami/JamiGnome/linkify-html.js");
 
     /* ref the chat view so that its not destroyed while we load
      * we will unref in javascript_library_loaded
@@ -495,7 +495,7 @@ build_view(WebKitChatContainer *view)
     WebKitUserStyleSheet* chatview_style_sheet = webkit_user_style_sheet_new(
         (gchar*) g_bytes_get_data(
             g_resources_lookup_data(
-                "/cx/ring/RingGnome/chatview.css",
+                "/cx/jami/JamiGnome/chatview.css",
                 G_RESOURCE_LOOKUP_FLAGS_NONE,
                 NULL
             ),
@@ -544,7 +544,7 @@ build_view(WebKitChatContainer *view)
 #endif
 
     GBytes* chatview_bytes = g_resources_lookup_data(
-        "/cx/ring/RingGnome/chatview.html",
+        "/cx/jami/JamiGnome/chatview.html",
         G_RESOURCE_LOOKUP_FLAGS_NONE,
         NULL
     );

@@ -1,16 +1,16 @@
-# Ring client Gnome
+# Jami client Gnome
 
-[![Build Status](https://jenkins.ring.cx/buildStatus/icon?job=client-gnome)](https://jenkins.ring.cx/job/client-gnome/)
+[![Build Status](https://jenkins.jami.net/buildStatus/icon?job=client-gnome)](https://jenkins.jami.net/job/client-gnome/)
 
-Ring-client-gnome is a Ring client written in GTK+3. It uses libRingClient to
-communicate with the Ring daemon and for all of the underlying models and their
+Jami-client-gnome is a Jami client written in GTK+3. It uses libRingClient to
+communicate with the Jami daemon and for all of the underlying models and their
 logic. Ideally ring-client-gnome should only contain UI related code and any
 wrappers necessary for interacting with libRingClient.
 
-Packages for Debian/Ubuntu/Fedora can be found at https://ring.cx
+Packages for Debian/Ubuntu/Fedora can be found at https://jami.net
 
 More info about the Ring project and the clients can be found on our Gitlab's instance:
-https://git.ring.cx/
+https://git.jami.net/
 
 GNU Ring welcomes contribution from everyone. See [CONTRIBUTING.md](CONTRIBUTING.md) for help getting started.
 
@@ -18,7 +18,7 @@ GNU Ring welcomes contribution from everyone. See [CONTRIBUTING.md](CONTRIBUTING
 
 ## Requirements
 
-- Ring daemon
+- Jami daemon
 - libRingClient
 - GTK+3 (3.10 or higher)
 - Qt5 Core
@@ -64,7 +64,7 @@ desktop integration. In this case you should perform a 'make install' after
 building the client.
 
 
-## Building without installing Ring daemon and libRingClient
+## Building without installing Jami daemon and libRingClient
 
 It is possible to build ring-client-gnome without installing the daemon and
 libRingClient on your system (eg: in `/usr` or `/usr/local`):

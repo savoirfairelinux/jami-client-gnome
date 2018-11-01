@@ -303,7 +303,7 @@ messaging_widget_class_init(MessagingWidgetClass *klass)
     G_OBJECT_CLASS(klass)->finalize = messaging_widget_finalize;
     G_OBJECT_CLASS(klass)->dispose = messaging_widget_dispose;
 
-    gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass), "/cx/ring/RingGnome/messagingwidget.ui");
+    gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass), "/cx/jami/JamiGnome/messagingwidget.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MessagingWidget, image_send);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MessagingWidget, image_stop);
