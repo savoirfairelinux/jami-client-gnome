@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-29 03:09-0400\n"
-"PO-Revision-Date: 2018-10-28 14:09+0000\n"
+"POT-Creation-Date: 2018-11-05 03:09-0500\n"
+"PO-Revision-Date: 2018-11-02 11:57+0000\n"
 "Last-Translator: Reza Ghasemi\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/ring/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
@@ -25,11 +25,11 @@ msgstr ""
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr ""
+msgstr "_درباره"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr ""
+msgstr "_خروج"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
@@ -37,7 +37,7 @@ msgstr "نیاز به جابجایی حساب کاربری"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "این حساب کاربری نادرست می باشد. لطفا گذرواژه خود را وارد کنید"
 
 #: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:619
 msgid "Alias"
@@ -77,7 +77,7 @@ msgstr "پایان تماس"
 
 #: ui/currentcallview.ui:275
 msgid "Toggle transfer"
-msgstr ""
+msgstr "تاگل انتقال"
 
 #: ui/currentcallview.ui:294
 msgid "Toggle hold"
@@ -111,7 +111,7 @@ msgstr "ضبط"
 
 #: ui/currentcallview.ui:393
 msgid "Adjust outgoing video quality"
-msgstr ""
+msgstr "تنظیم کیفیت ویدیو خروجی"
 
 #: ui/currentcallview.ui:398 ui/currentcallview.ui:492
 msgid "Video quality"
@@ -119,7 +119,7 @@ msgstr "کیفیت ویدیو"
 
 #: ui/currentcallview.ui:417
 msgid "Toggle show chat"
-msgstr ""
+msgstr "تاگل نمایش چت"
 
 #: ui/currentcallview.ui:421 ui/currentcallview.ui:438
 msgid "Chat"
@@ -147,7 +147,7 @@ msgstr "ساخت حساب رینگ"
 
 #: ui/accountcreationwizard.ui:65
 msgid "Create a new Ring account (for new users)"
-msgstr ""
+msgstr "ایجاد یک حساب رینگ جدید (برای کاربران جدید)"
 
 #: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
@@ -155,7 +155,7 @@ msgstr "پیوند این افزاره به یک حساب"
 
 #: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Ring account created on another device"
-msgstr ""
+msgstr "پیوند این دستگاه به یک حساب رینگ ایجاد شده روی یک دستگاه دیگر"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:883
@@ -168,7 +168,7 @@ msgstr "پیشرفته"
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
-msgstr ""
+msgstr "افزودن یک حساب کاربری جدید SIP"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
@@ -235,7 +235,7 @@ msgstr "نام کاربری"
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "از این گذرواژه برای رمزنگاری داده های حساب شما و برای پیوند دادن دستگاه های جدید به حساب شما  استفاده خواهد شد."
 
 #: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:873
 msgid "Confirm password"
@@ -272,11 +272,11 @@ msgstr "تنظیمات رینگ"
 
 #: ui/generalsettingsview.ui:62
 msgid "Start Ring on login"
-msgstr ""
+msgstr "باز کردن رینگ در هنگام لاگین"
 
 #: ui/generalsettingsview.ui:70
 msgid "Show Ring icon in the notification area (systray)."
-msgstr ""
+msgstr "نمایش آیکون رینگ در ناحیه نوتیفیکیشن (systray)."
 
 #: ui/generalsettingsview.ui:78
 msgid "Bring Ring to the foreground on incoming calls."
@@ -284,7 +284,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:86
 msgid "Enable notifications for incoming calls."
-msgstr ""
+msgstr "فعال سازی نوتیفیکیشن ها برای تماس های دریافتی"
 
 #: ui/generalsettingsview.ui:94
 msgid "Enable notifications for pending requests."
@@ -292,11 +292,11 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:102
 msgid "Enable notifications for new chat messages."
-msgstr ""
+msgstr "فعال سازی نوتیفیکیشن ها برای پیام های چت جدید"
 
 #: ui/generalsettingsview.ui:110
 msgid "Show images and videos in chat window."
-msgstr ""
+msgstr "نمایش تصاویر و ویدیو ها در پنجره چت"
 
 #: ui/generalsettingsview.ui:118
 msgid "Entering a number in the search entry will place a new call."
@@ -312,7 +312,7 @@ msgstr "نمایش چت در سمت راست."
 
 #: ui/generalsettingsview.ui:164
 msgid "Show chat on the bottom."
-msgstr ""
+msgstr "نمایش چت در پایین."
 
 #: ui/generalsettingsview.ui:188
 msgid "History Settings"
@@ -320,7 +320,7 @@ msgstr "تنظیمات تاریخچه"
 
 #: ui/generalsettingsview.ui:206
 msgid "Keep history for (days):"
-msgstr ""
+msgstr "نگه داشتن تاریخچه برای (روز):"
 
 #: ui/generalsettingsview.ui:227
 msgid "(set to 0 for unlimited history)"
@@ -364,7 +364,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:52
 msgid "Ringtone device:"
-msgstr ""
+msgstr "دستگاه صدای زنگ:"
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
@@ -400,7 +400,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
-msgstr ""
+msgstr "فعال سازی رمزگشایی سخت افزار:"
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
@@ -423,7 +423,7 @@ msgstr "گذرواژ (الزامی):"
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
-msgstr ""
+msgstr "گذرواژه آرشیو را وارد کنید"
 
 #: ui/newaccountsettingsview.ui:189
 msgid "Export on the Ring"
@@ -468,7 +468,7 @@ msgstr "پراکسی"
 
 #: ui/newaccountsettingsview.ui:846
 msgid "Voicemail"
-msgstr ""
+msgstr "پیامگیر صوتی"
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Ring account"
@@ -524,7 +524,7 @@ msgstr "خود راه اندازی"
 
 #: ui/newaccountsettingsview.ui:1503
 msgid "Encrypt media streams (SRTP)"
-msgstr ""
+msgstr "رمزنگاری جریان های مدیا (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1538
 msgid "Enable SDES for key exchange protocol"
@@ -560,7 +560,7 @@ msgstr "پروتکل روش TLS"
 
 #: ui/newaccountsettingsview.ui:1826
 msgid "Outgoing TLS server name"
-msgstr ""
+msgstr "نام سرور TLS خروجی"
 
 #: ui/newaccountsettingsview.ui:1861
 msgid "Negotiation timeout (seconds)"
@@ -604,15 +604,15 @@ msgstr "استفاده از TURN"
 
 #: ui/newaccountsettingsview.ui:2197
 msgid "(TURN) address"
-msgstr ""
+msgstr "نشانی (TURN)"
 
 #: ui/newaccountsettingsview.ui:2232
 msgid "(TURN) username"
-msgstr ""
+msgstr "نام کاربری (TURN)"
 
 #: ui/newaccountsettingsview.ui:2266
 msgid "(TURN) password"
-msgstr ""
+msgstr "گذرواژه (TURN)"
 
 #: ui/newaccountsettingsview.ui:2303
 msgid "(TURN) realm"
@@ -624,15 +624,15 @@ msgstr "از STUN استفاده کن"
 
 #: ui/newaccountsettingsview.ui:2372
 msgid "(STUN) address"
-msgstr ""
+msgstr "نشانی (STUN)"
 
 #: ui/newaccountsettingsview.ui:2405
 msgid "Published address"
-msgstr ""
+msgstr "نشانی منتشر شده"
 
 #: ui/newaccountsettingsview.ui:2442
 msgid "Use custom address and port"
-msgstr ""
+msgstr "استفاده از نشانی و پورت سفارشی"
 
 #: ui/newaccountsettingsview.ui:2513
 msgid "Port"
@@ -676,7 +676,7 @@ msgstr ""
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "ثبت نام کاربری"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -684,27 +684,27 @@ msgstr ""
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
-msgstr ""
+msgstr "قراردهی تماس"
 
 #: ui/chatview.ui:62
 msgid "Place audio-only call"
-msgstr ""
+msgstr "فقط قراردهی تماس صوتی"
 
 #: ui/chatview.ui:75
 msgid "Add to conversations"
-msgstr ""
+msgstr "افزودن به مکالمه ها"
 
 #: ui/chatview.ui:134
 msgid "Send Invitation"
-msgstr ""
+msgstr "ارسال دعوت نامه"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
-msgstr ""
+msgstr "ضبط پیام صوتی"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "پایان داده بدون پیام"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
@@ -724,7 +724,7 @@ msgstr "عکس  بگیرید!"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr ""
+msgstr "انتخاب تصویر از فایل"
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
@@ -802,7 +802,7 @@ msgstr "گذرواژه حساب کاربری رینگ خود را وارد کن�
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
-msgstr ""
+msgstr "در حال انجام ثبت نام..."
 
 #: src/generalsettingsview.cpp:107
 msgid ""
@@ -823,7 +823,7 @@ msgstr "_لغو"
 #: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:344
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
 msgid "_Save"
-msgstr ""
+msgstr "_ذخیره"
 
 #: src/backends/edscontactbackend.cpp:193
 msgid "Unknown EDS addressbook"
@@ -929,11 +929,11 @@ msgstr ""
 
 #: src/video/video_widget.cpp:594
 msgid "Share _monitor"
-msgstr ""
+msgstr "به اشتراک گذاری _مانیتور"
 
 #: src/video/video_widget.cpp:605
 msgid "Stream _file"
-msgstr ""
+msgstr "جریان _فایل"
 
 #: src/video/video_widget.cpp:618
 msgid "Show advanced information"
@@ -949,7 +949,7 @@ msgstr "_گشودن"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "در حال کار..."
 
 #: src/dialogs.c:84
 #, c-format
@@ -1039,15 +1039,15 @@ msgstr ""
 
 #: src/conversationpopupmenu.cpp:214
 msgid "Place _video call"
-msgstr ""
+msgstr "قراردهی _تماس ویدیویی"
 
 #: src/conversationpopupmenu.cpp:217
 msgid "Place _audio call"
-msgstr ""
+msgstr "قراردهی _تماس صوتی"
 
 #: src/conversationpopupmenu.cpp:225
 msgid "_Add to conversations"
-msgstr ""
+msgstr "_افزودن به مکالمه ها"
 
 #: src/conversationpopupmenu.cpp:229
 msgid "_Discard invitation"
@@ -1144,7 +1144,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:810
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "گذرواژه و تاییدیه آن با هم فرق میکنند!"
 
 #: src/newaccountsettingsview.cpp:821
 msgid "Incorrect password!"

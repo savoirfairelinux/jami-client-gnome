@@ -10,6 +10,7 @@
 # 58488fdf1f53566f81eaccfc864e95ce, 2018
 # Keven de Oliveira <keven@zenbackup.com.br>, 2015
 # Marcus Vinicius Lemes de Oliveira <mlemes@live.com>, 2016
+# Marie Pelland <marie.pelland@savoirfairelinux.com>, 2018
 # Nícolas Wildner <nicolasgaucho@gmail.com>, 2015
 # Ramiro Varandas Jr <ramirovjnr@gmail.com>, 2016
 # Raul Dipeas <rauldipeas@outlook.com>, 2015
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-29 03:09-0400\n"
-"PO-Revision-Date: 2018-10-01 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-11-05 03:09-0500\n"
+"PO-Revision-Date: 2018-11-01 20:44+0000\n"
+"Last-Translator: Marie Pelland <marie.pelland@savoirfairelinux.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/ring/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -708,11 +709,11 @@ msgstr "Enviar Convite"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
-msgstr ""
+msgstr "Gravar mensagem de áudio"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "Terminar sem mensagem"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
@@ -975,15 +976,15 @@ msgstr "O cliente GNOME para Ring.\nRing é um software livre para comunicação
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
-msgstr ""
+msgstr "O contato parece estar ocupado. Deixe um mensagem ?"
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "Pare de gravar"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
-msgstr ""
+msgstr "Enviar mensagem gravada"
 
 #: src/ringmainwindow.cpp:174
 msgid "Add account…"

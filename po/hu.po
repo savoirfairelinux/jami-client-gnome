@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-29 03:09-0400\n"
-"PO-Revision-Date: 2018-10-01 21:35+0000\n"
+"POT-Creation-Date: 2018-11-05 03:09-0500\n"
+"PO-Revision-Date: 2018-10-30 09:46+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -136,7 +136,7 @@ msgstr "Átirányítás"
 
 #: ui/accountcreationwizard.ui:30
 msgid "Welcome to"
-msgstr "Üdvözli a"
+msgstr "Isten hozott"
 
 #: ui/accountcreationwizard.ui:64
 msgid "Create Ring Account"
@@ -161,7 +161,7 @@ msgstr "Mégse"
 
 #: ui/accountcreationwizard.ui:86
 msgid "Advanced…"
-msgstr "Speciális…"
+msgstr "Haladó…"
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
@@ -424,7 +424,7 @@ msgstr "Adja meg az archívum jelszavát"
 
 #: ui/newaccountsettingsview.ui:189
 msgid "Export on the Ring"
-msgstr "Exportálás a Ringen"
+msgstr "Ring exportálása"
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Ring…"
@@ -452,7 +452,7 @@ msgstr "Fiók engedélyezése"
 
 #: ui/newaccountsettingsview.ui:697
 msgid "SIP server"
-msgstr "SIP szerver"
+msgstr "SIP kiszolgáló"
 
 #: ui/newaccountsettingsview.ui:779
 msgid "password"
@@ -481,7 +481,7 @@ msgstr "Letiltott partnerek"
 
 #: ui/newaccountsettingsview.ui:1081
 msgid "Advanced settings"
-msgstr "Speciális beállítások"
+msgstr "Haladó beállítások"
 
 #: ui/newaccountsettingsview.ui:1117
 msgid "General settings"
@@ -505,7 +505,7 @@ msgstr "Egyéni csengőhang"
 
 #: ui/newaccountsettingsview.ui:1288
 msgid "Name server"
-msgstr "Névszerver"
+msgstr "Kiszolgálói néve"
 
 #: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2478
 msgid "Address"
@@ -513,7 +513,7 @@ msgstr "Cím"
 
 #: ui/newaccountsettingsview.ui:1359
 msgid "OpenDHT configuration"
-msgstr "OpenDHT konfiguráció"
+msgstr "OpenDHT beállítások"
 
 #: ui/newaccountsettingsview.ui:1443
 msgid "Bootstrap"
@@ -561,7 +561,7 @@ msgstr "Kimenő TLS kiszolgálónév"
 
 #: ui/newaccountsettingsview.ui:1861
 msgid "Negotiation timeout (seconds)"
-msgstr "Tárgyalási időtúllépés (másodpercben)"
+msgstr "Tárgyalási időtúllépés (másodperc)"
 
 #: ui/newaccountsettingsview.ui:1897
 msgid "Verify incoming certificates (server side)"
@@ -585,7 +585,7 @@ msgstr "Kapcsolódás"
 
 #: ui/newaccountsettingsview.ui:2054
 msgid "Registration expire timeout (seconds)"
-msgstr "Regisztráció érvényességének lejárta (másodpercekben)"
+msgstr "Regisztráció érvényességének lejárta (másodperc)"
 
 #: ui/newaccountsettingsview.ui:2091
 msgid "Network interface"
@@ -613,7 +613,7 @@ msgstr "(TURN) jelszó"
 
 #: ui/newaccountsettingsview.ui:2303
 msgid "(TURN) realm"
-msgstr "(TURN) birodalom"
+msgstr "(TURN) tartomány"
 
 #: ui/newaccountsettingsview.ui:2337
 msgid "Use STUN"
@@ -934,7 +934,7 @@ msgstr "Stream _fájl"
 
 #: src/video/video_widget.cpp:618
 msgid "Show advanced information"
-msgstr "Speciális információk megjelenítése"
+msgstr "Haladó információk megjelenítése"
 
 #: src/avatarmanipulation.cpp:403
 msgid "Open Avatar Image"
@@ -1096,14 +1096,14 @@ msgstr "A jelszavak nem egyeznek"
 msgid ""
 "This is your Ring username.\n"
 "Copy and share it with your friends!"
-msgstr "Ez a Ring felhasználóneve.\nMásolja ki, és ossza meg barátaival!"
+msgstr "Ez az Ön Ring azonosítója.\nMásolja ki, és ossza meg barátaival!"
 
 #: src/ringwelcomeview.cpp:93
 msgctxt "Do not translate \"RingID\""
 msgid ""
 "This is your RingID.\n"
 "Copy and share it with your friends!"
-msgstr "Ez az ön Ring azonosítója.\nMásolja ki, és ossza meg a barátaival!"
+msgstr "Ez az Ön Ring azonosítója.\nMásolja és ossza meg a barátaival!"
 
 #: src/ringwelcomeview.cpp:150
 msgid ""

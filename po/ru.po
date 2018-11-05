@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-29 03:09-0400\n"
-"PO-Revision-Date: 2018-10-24 15:10+0000\n"
+"POT-Creation-Date: 2018-11-05 03:09-0500\n"
+"PO-Revision-Date: 2018-11-02 20:25+0000\n"
 "Last-Translator: Vladimir Stoiakin\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -87,7 +87,7 @@ msgstr "Завершить вызов"
 
 #: ui/currentcallview.ui:275
 msgid "Toggle transfer"
-msgstr "Переключить перенаправление"
+msgstr "Включить/выключить переадресацию"
 
 #: ui/currentcallview.ui:294
 msgid "Toggle hold"
@@ -141,11 +141,11 @@ msgstr "Отключить звук"
 
 #: ui/currentcallview.ui:474
 msgid "Transfer"
-msgstr "Перевод"
+msgstr "Переадресация"
 
 #: ui/currentcallview.ui:524
 msgid "Transfer to"
-msgstr "Перенаправить на"
+msgstr "Переадресовать на"
 
 #: ui/accountcreationwizard.ui:30
 msgid "Welcome to"
@@ -298,7 +298,7 @@ msgstr "Включить уведомления о входящих звонка
 
 #: ui/generalsettingsview.ui:94
 msgid "Enable notifications for pending requests."
-msgstr "Разрешить уведомления для ожидающих запросов."
+msgstr "Включить уведомления о запросах на добавление в контакты."
 
 #: ui/generalsettingsview.ui:102
 msgid "Enable notifications for new chat messages."
@@ -694,7 +694,7 @@ msgstr "Скрыть чат"
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
-msgstr "Сделать звонок"
+msgstr "Сделать видеозвонок"
 
 #: ui/chatview.ui:62
 msgid "Place audio-only call"
@@ -714,7 +714,7 @@ msgstr "Записать голосовое сообщение"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "Выйти без отправки сообщения"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
@@ -1026,7 +1026,7 @@ msgstr "Новый запрос от"
 
 #: src/ringmainwindow.cpp:1979
 msgid "Trust request"
-msgstr "Доверять запросу"
+msgstr ""
 
 #: src/ringmainwindow.cpp:2036
 msgid "New message"

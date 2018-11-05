@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-29 03:09-0400\n"
-"PO-Revision-Date: 2018-10-24 19:13+0000\n"
+"POT-Creation-Date: 2018-11-05 03:09-0500\n"
+"PO-Revision-Date: 2018-10-29 23:34+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/savoirfairelinux/ring/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr "Afslut opkald"
 
 #: ui/currentcallview.ui:275
 msgid "Toggle transfer"
-msgstr ""
+msgstr "Skift overfør"
 
 #: ui/currentcallview.ui:294
 msgid "Toggle hold"
@@ -100,7 +100,7 @@ msgstr "Mute video"
 
 #: ui/currentcallview.ui:369
 msgid "Toggle recording"
-msgstr ""
+msgstr "Skift optagelse"
 
 #: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 #: ui/messagingwidget.ui:29
@@ -253,7 +253,7 @@ msgstr "Dette kan tage nogle minutter."
 
 #: ui/accountcreationwizard.ui:621
 msgid "Retrieving your Ring account…"
-msgstr ""
+msgstr "Indhenter din Ring-konto…"
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
@@ -286,7 +286,7 @@ msgstr "Aktiver notifikationer for indgående opkald"
 
 #: ui/generalsettingsview.ui:94
 msgid "Enable notifications for pending requests."
-msgstr ""
+msgstr "Aktiver notifikationer for afventende anmodninger."
 
 #: ui/generalsettingsview.ui:102
 msgid "Enable notifications for new chat messages."
@@ -429,7 +429,7 @@ msgstr "Eksporter til Ring"
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Ring…"
-msgstr ""
+msgstr "Eksporterer konto på Ring…"
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -441,7 +441,7 @@ msgstr "ID"
 
 #: ui/newaccountsettingsview.ui:538
 msgid "Click to change password"
-msgstr ""
+msgstr "Klik for at skifte adgangskode"
 
 #: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1997
 msgid "Export account"
@@ -466,7 +466,7 @@ msgstr "Stedfortræder"
 
 #: ui/newaccountsettingsview.ui:846
 msgid "Voicemail"
-msgstr ""
+msgstr "Telefonsvarer"
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Ring account"
@@ -474,11 +474,11 @@ msgstr "Kendte enheder som er tilknyttet denne Ring-konto"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
-msgstr ""
+msgstr "Tilknyt en anden enhed"
 
 #: ui/newaccountsettingsview.ui:1025
 msgid "Banned contacts"
-msgstr ""
+msgstr "Blokerede kontakter"
 
 #: ui/newaccountsettingsview.ui:1081
 msgid "Advanced settings"
@@ -494,15 +494,15 @@ msgstr "Opkaldsindstillinger"
 
 #: ui/newaccountsettingsview.ui:1173
 msgid "Allow call from untrusted peers"
-msgstr ""
+msgstr "Tillad opkald fra partere som der ikke er tillid til"
 
 #: ui/newaccountsettingsview.ui:1208
 msgid "Auto answer calls"
-msgstr ""
+msgstr "Besvar opkald automatisk"
 
 #: ui/newaccountsettingsview.ui:1244
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Brugervalgt ringetone"
 
 #: ui/newaccountsettingsview.ui:1288
 msgid "Name server"
@@ -514,7 +514,7 @@ msgstr "Adresse"
 
 #: ui/newaccountsettingsview.ui:1359
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "OpenDHT-konfiguration"
 
 #: ui/newaccountsettingsview.ui:1443
 msgid "Bootstrap"
@@ -526,7 +526,7 @@ msgstr "Krypter mediestrømme (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1538
 msgid "Enable SDES for key exchange protocol"
-msgstr ""
+msgstr "Aktivér SDES for nøgleudvekslingsprotokol"
 
 #: ui/newaccountsettingsview.ui:1574
 msgid "Fallback on RTP on encryption failure"
@@ -582,11 +582,11 @@ msgstr "Sikkerhed"
 
 #: ui/newaccountsettingsview.ui:2016
 msgid "Connectivity"
-msgstr ""
+msgstr "Forbindelse"
 
 #: ui/newaccountsettingsview.ui:2054
 msgid "Registration expire timeout (seconds)"
-msgstr ""
+msgstr "Tidsgrænse for registrering (sekunder)"
 
 #: ui/newaccountsettingsview.ui:2091
 msgid "Network interface"
@@ -602,19 +602,19 @@ msgstr "Brug TURN"
 
 #: ui/newaccountsettingsview.ui:2197
 msgid "(TURN) address"
-msgstr ""
+msgstr "(TURN) adresse"
 
 #: ui/newaccountsettingsview.ui:2232
 msgid "(TURN) username"
-msgstr ""
+msgstr "(TURN) brugernavn"
 
 #: ui/newaccountsettingsview.ui:2266
 msgid "(TURN) password"
-msgstr ""
+msgstr "(TURN) adgangskode"
 
 #: ui/newaccountsettingsview.ui:2303
 msgid "(TURN) realm"
-msgstr ""
+msgstr "(TURN) realm"
 
 #: ui/newaccountsettingsview.ui:2337
 msgid "Use STUN"
@@ -622,15 +622,15 @@ msgstr "Brug STUN"
 
 #: ui/newaccountsettingsview.ui:2372
 msgid "(STUN) address"
-msgstr ""
+msgstr "(STUN) adresse"
 
 #: ui/newaccountsettingsview.ui:2405
 msgid "Published address"
-msgstr ""
+msgstr "Udgivet adresse"
 
 #: ui/newaccountsettingsview.ui:2442
 msgid "Use custom address and port"
-msgstr ""
+msgstr "Brug brugervalgt adresse og port"
 
 #: ui/newaccountsettingsview.ui:2513
 msgid "Port"
@@ -654,27 +654,27 @@ msgstr "SDP Sessions-forhandling (ICE-tilbagefald)"
 
 #: ui/newaccountsettingsview.ui:2721
 msgid "Only used during SDP negotiation in case ICE is not supported."
-msgstr ""
+msgstr "Bruges kun under SDP-forhandling hvis ICE ikke understøttes."
 
 #: ui/newaccountsettingsview.ui:2755
 msgid "Audio RTP Min port"
-msgstr ""
+msgstr "Min. port for lyd-RTP"
 
 #: ui/newaccountsettingsview.ui:2790
 msgid "Audio RTP Max port"
-msgstr ""
+msgstr "Maks. port for lyd-RTP "
 
 #: ui/newaccountsettingsview.ui:2825
 msgid "Video RTP Min port"
-msgstr ""
+msgstr "Min. port for video-RTP "
 
 #: ui/newaccountsettingsview.ui:2860
 msgid "Video RTP Max port"
-msgstr ""
+msgstr "Maks. port for video-RTP "
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "registrer brugernavn"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -698,11 +698,11 @@ msgstr "Send Invitation"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
-msgstr ""
+msgstr "Optag lydmeddelelse"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "Afslut uden meddelelese"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
@@ -757,7 +757,7 @@ msgstr "Afslut"
 #: src/ringnotify.cpp:338
 msgctxt ""
 msgid "Open conversation"
-msgstr ""
+msgstr "Åbn samtale"
 
 #: src/ringnotify.cpp:346 src/ringnotify.cpp:362
 msgctxt ""
@@ -776,7 +776,7 @@ msgstr "Afvis"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
-msgstr ""
+msgstr "Registrer brugernavnet på navneserveren"
 
 #: src/usernameregistrationbox.cpp:173
 msgid "Username already taken"
@@ -788,19 +788,19 @@ msgstr "Ugyldigt brugernavn"
 
 #: src/usernameregistrationbox.cpp:194
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "Opslag utilgængeligt - tjek din netværksforbindelse"
 
 #: src/usernameregistrationbox.cpp:274
 msgid "Performing lookup…"
-msgstr ""
+msgstr "Udfører opslag…"
 
 #: src/usernameregistrationbox.cpp:313
 msgid "Enter the password of your Ring account"
-msgstr ""
+msgstr "Indtast adgangskoden til din Ring-konto"
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
-msgstr ""
+msgstr "Igangværende registrering…"
 
 #: src/generalsettingsview.cpp:107
 msgid ""
@@ -810,7 +810,7 @@ msgstr "Dette er en destruktiv handling. Er du sikker på, at du vil slette al h
 
 #: src/generalsettingsview.cpp:177
 msgid "Choose download folder"
-msgstr ""
+msgstr "Vælg downloadmappe"
 
 #: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:342
 #: src/avatarmanipulation.cpp:406 src/chatview.cpp:178
@@ -863,11 +863,11 @@ msgstr "Fil eksporteret til destination:"
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Advarsel! Handlingen vil tilbagetrække enheden!\nBemærk: handlingen kan ikke fortrydes."
 
 #: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:621
 msgid "Enter password to revoke device"
-msgstr ""
+msgstr "Indtast adgangskode for at tilbagetrække enhed"
 
 #: src/accountgeneraltab.cpp:516
 msgid "New password and its confirmation are different"
@@ -891,7 +891,7 @@ msgstr "Tilbagetræk enheden"
 
 #: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:701
 msgid "Error when revoking device"
-msgstr ""
+msgstr "Fejl under tilbagetrækning af enhed"
 
 #: src/accountgeneraltab.cpp:630
 msgid "Type"
@@ -899,7 +899,7 @@ msgstr "Type"
 
 #: src/accountgeneraltab.cpp:656
 msgid "auto-generating…"
-msgstr ""
+msgstr "Generer automatisk…"
 
 #: src/accountgeneraltab.cpp:686
 msgid "Hostname"
@@ -915,11 +915,11 @@ msgstr "Telefonsvarernummer"
 
 #: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1788
 msgid "Error: wrong password!"
-msgstr ""
+msgstr "Fejl: forkert adgangskode!"
 
 #: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1791
 msgid "Error: unknown device!"
-msgstr ""
+msgstr "Fejl: ukendt enhed!"
 
 #: src/video/video_widget.cpp:583
 msgid "Share _screen area"
@@ -955,7 +955,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Live Free or Die\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Live Free or Die\"\nbygget %.25s"
 
 #: src/dialogs.c:137
 msgid ""
@@ -965,7 +965,7 @@ msgstr "GNOME-klienten til Ring.\nRing er fri software til universel kommunikati
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
-msgstr ""
+msgstr "Kontakten ser ud til at være optaget. Efterlad en meddelelse?"
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
@@ -973,7 +973,7 @@ msgstr "Stop optagelse"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
-msgstr ""
+msgstr "Send optagede meddelelse"
 
 #: src/ringmainwindow.cpp:174
 msgid "Add account…"
@@ -998,11 +998,11 @@ msgstr "Søg efter kontakt eller indtast nummer"
 
 #: src/ringmainwindow.cpp:1466
 msgid "Leave settings page"
-msgstr ""
+msgstr "Forlad indstillingsside"
 
 #: src/ringmainwindow.cpp:1823
 msgid " is calling you!"
-msgstr ""
+msgstr " kalder dig!"
 
 #: src/ringmainwindow.cpp:1824
 msgid "Incoming call"
@@ -1010,11 +1010,11 @@ msgstr "Indgående opkald"
 
 #: src/ringmainwindow.cpp:1978
 msgid "New request from "
-msgstr ""
+msgstr "Ny anmodning fra "
 
 #: src/ringmainwindow.cpp:1979
 msgid "Trust request"
-msgstr ""
+msgstr "Hav tillid til anmodning"
 
 #: src/ringmainwindow.cpp:2036
 msgid "New message"
@@ -1027,7 +1027,7 @@ msgstr "Ring-fejl"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Ring daemon (dring)…"
-msgstr ""
+msgstr "Prøver at genoprette forbindelse til Ring-dæmonen (dring)…"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
@@ -1069,7 +1069,7 @@ msgstr "_Bloker kontakt"
 
 #: src/conversationpopupmenu.cpp:249
 msgid "_Unblock contact"
-msgstr ""
+msgstr "_Fjern blokering af kontakt"
 
 #: src/conversationpopupmenu.cpp:255
 msgid "_Copy name"
@@ -1115,7 +1115,7 @@ msgstr "Ring er fri software til universel kommunikation som respekterer sine br
 #: src/ringwelcomeview.cpp:204
 msgctxt "Do not translate \"RingID\""
 msgid "RingID QR code"
-msgstr ""
+msgstr "QR-kode for RingID"
 
 #: src/chatview.cpp:175
 msgid "Send File"
@@ -1125,7 +1125,7 @@ msgstr "Send fil"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
+msgstr "Advarsel! Handlingen vil fjerne kontoen på enheden!\nBemærk: handlingen kan ikke fortrydes. Desuden kan dit registrerede navn gå tabt!"
 
 #: src/currentcallview.cpp:935
 msgctxt "Enable automatic video quality"
@@ -1138,15 +1138,15 @@ msgstr "Rediger navn"
 
 #: src/newaccountsettingsview.cpp:774
 msgid "Unban"
-msgstr ""
+msgstr "Fjern blokering"
 
 #: src/newaccountsettingsview.cpp:810
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "Ny adgangskode og dens bekræftelse er forskellige!"
 
 #: src/newaccountsettingsview.cpp:821
 msgid "Incorrect password!"
-msgstr ""
+msgstr "Forkert adgangskode!"
 
 #: src/newaccountsettingsview.cpp:858
 msgid "Note: this will change the password only on this device."
@@ -1162,11 +1162,11 @@ msgstr "Ny adgangskode"
 
 #: src/newaccountsettingsview.cpp:947
 msgid "Account exported!"
-msgstr ""
+msgstr "Konto eksporteret!"
 
 #: src/newaccountsettingsview.cpp:947
 msgid "Export account failure."
-msgstr ""
+msgstr "Eksport af konto mislykkedes."
 
 #: src/newaccountsettingsview.cpp:1717
 msgid "Unknown error"
@@ -1182,7 +1182,7 @@ msgstr "Ingen forbindelse"
 
 #: src/newaccountsettingsview.cpp:1968
 msgid "Connecting…"
-msgstr ""
+msgstr "Opretter forbindelse…"
 
 #: src/newaccountsettingsview.cpp:1971
 msgid "Online"
@@ -1194,8 +1194,8 @@ msgstr "Ukendt status"
 
 #: src/newaccountsettingsview.cpp:2008
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2008
 msgid "no password set"
-msgstr ""
+msgstr "der er ikke indstillet nogen adgangskode"
