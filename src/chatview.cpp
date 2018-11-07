@@ -315,8 +315,12 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
                 auto wantedFilename = filename + info.displayName;
                 auto duplicate = 0;
                 while (std::ifstream(wantedFilename).good()) {
-                    wantedFilename = filename + "(" + std::to_string(duplicate) + ")" + info.displayName;
                     ++duplicate;
+                    auto extensionIdx = info.displayName.find_last_of(".");
+                    if (extensionIdx == std::string::npos)
+                        wantedFilename = filename + info.displayName + " (" + std::to_string(duplicate) + ")";
+                    else
+                        wantedFilename = filename + info.displayName.substr(0, extensionIdx) + " (" + std::to_string(duplicate) + ")" + info.displayName.substr(extensionIdx);
                 }
                 model->acceptTransfer(priv->conversation_->uid, interactionId, wantedFilename);
             } catch (...) {
