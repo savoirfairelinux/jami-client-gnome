@@ -5,12 +5,13 @@
 # Translators:
 # Bert Frederiks <bert2017@elektroaandrijving.nl>, 2017
 # Nathan Follens, 2018
+# Peter Dhaene <pdhaene.transifex.ue8c2i@nym.hush.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-05 03:09-0500\n"
-"PO-Revision-Date: 2018-10-21 14:10+0000\n"
+"POT-Creation-Date: 2018-11-12 03:09-0500\n"
+"PO-Revision-Date: 2018-11-10 14:54+0000\n"
 "Last-Translator: Peter Dhaene <pdhaene.transifex.ue8c2i@nym.hush.com>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/savoirfairelinux/ring/language/nl_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +34,7 @@ msgstr "Accountmigratie vereist"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "Dit account is slecht gevormd, gelieve uw paswoord in te geven"
 
 #: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:619
 msgid "Alias"
@@ -61,7 +62,7 @@ msgstr "Account verwijderen"
 
 #: ui/accountmigrationview.ui:231
 msgid "Migration failed, wrong password?"
-msgstr ""
+msgstr "De migratie is mislukt, verkeerd paswoord?"
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
@@ -73,7 +74,7 @@ msgstr "Oproep b’eindigen"
 
 #: ui/currentcallview.ui:275
 msgid "Toggle transfer"
-msgstr ""
+msgstr "Overdracht omschakelen"
 
 #: ui/currentcallview.ui:294
 msgid "Toggle hold"
@@ -98,7 +99,7 @@ msgstr "Video uitschakelen"
 
 #: ui/currentcallview.ui:369
 msgid "Toggle recording"
-msgstr ""
+msgstr "Opname omschakelen"
 
 #: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 #: ui/messagingwidget.ui:29
@@ -131,7 +132,7 @@ msgstr "Overdracht"
 
 #: ui/currentcallview.ui:524
 msgid "Transfer to"
-msgstr ""
+msgstr "Overbrengen naar"
 
 #: ui/accountcreationwizard.ui:30
 msgid "Welcome to"
@@ -160,11 +161,11 @@ msgstr "Annuleren"
 
 #: ui/accountcreationwizard.ui:86
 msgid "Advanced…"
-msgstr ""
+msgstr "Geavanceerd"
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
-msgstr ""
+msgstr "SIP-account toevoegen"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
@@ -212,7 +213,7 @@ msgstr "Account"
 
 #: ui/accountcreationwizard.ui:387
 msgid "Register username"
-msgstr ""
+msgstr "Registreer gebruikersnaam"
 
 #: ui/accountcreationwizard.ui:388
 msgid ""
@@ -239,11 +240,11 @@ msgstr "Bevestigd paswoord"
 
 #: ui/accountcreationwizard.ui:562
 msgid "Generating your Ring account…"
-msgstr ""
+msgstr "Uw Ring-account wordt aangemaakt..."
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
-msgstr ""
+msgstr "Gebruikersnaam wordt geregistreerd..."
 
 #: ui/accountcreationwizard.ui:595
 msgid "This may take a few minutes."
@@ -251,7 +252,7 @@ msgstr "Dit kan enkele minuten duren."
 
 #: ui/accountcreationwizard.ui:621
 msgid "Retrieving your Ring account…"
-msgstr ""
+msgstr "Uw Ring-account wordt opgehaald..."
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
@@ -451,7 +452,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:697
 msgid "SIP server"
-msgstr ""
+msgstr "SIP-server"
 
 #: ui/newaccountsettingsview.ui:779
 msgid "password"
@@ -464,7 +465,7 @@ msgstr "Proxy"
 
 #: ui/newaccountsettingsview.ui:846
 msgid "Voicemail"
-msgstr ""
+msgstr "Gesproken berichten"
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Ring account"
@@ -472,11 +473,11 @@ msgstr "Gekende apparaten gekoppeld aan deze Ring-account"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
-msgstr ""
+msgstr "Apparaat koppelen"
 
 #: ui/newaccountsettingsview.ui:1025
 msgid "Banned contacts"
-msgstr ""
+msgstr "Verbannen contacten"
 
 #: ui/newaccountsettingsview.ui:1081
 msgid "Advanced settings"
@@ -484,11 +485,11 @@ msgstr "G’avanceerde instellingen"
 
 #: ui/newaccountsettingsview.ui:1117
 msgid "General settings"
-msgstr ""
+msgstr "Algemene instellingen"
 
 #: ui/newaccountsettingsview.ui:1135
 msgid "Call settings"
-msgstr ""
+msgstr "Gespreksinstellingen"
 
 #: ui/newaccountsettingsview.ui:1173
 msgid "Allow call from untrusted peers"
@@ -1132,7 +1133,7 @@ msgstr "Auto"
 
 #: src/newaccountsettingsview.cpp:679
 msgid "Edit name"
-msgstr ""
+msgstr "Bewerk naam"
 
 #: src/newaccountsettingsview.cpp:774
 msgid "Unban"
@@ -1180,7 +1181,7 @@ msgstr "Offline"
 
 #: src/newaccountsettingsview.cpp:1968
 msgid "Connecting…"
-msgstr ""
+msgstr "Aan het verbinden..."
 
 #: src/newaccountsettingsview.cpp:1971
 msgid "Online"
@@ -1188,12 +1189,12 @@ msgstr "Online"
 
 #: src/newaccountsettingsview.cpp:1975
 msgid "Unknown status"
-msgstr ""
+msgstr "Onbekende status"
 
 #: src/newaccountsettingsview.cpp:2008
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2008
 msgid "no password set"
-msgstr ""
+msgstr "geen paswoord ingesteld"
