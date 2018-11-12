@@ -8,7 +8,7 @@
 # Alexandre Lision, 2015
 # Alexandre Macabies <web+transifex@zopieux.com>, 2017
 # Alex Garel <alex.garel@gmail.com>, 2016
-# Anthony Léonard <anthony.leonard@savoirfairelinux.com>, 2017
+# 17373e25dc4e21ad6338b9498621c066, 2017
 # Baptiste Jonglez, 2016
 # Breizh <breizh@breizh.noho.st>, 2016
 # Bruno Pagani <bruno.n.pagani@gmail.com>, 2015
@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-05 03:09-0500\n"
+"POT-Creation-Date: 2018-11-12 03:09-0500\n"
 "PO-Revision-Date: 2018-10-01 15:37+0000\n"
 "Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
