@@ -58,7 +58,6 @@
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
 #include "dialogs.h"
-#include "backends/edscontactbackend.h"
 #include "native/pixbufmanipulator.h"
 #include "native/dbuserrorhandler.h"
 #include "ringnotify.h"
@@ -526,23 +525,6 @@ ring_client_startup(GApplication *app)
      * that all accounts created before the display name patch have a display name
      * set... a bit of a hack as this should maybe be done in LRC */
     force_ring_display_name();
-
-    /* make sure basic number categories exist, in case user has no contacts
-     * from which these would be automatically created
-     */
-    NumberCategoryModel::instance().addCategory("work", QVariant());
-    NumberCategoryModel::instance().addCategory("home", QVariant());
-
-    /* add backends */
-    CategorizedHistoryModel::instance().addCollection<LocalHistoryCollection>(LoadOptions::FORCE_ENABLED);
-    PersonModel::instance().addCollection<PeerProfileCollection>(LoadOptions::FORCE_ENABLED);
-    ProfileModel::instance().addCollection<LocalProfileCollection>(LoadOptions::FORCE_ENABLED);
-
-    /* fallback backend for vcards */
-    PersonModel::instance().addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
-
-    /* EDS backend(s) */
-    load_eds_sources(priv->cancellable);
 
     /* Override theme since we don't have appropriate icons for a dark them (yet) */
     GtkSettings *gtk_settings = gtk_settings_get_default();
