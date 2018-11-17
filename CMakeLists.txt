@@ -286,8 +286,6 @@ SET( SRC_FILES
    src/newaccountsettingsview.cpp
    src/generalsettingsview.h
    src/generalsettingsview.cpp
-   src/backends/edscontactbackend.h
-   src/backends/edscontactbackend.cpp
    src/native/pixbufmanipulator.h
    src/native/pixbufmanipulator.cpp
    src/utils/models.h

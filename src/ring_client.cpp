@@ -58,7 +58,6 @@
 #include "ring_client_options.h"
 #include "ringmainwindow.h"
 #include "dialogs.h"
-#include "backends/edscontactbackend.h"
 #include "native/pixbufmanipulator.h"
 #include "native/dbuserrorhandler.h"
 #include "ringnotify.h"
@@ -540,9 +539,6 @@ ring_client_startup(GApplication *app)
 
     /* fallback backend for vcards */
     PersonModel::instance().addCollection<FallbackPersonCollection>(LoadOptions::FORCE_ENABLED);
-
-    /* EDS backend(s) */
-    load_eds_sources(priv->cancellable);
 
     /* Override theme since we don't have appropriate icons for a dark them (yet) */
     GtkSettings *gtk_settings = gtk_settings_get_default();

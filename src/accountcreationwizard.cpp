@@ -120,8 +120,6 @@ static guint account_creation_wizard_signals[LAST_SIGNAL] = { 0 };
 static void
 account_creation_wizard_dispose(GObject *object)
 {
-    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(object);
-
     // make sure preview is stopped and destroyed
     account_creation_wizard_show_preview(ACCOUNT_CREATION_WIZARD(object), FALSE);
 
