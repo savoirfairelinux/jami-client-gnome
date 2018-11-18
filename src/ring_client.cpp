@@ -42,7 +42,6 @@
 #include <categorizedhistorymodel.h>
 #include <personmodel.h>
 #include <fallbackpersoncollection.h>
-#include <localhistorycollection.h>
 #include <numbercategorymodel.h>
 #include <globalinstances.h>
 #include <profilemodel.h>
@@ -533,7 +532,6 @@ ring_client_startup(GApplication *app)
     NumberCategoryModel::instance().addCategory("home", QVariant());
 
     /* add backends */
-    CategorizedHistoryModel::instance().addCollection<LocalHistoryCollection>(LoadOptions::FORCE_ENABLED);
     PersonModel::instance().addCollection<PeerProfileCollection>(LoadOptions::FORCE_ENABLED);
     ProfileModel::instance().addCollection<LocalProfileCollection>(LoadOptions::FORCE_ENABLED);
 
