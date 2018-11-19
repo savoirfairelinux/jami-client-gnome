@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-12 03:09-0500\n"
-"PO-Revision-Date: 2018-10-01 07:09+0000\n"
+"POT-Creation-Date: 2018-11-19 03:09-0500\n"
+"PO-Revision-Date: 2018-11-19 08:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/savoirfairelinux/ring/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -730,7 +730,7 @@ msgstr "Tilbake"
 msgid "Set selection as image"
 msgstr "Bruk utvalg som bilde"
 
-#: src/ring_client.cpp:143
+#: src/ring_client.cpp:142
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -738,17 +738,17 @@ msgid ""
 "Error: %s"
 msgstr "Kunne ikke starte.\nForsikre deg om at Ring-nissen (dring) kjører.\nFeil: %s"
 
-#: src/ring_client.cpp:146
+#: src/ring_client.cpp:145
 msgid "Ring Error"
 msgstr "Feil med ring"
 
-#: src/ring_client.cpp:289
+#: src/ring_client.cpp:288
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr "Vis Ring"
 
-#: src/ring_client.cpp:293
+#: src/ring_client.cpp:292
 msgid "Quit"
 msgstr "Avslutt"
 
@@ -820,15 +820,6 @@ msgstr "_Avbryt"
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "_Lagre"
-
-#: src/backends/edscontactbackend.cpp:193
-msgid "Unknown EDS addressbook"
-msgstr "Ukjent EDS-adressebok"
-
-#: src/backends/edscontactbackend.cpp:213
-msgctxt "Backend type"
-msgid "Contacts"
-msgstr "Kontakter"
 
 #: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1705
 msgid "Bad password"
@@ -1087,7 +1078,7 @@ msgstr "Tilbakestiller den skjulte tilstanden til hovedvinduet (gjelder kun for 
 msgid "- GNOME client for Ring"
 msgstr "- GNOME-klient for Ring"
 
-#: src/accountcreationwizard.cpp:348
+#: src/accountcreationwizard.cpp:346
 msgid "Passwords don't match"
 msgstr "Passordene er ikke like"
 
