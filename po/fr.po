@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-12 03:09-0500\n"
-"PO-Revision-Date: 2018-10-01 15:37+0000\n"
-"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2018-11-19 03:09-0500\n"
+"PO-Revision-Date: 2018-11-19 08:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -746,7 +746,7 @@ msgstr "Annuler"
 msgid "Set selection as image"
 msgstr "Utiliser la sélection comme image de profil"
 
-#: src/ring_client.cpp:143
+#: src/ring_client.cpp:142
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -754,17 +754,17 @@ msgid ""
 "Error: %s"
 msgstr "Impossible de démarrer\nVérifier que le serveur Ring  fonctionne\nErreur: %s"
 
-#: src/ring_client.cpp:146
+#: src/ring_client.cpp:145
 msgid "Ring Error"
 msgstr "Erreur Ring"
 
-#: src/ring_client.cpp:289
+#: src/ring_client.cpp:288
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr "Afficher Ring"
 
-#: src/ring_client.cpp:293
+#: src/ring_client.cpp:292
 msgid "Quit"
 msgstr "Quitter"
 
@@ -836,15 +836,6 @@ msgstr "_Annuler"
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "_Sauvegarder"
-
-#: src/backends/edscontactbackend.cpp:193
-msgid "Unknown EDS addressbook"
-msgstr "Carnet d’adresses EDS inconnu"
-
-#: src/backends/edscontactbackend.cpp:213
-msgctxt "Backend type"
-msgid "Contacts"
-msgstr "Contacts"
 
 #: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1705
 msgid "Bad password"
@@ -1103,7 +1094,7 @@ msgstr "Restaurer l’état caché de la fenêtre principale (applicable seuleme
 msgid "- GNOME client for Ring"
 msgstr "- Ring pour GNOME"
 
-#: src/accountcreationwizard.cpp:348
+#: src/accountcreationwizard.cpp:346
 msgid "Passwords don't match"
 msgstr "Les mots de passes ne correspondent pas"
 

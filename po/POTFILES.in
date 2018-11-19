@@ -18,7 +18,6 @@ src/ring_client.cpp
 src/ringnotify.cpp
 src/usernameregistrationbox.cpp
 src/generalsettingsview.cpp
-src/backends/edscontactbackend.cpp
 src/utils/files.cpp
 src/utils/drawing.cpp
 src/utils/accounts.cpp

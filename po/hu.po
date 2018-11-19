@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-12 03:09-0500\n"
-"PO-Revision-Date: 2018-10-30 09:46+0000\n"
-"Last-Translator: . . <ovari123@zoho.com>\n"
+"POT-Creation-Date: 2018-11-19 03:09-0500\n"
+"PO-Revision-Date: 2018-11-19 08:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -731,7 +731,7 @@ msgstr "Vissza"
 msgid "Set selection as image"
 msgstr "Kijelölés beállítása képként"
 
-#: src/ring_client.cpp:143
+#: src/ring_client.cpp:142
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -739,17 +739,17 @@ msgid ""
 "Error: %s"
 msgstr "Képtelen elkezdeni\nGyőződjön meg róla, hogy a Ring daemon (dring) fut.\nHiba: %s"
 
-#: src/ring_client.cpp:146
+#: src/ring_client.cpp:145
 msgid "Ring Error"
 msgstr "Ring hiba"
 
-#: src/ring_client.cpp:289
+#: src/ring_client.cpp:288
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr "A Ring megnyitása"
 
-#: src/ring_client.cpp:293
+#: src/ring_client.cpp:292
 msgid "Quit"
 msgstr "Kilépés"
 
@@ -821,15 +821,6 @@ msgstr "_Mégse"
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
 msgid "_Save"
 msgstr "_Mentés"
-
-#: src/backends/edscontactbackend.cpp:193
-msgid "Unknown EDS addressbook"
-msgstr "Ismeretlen EDS címjegyzék"
-
-#: src/backends/edscontactbackend.cpp:213
-msgctxt "Backend type"
-msgid "Contacts"
-msgstr "Partnerek"
 
 #: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1705
 msgid "Bad password"
@@ -1088,7 +1079,7 @@ msgstr "Visszaállítja a főablak rejtett állapotát (csak az elsődleges pél
 msgid "- GNOME client for Ring"
 msgstr "– GNOME kliens a Ring-hez"
 
-#: src/accountcreationwizard.cpp:348
+#: src/accountcreationwizard.cpp:346
 msgid "Passwords don't match"
 msgstr "A jelszavak nem egyeznek"
 
