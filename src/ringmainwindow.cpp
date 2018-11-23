@@ -25,7 +25,6 @@
 
 // std
 #include <algorithm>
-#include <iostream>
 
 // LRC
 #include <accountmodel.h> // Old lrc but still used
@@ -125,6 +124,7 @@ struct RingMainWindowPrivate
     gulong notif_refuse_pending;
     gulong notif_accept_call;
     gulong notif_decline_call;
+    gboolean set_top_account_flag = true;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
@@ -414,6 +414,10 @@ on_account_changed(RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    auto changeTopAccount = priv->set_top_account_flag;
+    if (!priv->set_top_account_flag) {
+        priv->set_top_account_flag = true;
+    }
 
     auto accountComboBox = GTK_COMBO_BOX(priv->combobox_account_selector);
     auto model = gtk_combo_box_get_model(accountComboBox);
@@ -426,7 +430,7 @@ on_account_changed(RingMainWindow* self)
             priv->cpp->enterAccountCreationWizard(true);
         } else {
             priv->cpp->leaveAccountCreationWizard();
-            if (priv->cpp->accountInfo_) {
+            if (priv->cpp->accountInfo_ && changeTopAccount) {
                 priv->cpp->accountInfo_->accountModel->setTopAccount(accountId);
             }
             priv->cpp->onAccountSelectionChange(accountId);
@@ -1375,6 +1379,7 @@ CppImpl::refreshAccountSelectorWidget(int selection_row, const std::string& sele
         GTK_COMBO_BOX(widgets->combobox_account_selector),
         GTK_TREE_MODEL(store)
     );
+    widgets->set_top_account_flag = false;
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), selection_row);
 
     return enabled_accounts;
@@ -1444,6 +1449,7 @@ CppImpl::changeAccountSelection(const std::string& id)
             gchar* account_id;
             gtk_tree_model_get(model, &iter, 0 /* col# */, &account_id /* data */, -1);
             if (id == account_id) {
+                widgets->set_top_account_flag = false;
                 gtk_combo_box_set_active_iter(GTK_COMBO_BOX(widgets->combobox_account_selector), &iter);
                 g_free(account_id);
                 return;
