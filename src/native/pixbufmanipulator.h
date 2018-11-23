@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 #include <memory>
 #include <interfaces/pixmapmanipulatori.h>
+#include "../utils/drawing.h"
 
 Q_DECLARE_METATYPE(std::shared_ptr<GdkPixbuf>);
 
@@ -69,9 +70,9 @@ public:
     std::shared_ptr<GdkPixbuf> generateAvatar(const ContactMethod* cm) const;
     std::shared_ptr<GdkPixbuf> generateAvatar(const std::string& alias, const std::string& uri) const;
 
-    std::shared_ptr<GdkPixbuf> scaleAndFrame(const GdkPixbuf *photo, const QSize& size, bool displayInformation = false, bool is_present = false, uint unreadMessages = 0);
+    std::shared_ptr<GdkPixbuf> scaleAndFrame(const GdkPixbuf *photo, const QSize &size, bool displayInformation = false, IconStatus status = IconStatus::INVALID, uint unreadMessages = 0);
 
-private:
+  private:
     std::shared_ptr<GdkPixbuf> conferenceAvatar_;
 };
 

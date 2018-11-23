@@ -31,6 +31,15 @@ GdkPixbuf *ring_frame_avatar(GdkPixbuf *avatar);
 
 GdkPixbuf *ring_draw_unread_messages(const GdkPixbuf *avatar, int unread_count);
 
-GdkPixbuf *ring_draw_presence(const GdkPixbuf *avatar, bool present);
+
+enum class IconStatus {
+    ABSENT,
+    PRESENT,
+    DISCONNECTED,
+    TRYING,
+    CONNECTED,
+    INVALID
+};
+GdkPixbuf *ring_draw_status(const GdkPixbuf *avatar, IconStatus status);
 
 #endif /* _DRAWING */

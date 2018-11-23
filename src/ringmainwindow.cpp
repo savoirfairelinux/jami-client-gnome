@@ -25,6 +25,7 @@
 
 // std
 #include <algorithm>
+#include <iostream>
 
 // LRC
 #include <accountmodel.h> // Old lrc but still used
@@ -219,16 +220,16 @@ render_account_avatar(G_GNUC_UNUSED GtkCellLayout* cell_layout,
 {
     gchar *id;
     gchar* avatar;
-    gchar* enabledStr;
+    gchar* status;
 
     gtk_tree_model_get (model, iter,
                         0 /* col# */, &id /* data */,
-                        1 /* col# */, &enabledStr /* data */,
+                        1 /* col# */, &status /* data */,
                         2 /* col# */, &avatar /* data */,
                         -1);
 
     if (g_strcmp0("", id) == 0) {
-        g_free(enabledStr);
+        g_free(status);
         g_free(avatar);
         g_free(id);
 
@@ -239,16 +240,24 @@ render_account_avatar(G_GNUC_UNUSED GtkCellLayout* cell_layout,
         return;
     }
 
-    bool enabled = g_strcmp0("true", enabledStr) == 0;
+    IconStatus iconStatus = IconStatus::INVALID;
+    std::string statusStr = status? status : "";
+    if (statusStr == "DISCONNECTED") {
+        iconStatus = IconStatus::DISCONNECTED;
+    } else if (statusStr == "TRYING") {
+        iconStatus = IconStatus::TRYING;
+    } else if (statusStr == "CONNECTED") {
+        iconStatus = IconStatus::CONNECTED;
+    }
     auto default_avatar = Interfaces::PixbufManipulator().generateAvatar("", "");
-    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(32, 32), true, enabled);
+    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(32, 32), true, iconStatus);
     auto photo = default_scaled;
 
     std::string photostr = avatar;
     if (!photostr.empty()) {
         QByteArray byteArray(photostr.c_str(), photostr.length());
         QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
-        auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(32, 32), true, enabled);
+        auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(32, 32), true, iconStatus);
         if (avatar.isValid()) {
             photo = pixbuf_photo;
         }
@@ -258,7 +267,7 @@ render_account_avatar(G_GNUC_UNUSED GtkCellLayout* cell_layout,
     g_object_set(G_OBJECT(cell), "height", 32, nullptr);
     g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), nullptr);
 
-    g_free(enabledStr);
+    g_free(status);
     g_free(avatar);
     g_free(id);
 }
@@ -1326,9 +1335,24 @@ CppImpl::refreshAccountSelectorWidget(int selection_row, const std::string& sele
                 selection_row = idx;
             }
             gtk_list_store_append(store, &iter);
+            std::string status = "";
+            switch (acc_info.status) {
+                case lrc::api::account::Status::INVALID:
+                case lrc::api::account::Status::ERROR_NEED_MIGRATION:
+                case lrc::api::account::Status::UNREGISTERED:
+                    status = "DISCONNECTED";
+                    break;
+                case lrc::api::account::Status::INITIALIZING:
+                case lrc::api::account::Status::TRYING:
+                    status = "TRYING";
+                    break;
+                case lrc::api::account::Status::REGISTERED:
+                    status = "CONNECTED";
+                    break;
+            }
             gtk_list_store_set(store, &iter,
                                0 /* col # */ , acc_info.id.c_str() /* celldata */,
-                               1 /* col # */ , acc_info.enabled? "true":"false" /* celldata */,
+                               1 /* col # */ , status.c_str() /* celldata */,
                                2 /* col # */ , acc_info.profileInfo.avatar.c_str() /* celldata */,
                                3 /* col # */ , acc_info.profileInfo.uri.c_str() /* celldata */,
                                4 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
@@ -1340,7 +1364,7 @@ CppImpl::refreshAccountSelectorWidget(int selection_row, const std::string& sele
     gtk_list_store_append(store, &iter);
     gtk_list_store_set(store, &iter,
                        0 /* col # */ , "" /* celldata */,
-                       1 /* col # */ , "false" /* celldata */,
+                       1 /* col # */ , "" /* celldata */,
                        2 /* col # */ , "" /* celldata */,
                        3 /* col # */ , "" /* celldata */,
                        4 /* col # */ , "" /* celldata */,

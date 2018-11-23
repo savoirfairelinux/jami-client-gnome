@@ -20,7 +20,6 @@
 
 #include "pixbufmanipulator.h"
 
-#include "../utils/drawing.h"
 #include <QtCore/QSize>
 #include <QtCore/QMetaType>
 #include <person.h>
@@ -127,7 +126,7 @@ std::shared_ptr<GdkPixbuf>
 PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo,
                                  const QSize& size,
                                  bool displayInformation,
-                                 bool is_present,
+                                 IconStatus status,
                                  uint unreadMessages)
 {
     /**
@@ -162,8 +161,8 @@ PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo,
 
     /* draw information */
     if (displayInformation) {
-        /* draw presence */
-        result.reset(ring_draw_presence(result.get(), is_present), g_object_unref);
+        /* draw status */
+        result.reset(ring_draw_status(result.get(), status), g_object_unref);
 
         /* draw visual notification for unread messages */
         if (unreadMessages)
@@ -178,7 +177,7 @@ PixbufManipulator::callPhoto(Call* c, const QSize& size, bool displayInformation
 {
     if (c->type() == Call::Type::CONFERENCE) {
         /* conferences are always "online" */
-        return QVariant::fromValue(scaleAndFrame(conferenceAvatar_.get(), size, displayInformation, TRUE));
+        return QVariant::fromValue(scaleAndFrame(conferenceAvatar_.get(), size, displayInformation));
     }
     return callPhoto(c->peerContactMethod(), size, displayInformation);
 }
@@ -189,7 +188,7 @@ PixbufManipulator::callPhoto(const ContactMethod* n, const QSize& size, bool dis
     if (n->contact()) {
         return contactPhoto(n->contact(), size, displayInformation);
     } else {
-        return QVariant::fromValue(scaleAndFrame(generateAvatar(n).get(), size, displayInformation, n->isPresent()));
+        return QVariant::fromValue(scaleAndFrame(generateAvatar(n).get(), size, displayInformation));
     }
 }
 
@@ -210,7 +209,7 @@ PixbufManipulator::contactPhoto(Person* c, const QSize& size, bool displayInform
         photo = generateAvatar(cm);
     }
 
-    return QVariant::fromValue(scaleAndFrame(photo.get(), size, displayInformation, c->isPresent()));
+    return QVariant::fromValue(scaleAndFrame(photo.get(), size, displayInformation));
 }
 
 QVariant PixbufManipulator::personPhoto(const QByteArray& data, const QString& type)
@@ -281,22 +280,24 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
             auto contactPhoto = contactInfo.profileInfo.avatar;
             auto bestName = contactInfo.profileInfo.alias.empty()? contactInfo.registeredName : contactInfo.profileInfo.alias;
             auto unreadMessages = conversationInfo.unreadMessages;
-            if (accountInfo.profileInfo.type == lrc::api::profile::Type::SIP && contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY) {
-                return QVariant::fromValue(scaleAndFrame(generateAvatar("", "").get(), size, displayInformation, contactInfo.isPresent));
+            auto status = contactInfo.isPresent? IconStatus::PRESENT : IconStatus::ABSENT;
+            if (accountInfo.profileInfo.type == lrc::api::profile::Type::SIP && contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY)
+            {
+                return QVariant::fromValue(scaleAndFrame(generateAvatar("", "").get(), size, displayInformation, status));
             } else if (accountInfo.profileInfo.type == lrc::api::profile::Type::SIP) {
-                return QVariant::fromValue(scaleAndFrame(generateAvatar("", "sip:" + contactInfo.profileInfo.uri).get(), size, displayInformation, contactInfo.isPresent));
+                return QVariant::fromValue(scaleAndFrame(generateAvatar("", "sip:" + contactInfo.profileInfo.uri).get(), size, displayInformation, status));
             } else if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY && contactInfo.profileInfo.uri.empty()) {
-                return QVariant::fromValue(scaleAndFrame(temporaryItemAvatar().get(), size, false, false, unreadMessages));
+                return QVariant::fromValue(scaleAndFrame(temporaryItemAvatar().get(), size, false, status, unreadMessages));
             } else if (!contactPhoto.empty()) {
                 QByteArray byteArray(contactPhoto.c_str(), contactPhoto.length());
                 QVariant photo = personPhoto(byteArray);
-                return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayInformation, contactInfo.isPresent, unreadMessages));
+                return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayInformation, status, unreadMessages));
             } else {
-                return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, "ring:" + contactInfo.profileInfo.uri).get(), size, displayInformation, contactInfo.isPresent, unreadMessages));
+                return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, "ring:" + contactInfo.profileInfo.uri).get(), size, displayInformation, status, unreadMessages));
             }
         } catch (...) {}
     }
-    return QVariant::fromValue(scaleAndFrame(generateAvatar("", "").get(), size, displayInformation, false));
+    return QVariant::fromValue(scaleAndFrame(generateAvatar("", "").get(), size, displayInformation));
 
 }
 

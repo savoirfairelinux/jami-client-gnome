@@ -27,8 +27,9 @@ static constexpr const char* MSG_COUNT_FONT        = "Sans";
 static constexpr int         MSG_COUNT_FONT_SIZE   = 12;
 static constexpr GdkRGBA     MSG_COUNT_FONT_COLOUR = {1.0, 1.0, 1.0, 1.0}; // white
 static constexpr GdkRGBA     MSG_COUNT_BACKGROUND  = {0.984, 0.282, 0.278, 1.0}; // red 251, 72, 71, 1.0
-static constexpr GdkRGBA     PRESENCE_PRESENT_BACKGROUND = {0, 0.4156827, 0.8, 1.0}; // green 112, 217, 6, 0.9
-static constexpr GdkRGBA     PRESENCE_ABSENT_BACKGROUND = {0.984, 0.282, 0.278, 1.0}; // red 251, 72, 71, 0.9
+static constexpr GdkRGBA     GREEN_BACKGROUND = {0.298, 0.392, 0.85, 1.0}; // green 112, 217, 6, 0.9
+static constexpr GdkRGBA     ORANGE_BACKGROUND = {1.0, 0.0, 0.5, 1.0}; // orange 255, 128, 0, 1.0
+static constexpr GdkRGBA     RED_BACKGROUND = {1.0, 0.156, 0.231, 1.0}; // red 255, 59, 40, 0.9
 // This is the color palette for default avatars
 static constexpr GdkRGBA     COLOR_PALETTE[] = {{0.956862, 0.262745, 0.211764, 1.0}, // red 244, green 67, blue 54, 1 (red)
                                                 {0.913725, 0.117647, 0.388235, 1.0}, // red 233, green 30, blue 99, 1 (pink)
@@ -202,8 +203,8 @@ create_rounded_rectangle_path(cairo_t *cr, double corner_radius, double x, doubl
  * Draws the presence icon in the top right corner of the given image.
  */
 GdkPixbuf *
-ring_draw_presence(const GdkPixbuf *avatar, bool present) {
-    if (!present) {
+ring_draw_status(const GdkPixbuf *avatar, IconStatus status) {
+    if (status == IconStatus::INVALID) {
         // simply return a copy of the original pixbuf
         return gdk_pixbuf_copy(avatar);
     }
@@ -229,7 +230,21 @@ ring_draw_presence(const GdkPixbuf *avatar, bool present) {
     create_rounded_rectangle_path(cr, corner_radius, rec_x, rec_y, rec_w, rec_h);
 
     // For now we don't draw the absent background.
-    auto background = present ? PRESENCE_PRESENT_BACKGROUND : PRESENCE_ABSENT_BACKGROUND;
+    auto background = RED_BACKGROUND;
+    switch(status) {
+        case IconStatus::TRYING:
+            background = ORANGE_BACKGROUND;
+            break;
+        case IconStatus::PRESENT:
+        case IconStatus::CONNECTED:
+            background = GREEN_BACKGROUND;
+            break;
+        case IconStatus::ABSENT:
+        case IconStatus::DISCONNECTED:
+        case IconStatus::INVALID:
+            background = RED_BACKGROUND;
+            break;
+    }
     cairo_set_source_rgba(
         cr,
         background.red,
