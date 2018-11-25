@@ -1,8 +1,6 @@
 /* cmake will generate config.h with defines containing the values defined in cmake */
 
-#define VERSION_MAJOR @PROJECT_VERSION_MAJOR@
-#define VERSION_MINOR @PROJECT_VERSION_MINOR@
-#define VERSION_PATCH @PROJECT_VERSION_PATCH@
+#define RING_VERSION "@PROJECT_VERSION@"
 
 #define USE_LIBNOTIFY @USE_LIBNOTIFY@
 #define HAVE_APPINDICATOR @HAVE_APPINDICATOR@
