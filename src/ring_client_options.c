@@ -33,7 +33,7 @@ option_version_cb(G_GNUC_UNUSED const gchar *option_name,
                   G_GNUC_UNUSED gpointer data,
                   G_GNUC_UNUSED GError **error)
 {
-    g_print("%d.%d.%d - %s\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, RING_CLIENT_REVISION);
+    g_print("%s - %s\n", RING_VERSION, RING_CLIENT_REVISION);
     exit(EXIT_SUCCESS);
 }
 
