@@ -15,9 +15,12 @@ set (CMAKE_CXX_STANDARD 14)
 
 # set project name and version
 PROJECT(ring-client-gnome)
-SET(PROJECT_VERSION_MAJOR 2018)
-SET(PROJECT_VERSION_MINOR 06)
-SET(PROJECT_VERSION_PATCH 06)
+
+IF(EXISTS "${PROJECT_SOURCE_DIR}/version.txt")
+   FILE (STRINGS "version.txt" PROJECT_VERSION)
+ELSE()
+   SET (PROJECT_VERSION "development")
+ENDIF()
 
 # set build date
 IF( NOT ("$ENV{SOURCE_DATE_EPOCH}" STREQUAL ""))
