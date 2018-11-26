@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-19 03:09-0500\n"
+"POT-Creation-Date: 2018-11-26 03:09-0500\n"
 "PO-Revision-Date: 2018-11-19 08:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/savoirfairelinux/ring/language/cs_CZ/)\n"
@@ -340,7 +340,7 @@ msgstr "Obecné"
 msgid "Media"
 msgstr "Média"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1493
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1523
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -732,7 +732,7 @@ msgstr "Zpět"
 msgid "Set selection as image"
 msgstr "Nastavit výběr jako obrázek"
 
-#: src/ring_client.cpp:142
+#: src/ring_client.cpp:141
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -740,17 +740,17 @@ msgid ""
 "Error: %s"
 msgstr ""
 
-#: src/ring_client.cpp:145
+#: src/ring_client.cpp:144
 msgid "Ring Error"
 msgstr "Chyba Ring"
 
-#: src/ring_client.cpp:288
+#: src/ring_client.cpp:287
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr ""
 
-#: src/ring_client.cpp:292
+#: src/ring_client.cpp:291
 msgid "Quit"
 msgstr ""
 
@@ -966,48 +966,48 @@ msgstr ""
 msgid "Send recorded message"
 msgstr ""
 
-#: src/ringmainwindow.cpp:174
+#: src/ringmainwindow.cpp:175
 msgid "Add account…"
 msgstr ""
 
-#: src/ringmainwindow.cpp:617
+#: src/ringmainwindow.cpp:630
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "zavolat"
 
-#: src/ringmainwindow.cpp:620
+#: src/ringmainwindow.cpp:633
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "otevřít zprávy"
 
-#: src/ringmainwindow.cpp:1047
+#: src/ringmainwindow.cpp:1060
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Hledat kontakty nebo zadat číslo"
 
-#: src/ringmainwindow.cpp:1466
+#: src/ringmainwindow.cpp:1496
 msgid "Leave settings page"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1823
+#: src/ringmainwindow.cpp:1853
 msgid " is calling you!"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1824
+#: src/ringmainwindow.cpp:1854
 msgid "Incoming call"
 msgstr "Příchozí hovor"
 
-#: src/ringmainwindow.cpp:1978
+#: src/ringmainwindow.cpp:2008
 msgid "New request from "
 msgstr ""
 
-#: src/ringmainwindow.cpp:1979
+#: src/ringmainwindow.cpp:2009
 msgid "Trust request"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2036
+#: src/ringmainwindow.cpp:2066
 msgid "New message"
 msgstr ""
 

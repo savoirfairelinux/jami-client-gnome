@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-19 03:09-0500\n"
-"PO-Revision-Date: 2018-11-19 08:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-11-26 03:09-0500\n"
+"PO-Revision-Date: 2018-11-19 09:14+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -339,7 +339,7 @@ msgstr "Általános"
 msgid "Media"
 msgstr "Média"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1493
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1523
 msgid "Settings"
 msgstr "Beállítások"
 
@@ -545,11 +545,11 @@ msgstr "Felhasználói tanúsítvány"
 
 #: ui/newaccountsettingsview.ui:1716
 msgid "Private key"
-msgstr "Titkos kulcs"
+msgstr "Személyes kulcs"
 
 #: ui/newaccountsettingsview.ui:1752
 msgid "Private key password"
-msgstr "Titkos kulcs jelszava"
+msgstr "Személyes kulcs jelszava"
 
 #: ui/newaccountsettingsview.ui:1790
 msgid "TLS protocol method"
@@ -731,7 +731,7 @@ msgstr "Vissza"
 msgid "Set selection as image"
 msgstr "Kijelölés beállítása képként"
 
-#: src/ring_client.cpp:142
+#: src/ring_client.cpp:141
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -739,17 +739,17 @@ msgid ""
 "Error: %s"
 msgstr "Képtelen elkezdeni\nGyőződjön meg róla, hogy a Ring daemon (dring) fut.\nHiba: %s"
 
-#: src/ring_client.cpp:145
+#: src/ring_client.cpp:144
 msgid "Ring Error"
 msgstr "Ring hiba"
 
-#: src/ring_client.cpp:288
+#: src/ring_client.cpp:287
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr "A Ring megnyitása"
 
-#: src/ring_client.cpp:292
+#: src/ring_client.cpp:291
 msgid "Quit"
 msgstr "Kilépés"
 
@@ -965,48 +965,48 @@ msgstr "Felvétel leállítása"
 msgid "Send recorded message"
 msgstr "Felvett üzenet küldése"
 
-#: src/ringmainwindow.cpp:174
+#: src/ringmainwindow.cpp:175
 msgid "Add account…"
 msgstr "Fiók hozzáadása…"
 
-#: src/ringmainwindow.cpp:617
+#: src/ringmainwindow.cpp:630
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Hívás kezdeményezése"
 
-#: src/ringmainwindow.cpp:620
+#: src/ringmainwindow.cpp:633
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Csevegés megnyitása"
 
-#: src/ringmainwindow.cpp:1047
+#: src/ringmainwindow.cpp:1060
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Partnerek keresése vagy szám beírása"
 
-#: src/ringmainwindow.cpp:1466
+#: src/ringmainwindow.cpp:1496
 msgid "Leave settings page"
 msgstr "A beállítási oldal elhagyása"
 
-#: src/ringmainwindow.cpp:1823
+#: src/ringmainwindow.cpp:1853
 msgid " is calling you!"
 msgstr " hív!"
 
-#: src/ringmainwindow.cpp:1824
+#: src/ringmainwindow.cpp:1854
 msgid "Incoming call"
 msgstr "Bejövő hívás"
 
-#: src/ringmainwindow.cpp:1978
+#: src/ringmainwindow.cpp:2008
 msgid "New request from "
 msgstr "Új kérés"
 
-#: src/ringmainwindow.cpp:1979
+#: src/ringmainwindow.cpp:2009
 msgid "Trust request"
 msgstr "Megbízható kérelem"
 
-#: src/ringmainwindow.cpp:2036
+#: src/ringmainwindow.cpp:2066
 msgid "New message"
 msgstr "Új üzenet"
 

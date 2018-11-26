@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Kolmis <pekka.hapuli@gmail.com>, 2016
+# Tuomas Hietala <tuomas.hietala@kapsi.fi>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-19 03:09-0500\n"
-"PO-Revision-Date: 2018-11-19 08:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-11-26 03:09-0500\n"
+"PO-Revision-Date: 2018-11-21 21:44+0000\n"
+"Last-Translator: Tuomas Hietala <tuomas.hietala@kapsi.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/savoirfairelinux/ring/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -337,7 +338,7 @@ msgstr "Yleiset"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1493
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1523
 msgid "Settings"
 msgstr "Asetukset"
 
@@ -503,7 +504,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1288
 msgid "Name server"
-msgstr ""
+msgstr "Nimipalvelin"
 
 #: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2478
 msgid "Address"
@@ -535,7 +536,7 @@ msgstr "Salaa neuvottelu (TLS)"
 
 #: ui/newaccountsettingsview.ui:1644
 msgid "CA certificate"
-msgstr "CA sertifikaatti"
+msgstr "CA-sertifikaatti"
 
 #: ui/newaccountsettingsview.ui:1680
 msgid "User certificate"
@@ -559,7 +560,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1861
 msgid "Negotiation timeout (seconds)"
-msgstr ""
+msgstr "Neuvottelun aikakatkaisu (sekunteja)"
 
 #: ui/newaccountsettingsview.ui:1897
 msgid "Verify incoming certificates (server side)"
@@ -571,7 +572,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1967
 msgid "Require a certificate for incoming TLS connections"
-msgstr ""
+msgstr "Vaadi saapuvilta TLS-yhteyksiltä sertifikaatti"
 
 #: ui/newaccountsettingsview.ui:1991
 msgid "Security"
@@ -579,7 +580,7 @@ msgstr "Turvallisuus"
 
 #: ui/newaccountsettingsview.ui:2016
 msgid "Connectivity"
-msgstr ""
+msgstr "Yhteydet"
 
 #: ui/newaccountsettingsview.ui:2054
 msgid "Registration expire timeout (seconds)"
@@ -729,7 +730,7 @@ msgstr ""
 msgid "Set selection as image"
 msgstr ""
 
-#: src/ring_client.cpp:142
+#: src/ring_client.cpp:141
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -737,17 +738,17 @@ msgid ""
 "Error: %s"
 msgstr ""
 
-#: src/ring_client.cpp:145
+#: src/ring_client.cpp:144
 msgid "Ring Error"
 msgstr ""
 
-#: src/ring_client.cpp:288
+#: src/ring_client.cpp:287
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Ring main window"
 msgid "Show Ring"
 msgstr ""
 
-#: src/ring_client.cpp:292
+#: src/ring_client.cpp:291
 msgid "Quit"
 msgstr ""
 
@@ -836,7 +837,7 @@ msgstr ""
 #: src/newaccountsettingsview.cpp:797 src/newaccountsettingsview.cpp:820
 #: src/newaccountsettingsview.cpp:844 src/newaccountsettingsview.cpp:880
 msgid "Change password"
-msgstr ""
+msgstr "Vaihda salasana"
 
 #: src/accountgeneraltab.cpp:339 src/chatview.cpp:175
 #: src/newaccountsettingsview.cpp:923
@@ -845,7 +846,7 @@ msgstr "Tallenna tiedosto"
 
 #: src/accountgeneraltab.cpp:364
 msgid "File exported to destination: "
-msgstr ""
+msgstr "Tiedosto viety kohteeseen:"
 
 #: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:620
 msgid ""
@@ -963,48 +964,48 @@ msgstr ""
 msgid "Send recorded message"
 msgstr ""
 
-#: src/ringmainwindow.cpp:174
+#: src/ringmainwindow.cpp:175
 msgid "Add account…"
 msgstr ""
 
-#: src/ringmainwindow.cpp:617
+#: src/ringmainwindow.cpp:630
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:620
+#: src/ringmainwindow.cpp:633
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1047
+#: src/ringmainwindow.cpp:1060
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1466
+#: src/ringmainwindow.cpp:1496
 msgid "Leave settings page"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1823
+#: src/ringmainwindow.cpp:1853
 msgid " is calling you!"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1824
+#: src/ringmainwindow.cpp:1854
 msgid "Incoming call"
 msgstr "Saapuva puhelu"
 
-#: src/ringmainwindow.cpp:1978
+#: src/ringmainwindow.cpp:2008
 msgid "New request from "
 msgstr ""
 
-#: src/ringmainwindow.cpp:1979
+#: src/ringmainwindow.cpp:2009
 msgid "Trust request"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2036
+#: src/ringmainwindow.cpp:2066
 msgid "New message"
 msgstr ""
 
@@ -1186,4 +1187,4 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2008
 msgid "no password set"
-msgstr ""
+msgstr "salasanaa ei ole asetettu"
