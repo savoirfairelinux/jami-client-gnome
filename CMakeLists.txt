@@ -15,39 +15,9 @@ set (CMAKE_CXX_STANDARD 14)
 
 # set project name and version
 PROJECT(ring-client-gnome)
-
-execute_process(
-    COMMAND git rev-parse --abbrev-ref HEAD
-    RESULT_VARIABLE result
-    OUTPUT_VARIABLE BRANCHNAME)
-string(REGEX REPLACE "\n$" "" BRANCHNAME "${BRANCHNAME}")
-
-# nightly, use yyyy.mm.dd of the current day
-string(TIMESTAMP MAJOR "%Y")
-string(TIMESTAMP MINOR "%m")
-string(TIMESTAMP PATCH "%d")
-
-# release branch, use yyyy.mm.np where yyyy.mm is from the branch name
-# and np is the number of patchs on the branch
-string(REGEX MATCH "release/[0-9][0-9][0-9][0-9][0-9][0-9]"
-      IS_RELEASE "${BRANCHNAME}")
-IF( NOT ("${IS_RELEASE}" STREQUAL ""))
-   string(REGEX MATCH "([0-9][0-9][0-9][0-9])"
-      MAJOR "${BRANCHNAME}")
-   string(REGEX MATCH "[0-9][0-9]$"
-      MINOR "${BRANCHNAME}")
-   execute_process(
-      COMMAND git rev-list --count ${BRANCHNAME} ^master
-      RESULT_VARIABLE result
-      OUTPUT_VARIABLE PATCH)
-ENDIF()
-
-SET(PROJECT_VERSION_MAJOR ${MAJOR})
-SET(PROJECT_VERSION_MINOR ${MINOR})
-SET(PROJECT_VERSION_PATCH ${PATCH})
-
-
-
+SET(PROJECT_VERSION_MAJOR 2018)
+SET(PROJECT_VERSION_MINOR 06)
+SET(PROJECT_VERSION_PATCH 06)
 
 # set build date
 IF( NOT ("$ENV{SOURCE_DATE_EPOCH}" STREQUAL ""))
