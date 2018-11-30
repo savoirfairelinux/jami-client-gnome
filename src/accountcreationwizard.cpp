@@ -463,11 +463,8 @@ entries_new_account_changed(AccountCreationWizard *view)
     const gboolean sign_up_blockchain = gtk_switch_get_active(GTK_SWITCH(priv->switch_register));
 
     if (
-            strlen(display_name) > 0 && // Display name is longer than 0
-            (
-                (sign_up_blockchain && strlen(username) > 0 && priv->username_available) || // we are signing up, username is set and avaialble
-                !sign_up_blockchain // We are not signing up
-            )
+            (sign_up_blockchain && strlen(username) > 0 && priv->username_available) || // we are signing up, username is set and avaialble
+            !sign_up_blockchain // We are not signing up
         )
     {
         gtk_widget_set_sensitive(priv->button_account_creation_next, TRUE);
