@@ -2052,8 +2052,6 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_widget_hide(priv->sip_network_interface_row);
         gtk_widget_hide(priv->box_sdp_session);
 
-        draw_codecs(view);
-
         std::string label_id = gtk_label_get_text(GTK_LABEL(priv->label_id));
         std::string label_username = gtk_label_get_text(GTK_LABEL(priv->label_username));
         std::string label_password = gtk_label_get_text(GTK_LABEL(priv->label_password));
@@ -2137,7 +2135,9 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_password), priv->currentProp_->password.c_str());
         gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_proxy), priv->currentProp_->routeset.c_str());
         gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_voicemail), priv->currentProp_->mailbox.c_str());
+
     }
+    draw_codecs(view);
 
     // advanced
     gtk_switch_set_active(GTK_SWITCH(priv->call_allow_button), priv->currentProp_->allowIncoming);
