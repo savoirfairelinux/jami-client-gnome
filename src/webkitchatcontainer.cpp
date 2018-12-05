@@ -604,14 +604,6 @@ webkit_chat_container_set_display_links(WebKitChatContainer *view, bool display)
 }
 
 void
-webkit_chat_disable_send_interaction(WebKitChatContainer *view, bool isDisabled)
-{
-    gchar* function_call = g_strdup_printf("disableSendMessage(%s);", isDisabled ? "true" : "false");
-    webkit_chat_container_execute_js(view, function_call);
-    g_free(function_call);
-}
-
-void
 webkit_chat_container_clear_sender_images(WebKitChatContainer *view)
 {
     webkit_chat_container_execute_js(view, "clearSenderImages();");
