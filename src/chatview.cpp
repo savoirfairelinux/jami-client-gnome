@@ -490,9 +490,6 @@ webkit_chat_container_ready(ChatView* self)
         if (bestName.empty())
             bestName = contactInfo.profileInfo.uri;
         bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
-        webkit_chat_disable_send_interaction(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                             (contactInfo.profileInfo.type == lrc::api::profile::Type::SIP)
-                                             && priv->conversation_->callId.empty());
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
     }
