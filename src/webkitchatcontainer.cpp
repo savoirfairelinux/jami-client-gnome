@@ -350,6 +350,29 @@ webview_script_dialog(WebKitWebView      *self,
 }
 
 static void
+init_js_i18n(WebKitChatContainer *view)
+{
+    auto lang = pango_language_to_string(gtk_get_default_language());
+    auto res = g_strdup_printf("/net/jami/JamiGnome/i18n/fr.json", lang);
+    auto locale_data = g_resources_lookup_data(res, G_RESOURCE_LOOKUP_FLAGS_NONE, NULL);
+
+    gchar* function_call;
+    if (!locale_data) {
+        function_call = g_strdup("init_i18n(\"\")");
+    } else {
+        auto byteArray = g_bytes_unref_to_array(locale_data);
+        function_call = g_strdup_printf("init_i18n(%s)", byteArray->data);
+        g_warning("calling: %s", function_call);
+        //g_bytes_unref(locale_data);
+    }
+
+    webkit_chat_container_execute_js(view, function_call);
+
+    g_free(function_call);
+    g_free(res);
+}
+
+static void
 javascript_library_loaded(WebKitWebView *webview_chat,
                           GAsyncResult *result,
                           WebKitChatContainer* self)
@@ -385,6 +408,7 @@ javascript_library_loaded(WebKitWebView *webview_chat,
     }
     else
     {
+         init_js_i18n(self);
          priv->js_libs_loaded = TRUE;
          g_signal_emit(G_OBJECT(self), webkit_chat_container_signals[READY], 0);
 
@@ -400,6 +424,7 @@ load_javascript_libs(WebKitWebView *webview_chat,
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(self);
 
     /* Create the list of libraries to load */
+    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/jed.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify-string.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify-html.js");

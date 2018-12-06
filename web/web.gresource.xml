@@ -8,8 +8,12 @@
       <file>linkify.js</file>
       <file>linkify-string.js</file>
       <file>linkify-html.js</file>
+      <file>jed.js</file>
 
       <!-- CSS -->
       <file>chatview.css</file>
+
+      <file>i18n/en.json</file>
+      <file>i18n/fr.json</file>
     </gresource>
   </gresources>
