@@ -147,7 +147,7 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkLabel" id="label_name">
-            <property name="visible">True</property>
+            <property name="visible">False</property>
             <property name="can_focus">True</property>
             <property name="selectable">True</property>
             <property name="ellipsize">end</property>
@@ -164,7 +164,7 @@
         </child>
         <child>
           <object class="GtkLabel" id="label_bestId">
-            <property name="visible">False</property>
+            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="selectable">True</property>
             <property name="halign">start</property>

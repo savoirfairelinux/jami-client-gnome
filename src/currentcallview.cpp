@@ -763,6 +763,7 @@ CppImpl::setCallInfo()
     // change some things depending on call state
     updateState();
     updateDetails();
+    updateNameAndPhoto();
 
     // NOTE/TODO we need to rewrite the video_widget file to use the new LRC.
     g_signal_connect(widgets->video_widget, "button-press-event",
@@ -980,12 +981,6 @@ CppImpl::updateDetails()
 
     gtk_label_set_text(GTK_LABEL(widgets->label_duration),
     (*accountInfo)->callModel->getFormattedCallDuration(callRendered).c_str());
-
-    auto call = (*accountInfo)->callModel->getCall(callRendered);
-    gtk_widget_set_sensitive(GTK_WIDGET(widgets->togglebutton_muteaudio),
-                             (call.type != lrc::api::call::Type::CONFERENCE));
-    gtk_widget_set_sensitive(GTK_WIDGET(widgets->togglebutton_mutevideo),
-                             (call.type != lrc::api::call::Type::CONFERENCE));
 }
 
 void
@@ -1008,18 +1003,30 @@ CppImpl::updateState()
         gtk_button_set_image(GTK_BUTTON(pauseBtn), image);
 
         auto audioButton = GTK_TOGGLE_BUTTON(widgets->togglebutton_muteaudio);
+        gtk_widget_set_sensitive(GTK_WIDGET(widgets->togglebutton_muteaudio),
+                                 (call.type != lrc::api::call::Type::CONFERENCE));
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->togglebutton_muteaudio), call.audioMuted);
         auto imageMuteAudio = gtk_image_new_from_resource ("/cx/jami/JamiGnome/mute_audio");
         if (call.audioMuted)
             imageMuteAudio = gtk_image_new_from_resource ("/cx/jami/JamiGnome/unmute_audio");
         gtk_button_set_image(GTK_BUTTON(audioButton), imageMuteAudio);
 
-        auto videoButton = GTK_TOGGLE_BUTTON(widgets->togglebutton_mutevideo);
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->togglebutton_mutevideo), call.videoMuted);
-        auto imageMuteVideo = gtk_image_new_from_resource ("/cx/jami/JamiGnome/mute_video");
-        if (call.videoMuted)
-            imageMuteVideo = gtk_image_new_from_resource ("/cx/jami/JamiGnome/unmute_video");
-        gtk_button_set_image(GTK_BUTTON(videoButton), imageMuteVideo);
+        if (!call.isAudioOnly) {
+            auto videoButton = GTK_TOGGLE_BUTTON(widgets->togglebutton_mutevideo);
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->togglebutton_mutevideo), call.videoMuted);
+            auto imageMuteVideo = gtk_image_new_from_resource ("/cx/jami/JamiGnome/mute_video");
+            if (call.videoMuted)
+                imageMuteVideo = gtk_image_new_from_resource ("/cx/jami/JamiGnome/unmute_video");
+            gtk_button_set_image(GTK_BUTTON(videoButton), imageMuteVideo);
+            gtk_widget_set_sensitive(GTK_WIDGET(widgets->togglebutton_mutevideo),
+                                 (call.type != lrc::api::call::Type::CONFERENCE));
+
+            gtk_widget_show(widgets->togglebutton_mutevideo);
+            gtk_widget_show(widgets->scalebutton_quality);
+        } else {
+            gtk_widget_hide(widgets->scalebutton_quality);
+            gtk_widget_hide(widgets->togglebutton_mutevideo);
+        }
 
         gchar *status = g_strdup_printf("%s", lrc::api::call::to_string(call.status).c_str());
         gtk_label_set_text(GTK_LABEL(widgets->label_status), status);
@@ -1043,14 +1050,25 @@ CppImpl::updateNameAndPhoto()
 
     try {
         auto contactInfo = (*accountInfo)->contactModel->getContact(conversation->participants.front());
-        auto name = contactInfo.profileInfo.alias;
-        gtk_label_set_text(GTK_LABEL(widgets->label_name), name.c_str());
+        auto alias = contactInfo.profileInfo.alias;
+        auto bestName = contactInfo.registeredName;
+        if (bestName.empty())
+            bestName = contactInfo.profileInfo.uri;
+        if (bestName == alias)
+            alias = "";
+        bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
+        alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
 
-        auto bestId = contactInfo.registeredName;
-        if (name != bestId) {
-            gtk_label_set_text(GTK_LABEL(widgets->label_bestId), bestId.c_str());
-            gtk_widget_show(widgets->label_bestId);
+        if (alias != "") {
+            g_debug("alias not empty = %s", alias.c_str());
+            gtk_label_set_text(GTK_LABEL(widgets->label_name), alias.c_str());
+            gtk_widget_show(widgets->label_name);
+        } else {
+            gtk_widget_hide(widgets->label_name);
         }
+
+        gtk_label_set_text(GTK_LABEL(widgets->label_bestId), bestName.c_str());
+        gtk_widget_show(widgets->label_bestId);
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
     }
