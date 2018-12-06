@@ -44,3 +44,4 @@ src/webkitchatcontainer.cpp
 src/accountmigrationview.cpp
 src/currentcallview.cpp
 src/newaccountsettingsview.cpp
+web/chatview.html

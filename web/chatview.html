@@ -152,6 +152,15 @@ var isAccountEnabled = true
 var isInitialLoading = false
 var imagesLoadingCounter = 0
 
+/* i18n manager */
+var i18n = Null
+
+function init_i18n(locale_data) {
+    i18n = new Jed({
+        "locale_data" : locale_data
+    })
+}
+
 function onScrolled_() {
     if (messages.scrollTop == 0 && historyBufferIndex != historyBuffer.length) {
         /* At the top and there's something to print */
@@ -1235,7 +1244,7 @@ function buildMessageDropdown(message_id) {
 
     const remove = document.createElement("div")
     remove.setAttribute("class", "delete")
-    remove.innerHTML = "Delete"
+    remove.innerHTML = i18n.gettext("Delete")
     remove.msg_id = message_id
     remove.onclick = function() {
         window.prompt(`DELETE_INTERACTION:${this.msg_id}`)
