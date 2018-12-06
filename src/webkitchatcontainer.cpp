@@ -350,6 +350,15 @@ webview_script_dialog(WebKitWebView      *self,
 }
 
 static void
+init_js_i18n(WebKitChatContainer *view)
+{
+    // TODO load locale data
+    gchar* function_call = g_strdup_printf("init_i18n(%s)", locale_data.constData());
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
+}
+
+static void
 javascript_library_loaded(WebKitWebView *webview_chat,
                           GAsyncResult *result,
                           WebKitChatContainer* self)
@@ -385,6 +394,10 @@ javascript_library_loaded(WebKitWebView *webview_chat,
     }
     else
     {
+         /* load i18n before setting js_libs_loaded to make sure no js function
+            calls are executed in between */
+         init_js_i18n(self);
+
          priv->js_libs_loaded = TRUE;
          g_signal_emit(G_OBJECT(self), webkit_chat_container_signals[READY], 0);
 
@@ -400,6 +413,7 @@ load_javascript_libs(WebKitWebView *webview_chat,
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(self);
 
     /* Create the list of libraries to load */
+    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/ring/RingGnome/jed.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/ring/RingGnome/linkify.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/ring/RingGnome/linkify-string.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/cx/ring/RingGnome/linkify-html.js");
