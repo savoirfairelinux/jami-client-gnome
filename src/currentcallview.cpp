@@ -65,8 +65,10 @@ struct _CurrentCallViewClass
 struct CurrentCallViewPrivate
 {
     GtkWidget *hbox_call_info;
+    GtkWidget *hbox_call_status;
     GtkWidget *hbox_call_controls;
     GtkWidget *vbox_call_smartInfo;
+    GtkWidget *vbox_peer_identity;
     GtkWidget *image_peer;
     GtkWidget *label_name;
     GtkWidget *label_bestId;
@@ -888,9 +890,25 @@ CppImpl::insertControls()
     auto actor_controls = gtk_clutter_actor_new_with_contents(widgets->hbox_call_controls);
     auto actor_smartInfo = gtk_clutter_actor_new_with_contents(widgets->vbox_call_smartInfo);
 
+    auto audioOnly = false;
+    auto callId = conversation->callId;
+    try {
+        auto call = (*accountInfo)->callModel->getCall(callId);
+        audioOnly = call.isAudioOnly;
+    } catch (std::out_of_range& e) {
+    }
+
     clutter_actor_add_child(stage, actor_info);
     clutter_actor_set_x_align(actor_info, CLUTTER_ACTOR_ALIGN_FILL);
-    clutter_actor_set_y_align(actor_info, CLUTTER_ACTOR_ALIGN_START);
+    if (!audioOnly) {
+        clutter_actor_set_y_align(actor_info, CLUTTER_ACTOR_ALIGN_START);
+    } else {
+        clutter_actor_set_y_align(actor_info, CLUTTER_ACTOR_ALIGN_CENTER);
+        gtk_orientable_set_orientation(GTK_ORIENTABLE(widgets->hbox_call_info), GTK_ORIENTATION_VERTICAL);
+        gtk_widget_set_halign(widgets->vbox_peer_identity, GTK_ALIGN_CENTER);
+        gtk_widget_set_halign(widgets->hbox_call_status, GTK_ALIGN_CENTER);
+        gtk_widget_set_halign(widgets->label_bestId, GTK_ALIGN_CENTER);
+    }
 
     clutter_actor_add_child(stage, actor_controls);
     clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
@@ -1062,10 +1080,19 @@ CppImpl::updateState()
 void
 CppImpl::updateNameAndPhoto()
 {
+    QSize photoSize = QSize(60, 60);
+    auto callId = conversation->callId;
+    try {
+        auto call = (*accountInfo)->callModel->getCall(callId);
+        if (call.isAudioOnly)
+            photoSize = QSize(150, 150);
+    } catch (std::out_of_range& e) {
+    }
+
     QVariant var_i = GlobalInstances::pixmapManipulator().conversationPhoto(
         *conversation,
         **(accountInfo),
-        QSize(60, 60),
+        photoSize,
         false
     );
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
@@ -1234,8 +1261,10 @@ current_call_view_class_init(CurrentCallViewClass *klass)
                                                 "/cx/jami/JamiGnome/currentcallview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_info);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_controls);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_call_smartInfo);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_peer_identity);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, image_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_name);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_bestId);
