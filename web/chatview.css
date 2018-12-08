@@ -30,6 +30,15 @@
   /* hairline properties */
   --hairline-color: #d9d9d9;
   --hairline-thickness: 0.2px;
+
+  --dropdown-bg-color: #ddd;
+
+  --message-out-wrapper-bg-color: #cfd8dc;
+  --message-in-wrapper-bg-color: #fdfdfd;
+  --message-progress-bar-internal-bg-color: #01a2b8;
+  --message-progress-bar-bg-color: #eee;
+
+  --timestamp-font-color: #333;
 }
 
 @font-face {
@@ -329,7 +338,6 @@ body {
   background-color: var(--bg-color);
   border: 0;
   overflow-y: scroll;
-  color: black;
   max-height: var(--textarea-max-height);
   margin-right: 10px;
   resize: none;
@@ -497,11 +505,11 @@ a:hover {
 }
 
 .message_out .message_wrapper {
-    background-color: #cfd8dc;
+    background-color: var(--message-out-wrapper-bg-color);
 }
 
 .message_in .message_wrapper {
-    background-color: #fdfdfd;
+    background-color: var(--message-in-wrapper-bg-color);
 }
 
 /* Only the first message of a serie of messages has an angular
@@ -538,7 +546,7 @@ a:hover {
     display: inline-flex;
     justify-content: flex-start;
     align-self:stretch;
-    color: #333;
+    color: var(--timestamp-font-color);
     font-size: 10px;
     padding: 5px;
 }
@@ -617,7 +625,7 @@ input[type=checkbox]{
 
 .dropdown div:hover
 {
-    background-color: #ddd;
+    background-color: var(--dropdown-bg-color);
 }
 
 .showmenu:checked ~ .dropdown{
@@ -683,7 +691,7 @@ input[type=checkbox]{
     margin-right: 30%;
     display: flex;
     flex-wrap: wrap;
-    background-color: #f2f2f2;
+    background-color: var(--bg-color);
     padding: 0;
 }
 
@@ -771,7 +779,7 @@ input[type=checkbox]{
     height: 1em;
     position: relative;
     overflow: hidden;
-    background-color: #eee;
+    background-color: var(--message-progress-bar-bg-color);
     border-radius: 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
@@ -779,7 +787,7 @@ input[type=checkbox]{
 .message_progress_bar > span {
     display: inline;
     height: 100%;
-    background-color: #01a2b8;
+    background-color: var(--message-progress-bar-internal-bg-color);
     position: absolute;
     overflow: hidden;
 }
