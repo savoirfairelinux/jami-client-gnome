@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 03:09-0500\n"
-"PO-Revision-Date: 2018-11-19 08:09+0000\n"
+"POT-Creation-Date: 2018-12-10 03:09-0500\n"
+"PO-Revision-Date: 2018-12-10 08:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/ring/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgstr "Migrera konto"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:963
+#: src/newaccountsettingsview.cpp:965
 msgid "Delete account"
 msgstr "Ta bort konto"
 
@@ -137,23 +137,23 @@ msgid "Welcome to"
 msgstr "Välkommen till"
 
 #: ui/accountcreationwizard.ui:64
-msgid "Create Ring Account"
-msgstr "Skapa Ring-konto"
+msgid "Create Jami Account"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:65
-msgid "Create a new Ring account (for new users)"
-msgstr "Skapa ett nytt Ring-konto (för nya användare)"
+msgid "Create a new Jami account (for new users)"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
 msgstr "Koppla denna enhet till ett konto"
 
 #: ui/accountcreationwizard.ui:73
-msgid "Link this devices to a Ring account created on another device"
-msgstr "Koppla den här enheten till ett Ring-konto, skapat på en annan enhet"
+msgid "Link this devices to a Jami account created on another device"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
-#: src/newaccountsettingsview.cpp:883
+#: src/newaccountsettingsview.cpp:885
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -174,11 +174,11 @@ msgid ""
 "To link this device to another account, you have two possibilities. You can "
 "import your account from the DHT, but first, you need to obtain a PIN code. "
 "To generate the PIN code, go to the account management setting of a previous"
-" device, choose the Ring Account to use and select \"Link another device to "
+" device, choose the Jami Account to use and select \"Link another device to "
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr "För att länka denna enhet till ett annat konto, har du två alternativ. Du kan importera ditt konto från DHT, men måste först ha en PIN-kod. För att generera PIN-koden, går du till kontoinställningarna på en tidigare konfigurerad enhet, väljer det Ring-konto du vill använda och \"lägger till en enhet\". Där får du den nödvändiga PIN-koden för att avsluta detta formulär. PIN-koden är giltig i endast 10 minuter. Du kan också direktimportera ditt konto från en arkivfil."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
@@ -215,10 +215,10 @@ msgstr "Registrera användarnamn"
 
 #: ui/accountcreationwizard.ui:388
 msgid ""
-"By checking this, you will register a unique username on the Ring network. "
+"By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr "Genom att aktivera detta, registrerar du ett unikt användarnamn på Ring-nätverket. Folk kan använda det för att kontakta dig, istället för att använda ditt Ring-ID, som är 40 tecken långt."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
@@ -232,13 +232,13 @@ msgid ""
 "devices to your account."
 msgstr "Detta lösenord kommer att användas för att kryptera din kontodata och för att länka nya enheter till ditt konto."
 
-#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:873
+#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:875
 msgid "Confirm password"
 msgstr "Bekräfta lösenord"
 
 #: ui/accountcreationwizard.ui:562
-msgid "Generating your Ring account…"
-msgstr "Skapar ditt Ring-konto..."
+msgid "Generating your Jami account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
@@ -249,8 +249,8 @@ msgid "This may take a few minutes."
 msgstr "Detta kan ta några få minuter."
 
 #: ui/accountcreationwizard.ui:621
-msgid "Retrieving your Ring account…"
-msgstr "Hämtar ditt Ring-konto..."
+msgid "Retrieving your Jami account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
@@ -262,20 +262,20 @@ msgid "OK"
 msgstr "OK"
 
 #: ui/generalsettingsview.ui:46
-msgid "Ring Settings"
-msgstr "Ring-inställningar"
+msgid "Jami Settings"
+msgstr ""
 
 #: ui/generalsettingsview.ui:62
-msgid "Start Ring on login"
-msgstr "Starta Ring vid systeminloggning"
+msgid "Start Jami on login"
+msgstr ""
 
 #: ui/generalsettingsview.ui:70
-msgid "Show Ring icon in the notification area (systray)."
-msgstr "Visa Ring-ikon i meddelandefältet (systray)."
+msgid "Show Jami icon in the notification area (systray)."
+msgstr ""
 
 #: ui/generalsettingsview.ui:78
-msgid "Bring Ring to the foreground on incoming calls."
-msgstr "Ta fram Ring till förgrunden vid inkommande samtal."
+msgid "Bring Jami to the foreground on incoming calls."
+msgstr ""
 
 #: ui/generalsettingsview.ui:86
 msgid "Enable notifications for incoming calls."
@@ -337,7 +337,7 @@ msgstr "Allmänt"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1522
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1526
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -407,10 +407,10 @@ msgstr "Lägg till ny enhet"
 
 #: ui/newaccountsettingsview.ui:146
 msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
+"To add a new device to your Jami account, you export your account on the "
+"Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr "För att lägga till en ny enhet till ditt Ring-konto, exporterar du ditt befintliga konto. Detta genererar en PIN-kod, som inom 5 minuter måste anges i din nya enhet."
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -421,12 +421,12 @@ msgid "Enter archive password"
 msgstr "Ange arkivlösenord"
 
 #: ui/newaccountsettingsview.ui:189
-msgid "Export on the Ring"
-msgstr "Export på Ring"
+msgid "Export on the Jami"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:210
-msgid "Exporting account on the Ring…"
-msgstr "Exporterar konto på Ring..."
+msgid "Exporting account on the Jami…"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -440,7 +440,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Klicka för att byta lösenord"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1997
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1999
 msgid "Export account"
 msgstr "Exportera konto"
 
@@ -466,8 +466,8 @@ msgid "Voicemail"
 msgstr "Röstbrevlåda"
 
 #: ui/newaccountsettingsview.ui:952
-msgid "Known devices linked to this Ring account"
-msgstr "Kända enheter, länkade till detta Ring-konto"
+msgid "Known devices linked to this Jami account"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
@@ -733,19 +733,19 @@ msgstr "Ange markerat som bild"
 #, c-format
 msgid ""
 "Unable to initialize.\n"
-"Make sure the Ring daemon (dring) is running.\n"
+"Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr "Kan inte starta.\nTillse att Ring-tjänsten (dring) körs.\nFel: %s"
+msgstr ""
 
 #: src/ring_client.cpp:144
-msgid "Ring Error"
-msgstr "Ring-fel"
+msgid "Jami Error"
+msgstr ""
 
 #: src/ring_client.cpp:287
 msgctxt ""
-"In the status icon menu, toggle action to show or hide the Ring main window"
-msgid "Show Ring"
-msgstr "Visa Ring"
+"In the status icon menu, toggle action to show or hide the Jami main window"
+msgid "Show Jami"
+msgstr ""
 
 #: src/ring_client.cpp:291
 msgid "Quit"
@@ -792,8 +792,8 @@ msgid "Performing lookup…"
 msgstr "Utför uppslagning..."
 
 #: src/usernameregistrationbox.cpp:313
-msgid "Enter the password of your Ring account"
-msgstr "Ange lösenordet för ditt Ring-konto"
+msgid "Enter the password of your Jami account"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
@@ -810,36 +810,36 @@ msgid "Choose download folder"
 msgstr "Välj nerladdningsmapp"
 
 #: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:342
-#: src/avatarmanipulation.cpp:406 src/chatview.cpp:178
-#: src/newaccountsettingsview.cpp:926
+#: src/avatarmanipulation.cpp:415 src/chatview.cpp:178
+#: src/newaccountsettingsview.cpp:928
 msgid "_Cancel"
 msgstr "_Avbryt"
 
 #: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:344
-#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
+#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
 msgid "_Save"
 msgstr "_Spara"
 
-#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1705
+#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1707
 msgid "Bad password"
 msgstr "Fel lösenord"
 
-#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1711
+#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1713
 msgid "Network error, try again"
 msgstr "Nätverksfel, försök igen"
 
-#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1729
-msgid "Could not initiate export to the Ring, try again"
-msgstr "Kunde inte starta export till Ring, försök igen"
+#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
+msgid "Could not initiate export to the Jami, try again"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
-#: src/newaccountsettingsview.cpp:797 src/newaccountsettingsview.cpp:820
-#: src/newaccountsettingsview.cpp:844 src/newaccountsettingsview.cpp:880
+#: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
+#: src/newaccountsettingsview.cpp:846 src/newaccountsettingsview.cpp:882
 msgid "Change password"
 msgstr "Byt lösenord"
 
 #: src/accountgeneraltab.cpp:339 src/chatview.cpp:175
-#: src/newaccountsettingsview.cpp:923
+#: src/newaccountsettingsview.cpp:925
 msgid "Save File"
 msgstr "Spara fil"
 
@@ -847,13 +847,13 @@ msgstr "Spara fil"
 msgid "File exported to destination: "
 msgstr "Fil exporterad till:"
 
-#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:620
+#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:622
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Varning! Denna åtgärd kommer att återkalla enheten!\nNotera att åtgärden inte kan ångras."
 
-#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:621
+#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:623
 msgid "Enter password to revoke device"
 msgstr "Ange lösenord för att återkalla enheten"
 
@@ -873,11 +873,11 @@ msgstr "Felaktigt lösenord"
 msgid "Save name"
 msgstr "Spara namn"
 
-#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:679
+#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:681
 msgid "Revoke device"
 msgstr "Återkalla enhet"
 
-#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:701
+#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:703
 msgid "Error when revoking device"
 msgstr "Kunde inte återkalla enheten"
 
@@ -901,35 +901,35 @@ msgstr "Visa lösenord"
 msgid "Voicemail number"
 msgstr "Nummer till röstbrevlåda"
 
-#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1788
+#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1790
 msgid "Error: wrong password!"
 msgstr "Fel: Fel lösenord!"
 
-#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1791
+#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1793
 msgid "Error: unknown device!"
 msgstr "Fel: Okänd enhet!"
 
-#: src/video/video_widget.cpp:583
+#: src/video/video_widget.cpp:547
 msgid "Share _screen area"
 msgstr "Dela _skärmområde"
 
-#: src/video/video_widget.cpp:594
+#: src/video/video_widget.cpp:555
 msgid "Share _monitor"
 msgstr "Dela _hela skärmen"
 
-#: src/video/video_widget.cpp:605
+#: src/video/video_widget.cpp:562
 msgid "Stream _file"
 msgstr "Strömma _fil"
 
-#: src/video/video_widget.cpp:618
+#: src/video/video_widget.cpp:572
 msgid "Show advanced information"
 msgstr "Visa avancerad information"
 
-#: src/avatarmanipulation.cpp:403
+#: src/avatarmanipulation.cpp:412
 msgid "Open Avatar Image"
 msgstr "Öppna avatarbild"
 
-#: src/avatarmanipulation.cpp:408 src/chatview.cpp:180
+#: src/avatarmanipulation.cpp:417 src/chatview.cpp:180
 msgid "_Open"
 msgstr "_Öppna"
 
@@ -947,9 +947,9 @@ msgstr "\"Lev fritt eller dö\"\nkompilerat %.25s"
 
 #: src/dialogs.c:137
 msgid ""
-"The GNOME client for Ring.\n"
-"Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "GNOME-klient för Ring\nRing är fri mjukvara för universell kommunikation, med respekt för användarens frihet och integritet."
+"The GNOME client for Jami.\n"
+"Jami is free software for universal communication which respects the freedoms and privacy of its users."
+msgstr ""
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -963,65 +963,65 @@ msgstr "Sluta spela in"
 msgid "Send recorded message"
 msgstr "Skicka inspelat meddelande"
 
-#: src/ringmainwindow.cpp:175
+#: src/ringmainwindow.cpp:176
 msgid "Add account…"
 msgstr "Lägg till konto..."
 
-#: src/ringmainwindow.cpp:632
+#: src/ringmainwindow.cpp:633
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "starta samtal"
 
-#: src/ringmainwindow.cpp:635
+#: src/ringmainwindow.cpp:636
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "öppna chatt"
 
-#: src/ringmainwindow.cpp:1062
+#: src/ringmainwindow.cpp:1064
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Sök i kontakter eller ange nummer"
 
-#: src/ringmainwindow.cpp:1495
+#: src/ringmainwindow.cpp:1499
 msgid "Leave settings page"
 msgstr "Lämna inställningssidan"
 
-#: src/ringmainwindow.cpp:1864
+#: src/ringmainwindow.cpp:1868
 msgid " is calling you!"
 msgstr "ringer dig!"
 
-#: src/ringmainwindow.cpp:1865
+#: src/ringmainwindow.cpp:1869
 msgid "Incoming call"
 msgstr "Inkommande samtal"
 
-#: src/ringmainwindow.cpp:2007
+#: src/ringmainwindow.cpp:2011
 msgid "New request from "
 msgstr "Ny förfrågan från"
 
-#: src/ringmainwindow.cpp:2008
+#: src/ringmainwindow.cpp:2012
 msgid "Trust request"
 msgstr "Lita på begäran"
 
-#: src/ringmainwindow.cpp:2065
+#: src/ringmainwindow.cpp:2069
 msgid "New message"
 msgstr "Nytt meddelande"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
-msgid "Ring Error"
-msgstr "Ring-fel"
+msgid "Jami Error"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)…"
-msgstr "Försöker återansluta till Ring-tjänsten (dring)..."
+msgid "Trying to reconnect to the Jami daemon (dring)…"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
-"Could not re-connect to the Ring daemon (dring).\n"
-"Ring will now quit."
-msgstr "Kunde inte återansluta till Ring-demonen (dring).\nRing kommer nu att avslutas."
+"Could not re-connect to the Jami daemon (dring).\n"
+"Jami will now quit."
+msgstr ""
 
 #: src/conversationpopupmenu.cpp:214
 msgid "Place _video call"
@@ -1074,116 +1074,110 @@ msgid ""
 msgstr "Återställer dold status för huvudfönstret (applicerbart endast på primär instans)"
 
 #: src/ring_client_options.c:85
-msgid "- GNOME client for Ring"
-msgstr "- GNOME-klient för Ring"
+msgid "- GNOME client for Jami"
+msgstr ""
 
-#: src/accountcreationwizard.cpp:346
+#: src/accountcreationwizard.cpp:348
 msgid "Passwords don't match"
 msgstr "Lösenorden stämmer inte"
 
-#: src/ringwelcomeview.cpp:85
+#: src/ringwelcomeview.cpp:87
 msgid ""
-"This is your Ring username.\n"
+"This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr "Detta är ditt Ring-användarnamn.\nKopiera och dela det med dina vänner!"
+msgstr ""
 
-#: src/ringwelcomeview.cpp:93
-msgctxt "Do not translate \"RingID\""
+#: src/ringwelcomeview.cpp:95
 msgid ""
-"This is your RingID.\n"
+"This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr "Detta är ditt Ring-ID.\nKopiera och dela det med dina vänner!"
+msgstr ""
 
-#: src/ringwelcomeview.cpp:150
+#: src/ringwelcomeview.cpp:153
 msgid ""
-"Ring is free software for universal communication which respects the "
+"Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr "Ring är fri mjukvara för universell kommunikation, med respekt för användarens frihet och integritet."
-
-#: src/ringwelcomeview.cpp:204
-msgctxt "Do not translate \"RingID\""
-msgid "RingID QR code"
-msgstr "QR-kod för Ring-ID"
+msgstr ""
 
 #: src/chatview.cpp:175
 msgid "Send File"
 msgstr "Skicka fil"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:962
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:964
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Varning! Denna åtgärd kommer att ta bort detta konto på denna enhet!\nNotera att åtgärden inte kan ångras och att ditt registrerade användarnamn kan förloras!"
 
-#: src/currentcallview.cpp:935
+#: src/currentcallview.cpp:977
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/newaccountsettingsview.cpp:679
+#: src/newaccountsettingsview.cpp:681
 msgid "Edit name"
 msgstr "Redigera namn"
 
-#: src/newaccountsettingsview.cpp:774
+#: src/newaccountsettingsview.cpp:776
 msgid "Unban"
 msgstr "Ta bort bannlysning"
 
-#: src/newaccountsettingsview.cpp:810
+#: src/newaccountsettingsview.cpp:812
 msgid "New password and its confirmation are different!"
 msgstr "Det nya lösenordet och bekräftelsen är olika"
 
-#: src/newaccountsettingsview.cpp:821
+#: src/newaccountsettingsview.cpp:823
 msgid "Incorrect password!"
 msgstr "Felaktigt lösenord!"
 
-#: src/newaccountsettingsview.cpp:858
+#: src/newaccountsettingsview.cpp:860
 msgid "Note: this will change the password only on this device."
 msgstr "Notera att lösenordet ändras på denna enhet endast."
 
-#: src/newaccountsettingsview.cpp:861
+#: src/newaccountsettingsview.cpp:863
 msgid "Current password"
 msgstr "Aktuellt lösenord"
 
-#: src/newaccountsettingsview.cpp:867
+#: src/newaccountsettingsview.cpp:869
 msgid "New password"
 msgstr "Nytt lösenord"
 
-#: src/newaccountsettingsview.cpp:947
+#: src/newaccountsettingsview.cpp:949
 msgid "Account exported!"
 msgstr "Konto exporterat!"
 
-#: src/newaccountsettingsview.cpp:947
+#: src/newaccountsettingsview.cpp:949
 msgid "Export account failure."
 msgstr "Kontoexport misslyckades."
 
-#: src/newaccountsettingsview.cpp:1717
+#: src/newaccountsettingsview.cpp:1719
 msgid "Unknown error"
 msgstr "Okänt fel"
 
-#: src/newaccountsettingsview.cpp:1962
+#: src/newaccountsettingsview.cpp:1964
 msgid "Initializing…"
 msgstr "Startar..."
 
-#: src/newaccountsettingsview.cpp:1965
+#: src/newaccountsettingsview.cpp:1967
 msgid "Offline"
 msgstr "Nerkopplad"
 
-#: src/newaccountsettingsview.cpp:1968
+#: src/newaccountsettingsview.cpp:1970
 msgid "Connecting…"
 msgstr "Ansluter..."
 
-#: src/newaccountsettingsview.cpp:1971
+#: src/newaccountsettingsview.cpp:1973
 msgid "Online"
 msgstr "Uppkopplad"
 
-#: src/newaccountsettingsview.cpp:1975
+#: src/newaccountsettingsview.cpp:1977
 msgid "Unknown status"
 msgstr "Okänd status"
 
-#: src/newaccountsettingsview.cpp:2008
+#: src/newaccountsettingsview.cpp:2010
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2008
+#: src/newaccountsettingsview.cpp:2010
 msgid "no password set"
 msgstr "Lösenord saknas"

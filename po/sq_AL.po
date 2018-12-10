@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 03:09-0500\n"
-"PO-Revision-Date: 2018-11-19 08:09+0000\n"
+"POT-Creation-Date: 2018-12-10 03:09-0500\n"
+"PO-Revision-Date: 2018-12-10 08:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgstr "Migroni llogari"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:963
+#: src/newaccountsettingsview.cpp:965
 msgid "Delete account"
 msgstr "Fshije llogarinë"
 
@@ -137,23 +137,23 @@ msgid "Welcome to"
 msgstr "Mirë se vini te"
 
 #: ui/accountcreationwizard.ui:64
-msgid "Create Ring Account"
-msgstr "Krijoni Llogari Ring"
+msgid "Create Jami Account"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:65
-msgid "Create a new Ring account (for new users)"
-msgstr "Krijoni një llogari të ri Ring (për përdorues të rinj)"
+msgid "Create a new Jami account (for new users)"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
 msgstr "Lidheni këtë pajisje me një llogari"
 
 #: ui/accountcreationwizard.ui:73
-msgid "Link this devices to a Ring account created on another device"
-msgstr "Lidheni këtë pajisje me një llogari Ring të krijuar te pajisja tjetër"
+msgid "Link this devices to a Jami account created on another device"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
-#: src/newaccountsettingsview.cpp:883
+#: src/newaccountsettingsview.cpp:885
 msgid "Cancel"
 msgstr "Anuloje"
 
@@ -174,11 +174,11 @@ msgid ""
 "To link this device to another account, you have two possibilities. You can "
 "import your account from the DHT, but first, you need to obtain a PIN code. "
 "To generate the PIN code, go to the account management setting of a previous"
-" device, choose the Ring Account to use and select \"Link another device to "
+" device, choose the Jami Account to use and select \"Link another device to "
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr "Për të lidhur këtë pajisje me një llogari tjetër, keni dy mundësi. Mund të importoni llogarinë tuaj nga DHT, por së pari, lypset të merrni një kod PIN. Që të prodhohet kodi PIN, kaloni te ndarja e administrimit të llogarive, te pajisja e mëparshme, zgjidhni Llogari Ring që duhet përdorur dhe përzgjidhni \"Lidhni me këtë llogari një pajisje tjetër\". Do të merrni PIN-in e nevojshëm për të plotësuar këtë formular. PIN-i vlen vetëm për 10 minuta. Ose mund të importoni drejtpërsëdrejti llogarinë tuaj nga një arkiv."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
@@ -215,10 +215,10 @@ msgstr "Regjistroni emër përdoruesi"
 
 #: ui/accountcreationwizard.ui:388
 msgid ""
-"By checking this, you will register a unique username on the Ring network. "
+"By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr "Duke i vënë shenjë kësaj, do të regjistroni një emër përdoruesi unik në rrjetin Ring. Njerëzit mund ta përdorin për t’u lidhur me ju, në vend se të ID-së tuaj Ring, që është 40 shenja i gjatë."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
@@ -232,13 +232,13 @@ msgid ""
 "devices to your account."
 msgstr "Ky fjalëkalim do të përdoret për të fshehtëzuar të dhënat e llogarisë tuaj dhe për të lidhur pajisje të reja në të."
 
-#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:873
+#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:875
 msgid "Confirm password"
 msgstr "Ripohoni fjalëkalimin"
 
 #: ui/accountcreationwizard.ui:562
-msgid "Generating your Ring account…"
-msgstr "Po prodhohet llogaria juaj Ring…"
+msgid "Generating your Jami account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
@@ -249,8 +249,8 @@ msgid "This may take a few minutes."
 msgstr "Kjo mund të hajë pak minuta."
 
 #: ui/accountcreationwizard.ui:621
-msgid "Retrieving your Ring account…"
-msgstr "Po merret llogaria juaj Ring…"
+msgid "Retrieving your Jami account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
@@ -262,20 +262,20 @@ msgid "OK"
 msgstr "OK"
 
 #: ui/generalsettingsview.ui:46
-msgid "Ring Settings"
-msgstr "Rregullime Ring-u"
+msgid "Jami Settings"
+msgstr ""
 
 #: ui/generalsettingsview.ui:62
-msgid "Start Ring on login"
-msgstr "Nise Ring-un kur bëni hyrjen në sistem"
+msgid "Start Jami on login"
+msgstr ""
 
 #: ui/generalsettingsview.ui:70
-msgid "Show Ring icon in the notification area (systray)."
-msgstr "Shfaq ikonë Ring-u te fusha e njoftimeve (systray)."
+msgid "Show Jami icon in the notification area (systray)."
+msgstr ""
 
 #: ui/generalsettingsview.ui:78
-msgid "Bring Ring to the foreground on incoming calls."
-msgstr "Sille Ring-un përpara për thirrje ardhëse."
+msgid "Bring Jami to the foreground on incoming calls."
+msgstr ""
 
 #: ui/generalsettingsview.ui:86
 msgid "Enable notifications for incoming calls."
@@ -337,7 +337,7 @@ msgstr "Të përgjithshme"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1522
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1526
 msgid "Settings"
 msgstr "Rregullime"
 
@@ -407,10 +407,10 @@ msgstr "Shtoni Pajisje të Re"
 
 #: ui/newaccountsettingsview.ui:146
 msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
+"To add a new device to your Jami account, you export your account on the "
+"Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr "Që t’i shtoni llogarisë tuaj Ring një pajisje të re, eksportoni llogarinë tuaj në Ring. Kjo do të prodhojë një PIN që duhet dhënë te pajisja juaj e re brenda 5 minutash nga çasti i prodhimit."
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -421,12 +421,12 @@ msgid "Enter archive password"
 msgstr "Jepni fjalëkalim arkivi"
 
 #: ui/newaccountsettingsview.ui:189
-msgid "Export on the Ring"
-msgstr "Eksportoje te Ring-u"
+msgid "Export on the Jami"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:210
-msgid "Exporting account on the Ring…"
-msgstr "Po eksportohet llogari në Ring…"
+msgid "Exporting account on the Jami…"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -440,7 +440,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Klikoni që të ndryshohet fjalëkalimi"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1997
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1999
 msgid "Export account"
 msgstr "Eksportoni llogari"
 
@@ -466,8 +466,8 @@ msgid "Voicemail"
 msgstr "Voicemail"
 
 #: ui/newaccountsettingsview.ui:952
-msgid "Known devices linked to this Ring account"
-msgstr "Pajisje të njohura që lidhen te kjo llogari Ring"
+msgid "Known devices linked to this Jami account"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
@@ -733,19 +733,19 @@ msgstr "Si figurë cakto përzgjedhjen"
 #, c-format
 msgid ""
 "Unable to initialize.\n"
-"Make sure the Ring daemon (dring) is running.\n"
+"Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr "S’arrihet të gatitet.\nSigurohuni që demoni Ring (dring) është në punë e sipër.\nGabim: %s"
+msgstr ""
 
 #: src/ring_client.cpp:144
-msgid "Ring Error"
-msgstr "Gabim Ring"
+msgid "Jami Error"
+msgstr ""
 
 #: src/ring_client.cpp:287
 msgctxt ""
-"In the status icon menu, toggle action to show or hide the Ring main window"
-msgid "Show Ring"
-msgstr "Shfaqe Ring-un"
+"In the status icon menu, toggle action to show or hide the Jami main window"
+msgid "Show Jami"
+msgstr ""
 
 #: src/ring_client.cpp:291
 msgid "Quit"
@@ -792,8 +792,8 @@ msgid "Performing lookup…"
 msgstr "Po kryhet kërkim…"
 
 #: src/usernameregistrationbox.cpp:313
-msgid "Enter the password of your Ring account"
-msgstr "Jepni fjalëkalimin për llogarinë tuaj Ring"
+msgid "Enter the password of your Jami account"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
@@ -810,36 +810,36 @@ msgid "Choose download folder"
 msgstr "Zgjidhni dosje shkarkimesh"
 
 #: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:342
-#: src/avatarmanipulation.cpp:406 src/chatview.cpp:178
-#: src/newaccountsettingsview.cpp:926
+#: src/avatarmanipulation.cpp:415 src/chatview.cpp:178
+#: src/newaccountsettingsview.cpp:928
 msgid "_Cancel"
 msgstr "_Anuloje"
 
 #: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:344
-#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
+#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
 msgid "_Save"
 msgstr "_Ruaje"
 
-#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1705
+#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1707
 msgid "Bad password"
 msgstr "Fjalëkalim i gabuar"
 
-#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1711
+#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1713
 msgid "Network error, try again"
 msgstr "Gabim rrjeti, riprovoni"
 
-#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1729
-msgid "Could not initiate export to the Ring, try again"
-msgstr "S’u fillua dot eksportimi te Ring, riprovoni"
+#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
+msgid "Could not initiate export to the Jami, try again"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
-#: src/newaccountsettingsview.cpp:797 src/newaccountsettingsview.cpp:820
-#: src/newaccountsettingsview.cpp:844 src/newaccountsettingsview.cpp:880
+#: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
+#: src/newaccountsettingsview.cpp:846 src/newaccountsettingsview.cpp:882
 msgid "Change password"
 msgstr "Ndryshoni fjalëkalimin"
 
 #: src/accountgeneraltab.cpp:339 src/chatview.cpp:175
-#: src/newaccountsettingsview.cpp:923
+#: src/newaccountsettingsview.cpp:925
 msgid "Save File"
 msgstr "Ruaje Kartelën"
 
@@ -847,13 +847,13 @@ msgstr "Ruaje Kartelën"
 msgid "File exported to destination: "
 msgstr "Kartela u eksportua te vendmbërritja:"
 
-#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:620
+#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:622
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Kujdes! Ky veprim do të shfuqizojë pajisjen!\nShënim: ky veprim s’mund të zhbëhet."
 
-#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:621
+#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:623
 msgid "Enter password to revoke device"
 msgstr "Që të shfuqizohet pajisja, jepni fjalëkalimin"
 
@@ -873,11 +873,11 @@ msgstr "Fjalëkalim i pasaktë"
 msgid "Save name"
 msgstr "Ruaje emrin"
 
-#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:679
+#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:681
 msgid "Revoke device"
 msgstr "Shfuqizoje pajisjen"
 
-#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:701
+#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:703
 msgid "Error when revoking device"
 msgstr "Gabim gjatë shfuqizimit të pajisjes"
 
@@ -901,35 +901,35 @@ msgstr "Shfaqe fjalëkalimin"
 msgid "Voicemail number"
 msgstr "Numër voicemail"
 
-#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1788
+#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1790
 msgid "Error: wrong password!"
 msgstr "Gabim: fjalëkalim i gabuar!"
 
-#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1791
+#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1793
 msgid "Error: unknown device!"
 msgstr "Gabim: pajisje e panjohur!"
 
-#: src/video/video_widget.cpp:583
+#: src/video/video_widget.cpp:547
 msgid "Share _screen area"
 msgstr "Ndani me të tjerë zonë _ekrani"
 
-#: src/video/video_widget.cpp:594
+#: src/video/video_widget.cpp:555
 msgid "Share _monitor"
 msgstr "Ndani me të tjerë _monitor"
 
-#: src/video/video_widget.cpp:605
+#: src/video/video_widget.cpp:562
 msgid "Stream _file"
 msgstr "_Kartelë rrjedhe"
 
-#: src/video/video_widget.cpp:618
+#: src/video/video_widget.cpp:572
 msgid "Show advanced information"
 msgstr "Shfaq informacion të thelluar"
 
-#: src/avatarmanipulation.cpp:403
+#: src/avatarmanipulation.cpp:412
 msgid "Open Avatar Image"
 msgstr "Hap Figurë Avatari"
 
-#: src/avatarmanipulation.cpp:408 src/chatview.cpp:180
+#: src/avatarmanipulation.cpp:417 src/chatview.cpp:180
 msgid "_Open"
 msgstr "_Hape"
 
@@ -947,9 +947,9 @@ msgstr "\"Live Free or Die\"\nngritur mbi %.25s"
 
 #: src/dialogs.c:137
 msgid ""
-"The GNOME client for Ring.\n"
-"Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "Klienti Ring për GNOME.\nRing është software i lirë për komunikim universal që respekton privatësinë e përdoruesve të tij."
+"The GNOME client for Jami.\n"
+"Jami is free software for universal communication which respects the freedoms and privacy of its users."
+msgstr ""
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -963,65 +963,65 @@ msgstr "Ndale incizimin"
 msgid "Send recorded message"
 msgstr "Dërgo mesazhin e incizuar"
 
-#: src/ringmainwindow.cpp:175
+#: src/ringmainwindow.cpp:176
 msgid "Add account…"
 msgstr "Shtoni llogari…"
 
-#: src/ringmainwindow.cpp:632
+#: src/ringmainwindow.cpp:633
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "bëni një thirrje"
 
-#: src/ringmainwindow.cpp:635
+#: src/ringmainwindow.cpp:636
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "hape fjalosjen"
 
-#: src/ringmainwindow.cpp:1062
+#: src/ringmainwindow.cpp:1064
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Përzgjidhni kontakte ose jepni një numër"
 
-#: src/ringmainwindow.cpp:1495
+#: src/ringmainwindow.cpp:1499
 msgid "Leave settings page"
 msgstr "Braktise faqen e rregullimeve"
 
-#: src/ringmainwindow.cpp:1864
+#: src/ringmainwindow.cpp:1868
 msgid " is calling you!"
 msgstr "po ju thërret!"
 
-#: src/ringmainwindow.cpp:1865
+#: src/ringmainwindow.cpp:1869
 msgid "Incoming call"
 msgstr "Thirrje ardhëse"
 
-#: src/ringmainwindow.cpp:2007
+#: src/ringmainwindow.cpp:2011
 msgid "New request from "
 msgstr "Kërkesë e re nga"
 
-#: src/ringmainwindow.cpp:2008
+#: src/ringmainwindow.cpp:2012
 msgid "Trust request"
 msgstr "Kërkesë besueshmërie"
 
-#: src/ringmainwindow.cpp:2065
+#: src/ringmainwindow.cpp:2069
 msgid "New message"
 msgstr "Mesazh i ri"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
-msgid "Ring Error"
-msgstr "Gabim Ring-u"
+msgid "Jami Error"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)…"
-msgstr "Përpjekje për t’u rilidhur me demonin Ring (dring)…"
+msgid "Trying to reconnect to the Jami daemon (dring)…"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
-"Could not re-connect to the Ring daemon (dring).\n"
-"Ring will now quit."
-msgstr "S’u rilidh dot me demonin Ring (dring).\nRing-u tani do të dalë."
+"Could not re-connect to the Jami daemon (dring).\n"
+"Jami will now quit."
+msgstr ""
 
 #: src/conversationpopupmenu.cpp:214
 msgid "Place _video call"
@@ -1074,116 +1074,110 @@ msgid ""
 msgstr "Rikthen gjendjen e fshehur të dritares kryesore (e zbatueshme vetëm për instancën parësore)"
 
 #: src/ring_client_options.c:85
-msgid "- GNOME client for Ring"
-msgstr "- Klienti Ring për GNOME"
+msgid "- GNOME client for Jami"
+msgstr ""
 
-#: src/accountcreationwizard.cpp:346
+#: src/accountcreationwizard.cpp:348
 msgid "Passwords don't match"
 msgstr "Fjalëkalimet nuk përputhen"
 
-#: src/ringwelcomeview.cpp:85
+#: src/ringwelcomeview.cpp:87
 msgid ""
-"This is your Ring username.\n"
+"This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr "Ky është emri juaj i përdoruesit në Ring.\nKopjojeni dhe jepuani shokëve!"
+msgstr ""
 
-#: src/ringwelcomeview.cpp:93
-msgctxt "Do not translate \"RingID\""
+#: src/ringwelcomeview.cpp:95
 msgid ""
-"This is your RingID.\n"
+"This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr "Kjo është RingID-ja juaj.\nKopjojeni dhe jepuani shokëve!"
+msgstr ""
 
-#: src/ringwelcomeview.cpp:150
+#: src/ringwelcomeview.cpp:153
 msgid ""
-"Ring is free software for universal communication which respects the "
+"Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr "Ring është software i lirë për komunikim universal që respekton privatësinë e përdoruesve të tij."
-
-#: src/ringwelcomeview.cpp:204
-msgctxt "Do not translate \"RingID\""
-msgid "RingID QR code"
-msgstr "Kod IQ RingID-je"
+msgstr ""
 
 #: src/chatview.cpp:175
 msgid "Send File"
 msgstr "Dërgo Kartelë"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:962
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:964
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Kujdes! Ky veprim do të shkaktojë heqjen e kësaj llogarie në këtë pajisje!\nShënim: ky veprim s’mund të zhbëhet. Veç kësaj, mund të humbë emri që keni regjistruar!"
 
-#: src/currentcallview.cpp:935
+#: src/currentcallview.cpp:977
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/newaccountsettingsview.cpp:679
+#: src/newaccountsettingsview.cpp:681
 msgid "Edit name"
 msgstr "Përpunoni emrin"
 
-#: src/newaccountsettingsview.cpp:774
+#: src/newaccountsettingsview.cpp:776
 msgid "Unban"
 msgstr "Zhdëboje"
 
-#: src/newaccountsettingsview.cpp:810
+#: src/newaccountsettingsview.cpp:812
 msgid "New password and its confirmation are different!"
 msgstr "Fjalëkalimi i ri dhe ripohimi për të janë të ndryshëm!"
 
-#: src/newaccountsettingsview.cpp:821
+#: src/newaccountsettingsview.cpp:823
 msgid "Incorrect password!"
 msgstr "Fjalëkalim i pasaktë!"
 
-#: src/newaccountsettingsview.cpp:858
+#: src/newaccountsettingsview.cpp:860
 msgid "Note: this will change the password only on this device."
 msgstr "Shënim: kjo do të ndryshojë fjalëkalimi vetëm në këtë pajisje."
 
-#: src/newaccountsettingsview.cpp:861
+#: src/newaccountsettingsview.cpp:863
 msgid "Current password"
 msgstr "Fjalëkalimi i tanishëm"
 
-#: src/newaccountsettingsview.cpp:867
+#: src/newaccountsettingsview.cpp:869
 msgid "New password"
 msgstr "Fjalëkalim i ri"
 
-#: src/newaccountsettingsview.cpp:947
+#: src/newaccountsettingsview.cpp:949
 msgid "Account exported!"
 msgstr "Llogaria u eksportua!"
 
-#: src/newaccountsettingsview.cpp:947
+#: src/newaccountsettingsview.cpp:949
 msgid "Export account failure."
 msgstr "Dështim eksportimi llogarie."
 
-#: src/newaccountsettingsview.cpp:1717
+#: src/newaccountsettingsview.cpp:1719
 msgid "Unknown error"
 msgstr "Gabim i panjohur"
 
-#: src/newaccountsettingsview.cpp:1962
+#: src/newaccountsettingsview.cpp:1964
 msgid "Initializing…"
 msgstr "Po gatitet…"
 
-#: src/newaccountsettingsview.cpp:1965
+#: src/newaccountsettingsview.cpp:1967
 msgid "Offline"
 msgstr "Jo në linjë"
 
-#: src/newaccountsettingsview.cpp:1968
+#: src/newaccountsettingsview.cpp:1970
 msgid "Connecting…"
 msgstr "Po lidhet…"
 
-#: src/newaccountsettingsview.cpp:1971
+#: src/newaccountsettingsview.cpp:1973
 msgid "Online"
 msgstr "Në linjë"
 
-#: src/newaccountsettingsview.cpp:1975
+#: src/newaccountsettingsview.cpp:1977
 msgid "Unknown status"
 msgstr "Gjendje e panjohur"
 
-#: src/newaccountsettingsview.cpp:2008
+#: src/newaccountsettingsview.cpp:2010
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2008
+#: src/newaccountsettingsview.cpp:2010
 msgid "no password set"
 msgstr "s’ka fjalëkalim të caktuar"

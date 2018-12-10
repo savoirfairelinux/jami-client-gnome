@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 03:09-0500\n"
-"PO-Revision-Date: 2018-11-19 09:14+0000\n"
-"Last-Translator: . . <ovari123@zoho.com>\n"
+"POT-Creation-Date: 2018-12-10 03:09-0500\n"
+"PO-Revision-Date: 2018-12-10 08:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,7 +56,7 @@ msgstr "Fiók migrálása"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:963
+#: src/newaccountsettingsview.cpp:965
 msgid "Delete account"
 msgstr "Fiók törlése"
 
@@ -139,23 +139,23 @@ msgid "Welcome to"
 msgstr "Isten hozott"
 
 #: ui/accountcreationwizard.ui:64
-msgid "Create Ring Account"
-msgstr "Ring fiók létrehozása"
+msgid "Create Jami Account"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:65
-msgid "Create a new Ring account (for new users)"
-msgstr "Új Ring fiók létrehozása (új felhasználóknak)"
+msgid "Create a new Jami account (for new users)"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
 msgstr "Ezen eszköz fiókhoz kapcsolása"
 
 #: ui/accountcreationwizard.ui:73
-msgid "Link this devices to a Ring account created on another device"
-msgstr "Ezen eszköz, egy másik eszközön létrehozott Ring fiókhoz kapcsolása"
+msgid "Link this devices to a Jami account created on another device"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
-#: src/newaccountsettingsview.cpp:883
+#: src/newaccountsettingsview.cpp:885
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -176,11 +176,11 @@ msgid ""
 "To link this device to another account, you have two possibilities. You can "
 "import your account from the DHT, but first, you need to obtain a PIN code. "
 "To generate the PIN code, go to the account management setting of a previous"
-" device, choose the Ring Account to use and select \"Link another device to "
+" device, choose the Jami Account to use and select \"Link another device to "
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr "Az eszköz másik fiókhoz kapcsolásához kettő lehetőség van .Importálhatja fiókját a DHT-ből, de először PIN-kódra van szüksége. A PIN-kód előállításához menjen egy korábbi eszköz fiókkezelési beállításába, válassza ki a használandó Ring fiókot, és válassza a „Másik eszköz hozzákapcsolása ehhez a fiókhoz” lehetőséget. Meg fogja kapni az űrlap kitöltéséhez szükséges PIN-kódot. A PIN-kód csak 10 percig érvényes. Vagy közvetlenül importálhatja fiókját egy archívumból."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
@@ -217,10 +217,10 @@ msgstr "Regisztráljon felhasználónevet"
 
 #: ui/accountcreationwizard.ui:388
 msgid ""
-"By checking this, you will register a unique username on the Ring network. "
+"By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr "Ezt bejelölve, regisztrál egy egyedi felhasználónevet a Ring hálózaton. Az emberek ezt a Ring azonosítója (amely 40 karakter hosszú) helyett használhatják, hogy elérjék Önt."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
@@ -234,13 +234,13 @@ msgid ""
 "devices to your account."
 msgstr "Ez a jelszó a fiókadatainak titkosítására lesz használva, és arra, hogy más eszközöket kapcsoljon a fiókjához."
 
-#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:873
+#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:875
 msgid "Confirm password"
 msgstr "Jelszó megerősítése"
 
 #: ui/accountcreationwizard.ui:562
-msgid "Generating your Ring account…"
-msgstr "A Ring-fiókja létrehozása…"
+msgid "Generating your Jami account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
@@ -251,8 +251,8 @@ msgid "This may take a few minutes."
 msgstr "Ez néhány percet is igénybe vehet."
 
 #: ui/accountcreationwizard.ui:621
-msgid "Retrieving your Ring account…"
-msgstr "A Ring-fiókja lekérése…"
+msgid "Retrieving your Jami account…"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
@@ -264,20 +264,20 @@ msgid "OK"
 msgstr "OK"
 
 #: ui/generalsettingsview.ui:46
-msgid "Ring Settings"
-msgstr "Ring beállítások"
+msgid "Jami Settings"
+msgstr ""
 
 #: ui/generalsettingsview.ui:62
-msgid "Start Ring on login"
-msgstr "A Ring indítása bejelentkezéskor"
+msgid "Start Jami on login"
+msgstr ""
 
 #: ui/generalsettingsview.ui:70
-msgid "Show Ring icon in the notification area (systray)."
-msgstr "A Ring ikon megjelenítése az értesítési területen (rendszertálca)."
+msgid "Show Jami icon in the notification area (systray)."
+msgstr ""
 
 #: ui/generalsettingsview.ui:78
-msgid "Bring Ring to the foreground on incoming calls."
-msgstr "A Ring előtérbe hozása bejövő hívások esetén."
+msgid "Bring Jami to the foreground on incoming calls."
+msgstr ""
 
 #: ui/generalsettingsview.ui:86
 msgid "Enable notifications for incoming calls."
@@ -339,7 +339,7 @@ msgstr "Általános"
 msgid "Media"
 msgstr "Média"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1522
+#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1526
 msgid "Settings"
 msgstr "Beállítások"
 
@@ -409,10 +409,10 @@ msgstr "Új eszköz hozzáadása"
 
 #: ui/newaccountsettingsview.ui:146
 msgid ""
-"To add a new device to your Ring account, you export your account on the "
-"Ring. This will generate a pin that must be entered on your new device "
+"To add a new device to your Jami account, you export your account on the "
+"Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr "Ahhoz hogy új eszközt adjon a Ring fiókjához, exportálnia kell a fiókját a Ringen. Ez előállít egy PIN-t, amit meg kell adnia az új eszközén, az előállítástól számított 5 percen belül."
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -423,12 +423,12 @@ msgid "Enter archive password"
 msgstr "Adja meg az archívum jelszavát"
 
 #: ui/newaccountsettingsview.ui:189
-msgid "Export on the Ring"
-msgstr "Ring exportálása"
+msgid "Export on the Jami"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:210
-msgid "Exporting account on the Ring…"
-msgstr "Fiók exportálása a Ringen…"
+msgid "Exporting account on the Jami…"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -442,7 +442,7 @@ msgstr "Azonosító"
 msgid "Click to change password"
 msgstr "Kattintson a jelszó módosításához"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1997
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1999
 msgid "Export account"
 msgstr "Felhasználó fiók exportálása"
 
@@ -468,8 +468,8 @@ msgid "Voicemail"
 msgstr "Hangposta"
 
 #: ui/newaccountsettingsview.ui:952
-msgid "Known devices linked to this Ring account"
-msgstr "Ring-fiókhoz kapcsolódó ismert eszközök"
+msgid "Known devices linked to this Jami account"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
@@ -735,19 +735,19 @@ msgstr "Kijelölés beállítása képként"
 #, c-format
 msgid ""
 "Unable to initialize.\n"
-"Make sure the Ring daemon (dring) is running.\n"
+"Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr "Képtelen elkezdeni\nGyőződjön meg róla, hogy a Ring daemon (dring) fut.\nHiba: %s"
+msgstr ""
 
 #: src/ring_client.cpp:144
-msgid "Ring Error"
-msgstr "Ring hiba"
+msgid "Jami Error"
+msgstr ""
 
 #: src/ring_client.cpp:287
 msgctxt ""
-"In the status icon menu, toggle action to show or hide the Ring main window"
-msgid "Show Ring"
-msgstr "A Ring megnyitása"
+"In the status icon menu, toggle action to show or hide the Jami main window"
+msgid "Show Jami"
+msgstr ""
 
 #: src/ring_client.cpp:291
 msgid "Quit"
@@ -794,8 +794,8 @@ msgid "Performing lookup…"
 msgstr "Betekintés végrehajtása…"
 
 #: src/usernameregistrationbox.cpp:313
-msgid "Enter the password of your Ring account"
-msgstr "Adja meg a Ring-fiókja jelszavát"
+msgid "Enter the password of your Jami account"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
@@ -812,36 +812,36 @@ msgid "Choose download folder"
 msgstr "Letöltési mappa kiválasztása"
 
 #: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:342
-#: src/avatarmanipulation.cpp:406 src/chatview.cpp:178
-#: src/newaccountsettingsview.cpp:926
+#: src/avatarmanipulation.cpp:415 src/chatview.cpp:178
+#: src/newaccountsettingsview.cpp:928
 msgid "_Cancel"
 msgstr "_Mégse"
 
 #: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:344
-#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:928
+#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
 msgid "_Save"
 msgstr "_Mentés"
 
-#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1705
+#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1707
 msgid "Bad password"
 msgstr "Hibás jelszó"
 
-#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1711
+#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1713
 msgid "Network error, try again"
 msgstr "Hálózati hiba, próbálja újra"
 
-#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1729
-msgid "Could not initiate export to the Ring, try again"
-msgstr "A Ring export elindítása nem sikerült, próbálja újra"
+#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
+msgid "Could not initiate export to the Jami, try again"
+msgstr ""
 
 #: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
-#: src/newaccountsettingsview.cpp:797 src/newaccountsettingsview.cpp:820
-#: src/newaccountsettingsview.cpp:844 src/newaccountsettingsview.cpp:880
+#: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
+#: src/newaccountsettingsview.cpp:846 src/newaccountsettingsview.cpp:882
 msgid "Change password"
 msgstr "Jelszó megváltoztatása"
 
 #: src/accountgeneraltab.cpp:339 src/chatview.cpp:175
-#: src/newaccountsettingsview.cpp:923
+#: src/newaccountsettingsview.cpp:925
 msgid "Save File"
 msgstr "Fájl mentése"
 
@@ -849,13 +849,13 @@ msgstr "Fájl mentése"
 msgid "File exported to destination: "
 msgstr "Fájlok mentése:"
 
-#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:620
+#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:622
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Figyelmeztetés! Ez a művelet visszavonja az eszközt!\nMegjegyzés: ez a művelet nem vonható vissza."
 
-#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:621
+#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:623
 msgid "Enter password to revoke device"
 msgstr "Jelszó megadása az eszköz visszavonásához"
 
@@ -875,11 +875,11 @@ msgstr "Hibás jelszó"
 msgid "Save name"
 msgstr "Név mentése"
 
-#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:679
+#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:681
 msgid "Revoke device"
 msgstr "Eszköz visszavonása"
 
-#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:701
+#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:703
 msgid "Error when revoking device"
 msgstr "Hiba történt az eszköz visszavonásakor"
 
@@ -903,35 +903,35 @@ msgstr "Jelszó megjelenítése"
 msgid "Voicemail number"
 msgstr "Hangpostaszám"
 
-#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1788
+#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1790
 msgid "Error: wrong password!"
 msgstr "Hiba: hibás jelszó!"
 
-#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1791
+#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1793
 msgid "Error: unknown device!"
 msgstr "Hiba: ismeretlen eszköz!"
 
-#: src/video/video_widget.cpp:583
+#: src/video/video_widget.cpp:547
 msgid "Share _screen area"
 msgstr "_Képernyő részének megosztása"
 
-#: src/video/video_widget.cpp:594
+#: src/video/video_widget.cpp:555
 msgid "Share _monitor"
 msgstr "_Monitor megosztása"
 
-#: src/video/video_widget.cpp:605
+#: src/video/video_widget.cpp:562
 msgid "Stream _file"
 msgstr "Stream _fájl"
 
-#: src/video/video_widget.cpp:618
+#: src/video/video_widget.cpp:572
 msgid "Show advanced information"
 msgstr "Haladó információk megjelenítése"
 
-#: src/avatarmanipulation.cpp:403
+#: src/avatarmanipulation.cpp:412
 msgid "Open Avatar Image"
 msgstr "Avatar megnyitása"
 
-#: src/avatarmanipulation.cpp:408 src/chatview.cpp:180
+#: src/avatarmanipulation.cpp:417 src/chatview.cpp:180
 msgid "_Open"
 msgstr "_Megnyitás"
 
@@ -949,9 +949,9 @@ msgstr "„Élj szabadon vagy halj meg”\nkódtár verziója: %.25s"
 
 #: src/dialogs.c:137
 msgid ""
-"The GNOME client for Ring.\n"
-"Ring is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "A GNOME kliens a Ringhez.\nA Ring egy szabad szoftver az univerzális kommunikációhoz, amely tiszteletben tartja a felhasználók szabadságát és magánszféráját."
+"The GNOME client for Jami.\n"
+"Jami is free software for universal communication which respects the freedoms and privacy of its users."
+msgstr ""
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -965,65 +965,65 @@ msgstr "Felvétel leállítása"
 msgid "Send recorded message"
 msgstr "Felvett üzenet küldése"
 
-#: src/ringmainwindow.cpp:175
+#: src/ringmainwindow.cpp:176
 msgid "Add account…"
 msgstr "Fiók hozzáadása…"
 
-#: src/ringmainwindow.cpp:632
+#: src/ringmainwindow.cpp:633
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Hívás kezdeményezése"
 
-#: src/ringmainwindow.cpp:635
+#: src/ringmainwindow.cpp:636
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Csevegés megnyitása"
 
-#: src/ringmainwindow.cpp:1062
+#: src/ringmainwindow.cpp:1064
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Partnerek keresése vagy szám beírása"
 
-#: src/ringmainwindow.cpp:1495
+#: src/ringmainwindow.cpp:1499
 msgid "Leave settings page"
 msgstr "A beállítási oldal elhagyása"
 
-#: src/ringmainwindow.cpp:1864
+#: src/ringmainwindow.cpp:1868
 msgid " is calling you!"
 msgstr " hív!"
 
-#: src/ringmainwindow.cpp:1865
+#: src/ringmainwindow.cpp:1869
 msgid "Incoming call"
 msgstr "Bejövő hívás"
 
-#: src/ringmainwindow.cpp:2007
+#: src/ringmainwindow.cpp:2011
 msgid "New request from "
 msgstr "Új kérés"
 
-#: src/ringmainwindow.cpp:2008
+#: src/ringmainwindow.cpp:2012
 msgid "Trust request"
 msgstr "Megbízható kérelem"
 
-#: src/ringmainwindow.cpp:2065
+#: src/ringmainwindow.cpp:2069
 msgid "New message"
 msgstr "Új üzenet"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
-msgid "Ring Error"
-msgstr "Ring hiba"
+msgid "Jami Error"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Ring daemon (dring)…"
-msgstr "Újrakapcsolódás a Ring démonhoz (dring)…"
+msgid "Trying to reconnect to the Jami daemon (dring)…"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
-"Could not re-connect to the Ring daemon (dring).\n"
-"Ring will now quit."
-msgstr "Nem sikerült újrakapcsolódni a Ring démonhoz (dring).\nA Ring most kilép."
+"Could not re-connect to the Jami daemon (dring).\n"
+"Jami will now quit."
+msgstr ""
 
 #: src/conversationpopupmenu.cpp:214
 msgid "Place _video call"
@@ -1076,116 +1076,110 @@ msgid ""
 msgstr "Visszaállítja a főablak rejtett állapotát (csak az elsődleges példányra vonatkozik)"
 
 #: src/ring_client_options.c:85
-msgid "- GNOME client for Ring"
-msgstr "– GNOME kliens a Ring-hez"
+msgid "- GNOME client for Jami"
+msgstr ""
 
-#: src/accountcreationwizard.cpp:346
+#: src/accountcreationwizard.cpp:348
 msgid "Passwords don't match"
 msgstr "A jelszavak nem egyeznek"
 
-#: src/ringwelcomeview.cpp:85
+#: src/ringwelcomeview.cpp:87
 msgid ""
-"This is your Ring username.\n"
+"This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr "Ez az Ön Ring azonosítója.\nMásolja ki, és ossza meg barátaival!"
+msgstr ""
 
-#: src/ringwelcomeview.cpp:93
-msgctxt "Do not translate \"RingID\""
+#: src/ringwelcomeview.cpp:95
 msgid ""
-"This is your RingID.\n"
+"This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr "Ez az Ön Ring azonosítója.\nMásolja és ossza meg a barátaival!"
+msgstr ""
 
-#: src/ringwelcomeview.cpp:150
+#: src/ringwelcomeview.cpp:153
 msgid ""
-"Ring is free software for universal communication which respects the "
+"Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr "A Ring egy szabad szoftver az univerzális kommunikációhoz, amely tiszteletben tartja a felhasználók szabadságát és magánszféráját."
-
-#: src/ringwelcomeview.cpp:204
-msgctxt "Do not translate \"RingID\""
-msgid "RingID QR code"
-msgstr "Ring azonosító QR-kód"
+msgstr ""
 
 #: src/chatview.cpp:175
 msgid "Send File"
 msgstr "Fájl küldése"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:962
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:964
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Figyelmeztetés! Ez a művelet eltávolítja ezt a fiókot az eszközön!\nMegjegyzés: ez a művelet nem vonható vissza. A regisztrált neved is elveszhet!"
 
-#: src/currentcallview.cpp:935
+#: src/currentcallview.cpp:977
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automatikus"
 
-#: src/newaccountsettingsview.cpp:679
+#: src/newaccountsettingsview.cpp:681
 msgid "Edit name"
 msgstr "Név szerkesztése"
 
-#: src/newaccountsettingsview.cpp:774
+#: src/newaccountsettingsview.cpp:776
 msgid "Unban"
 msgstr "Letiltás visszavonása"
 
-#: src/newaccountsettingsview.cpp:810
+#: src/newaccountsettingsview.cpp:812
 msgid "New password and its confirmation are different!"
 msgstr "Az új jelszó és a megerősítése különböző!"
 
-#: src/newaccountsettingsview.cpp:821
+#: src/newaccountsettingsview.cpp:823
 msgid "Incorrect password!"
 msgstr "Hibás jelszó!"
 
-#: src/newaccountsettingsview.cpp:858
+#: src/newaccountsettingsview.cpp:860
 msgid "Note: this will change the password only on this device."
 msgstr "Megjegyzés: a jelszó megváltoztatása csak ezen az eszközön."
 
-#: src/newaccountsettingsview.cpp:861
+#: src/newaccountsettingsview.cpp:863
 msgid "Current password"
 msgstr "Jelenlegi jelszó"
 
-#: src/newaccountsettingsview.cpp:867
+#: src/newaccountsettingsview.cpp:869
 msgid "New password"
 msgstr "Új jelszó"
 
-#: src/newaccountsettingsview.cpp:947
+#: src/newaccountsettingsview.cpp:949
 msgid "Account exported!"
 msgstr "A fiókot exportálták!"
 
-#: src/newaccountsettingsview.cpp:947
+#: src/newaccountsettingsview.cpp:949
 msgid "Export account failure."
 msgstr "Fiók exportálási hiba."
 
-#: src/newaccountsettingsview.cpp:1717
+#: src/newaccountsettingsview.cpp:1719
 msgid "Unknown error"
 msgstr "Ismeretlen hiba"
 
-#: src/newaccountsettingsview.cpp:1962
+#: src/newaccountsettingsview.cpp:1964
 msgid "Initializing…"
 msgstr "Szignál…"
 
-#: src/newaccountsettingsview.cpp:1965
+#: src/newaccountsettingsview.cpp:1967
 msgid "Offline"
 msgstr "Nem elérhető"
 
-#: src/newaccountsettingsview.cpp:1968
+#: src/newaccountsettingsview.cpp:1970
 msgid "Connecting…"
 msgstr "Kapcsolódás…"
 
-#: src/newaccountsettingsview.cpp:1971
+#: src/newaccountsettingsview.cpp:1973
 msgid "Online"
 msgstr "Elérhető"
 
-#: src/newaccountsettingsview.cpp:1975
+#: src/newaccountsettingsview.cpp:1977
 msgid "Unknown status"
 msgstr "Ismeretlen állapot"
 
-#: src/newaccountsettingsview.cpp:2008
+#: src/newaccountsettingsview.cpp:2010
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2008
+#: src/newaccountsettingsview.cpp:2010
 msgid "no password set"
 msgstr "nincs jelszó beállítva"
