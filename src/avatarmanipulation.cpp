@@ -294,7 +294,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
                     priv->video_started_by_avatar_manipulation = FALSE;
                 }
             } catch (const std::out_of_range& e) {
-                g_warning(e.what());
+                g_warning("Cannot start preview");
             }
 
             /* available actions: take snapshot, return*/

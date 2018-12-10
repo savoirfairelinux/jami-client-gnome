@@ -499,7 +499,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
                 priv->cpp->avModel_->startPreview();
             }
         } catch (const std::out_of_range& e) {
-            g_warning(e.what());
+            g_warning("Cannot start preview");
         }
     } else {
         if (priv->video_started_by_settings) {
