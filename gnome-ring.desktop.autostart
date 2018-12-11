@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Jami
+GenericName=Jami
 Comment=Jami is a secured and distributed communication software.
 Exec=gnome-ring --restore-last-window-state
 Icon=jami
