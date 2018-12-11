@@ -304,9 +304,9 @@ init_systray(RingClient *client)
     if (g_strcmp0("Unity", desktop) == 0 || g_strcmp0("KDE", desktop) == 0) {
         use_appinidcator = TRUE;
 
-        auto indicator = app_indicator_new("ring", "ring", APP_INDICATOR_CATEGORY_COMMUNICATIONS);
+        auto indicator = app_indicator_new("jami", "jami", APP_INDICATOR_CATEGORY_COMMUNICATIONS);
         app_indicator_set_status(indicator, APP_INDICATOR_STATUS_ACTIVE);
-        app_indicator_set_title(indicator, "ring");
+        app_indicator_set_title(indicator, "jami");
         /* app indicator requires a menu */
         app_indicator_set_menu(indicator, GTK_MENU(priv->icon_menu));
         priv->systray_icon = indicator;
@@ -314,14 +314,21 @@ init_systray(RingClient *client)
 #endif
 
     if (!use_appinidcator) {
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS // GtkStatusIcon is deprecated since 3.14, but we fallback on it
-        auto status_icon = gtk_status_icon_new_from_icon_name("ring");
-        gtk_status_icon_set_title(status_icon, "ring");
-G_GNUC_END_IGNORE_DEPRECATIONS
-        g_signal_connect_swapped(status_icon, "activate", G_CALLBACK(ring_window_show), client);
-        g_signal_connect(status_icon, "popup-menu", G_CALLBACK(popup_menu), client);
+        GError *error = NULL;
+        GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/cx/jami/JamiGnome/jami-symbol-blue", &error);
+        if (icon == nullptr) {
+            g_debug("Could not load icon: %s", error->message);
+            g_clear_error(&error);
+        } else {
+            G_GNUC_BEGIN_IGNORE_DEPRECATIONS // GtkStatusIcon is deprecated since 3.14, but we fallback on it
+            auto status_icon = gtk_status_icon_new_from_pixbuf(icon);
+            gtk_status_icon_set_title(status_icon, "jami");
+            G_GNUC_END_IGNORE_DEPRECATIONS
+            g_signal_connect_swapped(status_icon, "activate", G_CALLBACK(ring_window_show), client);
+            g_signal_connect(status_icon, "popup-menu", G_CALLBACK(popup_menu), client);
+            priv->systray_icon = status_icon;
+        }
 
-        priv->systray_icon = status_icon;
     }
 }
 
