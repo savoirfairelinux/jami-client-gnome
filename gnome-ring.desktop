@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Ring
-Comment=Ring is a secured and distributed communication software.
+Name=Jami
+Comment=Jami is a secured and distributed communication software.
 Exec=gnome-ring %u
-Icon=ring
+Icon=jami
 StartupNotify=true
 Terminal=false
 Type=Application
