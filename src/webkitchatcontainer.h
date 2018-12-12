@@ -53,7 +53,7 @@ void       webkit_chat_container_print_history        (WebKitChatContainer *view
 void       webkit_chat_container_set_sender_image     (WebKitChatContainer *view, const std::string& sender, const std::string& senderImage);
 gboolean   webkit_chat_container_is_ready             (WebKitChatContainer *view);
 void       webkit_chat_container_set_display_links    (WebKitChatContainer *view, bool display);
-void       webkit_chat_container_set_invitation       (WebKitChatContainer *view, bool show, const std::string& contactUri);
+void       webkit_chat_container_set_invitation       (WebKitChatContainer *view, bool show, const std::string& contactUri, const std::string& contactId);
 void       webkit_chat_set_header_visible             (WebKitChatContainer *view, bool isVisible);
 void       webkit_chat_update_chatview_frame          (WebKitChatContainer *view, bool accountEnabled, bool isBanned, bool isInvited, const gchar* alias, const gchar* bestId);
 
