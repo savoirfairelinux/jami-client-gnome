@@ -55,12 +55,29 @@
             </div>
           </div>
           <div id="invitation">
-            <div id="text">
+            <div id="invite_header">
+                <span id="invite_image"></span>
+                <div id="text"></div>
             </div>
             <div id="actions">
-              <div id="accept-btn" class="invitation-button button-green" onclick="acceptInvitation()" >Accept</div>
-              <div id="refuse-btn" class="invitation-button button-red" onclick="refuseInvitation()" >Refuse</div>
-              <div id="block-btn" class="invitation-button button-red" onclick="blockConversation()" >Block</div>
+              <div id="accept-btn" class="nav-button action-button invite-btn-green" onclick="acceptInvitation()" title="Accept" >
+                <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+              </div>
+              <div id="refuse-btn" class="nav-button action-button invite-btn-red" onclick="refuseInvitation()" title="Refuse" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="none" d="M0 0h24v24H0V0z"/>
+                    <path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/>
+                </svg>
+              </div>
+              <div id="block-btn" class="nav-button action-button invite-btn-red" onclick="blockConversation()" title="Block" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/>
+                </svg>
+              </div>
             </div>
           </div>
       </div>
@@ -119,6 +136,7 @@ const messageBar        = document.getElementById("sendMessage")
 const messageBarInput   = document.getElementById("message")
 const addToConvButton   = document.getElementById("addToConversationsButton")
 const invitation        = document.getElementById("invitation")
+const inviteImage       = document.getElementById("invite_image")
 const navbar            = document.getElementById("navbar")
 const invitationText    = document.getElementById("text")
 var   messages          = document.getElementById("messages")
@@ -255,18 +273,24 @@ function update_chatview_frame(accountEnabled, banned, temporary, alias, bestid)
  * Otherwise, invitation div is updated.
  *
  * @param contactAlias
+ * @param contactId
  */
 /* exported showInvitation */
-function showInvitation(contactAlias) {
+function showInvitation(contactAlias, contactId) {
     if (!contactAlias) {
         if (hasInvitation) {
             hasInvitation = false
             invitation.style.visibility = ""
         }
     } else {
+        if (!inviteImage.classList.contains('sender_image')) {
+            inviteImage.classList.add('sender_image');
+        }
+        if (!inviteImage.classList.contains(`sender_image_${contactId}`)) {
+            inviteImage.classList.add(`sender_image_${contactId}`);
+        }
         hasInvitation = true
-        invitationText.innerHTML = "<h1>" + contactAlias + " sends you an invitation</h1>"
-      + "Do you want to add them to the conversations list?<br>"
+        invitationText.innerHTML = "<b>" + contactAlias + " is not in your contacts</b><br/>"
       + "Note: you can automatically accept this invitation by sending a message."
         invitation.style.visibility = "visible"
     }
@@ -1535,7 +1559,7 @@ function setSenderImage(set_sender_image_object)
 
     style.type = "text/css"
     style.id = sender_image_id
-    style.innerHTML = "." + sender_image_id + " {content: url(data:image/png;base64," + sender_image + ");height: 35px;width: 35px;}"
+    style.innerHTML = "." + sender_image_id + " {content: url(data:image/png;base64," + sender_image + ");}"
     document.head.appendChild(style)
 }
 
