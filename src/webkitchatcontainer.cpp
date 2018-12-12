@@ -662,10 +662,10 @@ webkit_chat_container_print_history(WebKitChatContainer *view,
 
 void
 webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
-                                     const std::string& contactUri)
+                                     const std::string& contactUri, const std::string& contactId)
 {
     // TODO better escape names
-    gchar* function_call = g_strdup_printf(show ? "showInvitation(\"%s\")" : "showInvitation()", contactUri.c_str());
+    gchar* function_call = g_strdup_printf(show ? "showInvitation(\"%s\", \"%s\")" : "showInvitation()", contactUri.c_str(), contactId.c_str());
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
