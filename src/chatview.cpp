@@ -533,7 +533,8 @@ update_chatview_frame(ChatView* self)
 
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                              (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
-                                             bestName);
+                                             bestName,
+                                             (*priv->accountInfo_)->contactModel->getContactProfileId(contactInfo.profileInfo.uri));
 
     // hide navbar if we are in call
     try {
