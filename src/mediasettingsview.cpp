@@ -176,9 +176,15 @@ CppImpl::drawFramerates()
     }
     auto active = 0;
     auto currentDevice = avModel_->getDefaultDeviceName();
-    auto currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
-    auto currentRes = avModel_->getDeviceSettings(currentDevice).size;
-    auto currentRate = std::to_string(avModel_->getDeviceSettings(currentDevice).rate);
+    std::string currentChannel = "", currentRes = "", currentRate = "";
+    try {
+        currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
+        currentRes = avModel_->getDeviceSettings(currentDevice).size;
+        currentRate = std::to_string(avModel_->getDeviceSettings(currentDevice).rate);
+    } catch (const std::out_of_range&) {
+        g_warning("drawFramerates out_of_range exception");
+        return;
+    }
     auto rates = avModel_->getDeviceCapabilities(currentDevice).at(currentChannel).at(currentRes);
     auto i = 0;
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate));
@@ -202,8 +208,14 @@ CppImpl::drawResolutions()
     }
     auto active = 0;
     auto currentDevice = avModel_->getDefaultDeviceName();
-    auto currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
-    auto currentRes = avModel_->getDeviceSettings(currentDevice).size;
+    std::string currentChannel = "", currentRes = "";
+    try {
+        currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
+        currentRes = avModel_->getDeviceSettings(currentDevice).size;
+    } catch (const std::out_of_range&) {
+        g_warning("drawResolutions out_of_range exception");
+        return;
+    }
     auto resToRates = avModel_->getDeviceCapabilities(currentDevice).at(currentChannel);
     auto i = 0;
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution));
@@ -227,7 +239,13 @@ CppImpl::drawChannels()
     }
     auto active = 0;
     auto currentDevice = avModel_->getDefaultDeviceName();
-    auto currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
+    std::string currentChannel = "";
+    try {
+        currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
+    } catch (const std::out_of_range&) {
+        g_warning("drawChannels out_of_range exception");
+        return;
+    }
     auto i = 0;
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_channel));
     for (const auto& capabilites : avModel_->getDeviceCapabilities(currentDevice)) {
@@ -358,9 +376,14 @@ set_channel(MediaSettingsView* self)
     auto* video_channel = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_channel));
     if (video_channel) {
         auto currentDevice = priv->cpp->avModel_->getDefaultDeviceName();
-        auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
-        settings.channel = video_channel;
-        priv->cpp->avModel_->setDeviceSettings(settings);
+        try {
+            auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
+            settings.channel = video_channel;
+            priv->cpp->avModel_->setDeviceSettings(settings);
+        } catch (const std::out_of_range&) {
+            g_warning("set_channel out_of_range exception");
+            return;
+        }
         priv->cpp->drawChannels();
     }
 }
@@ -373,9 +396,14 @@ set_resolution(MediaSettingsView* self)
     auto* video_resolution = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_resolution));
     if (video_resolution) {
         auto currentDevice = priv->cpp->avModel_->getDefaultDeviceName();
-        auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
-        settings.size = video_resolution;
-        priv->cpp->avModel_->setDeviceSettings(settings);
+        try {
+            auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
+            settings.size = video_resolution;
+            priv->cpp->avModel_->setDeviceSettings(settings);
+        } catch (const std::out_of_range&) {
+            g_warning("set_resolution out_of_range exception");
+            return;
+        }
         priv->cpp->drawFramerates();
     }
 }
@@ -388,13 +416,13 @@ set_framerate(MediaSettingsView* self)
     auto* video_framerate = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_framerate));
     if (video_framerate) {
         auto currentDevice = priv->cpp->avModel_->getDefaultDeviceName();
-        auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
         try {
+            auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
             settings.rate = std::stoi(video_framerate);
+            priv->cpp->avModel_->setDeviceSettings(settings);
         } catch (...) {
             g_debug("Cannot convert framerate.");
         }
-        priv->cpp->avModel_->setDeviceSettings(settings);
     }
 }
 
