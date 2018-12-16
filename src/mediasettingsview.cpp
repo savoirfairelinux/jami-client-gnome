@@ -72,6 +72,7 @@ struct _MediaSettingsViewPrivate
     gboolean video_started_by_settings;
 
     QMetaObject::Connection local_renderer_connection;
+    QMetaObject::Connection device_event_connection;
 
     /* hardware accel settings */
     GtkWidget *checkbutton_hardware_decoding;
@@ -298,6 +299,7 @@ media_settings_view_dispose(GObject *object)
     }
 
     QObject::disconnect(priv->local_renderer_connection);
+    QObject::disconnect(priv->device_event_connection);
 
     G_OBJECT_CLASS(media_settings_view_parent_class)->dispose(object);
 }
@@ -363,8 +365,10 @@ set_video_device(MediaSettingsView* self)
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
     auto* video_device = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_device));
     if (video_device) {
+        auto currentDevice = priv->cpp->avModel_->getDefaultDeviceName();
+        if (currentDevice == video_device) return;
         priv->cpp->avModel_->setDefaultDevice(video_device);
-        priv->cpp->drawChannels();
+        priv->cpp->drawVideoDevices();
     }
 }
 
@@ -378,6 +382,7 @@ set_channel(MediaSettingsView* self)
         auto currentDevice = priv->cpp->avModel_->getDefaultDeviceName();
         try {
             auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
+            if (settings.channel == video_channel) return;
             settings.channel = video_channel;
             priv->cpp->avModel_->setDeviceSettings(settings);
         } catch (const std::out_of_range&) {
@@ -398,6 +403,7 @@ set_resolution(MediaSettingsView* self)
         auto currentDevice = priv->cpp->avModel_->getDefaultDeviceName();
         try {
             auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
+            if (settings.size == video_resolution) return;
             settings.size = video_resolution;
             priv->cpp->avModel_->setDeviceSettings(settings);
         } catch (const std::out_of_range&) {
@@ -418,6 +424,7 @@ set_framerate(MediaSettingsView* self)
         auto currentDevice = priv->cpp->avModel_->getDefaultDeviceName();
         try {
             auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
+            if (settings.rate == std::stoi(video_framerate)) return;
             settings.rate = std::stoi(video_framerate);
             priv->cpp->avModel_->setDeviceSettings(settings);
         } catch (...) {
@@ -513,6 +520,12 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
                     priv->cpp->avModel_, previewRenderer, VIDEO_RENDERER_REMOTE);
             } else {
                 priv->video_started_by_settings = true;
+                priv->device_event_connection = QObject::connect(
+                    &*priv->cpp->avModel_,
+                    &lrc::api::AVModel::deviceEvent,
+                    [=]() {
+                        priv->cpp->drawVideoDevices();
+                    });
                 priv->local_renderer_connection = QObject::connect(
                     &*priv->cpp->avModel_,
                     &lrc::api::AVModel::rendererStarted,
@@ -533,6 +546,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
         if (priv->video_started_by_settings) {
             priv->cpp->avModel_->stopPreview();
             QObject::disconnect(priv->local_renderer_connection);
+            QObject::disconnect(priv->device_event_connection);
             priv->video_started_by_settings = FALSE;
         }
 
