@@ -1,7 +1,9 @@
 [Desktop Entry]
 Name=Jami
 GenericName=Jami
-Comment=Jami is a secured and distributed communication software.
+Comment[hu]=A Jami egy biztonságos és elosztott csevegőprogram
+Comment[ru]=Jami — приложение для защищённой связи с распределённой архитектурой
+Comment=Jami is a secured and distributed communication software
 Exec=gnome-ring --restore-last-window-state
 Icon=jami
 StartupNotify=true
