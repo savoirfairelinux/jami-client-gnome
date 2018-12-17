@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-10 03:09-0500\n"
+"POT-Creation-Date: 2018-12-17 03:09-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:109
+#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:110
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr ""
@@ -323,27 +323,27 @@ msgstr ""
 msgid "Clear all history"
 msgstr ""
 
-#: ui/ringmainwindow.ui:56
+#: ui/ringmainwindow.ui:57
 msgid "Menu"
 msgstr ""
 
-#: ui/ringmainwindow.ui:78
+#: ui/ringmainwindow.ui:79
 msgid "General"
 msgstr ""
 
-#: ui/ringmainwindow.ui:93
+#: ui/ringmainwindow.ui:94
 msgid "Media"
 msgstr ""
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1526
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1523
 msgid "Settings"
 msgstr ""
 
-#: ui/ringmainwindow.ui:265 ui/ringmainwindow.ui:272
+#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
 msgid "Conversations"
 msgstr ""
 
-#: ui/ringmainwindow.ui:298 ui/ringmainwindow.ui:305
+#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
 msgid "Contact requests"
 msgstr ""
 
@@ -419,7 +419,7 @@ msgid "Enter archive password"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:189
-msgid "Export on the Jami"
+msgid "Export on the network"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:210
@@ -727,7 +727,7 @@ msgstr ""
 msgid "Set selection as image"
 msgstr ""
 
-#: src/ring_client.cpp:141
+#: src/ring_client.cpp:114
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -735,36 +735,36 @@ msgid ""
 "Error: %s"
 msgstr ""
 
-#: src/ring_client.cpp:144
+#: src/ring_client.cpp:117
 msgid "Jami Error"
 msgstr ""
 
-#: src/ring_client.cpp:287
+#: src/ring_client.cpp:260
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr ""
 
-#: src/ring_client.cpp:291
+#: src/ring_client.cpp:264
 msgid "Quit"
 msgstr ""
 
-#: src/ringnotify.cpp:338
+#: src/ringnotify.cpp:332
 msgctxt ""
 msgid "Open conversation"
 msgstr ""
 
-#: src/ringnotify.cpp:346 src/ringnotify.cpp:362
+#: src/ringnotify.cpp:340 src/ringnotify.cpp:356
 msgctxt ""
 msgid "Accept"
 msgstr ""
 
-#: src/ringnotify.cpp:353
+#: src/ringnotify.cpp:347
 msgctxt ""
 msgid "Refuse"
 msgstr ""
 
-#: src/ringnotify.cpp:369
+#: src/ringnotify.cpp:363
 msgctxt ""
 msgid "Decline"
 msgstr ""
@@ -797,23 +797,23 @@ msgstr ""
 msgid "Registration in progress…"
 msgstr ""
 
-#: src/generalsettingsview.cpp:107
+#: src/generalsettingsview.cpp:102
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your "
 "chat and call history?"
 msgstr ""
 
-#: src/generalsettingsview.cpp:177
+#: src/generalsettingsview.cpp:172
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:342
-#: src/avatarmanipulation.cpp:415 src/chatview.cpp:178
+#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:342
+#: src/avatarmanipulation.cpp:414 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:928
 msgid "_Cancel"
 msgstr ""
 
-#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:344
+#: src/generalsettingsview.cpp:177 src/accountgeneraltab.cpp:344
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
 msgid "_Save"
 msgstr ""
@@ -907,27 +907,27 @@ msgstr ""
 msgid "Error: unknown device!"
 msgstr ""
 
-#: src/video/video_widget.cpp:547
+#: src/video/video_widget.cpp:549
 msgid "Share _screen area"
 msgstr ""
 
-#: src/video/video_widget.cpp:555
+#: src/video/video_widget.cpp:557
 msgid "Share _monitor"
 msgstr ""
 
-#: src/video/video_widget.cpp:562
+#: src/video/video_widget.cpp:564
 msgid "Stream _file"
 msgstr ""
 
-#: src/video/video_widget.cpp:572
+#: src/video/video_widget.cpp:574
 msgid "Show advanced information"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:412
+#: src/avatarmanipulation.cpp:411
 msgid "Open Avatar Image"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:417 src/chatview.cpp:180
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:180
 msgid "_Open"
 msgstr ""
 
@@ -962,16 +962,16 @@ msgstr ""
 msgid "Send recorded message"
 msgstr ""
 
-#: src/ringmainwindow.cpp:176
+#: src/ringmainwindow.cpp:178
 msgid "Add account…"
 msgstr ""
 
-#: src/ringmainwindow.cpp:633
+#: src/ringmainwindow.cpp:634
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:636
+#: src/ringmainwindow.cpp:637
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
@@ -983,7 +983,7 @@ msgctxt ""
 msgid "Search contacts or enter number"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1499
+#: src/ringmainwindow.cpp:1498
 msgid "Leave settings page"
 msgstr ""
 
@@ -1022,43 +1022,43 @@ msgid ""
 "Jami will now quit."
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:214
+#: src/conversationpopupmenu.cpp:211
 msgid "Place _video call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:217
+#: src/conversationpopupmenu.cpp:214
 msgid "Place _audio call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:225
+#: src/conversationpopupmenu.cpp:222
 msgid "_Add to conversations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:229
+#: src/conversationpopupmenu.cpp:226
 msgid "_Discard invitation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:232
+#: src/conversationpopupmenu.cpp:229
 msgid "_Block invitations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:237
+#: src/conversationpopupmenu.cpp:234
 msgid "C_lear history"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:240
+#: src/conversationpopupmenu.cpp:237
 msgid "_Remove conversation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:245
+#: src/conversationpopupmenu.cpp:242
 msgid "_Block contact"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:249
+#: src/conversationpopupmenu.cpp:246
 msgid "_Unblock contact"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:255
+#: src/conversationpopupmenu.cpp:252
 msgid "_Copy name"
 msgstr ""
 
@@ -1076,23 +1076,23 @@ msgstr ""
 msgid "- GNOME client for Jami"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:348
+#: src/accountcreationwizard.cpp:343
 msgid "Passwords don't match"
 msgstr ""
 
-#: src/ringwelcomeview.cpp:87
+#: src/ringwelcomeview.cpp:84
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
 msgstr ""
 
-#: src/ringwelcomeview.cpp:95
+#: src/ringwelcomeview.cpp:92
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
 msgstr ""
 
-#: src/ringwelcomeview.cpp:153
+#: src/ringwelcomeview.cpp:150
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
@@ -1108,7 +1108,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:977
+#: src/currentcallview.cpp:974
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr ""

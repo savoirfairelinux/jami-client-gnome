@@ -20,12 +20,9 @@ src/usernameregistrationbox.cpp
 src/generalsettingsview.cpp
 src/utils/files.cpp
 src/utils/drawing.cpp
-src/utils/accounts.cpp
 src/utils/models.cpp
-src/utils/calling.cpp
 src/accountgeneraltab.cpp
 src/models/gtkqtreemodel.cpp
-src/models/namenumberfilterproxymodel.cpp
 src/models/activeitemproxymodel.cpp
 src/models/gtkaccessproxymodel.cpp
 src/video/video_widget.cpp
