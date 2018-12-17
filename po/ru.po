@@ -6,6 +6,7 @@
 # Андрей Шевчук <andrei@shvchk.com>, 2016
 # Andrey, 2017
 # Anton Samarchyan <desecho@gmail.com>, 2016
+# cypherpunks01 cypherpunks01, 2018
 # Dmitri Kazankov <kazankov_dv@outlook.com>, 2018
 # Konstantin, 2016
 # Marat Gubaidullin <marat.gubaidullin@savoirfairelinux.com>, 2015
@@ -23,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-10 03:09-0500\n"
-"PO-Revision-Date: 2018-12-10 08:09+0000\n"
+"POT-Creation-Date: 2018-12-17 03:09-0500\n"
+"PO-Revision-Date: 2018-12-17 08:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -153,11 +154,11 @@ msgstr "Добро пожаловать в"
 
 #: ui/accountcreationwizard.ui:64
 msgid "Create Jami Account"
-msgstr ""
+msgstr "Создать аккаунт Jami"
 
 #: ui/accountcreationwizard.ui:65
 msgid "Create a new Jami account (for new users)"
-msgstr ""
+msgstr "Создать новый аккаунт Jami (для новых пользователей)"
 
 #: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
@@ -165,7 +166,7 @@ msgstr "Привязать это устройство к аккаунту"
 
 #: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Jami account created on another device"
-msgstr ""
+msgstr "Привязать это устройство к аккаунту Jami, созданному на другом устройстве"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:885
@@ -193,7 +194,7 @@ msgid ""
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr ""
+msgstr "Чтобы привязать это устройство к аккаунту, у вас есть две возможности. Вы можете импортировать ваш аккаунт из сети DHT, но для этого вам необходимо сначала получить PIN код. Чтобы создать PIN код, зайдите в настройки аккаунта Jami на другом устройстве и выберите пункт \"Привязать другое устройство\". Будет создан PIN код, необходимый вам для продолжения. Имейте ввиду, что созданный PIN код действителен в течение 10 минут. Или же вы можете импортировать ваш аккаунт из архива."
 
 #: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
@@ -219,7 +220,7 @@ msgstr "Далее"
 msgid "Profile"
 msgstr "Профиль"
 
-#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:109
+#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:110
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "Аккаунт"
@@ -233,7 +234,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Отмечая это, вы зарегистрируете уникальное имя пользователя в сети Jami. Другие пользователи смогут использовать его для связи с вами вместо RingID, который 40 символов длиной."
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
@@ -253,11 +254,11 @@ msgstr "Подтверждение пароля"
 
 #: ui/accountcreationwizard.ui:562
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "Идёт создание вашего аккаунта Jami…"
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
-msgstr "Регистрация имени пользователя…"
+msgstr "Идёт регистрация имени пользователя…"
 
 #: ui/accountcreationwizard.ui:595
 msgid "This may take a few minutes."
@@ -265,7 +266,7 @@ msgstr "Это может занять несколько минут."
 
 #: ui/accountcreationwizard.ui:621
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "Идёт извлечение вашего аккаунта Jami…"
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
@@ -278,19 +279,19 @@ msgstr "OK"
 
 #: ui/generalsettingsview.ui:46
 msgid "Jami Settings"
-msgstr ""
+msgstr "Настройки Jami"
 
 #: ui/generalsettingsview.ui:62
 msgid "Start Jami on login"
-msgstr ""
+msgstr "Запускать Jami при входе в систему"
 
 #: ui/generalsettingsview.ui:70
 msgid "Show Jami icon in the notification area (systray)."
-msgstr ""
+msgstr "Показывать значок Jami в области уведомлений (трее)."
 
 #: ui/generalsettingsview.ui:78
 msgid "Bring Jami to the foreground on incoming calls."
-msgstr ""
+msgstr "Выводить Jami на передний план при входящем звонке."
 
 #: ui/generalsettingsview.ui:86
 msgid "Enable notifications for incoming calls."
@@ -340,27 +341,27 @@ msgstr "(Поставьте 0 для неограниченного хранен
 msgid "Clear all history"
 msgstr "Очистить историю"
 
-#: ui/ringmainwindow.ui:56
+#: ui/ringmainwindow.ui:57
 msgid "Menu"
 msgstr "Меню"
 
-#: ui/ringmainwindow.ui:78
+#: ui/ringmainwindow.ui:79
 msgid "General"
 msgstr "Общие"
 
-#: ui/ringmainwindow.ui:93
+#: ui/ringmainwindow.ui:94
 msgid "Media"
 msgstr "Медиа"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1526
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1523
 msgid "Settings"
 msgstr "Настройки"
 
-#: ui/ringmainwindow.ui:265 ui/ringmainwindow.ui:272
+#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
 msgid "Conversations"
 msgstr "Разговоры"
 
-#: ui/ringmainwindow.ui:298 ui/ringmainwindow.ui:305
+#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
 msgid "Contact requests"
 msgstr "Запросы на добавление в контакты"
 
@@ -425,7 +426,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "Для добавления нового устройства к вашему аккаунту Jami, необходимо экспортировать аккаунт в сеть Jami. Для этого будет создан PIN код, который необходимо ввести на вашем новом устройстве в течение 5 минут после его генерации."
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -436,12 +437,12 @@ msgid "Enter archive password"
 msgstr "Введите пароль архива"
 
 #: ui/newaccountsettingsview.ui:189
-msgid "Export on the Jami"
+msgid "Export on the network"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Jami…"
-msgstr ""
+msgstr "Идёт экспорт аккаунта в сеть Jami…"
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -482,7 +483,7 @@ msgstr "Голосовая почта"
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "Устройства, привязанные к этому аккаунту Jami"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
@@ -744,44 +745,44 @@ msgstr "Вернуться"
 msgid "Set selection as image"
 msgstr "Установить выбранное в качестве изображения"
 
-#: src/ring_client.cpp:141
+#: src/ring_client.cpp:114
 #, c-format
 msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Инициализация не выполнена.\nУбедитесь, что демон Jami (dring) запущен.\nОшибка: %s"
 
-#: src/ring_client.cpp:144
+#: src/ring_client.cpp:117
 msgid "Jami Error"
-msgstr ""
+msgstr "Ошибка Jami"
 
-#: src/ring_client.cpp:287
+#: src/ring_client.cpp:260
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "Показать Jami"
 
-#: src/ring_client.cpp:291
+#: src/ring_client.cpp:264
 msgid "Quit"
 msgstr "Выход"
 
-#: src/ringnotify.cpp:338
+#: src/ringnotify.cpp:332
 msgctxt ""
 msgid "Open conversation"
 msgstr "Открыть разговор"
 
-#: src/ringnotify.cpp:346 src/ringnotify.cpp:362
+#: src/ringnotify.cpp:340 src/ringnotify.cpp:356
 msgctxt ""
 msgid "Accept"
 msgstr "Принять"
 
-#: src/ringnotify.cpp:353
+#: src/ringnotify.cpp:347
 msgctxt ""
 msgid "Refuse"
 msgstr "Отказать"
 
-#: src/ringnotify.cpp:369
+#: src/ringnotify.cpp:363
 msgctxt ""
 msgid "Decline"
 msgstr "Отклонить"
@@ -808,29 +809,29 @@ msgstr "Проверяется занятость…"
 
 #: src/usernameregistrationbox.cpp:313
 msgid "Enter the password of your Jami account"
-msgstr ""
+msgstr "Введите пароль вашей учётной записи Jami"
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
 msgstr "Идёт регистрация…"
 
-#: src/generalsettingsview.cpp:107
+#: src/generalsettingsview.cpp:102
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Это разрушительная операция. Вы уверены, что хотите удалить всю вашу историю чатов и звонков?"
 
-#: src/generalsettingsview.cpp:177
+#: src/generalsettingsview.cpp:172
 msgid "Choose download folder"
 msgstr "Выберите папку для загрузок"
 
-#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:342
-#: src/avatarmanipulation.cpp:415 src/chatview.cpp:178
+#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:342
+#: src/avatarmanipulation.cpp:414 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:928
 msgid "_Cancel"
 msgstr "_Отмена"
 
-#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:344
+#: src/generalsettingsview.cpp:177 src/accountgeneraltab.cpp:344
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
 msgid "_Save"
 msgstr "_Сохранить"
@@ -845,7 +846,7 @@ msgstr "Ошибка сети, попробуйте снова"
 
 #: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "Не удалось инициировать экспорт в сеть Jami, попробуйте ещё раз"
 
 #: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
 #: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
@@ -924,27 +925,27 @@ msgstr "Ошибка: неверный пароль!"
 msgid "Error: unknown device!"
 msgstr "Ошибка: неизвестное устройство!"
 
-#: src/video/video_widget.cpp:547
+#: src/video/video_widget.cpp:549
 msgid "Share _screen area"
 msgstr "Показать _область экрана"
 
-#: src/video/video_widget.cpp:555
+#: src/video/video_widget.cpp:557
 msgid "Share _monitor"
 msgstr "Показать _экран"
 
-#: src/video/video_widget.cpp:562
+#: src/video/video_widget.cpp:564
 msgid "Stream _file"
 msgstr "Транслировать _файл"
 
-#: src/video/video_widget.cpp:572
+#: src/video/video_widget.cpp:574
 msgid "Show advanced information"
 msgstr "Показать дополнительную информацию"
 
-#: src/avatarmanipulation.cpp:412
+#: src/avatarmanipulation.cpp:411
 msgid "Open Avatar Image"
 msgstr "Открыть изображение аватара"
 
-#: src/avatarmanipulation.cpp:417 src/chatview.cpp:180
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:180
 msgid "_Open"
 msgstr "_Открыть"
 
@@ -964,7 +965,7 @@ msgstr "\"Live Free or Die\"\nсобрано %.25s"
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Клиент GNOME для Jami.\nJami — свободная программа для связи, уважающая свободу и конфиденциальность пользователей."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -978,16 +979,16 @@ msgstr "Остановить запись"
 msgid "Send recorded message"
 msgstr "Отправить записанное сообщение"
 
-#: src/ringmainwindow.cpp:176
+#: src/ringmainwindow.cpp:178
 msgid "Add account…"
 msgstr "Добавить аккаунт…"
 
-#: src/ringmainwindow.cpp:633
+#: src/ringmainwindow.cpp:634
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "позвонить"
 
-#: src/ringmainwindow.cpp:636
+#: src/ringmainwindow.cpp:637
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "открыть чат"
@@ -999,7 +1000,7 @@ msgctxt ""
 msgid "Search contacts or enter number"
 msgstr "Найдите контакты или введите номер"
 
-#: src/ringmainwindow.cpp:1499
+#: src/ringmainwindow.cpp:1498
 msgid "Leave settings page"
 msgstr "Выйти из настроек"
 
@@ -1017,7 +1018,7 @@ msgstr "Новый запрос от"
 
 #: src/ringmainwindow.cpp:2012
 msgid "Trust request"
-msgstr ""
+msgstr "Запрос доверия"
 
 #: src/ringmainwindow.cpp:2069
 msgid "New message"
@@ -1026,55 +1027,55 @@ msgstr "Новое сообщение"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Ошибка Jami"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr ""
+msgstr "Пробуем переподключиться к демону Jami (dring)…"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "Не удалось переподключиться к демону Jami (dring).\nЗавершение работы Jami."
 
-#: src/conversationpopupmenu.cpp:214
+#: src/conversationpopupmenu.cpp:211
 msgid "Place _video call"
 msgstr "Сделать _видеозвонок"
 
-#: src/conversationpopupmenu.cpp:217
+#: src/conversationpopupmenu.cpp:214
 msgid "Place _audio call"
 msgstr "Сделать _аудиозвонок"
 
-#: src/conversationpopupmenu.cpp:225
+#: src/conversationpopupmenu.cpp:222
 msgid "_Add to conversations"
 msgstr "_Добавить к контактам"
 
-#: src/conversationpopupmenu.cpp:229
+#: src/conversationpopupmenu.cpp:226
 msgid "_Discard invitation"
 msgstr "_Отклонить приглашение"
 
-#: src/conversationpopupmenu.cpp:232
+#: src/conversationpopupmenu.cpp:229
 msgid "_Block invitations"
 msgstr "За_блокировать приглашения"
 
-#: src/conversationpopupmenu.cpp:237
+#: src/conversationpopupmenu.cpp:234
 msgid "C_lear history"
 msgstr "_Очистить историю"
 
-#: src/conversationpopupmenu.cpp:240
+#: src/conversationpopupmenu.cpp:237
 msgid "_Remove conversation"
 msgstr "_Удалить контакт"
 
-#: src/conversationpopupmenu.cpp:245
+#: src/conversationpopupmenu.cpp:242
 msgid "_Block contact"
 msgstr "За_блокировать контакт"
 
-#: src/conversationpopupmenu.cpp:249
+#: src/conversationpopupmenu.cpp:246
 msgid "_Unblock contact"
 msgstr "_Разблокировать контакт"
 
-#: src/conversationpopupmenu.cpp:255
+#: src/conversationpopupmenu.cpp:252
 msgid "_Copy name"
 msgstr "_Копировать имя"
 
@@ -1090,29 +1091,29 @@ msgstr "Восстанавливает скрытое состояние гла�
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr ""
+msgstr "- клиент GNOME для Jami"
 
-#: src/accountcreationwizard.cpp:348
+#: src/accountcreationwizard.cpp:343
 msgid "Passwords don't match"
 msgstr "Пароли не совпадают"
 
-#: src/ringwelcomeview.cpp:87
+#: src/ringwelcomeview.cpp:84
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Это ваше имя пользователя Jami.\nСкопируйте и поделитесь им со своими друзьями!"
 
-#: src/ringwelcomeview.cpp:95
+#: src/ringwelcomeview.cpp:92
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Это ваш ID.\nСкопируйте и поделитесь им с вашими друзьями!"
 
-#: src/ringwelcomeview.cpp:153
+#: src/ringwelcomeview.cpp:150
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami — свободная программа для связи, уважающая свободу и конфиденциальность пользователей."
 
 #: src/chatview.cpp:175
 msgid "Send File"
@@ -1124,7 +1125,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Предупреждение! Это действие удалит данный аккаунт на данном устройстве!\nЗамечание: это действие невозможно отменить. Также вы можете потерять зарегистрированное имя!"
 
-#: src/currentcallview.cpp:977
+#: src/currentcallview.cpp:974
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Авто"

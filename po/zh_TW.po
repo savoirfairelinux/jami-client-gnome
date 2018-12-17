@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-10 03:09-0500\n"
-"PO-Revision-Date: 2018-12-10 08:09+0000\n"
+"POT-Creation-Date: 2018-12-17 03:09-0500\n"
+"PO-Revision-Date: 2018-12-17 08:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -140,11 +140,11 @@ msgstr "歡迎來到"
 
 #: ui/accountcreationwizard.ui:64
 msgid "Create Jami Account"
-msgstr ""
+msgstr "建立 Jami 帳號"
 
 #: ui/accountcreationwizard.ui:65
 msgid "Create a new Jami account (for new users)"
-msgstr ""
+msgstr "建立新的 Jami 帳號（為新使用者）"
 
 #: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
@@ -152,7 +152,7 @@ msgstr "連結這個裝置到一個帳號"
 
 #: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Jami account created on another device"
-msgstr ""
+msgstr "連結此裝置到在其他裝置上建立的 Jami 帳號"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:885
@@ -180,7 +180,7 @@ msgid ""
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr ""
+msgstr "要連結此裝置到其他帳號，有兩種可能的做法。您可以從 DHT 匯入您的帳號，但首先您必須取得 PIN 碼。要生成 PIN 碼，到前一個裝置的帳號管理設定，選擇 Jami 帳號使用並選擇「連結其他裝置到此帳號」。您將需要取得 PIN 碼來完成這個表單。PIN 碼的有效期限只有10分鐘。或是您也可以直接從歸檔中匯入您的帳號。"
 
 #: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
@@ -206,7 +206,7 @@ msgstr "下一個"
 msgid "Profile"
 msgstr "設定檔"
 
-#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:109
+#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:110
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "帳號"
@@ -220,7 +220,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "透過勾選這個，您將會在 Jami 網路上註冊一個獨一無二的使用者名稱。人們可以使用它來聯絡您，而不必使用長達 40 個字元的您的 RingID。"
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
@@ -240,7 +240,7 @@ msgstr "確認密碼"
 
 #: ui/accountcreationwizard.ui:562
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "正在生成您的 Jami 帳號……"
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
@@ -252,7 +252,7 @@ msgstr "這將會耗費數分鐘。"
 
 #: ui/accountcreationwizard.ui:621
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "正在擷取您的 Jami 帳號……"
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
@@ -265,19 +265,19 @@ msgstr "確定"
 
 #: ui/generalsettingsview.ui:46
 msgid "Jami Settings"
-msgstr ""
+msgstr "Jami 設定"
 
 #: ui/generalsettingsview.ui:62
 msgid "Start Jami on login"
-msgstr ""
+msgstr "登入時啟動 Jami"
 
 #: ui/generalsettingsview.ui:70
 msgid "Show Jami icon in the notification area (systray)."
-msgstr ""
+msgstr "在通知區域（系統匣）中顯示 Jami 圖示。"
 
 #: ui/generalsettingsview.ui:78
 msgid "Bring Jami to the foreground on incoming calls."
-msgstr ""
+msgstr "有來電時將 Jami 帶到前景。"
 
 #: ui/generalsettingsview.ui:86
 msgid "Enable notifications for incoming calls."
@@ -327,27 +327,27 @@ msgstr "(設定0 表示無限制記錄)"
 msgid "Clear all history"
 msgstr "清除所有記錄"
 
-#: ui/ringmainwindow.ui:56
+#: ui/ringmainwindow.ui:57
 msgid "Menu"
 msgstr "選單"
 
-#: ui/ringmainwindow.ui:78
+#: ui/ringmainwindow.ui:79
 msgid "General"
 msgstr "一般"
 
-#: ui/ringmainwindow.ui:93
+#: ui/ringmainwindow.ui:94
 msgid "Media"
 msgstr "媒體"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1526
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1523
 msgid "Settings"
 msgstr "設定"
 
-#: ui/ringmainwindow.ui:265 ui/ringmainwindow.ui:272
+#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
 msgid "Conversations"
 msgstr "對話"
 
-#: ui/ringmainwindow.ui:298 ui/ringmainwindow.ui:305
+#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
 msgid "Contact requests"
 msgstr "加好友請求"
 
@@ -412,7 +412,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "要新增新裝置到您的 Jami 帳號，您要先在 Jami 上匯出您的帳號。這將會生成 PIN 碼，必須在生成後的 5 分鐘內輸入到您的新裝置上。"
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -423,12 +423,12 @@ msgid "Enter archive password"
 msgstr "輸入檔案密碼"
 
 #: ui/newaccountsettingsview.ui:189
-msgid "Export on the Jami"
+msgid "Export on the network"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Jami…"
-msgstr ""
+msgstr "正在匯出 Jami 上的帳號……"
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -469,7 +469,7 @@ msgstr "語音信箱"
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "連結到這個 Jami 帳號的已知裝置"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
@@ -731,44 +731,44 @@ msgstr "恢復"
 msgid "Set selection as image"
 msgstr "設定選擇為圖片"
 
-#: src/ring_client.cpp:141
+#: src/ring_client.cpp:114
 #, c-format
 msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "無法初始化。\n請確定 Jami 幕後程式 (dring) 正在執行。\n錯誤：%s"
 
-#: src/ring_client.cpp:144
+#: src/ring_client.cpp:117
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami 錯誤"
 
-#: src/ring_client.cpp:287
+#: src/ring_client.cpp:260
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "顯示 Jami"
 
-#: src/ring_client.cpp:291
+#: src/ring_client.cpp:264
 msgid "Quit"
 msgstr "結束"
 
-#: src/ringnotify.cpp:338
+#: src/ringnotify.cpp:332
 msgctxt ""
 msgid "Open conversation"
 msgstr "開啟對話"
 
-#: src/ringnotify.cpp:346 src/ringnotify.cpp:362
+#: src/ringnotify.cpp:340 src/ringnotify.cpp:356
 msgctxt ""
 msgid "Accept"
 msgstr "接聽"
 
-#: src/ringnotify.cpp:353
+#: src/ringnotify.cpp:347
 msgctxt ""
 msgid "Refuse"
 msgstr "拒絕"
 
-#: src/ringnotify.cpp:369
+#: src/ringnotify.cpp:363
 msgctxt ""
 msgid "Decline"
 msgstr "拒絕"
@@ -795,29 +795,29 @@ msgstr "正在執行查詢……"
 
 #: src/usernameregistrationbox.cpp:313
 msgid "Enter the password of your Jami account"
-msgstr ""
+msgstr "輸入您 Jami 帳號的密碼"
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
 msgstr "正在註冊……"
 
-#: src/generalsettingsview.cpp:107
+#: src/generalsettingsview.cpp:102
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "這是一個破壞性的操作。您確定您想要刪除您所有的聊天與通話紀錄嗎？"
 
-#: src/generalsettingsview.cpp:177
+#: src/generalsettingsview.cpp:172
 msgid "Choose download folder"
 msgstr "選擇下載資料夾"
 
-#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:342
-#: src/avatarmanipulation.cpp:415 src/chatview.cpp:178
+#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:342
+#: src/avatarmanipulation.cpp:414 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:928
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:344
+#: src/generalsettingsview.cpp:177 src/accountgeneraltab.cpp:344
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
 msgid "_Save"
 msgstr "儲存(_S)"
@@ -832,7 +832,7 @@ msgstr "網路錯誤，請重試"
 
 #: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "無法啟用輸出到 Jami，請重試。"
 
 #: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
 #: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
@@ -911,27 +911,27 @@ msgstr "錯誤：不正確的密碼！"
 msgid "Error: unknown device!"
 msgstr "錯誤：未知的裝置！"
 
-#: src/video/video_widget.cpp:547
+#: src/video/video_widget.cpp:549
 msgid "Share _screen area"
 msgstr "分享螢幕區域(_S)"
 
-#: src/video/video_widget.cpp:555
+#: src/video/video_widget.cpp:557
 msgid "Share _monitor"
 msgstr "分享螢幕(_M)"
 
-#: src/video/video_widget.cpp:562
+#: src/video/video_widget.cpp:564
 msgid "Stream _file"
 msgstr "串流檔案(_F)"
 
-#: src/video/video_widget.cpp:572
+#: src/video/video_widget.cpp:574
 msgid "Show advanced information"
 msgstr "顯示進階資訊"
 
-#: src/avatarmanipulation.cpp:412
+#: src/avatarmanipulation.cpp:411
 msgid "Open Avatar Image"
 msgstr "開啟大頭貼圖片"
 
-#: src/avatarmanipulation.cpp:417 src/chatview.cpp:180
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:180
 msgid "_Open"
 msgstr "開啟(_O)"
 
@@ -951,7 +951,7 @@ msgstr "\"Live Free or Die\"\n構建於 %.25s"
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami 的 GNOME 客戶端。\nJami 是一套通用通訊的自由軟體，其尊重使用者的自由與隱私。"
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -965,16 +965,16 @@ msgstr "停止錄製"
 msgid "Send recorded message"
 msgstr "傳送已錄製的訊息"
 
-#: src/ringmainwindow.cpp:176
+#: src/ringmainwindow.cpp:178
 msgid "Add account…"
 msgstr "新增帳號……"
 
-#: src/ringmainwindow.cpp:633
+#: src/ringmainwindow.cpp:634
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "開始通話"
 
-#: src/ringmainwindow.cpp:636
+#: src/ringmainwindow.cpp:637
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "開啟聊天"
@@ -986,7 +986,7 @@ msgctxt ""
 msgid "Search contacts or enter number"
 msgstr "搜尋聯絡人或輸入號碼"
 
-#: src/ringmainwindow.cpp:1499
+#: src/ringmainwindow.cpp:1498
 msgid "Leave settings page"
 msgstr "離開設定頁面"
 
@@ -1013,55 +1013,55 @@ msgstr "新訊息"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami 錯誤"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr ""
+msgstr "正在嘗試重新連線到 Jami 幕後程式 (dring)……"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "無法重新連線到 Jami 幕後程式 (dring)。\nJami 將會結束。"
 
-#: src/conversationpopupmenu.cpp:214
+#: src/conversationpopupmenu.cpp:211
 msgid "Place _video call"
 msgstr "撥出視訊通話"
 
-#: src/conversationpopupmenu.cpp:217
+#: src/conversationpopupmenu.cpp:214
 msgid "Place _audio call"
 msgstr "撥出音訊通話"
 
-#: src/conversationpopupmenu.cpp:225
+#: src/conversationpopupmenu.cpp:222
 msgid "_Add to conversations"
 msgstr "新增到對話中(_A)"
 
-#: src/conversationpopupmenu.cpp:229
+#: src/conversationpopupmenu.cpp:226
 msgid "_Discard invitation"
 msgstr "丟棄邀請(_D)"
 
-#: src/conversationpopupmenu.cpp:232
+#: src/conversationpopupmenu.cpp:229
 msgid "_Block invitations"
 msgstr "阻擋邀請(_B)"
 
-#: src/conversationpopupmenu.cpp:237
+#: src/conversationpopupmenu.cpp:234
 msgid "C_lear history"
 msgstr "清除歷史(_L)"
 
-#: src/conversationpopupmenu.cpp:240
+#: src/conversationpopupmenu.cpp:237
 msgid "_Remove conversation"
 msgstr "移除對話(_R)"
 
-#: src/conversationpopupmenu.cpp:245
+#: src/conversationpopupmenu.cpp:242
 msgid "_Block contact"
 msgstr "阻擋聯絡人(_B)"
 
-#: src/conversationpopupmenu.cpp:249
+#: src/conversationpopupmenu.cpp:246
 msgid "_Unblock contact"
 msgstr "解除阻擋聯絡人(_U)"
 
-#: src/conversationpopupmenu.cpp:255
+#: src/conversationpopupmenu.cpp:252
 msgid "_Copy name"
 msgstr "複製名稱(_C)"
 
@@ -1077,29 +1077,29 @@ msgstr "還原主視窗的隱藏狀態(只適用於主程序)"
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr ""
+msgstr "- Jami 的 GNOME 用戶端"
 
-#: src/accountcreationwizard.cpp:348
+#: src/accountcreationwizard.cpp:343
 msgid "Passwords don't match"
 msgstr "密碼不相符"
 
-#: src/ringwelcomeview.cpp:87
+#: src/ringwelcomeview.cpp:84
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "這是你的 Jami 使用者名稱。\n複製並與你的朋友分享！"
 
-#: src/ringwelcomeview.cpp:95
+#: src/ringwelcomeview.cpp:92
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "這是你的 ID.\n複製並與你的朋友分享！"
 
-#: src/ringwelcomeview.cpp:153
+#: src/ringwelcomeview.cpp:150
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami 是一套通用通訊的自由軟體，其尊重使用者的自由與隱私。"
 
 #: src/chatview.cpp:175
 msgid "Send File"
@@ -1111,7 +1111,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "警告！此動作將會在此裝置上移除此帳號！\n注意：此動作無法復原。同時，您已註冊的名稱也將會遺失！"
 
-#: src/currentcallview.cpp:977
+#: src/currentcallview.cpp:974
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自動"

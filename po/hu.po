@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-10 03:09-0500\n"
-"PO-Revision-Date: 2018-12-10 08:09+0000\n"
+"POT-Creation-Date: 2018-12-17 03:09-0500\n"
+"PO-Revision-Date: 2018-12-17 08:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "Álnév"
 
 #: ui/accountmigrationview.ui:126
 msgid "RingID"
-msgstr "Ring azonosító"
+msgstr "Jami azonosító"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:451
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
@@ -140,11 +140,11 @@ msgstr "Isten hozott"
 
 #: ui/accountcreationwizard.ui:64
 msgid "Create Jami Account"
-msgstr ""
+msgstr "Jami fiók létrehozása"
 
 #: ui/accountcreationwizard.ui:65
 msgid "Create a new Jami account (for new users)"
-msgstr ""
+msgstr "Új Jami fiók létrehozása (új felhasználóknak)"
 
 #: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
@@ -152,7 +152,7 @@ msgstr "Ezen eszköz fiókhoz kapcsolása"
 
 #: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Jami account created on another device"
-msgstr ""
+msgstr "Csatlakoztassa az eszközöket egy másik eszközön létrehozott Jami fiókhoz"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:885
@@ -180,11 +180,11 @@ msgid ""
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr ""
+msgstr "Az eszköz másik fiókhoz kapcsolásához kettő lehetőség van. Importálhatja fiókját a DHT-ből, de először PIN-kódra van szüksége. A PIN-kód előállításához menjen egy korábbi eszköz fiókkezelési beállításába, válassza ki a használandó Jami fiókot, és válassza a „Másik eszköz hozzákapcsolása ehhez a fiókhoz” lehetőséget. Meg fogja kapni az űrlap kitöltéséhez szükséges PIN-kódot. A PIN-kód csak 10 percig érvényes. Vagy közvetlenül importálhatja fiókját egy archívumból."
 
 #: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
-msgstr "Írja be a PIN-kódját:"
+msgstr "Adja meg a PIN-kódját:"
 
 #: ui/accountcreationwizard.ui:188
 msgid "Or import a file:"
@@ -192,7 +192,7 @@ msgstr "Vagy egy fájl importálása:"
 
 #: ui/accountcreationwizard.ui:207
 msgid "Enter your password:"
-msgstr "Írja be a jelszót:"
+msgstr "Adja meg a jelszót:"
 
 #: ui/accountcreationwizard.ui:227 ui/accountcreationwizard.ui:530
 msgid "Previous"
@@ -206,21 +206,21 @@ msgstr "Következő"
 msgid "Profile"
 msgstr "Profil"
 
-#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:109
+#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:110
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "Fiók"
 
 #: ui/accountcreationwizard.ui:387
 msgid "Register username"
-msgstr "Regisztráljon felhasználónevet"
+msgstr "Felhasználónév regisztrálása"
 
 #: ui/accountcreationwizard.ui:388
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Ezt bejelölve, regisztrál egy egyedi felhasználónevet a Jami hálózaton. Az emberek ezt a Jami azonosítója (amely 40 karakter hosszú) helyett használhatják, hogy elérjék Önt."
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
@@ -240,7 +240,7 @@ msgstr "Jelszó megerősítése"
 
 #: ui/accountcreationwizard.ui:562
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "Jami fiók létrehozása…"
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
@@ -252,7 +252,7 @@ msgstr "Ez néhány percet is igénybe vehet."
 
 #: ui/accountcreationwizard.ui:621
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "A Jami fiókja lekérése…"
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
@@ -265,19 +265,19 @@ msgstr "OK"
 
 #: ui/generalsettingsview.ui:46
 msgid "Jami Settings"
-msgstr ""
+msgstr "A Jami beállításai"
 
 #: ui/generalsettingsview.ui:62
 msgid "Start Jami on login"
-msgstr ""
+msgstr "A Jami indítása bejelentkezéskor"
 
 #: ui/generalsettingsview.ui:70
 msgid "Show Jami icon in the notification area (systray)."
-msgstr ""
+msgstr "A Jami ikon megjelenítése az értesítési területen (rendszertálca)."
 
 #: ui/generalsettingsview.ui:78
 msgid "Bring Jami to the foreground on incoming calls."
-msgstr ""
+msgstr "A Jami előtérbe hozása bejövő hívások esetén."
 
 #: ui/generalsettingsview.ui:86
 msgid "Enable notifications for incoming calls."
@@ -327,27 +327,27 @@ msgstr "(állítsa 0-ra a korlátlan előzményekért)"
 msgid "Clear all history"
 msgstr "Az összes előzmény törlése"
 
-#: ui/ringmainwindow.ui:56
+#: ui/ringmainwindow.ui:57
 msgid "Menu"
 msgstr "Menü"
 
-#: ui/ringmainwindow.ui:78
+#: ui/ringmainwindow.ui:79
 msgid "General"
 msgstr "Általános"
 
-#: ui/ringmainwindow.ui:93
+#: ui/ringmainwindow.ui:94
 msgid "Media"
 msgstr "Média"
 
-#: ui/ringmainwindow.ui:145 src/ringmainwindow.cpp:1526
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1523
 msgid "Settings"
 msgstr "Beállítások"
 
-#: ui/ringmainwindow.ui:265 ui/ringmainwindow.ui:272
+#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
 msgid "Conversations"
 msgstr "Beszélgetések"
 
-#: ui/ringmainwindow.ui:298 ui/ringmainwindow.ui:305
+#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
 msgid "Contact requests"
 msgstr "Névjegyek kérelmek"
 
@@ -412,7 +412,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "Ahhoz hogy új eszközt adjon a Jami fiókjához, exportálnia kell a fiókját a Jami-n. Ez előállít egy PIN-t, amit meg kell adnia az új eszközén, az előállítástól számított 5 percen belül."
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -423,12 +423,12 @@ msgid "Enter archive password"
 msgstr "Adja meg az archívum jelszavát"
 
 #: ui/newaccountsettingsview.ui:189
-msgid "Export on the Jami"
+msgid "Export on the network"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Jami…"
-msgstr ""
+msgstr "Fiók exportálása a Jami-n…"
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -469,7 +469,7 @@ msgstr "Hangposta"
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "A Jami fiókhoz kapcsolódó ismert eszközök"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
@@ -569,7 +569,7 @@ msgstr "Bejövő tanúsítványok ellenőrzése (kiszolgáló oldalon)"
 
 #: ui/newaccountsettingsview.ui:1932
 msgid "Verify answer certificates (client side)"
-msgstr "Válasz tanúsítványok ellenőrzése (kliens oldalon)"
+msgstr "Válasz tanúsítványok ellenőrzése (ügyfél oldalon)"
 
 #: ui/newaccountsettingsview.ui:1967
 msgid "Require a certificate for incoming TLS connections"
@@ -673,7 +673,7 @@ msgstr "Videó RTP max port"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr "regisztráljon felhasználónevet"
+msgstr "felhasználónév regisztrálása"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -731,44 +731,44 @@ msgstr "Vissza"
 msgid "Set selection as image"
 msgstr "Kijelölés beállítása képként"
 
-#: src/ring_client.cpp:141
+#: src/ring_client.cpp:114
 #, c-format
 msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Képtelen elkezdeni\nGyőződjön meg róla, hogy a Jami rendszerfolyamat (dring) fut.\nHiba: %s"
 
-#: src/ring_client.cpp:144
+#: src/ring_client.cpp:117
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami hiba"
 
-#: src/ring_client.cpp:287
+#: src/ring_client.cpp:260
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "Jami megjelenítése"
 
-#: src/ring_client.cpp:291
+#: src/ring_client.cpp:264
 msgid "Quit"
 msgstr "Kilépés"
 
-#: src/ringnotify.cpp:338
+#: src/ringnotify.cpp:332
 msgctxt ""
 msgid "Open conversation"
 msgstr "Beszélgetés megnyitása"
 
-#: src/ringnotify.cpp:346 src/ringnotify.cpp:362
+#: src/ringnotify.cpp:340 src/ringnotify.cpp:356
 msgctxt ""
 msgid "Accept"
 msgstr "Elfogadás"
 
-#: src/ringnotify.cpp:353
+#: src/ringnotify.cpp:347
 msgctxt ""
 msgid "Refuse"
 msgstr "Elutasítás"
 
-#: src/ringnotify.cpp:369
+#: src/ringnotify.cpp:363
 msgctxt ""
 msgid "Decline"
 msgstr "Elutasítás"
@@ -795,29 +795,29 @@ msgstr "Betekintés végrehajtása…"
 
 #: src/usernameregistrationbox.cpp:313
 msgid "Enter the password of your Jami account"
-msgstr ""
+msgstr "Adja meg a jelszót a Jami fiókjához"
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
 msgstr "Regisztráció folyamatban…"
 
-#: src/generalsettingsview.cpp:107
+#: src/generalsettingsview.cpp:102
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Ez egy destruktív művelet. Biztosan törli az összes csevegést és híváselőzményt?"
 
-#: src/generalsettingsview.cpp:177
+#: src/generalsettingsview.cpp:172
 msgid "Choose download folder"
 msgstr "Letöltési mappa kiválasztása"
 
-#: src/generalsettingsview.cpp:180 src/accountgeneraltab.cpp:342
-#: src/avatarmanipulation.cpp:415 src/chatview.cpp:178
+#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:342
+#: src/avatarmanipulation.cpp:414 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:928
 msgid "_Cancel"
 msgstr "_Mégse"
 
-#: src/generalsettingsview.cpp:182 src/accountgeneraltab.cpp:344
+#: src/generalsettingsview.cpp:177 src/accountgeneraltab.cpp:344
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
 msgid "_Save"
 msgstr "_Mentés"
@@ -832,7 +832,7 @@ msgstr "Hálózati hiba, próbálja újra"
 
 #: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "A Jami export elindítása nem sikerült, próbálja újra"
 
 #: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
 #: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
@@ -911,27 +911,27 @@ msgstr "Hiba: hibás jelszó!"
 msgid "Error: unknown device!"
 msgstr "Hiba: ismeretlen eszköz!"
 
-#: src/video/video_widget.cpp:547
+#: src/video/video_widget.cpp:549
 msgid "Share _screen area"
 msgstr "_Képernyő részének megosztása"
 
-#: src/video/video_widget.cpp:555
+#: src/video/video_widget.cpp:557
 msgid "Share _monitor"
 msgstr "_Monitor megosztása"
 
-#: src/video/video_widget.cpp:562
+#: src/video/video_widget.cpp:564
 msgid "Stream _file"
 msgstr "Stream _fájl"
 
-#: src/video/video_widget.cpp:572
+#: src/video/video_widget.cpp:574
 msgid "Show advanced information"
 msgstr "Haladó információk megjelenítése"
 
-#: src/avatarmanipulation.cpp:412
+#: src/avatarmanipulation.cpp:411
 msgid "Open Avatar Image"
 msgstr "Avatar megnyitása"
 
-#: src/avatarmanipulation.cpp:417 src/chatview.cpp:180
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:180
 msgid "_Open"
 msgstr "_Megnyitás"
 
@@ -951,7 +951,7 @@ msgstr "„Élj szabadon vagy halj meg”\nkódtár verziója: %.25s"
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "A GNOME ügyfél a Jamihez.\nA Jami egy szabad szoftver az egyetemes közléshez, amely tiszteletben tartja a felhasználók szabadságát és magánszféráját."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -965,16 +965,16 @@ msgstr "Felvétel leállítása"
 msgid "Send recorded message"
 msgstr "Felvett üzenet küldése"
 
-#: src/ringmainwindow.cpp:176
+#: src/ringmainwindow.cpp:178
 msgid "Add account…"
 msgstr "Fiók hozzáadása…"
 
-#: src/ringmainwindow.cpp:633
+#: src/ringmainwindow.cpp:634
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Hívás kezdeményezése"
 
-#: src/ringmainwindow.cpp:636
+#: src/ringmainwindow.cpp:637
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Csevegés megnyitása"
@@ -986,7 +986,7 @@ msgctxt ""
 msgid "Search contacts or enter number"
 msgstr "Partnerek keresése vagy szám beírása"
 
-#: src/ringmainwindow.cpp:1499
+#: src/ringmainwindow.cpp:1498
 msgid "Leave settings page"
 msgstr "A beállítási oldal elhagyása"
 
@@ -1013,55 +1013,55 @@ msgstr "Új üzenet"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami hiba"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr ""
+msgstr "Újrakapcsolódás a Jami rendszerfolyamathoz (dring)…"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "Nem sikerült újrakapcsolódni a Jami rendszerfolyamathoz (dring).\nA Jami most kilép."
 
-#: src/conversationpopupmenu.cpp:214
+#: src/conversationpopupmenu.cpp:211
 msgid "Place _video call"
 msgstr "_Videohívás"
 
-#: src/conversationpopupmenu.cpp:217
+#: src/conversationpopupmenu.cpp:214
 msgid "Place _audio call"
 msgstr "_Hanghívás"
 
-#: src/conversationpopupmenu.cpp:225
+#: src/conversationpopupmenu.cpp:222
 msgid "_Add to conversations"
 msgstr "Beszélgetések _hozzáadása"
 
-#: src/conversationpopupmenu.cpp:229
+#: src/conversationpopupmenu.cpp:226
 msgid "_Discard invitation"
 msgstr "Meghívás _elutasítása"
 
-#: src/conversationpopupmenu.cpp:232
+#: src/conversationpopupmenu.cpp:229
 msgid "_Block invitations"
 msgstr "Meghívás _blokkolása"
 
-#: src/conversationpopupmenu.cpp:237
+#: src/conversationpopupmenu.cpp:234
 msgid "C_lear history"
 msgstr "Előzmények _törlése"
 
-#: src/conversationpopupmenu.cpp:240
+#: src/conversationpopupmenu.cpp:237
 msgid "_Remove conversation"
 msgstr "Beszélgetések _eltávolítása"
 
-#: src/conversationpopupmenu.cpp:245
+#: src/conversationpopupmenu.cpp:242
 msgid "_Block contact"
 msgstr "Kapcsolat _letiltása"
 
-#: src/conversationpopupmenu.cpp:249
+#: src/conversationpopupmenu.cpp:246
 msgid "_Unblock contact"
 msgstr "Partner _engedélyezése"
 
-#: src/conversationpopupmenu.cpp:255
+#: src/conversationpopupmenu.cpp:252
 msgid "_Copy name"
 msgstr "_Név másolása"
 
@@ -1077,29 +1077,29 @@ msgstr "Visszaállítja a főablak rejtett állapotát (csak az elsődleges pél
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr ""
+msgstr "– GNOME ügyfél Jami számára"
 
-#: src/accountcreationwizard.cpp:348
+#: src/accountcreationwizard.cpp:343
 msgid "Passwords don't match"
 msgstr "A jelszavak nem egyeznek"
 
-#: src/ringwelcomeview.cpp:87
+#: src/ringwelcomeview.cpp:84
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Ez az Ön Jami azonosítója.\nMásolja ki, és ossza meg barátaival!"
 
-#: src/ringwelcomeview.cpp:95
+#: src/ringwelcomeview.cpp:92
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Ez az Ön azonosítója.\nMásolja és ossza meg a barátaival!"
 
-#: src/ringwelcomeview.cpp:153
+#: src/ringwelcomeview.cpp:150
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami a szabad szoftver az egyetemes közléshez, amely tiszteletben tartja a felhasználók szabadságát és magánéletét."
 
 #: src/chatview.cpp:175
 msgid "Send File"
@@ -1111,7 +1111,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Figyelmeztetés! Ez a művelet eltávolítja ezt a fiókot az eszközön!\nMegjegyzés: ez a művelet nem vonható vissza. A regisztrált neved is elveszhet!"
 
-#: src/currentcallview.cpp:977
+#: src/currentcallview.cpp:974
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automatikus"
