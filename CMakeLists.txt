@@ -452,8 +452,8 @@ INSTALL(FILES pixmaps/jami.svg
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps
 )
 
-INSTALL(FILES gnome-ring.appdata.xml
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/appdata/
+INSTALL(FILES gnome-jami.appdata.xml
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/metainfo/
 )
 
 # install shell script which will launch "ring"
