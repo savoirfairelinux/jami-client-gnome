@@ -53,7 +53,7 @@ cmake ..
 make
 ```
 
-You can then simply run `./gnome-ring` from the build directory
+You can then simply run `./jami-gnome` from the build directory
 
 ## Installing
 
