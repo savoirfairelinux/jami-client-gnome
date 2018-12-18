@@ -425,7 +425,7 @@ INSTALL(TARGETS gnome-ring
 )
 
 # install .desktop in XDG desktop dir so that it is recognized by the system
-INSTALL(FILES ${PROJECT_SOURCE_DIR}/gnome-ring.desktop
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/jami-gnome.desktop
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications
 )
 
@@ -434,18 +434,18 @@ INSTALL(FILES ${PROJECT_SOURCE_DIR}/sounds/ringtone_notify.wav
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/sounds/gnome-ring
 )
 
-# install .desktop in the gnome-ring data dir, so that it can be copied to the
+# install .desktop in the jami-gnome data dir, so that it can be copied to the
 # autostart dir by the client
-INSTALL(FILES ${PROJECT_SOURCE_DIR}/gnome-ring.desktop.autostart
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/jami-gnome.desktop.autostart
    DESTINATION
-      ${CMAKE_INSTALL_PREFIX}/share/gnome-ring/
+      ${CMAKE_INSTALL_PREFIX}/share/jami-gnome
    PERMISSIONS
       WORLD_READ
       OWNER_WRITE
       OWNER_READ
       GROUP_READ
    RENAME
-      gnome-ring.desktop
+      jami-gnome.desktop
 )
 
 INSTALL(FILES pixmaps/jami.svg
