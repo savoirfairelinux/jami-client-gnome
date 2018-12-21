@@ -128,7 +128,7 @@
 
   <object class="GtkImage" id="image_invite">
     <property name="visible">True</property>
-    <property name="resource">/cx/jami/JamiGnome/invite</property>
+    <property name="resource">/net/jami/JamiGnome/invite</property>
     <child internal-child="accessible">
       <object class="AtkObject" id="image_invite-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Send Invitation</property>
@@ -137,10 +137,10 @@
   </object>
   <object class="GtkImage" id="image_place_call">
     <property name="visible">True</property>
-    <property name="resource">/cx/jami/JamiGnome/call_start</property>
+    <property name="resource">/net/jami/JamiGnome/call_start</property>
   </object>
   <object class="GtkImage" id="image_place_audio_only_call">
     <property name="visible">True</property>
-    <property name="resource">/cx/jami/JamiGnome/audio_only_call_start</property>
+    <property name="resource">/net/jami/JamiGnome/audio_only_call_start</property>
   </object>
 </interface>

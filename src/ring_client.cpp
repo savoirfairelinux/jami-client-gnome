@@ -288,7 +288,7 @@ init_systray(RingClient *client)
 
     if (!use_appinidcator) {
         GError *error = NULL;
-        GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/cx/jami/JamiGnome/jami-symbol-blue", &error);
+        GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/net/jami/JamiGnome/jami-symbol-blue", &error);
         if (icon == nullptr) {
             g_debug("Could not load icon: %s", error->message);
             g_clear_error(&error);
