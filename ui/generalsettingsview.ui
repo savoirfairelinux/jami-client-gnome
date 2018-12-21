@@ -9,7 +9,7 @@
   </object>
   <object class="GtkImage" id="image_clear_history">
     <property name="visible">True</property>
-    <property name="resource">/cx/jami/JamiGnome/clear_history</property>
+    <property name="resource">/net/jami/JamiGnome/clear_history</property>
   </object>
   <object class="GtkAdjustment" id="adjustment_history_duration">
     <property name="value">0</property>

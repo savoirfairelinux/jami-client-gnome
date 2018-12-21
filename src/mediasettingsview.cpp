@@ -445,7 +445,7 @@ media_settings_view_class_init(MediaSettingsViewClass *klass)
     G_OBJECT_CLASS(klass)->dispose = media_settings_view_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/cx/jami/JamiGnome/mediasettingsview.ui");
+                                                "/net/jami/JamiGnome/mediasettingsview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, vbox_main);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_manager);

@@ -382,9 +382,9 @@ on_togglebutton_muteaudio_clicked(CurrentCallView* view)
         lrc::api::NewCallModel::Media::AUDIO);
 
     auto togglebutton = GTK_TOGGLE_BUTTON(priv->togglebutton_muteaudio);
-    auto image = gtk_image_new_from_resource ("/cx/jami/JamiGnome/mute_audio");
+    auto image = gtk_image_new_from_resource ("/net/jami/JamiGnome/mute_audio");
     if (gtk_toggle_button_get_active(togglebutton))
-        image = gtk_image_new_from_resource ("/cx/jami/JamiGnome/unmute_audio");
+        image = gtk_image_new_from_resource ("/net/jami/JamiGnome/unmute_audio");
     gtk_button_set_image(GTK_BUTTON(togglebutton), image);
 }
 
@@ -402,9 +402,9 @@ on_togglebutton_mutevideo_clicked(CurrentCallView* view)
         lrc::api::NewCallModel::Media::VIDEO);
 
     auto togglebutton = GTK_TOGGLE_BUTTON(priv->togglebutton_mutevideo);
-    auto image = gtk_image_new_from_resource ("/cx/jami/JamiGnome/mute_video");
+    auto image = gtk_image_new_from_resource ("/net/jami/JamiGnome/mute_video");
     if (gtk_toggle_button_get_active(togglebutton))
-        image = gtk_image_new_from_resource ("/cx/jami/JamiGnome/unmute_video");
+        image = gtk_image_new_from_resource ("/net/jami/JamiGnome/unmute_video");
     gtk_button_set_image(GTK_BUTTON(togglebutton), image);
 }
 
@@ -1035,26 +1035,26 @@ CppImpl::updateState()
         auto call = (*accountInfo)->callModel->getCall(callId);
 
         auto pauseBtn = GTK_TOGGLE_BUTTON(widgets->togglebutton_hold);
-        auto image = gtk_image_new_from_resource ("/cx/jami/JamiGnome/pause");
+        auto image = gtk_image_new_from_resource ("/net/jami/JamiGnome/pause");
         if (call.status == lrc::api::call::Status::PAUSED)
-            image = gtk_image_new_from_resource ("/cx/jami/JamiGnome/play");
+            image = gtk_image_new_from_resource ("/net/jami/JamiGnome/play");
         gtk_button_set_image(GTK_BUTTON(pauseBtn), image);
 
         auto audioButton = GTK_TOGGLE_BUTTON(widgets->togglebutton_muteaudio);
         gtk_widget_set_sensitive(GTK_WIDGET(widgets->togglebutton_muteaudio),
                                  (call.type != lrc::api::call::Type::CONFERENCE));
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->togglebutton_muteaudio), call.audioMuted);
-        auto imageMuteAudio = gtk_image_new_from_resource ("/cx/jami/JamiGnome/mute_audio");
+        auto imageMuteAudio = gtk_image_new_from_resource ("/net/jami/JamiGnome/mute_audio");
         if (call.audioMuted)
-            imageMuteAudio = gtk_image_new_from_resource ("/cx/jami/JamiGnome/unmute_audio");
+            imageMuteAudio = gtk_image_new_from_resource ("/net/jami/JamiGnome/unmute_audio");
         gtk_button_set_image(GTK_BUTTON(audioButton), imageMuteAudio);
 
         if (!call.isAudioOnly) {
             auto videoButton = GTK_TOGGLE_BUTTON(widgets->togglebutton_mutevideo);
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->togglebutton_mutevideo), call.videoMuted);
-            auto imageMuteVideo = gtk_image_new_from_resource ("/cx/jami/JamiGnome/mute_video");
+            auto imageMuteVideo = gtk_image_new_from_resource ("/net/jami/JamiGnome/mute_video");
             if (call.videoMuted)
-                imageMuteVideo = gtk_image_new_from_resource ("/cx/jami/JamiGnome/unmute_video");
+                imageMuteVideo = gtk_image_new_from_resource ("/net/jami/JamiGnome/unmute_video");
             gtk_button_set_image(GTK_BUTTON(videoButton), imageMuteVideo);
             gtk_widget_set_sensitive(GTK_WIDGET(widgets->togglebutton_mutevideo),
                                  (call.type != lrc::api::call::Type::CONFERENCE));
@@ -1255,7 +1255,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     G_OBJECT_CLASS(klass)->dispose = current_call_view_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/cx/jami/JamiGnome/currentcallview.ui");
+                                                "/net/jami/JamiGnome/currentcallview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_status);

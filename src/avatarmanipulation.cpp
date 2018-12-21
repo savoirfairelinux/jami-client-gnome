@@ -176,7 +176,7 @@ avatar_manipulation_class_init(AvatarManipulationClass *klass)
     G_OBJECT_CLASS(klass)->finalize = avatar_manipulation_finalize;
     G_OBJECT_CLASS(klass)->dispose = avatar_manipulation_dispose;
 
-    gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass), "/cx/jami/JamiGnome/avatarmanipulation.ui");
+    gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass), "/net/jami/JamiGnome/avatarmanipulation.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, box_views_and_controls);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AvatarManipulation, box_controls);

@@ -319,7 +319,7 @@ chat_view_class_init(ChatViewClass *klass)
     G_OBJECT_CLASS(klass)->dispose = chat_view_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/cx/jami/JamiGnome/chatview.ui");
+                                                "/net/jami/JamiGnome/chatview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, box_webkit_chat_container);
 

@@ -48,7 +48,7 @@ PixbufManipulator::temporaryItemAvatar() const
 {
     GError *error = nullptr;
     std::shared_ptr<GdkPixbuf> result(
-        gdk_pixbuf_new_from_resource("/cx/jami/JamiGnome/temporary-item", &error),
+        gdk_pixbuf_new_from_resource("/net/jami/JamiGnome/temporary-item", &error),
         g_object_unref
     );
 
