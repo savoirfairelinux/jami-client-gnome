@@ -135,7 +135,7 @@ ring_welcome_view_init(RingWelcomeView *self)
 
     /* get logo */
     GError *error = NULL;
-    GdkPixbuf* logo = gdk_pixbuf_new_from_resource_at_scale("/cx/jami/JamiGnome/jami-logo-blue",
+    GdkPixbuf* logo = gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/jami-logo-blue",
                                                             350, -1, TRUE, &error);
     if (logo == NULL) {
         g_debug("Could not load logo: %s", error->message);
@@ -210,7 +210,7 @@ ring_welcome_view_init(RingWelcomeView *self)
 
     /* QR code button */
     priv->button_qrcode = gtk_button_new();
-    GdkPixbuf *image_qr = gdk_pixbuf_new_from_resource_at_scale("/cx/jami/JamiGnome/qrcode",
+    GdkPixbuf *image_qr = gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/qrcode",
                                                                   -1, 16, TRUE, &error);
     if (!image_qr) {
         g_warning("Could not load icon: %s", error->message);

@@ -242,7 +242,7 @@ render_account_avatar(GtkCellLayout*,
         g_free(avatar);
         g_free(id);
 
-        GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/cx/jami/JamiGnome/add-device", nullptr);
+        GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/net/jami/JamiGnome/add-device", nullptr);
         g_object_set(G_OBJECT(cell), "width", 32, nullptr);
         g_object_set(G_OBJECT(cell), "height", 32, nullptr);
         g_object_set(G_OBJECT(cell), "pixbuf", icon, nullptr);
@@ -1038,7 +1038,7 @@ CppImpl::init()
 
     /* set window icon */
     GError *error = NULL;
-    GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/cx/jami/JamiGnome/jami-symbol-blue", &error);
+    GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/net/jami/JamiGnome/jami-symbol-blue", &error);
     if (icon == NULL) {
         g_debug("Could not load icon: %s", error->message);
         g_clear_error(&error);
@@ -1046,7 +1046,7 @@ CppImpl::init()
         gtk_window_set_icon(GTK_WINDOW(self), icon);
 
     /* set menu icon */
-    GdkPixbuf* image_ring = gdk_pixbuf_new_from_resource_at_scale("/cx/jami/JamiGnome/jami-symbol-blue",
+    GdkPixbuf* image_ring = gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/jami-symbol-blue",
                                                                   -1, 16, TRUE, &error);
     if (image_ring == NULL) {
         g_debug("Could not load icon: %s", error->message);
@@ -1055,7 +1055,7 @@ CppImpl::init()
         gtk_image_set_from_pixbuf(GTK_IMAGE(widgets->image_ring), image_ring);
 
     /* ring menu */
-    GtkBuilder *builder = gtk_builder_new_from_resource("/cx/jami/JamiGnome/ringgearsmenu.ui");
+    GtkBuilder *builder = gtk_builder_new_from_resource("/net/jami/JamiGnome/ringgearsmenu.ui");
     GMenuModel *menu = G_MENU_MODEL(gtk_builder_get_object(builder, "menu"));
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(widgets->ring_menu), menu);
     g_object_unref(builder);
@@ -2264,7 +2264,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     G_OBJECT_CLASS(klass)->dispose = ring_main_window_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/cx/jami/JamiGnome/ringmainwindow.ui");
+                                                "/net/jami/JamiGnome/ringmainwindow.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_left_pane);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, notebook_contacts);
