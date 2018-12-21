@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema path="/cx/jami/JamiGnome/" id="cx.ring.RingGnome">
+  <schema path="/net/jami/JamiGnome/" id="cx.ring.RingGnome">
     <key name="start-on-login" type="b">
         <default>true</default>
         <summary>Start Jami on login.</summary>

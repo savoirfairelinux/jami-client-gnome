@@ -432,7 +432,7 @@
 
   <object class="GtkImage" id="image_chat">
     <property name="visible">True</property>
-    <property name="resource">/cx/jami/JamiGnome/chat</property>
+    <property name="resource">/net/jami/JamiGnome/chat</property>
     <child internal-child="accessible">
       <object class="AtkObject" id="image_chat-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Chat</property>
@@ -441,7 +441,7 @@
   </object>
   <object class="GtkImage" id="image_mute_audio">
     <property name="visible">True</property>
-    <property name="resource">/cx/jami/JamiGnome/mute_audio</property>
+    <property name="resource">/net/jami/JamiGnome/mute_audio</property>
     <child internal-child="accessible">
       <object class="AtkObject" id="image_mute_audio-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Mute audio</property>
@@ -450,7 +450,7 @@
   </object>
   <object class="GtkImage" id="image_mute_video">
     <property name="visible">True</property>
-    <property name="resource">/cx/jami/JamiGnome/mute_video</property>
+    <property name="resource">/net/jami/JamiGnome/mute_video</property>
     <child internal-child="accessible">
       <object class="AtkObject" id="image_mute_video-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Mute video</property>
@@ -459,7 +459,7 @@
   </object>
   <object class="GtkImage" id="image_pause">
     <property name="visible">True</property>
-    <property name="resource">/cx/jami/JamiGnome/pause</property>
+    <property name="resource">/net/jami/JamiGnome/pause</property>
     <child internal-child="accessible">
       <object class="AtkObject" id="image_pause-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Hold</property>
@@ -468,7 +468,7 @@
   </object>
   <object class="GtkImage" id="image_transfer">
     <property name="visible">True</property>
-    <property name="resource">/cx/jami/JamiGnome/transfer</property>
+    <property name="resource">/net/jami/JamiGnome/transfer</property>
     <child internal-child="accessible">
       <object class="AtkObject" id="image_transfer-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Transfer</property>
@@ -477,7 +477,7 @@
   </object>
   <object class="GtkImage" id="image_end">
     <property name="visible">True</property>
-    <property name="resource">/cx/jami/JamiGnome/call_end</property>
+    <property name="resource">/net/jami/JamiGnome/call_end</property>
     <child internal-child="accessible">
       <object class="AtkObject" id="image_end-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">End call</property>
@@ -486,7 +486,7 @@
   </object>
   <object class="GtkImage" id="image_quality">
     <property name="visible">True</property>
-    <property name="resource">/cx/jami/JamiGnome/quality</property>
+    <property name="resource">/net/jami/JamiGnome/quality</property>
     <child internal-child="accessible">
       <object class="AtkObject" id="image_quality-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Video quality</property>
@@ -495,7 +495,7 @@
   </object>
   <object class="GtkImage" id="image_record">
     <property name="visible">True</property>
-    <property name="resource">/cx/jami/JamiGnome/record</property>
+    <property name="resource">/net/jami/JamiGnome/record</property>
     <child internal-child="accessible">
       <object class="AtkObject" id="image_record-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Record</property>

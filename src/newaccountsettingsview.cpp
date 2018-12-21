@@ -247,7 +247,7 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     object_class->dispose = new_account_settings_view_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS(klass),
-                                                "/cx/jami/JamiGnome/newaccountsettingsview.ui");
+                                                "/net/jami/JamiGnome/newaccountsettingsview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, stack_account);
 
