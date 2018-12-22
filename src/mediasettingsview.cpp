@@ -269,6 +269,10 @@ CppImpl::drawVideoDevices()
     }
     auto active = 0;
     auto current = avModel_->getDefaultDeviceName();
+    if (current == "") {
+        // Avoid to draw devices if no camera is selected
+        return;
+    }
     auto i = 0;
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_device));
     for (const auto& device : avModel_->getDevices()) {
