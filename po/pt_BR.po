@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-17 03:09-0500\n"
-"PO-Revision-Date: 2018-12-17 08:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-12-24 03:09-0500\n"
+"PO-Revision-Date: 2018-12-17 15:09+0000\n"
+"Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/ring/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -351,7 +351,7 @@ msgstr "Geral"
 msgid "Media"
 msgstr "Mídia"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1523
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1596
 msgid "Settings"
 msgstr "Configurações"
 
@@ -753,7 +753,7 @@ msgstr ""
 
 #: src/ring_client.cpp:117
 msgid "Jami Error"
-msgstr ""
+msgstr "Erro Jami"
 
 #: src/ring_client.cpp:260
 msgctxt ""
@@ -977,55 +977,55 @@ msgstr "Pare de gravar"
 msgid "Send recorded message"
 msgstr "Enviar mensagem gravada"
 
-#: src/ringmainwindow.cpp:178
+#: src/ringmainwindow.cpp:184
 msgid "Add account…"
 msgstr "Adicionar conta…"
 
-#: src/ringmainwindow.cpp:634
+#: src/ringmainwindow.cpp:640
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "fazer ligação"
 
-#: src/ringmainwindow.cpp:637
+#: src/ringmainwindow.cpp:643
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "abrir chat"
 
-#: src/ringmainwindow.cpp:1064
+#: src/ringmainwindow.cpp:1137
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Busque por contatos ou insira o número"
 
-#: src/ringmainwindow.cpp:1498
+#: src/ringmainwindow.cpp:1571
 msgid "Leave settings page"
 msgstr "Deixar a página de configurações"
 
-#: src/ringmainwindow.cpp:1868
+#: src/ringmainwindow.cpp:1941
 msgid " is calling you!"
 msgstr "está chamando você!"
 
-#: src/ringmainwindow.cpp:1869
+#: src/ringmainwindow.cpp:1942
 msgid "Incoming call"
 msgstr "Chamada recebida"
 
-#: src/ringmainwindow.cpp:2011
+#: src/ringmainwindow.cpp:2084
 msgid "New request from "
 msgstr "Nova requisição de"
 
-#: src/ringmainwindow.cpp:2012
+#: src/ringmainwindow.cpp:2085
 msgid "Trust request"
 msgstr "Confiar na requisição"
 
-#: src/ringmainwindow.cpp:2069
+#: src/ringmainwindow.cpp:2142
 msgid "New message"
 msgstr "Nova mensagem"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Erro Jami"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"

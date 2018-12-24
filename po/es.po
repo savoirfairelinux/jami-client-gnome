@@ -36,9 +36,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-17 03:09-0500\n"
-"PO-Revision-Date: 2018-12-17 08:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2018-12-24 03:09-0500\n"
+"PO-Revision-Date: 2018-12-18 14:35+0000\n"
+"Last-Translator: Pier Jose Gotta Perez <piegope@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -365,7 +365,7 @@ msgstr "General"
 msgid "Media"
 msgstr "Medios"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1523
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1596
 msgid "Settings"
 msgstr "Configuración"
 
@@ -450,7 +450,7 @@ msgstr "Introducir la contraseña del archivo"
 
 #: ui/newaccountsettingsview.ui:189
 msgid "Export on the network"
-msgstr ""
+msgstr "Exportar a la red"
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Jami…"
@@ -627,19 +627,19 @@ msgstr "Utilizar TURN"
 
 #: ui/newaccountsettingsview.ui:2197
 msgid "(TURN) address"
-msgstr "(TURN) dirección"
+msgstr "dirección (TURN)"
 
 #: ui/newaccountsettingsview.ui:2232
 msgid "(TURN) username"
-msgstr ""
+msgstr "Nombre de usuario (TURN)"
 
 #: ui/newaccountsettingsview.ui:2266
 msgid "(TURN) password"
-msgstr ""
+msgstr "contraseña (TURN)"
 
 #: ui/newaccountsettingsview.ui:2303
 msgid "(TURN) realm"
-msgstr ""
+msgstr "(TURN) campo"
 
 #: ui/newaccountsettingsview.ui:2337
 msgid "Use STUN"
@@ -647,7 +647,7 @@ msgstr "Utilizar STUN"
 
 #: ui/newaccountsettingsview.ui:2372
 msgid "(STUN) address"
-msgstr ""
+msgstr "dirección (STUN)"
 
 #: ui/newaccountsettingsview.ui:2405
 msgid "Published address"
@@ -679,23 +679,23 @@ msgstr "Negociación de sesión SDP (Retorna a ICE)"
 
 #: ui/newaccountsettingsview.ui:2721
 msgid "Only used during SDP negotiation in case ICE is not supported."
-msgstr ""
+msgstr "Solo se utiliza durante la negociación de SDP en caso de que no se admita ICE."
 
 #: ui/newaccountsettingsview.ui:2755
 msgid "Audio RTP Min port"
-msgstr ""
+msgstr "Puerto Min RTP de Audio"
 
 #: ui/newaccountsettingsview.ui:2790
 msgid "Audio RTP Max port"
-msgstr ""
+msgstr "Puerto Max RTP de Audio"
 
 #: ui/newaccountsettingsview.ui:2825
 msgid "Video RTP Min port"
-msgstr ""
+msgstr "Puerto Min RTP de Video"
 
 #: ui/newaccountsettingsview.ui:2860
 msgid "Video RTP Max port"
-msgstr ""
+msgstr "Puerto Max RTP de Video"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
@@ -723,15 +723,15 @@ msgstr "Enviar invitación"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
-msgstr ""
+msgstr "Grabar mensaje de audio"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "Terminar sin mensaje"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
-msgstr ""
+msgstr "Entrante…"
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
@@ -763,17 +763,17 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Incapaz de inicializar.\nAsegurese que el demonio de Jami (dring) esté funcionando.\nError: %s"
 
 #: src/ring_client.cpp:117
 msgid "Jami Error"
-msgstr ""
+msgstr "Error en Jami"
 
 #: src/ring_client.cpp:260
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "Mostrar Jami"
 
 #: src/ring_client.cpp:264
 msgid "Quit"
@@ -817,15 +817,15 @@ msgstr "Búsqueda no disponible, compruebe su conexión a la red"
 
 #: src/usernameregistrationbox.cpp:274
 msgid "Performing lookup…"
-msgstr ""
+msgstr "Realizando búsqueda ..."
 
 #: src/usernameregistrationbox.cpp:313
 msgid "Enter the password of your Jami account"
-msgstr ""
+msgstr "Ingrese la contraseña de su cuenta Jami"
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
-msgstr ""
+msgstr "Registro en curso..."
 
 #: src/generalsettingsview.cpp:102
 msgid ""
@@ -858,7 +858,7 @@ msgstr "Error en la red, inténtalo de nuevo"
 
 #: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "No se ha podido exportar al Jami, inténtalo de nuevo"
 
 #: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
 #: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
@@ -915,7 +915,7 @@ msgstr "Tipo"
 
 #: src/accountgeneraltab.cpp:656
 msgid "auto-generating…"
-msgstr ""
+msgstr "auto-generando..."
 
 #: src/accountgeneraltab.cpp:686
 msgid "Hostname"
@@ -963,7 +963,7 @@ msgstr "_Abrir"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "Procesando..."
 
 #: src/dialogs.c:84
 #, c-format
@@ -977,79 +977,79 @@ msgstr "\"Live Free or Die\"\nintegrado en %.25s"
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "El cliente Jami de GNOME.\nJami es un software libre para la comunicación universal que respeta las libertades y la privacidad de sus usuarios."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
-msgstr ""
+msgstr "El contacto parece estar ocupado. ¿Dejar un mensaje?"
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "Detener la grabación"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
-msgstr ""
+msgstr "Enviar mensaje grabado"
 
-#: src/ringmainwindow.cpp:178
+#: src/ringmainwindow.cpp:184
 msgid "Add account…"
-msgstr ""
+msgstr "Añadir cuenta..."
 
-#: src/ringmainwindow.cpp:634
+#: src/ringmainwindow.cpp:640
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "llamar"
 
-#: src/ringmainwindow.cpp:637
+#: src/ringmainwindow.cpp:643
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Abrir chat"
 
-#: src/ringmainwindow.cpp:1064
+#: src/ringmainwindow.cpp:1137
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Buscar contacto o introducir número"
 
-#: src/ringmainwindow.cpp:1498
+#: src/ringmainwindow.cpp:1571
 msgid "Leave settings page"
 msgstr "Abandonar la página de configuración"
 
-#: src/ringmainwindow.cpp:1868
+#: src/ringmainwindow.cpp:1941
 msgid " is calling you!"
 msgstr "te está llamando."
 
-#: src/ringmainwindow.cpp:1869
+#: src/ringmainwindow.cpp:1942
 msgid "Incoming call"
 msgstr "Llamada entrante"
 
-#: src/ringmainwindow.cpp:2011
+#: src/ringmainwindow.cpp:2084
 msgid "New request from "
 msgstr "Nueva petición de"
 
-#: src/ringmainwindow.cpp:2012
+#: src/ringmainwindow.cpp:2085
 msgid "Trust request"
 msgstr "Solicitud de confianza"
 
-#: src/ringmainwindow.cpp:2069
+#: src/ringmainwindow.cpp:2142
 msgid "New message"
 msgstr "Nuevo mensaje"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Error en Jami"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr ""
+msgstr "Tratando de conectarse de nuevo al demonio Jami (dring)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "No se pudo volver a conectar con el demonio Jami (dring).\nJami ahora se cerrará."
 
 #: src/conversationpopupmenu.cpp:211
 msgid "Place _video call"
@@ -1103,7 +1103,7 @@ msgstr "Restaura el estado de ocultación de la ventana principal (únicamente l
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr ""
+msgstr "- Cliente Gnome para Jami"
 
 #: src/accountcreationwizard.cpp:343
 msgid "Passwords don't match"
@@ -1113,19 +1113,19 @@ msgstr "Las contraseñas no coinciden"
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Este es tu nombre de usuario en Jami.\n¡Cópialo y compártelo con tus amigos!"
 
 #: src/ringwelcomeview.cpp:92
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Este es tu ID.\n¡Cópialo y compártelo con tus amigos!"
 
 #: src/ringwelcomeview.cpp:150
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami es software libre para la comunicación universal que respeta las libertades y la privacidad de sus usuarios."
 
 #: src/chatview.cpp:175
 msgid "Send File"

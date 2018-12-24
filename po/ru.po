@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-17 03:09-0500\n"
+"POT-Creation-Date: 2018-12-24 03:09-0500\n"
 "PO-Revision-Date: 2018-12-17 08:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
@@ -353,7 +353,7 @@ msgstr "Общие"
 msgid "Media"
 msgstr "Медиа"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1523
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1596
 msgid "Settings"
 msgstr "Настройки"
 
@@ -979,48 +979,48 @@ msgstr "Остановить запись"
 msgid "Send recorded message"
 msgstr "Отправить записанное сообщение"
 
-#: src/ringmainwindow.cpp:178
+#: src/ringmainwindow.cpp:184
 msgid "Add account…"
 msgstr "Добавить аккаунт…"
 
-#: src/ringmainwindow.cpp:634
+#: src/ringmainwindow.cpp:640
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "позвонить"
 
-#: src/ringmainwindow.cpp:637
+#: src/ringmainwindow.cpp:643
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "открыть чат"
 
-#: src/ringmainwindow.cpp:1064
+#: src/ringmainwindow.cpp:1137
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Найдите контакты или введите номер"
 
-#: src/ringmainwindow.cpp:1498
+#: src/ringmainwindow.cpp:1571
 msgid "Leave settings page"
 msgstr "Выйти из настроек"
 
-#: src/ringmainwindow.cpp:1868
+#: src/ringmainwindow.cpp:1941
 msgid " is calling you!"
 msgstr "звони́т вам!"
 
-#: src/ringmainwindow.cpp:1869
+#: src/ringmainwindow.cpp:1942
 msgid "Incoming call"
 msgstr "Входящий звонок"
 
-#: src/ringmainwindow.cpp:2011
+#: src/ringmainwindow.cpp:2084
 msgid "New request from "
 msgstr "Новый запрос от"
 
-#: src/ringmainwindow.cpp:2012
+#: src/ringmainwindow.cpp:2085
 msgid "Trust request"
 msgstr "Запрос доверия"
 
-#: src/ringmainwindow.cpp:2069
+#: src/ringmainwindow.cpp:2142
 msgid "New message"
 msgstr "Новое сообщение"
 
