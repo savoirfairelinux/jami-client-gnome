@@ -25,6 +25,8 @@
 #include <glib/gi18n.h>
 #include <qrencode.h>
 
+#include <api/newaccountmodel.h>
+
 // Qt
 #include <QObject>
 #include <QItemSelectionModel>
@@ -51,6 +53,8 @@ struct _RingWelcomeViewPrivate
     GtkWidget *revealer_qrcode;
 
     AccountInfoPointer const *accountInfo_;
+    QMetaObject::Connection nameRegistrationEnded_;
+
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_SCROLLED_WINDOW);
@@ -107,6 +111,21 @@ ring_welcome_update_view(RingWelcomeView* self) {
     gtk_widget_show(priv->revealer_qrcode);
 
     g_free(ring_id);
+
+    priv->nameRegistrationEnded_ = QObject::connect(
+        (*priv->accountInfo_)->accountModel,
+        &lrc::api::NewAccountModel::nameRegistrationEnded,
+        [=] (const std::string& accountId, lrc::api::account::RegisterNameStatus status, const std::string& name) {
+            if (not *priv->accountInfo_) return;
+            if (accountId == (*priv->accountInfo_)->id
+                && status == lrc::api::account::RegisterNameStatus::SUCCESS)
+                {
+                    gchar *markup = g_markup_printf_escaped("<span fgcolor=\"black\">%s</span>",
+                        name.c_str());
+                    gtk_label_set_markup(GTK_LABEL(priv->label_ringid), markup);
+                    g_free(markup);
+                }
+        });
 }
 
 static void
@@ -234,6 +253,8 @@ ring_welcome_view_init(RingWelcomeView *self)
 static void
 ring_welcome_view_dispose(GObject *object)
 {
+    auto* priv = RING_WELCOME_VIEW_GET_PRIVATE(object);
+    QObject::disconnect(priv->nameRegistrationEnded_);
     G_OBJECT_CLASS(ring_welcome_view_parent_class)->dispose(object);
 }
 
