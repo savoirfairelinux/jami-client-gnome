@@ -243,7 +243,9 @@ general_settings_view_init(GeneralSettingsView *self)
     char* download_directory_value;
     g_variant_get(download_directory_variant, "&s", &download_directory_value);
     std::string default_download_dir = {};
-    if (auto* directory = g_get_user_special_dir (G_USER_DIRECTORY_DOWNLOAD))
+    if (auto* directory = g_get_home_dir ())
+        default_download_dir = directory;
+    else if (auto* directory = g_get_user_special_dir (G_USER_DIRECTORY_DOWNLOAD))
         default_download_dir = directory;
     else
         default_download_dir = g_get_user_special_dir (G_USER_DIRECTORY_DESKTOP);
