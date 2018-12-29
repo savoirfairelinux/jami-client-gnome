@@ -1096,9 +1096,14 @@ CppImpl::init()
     g_signal_connect_swapped(widgets->general_settings_view, "clear-all-history", G_CALLBACK(on_clear_all_history_clicked), self);
 
 
-    /* make the setting we will show first the active one */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->radiobutton_general_settings), TRUE);
-    widgets->last_settings_view = widgets->general_settings_view;
+    /* make the account settings will be showed as the active one (or general if no accounts) */
+    if (not accountIds.empty()) {
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->radiobutton_new_account_settings), TRUE);
+        widgets->last_settings_view = widgets->new_account_settings_view;
+    } else {
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->radiobutton_general_settings), TRUE);
+        widgets->last_settings_view = widgets->general_settings_view;
+    }
 
     /* connect the settings button signals to switch settings views */
     g_signal_connect(widgets->radiobutton_media_settings, "toggled", G_CALLBACK(on_show_media_settings), self);
