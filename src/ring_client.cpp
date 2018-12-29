@@ -453,7 +453,7 @@ ring_client_shutdown(GApplication *app)
     RingClient *self = RING_CLIENT(app);
     RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
 
-    g_debug("quitting");
+    gtk_widget_destroy(priv->win);
 
     QObject::disconnect(priv->uam_updated);
 

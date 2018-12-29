@@ -964,7 +964,9 @@ nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result,  RingMa
 void
 CppImpl::init()
 {
-    lrc_->getAVModel().deactivateOldVideoModels();
+    try {
+        lrc_->getAVModel().deactivateOldVideoModels();
+    } catch (...) {}
     widgets->cancellable = g_cancellable_new();
 #if USE_LIBNM
      // monitor the network using libnm to notify the daemon about connectivity changes
@@ -2215,20 +2217,20 @@ ring_main_window_dispose(GObject *object)
     auto* self = RING_MAIN_WINDOW(object);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
 
-    delete priv->cpp;
-    priv->cpp = nullptr;
-    delete priv->notifier;
-    priv->notifier = nullptr;
+    if (priv->cpp) {
+        delete priv->cpp;
+        priv->cpp = nullptr;
+    }
 
     // cancel any pending cancellable operations
-    g_cancellable_cancel(priv->cancellable);
-    g_object_unref(priv->cancellable);
+    if (priv->cancellable) {
+        g_cancellable_cancel(priv->cancellable);
+        g_object_unref(priv->cancellable);
+    }
 #if USE_LIBNM
     // clear NetworkManager client if it was used
     g_clear_object(&priv->nm_client);
 #endif
-
-    G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
 
     if (priv->general_settings_view) {
         g_signal_handler_disconnect(priv->general_settings_view, priv->update_download_folder);
@@ -2244,6 +2246,7 @@ ring_main_window_dispose(GObject *object)
         g_signal_handler_disconnect(priv->notifier, priv->notif_decline_call);
         priv->notif_decline_call = 0;
     }
+    gtk_widget_destroy(priv->notifier);
 }
 
 static void
