@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-30 19:41-0500\n"
-"PO-Revision-Date: 2018-12-18 11:10+0000\n"
+"POT-Creation-Date: 2018-12-31 03:09-0500\n"
+"PO-Revision-Date: 2018-12-31 05:00+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "Jelszó"
 
 #: ui/accountmigrationview.ui:198
 msgid "Migrate account"
-msgstr "Fiók migrálása"
+msgstr "Fiók áttelepítése"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
@@ -369,7 +369,7 @@ msgstr "Kimeneti eszköz:"
 
 #: ui/mediasettingsview.ui:76
 msgid "Input device:"
-msgstr "Bemeneti eszköz:"
+msgstr "Beviteli eszköz:"
 
 #: ui/mediasettingsview.ui:134
 msgid "Camera Settings"
@@ -1109,7 +1109,7 @@ msgstr "Fájl küldése"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr "Figyelmeztetés! Ez a művelet eltávolítja ezt a fiókot az eszközön!\nMegjegyzés: ez a művelet nem vonható vissza. A regisztrált neved is elveszhet!"
+msgstr "Figyelmeztetés! Ez a művelet eltávolítja ezt a fiókot az eszközön!\nMegjegyzés: ez a művelet nem vonható vissza. A regisztrált neved is elveszhet!"
 
 #: src/currentcallview.cpp:974
 msgctxt "Enable automatic video quality"
