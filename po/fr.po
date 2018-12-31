@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-24 03:09-0500\n"
-"PO-Revision-Date: 2018-12-17 18:08+0000\n"
+"POT-Creation-Date: 2018-12-30 19:41-0500\n"
+"PO-Revision-Date: 2018-12-30 15:41+0000\n"
 "Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -195,7 +195,7 @@ msgid ""
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr ""
+msgstr "Pour associer cet appareil à un compte Jami déjà existant sur un autre appareil, vous avez deux possibilités:\nVous pouvez importer votre compte via le réseau Jami. Pour cela vous devez obtenir un NIP du premier appareil. Aller dans la gestion du compte du premier appareil et choisissez \"Associer un autre appareil à ce compte\". Vous obtiendrez alors un NIP qui sera valide 10 minutes sur le réseau.\nVous pouvez également importer votre compte en important une archive de compte Jami."
 
 #: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
@@ -235,7 +235,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "En cochant cette case, vous enregistrez un nom d'utilisateur unique sur le réseau Jami. Les personnes peuvent l'utiliser pour vous contacter au lieu d'utiliser votre identifiant de 40 caractères."
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
@@ -255,7 +255,7 @@ msgstr "Confirmer le mot de passe"
 
 #: ui/accountcreationwizard.ui:562
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "Génération de votre compte Jami..."
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
@@ -267,7 +267,7 @@ msgstr "Cela peut prendre quelques minutes."
 
 #: ui/accountcreationwizard.ui:621
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "Récupération de votre compte Jami …"
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
@@ -288,11 +288,11 @@ msgstr "Lancer Jami à la connexion"
 
 #: ui/generalsettingsview.ui:70
 msgid "Show Jami icon in the notification area (systray)."
-msgstr ""
+msgstr "Afficher l’icône de Jami dans la zone de notification"
 
 #: ui/generalsettingsview.ui:78
 msgid "Bring Jami to the foreground on incoming calls."
-msgstr ""
+msgstr "Afficher Jami en avant plan en cas d'appels entrants"
 
 #: ui/generalsettingsview.ui:86
 msgid "Enable notifications for incoming calls."
@@ -354,7 +354,7 @@ msgstr "Général"
 msgid "Media"
 msgstr "Médias"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1596
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -427,7 +427,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "Pour ajouter un nouvel appareil à votre compte Jami, vous devez exporter votre compte sur le Jami. Cela générera un NIP qui devra être saisi sur le nouvel appareil dans les 10 minutes suivant sa génération."
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -439,7 +439,7 @@ msgstr "Entrez ici le mot de passe de l’archive"
 
 #: ui/newaccountsettingsview.ui:189
 msgid "Export on the network"
-msgstr ""
+msgstr "Exporter sur le réseau"
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Jami…"
@@ -484,7 +484,7 @@ msgstr "Boîte vocale"
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "Appareils connus associés à ce compte Jami"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
@@ -752,7 +752,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Impossible de démarrer\nVérifier que le serveur Jami  fonctionne\nErreur: %s"
 
 #: src/ring_client.cpp:117
 msgid "Jami Error"
@@ -762,7 +762,7 @@ msgstr "Erreur Jami"
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "Afficher Jami"
 
 #: src/ring_client.cpp:264
 msgid "Quit"
@@ -847,7 +847,7 @@ msgstr "Erreur réseau, veuillez réessayer."
 
 #: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "Impossible de lancer l'exportation vers Jami, réessayez"
 
 #: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
 #: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
@@ -966,7 +966,7 @@ msgstr "\"Live Free or Die\"\ncompilé le %.25s"
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami pour GNOME.\nJami est un logiciel libre de communication universel  respectant les libertés et la vie privée de ses utilisateurs."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -994,34 +994,34 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Ouvrir la discussion"
 
-#: src/ringmainwindow.cpp:1137
+#: src/ringmainwindow.cpp:1144
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Rechercher dans les contacts ou appeler un numéro"
 
-#: src/ringmainwindow.cpp:1571
+#: src/ringmainwindow.cpp:1578
 msgid "Leave settings page"
 msgstr "Quitter la page des réglages"
 
-#: src/ringmainwindow.cpp:1941
+#: src/ringmainwindow.cpp:1948
 msgid " is calling you!"
 msgstr "vous appelle"
 
-#: src/ringmainwindow.cpp:1942
+#: src/ringmainwindow.cpp:1949
 msgid "Incoming call"
 msgstr "Appel entrant"
 
-#: src/ringmainwindow.cpp:2084
+#: src/ringmainwindow.cpp:2091
 msgid "New request from "
 msgstr "Nouvelle demande de "
 
-#: src/ringmainwindow.cpp:2085
+#: src/ringmainwindow.cpp:2092
 msgid "Trust request"
 msgstr "Invitation"
 
-#: src/ringmainwindow.cpp:2142
+#: src/ringmainwindow.cpp:2149
 msgid "New message"
 msgstr "Nouveau message"
 
@@ -1032,13 +1032,13 @@ msgstr "Erreur Jami"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr ""
+msgstr "Redémarrage de Jami en cours …"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "Impossible de se reconnecter au daemon Jami (dring).\nLe programme va maintenant se terminer."
 
 #: src/conversationpopupmenu.cpp:211
 msgid "Place _video call"
@@ -1098,19 +1098,19 @@ msgstr "- le client GNOME de Jami"
 msgid "Passwords don't match"
 msgstr "Les mots de passes ne correspondent pas"
 
-#: src/ringwelcomeview.cpp:84
+#: src/ringwelcomeview.cpp:88
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
 msgstr "Ceci est votre nom d'utilisateur Jami. Conservez et partagez-le avec vos amis !"
 
-#: src/ringwelcomeview.cpp:92
+#: src/ringwelcomeview.cpp:96
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
 msgstr "Ceci est votre identifiant Jami. Conservez et partagez-le avec vos amis !"
 
-#: src/ringwelcomeview.cpp:150
+#: src/ringwelcomeview.cpp:169
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
