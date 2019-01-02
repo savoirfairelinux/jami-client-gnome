@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2016-2018 Savoir-faire Linux Inc.
+ *  Copyright (C) 2016-2019 Savoir-faire Linux Inc.
  *  Author: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
  *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
  *
