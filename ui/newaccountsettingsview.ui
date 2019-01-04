@@ -150,7 +150,7 @@
             <!-- End of Explaination row -->
             <!-- Password entry -->
             <child>
-              <object class="GtkLabel">
+              <object class="GtkLabel" id="entry_password_export_label">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">Password (required):</property>
               </object>
