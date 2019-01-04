@@ -185,6 +185,7 @@ struct _NewAccountSettingsViewPrivate
     GtkWidget* add_device_box;
     GtkWidget* button_export_on_the_ring;
     GtkWidget* button_add_device_cancel;
+    GtkWidget* entry_password_export_label;
     GtkWidget* entry_password_export;
 
     /* generating account spinner */
@@ -357,6 +358,7 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, add_device_box);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, button_export_on_the_ring);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, button_add_device_cancel);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, entry_password_export_label);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, entry_password_export);
 
     // generating pin spinner
@@ -944,8 +946,35 @@ choose_export_file(NewAccountSettingsView *view)
 
     if (!filename) return;
 
+    std::string password = {};
+    if (priv->currentProp_->archiveHasPassword) {
+        auto* top_window = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view)));
+        auto* password_dialog = gtk_message_dialog_new(top_window,
+            GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
+            _("You need to enter your password to export the full archive."));
+        gtk_window_set_title(GTK_WINDOW(password_dialog), _("Enter password to export archive"));
+        gtk_dialog_set_default_response(GTK_DIALOG(password_dialog), GTK_RESPONSE_OK);
+
+        auto* message_area = gtk_message_dialog_get_message_area(GTK_MESSAGE_DIALOG(password_dialog));
+        auto* password_entry = gtk_entry_new();
+        gtk_entry_set_visibility(GTK_ENTRY(password_entry), false);
+        gtk_entry_set_invisible_char(GTK_ENTRY(password_entry), '*');
+        gtk_box_pack_start(GTK_BOX(message_area), password_entry, true, true, 0);
+        gtk_widget_show_all(password_dialog);
+
+        auto res = gtk_dialog_run(GTK_DIALOG(password_dialog));
+        if (res == GTK_RESPONSE_OK) {
+            password = gtk_entry_get_text(GTK_ENTRY(password_entry));
+        } else {
+            gtk_widget_destroy(password_dialog);
+            return;
+        }
+
+        gtk_widget_destroy(password_dialog);
+    }
+
     // export account
-    auto success = (*priv->accountInfo_)->accountModel->exportToFile((*priv->accountInfo_)->id, filename);
+    auto success = (*priv->accountInfo_)->accountModel->exportToFile((*priv->accountInfo_)->id, filename, password);
     std::string label = success? _("Account exported!") : _("Export account failure.");
     gtk_button_set_label(GTK_BUTTON(priv->button_export_account), label.c_str());
     g_free(filename);
@@ -1670,6 +1699,11 @@ show_add_device_view(NewAccountSettingsView* view)
     gtk_widget_hide(GTK_WIDGET(priv->general_settings_box));
     gtk_widget_show(GTK_WIDGET(priv->add_device_box));
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), priv->add_device_box);
+    if (!priv->currentProp_->archiveHasPassword) {
+        gtk_widget_hide(priv->entry_password_export);
+        gtk_widget_hide(priv->entry_password_export_label);
+    }
+
 }
 
 static void
