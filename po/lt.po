@@ -5,14 +5,14 @@
 # Translators:
 # Guillaume Roguez, 2015
 # Mantas Kriaučiūnas <mantas@akl.lt>, 2015
-# Moo, 2015-2018
+# Moo, 2015-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-31 03:09-0500\n"
-"PO-Revision-Date: 2018-12-17 08:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-01-07 03:09-0500\n"
+"PO-Revision-Date: 2019-01-06 22:40+0000\n"
+"Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -469,7 +469,7 @@ msgstr "Balso paštas"
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "Žinomi, su šia Jami paskyra susieti, įrenginiai"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
@@ -799,7 +799,7 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
-msgstr ""
+msgstr "Vyksta registracija…"
 
 #: src/generalsettingsview.cpp:102
 msgid ""
@@ -951,7 +951,7 @@ msgstr ""
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "GNOME klientas, skirtas Jami.\nJami yra visuotiniam bendravimui skirta laisva programinė įranga, kuri gerbia savo naudotojų laisves ir privatumą."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -1099,7 +1099,7 @@ msgstr "Tai yra jūsų ID.\nNukopijuokite jį ir dalinkitės juo su savo draugai
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami yra visuotiniam bendravimui skirta laisva programinė įranga, kuri gerbia savo naudotojų laisves ir privatumą."
 
 #: src/chatview.cpp:175
 msgid "Send File"
