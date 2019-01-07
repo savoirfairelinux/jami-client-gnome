@@ -50,16 +50,14 @@ struct _GeneralSettingsViewPrivate
     GSettings *settings;
 
     /* Rint settings */
-    GtkWidget *checkbutton_autostart;
-    GtkWidget *checkbutton_showstatusicon;
-    GtkWidget *checkbutton_bringtofront;
-    GtkWidget *checkbutton_callnotifications;
-    GtkWidget *checkbutton_pendingnotifications;
-    GtkWidget *checkbutton_chatnotifications;
-    GtkWidget *checkbutton_chatdisplaylinks;
-    GtkWidget *checkbutton_searchentryplacescall;
-    GtkWidget *radiobutton_chatright;
-    GtkWidget *radiobutton_chatbottom;
+    GtkWidget *at_startup_button;
+    GtkWidget *systray_button;
+    GtkWidget *incoming_open_button;
+    GtkWidget *call_notifications_button;
+    GtkWidget *request_notifications_button;
+    GtkWidget *chat_notifications_button;
+    GtkWidget *media_chatview_button;
+    GtkWidget *chatview_pos_button;
     GtkWidget *button_choose_downloads_directory;
 
     /* history settings */
@@ -203,37 +201,35 @@ general_settings_view_init(GeneralSettingsView *self)
 
     priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
 
+    GtkStyleContext* context;
+    context = gtk_widget_get_style_context(GTK_WIDGET(priv->button_clear_history));
+    gtk_style_context_add_class(context, "button_red");
+
     /* bind client option to gsettings */
     g_settings_bind(priv->settings, "start-on-login",
-                    priv->checkbutton_autostart, "active",
+                    priv->at_startup_button, "active",
                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind(priv->settings, "show-status-icon",
-                    priv->checkbutton_showstatusicon, "active",
+                    priv->systray_button, "active",
                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind(priv->settings, "bring-window-to-front",
-                    priv->checkbutton_bringtofront, "active",
+                    priv->incoming_open_button, "active",
                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind(priv->settings, "enable-call-notifications",
-                    priv->checkbutton_callnotifications, "active",
+                    priv->call_notifications_button, "active",
                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind(priv->settings, "enable-display-links",
-                    priv->checkbutton_chatdisplaylinks, "active",
+                    priv->media_chatview_button, "active",
                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind(priv->settings, "enable-pending-notifications",
-                    priv->checkbutton_pendingnotifications, "active",
+                    priv->request_notifications_button, "active",
                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind(priv->settings, "enable-chat-notifications",
-                    priv->checkbutton_chatnotifications, "active",
-                    G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind(priv->settings, "search-entry-places-call",
-                    priv->checkbutton_searchentryplacescall, "active",
+                    priv->chat_notifications_button, "active",
                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind(priv->settings, "chat-pane-horizontal",
-                    priv->radiobutton_chatright, "active",
+                    priv->chatview_pos_button, "active",
                     G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind(priv->settings, "chat-pane-horizontal",
-                    priv->radiobutton_chatbottom, "active",
-                    (GSettingsBindFlags) (G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_INVERT_BOOLEAN));
     g_settings_bind(priv->settings, "history-limit",
                     priv->adjustment_history_duration, "value",
                     G_SETTINGS_BIND_DEFAULT);
@@ -312,16 +308,14 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/net/jami/JamiGnome/generalsettingsview.ui");
 
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_autostart);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_showstatusicon);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_bringtofront);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_callnotifications);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_chatdisplaylinks);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_pendingnotifications);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_chatnotifications);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, checkbutton_searchentryplacescall);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, radiobutton_chatright);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, radiobutton_chatbottom);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, at_startup_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, systray_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, incoming_open_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, call_notifications_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, media_chatview_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, request_notifications_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, chat_notifications_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, chatview_pos_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_history_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_clear_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_choose_downloads_directory);
@@ -373,5 +367,13 @@ general_settings_view_new(GtkWidget* ring_main_window_pointer)
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(GENERAL_SETTINGS_VIEW (view));
     g_signal_connect_swapped(priv->button_choose_downloads_directory, "clicked", G_CALLBACK(choose_downloads_directory), view);
 
+    // CSS styles
+    auto provider = gtk_css_provider_new();
+    std::string css = ".button_red { color: white; background: #dc3a37; border: 0; }";
+    css += ".button_red:hover { background: #dc2719; }";
+    gtk_css_provider_load_from_data(provider, css.c_str(), -1, nullptr);
+    gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
+                                              GTK_STYLE_PROVIDER(provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
     return (GtkWidget *)view;
 }
