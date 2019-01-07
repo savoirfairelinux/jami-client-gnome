@@ -9,7 +9,7 @@
   </object>
   <object class="GtkImage" id="image_clear_history">
     <property name="visible">True</property>
-    <property name="resource">/net/jami/JamiGnome/clear_history</property>
+    <property name="icon_name">user-trash-symbolic</property>
   </object>
   <object class="GtkAdjustment" id="adjustment_history_duration">
     <property name="value">0</property>
@@ -23,236 +23,554 @@
     <child>
       <object class="GtkBox" id="vbox_main_columns">
         <property name="visible">True</property>
-        <property name="spacing">10</property>
+        <property name="spacing">24</property>
         <property name="border_width">10</property>
         <property name="orientation">vertical</property>
         <property name="halign">center</property>
         <property name="valign">center</property>
-        <!-- start ring settings -->
+        <!-- System settings -->
         <child>
-          <object class="GtkBox" id="vbox_main_right">
+          <object class="GtkBox" id="box_system_settings">
             <property name="visible">True</property>
             <property name="orientation">vertical</property>
-            <property name="spacing">12</property>
+            <property name="halign">fill</property>
+            <property name="spacing">8</property>
+            <!-- Title -->
             <child>
-              <object class="GtkFrame" id="frame_ring_settings">
+              <object class="GtkLabel" id="label_system_settings">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">System</property>
+                <property name="halign">start</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="label_xalign">0</property>
-                <property name="shadow_type">none</property>
-                <!-- start frame label -->
-                  <child type="label">
-                    <object class="GtkLabel" id="label_ring_settings">
-                      <property name="visible">True</property>
-                      <property name="label" translatable="yes">Jami Settings</property>
-                      <attributes>
-                        <attribute name="weight" value="bold"/>
-                      </attributes>
-                    </object>
-                  </child>
-                  <!-- end frame label -->
-                  <!-- start box ring settings-->
-                  <child>
-                    <object class="GtkBox" id="box_ring_settings">
+                <property name="shadow_type">out</property>
+                <child>
+                  <object class="GtkListBox" id="at_startup_settings">
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
-                    <property name="margin_left">10</property>
-                    <property name="margin_top">10</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">fill</property>
+                    <property name="selection_mode">none</property>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton_autostart">
-                        <property name="label" translatable="yes">Start Jami on login</property>
+                      <!-- Start on login -->
+                      <object class="GtkListBoxRow" id="at_startup_row">
                         <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="draw_indicator">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="checkbutton_showstatusicon">
-                        <property name="label" translatable="yes">Show Jami icon in the notification area (systray).</property>
-                        <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="draw_indicator">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="checkbutton_bringtofront">
-                        <property name="label" translatable="yes">Bring Jami to the foreground on incoming calls.</property>
-                        <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="draw_indicator">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="checkbutton_callnotifications">
-                        <property name="label" translatable="yes">Enable notifications for incoming calls.</property>
-                        <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="draw_indicator">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="checkbutton_pendingnotifications">
-                        <property name="label" translatable="yes">Enable notifications for pending requests.</property>
-                        <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="draw_indicator">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="checkbutton_chatnotifications">
-                        <property name="label" translatable="yes">Enable notifications for new chat messages.</property>
-                        <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="draw_indicator">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="checkbutton_chatdisplaylinks">
-                        <property name="label" translatable="yes">Show images and videos in chat window.</property>
-                        <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="draw_indicator">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="checkbutton_searchentryplacescall">
-                        <property name="label" translatable="yes">Entering a number in the search entry will place a new call.</property>
-                        <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="draw_indicator">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkBox" id="hbox_file_directory">
-                        <property name="visible">True</property>
-                        <property name="orientation">horizontal</property>
-                        <property name="spacing">10</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
                         <child>
-                          <object class="GtkLabel" id="label_file_directory">
-                            <property name="label" translatable="yes">Download folder:</property>
-                              <property name="visible">True</property>
-                              <property name="can_focus">False</property>
-                              <property name="halign">start</property>
+                          <object class="GtkBox" id="at_startup_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_at_startup">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Start application on login</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="at_startup_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
                           </object>
                         </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Systray -->
+                      <object class="GtkListBoxRow" id="systray_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
                         <child>
-                          <object class="GtkButton" id="button_choose_downloads_directory">
+                          <object class="GtkBox" id="systray_box">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="image">image-folder</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_systray">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Show Jami icon (systray) in the systray area</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="systray_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Incoming calls -->
+                      <object class="GtkListBoxRow" id="incoming_open_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="incoming_open_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_incoming_open">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Bring Jami to the foreground on incoming calls</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="incoming_open_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Notifications settings -->
+        <child>
+          <object class="GtkBox" id="box_notifications_settings">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="halign">fill</property>
+            <property name="spacing">8</property>
+            <!-- Title -->
+            <child>
+              <object class="GtkLabel" id="label_notifications_settings">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Notifications</property>
+                <property name="halign">start</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">out</property>
+                <child>
+                  <object class="GtkListBox" id="notifications_settings">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">fill</property>
+                    <property name="selection_mode">none</property>
+
+                    <child>
+                      <!-- Call -->
+                      <object class="GtkListBoxRow" id="call_notifications_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="call_notifications_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_call_notifications">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Enable notifications for incoming calls</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="call_notifications_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Pending requests -->
+                      <object class="GtkListBoxRow" id="request_notifications_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="request_notifications_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_request_notifications">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Enable notifications for pending requests</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="request_notifications_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Chat messages -->
+                      <object class="GtkListBoxRow" id="chat_notifications_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="chat_notifications_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_chat_notifications">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Enable notifications for new chat messages</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="chat_notifications_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Chatview settings -->
+        <child>
+          <object class="GtkBox" id="box_chatview_settings">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="halign">fill</property>
+            <property name="spacing">8</property>
+            <!-- Title -->
+            <child>
+              <object class="GtkLabel" id="label_chatview_settings">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Chatview</property>
+                <property name="halign">start</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">out</property>
+                <child>
+                  <object class="GtkListBox" id="chatview_settings">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">fill</property>
+                    <property name="selection_mode">none</property>
+
+                    <child>
+                      <!-- Chatview medias -->
+                      <object class="GtkListBoxRow" id="media_chatview_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="media_chatview_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_media_chatview">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Display images and videos into the chatview</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="media_chatview_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Callview position -->
+                      <object class="GtkListBoxRow" id="chatview_pos_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="chatview_pos_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="spacing">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_chatview_pos">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Show chatview on the right (on the bottom if off)</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="chatview_pos_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Download folder -->
+                      <object class="GtkListBoxRow" id="download_folder_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="download_folder_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="spacing">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_download_folder">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Download folder</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="button_choose_downloads_directory">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="image">image-folder</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- history settings -->
+        <child>
+          <object class="GtkBox" id="box_history_settings">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="halign">fill</property>
+            <property name="spacing">8</property>
+            <!-- Title -->
+            <child>
+              <object class="GtkLabel" id="label_history_settings">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">History</property>
+                <property name="halign">start</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">out</property>
+                <child>
+                  <object class="GtkListBox" id="history_settings">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">fill</property>
+                    <property name="selection_mode">none</property>
+
+                    <child>
+                      <!-- history unlimited -->
+                      <object class="GtkListBoxRow" id="days_history_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="days_history_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_days_history">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Keep history for (days, 0 = unlimited)</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSpinButton" id="spinbutton_history_duration">
+                                <property name="visible">True</property>
+                                <property name="value">0</property>
+                                <property name="adjustment">adjustment_history_duration</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="halign">fill</property>
+                        <property name="orientation">horizontal</property>
+                        <property name="margin_left">12</property>
+                        <property name="margin_right">12</property>
+                        <property name="margin_top">12</property>
+                        <property name="margin_bottom">12</property>
+                        <child>
+                          <object class="GtkButton" id="button_clear_history">
+                            <property name="image">image_clear_history</property>
+                            <property name="label" translatable="yes">Clear all history</property>
+                            <property name="visible">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="halign">start</property>
                           </object>
                           <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">2</property>
+                            <property name="pack_type">end</property>
                           </packing>
                         </child>
                       </object>
                     </child>
-                    <child>
-                      <object class="GtkBox" id="box_position_chat">
-                      <property name="visible">True</property>
-                      <property name="orientation">vertical</property>
-                      <property name="margin_top">20</property>
-                      <child>
-                        <object class="GtkRadioButton" id="radiobutton_chatright">
-                          <property name="label" translatable="yes">Show chat on the right.</property>
-                          <property name="visible">True</property>
-                        </object>
-                      </child>
-                      <child>
-                        <object class="GtkRadioButton" id="radiobutton_chatbottom">
-                          <property name="label" translatable="yes">Show chat on the bottom.</property>
-                          <property name="visible">True</property>
-                          <property name="group">radiobutton_chatright</property>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
 
 
                   </object>
                 </child>
-                <!-- end box ring settings -->
               </object>
             </child>
-            <!-- start history settings -->
-            <child>
-              <object class="GtkFrame" id="frame_history_settings">
-                <property name="visible">True</property>
-                <property name="label_xalign">0</property>
-                <property name="shadow_type">none</property>
-                <!-- start frame label -->
-                  <child type="label">
-                    <object class="GtkLabel" id="label_history_settings">
-                      <property name="visible">True</property>
-                      <property name="label" translatable="yes">History Settings</property>
-                      <attributes>
-                        <attribute name="weight" value="bold"/>
-                      </attributes>
-                    </object>
-                  </child>
-                  <!-- end frame label -->
-                  <!-- start grid history settings-->
-                <child>
-                  <object class="GtkGrid" id="grid_history_settings">
-                  <property name="visible">True</property>
-                  <property name="margin_left">10</property>
-                  <property name="margin_top">10</property>
-                  <property name="row_spacing">10</property>
-                  <property name="column_spacing">10</property>
-                  <child>
-                    <object class="GtkLabel" id="label_history_duration">
-                      <property name="visible">True</property>
-                      <property name="label" translatable="yes">Keep history for (days):</property>
-                    </object>
-                    <packing>
-                      <property name="left_attach">0</property>
-                      <property name="top_attach">0</property>
-                    </packing>
-                  </child>
-                  <child>
-                    <object class="GtkSpinButton" id="spinbutton_history_duration">
-                      <property name="visible">True</property>
-                      <property name="value">0</property>
-                      <property name="adjustment">adjustment_history_duration</property>
-                    </object>
-                    <packing>
-                      <property name="left_attach">1</property>
-                      <property name="top_attach">0</property>
-                    </packing>
-                  </child>
-                  <child>
-                    <object class="GtkLabel" id="label_history_explanation">
-                      <property name="visible">True</property>
-                      <property name="label" translatable="yes">(set to 0 for unlimited history)</property>
-                    </object>
-                    <packing>
-                      <property name="left_attach">1</property>
-                      <property name="top_attach">1</property>
-                    </packing>
-                  </child>
-                  <child>
-                    <object class="GtkButton" id="button_clear_history">
-                      <property name="image">image_clear_history</property>
-                      <property name="label" translatable="yes">Clear all history</property>
-                      <property name="visible">True</property>
-                      <property name="receives_default">True</property>
-                      <property name="halign">start</property>
-                    </object>
-                    <packing>
-                      <property name="left_attach">0</property>
-                      <property name="top_attach">2</property>
-                      <property name="width">2</property>
-                    </packing>
-                  </child>
-                </object>
-              </child>
-              <!-- end grid history settings -->
-            </object>
-          </child>
-          <!-- end history settings -->
-        </object>
-      </child>
+          </object>
+        </child>
     </object>
     <packing>
       <property name="expand">True</property>
