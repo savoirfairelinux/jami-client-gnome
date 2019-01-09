@@ -30,6 +30,9 @@
 // GTK
 #include <glib/gi18n.h>
 
+// Qt
+#include <QSize>
+
 // LRC
 #include <api/contactmodel.h>
 #include <api/conversationmodel.h>
@@ -39,6 +42,11 @@
 
 // Client
 #include "utils/files.h"
+#include "native/pixbufmanipulator.h"
+
+/* size of avatar */
+static constexpr int AVATAR_WIDTH  = 150; /* px */
+static constexpr int AVATAR_HEIGHT = 150; /* px */
 
 struct _ChatView
 {
@@ -394,25 +402,41 @@ load_participants_images(ChatView *self)
     auto contactUri = priv->conversation_->participants.front();
     try{
         auto& contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
-        if (!contact.profileInfo.avatar.empty()) {
-            webkit_chat_container_set_sender_image(
-                WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                (*priv->accountInfo_)->contactModel->getContactProfileId(contactUri),
-                contact.profileInfo.avatar
-                );
+        std::string avatar_str = contact.profileInfo.avatar;
+        if (avatar_str.empty()) {
+            auto var_photo = Interfaces::PixbufManipulator().conversationPhoto(
+                *priv->conversation_,
+                **(priv->accountInfo_),
+                QSize(AVATAR_WIDTH, AVATAR_HEIGHT),
+                contact.isPresent
+            );
+            auto image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
+            auto ba = Interfaces::PixbufManipulator().toByteArray(var_photo);
+            avatar_str = ba.toBase64().toStdString();
         }
+        webkit_chat_container_set_sender_image(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            (*priv->accountInfo_)->contactModel->getContactProfileId(contactUri),
+            avatar_str
+        );
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
     }
 
     // For this account
-    if (!(*priv->accountInfo_)->profileInfo.avatar.empty()) {
-        webkit_chat_container_set_sender_image(
-            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-            (*priv->accountInfo_)->contactModel->getContactProfileId((*priv->accountInfo_)->profileInfo.uri),
-            (*priv->accountInfo_)->profileInfo.avatar
-        );
+    std::string avatar_str = (*priv->accountInfo_)->profileInfo.avatar;
+    if (avatar_str.empty()) {
+        auto default_photo = QVariant::fromValue(Interfaces::PixbufManipulator().scaleAndFrame(
+            Interfaces::PixbufManipulator().generateAvatar("", "").get(),
+            QSize(AVATAR_WIDTH, AVATAR_HEIGHT), false));
+        auto ba = Interfaces::PixbufManipulator().toByteArray(default_photo);
+        avatar_str = ba.toBase64().toStdString();
     }
+    webkit_chat_container_set_sender_image(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        (*priv->accountInfo_)->contactModel->getContactProfileId((*priv->accountInfo_)->profileInfo.uri),
+        avatar_str
+    );
 }
 
 static void
