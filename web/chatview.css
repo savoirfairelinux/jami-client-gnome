@@ -891,6 +891,10 @@ pre {
     color: #A0A0A0;
 }
 
+audio {
+    align-self: center;
+}
+
 /* classic screens */
 @media screen and (max-width: 1920px), screen and (max-height: 1080px) {
   .message_in {
