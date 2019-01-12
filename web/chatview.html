@@ -816,6 +816,55 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
         return
     }
 
+
+    if (isAudio(message_text) && message_delivery_status === "finished" && displayLinksEnabled && !forceTypeToFile) {
+        // Replace the old wrapper by the downloaded audio
+        var old_wrapper = message_div.querySelector(".internal_mes_wrapper")
+        if (old_wrapper) {
+            old_wrapper.parentNode.removeChild(old_wrapper)
+        }
+
+        var errorHandler = function () {
+            var wrapper = message_div.querySelector(".internal_mes_wrapper")
+            var message_wrapper = message_div.querySelector(".message_wrapper")
+            if (message_wrapper) {
+                message_wrapper.parentNode.removeChild(message_wrapper)
+            }
+
+            var media_wrapper = message_div.querySelector(".audio")
+            if (media_wrapper) {
+                media_wrapper.parentNode.removeChild(media_wrapper)
+            }
+
+            var new_interaction = fileInteraction(message_id)
+            var new_message_wrapper = new_interaction.querySelector(".message_wrapper")
+            wrapper.prepend(new_message_wrapper)
+            updateFileInteraction(message_div, message_object, true)
+        }
+
+        const new_wrapper = document.createElement("audio")
+        new_wrapper.onerror = errorHandler
+        const has_uri = message_text.toLowerCase().match(/^(https?|file):\/\//) !== null
+        new_wrapper.setAttribute("src", "file://" + message_text)
+        new_wrapper.setAttribute("controls", "controls")
+        var audio_type = "audio/mpeg"
+        if (message_text.toLowerCase().match(/\.(ogg)$/)) {
+            audio_type = "audio/ogg"
+        } else if (message_text.toLowerCase().match(/\.(flac)$/)) {
+            audio_type = "audio/flac"
+        } else if (message_text.toLowerCase().match(/\.(wav)$/)) {
+            audio_type = "audio/wav"
+        }
+        new_wrapper.setAttribute("type", audio_type)
+        new_wrapper.setAttribute("class", "audio")
+        const internal_mes_wrapper = document.createElement("div")
+        internal_mes_wrapper.setAttribute("class", "internal_mes_wrapper")
+        internal_mes_wrapper.appendChild(new_wrapper)
+        message_div.insertBefore(internal_mes_wrapper, message_div.querySelector(".menu_interaction"))
+
+        return
+    }
+
     // Set informations text
     var informations_div = message_div.querySelector(".informations")
     informations_div.innerText = buildFileInformationText(message_object)
@@ -868,6 +917,14 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
  */
 function isImage(file) {
     return file.toLowerCase().match(/\.(jpeg|jpg|gif|png)$/) !== null
+}
+
+/**
+ * Return if a file is an image
+ * @param file
+ */
+function isAudio(file) {
+    return file.toLowerCase().match(/\.(mp3|mpeg|ogg|flac|wav)$/) !== null
 }
 
 /**
