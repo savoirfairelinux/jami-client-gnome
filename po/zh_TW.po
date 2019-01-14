@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-07 03:09-0500\n"
-"PO-Revision-Date: 2018-12-17 12:16+0000\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
+"POT-Creation-Date: 2019-01-14 03:09-0500\n"
+"PO-Revision-Date: 2019-01-14 08:09+0000\n"
+"Last-Translator: Hsiu-Ming Chang <cges30901@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/ring/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -263,67 +263,63 @@ msgstr "建立／載入帳號時發生錯誤。"
 msgid "OK"
 msgstr "確定"
 
-#: ui/generalsettingsview.ui:46
-msgid "Jami Settings"
-msgstr "Jami 設定"
+#: ui/generalsettingsview.ui:43
+msgid "System"
+msgstr "系統"
 
-#: ui/generalsettingsview.ui:62
-msgid "Start Jami on login"
-msgstr "登入時啟動 Jami"
+#: ui/generalsettingsview.ui:81
+msgid "Start application on login"
+msgstr ""
 
-#: ui/generalsettingsview.ui:70
-msgid "Show Jami icon in the notification area (systray)."
-msgstr "在通知區域（系統匣）中顯示 Jami 圖示。"
+#: ui/generalsettingsview.ui:117
+msgid "Show Jami icon (systray) in the systray area"
+msgstr ""
 
-#: ui/generalsettingsview.ui:78
-msgid "Bring Jami to the foreground on incoming calls."
-msgstr "有來電時將 Jami 帶到前景。"
+#: ui/generalsettingsview.ui:153
+msgid "Bring Jami to the foreground on incoming calls"
+msgstr ""
 
-#: ui/generalsettingsview.ui:86
-msgid "Enable notifications for incoming calls."
-msgstr "啟用來電通知。"
+#: ui/generalsettingsview.ui:189
+msgid "Notifications"
+msgstr "通知"
 
-#: ui/generalsettingsview.ui:94
-msgid "Enable notifications for pending requests."
-msgstr "啟用擱置中請求的通知。"
+#: ui/generalsettingsview.ui:228
+msgid "Enable notifications for incoming calls"
+msgstr "啟用來電通知"
 
-#: ui/generalsettingsview.ui:102
-msgid "Enable notifications for new chat messages."
-msgstr "啟用新聊天訊息通知。"
+#: ui/generalsettingsview.ui:264
+msgid "Enable notifications for pending requests"
+msgstr ""
 
-#: ui/generalsettingsview.ui:110
-msgid "Show images and videos in chat window."
-msgstr "在聊天室窗中顯示圖片與影片。"
+#: ui/generalsettingsview.ui:300
+msgid "Enable notifications for new chat messages"
+msgstr ""
 
-#: ui/generalsettingsview.ui:118
-msgid "Entering a number in the search entry will place a new call."
-msgstr "在搜尋項目中輸入號碼將會打一通新電話。"
+#: ui/generalsettingsview.ui:336
+msgid "Chatview"
+msgstr ""
 
-#: ui/generalsettingsview.ui:131
-msgid "Download folder:"
-msgstr "下載資料夾："
+#: ui/generalsettingsview.ui:375
+msgid "Display images and videos into the chatview"
+msgstr ""
 
-#: ui/generalsettingsview.ui:158
-msgid "Show chat on the right."
-msgstr "在右邊顯示聊天。"
+#: ui/generalsettingsview.ui:412
+msgid "Show chatview on the right (on the bottom if off)"
+msgstr ""
 
-#: ui/generalsettingsview.ui:164
-msgid "Show chat on the bottom."
-msgstr "在底部顯示聊天。"
+#: ui/generalsettingsview.ui:449
+msgid "Download folder"
+msgstr "下載資料夾"
 
-#: ui/generalsettingsview.ui:188
-msgid "History Settings"
-msgstr "記錄設定"
+#: ui/generalsettingsview.ui:486
+msgid "History"
+msgstr "歷史記錄"
 
-#: ui/generalsettingsview.ui:206
-msgid "Keep history for (days):"
-msgstr "保持記錄數日"
+#: ui/generalsettingsview.ui:525
+msgid "Keep history for (days, 0 = unlimited)"
+msgstr ""
 
-#: ui/generalsettingsview.ui:227
-msgid "(set to 0 for unlimited history)"
-msgstr "(設定0 表示無限制記錄)"
-
-#: ui/generalsettingsview.ui:237
+#: ui/generalsettingsview.ui:555
 msgid "Clear all history"
 msgstr "清除所有記錄"
 
@@ -801,23 +797,23 @@ msgstr "輸入您 Jami 帳號的密碼"
 msgid "Registration in progress…"
 msgstr "正在註冊……"
 
-#: src/generalsettingsview.cpp:102
+#: src/generalsettingsview.cpp:100
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "這是一個破壞性的操作。您確定您想要刪除您所有的聊天與通話紀錄嗎？"
 
-#: src/generalsettingsview.cpp:172
+#: src/generalsettingsview.cpp:170
 msgid "Choose download folder"
 msgstr "選擇下載資料夾"
 
-#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:342
+#: src/generalsettingsview.cpp:173 src/accountgeneraltab.cpp:342
 #: src/avatarmanipulation.cpp:414 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:928
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: src/generalsettingsview.cpp:177 src/accountgeneraltab.cpp:344
+#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:344
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
 msgid "_Save"
 msgstr "儲存(_S)"

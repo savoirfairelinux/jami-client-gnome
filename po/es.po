@@ -36,8 +36,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-07 03:09-0500\n"
-"PO-Revision-Date: 2018-12-18 14:35+0000\n"
+"POT-Creation-Date: 2019-01-14 03:09-0500\n"
+"PO-Revision-Date: 2019-01-14 08:09+0000\n"
 "Last-Translator: Pier Jose Gotta Perez <piegope@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -289,67 +289,63 @@ msgstr "Error creando o cargando la cuenta."
 msgid "OK"
 msgstr "OK"
 
-#: ui/generalsettingsview.ui:46
-msgid "Jami Settings"
-msgstr "Configuraciones de Jami"
+#: ui/generalsettingsview.ui:43
+msgid "System"
+msgstr "Sistema"
 
-#: ui/generalsettingsview.ui:62
-msgid "Start Jami on login"
-msgstr "Ejecutar Jami al iniciar la sesión"
+#: ui/generalsettingsview.ui:81
+msgid "Start application on login"
+msgstr ""
 
-#: ui/generalsettingsview.ui:70
-msgid "Show Jami icon in the notification area (systray)."
-msgstr "Mostrar el icono de Jami en el área de notificación (systray)."
+#: ui/generalsettingsview.ui:117
+msgid "Show Jami icon (systray) in the systray area"
+msgstr ""
 
-#: ui/generalsettingsview.ui:78
-msgid "Bring Jami to the foreground on incoming calls."
-msgstr "Mostrar Jami al recibir llamadas"
+#: ui/generalsettingsview.ui:153
+msgid "Bring Jami to the foreground on incoming calls"
+msgstr ""
 
-#: ui/generalsettingsview.ui:86
-msgid "Enable notifications for incoming calls."
-msgstr "Habilitar notificación de llamada entrante."
+#: ui/generalsettingsview.ui:189
+msgid "Notifications"
+msgstr "Notificaciones"
 
-#: ui/generalsettingsview.ui:94
-msgid "Enable notifications for pending requests."
-msgstr "Habilite las notificaciones sobre peticiones pendientes."
+#: ui/generalsettingsview.ui:228
+msgid "Enable notifications for incoming calls"
+msgstr "Habilitar notificaciones para llamadas entrantes."
 
-#: ui/generalsettingsview.ui:102
-msgid "Enable notifications for new chat messages."
-msgstr "Habilitar notificación de mensajes de chat"
+#: ui/generalsettingsview.ui:264
+msgid "Enable notifications for pending requests"
+msgstr ""
 
-#: ui/generalsettingsview.ui:110
-msgid "Show images and videos in chat window."
-msgstr "Mostrar imágenes y videos en la ventana de conversación"
+#: ui/generalsettingsview.ui:300
+msgid "Enable notifications for new chat messages"
+msgstr ""
 
-#: ui/generalsettingsview.ui:118
-msgid "Entering a number in the search entry will place a new call."
-msgstr "Teclear un número en el cuadro de búsqueda hará una llamada."
+#: ui/generalsettingsview.ui:336
+msgid "Chatview"
+msgstr ""
 
-#: ui/generalsettingsview.ui:131
-msgid "Download folder:"
-msgstr "Carpeta de descargas:"
+#: ui/generalsettingsview.ui:375
+msgid "Display images and videos into the chatview"
+msgstr ""
 
-#: ui/generalsettingsview.ui:158
-msgid "Show chat on the right."
-msgstr "Mostrar chat a la derecha"
+#: ui/generalsettingsview.ui:412
+msgid "Show chatview on the right (on the bottom if off)"
+msgstr ""
 
-#: ui/generalsettingsview.ui:164
-msgid "Show chat on the bottom."
-msgstr "Mostrar chat abajo"
+#: ui/generalsettingsview.ui:449
+msgid "Download folder"
+msgstr ""
 
-#: ui/generalsettingsview.ui:188
-msgid "History Settings"
-msgstr "Configuración del Historial"
+#: ui/generalsettingsview.ui:486
+msgid "History"
+msgstr "Historial"
 
-#: ui/generalsettingsview.ui:206
-msgid "Keep history for (days):"
-msgstr "Guardar historial por (días):"
+#: ui/generalsettingsview.ui:525
+msgid "Keep history for (days, 0 = unlimited)"
+msgstr ""
 
-#: ui/generalsettingsview.ui:227
-msgid "(set to 0 for unlimited history)"
-msgstr "(0 para historial ilimitado)"
-
-#: ui/generalsettingsview.ui:237
+#: ui/generalsettingsview.ui:555
 msgid "Clear all history"
 msgstr "Limpiar todo el historial"
 
@@ -827,23 +823,23 @@ msgstr "Ingrese la contraseña de su cuenta Jami"
 msgid "Registration in progress…"
 msgstr "Registro en curso..."
 
-#: src/generalsettingsview.cpp:102
+#: src/generalsettingsview.cpp:100
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Esta es una operación irreversible. ¿Estás seguro de eliminar todo el historial de chat y llamadas?"
 
-#: src/generalsettingsview.cpp:172
+#: src/generalsettingsview.cpp:170
 msgid "Choose download folder"
 msgstr "Elegir la carpeta de descargas"
 
-#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:342
+#: src/generalsettingsview.cpp:173 src/accountgeneraltab.cpp:342
 #: src/avatarmanipulation.cpp:414 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:928
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: src/generalsettingsview.cpp:177 src/accountgeneraltab.cpp:344
+#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:344
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
 msgid "_Save"
 msgstr "_Guardar"

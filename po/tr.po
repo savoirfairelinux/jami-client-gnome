@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-07 03:09-0500\n"
-"PO-Revision-Date: 2018-12-17 08:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-01-14 03:09-0500\n"
+"PO-Revision-Date: 2019-01-14 08:09+0000\n"
+"Last-Translator: Emin Tufan <etcetin@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/ring/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -265,67 +265,63 @@ msgstr "Hesap oluşturma/yükleme hatası."
 msgid "OK"
 msgstr "TAMAM"
 
-#: ui/generalsettingsview.ui:46
-msgid "Jami Settings"
+#: ui/generalsettingsview.ui:43
+msgid "System"
+msgstr "Düzen"
+
+#: ui/generalsettingsview.ui:81
+msgid "Start application on login"
 msgstr ""
 
-#: ui/generalsettingsview.ui:62
-msgid "Start Jami on login"
+#: ui/generalsettingsview.ui:117
+msgid "Show Jami icon (systray) in the systray area"
 msgstr ""
 
-#: ui/generalsettingsview.ui:70
-msgid "Show Jami icon in the notification area (systray)."
+#: ui/generalsettingsview.ui:153
+msgid "Bring Jami to the foreground on incoming calls"
 msgstr ""
 
-#: ui/generalsettingsview.ui:78
-msgid "Bring Jami to the foreground on incoming calls."
+#: ui/generalsettingsview.ui:189
+msgid "Notifications"
 msgstr ""
 
-#: ui/generalsettingsview.ui:86
-msgid "Enable notifications for incoming calls."
-msgstr "Gelen çağrılar için bildirimleri etkinleştir."
-
-#: ui/generalsettingsview.ui:94
-msgid "Enable notifications for pending requests."
+#: ui/generalsettingsview.ui:228
+msgid "Enable notifications for incoming calls"
 msgstr ""
 
-#: ui/generalsettingsview.ui:102
-msgid "Enable notifications for new chat messages."
-msgstr "Yeni konuşma iletileri için bildirimler etkinleştir."
-
-#: ui/generalsettingsview.ui:110
-msgid "Show images and videos in chat window."
+#: ui/generalsettingsview.ui:264
+msgid "Enable notifications for pending requests"
 msgstr ""
 
-#: ui/generalsettingsview.ui:118
-msgid "Entering a number in the search entry will place a new call."
-msgstr "Arama girişine bir numara girmek yeni bir arama yapacak."
-
-#: ui/generalsettingsview.ui:131
-msgid "Download folder:"
+#: ui/generalsettingsview.ui:300
+msgid "Enable notifications for new chat messages"
 msgstr ""
 
-#: ui/generalsettingsview.ui:158
-msgid "Show chat on the right."
-msgstr "Konuşmayı sağda göster."
+#: ui/generalsettingsview.ui:336
+msgid "Chatview"
+msgstr ""
 
-#: ui/generalsettingsview.ui:164
-msgid "Show chat on the bottom."
-msgstr "Konuşmayı aşağıda göster."
+#: ui/generalsettingsview.ui:375
+msgid "Display images and videos into the chatview"
+msgstr ""
 
-#: ui/generalsettingsview.ui:188
-msgid "History Settings"
-msgstr "Geçmiş Ayarları"
+#: ui/generalsettingsview.ui:412
+msgid "Show chatview on the right (on the bottom if off)"
+msgstr ""
 
-#: ui/generalsettingsview.ui:206
-msgid "Keep history for (days):"
-msgstr "Geçmişi tutulacak gün sayısı:"
+#: ui/generalsettingsview.ui:449
+msgid "Download folder"
+msgstr ""
 
-#: ui/generalsettingsview.ui:227
-msgid "(set to 0 for unlimited history)"
-msgstr "(sınırsız geçmiş için 0 yapın)"
+#: ui/generalsettingsview.ui:486
+msgid "History"
+msgstr "Geçmiş"
 
-#: ui/generalsettingsview.ui:237
+#: ui/generalsettingsview.ui:525
+msgid "Keep history for (days, 0 = unlimited)"
+msgstr ""
+
+#: ui/generalsettingsview.ui:555
 msgid "Clear all history"
 msgstr "Tüm geçmişi temizle"
 
@@ -803,23 +799,23 @@ msgstr ""
 msgid "Registration in progress…"
 msgstr ""
 
-#: src/generalsettingsview.cpp:102
+#: src/generalsettingsview.cpp:100
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Bu yok edici bir eylemdir. Tüm konuşma ve çağrı geçmişini silmek istediğinizden emin misiniz?"
 
-#: src/generalsettingsview.cpp:172
+#: src/generalsettingsview.cpp:170
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:342
+#: src/generalsettingsview.cpp:173 src/accountgeneraltab.cpp:342
 #: src/avatarmanipulation.cpp:414 src/chatview.cpp:178
 #: src/newaccountsettingsview.cpp:928
 msgid "_Cancel"
 msgstr "_İptal"
 
-#: src/generalsettingsview.cpp:177 src/accountgeneraltab.cpp:344
+#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:344
 #: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
 msgid "_Save"
 msgstr ""
