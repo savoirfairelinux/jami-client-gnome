@@ -73,6 +73,7 @@ struct _MediaSettingsViewPrivate
 
     QMetaObject::Connection local_renderer_connection;
     QMetaObject::Connection device_event_connection;
+    QMetaObject::Connection hardware_decoding_changed_connection;
 
     /* hardware accel settings */
     GtkWidget *checkbutton_hardware_decoding;
@@ -304,6 +305,7 @@ media_settings_view_dispose(GObject *object)
 
     QObject::disconnect(priv->local_renderer_connection);
     QObject::disconnect(priv->device_event_connection);
+    QObject::disconnect(priv->hardware_decoding_changed_connection);
 
     G_OBJECT_CLASS(media_settings_view_parent_class)->dispose(object);
 }
@@ -541,6 +543,17 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
                             priv->cpp->avModel_,
                             previewRenderer, VIDEO_RENDERER_REMOTE);
                     });
+                priv->hardware_decoding_changed_connection = QObject::connect(
+                    &*priv->cpp->avModel_,
+                    &lrc::api::AVModel::hardwareDecodingChanged,
+                    [=](bool state) {
+                        if (state != gtk_toggle_button_get_active(
+                            GTK_TOGGLE_BUTTON(priv->checkbutton_hardware_decoding))) {
+                                gtk_toggle_button_set_active(
+                                    GTK_TOGGLE_BUTTON(priv->checkbutton_hardware_decoding),
+                                    state);
+                          }
+                    });
                 priv->cpp->avModel_->startPreview();
             }
         } catch (const std::out_of_range& e) {
@@ -551,6 +564,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
             priv->cpp->avModel_->stopPreview();
             QObject::disconnect(priv->local_renderer_connection);
             QObject::disconnect(priv->device_event_connection);
+            QObject::disconnect(priv->hardware_decoding_changed_connection);
             priv->video_started_by_settings = FALSE;
         }
 
