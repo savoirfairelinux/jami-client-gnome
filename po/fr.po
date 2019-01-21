@@ -12,7 +12,7 @@
 # Baptiste Jonglez, 2016
 # Breizh <breizh@breizh.noho.st>, 2016
 # Bruno Pagani <bruno.n.pagani@gmail.com>, 2015
-# Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>, 2015,2017-2018
+# Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>, 2015,2017-2019
 # Guillaume Roguez, 2015-2016
 # Guillaume Roguez, 2016-2017
 # Guillaume Roguez, 2015
@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 03:09-0500\n"
-"PO-Revision-Date: 2019-01-14 08:09+0000\n"
-"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2019-01-21 03:09-0500\n"
+"PO-Revision-Date: 2019-01-21 08:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/ring/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +51,7 @@ msgstr "Migration de compte nécessaire"
 msgid "This account is malformed, please enter your password"
 msgstr "Ce compte est inconsistant, veuillez entrer votre mot de passe"
 
-#: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:619
+#: ui/accountmigrationview.ui:89
 msgid "Alias"
 msgstr "Nom du compte"
 
@@ -61,7 +61,6 @@ msgstr "RingID"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:451
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
-#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -71,7 +70,7 @@ msgstr "Migrer le compte"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:965
+#: src/newaccountsettingsview.cpp:994
 msgid "Delete account"
 msgstr "Supprimer le compte"
 
@@ -170,7 +169,7 @@ msgid "Link this devices to a Jami account created on another device"
 msgstr "Associer cet appareil à un compte Jami créé sur un autre appareil"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
-#: src/newaccountsettingsview.cpp:885
+#: src/newaccountsettingsview.cpp:887
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -238,8 +237,7 @@ msgid ""
 msgstr "En cochant cette case, vous enregistrez un nom d'utilisateur unique sur le réseau Jami. Les personnes peuvent l'utiliser pour vous contacter au lieu d'utiliser votre identifiant de 40 caractères."
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
-#: src/accountgeneraltab.cpp:696
+#: ui/newaccountsettingsview.ui:733
 msgid "Username"
 msgstr "Nom d’utilisateur"
 
@@ -249,7 +247,7 @@ msgid ""
 "devices to your account."
 msgstr "Ce mot de passe sera utilisé pour crypter vos données et pour connecter vos nouveaux appareils à votre compte."
 
-#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:875
+#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:877
 msgid "Confirm password"
 msgstr "Confirmer le mot de passe"
 
@@ -284,15 +282,15 @@ msgstr "Système"
 
 #: ui/generalsettingsview.ui:81
 msgid "Start application on login"
-msgstr ""
+msgstr "Lancer Jami à l’ouverture de session"
 
 #: ui/generalsettingsview.ui:117
 msgid "Show Jami icon (systray) in the systray area"
-msgstr ""
+msgstr "Montrer l'icône de Jami dans la zone de notification"
 
 #: ui/generalsettingsview.ui:153
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
+msgstr "Ramener Jami à l’avant-plan en cas d’appel entrant"
 
 #: ui/generalsettingsview.ui:189
 msgid "Notifications"
@@ -304,23 +302,23 @@ msgstr "Activer les notifications sur appels entrants"
 
 #: ui/generalsettingsview.ui:264
 msgid "Enable notifications for pending requests"
-msgstr ""
+msgstr "Activer les notifications pour les invitations en attente"
 
 #: ui/generalsettingsview.ui:300
 msgid "Enable notifications for new chat messages"
-msgstr ""
+msgstr "Activer les notifications de nouveaux messages"
 
 #: ui/generalsettingsview.ui:336
 msgid "Chatview"
-msgstr ""
+msgstr "Vue dicussions"
 
 #: ui/generalsettingsview.ui:375
 msgid "Display images and videos into the chatview"
-msgstr ""
+msgstr "Afficher les images et les vidéos dans la vue des discussions"
 
 #: ui/generalsettingsview.ui:412
 msgid "Show chatview on the right (on the bottom if off)"
-msgstr ""
+msgstr "Afficher les discussions texte à droite (par défaut en bas)"
 
 #: ui/generalsettingsview.ui:449
 msgid "Download folder"
@@ -332,7 +330,7 @@ msgstr "Historique"
 
 #: ui/generalsettingsview.ui:525
 msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
+msgstr "Garder l’historique pendant (jours, 0 = illimité)"
 
 #: ui/generalsettingsview.ui:555
 msgid "Clear all history"
@@ -453,7 +451,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Cliquer ici pour changer le mot de passe"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1999
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2033
 msgid "Export account"
 msgstr "Exporter compte"
 
@@ -470,7 +468,6 @@ msgid "password"
 msgstr "mot de passe"
 
 #: ui/newaccountsettingsview.ui:810 ui/newaccountsettingsview.ui:1398
-#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Serveur mandataire"
 
@@ -822,105 +819,15 @@ msgstr "Cette opération est irréversible. Êtes-vous sûr de vouloir effacer t
 msgid "Choose download folder"
 msgstr "Choisissez le dossier de téléchargement"
 
-#: src/generalsettingsview.cpp:173 src/accountgeneraltab.cpp:342
-#: src/avatarmanipulation.cpp:414 src/chatview.cpp:178
-#: src/newaccountsettingsview.cpp:928
+#: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
+#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:930
 msgid "_Cancel"
 msgstr "_Annuler"
 
-#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:344
-#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
+#: src/generalsettingsview.cpp:175 src/chatview.cpp:180
+#: src/newaccountsettingsview.cpp:932
 msgid "_Save"
 msgstr "_Sauvegarder"
-
-#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1707
-msgid "Bad password"
-msgstr "Mot de passe incorrect"
-
-#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1713
-msgid "Network error, try again"
-msgstr "Erreur réseau, veuillez réessayer."
-
-#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
-msgid "Could not initiate export to the Jami, try again"
-msgstr "Impossible de lancer l'exportation vers Jami, réessayez"
-
-#: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
-#: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
-#: src/newaccountsettingsview.cpp:846 src/newaccountsettingsview.cpp:882
-msgid "Change password"
-msgstr "changer le mot de passe"
-
-#: src/accountgeneraltab.cpp:339 src/chatview.cpp:175
-#: src/newaccountsettingsview.cpp:925
-msgid "Save File"
-msgstr "Sauvegarder"
-
-#: src/accountgeneraltab.cpp:364
-msgid "File exported to destination: "
-msgstr "Fichier exporté à destination :"
-
-#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:622
-msgid ""
-"Warning! This action will revoke the device!\n"
-"Note: this action cannot be undone."
-msgstr "Avertissement ! Cette action révoquera l'appareil. Cette opération est irréversible."
-
-#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:623
-msgid "Enter password to revoke device"
-msgstr "Entrer le mot de passe pour révoquer l'appareil"
-
-#: src/accountgeneraltab.cpp:516
-msgid "New password and its confirmation are different"
-msgstr "Les mots de passe saisis sont différents"
-
-#: src/accountgeneraltab.cpp:526
-msgid "Password changed!"
-msgstr "Mot de passe modifié !"
-
-#: src/accountgeneraltab.cpp:529
-msgid "Incorrect password"
-msgstr "Mot de passe incorrecte"
-
-#: src/accountgeneraltab.cpp:560
-msgid "Save name"
-msgstr "Sauvegarder le nom"
-
-#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:681
-msgid "Revoke device"
-msgstr "Révoquer l'appareil"
-
-#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:703
-msgid "Error when revoking device"
-msgstr "Erreur au cours de la révocation d'un appareil"
-
-#: src/accountgeneraltab.cpp:630
-msgid "Type"
-msgstr "Type"
-
-#: src/accountgeneraltab.cpp:656
-msgid "auto-generating…"
-msgstr "Génération automatique …"
-
-#: src/accountgeneraltab.cpp:686
-msgid "Hostname"
-msgstr "Nom d’hôte"
-
-#: src/accountgeneraltab.cpp:719
-msgid "Show password"
-msgstr "Afficher le mot de passe"
-
-#: src/accountgeneraltab.cpp:735
-msgid "Voicemail number"
-msgstr "Numéro de boîte vocale"
-
-#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1790
-msgid "Error: wrong password!"
-msgstr "Erreur :  mot de passe incorrect"
-
-#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1793
-msgid "Error: unknown device!"
-msgstr "Erreur : appareil inconnu"
 
 #: src/video/video_widget.cpp:549
 msgid "Share _screen area"
@@ -1116,7 +1023,11 @@ msgstr "Jami est un logiciel libre de communication universel qui respecte la vi
 msgid "Send File"
 msgstr "Envoyez un fichier"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:964
+#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:927
+msgid "Save File"
+msgstr "Sauvegarder"
+
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:993
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1127,70 +1038,121 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/newaccountsettingsview.cpp:681
+#: src/newaccountsettingsview.cpp:624
+msgid ""
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
+msgstr "Avertissement ! Cette action révoquera l'appareil. Cette opération est irréversible."
+
+#: src/newaccountsettingsview.cpp:625
+msgid "Enter password to revoke device"
+msgstr "Entrer le mot de passe pour révoquer l'appareil"
+
+#: src/newaccountsettingsview.cpp:683
 msgid "Edit name"
 msgstr "Modifier le nom"
 
-#: src/newaccountsettingsview.cpp:776
+#: src/newaccountsettingsview.cpp:683
+msgid "Revoke device"
+msgstr "Révoquer l'appareil"
+
+#: src/newaccountsettingsview.cpp:705
+msgid "Error when revoking device"
+msgstr "Erreur au cours de la révocation d'un appareil"
+
+#: src/newaccountsettingsview.cpp:778
 msgid "Unban"
 msgstr "Ré-autoriser"
 
-#: src/newaccountsettingsview.cpp:812
+#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
+#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
+msgid "Change password"
+msgstr "changer le mot de passe"
+
+#: src/newaccountsettingsview.cpp:814
 msgid "New password and its confirmation are different!"
 msgstr "Les deux mots de passe sont différents !"
 
-#: src/newaccountsettingsview.cpp:823
+#: src/newaccountsettingsview.cpp:825
 msgid "Incorrect password!"
 msgstr "Mot de passe incorrect !"
 
-#: src/newaccountsettingsview.cpp:860
+#: src/newaccountsettingsview.cpp:862
 msgid "Note: this will change the password only on this device."
 msgstr "Note : cette opération modifiera votre mot de passe uniquement sur cet appareil."
 
-#: src/newaccountsettingsview.cpp:863
+#: src/newaccountsettingsview.cpp:865
 msgid "Current password"
 msgstr "Mot de passe actuel"
 
-#: src/newaccountsettingsview.cpp:869
+#: src/newaccountsettingsview.cpp:871
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: src/newaccountsettingsview.cpp:949
+#: src/newaccountsettingsview.cpp:954
+msgid "You need to enter your password to export the full archive."
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:955
+msgid "Enter password to export archive"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:978
 msgid "Account exported!"
 msgstr "Le compte a été exporté."
 
-#: src/newaccountsettingsview.cpp:949
+#: src/newaccountsettingsview.cpp:978
 msgid "Export account failure."
 msgstr "Échec de l'export de compte."
 
-#: src/newaccountsettingsview.cpp:1719
+#: src/newaccountsettingsview.cpp:1741
+msgid "Bad password"
+msgstr "Mot de passe incorrect"
+
+#: src/newaccountsettingsview.cpp:1747
+msgid "Network error, try again"
+msgstr "Erreur réseau, veuillez réessayer."
+
+#: src/newaccountsettingsview.cpp:1753
 msgid "Unknown error"
 msgstr "Erreur inconnue"
 
-#: src/newaccountsettingsview.cpp:1964
+#: src/newaccountsettingsview.cpp:1765
+msgid "Could not initiate export to the Jami, try again"
+msgstr "Impossible de lancer l'exportation vers Jami, réessayez"
+
+#: src/newaccountsettingsview.cpp:1824
+msgid "Error: wrong password!"
+msgstr "Erreur :  mot de passe incorrect"
+
+#: src/newaccountsettingsview.cpp:1827
+msgid "Error: unknown device!"
+msgstr "Erreur : appareil inconnu"
+
+#: src/newaccountsettingsview.cpp:1998
 msgid "Initializing…"
 msgstr "Initialisation ..."
 
-#: src/newaccountsettingsview.cpp:1967
+#: src/newaccountsettingsview.cpp:2001
 msgid "Offline"
 msgstr "Déconnecté"
 
-#: src/newaccountsettingsview.cpp:1970
+#: src/newaccountsettingsview.cpp:2004
 msgid "Connecting…"
 msgstr "En cours de connexion ..."
 
-#: src/newaccountsettingsview.cpp:1973
+#: src/newaccountsettingsview.cpp:2007
 msgid "Online"
 msgstr "En ligne"
 
-#: src/newaccountsettingsview.cpp:1977
+#: src/newaccountsettingsview.cpp:2011
 msgid "Unknown status"
 msgstr "État inconnu"
 
-#: src/newaccountsettingsview.cpp:2010
+#: src/newaccountsettingsview.cpp:2044
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2010
+#: src/newaccountsettingsview.cpp:2044
 msgid "no password set"
 msgstr "Pas de mot de passe"

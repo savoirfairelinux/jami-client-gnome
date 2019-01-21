@@ -21,7 +21,6 @@ src/generalsettingsview.cpp
 src/utils/files.cpp
 src/utils/drawing.cpp
 src/utils/models.cpp
-src/accountgeneraltab.cpp
 src/models/gtkqtreemodel.cpp
 src/models/activeitemproxymodel.cpp
 src/models/gtkaccessproxymodel.cpp

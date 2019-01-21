@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Besnik <besnik@programeshqip.org>, 2016-2018
+# Besnik <besnik@programeshqip.org>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 03:09-0500\n"
-"PO-Revision-Date: 2019-01-14 08:09+0000\n"
-"Last-Translator: Besnik <besnik@programeshqip.org>\n"
+"POT-Creation-Date: 2019-01-21 03:09-0500\n"
+"PO-Revision-Date: 2019-01-21 08:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/ring/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +34,7 @@ msgstr "Lyp migrim llogarie"
 msgid "This account is malformed, please enter your password"
 msgstr "Kjo llogari është e keqformuar, ju lutemi, jepni fjalëkalimin tuaj"
 
-#: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:619
+#: ui/accountmigrationview.ui:89
 msgid "Alias"
 msgstr "Alias"
 
@@ -44,7 +44,6 @@ msgstr "RingID"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:451
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
-#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "Krijoni llogari"
 
@@ -54,7 +53,7 @@ msgstr "Migroni llogari"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:965
+#: src/newaccountsettingsview.cpp:994
 msgid "Delete account"
 msgstr "Fshije llogarinë"
 
@@ -153,7 +152,7 @@ msgid "Link this devices to a Jami account created on another device"
 msgstr "Lidheni këtë pajisje me një llogari Jami të krijuar te pajisja tjetër"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
-#: src/newaccountsettingsview.cpp:885
+#: src/newaccountsettingsview.cpp:887
 msgid "Cancel"
 msgstr "Anuloje"
 
@@ -221,8 +220,7 @@ msgid ""
 msgstr "Duke i vënë shenjë kësaj, do të regjistroni një emër përdoruesi unik në rrjetin Jami. Njerëzit mund ta përdorin për t’u lidhur me ju, në vend se të ID-së tuaj Ring, që është 40 shenja i gjatë."
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
-#: src/accountgeneraltab.cpp:696
+#: ui/newaccountsettingsview.ui:733
 msgid "Username"
 msgstr "Emër përdoruesi"
 
@@ -232,7 +230,7 @@ msgid ""
 "devices to your account."
 msgstr "Ky fjalëkalim do të përdoret për të fshehtëzuar të dhënat e llogarisë tuaj dhe për të lidhur pajisje të reja në të."
 
-#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:875
+#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:877
 msgid "Confirm password"
 msgstr "Ripohoni fjalëkalimin"
 
@@ -267,15 +265,15 @@ msgstr "Sistem"
 
 #: ui/generalsettingsview.ui:81
 msgid "Start application on login"
-msgstr ""
+msgstr "Nise aplikacionin kur bëhet hyrja në sistem"
 
 #: ui/generalsettingsview.ui:117
 msgid "Show Jami icon (systray) in the systray area"
-msgstr ""
+msgstr "Shfaq ikonë (systray) Jami te fusha e njoftimeve"
 
 #: ui/generalsettingsview.ui:153
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
+msgstr "Sille Jami-n përpara për thirrje ardhëse"
 
 #: ui/generalsettingsview.ui:189
 msgid "Notifications"
@@ -287,23 +285,23 @@ msgstr "Aktivizo njoftimet për thirrje ardhëse"
 
 #: ui/generalsettingsview.ui:264
 msgid "Enable notifications for pending requests"
-msgstr ""
+msgstr "Aktivizo njoftime për kërkesa pezull"
 
 #: ui/generalsettingsview.ui:300
 msgid "Enable notifications for new chat messages"
-msgstr ""
+msgstr "Aktivizo njoftimet për mesazhe të reja fjalosjesh"
 
 #: ui/generalsettingsview.ui:336
 msgid "Chatview"
-msgstr ""
+msgstr "Pamje fjalosjeje"
 
 #: ui/generalsettingsview.ui:375
 msgid "Display images and videos into the chatview"
-msgstr ""
+msgstr "Shfaq te pamja e fjalosjes figura dhe video"
 
 #: ui/generalsettingsview.ui:412
 msgid "Show chatview on the right (on the bottom if off)"
-msgstr ""
+msgstr "Shfaqe pamjen e fjalosjes djathtas (poshtë, nëse është off)"
 
 #: ui/generalsettingsview.ui:449
 msgid "Download folder"
@@ -315,7 +313,7 @@ msgstr "Historik"
 
 #: ui/generalsettingsview.ui:525
 msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
+msgstr "Mbaje historikun për (ditë, 0 = pa kufizim)"
 
 #: ui/generalsettingsview.ui:555
 msgid "Clear all history"
@@ -436,7 +434,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Klikoni që të ndryshohet fjalëkalimi"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1999
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2033
 msgid "Export account"
 msgstr "Eksportoni llogari"
 
@@ -453,7 +451,6 @@ msgid "password"
 msgstr "fjalëkalim"
 
 #: ui/newaccountsettingsview.ui:810 ui/newaccountsettingsview.ui:1398
-#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Ndërmjetës"
 
@@ -805,105 +802,15 @@ msgstr "Ky është veprim me pasoja shkatërruese. Jeni i sigurt se doni të fsh
 msgid "Choose download folder"
 msgstr "Zgjidhni dosje shkarkimesh"
 
-#: src/generalsettingsview.cpp:173 src/accountgeneraltab.cpp:342
-#: src/avatarmanipulation.cpp:414 src/chatview.cpp:178
-#: src/newaccountsettingsview.cpp:928
+#: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
+#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:930
 msgid "_Cancel"
 msgstr "_Anuloje"
 
-#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:344
-#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
+#: src/generalsettingsview.cpp:175 src/chatview.cpp:180
+#: src/newaccountsettingsview.cpp:932
 msgid "_Save"
 msgstr "_Ruaje"
-
-#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1707
-msgid "Bad password"
-msgstr "Fjalëkalim i gabuar"
-
-#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1713
-msgid "Network error, try again"
-msgstr "Gabim rrjeti, riprovoni"
-
-#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
-msgid "Could not initiate export to the Jami, try again"
-msgstr "S’u fillua dot eksportimi te Jami, riprovoni"
-
-#: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
-#: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
-#: src/newaccountsettingsview.cpp:846 src/newaccountsettingsview.cpp:882
-msgid "Change password"
-msgstr "Ndryshoni fjalëkalimin"
-
-#: src/accountgeneraltab.cpp:339 src/chatview.cpp:175
-#: src/newaccountsettingsview.cpp:925
-msgid "Save File"
-msgstr "Ruaje Kartelën"
-
-#: src/accountgeneraltab.cpp:364
-msgid "File exported to destination: "
-msgstr "Kartela u eksportua te vendmbërritja: "
-
-#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:622
-msgid ""
-"Warning! This action will revoke the device!\n"
-"Note: this action cannot be undone."
-msgstr "Kujdes! Ky veprim do të shfuqizojë pajisjen!\nShënim: ky veprim s’mund të zhbëhet."
-
-#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:623
-msgid "Enter password to revoke device"
-msgstr "Që të shfuqizohet pajisja, jepni fjalëkalimin"
-
-#: src/accountgeneraltab.cpp:516
-msgid "New password and its confirmation are different"
-msgstr "Fjalëkalimi i ri dhe ripohimi për të janë të ndryshëm"
-
-#: src/accountgeneraltab.cpp:526
-msgid "Password changed!"
-msgstr "Fjalëkalimi ndryshoi!"
-
-#: src/accountgeneraltab.cpp:529
-msgid "Incorrect password"
-msgstr "Fjalëkalim i pasaktë"
-
-#: src/accountgeneraltab.cpp:560
-msgid "Save name"
-msgstr "Ruaje emrin"
-
-#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:681
-msgid "Revoke device"
-msgstr "Shfuqizoje pajisjen"
-
-#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:703
-msgid "Error when revoking device"
-msgstr "Gabim gjatë shfuqizimit të pajisjes"
-
-#: src/accountgeneraltab.cpp:630
-msgid "Type"
-msgstr "Lloj"
-
-#: src/accountgeneraltab.cpp:656
-msgid "auto-generating…"
-msgstr "po vetëprodhohet…"
-
-#: src/accountgeneraltab.cpp:686
-msgid "Hostname"
-msgstr "Strehëemër"
-
-#: src/accountgeneraltab.cpp:719
-msgid "Show password"
-msgstr "Shfaqe fjalëkalimin"
-
-#: src/accountgeneraltab.cpp:735
-msgid "Voicemail number"
-msgstr "Numër voicemail"
-
-#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1790
-msgid "Error: wrong password!"
-msgstr "Gabim: fjalëkalim i gabuar!"
-
-#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1793
-msgid "Error: unknown device!"
-msgstr "Gabim: pajisje e panjohur!"
 
 #: src/video/video_widget.cpp:549
 msgid "Share _screen area"
@@ -1099,7 +1006,11 @@ msgstr "Jami është software i lirë për komunikim universal që respekton pri
 msgid "Send File"
 msgstr "Dërgo Kartelë"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:964
+#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:927
+msgid "Save File"
+msgstr "Ruaje Kartelën"
+
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:993
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1110,70 +1021,121 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/newaccountsettingsview.cpp:681
+#: src/newaccountsettingsview.cpp:624
+msgid ""
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
+msgstr "Kujdes! Ky veprim do të shfuqizojë pajisjen!\nShënim: ky veprim s’mund të zhbëhet."
+
+#: src/newaccountsettingsview.cpp:625
+msgid "Enter password to revoke device"
+msgstr "Që të shfuqizohet pajisja, jepni fjalëkalimin"
+
+#: src/newaccountsettingsview.cpp:683
 msgid "Edit name"
 msgstr "Përpunoni emrin"
 
-#: src/newaccountsettingsview.cpp:776
+#: src/newaccountsettingsview.cpp:683
+msgid "Revoke device"
+msgstr "Shfuqizoje pajisjen"
+
+#: src/newaccountsettingsview.cpp:705
+msgid "Error when revoking device"
+msgstr "Gabim gjatë shfuqizimit të pajisjes"
+
+#: src/newaccountsettingsview.cpp:778
 msgid "Unban"
 msgstr "Zhdëboje"
 
-#: src/newaccountsettingsview.cpp:812
+#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
+#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
+msgid "Change password"
+msgstr "Ndryshoni fjalëkalimin"
+
+#: src/newaccountsettingsview.cpp:814
 msgid "New password and its confirmation are different!"
 msgstr "Fjalëkalimi i ri dhe ripohimi për të janë të ndryshëm!"
 
-#: src/newaccountsettingsview.cpp:823
+#: src/newaccountsettingsview.cpp:825
 msgid "Incorrect password!"
 msgstr "Fjalëkalim i pasaktë!"
 
-#: src/newaccountsettingsview.cpp:860
+#: src/newaccountsettingsview.cpp:862
 msgid "Note: this will change the password only on this device."
 msgstr "Shënim: kjo do të ndryshojë fjalëkalimi vetëm në këtë pajisje."
 
-#: src/newaccountsettingsview.cpp:863
+#: src/newaccountsettingsview.cpp:865
 msgid "Current password"
 msgstr "Fjalëkalimi i tanishëm"
 
-#: src/newaccountsettingsview.cpp:869
+#: src/newaccountsettingsview.cpp:871
 msgid "New password"
 msgstr "Fjalëkalim i ri"
 
-#: src/newaccountsettingsview.cpp:949
+#: src/newaccountsettingsview.cpp:954
+msgid "You need to enter your password to export the full archive."
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:955
+msgid "Enter password to export archive"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:978
 msgid "Account exported!"
 msgstr "Llogaria u eksportua!"
 
-#: src/newaccountsettingsview.cpp:949
+#: src/newaccountsettingsview.cpp:978
 msgid "Export account failure."
 msgstr "Dështim eksportimi llogarie."
 
-#: src/newaccountsettingsview.cpp:1719
+#: src/newaccountsettingsview.cpp:1741
+msgid "Bad password"
+msgstr "Fjalëkalim i gabuar"
+
+#: src/newaccountsettingsview.cpp:1747
+msgid "Network error, try again"
+msgstr "Gabim rrjeti, riprovoni"
+
+#: src/newaccountsettingsview.cpp:1753
 msgid "Unknown error"
 msgstr "Gabim i panjohur"
 
-#: src/newaccountsettingsview.cpp:1964
+#: src/newaccountsettingsview.cpp:1765
+msgid "Could not initiate export to the Jami, try again"
+msgstr "S’u fillua dot eksportimi te Jami, riprovoni"
+
+#: src/newaccountsettingsview.cpp:1824
+msgid "Error: wrong password!"
+msgstr "Gabim: fjalëkalim i gabuar!"
+
+#: src/newaccountsettingsview.cpp:1827
+msgid "Error: unknown device!"
+msgstr "Gabim: pajisje e panjohur!"
+
+#: src/newaccountsettingsview.cpp:1998
 msgid "Initializing…"
 msgstr "Po gatitet…"
 
-#: src/newaccountsettingsview.cpp:1967
+#: src/newaccountsettingsview.cpp:2001
 msgid "Offline"
 msgstr "Jo në linjë"
 
-#: src/newaccountsettingsview.cpp:1970
+#: src/newaccountsettingsview.cpp:2004
 msgid "Connecting…"
 msgstr "Po lidhet…"
 
-#: src/newaccountsettingsview.cpp:1973
+#: src/newaccountsettingsview.cpp:2007
 msgid "Online"
 msgstr "Në linjë"
 
-#: src/newaccountsettingsview.cpp:1977
+#: src/newaccountsettingsview.cpp:2011
 msgid "Unknown status"
 msgstr "Gjendje e panjohur"
 
-#: src/newaccountsettingsview.cpp:2010
+#: src/newaccountsettingsview.cpp:2044
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2010
+#: src/newaccountsettingsview.cpp:2044
 msgid "no password set"
 msgstr "s’ka fjalëkalim të caktuar"

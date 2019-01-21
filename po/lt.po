@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 03:09-0500\n"
-"PO-Revision-Date: 2019-01-14 08:09+0000\n"
-"Last-Translator: Moo\n"
+"POT-Creation-Date: 2019-01-21 03:09-0500\n"
+"PO-Revision-Date: 2019-01-21 08:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/ring/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgstr "Reikalingas paskyros perkėlimas"
 msgid "This account is malformed, please enter your password"
 msgstr "Ši paskyra yra netaisyklinga, įveskite savo slaptažodį"
 
-#: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:619
+#: ui/accountmigrationview.ui:89
 msgid "Alias"
 msgstr "Slapyvardis"
 
@@ -46,7 +46,6 @@ msgstr "RingID"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:451
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
-#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "Slaptažodis"
 
@@ -56,7 +55,7 @@ msgstr "Perkelti paskyrą"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:965
+#: src/newaccountsettingsview.cpp:994
 msgid "Delete account"
 msgstr "Ištrinti paskyrą"
 
@@ -140,11 +139,11 @@ msgstr "Sveiki atvykę į"
 
 #: ui/accountcreationwizard.ui:64
 msgid "Create Jami Account"
-msgstr ""
+msgstr "Susikurti Jami paskyrą"
 
 #: ui/accountcreationwizard.ui:65
 msgid "Create a new Jami account (for new users)"
-msgstr ""
+msgstr "Susikurti naują Jami paskyrą (naujiems naudotojams)"
 
 #: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
@@ -152,10 +151,10 @@ msgstr "Susieti šį įrenginį su paskyra"
 
 #: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Jami account created on another device"
-msgstr ""
+msgstr "Susieti šį įrenginį su kitame įrenginyje sukurta Jami paskyra"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
-#: src/newaccountsettingsview.cpp:885
+#: src/newaccountsettingsview.cpp:887
 msgid "Cancel"
 msgstr "Atsisakyti"
 
@@ -223,8 +222,7 @@ msgid ""
 msgstr "Tai pažymėję, jūs Jami tinkle užregistruosite unikalų naudotojo vardą. Norėdami su jumis susisiekti, žmonės galės jį naudoti vietoj jūsų RingID, kuris yra 40 simbolių ilgio."
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
-#: src/accountgeneraltab.cpp:696
+#: ui/newaccountsettingsview.ui:733
 msgid "Username"
 msgstr "Naudotojo vardas"
 
@@ -234,13 +232,13 @@ msgid ""
 "devices to your account."
 msgstr "Šis slaptažodis bus naudojamas jūsų paskyros duomenų šifravimui ir, norint susieti naują įrenginį su jūsų paskyra."
 
-#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:875
+#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:877
 msgid "Confirm password"
 msgstr "Patvirtinkite slaptažodį"
 
 #: ui/accountcreationwizard.ui:562
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "Kuriama jūsų Jami paskyra…"
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
@@ -438,7 +436,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Spustelėkite, norėdami pakeisti slaptažodį"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1999
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2033
 msgid "Export account"
 msgstr "Eksportuoti paskyrą"
 
@@ -455,7 +453,6 @@ msgid "password"
 msgstr "slaptažodis"
 
 #: ui/newaccountsettingsview.ui:810 ui/newaccountsettingsview.ui:1398
-#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Įgaliotasis serveris"
 
@@ -807,105 +804,15 @@ msgstr "Tai yra naikinamasis veiksmas. Ar tikrai norite ištrinti visą savo pok
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:173 src/accountgeneraltab.cpp:342
-#: src/avatarmanipulation.cpp:414 src/chatview.cpp:178
-#: src/newaccountsettingsview.cpp:928
+#: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
+#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:930
 msgid "_Cancel"
 msgstr "_Atsisakyti"
 
-#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:344
-#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
+#: src/generalsettingsview.cpp:175 src/chatview.cpp:180
+#: src/newaccountsettingsview.cpp:932
 msgid "_Save"
 msgstr "Į_rašyti"
-
-#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1707
-msgid "Bad password"
-msgstr "Blogas slaptažodis"
-
-#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1713
-msgid "Network error, try again"
-msgstr "Tinklo klaida, bandykite dar kartą"
-
-#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
-msgid "Could not initiate export to the Jami, try again"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
-#: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
-#: src/newaccountsettingsview.cpp:846 src/newaccountsettingsview.cpp:882
-msgid "Change password"
-msgstr "Pakeisti slaptažodį"
-
-#: src/accountgeneraltab.cpp:339 src/chatview.cpp:175
-#: src/newaccountsettingsview.cpp:925
-msgid "Save File"
-msgstr "Įrašyti failą"
-
-#: src/accountgeneraltab.cpp:364
-msgid "File exported to destination: "
-msgstr ""
-
-#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:622
-msgid ""
-"Warning! This action will revoke the device!\n"
-"Note: this action cannot be undone."
-msgstr "Įspėjimas! Šis veiksmas panaikins įrenginį!\nPastaba: šio veiksmo neįmanoma bus atšaukti."
-
-#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:623
-msgid "Enter password to revoke device"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:516
-msgid "New password and its confirmation are different"
-msgstr "Naujas slaptažodis ir jo patvirtinimas nesutampa"
-
-#: src/accountgeneraltab.cpp:526
-msgid "Password changed!"
-msgstr "Slaptažodis pakeistas!"
-
-#: src/accountgeneraltab.cpp:529
-msgid "Incorrect password"
-msgstr "Neteisingas slaptažodis"
-
-#: src/accountgeneraltab.cpp:560
-msgid "Save name"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:681
-msgid "Revoke device"
-msgstr "Panaikinti įrenginį"
-
-#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:703
-msgid "Error when revoking device"
-msgstr "Klaida, panaikinant įrenginį"
-
-#: src/accountgeneraltab.cpp:630
-msgid "Type"
-msgstr "Tipas"
-
-#: src/accountgeneraltab.cpp:656
-msgid "auto-generating…"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:686
-msgid "Hostname"
-msgstr "Kompiuterio vardas"
-
-#: src/accountgeneraltab.cpp:719
-msgid "Show password"
-msgstr "Rodyti slaptažodį"
-
-#: src/accountgeneraltab.cpp:735
-msgid "Voicemail number"
-msgstr "Balso pašto numeris"
-
-#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1790
-msgid "Error: wrong password!"
-msgstr "Klaida: neteisingas slaptažodis!"
-
-#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1793
-msgid "Error: unknown device!"
-msgstr "Klaida: nežinomas įrenginys!"
 
 #: src/video/video_widget.cpp:549
 msgid "Share _screen area"
@@ -941,7 +848,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Live Free or Die\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Live Free or Die\"\nsukurta ties %.25s"
 
 #: src/dialogs.c:137
 msgid ""
@@ -1083,7 +990,7 @@ msgstr "Slaptažodžiai nesutampa"
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Tai yra jūsų Jami naudotojo vardas.\nNukopijuokite ir dalinkitės juo su draugais!"
 
 #: src/ringwelcomeview.cpp:96
 msgid ""
@@ -1101,81 +1008,136 @@ msgstr "Jami yra visuotiniam bendravimui skirta laisva programinė įranga, kuri
 msgid "Send File"
 msgstr "Siųsti failą"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:964
+#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:927
+msgid "Save File"
+msgstr "Įrašyti failą"
+
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:993
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
+msgstr "Įspėjimas! Šis veiksmas pašalins šią paskyrą šiame įrenginyje!\nPastaba: šio veiksmo neįmanoma bus atšaukti. Be to, gali būti prarastas jūsų registruotas vardas!"
 
 #: src/currentcallview.cpp:974
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automatinė"
 
-#: src/newaccountsettingsview.cpp:681
+#: src/newaccountsettingsview.cpp:624
+msgid ""
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
+msgstr "Įspėjimas! Šis veiksmas panaikins įrenginį!\nPastaba: šio veiksmo neįmanoma bus atšaukti."
+
+#: src/newaccountsettingsview.cpp:625
+msgid "Enter password to revoke device"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:683
 msgid "Edit name"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:776
+#: src/newaccountsettingsview.cpp:683
+msgid "Revoke device"
+msgstr "Panaikinti įrenginį"
+
+#: src/newaccountsettingsview.cpp:705
+msgid "Error when revoking device"
+msgstr "Klaida, panaikinant įrenginį"
+
+#: src/newaccountsettingsview.cpp:778
 msgid "Unban"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:812
+#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
+#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
+msgid "Change password"
+msgstr "Pakeisti slaptažodį"
+
+#: src/newaccountsettingsview.cpp:814
 msgid "New password and its confirmation are different!"
 msgstr "Naujas slaptažodis ir jo patvirtinimas nesutampa!"
 
-#: src/newaccountsettingsview.cpp:823
+#: src/newaccountsettingsview.cpp:825
 msgid "Incorrect password!"
 msgstr "Neteisingas slaptažodis!"
 
-#: src/newaccountsettingsview.cpp:860
+#: src/newaccountsettingsview.cpp:862
 msgid "Note: this will change the password only on this device."
 msgstr "Pastaba: tai pakeis slaptažodį tik šiame įrenginyje."
 
-#: src/newaccountsettingsview.cpp:863
+#: src/newaccountsettingsview.cpp:865
 msgid "Current password"
 msgstr "Dabartinis slaptažodis"
 
-#: src/newaccountsettingsview.cpp:869
+#: src/newaccountsettingsview.cpp:871
 msgid "New password"
 msgstr "Naujas slaptažodis"
 
-#: src/newaccountsettingsview.cpp:949
+#: src/newaccountsettingsview.cpp:954
+msgid "You need to enter your password to export the full archive."
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:955
+msgid "Enter password to export archive"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:978
 msgid "Account exported!"
 msgstr "Paskyra eksportuota!"
 
-#: src/newaccountsettingsview.cpp:949
+#: src/newaccountsettingsview.cpp:978
 msgid "Export account failure."
 msgstr "Paskyros eksportavimas nepavyko."
 
-#: src/newaccountsettingsview.cpp:1719
+#: src/newaccountsettingsview.cpp:1741
+msgid "Bad password"
+msgstr "Blogas slaptažodis"
+
+#: src/newaccountsettingsview.cpp:1747
+msgid "Network error, try again"
+msgstr "Tinklo klaida, bandykite dar kartą"
+
+#: src/newaccountsettingsview.cpp:1753
 msgid "Unknown error"
 msgstr "Nežinoma klaida"
 
-#: src/newaccountsettingsview.cpp:1964
+#: src/newaccountsettingsview.cpp:1765
+msgid "Could not initiate export to the Jami, try again"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1824
+msgid "Error: wrong password!"
+msgstr "Klaida: neteisingas slaptažodis!"
+
+#: src/newaccountsettingsview.cpp:1827
+msgid "Error: unknown device!"
+msgstr "Klaida: nežinomas įrenginys!"
+
+#: src/newaccountsettingsview.cpp:1998
 msgid "Initializing…"
 msgstr "Inicijuojama…"
 
-#: src/newaccountsettingsview.cpp:1967
+#: src/newaccountsettingsview.cpp:2001
 msgid "Offline"
 msgstr "Atsijungęs"
 
-#: src/newaccountsettingsview.cpp:1970
+#: src/newaccountsettingsview.cpp:2004
 msgid "Connecting…"
 msgstr "Jungiamasi…"
 
-#: src/newaccountsettingsview.cpp:1973
+#: src/newaccountsettingsview.cpp:2007
 msgid "Online"
 msgstr "Prisijungęs"
 
-#: src/newaccountsettingsview.cpp:1977
+#: src/newaccountsettingsview.cpp:2011
 msgid "Unknown status"
 msgstr "Nežinoma būsena"
 
-#: src/newaccountsettingsview.cpp:2010
+#: src/newaccountsettingsview.cpp:2044
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2010
+#: src/newaccountsettingsview.cpp:2044
 msgid "no password set"
 msgstr "slaptažodis nėra nustatytas"

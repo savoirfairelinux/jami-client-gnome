@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Amin Mahmudian, 2017
-# Danial Behzadi <dani.behzi@ubuntu.com>, 2016-2017
+# Danial Behzadi <dani.behzi@ubuntu.com>, 2016-2017,2019
 # Hasan Hejdari Nasab <hsn6@openmailbox.org>, 2017
 # Hessam Shahpouri, 2016
 # Reza Ghasemi, 2018
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 03:09-0500\n"
-"PO-Revision-Date: 2019-01-14 08:09+0000\n"
-"Last-Translator: Mohammad Amin Sameti <mamins1376@gmail.com>\n"
+"POT-Creation-Date: 2019-01-21 03:09-0500\n"
+"PO-Revision-Date: 2019-01-21 08:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/ring/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +39,7 @@ msgstr "نیاز به جابجایی حساب کاربری"
 msgid "This account is malformed, please enter your password"
 msgstr "این حساب کاربری نادرست می باشد. لطفا گذرواژه خود را وارد کنید"
 
-#: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:619
+#: ui/accountmigrationview.ui:89
 msgid "Alias"
 msgstr "نام مستعار"
 
@@ -49,7 +49,6 @@ msgstr "آی‌دی رینگ"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:451
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
-#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "گذرواژه"
 
@@ -59,7 +58,7 @@ msgstr "جابجایی حساب کاربری"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:965
+#: src/newaccountsettingsview.cpp:994
 msgid "Delete account"
 msgstr "حذف حساب"
 
@@ -143,7 +142,7 @@ msgstr "خوش آمدید به"
 
 #: ui/accountcreationwizard.ui:64
 msgid "Create Jami Account"
-msgstr ""
+msgstr "ایجاد حساب جمی"
 
 #: ui/accountcreationwizard.ui:65
 msgid "Create a new Jami account (for new users)"
@@ -158,7 +157,7 @@ msgid "Link this devices to a Jami account created on another device"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
-#: src/newaccountsettingsview.cpp:885
+#: src/newaccountsettingsview.cpp:887
 msgid "Cancel"
 msgstr "لغو"
 
@@ -191,7 +190,7 @@ msgstr "پین خود را وارد کنید:"
 
 #: ui/accountcreationwizard.ui:188
 msgid "Or import a file:"
-msgstr ""
+msgstr "یا درون‌ریزی یک پرونده:"
 
 #: ui/accountcreationwizard.ui:207
 msgid "Enter your password:"
@@ -226,8 +225,7 @@ msgid ""
 msgstr ""
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
-#: src/accountgeneraltab.cpp:696
+#: ui/newaccountsettingsview.ui:733
 msgid "Username"
 msgstr "نام کاربری"
 
@@ -237,7 +235,7 @@ msgid ""
 "devices to your account."
 msgstr "از این گذرواژه برای رمزنگاری داده های حساب شما و برای پیوند دادن دستگاه های جدید به حساب شما  استفاده خواهد شد."
 
-#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:875
+#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:877
 msgid "Confirm password"
 msgstr "تأیید گذرواژه"
 
@@ -284,7 +282,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:189
 msgid "Notifications"
-msgstr ""
+msgstr "آگاهی‌ها"
 
 #: ui/generalsettingsview.ui:228
 msgid "Enable notifications for incoming calls"
@@ -312,7 +310,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:449
 msgid "Download folder"
-msgstr ""
+msgstr "شاخهٔ بارگیری"
 
 #: ui/generalsettingsview.ui:486
 msgid "History"
@@ -441,7 +439,7 @@ msgstr "شناسه"
 msgid "Click to change password"
 msgstr "برای تغییر گذرواژه کلیک کنید"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1999
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2033
 msgid "Export account"
 msgstr "برون‌ریزی حساب"
 
@@ -458,7 +456,6 @@ msgid "password"
 msgstr "گذرواژه"
 
 #: ui/newaccountsettingsview.ui:810 ui/newaccountsettingsview.ui:1398
-#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "پراکسی"
 
@@ -468,7 +465,7 @@ msgstr "پیامگیر صوتی"
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "افزاره‌های شناخته شدهٔ پیوسته به این حساب جمی"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
@@ -504,7 +501,7 @@ msgstr "صدای زنگ سفارشی"
 
 #: ui/newaccountsettingsview.ui:1288
 msgid "Name server"
-msgstr ""
+msgstr "کارساز نام"
 
 #: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2478
 msgid "Address"
@@ -712,7 +709,7 @@ msgstr "قبول"
 
 #: ui/incomingcallview.ui:173
 msgid "Reject"
-msgstr ""
+msgstr "رد"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
@@ -740,13 +737,13 @@ msgstr ""
 
 #: src/ring_client.cpp:117
 msgid "Jami Error"
-msgstr ""
+msgstr "خطای جمی"
 
 #: src/ring_client.cpp:260
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "نمایش جمی"
 
 #: src/ring_client.cpp:264
 msgid "Quit"
@@ -810,105 +807,15 @@ msgstr "این یک عملیات مخرب است. آیا مطمئن هستید �
 msgid "Choose download folder"
 msgstr "انتخاب پوشه دانلود"
 
-#: src/generalsettingsview.cpp:173 src/accountgeneraltab.cpp:342
-#: src/avatarmanipulation.cpp:414 src/chatview.cpp:178
-#: src/newaccountsettingsview.cpp:928
+#: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
+#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:930
 msgid "_Cancel"
 msgstr "_لغو"
 
-#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:344
-#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
+#: src/generalsettingsview.cpp:175 src/chatview.cpp:180
+#: src/newaccountsettingsview.cpp:932
 msgid "_Save"
 msgstr "_ذخیره"
-
-#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1707
-msgid "Bad password"
-msgstr "گذرواژهٔ بد"
-
-#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1713
-msgid "Network error, try again"
-msgstr "خطای شبکه، دوباره تلاش کنید"
-
-#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
-msgid "Could not initiate export to the Jami, try again"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
-#: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
-#: src/newaccountsettingsview.cpp:846 src/newaccountsettingsview.cpp:882
-msgid "Change password"
-msgstr "تغییر رمز عبور"
-
-#: src/accountgeneraltab.cpp:339 src/chatview.cpp:175
-#: src/newaccountsettingsview.cpp:925
-msgid "Save File"
-msgstr "ذخیره فایل"
-
-#: src/accountgeneraltab.cpp:364
-msgid "File exported to destination: "
-msgstr ""
-
-#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:622
-msgid ""
-"Warning! This action will revoke the device!\n"
-"Note: this action cannot be undone."
-msgstr ""
-
-#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:623
-msgid "Enter password to revoke device"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:516
-msgid "New password and its confirmation are different"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:526
-msgid "Password changed!"
-msgstr "گذرواژه تغییر یافت!"
-
-#: src/accountgeneraltab.cpp:529
-msgid "Incorrect password"
-msgstr "گذرواژه ناصحیح"
-
-#: src/accountgeneraltab.cpp:560
-msgid "Save name"
-msgstr "ذخیره نام"
-
-#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:681
-msgid "Revoke device"
-msgstr "باطل کردن دستگاه"
-
-#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:703
-msgid "Error when revoking device"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:630
-msgid "Type"
-msgstr "نوع"
-
-#: src/accountgeneraltab.cpp:656
-msgid "auto-generating…"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:686
-msgid "Hostname"
-msgstr "نام هاست"
-
-#: src/accountgeneraltab.cpp:719
-msgid "Show password"
-msgstr "نمایش گذرواژه"
-
-#: src/accountgeneraltab.cpp:735
-msgid "Voicemail number"
-msgstr "شماره پست صوتی"
-
-#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1790
-msgid "Error: wrong password!"
-msgstr "خطا: گذرواژه اشتباه!"
-
-#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1793
-msgid "Error: unknown device!"
-msgstr "خطا: دستگاه ناشناس!"
 
 #: src/video/video_widget.cpp:549
 msgid "Share _screen area"
@@ -987,7 +894,7 @@ msgstr ""
 
 #: src/ringmainwindow.cpp:1578
 msgid "Leave settings page"
-msgstr ""
+msgstr "خروج از صفحهٔ تنظیمات"
 
 #: src/ringmainwindow.cpp:1948
 msgid " is calling you!"
@@ -1012,7 +919,7 @@ msgstr "پیام جدید"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "خطای جمی"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
@@ -1098,13 +1005,17 @@ msgstr ""
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "جمی نرم‌افزار آزاد برای ارتباط جهانی است که به آزادی‌ها و محرمانگی کاربرانش احترام می‌گذارد."
 
 #: src/chatview.cpp:175
 msgid "Send File"
 msgstr "ارسال فایل"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:964
+#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:927
+msgid "Save File"
+msgstr "ذخیره فایل"
+
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:993
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1115,70 +1026,121 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "خودکار"
 
-#: src/newaccountsettingsview.cpp:681
+#: src/newaccountsettingsview.cpp:624
+msgid ""
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:625
+msgid "Enter password to revoke device"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:683
 msgid "Edit name"
 msgstr "ویرایش نام"
 
-#: src/newaccountsettingsview.cpp:776
+#: src/newaccountsettingsview.cpp:683
+msgid "Revoke device"
+msgstr "باطل کردن دستگاه"
+
+#: src/newaccountsettingsview.cpp:705
+msgid "Error when revoking device"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:778
 msgid "Unban"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:812
+#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
+#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
+msgid "Change password"
+msgstr "تغییر رمز عبور"
+
+#: src/newaccountsettingsview.cpp:814
 msgid "New password and its confirmation are different!"
 msgstr "گذرواژه و تاییدیه آن با هم فرق میکنند!"
 
-#: src/newaccountsettingsview.cpp:823
+#: src/newaccountsettingsview.cpp:825
 msgid "Incorrect password!"
 msgstr "گذرواژه اشتباه!"
 
-#: src/newaccountsettingsview.cpp:860
+#: src/newaccountsettingsview.cpp:862
 msgid "Note: this will change the password only on this device."
 msgstr "توجه: این فقط گذرواژه روی این دستگاه را تغییر می دهد."
 
-#: src/newaccountsettingsview.cpp:863
+#: src/newaccountsettingsview.cpp:865
 msgid "Current password"
 msgstr "گذرواژه فعلی"
 
-#: src/newaccountsettingsview.cpp:869
+#: src/newaccountsettingsview.cpp:871
 msgid "New password"
 msgstr "گذرواژهٔ نو"
 
-#: src/newaccountsettingsview.cpp:949
-msgid "Account exported!"
+#: src/newaccountsettingsview.cpp:954
+msgid "You need to enter your password to export the full archive."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:949
+#: src/newaccountsettingsview.cpp:955
+msgid "Enter password to export archive"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:978
+msgid "Account exported!"
+msgstr "حساب صادر شد!"
+
+#: src/newaccountsettingsview.cpp:978
 msgid "Export account failure."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1719
+#: src/newaccountsettingsview.cpp:1741
+msgid "Bad password"
+msgstr "گذرواژهٔ بد"
+
+#: src/newaccountsettingsview.cpp:1747
+msgid "Network error, try again"
+msgstr "خطای شبکه، دوباره تلاش کنید"
+
+#: src/newaccountsettingsview.cpp:1753
 msgid "Unknown error"
 msgstr "خطای ناشناخته"
 
-#: src/newaccountsettingsview.cpp:1964
+#: src/newaccountsettingsview.cpp:1765
+msgid "Could not initiate export to the Jami, try again"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1824
+msgid "Error: wrong password!"
+msgstr "خطا: گذرواژه اشتباه!"
+
+#: src/newaccountsettingsview.cpp:1827
+msgid "Error: unknown device!"
+msgstr "خطا: دستگاه ناشناس!"
+
+#: src/newaccountsettingsview.cpp:1998
 msgid "Initializing…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1967
+#: src/newaccountsettingsview.cpp:2001
 msgid "Offline"
 msgstr "‌خط"
 
-#: src/newaccountsettingsview.cpp:1970
+#: src/newaccountsettingsview.cpp:2004
 msgid "Connecting…"
 msgstr "در حال اتصال..."
 
-#: src/newaccountsettingsview.cpp:1973
+#: src/newaccountsettingsview.cpp:2007
 msgid "Online"
 msgstr "برخط"
 
-#: src/newaccountsettingsview.cpp:1977
+#: src/newaccountsettingsview.cpp:2011
 msgid "Unknown status"
 msgstr "وضعیت ناشناخته"
 
-#: src/newaccountsettingsview.cpp:2010
+#: src/newaccountsettingsview.cpp:2044
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2010
+#: src/newaccountsettingsview.cpp:2044
 msgid "no password set"
 msgstr "هیچ گذرواژه ای تنظیم نشده است"

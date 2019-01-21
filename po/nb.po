@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 03:09-0500\n"
-"PO-Revision-Date: 2019-01-14 08:09+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"POT-Creation-Date: 2019-01-21 03:09-0500\n"
+"PO-Revision-Date: 2019-01-21 08:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/savoirfairelinux/ring/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgstr "Krever kontooverføring"
 msgid "This account is malformed, please enter your password"
 msgstr ""
 
-#: ui/accountmigrationview.ui:89 src/accountgeneraltab.cpp:619
+#: ui/accountmigrationview.ui:89
 msgid "Alias"
 msgstr "Alias"
 
@@ -45,7 +45,6 @@ msgstr "RingID"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:451
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
-#: src/accountgeneraltab.cpp:706
 msgid "Password"
 msgstr "Passord"
 
@@ -55,7 +54,7 @@ msgstr "Overfør konto"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:965
+#: src/newaccountsettingsview.cpp:994
 msgid "Delete account"
 msgstr "Slett konto"
 
@@ -154,7 +153,7 @@ msgid "Link this devices to a Jami account created on another device"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
-#: src/newaccountsettingsview.cpp:885
+#: src/newaccountsettingsview.cpp:887
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -222,8 +221,7 @@ msgid ""
 msgstr ""
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733 src/accountgeneraltab.cpp:669
-#: src/accountgeneraltab.cpp:696
+#: ui/newaccountsettingsview.ui:733
 msgid "Username"
 msgstr "Brukernavn"
 
@@ -233,7 +231,7 @@ msgid ""
 "devices to your account."
 msgstr "Dette passordet vil brukes til å kryptere din kontodata og lenke nye enheter til din konto."
 
-#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:875
+#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:877
 msgid "Confirm password"
 msgstr "Bekreft passord"
 
@@ -437,7 +435,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:1999
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2033
 msgid "Export account"
 msgstr "Eksporter konto"
 
@@ -454,7 +452,6 @@ msgid "password"
 msgstr "passord"
 
 #: ui/newaccountsettingsview.ui:810 ui/newaccountsettingsview.ui:1398
-#: src/accountgeneraltab.cpp:725
 msgid "Proxy"
 msgstr "Mellomtjener"
 
@@ -806,105 +803,15 @@ msgstr "Dette er en ødeleggende operasjon. Er du sikker på at du vil slette al
 msgid "Choose download folder"
 msgstr "Velg nedlastingsmappe"
 
-#: src/generalsettingsview.cpp:173 src/accountgeneraltab.cpp:342
-#: src/avatarmanipulation.cpp:414 src/chatview.cpp:178
-#: src/newaccountsettingsview.cpp:928
+#: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
+#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:930
 msgid "_Cancel"
 msgstr "_Avbryt"
 
-#: src/generalsettingsview.cpp:175 src/accountgeneraltab.cpp:344
-#: src/chatview.cpp:180 src/newaccountsettingsview.cpp:930
+#: src/generalsettingsview.cpp:175 src/chatview.cpp:180
+#: src/newaccountsettingsview.cpp:932
 msgid "_Save"
 msgstr "_Lagre"
-
-#: src/accountgeneraltab.cpp:239 src/newaccountsettingsview.cpp:1707
-msgid "Bad password"
-msgstr "Dårlig passord"
-
-#: src/accountgeneraltab.cpp:245 src/newaccountsettingsview.cpp:1713
-msgid "Network error, try again"
-msgstr "Nettverksfeil, prøv på nytt"
-
-#: src/accountgeneraltab.cpp:257 src/newaccountsettingsview.cpp:1731
-msgid "Could not initiate export to the Jami, try again"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:325 src/accountgeneraltab.cpp:528
-#: src/newaccountsettingsview.cpp:799 src/newaccountsettingsview.cpp:822
-#: src/newaccountsettingsview.cpp:846 src/newaccountsettingsview.cpp:882
-msgid "Change password"
-msgstr "Endre passord"
-
-#: src/accountgeneraltab.cpp:339 src/chatview.cpp:175
-#: src/newaccountsettingsview.cpp:925
-msgid "Save File"
-msgstr "Lagre fil"
-
-#: src/accountgeneraltab.cpp:364
-msgid "File exported to destination: "
-msgstr "Fil eksportert til mål:"
-
-#: src/accountgeneraltab.cpp:477 src/newaccountsettingsview.cpp:622
-msgid ""
-"Warning! This action will revoke the device!\n"
-"Note: this action cannot be undone."
-msgstr ""
-
-#: src/accountgeneraltab.cpp:478 src/newaccountsettingsview.cpp:623
-msgid "Enter password to revoke device"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:516
-msgid "New password and its confirmation are different"
-msgstr "Nytt passord og bekreftelse av det er forskjellig"
-
-#: src/accountgeneraltab.cpp:526
-msgid "Password changed!"
-msgstr "Passord endret!"
-
-#: src/accountgeneraltab.cpp:529
-msgid "Incorrect password"
-msgstr "Feil passord"
-
-#: src/accountgeneraltab.cpp:560
-msgid "Save name"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:560 src/newaccountsettingsview.cpp:681
-msgid "Revoke device"
-msgstr "Tilbakekall enhet"
-
-#: src/accountgeneraltab.cpp:581 src/newaccountsettingsview.cpp:703
-msgid "Error when revoking device"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:630
-msgid "Type"
-msgstr "Type"
-
-#: src/accountgeneraltab.cpp:656
-msgid "auto-generating…"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:686
-msgid "Hostname"
-msgstr "Vertsnavn"
-
-#: src/accountgeneraltab.cpp:719
-msgid "Show password"
-msgstr "Vis passord"
-
-#: src/accountgeneraltab.cpp:735
-msgid "Voicemail number"
-msgstr "Talepostkassenummer"
-
-#: src/accountgeneraltab.cpp:799 src/newaccountsettingsview.cpp:1790
-msgid "Error: wrong password!"
-msgstr ""
-
-#: src/accountgeneraltab.cpp:802 src/newaccountsettingsview.cpp:1793
-msgid "Error: unknown device!"
-msgstr ""
 
 #: src/video/video_widget.cpp:549
 msgid "Share _screen area"
@@ -1100,7 +1007,11 @@ msgstr ""
 msgid "Send File"
 msgstr "Send fil"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:964
+#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:927
+msgid "Save File"
+msgstr "Lagre fil"
+
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:993
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1111,70 +1022,121 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/newaccountsettingsview.cpp:681
+#: src/newaccountsettingsview.cpp:624
+msgid ""
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:625
+msgid "Enter password to revoke device"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:683
 msgid "Edit name"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:776
+#: src/newaccountsettingsview.cpp:683
+msgid "Revoke device"
+msgstr "Tilbakekall enhet"
+
+#: src/newaccountsettingsview.cpp:705
+msgid "Error when revoking device"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:778
 msgid "Unban"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:812
+#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
+#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
+msgid "Change password"
+msgstr "Endre passord"
+
+#: src/newaccountsettingsview.cpp:814
 msgid "New password and its confirmation are different!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:823
+#: src/newaccountsettingsview.cpp:825
 msgid "Incorrect password!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:860
+#: src/newaccountsettingsview.cpp:862
 msgid "Note: this will change the password only on this device."
 msgstr "Merk: Dette vil endre passordet kun på denne enheten."
 
-#: src/newaccountsettingsview.cpp:863
+#: src/newaccountsettingsview.cpp:865
 msgid "Current password"
 msgstr "Nåværende passord"
 
-#: src/newaccountsettingsview.cpp:869
+#: src/newaccountsettingsview.cpp:871
 msgid "New password"
 msgstr "Nytt passord"
 
-#: src/newaccountsettingsview.cpp:949
+#: src/newaccountsettingsview.cpp:954
+msgid "You need to enter your password to export the full archive."
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:955
+msgid "Enter password to export archive"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:978
 msgid "Account exported!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:949
+#: src/newaccountsettingsview.cpp:978
 msgid "Export account failure."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1719
+#: src/newaccountsettingsview.cpp:1741
+msgid "Bad password"
+msgstr "Dårlig passord"
+
+#: src/newaccountsettingsview.cpp:1747
+msgid "Network error, try again"
+msgstr "Nettverksfeil, prøv på nytt"
+
+#: src/newaccountsettingsview.cpp:1753
 msgid "Unknown error"
 msgstr "Ukjent feil"
 
-#: src/newaccountsettingsview.cpp:1964
+#: src/newaccountsettingsview.cpp:1765
+msgid "Could not initiate export to the Jami, try again"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1824
+msgid "Error: wrong password!"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1827
+msgid "Error: unknown device!"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1998
 msgid "Initializing…"
 msgstr "Starter…"
 
-#: src/newaccountsettingsview.cpp:1967
+#: src/newaccountsettingsview.cpp:2001
 msgid "Offline"
 msgstr "Frakoblet"
 
-#: src/newaccountsettingsview.cpp:1970
+#: src/newaccountsettingsview.cpp:2004
 msgid "Connecting…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1973
+#: src/newaccountsettingsview.cpp:2007
 msgid "Online"
 msgstr "Tilkoblet"
 
-#: src/newaccountsettingsview.cpp:1977
+#: src/newaccountsettingsview.cpp:2011
 msgid "Unknown status"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2010
+#: src/newaccountsettingsview.cpp:2044
 msgid "••••••••"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2010
+#: src/newaccountsettingsview.cpp:2044
 msgid "no password set"
 msgstr ""
