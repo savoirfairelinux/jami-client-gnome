@@ -57,6 +57,7 @@ struct _MediaSettingsViewPrivate
     GtkWidget *combobox_ringtone;
     GtkWidget *combobox_output;
     GtkWidget *combobox_input;
+    GtkWidget *levelbar_input;
 
     /* camera settings */
     GtkWidget *combobox_device;
@@ -73,6 +74,7 @@ struct _MediaSettingsViewPrivate
 
     QMetaObject::Connection local_renderer_connection;
     QMetaObject::Connection device_event_connection;
+    QMetaObject::Connection audio_meter_connection;
 
     /* hardware accel settings */
     GtkWidget *checkbutton_hardware_decoding;
@@ -125,6 +127,8 @@ CppImpl::CppImpl(MediaSettingsView& widget, lrc::api::AVModel& avModel)
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_manager), activeIdx);
     drawAudioDevices();
     drawVideoDevices();
+
+    gtk_level_bar_set_value(GTK_LEVEL_BAR(widgets->levelbar_input), 0.0);
 }
 
 void
@@ -304,6 +308,7 @@ media_settings_view_dispose(GObject *object)
 
     QObject::disconnect(priv->local_renderer_connection);
     QObject::disconnect(priv->device_event_connection);
+    QObject::disconnect(priv->audio_meter_connection);
 
     G_OBJECT_CLASS(media_settings_view_parent_class)->dispose(object);
 }
@@ -461,6 +466,7 @@ media_settings_view_class_init(MediaSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_resolution);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_framerate);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, checkbutton_hardware_decoding);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, levelbar_input);
 }
 
 GtkWidget *
@@ -491,6 +497,13 @@ media_settings_view_new(lrc::api::AVModel& avModel)
         G_CALLBACK(set_resolution), self);
     g_signal_connect_swapped(priv->combobox_framerate, "changed",
         G_CALLBACK(set_framerate), self);
+    priv->audio_meter_connection = QObject::connect(
+        &*priv->cpp->avModel_,
+        &lrc::api::AVModel::audioMeter,
+        [=](const std::string& id, float level) {
+            if (id == "audiolayer_id")
+                gtk_level_bar_set_value(GTK_LEVEL_BAR(priv->levelbar_input), level);
+        });
     return (GtkWidget *)self;
 }
 
@@ -546,6 +559,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
         } catch (const std::out_of_range& e) {
             g_warning("Cannot start preview");
         }
+        priv->cpp->avModel_->setAudioMeterState(true);
     } else {
         if (priv->video_started_by_settings) {
             priv->cpp->avModel_->stopPreview();
@@ -557,6 +571,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
         if (priv->video_widget && IS_VIDEO_WIDGET(priv->video_widget))
             gtk_container_remove(GTK_CONTAINER(priv->vbox_main), priv->video_widget);
         priv->video_widget = NULL;
+        priv->cpp->avModel_->setAudioMeterState(false);
     }
 
 }

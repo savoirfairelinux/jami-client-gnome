@@ -82,6 +82,18 @@
               </packing>
             </child>
             <child>
+              <object class="GtkLabel" id="label_input_meter">
+                <property name="visible">True</property>
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Input volume meter:</property>
+                <property name="margin_left">10</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">5</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkComboBoxText" id="combobox_manager">
                 <property name="visible">True</property>
                 <property name="popup-fixed-width">False</property>
@@ -125,6 +137,16 @@
                 <property name="top_attach">4</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkLevelBar" id="levelbar_input">
+                <property name="visible">True</property>
+                <property name="margin_left">10</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">5</property>
+              </packing>
+            </child>
             <!-- end audio selection -->
             <!-- start camera selection -->
             <child>
@@ -139,7 +161,7 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">5</property>
+                <property name="top_attach">6</property>
                 <property name="width">2</property>
               </packing>
             </child>
@@ -152,7 +174,7 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">6</property>
+                <property name="top_attach">7</property>
               </packing>
             </child>
             <child>
@@ -164,7 +186,7 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">7</property>
+                <property name="top_attach">8</property>
               </packing>
             </child>
             <child>
@@ -176,7 +198,7 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">8</property>
+                <property name="top_attach">9</property>
               </packing>
             </child>
             <child>
@@ -188,7 +210,7 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">9</property>
+                <property name="top_attach">10</property>
               </packing>
             </child>
             <child>
@@ -199,7 +221,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">6</property>
+                <property name="top_attach">7</property>
               </packing>
             </child>
             <child>
@@ -210,7 +232,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">7</property>
+                <property name="top_attach">8</property>
               </packing>
             </child>
             <child>
@@ -221,7 +243,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">8</property>
+                <property name="top_attach">9</property>
               </packing>
             </child>
             <child>
@@ -232,7 +254,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">9</property>
+                <property name="top_attach">10</property>
               </packing>
             </child>
             <!-- end camera selection -->
@@ -249,7 +271,7 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">10</property>
+                <property name="top_attach">11</property>
                 <property name="width">2</property>
               </packing>
             </child>
@@ -262,7 +284,7 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">11</property>
+                <property name="top_attach">12</property>
               </packing>
             </child>
             <child>
@@ -276,7 +298,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">11</property>
+                <property name="top_attach">12</property>
               </packing>
             </child>
             <!-- end hardware accel selection -->
