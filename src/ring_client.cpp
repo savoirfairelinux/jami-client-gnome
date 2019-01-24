@@ -356,6 +356,13 @@ static void
 ring_client_open(GApplication *app, GFile **file, gint /*arg3*/, const gchar* /*arg4*/)
 {
     ring_client_activate(app);
+    RingClient *client = RING_CLIENT(app);
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+
+    if (strcmp(g_file_get_uri_scheme(*file), "ring") == 0) {
+        std::string contact = g_file_get_basename(*file);
+        ring_window_place_call(RING_MAIN_WINDOW(priv->win), contact);
+    }
 
     // TODO migrate place call at begining
 }

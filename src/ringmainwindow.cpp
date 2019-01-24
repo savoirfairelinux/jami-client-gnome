@@ -2300,3 +2300,15 @@ ring_main_window_new(GtkApplication *app)
     gpointer win = g_object_new(RING_MAIN_WINDOW_TYPE, "application", app, NULL);
     return (GtkWidget *)win;
 }
+
+void
+ring_window_place_call(RingMainWindow *win, const std::string &uri)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    if (priv->cpp->accountInfo_) {
+      priv->cpp->accountInfo_->conversationModel->addAndCall(uri);
+    } else {
+        g_warning("Cannot place call, accountInfo_ not initialized");
+    }
+}
