@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-21 03:09-0500\n"
-"PO-Revision-Date: 2019-01-21 08:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-01-28 03:09-0500\n"
+"PO-Revision-Date: 2019-01-22 12:22+0000\n"
+"Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/savoirfairelinux/ring/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1074,11 +1074,11 @@ msgstr "Nova palavra-chave"
 
 #: src/newaccountsettingsview.cpp:954
 msgid "You need to enter your password to export the full archive."
-msgstr ""
+msgstr "Tem de introduzir a sua palavra-chave para exportar o arquivo completo."
 
 #: src/newaccountsettingsview.cpp:955
 msgid "Enter password to export archive"
-msgstr ""
+msgstr "Introduza a palavra-chave para exportar o arquivo"
 
 #: src/newaccountsettingsview.cpp:978
 msgid "Account exported!"

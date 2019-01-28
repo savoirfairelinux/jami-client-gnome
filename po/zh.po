@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Derek 呆 <dailidu@linuxdeepin.com>, 2016
-# Redfish Hong-Yu Li <redfish.tbc@gmail.com>, 2016
+# redfishleo <redfish.tbc@gmail.com>, 2016
 # Tom Samder <2v894l+efbge9r9x3pt0@sharklasers.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-21 03:09-0500\n"
+"POT-Creation-Date: 2019-01-28 03:09-0500\n"
 "PO-Revision-Date: 2019-01-21 08:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Chinese (http://www.transifex.com/savoirfairelinux/ring/language/zh/)\n"

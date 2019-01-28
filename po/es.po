@@ -14,6 +14,7 @@
 # fgp <komakino@wanadoo.es>, 2016
 # Gabriel Molina <gabriel@hackerdou.com>, 2017
 # Jelid Leon <jelid.leon@gmail.com>, 2017
+# Jose Esparza <pebeto99@gmail.com>, 2019
 # jsagarribay <jsagarribay@gmail.com>, 2016
 # jsagarribay <jsagarribay@gmail.com>, 2016
 # Juanjo Faico <juanjofaico22@openmailbox.org>, 2016
@@ -36,9 +37,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ring\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-21 03:09-0500\n"
-"PO-Revision-Date: 2019-01-21 08:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-01-28 03:09-0500\n"
+"PO-Revision-Date: 2019-01-22 04:01+0000\n"
+"Last-Translator: Jose Esparza <pebeto99@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -293,15 +294,15 @@ msgstr "Sistema"
 
 #: ui/generalsettingsview.ui:81
 msgid "Start application on login"
-msgstr ""
+msgstr "Iniciar aplicación al iniciar sesión"
 
 #: ui/generalsettingsview.ui:117
 msgid "Show Jami icon (systray) in the systray area"
-msgstr ""
+msgstr "Mostrar el ícono de Jami (systray) en el área de programas en ejecución"
 
 #: ui/generalsettingsview.ui:153
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
+msgstr "Traer a Jami a primer plano en llamadas entrantes"
 
 #: ui/generalsettingsview.ui:189
 msgid "Notifications"
@@ -313,27 +314,27 @@ msgstr "Habilitar notificaciones para llamadas entrantes."
 
 #: ui/generalsettingsview.ui:264
 msgid "Enable notifications for pending requests"
-msgstr ""
+msgstr "Activar notificaciones para solicitudes pendientes"
 
 #: ui/generalsettingsview.ui:300
 msgid "Enable notifications for new chat messages"
-msgstr ""
+msgstr "Activar notificaciones para nuevos mensajes en el chat"
 
 #: ui/generalsettingsview.ui:336
 msgid "Chatview"
-msgstr ""
+msgstr "Vista de chat"
 
 #: ui/generalsettingsview.ui:375
 msgid "Display images and videos into the chatview"
-msgstr ""
+msgstr "Mostrar imágenes y vídeos dentro de la vista de chat"
 
 #: ui/generalsettingsview.ui:412
 msgid "Show chatview on the right (on the bottom if off)"
-msgstr ""
+msgstr "Mostrar la vista de chat a la derecha (en la parte inferior si esta desactivado)"
 
 #: ui/generalsettingsview.ui:449
 msgid "Download folder"
-msgstr ""
+msgstr "Descargar carpeta"
 
 #: ui/generalsettingsview.ui:486
 msgid "History"
@@ -341,7 +342,7 @@ msgstr "Historial"
 
 #: ui/generalsettingsview.ui:525
 msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
+msgstr "Mantener el historial por (días, 0 = ilimitado)"
 
 #: ui/generalsettingsview.ui:555
 msgid "Clear all history"
@@ -1102,11 +1103,11 @@ msgstr "Contraseña nueva"
 
 #: src/newaccountsettingsview.cpp:954
 msgid "You need to enter your password to export the full archive."
-msgstr ""
+msgstr "Necesitas ingresar tu contraseña para exportar el archivo completo"
 
 #: src/newaccountsettingsview.cpp:955
 msgid "Enter password to export archive"
-msgstr ""
+msgstr "Ingresa tu contraseña para exportar el archivo"
 
 #: src/newaccountsettingsview.cpp:978
 msgid "Account exported!"
