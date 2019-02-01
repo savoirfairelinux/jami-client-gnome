@@ -4,15 +4,15 @@
 
 Jami-client-gnome is a Jami client written in GTK+3. It uses libRingClient to
 communicate with the Jami daemon and for all of the underlying models and their
-logic. Ideally ring-client-gnome should only contain UI related code and any
+logic. Ideally Jami-client-gnome should only contain UI related code and any
 wrappers necessary for interacting with libRingClient.
 
-Packages for Debian/Ubuntu/Fedora can be found at https://jami.net
+Packages for Debian/Ubuntu/Fedora can be found at https://jami.net/
 
-More info about the Ring project and the clients can be found on our Gitlab's instance:
+More info about the Jami project and the clients can be found on our Gitlab's instance:
 https://git.jami.net/
 
-GNU Ring welcomes contribution from everyone. See [CONTRIBUTING.md](CONTRIBUTING.md) for help getting started.
+GNU Jami welcomes contribution from everyone. See [CONTRIBUTING.md](CONTRIBUTING.md) for help getting started.
 
 # Setting up your environment
 
@@ -24,18 +24,18 @@ GNU Ring welcomes contribution from everyone. See [CONTRIBUTING.md](CONTRIBUTING
 - Qt5 Core
 - X11
 - gnome-icon-theme-symbolic (certain icons are used which other themes might be missing)
-- libebook1.2 / evolution-data-server (3.10 or higher)
+- A font with symbols U+1F4DE and U+1F57D (used in some messages)
 - libnotify (optional, if you wish to receive desktop notifications of incoming calls, etc)
 - gettext (optional to compile translations)
 
 On Debian/Ubuntu these can be installed by:
 ```bash
-sudo apt-get install g++ cmake libgtk-3-dev qtbase5-dev libclutter-gtk-1.0-dev gnome-icon-theme-symbolic libebook1.2-dev libnotify-dev gettext
+sudo apt-get install g++ cmake libgtk-3-dev qtbase5-dev libclutter-gtk-1.0-dev gnome-icon-theme-symbolic libnotify-dev gettext
 ```
 
 On Fedora:
 ```bash
-sudo dnf install gcc-c++ cmake gtk3-devel qt5-qtbase-devel clutter-gtk-devel gnome-icon-theme-symbolic evolution-data-server-devel libnotify-devel gettext
+sudo dnf install gcc-c++ cmake gtk3-devel qt5-qtbase-devel clutter-gtk-devel gnome-icon-theme-symbolic libnotify-devel gettext
 ```
 
 The build instructions for the daemon and libRingClient can be found in their
