@@ -7,13 +7,15 @@
 # Guillaume Roguez, 2016
 # Arledrian <hvuzgr@gmail.com>, 2017
 # jhasse <jhasse@gmail.com>, 2017
+# Ralf, 2019
+# Wolfgang Traylor <wolfgang.traylor@senckenberg.de>, 2019
 msgid ""
 msgstr ""
-"Project-Id-Version: Ring\n"
+"Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-28 03:09-0500\n"
-"PO-Revision-Date: 2019-01-21 08:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-02-15 10:46-0500\n"
+"PO-Revision-Date: 2019-02-10 14:26+0000\n"
+"Last-Translator: Wolfgang Traylor <wolfgang.traylor@senckenberg.de>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/savoirfairelinux/ring/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,7 +60,7 @@ msgstr ""
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
 #: src/newaccountsettingsview.cpp:994
 msgid "Delete account"
-msgstr ""
+msgstr "Konto löschen"
 
 #: ui/accountmigrationview.ui:231
 msgid "Migration failed, wrong password?"
@@ -66,11 +68,11 @@ msgstr ""
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
-msgstr ""
+msgstr "Diesen Anruf beenden"
 
 #: ui/currentcallview.ui:255 ui/currentcallview.ui:483
 msgid "End call"
-msgstr ""
+msgstr "Anruf beenden"
 
 #: ui/currentcallview.ui:275
 msgid "Toggle transfer"
@@ -95,7 +97,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:348 ui/currentcallview.ui:456
 msgid "Mute video"
-msgstr ""
+msgstr "Video ausschalten"
 
 #: ui/currentcallview.ui:369
 msgid "Toggle recording"
@@ -112,7 +114,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:398 ui/currentcallview.ui:492
 msgid "Video quality"
-msgstr ""
+msgstr "Videoqualität"
 
 #: ui/currentcallview.ui:417
 msgid "Toggle show chat"
@@ -120,11 +122,11 @@ msgstr ""
 
 #: ui/currentcallview.ui:421 ui/currentcallview.ui:438
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 #: ui/currentcallview.ui:447
 msgid "Mute audio"
-msgstr ""
+msgstr "Stummschalten"
 
 #: ui/currentcallview.ui:474
 msgid "Transfer"
@@ -140,7 +142,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:64
 msgid "Create Jami Account"
-msgstr ""
+msgstr "Jami-Konto erstellen"
 
 #: ui/accountcreationwizard.ui:65
 msgid "Create a new Jami account (for new users)"
@@ -148,11 +150,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
-msgstr "Dieses Gerät mit einem Ring-Konto verknüpfen"
+msgstr "Dieses Gerät mit einem bestehenden Konto verknüpfen"
 
 #: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Jami account created on another device"
-msgstr ""
+msgstr "Dieses Gerät mit einem Jami-Konto verbinden, das auf einem anderen Gerät erstellt wurde."
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:887
@@ -161,15 +163,15 @@ msgstr "Abbrechen"
 
 #: ui/accountcreationwizard.ui:86
 msgid "Advanced…"
-msgstr ""
+msgstr "Erweitert…"
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
-msgstr ""
+msgstr "Neues SIP-Konto hinzufügen"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
-msgstr ""
+msgstr "Dieses Gerät mit einem bestehenden Konto verknüpfen"
 
 #: ui/accountcreationwizard.ui:134
 msgid ""
@@ -180,11 +182,11 @@ msgid ""
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr ""
+msgstr "Um dieses Gerät mit einem bestehenden Konto zu verbinden, haben Sie zwei Möglichkeiten. Sie können Ihr Konto aus dem Jami-Netzwerk importieren, doch dafür brauchen Sie zunächst eine PIN. Um diese PIN zu generieren, gehen Sie zu den Kontoeinstellungen Ihres anderen Geräts, wählen dort das gewünschte Jami-Konto aus und klicken auf »Neues Gerät verbinden«. Dann wird die benötigte PIN angezeigt, die Sie daraufhin hier eingeben. Die PIN ist nur für 10 Minuten gültig. Alternativ können Sie ein Konto auch direkt aus einer exportierten Archivdatei importieren."
 
 #: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
-msgstr ""
+msgstr "PIN eingeben:"
 
 #: ui/accountcreationwizard.ui:188
 msgid "Or import a file:"
@@ -192,7 +194,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:207
 msgid "Enter your password:"
-msgstr ""
+msgstr "Passwort eingeben:"
 
 #: ui/accountcreationwizard.ui:227 ui/accountcreationwizard.ui:530
 msgid "Previous"
@@ -213,14 +215,14 @@ msgstr "Konto"
 
 #: ui/accountcreationwizard.ui:387
 msgid "Register username"
-msgstr ""
+msgstr "Benutzernamen registrieren"
 
 #: ui/accountcreationwizard.ui:388
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Klicken Sie hier, um einen eindeutigen Benutzernamen im Jami-Netzwerk zu registrieren. Andere Nutzer können darüber mit Ihnen Kontakt aufnehmen, anstatt die 40 Zeichen lange RingID zu benutzen."
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733
@@ -231,7 +233,7 @@ msgstr "Benutzername"
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "Dieses Passwort wird benutzt, um Ihre Kontodaten zu verschlüsseln und um neue Geräte mit Ihrem Konto zu verknüpfen."
 
 #: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:877
 msgid "Confirm password"
@@ -239,23 +241,23 @@ msgstr "Konto bestätigen"
 
 #: ui/accountcreationwizard.ui:562
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "Ihr Jami-Konto wird erstellt …"
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
-msgstr ""
+msgstr "Benutzername wird registriert …"
 
 #: ui/accountcreationwizard.ui:595
 msgid "This may take a few minutes."
-msgstr ""
+msgstr "Dies kann einige Minuten dauern."
 
 #: ui/accountcreationwizard.ui:621
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "Ihr Jami-Konto wird geladen …"
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
-msgstr ""
+msgstr "Fehler beim Erstellen bzw. Laden des Kontos."
 
 #: ui/accountcreationwizard.ui:652 ui/newaccountsettingsview.ui:266
 #: ui/newaccountsettingsview.ui:289
@@ -268,23 +270,23 @@ msgstr "System"
 
 #: ui/generalsettingsview.ui:81
 msgid "Start application on login"
-msgstr ""
+msgstr "Jami automatisch starten."
 
 #: ui/generalsettingsview.ui:117
 msgid "Show Jami icon (systray) in the systray area"
-msgstr ""
+msgstr "Jami im Infobereich (System-Tray) anzeigen."
 
 #: ui/generalsettingsview.ui:153
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
+msgstr "Bei eingehenden Anrufen in den Vordergrund holen"
 
 #: ui/generalsettingsview.ui:189
 msgid "Notifications"
-msgstr ""
+msgstr "Benachrichtigungen"
 
 #: ui/generalsettingsview.ui:228
 msgid "Enable notifications for incoming calls"
-msgstr ""
+msgstr "Benachrichtigungen für eingehende Anrufe aktivieren"
 
 #: ui/generalsettingsview.ui:264
 msgid "Enable notifications for pending requests"
@@ -292,7 +294,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:300
 msgid "Enable notifications for new chat messages"
-msgstr ""
+msgstr "Benachrichtigungen für neue Chatnachrichten aktivieren"
 
 #: ui/generalsettingsview.ui:336
 msgid "Chatview"
@@ -308,7 +310,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:449
 msgid "Download folder"
-msgstr ""
+msgstr "Download-Ordner"
 
 #: ui/generalsettingsview.ui:486
 msgid "History"
@@ -340,7 +342,7 @@ msgstr "Einstellungen"
 
 #: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
 msgid "Conversations"
-msgstr ""
+msgstr "Gespräche"
 
 #: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
 msgid "Contact requests"
@@ -348,7 +350,7 @@ msgstr "Kontaktanfragen"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
-msgstr ""
+msgstr "Audio-Einstellungen"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
@@ -360,11 +362,11 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
-msgstr ""
+msgstr "Ausgabegerät:"
 
 #: ui/mediasettingsview.ui:76
 msgid "Input device:"
-msgstr ""
+msgstr "Eingabegerät:"
 
 #: ui/mediasettingsview.ui:134
 msgid "Camera Settings"
@@ -372,7 +374,7 @@ msgstr "Kamera-Einstellungen"
 
 #: ui/mediasettingsview.ui:150
 msgid "Device:"
-msgstr ""
+msgstr "Gerät:"
 
 #: ui/mediasettingsview.ui:162
 msgid "Channel:"
@@ -380,7 +382,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:174
 msgid "Resolution:"
-msgstr ""
+msgstr "Auflösung:"
 
 #: ui/mediasettingsview.ui:186
 msgid "Frame rate:"
@@ -388,7 +390,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:244
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "Hardwarebeschleunigung"
 
 #: ui/mediasettingsview.ui:260
 msgid "Enable hardware decoding:"
@@ -396,38 +398,38 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
-msgstr ""
+msgstr "Gerät hinzufügen"
 
 #: ui/newaccountsettingsview.ui:131
 msgid "Add New Device"
-msgstr ""
+msgstr "Neues Gerät hinzufügen"
 
 #: ui/newaccountsettingsview.ui:146
 msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "Um ein neues Gerät mit Ihrem Jami-Konto zu verbinden, exportieren Sie Ihr Konto in das Netzwerk. Dabei wird eine PIN generiert, die auf Ihrem neuen Gerät innerhalb von 5 Minuten eingegeben werden muss."
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
-msgstr ""
+msgstr "Passwort (erforderlich):"
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
-msgstr ""
+msgstr "Archiv-Passwort eingeben"
 
 #: ui/newaccountsettingsview.ui:189
 msgid "Export on the network"
-msgstr ""
+msgstr "In das Netzwerk exportieren"
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Jami…"
-msgstr ""
+msgstr "Exportiere Konto in das Jami-Netzwerk …"
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
-msgstr ""
+msgstr "Ihre generierte PIN:"
 
 #: ui/newaccountsettingsview.ui:460
 msgid "ID"
@@ -435,19 +437,19 @@ msgstr "ID"
 
 #: ui/newaccountsettingsview.ui:538
 msgid "Click to change password"
-msgstr ""
+msgstr "Hier klicken, um das Passwort zu ändern."
 
 #: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2033
 msgid "Export account"
-msgstr ""
+msgstr "Konto exportieren"
 
 #: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:901
 msgid "Enable account"
-msgstr ""
+msgstr "Konto aktivieren"
 
 #: ui/newaccountsettingsview.ui:697
 msgid "SIP server"
-msgstr ""
+msgstr "SIP-Server"
 
 #: ui/newaccountsettingsview.ui:779
 msgid "password"
@@ -463,15 +465,15 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "Bekannte Geräte, die mit diesem Jami-Konto verbunden sind"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
-msgstr ""
+msgstr "Neues Gerät verbinden"
 
 #: ui/newaccountsettingsview.ui:1025
 msgid "Banned contacts"
-msgstr ""
+msgstr "Blockierte Kontakte"
 
 #: ui/newaccountsettingsview.ui:1081
 msgid "Advanced settings"
@@ -479,11 +481,11 @@ msgstr "Erweiterte Einstellungen"
 
 #: ui/newaccountsettingsview.ui:1117
 msgid "General settings"
-msgstr ""
+msgstr "Allgemeine Einstellungen"
 
 #: ui/newaccountsettingsview.ui:1135
 msgid "Call settings"
-msgstr ""
+msgstr "Anruf-Einstellungen"
 
 #: ui/newaccountsettingsview.ui:1173
 msgid "Allow call from untrusted peers"
@@ -495,7 +497,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1244
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Eigener Klingelton"
 
 #: ui/newaccountsettingsview.ui:1288
 msgid "Name server"
@@ -531,11 +533,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1644
 msgid "CA certificate"
-msgstr ""
+msgstr "CA-Zertifikat"
 
 #: ui/newaccountsettingsview.ui:1680
 msgid "User certificate"
-msgstr ""
+msgstr "Benutzer-Zertifikat"
 
 #: ui/newaccountsettingsview.ui:1716
 msgid "Private key"
@@ -575,7 +577,7 @@ msgstr "Sicherheit"
 
 #: ui/newaccountsettingsview.ui:2016
 msgid "Connectivity"
-msgstr ""
+msgstr "Verbindung"
 
 #: ui/newaccountsettingsview.ui:2054
 msgid "Registration expire timeout (seconds)"
@@ -583,7 +585,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2091
 msgid "Network interface"
-msgstr ""
+msgstr "Netzwerk-Schnittstelle"
 
 #: ui/newaccountsettingsview.ui:2127
 msgid "UPnP"
@@ -631,15 +633,15 @@ msgstr "Port"
 
 #: ui/newaccountsettingsview.ui:2549
 msgid "Video codecs"
-msgstr ""
+msgstr "Video-Codecs"
 
 #: ui/newaccountsettingsview.ui:2612
 msgid "Enable video"
-msgstr ""
+msgstr "Video aktivieren"
 
 #: ui/newaccountsettingsview.ui:2639
 msgid "Audio codecs"
-msgstr ""
+msgstr "Audio-Codecs"
 
 #: ui/newaccountsettingsview.ui:2709
 msgid "SDP Session Negotiation (ICE Fallback)"
@@ -667,11 +669,11 @@ msgstr ""
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "registrieren…"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
-msgstr ""
+msgstr "Chat verbergen"
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
@@ -687,15 +689,15 @@ msgstr ""
 
 #: ui/chatview.ui:134
 msgid "Send Invitation"
-msgstr ""
+msgstr "Einladung senden"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
-msgstr ""
+msgstr "Sprachnachricht aufnehmen"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "Ohne Nachricht beenden"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
@@ -711,11 +713,11 @@ msgstr "Ablehnen"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr ""
+msgstr "Bild aufnehmen"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr ""
+msgstr "Bild aus Datei wählen"
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
@@ -735,7 +737,7 @@ msgstr ""
 
 #: src/ring_client.cpp:117
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami-Fehler"
 
 #: src/ring_client.cpp:260
 msgctxt ""
@@ -789,7 +791,7 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:313
 msgid "Enter the password of your Jami account"
-msgstr ""
+msgstr "Bitte geben Sie Ihr Passwort für Ihr Jami-Konto ein."
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
@@ -803,7 +805,7 @@ msgstr ""
 
 #: src/generalsettingsview.cpp:170
 msgid "Choose download folder"
-msgstr ""
+msgstr "Download-Ordner auswählen"
 
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
 #: src/chatview.cpp:178 src/newaccountsettingsview.cpp:930
@@ -829,11 +831,11 @@ msgstr ""
 
 #: src/video/video_widget.cpp:574
 msgid "Show advanced information"
-msgstr ""
+msgstr "Weitere Informationen anzeigen"
 
 #: src/avatarmanipulation.cpp:411
 msgid "Open Avatar Image"
-msgstr ""
+msgstr "Avatar-Bild öffnen"
 
 #: src/avatarmanipulation.cpp:416 src/chatview.cpp:180
 msgid "_Open"
@@ -855,23 +857,23 @@ msgstr ""
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Der GNOME-Client für Jami.\nJami ist Freie Software für universale Kommunikation, die die Freiheiten und die Privatsphäre ihrer Nutzer respektiert."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
-msgstr ""
+msgstr "Die Gegenseite scheint beschäftigt. Möchten Sie eine Nachricht hinterlassen?"
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "Aufnahme beenden"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
-msgstr ""
+msgstr "Sprachnachricht senden"
 
 #: src/ringmainwindow.cpp:184
 msgid "Add account…"
-msgstr ""
+msgstr "Konto hinzufügen…"
 
 #: src/ringmainwindow.cpp:640
 msgctxt "button next to search entry will place a new call"
@@ -892,7 +894,7 @@ msgstr ""
 
 #: src/ringmainwindow.cpp:1578
 msgid "Leave settings page"
-msgstr ""
+msgstr "Einstellungen verlassen"
 
 #: src/ringmainwindow.cpp:1948
 msgid " is calling you!"
@@ -912,12 +914,12 @@ msgstr ""
 
 #: src/ringmainwindow.cpp:2149
 msgid "New message"
-msgstr ""
+msgstr "Neue Nachricht"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami-Fehler"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
@@ -931,11 +933,11 @@ msgstr ""
 
 #: src/conversationpopupmenu.cpp:211
 msgid "Place _video call"
-msgstr ""
+msgstr "Video-Anruf starten"
 
 #: src/conversationpopupmenu.cpp:214
 msgid "Place _audio call"
-msgstr ""
+msgstr "Anrufen"
 
 #: src/conversationpopupmenu.cpp:222
 msgid "_Add to conversations"
@@ -963,7 +965,7 @@ msgstr ""
 
 #: src/conversationpopupmenu.cpp:246
 msgid "_Unblock contact"
-msgstr ""
+msgstr "Blockierung aufheben"
 
 #: src/conversationpopupmenu.cpp:252
 msgid "_Copy name"
@@ -981,7 +983,7 @@ msgstr ""
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr ""
+msgstr "- GNOME-Client für Jami"
 
 #: src/accountcreationwizard.cpp:343
 msgid "Passwords don't match"
@@ -991,33 +993,33 @@ msgstr "Passwörter stimmen nicht überein"
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Dies ist Ihr Jami-Benutzername.\nKopieren Sie ihn und teilen Sie ihn mit Ihren Freunden!"
 
 #: src/ringwelcomeview.cpp:96
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Dies ist Ihre ID.\nKopieren und teilen Sie sie mit Ihren Freunden!"
 
 #: src/ringwelcomeview.cpp:169
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami ist Freie Software für universelle Kommunikation, die die Freiheiten und die Privatsphäre ihrer Nutzer respektiert."
 
 #: src/chatview.cpp:175
 msgid "Send File"
-msgstr ""
+msgstr "Datei senden"
 
 #: src/chatview.cpp:175 src/newaccountsettingsview.cpp:927
 msgid "Save File"
-msgstr ""
+msgstr "Datei speichern"
 
 #: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:993
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
+msgstr "Warnung! Hiermit wird dieses Konto von diesem Gerät entfernt!\nDies kann nicht rückgängig gemacht werden. Darüber hinaus kann Ihr registrierter Benutzername verloren gehen!"
 
 #: src/currentcallview.cpp:974
 msgctxt "Enable automatic video quality"
@@ -1028,15 +1030,15 @@ msgstr ""
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Warnung! Hiermit wird Ihr Gerät entfernt!\nDiese Aktion kann nicht rückgängig gemacht werden."
 
 #: src/newaccountsettingsview.cpp:625
 msgid "Enter password to revoke device"
-msgstr ""
+msgstr "Passwort eingeben, um Gerät zu widerrufen"
 
 #: src/newaccountsettingsview.cpp:683
 msgid "Edit name"
-msgstr ""
+msgstr "Namen bearbeiten"
 
 #: src/newaccountsettingsview.cpp:683
 msgid "Revoke device"
@@ -1053,23 +1055,23 @@ msgstr ""
 #: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
 #: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
 msgid "Change password"
-msgstr ""
+msgstr "Passwort ändern"
 
 #: src/newaccountsettingsview.cpp:814
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "Das eingegebene Passwort und die Bestätigung sind unterschiedlich!"
 
 #: src/newaccountsettingsview.cpp:825
 msgid "Incorrect password!"
-msgstr ""
+msgstr "Falsches Passwort!"
 
 #: src/newaccountsettingsview.cpp:862
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "Achtung: Dies wird das Passwort nur auf diesem Gerät ändern."
 
 #: src/newaccountsettingsview.cpp:865
 msgid "Current password"
-msgstr ""
+msgstr "Aktuelles Passwort"
 
 #: src/newaccountsettingsview.cpp:871
 msgid "New password"
@@ -1077,47 +1079,47 @@ msgstr "Neues Passwort"
 
 #: src/newaccountsettingsview.cpp:954
 msgid "You need to enter your password to export the full archive."
-msgstr ""
+msgstr "Sie müssen Ihr Passwort eingeben, um das gesamte Archiv zu exportieren."
 
 #: src/newaccountsettingsview.cpp:955
 msgid "Enter password to export archive"
-msgstr ""
+msgstr "Passwort eingeben, um Archiv zu exportieren"
 
 #: src/newaccountsettingsview.cpp:978
 msgid "Account exported!"
-msgstr ""
+msgstr "Konto exportiert!"
 
 #: src/newaccountsettingsview.cpp:978
 msgid "Export account failure."
-msgstr ""
+msgstr "Konto-Export fehlgeschlagen."
 
 #: src/newaccountsettingsview.cpp:1741
 msgid "Bad password"
-msgstr "Schwaches Passwort"
+msgstr "Falsches Passwort"
 
 #: src/newaccountsettingsview.cpp:1747
 msgid "Network error, try again"
-msgstr ""
+msgstr "Netzwerkfehler. Bitte versuchen Sie es erneut."
 
 #: src/newaccountsettingsview.cpp:1753
 msgid "Unknown error"
-msgstr ""
+msgstr "Unbekannter Fehler"
 
 #: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "Export in das Jami-Netzwerk konnte nicht initialisiert werden. Bitte versuchen Sie es erneut."
 
 #: src/newaccountsettingsview.cpp:1824
 msgid "Error: wrong password!"
-msgstr ""
+msgstr "Fehler: falsches Passwort!"
 
 #: src/newaccountsettingsview.cpp:1827
 msgid "Error: unknown device!"
-msgstr ""
+msgstr "Fehler: unbekanntes Gerät!"
 
 #: src/newaccountsettingsview.cpp:1998
 msgid "Initializing…"
-msgstr ""
+msgstr "Initialisiere …"
 
 #: src/newaccountsettingsview.cpp:2001
 msgid "Offline"
@@ -1125,7 +1127,7 @@ msgstr "Offline"
 
 #: src/newaccountsettingsview.cpp:2004
 msgid "Connecting…"
-msgstr ""
+msgstr "Verbinde …"
 
 #: src/newaccountsettingsview.cpp:2007
 msgid "Online"
@@ -1141,4 +1143,4 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2044
 msgid "no password set"
-msgstr ""
+msgstr "kein Passwort gesetzt"

@@ -8,10 +8,10 @@
 # Zsolt <maxigaz@protonmail.com>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: Ring\n"
+"Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-28 03:09-0500\n"
-"PO-Revision-Date: 2019-01-24 23:19+0000\n"
+"POT-Creation-Date: 2019-02-15 10:46-0500\n"
+"PO-Revision-Date: 2019-02-12 09:45+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/ring/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -343,7 +343,7 @@ msgstr "Beszélgetések"
 
 #: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
 msgid "Contact requests"
-msgstr "Névjegyek kérelmek"
+msgstr "Kapcsolat kérelmek"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
@@ -470,7 +470,7 @@ msgstr "Csatlakoztasson másik eszközt"
 
 #: ui/newaccountsettingsview.ui:1025
 msgid "Banned contacts"
-msgstr "Letiltott partnerek"
+msgstr "Letiltott kapcsolatok"
 
 #: ui/newaccountsettingsview.ui:1081
 msgid "Advanced settings"
@@ -486,7 +486,7 @@ msgstr "Hívás beállítások"
 
 #: ui/newaccountsettingsview.ui:1173
 msgid "Allow call from untrusted peers"
-msgstr "Hívás engedélyezése nem megbízható partnerektől"
+msgstr "Hívás engedélyezése nem megbízható kapcsolatoktól"
 
 #: ui/newaccountsettingsview.ui:1208
 msgid "Auto answer calls"
@@ -518,7 +518,7 @@ msgstr "Média-adatfolyamok titkosítása (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1538
 msgid "Enable SDES for key exchange protocol"
-msgstr "Engedélyezze a SDES kulcscsere protokollt"
+msgstr "Engedélyezze a SDES kulcscsere szabályhalmazat"
 
 #: ui/newaccountsettingsview.ui:1574
 msgid "Fallback on RTP on encryption failure"
@@ -546,7 +546,7 @@ msgstr "Személyes kulcs jelszava"
 
 #: ui/newaccountsettingsview.ui:1790
 msgid "TLS protocol method"
-msgstr "TLS protokoll metódus"
+msgstr "TLS szabályhalmaz eljárás"
 
 #: ui/newaccountsettingsview.ui:1826
 msgid "Outgoing TLS server name"
@@ -832,7 +832,7 @@ msgstr "Haladó információk megjelenítése"
 
 #: src/avatarmanipulation.cpp:411
 msgid "Open Avatar Image"
-msgstr "Avatar megnyitása"
+msgstr "Megtestesülés megnyitása"
 
 #: src/avatarmanipulation.cpp:416 src/chatview.cpp:180
 msgid "_Open"
@@ -887,7 +887,7 @@ msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr "Partnerek keresése vagy szám beírása"
+msgstr "Kapcsolatok keresése vagy szám beírása"
 
 #: src/ringmainwindow.cpp:1578
 msgid "Leave settings page"
@@ -958,11 +958,11 @@ msgstr "Beszélgetések _eltávolítása"
 
 #: src/conversationpopupmenu.cpp:242
 msgid "_Block contact"
-msgstr "Partner _letiltása"
+msgstr "Kapcsolat _letiltása"
 
 #: src/conversationpopupmenu.cpp:246
 msgid "_Unblock contact"
-msgstr "Partner letiltás _feloldása"
+msgstr "Kapcsolat letiltás _feloldása"
 
 #: src/conversationpopupmenu.cpp:252
 msgid "_Copy name"
@@ -1002,7 +1002,7 @@ msgstr "Ez az Ön azonosítója.\nMásolja és ossza meg a barátaival!"
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr "A Jami (GNU csomag, korábban Ring) egy univerzális és elosztott kommunikációs platform, amely tiszteletben tartja a felhasználók szabadságait és magánéletét."
+msgstr "A Jami (GNU csomag, korábban Ring) egy univerzális és elosztott közlés emelvény, amely tiszteletben tartja a felhasználók szabadságait és magánéletét."
 
 #: src/chatview.cpp:175
 msgid "Send File"

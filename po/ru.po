@@ -3,7 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Андрей Шевчук <andrei@shvchk.com>, 2016
+# Alexander, 2019
+# Андрей Шевчук <andrei@shevchuk.co>, 2016
 # Andrey, 2017
 # Anton Samarchyan <desecho@gmail.com>, 2016
 # cypherpunks01 cypherpunks01, 2018
@@ -15,18 +16,18 @@
 # Viktor Filinkov <bruteforce@sigil.tk>, 2015
 # Vladimir Stoiakin, 2018
 # Yaroslav Molochko <onorua@gmail.com>, 2015
-# Al, 2017
+# AlexanderFilev, 2017
 # Александр Суслов <suslikkreal@gmail.com>, 2015
 # Александр Асланьян <asl174@yandex.ru>, 2015
-# Андрей Шевчук <andrei@shvchk.com>, 2016-2017
+# Андрей Шевчук <andrei@shevchuk.co>, 2016-2017
 # Чураков Александр, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: Ring\n"
+"Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-28 03:09-0500\n"
-"PO-Revision-Date: 2019-01-21 08:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-02-15 10:46-0500\n"
+"PO-Revision-Date: 2019-02-06 20:44+0000\n"
+"Last-Translator: Marie Pelland <marie.pelland@savoirfairelinux.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/ring/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -281,7 +282,7 @@ msgstr "Система"
 
 #: ui/generalsettingsview.ui:81
 msgid "Start application on login"
-msgstr ""
+msgstr "Запускать приложение при входе в систему"
 
 #: ui/generalsettingsview.ui:117
 msgid "Show Jami icon (systray) in the systray area"
@@ -289,7 +290,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:153
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
+msgstr "Выводить Jami на передний план при входящих звонках"
 
 #: ui/generalsettingsview.ui:189
 msgid "Notifications"
@@ -321,7 +322,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:449
 msgid "Download folder"
-msgstr ""
+msgstr "Папка для загрузок"
 
 #: ui/generalsettingsview.ui:486
 msgid "History"
@@ -329,7 +330,7 @@ msgstr "История"
 
 #: ui/generalsettingsview.ui:525
 msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
+msgstr "Хранить историю (дней, 0 = неограниченно)"
 
 #: ui/generalsettingsview.ui:555
 msgid "Clear all history"
@@ -1094,7 +1095,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:955
 msgid "Enter password to export archive"
-msgstr ""
+msgstr "Введите пароль для экспорта архива"
 
 #: src/newaccountsettingsview.cpp:978
 msgid "Account exported!"

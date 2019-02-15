@@ -23,7 +23,7 @@
 # Jusore Mondos <jusore@gmail.com>, 2016
 # fgp <komakino@wanadoo.es>, 2016
 # Laura Arjona Reina <larjona@larjona.net>, 2016
-# Markel, 2018
+# Markel @wakutiteo, 2018
 # Miguel Angel NV <manvac@gmail.com>, 2017
 # Pier Jose Gotta Perez <piegope@gmail.com>, 2018
 # Rodrigo I. Avila D., 2018
@@ -31,15 +31,15 @@
 # Stepan Salenikovich, 2015
 # urkonn <urkonn@gmail.com>, 2017
 # urkonn <urkonn@gmail.com>, 2017
-# Markel, 2018
-# Markel, 2018
+# Markel @wakutiteo, 2018
+# Markel @wakutiteo, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Ring\n"
+"Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-28 03:09-0500\n"
-"PO-Revision-Date: 2019-01-22 04:01+0000\n"
-"Last-Translator: Jose Esparza <pebeto99@gmail.com>\n"
+"POT-Creation-Date: 2019-02-15 10:46-0500\n"
+"PO-Revision-Date: 2019-02-06 20:44+0000\n"
+"Last-Translator: Marie Pelland <marie.pelland@savoirfairelinux.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/ring/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
