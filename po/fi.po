@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-15 10:46-0500\n"
-"PO-Revision-Date: 2019-02-14 07:46+0000\n"
-"Last-Translator: Nikolay Korotkiy <sikmir@gmail.com>\n"
-"Language-Team: Finnish (http://www.transifex.com/savoirfairelinux/ring/language/fi/)\n"
+"POT-Creation-Date: 2019-02-21 13:07-0500\n"
+"PO-Revision-Date: 2019-02-16 13:52+0000\n"
+"Last-Translator: Tuomas Hietala <tuomas.hietala@kapsi.fi>\n"
+"Language-Team: Finnish (http://www.transifex.com/savoirfairelinux/jami/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -195,7 +195,7 @@ msgstr "Syötä salasanasi:"
 
 #: ui/accountcreationwizard.ui:227 ui/accountcreationwizard.ui:530
 msgid "Previous"
-msgstr ""
+msgstr "Edellinen"
 
 #: ui/accountcreationwizard.ui:235 ui/accountcreationwizard.ui:538
 msgid "Next"
