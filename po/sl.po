@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-21 13:07-0500\n"
-"PO-Revision-Date: 2019-02-06 20:44+0000\n"
-"Last-Translator: Marie Pelland <marie.pelland@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2019-02-22 16:01-0500\n"
+"PO-Revision-Date: 2019-02-22 21:01+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: Slovenian (http://www.transifex.com/savoirfairelinux/jami/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -363,31 +363,35 @@ msgstr "Izhodna naprava:"
 msgid "Input device:"
 msgstr "Vhodna naprava"
 
-#: ui/mediasettingsview.ui:134
+#: ui/mediasettingsview.ui:88
+msgid "Input volume meter:"
+msgstr ""
+
+#: ui/mediasettingsview.ui:156
 msgid "Camera Settings"
 msgstr "Nastavitve kamere"
 
-#: ui/mediasettingsview.ui:150
+#: ui/mediasettingsview.ui:172
 msgid "Device:"
 msgstr "Naprava:"
 
-#: ui/mediasettingsview.ui:162
+#: ui/mediasettingsview.ui:184
 msgid "Channel:"
 msgstr "Kanal:"
 
-#: ui/mediasettingsview.ui:174
+#: ui/mediasettingsview.ui:196
 msgid "Resolution:"
 msgstr "Resolucija:"
 
-#: ui/mediasettingsview.ui:186
+#: ui/mediasettingsview.ui:208
 msgid "Frame rate:"
 msgstr ""
 
-#: ui/mediasettingsview.ui:244
+#: ui/mediasettingsview.ui:266
 msgid "Hardware Acceleration"
 msgstr "Strojno pospeševanje"
 
-#: ui/mediasettingsview.ui:260
+#: ui/mediasettingsview.ui:282
 msgid "Enable hardware decoding:"
 msgstr "Omogoči strojno dekodiranje:"
 
