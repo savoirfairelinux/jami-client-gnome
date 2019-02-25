@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-22 16:01-0500\n"
-"PO-Revision-Date: 2019-02-22 21:01+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-02-25 03:10-0500\n"
+"PO-Revision-Date: 2019-02-23 01:19+0000\n"
+"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -367,7 +367,7 @@ msgstr "輸入設備"
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
-msgstr ""
+msgstr "輸入音量表："
 
 #: ui/mediasettingsview.ui:156
 msgid "Camera Settings"

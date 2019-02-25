@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-22 16:01-0500\n"
-"PO-Revision-Date: 2019-02-22 21:01+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-02-25 03:10-0500\n"
+"PO-Revision-Date: 2019-02-23 06:33+0000\n"
+"Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/jami/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -365,7 +365,7 @@ msgstr "Indataenhet:"
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
-msgstr ""
+msgstr "Volymmätare för indata:"
 
 #: ui/mediasettingsview.ui:156
 msgid "Camera Settings"
