@@ -33,7 +33,7 @@ dring_crash_dialog()
     gtk_window_set_resizable(GTK_WINDOW(dialog), FALSE);
     gtk_window_set_decorated(GTK_WINDOW(dialog), FALSE);
     gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
-    gtk_window_set_title(GTK_WINDOW(dialog), C_("Name of error window (dialog)","Ring Error"));
+    gtk_window_set_title(GTK_WINDOW(dialog), C_("Name of error window (dialog)","Jami Error"));
 
     /* get the main window */
     if (auto app = g_application_get_default()) {
@@ -92,7 +92,7 @@ ring_quitting_dialog()
     } else {
         gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
     }
-    gtk_window_set_title(GTK_WINDOW(dialog), C_("Name of error window (dialog)","Ring Error"));
+    gtk_window_set_title(GTK_WINDOW(dialog), C_("Name of error window (dialog)","Jami Error"));
     gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
 
     return dialog;

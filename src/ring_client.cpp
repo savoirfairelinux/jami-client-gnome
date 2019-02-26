@@ -146,7 +146,7 @@ exception_dialog(const char* msg)
                             _("Unable to initialize.\nMake sure the Ring daemon (dring) is running.\nError: %s"),
                             msg);
 
-    gtk_window_set_title(GTK_WINDOW(dialog), _("Ring Error"));
+    gtk_window_set_title(GTK_WINDOW(dialog), _("Jami Error"));
     gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
 }
