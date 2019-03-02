@@ -83,6 +83,13 @@
       </div>
     <div id="container">
       <div id="messages" onscroll="onScrolled()"></div>
+
+    <div id="scroll_btn" onclick="back_to_bottom()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 12l-4-4h8l-4 4z" />
+        </svg>
+    </div>
       <div id="sendMessage">
         <div class="nav-button action-button" onclick="sendFile()" title="Send File">
             <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -156,6 +163,14 @@ function onScrolled_() {
     if (messages.scrollTop == 0 && historyBufferIndex != historyBuffer.length) {
         /* At the top and there's something to print */
         printHistoryPart(messages, messages.scrollHeight)
+    }
+
+    if (messages.scrollHeight - messages.scrollTop === messages.clientHeight) {
+        document.getElementById("scroll_btn").style.visibility = "hidden";
+        document.getElementById("scroll_btn").style.opacity = 0;
+    } else {
+        document.getElementById("scroll_btn").style.visibility = "visible";
+        document.getElementById("scroll_btn").style.opacity = 1;
     }
 }
 

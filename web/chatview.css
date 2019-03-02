@@ -983,3 +983,13 @@ audio {
       width: 200px;
   }
 }
+
+#scroll_btn {
+    right: 12;
+    bottom: 12;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    fill: var(--action-icon-color);
+    transition: all 0.3s linear;
+}
