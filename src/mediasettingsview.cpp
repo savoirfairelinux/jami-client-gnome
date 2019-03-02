@@ -186,22 +186,22 @@ CppImpl::drawFramerates()
         currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
         currentRes = avModel_->getDeviceSettings(currentDevice).size;
         currentRate = std::to_string(avModel_->getDeviceSettings(currentDevice).rate);
+        auto rates = avModel_->getDeviceCapabilities(currentDevice).at(currentChannel).at(currentRes);
+        auto i = 0;
+        gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate));
+        for (const auto& rate : rates) {
+            auto rateStr = std::to_string(rate);
+            if (rateStr == currentRate) {
+                active = i;
+            }
+            gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate), nullptr, rateStr.c_str());
+            i++;
+        }
+        gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_framerate), active);
     } catch (const std::out_of_range&) {
         g_warning("drawFramerates out_of_range exception");
         return;
     }
-    auto rates = avModel_->getDeviceCapabilities(currentDevice).at(currentChannel).at(currentRes);
-    auto i = 0;
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate));
-    for (const auto& rate : rates) {
-        auto rateStr = std::to_string(rate);
-        if (rateStr == currentRate) {
-            active = i;
-        }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate), nullptr, rateStr.c_str());
-        i++;
-    }
-    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_framerate), active);
 }
 
 void
@@ -217,21 +217,21 @@ CppImpl::drawResolutions()
     try {
         currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
         currentRes = avModel_->getDeviceSettings(currentDevice).size;
+        auto resToRates = avModel_->getDeviceCapabilities(currentDevice).at(currentChannel);
+        auto i = 0;
+        gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution));
+        for (const auto& item : resToRates) {
+            if (item.first == currentRes) {
+                active = i;
+            }
+            gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution), nullptr, item.first.c_str());
+            i++;
+        }
+        gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_resolution), active);
     } catch (const std::out_of_range&) {
         g_warning("drawResolutions out_of_range exception");
         return;
     }
-    auto resToRates = avModel_->getDeviceCapabilities(currentDevice).at(currentChannel);
-    auto i = 0;
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution));
-    for (const auto& item : resToRates) {
-        if (item.first == currentRes) {
-            active = i;
-        }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution), nullptr, item.first.c_str());
-        i++;
-    }
-    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_resolution), active);
     drawFramerates();
 }
 
