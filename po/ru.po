@@ -14,7 +14,7 @@
 # Natalia <sonaux@gmail.com>, 2015
 # ruwebstyle, 2015
 # Viktor Filinkov <bruteforce@sigil.tk>, 2015
-# Vladimir Stoiakin, 2018
+# Vladimir Stoiakin, 2018-2019
 # Yaroslav Molochko <onorua@gmail.com>, 2015
 # AlexanderFilev, 2017
 # Александр Суслов <suslikkreal@gmail.com>, 2015
@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-25 03:10-0500\n"
-"PO-Revision-Date: 2019-02-22 21:01+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-03-04 03:09-0500\n"
+"PO-Revision-Date: 2019-02-27 13:19+0000\n"
+"Last-Translator: Vladimir Stoiakin\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -306,7 +306,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:300
 msgid "Enable notifications for new chat messages"
-msgstr ""
+msgstr "Включить уведомления о новых сообщениях чата"
 
 #: ui/generalsettingsview.ui:336
 msgid "Chatview"
@@ -314,7 +314,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:375
 msgid "Display images and videos into the chatview"
-msgstr ""
+msgstr "Показывать изображения и видео в окне чата"
 
 #: ui/generalsettingsview.ui:412
 msgid "Show chatview on the right (on the bottom if off)"
