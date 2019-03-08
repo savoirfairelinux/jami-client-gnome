@@ -2210,6 +2210,10 @@ ring_main_window_init(RingMainWindow *win)
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
     gtk_widget_init_template(GTK_WIDGET(win));
 
+#if USE_LIBNM
+    priv->nm_client = nullptr;
+#endif
+
     // CppImpl ctor
     priv->cpp = new details::CppImpl {*win};
     priv->notifier = ring_notifier_new();
@@ -2231,15 +2235,20 @@ ring_main_window_dispose(GObject *object)
     if (priv->cancellable) {
         g_cancellable_cancel(priv->cancellable);
         g_object_unref(priv->cancellable);
+        priv->cancellable = nullptr;
     }
+
 #if USE_LIBNM
     // clear NetworkManager client if it was used
     g_clear_object(&priv->nm_client);
 #endif
 
-    if (priv->general_settings_view) {
+    if (priv->update_download_folder) {
         g_signal_handler_disconnect(priv->general_settings_view, priv->update_download_folder);
         priv->update_download_folder = 0;
+    }
+
+    if (priv->notifier) {
         g_signal_handler_disconnect(priv->notifier, priv->notif_chat_view);
         priv->notif_chat_view = 0;
         g_signal_handler_disconnect(priv->notifier, priv->notif_accept_pending);
@@ -2250,8 +2259,12 @@ ring_main_window_dispose(GObject *object)
         priv->notif_accept_call = 0;
         g_signal_handler_disconnect(priv->notifier, priv->notif_decline_call);
         priv->notif_decline_call = 0;
+
+        gtk_widget_destroy(priv->notifier);
+        priv->notifier = nullptr;
     }
-    gtk_widget_destroy(priv->notifier);
+
+    G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
 }
 
 static void
