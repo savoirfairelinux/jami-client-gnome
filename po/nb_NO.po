@@ -3,34 +3,31 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# a a <gfvbjhgf@mailinator.com>, 2016
-# Efstathios Iosifidis <iefstathios@gmail.com>, 2016
-# Vangelis Skarmoutsos <skarmoutsosv@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-11 03:09-0400\n"
-"PO-Revision-Date: 2019-02-22 21:01+0000\n"
-"Last-Translator: Alexandre Lision\n"
-"Language-Team: Greek (http://www.transifex.com/savoirfairelinux/jami/language/el/)\n"
+"PO-Revision-Date: 2019-03-07 03:44+0000\n"
+"Last-Translator: Nills <9liam@pm.me>\n"
+"Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/savoirfairelinux/jami/language/nb_NO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
+"Language: nb_NO\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr "Σχετικά"
+msgstr ""
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
-msgstr "Έξοδος"
+msgstr ""
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
-msgstr "Απαιτείται ενοποίηση λογαριασμού"
+msgstr "Brukerkontoen må forflyttes"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
@@ -38,20 +35,20 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:89
 msgid "Alias"
-msgstr "Ψευδώνυμο"
+msgstr ""
 
 #: ui/accountmigrationview.ui:126
 msgid "RingID"
-msgstr "RingID"
+msgstr ""
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:451
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 msgid "Password"
-msgstr "Συνθηματικό"
+msgstr "Passord…"
 
 #: ui/accountmigrationview.ui:198
 msgid "Migrate account"
-msgstr "Ενοποίηση λογαριασμού"
+msgstr ""
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
@@ -65,11 +62,11 @@ msgstr ""
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
-msgstr "Τερματισμός αυτής της κλήσης"
+msgstr ""
 
 #: ui/currentcallview.ui:255 ui/currentcallview.ui:483
 msgid "End call"
-msgstr "Τερματισμός κλήσης"
+msgstr ""
 
 #: ui/currentcallview.ui:275
 msgid "Toggle transfer"
@@ -77,24 +74,24 @@ msgstr ""
 
 #: ui/currentcallview.ui:294
 msgid "Toggle hold"
-msgstr "Εναλλαγή αναμονής"
+msgstr ""
 
 #: ui/currentcallview.ui:298 ui/currentcallview.ui:323
 #: ui/currentcallview.ui:465
 msgid "Hold"
-msgstr "Αναμονή"
+msgstr ""
 
 #: ui/currentcallview.ui:319
 msgid "Toggle mute audio"
-msgstr "Εναλλαγή σίγασης ήχου"
+msgstr ""
 
 #: ui/currentcallview.ui:344
 msgid "Toggle mute video"
-msgstr "Εναλλαγή σίγασης βίντεο"
+msgstr ""
 
 #: ui/currentcallview.ui:348 ui/currentcallview.ui:456
 msgid "Mute video"
-msgstr "Σίγαση βίντεο"
+msgstr ""
 
 #: ui/currentcallview.ui:369
 msgid "Toggle recording"
@@ -103,31 +100,31 @@ msgstr ""
 #: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 #: ui/messagingwidget.ui:29
 msgid "Record"
-msgstr "Εγγραφή"
+msgstr ""
 
 #: ui/currentcallview.ui:393
 msgid "Adjust outgoing video quality"
-msgstr "Προσαρμογή εξεχόμενης ποιότητας βίντεο"
+msgstr ""
 
 #: ui/currentcallview.ui:398 ui/currentcallview.ui:492
 msgid "Video quality"
-msgstr "Ποιότητα βίντεο"
+msgstr ""
 
 #: ui/currentcallview.ui:417
 msgid "Toggle show chat"
-msgstr "Εναλλαγή εμφάνισης συνομιλίας"
+msgstr ""
 
 #: ui/currentcallview.ui:421 ui/currentcallview.ui:438
 msgid "Chat"
-msgstr "Συνομιλία"
+msgstr ""
 
 #: ui/currentcallview.ui:447
 msgid "Mute audio"
-msgstr "Σίγαση ήχου"
+msgstr ""
 
 #: ui/currentcallview.ui:474
 msgid "Transfer"
-msgstr "Μεταφορά"
+msgstr ""
 
 #: ui/currentcallview.ui:524
 msgid "Transfer to"
@@ -147,7 +144,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
-msgstr "Σύνδεση αυτής της συσκευής με ένα λογαριασμό"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Jami account created on another device"
@@ -156,7 +153,7 @@ msgstr ""
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:887
 msgid "Cancel"
-msgstr "Ακύρωση"
+msgstr "Avbryt"
 
 #: ui/accountcreationwizard.ui:86
 msgid "Advanced…"
@@ -168,7 +165,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
-msgstr "Σύνδεση αυτής της συσκευής σε έναν λογαριασμό που ήδη υπάρχει"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:134
 msgid ""
@@ -183,7 +180,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
-msgstr "Εισάγετε το PIN σας:"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:188
 msgid "Or import a file:"
@@ -191,24 +188,24 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:207
 msgid "Enter your password:"
-msgstr "Εισάγετε το συνθηματικό:"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:227 ui/accountcreationwizard.ui:530
 msgid "Previous"
-msgstr "Προηγούμενο"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:235 ui/accountcreationwizard.ui:538
 msgid "Next"
-msgstr "Επόμενο"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:269 ui/newaccountsettingsview.ui:334
 msgid "Profile"
-msgstr "Προφίλ"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:110
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
-msgstr "Λογαριασμός"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:387
 msgid "Register username"
@@ -224,13 +221,13 @@ msgstr ""
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733
 msgid "Username"
-msgstr "Όνομα χρήστη"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:452
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr "Αυτό το συνθηματικό θα χρησιμοποιηθεί για να κρυπτογραφήσει τα δεδομένα του λογαριασμού σας και να συνδέσει νέες συσκευές στο λογαριασμό σας."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:877
 msgid "Confirm password"
@@ -246,7 +243,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:595
 msgid "This may take a few minutes."
-msgstr "Αυτό μπορεί να διαρκέσει λίγα λεπτά."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:621
 msgid "Retrieving your Jami account…"
@@ -254,7 +251,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
-msgstr "Σφάλμα δημιουργίας/φόρτωσης λογαριασμού."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:652 ui/newaccountsettingsview.ui:266
 #: ui/newaccountsettingsview.ui:289
@@ -263,7 +260,7 @@ msgstr "OK"
 
 #: ui/generalsettingsview.ui:43
 msgid "System"
-msgstr "Σύστημα"
+msgstr ""
 
 #: ui/generalsettingsview.ui:81
 msgid "Start application on login"
@@ -311,7 +308,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:486
 msgid "History"
-msgstr "Ιστορικό"
+msgstr ""
 
 #: ui/generalsettingsview.ui:525
 msgid "Keep history for (days, 0 = unlimited)"
@@ -319,51 +316,51 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:555
 msgid "Clear all history"
-msgstr "Καθαρισμός όλου του ιστορικού"
+msgstr ""
 
 #: ui/ringmainwindow.ui:57
 msgid "Menu"
-msgstr "Μενού"
+msgstr ""
 
 #: ui/ringmainwindow.ui:79
 msgid "General"
-msgstr "Γενικά"
+msgstr ""
 
 #: ui/ringmainwindow.ui:94
 msgid "Media"
-msgstr "Μέσα"
+msgstr ""
 
 #: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
 msgid "Settings"
-msgstr "Ρυθμίσεις"
+msgstr "Innstillinger"
 
 #: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
 msgid "Conversations"
-msgstr "Συνομιλίες"
+msgstr ""
 
 #: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
 msgid "Contact requests"
-msgstr "Αιτήματα επαφών"
+msgstr "Kontaktforespørsler"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
-msgstr "Ρυθμίσεις ήχου"
+msgstr ""
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
-msgstr "Διαχειριστής ήχου:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:52
 msgid "Ringtone device:"
-msgstr "Συσκευή Ringtone:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
-msgstr "Συσκευή εξόδου:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:76
 msgid "Input device:"
-msgstr "Συσκευή εισόδου:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
@@ -371,23 +368,23 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:156
 msgid "Camera Settings"
-msgstr "Ρυθμίσεις κάμερας"
+msgstr ""
 
 #: ui/mediasettingsview.ui:172
 msgid "Device:"
-msgstr "Συσκευή:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:184
 msgid "Channel:"
-msgstr "Κανάλι:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:196
 msgid "Resolution:"
-msgstr "Ανάλυση:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:208
 msgid "Frame rate:"
-msgstr "Ρυθμός καρέ:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:266
 msgid "Hardware Acceleration"
@@ -399,11 +396,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
-msgstr "Προσθήκη συσκευής"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:131
 msgid "Add New Device"
-msgstr "Προσθήκη νέας συσκευής"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:146
 msgid ""
@@ -414,11 +411,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
-msgstr "Συνθηματικό (απαιτείται)"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
-msgstr "Εισαγωγή συνθηματικού αρχειοθέτησης"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:189
 msgid "Export on the network"
@@ -430,7 +427,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
-msgstr "Το δημιουργημένο σας PIN:"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:460
 msgid "ID"
@@ -454,11 +451,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:779
 msgid "password"
-msgstr "συνθηματικό"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:810 ui/newaccountsettingsview.ui:1398
 msgid "Proxy"
-msgstr "Διαμεσολαβητής"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:846
 msgid "Voicemail"
@@ -478,7 +475,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1081
 msgid "Advanced settings"
-msgstr "Προχωρημένες ρυθμίσεις"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1117
 msgid "General settings"
@@ -506,7 +503,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2478
 msgid "Address"
-msgstr "Διεύθυνση"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1359
 msgid "OpenDHT configuration"
@@ -518,7 +515,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1503
 msgid "Encrypt media streams (SRTP)"
-msgstr "Κρυπτογράφηση ροών μέσων (SRTP)"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1538
 msgid "Enable SDES for key exchange protocol"
@@ -526,55 +523,55 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1574
 msgid "Fallback on RTP on encryption failure"
-msgstr "Εφεδρεία RTP, σε αποτυχία κρυπτογράφησης"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1609
 msgid "Encrypt negotiation (TLS)"
-msgstr "Κρυπτογράφηση διαπραγμάτευσης (TLS)"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1644
 msgid "CA certificate"
-msgstr "Πιστοποιητικό CA"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1680
 msgid "User certificate"
-msgstr "Πιστοποιητικό χρήστη"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1716
 msgid "Private key"
-msgstr "Ιδιωτικό κλειδί"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1752
 msgid "Private key password"
-msgstr "Συνθηματικό ιδιωτικού κλειδιού"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1790
 msgid "TLS protocol method"
-msgstr "Μέθοδος προτοκόλου TLS"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1826
 msgid "Outgoing TLS server name"
-msgstr "Εξερχόμενο όνομα διακομιστή TLS"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1861
 msgid "Negotiation timeout (seconds)"
-msgstr "Χρονική λήξη διαπραγματευσης (δευτερόλεπτα)"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1897
 msgid "Verify incoming certificates (server side)"
-msgstr "Επαλήθευση εισερχόμενων πιστοποιητικών (πλευρά διακομιστή)"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1932
 msgid "Verify answer certificates (client side)"
-msgstr "Επαλήθευση πιστοποιητικών απάντησης (πλευρά πελάτη)"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1967
 msgid "Require a certificate for incoming TLS connections"
-msgstr "Απαίτηση πιστοποιητικού για εισερχόμενες συνδέσεις TLS"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1991
 msgid "Security"
-msgstr "Ασφάλεια"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:2016
 msgid "Connectivity"
@@ -594,7 +591,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2162
 msgid "Use TURN"
-msgstr "Χρήση TURN"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:2197
 msgid "(TURN) address"
@@ -614,7 +611,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2337
 msgid "Use STUN"
-msgstr "Χρήση STUN"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:2372
 msgid "(STUN) address"
@@ -630,7 +627,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2513
 msgid "Port"
-msgstr "Θύρα"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:2549
 msgid "Video codecs"
@@ -646,7 +643,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2709
 msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr "Διαπραγμάτευση συνεδρίας SDP (εφεδρικό του ICE)"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:2721
 msgid "Only used during SDP negotiation in case ICE is not supported."
@@ -674,11 +671,11 @@ msgstr ""
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
-msgstr "Απόκρυψη προβολής συνομιλίας"
+msgstr ""
 
 #: ui/chatview.ui:45 ui/chatview.ui:48
 msgid "Place call"
-msgstr "Έναρξη κλήσης"
+msgstr ""
 
 #: ui/chatview.ui:62
 msgid "Place audio-only call"
@@ -706,7 +703,7 @@ msgstr ""
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
-msgstr "Αποδοχή"
+msgstr ""
 
 #: ui/incomingcallview.ui:173
 msgid "Reject"
@@ -714,19 +711,19 @@ msgstr ""
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr "Λήψη φωτογραφίας"
+msgstr ""
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr "Επιλογή εικόνας από αρχείο"
+msgstr ""
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
-msgstr "Επιστροφή"
+msgstr ""
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
-msgstr "Καθορισμός επιλογής ως εικόνας"
+msgstr ""
 
 #: src/ring_client.cpp:114
 #, c-format
@@ -758,17 +755,17 @@ msgstr ""
 #: src/ringnotify.cpp:340 src/ringnotify.cpp:356
 msgctxt ""
 msgid "Accept"
-msgstr "Αποδοχή"
+msgstr ""
 
 #: src/ringnotify.cpp:347
 msgctxt ""
 msgid "Refuse"
-msgstr "Άρνηση"
+msgstr ""
 
 #: src/ringnotify.cpp:363
 msgctxt ""
 msgid "Decline"
-msgstr "Απόρριψη κλήσης"
+msgstr "Avvis"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
@@ -776,11 +773,11 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:173
 msgid "Username already taken"
-msgstr "Το όνομα χρήστη ήδη χρησιμοποιείται"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:180
 msgid "Invalid username"
-msgstr "Μη έγκυρο όνομα χρήστη"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:194
 msgid "Lookup unavailable, check your network connection"
@@ -802,7 +799,7 @@ msgstr ""
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr "Αυτή είναι μια καταστροφική λειτουργία. Είστε σίγουροι ότι θέλετε να διαγράψετε όλες τις συζήτησης σας και το ιστορικό κλήσεων;"
+msgstr ""
 
 #: src/generalsettingsview.cpp:170
 msgid "Choose download folder"
@@ -811,7 +808,7 @@ msgstr ""
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
 #: src/chatview.cpp:178 src/newaccountsettingsview.cpp:930
 msgid "_Cancel"
-msgstr "Άκυρο"
+msgstr ""
 
 #: src/generalsettingsview.cpp:175 src/chatview.cpp:180
 #: src/newaccountsettingsview.cpp:932
@@ -832,15 +829,15 @@ msgstr ""
 
 #: src/video/video_widget.cpp:574
 msgid "Show advanced information"
-msgstr "Εμφάνιση προχωρημένων πληροφοριών"
+msgstr ""
 
 #: src/avatarmanipulation.cpp:411
 msgid "Open Avatar Image"
-msgstr "Άνοιγμα εικόνας avatar"
+msgstr ""
 
 #: src/avatarmanipulation.cpp:416 src/chatview.cpp:180
 msgid "_Open"
-msgstr "Άνοιγμα"
+msgstr ""
 
 #: src/dialogs.c:53
 msgid "Working…"
@@ -879,19 +876,19 @@ msgstr ""
 #: src/ringmainwindow.cpp:640
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr "έναρξη κλήσης"
+msgstr ""
 
 #: src/ringmainwindow.cpp:643
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr "άνοιγμα συνομιλίας"
+msgstr ""
 
 #: src/ringmainwindow.cpp:1144
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
-msgstr "Αναζήτηση επαφών ή εισαγωγή αριθμού"
+msgstr ""
 
 #: src/ringmainwindow.cpp:1578
 msgid "Leave settings page"
@@ -903,7 +900,7 @@ msgstr ""
 
 #: src/ringmainwindow.cpp:1949
 msgid "Incoming call"
-msgstr "Εισερχόμενη κλήση"
+msgstr "Anrop"
 
 #: src/ringmainwindow.cpp:2091
 msgid "New request from "
@@ -970,17 +967,17 @@ msgstr ""
 
 #: src/conversationpopupmenu.cpp:252
 msgid "_Copy name"
-msgstr "Αντιγραφή ονόματος"
+msgstr ""
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
-msgstr "Ενεργοποίηση αποσφαλμάτωσης"
+msgstr ""
 
 #: src/ring_client_options.c:68
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr "Επαναφέρει την κρυμένη κατάσταση του κύριου παραθύρου (εφαρμόζεται μόνο στο πρωταρχικό περιστατικό)"
+msgstr ""
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Jami"
@@ -988,7 +985,7 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:343
 msgid "Passwords don't match"
-msgstr "Τα συνθηματικά δεν ταιριάζουν"
+msgstr ""
 
 #: src/ringwelcomeview.cpp:88
 msgid ""
@@ -1006,7 +1003,7 @@ msgstr ""
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami er fri programvare til universell kommunikasjon som respekterer brukernes frihet og rett til privatliv."
 
 #: src/chatview.cpp:175
 msgid "Send File"
@@ -1014,7 +1011,7 @@ msgstr ""
 
 #: src/chatview.cpp:175 src/newaccountsettingsview.cpp:927
 msgid "Save File"
-msgstr "Αποθήκευση αρχείου"
+msgstr ""
 
 #: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:993
 msgid ""
@@ -1076,7 +1073,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:871
 msgid "New password"
-msgstr "Νέο συνθηματικό"
+msgstr ""
 
 #: src/newaccountsettingsview.cpp:954
 msgid "You need to enter your password to export the full archive."
@@ -1096,11 +1093,11 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:1741
 msgid "Bad password"
-msgstr "Λανθασμένο συνθηματικό"
+msgstr ""
 
 #: src/newaccountsettingsview.cpp:1747
 msgid "Network error, try again"
-msgstr "Σφάλμα δικτύου, δοκιμάστε ξανά"
+msgstr ""
 
 #: src/newaccountsettingsview.cpp:1753
 msgid "Unknown error"
