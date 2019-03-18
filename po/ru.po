@@ -20,14 +20,15 @@
 # Александр Суслов <suslikkreal@gmail.com>, 2015
 # Александр Асланьян <asl174@yandex.ru>, 2015
 # Андрей Шевчук <andrei@shevchuk.co>, 2016-2017
+# Дмитрий Михирев, 2019
 # Чураков Александр, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-11 03:09-0400\n"
-"PO-Revision-Date: 2019-02-27 13:19+0000\n"
-"Last-Translator: Vladimir Stoiakin\n"
+"POT-Creation-Date: 2019-03-18 03:09-0400\n"
+"PO-Revision-Date: 2019-03-15 07:42+0000\n"
+"Last-Translator: Natalia <sonaux@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -286,7 +287,7 @@ msgstr "Запускать приложение при входе в систе�
 
 #: ui/generalsettingsview.ui:117
 msgid "Show Jami icon (systray) in the systray area"
-msgstr ""
+msgstr "Показывать значок Jami в системном лотке"
 
 #: ui/generalsettingsview.ui:153
 msgid "Bring Jami to the foreground on incoming calls"
@@ -302,7 +303,7 @@ msgstr "Включить уведомления о входящих звонка
 
 #: ui/generalsettingsview.ui:264
 msgid "Enable notifications for pending requests"
-msgstr ""
+msgstr "Включить уведомления об ожидающих запросах"
 
 #: ui/generalsettingsview.ui:300
 msgid "Enable notifications for new chat messages"
@@ -310,7 +311,7 @@ msgstr "Включить уведомления о новых сообщения
 
 #: ui/generalsettingsview.ui:336
 msgid "Chatview"
-msgstr ""
+msgstr "Чат"
 
 #: ui/generalsettingsview.ui:375
 msgid "Display images and videos into the chatview"
@@ -318,7 +319,7 @@ msgstr "Показывать изображения и видео в окне ч
 
 #: ui/generalsettingsview.ui:412
 msgid "Show chatview on the right (on the bottom if off)"
-msgstr ""
+msgstr "Показывать чат справа (если отключено — внизу)."
 
 #: ui/generalsettingsview.ui:449
 msgid "Download folder"
@@ -382,7 +383,7 @@ msgstr "Устройство для записи:"
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
-msgstr ""
+msgstr "Уровень входящего звука:"
 
 #: ui/mediasettingsview.ui:156
 msgid "Camera Settings"
@@ -1095,7 +1096,7 @@ msgstr "Новый пароль"
 
 #: src/newaccountsettingsview.cpp:954
 msgid "You need to enter your password to export the full archive."
-msgstr ""
+msgstr "Для экспорта полного архива нужно ввести пароль."
 
 #: src/newaccountsettingsview.cpp:955
 msgid "Enter password to export archive"

@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Marek Suchánek <marek.suchanek@protonmail.com>, 2016
-# fri, 2017
+# fri, 2017,2019
 # Stepan Salenikovich <>, 2016
 # Tirifto <tirifto@openmailbox.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-11 03:09-0400\n"
-"PO-Revision-Date: 2019-02-22 21:02+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-03-18 03:09-0400\n"
+"PO-Revision-Date: 2019-03-14 12:26+0000\n"
+"Last-Translator: fri\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/savoirfairelinux/jami/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: ui/ringgearsmenu.ui:13
 msgid "_About"
-msgstr "_O aplikaci"
+msgstr "_O programu"
 
 #: ui/ringgearsmenu.ui:19
 msgid "_Quit"
@@ -31,7 +31,7 @@ msgstr "_Ukončit"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
-msgstr "Je potřeba migrace účtu"
+msgstr "Je potřeba převedení účtu"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
@@ -91,11 +91,11 @@ msgstr "Přepnout ztišení zvuku"
 
 #: ui/currentcallview.ui:344
 msgid "Toggle mute video"
-msgstr "Přepnout video"
+msgstr "Přepnout vypnutí obrazu"
 
 #: ui/currentcallview.ui:348 ui/currentcallview.ui:456
 msgid "Mute video"
-msgstr "Vypnout video"
+msgstr "Vypnout obraz"
 
 #: ui/currentcallview.ui:369
 msgid "Toggle recording"
@@ -108,11 +108,11 @@ msgstr "Nahrávat"
 
 #: ui/currentcallview.ui:393
 msgid "Adjust outgoing video quality"
-msgstr "Upravit kvalitu odchozího videa"
+msgstr "Upravit kvalitu odchozího obrazu"
 
 #: ui/currentcallview.ui:398 ui/currentcallview.ui:492
 msgid "Video quality"
-msgstr "Kvalita videa"
+msgstr "Kvalita obrazu"
 
 #: ui/currentcallview.ui:417
 msgid "Toggle show chat"
@@ -184,7 +184,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
-msgstr "Vložte svůj pin:"
+msgstr "Vložte svoje osobní identifikační číslo (PIN):"
 
 #: ui/accountcreationwizard.ui:188
 msgid "Or import a file:"
@@ -388,7 +388,7 @@ msgstr "Rozlišení:"
 
 #: ui/mediasettingsview.ui:208
 msgid "Frame rate:"
-msgstr "Snímková frekvence:"
+msgstr "Rychlost snímkování:"
 
 #: ui/mediasettingsview.ui:266
 msgid "Hardware Acceleration"
@@ -419,7 +419,7 @@ msgstr "Heslo (vyžadováno):"
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
-msgstr "Vložte heslo archivu"
+msgstr "Vložte heslo k archivu"
 
 #: ui/newaccountsettingsview.ui:189
 msgid "Export on the network"
@@ -431,7 +431,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
-msgstr "Váš vygenerovaný PIN:"
+msgstr "Vaše vytvořené osobní identifikační číslo (PIN):"
 
 #: ui/newaccountsettingsview.ui:460
 msgid "ID"
@@ -515,7 +515,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1443
 msgid "Bootstrap"
-msgstr "Bootstrap"
+msgstr "Sada nástrojů pro tvorbu webu a webových aplikací"
 
 #: ui/newaccountsettingsview.ui:1503
 msgid "Encrypt media streams (SRTP)"
@@ -559,7 +559,7 @@ msgstr "Jméno serveru pro odchozí TLS"
 
 #: ui/newaccountsettingsview.ui:1861
 msgid "Negotiation timeout (seconds)"
-msgstr "Limit vyjednávání (v sekundách)"
+msgstr "Omezení vyjednávání (v sekundách)"
 
 #: ui/newaccountsettingsview.ui:1897
 msgid "Verify incoming certificates (server side)"
@@ -769,7 +769,7 @@ msgstr "Odmítnout"
 #: src/ringnotify.cpp:363
 msgctxt ""
 msgid "Decline"
-msgstr "Odmítnout"
+msgstr "Nepřijmout"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
@@ -803,7 +803,7 @@ msgstr ""
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr "Toto je destruktivní akce. Skutečně chcete odstranit veškerou svou historii zpráv a volání?"
+msgstr "Toto je ničivý zásah. Skutečně chcete odstranit veškerou svou historii zpráv a volání?"
 
 #: src/generalsettingsview.cpp:170
 msgid "Choose download folder"
@@ -833,7 +833,7 @@ msgstr ""
 
 #: src/video/video_widget.cpp:574
 msgid "Show advanced information"
-msgstr "Ukázat pokročilé informace"
+msgstr "Ukázat rozšířené informace"
 
 #: src/avatarmanipulation.cpp:411
 msgid "Open Avatar Image"

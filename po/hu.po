@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-11 03:09-0400\n"
-"PO-Revision-Date: 2019-02-23 06:59+0000\n"
+"POT-Creation-Date: 2019-03-18 03:09-0400\n"
+"PO-Revision-Date: 2019-03-14 20:55+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -450,7 +450,7 @@ msgstr "Fiók engedélyezése"
 
 #: ui/newaccountsettingsview.ui:697
 msgid "SIP server"
-msgstr "SIP kiszolgáló"
+msgstr "SIP-kiszolgáló"
 
 #: ui/newaccountsettingsview.ui:779
 msgid "password"

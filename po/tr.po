@@ -6,15 +6,15 @@
 # Caner Başaran <basaran.caner@protonmail.com>, 2016
 # Emin Tufan <etcetin@gmail.com>, 2016-2017
 # koray arberk <korayarberk@yahoo.com>, 2016
-# mahmut özcan <mahmutozcan65@yahoo.com>, 2016
+# mahmut özcan <mahmutozcan65@yahoo.com>, 2016,2019
 # M. Utkun Uyar, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-11 03:09-0400\n"
-"PO-Revision-Date: 2019-02-22 21:01+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-03-18 03:09-0400\n"
+"PO-Revision-Date: 2019-03-16 15:58+0000\n"
+"Last-Translator: mahmut özcan <mahmutozcan65@yahoo.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/jami/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgstr "Hesap taşıma gerekli"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "Bu hesap kusurlu, lütfen parolanızı girin"
 
 #: ui/accountmigrationview.ui:89
 msgid "Alias"
@@ -63,7 +63,7 @@ msgstr "Hesabı sil"
 
 #: ui/accountmigrationview.ui:231
 msgid "Migration failed, wrong password?"
-msgstr ""
+msgstr "Taşıma başarısız, parola mı yanlış?"
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
@@ -133,7 +133,7 @@ msgstr "Aktarım"
 
 #: ui/currentcallview.ui:524
 msgid "Transfer to"
-msgstr ""
+msgstr "Şuraya aktar"
 
 #: ui/accountcreationwizard.ui:30
 msgid "Welcome to"
@@ -141,11 +141,11 @@ msgstr "Hoş Geldiniz"
 
 #: ui/accountcreationwizard.ui:64
 msgid "Create Jami Account"
-msgstr ""
+msgstr "Jami hesabı oluştur"
 
 #: ui/accountcreationwizard.ui:65
 msgid "Create a new Jami account (for new users)"
-msgstr ""
+msgstr "Yeni bir Jami hesabı oluştur (yeni kullanıcılar için)"
 
 #: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
@@ -162,11 +162,11 @@ msgstr "İptal"
 
 #: ui/accountcreationwizard.ui:86
 msgid "Advanced…"
-msgstr ""
+msgstr "Gelişmiş..."
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
-msgstr ""
+msgstr "Yeni bir SIP hesabı ekle"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
@@ -240,11 +240,11 @@ msgstr "Parolayı onayla"
 
 #: ui/accountcreationwizard.ui:562
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "Jami hesabınız oluşturuluyor..."
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
-msgstr ""
+msgstr "Kullanıcı adı kaydediliyor..."
 
 #: ui/accountcreationwizard.ui:595
 msgid "This may take a few minutes."
@@ -252,7 +252,7 @@ msgstr "Bu bir kaç dakika sürebilir."
 
 #: ui/accountcreationwizard.ui:621
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "Jami hesabınız alınıyor..."
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
@@ -269,27 +269,27 @@ msgstr "Düzen"
 
 #: ui/generalsettingsview.ui:81
 msgid "Start application on login"
-msgstr ""
+msgstr "Uygulamayı girişte başlat"
 
 #: ui/generalsettingsview.ui:117
 msgid "Show Jami icon (systray) in the systray area"
-msgstr ""
+msgstr "Sistem tepsisinde Jami simgesini (sistem tepsisi) göster"
 
 #: ui/generalsettingsview.ui:153
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
+msgstr "Gelen aramalarda Jami'yi ön plana çıkar."
 
 #: ui/generalsettingsview.ui:189
 msgid "Notifications"
-msgstr ""
+msgstr "Bildirimler"
 
 #: ui/generalsettingsview.ui:228
 msgid "Enable notifications for incoming calls"
-msgstr ""
+msgstr "Gelen çağrılar için bildirimleri etkinleştir."
 
 #: ui/generalsettingsview.ui:264
 msgid "Enable notifications for pending requests"
-msgstr ""
+msgstr "Bekleyen istekler için bildirimleri etkinleştir"
 
 #: ui/generalsettingsview.ui:300
 msgid "Enable notifications for new chat messages"
@@ -424,11 +424,11 @@ msgstr "Arşiv parolası girin"
 
 #: ui/newaccountsettingsview.ui:189
 msgid "Export on the network"
-msgstr ""
+msgstr "Ağda dışa aktar"
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Jami…"
-msgstr ""
+msgstr "Jami'de hesap dışa aktarılıyor..."
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -440,7 +440,7 @@ msgstr "Kimlik"
 
 #: ui/newaccountsettingsview.ui:538
 msgid "Click to change password"
-msgstr ""
+msgstr "Parola değiştirmek için tıkla"
 
 #: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2033
 msgid "Export account"
@@ -448,11 +448,11 @@ msgstr "Hesapları dışa aktar"
 
 #: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:901
 msgid "Enable account"
-msgstr ""
+msgstr "Hesabı etkinleştir"
 
 #: ui/newaccountsettingsview.ui:697
 msgid "SIP server"
-msgstr ""
+msgstr "SIP sunucusu"
 
 #: ui/newaccountsettingsview.ui:779
 msgid "password"
@@ -464,19 +464,19 @@ msgstr "Vekil"
 
 #: ui/newaccountsettingsview.ui:846
 msgid "Voicemail"
-msgstr ""
+msgstr "Sesli ileti"
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "Bu Jami hesabına bağlı bilinen aygıtlar"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
-msgstr ""
+msgstr "Diğer aygıtı bağla"
 
 #: ui/newaccountsettingsview.ui:1025
 msgid "Banned contacts"
-msgstr ""
+msgstr "Engellenmiş Kişiler"
 
 #: ui/newaccountsettingsview.ui:1081
 msgid "Advanced settings"
@@ -484,11 +484,11 @@ msgstr "Gelişmiş ayarlar"
 
 #: ui/newaccountsettingsview.ui:1117
 msgid "General settings"
-msgstr ""
+msgstr "Genel ayarlar"
 
 #: ui/newaccountsettingsview.ui:1135
 msgid "Call settings"
-msgstr ""
+msgstr "Arama ayarları"
 
 #: ui/newaccountsettingsview.ui:1173
 msgid "Allow call from untrusted peers"
@@ -500,7 +500,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1244
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Özel zil sesi "
 
 #: ui/newaccountsettingsview.ui:1288
 msgid "Name server"
@@ -512,7 +512,7 @@ msgstr "Yer"
 
 #: ui/newaccountsettingsview.ui:1359
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "OpenDHT yapılandırma"
 
 #: ui/newaccountsettingsview.ui:1443
 msgid "Bootstrap"
@@ -580,15 +580,15 @@ msgstr "Güvenlik"
 
 #: ui/newaccountsettingsview.ui:2016
 msgid "Connectivity"
-msgstr ""
+msgstr "Bağlanabilirlik"
 
 #: ui/newaccountsettingsview.ui:2054
 msgid "Registration expire timeout (seconds)"
-msgstr ""
+msgstr "Kayıt işlemi zaman aşımına uğradı (saniye):"
 
 #: ui/newaccountsettingsview.ui:2091
 msgid "Network interface"
-msgstr ""
+msgstr "Ağ arayüzü"
 
 #: ui/newaccountsettingsview.ui:2127
 msgid "UPnP"
@@ -600,19 +600,19 @@ msgstr "TURN kullan"
 
 #: ui/newaccountsettingsview.ui:2197
 msgid "(TURN) address"
-msgstr ""
+msgstr "(TURN) adres"
 
 #: ui/newaccountsettingsview.ui:2232
 msgid "(TURN) username"
-msgstr ""
+msgstr "(TURN) kullanıcı adı"
 
 #: ui/newaccountsettingsview.ui:2266
 msgid "(TURN) password"
-msgstr ""
+msgstr "(TURN) parola"
 
 #: ui/newaccountsettingsview.ui:2303
 msgid "(TURN) realm"
-msgstr ""
+msgstr "(TURN) yetki alanı"
 
 #: ui/newaccountsettingsview.ui:2337
 msgid "Use STUN"
@@ -620,15 +620,15 @@ msgstr "STUN kullan"
 
 #: ui/newaccountsettingsview.ui:2372
 msgid "(STUN) address"
-msgstr ""
+msgstr "(STUN) adres"
 
 #: ui/newaccountsettingsview.ui:2405
 msgid "Published address"
-msgstr ""
+msgstr "Yayınlanan Adres"
 
 #: ui/newaccountsettingsview.ui:2442
 msgid "Use custom address and port"
-msgstr ""
+msgstr "Özel adres ve bağlanma noktası kullan"
 
 #: ui/newaccountsettingsview.ui:2513
 msgid "Port"
@@ -640,7 +640,7 @@ msgstr "Görüntü çözücüler"
 
 #: ui/newaccountsettingsview.ui:2612
 msgid "Enable video"
-msgstr ""
+msgstr "Görüntüyü Etkinleştir"
 
 #: ui/newaccountsettingsview.ui:2639
 msgid "Audio codecs"
@@ -672,7 +672,7 @@ msgstr ""
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "kullanıcı adını kaydet"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -688,7 +688,7 @@ msgstr ""
 
 #: ui/chatview.ui:75
 msgid "Add to conversations"
-msgstr ""
+msgstr "Konuşma ekle"
 
 #: ui/chatview.ui:134
 msgid "Send Invitation"
@@ -696,7 +696,7 @@ msgstr "Davetiye Gönder"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
-msgstr ""
+msgstr "Ses iletisini kaydet"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
@@ -704,7 +704,7 @@ msgstr ""
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
-msgstr ""
+msgstr "Gelen..."
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
@@ -740,17 +740,17 @@ msgstr ""
 
 #: src/ring_client.cpp:117
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami Hatası"
 
 #: src/ring_client.cpp:260
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "Jami'yi Göster"
 
 #: src/ring_client.cpp:264
 msgid "Quit"
-msgstr ""
+msgstr "Çıkış"
 
 #: src/ringnotify.cpp:332
 msgctxt ""
@@ -774,7 +774,7 @@ msgstr "Reddet"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
-msgstr ""
+msgstr "Bu kullanıcı adını ad sunucusuna kaydet"
 
 #: src/usernameregistrationbox.cpp:173
 msgid "Username already taken"
@@ -798,7 +798,7 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
-msgstr ""
+msgstr "Kayıt ilerliyor..."
 
 #: src/generalsettingsview.cpp:100
 msgid ""
@@ -808,7 +808,7 @@ msgstr "Bu yok edici bir eylemdir. Tüm konuşma ve çağrı geçmişini silmek 
 
 #: src/generalsettingsview.cpp:170
 msgid "Choose download folder"
-msgstr ""
+msgstr "İndirme klasörünü seçin"
 
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
 #: src/chatview.cpp:178 src/newaccountsettingsview.cpp:930
@@ -818,7 +818,7 @@ msgstr "_İptal"
 #: src/generalsettingsview.cpp:175 src/chatview.cpp:180
 #: src/newaccountsettingsview.cpp:932
 msgid "_Save"
-msgstr ""
+msgstr "_Kaydet"
 
 #: src/video/video_widget.cpp:549
 msgid "Share _screen area"
@@ -846,7 +846,7 @@ msgstr "_Aç"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "Çalışıyor..."
 
 #: src/dialogs.c:84
 #, c-format
@@ -876,7 +876,7 @@ msgstr ""
 
 #: src/ringmainwindow.cpp:184
 msgid "Add account…"
-msgstr ""
+msgstr "Hesap ekle..."
 
 #: src/ringmainwindow.cpp:640
 msgctxt "button next to search entry will place a new call"
@@ -922,7 +922,7 @@ msgstr ""
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami Hatası"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
@@ -1008,7 +1008,7 @@ msgstr ""
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami, kullanıcılarının özgürlüklerine ve gizliliğine önem veren, evrensel iletişim için özgür yazılımdır."
 
 #: src/chatview.cpp:175
 msgid "Send File"
@@ -1106,7 +1106,7 @@ msgstr "Ağ hatası, yeniden deneyin"
 
 #: src/newaccountsettingsview.cpp:1753
 msgid "Unknown error"
-msgstr ""
+msgstr "Bilinmeyen hata."
 
 #: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"
