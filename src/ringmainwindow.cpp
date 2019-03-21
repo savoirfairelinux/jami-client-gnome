@@ -333,6 +333,8 @@ public:
     bool show_settings = false;
     bool is_fullscreen = false;
     bool has_cleared_all_history = false;
+    uint32_t activeCalls = 0;
+    guint inhibitionCookie = 0;
 
     int smartviewPageNum = 0;
     int contactRequestsPageNum = 0;
@@ -352,6 +354,8 @@ public:
     QMetaObject::Connection historyClearedConnection_;
     QMetaObject::Connection modelSortedConnection_;
     QMetaObject::Connection callChangedConnection_;
+    QMetaObject::Connection callStartedConnection_;
+    QMetaObject::Connection callEndedConnection_;
     QMetaObject::Connection newIncomingCallConnection_;
     QMetaObject::Connection filterChangedConnection_;
     QMetaObject::Connection newConversationConnection_;
@@ -378,6 +382,8 @@ private:
     void slotModelSorted();
     void slotNewIncomingCall(const std::string& callId);
     void slotCallStatusChanged(const std::string& callId);
+    void slotCallStarted(const std::string& callId);
+    void slotCallEnded(const std::string& callId);
     void slotFilterChanged();
     void slotNewConversation(const std::string& uid);
     void slotConversationRemoved(const std::string& uid);
@@ -1217,6 +1223,8 @@ CppImpl::~CppImpl()
     QObject::disconnect(historyClearedConnection_);
     QObject::disconnect(modelSortedConnection_);
     QObject::disconnect(callChangedConnection_);
+    QObject::disconnect(callStartedConnection_);
+    QObject::disconnect(callEndedConnection_);
     QObject::disconnect(newIncomingCallConnection_);
     QObject::disconnect(filterChangedConnection_);
     QObject::disconnect(newConversationConnection_);
@@ -1640,6 +1648,8 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     QObject::disconnect(slotReadInteraction_);
     QObject::disconnect(modelSortedConnection_);
     QObject::disconnect(callChangedConnection_);
+    QObject::disconnect(callStartedConnection_);
+    QObject::disconnect(callEndedConnection_);
     QObject::disconnect(newIncomingCallConnection_);
     QObject::disconnect(historyClearedConnection_);
     QObject::disconnect(filterChangedConnection_);
@@ -1695,6 +1705,14 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     callChangedConnection_ = QObject::connect(&*accountInfo_->callModel,
                                               &lrc::api::NewCallModel::callStatusChanged,
                                               [this] (const std::string& callId) { slotCallStatusChanged(callId); });
+
+    callStartedConnection_ = QObject::connect(&*accountInfo_->callModel,
+                                              &lrc::api::NewCallModel::callStarted,
+                                              [this] (const std::string& callId) { slotCallStarted(callId); });
+
+    callEndedConnection_ = QObject::connect(&*accountInfo_->callModel,
+                                              &lrc::api::NewCallModel::callEnded,
+                                              [this] (const std::string& callId) { slotCallEnded(callId); });
 
     newIncomingCallConnection_ = QObject::connect(&*accountInfo_->callModel,
                                                   &lrc::api::NewCallModel::newIncomingCall,
@@ -1909,6 +1927,35 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
         }
     } catch (const std::exception& e) {
         g_warning("Can't get call %s for this account.", callId.c_str());
+    }
+}
+
+void
+CppImpl::slotCallStarted(const std::string& callId)
+{
+    if (activeCalls == 0) {
+        GtkApplication* app = gtk_window_get_application(GTK_WINDOW(self));
+        if (app) {
+            inhibitionCookie = gtk_application_inhibit(
+                app, GTK_WINDOW(self),
+                static_cast<GtkApplicationInhibitFlags>(GTK_APPLICATION_INHIBIT_SUSPEND|GTK_APPLICATION_INHIBIT_IDLE),
+                _("There are active calls"));
+            g_debug("Inhibition was activated.");
+        }
+    }
+    activeCalls++;
+}
+
+void
+CppImpl::slotCallEnded(const std::string& callId)
+{
+    activeCalls--;
+    if (activeCalls == 0) {
+        GtkApplication* app = gtk_window_get_application(GTK_WINDOW(self));
+        if (app) {
+            gtk_application_uninhibit(app, inhibitionCookie);
+            g_debug("Inhibition was deactivated.");
+        }
     }
 }
 
