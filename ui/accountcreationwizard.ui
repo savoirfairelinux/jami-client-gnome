@@ -69,8 +69,8 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="button_existing_account">
-                        <property name="label" translatable="yes">Link this device to an account</property>
-                        <property name="tooltip_text" translatable="yes">Link this devices to a Jami account created on another device</property>
+                        <property name="label" translatable="yes">Import an existing account</property>
+                        <property name="tooltip_text" translatable="yes">Import an account with your PIN or your account's archive</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
