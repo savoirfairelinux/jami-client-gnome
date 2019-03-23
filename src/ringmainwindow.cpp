@@ -998,8 +998,11 @@ CppImpl::init()
 
     if (!activeAccountId.empty()) {
         updateLrc(activeAccountId);
+    } else if(!accountIds.empty()) {
+        // If all accounts are disabled, show the first account
+        updateLrc(accountIds.front());
     } else {
-        // No enabled account: create empty widgets
+        // No account: create empty widgets
         widgets->treeview_conversations = conversations_view_new(accountInfo_);
         gtk_container_add(GTK_CONTAINER(widgets->scrolled_window_smartview), widgets->treeview_conversations);
         widgets->treeview_contact_requests = conversations_view_new(accountInfo_);
