@@ -1772,6 +1772,7 @@ CppImpl::slotAccountAddedFromLrc(const std::string& id)
         }
         if (!accountInfo_) {
             updateLrc(id);
+            ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
             if (!gtk_stack_get_child_by_name(GTK_STACK(widgets->stack_main_view), NEW_ACCOUNT_SETTINGS_VIEW_NAME)) {
                 widgets->new_account_settings_view = new_account_settings_view_new(accountInfo_, lrc_->getAVModel());
                 gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->new_account_settings_view,
