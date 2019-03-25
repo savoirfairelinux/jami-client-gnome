@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-18 03:09-0400\n"
+"POT-Creation-Date: 2019-03-25 03:09-0400\n"
 "PO-Revision-Date: 2019-03-14 20:55+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
@@ -333,7 +333,7 @@ msgstr "Általános"
 msgid "Media"
 msgstr "Média"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1606
 msgid "Settings"
 msgstr "Beállítások"
 
@@ -886,34 +886,34 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Csevegés megnyitása"
 
-#: src/ringmainwindow.cpp:1144
+#: src/ringmainwindow.cpp:1147
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Kapcsolatok keresése vagy szám beírása"
 
-#: src/ringmainwindow.cpp:1578
+#: src/ringmainwindow.cpp:1581
 msgid "Leave settings page"
 msgstr "A beállítási oldal elhagyása"
 
-#: src/ringmainwindow.cpp:1948
+#: src/ringmainwindow.cpp:1951
 msgid " is calling you!"
 msgstr " hív!"
 
-#: src/ringmainwindow.cpp:1949
+#: src/ringmainwindow.cpp:1952
 msgid "Incoming call"
 msgstr "Bejövő hívás"
 
-#: src/ringmainwindow.cpp:2091
+#: src/ringmainwindow.cpp:2094
 msgid "New request from "
 msgstr "Új kérés"
 
-#: src/ringmainwindow.cpp:2092
+#: src/ringmainwindow.cpp:2095
 msgid "Trust request"
 msgstr "Megbízható kérelem"
 
-#: src/ringmainwindow.cpp:2149
+#: src/ringmainwindow.cpp:2152
 msgid "New message"
 msgstr "Új üzenet"
 

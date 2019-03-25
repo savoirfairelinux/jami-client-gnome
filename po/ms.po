@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-18 03:09-0400\n"
+"POT-Creation-Date: 2019-03-25 03:09-0400\n"
 "PO-Revision-Date: 2019-02-22 21:01+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Malay (http://www.transifex.com/savoirfairelinux/jami/language/ms/)\n"
@@ -330,7 +330,7 @@ msgstr "Utama"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1606
 msgid "Settings"
 msgstr "Aturan"
 
@@ -883,34 +883,34 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1144
+#: src/ringmainwindow.cpp:1147
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1578
+#: src/ringmainwindow.cpp:1581
 msgid "Leave settings page"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1948
+#: src/ringmainwindow.cpp:1951
 msgid " is calling you!"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1949
+#: src/ringmainwindow.cpp:1952
 msgid "Incoming call"
 msgstr "Panggilan masuk"
 
-#: src/ringmainwindow.cpp:2091
+#: src/ringmainwindow.cpp:2094
 msgid "New request from "
 msgstr ""
 
-#: src/ringmainwindow.cpp:2092
+#: src/ringmainwindow.cpp:2095
 msgid "Trust request"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2149
+#: src/ringmainwindow.cpp:2152
 msgid "New message"
 msgstr ""
 

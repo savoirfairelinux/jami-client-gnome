@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-18 03:09-0400\n"
+"POT-Creation-Date: 2019-03-25 03:09-0400\n"
 "PO-Revision-Date: 2019-02-23 01:19+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
@@ -333,7 +333,7 @@ msgstr "一般"
 msgid "Media"
 msgstr "媒體"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1606
 msgid "Settings"
 msgstr "設定"
 
@@ -886,34 +886,34 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "開啟聊天"
 
-#: src/ringmainwindow.cpp:1144
+#: src/ringmainwindow.cpp:1147
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "搜尋聯絡人或輸入號碼"
 
-#: src/ringmainwindow.cpp:1578
+#: src/ringmainwindow.cpp:1581
 msgid "Leave settings page"
 msgstr "離開設定頁面"
 
-#: src/ringmainwindow.cpp:1948
+#: src/ringmainwindow.cpp:1951
 msgid " is calling you!"
 msgstr "正在與您通話！"
 
-#: src/ringmainwindow.cpp:1949
+#: src/ringmainwindow.cpp:1952
 msgid "Incoming call"
 msgstr "來電"
 
-#: src/ringmainwindow.cpp:2091
+#: src/ringmainwindow.cpp:2094
 msgid "New request from "
 msgstr "新請求從"
 
-#: src/ringmainwindow.cpp:2092
+#: src/ringmainwindow.cpp:2095
 msgid "Trust request"
 msgstr "信任請求"
 
-#: src/ringmainwindow.cpp:2149
+#: src/ringmainwindow.cpp:2152
 msgid "New message"
 msgstr "新訊息"
 

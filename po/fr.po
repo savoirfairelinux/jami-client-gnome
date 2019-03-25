@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-18 03:09-0400\n"
+"POT-Creation-Date: 2019-03-25 03:09-0400\n"
 "PO-Revision-Date: 2019-03-03 17:37+0000\n"
 "Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
@@ -348,7 +348,7 @@ msgstr "Général"
 msgid "Media"
 msgstr "Médias"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1606
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -901,34 +901,34 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Ouvrir la discussion"
 
-#: src/ringmainwindow.cpp:1144
+#: src/ringmainwindow.cpp:1147
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Rechercher dans les contacts ou appeler un numéro"
 
-#: src/ringmainwindow.cpp:1578
+#: src/ringmainwindow.cpp:1581
 msgid "Leave settings page"
 msgstr "Quitter la page des réglages"
 
-#: src/ringmainwindow.cpp:1948
+#: src/ringmainwindow.cpp:1951
 msgid " is calling you!"
 msgstr "vous appelle"
 
-#: src/ringmainwindow.cpp:1949
+#: src/ringmainwindow.cpp:1952
 msgid "Incoming call"
 msgstr "Appel entrant"
 
-#: src/ringmainwindow.cpp:2091
+#: src/ringmainwindow.cpp:2094
 msgid "New request from "
 msgstr "Nouvelle demande de "
 
-#: src/ringmainwindow.cpp:2092
+#: src/ringmainwindow.cpp:2095
 msgid "Trust request"
 msgstr "Invitation"
 
-#: src/ringmainwindow.cpp:2149
+#: src/ringmainwindow.cpp:2152
 msgid "New message"
 msgstr "Nouveau message"
 

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-18 03:09-0400\n"
-"PO-Revision-Date: 2019-03-16 15:58+0000\n"
+"POT-Creation-Date: 2019-03-25 03:09-0400\n"
+"PO-Revision-Date: 2019-03-21 19:41+0000\n"
 "Last-Translator: mahmut özcan <mahmutozcan65@yahoo.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/jami/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -189,7 +189,7 @@ msgstr "Pin'inizi girin:"
 
 #: ui/accountcreationwizard.ui:188
 msgid "Or import a file:"
-msgstr ""
+msgstr "veya bir dosya içe aktar"
 
 #: ui/accountcreationwizard.ui:207
 msgid "Enter your password:"
@@ -214,7 +214,7 @@ msgstr "Hesap"
 
 #: ui/accountcreationwizard.ui:387
 msgid "Register username"
-msgstr ""
+msgstr "Kullanıcı adını kaydet"
 
 #: ui/accountcreationwizard.ui:388
 msgid ""
@@ -309,7 +309,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:449
 msgid "Download folder"
-msgstr ""
+msgstr "İndirme klasörü"
 
 #: ui/generalsettingsview.ui:486
 msgid "History"
@@ -335,7 +335,7 @@ msgstr "Genel"
 msgid "Media"
 msgstr "Ortam"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1606
 msgid "Settings"
 msgstr "Ayarlar"
 
@@ -888,36 +888,36 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "konuşma aç"
 
-#: src/ringmainwindow.cpp:1144
+#: src/ringmainwindow.cpp:1147
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Kişileri ara veya numara gir"
 
-#: src/ringmainwindow.cpp:1578
+#: src/ringmainwindow.cpp:1581
 msgid "Leave settings page"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1948
+#: src/ringmainwindow.cpp:1951
 msgid " is calling you!"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1949
+#: src/ringmainwindow.cpp:1952
 msgid "Incoming call"
 msgstr "Gelen arama"
 
-#: src/ringmainwindow.cpp:2091
+#: src/ringmainwindow.cpp:2094
 msgid "New request from "
 msgstr ""
 
-#: src/ringmainwindow.cpp:2092
+#: src/ringmainwindow.cpp:2095
 msgid "Trust request"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2149
+#: src/ringmainwindow.cpp:2152
 msgid "New message"
-msgstr ""
+msgstr "Yeni ileti"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1041,7 +1041,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:683
 msgid "Edit name"
-msgstr ""
+msgstr "Adı düzenle"
 
 #: src/newaccountsettingsview.cpp:683
 msgid "Revoke device"
@@ -1053,12 +1053,12 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:778
 msgid "Unban"
-msgstr ""
+msgstr "Yasağı kaldır"
 
 #: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
 #: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
 msgid "Change password"
-msgstr ""
+msgstr "Parolayı değiştir"
 
 #: src/newaccountsettingsview.cpp:814
 msgid "New password and its confirmation are different!"
@@ -1066,7 +1066,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:825
 msgid "Incorrect password!"
-msgstr ""
+msgstr "Yanlış parola!"
 
 #: src/newaccountsettingsview.cpp:862
 msgid "Note: this will change the password only on this device."
@@ -1074,7 +1074,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:865
 msgid "Current password"
-msgstr ""
+msgstr "Şimdiki parola"
 
 #: src/newaccountsettingsview.cpp:871
 msgid "New password"
@@ -1090,7 +1090,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:978
 msgid "Account exported!"
-msgstr ""
+msgstr "Hesap dışa aktarıldı!"
 
 #: src/newaccountsettingsview.cpp:978
 msgid "Export account failure."
@@ -1114,15 +1114,15 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:1824
 msgid "Error: wrong password!"
-msgstr ""
+msgstr "Hata: yanlış parola!"
 
 #: src/newaccountsettingsview.cpp:1827
 msgid "Error: unknown device!"
-msgstr ""
+msgstr "Hata: bilinmeyen aygıt!"
 
 #: src/newaccountsettingsview.cpp:1998
 msgid "Initializing…"
-msgstr ""
+msgstr "Başlatılıyor..."
 
 #: src/newaccountsettingsview.cpp:2001
 msgid "Offline"
@@ -1130,7 +1130,7 @@ msgstr "Çevrimdışı"
 
 #: src/newaccountsettingsview.cpp:2004
 msgid "Connecting…"
-msgstr ""
+msgstr "Bağlanıyor..."
 
 #: src/newaccountsettingsview.cpp:2007
 msgid "Online"
@@ -1138,11 +1138,11 @@ msgstr "Çevrimiçi"
 
 #: src/newaccountsettingsview.cpp:2011
 msgid "Unknown status"
-msgstr ""
+msgstr "Bilinmeyen durum"
 
 #: src/newaccountsettingsview.cpp:2044
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2044
 msgid "no password set"

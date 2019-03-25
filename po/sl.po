@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-18 03:09-0400\n"
-"PO-Revision-Date: 2019-02-22 21:01+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-03-25 03:09-0400\n"
+"PO-Revision-Date: 2019-03-23 19:10+0000\n"
+"Last-Translator: Tine Jozelj <mentos1386@outlook.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/savoirfairelinux/jami/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -331,7 +331,7 @@ msgstr "Splošno"
 msgid "Media"
 msgstr "Mediji"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1606
 msgid "Settings"
 msgstr "Nastavitve"
 
@@ -484,7 +484,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1135
 msgid "Call settings"
-msgstr ""
+msgstr "Nastavitve Klicev"
 
 #: ui/newaccountsettingsview.ui:1173
 msgid "Allow call from untrusted peers"
@@ -492,11 +492,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1208
 msgid "Auto answer calls"
-msgstr ""
+msgstr "Samodejno odgovori klice"
 
 #: ui/newaccountsettingsview.ui:1244
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Zvonjenje po meri"
 
 #: ui/newaccountsettingsview.ui:1288
 msgid "Name server"
@@ -548,15 +548,15 @@ msgstr "Geslo zasebnega ključa"
 
 #: ui/newaccountsettingsview.ui:1790
 msgid "TLS protocol method"
-msgstr ""
+msgstr "Metoda TLS protokola"
 
 #: ui/newaccountsettingsview.ui:1826
 msgid "Outgoing TLS server name"
-msgstr ""
+msgstr "Odhodno ime TLS strežnika"
 
 #: ui/newaccountsettingsview.ui:1861
 msgid "Negotiation timeout (seconds)"
-msgstr ""
+msgstr "Čas usklajevanja (sek)"
 
 #: ui/newaccountsettingsview.ui:1897
 msgid "Verify incoming certificates (server side)"
@@ -568,7 +568,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1967
 msgid "Require a certificate for incoming TLS connections"
-msgstr ""
+msgstr "Zahtevaj certifikat za dohodne TLS povezave"
 
 #: ui/newaccountsettingsview.ui:1991
 msgid "Security"
@@ -576,19 +576,19 @@ msgstr "Varnost"
 
 #: ui/newaccountsettingsview.ui:2016
 msgid "Connectivity"
-msgstr ""
+msgstr "Povezljivost"
 
 #: ui/newaccountsettingsview.ui:2054
 msgid "Registration expire timeout (seconds)"
-msgstr ""
+msgstr "Časovna omejitev prijave (sek)"
 
 #: ui/newaccountsettingsview.ui:2091
 msgid "Network interface"
-msgstr ""
+msgstr "Mrežni vmesnik"
 
 #: ui/newaccountsettingsview.ui:2127
 msgid "UPnP"
-msgstr ""
+msgstr "UPnP"
 
 #: ui/newaccountsettingsview.ui:2162
 msgid "Use TURN"
@@ -620,11 +620,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2405
 msgid "Published address"
-msgstr ""
+msgstr "Objavi naslov"
 
 #: ui/newaccountsettingsview.ui:2442
 msgid "Use custom address and port"
-msgstr ""
+msgstr "Uporabi naslov in vrata po meri"
 
 #: ui/newaccountsettingsview.ui:2513
 msgid "Port"
@@ -884,34 +884,34 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "odpri pogovor"
 
-#: src/ringmainwindow.cpp:1144
+#: src/ringmainwindow.cpp:1147
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Poišči stik ali vnesi številko"
 
-#: src/ringmainwindow.cpp:1578
+#: src/ringmainwindow.cpp:1581
 msgid "Leave settings page"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1948
+#: src/ringmainwindow.cpp:1951
 msgid " is calling you!"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1949
+#: src/ringmainwindow.cpp:1952
 msgid "Incoming call"
 msgstr "Dohodni klic"
 
-#: src/ringmainwindow.cpp:2091
+#: src/ringmainwindow.cpp:2094
 msgid "New request from "
 msgstr ""
 
-#: src/ringmainwindow.cpp:2092
+#: src/ringmainwindow.cpp:2095
 msgid "Trust request"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2149
+#: src/ringmainwindow.cpp:2152
 msgid "New message"
 msgstr ""
 
