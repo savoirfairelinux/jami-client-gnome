@@ -453,7 +453,7 @@ INSTALL(FILES pixmaps/jami.svg
 )
 
 INSTALL(FILES jami-gnome.appdata.xml
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/appdata/
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/metainfo/
 )
 
 # install shell script which will launch Jami
