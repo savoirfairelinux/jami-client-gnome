@@ -472,6 +472,11 @@ INSTALL(
       WORLD_EXECUTE
 )
 
+INSTALL(CODE "
+    EXECUTE_PROCESS(COMMAND rm ${CMAKE_INSTALL_PREFIX}/bin/ring.cx -f)
+    EXECUTE_PROCESS(COMMAND ln -s ${CMAKE_INSTALL_PREFIX}/bin/jami ${CMAKE_INSTALL_PREFIX}/bin/ring.cx)
+    ")
+
 # add a target to generate API documentation with Doxygen
 FIND_PACKAGE(Doxygen)
 IF(DOXYGEN_FOUND)
