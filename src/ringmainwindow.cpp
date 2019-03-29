@@ -848,32 +848,21 @@ CppImpl::CppImpl(RingMainWindow& widget)
     , lrc_ {std::make_unique<lrc::api::Lrc>()}
 {}
 
-static gboolean
-on_clear_all_history_foreach(GtkTreeModel *model, GtkTreePath*, GtkTreeIter *iter, gpointer self)
-{
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), TRUE);
-
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-    gchar* account_id;
-
-    gtk_tree_model_get(model, iter, 0 /* col# */, &account_id /* data */, -1);
-
-    auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(account_id);
-    accountInfo.conversationModel->clearAllHistory();
-
-    g_free(account_id);
-    return FALSE;
-}
-
 static void
 on_clear_all_history_clicked(RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-    auto accountComboBox = GTK_COMBO_BOX(priv->combobox_account_selector);
-    auto model = gtk_combo_box_get_model(accountComboBox);
+    g_return_if_fail(priv && priv->cpp);
 
-    gtk_tree_model_foreach (model, on_clear_all_history_foreach, self);
+    for (const auto &account_id : priv->cpp->lrc_->getAccountModel().getAccountList()) {
+        try {
+            auto &accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(account_id);
+            accountInfo.conversationModel->clearAllHistory();
+        } catch (const std::out_of_range &e) {
+            g_warning("Can't get account %s: %s", account_id.c_str(), e.what());
+        }
+    }
 
     priv->cpp->has_cleared_all_history = true;
 }
