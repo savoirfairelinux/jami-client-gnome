@@ -858,8 +858,14 @@ on_clear_all_history_foreach(GtkTreeModel *model, GtkTreePath*, GtkTreeIter *ite
 
     gtk_tree_model_get(model, iter, 0 /* col# */, &account_id /* data */, -1);
 
-    auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(account_id);
-    accountInfo.conversationModel->clearAllHistory();
+    try {
+        if (account_id && account_id != "") {
+            auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(account_id);
+            accountInfo.conversationModel->clearAllHistory();
+        }
+    } catch (const std::out_of_range& e) {
+        g_warning("Can't get account %s", account_id.c_str());
+    }
 
     g_free(account_id);
     return FALSE;
