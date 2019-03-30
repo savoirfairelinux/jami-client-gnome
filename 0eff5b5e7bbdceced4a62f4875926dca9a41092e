@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "909261ca_ad9e0732",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2019-03-30T14:43:33Z",
+      "side": 1,
+      "message": "The root issue is that we are iterating a UI ViewModel instead of the base model.\n\nThis logic should be moved to LRC, or LRC should provide a way to iterate over accounts.",
+      "range": {
+        "startLine": 882,
+        "startChar": 4,
+        "endLine": 883,
+        "endChar": 0
+      },
+      "revId": "0eff5b5e7bbdceced4a62f4875926dca9a41092e",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
