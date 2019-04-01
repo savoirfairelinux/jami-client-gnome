@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-25 03:09-0400\n"
+"POT-Creation-Date: 2019-04-01 03:09-0400\n"
 "PO-Revision-Date: 2019-03-19 01:20+0000\n"
 "Last-Translator: Botho <botho.willer@gmx.net>\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
@@ -753,13 +753,13 @@ msgstr "Initialiierung fehlgeschlagen.\nÜberprüfen Sie, ob der Jami-Daemon (dr
 msgid "Jami Error"
 msgstr "Fehler in Jami"
 
-#: src/ring_client.cpp:260
+#: src/ring_client.cpp:264
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Jami anzeigen"
 
-#: src/ring_client.cpp:264
+#: src/ring_client.cpp:268
 msgid "Quit"
 msgstr "Beenden"
 

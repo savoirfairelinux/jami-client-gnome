@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-25 03:09-0400\n"
-"PO-Revision-Date: 2019-03-10 14:55+0000\n"
+"POT-Creation-Date: 2019-04-01 03:09-0400\n"
+"PO-Revision-Date: 2019-03-31 10:10+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/savoirfairelinux/jami/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
@@ -600,19 +600,19 @@ msgstr "Utilizza TURN"
 
 #: ui/newaccountsettingsview.ui:2197
 msgid "(TURN) address"
-msgstr ""
+msgstr " indirizzo (TURN)"
 
 #: ui/newaccountsettingsview.ui:2232
 msgid "(TURN) username"
-msgstr ""
+msgstr " nome utente (TURN)"
 
 #: ui/newaccountsettingsview.ui:2266
 msgid "(TURN) password"
-msgstr ""
+msgstr " password (TURN)"
 
 #: ui/newaccountsettingsview.ui:2303
 msgid "(TURN) realm"
-msgstr ""
+msgstr "campo (TURN) "
 
 #: ui/newaccountsettingsview.ui:2337
 msgid "Use STUN"
@@ -620,7 +620,7 @@ msgstr "Utilizza STUN"
 
 #: ui/newaccountsettingsview.ui:2372
 msgid "(STUN) address"
-msgstr ""
+msgstr "indirizzo (STUN)"
 
 #: ui/newaccountsettingsview.ui:2405
 msgid "Published address"
@@ -656,15 +656,15 @@ msgstr "Utilizzato solo durante la negoziazione SDP nel caso in cui ICE non sia 
 
 #: ui/newaccountsettingsview.ui:2755
 msgid "Audio RTP Min port"
-msgstr ""
+msgstr "Min Port RTP Audio"
 
 #: ui/newaccountsettingsview.ui:2790
 msgid "Audio RTP Max port"
-msgstr ""
+msgstr "Max Port RTP Audio"
 
 #: ui/newaccountsettingsview.ui:2825
 msgid "Video RTP Min port"
-msgstr ""
+msgstr "Min port video RTP "
 
 #: ui/newaccountsettingsview.ui:2860
 msgid "Video RTP Max port"
@@ -724,7 +724,7 @@ msgstr "Scegli un file immagine"
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
-msgstr "Ritorna"
+msgstr "Indietro"
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
@@ -742,13 +742,13 @@ msgstr "Unable to initialize.\nAssicurati che il demone Jami (dring) sia in esec
 msgid "Jami Error"
 msgstr "Errore Jami"
 
-#: src/ring_client.cpp:260
+#: src/ring_client.cpp:264
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Mostra Jami"
 
-#: src/ring_client.cpp:264
+#: src/ring_client.cpp:268
 msgid "Quit"
 msgstr "Esci"
 

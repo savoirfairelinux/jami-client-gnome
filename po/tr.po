@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-25 03:09-0400\n"
-"PO-Revision-Date: 2019-03-21 19:41+0000\n"
+"POT-Creation-Date: 2019-04-01 03:09-0400\n"
+"PO-Revision-Date: 2019-03-30 12:10+0000\n"
 "Last-Translator: mahmut özcan <mahmutozcan65@yahoo.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/jami/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -153,7 +153,7 @@ msgstr "Bu aygıtı bir hesaba bağla"
 
 #: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Jami account created on another device"
-msgstr ""
+msgstr "Bu aygıtları başka aygıtta oluşturulan Jami hesabına bağla"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:887
@@ -221,7 +221,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Bunu seçerek Jami ağı üzerinde benzersiz bir kullanıcı adı kayıt olacaksınız. İnsanlar 40 karakter uzunluğundaki Jami Kimliğiniz yerine bunu kullanarak sizinle iletişime geçebilecek."
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733
@@ -317,7 +317,7 @@ msgstr "Geçmiş"
 
 #: ui/generalsettingsview.ui:525
 msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
+msgstr "Geçmişi tutulacak gün sayısı (gün 0 ise sınırsız)"
 
 #: ui/generalsettingsview.ui:555
 msgid "Clear all history"
@@ -369,7 +369,7 @@ msgstr "Giriş aygıtı:"
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
-msgstr ""
+msgstr "Giriş ses düzeyi ölçer:"
 
 #: ui/mediasettingsview.ui:156
 msgid "Camera Settings"
@@ -412,7 +412,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "Jami hesabınıza yeni bir aygıt eklemek için hesabınızı Jami üzerinden dışa aktarın. Bu işlem yeni eklenecek cihaza 5 dakika içerisinde girilmesi gereken bir PIN kodu yaratacaktır."
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -492,11 +492,11 @@ msgstr "Arama ayarları"
 
 #: ui/newaccountsettingsview.ui:1173
 msgid "Allow call from untrusted peers"
-msgstr ""
+msgstr "Güvenilmeyen Eşlerden Gelen Aramalara İzin Ver"
 
 #: ui/newaccountsettingsview.ui:1208
 msgid "Auto answer calls"
-msgstr ""
+msgstr "Aramaları otomatik yanıtla"
 
 #: ui/newaccountsettingsview.ui:1244
 msgid "Custom ringtone"
@@ -504,7 +504,7 @@ msgstr "Özel zil sesi "
 
 #: ui/newaccountsettingsview.ui:1288
 msgid "Name server"
-msgstr ""
+msgstr "Ad Sunucusu"
 
 #: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2478
 msgid "Address"
@@ -524,7 +524,7 @@ msgstr "Ortam akışlarını şifrele (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1538
 msgid "Enable SDES for key exchange protocol"
-msgstr ""
+msgstr "Anahtar takas kuralı için SDES'i etkinleştir"
 
 #: ui/newaccountsettingsview.ui:1574
 msgid "Fallback on RTP on encryption failure"
@@ -742,13 +742,13 @@ msgstr ""
 msgid "Jami Error"
 msgstr "Jami Hatası"
 
-#: src/ring_client.cpp:260
+#: src/ring_client.cpp:264
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Jami'yi Göster"
 
-#: src/ring_client.cpp:264
+#: src/ring_client.cpp:268
 msgid "Quit"
 msgstr "Çıkış"
 

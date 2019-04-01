@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-25 03:09-0400\n"
+"POT-Creation-Date: 2019-04-01 03:09-0400\n"
 "PO-Revision-Date: 2019-02-23 01:19+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
@@ -740,13 +740,13 @@ msgstr "無法初始化。\n請確定 Jami 幕後程式 (dring) 正在執行。\
 msgid "Jami Error"
 msgstr "Jami 錯誤"
 
-#: src/ring_client.cpp:260
+#: src/ring_client.cpp:264
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "顯示 Jami"
 
-#: src/ring_client.cpp:264
+#: src/ring_client.cpp:268
 msgid "Quit"
 msgstr "結束"
 

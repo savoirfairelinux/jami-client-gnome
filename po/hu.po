@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-25 03:09-0400\n"
-"PO-Revision-Date: 2019-03-14 20:55+0000\n"
+"POT-Creation-Date: 2019-04-01 03:09-0400\n"
+"PO-Revision-Date: 2019-03-30 18:50+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -626,11 +626,11 @@ msgstr "Nyilvános cím"
 
 #: ui/newaccountsettingsview.ui:2442
 msgid "Use custom address and port"
-msgstr "Használjon egyéni címet és portot"
+msgstr "Használjon egyéni címet és kikötőt"
 
 #: ui/newaccountsettingsview.ui:2513
 msgid "Port"
-msgstr "Port"
+msgstr "Kikötő"
 
 #: ui/newaccountsettingsview.ui:2549
 msgid "Video codecs"
@@ -654,19 +654,19 @@ msgstr "Csak az SDP-tárgyalások során használatos ha az ICE nem támogatott.
 
 #: ui/newaccountsettingsview.ui:2755
 msgid "Audio RTP Min port"
-msgstr "Hang RTP min port"
+msgstr "Hang RTP min kikötő"
 
 #: ui/newaccountsettingsview.ui:2790
 msgid "Audio RTP Max port"
-msgstr "Hang RTP max port"
+msgstr "Hang RTP max kikötő"
 
 #: ui/newaccountsettingsview.ui:2825
 msgid "Video RTP Min port"
-msgstr "Videó RTP min port"
+msgstr "Videó RTP min kikötő"
 
 #: ui/newaccountsettingsview.ui:2860
 msgid "Video RTP Max port"
-msgstr "Videó RTP max port"
+msgstr "Videó RTP max kikötő"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
@@ -740,13 +740,13 @@ msgstr "Képtelen elkezdeni\nGyőződjön meg róla, hogy a Jami rendszerfolyama
 msgid "Jami Error"
 msgstr "Jami hiba"
 
-#: src/ring_client.cpp:260
+#: src/ring_client.cpp:264
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Jami megjelenítése"
 
-#: src/ring_client.cpp:264
+#: src/ring_client.cpp:268
 msgid "Quit"
 msgstr "Kilépés"
 

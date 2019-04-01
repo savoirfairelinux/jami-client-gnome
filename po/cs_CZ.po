@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-25 03:09-0400\n"
-"PO-Revision-Date: 2019-03-23 21:20+0000\n"
+"POT-Creation-Date: 2019-04-01 03:09-0400\n"
+"PO-Revision-Date: 2019-03-29 12:12+0000\n"
 "Last-Translator: fri\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/savoirfairelinux/jami/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Je potřeba převedení účtu"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "Tento účet je poškozen. Zadejte, prosím, své heslo"
 
 #: ui/accountmigrationview.ui:89
 msgid "Alias"
@@ -58,11 +58,11 @@ msgstr "Převést účet"
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
 #: src/newaccountsettingsview.cpp:994
 msgid "Delete account"
-msgstr ""
+msgstr "Odstranit účet"
 
 #: ui/accountmigrationview.ui:231
 msgid "Migration failed, wrong password?"
-msgstr ""
+msgstr "Přesun selhal. Nesprávné heslo?"
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
@@ -74,7 +74,7 @@ msgstr "Ukončit hovor"
 
 #: ui/currentcallview.ui:275
 msgid "Toggle transfer"
-msgstr ""
+msgstr "Přepnout přenos"
 
 #: ui/currentcallview.ui:294
 msgid "Toggle hold"
@@ -99,7 +99,7 @@ msgstr "Vypnout obraz"
 
 #: ui/currentcallview.ui:369
 msgid "Toggle recording"
-msgstr ""
+msgstr "Přepnout nahrávání"
 
 #: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 #: ui/messagingwidget.ui:29
@@ -132,7 +132,7 @@ msgstr "Přenos dat"
 
 #: ui/currentcallview.ui:524
 msgid "Transfer to"
-msgstr ""
+msgstr "Přenést do"
 
 #: ui/accountcreationwizard.ui:30
 msgid "Welcome to"
@@ -140,11 +140,11 @@ msgstr "Vítejte v"
 
 #: ui/accountcreationwizard.ui:64
 msgid "Create Jami Account"
-msgstr ""
+msgstr "Vytvořit účet Jami"
 
 #: ui/accountcreationwizard.ui:65
 msgid "Create a new Jami account (for new users)"
-msgstr ""
+msgstr "Vytvořit nový účet Jami (pro nové uživatele)"
 
 #: ui/accountcreationwizard.ui:72
 msgid "Link this device to an account"
@@ -152,7 +152,7 @@ msgstr "Připojit toto zařízení k účtu"
 
 #: ui/accountcreationwizard.ui:73
 msgid "Link this devices to a Jami account created on another device"
-msgstr ""
+msgstr "Propojit toto zařízení s účtem Jami, který byl vytvořen na jiném zařízení"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:887
@@ -161,11 +161,11 @@ msgstr "Zrušit"
 
 #: ui/accountcreationwizard.ui:86
 msgid "Advanced…"
-msgstr ""
+msgstr "Pokročilé…"
 
 #: ui/accountcreationwizard.ui:97
 msgid "Add a new SIP account"
-msgstr ""
+msgstr "Přidat nový účet SIP"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Link this device to an existing account"
@@ -180,7 +180,7 @@ msgid ""
 "this account\". You will get the necessary PIN to complete this form. The "
 "PIN is only valid for 10 minutes. Or, you can directly import your account "
 "from an archive."
-msgstr ""
+msgstr "Pro připojení tohoto zařízení k jinému účtu máte dvě možnosti. Můžete svůj účet zavést z DHT, ale potřebujete nejdříve získat kód PIN. Abyste jej vytvořili, otevřete na předchozím zařízení nastavení správy účtů, zvolte, který účet Jami použít, a vyberte „Připojit k tomuto účtu další zařízení“. Dostanete PIN nezbytný k dokončení tohoto formuláře. PIN zůstává platný jen po 10 minut. Anebo svůj účet můžete zavést přímo z archivu."
 
 #: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
@@ -188,7 +188,7 @@ msgstr "Vložte svoje osobní identifikační číslo (PIN):"
 
 #: ui/accountcreationwizard.ui:188
 msgid "Or import a file:"
-msgstr ""
+msgstr "Nebo zavést soubor:"
 
 #: ui/accountcreationwizard.ui:207
 msgid "Enter your password:"
@@ -213,14 +213,14 @@ msgstr "Účet"
 
 #: ui/accountcreationwizard.ui:387
 msgid "Register username"
-msgstr ""
+msgstr "Zaregistrovat uživatelské jméno"
 
 #: ui/accountcreationwizard.ui:388
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Zaškrtnutím tohoto nastavení si zaregistrujete jedinečné uživatelské jméno na síti Jami. Ostatní ho budou moci použít k navázání spojení, namísto obvyklého RingID, které je 40 znaků dlouhé."
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733
@@ -239,11 +239,11 @@ msgstr "Potvrdit heslo"
 
 #: ui/accountcreationwizard.ui:562
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "Vytváří se váš účet Jami…"
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
-msgstr ""
+msgstr "Registruje se uživatelské jméno…"
 
 #: ui/accountcreationwizard.ui:595
 msgid "This may take a few minutes."
@@ -251,7 +251,7 @@ msgstr "Toto může pár minut trvat."
 
 #: ui/accountcreationwizard.ui:621
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "Získává se váš účet Jami…"
 
 #: ui/accountcreationwizard.ui:647
 msgid "Error creating/loading account."
@@ -268,15 +268,15 @@ msgstr "Systém"
 
 #: ui/generalsettingsview.ui:81
 msgid "Start application on login"
-msgstr ""
+msgstr "Spouštět program po přihlášení"
 
 #: ui/generalsettingsview.ui:117
 msgid "Show Jami icon (systray) in the systray area"
-msgstr ""
+msgstr "Ukázat ikonu Jami v oznamovací oblasti panelu"
 
 #: ui/generalsettingsview.ui:153
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
+msgstr "Při příchozích hovorech přenést okno Jami do popředí."
 
 #: ui/generalsettingsview.ui:189
 msgid "Notifications"
@@ -288,27 +288,27 @@ msgstr "Povolit upozornění na příchozí hovory"
 
 #: ui/generalsettingsview.ui:264
 msgid "Enable notifications for pending requests"
-msgstr ""
+msgstr "Povolit upozornění na čekající hovory"
 
 #: ui/generalsettingsview.ui:300
 msgid "Enable notifications for new chat messages"
-msgstr ""
+msgstr "Povolit upozornění na nové zprávy během klábosení."
 
 #: ui/generalsettingsview.ui:336
 msgid "Chatview"
-msgstr ""
+msgstr "Okno pro vedení rozhovoru"
 
 #: ui/generalsettingsview.ui:375
 msgid "Display images and videos into the chatview"
-msgstr ""
+msgstr "Zobrazit v okně pro vedení rozhovoru obrázky a obrazové záznamy"
 
 #: ui/generalsettingsview.ui:412
 msgid "Show chatview on the right (on the bottom if off)"
-msgstr ""
+msgstr "Ukázat okno pro vedení rozhovor napravo (dole, pokud je vypnuto)"
 
 #: ui/generalsettingsview.ui:449
 msgid "Download folder"
-msgstr ""
+msgstr "Složka pro stahování"
 
 #: ui/generalsettingsview.ui:486
 msgid "History"
@@ -316,7 +316,7 @@ msgstr "Historie"
 
 #: ui/generalsettingsview.ui:525
 msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
+msgstr "Kolik dnů uchovat historii (dny, 0 = neomezeně):"
 
 #: ui/generalsettingsview.ui:555
 msgid "Clear all history"
@@ -368,7 +368,7 @@ msgstr "Vstupní zařízení:"
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
-msgstr ""
+msgstr "Měřič vstupní hlasitosti:"
 
 #: ui/mediasettingsview.ui:156
 msgid "Camera Settings"
@@ -411,7 +411,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "Abyste si ke svému účtu Jami přidali nové zařízení, vyvěďte si účet na Jami. Tím získáte PIN, který musíte do 5 minut od jeho vytvoření zadat na svém novém zařízení."
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -423,11 +423,11 @@ msgstr "Vložte heslo k archivu"
 
 #: ui/newaccountsettingsview.ui:189
 msgid "Export on the network"
-msgstr ""
+msgstr "Vyvést na síť"
 
 #: ui/newaccountsettingsview.ui:210
 msgid "Exporting account on the Jami…"
-msgstr ""
+msgstr "Vyvést účet na Jami…"
 
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
@@ -439,19 +439,19 @@ msgstr "ID"
 
 #: ui/newaccountsettingsview.ui:538
 msgid "Click to change password"
-msgstr ""
+msgstr "Klepněte pro změnu hesla"
 
 #: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2033
 msgid "Export account"
-msgstr ""
+msgstr "Vyvést účet"
 
 #: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:901
 msgid "Enable account"
-msgstr ""
+msgstr "Povolit účet"
 
 #: ui/newaccountsettingsview.ui:697
 msgid "SIP server"
-msgstr ""
+msgstr "Server SIP"
 
 #: ui/newaccountsettingsview.ui:779
 msgid "password"
@@ -467,7 +467,7 @@ msgstr "Hlasová schránka"
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "Známá zařízení připojená k tomuto účtu Jami"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
@@ -475,7 +475,7 @@ msgstr "Připojit další zařízení"
 
 #: ui/newaccountsettingsview.ui:1025
 msgid "Banned contacts"
-msgstr ""
+msgstr "Zakázané kontakty"
 
 #: ui/newaccountsettingsview.ui:1081
 msgid "Advanced settings"
@@ -483,7 +483,7 @@ msgstr "Pokročilá nastavení"
 
 #: ui/newaccountsettingsview.ui:1117
 msgid "General settings"
-msgstr ""
+msgstr "Obecná nastavení"
 
 #: ui/newaccountsettingsview.ui:1135
 msgid "Call settings"
@@ -491,7 +491,7 @@ msgstr "Nastavení volání"
 
 #: ui/newaccountsettingsview.ui:1173
 msgid "Allow call from untrusted peers"
-msgstr ""
+msgstr "Povolit hovory od nehodnověrných uživatelů"
 
 #: ui/newaccountsettingsview.ui:1208
 msgid "Auto answer calls"
@@ -503,7 +503,7 @@ msgstr "Vlastní vyzvánění"
 
 #: ui/newaccountsettingsview.ui:1288
 msgid "Name server"
-msgstr ""
+msgstr "Jemnný server"
 
 #: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2478
 msgid "Address"
@@ -511,7 +511,7 @@ msgstr "Adresa"
 
 #: ui/newaccountsettingsview.ui:1359
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "Nastavení OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1443
 msgid "Bootstrap"
@@ -599,19 +599,19 @@ msgstr "Použít TURN"
 
 #: ui/newaccountsettingsview.ui:2197
 msgid "(TURN) address"
-msgstr ""
+msgstr "Adresa (TURN)"
 
 #: ui/newaccountsettingsview.ui:2232
 msgid "(TURN) username"
-msgstr ""
+msgstr "Uživatelské jméno (TURN)"
 
 #: ui/newaccountsettingsview.ui:2266
 msgid "(TURN) password"
-msgstr ""
+msgstr "Heslo (TURN)"
 
 #: ui/newaccountsettingsview.ui:2303
 msgid "(TURN) realm"
-msgstr ""
+msgstr "Oblast (TURN)"
 
 #: ui/newaccountsettingsview.ui:2337
 msgid "Use STUN"
@@ -619,7 +619,7 @@ msgstr "Použít STUN"
 
 #: ui/newaccountsettingsview.ui:2372
 msgid "(STUN) address"
-msgstr ""
+msgstr "Adresa (STUN)"
 
 #: ui/newaccountsettingsview.ui:2405
 msgid "Published address"
@@ -639,7 +639,7 @@ msgstr "Obrazové kodeky"
 
 #: ui/newaccountsettingsview.ui:2612
 msgid "Enable video"
-msgstr ""
+msgstr "Povolit obraz"
 
 #: ui/newaccountsettingsview.ui:2639
 msgid "Audio codecs"
@@ -651,7 +651,7 @@ msgstr "Vyjednávání sezení SDP (ICE Fallback)"
 
 #: ui/newaccountsettingsview.ui:2721
 msgid "Only used during SDP negotiation in case ICE is not supported."
-msgstr ""
+msgstr "Použito jen během vyjednávání SDP, v případě že ICE není podporováno."
 
 #: ui/newaccountsettingsview.ui:2755
 msgid "Audio RTP Min port"
@@ -671,7 +671,7 @@ msgstr ""
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "Zaregistrovat uživatelské jméno"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -683,11 +683,11 @@ msgstr "Volat"
 
 #: ui/chatview.ui:62
 msgid "Place audio-only call"
-msgstr ""
+msgstr "Uskutečnit pouze zvukový hovor"
 
 #: ui/chatview.ui:75
 msgid "Add to conversations"
-msgstr ""
+msgstr "Přidat do konverzací"
 
 #: ui/chatview.ui:134
 msgid "Send Invitation"
@@ -695,15 +695,15 @@ msgstr "Poslat pozvání"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
-msgstr ""
+msgstr "Nahrát zvukovou zprávu"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "Ukončit bez zprávy"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
-msgstr ""
+msgstr "Příchozí…"
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
@@ -739,22 +739,22 @@ msgstr ""
 
 #: src/ring_client.cpp:117
 msgid "Jami Error"
-msgstr ""
+msgstr "Chyba Jami"
 
-#: src/ring_client.cpp:260
+#: src/ring_client.cpp:264
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "Ukázat Jami"
 
-#: src/ring_client.cpp:264
+#: src/ring_client.cpp:268
 msgid "Quit"
-msgstr ""
+msgstr "Ukončit"
 
 #: src/ringnotify.cpp:332
 msgctxt ""
 msgid "Open conversation"
-msgstr ""
+msgstr "Otevřít konverzaci"
 
 #: src/ringnotify.cpp:340 src/ringnotify.cpp:356
 msgctxt ""
@@ -797,7 +797,7 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
-msgstr ""
+msgstr "Probíhá registrace…"
 
 #: src/generalsettingsview.cpp:100
 msgid ""
@@ -807,7 +807,7 @@ msgstr "Toto je ničivý zásah. Skutečně chcete odstranit veškerou svou hist
 
 #: src/generalsettingsview.cpp:170
 msgid "Choose download folder"
-msgstr ""
+msgstr "Vybrat složku pro stahování"
 
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
 #: src/chatview.cpp:178 src/newaccountsettingsview.cpp:930
@@ -817,15 +817,15 @@ msgstr "_Zrušit"
 #: src/generalsettingsview.cpp:175 src/chatview.cpp:180
 #: src/newaccountsettingsview.cpp:932
 msgid "_Save"
-msgstr ""
+msgstr "_Uložit"
 
 #: src/video/video_widget.cpp:549
 msgid "Share _screen area"
-msgstr ""
+msgstr "Sdílet část _obrazovky"
 
 #: src/video/video_widget.cpp:557
 msgid "Share _monitor"
-msgstr ""
+msgstr "Sdílet _obrazovku"
 
 #: src/video/video_widget.cpp:564
 msgid "Stream _file"
@@ -845,7 +845,7 @@ msgstr "_Otevřít"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "Pracuje…"
 
 #: src/dialogs.c:84
 #, c-format
@@ -867,15 +867,15 @@ msgstr ""
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "Zastavit nahrávání"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
-msgstr ""
+msgstr "Poslat nahranou zprávu"
 
 #: src/ringmainwindow.cpp:184
 msgid "Add account…"
-msgstr ""
+msgstr "Přidat účet…"
 
 #: src/ringmainwindow.cpp:640
 msgctxt "button next to search entry will place a new call"
@@ -896,11 +896,11 @@ msgstr "Hledat kontakty nebo zadat číslo"
 
 #: src/ringmainwindow.cpp:1581
 msgid "Leave settings page"
-msgstr ""
+msgstr "Opustit stránku s nastavením"
 
 #: src/ringmainwindow.cpp:1951
 msgid " is calling you!"
-msgstr ""
+msgstr "vám volá!"
 
 #: src/ringmainwindow.cpp:1952
 msgid "Incoming call"
@@ -908,20 +908,20 @@ msgstr "Příchozí hovor"
 
 #: src/ringmainwindow.cpp:2094
 msgid "New request from "
-msgstr ""
+msgstr "Nová žádost od"
 
 #: src/ringmainwindow.cpp:2095
 msgid "Trust request"
-msgstr ""
+msgstr "Žádosti o důvěru"
 
 #: src/ringmainwindow.cpp:2152
 msgid "New message"
-msgstr ""
+msgstr "Nová zpráva"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Chyba Jami"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
@@ -935,39 +935,39 @@ msgstr ""
 
 #: src/conversationpopupmenu.cpp:211
 msgid "Place _video call"
-msgstr ""
+msgstr "Uskutečnit _obrazový hovor"
 
 #: src/conversationpopupmenu.cpp:214
 msgid "Place _audio call"
-msgstr ""
+msgstr "Uskutečnit _zvukový hovor"
 
 #: src/conversationpopupmenu.cpp:222
 msgid "_Add to conversations"
-msgstr ""
+msgstr "_Přidat do konverzací"
 
 #: src/conversationpopupmenu.cpp:226
 msgid "_Discard invitation"
-msgstr ""
+msgstr "_Zahodit pozvání"
 
 #: src/conversationpopupmenu.cpp:229
 msgid "_Block invitations"
-msgstr ""
+msgstr "_Blokovat pozvání"
 
 #: src/conversationpopupmenu.cpp:234
 msgid "C_lear history"
-msgstr ""
+msgstr "V_ymazat historii"
 
 #: src/conversationpopupmenu.cpp:237
 msgid "_Remove conversation"
-msgstr ""
+msgstr "_Odstranit konverzaci"
 
 #: src/conversationpopupmenu.cpp:242
 msgid "_Block contact"
-msgstr ""
+msgstr "_Blokovat kontakt"
 
 #: src/conversationpopupmenu.cpp:246
 msgid "_Unblock contact"
-msgstr ""
+msgstr "_Odblokovat kontakt"
 
 #: src/conversationpopupmenu.cpp:252
 msgid "_Copy name"
@@ -985,7 +985,7 @@ msgstr "Obnoví skrytý stav hlavního okna (platí pouze pro primární instanc
 
 #: src/ring_client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr ""
+msgstr "- klient GNOME pro Jami"
 
 #: src/accountcreationwizard.cpp:343
 msgid "Passwords don't match"
@@ -995,13 +995,13 @@ msgstr "Hesla se neshodují"
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Toto je vaše uživatelské jméno pro Jami.\nZkopírujte je a sdílejte je s vašimi přáteli!"
 
 #: src/ringwelcomeview.cpp:96
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Toto je vaše ID.\nZkopírujte je a sdílejte je s vašimi přáteli!"
 
 #: src/ringwelcomeview.cpp:169
 msgid ""
@@ -1011,7 +1011,7 @@ msgstr "Jami je svobodný software určený k univerzální komunikaci, který r
 
 #: src/chatview.cpp:175
 msgid "Send File"
-msgstr ""
+msgstr "Poslat soubor"
 
 #: src/chatview.cpp:175 src/newaccountsettingsview.cpp:927
 msgid "Save File"
@@ -1021,7 +1021,7 @@ msgstr "Uložit soubor"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
+msgstr "Varování! Tento krok povede k odstranění tohoto účtu na tomto zařízení?\nPoznámka: Tento krok nelze vrátit zpět. Vámi zaregistrované jméno může být ztraceno!"
 
 #: src/currentcallview.cpp:974
 msgctxt "Enable automatic video quality"
@@ -1032,11 +1032,11 @@ msgstr "Automaticky"
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Varování! Tento krok povede k odebrání zařízení?\nPoznámka: Tento krok nelze vrátit zpět."
 
 #: src/newaccountsettingsview.cpp:625
 msgid "Enter password to revoke device"
-msgstr ""
+msgstr "Pro odebrání zařízení zadejte heslo"
 
 #: src/newaccountsettingsview.cpp:683
 msgid "Edit name"
@@ -1048,11 +1048,11 @@ msgstr "Odebrat zařízení"
 
 #: src/newaccountsettingsview.cpp:705
 msgid "Error when revoking device"
-msgstr ""
+msgstr "Chyba při odebírání zařízení"
 
 #: src/newaccountsettingsview.cpp:778
 msgid "Unban"
-msgstr ""
+msgstr "Zrušit zákaz"
 
 #: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
 #: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
@@ -1061,19 +1061,19 @@ msgstr "Změnit heslo"
 
 #: src/newaccountsettingsview.cpp:814
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "Nové heslo a jeho potvrzení se neshodují!"
 
 #: src/newaccountsettingsview.cpp:825
 msgid "Incorrect password!"
-msgstr ""
+msgstr "Nesprávné heslo!"
 
 #: src/newaccountsettingsview.cpp:862
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "Poznámka: Tímto se heslo změní jen na tomto zařízení."
 
 #: src/newaccountsettingsview.cpp:865
 msgid "Current password"
-msgstr ""
+msgstr "Nynější heslo"
 
 #: src/newaccountsettingsview.cpp:871
 msgid "New password"
@@ -1081,19 +1081,19 @@ msgstr "Nové heslo"
 
 #: src/newaccountsettingsview.cpp:954
 msgid "You need to enter your password to export the full archive."
-msgstr ""
+msgstr "Pro vyvedení celého archivu musíte zadat heslo."
 
 #: src/newaccountsettingsview.cpp:955
 msgid "Enter password to export archive"
-msgstr ""
+msgstr "Zadejte heslo pro vyvedení archivu"
 
 #: src/newaccountsettingsview.cpp:978
 msgid "Account exported!"
-msgstr ""
+msgstr "Účet vyveden!"
 
 #: src/newaccountsettingsview.cpp:978
 msgid "Export account failure."
-msgstr ""
+msgstr "Nepodařilo se vyvést účet."
 
 #: src/newaccountsettingsview.cpp:1741
 msgid "Bad password"
@@ -1109,15 +1109,15 @@ msgstr "Neznámá chyba"
 
 #: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "Nepodařilo se začít vyvedení do Jami, zkuste to znovu"
 
 #: src/newaccountsettingsview.cpp:1824
 msgid "Error: wrong password!"
-msgstr ""
+msgstr "Chyba: Špatné heslo!"
 
 #: src/newaccountsettingsview.cpp:1827
 msgid "Error: unknown device!"
-msgstr ""
+msgstr "Chyba: Neznámé zařízení!"
 
 #: src/newaccountsettingsview.cpp:1998
 msgid "Initializing…"
@@ -1137,12 +1137,12 @@ msgstr "Připojen"
 
 #: src/newaccountsettingsview.cpp:2011
 msgid "Unknown status"
-msgstr ""
+msgstr "Neznámý stav"
 
 #: src/newaccountsettingsview.cpp:2044
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2044
 msgid "no password set"
-msgstr ""
+msgstr "nestanoveno žádné heslo"

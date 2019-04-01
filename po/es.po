@@ -20,12 +20,12 @@
 # Juanjo Faico <juanjofaico22@openmailbox.org>, 2016
 # Julie LeBrun <julie.lebrun@savoirfairelinux.com>, 2016
 # Julio Gutierrez <bubuntux@gmail.com>, 2016
-# Jusore Mondos <jusore@gmail.com>, 2016
+# jusore <jusore@gmail.com>, 2016
 # fgp <komakino@wanadoo.es>, 2016
 # Laura Arjona Reina <larjona@larjona.net>, 2016
 # Markel @wakutiteo, 2018
 # Miguel Angel NV <manvac@gmail.com>, 2017
-# Pier Jose Gotta Perez <piegope@gmail.com>, 2018
+# Pier Jose Gotta Perez <piegope@protonmail.com>, 2018
 # Rodrigo I. Avila D., 2018
 # Stepan Salenikovich, 2015
 # Stepan Salenikovich, 2015
@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-25 03:09-0400\n"
+"POT-Creation-Date: 2019-04-01 03:09-0400\n"
 "PO-Revision-Date: 2019-03-15 18:20+0000\n"
 "Last-Translator: Blanca Iris Almagro\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/jami/language/es/)\n"
@@ -767,13 +767,13 @@ msgstr "Incapaz de inicializar.\nAsegurese que el demonio de Jami (dring) esté 
 msgid "Jami Error"
 msgstr "Error en Jami"
 
-#: src/ring_client.cpp:260
+#: src/ring_client.cpp:264
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Mostrar Jami"
 
-#: src/ring_client.cpp:264
+#: src/ring_client.cpp:268
 msgid "Quit"
 msgstr "Salir"
 
