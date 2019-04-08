@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Cleiton Floss, 2016
+# Danton Medrado, 2019
 # Gabriel Moura <gabriel.all@yandex.com>, 2016
 # Gustavo H. M. Silva <gustavohmsilva@tuta.io>, 2016
 # Gustavo H. M. Silva <gustavohmsilva@tuta.io>, 2017
@@ -23,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-01 03:09-0400\n"
-"PO-Revision-Date: 2019-02-22 21:01+0000\n"
+"POT-Creation-Date: 2019-04-08 03:09-0400\n"
+"PO-Revision-Date: 2019-04-08 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/jami/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -196,7 +197,7 @@ msgstr "Para conectar estes dispositivo a outra conta, você tem duas opções. 
 
 #: ui/accountcreationwizard.ui:162
 msgid "Enter your pin:"
-msgstr "Entre o seu PIN:"
+msgstr "Insira o seu PIN:"
 
 #: ui/accountcreationwizard.ui:188
 msgid "Or import a file:"
@@ -204,7 +205,7 @@ msgstr "Ou importe de arquivo:"
 
 #: ui/accountcreationwizard.ui:207
 msgid "Enter your password:"
-msgstr "Entre sua senha:"
+msgstr "Insira sua senha:"
 
 #: ui/accountcreationwizard.ui:227 ui/accountcreationwizard.ui:530
 msgid "Previous"
@@ -346,7 +347,7 @@ msgstr "Geral"
 msgid "Media"
 msgstr "Mídia"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1606
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
 msgid "Settings"
 msgstr "Configurações"
 
@@ -380,7 +381,7 @@ msgstr "Dispositivo de entrada:"
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
-msgstr ""
+msgstr "Medidor de volume de entrada:"
 
 #: ui/mediasettingsview.ui:156
 msgid "Camera Settings"
@@ -889,44 +890,48 @@ msgstr "Enviar mensagem gravada"
 msgid "Add account…"
 msgstr "Adicionar conta…"
 
-#: src/ringmainwindow.cpp:640
+#: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "fazer ligação"
 
-#: src/ringmainwindow.cpp:643
+#: src/ringmainwindow.cpp:649
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "abrir chat"
 
-#: src/ringmainwindow.cpp:1147
+#: src/ringmainwindow.cpp:1142
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Busque por contatos ou insira o número"
 
-#: src/ringmainwindow.cpp:1581
+#: src/ringmainwindow.cpp:1578
 msgid "Leave settings page"
 msgstr "Deixar a página de configurações"
 
-#: src/ringmainwindow.cpp:1951
+#: src/ringmainwindow.cpp:1932
+msgid "There are active calls"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1988
 msgid " is calling you!"
 msgstr "está chamando você!"
 
-#: src/ringmainwindow.cpp:1952
+#: src/ringmainwindow.cpp:1989
 msgid "Incoming call"
 msgstr "Chamada recebida"
 
-#: src/ringmainwindow.cpp:2094
+#: src/ringmainwindow.cpp:2131
 msgid "New request from "
 msgstr "Nova requisição de"
 
-#: src/ringmainwindow.cpp:2095
+#: src/ringmainwindow.cpp:2132
 msgid "Trust request"
 msgstr "Confiar na requisição"
 
-#: src/ringmainwindow.cpp:2152
+#: src/ringmainwindow.cpp:2189
 msgid "New message"
 msgstr "Nova mensagem"
 

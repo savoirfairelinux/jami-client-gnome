@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-01 03:09-0400\n"
-"PO-Revision-Date: 2019-03-03 17:37+0000\n"
-"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2019-04-08 03:09-0400\n"
+"PO-Revision-Date: 2019-04-08 07:09+0000\n"
+"Last-Translator: Alexandre Lision\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -348,7 +348,7 @@ msgstr "Général"
 msgid "Media"
 msgstr "Médias"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1606
+#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -891,44 +891,48 @@ msgstr "Envoyer le message enregistré"
 msgid "Add account…"
 msgstr "Ajouter un compte ..."
 
-#: src/ringmainwindow.cpp:640
+#: src/ringmainwindow.cpp:646
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Appeler"
 
-#: src/ringmainwindow.cpp:643
+#: src/ringmainwindow.cpp:649
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Ouvrir la discussion"
 
-#: src/ringmainwindow.cpp:1147
+#: src/ringmainwindow.cpp:1142
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Rechercher dans les contacts ou appeler un numéro"
 
-#: src/ringmainwindow.cpp:1581
+#: src/ringmainwindow.cpp:1578
 msgid "Leave settings page"
 msgstr "Quitter la page des réglages"
 
-#: src/ringmainwindow.cpp:1951
+#: src/ringmainwindow.cpp:1932
+msgid "There are active calls"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1988
 msgid " is calling you!"
 msgstr "vous appelle"
 
-#: src/ringmainwindow.cpp:1952
+#: src/ringmainwindow.cpp:1989
 msgid "Incoming call"
 msgstr "Appel entrant"
 
-#: src/ringmainwindow.cpp:2094
+#: src/ringmainwindow.cpp:2131
 msgid "New request from "
 msgstr "Nouvelle demande de "
 
-#: src/ringmainwindow.cpp:2095
+#: src/ringmainwindow.cpp:2132
 msgid "Trust request"
 msgstr "Invitation"
 
-#: src/ringmainwindow.cpp:2152
+#: src/ringmainwindow.cpp:2189
 msgid "New message"
 msgstr "Nouveau message"
 
