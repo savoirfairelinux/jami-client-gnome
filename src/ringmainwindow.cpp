@@ -2242,6 +2242,32 @@ ring_main_window_reset(RingMainWindow* self)
         priv->cpp->leaveSettingsView();
 }
 
+bool
+ring_main_window_can_close(RingMainWindow* self)
+{
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), true);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    if (priv->cpp && (priv->cpp->activeCalls > 0)) {
+        auto* close_dialog = gtk_message_dialog_new(GTK_WINDOW(self),
+            GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
+            _("A call is currently ongoing. Do you want to close the window and stop all current calls?"));
+        gtk_window_set_title(GTK_WINDOW(close_dialog), _("Stop current call?"));
+        gtk_dialog_set_default_response(GTK_DIALOG(close_dialog), GTK_RESPONSE_CANCEL);
+        gtk_widget_show_all(close_dialog);
+
+        auto res = gtk_dialog_run(GTK_DIALOG(close_dialog));
+
+        gtk_widget_destroy(close_dialog);
+        if (res == GTK_RESPONSE_OK) {
+            lrc::api::NewCallModel::hangupCallsAndConferences();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
 //==============================================================================
 
 static void
