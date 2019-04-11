@@ -8,7 +8,7 @@
 #define USE_LIBNM @USE_LIBNM@
 #define USE_CANBERRA @USE_CANBERRA@
 
-#define RING_CLIENT_APP_ID "net.jami.client.gnome"
+#define RING_CLIENT_APP_ID "net.jami.Jami"
 
 #define RING_CLIENT_INSTALL "@RING_INSTALL_PREFIX@"
 #define JAMI_DATA_DIR "/share/jami-gnome"

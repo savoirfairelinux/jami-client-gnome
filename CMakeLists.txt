@@ -355,7 +355,7 @@ IF (GETTEXT_FOUND)
 ENDIF(GETTEXT_FOUND)
 
 # install and compile glib gsettings schema
-add_schema("net.jami.client.gnome.gschema.xml" GSCHEMA_RING)
+add_schema("net.jami.Jami.gschema.xml" GSCHEMA_RING)
 
 ADD_EXECUTABLE(jami-gnome ${GLIB_RESOURCES_RING} ${GSCHEMA_RING} ${SRC_FILES})
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema path="/net/jami/JamiGnome/" id="net.jami.client.gnome">
+  <schema path="/net/jami/JamiGnome/" id="net.jami.Jami">
     <key name="start-on-login" type="b">
         <default>true</default>
         <summary>Start Jami on login.</summary>
