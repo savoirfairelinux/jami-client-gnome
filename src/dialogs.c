@@ -138,7 +138,7 @@ ring_about_dialog(GtkWidget *parent)
         "authors", authors,
         "website", "https://jami.net/",
         "website-label", "jami.net",
-        "translator-credits", "https://www.transifex.com/savoirfairelinux/ring",
+        "translator-credits", "https://www.transifex.com/savoirfairelinux/jami",
         NULL
     );
 
