@@ -77,7 +77,7 @@ struct _MediaSettingsViewPrivate
     QMetaObject::Connection audio_meter_connection;
 
     /* hardware accel settings */
-    GtkWidget *checkbutton_hardware_decoding;
+    GtkWidget *checkbutton_hardware_acceleration;
 
     details::CppImpl* cpp; ///< Non-UI and C++ only code
 };
@@ -111,8 +111,8 @@ CppImpl::CppImpl(MediaSettingsView& widget, lrc::api::AVModel& avModel)
 , avModel_(&avModel)
 {
     gtk_toggle_button_set_active(
-        GTK_TOGGLE_BUTTON(widgets->checkbutton_hardware_decoding),
-        avModel_->getDecodingAccelerated());
+        GTK_TOGGLE_BUTTON(widgets->checkbutton_hardware_acceleration),
+        avModel_->getHardwareAcceleration());
 
     auto activeIdx = 0;
     auto currentManager = avModel_->getAudioManager();
@@ -314,12 +314,12 @@ media_settings_view_dispose(GObject *object)
 }
 
 static void
-hardware_decoding_toggled(GtkToggleButton *toggle_button, MediaSettingsView *self)
+hardware_acceleration_toggled(GtkToggleButton *toggle_button, MediaSettingsView *self)
 {
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
-    gboolean hardware_decoding = gtk_toggle_button_get_active(toggle_button);
-    priv->cpp->avModel_->setDecodingAccelerated(hardware_decoding);
+    gboolean hardware_acceleration = gtk_toggle_button_get_active(toggle_button);
+    priv->cpp->avModel_->setHardwareAcceleration(hardware_acceleration);
 }
 
 static void
@@ -465,7 +465,7 @@ media_settings_view_class_init(MediaSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_channel);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_resolution);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_framerate);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, checkbutton_hardware_decoding);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, checkbutton_hardware_acceleration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, levelbar_input);
 }
 
@@ -479,8 +479,8 @@ media_settings_view_new(lrc::api::AVModel& avModel)
     );
 
     // CppImpl ctor
-    g_signal_connect(priv->checkbutton_hardware_decoding, "toggled",
-        G_CALLBACK(hardware_decoding_toggled), self);
+    g_signal_connect(priv->checkbutton_hardware_acceleration, "toggled",
+        G_CALLBACK(hardware_acceleration_toggled), self);
     g_signal_connect_swapped(priv->combobox_manager, "changed",
         G_CALLBACK(set_audio_manager), self);
     g_signal_connect_swapped(priv->combobox_ringtone, "changed",

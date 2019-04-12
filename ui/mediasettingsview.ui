@@ -276,10 +276,10 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label_hardware_decoding">
+              <object class="GtkLabel" id="label_hardware_acceleration">
                 <property name="visible">True</property>
                 <property name="halign">end</property>
-                <property name="label" translatable="yes">Enable hardware decoding:</property>
+                <property name="label" translatable="yes">Enable hardware acceleration:</property>
                 <property name="margin_left">10</property>
               </object>
               <packing>
@@ -288,7 +288,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="checkbutton_hardware_decoding">
+              <object class="GtkCheckButton" id="checkbutton_hardware_acceleration">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
