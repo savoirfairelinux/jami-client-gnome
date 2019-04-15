@@ -34,5 +34,6 @@ main(int argc, char *argv[])
     textdomain(PACKAGE_NAME);
 
     RingClient *client = ring_client_new(argc, argv);
+    g_set_application_name(JAMI_CLIENT_NAME);
     return g_application_run(G_APPLICATION(client), argc, argv);
 }

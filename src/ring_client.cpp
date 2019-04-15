@@ -279,7 +279,7 @@ init_systray(RingClient *client)
 #if HAVE_APPINDICATOR
     auto indicator = app_indicator_new("jami", "jami", APP_INDICATOR_CATEGORY_COMMUNICATIONS);
     app_indicator_set_status(indicator, APP_INDICATOR_STATUS_ACTIVE);
-    app_indicator_set_title(indicator, "Jami");
+    app_indicator_set_title(indicator, JAMI_CLIENT_NAME);
     /* app indicator requires a menu */
     app_indicator_set_menu(indicator, GTK_MENU(priv->icon_menu));
     priv->systray_icon = indicator;
@@ -395,14 +395,14 @@ ring_client_startup(GApplication *app)
     if (locale_name != locale_lang) {
         /* Install language first to have lowest priority */
         priv->translator_lang.reset(new QTranslator);
-        if (priv->translator_lang->load(RING_CLIENT_INSTALL "/share/libringclient/translations/lrc_" + locale_lang)) {
+        if (priv->translator_lang->load(JAMI_CLIENT_INSTALL "/share/libringclient/translations/lrc_" + locale_lang)) {
             g_debug("installed translations for %s", locale_lang.toUtf8().constData());
             priv->qtapp->installTranslator(priv->translator_lang.get());
         }
     }
 
     priv->translator_full.reset(new QTranslator);
-    if (priv->translator_full->load(RING_CLIENT_INSTALL "/share/libringclient/translations/lrc_" + locale_name)) {
+    if (priv->translator_full->load(JAMI_CLIENT_INSTALL "/share/libringclient/translations/lrc_" + locale_name)) {
         g_debug("installed translations for %s", locale_name.toUtf8().constData());
     }
 
@@ -495,7 +495,7 @@ RingClient*
 ring_client_new(int argc, char *argv[])
 {
     RingClient *client = (RingClient *)g_object_new(ring_client_get_type(),
-                                                    "application-id", RING_CLIENT_APP_ID,
+                                                    "application-id", JAMI_CLIENT_APP_ID,
                                                     "flags", G_APPLICATION_HANDLES_OPEN ,
                                                     NULL);
 

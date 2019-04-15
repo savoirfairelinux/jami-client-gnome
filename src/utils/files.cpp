@@ -55,7 +55,7 @@ autostart_symlink(gboolean autostart)
         gchar *desktop_paths[num_paths];
         desktop_paths[0] = g_strconcat("/usr", JAMI_DATA_DIR, "/jami-gnome.desktop", NULL);
         desktop_paths[1] = g_strconcat("/usr/local", JAMI_DATA_DIR, "/jami-gnome.desktop", NULL);
-        desktop_paths[2] = g_strconcat(RING_CLIENT_INSTALL, JAMI_DATA_DIR, "/jami-gnome.desktop", NULL);
+        desktop_paths[2] = g_strconcat(JAMI_CLIENT_INSTALL, JAMI_DATA_DIR, "/jami-gnome.desktop", NULL);
 
         for (int i = 0; i < num_paths && !desktop_path; ++i) {
             g_debug("checking %s", desktop_paths[i]);
@@ -161,7 +161,7 @@ get_ring_schema()
 
         if (!error) {
             schema = g_settings_schema_source_lookup(schema_source_local,
-                                                     RING_CLIENT_APP_ID,
+                                                     JAMI_CLIENT_APP_ID,
                                                      TRUE);
             g_settings_schema_source_unref(schema_source_local);
         } else {
@@ -173,7 +173,7 @@ get_ring_schema()
         if (!schema) {
             /* try install dir */
             g_debug("looking for schema in insall dir");
-            gchar *schema_dir_install = g_strconcat(RING_CLIENT_INSTALL, "/share/glib-2.0/schemas", NULL);
+            gchar *schema_dir_install = g_strconcat(JAMI_CLIENT_INSTALL, "/share/glib-2.0/schemas", NULL);
             GSettingsSchemaSource *schema_source_install = NULL;
             schema_source_install = g_settings_schema_source_new_from_directory(
                 schema_dir_install,
@@ -183,7 +183,7 @@ get_ring_schema()
 
             if (!error) {
                 schema = g_settings_schema_source_lookup(schema_source_install,
-                                                         RING_CLIENT_APP_ID,
+                                                         JAMI_CLIENT_APP_ID,
                                                          TRUE);
                 g_settings_schema_source_unref(schema_source_install);
             } else {
@@ -198,7 +198,7 @@ get_ring_schema()
             g_debug("looking for schema in default dir");
 
             schema = g_settings_schema_source_lookup(g_settings_schema_source_get_default(),
-                                                     RING_CLIENT_APP_ID,
+                                                     JAMI_CLIENT_APP_ID,
                                                      TRUE);
         }
         ring_schema.reset(schema);
