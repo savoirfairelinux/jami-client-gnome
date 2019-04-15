@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a5e91a3_91a42384",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2380,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2019-04-15T15:29:46Z",
+      "side": 1,
+      "message": "could use a constant somewhere ?",
+      "range": {
+        "startLine": 2380,
+        "startChar": 42,
+        "endLine": 2380,
+        "endChar": 48
+      },
+      "revId": "6dea0124a77d452e736690c54e674ee2f61315b0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
