@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 03:09-0400\n"
-"PO-Revision-Date: 2019-04-08 07:09+0000\n"
+"POT-Creation-Date: 2019-04-15 03:09-0400\n"
+"PO-Revision-Date: 2019-04-15 07:09+0000\n"
 "Last-Translator: Alexandre Lision\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -755,13 +755,13 @@ msgstr "Impossible de démarrer\nVérifier que le serveur Jami  fonctionne\nErre
 msgid "Jami Error"
 msgstr "Erreur Jami"
 
-#: src/ring_client.cpp:264
+#: src/ring_client.cpp:267
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Afficher Jami"
 
-#: src/ring_client.cpp:268
+#: src/ring_client.cpp:271
 msgid "Quit"
 msgstr "Quitter"
 
@@ -935,6 +935,16 @@ msgstr "Invitation"
 #: src/ringmainwindow.cpp:2189
 msgid "New message"
 msgstr "Nouveau message"
+
+#: src/ringmainwindow.cpp:2253
+msgid ""
+"A call is currently ongoing. Do you want to close the window and stop all "
+"current calls?"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2254
+msgid "Stop current call?"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
