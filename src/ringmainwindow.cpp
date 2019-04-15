@@ -2377,5 +2377,6 @@ GtkWidget *
 ring_main_window_new(GtkApplication *app)
 {
     gpointer win = g_object_new(RING_MAIN_WINDOW_TYPE, "application", app, NULL);
+    gtk_window_set_title(GTK_WINDOW(win), "Jami");
     return (GtkWidget *)win;
 }
