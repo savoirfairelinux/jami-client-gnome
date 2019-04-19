@@ -80,6 +80,7 @@ ring_draw_fallback_avatar(int size, const std::string& letter, const char color)
         gdk_pixbuf_composite (fallbackavatar, finalAvatar, 0, 0, size, size, 0, 0, 1, 1, GDK_INTERP_BILINEAR, 0xff);
 
         /* free resources */
+        g_object_unref(fallbackavatar);
         cairo_destroy(cr);
         cairo_surface_destroy(surface);
 
