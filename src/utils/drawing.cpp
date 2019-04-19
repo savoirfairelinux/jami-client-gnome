@@ -79,6 +79,10 @@ ring_draw_fallback_avatar(int size, const std::string& letter, const char color)
         auto* fallbackavatar = gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/fallbackavatar", size, size, true, &error);
         gdk_pixbuf_composite (fallbackavatar, finalAvatar, 0, 0, size, size, 0, 0, 1, 1, GDK_INTERP_BILINEAR, 0xff);
 
+        /* free resources */
+        cairo_destroy(cr);
+        cairo_surface_destroy(surface);
+
         return finalAvatar;
     }
 
