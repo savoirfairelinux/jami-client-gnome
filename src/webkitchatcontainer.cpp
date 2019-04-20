@@ -350,6 +350,42 @@ webview_script_dialog(WebKitWebView      *self,
 }
 
 static void
+init_js_i18n(WebKitChatContainer *view)
+{
+    auto locales = g_get_language_names();
+    gchar *function_call;
+    GBytes *locale_data;
+
+    int i = 0;
+    while (locales[i] != NULL) {
+        auto res = g_strdup_printf("/net/jami/JamiGnome/i18n/%s.json", locales[i]);
+        locale_data = g_resources_lookup_data(res, G_RESOURCE_LOOKUP_FLAGS_NONE, NULL);
+
+        if (locale_data)
+            break;
+        i++;
+    }
+
+    if (!locale_data) {
+        /* no translation available for current locale, use default */
+        function_call = g_strdup("init_i18n()");
+    } else {
+        gsize size;
+        auto data = g_bytes_unref_to_data(locale_data, &size);
+        auto nul_terminated = g_strndup((char*) data, size);
+
+        function_call = g_strdup_printf("init_i18n(%s)", nul_terminated);
+
+        g_free(nul_terminated);
+        g_free(data);
+    }
+
+    webkit_chat_container_execute_js(view, function_call);
+
+    g_free(function_call);
+}
+
+static void
 javascript_library_loaded(WebKitWebView *webview_chat,
                           GAsyncResult *result,
                           WebKitChatContainer* self)
@@ -385,6 +421,9 @@ javascript_library_loaded(WebKitWebView *webview_chat,
     }
     else
     {
+         /* load translations before anything else */
+         init_js_i18n(self);
+
          priv->js_libs_loaded = TRUE;
          g_signal_emit(G_OBJECT(self), webkit_chat_container_signals[READY], 0);
 
@@ -400,6 +439,7 @@ load_javascript_libs(WebKitWebView *webview_chat,
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(self);
 
     /* Create the list of libraries to load */
+    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/jed.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify-string.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify-html.js");
