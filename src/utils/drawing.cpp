@@ -161,7 +161,7 @@ ring_frame_avatar(GdkPixbuf *avatar) {
     cairo_fill(cr);
 
     double radius = new_size/2;
-    double degrees = M_PI / 180.0;
+    constexpr double degrees = M_PI / 180.0;
 
     // create the square path with ronded corners
     cairo_new_sub_path (cr);
@@ -186,6 +186,7 @@ ring_frame_avatar(GdkPixbuf *avatar) {
     /* free resources */
     cairo_destroy(cr);
     cairo_surface_destroy(surface);
+    g_object_unref(crop_avatar);
 
     return pixbuf;
 }
