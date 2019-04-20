@@ -229,7 +229,7 @@ body {
   display: flex;
 }
 
-#navbar #addBannedContactButton, #navbar #addToConversationsButton {
+#navbar #unbanButton, #navbar #addToConversationsButton {
   display: none;
 }
 
@@ -237,7 +237,7 @@ body {
   display: none;
 }
 
-#navbar.onBannedState #addBannedContactButton {
+#navbar.onBannedState #unbanButton {
   display: flex;
 }
 
