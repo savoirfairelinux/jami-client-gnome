@@ -8,7 +8,7 @@
 <body>
       <div class="navbar-wrapper">
           <div id="navbar">
-            <div id="backButton" class="nav-button non-action-button nav-left" onmouseover="addBackButtonHoverProperty()" onclick="backToWelcomeView()" title="Hide chat view">
+            <div id="backButton" class="nav-button non-action-button nav-left" onmouseover="addBackButtonHoverProperty()" onclick="backToWelcomeView()">
                 <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
                     <path d="M0 0h24v24H0z" fill="none"/>
                     <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
@@ -27,26 +27,26 @@
                 </svg>
             </div>
             <div id="callButtons"> <!-- callButtons block allows more efficient hiding of placeCallButton and placeAudioCallButton -->
-                <div id="placeCallButton" class="nav-button action-button nav-right" onclick="placeCall()" title="Place video call">
+                <div id="placeCallButton" class="nav-button action-button nav-right" onclick="placeCall()">
                     <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path d="M0 0h24v24H0z" fill="none"/>
                         <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
                     </svg>
                 </div>
-                <div id="placeAudioCallButton" class="nav-button action-button nav-right" onclick="placeAudioCall()" title="Place audio call">
+                <div id="placeAudioCallButton" class="nav-button action-button nav-right" onclick="placeAudioCall()">
                     <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="none" d="M0 0h24v24H0z"/>
                         <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
                     </svg>
                 </div>
             </div>
-            <div id="addToConversationsButton" class="nav-button action-button nav-right" onclick="addToConversations()" title="Add to conversations">
+            <div id="addToConversationsButton" class="nav-button action-button nav-right" onclick="addToConversations()">
                 <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path d="M0 0h24v24H0z" fill="none"/>
                     <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
             </div>
-            <div id="addBannedContactButton" class="nav-button action-critical-button nav-right" onclick="addBannedContact()" title="Unban banned contact">
+            <div id="unbanButton" class="nav-button action-critical-button nav-right" onclick="addBannedContact()">
                 <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="none" d="M0 0h24v24H0V0z"/>
                     <circle cx="15" cy="8" r="4"/>
@@ -60,19 +60,19 @@
                 <div id="text"></div>
             </div>
             <div id="actions">
-              <div id="accept-btn" class="nav-button action-button invite-btn-green" onclick="acceptInvitation()" title="Accept" >
+              <div id="acceptButton" class="nav-button action-button invite-btn-green" onclick="acceptInvitation()">
                 <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 0h24v24H0z" fill="none"/>
                     <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
               </div>
-              <div id="refuse-btn" class="nav-button action-button invite-btn-red" onclick="refuseInvitation()" title="Refuse" >
+              <div id="refuseButton" class="nav-button action-button invite-btn-red" onclick="refuseInvitation()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="none" d="M0 0h24v24H0V0z"/>
                     <path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/>
                 </svg>
               </div>
-              <div id="block-btn" class="nav-button action-button invite-btn-red" onclick="blockConversation()" title="Block" >
+              <div id="blockButton" class="nav-button action-button invite-btn-red" onclick="blockConversation()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path d="M0 0h24v24H0z" fill="none"/>
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/>
@@ -84,14 +84,14 @@
     <div id="container">
       <div id="messages" onscroll="onScrolled()"></div>
       <div id="sendMessage">
-        <div class="nav-button action-button" onclick="sendFile()" title="Send File">
+        <div id="sendFileButton" class="nav-button action-button" onclick="sendFile()">
             <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
                 <path d="M0 0h24v24H0z" fill="none"/>
             </svg>
         </div>
-        <textarea id="message" autofocus placeholder="Type a message" onkeyup="grow_text_area()" onkeydown="process_messagebar_keydown()" rows="1"></textarea>
-        <div class="nav-button action-button" onclick="sendMessage(); grow_text_area()" title="Send">
+        <textarea id="message" autofocus onkeyup="grow_text_area()" onkeydown="process_messagebar_keydown()" rows="1"></textarea>
+        <div id="sendButton" class="nav-button action-button" onclick="sendMessage(); grow_text_area()">
             <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                 <path d="M0 0h24v24H0z" fill="none"/>
@@ -104,8 +104,9 @@
 <script>
 "use strict"
 
-/* Constants used at several places*/
-const messageBarPlaceHolder = "Type a message"
+/* Constants used at several places
+   NOTE: do not use i18n.gettext here: i18n is valid only after external call
+   of init_i18n, which happens right after load of external js libs */
 // scrollDetectionThresh represents the number of pixels a user can scroll
 // without disabling the automatic go-back-to-bottom when a new message is
 // received
@@ -127,8 +128,18 @@ var historyBufferIndex = 0
 var historyBuffer = []
 
 /* We retrieve refs to the most used navbar and message bar elements for efficiency purposes */
-/* NOTE: always use getElementById when possible, way more efficient */
+/* NOTE: use getElementById when possible (more readable and efficient) */
+const addToConversationsButton = document.getElementById("addToConversationsButton")
+const placeAudioCallButton = document.getElementById("placeAudioCallButton")
 const backButton        = document.getElementById("backButton")
+const placeCallButton   = document.getElementById("placeCallButton")
+const unbanButton       = document.getElementById("unbanButton")
+const acceptButton      = document.getElementById("acceptButton")
+const refuseButton      = document.getElementById("refuseButton")
+const blockButton       = document.getElementById("blockButton")
+const callButtons       = document.getElementById("callButtons")
+const sendButton        = document.getElementById("sendButton")
+const sendFileButton    = document.getElementById("sendFileButton")
 const aliasField        = document.getElementById("nav-contactid-alias")
 const bestIdField       = document.getElementById("nav-contactid-bestId")
 const idField           = document.getElementById("nav-contactid")
@@ -140,7 +151,6 @@ const inviteImage       = document.getElementById("invite_image")
 const navbar            = document.getElementById("navbar")
 const invitationText    = document.getElementById("text")
 var   messages          = document.getElementById("messages")
-const callButtons       = document.getElementById("callButtons")
 
 /* States: allows us to avoid re-doing something if it isn't meaningful */
 var displayLinksEnabled = false
@@ -151,6 +161,38 @@ var isBanned = false
 var isAccountEnabled = true
 var isInitialLoading = false
 var imagesLoadingCounter = 0
+
+/* i18n manager */
+var i18n = null
+
+/* exported init_i18n */
+function init_i18n(data) {
+    if (data === undefined) {
+        i18n = new Jed({ locale_data: {"messages" : { "" : {} } } })
+    } else {
+        i18n = new Jed(data)
+    }
+
+    reset_message_bar_input()
+    set_titles()
+}
+
+function set_titles() {
+    backButton.title = i18n.gettext("Hide chat view")
+    placeCallButton.title = i18n.gettext("Place video call")
+    placeAudioCallButton.title = i18n.gettext("Place audio call")
+    addToConversationsButton.title = i18n.gettext("Add to conversations")
+    unbanButton.title = i18n.gettext("Unban contact")
+    sendButton.title = i18n.gettext("Send")
+    sendFileButton.title = i18n.gettext("SendFile")
+    acceptButton.title = i18n.gettext("Accept")
+    refuseButton.title = i18n.gettext("Refuse")
+    blockButton.title = i18n.gettext("Block")
+}
+
+function reset_message_bar_input() {
+    messageBarInput.placeholder = i18n.gettext("Type a message")
+}
 
 function onScrolled_() {
     if (messages.scrollTop == 0 && historyBufferIndex != historyBuffer.length) {
@@ -256,10 +298,10 @@ function update_chatview_frame(accountEnabled, banned, temporary, alias, bestid)
         isTemporary = temporary
         if (temporary) {
             addToConvButton.style.display = "flex"
-            messageBarInput.placeholder = "Note: an interaction will create a new contact."
+            messageBarInput.placeholder = i18n.gettext("Note: an interaction will create a new contact.")
         } else {
             addToConvButton.style.display = ""
-            messageBarInput.placeholder = messageBarPlaceHolder
+            reset_message_bar_input()
         }
     }
 
@@ -290,8 +332,10 @@ function showInvitation(contactAlias, contactId) {
             inviteImage.classList.add(`sender_image_${contactId}`);
         }
         hasInvitation = true
-        invitationText.innerHTML = "<b>" + contactAlias + " is not in your contacts</b><br/>"
-      + "Note: you can automatically accept this invitation by sending a message."
+        invitationText.innerHTML = "<b>"
+          + i18n.sprintf(i18n.gettext("%s is not in your contacts"), contactAlias)
+          + "</b><br/>"
+          + i18n.gettext("Note: you can automatically accept this invitation by sending a message.")
         invitation.style.visibility = "visible"
     }
 }
@@ -462,27 +506,32 @@ function backToWelcomeView()
 function formatDate(date) {
     const seconds = Math.floor((new Date() - date) / 1000)
     var interval = Math.floor(seconds / (3600 * 24))
+
     if (interval > 5) {
         return date.toLocaleDateString()
     }
+
     if (interval > 1) {
-        return interval + " days ago"
+        return i18n.sprintf(i18n.gettext("%d days ago"), interval)
     }
     if (interval === 1) {
-        return interval + " day ago"
+        return i18n.gettext("one day ago") // what about "yesterday"?
     }
+
     interval = Math.floor(seconds / 3600)
     if (interval > 1) {
-        return interval + " hours ago"
+        return i18n.sprintf(i18n.gettext("%d hours ago"), interval)
     }
     if (interval === 1) {
-        return interval + " hour ago"
+        return i18n.gettext("one hour ago")
     }
+
     interval = Math.floor(seconds / 60)
     if (interval > 1) {
-        return interval + " minutes ago"
+        return i18n.sprintf(i18n.gettext("%d minutes ago"), interval)
     }
-    return "just now"
+
+    return i18n.gettext("just now")
 }
 
 /**
@@ -582,10 +631,10 @@ function getMessageDeliveryStatusText(message_delivery_status)
     {
     case "sending":
     case "ongoing":
-        formatted_delivery_status = "Sending<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><circle class='status_circle anim-first' cx='4' cy='12' r='1'/><circle class='status_circle anim-second' cx='8' cy='12' r='1'/><circle class='status_circle anim-third' cx='12' cy='12' r='1'/></svg>"
+        formatted_delivery_status = i18n.gettext("Sending") + "<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><circle class='status_circle anim-first' cx='4' cy='12' r='1'/><circle class='status_circle anim-second' cx='8' cy='12' r='1'/><circle class='status_circle anim-third' cx='12' cy='12' r='1'/></svg>"
         break
     case "failure":
-        formatted_delivery_status = "Failure <svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-x x-first' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M4,4 L12,12'/><path class='status-x x-second' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M12,4 L4,12'/></svg>"
+        formatted_delivery_status = i18n.gettext("Failure") + "<svg overflow='visible' viewBox='0 -2 16 14' height='16px' width='16px'><path class='status-x x-first' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M4,4 L12,12'/><path class='status-x x-second' stroke='#AA0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' fill='none' d='M12,4 L4,12'/></svg>"
         break
     case "sent":
     case "finished":
@@ -882,7 +931,7 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
             // add buttons to accept or refuse a call.
             var accept_button = document.createElement("div")
             accept_button.innerHTML = acceptSvg
-            accept_button.setAttribute("title", "Accept")
+            accept_button.setAttribute("title", i18n.gettext("Accept"))
             accept_button.setAttribute("class", "flat-button accept")
             accept_button.onclick = function() {
                 window.prompt("ACCEPT_FILE:" + message_id)
@@ -892,7 +941,7 @@ function updateFileInteraction(message_div, message_object, forceTypeToFile = fa
 
         var refuse_button = document.createElement("div")
         refuse_button.innerHTML = refuseSvg
-        refuse_button.setAttribute("title", "Refuse")
+        refuse_button.setAttribute("title", i18n.gettext("Refuse"))
         refuse_button.setAttribute("class", "flat-button refuse")
         refuse_button.onclick = function() {
             window.prompt("REFUSE_FILE:" + message_id)
@@ -1235,7 +1284,7 @@ function buildMessageDropdown(message_id) {
 
     const remove = document.createElement("div")
     remove.setAttribute("class", "delete")
-    remove.innerHTML = "Delete"
+    remove.innerHTML = i18n.gettext("Delete")
     remove.msg_id = message_id
     remove.onclick = function() {
         window.prompt(`DELETE_INTERACTION:${this.msg_id}`)
@@ -1422,7 +1471,7 @@ function addOrUpdateMessage(message_object, new_message, insert_after = true, me
         if (!dropdown.querySelector(".retry")) {
             const retry = document.createElement("div")
             retry.setAttribute("class", "retry")
-            retry.innerHTML = "Retry"
+            retry.innerHTML = i18n.gettext("Retry")
             retry.msg_id = message_id
             retry.onclick = function() {
                 window.prompt(`RETRY_INTERACTION:${this.msg_id}`)
