@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-15 03:09-0400\n"
-"PO-Revision-Date: 2019-04-15 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-04-22 03:09-0400\n"
+"PO-Revision-Date: 2019-04-21 03:02+0000\n"
+"Last-Translator: mahmut özcan <mahmutozcan65@yahoo.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/jami/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -293,7 +293,7 @@ msgstr "Bekleyen istekler için bildirimleri etkinleştir"
 
 #: ui/generalsettingsview.ui:300
 msgid "Enable notifications for new chat messages"
-msgstr ""
+msgstr "Yeni söyleşi iletileri için bildirimleri etkinleştir"
 
 #: ui/generalsettingsview.ui:336
 msgid "Chatview"
@@ -700,7 +700,7 @@ msgstr "Ses iletisini kaydet"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "İletisiz son"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
@@ -755,7 +755,7 @@ msgstr "Çıkış"
 #: src/ringnotify.cpp:332
 msgctxt ""
 msgid "Open conversation"
-msgstr ""
+msgstr "Konuşma aç"
 
 #: src/ringnotify.cpp:340 src/ringnotify.cpp:356
 msgctxt ""
@@ -786,7 +786,7 @@ msgstr "Geçersiz kullanıcı adı"
 
 #: src/usernameregistrationbox.cpp:194
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "Arama kullanılamıyor, ağ bağlantınızı kontrol edin"
 
 #: src/usernameregistrationbox.cpp:274
 msgid "Performing lookup…"
@@ -794,7 +794,7 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:313
 msgid "Enter the password of your Jami account"
-msgstr ""
+msgstr "Jami hesabınızın parolasını girin"
 
 #: src/usernameregistrationbox.cpp:344
 msgid "Registration in progress…"
@@ -860,19 +860,19 @@ msgstr ""
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami için GNOME istemcisi.\nJami, kullanıcılarının özgürlüklerine ve gizliliğine önem veren, evrensel iletişim için özgür yazılımdır."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
-msgstr ""
+msgstr "Kişi meşgul görünüyor. Bir ileti bırakır mısınız?"
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "Kaydı durdur"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
-msgstr ""
+msgstr "Kaydedilmiş iletiyi gönder"
 
 #: src/ringmainwindow.cpp:184
 msgid "Add account…"
@@ -897,7 +897,7 @@ msgstr "Kişileri ara veya numara gir"
 
 #: src/ringmainwindow.cpp:1578
 msgid "Leave settings page"
-msgstr ""
+msgstr "Ayarlar sayfasından ayrıl"
 
 #: src/ringmainwindow.cpp:1932
 msgid "There are active calls"
@@ -905,7 +905,7 @@ msgstr ""
 
 #: src/ringmainwindow.cpp:1988
 msgid " is calling you!"
-msgstr ""
+msgstr "seni arıyor!"
 
 #: src/ringmainwindow.cpp:1989
 msgid "Incoming call"
@@ -917,7 +917,7 @@ msgstr ""
 
 #: src/ringmainwindow.cpp:2132
 msgid "Trust request"
-msgstr ""
+msgstr "Güven isteği"
 
 #: src/ringmainwindow.cpp:2189
 msgid "New message"
@@ -1010,13 +1010,13 @@ msgstr "Parolalar uyuşmuyor"
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Bu sizin Jami kullanıcı adınız.\nKopyalayın ve arkadaşlarınızla paylaşın!"
 
 #: src/ringwelcomeview.cpp:96
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Kopyalayın ve arkadaşlarınızla paylaşın!"
 
 #: src/ringwelcomeview.cpp:169
 msgid ""
@@ -1108,7 +1108,7 @@ msgstr "Hesap dışa aktarıldı!"
 
 #: src/newaccountsettingsview.cpp:978
 msgid "Export account failure."
-msgstr ""
+msgstr "Hesap dışa aktarımı başarısız."
 
 #: src/newaccountsettingsview.cpp:1741
 msgid "Bad password"
@@ -1124,7 +1124,7 @@ msgstr "Bilinmeyen hata."
 
 #: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "Jami'nin dışa aktarımı başlatılamadı, yeniden deneyin"
 
 #: src/newaccountsettingsview.cpp:1824
 msgid "Error: wrong password!"

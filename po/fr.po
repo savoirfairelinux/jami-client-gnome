@@ -13,6 +13,7 @@
 # Breizh <breizh@breizh.noho.st>, 2016
 # Bruno Pagani <bruno.n.pagani@gmail.com>, 2015
 # Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>, 2015,2017-2019
+# Gervais Potvin <gervais.potvin@gmail.com>, 2019
 # Guillaume Roguez, 2015-2016
 # Guillaume Roguez, 2016-2017
 # Guillaume Roguez, 2015
@@ -25,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-15 03:09-0400\n"
-"PO-Revision-Date: 2019-04-15 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-04-22 03:09-0400\n"
+"PO-Revision-Date: 2019-04-16 14:28+0000\n"
+"Last-Translator: Gervais Potvin <gervais.potvin@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -914,7 +915,7 @@ msgstr "Quitter la page des réglages"
 
 #: src/ringmainwindow.cpp:1932
 msgid "There are active calls"
-msgstr ""
+msgstr "Il y a des appels en cours"
 
 #: src/ringmainwindow.cpp:1988
 msgid " is calling you!"
@@ -940,11 +941,11 @@ msgstr "Nouveau message"
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
-msgstr ""
+msgstr "I y a un appel en cours. Désirez vous fermer la fenêtre et mettre fin à tous les appels en cours?"
 
 #: src/ringmainwindow.cpp:2254
 msgid "Stop current call?"
-msgstr ""
+msgstr "Mettre fin à l'appel en cours?"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
