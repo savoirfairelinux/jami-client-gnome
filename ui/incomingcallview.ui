@@ -151,7 +151,6 @@
                         <property name="has_tooltip">True</property>
                         <property name="tooltip-text" translatable="yes">Accept</property>
                         <property name="image">image_accept</property>
-                        <property name="action-name">app.accept</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -173,7 +172,6 @@
                         <property name="tooltip-text" translatable="yes">Reject</property>
                         <property name="can_focus">True</property>
                         <property name="image">image_reject</property>
-                        <property name="action-name">app.hangup</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
