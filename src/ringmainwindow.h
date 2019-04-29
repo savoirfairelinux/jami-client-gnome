@@ -39,6 +39,20 @@ GType      ring_main_window_get_type (void) G_GNUC_CONST;
 GtkWidget *ring_main_window_new      (GtkApplication *app);
 void       ring_main_window_reset    (RingMainWindow *win);
 bool       ring_main_window_can_close(RingMainWindow *win);
+void       ring_main_window_display_account_list(RingMainWindow *win);
+void       ring_main_window_search(RingMainWindow *win);
+
+void ring_main_window_conversations_list(RingMainWindow *win);
+void ring_main_window_requests_list(RingMainWindow *win);
+void ring_main_window_audio_call(RingMainWindow *win);
+void ring_main_window_clear_history(RingMainWindow *win);
+void ring_main_window_remove_conversation(RingMainWindow *win);
+void ring_main_window_block_contact(RingMainWindow *win);
+void ring_main_window_unblock_contact(RingMainWindow *win);
+void ring_main_window_copy_contact(RingMainWindow *win);
+void ring_main_window_add_contact(RingMainWindow *win);
+void ring_main_window_accept_call(RingMainWindow *win);
+void ring_main_window_decline_call(RingMainWindow *win);
 
 G_END_DECLS
 
