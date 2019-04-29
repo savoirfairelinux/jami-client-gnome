@@ -38,5 +38,6 @@ typedef struct _ConversationsViewClass ConversationsViewClass;
 GType      conversations_view_get_type            (void) G_GNUC_CONST;
 GtkWidget *conversations_view_new                 (AccountInfoPointer const & accountInfo);
 void       conversations_view_select_conversation (ConversationsView *self, const std::string& uid);
+int        conversations_view_get_current_selected(ConversationsView *self);
 
 G_END_DECLS

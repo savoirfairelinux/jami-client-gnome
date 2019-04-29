@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkShortcutsWindow" id="help_overlay">
+    <property name="modal">true</property>
+    <child>
+      <object class="GtkShortcutsSection">
+        <property name="visible">true</property>
+        <property name="section-name">shortcuts</property>
+        <property name="max-height">10</property>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">true</property>
+            <property name="title" translatable="yes" context="shortcut window">General</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;m</property>
+                <property name="title" translatable="yes" context="shortcut window">Open application menu</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;a</property>
+                <property name="title" translatable="yes" context="shortcut window">Open account list</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;f</property>
+                <property name="title" translatable="yes" context="shortcut window">Select search bar</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;l</property>
+                <property name="title" translatable="yes" context="shortcut window">Focus the list of conversations</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;r</property>
+                <property name="title" translatable="yes" context="shortcut window">Focus the list pending requests</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">true</property>
+            <property name="title" translatable="yes" context="shortcut window">Conversations</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">Return</property>
+                <property name="title" translatable="yes" context="shortcut window">Start a video call</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;&lt;shift&gt;c</property>
+                <property name="title" translatable="yes" context="shortcut window">Start an audio call</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;&lt;shift&gt;l</property>
+                <property name="title" translatable="yes" context="shortcut window">Clear history</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;&lt;shift&gt;a</property>
+                <property name="title" translatable="yes" context="shortcut window">Add conversation</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;&lt;shift&gt;Delete</property>
+                <property name="title" translatable="yes" context="shortcut window">Remove conversation</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;&lt;shift&gt;b</property>
+                <property name="title" translatable="yes" context="shortcut window">Block contact</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;&lt;shift&gt;u</property>
+                <property name="title" translatable="yes" context="shortcut window">Unblock contact</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;&lt;shift&gt;j</property>
+                <property name="title" translatable="yes" context="shortcut window">Copy contact name</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">true</property>
+            <property name="title" translatable="yes" context="shortcut window">Call</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;y</property>
+                <property name="title" translatable="yes" context="shortcut window">Accept call</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;d</property>
+                <property name="title" translatable="yes" context="shortcut window">Decline call</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">true</property>
+            <property name="title" translatable="yes" context="shortcut window">Settings</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;s</property>
+                <property name="title" translatable="yes" context="shortcut window">Open/Close settings page</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;g</property>
+                <property name="title" translatable="yes" context="shortcut window">Open general settings</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;m</property>
+                <property name="title" translatable="yes" context="shortcut window">Open media settings</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;ctrl&gt;a</property>
+                <property name="title" translatable="yes" context="shortcut window">Open account settings</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">true</property>
+            <property name="title" translatable="yes" context="shortcut window">Chat view</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;shift&gt;Return</property>
+                <property name="title" translatable="yes" context="shortcut window">Write on a new line</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+      </object>
+    </child>
+  </object>
+</interface>

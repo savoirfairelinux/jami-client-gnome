@@ -315,6 +315,10 @@ public:
     void enterSettingsView();
     void leaveSettingsView();
 
+    int getCurrentUid();
+    void forCurrentConversation(const std::function<void(const lrc::api::conversation::Info&)>& func);
+    bool showOkCancelDialog(const std::string& title, const std::string& text);
+
     lrc::api::conversation::Info getCurrentConversation(GtkWidget* frame_call);
 
     void showAccountSelectorWidget(bool show = true);
@@ -1621,6 +1625,48 @@ CppImpl::leaveSettingsView()
     }
 }
 
+int
+CppImpl::getCurrentUid()
+{
+    const auto &treeview = gtk_notebook_get_current_page(
+        GTK_NOTEBOOK(widgets->notebook_contacts)) == contactRequestsPageNum
+            ? widgets->treeview_contact_requests
+            : widgets->treeview_conversations;
+    return conversations_view_get_current_selected(CONVERSATIONS_VIEW(treeview));
+}
+
+void
+CppImpl::forCurrentConversation(const std::function<void(const lrc::api::conversation::Info&)>& func)
+{
+    const auto current = getCurrentUid();
+    if (current == -1) return;
+    try {
+        auto conversation = accountInfo_->conversationModel->filteredConversation(current);
+        if (conversation.participants.empty()) return;
+        func(conversation);
+    } catch (...) {
+        g_warning("Can't retrieve conversation %d", current);
+    }
+}
+
+bool
+CppImpl::showOkCancelDialog(const std::string &title, const std::string &text)
+{
+    auto *confirm_dialog = gtk_message_dialog_new(
+        GTK_WINDOW(self), GTK_DIALOG_DESTROY_WITH_PARENT,
+        GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
+        "%s", text.c_str());
+    gtk_window_set_title(GTK_WINDOW(confirm_dialog), title.c_str());
+    gtk_dialog_set_default_response(GTK_DIALOG(confirm_dialog),
+                                    GTK_RESPONSE_CANCEL);
+    gtk_widget_show_all(confirm_dialog);
+
+    auto res = gtk_dialog_run(GTK_DIALOG(confirm_dialog));
+
+    gtk_widget_destroy(confirm_dialog);
+    return res == GTK_RESPONSE_OK;
+}
+
 void
 CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFreeable)
 {
@@ -2244,25 +2290,196 @@ ring_main_window_can_close(RingMainWindow* self)
 {
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), true);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-    if (priv->cpp && !lrc::api::Lrc::activeCalls().empty()) {
-        auto* close_dialog = gtk_message_dialog_new(GTK_WINDOW(self),
-            GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
+    if (!lrc::api::Lrc::activeCalls().empty()) {
+        auto res = priv->cpp->showOkCancelDialog(
+            _("Stop current call?"),
             _("A call is currently ongoing. Do you want to close the window and stop all current calls?"));
-        gtk_window_set_title(GTK_WINDOW(close_dialog), _("Stop current call?"));
-        gtk_dialog_set_default_response(GTK_DIALOG(close_dialog), GTK_RESPONSE_CANCEL);
-        gtk_widget_show_all(close_dialog);
-
-        auto res = gtk_dialog_run(GTK_DIALOG(close_dialog));
-
-        gtk_widget_destroy(close_dialog);
-        if (res == GTK_RESPONSE_OK) {
-            lrc::api::NewCallModel::hangupCallsAndConferences();
-            return true;
-        } else {
-            return false;
-        }
+        if (res) lrc::api::NewCallModel::hangupCallsAndConferences();
+        return res;
     }
     return true;
+}
+
+void
+ring_main_window_display_account_list(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    gtk_combo_box_popup(GTK_COMBO_BOX(priv->combobox_account_selector));
+}
+
+void
+ring_main_window_search(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    gtk_widget_grab_focus(GTK_WIDGET(priv->search_entry));
+}
+
+void
+ring_main_window_conversations_list(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    auto smartViewPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(priv->notebook_contacts),
+                                                               priv->scrolled_window_smartview);
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), smartViewPageNum);
+    gtk_widget_grab_focus(GTK_WIDGET(priv->treeview_conversations));
+}
+
+void
+ring_main_window_requests_list(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    if (!priv->cpp->accountInfo_->contactModel->hasPendingRequests()) return;
+    auto contactRequestsPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(priv->notebook_contacts),
+                                                               priv->scrolled_window_contact_requests);
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), contactRequestsPageNum);
+    gtk_widget_grab_focus(GTK_WIDGET(priv->treeview_contact_requests));
+}
+
+void
+ring_main_window_audio_call(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp);
+
+    priv->cpp->forCurrentConversation([&](const auto& conversation){
+        priv->cpp->accountInfo_->conversationModel->placeAudioOnlyCall(conversation.uid);
+    });
+}
+
+void
+ring_main_window_clear_history(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    priv->cpp->forCurrentConversation([&](const auto &conversation) {
+        auto res = priv->cpp->showOkCancelDialog(
+            _("Clear history"),
+            _("Do you really want to clear the history of this conversation?"));
+        if (!res) return;
+        priv->cpp->accountInfo_->conversationModel->clearHistory(conversation.uid);
+    });
+}
+
+void
+ring_main_window_remove_conversation(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    priv->cpp->forCurrentConversation([&](const auto& conversation){
+        auto res = priv->cpp->showOkCancelDialog(
+            _("Remove conversation"),
+            _("Do you really want to remove this conversation?"));
+        if (!res) return;
+        priv->cpp->accountInfo_->conversationModel->removeConversation(conversation.uid);
+    });
+}
+
+void
+ring_main_window_block_contact(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    priv->cpp->forCurrentConversation([&](const auto& conversation){
+        auto res = priv->cpp->showOkCancelDialog(
+            _("Block contact"),
+            _("Do you really want to block this contact?"));
+        if (!res) return;
+        priv->cpp->accountInfo_->conversationModel->removeConversation(conversation.uid, true);
+    });
+}
+
+void
+ring_main_window_unblock_contact(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    priv->cpp->forCurrentConversation([&](const auto& conversation){
+        auto& uri = conversation.participants[0];
+
+        auto contactInfo = priv->cpp->accountInfo_->contactModel->getContact(uri);
+        if (!contactInfo.isBanned) return;
+        priv->cpp->accountInfo_->contactModel->addContact(contactInfo);
+    });
+}
+
+void
+ring_main_window_copy_contact(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    priv->cpp->forCurrentConversation([&](const auto& conversation){
+        auto& contact = priv->cpp->accountInfo_->contactModel->getContact(conversation.participants.front());
+        auto bestName = contact.registeredName.empty() ? contact.profileInfo.uri : contact.registeredName;
+        auto text = (gchar *)bestName.c_str();
+        GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+        gtk_clipboard_set_text(clip, text, -1);
+        clip = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+        gtk_clipboard_set_text(clip, text, -1);
+    });
+}
+
+void
+ring_main_window_add_contact(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp);
+
+    priv->cpp->forCurrentConversation([&](const auto &conversation) {
+        priv->cpp->accountInfo_->conversationModel->makePermanent(conversation.uid);
+    });
+}
+
+void
+ring_main_window_accept_call(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    // Select the first conversation of the list
+    auto current = priv->cpp->getCurrentUid();
+    if (current == -1) return;
+    try {
+        auto conversation = priv->cpp->accountInfo_->conversationModel->filteredConversation(current);
+        if (conversation.participants.empty()) return;
+        auto contactUri = conversation.participants.at(0);
+        auto contact = priv->cpp->accountInfo_->contactModel->getContact(contactUri);
+        // If the contact is pending, we should accept its request
+        if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
+            priv->cpp->accountInfo_->conversationModel->makePermanent(conversation.uid);
+        // Accept call
+        priv->cpp->accountInfo_->callModel->accept(conversation.callId);
+    } catch (...) {
+        g_warning("Can't retrieve conversation %d", current);
+    }
+}
+
+void
+ring_main_window_decline_call(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp);
+
+    priv->cpp->forCurrentConversation([&](const auto &conversation) {
+        priv->cpp->accountInfo_->callModel->hangUp(conversation.callId);
+    });
 }
 
 //==============================================================================

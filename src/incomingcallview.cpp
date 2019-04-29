@@ -128,7 +128,7 @@ map_boolean_to_orientation(GValue *value, GVariant *variant, G_GNUC_UNUSED gpoin
 }
 
 static void
-reject_incoming_call(G_GNUC_UNUSED GtkWidget *widget, IncomingCallView *self)
+reject_incoming_call(IncomingCallView *self)
 {
     g_return_if_fail(IS_INCOMING_CALL_VIEW(self));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
@@ -136,7 +136,7 @@ reject_incoming_call(G_GNUC_UNUSED GtkWidget *widget, IncomingCallView *self)
 }
 
 static void
-accept_incoming_call(G_GNUC_UNUSED GtkWidget *widget, IncomingCallView *self)
+accept_incoming_call(IncomingCallView *self)
 {
     g_return_if_fail(IS_INCOMING_CALL_VIEW(self));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
@@ -191,8 +191,8 @@ incoming_call_view_init(IncomingCallView *view)
                                  map_boolean_to_orientation,
                                  nullptr, nullptr, nullptr);
 
-    g_signal_connect(priv->button_reject_incoming, "clicked", G_CALLBACK(reject_incoming_call), view);
-    g_signal_connect(priv->button_accept_incoming, "clicked", G_CALLBACK(accept_incoming_call), view);
+    g_signal_connect_swapped(priv->button_reject_incoming, "clicked", G_CALLBACK(reject_incoming_call), view);
+    g_signal_connect_swapped(priv->button_accept_incoming, "clicked", G_CALLBACK(accept_incoming_call), view);
 }
 
 static void

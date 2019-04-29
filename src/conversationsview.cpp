@@ -762,3 +762,22 @@ conversations_view_select_conversation(ConversationsView *self, const std::strin
         idx++;
     }
 }
+
+int
+conversations_view_get_current_selected(ConversationsView *self)
+{
+
+    g_return_val_if_fail(IS_CONVERSATIONS_VIEW(self), -1);
+
+    /* we always drag the selected row */
+    auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
+    GtkTreeModel *model = NULL;
+    GtkTreeIter iter;
+
+    if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+        auto path = gtk_tree_model_get_path(model, &iter);
+        auto idx = gtk_tree_path_get_indices(path);
+        return idx[0];
+    }
+    return -1;
+}
