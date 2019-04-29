@@ -104,6 +104,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingClient, ring_client, GTK_TYPE_APPLICATION);
 
 #define RING_CLIENT_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_CLIENT_TYPE, RingClientPrivate))
 
+
 static void
 exception_dialog(const char* msg)
 {
@@ -123,10 +124,60 @@ static void
 ring_accelerators(RingClient *client)
 {
 #if GTK_CHECK_VERSION(3,12,0)
-    const gchar *quit_accels[2] = { "<Ctrl>Q", NULL };
+    const gchar *quit_accels[2] = {"<Ctrl>Q", NULL};
     gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.quit", quit_accels);
+
+    const gchar *accounts_accels[2] = {"<Ctrl>A", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.display_account_list", accounts_accels);
+
+    const gchar *search_accels[2] = {"<Ctrl>F", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.search", search_accels);
+
+    const gchar *conversations_list_accels[2] = {"<Ctrl>L", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.conversations_list", conversations_list_accels);
+    const gchar *requests_list_accels[2] = {"<Ctrl>R", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.requests_list", requests_list_accels);
+
+    const gchar *audio_call_accels[2] = {"<Ctrl><Shift>C", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.audio_call", audio_call_accels);
+    const gchar *clear_history_accels[2] = {"<Ctrl><Shift>L", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.clear_history", clear_history_accels);
+    const gchar *remove_conversation_accels[2] = {"<Ctrl><Shift>Delete", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.remove_conversation", remove_conversation_accels);
+    const gchar *block_contact_accels[2] = {"<Ctrl><Shift>B", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.block_contact", block_contact_accels);
+    const gchar *unblock_contact_accels[2] = {"<Ctrl><Shift>U", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.unblock_contact", unblock_contact_accels);
+    const gchar *copy_contact_accels[2] = {"<Ctrl><Shift>J", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.copy_contact", copy_contact_accels);
+    const gchar *add_contact_accels[2] = {"<Ctrl><Shift>A", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.add_contact", add_contact_accels);
+
+    const gchar *accept_call_accels[2] = {"<Ctrl>Y", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.accept_call", accept_call_accels);
+    const gchar *decline_call_accels[2] = {"<Ctrl>D", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.decline_call", decline_call_accels);
+
 #else
     gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>Q", "app.quit", NULL);
+
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>A", "app.display_account_list", NULL);
+
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>F", "app.search", NULL);
+
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>L", "app.conversations_list", NULL);
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>R", "app.requests_list", NULL);
+
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control><Shift>C", "app.audio_call", NULL);
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control><Shift>L", "app.clear_history", NULL);
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control><Shift>Delete", "app.remove_conversation", NULL);
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control><Shift>B", "app.block_contact", NULL);
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control><Shift>U", "app.unblock_contact", NULL);
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control><Shift>J", "app.copy_contact", NULL);
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control><Shift>A", "app.add_contact", NULL);
+
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>Y", "app.accept_call", NULL);
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>D", "app.decline_call", NULL);
 #endif
 }
 
@@ -157,6 +208,50 @@ action_about(G_GNUC_UNUSED GSimpleAction *simple,
 }
 
 static void
+exec_action(GSimpleAction *simple,
+            G_GNUC_UNUSED GVariant      *parameter,
+            gpointer user_data)
+{
+    g_return_if_fail(G_IS_APPLICATION(user_data));
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
+
+    GValue value = G_VALUE_INIT;
+    g_value_init(&value, G_TYPE_STRING);
+    g_object_get_property(G_OBJECT(simple), "name", &value);
+    if (!g_value_get_string(&value)) return;
+    std::string name = g_value_get_string(&value);
+
+    if (name == "display_account_list")
+        ring_main_window_display_account_list(RING_MAIN_WINDOW(priv->win));
+    if (name == "search")
+        ring_main_window_search(RING_MAIN_WINDOW(priv->win));
+    if (name == "conversations_list")
+        ring_main_window_conversations_list(RING_MAIN_WINDOW(priv->win));
+    if (name == "requests_list")
+        ring_main_window_requests_list(RING_MAIN_WINDOW(priv->win));
+    if (name == "audio_call")
+        ring_main_window_audio_call(RING_MAIN_WINDOW(priv->win));
+    if (name == "clear_history")
+        ring_main_window_clear_history(RING_MAIN_WINDOW(priv->win));
+    if (name == "remove_conversation")
+        ring_main_window_remove_conversation(RING_MAIN_WINDOW(priv->win));
+    if (name == "block_contact")
+        ring_main_window_block_contact(RING_MAIN_WINDOW(priv->win));
+    if (name == "unblock_contact")
+        ring_main_window_unblock_contact(RING_MAIN_WINDOW(priv->win));
+    if (name == "copy_contact")
+        ring_main_window_copy_contact(RING_MAIN_WINDOW(priv->win));
+    if (name == "add_contact")
+        ring_main_window_add_contact(RING_MAIN_WINDOW(priv->win));
+    if (name == "accept_call")
+        ring_main_window_accept_call(RING_MAIN_WINDOW(priv->win));
+    if (name == "decline_call")
+        ring_main_window_decline_call(RING_MAIN_WINDOW(priv->win));
+    else
+        g_warning("Missing implementation for this action");
+}
+
+static void
 toggle_smartinfo(GSimpleAction *action, GVariant *parameter, gpointer)
 {
     g_simple_action_set_state(action, parameter);
@@ -167,19 +262,45 @@ toggle_smartinfo(GSimpleAction *action, GVariant *parameter, gpointer)
     }
 }
 
-static const GActionEntry ring_actions[] =
+static void
+action_show_shortcuts(G_GNUC_UNUSED GSimpleAction *action, G_GNUC_UNUSED GVariant *parameter, gpointer user_data)
 {
-    { "accept",             NULL,         NULL, NULL,    NULL, {0} },
-    { "hangup",             NULL,         NULL, NULL,    NULL, {0} },
-    { "hold",               NULL,         NULL, "false", NULL, {0} },
-    { "quit",               action_quit,  NULL, NULL,    NULL, {0} },
-    { "about",              action_about, NULL, NULL,    NULL, {0} },
-    { "mute_audio",         NULL,         NULL, "false", NULL, {0} },
-    { "mute_video",         NULL,         NULL, "false", NULL, {0} },
-    { "record",             NULL,         NULL, "false", NULL, {0} },
-    { "display-smartinfo",  NULL,         NULL, "false", toggle_smartinfo, {0} },
-    /* TODO implement the other actions */
-    // { "transfer",   NULL,        NULL, "flase", NULL, {0} },
+    g_return_if_fail(G_IS_APPLICATION(user_data));
+    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
+
+    GtkBuilder *builder = gtk_builder_new_from_resource("/net/jami/JamiGnome/help-overlay.ui");
+    GtkWidget *overlay = GTK_WIDGET(gtk_builder_get_object (builder, "help_overlay"));
+
+    gtk_window_set_transient_for(GTK_WINDOW(overlay), GTK_WINDOW(priv->win));
+    gtk_widget_show(overlay);
+
+    g_object_unref(builder);
+}
+
+static const GActionEntry ring_actions[] = {
+    {"accept", NULL, NULL, NULL, NULL, {0}},
+    {"hangup", NULL, NULL, NULL, NULL, {0}},
+    {"hold", NULL, NULL, "false", NULL, {0}},
+    {"quit", action_quit, NULL, NULL, NULL, {0}},
+    {"about", action_about, NULL, NULL, NULL, {0}},
+    {"mute_audio", NULL, NULL, "false", NULL, {0}},
+    {"mute_video", NULL, NULL, "false", NULL, {0}},
+    {"record", NULL, NULL, "false", NULL, {0}},
+    {"display-smartinfo", NULL, NULL, "false", toggle_smartinfo, {0}},
+    {"display_account_list", exec_action, NULL, NULL, NULL, {0}},
+    {"search", exec_action, NULL, NULL, NULL, {0}},
+    {"conversations_list", exec_action, NULL, NULL, NULL, {0}},
+    {"requests_list", exec_action, NULL, NULL, NULL, {0}},
+    {"audio_call", exec_action, NULL, NULL, NULL, {0}},
+    {"clear_history", exec_action, NULL, NULL, NULL, {0}},
+    {"remove_conversation", exec_action, NULL, NULL, NULL, {0}},
+    {"block_contact", exec_action, NULL, NULL, NULL, {0}},
+    {"unblock_contact", exec_action, NULL, NULL, NULL, {0}},
+    {"copy_contact", exec_action, NULL, NULL, NULL, {0}},
+    {"add_contact", exec_action, NULL, NULL, NULL, {0}},
+    {"accept_call", exec_action, NULL, NULL, NULL, {0}},
+    {"decline_call", exec_action, NULL, NULL, NULL, {0}},
+    {"show_shortcuts", action_show_shortcuts, NULL, NULL, NULL, {0}},
 };
 
 static void
