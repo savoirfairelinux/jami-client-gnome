@@ -2268,6 +2268,229 @@ ring_main_window_can_close(RingMainWindow* self)
     return true;
 }
 
+void
+ring_main_window_display_account_list(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    gtk_combo_box_popup(GTK_COMBO_BOX(priv->combobox_account_selector));
+}
+
+void
+ring_main_window_search(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    gtk_widget_grab_focus(GTK_WIDGET(priv->search_entry));
+}
+
+void ring_main_window_conversations_list(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    auto smartViewPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(priv->notebook_contacts),
+                                                               priv->scrolled_window_smartview);
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), smartViewPageNum);
+    gtk_widget_grab_focus(GTK_WIDGET(priv->treeview_conversations));
+}
+
+void ring_main_window_requests_list(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    if (!priv->cpp->accountInfo_->contactModel->hasPendingRequests()) return;
+    auto contactRequestsPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(priv->notebook_contacts),
+                                                               priv->scrolled_window_contact_requests);
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), contactRequestsPageNum);
+    gtk_widget_grab_focus(GTK_WIDGET(priv->treeview_contact_requests));
+}
+
+void ring_main_window_audio_call(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    // Select the first conversation of the list
+    auto current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_conversations));
+    if (current == -1) current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_contact_requests));
+    if (current == -1) return;
+    try {
+        auto conversation = priv->cpp->accountInfo_->conversationModel->filteredConversation(current);
+        priv->cpp->accountInfo_->conversationModel->placeAudioOnlyCall(conversation.uid);
+    } catch (...) {
+        g_warning("Can't retrieve conversation %d", current);
+    }
+}
+
+void ring_main_window_clear_history(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    // Select the first conversation of the list
+    auto current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_conversations));
+    if (current == -1) current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_contact_requests));
+    if (current == -1) return;
+    try {
+        auto conversation = priv->cpp->accountInfo_->conversationModel->filteredConversation(current);
+
+        auto *confirm_dialog = gtk_message_dialog_new(
+            GTK_WINDOW(win), GTK_DIALOG_DESTROY_WITH_PARENT,
+            GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
+            _("Do you really want to clear the history of this conversation?"));
+        gtk_window_set_title(GTK_WINDOW(confirm_dialog), _("Clear history?"));
+        gtk_dialog_set_default_response(GTK_DIALOG(confirm_dialog),
+                                        GTK_RESPONSE_CANCEL);
+        gtk_widget_show_all(confirm_dialog);
+
+        auto res = gtk_dialog_run(GTK_DIALOG(confirm_dialog));
+
+        gtk_widget_destroy(confirm_dialog);
+        if (res != GTK_RESPONSE_OK) return;
+
+        priv->cpp->accountInfo_->conversationModel->clearHistory(conversation.uid);
+    } catch (...) {
+        g_warning("Can't retrieve conversation %d", current);
+    }
+}
+
+void ring_main_window_remove_conversation(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    // Select the first conversation of the list
+    auto current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_conversations));
+    if (current == -1) current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_contact_requests));
+    if (current == -1) return;
+    try {
+        auto conversation = priv->cpp->accountInfo_->conversationModel->filteredConversation(current);
+
+        auto *confirm_dialog = gtk_message_dialog_new(
+            GTK_WINDOW(win), GTK_DIALOG_DESTROY_WITH_PARENT,
+            GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
+            _("Do you really want to remove this conversation?"));
+        gtk_window_set_title(GTK_WINDOW(confirm_dialog), _("Remove conversation?"));
+        gtk_dialog_set_default_response(GTK_DIALOG(confirm_dialog),
+                                        GTK_RESPONSE_CANCEL);
+        gtk_widget_show_all(confirm_dialog);
+
+        auto res = gtk_dialog_run(GTK_DIALOG(confirm_dialog));
+
+        gtk_widget_destroy(confirm_dialog);
+        if (res != GTK_RESPONSE_OK) return;
+
+        priv->cpp->accountInfo_->conversationModel->removeConversation(conversation.uid);
+    } catch (...) {
+        g_warning("Can't retrieve conversation %d", current);
+    }
+}
+
+void ring_main_window_block_contact(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    // Select the first conversation of the list
+    auto current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_conversations));
+    if (current == -1) current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_contact_requests));
+    if (current == -1) return;
+    try {
+        auto conversation = priv->cpp->accountInfo_->conversationModel->filteredConversation(current);
+
+        auto *confirm_dialog = gtk_message_dialog_new(
+            GTK_WINDOW(win), GTK_DIALOG_DESTROY_WITH_PARENT,
+            GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
+            _("Do you really want to block this contact?"));
+        gtk_window_set_title(GTK_WINDOW(confirm_dialog), _("Block contact?"));
+        gtk_dialog_set_default_response(GTK_DIALOG(confirm_dialog),
+                                        GTK_RESPONSE_CANCEL);
+        gtk_widget_show_all(confirm_dialog);
+
+        auto res = gtk_dialog_run(GTK_DIALOG(confirm_dialog));
+
+        gtk_widget_destroy(confirm_dialog);
+        if (res != GTK_RESPONSE_OK) return;
+
+        priv->cpp->accountInfo_->conversationModel->removeConversation(conversation.uid, true);
+    } catch (...) {
+        g_warning("Can't retrieve conversation %d", current);
+    }
+}
+
+void ring_main_window_unblock_contact(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    // Select the first conversation of the list
+    auto current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_conversations));
+    if (current == -1) current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_contact_requests));
+    if (current == -1) return;
+    try {
+        auto conversation = priv->cpp->accountInfo_->conversationModel->filteredConversation(current);
+        auto uri = conversation.participants[0];
+
+        auto contactInfo = priv->cpp->accountInfo_->contactModel->getContact(uri);
+        if (!contactInfo.isBanned) {
+            g_debug("unblock_conversation: trying to unban a contact which isn't banned !");
+            return;
+        }
+
+        priv->cpp->accountInfo_->contactModel->addContact(contactInfo);
+    } catch (...) {
+        g_warning("Can't retrieve conversation %d", current);
+    }
+}
+
+void ring_main_window_copy_contact(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    // Select the first conversation of the list
+    auto current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_conversations));
+    if (current == -1) current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_contact_requests));
+    if (current == -1) return;
+    try {
+        auto conversation = priv->cpp->accountInfo_->conversationModel->filteredConversation(current);
+        if (conversation.participants.empty()) return;
+        auto& contact = priv->cpp->accountInfo_->contactModel->getContact(conversation.participants.front());
+        auto bestName = contact.registeredName.empty() ? contact.profileInfo.uri : contact.registeredName;
+        auto text = (gchar *)bestName.c_str();
+        GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+        gtk_clipboard_set_text(clip, text, -1);
+        clip = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+        gtk_clipboard_set_text(clip, text, -1);
+    } catch (...) {
+        g_warning("Can't retrieve conversation %d", current);
+    }
+}
+
+void ring_main_window_add_contact(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
+
+    // Select the first conversation of the list
+    auto current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_conversations));
+    if (current == -1) current = conversations_view_get_current_selected(CONVERSATIONS_VIEW(priv->treeview_contact_requests));
+    if (current == -1) return;
+    try {
+        auto conversation = priv->cpp->accountInfo_->conversationModel->filteredConversation(current);
+        priv->cpp->accountInfo_->conversationModel->makePermanent(conversation.uid);
+    } catch (...) {
+        g_warning("Can't retrieve conversation %d", current);
+    }
+}
+
 //==============================================================================
 
 static void
