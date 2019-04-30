@@ -333,7 +333,6 @@ public:
     bool show_settings = false;
     bool is_fullscreen = false;
     bool has_cleared_all_history = false;
-    uint32_t activeCalls = 0;
     guint inhibitionCookie = 0;
 
     int smartviewPageNum = 0;
@@ -1923,7 +1922,7 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
 void
 CppImpl::slotCallStarted(const std::string& callId)
 {
-    if (activeCalls == 0) {
+    if (!lrc::api::Lrc::activeCalls().empty()) {
         GtkApplication* app = gtk_window_get_application(GTK_WINDOW(self));
         if (app) {
             inhibitionCookie = gtk_application_inhibit(
@@ -1933,14 +1932,12 @@ CppImpl::slotCallStarted(const std::string& callId)
             g_debug("Inhibition was activated.");
         }
     }
-    activeCalls++;
 }
 
 void
 CppImpl::slotCallEnded(const std::string& callId)
 {
-    activeCalls--;
-    if (activeCalls == 0) {
+    if (lrc::api::Lrc::activeCalls().empty()) {
         GtkApplication* app = gtk_window_get_application(GTK_WINDOW(self));
         if (app) {
             gtk_application_uninhibit(app, inhibitionCookie);
@@ -2247,7 +2244,7 @@ ring_main_window_can_close(RingMainWindow* self)
 {
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), true);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-    if (priv->cpp && (priv->cpp->activeCalls > 0)) {
+    if (priv->cpp && !lrc::api::Lrc::activeCalls().empty()) {
         auto* close_dialog = gtk_message_dialog_new(GTK_WINDOW(self),
             GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
             _("A call is currently ongoing. Do you want to close the window and stop all current calls?"));
