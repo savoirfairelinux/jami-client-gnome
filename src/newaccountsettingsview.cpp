@@ -119,6 +119,7 @@ struct _NewAccountSettingsViewPrivate
     GtkWidget* box_dht;
         GtkWidget* entry_dht_proxy;
         GtkWidget* dht_proxy_button;
+        GtkWidget* dht_peer_discovery_button;
         GtkWidget* entry_bootstrap;
     GtkWidget* sip_encrypt_media_row;
         GtkWidget* sip_encrypt_media;
@@ -299,6 +300,7 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, entry_dht_proxy);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, entry_bootstrap);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, dht_proxy_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, dht_peer_discovery_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, sip_encrypt_media_row);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, sip_encrypt_media);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, sip_key_exchange_row);
@@ -1099,6 +1101,18 @@ enable_dhtproxy(GObject*, GParamSpec*, NewAccountSettingsView *view)
     auto newState = gtk_switch_get_active(GTK_SWITCH(priv->dht_proxy_button));
     if (newState != priv->currentProp_->proxyEnabled) {
         priv->currentProp_->proxyEnabled = newState;
+        new_account_settings_view_save_account(view);
+    }
+}
+
+static void
+enable_dhtpeerdiscovery(GObject*, GParamSpec*, NewAccountSettingsView *view)
+{
+    if (!is_config_ok(view)) return;
+    auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
+    auto newState = gtk_switch_get_active(GTK_SWITCH(priv->dht_peer_discovery_button));
+    if (newState != priv->currentProp_->peerDiscovery) {
+        priv->currentProp_->peerDiscovery = newState;
         new_account_settings_view_save_account(view);
     }
 }
@@ -1922,6 +1936,7 @@ build_settings_view(NewAccountSettingsView* view)
     g_signal_connect(priv->entry_name_server, "focus-out-event", G_CALLBACK(update_nameserver), view);
     g_signal_connect(priv->entry_dht_proxy, "focus-out-event", G_CALLBACK(update_dhtproxy), view);
     g_signal_connect(priv->dht_proxy_button, "notify::active", G_CALLBACK(enable_dhtproxy), view);
+    g_signal_connect(priv->dht_peer_discovery_button, "notify::active", G_CALLBACK(enable_dhtpeerdiscovery), view);
     g_signal_connect(priv->entry_bootstrap, "focus-out-event", G_CALLBACK(update_bootstrap), view);
     g_signal_connect(priv->sip_encrypt_media, "notify::active", G_CALLBACK(set_encrypt_media_enabled), view);
     g_signal_connect(priv->sip_fallback_rtp, "notify::active", G_CALLBACK(set_fallback_rtp_enabled), view);
@@ -2184,6 +2199,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
     gtk_widget_set_sensitive(GTK_WIDGET(priv->entry_dht_proxy), priv->currentProp_->proxyEnabled);
     gtk_entry_set_text(GTK_ENTRY(priv->entry_bootstrap), priv->currentProp_->hostname.c_str());
     gtk_switch_set_active(GTK_SWITCH(priv->dht_proxy_button), priv->currentProp_->proxyEnabled);
+    gtk_switch_set_active(GTK_SWITCH(priv->dht_peer_discovery_button), priv->currentProp_->peerDiscovery);
     if (!priv->currentProp_->TLS.certificateListFile.empty())
         gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_ca_list), priv->currentProp_->TLS.certificateListFile.c_str());
     if (!priv->currentProp_->TLS.certificateFile.empty())
