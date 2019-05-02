@@ -214,7 +214,6 @@ public:
 
     QMetaObject::Connection state_change_connection;
     QMetaObject::Connection renderer_connection;
-    QMetaObject::Connection new_message_connection;
     QMetaObject::Connection smartinfo_refresh_connection;
 
     // for clutter animations and to know when to fade in/out the overlays
@@ -277,15 +276,6 @@ set_call_quality(CurrentCallView* view, bool auto_quality_on, double desired_qua
             (*priv->cpp->accountInfo)->codecModel->quality(codec.id, quality);
         }
     }
-}
-
-static void
-on_new_chat_interactions(CurrentCallView* view)
-{
-    g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
-    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
 }
 
 static void
@@ -674,7 +664,6 @@ CppImpl::~CppImpl()
     QObject::disconnect(state_change_connection);
     QObject::disconnect(renderer_connection);
     QObject::disconnect(smartinfo_refresh_connection);
-    QObject::disconnect(new_message_connection);
     g_clear_object(&widgets->settings);
 
     g_source_remove(timer_fade);
@@ -843,16 +832,6 @@ CppImpl::setCallInfo()
             }
         });
 
-    new_message_connection = QObject::connect(
-        &*(*accountInfo)->conversationModel,
-        &lrc::api::ConversationModel::newInteraction,
-        [this] (const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
-            Q_UNUSED(uid)
-            Q_UNUSED(msgId)
-            Q_UNUSED(msg)
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->togglebutton_chat), TRUE);
-        });
-
     // catch double click to make full screen
     g_signal_connect(widgets->video_widget, "button-press-event",
                      G_CALLBACK(on_button_press_in_video_event), self);
@@ -870,8 +849,6 @@ CppImpl::setCallInfo()
                                        *accountInfo, conversation);
     gtk_container_add(GTK_CONTAINER(widgets->frame_chat), widgets->chat_view);
 
-    g_signal_connect_swapped(widgets->chat_view, "new-interactions-displayed",
-                             G_CALLBACK(on_new_chat_interactions), self);
     chat_view_set_header_visible(CHAT_VIEW(widgets->chat_view), FALSE);
 }
 
@@ -1217,6 +1194,15 @@ current_call_view_get_chat_view(CurrentCallView *self)
     g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), nullptr);
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
     return priv->chat_view;
+}
+
+void
+current_call_view_show_chat(CurrentCallView* view)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_chat), TRUE);
 }
 
 //==============================================================================
