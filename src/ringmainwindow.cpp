@@ -2196,6 +2196,10 @@ CppImpl::slotNewInteraction(const std::string& accountId, const std::string& con
                             uint64_t, const lrc::api::interaction::Info& interaction)
 {
     if (chatViewConversation_ && chatViewConversation_->uid == conversation) {
+        auto *old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
+        if (IS_CURRENT_CALL_VIEW(old_view)) {
+            current_call_view_show_chat(CURRENT_CALL_VIEW(old_view));
+        }
         if (gtk_window_is_active(GTK_WINDOW(self))) {
             return;
         }
