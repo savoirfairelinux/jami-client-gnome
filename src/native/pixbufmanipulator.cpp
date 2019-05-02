@@ -278,7 +278,18 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
             auto contactUri = contacts.front();
             auto contactInfo = accountInfo.contactModel->getContact(contactUri);
             auto contactPhoto = contactInfo.profileInfo.avatar;
-            auto bestName = contactInfo.profileInfo.alias.empty()? contactInfo.registeredName : contactInfo.profileInfo.alias;
+            auto alias = contactInfo.profileInfo.alias;
+            auto strToClear = alias.find("\r");
+            while (strToClear != std::string::npos) {
+                alias.erase(strToClear, 2);
+                strToClear = alias.find("\r");
+            }
+            strToClear = alias.find("\n");
+            while (strToClear != std::string::npos) {
+                alias.erase(strToClear, 2);
+                strToClear = alias.find("\n");
+            }
+            auto bestName = alias.empty()? contactInfo.registeredName : alias;
             auto unreadMessages = conversationInfo.unreadMessages;
             auto status = contactInfo.isPresent? IconStatus::PRESENT : IconStatus::ABSENT;
             if (accountInfo.profileInfo.type == lrc::api::profile::Type::SIP && contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY)
