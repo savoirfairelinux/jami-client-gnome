@@ -127,7 +127,7 @@ ring_accelerators(RingClient *client)
     const gchar *quit_accels[2] = {"<Ctrl>Q", NULL};
     gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.quit", quit_accels);
 
-    const gchar *accounts_accels[2] = {"<Ctrl>A", NULL};
+    const gchar *accounts_accels[2] = {"<Ctrl>J", NULL};
     gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.display_account_list", accounts_accels);
 
     const gchar *search_accels[2] = {"<Ctrl>F", NULL};
@@ -161,7 +161,7 @@ ring_accelerators(RingClient *client)
 #else
     gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>Q", "app.quit", NULL);
 
-    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>A", "app.display_account_list", NULL);
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>J", "app.display_account_list", NULL);
 
     gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>F", "app.search", NULL);
 

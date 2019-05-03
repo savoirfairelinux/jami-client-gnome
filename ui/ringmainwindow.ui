@@ -117,7 +117,7 @@
                     <property name="image">image_account_settings</property>
                     <property name="draw_indicator">False</property>
                     <property name="group">radiobutton_general_settings</property>
-                    <accelerator key="a" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                    <accelerator key="i" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -148,7 +148,7 @@
                 <property name="can_focus">False</property>
                 <property name="receives_default">False</property>
                 <property name="tooltip_text" translatable="yes">Settings</property>
-                <accelerator key="s" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="comma" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                 <child>
                   <object class="GtkImage" id="image_settings">
                     <property name="visible">True</property>
