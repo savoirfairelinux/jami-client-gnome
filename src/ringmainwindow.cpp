@@ -1257,6 +1257,11 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
 
     gtk_container_add(GTK_CONTAINER(widgets->frame_call), new_view);
     gtk_widget_show(new_view);
+
+    if (conversation.uid != "")
+        conversations_view_select_conversation(
+            CONVERSATIONS_VIEW(widgets->treeview_conversations),
+            conversation.uid);
 }
 
 GtkWidget*
