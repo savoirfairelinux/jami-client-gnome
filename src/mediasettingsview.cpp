@@ -377,6 +377,12 @@ set_video_device(MediaSettingsView* self)
         auto currentDevice = priv->cpp->avModel_->getDefaultDeviceName();
         if (currentDevice == video_device) return;
         priv->cpp->avModel_->setDefaultDevice(video_device);
+        try {
+            auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
+            priv->cpp->avModel_->setDeviceSettings(settings);
+        } catch (const std::out_of_range&) {
+            g_warning("set_resolution out_of_range exception");
+        }
         priv->cpp->drawVideoDevices();
     }
 }
