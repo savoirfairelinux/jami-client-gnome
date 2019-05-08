@@ -397,7 +397,7 @@ load_participants_images(ChatView *self)
         if (!contact.profileInfo.avatar.empty()) {
             webkit_chat_container_set_sender_image(
                 WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                (*priv->accountInfo_)->contactModel->getContactProfileId(contactUri),
+                (*priv->accountInfo_)->contactModel->getProfileId(contactUri),
                 contact.profileInfo.avatar
                 );
         }
@@ -409,7 +409,7 @@ load_participants_images(ChatView *self)
     if (!(*priv->accountInfo_)->profileInfo.avatar.empty()) {
         webkit_chat_container_set_sender_image(
             WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-            (*priv->accountInfo_)->contactModel->getContactProfileId((*priv->accountInfo_)->profileInfo.uri),
+            (*priv->accountInfo_)->contactModel->getProfileId((*priv->accountInfo_)->profileInfo.uri, true),
             (*priv->accountInfo_)->profileInfo.avatar
         );
     }
@@ -534,7 +534,7 @@ update_chatview_frame(ChatView* self)
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                              (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
                                              bestName,
-                                             (*priv->accountInfo_)->contactModel->getContactProfileId(contactInfo.profileInfo.uri));
+                                             (*priv->accountInfo_)->contactModel->getProfileId(contactInfo.profileInfo.uri));
 
     // hide navbar if we are in call
     try {

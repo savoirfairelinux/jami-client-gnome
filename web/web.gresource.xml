@@ -5,6 +5,7 @@
       <file>chatview.html</file>
 
       <!-- JavaScript -->
+      <file>chatview.js</file>
       <file>linkify.js</file>
       <file>linkify-string.js</file>
       <file>linkify-html.js</file>
