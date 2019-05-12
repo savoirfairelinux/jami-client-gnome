@@ -2187,6 +2187,12 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_proxy), priv->currentProp_->routeset.c_str());
         gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_voicemail), priv->currentProp_->mailbox.c_str());
 
+        // IP 2 IP accounts
+        if (priv->currentProp_->hostname.empty()) {
+            gtk_switch_set_active(GTK_SWITCH(priv->sip_account_enabled), true);
+        }
+        gtk_widget_set_sensitive(priv->sip_account_enabled, !priv->currentProp_->hostname.empty());
+
     }
     draw_codecs(view);
 
