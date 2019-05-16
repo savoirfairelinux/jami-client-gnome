@@ -127,6 +127,7 @@ struct RingMainWindowPrivate
     gulong notif_accept_call;
     gulong notif_decline_call;
     gboolean set_top_account_flag = true;
+    gboolean is_fullscreen_main_win = false;
 
     GCancellable *cancellable;
 #if USE_LIBNM
@@ -623,6 +624,18 @@ on_tab_changed(GtkNotebook* notebook, GtkWidget* page, guint page_num, RingMainW
     }
 }
 
+static gboolean
+on_window_state_event(GtkWidget *widget, GdkEventWindowState *event)
+{
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(widget), GDK_EVENT_PROPAGATE);
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(widget));
+
+    g_settings_set_boolean(priv->settings, "window-maximized", ((event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED) != 0));
+    g_settings_set_boolean(priv->settings, "window-fullscreen", ((event->new_window_state & GDK_WINDOW_STATE_FULLSCREEN) != 0));
+
+    return GDK_EVENT_PROPAGATE;
+}
+
 static void
 on_window_size_changed(GtkWidget *self, G_GNUC_UNUSED GdkRectangle*, G_GNUC_UNUSED gpointer)
 {
@@ -1029,6 +1042,14 @@ CppImpl::init()
     auto height = g_settings_get_int(widgets->settings, "window-height");
     gtk_window_set_default_size(GTK_WINDOW(self), width, height);
     g_signal_connect(self, "size-allocate", G_CALLBACK(on_window_size_changed), nullptr);
+    g_signal_connect(self, "window-state-event", G_CALLBACK(on_window_state_event), nullptr);
+
+    if (g_settings_get_boolean(widgets->settings, "window-maximized"))
+        gtk_window_maximize(GTK_WINDOW(self));
+
+    widgets->is_fullscreen_main_win = g_settings_get_boolean(widgets->settings, "window-fullscreen");
+    if (widgets->is_fullscreen_main_win)
+        gtk_window_fullscreen(GTK_WINDOW(self));
 
     update_data_transfer(lrc_->getDataTransferModel(), widgets->settings);
 
@@ -1345,7 +1366,7 @@ CppImpl::leaveFullScreen()
 {
     if (is_fullscreen) {
         gtk_widget_show(widgets->vbox_left_pane);
-        gtk_window_unfullscreen(GTK_WINDOW(self));
+        if (!widgets->is_fullscreen_main_win) gtk_window_unfullscreen(GTK_WINDOW(self));
         is_fullscreen = false;
     }
 }
@@ -2482,6 +2503,23 @@ ring_main_window_decline_call(RingMainWindow *win)
     priv->cpp->forCurrentConversation([&](const auto &conversation) {
         priv->cpp->accountInfo_->callModel->hangUp(conversation.callId);
     });
+}
+
+void
+ring_main_window_toggle_fullscreen(RingMainWindow *win)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(priv && priv->cpp);
+    if (priv->cpp->is_fullscreen) return;
+
+    if (priv->is_fullscreen_main_win) {
+        gtk_window_unfullscreen(GTK_WINDOW(win));
+    } else {
+        gtk_window_fullscreen(GTK_WINDOW(win));
+    }
+
+    priv->is_fullscreen_main_win = !priv->is_fullscreen_main_win;
 }
 
 //==============================================================================
