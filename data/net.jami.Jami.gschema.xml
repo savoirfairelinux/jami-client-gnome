@@ -72,5 +72,13 @@
         <summary>Where ring downloads files.</summary>
         <description>When a contact sends a file, this file will be stored in the folder previously described.</description>
     </key>
+    <key name="window-maximized" type="b">
+        <default>false</default>
+        <summary>If window is maximized.</summary>
+    </key>
+    <key name="window-fullscreen" type="b">
+        <default>false</default>
+        <summary>If window is fullscren.</summary>
+    </key>
   </schema>
 </schemalist>
