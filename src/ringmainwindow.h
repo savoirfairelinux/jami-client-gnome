@@ -53,6 +53,7 @@ void ring_main_window_copy_contact(RingMainWindow *win);
 void ring_main_window_add_contact(RingMainWindow *win);
 void ring_main_window_accept_call(RingMainWindow *win);
 void ring_main_window_decline_call(RingMainWindow *win);
+void ring_main_window_toggle_fullscreen(RingMainWindow *win);
 
 G_END_DECLS
 

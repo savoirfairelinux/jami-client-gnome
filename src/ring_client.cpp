@@ -126,6 +126,8 @@ ring_accelerators(RingClient *client)
 #if GTK_CHECK_VERSION(3,12,0)
     const gchar *quit_accels[2] = {"<Ctrl>Q", NULL};
     gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.quit", quit_accels);
+    const gchar *fullscreen_accels[2] = {"F11", NULL};
+    gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.toggle_fullscreen", fullscreen_accels);
 
     const gchar *accounts_accels[2] = {"<Ctrl>J", NULL};
     gtk_application_set_accels_for_action(GTK_APPLICATION(client), "app.display_account_list", accounts_accels);
@@ -160,6 +162,8 @@ ring_accelerators(RingClient *client)
 
 #else
     gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>Q", "app.quit", NULL);
+    gtk_application_add_accelerator(GTK_APPLICATION(client), "F11", "app.toggle_fullscreen", NULL);
+
 
     gtk_application_add_accelerator(GTK_APPLICATION(client), "<Control>J", "app.display_account_list", NULL);
 
@@ -247,6 +251,8 @@ exec_action(GSimpleAction *simple,
         ring_main_window_accept_call(RING_MAIN_WINDOW(priv->win));
     else if (name == "decline_call")
         ring_main_window_decline_call(RING_MAIN_WINDOW(priv->win));
+    else if (name == "toggle_fullscreen")
+        ring_main_window_toggle_fullscreen(RING_MAIN_WINDOW(priv->win));
     else
         g_warning("Missing implementation for this action: %s", name.c_str());
 }
@@ -301,6 +307,7 @@ static const GActionEntry ring_actions[] = {
     {"accept_call", exec_action, NULL, NULL, NULL, {0}},
     {"decline_call", exec_action, NULL, NULL, NULL, {0}},
     {"show_shortcuts", action_show_shortcuts, NULL, NULL, NULL, {0}},
+    {"toggle_fullscreen", exec_action, NULL, NULL, NULL, {0}},
 };
 
 static void
