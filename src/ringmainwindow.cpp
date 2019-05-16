@@ -623,18 +623,16 @@ on_tab_changed(GtkNotebook* notebook, GtkWidget* page, guint page_num, RingMainW
     }
 }
 
-static gboolean
-on_window_size_changed(GtkWidget* self, GdkEventConfigure* event, gpointer user_data)
+static void
+on_window_size_changed(GtkWidget *self, G_GNUC_UNUSED GdkRectangle*, G_GNUC_UNUSED gpointer)
 {
-    (void)user_data;
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
 
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), GDK_EVENT_PROPAGATE);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
-
-    g_settings_set_int(priv->settings, "window-width", event->width);
-    g_settings_set_int(priv->settings, "window-height", event->height);
-
-    return GDK_EVENT_PROPAGATE;
+    int new_width, new_height;
+    gtk_window_get_size(GTK_WINDOW(self), &new_width, &new_height);
+    g_settings_set_int(priv->settings, "window-width", new_width);
+    g_settings_set_int(priv->settings, "window-height", new_height);
 }
 
 static void
@@ -1030,7 +1028,7 @@ CppImpl::init()
     auto width = g_settings_get_int(widgets->settings, "window-width");
     auto height = g_settings_get_int(widgets->settings, "window-height");
     gtk_window_set_default_size(GTK_WINDOW(self), width, height);
-    g_signal_connect(self, "configure-event", G_CALLBACK(on_window_size_changed), nullptr);
+    g_signal_connect(self, "size-allocate", G_CALLBACK(on_window_size_changed), nullptr);
 
     update_data_transfer(lrc_->getDataTransferModel(), widgets->settings);
 
