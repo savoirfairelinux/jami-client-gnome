@@ -305,22 +305,35 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
         return;
     }
 
-    GtkWidget* password_dialog = gtk_message_dialog_new(
-        GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
-        (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-        GTK_MESSAGE_QUESTION,
-        GTK_BUTTONS_OK_CANCEL,
-        _("Enter the password of your Jami account")
-    );
+    auto show_password = true;
+    if (*priv->accountInfo_) {
+        std::string accountId = (*priv->accountInfo_)->id;
+        lrc::api::account::ConfProperties_t props;
+        props = (*priv->accountInfo_)->accountModel->getAccountConfig(accountId);
+        show_password = props.archiveHasPassword;
+    }
 
-    GtkWidget* entry_password = gtk_entry_new();
-    gtk_entry_set_visibility(GTK_ENTRY(entry_password), FALSE);
-    gtk_box_pack_end(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(password_dialog))), entry_password, FALSE, FALSE, 0);
-    gtk_widget_show(entry_password);
+    std::string password;
+    gint result = GTK_RESPONSE_OK;
 
-    gint result = gtk_dialog_run(GTK_DIALOG(password_dialog));
-    const std::string password = gtk_entry_get_text(GTK_ENTRY(entry_password));
-    gtk_widget_destroy(password_dialog);
+    if (show_password) {
+        GtkWidget* password_dialog = gtk_message_dialog_new(
+            GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
+            (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
+            GTK_MESSAGE_QUESTION,
+            GTK_BUTTONS_OK_CANCEL,
+            _("Enter the password of your Jami account")
+        );
+
+        GtkWidget* entry_password = gtk_entry_new();
+        gtk_entry_set_visibility(GTK_ENTRY(entry_password), FALSE);
+        gtk_box_pack_end(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(password_dialog))), entry_password, FALSE, FALSE, 0);
+        gtk_widget_show(entry_password);
+
+        result = gtk_dialog_run(GTK_DIALOG(password_dialog));
+        password = gtk_entry_get_text(GTK_ENTRY(entry_password));
+        gtk_widget_destroy(password_dialog);
+    }
 
     switch(result)
     {
@@ -350,6 +363,19 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
             break;
         }
     }
+}
+
+static void
+username_registration_dialog_error(const char* msg)
+{
+    g_warning("%s", msg);
+    GtkWidget *dialog = gtk_message_dialog_new(NULL,
+                            (GtkDialogFlags)(GTK_DIALOG_MODAL),
+                            GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+                            "%s", msg);
+    gtk_window_set_title(GTK_WINDOW(dialog), _("Name registration Error"));
+    gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
 }
 
 static void
@@ -404,13 +430,21 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
                             break;
                         }
                     case lrc::api::account::RegisterNameStatus::INVALID_NAME:
+                        gtk_widget_set_sensitive(priv->button_register_username, TRUE);
+                        username_registration_dialog_error(_("Unable to register name (Invalid name). Your username should contains between 3 and 32 alphanumerics characters (or underscore)."));
+                        break;
                     case lrc::api::account::RegisterNameStatus::WRONG_PASSWORD:
+                        gtk_widget_set_sensitive(priv->button_register_username, TRUE);
+                        username_registration_dialog_error(_("Unable to register name (Wrong password)."));
+                        break;
                     case lrc::api::account::RegisterNameStatus::ALREADY_TAKEN:
+                        gtk_widget_set_sensitive(priv->button_register_username, TRUE);
+                        username_registration_dialog_error(_("Unable to register name (Username already taken)."));
+                        break;
                     case lrc::api::account::RegisterNameStatus::NETWORK_ERROR:
-                        {
-                            gtk_widget_set_sensitive(priv->button_register_username, TRUE);
-                            break;
-                        }
+                        gtk_widget_set_sensitive(priv->button_register_username, TRUE);
+                        username_registration_dialog_error(_("Unable to register name (Network error) - check your connection."));
+                        break;
                     }
                 }
             );
