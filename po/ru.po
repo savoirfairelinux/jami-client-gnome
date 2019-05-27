@@ -16,7 +16,7 @@
 # Viktor Filinkov <bruteforce@sigil.tk>, 2015
 # Vladimir Stoiakin, 2018-2019
 # Yaroslav Molochko <onorua@gmail.com>, 2015
-# AlexanderFilev, 2017
+# Al, 2017
 # Александр Суслов <suslikkreal@gmail.com>, 2015
 # Александр Асланьян <asl174@yandex.ru>, 2015
 # Андрей Шевчук <andrei@shevchuk.co>, 2016-2017
@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-22 03:09-0400\n"
-"PO-Revision-Date: 2019-04-15 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-05-27 10:08-0400\n"
+"PO-Revision-Date: 2019-05-27 14:08+0000\n"
+"Last-Translator: Vladimir Stoiakin\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,13 +36,142 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: ui/ringgearsmenu.ui:13
+#: ui/ringgearsmenu.ui:7
+msgid "Keyboard _Shortcuts"
+msgstr ""
+
+#: ui/ringgearsmenu.ui:11
 msgid "_About"
 msgstr "_О программе"
 
-#: ui/ringgearsmenu.ui:19
+#: ui/ringgearsmenu.ui:17
 msgid "_Quit"
 msgstr "_Выход"
+
+#: ui/help-overlay.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Общие"
+
+#: ui/help-overlay.ui:18
+msgctxt "shortcut window"
+msgid "Open application menu"
+msgstr ""
+
+#: ui/help-overlay.ui:25
+msgctxt "shortcut window"
+msgid "Open account list"
+msgstr ""
+
+#: ui/help-overlay.ui:32
+msgctxt "shortcut window"
+msgid "Select search bar"
+msgstr ""
+
+#: ui/help-overlay.ui:39
+msgctxt "shortcut window"
+msgid "Focus the list of conversations"
+msgstr ""
+
+#: ui/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Focus the list pending requests"
+msgstr ""
+
+#: ui/help-overlay.ui:56
+msgctxt "shortcut window"
+msgid "Conversations"
+msgstr "Разговоры"
+
+#: ui/help-overlay.ui:61
+msgctxt "shortcut window"
+msgid "Start a video call"
+msgstr "Начать видео вызов"
+
+#: ui/help-overlay.ui:68
+msgctxt "shortcut window"
+msgid "Start an audio call"
+msgstr "Начать голосовой вызов"
+
+#: ui/help-overlay.ui:75
+msgctxt "shortcut window"
+msgid "Clear history"
+msgstr "Очистить историю"
+
+#: ui/help-overlay.ui:82
+msgctxt "shortcut window"
+msgid "Add conversation"
+msgstr ""
+
+#: ui/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Remove conversation"
+msgstr ""
+
+#: ui/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Block contact"
+msgstr "Заблокировать контакт"
+
+#: ui/help-overlay.ui:103
+msgctxt "shortcut window"
+msgid "Unblock contact"
+msgstr ""
+
+#: ui/help-overlay.ui:110
+msgctxt "shortcut window"
+msgid "Copy contact name"
+msgstr ""
+
+#: ui/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Call"
+msgstr "Звонок"
+
+#: ui/help-overlay.ui:125
+msgctxt "shortcut window"
+msgid "Accept call"
+msgstr ""
+
+#: ui/help-overlay.ui:132
+msgctxt "shortcut window"
+msgid "Decline call"
+msgstr ""
+
+#: ui/help-overlay.ui:141
+msgctxt "shortcut window"
+msgid "Settings"
+msgstr "Настройки"
+
+#: ui/help-overlay.ui:146
+msgctxt "shortcut window"
+msgid "Open/Close settings page"
+msgstr ""
+
+#: ui/help-overlay.ui:153
+msgctxt "shortcut window"
+msgid "Open general settings"
+msgstr ""
+
+#: ui/help-overlay.ui:160
+msgctxt "shortcut window"
+msgid "Open media settings"
+msgstr ""
+
+#: ui/help-overlay.ui:167
+msgctxt "shortcut window"
+msgid "Open account settings"
+msgstr ""
+
+#: ui/help-overlay.ui:177
+msgctxt "shortcut window"
+msgid "Chat view"
+msgstr ""
+
+#: ui/help-overlay.ui:182
+msgctxt "shortcut window"
+msgid "Write on a new line"
+msgstr ""
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
@@ -71,7 +200,7 @@ msgstr "Перенести аккаунт"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:994
+#: src/newaccountsettingsview.cpp:996
 msgid "Delete account"
 msgstr "Удалить аккаунт"
 
@@ -81,7 +210,7 @@ msgstr "Ошибка переноса, неверный пароль?"
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
-msgstr "Завершить текущий вызов"
+msgstr "Завершить этот звонок"
 
 #: ui/currentcallview.ui:255 ui/currentcallview.ui:483
 msgid "End call"
@@ -170,7 +299,7 @@ msgid "Link this devices to a Jami account created on another device"
 msgstr "Привязать это устройство к аккаунту Jami, созданному на другом устройстве"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
-#: src/newaccountsettingsview.cpp:887
+#: src/newaccountsettingsview.cpp:889
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -221,7 +350,7 @@ msgstr "Далее"
 msgid "Profile"
 msgstr "Профиль"
 
-#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:110
+#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:113
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "Аккаунт"
@@ -248,7 +377,7 @@ msgid ""
 "devices to your account."
 msgstr "Этот пароль будет использован для шифрования данных вашего аккаунта и для привязки новых устройств к вашему аккаунту."
 
-#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:877
+#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:879
 msgid "Confirm password"
 msgstr "Подтверждение пароля"
 
@@ -341,23 +470,23 @@ msgstr "Очистить историю"
 msgid "Menu"
 msgstr "Меню"
 
-#: ui/ringmainwindow.ui:79
+#: ui/ringmainwindow.ui:80
 msgid "General"
 msgstr "Общие"
 
-#: ui/ringmainwindow.ui:94
+#: ui/ringmainwindow.ui:96
 msgid "Media"
 msgstr "Медиа"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1609
 msgid "Settings"
 msgstr "Настройки"
 
-#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
+#: ui/ringmainwindow.ui:271 ui/ringmainwindow.ui:278
 msgid "Conversations"
 msgstr "Разговоры"
 
-#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
+#: ui/ringmainwindow.ui:304 ui/ringmainwindow.ui:311
 msgid "Contact requests"
 msgstr "Запросы на добавление в контакты"
 
@@ -410,8 +539,8 @@ msgid "Hardware Acceleration"
 msgstr "Аппаратное ускорение"
 
 #: ui/mediasettingsview.ui:282
-msgid "Enable hardware decoding:"
-msgstr "Включить аппаратное декодирование:"
+msgid "Enable hardware acceleration:"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
@@ -456,7 +585,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Нажмите для изменения пароля"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2033
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2048
 msgid "Export account"
 msgstr "Экспортировать аккаунт"
 
@@ -520,7 +649,7 @@ msgstr "Мелодия звонка"
 msgid "Name server"
 msgstr "Сервер имён"
 
-#: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2478
+#: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2514
 msgid "Address"
 msgstr "Адрес"
 
@@ -529,158 +658,162 @@ msgid "OpenDHT configuration"
 msgstr "Конфигурация OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1443
+msgid "Auto connect on local network"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:1479
 msgid "Bootstrap"
 msgstr "Инициализация"
 
-#: ui/newaccountsettingsview.ui:1503
+#: ui/newaccountsettingsview.ui:1539
 msgid "Encrypt media streams (SRTP)"
 msgstr "Шифровать медиа потоки (SRTP)"
 
-#: ui/newaccountsettingsview.ui:1538
+#: ui/newaccountsettingsview.ui:1574
 msgid "Enable SDES for key exchange protocol"
 msgstr "Разрешить SDES в протоколе обмена ключами"
 
-#: ui/newaccountsettingsview.ui:1574
+#: ui/newaccountsettingsview.ui:1610
 msgid "Fallback on RTP on encryption failure"
 msgstr "Использовать RTP, если шифрование отсутствует "
 
-#: ui/newaccountsettingsview.ui:1609
+#: ui/newaccountsettingsview.ui:1645
 msgid "Encrypt negotiation (TLS)"
 msgstr "Шифровать разговор (TLS)"
 
-#: ui/newaccountsettingsview.ui:1644
+#: ui/newaccountsettingsview.ui:1680
 msgid "CA certificate"
 msgstr "Сертификат удостоверяющего центра"
 
-#: ui/newaccountsettingsview.ui:1680
+#: ui/newaccountsettingsview.ui:1716
 msgid "User certificate"
 msgstr "Сертификат пользователя"
 
-#: ui/newaccountsettingsview.ui:1716
+#: ui/newaccountsettingsview.ui:1752
 msgid "Private key"
 msgstr "Закрытый ключ"
 
-#: ui/newaccountsettingsview.ui:1752
+#: ui/newaccountsettingsview.ui:1788
 msgid "Private key password"
 msgstr "Пароль закрытого ключа"
 
-#: ui/newaccountsettingsview.ui:1790
+#: ui/newaccountsettingsview.ui:1826
 msgid "TLS protocol method"
 msgstr "Метод протокола TLS"
 
-#: ui/newaccountsettingsview.ui:1826
+#: ui/newaccountsettingsview.ui:1862
 msgid "Outgoing TLS server name"
 msgstr "Имя исходящего сервера TLS"
 
-#: ui/newaccountsettingsview.ui:1861
+#: ui/newaccountsettingsview.ui:1897
 msgid "Negotiation timeout (seconds)"
 msgstr "Ожидание разговора (секунд)"
 
-#: ui/newaccountsettingsview.ui:1897
+#: ui/newaccountsettingsview.ui:1933
 msgid "Verify incoming certificates (server side)"
 msgstr "Проверять входящие сертификаты (на стороне сервера)"
 
-#: ui/newaccountsettingsview.ui:1932
+#: ui/newaccountsettingsview.ui:1968
 msgid "Verify answer certificates (client side)"
 msgstr "Проверять исходящие сертификаты (на стороне клиента)"
 
-#: ui/newaccountsettingsview.ui:1967
+#: ui/newaccountsettingsview.ui:2003
 msgid "Require a certificate for incoming TLS connections"
 msgstr "Требовать сертификат для входящих TLS соединений"
 
-#: ui/newaccountsettingsview.ui:1991
+#: ui/newaccountsettingsview.ui:2027
 msgid "Security"
 msgstr "Безопасность"
 
-#: ui/newaccountsettingsview.ui:2016
+#: ui/newaccountsettingsview.ui:2052
 msgid "Connectivity"
 msgstr "Связь"
 
-#: ui/newaccountsettingsview.ui:2054
+#: ui/newaccountsettingsview.ui:2090
 msgid "Registration expire timeout (seconds)"
 msgstr "Ожидание завершения регистрации (секунды)"
 
-#: ui/newaccountsettingsview.ui:2091
+#: ui/newaccountsettingsview.ui:2127
 msgid "Network interface"
 msgstr "Сетевой интерфейс"
 
-#: ui/newaccountsettingsview.ui:2127
+#: ui/newaccountsettingsview.ui:2163
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2162
+#: ui/newaccountsettingsview.ui:2198
 msgid "Use TURN"
 msgstr "Использовать TURN "
 
-#: ui/newaccountsettingsview.ui:2197
+#: ui/newaccountsettingsview.ui:2233
 msgid "(TURN) address"
 msgstr "(TURN) адрес"
 
-#: ui/newaccountsettingsview.ui:2232
+#: ui/newaccountsettingsview.ui:2268
 msgid "(TURN) username"
 msgstr "(TURN) имя пользователя"
 
-#: ui/newaccountsettingsview.ui:2266
+#: ui/newaccountsettingsview.ui:2302
 msgid "(TURN) password"
 msgstr "(TURN) пароль"
 
-#: ui/newaccountsettingsview.ui:2303
+#: ui/newaccountsettingsview.ui:2339
 msgid "(TURN) realm"
 msgstr "(TURN) область"
 
-#: ui/newaccountsettingsview.ui:2337
+#: ui/newaccountsettingsview.ui:2373
 msgid "Use STUN"
 msgstr "Использовать STUN "
 
-#: ui/newaccountsettingsview.ui:2372
+#: ui/newaccountsettingsview.ui:2408
 msgid "(STUN) address"
 msgstr "(STUN) адрес"
 
-#: ui/newaccountsettingsview.ui:2405
+#: ui/newaccountsettingsview.ui:2441
 msgid "Published address"
 msgstr "Публикуемый адрес"
 
-#: ui/newaccountsettingsview.ui:2442
+#: ui/newaccountsettingsview.ui:2478
 msgid "Use custom address and port"
 msgstr "Использовать указанные адрес и порт"
 
-#: ui/newaccountsettingsview.ui:2513
+#: ui/newaccountsettingsview.ui:2549
 msgid "Port"
 msgstr "Порт"
 
-#: ui/newaccountsettingsview.ui:2549
+#: ui/newaccountsettingsview.ui:2585
 msgid "Video codecs"
 msgstr "Видео кодеки"
 
-#: ui/newaccountsettingsview.ui:2612
+#: ui/newaccountsettingsview.ui:2648
 msgid "Enable video"
 msgstr "Разрешить видео"
 
-#: ui/newaccountsettingsview.ui:2639
+#: ui/newaccountsettingsview.ui:2675
 msgid "Audio codecs"
 msgstr "Аудио кодеки"
 
-#: ui/newaccountsettingsview.ui:2709
+#: ui/newaccountsettingsview.ui:2745
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "Согласование сесcии SDP (ICE недоступен)"
 
-#: ui/newaccountsettingsview.ui:2721
+#: ui/newaccountsettingsview.ui:2757
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Используется только в сессии SDP в случае, если ICE не поддерживается."
 
-#: ui/newaccountsettingsview.ui:2755
+#: ui/newaccountsettingsview.ui:2791
 msgid "Audio RTP Min port"
 msgstr "Минимальный порт RTP для звука"
 
-#: ui/newaccountsettingsview.ui:2790
+#: ui/newaccountsettingsview.ui:2826
 msgid "Audio RTP Max port"
 msgstr "Максимальный порт RTP для звука"
 
-#: ui/newaccountsettingsview.ui:2825
+#: ui/newaccountsettingsview.ui:2861
 msgid "Video RTP Min port"
 msgstr "Минимальный порт RTP для видео"
 
-#: ui/newaccountsettingsview.ui:2860
+#: ui/newaccountsettingsview.ui:2896
 msgid "Video RTP Max port"
 msgstr "Максимальный порт RTP для видео"
 
@@ -724,7 +857,7 @@ msgstr "Входящий…"
 msgid "Accept"
 msgstr "Принять"
 
-#: ui/incomingcallview.ui:173
+#: ui/incomingcallview.ui:172
 msgid "Reject"
 msgstr "Отклонить"
 
@@ -744,7 +877,7 @@ msgstr "Вернуться"
 msgid "Set selection as image"
 msgstr "Установить выбранное в качестве изображения"
 
-#: src/ring_client.cpp:114
+#: src/ring_client.cpp:115
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -752,17 +885,17 @@ msgid ""
 "Error: %s"
 msgstr "Инициализация не выполнена.\nУбедитесь, что демон Jami (dring) запущен.\nОшибка: %s"
 
-#: src/ring_client.cpp:117
+#: src/ring_client.cpp:118
 msgid "Jami Error"
 msgstr "Ошибка Jami"
 
-#: src/ring_client.cpp:267
+#: src/ring_client.cpp:388
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Показать Jami"
 
-#: src/ring_client.cpp:271
+#: src/ring_client.cpp:392
 msgid "Quit"
 msgstr "Выход"
 
@@ -806,13 +939,35 @@ msgstr "Проверка занятости недоступна, проверь
 msgid "Performing lookup…"
 msgstr "Проверяется занятость…"
 
-#: src/usernameregistrationbox.cpp:313
+#: src/usernameregistrationbox.cpp:325
 msgid "Enter the password of your Jami account"
 msgstr "Введите пароль вашей учётной записи Jami"
 
-#: src/usernameregistrationbox.cpp:344
+#: src/usernameregistrationbox.cpp:357
 msgid "Registration in progress…"
 msgstr "Идёт регистрация…"
+
+#: src/usernameregistrationbox.cpp:376
+msgid "Name registration Error"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:434
+msgid ""
+"Unable to register name (Invalid name). Your username should contains "
+"between 3 and 32 alphanumerics characters (or underscore)."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:438
+msgid "Unable to register name (Wrong password)."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:442
+msgid "Unable to register name (Username already taken)."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:446
+msgid "Unable to register name (Network error) - check your connection."
+msgstr ""
 
 #: src/generalsettingsview.cpp:100
 msgid ""
@@ -825,12 +980,12 @@ msgid "Choose download folder"
 msgstr "Выберите папку для загрузок"
 
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
-#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:930
+#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "_Отмена"
 
 #: src/generalsettingsview.cpp:175 src/chatview.cpp:180
-#: src/newaccountsettingsview.cpp:932
+#: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr "_Сохранить"
 
@@ -892,59 +1047,83 @@ msgstr "Отправить записанное сообщение"
 msgid "Add account…"
 msgstr "Добавить аккаунт…"
 
-#: src/ringmainwindow.cpp:646
+#: src/ringmainwindow.cpp:647
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "позвонить"
 
-#: src/ringmainwindow.cpp:649
+#: src/ringmainwindow.cpp:650
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "открыть чат"
 
-#: src/ringmainwindow.cpp:1142
+#: src/ringmainwindow.cpp:1143
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Найдите контакты или введите номер"
 
-#: src/ringmainwindow.cpp:1578
+#: src/ringmainwindow.cpp:1584
 msgid "Leave settings page"
 msgstr "Выйти из настроек"
 
-#: src/ringmainwindow.cpp:1932
+#: src/ringmainwindow.cpp:1980
 msgid "There are active calls"
-msgstr ""
+msgstr "Есть активные звонки"
 
-#: src/ringmainwindow.cpp:1988
+#: src/ringmainwindow.cpp:2034
 msgid " is calling you!"
-msgstr "звони́т вам!"
+msgstr "звонит вам!"
 
-#: src/ringmainwindow.cpp:1989
+#: src/ringmainwindow.cpp:2035
 msgid "Incoming call"
-msgstr "Входящий звонок"
+msgstr "Входящий вызов"
 
-#: src/ringmainwindow.cpp:2131
+#: src/ringmainwindow.cpp:2177
 msgid "New request from "
 msgstr "Новый запрос от"
 
-#: src/ringmainwindow.cpp:2132
+#: src/ringmainwindow.cpp:2178
 msgid "Trust request"
 msgstr "Запрос доверия"
 
-#: src/ringmainwindow.cpp:2189
+#: src/ringmainwindow.cpp:2239
 msgid "New message"
 msgstr "Новое сообщение"
 
-#: src/ringmainwindow.cpp:2253
+#: src/ringmainwindow.cpp:2302
+msgid "Stop current call?"
+msgstr "Завершить текущий звонок?"
+
+#: src/ringmainwindow.cpp:2303
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
+msgstr "В настоящее время идёт беседа. Хотите закрыть окно и остановить все текущие вызовы?"
+
+#: src/ringmainwindow.cpp:2370
+msgid "Clear history"
+msgstr "Очистить историю"
+
+#: src/ringmainwindow.cpp:2371
+msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2254
-msgid "Stop current call?"
+#: src/ringmainwindow.cpp:2386
+msgid "Remove conversation"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2387
+msgid "Do you really want to remove this conversation?"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2402
+msgid "Block contact"
+msgstr "Заблокировать контакт"
+
+#: src/ringmainwindow.cpp:2403
+msgid "Do you really want to block this contact?"
 msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
@@ -1042,136 +1221,136 @@ msgstr "Jami — свободная программа для связи, ува
 msgid "Send File"
 msgstr "Отправить файл"
 
-#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:927
+#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:929
 msgid "Save File"
 msgstr "Сохранить файл"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:993
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:995
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Предупреждение! Это действие удалит данный аккаунт на данном устройстве!\nЗамечание: это действие невозможно отменить. Также вы можете потерять зарегистрированное имя!"
 
-#: src/currentcallview.cpp:974
+#: src/currentcallview.cpp:951
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Авто"
 
-#: src/newaccountsettingsview.cpp:624
+#: src/newaccountsettingsview.cpp:626
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Предупреждение! Это действие отзовёт устройство!\nЗамечание: это действие невозможно отменить."
 
-#: src/newaccountsettingsview.cpp:625
+#: src/newaccountsettingsview.cpp:627
 msgid "Enter password to revoke device"
 msgstr "Введите пароль, чтобы отозвать устройство"
 
-#: src/newaccountsettingsview.cpp:683
+#: src/newaccountsettingsview.cpp:685
 msgid "Edit name"
 msgstr "Редактировать имя"
 
-#: src/newaccountsettingsview.cpp:683
+#: src/newaccountsettingsview.cpp:685
 msgid "Revoke device"
 msgstr "Отозвать устройство"
 
-#: src/newaccountsettingsview.cpp:705
+#: src/newaccountsettingsview.cpp:707
 msgid "Error when revoking device"
 msgstr "Ошибка при отзыве устройства"
 
-#: src/newaccountsettingsview.cpp:778
+#: src/newaccountsettingsview.cpp:780
 msgid "Unban"
 msgstr "Разблокировать"
 
-#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
-#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
+#: src/newaccountsettingsview.cpp:803 src/newaccountsettingsview.cpp:826
+#: src/newaccountsettingsview.cpp:850 src/newaccountsettingsview.cpp:886
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: src/newaccountsettingsview.cpp:814
+#: src/newaccountsettingsview.cpp:816
 msgid "New password and its confirmation are different!"
 msgstr "Новый пароль и его подтверждение не совпадают!"
 
-#: src/newaccountsettingsview.cpp:825
+#: src/newaccountsettingsview.cpp:827
 msgid "Incorrect password!"
 msgstr "Неверный пароль!"
 
-#: src/newaccountsettingsview.cpp:862
+#: src/newaccountsettingsview.cpp:864
 msgid "Note: this will change the password only on this device."
 msgstr "Замечание: это изменит пароль только на данном устройстве."
 
-#: src/newaccountsettingsview.cpp:865
+#: src/newaccountsettingsview.cpp:867
 msgid "Current password"
 msgstr "Текущий пароль"
 
-#: src/newaccountsettingsview.cpp:871
+#: src/newaccountsettingsview.cpp:873
 msgid "New password"
 msgstr "Новый пароль"
 
-#: src/newaccountsettingsview.cpp:954
+#: src/newaccountsettingsview.cpp:956
 msgid "You need to enter your password to export the full archive."
 msgstr "Для экспорта полного архива нужно ввести пароль."
 
-#: src/newaccountsettingsview.cpp:955
+#: src/newaccountsettingsview.cpp:957
 msgid "Enter password to export archive"
 msgstr "Введите пароль для экспорта архива"
 
-#: src/newaccountsettingsview.cpp:978
+#: src/newaccountsettingsview.cpp:980
 msgid "Account exported!"
 msgstr "Аккаунт экспортирован!"
 
-#: src/newaccountsettingsview.cpp:978
+#: src/newaccountsettingsview.cpp:980
 msgid "Export account failure."
 msgstr "Экспорт аккаунта не выполнен."
 
-#: src/newaccountsettingsview.cpp:1741
+#: src/newaccountsettingsview.cpp:1755
 msgid "Bad password"
 msgstr "Недопустимый пароль"
 
-#: src/newaccountsettingsview.cpp:1747
+#: src/newaccountsettingsview.cpp:1761
 msgid "Network error, try again"
 msgstr "Ошибка сети, попробуйте снова"
 
-#: src/newaccountsettingsview.cpp:1753
+#: src/newaccountsettingsview.cpp:1767
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 
-#: src/newaccountsettingsview.cpp:1765
+#: src/newaccountsettingsview.cpp:1779
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Не удалось инициировать экспорт в сеть Jami, попробуйте ещё раз"
 
-#: src/newaccountsettingsview.cpp:1824
+#: src/newaccountsettingsview.cpp:1838
 msgid "Error: wrong password!"
 msgstr "Ошибка: неверный пароль!"
 
-#: src/newaccountsettingsview.cpp:1827
+#: src/newaccountsettingsview.cpp:1841
 msgid "Error: unknown device!"
 msgstr "Ошибка: неизвестное устройство!"
 
-#: src/newaccountsettingsview.cpp:1998
+#: src/newaccountsettingsview.cpp:2013
 msgid "Initializing…"
 msgstr "Инициализация…"
 
-#: src/newaccountsettingsview.cpp:2001
+#: src/newaccountsettingsview.cpp:2016
 msgid "Offline"
 msgstr "Не в сети"
 
-#: src/newaccountsettingsview.cpp:2004
+#: src/newaccountsettingsview.cpp:2019
 msgid "Connecting…"
 msgstr "Соединение…"
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2022
 msgid "Online"
 msgstr "В сети"
 
-#: src/newaccountsettingsview.cpp:2011
+#: src/newaccountsettingsview.cpp:2026
 msgid "Unknown status"
 msgstr "Неизвестный статус"
 
-#: src/newaccountsettingsview.cpp:2044
+#: src/newaccountsettingsview.cpp:2059
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2044
+#: src/newaccountsettingsview.cpp:2059
 msgid "no password set"
 msgstr "пароль не установлен"

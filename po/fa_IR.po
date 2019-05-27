@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-22 03:09-0400\n"
-"PO-Revision-Date: 2019-04-15 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-05-27 10:08-0400\n"
+"PO-Revision-Date: 2019-05-27 14:08+0000\n"
+"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/jami/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,13 +23,142 @@ msgstr ""
 "Language: fa_IR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ui/ringgearsmenu.ui:13
+#: ui/ringgearsmenu.ui:7
+msgid "Keyboard _Shortcuts"
+msgstr ""
+
+#: ui/ringgearsmenu.ui:11
 msgid "_About"
 msgstr "_درباره"
 
-#: ui/ringgearsmenu.ui:19
+#: ui/ringgearsmenu.ui:17
 msgid "_Quit"
 msgstr "_خروج"
+
+#: ui/help-overlay.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "عمومی"
+
+#: ui/help-overlay.ui:18
+msgctxt "shortcut window"
+msgid "Open application menu"
+msgstr ""
+
+#: ui/help-overlay.ui:25
+msgctxt "shortcut window"
+msgid "Open account list"
+msgstr ""
+
+#: ui/help-overlay.ui:32
+msgctxt "shortcut window"
+msgid "Select search bar"
+msgstr ""
+
+#: ui/help-overlay.ui:39
+msgctxt "shortcut window"
+msgid "Focus the list of conversations"
+msgstr ""
+
+#: ui/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Focus the list pending requests"
+msgstr ""
+
+#: ui/help-overlay.ui:56
+msgctxt "shortcut window"
+msgid "Conversations"
+msgstr "گفتگو"
+
+#: ui/help-overlay.ui:61
+msgctxt "shortcut window"
+msgid "Start a video call"
+msgstr "شروع یک تماس ویدیویی"
+
+#: ui/help-overlay.ui:68
+msgctxt "shortcut window"
+msgid "Start an audio call"
+msgstr "شروع یک تماس صوتی"
+
+#: ui/help-overlay.ui:75
+msgctxt "shortcut window"
+msgid "Clear history"
+msgstr "پاک‌سازی تاریخچه"
+
+#: ui/help-overlay.ui:82
+msgctxt "shortcut window"
+msgid "Add conversation"
+msgstr ""
+
+#: ui/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Remove conversation"
+msgstr ""
+
+#: ui/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Block contact"
+msgstr "مسدودسازی مخاطب"
+
+#: ui/help-overlay.ui:103
+msgctxt "shortcut window"
+msgid "Unblock contact"
+msgstr ""
+
+#: ui/help-overlay.ui:110
+msgctxt "shortcut window"
+msgid "Copy contact name"
+msgstr ""
+
+#: ui/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Call"
+msgstr "برقراری تماس"
+
+#: ui/help-overlay.ui:125
+msgctxt "shortcut window"
+msgid "Accept call"
+msgstr ""
+
+#: ui/help-overlay.ui:132
+msgctxt "shortcut window"
+msgid "Decline call"
+msgstr ""
+
+#: ui/help-overlay.ui:141
+msgctxt "shortcut window"
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: ui/help-overlay.ui:146
+msgctxt "shortcut window"
+msgid "Open/Close settings page"
+msgstr ""
+
+#: ui/help-overlay.ui:153
+msgctxt "shortcut window"
+msgid "Open general settings"
+msgstr ""
+
+#: ui/help-overlay.ui:160
+msgctxt "shortcut window"
+msgid "Open media settings"
+msgstr ""
+
+#: ui/help-overlay.ui:167
+msgctxt "shortcut window"
+msgid "Open account settings"
+msgstr ""
+
+#: ui/help-overlay.ui:177
+msgctxt "shortcut window"
+msgid "Chat view"
+msgstr ""
+
+#: ui/help-overlay.ui:182
+msgctxt "shortcut window"
+msgid "Write on a new line"
+msgstr ""
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
@@ -58,7 +187,7 @@ msgstr "جابجایی حساب کاربری"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:994
+#: src/newaccountsettingsview.cpp:996
 msgid "Delete account"
 msgstr "حذف حساب"
 
@@ -157,7 +286,7 @@ msgid "Link this devices to a Jami account created on another device"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
-#: src/newaccountsettingsview.cpp:887
+#: src/newaccountsettingsview.cpp:889
 msgid "Cancel"
 msgstr "لغو"
 
@@ -208,7 +337,7 @@ msgstr "بعدی"
 msgid "Profile"
 msgstr "نمایه"
 
-#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:110
+#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:113
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "حساب کاربری"
@@ -235,7 +364,7 @@ msgid ""
 "devices to your account."
 msgstr "از این گذرواژه برای رمزنگاری داده های حساب شما و برای پیوند دادن دستگاه های جدید به حساب شما  استفاده خواهد شد."
 
-#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:877
+#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:879
 msgid "Confirm password"
 msgstr "تأیید گذرواژه"
 
@@ -328,23 +457,23 @@ msgstr "پاکسازی تمام تاریخچه"
 msgid "Menu"
 msgstr "منو"
 
-#: ui/ringmainwindow.ui:79
+#: ui/ringmainwindow.ui:80
 msgid "General"
 msgstr "همگانی"
 
-#: ui/ringmainwindow.ui:94
+#: ui/ringmainwindow.ui:96
 msgid "Media"
 msgstr "رسانه"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1609
 msgid "Settings"
 msgstr "تنظیمات"
 
-#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
+#: ui/ringmainwindow.ui:271 ui/ringmainwindow.ui:278
 msgid "Conversations"
 msgstr " گفتگو"
 
-#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
+#: ui/ringmainwindow.ui:304 ui/ringmainwindow.ui:311
 msgid "Contact requests"
 msgstr "درخواست‌های تماس"
 
@@ -397,8 +526,8 @@ msgid "Hardware Acceleration"
 msgstr ""
 
 #: ui/mediasettingsview.ui:282
-msgid "Enable hardware decoding:"
-msgstr "فعال سازی رمزگشایی سخت افزار:"
+msgid "Enable hardware acceleration:"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
@@ -443,7 +572,7 @@ msgstr "شناسه"
 msgid "Click to change password"
 msgstr "برای تغییر گذرواژه کلیک کنید"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2033
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2048
 msgid "Export account"
 msgstr "برون‌ریزی حساب"
 
@@ -507,7 +636,7 @@ msgstr "صدای زنگ سفارشی"
 msgid "Name server"
 msgstr "کارساز نام"
 
-#: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2478
+#: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2514
 msgid "Address"
 msgstr "نشانی"
 
@@ -516,158 +645,162 @@ msgid "OpenDHT configuration"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:1443
+msgid "Auto connect on local network"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:1479
 msgid "Bootstrap"
 msgstr "خود راه اندازی"
 
-#: ui/newaccountsettingsview.ui:1503
+#: ui/newaccountsettingsview.ui:1539
 msgid "Encrypt media streams (SRTP)"
 msgstr "رمزنگاری جریان های مدیا (SRTP)"
 
-#: ui/newaccountsettingsview.ui:1538
+#: ui/newaccountsettingsview.ui:1574
 msgid "Enable SDES for key exchange protocol"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1574
+#: ui/newaccountsettingsview.ui:1610
 msgid "Fallback on RTP on encryption failure"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1609
+#: ui/newaccountsettingsview.ui:1645
 msgid "Encrypt negotiation (TLS)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1644
+#: ui/newaccountsettingsview.ui:1680
 msgid "CA certificate"
 msgstr "گواهی CA"
 
-#: ui/newaccountsettingsview.ui:1680
+#: ui/newaccountsettingsview.ui:1716
 msgid "User certificate"
 msgstr "گواهی کاربر"
 
-#: ui/newaccountsettingsview.ui:1716
+#: ui/newaccountsettingsview.ui:1752
 msgid "Private key"
 msgstr "کلید خصوصی"
 
-#: ui/newaccountsettingsview.ui:1752
+#: ui/newaccountsettingsview.ui:1788
 msgid "Private key password"
 msgstr "گذرواژه کلید خصوصی"
 
-#: ui/newaccountsettingsview.ui:1790
+#: ui/newaccountsettingsview.ui:1826
 msgid "TLS protocol method"
 msgstr "پروتکل روش TLS"
 
-#: ui/newaccountsettingsview.ui:1826
+#: ui/newaccountsettingsview.ui:1862
 msgid "Outgoing TLS server name"
 msgstr "نام سرور TLS خروجی"
 
-#: ui/newaccountsettingsview.ui:1861
+#: ui/newaccountsettingsview.ui:1897
 msgid "Negotiation timeout (seconds)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1897
+#: ui/newaccountsettingsview.ui:1933
 msgid "Verify incoming certificates (server side)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1932
+#: ui/newaccountsettingsview.ui:1968
 msgid "Verify answer certificates (client side)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1967
+#: ui/newaccountsettingsview.ui:2003
 msgid "Require a certificate for incoming TLS connections"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1991
+#: ui/newaccountsettingsview.ui:2027
 msgid "Security"
 msgstr "امنیت"
 
-#: ui/newaccountsettingsview.ui:2016
+#: ui/newaccountsettingsview.ui:2052
 msgid "Connectivity"
 msgstr "اتصال"
 
-#: ui/newaccountsettingsview.ui:2054
+#: ui/newaccountsettingsview.ui:2090
 msgid "Registration expire timeout (seconds)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2091
+#: ui/newaccountsettingsview.ui:2127
 msgid "Network interface"
 msgstr "رابط شبکه"
 
-#: ui/newaccountsettingsview.ui:2127
+#: ui/newaccountsettingsview.ui:2163
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2162
+#: ui/newaccountsettingsview.ui:2198
 msgid "Use TURN"
 msgstr "استفاده از TURN"
 
-#: ui/newaccountsettingsview.ui:2197
+#: ui/newaccountsettingsview.ui:2233
 msgid "(TURN) address"
 msgstr "نشانی (TURN)"
 
-#: ui/newaccountsettingsview.ui:2232
+#: ui/newaccountsettingsview.ui:2268
 msgid "(TURN) username"
 msgstr "نام کاربری (TURN)"
 
-#: ui/newaccountsettingsview.ui:2266
+#: ui/newaccountsettingsview.ui:2302
 msgid "(TURN) password"
 msgstr "گذرواژه (TURN)"
 
-#: ui/newaccountsettingsview.ui:2303
+#: ui/newaccountsettingsview.ui:2339
 msgid "(TURN) realm"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2337
+#: ui/newaccountsettingsview.ui:2373
 msgid "Use STUN"
 msgstr "از STUN استفاده کن"
 
-#: ui/newaccountsettingsview.ui:2372
+#: ui/newaccountsettingsview.ui:2408
 msgid "(STUN) address"
 msgstr "نشانی (STUN)"
 
-#: ui/newaccountsettingsview.ui:2405
+#: ui/newaccountsettingsview.ui:2441
 msgid "Published address"
 msgstr "نشانی منتشر شده"
 
-#: ui/newaccountsettingsview.ui:2442
+#: ui/newaccountsettingsview.ui:2478
 msgid "Use custom address and port"
 msgstr "استفاده از نشانی و پورت سفارشی"
 
-#: ui/newaccountsettingsview.ui:2513
+#: ui/newaccountsettingsview.ui:2549
 msgid "Port"
 msgstr "درگاه"
 
-#: ui/newaccountsettingsview.ui:2549
+#: ui/newaccountsettingsview.ui:2585
 msgid "Video codecs"
 msgstr "رمزینه های تصویری"
 
-#: ui/newaccountsettingsview.ui:2612
+#: ui/newaccountsettingsview.ui:2648
 msgid "Enable video"
 msgstr "فعال سازی ویدیو"
 
-#: ui/newaccountsettingsview.ui:2639
+#: ui/newaccountsettingsview.ui:2675
 msgid "Audio codecs"
 msgstr "رمزینه های صوتی"
 
-#: ui/newaccountsettingsview.ui:2709
+#: ui/newaccountsettingsview.ui:2745
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2721
+#: ui/newaccountsettingsview.ui:2757
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2755
+#: ui/newaccountsettingsview.ui:2791
 msgid "Audio RTP Min port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2790
+#: ui/newaccountsettingsview.ui:2826
 msgid "Audio RTP Max port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2825
+#: ui/newaccountsettingsview.ui:2861
 msgid "Video RTP Min port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2860
+#: ui/newaccountsettingsview.ui:2896
 msgid "Video RTP Max port"
 msgstr ""
 
@@ -711,7 +844,7 @@ msgstr "دریافتی..."
 msgid "Accept"
 msgstr "قبول"
 
-#: ui/incomingcallview.ui:173
+#: ui/incomingcallview.ui:172
 msgid "Reject"
 msgstr "رد"
 
@@ -731,7 +864,7 @@ msgstr "بازگشت"
 msgid "Set selection as image"
 msgstr ""
 
-#: src/ring_client.cpp:114
+#: src/ring_client.cpp:115
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -739,17 +872,17 @@ msgid ""
 "Error: %s"
 msgstr ""
 
-#: src/ring_client.cpp:117
+#: src/ring_client.cpp:118
 msgid "Jami Error"
 msgstr "خطای جمی"
 
-#: src/ring_client.cpp:267
+#: src/ring_client.cpp:388
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "نمایش جمی"
 
-#: src/ring_client.cpp:271
+#: src/ring_client.cpp:392
 msgid "Quit"
 msgstr "خروج"
 
@@ -793,13 +926,35 @@ msgstr ""
 msgid "Performing lookup…"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:313
+#: src/usernameregistrationbox.cpp:325
 msgid "Enter the password of your Jami account"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:344
+#: src/usernameregistrationbox.cpp:357
 msgid "Registration in progress…"
 msgstr "در حال انجام ثبت نام..."
+
+#: src/usernameregistrationbox.cpp:376
+msgid "Name registration Error"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:434
+msgid ""
+"Unable to register name (Invalid name). Your username should contains "
+"between 3 and 32 alphanumerics characters (or underscore)."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:438
+msgid "Unable to register name (Wrong password)."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:442
+msgid "Unable to register name (Username already taken)."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:446
+msgid "Unable to register name (Network error) - check your connection."
+msgstr ""
 
 #: src/generalsettingsview.cpp:100
 msgid ""
@@ -812,12 +967,12 @@ msgid "Choose download folder"
 msgstr "انتخاب پوشه دانلود"
 
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
-#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:930
+#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "_لغو"
 
 #: src/generalsettingsview.cpp:175 src/chatview.cpp:180
-#: src/newaccountsettingsview.cpp:932
+#: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr "_ذخیره"
 
@@ -879,59 +1034,83 @@ msgstr "ارسال پیام ضبط شده"
 msgid "Add account…"
 msgstr "افزودن حساب..."
 
-#: src/ringmainwindow.cpp:646
+#: src/ringmainwindow.cpp:647
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:649
+#: src/ringmainwindow.cpp:650
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "گشودن گپ"
 
-#: src/ringmainwindow.cpp:1142
+#: src/ringmainwindow.cpp:1143
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1578
+#: src/ringmainwindow.cpp:1584
 msgid "Leave settings page"
 msgstr "خروج از صفحهٔ تنظیمات"
 
-#: src/ringmainwindow.cpp:1932
+#: src/ringmainwindow.cpp:1980
 msgid "There are active calls"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1988
+#: src/ringmainwindow.cpp:2034
 msgid " is calling you!"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1989
+#: src/ringmainwindow.cpp:2035
 msgid "Incoming call"
 msgstr "تماس ورودی"
 
-#: src/ringmainwindow.cpp:2131
+#: src/ringmainwindow.cpp:2177
 msgid "New request from "
 msgstr "درخواست جدید از جانب"
 
-#: src/ringmainwindow.cpp:2132
+#: src/ringmainwindow.cpp:2178
 msgid "Trust request"
 msgstr "درخواست اعتماد"
 
-#: src/ringmainwindow.cpp:2189
+#: src/ringmainwindow.cpp:2239
 msgid "New message"
 msgstr "پیام جدید"
 
-#: src/ringmainwindow.cpp:2253
+#: src/ringmainwindow.cpp:2302
+msgid "Stop current call?"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2303
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2254
-msgid "Stop current call?"
+#: src/ringmainwindow.cpp:2370
+msgid "Clear history"
+msgstr "پاک‌سازی تاریخچه"
+
+#: src/ringmainwindow.cpp:2371
+msgid "Do you really want to clear the history of this conversation?"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2386
+msgid "Remove conversation"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2387
+msgid "Do you really want to remove this conversation?"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2402
+msgid "Block contact"
+msgstr "مسدودسازی مخاطب"
+
+#: src/ringmainwindow.cpp:2403
+msgid "Do you really want to block this contact?"
 msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
@@ -1029,136 +1208,136 @@ msgstr "جمی نرم‌افزار آزاد برای ارتباط جهانی ا�
 msgid "Send File"
 msgstr "ارسال فایل"
 
-#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:927
+#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:929
 msgid "Save File"
 msgstr "ذخیره فایل"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:993
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:995
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:974
+#: src/currentcallview.cpp:951
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "خودکار"
 
-#: src/newaccountsettingsview.cpp:624
+#: src/newaccountsettingsview.cpp:626
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:625
+#: src/newaccountsettingsview.cpp:627
 msgid "Enter password to revoke device"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:683
+#: src/newaccountsettingsview.cpp:685
 msgid "Edit name"
 msgstr "ویرایش نام"
 
-#: src/newaccountsettingsview.cpp:683
+#: src/newaccountsettingsview.cpp:685
 msgid "Revoke device"
 msgstr "باطل کردن دستگاه"
 
-#: src/newaccountsettingsview.cpp:705
+#: src/newaccountsettingsview.cpp:707
 msgid "Error when revoking device"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:778
+#: src/newaccountsettingsview.cpp:780
 msgid "Unban"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
-#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
+#: src/newaccountsettingsview.cpp:803 src/newaccountsettingsview.cpp:826
+#: src/newaccountsettingsview.cpp:850 src/newaccountsettingsview.cpp:886
 msgid "Change password"
 msgstr "تغییر رمز عبور"
 
-#: src/newaccountsettingsview.cpp:814
+#: src/newaccountsettingsview.cpp:816
 msgid "New password and its confirmation are different!"
 msgstr "گذرواژه و تاییدیه آن با هم فرق میکنند!"
 
-#: src/newaccountsettingsview.cpp:825
+#: src/newaccountsettingsview.cpp:827
 msgid "Incorrect password!"
 msgstr "گذرواژه اشتباه!"
 
-#: src/newaccountsettingsview.cpp:862
+#: src/newaccountsettingsview.cpp:864
 msgid "Note: this will change the password only on this device."
 msgstr "توجه: این فقط گذرواژه روی این دستگاه را تغییر می دهد."
 
-#: src/newaccountsettingsview.cpp:865
+#: src/newaccountsettingsview.cpp:867
 msgid "Current password"
 msgstr "گذرواژه فعلی"
 
-#: src/newaccountsettingsview.cpp:871
+#: src/newaccountsettingsview.cpp:873
 msgid "New password"
 msgstr "گذرواژهٔ نو"
 
-#: src/newaccountsettingsview.cpp:954
+#: src/newaccountsettingsview.cpp:956
 msgid "You need to enter your password to export the full archive."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:955
+#: src/newaccountsettingsview.cpp:957
 msgid "Enter password to export archive"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:978
+#: src/newaccountsettingsview.cpp:980
 msgid "Account exported!"
 msgstr "حساب صادر شد!"
 
-#: src/newaccountsettingsview.cpp:978
+#: src/newaccountsettingsview.cpp:980
 msgid "Export account failure."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1741
+#: src/newaccountsettingsview.cpp:1755
 msgid "Bad password"
 msgstr "گذرواژهٔ بد"
 
-#: src/newaccountsettingsview.cpp:1747
+#: src/newaccountsettingsview.cpp:1761
 msgid "Network error, try again"
 msgstr "خطای شبکه، دوباره تلاش کنید"
 
-#: src/newaccountsettingsview.cpp:1753
+#: src/newaccountsettingsview.cpp:1767
 msgid "Unknown error"
 msgstr "خطای ناشناخته"
 
-#: src/newaccountsettingsview.cpp:1765
+#: src/newaccountsettingsview.cpp:1779
 msgid "Could not initiate export to the Jami, try again"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1824
+#: src/newaccountsettingsview.cpp:1838
 msgid "Error: wrong password!"
 msgstr "خطا: گذرواژه اشتباه!"
 
-#: src/newaccountsettingsview.cpp:1827
+#: src/newaccountsettingsview.cpp:1841
 msgid "Error: unknown device!"
 msgstr "خطا: دستگاه ناشناس!"
 
-#: src/newaccountsettingsview.cpp:1998
+#: src/newaccountsettingsview.cpp:2013
 msgid "Initializing…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2001
+#: src/newaccountsettingsview.cpp:2016
 msgid "Offline"
 msgstr "‌خط"
 
-#: src/newaccountsettingsview.cpp:2004
+#: src/newaccountsettingsview.cpp:2019
 msgid "Connecting…"
 msgstr "در حال اتصال..."
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2022
 msgid "Online"
 msgstr "برخط"
 
-#: src/newaccountsettingsview.cpp:2011
+#: src/newaccountsettingsview.cpp:2026
 msgid "Unknown status"
 msgstr "وضعیت ناشناخته"
 
-#: src/newaccountsettingsview.cpp:2044
+#: src/newaccountsettingsview.cpp:2059
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2044
+#: src/newaccountsettingsview.cpp:2059
 msgid "no password set"
 msgstr "هیچ گذرواژه ای تنظیم نشده است"

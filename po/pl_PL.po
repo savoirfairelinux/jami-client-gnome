@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-22 03:09-0400\n"
-"PO-Revision-Date: 2019-04-15 07:09+0000\n"
-"Last-Translator: Alexandre Lision\n"
+"POT-Creation-Date: 2019-05-27 10:08-0400\n"
+"PO-Revision-Date: 2019-05-27 14:08+0000\n"
+"Last-Translator: Jan Wielkiewicz <grzybowawspulnota@cock.li>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/savoirfairelinux/jami/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,13 +18,142 @@ msgstr ""
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: ui/ringgearsmenu.ui:13
+#: ui/ringgearsmenu.ui:7
+msgid "Keyboard _Shortcuts"
+msgstr ""
+
+#: ui/ringgearsmenu.ui:11
 msgid "_About"
 msgstr "_O"
 
-#: ui/ringgearsmenu.ui:19
+#: ui/ringgearsmenu.ui:17
 msgid "_Quit"
 msgstr "_Wyjdź"
+
+#: ui/help-overlay.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Generalne"
+
+#: ui/help-overlay.ui:18
+msgctxt "shortcut window"
+msgid "Open application menu"
+msgstr ""
+
+#: ui/help-overlay.ui:25
+msgctxt "shortcut window"
+msgid "Open account list"
+msgstr ""
+
+#: ui/help-overlay.ui:32
+msgctxt "shortcut window"
+msgid "Select search bar"
+msgstr ""
+
+#: ui/help-overlay.ui:39
+msgctxt "shortcut window"
+msgid "Focus the list of conversations"
+msgstr ""
+
+#: ui/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Focus the list pending requests"
+msgstr ""
+
+#: ui/help-overlay.ui:56
+msgctxt "shortcut window"
+msgid "Conversations"
+msgstr "Rozmowy"
+
+#: ui/help-overlay.ui:61
+msgctxt "shortcut window"
+msgid "Start a video call"
+msgstr "Rozpocznij rozmowę wideo"
+
+#: ui/help-overlay.ui:68
+msgctxt "shortcut window"
+msgid "Start an audio call"
+msgstr "Rozpocznij połączenie głosowe"
+
+#: ui/help-overlay.ui:75
+msgctxt "shortcut window"
+msgid "Clear history"
+msgstr "Wyczyść historię"
+
+#: ui/help-overlay.ui:82
+msgctxt "shortcut window"
+msgid "Add conversation"
+msgstr ""
+
+#: ui/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Remove conversation"
+msgstr ""
+
+#: ui/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Block contact"
+msgstr "Blokuj kontakt"
+
+#: ui/help-overlay.ui:103
+msgctxt "shortcut window"
+msgid "Unblock contact"
+msgstr ""
+
+#: ui/help-overlay.ui:110
+msgctxt "shortcut window"
+msgid "Copy contact name"
+msgstr ""
+
+#: ui/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Call"
+msgstr "Dzwoń"
+
+#: ui/help-overlay.ui:125
+msgctxt "shortcut window"
+msgid "Accept call"
+msgstr ""
+
+#: ui/help-overlay.ui:132
+msgctxt "shortcut window"
+msgid "Decline call"
+msgstr ""
+
+#: ui/help-overlay.ui:141
+msgctxt "shortcut window"
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: ui/help-overlay.ui:146
+msgctxt "shortcut window"
+msgid "Open/Close settings page"
+msgstr ""
+
+#: ui/help-overlay.ui:153
+msgctxt "shortcut window"
+msgid "Open general settings"
+msgstr ""
+
+#: ui/help-overlay.ui:160
+msgctxt "shortcut window"
+msgid "Open media settings"
+msgstr ""
+
+#: ui/help-overlay.ui:167
+msgctxt "shortcut window"
+msgid "Open account settings"
+msgstr ""
+
+#: ui/help-overlay.ui:177
+msgctxt "shortcut window"
+msgid "Chat view"
+msgstr ""
+
+#: ui/help-overlay.ui:182
+msgctxt "shortcut window"
+msgid "Write on a new line"
+msgstr ""
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
@@ -53,7 +182,7 @@ msgstr "Przenieś konto"
 
 #: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:994
+#: src/newaccountsettingsview.cpp:996
 msgid "Delete account"
 msgstr "Usuń konto"
 
@@ -152,7 +281,7 @@ msgid "Link this devices to a Jami account created on another device"
 msgstr "Połącz to urządzenie z kontem Jami stworzonym na innym urządzeniu"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
-#: src/newaccountsettingsview.cpp:887
+#: src/newaccountsettingsview.cpp:889
 msgid "Cancel"
 msgstr "Anuluj"
 
@@ -203,7 +332,7 @@ msgstr "Następne"
 msgid "Profile"
 msgstr "Profil"
 
-#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:110
+#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:113
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "Konto"
@@ -230,7 +359,7 @@ msgid ""
 "devices to your account."
 msgstr "To hasło będzie używane do zaszyfrowania danych twojego konta i do łączenia nowych urządzeń do konta."
 
-#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:877
+#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:879
 msgid "Confirm password"
 msgstr "Potwierdź hasło"
 
@@ -323,23 +452,23 @@ msgstr "Usuń całą historię"
 msgid "Menu"
 msgstr "Menu"
 
-#: ui/ringmainwindow.ui:79
+#: ui/ringmainwindow.ui:80
 msgid "General"
 msgstr "Generalne"
 
-#: ui/ringmainwindow.ui:94
+#: ui/ringmainwindow.ui:96
 msgid "Media"
 msgstr "Multimedia"
 
-#: ui/ringmainwindow.ui:146 src/ringmainwindow.cpp:1603
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1609
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: ui/ringmainwindow.ui:266 ui/ringmainwindow.ui:273
+#: ui/ringmainwindow.ui:271 ui/ringmainwindow.ui:278
 msgid "Conversations"
 msgstr "Rozmowy"
 
-#: ui/ringmainwindow.ui:299 ui/ringmainwindow.ui:306
+#: ui/ringmainwindow.ui:304 ui/ringmainwindow.ui:311
 msgid "Contact requests"
 msgstr "Zaproszenia"
 
@@ -392,8 +521,8 @@ msgid "Hardware Acceleration"
 msgstr "Wspomaganie sprzętowe"
 
 #: ui/mediasettingsview.ui:282
-msgid "Enable hardware decoding:"
-msgstr "Zezwól na sprzętowe dekodowanie:"
+msgid "Enable hardware acceleration:"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
@@ -438,7 +567,7 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Kliknij by zmienić hasło"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2033
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2048
 msgid "Export account"
 msgstr "Wyeksportuj konto"
 
@@ -502,7 +631,7 @@ msgstr "Użyj własnego dzwonka"
 msgid "Name server"
 msgstr "Serwer nazw"
 
-#: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2478
+#: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2514
 msgid "Address"
 msgstr "Adres"
 
@@ -511,158 +640,162 @@ msgid "OpenDHT configuration"
 msgstr "ustawienia OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1443
+msgid "Auto connect on local network"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:1479
 msgid "Bootstrap"
 msgstr "Bootstrap"
 
-#: ui/newaccountsettingsview.ui:1503
+#: ui/newaccountsettingsview.ui:1539
 msgid "Encrypt media streams (SRTP)"
 msgstr "Szyfrowanie strumieni multimedialnych (SRTP)"
 
-#: ui/newaccountsettingsview.ui:1538
+#: ui/newaccountsettingsview.ui:1574
 msgid "Enable SDES for key exchange protocol"
 msgstr "Zezwól na używanie protokołu SDES do wymiany kluczy"
 
-#: ui/newaccountsettingsview.ui:1574
+#: ui/newaccountsettingsview.ui:1610
 msgid "Fallback on RTP on encryption failure"
 msgstr "Użyjcie RTP w przypadku awari szyfrowania"
 
-#: ui/newaccountsettingsview.ui:1609
+#: ui/newaccountsettingsview.ui:1645
 msgid "Encrypt negotiation (TLS)"
 msgstr "Negocjacja szyfrowania (TLS)"
 
-#: ui/newaccountsettingsview.ui:1644
+#: ui/newaccountsettingsview.ui:1680
 msgid "CA certificate"
 msgstr "Certyfikat CA"
 
-#: ui/newaccountsettingsview.ui:1680
+#: ui/newaccountsettingsview.ui:1716
 msgid "User certificate"
 msgstr "Certyfikat użytkownika"
 
-#: ui/newaccountsettingsview.ui:1716
+#: ui/newaccountsettingsview.ui:1752
 msgid "Private key"
 msgstr "Klucz prywatny"
 
-#: ui/newaccountsettingsview.ui:1752
+#: ui/newaccountsettingsview.ui:1788
 msgid "Private key password"
 msgstr "Hasło klucza prywatnego"
 
-#: ui/newaccountsettingsview.ui:1790
+#: ui/newaccountsettingsview.ui:1826
 msgid "TLS protocol method"
 msgstr "Metoda protokołu TLS"
 
-#: ui/newaccountsettingsview.ui:1826
+#: ui/newaccountsettingsview.ui:1862
 msgid "Outgoing TLS server name"
 msgstr "Nazwa wychodzącego TLS serwera"
 
-#: ui/newaccountsettingsview.ui:1861
+#: ui/newaccountsettingsview.ui:1897
 msgid "Negotiation timeout (seconds)"
 msgstr "Limit czasu do negocjacji (w sekundach)"
 
-#: ui/newaccountsettingsview.ui:1897
+#: ui/newaccountsettingsview.ui:1933
 msgid "Verify incoming certificates (server side)"
 msgstr "Zweryfikuj przychodzące certyfikaty (po stronie serwera)"
 
-#: ui/newaccountsettingsview.ui:1932
+#: ui/newaccountsettingsview.ui:1968
 msgid "Verify answer certificates (client side)"
 msgstr "Zweryfikuj odesłane certyfikaty (po stronie klienta)"
 
-#: ui/newaccountsettingsview.ui:1967
+#: ui/newaccountsettingsview.ui:2003
 msgid "Require a certificate for incoming TLS connections"
 msgstr "Wymagamy certyfikat dla przychodzących połączeń TLS"
 
-#: ui/newaccountsettingsview.ui:1991
+#: ui/newaccountsettingsview.ui:2027
 msgid "Security"
 msgstr "Zabezpieczenia"
 
-#: ui/newaccountsettingsview.ui:2016
+#: ui/newaccountsettingsview.ui:2052
 msgid "Connectivity"
 msgstr "Łączność"
 
-#: ui/newaccountsettingsview.ui:2054
+#: ui/newaccountsettingsview.ui:2090
 msgid "Registration expire timeout (seconds)"
 msgstr "Rejestracja wygasła z powodu przekroczenia limitu czasu (w sekundach)"
 
-#: ui/newaccountsettingsview.ui:2091
+#: ui/newaccountsettingsview.ui:2127
 msgid "Network interface"
 msgstr "Interfejs sieciowy"
 
-#: ui/newaccountsettingsview.ui:2127
+#: ui/newaccountsettingsview.ui:2163
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2162
+#: ui/newaccountsettingsview.ui:2198
 msgid "Use TURN"
 msgstr "Użyj TURN"
 
-#: ui/newaccountsettingsview.ui:2197
+#: ui/newaccountsettingsview.ui:2233
 msgid "(TURN) address"
 msgstr "Adres (TURN)"
 
-#: ui/newaccountsettingsview.ui:2232
+#: ui/newaccountsettingsview.ui:2268
 msgid "(TURN) username"
 msgstr "Nazwa użytkownika (TURN)"
 
-#: ui/newaccountsettingsview.ui:2266
+#: ui/newaccountsettingsview.ui:2302
 msgid "(TURN) password"
 msgstr "Hasło (TURN)"
 
-#: ui/newaccountsettingsview.ui:2303
+#: ui/newaccountsettingsview.ui:2339
 msgid "(TURN) realm"
 msgstr "Sfera (TURN)"
 
-#: ui/newaccountsettingsview.ui:2337
+#: ui/newaccountsettingsview.ui:2373
 msgid "Use STUN"
 msgstr "Użyj STUN"
 
-#: ui/newaccountsettingsview.ui:2372
+#: ui/newaccountsettingsview.ui:2408
 msgid "(STUN) address"
 msgstr "Adres (STUN)"
 
-#: ui/newaccountsettingsview.ui:2405
+#: ui/newaccountsettingsview.ui:2441
 msgid "Published address"
 msgstr "Opublikowany Adres"
 
-#: ui/newaccountsettingsview.ui:2442
+#: ui/newaccountsettingsview.ui:2478
 msgid "Use custom address and port"
 msgstr "Użyj własny adres i port"
 
-#: ui/newaccountsettingsview.ui:2513
+#: ui/newaccountsettingsview.ui:2549
 msgid "Port"
 msgstr "Port"
 
-#: ui/newaccountsettingsview.ui:2549
+#: ui/newaccountsettingsview.ui:2585
 msgid "Video codecs"
 msgstr "Kodeki wideo"
 
-#: ui/newaccountsettingsview.ui:2612
+#: ui/newaccountsettingsview.ui:2648
 msgid "Enable video"
 msgstr "Włącz video"
 
-#: ui/newaccountsettingsview.ui:2639
+#: ui/newaccountsettingsview.ui:2675
 msgid "Audio codecs"
 msgstr "Kodeki audio"
 
-#: ui/newaccountsettingsview.ui:2709
+#: ui/newaccountsettingsview.ui:2745
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "Negocjacja sesji SDP (użyjcie ICE w przypadku awari)"
 
-#: ui/newaccountsettingsview.ui:2721
+#: ui/newaccountsettingsview.ui:2757
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Te ustawienia są tylko używane podczas negocjacji sesji SDP w przypadku gdy ICE nie jest obsługiwany przez serwer."
 
-#: ui/newaccountsettingsview.ui:2755
+#: ui/newaccountsettingsview.ui:2791
 msgid "Audio RTP Min port"
 msgstr "Audio RTP najniższy port"
 
-#: ui/newaccountsettingsview.ui:2790
+#: ui/newaccountsettingsview.ui:2826
 msgid "Audio RTP Max port"
 msgstr "Audio RTP najwyższy port"
 
-#: ui/newaccountsettingsview.ui:2825
+#: ui/newaccountsettingsview.ui:2861
 msgid "Video RTP Min port"
 msgstr "Video RTP najniższy port"
 
-#: ui/newaccountsettingsview.ui:2860
+#: ui/newaccountsettingsview.ui:2896
 msgid "Video RTP Max port"
 msgstr "Video RTP najwyższy port"
 
@@ -706,7 +839,7 @@ msgstr "Przychodzące..."
 msgid "Accept"
 msgstr "Akceptuj"
 
-#: ui/incomingcallview.ui:173
+#: ui/incomingcallview.ui:172
 msgid "Reject"
 msgstr "Odrzuć"
 
@@ -726,7 +859,7 @@ msgstr "Powrót"
 msgid "Set selection as image"
 msgstr "Ustaw zaznaczenie jako obrazek"
 
-#: src/ring_client.cpp:114
+#: src/ring_client.cpp:115
 #, c-format
 msgid ""
 "Unable to initialize.\n"
@@ -734,17 +867,17 @@ msgid ""
 "Error: %s"
 msgstr "Nie udało się zainicjalizować.\nUpewnij się, że daemon Jami (dring) jest uruchomiony.\nBłąd: %s"
 
-#: src/ring_client.cpp:117
+#: src/ring_client.cpp:118
 msgid "Jami Error"
 msgstr "Błąd Jami"
 
-#: src/ring_client.cpp:267
+#: src/ring_client.cpp:388
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Pokaż Jami"
 
-#: src/ring_client.cpp:271
+#: src/ring_client.cpp:392
 msgid "Quit"
 msgstr "Zamknij"
 
@@ -788,13 +921,35 @@ msgstr "Wyszukiwanie niedostępne, sprawdź swoje połączenie sieciowe"
 msgid "Performing lookup…"
 msgstr "Wyszukiwanie..."
 
-#: src/usernameregistrationbox.cpp:313
+#: src/usernameregistrationbox.cpp:325
 msgid "Enter the password of your Jami account"
 msgstr "Wprowadź hasło swojego konta Jami"
 
-#: src/usernameregistrationbox.cpp:344
+#: src/usernameregistrationbox.cpp:357
 msgid "Registration in progress…"
 msgstr "Rejestracja w toku..."
+
+#: src/usernameregistrationbox.cpp:376
+msgid "Name registration Error"
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:434
+msgid ""
+"Unable to register name (Invalid name). Your username should contains "
+"between 3 and 32 alphanumerics characters (or underscore)."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:438
+msgid "Unable to register name (Wrong password)."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:442
+msgid "Unable to register name (Username already taken)."
+msgstr ""
+
+#: src/usernameregistrationbox.cpp:446
+msgid "Unable to register name (Network error) - check your connection."
+msgstr ""
 
 #: src/generalsettingsview.cpp:100
 msgid ""
@@ -807,12 +962,12 @@ msgid "Choose download folder"
 msgstr "Wybierz folder pobierania"
 
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
-#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:930
+#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "_Anuluj"
 
 #: src/generalsettingsview.cpp:175 src/chatview.cpp:180
-#: src/newaccountsettingsview.cpp:932
+#: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr "_Zapisz"
 
@@ -874,59 +1029,83 @@ msgstr "Wyślij nagraną wiadomość"
 msgid "Add account…"
 msgstr "Dodaj konto..."
 
-#: src/ringmainwindow.cpp:646
+#: src/ringmainwindow.cpp:647
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Zadzwoń"
 
-#: src/ringmainwindow.cpp:649
+#: src/ringmainwindow.cpp:650
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Otwórz chat"
 
-#: src/ringmainwindow.cpp:1142
+#: src/ringmainwindow.cpp:1143
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Szukaj kontakty lub wpisz numer"
 
-#: src/ringmainwindow.cpp:1578
+#: src/ringmainwindow.cpp:1584
 msgid "Leave settings page"
 msgstr "Opuść stronę ustawień"
 
-#: src/ringmainwindow.cpp:1932
+#: src/ringmainwindow.cpp:1980
 msgid "There are active calls"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1988
+#: src/ringmainwindow.cpp:2034
 msgid " is calling you!"
 msgstr "dzwoni do Ciebie!"
 
-#: src/ringmainwindow.cpp:1989
+#: src/ringmainwindow.cpp:2035
 msgid "Incoming call"
 msgstr "Połączenie przychodzące"
 
-#: src/ringmainwindow.cpp:2131
+#: src/ringmainwindow.cpp:2177
 msgid "New request from "
 msgstr "Nowe zaproszenie od"
 
-#: src/ringmainwindow.cpp:2132
+#: src/ringmainwindow.cpp:2178
 msgid "Trust request"
 msgstr "Rządanie zaufania"
 
-#: src/ringmainwindow.cpp:2189
+#: src/ringmainwindow.cpp:2239
 msgid "New message"
 msgstr "Nowa wiadomość"
 
-#: src/ringmainwindow.cpp:2253
+#: src/ringmainwindow.cpp:2302
+msgid "Stop current call?"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2303
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2254
-msgid "Stop current call?"
+#: src/ringmainwindow.cpp:2370
+msgid "Clear history"
+msgstr "Wyczyść historię"
+
+#: src/ringmainwindow.cpp:2371
+msgid "Do you really want to clear the history of this conversation?"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2386
+msgid "Remove conversation"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2387
+msgid "Do you really want to remove this conversation?"
+msgstr ""
+
+#: src/ringmainwindow.cpp:2402
+msgid "Block contact"
+msgstr "Blokuj kontakt"
+
+#: src/ringmainwindow.cpp:2403
+msgid "Do you really want to block this contact?"
 msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
@@ -1024,136 +1203,136 @@ msgstr "Jami jest wolnym oprogramowaniem do uniwersalnej komunikacji, respektuj�
 msgid "Send File"
 msgstr "Wyślij plik"
 
-#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:927
+#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:929
 msgid "Save File"
 msgstr "Zapisz plik"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:993
+#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:995
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Uwaga! Ta operacja usunie to urządzenie!\nNie można tego cofnąć. Jeżeli usuwasz swoje jedyne urządzenie, możesz utracić zarejestrowaną nazwę!"
 
-#: src/currentcallview.cpp:974
+#: src/currentcallview.cpp:951
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automatycznie"
 
-#: src/newaccountsettingsview.cpp:624
+#: src/newaccountsettingsview.cpp:626
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Uwaga! Ta operacja usunie to urządzenie!\nNie można tego cofnąć."
 
-#: src/newaccountsettingsview.cpp:625
+#: src/newaccountsettingsview.cpp:627
 msgid "Enter password to revoke device"
 msgstr "Wprowadź hasło, aby usunąć urządzenie"
 
-#: src/newaccountsettingsview.cpp:683
+#: src/newaccountsettingsview.cpp:685
 msgid "Edit name"
 msgstr "Edytuj nazwę"
 
-#: src/newaccountsettingsview.cpp:683
+#: src/newaccountsettingsview.cpp:685
 msgid "Revoke device"
 msgstr "Odwołaj urządzenie"
 
-#: src/newaccountsettingsview.cpp:705
+#: src/newaccountsettingsview.cpp:707
 msgid "Error when revoking device"
 msgstr "Błąd podczas usuwania urządzenia"
 
-#: src/newaccountsettingsview.cpp:778
+#: src/newaccountsettingsview.cpp:780
 msgid "Unban"
 msgstr "Odblokuj"
 
-#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
-#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
+#: src/newaccountsettingsview.cpp:803 src/newaccountsettingsview.cpp:826
+#: src/newaccountsettingsview.cpp:850 src/newaccountsettingsview.cpp:886
 msgid "Change password"
 msgstr "Zmień hasło"
 
-#: src/newaccountsettingsview.cpp:814
+#: src/newaccountsettingsview.cpp:816
 msgid "New password and its confirmation are different!"
 msgstr "Nowe hasło i jego potwierdzenie się różnią!"
 
-#: src/newaccountsettingsview.cpp:825
+#: src/newaccountsettingsview.cpp:827
 msgid "Incorrect password!"
 msgstr "Niepoprawne hasło!"
 
-#: src/newaccountsettingsview.cpp:862
+#: src/newaccountsettingsview.cpp:864
 msgid "Note: this will change the password only on this device."
 msgstr "Uwaga: to zmieni hasło tylko na tym urządzeniu."
 
-#: src/newaccountsettingsview.cpp:865
+#: src/newaccountsettingsview.cpp:867
 msgid "Current password"
 msgstr "Bieżące hasło"
 
-#: src/newaccountsettingsview.cpp:871
+#: src/newaccountsettingsview.cpp:873
 msgid "New password"
 msgstr "Nowe hasło"
 
-#: src/newaccountsettingsview.cpp:954
+#: src/newaccountsettingsview.cpp:956
 msgid "You need to enter your password to export the full archive."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:955
+#: src/newaccountsettingsview.cpp:957
 msgid "Enter password to export archive"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:978
+#: src/newaccountsettingsview.cpp:980
 msgid "Account exported!"
 msgstr "Konto wyeksportowane!"
 
-#: src/newaccountsettingsview.cpp:978
+#: src/newaccountsettingsview.cpp:980
 msgid "Export account failure."
 msgstr "Błąd podczas eksportowania"
 
-#: src/newaccountsettingsview.cpp:1741
+#: src/newaccountsettingsview.cpp:1755
 msgid "Bad password"
 msgstr "Złe hasło"
 
-#: src/newaccountsettingsview.cpp:1747
+#: src/newaccountsettingsview.cpp:1761
 msgid "Network error, try again"
 msgstr "Błąd sieci, spróbuj ponownie"
 
-#: src/newaccountsettingsview.cpp:1753
+#: src/newaccountsettingsview.cpp:1767
 msgid "Unknown error"
 msgstr "Nieoczekiwany błąd"
 
-#: src/newaccountsettingsview.cpp:1765
+#: src/newaccountsettingsview.cpp:1779
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Nie udało się wyeksportować, spróbuj później"
 
-#: src/newaccountsettingsview.cpp:1824
+#: src/newaccountsettingsview.cpp:1838
 msgid "Error: wrong password!"
 msgstr "Błąd: złe hasło!"
 
-#: src/newaccountsettingsview.cpp:1827
+#: src/newaccountsettingsview.cpp:1841
 msgid "Error: unknown device!"
 msgstr "Błąd: nieznane urządzenie!"
 
-#: src/newaccountsettingsview.cpp:1998
+#: src/newaccountsettingsview.cpp:2013
 msgid "Initializing…"
 msgstr "Inicjalizacja..."
 
-#: src/newaccountsettingsview.cpp:2001
+#: src/newaccountsettingsview.cpp:2016
 msgid "Offline"
 msgstr "Offline"
 
-#: src/newaccountsettingsview.cpp:2004
+#: src/newaccountsettingsview.cpp:2019
 msgid "Connecting…"
 msgstr "Łączenie..."
 
-#: src/newaccountsettingsview.cpp:2007
+#: src/newaccountsettingsview.cpp:2022
 msgid "Online"
 msgstr "Online"
 
-#: src/newaccountsettingsview.cpp:2011
+#: src/newaccountsettingsview.cpp:2026
 msgid "Unknown status"
 msgstr "Nieznany status"
 
-#: src/newaccountsettingsview.cpp:2044
+#: src/newaccountsettingsview.cpp:2059
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2044
+#: src/newaccountsettingsview.cpp:2059
 msgid "no password set"
 msgstr "nie ustawiono hasła"
