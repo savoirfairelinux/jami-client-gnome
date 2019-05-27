@@ -194,7 +194,7 @@ CppImpl::drawFramerates()
     auto i = 0;
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate));
     for (const auto& rate : rates) {
-        auto rateStr = std::to_string(rate);
+        auto rateStr = std::to_string(static_cast<uint8_t>(rate));
         if (rateStr == currentRate) {
             active = i;
         }
