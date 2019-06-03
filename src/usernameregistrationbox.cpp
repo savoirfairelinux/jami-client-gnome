@@ -408,6 +408,7 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
                 &lrc::api::NewAccountModel::nameRegistrationEnded,
                 [=] (const std::string& accountId, lrc::api::account::RegisterNameStatus status, const std::string& name) {
                     if (accountId != (*priv->accountInfo_)->id) return;
+                    if (name == "") return;
                     gtk_spinner_stop(GTK_SPINNER(priv->spinner));
                     gtk_widget_hide(priv->spinner);
                     gtk_widget_set_sensitive(priv->entry_username, TRUE);
