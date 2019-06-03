@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-27 10:08-0400\n"
+"POT-Creation-Date: 2019-06-03 03:09-0400\n"
 "PO-Revision-Date: 2019-05-27 14:08+0000\n"
 "Last-Translator: Sjaak De Beer <inactive+Jieeofle@transifex.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/savoirfairelinux/jami/language/nl_NL/)\n"
@@ -933,21 +933,21 @@ msgstr ""
 msgid "Name registration Error"
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:434
+#: src/usernameregistrationbox.cpp:435
 msgid ""
 "Unable to register name (Invalid name). Your username should contains "
 "between 3 and 32 alphanumerics characters (or underscore)."
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:438
+#: src/usernameregistrationbox.cpp:439
 msgid "Unable to register name (Wrong password)."
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:442
+#: src/usernameregistrationbox.cpp:443
 msgid "Unable to register name (Username already taken)."
 msgstr ""
 
-#: src/usernameregistrationbox.cpp:446
+#: src/usernameregistrationbox.cpp:447
 msgid "Unable to register name (Network error) - check your connection."
 msgstr ""
 

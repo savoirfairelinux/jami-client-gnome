@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-27 10:08-0400\n"
-"PO-Revision-Date: 2019-05-27 14:08+0000\n"
-"Last-Translator: Caspar Cedro <casparcedro96@gmail.com>\n"
+"POT-Creation-Date: 2019-06-03 03:09-0400\n"
+"PO-Revision-Date: 2019-05-28 20:43+0000\n"
+"Last-Translator: Jan Wielkiewicz <grzybowawspulnota@cock.li>\n"
 "Language-Team: Polish (http://www.transifex.com/savoirfairelinux/jami/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ui/ringgearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
-msgstr ""
+msgstr "_Skróty Klawiszowe"
 
 #: ui/ringgearsmenu.ui:11
 msgid "_About"
@@ -40,27 +40,27 @@ msgstr "Generalne"
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
 msgid "Open application menu"
-msgstr ""
+msgstr "Otwórz menu aplikacji"
 
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr ""
+msgstr "Otwórz listę kont"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Select search bar"
-msgstr ""
+msgstr "Zaznacz pasek wyszukiwania"
 
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Focus the list of conversations"
-msgstr ""
+msgstr "Przejdź do listy konwersacji"
 
 #: ui/help-overlay.ui:46
 msgctxt "shortcut window"
 msgid "Focus the list pending requests"
-msgstr ""
+msgstr "Przejdź do listy oczekujących zaproszeń"
 
 #: ui/help-overlay.ui:56
 msgctxt "shortcut window"
@@ -85,12 +85,12 @@ msgstr "Wyczyść historię"
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr ""
+msgstr "Dodaj rozmowę"
 
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Remove conversation"
-msgstr ""
+msgstr "Usuń rozmowę"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
@@ -100,12 +100,12 @@ msgstr "Blokuj kontakt"
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Unblock contact"
-msgstr ""
+msgstr "Odblokuj kontakt"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Copy contact name"
-msgstr ""
+msgstr "Skopiuj nazwę kontaktu"
 
 #: ui/help-overlay.ui:120
 msgctxt "shortcut window"
@@ -115,12 +115,12 @@ msgstr "Dzwoń"
 #: ui/help-overlay.ui:125
 msgctxt "shortcut window"
 msgid "Accept call"
-msgstr ""
+msgstr "Zaakceptuj rozmowę"
 
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Decline call"
-msgstr ""
+msgstr "Odrzuć rozmowę"
 
 #: ui/help-overlay.ui:141
 msgctxt "shortcut window"
@@ -130,32 +130,32 @@ msgstr "Ustawienia"
 #: ui/help-overlay.ui:146
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
-msgstr ""
+msgstr "Otwórz/Zamknij stronę ustawień"
 
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open general settings"
-msgstr ""
+msgstr "Otwórz ogólne ustawienia"
 
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open media settings"
-msgstr ""
+msgstr "Otwórz ustawienia multimedialne"
 
 #: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open account settings"
-msgstr ""
+msgstr "Otwórz ustawienia konta"
 
 #: ui/help-overlay.ui:177
 msgctxt "shortcut window"
 msgid "Chat view"
-msgstr ""
+msgstr "Widok czatu"
 
 #: ui/help-overlay.ui:182
 msgctxt "shortcut window"
 msgid "Write on a new line"
-msgstr ""
+msgstr "Pisz w nowej linii"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
@@ -524,7 +524,7 @@ msgstr "Wspomaganie sprzętowe"
 
 #: ui/mediasettingsview.ui:282
 msgid "Enable hardware acceleration:"
-msgstr ""
+msgstr "Zezwól na przyspieszenie sprzętowe:"
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
@@ -643,7 +643,7 @@ msgstr "ustawienia OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1443
 msgid "Auto connect on local network"
-msgstr ""
+msgstr "Automatycznie łącz się w sieci lokalnej"
 
 #: ui/newaccountsettingsview.ui:1479
 msgid "Bootstrap"
@@ -933,25 +933,25 @@ msgstr "Rejestracja w toku..."
 
 #: src/usernameregistrationbox.cpp:376
 msgid "Name registration Error"
-msgstr ""
+msgstr "Błąd rejestrowania nazwt"
 
-#: src/usernameregistrationbox.cpp:434
+#: src/usernameregistrationbox.cpp:435
 msgid ""
 "Unable to register name (Invalid name). Your username should contains "
 "between 3 and 32 alphanumerics characters (or underscore)."
-msgstr ""
+msgstr "Nie udało się zarejestrować nazwy (Niepoprawna nazwa). Twoja nazwa użytkownika powinna zawierać między 3 i 32 znaki alfanumeryczne (lub znaki podkreślenia)"
 
-#: src/usernameregistrationbox.cpp:438
+#: src/usernameregistrationbox.cpp:439
 msgid "Unable to register name (Wrong password)."
-msgstr ""
+msgstr "Nie udało się zarejestrować nazwy (Złe hasło)"
 
-#: src/usernameregistrationbox.cpp:442
+#: src/usernameregistrationbox.cpp:443
 msgid "Unable to register name (Username already taken)."
-msgstr ""
+msgstr "Nie udało się zarejestrować nazwy (Nazwa jest już zajęta)"
 
-#: src/usernameregistrationbox.cpp:446
+#: src/usernameregistrationbox.cpp:447
 msgid "Unable to register name (Network error) - check your connection."
-msgstr ""
+msgstr "Nie udało się zarejestrować nazwy (Błąd sieci) - sprawdź swoje połączenie."
 
 #: src/generalsettingsview.cpp:100
 msgid ""
@@ -1092,15 +1092,15 @@ msgstr "Wyczyść historię"
 
 #: src/ringmainwindow.cpp:2371
 msgid "Do you really want to clear the history of this conversation?"
-msgstr ""
+msgstr "Czy na pewno chcesz wyczyścić historię tej rozmowy?"
 
 #: src/ringmainwindow.cpp:2386
 msgid "Remove conversation"
-msgstr ""
+msgstr "Usuń rozmowę"
 
 #: src/ringmainwindow.cpp:2387
 msgid "Do you really want to remove this conversation?"
-msgstr ""
+msgstr "Czy na pewno chcesz usunąć tą rozmowę?"
 
 #: src/ringmainwindow.cpp:2402
 msgid "Block contact"
@@ -1108,7 +1108,7 @@ msgstr "Blokuj kontakt"
 
 #: src/ringmainwindow.cpp:2403
 msgid "Do you really want to block this contact?"
-msgstr ""
+msgstr "Czy na pewno chcesz zablokować ten kontakt?"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
