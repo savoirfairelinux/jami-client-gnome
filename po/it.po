@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-03 03:09-0400\n"
-"PO-Revision-Date: 2019-05-27 17:51+0000\n"
-"Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
+"POT-Creation-Date: 2019-06-10 03:09-0400\n"
+"PO-Revision-Date: 2019-06-10 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Italian (http://www.transifex.com/savoirfairelinux/jami/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,97 +62,102 @@ msgctxt "shortcut window"
 msgid "Focus the list pending requests"
 msgstr "Metti a fuoco l'elenco delle richieste in sospeso"
 
-#: ui/help-overlay.ui:56
+#: ui/help-overlay.ui:53
+msgctxt "shortcut window"
+msgid "Toggle fullscreen"
+msgstr ""
+
+#: ui/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Conversations"
 msgstr "Converzazioni"
 
-#: ui/help-overlay.ui:61
+#: ui/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Start a video call"
 msgstr "Avvia una videochiamata"
 
-#: ui/help-overlay.ui:68
+#: ui/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Start an audio call"
 msgstr "Avvia una chiamata audio"
 
-#: ui/help-overlay.ui:75
+#: ui/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Clear history"
 msgstr "Svuotare lo storico"
 
-#: ui/help-overlay.ui:82
+#: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
 msgstr "Aggiungi conversazione"
 
-#: ui/help-overlay.ui:89
+#: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
 msgstr "Rimuovi conversazione"
 
-#: ui/help-overlay.ui:96
+#: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
 msgstr "Blocca contatto"
 
-#: ui/help-overlay.ui:103
+#: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Unblock contact"
 msgstr "Sbloccare il contatto"
 
-#: ui/help-overlay.ui:110
+#: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
 msgstr "Copia il nome del contatto"
 
-#: ui/help-overlay.ui:120
+#: ui/help-overlay.ui:127
 msgctxt "shortcut window"
 msgid "Call"
 msgstr "Chiama"
 
-#: ui/help-overlay.ui:125
+#: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
 msgstr "Accetta la chiamata"
 
-#: ui/help-overlay.ui:132
+#: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
 msgstr "Rifiuta chiamata"
 
-#: ui/help-overlay.ui:141
+#: ui/help-overlay.ui:148
 msgctxt "shortcut window"
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: ui/help-overlay.ui:146
+#: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
 msgstr "Apri / Chiudi la pagina delle impostazioni"
 
-#: ui/help-overlay.ui:153
+#: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
 msgstr "Apri le impostazioni generali"
 
-#: ui/help-overlay.ui:160
+#: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
 msgstr "Apri le impostazioni multimediali"
 
-#: ui/help-overlay.ui:167
+#: ui/help-overlay.ui:174
 msgctxt "shortcut window"
 msgid "Open account settings"
 msgstr "Apri le impostazioni dell'account"
 
-#: ui/help-overlay.ui:177
+#: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
 msgstr "Vista chat"
 
-#: ui/help-overlay.ui:182
+#: ui/help-overlay.ui:189
 msgctxt "shortcut window"
 msgid "Write on a new line"
 msgstr "Scrivi su una nuova riga"
@@ -462,7 +467,7 @@ msgstr "Generale"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1609
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1630
 msgid "Settings"
 msgstr "Impostazioni"
 
@@ -873,13 +878,13 @@ msgstr "Impossibile inizializzare.\nAssicurati che il demone Jami (dring) sia in
 msgid "Jami Error"
 msgstr "Errore Jami"
 
-#: src/ring_client.cpp:388
+#: src/ring_client.cpp:395
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Mostra Jami"
 
-#: src/ring_client.cpp:392
+#: src/ring_client.cpp:399
 msgid "Quit"
 msgstr "Esci"
 
@@ -1027,86 +1032,86 @@ msgstr "Interrompe la registrazione"
 msgid "Send recorded message"
 msgstr "Invia un messaggio registrato"
 
-#: src/ringmainwindow.cpp:184
+#: src/ringmainwindow.cpp:185
 msgid "Add account…"
 msgstr "Aggiungi account…"
 
-#: src/ringmainwindow.cpp:647
+#: src/ringmainwindow.cpp:660
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Effettua chiamata"
 
-#: src/ringmainwindow.cpp:650
+#: src/ringmainwindow.cpp:663
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "apri chat"
 
-#: src/ringmainwindow.cpp:1143
+#: src/ringmainwindow.cpp:1164
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Ricercare contatto o digitare un numero"
 
-#: src/ringmainwindow.cpp:1584
+#: src/ringmainwindow.cpp:1605
 msgid "Leave settings page"
 msgstr "Esci dalla pagina delle impostazioni"
 
-#: src/ringmainwindow.cpp:1980
+#: src/ringmainwindow.cpp:2001
 msgid "There are active calls"
 msgstr "Ci sono chiamate attive"
 
-#: src/ringmainwindow.cpp:2034
+#: src/ringmainwindow.cpp:2055
 msgid " is calling you!"
 msgstr "ti sta chiamando!"
 
-#: src/ringmainwindow.cpp:2035
+#: src/ringmainwindow.cpp:2056
 msgid "Incoming call"
 msgstr "Chiamata in arrivo"
 
-#: src/ringmainwindow.cpp:2177
+#: src/ringmainwindow.cpp:2198
 msgid "New request from "
 msgstr "Nuova richiesta da"
 
-#: src/ringmainwindow.cpp:2178
+#: src/ringmainwindow.cpp:2199
 msgid "Trust request"
 msgstr "Richiesta fidata"
 
-#: src/ringmainwindow.cpp:2239
+#: src/ringmainwindow.cpp:2260
 msgid "New message"
 msgstr "Nuovo messaggio"
 
-#: src/ringmainwindow.cpp:2302
+#: src/ringmainwindow.cpp:2323
 msgid "Stop current call?"
 msgstr "Interrompe la chiamata corrente?"
 
-#: src/ringmainwindow.cpp:2303
+#: src/ringmainwindow.cpp:2324
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Una chiamata è attualmente in corso. Vuoi chiudere la finestra e interrompere tutte le chiamate correnti?"
 
-#: src/ringmainwindow.cpp:2370
+#: src/ringmainwindow.cpp:2391
 msgid "Clear history"
 msgstr "Svuotare lo storico"
 
-#: src/ringmainwindow.cpp:2371
+#: src/ringmainwindow.cpp:2392
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Vuoi davvero cancellare la cronologia di questa conversazione?"
 
-#: src/ringmainwindow.cpp:2386
+#: src/ringmainwindow.cpp:2407
 msgid "Remove conversation"
 msgstr "Rimuovi conversazione"
 
-#: src/ringmainwindow.cpp:2387
+#: src/ringmainwindow.cpp:2408
 msgid "Do you really want to remove this conversation?"
 msgstr "Vuoi davvero rimuovere questa conversazione?"
 
-#: src/ringmainwindow.cpp:2402
+#: src/ringmainwindow.cpp:2423
 msgid "Block contact"
 msgstr "Blocca contatto"
 
-#: src/ringmainwindow.cpp:2403
+#: src/ringmainwindow.cpp:2424
 msgid "Do you really want to block this contact?"
 msgstr "Vuoi davvero bloccare questo contatto?"
 

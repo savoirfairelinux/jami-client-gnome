@@ -7,7 +7,7 @@
 # Андрей Шевчук <andrei@shevchuk.co>, 2016
 # Andrey, 2017
 # Anton Samarchyan <desecho@gmail.com>, 2016
-# cypherpunks01 cypherpunks01, 2018
+# cypherpunks01 cypherpunks01, 2018-2019
 # Dmitri Kazankov <kazankov_dv@outlook.com>, 2018
 # Konstantin, 2016
 # Marat Gubaidullin <marat.gubaidullin@savoirfairelinux.com>, 2015
@@ -17,7 +17,7 @@
 # Vladimir Stoiakin, 2018-2019
 # Vladimir Studinsky <studinsky@gmail.com>, 2019
 # Yaroslav Molochko <onorua@gmail.com>, 2015
-# Al, 2017
+# AlexanderFilev, 2017
 # Александр Суслов <suslikkreal@gmail.com>, 2015
 # Александр Асланьян <asl174@yandex.ru>, 2015
 # Андрей Шевчук <andrei@shevchuk.co>, 2016-2017
@@ -27,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-03 03:09-0400\n"
-"PO-Revision-Date: 2019-05-28 13:20+0000\n"
-"Last-Translator: Vladimir Studinsky <studinsky@gmail.com>\n"
+"POT-Creation-Date: 2019-06-10 03:09-0400\n"
+"PO-Revision-Date: 2019-06-10 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +39,7 @@ msgstr ""
 
 #: ui/ringgearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
-msgstr "Клавиатура_ГорячиеКлавиши"
+msgstr "Клавиатура/_Горячие Клавиши"
 
 #: ui/ringgearsmenu.ui:11
 msgid "_About"
@@ -79,97 +79,102 @@ msgctxt "shortcut window"
 msgid "Focus the list pending requests"
 msgstr ""
 
-#: ui/help-overlay.ui:56
+#: ui/help-overlay.ui:53
+msgctxt "shortcut window"
+msgid "Toggle fullscreen"
+msgstr ""
+
+#: ui/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Conversations"
 msgstr "Разговоры"
 
-#: ui/help-overlay.ui:61
+#: ui/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Start a video call"
 msgstr "Начать видео вызов"
 
-#: ui/help-overlay.ui:68
+#: ui/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Start an audio call"
 msgstr "Начать голосовой вызов"
 
-#: ui/help-overlay.ui:75
+#: ui/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Clear history"
 msgstr "Очистить историю"
 
-#: ui/help-overlay.ui:82
+#: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
 msgstr "Добавить диалог"
 
-#: ui/help-overlay.ui:89
+#: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
 msgstr "Удалить диалог"
 
-#: ui/help-overlay.ui:96
+#: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
 msgstr "Заблокировать контакт"
 
-#: ui/help-overlay.ui:103
+#: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Unblock contact"
 msgstr "Разблокировать контакт"
 
-#: ui/help-overlay.ui:110
+#: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
 msgstr "Скопировать имя контакта"
 
-#: ui/help-overlay.ui:120
+#: ui/help-overlay.ui:127
 msgctxt "shortcut window"
 msgid "Call"
 msgstr "Звонок"
 
-#: ui/help-overlay.ui:125
+#: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
 msgstr "Принять звонок"
 
-#: ui/help-overlay.ui:132
+#: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
 msgstr "Отклонить звонок"
 
-#: ui/help-overlay.ui:141
+#: ui/help-overlay.ui:148
 msgctxt "shortcut window"
 msgid "Settings"
 msgstr "Настройки"
 
-#: ui/help-overlay.ui:146
+#: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
 msgstr "Открыть/Закрыть настройки"
 
-#: ui/help-overlay.ui:153
+#: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
 msgstr "Открыть общие настройки "
 
-#: ui/help-overlay.ui:160
+#: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
 msgstr "Открыть медиа настройки"
 
-#: ui/help-overlay.ui:167
+#: ui/help-overlay.ui:174
 msgctxt "shortcut window"
 msgid "Open account settings"
 msgstr "Открыть настройки учётной записи"
 
-#: ui/help-overlay.ui:177
+#: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
 msgstr "Просмотр чата"
 
-#: ui/help-overlay.ui:182
+#: ui/help-overlay.ui:189
 msgctxt "shortcut window"
 msgid "Write on a new line"
 msgstr "Написать в новой строке"
@@ -479,7 +484,7 @@ msgstr "Общие"
 msgid "Media"
 msgstr "Медиа"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1609
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1630
 msgid "Settings"
 msgstr "Настройки"
 
@@ -890,13 +895,13 @@ msgstr "Инициализация не выполнена.\nУбедитесь,
 msgid "Jami Error"
 msgstr "Ошибка Jami"
 
-#: src/ring_client.cpp:388
+#: src/ring_client.cpp:395
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Показать Jami"
 
-#: src/ring_client.cpp:392
+#: src/ring_client.cpp:399
 msgid "Quit"
 msgstr "Выход"
 
@@ -1044,86 +1049,86 @@ msgstr "Остановить запись"
 msgid "Send recorded message"
 msgstr "Отправить записанное сообщение"
 
-#: src/ringmainwindow.cpp:184
+#: src/ringmainwindow.cpp:185
 msgid "Add account…"
 msgstr "Добавить аккаунт…"
 
-#: src/ringmainwindow.cpp:647
+#: src/ringmainwindow.cpp:660
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "позвонить"
 
-#: src/ringmainwindow.cpp:650
+#: src/ringmainwindow.cpp:663
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "открыть чат"
 
-#: src/ringmainwindow.cpp:1143
+#: src/ringmainwindow.cpp:1164
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Найдите контакты или введите номер"
 
-#: src/ringmainwindow.cpp:1584
+#: src/ringmainwindow.cpp:1605
 msgid "Leave settings page"
 msgstr "Выйти из настроек"
 
-#: src/ringmainwindow.cpp:1980
+#: src/ringmainwindow.cpp:2001
 msgid "There are active calls"
 msgstr "Есть активные звонки"
 
-#: src/ringmainwindow.cpp:2034
+#: src/ringmainwindow.cpp:2055
 msgid " is calling you!"
 msgstr "звонит вам!"
 
-#: src/ringmainwindow.cpp:2035
+#: src/ringmainwindow.cpp:2056
 msgid "Incoming call"
 msgstr "Входящий вызов"
 
-#: src/ringmainwindow.cpp:2177
+#: src/ringmainwindow.cpp:2198
 msgid "New request from "
 msgstr "Новый запрос от"
 
-#: src/ringmainwindow.cpp:2178
+#: src/ringmainwindow.cpp:2199
 msgid "Trust request"
 msgstr "Запрос доверия"
 
-#: src/ringmainwindow.cpp:2239
+#: src/ringmainwindow.cpp:2260
 msgid "New message"
 msgstr "Новое сообщение"
 
-#: src/ringmainwindow.cpp:2302
+#: src/ringmainwindow.cpp:2323
 msgid "Stop current call?"
 msgstr "Завершить текущий звонок?"
 
-#: src/ringmainwindow.cpp:2303
+#: src/ringmainwindow.cpp:2324
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "В настоящее время идёт беседа. Хотите закрыть окно и остановить все текущие вызовы?"
 
-#: src/ringmainwindow.cpp:2370
+#: src/ringmainwindow.cpp:2391
 msgid "Clear history"
 msgstr "Очистить историю"
 
-#: src/ringmainwindow.cpp:2371
+#: src/ringmainwindow.cpp:2392
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Вы действительно хотите очистить историю этой переписки? "
 
-#: src/ringmainwindow.cpp:2386
+#: src/ringmainwindow.cpp:2407
 msgid "Remove conversation"
 msgstr "Удалить диалог"
 
-#: src/ringmainwindow.cpp:2387
+#: src/ringmainwindow.cpp:2408
 msgid "Do you really want to remove this conversation?"
 msgstr "Вы действительно хотите удалить этой переписку? "
 
-#: src/ringmainwindow.cpp:2402
+#: src/ringmainwindow.cpp:2423
 msgid "Block contact"
 msgstr "Заблокировать контакт"
 
-#: src/ringmainwindow.cpp:2403
+#: src/ringmainwindow.cpp:2424
 msgid "Do you really want to block this contact?"
 msgstr "Вы действительно хотите заблокировать этот контакт?"
 
