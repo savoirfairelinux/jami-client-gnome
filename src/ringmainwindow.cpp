@@ -325,7 +325,7 @@ public:
     void showAccountSelectorWidget(bool show = true);
     std::size_t refreshAccountSelectorWidget(int selection_row = -1, const std::string& selected = "");
 
-    WebKitChatContainer* webkitChatContainer() const;
+    WebKitChatContainer* webkitChatContainer(bool redraw_webview = false);
 
     RingMainWindow* self = nullptr; // The GTK widget itself
     RingMainWindowPrivate* widgets = nullptr;
@@ -373,9 +373,9 @@ private:
     CppImpl& operator=(const CppImpl&) = delete;
 
     GtkWidget* displayWelcomeView(lrc::api::conversation::Info);
-    GtkWidget* displayIncomingView(lrc::api::conversation::Info);
-    GtkWidget* displayCurrentCallView(lrc::api::conversation::Info);
-    GtkWidget* displayChatView(lrc::api::conversation::Info);
+    GtkWidget* displayIncomingView(lrc::api::conversation::Info, bool redraw_webview);
+    GtkWidget* displayCurrentCallView(lrc::api::conversation::Info, bool redraw_webview);
+    GtkWidget* displayChatView(lrc::api::conversation::Info, bool redraw_webview);
 
     // Callbacks used as LRC Qt slot
     void slotAccountAddedFromLrc(const std::string& id);
@@ -1260,16 +1260,20 @@ void
 CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
 {
     leaveFullScreen();
+    auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
+    bool redraw_webview = (g_type_is_a(INCOMING_CALL_VIEW_TYPE, type) && !IS_INCOMING_CALL_VIEW(old_view))
+        || (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type) && !IS_CURRENT_CALL_VIEW(old_view))
+        || (g_type_is_a(CHAT_VIEW_TYPE, type) && !IS_CHAT_VIEW(old_view));
     gtk_container_remove(GTK_CONTAINER(widgets->frame_call),
-                         gtk_bin_get_child(GTK_BIN(widgets->frame_call)));
+                         old_view);
 
     GtkWidget* new_view;
     if (g_type_is_a(INCOMING_CALL_VIEW_TYPE, type)) {
-        new_view = displayIncomingView(conversation);
+        new_view = displayIncomingView(conversation, redraw_webview);
     } else if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)) {
-        new_view = displayCurrentCallView(conversation);
+        new_view = displayCurrentCallView(conversation, redraw_webview);
     } else if (g_type_is_a(CHAT_VIEW_TYPE, type)) {
-        new_view = displayChatView(conversation);
+        new_view = displayChatView(conversation, redraw_webview);
     } else {
         new_view = displayWelcomeView(conversation);
     }
@@ -1277,7 +1281,7 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
     gtk_container_add(GTK_CONTAINER(widgets->frame_call), new_view);
     gtk_widget_show(new_view);
 
-    if (conversation.uid != "")
+    if (conversation.uid != "" && type != RING_WELCOME_VIEW_TYPE)
         conversations_view_select_conversation(
             CONVERSATIONS_VIEW(widgets->treeview_conversations),
             conversation.uid);
@@ -1293,21 +1297,21 @@ CppImpl::displayWelcomeView(lrc::api::conversation::Info conversation)
     chatViewConversation_.reset(nullptr);
     refreshPendingContactRequestTab();
 
-    return widgets->welcome_view;;
+    return widgets->welcome_view;
 }
 
 GtkWidget*
-CppImpl::displayIncomingView(lrc::api::conversation::Info conversation)
+CppImpl::displayIncomingView(lrc::api::conversation::Info conversation, bool redraw_webview)
 {
     chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
-    return incoming_call_view_new(webkitChatContainer(), lrc_->getAVModel(), accountInfo_, chatViewConversation_.get());
+    return incoming_call_view_new(webkitChatContainer(redraw_webview), lrc_->getAVModel(), accountInfo_, chatViewConversation_.get());
 }
 
 GtkWidget*
-CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation)
+CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation, bool redraw_webview)
 {
     chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
-    auto* new_view = current_call_view_new(webkitChatContainer(),
+    auto* new_view = current_call_view_new(webkitChatContainer(redraw_webview),
                                            accountInfo_,
                                            chatViewConversation_.get(),
                                            lrc_->getAVModel());
@@ -1326,10 +1330,10 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation)
 }
 
 GtkWidget*
-CppImpl::displayChatView(lrc::api::conversation::Info conversation)
+CppImpl::displayChatView(lrc::api::conversation::Info conversation, bool redraw_webview)
 {
     chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
-    auto* new_view = chat_view_new(webkitChatContainer(), accountInfo_, chatViewConversation_.get());
+    auto* new_view = chat_view_new(webkitChatContainer(redraw_webview), accountInfo_, chatViewConversation_.get());
     g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(on_hide_view_clicked), self);
     try {
         auto contactUri = chatViewConversation_->participants.front();
@@ -1345,8 +1349,16 @@ CppImpl::displayChatView(lrc::api::conversation::Info conversation)
 }
 
 WebKitChatContainer*
-CppImpl::webkitChatContainer() const
+CppImpl::webkitChatContainer(bool redraw_webview)
 {
+    if (widgets->webkit_chat_container && redraw_webview)
+    {
+        // The WebkitChatContainer doesn't like to be reparented
+        // Sometimes, the view disappears. So, as a workaround,
+        // we recreate the webview when changing the type of the window
+        gtk_widget_destroy(widgets->webkit_chat_container);
+        widgets->webkit_chat_container = nullptr;
+    }
     if (!widgets->webkit_chat_container) {
         widgets->webkit_chat_container = webkit_chat_container_new();
 
