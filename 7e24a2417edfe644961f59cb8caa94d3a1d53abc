@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cea8f73_1b9f5357",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 624
+      },
+      "writtenOn": "2019-06-12T20:00:14Z",
+      "side": 1,
+      "message": "doesn\u0027t crash but the user can see (takes a fraction of a second) when it is destroyed",
+      "revId": "7e24a2417edfe644961f59cb8caa94d3a1d53abc",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
