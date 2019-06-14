@@ -292,8 +292,9 @@ ring_show_notification(RingNotifier* view, const std::string& icon,
     priv->cpp->notifications_.emplace(id, notification);
 
     // Draw icon
-    auto firstLetter = name.empty() ? "" : QString(QString(name.c_str()).at(0)).toStdString();  // NOTE best way to be compatible with UTF-8
-    auto default_avatar = Interfaces::PixbufManipulator().generateAvatar(firstLetter, uri);
+    auto firstLetter = (name == uri || name.empty()) ?
+        "" : QString(QString(name.c_str()).at(0)).toStdString();  // NOTE best way to be compatible with UTF-8
+    auto default_avatar = Interfaces::PixbufManipulator().generateAvatar(firstLetter, "ring:" + uri);
     auto photo = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(50, 50));
     if (!icon.empty()) {
         QByteArray byteArray(icon.c_str(), icon.length());
