@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 #include <math.h>
 #include <algorithm>
+#include <qrencode.h>
 
 static constexpr const char* MSG_COUNT_FONT        = "Sans";
 static constexpr int         MSG_COUNT_FONT_SIZE   = 12;
@@ -203,6 +204,49 @@ create_rounded_rectangle_path(cairo_t *cr, double corner_radius, double x, doubl
     cairo_arc (cr, x + radius, y + h - radius, radius, 90 * degrees, 180 * degrees);
     cairo_arc (cr, x + radius, y + radius, radius, 180 * degrees, 270 * degrees);
     cairo_close_path (cr);
+}
+
+gboolean
+draw_qrcode(cairo_t* cr, const std::string& to_encode, uint32_t size)
+{
+    auto rcode = QRcode_encodeString(to_encode.c_str(),
+                                      0, //Let the version be decided by libqrencode
+                                      QR_ECLEVEL_L, // Lowest level of error correction
+                                      QR_MODE_8, // 8-bit data mode
+                                      1);
+
+    if (!rcode) { // no rcode, no draw
+        g_warning("Failed to generate QR code");
+        return FALSE;
+    }
+
+    auto margin = 5;
+    int qrwidth = rcode->width + margin * 2;
+
+    /* scaling */
+    auto scale = size/qrwidth;
+    cairo_scale(cr, scale, scale);
+
+    /* fill the background in white */
+    cairo_set_source_rgb(cr, 1, 1, 1);
+    cairo_rectangle(cr, 0, 0, qrwidth, qrwidth);
+    cairo_fill (cr);
+
+    unsigned char *p;
+    p = rcode->data;
+    cairo_set_source_rgb(cr, 0, 0, 0); // back in black
+    for(int y = 0; y < rcode->width; y++) {
+        unsigned char* row = (p + (y * rcode->width));
+        for(int x = 0; x < rcode->width; x++) {
+            if(*(row + x) & 0x1) {
+                cairo_rectangle(cr, margin + x, margin + y, 1, 1);
+                cairo_fill(cr);
+            }
+        }
+    }
+
+    QRcode_free(rcode);
+    return TRUE;
 }
 
 /**
