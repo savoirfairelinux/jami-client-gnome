@@ -313,6 +313,8 @@ SET( SRC_FILES
    src/conversationpopupmenu.h
    src/conversationpopupmenu.cpp
    src/accountinfopointer.h
+   src/profileview.h
+   src/profileview.cpp
 )
 
 # compile glib resource files to c code

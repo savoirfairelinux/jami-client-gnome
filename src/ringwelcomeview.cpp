@@ -20,10 +20,10 @@
  */
 
 #include "ringwelcomeview.h"
+#include "utils/drawing.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <qrencode.h>
 
 #include <api/newaccountmodel.h>
 
@@ -61,7 +61,7 @@ G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_SCROLLED
 
 #define RING_WELCOME_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_WELCOME_VIEW_TYPE, RingWelcomeViewPrivate))
 
-static gboolean   draw_qrcode(GtkWidget*,cairo_t*,RingWelcomeView*);
+static gboolean   draw_qr_event(GtkWidget*,cairo_t*,RingWelcomeView*);
 static void       switch_qrcode(RingWelcomeView* self);
 
 void
@@ -214,7 +214,7 @@ ring_welcome_view_init(RingWelcomeView *self)
     auto drawingarea_qrcode = gtk_drawing_area_new();
     auto qrsize = 200;
     gtk_widget_set_size_request(drawingarea_qrcode, qrsize, qrsize);
-    g_signal_connect(drawingarea_qrcode, "draw", G_CALLBACK(draw_qrcode), self);
+    g_signal_connect(drawingarea_qrcode, "draw", G_CALLBACK(draw_qr_event), self);
     gtk_widget_set_visible(drawingarea_qrcode, TRUE);
 
     /* revealer which will show the qr code */
@@ -284,51 +284,13 @@ ring_welcome_view_new(AccountInfoPointer const & accountInfo)
 
 
 static gboolean
-draw_qrcode(G_GNUC_UNUSED GtkWidget* diese,
+draw_qr_event(G_GNUC_UNUSED GtkWidget* diese,
             cairo_t*   cr,
             RingWelcomeView* self)
 {
     auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
-
-    auto rcode = QRcode_encodeString((*priv->accountInfo_)->profileInfo.uri.c_str(),
-                                      0, //Let the version be decided by libqrencode
-                                      QR_ECLEVEL_L, // Lowest level of error correction
-                                      QR_MODE_8, // 8-bit data mode
-                                      1);
-
-    if (!rcode) { // no rcode, no draw
-        g_warning("Failed to generate QR code");
-        return FALSE;
-    }
-
-    auto margin = 5;
-    auto qrsize = 200;
-    int qrwidth = rcode->width + margin * 2;
-
-    /* scaling */
-    auto scale = qrsize/qrwidth;
-    cairo_scale(cr, scale, scale);
-
-    /* fill the background in white */
-    cairo_set_source_rgb(cr, 1, 1, 1);
-    cairo_rectangle(cr, 0, 0, qrwidth, qrwidth);
-    cairo_fill (cr);
-
-    unsigned char *p;
-    p = rcode->data;
-    cairo_set_source_rgb(cr, 0, 0, 0); // back in black
-    for(int y = 0; y < rcode->width; y++) {
-        unsigned char* row = (p + (y * rcode->width));
-        for(int x = 0; x < rcode->width; x++) {
-            if(*(row + x) & 0x1) {
-                cairo_rectangle(cr, margin + x, margin + y, 1, 1);
-                cairo_fill(cr);
-            }
-        }
-    }
-
-    QRcode_free(rcode);
-    return TRUE;
+    g_return_val_if_fail(priv, false);
+    return draw_qrcode(cr, (*priv->accountInfo_)->profileInfo.uri.c_str(), 200);
 }
 
 static void
