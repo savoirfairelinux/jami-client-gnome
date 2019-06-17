@@ -1,6 +1,6 @@
 /*
- *  Copyright (C) 2015-2019 Savoir-faire Linux Inc.
- *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+ *  Copyright (C) 2019 Savoir-faire Linux Inc.
+ *  Author: Sebastien Blin <sebastien.blin@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,31 +17,16 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef _DRAWING_H
-#define _DRAWING_H
+#pragma once
 
 #include <gtk/gtk.h>
-#include <string>
 
-GdkPixbuf *ring_draw_fallback_avatar(int size, const std::string& letter, const char color = 0);
+#include "accountinfopointer.h"
 
-GdkPixbuf *ring_draw_conference_avatar(int size);
+#define PROFILE_VIEW_TYPE (profile_view_get_type ())
+#define IS_PROFILE_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), PROFILE_VIEW_TYPE))
+#define IS_PROFILE_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), PROFILE_VIEW_TYPE))
 
-GdkPixbuf *ring_frame_avatar(GdkPixbuf *avatar);
+G_DECLARE_FINAL_TYPE (ProfileView, profile_view, PROFILE, VIEW, GtkDialog)
 
-GdkPixbuf *ring_draw_unread_messages(const GdkPixbuf *avatar, int unread_count);
-
-gboolean   draw_qrcode(cairo_t* cr, const std::string& to_encode, uint32_t size);
-
-
-enum class IconStatus {
-    ABSENT,
-    PRESENT,
-    DISCONNECTED,
-    TRYING,
-    CONNECTED,
-    INVALID
-};
-GdkPixbuf *ring_draw_status(const GdkPixbuf *avatar, IconStatus status);
-
-#endif /* _DRAWING */
+GtkWidget*        profile_view_new(AccountInfoPointer const & accountInfo, int row_);
