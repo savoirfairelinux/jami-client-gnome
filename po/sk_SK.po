@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Astar Seran <zic.spse@gmail.com>, 2016
+# Tomáš Vavro <tomas.j.vavro@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-10 03:09-0400\n"
-"PO-Revision-Date: 2019-06-10 07:09+0000\n"
+"POT-Creation-Date: 2019-06-17 03:09-0400\n"
+"PO-Revision-Date: 2019-06-17 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/savoirfairelinux/jami/language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +69,7 @@ msgstr ""
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Conversations"
-msgstr ""
+msgstr "Konverzácie"
 
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
@@ -83,7 +84,7 @@ msgstr ""
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Clear history"
-msgstr ""
+msgstr "Vymazať históriu"
 
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
@@ -98,7 +99,7 @@ msgstr ""
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
-msgstr ""
+msgstr "Zablokovať kontakt"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
@@ -174,12 +175,12 @@ msgstr "Alias"
 
 #: ui/accountmigrationview.ui:126
 msgid "RingID"
-msgstr ""
+msgstr "RingID"
 
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:451
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 msgid "Password"
-msgstr ""
+msgstr "Heslo"
 
 #: ui/accountmigrationview.ui:198
 msgid "Migrate account"
@@ -226,7 +227,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:348 ui/currentcallview.ui:456
 msgid "Mute video"
-msgstr ""
+msgstr "Stlmiť video"
 
 #: ui/currentcallview.ui:369
 msgid "Toggle recording"
@@ -235,7 +236,7 @@ msgstr ""
 #: ui/currentcallview.ui:372 ui/currentcallview.ui:501
 #: ui/messagingwidget.ui:29
 msgid "Record"
-msgstr ""
+msgstr "Zaznamenať"
 
 #: ui/currentcallview.ui:393
 msgid "Adjust outgoing video quality"
@@ -255,7 +256,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:447
 msgid "Mute audio"
-msgstr ""
+msgstr "Stlmiť zvuk"
 
 #: ui/currentcallview.ui:474
 msgid "Transfer"
@@ -278,11 +279,11 @@ msgid "Create a new Jami account (for new users)"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:72
-msgid "Link this device to an account"
+msgid "Import an existing account"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:73
-msgid "Link this devices to a Jami account created on another device"
+msgid "Import an account with your PIN or your account's archive"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
@@ -344,19 +345,19 @@ msgstr "Účet"
 
 #: ui/accountcreationwizard.ui:387
 msgid "Register username"
-msgstr ""
+msgstr "Registrovať používateľské meno"
 
 #: ui/accountcreationwizard.ui:388
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Zaškrtnutím tejto možnosti si zaregistrujete používateľské meno na sieti Jami. Ľudom na kontakt s vami postačí použiť toto meno namiesto vášho RingID, ktoré má 40 znakov."
 
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733
 msgid "Username"
-msgstr ""
+msgstr "Používateľské meno"
 
 #: ui/accountcreationwizard.ui:452
 msgid ""
@@ -374,7 +375,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:588
 msgid "Registering username…"
-msgstr ""
+msgstr "Registrovanie používateľského mena"
 
 #: ui/accountcreationwizard.ui:595
 msgid "This may take a few minutes."
@@ -395,7 +396,7 @@ msgstr "Ok"
 
 #: ui/generalsettingsview.ui:43
 msgid "System"
-msgstr ""
+msgstr "Systém"
 
 #: ui/generalsettingsview.ui:81
 msgid "Start application on login"
@@ -463,19 +464,19 @@ msgstr "Všeobecné"
 
 #: ui/ringmainwindow.ui:96
 msgid "Media"
-msgstr ""
+msgstr "Médiá"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1630
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1642
 msgid "Settings"
 msgstr "Nastavenie"
 
 #: ui/ringmainwindow.ui:271 ui/ringmainwindow.ui:278
 msgid "Conversations"
-msgstr ""
+msgstr "Konverzácie"
 
 #: ui/ringmainwindow.ui:304 ui/ringmainwindow.ui:311
 msgid "Contact requests"
-msgstr ""
+msgstr "Žiadosti o spojenie"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
@@ -566,7 +567,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:460
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: ui/newaccountsettingsview.ui:538
 msgid "Click to change password"
@@ -586,11 +587,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:779
 msgid "password"
-msgstr ""
+msgstr "heslo"
 
 #: ui/newaccountsettingsview.ui:810 ui/newaccountsettingsview.ui:1398
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: ui/newaccountsettingsview.ui:846
 msgid "Voicemail"
@@ -598,11 +599,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "Známe zariadenia prepojené s týmto Jami účtom"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
-msgstr ""
+msgstr "Prepojiť ďalšie zariadenie"
 
 #: ui/newaccountsettingsview.ui:1025
 msgid "Banned contacts"
@@ -610,7 +611,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1081
 msgid "Advanced settings"
-msgstr ""
+msgstr "Pokročilé nastavenia"
 
 #: ui/newaccountsettingsview.ui:1117
 msgid "General settings"
@@ -618,31 +619,31 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1135
 msgid "Call settings"
-msgstr ""
+msgstr "Nastavenia hovoru"
 
 #: ui/newaccountsettingsview.ui:1173
 msgid "Allow call from untrusted peers"
-msgstr ""
+msgstr "Povoliť hovor od nedôveryhodných peerov"
 
 #: ui/newaccountsettingsview.ui:1208
 msgid "Auto answer calls"
-msgstr ""
+msgstr "Automaticky odpovedať na hovory"
 
 #: ui/newaccountsettingsview.ui:1244
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Vlastný vyzváňací tón"
 
 #: ui/newaccountsettingsview.ui:1288
 msgid "Name server"
-msgstr ""
+msgstr "Menný server"
 
 #: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2514
 msgid "Address"
-msgstr ""
+msgstr "Adresa"
 
 #: ui/newaccountsettingsview.ui:1359
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "Konfigurácia OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1443
 msgid "Auto connect on local network"
@@ -650,7 +651,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1479
 msgid "Bootstrap"
-msgstr ""
+msgstr "Zavádzací"
 
 #: ui/newaccountsettingsview.ui:1539
 msgid "Encrypt media streams (SRTP)"
@@ -658,43 +659,43 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1574
 msgid "Enable SDES for key exchange protocol"
-msgstr ""
+msgstr "Povoliť SDES ako protokol výmeny kľúčov"
 
 #: ui/newaccountsettingsview.ui:1610
 msgid "Fallback on RTP on encryption failure"
-msgstr ""
+msgstr "Pri zlyhaní šifrovania použiť RTP"
 
 #: ui/newaccountsettingsview.ui:1645
 msgid "Encrypt negotiation (TLS)"
-msgstr ""
+msgstr "Zašifrovať vyjednávanie (TLS)"
 
 #: ui/newaccountsettingsview.ui:1680
 msgid "CA certificate"
-msgstr ""
+msgstr "CA certifikát"
 
 #: ui/newaccountsettingsview.ui:1716
 msgid "User certificate"
-msgstr ""
+msgstr "Používateľský certifikát"
 
 #: ui/newaccountsettingsview.ui:1752
 msgid "Private key"
-msgstr ""
+msgstr "Privátny kľúč"
 
 #: ui/newaccountsettingsview.ui:1788
 msgid "Private key password"
-msgstr ""
+msgstr "Heslo privátneho kľúča"
 
 #: ui/newaccountsettingsview.ui:1826
 msgid "TLS protocol method"
-msgstr ""
+msgstr "TLS protokolová metóda"
 
 #: ui/newaccountsettingsview.ui:1862
 msgid "Outgoing TLS server name"
-msgstr ""
+msgstr "Meno odchádzajúceho TLS servera"
 
 #: ui/newaccountsettingsview.ui:1897
 msgid "Negotiation timeout (seconds)"
-msgstr ""
+msgstr "Časový limit vyjednávania (v sekundách)"
 
 #: ui/newaccountsettingsview.ui:1933
 msgid "Verify incoming certificates (server side)"
@@ -702,35 +703,35 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1968
 msgid "Verify answer certificates (client side)"
-msgstr ""
+msgstr "Overiť certifikáty odpovedí (na strane klienta)"
 
 #: ui/newaccountsettingsview.ui:2003
 msgid "Require a certificate for incoming TLS connections"
-msgstr ""
+msgstr "Vyžadovať certifikáty pre prichádzajúce TLS pripojenia"
 
 #: ui/newaccountsettingsview.ui:2027
 msgid "Security"
-msgstr ""
+msgstr "Bezpečnosť"
 
 #: ui/newaccountsettingsview.ui:2052
 msgid "Connectivity"
-msgstr ""
+msgstr "Pripovenia"
 
 #: ui/newaccountsettingsview.ui:2090
 msgid "Registration expire timeout (seconds)"
-msgstr ""
+msgstr "Časový limit exprirácie registrácie (v sekundách)"
 
 #: ui/newaccountsettingsview.ui:2127
 msgid "Network interface"
-msgstr ""
+msgstr "Sieťové rozhranie"
 
 #: ui/newaccountsettingsview.ui:2163
 msgid "UPnP"
-msgstr ""
+msgstr "UPnP"
 
 #: ui/newaccountsettingsview.ui:2198
 msgid "Use TURN"
-msgstr ""
+msgstr "Použiť TURN"
 
 #: ui/newaccountsettingsview.ui:2233
 msgid "(TURN) address"
@@ -738,7 +739,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2268
 msgid "(TURN) username"
-msgstr ""
+msgstr "(TURN) používateľské meno"
 
 #: ui/newaccountsettingsview.ui:2302
 msgid "(TURN) password"
@@ -750,7 +751,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2373
 msgid "Use STUN"
-msgstr ""
+msgstr "Použiť STUN"
 
 #: ui/newaccountsettingsview.ui:2408
 msgid "(STUN) address"
@@ -758,11 +759,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2441
 msgid "Published address"
-msgstr ""
+msgstr "Publikované adresy"
 
 #: ui/newaccountsettingsview.ui:2478
 msgid "Use custom address and port"
-msgstr ""
+msgstr "Použiť vlastnú adresu a port"
 
 #: ui/newaccountsettingsview.ui:2549
 msgid "Port"
@@ -770,7 +771,7 @@ msgstr "Port"
 
 #: ui/newaccountsettingsview.ui:2585
 msgid "Video codecs"
-msgstr ""
+msgstr "Video kodeky"
 
 #: ui/newaccountsettingsview.ui:2648
 msgid "Enable video"
@@ -778,11 +779,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2675
 msgid "Audio codecs"
-msgstr ""
+msgstr "Audio kodeky"
 
 #: ui/newaccountsettingsview.ui:2745
 msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr ""
+msgstr "SDP Session Negotiation (ICE Fallback)"
 
 #: ui/newaccountsettingsview.ui:2757
 msgid "Only used during SDP negotiation in case ICE is not supported."
@@ -806,7 +807,7 @@ msgstr ""
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "registrovať používateľské meno"
 
 #: ui/chatview.ui:19 ui/chatview.ui:22
 msgid "Hide chat view"
@@ -842,7 +843,7 @@ msgstr ""
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
-msgstr ""
+msgstr "Prijať"
 
 #: ui/incomingcallview.ui:172
 msgid "Reject"
@@ -850,7 +851,7 @@ msgstr ""
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr ""
+msgstr "Urobiť fotografiu"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
@@ -886,37 +887,37 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: src/ringnotify.cpp:332
+#: src/ringnotify.cpp:333
 msgctxt ""
 msgid "Open conversation"
 msgstr ""
 
-#: src/ringnotify.cpp:340 src/ringnotify.cpp:356
+#: src/ringnotify.cpp:341 src/ringnotify.cpp:357
 msgctxt ""
 msgid "Accept"
-msgstr ""
+msgstr "Prijať"
 
-#: src/ringnotify.cpp:347
+#: src/ringnotify.cpp:348
 msgctxt ""
 msgid "Refuse"
-msgstr ""
+msgstr "Odmietnuť"
 
-#: src/ringnotify.cpp:363
+#: src/ringnotify.cpp:364
 msgctxt ""
 msgid "Decline"
-msgstr ""
+msgstr "Odmietnuť"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
-msgstr ""
+msgstr "Registrovať používateľské meno na tomto serveri"
 
 #: src/usernameregistrationbox.cpp:173
 msgid "Username already taken"
-msgstr ""
+msgstr "Používateľské meno už je zabrané"
 
 #: src/usernameregistrationbox.cpp:180
 msgid "Invalid username"
-msgstr ""
+msgstr "Neplatné používateľské meno"
 
 #: src/usernameregistrationbox.cpp:194
 msgid "Lookup unavailable, check your network connection"
@@ -942,7 +943,7 @@ msgstr ""
 msgid ""
 "Unable to register name (Invalid name). Your username should contains "
 "between 3 and 32 alphanumerics characters (or underscore)."
-msgstr ""
+msgstr "Nie je možné registrovať meno (Neplatné meno). Vaše používateľské meno musí mať 3-32 alfanumerických znakov (alebo podčiarkovník). "
 
 #: src/usernameregistrationbox.cpp:439
 msgid "Unable to register name (Wrong password)."
@@ -950,7 +951,7 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:443
 msgid "Unable to register name (Username already taken)."
-msgstr ""
+msgstr "Nie je možné registrovať meno (Používateľské meno už je zabrané)."
 
 #: src/usernameregistrationbox.cpp:447
 msgid "Unable to register name (Network error) - check your connection."
@@ -1051,65 +1052,65 @@ msgctxt ""
 msgid "Search contacts or enter number"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1605
+#: src/ringmainwindow.cpp:1617
 msgid "Leave settings page"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2001
+#: src/ringmainwindow.cpp:2013
 msgid "There are active calls"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2055
+#: src/ringmainwindow.cpp:2067
 msgid " is calling you!"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2056
+#: src/ringmainwindow.cpp:2068
 msgid "Incoming call"
-msgstr ""
+msgstr "Prichádzajúci hovor"
 
-#: src/ringmainwindow.cpp:2198
+#: src/ringmainwindow.cpp:2210
 msgid "New request from "
 msgstr ""
 
-#: src/ringmainwindow.cpp:2199
+#: src/ringmainwindow.cpp:2211
 msgid "Trust request"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2260
+#: src/ringmainwindow.cpp:2272
 msgid "New message"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2323
+#: src/ringmainwindow.cpp:2335
 msgid "Stop current call?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2324
+#: src/ringmainwindow.cpp:2336
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2391
+#: src/ringmainwindow.cpp:2403
 msgid "Clear history"
-msgstr ""
+msgstr "Vymazať históriu"
 
-#: src/ringmainwindow.cpp:2392
+#: src/ringmainwindow.cpp:2404
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2407
+#: src/ringmainwindow.cpp:2419
 msgid "Remove conversation"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2408
+#: src/ringmainwindow.cpp:2420
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2423
+#: src/ringmainwindow.cpp:2435
 msgid "Block contact"
-msgstr ""
+msgstr "Zablokovať kontakt"
 
-#: src/ringmainwindow.cpp:2424
+#: src/ringmainwindow.cpp:2436
 msgid "Do you really want to block this contact?"
 msgstr ""
 
@@ -1190,7 +1191,7 @@ msgstr ""
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Toto je vaše Jami používateľské meno.\nSkopírujte ho a zdieľajte s priateľmi!"
 
 #: src/ringwelcomeview.cpp:96
 msgid ""
@@ -1202,7 +1203,7 @@ msgstr ""
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami je slobodný softvér na univerzálnu komunikáciu, ktorý rešpektuje slobody a súkromie používateľov."
 
 #: src/chatview.cpp:175
 msgid "Send File"
@@ -1235,11 +1236,11 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:685
 msgid "Edit name"
-msgstr ""
+msgstr "Upraviť meni"
 
 #: src/newaccountsettingsview.cpp:685
 msgid "Revoke device"
-msgstr ""
+msgstr "Odobrať zariadenie"
 
 #: src/newaccountsettingsview.cpp:707
 msgid "Error when revoking device"
@@ -1252,7 +1253,7 @@ msgstr ""
 #: src/newaccountsettingsview.cpp:803 src/newaccountsettingsview.cpp:826
 #: src/newaccountsettingsview.cpp:850 src/newaccountsettingsview.cpp:886
 msgid "Change password"
-msgstr ""
+msgstr "Zmeniť heslo"
 
 #: src/newaccountsettingsview.cpp:816
 msgid "New password and its confirmation are different!"
@@ -1272,7 +1273,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:873
 msgid "New password"
-msgstr ""
+msgstr "Nové heslo"
 
 #: src/newaccountsettingsview.cpp:956
 msgid "You need to enter your password to export the full archive."
@@ -1300,7 +1301,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:1767
 msgid "Unknown error"
-msgstr ""
+msgstr "Neznáma chyba"
 
 #: src/newaccountsettingsview.cpp:1779
 msgid "Could not initiate export to the Jami, try again"
@@ -1320,7 +1321,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2016
 msgid "Offline"
-msgstr ""
+msgstr "Offline"
 
 #: src/newaccountsettingsview.cpp:2019
 msgid "Connecting…"
@@ -1328,7 +1329,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2022
 msgid "Online"
-msgstr ""
+msgstr "Online"
 
 #: src/newaccountsettingsview.cpp:2026
 msgid "Unknown status"

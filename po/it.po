@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-10 03:09-0400\n"
-"PO-Revision-Date: 2019-06-10 07:09+0000\n"
+"POT-Creation-Date: 2019-06-17 03:09-0400\n"
+"PO-Revision-Date: 2019-06-17 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Italian (http://www.transifex.com/savoirfairelinux/jami/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -280,12 +280,12 @@ msgid "Create a new Jami account (for new users)"
 msgstr "Crea un nuovo account Jami (per i nuovi utenti)"
 
 #: ui/accountcreationwizard.ui:72
-msgid "Link this device to an account"
-msgstr "Collega questo dispositivo a un account"
+msgid "Import an existing account"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:73
-msgid "Link this devices to a Jami account created on another device"
-msgstr "Collega questi dispositivi a un account Jami creato su un altro dispositivo"
+msgid "Import an account with your PIN or your account's archive"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:889
@@ -467,7 +467,7 @@ msgstr "Generale"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1630
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1642
 msgid "Settings"
 msgstr "Impostazioni"
 
@@ -888,22 +888,22 @@ msgstr "Mostra Jami"
 msgid "Quit"
 msgstr "Esci"
 
-#: src/ringnotify.cpp:332
+#: src/ringnotify.cpp:333
 msgctxt ""
 msgid "Open conversation"
 msgstr "Apri conversazione"
 
-#: src/ringnotify.cpp:340 src/ringnotify.cpp:356
+#: src/ringnotify.cpp:341 src/ringnotify.cpp:357
 msgctxt ""
 msgid "Accept"
 msgstr "Accettare"
 
-#: src/ringnotify.cpp:347
+#: src/ringnotify.cpp:348
 msgctxt ""
 msgid "Refuse"
 msgstr "Rifiuta"
 
-#: src/ringnotify.cpp:363
+#: src/ringnotify.cpp:364
 msgctxt ""
 msgid "Decline"
 msgstr "Rifiuta"
@@ -1053,65 +1053,65 @@ msgctxt ""
 msgid "Search contacts or enter number"
 msgstr "Ricercare contatto o digitare un numero"
 
-#: src/ringmainwindow.cpp:1605
+#: src/ringmainwindow.cpp:1617
 msgid "Leave settings page"
 msgstr "Esci dalla pagina delle impostazioni"
 
-#: src/ringmainwindow.cpp:2001
+#: src/ringmainwindow.cpp:2013
 msgid "There are active calls"
 msgstr "Ci sono chiamate attive"
 
-#: src/ringmainwindow.cpp:2055
+#: src/ringmainwindow.cpp:2067
 msgid " is calling you!"
 msgstr "ti sta chiamando!"
 
-#: src/ringmainwindow.cpp:2056
+#: src/ringmainwindow.cpp:2068
 msgid "Incoming call"
 msgstr "Chiamata in arrivo"
 
-#: src/ringmainwindow.cpp:2198
+#: src/ringmainwindow.cpp:2210
 msgid "New request from "
 msgstr "Nuova richiesta da"
 
-#: src/ringmainwindow.cpp:2199
+#: src/ringmainwindow.cpp:2211
 msgid "Trust request"
 msgstr "Richiesta fidata"
 
-#: src/ringmainwindow.cpp:2260
+#: src/ringmainwindow.cpp:2272
 msgid "New message"
 msgstr "Nuovo messaggio"
 
-#: src/ringmainwindow.cpp:2323
+#: src/ringmainwindow.cpp:2335
 msgid "Stop current call?"
 msgstr "Interrompe la chiamata corrente?"
 
-#: src/ringmainwindow.cpp:2324
+#: src/ringmainwindow.cpp:2336
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Una chiamata è attualmente in corso. Vuoi chiudere la finestra e interrompere tutte le chiamate correnti?"
 
-#: src/ringmainwindow.cpp:2391
+#: src/ringmainwindow.cpp:2403
 msgid "Clear history"
 msgstr "Svuotare lo storico"
 
-#: src/ringmainwindow.cpp:2392
+#: src/ringmainwindow.cpp:2404
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Vuoi davvero cancellare la cronologia di questa conversazione?"
 
-#: src/ringmainwindow.cpp:2407
+#: src/ringmainwindow.cpp:2419
 msgid "Remove conversation"
 msgstr "Rimuovi conversazione"
 
-#: src/ringmainwindow.cpp:2408
+#: src/ringmainwindow.cpp:2420
 msgid "Do you really want to remove this conversation?"
 msgstr "Vuoi davvero rimuovere questa conversazione?"
 
-#: src/ringmainwindow.cpp:2423
+#: src/ringmainwindow.cpp:2435
 msgid "Block contact"
 msgstr "Blocca contatto"
 
-#: src/ringmainwindow.cpp:2424
+#: src/ringmainwindow.cpp:2436
 msgid "Do you really want to block this contact?"
 msgstr "Vuoi davvero bloccare questo contatto?"
 

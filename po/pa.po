@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-10 03:09-0400\n"
-"PO-Revision-Date: 2019-06-10 07:09+0000\n"
+"POT-Creation-Date: 2019-06-17 03:09-0400\n"
+"PO-Revision-Date: 2019-06-17 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/savoirfairelinux/jami/language/pa/)\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr ""
 #: ui/help-overlay.ui:13
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "ਸਧਾਰਨ"
 
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
@@ -67,7 +67,7 @@ msgstr ""
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Conversations"
-msgstr ""
+msgstr "ਗੱਲਾਂਬਾਤਾਂ"
 
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
@@ -82,7 +82,7 @@ msgstr ""
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Clear history"
-msgstr ""
+msgstr "ਇਤਿਹਾਸ ਮਿਟਾਓ"
 
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
@@ -97,7 +97,7 @@ msgstr ""
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
-msgstr ""
+msgstr "ਸੰਪਰਕ ਬਲਾਕ ਕਰੋ"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
@@ -169,7 +169,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:89
 msgid "Alias"
-msgstr ""
+msgstr "ਦੂਜਾ ਨਾਂ"
 
 #: ui/accountmigrationview.ui:126
 msgid "RingID"
@@ -178,7 +178,7 @@ msgstr ""
 #: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:451
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 msgid "Password"
-msgstr ""
+msgstr "ਪਾਸਵਰਡ"
 
 #: ui/accountmigrationview.ui:198
 msgid "Migrate account"
@@ -213,7 +213,7 @@ msgstr ""
 #: ui/currentcallview.ui:298 ui/currentcallview.ui:323
 #: ui/currentcallview.ui:465
 msgid "Hold"
-msgstr ""
+msgstr "ਰੋਕ ਕੇ ਰੱਖੀ"
 
 #: ui/currentcallview.ui:319
 msgid "Toggle mute audio"
@@ -277,17 +277,17 @@ msgid "Create a new Jami account (for new users)"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:72
-msgid "Link this device to an account"
+msgid "Import an existing account"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:73
-msgid "Link this devices to a Jami account created on another device"
+msgid "Import an account with your PIN or your account's archive"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:889
 msgid "Cancel"
-msgstr ""
+msgstr "ਰੱਦ ਕਰੋ"
 
 #: ui/accountcreationwizard.ui:86
 msgid "Advanced…"
@@ -330,7 +330,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:235 ui/accountcreationwizard.ui:538
 msgid "Next"
-msgstr ""
+msgstr "ਅੱਗੇ"
 
 #: ui/accountcreationwizard.ui:269 ui/newaccountsettingsview.ui:334
 msgid "Profile"
@@ -339,7 +339,7 @@ msgstr ""
 #: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:113
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
-msgstr ""
+msgstr "ਖਾਤਾ"
 
 #: ui/accountcreationwizard.ui:387
 msgid "Register username"
@@ -355,7 +355,7 @@ msgstr ""
 #: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
 #: ui/newaccountsettingsview.ui:733
 msgid "Username"
-msgstr ""
+msgstr "ਵਰਤੋਂਕਾਰ ਨਾਂ"
 
 #: ui/accountcreationwizard.ui:452
 msgid ""
@@ -394,7 +394,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:43
 msgid "System"
-msgstr ""
+msgstr "ਸਿਸਟਮ"
 
 #: ui/generalsettingsview.ui:81
 msgid "Start application on login"
@@ -458,23 +458,23 @@ msgstr ""
 
 #: ui/ringmainwindow.ui:80
 msgid "General"
-msgstr ""
+msgstr "ਸਧਾਰਨ"
 
 #: ui/ringmainwindow.ui:96
 msgid "Media"
-msgstr ""
+msgstr "ਮੀਡੀਆ"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1630
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1642
 msgid "Settings"
 msgstr "ਸੈਟਿੰਗ"
 
 #: ui/ringmainwindow.ui:271 ui/ringmainwindow.ui:278
 msgid "Conversations"
-msgstr ""
+msgstr "ਗੱਲਾਂਬਾਤਾਂ"
 
 #: ui/ringmainwindow.ui:304 ui/ringmainwindow.ui:311
 msgid "Contact requests"
-msgstr ""
+msgstr "ਸੰਪਰਕ ਬੇਨਤੀਆਂ"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
@@ -585,11 +585,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:779
 msgid "password"
-msgstr ""
+msgstr "ਪਾਸਵਰਡ"
 
 #: ui/newaccountsettingsview.ui:810 ui/newaccountsettingsview.ui:1398
 msgid "Proxy"
-msgstr ""
+msgstr "ਪ੍ਰੌਕਸੀ"
 
 #: ui/newaccountsettingsview.ui:846
 msgid "Voicemail"
@@ -597,7 +597,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:952
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "ਇਸ Jami ਖਾਤੇ ਨਾਲ ਲਿੰਕ ਕੀਤੇ ਜਾਣੇ-ਪਛਾਣੇ ਡੀਵਾਈਸ"
 
 #: ui/newaccountsettingsview.ui:960
 msgid "Link another device"
@@ -609,7 +609,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1081
 msgid "Advanced settings"
-msgstr ""
+msgstr "ਉੱਨਤ ਸੈਟਿੰਗਾਂ"
 
 #: ui/newaccountsettingsview.ui:1117
 msgid "General settings"
@@ -649,7 +649,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1479
 msgid "Bootstrap"
-msgstr ""
+msgstr "ਬੂਟਸਟ੍ਰੈਪ"
 
 #: ui/newaccountsettingsview.ui:1539
 msgid "Encrypt media streams (SRTP)"
@@ -709,7 +709,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2027
 msgid "Security"
-msgstr ""
+msgstr "ਸੁਰੱਖਿਆ"
 
 #: ui/newaccountsettingsview.ui:2052
 msgid "Connectivity"
@@ -729,7 +729,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2198
 msgid "Use TURN"
-msgstr ""
+msgstr "TURN ਵਰਤੋ"
 
 #: ui/newaccountsettingsview.ui:2233
 msgid "(TURN) address"
@@ -841,7 +841,7 @@ msgstr ""
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
-msgstr ""
+msgstr "ਸਵੀਕਾਰ ਕਰੋ"
 
 #: ui/incomingcallview.ui:172
 msgid "Reject"
@@ -849,7 +849,7 @@ msgstr ""
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr ""
+msgstr "ਫ਼ੋਟੋ ਖਿੱਚੋ"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
@@ -885,25 +885,25 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: src/ringnotify.cpp:332
+#: src/ringnotify.cpp:333
 msgctxt ""
 msgid "Open conversation"
 msgstr ""
 
-#: src/ringnotify.cpp:340 src/ringnotify.cpp:356
+#: src/ringnotify.cpp:341 src/ringnotify.cpp:357
 msgctxt ""
 msgid "Accept"
-msgstr ""
+msgstr "ਸਵੀਕਾਰ ਕਰੋ"
 
-#: src/ringnotify.cpp:347
+#: src/ringnotify.cpp:348
 msgctxt ""
 msgid "Refuse"
-msgstr ""
+msgstr "ਅਸਵੀਕਾਰ ਕਰੋ"
 
-#: src/ringnotify.cpp:363
+#: src/ringnotify.cpp:364
 msgctxt ""
 msgid "Decline"
-msgstr ""
+msgstr "ਕਾਲ ਕੱਟੋ"
 
 #: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
 msgid "Register this username on the name server"
@@ -911,11 +911,11 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:173
 msgid "Username already taken"
-msgstr ""
+msgstr "ਵਰਤੋਂਕਾਰ ਨਾਂ ਪਹਿਲਾਂ ਹੀ ਲਿਆ ਗਿਆ"
 
 #: src/usernameregistrationbox.cpp:180
 msgid "Invalid username"
-msgstr ""
+msgstr "ਅਵੈਧ ਵਰਤੋਂਕਾਰ ਨਾਂ"
 
 #: src/usernameregistrationbox.cpp:194
 msgid "Lookup unavailable, check your network connection"
@@ -1050,65 +1050,65 @@ msgctxt ""
 msgid "Search contacts or enter number"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1605
+#: src/ringmainwindow.cpp:1617
 msgid "Leave settings page"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2001
+#: src/ringmainwindow.cpp:2013
 msgid "There are active calls"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2055
+#: src/ringmainwindow.cpp:2067
 msgid " is calling you!"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2056
+#: src/ringmainwindow.cpp:2068
 msgid "Incoming call"
-msgstr ""
+msgstr "ਆਉਂਦੀ ਕਾਲ"
 
-#: src/ringmainwindow.cpp:2198
+#: src/ringmainwindow.cpp:2210
 msgid "New request from "
 msgstr ""
 
-#: src/ringmainwindow.cpp:2199
+#: src/ringmainwindow.cpp:2211
 msgid "Trust request"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2260
+#: src/ringmainwindow.cpp:2272
 msgid "New message"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2323
+#: src/ringmainwindow.cpp:2335
 msgid "Stop current call?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2324
+#: src/ringmainwindow.cpp:2336
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2391
+#: src/ringmainwindow.cpp:2403
 msgid "Clear history"
-msgstr ""
+msgstr "ਇਤਿਹਾਸ ਮਿਟਾਓ"
 
-#: src/ringmainwindow.cpp:2392
+#: src/ringmainwindow.cpp:2404
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2407
+#: src/ringmainwindow.cpp:2419
 msgid "Remove conversation"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2408
+#: src/ringmainwindow.cpp:2420
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2423
+#: src/ringmainwindow.cpp:2435
 msgid "Block contact"
-msgstr ""
+msgstr "ਸੰਪਰਕ ਬਲਾਕ ਕਰੋ"
 
-#: src/ringmainwindow.cpp:2424
+#: src/ringmainwindow.cpp:2436
 msgid "Do you really want to block this contact?"
 msgstr ""
 
@@ -1201,7 +1201,7 @@ msgstr ""
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami ਦੁਨੀਆ ਭਰ ਵਿੱਚ ਸੰਚਾਰ ਕਰਨ ਲਈ ਮੁਫ਼ਤ ਸਾਫ਼ਟਵੇਅਰ ਹੈ ਜੋ ਆਪਣੇ ਵਰਤੋਂਕਾਰਾਂ ਦੀ ਅਜ਼ਾਦੀ ਅਤੇ ਪਰਦੇਦਾਰੀ ਦਾ ਖਿਆਲ ਰੱਖਦਾ ਹੈ।"
 
 #: src/chatview.cpp:175
 msgid "Send File"
@@ -1238,7 +1238,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:685
 msgid "Revoke device"
-msgstr ""
+msgstr "ਡੀਵਾਈਸ ਹਟਾਓ"
 
 #: src/newaccountsettingsview.cpp:707
 msgid "Error when revoking device"
@@ -1251,7 +1251,7 @@ msgstr ""
 #: src/newaccountsettingsview.cpp:803 src/newaccountsettingsview.cpp:826
 #: src/newaccountsettingsview.cpp:850 src/newaccountsettingsview.cpp:886
 msgid "Change password"
-msgstr ""
+msgstr "ਪਾਸਵਰਡ ਬਦਲੋ"
 
 #: src/newaccountsettingsview.cpp:816
 msgid "New password and its confirmation are different!"
@@ -1271,7 +1271,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:873
 msgid "New password"
-msgstr ""
+msgstr "ਨਵਾਂ ਪਾਸਵਰਡ"
 
 #: src/newaccountsettingsview.cpp:956
 msgid "You need to enter your password to export the full archive."
@@ -1299,7 +1299,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:1767
 msgid "Unknown error"
-msgstr ""
+msgstr "ਅਣਪਛਾਤੀ ਗੜਬੜ"
 
 #: src/newaccountsettingsview.cpp:1779
 msgid "Could not initiate export to the Jami, try again"
@@ -1319,7 +1319,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2016
 msgid "Offline"
-msgstr ""
+msgstr "ਆਫ਼ਲਾਈਨ"
 
 #: src/newaccountsettingsview.cpp:2019
 msgid "Connecting…"
@@ -1327,7 +1327,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2022
 msgid "Online"
-msgstr ""
+msgstr "ਆਨਲਾਈਨ"
 
 #: src/newaccountsettingsview.cpp:2026
 msgid "Unknown status"

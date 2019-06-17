@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-10 03:09-0400\n"
-"PO-Revision-Date: 2019-06-10 07:09+0000\n"
+"POT-Creation-Date: 2019-06-17 03:09-0400\n"
+"PO-Revision-Date: 2019-06-17 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Összpontosítson a lista függőben lévő kéréseikre"
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Teljes képernyő be-/kikapcsolása"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -280,12 +280,12 @@ msgid "Create a new Jami account (for new users)"
 msgstr "Új Jami fiók létrehozása (új felhasználóknak)"
 
 #: ui/accountcreationwizard.ui:72
-msgid "Link this device to an account"
-msgstr "Ezen eszköz összekapcsolása egy fiókhoz"
+msgid "Import an existing account"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:73
-msgid "Link this devices to a Jami account created on another device"
-msgstr "Csatlakoztassa az eszközöket egy másik eszközön létrehozott Jami fiókhoz"
+msgid "Import an account with your PIN or your account's archive"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:889
@@ -467,7 +467,7 @@ msgstr "Általános"
 msgid "Media"
 msgstr "Média"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1630
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1642
 msgid "Settings"
 msgstr "Beállítások"
 
@@ -888,22 +888,22 @@ msgstr "Jami megjelenítése"
 msgid "Quit"
 msgstr "Kilépés"
 
-#: src/ringnotify.cpp:332
+#: src/ringnotify.cpp:333
 msgctxt ""
 msgid "Open conversation"
 msgstr "Társalgás megnyitása"
 
-#: src/ringnotify.cpp:340 src/ringnotify.cpp:356
+#: src/ringnotify.cpp:341 src/ringnotify.cpp:357
 msgctxt ""
 msgid "Accept"
 msgstr "Elfogadás"
 
-#: src/ringnotify.cpp:347
+#: src/ringnotify.cpp:348
 msgctxt ""
 msgid "Refuse"
 msgstr "Elutasítás"
 
-#: src/ringnotify.cpp:363
+#: src/ringnotify.cpp:364
 msgctxt ""
 msgid "Decline"
 msgstr "Elutasítás"
@@ -1053,65 +1053,65 @@ msgctxt ""
 msgid "Search contacts or enter number"
 msgstr "Kapcsolatok keresése vagy szám beírása"
 
-#: src/ringmainwindow.cpp:1605
+#: src/ringmainwindow.cpp:1617
 msgid "Leave settings page"
 msgstr "A beállítási oldal elhagyása"
 
-#: src/ringmainwindow.cpp:2001
+#: src/ringmainwindow.cpp:2013
 msgid "There are active calls"
 msgstr "Folyamatban lévő hívás(ok)"
 
-#: src/ringmainwindow.cpp:2055
+#: src/ringmainwindow.cpp:2067
 msgid " is calling you!"
 msgstr " hív!"
 
-#: src/ringmainwindow.cpp:2056
+#: src/ringmainwindow.cpp:2068
 msgid "Incoming call"
 msgstr "Bejövő hívás"
 
-#: src/ringmainwindow.cpp:2198
+#: src/ringmainwindow.cpp:2210
 msgid "New request from "
 msgstr "Új kérés"
 
-#: src/ringmainwindow.cpp:2199
+#: src/ringmainwindow.cpp:2211
 msgid "Trust request"
 msgstr "Megbízható kérelem"
 
-#: src/ringmainwindow.cpp:2260
+#: src/ringmainwindow.cpp:2272
 msgid "New message"
 msgstr "Új üzenet"
 
-#: src/ringmainwindow.cpp:2323
+#: src/ringmainwindow.cpp:2335
 msgid "Stop current call?"
 msgstr "A jelenlegi hívás(ok) leállítása?"
 
-#: src/ringmainwindow.cpp:2324
+#: src/ringmainwindow.cpp:2336
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "A hívás jelenleg folyamatban van. Be kívánja zárni az ablakot és az összes jelenlegi hívást?"
 
-#: src/ringmainwindow.cpp:2391
+#: src/ringmainwindow.cpp:2403
 msgid "Clear history"
 msgstr "Előzmények törlése"
 
-#: src/ringmainwindow.cpp:2392
+#: src/ringmainwindow.cpp:2404
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Valóban szeretné törölni ennek a csevegésnek az előzményeit?"
 
-#: src/ringmainwindow.cpp:2407
+#: src/ringmainwindow.cpp:2419
 msgid "Remove conversation"
 msgstr "Társalgás törlése"
 
-#: src/ringmainwindow.cpp:2408
+#: src/ringmainwindow.cpp:2420
 msgid "Do you really want to remove this conversation?"
 msgstr "Valóban szeretné törölni ezt a csevegését?"
 
-#: src/ringmainwindow.cpp:2423
+#: src/ringmainwindow.cpp:2435
 msgid "Block contact"
 msgstr "Kapcsolat letiltása"
 
-#: src/ringmainwindow.cpp:2424
+#: src/ringmainwindow.cpp:2436
 msgid "Do you really want to block this contact?"
 msgstr "Valóban szeretné letiltani ezt a kapcsolatot?"
 
