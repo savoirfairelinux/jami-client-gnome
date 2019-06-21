@@ -79,6 +79,8 @@ G_DEFINE_TYPE_WITH_PRIVATE(ChatView, chat_view, GTK_TYPE_BOX);
 enum {
     NEW_MESSAGES_DISPLAYED,
     HIDE_VIEW_CLICKED,
+    PLACE_CALL_CLICKED,
+    PLACE_AUDIO_CALL_CLICKED,
     LAST_SIGNAL
 };
 
@@ -142,18 +144,15 @@ placecall_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->conversation_) return;
-    (*priv->accountInfo_)->conversationModel->placeCall(priv->conversation_->uid);
+    g_signal_emit(G_OBJECT(self), chat_view_signals[PLACE_CALL_CLICKED], 0, priv->conversation_->uid.c_str());
 }
 
 static void
 place_audio_call_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    if (!priv->conversation_)
-        return;
-
-    (*priv->accountInfo_)->conversationModel->placeAudioOnlyCall(priv->conversation_->uid);
+    if (!priv->conversation_) return;
+    g_signal_emit(G_OBJECT(self), chat_view_signals[PLACE_AUDIO_CALL_CLICKED], 0, priv->conversation_->uid.c_str());
 }
 
 static void
@@ -342,6 +341,26 @@ chat_view_class_init(ChatViewClass *klass)
         nullptr,
         g_cclosure_marshal_VOID__VOID,
         G_TYPE_NONE, 0);
+
+    chat_view_signals[PLACE_CALL_CLICKED] = g_signal_new (
+        "place-call-clicked",
+        G_TYPE_FROM_CLASS(klass),
+        (GSignalFlags) (G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED),
+        0,
+        nullptr,
+        nullptr,
+        g_cclosure_marshal_VOID__STRING,
+        G_TYPE_NONE, 1, G_TYPE_STRING);
+
+    chat_view_signals[PLACE_AUDIO_CALL_CLICKED] = g_signal_new (
+        "place-audio-call-clicked",
+        G_TYPE_FROM_CLASS(klass),
+        (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+        0,
+        nullptr,
+        nullptr,
+        g_cclosure_marshal_VOID__STRING,
+        G_TYPE_NONE, 1, G_TYPE_STRING);
 }
 
 static void
