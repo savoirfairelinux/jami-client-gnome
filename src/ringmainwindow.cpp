@@ -367,10 +367,12 @@ public:
     QMetaObject::Connection accountStatusChangedConnection_;
     QMetaObject::Connection profileUpdatedConnection_;
 
+    std::string eventUid_;
 private:
     CppImpl() = delete;
     CppImpl(const CppImpl&) = delete;
     CppImpl& operator=(const CppImpl&) = delete;
+
 
     GtkWidget* displayWelcomeView(lrc::api::conversation::Info);
     GtkWidget* displayIncomingView(lrc::api::conversation::Info, bool redraw_webview);
@@ -416,9 +418,54 @@ on_video_double_clicked(RingMainWindow* self)
 static void
 on_hide_view_clicked(RingMainWindow* self)
 {
+    printf("%p", self);
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
     priv->cpp->resetToWelcome();
+}
+
+static gboolean
+place_call_event(RingMainWindow* self)
+{
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), G_SOURCE_REMOVE);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    if (!priv->cpp->eventUid_.empty())
+        priv->cpp->accountInfo_->conversationModel->placeCall(priv->cpp->eventUid_);
+
+    return G_SOURCE_REMOVE;
+}
+
+static void
+on_place_call_clicked(G_GNUC_UNUSED GtkWidget*, gchar *uid, RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self) && uid);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    priv->cpp->eventUid_ = uid;
+    g_idle_add((GSourceFunc)place_call_event, self);
+}
+
+static gboolean
+place_audio_call_event(RingMainWindow* self)
+{
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), G_SOURCE_REMOVE);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    if (!priv->cpp->eventUid_.empty())
+        priv->cpp->accountInfo_->conversationModel->placeAudioOnlyCall(priv->cpp->eventUid_);
+
+    return G_SOURCE_REMOVE;
+}
+
+static void
+on_place_audio_call_clicked(G_GNUC_UNUSED GtkWidget*, gchar *uid, RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self) && uid);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    priv->cpp->eventUid_ = uid;
+    g_idle_add((GSourceFunc)place_audio_call_event, self);
 }
 
 static void
@@ -1335,6 +1382,8 @@ CppImpl::displayChatView(lrc::api::conversation::Info conversation, bool redraw_
     chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
     auto* new_view = chat_view_new(webkitChatContainer(redraw_webview), accountInfo_, chatViewConversation_.get());
     g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(on_hide_view_clicked), self);
+    g_signal_connect(new_view, "place-call-clicked", G_CALLBACK(on_place_call_clicked), self);
+    g_signal_connect(new_view, "place-audio-call-clicked", G_CALLBACK(on_place_audio_call_clicked), self);
     try {
         auto contactUri = chatViewConversation_->participants.front();
         auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
