@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-17 03:09-0400\n"
-"PO-Revision-Date: 2019-06-17 07:09+0000\n"
+"POT-Creation-Date: 2019-06-24 03:09-0400\n"
+"PO-Revision-Date: 2019-06-24 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -349,7 +349,8 @@ msgstr "Vorherige"
 msgid "Next"
 msgstr "Weiter"
 
-#: ui/accountcreationwizard.ui:269 ui/newaccountsettingsview.ui:334
+#: ui/accountcreationwizard.ui:269 ui/profile.ui:7
+#: ui/newaccountsettingsview.ui:334
 msgid "Profile"
 msgstr "Profil"
 
@@ -369,8 +370,8 @@ msgid ""
 "characters long."
 msgstr "Durch Setzen dieses Flags wird ein eindeutiger Benutzername im Jami-Netzwerk eingetragen. Andere Teilnehmer können sich über diesen Eintrag mit Ihnen verbinden, anstelle der Angabe der Ring-ID, welche 40 Zeichen umfasst."
 
-#: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733
+#: ui/accountcreationwizard.ui:424 ui/profile.ui:73
+#: ui/newaccountsettingsview.ui:503 ui/newaccountsettingsview.ui:733
 msgid "Username"
 msgstr "Benutzername"
 
@@ -469,6 +470,18 @@ msgstr "Historie aufbewahren für (Tage, 0 = unbegrenzt)"
 msgid "Clear all history"
 msgstr "Kompletten Verlauf leer"
 
+#: ui/profile.ui:58
+msgid "Informations"
+msgstr ""
+
+#: ui/profile.ui:88 ui/newaccountsettingsview.ui:460
+msgid "ID"
+msgstr "ID"
+
+#: ui/profile.ui:153
+msgid "QR Code"
+msgstr ""
+
 #: ui/ringmainwindow.ui:57
 msgid "Menu"
 msgstr "Menü"
@@ -481,7 +494,7 @@ msgstr "Allgemein"
 msgid "Media"
 msgstr "Medium"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1642
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1689
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -579,10 +592,6 @@ msgstr "Exportiere Konto von Jami..."
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
 msgstr "Ihre generierte PIN:"
-
-#: ui/newaccountsettingsview.ui:460
-msgid "ID"
-msgstr "ID"
 
 #: ui/newaccountsettingsview.ui:538
 msgid "Click to change password"
@@ -983,11 +992,11 @@ msgid "Choose download folder"
 msgstr "Zielordner wählen"
 
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
-#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:932
+#: src/chatview.cpp:177 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
-#: src/generalsettingsview.cpp:175 src/chatview.cpp:180
+#: src/generalsettingsview.cpp:175 src/chatview.cpp:179
 #: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr "_Speichern"
@@ -1012,7 +1021,7 @@ msgstr "Erweiterte Informationen anzeigen"
 msgid "Open Avatar Image"
 msgstr "Profilbild öffnen"
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:180
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:179
 msgid "_Open"
 msgstr "_Öffnen"
 
@@ -1050,82 +1059,82 @@ msgstr "Aufgenommene Nachricht senden"
 msgid "Add account…"
 msgstr "Konto hinzufügen..."
 
-#: src/ringmainwindow.cpp:660
+#: src/ringmainwindow.cpp:705
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Anrufen"
 
-#: src/ringmainwindow.cpp:663
+#: src/ringmainwindow.cpp:708
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Chat öffnen"
 
-#: src/ringmainwindow.cpp:1164
+#: src/ringmainwindow.cpp:1209
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Kontakte suchen oder Nummer eingeben"
 
-#: src/ringmainwindow.cpp:1617
+#: src/ringmainwindow.cpp:1664
 msgid "Leave settings page"
 msgstr "Seite mit Einstellungen verlassen"
 
-#: src/ringmainwindow.cpp:2013
+#: src/ringmainwindow.cpp:2060
 msgid "There are active calls"
 msgstr "Es gibt aktive Anrufe"
 
-#: src/ringmainwindow.cpp:2067
+#: src/ringmainwindow.cpp:2114
 msgid " is calling you!"
 msgstr "ruft Sie gerade an!"
 
-#: src/ringmainwindow.cpp:2068
+#: src/ringmainwindow.cpp:2115
 msgid "Incoming call"
 msgstr "Eingehender Anruf"
 
-#: src/ringmainwindow.cpp:2210
+#: src/ringmainwindow.cpp:2257
 msgid "New request from "
 msgstr "Neue Anfrage von"
 
-#: src/ringmainwindow.cpp:2211
+#: src/ringmainwindow.cpp:2258
 msgid "Trust request"
 msgstr "Anfrage vertrauen"
 
-#: src/ringmainwindow.cpp:2272
+#: src/ringmainwindow.cpp:2319
 msgid "New message"
 msgstr "Neue Nachricht"
 
-#: src/ringmainwindow.cpp:2335
+#: src/ringmainwindow.cpp:2382
 msgid "Stop current call?"
 msgstr "Aktuellen Anruf beenden?"
 
-#: src/ringmainwindow.cpp:2336
+#: src/ringmainwindow.cpp:2383
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Ein Aufruf ist derzeit im Gange. Möchten Sie das Fenster schließen und alle aktuellen Anrufe stoppen?"
 
-#: src/ringmainwindow.cpp:2403
+#: src/ringmainwindow.cpp:2450
 msgid "Clear history"
 msgstr "Verlauf leeren"
 
-#: src/ringmainwindow.cpp:2404
+#: src/ringmainwindow.cpp:2451
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2419
+#: src/ringmainwindow.cpp:2466
 msgid "Remove conversation"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2420
+#: src/ringmainwindow.cpp:2467
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2435
+#: src/ringmainwindow.cpp:2482
 msgid "Block contact"
 msgstr "Kontakt blockieren"
 
-#: src/ringmainwindow.cpp:2436
+#: src/ringmainwindow.cpp:2483
 msgid "Do you really want to block this contact?"
 msgstr ""
 
@@ -1144,45 +1153,49 @@ msgid ""
 "Jami will now quit."
 msgstr "Neuverbindung zum Jami-Daemon (dring) fehlgeschlagen.\nJami wird nun beendet."
 
-#: src/conversationpopupmenu.cpp:211
+#: src/conversationpopupmenu.cpp:199
 msgid "Place _video call"
 msgstr "Starte _Videoanruf"
 
-#: src/conversationpopupmenu.cpp:214
+#: src/conversationpopupmenu.cpp:202
 msgid "Place _audio call"
 msgstr "Starte _Audioanruf"
 
-#: src/conversationpopupmenu.cpp:222
+#: src/conversationpopupmenu.cpp:210
 msgid "_Add to conversations"
 msgstr "_Zu Konversationen hinzufügen"
 
-#: src/conversationpopupmenu.cpp:226
+#: src/conversationpopupmenu.cpp:214
 msgid "_Discard invitation"
 msgstr "Einladung _verwerfen"
 
-#: src/conversationpopupmenu.cpp:229
+#: src/conversationpopupmenu.cpp:217
 msgid "_Block invitations"
 msgstr "_Einladungen blockieren"
 
-#: src/conversationpopupmenu.cpp:234
+#: src/conversationpopupmenu.cpp:222
 msgid "C_lear history"
 msgstr "Verlauf _löschen"
 
-#: src/conversationpopupmenu.cpp:237
+#: src/conversationpopupmenu.cpp:225
 msgid "_Remove conversation"
 msgstr "Unterhaltung _löschen"
 
-#: src/conversationpopupmenu.cpp:242
+#: src/conversationpopupmenu.cpp:230
 msgid "_Block contact"
 msgstr "Kontakt _blockieren"
 
-#: src/conversationpopupmenu.cpp:246
+#: src/conversationpopupmenu.cpp:234
 msgid "_Unblock contact"
 msgstr "Kontakt _entsperren"
 
-#: src/conversationpopupmenu.cpp:252
-msgid "_Copy name"
-msgstr "Name _kopieren"
+#: src/conversationpopupmenu.cpp:240
+msgid "_Profile"
+msgstr ""
+
+#: src/profileview.cpp:111
+msgid "(None)"
+msgstr ""
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
@@ -1220,11 +1233,11 @@ msgid ""
 "freedoms and privacy of its users."
 msgstr "Jami ist eine freie Software für universelle Kommunikation und respektiert die Freiheiten und Privatsphäre der Benutzer."
 
-#: src/chatview.cpp:175
+#: src/chatview.cpp:174
 msgid "Send File"
 msgstr "Datei senden"
 
-#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:929
+#: src/chatview.cpp:174 src/newaccountsettingsview.cpp:929
 msgid "Save File"
 msgstr "Datei speichern"
 

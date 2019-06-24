@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-17 03:09-0400\n"
-"PO-Revision-Date: 2019-06-17 07:09+0000\n"
+"POT-Creation-Date: 2019-06-24 03:09-0400\n"
+"PO-Revision-Date: 2019-06-24 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/savoirfairelinux/jami/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -340,7 +340,8 @@ msgstr "Попереднє"
 msgid "Next"
 msgstr "Наступний"
 
-#: ui/accountcreationwizard.ui:269 ui/newaccountsettingsview.ui:334
+#: ui/accountcreationwizard.ui:269 ui/profile.ui:7
+#: ui/newaccountsettingsview.ui:334
 msgid "Profile"
 msgstr "Профіль"
 
@@ -360,8 +361,8 @@ msgid ""
 "characters long."
 msgstr "Увімкнувши цю опцію, ви зареєструєте унікальне ім'я користувача в мережі Джамі. Люди можуть використовувати його замість вашого 40-значного ідентифікатора."
 
-#: ui/accountcreationwizard.ui:424 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733
+#: ui/accountcreationwizard.ui:424 ui/profile.ui:73
+#: ui/newaccountsettingsview.ui:503 ui/newaccountsettingsview.ui:733
 msgid "Username"
 msgstr "Ім’я"
 
@@ -460,6 +461,18 @@ msgstr ""
 msgid "Clear all history"
 msgstr "Очистити усю історію"
 
+#: ui/profile.ui:58
+msgid "Informations"
+msgstr ""
+
+#: ui/profile.ui:88 ui/newaccountsettingsview.ui:460
+msgid "ID"
+msgstr "Ідентифікатор"
+
+#: ui/profile.ui:153
+msgid "QR Code"
+msgstr ""
+
 #: ui/ringmainwindow.ui:57
 msgid "Menu"
 msgstr "Меню"
@@ -472,7 +485,7 @@ msgstr "Головні"
 msgid "Media"
 msgstr "Медіа"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1642
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1689
 msgid "Settings"
 msgstr "Налаштування"
 
@@ -570,10 +583,6 @@ msgstr "Вивантаження облікового запису в Джамі
 #: ui/newaccountsettingsview.ui:235
 msgid "Your generated pin:"
 msgstr "Ваш новий PIN-код:"
-
-#: ui/newaccountsettingsview.ui:460
-msgid "ID"
-msgstr "Ідентифікатор"
 
 #: ui/newaccountsettingsview.ui:538
 msgid "Click to change password"
@@ -974,11 +983,11 @@ msgid "Choose download folder"
 msgstr ""
 
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
-#: src/chatview.cpp:178 src/newaccountsettingsview.cpp:932
+#: src/chatview.cpp:177 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: src/generalsettingsview.cpp:175 src/chatview.cpp:180
+#: src/generalsettingsview.cpp:175 src/chatview.cpp:179
 #: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr ""
@@ -1003,7 +1012,7 @@ msgstr "Показати додаткові відомості"
 msgid "Open Avatar Image"
 msgstr "Відкрити зображення Аватару."
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:180
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:179
 msgid "_Open"
 msgstr "_Відкрити"
 
@@ -1041,82 +1050,82 @@ msgstr ""
 msgid "Add account…"
 msgstr ""
 
-#: src/ringmainwindow.cpp:660
+#: src/ringmainwindow.cpp:705
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "розпочати дзвінок"
 
-#: src/ringmainwindow.cpp:663
+#: src/ringmainwindow.cpp:708
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "відкрити розмову"
 
-#: src/ringmainwindow.cpp:1164
+#: src/ringmainwindow.cpp:1209
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Пошук контактів чи введіть номер"
 
-#: src/ringmainwindow.cpp:1617
+#: src/ringmainwindow.cpp:1664
 msgid "Leave settings page"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2013
+#: src/ringmainwindow.cpp:2060
 msgid "There are active calls"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2067
+#: src/ringmainwindow.cpp:2114
 msgid " is calling you!"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2068
+#: src/ringmainwindow.cpp:2115
 msgid "Incoming call"
 msgstr "Вхідний дзвінок"
 
-#: src/ringmainwindow.cpp:2210
+#: src/ringmainwindow.cpp:2257
 msgid "New request from "
 msgstr ""
 
-#: src/ringmainwindow.cpp:2211
+#: src/ringmainwindow.cpp:2258
 msgid "Trust request"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2272
+#: src/ringmainwindow.cpp:2319
 msgid "New message"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2335
+#: src/ringmainwindow.cpp:2382
 msgid "Stop current call?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2336
+#: src/ringmainwindow.cpp:2383
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2403
+#: src/ringmainwindow.cpp:2450
 msgid "Clear history"
 msgstr "Видалити історію"
 
-#: src/ringmainwindow.cpp:2404
+#: src/ringmainwindow.cpp:2451
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2419
+#: src/ringmainwindow.cpp:2466
 msgid "Remove conversation"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2420
+#: src/ringmainwindow.cpp:2467
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2435
+#: src/ringmainwindow.cpp:2482
 msgid "Block contact"
 msgstr "Заблокувати контакт"
 
-#: src/ringmainwindow.cpp:2436
+#: src/ringmainwindow.cpp:2483
 msgid "Do you really want to block this contact?"
 msgstr ""
 
@@ -1135,45 +1144,49 @@ msgid ""
 "Jami will now quit."
 msgstr "Не вдалося повторно з'єднатися з сервісом Джамі (dring).\nДжамі зараз закриється."
 
-#: src/conversationpopupmenu.cpp:211
+#: src/conversationpopupmenu.cpp:199
 msgid "Place _video call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:214
+#: src/conversationpopupmenu.cpp:202
 msgid "Place _audio call"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:222
+#: src/conversationpopupmenu.cpp:210
 msgid "_Add to conversations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:226
+#: src/conversationpopupmenu.cpp:214
 msgid "_Discard invitation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:229
+#: src/conversationpopupmenu.cpp:217
 msgid "_Block invitations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:234
+#: src/conversationpopupmenu.cpp:222
 msgid "C_lear history"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:237
+#: src/conversationpopupmenu.cpp:225
 msgid "_Remove conversation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:242
+#: src/conversationpopupmenu.cpp:230
 msgid "_Block contact"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:246
+#: src/conversationpopupmenu.cpp:234
 msgid "_Unblock contact"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:252
-msgid "_Copy name"
-msgstr "_Коаіювати ім’я"
+#: src/conversationpopupmenu.cpp:240
+msgid "_Profile"
+msgstr ""
+
+#: src/profileview.cpp:111
+msgid "(None)"
+msgstr ""
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
@@ -1211,11 +1224,11 @@ msgid ""
 "freedoms and privacy of its users."
 msgstr "Джамі — це вільне програмне забезпечення для будь-якого зв'язку з повагою до свобод і приватності користувачів."
 
-#: src/chatview.cpp:175
+#: src/chatview.cpp:174
 msgid "Send File"
 msgstr ""
 
-#: src/chatview.cpp:175 src/newaccountsettingsview.cpp:929
+#: src/chatview.cpp:174 src/newaccountsettingsview.cpp:929
 msgid "Save File"
 msgstr "Зберегти файл"
 
