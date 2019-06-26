@@ -128,6 +128,7 @@ struct RingMainWindowPrivate
     gulong notif_decline_call;
     gboolean set_top_account_flag = true;
     gboolean is_fullscreen_main_win = false;
+    gboolean key_pressed = false;
 
     GCancellable *cancellable;
 #if USE_LIBNM
@@ -606,10 +607,13 @@ on_search_entry_key_released(G_GNUC_UNUSED GtkEntry* search_entry, GdkEventKey* 
 static gboolean
 on_dtmf_pressed(RingMainWindow* self, GdkEventKey* event, gpointer user_data)
 {
-    (void)user_data;
-
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), GDK_EVENT_PROPAGATE);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    if(priv->key_pressed)
+        return GDK_EVENT_PROPAGATE;
+
+    (void)user_data;
 
     g_return_val_if_fail(event->type == GDK_KEY_PRESS, GDK_EVENT_PROPAGATE);
     g_return_val_if_fail(priv, GDK_EVENT_PROPAGATE);
@@ -649,8 +653,19 @@ on_dtmf_pressed(RingMainWindow* self, GdkEventKey* event, gpointer user_data)
     QString val = QString::fromUcs4(&unicode_val, 1);
     g_debug("attempting to play DTMF tone during ongoing call: %s", val.toUtf8().constData());
     priv->cpp->accountInfo_->callModel->playDTMF(current_item.callId, val.toStdString());
+
+    // set keyPressed to True
+    priv->key_pressed = true;
     // always propagate the key, so we don't steal accelerators/shortcuts
     return GDK_EVENT_PROPAGATE;
+}
+
+static gboolean
+on_dtmf_released(RingMainWindow* self, GdkEventKey* event, gpointer user_data)
+{
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), GDK_EVENT_PROPAGATE);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    priv->key_pressed = false;
 }
 
 static void
@@ -1200,8 +1215,9 @@ CppImpl::init()
                                               GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
 
-    /* react to digit key press events */
+    /* react to digit key press/release events */
     g_signal_connect(self, "key-press-event", G_CALLBACK(on_dtmf_pressed), nullptr);
+    g_signal_connect(self, "key-release-event", G_CALLBACK(on_dtmf_released), nullptr);
 
     /* set the search entry placeholder text */
     gtk_entry_set_placeholder_text(GTK_ENTRY(widgets->search_entry),
