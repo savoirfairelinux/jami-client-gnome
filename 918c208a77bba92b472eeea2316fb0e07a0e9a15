@@ -22,6 +22,30 @@
       "revId": "918c208a77bba92b472eeea2316fb0e07a0e9a15",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89906cea_4b30cec0",
+        "filename": "src/ringmainwindow.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 633
+      },
+      "writtenOn": "2019-06-26T14:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91aa6663_422491be",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 71
+      },
+      "revId": "918c208a77bba92b472eeea2316fb0e07a0e9a15",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
