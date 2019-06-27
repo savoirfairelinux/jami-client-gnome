@@ -563,6 +563,8 @@ build_conversations_view(ConversationsView *self)
     gtk_tree_view_set_model(GTK_TREE_VIEW(self),
                             GTK_TREE_MODEL(model));
 
+    gtk_tree_view_set_enable_search(GTK_TREE_VIEW(self), false);
+
     // ringId method column
     auto area = gtk_cell_area_box_new();
     auto column = gtk_tree_view_column_new_with_area(area);

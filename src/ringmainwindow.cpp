@@ -605,6 +605,15 @@ on_search_entry_key_released(G_GNUC_UNUSED GtkEntry* search_entry, GdkEventKey* 
 }
 
 static gboolean
+on_current_call_clicked(GtkWidget *widget, GdkEventButton *event)
+{
+    // once mouse is clicked, grab the focus
+    gtk_widget_set_can_focus (widget, true);
+    gtk_widget_grab_focus(widget);
+    return GDK_EVENT_PROPAGATE;
+}
+
+static gboolean
 on_dtmf_pressed(RingMainWindow* self, GdkEventKey* event, gpointer user_data)
 {
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), GDK_EVENT_PROPAGATE);
@@ -1347,6 +1356,10 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
         conversations_view_select_conversation(
             CONVERSATIONS_VIEW(widgets->treeview_conversations),
             conversation.uid);
+
+    // grab focus for new view
+    gtk_widget_set_can_focus (new_view, true);
+    gtk_widget_grab_focus(new_view);
 }
 
 GtkWidget*
@@ -1388,6 +1401,7 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation, bool 
 
     g_signal_connect_swapped(new_view, "video-double-clicked",
                              G_CALLBACK(on_video_double_clicked), self);
+    g_signal_connect(new_view, "button-press-event", G_CALLBACK(on_current_call_clicked), nullptr);
     return new_view;
 }
 
