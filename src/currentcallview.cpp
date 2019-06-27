@@ -1294,3 +1294,11 @@ current_call_view_new(WebKitChatContainer* chat_widget,
     priv->cpp->setup(chat_widget, accountInfo, conversation, avModel);
     return GTK_WIDGET(self);
 }
+
+void
+current_call_view_handup_focus(GtkWidget *current_call_view)
+{
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(current_call_view);
+    gtk_widget_set_can_focus (priv->button_hangup, true);
+    gtk_widget_grab_focus(priv->button_hangup);
+}

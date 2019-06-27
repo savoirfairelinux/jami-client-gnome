@@ -58,5 +58,6 @@ GtkWidget *current_call_view_new           (WebKitChatContainer* view,
 lrc::api::conversation::Info current_call_view_get_conversation(CurrentCallView*);
 GtkWidget *current_call_view_get_chat_view(CurrentCallView*);
 void current_call_view_show_chat(CurrentCallView*);
+void current_call_view_handup_focus(GtkWidget *current_call_view);
 
 G_END_DECLS
