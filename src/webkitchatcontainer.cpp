@@ -750,3 +750,14 @@ webkit_chat_update_chatview_frame(WebKitChatContainer *view, bool accountEnabled
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
+
+void 
+webkit_chat_container_execute_javascript(WebKitChatContainer *view, const gchar* function_call)
+{
+    // grab focus for web view
+    WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
+    gtk_widget_set_can_focus (priv->webview_chat, true);
+    gtk_widget_grab_focus(priv->webview_chat);
+
+    webkit_chat_container_execute_js(view, function_call);
+}

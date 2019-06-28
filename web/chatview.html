@@ -90,7 +90,7 @@
                 <path d="M0 0h24v24H0z" fill="none"/>
             </svg>
         </div>
-        <textarea id="message" autofocus onkeyup="grow_text_area()" onkeydown="process_messagebar_keydown()" rows="1"></textarea>
+        <textarea id="message" onkeyup="grow_text_area()" onkeydown="process_messagebar_keydown()" rows="1" placeholder="Type a Message"></textarea>
         <div id="sendButton" class="nav-button action-button" onclick="sendMessage(); grow_text_area()">
             <svg class="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
@@ -171,7 +171,6 @@ function init_i18n(data) {
         i18n = new Jed(data) // eslint-disable-line no-undef
     }
 
-    reset_message_bar_input()
     set_titles()
 }
 
@@ -186,10 +185,6 @@ function set_titles() {
     acceptButton.title = i18n.gettext("Accept")
     refuseButton.title = i18n.gettext("Refuse")
     blockButton.title = i18n.gettext("Block")
-}
-
-function reset_message_bar_input() {
-    messageBarInput.placeholder = i18n.gettext("Type a message")
 }
 
 function onScrolled_() {
@@ -299,7 +294,6 @@ function update_chatview_frame(accountEnabled, banned, temporary, alias, bestid)
             messageBarInput.placeholder = i18n.gettext("Note: an interaction will create a new contact.")
         } else {
             addToConvButton.style.display = ""
-            reset_message_bar_input()
         }
     }
 
@@ -1666,6 +1660,29 @@ function setSenderImage(set_sender_image_object)
     style.id = sender_image_id
     style.innerHTML = "." + sender_image_id + " {content: url(data:image/png;base64," + sender_image + ");}"
     document.head.appendChild(style)
+}
+
+/**
+ * Get textarea focus
+ */
+/* exported getTextAreaFocus */
+function getTextAreaFocus()
+{
+    //document.getElementById("message").click();
+    document.body.focus();
+    document.getElementById("message").value += "dsdsd";
+    document.getElementById("message").focus();
+    eventFire(document.getElementById('message'), 'click');
+}
+
+function eventFire(el, etype){
+  if (el.fireEvent) {
+    el.fireEvent('on' + etype);
+  } else {
+    var evObj = document.createEvent('Events');
+    evObj.initEvent(etype, true, false);
+    el.dispatchEvent(evObj);
+  }
 }
 
 </script>

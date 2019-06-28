@@ -1352,14 +1352,23 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
     gtk_container_add(GTK_CONTAINER(widgets->frame_call), new_view);
     gtk_widget_show(new_view);
 
-    if (conversation.uid != "" && type != RING_WELCOME_VIEW_TYPE)
+    if (conversation.uid != "" && type != RING_WELCOME_VIEW_TYPE){
         conversations_view_select_conversation(
             CONVERSATIONS_VIEW(widgets->treeview_conversations),
             conversation.uid);
+    }
 
     // grab focus for new view
-    gtk_widget_set_can_focus (new_view, true);
+    gtk_widget_set_can_focus(new_view, true);
     gtk_widget_grab_focus(new_view);
+    
+    if(g_type_is_a(CHAT_VIEW_TYPE, type)){
+
+        gchar *function_call;
+        function_call = g_strdup("getTextAreaFocus();");
+        webkit_chat_container_execute_javascript(WEBKIT_CHAT_CONTAINER(widgets->webkit_chat_container), function_call);
+        g_free(function_call);
+    }
 }
 
 GtkWidget*
