@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-24 03:09-0400\n"
-"PO-Revision-Date: 2019-06-24 07:09+0000\n"
+"POT-Creation-Date: 2019-07-01 03:09-0400\n"
+"PO-Revision-Date: 2019-06-24 09:41+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -458,7 +458,7 @@ msgstr "清除所有記錄"
 
 #: ui/profile.ui:58
 msgid "Informations"
-msgstr ""
+msgstr "資訊"
 
 #: ui/profile.ui:88 ui/newaccountsettingsview.ui:460
 msgid "ID"
@@ -466,7 +466,7 @@ msgstr "ID"
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "QR Code"
 
 #: ui/ringmainwindow.ui:57
 msgid "Menu"
@@ -480,7 +480,7 @@ msgstr "一般"
 msgid "Media"
 msgstr "媒體"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1689
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1721
 msgid "Settings"
 msgstr "設定"
 
@@ -1041,86 +1041,86 @@ msgstr "停止錄製"
 msgid "Send recorded message"
 msgstr "傳送已錄製的訊息"
 
-#: src/ringmainwindow.cpp:185
+#: src/ringmainwindow.cpp:186
 msgid "Add account…"
 msgstr "新增帳號……"
 
-#: src/ringmainwindow.cpp:705
+#: src/ringmainwindow.cpp:730
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "開始通話"
 
-#: src/ringmainwindow.cpp:708
+#: src/ringmainwindow.cpp:733
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "開啟聊天"
 
-#: src/ringmainwindow.cpp:1209
+#: src/ringmainwindow.cpp:1235
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "搜尋聯絡人或輸入號碼"
 
-#: src/ringmainwindow.cpp:1664
+#: src/ringmainwindow.cpp:1696
 msgid "Leave settings page"
 msgstr "離開設定頁面"
 
-#: src/ringmainwindow.cpp:2060
+#: src/ringmainwindow.cpp:2092
 msgid "There are active calls"
 msgstr "有活躍的通話"
 
-#: src/ringmainwindow.cpp:2114
+#: src/ringmainwindow.cpp:2146
 msgid " is calling you!"
 msgstr "正在與您通話！"
 
-#: src/ringmainwindow.cpp:2115
+#: src/ringmainwindow.cpp:2147
 msgid "Incoming call"
 msgstr "來電"
 
-#: src/ringmainwindow.cpp:2257
+#: src/ringmainwindow.cpp:2289
 msgid "New request from "
 msgstr "新請求從"
 
-#: src/ringmainwindow.cpp:2258
+#: src/ringmainwindow.cpp:2290
 msgid "Trust request"
 msgstr "信任請求"
 
-#: src/ringmainwindow.cpp:2319
+#: src/ringmainwindow.cpp:2351
 msgid "New message"
 msgstr "新訊息"
 
-#: src/ringmainwindow.cpp:2382
+#: src/ringmainwindow.cpp:2414
 msgid "Stop current call?"
 msgstr "停止目前的通話？"
 
-#: src/ringmainwindow.cpp:2383
+#: src/ringmainwindow.cpp:2415
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "通話進行中。您想要關閉視窗並停止目前所有的通話嗎？"
 
-#: src/ringmainwindow.cpp:2450
+#: src/ringmainwindow.cpp:2482
 msgid "Clear history"
 msgstr "清除記錄"
 
-#: src/ringmainwindow.cpp:2451
+#: src/ringmainwindow.cpp:2483
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "您真的想要清除此對話的歷史嗎？"
 
-#: src/ringmainwindow.cpp:2466
+#: src/ringmainwindow.cpp:2498
 msgid "Remove conversation"
 msgstr "移除對話"
 
-#: src/ringmainwindow.cpp:2467
+#: src/ringmainwindow.cpp:2499
 msgid "Do you really want to remove this conversation?"
 msgstr "您真的想要移除此對話嗎？"
 
-#: src/ringmainwindow.cpp:2482
+#: src/ringmainwindow.cpp:2514
 msgid "Block contact"
 msgstr "阻擋連絡人"
 
-#: src/ringmainwindow.cpp:2483
+#: src/ringmainwindow.cpp:2515
 msgid "Do you really want to block this contact?"
 msgstr "您真的想要封鎖此聯絡人嗎？"
 
@@ -1177,7 +1177,7 @@ msgstr "解除阻擋聯絡人(_U)"
 
 #: src/conversationpopupmenu.cpp:240
 msgid "_Profile"
-msgstr ""
+msgstr "設定檔(_P)"
 
 #: src/profileview.cpp:111
 msgid "(None)"
