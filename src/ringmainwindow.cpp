@@ -2081,9 +2081,9 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
 }
 
 void
-CppImpl::slotCallStarted(const std::string& callId)
+CppImpl::slotCallStarted(const std::string& /*callId*/)
 {
-    if (!lrc::api::Lrc::activeCalls().empty()) {
+    if (lrc::api::Lrc::activeCalls().size() == 1) {
         GtkApplication* app = gtk_window_get_application(GTK_WINDOW(self));
         if (app) {
             inhibitionCookie = gtk_application_inhibit(
@@ -2096,7 +2096,7 @@ CppImpl::slotCallStarted(const std::string& callId)
 }
 
 void
-CppImpl::slotCallEnded(const std::string& callId)
+CppImpl::slotCallEnded(const std::string& /*callId*/)
 {
     if (lrc::api::Lrc::activeCalls().empty()) {
         GtkApplication* app = gtk_window_get_application(GTK_WINDOW(self));
