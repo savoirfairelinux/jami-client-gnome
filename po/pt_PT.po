@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-01 03:09-0400\n"
-"PO-Revision-Date: 2019-06-24 07:09+0000\n"
+"POT-Creation-Date: 2019-07-08 03:09-0400\n"
+"PO-Revision-Date: 2019-07-01 11:51+0000\n"
 "Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/savoirfairelinux/jami/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +63,7 @@ msgstr "Focar a lista de pedidos pendentes"
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Alternar ecrã inteiro"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -279,11 +279,11 @@ msgstr "Criar uma nova conta Jami (para novos utilizadores)"
 
 #: ui/accountcreationwizard.ui:72
 msgid "Import an existing account"
-msgstr ""
+msgstr "Importar uma conta existente"
 
 #: ui/accountcreationwizard.ui:73
 msgid "Import an account with your PIN or your account's archive"
-msgstr ""
+msgstr "Importar uma conta com o seu PIN ou um arquivo da sua conta"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:889
@@ -456,7 +456,7 @@ msgstr "Limpar histórico"
 
 #: ui/profile.ui:58
 msgid "Informations"
-msgstr ""
+msgstr "Informações"
 
 #: ui/profile.ui:88 ui/newaccountsettingsview.ui:460
 msgid "ID"
@@ -464,7 +464,7 @@ msgstr "ID"
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "Código QR"
 
 #: ui/ringmainwindow.ui:57
 msgid "Menu"
@@ -1175,7 +1175,7 @@ msgstr "_Desbloquear contacto"
 
 #: src/conversationpopupmenu.cpp:240
 msgid "_Profile"
-msgstr ""
+msgstr "_Perfil"
 
 #: src/profileview.cpp:111
 msgid "(None)"
