@@ -179,18 +179,31 @@ CppImpl::drawFramerates()
         g_warning("AVModel not initialized yet");
         return;
     }
+    using namespace lrc::api;
     auto active = 0;
     auto currentDevice = avModel_->getDefaultDeviceName();
+    auto deviceCaps = avModel_->getDeviceCapabilities(currentDevice);
     std::string currentChannel = "", currentRes = "", currentRate = "";
+    int currentResIndex;
     try {
-        currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
-        currentRes = avModel_->getDeviceSettings(currentDevice).size;
-        currentRate = std::to_string(avModel_->getDeviceSettings(currentDevice).rate);
+        auto deviceSettings = avModel_->getDeviceSettings(currentDevice);
+        currentChannel = deviceSettings.channel;
+        currentRes = deviceSettings.size;
+        currentRate = std::to_string(deviceSettings.rate);
+        auto resRates = deviceCaps.at(currentChannel);
+        auto it = std::find_if(resRates.begin(), resRates.end(),
+            [&currentRes](const std::pair<video::Resolution, video::FrameratesList>& element) {
+                return element.first == currentRes;
+            });
+        if (it == resRates.end()) {
+            throw std::out_of_range("Can't find resolution");
+        }
+        currentResIndex = std::distance(resRates.begin(), it);
     } catch (const std::out_of_range&) {
         g_warning("drawFramerates out_of_range exception");
         return;
     }
-    auto rates = avModel_->getDeviceCapabilities(currentDevice).at(currentChannel).at(currentRes);
+    auto rates = deviceCaps.at(currentChannel).at(currentResIndex).second;
     auto i = 0;
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate));
     for (const auto& rate : rates) {
