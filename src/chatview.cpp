@@ -40,6 +40,15 @@
 // Client
 #include "utils/files.h"
 
+struct CppImpl {
+    struct Interaction {
+        std::string conv;
+        uint64_t id;
+        lrc::api::interaction::Info info;
+    };
+    std::vector<Interaction> interactionsBuffer_;
+};
+
 struct _ChatView
 {
     GtkBox parent;
@@ -70,6 +79,9 @@ struct _ChatViewPrivate
     gulong webkit_ready;
     gulong webkit_send_text;
     gulong webkit_drag_drop;
+
+    bool ready_ {false};
+    CppImpl* cpp_;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ChatView, chat_view, GTK_TYPE_BOX);
@@ -452,8 +464,6 @@ print_text_recording(ChatView *self)
         *(*priv->accountInfo_)->conversationModel,
         priv->conversation_->interactions
     );
-
-    QObject::disconnect(priv->new_interaction_connection);
 }
 
 static void
@@ -472,14 +482,12 @@ webkit_chat_container_ready(ChatView* self)
     print_text_recording(self);
     load_participants_images(self);
 
-    priv->new_interaction_connection = QObject::connect(
-    &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newInteraction,
-    [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
-        if (!priv->conversation_) return;
-        if (uid == priv->conversation_->uid) {
-            print_interaction_to_buffer(self, interactionId, interaction);
+    priv->ready_ = true;
+    for (const auto& interaction: priv->cpp_->interactionsBuffer_) {
+        if (interaction.conv == priv->conversation_->uid) {
+            print_interaction_to_buffer(self, interaction.id, interaction.info);
         }
-    });
+    }
 
     priv->update_interaction_connection = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::interactionStatusUpdated,
@@ -640,6 +648,20 @@ build_chat_view(ChatView* self)
         G_CALLBACK(on_webkit_drag_drop),
         self
     );
+
+    priv->new_interaction_connection = QObject::connect(
+    &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newInteraction,
+    [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
+        if (!priv->conversation_) return;
+        if (!priv->ready_ && priv->cpp_) {
+            priv->cpp_->interactionsBuffer_.emplace_back(CppImpl::Interaction {
+                uid, interactionId, interaction});
+        } else if (uid == priv->conversation_->uid) {
+            print_interaction_to_buffer(self, interactionId, interaction);
+        }
+    });
+
+    priv->cpp_ = new CppImpl();
 
     if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
         webkit_chat_container_ready(self);
