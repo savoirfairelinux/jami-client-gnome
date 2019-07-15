@@ -12,6 +12,7 @@
 # hermannsan <hermann-san@gmx.de>, 2017
 # herrwusel <herrvonmir@gmail.com>, 2019
 # nautilusx, 2017-2019
+# Moritz Brunner <moritzbrunner@freenet.de>, 2019
 # M. Utkun Uyar, 2016
 # René Krell <renda.krell@gmail.com>, 2019
 # resajo sceniar <resajo-transifex@munin-soft.de>, 2016
@@ -24,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-01 03:09-0400\n"
-"PO-Revision-Date: 2019-06-24 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2019-07-15 03:09-0400\n"
+"PO-Revision-Date: 2019-07-14 16:48+0000\n"
+"Last-Translator: Moritz Brunner <moritzbrunner@freenet.de>\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +37,7 @@ msgstr ""
 
 #: ui/ringgearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
-msgstr ""
+msgstr "Tastatur_Shortcuts"
 
 #: ui/ringgearsmenu.ui:11
 msgid "_About"
@@ -54,32 +55,32 @@ msgstr "Allgemein"
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
 msgid "Open application menu"
-msgstr ""
+msgstr "Hauptmenü öffnen"
 
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr ""
+msgstr "Kontenliste öffnen"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Select search bar"
-msgstr ""
+msgstr "Suchleiste auswählen"
 
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Focus the list of conversations"
-msgstr ""
+msgstr "Konversationsliste fokusieren"
 
 #: ui/help-overlay.ui:46
 msgctxt "shortcut window"
 msgid "Focus the list pending requests"
-msgstr ""
+msgstr "Liste der ausstehenden Anfragen fokusieren"
 
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Vollbildmodus umschalten"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -104,12 +105,12 @@ msgstr "Verlauf leeren"
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr ""
+msgstr "Konversation hinzufügen"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
-msgstr ""
+msgstr "Konversation entfernen"
 
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
@@ -119,12 +120,12 @@ msgstr "Kontakt blockieren"
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Unblock contact"
-msgstr ""
+msgstr "Kontakt entsperren"
 
 #: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
-msgstr ""
+msgstr "Kontaktname kopieren"
 
 #: ui/help-overlay.ui:127
 msgctxt "shortcut window"
@@ -134,12 +135,12 @@ msgstr "Anruf"
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
-msgstr ""
+msgstr "Anruf annehmen"
 
 #: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
-msgstr ""
+msgstr "Anruf ablehnen"
 
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
@@ -149,32 +150,32 @@ msgstr "Einstellungen"
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
-msgstr ""
+msgstr "Einstellungen öffnen/schließen"
 
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
-msgstr ""
+msgstr "Haupteinstellungen öffnen"
 
 #: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
-msgstr ""
+msgstr "Medieneinstellungen öffnen"
 
 #: ui/help-overlay.ui:174
 msgctxt "shortcut window"
 msgid "Open account settings"
-msgstr ""
+msgstr "Kontoeinstellungen öffnen"
 
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
-msgstr ""
+msgstr "Chat-Ansicht"
 
 #: ui/help-overlay.ui:189
 msgctxt "shortcut window"
 msgid "Write on a new line"
-msgstr ""
+msgstr "In neuer Zeile schreiben"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
@@ -295,11 +296,11 @@ msgstr "Erzeugen eines neuen Jami-Kontos (für neue Benutzer)"
 
 #: ui/accountcreationwizard.ui:72
 msgid "Import an existing account"
-msgstr ""
+msgstr "Existierendes Konto importieren"
 
 #: ui/accountcreationwizard.ui:73
 msgid "Import an account with your PIN or your account's archive"
-msgstr ""
+msgstr "Importiere ein Konto mit deiner PIN oder deinem Kontoarchiv"
 
 #: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
 #: src/newaccountsettingsview.cpp:889
@@ -472,7 +473,7 @@ msgstr "Kompletten Verlauf leer"
 
 #: ui/profile.ui:58
 msgid "Informations"
-msgstr ""
+msgstr "Informationen"
 
 #: ui/profile.ui:88 ui/newaccountsettingsview.ui:460
 msgid "ID"
@@ -480,7 +481,7 @@ msgstr "ID"
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "QR-Code"
 
 #: ui/ringmainwindow.ui:57
 msgid "Menu"
@@ -556,7 +557,7 @@ msgstr "Hardwarebeschleunigung"
 
 #: ui/mediasettingsview.ui:282
 msgid "Enable hardware acceleration:"
-msgstr ""
+msgstr "Hardwarebeschleunigung aktivieren"
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
@@ -671,7 +672,7 @@ msgstr "OpenDHT-Einstellungen"
 
 #: ui/newaccountsettingsview.ui:1443
 msgid "Auto connect on local network"
-msgstr ""
+msgstr "In lokalem Netzwerk automatisch verbinden"
 
 #: ui/newaccountsettingsview.ui:1479
 msgid "Bootstrap"
@@ -961,25 +962,25 @@ msgstr "Registrierung wird durchgeführt..."
 
 #: src/usernameregistrationbox.cpp:376
 msgid "Name registration Error"
-msgstr ""
+msgstr "Fehler bei der Namensregistrierung"
 
 #: src/usernameregistrationbox.cpp:435
 msgid ""
 "Unable to register name (Invalid name). Your username should contains "
 "between 3 and 32 alphanumerics characters (or underscore)."
-msgstr ""
+msgstr "Name kann nicht registriert werden (Ungültiger Name). Der Benutzername sollte aus 3 und 32 alphanumerischen Zeichen (oder Unterstrich) bestehen."
 
 #: src/usernameregistrationbox.cpp:439
 msgid "Unable to register name (Wrong password)."
-msgstr ""
+msgstr "Name kann nicht registriert werden (Falsches Passwort)."
 
 #: src/usernameregistrationbox.cpp:443
 msgid "Unable to register name (Username already taken)."
-msgstr ""
+msgstr "Name kann nicht registriert werden (Benutzername bereits vergeben)."
 
 #: src/usernameregistrationbox.cpp:447
 msgid "Unable to register name (Network error) - check your connection."
-msgstr ""
+msgstr "Name kann nicht registriert werden (Netzwerkfehler) - Internetverbindung prüfen."
 
 #: src/generalsettingsview.cpp:100
 msgid ""
@@ -992,11 +993,11 @@ msgid "Choose download folder"
 msgstr "Zielordner wählen"
 
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
-#: src/chatview.cpp:177 src/newaccountsettingsview.cpp:932
+#: src/chatview.cpp:189 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
-#: src/generalsettingsview.cpp:175 src/chatview.cpp:179
+#: src/generalsettingsview.cpp:175 src/chatview.cpp:191
 #: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr "_Speichern"
@@ -1021,7 +1022,7 @@ msgstr "Erweiterte Informationen anzeigen"
 msgid "Open Avatar Image"
 msgstr "Profilbild öffnen"
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:191
 msgid "_Open"
 msgstr "_Öffnen"
 
@@ -1120,15 +1121,15 @@ msgstr "Verlauf leeren"
 
 #: src/ringmainwindow.cpp:2483
 msgid "Do you really want to clear the history of this conversation?"
-msgstr ""
+msgstr "Wollen Sie wirklich den Verlauf dieser Konversation löschen?"
 
 #: src/ringmainwindow.cpp:2498
 msgid "Remove conversation"
-msgstr ""
+msgstr "Konversation entfernen"
 
 #: src/ringmainwindow.cpp:2499
 msgid "Do you really want to remove this conversation?"
-msgstr ""
+msgstr "Wollen Sie wirklich diese Konversation löschen?"
 
 #: src/ringmainwindow.cpp:2514
 msgid "Block contact"
@@ -1136,7 +1137,7 @@ msgstr "Kontakt blockieren"
 
 #: src/ringmainwindow.cpp:2515
 msgid "Do you really want to block this contact?"
-msgstr ""
+msgstr "Wollen Sie wirklich diesen Kontakt sperren?"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1191,11 +1192,11 @@ msgstr "Kontakt _entsperren"
 
 #: src/conversationpopupmenu.cpp:240
 msgid "_Profile"
-msgstr ""
+msgstr "_Profil"
 
 #: src/profileview.cpp:111
 msgid "(None)"
-msgstr ""
+msgstr "(Nichts)"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"
@@ -1233,11 +1234,11 @@ msgid ""
 "freedoms and privacy of its users."
 msgstr "Jami ist eine freie Software für universelle Kommunikation und respektiert die Freiheiten und Privatsphäre der Benutzer."
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:186
 msgid "Send File"
 msgstr "Datei senden"
 
-#: src/chatview.cpp:174 src/newaccountsettingsview.cpp:929
+#: src/chatview.cpp:186 src/newaccountsettingsview.cpp:929
 msgid "Save File"
 msgstr "Datei speichern"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-01 03:09-0400\n"
+"POT-Creation-Date: 2019-07-15 03:09-0400\n"
 "PO-Revision-Date: 2019-06-24 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/savoirfairelinux/jami/language/pa/)\n"
@@ -976,11 +976,11 @@ msgid "Choose download folder"
 msgstr ""
 
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
-#: src/chatview.cpp:177 src/newaccountsettingsview.cpp:932
+#: src/chatview.cpp:189 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr ""
 
-#: src/generalsettingsview.cpp:175 src/chatview.cpp:179
+#: src/generalsettingsview.cpp:175 src/chatview.cpp:191
 #: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr ""
@@ -1005,7 +1005,7 @@ msgstr ""
 msgid "Open Avatar Image"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:191
 msgid "_Open"
 msgstr ""
 
@@ -1217,11 +1217,11 @@ msgid ""
 "freedoms and privacy of its users."
 msgstr "Jami ਦੁਨੀਆ ਭਰ ਵਿੱਚ ਸੰਚਾਰ ਕਰਨ ਲਈ ਮੁਫ਼ਤ ਸਾਫ਼ਟਵੇਅਰ ਹੈ ਜੋ ਆਪਣੇ ਵਰਤੋਂਕਾਰਾਂ ਦੀ ਅਜ਼ਾਦੀ ਅਤੇ ਪਰਦੇਦਾਰੀ ਦਾ ਖਿਆਲ ਰੱਖਦਾ ਹੈ।"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:186
 msgid "Send File"
 msgstr ""
 
-#: src/chatview.cpp:174 src/newaccountsettingsview.cpp:929
+#: src/chatview.cpp:186 src/newaccountsettingsview.cpp:929
 msgid "Save File"
 msgstr ""
 

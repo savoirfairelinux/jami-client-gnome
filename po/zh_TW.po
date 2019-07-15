@@ -5,14 +5,14 @@
 # Translators:
 # Hsiu-Ming Chang <cges30901@gmail.com>, 2016
 # Hsiu-Ming Chang <cges30901@gmail.com>, 2016
-# Jeff Huang <s8321414@gmail.com>, 2017-2019
+# 黃柏諺 <s8321414@gmail.com>, 2017-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-01 03:09-0400\n"
+"POT-Creation-Date: 2019-07-15 03:09-0400\n"
 "PO-Revision-Date: 2019-06-24 09:41+0000\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
+"Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -978,11 +978,11 @@ msgid "Choose download folder"
 msgstr "選擇下載資料夾"
 
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
-#: src/chatview.cpp:177 src/newaccountsettingsview.cpp:932
+#: src/chatview.cpp:189 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: src/generalsettingsview.cpp:175 src/chatview.cpp:179
+#: src/generalsettingsview.cpp:175 src/chatview.cpp:191
 #: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr "儲存(_S)"
@@ -1007,7 +1007,7 @@ msgstr "顯示進階資訊"
 msgid "Open Avatar Image"
 msgstr "開啟大頭貼圖片"
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:191
 msgid "_Open"
 msgstr "開啟(_O)"
 
@@ -1219,11 +1219,11 @@ msgid ""
 "freedoms and privacy of its users."
 msgstr "Jami 是一套通用通訊的自由軟體，其尊重使用者的自由與隱私。"
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:186
 msgid "Send File"
 msgstr "傳送檔案"
 
-#: src/chatview.cpp:174 src/newaccountsettingsview.cpp:929
+#: src/chatview.cpp:186 src/newaccountsettingsview.cpp:929
 msgid "Save File"
 msgstr "儲存檔案"
 

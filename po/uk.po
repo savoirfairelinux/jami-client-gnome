@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-01 03:09-0400\n"
+"POT-Creation-Date: 2019-07-15 03:09-0400\n"
 "PO-Revision-Date: 2019-06-24 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/savoirfairelinux/jami/language/uk/)\n"
@@ -983,11 +983,11 @@ msgid "Choose download folder"
 msgstr ""
 
 #: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
-#: src/chatview.cpp:177 src/newaccountsettingsview.cpp:932
+#: src/chatview.cpp:189 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: src/generalsettingsview.cpp:175 src/chatview.cpp:179
+#: src/generalsettingsview.cpp:175 src/chatview.cpp:191
 #: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr ""
@@ -1012,7 +1012,7 @@ msgstr "Показати додаткові відомості"
 msgid "Open Avatar Image"
 msgstr "Відкрити зображення Аватару."
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:179
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:191
 msgid "_Open"
 msgstr "_Відкрити"
 
@@ -1224,11 +1224,11 @@ msgid ""
 "freedoms and privacy of its users."
 msgstr "Джамі — це вільне програмне забезпечення для будь-якого зв'язку з повагою до свобод і приватності користувачів."
 
-#: src/chatview.cpp:174
+#: src/chatview.cpp:186
 msgid "Send File"
 msgstr ""
 
-#: src/chatview.cpp:174 src/newaccountsettingsview.cpp:929
+#: src/chatview.cpp:186 src/newaccountsettingsview.cpp:929
 msgid "Save File"
 msgstr "Зберегти файл"
 
