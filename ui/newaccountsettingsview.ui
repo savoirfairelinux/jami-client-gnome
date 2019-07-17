@@ -1120,6 +1120,114 @@
                       <property name="halign">fill</property>
                     </object>
                   </child>
+                  <!-- Discovery settings -->
+                  <child>
+                    <object class="GtkBox" id="box_discovery_settings">
+                      <property name="visible">True</property>
+                      <property name="orientation">vertical</property>
+                      <property name="halign">fill</property>
+                      <property name="spacing">8</property>
+                      <!-- Title -->
+                      <child>
+                        <object class="GtkLabel" id="label_discovery_settings">
+                          <property name="visible">True</property>
+                          <property name="can_focus">False</property>
+                          <property name="label" translatable="yes">Discovery settings</property>
+                          <property name="halign">start</property>
+                          <attributes>
+                            <attribute name="weight" value="bold"/>
+                          </attributes>
+                        </object>
+                      </child>
+                      <child>
+                        <object class="GtkFrame">
+                          <property name="visible">True</property>
+                          <property name="can_focus">False</property>
+                          <property name="label_xalign">0</property>
+                          <property name="shadow_type">out</property>
+                          <child>
+                            <object class="GtkListBox" id="list_discovery_settings">
+                              <property name="visible">True</property>
+                              <property name="can_focus">True</property>
+                              <property name="halign">fill</property>
+                              <property name="selection_mode">none</property>
+                              <child>
+                                <!-- Allow detection -->
+                                <object class="GtkListBoxRow" id="allow_detection_row">
+                                  <property name="visible">True</property>
+                                  <property name="can_focus">True</property>
+                                  <property name="halign">fill</property>
+                                  <child>
+                                    <object class="GtkBox" id="allow_detection_box">
+                                      <property name="visible">True</property>
+                                      <property name="halign">fill</property>
+                                      <property name="orientation">horizontal</property>
+                                      <property name="margin_left">12</property>
+                                      <property name="margin_right">12</property>
+                                      <property name="margin_top">12</property>
+                                      <property name="margin_bottom">12</property>
+                                      <child>
+                                        <object class="GtkLabel" id="label_allow_detection">
+                                          <property name="visible">True</property>
+                                          <property name="can_focus">False</property>
+                                          <property name="margin_right">12</property>
+                                          <property name="label" translatable="yes">Make this account discoverable on local network</property>
+                                        </object>
+                                      </child>
+                                      <child>
+                                        <object class="GtkSwitch" id="allow_detection_button">
+                                          <property name="visible">True</property>
+                                          <property name="can_focus">True</property>
+                                        </object>
+                                        <packing>
+                                          <property name="pack_type">end</property>
+                                        </packing>
+                                      </child>
+                                    </object>
+                                  </child>
+                                </object>
+                              </child>
+                              <!-- Auto answer -->
+                              <child>
+                                <object class="GtkListBoxRow">
+                                  <property name="visible">True</property>
+                                  <property name="can_focus">True</property>
+                                  <property name="halign">fill</property>
+                                  <child>
+                                    <object class="GtkBox" id="discovery_box">
+                                      <property name="visible">True</property>
+                                      <property name="halign">fill</property>
+                                      <property name="orientation">horizontal</property>
+                                      <property name="margin_left">12</property>
+                                      <property name="margin_right">12</property>
+                                      <property name="margin_top">12</property>
+                                      <property name="margin_bottom">12</property>
+                                      <child>
+                                        <object class="GtkLabel" id="label_discovery">
+                                          <property name="visible">True</property>
+                                          <property name="can_focus">False</property>
+                                          <property name="label" translatable="yes">Discover peers on local network</property>
+                                        </object>
+                                      </child>
+                                      <child>
+                                        <object class="GtkSwitch" id="allow_discovery_button">
+                                          <property name="visible">True</property>
+                                          <property name="can_focus">True</property>
+                                        </object>
+                                        <packing>
+                                          <property name="pack_type">end</property>
+                                        </packing>
+                                      </child>
+                                    </object>
+                                  </child>
+                                </object>
+                              </child>
+                            </object>
+                          </child>
+                        </object>
+                      </child>
+                    </object>
+                  </child>
                   <!-- Call settings -->
                   <child>
                     <object class="GtkBox" id="box_call_settings">

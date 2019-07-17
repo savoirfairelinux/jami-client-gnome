@@ -109,6 +109,9 @@ struct _NewAccountSettingsViewPrivate
 
     GtkWidget* advanced_settings_box;
     GtkWidget* button_general_settings;
+    GtkWidget* box_discovery_settings;
+        GtkWidget* allow_detection_button;
+        GtkWidget* allow_discovery_button;
     GtkWidget* allow_call_row;
         GtkWidget* call_allow_button;
     GtkWidget* auto_answer_button;
@@ -288,6 +291,10 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, button_advanced_settings);
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, advanced_settings_box);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, box_discovery_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, allow_detection_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, allow_discovery_button);
+
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, button_general_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, allow_call_row);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, call_allow_button);
@@ -1004,6 +1011,31 @@ remove_account(NewAccountSettingsView *view)
 }
 
 // Advanced settings
+
+static void
+update_detection(GObject*, GParamSpec*, NewAccountSettingsView *view)
+{
+    if (!is_config_ok(view)) return;
+    auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
+    auto newState = gtk_switch_get_active(GTK_SWITCH(priv->allow_detection_button));
+    if (newState != priv->currentProp_->accountPublish) {
+        priv->currentProp_->accountPublish = newState;
+        new_account_settings_view_save_account(view);
+    }
+}
+
+
+static void
+update_discovery(GObject*, GParamSpec*, NewAccountSettingsView *view)
+{
+    if (!is_config_ok(view)) return;
+    auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
+    auto newState = gtk_switch_get_active(GTK_SWITCH(priv->allow_discovery_button));
+    if (newState != priv->currentProp_->accountDiscovery) {
+        priv->currentProp_->accountDiscovery = newState;
+        new_account_settings_view_save_account(view);
+    }
+}
 
 static void
 update_allow_call(GObject*, GParamSpec*, NewAccountSettingsView *view)
@@ -1929,6 +1961,8 @@ build_settings_view(NewAccountSettingsView* view)
     g_signal_connect_swapped(priv->button_export_account, "clicked", G_CALLBACK(choose_export_file), view);
     g_signal_connect_swapped(priv->button_delete_account, "clicked", G_CALLBACK(remove_account), view);
     g_signal_connect_swapped(priv->sip_button_delete_account, "clicked", G_CALLBACK(remove_account), view);
+    g_signal_connect(priv->allow_discovery_button, "notify::active", G_CALLBACK(update_discovery), view);
+    g_signal_connect(priv->allow_detection_button, "notify::active", G_CALLBACK(update_detection), view);
     g_signal_connect(priv->call_allow_button, "notify::active", G_CALLBACK(update_allow_call), view);
     g_signal_connect(priv->auto_answer_button, "notify::active", G_CALLBACK(update_auto_answer), view);
     g_signal_connect(priv->custom_ringtone_button, "notify::active", G_CALLBACK(enable_custom_ringtone), view);
@@ -2085,6 +2119,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_widget_show(GTK_WIDGET(priv->username_box));
         gtk_widget_show(GTK_WIDGET(username_registration_widget));
 
+        gtk_widget_show_all(priv->box_discovery_settings);
         gtk_widget_show_all(priv->allow_call_row);
         gtk_widget_show_all(priv->box_name_server);
         gtk_widget_show_all(priv->box_dht);
@@ -2123,6 +2158,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_widget_hide(priv->vbox_banned_contacts);
         gtk_widget_hide(priv->button_export_account);
         gtk_widget_hide(priv->username_box);
+        gtk_widget_hide(priv->box_discovery_settings);
         gtk_widget_hide(priv->allow_call_row);
         gtk_widget_hide(priv->box_name_server);
         gtk_widget_hide(priv->box_dht);
@@ -2191,6 +2227,8 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
     draw_codecs(view);
 
     // advanced
+    gtk_switch_set_active(GTK_SWITCH(priv->allow_discovery_button), priv->currentProp_->accountDiscovery);
+    gtk_switch_set_active(GTK_SWITCH(priv->allow_detection_button), priv->currentProp_->accountPublish);
     gtk_switch_set_active(GTK_SWITCH(priv->call_allow_button), priv->currentProp_->allowIncoming);
     gtk_switch_set_active(GTK_SWITCH(priv->auto_answer_button), priv->currentProp_->autoAnswer);
 
