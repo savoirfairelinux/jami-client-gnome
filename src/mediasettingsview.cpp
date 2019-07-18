@@ -28,7 +28,6 @@
 #include <api/newvideo.h>
 
 #include "video/video_widget.h"
-#include <video/previewmanager.h>
 #include <video/configurationproxy.h>
 
 namespace { namespace details
