@@ -1043,9 +1043,6 @@ nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result,  RingMa
 void
 CppImpl::init()
 {
-    try {
-        lrc_->getAVModel().deactivateOldVideoModels();
-    } catch (...) {}
     widgets->cancellable = g_cancellable_new();
 #if USE_LIBNM
      // monitor the network using libnm to notify the daemon about connectivity changes
