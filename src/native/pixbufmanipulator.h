@@ -40,32 +40,21 @@ class PixbufManipulator : public PixmapManipulatorI {
 public:
     PixbufManipulator();
 
-    QVariant callPhoto(Call* c, const QSize& size, bool displayInformation = true) override;
-    QVariant callPhoto(const ContactMethod* n, const QSize& size, bool displayInformation = true) override;
     QVariant conversationPhoto(const lrc::api::conversation::Info& conversation,
                                const lrc::api::account::Info& accountInfo,
                                const QSize& size,
                                bool displayInformation = true) override;
-    QVariant contactPhoto(Person* c, const QSize& size, bool displayInformation = true) override;
     QVariant personPhoto(const QByteArray& data, const QString& type = "PNG") override;
 
     QVariant   numberCategoryIcon(const QVariant& p, const QSize& size, bool displayInformation = false, bool isPresent = false) override;
-    QVariant   securityIssueIcon(const QModelIndex& index) override;
     QByteArray toByteArray(const QVariant& pxm) override;
-    QVariant   collectionIcon(const CollectionInterface* interface, PixmapManipulatorI::CollectionIconHint hint = PixmapManipulatorI::CollectionIconHint::NONE) const override;
-    QVariant   securityLevelIcon(const SecurityEvaluationModel::SecurityLevel level) const override;
     QVariant   userActionIcon(const UserActionElement& state) const override;
     QVariant   decorationRole(const QModelIndex& index) override;
-    QVariant   decorationRole(const Call* c) override;
-    QVariant   decorationRole(const ContactMethod* cm) override;
-    QVariant   decorationRole(const Person* p) override;
     QVariant   decorationRole(const lrc::api::conversation::Info& conversation,
                               const lrc::api::account::Info& accountInfo) override;
-    QVariant   decorationRole(const Account* p) override;
 
     // Helpers
     std::shared_ptr<GdkPixbuf> temporaryItemAvatar() const;
-    std::shared_ptr<GdkPixbuf> generateAvatar(const ContactMethod* cm) const;
     std::shared_ptr<GdkPixbuf> generateAvatar(const std::string& alias, const std::string& uri) const;
 
     std::shared_ptr<GdkPixbuf> scaleAndFrame(const GdkPixbuf *photo, const QSize &size, bool displayInformation = false, IconStatus status = IconStatus::INVALID, uint unreadMessages = 0);
