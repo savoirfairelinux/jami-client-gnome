@@ -135,7 +135,7 @@ username_registration_box_init(UsernameRegistrationBox *view)
     priv->registered_name_found = QObject::connect(
         &NameDirectory::instance(),
         &NameDirectory::registeredNameFound,
-        [=] (const Account*, NameDirectory::LookupStatus status, const QString&, const QString& name) {
+        [=] (NameDirectory::LookupStatus status, const QString&, const QString& name) {
             // g_debug("Name lookup ended");
 
             if (!priv->use_blockchain)
@@ -244,9 +244,9 @@ lookup_username(UsernameRegistrationBox *view)
 
     if (priv->accountInfo_) {
         auto prop = (*priv->accountInfo_)->accountModel->getAccountConfig((*priv->accountInfo_)->id);
-        NameDirectory::instance().lookupName(nullptr, prop.RingNS.uri.c_str(), username);
+        NameDirectory::instance().lookupName(prop.RingNS.uri.c_str(), username);
     } else {
-        NameDirectory::instance().lookupName(nullptr, QString(), username);
+        NameDirectory::instance().lookupName(QString(), username);
     }
 
 

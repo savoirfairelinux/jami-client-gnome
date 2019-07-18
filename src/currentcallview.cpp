@@ -33,7 +33,6 @@
 #include <api/newcodecmodel.h>
 #include <globalinstances.h>
 #include <smartinfohub.h>
-#include <video/previewmanager.h>
 #include <QSize>
 
 // Client
