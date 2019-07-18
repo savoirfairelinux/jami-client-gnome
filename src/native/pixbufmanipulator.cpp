@@ -22,10 +22,7 @@
 
 #include <QtCore/QSize>
 #include <QtCore/QMetaType>
-#include <person.h>
 #include <memory>
-#include <call.h>
-#include <contactmethod.h>
 
 #include <string>
 #include <algorithm>
@@ -58,44 +55,6 @@ PixbufManipulator::temporaryItemAvatar() const
         return generateAvatar("", "");
     }
     return result;
-}
-
-std::shared_ptr<GdkPixbuf>
-PixbufManipulator::generateAvatar(const ContactMethod* cm) const
-{
-    auto cm_number = QString("0");
-    QString bestName;
-    if (cm) {
-        auto hashName = cm->uri().userinfo();
-        if (hashName.size() > 0) {
-            cm_number = hashName.at(0);
-        }
-        // Get the bestName to draw
-        if (!cm->bestName().isEmpty()) {
-            // Prioritize the name
-            bestName = cm->bestName().toUpper();
-        } else if (!cm->bestId().isEmpty()) {
-            // If the contact has no name, use the id
-            bestName = cm->bestId().toUpper();
-        }
-    }
-
-    bool ok;
-    auto color = cm_number.toUInt(&ok, 16);
-    if (!ok) color = 0;
-
-    // Retrieve first character
-    auto letter = bestName.isEmpty() ? "" : QString(bestName.at(0)).toStdString();
-
-    return std::shared_ptr<GdkPixbuf> {
-        ring_draw_fallback_avatar(
-            FALLBACK_AVATAR_SIZE,
-            letter,
-            color
-        ),
-        g_object_unref
-    };
-
 }
 
 std::shared_ptr<GdkPixbuf>
@@ -170,46 +129,6 @@ PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo,
     }
 
     return result;
-}
-
-QVariant
-PixbufManipulator::callPhoto(Call* c, const QSize& size, bool displayInformation)
-{
-    if (c->type() == Call::Type::CONFERENCE) {
-        /* conferences are always "online" */
-        return QVariant::fromValue(scaleAndFrame(conferenceAvatar_.get(), size, displayInformation));
-    }
-    return callPhoto(c->peerContactMethod(), size, displayInformation);
-}
-
-QVariant
-PixbufManipulator::callPhoto(const ContactMethod* n, const QSize& size, bool displayInformation)
-{
-    if (n->contact()) {
-        return contactPhoto(n->contact(), size, displayInformation);
-    } else {
-        return QVariant::fromValue(scaleAndFrame(generateAvatar(n).get(), size, displayInformation));
-    }
-}
-
-QVariant
-PixbufManipulator::contactPhoto(Person* c, const QSize& size, bool displayInformation)
-{
-    /**
-     * try to get the photo
-     * otherwise use the generated avatar
-     */
-
-    std::shared_ptr<GdkPixbuf> photo;
-
-    if (c->photo().isValid())
-        photo = c->photo().value<std::shared_ptr<GdkPixbuf>>();
-    else {
-        auto cm = c->phoneNumbers().size() > 0 ? c->phoneNumbers().first() : nullptr;
-        photo = generateAvatar(cm);
-    }
-
-    return QVariant::fromValue(scaleAndFrame(photo.get(), size, displayInformation));
 }
 
 QVariant PixbufManipulator::personPhoto(const QByteArray& data, const QString& type)
@@ -322,13 +241,6 @@ PixbufManipulator::numberCategoryIcon(const QVariant& p, const QSize& size, bool
     return QVariant();
 }
 
-QVariant
-PixbufManipulator::securityIssueIcon(const QModelIndex& index)
-{
-    Q_UNUSED(index)
-    return QVariant();
-}
-
 QByteArray
 PixbufManipulator::toByteArray(const QVariant& pxm)
 {
@@ -357,20 +269,6 @@ PixbufManipulator::toByteArray(const QVariant& pxm)
 }
 
 QVariant
-PixbufManipulator::collectionIcon(const CollectionInterface* interface, PixmapManipulatorI::CollectionIconHint hint) const
-{
-    Q_UNUSED(interface)
-    Q_UNUSED(hint)
-    return QVariant();
-}
-QVariant
-PixbufManipulator::securityLevelIcon(const SecurityEvaluationModel::SecurityLevel level) const
-{
-    Q_UNUSED(level)
-    return QVariant();
-}
-
-QVariant
 PixbufManipulator::userActionIcon(const UserActionElement& state) const
 {
     Q_UNUSED(state)
@@ -380,30 +278,6 @@ PixbufManipulator::userActionIcon(const UserActionElement& state) const
 QVariant PixbufManipulator::decorationRole(const QModelIndex& index)
 {
     Q_UNUSED(index)
-    return QVariant();
-}
-
-QVariant PixbufManipulator::decorationRole(const Call* c)
-{
-    Q_UNUSED(c)
-    return QVariant();
-}
-
-QVariant PixbufManipulator::decorationRole(const ContactMethod* cm)
-{
-    Q_UNUSED(cm)
-    return QVariant();
-}
-
-QVariant PixbufManipulator::decorationRole(const Person* p)
-{
-    Q_UNUSED(p)
-    return QVariant();
-}
-
-QVariant PixbufManipulator::decorationRole(const Account* p)
-{
-    Q_UNUSED(p)
     return QVariant();
 }
 
