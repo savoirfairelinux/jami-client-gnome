@@ -1999,7 +1999,8 @@ CppImpl::slotAccountStatusChanged(const std::string& id)
     auto currentIdx = gtk_combo_box_get_active(GTK_COMBO_BOX(widgets->combobox_account_selector));
     if (currentIdx == -1)
         currentIdx = 0; // If no account selected, select the first account
-    refreshAccountSelectorWidget(currentIdx);
+    // NOTE: Because the currentIdx can change (accounts can be re-ordered), force to select the accountInfo_->id
+    refreshAccountSelectorWidget(currentIdx, accountInfo_->id);
 
     auto* frame_call = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
     conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), getCurrentConversation(frame_call).uid);
