@@ -815,6 +815,7 @@ action_notification(gchar* title, RingMainWindow* self, Action action)
 
         if (priv->cpp->accountInfo_->id != id) {
             priv->cpp->updateLrc(id);
+            priv->cpp->refreshAccountSelectorWidget(-1, id);
         }
 
         if (type == "interaction") {
