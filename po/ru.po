@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-15 03:09-0400\n"
-"PO-Revision-Date: 2019-07-02 13:50+0000\n"
+"POT-Creation-Date: 2019-07-22 03:09-0400\n"
+"PO-Revision-Date: 2019-07-21 18:51+0000\n"
 "Last-Translator: Vladimir Stoiakin\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,7 @@ msgstr ""
 
 #: ui/ringgearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
-msgstr "Клавиатура/_Горячие Клавиши"
+msgstr "Комбинации _клавиш"
 
 #: ui/ringgearsmenu.ui:11
 msgid "_About"
@@ -67,7 +67,7 @@ msgstr "Открыть список учётных записей "
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Select search bar"
-msgstr "Выберите панель поиска"
+msgstr "Выбрать панель поиска"
 
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
@@ -92,12 +92,12 @@ msgstr "Разговоры"
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Start a video call"
-msgstr "Начать видео вызов"
+msgstr "Сделать видеозвонок"
 
 #: ui/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Start an audio call"
-msgstr "Начать голосовой вызов"
+msgstr "Сделать аудиозвонок"
 
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
@@ -497,7 +497,7 @@ msgstr "Общие"
 msgid "Media"
 msgstr "Медиа"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1721
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1706
 msgid "Settings"
 msgstr "Настройки"
 
@@ -1058,86 +1058,86 @@ msgstr "Остановить запись"
 msgid "Send recorded message"
 msgstr "Отправить записанное сообщение"
 
-#: src/ringmainwindow.cpp:186
+#: src/ringmainwindow.cpp:185
 msgid "Add account…"
 msgstr "Добавить аккаунт…"
 
-#: src/ringmainwindow.cpp:730
+#: src/ringmainwindow.cpp:729
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "позвонить"
 
-#: src/ringmainwindow.cpp:733
+#: src/ringmainwindow.cpp:732
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "открыть чат"
 
-#: src/ringmainwindow.cpp:1235
+#: src/ringmainwindow.cpp:1220
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Найдите контакты или введите номер"
 
-#: src/ringmainwindow.cpp:1696
+#: src/ringmainwindow.cpp:1681
 msgid "Leave settings page"
 msgstr "Выйти из настроек"
 
-#: src/ringmainwindow.cpp:2092
+#: src/ringmainwindow.cpp:2078
 msgid "There are active calls"
 msgstr "Есть активные звонки"
 
-#: src/ringmainwindow.cpp:2146
+#: src/ringmainwindow.cpp:2132
 msgid " is calling you!"
 msgstr "звонит вам!"
 
-#: src/ringmainwindow.cpp:2147
+#: src/ringmainwindow.cpp:2133
 msgid "Incoming call"
 msgstr "Входящий вызов"
 
-#: src/ringmainwindow.cpp:2289
+#: src/ringmainwindow.cpp:2275
 msgid "New request from "
 msgstr "Новый запрос от"
 
-#: src/ringmainwindow.cpp:2290
+#: src/ringmainwindow.cpp:2276
 msgid "Trust request"
 msgstr "Запрос доверия"
 
-#: src/ringmainwindow.cpp:2351
+#: src/ringmainwindow.cpp:2337
 msgid "New message"
 msgstr "Новое сообщение"
 
-#: src/ringmainwindow.cpp:2414
+#: src/ringmainwindow.cpp:2400
 msgid "Stop current call?"
 msgstr "Завершить текущий звонок?"
 
-#: src/ringmainwindow.cpp:2415
+#: src/ringmainwindow.cpp:2401
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "В настоящее время идёт беседа. Хотите закрыть окно и остановить все текущие вызовы?"
 
-#: src/ringmainwindow.cpp:2482
+#: src/ringmainwindow.cpp:2468
 msgid "Clear history"
 msgstr "Очистить историю"
 
-#: src/ringmainwindow.cpp:2483
+#: src/ringmainwindow.cpp:2469
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Вы действительно хотите очистить историю этой переписки? "
 
-#: src/ringmainwindow.cpp:2498
+#: src/ringmainwindow.cpp:2484
 msgid "Remove conversation"
 msgstr "Удалить диалог"
 
-#: src/ringmainwindow.cpp:2499
+#: src/ringmainwindow.cpp:2485
 msgid "Do you really want to remove this conversation?"
 msgstr "Вы действительно хотите удалить этой переписку? "
 
-#: src/ringmainwindow.cpp:2514
+#: src/ringmainwindow.cpp:2500
 msgid "Block contact"
 msgstr "Заблокировать контакт"
 
-#: src/ringmainwindow.cpp:2515
+#: src/ringmainwindow.cpp:2501
 msgid "Do you really want to block this contact?"
 msgstr "Вы действительно хотите заблокировать этот контакт?"
 
