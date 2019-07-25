@@ -226,14 +226,16 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
             gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_conversation_item);
             g_signal_connect(rm_conversation_item, "activate", G_CALLBACK(remove_conversation), priv);
 
-            if (!contactInfo.isBanned) {
-                auto block_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Block contact"));
-                gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
-                g_signal_connect(block_conversation_item, "activate", G_CALLBACK(block_conversation), priv);
-            } else {
-                auto block_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Unblock contact"));
-                gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
-                g_signal_connect(block_conversation_item, "activate", G_CALLBACK(unblock_conversation), priv);
+            if (contactInfo.profileInfo.type != lrc::api::profile::Type::SIP) {
+                if (!contactInfo.isBanned) {
+                    auto block_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Block contact"));
+                    gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
+                    g_signal_connect(block_conversation_item, "activate", G_CALLBACK(block_conversation), priv);
+                } else {
+                    auto block_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Unblock contact"));
+                    gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
+                    g_signal_connect(block_conversation_item, "activate", G_CALLBACK(unblock_conversation), priv);
+                }
             }
         }
 
