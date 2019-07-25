@@ -742,11 +742,12 @@ webkit_chat_set_header_visible(WebKitChatContainer *view, bool isVisible)
 }
 
 void
-webkit_chat_update_chatview_frame(WebKitChatContainer *view, bool accountEnabled, bool isBanned, bool isTemporary, const gchar* alias, const gchar* bestId)
+webkit_chat_update_chatview_frame(WebKitChatContainer *view, bool accountEnabled, bool isBanned, bool isTemporary, const gchar* alias, const gchar* bestId, bool isSIP)
 {
-    gchar* function_call = g_strdup_printf("update_chatview_frame(%s, %s, %s, \"%s\", \"%s\")",
+    gchar* function_call = g_strdup_printf("update_chatview_frame(%s, %s, %s, \"%s\", \"%s\", %s)",
                                            accountEnabled ? "true" : "false",
-                                           isBanned ? "true" : "false", isTemporary ? "true" : "false", alias, bestId);
+                                           isBanned ? "true" : "false", isTemporary ? "true" : "false", alias, bestId,
+                                           isSIP ? "true" : "false");
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }

@@ -583,10 +583,11 @@ update_chatview_frame(ChatView* self)
 
     // get temporary status
     bool temp = contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY || contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
+    bool isSIP = (*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::SIP;
 
     webkit_chat_update_chatview_frame(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                      (*priv->accountInfo_)->enabled,
-                                     contactInfo.isBanned, temp, alias.c_str(), bestName.c_str());
+                                     contactInfo.isBanned, temp, alias.c_str(), bestName.c_str(), isSIP);
 
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                              (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),

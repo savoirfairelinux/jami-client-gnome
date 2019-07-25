@@ -257,9 +257,10 @@ function back_to_bottom() {
  * @param temporary	whether contact is temporary or not
  * @param alias
  * @param bestId
+ * @param isSIP
  */
 /* exported update_chatview_frame */
-function update_chatview_frame(accountEnabled, banned, temporary, alias, bestid) {
+function update_chatview_frame(accountEnabled, banned, temporary, alias, bestid, isSIP) {
     /* This function updates lots of things in the navbar and we don't want to
        trigger that many DOM updates. Instead set display to none so DOM is
        updated only once. */
@@ -304,6 +305,9 @@ function update_chatview_frame(accountEnabled, banned, temporary, alias, bestid)
     }
 
     navbar.style.display = ""
+
+    if (isSIP)
+        sendFileButton.style.visibility = "hidden"
 }
 
 /**
