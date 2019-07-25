@@ -315,6 +315,9 @@ SET( SRC_FILES
    src/accountinfopointer.h
    src/profileview.h
    src/profileview.cpp
+   # Generated marshals
+   src/marshals.h
+   src/marshals.cpp
 )
 
 # compile glib resource files to c code

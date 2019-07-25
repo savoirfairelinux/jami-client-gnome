@@ -90,3 +90,10 @@ For now, the build type of the client is "Debug" by default, however it is
 useful to also have the debug symbols of libRingClient. To do this, specify this
 when compiling libRingClient with `-DCMAKE_BUILD_TYPE=Debug` in the cmake
 options.
+
+## Generating marshals.*
+
+```
+glib-genmarshal --header marshals.list > marshals.h
+glib-genmarshal --include-header=marshals.h --body marshals.list > marshals.cpp
+```

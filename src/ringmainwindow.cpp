@@ -368,6 +368,7 @@ public:
     QMetaObject::Connection profileUpdatedConnection_;
 
     std::string eventUid_;
+    std::string eventBody_;
 private:
     CppImpl() = delete;
     CppImpl(const CppImpl&) = delete;
@@ -442,6 +443,51 @@ on_place_call_clicked(G_GNUC_UNUSED GtkWidget*, gchar *uid, RingMainWindow* self
 
     priv->cpp->eventUid_ = uid;
     g_idle_add((GSourceFunc)place_call_event, self);
+}
+
+static gboolean
+add_conversation_event(RingMainWindow* self)
+{
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), G_SOURCE_REMOVE);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    if (!priv->cpp->eventUid_.empty())
+        priv->cpp->accountInfo_->conversationModel->makePermanent(priv->cpp->eventUid_);
+
+    return G_SOURCE_REMOVE;
+}
+
+static void
+on_add_conversation_clicked(G_GNUC_UNUSED GtkWidget*, gchar *uid, RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self) && uid);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    priv->cpp->eventUid_ = uid;
+    g_idle_add((GSourceFunc)add_conversation_event, self);
+}
+
+static gboolean
+send_text_event(RingMainWindow* self)
+{
+    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), G_SOURCE_REMOVE);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    if (!priv->cpp->eventUid_.empty())
+        priv->cpp->accountInfo_->conversationModel->sendMessage(priv->cpp->eventUid_, priv->cpp->eventBody_);
+
+    return G_SOURCE_REMOVE;
+}
+
+static void
+on_send_text_clicked(G_GNUC_UNUSED GtkWidget*, gchar* uid, gchar* body, RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self) && uid);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    priv->cpp->eventUid_ = uid;
+    priv->cpp->eventBody_ = body;
+    g_idle_add((GSourceFunc)send_text_event, self);
 }
 
 static gboolean
@@ -1398,8 +1444,10 @@ CppImpl::displayChatView(lrc::api::conversation::Info conversation, bool redraw_
     chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
     auto* new_view = chat_view_new(webkitChatContainer(redraw_webview), accountInfo_, chatViewConversation_.get());
     g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(on_hide_view_clicked), self);
-    g_signal_connect(new_view, "place-call-clicked", G_CALLBACK(on_place_call_clicked), self);
+    g_signal_connect(new_view, "add-conversation-clicked", G_CALLBACK(on_add_conversation_clicked), self);
     g_signal_connect(new_view, "place-audio-call-clicked", G_CALLBACK(on_place_audio_call_clicked), self);
+    g_signal_connect(new_view, "place-call-clicked", G_CALLBACK(on_place_call_clicked), self);
+    g_signal_connect(new_view, "send-text-clicked", G_CALLBACK(on_send_text_clicked), self);
     try {
         auto contactUri = chatViewConversation_->participants.front();
         auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
