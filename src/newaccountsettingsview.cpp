@@ -1534,6 +1534,7 @@ draw_codecs(NewAccountSettingsView* view, int codecSelected)
         g_object_set_data(G_OBJECT(switch_enabled), "id", GUINT_TO_POINTER(codec.id));
         g_signal_connect(switch_enabled, "notify::active", G_CALLBACK(enable_codec), view);
         gtk_switch_set_active(GTK_SWITCH(switch_enabled), codec.enabled);
+        gtk_widget_set_sensitive(switch_enabled, priv->currentProp_->Video.videoEnabled);
         gtk_box_pack_end(GTK_BOX(codec_box), GTK_WIDGET(switch_enabled), false, false, 0);
         gtk_list_box_insert(GTK_LIST_BOX(priv->list_video_codecs), codec_box, -1);
         if (codecSelected != -1 && codec.id == codecSelected) {
