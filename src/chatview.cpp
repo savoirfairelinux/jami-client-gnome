@@ -39,6 +39,7 @@
 
 // Client
 #include "utils/files.h"
+#include "marshals.h"
 
 struct CppImpl {
     struct Interaction {
@@ -93,6 +94,8 @@ enum {
     HIDE_VIEW_CLICKED,
     PLACE_CALL_CLICKED,
     PLACE_AUDIO_CALL_CLICKED,
+    ADD_CONVERSATION_CLICKED,
+    SEND_TEXT_CLICKED,
     LAST_SIGNAL
 };
 
@@ -168,11 +171,19 @@ place_audio_call_clicked(ChatView *self)
 }
 
 static void
-button_add_to_conversations_clicked(ChatView *self)
+add_to_conversations_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->conversation_) return;
-    (*priv->accountInfo_)->conversationModel->makePermanent(priv->conversation_->uid);
+    g_signal_emit(G_OBJECT(self), chat_view_signals[ADD_CONVERSATION_CLICKED], 0, priv->conversation_->uid.c_str());
+}
+
+static void
+send_text_clicked(ChatView *self, const std::string& body)
+{
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    if (!priv->conversation_) return;
+    g_signal_emit(G_OBJECT(self), chat_view_signals[SEND_TEXT_CLICKED], 0, priv->conversation_->uid.c_str(), body.c_str());
 }
 
 static gchar*
@@ -232,9 +243,13 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
     } else if (order.find("CLOSE_CHATVIEW") == 0) {
         hide_chat_view(webview, self);
     } else if (order.find("SEND:") == 0) {
-        // Get text body
         auto toSend = order.substr(std::string("SEND:").size());
-        (*priv->accountInfo_)->conversationModel->sendMessage(priv->conversation_->uid, toSend);
+        if ((*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::RING) {
+            (*priv->accountInfo_)->conversationModel->sendMessage(priv->conversation_->uid, toSend);
+        } else {
+            // For SIP accounts, we need to wait that the conversation is created to send text
+            send_text_clicked(self, toSend);
+        }
     } else if (order.find("SEND_FILE") == 0) {
         if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
             if (auto filename = file_to_manipulate(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))), true))
@@ -295,7 +310,7 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
             g_error_free(error);
         }
     } else if (order.find("ADD_TO_CONVERSATIONS") == 0) {
-        button_add_to_conversations_clicked(self);
+        add_to_conversations_clicked(self);
     } else if (order.find("DELETE_INTERACTION:") == 0) {
         try {
             auto interactionId = std::stoull(order.substr(std::string("DELETE_INTERACTION:").size()));
@@ -373,6 +388,26 @@ chat_view_class_init(ChatViewClass *klass)
         nullptr,
         g_cclosure_marshal_VOID__STRING,
         G_TYPE_NONE, 1, G_TYPE_STRING);
+
+    chat_view_signals[ADD_CONVERSATION_CLICKED] = g_signal_new (
+        "add-conversation-clicked",
+        G_TYPE_FROM_CLASS(klass),
+        (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+        0,
+        nullptr,
+        nullptr,
+        g_cclosure_marshal_VOID__STRING,
+        G_TYPE_NONE, 1, G_TYPE_STRING);
+
+    chat_view_signals[SEND_TEXT_CLICKED] = g_signal_new (
+        "send-text-clicked",
+        G_TYPE_FROM_CLASS(klass),
+        (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+        0,
+        nullptr,
+        nullptr,
+        g_cclosure_user_marshal_VOID__STRING_STRING,
+        G_TYPE_NONE, 2, G_TYPE_STRING, G_TYPE_STRING);
 }
 
 static void
