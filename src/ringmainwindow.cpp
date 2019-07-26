@@ -1472,7 +1472,7 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation, bool 
     auto* new_view = current_call_view_new(webkitChatContainer(redraw_webview),
                                            accountInfo_,
                                            chatViewConversation_.get(),
-                                           lrc_->getAVModel());
+                                           lrc_->getAVModel(), *lrc_.get()); // TODO improve. Only LRC is needed
 
     try {
         auto contactUri = chatViewConversation_->participants.front();
@@ -2348,8 +2348,7 @@ CppImpl::slotShowCallView(const std::string& id, lrc::api::conversation::Info or
     if (IS_CURRENT_CALL_VIEW(old_view))
         current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
 
-    if (current_item.uid != origin.uid)
-        changeView(CURRENT_CALL_VIEW_TYPE, origin);
+    changeView(CURRENT_CALL_VIEW_TYPE, origin);
 }
 
 void
