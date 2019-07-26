@@ -373,6 +373,7 @@ public:
     std::string eventBody_;
 
     bool isCreatingAccount {false};
+    QHash<QString, QMetaObject::Connection> pendingConferences_;
 private:
     CppImpl() = delete;
     CppImpl(const CppImpl&) = delete;
@@ -417,6 +418,39 @@ on_video_double_clicked(RingMainWindow* self)
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
     priv->cpp->toggleFullScreen();
+}
+
+static void
+on_invite_participant(G_GNUC_UNUSED GtkWidget*, gchar* g_callToRender, gchar* g_confCallId, RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self) && g_callToRender && g_confCallId);
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    std::string callToRender = g_callToRender;
+    std::string confCallId = g_confCallId;
+
+    priv->cpp->pendingConferences_.insert(QString::fromStdString(confCallId),
+        QObject::connect(&*priv->cpp->accountInfo_->callModel, &lrc::api::NewCallModel::callStatusChanged,
+            [priv, confCallId, callToRender](const std::string& callId, int code) {
+                if (!priv->cpp || callId != confCallId)
+                    return;
+                using namespace lrc::api::call;
+                auto call = priv->cpp->accountInfo_->callModel->getCall(callId);
+                switch (call.status) {
+                case Status::IN_PROGRESS:
+                {
+                    auto it = priv->cpp->pendingConferences_.find(QString::fromStdString(confCallId));
+                    if (it != priv->cpp->pendingConferences_.end()) {
+                        QObject::disconnect(it.value());
+                        priv->cpp->pendingConferences_.erase(it);
+                    }
+                    priv->cpp->accountInfo_->callModel->joinCalls(callToRender, confCallId);
+                    return;
+                }
+                default:
+                    break;
+                }
+            })
+    );
 }
 
 static void
@@ -1472,7 +1506,7 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation, bool 
     auto* new_view = current_call_view_new(webkitChatContainer(redraw_webview),
                                            accountInfo_,
                                            chatViewConversation_.get(),
-                                           lrc_->getAVModel());
+                                           lrc_->getAVModel(), *lrc_.get()); // TODO improve. Only LRC is needed
 
     try {
         auto contactUri = chatViewConversation_->participants.front();
@@ -1484,6 +1518,7 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation, bool 
 
     g_signal_connect_swapped(new_view, "video-double-clicked",
                              G_CALLBACK(on_video_double_clicked), self);
+    g_signal_connect(new_view, "invite-participant", G_CALLBACK(on_invite_participant), self);
     g_signal_connect(new_view, "button-press-event", G_CALLBACK(on_current_call_clicked), nullptr);
     return new_view;
 }
@@ -2348,8 +2383,7 @@ CppImpl::slotShowCallView(const std::string& id, lrc::api::conversation::Info or
     if (IS_CURRENT_CALL_VIEW(old_view))
         current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
 
-    if (current_item.uid != origin.uid)
-        changeView(CURRENT_CALL_VIEW_TYPE, origin);
+    changeView(CURRENT_CALL_VIEW_TYPE, origin);
 }
 
 void
