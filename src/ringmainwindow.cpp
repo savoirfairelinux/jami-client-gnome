@@ -1451,7 +1451,7 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation, bool 
     auto* new_view = current_call_view_new(webkitChatContainer(redraw_webview),
                                            accountInfo_,
                                            chatViewConversation_.get(),
-                                           lrc_->getAVModel());
+                                           lrc_->getAVModel(), *lrc_.get()); // TODO improve. Only LRC is needed
 
     try {
         auto contactUri = chatViewConversation_->participants.front();
