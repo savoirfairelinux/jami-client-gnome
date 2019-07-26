@@ -858,15 +858,17 @@ video_widget_add_new_renderer(VideoWidget* self, lrc::api::AVModel* avModel,
     new_video_renderer->render_stop = QObject::connect(
         &*avModel,
         &lrc::api::AVModel::rendererStopped,
-        [=](const std::string&) {
-            renderer_stop(new_video_renderer);
+        [=](const std::string& id) {
+            if (renderer->getId() == id)
+                renderer_stop(new_video_renderer);
         });
 
     new_video_renderer->render_start = QObject::connect(
         &*avModel,
         &lrc::api::AVModel::rendererStarted,
-        [=](const std::string&) {
-            renderer_start(new_video_renderer);
+        [=](const std::string& id) {
+            if (renderer->getId() == id)
+                renderer_start(new_video_renderer);
         });
 
     g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
