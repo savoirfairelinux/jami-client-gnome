@@ -26,6 +26,7 @@
 
 // Lrc
 #include <api/avmodel.h>
+#include <api/newaccountmodel.h>
 #include <api/conversationmodel.h>
 #include <api/contact.h>
 #include <api/contactmodel.h>
@@ -80,10 +81,14 @@ struct CurrentCallViewPrivate
     GtkWidget *togglebutton_chat;
     GtkWidget *togglebutton_muteaudio;
     GtkWidget *togglebutton_mutevideo;
+    GtkWidget *togglebutton_add_participant;
     GtkWidget *togglebutton_transfer;
-    GtkWidget* siptransfer_popover;
-    GtkWidget* siptransfer_filter_entry;
-    GtkWidget* list_conversations;
+    GtkWidget *siptransfer_popover;
+    GtkWidget *siptransfer_filter_entry;
+    GtkWidget *list_conversations;
+    GtkWidget *add_participant_popover;
+    GtkWidget *conversation_filter_entry;
+    GtkWidget *list_conversations_invite;
     GtkWidget *togglebutton_hold;
     GtkWidget *togglebutton_record;
     GtkWidget *button_hangup;
@@ -191,7 +196,7 @@ gtk_scale_button_get_scale(GtkScaleButton* button)
 class CppImpl
 {
 public:
-    explicit CppImpl(CurrentCallView& widget);
+    explicit CppImpl(CurrentCallView& widget, const lrc::api::Lrc& lrc);
     ~CppImpl();
 
     void init();
@@ -200,6 +205,7 @@ public:
                lrc::api::conversation::Info* conversation,
                lrc::api::AVModel& avModel);
     void add_transfer_contact(const std::string& uri);
+    void add_invite_contact(const std::string& uri);
 
     void insertControls();
     void checkControlsFading();
@@ -227,6 +233,9 @@ public:
     gboolean quality_scale_pressed = FALSE;
     gulong insert_controls_id = 0;
     guint smartinfo_action = 0;
+
+    const lrc::api::Lrc& lrc_;
+    QHash<QString, QMetaObject::Connection> pendingConferencees_;
 
 private:
     CppImpl() = delete;
@@ -587,6 +596,65 @@ transfer_to_conversation(GtkListBox*, GtkListBoxRow* row, CurrentCallView* self)
 }
 
 static void
+invite_to_conversation(GtkTreeSelection *selection, CurrentCallView *self)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    GtkTreeIter iter;
+    GtkTreeModel *model = nullptr;
+    gchar *type = nullptr, *data = nullptr;
+
+    if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return;
+
+    gtk_tree_model_get(model, &iter,
+                       0, &type,
+                       1, &data,
+                       -1);
+    
+    if (!type || !data || std::string(type) == "TITLE") return;
+
+    try {
+        if (std::string(type) == "CALL") {
+            // If a call is already present with a peer, try an attended transfer.
+            (*priv->cpp->accountInfo)->callModel->joinCalls(std::string(data), priv->cpp->conversation->callId);
+        } else {
+            auto confCallId = (*priv->cpp->accountInfo)->callModel->createCall(std::string(data), false);
+            priv->cpp->pendingConferencees_.insert(QString::fromStdString(confCallId),
+                QObject::connect(&*(*priv->cpp->accountInfo)->callModel, &lrc::api::NewCallModel::callStatusChanged,
+                    [priv, confCallId](const std::string& callId, int code) {
+                        if (callId != confCallId)
+                            return;
+                        using namespace lrc::api::call;
+                        auto call = (*priv->cpp->accountInfo)->callModel->getCall(callId);
+                        switch (call.status) {
+                        case Status::IN_PROGRESS:
+                        {
+                            qDebug() << "adding to conference callid=" << QString::fromStdString(callId);
+                            auto it = priv->cpp->pendingConferencees_.find(QString::fromStdString(confCallId));
+                            if (it != priv->cpp->pendingConferencees_.end()) {
+                                QObject::disconnect(it.value());
+                                priv->cpp->pendingConferencees_.erase(it);
+                            }
+                            (*priv->cpp->accountInfo)->callModel->joinCalls(priv->cpp->conversation->callId, confCallId);
+                            return;
+                        }
+                        default:
+                            qDebug() << "failed to add to conference callid=" << QString::fromStdString(callId);
+                            break;
+                        }
+                    })
+            );
+        }
+    } catch (...) {
+        // TODO
+    }
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_popover_popdown(GTK_POPOVER(priv->add_participant_popover));
+#else
+    gtk_widget_hide(GTK_WIDGET(priv->add_participant_popover));
+#endif
+}
+
+static void
 filter_transfer_list(CurrentCallView *self)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
@@ -630,6 +698,22 @@ filter_transfer_list(CurrentCallView *self)
 }
 
 static void
+on_button_add_participant_clicked(CurrentCallView *self)
+{
+    // Show and init list
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    gtk_popover_set_relative_to(GTK_POPOVER(priv->add_participant_popover), GTK_WIDGET(priv->togglebutton_add_participant));
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_popover_popdown(GTK_POPOVER(priv->add_participant_popover));
+#else
+    gtk_widget_show_all(GTK_WIDGET(priv->add_participant_popover));
+#endif
+    gtk_widget_show_all(priv->add_participant_popover);
+    filter_transfer_list(self);
+}
+
+static void
 on_button_transfer_clicked(CurrentCallView *self)
 {
     // Show and init list
@@ -653,8 +737,9 @@ on_siptransfer_text_changed(GtkSearchEntry*, CurrentCallView* self)
 
 } // namespace gtk_callbacks
 
-CppImpl::CppImpl(CurrentCallView& widget)
+CppImpl::CppImpl(CurrentCallView& widget, const lrc::api::Lrc& lrc)
     : self {&widget}
+    , lrc_ {lrc}
     , widgets {CURRENT_CALL_VIEW_GET_PRIVATE(&widget)}
 {}
 
@@ -704,6 +789,199 @@ CppImpl::init()
     insert_controls_id = g_signal_connect(self, "size-allocate", G_CALLBACK(on_size_allocate), nullptr);
 }
 
+static void
+render_cell_photo(GtkCellLayout*,
+                    GtkCellRenderer* cell,
+                    GtkTreeModel* model,
+                    GtkTreeIter* iter,
+                    CurrentCallView* self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    gchar *type, *data, *text;
+
+    gtk_tree_model_get (model, iter,
+                        0 /* col# */, &type /* data */,
+                        1 /* col# */, &data /* data */,
+                        -1);
+
+    if (g_strcmp0(type, "TITLE") == 0) {
+        g_object_set(G_OBJECT(cell), "width", 0, NULL);
+        g_object_set(G_OBJECT(cell), "pixbuf", NULL, NULL);
+        return;
+    }
+    
+    auto default_avatar = Interfaces::PixbufManipulator().generateAvatar("", "");
+    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(50, 50));
+    auto photo = default_scaled;
+
+    if (g_strcmp0(type, "CALL") == 0) {
+
+        for (const auto &account_id : priv->cpp->lrc_.getAccountModel().getAccountList()) {
+            try {
+                auto &accountInfo = priv->cpp->lrc_.getAccountModel().getAccountInfo(account_id);
+                if (accountInfo.callModel->hasCall(data)) {
+                    const auto& call = accountInfo.callModel->getCall(data);
+                    std::string accountId = accountInfo.id;
+                    bool isFromAccount = (accountId == (*priv->cpp->accountInfo)->id);
+                    std::string peerName = call.peerUri;
+
+                    try {
+                        auto contactInfo = (*priv->cpp->accountInfo)->contactModel->getContact(
+                            peerName.substr(std::string("ring:").length())
+                        );
+                        auto photostr = contactInfo.profileInfo.avatar;
+
+                        if (!photostr.empty()) {
+                            QByteArray byteArray(photostr.c_str(), photostr.length());
+                            QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
+                            auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(50, 50));
+                            if (avatar.isValid()) {
+                                photo = pixbuf_photo;
+                            }
+                        } else {
+                            auto name = contactInfo.registeredName;
+                            auto firstLetter = (name == contactInfo.profileInfo.uri || name.empty()) ?
+                            "" : QString(QString(name.c_str()).at(0)).toStdString();  // NOTE best way to be compatible with UTF-8
+                            photo = Interfaces::PixbufManipulator().generateAvatar(firstLetter, "ring:" + contactInfo.profileInfo.uri);
+                            photo = Interfaces::PixbufManipulator().scaleAndFrame(photo.get(), QSize(50, 50));
+                        }
+                        
+                    } catch (const std::out_of_range&) {
+                        // ContactModel::getContact() exception
+                    }
+                    break;
+                }
+            } catch (const std::out_of_range &e) {
+                g_warning("Can't get account %s: %s", account_id.c_str(), e.what());
+            }
+        }
+    } else {
+
+        try {
+            auto contactInfo = (*priv->cpp->accountInfo)->contactModel->getContact(data);
+            auto photostr = contactInfo.profileInfo.avatar;
+
+            if (!photostr.empty()) {
+                QByteArray byteArray(photostr.c_str(), photostr.length());
+                QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
+                auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(50, 50));
+                if (avatar.isValid()) {
+                    photo = pixbuf_photo;
+                }
+            } else {
+                auto name = contactInfo.registeredName;
+                auto firstLetter = (name == contactInfo.profileInfo.uri || name.empty()) ?
+                "" : QString(QString(name.c_str()).at(0)).toStdString();  // NOTE best way to be compatible with UTF-8
+                photo = Interfaces::PixbufManipulator().generateAvatar(firstLetter, "ring:" + contactInfo.profileInfo.uri);
+                photo = Interfaces::PixbufManipulator().scaleAndFrame(photo.get(), QSize(50, 50));
+            }
+        } catch (const std::out_of_range&) {
+            // ContactModel::getContact() exception
+        }
+    }
+
+    g_object_set(G_OBJECT(cell), "width", 50, NULL);
+    g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), NULL);
+
+}
+
+static void
+print_text_for_item(GtkCellLayout*,
+                    GtkCellRenderer* cell,
+                    GtkTreeModel* model,
+                    GtkTreeIter* iter,
+                    CurrentCallView* self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    gchar *type, *data, *text;
+
+    gtk_tree_model_get (model, iter,
+                        0 /* col# */, &type /* data */,
+                        1 /* col# */, &data /* data */,
+                        -1);
+
+
+    if (g_strcmp0(type, "TITLE") == 0) {
+        text = g_markup_printf_escaped(
+            "<span font=\"10\"><b>%s</b></span>",
+            data
+        );
+    } else {
+
+        std::string peerName, peerId;
+        if (g_strcmp0(type, "CALL") == 0) {
+            for (const auto &account_id : priv->cpp->lrc_.getAccountModel().getAccountList()) {
+                try {
+                    auto &accountInfo = priv->cpp->lrc_.getAccountModel().getAccountInfo(account_id);
+                    if (accountInfo.callModel->hasCall(data)) {
+                        const auto& call = accountInfo.callModel->getCall(data);
+                        std::string accountId = accountInfo.id;
+                        bool isFromAccount = (accountId == (*priv->cpp->accountInfo)->id);
+
+                        try {
+                            auto contactInfo = (*priv->cpp->accountInfo)->contactModel->getContact(
+                                call.peerUri.substr(std::string("ring:").length())
+                            );
+                            auto alias = contactInfo.profileInfo.alias;
+                            auto bestName = alias.empty()? contactInfo.registeredName : alias;
+                            if (bestName.empty())
+                                bestName = contactInfo.profileInfo.uri;
+                            bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
+
+                            peerName = bestName;
+                            peerId = contactInfo.registeredName.empty()? contactInfo.profileInfo.uri : contactInfo.registeredName;
+                        } catch (const std::out_of_range&) {
+                            // ContactModel::getContact() exception
+                        }
+
+                        break;
+                    }
+                } catch (const std::out_of_range &e) {
+                    g_warning("Can't get account %s: %s", account_id.c_str(), e.what());
+                }
+            }
+        } else {
+            try {
+                auto contactInfo = (*priv->cpp->accountInfo)->contactModel->getContact(data);
+                auto alias = contactInfo.profileInfo.alias;
+                auto bestName = alias.empty()? contactInfo.registeredName : alias;
+                if (bestName.empty())
+                    bestName = contactInfo.profileInfo.uri;
+                bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
+
+                peerName = bestName;
+                peerId = contactInfo.registeredName.empty()? contactInfo.profileInfo.uri : contactInfo.registeredName;
+            } catch (const std::out_of_range&) {
+                // ContactModel::getContact() exception
+            }
+        }
+
+        if (peerId != peerName) {
+            text = g_markup_printf_escaped(
+                "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
+                peerName.c_str(),
+                peerId.c_str()
+            );
+        } else {
+            text = g_markup_printf_escaped(
+                "<span font=\"10\">%s</span>",
+                peerName.c_str()
+            );
+        }
+    }
+    
+
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_object_set(G_OBJECT(cell), "height", 24, NULL);
+    g_object_set(G_OBJECT(cell), "ypad", 0, NULL);
+
+    g_free(type);
+    g_free(data);
+    g_free(text);
+}
+
 void
 CppImpl::setup(WebKitChatContainer* chat_widget,
                AccountInfoPointer const & account_info,
@@ -716,9 +994,108 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
     avModel_ = &avModel;
     setCallInfo();
 
-    if ((*accountInfo)->profileInfo.type == lrc::api::profile::Type::RING)
+    if ((*accountInfo)->profileInfo.type == lrc::api::profile::Type::RING) {
         gtk_widget_hide(widgets->togglebutton_transfer);
-    else {
+        // Remove previous list
+        //while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX//(widgets->list_conversations_invite), 10)))
+        //    gtk_container_remove(GTK_CONTAINER(widgets->list_conversations_invite), children);
+        // Add current call
+        auto store = gtk_tree_store_new(2 /* # of cols */ ,
+                                    G_TYPE_STRING, /* TYPE */
+                                    G_TYPE_STRING /* DATA */,
+                                    G_TYPE_UINT);
+        GtkTreeIter iterTitle;
+        GtkTreeIter iterItem;
+
+        std::vector<std::string> uris;
+
+        bool firstCallRendered = false;
+
+        auto callToRender = conversation->callId;
+        if (!conversation->confId.empty())
+            callToRender = conversation->confId;
+
+        for (const auto& c : lrc_.activeCalls()) {
+            for (const auto &account_id : lrc_.getAccountModel().getAccountList()) {
+                try {
+                    auto &accountInfo = lrc_.getAccountModel().getAccountInfo(account_id);
+                    if (accountInfo.callModel->hasCall(c)) {
+                        const auto& call = accountInfo.callModel->getCall(c);
+                        uris.emplace_back(call.peerUri.substr(std::string("ring:").length()));
+                    }
+                } catch (...) {}
+            }
+
+            if (c != callToRender) {
+                if (!firstCallRendered) {
+                    gtk_tree_store_append(store, &iterTitle, NULL);
+                    gtk_tree_store_set(store, &iterTitle,
+                        0, "TITLE", /* TODO enum class */
+                        1, _("Calls (all accounts)"),
+                        -1);
+                    firstCallRendered = true;
+                }
+                gtk_tree_store_append(store, &iterItem, &iterTitle);
+                gtk_tree_store_set(store, &iterItem,
+                                    0, "CALL",
+                                    1, c.c_str(),
+                                -1);
+            }
+
+        }
+
+        gtk_tree_store_append(store, &iterTitle, NULL);
+        gtk_tree_store_set(store, &iterTitle,
+            0, "TITLE", /* TODO enum class */
+            1, _("Online contacts"),
+            -1);
+
+        // Add present contacts
+        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::RING)) {
+            try {
+                auto participant = c.participants.front();
+                auto contactInfo = (*accountInfo)->contactModel->getContact(participant);
+                auto isPresent = std::find(uris.cbegin(), uris.cend(), participant) != uris.cend();
+                if (contactInfo.isPresent && !isPresent) {
+                    gtk_tree_store_append(store, &iterItem, &iterTitle);
+                    gtk_tree_store_set(store, &iterItem,
+                                        0, "CONTACT",
+                                        1, participant.c_str(),
+                                        -1);
+                }
+            } catch (...) {
+                // TODO (sblin)
+            }
+        }
+        gtk_tree_view_set_model(GTK_TREE_VIEW(widgets->list_conversations_invite), GTK_TREE_MODEL(store));
+
+        auto* renderer = gtk_cell_renderer_pixbuf_new();
+        auto* col = gtk_tree_view_column_new();
+
+        gtk_tree_view_append_column(GTK_TREE_VIEW(widgets->list_conversations_invite), col);
+
+        gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(col), renderer, true);
+        gtk_tree_view_column_set_cell_data_func(
+            col,
+            renderer,
+            (GtkTreeCellDataFunc)render_cell_photo,
+            self,
+            NULL);
+
+        renderer = gtk_cell_renderer_text_new();
+        g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+        gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(col), renderer, true);
+        gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(col),
+                                        renderer,
+                                        (GtkCellLayoutDataFunc )print_text_for_item,
+                                        self, nullptr);
+        gtk_tree_view_expand_all(GTK_TREE_VIEW(widgets->list_conversations_invite));
+
+        gtk_widget_show_all(widgets->list_conversations_invite);
+
+        auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widgets->list_conversations_invite));
+        g_signal_connect(selection, "changed", G_CALLBACK(invite_to_conversation), self);
+    } else {
         // Remove previous list
         while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(widgets->list_conversations), 10)))
             gtk_container_remove(GTK_CONTAINER(widgets->list_conversations), children);
@@ -745,6 +1122,20 @@ CppImpl::add_transfer_contact(const std::string& uri)
     gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(avatar));
     gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(address));
     gtk_list_box_insert(GTK_LIST_BOX(widgets->list_conversations), GTK_WIDGET(box_item), -1);
+}
+
+void
+CppImpl::add_invite_contact(const std::string& uri)
+{
+    auto* box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    auto pixbufmanipulator = Interfaces::PixbufManipulator();
+    auto image_buf = pixbufmanipulator.generateAvatar("", uri.empty() ? uri : "ring:" + uri);
+    auto scaled = pixbufmanipulator.scaleAndFrame(image_buf.get(), QSize(48, 48));
+    auto* avatar = gtk_image_new_from_pixbuf(scaled.get());
+    auto* address = gtk_label_new(uri.c_str());
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(avatar));
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(address));
+    gtk_list_box_insert(GTK_LIST_BOX(widgets->list_conversations_invite), GTK_WIDGET(box_item), -1);
 }
 
 void
@@ -913,6 +1304,7 @@ CppImpl::insertControls()
 
     /* connect the controllers (new model) */
     g_signal_connect_swapped(widgets->button_hangup, "clicked", G_CALLBACK(on_button_hangup_clicked), self);
+    g_signal_connect_swapped(widgets->togglebutton_add_participant, "clicked", G_CALLBACK(on_button_add_participant_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_transfer, "clicked", G_CALLBACK(on_button_transfer_clicked), self);
     g_signal_connect_swapped(widgets->siptransfer_filter_entry, "activate", G_CALLBACK(on_siptransfer_filter_activated), self);
     g_signal_connect(widgets->siptransfer_filter_entry, "search-changed", G_CALLBACK(on_siptransfer_text_changed), self);
@@ -1211,10 +1603,6 @@ current_call_view_init(CurrentCallView *view)
 {
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
     gtk_widget_init_template(GTK_WIDGET(view));
-
-    // CppImpl ctor
-    priv->cpp = new details::CppImpl {*view};
-    priv->cpp->init();
 }
 
 static void
@@ -1259,6 +1647,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_add_participant);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_transfer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_hold);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_muteaudio);
@@ -1269,6 +1658,9 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, siptransfer_popover);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, siptransfer_filter_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, list_conversations);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, add_participant_popover);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, conversation_filter_entry);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, list_conversations_invite);
 
     details::current_call_view_signals[VIDEO_DOUBLE_CLICKED] = g_signal_new (
         "video-double-clicked",
@@ -1285,11 +1677,16 @@ GtkWidget *
 current_call_view_new(WebKitChatContainer* chat_widget,
                       AccountInfoPointer const & accountInfo,
                       lrc::api::conversation::Info* conversation,
-                      lrc::api::AVModel& avModel)
+                      lrc::api::AVModel& avModel,
+                      const lrc::api::Lrc& lrc)
 {
     auto* self = g_object_new(CURRENT_CALL_VIEW_TYPE, NULL);
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
+    // CppImpl ctor
+    CurrentCallView* view = CURRENT_CALL_VIEW(self);
+    priv->cpp = new details::CppImpl(*view, lrc);
+    priv->cpp->init();
     priv->cpp->setup(chat_widget, accountInfo, conversation, avModel);
     return GTK_WIDGET(self);
 }
