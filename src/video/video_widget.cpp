@@ -74,6 +74,7 @@ struct _VideoWidgetPrivate {
 
     /* local peer data */
     VideoWidgetRenderer     *local;
+    bool show_preview {true};
 
     guint                    frame_timeout_source;
 
@@ -106,7 +107,6 @@ struct _VideoWidgetRenderer {
      * this will be set back to false once the black frame is rendered
      */
     std::atomic_bool         show_black_frame;
-    std::atomic_bool         pause_rendering;
     QMetaObject::Connection  render_stop;
     QMetaObject::Connection  render_start;
 };
@@ -595,9 +595,6 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
     auto actor = wg_renderer->actor;
     g_return_if_fail(CLUTTER_IS_ACTOR(actor));
 
-    if (wg_renderer->pause_rendering)
-        return;
-
     if (wg_renderer->show_black_frame) {
         /* render a black frame set the bool back to false, this is likely done
          * when the renderer is stopped so we ignore whether or not it is running
@@ -729,7 +726,8 @@ check_frame_queue(VideoWidget *self)
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
     /* display renderer's frames */
-    clutter_render_image(priv->local);
+    if (priv->show_preview)
+        clutter_render_image(priv->local);
     clutter_render_image(priv->remote);
     if (priv->remote->snapshot_status == HAS_A_NEW_ONE) {
         priv->remote->snapshot_status = NOTHING;
@@ -858,33 +856,26 @@ video_widget_add_new_renderer(VideoWidget* self, lrc::api::AVModel* avModel,
     new_video_renderer->render_stop = QObject::connect(
         &*avModel,
         &lrc::api::AVModel::rendererStopped,
-        [=](const std::string&) {
-            renderer_stop(new_video_renderer);
+        [=](const std::string& id) {
+            if (renderer->getId() == id)
+                renderer_stop(new_video_renderer);
         });
 
     new_video_renderer->render_start = QObject::connect(
         &*avModel,
         &lrc::api::AVModel::rendererStarted,
-        [=](const std::string&) {
-            renderer_start(new_video_renderer);
+        [=](const std::string& id) {
+            if (renderer->getId() == id)
+                renderer_start(new_video_renderer);
         });
 
     g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
 }
 
 void
-video_widget_pause_rendering(VideoWidget *self, gboolean pause)
-{
-    g_return_if_fail(IS_VIDEO_WIDGET(self));
-    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
-
-    priv->local->pause_rendering = pause;
-    priv->remote->pause_rendering = pause;
-}
-
-void
 video_widget_take_snapshot(VideoWidget *self)
 {
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
     priv->remote->snapshot_status = HAS_TO_TAKE_ONE;
@@ -893,7 +884,18 @@ video_widget_take_snapshot(VideoWidget *self)
 GdkPixbuf*
 video_widget_get_snapshot(VideoWidget *self)
 {
+    g_return_val_if_fail(IS_VIDEO_WIDGET(self), nullptr);
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
 
     return priv->remote->snapshot;
+}
+
+void
+video_widget_set_preview_visible(VideoWidget *self, bool show)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    if (priv) {
+        priv->show_preview = show;
+    }
 }
