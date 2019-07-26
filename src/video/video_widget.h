@@ -53,7 +53,6 @@ typedef enum {
 GType           video_widget_get_type          (void) G_GNUC_CONST;
 GtkWidget*      video_widget_new               (void);
 void            video_widget_add_new_renderer (VideoWidget*, lrc::api::AVModel* avModel, const lrc::api::video::Renderer*, VideoRendererType);
-void            video_widget_pause_rendering   (VideoWidget *self, gboolean pause);
 void            video_widget_on_drag_data_received (GtkWidget *self,
                                                     GdkDragContext *context,
                                                     gint x,
@@ -67,6 +66,7 @@ gboolean        video_widget_on_button_press_in_screen_event (VideoWidget *self,
                                                               G_GNUC_UNUSED gpointer);
 void            video_widget_take_snapshot (VideoWidget *self);
 GdkPixbuf*      video_widget_get_snapshot  (VideoWidget *self);
+void            video_widget_set_preview_visible (VideoWidget *self, bool show);
 
 G_END_DECLS
 
