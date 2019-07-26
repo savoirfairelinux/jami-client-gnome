@@ -19,6 +19,8 @@
 
 #include "currentcallview.h"
 
+#include <set>
+
 // Gtk
 #include <clutter-gtk/clutter-gtk.h>
 #include <gtk/gtk.h>
@@ -26,6 +28,7 @@
 
 // Lrc
 #include <api/avmodel.h>
+#include <api/newaccountmodel.h>
 #include <api/conversationmodel.h>
 #include <api/contact.h>
 #include <api/contactmodel.h>
@@ -42,6 +45,13 @@
 #include "utils/drawing.h"
 #include "utils/files.h"
 #include "video/video_widget.h"
+
+enum class RowType {
+    CONTACT,
+    CALL,
+    CONFERENCE,
+    TITLE
+};
 
 namespace { namespace details
 {
@@ -80,10 +90,14 @@ struct CurrentCallViewPrivate
     GtkWidget *togglebutton_chat;
     GtkWidget *togglebutton_muteaudio;
     GtkWidget *togglebutton_mutevideo;
+    GtkWidget *togglebutton_add_participant;
     GtkWidget *togglebutton_transfer;
-    GtkWidget* siptransfer_popover;
-    GtkWidget* siptransfer_filter_entry;
-    GtkWidget* list_conversations;
+    GtkWidget *siptransfer_popover;
+    GtkWidget *siptransfer_filter_entry;
+    GtkWidget *list_conversations;
+    GtkWidget *add_participant_popover;
+    GtkWidget *conversation_filter_entry;
+    GtkWidget *list_conversations_invite;
     GtkWidget *togglebutton_hold;
     GtkWidget *togglebutton_record;
     GtkWidget *button_hangup;
@@ -191,7 +205,7 @@ gtk_scale_button_get_scale(GtkScaleButton* button)
 class CppImpl
 {
 public:
-    explicit CppImpl(CurrentCallView& widget);
+    explicit CppImpl(CurrentCallView& widget, const lrc::api::Lrc& lrc);
     ~CppImpl();
 
     void init();
@@ -200,6 +214,10 @@ public:
                lrc::api::conversation::Info* conversation,
                lrc::api::AVModel& avModel);
     void add_transfer_contact(const std::string& uri);
+    void add_title(const std::string& title);
+    void add_present_contact(const std::string& uri, const std::string& custom_data, RowType custom_type, const std::string& accountId);
+    void add_conference(const std::vector<std::string>& uris, const std::string& custom_data, const std::string& accountId);
+    void add_invite_contact(const std::string& uri);
 
     void insertControls();
     void checkControlsFading();
@@ -229,6 +247,12 @@ public:
     gulong insert_controls_id = 0;
     guint smartinfo_action = 0;
 
+    const lrc::api::Lrc& lrc_;
+
+    std::vector<std::string> titles_;
+    std::set<std::string> hiddenTitles_;
+
+    gchar x_ {'c'};
 private:
     CppImpl() = delete;
     CppImpl(const CppImpl&) = delete;
@@ -570,7 +594,7 @@ on_siptransfer_filter_activated(CurrentCallView* self)
 }
 
 static GtkLabel*
-get_sip_address_label(GtkListBoxRow* row)
+get_address_label(GtkListBoxRow* row)
 {
     auto* row_children = gtk_container_get_children(GTK_CONTAINER(row));
     auto* box_infos = g_list_first(row_children)->data;
@@ -578,13 +602,151 @@ get_sip_address_label(GtkListBoxRow* row)
     return GTK_LABEL(g_list_last(children)->data);
 }
 
+static GtkImage*
+get_image(GtkListBoxRow* row) {
+    auto* row_children = gtk_container_get_children(GTK_CONTAINER(row));
+    auto* box_infos = g_list_first(row_children)->data;
+    auto* children = gtk_container_get_children(GTK_CONTAINER(box_infos));
+    return GTK_IMAGE(g_list_first(children)->data);
+}
+
 static void
 transfer_to_conversation(GtkListBox*, GtkListBoxRow* row, CurrentCallView* self)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-    auto* sip_address = get_sip_address_label(row);
+    auto* sip_address = get_address_label(row);
     transfer_to_peer(priv, gtk_label_get_text(GTK_LABEL(sip_address)));
+}
+
+static void
+on_search_participant(GtkSearchEntry* search_entry, CurrentCallView* self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    std::string search_text = gtk_entry_get_text(GTK_ENTRY(search_entry));
+    std::transform(search_text.begin(), search_text.end(), search_text.begin(), ::tolower);
+
+    auto row = 0, lastTitleRow = -1;
+    auto hideTitle = true;
+    while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(
+            GTK_LIST_BOX(priv->list_conversations_invite), row))) {
+        auto* addr_label = get_address_label(GTK_LIST_BOX_ROW(children));
+        std::string content = gtk_label_get_text(addr_label);
+        std::transform(content.begin(), content.end(), content.begin(), ::tolower);
+        if (content.find(search_text) == std::string::npos) {
+            bool hide = true;
+            for (auto title: priv->cpp->titles_) {
+                std::transform(title.begin(), title.end(), title.begin(), ::tolower);
+                if (title == content) {
+                    hide = false;
+                    // Hide last title if needed
+                    if (lastTitleRow != -1 && hideTitle) {
+                        auto* lastTitle = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_conversations_invite), lastTitleRow));
+                        gtk_widget_hide(lastTitle);
+                    }
+                    lastTitleRow = row;
+                    hideTitle = true;
+                }
+            }
+            if (hide) gtk_widget_hide(children);
+        } else {
+            if (lastTitleRow != -1 && hideTitle) {
+                auto* lastTitle = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_conversations_invite), lastTitleRow));
+                gtk_widget_show(lastTitle);
+            }
+            hideTitle = false;
+            gtk_widget_show(children);
+        }
+        row++;
+    }
+
+    // Hide last title if needed
+    if (lastTitleRow != -1 && hideTitle) {
+        auto* lastTitle = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_conversations_invite), lastTitleRow));
+        gtk_widget_hide(lastTitle);
+    }
+}
+
+static void
+invite_to_conversation(GtkListBox*, GtkListBoxRow* row, CurrentCallView* self)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    auto* label = get_address_label(GTK_LIST_BOX_ROW(row));
+    std::string content = gtk_label_get_text(label);
+    for (auto title: priv->cpp->titles_) {
+        if (content == title) {
+            bool isHiddenTitle = priv->cpp->hiddenTitles_.find(content) != priv->cpp->hiddenTitles_.end();
+            auto* image = get_image(row);
+            if (!isHiddenTitle) {
+                priv->cpp->hiddenTitles_.insert(content);
+                gtk_image_set_from_icon_name(image, "pan-up-symbolic", GTK_ICON_SIZE_MENU);
+            } else {
+                priv->cpp->hiddenTitles_.erase(content);
+                gtk_image_set_from_icon_name(image, "pan-down-symbolic", GTK_ICON_SIZE_MENU);
+            }
+            auto changeState = false;
+            auto rowIdx = 0;
+            while (auto* children = gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_conversations_invite), rowIdx)) {
+                rowIdx++;
+                if (children == row) {
+                    changeState = true;
+                    continue;
+                }
+                if (changeState) {
+                    auto* addr_label = get_address_label(GTK_LIST_BOX_ROW(children));
+                    std::string content2 = gtk_label_get_text(addr_label);
+                    for (auto title: priv->cpp->titles_) {
+                        if (content2 == title) return; // Other title, stop here.
+                    }
+                    if (!isHiddenTitle)
+                        gtk_widget_hide(GTK_WIDGET(children));
+                    else {
+                        gtk_widget_show(GTK_WIDGET(children));
+                        // refilter if needed
+                        std::string currentFilter = gtk_entry_get_text(GTK_ENTRY(priv->conversation_filter_entry));
+                        if (!currentFilter.empty())
+                            on_search_participant(GTK_SEARCH_ENTRY(priv->conversation_filter_entry), self);
+                    }
+                }
+            }
+            return;
+        }
+    }
+
+    auto callToRender = priv->cpp->conversation->callId;
+    if (!priv->cpp->conversation->confId.empty())
+        callToRender = priv->cpp->conversation->confId;
+
+    auto rowIdx = 0;
+    while (auto* children = gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_conversations_invite), rowIdx)) {
+        if (children == row) {
+            auto* custom_type = g_object_get_data(G_OBJECT(label), "custom_type");
+            std::string custom_data = (gchar*)g_object_get_data(G_OBJECT(label), "custom_data");
+            if (GPOINTER_TO_INT(custom_type) == (int)RowType::CONTACT) {
+                try {
+                    const auto& call = (*priv->cpp->accountInfo)->callModel->getCall(callToRender);
+                    (*priv->cpp->accountInfo)->callModel->callAndAddParticipant(custom_data, callToRender, call.isAudioOnly);
+                } catch (...) {
+                    g_warning("Can't add participant to inexistant call");
+                }
+            } else if (GPOINTER_TO_INT(custom_type)  == (int)RowType::CALL
+                    || GPOINTER_TO_INT(custom_type)  == (int)RowType::CONFERENCE) {
+                (*priv->cpp->accountInfo)->callModel->joinCalls(custom_data, callToRender);
+            }
+            break;
+        }
+        ++rowIdx;
+    }
+
+
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_popover_popdown(GTK_POPOVER(priv->add_participant_popover));
+#else
+    gtk_widget_hide(GTK_WIDGET(priv->add_participant_popover));
+#endif
 }
 
 static void
@@ -597,7 +759,7 @@ filter_transfer_list(CurrentCallView *self)
 
     auto row = 0;
     while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_conversations), row))) {
-        auto* sip_address = get_sip_address_label(GTK_LIST_BOX_ROW(children));;
+        auto* sip_address = get_address_label(GTK_LIST_BOX_ROW(children));
         if (row == 0) {
             // Update searching item
             if (currentFilter.empty() || currentFilter == priv->cpp->conversation->participants.front()) {
@@ -631,6 +793,22 @@ filter_transfer_list(CurrentCallView *self)
 }
 
 static void
+on_button_add_participant_clicked(CurrentCallView *self)
+{
+    // Show and init list
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    gtk_popover_set_relative_to(GTK_POPOVER(priv->add_participant_popover), GTK_WIDGET(priv->togglebutton_add_participant));
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_popover_popdown(GTK_POPOVER(priv->add_participant_popover));
+#else
+    gtk_widget_show_all(GTK_WIDGET(priv->add_participant_popover));
+#endif
+    gtk_widget_show_all(priv->add_participant_popover);
+    filter_transfer_list(self);
+}
+
+static void
 on_button_transfer_clicked(CurrentCallView *self)
 {
     // Show and init list
@@ -654,8 +832,9 @@ on_siptransfer_text_changed(GtkSearchEntry*, CurrentCallView* self)
 
 } // namespace gtk_callbacks
 
-CppImpl::CppImpl(CurrentCallView& widget)
+CppImpl::CppImpl(CurrentCallView& widget, const lrc::api::Lrc& lrc)
     : self {&widget}
+    , lrc_ {lrc}
     , widgets {CURRENT_CALL_VIEW_GET_PRIVATE(&widget)}
 {}
 
@@ -718,9 +897,108 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
     avModel_ = &avModel;
     setCallInfo();
 
-    if ((*accountInfo)->profileInfo.type == lrc::api::profile::Type::RING)
+    if ((*accountInfo)->profileInfo.type == lrc::api::profile::Type::RING) {
         gtk_widget_hide(widgets->togglebutton_transfer);
-    else {
+
+        auto callToRender = conversation->callId;
+        if (!conversation->confId.empty())
+            callToRender = conversation->confId;
+
+        std::vector<std::string> callsId;
+        std::vector<std::string> uris;
+        bool first = true;
+        for (const auto& c : lrc_.getConferences()) {
+            // Get subcalls
+            auto cid = lrc_.getConferenceSubcalls(c);
+            callsId.insert(callsId.end(), cid.begin(), cid.end());
+            // Get participants
+            std::string uri, accountId;
+            std::vector<std::string> curis;
+            for (const auto& callId: cid) {
+                for (const auto &account_id : lrc_.getAccountModel().getAccountList()) {
+                    try {
+                        auto &accountInfo = lrc_.getAccountModel().getAccountInfo(account_id);
+                        if (accountInfo.callModel->hasCall(callId)) {
+                            const auto& call = accountInfo.callModel->getCall(callId);
+                            uri = lrc::api::profile::Type::SIP == accountInfo.profileInfo.type ?
+                                call.peerUri : call.peerUri.substr(std::string("ring:").length());
+                            uris.emplace_back(uri);
+                            curis.emplace_back(uri);
+                            accountId = account_id;
+                            break;
+                        }
+                    } catch (...) {}
+                }
+            }
+
+            if (c == callToRender) {
+                continue;
+            }
+
+            if (first) {
+                add_title(_("Current conference (all accounts)"));
+                first = false;
+            }
+            if (!uri.empty()) add_conference(curis, c, accountId);
+        }
+
+        first = true;
+        for (const auto& c : lrc_.getCalls()) {
+            std::string uri, accountId;
+            for (const auto &account_id : lrc_.getAccountModel().getAccountList()) {
+                try {
+                    auto &accountInfo = lrc_.getAccountModel().getAccountInfo(account_id);
+                    if (accountInfo.callModel->hasCall(c)) {
+                        const auto& call = accountInfo.callModel->getCall(c);
+                        if (call.status != lrc::api::call::Status::PAUSED
+                            && call.status != lrc::api::call::Status::IN_PROGRESS) {
+                            // Ignore non active calls
+                            callsId.emplace_back(call.id);
+                            continue;
+                        }
+                        uri = call.peerUri.find("ring:") == std::string::npos ?
+                            call.peerUri : call.peerUri.substr(std::string("ring:").length());
+                        accountId = account_id;
+                        uris.emplace_back(uri);
+                        break;
+                    }
+                } catch (...) {}
+            }
+            auto isPresent = std::find(callsId.cbegin(), callsId.cend(), c) != callsId.cend();
+            if (c == callToRender || isPresent) {
+                continue;
+            }
+
+            if (first) {
+                add_title(_("Current calls (all accounts)"));
+                first = false;
+            }
+            if (!uri.empty()) add_present_contact(uri, c, RowType::CALL, accountId);
+        }
+
+        first = true;
+        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::RING)) {
+            try {
+                auto participant = c.participants.front();
+                auto contactInfo = (*accountInfo)->contactModel->getContact(participant);
+                auto isPresent = std::find(uris.cbegin(), uris.cend(), participant) != uris.cend();
+                if (contactInfo.isPresent && !isPresent) {
+                    if (first) {
+                        add_title(_("Online contacts"));
+                        first = false;
+                    }
+                    add_present_contact(participant, participant, RowType::CONTACT, (*accountInfo)->id);
+                }
+            } catch (...) {
+                // TODO (sblin)
+            }
+        }
+
+
+        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP))
+            add_transfer_contact(c.participants.front());
+        g_signal_connect(widgets->conversation_filter_entry, "search-changed", G_CALLBACK(on_search_participant), self);
+    } else {
         // Remove previous list
         while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(widgets->list_conversations), 10)))
             gtk_container_remove(GTK_CONTAINER(widgets->list_conversations), children);
@@ -736,6 +1014,157 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
 }
 
 void
+CppImpl::add_title(const std::string& title) {
+    auto* box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    auto* avatar = gtk_image_new_from_icon_name("pan-down-symbolic", GTK_ICON_SIZE_MENU);
+    auto* info = gtk_label_new(nullptr);
+    gtk_label_set_markup(GTK_LABEL(info), title.c_str());
+    gtk_widget_set_halign(info, GTK_ALIGN_CENTER);
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(avatar));
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(info));
+    g_object_set(G_OBJECT(info), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+    gtk_list_box_insert(GTK_LIST_BOX(widgets->list_conversations_invite), GTK_WIDGET(box_item), -1);
+
+    titles_.emplace_back(title);
+}
+
+void
+CppImpl::add_present_contact(const std::string& uri, const std::string& custom_data, RowType custom_type, const std::string& accountId)
+{
+    auto bestName = uri;
+    auto default_avatar = Interfaces::PixbufManipulator().generateAvatar("", "");
+    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(50, 50));
+    auto photo = default_scaled;
+
+    try {
+        auto &accInfo = lrc_.getAccountModel().getAccountInfo(accountId);
+        auto contactInfo = accInfo.contactModel->getContact(uri);
+        auto photostr = contactInfo.profileInfo.avatar;
+        auto alias = contactInfo.profileInfo.alias;
+
+        if (!alias.empty()) {
+            bestName = alias;
+        } else if (!contactInfo.registeredName.empty()) {
+            bestName = contactInfo.registeredName;
+        }
+
+        if (!photostr.empty()) {
+            QByteArray byteArray(photostr.c_str(), photostr.length());
+            QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
+            auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(48, 48));
+            if (avatar.isValid()) {
+                photo = pixbuf_photo;
+            }
+        } else {
+            auto name = alias.empty()? contactInfo.registeredName : alias;
+            auto firstLetter = (name == contactInfo.profileInfo.uri || name.empty()) ?
+            "" : QString(QString(name.c_str()).at(0)).toStdString();  // NOTE best way to be compatible with UTF-8
+            auto fullUri = contactInfo.profileInfo.uri;
+            if (accInfo.profileInfo.type != lrc::api::profile::Type::SIP)
+                fullUri = "ring:" + fullUri;
+            else
+                fullUri = "sip:" + fullUri;
+            photo = Interfaces::PixbufManipulator().generateAvatar(firstLetter, fullUri);
+            photo = Interfaces::PixbufManipulator().scaleAndFrame(photo.get(), QSize(48, 48));
+        }
+        
+    } catch (const std::out_of_range&) {
+        // ContactModel::getContact() exception
+    }
+
+    gchar* text = nullptr;
+    if (uri != bestName) {
+        bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
+        bestName.erase(std::remove(bestName.begin(), bestName.end(), '\n'), bestName.end());
+        text = g_markup_printf_escaped(
+            "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
+            bestName.c_str(),
+            uri.c_str()
+        );
+    } else {
+        text = g_markup_printf_escaped(
+            "<span font=\"10\">%s</span>",
+            bestName.c_str()
+        );
+    }
+
+    auto* box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    auto* avatar = gtk_image_new_from_pixbuf(photo.get());
+    auto* info = gtk_label_new(nullptr);
+    gtk_label_set_markup(GTK_LABEL(info), text);
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(avatar));
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(info));
+    g_object_set(G_OBJECT(info), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+
+    g_object_set_data(G_OBJECT(info), "custom_type", GINT_TO_POINTER(custom_type));
+    g_object_set_data(G_OBJECT(info), "custom_data", (void*)g_strdup(custom_data.c_str()));
+
+    gtk_list_box_insert(GTK_LIST_BOX(widgets->list_conversations_invite), GTK_WIDGET(box_item), -1);
+}
+
+void
+CppImpl::add_conference(const std::vector<std::string>& uris, const std::string& custom_data, const std::string& accountId)
+{
+    GError *error = nullptr;
+    auto default_avatar = std::shared_ptr<GdkPixbuf>(
+        gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/contacts_list", 50, 50, true, &error),
+        g_object_unref
+    );
+    if (default_avatar == nullptr) {
+        g_debug("Could not load icon: %s", error->message);
+        g_clear_error(&error);
+        return;
+    }
+    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(50, 50));
+    auto photo = default_scaled;
+
+    std::string label;
+    auto idx = 0;
+
+    for (const auto& uri: uris) {
+        try {
+            auto bestName = uri;
+            auto &accInfo = lrc_.getAccountModel().getAccountInfo(accountId);
+            auto contactInfo = accInfo.contactModel->getContact(uri);
+            auto alias = contactInfo.profileInfo.alias;
+
+            if (!alias.empty()) {
+                bestName = alias;
+            } else if (!contactInfo.registeredName.empty()) {
+                bestName = contactInfo.registeredName;
+            }
+            bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
+            bestName.erase(std::remove(bestName.begin(), bestName.end(), '\n'), bestName.end());
+            label += bestName;
+            if (idx != uris.size() - 1)
+                label += ", ";
+            idx ++;
+        } catch (const std::out_of_range&) {
+            // ContactModel::getContact() exception
+        }
+    }
+
+
+    gchar* text = g_markup_printf_escaped(
+        "<span font=\"10\">%s</span>",
+        label.c_str()
+    );
+
+    auto* box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    auto* avatar = gtk_image_new_from_pixbuf(photo.get());
+    auto* info = gtk_label_new(nullptr);
+    gtk_label_set_markup(GTK_LABEL(info), text);
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(avatar));
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(info));
+    g_object_set(G_OBJECT(info), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+
+    g_object_set_data(G_OBJECT(info), "custom_type", GINT_TO_POINTER(RowType::CONFERENCE));
+    g_object_set_data(G_OBJECT(info), "custom_data", (void*)g_strdup(custom_data.c_str()));
+
+    gtk_list_box_insert(GTK_LIST_BOX(widgets->list_conversations_invite), GTK_WIDGET(box_item), -1);
+}
+
+void
 CppImpl::add_transfer_contact(const std::string& uri)
 {
     auto* box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
@@ -747,6 +1176,20 @@ CppImpl::add_transfer_contact(const std::string& uri)
     gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(avatar));
     gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(address));
     gtk_list_box_insert(GTK_LIST_BOX(widgets->list_conversations), GTK_WIDGET(box_item), -1);
+}
+
+void
+CppImpl::add_invite_contact(const std::string& uri)
+{
+    auto* box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    auto pixbufmanipulator = Interfaces::PixbufManipulator();
+    auto image_buf = pixbufmanipulator.generateAvatar("", uri.empty() ? uri : "ring:" + uri);
+    auto scaled = pixbufmanipulator.scaleAndFrame(image_buf.get(), QSize(48, 48));
+    auto* avatar = gtk_image_new_from_pixbuf(scaled.get());
+    auto* address = gtk_label_new(uri.c_str());
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(avatar));
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(address));
+    gtk_list_box_insert(GTK_LIST_BOX(widgets->list_conversations_invite), GTK_WIDGET(box_item), -1);
 }
 
 void
@@ -770,9 +1213,17 @@ CppImpl::setCallInfo()
         const lrc::api::video::Renderer* previewRenderer =
              &avModel_->getRenderer(
              lrc::api::video::PREVIEW_RENDERER_ID);
-        if (previewRenderer->isRendering())
-             video_widget_add_new_renderer(VIDEO_WIDGET(widgets->video_widget),
-                    avModel_, previewRenderer, VIDEO_RENDERER_LOCAL);
+        if (previewRenderer->isRendering()) {
+            video_widget_add_new_renderer(VIDEO_WIDGET(widgets->video_widget),
+                avModel_, previewRenderer, VIDEO_RENDERER_LOCAL);
+        }
+        try {
+            auto call = (*accountInfo)->callModel->getCall(callToRender);
+            video_widget_set_preview_visible(VIDEO_WIDGET(widgets->video_widget),
+                (call.status != lrc::api::call::Status::PAUSED));
+        } catch (...) {
+            g_warning("Can't change preview visibility for non existant call");
+        }
 
         const lrc::api::video::Renderer* vRenderer =
             &avModel_->getRenderer(
@@ -780,7 +1231,6 @@ CppImpl::setCallInfo()
 
         video_widget_add_new_renderer(VIDEO_WIDGET(widgets->video_widget),
             avModel_, vRenderer, VIDEO_RENDERER_REMOTE);
-
     } catch (...) {
         // The renderer doesn't exist for now. Ignore
     }
@@ -800,11 +1250,14 @@ CppImpl::setCallInfo()
                     if (previewRenderer->isRendering()) {
                         video_widget_add_new_renderer(VIDEO_WIDGET(widgets->video_widget),
                             avModel_, previewRenderer, VIDEO_RENDERER_LOCAL);
+                        auto call = (*accountInfo)->callModel->getCall(callToRender);
+                        video_widget_set_preview_visible(VIDEO_WIDGET(widgets->video_widget),
+                            (call.status != lrc::api::call::Status::PAUSED));
                     }
                 } catch (...) {
                     g_warning("Preview renderer is not accessible! This should not happen");
                 }
-            } else if (id == conversation->callId) {
+            } else if (id == callToRender) {
                 try {
                     const lrc::api::video::Renderer* vRenderer =
                         &avModel_->getRenderer(
@@ -828,6 +1281,13 @@ CppImpl::setCallInfo()
         &lrc::api::NewCallModel::callStatusChanged,
         [this] (const std::string& callId) {
             if (callId == conversation->callId) {
+                try {
+                    auto call = (*accountInfo)->callModel->getCall(callId);
+                    video_widget_set_preview_visible(VIDEO_WIDGET(widgets->video_widget),
+                        (call.status != lrc::api::call::Status::PAUSED));
+                } catch (...) {
+                    g_warning("Can't set preview visible for inexistant call");
+                }
                 updateNameAndPhoto();
             }
         });
@@ -925,10 +1385,12 @@ CppImpl::insertControls()
 
     /* connect the controllers (new model) */
     g_signal_connect_swapped(widgets->button_hangup, "clicked", G_CALLBACK(on_button_hangup_clicked), self);
+    g_signal_connect_swapped(widgets->togglebutton_add_participant, "clicked", G_CALLBACK(on_button_add_participant_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_transfer, "clicked", G_CALLBACK(on_button_transfer_clicked), self);
     g_signal_connect_swapped(widgets->siptransfer_filter_entry, "activate", G_CALLBACK(on_siptransfer_filter_activated), self);
     g_signal_connect(widgets->siptransfer_filter_entry, "search-changed", G_CALLBACK(on_siptransfer_text_changed), self);
     g_signal_connect(widgets->list_conversations, "row-activated", G_CALLBACK(transfer_to_conversation), self);
+    g_signal_connect(widgets->list_conversations_invite, "row-activated", G_CALLBACK(invite_to_conversation), self);
     g_signal_connect_swapped(widgets->togglebutton_hold, "clicked", G_CALLBACK(on_togglebutton_hold_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_muteaudio, "clicked", G_CALLBACK(on_togglebutton_muteaudio_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_record, "clicked", G_CALLBACK(on_togglebutton_record_clicked), self);
@@ -1223,10 +1685,6 @@ current_call_view_init(CurrentCallView *view)
 {
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
     gtk_widget_init_template(GTK_WIDGET(view));
-
-    // CppImpl ctor
-    priv->cpp = new details::CppImpl {*view};
-    priv->cpp->init();
 }
 
 static void
@@ -1271,6 +1729,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_add_participant);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_transfer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_hold);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_muteaudio);
@@ -1281,6 +1740,9 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, siptransfer_popover);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, siptransfer_filter_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, list_conversations);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, add_participant_popover);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, conversation_filter_entry);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, list_conversations_invite);
 
     details::current_call_view_signals[VIDEO_DOUBLE_CLICKED] = g_signal_new (
         "video-double-clicked",
@@ -1297,11 +1759,16 @@ GtkWidget *
 current_call_view_new(WebKitChatContainer* chat_widget,
                       AccountInfoPointer const & accountInfo,
                       lrc::api::conversation::Info* conversation,
-                      lrc::api::AVModel& avModel)
+                      lrc::api::AVModel& avModel,
+                      const lrc::api::Lrc& lrc)
 {
     auto* self = g_object_new(CURRENT_CALL_VIEW_TYPE, NULL);
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
 
+    // CppImpl ctor
+    CurrentCallView* view = CURRENT_CALL_VIEW(self);
+    priv->cpp = new details::CppImpl(*view, lrc);
+    priv->cpp->init();
     priv->cpp->setup(chat_widget, accountInfo, conversation, avModel);
     return GTK_WIDGET(self);
 }
@@ -1310,6 +1777,7 @@ void
 current_call_view_handup_focus(GtkWidget *current_call_view)
 {
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(current_call_view);
+    g_return_if_fail(priv);
     gtk_widget_set_can_focus (priv->button_hangup, true);
     gtk_widget_grab_focus(priv->button_hangup);
 }
