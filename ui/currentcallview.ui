@@ -262,6 +262,25 @@
       </packing>
     </child>
     <child>
+      <object class="GtkToggleButton" id="togglebutton_add_participant">
+        <style>
+          <class name="call-button"/>
+        </style>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
+        <property name="has_tooltip">True</property>
+        <property name="tooltip-text" translatable="yes">Add participant</property>
+        <property name="image">image_add_participant</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <child>
       <object class="GtkToggleButton" id="togglebutton_transfer">
         <style>
           <class name="call-button"/>
@@ -466,6 +485,15 @@
       </object>
     </child>
   </object>
+  <object class="GtkImage" id="image_add_participant">
+    <property name="visible">True</property>
+    <property name="resource">/net/jami/JamiGnome/invite_white</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_add_participant-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Add participant</property>
+      </object>
+    </child>
+  </object>
   <object class="GtkImage" id="image_transfer">
     <property name="visible">True</property>
     <property name="resource">/net/jami/JamiGnome/transfer</property>
@@ -553,6 +581,70 @@
             <property name="shadow_type">in</property>
             <child>
               <object class="GtkListBox" id="list_conversations">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="add_participant_popover">
+    <property name="can_focus">False</property>
+    <property name="height_request">400</property>
+    <property name="width_request">300</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">False</property>
+            <property name="halign">center</property>
+            <property name="label" translatable="yes">Add</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSearchEntry" id="conversation_filter_entry">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="primary_icon_name">edit-find-symbolic</property>
+            <property name="primary_icon_activatable">False</property>
+            <property name="primary_icon_sensitive">False</property>
+            <style>
+              <class name="search-entry-style"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkListBox" id="list_conversations_invite">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
               </object>
