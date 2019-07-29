@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-22 03:09-0400\n"
+"POT-Creation-Date: 2019-07-29 03:09-0400\n"
 "PO-Revision-Date: 2019-07-14 16:48+0000\n"
 "Last-Translator: Moritz Brunner <moritzbrunner@freenet.de>\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
@@ -495,7 +495,7 @@ msgstr "Allgemein"
 msgid "Media"
 msgstr "Medium"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1706
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1704
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -932,53 +932,53 @@ msgctxt ""
 msgid "Decline"
 msgstr "Ablehnen"
 
-#: src/usernameregistrationbox.cpp:164 src/usernameregistrationbox.cpp:187
+#: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
 msgstr "Benutzername auf dem Nameserver registrieren"
 
-#: src/usernameregistrationbox.cpp:173
+#: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
 msgstr "Dieser Benutzername ist bereits vergeben"
 
-#: src/usernameregistrationbox.cpp:180
+#: src/usernameregistrationbox.cpp:179
 msgid "Invalid username"
 msgstr "Ungültiger Benutzername"
 
-#: src/usernameregistrationbox.cpp:194
+#: src/usernameregistrationbox.cpp:193
 msgid "Lookup unavailable, check your network connection"
 msgstr "Netzwerksuche nicht möglich, prüfen Sie die Netzwerkverbindung"
 
-#: src/usernameregistrationbox.cpp:274
+#: src/usernameregistrationbox.cpp:273
 msgid "Performing lookup…"
 msgstr "Netzwerksuche wird durchgeführt..."
 
-#: src/usernameregistrationbox.cpp:325
+#: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
 msgstr "Passwort Ihres Jami-Kontos eingeben"
 
-#: src/usernameregistrationbox.cpp:357
+#: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
 msgstr "Registrierung wird durchgeführt..."
 
-#: src/usernameregistrationbox.cpp:376
+#: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
 msgstr "Fehler bei der Namensregistrierung"
 
-#: src/usernameregistrationbox.cpp:435
+#: src/usernameregistrationbox.cpp:434
 msgid ""
 "Unable to register name (Invalid name). Your username should contains "
 "between 3 and 32 alphanumerics characters (or underscore)."
 msgstr "Name kann nicht registriert werden (Ungültiger Name). Der Benutzername sollte aus 3 und 32 alphanumerischen Zeichen (oder Unterstrich) bestehen."
 
-#: src/usernameregistrationbox.cpp:439
+#: src/usernameregistrationbox.cpp:438
 msgid "Unable to register name (Wrong password)."
 msgstr "Name kann nicht registriert werden (Falsches Passwort)."
 
-#: src/usernameregistrationbox.cpp:443
+#: src/usernameregistrationbox.cpp:442
 msgid "Unable to register name (Username already taken)."
 msgstr "Name kann nicht registriert werden (Benutzername bereits vergeben)."
 
-#: src/usernameregistrationbox.cpp:447
+#: src/usernameregistrationbox.cpp:446
 msgid "Unable to register name (Network error) - check your connection."
 msgstr "Name kann nicht registriert werden (Netzwerkfehler) - Internetverbindung prüfen."
 
@@ -1070,72 +1070,72 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Chat öffnen"
 
-#: src/ringmainwindow.cpp:1220
+#: src/ringmainwindow.cpp:1218
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Kontakte suchen oder Nummer eingeben"
 
-#: src/ringmainwindow.cpp:1681
+#: src/ringmainwindow.cpp:1679
 msgid "Leave settings page"
 msgstr "Seite mit Einstellungen verlassen"
 
-#: src/ringmainwindow.cpp:2078
+#: src/ringmainwindow.cpp:2076
 msgid "There are active calls"
 msgstr "Es gibt aktive Anrufe"
 
-#: src/ringmainwindow.cpp:2132
+#: src/ringmainwindow.cpp:2130
 msgid " is calling you!"
 msgstr "ruft Sie gerade an!"
 
-#: src/ringmainwindow.cpp:2133
+#: src/ringmainwindow.cpp:2131
 msgid "Incoming call"
 msgstr "Eingehender Anruf"
 
-#: src/ringmainwindow.cpp:2275
+#: src/ringmainwindow.cpp:2273
 msgid "New request from "
 msgstr "Neue Anfrage von"
 
-#: src/ringmainwindow.cpp:2276
+#: src/ringmainwindow.cpp:2274
 msgid "Trust request"
 msgstr "Anfrage vertrauen"
 
-#: src/ringmainwindow.cpp:2337
+#: src/ringmainwindow.cpp:2335
 msgid "New message"
 msgstr "Neue Nachricht"
 
-#: src/ringmainwindow.cpp:2400
+#: src/ringmainwindow.cpp:2398
 msgid "Stop current call?"
 msgstr "Aktuellen Anruf beenden?"
 
-#: src/ringmainwindow.cpp:2401
+#: src/ringmainwindow.cpp:2399
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Ein Aufruf ist derzeit im Gange. Möchten Sie das Fenster schließen und alle aktuellen Anrufe stoppen?"
 
-#: src/ringmainwindow.cpp:2468
+#: src/ringmainwindow.cpp:2466
 msgid "Clear history"
 msgstr "Verlauf leeren"
 
-#: src/ringmainwindow.cpp:2469
+#: src/ringmainwindow.cpp:2467
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Wollen Sie wirklich den Verlauf dieser Konversation löschen?"
 
-#: src/ringmainwindow.cpp:2484
+#: src/ringmainwindow.cpp:2482
 msgid "Remove conversation"
 msgstr "Konversation entfernen"
 
-#: src/ringmainwindow.cpp:2485
+#: src/ringmainwindow.cpp:2483
 msgid "Do you really want to remove this conversation?"
 msgstr "Wollen Sie wirklich diese Konversation löschen?"
 
-#: src/ringmainwindow.cpp:2500
+#: src/ringmainwindow.cpp:2498
 msgid "Block contact"
 msgstr "Kontakt blockieren"
 
-#: src/ringmainwindow.cpp:2501
+#: src/ringmainwindow.cpp:2499
 msgid "Do you really want to block this contact?"
 msgstr "Wollen Sie wirklich diesen Kontakt sperren?"
 
@@ -1182,15 +1182,15 @@ msgstr "Verlauf _löschen"
 msgid "_Remove conversation"
 msgstr "Unterhaltung _löschen"
 
-#: src/conversationpopupmenu.cpp:230
+#: src/conversationpopupmenu.cpp:231
 msgid "_Block contact"
 msgstr "Kontakt _blockieren"
 
-#: src/conversationpopupmenu.cpp:234
+#: src/conversationpopupmenu.cpp:235
 msgid "_Unblock contact"
 msgstr "Kontakt _entsperren"
 
-#: src/conversationpopupmenu.cpp:240
+#: src/conversationpopupmenu.cpp:242
 msgid "_Profile"
 msgstr "_Profil"
 
@@ -1248,7 +1248,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Achtung! Diese Aktion entfernt dieses Konto von diesem Gerät!\nHinweis: Diese Aktion kann nicht rückgängig gemacht werden. Auch Ihr registrierter Benutzername kann verlorengehen!"
 
-#: src/currentcallview.cpp:951
+#: src/currentcallview.cpp:950
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automatisch"
