@@ -2175,11 +2175,13 @@ CppImpl::slotNewConversation(const std::string& uid)
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
     if (IS_RING_WELCOME_VIEW(old_view)) {
         accountInfo_->conversationModel->selectConversation(uid);
-        try {
-            auto contactUri =  chatViewConversation_->participants.front();
-            auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
-            chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(widgets->frame_call))));
-        } catch(...) { }
+        if (chatViewConversation_) {
+            try {
+                auto contactUri =  chatViewConversation_->participants.front();
+                auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
+                chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(widgets->frame_call))));
+            } catch(...) { }
+        }
     }
 }
 
