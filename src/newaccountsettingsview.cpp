@@ -1431,8 +1431,7 @@ set_account_enabled(GObject*, GParamSpec*, NewAccountSettingsView *view)
         newState = gtk_switch_get_active(GTK_SWITCH(priv->sip_account_enabled));
     }
     if (newState != (*priv->accountInfo_)->enabled) {
-        (*priv->accountInfo_)->accountModel->enableAccount((*priv->accountInfo_)->id, newState);
-        new_account_settings_view_save_account(view);
+        (*priv->accountInfo_)->accountModel->setAccountEnabled((*priv->accountInfo_)->id, newState);
     }
 }
 
