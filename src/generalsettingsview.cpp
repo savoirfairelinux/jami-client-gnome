@@ -24,9 +24,16 @@
 #include <glib/gi18n.h>
 #include <glib.h>
 
+// LRC
+#include <api/avmodel.h>
+
 // Ring client
 #include "utils/files.h"
 #include "avatarmanipulation.h"
+
+namespace { namespace details {
+class CppImpl;
+}}
 
 enum
 {
@@ -49,7 +56,7 @@ struct _GeneralSettingsViewPrivate
 {
     GSettings *settings;
 
-    /* Rint settings */
+    /* Jami settings */
     GtkWidget *at_startup_button;
     GtkWidget *systray_button;
     GtkWidget *incoming_open_button;
@@ -64,13 +71,57 @@ struct _GeneralSettingsViewPrivate
     GtkWidget *adjustment_history_duration;
     GtkWidget *button_clear_history;
 
+    /* Call recording settings */
+    GtkWidget *record_preview_button;
+    GtkWidget *always_record_button;
+    GtkWidget *adjustment_record_quality;
+    GtkWidget *filechooserbutton_record_path;
+
     /* ring main window pointer */
     GtkWidget* ring_main_window_pnt;
+
+    details::CppImpl* cpp; ///< Non-UI and C++ only code
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(GeneralSettingsView, general_settings_view, GTK_TYPE_SCROLLED_WINDOW);
 
 #define GENERAL_SETTINGS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), GENERAL_SETTINGS_VIEW_TYPE, GeneralSettingsViewPrivate))
+
+namespace { namespace details {
+
+class CppImpl
+{
+public:
+    explicit CppImpl(GeneralSettingsView& widget, lrc::api::AVModel& avModel);
+
+    lrc::api::AVModel* avModel_ = nullptr;
+    GeneralSettingsView* self = nullptr; // The GTK widget itself
+    GeneralSettingsViewPrivate* widgets = nullptr;
+};
+
+CppImpl::CppImpl(GeneralSettingsView& widget, lrc::api::AVModel& avModel)
+    : self(&widget)
+    , widgets(GENERAL_SETTINGS_VIEW_GET_PRIVATE(&widget))
+    , avModel_(&avModel)
+{
+    gtk_switch_set_active(
+        GTK_SWITCH(widgets->record_preview_button),
+        avModel_->getRecordPreview());
+    gtk_switch_set_active(
+        GTK_SWITCH(widgets->always_record_button),
+        avModel_->getAlwaysRecord());
+    gtk_file_chooser_set_action(
+        GTK_FILE_CHOOSER(widgets->filechooserbutton_record_path),
+        GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    gtk_file_chooser_set_filename(
+        GTK_FILE_CHOOSER(widgets->filechooserbutton_record_path),
+        avModel_->getRecordPath().c_str());
+    gtk_adjustment_set_value(
+        GTK_ADJUSTMENT(widgets->adjustment_record_quality),
+        avModel_->getRecordQuality());
+}
+
+}} // namespace details
 
 enum {
     CLEAR_ALL_HISTORY,
@@ -142,14 +193,14 @@ update_downloads_button_label(GeneralSettingsView *self)
 }
 
 static void
-change_prefered_directory (gchar * directory, GeneralSettingsView *self)
+change_prefered_directory (gchar * directory, GeneralSettingsView *self, gchar * id, void (*cb)(GeneralSettingsView*))
 {
     g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
 
     priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
-    g_settings_set_value(priv->settings, "download-folder", g_variant_new("s", directory));
-    update_downloads_button_label(self);
+    g_settings_set_value(priv->settings, id, g_variant_new("s", directory));
+    cb(self);
 }
 
 static void
@@ -187,9 +238,50 @@ choose_downloads_directory(GeneralSettingsView *self)
     if (!filename) return;
 
     // set download folder
-    change_prefered_directory(filename, self);
+    change_prefered_directory(filename, self, "download-folder", update_downloads_button_label);
 
     g_signal_emit(G_OBJECT(self), general_settings_view_signals[UPDATE_DOWNLOAD_FOLDER], 0, filename);
+}
+
+static void
+preview_toggled(GtkSwitch *button, GParamSpec* /*spec*/, GeneralSettingsView *self)
+{
+    g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+    gboolean preview = gtk_switch_get_active(button);
+    if (priv && priv->cpp && priv->cpp->avModel_)
+        priv->cpp->avModel_->setRecordPreview(preview);
+}
+
+static void
+always_record_toggled(GtkSwitch *button, GParamSpec* /*spec*/, GeneralSettingsView *self)
+{
+    g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+    gboolean rec = gtk_switch_get_active(button);
+    if (priv && priv->cpp && priv->cpp->avModel_)
+    priv->cpp->avModel_->setAlwaysRecord(rec);
+}
+
+static void
+record_quality_changed(GtkAdjustment *adjustment, GeneralSettingsView *self)
+{
+    g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+    gdouble qual = gtk_adjustment_get_value(adjustment);
+    if (priv && priv->cpp && priv->cpp->avModel_)
+        priv->cpp->avModel_->setRecordQuality(qual);
+}
+
+static void
+update_record_path(GtkFileChooser *file_chooser, GeneralSettingsView* self)
+{
+    g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+    auto* filename = gtk_file_chooser_get_filename(file_chooser);
+    if (filename != priv->cpp->avModel_->getRecordPath())
+        priv->cpp->avModel_->setRecordPath(filename);
+    g_free(filename);
 }
 
 static void
@@ -253,6 +345,12 @@ general_settings_view_init(GeneralSettingsView *self)
 
     /* clear history */
     g_signal_connect(priv->button_clear_history, "clicked", G_CALLBACK(clear_history), self);
+
+    /* Recording callbacks */
+    g_signal_connect(priv->record_preview_button, "notify::active", G_CALLBACK(preview_toggled), self);
+    g_signal_connect(priv->always_record_button, "notify::active", G_CALLBACK(always_record_toggled), self);
+    g_signal_connect(priv->adjustment_record_quality, "value-changed", G_CALLBACK(record_quality_changed), self);
+    g_signal_connect(priv->filechooserbutton_record_path, "file-set", G_CALLBACK(update_record_path), self);
 }
 
 
@@ -319,6 +417,10 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_history_duration);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_clear_history);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, button_choose_downloads_directory);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, record_preview_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, always_record_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_record_quality);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, filechooserbutton_record_path);
 
     general_settings_view_signals[CLEAR_ALL_HISTORY] = g_signal_new (
         "clear-all-history",
@@ -353,19 +455,22 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
 }
 
 GtkWidget *
-general_settings_view_new(GtkWidget* ring_main_window_pointer)
+general_settings_view_new(GtkWidget* ring_main_window_pointer, lrc::api::AVModel& avModel)
 {
-    gpointer view = g_object_new(GENERAL_SETTINGS_VIEW_TYPE, NULL);
+    auto self = g_object_new(GENERAL_SETTINGS_VIEW_TYPE, NULL);
+    auto* priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(GENERAL_SETTINGS_VIEW (self));
+    priv->cpp = new details::CppImpl(
+        *(reinterpret_cast<GeneralSettingsView*>(self)), avModel
+    );
 
     // set_up ring main window pointer (needed by modal dialogs)
     GValue val = G_VALUE_INIT;
     g_value_init (&val, G_TYPE_POINTER);
     g_value_set_pointer (&val, ring_main_window_pointer);
-    g_object_set_property (G_OBJECT (view), "ring_main_window_pnt", &val);
+    g_object_set_property (G_OBJECT (self), "ring_main_window_pnt", &val);
     g_value_unset (&val);
 
-    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(GENERAL_SETTINGS_VIEW (view));
-    g_signal_connect_swapped(priv->button_choose_downloads_directory, "clicked", G_CALLBACK(choose_downloads_directory), view);
+    g_signal_connect_swapped(priv->button_choose_downloads_directory, "clicked", G_CALLBACK(choose_downloads_directory), self);
 
     // CSS styles
     auto provider = gtk_css_provider_new();
@@ -375,5 +480,5 @@ general_settings_view_new(GtkWidget* ring_main_window_pointer)
     gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
                                               GTK_STYLE_PROVIDER(provider),
                                               GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-    return (GtkWidget *)view;
+    return (GtkWidget *)self;
 }
