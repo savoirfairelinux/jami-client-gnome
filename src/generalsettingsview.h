@@ -22,6 +22,10 @@
 
 #include <gtk/gtk.h>
 
+namespace lrc { namespace api {
+class AVModel;
+}}
+
 G_BEGIN_DECLS
 
 #define GENERAL_SETTINGS_VIEW_TYPE            (general_settings_view_get_type ())
@@ -34,7 +38,7 @@ typedef struct _GeneralSettingsView      GeneralSettingsView;
 typedef struct _GeneralSettingsViewClass GeneralSettingsViewClass;
 
 GType      general_settings_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *general_settings_view_new           (GtkWidget* ring_main_window_pnt);
+GtkWidget *general_settings_view_new           (GtkWidget* ring_main_window_pnt, lrc::api::AVModel& avModel);
 
 G_END_DECLS
 
