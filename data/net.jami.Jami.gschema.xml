@@ -72,6 +72,22 @@
         <summary>Where ring downloads files.</summary>
         <description>When a contact sends a file, this file will be stored in the folder previously described.</description>
     </key>
+    <key name="record-local-video" type="b">
+        <default>true</default>
+        <summary>Overlay local video in corner when recording video calls</summary>
+    </key>
+    <key name="always-record" type="b">
+        <default>false</default>
+        <summary>Always record calls</summary>
+    </key>
+    <key name="record-quality" type="i">
+        <default>0</default>
+        <summary>Bitrate (kb/s) to be used when recording calls</summary>
+    </key>
+    <key name="record-folder" type="s">
+        <default>""</default>
+        <summary>Where Jami saves call recordings</summary>
+    </key>
     <key name="window-maximized" type="b">
         <default>false</default>
         <summary>If window is maximized.</summary>
