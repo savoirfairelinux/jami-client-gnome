@@ -18,6 +18,14 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkAdjustment" id="adjustment_record_quality">
+    <property name="value">0</property>
+    <property name="lower">0</property>
+    <!-- 0 to 50 MB/s -->
+    <property name="upper">50000</property>
+    <property name="step_increment">10</property>
+    <property name="page_increment">100</property>
+  </object>
     <template class="GeneralSettingsView" parent="GtkScrolledWindow">
     <property name="visible">True</property>
     <child>
@@ -564,6 +572,191 @@
                       </object>
                     </child>
 
+
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+      </child>
+
+        <!-- Call recording settings -->
+        <child>
+          <object class="GtkBox" id="box_recorder_settings">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="halign">fill</property>
+            <property name="spacing">8</property>
+            <!-- Title -->
+            <child>
+              <object class="GtkLabel" id="label_recorder_settings">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Call Recording</property>
+                <property name="halign">start</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">out</property>
+                <child>
+                  <object class="GtkListBox" id="recorder_settings">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">fill</property>
+                    <property name="selection_mode">none</property>
+                    <child>
+                      <!-- Record video preview -->
+                      <object class="GtkListBoxRow" id="record_preview_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="record_preview_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_record_preview">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Record local video</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="record_preview_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Always record -->
+                      <object class="GtkListBoxRow" id="always_record_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="always_record_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_always_record">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Always record calls</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="always_record_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Record folder -->
+                      <object class="GtkListBoxRow" id="record_path_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="record_path_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="spacing">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_record_path">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Record folder</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="button_choose_record_directory">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="image">image-folder</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                        <!-- Record bitrate/quality -->
+                      <object class="GtkListBoxRow" id="record_quality_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="record_quality_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_record_quality">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Bitrate for call recordings (kb/s)</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSpinButton" id="spinbutton_record_quality">
+                                <property name="visible">True</property>
+                                <property name="value">0</property>
+                                <property name="adjustment">adjustment_record_quality</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
 
                   </object>
                 </child>
