@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-29 03:09-0400\n"
+"POT-Creation-Date: 2019-08-05 03:09-0400\n"
 "PO-Revision-Date: 2019-06-24 12:12+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/jami/language/sq_AL/)\n"
@@ -581,7 +581,7 @@ msgstr "PIN-i juaj i prodhuar:"
 msgid "Click to change password"
 msgstr "Klikoni që të ndryshohet fjalëkalimi"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2048
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2047
 msgid "Export account"
 msgstr "Eksportoni llogari"
 
@@ -1076,49 +1076,49 @@ msgstr " po ju thërret!"
 msgid "Incoming call"
 msgstr "Thirrje ardhëse"
 
-#: src/ringmainwindow.cpp:2273
+#: src/ringmainwindow.cpp:2275
 msgid "New request from "
 msgstr "Kërkesë e re nga "
 
-#: src/ringmainwindow.cpp:2274
+#: src/ringmainwindow.cpp:2276
 msgid "Trust request"
 msgstr "Kërkesë besueshmërie"
 
-#: src/ringmainwindow.cpp:2335
+#: src/ringmainwindow.cpp:2337
 msgid "New message"
 msgstr "Mesazh i ri"
 
-#: src/ringmainwindow.cpp:2398
+#: src/ringmainwindow.cpp:2400
 msgid "Stop current call?"
 msgstr "Të ndalet thirrja e tanishme?"
 
-#: src/ringmainwindow.cpp:2399
+#: src/ringmainwindow.cpp:2401
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Ka një thirrje në kryerje e sipër. Doni të mbyllet dritarja dhe të ndalen krejt thirrjet e tanishme?"
 
-#: src/ringmainwindow.cpp:2466
+#: src/ringmainwindow.cpp:2468
 msgid "Clear history"
 msgstr "Pastroje historikun"
 
-#: src/ringmainwindow.cpp:2467
+#: src/ringmainwindow.cpp:2469
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Doni të pastrohet vërtet historiku i kësaj bisede?"
 
-#: src/ringmainwindow.cpp:2482
+#: src/ringmainwindow.cpp:2484
 msgid "Remove conversation"
 msgstr "Hiqe bisedën"
 
-#: src/ringmainwindow.cpp:2483
+#: src/ringmainwindow.cpp:2485
 msgid "Do you really want to remove this conversation?"
 msgstr "Doni të hiqet vërtet kjo bisedë?"
 
-#: src/ringmainwindow.cpp:2498
+#: src/ringmainwindow.cpp:2500
 msgid "Block contact"
 msgstr "Bllokojeni kontaktin"
 
-#: src/ringmainwindow.cpp:2499
+#: src/ringmainwindow.cpp:2501
 msgid "Do you really want to block this contact?"
 msgstr "Doni të bllokohet vërtet ky kontakt?"
 
@@ -1303,54 +1303,54 @@ msgstr "Llogaria u eksportua!"
 msgid "Export account failure."
 msgstr "Dështim eksportimi llogarie."
 
-#: src/newaccountsettingsview.cpp:1755
+#: src/newaccountsettingsview.cpp:1754
 msgid "Bad password"
 msgstr "Fjalëkalim i gabuar"
 
-#: src/newaccountsettingsview.cpp:1761
+#: src/newaccountsettingsview.cpp:1760
 msgid "Network error, try again"
 msgstr "Gabim rrjeti, riprovoni"
 
-#: src/newaccountsettingsview.cpp:1767
+#: src/newaccountsettingsview.cpp:1766
 msgid "Unknown error"
 msgstr "Gabim i panjohur"
 
-#: src/newaccountsettingsview.cpp:1779
+#: src/newaccountsettingsview.cpp:1778
 msgid "Could not initiate export to the Jami, try again"
 msgstr "S’u fillua dot eksportimi te Jami, riprovoni"
 
-#: src/newaccountsettingsview.cpp:1838
+#: src/newaccountsettingsview.cpp:1837
 msgid "Error: wrong password!"
 msgstr "Gabim: fjalëkalim i gabuar!"
 
-#: src/newaccountsettingsview.cpp:1841
+#: src/newaccountsettingsview.cpp:1840
 msgid "Error: unknown device!"
 msgstr "Gabim: pajisje e panjohur!"
 
-#: src/newaccountsettingsview.cpp:2013
+#: src/newaccountsettingsview.cpp:2012
 msgid "Initializing…"
 msgstr "Po gatitet…"
 
-#: src/newaccountsettingsview.cpp:2016
+#: src/newaccountsettingsview.cpp:2015
 msgid "Offline"
 msgstr "Jo në linjë"
 
-#: src/newaccountsettingsview.cpp:2019
+#: src/newaccountsettingsview.cpp:2018
 msgid "Connecting…"
 msgstr "Po lidhet…"
 
-#: src/newaccountsettingsview.cpp:2022
+#: src/newaccountsettingsview.cpp:2021
 msgid "Online"
 msgstr "Në linjë"
 
-#: src/newaccountsettingsview.cpp:2026
+#: src/newaccountsettingsview.cpp:2025
 msgid "Unknown status"
 msgstr "Gjendje e panjohur"
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2058
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2058
 msgid "no password set"
 msgstr "s’ka fjalëkalim të caktuar"

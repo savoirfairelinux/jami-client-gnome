@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-29 03:09-0400\n"
+"POT-Creation-Date: 2019-08-05 03:09-0400\n"
 "PO-Revision-Date: 2019-06-24 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/savoirfairelinux/jami/language/nb/)\n"
@@ -582,7 +582,7 @@ msgstr "Din genererte PIN:"
 msgid "Click to change password"
 msgstr "Klikk for å endre passord"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2048
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2047
 msgid "Export account"
 msgstr "Eksporter konto"
 
@@ -1077,49 +1077,49 @@ msgstr "ringer deg!"
 msgid "Incoming call"
 msgstr "Innkommende samtale"
 
-#: src/ringmainwindow.cpp:2273
+#: src/ringmainwindow.cpp:2275
 msgid "New request from "
 msgstr "Ny henvendelse fra"
 
-#: src/ringmainwindow.cpp:2274
+#: src/ringmainwindow.cpp:2276
 msgid "Trust request"
 msgstr "Stol på henvendelse"
 
-#: src/ringmainwindow.cpp:2335
+#: src/ringmainwindow.cpp:2337
 msgid "New message"
 msgstr "Ny melding"
 
-#: src/ringmainwindow.cpp:2398
+#: src/ringmainwindow.cpp:2400
 msgid "Stop current call?"
 msgstr "Stopp gjeldene samtale?"
 
-#: src/ringmainwindow.cpp:2399
+#: src/ringmainwindow.cpp:2401
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "En samtale er oppkoblet.  Ønsker du å lukke vinduet og avslutte alle samtaler?"
 
-#: src/ringmainwindow.cpp:2466
+#: src/ringmainwindow.cpp:2468
 msgid "Clear history"
 msgstr "Slett historikk"
 
-#: src/ringmainwindow.cpp:2467
+#: src/ringmainwindow.cpp:2469
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Ønsker du virkelig å nullstille historikken for denne samtalen?"
 
-#: src/ringmainwindow.cpp:2482
+#: src/ringmainwindow.cpp:2484
 msgid "Remove conversation"
 msgstr "Fjern samtale"
 
-#: src/ringmainwindow.cpp:2483
+#: src/ringmainwindow.cpp:2485
 msgid "Do you really want to remove this conversation?"
 msgstr "Ønsker du virkelig å fjerne denne samtalen?"
 
-#: src/ringmainwindow.cpp:2498
+#: src/ringmainwindow.cpp:2500
 msgid "Block contact"
 msgstr "Blokker kontakt"
 
-#: src/ringmainwindow.cpp:2499
+#: src/ringmainwindow.cpp:2501
 msgid "Do you really want to block this contact?"
 msgstr "Ønsker du virkelig å blokkere denne kontakten?"
 
@@ -1304,54 +1304,54 @@ msgstr "Konto eksportert!"
 msgid "Export account failure."
 msgstr "Feil ved eksport av konto."
 
-#: src/newaccountsettingsview.cpp:1755
+#: src/newaccountsettingsview.cpp:1754
 msgid "Bad password"
 msgstr "Dårlig passord"
 
-#: src/newaccountsettingsview.cpp:1761
+#: src/newaccountsettingsview.cpp:1760
 msgid "Network error, try again"
 msgstr "Nettverksfeil, prøv på nytt"
 
-#: src/newaccountsettingsview.cpp:1767
+#: src/newaccountsettingsview.cpp:1766
 msgid "Unknown error"
 msgstr "Ukjent feil"
 
-#: src/newaccountsettingsview.cpp:1779
+#: src/newaccountsettingsview.cpp:1778
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Klarte ikke klargjøre eksport til Jami-en. Forsøk igjen"
 
-#: src/newaccountsettingsview.cpp:1838
+#: src/newaccountsettingsview.cpp:1837
 msgid "Error: wrong password!"
 msgstr "Feil: galt passord!"
 
-#: src/newaccountsettingsview.cpp:1841
+#: src/newaccountsettingsview.cpp:1840
 msgid "Error: unknown device!"
 msgstr "Feil: ukjent enhet!"
 
-#: src/newaccountsettingsview.cpp:2013
+#: src/newaccountsettingsview.cpp:2012
 msgid "Initializing…"
 msgstr "Starter…"
 
-#: src/newaccountsettingsview.cpp:2016
+#: src/newaccountsettingsview.cpp:2015
 msgid "Offline"
 msgstr "Frakoblet"
 
-#: src/newaccountsettingsview.cpp:2019
+#: src/newaccountsettingsview.cpp:2018
 msgid "Connecting…"
 msgstr "Kobler opp..."
 
-#: src/newaccountsettingsview.cpp:2022
+#: src/newaccountsettingsview.cpp:2021
 msgid "Online"
 msgstr "Tilkoblet"
 
-#: src/newaccountsettingsview.cpp:2026
+#: src/newaccountsettingsview.cpp:2025
 msgid "Unknown status"
 msgstr "Ukjent status"
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2058
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2058
 msgid "no password set"
 msgstr "intet passord satt"

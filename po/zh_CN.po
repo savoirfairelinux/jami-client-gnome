@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-29 03:09-0400\n"
+"POT-Creation-Date: 2019-08-05 03:09-0400\n"
 "PO-Revision-Date: 2019-06-24 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
@@ -584,7 +584,7 @@ msgstr "您的PIN："
 msgid "Click to change password"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2048
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2047
 msgid "Export account"
 msgstr ""
 
@@ -1079,49 +1079,49 @@ msgstr ""
 msgid "Incoming call"
 msgstr "来电"
 
-#: src/ringmainwindow.cpp:2273
+#: src/ringmainwindow.cpp:2275
 msgid "New request from "
 msgstr ""
 
-#: src/ringmainwindow.cpp:2274
+#: src/ringmainwindow.cpp:2276
 msgid "Trust request"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2335
+#: src/ringmainwindow.cpp:2337
 msgid "New message"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2398
+#: src/ringmainwindow.cpp:2400
 msgid "Stop current call?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2399
+#: src/ringmainwindow.cpp:2401
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2466
+#: src/ringmainwindow.cpp:2468
 msgid "Clear history"
 msgstr "清除历史记录"
 
-#: src/ringmainwindow.cpp:2467
+#: src/ringmainwindow.cpp:2469
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2482
+#: src/ringmainwindow.cpp:2484
 msgid "Remove conversation"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2483
+#: src/ringmainwindow.cpp:2485
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2498
+#: src/ringmainwindow.cpp:2500
 msgid "Block contact"
 msgstr "屏蔽联系人"
 
-#: src/ringmainwindow.cpp:2499
+#: src/ringmainwindow.cpp:2501
 msgid "Do you really want to block this contact?"
 msgstr ""
 
@@ -1306,54 +1306,54 @@ msgstr ""
 msgid "Export account failure."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1755
+#: src/newaccountsettingsview.cpp:1754
 msgid "Bad password"
 msgstr "密码错误"
 
-#: src/newaccountsettingsview.cpp:1761
+#: src/newaccountsettingsview.cpp:1760
 msgid "Network error, try again"
 msgstr "网络错误，请重试"
 
-#: src/newaccountsettingsview.cpp:1767
+#: src/newaccountsettingsview.cpp:1766
 msgid "Unknown error"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1779
+#: src/newaccountsettingsview.cpp:1778
 msgid "Could not initiate export to the Jami, try again"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1838
+#: src/newaccountsettingsview.cpp:1837
 msgid "Error: wrong password!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1841
+#: src/newaccountsettingsview.cpp:1840
 msgid "Error: unknown device!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2013
+#: src/newaccountsettingsview.cpp:2012
 msgid "Initializing…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2016
+#: src/newaccountsettingsview.cpp:2015
 msgid "Offline"
 msgstr "离线"
 
-#: src/newaccountsettingsview.cpp:2019
+#: src/newaccountsettingsview.cpp:2018
 msgid "Connecting…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2022
+#: src/newaccountsettingsview.cpp:2021
 msgid "Online"
 msgstr "在线"
 
-#: src/newaccountsettingsview.cpp:2026
+#: src/newaccountsettingsview.cpp:2025
 msgid "Unknown status"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2058
 msgid "••••••••"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2058
 msgid "no password set"
 msgstr ""

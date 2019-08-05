@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-29 03:09-0400\n"
+"POT-Creation-Date: 2019-08-05 03:09-0400\n"
 "PO-Revision-Date: 2019-06-24 07:09+0000\n"
 "Last-Translator: rivera valdez <riveravaldezmail@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/jami/language/es/)\n"
@@ -611,7 +611,7 @@ msgstr "PIN generado:"
 msgid "Click to change password"
 msgstr "Haga clic para cambiar la contraseña"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2048
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2047
 msgid "Export account"
 msgstr "Exportar la cuenta"
 
@@ -1106,49 +1106,49 @@ msgstr "te está llamando."
 msgid "Incoming call"
 msgstr "Llamada entrante"
 
-#: src/ringmainwindow.cpp:2273
+#: src/ringmainwindow.cpp:2275
 msgid "New request from "
 msgstr "Nueva petición de"
 
-#: src/ringmainwindow.cpp:2274
+#: src/ringmainwindow.cpp:2276
 msgid "Trust request"
 msgstr "Solicitud de confianza"
 
-#: src/ringmainwindow.cpp:2335
+#: src/ringmainwindow.cpp:2337
 msgid "New message"
 msgstr "Nuevo mensaje"
 
-#: src/ringmainwindow.cpp:2398
+#: src/ringmainwindow.cpp:2400
 msgid "Stop current call?"
 msgstr "¿Finalizar llamada actual?"
 
-#: src/ringmainwindow.cpp:2399
+#: src/ringmainwindow.cpp:2401
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Una llamada está activa. ¿Quiere cerrar la ventana y finalizar todas las llamadas que se están llevando a cabo?"
 
-#: src/ringmainwindow.cpp:2466
+#: src/ringmainwindow.cpp:2468
 msgid "Clear history"
 msgstr "Limpiar historial"
 
-#: src/ringmainwindow.cpp:2467
+#: src/ringmainwindow.cpp:2469
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "¿Desea eliminar el historial de esta conversación?"
 
-#: src/ringmainwindow.cpp:2482
+#: src/ringmainwindow.cpp:2484
 msgid "Remove conversation"
 msgstr "Eliminar conversación"
 
-#: src/ringmainwindow.cpp:2483
+#: src/ringmainwindow.cpp:2485
 msgid "Do you really want to remove this conversation?"
 msgstr "¿Desea eliminar esta conversación?"
 
-#: src/ringmainwindow.cpp:2498
+#: src/ringmainwindow.cpp:2500
 msgid "Block contact"
 msgstr "Bloquear contacto"
 
-#: src/ringmainwindow.cpp:2499
+#: src/ringmainwindow.cpp:2501
 msgid "Do you really want to block this contact?"
 msgstr "¿Desea bloquear este contacto?"
 
@@ -1333,54 +1333,54 @@ msgstr "¡Cuenta exportada!"
 msgid "Export account failure."
 msgstr "Fallo al exportar la cuenta."
 
-#: src/newaccountsettingsview.cpp:1755
+#: src/newaccountsettingsview.cpp:1754
 msgid "Bad password"
 msgstr "Contraseña errónea"
 
-#: src/newaccountsettingsview.cpp:1761
+#: src/newaccountsettingsview.cpp:1760
 msgid "Network error, try again"
 msgstr "Error en la red, inténtalo de nuevo"
 
-#: src/newaccountsettingsview.cpp:1767
+#: src/newaccountsettingsview.cpp:1766
 msgid "Unknown error"
 msgstr "Error desconocido"
 
-#: src/newaccountsettingsview.cpp:1779
+#: src/newaccountsettingsview.cpp:1778
 msgid "Could not initiate export to the Jami, try again"
 msgstr "No se ha podido exportar al Jami, inténtalo de nuevo"
 
-#: src/newaccountsettingsview.cpp:1838
+#: src/newaccountsettingsview.cpp:1837
 msgid "Error: wrong password!"
 msgstr "Error: ¡Contraseña incorrecta!"
 
-#: src/newaccountsettingsview.cpp:1841
+#: src/newaccountsettingsview.cpp:1840
 msgid "Error: unknown device!"
 msgstr "Error: ¡dispositivo desconocido!"
 
-#: src/newaccountsettingsview.cpp:2013
+#: src/newaccountsettingsview.cpp:2012
 msgid "Initializing…"
 msgstr "Inicializando…"
 
-#: src/newaccountsettingsview.cpp:2016
+#: src/newaccountsettingsview.cpp:2015
 msgid "Offline"
 msgstr "Desconectado"
 
-#: src/newaccountsettingsview.cpp:2019
+#: src/newaccountsettingsview.cpp:2018
 msgid "Connecting…"
 msgstr "Conectando..."
 
-#: src/newaccountsettingsview.cpp:2022
+#: src/newaccountsettingsview.cpp:2021
 msgid "Online"
 msgstr "En línea"
 
-#: src/newaccountsettingsview.cpp:2026
+#: src/newaccountsettingsview.cpp:2025
 msgid "Unknown status"
 msgstr "Estado desconocido"
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2058
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2058
 msgid "no password set"
 msgstr "sin contraseña establecida"
