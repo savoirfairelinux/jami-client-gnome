@@ -399,8 +399,8 @@ private:
     void slotNewTrustRequest(const std::string& id, const std::string& contactUri);
     void slotCloseTrustRequest(const std::string& id, const std::string& contactUri);
     void slotNewInteraction(const std::string& accountId, const std::string& conversation,
-                                uint64_t, const lrc::api::interaction::Info& interaction);
-    void slotCloseInteraction(const std::string& accountId, const std::string& conversation, uint64_t);
+                                uint64_t interactionId, const lrc::api::interaction::Info& interaction);
+    void slotCloseInteraction(const std::string& accountId, const std::string& conversation, uint64_t interactionId);
     void slotProfileUpdated(const std::string& id);
 };
 
@@ -801,10 +801,11 @@ action_notification(gchar* title, RingMainWindow* self, Action action)
     if (firstMarker == std::string::npos) return;
     auto secondMarker = titleStr.find(":", firstMarker + 1);
     if (secondMarker == std::string::npos) return;
+    auto thirdMarker = titleStr.find(":", secondMarker + 1);
 
     auto id = titleStr.substr(0, firstMarker);
     auto type = titleStr.substr(firstMarker + 1, secondMarker - firstMarker - 1);
-    auto information = titleStr.substr(secondMarker + 1);
+    auto information = titleStr.substr(secondMarker + 1, thirdMarker - secondMarker - 1);
 
     if (action == Action::SELECT) {
         // Select conversation
@@ -2294,7 +2295,7 @@ CppImpl::slotCloseTrustRequest(const std::string& id, const std::string& contact
 
 void
 CppImpl::slotNewInteraction(const std::string& accountId, const std::string& conversation,
-                            uint64_t, const lrc::api::interaction::Info& interaction)
+                            uint64_t interactionId, const lrc::api::interaction::Info& interaction)
 {
     if (chatViewConversation_ && chatViewConversation_->uid == conversation) {
         auto *old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
@@ -2307,7 +2308,7 @@ CppImpl::slotNewInteraction(const std::string& accountId, const std::string& con
     }
     try {
         auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
-        auto notifId = accountInfo.id + ":interaction:" + conversation;
+        auto notifId = accountInfo.id + ":interaction:" + conversation + ":" + std::to_string(interactionId);
         auto& contactModel = accountInfo.contactModel;
         auto& conversationModel = accountInfo.conversationModel;
         for (const auto& conv : conversationModel->allFilteredConversations())
@@ -2344,7 +2345,7 @@ CppImpl::slotNewInteraction(const std::string& accountId, const std::string& con
 }
 
 void
-CppImpl::slotCloseInteraction(const std::string& accountId, const std::string& conversation, uint64_t)
+CppImpl::slotCloseInteraction(const std::string& accountId, const std::string& conversation, uint64_t interactionId)
 {
     if (!gtk_window_is_active(GTK_WINDOW(self))
         || (chatViewConversation_ && chatViewConversation_->uid != conversation)) {
@@ -2352,7 +2353,7 @@ CppImpl::slotCloseInteraction(const std::string& accountId, const std::string& c
     }
     try {
         auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
-        auto notifId = accountInfo.id + ":interaction:" + conversation;
+        auto notifId = accountInfo.id + ":interaction:" + conversation + ":" + std::to_string(interactionId);
         ring_hide_notification(RING_NOTIFIER(widgets->notifier), notifId);
     } catch (...) {
         g_warning("Can't get account %s", accountId.c_str());
