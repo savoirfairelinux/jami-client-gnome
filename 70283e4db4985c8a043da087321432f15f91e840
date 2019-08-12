@@ -22,6 +22,30 @@
       "revId": "70283e4db4985c8a043da087321432f15f91e840",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd521414_c501afd0",
+        "filename": "src/generalsettingsview.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2019-08-12T15:27:07Z",
+      "side": 1,
+      "message": "preview_toggled(GtkSwitch *button, GParamSpec*, GeneralSettingsView *self) (for notify::active)\n\nexample: https://developer.gnome.org/gnome-devel-demos/stable/switch.c.html.en",
+      "parentUuid": "39a3a7a0_ce0bc887",
+      "range": {
+        "startLine": 250,
+        "startChar": 4,
+        "endLine": 250,
+        "endChar": 55
+      },
+      "revId": "70283e4db4985c8a043da087321432f15f91e840",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
     }
   ]
 }
