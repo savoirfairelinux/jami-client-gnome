@@ -11,7 +11,7 @@
 # 58488fdf1f53566f81eaccfc864e95ce, 2018
 # Keven de Oliveira <keven@zenbackup.com.br>, 2015
 # Luís Felipe Safady, 2019
-# Marcus Vinicius Lemes de Oliveira <mlemes@live.com>, 2016
+# mlemes <mlemes@live.com>, 2016
 # Marie Pelland <marie.pelland@savoirfairelinux.com>, 2018
 # Nícolas Wildner <nicolasgaucho@gmail.com>, 2015
 # Ramiro Varandas Jr <ramirovjnr@gmail.com>, 2016
@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-05 03:09-0400\n"
+"POT-Creation-Date: 2019-08-12 03:09-0400\n"
 "PO-Revision-Date: 2019-06-24 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/jami/language/pt_BR/)\n"
