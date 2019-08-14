@@ -212,6 +212,7 @@ public:
     lrc::api::AVModel* avModel_;
 
     QMetaObject::Connection state_change_connection;
+    QMetaObject::Connection update_vcard_connection;
     QMetaObject::Connection renderer_connection;
     QMetaObject::Connection smartinfo_refresh_connection;
 
@@ -661,6 +662,7 @@ CppImpl::CppImpl(CurrentCallView& widget)
 CppImpl::~CppImpl()
 {
     QObject::disconnect(state_change_connection);
+    QObject::disconnect(update_vcard_connection);
     QObject::disconnect(renderer_connection);
     QObject::disconnect(smartinfo_refresh_connection);
     g_clear_object(&widgets->settings);
@@ -826,10 +828,20 @@ CppImpl::setCallInfo()
         &lrc::api::NewCallModel::callStatusChanged,
         [this] (const std::string& callId) {
             if (callId == conversation->callId) {
-                updateState();
                 updateNameAndPhoto();
             }
         });
+
+    update_vcard_connection = QObject::connect(
+        &*(*accountInfo)->contactModel,
+        &lrc::api::ContactModel::contactAdded,
+        [this] (const std::string& uri) {
+            if (uri == conversation->participants.front()) {
+                updateNameAndPhoto();
+            }
+        });
+
+
 
     // catch double click to make full screen
     g_signal_connect(widgets->video_widget, "button-press-event",

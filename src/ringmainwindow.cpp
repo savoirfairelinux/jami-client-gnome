@@ -131,6 +131,8 @@ struct RingMainWindowPrivate
     gboolean key_pressed = false;
 
     GCancellable *cancellable;
+
+    GtkWidget* migratingDialog_;
 #if USE_LIBNM
     /* NetworkManager */
     NMClient *nm_client;
@@ -981,8 +983,38 @@ on_notification_decline_call(GtkWidget*, gchar *title, RingMainWindow* self)
 CppImpl::CppImpl(RingMainWindow& widget)
     : self {&widget}
     , widgets {RING_MAIN_WINDOW_GET_PRIVATE(&widget)}
-    , lrc_ {std::make_unique<lrc::api::Lrc>()}
-{}
+{
+    lrc_ = std::make_unique<lrc::api::Lrc>([this](){
+        widgets->migratingDialog_ = gtk_message_dialog_new(
+            GTK_WINDOW(self), GTK_DIALOG_DESTROY_WITH_PARENT,
+            GTK_MESSAGE_INFO, GTK_BUTTONS_NONE, nullptr);
+        gtk_window_set_title(GTK_WINDOW(widgets->migratingDialog_), _("Jami - Migration needed"));
+
+        auto* content_area = gtk_dialog_get_content_area(GTK_DIALOG(widgets->migratingDialog_));
+        GError *error = nullptr;
+
+        GdkPixbuf* logo_jami = gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/jami-logo-blue",
+                                                                    -1, 128, TRUE, &error);
+        if (!logo_jami) {
+            g_debug("Could not load logo: %s", error->message);
+            g_clear_error(&error);
+            return;
+        }
+        auto* image = gtk_image_new_from_pixbuf(logo_jami);
+        auto* label = gtk_label_new(_("Migration in progress... please do not close this window."));
+        gtk_container_add(GTK_CONTAINER(content_area), image);
+        gtk_container_add(GTK_CONTAINER(content_area), label);
+        gtk_widget_set_margin_left(content_area, 32);
+        gtk_widget_set_margin_right(content_area, 32);
+
+        gtk_widget_show_all(widgets->migratingDialog_);
+
+        gtk_dialog_run(GTK_DIALOG(widgets->migratingDialog_));
+    },
+    [this](){
+        gtk_widget_destroy(widgets->migratingDialog_);
+    });
+}
 
 static void
 on_clear_all_history_clicked(RingMainWindow* self)
@@ -2090,7 +2122,7 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
     }
     try {
         auto call = accountInfo_->callModel->getCall(callId);
-        auto peer = call.peer;
+        auto peer = call.peerUri;
         if (accountInfo_->profileInfo.type == lrc::api::profile::Type::RING && peer.find("ring:") == 0) {
             peer = peer.substr(5);
         }
@@ -2150,7 +2182,7 @@ CppImpl::slotNewIncomingCall(const std::string& callId)
     }
     try {
         auto call = accountInfo_->callModel->getCall(callId);
-        auto peer = call.peer;
+        auto peer = call.peerUri;
         if (accountInfo_->profileInfo.type == lrc::api::profile::Type::RING && peer.find("ring:") == 0) {
             peer = peer.substr(5);
         }
