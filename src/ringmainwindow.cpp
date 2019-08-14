@@ -2042,7 +2042,7 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
     }
     try {
         auto call = accountInfo_->callModel->getCall(callId);
-        auto peer = call.peer;
+        auto peer = call.peerUri;
         if (accountInfo_->profileInfo.type == lrc::api::profile::Type::RING && peer.find("ring:") == 0) {
             peer = peer.substr(5);
         }
@@ -2102,7 +2102,7 @@ CppImpl::slotNewIncomingCall(const std::string& callId)
     }
     try {
         auto call = accountInfo_->callModel->getCall(callId);
-        auto peer = call.peer;
+        auto peer = call.peerUri;
         if (accountInfo_->profileInfo.type == lrc::api::profile::Type::RING && peer.find("ring:") == 0) {
             peer = peer.substr(5);
         }
