@@ -381,7 +381,7 @@ print_interaction_to_buffer(ChatView* self, uint64_t interactionId, const lrc::a
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
     if (!priv->conversation_) return;
-    if (interaction.status == lrc::api::interaction::Status::UNREAD)
+    if (interaction.isRead)
         (*priv->accountInfo_)->conversationModel->setInteractionRead(priv->conversation_->uid, interactionId);
 
     webkit_chat_container_print_new_interaction(
@@ -428,7 +428,7 @@ load_participants_images(ChatView *self)
         if (!contact.profileInfo.avatar.empty()) {
             webkit_chat_container_set_sender_image(
                 WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                (*priv->accountInfo_)->contactModel->getContactProfileId(contactUri),
+                contactUri,
                 contact.profileInfo.avatar
                 );
         }
@@ -440,7 +440,7 @@ load_participants_images(ChatView *self)
     if (!(*priv->accountInfo_)->profileInfo.avatar.empty()) {
         webkit_chat_container_set_sender_image(
             WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-            (*priv->accountInfo_)->contactModel->getContactProfileId((*priv->accountInfo_)->profileInfo.uri),
+            (*priv->accountInfo_)->profileInfo.uri,
             (*priv->accountInfo_)->profileInfo.avatar
         );
     }
@@ -455,7 +455,7 @@ print_text_recording(ChatView *self)
     // Read interactions
     if (!priv->conversation_) return;
     for (const auto& it: priv->conversation_->interactions) {
-        if (it.second.status == lrc::api::interaction::Status::UNREAD)
+        if (it.second.isRead)
             (*priv->accountInfo_)->conversationModel->setInteractionRead(priv->conversation_->uid, it.first);
     }
 
@@ -561,7 +561,7 @@ update_chatview_frame(ChatView* self)
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                              (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
                                              bestName,
-                                             (*priv->accountInfo_)->contactModel->getContactProfileId(contactInfo.profileInfo.uri));
+                                             contactInfo.profileInfo.uri);
 
     // hide navbar if we are in call
     try {
