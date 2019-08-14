@@ -33,6 +33,7 @@
 // LRC
 #include <globalinstances.h>
 #include <api/conversationmodel.h>
+#include <api/account.h>
 
 // Ring Client
 #include "native/pixbufmanipulator.h"
@@ -175,6 +176,9 @@ build_interaction_json(lrc::api::ConversationModel& conversation_model,
                        const lrc::api::interaction::Info& interaction)
 {
     auto sender = QString(interaction.authorUri.c_str());
+    if (sender == "") {
+        sender = QString(conversation_model.owner.profileInfo.uri.c_str());
+    }
     auto timestamp = QString::number(interaction.timestamp);
     auto direction = lrc::api::interaction::isOutgoing(interaction) ? QString("out") : QString("in");
 
@@ -197,8 +201,7 @@ build_interaction_json(lrc::api::ConversationModel& conversation_model,
     case lrc::api::interaction::Type::CONTACT:
         interaction_object.insert("type", QJsonValue("contact"));
         break;
-    case lrc::api::interaction::Type::OUTGOING_DATA_TRANSFER:
-    case lrc::api::interaction::Type::INCOMING_DATA_TRANSFER: {
+    case lrc::api::interaction::Type::DATA_TRANSFER: {
         interaction_object.insert("type", QJsonValue("data_transfer"));
         lrc::api::datatransfer::Info info = {};
         conversation_model.getTransferInfo(msgId, info);
@@ -214,15 +217,16 @@ build_interaction_json(lrc::api::ConversationModel& conversation_model,
         break;
     }
 
+    if (interaction.isRead) {
+        interaction_object.insert("delivery_status", QJsonValue("read"));
+    }
+
     switch (interaction.status)
     {
-    case lrc::api::interaction::Status::READ:
-        interaction_object.insert("delivery_status", QJsonValue("read"));
-        break;
-    case lrc::api::interaction::Status::SUCCEED:
+    case lrc::api::interaction::Status::SUCCESS:
         interaction_object.insert("delivery_status", QJsonValue("sent"));
         break;
-    case lrc::api::interaction::Status::FAILED:
+    case lrc::api::interaction::Status::FAILURE:
     case lrc::api::interaction::Status::TRANSFER_ERROR:
         interaction_object.insert("delivery_status", QJsonValue("failure"));
         break;
@@ -258,7 +262,6 @@ build_interaction_json(lrc::api::ConversationModel& conversation_model,
         break;
     case lrc::api::interaction::Status::INVALID:
     case lrc::api::interaction::Status::UNKNOWN:
-    case lrc::api::interaction::Status::UNREAD:
     default:
         interaction_object.insert("delivery_status", QJsonValue("unknown"));
         break;

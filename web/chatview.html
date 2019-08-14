@@ -326,8 +326,9 @@ function showInvitation(contactAlias, contactId) {
         if (!inviteImage.classList.contains("sender_image")) {
             inviteImage.classList.add("sender_image")
         }
-        if (!inviteImage.classList.contains(`sender_image_${contactId}`)) {
-            inviteImage.classList.add(`sender_image_${contactId}`)
+        const className = `sender_image_${contactId}`.replace(/@/g, "_").replace(/\./g, "_")
+        if (!inviteImage.classList.contains(className)) {
+            inviteImage.classList.add(className);
         }
         hasInvitation = true
         invitationText.innerHTML = "<b>"
@@ -1649,7 +1650,7 @@ function printHistory(messages_array)
 /* exported setSenderImage */
 function setSenderImage(set_sender_image_object)
 {
-    var sender_contact_method = set_sender_image_object["sender_contact_method"],
+    var sender_contact_method = set_sender_image_object["sender_contact_method"].replace(/@/g, "_").replace(/\./g, "_"),
         sender_image = set_sender_image_object["sender_image"],
         sender_image_id = "sender_image_" + sender_contact_method,
         currentSenderImage = document.getElementById(sender_image_id), // Remove the currently set sender image
