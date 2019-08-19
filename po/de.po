@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-12 03:09-0400\n"
-"PO-Revision-Date: 2019-07-14 16:48+0000\n"
-"Last-Translator: Moritz Brunner <moritzbrunner@freenet.de>\n"
+"POT-Creation-Date: 2019-08-19 03:09-0400\n"
+"PO-Revision-Date: 2019-08-19 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -411,65 +411,85 @@ msgstr "Problem das Konto zu laden/zu erzeugen."
 msgid "OK"
 msgstr "OK"
 
-#: ui/generalsettingsview.ui:43
+#: ui/generalsettingsview.ui:51
 msgid "System"
 msgstr "System"
 
-#: ui/generalsettingsview.ui:81
+#: ui/generalsettingsview.ui:89
 msgid "Start application on login"
 msgstr "Jami automatisch starten"
 
-#: ui/generalsettingsview.ui:117
+#: ui/generalsettingsview.ui:125
 msgid "Show Jami icon (systray) in the systray area"
 msgstr "Jami-Icon in Informationsleiste (SysTray) zeigen"
 
-#: ui/generalsettingsview.ui:153
+#: ui/generalsettingsview.ui:161
 msgid "Bring Jami to the foreground on incoming calls"
 msgstr "Eingehender Anruf automatisch im Vordergrund"
 
-#: ui/generalsettingsview.ui:189
+#: ui/generalsettingsview.ui:197
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#: ui/generalsettingsview.ui:228
+#: ui/generalsettingsview.ui:236
 msgid "Enable notifications for incoming calls"
 msgstr "Erlaube Benachrichtigungen für eingehende Anrufe"
 
-#: ui/generalsettingsview.ui:264
+#: ui/generalsettingsview.ui:272
 msgid "Enable notifications for pending requests"
 msgstr "Erlaube Benachrichtigungen für wartende Anrufe"
 
-#: ui/generalsettingsview.ui:300
+#: ui/generalsettingsview.ui:308
 msgid "Enable notifications for new chat messages"
 msgstr "Erlaube Benachrichtigungen für neue Chat-Nachrichten"
 
-#: ui/generalsettingsview.ui:336
+#: ui/generalsettingsview.ui:344
 msgid "Chatview"
 msgstr "Chatansicht"
 
-#: ui/generalsettingsview.ui:375
+#: ui/generalsettingsview.ui:383
 msgid "Display images and videos into the chatview"
 msgstr "Bilder und Videos in Chatansicht anzeigen"
 
-#: ui/generalsettingsview.ui:412
+#: ui/generalsettingsview.ui:420
 msgid "Show chatview on the right (on the bottom if off)"
 msgstr "Chatansicht auf der rechten Seite anzeigen (Standard ist am unteren Ende)"
 
-#: ui/generalsettingsview.ui:449
+#: ui/generalsettingsview.ui:457
 msgid "Download folder"
 msgstr "Ordner herunterladen"
 
-#: ui/generalsettingsview.ui:486
+#: ui/generalsettingsview.ui:494
 msgid "History"
 msgstr "Verlauf"
 
-#: ui/generalsettingsview.ui:525
+#: ui/generalsettingsview.ui:533
 msgid "Keep history for (days, 0 = unlimited)"
 msgstr "Historie aufbewahren für (Tage, 0 = unbegrenzt)"
 
-#: ui/generalsettingsview.ui:555
+#: ui/generalsettingsview.ui:563
 msgid "Clear all history"
 msgstr "Kompletten Verlauf leer"
+
+#: ui/generalsettingsview.ui:595
+msgid "Call Recording"
+msgstr ""
+
+#: ui/generalsettingsview.ui:633
+msgid "Record local video"
+msgstr ""
+
+#: ui/generalsettingsview.ui:669
+msgid "Always record calls"
+msgstr ""
+
+#: ui/generalsettingsview.ui:706
+msgid "Record folder"
+msgstr ""
+
+#: ui/generalsettingsview.ui:743
+msgid "Bitrate for call recordings (kb/s)"
+msgstr ""
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -982,22 +1002,22 @@ msgstr "Name kann nicht registriert werden (Benutzername bereits vergeben)."
 msgid "Unable to register name (Network error) - check your connection."
 msgstr "Name kann nicht registriert werden (Netzwerkfehler) - Internetverbindung prüfen."
 
-#: src/generalsettingsview.cpp:100
+#: src/generalsettingsview.cpp:151
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Das ist eine destruktive Operation. Sind Sie sicher, dass Sie die ganze Chat- und Rufgeschichte löschen wollen?"
 
-#: src/generalsettingsview.cpp:170
+#: src/generalsettingsview.cpp:221
 msgid "Choose download folder"
 msgstr "Zielordner wählen"
 
-#: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
+#: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
 #: src/chatview.cpp:189 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
-#: src/generalsettingsview.cpp:175 src/chatview.cpp:191
+#: src/generalsettingsview.cpp:226 src/chatview.cpp:191
 #: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr "_Speichern"

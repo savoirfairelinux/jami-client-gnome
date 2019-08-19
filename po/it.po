@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-12 03:09-0400\n"
-"PO-Revision-Date: 2019-06-24 07:09+0000\n"
+"POT-Creation-Date: 2019-08-19 03:09-0400\n"
+"PO-Revision-Date: 2019-08-19 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Italian (http://www.transifex.com/savoirfairelinux/jami/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -397,69 +397,89 @@ msgstr "Errore nella creazione / caricamento dell'account."
 msgid "OK"
 msgstr "OK"
 
-#: ui/generalsettingsview.ui:43
+#: ui/generalsettingsview.ui:51
 msgid "System"
 msgstr "Sistema"
 
-#: ui/generalsettingsview.ui:81
+#: ui/generalsettingsview.ui:89
 msgid "Start application on login"
 msgstr "Avvia l'applicazione al login"
 
-#: ui/generalsettingsview.ui:117
+#: ui/generalsettingsview.ui:125
 msgid "Show Jami icon (systray) in the systray area"
 msgstr "Mostra l'icona Jami (systray) nell'area systray"
 
-#: ui/generalsettingsview.ui:153
+#: ui/generalsettingsview.ui:161
 msgid "Bring Jami to the foreground on incoming calls"
 msgstr "Porta Jami in primo piano con le chiamate in arrivo"
 
-#: ui/generalsettingsview.ui:189
+#: ui/generalsettingsview.ui:197
 msgid "Notifications"
 msgstr "Notifiche"
 
-#: ui/generalsettingsview.ui:228
+#: ui/generalsettingsview.ui:236
 msgid "Enable notifications for incoming calls"
 msgstr "Abilita le notifiche per le chiamate in arrivo"
 
-#: ui/generalsettingsview.ui:264
+#: ui/generalsettingsview.ui:272
 msgid "Enable notifications for pending requests"
 msgstr "Abilita le notifiche per le richieste in sospeso"
 
-#: ui/generalsettingsview.ui:300
+#: ui/generalsettingsview.ui:308
 msgid "Enable notifications for new chat messages"
 msgstr "Abilita le notifiche per i nuovi messaggi di chat"
 
-#: ui/generalsettingsview.ui:336
+#: ui/generalsettingsview.ui:344
 msgid "Chatview"
 msgstr "Vista chat"
 
-#: ui/generalsettingsview.ui:375
+#: ui/generalsettingsview.ui:383
 msgid "Display images and videos into the chatview"
 msgstr "Visualizza immagini e video nella vista chat"
 
-#: ui/generalsettingsview.ui:412
+#: ui/generalsettingsview.ui:420
 msgid "Show chatview on the right (on the bottom if off)"
 msgstr "Mostra vista chat a destra (in basso a sinistra)"
 
-#: ui/generalsettingsview.ui:449
+#: ui/generalsettingsview.ui:457
 msgid "Download folder"
 msgstr "Scarica la cartella"
 
-#: ui/generalsettingsview.ui:486
+#: ui/generalsettingsview.ui:494
 msgid "History"
 msgstr "Cronologia"
 
-#: ui/generalsettingsview.ui:525
+#: ui/generalsettingsview.ui:533
 msgid "Keep history for (days, 0 = unlimited)"
 msgstr " Keep history for (days, 0 = unlimited)"
 
-#: ui/generalsettingsview.ui:555
+#: ui/generalsettingsview.ui:563
 msgid "Clear all history"
 msgstr "Cancellare tutto lo storico"
 
+#: ui/generalsettingsview.ui:595
+msgid "Call Recording"
+msgstr ""
+
+#: ui/generalsettingsview.ui:633
+msgid "Record local video"
+msgstr ""
+
+#: ui/generalsettingsview.ui:669
+msgid "Always record calls"
+msgstr ""
+
+#: ui/generalsettingsview.ui:706
+msgid "Record folder"
+msgstr ""
+
+#: ui/generalsettingsview.ui:743
+msgid "Bitrate for call recordings (kb/s)"
+msgstr ""
+
 #: ui/profile.ui:58
 msgid "Informations"
-msgstr ""
+msgstr "Informazioni"
 
 #: ui/profile.ui:88 ui/newaccountsettingsview.ui:460
 msgid "ID"
@@ -467,7 +487,7 @@ msgstr "ID"
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "Codice QR"
 
 #: ui/ringmainwindow.ui:57
 msgid "Menu"
@@ -968,22 +988,22 @@ msgstr "Impossibile registrare il nome (Nome utente già utilizzato)."
 msgid "Unable to register name (Network error) - check your connection."
 msgstr "Impossibile registrare il nome (errore di rete) - verificare la connessione."
 
-#: src/generalsettingsview.cpp:100
+#: src/generalsettingsview.cpp:151
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Questa è un'operazione pericolosa. Sei sicuro di voler eliminare tutte le chat e la cronologia delle chiamate?"
 
-#: src/generalsettingsview.cpp:170
+#: src/generalsettingsview.cpp:221
 msgid "Choose download folder"
 msgstr "Scegli la cartella di download"
 
-#: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
+#: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
 #: src/chatview.cpp:189 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "A_bbandonare"
 
-#: src/generalsettingsview.cpp:175 src/chatview.cpp:191
+#: src/generalsettingsview.cpp:226 src/chatview.cpp:191
 #: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr "_Salva"
@@ -1178,11 +1198,11 @@ msgstr "_Sblocca contatto"
 
 #: src/conversationpopupmenu.cpp:242
 msgid "_Profile"
-msgstr ""
+msgstr "_Profilo"
 
 #: src/profileview.cpp:111
 msgid "(None)"
-msgstr ""
+msgstr "(Nessuno)"
 
 #: src/ring_client_options.c:66
 msgid "Enable debug"

@@ -27,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-12 03:09-0400\n"
-"PO-Revision-Date: 2019-07-21 18:51+0000\n"
-"Last-Translator: Vladimir Stoiakin\n"
+"POT-Creation-Date: 2019-08-19 03:09-0400\n"
+"PO-Revision-Date: 2019-08-19 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -413,65 +413,85 @@ msgstr "Ошибка создания/загрузки аккаунта."
 msgid "OK"
 msgstr "OK"
 
-#: ui/generalsettingsview.ui:43
+#: ui/generalsettingsview.ui:51
 msgid "System"
 msgstr "Система"
 
-#: ui/generalsettingsview.ui:81
+#: ui/generalsettingsview.ui:89
 msgid "Start application on login"
 msgstr "Запускать приложение при входе в систему"
 
-#: ui/generalsettingsview.ui:117
+#: ui/generalsettingsview.ui:125
 msgid "Show Jami icon (systray) in the systray area"
 msgstr "Показывать значок Jami в системном лотке"
 
-#: ui/generalsettingsview.ui:153
+#: ui/generalsettingsview.ui:161
 msgid "Bring Jami to the foreground on incoming calls"
 msgstr "Выводить Jami на передний план при входящих звонках"
 
-#: ui/generalsettingsview.ui:189
+#: ui/generalsettingsview.ui:197
 msgid "Notifications"
 msgstr "Уведомления"
 
-#: ui/generalsettingsview.ui:228
+#: ui/generalsettingsview.ui:236
 msgid "Enable notifications for incoming calls"
 msgstr "Включить уведомления о входящих звонках."
 
-#: ui/generalsettingsview.ui:264
+#: ui/generalsettingsview.ui:272
 msgid "Enable notifications for pending requests"
 msgstr "Включить уведомления об ожидающих запросах"
 
-#: ui/generalsettingsview.ui:300
+#: ui/generalsettingsview.ui:308
 msgid "Enable notifications for new chat messages"
 msgstr "Включить уведомления о новых сообщениях чата"
 
-#: ui/generalsettingsview.ui:336
+#: ui/generalsettingsview.ui:344
 msgid "Chatview"
 msgstr "Чат"
 
-#: ui/generalsettingsview.ui:375
+#: ui/generalsettingsview.ui:383
 msgid "Display images and videos into the chatview"
 msgstr "Показывать изображения и видео в окне чата"
 
-#: ui/generalsettingsview.ui:412
+#: ui/generalsettingsview.ui:420
 msgid "Show chatview on the right (on the bottom if off)"
 msgstr "Показывать чат справа (если отключено — внизу)."
 
-#: ui/generalsettingsview.ui:449
+#: ui/generalsettingsview.ui:457
 msgid "Download folder"
 msgstr "Папка для загрузок"
 
-#: ui/generalsettingsview.ui:486
+#: ui/generalsettingsview.ui:494
 msgid "History"
 msgstr "История"
 
-#: ui/generalsettingsview.ui:525
+#: ui/generalsettingsview.ui:533
 msgid "Keep history for (days, 0 = unlimited)"
 msgstr "Хранить историю (дней, 0 = неограниченно)"
 
-#: ui/generalsettingsview.ui:555
+#: ui/generalsettingsview.ui:563
 msgid "Clear all history"
 msgstr "Очистить историю"
+
+#: ui/generalsettingsview.ui:595
+msgid "Call Recording"
+msgstr ""
+
+#: ui/generalsettingsview.ui:633
+msgid "Record local video"
+msgstr ""
+
+#: ui/generalsettingsview.ui:669
+msgid "Always record calls"
+msgstr ""
+
+#: ui/generalsettingsview.ui:706
+msgid "Record folder"
+msgstr ""
+
+#: ui/generalsettingsview.ui:743
+msgid "Bitrate for call recordings (kb/s)"
+msgstr ""
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -984,22 +1004,22 @@ msgstr "Невозможно зарегистрировать имя (Имя п�
 msgid "Unable to register name (Network error) - check your connection."
 msgstr "Невозможно зарегистрировать имя (Ошибка сети) - проверьте ваше соединение. "
 
-#: src/generalsettingsview.cpp:100
+#: src/generalsettingsview.cpp:151
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Это разрушительная операция. Вы уверены, что хотите удалить всю вашу историю чатов и звонков?"
 
-#: src/generalsettingsview.cpp:170
+#: src/generalsettingsview.cpp:221
 msgid "Choose download folder"
 msgstr "Выберите папку для загрузок"
 
-#: src/generalsettingsview.cpp:173 src/avatarmanipulation.cpp:414
+#: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
 #: src/chatview.cpp:189 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "_Отмена"
 
-#: src/generalsettingsview.cpp:175 src/chatview.cpp:191
+#: src/generalsettingsview.cpp:226 src/chatview.cpp:191
 #: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr "_Сохранить"
