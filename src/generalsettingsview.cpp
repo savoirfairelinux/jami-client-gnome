@@ -198,7 +198,7 @@ change_prefered_directory (gchar * directory, GeneralSettingsView *self, gchar *
     g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
 
-    priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
+    priv->settings = g_settings_new_full(get_settings_schema(), NULL, NULL);
     g_settings_set_value(priv->settings, id, g_variant_new("s", directory));
     cb(self);
 }
@@ -291,7 +291,7 @@ general_settings_view_init(GeneralSettingsView *self)
 
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
 
-    priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
+    priv->settings = g_settings_new_full(get_settings_schema(), NULL, NULL);
 
     GtkStyleContext* context;
     context = gtk_widget_get_style_context(GTK_WIDGET(priv->button_clear_history));
