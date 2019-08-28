@@ -58,15 +58,16 @@ struct _AccountCreationWizardPrivate
     GtkWidget *choose_account_type_vbox;
     GtkWidget *choose_account_type_ring_logo;
     GtkWidget *button_new_account;
-    GtkWidget *button_existing_account;
+    GtkWidget *button_import_from_device;
     GtkWidget *button_wizard_cancel;
     GtkWidget *button_show_advanced;
+    GtkWidget *button_connect_server;
     GtkWidget *button_new_sip_account;
 
     /* existing account */
     GtkWidget *existing_account;
-    GtkWidget *button_existing_account_next;
-    GtkWidget *button_existing_account_previous;
+    GtkWidget *button_import_from_device_next;
+    GtkWidget *button_import_from_device_previous;
     GtkWidget *entry_existing_account_pin;
     GtkWidget *entry_existing_account_archive;
     GtkWidget *entry_existing_account_password;
@@ -143,15 +144,16 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, choose_account_type_vbox);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, choose_account_type_ring_logo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_new_account);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_device);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_wizard_cancel);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_show_advanced);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_connect_server);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_new_sip_account);
 
     /* existing account */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, existing_account);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account_next);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account_previous);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_device_next);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_device_previous);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_existing_account_pin);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_existing_account_archive);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_existing_account_password);
@@ -412,6 +414,7 @@ static void
 show_advanced(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *view)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+    gtk_widget_set_visible(GTK_WIDGET(priv->button_connect_server), !gtk_widget_is_visible(GTK_WIDGET(priv->button_connect_server)));
     gtk_widget_set_visible(GTK_WIDGET(priv->button_new_sip_account), !gtk_widget_is_visible(GTK_WIDGET(priv->button_new_sip_account)));
 }
 
@@ -443,7 +446,7 @@ entries_existing_account_changed(G_GNUC_UNUSED GtkEntry *entry, AccountCreationW
         (not hasPin)
     );
     gtk_widget_set_sensitive(
-        priv->button_existing_account_next,
+        priv->button_import_from_device_next,
         (hasArchive || hasPin)
     );
 
@@ -547,7 +550,7 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
 
     /* choose_account_type signals */
     g_signal_connect_swapped(priv->button_new_account, "clicked", G_CALLBACK(account_creation_wizard_show_preview), view);
-    g_signal_connect_swapped(priv->button_existing_account, "clicked", G_CALLBACK(show_existing_account), view);
+    g_signal_connect_swapped(priv->button_import_from_device, "clicked", G_CALLBACK(show_existing_account), view);
     g_signal_connect(priv->button_wizard_cancel, "clicked", G_CALLBACK(wizard_cancel_clicked), view);
     g_signal_connect(priv->button_show_advanced, "clicked", G_CALLBACK(show_advanced), view);
     g_signal_connect(priv->button_new_sip_account, "clicked", G_CALLBACK(create_new_sip_account), view);
@@ -563,8 +566,8 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
     g_signal_connect_swapped(priv->username_registration_box, "username-availability-changed", G_CALLBACK(username_availability_changed), view);
 
     /* existing_account signals */
-    g_signal_connect_swapped(priv->button_existing_account_previous, "clicked", G_CALLBACK(show_choose_account_type), view);
-    g_signal_connect_swapped(priv->button_existing_account_next, "clicked", G_CALLBACK(existing_account_next_clicked), view);
+    g_signal_connect_swapped(priv->button_import_from_device_previous, "clicked", G_CALLBACK(show_choose_account_type), view);
+    g_signal_connect_swapped(priv->button_import_from_device_next, "clicked", G_CALLBACK(existing_account_next_clicked), view);
     g_signal_connect(priv->entry_existing_account_pin, "changed", G_CALLBACK(entries_existing_account_changed), view);
     g_signal_connect(priv->entry_existing_account_archive, "file-set", G_CALLBACK(entries_existing_account_changed), view);
     g_signal_connect(priv->entry_existing_account_password, "changed", G_CALLBACK(entries_existing_account_changed), view);

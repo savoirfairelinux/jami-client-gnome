@@ -61,16 +61,24 @@
                     <property name="homogeneous">True</property>
                     <child>
                       <object class="GtkButton" id="button_new_account">
-                        <property name="label" translatable="yes">Create Jami Account</property>
-                        <property name="tooltip_text" translatable="yes">Create a new Jami account (for new users)</property>
+                        <property name="label" translatable="yes">Create Jami account</property>
+                        <property name="tooltip_text" translatable="yes">Create a new Jami account on this device (for new users)</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button_existing_account">
-                        <property name="label" translatable="yes">Import an existing account</property>
-                        <property name="tooltip_text" translatable="yes">Import an account with your PIN or your account's archive</property>
+                      <object class="GtkButton" id="button_import_from_device">
+                        <property name="label" translatable="yes">Import from device</property>
+                        <property name="tooltip_text" translatable="yes">Import an account with your PIN generated on another device</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="button_import_from_backup">
+                        <property name="label" translatable="yes">Import from archive backup</property>
+                        <property name="tooltip_text" translatable="yes">Import an account via your archive</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
@@ -90,6 +98,14 @@
                           <class name="transparent-button"/>
                           <class name="black"/>
                         </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="button_connect_server">
+                        <property name="label" translatable="yes">Connect to server</property>
+                        <property name="tooltip_text" translatable="yes">Import an account via JAMS</property>
+                        <property name="visible">False</property>
+                        <property name="can_focus">True</property>
                       </object>
                     </child>
                     <child>
@@ -223,7 +239,7 @@
                       <object class="GtkButtonBox">
                         <property name="visible">True</property>
                         <child>
-                          <object class="GtkButton" id="button_existing_account_previous">
+                          <object class="GtkButton" id="button_import_from_device_previous">
                             <property name="label" translatable="yes">Previous</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -231,7 +247,7 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkButton" id="button_existing_account_next">
+                          <object class="GtkButton" id="button_import_from_device_next">
                             <property name="label" translatable="yes">Next</property>
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
