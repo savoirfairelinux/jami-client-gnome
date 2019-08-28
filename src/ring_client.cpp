@@ -604,7 +604,7 @@ ring_client_init(RingClient *self)
 
     priv->win = NULL;
     priv->qtapp = NULL;
-    priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
+    priv->settings = g_settings_new_full(get_settings_schema(), NULL, NULL);
 
     /* add custom cmd line options */
     ring_client_add_options(G_APPLICATION(self));
