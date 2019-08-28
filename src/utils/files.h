@@ -26,7 +26,7 @@ G_BEGIN_DECLS
 
 void autostart_symlink(gboolean autostart);
 
-GSettingsSchema *get_ring_schema();
+GSettingsSchema *get_settings_schema();
 
 G_END_DECLS
 
