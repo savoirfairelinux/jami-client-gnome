@@ -26,6 +26,11 @@
         <summary>Display the chat to the rigth (default) or at the bottom.</summary>
         <description>If the chat pane is horizontal then the chat is displayed to the right of the video; otherwise it will be displayed bellow it.</description>
     </key>
+    <key name="never-show-backup-again" type="b">
+        <default>false</default>
+        <summary>Never display the backup key window.</summary>
+        <description>At the end of the account creation, the wizard show a window to export the account's key. This boolean is used to avoid to show this window again</description>
+    </key>
     <key name="enable-display-links" type="b">
         <default>true</default>
         <summary>Enable chatview to display external images.</summary>

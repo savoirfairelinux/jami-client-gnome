@@ -133,7 +133,7 @@ autostart_symlink(gboolean autostart)
 }
 
 GSettingsSchema *
-get_ring_schema()
+get_settings_schema()
 {
     static std::unique_ptr<GSettingsSchema, decltype(g_settings_schema_unref )&>
         ring_schema(nullptr, g_settings_schema_unref);

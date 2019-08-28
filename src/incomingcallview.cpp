@@ -184,7 +184,7 @@ incoming_call_view_init(IncomingCallView *view)
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
     /* bind the chat orientation to the gsetting */
-    priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
+    priv->settings = g_settings_new_full(get_settings_schema(), NULL, NULL);
     g_settings_bind_with_mapping(priv->settings, "chat-pane-horizontal",
                                  priv->paned_call, "orientation",
                                  G_SETTINGS_BIND_GET,
