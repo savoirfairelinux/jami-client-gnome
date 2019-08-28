@@ -343,7 +343,7 @@ chat_view_init(ChatView *view)
     gtk_widget_init_template(GTK_WIDGET(view));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(view);
-    priv->settings = g_settings_new_full(get_ring_schema(), NULL, NULL);
+    priv->settings = g_settings_new_full(get_settings_schema(), NULL, NULL);
 }
 
 static void

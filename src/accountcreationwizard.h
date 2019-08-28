@@ -32,6 +32,7 @@ namespace lrc
 namespace api
 {
     class AVModel;
+    class NewAccountModel;
 }
 }
 
@@ -47,11 +48,10 @@ typedef struct _AccountCreationWizard      AccountCreationWizard;
 typedef struct _AccountCreationWizardClass AccountCreationWizardClass;
 
 GType      account_creation_wizard_get_type      (void) G_GNUC_CONST;
-GtkWidget *account_creation_wizard_new           (bool cancel_button, lrc::api::AVModel& avModel);
+GtkWidget *account_creation_wizard_new           (lrc::api::AVModel& avModel, lrc::api::NewAccountModel& accountModel);
 
 void       account_creation_wizard_show_preview  (AccountCreationWizard *win, gboolean show_preview = TRUE);
-void       account_creation_wizard_cancel        (AccountCreationWizard *win);
-void       account_creation_wizard_account_added (AccountCreationWizard *view, AccountInfoPointer const & accountInfo);
+void       account_creation_wizard_account_added (AccountCreationWizard *view, const std::string& id);
 void       account_creation_show_error_view      (AccountCreationWizard *view, const std::string& id);
 
 G_END_DECLS
