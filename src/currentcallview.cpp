@@ -947,7 +947,7 @@ CppImpl::insertControls()
     g_signal_connect(widgets->togglebutton_chat, "toggled", G_CALLBACK(on_togglebutton_chat_toggled), self);
 
     /* bind the chat orientation to the gsetting */
-    widgets->settings = g_settings_new_full(get_ring_schema(), nullptr, nullptr);
+    widgets->settings = g_settings_new_full(get_settings_schema(), nullptr, nullptr);
     g_settings_bind_with_mapping(widgets->settings, "chat-pane-horizontal",
                                  widgets->paned_call, "orientation",
                                  G_SETTINGS_BIND_GET,
