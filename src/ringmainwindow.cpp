@@ -371,6 +371,8 @@ public:
 
     std::string eventUid_;
     std::string eventBody_;
+
+    bool isCreatingAccount {false};
 private:
     CppImpl() = delete;
     CppImpl(const CppImpl&) = delete;
@@ -519,7 +521,24 @@ on_account_creation_completed(RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    priv->cpp->isCreatingAccount = false;
     priv->cpp->leaveAccountCreationWizard();
+}
+
+static void
+on_account_creation_unlock(RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    priv->cpp->isCreatingAccount = false;
+}
+
+static void
+on_account_creation_lock(RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    priv->cpp->isCreatingAccount = true;
 }
 
 static void
@@ -542,7 +561,7 @@ on_account_changed(RingMainWindow* self)
         if (g_strcmp0("", accountId) == 0) {
             priv->cpp->enterAccountCreationWizard(true);
         } else {
-            priv->cpp->leaveAccountCreationWizard();
+            if (!priv->cpp->isCreatingAccount) priv->cpp->leaveAccountCreationWizard();
             if (priv->cpp->accountInfo_ && changeTopAccount) {
                 priv->cpp->accountInfo_->accountModel->setTopAccount(accountId);
             }
@@ -1652,9 +1671,13 @@ void
 CppImpl::enterAccountCreationWizard(bool showControls)
 {
     if (!widgets->account_creation_wizard) {
-        widgets->account_creation_wizard = account_creation_wizard_new(false, lrc_->getAVModel());
+        widgets->account_creation_wizard = account_creation_wizard_new(lrc_->getAVModel());
         g_object_add_weak_pointer(G_OBJECT(widgets->account_creation_wizard),
                                   reinterpret_cast<gpointer*>(&widgets->account_creation_wizard));
+        g_signal_connect_swapped(widgets->account_creation_wizard, "account-creation-lock",
+                                 G_CALLBACK(on_account_creation_lock), self);
+        g_signal_connect_swapped(widgets->account_creation_wizard, "account-creation-unlock",
+                                 G_CALLBACK(on_account_creation_unlock), self);
         g_signal_connect_swapped(widgets->account_creation_wizard, "account-creation-completed",
                                  G_CALLBACK(on_account_creation_completed), self);
 

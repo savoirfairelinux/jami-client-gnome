@@ -43,6 +43,13 @@ struct _AccountCreationWizardClass
 
 typedef struct _AccountCreationWizardPrivate AccountCreationWizardPrivate;
 
+enum class Mode {
+    ADD_LOCAL,
+    IMPORT_FROM_DEVICE,
+    IMPORT_FROM_BACKUP,
+    CONNECT_TO_MANAGER
+};
+
 struct _AccountCreationWizardPrivate
 {
     AccountInfoPointer const *accountInfo_ = nullptr;
@@ -58,15 +65,19 @@ struct _AccountCreationWizardPrivate
     GtkWidget *choose_account_type_vbox;
     GtkWidget *choose_account_type_ring_logo;
     GtkWidget *button_new_account;
-    GtkWidget *button_existing_account;
-    GtkWidget *button_wizard_cancel;
+    GtkWidget *button_import_from_device;
+    GtkWidget *button_import_from_backup;
     GtkWidget *button_show_advanced;
+    GtkWidget *button_connect_account_manager;
     GtkWidget *button_new_sip_account;
 
     /* existing account */
     GtkWidget *existing_account;
-    GtkWidget *button_existing_account_next;
-    GtkWidget *button_existing_account_previous;
+    GtkWidget *existing_account_label;
+    GtkWidget *row_archive;
+    GtkWidget *row_pin;
+    GtkWidget *button_import_from_next;
+    GtkWidget *button_import_from_previous;
     GtkWidget *entry_existing_account_pin;
     GtkWidget *entry_existing_account_archive;
     GtkWidget *entry_existing_account_password;
@@ -93,12 +104,26 @@ struct _AccountCreationWizardPrivate
     /* registering_username_spinner */
     GtkWidget *vbox_registering_username_spinner;
 
+    /* backup */
+    GtkWidget *info_backup;
+    GtkWidget *button_close_backup;
+
     /* error_view */
     GtkWidget *error_view;
+    GtkWidget *label_error_view;
     GtkWidget *button_error_view_ok;
+
+    /* connect to account_manager */
+    GtkWidget *connect_to_account_manager;
+    GtkWidget *entry_account_manager_username;
+    GtkWidget *entry_account_manager_password;
+    GtkWidget *entry_account_manager_uri;
+    GtkWidget *button_account_manager_connect_previous;
+    GtkWidget *button_account_manager_connect_next;
 
     lrc::api::AVModel* avModel_;
 
+    Mode mode;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AccountCreationWizard, account_creation_wizard, GTK_TYPE_SCROLLED_WINDOW);
@@ -107,7 +132,8 @@ G_DEFINE_TYPE_WITH_PRIVATE(AccountCreationWizard, account_creation_wizard, GTK_T
 
 /* signals */
 enum {
-    ACCOUNT_CREATION_CANCELED,
+    ACCOUNT_CREATION_LOCK,
+    ACCOUNT_CREATION_UNLOCK,
     ACCOUNT_CREATION_COMPLETED,
     LAST_SIGNAL
 };
@@ -143,15 +169,19 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, choose_account_type_vbox);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, choose_account_type_ring_logo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_new_account);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_wizard_cancel);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_device);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_backup);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_show_advanced);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_connect_account_manager);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_new_sip_account);
 
     /* existing account */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, existing_account);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account_next);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_existing_account_previous);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, existing_account_label);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, row_archive);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, row_pin);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_next);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_previous);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_existing_account_pin);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_existing_account_archive);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_existing_account_password);
@@ -175,9 +205,22 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     /* registering_username_spinner */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, vbox_registering_username_spinner);
 
+    /* info backup */
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, info_backup);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_close_backup);
+
     /* error view */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, error_view);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, label_error_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_error_view_ok);
+
+    /* connect to account_manager */
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, connect_to_account_manager);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_account_manager_username);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_account_manager_password);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_account_manager_uri);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_manager_connect_previous);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_manager_connect_next);
 
     /* add signals */
     account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED] = g_signal_new("account-creation-completed",
@@ -189,7 +232,16 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
                  g_cclosure_marshal_VOID__VOID,
                  G_TYPE_NONE, 0);
 
-    account_creation_wizard_signals[ACCOUNT_CREATION_CANCELED] = g_signal_new("account-creation-canceled",
+    account_creation_wizard_signals[ACCOUNT_CREATION_LOCK] = g_signal_new("account-creation-lock",
+                 G_TYPE_FROM_CLASS(klass),
+                 (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+                 0,
+                 nullptr,
+                 nullptr,
+                 g_cclosure_marshal_VOID__VOID,
+                 G_TYPE_NONE, 0);
+
+    account_creation_wizard_signals[ACCOUNT_CREATION_UNLOCK] = g_signal_new("account-creation-unlock",
                  G_TYPE_FROM_CLASS(klass),
                  (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
                  0,
@@ -203,12 +255,50 @@ void
 account_creation_show_error_view(AccountCreationWizard *view, const std::string& id)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
-    if (priv->accountId && id == priv->accountId)
+    if (priv->accountId && id == priv->accountId) {
+        switch (priv->mode) {
+            case Mode::ADD_LOCAL:
+                gtk_label_set_text(GTK_LABEL(priv->label_error_view),
+                    _("An error occured during the account creation."));
+                break;
+            case Mode::IMPORT_FROM_DEVICE:
+                gtk_label_set_text(GTK_LABEL(priv->label_error_view),
+                    _("Cannot retrieve any account, please verify your PIN and your password."));
+                break;
+            case Mode::IMPORT_FROM_BACKUP:
+                gtk_label_set_text(GTK_LABEL(priv->label_error_view),
+                    _("annot retrieve any account, please verify your archive and your password."));
+                break;
+            case Mode::CONNECT_TO_MANAGER:
+                gtk_label_set_text(GTK_LABEL(priv->label_error_view),
+                    _("Cannot connect to provided account manager. Please check your credentials."));
+                break;
+        }
         gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->error_view);
+    }
 }
 
 static gboolean
-create_ring_account(AccountCreationWizard *view,
+connect_to_manager(AccountCreationWizard *view, gchar* username, gchar* password, gchar* managerUri)
+{
+    g_return_val_if_fail(IS_ACCOUNT_CREATION_WIZARD(view), G_SOURCE_REMOVE);
+    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+    g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_LOCK], 0);
+
+    std::string accountId = lrc::api::NewAccountModel::connectToAccountManager(
+                                   username? username : "",
+                                   password? password : "",
+                                   managerUri? managerUri : "");
+    priv->accountId = g_strdup(accountId.c_str());
+    // NOTE: NewAccountModel::accountAdded will be triggered here and will call account_creation_wizard_account_added
+
+    g_object_ref(view);  // ref so its not destroyed too early
+
+    return G_SOURCE_REMOVE;
+}
+
+static gboolean
+create_account(AccountCreationWizard *view,
                     gchar *display_name,
                     gchar *username,
                     gchar *password,
@@ -217,6 +307,8 @@ create_ring_account(AccountCreationWizard *view,
 {
     g_return_val_if_fail(IS_ACCOUNT_CREATION_WIZARD(view), G_SOURCE_REMOVE);
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+
+    g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_LOCK], 0);
 
     priv->username = g_strdup(username);
     priv->password = g_strdup(password);
@@ -258,12 +350,15 @@ account_creation_wizard_account_added(AccountCreationWizard *view, AccountInfoPo
         }
     }
 
-    g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED], 0);
+    gtk_widget_show_all(priv->info_backup);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->info_backup);
+    //g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_UNLOCK], 0);
+
     g_object_unref(view);
 }
 
 static gboolean
-create_new_ring_account(AccountCreationWizard *win)
+create_new_account(AccountCreationWizard *win)
 {
     g_return_val_if_fail(IS_ACCOUNT_CREATION_WIZARD(win), G_SOURCE_REMOVE);
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
@@ -281,7 +376,7 @@ create_new_ring_account(AccountCreationWizard *win)
     gtk_entry_set_text(GTK_ENTRY(priv->entry_password), "");
     gtk_entry_set_text(GTK_ENTRY(priv->entry_password_confirm), "");
 
-    auto status = create_ring_account(win, display_name, username, password, nullptr, nullptr);
+    auto status = create_account(win, display_name, username, password, nullptr, nullptr);
 
     // Now that we've use the preview to generate the avatar, we can safely close it. Don't
     // assume owner will do it for us, this might not always be the case
@@ -290,6 +385,25 @@ create_new_ring_account(AccountCreationWizard *win)
     g_free(display_name);
     g_free(password);
     g_free(username);
+
+    return status;
+}
+
+static gboolean
+connect_to_account_manager(AccountCreationWizard *win)
+{
+    g_return_val_if_fail(IS_ACCOUNT_CREATION_WIZARD(win), G_SOURCE_REMOVE);
+    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
+
+    gchar *username = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_account_manager_username)));
+    gchar *password = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_account_manager_password)));
+    gchar *managerUri = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_account_manager_uri)));
+
+    auto status = connect_to_manager(win, username, password, managerUri);
+
+    g_free(username);
+    g_free(password);
+    g_free(managerUri);
 
     return status;
 }
@@ -313,7 +427,7 @@ create_existing_ring_account(AccountCreationWizard *win)
         gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->entry_existing_account_archive), nullptr);
     }
 
-    auto status = create_ring_account(win, NULL, NULL, password, pin, archive);
+    auto status = create_account(win, NULL, NULL, password, pin, archive);
 
     g_free(archive);
     g_free(password);
@@ -350,7 +464,19 @@ account_creation_next_clicked(G_GNUC_UNUSED GtkButton *button, AccountCreationWi
      * happen freeze the client before the widget changes happen;
      * the timeout function should then display the next step in account creation
      */
-    g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)create_new_ring_account, win, NULL);
+    g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)create_new_account, win, NULL);
+}
+
+static void
+connect_account_manager_next_clicked(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *win)
+{
+    show_generating_account_spinner(win);
+
+    /* now create account after a short timeout so that the the save doesn't
+     * happen freeze the client before the widget changes happen;
+     * the timeout function should then display the next step in account creation
+     */
+    g_timeout_add_full(G_PRIORITY_DEFAULT, 300, (GSourceFunc)connect_to_account_manager, win, NULL);
 }
 
 static void
@@ -381,8 +507,22 @@ show_choose_account_type(AccountCreationWizard *view)
        the window to be correctly resized at this stage. */
     gtk_widget_hide(priv->account_creation);
     gtk_widget_hide(priv->existing_account);
+    gtk_widget_hide(priv->connect_to_account_manager);
 
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->choose_account_type_vbox);
+}
+
+static void
+error_ok_clicked(AccountCreationWizard *view)
+{
+    g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_UNLOCK], 0);
+    show_choose_account_type(view);
+}
+
+static void
+close_backup_clicked(AccountCreationWizard *view)
+{
+    g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED], 0);
 }
 
 static void
@@ -394,24 +534,60 @@ account_creation_previous_clicked(G_GNUC_UNUSED GtkButton *button, AccountCreati
 }
 
 static void
-show_existing_account(AccountCreationWizard *view)
+connect_account_manager_previous_clicked(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *view)
 {
-    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
-
-    gtk_widget_show(priv->existing_account);
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->existing_account);
+    show_choose_account_type(view);
 }
 
 static void
-wizard_cancel_clicked(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *view)
+show_import_from_device(AccountCreationWizard *view)
 {
-    account_creation_wizard_cancel(view);
+    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+
+    gtk_label_set_text(GTK_LABEL(priv->existing_account_label), _("Import from device"));
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_existing_account_pin), "");
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_existing_account_password), "");
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->entry_existing_account_archive), nullptr);
+
+    gtk_widget_show_all(priv->existing_account);
+    gtk_widget_hide(priv->row_archive);
+
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->existing_account);
+    priv->mode = Mode::IMPORT_FROM_DEVICE;
+}
+
+static void
+show_import_from_backup(AccountCreationWizard *view)
+{
+    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+
+    gtk_label_set_text(GTK_LABEL(priv->existing_account_label), _("Import from backup"));
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_existing_account_pin), "");
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_existing_account_password), "");
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->entry_existing_account_archive), nullptr);
+
+    gtk_widget_show_all(priv->existing_account);
+    gtk_widget_hide(priv->row_pin);
+
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->existing_account);
+    priv->mode = Mode::IMPORT_FROM_BACKUP;
+}
+
+static void
+show_connect_account_manager(AccountCreationWizard *view)
+{
+    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+
+    gtk_widget_show(priv->connect_to_account_manager);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->connect_to_account_manager);
+    priv->mode = Mode::CONNECT_TO_MANAGER;
 }
 
 static void
 show_advanced(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *view)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+    gtk_widget_set_visible(GTK_WIDGET(priv->button_connect_account_manager), !gtk_widget_is_visible(GTK_WIDGET(priv->button_connect_account_manager)));
     gtk_widget_set_visible(GTK_WIDGET(priv->button_new_sip_account), !gtk_widget_is_visible(GTK_WIDGET(priv->button_new_sip_account)));
 }
 
@@ -443,7 +619,7 @@ entries_existing_account_changed(G_GNUC_UNUSED GtkEntry *entry, AccountCreationW
         (not hasPin)
     );
     gtk_widget_set_sensitive(
-        priv->button_existing_account_next,
+        priv->button_import_from_next,
         (hasArchive || hasPin)
     );
 
@@ -455,7 +631,6 @@ entries_new_account_changed(AccountCreationWizard *view)
 {
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
 
-    const gchar *display_name = gtk_entry_get_text(GTK_ENTRY(priv->entry_display_name));
     const gchar *username = gtk_entry_get_text(GTK_ENTRY(priv->entry_username));
     const gboolean sign_up_blockchain = gtk_switch_get_active(GTK_SWITCH(priv->switch_register));
 
@@ -470,6 +645,18 @@ entries_new_account_changed(AccountCreationWizard *view)
     {
         gtk_widget_set_sensitive(priv->button_account_creation_next, FALSE);
     }
+}
+
+static void
+entries_connect_account_manager_changed(AccountCreationWizard *view)
+{
+    AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+
+    const std::string username = gtk_entry_get_text(GTK_ENTRY(priv->entry_account_manager_username));
+    const std::string managerUri = gtk_entry_get_text(GTK_ENTRY(priv->entry_account_manager_uri));
+    const std::string password = gtk_entry_get_text(GTK_ENTRY(priv->entry_account_manager_password));
+
+    gtk_widget_set_sensitive(priv->button_account_manager_connect_next, (!username.empty() && !managerUri.empty() && !password.empty()));
 }
 
 static void
@@ -505,7 +692,7 @@ username_availability_changed(AccountCreationWizard *view, gboolean username_ava
 }
 
 static void
-build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_button)
+build_creation_wizard_view(AccountCreationWizard *view)
 {
     g_return_if_fail(IS_ACCOUNT_CREATION_WIZARD(view));
     AccountCreationWizardPrivate *priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
@@ -542,14 +729,12 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
     else
         gtk_entry_set_text(GTK_ENTRY(priv->entry_display_name), user_name);
 
-    /* cancel button */
-    gtk_widget_set_visible(priv->button_wizard_cancel, show_cancel_button);
-
     /* choose_account_type signals */
     g_signal_connect_swapped(priv->button_new_account, "clicked", G_CALLBACK(account_creation_wizard_show_preview), view);
-    g_signal_connect_swapped(priv->button_existing_account, "clicked", G_CALLBACK(show_existing_account), view);
-    g_signal_connect(priv->button_wizard_cancel, "clicked", G_CALLBACK(wizard_cancel_clicked), view);
+    g_signal_connect_swapped(priv->button_import_from_device, "clicked", G_CALLBACK(show_import_from_device), view);
+    g_signal_connect_swapped(priv->button_import_from_backup, "clicked", G_CALLBACK(show_import_from_backup), view);
     g_signal_connect(priv->button_show_advanced, "clicked", G_CALLBACK(show_advanced), view);
+    g_signal_connect_swapped(priv->button_connect_account_manager, "clicked", G_CALLBACK(show_connect_account_manager), view);
     g_signal_connect(priv->button_new_sip_account, "clicked", G_CALLBACK(create_new_sip_account), view);
 
     /* account_creation signals */
@@ -563,14 +748,25 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
     g_signal_connect_swapped(priv->username_registration_box, "username-availability-changed", G_CALLBACK(username_availability_changed), view);
 
     /* existing_account signals */
-    g_signal_connect_swapped(priv->button_existing_account_previous, "clicked", G_CALLBACK(show_choose_account_type), view);
-    g_signal_connect_swapped(priv->button_existing_account_next, "clicked", G_CALLBACK(existing_account_next_clicked), view);
+    g_signal_connect_swapped(priv->button_import_from_previous, "clicked", G_CALLBACK(show_choose_account_type), view);
+    g_signal_connect_swapped(priv->button_import_from_next, "clicked", G_CALLBACK(existing_account_next_clicked), view);
     g_signal_connect(priv->entry_existing_account_pin, "changed", G_CALLBACK(entries_existing_account_changed), view);
     g_signal_connect(priv->entry_existing_account_archive, "file-set", G_CALLBACK(entries_existing_account_changed), view);
     g_signal_connect(priv->entry_existing_account_password, "changed", G_CALLBACK(entries_existing_account_changed), view);
 
+    /* Backup */
+    g_signal_connect_swapped(priv->button_close_backup, "clicked", G_CALLBACK(close_backup_clicked), view);
+
     /* error_view signals */
-    g_signal_connect_swapped(priv->button_error_view_ok, "clicked", G_CALLBACK(show_choose_account_type), view);
+    g_signal_connect_swapped(priv->button_error_view_ok, "clicked", G_CALLBACK(error_ok_clicked), view);
+    
+
+    /* Connect to account_manager */
+    g_signal_connect_swapped(priv->entry_account_manager_username, "changed", G_CALLBACK(entries_connect_account_manager_changed), view);
+    g_signal_connect_swapped(priv->entry_account_manager_password, "changed", G_CALLBACK(entries_connect_account_manager_changed), view);
+    g_signal_connect_swapped(priv->entry_account_manager_uri, "changed", G_CALLBACK(entries_connect_account_manager_changed), view);
+    g_signal_connect(priv->button_account_manager_connect_previous, "clicked", G_CALLBACK(connect_account_manager_previous_clicked), view);
+    g_signal_connect(priv->button_account_manager_connect_next, "clicked", G_CALLBACK(connect_account_manager_next_clicked), view);
 
     show_choose_account_type(view);
 
@@ -588,14 +784,14 @@ build_creation_wizard_view(AccountCreationWizard *view, gboolean show_cancel_but
 }
 
 GtkWidget *
-account_creation_wizard_new(bool show_cancel_button, lrc::api::AVModel& avModel)
+account_creation_wizard_new(lrc::api::AVModel& avModel)
 {
     gpointer view = g_object_new(ACCOUNT_CREATION_WIZARD_TYPE, NULL);
 
     auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
     priv->avModel_ = &avModel;
 
-    build_creation_wizard_view(ACCOUNT_CREATION_WIZARD(view), show_cancel_button);
+    build_creation_wizard_view(ACCOUNT_CREATION_WIZARD(view));
     return (GtkWidget *)view;
 }
 
@@ -610,6 +806,7 @@ account_creation_wizard_show_preview(AccountCreationWizard *win, gboolean show_p
         else
             gtk_widget_hide(priv->account_creation);
     }
+    priv->mode = Mode::ADD_LOCAL;
 
     /* Similarily to general settings view, we construct and destroy the avatar manipulation widget
        each time the profile is made visible / hidden. While not the most elegant solution, this
@@ -625,12 +822,4 @@ account_creation_wizard_show_preview(AccountCreationWizard *win, gboolean show_p
         gtk_container_remove(GTK_CONTAINER(priv->box_avatarselection), priv->avatar_manipulation);
         priv->avatar_manipulation = nullptr;
     }
-}
-
-void
-account_creation_wizard_cancel(AccountCreationWizard *win)
-{
-    // make sure to stop preview before doing something else
-    account_creation_wizard_show_preview(win, FALSE);
-    g_signal_emit(G_OBJECT(win), account_creation_wizard_signals[ACCOUNT_CREATION_CANCELED], 0);
 }
