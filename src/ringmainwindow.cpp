@@ -666,8 +666,9 @@ on_dtmf_pressed(RingMainWindow* self, GdkEventKey* event, gpointer user_data)
     g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), GDK_EVENT_PROPAGATE);
     auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
 
-    if(priv->key_pressed)
+    if(priv->key_pressed && !(event->state & GDK_SHIFT_MASK)){
         return GDK_EVENT_PROPAGATE;
+    }
 
     (void)user_data;
 
