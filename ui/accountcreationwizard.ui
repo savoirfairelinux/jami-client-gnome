@@ -120,141 +120,198 @@
               </object>
             </child>
             <!-- End Choose account type wizard -->
-            <!-- Existing account wizard -->
+            <!-- Import existing -->
             <child>
               <object class="GtkBox" id="existing_account">
                 <property name="visible">False</property>
                 <property name="valign">center</property>
+                <property name="halign">center</property>
                 <property name="border_width">10</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">15</property>
+                
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkLabel" id="existing_account_label">
                     <property name="visible">True</property>
+                    <property name="halign">start</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Link this device to an existing account</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>
                     </attributes>
                   </object>
                 </child>
+
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
-                    <property name="valign">center</property>
-                    <property name="halign">center</property>
-                    <property name="max-width-chars">80</property>
-                    <property name="can_focus">True</property>
-                    <property name="wrap">True</property>
-                    <property name="justify">fill</property>
-                    <property name="label" translatable="yes">To link this device to another account, you have two possibilities. You can import your account from the DHT, but first, you need to obtain a PIN code. To generate the PIN code, go to the account management setting of a previous device, choose the Jami Account to use and select "Link another device to this account". You will get the necessary PIN to complete this form. The PIN is only valid for 10 minutes. Or, you can directly import your account from an archive.</property>
+                    <property name="valign">end</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">8</property>
+                    <child>
+                      <object class="GtkFrame">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label_xalign">0</property>
+                        <property name="shadow_type">out</property>
+
+                        <child>
+                          <!-- Export label -->
+                          <object class="GtkListBox">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="halign">fill</property>
+                            <property name="selection_mode">none</property>
+
+                            <child>
+                              <!-- Password -->
+                              <object class="GtkListBoxRow">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="halign">fill</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">10</property>
+                                    <property name="margin_right">10</property>
+                                    <property name="margin_top">10</property>
+                                    <property name="margin_bottom">10</property>
+                                    <property name="spacing">10</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Account's Password</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="entry_existing_account_password">
+                                        <property name="halign">center</property>
+                                        <property name="width_request">320</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="xalign">0.5</property>
+                                        <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                                        <property name="input_purpose">password</property>
+                                        <property name="visibility">False</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+
+                            <child>
+                              <!-- Account archive -->
+                              <object class="GtkListBoxRow" id="row_archive">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="halign">fill</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">10</property>
+                                    <property name="margin_right">10</property>
+                                    <property name="margin_top">10</property>
+                                    <property name="margin_bottom">10</property>
+                                    <property name="spacing">10</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Archive</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkFileChooserButton" id="entry_existing_account_archive">
+                                        <property name="width_request">320</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="halign">center</property>
+                                        <property name="title" translatable="yes"/>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+
+                            <child>
+                              <!-- PIN -->
+                              <object class="GtkListBoxRow" id="row_pin">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="halign">fill</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">10</property>
+                                    <property name="margin_right">10</property>
+                                    <property name="margin_top">10</property>
+                                    <property name="margin_bottom">10</property>
+                                    <property name="spacing">10</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">PIN</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="entry_existing_account_pin">
+                                        <property name="halign">center</property>
+                                        <property name="width_request">320</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="xalign">0.5</property>
+                                        <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                                        <property name="input_purpose">password</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                 </child>
+
                 <child>
-                  <object class="GtkBox" id="vbox_existing_account_entry">
+                  <object class="GtkButtonBox">
                     <property name="visible">True</property>
-                    <property name="valign">center</property>
-                    <property name="halign">center</property>
-                    <property name="orientation">vertical</property>
-                    <property name="spacing">10</property>
                     <child>
-                      <object class="GtkBox" id="import_hbox">
-                        <property name="visible">True</property>
-                        <property name="valign">center</property>
-                        <property name="halign">center</property>
-                        <property name="border_width">10</property>
-                        <property name="orientation">horizontal</property>
-                        <property name="spacing">15</property>
-                        <child>
-                          <object class="GtkBox" id="import_by_pin">
-                            <property name="visible">True</property>
-                            <property name="valign">center</property>
-                            <property name="border_width">10</property>
-                            <property name="orientation">vertical</property>
-                            <property name="spacing">15</property>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">Enter your pin:</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkEntry" id="entry_existing_account_pin">
-                                <property name="halign">center</property>
-                                <property name="width-chars">40</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="xalign">0.5</property>
-                                <property name="primary_icon_stock">gtk-dialog-authentication</property>
-                                <property name="input_purpose">password</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkBox" id="import_by_file">
-                            <property name="visible">True</property>
-                            <property name="valign">center</property>
-                            <property name="border_width">10</property>
-                            <property name="orientation">vertical</property>
-                            <property name="spacing">15</property>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">Or import a file:</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkFileChooserButton" id="entry_existing_account_archive">
-                                <property name="width_request">320</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="halign">center</property>
-                                <property name="title" translatable="yes"/>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Enter your password:</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkEntry" id="entry_existing_account_password">
-                        <property name="halign">center</property>
-                        <property name="width-chars">40</property>
+                      <object class="GtkButton" id="button_import_from_previous">
+                        <property name="label" translatable="yes">Previous</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="xalign">0.5</property>
-                        <property name="primary_icon_stock">gtk-dialog-authentication</property>
-                        <property name="input_purpose">password</property>
-                        <property name="visibility">False</property>
+                        <property name="halign">start</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButtonBox">
+                      <object class="GtkButton" id="button_import_from_next">
+                        <property name="label" translatable="yes">Next</property>
                         <property name="visible">True</property>
-                        <child>
-                          <object class="GtkButton" id="button_import_from_device_previous">
-                            <property name="label" translatable="yes">Previous</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="halign">start</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="button_import_from_device_next">
-                            <property name="label" translatable="yes">Next</property>
-                            <property name="visible">True</property>
-                            <property name="sensitive">False</property>
-                            <property name="can_focus">True</property>
-                            <property name="halign">end</property>
-                          </object>
-                        </child>
+                        <property name="sensitive">False</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">end</property>
                       </object>
                     </child>
                   </object>
@@ -359,7 +416,7 @@
                     <property name="orientation">vertical</property>
                     <property name="spacing">8</property>
                     <child>
-                      <object class="GtkLabel" id="label_name_server">
+                      <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="halign">start</property>
                         <property name="can_focus">False</property>
@@ -673,6 +730,188 @@
               </object>
             </child>
             <!-- End error view -->
+
+            <!-- Connect to server -->
+            <child>
+              <object class="GtkBox" id="connect_to_server">
+                <property name="visible">False</property>
+                <property name="valign">center</property>
+                <property name="halign">center</property>
+                <property name="border_width">10</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">15</property>
+                
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="halign">start</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Sign in</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="valign">end</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">8</property>
+                    <child>
+                      <object class="GtkFrame">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label_xalign">0</property>
+                        <property name="shadow_type">out</property>
+                        <child>
+                          <object class="GtkListBox">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="halign">fill</property>
+                            <property name="selection_mode">none</property>
+                            <child>
+                              <!-- entry username -->
+                              <object class="GtkListBoxRow">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox" id="box_server_username_entry">
+                                    <property name="visible">True</property>
+                                    <property name="halign">fill</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">10</property>
+                                    <property name="margin_right">10</property>
+                                    <property name="margin_top">10</property>
+                                    <property name="margin_bottom">10</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Username</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="entry_server_username">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <!-- Password -->
+                              <object class="GtkListBoxRow">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="halign">fill</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">10</property>
+                                    <property name="margin_right">10</property>
+                                    <property name="margin_top">10</property>
+                                    <property name="margin_bottom">10</property>
+                                    <property name="spacing">10</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Password</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="entry_server_password">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                                        <property name="visibility">False</property>
+                                        <property name="input_purpose">password</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <!-- Server URL -->
+                              <object class="GtkListBoxRow">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="halign">fill</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">10</property>
+                                    <property name="margin_right">10</property>
+                                    <property name="margin_top">10</property>
+                                    <property name="margin_bottom">10</property>
+                                    <property name="spacing">10</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Server URL</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="entry_server_url">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButtonBox">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkButton" id="button_server_connect_previous">
+                        <property name="label" translatable="yes">Previous</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">start</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="button_server_connect_next">
+                        <property name="label" translatable="yes">Next</property>
+                        <property name="sensitive">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">end</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <!-- end account wizard -->
           </object>
         </child>
       </object>
