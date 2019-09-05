@@ -33,6 +33,7 @@
 #include <api/contact.h>
 #include <api/newaccountmodel.h>
 #include <api/newcodecmodel.h>
+#include <api/avmodel.h>
 
 // Ring client
 #include "avatarmanipulation.h"
@@ -112,6 +113,7 @@ struct _NewAccountSettingsViewPrivate
     GtkWidget* allow_call_row;
         GtkWidget* call_allow_button;
     GtkWidget* auto_answer_button;
+    GtkWidget* button_play_ringtone;
     GtkWidget* custom_ringtone_button;
     GtkWidget* filechooserbutton_custom_ringtone;
     GtkWidget* box_name_server;
@@ -292,6 +294,7 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, allow_call_row);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, call_allow_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, auto_answer_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, button_play_ringtone);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, custom_ringtone_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, filechooserbutton_custom_ringtone);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, box_name_server);
@@ -1030,15 +1033,48 @@ update_auto_answer(GObject*, GParamSpec*, NewAccountSettingsView *view)
 }
 
 static void
+update_play_ringtone(NewAccountSettingsView *view, bool state, bool toggle=true)
+{
+    auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
+    g_return_if_fail(priv);
+    if (toggle) gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->button_play_ringtone), state);
+    if (state) {
+        auto image = gtk_image_new_from_icon_name("media-playback-stop-symbolic", GTK_ICON_SIZE_BUTTON);
+        gtk_button_set_image(GTK_BUTTON(priv->button_play_ringtone), image);
+    } else {
+        auto image = gtk_image_new_from_icon_name("media-playback-start-symbolic", GTK_ICON_SIZE_BUTTON);
+        gtk_button_set_image(GTK_BUTTON(priv->button_play_ringtone), image);
+    }
+}
+
+static void
 enable_custom_ringtone(GObject*, GParamSpec*, NewAccountSettingsView *view)
 {
     if (!is_config_ok(view)) return;
     auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
     auto newState = gtk_switch_get_active(GTK_SWITCH(priv->custom_ringtone_button));
     if (newState != priv->currentProp_->Ringtone.ringtoneEnabled) {
+        update_play_ringtone(view, false);
+        priv->avModel_->stopMedia();
         priv->currentProp_->Ringtone.ringtoneEnabled = newState;
         new_account_settings_view_save_account(view);
     }
+}
+
+static void
+on_play_ringtone_toggled(GtkToggleButton* play_ringtone, NewAccountSettingsView* view)
+{
+    auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
+    if (gtk_toggle_button_get_active(play_ringtone)) {
+        auto* ringtone = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_custom_ringtone));
+        if (ringtone) {
+            priv->avModel_->playMedia(ringtone);
+            update_play_ringtone(view, true, false);
+            return;
+        }
+    }
+    update_play_ringtone(view, false, gtk_toggle_button_get_active(play_ringtone));
+    priv->avModel_->stopMedia();
 }
 
 static void
@@ -1048,6 +1084,8 @@ update_custom_ringtone(GtkFileChooser *file_chooser, NewAccountSettingsView* vie
     auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
     auto* newState = gtk_file_chooser_get_filename(file_chooser);
     if (newState != priv->currentProp_->Ringtone.ringtonePath) {
+        update_play_ringtone(view, false);
+        priv->avModel_->stopMedia();
         priv->currentProp_->Ringtone.ringtonePath = newState;
         new_account_settings_view_save_account(view);
     }
@@ -1931,6 +1969,7 @@ build_settings_view(NewAccountSettingsView* view)
     g_signal_connect_swapped(priv->sip_button_delete_account, "clicked", G_CALLBACK(remove_account), view);
     g_signal_connect(priv->call_allow_button, "notify::active", G_CALLBACK(update_allow_call), view);
     g_signal_connect(priv->auto_answer_button, "notify::active", G_CALLBACK(update_auto_answer), view);
+    g_signal_connect(priv->button_play_ringtone, "toggled", G_CALLBACK(on_play_ringtone_toggled), view);
     g_signal_connect(priv->custom_ringtone_button, "notify::active", G_CALLBACK(enable_custom_ringtone), view);
     g_signal_connect(priv->filechooserbutton_custom_ringtone, "file-set", G_CALLBACK(update_custom_ringtone), view);
     g_signal_connect(priv->entry_name_server, "focus-out-event", G_CALLBACK(update_nameserver), view);
@@ -2080,6 +2119,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
 
         gtk_switch_set_active(GTK_SWITCH(priv->custom_ringtone_button), priv->currentProp_->Ringtone.ringtoneEnabled);
         gtk_widget_set_sensitive(priv->filechooserbutton_custom_ringtone, priv->currentProp_->Ringtone.ringtoneEnabled);
+        gtk_widget_set_sensitive(priv->button_play_ringtone, priv->currentProp_->Ringtone.ringtoneEnabled);
 
         gtk_box_pack_end(GTK_BOX(priv->username_box), GTK_WIDGET(username_registration_widget), false, false, 0);
         gtk_widget_show(GTK_WIDGET(priv->username_box));

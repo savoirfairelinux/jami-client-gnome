@@ -30,12 +30,12 @@ GNU Jami welcomes contribution from everyone. See [CONTRIBUTING.md](CONTRIBUTING
 
 On Debian/Ubuntu these can be installed by:
 ```bash
-sudo apt-get install g++ cmake libgtk-3-dev qtbase5-dev libclutter-gtk-1.0-dev gnome-icon-theme-symbolic libnotify-dev gettext
+sudo apt-get install g++ cmake libgtk-3-dev qtbase5-dev qtmultimedia5-dev libclutter-gtk-1.0-dev gnome-icon-theme-symbolic libnotify-dev gettext
 ```
 
 On Fedora:
 ```bash
-sudo dnf install gcc-c++ cmake gtk3-devel qt5-qtbase-devel clutter-gtk-devel gnome-icon-theme-symbolic libnotify-devel gettext
+sudo dnf install gcc-c++ cmake gtk3-devel qt5-qtbase-devel qt5-qtmultimedia-devel clutter-gtk-devel gnome-icon-theme-symbolic libnotify-devel gettext
 ```
 
 The build instructions for the daemon and libRingClient can be found in their
