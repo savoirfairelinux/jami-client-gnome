@@ -24,6 +24,10 @@
     <property name="visible">True</property>
     <property name="icon_name">pan-up-symbolic</property>
   </object>
+  <object class="GtkImage" id="image_play_ringtone">
+    <property name="visible">True</property>
+    <property name="icon_name">media-playback-start-symbolic</property>
+  </object>
   <object class="GtkImage" id="image_up_video">
     <property name="visible">True</property>
     <property name="icon_name">pan-up-symbolic</property>
@@ -1074,6 +1078,170 @@
                     <property name="position">3</property>
                   </packing>
                 </child>
+                <!-- Call settings -->
+                <child>
+                  <object class="GtkBox" id="box_call_settings">
+                    <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
+                    <property name="halign">fill</property>
+                    <property name="spacing">8</property>
+                    <!-- Title -->
+                    <child>
+                      <object class="GtkLabel" id="label_call_settings">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Call settings</property>
+                        <property name="halign">start</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkFrame">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label_xalign">0</property>
+                        <property name="shadow_type">out</property>
+                        <child>
+                          <object class="GtkListBox" id="list_call_settings">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="halign">fill</property>
+                            <property name="selection_mode">none</property>
+                            <child>
+                              <!-- Allow call -->
+                              <object class="GtkListBoxRow" id="allow_call_row">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox" id="allow_call_box">
+                                    <property name="visible">True</property>
+                                    <property name="halign">fill</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">12</property>
+                                    <property name="margin_right">12</property>
+                                    <property name="margin_top">12</property>
+                                    <property name="margin_bottom">12</property>
+                                    <child>
+                                      <object class="GtkLabel" id="label_allow">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Allow call from untrusted peers</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkSwitch" id="call_allow_button">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <!-- Auto answer -->
+                            <child>
+                              <object class="GtkListBoxRow">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox" id="auto_answer_box">
+                                    <property name="visible">True</property>
+                                    <property name="halign">fill</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">12</property>
+                                    <property name="margin_right">12</property>
+                                    <property name="margin_top">12</property>
+                                    <property name="margin_bottom">12</property>
+                                    <child>
+                                      <object class="GtkLabel" id="label_auto_answer">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Auto answer calls</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkSwitch" id="auto_answer_button">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <!-- Custom ringtones -->
+                            <child>
+                              <object class="GtkListBoxRow">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox" id="custom_ringtones_box">
+                                    <property name="visible">True</property>
+                                    <property name="valign">end</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">12</property>
+                                    <property name="margin_right">12</property>
+                                    <property name="margin_top">12</property>
+                                    <property name="margin_bottom">12</property>
+                                    <property name="spacing">8</property>
+                                    <child>
+                                      <object class="GtkLabel" id="label_custom_ringtones">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Custom ringtone</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkSwitch" id="custom_ringtone_button">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkFileChooserButton" id="filechooserbutton_custom_ringtone">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="create_folders">False</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkToggleButton" id="button_play_ringtone">
+                                        <property name="image">image_play_ringtone</property>
+                                        <property name="visible">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="halign">fill</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
                 <!-- Advanced button -->
                 <child>
                   <object class="GtkButton" id="button_advanced_settings">
@@ -1118,159 +1286,6 @@
                       <property name="visible">True</property>
                       <property name="receives_default">True</property>
                       <property name="halign">fill</property>
-                    </object>
-                  </child>
-                  <!-- Call settings -->
-                  <child>
-                    <object class="GtkBox" id="box_call_settings">
-                      <property name="visible">True</property>
-                      <property name="orientation">vertical</property>
-                      <property name="halign">fill</property>
-                      <property name="spacing">8</property>
-                      <!-- Title -->
-                      <child>
-                        <object class="GtkLabel" id="label_call_settings">
-                          <property name="visible">True</property>
-                          <property name="can_focus">False</property>
-                          <property name="label" translatable="yes">Call settings</property>
-                          <property name="halign">start</property>
-                          <attributes>
-                            <attribute name="weight" value="bold"/>
-                          </attributes>
-                        </object>
-                      </child>
-                      <child>
-                        <object class="GtkFrame">
-                          <property name="visible">True</property>
-                          <property name="can_focus">False</property>
-                          <property name="label_xalign">0</property>
-                          <property name="shadow_type">out</property>
-                          <child>
-                            <object class="GtkListBox" id="list_call_settings">
-                              <property name="visible">True</property>
-                              <property name="can_focus">True</property>
-                              <property name="halign">fill</property>
-                              <property name="selection_mode">none</property>
-                              <child>
-                                <!-- Allow call -->
-                                <object class="GtkListBoxRow" id="allow_call_row">
-                                  <property name="visible">True</property>
-                                  <property name="can_focus">True</property>
-                                  <property name="halign">fill</property>
-                                  <child>
-                                    <object class="GtkBox" id="allow_call_box">
-                                      <property name="visible">True</property>
-                                      <property name="halign">fill</property>
-                                      <property name="orientation">horizontal</property>
-                                      <property name="margin_left">12</property>
-                                      <property name="margin_right">12</property>
-                                      <property name="margin_top">12</property>
-                                      <property name="margin_bottom">12</property>
-                                      <child>
-                                        <object class="GtkLabel" id="label_allow">
-                                          <property name="visible">True</property>
-                                          <property name="can_focus">False</property>
-                                          <property name="label" translatable="yes">Allow call from untrusted peers</property>
-                                        </object>
-                                      </child>
-                                      <child>
-                                        <object class="GtkSwitch" id="call_allow_button">
-                                          <property name="visible">True</property>
-                                          <property name="can_focus">True</property>
-                                        </object>
-                                        <packing>
-                                          <property name="pack_type">end</property>
-                                        </packing>
-                                      </child>
-                                    </object>
-                                  </child>
-                                </object>
-                              </child>
-                              <!-- Auto answer -->
-                              <child>
-                                <object class="GtkListBoxRow">
-                                  <property name="visible">True</property>
-                                  <property name="can_focus">True</property>
-                                  <property name="halign">fill</property>
-                                  <child>
-                                    <object class="GtkBox" id="auto_answer_box">
-                                      <property name="visible">True</property>
-                                      <property name="halign">fill</property>
-                                      <property name="orientation">horizontal</property>
-                                      <property name="margin_left">12</property>
-                                      <property name="margin_right">12</property>
-                                      <property name="margin_top">12</property>
-                                      <property name="margin_bottom">12</property>
-                                      <child>
-                                        <object class="GtkLabel" id="label_auto_answer">
-                                          <property name="visible">True</property>
-                                          <property name="can_focus">False</property>
-                                          <property name="label" translatable="yes">Auto answer calls</property>
-                                        </object>
-                                      </child>
-                                      <child>
-                                        <object class="GtkSwitch" id="auto_answer_button">
-                                          <property name="visible">True</property>
-                                          <property name="can_focus">True</property>
-                                        </object>
-                                        <packing>
-                                          <property name="pack_type">end</property>
-                                        </packing>
-                                      </child>
-                                    </object>
-                                  </child>
-                                </object>
-                              </child>
-                              <!-- Custom ringtones -->
-                              <child>
-                                <object class="GtkListBoxRow">
-                                  <property name="visible">True</property>
-                                  <property name="can_focus">True</property>
-                                  <property name="halign">fill</property>
-                                  <child>
-                                    <object class="GtkBox" id="custom_ringtones_box">
-                                      <property name="visible">True</property>
-                                      <property name="valign">end</property>
-                                      <property name="orientation">horizontal</property>
-                                      <property name="margin_left">12</property>
-                                      <property name="margin_right">12</property>
-                                      <property name="margin_top">12</property>
-                                      <property name="margin_bottom">12</property>
-                                      <property name="spacing">8</property>
-                                      <child>
-                                        <object class="GtkLabel" id="label_custom_ringtones">
-                                          <property name="visible">True</property>
-                                          <property name="can_focus">False</property>
-                                          <property name="label" translatable="yes">Custom ringtone</property>
-                                        </object>
-                                      </child>
-                                      <child>
-                                        <object class="GtkSwitch" id="custom_ringtone_button">
-                                          <property name="visible">True</property>
-                                          <property name="can_focus">True</property>
-                                        </object>
-                                        <packing>
-                                          <property name="pack_type">end</property>
-                                        </packing>
-                                      </child>
-                                      <child>
-                                        <object class="GtkFileChooserButton" id="filechooserbutton_custom_ringtone">
-                                          <property name="visible">True</property>
-                                          <property name="can_focus">False</property>
-                                          <property name="create_folders">False</property>
-                                        </object>
-                                        <packing>
-                                          <property name="pack_type">end</property>
-                                        </packing>
-                                      </child>
-                                    </object>
-                                  </child>
-                                </object>
-                              </child>
-                            </object>
-                          </child>
-                        </object>
-                      </child>
                     </object>
                   </child>
                   <!-- Name server settings -->
