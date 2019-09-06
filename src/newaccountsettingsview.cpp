@@ -2149,9 +2149,8 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         auto max_width = label_id.size();
         max_width = std::max(max_width, label_username.size());
         max_width = std::max(max_width, label_password.size());
-        gtk_label_set_width_chars(GTK_LABEL(priv->label_id), max_width + 1);
-        gtk_label_set_width_chars(GTK_LABEL(priv->label_username), max_width + 1);
-        gtk_label_set_width_chars(GTK_LABEL(priv->label_password), max_width + 1);
+        if (label_id.size() != max_width)
+            gtk_label_set_width_chars(GTK_LABEL(priv->label_id), max_width + 1);
     } else {
         gtk_switch_set_active(GTK_SWITCH(priv->sip_account_enabled), (*priv->accountInfo_)->enabled);
 
