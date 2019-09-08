@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-19 03:09-0400\n"
-"PO-Revision-Date: 2019-08-19 07:09+0000\n"
+"POT-Creation-Date: 2019-09-08 17:49-0400\n"
+"PO-Revision-Date: 2019-09-08 21:49+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/jami/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr "Atverti programos meniu"
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr ""
+msgstr "Atverti paskyrų sąrašą"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
@@ -135,22 +135,22 @@ msgstr "Nustatymai"
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
-msgstr ""
+msgstr "Atverti/Užverti nustatymų puslapį"
 
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
-msgstr ""
+msgstr "Atverti bendrus nustatymus"
 
 #: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
-msgstr ""
+msgstr "Atverti medijos nustatymus"
 
 #: ui/help-overlay.ui:174
 msgctxt "shortcut window"
 msgid "Open account settings"
-msgstr ""
+msgstr "Atverti paskyros nustatymus"
 
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
@@ -486,7 +486,7 @@ msgstr "ID"
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "QR kodas"
 
 #: ui/ringmainwindow.ui:57
 msgid "Menu"
@@ -500,7 +500,7 @@ msgstr "Bendra"
 msgid "Media"
 msgstr "Medija"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1704
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1786
 msgid "Settings"
 msgstr "Nustatymai"
 
@@ -603,7 +603,7 @@ msgstr "Jūsų sukurtas pin:"
 msgid "Click to change password"
 msgstr "Spustelėkite, norėdami pakeisti slaptažodį"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2047
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2048
 msgid "Export account"
 msgstr "Eksportuoti paskyrą"
 
@@ -998,11 +998,11 @@ msgid "Choose download folder"
 msgstr ""
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
-#: src/chatview.cpp:189 src/newaccountsettingsview.cpp:932
+#: src/chatview.cpp:207 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "_Atsisakyti"
 
-#: src/generalsettingsview.cpp:226 src/chatview.cpp:191
+#: src/generalsettingsview.cpp:226 src/chatview.cpp:209
 #: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr "Į_rašyti"
@@ -1027,7 +1027,7 @@ msgstr "Rodyti išplėstinę informaciją"
 msgid "Open Avatar Image"
 msgstr "Atverti avataro paveikslą"
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:191
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:209
 msgid "_Open"
 msgstr "A_tverti"
 
@@ -1061,88 +1061,96 @@ msgstr ""
 msgid "Send recorded message"
 msgstr ""
 
-#: src/ringmainwindow.cpp:185
+#: src/ringmainwindow.cpp:187
 msgid "Add account…"
 msgstr "Pridėti paskyrą…"
 
-#: src/ringmainwindow.cpp:729
+#: src/ringmainwindow.cpp:778
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "skambinti"
 
-#: src/ringmainwindow.cpp:732
+#: src/ringmainwindow.cpp:781
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "atverti pokalbį"
 
-#: src/ringmainwindow.cpp:1218
+#: src/ringmainwindow.cpp:993
+msgid "Jami - Migration needed"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1006
+msgid "Migration in progress... please do not close this window."
+msgstr ""
+
+#: src/ringmainwindow.cpp:1298
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Ieškokite adresatų arba įveskite numerį"
 
-#: src/ringmainwindow.cpp:1679
+#: src/ringmainwindow.cpp:1761
 msgid "Leave settings page"
 msgstr "Išeiti iš nustatymų puslapio"
 
-#: src/ringmainwindow.cpp:2076
+#: src/ringmainwindow.cpp:2158
 msgid "There are active calls"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2130
+#: src/ringmainwindow.cpp:2212
 msgid " is calling you!"
 msgstr " jums skambina!"
 
-#: src/ringmainwindow.cpp:2131
+#: src/ringmainwindow.cpp:2213
 msgid "Incoming call"
 msgstr "Gaunamasis skambutis"
 
-#: src/ringmainwindow.cpp:2275
+#: src/ringmainwindow.cpp:2357
 msgid "New request from "
 msgstr ""
 
-#: src/ringmainwindow.cpp:2276
+#: src/ringmainwindow.cpp:2358
 msgid "Trust request"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2337
+#: src/ringmainwindow.cpp:2419
 msgid "New message"
 msgstr "Nauja žinutė"
 
-#: src/ringmainwindow.cpp:2400
+#: src/ringmainwindow.cpp:2482
 msgid "Stop current call?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2401
+#: src/ringmainwindow.cpp:2483
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2468
+#: src/ringmainwindow.cpp:2550
 msgid "Clear history"
 msgstr "Išvalyti istoriją"
 
-#: src/ringmainwindow.cpp:2469
+#: src/ringmainwindow.cpp:2551
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2484
+#: src/ringmainwindow.cpp:2566
 msgid "Remove conversation"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2485
+#: src/ringmainwindow.cpp:2567
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2500
+#: src/ringmainwindow.cpp:2582
 msgid "Block contact"
 msgstr "Užblokuoti adresatą"
 
-#: src/ringmainwindow.cpp:2501
+#: src/ringmainwindow.cpp:2583
 msgid "Do you really want to block this contact?"
-msgstr ""
+msgstr "Ar tikrai norite užblokuoti šį adresatą?"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1197,7 +1205,7 @@ msgstr "_Atblokuoti adresatą"
 
 #: src/conversationpopupmenu.cpp:242
 msgid "_Profile"
-msgstr ""
+msgstr "_Profilis"
 
 #: src/profileview.cpp:111
 msgid "(None)"
@@ -1239,11 +1247,11 @@ msgid ""
 "freedoms and privacy of its users."
 msgstr "Jami yra visuotiniam bendravimui skirta laisva programinė įranga, kuri gerbia savo naudotojų laisves ir privatumą."
 
-#: src/chatview.cpp:186
+#: src/chatview.cpp:204
 msgid "Send File"
 msgstr "Siųsti failą"
 
-#: src/chatview.cpp:186 src/newaccountsettingsview.cpp:929
+#: src/chatview.cpp:204 src/newaccountsettingsview.cpp:929
 msgid "Save File"
 msgstr "Įrašyti failą"
 
@@ -1253,7 +1261,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Įspėjimas! Šis veiksmas pašalins šią paskyrą šiame įrenginyje!\nPastaba: šio veiksmo neįmanoma bus atšaukti. Be to, gali būti prarastas jūsų registruotas vardas!"
 
-#: src/currentcallview.cpp:950
+#: src/currentcallview.cpp:962
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automatinė"
@@ -1325,54 +1333,54 @@ msgstr "Paskyra eksportuota!"
 msgid "Export account failure."
 msgstr "Paskyros eksportavimas nepavyko."
 
-#: src/newaccountsettingsview.cpp:1754
+#: src/newaccountsettingsview.cpp:1755
 msgid "Bad password"
 msgstr "Blogas slaptažodis"
 
-#: src/newaccountsettingsview.cpp:1760
+#: src/newaccountsettingsview.cpp:1761
 msgid "Network error, try again"
 msgstr "Tinklo klaida, bandykite dar kartą"
 
-#: src/newaccountsettingsview.cpp:1766
+#: src/newaccountsettingsview.cpp:1767
 msgid "Unknown error"
 msgstr "Nežinoma klaida"
 
-#: src/newaccountsettingsview.cpp:1778
+#: src/newaccountsettingsview.cpp:1779
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Nepavyko inicijuoti eksportavimą į Jami, bandykite dar kartą"
 
-#: src/newaccountsettingsview.cpp:1837
+#: src/newaccountsettingsview.cpp:1838
 msgid "Error: wrong password!"
 msgstr "Klaida: neteisingas slaptažodis!"
 
-#: src/newaccountsettingsview.cpp:1840
+#: src/newaccountsettingsview.cpp:1841
 msgid "Error: unknown device!"
 msgstr "Klaida: nežinomas įrenginys!"
 
-#: src/newaccountsettingsview.cpp:2012
+#: src/newaccountsettingsview.cpp:2013
 msgid "Initializing…"
 msgstr "Inicijuojama…"
 
-#: src/newaccountsettingsview.cpp:2015
+#: src/newaccountsettingsview.cpp:2016
 msgid "Offline"
 msgstr "Atsijungęs"
 
-#: src/newaccountsettingsview.cpp:2018
+#: src/newaccountsettingsview.cpp:2019
 msgid "Connecting…"
 msgstr "Jungiamasi…"
 
-#: src/newaccountsettingsview.cpp:2021
+#: src/newaccountsettingsview.cpp:2022
 msgid "Online"
 msgstr "Prisijungęs"
 
-#: src/newaccountsettingsview.cpp:2025
+#: src/newaccountsettingsview.cpp:2026
 msgid "Unknown status"
 msgstr "Nežinoma būsena"
 
-#: src/newaccountsettingsview.cpp:2058
+#: src/newaccountsettingsview.cpp:2059
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2058
+#: src/newaccountsettingsview.cpp:2059
 msgid "no password set"
 msgstr "slaptažodis nėra nustatytas"
