@@ -18,6 +18,7 @@ src/conversationsview.cpp
 src/mediasettingsview.cpp
 src/ring_client.cpp
 src/ringnotify.cpp
+src/marshals.cpp
 src/usernameregistrationbox.cpp
 src/generalsettingsview.cpp
 src/utils/files.cpp

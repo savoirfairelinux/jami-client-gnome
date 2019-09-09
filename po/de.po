@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-19 03:09-0400\n"
-"PO-Revision-Date: 2019-08-19 07:09+0000\n"
+"POT-Creation-Date: 2019-09-09 03:09-0400\n"
+"PO-Revision-Date: 2019-09-08 21:49+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -473,23 +473,23 @@ msgstr "Kompletten Verlauf leer"
 
 #: ui/generalsettingsview.ui:595
 msgid "Call Recording"
-msgstr ""
+msgstr "Anrufaufzeichnung"
 
 #: ui/generalsettingsview.ui:633
 msgid "Record local video"
-msgstr ""
+msgstr "lokales Video aufzeichnen"
 
 #: ui/generalsettingsview.ui:669
 msgid "Always record calls"
-msgstr ""
+msgstr "Anrufe immer aufzeichnen"
 
 #: ui/generalsettingsview.ui:706
 msgid "Record folder"
-msgstr ""
+msgstr "Aufzeichnungsordner"
 
 #: ui/generalsettingsview.ui:743
 msgid "Bitrate for call recordings (kb/s)"
-msgstr ""
+msgstr "Bitrate für Anrufaufzeichnung (kb/s)"
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -515,7 +515,7 @@ msgstr "Allgemein"
 msgid "Media"
 msgstr "Medium"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1704
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1786
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -618,7 +618,7 @@ msgstr "Ihre generierte PIN:"
 msgid "Click to change password"
 msgstr "Klilcken, um Passwort zu ändern"
 
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2047
+#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2048
 msgid "Export account"
 msgstr "Konten exportieren"
 
@@ -1013,11 +1013,11 @@ msgid "Choose download folder"
 msgstr "Zielordner wählen"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
-#: src/chatview.cpp:189 src/newaccountsettingsview.cpp:932
+#: src/chatview.cpp:207 src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
-#: src/generalsettingsview.cpp:226 src/chatview.cpp:191
+#: src/generalsettingsview.cpp:226 src/chatview.cpp:209
 #: src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr "_Speichern"
@@ -1042,7 +1042,7 @@ msgstr "Erweiterte Informationen anzeigen"
 msgid "Open Avatar Image"
 msgstr "Profilbild öffnen"
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:191
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:209
 msgid "_Open"
 msgstr "_Öffnen"
 
@@ -1076,86 +1076,94 @@ msgstr "Aufnahme stoppen"
 msgid "Send recorded message"
 msgstr "Aufgenommene Nachricht senden"
 
-#: src/ringmainwindow.cpp:185
+#: src/ringmainwindow.cpp:187
 msgid "Add account…"
 msgstr "Konto hinzufügen..."
 
-#: src/ringmainwindow.cpp:729
+#: src/ringmainwindow.cpp:778
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Anrufen"
 
-#: src/ringmainwindow.cpp:732
+#: src/ringmainwindow.cpp:781
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Chat öffnen"
 
-#: src/ringmainwindow.cpp:1218
+#: src/ringmainwindow.cpp:993
+msgid "Jami - Migration needed"
+msgstr ""
+
+#: src/ringmainwindow.cpp:1006
+msgid "Migration in progress... please do not close this window."
+msgstr ""
+
+#: src/ringmainwindow.cpp:1298
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Kontakte suchen oder Nummer eingeben"
 
-#: src/ringmainwindow.cpp:1679
+#: src/ringmainwindow.cpp:1761
 msgid "Leave settings page"
 msgstr "Seite mit Einstellungen verlassen"
 
-#: src/ringmainwindow.cpp:2076
+#: src/ringmainwindow.cpp:2158
 msgid "There are active calls"
 msgstr "Es gibt aktive Anrufe"
 
-#: src/ringmainwindow.cpp:2130
+#: src/ringmainwindow.cpp:2212
 msgid " is calling you!"
 msgstr "ruft Sie gerade an!"
 
-#: src/ringmainwindow.cpp:2131
+#: src/ringmainwindow.cpp:2213
 msgid "Incoming call"
 msgstr "Eingehender Anruf"
 
-#: src/ringmainwindow.cpp:2275
+#: src/ringmainwindow.cpp:2357
 msgid "New request from "
 msgstr "Neue Anfrage von"
 
-#: src/ringmainwindow.cpp:2276
+#: src/ringmainwindow.cpp:2358
 msgid "Trust request"
 msgstr "Anfrage vertrauen"
 
-#: src/ringmainwindow.cpp:2337
+#: src/ringmainwindow.cpp:2419
 msgid "New message"
 msgstr "Neue Nachricht"
 
-#: src/ringmainwindow.cpp:2400
+#: src/ringmainwindow.cpp:2482
 msgid "Stop current call?"
 msgstr "Aktuellen Anruf beenden?"
 
-#: src/ringmainwindow.cpp:2401
+#: src/ringmainwindow.cpp:2483
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Ein Aufruf ist derzeit im Gange. Möchten Sie das Fenster schließen und alle aktuellen Anrufe stoppen?"
 
-#: src/ringmainwindow.cpp:2468
+#: src/ringmainwindow.cpp:2550
 msgid "Clear history"
 msgstr "Verlauf leeren"
 
-#: src/ringmainwindow.cpp:2469
+#: src/ringmainwindow.cpp:2551
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Wollen Sie wirklich den Verlauf dieser Konversation löschen?"
 
-#: src/ringmainwindow.cpp:2484
+#: src/ringmainwindow.cpp:2566
 msgid "Remove conversation"
 msgstr "Konversation entfernen"
 
-#: src/ringmainwindow.cpp:2485
+#: src/ringmainwindow.cpp:2567
 msgid "Do you really want to remove this conversation?"
 msgstr "Wollen Sie wirklich diese Konversation löschen?"
 
-#: src/ringmainwindow.cpp:2500
+#: src/ringmainwindow.cpp:2582
 msgid "Block contact"
 msgstr "Kontakt blockieren"
 
-#: src/ringmainwindow.cpp:2501
+#: src/ringmainwindow.cpp:2583
 msgid "Do you really want to block this contact?"
 msgstr "Wollen Sie wirklich diesen Kontakt sperren?"
 
@@ -1254,11 +1262,11 @@ msgid ""
 "freedoms and privacy of its users."
 msgstr "Jami ist eine freie Software für universelle Kommunikation und respektiert die Freiheiten und Privatsphäre der Benutzer."
 
-#: src/chatview.cpp:186
+#: src/chatview.cpp:204
 msgid "Send File"
 msgstr "Datei senden"
 
-#: src/chatview.cpp:186 src/newaccountsettingsview.cpp:929
+#: src/chatview.cpp:204 src/newaccountsettingsview.cpp:929
 msgid "Save File"
 msgstr "Datei speichern"
 
@@ -1268,7 +1276,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Achtung! Diese Aktion entfernt dieses Konto von diesem Gerät!\nHinweis: Diese Aktion kann nicht rückgängig gemacht werden. Auch Ihr registrierter Benutzername kann verlorengehen!"
 
-#: src/currentcallview.cpp:950
+#: src/currentcallview.cpp:962
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automatisch"
@@ -1340,54 +1348,54 @@ msgstr "Konto exportiert!"
 msgid "Export account failure."
 msgstr "Fehler beim Kontoexport."
 
-#: src/newaccountsettingsview.cpp:1754
+#: src/newaccountsettingsview.cpp:1755
 msgid "Bad password"
 msgstr "Unsicheres Passwort"
 
-#: src/newaccountsettingsview.cpp:1760
+#: src/newaccountsettingsview.cpp:1761
 msgid "Network error, try again"
 msgstr "Netzwerkfehler, bitte nochmal versuchen"
 
-#: src/newaccountsettingsview.cpp:1766
+#: src/newaccountsettingsview.cpp:1767
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: src/newaccountsettingsview.cpp:1778
+#: src/newaccountsettingsview.cpp:1779
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Export nach Jami nicht möglich, versuchen Sie es erneut"
 
-#: src/newaccountsettingsview.cpp:1837
+#: src/newaccountsettingsview.cpp:1838
 msgid "Error: wrong password!"
 msgstr "Fehler: Falsches Passwort!"
 
-#: src/newaccountsettingsview.cpp:1840
+#: src/newaccountsettingsview.cpp:1841
 msgid "Error: unknown device!"
 msgstr "Fehler: Unbekanntes Gerät!"
 
-#: src/newaccountsettingsview.cpp:2012
+#: src/newaccountsettingsview.cpp:2013
 msgid "Initializing…"
 msgstr "Initialisiere..."
 
-#: src/newaccountsettingsview.cpp:2015
+#: src/newaccountsettingsview.cpp:2016
 msgid "Offline"
 msgstr "Offline"
 
-#: src/newaccountsettingsview.cpp:2018
+#: src/newaccountsettingsview.cpp:2019
 msgid "Connecting…"
 msgstr "Verbinde..."
 
-#: src/newaccountsettingsview.cpp:2021
+#: src/newaccountsettingsview.cpp:2022
 msgid "Online"
 msgstr "Online"
 
-#: src/newaccountsettingsview.cpp:2025
+#: src/newaccountsettingsview.cpp:2026
 msgid "Unknown status"
 msgstr "Unbekannter Zustand"
 
-#: src/newaccountsettingsview.cpp:2058
+#: src/newaccountsettingsview.cpp:2059
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2058
+#: src/newaccountsettingsview.cpp:2059
 msgid "no password set"
 msgstr "Kein Password erfasst"
