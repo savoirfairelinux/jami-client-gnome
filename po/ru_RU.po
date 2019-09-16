@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-09 03:09-0400\n"
-"PO-Revision-Date: 2019-09-08 21:49+0000\n"
+"POT-Creation-Date: 2019-09-16 03:09-0400\n"
+"PO-Revision-Date: 2019-09-16 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/savoirfairelinux/jami/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -181,7 +181,8 @@ msgstr "Псевдоним"
 msgid "RingID"
 msgstr "RingID"
 
-#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:451
+#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:191
+#: ui/accountcreationwizard.ui:624 ui/accountcreationwizard.ui:1018
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 msgid "Password"
 msgstr "Пароль"
@@ -270,134 +271,173 @@ msgstr "Перевод"
 msgid "Transfer to"
 msgstr "Переадресовать на"
 
-#: ui/accountcreationwizard.ui:30
+#: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
 msgstr "Добро пожаловать в"
 
-#: ui/accountcreationwizard.ui:64
-msgid "Create Jami Account"
-msgstr "Создать аккаунт Jami"
-
-#: ui/accountcreationwizard.ui:65
-msgid "Create a new Jami account (for new users)"
-msgstr "Создать новый аккаунт Jami (для новых пользователей)"
-
-#: ui/accountcreationwizard.ui:72
-msgid "Import an existing account"
+#: ui/accountcreationwizard.ui:76
+msgid "Create local account"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:73
-msgid "Import an account with your PIN or your account's archive"
+#: ui/accountcreationwizard.ui:77
+msgid "Create a new Jami account on this device (for new users)"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:80 ui/newaccountsettingsview.ui:183
-#: src/newaccountsettingsview.cpp:889
-msgid "Cancel"
-msgstr "Отмена"
+#: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
+msgid "Import from device"
+msgstr ""
 
-#: ui/accountcreationwizard.ui:86
+#: ui/accountcreationwizard.ui:85
+msgid "Import an account with your PIN generated on another device"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:92
+msgid "Import from archive backup"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:93
+msgid "Import an account via your archive"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
 msgstr "Дополнительно…"
 
-#: ui/accountcreationwizard.ui:97
+#: ui/accountcreationwizard.ui:111
+msgid "Connect to account manager"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:112
+msgid "Get your account via your credentials."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
 msgstr "Создать новый аккаунт SIP"
 
-#: ui/accountcreationwizard.ui:119
-msgid "Link this device to an existing account"
-msgstr "Привязать это устройство к существующему аккаунту"
+#: ui/accountcreationwizard.ui:234
+msgid "Archive"
+msgstr ""
 
-#: ui/accountcreationwizard.ui:134
+#: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
+msgid "Informations."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:287
+msgid "PIN"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:349
 msgid ""
-"To link this device to another account, you have two possibilities. You can "
-"import your account from the DHT, but first, you need to obtain a PIN code. "
-"To generate the PIN code, go to the account management setting of a previous"
-" device, choose the Jami Account to use and select \"Link another device to "
-"this account\". You will get the necessary PIN to complete this form. The "
-"PIN is only valid for 10 minutes. Or, you can directly import your account "
-"from an archive."
-msgstr "Чтобы привязать это устройство к аккаунту, у вас есть две возможности. Вы можете импортировать ваш аккаунт из сети DHT, но для этого вам необходимо сначала получить PIN код. Чтобы создать PIN код, зайдите в настройки аккаунта Jami на другом устройстве и выберите пункт \"Привязать другое устройство\". Будет создан PIN код, необходимый вам для продолжения. Имейте ввиду, что созданный PIN код действителен в течение 10 минут. Или же вы можете импортировать ваш аккаунт из архива."
+"You can obtain an archive by clicking on \"Export account\" in the account "
+"settings. This will create a .gz file on your device."
+msgstr ""
 
-#: ui/accountcreationwizard.ui:162
-msgid "Enter your pin:"
-msgstr "Введите ваш PIN:"
+#: ui/accountcreationwizard.ui:382
+msgid ""
+"To obtain a PIN (valid for 10 minutes), you need to open the account "
+"settings on the other device and click on \"Link to another device\"."
+msgstr ""
 
-#: ui/accountcreationwizard.ui:188
-msgid "Or import a file:"
-msgstr "Или импортируйте из файла:"
-
-#: ui/accountcreationwizard.ui:207
-msgid "Enter your password:"
-msgstr "Введите ваш пароль:"
-
-#: ui/accountcreationwizard.ui:227 ui/accountcreationwizard.ui:530
+#: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
+#: ui/accountcreationwizard.ui:1084
 msgid "Previous"
 msgstr "Назад"
 
-#: ui/accountcreationwizard.ui:235 ui/accountcreationwizard.ui:538
+#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:711
+#: ui/accountcreationwizard.ui:1092
 msgid "Next"
 msgstr "Далее"
 
-#: ui/accountcreationwizard.ui:269 ui/profile.ui:7
+#: ui/accountcreationwizard.ui:442 ui/profile.ui:7
 #: ui/newaccountsettingsview.ui:334
 msgid "Profile"
 msgstr "Профиль"
 
-#: ui/accountcreationwizard.ui:350 ui/ringmainwindow.ui:113
+#: ui/accountcreationwizard.ui:523 ui/ringmainwindow.ui:113
 #: ui/newaccountsettingsview.ui:414
 msgid "Account"
 msgstr "Учётная запись"
 
-#: ui/accountcreationwizard.ui:387
+#: ui/accountcreationwizard.ui:560
 msgid "Register username"
 msgstr "Зарегистрировать имя пользователя"
 
-#: ui/accountcreationwizard.ui:388
+#: ui/accountcreationwizard.ui:561
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
 msgstr "Отмечая это, вы зарегистрируете уникальное имя пользователя в сети Jami. Другие пользователи смогут использовать его для связи с вами вместо RingID, который 40 символов длиной."
 
-#: ui/accountcreationwizard.ui:424 ui/profile.ui:73
-#: ui/newaccountsettingsview.ui:503 ui/newaccountsettingsview.ui:733
+#: ui/accountcreationwizard.ui:597 ui/accountcreationwizard.ui:982
+#: ui/profile.ui:73 ui/newaccountsettingsview.ui:503
+#: ui/newaccountsettingsview.ui:733
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: ui/accountcreationwizard.ui:452
+#: ui/accountcreationwizard.ui:625
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "Этот пароль будет использован для шифрования данных вашего аккаунта и для привязки новых устройств к вашему аккаунту."
 
-#: ui/accountcreationwizard.ui:491 src/newaccountsettingsview.cpp:879
+#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:879
 msgid "Confirm password"
 msgstr "Подтверждение пароля"
 
-#: ui/accountcreationwizard.ui:562
+#: ui/accountcreationwizard.ui:735
 msgid "Generating your Jami account…"
 msgstr "Идёт создание вашего аккаунта Jami…"
 
-#: ui/accountcreationwizard.ui:588
+#: ui/accountcreationwizard.ui:766
+msgid "Backup your account!"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:782
+msgid ""
+"This account only exists on this device. If you lost your device or "
+"uninstall the application, your account will be deleted. You can backup your"
+" account now or later."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:789
+msgid "Never show me this again"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
+#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2048
+msgid "Export account"
+msgstr "Экспортировать аккаунт"
+
+#: ui/accountcreationwizard.ui:813
+msgid "Skip"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:839
 msgid "Registering username…"
 msgstr "Идёт регистрация имени пользователя…"
 
-#: ui/accountcreationwizard.ui:595
+#: ui/accountcreationwizard.ui:846
 msgid "This may take a few minutes."
 msgstr "Это может занять несколько минут."
 
-#: ui/accountcreationwizard.ui:621
+#: ui/accountcreationwizard.ui:872
 msgid "Retrieving your Jami account…"
 msgstr "Идёт извлечение вашего аккаунта Jami…"
 
-#: ui/accountcreationwizard.ui:647
-msgid "Error creating/loading account."
-msgstr "Ошибка создания/загрузки аккаунта."
-
-#: ui/accountcreationwizard.ui:652 ui/newaccountsettingsview.ui:266
+#: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:266
 #: ui/newaccountsettingsview.ui:289
 msgid "OK"
 msgstr "OK"
+
+#: ui/accountcreationwizard.ui:938
+msgid "Sign in"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:1057
+msgid "Account manager"
+msgstr ""
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
@@ -503,7 +543,7 @@ msgstr "Основные"
 msgid "Media"
 msgstr "Медиа"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1786
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1809
 msgid "Settings"
 msgstr "Настройки"
 
@@ -590,6 +630,10 @@ msgstr "Пароль (обязательно):"
 msgid "Enter archive password"
 msgstr "Введите пароль архива"
 
+#: ui/newaccountsettingsview.ui:183 src/newaccountsettingsview.cpp:889
+msgid "Cancel"
+msgstr "Отмена"
+
 #: ui/newaccountsettingsview.ui:189
 msgid "Export on the network"
 msgstr "Экспортировать в сеть"
@@ -605,10 +649,6 @@ msgstr "Ваш сгенерированный PIN:"
 #: ui/newaccountsettingsview.ui:538
 msgid "Click to change password"
 msgstr "Нажмите для изменения пароля"
-
-#: ui/newaccountsettingsview.ui:566 src/newaccountsettingsview.cpp:2048
-msgid "Export account"
-msgstr "Экспортировать аккаунт"
 
 #: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:901
 msgid "Enable account"
@@ -1001,12 +1041,13 @@ msgid "Choose download folder"
 msgstr "Выберите папку для загрузок"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
-#: src/chatview.cpp:207 src/newaccountsettingsview.cpp:932
+#: src/accountcreationwizard.cpp:757 src/chatview.cpp:207
+#: src/newaccountsettingsview.cpp:932
 msgid "_Cancel"
 msgstr "_Отмена"
 
-#: src/generalsettingsview.cpp:226 src/chatview.cpp:209
-#: src/newaccountsettingsview.cpp:934
+#: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
+#: src/chatview.cpp:209 src/newaccountsettingsview.cpp:934
 msgid "_Save"
 msgstr "_Сохранить"
 
@@ -1068,90 +1109,90 @@ msgstr "Отправить записанное сообщение"
 msgid "Add account…"
 msgstr "Добавить аккаунт…"
 
-#: src/ringmainwindow.cpp:778
+#: src/ringmainwindow.cpp:797
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "позвонить"
 
-#: src/ringmainwindow.cpp:781
+#: src/ringmainwindow.cpp:800
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "открыть чат"
 
-#: src/ringmainwindow.cpp:993
+#: src/ringmainwindow.cpp:1012
 msgid "Jami - Migration needed"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1006
+#: src/ringmainwindow.cpp:1025
 msgid "Migration in progress... please do not close this window."
 msgstr ""
 
-#: src/ringmainwindow.cpp:1298
+#: src/ringmainwindow.cpp:1317
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Search contacts or enter number"
 msgstr "Найдите контакты или введите номер"
 
-#: src/ringmainwindow.cpp:1761
+#: src/ringmainwindow.cpp:1784
 msgid "Leave settings page"
 msgstr "Выйти из настроек"
 
-#: src/ringmainwindow.cpp:2158
+#: src/ringmainwindow.cpp:2181
 msgid "There are active calls"
 msgstr "Есть активные звонки"
 
-#: src/ringmainwindow.cpp:2212
+#: src/ringmainwindow.cpp:2235
 msgid " is calling you!"
 msgstr "звонит вам!"
 
-#: src/ringmainwindow.cpp:2213
+#: src/ringmainwindow.cpp:2236
 msgid "Incoming call"
 msgstr "Входящий вызов"
 
-#: src/ringmainwindow.cpp:2357
+#: src/ringmainwindow.cpp:2380
 msgid "New request from "
 msgstr "Новый запрос от "
 
-#: src/ringmainwindow.cpp:2358
+#: src/ringmainwindow.cpp:2381
 msgid "Trust request"
 msgstr "Запрос доверия"
 
-#: src/ringmainwindow.cpp:2419
+#: src/ringmainwindow.cpp:2442
 msgid "New message"
 msgstr "Новое сообщение"
 
-#: src/ringmainwindow.cpp:2482
+#: src/ringmainwindow.cpp:2505
 msgid "Stop current call?"
 msgstr "Завершить текущий звонок?"
 
-#: src/ringmainwindow.cpp:2483
+#: src/ringmainwindow.cpp:2506
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "В настоящее время идёт беседа. Хотите закрыть окно и остановить все текущие вызовы?"
 
-#: src/ringmainwindow.cpp:2550
+#: src/ringmainwindow.cpp:2573
 msgid "Clear history"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2551
+#: src/ringmainwindow.cpp:2574
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2566
+#: src/ringmainwindow.cpp:2589
 msgid "Remove conversation"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2567
+#: src/ringmainwindow.cpp:2590
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2582
+#: src/ringmainwindow.cpp:2605
 msgid "Block contact"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2583
+#: src/ringmainwindow.cpp:2606
 msgid "Do you really want to block this contact?"
 msgstr ""
 
@@ -1228,9 +1269,52 @@ msgstr "Восстанавливает скрытое состояние гла�
 msgid "- GNOME client for Jami"
 msgstr "- клиент GNOME для Jami"
 
-#: src/accountcreationwizard.cpp:343
+#: src/accountcreationwizard.cpp:289
+msgid "An error occured during the account creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:293
+msgid "Cannot retrieve any account, please verify your PIN and your password."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:297
+msgid ""
+"annot retrieve any account, please verify your archive and your password."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:301
+msgid ""
+"Cannot connect to provided account manager. Please check your credentials."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
 msgstr "Пароли не совпадают"
+
+#: src/accountcreationwizard.cpp:610
+msgid "Import from backup"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:754 src/chatview.cpp:204
+#: src/newaccountsettingsview.cpp:929
+msgid "Save File"
+msgstr "Сохранить файл"
+
+#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:956
+msgid "You need to enter your password to export the full archive."
+msgstr "Для экспорта полного архива нужно ввести пароль."
+
+#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:957
+msgid "Enter password to export archive"
+msgstr "Введите пароль для экспорта архива"
+
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:980
+msgid "Account exported!"
+msgstr "Аккаунт экспортирован!"
+
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:980
+msgid "Export account failure."
+msgstr "Экспорт аккаунта не выполнен."
 
 #: src/ringwelcomeview.cpp:88
 msgid ""
@@ -1253,10 +1337,6 @@ msgstr "Jami — свободная программа для связи, ува
 #: src/chatview.cpp:204
 msgid "Send File"
 msgstr "Отправить файл"
-
-#: src/chatview.cpp:204 src/newaccountsettingsview.cpp:929
-msgid "Save File"
-msgstr "Сохранить файл"
 
 #: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:995
 msgid ""
@@ -1319,22 +1399,6 @@ msgstr "Текущий пароль"
 #: src/newaccountsettingsview.cpp:873
 msgid "New password"
 msgstr "Новый пароль"
-
-#: src/newaccountsettingsview.cpp:956
-msgid "You need to enter your password to export the full archive."
-msgstr "Для экспорта полного архива нужно ввести пароль."
-
-#: src/newaccountsettingsview.cpp:957
-msgid "Enter password to export archive"
-msgstr "Введите пароль для экспорта архива"
-
-#: src/newaccountsettingsview.cpp:980
-msgid "Account exported!"
-msgstr "Аккаунт экспортирован!"
-
-#: src/newaccountsettingsview.cpp:980
-msgid "Export account failure."
-msgstr "Экспорт аккаунта не выполнен."
 
 #: src/newaccountsettingsview.cpp:1755
 msgid "Bad password"
