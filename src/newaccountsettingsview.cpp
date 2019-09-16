@@ -66,6 +66,7 @@ struct _NewAccountSettingsViewPrivate
     GtkWidget* stack_account;
 
     GtkWidget* general_settings_box;
+        GtkWidget* box_account;
         GtkWidget* sip_account_enabled;
         GtkWidget* account_enabled;
         GtkWidget* sip_label_status;
@@ -79,7 +80,8 @@ struct _NewAccountSettingsViewPrivate
         GtkWidget* account_options_box;
             GtkWidget* type_box;
                 GtkWidget* label_type_info;
-            GtkWidget* username_box;
+            GtkWidget* username_row;
+                GtkWidget* username_box;
             GtkWidget* password_row;
                 GtkWidget* label_change_password;
         GtkWidget* sip_info_box;
@@ -254,6 +256,7 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, stack_account);
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, general_settings_box);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, box_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, account_enabled);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, sip_account_enabled);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, sip_label_status);
@@ -266,6 +269,7 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, account_options_box);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, type_box);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, label_type_info);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, username_row);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, username_box);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, password_row);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, label_change_password);
@@ -2002,6 +2006,8 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         return;
     }
 
+    bool has_account_manager = !priv->currentProp_->managerUri.empty();
+
     auto label_status = priv->label_status;
     if ((*priv->accountInfo_)->profileInfo.type != lrc::api::profile::Type::RING) {
         label_status = priv->sip_label_status;
@@ -2111,6 +2117,16 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         max_width = std::max(max_width, label_password.size());
         if (label_id.size() != max_width)
             gtk_label_set_width_chars(GTK_LABEL(priv->label_id), max_width + 1);
+
+        gtk_orientable_set_orientation(GTK_ORIENTABLE(priv->box_account), has_account_manager? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL);
+        gtk_button_set_label(GTK_BUTTON(priv->button_delete_account), has_account_manager? _("Remove account") : _("Delete account"));
+        if (has_account_manager) {
+            gtk_widget_hide(priv->button_export_account);
+            gtk_widget_hide(priv->password_row);
+            gtk_widget_hide(priv->vbox_devices);
+            if ((*priv->accountInfo_)->registeredName.empty())
+                gtk_widget_hide(priv->username_row);
+        }
     } else {
         gtk_switch_set_active(GTK_SWITCH(priv->sip_account_enabled), (*priv->accountInfo_)->enabled);
 
