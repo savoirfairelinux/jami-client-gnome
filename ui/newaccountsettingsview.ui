@@ -315,7 +315,7 @@
                     <property name="orientation">vertical</property>
                     <property name="spacing">8</property>
                     <child>
-                      <object class="GtkBox">
+                      <object class="GtkBox" id="box_account">
                         <property name="visible">True</property>
                         <property name="spacing">24</property>
                         <property name="orientation">horizontal</property>
@@ -480,7 +480,7 @@
                                         </child>
                                         <child>
                                           <!-- Username -->
-                                          <object class="GtkListBoxRow">
+                                          <object class="GtkListBoxRow" id="username_row">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="halign">fill</property>
