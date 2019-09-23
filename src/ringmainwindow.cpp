@@ -387,6 +387,7 @@ private:
     void slotAccountAddedFromLrc(const std::string& id);
     void slotAccountRemovedFromLrc(const std::string& id);
     void slotInvalidAccountFromLrc(const std::string& id);
+    void slotAccountNeedsMigration(const std::string& id);
     void slotAccountStatusChanged(const std::string& id);
     void slotConversationCleared(const std::string& uid);
     void slotModelSorted();
@@ -1620,8 +1621,10 @@ CppImpl::refreshAccountSelectorWidget(int selection_row, const std::string& sele
             gtk_list_store_append(store, &iter);
             std::string status = "";
             switch (acc_info.status) {
-                case lrc::api::account::Status::INVALID:
                 case lrc::api::account::Status::ERROR_NEED_MIGRATION:
+                    status = "NEEDS MIGRATION";
+                    break;
+                case lrc::api::account::Status::INVALID:
                 case lrc::api::account::Status::UNREGISTERED:
                     status = "DISCONNECTED";
                     break;
@@ -2070,6 +2073,31 @@ CppImpl::slotInvalidAccountFromLrc(const std::string& id)
     }
 }
 
+void
+CppImpl::slotAccountNeedsMigration(const std::string& id)
+{
+    accountInfoForMigration_ = &lrc_->getAccountModel().getAccountInfo(id);
+    if (accountInfoForMigration_->status == lrc::api::account::Status::ERROR_NEED_MIGRATION) {
+        leaveSettingsView();
+        widgets->account_migration_view = account_migration_view_new(accountInfoForMigration_);
+        g_signal_connect_swapped(widgets->account_migration_view, "account-migration-completed",
+                                    G_CALLBACK(on_handle_account_migrations), self);
+        g_signal_connect_swapped(widgets->account_migration_view, "account-migration-failed",
+                                    G_CALLBACK(on_handle_account_migrations), self);
+
+        gtk_widget_hide(widgets->ring_settings);
+        showAccountSelectorWidget(false);
+        gtk_widget_show(widgets->account_migration_view);
+        gtk_stack_add_named(
+            GTK_STACK(widgets->stack_main_view),
+            widgets->account_migration_view,
+            ACCOUNT_MIGRATION_VIEW_NAME);
+        gtk_stack_set_visible_child_name(
+            GTK_STACK(widgets->stack_main_view),
+            ACCOUNT_MIGRATION_VIEW_NAME);
+    }
+}
+
 lrc::api::conversation::Info
 CppImpl::getCurrentConversation(GtkWidget* frame_call)
 {
@@ -2101,6 +2129,11 @@ CppImpl::slotAccountStatusChanged(const std::string& id)
         currentIdx = 0; // If no account selected, select the first account
     // NOTE: Because the currentIdx can change (accounts can be re-ordered), force to select the accountInfo_->id
     refreshAccountSelectorWidget(currentIdx, accountInfo_->id);
+
+    if (accountInfo_->status == lrc::api::account::Status::ERROR_NEED_MIGRATION) {
+        slotAccountNeedsMigration(id);
+        return;
+    }
 
     auto* frame_call = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
     conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), getCurrentConversation(frame_call).uid);
