@@ -838,14 +838,9 @@ on_handle_account_migrations(RingMainWindow* self)
     }
 
     priv->cpp->accountInfoForMigration_ = nullptr;
-    for (const auto& accountId : accounts) {
-        auto* accountInfo = &priv->cpp->lrc_->getAccountModel().getAccountInfo(accountId);
-        if (accountInfo->enabled) {
-            priv->cpp->updateLrc(accountId);
-        }
-    }
+    on_account_changed(self);
+    gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
     gtk_widget_show(priv->ring_settings);
-    priv->cpp->showAccountSelectorWidget();
 }
 
 enum class Action {
@@ -1700,6 +1695,8 @@ CppImpl::enterAccountCreationWizard(bool showControls)
 void
 CppImpl::leaveAccountCreationWizard()
 {
+    auto old_view = gtk_stack_get_visible_child(GTK_STACK(widgets->stack_main_view));
+    if(IS_ACCOUNT_MIGRATION_VIEW(old_view)) return;
     if (show_settings) {
         gtk_stack_set_visible_child(GTK_STACK(widgets->stack_main_view), widgets->last_settings_view);
         gtk_widget_show(widgets->hbox_settings);

@@ -67,6 +67,8 @@ struct _AccountMigrationViewPrivate
     GtkWidget *button_migrate_account;
     GtkWidget *ringid_row;
     GtkWidget *button_delete_account;
+
+    GtkWidget *hbox_migrating_account_spinner;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(AccountMigrationView, account_migration_view, GTK_TYPE_BOX);
@@ -116,6 +118,7 @@ account_migration_view_class_init(AccountMigrationViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, button_migrate_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, ringid_row);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, button_delete_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, hbox_migrating_account_spinner);
 
     /* add signals */
     account_migration_view_signals[ACCOUNT_MIGRATION_COMPLETED] = g_signal_new("account-migration-completed",
@@ -147,10 +150,7 @@ migrate(AccountMigrationView *view)
                                            &lrc::api::NewAccountModel::migrationEnded,
         [=] (const std::string& accountId, bool ok)
         {
-            if ((*priv->accountInfo_)->id != accountId) {
-                return;
-            }
-
+            gtk_widget_hide(priv->hbox_migrating_account_spinner);
             if (ok) {
                 g_signal_emit(G_OBJECT(view), account_migration_view_signals[ACCOUNT_MIGRATION_COMPLETED], 0);
             } else {
@@ -162,6 +162,8 @@ migrate(AccountMigrationView *view)
     currentProp.archivePassword = password;
     (*priv->accountInfo_)->accountModel->setAccountConfig((*priv->accountInfo_)->id, currentProp);
     gtk_entry_set_text(GTK_ENTRY(priv->entry_password), "");
+
+    gtk_widget_show_all(priv->hbox_migrating_account_spinner);
 }
 
 
@@ -244,6 +246,8 @@ build_migration_view(AccountMigrationView *view)
     GtkStyleContext* context;
     context = gtk_widget_get_style_context(GTK_WIDGET(priv->button_delete_account));
     gtk_style_context_add_class(context, "button_red");
+
+    gtk_widget_hide(priv->hbox_migrating_account_spinner);
 }
 
 GtkWidget *

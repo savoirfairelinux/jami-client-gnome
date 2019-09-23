@@ -31,6 +31,7 @@
         <property name="label" translatable="yes">This account is malformed, please enter your password</property>
       </object>
     </child>
+    <!-- End Migrating account spinner -->
     <child>
       <object class="GtkFrame">
         <property name="visible">True</property>
@@ -194,20 +195,6 @@
         <property name="halign">fill</property>
         <property name="spacing">10</property>
         <child>
-          <object class="GtkButton" id="button_migrate_account">
-            <property name="label" translatable="yes">Migrate account</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="halign">fill</property>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkButton" id="button_delete_account">
             <property name="label" translatable="yes">Delete account</property>
             <property name="image">image-remove-account</property>
@@ -219,8 +206,48 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="button_migrate_account">
+            <property name="label" translatable="yes">Migrate account</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="halign">fill</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
+        </child>
+      </object>
+    </child>
+    <!-- Migrating account spinner -->
+    <child>
+      <object class="GtkBox" id="hbox_migrating_account_spinner">
+        <property name="visible">True</property>
+        <property name="halign">center</property>
+        <property name="orientation">horizontal</property>
+        <child>
+          <object class="GtkSpinner" id="spinner_migrating_account">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="active">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="sensitive">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Migrating your Jami account…</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
         </child>
       </object>
     </child>
