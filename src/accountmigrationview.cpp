@@ -60,12 +60,14 @@ struct _AccountMigrationViewPrivate
     /* main_view */
     GtkWidget *main_view;
     GtkWidget *label_account_alias;
-    GtkWidget *label_account_ringid;
+    GtkWidget *label_account_username;
+    GtkWidget *label_account_manager;
     GtkWidget *image_avatar;
     GtkWidget *label_migration_error;
     GtkWidget *entry_password;
     GtkWidget *button_migrate_account;
-    GtkWidget *ringid_row;
+    GtkWidget *username_row;
+    GtkWidget *manager_row;
     GtkWidget *button_delete_account;
 
     GtkWidget *hbox_migrating_account_spinner;
@@ -111,12 +113,14 @@ account_migration_view_class_init(AccountMigrationViewClass *klass)
     /* main_view */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, main_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_account_alias);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_account_ringid);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_account_username);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_account_manager);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, image_avatar);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, label_migration_error);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, entry_password);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, button_migrate_account);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, ringid_row);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, username_row);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, manager_row);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, button_delete_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountMigrationView, hbox_migrating_account_spinner);
 
@@ -151,6 +155,8 @@ migrate(AccountMigrationView *view)
         [=] (const std::string& accountId, bool ok)
         {
             gtk_widget_hide(priv->hbox_migrating_account_spinner);
+            gtk_widget_set_sensitive(GTK_WIDGET(priv->button_delete_account), true);
+            gtk_widget_set_sensitive(GTK_WIDGET(priv->button_migrate_account), true);
             if (ok) {
                 g_signal_emit(G_OBJECT(view), account_migration_view_signals[ACCOUNT_MIGRATION_COMPLETED], 0);
             } else {
@@ -164,6 +170,8 @@ migrate(AccountMigrationView *view)
     gtk_entry_set_text(GTK_ENTRY(priv->entry_password), "");
 
     gtk_widget_show_all(priv->hbox_migrating_account_spinner);
+    gtk_widget_set_sensitive(GTK_WIDGET(priv->button_delete_account), false);
+    gtk_widget_set_sensitive(GTK_WIDGET(priv->button_migrate_account), false);
 }
 
 
@@ -211,13 +219,24 @@ build_migration_view(AccountMigrationView *view)
 
     // display the ringID (without "ring:")
     g_debug("MIGRATE FOR %s", (*priv->accountInfo_)->id.c_str());
-    std::string username = (*priv->accountInfo_)->profileInfo.uri;
-    if (username.empty()) {
-        username = (*priv->accountInfo_)->profileInfo.uri;
-    }
-    gtk_label_set_text(GTK_LABEL(priv->label_account_ringid), username.c_str());
-    if (username.empty()) {
-        gtk_widget_hide(priv->ringid_row);
+    std::string username = (*priv->accountInfo_)->registeredName;
+    try {
+        auto conf = (*priv->accountInfo_)->accountModel->getAccountConfig((*priv->accountInfo_)->id);
+        if (username.empty() && !conf.managerUsername.empty()) {
+            username = conf.managerUsername;
+        }
+        gtk_label_set_text(GTK_LABEL(priv->label_account_username), username.c_str());
+        if (username.empty()) {
+            gtk_widget_hide(priv->username_row);
+        }
+        std::string manager = conf.managerUri;
+        gtk_label_set_text(GTK_LABEL(priv->label_account_manager), manager.c_str());
+        if (manager.empty()) {
+            gtk_widget_hide(priv->manager_row);
+        }
+    } catch (...) {
+        gtk_widget_hide(priv->username_row);
+        gtk_widget_hide(priv->manager_row);
     }
 
     /* get the current or default profile avatar */

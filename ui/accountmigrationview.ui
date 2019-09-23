@@ -105,8 +105,8 @@
                   </object>
                 </child>
                 <child>
-                  <!-- RingID -->
-                  <object class="GtkListBoxRow" id="ringid_row">
+                  <!-- Username -->
+                  <object class="GtkListBoxRow" id="username_row">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="halign">fill</property>
@@ -124,11 +124,11 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
-                            <property name="label" translatable="yes">RingID</property>
+                            <property name="label" translatable="yes">Username</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="label_account_ringid">
+                          <object class="GtkLabel" id="label_account_username">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
@@ -173,6 +173,43 @@
                             <property name="visibility">False</property>
                             <property name="primary_icon_stock">gtk-dialog-authentication</property>
                             <property name="input_purpose">password</property>
+                          </object>
+                          <packing>
+                            <property name="pack_type">end</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <!-- Manager URI -->
+                  <object class="GtkListBoxRow" id="manager_row">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">fill</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="halign">fill</property>
+                        <property name="orientation">horizontal</property>
+                        <property name="margin_left">10</property>
+                        <property name="margin_right">10</property>
+                        <property name="margin_top">10</property>
+                        <property name="margin_bottom">10</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="label" translatable="yes">Account manager</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_account_manager">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
                           </object>
                           <packing>
                             <property name="pack_type">end</property>
