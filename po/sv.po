@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-16 03:09-0400\n"
-"PO-Revision-Date: 2019-09-16 07:09+0000\n"
+"POT-Creation-Date: 2019-09-23 03:09-0400\n"
+"PO-Revision-Date: 2019-09-16 09:52+0000\n"
 "Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/jami/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -272,27 +272,27 @@ msgstr "Välkommen till"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr ""
+msgstr "Skapa lokalt konto"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Skapa ett nytt Jami-konto på denna enhet (för nya användare)"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "Importera från enhet"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "Importera ett konto med din PIN-kod, som skapats på en annan enhet."
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr ""
+msgstr "Importera från arkiverad säkerhetskopia"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "Importera ett konto via ditt kontoarkiv"
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
@@ -300,11 +300,11 @@ msgstr "Avancerat..."
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
-msgstr ""
+msgstr "Anslut till kontohanteraren"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
-msgstr ""
+msgstr "Hämta ditt konto via dina inloggningsuppgifter."
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
@@ -312,11 +312,11 @@ msgstr "Lägg till nytt SIP-konto"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
-msgstr ""
+msgstr "Arkiv"
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
-msgstr ""
+msgstr "Information."
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
@@ -326,13 +326,13 @@ msgstr "PIN-kod"
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Du kan få ett arkiv genom att klicka på \"Exportera konto\" i kontoinställningarna. Det kommer att skapa en .gz-fil på din enhet."
 
 #: ui/accountcreationwizard.ui:382
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr ""
+msgstr "För att få en PIN-kod (giltig i 10 minuter), måste öppna kontoinställningarna på den andra enheten och klicka på \"Koppla till en annan enhet\"."
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
@@ -387,18 +387,18 @@ msgstr "Genererar ditt Jami-konto..."
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr ""
+msgstr "Säkerhetskopiera ditt konto!"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "Detta konto finns bara på denna enhet. Om du förlorar din enhet eller avinstallerar programmet, kommer ditt konto att raderas. Du kan säkerhetskopiera ditt konto nu eller senare."
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "Visa inte detta igen"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2048
@@ -428,11 +428,11 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "Logga in"
 
 #: ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr ""
+msgstr "Kontohanterare"
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
@@ -1139,7 +1139,7 @@ msgstr "Det finns aktiva samtal"
 
 #: src/ringmainwindow.cpp:2235
 msgid " is calling you!"
-msgstr "ringer dig!"
+msgstr " ringer dig!"
 
 #: src/ringmainwindow.cpp:2236
 msgid "Incoming call"
@@ -1266,21 +1266,21 @@ msgstr "- GNOME-klient för Jami"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "Ett fel inträffade när kontot skulle skapas."
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "Kan inte hämta något konto, verifiera din PIN-kod och ditt lösenord."
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "annot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Kan inte hämta något konto, verifiera ditt arkiv och ditt lösenord."
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "Kan inte ansluta till kontohanteraren. Kontrollera dina inloggningsuppgifter."
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
@@ -1288,7 +1288,7 @@ msgstr "Lösenorden stämmer inte"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Importera från säkerhetskopia"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:204
 #: src/newaccountsettingsview.cpp:929

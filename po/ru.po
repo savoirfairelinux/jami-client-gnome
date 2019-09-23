@@ -9,6 +9,7 @@
 # Anton Samarchyan <desecho@gmail.com>, 2016
 # cypherpunks01 cypherpunks01, 2018-2019
 # Dmitri Kazankov <kazankov_dv@outlook.com>, 2018
+# contactobscurantist <gokigen@disroot.org>, 2019
 # Konstantin, 2016
 # Marat Gubaidullin <marat.gubaidullin@savoirfairelinux.com>, 2015
 # Natalia <sonaux@gmail.com>, 2015
@@ -27,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-16 03:09-0400\n"
-"PO-Revision-Date: 2019-09-16 07:09+0000\n"
-"Last-Translator: Андрей Шевчук <andrei@shevchuk.co>\n"
+"POT-Creation-Date: 2019-09-23 03:09-0400\n"
+"PO-Revision-Date: 2019-09-21 04:29+0000\n"
+"Last-Translator: contactobscurantist <gokigen@disroot.org>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -291,23 +292,23 @@ msgstr "Добро пожаловать в"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr ""
+msgstr "Создать локальную учетную запись"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Создать учетную запись Jami на этом устройстве (для новых пользователей)"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "Импортировать с устройств"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "Импортировать учетную запись при помощи PIN, созданного на другом устройстве"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr ""
+msgstr "Импортировать из резервной копии"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
@@ -327,7 +328,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
-msgstr "Создать новый аккаунт SIP"
+msgstr "Добавить новый аккаунт SIP"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
@@ -345,13 +346,13 @@ msgstr "PIN"
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Вы можете получить архив, нажав \"Экспортировать учетную запись\" в настройках учетной записи. Это создаст на вашем устройстве файл с расширением \".gz\"."
 
 #: ui/accountcreationwizard.ui:382
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr ""
+msgstr "Для получения PIN (действительного 10 минут) вам необходимо открыть настройки учетной записи на другом устройстве и нажать \"Привязать другое устройство к этой учетной записи\"."
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
@@ -382,7 +383,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your RingID, which is 40 "
 "characters long."
-msgstr "Отмечая это, вы зарегистрируете уникальное имя пользователя в сети Jami. Другие пользователи смогут использовать его для связи с вами вместо RingID, который 40 символов длиной."
+msgstr "Отметив это, вы зарегистрируете уникальное имя пользователя в сети Jami. Его можно будет использовать для связи с вами вместо RingID длиной в 40 символов."
 
 #: ui/accountcreationwizard.ui:597 ui/accountcreationwizard.ui:982
 #: ui/profile.ui:73 ui/newaccountsettingsview.ui:503
@@ -394,7 +395,7 @@ msgstr "Имя пользователя"
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr "Этот пароль будет использован для шифрования данных вашего аккаунта и для привязки новых устройств к вашему аккаунту."
+msgstr "Этот пароль будет использован для шифрования данных вашей учетной записи и привязки к ней новых устройств."
 
 #: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:879
 msgid "Confirm password"
@@ -406,18 +407,18 @@ msgstr "Идёт создание вашего аккаунта Jami…"
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr ""
+msgstr "Создайте резервную копию!"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "Эта учётная запись хранится только на этом устройстве. Если вы потеряете это устройство или удалите приложение, ваша учетная запись будет утрачена. Вы можете создать резервную копию сейчас или позже."
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "Больше не показывать"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2048
@@ -447,7 +448,7 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "Войти"
 
 #: ui/accountcreationwizard.ui:1057
 msgid "Account manager"
@@ -515,27 +516,27 @@ msgstr "Очистить историю"
 
 #: ui/generalsettingsview.ui:595
 msgid "Call Recording"
-msgstr ""
+msgstr "Запись разговоров"
 
 #: ui/generalsettingsview.ui:633
 msgid "Record local video"
-msgstr ""
+msgstr "Записывать своё видео"
 
 #: ui/generalsettingsview.ui:669
 msgid "Always record calls"
-msgstr ""
+msgstr "Всегда записывать разговоры"
 
 #: ui/generalsettingsview.ui:706
 msgid "Record folder"
-msgstr ""
+msgstr "Папка для записей"
 
 #: ui/generalsettingsview.ui:743
 msgid "Bitrate for call recordings (kb/s)"
-msgstr ""
+msgstr "Битрейт для записи разговоров (кб/с)"
 
 #: ui/profile.ui:58
 msgid "Informations"
-msgstr ""
+msgstr "Информация"
 
 #: ui/profile.ui:88 ui/newaccountsettingsview.ui:460
 msgid "ID"
@@ -543,7 +544,7 @@ msgstr "ID"
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr "QR код"
+msgstr "QR-код"
 
 #: ui/ringmainwindow.ui:57
 msgid "Menu"
@@ -1255,7 +1256,7 @@ msgstr "_Удалить контакт"
 
 #: src/conversationpopupmenu.cpp:231
 msgid "_Block contact"
-msgstr "За_блокировать контакт"
+msgstr "_Заблокировать контакт"
 
 #: src/conversationpopupmenu.cpp:235
 msgid "_Unblock contact"
@@ -1285,11 +1286,11 @@ msgstr "- клиент GNOME для Jami"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "При создании учетной записи произошла ошибка."
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "Не удалось получить учетную запись. Пожалуйста, проверьте свои PIN и пароль."
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
@@ -1307,7 +1308,7 @@ msgstr "Пароли не совпадают"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Импортировать из резервной копии"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:204
 #: src/newaccountsettingsview.cpp:929
@@ -1334,13 +1335,13 @@ msgstr "Экспорт аккаунта не выполнен."
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr "Это ваше имя пользователя Jami.\nСкопируйте и поделитесь им со своими друзьями!"
+msgstr "Это ваше имя пользователя Jami.\nСкопируйте и поделитесь им с друзьями!"
 
 #: src/ringwelcomeview.cpp:96
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr "Это ваш ID.\nСкопируйте и поделитесь им с вашими друзьями!"
+msgstr "Это ваш ID.\nСкопируйте и поделитесь им с друзьями!"
 
 #: src/ringwelcomeview.cpp:169
 msgid ""
@@ -1356,18 +1357,18 @@ msgstr "Отправить файл"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr "Предупреждение! Это действие удалит данный аккаунт на данном устройстве!\nЗамечание: это действие невозможно отменить. Также вы можете потерять зарегистрированное имя!"
+msgstr "Предупреждение: Это действие удалит выбранную учетную запись с данного устройства!\nОбратите внимание: это действие невозможно отменить. Ваше зарегистрированное имя так же может быть утрачено!"
 
 #: src/currentcallview.cpp:962
 msgctxt "Enable automatic video quality"
 msgid "Auto"
-msgstr "Авто"
+msgstr "Автоматически"
 
 #: src/newaccountsettingsview.cpp:626
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr "Предупреждение! Это действие отзовёт устройство!\nЗамечание: это действие невозможно отменить."
+msgstr "Предупреждение! Это действие отзовёт устройство!\nОбратите внимание: это действие невозможно отменить."
 
 #: src/newaccountsettingsview.cpp:627
 msgid "Enter password to revoke device"

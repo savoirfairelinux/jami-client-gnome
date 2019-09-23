@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-16 03:09-0400\n"
-"PO-Revision-Date: 2019-09-16 07:09+0000\n"
+"POT-Creation-Date: 2019-09-23 03:09-0400\n"
+"PO-Revision-Date: 2019-09-17 11:28+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -274,7 +274,7 @@ msgstr "Isten hozott"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr ""
+msgstr "Helyi fiók létrehozása"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
@@ -306,7 +306,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
-msgstr ""
+msgstr "Szerezze be fiókját hitelesítő adataival."
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
@@ -314,7 +314,7 @@ msgstr "Új SIP fiók hozzáadása"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
-msgstr ""
+msgstr "Archiválás"
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
@@ -430,11 +430,11 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "Bejelentkezés"
 
 #: ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr ""
+msgstr "Fiókkezelő"
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
@@ -1272,7 +1272,7 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "Nem lehet lekérni egy fiókot, kérjük, ellenőrizze PIN-kódját és jelszavát."
 
 #: src/accountcreationwizard.cpp:297
 msgid ""

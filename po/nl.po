@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-16 03:09-0400\n"
-"PO-Revision-Date: 2019-09-16 07:09+0000\n"
+"POT-Creation-Date: 2019-09-23 03:09-0400\n"
+"PO-Revision-Date: 2019-09-16 07:51+0000\n"
 "Last-Translator: Nathan Follens\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/jami/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -274,27 +274,27 @@ msgstr "Welkom bij"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr ""
+msgstr "Lokaal account aanmaken"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Maak een nieuw Jami-account aan op dit apparaat (voor nieuwe gebruikers)"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "Importeren van apparaat"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "Importeer een account met uw pincode gegenereerd op een ander apparaat"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr ""
+msgstr "Importeren van back-uparchief"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "Importeer een account via uw archief"
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
@@ -302,11 +302,11 @@ msgstr "Geavanceerd…"
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
-msgstr ""
+msgstr "Verbinden met accountbeheer"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
-msgstr ""
+msgstr "Haal uw account op d.m.v. uw gebruikersreferenties."
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
@@ -314,11 +314,11 @@ msgstr "Voeg een nieuw SIP-account toe"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
-msgstr ""
+msgstr "Archief"
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
-msgstr ""
+msgstr "Informatie."
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
@@ -328,13 +328,13 @@ msgstr "Pincode"
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "U kunt een archief verkrijgen door in de accountinstellingen op ‘Account exporteren’ te klikken. Dit zal een .gz-bestand aanmaken op uw apparaat."
 
 #: ui/accountcreationwizard.ui:382
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr ""
+msgstr "Om een pincode te verkrijgen (10 minuten geldig), opent u de accountinstellingen op het andere apparaat en klikt u op ‘Koppelen aan een ander apparaat’."
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
@@ -389,18 +389,18 @@ msgstr "Uw Jami-account wordt aangemaakt…"
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr ""
+msgstr "Maak een back-up van uw account!"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "Dit account bestaat enkel op dit apparaat. Als u uw apparaat verliest of de toepassing verwijdert, zal uw account worden verwijderd. U kunt nu of later een back-up maken."
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "Toon deze boodschap nooit meer"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2048
@@ -430,11 +430,11 @@ msgstr "Oké"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "Aanmelden"
 
 #: ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr ""
+msgstr "Accountbeheer"
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
@@ -1268,21 +1268,21 @@ msgstr " - GNOME-cliënt voor Jami"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "Een fout trad op bij het aanmaken van het account."
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "Kan geen account verkrijgen, controleer uw pincode en wachtwoord."
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "annot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Kan geen account verkrijgen, controleer uw archief en wachtwoord."
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "Kan niet verbinden met de geleverde accountbeheerder. Controleer uw gebruikersreferenties."
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
@@ -1290,7 +1290,7 @@ msgstr "Wachtwoorden komen niet overeen"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Importeren uit back-up"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:204
 #: src/newaccountsettingsview.cpp:929

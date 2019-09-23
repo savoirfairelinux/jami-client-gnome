@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-16 03:09-0400\n"
-"PO-Revision-Date: 2019-09-16 07:09+0000\n"
+"POT-Creation-Date: 2019-09-23 03:09-0400\n"
+"PO-Revision-Date: 2019-09-17 08:41+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -275,27 +275,27 @@ msgstr "歡迎來到"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr ""
+msgstr "建立本機帳號"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "在此裝置上建立新的 Jami 帳號（為新使用者）"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "從裝置匯入"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "使用您在其他裝置上生成的 PIN 碼來匯入帳號"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr ""
+msgstr "從封存備份匯入"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "透過您的封存匯入帳號"
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
@@ -303,11 +303,11 @@ msgstr "進階……"
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
-msgstr ""
+msgstr "連線到帳號管理員"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
-msgstr ""
+msgstr "透過您的憑證取得您的帳號"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
@@ -315,11 +315,11 @@ msgstr "新增新的 SIP 帳號"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
-msgstr ""
+msgstr "封存"
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
-msgstr ""
+msgstr "資訊。"
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
@@ -329,13 +329,13 @@ msgstr "PIN 碼"
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "您可以透過點選帳號設定中的「匯出帳號」來取得封存。這會在您的裝置上建立一個 .gz 檔案。"
 
 #: ui/accountcreationwizard.ui:382
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr ""
+msgstr "要取得 PIN 碼（10 分鐘內有效），您必須在其他裝置上開啟帳號設定並點選「連結到其他裝置」。"
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
@@ -390,18 +390,18 @@ msgstr "正在生成您的 Jami 帳號……"
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr ""
+msgstr "備份您的帳號！"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "此帳號僅存於此裝置上。如果您遺失了您的裝置或解除安裝應用程式，您的帳號將會被刪除。您可以立刻備份您的帳號或稍後再做。"
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "不要再顯示這個給我看"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2048
@@ -431,11 +431,11 @@ msgstr "確定"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "登入"
 
 #: ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr ""
+msgstr "帳號管理員"
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
@@ -1119,11 +1119,11 @@ msgstr "開啟聊天"
 
 #: src/ringmainwindow.cpp:1012
 msgid "Jami - Migration needed"
-msgstr ""
+msgstr "Jami - 需要遷移"
 
 #: src/ringmainwindow.cpp:1025
 msgid "Migration in progress... please do not close this window."
-msgstr ""
+msgstr "正在遷移…… 請不要關閉視窗。"
 
 #: src/ringmainwindow.cpp:1317
 msgctxt ""
@@ -1269,21 +1269,21 @@ msgstr "- Jami 的 GNOME 用戶端"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "在建立帳號時遇到錯誤。"
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "無法擷取任何帳號，請驗證您的 PIN 碼與您的密碼。"
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "annot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "無法擷取任何帳號，請驗證您的封存與您的密碼。"
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "無法連線到提供的帳號管理員。請檢查您的憑證。"
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
@@ -1291,7 +1291,7 @@ msgstr "密碼不相符"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "從備份匯入"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:204
 #: src/newaccountsettingsview.cpp:929
