@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-23 03:09-0400\n"
-"PO-Revision-Date: 2019-09-18 11:35+0000\n"
+"POT-Creation-Date: 2019-09-30 03:09-0400\n"
+"PO-Revision-Date: 2019-09-30 07:09+0000\n"
 "Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -187,31 +187,41 @@ msgstr "Migration de compte nécessaire"
 msgid "This account is malformed, please enter your password"
 msgstr "Ce compte est inconsistant, veuillez entrer votre mot de passe"
 
-#: ui/accountmigrationview.ui:89
+#: ui/accountmigrationview.ui:90
 msgid "Alias"
 msgstr "Nom du compte"
 
-#: ui/accountmigrationview.ui:126
-msgid "RingID"
-msgstr "RingID"
+#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:597
+#: ui/accountcreationwizard.ui:982 ui/profile.ui:73
+#: ui/newaccountsettingsview.ui:503 ui/newaccountsettingsview.ui:733
+msgid "Username"
+msgstr "Nom d’utilisateur"
 
-#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:191
+#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:191
 #: ui/accountcreationwizard.ui:624 ui/accountcreationwizard.ui:1018
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 msgid "Password"
 msgstr "Mot de passe"
 
-#: ui/accountmigrationview.ui:198
-msgid "Migrate account"
-msgstr "Migrer le compte"
+#: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
+msgid "Account manager"
+msgstr ""
 
-#: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
-#: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:996
+#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:581
+#: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:187
+#: src/newaccountsettingsview.cpp:1000 src/newaccountsettingsview.cpp:2121
 msgid "Delete account"
 msgstr "Supprimer le compte"
 
-#: ui/accountmigrationview.ui:231
+#: ui/accountmigrationview.ui:251
+msgid "Migrate account"
+msgstr "Migrer le compte"
+
+#: ui/accountmigrationview.ui:283
+msgid "Migrating your Jami account…"
+msgstr ""
+
+#: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
 msgstr "La migration a échoué, mot de passe erroné ?"
 
@@ -384,19 +394,13 @@ msgid ""
 "characters long."
 msgstr "En cochant cette case, vous enregistrez un nom d'utilisateur unique sur le réseau Jami. Les personnes peuvent l'utiliser pour vous contacter au lieu d'utiliser votre identifiant de 40 caractères."
 
-#: ui/accountcreationwizard.ui:597 ui/accountcreationwizard.ui:982
-#: ui/profile.ui:73 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733
-msgid "Username"
-msgstr "Nom d’utilisateur"
-
 #: ui/accountcreationwizard.ui:625
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "Ce mot de passe sera utilisé pour crypter vos données et pour connecter vos nouveaux appareils à votre compte."
 
-#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:879
+#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:883
 msgid "Confirm password"
 msgstr "Confirmer le mot de passe"
 
@@ -420,7 +424,7 @@ msgid "Never show me this again"
 msgstr "Ne plus afficher"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
-#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2048
+#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2054
 msgid "Export account"
 msgstr "Exporter compte"
 
@@ -447,10 +451,6 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:1057
-msgid "Account manager"
 msgstr ""
 
 #: ui/generalsettingsview.ui:51
@@ -644,7 +644,7 @@ msgstr "Mot de passe :"
 msgid "Enter archive password"
 msgstr "Entrez ici le mot de passe de l’archive"
 
-#: ui/newaccountsettingsview.ui:183 src/newaccountsettingsview.cpp:889
+#: ui/newaccountsettingsview.ui:183 src/newaccountsettingsview.cpp:893
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -1056,12 +1056,12 @@ msgstr "Choisissez le dossier de téléchargement"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
 #: src/accountcreationwizard.cpp:757 src/chatview.cpp:207
-#: src/newaccountsettingsview.cpp:932
+#: src/newaccountsettingsview.cpp:936
 msgid "_Cancel"
 msgstr "_Annuler"
 
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
-#: src/chatview.cpp:209 src/newaccountsettingsview.cpp:934
+#: src/chatview.cpp:209 src/newaccountsettingsview.cpp:938
 msgid "_Save"
 msgstr "_Sauvegarder"
 
@@ -1123,25 +1123,25 @@ msgstr "Envoyer le message enregistré"
 msgid "Add account…"
 msgstr "Ajouter un compte ..."
 
-#: src/ringmainwindow.cpp:797
+#: src/ringmainwindow.cpp:798
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Appeler"
 
-#: src/ringmainwindow.cpp:800
+#: src/ringmainwindow.cpp:801
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Ouvrir la discussion"
 
-#: src/ringmainwindow.cpp:1012
+#: src/ringmainwindow.cpp:1008
 msgid "Jami - Migration needed"
 msgstr "Jami - Migration nécessaire"
 
-#: src/ringmainwindow.cpp:1025
+#: src/ringmainwindow.cpp:1021
 msgid "Migration in progress... please do not close this window."
 msgstr "Migration en cours ... S'il vous plaît, ne fermez pas la fenêtre."
 
-#: src/ringmainwindow.cpp:1317
+#: src/ringmainwindow.cpp:1313
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1152,61 +1152,61 @@ msgstr "Rechercher dans les contacts ou appeler un numéro"
 msgid "Leave settings page"
 msgstr "Quitter la page des réglages"
 
-#: src/ringmainwindow.cpp:2181
+#: src/ringmainwindow.cpp:2211
 msgid "There are active calls"
 msgstr "Il y a des appels en cours"
 
-#: src/ringmainwindow.cpp:2235
+#: src/ringmainwindow.cpp:2265
 msgid " is calling you!"
 msgstr "vous appelle"
 
-#: src/ringmainwindow.cpp:2236
+#: src/ringmainwindow.cpp:2266
 msgid "Incoming call"
 msgstr "Appel entrant"
 
-#: src/ringmainwindow.cpp:2380
+#: src/ringmainwindow.cpp:2410
 msgid "New request from "
 msgstr "Nouvelle demande de "
 
-#: src/ringmainwindow.cpp:2381
+#: src/ringmainwindow.cpp:2411
 msgid "Trust request"
 msgstr "Invitation"
 
-#: src/ringmainwindow.cpp:2442
+#: src/ringmainwindow.cpp:2472
 msgid "New message"
 msgstr "Nouveau message"
 
-#: src/ringmainwindow.cpp:2505
+#: src/ringmainwindow.cpp:2535
 msgid "Stop current call?"
 msgstr "Mettre fin à l'appel en cours?"
 
-#: src/ringmainwindow.cpp:2506
+#: src/ringmainwindow.cpp:2536
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "I y a un appel en cours. Désirez vous fermer la fenêtre et mettre fin à tous les appels en cours?"
 
-#: src/ringmainwindow.cpp:2573
+#: src/ringmainwindow.cpp:2603
 msgid "Clear history"
 msgstr "Effacer l'historique"
 
-#: src/ringmainwindow.cpp:2574
+#: src/ringmainwindow.cpp:2604
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Voulez-vous vraiment effacer l'historique de cette conversation ?"
 
-#: src/ringmainwindow.cpp:2589
+#: src/ringmainwindow.cpp:2619
 msgid "Remove conversation"
 msgstr "Supprimer la conversation"
 
-#: src/ringmainwindow.cpp:2590
+#: src/ringmainwindow.cpp:2620
 msgid "Do you really want to remove this conversation?"
 msgstr "Êtes-vous certain de vouloir supprimer cette conversation ? "
 
-#: src/ringmainwindow.cpp:2605
+#: src/ringmainwindow.cpp:2635
 msgid "Block contact"
 msgstr "Bloquer le contact"
 
-#: src/ringmainwindow.cpp:2606
+#: src/ringmainwindow.cpp:2636
 msgid "Do you really want to block this contact?"
 msgstr "Souhaitez-vous vraiment bloquer ce contact ?"
 
@@ -1310,23 +1310,23 @@ msgid "Import from backup"
 msgstr ""
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:204
-#: src/newaccountsettingsview.cpp:929
+#: src/newaccountsettingsview.cpp:933
 msgid "Save File"
 msgstr "Sauvegarder"
 
-#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:956
+#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:960
 msgid "You need to enter your password to export the full archive."
 msgstr "Vous devez entrer votre mot de passe pour exporter l'archive"
 
-#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:957
+#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:961
 msgid "Enter password to export archive"
 msgstr "Entrer le mot de passe pour exporter l'archive"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:980
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:984
 msgid "Account exported!"
 msgstr "Le compte a été exporté."
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:980
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:984
 msgid "Export account failure."
 msgstr "Échec de l'export de compte."
 
@@ -1352,7 +1352,7 @@ msgstr "Jami est un logiciel libre de communication universel qui respecte la vi
 msgid "Send File"
 msgstr "Envoyez un fichier"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:995
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1363,105 +1363,109 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/newaccountsettingsview.cpp:626
+#: src/newaccountsettingsview.cpp:630
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Avertissement ! Cette action révoquera l'appareil. Cette opération est irréversible."
 
-#: src/newaccountsettingsview.cpp:627
+#: src/newaccountsettingsview.cpp:631
 msgid "Enter password to revoke device"
 msgstr "Entrer le mot de passe pour révoquer l'appareil"
 
-#: src/newaccountsettingsview.cpp:685
+#: src/newaccountsettingsview.cpp:689
 msgid "Edit name"
 msgstr "Modifier le nom"
 
-#: src/newaccountsettingsview.cpp:685
+#: src/newaccountsettingsview.cpp:689
 msgid "Revoke device"
 msgstr "Révoquer l'appareil"
 
-#: src/newaccountsettingsview.cpp:707
+#: src/newaccountsettingsview.cpp:711
 msgid "Error when revoking device"
 msgstr "Erreur au cours de la révocation d'un appareil"
 
-#: src/newaccountsettingsview.cpp:780
+#: src/newaccountsettingsview.cpp:784
 msgid "Unban"
 msgstr "Ré-autoriser"
 
-#: src/newaccountsettingsview.cpp:803 src/newaccountsettingsview.cpp:826
-#: src/newaccountsettingsview.cpp:850 src/newaccountsettingsview.cpp:886
+#: src/newaccountsettingsview.cpp:807 src/newaccountsettingsview.cpp:830
+#: src/newaccountsettingsview.cpp:854 src/newaccountsettingsview.cpp:890
 msgid "Change password"
 msgstr "changer le mot de passe"
 
-#: src/newaccountsettingsview.cpp:816
+#: src/newaccountsettingsview.cpp:820
 msgid "New password and its confirmation are different!"
 msgstr "Les deux mots de passe sont différents !"
 
-#: src/newaccountsettingsview.cpp:827
+#: src/newaccountsettingsview.cpp:831
 msgid "Incorrect password!"
 msgstr "Mot de passe incorrect !"
 
-#: src/newaccountsettingsview.cpp:864
+#: src/newaccountsettingsview.cpp:868
 msgid "Note: this will change the password only on this device."
 msgstr "Note : cette opération modifiera votre mot de passe uniquement sur cet appareil."
 
-#: src/newaccountsettingsview.cpp:867
+#: src/newaccountsettingsview.cpp:871
 msgid "Current password"
 msgstr "Mot de passe actuel"
 
-#: src/newaccountsettingsview.cpp:873
+#: src/newaccountsettingsview.cpp:877
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: src/newaccountsettingsview.cpp:1755
+#: src/newaccountsettingsview.cpp:1759
 msgid "Bad password"
 msgstr "Mot de passe incorrect"
 
-#: src/newaccountsettingsview.cpp:1761
+#: src/newaccountsettingsview.cpp:1765
 msgid "Network error, try again"
 msgstr "Erreur réseau, veuillez réessayer."
 
-#: src/newaccountsettingsview.cpp:1767
+#: src/newaccountsettingsview.cpp:1771
 msgid "Unknown error"
 msgstr "Erreur inconnue"
 
-#: src/newaccountsettingsview.cpp:1779
+#: src/newaccountsettingsview.cpp:1783
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Impossible de lancer l'exportation vers Jami, réessayez"
 
-#: src/newaccountsettingsview.cpp:1838
+#: src/newaccountsettingsview.cpp:1842
 msgid "Error: wrong password!"
 msgstr "Erreur :  mot de passe incorrect"
 
-#: src/newaccountsettingsview.cpp:1841
+#: src/newaccountsettingsview.cpp:1845
 msgid "Error: unknown device!"
 msgstr "Erreur : appareil inconnu"
 
-#: src/newaccountsettingsview.cpp:2013
+#: src/newaccountsettingsview.cpp:2019
 msgid "Initializing…"
 msgstr "Initialisation ..."
 
-#: src/newaccountsettingsview.cpp:2016
+#: src/newaccountsettingsview.cpp:2022
 msgid "Offline"
 msgstr "Déconnecté"
 
-#: src/newaccountsettingsview.cpp:2019
+#: src/newaccountsettingsview.cpp:2025
 msgid "Connecting…"
 msgstr "En cours de connexion ..."
 
-#: src/newaccountsettingsview.cpp:2022
+#: src/newaccountsettingsview.cpp:2028
 msgid "Online"
 msgstr "En ligne"
 
-#: src/newaccountsettingsview.cpp:2026
+#: src/newaccountsettingsview.cpp:2032
 msgid "Unknown status"
 msgstr "État inconnu"
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2065
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2065
 msgid "no password set"
 msgstr "Pas de mot de passe"
+
+#: src/newaccountsettingsview.cpp:2121
+msgid "Remove account"
+msgstr "Supprimer le compte"

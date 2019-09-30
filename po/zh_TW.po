@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-23 03:09-0400\n"
-"PO-Revision-Date: 2019-09-17 08:41+0000\n"
+"POT-Creation-Date: 2019-09-30 03:09-0400\n"
+"PO-Revision-Date: 2019-09-30 07:09+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -171,31 +171,41 @@ msgstr "需要帳號遷移"
 msgid "This account is malformed, please enter your password"
 msgstr "這個帳號格式錯誤，請輸入您的密碼"
 
-#: ui/accountmigrationview.ui:89
+#: ui/accountmigrationview.ui:90
 msgid "Alias"
 msgstr "別名"
 
-#: ui/accountmigrationview.ui:126
-msgid "RingID"
-msgstr "RingID"
+#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:597
+#: ui/accountcreationwizard.ui:982 ui/profile.ui:73
+#: ui/newaccountsettingsview.ui:503 ui/newaccountsettingsview.ui:733
+msgid "Username"
+msgstr "使用者名稱"
 
-#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:191
+#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:191
 #: ui/accountcreationwizard.ui:624 ui/accountcreationwizard.ui:1018
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 msgid "Password"
 msgstr "密碼"
 
-#: ui/accountmigrationview.ui:198
-msgid "Migrate account"
-msgstr "遷移帳號"
+#: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
+msgid "Account manager"
+msgstr "帳號管理員"
 
-#: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
-#: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:996
+#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:581
+#: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:187
+#: src/newaccountsettingsview.cpp:1000 src/newaccountsettingsview.cpp:2121
 msgid "Delete account"
 msgstr "刪除帳號"
 
-#: ui/accountmigrationview.ui:231
+#: ui/accountmigrationview.ui:251
+msgid "Migrate account"
+msgstr "遷移帳號"
+
+#: ui/accountmigrationview.ui:283
+msgid "Migrating your Jami account…"
+msgstr ""
+
+#: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
 msgstr "遷移失敗，錯誤的密碼？"
 
@@ -368,19 +378,13 @@ msgid ""
 "characters long."
 msgstr "透過勾選這個，您將會在 Jami 網路上註冊一個獨一無二的使用者名稱。人們可以使用它來聯絡您，而不必使用長達 40 個字元的您的 RingID。"
 
-#: ui/accountcreationwizard.ui:597 ui/accountcreationwizard.ui:982
-#: ui/profile.ui:73 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733
-msgid "Username"
-msgstr "使用者名稱"
-
 #: ui/accountcreationwizard.ui:625
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "這個密碼將會用於加密您的帳號資料與連結新的裝置到您的帳號。"
 
-#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:879
+#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:883
 msgid "Confirm password"
 msgstr "確認密碼"
 
@@ -404,7 +408,7 @@ msgid "Never show me this again"
 msgstr "不要再顯示這個給我看"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
-#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2048
+#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2054
 msgid "Export account"
 msgstr "匯出帳號"
 
@@ -432,10 +436,6 @@ msgstr "確定"
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
 msgstr "登入"
-
-#: ui/accountcreationwizard.ui:1057
-msgid "Account manager"
-msgstr "帳號管理員"
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
@@ -628,7 +628,7 @@ msgstr "密碼（必要）："
 msgid "Enter archive password"
 msgstr "輸入檔案密碼"
 
-#: ui/newaccountsettingsview.ui:183 src/newaccountsettingsview.cpp:889
+#: ui/newaccountsettingsview.ui:183 src/newaccountsettingsview.cpp:893
 msgid "Cancel"
 msgstr "取消"
 
@@ -1040,12 +1040,12 @@ msgstr "選擇下載資料夾"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
 #: src/accountcreationwizard.cpp:757 src/chatview.cpp:207
-#: src/newaccountsettingsview.cpp:932
+#: src/newaccountsettingsview.cpp:936
 msgid "_Cancel"
 msgstr "取消(_C)"
 
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
-#: src/chatview.cpp:209 src/newaccountsettingsview.cpp:934
+#: src/chatview.cpp:209 src/newaccountsettingsview.cpp:938
 msgid "_Save"
 msgstr "儲存(_S)"
 
@@ -1107,25 +1107,25 @@ msgstr "傳送已錄製的訊息"
 msgid "Add account…"
 msgstr "新增帳號……"
 
-#: src/ringmainwindow.cpp:797
+#: src/ringmainwindow.cpp:798
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "開始通話"
 
-#: src/ringmainwindow.cpp:800
+#: src/ringmainwindow.cpp:801
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "開啟聊天"
 
-#: src/ringmainwindow.cpp:1012
+#: src/ringmainwindow.cpp:1008
 msgid "Jami - Migration needed"
 msgstr "Jami - 需要遷移"
 
-#: src/ringmainwindow.cpp:1025
+#: src/ringmainwindow.cpp:1021
 msgid "Migration in progress... please do not close this window."
 msgstr "正在遷移…… 請不要關閉視窗。"
 
-#: src/ringmainwindow.cpp:1317
+#: src/ringmainwindow.cpp:1313
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1136,61 +1136,61 @@ msgstr "搜尋聯絡人或輸入號碼"
 msgid "Leave settings page"
 msgstr "離開設定頁面"
 
-#: src/ringmainwindow.cpp:2181
+#: src/ringmainwindow.cpp:2211
 msgid "There are active calls"
 msgstr "有活躍的通話"
 
-#: src/ringmainwindow.cpp:2235
+#: src/ringmainwindow.cpp:2265
 msgid " is calling you!"
 msgstr "正在與您通話！"
 
-#: src/ringmainwindow.cpp:2236
+#: src/ringmainwindow.cpp:2266
 msgid "Incoming call"
 msgstr "來電"
 
-#: src/ringmainwindow.cpp:2380
+#: src/ringmainwindow.cpp:2410
 msgid "New request from "
 msgstr "新請求從"
 
-#: src/ringmainwindow.cpp:2381
+#: src/ringmainwindow.cpp:2411
 msgid "Trust request"
 msgstr "信任請求"
 
-#: src/ringmainwindow.cpp:2442
+#: src/ringmainwindow.cpp:2472
 msgid "New message"
 msgstr "新訊息"
 
-#: src/ringmainwindow.cpp:2505
+#: src/ringmainwindow.cpp:2535
 msgid "Stop current call?"
 msgstr "停止目前的通話？"
 
-#: src/ringmainwindow.cpp:2506
+#: src/ringmainwindow.cpp:2536
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "通話進行中。您想要關閉視窗並停止目前所有的通話嗎？"
 
-#: src/ringmainwindow.cpp:2573
+#: src/ringmainwindow.cpp:2603
 msgid "Clear history"
 msgstr "清除記錄"
 
-#: src/ringmainwindow.cpp:2574
+#: src/ringmainwindow.cpp:2604
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "您真的想要清除此對話的歷史嗎？"
 
-#: src/ringmainwindow.cpp:2589
+#: src/ringmainwindow.cpp:2619
 msgid "Remove conversation"
 msgstr "移除對話"
 
-#: src/ringmainwindow.cpp:2590
+#: src/ringmainwindow.cpp:2620
 msgid "Do you really want to remove this conversation?"
 msgstr "您真的想要移除此對話嗎？"
 
-#: src/ringmainwindow.cpp:2605
+#: src/ringmainwindow.cpp:2635
 msgid "Block contact"
 msgstr "阻擋連絡人"
 
-#: src/ringmainwindow.cpp:2606
+#: src/ringmainwindow.cpp:2636
 msgid "Do you really want to block this contact?"
 msgstr "您真的想要封鎖此聯絡人嗎？"
 
@@ -1294,23 +1294,23 @@ msgid "Import from backup"
 msgstr "從備份匯入"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:204
-#: src/newaccountsettingsview.cpp:929
+#: src/newaccountsettingsview.cpp:933
 msgid "Save File"
 msgstr "儲存檔案"
 
-#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:956
+#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:960
 msgid "You need to enter your password to export the full archive."
 msgstr "您需要輸入您的密碼以匯出完整壓縮檔。"
 
-#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:957
+#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:961
 msgid "Enter password to export archive"
 msgstr "輸入密碼以匯出壓縮檔"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:980
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:984
 msgid "Account exported!"
 msgstr "帳號已匯出！"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:980
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:984
 msgid "Export account failure."
 msgstr "匯出帳號失敗。"
 
@@ -1336,7 +1336,7 @@ msgstr "Jami 是一套通用通訊的自由軟體，其尊重使用者的自由�
 msgid "Send File"
 msgstr "傳送檔案"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:995
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1347,105 +1347,109 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自動"
 
-#: src/newaccountsettingsview.cpp:626
+#: src/newaccountsettingsview.cpp:630
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "警告！這個動作將會撤銷裝置！\n注意：這個動作無法復原。"
 
-#: src/newaccountsettingsview.cpp:627
+#: src/newaccountsettingsview.cpp:631
 msgid "Enter password to revoke device"
 msgstr "輸入密碼以撤銷裝置"
 
-#: src/newaccountsettingsview.cpp:685
+#: src/newaccountsettingsview.cpp:689
 msgid "Edit name"
 msgstr "編輯名稱"
 
-#: src/newaccountsettingsview.cpp:685
+#: src/newaccountsettingsview.cpp:689
 msgid "Revoke device"
 msgstr "撤銷裝置"
 
-#: src/newaccountsettingsview.cpp:707
+#: src/newaccountsettingsview.cpp:711
 msgid "Error when revoking device"
 msgstr "當撤銷裝置時發生錯誤"
 
-#: src/newaccountsettingsview.cpp:780
+#: src/newaccountsettingsview.cpp:784
 msgid "Unban"
 msgstr "取消阻擋"
 
-#: src/newaccountsettingsview.cpp:803 src/newaccountsettingsview.cpp:826
-#: src/newaccountsettingsview.cpp:850 src/newaccountsettingsview.cpp:886
+#: src/newaccountsettingsview.cpp:807 src/newaccountsettingsview.cpp:830
+#: src/newaccountsettingsview.cpp:854 src/newaccountsettingsview.cpp:890
 msgid "Change password"
 msgstr "變更密碼"
 
-#: src/newaccountsettingsview.cpp:816
+#: src/newaccountsettingsview.cpp:820
 msgid "New password and its confirmation are different!"
 msgstr "新密碼與其確認密碼不相符！"
 
-#: src/newaccountsettingsview.cpp:827
+#: src/newaccountsettingsview.cpp:831
 msgid "Incorrect password!"
 msgstr "不正確的密碼！"
 
-#: src/newaccountsettingsview.cpp:864
+#: src/newaccountsettingsview.cpp:868
 msgid "Note: this will change the password only on this device."
 msgstr "注意：這將會僅會在此裝置上變更密碼。"
 
-#: src/newaccountsettingsview.cpp:867
+#: src/newaccountsettingsview.cpp:871
 msgid "Current password"
 msgstr "目前的密碼"
 
-#: src/newaccountsettingsview.cpp:873
+#: src/newaccountsettingsview.cpp:877
 msgid "New password"
 msgstr "新密碼"
 
-#: src/newaccountsettingsview.cpp:1755
+#: src/newaccountsettingsview.cpp:1759
 msgid "Bad password"
 msgstr "密碼錯誤"
 
-#: src/newaccountsettingsview.cpp:1761
+#: src/newaccountsettingsview.cpp:1765
 msgid "Network error, try again"
 msgstr "網路錯誤，請重試"
 
-#: src/newaccountsettingsview.cpp:1767
+#: src/newaccountsettingsview.cpp:1771
 msgid "Unknown error"
 msgstr "未知的錯誤"
 
-#: src/newaccountsettingsview.cpp:1779
+#: src/newaccountsettingsview.cpp:1783
 msgid "Could not initiate export to the Jami, try again"
 msgstr "無法啟用輸出到 Jami，請重試。"
 
-#: src/newaccountsettingsview.cpp:1838
+#: src/newaccountsettingsview.cpp:1842
 msgid "Error: wrong password!"
 msgstr "錯誤：不正確的密碼！"
 
-#: src/newaccountsettingsview.cpp:1841
+#: src/newaccountsettingsview.cpp:1845
 msgid "Error: unknown device!"
 msgstr "錯誤：未知的裝置！"
 
-#: src/newaccountsettingsview.cpp:2013
+#: src/newaccountsettingsview.cpp:2019
 msgid "Initializing…"
 msgstr "正在初始化……"
 
-#: src/newaccountsettingsview.cpp:2016
+#: src/newaccountsettingsview.cpp:2022
 msgid "Offline"
 msgstr "離線"
 
-#: src/newaccountsettingsview.cpp:2019
+#: src/newaccountsettingsview.cpp:2025
 msgid "Connecting…"
 msgstr "正在連線……"
 
-#: src/newaccountsettingsview.cpp:2022
+#: src/newaccountsettingsview.cpp:2028
 msgid "Online"
 msgstr "線上"
 
-#: src/newaccountsettingsview.cpp:2026
+#: src/newaccountsettingsview.cpp:2032
 msgid "Unknown status"
 msgstr "未知狀態"
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2065
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2065
 msgid "no password set"
 msgstr "未設定密碼"
+
+#: src/newaccountsettingsview.cpp:2121
+msgid "Remove account"
+msgstr "移除帳號"

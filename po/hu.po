@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-23 03:09-0400\n"
-"PO-Revision-Date: 2019-09-17 11:28+0000\n"
+"POT-Creation-Date: 2019-09-30 03:09-0400\n"
+"PO-Revision-Date: 2019-09-30 07:09+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -170,31 +170,41 @@ msgstr "Fiók átvitel szükséges"
 msgid "This account is malformed, please enter your password"
 msgstr "Ez a fiók meghibásodott, kérjük, adja meg a jelszavát"
 
-#: ui/accountmigrationview.ui:89
+#: ui/accountmigrationview.ui:90
 msgid "Alias"
 msgstr "Álnév"
 
-#: ui/accountmigrationview.ui:126
-msgid "RingID"
-msgstr "Jami azonosító"
+#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:597
+#: ui/accountcreationwizard.ui:982 ui/profile.ui:73
+#: ui/newaccountsettingsview.ui:503 ui/newaccountsettingsview.ui:733
+msgid "Username"
+msgstr "Felhasználónév"
 
-#: ui/accountmigrationview.ui:164 ui/accountcreationwizard.ui:191
+#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:191
 #: ui/accountcreationwizard.ui:624 ui/accountcreationwizard.ui:1018
 #: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
 msgid "Password"
 msgstr "Jelszó"
 
-#: ui/accountmigrationview.ui:198
-msgid "Migrate account"
-msgstr "Fiók átvitel"
+#: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
+msgid "Account manager"
+msgstr "Fiókkezelő"
 
-#: ui/accountmigrationview.ui:212 ui/newaccountsettingsview.ui:581
-#: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:177
-#: src/newaccountsettingsview.cpp:996
+#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:581
+#: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:187
+#: src/newaccountsettingsview.cpp:1000 src/newaccountsettingsview.cpp:2121
 msgid "Delete account"
 msgstr "Fiók törlése"
 
-#: ui/accountmigrationview.ui:231
+#: ui/accountmigrationview.ui:251
+msgid "Migrate account"
+msgstr "Fiók átvitel"
+
+#: ui/accountmigrationview.ui:283
+msgid "Migrating your Jami account…"
+msgstr ""
+
+#: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
 msgstr "Migráció sikertelen, rossz jelszó?"
 
@@ -278,23 +288,23 @@ msgstr "Helyi fiók létrehozása"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Új Jami fiók létrehozása (új felhasználóknak)"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "Importálás az eszközről"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "Importáljon egy fiókot egy másik eszközön létrehozott PIN-kóddal"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr ""
+msgstr "Importálás archívum biztonsági másolatból"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "Importáljon egy fiókot az archívumon keresztül"
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
@@ -302,7 +312,7 @@ msgstr "Haladó…"
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
-msgstr ""
+msgstr "Csatlakozás a fiókkezelőhöz"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
@@ -318,7 +328,7 @@ msgstr "Archiválás"
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
-msgstr ""
+msgstr "Adatai"
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
@@ -328,13 +338,13 @@ msgstr "PIN-kód"
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Ha archívumot szeretne kapni, kattintson a fiókbeállítások „Fiók exportálása” elemére. Ez létrehoz egy .gz fájlt az eszközén."
 
 #: ui/accountcreationwizard.ui:382
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr ""
+msgstr "PIN-kód (10 percig érvényes) megszerzéséhez a másik eszközön válassza a Beállítások lehetőséget, válassza a Fiók lehetőséget, majd kattintson a „Másik eszköz összekapcsolása” elemre."
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
@@ -367,19 +377,13 @@ msgid ""
 "characters long."
 msgstr "Ezt bejelölve, bejegyez egy egyedi felhasználónevet a Jami hálózaton. Az emberek ezt a Jami azonosítója (amely 40 karakter hosszú) helyett használhatják, hogy elérjék Önt."
 
-#: ui/accountcreationwizard.ui:597 ui/accountcreationwizard.ui:982
-#: ui/profile.ui:73 ui/newaccountsettingsview.ui:503
-#: ui/newaccountsettingsview.ui:733
-msgid "Username"
-msgstr "Felhasználónév"
-
 #: ui/accountcreationwizard.ui:625
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "Ez a jelszó a fiókadatainak titkosítására lesz használva, és arra, hogy más eszközöket kapcsoljon a fiókjához."
 
-#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:879
+#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:883
 msgid "Confirm password"
 msgstr "Jelszó megerősítése"
 
@@ -389,21 +393,21 @@ msgstr "Jami fiók létrehozása…"
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr ""
+msgstr "Biztonsági másolat készítése a fiókjáról"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "Ez a fiók csak ezen az eszközön létezik. Ha elvesztette eszközét, vagy eltávolította az alkalmazást, akkor fiókját töröljük. Biztonsági másolatot készíthet fiókjáról most vagy később."
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "Ne jelenjen meg többé"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
-#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2048
+#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2054
 msgid "Export account"
 msgstr "Fiók exportálása"
 
@@ -431,10 +435,6 @@ msgstr "OK"
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
 msgstr "Bejelentkezés"
-
-#: ui/accountcreationwizard.ui:1057
-msgid "Account manager"
-msgstr "Fiókkezelő"
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
@@ -627,7 +627,7 @@ msgstr "Jelszó (kötelező):"
 msgid "Enter archive password"
 msgstr "Adja meg az archívum jelszót"
 
-#: ui/newaccountsettingsview.ui:183 src/newaccountsettingsview.cpp:889
+#: ui/newaccountsettingsview.ui:183 src/newaccountsettingsview.cpp:893
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -1039,12 +1039,12 @@ msgstr "Letöltési mappa kiválasztása"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
 #: src/accountcreationwizard.cpp:757 src/chatview.cpp:207
-#: src/newaccountsettingsview.cpp:932
+#: src/newaccountsettingsview.cpp:936
 msgid "_Cancel"
 msgstr "_Mégse"
 
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
-#: src/chatview.cpp:209 src/newaccountsettingsview.cpp:934
+#: src/chatview.cpp:209 src/newaccountsettingsview.cpp:938
 msgid "_Save"
 msgstr "_Mentés"
 
@@ -1106,25 +1106,25 @@ msgstr "Felvett üzenet küldése"
 msgid "Add account…"
 msgstr "Fiók hozzáadása…"
 
-#: src/ringmainwindow.cpp:797
+#: src/ringmainwindow.cpp:798
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Hívás kezdeményezése"
 
-#: src/ringmainwindow.cpp:800
+#: src/ringmainwindow.cpp:801
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Csevegés megnyitása"
 
-#: src/ringmainwindow.cpp:1012
+#: src/ringmainwindow.cpp:1008
 msgid "Jami - Migration needed"
 msgstr "Jami - áttérés szükséges"
 
-#: src/ringmainwindow.cpp:1025
+#: src/ringmainwindow.cpp:1021
 msgid "Migration in progress... please do not close this window."
 msgstr "Az áttérés folyamatban van… Kérjük, ne zárja be ezt az ablakot."
 
-#: src/ringmainwindow.cpp:1317
+#: src/ringmainwindow.cpp:1313
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
@@ -1135,61 +1135,61 @@ msgstr "Kapcsolatok keresése vagy szám beírása"
 msgid "Leave settings page"
 msgstr "A beállítási oldal elhagyása"
 
-#: src/ringmainwindow.cpp:2181
+#: src/ringmainwindow.cpp:2211
 msgid "There are active calls"
 msgstr "Folyamatban lévő hívás(ok)"
 
-#: src/ringmainwindow.cpp:2235
+#: src/ringmainwindow.cpp:2265
 msgid " is calling you!"
 msgstr " hív!"
 
-#: src/ringmainwindow.cpp:2236
+#: src/ringmainwindow.cpp:2266
 msgid "Incoming call"
 msgstr "Bejövő hívás"
 
-#: src/ringmainwindow.cpp:2380
+#: src/ringmainwindow.cpp:2410
 msgid "New request from "
 msgstr "Új kérés"
 
-#: src/ringmainwindow.cpp:2381
+#: src/ringmainwindow.cpp:2411
 msgid "Trust request"
 msgstr "Megbízható kérelem"
 
-#: src/ringmainwindow.cpp:2442
+#: src/ringmainwindow.cpp:2472
 msgid "New message"
 msgstr "Új üzenet"
 
-#: src/ringmainwindow.cpp:2505
+#: src/ringmainwindow.cpp:2535
 msgid "Stop current call?"
 msgstr "A jelenlegi hívás(ok) leállítása?"
 
-#: src/ringmainwindow.cpp:2506
+#: src/ringmainwindow.cpp:2536
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "A hívás jelenleg folyamatban van. Be kívánja zárni az ablakot és az összes jelenlegi hívást?"
 
-#: src/ringmainwindow.cpp:2573
+#: src/ringmainwindow.cpp:2603
 msgid "Clear history"
 msgstr "Előzmények törlése"
 
-#: src/ringmainwindow.cpp:2574
+#: src/ringmainwindow.cpp:2604
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Valóban szeretné törölni ennek a csevegésnek az előzményeit?"
 
-#: src/ringmainwindow.cpp:2589
+#: src/ringmainwindow.cpp:2619
 msgid "Remove conversation"
 msgstr "Társalgás törlése"
 
-#: src/ringmainwindow.cpp:2590
+#: src/ringmainwindow.cpp:2620
 msgid "Do you really want to remove this conversation?"
 msgstr "Valóban szeretné törölni ezt a csevegését?"
 
-#: src/ringmainwindow.cpp:2605
+#: src/ringmainwindow.cpp:2635
 msgid "Block contact"
 msgstr "Kapcsolat letiltása"
 
-#: src/ringmainwindow.cpp:2606
+#: src/ringmainwindow.cpp:2636
 msgid "Do you really want to block this contact?"
 msgstr "Valóban szeretné letiltani ezt a kapcsolatot?"
 
@@ -1268,7 +1268,7 @@ msgstr "– GNOME ügyfél Jami számára"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "Hiba történt a fiók létrehozása során."
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
@@ -1277,12 +1277,12 @@ msgstr "Nem lehet lekérni egy fiókot, kérjük, ellenőrizze PIN-kódját és 
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "annot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Nem sikerült lekérni egy fiókot, kérjük, ellenőrizze archívumát és jelszavát."
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "Nem lehet csatlakozni a megadott fiókkezelőhöz. Kérjük, ellenőrizze hitelesítő adatait."
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
@@ -1290,26 +1290,26 @@ msgstr "A jelszók nem egyeznek"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Importálás biztonsági másolatból"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:204
-#: src/newaccountsettingsview.cpp:929
+#: src/newaccountsettingsview.cpp:933
 msgid "Save File"
 msgstr "Fájl mentése"
 
-#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:956
+#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:960
 msgid "You need to enter your password to export the full archive."
 msgstr "Meg kell adnia a jelszót, hogy exportálja a teljes archívumot."
 
-#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:957
+#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:961
 msgid "Enter password to export archive"
 msgstr "Adja meg a jelszót az archívum exportálásához"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:980
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:984
 msgid "Account exported!"
 msgstr "A fiókot exportálták!"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:980
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:984
 msgid "Export account failure."
 msgstr "Fiók exportálási hiba."
 
@@ -1335,7 +1335,7 @@ msgstr "A Jami (GNU csomag, korábban Ring) egy univerzális és elosztott közl
 msgid "Send File"
 msgstr "Fájl küldése"
 
-#: src/accountmigrationview.cpp:176 src/newaccountsettingsview.cpp:995
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1346,105 +1346,109 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Önműködő"
 
-#: src/newaccountsettingsview.cpp:626
+#: src/newaccountsettingsview.cpp:630
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Figyelmeztetés! Ez a művelet visszavonja az eszközt!\nMegjegyzés: ez a művelet nem vonható vissza."
 
-#: src/newaccountsettingsview.cpp:627
+#: src/newaccountsettingsview.cpp:631
 msgid "Enter password to revoke device"
 msgstr "Adja meg a jelszót az eszköz visszavonásához"
 
-#: src/newaccountsettingsview.cpp:685
+#: src/newaccountsettingsview.cpp:689
 msgid "Edit name"
 msgstr "Név szerkesztése"
 
-#: src/newaccountsettingsview.cpp:685
+#: src/newaccountsettingsview.cpp:689
 msgid "Revoke device"
 msgstr "Eszköz visszavonása"
 
-#: src/newaccountsettingsview.cpp:707
+#: src/newaccountsettingsview.cpp:711
 msgid "Error when revoking device"
 msgstr "Hiba történt az eszköz visszavonásakor"
 
-#: src/newaccountsettingsview.cpp:780
+#: src/newaccountsettingsview.cpp:784
 msgid "Unban"
 msgstr "Letiltás visszavonása"
 
-#: src/newaccountsettingsview.cpp:803 src/newaccountsettingsview.cpp:826
-#: src/newaccountsettingsview.cpp:850 src/newaccountsettingsview.cpp:886
+#: src/newaccountsettingsview.cpp:807 src/newaccountsettingsview.cpp:830
+#: src/newaccountsettingsview.cpp:854 src/newaccountsettingsview.cpp:890
 msgid "Change password"
 msgstr "Jelszó megváltoztatása"
 
-#: src/newaccountsettingsview.cpp:816
+#: src/newaccountsettingsview.cpp:820
 msgid "New password and its confirmation are different!"
 msgstr "Az új jelszó és a megerősítése különböző!"
 
-#: src/newaccountsettingsview.cpp:827
+#: src/newaccountsettingsview.cpp:831
 msgid "Incorrect password!"
 msgstr "Hibás jelszó!"
 
-#: src/newaccountsettingsview.cpp:864
+#: src/newaccountsettingsview.cpp:868
 msgid "Note: this will change the password only on this device."
 msgstr "Megjegyzés: a jelszó megváltoztatása csak ezen az eszközön."
 
-#: src/newaccountsettingsview.cpp:867
+#: src/newaccountsettingsview.cpp:871
 msgid "Current password"
 msgstr "Jelenlegi jelszó"
 
-#: src/newaccountsettingsview.cpp:873
+#: src/newaccountsettingsview.cpp:877
 msgid "New password"
 msgstr "Új jelszó"
 
-#: src/newaccountsettingsview.cpp:1755
+#: src/newaccountsettingsview.cpp:1759
 msgid "Bad password"
 msgstr "Hibás jelszó"
 
-#: src/newaccountsettingsview.cpp:1761
+#: src/newaccountsettingsview.cpp:1765
 msgid "Network error, try again"
 msgstr "Hálózati hiba, próbálja újra"
 
-#: src/newaccountsettingsview.cpp:1767
+#: src/newaccountsettingsview.cpp:1771
 msgid "Unknown error"
 msgstr "Ismeretlen hiba"
 
-#: src/newaccountsettingsview.cpp:1779
+#: src/newaccountsettingsview.cpp:1783
 msgid "Could not initiate export to the Jami, try again"
 msgstr "A Jami export elindítása nem sikerült, próbálja újra"
 
-#: src/newaccountsettingsview.cpp:1838
+#: src/newaccountsettingsview.cpp:1842
 msgid "Error: wrong password!"
 msgstr "Hiba: hibás jelszó!"
 
-#: src/newaccountsettingsview.cpp:1841
+#: src/newaccountsettingsview.cpp:1845
 msgid "Error: unknown device!"
 msgstr "Hiba: ismeretlen eszköz!"
 
-#: src/newaccountsettingsview.cpp:2013
+#: src/newaccountsettingsview.cpp:2019
 msgid "Initializing…"
 msgstr "Szignál…"
 
-#: src/newaccountsettingsview.cpp:2016
+#: src/newaccountsettingsview.cpp:2022
 msgid "Offline"
 msgstr "Nem elérhető"
 
-#: src/newaccountsettingsview.cpp:2019
+#: src/newaccountsettingsview.cpp:2025
 msgid "Connecting…"
 msgstr "Kapcsolódás…"
 
-#: src/newaccountsettingsview.cpp:2022
+#: src/newaccountsettingsview.cpp:2028
 msgid "Online"
 msgstr "Elérhető"
 
-#: src/newaccountsettingsview.cpp:2026
+#: src/newaccountsettingsview.cpp:2032
 msgid "Unknown status"
 msgstr "Ismeretlen állapot"
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2065
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2065
 msgid "no password set"
 msgstr "nincs jelszó beállítva"
+
+#: src/newaccountsettingsview.cpp:2121
+msgid "Remove account"
+msgstr "Fiók eltávolítása"
