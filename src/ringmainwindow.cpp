@@ -1310,7 +1310,7 @@ CppImpl::init()
     /* set the search entry placeholder text */
     gtk_entry_set_placeholder_text(GTK_ENTRY(widgets->search_entry),
                                    C_("Please try to make the translation 50 chars or less so that it fits into the layout",
-                                      "Search contacts or enter number"));
+                                      "Find or start a conversation"));
 
     /* init chat webkit container so that it starts loading before the first time we need it*/
     (void)webkitChatContainer();
