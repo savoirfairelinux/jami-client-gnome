@@ -85,6 +85,7 @@ struct _RingMainWindowClass
 
 struct RingMainWindowPrivate
 {
+    GtkWidget *header_left;
     GtkWidget *ring_menu;
     GtkWidget *image_ring;
     GtkWidget *ring_settings;
@@ -788,6 +789,18 @@ on_window_size_changed(GtkWidget *self, G_GNUC_UNUSED GdkRectangle*, G_GNUC_UNUS
 }
 
 static void
+on_left_pan_size_changed(GtkWidget* left_pan, G_GNUC_UNUSED GdkRectangle*, RingMainWindow* self)
+{
+    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
+    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+
+    int new_width, new_height;
+    gtk_widget_get_size_request(GTK_WIDGET(priv->vbox_left_pane), &new_width, &new_height);
+    gtk_widget_set_size_request(GTK_WIDGET(priv->header_left), new_width, -1);
+
+}
+
+static void
 on_search_entry_places_call_changed(GSettings* settings, const gchar* key, RingMainWindow* self)
 {
     g_return_if_fail(IS_RING_MAIN_WINDOW(self));
@@ -1191,6 +1204,7 @@ CppImpl::init()
     auto height = g_settings_get_int(widgets->settings, "window-height");
     gtk_window_set_default_size(GTK_WINDOW(self), width, height);
     g_signal_connect(self, "size-allocate", G_CALLBACK(on_window_size_changed), nullptr);
+    g_signal_connect(widgets->vbox_left_pane, "size-allocate", G_CALLBACK(on_left_pan_size_changed), self);
     g_signal_connect(self, "window-state-event", G_CALLBACK(on_window_state_event), nullptr);
 
     if (g_settings_get_boolean(widgets->settings, "window-maximized"))
@@ -2824,6 +2838,7 @@ ring_main_window_class_init(RingMainWindowClass *klass)
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
                                                 "/net/jami/JamiGnome/ringmainwindow.ui");
 
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, header_left);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_left_pane);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, notebook_contacts);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_smartview);

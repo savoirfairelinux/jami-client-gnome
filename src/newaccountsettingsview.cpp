@@ -65,6 +65,7 @@ struct _NewAccountSettingsViewPrivate
     GSettings *settings;
     GtkWidget* stack_account;
 
+    GtkWidget* tempxxxx;
     GtkWidget* general_settings_box;
         GtkWidget* box_account;
         GtkWidget* sip_account_enabled;
@@ -255,6 +256,7 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, stack_account);
 
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, tempxxxx);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, general_settings_box);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, box_account);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, account_enabled);
@@ -399,6 +401,7 @@ show_general_settings(NewAccountSettingsView* view)
     gtk_widget_hide(GTK_WIDGET(priv->advanced_settings_box));
     gtk_widget_show(GTK_WIDGET(priv->general_settings_box));
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), priv->general_settings_box);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), priv->tempxxxx);
 }
 
 static void
