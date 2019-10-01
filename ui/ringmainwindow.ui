@@ -44,135 +44,190 @@
         </child>
       </object>
     </child>
+
+
+
     <child type="titlebar">
-      <object class="GtkHeaderBar" id="header">
+      <object class="HdyTitleBar">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="show_close_button">True</property>
         <child>
-          <object class="GtkMenuButton" id="ring_menu">
+          <object class="GtkStack" id="headerbar_stack">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Menu</property>
-            <property name="direction">none</property>
-            <accelerator key="m" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+            <property name="hexpand">True</property>
+            <property name="hhomogeneous">False</property>
             <child>
-              <object class="GtkImage" id="image_ring">
+              <object class="HdyLeaflet" id="header_leaflet">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="child-transition-type">slide</property>
+                <property name="mode-transition-type">slide</property>
+                <property name="hhomogeneous-folded">True</property>
+                <child>
+                  <object class="GtkHeaderBar" id="header_left">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="show_close_button">True</property>
+                    <child>
+                      <object class="GtkMenuButton" id="ring_menu">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="receives_default">False</property>
+                        <property name="tooltip_text" translatable="yes">Menu</property>
+                        <property name="direction">none</property>
+                        <accelerator key="m" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <child>
+                          <object class="GtkImage" id="image_ring">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="image-button"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="spacing">0</property>
+                        <child>
+                          <object class="GtkButton" id="ring_settings">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="receives_default">False</property>
+                            <property name="tooltip_text" translatable="yes">Settings</property>
+                            <accelerator key="comma" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                            <child>
+                              <object class="GtkImage" id="image_settings">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkComboBox" id="combobox_account_selector">
+                            <property name="width_request">230</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="popup_fixed_width">False</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+
+
+                <child>
+                  <object class="GtkSeparator" id="header_separator">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <style>
+                      <class name="sidebar"/>
+                    </style>
+                  </object>
+                </child>
+
+
+                <child>
+                  <object class="GtkHeaderBar" id="header_right">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="show_close_button">True</property>
+                    <child type="title">
+                      <object class="GtkBox" id="hbox_title">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkBox" id="hbox_settings">
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkRadioButton" id="radiobutton_general_settings">
+                                <property name="label" translatable="yes">General</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="receives_default">False</property>
+                                <property name="image">image_general_settings</property>
+                                <property name="draw_indicator">False</property>
+                                <accelerator key="g" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkRadioButton" id="radiobutton_media_settings">
+                                <property name="label" translatable="yes">Media</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="receives_default">False</property>
+                                <property name="image">image_media_settings</property>
+                                <property name="draw_indicator">False</property>
+                                <property name="group">radiobutton_general_settings</property>
+                                <accelerator key="m" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkRadioButton" id="radiobutton_new_account_settings">
+                                <property name="label" translatable="yes">Account</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="receives_default">False</property>
+                                <property name="image">image_account_settings</property>
+                                <property name="draw_indicator">False</property>
+                                <property name="group">radiobutton_general_settings</property>
+                                <accelerator key="i" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <style>
+                              <class name="linked"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+
               </object>
             </child>
-            <style>
-              <class name="image-button"/>
-            </style>
+
+
+
+
+
+
           </object>
-        </child>
-        <child type="title">
-          <object class="GtkBox" id="hbox_title">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkBox" id="hbox_settings">
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkRadioButton" id="radiobutton_general_settings">
-                    <property name="label" translatable="yes">General</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="receives_default">False</property>
-                    <property name="image">image_general_settings</property>
-                    <property name="draw_indicator">False</property>
-                    <accelerator key="g" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="radiobutton_media_settings">
-                    <property name="label" translatable="yes">Media</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="receives_default">False</property>
-                    <property name="image">image_media_settings</property>
-                    <property name="draw_indicator">False</property>
-                    <property name="group">radiobutton_general_settings</property>
-                    <accelerator key="m" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="radiobutton_new_account_settings">
-                    <property name="label" translatable="yes">Account</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="receives_default">False</property>
-                    <property name="image">image_account_settings</property>
-                    <property name="draw_indicator">False</property>
-                    <property name="group">radiobutton_general_settings</property>
-                    <accelerator key="i" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-                <style>
-                  <class name="linked"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="spacing">0</property>
-            <child>
-              <object class="GtkButton" id="ring_settings">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Settings</property>
-                <accelerator key="comma" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                <child>
-                  <object class="GtkImage" id="image_settings">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkComboBox" id="combobox_account_selector">
-                <property name="width_request">230</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="popup_fixed_width">False</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
     </child>
+
+
+
   </template>
   <object class="GtkImage" id="image_new_conversation">
     <property name="visible">True</property>
