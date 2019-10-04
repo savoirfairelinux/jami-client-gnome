@@ -33,6 +33,7 @@
 #include <globalinstances.h>
 #include "native/pixbufmanipulator.h"
 #include <QtCore/QSize>
+#include <map>
 #endif
 
 
@@ -97,7 +98,9 @@ public:
     gboolean append;
     gboolean actions;
 
+#if USE_LIBNOTIFY
     std::map<std::string, std::shared_ptr<NotifyNotification>> notifications_;
+#endif
 private:
     CppImpl() = delete;
     CppImpl(const CppImpl&) = delete;
