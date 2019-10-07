@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-30 03:09-0400\n"
-"PO-Revision-Date: 2019-09-30 07:09+0000\n"
+"POT-Creation-Date: 2019-10-07 03:09-0400\n"
+"PO-Revision-Date: 2019-10-07 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/savoirfairelinux/jami/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
@@ -190,7 +190,7 @@ msgstr "Password"
 
 #: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr ""
+msgstr "Gestore dell'account"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:187
@@ -204,7 +204,7 @@ msgstr "Migra account"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "Migrazione del tuo account Jami ..."
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
@@ -286,27 +286,27 @@ msgstr "Benvenuto su"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr ""
+msgstr "Crea un account locale"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Crea un nuovo account Jami su questo dispositivo (per i nuovi utenti)"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "Importa dal dispositivo"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "Importa un account con il PIN generato su un altro dispositivo"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr ""
+msgstr "Importa dal backup dell'archivio"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "Importa un account tramite il tuo archivio"
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
@@ -314,11 +314,11 @@ msgstr "Avanzato..."
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
-msgstr ""
+msgstr "Connetti al gestore dell'account"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
-msgstr ""
+msgstr "Ottieni il tuo account tramite le tue credenziali."
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
@@ -326,11 +326,11 @@ msgstr "Aggiungi un nuovo account SIP"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
-msgstr ""
+msgstr "Archivio"
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
-msgstr ""
+msgstr "Informazioni."
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
@@ -340,13 +340,13 @@ msgstr "PIN"
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Puoi ottenere un archivio facendo clic su \"Esporta account\" nelle impostazioni dell'account. Questo creerà un file .gz sul tuo dispositivo."
 
 #: ui/accountcreationwizard.ui:382
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr ""
+msgstr "Per ottenere un PIN (valido per 10 minuti), è necessario aprire le impostazioni dell'account sull'altro dispositivo e fare clic su \"Collegamento a un altro dispositivo\"."
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
@@ -395,18 +395,18 @@ msgstr "Generare il tuo account Jami ..."
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr ""
+msgstr "Fai il backup del tuo account!"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "Questo account esiste solo su questo dispositivo. Se hai perso il dispositivo o disinstallato l'applicazione, il tuo account verrà eliminato. Puoi eseguire il backup del tuo account ora o più tardi."
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "Non mostrarmelo mai più"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2054
@@ -436,7 +436,7 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "Registrati"
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
@@ -959,22 +959,22 @@ msgstr "Mostra Jami"
 msgid "Quit"
 msgstr "Esci"
 
-#: src/ringnotify.cpp:333
+#: src/ringnotify.cpp:336
 msgctxt ""
 msgid "Open conversation"
 msgstr "Apri conversazione"
 
-#: src/ringnotify.cpp:341 src/ringnotify.cpp:357
+#: src/ringnotify.cpp:344 src/ringnotify.cpp:360
 msgctxt ""
 msgid "Accept"
 msgstr "Accetta"
 
-#: src/ringnotify.cpp:348
+#: src/ringnotify.cpp:351
 msgctxt ""
 msgid "Refuse"
 msgstr "Rifiuto"
 
-#: src/ringnotify.cpp:364
+#: src/ringnotify.cpp:367
 msgctxt ""
 msgid "Decline"
 msgstr "Rifiuta"
@@ -1120,18 +1120,18 @@ msgstr "apri chat"
 
 #: src/ringmainwindow.cpp:1008
 msgid "Jami - Migration needed"
-msgstr ""
+msgstr "Jami: Migrazione necessaria"
 
 #: src/ringmainwindow.cpp:1021
 msgid "Migration in progress... please do not close this window."
-msgstr ""
+msgstr "Migrazione in corso ... non chiudere questa finestra."
 
 #: src/ringmainwindow.cpp:1313
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
-msgid "Search contacts or enter number"
-msgstr "Cerca tra i contatti o inserisci un numero"
+msgid "Find or start a conversation"
+msgstr ""
 
 #: src/ringmainwindow.cpp:1784
 msgid "Leave settings page"
@@ -1270,21 +1270,21 @@ msgstr "- Client GNOME per Jami"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "Si è verificato un errore durante la creazione dell'account."
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "Impossibile recuperare alcun account, verifica il PIN e la password."
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "annot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "impossibile recuperare alcun account, verifica l'archivio e la password."
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "Impossibile connettersi al gestore account fornito. Controlla le tue credenziali."
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
@@ -1292,7 +1292,7 @@ msgstr "Le password non coincidono"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Importa da backup"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:204
 #: src/newaccountsettingsview.cpp:933
@@ -1453,4 +1453,4 @@ msgstr "nessuna password impostata"
 
 #: src/newaccountsettingsview.cpp:2121
 msgid "Remove account"
-msgstr ""
+msgstr "Rimuovi l'account"

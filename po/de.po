@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-30 03:09-0400\n"
-"PO-Revision-Date: 2019-09-30 07:09+0000\n"
-"Last-Translator: nautilusx\n"
+"POT-Creation-Date: 2019-10-07 03:09-0400\n"
+"PO-Revision-Date: 2019-10-07 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -339,11 +339,11 @@ msgstr "Neues SIP-Konto hinzufügen"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
-msgstr ""
+msgstr "Archiv"
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
-msgstr ""
+msgstr "Informationen."
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
@@ -972,22 +972,22 @@ msgstr "Jami anzeigen"
 msgid "Quit"
 msgstr "Beenden"
 
-#: src/ringnotify.cpp:333
+#: src/ringnotify.cpp:336
 msgctxt ""
 msgid "Open conversation"
 msgstr "Konversation öffnen"
 
-#: src/ringnotify.cpp:341 src/ringnotify.cpp:357
+#: src/ringnotify.cpp:344 src/ringnotify.cpp:360
 msgctxt ""
 msgid "Accept"
 msgstr "Akzeptieren"
 
-#: src/ringnotify.cpp:348
+#: src/ringnotify.cpp:351
 msgctxt ""
 msgid "Refuse"
 msgstr "Verweigern"
 
-#: src/ringnotify.cpp:364
+#: src/ringnotify.cpp:367
 msgctxt ""
 msgid "Decline"
 msgstr "Ablehnen"
@@ -1143,8 +1143,8 @@ msgstr ""
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
-msgid "Search contacts or enter number"
-msgstr "Kontakte suchen oder Nummer eingeben"
+msgid "Find or start a conversation"
+msgstr ""
 
 #: src/ringmainwindow.cpp:1784
 msgid "Leave settings page"

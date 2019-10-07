@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-30 03:09-0400\n"
-"PO-Revision-Date: 2019-09-30 07:09+0000\n"
+"POT-Creation-Date: 2019-10-07 03:09-0400\n"
+"PO-Revision-Date: 2019-10-07 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/savoirfairelinux/jami/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -960,22 +960,22 @@ msgstr "Показать Jami"
 msgid "Quit"
 msgstr "Выход"
 
-#: src/ringnotify.cpp:333
+#: src/ringnotify.cpp:336
 msgctxt ""
 msgid "Open conversation"
 msgstr "Открыть разговор"
 
-#: src/ringnotify.cpp:341 src/ringnotify.cpp:357
+#: src/ringnotify.cpp:344 src/ringnotify.cpp:360
 msgctxt ""
 msgid "Accept"
 msgstr "Принять"
 
-#: src/ringnotify.cpp:348
+#: src/ringnotify.cpp:351
 msgctxt ""
 msgid "Refuse"
 msgstr "Отказать"
 
-#: src/ringnotify.cpp:364
+#: src/ringnotify.cpp:367
 msgctxt ""
 msgid "Decline"
 msgstr "Отклонить"
@@ -1131,8 +1131,8 @@ msgstr ""
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
-msgid "Search contacts or enter number"
-msgstr "Найдите контакты или введите номер"
+msgid "Find or start a conversation"
+msgstr ""
 
 #: src/ringmainwindow.cpp:1784
 msgid "Leave settings page"
