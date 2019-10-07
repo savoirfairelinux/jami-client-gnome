@@ -444,6 +444,7 @@ load_javascript_libs(WebKitWebView *webview_chat,
     /* Create the list of libraries to load */
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/jed.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify.js");
+    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/chatview.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify-string.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify-html.js");
 
@@ -539,6 +540,22 @@ build_view(WebKitChatContainer *view)
         (gchar*) g_bytes_get_data(
             g_resources_lookup_data(
                 "/net/jami/JamiGnome/chatview.css",
+                G_RESOURCE_LOOKUP_FLAGS_NONE,
+                NULL
+            ),
+            NULL
+        ),
+        WEBKIT_USER_CONTENT_INJECT_ALL_FRAMES,
+        WEBKIT_USER_STYLE_LEVEL_USER,
+        NULL,
+        NULL
+    );
+    webkit_user_content_manager_add_style_sheet(webkit_content_manager, chatview_style_sheet);
+
+    chatview_style_sheet = webkit_user_style_sheet_new(
+        (gchar*) g_bytes_get_data(
+            g_resources_lookup_data(
+                "/net/jami/JamiGnome/chatview-gnome.css",
                 G_RESOURCE_LOOKUP_FLAGS_NONE,
                 NULL
             ),
