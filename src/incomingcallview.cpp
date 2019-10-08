@@ -83,6 +83,8 @@ struct _IncomingCallViewPrivate
     QMetaObject::Connection state_change_connection;
 
     GSettings *settings;
+
+    lrc::api::AVModel* avModel_;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(IncomingCallView, incoming_call_view, GTK_TYPE_BOX);
@@ -295,7 +297,8 @@ set_call_info(IncomingCallView *view) {
 
     auto chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                                          *priv->accountInfo_,
-                                                         priv->conversation_);
+                                                         priv->conversation_,
+                                                         *priv->avModel_);
     gtk_widget_show(chat_view);
     chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
     gtk_container_add(GTK_CONTAINER(priv->frame_chat), chat_view);
@@ -313,6 +316,7 @@ incoming_call_view_new(WebKitChatContainer* view,
     priv->webkit_chat_container = GTK_WIDGET(view);
     priv->conversation_ = conversation;
     priv->accountInfo_ = &accountInfo;
+    priv->avModel_ = &avModel;
 
     priv->messaging_widget = messaging_widget_new(avModel, conversation, accountInfo);
     gtk_box_pack_start(GTK_BOX(priv->box_messaging_widget), priv->messaging_widget, TRUE, TRUE, 0);

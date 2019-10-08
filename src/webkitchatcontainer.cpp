@@ -756,7 +756,7 @@ webkit_chat_container_is_ready(WebKitChatContainer *view)
 void
 webkit_chat_set_header_visible(WebKitChatContainer *view, bool isVisible)
 {
-    gchar* function_call = g_strdup_printf("displayNavbar(%s)", isVisible ? "true" : "false");
+    gchar* function_call = g_strdup_printf("showNavbarAndRecorder(%s)", isVisible ? "true" : "false");
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
