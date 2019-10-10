@@ -19,7 +19,7 @@ Before pushing a patch, make sure that it passes ESLint:
 $ eslint chatview.html
 
 Most trivial issues can be fixed using
-$ eslint chatview.html --fix
+$ eslint chatview.js --fix
 
 We will not accept patches introducing non-ESLint-compliant code.
 

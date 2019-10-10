@@ -1,0 +1,33 @@
+.internal_mes_wrapper {
+    margin: 3px 0 0 0;
+}
+
+.message_wrapper {
+    padding: 1em;
+}
+
+.sender_image {
+    margin: 10px;
+}
+
+.message_out + .message_out .message_wrapper {
+    border-top-right-radius: 10px;
+}
+
+.message_in + .message_in .message_wrapper {
+    border-top-left-radius: 10px;
+}
+
+.message_in + .message_in .sender_image {
+    visibility: hidden;
+}
+
+.message_out + .message_out .sender_image {
+    visibility: hidden;
+}
+
+.message_text {
+    hyphens: auto;
+    word-break: break-word;
+    word-wrap: break-word;
+}

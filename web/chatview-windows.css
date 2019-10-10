@@ -1,0 +1,93 @@
+.internal_mes_wrapper {
+    margin: 0;
+}
+
+.message_wrapper {
+    padding: 0.5em 1em 0.5em 1em;
+}
+
+.sender_image {
+    margin: 0px 10px 0px 10px;
+}
+
+.message_in .message_wrapper {
+    background-color: #cfebf5;
+}
+
+.message_in .sender_image,
+.message_out .sender_image {
+    visibility: hidden;
+}
+
+.message_in.last_of_sequence .sender_image,
+.message_in.single_message .sender_image {
+    visibility: visible;
+}
+
+.message_in.last_of_sequence .sender_image {
+    margin-top: 2px;
+}
+
+.message_in.middle_of_sequence .sender_image {
+    margin-top: 0px;
+}
+
+
+.generated_message.message_in .message_wrapper,
+.generated_message.message_out .message_wrapper {
+    background-color: transparent !important;
+    border-radius: 0px !important;
+}
+
+.single_message.message_in .message_wrapper,
+.single_message.message_out .message_wrapper {
+    border-radius: 0.7em 0.7em 0.7em 0.7em !important;
+}
+
+.last_of_sequence.message_in .message_wrapper {
+    border-radius: 0.7em 0.7em 0.7em 0.7em;
+}
+
+.first_of_sequence.message_in .message_wrapper {
+    border-radius: 0.7em 0.7em 0.7em 0.7em;
+}
+
+.middle_of_sequence.message_in .message_wrapper {
+    border-radius: 0.7em 0.7em 0.7em 0.7em;
+}
+
+.last_of_sequence.message_out .message_wrapper {
+    border-radius: 0.7em 0.7em 0.7em 0.7em;
+}
+
+.first_of_sequence.message_out .message_wrapper {
+    border-radius: 0.7em 0.7em 0.7em 0.7em;
+}
+
+.middle_of_sequence.message_out .message_wrapper {
+    border-radius: 0.7em 0.7em 0.7em 0.7em;
+}
+
+.middle_of_sequence .internal_mes_wrapper,
+.last_of_sequence .internal_mes_wrapper,
+.last_message .internal_mes_wrapper {
+    margin: 0px 0 0 0 !important;
+}
+
+.message_out .sender_image {
+    margin: 0px;
+}
+
+.first_of_sequence.message_out .internal_mes_wrapper,
+.single_message.message_out .internal_mes_wrapper {
+    margin: 0px 0 0 0 !important;
+}
+
+.message_text {
+    word-break: break-all;
+    word-wrap: hyphenate;
+}
+
+pre {
+    white-space: pre-wrap;
+}

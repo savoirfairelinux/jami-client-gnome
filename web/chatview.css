@@ -2,12 +2,12 @@
 
 :root {
   /* color definitions */
-  --ring-light-blue: rgba(59, 193, 211, 0.3);
-  --ring-dark-blue: #003b4e;
-  --ring-green: #219d55;
-  --ring-green-hover: #1f8b4c;
-  --ring-red: #dc2719;
-  --ring-red-hover: #b02e2c;
+  --jami-light-blue: rgba(59, 193, 211, 0.3);
+  --jami-dark-blue: #003b4e;
+  --jami-green: #219d55;
+  --jami-green-hover: #1f8b4c;
+  --jami-red: #dc2719;
+  --jami-red-hover: #b02e2c;
 
   /* main properties */
   --bg-color: #f2f2f2; /* same as macOS client */
@@ -22,9 +22,9 @@
   --placeholder-text-color: #d3d3d3;
 
   /* button properties */
-  --action-icon-color: var(--ring-dark-blue);
+  --action-icon-color: var(--jami-dark-blue);
   --deactivated-icon-color: #BEBEBE;
-  --action-icon-hover-color: var(--ring-light-blue);
+  --action-icon-hover-color: var(--jami-light-blue);
   --action-critical-icon-hover-color: rgba(211, 77, 59, 0.3); /* complementary color of ring light blue */
   --action-critical-icon-press-color: rgba(211, 77, 59, 0.5);
   --action-critical-icon-color: #4E1300;
@@ -61,18 +61,28 @@
 /** Body */
 
 body {
-  --navbar-size: calc(var(--navbar-height) + var(--navbar-padding-top) + var(--navbar-padding-bottom));
-  --messagebar-size: 57px; /* FIXME clean this up */
-
-  margin: 0;
-  overflow: hidden;
-  background-color: var(--bg-color);
-  padding-top: var(--navbar-size);
-  padding-bottom: var(--messagebar-size);
-
-  /* disable selection highlight because it looks very bad */
-  -webkit-user-select: none;
+    --messagebar-size: 57px;
+    margin: 0;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    padding-bottom: var(--messagebar-size);
+    /* disable selection highlight because it looks very bad */
+    -webkit-user-select: none;
 }
+
+::-webkit-scrollbar-track {
+    background-color: var(--bg-color);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--bg-color);
+ }
+
 
 /** Navbar */
 
@@ -111,7 +121,7 @@ body {
 .svgicon {
   display: block;
   margin: auto;
-  height: 100%;
+  height: 70%;
 }
 
 .nav-button {
@@ -299,26 +309,21 @@ body {
 }
 
 
-
 /** Messaging bar */
 
 #sendMessage {
-  background-color: var(--bg-color);
-  display: flex;
-  position: relative;
-  padding-right: 10px;
-  padding-left: 8px;
-  overflow: hidden;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  align-items: center;
-
-  position: fixed;
-  left:0; right:0;
-  z-index: 500;
-  bottom: 0;
-  /* hairline */
-  border-top: var(--hairline-thickness) solid var(--hairline-color);
+    background-color: var(--bg-color);
+    display: flex;
+    overflow: hidden;
+    padding: 4px;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 500;
+    bottom: 0;
+    /* hairline */
+    border-top: var(--hairline-thickness) solid var(--hairline-color);
 }
 
 #message {
@@ -387,26 +392,220 @@ a:hover {
   border: 0;
 }
 
-#messages {
-  position: relative;
-  z-index: 0;
-  width: 100%;
-  overflow-y: scroll;
-  height: auto;
-  padding-top: 0.5em;
+#file_image_send_container {
+    visibility: hidden;
+    position: fixed;
+    bottom: var(--messagebar-size);
+    z-index: 1;
+    display: flex;
+    justify-content: flex-start;
+    left: 0;
+    right: 0;
+    height: 8em;
+    /*border-top-left-radius: 25px;
+    border-top-right-radius: 25px;*/
+    border: 2px solid lightgray;
+    padding: 20px;
+    border-bottom: none;
+    background-color: #cfdbdd;
+    overflow-x: overlay;
 }
 
-.last-message {
-  /* The last message gets a bigger bottom padding so that it is not
-     "glued" to the message bar. */
-  padding-bottom: 1.5em !important;
+#file_image_send_container::-webkit-scrollbar {
+    height: 10px;
 }
+
+#file_image_send_container::after {
+    /*Create the margins with pseudo-elements*/
+    /*to solve overflow:scroll and The Right Padding Problem*/
+    content: ' ';
+    min-width: 20px;
+}
+
+.img_wrapper {
+    position: relative;
+    max-width: 65px;
+    min-width: 65px;
+    max-height: 80px;
+    border: 3px solid rgba(255,255,255,0);
+    padding: 30px;
+    border-radius: 20px;
+    background-color: #cfdbdd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+/* Make the image responsive */
+.img_wrapper img {
+    height: 118px;
+    min-width: 131px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* Style the button and place it at the top right corner of the image */
+.img_wrapper .btn {
+    position: absolute;
+    color: #fff;
+    border: 1px solid #AEAEAE;
+    border-radius: 40%;
+    background: rgba(96,95,97,0.5);
+    font-size: 10px;
+    font-weight: bold;
+    top: -5%;
+    right: -5%;
+}
+
+.img_wrapper .btn:hover {
+    background-color: lightgray;
+}
+
+.img_wrapper .btn:focus {
+    outline: none;
+    color: black;
+}
+
+.file_wrapper {
+    position: relative;
+    max-width: 65px;
+    min-width: 65px;
+    max-height: 80px;
+    border: 3px solid rgba(255,255,255,0);
+    padding: 30px;
+    border-radius: 20px;
+    background-color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 5px;
+    font-family: sans-serif;
+}
+
+/* Style the button and place it at the top right corner of the image */
+.file_wrapper .btn {
+    position: absolute;
+    color: #fff;
+    border: 1px solid #AEAEAE;
+    border-radius: 40%;
+    background: rgba(96,95,97,0.5);
+    font-size: 10px;
+    font-weight: bold;
+    top: -5%;
+    right: -5%;
+}
+
+.file_wrapper .btn:hover {
+    background-color: lightgray;
+}
+
+.file_wrapper .btn:focus {
+    outline: none;
+    color: black;
+}
+
+.file_wrapper .svg-icon {
+    position: absolute;
+    max-width: 2em;
+    max-height: 25px;
+    margin-right: 2em;
+    top: 8%;
+    left: 1px;
+}
+
+.file_wrapper .svg-icon path,
+.file_wrapper .svg-icon polygon,
+.file_wrapper .svg-icon rect {
+    fill: #000000;
+}
+
+.file_wrapper .svg-icon circle {
+    stroke: #4691f6;
+    stroke-width: 1;
+}
+
+.file_wrapper .fileinfo {
+    position: absolute;
+    top: 30%;
+    left: 7%;
+}
+
+#back_to_bottom_button_container {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 4em;
+    pointer-events: none;
+}
+
+#back_to_bottom_button {
+    visibility: hidden;
+    margin: auto;
+    font: 0.875em emoji;
+    text-align: center;
+    width: 10em;
+    border-radius: 2em;
+    background-color: var(--jami-dark-blue);
+    color: #fff;
+    padding: 0.5em;
+    box-shadow: 2px 2px 4px black;
+    opacity: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: opacity .5s ease, width .2s ease, color .1s ease .2s;
+    pointer-events: all;
+}
+
+#back_to_bottom_button:hover {
+    cursor: pointer;
+}
+
+#back_to_bottom_button.fade {
+    opacity: 0;
+    width: 1em;
+    color: transparent;
+    transition: .2s opacity ease .1s, .2s width ease .1s, color .1s ease;
+}
+
+#back_to_bottom_button.fade:hover {
+    cursor: context-menu;
+}
+
+#messages {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    overflow: hidden;
+    height: auto;
+    padding-top: 0.5em;
+    opacity: 1;
+    transition: 0.5s opacity;
+}
+
+#messages.fade {
+    opacity: 0;
+    transition: none;
+}
+
+#messages:hover {
+    overflow-y: overlay;
+}
+
+.last_message {
+    /* The last message gets a bigger bottom padding so that it is not
+     "glued" to the message bar. */
+    padding-bottom: 1.5em !important;
+    margin-top: 4px;
+}
+
 
 /* General messages */
 
 .internal_mes_wrapper {
     max-width: 70%;
-    margin: 8px 0 0 0;
 
     display: flex;
     flex-direction: column;
@@ -426,9 +625,7 @@ a:hover {
 .message_wrapper {
     max-width: calc(100% - 2em);
     border-radius: 10px;
-    padding: 1em;
     position: relative;
-
     display: flex;
     flex-direction: row;
 }
@@ -444,6 +641,8 @@ a:hover {
 .transfer_info_wrapper {
     display: flex;
     flex-direction: row;
+    padding-bottom: .8em;
+    padding-top: .8em;
 }
 
 .message {
@@ -481,9 +680,12 @@ a:hover {
 
 .sender_image {
     border-radius: 50%;
-    margin: 10px;
     width: 35px;
     height: 35px;
+}
+
+div.last_message > span {
+    margin: 0px 10px 0px 10px;
 }
 
 .message_out .message_wrapper {
@@ -499,30 +701,8 @@ a:hover {
 .message_out .message_wrapper {
     background-color: #cfd8dc;
 }
-
 .message_in .message_wrapper {
     background-color: #fdfdfd;
-}
-
-/* Only the first message of a serie of messages has an angular
- * top-right / top-left corner. Others get a rounded one.
- * Same for avatars: do not show it for every single message,
- * only for the first one of a serie. */
-
-.message_out + .message_out .message_wrapper {
-    border-top-right-radius: 10px;
-}
-
-.message_in + .message_in .message_wrapper {
-    border-top-left-radius: 10px;
-}
-
-.message_in + .message_in .sender_image {
-    visibility: hidden;
-}
-
-.message_out + .message_out .sender_image {
-    visibility: hidden;
 }
 
 @-webkit-keyframes fade-in {
@@ -537,7 +717,7 @@ a:hover {
 .timestamp {
     display: inline-flex;
     justify-content: flex-start;
-    align-self:stretch;
+    align-self: stretch;
     color: #333;
     font-size: 10px;
     padding: 5px;
@@ -551,7 +731,7 @@ a:hover {
     margin: auto;
     padding: 0;
     vertical-align: center;
-    opacity:0;
+    opacity: 0;
     transition: visibility 0.3s linear, opacity 0.3s linear;
 }
 
@@ -562,7 +742,7 @@ a:hover {
 
 /* Ellipsis - dropdown menu */
 
-input[type=checkbox]{
+input[type=checkbox] {
     display: none;
 }
 
@@ -573,16 +753,11 @@ input[type=checkbox]{
     padding-top: 0;
     opacity: 0;
     height: 20px;
-    transition:visibility 0.3s linear, opacity 0.3s linear;
-}
-
-.message_type_contact .menu_interaction
-{
-    display: none;
-    visibility: hidden;
+    transition: visibility 0.3s linear, opacity 0.3s linear;
 }
 
 .message_type_call .menu_interaction
+.message_type_contact .menu_interaction
 {
     margin: auto;
     padding: 0;
@@ -590,6 +765,7 @@ input[type=checkbox]{
 }
 
 .message_type_call .menu_interaction .dropdown
+.message_type_contact .menu_interaction .dropdown
 {
     margin-top: -17px;
 }
@@ -686,11 +862,10 @@ input[type=checkbox]{
 .message_type_contact .message_wrapper,
 .message_type_call .message_wrapper {
     width: auto;
-    margin-left: 30%;
-    margin-right: 30%;
+    margin: auto;
     display: flex;
     flex-wrap: wrap;
-    background-color: #f2f2f2;
+    background-color: var(--bg-color);
     padding: 0;
 }
 
@@ -709,7 +884,7 @@ input[type=checkbox]{
 /* file interactions */
 
 .message_type_data_transfer .internal_mes_wrapper {
-    padding: 0;
+    padding: 0.1em;
     display: flex;
     flex-wrap: wrap;
 }
@@ -719,11 +894,11 @@ input[type=checkbox]{
 }
 
 .invite-btn-red:hover {
-    background: var(--ring-red);
+    background: var(--jami-red);
 }
 
 .invite-btn-red svg {
-    fill: var(--ring-red);
+    fill: var(--jami-red);
     transition: fill 0.5s ease;
 }
 
@@ -736,16 +911,16 @@ input[type=checkbox]{
 }
 
 .invite-btn-green:hover {
-    background: var(--ring-green);
+    background: var(--jami-green);
 }
 
 .invite-btn-green svg {
-    fill: var(--ring-green);
+    fill: var(--jami-green);
     transition: fill 0.5s ease;
 }
 
 .invite-btn-green:hover svg {
-    fill: white;
+    fill: var(--invite-hover-color);
 }
 
 .accept, .refuse {
@@ -761,27 +936,27 @@ input[type=checkbox]{
 }
 
 .accept {
-    fill: var(--ring-green);
+    fill: var(--jami-green);
 }
 
 .accept:hover {
     fill: var(--invite-hover-color);
-    background: var(--ring-green-hover);
+    background: var(--jami-green-hover);
 }
 
 .refuse {
-    fill: var(--ring-red);
+    fill: var(--jami-red);
 }
 
 .refuse:hover {
     fill: var(--invite-hover-color);
-    background: var(--ring-red-hover);
+    background: var(--jami-red-hover);
 }
 
 .message_type_data_transfer .text {
     text-align: left;
     align-self: left;
-    padding: 1em;
+    padding: 0.3em;
 }
 
 .truncate-ellipsis {
@@ -828,13 +1003,10 @@ input[type=checkbox]{
 /* text interactions */
 
 .message_type_text .internal_mes_wrapper {
-    padding: 0px;
+    padding: 0.1em;
 }
 
 .message_text {
-    hyphens: auto; /* When webkitgtk+ will supports this, intelligent word-breaking */
-    word-break: break-word;
-    word-wrap: break-word;
     max-width: 100%;
 }
 
@@ -857,7 +1029,7 @@ pre {
 .media_wrapper img {
     max-width: 800px;
     max-height: 700px;
-    margin: 5px 0 0 0;
+    margin: 2px 0 2px 0;
     border-radius: 10px;
 }
 
@@ -909,6 +1081,12 @@ audio {
       padding-right: 15%;
   }
 
+  .message_type_contact,
+  .message_type_call {
+    padding: 0;
+  }
+
+
   .internal_mes_wrapper {
       max-width: 60%;
   }
@@ -927,7 +1105,7 @@ audio {
       padding: 2px;
       height: 10px;
       font-size: 0.7em;
-      transition:visibility 0.3s linear,opacity 0.3s linear;
+      transition: visibility 0.3s linear,opacity 0.3s linear;
   }
 }
 
