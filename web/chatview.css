@@ -1,0 +1,985 @@
+/** Variable and font definitions */
+
+:root {
+  /* color definitions */
+  --ring-light-blue: rgba(59, 193, 211, 0.3);
+  --ring-dark-blue: #003b4e;
+  --ring-green: #219d55;
+  --ring-green-hover: #1f8b4c;
+  --ring-red: #dc2719;
+  --ring-red-hover: #b02e2c;
+
+  /* main properties */
+  --bg-color: #f2f2f2; /* same as macOS client */
+
+  /* navbar properties */
+  --navbar-height: 40px;
+  --navbar-padding-top: 8px;
+  --navbar-padding-bottom: var(--navbar-padding-top);
+
+  /* message bar properties */
+  --textarea-max-height: 150px;
+  --placeholder-text-color: #d3d3d3;
+
+  /* button properties */
+  --action-icon-color: var(--ring-dark-blue);
+  --deactivated-icon-color: #BEBEBE;
+  --action-icon-hover-color: var(--ring-light-blue);
+  --action-critical-icon-hover-color: rgba(211, 77, 59, 0.3); /* complementary color of ring light blue */
+  --action-critical-icon-press-color: rgba(211, 77, 59, 0.5);
+  --action-critical-icon-color: #4E1300;
+  --non-action-icon-color: #212121;
+  --action-icon-press-color: rgba(59, 193, 211, 0.5);
+  --invite-hover-color: white;
+
+  /* hairline properties */
+  --hairline-color: #d9d9d9;
+  --hairline-thickness: 0.2px;
+}
+
+@font-face {
+    font-family: emoji;
+
+    /* Fonts for text outside emoji blocks */
+    src: local('Open sans'),
+         local('Helvetica'),
+         local('Segoe UI'),
+         local('sans-serif');
+}
+
+@font-face {
+    font-family: emoji;
+
+    src: local('Noto Color Emoji'),
+         local('Android Emoji'),
+         local('Twitter Color Emoji');
+
+    /* Emoji unicode blocks */
+    unicode-range: U+1F300-1F5FF, U+1F600-1F64F, U+1F680-1F6FF, U+2600-26FF;
+}
+
+/** Body */
+
+body {
+  --navbar-size: calc(var(--navbar-height) + var(--navbar-padding-top) + var(--navbar-padding-bottom));
+  --messagebar-size: 57px; /* FIXME clean this up */
+
+  margin: 0;
+  overflow: hidden;
+  background-color: var(--bg-color);
+  padding-top: var(--navbar-size);
+  padding-bottom: var(--messagebar-size);
+
+  /* disable selection highlight because it looks very bad */
+  -webkit-user-select: none;
+}
+
+/** Navbar */
+
+.navbar-wrapper {
+  /* on top, over everything and full width */
+  position: fixed;
+  left:0; right:0;
+  z-index: 500;
+  top: 0;
+}
+
+#navbar {
+  background-color: var(--bg-color);
+  padding-right: 8px;
+  padding-left: 8px;
+  padding-top: var(--navbar-padding-top);
+  padding-bottom: var(--navbar-padding-bottom);
+  height: var(--navbar-height);
+  overflow: hidden;
+  align-items: center;
+
+  /* takes whole width */
+  left:0; right:0;
+
+  /* hairline */
+  border-bottom: var(--hairline-thickness) solid var(--hairline-color);
+
+  display: flex;
+}
+
+.hiddenState {
+  /* Used to hide navbar and message bar */
+  display: none !important;
+}
+
+.svgicon {
+  display: block;
+  margin: auto;
+  height: 100%;
+}
+
+.nav-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  cursor: pointer;
+  align-self: center;
+  border-radius: 50%;
+}
+
+.nav-button.deactivated {
+  width: 40px;
+  height: 40px;
+  align-self: center;
+  display: flex;
+  border-radius: 50%;
+  cursor: auto;
+}
+
+.nav-right {
+  align-self: flex-end;
+}
+
+.nav-left {
+  align-self: flex-start;
+}
+
+#nav-contactid {
+  margin: 0px;
+  margin-left: 5px;
+  padding: 0px;
+  height: 100%;
+  font-family: emoji;
+
+  /* enable selection (it is globally disabled in the body) */
+  -webkit-user-select: auto;
+
+  /* contactid field should take as much place as possible, but it should
+     also be the first one to shrink if necesary. */
+  flex-grow: 2;
+  flex-shrink: 2;
+  min-width: 0; /* necessary for child to be able to shrink correctly */
+
+  /* center vertically */
+  display: flex;
+  align-items: center;
+}
+
+#nav-contactid-wrapper {
+  width: 100%;
+}
+
+#nav-contactid-alias {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 3px;
+
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#nav-contactid-bestId {
+  font-size: 11px;
+
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.oneEntry #nav-contactid-bestId {
+  display: none;
+}
+
+.action-button svg {
+  fill: var(--action-icon-color);
+}
+
+.action-button.deactivated svg {
+  fill: var(--deactivated-icon-color);
+}
+
+.non-action-button svg {
+  fill: var(--non-action-icon-color);
+}
+
+.non-action-button:hover, .action-button:hover {
+  background: var(--action-icon-hover-color);
+}
+
+.non-action-button:active, .action-button:active {
+  background: var(--action-icon-press-color);
+}
+
+.action-button.deactivated:hover, .action-button.deactivated:active {
+  background: none;
+}
+
+.action-critical-button svg {
+  fill: var(--action-critical-icon-color);
+}
+
+.action-critical-button:hover {
+  background: var(--action-critical-icon-hover-color);
+}
+
+.action-critical-button:active {
+  background: var(--action-critical-icon-press-color);
+}
+
+#callButtons {
+  display: flex;
+}
+
+#navbar #unbanButton, #navbar #addToConversationsButton {
+  display: none;
+}
+
+#navbar.onBannedState #addToConvButton, #navbar.onBannedState #callButtons, #navbar.onBannedState #addToConversationsButton {
+  display: none;
+}
+
+#navbar.onBannedState #unbanButton {
+  display: flex;
+}
+
+/** Invitation bar */
+
+#invitation {
+  visibility: hidden;
+  background: var(--bg-color);
+  position: absolute;
+  width: 100%;
+  padding-bottom: 10px;
+
+  /* hairline */
+  border-bottom: var(--hairline-thickness) solid var(--hairline-color);
+}
+
+#invitation #invite_header {
+  margin: 10px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* enable selection (it is globally disabled in the body) */
+  -webkit-user-select: auto;
+}
+
+#invitation .sender_image {
+  width: 50px;
+  height: 50px;
+}
+
+#invitation #actions {
+  margin-right: auto;
+  margin-left: auto;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* enable selection (it is globally disabled in the body) */
+  -webkit-user-select: auto;
+}
+
+#invitation #actions div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#invitation #text {
+  text-align: center;
+  font-size: 0.8em;
+
+  /* enable selection (it is globally disabled in the body) */
+  -webkit-user-select: auto;
+}
+
+
+
+/** Messaging bar */
+
+#sendMessage {
+  background-color: var(--bg-color);
+  display: flex;
+  position: relative;
+  padding-right: 10px;
+  padding-left: 8px;
+  overflow: hidden;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  align-items: center;
+
+  position: fixed;
+  left:0; right:0;
+  z-index: 500;
+  bottom: 0;
+  /* hairline */
+  border-top: var(--hairline-thickness) solid var(--hairline-color);
+}
+
+#message {
+  font-family: emoji;
+  flex: 1;
+  background-color: var(--bg-color);
+  border: 0;
+  overflow-y: scroll;
+  color: black;
+  max-height: var(--textarea-max-height);
+  margin-right: 10px;
+  resize: none;
+
+  /* enable selection (it is globally disabled in the body) */
+  -webkit-user-select: auto;
+}
+
+#message:focus,
+#message.focus {
+  outline: none;
+}
+
+#container[disabled] {
+  background-color: #ccc;
+}
+
+input[placeholder], [placeholder], *[placeholder] {
+    color: var(--placeholder-text-color);
+}
+
+/** Main chat view */
+
+#lazyloading-icon {
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    vertical-align: center;
+    width: 30px;
+    display: flex;
+}
+
+#container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    /* When there are not enough messages to occupy full height of the
+       container, make sure they are displayed at the bottom, not at the
+       top. */
+    justify-content: flex-end;
+}
+
+a:link {
+  text-decoration: none;
+  color: #0e649b;
+  transition: all 0.2s ease-in-out;
+  border-bottom: dotted 1px;
+}
+
+a:hover {
+  border: 0;
+}
+
+#messages {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  overflow-y: scroll;
+  height: auto;
+  padding-top: 0.5em;
+}
+
+.last-message {
+  /* The last message gets a bigger bottom padding so that it is not
+     "glued" to the message bar. */
+  padding-bottom: 1.5em !important;
+}
+
+/* General messages */
+
+.internal_mes_wrapper {
+    max-width: 70%;
+    margin: 8px 0 0 0;
+
+    display: flex;
+    flex-direction: column;
+
+    /* If a message is smaller (in width) than the timestamp, do not fill
+       full width and pack message at the left. */
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.message_out > .internal_mes_wrapper {
+    /* If message is in the outgoing direction, pack at the right. */
+    align-items: flex-end;
+    align-content: flex-end;
+}
+
+.message_wrapper {
+    max-width: calc(100% - 2em);
+    border-radius: 10px;
+    padding: 1em;
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.message_type_data_transfer .message_wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: 450px;
+    max-width: none;
+}
+
+.transfer_info_wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.message {
+    font: 0.875em emoji;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: top;
+    overflow: hidden;
+
+  /* enable selection (it is globally disabled in the body) */
+  -webkit-user-select: auto;
+}
+
+.message_in {
+    padding-left: 25%;
+}
+
+.message_out {
+    padding-right: 25%;
+
+    /* Message sent by the user should be displayed at the right side of
+       the screen. */
+    flex-direction: row-reverse;
+}
+
+.message_delivery_status {
+    margin: 10px 10px;
+    color: #A0A0A0;
+}
+
+.message_sender {
+    display: none;
+}
+
+.sender_image {
+    border-radius: 50%;
+    margin: 10px;
+    width: 35px;
+    height: 35px;
+}
+
+.message_out .message_wrapper {
+    border-top-right-radius: 0;
+    transform-origin: top right;
+}
+
+.message_in .message_wrapper {
+    border-top-left-radius: 0;
+    transform-origin: top left;
+}
+
+.message_out .message_wrapper {
+    background-color: #cfd8dc;
+}
+
+.message_in .message_wrapper {
+    background-color: #fdfdfd;
+}
+
+/* Only the first message of a serie of messages has an angular
+ * top-right / top-left corner. Others get a rounded one.
+ * Same for avatars: do not show it for every single message,
+ * only for the first one of a serie. */
+
+.message_out + .message_out .message_wrapper {
+    border-top-right-radius: 10px;
+}
+
+.message_in + .message_in .message_wrapper {
+    border-top-left-radius: 10px;
+}
+
+.message_in + .message_in .sender_image {
+    visibility: hidden;
+}
+
+.message_out + .message_out .sender_image {
+    visibility: hidden;
+}
+
+@-webkit-keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+
+.timestamp {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-self:stretch;
+    color: #333;
+    font-size: 10px;
+    padding: 5px;
+}
+
+.timestamp_out {
+    flex-direction: row-reverse;
+}
+
+.timestamp_action {
+    margin: auto;
+    padding: 0;
+    vertical-align: center;
+    opacity:0;
+    transition: visibility 0.3s linear, opacity 0.3s linear;
+}
+
+.message_type_contact .message_wrapper:hover .timestamp_action,
+.message_type_call .message_wrapper:hover .timestamp_action {
+    opacity: 1;
+}
+
+/* Ellipsis - dropdown menu */
+
+input[type=checkbox]{
+    display: none;
+}
+
+.menu_interaction
+{
+    margin: 5px;
+    padding: 10px;
+    padding-top: 0;
+    opacity: 0;
+    height: 20px;
+    transition:visibility 0.3s linear, opacity 0.3s linear;
+}
+
+.message_type_contact .menu_interaction
+{
+    display: none;
+    visibility: hidden;
+}
+
+.message_type_call .menu_interaction
+{
+    margin: auto;
+    padding: 0;
+    vertical-align: center;
+}
+
+.message_type_call .menu_interaction .dropdown
+{
+    margin-top: -17px;
+}
+
+.message:hover .menu_interaction
+{
+    display: block;
+    opacity: 1;
+}
+
+.dropdown {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    background-color: #fff;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.dropdown div
+{
+    color: #111;
+    padding: 10px;
+}
+
+.dropdown div:hover
+{
+    background-color: #ddd;
+}
+
+.showmenu:checked ~ .dropdown{
+    display: block;
+}
+
+/* Buttons */
+
+.flat-button {
+  border: 0;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  color: #f9f9f9;
+  padding: 10px 20px 10px 20px;
+  vertical-align: middle;
+  cursor: pointer;
+  flex: 1;
+  padding: 0;
+}
+
+.left_buttons {
+    align-self: center;
+    max-width: 90px;
+    padding-left: 1em;
+}
+
+/* Status */
+
+.status_circle {
+    fill: #A0A0A0;
+    -webkit-animation: circle-dance;
+    -webkit-animation-duration: 0.8s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-timing-function: ease-in-out;
+}
+
+.anim-first {
+    -webkit-animation-delay: 0.7s;
+}
+
+.anim-second {
+    -webkit-animation-delay: 0.9s;
+}
+
+.anim-third {
+    -webkit-animation-delay: 1.1s;
+}
+
+@-webkit-keyframes circle-dance {
+  0%,50% {
+    -webkit-transform: translateY(0);
+    fill: #A0A0A0;
+  }
+  100% {
+    -webkit-transform: translateY(-8px);
+    fill: #000;
+  }
+}
+
+.status-x {
+    stroke-dasharray: 12;
+}
+
+/* Contact + Call interactions */
+.message_type_contact .message_wrapper,
+.message_type_call .message_wrapper {
+    width: auto;
+    margin-left: 30%;
+    margin-right: 30%;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #f2f2f2;
+    padding: 0;
+}
+
+.message_type_contact .message_wrapper:before,
+.message_type_call .message_wrapper:before {
+    display: none;
+}
+
+.message_type_contact .text,
+.message_type_call .text {
+    align-self: center;
+    font-size: 1.2em;
+    padding: 1em;
+}
+
+/* file interactions */
+
+.message_type_data_transfer .internal_mes_wrapper {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.invite-btn-red {
+    transition: background-color 0.5s ease;
+}
+
+.invite-btn-red:hover {
+    background: var(--ring-red);
+}
+
+.invite-btn-red svg {
+    fill: var(--ring-red);
+    transition: fill 0.5s ease;
+}
+
+.invite-btn-red:hover svg {
+    fill: var(--invite-hover-color);
+}
+
+.invite-btn-green {
+    transition: background-color 0.5s ease;
+}
+
+.invite-btn-green:hover {
+    background: var(--ring-green);
+}
+
+.invite-btn-green svg {
+    fill: var(--ring-green);
+    transition: fill 0.5s ease;
+}
+
+.invite-btn-green:hover svg {
+    fill: white;
+}
+
+.accept, .refuse {
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.accept svg,
+.refuse svg {
+    padding: 8px;
+    width: 24px;
+    height: 24px;
+}
+
+.accept {
+    fill: var(--ring-green);
+}
+
+.accept:hover {
+    fill: var(--invite-hover-color);
+    background: var(--ring-green-hover);
+}
+
+.refuse {
+    fill: var(--ring-red);
+}
+
+.refuse:hover {
+    fill: var(--invite-hover-color);
+    background: var(--ring-red-hover);
+}
+
+.message_type_data_transfer .text {
+    text-align: left;
+    align-self: left;
+    padding: 1em;
+}
+
+.truncate-ellipsis {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.truncate-ellipsis > * {
+    display: table-cell;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message_type_data_transfer .filename {
+    cursor: pointer;
+    font-size: 1.1em;
+}
+
+.message_type_data_transfer .informations {
+    color: #555;
+    font-size: 0.8em;
+}
+
+.message_progress_bar {
+    width: 100%;
+    height: 1em;
+    position: relative;
+    overflow: hidden;
+    background-color: #eee;
+    border-radius: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+.message_progress_bar > span {
+    display: inline;
+    height: 100%;
+    background-color: #01a2b8;
+    position: absolute;
+    overflow: hidden;
+}
+
+/* text interactions */
+
+.message_type_text .internal_mes_wrapper {
+    padding: 0px;
+}
+
+.message_text {
+    hyphens: auto; /* When webkitgtk+ will supports this, intelligent word-breaking */
+    word-break: break-word;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
+.message_text pre {
+    display: inline;
+}
+
+pre {
+    font : inherit;
+    font-family : inherit;
+    font-size : inherit;
+    font-style : inherit;
+    font-variant : inherit;
+    font-weight : inherit;
+    margin: 0;
+    padding: 0;
+}
+
+/* Media interactions */
+.media_wrapper img {
+    max-width: 800px;
+    max-height: 700px;
+    margin: 5px 0 0 0;
+    border-radius: 10px;
+}
+
+.playVideo {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+    float: right;
+    position: absolute;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+    z-index: 3;
+}
+
+.containerVideo {
+    width: 100%;
+    position: relative;
+}
+
+.playVideo svg {
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+}
+
+/* Text interaction */
+.failure,
+.sending {
+    margin: 10px 10px;
+    color: #A0A0A0;
+}
+
+.no-audio-overlay {
+    overflow: visible;
+}
+
+audio {
+    align-self: center;
+}
+
+/* classic screens */
+@media screen and (max-width: 1920px), screen and (max-height: 1080px) {
+  .message_in {
+      padding-left: 15%;
+  }
+
+  .message_out {
+      padding-right: 15%;
+  }
+
+  .internal_mes_wrapper {
+      max-width: 60%;
+  }
+
+  .media_wrapper img {
+      /* It is perfectly fine to specify max-widths in px when the
+         wrapper's max-width is in %, as long as the max-width in px
+         doesn't exceed the one in %. */
+      max-width: 450px;
+      max-height: 450px;
+  }
+
+  .menu_interaction
+  {
+      margin: 5px;
+      padding: 2px;
+      height: 10px;
+      font-size: 0.7em;
+      transition:visibility 0.3s linear,opacity 0.3s linear;
+  }
+}
+
+/* lower resolutions */
+@media screen and (max-width: 1000px), screen and (max-height: 480px) {
+  .message_in {
+      padding-left: 0;
+  }
+
+  .message_out {
+      padding-right: 0;
+  }
+
+  .message_type_contact,
+  .message_type_call {
+      max-width: 100%;
+  }
+
+  .internal_mes_wrapper {
+      max-width: 90%;
+  }
+
+  /* Media interactions */
+  .media_wrapper img {
+      max-width: 200px;
+      max-height: 200px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .message_type_data_transfer .message_wrapper {
+      width: 250px;
+  }
+}
+
+/* Special case */
+@media screen and (max-width: 350px) {
+  .sender_image {
+      display: none;
+  }
+
+  /* File interactions */
+  .message_type_data_transfer .left_buttons {
+      max-width: 100%;
+  }
+
+  .message_type_data_transfer .text {
+      max-width: 100%;
+      padding-left: 0;
+  }
+
+  .message_type_data_transfer .message_wrapper {
+      width: 200px;
+  }
+}
