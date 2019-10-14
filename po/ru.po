@@ -19,7 +19,7 @@
 # Vladimir Stoiakin, 2018-2019
 # Vladimir Studinsky <studinsky@gmail.com>, 2019
 # Yaroslav Molochko <onorua@gmail.com>, 2015
-# Alexander Filev <avfill@outlook.com>, 2017
+# Alexander Filev <ifillrok@gmail.com>, 2017
 # Александр Суслов <suslikkreal@gmail.com>, 2015
 # Александр Асланьян <asl174@yandex.ru>, 2015
 # Андрей Шевчук <andrei@shevchuk.co>, 2016-2017
@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-07 03:09-0400\n"
+"POT-Creation-Date: 2019-10-14 03:09-0400\n"
 "PO-Revision-Date: 2019-10-07 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
