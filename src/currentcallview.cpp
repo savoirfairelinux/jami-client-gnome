@@ -829,6 +829,7 @@ CppImpl::setCallInfo()
         [this] (const std::string& callId) {
             if (callId == conversation->callId) {
                 updateNameAndPhoto();
+                updateState();
             }
         });
 
