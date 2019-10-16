@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "813c9790_376fd47d",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 90
+      },
+      "writtenOn": "2019-10-16T15:25:29Z",
+      "side": 1,
+      "message": "header reorder local --\u003e distant ?\n\n// Client\n#include \"chatview.h\"\n#include \"native/pixbufmanipulator.h\"\n#include \"ringnotify.h\"\n#include \"utils/drawing.h\"\n#include \"utils/files.h\"\n#include \"video/video_widget.h\"\n\n// Lrc\n#include \u003capi/avmodel.h\u003e\n#include \u003capi/newaccountmodel.h\u003e\n#include \u003capi/conversationmodel.h\u003e\n#include \u003capi/contact.h\u003e\n#include \u003capi/contactmodel.h\u003e\n#include \u003capi/newcallmodel.h\u003e\n#include \u003capi/newcodecmodel.h\u003e\n#include \u003cglobalinstances.h\u003e\n#include \u003csmartinfohub.h\u003e\n\n// Gtk\n#include \u003cclutter-gtk/clutter-gtk.h\u003e\n#include \u003cgtk/gtk.h\u003e\n#include \u003cglib/gi18n.h\u003e\n\n#include \u003cQSize\u003e\n\n#include \u003cset\u003e",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 31
+      },
+      "revId": "3dcd53947485599d87e06751228d9b23ccb2793b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c351ae1f_c780b9e4",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 90
+      },
+      "writtenOn": "2019-10-16T15:25:29Z",
+      "side": 1,
+      "message": "formatting: curly bracket newline?",
+      "revId": "3dcd53947485599d87e06751228d9b23ccb2793b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ed60b3_bfecb0c9",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 90
+      },
+      "writtenOn": "2019-10-16T15:25:29Z",
+      "side": 1,
+      "message": "invert condition and continue to avoid indent?",
+      "range": {
+        "startLine": 677,
+        "startChar": 8,
+        "endLine": 677,
+        "endChar": 31
+      },
+      "revId": "3dcd53947485599d87e06751228d9b23ccb2793b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2045be1b_708b4184",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 90
+      },
+      "writtenOn": "2019-10-16T15:25:29Z",
+      "side": 1,
+      "message": "this cond can be inverted too",
+      "range": {
+        "startLine": 695,
+        "startChar": 16,
+        "endLine": 695,
+        "endChar": 34
+      },
+      "revId": "3dcd53947485599d87e06751228d9b23ccb2793b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e02c87ab_14040d3f",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 90
+      },
+      "writtenOn": "2019-10-16T15:25:29Z",
+      "side": 1,
+      "message": "TODO",
+      "range": {
+        "startLine": 990,
+        "startChar": 16,
+        "endLine": 990,
+        "endChar": 31
+      },
+      "revId": "3dcd53947485599d87e06751228d9b23ccb2793b",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
