@@ -325,9 +325,10 @@ GLIB_COMPILE_RESOURCES( GLIB_RESOURCES_RING
    SOURCE
       pixmaps/pixmaps.gresource.xml
       ui/ui.gresource.xml
-      web/web.gresource.xml
       sounds/sounds.gresource.xml
+      web/web.gresource.xml
 )
+
 
 # IF(${ENABLE_TEST} MATCHES true)
 #    ADD_SUBDIRECTORY( src/test)
