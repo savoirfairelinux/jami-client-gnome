@@ -329,6 +329,7 @@ GLIB_COMPILE_RESOURCES( GLIB_RESOURCES_RING
       sounds/sounds.gresource.xml
 )
 
+
 # IF(${ENABLE_TEST} MATCHES true)
 #    ADD_SUBDIRECTORY( src/test)
 # ENDIF()
