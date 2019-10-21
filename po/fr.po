@@ -27,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-14 03:09-0400\n"
-"PO-Revision-Date: 2019-10-07 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2019-10-21 03:09-0400\n"
+"PO-Revision-Date: 2019-10-21 07:09+0000\n"
+"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -205,7 +205,7 @@ msgstr "Mot de passe"
 
 #: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr ""
+msgstr "Gestionnaire de compte"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:581
 #: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:187
@@ -219,7 +219,7 @@ msgstr "Migrer le compte"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "Je migre votre compte Jami"
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
@@ -229,71 +229,79 @@ msgstr "La migration a échoué, mot de passe erroné ?"
 msgid "End this call"
 msgstr "Raccrocher"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:483
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:511
 msgid "End call"
 msgstr "Fin d’appel"
 
-#: ui/currentcallview.ui:275
+#: ui/currentcallview.ui:275 ui/currentcallview.ui:493
+msgid "Add participant"
+msgstr "Ajouter un participant"
+
+#: ui/currentcallview.ui:294
 msgid "Toggle transfer"
 msgstr "Bouton de transfert"
 
-#: ui/currentcallview.ui:294
+#: ui/currentcallview.ui:313
 msgid "Toggle hold"
 msgstr "Mettre en attente/reprendre"
 
-#: ui/currentcallview.ui:298 ui/currentcallview.ui:323
-#: ui/currentcallview.ui:465
+#: ui/currentcallview.ui:317 ui/currentcallview.ui:342
+#: ui/currentcallview.ui:484
 msgid "Hold"
 msgstr "Pause"
 
-#: ui/currentcallview.ui:319
+#: ui/currentcallview.ui:338
 msgid "Toggle mute audio"
 msgstr "Activer/désactiver l’audio"
 
-#: ui/currentcallview.ui:344
+#: ui/currentcallview.ui:363
 msgid "Toggle mute video"
 msgstr "Activer/désactiver la vidéo"
 
-#: ui/currentcallview.ui:348 ui/currentcallview.ui:456
+#: ui/currentcallview.ui:367 ui/currentcallview.ui:475
 msgid "Mute video"
 msgstr "Désactiver la vidéo"
 
-#: ui/currentcallview.ui:369
+#: ui/currentcallview.ui:388
 msgid "Toggle recording"
 msgstr "Bouton d'enregistrement"
 
-#: ui/currentcallview.ui:372 ui/currentcallview.ui:501
+#: ui/currentcallview.ui:391 ui/currentcallview.ui:529
 #: ui/messagingwidget.ui:29
 msgid "Record"
 msgstr "Enregistrer"
 
-#: ui/currentcallview.ui:393
+#: ui/currentcallview.ui:412
 msgid "Adjust outgoing video quality"
 msgstr "Ajuster la qualité de la vidéo envoyée"
 
-#: ui/currentcallview.ui:398 ui/currentcallview.ui:492
+#: ui/currentcallview.ui:417 ui/currentcallview.ui:520
 msgid "Video quality"
 msgstr "Qualité vidéo"
 
-#: ui/currentcallview.ui:417
+#: ui/currentcallview.ui:436
 msgid "Toggle show chat"
 msgstr "Afficher/masquer le clavardage"
 
-#: ui/currentcallview.ui:421 ui/currentcallview.ui:438
+#: ui/currentcallview.ui:440 ui/currentcallview.ui:457
 msgid "Chat"
 msgstr "Clavardage"
 
-#: ui/currentcallview.ui:447
+#: ui/currentcallview.ui:466
 msgid "Mute audio"
 msgstr "Désactiver l’audio"
 
-#: ui/currentcallview.ui:474
+#: ui/currentcallview.ui:502
 msgid "Transfer"
 msgstr "Transféré"
 
-#: ui/currentcallview.ui:524
+#: ui/currentcallview.ui:552
 msgid "Transfer to"
 msgstr "Transférer à "
+
+#: ui/currentcallview.ui:616
+msgid "Add"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -321,7 +329,7 @@ msgstr "Importer à partir d'une sauvegarde"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "Importer votre compte à partir d'un fichier archive"
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
@@ -341,11 +349,11 @@ msgstr "Ajouter un nouveau compte SIP"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
-msgstr ""
+msgstr "Archive"
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
-msgstr ""
+msgstr "Informations."
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
@@ -355,13 +363,13 @@ msgstr "NIP"
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Vous pouvez créer une archive en cliquant sur \"Exporter un compte\" dans les paramètres de compte. Ceci créera un fichier .gz sur votre appareil."
 
 #: ui/accountcreationwizard.ui:382
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr ""
+msgstr "Pour obtenir un NIP (valide pendant 10 minutes), vous devez cliquer sur \"Associer un nouvel appareil\" sur l'autre appareil dans paramètres de compte."
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
@@ -410,14 +418,14 @@ msgstr "Génération de votre compte Jami..."
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr ""
+msgstr "Faites une sauvegarde de votre compte !"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "Ce compte n'existe que sur votre appareil. Si vous perdez votre appareil ou bien si vous désinstallez l'application, votre compte sera détruit. Vous pouvez sauvegarder votre compte maintenant ou plus tard."
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
@@ -451,7 +459,7 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "Connexion"
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
@@ -557,7 +565,7 @@ msgstr "Général"
 msgid "Media"
 msgstr "Médias"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1809
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1810
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -1123,44 +1131,44 @@ msgstr "Envoyer le message enregistré"
 msgid "Add account…"
 msgstr "Ajouter un compte ..."
 
-#: src/ringmainwindow.cpp:798
+#: src/ringmainwindow.cpp:799
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Appeler"
 
-#: src/ringmainwindow.cpp:801
+#: src/ringmainwindow.cpp:802
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Ouvrir la discussion"
 
-#: src/ringmainwindow.cpp:1008
+#: src/ringmainwindow.cpp:1009
 msgid "Jami - Migration needed"
 msgstr "Jami - Migration nécessaire"
 
-#: src/ringmainwindow.cpp:1021
+#: src/ringmainwindow.cpp:1022
 msgid "Migration in progress... please do not close this window."
 msgstr "Migration en cours ... S'il vous plaît, ne fermez pas la fenêtre."
 
-#: src/ringmainwindow.cpp:1313
+#: src/ringmainwindow.cpp:1314
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr ""
+msgstr "Chercher ou démarrer une conversation"
 
-#: src/ringmainwindow.cpp:1784
+#: src/ringmainwindow.cpp:1785
 msgid "Leave settings page"
 msgstr "Quitter la page des réglages"
 
-#: src/ringmainwindow.cpp:2211
+#: src/ringmainwindow.cpp:2212
 msgid "There are active calls"
 msgstr "Il y a des appels en cours"
 
-#: src/ringmainwindow.cpp:2265
+#: src/ringmainwindow.cpp:2266
 msgid " is calling you!"
 msgstr "vous appelle"
 
-#: src/ringmainwindow.cpp:2266
+#: src/ringmainwindow.cpp:2267
 msgid "Incoming call"
 msgstr "Appel entrant"
 
@@ -1285,21 +1293,21 @@ msgstr "- le client GNOME de Jami"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "Une erreur s'est produite pendant la création de votre compte."
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "Je n'arrive pas à retrouver votre compte. Vérifiez votre NIP ou bien le mot de passe."
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "annot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Je n'arrive pas à retrouver votre compte. Vérifier votre fichier d'archive et/ou  votre mot de passe."
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "Je n'arrive pas à me connecter à votre gestionnaire de compte. Vérifiez vos éléments d'authentification. "
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
@@ -1307,7 +1315,7 @@ msgstr "Les mots de passes ne correspondent pas"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Importer à partir d'une sauvegarde."
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:204
 #: src/newaccountsettingsview.cpp:933
@@ -1358,7 +1366,19 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Attention ! Cette opération supprimera votre compte de l'appareil.\nVous pourriez perdre définitivement le nom d'enregistrement !"
 
-#: src/currentcallview.cpp:962
+#: src/currentcallview.cpp:936
+msgid "Current conference (all accounts)"
+msgstr ""
+
+#: src/currentcallview.cpp:970
+msgid "Current calls (all accounts)"
+msgstr ""
+
+#: src/currentcallview.cpp:984
+msgid "Online contacts"
+msgstr ""
+
+#: src/currentcallview.cpp:1405
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"

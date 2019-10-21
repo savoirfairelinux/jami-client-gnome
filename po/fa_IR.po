@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-14 03:09-0400\n"
-"PO-Revision-Date: 2019-10-07 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2019-10-21 03:09-0400\n"
+"PO-Revision-Date: 2019-10-21 07:09+0000\n"
+"Last-Translator: Amin Mahmudian\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/jami/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -215,71 +215,79 @@ msgstr "جابجایی ناموفق بود، گذرواژه اشتباه؟"
 msgid "End this call"
 msgstr "پایان این تماس"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:483
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:511
 msgid "End call"
 msgstr "پایان تماس"
 
-#: ui/currentcallview.ui:275
+#: ui/currentcallview.ui:275 ui/currentcallview.ui:493
+msgid "Add participant"
+msgstr "افزودن شرکت کننده"
+
+#: ui/currentcallview.ui:294
 msgid "Toggle transfer"
 msgstr "تاگل انتقال"
 
-#: ui/currentcallview.ui:294
+#: ui/currentcallview.ui:313
 msgid "Toggle hold"
 msgstr ""
 
-#: ui/currentcallview.ui:298 ui/currentcallview.ui:323
-#: ui/currentcallview.ui:465
+#: ui/currentcallview.ui:317 ui/currentcallview.ui:342
+#: ui/currentcallview.ui:484
 msgid "Hold"
 msgstr "نگه داشتن"
 
-#: ui/currentcallview.ui:319
+#: ui/currentcallview.ui:338
 msgid "Toggle mute audio"
 msgstr ""
 
-#: ui/currentcallview.ui:344
+#: ui/currentcallview.ui:363
 msgid "Toggle mute video"
 msgstr ""
 
-#: ui/currentcallview.ui:348 ui/currentcallview.ui:456
+#: ui/currentcallview.ui:367 ui/currentcallview.ui:475
 msgid "Mute video"
 msgstr "نادیده گرفتن ویدیو"
 
-#: ui/currentcallview.ui:369
+#: ui/currentcallview.ui:388
 msgid "Toggle recording"
 msgstr ""
 
-#: ui/currentcallview.ui:372 ui/currentcallview.ui:501
+#: ui/currentcallview.ui:391 ui/currentcallview.ui:529
 #: ui/messagingwidget.ui:29
 msgid "Record"
 msgstr "ضبط"
 
-#: ui/currentcallview.ui:393
+#: ui/currentcallview.ui:412
 msgid "Adjust outgoing video quality"
 msgstr "تنظیم کیفیت ویدیو خروجی"
 
-#: ui/currentcallview.ui:398 ui/currentcallview.ui:492
+#: ui/currentcallview.ui:417 ui/currentcallview.ui:520
 msgid "Video quality"
 msgstr "کیفیت ویدیو"
 
-#: ui/currentcallview.ui:417
+#: ui/currentcallview.ui:436
 msgid "Toggle show chat"
 msgstr "تاگل نمایش چت"
 
-#: ui/currentcallview.ui:421 ui/currentcallview.ui:438
+#: ui/currentcallview.ui:440 ui/currentcallview.ui:457
 msgid "Chat"
 msgstr "چت"
 
-#: ui/currentcallview.ui:447
+#: ui/currentcallview.ui:466
 msgid "Mute audio"
 msgstr "قطع صدا"
 
-#: ui/currentcallview.ui:474
+#: ui/currentcallview.ui:502
 msgid "Transfer"
 msgstr "انتقال"
 
-#: ui/currentcallview.ui:524
+#: ui/currentcallview.ui:552
 msgid "Transfer to"
 msgstr "انتقال به"
+
+#: ui/currentcallview.ui:616
+msgid "Add"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -543,7 +551,7 @@ msgstr "همگانی"
 msgid "Media"
 msgstr "رسانه"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1809
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1810
 msgid "Settings"
 msgstr "تنظیمات"
 
@@ -1109,44 +1117,44 @@ msgstr "ارسال پیام ضبط شده"
 msgid "Add account…"
 msgstr "افزودن حساب..."
 
-#: src/ringmainwindow.cpp:798
+#: src/ringmainwindow.cpp:799
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/ringmainwindow.cpp:801
+#: src/ringmainwindow.cpp:802
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "گشودن گپ"
 
-#: src/ringmainwindow.cpp:1008
+#: src/ringmainwindow.cpp:1009
 msgid "Jami - Migration needed"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1021
+#: src/ringmainwindow.cpp:1022
 msgid "Migration in progress... please do not close this window."
 msgstr ""
 
-#: src/ringmainwindow.cpp:1313
+#: src/ringmainwindow.cpp:1314
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1784
+#: src/ringmainwindow.cpp:1785
 msgid "Leave settings page"
 msgstr "خروج از صفحهٔ تنظیمات"
 
-#: src/ringmainwindow.cpp:2211
+#: src/ringmainwindow.cpp:2212
 msgid "There are active calls"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2265
+#: src/ringmainwindow.cpp:2266
 msgid " is calling you!"
 msgstr ""
 
-#: src/ringmainwindow.cpp:2266
+#: src/ringmainwindow.cpp:2267
 msgid "Incoming call"
 msgstr "تماس ورودی"
 
@@ -1344,7 +1352,19 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:962
+#: src/currentcallview.cpp:936
+msgid "Current conference (all accounts)"
+msgstr ""
+
+#: src/currentcallview.cpp:970
+msgid "Current calls (all accounts)"
+msgstr ""
+
+#: src/currentcallview.cpp:984
+msgid "Online contacts"
+msgstr ""
+
+#: src/currentcallview.cpp:1405
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "خودکار"
