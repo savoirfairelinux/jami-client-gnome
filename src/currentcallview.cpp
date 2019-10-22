@@ -1298,10 +1298,11 @@ CppImpl::setCallInfo()
 
     // init chat view
     widgets->chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(widgets->webkit_chat_container),
-                                       *accountInfo, conversation);
+                                       *accountInfo, conversation, *avModel_);
     gtk_container_add(GTK_CONTAINER(widgets->frame_chat), widgets->chat_view);
 
     chat_view_set_header_visible(CHAT_VIEW(widgets->chat_view), FALSE);
+    chat_view_set_record_visible(CHAT_VIEW(widgets->chat_view), FALSE);
 }
 
 void

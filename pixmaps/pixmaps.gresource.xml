@@ -23,7 +23,9 @@
     <file alias="mute_video">ic_videocam_white_24px.svg</file>
     <file alias="pause">ic_pause_white_24px.svg</file>
     <file alias="stop">baseline-stop-24px.svg</file>
+    <file alias="stop-white">stop-white.svg</file>
     <file alias="send">baseline-send-24px.svg</file>
+    <file alias="send-white">send-white.svg</file>
     <file alias="play">ic_play_arrow_white_24px.svg</file>
     <file alias="quality">ic_high_quality_white_24px.svg</file>
     <file alias="contacts_list">ic_people_black_24px.svg</file>
@@ -52,5 +54,6 @@
     <file alias="bottom_arrow">bottom_arrow.svg</file>
     <file alias="up_arrow">up_arrow.svg</file>
     <file alias="qrcode">qrcode.svg</file>
+    <file alias="retry">retry.svg</file>
   </gresource>
 </gresources>
