@@ -29,6 +29,7 @@
 
 // GTK
 #include <glib/gi18n.h>
+#include <clutter-gtk/clutter-gtk.h>
 
 // Qt
 #include <QSize>
@@ -39,14 +40,23 @@
 #include <api/contact.h>
 #include <api/newcallmodel.h>
 #include <api/call.h>
+#include <api/avmodel.h>
 
 // Client
 #include "marshals.h"
 #include "utils/files.h"
 #include "native/pixbufmanipulator.h"
+#include "video/video_widget.h"
+
 /* size of avatar */
 static constexpr int AVATAR_WIDTH  = 150; /* px */
 static constexpr int AVATAR_HEIGHT = 150; /* px */
+
+enum class RecordAction {
+    RECORD,
+    STOP,
+    SEND
+};
 
 struct CppImpl {
     struct Interaction {
@@ -55,6 +65,11 @@ struct CppImpl {
         lrc::api::interaction::Info info;
     };
     std::vector<Interaction> interactionsBuffer_;
+    lrc::api::AVModel* avModel_;
+    RecordAction current_action_ {RecordAction::RECORD};
+
+    // store current recording location
+    std::string saveFileName_;
 };
 
 struct _ChatView
@@ -83,13 +98,25 @@ struct _ChatViewPrivate
     QMetaObject::Connection interaction_removed;
     QMetaObject::Connection update_interaction_connection;
     QMetaObject::Connection update_add_to_conversations;
+    QMetaObject::Connection local_renderer_connection;
 
     gulong webkit_ready;
     gulong webkit_send_text;
     gulong webkit_drag_drop;
 
     bool ready_ {false};
-    CppImpl* cpp_;
+    bool readyToRecord_ {false};
+    CppImpl* cpp;
+
+    bool video_started_by_settings;
+    GtkWidget* video_widget;
+    GtkWidget* record_popover;
+    GtkWidget* button_retry;
+    GtkWidget* button_main_action;
+    GtkWidget* label_time;
+    guint timer_duration = 0;
+    uint32_t duration = 0;
+
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ChatView, chat_view, GTK_TYPE_BOX);
@@ -109,6 +136,9 @@ enum {
 static guint chat_view_signals[LAST_SIGNAL] = { 0 };
 
 static void
+init_video_widget(ChatView* self);
+
+static void
 chat_view_dispose(GObject *object)
 {
     ChatView *view;
@@ -121,6 +151,7 @@ chat_view_dispose(GObject *object)
     QObject::disconnect(priv->update_interaction_connection);
     QObject::disconnect(priv->interaction_removed);
     QObject::disconnect(priv->update_add_to_conversations);
+    QObject::disconnect(priv->local_renderer_connection);
 
     /* Destroying the box will also destroy its children, and we wouldn't
      * want that. So we remove the webkit_chat_container from the box. */
@@ -138,6 +169,14 @@ chat_view_dispose(GObject *object)
             GTK_WIDGET(priv->webkit_chat_container)
         );
         priv->webkit_chat_container = nullptr;
+    }
+
+    if (priv->video_widget) {
+        gtk_widget_destroy(priv->video_widget);
+    }
+
+    if (priv->record_popover) {
+        gtk_widget_destroy(priv->record_popover);
     }
 
     G_OBJECT_CLASS(chat_view_parent_class)->dispose(object);
@@ -222,6 +261,128 @@ file_to_manipulate(GtkWindow* top_window, bool send)
 }
 
 static void update_chatview_frame(ChatView *self);
+
+void
+on_record_closed(GtkPopover*, ChatView *self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    if (!priv->cpp->saveFileName_.empty()) {
+        priv->cpp->avModel_->stopLocalRecorder(priv->cpp->saveFileName_);
+        priv->cpp->saveFileName_ = "";
+    }
+
+    priv->cpp->current_action_ = RecordAction::RECORD;
+    if (priv->timer_duration) g_source_remove(priv->timer_duration);
+    priv->cpp->avModel_->stopPreview();
+    priv->duration = 0;
+}
+
+void
+chat_view_show_video_recorder(ChatView *self, int pt_x, int pt_y)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+    if (!priv->readyToRecord_) return;
+
+    priv->cpp->avModel_->startPreview();
+
+    // CSS styles
+    auto provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_data(provider,
+        ".record-button { background: rgba(0, 0, 0, 0.2); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
+        .record-button:hover { background: rgba(0, 0, 0, 0.2); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
+        .label_time { color: white; }",
+        -1, nullptr
+    );
+    gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
+                                              GTK_STYLE_PROVIDER(provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+    auto deviceName = priv->cpp->avModel_->getDefaultDeviceName();
+    auto settings = priv->cpp->avModel_->getDeviceSettings(deviceName);
+    auto res = settings.size;
+    if (res.find("x") == std::string::npos) return;
+    auto width = static_cast<double>(std::stoi(res.substr(0, res.find("x"))));
+    auto height = static_cast<double>(std::stoi(res.substr(res.find("x") + 1)));
+    auto max = std::max(width, height);
+#if GTK_CHECK_VERSION(3,22,0)
+    GdkRectangle workarea = {};
+    gdk_monitor_get_workarea(
+        gdk_display_get_primary_monitor(gdk_display_get_default()),
+        &workarea);
+    auto widget_size = std::max(300, workarea.width / 6);
+#else
+    auto widget_size = std::max(300, gdk_screen_width() / 6);
+#endif
+
+    width = width / max * widget_size;
+    height = height / max * widget_size;
+
+    if (priv->record_popover) {
+        gtk_widget_destroy(priv->record_popover);
+    }
+    init_video_widget(self);
+
+    priv->record_popover = gtk_popover_new(GTK_WIDGET(priv->box_webkit_chat_container));
+    g_signal_connect(priv->record_popover, "closed", G_CALLBACK(on_record_closed), self);
+    gtk_popover_set_relative_to(GTK_POPOVER(priv->record_popover), GTK_WIDGET(priv->box_webkit_chat_container));
+    gtk_container_add(GTK_CONTAINER(GTK_POPOVER(priv->record_popover)), priv->video_widget);
+    GdkRectangle rect;
+    rect.width = 1;
+    rect.height = 1;
+    rect.x = pt_x;
+    rect.y = pt_y;
+    gtk_popover_set_pointing_to(GTK_POPOVER(priv->record_popover), &rect);
+    gtk_widget_set_size_request(GTK_WIDGET(priv->video_widget), width, height);
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_popover_popdown(GTK_POPOVER(priv->record_popover));
+#endif
+    gtk_widget_show_all(priv->record_popover);
+}
+
+static gboolean
+on_timer_duration_timeout(ChatView* view)
+{
+    g_return_val_if_fail(IS_CHAT_VIEW(view), G_SOURCE_REMOVE);
+    auto* priv = CHAT_VIEW_GET_PRIVATE(view);
+    priv->duration += 1;
+    auto m = std::to_string(priv->duration / 60);
+    if (m.length() == 1) {
+        m = "0" + m;
+    }
+    auto s = std::to_string(priv->duration % 60);
+    if (s.length() == 1) {
+        s = "0" + s;
+    }
+    auto time_txt = m + ":" + s;
+    gtk_label_set_text(GTK_LABEL(priv->label_time), time_txt.c_str());
+    return G_SOURCE_CONTINUE;
+}
+
+static void
+reset_recorder(ChatView *self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    gtk_widget_hide(GTK_WIDGET(priv->button_retry));
+    auto image = gtk_image_new_from_resource ("/net/jami/JamiGnome/stop-white");
+    gtk_button_set_image(GTK_BUTTON(priv->button_main_action), image);
+    priv->cpp->current_action_ = RecordAction::STOP;
+    gtk_label_set_text(GTK_LABEL(priv->label_time), "00:00");
+    priv->duration = 0;
+    priv->timer_duration = g_timeout_add(1000, (GSourceFunc)on_timer_duration_timeout, self);
+
+    std::string file_name = priv->cpp->avModel_->startLocalRecorder(false);
+    if (file_name.empty()) {
+        g_warning("set_state: failed to start recording");
+        return;
+    }
+
+    priv->cpp->saveFileName_ = file_name;
+}
 
 static void
 webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, ChatView* self)
@@ -333,6 +494,18 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
             (*priv->accountInfo_)->conversationModel->retryInteraction(priv->conversation_->uid, interactionId);
         } catch (...) {
             g_warning("delete interaction failed: can't find %s", order.substr(std::string("RETRY_INTERACTION:").size()).c_str());
+        }
+    } else if (order.find("VIDEO_RECORD:") == 0) {
+        auto pos_str {order.substr(std::string("VIDEO_RECORD:").size())};
+        auto sep_idx = pos_str.find("x");
+        if (sep_idx == std::string::npos)
+            return;
+        try {
+            int pt_x = stoi(pos_str.substr(0, sep_idx));
+            int pt_y = stoi(pos_str.substr(sep_idx + 1));
+            chat_view_show_video_recorder(self, pt_x, pt_y);
+        } catch (...) {
+            // ignore
         }
     }
 }
@@ -541,7 +714,7 @@ webkit_chat_container_ready(ChatView* self)
     load_participants_images(self);
 
     priv->ready_ = true;
-    for (const auto& interaction: priv->cpp_->interactionsBuffer_) {
+    for (const auto& interaction: priv->cpp->interactionsBuffer_) {
         if (interaction.conv == priv->conversation_->uid) {
             print_interaction_to_buffer(self, interaction.id, interaction.info);
         }
@@ -679,6 +852,118 @@ on_webkit_drag_drop(GtkWidget*, gchar* data, ChatView* self)
 }
 
 static void
+on_main_action_clicked(ChatView *self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    switch (priv->cpp->current_action_) {
+        case RecordAction::RECORD: {
+            reset_recorder(self);
+            break;
+        }
+        case RecordAction::STOP: {
+            if (!priv->cpp->saveFileName_.empty()) {
+                priv->cpp->avModel_->stopLocalRecorder(priv->cpp->saveFileName_);
+            }
+            gtk_widget_show(GTK_WIDGET(priv->button_retry));
+            auto image = gtk_image_new_from_resource ("/net/jami/JamiGnome/send-white");
+            gtk_button_set_image(GTK_BUTTON(priv->button_main_action), image);
+            priv->cpp->current_action_ = RecordAction::SEND;
+            g_source_remove(priv->timer_duration);
+            break;
+        }
+        case RecordAction::SEND: {
+            if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
+                model->sendFile(priv->conversation_->uid, priv->cpp->saveFileName_, g_path_get_basename(priv->cpp->saveFileName_.c_str()));
+                priv->cpp->saveFileName_ = "";
+            }
+            gtk_widget_destroy(priv->record_popover);
+            priv->cpp->current_action_ = RecordAction::RECORD;
+            priv->cpp->avModel_->stopPreview();
+            break;
+        }
+    }
+}
+
+static void
+init_video_widget(ChatView* self)
+{
+    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
+    if (priv->video_widget && GTK_IS_WIDGET(priv->video_widget)) gtk_widget_destroy(priv->video_widget);
+    priv->video_widget = video_widget_new();
+
+    try {
+        const lrc::api::video::Renderer* previewRenderer =
+            &priv->cpp->avModel_->getRenderer(
+            lrc::api::video::PREVIEW_RENDERER_ID);
+        priv->video_started_by_settings = previewRenderer->isRendering();
+        if (priv->video_started_by_settings) {
+            video_widget_add_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                priv->cpp->avModel_, previewRenderer, VIDEO_RENDERER_REMOTE);
+        } else {
+            priv->video_started_by_settings = true;
+            priv->local_renderer_connection = QObject::connect(
+                &*priv->cpp->avModel_,
+                &lrc::api::AVModel::rendererStarted,
+                [=](const std::string& id) {
+                    if (id != lrc::api::video::PREVIEW_RENDERER_ID
+                        || !priv->readyToRecord_)
+                        return;
+                    video_widget_add_new_renderer(
+                        VIDEO_WIDGET(priv->video_widget),
+                        priv->cpp->avModel_,
+                        previewRenderer, VIDEO_RENDERER_REMOTE);
+                });
+        }
+    } catch (const std::out_of_range& e) {
+        g_warning("Cannot start preview");
+    }
+
+    auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
+
+    auto* hbox_record_controls = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 15);
+
+    auto image_retry = gtk_image_new_from_resource("/net/jami/JamiGnome/retry");
+    auto image_record = gtk_image_new_from_resource("/net/jami/JamiGnome/record");
+
+    priv->button_retry = gtk_button_new();
+    gtk_button_set_relief(GTK_BUTTON(priv->button_retry), GTK_RELIEF_NONE);
+    gtk_widget_set_tooltip_text(priv->button_retry, _("Retry"));
+    gtk_button_set_image(GTK_BUTTON(priv->button_retry), image_retry);
+    gtk_widget_set_size_request(GTK_WIDGET(priv->button_retry), 48, 48);
+    GtkStyleContext* context;
+    context = gtk_widget_get_style_context(GTK_WIDGET(priv->button_retry));
+    gtk_style_context_add_class(context, "record-button");
+    g_signal_connect_swapped(priv->button_retry, "clicked", G_CALLBACK(reset_recorder), self);
+
+    priv->button_main_action = gtk_button_new();
+    gtk_button_set_relief(GTK_BUTTON(priv->button_main_action), GTK_RELIEF_NONE);
+    gtk_widget_set_tooltip_text(priv->button_main_action, _("Record"));
+    gtk_button_set_image(GTK_BUTTON(priv->button_main_action), image_record);
+    gtk_widget_set_size_request(GTK_WIDGET(priv->button_main_action), 48, 48);
+    context = gtk_widget_get_style_context(GTK_WIDGET(priv->button_main_action));
+    gtk_style_context_add_class(context, "record-button");
+    g_signal_connect_swapped(priv->button_main_action, "clicked", G_CALLBACK(on_main_action_clicked), self);
+
+    priv->label_time = gtk_label_new("00:00");
+    context = gtk_widget_get_style_context(GTK_WIDGET(priv->label_time));
+    gtk_style_context_add_class(context, "label_time");
+
+    gtk_container_add(GTK_CONTAINER(hbox_record_controls), priv->button_retry);
+    gtk_container_add(GTK_CONTAINER(hbox_record_controls), priv->button_main_action);
+    gtk_container_add(GTK_CONTAINER(hbox_record_controls), priv->label_time);
+
+    gtk_widget_show_all(hbox_record_controls);
+    gtk_widget_hide(priv->button_retry);
+
+    auto actor_controls = gtk_clutter_actor_new_with_contents(hbox_record_controls);
+    clutter_actor_add_child(stage, actor_controls);
+    clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
+    clutter_actor_set_y_align(actor_controls, CLUTTER_ACTOR_ALIGN_END);
+}
+
+static void
 build_chat_view(ChatView* self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
@@ -706,20 +991,19 @@ build_chat_view(ChatView* self)
         G_CALLBACK(on_webkit_drag_drop),
         self
     );
-
     priv->new_interaction_connection = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newInteraction,
     [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
         if (!priv->conversation_) return;
-        if (!priv->ready_ && priv->cpp_) {
-            priv->cpp_->interactionsBuffer_.emplace_back(CppImpl::Interaction {
+        if (!priv->ready_ && priv->cpp) {
+            priv->cpp->interactionsBuffer_.emplace_back(CppImpl::Interaction {
                 uid, interactionId, interaction});
         } else if (uid == priv->conversation_->uid) {
             print_interaction_to_buffer(self, interactionId, interaction);
         }
     });
 
-    priv->cpp_ = new CppImpl();
+    priv->cpp = new CppImpl();
 
     if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
         webkit_chat_container_ready(self);
@@ -728,7 +1012,8 @@ build_chat_view(ChatView* self)
 GtkWidget *
 chat_view_new (WebKitChatContainer* webkit_chat_container,
                AccountInfoPointer const & accountInfo,
-               lrc::api::conversation::Info* conversation)
+               lrc::api::conversation::Info* conversation,
+               lrc::api::AVModel& avModel)
 {
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
@@ -738,6 +1023,8 @@ chat_view_new (WebKitChatContainer* webkit_chat_container,
     priv->accountInfo_ = &accountInfo;
 
     build_chat_view(self);
+    priv->cpp->avModel_ = &avModel;
+    priv->readyToRecord_ = true;
     return (GtkWidget *)self;
 }
 

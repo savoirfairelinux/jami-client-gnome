@@ -1489,7 +1489,7 @@ GtkWidget*
 CppImpl::displayChatView(lrc::api::conversation::Info conversation, bool redraw_webview)
 {
     chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
-    auto* new_view = chat_view_new(webkitChatContainer(redraw_webview), accountInfo_, chatViewConversation_.get());
+    auto* new_view = chat_view_new(webkitChatContainer(redraw_webview), accountInfo_, chatViewConversation_.get(), lrc_->getAVModel());
     g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(on_hide_view_clicked), self);
     g_signal_connect(new_view, "add-conversation-clicked", G_CALLBACK(on_add_conversation_clicked), self);
     g_signal_connect(new_view, "place-audio-call-clicked", G_CALLBACK(on_place_audio_call_clicked), self);
