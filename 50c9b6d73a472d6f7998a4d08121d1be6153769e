@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13d0f3c0_6db7a74f",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 90
+      },
+      "writtenOn": "2019-10-22T18:27:57Z",
+      "side": 1,
+      "message": "I don\u0027t think this file needs to change at all",
+      "revId": "50c9b6d73a472d6f7998a4d08121d1be6153769e",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
