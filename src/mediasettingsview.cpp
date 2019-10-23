@@ -592,5 +592,4 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
         priv->cpp->avModel_->setAudioMeterState(false);
         priv->cpp->avModel_->stopAudioDevice();
     }
-
 }

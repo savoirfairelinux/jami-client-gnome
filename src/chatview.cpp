@@ -29,6 +29,12 @@
 
 // GTK
 #include <glib/gi18n.h>
+#include <clutter-gtk/clutter-gtk.h>
+#include <glib.h>
+#include <glib/gstdio.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 // Qt
 #include <QSize>
@@ -39,6 +45,7 @@
 #include <api/contact.h>
 #include <api/newcallmodel.h>
 #include <api/call.h>
+#include <api/avmodel.h>
 
 // Client
 #include "marshals.h"
@@ -55,6 +62,10 @@ struct CppImpl {
         lrc::api::interaction::Info info;
     };
     std::vector<Interaction> interactionsBuffer_;
+    lrc::api::AVModel* avModel_;
+
+    // location to store the current audio recording
+    std::string saveAudioClipName_;
 };
 
 struct _ChatView
@@ -89,7 +100,7 @@ struct _ChatViewPrivate
     gulong webkit_drag_drop;
 
     bool ready_ {false};
-    CppImpl* cpp_;
+    CppImpl* cpp;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ChatView, chat_view, GTK_TYPE_BOX);
@@ -223,6 +234,89 @@ file_to_manipulate(GtkWindow* top_window, bool send)
 
 static void update_chatview_frame(ChatView *self);
 
+// The function is to start the audio clip record
+static void
+start_record_audio(ChatView* self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    std::string audio_file_name = priv->cpp->avModel_->startLocalRecorder(true);
+    if(audio_file_name.empty()) {
+        g_warning("set_state: fail to start audio recording!");
+        return;
+    }
+    priv->cpp->saveAudioClipName_ = audio_file_name;
+}
+
+// The function is to finish the audio record
+static void
+finish_record_audio(ChatView* self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    if(priv->cpp->saveAudioClipName_.empty()){
+        g_warning("set_state: The audio file to finish recording does not exist!");
+        return;
+    }
+    priv->cpp->avModel_->stopLocalRecorder(priv->cpp->saveAudioClipName_);
+    // call javascript function to add the audio file
+    webkit_chat_chatview_add_audio_file(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),priv->cpp->saveAudioClipName_);
+}
+
+static void
+delete_selected_file(ChatView* self,std::string& filePath)
+{
+    g_remove(filePath.c_str());
+    filePath = "";
+}
+
+static void
+stop_and_delete_recoerded_audio(ChatView* self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    if(priv->cpp->saveAudioClipName_.empty()){
+        g_warning("set_state: The audio file to finish recording does not exist and can not be deleted!");
+        return;
+    }
+
+    priv->cpp->avModel_->stopLocalRecorder(priv->cpp->saveAudioClipName_);
+    // delete the file
+    delete_selected_file(self,priv->cpp->saveAudioClipName_);
+    g_warning("The audio record is interrupted and the file is deleted!");
+}
+
+static void
+select_file()
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
+        if (auto filename = file_to_manipulate(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))), true)) {
+            // what to do after select the file with file audio_file_name
+            
+        }
+    }
+}
+
+static void
+send_file(std::string filepath)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+}
+
+static void
+send_image(std::string filepath)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+}
+
 static void
 webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, ChatView* self)
 {
@@ -257,7 +351,7 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
             // For SIP accounts, we need to wait that the conversation is created to send text
             send_text_clicked(self, toSend);
         }
-    } else if (order.find("SEND_FILE") == 0) {
+    } else if (order.find("SELECT_FILE") == 0) {
         if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
             if (auto filename = file_to_manipulate(GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))), true))
                 model->sendFile(priv->conversation_->uid, filename, g_path_get_basename(filename));
@@ -333,6 +427,31 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
             (*priv->accountInfo_)->conversationModel->retryInteraction(priv->conversation_->uid, interactionId);
         } catch (...) {
             g_warning("delete interaction failed: can't find %s", order.substr(std::string("RETRY_INTERACTION:").size()).c_str());
+        }
+    } else if (order.find("START_RECORD_AUDIO") == 0) {
+        try {
+            start_record_audio(self);
+        } catch (...) {
+            g_warning("Exceptio: The audio record has failed to start!");
+        }
+    } else if (order.find("FINISH_RECORD_AUDIO") == 0) {
+        try {
+            finish_record_audio(self);
+        } catch (...) {
+            g_warning("Exception: The audio record has failed to start!");
+        }
+    } else if (order.find("STOP_AND_DELETE_RECORD_AUDIO") == 0) {
+        try {
+            stop_and_delete_recoerded_audio(self);
+        } catch (...) {
+            g_warning("Exception: Fail the stop recording audio and delete file!");
+        }
+    } else if (order.find("DELETE_SELECTED_FILE:") == 0) {
+        try {
+            auto filePath = order.substr(std::string("DELETE_SELECTED_FILE:").size());
+            delete_selected_file(self,filePath);
+        } catch (...) {
+
         }
     }
 }
@@ -541,7 +660,7 @@ webkit_chat_container_ready(ChatView* self)
     load_participants_images(self);
 
     priv->ready_ = true;
-    for (const auto& interaction: priv->cpp_->interactionsBuffer_) {
+    for (const auto& interaction: priv->cpp->interactionsBuffer_) {
         if (interaction.conv == priv->conversation_->uid) {
             print_interaction_to_buffer(self, interaction.id, interaction.info);
         }
@@ -711,15 +830,15 @@ build_chat_view(ChatView* self)
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newInteraction,
     [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
         if (!priv->conversation_) return;
-        if (!priv->ready_ && priv->cpp_) {
-            priv->cpp_->interactionsBuffer_.emplace_back(CppImpl::Interaction {
+        if (!priv->ready_ && priv->cpp) {
+            priv->cpp->interactionsBuffer_.emplace_back(CppImpl::Interaction {
                 uid, interactionId, interaction});
         } else if (uid == priv->conversation_->uid) {
             print_interaction_to_buffer(self, interactionId, interaction);
         }
     });
 
-    priv->cpp_ = new CppImpl();
+    priv->cpp = new CppImpl();
 
     if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
         webkit_chat_container_ready(self);
@@ -728,7 +847,8 @@ build_chat_view(ChatView* self)
 GtkWidget *
 chat_view_new (WebKitChatContainer* webkit_chat_container,
                AccountInfoPointer const & accountInfo,
-               lrc::api::conversation::Info* conversation)
+               lrc::api::conversation::Info* conversation,
+               lrc::api::AVModel& avModel)
 {
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
@@ -738,6 +858,8 @@ chat_view_new (WebKitChatContainer* webkit_chat_container,
     priv->accountInfo_ = &accountInfo;
 
     build_chat_view(self);
+    priv->cpp->avModel_ = &avModel;
+
     return (GtkWidget *)self;
 }
 

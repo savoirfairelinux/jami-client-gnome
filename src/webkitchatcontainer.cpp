@@ -770,3 +770,27 @@ webkit_chat_update_chatview_frame(WebKitChatContainer *view, bool accountEnabled
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
+
+void
+webkit_chat_chatview_add_audio_file(WebKitChatContainer *view, std::string filePath)
+{
+    gchar* function_call = g_strdup_printf("addAudio_Path(\"%s\")",filePath.c_str());
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
+}
+
+void
+webkit_chat_chatview_set_file_content(WebKitChatContainer *view, std::string filePath)
+{
+    gchar* function_call = g_strdup_printf("addAudio_Path(\"%s\")",filePath.c_str());
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
+}
+
+void
+webkit_chat_chatview_set_image_content(WebKitChatContainer *view, std::string filePath, bool isBase64)
+{
+    gchar* function_call = g_strdup_printf("addAudio_Path(\"%s\")",filePath.c_str());
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
+}
