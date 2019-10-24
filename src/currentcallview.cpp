@@ -1028,7 +1028,7 @@ CppImpl::add_present_contact(const std::string& uri, const std::string& custom_d
 {
     auto bestName = uri;
     auto default_avatar = Interfaces::PixbufManipulator().generateAvatar("", "");
-    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(50, 50));
+    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(48, 48), true, IconStatus::PRESENT);
     auto photo = default_scaled;
 
     try {
@@ -1046,7 +1046,7 @@ CppImpl::add_present_contact(const std::string& uri, const std::string& custom_d
         if (!photostr.empty()) {
             QByteArray byteArray(photostr.c_str(), photostr.length());
             QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
-            auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(48, 48));
+            auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(48, 48), true, IconStatus::PRESENT);
             if (avatar.isValid()) {
                 photo = pixbuf_photo;
             }
@@ -1060,7 +1060,7 @@ CppImpl::add_present_contact(const std::string& uri, const std::string& custom_d
             else
                 fullUri = "sip:" + fullUri;
             photo = Interfaces::PixbufManipulator().generateAvatar(firstLetter, fullUri);
-            photo = Interfaces::PixbufManipulator().scaleAndFrame(photo.get(), QSize(48, 48));
+            photo = Interfaces::PixbufManipulator().scaleAndFrame(photo.get(), QSize(48, 48), true, IconStatus::PRESENT);
         }
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
