@@ -117,6 +117,7 @@ struct _ChatViewPrivate
     GtkWidget* button_retry;
     GtkWidget* button_main_action;
     GtkWidget* label_time;
+    bool is_video_record {false};
     guint timer_duration = 0;
     uint32_t duration = 0;
 
@@ -138,8 +139,9 @@ enum {
 
 static guint chat_view_signals[LAST_SIGNAL] = { 0 };
 
-static void
-init_video_widget(ChatView* self);
+static void init_video_widget(ChatView* self);
+static void on_main_action_clicked(ChatView *self);
+static void reset_recorder(ChatView *self);
 
 static void
 chat_view_dispose(GObject *object)
@@ -306,38 +308,63 @@ on_record_closed(GtkPopover*, ChatView *self)
 
     priv->cpp->current_action_ = RecordAction::RECORD;
     if (priv->timer_duration) g_source_remove(priv->timer_duration);
-    priv->cpp->avModel_->stopPreview();
+    if (priv->is_video_record) priv->cpp->avModel_->stopPreview();
     priv->duration = 0;
 }
 
 void
-chat_view_show_video_recorder(ChatView *self, int pt_x, int pt_y)
+init_control_box_buttons(ChatView *self, GtkWidget *box_contols) {
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    std::string rsc = !priv->useDarkTheme && !priv->is_video_record ?
+        "/net/jami/JamiGnome/retry" : "/net/jami/JamiGnome/retry-white";
+    auto image_retry = gtk_image_new_from_resource (rsc.c_str());
+    auto image_record = gtk_image_new_from_resource("/net/jami/JamiGnome/record");
+
+    priv->button_retry = gtk_button_new();
+    gtk_button_set_relief(GTK_BUTTON(priv->button_retry), GTK_RELIEF_NONE);
+    gtk_widget_set_tooltip_text(priv->button_retry, _("Retry"));
+    gtk_button_set_image(GTK_BUTTON(priv->button_retry), image_retry);
+    gtk_widget_set_size_request(GTK_WIDGET(priv->button_retry), 48, 48);
+    auto context = gtk_widget_get_style_context(GTK_WIDGET(priv->button_retry));
+    gtk_style_context_add_class(context, "record-button");
+    g_signal_connect_swapped(priv->button_retry, "clicked", G_CALLBACK(reset_recorder), self);
+    gtk_container_add(GTK_CONTAINER(box_contols), priv->button_retry);
+
+    priv->button_main_action = gtk_button_new();
+    gtk_button_set_relief(GTK_BUTTON(priv->button_main_action), GTK_RELIEF_NONE);
+    gtk_widget_set_tooltip_text(priv->button_main_action, _("Record"));
+    gtk_button_set_image(GTK_BUTTON(priv->button_main_action), image_record);
+    gtk_widget_set_size_request(GTK_WIDGET(priv->button_main_action), 48, 48);
+    context = gtk_widget_get_style_context(GTK_WIDGET(priv->button_main_action));
+    gtk_style_context_add_class(context, "record-button");
+    g_signal_connect_swapped(priv->button_main_action, "clicked", G_CALLBACK(on_main_action_clicked), self);
+    gtk_container_add(GTK_CONTAINER(box_contols), priv->button_main_action);
+
+    gtk_widget_set_halign(box_contols, GTK_ALIGN_CENTER);
+}
+
+void
+chat_view_show_recorder(ChatView *self, int pt_x, int pt_y, bool is_video_record)
 {
     g_return_if_fail(IS_CHAT_VIEW(self));
     auto* priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->readyToRecord_) return;
 
-    priv->cpp->avModel_->startPreview();
+    priv->is_video_record = is_video_record;
+    if (is_video_record) priv->cpp->avModel_->startPreview();
+    std::string css = ".record-button { background: rgba(0, 0, 0, 0.2); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
+        .record-button:hover { background: rgba(0, 0, 0, 0.2); border-radius: 50%; border: 0; transition: all 0.3s ease; }";
+    if (is_video_record) css += ".label_time { color: white; }";
 
     // CSS styles
     auto provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_data(provider,
-        ".record-button { background: rgba(0, 0, 0, 0.2); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
-        .record-button:hover { background: rgba(0, 0, 0, 0.2); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
-        .label_time { color: white; }",
-        -1, nullptr
-    );
+    gtk_css_provider_load_from_data(provider, css.c_str(), -1, nullptr);
     gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
                                               GTK_STYLE_PROVIDER(provider),
                                               GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-    auto deviceName = priv->cpp->avModel_->getDefaultDeviceName();
-    auto settings = priv->cpp->avModel_->getDeviceSettings(deviceName);
-    auto res = settings.size;
-    if (res.find("x") == std::string::npos) return;
-    auto width = static_cast<double>(std::stoi(res.substr(0, res.find("x"))));
-    auto height = static_cast<double>(std::stoi(res.substr(res.find("x") + 1)));
-    auto max = std::max(width, height);
 #if GTK_CHECK_VERSION(3,22,0)
     GdkRectangle workarea = {};
     gdk_monitor_get_workarea(
@@ -348,29 +375,62 @@ chat_view_show_video_recorder(ChatView *self, int pt_x, int pt_y)
     auto widget_size = std::max(300, gdk_screen_width() / 6);
 #endif
 
-    width = width / max * widget_size;
-    height = height / max * widget_size;
+    auto width = .0;
+    auto height = .0;
+    if (is_video_record) {
+        auto deviceName = priv->cpp->avModel_->getDefaultDeviceName();
+        auto settings = priv->cpp->avModel_->getDeviceSettings(deviceName);
+        auto res = settings.size;
+        if (res.find("x") == std::string::npos) return;
+        auto res_width = static_cast<double>(std::stoi(res.substr(0, res.find("x"))));
+        auto res_height = static_cast<double>(std::stoi(res.substr(res.find("x") + 1)));
+        auto max = std::max(res_width, res_height);
+
+        width = res_width / max * widget_size;
+        height = res_height / max * widget_size;
+    } else {
+        width = widget_size;
+        height = 200;
+    }
 
     if (priv->record_popover) {
         gtk_widget_destroy(priv->record_popover);
     }
-    init_video_widget(self);
-
     priv->record_popover = gtk_popover_new(GTK_WIDGET(priv->box_webkit_chat_container));
     g_signal_connect(priv->record_popover, "closed", G_CALLBACK(on_record_closed), self);
     gtk_popover_set_relative_to(GTK_POPOVER(priv->record_popover), GTK_WIDGET(priv->box_webkit_chat_container));
-    gtk_container_add(GTK_CONTAINER(GTK_POPOVER(priv->record_popover)), priv->video_widget);
+
+    if (is_video_record) {
+        init_video_widget(self);
+        gtk_container_add(GTK_CONTAINER(GTK_POPOVER(priv->record_popover)), priv->video_widget);
+        gtk_widget_set_size_request(GTK_WIDGET(priv->video_widget), width, height);
+    } else {
+        auto* box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+        priv->label_time =  gtk_label_new("00:00");
+        auto* attributes = pango_attr_list_new();
+        auto* font_desc = pango_attr_font_desc_new(pango_font_description_from_string("24"));
+        pango_attr_list_insert(attributes, font_desc);
+        gtk_label_set_attributes(GTK_LABEL(priv->label_time), attributes);
+        pango_attr_list_unref(attributes);
+        auto* box_contols = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+        init_control_box_buttons(self, box_contols);
+        gtk_box_pack_start(GTK_BOX(box), priv->label_time, true, true, 0);
+        gtk_box_pack_end(GTK_BOX(box), box_contols, false, false, 0);
+        gtk_container_add(GTK_CONTAINER(GTK_POPOVER(priv->record_popover)), box);
+    }
+
     GdkRectangle rect;
     rect.width = 1;
     rect.height = 1;
     rect.x = pt_x;
     rect.y = pt_y;
     gtk_popover_set_pointing_to(GTK_POPOVER(priv->record_popover), &rect);
-    gtk_widget_set_size_request(GTK_WIDGET(priv->video_widget), width, height);
+    gtk_widget_set_size_request(GTK_WIDGET(priv->record_popover), width, height);
 #if GTK_CHECK_VERSION(3,22,0)
     gtk_popover_popdown(GTK_POPOVER(priv->record_popover));
 #endif
     gtk_widget_show_all(priv->record_popover);
+    gtk_widget_hide(priv->button_retry);
 }
 
 static gboolean
@@ -399,14 +459,16 @@ reset_recorder(ChatView *self)
     auto* priv = CHAT_VIEW_GET_PRIVATE(self);
 
     gtk_widget_hide(GTK_WIDGET(priv->button_retry));
-    auto image = gtk_image_new_from_resource ("/net/jami/JamiGnome/stop-white");
+    std::string rsc = !priv->useDarkTheme && !priv->is_video_record ?
+        "/net/jami/JamiGnome/stop" : "/net/jami/JamiGnome/stop-white";
+    auto image = gtk_image_new_from_resource (rsc.c_str());
     gtk_button_set_image(GTK_BUTTON(priv->button_main_action), image);
     priv->cpp->current_action_ = RecordAction::STOP;
     gtk_label_set_text(GTK_LABEL(priv->label_time), "00:00");
     priv->duration = 0;
     priv->timer_duration = g_timeout_add(1000, (GSourceFunc)on_timer_duration_timeout, self);
 
-    std::string file_name = priv->cpp->avModel_->startLocalRecorder(false);
+    std::string file_name = priv->cpp->avModel_->startLocalRecorder(!priv->is_video_record);
     if (file_name.empty()) {
         g_warning("set_state: failed to start recording");
         return;
@@ -534,7 +596,19 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         try {
             int pt_x = stoi(pos_str.substr(0, sep_idx));
             int pt_y = stoi(pos_str.substr(sep_idx + 1));
-            chat_view_show_video_recorder(self, pt_x, pt_y);
+            chat_view_show_recorder(self, pt_x, pt_y, true);
+        } catch (...) {
+            // ignore
+        }
+    } else if (order.find("AUDIO_RECORD:") == 0) {
+        auto pos_str {order.substr(std::string("AUDIO_RECORD:").size())};
+        auto sep_idx = pos_str.find("x");
+        if (sep_idx == std::string::npos)
+            return;
+        try {
+            int pt_x = stoi(pos_str.substr(0, sep_idx));
+            int pt_y = stoi(pos_str.substr(sep_idx + 1));
+            chat_view_show_recorder(self, pt_x, pt_y, false);
         } catch (...) {
             // ignore
         }
@@ -899,7 +973,9 @@ on_main_action_clicked(ChatView *self)
                 priv->cpp->avModel_->stopLocalRecorder(priv->cpp->saveFileName_);
             }
             gtk_widget_show(GTK_WIDGET(priv->button_retry));
-            auto image = gtk_image_new_from_resource ("/net/jami/JamiGnome/send-white");
+            std::string rsc = !priv->useDarkTheme && !priv->is_video_record ?
+                "/net/jami/JamiGnome/send" : "/net/jami/JamiGnome/send-white";
+            auto image = gtk_image_new_from_resource (rsc.c_str());
             gtk_button_set_image(GTK_BUTTON(priv->button_main_action), image);
             priv->cpp->current_action_ = RecordAction::SEND;
             g_source_remove(priv->timer_duration);
@@ -955,35 +1031,11 @@ init_video_widget(ChatView* self)
     auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
 
     auto* hbox_record_controls = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 15);
-
-    auto image_retry = gtk_image_new_from_resource("/net/jami/JamiGnome/retry");
-    auto image_record = gtk_image_new_from_resource("/net/jami/JamiGnome/record");
-
-    priv->button_retry = gtk_button_new();
-    gtk_button_set_relief(GTK_BUTTON(priv->button_retry), GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(priv->button_retry, _("Retry"));
-    gtk_button_set_image(GTK_BUTTON(priv->button_retry), image_retry);
-    gtk_widget_set_size_request(GTK_WIDGET(priv->button_retry), 48, 48);
-    GtkStyleContext* context;
-    context = gtk_widget_get_style_context(GTK_WIDGET(priv->button_retry));
-    gtk_style_context_add_class(context, "record-button");
-    g_signal_connect_swapped(priv->button_retry, "clicked", G_CALLBACK(reset_recorder), self);
-
-    priv->button_main_action = gtk_button_new();
-    gtk_button_set_relief(GTK_BUTTON(priv->button_main_action), GTK_RELIEF_NONE);
-    gtk_widget_set_tooltip_text(priv->button_main_action, _("Record"));
-    gtk_button_set_image(GTK_BUTTON(priv->button_main_action), image_record);
-    gtk_widget_set_size_request(GTK_WIDGET(priv->button_main_action), 48, 48);
-    context = gtk_widget_get_style_context(GTK_WIDGET(priv->button_main_action));
-    gtk_style_context_add_class(context, "record-button");
-    g_signal_connect_swapped(priv->button_main_action, "clicked", G_CALLBACK(on_main_action_clicked), self);
+    init_control_box_buttons(self, hbox_record_controls);
 
     priv->label_time = gtk_label_new("00:00");
-    context = gtk_widget_get_style_context(GTK_WIDGET(priv->label_time));
+    auto context = gtk_widget_get_style_context(GTK_WIDGET(priv->label_time));
     gtk_style_context_add_class(context, "label_time");
-
-    gtk_container_add(GTK_CONTAINER(hbox_record_controls), priv->button_retry);
-    gtk_container_add(GTK_CONTAINER(hbox_record_controls), priv->button_main_action);
     gtk_container_add(GTK_CONTAINER(hbox_record_controls), priv->label_time);
 
     gtk_widget_show_all(hbox_record_controls);
