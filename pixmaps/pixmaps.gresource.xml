@@ -58,5 +58,6 @@
     <file alias="qrcode">qrcode.svg</file>
     <file alias="qrcode-white">qrcode-white.png</file>
     <file alias="retry">retry.svg</file>
+    <file alias="retry-white">retry-white.svg</file>
   </gresource>
 </gresources>
