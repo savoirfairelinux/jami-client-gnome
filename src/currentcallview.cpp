@@ -1026,7 +1026,7 @@ CppImpl::add_title(const std::string& title) {
 void
 CppImpl::add_present_contact(const std::string& uri, const std::string& custom_data, RowType custom_type, const std::string& accountId)
 {
-    auto bestName = uri;
+    std::string bestName = uri, bestUri = uri;
     auto default_avatar = Interfaces::PixbufManipulator().generateAvatar("", "");
     auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(48, 48), true, IconStatus::PRESENT);
     auto photo = default_scaled;
@@ -1039,8 +1039,10 @@ CppImpl::add_present_contact(const std::string& uri, const std::string& custom_d
 
         if (!alias.empty()) {
             bestName = alias;
-        } else if (!contactInfo.registeredName.empty()) {
-            bestName = contactInfo.registeredName;
+        }
+
+        if (!contactInfo.registeredName.empty()) {
+            bestUri = contactInfo.registeredName;
         }
 
         if (!photostr.empty()) {
@@ -1073,12 +1075,12 @@ CppImpl::add_present_contact(const std::string& uri, const std::string& custom_d
         text = g_markup_printf_escaped(
             "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" color=\"#666\">%s</span>",
             bestName.c_str(),
-            uri.c_str()
+            bestUri.c_str()
         );
     } else {
         text = g_markup_printf_escaped(
             "<span font=\"10\">%s</span>",
-            bestName.c_str()
+            bestUri.c_str()
         );
     }
 
