@@ -529,6 +529,7 @@ on_redraw(GtkWidget*, cairo_t*, RingMainWindow* self)
                                                   GTK_STYLE_PROVIDER(provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
+    return false;
 }
 
 static void
