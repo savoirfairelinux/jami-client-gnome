@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-21 03:09-0400\n"
-"PO-Revision-Date: 2019-10-21 07:09+0000\n"
+"POT-Creation-Date: 2019-10-29 14:50-0400\n"
+"PO-Revision-Date: 2019-10-29 18:43+0000\n"
 "Last-Translator: Nathan Follens\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/savoirfairelinux/jami/language/nl_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -250,7 +250,7 @@ msgid "Toggle recording"
 msgstr "Opname in-/uitschakelen"
 
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
-#: ui/messagingwidget.ui:29
+#: ui/messagingwidget.ui:29 src/chatview.cpp:341
 msgid "Record"
 msgstr "Opnemen"
 
@@ -548,7 +548,7 @@ msgstr "Algemeen"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1810
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1845
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -887,23 +887,7 @@ msgstr "Video RTP-Max-poort"
 msgid "register username"
 msgstr "gebruikersnaam registreren"
 
-#: ui/chatview.ui:19 ui/chatview.ui:22
-msgid "Hide chat view"
-msgstr "Gespreksweergave verbergen"
-
-#: ui/chatview.ui:45 ui/chatview.ui:48
-msgid "Place call"
-msgstr "Oproep plaatsen"
-
-#: ui/chatview.ui:62
-msgid "Place audio-only call"
-msgstr "Audio-oproep plaatsen"
-
-#: ui/chatview.ui:75
-msgid "Add to conversations"
-msgstr "Toevoegen aan gesprekken"
-
-#: ui/chatview.ui:134
+#: ui/chatview.ui:39
 msgid "Send Invitation"
 msgstr "Uitnodiging sturen"
 
@@ -1046,13 +1030,13 @@ msgid "Choose download folder"
 msgstr "Kies downloadmap"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
-#: src/accountcreationwizard.cpp:757 src/chatview.cpp:207
+#: src/accountcreationwizard.cpp:757 src/chatview.cpp:280
 #: src/newaccountsettingsview.cpp:936
 msgid "_Cancel"
 msgstr "_Annuleren"
 
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
-#: src/chatview.cpp:209 src/newaccountsettingsview.cpp:938
+#: src/chatview.cpp:282 src/newaccountsettingsview.cpp:938
 msgid "_Save"
 msgstr "Op_slaan"
 
@@ -1076,7 +1060,7 @@ msgstr "Toon geavanceerde informatie"
 msgid "Open Avatar Image"
 msgstr "Avatarbestand openen"
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:209
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:282
 msgid "_Open"
 msgstr "_Openen"
 
@@ -1110,94 +1094,94 @@ msgstr "Opname beëindigen"
 msgid "Send recorded message"
 msgstr "Opgenomen bericht versturen"
 
-#: src/ringmainwindow.cpp:187
+#: src/ringmainwindow.cpp:192
 msgid "Add account…"
 msgstr "Account toevoegen…"
 
-#: src/ringmainwindow.cpp:799
+#: src/ringmainwindow.cpp:845
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "oproep plaatsen"
 
-#: src/ringmainwindow.cpp:802
+#: src/ringmainwindow.cpp:848
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "gesprek openen"
 
-#: src/ringmainwindow.cpp:1009
+#: src/ringmainwindow.cpp:1055
 msgid "Jami - Migration needed"
 msgstr "Jami - migratie vereist"
 
-#: src/ringmainwindow.cpp:1022
+#: src/ringmainwindow.cpp:1068
 msgid "Migration in progress... please do not close this window."
 msgstr "Migratie is bezig… Gelieve dit venster niet te sluiten."
 
-#: src/ringmainwindow.cpp:1314
+#: src/ringmainwindow.cpp:1349
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr ""
 
-#: src/ringmainwindow.cpp:1785
+#: src/ringmainwindow.cpp:1820
 msgid "Leave settings page"
 msgstr "Instellingsblad verlaten"
 
-#: src/ringmainwindow.cpp:2212
+#: src/ringmainwindow.cpp:2247
 msgid "There are active calls"
 msgstr "Er zijn actieve oproepen"
 
-#: src/ringmainwindow.cpp:2266
+#: src/ringmainwindow.cpp:2301
 msgid " is calling you!"
 msgstr "belt u!"
 
-#: src/ringmainwindow.cpp:2267
+#: src/ringmainwindow.cpp:2302
 msgid "Incoming call"
 msgstr "Inkomende oproep"
 
-#: src/ringmainwindow.cpp:2410
+#: src/ringmainwindow.cpp:2445
 msgid "New request from "
 msgstr "Nieuw verzoek van"
 
-#: src/ringmainwindow.cpp:2411
+#: src/ringmainwindow.cpp:2446
 msgid "Trust request"
 msgstr "Vertrouwensverzoek"
 
-#: src/ringmainwindow.cpp:2472
+#: src/ringmainwindow.cpp:2507
 msgid "New message"
 msgstr "Nieuw bericht"
 
-#: src/ringmainwindow.cpp:2535
+#: src/ringmainwindow.cpp:2570
 msgid "Stop current call?"
 msgstr "Huidige oproep beëindigen?"
 
-#: src/ringmainwindow.cpp:2536
+#: src/ringmainwindow.cpp:2571
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "U bent momenteel in gesprek. Wilt u het venster sluiten en alle huidige oproepen beëindigen?"
 
-#: src/ringmainwindow.cpp:2603
+#: src/ringmainwindow.cpp:2638
 msgid "Clear history"
 msgstr "Geschiedenis wissen"
 
-#: src/ringmainwindow.cpp:2604
+#: src/ringmainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Wilt u de geschiedenis van dit gesprek wissen?"
 
-#: src/ringmainwindow.cpp:2619
+#: src/ringmainwindow.cpp:2654
 msgid "Remove conversation"
 msgstr "Gesprek verwijderen"
 
-#: src/ringmainwindow.cpp:2620
+#: src/ringmainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
 msgstr "Wilt u dit gesprek echt verwijderen?"
 
-#: src/ringmainwindow.cpp:2635
+#: src/ringmainwindow.cpp:2670
 msgid "Block contact"
 msgstr "Contact blokkeren"
 
-#: src/ringmainwindow.cpp:2636
+#: src/ringmainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
 msgstr "Wilt u dit contact echt blokkeren?"
 
@@ -1300,7 +1284,7 @@ msgstr "Paswoorden komen niet overeen"
 msgid "Import from backup"
 msgstr "Importeren uit back-up"
 
-#: src/accountcreationwizard.cpp:754 src/chatview.cpp:204
+#: src/accountcreationwizard.cpp:754 src/chatview.cpp:277
 #: src/newaccountsettingsview.cpp:933
 msgid "Save File"
 msgstr "Bestand opslaan"
@@ -1321,27 +1305,31 @@ msgstr "Account geëxporteerd!"
 msgid "Export account failure."
 msgstr "Fout bij exporteren van account."
 
-#: src/ringwelcomeview.cpp:88
+#: src/ringwelcomeview.cpp:92
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
 msgstr "Dit is uw Jami-gebruikersnaam.\nDeel hem met uw vrienden!"
 
-#: src/ringwelcomeview.cpp:96
+#: src/ringwelcomeview.cpp:100
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
 msgstr "Dit is uw ID. \n Kopieer en deel hem met uw vrienden!"
 
-#: src/ringwelcomeview.cpp:169
+#: src/ringwelcomeview.cpp:195
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
 msgstr "Jami is vrije software voor universele communicatie, die de vrijheden en privacy van zijn gebruikers eerbiedigt."
 
-#: src/chatview.cpp:204
+#: src/chatview.cpp:277
 msgid "Send File"
 msgstr "Bestand versturen"
+
+#: src/chatview.cpp:331
+msgid "Retry"
+msgstr "Herproberen"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
 msgid ""
@@ -1361,7 +1349,7 @@ msgstr ""
 msgid "Online contacts"
 msgstr ""
 
-#: src/currentcallview.cpp:1405
+#: src/currentcallview.cpp:1408
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-21 03:09-0400\n"
-"PO-Revision-Date: 2019-10-21 07:09+0000\n"
+"POT-Creation-Date: 2019-10-29 14:50-0400\n"
+"PO-Revision-Date: 2019-10-29 18:43+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/jami/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -248,7 +248,7 @@ msgid "Toggle recording"
 msgstr "Shfa/fshih incizim"
 
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
-#: ui/messagingwidget.ui:29
+#: ui/messagingwidget.ui:29 src/chatview.cpp:341
 msgid "Record"
 msgstr "Regjistroje"
 
@@ -282,7 +282,7 @@ msgstr "Shpërngule te"
 
 #: ui/currentcallview.ui:616
 msgid "Add"
-msgstr ""
+msgstr "Shtoje"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -546,7 +546,7 @@ msgstr "Të përgjithshme"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1810
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1845
 msgid "Settings"
 msgstr "Rregullime"
 
@@ -885,23 +885,7 @@ msgstr "Interval Maksimum Porte Video RTP"
 msgid "register username"
 msgstr "regjistroni emër përdoruesi"
 
-#: ui/chatview.ui:19 ui/chatview.ui:22
-msgid "Hide chat view"
-msgstr "Fshihe pamjen fjalosje"
-
-#: ui/chatview.ui:45 ui/chatview.ui:48
-msgid "Place call"
-msgstr "Bëni një thirrje"
-
-#: ui/chatview.ui:62
-msgid "Place audio-only call"
-msgstr "Bëni një thirrje vetëm audio"
-
-#: ui/chatview.ui:75
-msgid "Add to conversations"
-msgstr "Shtoje te biseda"
-
-#: ui/chatview.ui:134
+#: ui/chatview.ui:39
 msgid "Send Invitation"
 msgstr "Dërgoni Ftesë"
 
@@ -1044,13 +1028,13 @@ msgid "Choose download folder"
 msgstr "Zgjidhni dosje shkarkimesh"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
-#: src/accountcreationwizard.cpp:757 src/chatview.cpp:207
+#: src/accountcreationwizard.cpp:757 src/chatview.cpp:280
 #: src/newaccountsettingsview.cpp:936
 msgid "_Cancel"
 msgstr "_Anuloje"
 
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
-#: src/chatview.cpp:209 src/newaccountsettingsview.cpp:938
+#: src/chatview.cpp:282 src/newaccountsettingsview.cpp:938
 msgid "_Save"
 msgstr "_Ruaje"
 
@@ -1074,7 +1058,7 @@ msgstr "Shfaq informacion të thelluar"
 msgid "Open Avatar Image"
 msgstr "Hap Figurë Avatari"
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:209
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:282
 msgid "_Open"
 msgstr "_Hape"
 
@@ -1108,94 +1092,94 @@ msgstr "Ndale incizimin"
 msgid "Send recorded message"
 msgstr "Dërgo mesazhin e incizuar"
 
-#: src/ringmainwindow.cpp:187
+#: src/ringmainwindow.cpp:192
 msgid "Add account…"
 msgstr "Shtoni llogari…"
 
-#: src/ringmainwindow.cpp:799
+#: src/ringmainwindow.cpp:845
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "bëni një thirrje"
 
-#: src/ringmainwindow.cpp:802
+#: src/ringmainwindow.cpp:848
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "hape fjalosjen"
 
-#: src/ringmainwindow.cpp:1009
+#: src/ringmainwindow.cpp:1055
 msgid "Jami - Migration needed"
 msgstr "Jami - Lypset migrim"
 
-#: src/ringmainwindow.cpp:1022
+#: src/ringmainwindow.cpp:1068
 msgid "Migration in progress... please do not close this window."
 msgstr "Migrim në kryerje e sipër… ju lutemi, mos e mbyllni këtë dritare."
 
-#: src/ringmainwindow.cpp:1314
+#: src/ringmainwindow.cpp:1349
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Gjeni ose filloni një bisedë"
 
-#: src/ringmainwindow.cpp:1785
+#: src/ringmainwindow.cpp:1820
 msgid "Leave settings page"
 msgstr "Braktise faqen e rregullimeve"
 
-#: src/ringmainwindow.cpp:2212
+#: src/ringmainwindow.cpp:2247
 msgid "There are active calls"
 msgstr "Ka thirrje aktive"
 
-#: src/ringmainwindow.cpp:2266
+#: src/ringmainwindow.cpp:2301
 msgid " is calling you!"
 msgstr " po ju thërret!"
 
-#: src/ringmainwindow.cpp:2267
+#: src/ringmainwindow.cpp:2302
 msgid "Incoming call"
 msgstr "Thirrje ardhëse"
 
-#: src/ringmainwindow.cpp:2410
+#: src/ringmainwindow.cpp:2445
 msgid "New request from "
 msgstr "Kërkesë e re nga "
 
-#: src/ringmainwindow.cpp:2411
+#: src/ringmainwindow.cpp:2446
 msgid "Trust request"
 msgstr "Kërkesë besueshmërie"
 
-#: src/ringmainwindow.cpp:2472
+#: src/ringmainwindow.cpp:2507
 msgid "New message"
 msgstr "Mesazh i ri"
 
-#: src/ringmainwindow.cpp:2535
+#: src/ringmainwindow.cpp:2570
 msgid "Stop current call?"
 msgstr "Të ndalet thirrja e tanishme?"
 
-#: src/ringmainwindow.cpp:2536
+#: src/ringmainwindow.cpp:2571
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Ka një thirrje në kryerje e sipër. Doni të mbyllet dritarja dhe të ndalen krejt thirrjet e tanishme?"
 
-#: src/ringmainwindow.cpp:2603
+#: src/ringmainwindow.cpp:2638
 msgid "Clear history"
 msgstr "Pastroje historikun"
 
-#: src/ringmainwindow.cpp:2604
+#: src/ringmainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Doni të pastrohet vërtet historiku i kësaj bisede?"
 
-#: src/ringmainwindow.cpp:2619
+#: src/ringmainwindow.cpp:2654
 msgid "Remove conversation"
 msgstr "Hiqe bisedën"
 
-#: src/ringmainwindow.cpp:2620
+#: src/ringmainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
 msgstr "Doni të hiqet vërtet kjo bisedë?"
 
-#: src/ringmainwindow.cpp:2635
+#: src/ringmainwindow.cpp:2670
 msgid "Block contact"
 msgstr "Bllokojeni kontaktin"
 
-#: src/ringmainwindow.cpp:2636
+#: src/ringmainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
 msgstr "Doni të bllokohet vërtet ky kontakt?"
 
@@ -1298,7 +1282,7 @@ msgstr "Fjalëkalimet nuk përputhen"
 msgid "Import from backup"
 msgstr "Importoni prej kopjeruajtjeje"
 
-#: src/accountcreationwizard.cpp:754 src/chatview.cpp:204
+#: src/accountcreationwizard.cpp:754 src/chatview.cpp:277
 #: src/newaccountsettingsview.cpp:933
 msgid "Save File"
 msgstr "Ruaje Kartelën"
@@ -1319,27 +1303,31 @@ msgstr "Llogaria u eksportua!"
 msgid "Export account failure."
 msgstr "Dështim eksportimi llogarie."
 
-#: src/ringwelcomeview.cpp:88
+#: src/ringwelcomeview.cpp:92
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
 msgstr "Ky është emri juaj i përdoruesit në Jami.\nKopjojeni dhe jepuani shokëve!"
 
-#: src/ringwelcomeview.cpp:96
+#: src/ringwelcomeview.cpp:100
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
 msgstr "Kjo është ID-ja juaj.\nKopjojeni dhe jepuani shokëve!"
 
-#: src/ringwelcomeview.cpp:169
+#: src/ringwelcomeview.cpp:195
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
 msgstr "Jami është software i lirë për komunikim universal që respekton privatësinë e përdoruesve të tij."
 
-#: src/chatview.cpp:204
+#: src/chatview.cpp:277
 msgid "Send File"
 msgstr "Dërgo Kartelë"
+
+#: src/chatview.cpp:331
+msgid "Retry"
+msgstr "Riprovoni"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
 msgid ""
@@ -1349,17 +1337,17 @@ msgstr "Kujdes! Ky veprim do të shkaktojë heqjen e kësaj llogarie në këtë 
 
 #: src/currentcallview.cpp:936
 msgid "Current conference (all accounts)"
-msgstr ""
+msgstr "Konferenca e tanishme (krejt llogaritë)"
 
 #: src/currentcallview.cpp:970
 msgid "Current calls (all accounts)"
-msgstr ""
+msgstr "Thirrja e tanishme (krejt llogaritë)"
 
 #: src/currentcallview.cpp:984
 msgid "Online contacts"
-msgstr ""
+msgstr "Kontakte <em>online</em>"
 
-#: src/currentcallview.cpp:1405
+#: src/currentcallview.cpp:1408
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
