@@ -179,7 +179,7 @@ CppImpl::drawFramerates()
     }
     using namespace lrc::api;
     auto active = 0;
-    auto currentDevice = avModel_->getDefaultDeviceName();
+    auto currentDevice = avModel_->getDefaultDevice();
     auto deviceCaps = avModel_->getDeviceCapabilities(currentDevice);
     std::string currentChannel = "", currentRes = "", currentRate = "";
     int currentResIndex;
@@ -223,7 +223,7 @@ CppImpl::drawResolutions()
         return;
     }
     auto active = 0;
-    auto currentDevice = avModel_->getDefaultDeviceName();
+    auto currentDevice = avModel_->getDefaultDevice();
     std::string currentChannel = "", currentRes = "";
     try {
         currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
@@ -254,7 +254,7 @@ CppImpl::drawChannels()
         return;
     }
     auto active = 0;
-    auto currentDevice = avModel_->getDefaultDeviceName();
+    auto currentDevice = avModel_->getDefaultDevice();
     std::string currentChannel = "";
     try {
         currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
@@ -283,7 +283,7 @@ CppImpl::drawVideoDevices()
         return;
     }
     auto active = 0;
-    auto current = avModel_->getDefaultDeviceName();
+    auto current = avModel_->getDefaultDevice();
     if (current == "") {
         // Avoid to draw devices if no camera is selected
         return;
@@ -294,7 +294,8 @@ CppImpl::drawVideoDevices()
         if (device == current) {
             active = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_device), nullptr, device.c_str());
+        auto name = avModel_->getDeviceSettings(device).name;
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_device), nullptr, name.c_str());
         i++;
     }
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_device), active);
@@ -383,16 +384,27 @@ set_video_device(MediaSettingsView* self)
 {
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
-    auto* video_device = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_device));
-    if (video_device) {
-        auto currentDevice = priv->cpp->avModel_->getDefaultDeviceName();
-        if (currentDevice == video_device) return;
-        priv->cpp->avModel_->setDefaultDevice(video_device);
+    auto* device_name = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_device));
+    if (device_name) {
+        auto devices = priv->cpp->avModel_->getDevices();
+        auto iter = std::find_if(devices.begin(), devices.end(),
+            [device_name, &priv](const std::string& d) {
+                auto settings = priv->cpp->avModel_->getDeviceSettings(d);
+                return settings.name == device_name;
+            });
+        if (iter == devices.end()) {
+            g_warning("set_video_device couldn't find device: %s", device_name);
+            return;
+        }
+        auto& device_id = *iter;
+        auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
+        if (currentDevice == device_id) return;
+        priv->cpp->avModel_->setDefaultDevice(device_id);
         try {
             auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
             priv->cpp->avModel_->setDeviceSettings(settings);
         } catch (const std::out_of_range&) {
-            g_warning("set_resolution out_of_range exception");
+            g_warning("set_video_device out_of_range exception");
         }
         priv->cpp->drawVideoDevices();
     }
@@ -405,7 +417,7 @@ set_channel(MediaSettingsView* self)
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
     auto* video_channel = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_channel));
     if (video_channel) {
-        auto currentDevice = priv->cpp->avModel_->getDefaultDeviceName();
+        auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
         try {
             auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
             if (settings.channel == video_channel) return;
@@ -426,7 +438,7 @@ set_resolution(MediaSettingsView* self)
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
     auto* video_resolution = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_resolution));
     if (video_resolution) {
-        auto currentDevice = priv->cpp->avModel_->getDefaultDeviceName();
+        auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
         try {
             auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
             if (settings.size == video_resolution) return;
@@ -447,7 +459,7 @@ set_framerate(MediaSettingsView* self)
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
     auto* video_framerate = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_framerate));
     if (video_framerate) {
-        auto currentDevice = priv->cpp->avModel_->getDefaultDeviceName();
+        auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
         try {
             auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
             if (settings.rate == std::stoi(video_framerate)) return;
