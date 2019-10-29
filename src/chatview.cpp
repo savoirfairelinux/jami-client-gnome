@@ -385,8 +385,8 @@ chat_view_show_recorder(ChatView *self, int pt_x, int pt_y, bool is_video_record
     auto width = .0;
     auto height = .0;
     if (is_video_record) {
-        auto deviceName = priv->cpp->avModel_->getDefaultDeviceName();
-        auto settings = priv->cpp->avModel_->getDeviceSettings(deviceName);
+        auto deviceId = priv->cpp->avModel_->getDefaultDevice();
+        auto settings = priv->cpp->avModel_->getDeviceSettings(deviceId);
         auto res = settings.size;
         if (res.find("x") == std::string::npos) return;
         auto res_width = static_cast<double>(std::stoi(res.substr(0, res.find("x"))));
