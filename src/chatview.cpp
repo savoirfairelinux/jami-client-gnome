@@ -470,6 +470,7 @@ reset_recorder(ChatView *self)
         "/net/jami/JamiGnome/stop" : "/net/jami/JamiGnome/stop-white";
     auto image = gtk_image_new_from_resource (rsc.c_str());
     gtk_button_set_image(GTK_BUTTON(priv->button_main_action), image);
+    gtk_widget_set_tooltip_text(priv->button_main_action, _("Stop"));
     priv->cpp->current_action_ = RecordAction::STOP;
     gtk_label_set_text(GTK_LABEL(priv->label_time), "00:00");
     priv->duration = 0;
@@ -987,6 +988,7 @@ on_main_action_clicked(ChatView *self)
             std::string rsc = !priv->useDarkTheme && !priv->is_video_record ?
                 "/net/jami/JamiGnome/send" : "/net/jami/JamiGnome/send-white";
             auto image = gtk_image_new_from_resource (rsc.c_str());
+            gtk_widget_set_tooltip_text(priv->button_main_action, _("Send"));
             gtk_button_set_image(GTK_BUTTON(priv->button_main_action), image);
             priv->cpp->current_action_ = RecordAction::SEND;
             g_source_remove(priv->timer_duration);
