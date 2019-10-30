@@ -312,7 +312,10 @@ on_record_closed(GtkPopover*, ChatView *self)
 
     priv->cpp->current_action_ = RecordAction::RECORD;
     if (priv->timer_duration) g_source_remove(priv->timer_duration);
-    if (priv->is_video_record) priv->cpp->avModel_->stopPreview();
+    if (priv->is_video_record) {
+        priv->cpp->avModel_->stopPreview();
+        QObject::disconnect(priv->local_renderer_connection);
+    }
     priv->duration = 0;
 }
 
@@ -1024,6 +1027,7 @@ init_video_widget(ChatView* self)
                 priv->cpp->avModel_, previewRenderer, VIDEO_RENDERER_REMOTE);
         } else {
             priv->video_started_by_settings = true;
+            QObject::disconnect(priv->local_renderer_connection);
             priv->local_renderer_connection = QObject::connect(
                 &*priv->cpp->avModel_,
                 &lrc::api::AVModel::rendererStarted,
