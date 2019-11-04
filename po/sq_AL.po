@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-29 14:50-0400\n"
-"PO-Revision-Date: 2019-10-29 18:43+0000\n"
+"POT-Creation-Date: 2019-11-04 03:09-0500\n"
+"PO-Revision-Date: 2019-11-04 08:09+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/jami/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -248,7 +248,7 @@ msgid "Toggle recording"
 msgstr "Shfa/fshih incizim"
 
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
-#: ui/messagingwidget.ui:29 src/chatview.cpp:341
+#: ui/messagingwidget.ui:29 src/chatview.cpp:344
 msgid "Record"
 msgstr "Regjistroje"
 
@@ -546,7 +546,7 @@ msgstr "Të përgjithshme"
 msgid "Media"
 msgstr "Media"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1845
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1846
 msgid "Settings"
 msgstr "Rregullime"
 
@@ -1096,90 +1096,90 @@ msgstr "Dërgo mesazhin e incizuar"
 msgid "Add account…"
 msgstr "Shtoni llogari…"
 
-#: src/ringmainwindow.cpp:845
+#: src/ringmainwindow.cpp:846
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "bëni një thirrje"
 
-#: src/ringmainwindow.cpp:848
+#: src/ringmainwindow.cpp:849
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "hape fjalosjen"
 
-#: src/ringmainwindow.cpp:1055
+#: src/ringmainwindow.cpp:1056
 msgid "Jami - Migration needed"
 msgstr "Jami - Lypset migrim"
 
-#: src/ringmainwindow.cpp:1068
+#: src/ringmainwindow.cpp:1069
 msgid "Migration in progress... please do not close this window."
 msgstr "Migrim në kryerje e sipër… ju lutemi, mos e mbyllni këtë dritare."
 
-#: src/ringmainwindow.cpp:1349
+#: src/ringmainwindow.cpp:1350
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Gjeni ose filloni një bisedë"
 
-#: src/ringmainwindow.cpp:1820
+#: src/ringmainwindow.cpp:1821
 msgid "Leave settings page"
 msgstr "Braktise faqen e rregullimeve"
 
-#: src/ringmainwindow.cpp:2247
+#: src/ringmainwindow.cpp:2248
 msgid "There are active calls"
 msgstr "Ka thirrje aktive"
 
-#: src/ringmainwindow.cpp:2301
+#: src/ringmainwindow.cpp:2302
 msgid " is calling you!"
 msgstr " po ju thërret!"
 
-#: src/ringmainwindow.cpp:2302
+#: src/ringmainwindow.cpp:2303
 msgid "Incoming call"
 msgstr "Thirrje ardhëse"
 
-#: src/ringmainwindow.cpp:2445
+#: src/ringmainwindow.cpp:2446
 msgid "New request from "
 msgstr "Kërkesë e re nga "
 
-#: src/ringmainwindow.cpp:2446
+#: src/ringmainwindow.cpp:2447
 msgid "Trust request"
 msgstr "Kërkesë besueshmërie"
 
-#: src/ringmainwindow.cpp:2507
+#: src/ringmainwindow.cpp:2508
 msgid "New message"
 msgstr "Mesazh i ri"
 
-#: src/ringmainwindow.cpp:2570
+#: src/ringmainwindow.cpp:2571
 msgid "Stop current call?"
 msgstr "Të ndalet thirrja e tanishme?"
 
-#: src/ringmainwindow.cpp:2571
+#: src/ringmainwindow.cpp:2572
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Ka një thirrje në kryerje e sipër. Doni të mbyllet dritarja dhe të ndalen krejt thirrjet e tanishme?"
 
-#: src/ringmainwindow.cpp:2638
+#: src/ringmainwindow.cpp:2639
 msgid "Clear history"
 msgstr "Pastroje historikun"
 
-#: src/ringmainwindow.cpp:2639
+#: src/ringmainwindow.cpp:2640
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Doni të pastrohet vërtet historiku i kësaj bisede?"
 
-#: src/ringmainwindow.cpp:2654
+#: src/ringmainwindow.cpp:2655
 msgid "Remove conversation"
 msgstr "Hiqe bisedën"
 
-#: src/ringmainwindow.cpp:2655
+#: src/ringmainwindow.cpp:2656
 msgid "Do you really want to remove this conversation?"
 msgstr "Doni të hiqet vërtet kjo bisedë?"
 
-#: src/ringmainwindow.cpp:2670
+#: src/ringmainwindow.cpp:2671
 msgid "Block contact"
 msgstr "Bllokojeni kontaktin"
 
-#: src/ringmainwindow.cpp:2671
+#: src/ringmainwindow.cpp:2672
 msgid "Do you really want to block this contact?"
 msgstr "Doni të bllokohet vërtet ky kontakt?"
 
@@ -1325,9 +1325,17 @@ msgstr "Jami është software i lirë për komunikim universal që respekton pri
 msgid "Send File"
 msgstr "Dërgo Kartelë"
 
-#: src/chatview.cpp:331
+#: src/chatview.cpp:334
 msgid "Retry"
 msgstr "Riprovoni"
+
+#: src/chatview.cpp:476
+msgid "Stop"
+msgstr "Ndale"
+
+#: src/chatview.cpp:994
+msgid "Send"
+msgstr "Dërgoje"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
 msgid ""

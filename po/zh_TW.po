@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-29 14:50-0400\n"
-"PO-Revision-Date: 2019-10-29 18:43+0000\n"
-"Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
+"POT-Creation-Date: 2019-11-04 03:09-0500\n"
+"PO-Revision-Date: 2019-11-04 08:09+0000\n"
+"Last-Translator: Hsiu-Ming Chang <cges30901@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -251,7 +251,7 @@ msgid "Toggle recording"
 msgstr "切換錄製"
 
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
-#: ui/messagingwidget.ui:29 src/chatview.cpp:341
+#: ui/messagingwidget.ui:29 src/chatview.cpp:344
 msgid "Record"
 msgstr "記錄"
 
@@ -549,7 +549,7 @@ msgstr "一般"
 msgid "Media"
 msgstr "媒體"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1845
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1846
 msgid "Settings"
 msgstr "設定"
 
@@ -1099,90 +1099,90 @@ msgstr "傳送已錄製的訊息"
 msgid "Add account…"
 msgstr "新增帳號……"
 
-#: src/ringmainwindow.cpp:845
+#: src/ringmainwindow.cpp:846
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "開始通話"
 
-#: src/ringmainwindow.cpp:848
+#: src/ringmainwindow.cpp:849
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "開啟聊天"
 
-#: src/ringmainwindow.cpp:1055
+#: src/ringmainwindow.cpp:1056
 msgid "Jami - Migration needed"
 msgstr "Jami - 需要遷移"
 
-#: src/ringmainwindow.cpp:1068
+#: src/ringmainwindow.cpp:1069
 msgid "Migration in progress... please do not close this window."
 msgstr "正在遷移…… 請不要關閉視窗。"
 
-#: src/ringmainwindow.cpp:1349
+#: src/ringmainwindow.cpp:1350
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "尋找或開始對話"
 
-#: src/ringmainwindow.cpp:1820
+#: src/ringmainwindow.cpp:1821
 msgid "Leave settings page"
 msgstr "離開設定頁面"
 
-#: src/ringmainwindow.cpp:2247
+#: src/ringmainwindow.cpp:2248
 msgid "There are active calls"
 msgstr "有活躍的通話"
 
-#: src/ringmainwindow.cpp:2301
+#: src/ringmainwindow.cpp:2302
 msgid " is calling you!"
 msgstr "正在與您通話！"
 
-#: src/ringmainwindow.cpp:2302
+#: src/ringmainwindow.cpp:2303
 msgid "Incoming call"
 msgstr "來電"
 
-#: src/ringmainwindow.cpp:2445
+#: src/ringmainwindow.cpp:2446
 msgid "New request from "
 msgstr "新請求從"
 
-#: src/ringmainwindow.cpp:2446
+#: src/ringmainwindow.cpp:2447
 msgid "Trust request"
 msgstr "信任請求"
 
-#: src/ringmainwindow.cpp:2507
+#: src/ringmainwindow.cpp:2508
 msgid "New message"
 msgstr "新訊息"
 
-#: src/ringmainwindow.cpp:2570
+#: src/ringmainwindow.cpp:2571
 msgid "Stop current call?"
 msgstr "停止目前的通話？"
 
-#: src/ringmainwindow.cpp:2571
+#: src/ringmainwindow.cpp:2572
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "通話進行中。您想要關閉視窗並停止目前所有的通話嗎？"
 
-#: src/ringmainwindow.cpp:2638
+#: src/ringmainwindow.cpp:2639
 msgid "Clear history"
 msgstr "清除記錄"
 
-#: src/ringmainwindow.cpp:2639
+#: src/ringmainwindow.cpp:2640
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "您真的想要清除此對話的歷史嗎？"
 
-#: src/ringmainwindow.cpp:2654
+#: src/ringmainwindow.cpp:2655
 msgid "Remove conversation"
 msgstr "移除對話"
 
-#: src/ringmainwindow.cpp:2655
+#: src/ringmainwindow.cpp:2656
 msgid "Do you really want to remove this conversation?"
 msgstr "您真的想要移除此對話嗎？"
 
-#: src/ringmainwindow.cpp:2670
+#: src/ringmainwindow.cpp:2671
 msgid "Block contact"
 msgstr "阻擋連絡人"
 
-#: src/ringmainwindow.cpp:2671
+#: src/ringmainwindow.cpp:2672
 msgid "Do you really want to block this contact?"
 msgstr "您真的想要封鎖此聯絡人嗎？"
 
@@ -1328,9 +1328,17 @@ msgstr "Jami 是一套通用通訊的自由軟體，其尊重使用者的自由�
 msgid "Send File"
 msgstr "傳送檔案"
 
-#: src/chatview.cpp:331
+#: src/chatview.cpp:334
 msgid "Retry"
 msgstr "重試"
+
+#: src/chatview.cpp:476
+msgid "Stop"
+msgstr "停止"
+
+#: src/chatview.cpp:994
+msgid "Send"
+msgstr "傳送"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
 msgid ""

@@ -17,7 +17,8 @@
 # ruwebstyle, 2015
 # Viktor Filinkov <bruteforce@sigil.tk>, 2015
 # Vladimir Stoiakin, 2018-2019
-# Vladimir Studinsky <studinsky@gmail.com>, 2019
+# W. Studinsky <studinsky@gmail.com>, 2019
+# W. Studinsky <studinsky@gmail.com>, 2019
 # Yaroslav Molochko <onorua@gmail.com>, 2015
 # Alexander Filev <ifillrok@gmail.com>, 2017
 # Александр Суслов <suslikkreal@gmail.com>, 2015
@@ -29,9 +30,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-29 14:50-0400\n"
-"PO-Revision-Date: 2019-10-29 18:43+0000\n"
-"Last-Translator: Vladimir Studinsky <studinsky@gmail.com>\n"
+"POT-Creation-Date: 2019-11-04 03:09-0500\n"
+"PO-Revision-Date: 2019-11-04 08:09+0000\n"
+"Last-Translator: Александр Асланьян <asl174@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -221,7 +222,7 @@ msgstr "Перенести аккаунт"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "Переносим ваш аккаунт Jami…"
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
@@ -269,7 +270,7 @@ msgid "Toggle recording"
 msgstr "Начать/остановить запись"
 
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
-#: ui/messagingwidget.ui:29 src/chatview.cpp:341
+#: ui/messagingwidget.ui:29 src/chatview.cpp:344
 msgid "Record"
 msgstr "Запись"
 
@@ -303,7 +304,7 @@ msgstr "Переадресовать на"
 
 #: ui/currentcallview.ui:616
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -567,7 +568,7 @@ msgstr "Общие"
 msgid "Media"
 msgstr "Медиа"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1845
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1846
 msgid "Settings"
 msgstr "Настройки"
 
@@ -1117,90 +1118,90 @@ msgstr "Отправить записанное сообщение"
 msgid "Add account…"
 msgstr "Добавить аккаунт…"
 
-#: src/ringmainwindow.cpp:845
+#: src/ringmainwindow.cpp:846
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "позвонить"
 
-#: src/ringmainwindow.cpp:848
+#: src/ringmainwindow.cpp:849
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "открыть чат"
 
-#: src/ringmainwindow.cpp:1055
+#: src/ringmainwindow.cpp:1056
 msgid "Jami - Migration needed"
 msgstr "Jami - необходима миграция"
 
-#: src/ringmainwindow.cpp:1068
+#: src/ringmainwindow.cpp:1069
 msgid "Migration in progress... please do not close this window."
 msgstr "Идет миграция... пожалуйста, не закрывайте это окно."
 
-#: src/ringmainwindow.cpp:1349
+#: src/ringmainwindow.cpp:1350
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr ""
+msgstr "Найти или начать разговор"
 
-#: src/ringmainwindow.cpp:1820
+#: src/ringmainwindow.cpp:1821
 msgid "Leave settings page"
 msgstr "Выйти из настроек"
 
-#: src/ringmainwindow.cpp:2247
+#: src/ringmainwindow.cpp:2248
 msgid "There are active calls"
 msgstr "Есть активные звонки"
 
-#: src/ringmainwindow.cpp:2301
+#: src/ringmainwindow.cpp:2302
 msgid " is calling you!"
 msgstr "звонит вам!"
 
-#: src/ringmainwindow.cpp:2302
+#: src/ringmainwindow.cpp:2303
 msgid "Incoming call"
 msgstr "Входящий вызов"
 
-#: src/ringmainwindow.cpp:2445
+#: src/ringmainwindow.cpp:2446
 msgid "New request from "
 msgstr "Новый запрос от"
 
-#: src/ringmainwindow.cpp:2446
+#: src/ringmainwindow.cpp:2447
 msgid "Trust request"
 msgstr "Запрос доверия"
 
-#: src/ringmainwindow.cpp:2507
+#: src/ringmainwindow.cpp:2508
 msgid "New message"
 msgstr "Новое сообщение"
 
-#: src/ringmainwindow.cpp:2570
+#: src/ringmainwindow.cpp:2571
 msgid "Stop current call?"
 msgstr "Завершить текущий звонок?"
 
-#: src/ringmainwindow.cpp:2571
+#: src/ringmainwindow.cpp:2572
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "В настоящее время идёт беседа. Хотите закрыть окно и остановить все текущие вызовы?"
 
-#: src/ringmainwindow.cpp:2638
+#: src/ringmainwindow.cpp:2639
 msgid "Clear history"
 msgstr "Очистить историю"
 
-#: src/ringmainwindow.cpp:2639
+#: src/ringmainwindow.cpp:2640
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Вы действительно хотите очистить историю этой переписки? "
 
-#: src/ringmainwindow.cpp:2654
+#: src/ringmainwindow.cpp:2655
 msgid "Remove conversation"
 msgstr "Удалить диалог"
 
-#: src/ringmainwindow.cpp:2655
+#: src/ringmainwindow.cpp:2656
 msgid "Do you really want to remove this conversation?"
 msgstr "Вы действительно хотите удалить этой переписку? "
 
-#: src/ringmainwindow.cpp:2670
+#: src/ringmainwindow.cpp:2671
 msgid "Block contact"
 msgstr "Заблокировать контакт"
 
-#: src/ringmainwindow.cpp:2671
+#: src/ringmainwindow.cpp:2672
 msgid "Do you really want to block this contact?"
 msgstr "Вы действительно хотите заблокировать этот контакт?"
 
@@ -1346,9 +1347,17 @@ msgstr "Jami — свободная программа для связи, ува
 msgid "Send File"
 msgstr "Отправить файл"
 
-#: src/chatview.cpp:331
+#: src/chatview.cpp:334
 msgid "Retry"
 msgstr "Повторить"
+
+#: src/chatview.cpp:476
+msgid "Stop"
+msgstr "Стоп"
+
+#: src/chatview.cpp:994
+msgid "Send"
+msgstr "Отправить"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
 msgid ""
@@ -1358,15 +1367,15 @@ msgstr "Предупреждение: Это действие удалит вы�
 
 #: src/currentcallview.cpp:936
 msgid "Current conference (all accounts)"
-msgstr ""
+msgstr "Текущая конференция (все аккаунты)"
 
 #: src/currentcallview.cpp:970
 msgid "Current calls (all accounts)"
-msgstr ""
+msgstr "Текущие звонки (все аккаунты)"
 
 #: src/currentcallview.cpp:984
 msgid "Online contacts"
-msgstr ""
+msgstr "Интернет контакты"
 
 #: src/currentcallview.cpp:1408
 msgctxt "Enable automatic video quality"

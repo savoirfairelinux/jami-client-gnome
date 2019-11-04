@@ -27,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-29 14:50-0400\n"
-"PO-Revision-Date: 2019-10-29 18:43+0000\n"
-"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2019-11-04 03:09-0500\n"
+"PO-Revision-Date: 2019-11-04 08:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -267,7 +267,7 @@ msgid "Toggle recording"
 msgstr "Bouton d'enregistrement"
 
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
-#: ui/messagingwidget.ui:29 src/chatview.cpp:341
+#: ui/messagingwidget.ui:29 src/chatview.cpp:344
 msgid "Record"
 msgstr "Enregistrer"
 
@@ -301,7 +301,7 @@ msgstr "Transférer à "
 
 #: ui/currentcallview.ui:616
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -565,7 +565,7 @@ msgstr "Général"
 msgid "Media"
 msgstr "Médias"
 
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1845
+#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1846
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -1115,90 +1115,90 @@ msgstr "Envoyer le message enregistré"
 msgid "Add account…"
 msgstr "Ajouter un compte ..."
 
-#: src/ringmainwindow.cpp:845
+#: src/ringmainwindow.cpp:846
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Appeler"
 
-#: src/ringmainwindow.cpp:848
+#: src/ringmainwindow.cpp:849
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Ouvrir la discussion"
 
-#: src/ringmainwindow.cpp:1055
+#: src/ringmainwindow.cpp:1056
 msgid "Jami - Migration needed"
 msgstr "Jami - Migration nécessaire"
 
-#: src/ringmainwindow.cpp:1068
+#: src/ringmainwindow.cpp:1069
 msgid "Migration in progress... please do not close this window."
 msgstr "Migration en cours ... S'il vous plaît, ne fermez pas la fenêtre."
 
-#: src/ringmainwindow.cpp:1349
+#: src/ringmainwindow.cpp:1350
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Chercher ou démarrer une conversation"
 
-#: src/ringmainwindow.cpp:1820
+#: src/ringmainwindow.cpp:1821
 msgid "Leave settings page"
 msgstr "Quitter la page des réglages"
 
-#: src/ringmainwindow.cpp:2247
+#: src/ringmainwindow.cpp:2248
 msgid "There are active calls"
 msgstr "Il y a des appels en cours"
 
-#: src/ringmainwindow.cpp:2301
+#: src/ringmainwindow.cpp:2302
 msgid " is calling you!"
 msgstr "vous appelle"
 
-#: src/ringmainwindow.cpp:2302
+#: src/ringmainwindow.cpp:2303
 msgid "Incoming call"
 msgstr "Appel entrant"
 
-#: src/ringmainwindow.cpp:2445
+#: src/ringmainwindow.cpp:2446
 msgid "New request from "
 msgstr "Nouvelle demande de "
 
-#: src/ringmainwindow.cpp:2446
+#: src/ringmainwindow.cpp:2447
 msgid "Trust request"
 msgstr "Invitation"
 
-#: src/ringmainwindow.cpp:2507
+#: src/ringmainwindow.cpp:2508
 msgid "New message"
 msgstr "Nouveau message"
 
-#: src/ringmainwindow.cpp:2570
+#: src/ringmainwindow.cpp:2571
 msgid "Stop current call?"
 msgstr "Mettre fin à l'appel en cours?"
 
-#: src/ringmainwindow.cpp:2571
+#: src/ringmainwindow.cpp:2572
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "I y a un appel en cours. Désirez vous fermer la fenêtre et mettre fin à tous les appels en cours?"
 
-#: src/ringmainwindow.cpp:2638
+#: src/ringmainwindow.cpp:2639
 msgid "Clear history"
 msgstr "Effacer l'historique"
 
-#: src/ringmainwindow.cpp:2639
+#: src/ringmainwindow.cpp:2640
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Voulez-vous vraiment effacer l'historique de cette conversation ?"
 
-#: src/ringmainwindow.cpp:2654
+#: src/ringmainwindow.cpp:2655
 msgid "Remove conversation"
 msgstr "Supprimer la conversation"
 
-#: src/ringmainwindow.cpp:2655
+#: src/ringmainwindow.cpp:2656
 msgid "Do you really want to remove this conversation?"
 msgstr "Êtes-vous certain de vouloir supprimer cette conversation ? "
 
-#: src/ringmainwindow.cpp:2670
+#: src/ringmainwindow.cpp:2671
 msgid "Block contact"
 msgstr "Bloquer le contact"
 
-#: src/ringmainwindow.cpp:2671
+#: src/ringmainwindow.cpp:2672
 msgid "Do you really want to block this contact?"
 msgstr "Souhaitez-vous vraiment bloquer ce contact ?"
 
@@ -1344,9 +1344,17 @@ msgstr "Jami est un logiciel libre de communication universel qui respecte la vi
 msgid "Send File"
 msgstr "Envoyez un fichier"
 
-#: src/chatview.cpp:331
+#: src/chatview.cpp:334
 msgid "Retry"
 msgstr "Réessaie"
+
+#: src/chatview.cpp:476
+msgid "Stop"
+msgstr "Stop"
+
+#: src/chatview.cpp:994
+msgid "Send"
+msgstr "Envoyer"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
 msgid ""
@@ -1356,15 +1364,15 @@ msgstr "Attention ! Cette opération supprimera votre compte de l'appareil.\nVou
 
 #: src/currentcallview.cpp:936
 msgid "Current conference (all accounts)"
-msgstr ""
+msgstr "Conférence courantes (tous les comptes)"
 
 #: src/currentcallview.cpp:970
 msgid "Current calls (all accounts)"
-msgstr ""
+msgstr "Appels courant (tous les comptes)"
 
 #: src/currentcallview.cpp:984
 msgid "Online contacts"
-msgstr ""
+msgstr "Contacts en ligne"
 
 #: src/currentcallview.cpp:1408
 msgctxt "Enable automatic video quality"

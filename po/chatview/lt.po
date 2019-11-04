@@ -113,7 +113,7 @@ msgstr ""
 
 #: web/chatview.html:637
 msgid "Failure"
-msgstr ""
+msgstr "Nesėkmė"
 
 #: web/chatview.html:1286
 msgid "Delete"
