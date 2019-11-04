@@ -294,7 +294,7 @@ account_creation_show_error_view(AccountCreationWizard *view, const std::string&
                 break;
             case Mode::IMPORT_FROM_BACKUP:
                 gtk_label_set_text(GTK_LABEL(priv->label_error_view),
-                    _("annot retrieve any account, please verify your archive and your password."));
+                    _("Cannot retrieve any account, please verify your archive and your password."));
                 break;
             case Mode::CONNECT_TO_MANAGER:
                 gtk_label_set_text(GTK_LABEL(priv->label_error_view),
@@ -884,7 +884,7 @@ build_creation_wizard_view(AccountCreationWizard *view)
 
     /* error_view signals */
     g_signal_connect_swapped(priv->button_error_view_ok, "clicked", G_CALLBACK(error_ok_clicked), view);
-    
+
 
     /* Connect to account_manager */
     g_signal_connect_swapped(priv->entry_account_manager_username, "changed", G_CALLBACK(entries_connect_account_manager_changed), view);

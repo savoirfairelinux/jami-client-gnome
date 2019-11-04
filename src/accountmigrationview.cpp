@@ -152,7 +152,7 @@ migrate(AccountMigrationView *view)
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
     priv->state_changed = QObject::connect((*priv->accountInfo_)->accountModel,
                                            &lrc::api::NewAccountModel::migrationEnded,
-        [=] (const std::string& accountId, bool ok)
+        [=] (const std::string&, bool ok)
         {
             gtk_widget_hide(priv->hbox_migrating_account_spinner);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->button_delete_account), true);
