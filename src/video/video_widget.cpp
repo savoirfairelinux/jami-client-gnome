@@ -411,8 +411,14 @@ switch_video_input(GtkWidget *widget, GtkWidget *parent)
     auto* label = gtk_menu_item_get_label(GTK_MENU_ITEM(widget));
     g_return_if_fail(label);
 
-    if (priv->avModel_)
-        priv->avModel_->switchInputTo(label);
+    if (priv->avModel_) {
+        auto device_id = priv->avModel_->getDeviceIdFromName(label);
+        if (device_id.empty()) {
+            g_warning("switch_video_input couldn't find device: %s", label);
+            return;
+        }
+        priv->avModel_->switchInputTo(device_id);
+    }
 }
 
 static void
@@ -532,8 +538,11 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
     auto active_device = priv->avModel_->getCurrentRenderedDevice(
         priv->remote->v_renderer->getId());
 
+    g_debug("active_device.name: %s", active_device.name.c_str());
+
     for (auto device : device_list) {
-        GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(device.c_str());
+        auto settings = priv->avModel_->getDeviceSettings(device);
+        GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(settings.name.c_str());
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item),
             device == active_device.name

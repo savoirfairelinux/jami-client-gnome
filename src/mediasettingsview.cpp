@@ -386,17 +386,11 @@ set_video_device(MediaSettingsView* self)
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
     auto* device_name = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_device));
     if (device_name) {
-        auto devices = priv->cpp->avModel_->getDevices();
-        auto iter = std::find_if(devices.begin(), devices.end(),
-            [device_name, &priv](const std::string& d) {
-                auto settings = priv->cpp->avModel_->getDeviceSettings(d);
-                return settings.name == device_name;
-            });
-        if (iter == devices.end()) {
+        auto device_id = priv->cpp->avModel_->getDeviceIdFromName(device_name);
+        if (device_id.empty()) {
             g_warning("set_video_device couldn't find device: %s", device_name);
             return;
         }
-        auto& device_id = *iter;
         auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
         if (currentDevice == device_id) return;
         priv->cpp->avModel_->setDefaultDevice(device_id);
