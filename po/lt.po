@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-04 03:09-0500\n"
-"PO-Revision-Date: 2019-11-04 08:09+0000\n"
-"Last-Translator: Moo\n"
+"POT-Creation-Date: 2019-11-11 03:09-0500\n"
+"PO-Revision-Date: 2019-11-11 08:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/jami/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,12 +90,12 @@ msgstr "Išvalyti istoriją"
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr ""
+msgstr "Pridėti pokalbį"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
-msgstr ""
+msgstr "Šalinti pokalbį"
 
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
@@ -300,7 +300,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "Importuoti iš įrenginio"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
@@ -336,7 +336,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
-msgstr ""
+msgstr "Informacija."
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
@@ -412,7 +412,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "Daugiau neberodyti"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2054
@@ -526,7 +526,7 @@ msgstr ""
 
 #: ui/profile.ui:58
 msgid "Informations"
-msgstr ""
+msgstr "Informacija"
 
 #: ui/profile.ui:88 ui/newaccountsettingsview.ui:460
 msgid "ID"
@@ -983,11 +983,11 @@ msgstr "Neteisingas naudotojo vardas"
 
 #: src/usernameregistrationbox.cpp:193
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "Paieška neprieinama, patikrinkite savo tinklo ryšį"
 
 #: src/usernameregistrationbox.cpp:273
 msgid "Performing lookup…"
-msgstr ""
+msgstr "Atliekama paieška…"
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
@@ -999,25 +999,25 @@ msgstr "Vyksta registracija…"
 
 #: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
-msgstr ""
+msgstr "Vardo registracijos klaida"
 
 #: src/usernameregistrationbox.cpp:434
 msgid ""
 "Unable to register name (Invalid name). Your username should contains "
 "between 3 and 32 alphanumerics characters (or underscore)."
-msgstr ""
+msgstr "Nepavyko registruoti vardo (Neteisingas vardas). Jūsų naudotojo varde turėtų būti nuo 3 iki 32 raidžių ar skaitmenų (arba pabraukimo brūkšnys)."
 
 #: src/usernameregistrationbox.cpp:438
 msgid "Unable to register name (Wrong password)."
-msgstr ""
+msgstr "Nepavyko registruoti vardo (Neteisingas slaptažodis)."
 
 #: src/usernameregistrationbox.cpp:442
 msgid "Unable to register name (Username already taken)."
-msgstr ""
+msgstr "Nepavyko registruoti vardo (Naudotojo vardas jau užimtas)."
 
 #: src/usernameregistrationbox.cpp:446
 msgid "Unable to register name (Network error) - check your connection."
-msgstr ""
+msgstr "Nepavyko registruoti vardo (Tinklo klaida) - patikrinkite savo ryšį."
 
 #: src/generalsettingsview.cpp:151
 msgid ""
@@ -1040,19 +1040,19 @@ msgstr "_Atsisakyti"
 msgid "_Save"
 msgstr "Į_rašyti"
 
-#: src/video/video_widget.cpp:549
+#: src/video/video_widget.cpp:558
 msgid "Share _screen area"
 msgstr "Bendrinti _ekrano sritį"
 
-#: src/video/video_widget.cpp:557
+#: src/video/video_widget.cpp:566
 msgid "Share _monitor"
 msgstr ""
 
-#: src/video/video_widget.cpp:564
+#: src/video/video_widget.cpp:573
 msgid "Stream _file"
 msgstr "Transliuoti _failą"
 
-#: src/video/video_widget.cpp:574
+#: src/video/video_widget.cpp:583
 msgid "Show advanced information"
 msgstr "Rodyti išplėstinę informaciją"
 
@@ -1171,7 +1171,7 @@ msgstr ""
 
 #: src/ringmainwindow.cpp:2655
 msgid "Remove conversation"
-msgstr ""
+msgstr "Šalinti pokalbį"
 
 #: src/ringmainwindow.cpp:2656
 msgid "Do you really want to remove this conversation?"
@@ -1268,13 +1268,13 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
-"annot retrieve any account, please verify your archive and your password."
+"Cannot retrieve any account, please verify your archive and your password."
 msgstr ""
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "Nepavyksta prisijungti prie pateiktos paskyros tvarkytuvės. Patikrinkite savo prisijungimo duomenis."
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"

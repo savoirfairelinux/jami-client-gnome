@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-04 03:09-0500\n"
+"POT-Creation-Date: 2019-11-11 03:09-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1037,19 +1037,19 @@ msgstr ""
 msgid "_Save"
 msgstr ""
 
-#: src/video/video_widget.cpp:549
+#: src/video/video_widget.cpp:558
 msgid "Share _screen area"
 msgstr ""
 
-#: src/video/video_widget.cpp:557
+#: src/video/video_widget.cpp:566
 msgid "Share _monitor"
 msgstr ""
 
-#: src/video/video_widget.cpp:564
+#: src/video/video_widget.cpp:573
 msgid "Stream _file"
 msgstr ""
 
-#: src/video/video_widget.cpp:574
+#: src/video/video_widget.cpp:583
 msgid "Show advanced information"
 msgstr ""
 
@@ -1266,7 +1266,7 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
-"annot retrieve any account, please verify your archive and your password."
+"Cannot retrieve any account, please verify your archive and your password."
 msgstr ""
 
 #: src/accountcreationwizard.cpp:301

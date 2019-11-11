@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-04 03:09-0500\n"
-"PO-Revision-Date: 2019-11-04 08:09+0000\n"
-"Last-Translator: Hsiu-Ming Chang <cges30901@gmail.com>\n"
+"POT-Creation-Date: 2019-11-11 03:09-0500\n"
+"PO-Revision-Date: 2019-11-11 08:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1041,19 +1041,19 @@ msgstr "取消(_C)"
 msgid "_Save"
 msgstr "儲存(_S)"
 
-#: src/video/video_widget.cpp:549
+#: src/video/video_widget.cpp:558
 msgid "Share _screen area"
 msgstr "分享螢幕區域(_S)"
 
-#: src/video/video_widget.cpp:557
+#: src/video/video_widget.cpp:566
 msgid "Share _monitor"
 msgstr "分享螢幕(_M)"
 
-#: src/video/video_widget.cpp:564
+#: src/video/video_widget.cpp:573
 msgid "Stream _file"
 msgstr "串流檔案(_F)"
 
-#: src/video/video_widget.cpp:574
+#: src/video/video_widget.cpp:583
 msgid "Show advanced information"
 msgstr "顯示進階資訊"
 
@@ -1269,8 +1269,8 @@ msgstr "無法擷取任何帳號，請驗證您的 PIN 碼與您的密碼。"
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
-"annot retrieve any account, please verify your archive and your password."
-msgstr "無法擷取任何帳號，請驗證您的封存與您的密碼。"
+"Cannot retrieve any account, please verify your archive and your password."
+msgstr ""
 
 #: src/accountcreationwizard.cpp:301
 msgid ""

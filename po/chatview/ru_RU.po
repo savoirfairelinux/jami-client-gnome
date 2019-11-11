@@ -7,6 +7,7 @@
 # Дмитрий Михирев, 2019
 # Still Swamp <still.swamp@gmail.com>, 2019
 # Pavel Klimenko <dzy4yzd@gmail.com>, 2019
+# Марат Хазиев <mkhaziev6@gmail.com>, 2019
 # 
 #, fuzzy
 msgid ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-25 14:38+0200\n"
 "PO-Revision-Date: 2019-05-27 14:08+0000\n"
-"Last-Translator: Pavel Klimenko <dzy4yzd@gmail.com>, 2019\n"
+"Last-Translator: Марат Хазиев <mkhaziev6@gmail.com>, 2019\n"
 "Language-Team: Russian (Russia) (https://www.transifex.com/savoirfairelinux/teams/49466/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,7 +62,7 @@ msgstr "Отказать"
 
 #: web/chatview.html:190
 msgid "Block"
-msgstr ""
+msgstr "Заблокировать"
 
 #: web/chatview.html:194
 msgid "Type a message"

@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-04 03:09-0500\n"
-"PO-Revision-Date: 2019-11-04 08:09+0000\n"
-"Last-Translator: Still Swamp <still.swamp@gmail.com>\n"
+"POT-Creation-Date: 2019-11-11 03:09-0500\n"
+"PO-Revision-Date: 2019-11-11 08:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/savoirfairelinux/jami/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,7 +88,7 @@ msgstr ""
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Clear history"
-msgstr ""
+msgstr "Очистить историю"
 
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
@@ -103,7 +103,7 @@ msgstr ""
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
-msgstr ""
+msgstr "Заблокировать контакт"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
@@ -424,7 +424,7 @@ msgstr "Экспортировать аккаунт"
 
 #: ui/accountcreationwizard.ui:813
 msgid "Skip"
-msgstr ""
+msgstr "Пропустить"
 
 #: ui/accountcreationwizard.ui:839
 msgid "Registering username…"
@@ -1043,19 +1043,19 @@ msgstr "_Отмена"
 msgid "_Save"
 msgstr "_Сохранить"
 
-#: src/video/video_widget.cpp:549
+#: src/video/video_widget.cpp:558
 msgid "Share _screen area"
 msgstr "Показать _область экрана"
 
-#: src/video/video_widget.cpp:557
+#: src/video/video_widget.cpp:566
 msgid "Share _monitor"
 msgstr "Показать _экран"
 
-#: src/video/video_widget.cpp:564
+#: src/video/video_widget.cpp:573
 msgid "Stream _file"
 msgstr "Транслировать _файл"
 
-#: src/video/video_widget.cpp:574
+#: src/video/video_widget.cpp:583
 msgid "Show advanced information"
 msgstr "Показать дополнительную информацию"
 
@@ -1166,7 +1166,7 @@ msgstr "В настоящее время идёт беседа. Хотите з�
 
 #: src/ringmainwindow.cpp:2639
 msgid "Clear history"
-msgstr ""
+msgstr "Очистить историю"
 
 #: src/ringmainwindow.cpp:2640
 msgid "Do you really want to clear the history of this conversation?"
@@ -1182,7 +1182,7 @@ msgstr ""
 
 #: src/ringmainwindow.cpp:2671
 msgid "Block contact"
-msgstr ""
+msgstr "Заблокировать контакт"
 
 #: src/ringmainwindow.cpp:2672
 msgid "Do you really want to block this contact?"
@@ -1271,7 +1271,7 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
-"annot retrieve any account, please verify your archive and your password."
+"Cannot retrieve any account, please verify your archive and your password."
 msgstr ""
 
 #: src/accountcreationwizard.cpp:301

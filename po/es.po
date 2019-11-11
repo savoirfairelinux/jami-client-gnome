@@ -38,9 +38,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-04 03:09-0500\n"
-"PO-Revision-Date: 2019-11-04 08:09+0000\n"
-"Last-Translator: Ernesto Rodriguez Ortiz <ernesto.rodriguezortiz@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2019-11-11 03:09-0500\n"
+"PO-Revision-Date: 2019-11-11 08:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/jami/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1068,19 +1068,19 @@ msgstr "_Cancelar"
 msgid "_Save"
 msgstr "_Guardar"
 
-#: src/video/video_widget.cpp:549
+#: src/video/video_widget.cpp:558
 msgid "Share _screen area"
 msgstr "Compartir el área de _pantalla"
 
-#: src/video/video_widget.cpp:557
+#: src/video/video_widget.cpp:566
 msgid "Share _monitor"
 msgstr "Compartir el _monitor"
 
-#: src/video/video_widget.cpp:564
+#: src/video/video_widget.cpp:573
 msgid "Stream _file"
 msgstr "_Archivo de transmisión"
 
-#: src/video/video_widget.cpp:574
+#: src/video/video_widget.cpp:583
 msgid "Show advanced information"
 msgstr "Mostrar información avanzada"
 
@@ -1296,7 +1296,7 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
-"annot retrieve any account, please verify your archive and your password."
+"Cannot retrieve any account, please verify your archive and your password."
 msgstr ""
 
 #: src/accountcreationwizard.cpp:301

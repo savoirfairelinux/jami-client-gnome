@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-04 03:09-0500\n"
-"PO-Revision-Date: 2019-11-04 08:09+0000\n"
-"Last-Translator: Besnik <besnik@programeshqip.org>\n"
+"POT-Creation-Date: 2019-11-11 03:09-0500\n"
+"PO-Revision-Date: 2019-11-11 08:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/jami/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,7 +83,7 @@ msgstr "Filloni një thirrje audio"
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Clear history"
-msgstr "Pastroje historikun"
+msgstr "Spastroje historikun"
 
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
@@ -500,7 +500,7 @@ msgstr "Mbaje historikun për (ditë, 0 = pa kufizim)"
 
 #: ui/generalsettingsview.ui:563
 msgid "Clear all history"
-msgstr "Pastro krejt historikun"
+msgstr "Spastro krejt historikun"
 
 #: ui/generalsettingsview.ui:595
 msgid "Call Recording"
@@ -1038,19 +1038,19 @@ msgstr "_Anuloje"
 msgid "_Save"
 msgstr "_Ruaje"
 
-#: src/video/video_widget.cpp:549
+#: src/video/video_widget.cpp:558
 msgid "Share _screen area"
 msgstr "Ndani me të tjerë zonë _ekrani"
 
-#: src/video/video_widget.cpp:557
+#: src/video/video_widget.cpp:566
 msgid "Share _monitor"
 msgstr "Ndani me të tjerë _monitor"
 
-#: src/video/video_widget.cpp:564
+#: src/video/video_widget.cpp:573
 msgid "Stream _file"
 msgstr "_Kartelë rrjedhe"
 
-#: src/video/video_widget.cpp:574
+#: src/video/video_widget.cpp:583
 msgid "Show advanced information"
 msgstr "Shfaq informacion të thelluar"
 
@@ -1161,11 +1161,11 @@ msgstr "Ka një thirrje në kryerje e sipër. Doni të mbyllet dritarja dhe të 
 
 #: src/ringmainwindow.cpp:2639
 msgid "Clear history"
-msgstr "Pastroje historikun"
+msgstr "Spastroje historikun"
 
 #: src/ringmainwindow.cpp:2640
 msgid "Do you really want to clear the history of this conversation?"
-msgstr "Doni të pastrohet vërtet historiku i kësaj bisede?"
+msgstr "Doni të spastrohet vërtet historiku i kësaj bisede?"
 
 #: src/ringmainwindow.cpp:2655
 msgid "Remove conversation"
@@ -1220,7 +1220,7 @@ msgstr "_Blloko ftesat"
 
 #: src/conversationpopupmenu.cpp:222
 msgid "C_lear history"
-msgstr "_Pastroje historikun"
+msgstr "_Spastroje historikun"
 
 #: src/conversationpopupmenu.cpp:225
 msgid "_Remove conversation"
@@ -1266,8 +1266,8 @@ msgstr "S’merret dot ndonjë llogari, ju lutemi, verifikoni PIN-in tuaj dhe fj
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
-"annot retrieve any account, please verify your archive and your password."
-msgstr "S’merret dot ndonjë llogari, ju lutemi, verifikoni arkivin tuaj dhe fjalëkalimin tuaj."
+"Cannot retrieve any account, please verify your archive and your password."
+msgstr ""
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
