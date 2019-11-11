@@ -894,106 +894,105 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
     avModel_ = &avModel;
     setCallInfo();
 
-    if ((*accountInfo)->profileInfo.type == lrc::api::profile::Type::RING) {
-        gtk_widget_hide(widgets->togglebutton_transfer);
+    gtk_widget_hide(widgets->togglebutton_transfer);
 
-        auto callToRender = conversation->callId;
-        if (!conversation->confId.empty())
-            callToRender = conversation->confId;
+    auto callToRender = conversation->callId;
+    if (!conversation->confId.empty())
+        callToRender = conversation->confId;
 
-        std::vector<std::string> callsId;
-        std::vector<std::string> uris;
-        bool first = true;
-        for (const auto& c : lrc_.getConferences()) {
-            // Get subcalls
-            auto cid = lrc_.getConferenceSubcalls(c);
-            callsId.insert(callsId.end(), cid.begin(), cid.end());
-            // Get participants
-            std::string uri, accountId;
-            std::vector<std::string> curis;
-            for (const auto& callId: cid) {
-                for (const auto &account_id : lrc_.getAccountModel().getAccountList()) {
-                    try {
-                        auto &accountInfo = lrc_.getAccountModel().getAccountInfo(account_id);
-                        if (accountInfo.callModel->hasCall(callId)) {
-                            const auto& call = accountInfo.callModel->getCall(callId);
-                            uri = call.peerUri.find("ring:") == std::string::npos ?
-                                call.peerUri : call.peerUri.substr(std::string("ring:").length());
-                            uris.emplace_back(uri);
-                            curis.emplace_back(uri);
-                            accountId = account_id;
-                            break;
-                        }
-                    } catch (...) {}
-                }
-            }
-
-            if (c == callToRender) {
-                continue;
-            }
-
-            if (first) {
-                add_title(_("Current conference (all accounts)"));
-                first = false;
-            }
-            if (!uri.empty()) add_conference(curis, c, accountId);
-        }
-
-        first = true;
-        for (const auto& c : lrc_.getCalls()) {
-            std::string uri, accountId;
+    std::vector<std::string> callsId;
+    std::vector<std::string> uris;
+    bool first = true;
+    for (const auto& c : lrc_.getConferences()) {
+        // Get subcalls
+        auto cid = lrc_.getConferenceSubcalls(c);
+        callsId.insert(callsId.end(), cid.begin(), cid.end());
+        // Get participants
+        std::string uri, accountId;
+        std::vector<std::string> curis;
+        for (const auto& callId: cid) {
             for (const auto &account_id : lrc_.getAccountModel().getAccountList()) {
                 try {
                     auto &accountInfo = lrc_.getAccountModel().getAccountInfo(account_id);
-                    if (accountInfo.callModel->hasCall(c)) {
-                        const auto& call = accountInfo.callModel->getCall(c);
-                        if (call.status != lrc::api::call::Status::PAUSED
-                            && call.status != lrc::api::call::Status::IN_PROGRESS) {
-                            // Ignore non active calls
-                            callsId.emplace_back(call.id);
-                            continue;
-                        }
+                    if (accountInfo.callModel->hasCall(callId)) {
+                        const auto& call = accountInfo.callModel->getCall(callId);
                         uri = call.peerUri.find("ring:") == std::string::npos ?
                             call.peerUri : call.peerUri.substr(std::string("ring:").length());
-                        accountId = account_id;
                         uris.emplace_back(uri);
+                        curis.emplace_back(uri);
+                        accountId = account_id;
                         break;
                     }
                 } catch (...) {}
             }
-            auto isPresent = std::find(callsId.cbegin(), callsId.cend(), c) != callsId.cend();
-            if (c == callToRender || isPresent) {
-                continue;
-            }
-
-            if (first) {
-                add_title(_("Current calls (all accounts)"));
-                first = false;
-            }
-            if (!uri.empty()) add_present_contact(uri, c, RowType::CALL, accountId);
         }
 
-        first = true;
-        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::RING)) {
+        if (c == callToRender) {
+            continue;
+        }
+
+        if (first) {
+            add_title(_("Current conference (all accounts)"));
+            first = false;
+        }
+        if (!uri.empty()) add_conference(curis, c, accountId);
+    }
+
+    first = true;
+    for (const auto& c : lrc_.getCalls()) {
+        std::string uri, accountId;
+        for (const auto &account_id : lrc_.getAccountModel().getAccountList()) {
             try {
-                auto participant = c.participants.front();
-                auto contactInfo = (*accountInfo)->contactModel->getContact(participant);
-                auto isPresent = std::find(uris.cbegin(), uris.cend(), participant) != uris.cend();
-                if (contactInfo.isPresent && !isPresent) {
-                    if (first) {
-                        add_title(_("Online contacts"));
-                        first = false;
+                auto &accountInfo = lrc_.getAccountModel().getAccountInfo(account_id);
+                if (accountInfo.callModel->hasCall(c)) {
+                    const auto& call = accountInfo.callModel->getCall(c);
+                    if (call.status != lrc::api::call::Status::PAUSED
+                        && call.status != lrc::api::call::Status::IN_PROGRESS) {
+                        // Ignore non active calls
+                        callsId.emplace_back(call.id);
+                        continue;
                     }
-                    add_present_contact(participant, participant, RowType::CONTACT, (*accountInfo)->id);
+                    uri = call.peerUri.find("ring:") == std::string::npos ?
+                        call.peerUri : call.peerUri.substr(std::string("ring:").length());
+                    accountId = account_id;
+                    uris.emplace_back(uri);
+                    break;
                 }
             } catch (...) {}
         }
+        auto isPresent = std::find(callsId.cbegin(), callsId.cend(), c) != callsId.cend();
+        if (c == callToRender || isPresent) {
+            continue;
+        }
+
+        if (first) {
+            add_title(_("Current calls (all accounts)"));
+            first = false;
+        }
+        if (!uri.empty()) add_present_contact(uri, c, RowType::CALL, accountId);
+    }
+
+    first = true;
+    for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations((*accountInfo)->profileInfo.type)) {
+        try {
+            auto participant = c.participants.front();
+            auto contactInfo = (*accountInfo)->contactModel->getContact(participant);
+            auto isPresent = std::find(uris.cbegin(), uris.cend(), participant) != uris.cend();
+            if (!isPresent
+                && ((*accountInfo)->profileInfo.type == lrc::api::profile::Type::SIP || contactInfo.isPresent)) {
+                if (first) {
+                    add_title(_("Online contacts"));
+                    first = false;
+                }
+                add_present_contact(participant, participant, RowType::CONTACT, (*accountInfo)->id);
+            }
+        } catch (...) {}
+    }
 
 
-        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP))
-            add_transfer_contact(c.participants.front());
-        g_signal_connect(widgets->conversation_filter_entry, "search-changed", G_CALLBACK(on_search_participant), self);
-    } else {
+    g_signal_connect(widgets->conversation_filter_entry, "search-changed", G_CALLBACK(on_search_participant), self);
+
+    if ((*accountInfo)->profileInfo.type == lrc::api::profile::Type::SIP) {
         // Remove previous list
         while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(widgets->list_conversations), 10)))
             gtk_container_remove(GTK_CONTAINER(widgets->list_conversations), children);
