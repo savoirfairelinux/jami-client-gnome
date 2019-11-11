@@ -109,6 +109,7 @@ struct _ChatViewPrivate
     bool ready_ {false};
     bool readyToRecord_ {false};
     bool useDarkTheme {false};
+    bool startRecorderWhenReady {false};
     std::string background;
     CppImpl* cpp;
 
@@ -462,33 +463,45 @@ on_timer_duration_timeout(ChatView* view)
     return G_SOURCE_CONTINUE;
 }
 
-static void
-reset_recorder(ChatView *self)
+static bool
+start_recorder(ChatView* self)
 {
-    g_return_if_fail(IS_CHAT_VIEW(self));
+    g_return_val_if_fail(IS_CHAT_VIEW(self), false);
     auto* priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    gtk_widget_hide(GTK_WIDGET(priv->button_retry));
-    std::string rsc = !priv->useDarkTheme && !priv->is_video_record ?
-        "/net/jami/JamiGnome/stop" : "/net/jami/JamiGnome/stop-white";
-    auto image = gtk_image_new_from_resource (rsc.c_str());
-    gtk_button_set_image(GTK_BUTTON(priv->button_main_action), image);
-    gtk_widget_set_tooltip_text(priv->button_main_action, _("Stop"));
-    priv->cpp->current_action_ = RecordAction::STOP;
-    gtk_label_set_text(GTK_LABEL(priv->label_time), "00:00");
-    priv->duration = 0;
-    priv->timer_duration = g_timeout_add(1000, (GSourceFunc)on_timer_duration_timeout, self);
-
     std::string file_name = priv->cpp->avModel_->startLocalRecorder(!priv->is_video_record);
     if (file_name.empty()) {
-        g_warning("set_state: failed to start recording");
-        return;
+        priv->startRecorderWhenReady = true;
+        g_warning("set_state: failed to start recording, wait preview");
+        return false;
     }
 
     if (!priv->cpp->saveFileName_.empty()) {
         std::remove(priv->cpp->saveFileName_.c_str());
     }
     priv->cpp->saveFileName_ = file_name;
+    return true;
+}
+
+static void
+reset_recorder(ChatView *self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+    auto result = start_recorder(self);
+
+    if (result) {
+        gtk_widget_hide(GTK_WIDGET(priv->button_retry));
+        std::string rsc = !priv->useDarkTheme && !priv->is_video_record ?
+            "/net/jami/JamiGnome/stop" : "/net/jami/JamiGnome/stop-white";
+        auto image = gtk_image_new_from_resource (rsc.c_str());
+        gtk_button_set_image(GTK_BUTTON(priv->button_main_action), image);
+        gtk_widget_set_tooltip_text(priv->button_main_action, _("Stop"));
+        priv->cpp->current_action_ = RecordAction::STOP;
+        gtk_label_set_text(GTK_LABEL(priv->label_time), "00:00");
+        priv->duration = 0;
+        priv->timer_duration = g_timeout_add(1000, (GSourceFunc)on_timer_duration_timeout, self);
+    }
+
 }
 
 static void
@@ -1015,6 +1028,7 @@ init_video_widget(ChatView* self)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     if (priv->video_widget && GTK_IS_WIDGET(priv->video_widget)) gtk_widget_destroy(priv->video_widget);
+    priv->startRecorderWhenReady = false;
     priv->video_widget = video_widget_new();
 
     try {
@@ -1039,6 +1053,9 @@ init_video_widget(ChatView* self)
                         VIDEO_WIDGET(priv->video_widget),
                         priv->cpp->avModel_,
                         previewRenderer, VIDEO_RENDERER_REMOTE);
+                    // Start recorder
+                    if (priv->startRecorderWhenReady)
+                        reset_recorder(self);
                 });
         }
     } catch (const std::out_of_range& e) {
