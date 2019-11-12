@@ -25,7 +25,7 @@
 #include <api/newaccountmodel.h>
 #include <namedirectory.h>
 
-// Ring Client
+// Jami  Client
 #include "usernameregistrationbox.h"
 #include "utils/models.h"
 

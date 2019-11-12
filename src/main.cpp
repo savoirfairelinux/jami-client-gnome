@@ -21,7 +21,7 @@
 #include <glib/gi18n.h>
 #include <cstdlib>
 #include "config.h"
-#include "ring_client.h"
+#include "client.h"
 
 int
 main(int argc, char *argv[])
@@ -33,7 +33,7 @@ main(int argc, char *argv[])
     bind_textdomain_codeset(PACKAGE_NAME, "UTF-8");
     textdomain(PACKAGE_NAME);
 
-    RingClient *client = ring_client_new(argc, argv);
+    Client *client = client_new(argc, argv);
     g_set_application_name(JAMI_CLIENT_NAME);
     return g_application_run(G_APPLICATION(client), argc, argv);
 }

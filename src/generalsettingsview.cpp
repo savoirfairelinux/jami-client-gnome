@@ -27,7 +27,7 @@
 // LRC
 #include <api/avmodel.h>
 
-// Ring client
+//  Jami Client
 #include "utils/files.h"
 #include "avatarmanipulation.h"
 
@@ -37,7 +37,7 @@ class CppImpl;
 
 enum
 {
-  PROP_RING_MAIN_WIN_PNT = 1,
+  PROP_MAIN_WIN_PNT = 1,
 };
 
 struct _GeneralSettingsView
@@ -78,7 +78,7 @@ struct _GeneralSettingsViewPrivate
     GtkWidget *filechooserbutton_record_path;
 
     /* ring main window pointer */
-    GtkWidget* ring_main_window_pnt;
+    GtkWidget* main_window_pnt;
 
     details::CppImpl* cpp; ///< Non-UI and C++ only code
 };
@@ -213,13 +213,13 @@ choose_downloads_directory(GeneralSettingsView *self)
     gint res;
     gchar* filename = nullptr;
 
-    if (!priv->ring_main_window_pnt) {
+    if (!priv->main_window_pnt) {
         g_debug("Internal error: NULL main window pointer in GeneralSettingsView.");
         return;
     }
 
     GtkWidget *dialog = gtk_file_chooser_dialog_new (_("Choose download folder"),
-                                      GTK_WINDOW(priv->ring_main_window_pnt),
+                                      GTK_WINDOW(priv->main_window_pnt),
                                       GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                                       _("_Cancel"),
                                       GTK_RESPONSE_CANCEL,
@@ -363,15 +363,15 @@ general_settings_view_set_property (GObject      *object,
     GeneralSettingsView *self = GENERAL_SETTINGS_VIEW (object);
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
 
-    if (property_id == PROP_RING_MAIN_WIN_PNT) {
-        GtkWidget *ring_main_window_pnt = (GtkWidget*) g_value_get_pointer(value);
+    if (property_id == PROP_MAIN_WIN_PNT) {
+        GtkWidget *main_window_pnt = (GtkWidget*) g_value_get_pointer(value);
 
-        if (!ring_main_window_pnt) {
+        if (!main_window_pnt) {
             g_debug("Internal error: NULL main window pointer passed to set_property");
             return;
         }
 
-        priv->ring_main_window_pnt = ring_main_window_pnt;
+        priv->main_window_pnt = main_window_pnt;
     }
     else {
         // Invalid property id passed
@@ -388,8 +388,8 @@ general_settings_view_get_property (GObject    *object,
     GeneralSettingsView *self = GENERAL_SETTINGS_VIEW (object);
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
 
-    if (property_id == PROP_RING_MAIN_WIN_PNT) {
-        g_value_set_pointer(value, priv->ring_main_window_pnt);
+    if (property_id == PROP_MAIN_WIN_PNT) {
+        g_value_set_pointer(value, priv->main_window_pnt);
     }
     else {
         // Invalid property id passed
@@ -447,15 +447,15 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     object_class->get_property = general_settings_view_get_property;
 
     GParamFlags flags = (GParamFlags) (G_PARAM_READWRITE);
-    g_object_class_install_property (object_class, PROP_RING_MAIN_WIN_PNT,
-        g_param_spec_pointer ("ring_main_window_pnt",
-                              "RingMainWindow pointer",
-                              "Pointer to the Ring Main Window. This property is used by modal dialogs.",
+    g_object_class_install_property (object_class, PROP_MAIN_WIN_PNT,
+        g_param_spec_pointer ("main_window_pnt",
+                              "MainWindow pointer",
+                              "Pointer to the  Main Window. This property is used by modal dialogs.",
                               flags));
 }
 
 GtkWidget *
-general_settings_view_new(GtkWidget* ring_main_window_pointer, lrc::api::AVModel& avModel)
+general_settings_view_new(GtkWidget* main_window_pointer, lrc::api::AVModel& avModel)
 {
     auto self = g_object_new(GENERAL_SETTINGS_VIEW_TYPE, NULL);
     auto* priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(GENERAL_SETTINGS_VIEW (self));
@@ -466,8 +466,8 @@ general_settings_view_new(GtkWidget* ring_main_window_pointer, lrc::api::AVModel
     // set_up ring main window pointer (needed by modal dialogs)
     GValue val = G_VALUE_INIT;
     g_value_init (&val, G_TYPE_POINTER);
-    g_value_set_pointer (&val, ring_main_window_pointer);
-    g_object_set_property (G_OBJECT (self), "ring_main_window_pnt", &val);
+    g_value_set_pointer (&val, main_window_pointer);
+    g_object_set_property (G_OBJECT (self), "main_window_pnt", &val);
     g_value_unset (&val);
 
     g_signal_connect_swapped(priv->button_choose_downloads_directory, "clicked", G_CALLBACK(choose_downloads_directory), self);

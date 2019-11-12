@@ -29,18 +29,18 @@
 
 G_BEGIN_DECLS
 
-#define RING_WELCOME_VIEW_TYPE            (ring_welcome_view_get_type ())
-#define RING_WELCOME_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), RING_WELCOME_VIEW_TYPE, RingWelcomeView))
-#define RING_WELCOME_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), RING_WELCOME_VIEW_TYPE, RingWelcomeViewClass))
-#define IS_RING_WELCOME_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), RING_WELCOME_VIEW_TYPE))
-#define IS_RING_WELCOME_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), RING_WELCOME_VIEW_TYPE))
+#define WELCOME_VIEW_TYPE            (welcome_view_get_type ())
+#define WELCOME_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), WELCOME_VIEW_TYPE, WelcomeView))
+#define WELCOME_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), WELCOME_VIEW_TYPE, WelcomeViewClass))
+#define IS_WELCOME_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), WELCOME_VIEW_TYPE))
+#define IS_WELCOME_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), WELCOME_VIEW_TYPE))
 
-typedef struct _RingWelcomeView      RingWelcomeView;
-typedef struct _RingWelcomeViewClass RingWelcomeViewClass;
+typedef struct _WelcomeView      WelcomeView;
+typedef struct _WelcomeViewClass WelcomeViewClass;
 
-GType             ring_welcome_view_get_type (void) G_GNUC_CONST;
-GtkWidget*        ring_welcome_view_new      (AccountInfoPointer const & accountInfo);
-void              ring_welcome_update_view   (RingWelcomeView* self);
-void              ring_welcome_set_theme     (RingWelcomeView* self, bool useDarkTheme);
+GType             welcome_view_get_type (void) G_GNUC_CONST;
+GtkWidget*        welcome_view_new      (AccountInfoPointer const & accountInfo);
+void              welcome_update_view   (WelcomeView* self);
+void              welcome_set_theme     (WelcomeView* self, bool useDarkTheme);
 
 G_END_DECLS
