@@ -51,7 +51,7 @@ static constexpr GdkRGBA     COLOR_PALETTE[] = {{0.956862, 0.262745, 0.211764, 1
                                                 {0.376470, 0.490196, 0.545098, 1.0}};// red 95, green 124, blue 138, 1 (blue grey)
 
 GdkPixbuf *
-ring_draw_fallback_avatar(int size, const std::string& letter, const char color) {
+draw_fallback_avatar(int size, const std::string& letter, const char color) {
     cairo_surface_t *surface;
     cairo_t *cr;
 
@@ -99,7 +99,7 @@ ring_draw_fallback_avatar(int size, const std::string& letter, const char color)
 }
 
 GdkPixbuf *
-ring_draw_conference_avatar(int size) {
+draw_conference_avatar(int size) {
     cairo_surface_t *surface;
     cairo_t *cr;
 
@@ -136,7 +136,7 @@ ring_draw_conference_avatar(int size) {
 }
 
 GdkPixbuf *
-ring_frame_avatar(GdkPixbuf *avatar) {
+frame_avatar(GdkPixbuf *avatar) {
 
     auto w = gdk_pixbuf_get_width(avatar);
     auto h = gdk_pixbuf_get_height(avatar);
@@ -253,7 +253,7 @@ draw_qrcode(cairo_t* cr, const std::string& to_encode, uint32_t size)
  * Draws the presence icon in the top right corner of the given image.
  */
 GdkPixbuf *
-ring_draw_status(const GdkPixbuf *avatar, IconStatus status) {
+draw_status(const GdkPixbuf *avatar, IconStatus status) {
     if (status == IconStatus::INVALID) {
         // simply return a copy of the original pixbuf
         return gdk_pixbuf_copy(avatar);
@@ -320,7 +320,7 @@ ring_draw_status(const GdkPixbuf *avatar, IconStatus status) {
  * In the case that the count is less than or equal to 0, nothing is drawn.
  */
 GdkPixbuf *
-ring_draw_unread_messages(const GdkPixbuf *avatar, int unread_count) {
+draw_unread_messages(const GdkPixbuf *avatar, int unread_count) {
     if (unread_count <= 0) {
         // simply return a copy of the original pixbuf
         return gdk_pixbuf_copy(avatar);

@@ -25,7 +25,7 @@
 // LRC
 #include "api/newaccountmodel.h"
 
-// Ring Client
+// Jami Client
 #include "utils/models.h"
 #include "avatarmanipulation.h"
 #include "accountcreationwizard.h"

@@ -17,37 +17,37 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef RING_CLIENT_H_
-#define RING_CLIENT_H_
+#ifndef CLIENT_H_
+#define CLIENT_H_
 
 #include <gtk/gtk.h>
 #include "config.h"
 
 G_BEGIN_DECLS
 
-#define RING_GSETTINGS_SCHEMA JAMI_CLIENT_APP_ID
+#define GSETTINGS_SCHEMA JAMI_CLIENT_APP_ID
 
-#define RING_CLIENT_TYPE (ring_client_get_type())
-#define RING_CLIENT(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), RING_CLIENT_TYPE, RingClient))
-#define RING_CLIENT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), RING_CLIENT_TYPE, RingClientClass))
-#define IS_RING_CLIENT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), RING_CLIENT_TYPE))
-#define IS_RING_CLIENT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), RING_CLIENT_TYPE))
+#define CLIENT_TYPE (client_get_type())
+#define CLIENT(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), CLIENT_TYPE, Client))
+#define CLIENT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), CLIENT_TYPE, ClientClass))
+#define IS_CLIENT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), CLIENT_TYPE))
+#define IS_CLIENT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), CLIENT_TYPE))
 
-typedef struct _RingClientClass   RingClientClass;
-typedef struct _RingClient        RingClient;
+typedef struct _ClientClass   ClientClass;
+typedef struct _Client        Client;
 
 /* Public interface */
-GType       ring_client_get_type (void) G_GNUC_CONST;
-RingClient *ring_client_new      (int argc, char *argv[]);
-GtkWindow  *ring_client_get_main_window(RingClient *client);
+GType       client_get_type (void) G_GNUC_CONST;
+Client *client_new      (int argc, char *argv[]);
+GtkWindow  *client_get_main_window(Client *client);
 
 /**
  * Sets if the client should attempt to restore the main window state (hidden or not) to what it was
  * when it was last quit (stored by the "show-main-window" gsetting). This function must be
  * called before the main window is created for the first time for it to have an effect.
  */
-void        ring_client_set_restore_main_window_state(RingClient *client, gboolean restore);
+void        client_set_restore_main_window_state(Client *client, gboolean restore);
 
 G_END_DECLS
 
-#endif /* RING_CLIENT_H_ */
+#endif /* CLIENT_H_ */

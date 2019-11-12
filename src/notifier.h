@@ -18,21 +18,21 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef RING_NOTIFY_H_
-#define RING_NOTIFY_H_
+#ifndef NOTIFY_H_
+#define NOTIFY_H_
 
 #include <gtk/gtk.h>
 #include <string>
 
 G_BEGIN_DECLS
-#define RING_NOTIFIER_TYPE            (ring_notifier_get_type ())
-#define RING_NOTIFIER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), RING_NOTIFIER_TYPE, RingNotifier))
-#define RING_NOTIFIER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), RING_NOTIFIER_TYPE, RingNotifierClass))
-#define IS_RING_NOTIFIER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), RING_NOTIFIER_TYPE))
-#define IS_RING_NOTIFIER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), RING_NOTIFIER_TYPE))
+#define NOTIFIER_TYPE            (notifier_get_type ())
+#define NOTIFIER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), NOTIFIER_TYPE, Notifier))
+#define NOTIFIER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), NOTIFIER_TYPE, NotifierClass))
+#define IS_NOTIFIER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), NOTIFIER_TYPE))
+#define IS_NOTIFIER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), NOTIFIER_TYPE))
 
-typedef struct _RingNotifier      RingNotifier;
-typedef struct _RingNotifierClass RingNotifierClass;
+typedef struct _Notifier      Notifier;
+typedef struct _NotifierClass NotifierClass;
 
 enum class NotificationType
 {
@@ -41,10 +41,10 @@ enum class NotificationType
     CHAT
 };
 
-GType      ring_notifier_get_type             (void) G_GNUC_CONST;
-GtkWidget* ring_notifier_new                  (void);
+GType      notifier_get_type             (void) G_GNUC_CONST;
+GtkWidget* notifier_new                  (void);
 
-gboolean    ring_show_notification(RingNotifier* view,
+gboolean    show_notification(Notifier* view,
                                    const std::string& icon,
                                    const std::string& uri,
                                    const std::string& name,
@@ -52,8 +52,8 @@ gboolean    ring_show_notification(RingNotifier* view,
                                    const std::string& title,
                                    const std::string& body,
                                    NotificationType type);
-gboolean    ring_hide_notification(RingNotifier* view, const std::string& id);
+gboolean    hide_notification(Notifier* view, const std::string& id);
 
 G_END_DECLS
 
-#endif /* RING_NOTIFY_H_ */
+#endif /* NOTIFY_H_ */

@@ -18,7 +18,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#include "ringmainwindow.h"
+#include "mainwindow.h"
 
 // GTK+ related
 #include <glib/gi18n.h>
@@ -43,7 +43,7 @@
 #include <api/newcallmodel.h>
 #include <api/profile.h>
 
-// Ring client
+// Jami Client
 #include "config.h"
 #include "newaccountsettingsview.h"
 #include "accountmigrationview.h"
@@ -56,13 +56,13 @@
 #include "incomingcallview.h"
 #include "mediasettingsview.h"
 #include "models/gtkqtreemodel.h"
-#include "ringwelcomeview.h"
+#include "welcomeview.h"
 #include "utils/drawing.h"
 #include "utils/files.h"
-#include "ringnotify.h"
+#include "notifier.h"
 #include "accountinfopointer.h"
 #include "native/pixbufmanipulator.h"
-#include "ringnotify.h"
+#include "notifier.h"
 
 #if USE_LIBNM
 #include <NetworkManager.h>
@@ -75,21 +75,21 @@ namespace { namespace details
 class CppImpl;
 }}
 
-struct _RingMainWindow
+struct _MainWindow
 {
     GtkApplicationWindow parent;
 };
 
-struct _RingMainWindowClass
+struct _MainWindowClass
 {
     GtkApplicationWindowClass parent_class;
 };
 
-struct RingMainWindowPrivate
+struct MainWindowPrivate
 {
-    GtkWidget *ring_menu;
+    GtkWidget *menu;
     GtkWidget *image_ring;
-    GtkWidget *ring_settings;
+    GtkWidget *settings;
     GtkWidget *image_settings;
     GtkWidget *hbox_settings;
     GtkWidget *notebook_contacts;
@@ -120,7 +120,7 @@ struct RingMainWindowPrivate
 
     GtkWidget *notifier;
 
-    GSettings *settings;
+    GSettings *window_settings;
     bool useDarkTheme {false};
 
     details::CppImpl* cpp; ///< Non-UI and C++ only code
@@ -144,9 +144,9 @@ struct RingMainWindowPrivate
 #endif
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(RingMainWindow, ring_main_window, GTK_TYPE_APPLICATION_WINDOW);
+G_DEFINE_TYPE_WITH_PRIVATE(MainWindow, main_window, GTK_TYPE_APPLICATION_WINDOW);
 
-#define RING_MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_MAIN_WINDOW_TYPE, RingMainWindowPrivate))
+#define MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), MAIN_WINDOW_TYPE, MainWindowPrivate))
 
 //==============================================================================
 
@@ -305,7 +305,7 @@ foreachLrcAccount(const lrc::api::Lrc& lrc,
 class CppImpl
 {
 public:
-    explicit CppImpl(RingMainWindow& widget);
+    explicit CppImpl(MainWindow& widget);
     ~CppImpl();
 
     void init();
@@ -334,8 +334,8 @@ public:
 
     WebKitChatContainer* webkitChatContainer(bool redraw_webview = false);
 
-    RingMainWindow* self = nullptr; // The GTK widget itself
-    RingMainWindowPrivate* widgets = nullptr;
+    MainWindow* self = nullptr; // The GTK widget itself
+    MainWindowPrivate* widgets = nullptr;
 
     std::unique_ptr<lrc::api::Lrc> lrc_;
     AccountInfoPointer accountInfo_ = nullptr;
@@ -419,26 +419,26 @@ private:
 inline namespace gtk_callbacks
 {
 static void
-on_video_double_clicked(RingMainWindow* self)
+on_video_double_clicked(MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     priv->cpp->toggleFullScreen();
 }
 
 static void
-on_hide_view_clicked(RingMainWindow* self)
+on_hide_view_clicked(MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     priv->cpp->resetToWelcome();
 }
 
 static gboolean
-place_call_event(RingMainWindow* self)
+place_call_event(MainWindow* self)
 {
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), G_SOURCE_REMOVE);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_val_if_fail(IS_MAIN_WINDOW(self), G_SOURCE_REMOVE);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (!priv->cpp->eventUid_.empty())
         priv->cpp->accountInfo_->conversationModel->placeCall(priv->cpp->eventUid_);
@@ -447,20 +447,20 @@ place_call_event(RingMainWindow* self)
 }
 
 static void
-on_place_call_clicked(G_GNUC_UNUSED GtkWidget*, gchar *uid, RingMainWindow* self)
+on_place_call_clicked(G_GNUC_UNUSED GtkWidget*, gchar *uid, MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self) && uid);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self) && uid);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     priv->cpp->eventUid_ = uid;
     g_idle_add((GSourceFunc)place_call_event, self);
 }
 
 static gboolean
-add_conversation_event(RingMainWindow* self)
+add_conversation_event(MainWindow* self)
 {
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), G_SOURCE_REMOVE);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_val_if_fail(IS_MAIN_WINDOW(self), G_SOURCE_REMOVE);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (!priv->cpp->eventUid_.empty())
         priv->cpp->accountInfo_->conversationModel->makePermanent(priv->cpp->eventUid_);
@@ -469,20 +469,20 @@ add_conversation_event(RingMainWindow* self)
 }
 
 static void
-on_add_conversation_clicked(G_GNUC_UNUSED GtkWidget*, gchar *uid, RingMainWindow* self)
+on_add_conversation_clicked(G_GNUC_UNUSED GtkWidget*, gchar *uid, MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self) && uid);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self) && uid);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     priv->cpp->eventUid_ = uid;
     g_idle_add((GSourceFunc)add_conversation_event, self);
 }
 
 static gboolean
-send_text_event(RingMainWindow* self)
+send_text_event(MainWindow* self)
 {
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), G_SOURCE_REMOVE);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_val_if_fail(IS_MAIN_WINDOW(self), G_SOURCE_REMOVE);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (!priv->cpp->eventUid_.empty())
         priv->cpp->accountInfo_->conversationModel->sendMessage(priv->cpp->eventUid_, priv->cpp->eventBody_);
@@ -491,17 +491,17 @@ send_text_event(RingMainWindow* self)
 }
 
 gboolean
-on_redraw(GtkWidget*, cairo_t*, RingMainWindow* self)
+on_redraw(GtkWidget*, cairo_t*, MainWindow* self)
 {
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), G_SOURCE_REMOVE);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_val_if_fail(IS_MAIN_WINDOW(self), G_SOURCE_REMOVE);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     auto color = get_ambient_color(GTK_WIDGET(self));
     bool current_theme = (color.red + color.green + color.blue) / 3 < .5;
     conversations_view_set_theme(CONVERSATIONS_VIEW(priv->treeview_conversations), current_theme);
     if (priv->useDarkTheme != current_theme) {
-        ring_welcome_set_theme(RING_WELCOME_VIEW(priv->welcome_view), current_theme);
-        ring_welcome_update_view(RING_WELCOME_VIEW(priv->welcome_view));
+        welcome_set_theme(WELCOME_VIEW(priv->welcome_view), current_theme);
+        welcome_update_view(WELCOME_VIEW(priv->welcome_view));
 
         gtk_image_set_from_resource(GTK_IMAGE(priv->image_contact_requests_list), current_theme?
             "/net/jami/JamiGnome/contact_requests_list_white" : "/net/jami/JamiGnome/contact_requests_list");
@@ -533,10 +533,10 @@ on_redraw(GtkWidget*, cairo_t*, RingMainWindow* self)
 }
 
 static void
-on_send_text_clicked(G_GNUC_UNUSED GtkWidget*, gchar* uid, gchar* body, RingMainWindow* self)
+on_send_text_clicked(G_GNUC_UNUSED GtkWidget*, gchar* uid, gchar* body, MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self) && uid);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self) && uid);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     priv->cpp->eventUid_ = uid;
     priv->cpp->eventBody_ = body;
@@ -544,10 +544,10 @@ on_send_text_clicked(G_GNUC_UNUSED GtkWidget*, gchar* uid, gchar* body, RingMain
 }
 
 static gboolean
-place_audio_call_event(RingMainWindow* self)
+place_audio_call_event(MainWindow* self)
 {
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), G_SOURCE_REMOVE);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_val_if_fail(IS_MAIN_WINDOW(self), G_SOURCE_REMOVE);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (!priv->cpp->eventUid_.empty())
         priv->cpp->accountInfo_->conversationModel->placeAudioOnlyCall(priv->cpp->eventUid_);
@@ -556,45 +556,45 @@ place_audio_call_event(RingMainWindow* self)
 }
 
 static void
-on_place_audio_call_clicked(G_GNUC_UNUSED GtkWidget*, gchar *uid, RingMainWindow* self)
+on_place_audio_call_clicked(G_GNUC_UNUSED GtkWidget*, gchar *uid, MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self) && uid);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self) && uid);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     priv->cpp->eventUid_ = uid;
     g_idle_add((GSourceFunc)place_audio_call_event, self);
 }
 
 static void
-on_account_creation_completed(RingMainWindow* self)
+on_account_creation_completed(MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     priv->cpp->isCreatingAccount = false;
     priv->cpp->leaveAccountCreationWizard();
 }
 
 static void
-on_account_creation_unlock(RingMainWindow* self)
+on_account_creation_unlock(MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     priv->cpp->isCreatingAccount = false;
 }
 
 static void
-on_account_creation_lock(RingMainWindow* self)
+on_account_creation_lock(MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     priv->cpp->isCreatingAccount = true;
 }
 
 static void
-on_account_changed(RingMainWindow* self)
+on_account_changed(MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     auto changeTopAccount = priv->set_top_account_flag;
     if (!priv->set_top_account_flag) {
         priv->set_top_account_flag = true;
@@ -623,10 +623,10 @@ on_account_changed(RingMainWindow* self)
 }
 
 static void
-on_settings_clicked(RingMainWindow* self)
+on_settings_clicked(MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (!priv->cpp->show_settings)
         priv->cpp->enterSettingsView();
@@ -635,10 +635,10 @@ on_settings_clicked(RingMainWindow* self)
 }
 
 static void
-on_show_media_settings(GtkToggleButton* navbutton, RingMainWindow* self)
+on_show_media_settings(GtkToggleButton* navbutton, MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (gtk_toggle_button_get_active(navbutton)) {
         media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(priv->media_settings_view), TRUE);
@@ -651,10 +651,10 @@ on_show_media_settings(GtkToggleButton* navbutton, RingMainWindow* self)
 
 
 static void
-on_show_new_account_settings(GtkToggleButton* navbutton, RingMainWindow* self)
+on_show_new_account_settings(GtkToggleButton* navbutton, MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (gtk_toggle_button_get_active(navbutton)) {
         new_account_settings_view_show(NEW_ACCOUNT_SETTINGS_VIEW(priv->new_account_settings_view), TRUE);
@@ -666,10 +666,10 @@ on_show_new_account_settings(GtkToggleButton* navbutton, RingMainWindow* self)
 }
 
 static void
-on_show_general_settings(GtkToggleButton* navbutton, RingMainWindow* self)
+on_show_general_settings(GtkToggleButton* navbutton, MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (gtk_toggle_button_get_active(navbutton)) {
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), GENERAL_SETTINGS_VIEW_NAME);
@@ -678,10 +678,10 @@ on_show_general_settings(GtkToggleButton* navbutton, RingMainWindow* self)
 }
 
 static void
-on_search_entry_text_changed(GtkSearchEntry* search_entry, RingMainWindow* self)
+on_search_entry_text_changed(GtkSearchEntry* search_entry, MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     // Filter model
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(search_entry));
@@ -689,10 +689,10 @@ on_search_entry_text_changed(GtkSearchEntry* search_entry, RingMainWindow* self)
 }
 
 static void
-on_search_entry_activated(RingMainWindow* self)
+on_search_entry_activated(MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     // Select the first conversation of the list
     auto& conversationModel = priv->cpp->accountInfo_->conversationModel;
@@ -705,10 +705,10 @@ on_search_entry_activated(RingMainWindow* self)
 }
 
 static gboolean
-on_search_entry_key_released(G_GNUC_UNUSED GtkEntry* search_entry, GdkEventKey* key, RingMainWindow* self)
+on_search_entry_key_released(G_GNUC_UNUSED GtkEntry* search_entry, GdkEventKey* key, MainWindow* self)
 {
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), GDK_EVENT_PROPAGATE);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_val_if_fail(IS_MAIN_WINDOW(self), GDK_EVENT_PROPAGATE);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     // if esc key pressed, clear the regex (keep the text, the user might not want to actually delete it)
     if (key->keyval == GDK_KEY_Escape) {
@@ -729,10 +729,10 @@ on_current_call_clicked(GtkWidget *widget, G_GNUC_UNUSED GdkEventButton *event)
 }
 
 static gboolean
-on_dtmf_pressed(RingMainWindow* self, GdkEventKey* event, gpointer user_data)
+on_dtmf_pressed(MainWindow* self, GdkEventKey* event, gpointer user_data)
 {
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), GDK_EVENT_PROPAGATE);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_val_if_fail(IS_MAIN_WINDOW(self), GDK_EVENT_PROPAGATE);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if(priv->key_pressed && !(event->state & GDK_SHIFT_MASK)){
         return GDK_EVENT_PROPAGATE;
@@ -786,22 +786,22 @@ on_dtmf_pressed(RingMainWindow* self, GdkEventKey* event, gpointer user_data)
 }
 
 static gboolean
-on_dtmf_released(RingMainWindow* self, GdkEventKey* event, gpointer user_data)
+on_dtmf_released(MainWindow* self, GdkEventKey* event, gpointer user_data)
 {
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), GDK_EVENT_PROPAGATE);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_val_if_fail(IS_MAIN_WINDOW(self), GDK_EVENT_PROPAGATE);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     priv->key_pressed = false;
     return GDK_EVENT_PROPAGATE;
 }
 
 static void
-on_tab_changed(GtkNotebook* notebook, GtkWidget* page, guint page_num, RingMainWindow* self)
+on_tab_changed(GtkNotebook* notebook, GtkWidget* page, guint page_num, MainWindow* self)
 {
     (void)notebook;
     (void)page;
 
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     auto newType = page_num == 0 ? priv->cpp->accountInfo_->profileInfo.type : lrc::api::profile::Type::PENDING;
     if (priv->cpp->currentTypeFilter_ != newType) {
@@ -813,11 +813,11 @@ on_tab_changed(GtkNotebook* notebook, GtkWidget* page, guint page_num, RingMainW
 static gboolean
 on_window_state_event(GtkWidget *widget, GdkEventWindowState *event)
 {
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(widget), GDK_EVENT_PROPAGATE);
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(widget));
+    g_return_val_if_fail(IS_MAIN_WINDOW(widget), GDK_EVENT_PROPAGATE);
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(widget));
 
-    g_settings_set_boolean(priv->settings, "window-maximized", ((event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED) != 0));
-    g_settings_set_boolean(priv->settings, "window-fullscreen", ((event->new_window_state & GDK_WINDOW_STATE_FULLSCREEN) != 0));
+    g_settings_set_boolean(priv->window_settings, "window-maximized", ((event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED) != 0));
+    g_settings_set_boolean(priv->window_settings, "window-fullscreen", ((event->new_window_state & GDK_WINDOW_STATE_FULLSCREEN) != 0));
 
     return GDK_EVENT_PROPAGATE;
 }
@@ -825,20 +825,20 @@ on_window_state_event(GtkWidget *widget, GdkEventWindowState *event)
 static void
 on_window_size_changed(GtkWidget *self, G_GNUC_UNUSED GdkRectangle*, G_GNUC_UNUSED gpointer)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     int new_width, new_height;
     gtk_window_get_size(GTK_WINDOW(self), &new_width, &new_height);
-    g_settings_set_int(priv->settings, "window-width", new_width);
-    g_settings_set_int(priv->settings, "window-height", new_height);
+    g_settings_set_int(priv->window_settings, "window-width", new_width);
+    g_settings_set_int(priv->window_settings, "window-height", new_height);
 }
 
 static void
-on_search_entry_places_call_changed(GSettings* settings, const gchar* key, RingMainWindow* self)
+on_search_entry_places_call_changed(GSettings* settings, const gchar* key, MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (g_settings_get_boolean(settings, key)) {
         gtk_widget_set_tooltip_text(priv->button_new_conversation,
@@ -851,10 +851,10 @@ on_search_entry_places_call_changed(GSettings* settings, const gchar* key, RingM
 }
 
 static void
-on_handle_account_migrations(RingMainWindow* self)
+on_handle_account_migrations(MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     /* If there is an existing migration view, remove it */
     if (priv->account_migration_view) {
@@ -872,7 +872,7 @@ on_handle_account_migrations(RingMainWindow* self)
             g_signal_connect_swapped(priv->account_migration_view, "account-migration-failed",
                                      G_CALLBACK(on_handle_account_migrations), self);
 
-            gtk_widget_hide(priv->ring_settings);
+            gtk_widget_hide(priv->settings);
             priv->cpp->showAccountSelectorWidget(false);
             gtk_widget_show(priv->account_migration_view);
             gtk_stack_add_named(
@@ -889,7 +889,7 @@ on_handle_account_migrations(RingMainWindow* self)
     priv->cpp->accountInfoForMigration_ = nullptr;
     on_account_changed(self);
     gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), CALL_VIEW_NAME);
-    gtk_widget_show(priv->ring_settings);
+    gtk_widget_show(priv->settings);
 }
 
 enum class Action {
@@ -899,10 +899,10 @@ enum class Action {
 };
 
 static void
-action_notification(gchar* title, RingMainWindow* self, Action action)
+action_notification(gchar* title, MainWindow* self, Action action)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self) && title);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self) && title);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     if (!priv->cpp->accountInfo_) {
         g_warning("Notification clicked but accountInfo_ currently empty");
         return;
@@ -966,28 +966,28 @@ action_notification(gchar* title, RingMainWindow* self, Action action)
 
 static void
 on_notification_chat_clicked(G_GNUC_UNUSED GtkWidget* notifier,
-                             gchar *title, RingMainWindow* self)
+                             gchar *title, MainWindow* self)
 {
     action_notification(title, self, Action::SELECT);
 }
 
 static void
-on_notification_accept_pending(GtkWidget*, gchar *title, RingMainWindow* self)
+on_notification_accept_pending(GtkWidget*, gchar *title, MainWindow* self)
 {
     action_notification(title, self, Action::ACCEPT);
 }
 
 static void
-on_notification_refuse_pending(GtkWidget*, gchar *title, RingMainWindow* self)
+on_notification_refuse_pending(GtkWidget*, gchar *title, MainWindow* self)
 {
     action_notification(title, self, Action::REFUSE);
 }
 
 static void
-on_notification_accept_call(GtkWidget*, gchar *title, RingMainWindow* self)
+on_notification_accept_call(GtkWidget*, gchar *title, MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self) && title);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self) && title);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     if (!priv->cpp->accountInfo_) {
         g_warning("Notification clicked but accountInfo_ currently empty");
         return;
@@ -1016,10 +1016,10 @@ on_notification_accept_call(GtkWidget*, gchar *title, RingMainWindow* self)
 }
 
 static void
-on_notification_decline_call(GtkWidget*, gchar *title, RingMainWindow* self)
+on_notification_decline_call(GtkWidget*, gchar *title, MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self) && title);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self) && title);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     if (!priv->cpp->accountInfo_) {
         g_warning("Notification clicked but accountInfo_ currently empty");
         return;
@@ -1045,9 +1045,9 @@ on_notification_decline_call(GtkWidget*, gchar *title, RingMainWindow* self)
 
 } // namespace gtk_callbacks
 
-CppImpl::CppImpl(RingMainWindow& widget)
+CppImpl::CppImpl(MainWindow& widget)
     : self {&widget}
-    , widgets {RING_MAIN_WINDOW_GET_PRIVATE(&widget)}
+    , widgets {MAIN_WINDOW_GET_PRIVATE(&widget)}
 {
     lrc_ = std::make_unique<lrc::api::Lrc>([this](){
         widgets->migratingDialog_ = gtk_message_dialog_new(
@@ -1082,10 +1082,10 @@ CppImpl::CppImpl(RingMainWindow& widget)
 }
 
 static void
-on_clear_all_history_clicked(RingMainWindow* self)
+on_clear_all_history_clicked(MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     g_return_if_fail(priv && priv->cpp);
 
     for (const auto &account_id : priv->cpp->lrc_->getAccountModel().getAccountList()) {
@@ -1113,12 +1113,12 @@ update_data_transfer(lrc::api::DataTransferModel& model, GSettings* settings)
 }
 
 static void
-update_download_folder(RingMainWindow* self)
+update_download_folder(MainWindow* self)
 {
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     g_return_if_fail(priv);
 
-    update_data_transfer(priv->cpp->lrc_->getDataTransferModel(), priv->settings);
+    update_data_transfer(priv->cpp->lrc_->getDataTransferModel(), priv->window_settings);
 }
 
 #if USE_LIBNM
@@ -1136,18 +1136,18 @@ log_connection_info(NMActiveConnection *connection)
 }
 
 static void
-primary_connection_changed(NMClient *nm,  GParamSpec*, RingMainWindow* self)
+primary_connection_changed(NMClient *nm,  GParamSpec*, MainWindow* self)
 {
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     auto connection = nm_client_get_primary_connection(nm);
     log_connection_info(connection);
     priv->cpp->lrc_->connectivityChanged();
 }
 
 static void
-nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result,  RingMainWindow* self)
+nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result,  MainWindow* self)
 {
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     GError* error = nullptr;
     if (auto nm_client = nm_client_new_finish(result, &error)) {
@@ -1233,25 +1233,25 @@ CppImpl::init()
                                                  [this](const std::string& id){ slotInvalidAccountFromLrc(id); });
 
     /* bind to window size settings */
-    widgets->settings = g_settings_new_full(get_settings_schema(), nullptr, nullptr);
-    auto width = g_settings_get_int(widgets->settings, "window-width");
-    auto height = g_settings_get_int(widgets->settings, "window-height");
+    widgets->window_settings = g_settings_new_full(get_settings_schema(), nullptr, nullptr);
+    auto width = g_settings_get_int(widgets->window_settings, "window-width");
+    auto height = g_settings_get_int(widgets->window_settings, "window-height");
     gtk_window_set_default_size(GTK_WINDOW(self), width, height);
     g_signal_connect(self, "size-allocate", G_CALLBACK(on_window_size_changed), nullptr);
     g_signal_connect(self, "window-state-event", G_CALLBACK(on_window_state_event), nullptr);
 
-    if (g_settings_get_boolean(widgets->settings, "window-maximized"))
+    if (g_settings_get_boolean(widgets->window_settings, "window-maximized"))
         gtk_window_maximize(GTK_WINDOW(self));
 
-    widgets->is_fullscreen_main_win = g_settings_get_boolean(widgets->settings, "window-fullscreen");
+    widgets->is_fullscreen_main_win = g_settings_get_boolean(widgets->window_settings, "window-fullscreen");
     if (widgets->is_fullscreen_main_win)
         gtk_window_fullscreen(GTK_WINDOW(self));
 
-    update_data_transfer(lrc_->getDataTransferModel(), widgets->settings);
+    update_data_transfer(lrc_->getDataTransferModel(), widgets->window_settings);
 
     /* search-entry-places-call setting */
-    on_search_entry_places_call_changed(widgets->settings, "search-entry-places-call", self);
-    g_signal_connect(widgets->settings, "changed::search-entry-places-call",
+    on_search_entry_places_call_changed(widgets->window_settings, "search-entry-places-call", self);
+    g_signal_connect(widgets->window_settings, "changed::search-entry-places-call",
                      G_CALLBACK(on_search_entry_places_call_changed), self);
 
     /* set window icon */
@@ -1273,9 +1273,9 @@ CppImpl::init()
         gtk_image_set_from_pixbuf(GTK_IMAGE(widgets->image_ring), image_ring);
 
     /* ring menu */
-    GtkBuilder *builder = gtk_builder_new_from_resource("/net/jami/JamiGnome/ringgearsmenu.ui");
+    GtkBuilder *builder = gtk_builder_new_from_resource("/net/jami/JamiGnome/gearsmenu.ui");
     GMenuModel *menu = G_MENU_MODEL(gtk_builder_get_object(builder, "menu"));
-    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(widgets->ring_menu), menu);
+    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(widgets->menu), menu);
     g_object_unref(builder);
 
     /* settings icon */
@@ -1283,7 +1283,7 @@ CppImpl::init()
                                  GTK_ICON_SIZE_SMALL_TOOLBAR);
 
     /* connect settings button signal */
-    g_signal_connect_swapped(widgets->ring_settings, "clicked",
+    g_signal_connect_swapped(widgets->settings, "clicked",
                              G_CALLBACK(on_settings_clicked), self);
 
     /* add the call view to the main stack */
@@ -1328,7 +1328,7 @@ CppImpl::init()
     g_signal_connect(widgets->notebook_contacts, "switch-page", G_CALLBACK(on_tab_changed), self);
 
     /* welcome/default view */
-    widgets->welcome_view = ring_welcome_view_new(accountInfo_);
+    widgets->welcome_view = welcome_view_new(accountInfo_);
     g_object_ref(widgets->welcome_view); // increase ref because don't want it to be destroyed when not displayed
     gtk_container_add(GTK_CONTAINER(widgets->frame_call), widgets->welcome_view);
     gtk_widget_show(widgets->welcome_view);
@@ -1370,7 +1370,7 @@ CppImpl::init()
                                        (GtkCellLayoutDataFunc )print_account_and_state,
                                        widgets, nullptr);
 
-    // we closing any view opened to avoid confusion (especially between SIP and Ring protocols).
+    // we closing any view opened to avoid confusion (especially between SIP and  protocols).
     g_signal_connect_swapped(widgets->combobox_account_selector, "changed", G_CALLBACK(on_account_changed), self);
 
     // initialize the pending contact request icon.
@@ -1387,7 +1387,7 @@ CppImpl::init()
     }
     // delete obsolete history
     if (not accountIds.empty()) {
-        auto days = g_settings_get_int(widgets->settings, "history-limit");
+        auto days = g_settings_get_int(widgets->window_settings, "history-limit");
         for (auto& accountId : accountIds) {
             auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
             accountInfo.conversationModel->deleteObsoleteHistory(days);
@@ -1467,7 +1467,7 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
     gtk_container_add(GTK_CONTAINER(widgets->frame_call), new_view);
     gtk_widget_show(new_view);
 
-    if (conversation.uid != "" && type != RING_WELCOME_VIEW_TYPE)
+    if (conversation.uid != "" && type != WELCOME_VIEW_TYPE)
         conversations_view_select_conversation(
             CONVERSATIONS_VIEW(widgets->treeview_conversations),
             conversation.uid);
@@ -1537,7 +1537,7 @@ CppImpl::displayChatView(lrc::api::conversation::Info conversation, bool redraw_
         auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
         if (isPending) {
             auto notifId = accountInfo_->id + ":request:" + contactUri;
-            ring_hide_notification(RING_NOTIFIER(widgets->notifier), notifId);
+            hide_notification(NOTIFIER(widgets->notifier), notifId);
         }
     } catch(...) { }
 
@@ -1605,7 +1605,7 @@ CppImpl::resetToWelcome()
     lrc::api::conversation::Info current_item;
     if (IS_CHAT_VIEW(old_view))
         current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
-    changeView(RING_WELCOME_VIEW_TYPE, current_item);
+    changeView(WELCOME_VIEW_TYPE, current_item);
 }
 
 void
@@ -1725,7 +1725,7 @@ CppImpl::enterAccountCreationWizard(bool showControls)
 
     /* hide settings button until account creation is complete */
     gtk_widget_hide(widgets->hbox_settings);
-    gtk_widget_hide(widgets->ring_settings);
+    gtk_widget_hide(widgets->settings);
     showAccountSelectorWidget(showControls);
 
     gtk_widget_show(widgets->account_creation_wizard);
@@ -1752,7 +1752,7 @@ CppImpl::leaveAccountCreationWizard()
     }
 
     /* show the settings button */
-    gtk_widget_show(widgets->ring_settings);
+    gtk_widget_show(widgets->settings);
 
     /* show the account selector */
     showAccountSelectorWidget();
@@ -1794,13 +1794,13 @@ CppImpl::onAccountSelectionChange(const std::string& id)
 
     if (id != oldId) {
         // Go to welcome view
-        changeView(RING_WELCOME_VIEW_TYPE);
+        changeView(WELCOME_VIEW_TYPE);
         // Show conversation panel
         gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
         // Reinit LRC
         updateLrc(id);
         // Update the welcome view
-        ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
+        welcome_update_view(WELCOME_VIEW(widgets->welcome_view));
         // Show pending contacts tab if necessary
         refreshPendingContactRequestTab();
         // Update account settings
@@ -1818,7 +1818,7 @@ CppImpl::enterSettingsView()
     /* show settings */
     gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "go-previous-symbolic",
                                  GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(widgets->ring_settings), _("Leave settings page"));
+    gtk_widget_set_tooltip_text(GTK_WIDGET(widgets->settings), _("Leave settings page"));
 
     gtk_widget_show(widgets->hbox_settings);
 
@@ -1843,7 +1843,7 @@ CppImpl::leaveSettingsView()
     /* show calls */
     gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-system-symbolic",
                                  GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(widgets->ring_settings), _("Settings"));
+    gtk_widget_set_tooltip_text(GTK_WIDGET(widgets->settings), _("Settings"));
 
     gtk_widget_hide(widgets->hbox_settings);
 
@@ -2064,7 +2064,7 @@ CppImpl::slotAccountAddedFromLrc(const std::string& id)
         }
         if (!accountInfo_) {
             updateLrc(id);
-            ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
+            welcome_update_view(WELCOME_VIEW(widgets->welcome_view));
             if (!gtk_stack_get_child_by_name(GTK_STACK(widgets->stack_main_view), NEW_ACCOUNT_SETTINGS_VIEW_NAME)) {
                 widgets->new_account_settings_view = new_account_settings_view_new(accountInfo_, lrc_->getAVModel());
                 gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->new_account_settings_view,
@@ -2122,7 +2122,7 @@ CppImpl::slotAccountNeedsMigration(const std::string& id)
         g_signal_connect_swapped(widgets->account_migration_view, "account-migration-failed",
                                     G_CALLBACK(on_handle_account_migrations), self);
 
-        gtk_widget_hide(widgets->ring_settings);
+        gtk_widget_hide(widgets->settings);
         showAccountSelectorWidget(false);
         gtk_widget_show(widgets->account_migration_view);
         gtk_stack_add_named(
@@ -2156,7 +2156,7 @@ CppImpl::slotAccountStatusChanged(const std::string& id)
 {
     if (!accountInfo_) {
         updateLrc(id);
-        ring_welcome_update_view(RING_WELCOME_VIEW(widgets->welcome_view));
+        welcome_update_view(WELCOME_VIEW(widgets->welcome_view));
         return;
     }
 
@@ -2229,7 +2229,7 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
         if (call.status == lrc::api::call::Status::IN_PROGRESS
             || call.status == lrc::api::call::Status::ENDED) {
             // Call ended, close the notification
-            ring_hide_notification(RING_NOTIFIER(widgets->notifier), notifId);
+            hide_notification(NOTIFIER(widgets->notifier), notifId);
         }
     } catch (const std::exception& e) {
         g_warning("Can't get call %s for this account.", callId.c_str());
@@ -2269,8 +2269,8 @@ CppImpl::slotNewIncomingCall(const std::string& callId)
     if (!accountInfo_) {
         return;
     }
-    if (g_settings_get_boolean(widgets->settings, "bring-window-to-front")) {
-        g_settings_set_boolean(widgets->settings, "show-main-window", TRUE);
+    if (g_settings_get_boolean(widgets->window_settings, "bring-window-to-front")) {
+        g_settings_set_boolean(widgets->window_settings, "show-main-window", TRUE);
     }
     try {
         auto call = accountInfo_->callModel->getCall(callId);
@@ -2297,10 +2297,10 @@ CppImpl::slotNewIncomingCall(const std::string& callId)
             return;
         }
 
-        if (g_settings_get_boolean(widgets->settings, "enable-call-notifications")) {
+        if (g_settings_get_boolean(widgets->window_settings, "enable-call-notifications")) {
             name.erase(std::remove(name.begin(), name.end(), '\r'), name.end());
             auto body = name + _(" is calling you!");
-            ring_show_notification(RING_NOTIFIER(widgets->notifier), avatar, uri, name, notifId, _("Incoming call"), body, NotificationType::CALL);
+            show_notification(NOTIFIER(widgets->notifier), avatar, uri, name, notifId, _("Incoming call"), body, NotificationType::CALL);
         }
     } catch (const std::exception& e) {
         g_warning("Can't get call %s for this account.", callId.c_str());
@@ -2327,7 +2327,7 @@ CppImpl::slotFilterChanged()
 
     if (IS_CHAT_VIEW(old_view)) {
         if (isInConv) {
-            changeView(RING_WELCOME_VIEW_TYPE);
+            changeView(WELCOME_VIEW_TYPE);
         } else {
             /* Refresh chat view. In some cases (like when a contact is unbanned)
                a changing filter also implies the need of redrawing the chat */
@@ -2345,7 +2345,7 @@ CppImpl::slotNewConversation(const std::string& uid)
     accountInfo_->conversationModel->setFilter("");
     // Select new conversation if contact added
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
-    if (IS_RING_WELCOME_VIEW(old_view)) {
+    if (IS_WELCOME_VIEW(old_view)) {
         accountInfo_->conversationModel->selectConversation(uid);
         if (chatViewConversation_) {
             try {
@@ -2370,7 +2370,7 @@ CppImpl::slotConversationRemoved(const std::string& uid)
     else if (IS_INCOMING_CALL_VIEW(old_view))
         current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
     if (current_item.uid == uid)
-        changeView(RING_WELCOME_VIEW_TYPE);
+        changeView(WELCOME_VIEW_TYPE);
 }
 
 void
@@ -2441,10 +2441,10 @@ CppImpl::slotNewTrustRequest(const std::string& id, const std::string& contactUr
             g_warning("Can't get contact for account %s. Don't show notification", accountInfo.id.c_str());
             return;
         }
-        if (g_settings_get_boolean(widgets->settings, "enable-pending-notifications")) {
+        if (g_settings_get_boolean(widgets->window_settings, "enable-pending-notifications")) {
             name.erase(std::remove(name.begin(), name.end(), '\r'), name.end());
             auto body = _("New request from ") + name;
-            ring_show_notification(RING_NOTIFIER(widgets->notifier), avatar, uri, name, notifId, _("Trust request"), body, NotificationType::REQUEST);
+            show_notification(NOTIFIER(widgets->notifier), avatar, uri, name, notifId, _("Trust request"), body, NotificationType::REQUEST);
         }
     } catch (...) {
         g_warning("Can't get account %s", id.c_str());
@@ -2457,7 +2457,7 @@ CppImpl::slotCloseTrustRequest(const std::string& id, const std::string& contact
     try {
         auto& accountInfo = lrc_->getAccountModel().getAccountInfo(id);
         auto notifId = accountInfo.id + ":request:" + contactUri;
-        ring_hide_notification(RING_NOTIFIER(widgets->notifier), notifId);
+        hide_notification(NOTIFIER(widgets->notifier), notifId);
     } catch (...) {
         g_warning("Can't get account %s", id.c_str());
     }
@@ -2502,10 +2502,10 @@ CppImpl::slotNewInteraction(const std::string& accountId, const std::string& con
                     return;
                 }
 
-                if (g_settings_get_boolean(widgets->settings, "enable-chat-notifications")) {
+                if (g_settings_get_boolean(widgets->window_settings, "enable-chat-notifications")) {
                     name.erase(std::remove(name.begin(), name.end(), '\r'), name.end());
                     auto body = name + ": " + interaction.body;
-                    ring_show_notification(RING_NOTIFIER(widgets->notifier), avatar, uri, name, notifId, _("New message"), body, NotificationType::CHAT);
+                    show_notification(NOTIFIER(widgets->notifier), avatar, uri, name, notifId, _("New message"), body, NotificationType::CHAT);
                 }
             }
         }
@@ -2524,7 +2524,7 @@ CppImpl::slotCloseInteraction(const std::string& accountId, const std::string& c
     try {
         auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
         auto notifId = accountInfo.id + ":interaction:" + conversation + ":" + std::to_string(interactionId);
-        ring_hide_notification(RING_NOTIFIER(widgets->notifier), notifId);
+        hide_notification(NOTIFIER(widgets->notifier), notifId);
     } catch (...) {
         g_warning("Can't get account %s", accountId.c_str());
     }
@@ -2553,19 +2553,19 @@ CppImpl::slotProfileUpdated(const std::string& id)
 }} // namespace <anonymous>::details
 
 void
-ring_main_window_reset(RingMainWindow* self)
+main_window_reset(MainWindow* self)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(self));
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     if (priv->cpp->show_settings)
         priv->cpp->leaveSettingsView();
 }
 
 bool
-ring_main_window_can_close(RingMainWindow* self)
+main_window_can_close(MainWindow* self)
 {
-    g_return_val_if_fail(IS_RING_MAIN_WINDOW(self), true);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(self));
+    g_return_val_if_fail(IS_MAIN_WINDOW(self), true);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     if (!lrc::api::Lrc::activeCalls().empty()) {
         auto res = priv->cpp->showOkCancelDialog(
             _("Stop current call?"),
@@ -2577,26 +2577,26 @@ ring_main_window_can_close(RingMainWindow* self)
 }
 
 void
-ring_main_window_display_account_list(RingMainWindow *win)
+main_window_display_account_list(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     gtk_combo_box_popup(GTK_COMBO_BOX(priv->combobox_account_selector));
 }
 
 void
-ring_main_window_search(RingMainWindow *win)
+main_window_search(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     gtk_widget_grab_focus(GTK_WIDGET(priv->search_entry));
 }
 
 void
-ring_main_window_conversations_list(RingMainWindow *win)
+main_window_conversations_list(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     auto smartViewPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(priv->notebook_contacts),
                                                                priv->scrolled_window_smartview);
     gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), smartViewPageNum);
@@ -2604,10 +2604,10 @@ ring_main_window_conversations_list(RingMainWindow *win)
 }
 
 void
-ring_main_window_requests_list(RingMainWindow *win)
+main_window_requests_list(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     if (!priv->cpp->accountInfo_->contactModel->hasPendingRequests()) return;
     auto contactRequestsPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(priv->notebook_contacts),
                                                                priv->scrolled_window_contact_requests);
@@ -2616,10 +2616,10 @@ ring_main_window_requests_list(RingMainWindow *win)
 }
 
 void
-ring_main_window_audio_call(RingMainWindow *win)
+main_window_audio_call(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     g_return_if_fail(priv && priv->cpp);
 
     priv->cpp->forCurrentConversation([&](const auto& conversation){
@@ -2628,10 +2628,10 @@ ring_main_window_audio_call(RingMainWindow *win)
 }
 
 void
-ring_main_window_clear_history(RingMainWindow *win)
+main_window_clear_history(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
 
     priv->cpp->forCurrentConversation([&](const auto &conversation) {
@@ -2644,10 +2644,10 @@ ring_main_window_clear_history(RingMainWindow *win)
 }
 
 void
-ring_main_window_remove_conversation(RingMainWindow *win)
+main_window_remove_conversation(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
 
     priv->cpp->forCurrentConversation([&](const auto& conversation){
@@ -2660,10 +2660,10 @@ ring_main_window_remove_conversation(RingMainWindow *win)
 }
 
 void
-ring_main_window_block_contact(RingMainWindow *win)
+main_window_block_contact(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
 
     priv->cpp->forCurrentConversation([&](const auto& conversation){
@@ -2676,10 +2676,10 @@ ring_main_window_block_contact(RingMainWindow *win)
 }
 
 void
-ring_main_window_unblock_contact(RingMainWindow *win)
+main_window_unblock_contact(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
 
     priv->cpp->forCurrentConversation([&](const auto& conversation){
@@ -2692,10 +2692,10 @@ ring_main_window_unblock_contact(RingMainWindow *win)
 }
 
 void
-ring_main_window_copy_contact(RingMainWindow *win)
+main_window_copy_contact(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
 
     priv->cpp->forCurrentConversation([&](const auto& conversation){
@@ -2710,10 +2710,10 @@ ring_main_window_copy_contact(RingMainWindow *win)
 }
 
 void
-ring_main_window_add_contact(RingMainWindow *win)
+main_window_add_contact(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     g_return_if_fail(priv && priv->cpp);
 
     priv->cpp->forCurrentConversation([&](const auto &conversation) {
@@ -2722,10 +2722,10 @@ ring_main_window_add_contact(RingMainWindow *win)
 }
 
 void
-ring_main_window_accept_call(RingMainWindow *win)
+main_window_accept_call(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
 
     // Select the first conversation of the list
@@ -2747,10 +2747,10 @@ ring_main_window_accept_call(RingMainWindow *win)
 }
 
 void
-ring_main_window_decline_call(RingMainWindow *win)
+main_window_decline_call(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     g_return_if_fail(priv && priv->cpp);
 
     priv->cpp->forCurrentConversation([&](const auto &conversation) {
@@ -2759,10 +2759,10 @@ ring_main_window_decline_call(RingMainWindow *win)
 }
 
 void
-ring_main_window_toggle_fullscreen(RingMainWindow *win)
+main_window_toggle_fullscreen(MainWindow *win)
 {
-    g_return_if_fail(IS_RING_MAIN_WINDOW(win));
-    auto *priv = RING_MAIN_WINDOW_GET_PRIVATE(RING_MAIN_WINDOW(win));
+    g_return_if_fail(IS_MAIN_WINDOW(win));
+    auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     g_return_if_fail(priv && priv->cpp);
     if (priv->cpp->is_fullscreen) return;
 
@@ -2778,9 +2778,9 @@ ring_main_window_toggle_fullscreen(RingMainWindow *win)
 //==============================================================================
 
 static void
-ring_main_window_init(RingMainWindow *win)
+main_window_init(MainWindow *win)
 {
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(win);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(win);
     gtk_widget_init_template(GTK_WIDGET(win));
 
 #if USE_LIBNM
@@ -2789,15 +2789,15 @@ ring_main_window_init(RingMainWindow *win)
 
     // CppImpl ctor
     priv->cpp = new details::CppImpl {*win};
-    priv->notifier = ring_notifier_new();
+    priv->notifier = notifier_new();
     priv->cpp->init();
 }
 
 static void
-ring_main_window_dispose(GObject *object)
+main_window_dispose(GObject *object)
 {
-    auto* self = RING_MAIN_WINDOW(object);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    auto* self = MAIN_WINDOW(object);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(self);
 
     if (priv->cpp) {
         delete priv->cpp;
@@ -2837,55 +2837,55 @@ ring_main_window_dispose(GObject *object)
         priv->notifier = nullptr;
     }
 
-    G_OBJECT_CLASS(ring_main_window_parent_class)->dispose(object);
+    G_OBJECT_CLASS(main_window_parent_class)->dispose(object);
 }
 
 static void
-ring_main_window_finalize(GObject *object)
+main_window_finalize(GObject *object)
 {
-    auto* self = RING_MAIN_WINDOW(object);
-    auto* priv = RING_MAIN_WINDOW_GET_PRIVATE(self);
+    auto* self = MAIN_WINDOW(object);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(self);
 
     g_clear_object(&priv->settings);
 
-    G_OBJECT_CLASS(ring_main_window_parent_class)->finalize(object);
+    G_OBJECT_CLASS(main_window_parent_class)->finalize(object);
 }
 
 static void
-ring_main_window_class_init(RingMainWindowClass *klass)
+main_window_class_init(MainWindowClass *klass)
 {
-    G_OBJECT_CLASS(klass)->finalize = ring_main_window_finalize;
-    G_OBJECT_CLASS(klass)->dispose = ring_main_window_dispose;
+    G_OBJECT_CLASS(klass)->finalize = main_window_finalize;
+    G_OBJECT_CLASS(klass)->dispose = main_window_dispose;
 
     gtk_widget_class_set_template_from_resource(GTK_WIDGET_CLASS (klass),
-                                                "/net/jami/JamiGnome/ringmainwindow.ui");
+                                                "/net/jami/JamiGnome/mainwindow.ui");
 
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_left_pane);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, notebook_contacts);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_smartview);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_menu);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_ring);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, ring_settings);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_settings);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, hbox_settings);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, search_entry);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, stack_main_view);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, vbox_call_view);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, frame_call);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, button_new_conversation  );
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_general_settings);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_media_settings);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, radiobutton_new_account_settings);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, combobox_account_selector);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, scrolled_window_contact_requests);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_contact_requests_list);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), RingMainWindow, image_conversations_list);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, vbox_left_pane);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, notebook_contacts);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, scrolled_window_smartview);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, menu);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, image_ring);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, image_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, hbox_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, search_entry);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, stack_main_view);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, vbox_call_view);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, frame_call);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, button_new_conversation  );
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, radiobutton_general_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, radiobutton_media_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, radiobutton_new_account_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, combobox_account_selector);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, scrolled_window_contact_requests);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, image_contact_requests_list);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, image_conversations_list);
 }
 
 GtkWidget *
-ring_main_window_new(GtkApplication *app)
+main_window_new(GtkApplication *app)
 {
-    gpointer win = g_object_new(RING_MAIN_WINDOW_TYPE, "application", app, NULL);
+    gpointer win = g_object_new(MAIN_WINDOW_TYPE, "application", app, NULL);
     gtk_window_set_title(GTK_WINDOW(win), JAMI_CLIENT_NAME);
     return (GtkWidget *)win;
 }

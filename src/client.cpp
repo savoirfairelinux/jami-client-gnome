@@ -17,7 +17,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#include "ring_client.h"
+#include "client.h"
 
 // system
 #include <memory>
@@ -40,13 +40,13 @@
 #include <smartinfohub.h>
 #include <globalinstances.h>
 
-// Ring client
-#include "ring_client_options.h"
-#include "ringmainwindow.h"
+// Jami Client
+#include "client_options.h"
+#include "mainwindow.h"
 #include "dialogs.h"
 #include "native/pixbufmanipulator.h"
 #include "native/dbuserrorhandler.h"
-#include "ringnotify.h"
+#include "notifier.h"
 #include "config.h"
 #include "utils/files.h"
 #include "revision.h"
@@ -57,19 +57,19 @@
 #include <libappindicator/app-indicator.h>
 #endif
 
-struct _RingClientClass
+struct _ClientClass
 {
     GtkApplicationClass parent_class;
 };
 
-struct _RingClient
+struct _Client
 {
     GtkApplication parent;
 };
 
-typedef struct _RingClientPrivate RingClientPrivate;
+typedef struct _ClientPrivate ClientPrivate;
 
-struct _RingClientPrivate {
+struct _ClientPrivate {
     /* args */
     int    argc;
     char **argv;
@@ -78,7 +78,7 @@ struct _RingClientPrivate {
 
     /* main window */
     GtkWidget        *win;
-    /* for libRingclient */
+    /* for libRingClient */
     QCoreApplication *qtapp;
     /* UAM */
     QMetaObject::Connection uam_updated;
@@ -100,9 +100,9 @@ typedef union _int_ptr_t
     gpointer ptr;
 } int_ptr_t;
 
-G_DEFINE_TYPE_WITH_PRIVATE(RingClient, ring_client, GTK_TYPE_APPLICATION);
+G_DEFINE_TYPE_WITH_PRIVATE(Client, client, GTK_TYPE_APPLICATION);
 
-#define RING_CLIENT_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_CLIENT_TYPE, RingClientPrivate))
+#define CLIENT_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CLIENT_TYPE, ClientPrivate))
 
 
 static void
@@ -121,7 +121,7 @@ exception_dialog(const char* msg)
 }
 
 static void
-ring_accelerators(RingClient *client)
+accelerators(Client *client)
 {
 #if GTK_CHECK_VERSION(3,12,0)
     const gchar *quit_accels[2] = {"<Ctrl>Q", NULL};
@@ -195,7 +195,7 @@ action_quit(G_GNUC_UNUSED GSimpleAction *simple,
 #if GLIB_CHECK_VERSION(2,32,0)
     g_application_quit(G_APPLICATION(user_data));
 #else
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(user_data);
     gtk_widget_destroy(priv->win);
 #endif
 }
@@ -206,9 +206,9 @@ action_about(G_GNUC_UNUSED GSimpleAction *simple,
              gpointer user_data)
 {
     g_return_if_fail(G_IS_APPLICATION(user_data));
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(user_data);
 
-    ring_about_dialog(priv->win);
+    about_dialog(priv->win);
 }
 
 static void
@@ -217,7 +217,7 @@ exec_action(GSimpleAction *simple,
             gpointer user_data)
 {
     g_return_if_fail(G_IS_APPLICATION(user_data));
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(user_data);
 
     GValue value = G_VALUE_INIT;
     g_value_init(&value, G_TYPE_STRING);
@@ -226,33 +226,33 @@ exec_action(GSimpleAction *simple,
     std::string name = g_value_get_string(&value);
 
     if (name == "display_account_list")
-        ring_main_window_display_account_list(RING_MAIN_WINDOW(priv->win));
+        main_window_display_account_list(MAIN_WINDOW(priv->win));
     else if (name == "search")
-        ring_main_window_search(RING_MAIN_WINDOW(priv->win));
+        main_window_search(MAIN_WINDOW(priv->win));
     else if (name == "conversations_list")
-        ring_main_window_conversations_list(RING_MAIN_WINDOW(priv->win));
+        main_window_conversations_list(MAIN_WINDOW(priv->win));
     else if (name == "requests_list")
-        ring_main_window_requests_list(RING_MAIN_WINDOW(priv->win));
+        main_window_requests_list(MAIN_WINDOW(priv->win));
     else if (name == "audio_call")
-        ring_main_window_audio_call(RING_MAIN_WINDOW(priv->win));
+        main_window_audio_call(MAIN_WINDOW(priv->win));
     else if (name == "clear_history")
-        ring_main_window_clear_history(RING_MAIN_WINDOW(priv->win));
+        main_window_clear_history(MAIN_WINDOW(priv->win));
     else if (name == "remove_conversation")
-        ring_main_window_remove_conversation(RING_MAIN_WINDOW(priv->win));
+        main_window_remove_conversation(MAIN_WINDOW(priv->win));
     else if (name == "block_contact")
-        ring_main_window_block_contact(RING_MAIN_WINDOW(priv->win));
+        main_window_block_contact(MAIN_WINDOW(priv->win));
     else if (name == "unblock_contact")
-        ring_main_window_unblock_contact(RING_MAIN_WINDOW(priv->win));
+        main_window_unblock_contact(MAIN_WINDOW(priv->win));
     else if (name == "copy_contact")
-        ring_main_window_copy_contact(RING_MAIN_WINDOW(priv->win));
+        main_window_copy_contact(MAIN_WINDOW(priv->win));
     else if (name == "add_contact")
-        ring_main_window_add_contact(RING_MAIN_WINDOW(priv->win));
+        main_window_add_contact(MAIN_WINDOW(priv->win));
     else if (name == "accept_call")
-        ring_main_window_accept_call(RING_MAIN_WINDOW(priv->win));
+        main_window_accept_call(MAIN_WINDOW(priv->win));
     else if (name == "decline_call")
-        ring_main_window_decline_call(RING_MAIN_WINDOW(priv->win));
+        main_window_decline_call(MAIN_WINDOW(priv->win));
     else if (name == "toggle_fullscreen")
-        ring_main_window_toggle_fullscreen(RING_MAIN_WINDOW(priv->win));
+        main_window_toggle_fullscreen(MAIN_WINDOW(priv->win));
     else
         g_warning("Missing implementation for this action: %s", name.c_str());
 }
@@ -272,7 +272,7 @@ static void
 action_show_shortcuts(G_GNUC_UNUSED GSimpleAction *action, G_GNUC_UNUSED GVariant *parameter, gpointer user_data)
 {
     g_return_if_fail(G_IS_APPLICATION(user_data));
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(user_data);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(user_data);
 
     GtkBuilder *builder = gtk_builder_new_from_resource("/net/jami/JamiGnome/help-overlay.ui");
     GtkWidget *overlay = GTK_WIDGET(gtk_builder_get_object (builder, "help_overlay"));
@@ -283,7 +283,7 @@ action_show_shortcuts(G_GNUC_UNUSED GSimpleAction *action, G_GNUC_UNUSED GVarian
     g_object_unref(builder);
 }
 
-static const GActionEntry ring_actions[] = {
+static const GActionEntry actions[] = {
     {"accept", NULL, NULL, NULL, NULL, {0}},
     {"hangup", NULL, NULL, NULL, NULL, {0}},
     {"hold", NULL, NULL, "false", NULL, {0}},
@@ -317,9 +317,9 @@ autostart_toggled(GSettings *settings, G_GNUC_UNUSED gchar *key, G_GNUC_UNUSED g
 }
 
 static void
-show_main_window_toggled(RingClient *client)
+show_main_window_toggled(Client *client)
 {
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
 
     if (g_settings_get_boolean(priv->settings, "show-main-window")) {
         gtk_window_present(GTK_WINDOW(priv->win));
@@ -329,31 +329,31 @@ show_main_window_toggled(RingClient *client)
 }
 
 static void
-ring_window_show(RingClient *client)
+window_show(Client *client)
 {
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
     g_settings_set_boolean(priv->settings, "show-main-window", TRUE);
 }
 
 static void
-ring_window_hide(RingClient *client)
+window_hide(Client *client)
 {
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
     g_settings_set_boolean(priv->settings, "show-main-window", FALSE);
 }
 
 static gboolean
-on_close_window(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, RingClient *client)
+on_close_window(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, Client *client)
 {
-    g_return_val_if_fail(GTK_IS_WINDOW(window) && IS_RING_CLIENT(client), FALSE);
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    g_return_val_if_fail(GTK_IS_WINDOW(window) && IS_CLIENT(client), FALSE);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
 
     if (g_settings_get_boolean(priv->settings, "show-status-icon")) {
         /* we want to simply hide the window and keep the client running */
-        auto closeWindow = ring_main_window_can_close(RING_MAIN_WINDOW(window));
+        auto closeWindow = main_window_can_close(MAIN_WINDOW(window));
         if (closeWindow) {
-            ring_window_hide(client);
-            ring_main_window_reset(RING_MAIN_WINDOW(window));
+            window_hide(client);
+            main_window_reset(MAIN_WINDOW(window));
         }
         return TRUE; /* do not propagate event */
     } else {
@@ -368,9 +368,9 @@ static void
 popup_menu(GtkStatusIcon *self,
            guint          button,
            guint          when,
-           RingClient    *client)
+           Client    *client)
 {
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS // GtkStatusIcon is deprecated since 3.14, but we fallback on it
     gtk_menu_popup(GTK_MENU(priv->icon_menu), NULL, NULL, gtk_status_icon_position_menu, self, button, when);
     G_GNUC_END_IGNORE_DEPRECATIONS
@@ -379,9 +379,9 @@ popup_menu(GtkStatusIcon *self,
 #endif
 
 static void
-init_systray(RingClient *client)
+init_systray(Client *client)
 {
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
 
     // init menu
     if (!priv->icon_menu) {
@@ -422,7 +422,7 @@ init_systray(RingClient *client)
         auto status_icon = gtk_status_icon_new_from_pixbuf(icon);
         gtk_status_icon_set_title(status_icon, "jami");
         G_GNUC_END_IGNORE_DEPRECATIONS
-        g_signal_connect_swapped(status_icon, "activate", G_CALLBACK(ring_window_show), client);
+        g_signal_connect_swapped(status_icon, "activate", G_CALLBACK(window_show), client);
         g_signal_connect(status_icon, "popup-menu", G_CALLBACK(popup_menu), client);
         priv->systray_icon = status_icon;
     }
@@ -430,9 +430,9 @@ init_systray(RingClient *client)
 }
 
 static void
-systray_toggled(GSettings *settings, const gchar *key, RingClient *client)
+systray_toggled(GSettings *settings, const gchar *key, Client *client)
 {
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
 
     if (g_settings_get_boolean(settings, key)) {
         if (!priv->systray_icon)
@@ -444,14 +444,14 @@ systray_toggled(GSettings *settings, const gchar *key, RingClient *client)
 }
 
 static void
-ring_client_activate(GApplication *app)
+client_activate(GApplication *app)
 {
-    RingClient *client = RING_CLIENT(app);
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    Client *client = CLIENT(app);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
 
     if (priv->win == NULL) {
         // activate being called for the first time
-        priv->win = ring_main_window_new(GTK_APPLICATION(app));
+        priv->win = main_window_new(GTK_APPLICATION(app));
 
         /* make sure win is set to NULL when the window is destroyed */
         g_object_add_weak_pointer(G_OBJECT(priv->win), (gpointer *)&priv->win);
@@ -462,7 +462,7 @@ ring_client_activate(GApplication *app)
         /* if we didn't launch with the '-r' (--restore-last-window-state) option then force the
          * show-main-window to true */
         if (!priv->restore_window_state)
-            ring_window_show(client);
+            window_show(client);
         show_main_window_toggled(client);
         g_signal_connect_swapped(priv->settings, "changed::show-main-window", G_CALLBACK(show_main_window_toggled), client);
 
@@ -471,27 +471,27 @@ ring_client_activate(GApplication *app)
         systray_toggled(priv->settings, "show-status-icon", client);
     } else {
         // activate not being called for the first time, force showing of main window
-        ring_window_show(client);
+        window_show(client);
     }
 }
 
 // TODO add some args!
 static void
-ring_client_open(GApplication *app, GFile ** /*file*/, gint /*arg3*/, const gchar* /*arg4*/)
+client_open(GApplication *app, GFile ** /*file*/, gint /*arg3*/, const gchar* /*arg4*/)
 {
-    ring_client_activate(app);
+    client_activate(app);
 
     // TODO migrate place call at begining
 }
 
 static void
-ring_client_startup(GApplication *app)
+client_startup(GApplication *app)
 {
-    RingClient *client = RING_CLIENT(app);
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    Client *client = CLIENT(app);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
 
-    g_message("Jami GNOME client version: %s", RING_VERSION);
-    g_message("git ref: %s", RING_CLIENT_REVISION);
+    g_message("Jami GNOME client version: %s", VERSION);
+    g_message("git ref: %s", CLIENT_REVISION);
 
     /* make sure that the system corresponds to the autostart setting */
     autostart_symlink(g_settings_get_boolean(priv->settings, "start-on-login"));
@@ -559,23 +559,23 @@ ring_client_startup(GApplication *app)
 
     /* add GActions */
     g_action_map_add_action_entries(
-        G_ACTION_MAP(app), ring_actions, G_N_ELEMENTS(ring_actions), app);
+        G_ACTION_MAP(app), actions, G_N_ELEMENTS(actions), app);
 
     /* GActions for settings */
     auto action_window_visible = g_settings_create_action(priv->settings, "show-main-window");
     g_action_map_add_action(G_ACTION_MAP(app), action_window_visible);
 
     /* add accelerators */
-    ring_accelerators(RING_CLIENT(app));
+    accelerators(CLIENT(app));
 
-    G_APPLICATION_CLASS(ring_client_parent_class)->startup(app);
+    G_APPLICATION_CLASS(client_parent_class)->startup(app);
 }
 
 static void
-ring_client_shutdown(GApplication *app)
+client_shutdown(GApplication *app)
 {
-    RingClient *self = RING_CLIENT(app);
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
+    Client *self = CLIENT(app);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(self);
 
     gtk_widget_destroy(priv->win);
 
@@ -594,41 +594,41 @@ ring_client_shutdown(GApplication *app)
     g_clear_object(&priv->settings);
 
     /* Chain up to the parent class */
-    G_APPLICATION_CLASS(ring_client_parent_class)->shutdown(app);
+    G_APPLICATION_CLASS(client_parent_class)->shutdown(app);
 }
 
 static void
-ring_client_init(RingClient *self)
+client_init(Client *self)
 {
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(self);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(self);
 
     priv->win = NULL;
     priv->qtapp = NULL;
     priv->settings = g_settings_new_full(get_settings_schema(), NULL, NULL);
 
     /* add custom cmd line options */
-    ring_client_add_options(G_APPLICATION(self));
+    client_add_options(G_APPLICATION(self));
 }
 
 static void
-ring_client_class_init(RingClientClass *klass)
+client_class_init(ClientClass *klass)
 {
-    G_APPLICATION_CLASS(klass)->startup = ring_client_startup;
-    G_APPLICATION_CLASS(klass)->activate = ring_client_activate;
-    G_APPLICATION_CLASS(klass)->open = ring_client_open;
-    G_APPLICATION_CLASS(klass)->shutdown = ring_client_shutdown;
+    G_APPLICATION_CLASS(klass)->startup = client_startup;
+    G_APPLICATION_CLASS(klass)->activate = client_activate;
+    G_APPLICATION_CLASS(klass)->open = client_open;
+    G_APPLICATION_CLASS(klass)->shutdown = client_shutdown;
 }
 
-RingClient*
-ring_client_new(int argc, char *argv[])
+Client*
+client_new(int argc, char *argv[])
 {
-    RingClient *client = (RingClient *)g_object_new(ring_client_get_type(),
+    Client *client = (Client *)g_object_new(client_get_type(),
                                                     "application-id", JAMI_CLIENT_APP_ID,
                                                     "flags", G_APPLICATION_HANDLES_OPEN ,
                                                     NULL);
 
     /* copy the cmd line args before they get processed by the GApplication*/
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
     priv->argc = argc;
     priv->argv = g_strdupv((gchar **)argv);
 
@@ -636,19 +636,19 @@ ring_client_new(int argc, char *argv[])
 }
 
 GtkWindow*
-ring_client_get_main_window(RingClient *client)
+client_get_main_window(Client *client)
 {
-    g_return_val_if_fail(IS_RING_CLIENT(client), NULL);
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    g_return_val_if_fail(IS_CLIENT(client), NULL);
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
 
     return (GtkWindow *)priv->win;
 }
 
 void
-ring_client_set_restore_main_window_state(RingClient *client, gboolean restore)
+client_set_restore_main_window_state(Client *client, gboolean restore)
 {
-    g_return_if_fail(IS_RING_CLIENT(client));
-    RingClientPrivate *priv = RING_CLIENT_GET_PRIVATE(client);
+    g_return_if_fail(IS_CLIENT(client));
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
 
     priv->restore_window_state = restore;
 }
