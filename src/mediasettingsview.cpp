@@ -136,9 +136,9 @@ CppImpl::drawAudioDevices()
         g_warning("AVModel not initialized yet");
         return;
     }
-    auto activeOutput = 0, activeRingtone = 0;
+    auto activeOutput = 0, activetone = 0;
     auto currentOutput = avModel_->getOutputDevice();
-    auto currentRingtone = avModel_->getRingtoneDevice();
+    auto currenttone = avModel_->getRingtoneDevice();
     auto i = 0;
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_ringtone));
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_output));
@@ -146,14 +146,14 @@ CppImpl::drawAudioDevices()
         if (output == currentOutput) {
             activeOutput = i;
         }
-        if (output == currentRingtone) {
-            activeRingtone = i;
+        if (output == currenttone) {
+            activetone = i;
         }
         gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_ringtone), nullptr, output.c_str());
         gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_output), nullptr, output.c_str());
         i++;
     }
-    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_ringtone), activeRingtone);
+    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_ringtone), activetone);
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_output), activeOutput);
 
     auto activeInput = 0;

@@ -19,7 +19,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#include "ringwelcomeview.h"
+#include "welcomeview.h"
 #include "utils/drawing.h"
 
 #include <gtk/gtk.h>
@@ -31,19 +31,19 @@
 #include <QObject>
 #include <QItemSelectionModel>
 
-struct _RingWelcomeView
+struct _WelcomeView
 {
     GtkScrolledWindow parent;
 };
 
-struct _RingWelcomeViewClass
+struct _WelcomeViewClass
 {
     GtkScrolledWindowClass parent_class;
 };
 
-typedef struct _RingWelcomeViewPrivate RingWelcomeViewPrivate;
+typedef struct _WelcomeViewPrivate WelcomeViewPrivate;
 
-struct _RingWelcomeViewPrivate
+struct _WelcomeViewPrivate
 {
     GtkWidget *box_overlay;
     GtkWidget *label_explanation;
@@ -59,16 +59,16 @@ struct _RingWelcomeViewPrivate
 
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(RingWelcomeView, ring_welcome_view, GTK_TYPE_SCROLLED_WINDOW);
+G_DEFINE_TYPE_WITH_PRIVATE(WelcomeView, welcome_view, GTK_TYPE_SCROLLED_WINDOW);
 
-#define RING_WELCOME_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_WELCOME_VIEW_TYPE, RingWelcomeViewPrivate))
+#define WELCOME_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), WELCOME_VIEW_TYPE, WelcomeViewPrivate))
 
-static gboolean   draw_qr_event(GtkWidget*,cairo_t*,RingWelcomeView*);
-static void       switch_qrcode(RingWelcomeView* self);
+static gboolean   draw_qr_event(GtkWidget*,cairo_t*,WelcomeView*);
+static void       switch_qrcode(WelcomeView* self);
 
 void
-ring_welcome_update_view(RingWelcomeView* self) {
-    auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
+welcome_update_view(WelcomeView* self) {
+    auto priv = WELCOME_VIEW_GET_PRIVATE(self);
 
     // Only draw a basic view for SIP accounts
     if (not *priv->accountInfo_ || (*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::SIP) {
@@ -85,13 +85,13 @@ ring_welcome_update_view(RingWelcomeView* self) {
     auto color = priv->useDarkTheme? "white" : "black";
 
     // Get registeredName, else the ID
-    gchar *ring_id = nullptr;
+    gchar *id = nullptr;
     if(! (*priv->accountInfo_)->registeredName.empty()){
         gtk_label_set_text(
             GTK_LABEL(priv->label_explanation),
             _("This is your Jami username.\nCopy and share it with your friends!")
         );
-        ring_id = g_markup_printf_escaped("<span fgcolor=\"%s\">%s</span>", color,
+        id = g_markup_printf_escaped("<span fgcolor=\"%s\">%s</span>", color,
                                           (*priv->accountInfo_)->registeredName.c_str());
     }
     else if (!(*priv->accountInfo_)->profileInfo.uri.empty()) {
@@ -99,14 +99,14 @@ ring_welcome_update_view(RingWelcomeView* self) {
             GTK_LABEL(priv->label_explanation),
             _("This is your ID.\nCopy and share it with your friends!")
         );
-        ring_id = g_markup_printf_escaped("<span fgcolor=\"%s\">%s</span>", color,
+        id = g_markup_printf_escaped("<span fgcolor=\"%s\">%s</span>", color,
                                           (*priv->accountInfo_)->profileInfo.uri.c_str());
     } else {
         gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
-        ring_id = g_strdup("");
+        id = g_strdup("");
     }
 
-    gtk_label_set_markup(GTK_LABEL(priv->label_ringid), ring_id);
+    gtk_label_set_markup(GTK_LABEL(priv->label_ringid), id);
 
     gtk_widget_show(priv->label_explanation);
     gtk_widget_show(priv->hbox_idlayout);
@@ -114,7 +114,7 @@ ring_welcome_update_view(RingWelcomeView* self) {
     gtk_widget_show(priv->button_qrcode);
     gtk_widget_show(priv->revealer_qrcode);
 
-    g_free(ring_id);
+    g_free(id);
 
 
     GError *error = NULL;
@@ -145,19 +145,19 @@ ring_welcome_update_view(RingWelcomeView* self) {
 }
 
 void
-ring_welcome_set_theme(RingWelcomeView* self, bool useDarkTheme)
+welcome_set_theme(WelcomeView* self, bool useDarkTheme)
 {
-    g_return_if_fail(IS_RING_WELCOME_VIEW(self));
-    auto* priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
+    g_return_if_fail(IS_WELCOME_VIEW(self));
+    auto* priv = WELCOME_VIEW_GET_PRIVATE(self);
     priv->useDarkTheme = useDarkTheme;
 }
 
 
 static void
-ring_welcome_view_init(RingWelcomeView *self)
+welcome_view_init(WelcomeView *self)
 {
-    g_return_if_fail(IS_RING_WELCOME_VIEW(self));
-    auto* priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
+    g_return_if_fail(IS_WELCOME_VIEW(self));
+    auto* priv = WELCOME_VIEW_GET_PRIVATE(self);
 
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(self), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 
@@ -277,33 +277,33 @@ ring_welcome_view_init(RingWelcomeView *self)
 }
 
 static void
-ring_welcome_view_dispose(GObject *object)
+welcome_view_dispose(GObject *object)
 {
-    auto* priv = RING_WELCOME_VIEW_GET_PRIVATE(object);
+    auto* priv = WELCOME_VIEW_GET_PRIVATE(object);
     QObject::disconnect(priv->nameRegistrationEnded_);
-    G_OBJECT_CLASS(ring_welcome_view_parent_class)->dispose(object);
+    G_OBJECT_CLASS(welcome_view_parent_class)->dispose(object);
 }
 
 static void
-ring_welcome_view_finalize(GObject *object)
+welcome_view_finalize(GObject *object)
 {
-    G_OBJECT_CLASS(ring_welcome_view_parent_class)->finalize(object);
+    G_OBJECT_CLASS(welcome_view_parent_class)->finalize(object);
 }
 
 static void
-ring_welcome_view_class_init(RingWelcomeViewClass *klass)
+welcome_view_class_init(WelcomeViewClass *klass)
 {
-    G_OBJECT_CLASS(klass)->finalize = ring_welcome_view_finalize;
-    G_OBJECT_CLASS(klass)->dispose = ring_welcome_view_dispose;
+    G_OBJECT_CLASS(klass)->finalize = welcome_view_finalize;
+    G_OBJECT_CLASS(klass)->dispose = welcome_view_dispose;
 }
 
 GtkWidget *
-ring_welcome_view_new(AccountInfoPointer const & accountInfo)
+welcome_view_new(AccountInfoPointer const & accountInfo)
 {
-    gpointer self = g_object_new(RING_WELCOME_VIEW_TYPE, NULL);
-    auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
+    gpointer self = g_object_new(WELCOME_VIEW_TYPE, NULL);
+    auto priv = WELCOME_VIEW_GET_PRIVATE(self);
     priv->accountInfo_ = &accountInfo;
-    ring_welcome_update_view(RING_WELCOME_VIEW(self));
+    welcome_update_view(WELCOME_VIEW(self));
 
     return (GtkWidget *)self;
 }
@@ -312,17 +312,17 @@ ring_welcome_view_new(AccountInfoPointer const & accountInfo)
 static gboolean
 draw_qr_event(G_GNUC_UNUSED GtkWidget* diese,
             cairo_t*   cr,
-            RingWelcomeView* self)
+            WelcomeView* self)
 {
-    auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
+    auto priv = WELCOME_VIEW_GET_PRIVATE(self);
     g_return_val_if_fail(priv, false);
     return draw_qrcode(cr, (*priv->accountInfo_)->profileInfo.uri.c_str(), 200);
 }
 
 static void
-switch_qrcode(RingWelcomeView* self)
+switch_qrcode(WelcomeView* self)
 {
-    auto priv = RING_WELCOME_VIEW_GET_PRIVATE(self);
+    auto priv = WELCOME_VIEW_GET_PRIVATE(self);
 
     auto to_reveal = !gtk_revealer_get_reveal_child(GTK_REVEALER(priv->revealer_qrcode));
     gtk_revealer_set_reveal_child(GTK_REVEALER(priv->revealer_qrcode), to_reveal);

@@ -22,7 +22,7 @@
  // Client
 #include "chatview.h"
 #include "native/pixbufmanipulator.h"
-#include "ringnotify.h"
+#include "notifier.h"
 #include "utils/drawing.h"
 #include "utils/files.h"
 #include "video/video_widget.h"

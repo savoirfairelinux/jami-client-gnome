@@ -31,7 +31,7 @@
     <property name="icon_name">applications-multimedia-symbolic</property>
     <property name="icon_size">2</property>
   </object>
-  <template class="RingMainWindow" parent="GtkApplicationWindow">
+  <template class="MainWindow" parent="GtkApplicationWindow">
     <property name="title" translatable="no">Jami</property>
     <property name="can_focus">False</property>
     <property name="show_menubar">False</property>
@@ -50,7 +50,7 @@
         <property name="can_focus">False</property>
         <property name="show_close_button">True</property>
         <child>
-          <object class="GtkMenuButton" id="ring_menu">
+          <object class="GtkMenuButton" id="menu">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="receives_default">False</property>
@@ -143,7 +143,7 @@
             <property name="can_focus">False</property>
             <property name="spacing">0</property>
             <child>
-              <object class="GtkButton" id="ring_settings">
+              <object class="GtkButton" id="settings">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">False</property>

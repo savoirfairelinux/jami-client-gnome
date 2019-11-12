@@ -23,13 +23,13 @@
 #include <gtk/gtk.h>
 #include <string>
 
-GdkPixbuf *ring_draw_fallback_avatar(int size, const std::string& letter, const char color = 0);
+GdkPixbuf *draw_fallback_avatar(int size, const std::string& letter, const char color = 0);
 
-GdkPixbuf *ring_draw_conference_avatar(int size);
+GdkPixbuf *draw_conference_avatar(int size);
 
-GdkPixbuf *ring_frame_avatar(GdkPixbuf *avatar);
+GdkPixbuf *frame_avatar(GdkPixbuf *avatar);
 
-GdkPixbuf *ring_draw_unread_messages(const GdkPixbuf *avatar, int unread_count);
+GdkPixbuf *draw_unread_messages(const GdkPixbuf *avatar, int unread_count);
 
 gboolean   draw_qrcode(cairo_t* cr, const std::string& to_encode, uint32_t size);
 
@@ -42,7 +42,7 @@ enum class IconStatus {
     CONNECTED,
     INVALID
 };
-GdkPixbuf *ring_draw_status(const GdkPixbuf *avatar, IconStatus status);
+GdkPixbuf *draw_status(const GdkPixbuf *avatar, IconStatus status);
 
 GdkRGBA get_ambient_color(GtkWidget* widget);
 

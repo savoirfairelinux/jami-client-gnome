@@ -135,7 +135,7 @@
                 <property name="border_width">10</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">15</property>
-                
+
                 <child>
                   <object class="GtkLabel" id="existing_account_label">
                     <property name="visible">True</property>
@@ -558,7 +558,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="label" translatable="yes">Register username</property>
-                                        <property name="tooltip_text" translatable="yes">By checking this, you will register a unique username on the Jami network. People can use it to contact you instead of using your RingID, which is 40 characters long.</property>
+                                        <property name="tooltip_text" translatable="yes">By checking this, you will register a unique username on the Jami network. People can use it to contact you instead of using your ID, which is 40 characters long.</property>
                                       </object>
                                     </child>
                                     <child>
@@ -756,8 +756,8 @@
                 <property name="border_width">10</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">15</property>
-                
-                
+
+
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
@@ -769,7 +769,7 @@
                     </attributes>
                   </object>
                 </child>
-                
+
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
@@ -783,7 +783,7 @@
                   </object>
                 </child>
 
-                
+
                 <child>
                   <object class="GtkCheckButton" id="button_never_show_again">
                     <property name="label" translatable="yes">Never show me this again</property>
@@ -793,8 +793,8 @@
                     <property name="halign">fill</property>
                   </object>
                 </child>
-                
-                
+
+
                 <child>
                   <object class="GtkButtonBox">
                     <property name="visible">True</property>
@@ -819,7 +819,7 @@
                     </child>
                   </object>
                 </child>
-                
+
               </object>
             </child>
             <!-- End existing account wizard -->
@@ -929,7 +929,7 @@
                 <property name="border_width">10</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">15</property>
-                
+
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>

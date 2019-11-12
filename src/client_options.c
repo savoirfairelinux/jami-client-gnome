@@ -18,11 +18,11 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#include "ring_client_options.h"
+#include "client_options.h"
 
 #include "config.h"
 #include "revision.h"
-#include "ring_client.h"
+#include "client.h"
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <stdlib.h>
@@ -33,7 +33,7 @@ option_version_cb(G_GNUC_UNUSED const gchar *option_name,
                   G_GNUC_UNUSED gpointer data,
                   G_GNUC_UNUSED GError **error)
 {
-    g_print("%s - %s\n", RING_VERSION, RING_CLIENT_REVISION);
+    g_print("%s - %s\n", VERSION, CLIENT_REVISION);
     exit(EXIT_SUCCESS);
 }
 
@@ -44,7 +44,7 @@ option_debug_cb(G_GNUC_UNUSED const gchar *option_name,
                 G_GNUC_UNUSED GError **error)
 {
     g_setenv("G_MESSAGES_DEBUG", "all", TRUE);
-    g_setenv("RING_CHATVIEW_DEBUG", "true", TRUE);
+    g_setenv("CHATVIEW_DEBUG", "true", TRUE);
     g_debug("debug enabled");
     return TRUE;
 }
@@ -56,8 +56,8 @@ option_restore_cb(G_GNUC_UNUSED const gchar *option_name,
                   G_GNUC_UNUSED GError **error)
 {
     GApplication *client = g_application_get_default();
-    if (IS_RING_CLIENT(client))
-        ring_client_set_restore_main_window_state(RING_CLIENT(client), TRUE);
+    if (IS_CLIENT(client))
+        client_set_restore_main_window_state(CLIENT(client), TRUE);
     return TRUE;
 }
 
@@ -71,7 +71,7 @@ static const GOptionEntry all_options[] = {
 
 #if GLIB_CHECK_VERSION(2,40,0)
 void
-ring_client_add_options(GApplication *app) {
+client_add_options(GApplication *app) {
     /* NOTE: using this function, the options do not get translated in glib versions <2.45 due to
      * bug 750322: https://bugzilla.gnome.org/show_bug.cgi?id=750322
      */
@@ -80,7 +80,7 @@ ring_client_add_options(GApplication *app) {
 
 #else
 GOptionContext *
-ring_client_options_get_context()
+client_options_get_context()
 {
     GOptionContext *context = g_option_context_new(_("- GNOME client for Jami"));
     g_option_context_set_ignore_unknown_options(context, TRUE);

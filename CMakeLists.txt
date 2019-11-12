@@ -26,13 +26,13 @@ ENDIF()
 IF( NOT ("$ENV{SOURCE_DATE_EPOCH}" STREQUAL ""))
   EXECUTE_PROCESS(
     COMMAND date -u -d "1970-01-01 UTC $ENV{SOURCE_DATE_EPOCH} seconds" "+%Y-%m-%d %H:%M:%S UTC"
-    OUTPUT_VARIABLE RING_CLIENT_BUILD_DATE
+    OUTPUT_VARIABLE CLIENT_BUILD_DATE
     OUTPUT_STRIP_TRAILING_WHITESPACE
     )
-ELSEIF( "${RING_CLIENT_BUILD_DATE}" STREQUAL "")
+ELSEIF( "${CLIENT_BUILD_DATE}" STREQUAL "")
   EXECUTE_PROCESS(
     COMMAND date -u "+%Y-%m-%d %H:%M:%S UTC"
-    OUTPUT_VARIABLE RING_CLIENT_BUILD_DATE
+    OUTPUT_VARIABLE CLIENT_BUILD_DATE
     OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 ENDIF()
@@ -235,7 +235,7 @@ ADD_CUSTOM_TARGET(
    COMMAND ${CMAKE_COMMAND}
       -DGIT_REVISION_INPUT_FILE=${GIT_REVISION_INPUT_FILE}
       -DGIT_REVISION_OUTPUT_FILE=${GIT_REVISION_OUTPUT_FILE}
-      -DRING_CLIENT_BUILD_DATE=${RING_CLIENT_BUILD_DATE}
+      -DCLIENT_BUILD_DATE=${CLIENT_BUILD_DATE}
       -P ${CMAKE_SOURCE_DIR}/cmake/GitRevision.cmake
    COMMENT "generating ${GIT_REVISION_OUTPUT_FILE}"
 )
@@ -248,12 +248,12 @@ ADD_CUSTOM_COMMAND(
 # source files to compile
 SET( SRC_FILES
    src/main.cpp
-   src/ring_client.h
-   src/ring_client.cpp
-   src/ring_client_options.h
-   src/ring_client_options.c
-   src/ringmainwindow.h
-   src/ringmainwindow.cpp
+   src/client.h
+   src/client.cpp
+   src/client_options.h
+   src/client_options.c
+   src/mainwindow.h
+   src/mainwindow.cpp
    src/incomingcallview.h
    src/incomingcallview.cpp
    src/currentcallview.h
@@ -289,15 +289,15 @@ SET( SRC_FILES
    src/native/pixbufmanipulator.cpp
    src/utils/models.h
    src/utils/models.cpp
-   src/ringnotify.h
-   src/ringnotify.cpp
+   src/notifier.h
+   src/notifier.cpp
    src/utils/files.h
    src/utils/files.cpp
    ${GIT_REVISION_OUTPUT_FILE}
    src/native/dbuserrorhandler.h
    src/native/dbuserrorhandler.cpp
-   src/ringwelcomeview.h
-   src/ringwelcomeview.cpp
+   src/welcomeview.h
+   src/welcomeview.cpp
    src/webkitchatcontainer.h
    src/webkitchatcontainer.cpp
    src/chatview.h
