@@ -36,7 +36,7 @@
 namespace Interfaces {
 
 PixbufManipulator::PixbufManipulator()
-    : conferenceAvatar_{ring_draw_conference_avatar(FALLBACK_AVATAR_SIZE), g_object_unref}
+    : conferenceAvatar_{draw_conference_avatar(FALLBACK_AVATAR_SIZE), g_object_unref}
 {
 }
 
@@ -72,7 +72,7 @@ PixbufManipulator::generateAvatar(const std::string& alias, const std::string& u
     }
 
     return std::shared_ptr<GdkPixbuf> {
-        ring_draw_fallback_avatar(
+        draw_fallback_avatar(
             FALLBACK_AVATAR_SIZE,
             letter,
             color
@@ -114,18 +114,18 @@ PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo,
 
     /* frame photo */
     std::shared_ptr<GdkPixbuf> result {
-        ring_frame_avatar(scaled_photo.get()),
+        frame_avatar(scaled_photo.get()),
         g_object_unref
     };
 
     /* draw information */
     if (displayInformation) {
         /* draw status */
-        result.reset(ring_draw_status(result.get(), status), g_object_unref);
+        result.reset(draw_status(result.get(), status), g_object_unref);
 
         /* draw visual notification for unread messages */
         if (unreadMessages)
-            result.reset(ring_draw_unread_messages(result.get(), unreadMessages), g_object_unref);
+            result.reset(draw_unread_messages(result.get(), unreadMessages), g_object_unref);
     }
 
     return result;

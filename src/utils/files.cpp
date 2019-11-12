@@ -136,10 +136,10 @@ GSettingsSchema *
 get_settings_schema()
 {
     static std::unique_ptr<GSettingsSchema, decltype(g_settings_schema_unref )&>
-        ring_schema(nullptr, g_settings_schema_unref);
+        schema(nullptr, g_settings_schema_unref);
 
-    if (ring_schema.get() == nullptr) {
-        GSettingsSchema *schema = NULL;
+    if (schema.get() == nullptr) {
+        GSettingsSchema *settings_schema = NULL;
 
         /* find gschema.compiled by checking the following dirs in order:
          *  - current bin dir
@@ -160,7 +160,7 @@ get_settings_schema()
             &error);
 
         if (!error) {
-            schema = g_settings_schema_source_lookup(schema_source_local,
+            settings_schema = g_settings_schema_source_lookup(schema_source_local,
                                                      JAMI_CLIENT_APP_ID,
                                                      TRUE);
             g_settings_schema_source_unref(schema_source_local);
@@ -170,7 +170,7 @@ get_settings_schema()
         }
         g_free(schema_dir_local);
 
-        if (!schema) {
+        if (!settings_schema) {
             /* try install dir */
             g_debug("looking for schema in insall dir");
             gchar *schema_dir_install = g_strconcat(JAMI_CLIENT_INSTALL, "/share/glib-2.0/schemas", NULL);
@@ -182,7 +182,7 @@ get_settings_schema()
                 &error);
 
             if (!error) {
-                schema = g_settings_schema_source_lookup(schema_source_install,
+                settings_schema = g_settings_schema_source_lookup(schema_source_install,
                                                          JAMI_CLIENT_APP_ID,
                                                          TRUE);
                 g_settings_schema_source_unref(schema_source_install);
@@ -193,16 +193,16 @@ get_settings_schema()
             g_free(schema_dir_install);
         }
 
-        if (!schema) {
+        if (!settings_schema) {
             /* try default dir */
             g_debug("looking for schema in default dir");
 
-            schema = g_settings_schema_source_lookup(g_settings_schema_source_get_default(),
+            settings_schema = g_settings_schema_source_lookup(g_settings_schema_source_get_default(),
                                                      JAMI_CLIENT_APP_ID,
                                                      TRUE);
         }
-        ring_schema.reset(schema);
+        schema.reset(settings_schema);
     }
 
-    return ring_schema.get();
+    return schema.get();
 }

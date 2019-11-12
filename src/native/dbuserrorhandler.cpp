@@ -20,7 +20,7 @@
 
 #include <glib/gi18n.h>
 #include <globalinstances.h>
-#include "../ring_client.h"
+#include "../client.h"
 #include <api/lrc.h>
 
 namespace Interfaces {
@@ -37,7 +37,7 @@ dring_crash_dialog()
 
     /* get the main window */
     if (auto app = g_application_get_default()) {
-        auto win = ring_client_get_main_window(RING_CLIENT(app));
+        auto win = client_get_main_window(CLIENT(app));
         if (win) {
             gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(win));
             gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
@@ -70,12 +70,12 @@ dring_crash_dialog()
 }
 
 static GtkWidget*
-ring_quitting_dialog()
+quitting_dialog()
 {
     /* get the main window */
     GtkWindow *win = NULL;
     if (auto app = g_application_get_default()) {
-        win = ring_client_get_main_window(RING_CLIENT(app));
+        win = client_get_main_window(CLIENT(app));
     } else {
         g_warning("no default GApplication exists");
     }
@@ -108,7 +108,7 @@ check_connection_cb(GtkWidget *warning_dialog)
     if ((!lrc::api::Lrc::isConnected()) || (!lrc::api::Lrc::dbusIsValid())) {
         g_warning("could not reconnect to the daemon");
 
-        auto quit_dialog = ring_quitting_dialog();
+        auto quit_dialog = quitting_dialog();
 
         /* wait for the user to exit the dialog */
         gtk_dialog_run(GTK_DIALOG(quit_dialog));
