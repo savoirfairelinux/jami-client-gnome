@@ -718,7 +718,7 @@ chat_view_class_init(ChatViewClass *klass)
         0,
         nullptr,
         nullptr,
-        g_cclosure_user_marshal_VOID__STRING_STRING,
+        g_cclosure_user_marshal_VOID__STSTRING,
         G_TYPE_NONE, 2, G_TYPE_STRING, G_TYPE_STRING);
 }
 

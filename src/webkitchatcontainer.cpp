@@ -35,7 +35,7 @@
 #include <api/conversationmodel.h>
 #include <api/account.h>
 
-// Ring Client
+//  Client
 #include "native/pixbufmanipulator.h"
 
 struct _WebKitChatContainer
@@ -527,8 +527,8 @@ build_view(WebKitChatContainer *view)
     WebKitChatContainerPrivate *priv = WEBKIT_CHAT_CONTAINER_GET_PRIVATE(view);
 
     priv->chatview_debug = FALSE;
-    auto ring_chatview_debug = g_getenv("RING_CHATVIEW_DEBUG");
-    if (ring_chatview_debug || g_strcmp0(ring_chatview_debug, "true") == 0)
+    auto chatview_debug = g_getenv("CHATVIEW_DEBUG");
+    if (chatview_debug || g_strcmp0(chatview_debug, "true") == 0)
     {
         priv->chatview_debug = TRUE;
     }

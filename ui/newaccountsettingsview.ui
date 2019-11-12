@@ -603,7 +603,7 @@
                                     </child>
                                     <!-- RING Enable account -->
                                     <child>
-                                      <object class="GtkBox" id="ring_enable_account">
+                                      <object class="GtkBox" id="enable_account">
                                         <property name="visible">True</property>
                                         <property name="halign">fill</property>
                                         <property name="orientation">horizontal</property>

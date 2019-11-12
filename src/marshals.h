@@ -8,7 +8,7 @@ G_BEGIN_DECLS
 
 /* VOID:STRING,STRING (marshallers.list:1) */
 extern
-void g_cclosure_user_marshal_VOID__STRING_STRING (GClosure     *closure,
+void g_cclosure_user_marshal_VOID__STSTRING (GClosure     *closure,
                                                   GValue       *return_value,
                                                   guint         n_param_values,
                                                   const GValue *param_values,

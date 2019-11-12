@@ -2,10 +2,10 @@
 
 [![Build Status](https://jenkins.jami.net/buildStatus/icon?job=client-gnome)](https://jenkins.jami.net/job/client-gnome/)
 
-Jami-client-gnome is a Jami client written in GTK+3. It uses libRingClient to
+Jami-client-gnome is a Jami client written in GTK+3. It uses libClient to
 communicate with the Jami daemon and for all of the underlying models and their
 logic. Ideally Jami-client-gnome should only contain UI related code and any
-wrappers necessary for interacting with libRingClient.
+wrappers necessary for interacting with libClient.
 
 Packages for Debian/Ubuntu/Fedora can be found at https://jami.net/
 
@@ -19,7 +19,7 @@ GNU Jami welcomes contribution from everyone. See [CONTRIBUTING.md](CONTRIBUTING
 ## Requirements
 
 - Jami daemon
-- libRingClient
+- libClient
 - GTK+3 (3.10 or higher)
 - Qt5 Core
 - X11
@@ -38,7 +38,7 @@ On Fedora:
 sudo dnf install gcc-c++ cmake gtk3-devel qt5-qtbase-devel clutter-gtk-devel gnome-icon-theme-symbolic libnotify-devel gettext
 ```
 
-The build instructions for the daemon and libRingClient can be found in their
+The build instructions for the daemon and libClient can be found in their
 respective repositories. See Gerrit:
  - https://gerrit-ring.savoirfairelinux.com/#/admin/projects/
 
@@ -64,31 +64,31 @@ desktop integration. In this case you should perform a 'make install' after
 building the client.
 
 
-## Building without installing Jami daemon and libRingClient
+## Building without installing Jami daemon and libClient
 
 It is possible to build ring-client-gnome without installing the daemon and
-libRingClient on your system (eg: in `/usr` or `/usr/local`):
+libClient on your system (eg: in `/usr` or `/usr/local`):
 
 1. build the daemon
-2. when building libRingClient, specify the location of the daemon lib in the
-   cmake options with -DRING_BUILD_DIR=, eg:
-   `-DRING_BUILD_DIR=/home/user/ring/daemon/src`
-3. to get the proper headers, we still need to 'make install' libRingClient, but
+2. when building libClient, specify the location of the daemon lib in the
+   cmake options with -DBUILD_DIR=, eg:
+   `-DBUILD_DIR=/home/user/ring/daemon/src`
+3. to get the proper headers, we still need to 'make install' libClient, but
    we don't have to install it in /usr, so just specify another location for the
    install prefix in the cmake options, eg:
    `-DCMAKE_INSTALL_PREFIX=/home/user/ringinstall`
-4. now compile libRingClient and do 'make install', everything will be installed
+4. now compile libClient and do 'make install', everything will be installed
    in the directory specified by the prefix
-4. now we just have to point the client to the libRingClient cmake module during
+4. now we just have to point the client to the libClient cmake module during
    the configuration:
-   `-DLibRingClient_DIR=/home/user/ringinstall/lib/cmake/LibRingClient`
+   `-DLibClient_DIR=/home/user/ringinstall/lib/cmake/LibClient`
 
 
 ## Debugging
 
 For now, the build type of the client is "Debug" by default, however it is
-useful to also have the debug symbols of libRingClient. To do this, specify this
-when compiling libRingClient with `-DCMAKE_BUILD_TYPE=Debug` in the cmake
+useful to also have the debug symbols of libClient. To do this, specify this
+when compiling libClient with `-DCMAKE_BUILD_TYPE=Debug` in the cmake
 options.
 
 ## Generating marshals.*

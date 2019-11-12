@@ -34,7 +34,7 @@
 #include <api/newaccountmodel.h>
 #include <api/newcodecmodel.h>
 
-// Ring client
+//  client
 #include "avatarmanipulation.h"
 #include "defines.h"
 #include "utils/files.h"
@@ -42,7 +42,7 @@
 
 enum
 {
-  PROP_RING_MAIN_WIN_PNT = 1,
+  PROP_MAIN_WIN_PNT = 1,
 };
 
 struct _NewAccountSettingsView
