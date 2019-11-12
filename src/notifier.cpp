@@ -18,9 +18,9 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#include "ringnotify.h"
+#include "notifier.h"
 #include "config.h"
-#include "ring_client.h"
+#include "client.h"
 
 #if USE_CANBERRA
 #include <canberra-gtk.h>
@@ -45,26 +45,26 @@ namespace details
 class CppImpl;
 }
 
-struct _RingNotifier
+struct _Notifier
 {
     GtkBox parent;
 };
 
-struct _RingNotifierClass
+struct _NotifierClass
 {
     GtkBoxClass parent_class;
 };
 
-typedef struct _RingNotifierPrivate RingNotifierPrivate;
+typedef struct _NotifierPrivate NotifierPrivate;
 
-struct _RingNotifierPrivate
+struct _NotifierPrivate
 {
     details::CppImpl* cpp; ///< Non-UI and C++ only code0
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE(RingNotifier, ring_notifier, GTK_TYPE_BOX);
+G_DEFINE_TYPE_WITH_PRIVATE(Notifier, notifier, GTK_TYPE_BOX);
 
-#define RING_NOTIFIER_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), RING_NOTIFIER_TYPE, RingNotifierPrivate))
+#define NOTIFIER_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), NOTIFIER_TYPE, NotifierPrivate))
 
 /* signals */
 enum {
@@ -76,7 +76,7 @@ enum {
     LAST_SIGNAL
 };
 
-static guint ring_notifier_signals[LAST_SIGNAL] = { 0 };
+static guint notifier_signals[LAST_SIGNAL] = { 0 };
 
 namespace details
 {
@@ -84,11 +84,11 @@ namespace details
 class CppImpl
 {
 public:
-    explicit CppImpl(RingNotifier& widget);
+    explicit CppImpl(Notifier& widget);
     ~CppImpl();
 
-    RingNotifier* self = nullptr; // The GTK widget itself
-    RingNotifierPrivate* priv = nullptr;
+    Notifier* self = nullptr; // The GTK widget itself
+    NotifierPrivate* priv = nullptr;
 
     /* server info and capabilities */
     char *name = nullptr;
@@ -107,7 +107,7 @@ private:
     CppImpl& operator=(const CppImpl&) = delete;
 };
 
-CppImpl::CppImpl(RingNotifier& widget)
+CppImpl::CppImpl(Notifier& widget)
 : self {&widget}
 {
 }
@@ -127,10 +127,10 @@ CppImpl::~CppImpl()
 } // namespace details
 
 static void
-ring_notifier_dispose(GObject *object)
+notifier_dispose(GObject *object)
 {
-    auto* self = RING_NOTIFIER(object);
-    auto* priv = RING_NOTIFIER_GET_PRIVATE(self);
+    auto* self = NOTIFIER(object);
+    auto* priv = NOTIFIER_GET_PRIVATE(self);
 
     delete priv->cpp;
     priv->cpp = nullptr;
@@ -140,17 +140,17 @@ ring_notifier_dispose(GObject *object)
         notify_uninit();
 #endif
 
-    G_OBJECT_CLASS(ring_notifier_parent_class)->dispose(object);
+    G_OBJECT_CLASS(notifier_parent_class)->dispose(object);
 }
 
 static void
-ring_notifier_init(RingNotifier *view)
+notifier_init(Notifier *view)
 {
-    RingNotifierPrivate *priv = RING_NOTIFIER_GET_PRIVATE(view);
+    NotifierPrivate *priv = NOTIFIER_GET_PRIVATE(view);
     priv->cpp = new details::CppImpl {*view};
 
 #if USE_LIBNOTIFY
-    notify_init("Ring");
+    notify_init("Jami");
 
     /* get notify server info */
     if (notify_get_server_info(&priv->cpp->name,
@@ -180,11 +180,11 @@ ring_notifier_init(RingNotifier *view)
 }
 
 static void
-ring_notifier_class_init(RingNotifierClass *klass)
+notifier_class_init(NotifierClass *klass)
 {
-    G_OBJECT_CLASS(klass)->dispose = ring_notifier_dispose;
+    G_OBJECT_CLASS(klass)->dispose = notifier_dispose;
 
-    ring_notifier_signals[SHOW_CHAT] = g_signal_new(
+    notifier_signals[SHOW_CHAT] = g_signal_new(
         "showChatView",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED),
@@ -194,7 +194,7 @@ ring_notifier_class_init(RingNotifierClass *klass)
         g_cclosure_marshal_VOID__STRING,
         G_TYPE_NONE, 1, G_TYPE_STRING);
 
-    ring_notifier_signals[ACCEPT_PENDING] = g_signal_new(
+    notifier_signals[ACCEPT_PENDING] = g_signal_new(
         "acceptPending",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED),
@@ -204,7 +204,7 @@ ring_notifier_class_init(RingNotifierClass *klass)
         g_cclosure_marshal_VOID__STRING,
         G_TYPE_NONE, 1, G_TYPE_STRING);
 
-    ring_notifier_signals[REFUSE_PENDING] = g_signal_new(
+    notifier_signals[REFUSE_PENDING] = g_signal_new(
         "refusePending",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED),
@@ -214,7 +214,7 @@ ring_notifier_class_init(RingNotifierClass *klass)
         g_cclosure_marshal_VOID__STRING,
         G_TYPE_NONE, 1, G_TYPE_STRING);
 
-    ring_notifier_signals[ACCEPT_CALL] = g_signal_new(
+    notifier_signals[ACCEPT_CALL] = g_signal_new(
         "acceptCall",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED),
@@ -224,7 +224,7 @@ ring_notifier_class_init(RingNotifierClass *klass)
         g_cclosure_marshal_VOID__STRING,
         G_TYPE_NONE, 1, G_TYPE_STRING);
 
-    ring_notifier_signals[DECLINE_CALL] = g_signal_new(
+    notifier_signals[DECLINE_CALL] = g_signal_new(
         "declineCall",
         G_TYPE_FROM_CLASS(klass),
         (GSignalFlags) (G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED),
@@ -236,58 +236,58 @@ ring_notifier_class_init(RingNotifierClass *klass)
 }
 
 GtkWidget *
-ring_notifier_new()
+notifier_new()
 {
-    gpointer view = g_object_new(RING_NOTIFIER_TYPE, NULL);
+    gpointer view = g_object_new(NOTIFIER_TYPE, NULL);
     return (GtkWidget *)view;
 }
 
 #if USE_LIBNOTIFY
 static void
-show_chat_view(NotifyNotification*, char* id, RingNotifier* view)
+show_chat_view(NotifyNotification*, char* id, Notifier* view)
 {
-    g_signal_emit(G_OBJECT(view), ring_notifier_signals[SHOW_CHAT], 0, id);
+    g_signal_emit(G_OBJECT(view), notifier_signals[SHOW_CHAT], 0, id);
 }
 
 static void
-accept_pending(NotifyNotification*, char* id, RingNotifier* view)
+accept_pending(NotifyNotification*, char* id, Notifier* view)
 {
     std::string newId = id;
-    g_signal_emit(G_OBJECT(view), ring_notifier_signals[ACCEPT_PENDING], 0, newId.substr(std::string("add:").length()).c_str());
+    g_signal_emit(G_OBJECT(view), notifier_signals[ACCEPT_PENDING], 0, newId.substr(std::string("add:").length()).c_str());
 }
 
 static void
-refuse_pending(NotifyNotification*, char* id, RingNotifier* view)
+refuse_pending(NotifyNotification*, char* id, Notifier* view)
 {
     std::string newId = id;
-    g_signal_emit(G_OBJECT(view), ring_notifier_signals[REFUSE_PENDING], 0, newId.substr(std::string("rm:").length()).c_str());
+    g_signal_emit(G_OBJECT(view), notifier_signals[REFUSE_PENDING], 0, newId.substr(std::string("rm:").length()).c_str());
 }
 
 static void
-accept_call(NotifyNotification*, char* id, RingNotifier* view)
+accept_call(NotifyNotification*, char* id, Notifier* view)
 {
     std::string newId = id;
-    g_signal_emit(G_OBJECT(view), ring_notifier_signals[ACCEPT_CALL], 0, newId.substr(std::string("accept:").length()).c_str());
+    g_signal_emit(G_OBJECT(view), notifier_signals[ACCEPT_CALL], 0, newId.substr(std::string("accept:").length()).c_str());
 }
 
 static void
-decline_call(NotifyNotification*, char* id, RingNotifier* view)
+decline_call(NotifyNotification*, char* id, Notifier* view)
 {
     std::string newId = id;
-    g_signal_emit(G_OBJECT(view), ring_notifier_signals[DECLINE_CALL], 0, newId.substr(std::string("decline:").length()).c_str());
+    g_signal_emit(G_OBJECT(view), notifier_signals[DECLINE_CALL], 0, newId.substr(std::string("decline:").length()).c_str());
 }
 
 #endif
 
 gboolean
-ring_show_notification(RingNotifier* view, const std::string& icon,
+show_notification(Notifier* view, const std::string& icon,
                        const std::string& uri, const std::string& name,
                        const std::string& id, const std::string& title,
                        const std::string& body, NotificationType type)
 {
-    g_return_val_if_fail(IS_RING_NOTIFIER(view), false);
+    g_return_val_if_fail(IS_NOTIFIER(view), false);
     gboolean success = FALSE;
-    RingNotifierPrivate *priv = RING_NOTIFIER_GET_PRIVATE(view);
+    NotifierPrivate *priv = NOTIFIER_GET_PRIVATE(view);
 
 #if USE_LIBNOTIFY
     std::shared_ptr<NotifyNotification> notification(
@@ -383,10 +383,10 @@ ring_show_notification(RingNotifier* view, const std::string& icon,
 }
 
 gboolean
-ring_hide_notification(RingNotifier* view, const std::string& id)
+hide_notification(Notifier* view, const std::string& id)
 {
-    g_return_val_if_fail(IS_RING_NOTIFIER(view), false);
-    RingNotifierPrivate *priv = RING_NOTIFIER_GET_PRIVATE(view);
+    g_return_val_if_fail(IS_NOTIFIER(view), false);
+    NotifierPrivate *priv = NOTIFIER_GET_PRIVATE(view);
 
 #if USE_LIBNOTIFY
     // Search

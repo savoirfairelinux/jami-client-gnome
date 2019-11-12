@@ -1,6 +1,6 @@
 /* cmake will generate config.h with defines containing the values defined in cmake */
 
-#define RING_VERSION "@PROJECT_VERSION@"
+#define VERSION "@PROJECT_VERSION@"
 
 #define USE_LIBNOTIFY @USE_LIBNOTIFY@
 #define HAVE_APPINDICATOR @HAVE_APPINDICATOR@
@@ -11,9 +11,9 @@
 #define JAMI_CLIENT_NAME "Jami"
 #define JAMI_CLIENT_APP_ID "net.jami.Jami"
 
-#define JAMI_CLIENT_INSTALL "@RING_INSTALL_PREFIX@"
+#define JAMI_CLIENT_INSTALL "@JAMI_INSTALL_PREFIX@"
 #define JAMI_DATA_DIR "/share/jami-gnome"
 
 #define PACKAGE_NAME "@PROJECT_NAME@"
-#define LOCALEDIR    "@RING_INSTALL_PREFIX@/share/locale"
-#define SOUNDSDIR    "@RING_INSTALL_PREFIX@/share/sounds/jami-gnome"
+#define LOCALEDIR    "@JAMI_INSTALL_PREFIX@/share/locale"
+#define SOUNDSDIR    "@JAMI_INSTALL_PREFIX@/share/sounds/jami-gnome"

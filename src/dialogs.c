@@ -26,7 +26,7 @@
 #include "revision.h"
 
 GtkWidget *
-ring_dialog_working(GtkWidget *parent, const gchar *msg)
+dialog_working(GtkWidget *parent, const gchar *msg)
 {
     GtkWidget *dialog = gtk_dialog_new();
     gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
@@ -66,7 +66,7 @@ ring_dialog_working(GtkWidget *parent, const gchar *msg)
 }
 
 void
-ring_about_dialog(GtkWidget *parent)
+about_dialog(GtkWidget *parent)
 {
     /* get parent window */
     if (parent && GTK_IS_WIDGET(parent))
@@ -82,7 +82,7 @@ ring_about_dialog(GtkWidget *parent)
 
     gchar *version = g_strdup_printf(C_("Do not translate the release name nor the status (beta, final, ...)",
                                         "\"Free as in Freedom\"\nbuilt on %.25s"),
-                                     RING_CLIENT_BUILD_DATE);
+                                     CLIENT_BUILD_DATE);
 
     const gchar *authors[] = {
         "Adrien Béraud",
