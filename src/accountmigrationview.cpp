@@ -32,7 +32,7 @@
 // LRC
 #include <api/newaccountmodel.h>
 
-// Ring Client
+// Jami  Client
 #include "accountmigrationview.h"
 #include "native/pixbufmanipulator.h"
 

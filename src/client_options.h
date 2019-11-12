@@ -17,19 +17,19 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#ifndef RING_CLIENT_OPTIONS_H_
-#define RING_CLIENT_OPTIONS_H_
+#ifndef CLIENT_OPTIONS_H_
+#define CLIENT_OPTIONS_H_
 
 #include <gio/gio.h>
 
 G_BEGIN_DECLS
 
 #if GLIB_CHECK_VERSION(2,40,0)
-void ring_client_add_options(GApplication *app);
+void client_add_options(GApplication *app);
 #else
-GOptionContext *ring_client_options_get_context(void);
+GOptionContext *client_options_get_context(void);
 #endif
 
 G_END_DECLS
 
-#endif /* RING_CLIENT_OPTIONS_H_ */
+#endif /* CLIENT_OPTIONS_H_ */

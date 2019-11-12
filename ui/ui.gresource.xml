@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/net/jami/JamiGnome">
-    <file preprocess="xml-stripblanks">ringmainwindow.ui</file>
-    <file preprocess="xml-stripblanks">ringgearsmenu.ui</file>
+    <file preprocess="xml-stripblanks">mainwindow.ui</file>
+    <file preprocess="xml-stripblanks">gearsmenu.ui</file>
     <file preprocess="xml-stripblanks">incomingcallview.ui</file>
     <file preprocess="xml-stripblanks">currentcallview.ui</file>
     <file preprocess="xml-stripblanks">accountcreationwizard.ui</file>

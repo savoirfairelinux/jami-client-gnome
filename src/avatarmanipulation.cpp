@@ -406,10 +406,10 @@ choose_picture(AvatarManipulation *self)
 
     auto preview = gtk_image_new();
 
-    GtkWidget *ring_main_window = gtk_widget_get_toplevel(GTK_WIDGET(self));
+    GtkWidget *main_window = gtk_widget_get_toplevel(GTK_WIDGET(self));
 
     auto dialog = gtk_file_chooser_dialog_new (_("Open Avatar Image"),
-                                          GTK_WINDOW(ring_main_window),
+                                          GTK_WINDOW(main_window),
                                           action,
                                           _("_Cancel"),
                                           GTK_RESPONSE_CANCEL,
