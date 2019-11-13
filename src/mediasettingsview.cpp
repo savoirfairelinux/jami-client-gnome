@@ -187,7 +187,7 @@ CppImpl::drawFramerates()
         auto deviceSettings = avModel_->getDeviceSettings(currentDevice);
         currentChannel = deviceSettings.channel;
         currentRes = deviceSettings.size;
-        currentRate = std::to_string(deviceSettings.rate);
+        currentRate = std::to_string(static_cast<uint8_t>(deviceSettings.rate));
         auto resRates = deviceCaps.at(currentChannel);
         auto it = std::find_if(resRates.begin(), resRates.end(),
             [&currentRes](const std::pair<video::Resolution, video::FrameratesList>& element) {
