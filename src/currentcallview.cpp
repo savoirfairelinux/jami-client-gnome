@@ -1002,6 +1002,9 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
             add_transfer_contact(c.participants.front());
         gtk_widget_show_all(widgets->list_conversations);
         gtk_widget_show(widgets->togglebutton_transfer);
+        gtk_widget_show(widgets->togglebutton_hold);
+    } else {
+        gtk_widget_hide(widgets->togglebutton_hold);
     }
 
     set_record_animation(widgets);

@@ -294,8 +294,10 @@ CppImpl::drawVideoDevices()
         if (device == current) {
             active = i;
         }
-        auto name = avModel_->getDeviceSettings(device).name;
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_device), nullptr, name.c_str());
+        try {
+            auto name = avModel_->getDeviceSettings(device).name;
+            gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_device), nullptr, name.c_str());
+        } catch (...) {}
         i++;
     }
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_device), active);
