@@ -1201,7 +1201,7 @@ CppImpl::setCallInfo()
         try {
             auto call = (*accountInfo)->callModel->getCall(callToRender);
             video_widget_set_preview_visible(VIDEO_WIDGET(widgets->video_widget),
-                (call.status != lrc::api::call::Status::PAUSED));
+                (call.status != lrc::api::call::Status::PAUSED) && conversation->confId.empty());
         } catch (...) {
             g_warning("Can't change preview visibility for non existant call");
         }
