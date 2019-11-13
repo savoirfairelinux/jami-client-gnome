@@ -99,7 +99,6 @@ struct CurrentCallViewPrivate
     GtkWidget *add_participant_popover;
     GtkWidget *conversation_filter_entry;
     GtkWidget *list_conversations_invite;
-    GtkWidget *togglebutton_hold;
     GtkWidget *togglebutton_record;
     GtkWidget *button_hangup;
     GtkWidget *scalebutton_quality;
@@ -352,18 +351,6 @@ on_button_hangup_clicked(CurrentCallView* view)
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
     (*priv->cpp->accountInfo)->callModel->hangUp(priv->cpp->conversation->callId);
-}
-
-static void
-on_togglebutton_hold_clicked(CurrentCallView* view)
-{
-    g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
-    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-
-    auto callToHold = priv->cpp->conversation->callId;
-    if (!priv->cpp->conversation->confId.empty())
-        callToHold = priv->cpp->conversation->confId;
-    (*priv->cpp->accountInfo)->callModel->togglePause(callToHold);
 }
 
 static void
@@ -1189,6 +1176,9 @@ CppImpl::setCallInfo()
     if (!conversation->confId.empty())
         callToRender = conversation->confId;
 
+    (*accountInfo)->callModel->setCurrentCall(callToRender);
+
+
     try {
         // local renderer
         const lrc::api::video::Renderer* previewRenderer =
@@ -1374,7 +1364,6 @@ CppImpl::insertControls()
     g_signal_connect(widgets->siptransfer_filter_entry, "search-changed", G_CALLBACK(on_siptransfer_text_changed), self);
     g_signal_connect(widgets->list_conversations, "row-activated", G_CALLBACK(transfer_to_conversation), self);
     g_signal_connect(widgets->list_conversations_invite, "row-activated", G_CALLBACK(invite_to_conversation), self);
-    g_signal_connect_swapped(widgets->togglebutton_hold, "clicked", G_CALLBACK(on_togglebutton_hold_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_muteaudio, "clicked", G_CALLBACK(on_togglebutton_muteaudio_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_record, "clicked", G_CALLBACK(on_togglebutton_record_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_mutevideo, "clicked", G_CALLBACK(on_togglebutton_mutevideo_clicked), self);
@@ -1466,12 +1455,6 @@ CppImpl::updateState()
 
     try {
         auto call = (*accountInfo)->callModel->getCall(callId);
-
-        auto pauseBtn = GTK_TOGGLE_BUTTON(widgets->togglebutton_hold);
-        auto image = gtk_image_new_from_resource ("/net/jami/JamiGnome/pause");
-        if (call.status == lrc::api::call::Status::PAUSED)
-            image = gtk_image_new_from_resource ("/net/jami/JamiGnome/play");
-        gtk_button_set_image(GTK_BUTTON(pauseBtn), image);
 
         auto audioButton = GTK_TOGGLE_BUTTON(widgets->togglebutton_muteaudio);
         gtk_widget_set_sensitive(GTK_WIDGET(widgets->togglebutton_muteaudio),
@@ -1713,7 +1696,6 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_add_participant);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_transfer);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_hold);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_muteaudio);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_record);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_mutevideo);
