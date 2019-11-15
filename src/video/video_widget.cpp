@@ -417,7 +417,7 @@ switch_video_input(GtkWidget *widget, GtkWidget *parent)
             g_warning("switch_video_input couldn't find device: %s", label);
             return;
         }
-        priv->avModel_->switchInputTo(device_id);
+        priv->avModel_->switchInputTo(device_id, priv->remote->v_renderer->getId());
     }
 }
 
@@ -452,7 +452,7 @@ switch_video_input_screen_area(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
     }
 
     if (priv->avModel_)
-        priv->avModel_->setDisplay(display, x, y, width, height);
+        priv->avModel_->setDisplay(display, x, y, width, height, priv->remote->v_renderer->getId());
 }
 
 static void
@@ -480,7 +480,7 @@ switch_video_input_monitor(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
     height = gdk_screen_height();
 
     if (priv->avModel_)
-        priv->avModel_->setDisplay(display, x, y, width, height);
+        priv->avModel_->setDisplay(display, x, y, width, height, priv->remote->v_renderer->getId());
 }
 
 
@@ -505,7 +505,7 @@ switch_video_input_file(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
         gchar *uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 
         if (uri && priv->avModel_) {
-            priv->avModel_->setInputFile(uri);
+            priv->avModel_->setInputFile(uri, priv->remote->v_renderer->getId());
             g_free(uri);
         }
     }
