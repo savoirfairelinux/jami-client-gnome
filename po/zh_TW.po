@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-11 03:09-0500\n"
-"PO-Revision-Date: 2019-11-11 08:09+0000\n"
+"POT-Creation-Date: 2019-11-18 03:09-0500\n"
+"PO-Revision-Date: 2019-11-18 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -20,18 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: ui/ringgearsmenu.ui:7
-msgid "Keyboard _Shortcuts"
-msgstr "鍵盤快捷鍵(_S)"
-
-#: ui/ringgearsmenu.ui:11
-msgid "_About"
-msgstr "關於(_A)"
-
-#: ui/ringgearsmenu.ui:17
-msgid "_Quit"
-msgstr "結束(_Q)"
 
 #: ui/help-overlay.ui:13
 msgctxt "shortcut window"
@@ -163,6 +151,35 @@ msgctxt "shortcut window"
 msgid "Write on a new line"
 msgstr "在新的一行上撰寫"
 
+#: ui/mainwindow.ui:57
+msgid "Menu"
+msgstr "選單"
+
+#: ui/mainwindow.ui:80
+msgid "General"
+msgstr "一般"
+
+#: ui/mainwindow.ui:96
+msgid "Media"
+msgstr "媒體"
+
+#: ui/mainwindow.ui:113 ui/accountcreationwizard.ui:523
+#: ui/newaccountsettingsview.ui:414
+msgid "Account"
+msgstr "帳號"
+
+#: ui/mainwindow.ui:150 src/mainwindow.cpp:1846
+msgid "Settings"
+msgstr "設定"
+
+#: ui/mainwindow.ui:271 ui/mainwindow.ui:278
+msgid "Conversations"
+msgstr "對話"
+
+#: ui/mainwindow.ui:304 ui/mainwindow.ui:311
+msgid "Contact requests"
+msgstr "加好友請求"
+
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
 msgstr "需要帳號遷移"
@@ -251,7 +268,7 @@ msgid "Toggle recording"
 msgstr "切換錄製"
 
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
-#: ui/messagingwidget.ui:29 src/chatview.cpp:344
+#: ui/messagingwidget.ui:29 src/chatview.cpp:345
 msgid "Record"
 msgstr "記錄"
 
@@ -370,11 +387,6 @@ msgstr "下一個"
 msgid "Profile"
 msgstr "設定檔"
 
-#: ui/accountcreationwizard.ui:523 ui/ringmainwindow.ui:113
-#: ui/newaccountsettingsview.ui:414
-msgid "Account"
-msgstr "帳號"
-
 #: ui/accountcreationwizard.ui:560
 msgid "Register username"
 msgstr "註冊使用者名稱"
@@ -382,9 +394,9 @@ msgstr "註冊使用者名稱"
 #: ui/accountcreationwizard.ui:561
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
-"People can use it to contact you instead of using your RingID, which is 40 "
+"People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr "透過勾選這個，您將會在 Jami 網路上註冊一個獨一無二的使用者名稱。人們可以使用它來聯絡您，而不必使用長達 40 個字元的您的 RingID。"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:625
 msgid ""
@@ -444,6 +456,18 @@ msgstr "確定"
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
 msgstr "登入"
+
+#: ui/gearsmenu.ui:7
+msgid "Keyboard _Shortcuts"
+msgstr "鍵盤快捷鍵(_S)"
+
+#: ui/gearsmenu.ui:11
+msgid "_About"
+msgstr "關於(_A)"
+
+#: ui/gearsmenu.ui:17
+msgid "_Quit"
+msgstr "結束(_Q)"
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
@@ -536,30 +560,6 @@ msgstr "ID"
 #: ui/profile.ui:153
 msgid "QR Code"
 msgstr "QR Code"
-
-#: ui/ringmainwindow.ui:57
-msgid "Menu"
-msgstr "選單"
-
-#: ui/ringmainwindow.ui:80
-msgid "General"
-msgstr "一般"
-
-#: ui/ringmainwindow.ui:96
-msgid "Media"
-msgstr "媒體"
-
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1846
-msgid "Settings"
-msgstr "設定"
-
-#: ui/ringmainwindow.ui:271 ui/ringmainwindow.ui:278
-msgid "Conversations"
-msgstr "對話"
-
-#: ui/ringmainwindow.ui:304 ui/ringmainwindow.ui:311
-msgid "Contact requests"
-msgstr "加好友請求"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
@@ -928,48 +928,6 @@ msgstr "恢復"
 msgid "Set selection as image"
 msgstr "設定選擇為圖片"
 
-#: src/ring_client.cpp:115
-#, c-format
-msgid ""
-"Unable to initialize.\n"
-"Make sure the Jami daemon (dring) is running.\n"
-"Error: %s"
-msgstr "無法初始化。\n請確定 Jami 幕後程式 (dring) 正在執行。\n錯誤：%s"
-
-#: src/ring_client.cpp:118
-msgid "Jami Error"
-msgstr "Jami 錯誤"
-
-#: src/ring_client.cpp:395
-msgctxt ""
-"In the status icon menu, toggle action to show or hide the Jami main window"
-msgid "Show Jami"
-msgstr "顯示 Jami"
-
-#: src/ring_client.cpp:399
-msgid "Quit"
-msgstr "結束"
-
-#: src/ringnotify.cpp:336
-msgctxt ""
-msgid "Open conversation"
-msgstr "開啟對話"
-
-#: src/ringnotify.cpp:344 src/ringnotify.cpp:360
-msgctxt ""
-msgid "Accept"
-msgstr "接聽"
-
-#: src/ringnotify.cpp:351
-msgctxt ""
-msgid "Refuse"
-msgstr "拒絕"
-
-#: src/ringnotify.cpp:367
-msgctxt ""
-msgid "Decline"
-msgstr "拒絕"
-
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
 msgstr "在名稱伺服器上註冊這個使用者名稱"
@@ -1031,15 +989,53 @@ msgid "Choose download folder"
 msgstr "選擇下載資料夾"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
-#: src/accountcreationwizard.cpp:757 src/chatview.cpp:280
+#: src/accountcreationwizard.cpp:757 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:936
 msgid "_Cancel"
 msgstr "取消(_C)"
 
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
-#: src/chatview.cpp:282 src/newaccountsettingsview.cpp:938
+#: src/chatview.cpp:283 src/newaccountsettingsview.cpp:938
 msgid "_Save"
 msgstr "儲存(_S)"
+
+#: src/welcomeview.cpp:92
+msgid ""
+"This is your Jami username.\n"
+"Copy and share it with your friends!"
+msgstr "這是你的 Jami 使用者名稱。\n複製並與你的朋友分享！"
+
+#: src/welcomeview.cpp:100
+msgid ""
+"This is your ID.\n"
+"Copy and share it with your friends!"
+msgstr "這是你的 ID.\n複製並與你的朋友分享！"
+
+#: src/welcomeview.cpp:195
+msgid ""
+"Jami is free software for universal communication which respects the "
+"freedoms and privacy of its users."
+msgstr "Jami 是一套通用通訊的自由軟體，其尊重使用者的自由與隱私。"
+
+#: src/notifier.cpp:336
+msgctxt ""
+msgid "Open conversation"
+msgstr "開啟對話"
+
+#: src/notifier.cpp:344 src/notifier.cpp:360
+msgctxt ""
+msgid "Accept"
+msgstr "接聽"
+
+#: src/notifier.cpp:351
+msgctxt ""
+msgid "Refuse"
+msgstr "拒絕"
+
+#: src/notifier.cpp:367
+msgctxt ""
+msgid "Decline"
+msgstr "拒絕"
 
 #: src/video/video_widget.cpp:558
 msgid "Share _screen area"
@@ -1061,7 +1057,7 @@ msgstr "顯示進階資訊"
 msgid "Open Avatar Image"
 msgstr "開啟大頭貼圖片"
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:282
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:283
 msgid "_Open"
 msgstr "開啟(_O)"
 
@@ -1073,9 +1069,9 @@ msgstr "正在運作……"
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"\"Live Free or Die\"\n"
+"\"Free as in Freedom\"\n"
 "built on %.25s"
-msgstr "\"Live Free or Die\"\n構建於 %.25s"
+msgstr ""
 
 #: src/dialogs.c:137
 msgid ""
@@ -1095,97 +1091,6 @@ msgstr "停止錄製"
 msgid "Send recorded message"
 msgstr "傳送已錄製的訊息"
 
-#: src/ringmainwindow.cpp:192
-msgid "Add account…"
-msgstr "新增帳號……"
-
-#: src/ringmainwindow.cpp:846
-msgctxt "button next to search entry will place a new call"
-msgid "place call"
-msgstr "開始通話"
-
-#: src/ringmainwindow.cpp:849
-msgctxt "button next to search entry will open chat"
-msgid "open chat"
-msgstr "開啟聊天"
-
-#: src/ringmainwindow.cpp:1056
-msgid "Jami - Migration needed"
-msgstr "Jami - 需要遷移"
-
-#: src/ringmainwindow.cpp:1069
-msgid "Migration in progress... please do not close this window."
-msgstr "正在遷移…… 請不要關閉視窗。"
-
-#: src/ringmainwindow.cpp:1350
-msgctxt ""
-"Please try to make the translation 50 chars or less so that it fits into the"
-" layout"
-msgid "Find or start a conversation"
-msgstr "尋找或開始對話"
-
-#: src/ringmainwindow.cpp:1821
-msgid "Leave settings page"
-msgstr "離開設定頁面"
-
-#: src/ringmainwindow.cpp:2248
-msgid "There are active calls"
-msgstr "有活躍的通話"
-
-#: src/ringmainwindow.cpp:2302
-msgid " is calling you!"
-msgstr "正在與您通話！"
-
-#: src/ringmainwindow.cpp:2303
-msgid "Incoming call"
-msgstr "來電"
-
-#: src/ringmainwindow.cpp:2446
-msgid "New request from "
-msgstr "新請求從"
-
-#: src/ringmainwindow.cpp:2447
-msgid "Trust request"
-msgstr "信任請求"
-
-#: src/ringmainwindow.cpp:2508
-msgid "New message"
-msgstr "新訊息"
-
-#: src/ringmainwindow.cpp:2571
-msgid "Stop current call?"
-msgstr "停止目前的通話？"
-
-#: src/ringmainwindow.cpp:2572
-msgid ""
-"A call is currently ongoing. Do you want to close the window and stop all "
-"current calls?"
-msgstr "通話進行中。您想要關閉視窗並停止目前所有的通話嗎？"
-
-#: src/ringmainwindow.cpp:2639
-msgid "Clear history"
-msgstr "清除記錄"
-
-#: src/ringmainwindow.cpp:2640
-msgid "Do you really want to clear the history of this conversation?"
-msgstr "您真的想要清除此對話的歷史嗎？"
-
-#: src/ringmainwindow.cpp:2655
-msgid "Remove conversation"
-msgstr "移除對話"
-
-#: src/ringmainwindow.cpp:2656
-msgid "Do you really want to remove this conversation?"
-msgstr "您真的想要移除此對話嗎？"
-
-#: src/ringmainwindow.cpp:2671
-msgid "Block contact"
-msgstr "阻擋連絡人"
-
-#: src/ringmainwindow.cpp:2672
-msgid "Do you really want to block this contact?"
-msgstr "您真的想要封鎖此聯絡人嗎？"
-
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
@@ -1200,6 +1105,20 @@ msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
 msgstr "無法重新連線到 Jami 幕後程式 (dring)。\nJami 將會結束。"
+
+#: src/client_options.c:66
+msgid "Enable debug"
+msgstr "啟用除錯功能"
+
+#: src/client_options.c:68
+msgid ""
+"Restores the hidden state of the main window (only applicable to the primary"
+" instance)"
+msgstr "還原主視窗的隱藏狀態(只適用於主程序)"
+
+#: src/client_options.c:85
+msgid "- GNOME client for Jami"
+msgstr "- Jami 的 GNOME 用戶端"
 
 #: src/conversationpopupmenu.cpp:199
 msgid "Place _video call"
@@ -1245,20 +1164,6 @@ msgstr "設定檔(_P)"
 msgid "(None)"
 msgstr "（無）"
 
-#: src/ring_client_options.c:66
-msgid "Enable debug"
-msgstr "啟用除錯功能"
-
-#: src/ring_client_options.c:68
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
-msgstr "還原主視窗的隱藏狀態(只適用於主程序)"
-
-#: src/ring_client_options.c:85
-msgid "- GNOME client for Jami"
-msgstr "- Jami 的 GNOME 用戶端"
-
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
 msgstr "在建立帳號時遇到錯誤。"
@@ -1270,7 +1175,7 @@ msgstr "無法擷取任何帳號，請驗證您的 PIN 碼與您的密碼。"
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "無法擷取任何帳號，請驗證您的封存與您的密碼。"
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
@@ -1285,7 +1190,7 @@ msgstr "密碼不相符"
 msgid "Import from backup"
 msgstr "從備份匯入"
 
-#: src/accountcreationwizard.cpp:754 src/chatview.cpp:277
+#: src/accountcreationwizard.cpp:754 src/chatview.cpp:278
 #: src/newaccountsettingsview.cpp:933
 msgid "Save File"
 msgstr "儲存檔案"
@@ -1306,39 +1211,134 @@ msgstr "帳號已匯出！"
 msgid "Export account failure."
 msgstr "匯出帳號失敗。"
 
-#: src/ringwelcomeview.cpp:92
-msgid ""
-"This is your Jami username.\n"
-"Copy and share it with your friends!"
-msgstr "這是你的 Jami 使用者名稱。\n複製並與你的朋友分享！"
+#: src/mainwindow.cpp:192
+msgid "Add account…"
+msgstr "新增帳號……"
 
-#: src/ringwelcomeview.cpp:100
-msgid ""
-"This is your ID.\n"
-"Copy and share it with your friends!"
-msgstr "這是你的 ID.\n複製並與你的朋友分享！"
+#: src/mainwindow.cpp:846
+msgctxt "button next to search entry will place a new call"
+msgid "place call"
+msgstr "開始通話"
 
-#: src/ringwelcomeview.cpp:195
-msgid ""
-"Jami is free software for universal communication which respects the "
-"freedoms and privacy of its users."
-msgstr "Jami 是一套通用通訊的自由軟體，其尊重使用者的自由與隱私。"
+#: src/mainwindow.cpp:849
+msgctxt "button next to search entry will open chat"
+msgid "open chat"
+msgstr "開啟聊天"
 
-#: src/chatview.cpp:277
+#: src/mainwindow.cpp:1056
+msgid "Jami - Migration needed"
+msgstr "Jami - 需要遷移"
+
+#: src/mainwindow.cpp:1069
+msgid "Migration in progress... please do not close this window."
+msgstr "正在遷移…… 請不要關閉視窗。"
+
+#: src/mainwindow.cpp:1350
+msgctxt ""
+"Please try to make the translation 50 chars or less so that it fits into the"
+" layout"
+msgid "Find or start a conversation"
+msgstr "尋找或開始對話"
+
+#: src/mainwindow.cpp:1821
+msgid "Leave settings page"
+msgstr "離開設定頁面"
+
+#: src/mainwindow.cpp:2248
+msgid "There are active calls"
+msgstr "有活躍的通話"
+
+#: src/mainwindow.cpp:2302
+msgid " is calling you!"
+msgstr "正在與您通話！"
+
+#: src/mainwindow.cpp:2303
+msgid "Incoming call"
+msgstr "來電"
+
+#: src/mainwindow.cpp:2446
+msgid "New request from "
+msgstr "新請求從"
+
+#: src/mainwindow.cpp:2447
+msgid "Trust request"
+msgstr "信任請求"
+
+#: src/mainwindow.cpp:2508
+msgid "New message"
+msgstr "新訊息"
+
+#: src/mainwindow.cpp:2571
+msgid "Stop current call?"
+msgstr "停止目前的通話？"
+
+#: src/mainwindow.cpp:2572
+msgid ""
+"A call is currently ongoing. Do you want to close the window and stop all "
+"current calls?"
+msgstr "通話進行中。您想要關閉視窗並停止目前所有的通話嗎？"
+
+#: src/mainwindow.cpp:2639
+msgid "Clear history"
+msgstr "清除記錄"
+
+#: src/mainwindow.cpp:2640
+msgid "Do you really want to clear the history of this conversation?"
+msgstr "您真的想要清除此對話的歷史嗎？"
+
+#: src/mainwindow.cpp:2655
+msgid "Remove conversation"
+msgstr "移除對話"
+
+#: src/mainwindow.cpp:2656
+msgid "Do you really want to remove this conversation?"
+msgstr "您真的想要移除此對話嗎？"
+
+#: src/mainwindow.cpp:2671
+msgid "Block contact"
+msgstr "阻擋連絡人"
+
+#: src/mainwindow.cpp:2672
+msgid "Do you really want to block this contact?"
+msgstr "您真的想要封鎖此聯絡人嗎？"
+
+#: src/chatview.cpp:278
 msgid "Send File"
 msgstr "傳送檔案"
 
-#: src/chatview.cpp:334
+#: src/chatview.cpp:335
 msgid "Retry"
 msgstr "重試"
 
-#: src/chatview.cpp:476
+#: src/chatview.cpp:498
 msgid "Stop"
 msgstr "停止"
 
-#: src/chatview.cpp:994
+#: src/chatview.cpp:1007
 msgid "Send"
 msgstr "傳送"
+
+#: src/client.cpp:115
+#, c-format
+msgid ""
+"Unable to initialize.\n"
+"Make sure the Jami daemon (dring) is running.\n"
+"Error: %s"
+msgstr "無法初始化。\n請確定 Jami 幕後程式 (dring) 正在執行。\n錯誤：%s"
+
+#: src/client.cpp:118
+msgid "Jami Error"
+msgstr "Jami 錯誤"
+
+#: src/client.cpp:395
+msgctxt ""
+"In the status icon menu, toggle action to show or hide the Jami main window"
+msgid "Show Jami"
+msgstr "顯示 Jami"
+
+#: src/client.cpp:399
+msgid "Quit"
+msgstr "結束"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
 msgid ""
@@ -1346,11 +1346,11 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "警告！此動作將會在此裝置上移除此帳號！\n注意：此動作無法復原。同時，您已註冊的名稱也將會遺失！"
 
-#: src/currentcallview.cpp:936
+#: src/currentcallview.cpp:935
 msgid "Current conference (all accounts)"
 msgstr "目前的會議（所有帳號）"
 
-#: src/currentcallview.cpp:970
+#: src/currentcallview.cpp:969
 msgid "Current calls (all accounts)"
 msgstr "目前的通話（所有帳號）"
 
@@ -1358,7 +1358,7 @@ msgstr "目前的通話（所有帳號）"
 msgid "Online contacts"
 msgstr "線上聯絡人"
 
-#: src/currentcallview.cpp:1408
+#: src/currentcallview.cpp:1407
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自動"

@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-11 03:09-0500\n"
-"PO-Revision-Date: 2019-11-11 08:09+0000\n"
+"POT-Creation-Date: 2019-11-18 03:09-0500\n"
+"PO-Revision-Date: 2019-11-18 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -36,18 +36,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: ui/ringgearsmenu.ui:7
-msgid "Keyboard _Shortcuts"
-msgstr "Raccourci clavier"
-
-#: ui/ringgearsmenu.ui:11
-msgid "_About"
-msgstr "À _propos"
-
-#: ui/ringgearsmenu.ui:17
-msgid "_Quit"
-msgstr "_Quitter"
 
 #: ui/help-overlay.ui:13
 msgctxt "shortcut window"
@@ -179,6 +167,35 @@ msgctxt "shortcut window"
 msgid "Write on a new line"
 msgstr "Écrire sur une nouvelle ligne"
 
+#: ui/mainwindow.ui:57
+msgid "Menu"
+msgstr "Menu"
+
+#: ui/mainwindow.ui:80
+msgid "General"
+msgstr "Général"
+
+#: ui/mainwindow.ui:96
+msgid "Media"
+msgstr "Médias"
+
+#: ui/mainwindow.ui:113 ui/accountcreationwizard.ui:523
+#: ui/newaccountsettingsview.ui:414
+msgid "Account"
+msgstr "Compte"
+
+#: ui/mainwindow.ui:150 src/mainwindow.cpp:1846
+msgid "Settings"
+msgstr "Paramètres"
+
+#: ui/mainwindow.ui:271 ui/mainwindow.ui:278
+msgid "Conversations"
+msgstr "Conversations"
+
+#: ui/mainwindow.ui:304 ui/mainwindow.ui:311
+msgid "Contact requests"
+msgstr "Invitations"
+
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
 msgstr "Migration de compte nécessaire"
@@ -267,7 +284,7 @@ msgid "Toggle recording"
 msgstr "Bouton d'enregistrement"
 
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
-#: ui/messagingwidget.ui:29 src/chatview.cpp:344
+#: ui/messagingwidget.ui:29 src/chatview.cpp:345
 msgid "Record"
 msgstr "Enregistrer"
 
@@ -386,11 +403,6 @@ msgstr "Suivant"
 msgid "Profile"
 msgstr "Profil"
 
-#: ui/accountcreationwizard.ui:523 ui/ringmainwindow.ui:113
-#: ui/newaccountsettingsview.ui:414
-msgid "Account"
-msgstr "Compte"
-
 #: ui/accountcreationwizard.ui:560
 msgid "Register username"
 msgstr "Enregistrer le nom d'utilisateur"
@@ -398,9 +410,9 @@ msgstr "Enregistrer le nom d'utilisateur"
 #: ui/accountcreationwizard.ui:561
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
-"People can use it to contact you instead of using your RingID, which is 40 "
+"People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr "En cochant cette case, vous enregistrez un nom d'utilisateur unique sur le réseau Jami. Les personnes peuvent l'utiliser pour vous contacter au lieu d'utiliser votre identifiant de 40 caractères."
+msgstr ""
 
 #: ui/accountcreationwizard.ui:625
 msgid ""
@@ -460,6 +472,18 @@ msgstr "OK"
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
 msgstr "Connexion"
+
+#: ui/gearsmenu.ui:7
+msgid "Keyboard _Shortcuts"
+msgstr "Raccourci clavier"
+
+#: ui/gearsmenu.ui:11
+msgid "_About"
+msgstr "À _propos"
+
+#: ui/gearsmenu.ui:17
+msgid "_Quit"
+msgstr "_Quitter"
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
@@ -552,30 +576,6 @@ msgstr "ID"
 #: ui/profile.ui:153
 msgid "QR Code"
 msgstr "Code QR"
-
-#: ui/ringmainwindow.ui:57
-msgid "Menu"
-msgstr "Menu"
-
-#: ui/ringmainwindow.ui:80
-msgid "General"
-msgstr "Général"
-
-#: ui/ringmainwindow.ui:96
-msgid "Media"
-msgstr "Médias"
-
-#: ui/ringmainwindow.ui:150 src/ringmainwindow.cpp:1846
-msgid "Settings"
-msgstr "Paramètres"
-
-#: ui/ringmainwindow.ui:271 ui/ringmainwindow.ui:278
-msgid "Conversations"
-msgstr "Conversations"
-
-#: ui/ringmainwindow.ui:304 ui/ringmainwindow.ui:311
-msgid "Contact requests"
-msgstr "Invitations"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
@@ -944,48 +944,6 @@ msgstr "Annuler"
 msgid "Set selection as image"
 msgstr "Utiliser la sélection comme image de profil"
 
-#: src/ring_client.cpp:115
-#, c-format
-msgid ""
-"Unable to initialize.\n"
-"Make sure the Jami daemon (dring) is running.\n"
-"Error: %s"
-msgstr "Impossible de démarrer\nVérifier que le serveur Jami  fonctionne\nErreur: %s"
-
-#: src/ring_client.cpp:118
-msgid "Jami Error"
-msgstr "Erreur Jami"
-
-#: src/ring_client.cpp:395
-msgctxt ""
-"In the status icon menu, toggle action to show or hide the Jami main window"
-msgid "Show Jami"
-msgstr "Afficher Jami"
-
-#: src/ring_client.cpp:399
-msgid "Quit"
-msgstr "Quitter"
-
-#: src/ringnotify.cpp:336
-msgctxt ""
-msgid "Open conversation"
-msgstr "Ouvrir la conversation"
-
-#: src/ringnotify.cpp:344 src/ringnotify.cpp:360
-msgctxt ""
-msgid "Accept"
-msgstr "Accepter"
-
-#: src/ringnotify.cpp:351
-msgctxt ""
-msgid "Refuse"
-msgstr "Refuser"
-
-#: src/ringnotify.cpp:367
-msgctxt ""
-msgid "Decline"
-msgstr "Décliner"
-
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
 msgstr "Enregistrer un nom d'utilisateur sur le serveur de nom"
@@ -1047,15 +1005,53 @@ msgid "Choose download folder"
 msgstr "Choisissez le dossier de téléchargement"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
-#: src/accountcreationwizard.cpp:757 src/chatview.cpp:280
+#: src/accountcreationwizard.cpp:757 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:936
 msgid "_Cancel"
 msgstr "_Annuler"
 
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
-#: src/chatview.cpp:282 src/newaccountsettingsview.cpp:938
+#: src/chatview.cpp:283 src/newaccountsettingsview.cpp:938
 msgid "_Save"
 msgstr "_Sauvegarder"
+
+#: src/welcomeview.cpp:92
+msgid ""
+"This is your Jami username.\n"
+"Copy and share it with your friends!"
+msgstr "Ceci est votre nom d'utilisateur Jami. Conservez et partagez-le avec vos amis !"
+
+#: src/welcomeview.cpp:100
+msgid ""
+"This is your ID.\n"
+"Copy and share it with your friends!"
+msgstr "Ceci est votre identifiant Jami. Conservez et partagez-le avec vos amis !"
+
+#: src/welcomeview.cpp:195
+msgid ""
+"Jami is free software for universal communication which respects the "
+"freedoms and privacy of its users."
+msgstr "Jami est un logiciel libre de communication universel qui respecte la vie privée et l'intimité de ses utilisateurs."
+
+#: src/notifier.cpp:336
+msgctxt ""
+msgid "Open conversation"
+msgstr "Ouvrir la conversation"
+
+#: src/notifier.cpp:344 src/notifier.cpp:360
+msgctxt ""
+msgid "Accept"
+msgstr "Accepter"
+
+#: src/notifier.cpp:351
+msgctxt ""
+msgid "Refuse"
+msgstr "Refuser"
+
+#: src/notifier.cpp:367
+msgctxt ""
+msgid "Decline"
+msgstr "Décliner"
 
 #: src/video/video_widget.cpp:558
 msgid "Share _screen area"
@@ -1077,7 +1073,7 @@ msgstr "Afficher les informations avancées"
 msgid "Open Avatar Image"
 msgstr "Ouvrir l’image de profil"
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:282
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:283
 msgid "_Open"
 msgstr "_Ouvrir"
 
@@ -1089,9 +1085,9 @@ msgstr "Traitement en cours …"
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"\"Live Free or Die\"\n"
+"\"Free as in Freedom\"\n"
 "built on %.25s"
-msgstr "\"Live Free or Die\"\ncompilé le %.25s"
+msgstr ""
 
 #: src/dialogs.c:137
 msgid ""
@@ -1111,97 +1107,6 @@ msgstr "Arrêter l'enregistrement "
 msgid "Send recorded message"
 msgstr "Envoyer le message enregistré"
 
-#: src/ringmainwindow.cpp:192
-msgid "Add account…"
-msgstr "Ajouter un compte ..."
-
-#: src/ringmainwindow.cpp:846
-msgctxt "button next to search entry will place a new call"
-msgid "place call"
-msgstr "Appeler"
-
-#: src/ringmainwindow.cpp:849
-msgctxt "button next to search entry will open chat"
-msgid "open chat"
-msgstr "Ouvrir la discussion"
-
-#: src/ringmainwindow.cpp:1056
-msgid "Jami - Migration needed"
-msgstr "Jami - Migration nécessaire"
-
-#: src/ringmainwindow.cpp:1069
-msgid "Migration in progress... please do not close this window."
-msgstr "Migration en cours ... S'il vous plaît, ne fermez pas la fenêtre."
-
-#: src/ringmainwindow.cpp:1350
-msgctxt ""
-"Please try to make the translation 50 chars or less so that it fits into the"
-" layout"
-msgid "Find or start a conversation"
-msgstr "Chercher ou démarrer une conversation"
-
-#: src/ringmainwindow.cpp:1821
-msgid "Leave settings page"
-msgstr "Quitter la page des réglages"
-
-#: src/ringmainwindow.cpp:2248
-msgid "There are active calls"
-msgstr "Il y a des appels en cours"
-
-#: src/ringmainwindow.cpp:2302
-msgid " is calling you!"
-msgstr "vous appelle"
-
-#: src/ringmainwindow.cpp:2303
-msgid "Incoming call"
-msgstr "Appel entrant"
-
-#: src/ringmainwindow.cpp:2446
-msgid "New request from "
-msgstr "Nouvelle demande de "
-
-#: src/ringmainwindow.cpp:2447
-msgid "Trust request"
-msgstr "Invitation"
-
-#: src/ringmainwindow.cpp:2508
-msgid "New message"
-msgstr "Nouveau message"
-
-#: src/ringmainwindow.cpp:2571
-msgid "Stop current call?"
-msgstr "Mettre fin à l'appel en cours?"
-
-#: src/ringmainwindow.cpp:2572
-msgid ""
-"A call is currently ongoing. Do you want to close the window and stop all "
-"current calls?"
-msgstr "I y a un appel en cours. Désirez vous fermer la fenêtre et mettre fin à tous les appels en cours?"
-
-#: src/ringmainwindow.cpp:2639
-msgid "Clear history"
-msgstr "Effacer l'historique"
-
-#: src/ringmainwindow.cpp:2640
-msgid "Do you really want to clear the history of this conversation?"
-msgstr "Voulez-vous vraiment effacer l'historique de cette conversation ?"
-
-#: src/ringmainwindow.cpp:2655
-msgid "Remove conversation"
-msgstr "Supprimer la conversation"
-
-#: src/ringmainwindow.cpp:2656
-msgid "Do you really want to remove this conversation?"
-msgstr "Êtes-vous certain de vouloir supprimer cette conversation ? "
-
-#: src/ringmainwindow.cpp:2671
-msgid "Block contact"
-msgstr "Bloquer le contact"
-
-#: src/ringmainwindow.cpp:2672
-msgid "Do you really want to block this contact?"
-msgstr "Souhaitez-vous vraiment bloquer ce contact ?"
-
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
@@ -1216,6 +1121,20 @@ msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
 msgstr "Impossible de se reconnecter au daemon Jami (dring).\nLe programme va maintenant se terminer."
+
+#: src/client_options.c:66
+msgid "Enable debug"
+msgstr "Activer le débogage"
+
+#: src/client_options.c:68
+msgid ""
+"Restores the hidden state of the main window (only applicable to the primary"
+" instance)"
+msgstr "Restaurer l’état caché de la fenêtre principale (applicable seulement à la première instance)"
+
+#: src/client_options.c:85
+msgid "- GNOME client for Jami"
+msgstr "- le client GNOME de Jami"
 
 #: src/conversationpopupmenu.cpp:199
 msgid "Place _video call"
@@ -1261,20 +1180,6 @@ msgstr "_Profile"
 msgid "(None)"
 msgstr "(None)"
 
-#: src/ring_client_options.c:66
-msgid "Enable debug"
-msgstr "Activer le débogage"
-
-#: src/ring_client_options.c:68
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
-msgstr "Restaurer l’état caché de la fenêtre principale (applicable seulement à la première instance)"
-
-#: src/ring_client_options.c:85
-msgid "- GNOME client for Jami"
-msgstr "- le client GNOME de Jami"
-
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
 msgstr "Une erreur s'est produite pendant la création de votre compte."
@@ -1286,7 +1191,7 @@ msgstr "Je n'arrive pas à retrouver votre compte. Vérifiez votre NIP ou bien l
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Aucun compte récupéré. Vérifier votre fichier d'archive et/ou votre mot de passe."
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
@@ -1301,7 +1206,7 @@ msgstr "Les mots de passes ne correspondent pas"
 msgid "Import from backup"
 msgstr "Importer à partir d'une sauvegarde."
 
-#: src/accountcreationwizard.cpp:754 src/chatview.cpp:277
+#: src/accountcreationwizard.cpp:754 src/chatview.cpp:278
 #: src/newaccountsettingsview.cpp:933
 msgid "Save File"
 msgstr "Sauvegarder"
@@ -1322,39 +1227,134 @@ msgstr "Le compte a été exporté."
 msgid "Export account failure."
 msgstr "Échec de l'export de compte."
 
-#: src/ringwelcomeview.cpp:92
-msgid ""
-"This is your Jami username.\n"
-"Copy and share it with your friends!"
-msgstr "Ceci est votre nom d'utilisateur Jami. Conservez et partagez-le avec vos amis !"
+#: src/mainwindow.cpp:192
+msgid "Add account…"
+msgstr "Ajouter un compte ..."
 
-#: src/ringwelcomeview.cpp:100
-msgid ""
-"This is your ID.\n"
-"Copy and share it with your friends!"
-msgstr "Ceci est votre identifiant Jami. Conservez et partagez-le avec vos amis !"
+#: src/mainwindow.cpp:846
+msgctxt "button next to search entry will place a new call"
+msgid "place call"
+msgstr "Appeler"
 
-#: src/ringwelcomeview.cpp:195
-msgid ""
-"Jami is free software for universal communication which respects the "
-"freedoms and privacy of its users."
-msgstr "Jami est un logiciel libre de communication universel qui respecte la vie privée et l'intimité de ses utilisateurs."
+#: src/mainwindow.cpp:849
+msgctxt "button next to search entry will open chat"
+msgid "open chat"
+msgstr "Ouvrir la discussion"
 
-#: src/chatview.cpp:277
+#: src/mainwindow.cpp:1056
+msgid "Jami - Migration needed"
+msgstr "Jami - Migration nécessaire"
+
+#: src/mainwindow.cpp:1069
+msgid "Migration in progress... please do not close this window."
+msgstr "Migration en cours ... S'il vous plaît, ne fermez pas la fenêtre."
+
+#: src/mainwindow.cpp:1350
+msgctxt ""
+"Please try to make the translation 50 chars or less so that it fits into the"
+" layout"
+msgid "Find or start a conversation"
+msgstr "Chercher ou démarrer une conversation"
+
+#: src/mainwindow.cpp:1821
+msgid "Leave settings page"
+msgstr "Quitter la page des réglages"
+
+#: src/mainwindow.cpp:2248
+msgid "There are active calls"
+msgstr "Il y a des appels en cours"
+
+#: src/mainwindow.cpp:2302
+msgid " is calling you!"
+msgstr "vous appelle"
+
+#: src/mainwindow.cpp:2303
+msgid "Incoming call"
+msgstr "Appel entrant"
+
+#: src/mainwindow.cpp:2446
+msgid "New request from "
+msgstr "Nouvelle demande de "
+
+#: src/mainwindow.cpp:2447
+msgid "Trust request"
+msgstr "Invitation"
+
+#: src/mainwindow.cpp:2508
+msgid "New message"
+msgstr "Nouveau message"
+
+#: src/mainwindow.cpp:2571
+msgid "Stop current call?"
+msgstr "Mettre fin à l'appel en cours?"
+
+#: src/mainwindow.cpp:2572
+msgid ""
+"A call is currently ongoing. Do you want to close the window and stop all "
+"current calls?"
+msgstr "I y a un appel en cours. Désirez vous fermer la fenêtre et mettre fin à tous les appels en cours?"
+
+#: src/mainwindow.cpp:2639
+msgid "Clear history"
+msgstr "Effacer l'historique"
+
+#: src/mainwindow.cpp:2640
+msgid "Do you really want to clear the history of this conversation?"
+msgstr "Voulez-vous vraiment effacer l'historique de cette conversation ?"
+
+#: src/mainwindow.cpp:2655
+msgid "Remove conversation"
+msgstr "Supprimer la conversation"
+
+#: src/mainwindow.cpp:2656
+msgid "Do you really want to remove this conversation?"
+msgstr "Êtes-vous certain de vouloir supprimer cette conversation ? "
+
+#: src/mainwindow.cpp:2671
+msgid "Block contact"
+msgstr "Bloquer le contact"
+
+#: src/mainwindow.cpp:2672
+msgid "Do you really want to block this contact?"
+msgstr "Souhaitez-vous vraiment bloquer ce contact ?"
+
+#: src/chatview.cpp:278
 msgid "Send File"
 msgstr "Envoyez un fichier"
 
-#: src/chatview.cpp:334
+#: src/chatview.cpp:335
 msgid "Retry"
 msgstr "Réessaie"
 
-#: src/chatview.cpp:476
+#: src/chatview.cpp:498
 msgid "Stop"
 msgstr "Stop"
 
-#: src/chatview.cpp:994
+#: src/chatview.cpp:1007
 msgid "Send"
 msgstr "Envoyer"
+
+#: src/client.cpp:115
+#, c-format
+msgid ""
+"Unable to initialize.\n"
+"Make sure the Jami daemon (dring) is running.\n"
+"Error: %s"
+msgstr "Impossible de démarrer\nVérifier que le serveur Jami  fonctionne\nErreur: %s"
+
+#: src/client.cpp:118
+msgid "Jami Error"
+msgstr "Erreur Jami"
+
+#: src/client.cpp:395
+msgctxt ""
+"In the status icon menu, toggle action to show or hide the Jami main window"
+msgid "Show Jami"
+msgstr "Afficher Jami"
+
+#: src/client.cpp:399
+msgid "Quit"
+msgstr "Quitter"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
 msgid ""
@@ -1362,11 +1362,11 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Attention ! Cette opération supprimera votre compte de l'appareil.\nVous pourriez perdre définitivement le nom d'enregistrement !"
 
-#: src/currentcallview.cpp:936
+#: src/currentcallview.cpp:935
 msgid "Current conference (all accounts)"
 msgstr "Conférence courantes (tous les comptes)"
 
-#: src/currentcallview.cpp:970
+#: src/currentcallview.cpp:969
 msgid "Current calls (all accounts)"
 msgstr "Appels courant (tous les comptes)"
 
@@ -1374,7 +1374,7 @@ msgstr "Appels courant (tous les comptes)"
 msgid "Online contacts"
 msgstr "Contacts en ligne"
 
-#: src/currentcallview.cpp:1408
+#: src/currentcallview.cpp:1407
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
