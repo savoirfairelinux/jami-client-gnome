@@ -171,6 +171,28 @@
               </packing>
             </child>
             <!-- End of password entry row -->
+            <child>
+              <object class="GtkBox" id="exporting_infos">
+                <property name="visible">False</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">15</property>
+                <property name="halign">center</property>
+                <child>
+                  <object class="GtkSpinner" id="exporting_spinner">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="active">True</property>
+                    <property name="height_request">24</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="exporting_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
             <!-- Cancel and export on ring buttons -->
             <child>
               <object class="GtkButtonBox" id="buttonbox_confirm">
@@ -195,32 +217,6 @@
           </object>
         </child>
         <!-- End add device view -->
-        <!-- Generating pin spinner  -->
-        <child>
-          <object class="GtkBox" id="vbox_generating_pin_spinner">
-            <property name="visible">False</property>
-            <property name="valign">center</property>
-            <property name="border_width">10</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">15</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Exporting account on the Jami…</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkSpinner">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="active">True</property>
-                <property name="height_request">50</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <!-- End Generating account spinner -->
         <!-- Generated pin view -->
         <child>
           <object class="GtkBox" id="generated_pin">
@@ -269,29 +265,6 @@
           </object>
         </child>
         <!-- End Generated pin view -->
-        <!-- Export on Jami error -->
-        <child>
-          <object class="GtkBox" id="export_on_ring_error">
-            <property name="visible">False</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">15</property>
-            <property name="valign">center</property>
-            <child>
-              <object class="GtkLabel" id="label_export_on_ring_error">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="use_markup">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="button_export_on_ring_error_ok">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">OK</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <!-- End export on Jami error -->
         <child>
           <!-- General settings -->
           <object class="GtkBox" id="general_settings_box">

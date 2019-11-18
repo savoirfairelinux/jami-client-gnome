@@ -190,14 +190,9 @@ struct _NewAccountSettingsViewPrivate
     GtkWidget* button_add_device_cancel;
     GtkWidget* entry_password_export_label;
     GtkWidget* entry_password_export;
-
-    /* generating account spinner */
-    GtkWidget* vbox_generating_pin_spinner;
-
-    /* export on ring error */
-    GtkWidget* export_on_ring_error;
-    GtkWidget* label_export_on_ring_error;
-    GtkWidget* button_export_on_ring_error_ok;
+    GtkWidget* exporting_infos;
+    GtkWidget* exporting_spinner;
+    GtkWidget* exporting_label;
 
     QMetaObject::Connection new_device_added_connection;
     QMetaObject::Connection device_updated_connection;
@@ -366,14 +361,9 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, button_add_device_cancel);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, entry_password_export_label);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, entry_password_export);
-
-    // generating pin spinner
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, vbox_generating_pin_spinner);
-
-    // export on ring error
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, export_on_ring_error);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, label_export_on_ring_error);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, button_export_on_ring_error_ok);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, exporting_infos);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, exporting_spinner);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, exporting_label);
 
     // generated_pin view
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, generated_pin);
@@ -409,25 +399,6 @@ show_generated_pin_view(NewAccountSettingsView* view)
     gtk_widget_show(priv->generated_pin);
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), priv->generated_pin);
 }
-
-static void
-show_generating_pin_spinner(NewAccountSettingsView* view)
-{
-    g_return_if_fail(IS_NEW_ACCOUNT_SETTINGS_VIEW(view));
-    auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
-    gtk_widget_show(priv->vbox_generating_pin_spinner);
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), priv->vbox_generating_pin_spinner);
-}
-
-static void
-show_export_on_ring_error(NewAccountSettingsView* view)
-{
-    g_return_if_fail(IS_NEW_ACCOUNT_SETTINGS_VIEW(view));
-    auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
-    gtk_widget_show(priv->export_on_ring_error);
-    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account), priv->export_on_ring_error);
-}
-
 
 // Edit general
 
@@ -1721,6 +1692,7 @@ show_add_device_view(NewAccountSettingsView* view)
         gtk_widget_hide(priv->entry_password_export);
         gtk_widget_hide(priv->entry_password_export_label);
     }
+    gtk_widget_hide(priv->exporting_infos);
 
 }
 
@@ -1736,6 +1708,9 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, NewAccountSettingsVi
         passwordStr = password;
     }
     gtk_entry_set_text(GTK_ENTRY(priv->entry_password_export), "");
+    gtk_label_set_text(GTK_LABEL(priv->exporting_label), _("Exporting account…"));
+    gtk_widget_show_all(priv->exporting_infos);
+    gtk_widget_set_sensitive(priv->button_export_on_the_ring, FALSE);
 
     priv->export_on_ring_ended = QObject::connect(
         (*priv->accountInfo_)->accountModel,
@@ -1743,6 +1718,7 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, NewAccountSettingsVi
         [=] (const std::string& accountID, lrc::api::account::ExportOnRingStatus status, const std::string& pin) {
             if (accountID != (*priv->accountInfo_)->id) return;
             QObject::disconnect(priv->export_on_ring_ended);
+            gtk_widget_set_sensitive(priv->button_export_on_the_ring, TRUE);
             switch (status)
             {
                 case lrc::api::account::ExportOnRingStatus::SUCCESS:
@@ -1756,33 +1732,39 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, NewAccountSettingsVi
                 }
                 case lrc::api::account::ExportOnRingStatus::WRONG_PASSWORD:
                 {
-                    gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Bad password"));
-                    show_export_on_ring_error(view);
+                    gtk_widget_hide(priv->exporting_spinner);
+                    gchar* text = g_markup_printf_escaped("<b>%s</b>", _("Bad password"));
+                    gtk_label_set_markup(GTK_LABEL(priv->exporting_label), text);
+                    gtk_widget_show(priv->exporting_label);
                     break;
                 }
                 case lrc::api::account::ExportOnRingStatus::NETWORK_ERROR:
                 {
-                    gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Network error, try again"));
-                    show_export_on_ring_error(view);
+                    gtk_widget_hide(priv->exporting_spinner);
+                    gchar* text = g_markup_printf_escaped("<b>%s</b>", _("Network error, try again"));
+                    gtk_label_set_markup(GTK_LABEL(priv->exporting_label), text);
+                    gtk_widget_show(priv->exporting_label);
                     break;
                 }
                 default:
                 {
-                    gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Unknown error"));
-                    show_export_on_ring_error(view);
+                    gtk_widget_hide(priv->exporting_spinner);
+                    gchar* text = g_markup_printf_escaped("<b>%s</b>", _("Unknown error"));
+                    gtk_label_set_markup(GTK_LABEL(priv->exporting_label), text);
+                    gtk_widget_show(priv->exporting_label);
                     break;
                 }
             }
         }
     );
 
-    show_generating_pin_spinner(view);
     if (!(*priv->accountInfo_)->accountModel->exportOnRing((*priv->accountInfo_)->id, passwordStr))
     {
         QObject::disconnect(priv->export_on_ring_ended);
-        gtk_label_set_text(GTK_LABEL(priv->label_export_on_ring_error), _("Could not initiate export to the Jami, try again"));
-        g_debug("Could not initiate exportOnRing operation");
-        show_export_on_ring_error(view);
+        gtk_widget_hide(priv->exporting_spinner);
+        gtk_label_set_text(GTK_LABEL(priv->exporting_label), _("Could not initiate export to the Jami, try again"));
+        gtk_widget_show(priv->exporting_label);
+        gtk_widget_set_sensitive(priv->button_export_on_the_ring, TRUE);
     }
 }
 
@@ -1978,7 +1960,6 @@ build_settings_view(NewAccountSettingsView* view)
     g_signal_connect_swapped(priv->button_add_device_cancel, "clicked", G_CALLBACK(show_general_settings), view);
     g_signal_connect(priv->button_export_on_the_ring, "clicked", G_CALLBACK(export_on_the_ring_clicked), view);
     g_signal_connect_swapped(priv->button_generated_pin_ok, "clicked", G_CALLBACK(show_general_settings), view);
-    g_signal_connect_swapped(priv->button_export_on_ring_error_ok, "clicked", G_CALLBACK(show_general_settings), view);
 
 }
 
