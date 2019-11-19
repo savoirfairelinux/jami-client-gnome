@@ -2415,8 +2415,12 @@ CppImpl::slotShowCallView(const std::string& id, lrc::api::conversation::Info or
     if (IS_CURRENT_CALL_VIEW(old_view))
         current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
 
-    if (origin.uid == current_item.uid && IS_CURRENT_CALL_VIEW(old_view))
-        return;
+    if (IS_CURRENT_CALL_VIEW(old_view) && origin.uid == current_item.uid) {
+        auto rendered = current_call_view_get_rendered_call(CURRENT_CALL_VIEW(old_view));
+        auto sameCall = origin.confId.empty() ? origin.callId == rendered : origin.confId == rendered;
+        if (sameCall)
+            return;
+    }
 
     changeView(CURRENT_CALL_VIEW_TYPE, origin);
 }

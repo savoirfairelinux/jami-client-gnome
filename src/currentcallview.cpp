@@ -251,6 +251,8 @@ public:
 
     std::vector<std::string> titles_;
     std::set<std::string> hiddenTitles_;
+
+    std::string currentCall_ {};
 private:
     CppImpl() = delete;
     CppImpl(const CppImpl&) = delete;
@@ -1189,6 +1191,7 @@ CppImpl::setCallInfo()
     if (!conversation->confId.empty())
         callToRender = conversation->confId;
 
+    currentCall_ = callToRender;
     try {
         // local renderer
         const lrc::api::video::Renderer* previewRenderer =
@@ -1650,6 +1653,17 @@ current_call_view_get_chat_view(CurrentCallView *self)
     g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), nullptr);
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
     return priv->chat_view;
+}
+
+std::string
+current_call_view_get_rendered_call(CurrentCallView* view)
+{
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), "");
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    if (!priv->cpp) return {};
+
+    return priv->cpp->currentCall_;
 }
 
 void
