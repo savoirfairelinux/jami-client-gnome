@@ -2323,17 +2323,9 @@ CppImpl::slotFilterChanged()
         [current_item](const lrc::api::conversation::Info& conversation) {
             return current_item.uid == conversation.uid;
         });
-    bool isInConv = conversation == conversations.end();
 
-    if (IS_CHAT_VIEW(old_view)) {
-        if (isInConv) {
-            changeView(WELCOME_VIEW_TYPE);
-        } else {
-            /* Refresh chat view. In some cases (like when a contact is unbanned)
-               a changing filter also implies the need of redrawing the chat */
-            changeView(CHAT_VIEW_TYPE, *conversation);
-        }
-    }
+    if (conversation == conversations.end())
+        changeView(WELCOME_VIEW_TYPE);
 }
 
 void
