@@ -60,5 +60,6 @@
     <file alias="retry">retry.svg</file>
     <file alias="retry-white">retry-white.svg</file>
     <file alias="plugin_white">extension_white_24dp.svg</file>
+    <file alias="view-more">view-more.svg</file>
   </gresource>
 </gresources>
