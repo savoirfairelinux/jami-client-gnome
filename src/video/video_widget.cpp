@@ -268,10 +268,23 @@ on_drag_end(G_GNUC_UNUSED ClutterDragAction   *action,
     gfloat area_w = clutter_actor_box_get_width(&area_box);
     gfloat area_h = clutter_actor_box_get_height(&area_box);
 
-    gfloat actor_x, actor_y;
-    clutter_actor_get_position(actor, &actor_x, &actor_y);
     gfloat actor_w, actor_h;
     clutter_actor_get_size(actor, &actor_w, &actor_h);
+
+    gfloat actor_x, actor_y;
+    clutter_actor_get_position(actor, &actor_x, &actor_y);
+    if (actor_x < area_w / 2) {
+        actor_x = 0.01 * area_w;
+    } else {
+        actor_x = 0.99 * area_w - actor_w;
+    }
+    if (actor_y > area_h / 2) {
+        actor_y = 0.99 * area_h - actor_h;
+    } else {
+        actor_y = 0.01 * area_h;
+    }
+
+    clutter_actor_set_position(actor, actor_x, actor_y);
 
     area_w -= actor_w;
     area_h -= actor_h;
@@ -329,11 +342,11 @@ video_widget_init(VideoWidget *self)
     clutter_actor_insert_child_above(priv->video_container, priv->local->actor, NULL);
     /* set size to square, but it will stay the aspect ratio when the image is rendered */
     clutter_actor_set_size(priv->local->actor, VIDEO_LOCAL_SIZE, VIDEO_LOCAL_SIZE);
-    /* set position constraint to right cornder;
+    /* set position constraint to right corner;
      * this constraint will be removed once the user tries to move the position
      * of the action */
     constraint = clutter_align_constraint_new(priv->video_container,
-                                              CLUTTER_ALIGN_BOTH, 0.99);
+                                              CLUTTER_ALIGN_X_AXIS, 0.99);
     clutter_actor_add_constraint(priv->local->actor, constraint);
     clutter_actor_set_opacity(priv->local->actor,
                               VIDEO_LOCAL_OPACITY_DEFAULT);

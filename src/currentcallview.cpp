@@ -74,6 +74,7 @@ struct CurrentCallViewPrivate
     GtkWidget *hbox_call_info;
     GtkWidget *hbox_call_status;
     GtkWidget *hbox_call_controls;
+    GtkWidget *hbox_call_right_controls;
     GtkWidget *vbox_call_smartInfo;
     GtkWidget *vbox_peer_identity;
     GtkWidget *image_peer;
@@ -92,20 +93,27 @@ struct CurrentCallViewPrivate
     GtkWidget *togglebutton_muteaudio;
     GtkWidget *togglebutton_mutevideo;
     GtkWidget *togglebutton_add_participant;
-    GtkWidget *togglebutton_transfer;
-    GtkWidget *siptransfer_popover;
+    GtkWidget *togglebutton_view_more;
     GtkWidget *siptransfer_filter_entry;
     GtkWidget *list_conversations;
     GtkWidget *add_participant_popover;
+    GtkWidget *actions_popover;
     GtkWidget *conversation_filter_entry;
     GtkWidget *list_conversations_invite;
-    GtkWidget *togglebutton_hold;
-    GtkWidget *togglebutton_record;
+    GtkWidget *hold_button;
     GtkWidget *button_hangup;
     GtkWidget *scalebutton_quality;
     GtkWidget *checkbutton_autoquality;
     GtkWidget *chat_view;
     GtkWidget *webkit_chat_container; // The webkit_chat_container is created once, then reused for all chat views
+
+    GtkWidget *stack_options;
+    GtkWidget *show_fullscreen_button;
+    bool isFullscreen {false};
+    GtkWidget *record_button;
+    GtkWidget *sip_transfer_button;
+    GtkWidget *sip_transfer_panel;
+    GtkWidget* actions_panel;
 
     GSettings *settings;
 
@@ -237,6 +245,7 @@ public:
     // for clutter animations and to know when to fade in/out the overlays
     ClutterTransition* fade_info = nullptr;
     ClutterTransition* fade_controls = nullptr;
+    ClutterTransition* fade_right_controls = nullptr;
     gint64 time_last_mouse_motion = 0;
     guint timer_fade = 0;
 
@@ -308,12 +317,11 @@ set_record_animation(CurrentCallViewPrivate* priv)
     auto callToRender = priv->cpp->conversation->callId;
     if (!priv->cpp->conversation->confId.empty())
         callToRender = priv->cpp->conversation->confId;
-    bool nextStatus = (*priv->cpp->accountInfo)->callModel->isRecording(callToRender);
-    bool currentStatus = (*priv->cpp->accountInfo)->callModel->isRecording(callToRender);
-    if (nextStatus != currentStatus) {
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_record),
-            (*priv->cpp->accountInfo)->callModel->isRecording(callToRender));
-    }
+    bool is_recording = (*priv->cpp->accountInfo)->callModel->isRecording(callToRender);
+    if (is_recording)
+        gtk_button_set_label(GTK_BUTTON(priv->record_button), _("Stop recording"));
+    else
+        gtk_button_set_label(GTK_BUTTON(priv->record_button), _("Start recording"));
 }
 
 static void
@@ -357,7 +365,7 @@ on_button_hangup_clicked(CurrentCallView* view)
 }
 
 static void
-on_togglebutton_hold_clicked(CurrentCallView* view)
+on_hold_clicked(GtkButton*, CurrentCallView* view)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
@@ -366,10 +374,11 @@ on_togglebutton_hold_clicked(CurrentCallView* view)
     if (!priv->cpp->conversation->confId.empty())
         callToHold = priv->cpp->conversation->confId;
     (*priv->cpp->accountInfo)->callModel->togglePause(callToHold);
+    gtk_widget_hide(priv->actions_popover);
 }
 
 static void
-on_togglebutton_record_clicked(CurrentCallView* view)
+on_record_clicked(GtkButton*, CurrentCallView* view)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
@@ -379,6 +388,7 @@ on_togglebutton_record_clicked(CurrentCallView* view)
         callToRecord = priv->cpp->conversation->confId;
     (*priv->cpp->accountInfo)->callModel->toggleAudioRecord(callToRecord);
 
+    gtk_widget_hide(priv->actions_popover);
     set_record_animation(priv);
 }
 
@@ -411,7 +421,6 @@ on_togglebutton_mutevideo_clicked(CurrentCallView* view)
     auto callToMute = priv->cpp->conversation->callId;
     if (!priv->cpp->conversation->confId.empty())
         callToMute = priv->cpp->conversation->confId;
-    //auto muteVideoBtn = GTK_TOGGLE_BUTTON(priv->togglebutton_mutevideo);
     (*priv->cpp->accountInfo)->callModel->toggleMedia(callToMute,
         lrc::api::NewCallModel::Media::VIDEO);
 
@@ -421,6 +430,28 @@ on_togglebutton_mutevideo_clicked(CurrentCallView* view)
         image = gtk_image_new_from_resource ("/net/jami/JamiGnome/unmute_video");
     gtk_button_set_image(GTK_BUTTON(togglebutton), image);
 }
+
+static void
+on_show_fullscreen_clicked(GtkButton* button, CurrentCallView* view)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    std::string rsc;
+    if (priv->isFullscreen) {
+        gtk_button_set_label(button, _("Show fullscreen"));
+        rsc = "view-fullscreen-symbolic";
+    } else {
+        gtk_button_set_label(button, _("Leave fullscreen"));
+        rsc = "view-restore-symbolic";
+    }
+    auto image_button = gtk_image_new_from_icon_name(rsc.c_str(), GTK_ICON_SIZE_BUTTON);
+    gtk_button_set_image(button, image_button);
+    priv->isFullscreen = !priv->isFullscreen;
+    gtk_widget_hide(priv->actions_popover);
+    g_signal_emit(G_OBJECT(view), current_call_view_signals[VIDEO_DOUBLE_CLICKED], 0);
+}
+
 
 static gboolean
 on_mouse_moved(CurrentCallView* view)
@@ -561,9 +592,9 @@ transfer_to_peer(CurrentCallViewPrivate* priv, const std::string& peerUri)
     if (peerUri == priv->cpp->conversation->participants.front()) {
         g_warning("avoid to transfer to the same call, abort.");
 #if GTK_CHECK_VERSION(3,22,0)
-        gtk_popover_popdown(GTK_POPOVER(priv->siptransfer_popover));
+        gtk_popover_popdown(GTK_POPOVER(priv->actions_popover));
 #else
-        gtk_widget_hide(GTK_WIDGET(priv->siptransfer_popover));
+        gtk_widget_hide(GTK_WIDGET(priv->actions_popover));
 #endif
         return;
     }
@@ -578,9 +609,9 @@ transfer_to_peer(CurrentCallViewPrivate* priv, const std::string& peerUri)
             priv->cpp->conversation->callId, peerUri);
     }
 #if GTK_CHECK_VERSION(3,22,0)
-    gtk_popover_popdown(GTK_POPOVER(priv->siptransfer_popover));
+    gtk_popover_popdown(GTK_POPOVER(priv->actions_popover));
 #else
-    gtk_widget_hide(GTK_WIDGET(priv->siptransfer_popover));
+    gtk_widget_hide(GTK_WIDGET(priv->actions_popover));
 #endif
 }
 
@@ -749,6 +780,31 @@ invite_to_conversation(GtkListBox*, GtkListBoxRow* row, CurrentCallView* self)
 }
 
 static void
+on_show_actions_popover(CurrentCallView* self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    gtk_widget_set_size_request(priv->actions_popover, -1, -1);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_options), priv->actions_panel);
+
+    gtk_popover_set_relative_to(GTK_POPOVER(priv->actions_popover), GTK_WIDGET(priv->togglebutton_view_more));
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_popover_popdown(GTK_POPOVER(priv->actions_popover));
+#else
+    gtk_widget_show_all(GTK_WIDGET(priv->actions_popover));
+#endif
+    gtk_widget_show_all(priv->actions_popover);
+    if ((*priv->cpp->accountInfo)->profileInfo.type == lrc::api::profile::Type::SIP) {
+        gtk_widget_show(priv->hold_button);
+        gtk_widget_show(priv->sip_transfer_button);
+    } else {
+        gtk_widget_hide(priv->hold_button);
+        gtk_widget_hide(priv->sip_transfer_button);
+    }
+}
+
+static void
 filter_transfer_list(CurrentCallView *self)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
@@ -808,18 +864,13 @@ on_button_add_participant_clicked(CurrentCallView *self)
 }
 
 static void
-on_button_transfer_clicked(CurrentCallView *self)
+on_transfer_clicked(GtkButton*, CurrentCallView *self)
 {
     // Show and init list
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
-    gtk_popover_set_relative_to(GTK_POPOVER(priv->siptransfer_popover), GTK_WIDGET(priv->togglebutton_transfer));
-#if GTK_CHECK_VERSION(3,22,0)
-    gtk_popover_popdown(GTK_POPOVER(priv->siptransfer_popover));
-#else
-    gtk_widget_show_all(GTK_WIDGET(priv->siptransfer_popover));
-#endif
-    gtk_widget_show_all(priv->siptransfer_popover);
+    gtk_widget_set_size_request(priv->actions_popover, -1, 300);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_options), priv->sip_transfer_panel);
     filter_transfer_list(self);
 }
 
@@ -895,8 +946,6 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
     accountInfo = &account_info;
     avModel_ = &avModel;
     setCallInfo();
-
-    gtk_widget_hide(widgets->togglebutton_transfer);
 
     auto callToRender = conversation->callId;
     if (!conversation->confId.empty())
@@ -1003,10 +1052,6 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
         for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP))
             add_transfer_contact(c.participants.front());
         gtk_widget_show_all(widgets->list_conversations);
-        gtk_widget_show(widgets->togglebutton_transfer);
-        gtk_widget_show(widgets->togglebutton_hold);
-    } else {
-        gtk_widget_hide(widgets->togglebutton_hold);
     }
 
     set_record_animation(widgets);
@@ -1323,6 +1368,7 @@ CppImpl::insertControls()
     auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(widgets->video_widget));
     auto actor_info = gtk_clutter_actor_new_with_contents(widgets->hbox_call_info);
     auto actor_controls = gtk_clutter_actor_new_with_contents(widgets->hbox_call_controls);
+    auto actor_right_controls = gtk_clutter_actor_new_with_contents(widgets->hbox_call_right_controls);
     auto actor_smartInfo = gtk_clutter_actor_new_with_contents(widgets->vbox_call_smartInfo);
 
     auto audioOnly = false;
@@ -1341,13 +1387,16 @@ CppImpl::insertControls()
         clutter_actor_set_y_align(actor_info, CLUTTER_ACTOR_ALIGN_CENTER);
         gtk_orientable_set_orientation(GTK_ORIENTABLE(widgets->hbox_call_info), GTK_ORIENTATION_VERTICAL);
         gtk_widget_set_halign(widgets->vbox_peer_identity, GTK_ALIGN_CENTER);
-        gtk_widget_set_halign(widgets->hbox_call_status, GTK_ALIGN_CENTER);
         gtk_widget_set_halign(widgets->label_bestId, GTK_ALIGN_CENTER);
     }
 
     clutter_actor_add_child(stage, actor_controls);
     clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
     clutter_actor_set_y_align(actor_controls, CLUTTER_ACTOR_ALIGN_END);
+
+    clutter_actor_add_child(stage, actor_right_controls);
+    clutter_actor_set_x_align(actor_right_controls, CLUTTER_ACTOR_ALIGN_END);
+    clutter_actor_set_y_align(actor_right_controls, CLUTTER_ACTOR_ALIGN_END);
 
     clutter_actor_add_child(stage, actor_smartInfo);
     clutter_actor_set_x_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_END);
@@ -1363,12 +1412,16 @@ CppImpl::insertControls()
     time_last_mouse_motion = g_get_monotonic_time();
     fade_info = create_fade_out_transition();
     fade_controls = create_fade_out_transition();
+    fade_right_controls = create_fade_out_transition();
     clutter_actor_add_transition(actor_info, "fade_info", fade_info);
     clutter_actor_add_transition(actor_controls, "fade_controls", fade_controls);
+    clutter_actor_add_transition(actor_right_controls, "fade_right_controls", fade_right_controls);
     clutter_timeline_set_direction(CLUTTER_TIMELINE(fade_info), CLUTTER_TIMELINE_BACKWARD);
     clutter_timeline_set_direction(CLUTTER_TIMELINE(fade_controls), CLUTTER_TIMELINE_BACKWARD);
+    clutter_timeline_set_direction(CLUTTER_TIMELINE(fade_right_controls), CLUTTER_TIMELINE_BACKWARD);
     clutter_timeline_stop(CLUTTER_TIMELINE(fade_info));
     clutter_timeline_stop(CLUTTER_TIMELINE(fade_controls));
+    clutter_timeline_stop(CLUTTER_TIMELINE(fade_right_controls));
 
     /* have a timer check every 1 second if the controls should fade out */
     timer_fade = g_timeout_add(1000, (GSourceFunc)on_timer_fade_timeout, self);
@@ -1376,14 +1429,12 @@ CppImpl::insertControls()
     /* connect the controllers (new model) */
     g_signal_connect_swapped(widgets->button_hangup, "clicked", G_CALLBACK(on_button_hangup_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_add_participant, "clicked", G_CALLBACK(on_button_add_participant_clicked), self);
-    g_signal_connect_swapped(widgets->togglebutton_transfer, "clicked", G_CALLBACK(on_button_transfer_clicked), self);
+    g_signal_connect_swapped(widgets->togglebutton_view_more, "clicked", G_CALLBACK(on_show_actions_popover), self);
     g_signal_connect_swapped(widgets->siptransfer_filter_entry, "activate", G_CALLBACK(on_siptransfer_filter_activated), self);
     g_signal_connect(widgets->siptransfer_filter_entry, "search-changed", G_CALLBACK(on_siptransfer_text_changed), self);
     g_signal_connect(widgets->list_conversations, "row-activated", G_CALLBACK(transfer_to_conversation), self);
     g_signal_connect(widgets->list_conversations_invite, "row-activated", G_CALLBACK(invite_to_conversation), self);
-    g_signal_connect_swapped(widgets->togglebutton_hold, "clicked", G_CALLBACK(on_togglebutton_hold_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_muteaudio, "clicked", G_CALLBACK(on_togglebutton_muteaudio_clicked), self);
-    g_signal_connect_swapped(widgets->togglebutton_record, "clicked", G_CALLBACK(on_togglebutton_record_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_mutevideo, "clicked", G_CALLBACK(on_togglebutton_mutevideo_clicked), self);
 
     /* connect to the mouse motion event to reset the last moved time */
@@ -1442,6 +1493,11 @@ CppImpl::insertControls()
     } else {
         gtk_widget_hide(widgets->vbox_call_smartInfo);
     }
+
+    g_signal_connect(widgets->sip_transfer_button, "clicked", G_CALLBACK(on_transfer_clicked), self);
+    g_signal_connect(widgets->show_fullscreen_button, "clicked", G_CALLBACK(on_show_fullscreen_clicked), self);
+    g_signal_connect(widgets->record_button, "clicked", G_CALLBACK(on_record_clicked), self);
+    g_signal_connect(widgets->hold_button, "clicked", G_CALLBACK(on_hold_clicked), self);
 }
 
 void
@@ -1474,10 +1530,10 @@ CppImpl::updateState()
     try {
         auto call = (*accountInfo)->callModel->getCall(callId);
 
-        auto pauseBtn = GTK_TOGGLE_BUTTON(widgets->togglebutton_hold);
-        auto image = gtk_image_new_from_resource ("/net/jami/JamiGnome/pause");
+        auto pauseBtn = GTK_TOGGLE_BUTTON(widgets->hold_button);
+        auto image = gtk_image_new_from_icon_name("media-playback-pause-symbolic", GTK_ICON_SIZE_BUTTON);
         if (call.status == lrc::api::call::Status::PAUSED)
-            image = gtk_image_new_from_resource ("/net/jami/JamiGnome/play");
+            image = gtk_image_new_from_icon_name("media-playback-pause-symbolic", GTK_ICON_SIZE_BUTTON);
         gtk_button_set_image(GTK_BUTTON(pauseBtn), image);
 
         auto audioButton = GTK_TOGGLE_BUTTON(widgets->togglebutton_muteaudio);
@@ -1627,11 +1683,14 @@ CppImpl::checkControlsFading()
         if (clutter_timeline_get_direction(CLUTTER_TIMELINE(fade_info)) == CLUTTER_TIMELINE_BACKWARD) {
             clutter_timeline_set_direction(CLUTTER_TIMELINE(fade_info), CLUTTER_TIMELINE_FORWARD);
             clutter_timeline_set_direction(CLUTTER_TIMELINE(fade_controls), CLUTTER_TIMELINE_FORWARD);
+            clutter_timeline_set_direction(CLUTTER_TIMELINE(fade_right_controls), CLUTTER_TIMELINE_FORWARD);
             if (!clutter_timeline_is_playing(CLUTTER_TIMELINE(fade_info))) {
                 clutter_timeline_rewind(CLUTTER_TIMELINE(fade_info));
                 clutter_timeline_rewind(CLUTTER_TIMELINE(fade_controls));
+                clutter_timeline_rewind(CLUTTER_TIMELINE(fade_right_controls));
                 clutter_timeline_start(CLUTTER_TIMELINE(fade_info));
                 clutter_timeline_start(CLUTTER_TIMELINE(fade_controls));
+                clutter_timeline_start(CLUTTER_TIMELINE(fade_right_controls));
             }
         }
     }
@@ -1715,6 +1774,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_controls);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_right_controls);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_call_smartInfo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_peer_identity);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, image_peer);
@@ -1730,19 +1790,25 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_add_participant);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_transfer);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_hold);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_view_more);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_muteaudio);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_record);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_mutevideo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, button_hangup);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, scalebutton_quality);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, siptransfer_popover);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, siptransfer_filter_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, list_conversations);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, add_participant_popover);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, actions_popover);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, conversation_filter_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, list_conversations_invite);
+
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, stack_options);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, show_fullscreen_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, record_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hold_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, sip_transfer_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, sip_transfer_panel);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, actions_panel);
 
     details::current_call_view_signals[VIDEO_DOUBLE_CLICKED] = g_signal_new (
         "video-double-clicked",
