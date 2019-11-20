@@ -14,7 +14,7 @@
         <child>
           <object class="GtkFrame" id="frame_video">
             <property name="visible">False</property>
-            <property name="shadow-type">GTK_SHADOW_NONE</property>
+            <property name="shadow_type">none</property>
             <property name="height-request">150</property>
             <property name="width-request">200</property>
           </object>
@@ -30,7 +30,7 @@
           <object class="GtkFrame" id="frame_chat">
             <property name="width-request">300</property>
             <property name="visible">False</property>
-            <property name="shadow-type">GTK_SHADOW_NONE</property>
+            <property name="shadow_type">none</property>
           </object>
           <packing>
             <property name="shrink">False</property>
@@ -237,6 +237,32 @@
     <property name="spacing">15</property>
     <property name="border-width">10</property>
     <child>
+      <object class="GtkToggleButton" id="togglebutton_muteaudio">
+        <style>
+          <class name="can-be-disabled"/>
+          <class name="call-button"/>
+        </style>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
+        <property name="has_tooltip">True</property>
+        <property name="tooltip-text" translatable="yes">Toggle mute audio</property>
+        <property name="image">image_mute_audio</property>
+        <property name="relief">none</property>
+        <child internal-child="accessible">
+          <object class="AtkObject" id="togglebutton_muteaudio-atkobject">
+            <property name="AtkObject::accessible-name" translatable="yes">Hold</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <child>
       <object class="GtkButton" id="button_hangup">
         <style>
           <class name="hangup-button-style"/>
@@ -250,6 +276,7 @@
         <property name="has_tooltip">True</property>
         <property name="tooltip-text" translatable="yes">End this call</property>
         <property name="image">image_end</property>
+        <property name="relief">none</property>
         <child internal-child="accessible">
           <object class="AtkObject" id="button_hangup-atkobject">
             <property name="AtkObject::accessible-name" translatable="yes">End call</property>
@@ -261,6 +288,37 @@
         <property name="fill">True</property>
       </packing>
     </child>
+    <child>
+      <object class="GtkToggleButton" id="togglebutton_mutevideo">
+        <style>
+          <class name="call-button"/>
+          <class name="can-be-disabled"/>
+        </style>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
+        <property name="has_tooltip">True</property>
+        <property name="relief">none</property>
+        <property name="tooltip-text" translatable="yes">Toggle mute video</property>
+        <property name="image">image_mute_video</property>
+        <child internal-child="accessible">
+          <object class="AtkObject" id="togglebutton_mutevideo-atkobject">
+            <property name="AtkObject::accessible-name" translatable="yes">Mute video</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+  </object>
+  <object class="GtkBox" id="hbox_call_right_controls">
+    <property name="visible">True</property>
+    <property name="spacing">15</property>
+    <property name="border-width">10</property>
     <child>
       <object class="GtkToggleButton" id="togglebutton_add_participant">
         <style>
@@ -274,12 +332,62 @@
         <property name="has_tooltip">True</property>
         <property name="tooltip-text" translatable="yes">Add participant</property>
         <property name="image">image_add_participant</property>
+        <property name="relief">none</property>
       </object>
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
       </packing>
     </child>
+    <child>
+      <object class="GtkToggleButton" id="togglebutton_chat">
+        <style>
+          <class name="call-button"/>
+        </style>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
+        <property name="has_tooltip">True</property>
+        <property name="relief">none</property>
+        <property name="tooltip-text" translatable="yes">Toggle show chat</property>
+        <property name="image">image_chat</property>
+        <child internal-child="accessible">
+          <object class="AtkObject" id="togglebutton_chat-atkobject">
+            <property name="AtkObject::accessible-name" translatable="yes">Chat</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToggleButton" id="togglebutton_view_more">
+        <style>
+          <class name="call-button"/>
+        </style>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
+        <property name="has_tooltip">True</property>
+        <property name="tooltip-text" translatable="yes">More actions</property>
+        <property name="image">image_view_more</property>
+        <property name="relief">none</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+  </object>
+
+
+  <object class="GtkBox" id="temp">
+    <property name="visible">False</property>
     <child>
       <object class="GtkToggleButton" id="togglebutton_transfer">
         <style>
@@ -315,56 +423,6 @@
         <child internal-child="accessible">
           <object class="AtkObject" id="togglebutton_hold-atkobject">
             <property name="AtkObject::accessible-name" translatable="yes">Hold</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkToggleButton" id="togglebutton_muteaudio">
-        <style>
-          <class name="can-be-disabled"/>
-          <class name="call-button"/>
-        </style>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-        <property name="width-request">48</property>
-        <property name="height-request">48</property>
-        <property name="has_tooltip">True</property>
-        <property name="tooltip-text" translatable="yes">Toggle mute audio</property>
-        <property name="image">image_mute_audio</property>
-        <child internal-child="accessible">
-          <object class="AtkObject" id="togglebutton_muteaudio-atkobject">
-            <property name="AtkObject::accessible-name" translatable="yes">Hold</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkToggleButton" id="togglebutton_mutevideo">
-        <style>
-          <class name="call-button"/>
-          <class name="can-be-disabled"/>
-        </style>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-        <property name="width-request">48</property>
-        <property name="height-request">48</property>
-        <property name="has_tooltip">True</property>
-        <property name="tooltip-text" translatable="yes">Toggle mute video</property>
-        <property name="image">image_mute_video</property>
-        <child internal-child="accessible">
-          <object class="AtkObject" id="togglebutton_mutevideo-atkobject">
-            <property name="AtkObject::accessible-name" translatable="yes">Mute video</property>
           </object>
         </child>
       </object>
@@ -423,29 +481,6 @@
         <property name="fill">True</property>
       </packing>
     </child>
-    <child>
-      <object class="GtkToggleButton" id="togglebutton_chat">
-        <style>
-          <class name="call-button"/>
-        </style>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="width-request">48</property>
-        <property name="height-request">48</property>
-        <property name="has_tooltip">True</property>
-        <property name="tooltip-text" translatable="yes">Toggle show chat</property>
-        <property name="image">image_chat</property>
-        <child internal-child="accessible">
-          <object class="AtkObject" id="togglebutton_chat-atkobject">
-            <property name="AtkObject::accessible-name" translatable="yes">Chat</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-      </packing>
-    </child>
   </object>
   <!-- end of call control button box -->
 
@@ -455,6 +490,42 @@
     <child internal-child="accessible">
       <object class="AtkObject" id="image_chat-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Chat</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkImage" id="image_view_more">
+    <property name="visible">True</property>
+    <property name="resource">/net/jami/JamiGnome/view-more</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_view_more-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Chat</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkImage" id="image_pause">
+    <property name="visible">True</property>
+    <property name="icon_name">media-playback-pause-symbolic</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_pause-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Pause</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkImage" id="image_fullscreen">
+    <property name="visible">True</property>
+    <property name="icon_name">view-fullscreen-symbolic</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_fullscreen-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Fullscreen</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkImage" id="image_recording">
+    <property name="visible">True</property>
+    <property name="icon_name">media-record</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_recording-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Record</property>
       </object>
     </child>
   </object>
@@ -661,6 +732,89 @@
             <property name="position">2</property>
           </packing>
         </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopover" id="actions_popover">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        
+
+        <child>
+          <object class="GtkButton">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="label" translatable="yes">Start recording</property>
+            <property name="relief">none</property>
+            <property name="image">image_recording</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="label" translatable="yes">Manage video quality</property>
+            <property name="relief">none</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="label" translatable="yes">View fullscreen</property>
+            <property name="relief">none</property>
+            <property name="image">image_fullscreen</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="width-request">48</property>
+            <property name="height-request">48</property>
+            <property name="label" translatable="yes">Hold call</property>
+            <property name="relief">none</property>
+            <property name="image">image_pause</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="label" translatable="yes">Transfer to…</property>
+            <property name="relief">none</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+
       </object>
     </child>
   </object>
