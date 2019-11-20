@@ -74,6 +74,7 @@ struct CurrentCallViewPrivate
     GtkWidget *hbox_call_info;
     GtkWidget *hbox_call_status;
     GtkWidget *hbox_call_controls;
+    GtkWidget *hbox_call_right_controls;
     GtkWidget *vbox_call_smartInfo;
     GtkWidget *vbox_peer_identity;
     GtkWidget *image_peer;
@@ -92,11 +93,13 @@ struct CurrentCallViewPrivate
     GtkWidget *togglebutton_muteaudio;
     GtkWidget *togglebutton_mutevideo;
     GtkWidget *togglebutton_add_participant;
+    GtkWidget *togglebutton_view_more;
     GtkWidget *togglebutton_transfer;
     GtkWidget *siptransfer_popover;
     GtkWidget *siptransfer_filter_entry;
     GtkWidget *list_conversations;
     GtkWidget *add_participant_popover;
+    GtkWidget *actions_popover;
     GtkWidget *conversation_filter_entry;
     GtkWidget *list_conversations_invite;
     GtkWidget *togglebutton_hold;
@@ -749,6 +752,20 @@ invite_to_conversation(GtkListBox*, GtkListBoxRow* row, CurrentCallView* self)
 }
 
 static void
+on_show_actions_popover(CurrentCallView* self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    gtk_popover_set_relative_to(GTK_POPOVER(priv->actions_popover), GTK_WIDGET(priv->togglebutton_view_more));
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_popover_popdown(GTK_POPOVER(priv->actions_popover));
+#else
+    gtk_widget_show_all(GTK_WIDGET(priv->actions_popover));
+#endif
+    gtk_widget_show_all(priv->actions_popover);
+}
+
+static void
 filter_transfer_list(CurrentCallView *self)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
@@ -1319,6 +1336,7 @@ CppImpl::insertControls()
     auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(widgets->video_widget));
     auto actor_info = gtk_clutter_actor_new_with_contents(widgets->hbox_call_info);
     auto actor_controls = gtk_clutter_actor_new_with_contents(widgets->hbox_call_controls);
+    auto actor_right_controls = gtk_clutter_actor_new_with_contents(widgets->hbox_call_right_controls);
     auto actor_smartInfo = gtk_clutter_actor_new_with_contents(widgets->vbox_call_smartInfo);
 
     auto audioOnly = false;
@@ -1337,13 +1355,16 @@ CppImpl::insertControls()
         clutter_actor_set_y_align(actor_info, CLUTTER_ACTOR_ALIGN_CENTER);
         gtk_orientable_set_orientation(GTK_ORIENTABLE(widgets->hbox_call_info), GTK_ORIENTATION_VERTICAL);
         gtk_widget_set_halign(widgets->vbox_peer_identity, GTK_ALIGN_CENTER);
-        gtk_widget_set_halign(widgets->hbox_call_status, GTK_ALIGN_CENTER);
         gtk_widget_set_halign(widgets->label_bestId, GTK_ALIGN_CENTER);
     }
 
     clutter_actor_add_child(stage, actor_controls);
     clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
     clutter_actor_set_y_align(actor_controls, CLUTTER_ACTOR_ALIGN_END);
+
+    clutter_actor_add_child(stage, actor_right_controls);
+    clutter_actor_set_x_align(actor_right_controls, CLUTTER_ACTOR_ALIGN_END);
+    clutter_actor_set_y_align(actor_right_controls, CLUTTER_ACTOR_ALIGN_END);
 
     clutter_actor_add_child(stage, actor_smartInfo);
     clutter_actor_set_x_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_END);
@@ -1372,6 +1393,7 @@ CppImpl::insertControls()
     /* connect the controllers (new model) */
     g_signal_connect_swapped(widgets->button_hangup, "clicked", G_CALLBACK(on_button_hangup_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_add_participant, "clicked", G_CALLBACK(on_button_add_participant_clicked), self);
+    g_signal_connect_swapped(widgets->togglebutton_view_more, "clicked", G_CALLBACK(on_show_actions_popover), self);
     g_signal_connect_swapped(widgets->togglebutton_transfer, "clicked", G_CALLBACK(on_button_transfer_clicked), self);
     g_signal_connect_swapped(widgets->siptransfer_filter_entry, "activate", G_CALLBACK(on_siptransfer_filter_activated), self);
     g_signal_connect(widgets->siptransfer_filter_entry, "search-changed", G_CALLBACK(on_siptransfer_text_changed), self);
@@ -1711,6 +1733,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_controls);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_right_controls);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_call_smartInfo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_peer_identity);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, image_peer);
@@ -1726,6 +1749,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_add_participant);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_view_more);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_transfer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_hold);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_muteaudio);
@@ -1737,6 +1761,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, siptransfer_filter_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, list_conversations);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, add_participant_popover);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, actions_popover);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, conversation_filter_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, list_conversations_invite);
 
