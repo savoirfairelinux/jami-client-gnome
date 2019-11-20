@@ -1282,7 +1282,7 @@ CppImpl::init()
     gtk_image_set_from_icon_name(GTK_IMAGE(widgets->image_settings), "emblem-system-symbolic",
                                  GTK_ICON_SIZE_SMALL_TOOLBAR);
 
-    /* connect settings button signal */
+    /* connect settings button signal */ 
     g_signal_connect_swapped(widgets->settings, "clicked",
                              G_CALLBACK(on_settings_clicked), self);
 
