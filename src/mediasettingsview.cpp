@@ -188,6 +188,7 @@ CppImpl::drawFramerates()
         currentChannel = deviceSettings.channel;
         currentRes = deviceSettings.size;
         currentRate = std::to_string(static_cast<uint8_t>(deviceSettings.rate));
+        if (deviceCaps.find(currentChannel) == deviceCaps.end()) return;
         auto resRates = deviceCaps.at(currentChannel);
         auto it = std::find_if(resRates.begin(), resRates.end(),
             [&currentRes](const std::pair<video::Resolution, video::FrameratesList>& element) {
@@ -201,6 +202,9 @@ CppImpl::drawFramerates()
         g_warning("drawFramerates out_of_range exception");
         return;
     }
+    if (deviceCaps.find(currentChannel) == deviceCaps.end()
+        || deviceCaps.at(currentChannel).size() < currentResIndex)
+        return;
     auto rates = deviceCaps.at(currentChannel).at(currentResIndex).second;
     auto i = 0;
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate));
@@ -232,6 +236,8 @@ CppImpl::drawResolutions()
         g_warning("drawResolutions out_of_range exception");
         return;
     }
+    auto capabilities = avModel_->getDeviceCapabilities(currentDevice);
+    if (capabilities.find(currentChannel) == capabilities.end()) return;
     auto resToRates = avModel_->getDeviceCapabilities(currentDevice).at(currentChannel);
     auto i = 0;
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution));
