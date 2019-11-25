@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-18 03:09-0500\n"
-"PO-Revision-Date: 2019-11-18 08:09+0000\n"
+"POT-Creation-Date: 2019-11-25 03:09-0500\n"
+"PO-Revision-Date: 2019-11-25 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/jami/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -163,7 +163,7 @@ msgid "Media"
 msgstr "Media"
 
 #: ui/mainwindow.ui:113 ui/accountcreationwizard.ui:523
-#: ui/newaccountsettingsview.ui:414
+#: ui/newaccountsettingsview.ui:387
 msgid "Account"
 msgstr "Account"
 
@@ -193,13 +193,13 @@ msgstr "Alias"
 
 #: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:597
 #: ui/accountcreationwizard.ui:982 ui/profile.ui:73
-#: ui/newaccountsettingsview.ui:503 ui/newaccountsettingsview.ui:733
+#: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
 msgid "Username"
 msgstr "Gebruikersnaam"
 
 #: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:191
 #: ui/accountcreationwizard.ui:624 ui/accountcreationwizard.ui:1018
-#: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
+#: ui/newaccountsettingsview.ui:502 ui/newaccountsettingsview.ui:742
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -207,9 +207,9 @@ msgstr "Wachtwoord"
 msgid "Account manager"
 msgstr "Accountbeheer"
 
-#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:581
-#: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:1000 src/newaccountsettingsview.cpp:2121
+#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
+#: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
+#: src/newaccountsettingsview.cpp:971 src/newaccountsettingsview.cpp:2102
 msgid "Delete account"
 msgstr "Account verwijderen"
 
@@ -382,7 +382,7 @@ msgid "Next"
 msgstr "Volgende"
 
 #: ui/accountcreationwizard.ui:442 ui/profile.ui:7
-#: ui/newaccountsettingsview.ui:334
+#: ui/newaccountsettingsview.ui:307
 msgid "Profile"
 msgstr "Profiel"
 
@@ -403,7 +403,7 @@ msgid ""
 "devices to your account."
 msgstr "Dit wachtwoord wordt gebruikt om uw accountgegevens te versleutelen en nieuwe apparaten aan uw account te koppelen."
 
-#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:883
+#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:854
 msgid "Confirm password"
 msgstr "Bevestig wachtwoord"
 
@@ -426,8 +426,8 @@ msgstr "Dit account bestaat enkel op dit apparaat. Als u uw apparaat verliest of
 msgid "Never show me this again"
 msgstr "Toon deze boodschap nooit meer"
 
-#: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
-#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2054
+#: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
+#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
 msgid "Export account"
 msgstr "Account exporteren"
 
@@ -447,8 +447,7 @@ msgstr "Dit kan enkele minuten duren."
 msgid "Retrieving your Jami account…"
 msgstr "Uw Jami-account wordt opgehaald…"
 
-#: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:266
-#: ui/newaccountsettingsview.ui:289
+#: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
 msgid "OK"
 msgstr "Oké"
 
@@ -552,7 +551,7 @@ msgstr "Bitrate voor oproepopnamen (kb/s)"
 msgid "Informations"
 msgstr "Informatie"
 
-#: ui/profile.ui:88 ui/newaccountsettingsview.ui:460
+#: ui/profile.ui:88 ui/newaccountsettingsview.ui:433
 msgid "ID"
 msgstr "ID"
 
@@ -635,251 +634,247 @@ msgstr "Wachtwoord (vereist):"
 msgid "Enter archive password"
 msgstr "Voer archiefwachtwoord in"
 
-#: ui/newaccountsettingsview.ui:183 src/newaccountsettingsview.cpp:893
+#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:864
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: ui/newaccountsettingsview.ui:189
+#: ui/newaccountsettingsview.ui:211
 msgid "Export on the network"
 msgstr "Exporteren op het netwerk"
 
-#: ui/newaccountsettingsview.ui:210
-msgid "Exporting account on the Jami…"
-msgstr "Account wordt geëxporteerd naar de Jami…"
-
-#: ui/newaccountsettingsview.ui:235
+#: ui/newaccountsettingsview.ui:231
 msgid "Your generated pin:"
 msgstr "Uw gegenereerde pincode:"
 
-#: ui/newaccountsettingsview.ui:538
+#: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
 msgstr "Klik om het wachtwoord te wijzigen"
 
-#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:901
+#: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
 msgstr "Account inschakelen"
 
-#: ui/newaccountsettingsview.ui:697
+#: ui/newaccountsettingsview.ui:670
 msgid "SIP server"
 msgstr "SIP-server"
 
-#: ui/newaccountsettingsview.ui:779
+#: ui/newaccountsettingsview.ui:752
 msgid "password"
 msgstr "wachtwoord"
 
-#: ui/newaccountsettingsview.ui:810 ui/newaccountsettingsview.ui:1398
+#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1371
 msgid "Proxy"
 msgstr "Proxy"
 
-#: ui/newaccountsettingsview.ui:846
+#: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
 msgstr "Voicemail"
 
-#: ui/newaccountsettingsview.ui:952
+#: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
 msgstr "Bekende apparaten gekoppeld aan dit Jami-account"
 
-#: ui/newaccountsettingsview.ui:960
+#: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
 msgstr "Een ander apparaat koppelen"
 
-#: ui/newaccountsettingsview.ui:1025
+#: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
 msgstr "Geblokkeerde contacten"
 
-#: ui/newaccountsettingsview.ui:1081
+#: ui/newaccountsettingsview.ui:1054
 msgid "Advanced settings"
 msgstr "Geavanceerde instellingen"
 
-#: ui/newaccountsettingsview.ui:1117
+#: ui/newaccountsettingsview.ui:1090
 msgid "General settings"
 msgstr "Algemene instellingen"
 
-#: ui/newaccountsettingsview.ui:1135
+#: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
 msgstr "Oproepinstellingen"
 
-#: ui/newaccountsettingsview.ui:1173
+#: ui/newaccountsettingsview.ui:1146
 msgid "Allow call from untrusted peers"
 msgstr "Oproepen van onvertrouwde gebruikers toestaan"
 
-#: ui/newaccountsettingsview.ui:1208
+#: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
 msgstr "Oproepen automatisch beantwoorden"
 
-#: ui/newaccountsettingsview.ui:1244
+#: ui/newaccountsettingsview.ui:1217
 msgid "Custom ringtone"
 msgstr "Aangepaste beltoon"
 
-#: ui/newaccountsettingsview.ui:1288
+#: ui/newaccountsettingsview.ui:1261
 msgid "Name server"
 msgstr "Naamserver"
 
-#: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2514
+#: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
 msgid "Address"
 msgstr "Adres"
 
-#: ui/newaccountsettingsview.ui:1359
+#: ui/newaccountsettingsview.ui:1332
 msgid "OpenDHT configuration"
 msgstr "OpenDHT-configuratie"
 
-#: ui/newaccountsettingsview.ui:1443
+#: ui/newaccountsettingsview.ui:1416
 msgid "Auto connect on local network"
 msgstr "Automatisch verbinden op lokaal netwerk"
 
-#: ui/newaccountsettingsview.ui:1479
+#: ui/newaccountsettingsview.ui:1452
 msgid "Bootstrap"
 msgstr "Bootstrap"
 
-#: ui/newaccountsettingsview.ui:1539
+#: ui/newaccountsettingsview.ui:1512
 msgid "Encrypt media streams (SRTP)"
 msgstr "Mediastreams versleutelen (SRTP)"
 
-#: ui/newaccountsettingsview.ui:1574
+#: ui/newaccountsettingsview.ui:1547
 msgid "Enable SDES for key exchange protocol"
 msgstr "SDES inschakelen voor sleuteluitwisselingsprotocol"
 
-#: ui/newaccountsettingsview.ui:1610
+#: ui/newaccountsettingsview.ui:1583
 msgid "Fallback on RTP on encryption failure"
 msgstr "RTP gebruiken bij mislukte versleuteling"
 
-#: ui/newaccountsettingsview.ui:1645
+#: ui/newaccountsettingsview.ui:1618
 msgid "Encrypt negotiation (TLS)"
 msgstr "Onderhandeling versleutelen (TLS)"
 
-#: ui/newaccountsettingsview.ui:1680
+#: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
 msgstr "CA-certificaat"
 
-#: ui/newaccountsettingsview.ui:1716
+#: ui/newaccountsettingsview.ui:1689
 msgid "User certificate"
 msgstr "Gebruikerscertificaat"
 
-#: ui/newaccountsettingsview.ui:1752
+#: ui/newaccountsettingsview.ui:1725
 msgid "Private key"
 msgstr "Persoonlijke sleutel"
 
-#: ui/newaccountsettingsview.ui:1788
+#: ui/newaccountsettingsview.ui:1761
 msgid "Private key password"
 msgstr "Wachtwoord persoonlijke sleutel"
 
-#: ui/newaccountsettingsview.ui:1826
+#: ui/newaccountsettingsview.ui:1799
 msgid "TLS protocol method"
 msgstr "TLS-protocolmethode"
 
-#: ui/newaccountsettingsview.ui:1862
+#: ui/newaccountsettingsview.ui:1835
 msgid "Outgoing TLS server name"
 msgstr "Uitgaande TLS-servernaam"
 
-#: ui/newaccountsettingsview.ui:1897
+#: ui/newaccountsettingsview.ui:1870
 msgid "Negotiation timeout (seconds)"
 msgstr "Tijdslimiet voor onderhandeling (seconden)"
 
-#: ui/newaccountsettingsview.ui:1933
+#: ui/newaccountsettingsview.ui:1906
 msgid "Verify incoming certificates (server side)"
 msgstr "Inkomende certificaten verifiëren (serverzijde)"
 
-#: ui/newaccountsettingsview.ui:1968
+#: ui/newaccountsettingsview.ui:1941
 msgid "Verify answer certificates (client side)"
 msgstr "Uitgaande certificaten verifiëren (cliëntzijde)"
 
-#: ui/newaccountsettingsview.ui:2003
+#: ui/newaccountsettingsview.ui:1976
 msgid "Require a certificate for incoming TLS connections"
 msgstr "Certificaat voor inkomende TLS-verbindingen vereisen"
 
-#: ui/newaccountsettingsview.ui:2027
+#: ui/newaccountsettingsview.ui:2000
 msgid "Security"
 msgstr "Beveiliging"
 
-#: ui/newaccountsettingsview.ui:2052
+#: ui/newaccountsettingsview.ui:2025
 msgid "Connectivity"
 msgstr "Connectiviteit"
 
-#: ui/newaccountsettingsview.ui:2090
+#: ui/newaccountsettingsview.ui:2063
 msgid "Registration expire timeout (seconds)"
 msgstr "Registratie verval time-out (seconden)"
 
-#: ui/newaccountsettingsview.ui:2127
+#: ui/newaccountsettingsview.ui:2100
 msgid "Network interface"
 msgstr "Netwerkinterface"
 
-#: ui/newaccountsettingsview.ui:2163
+#: ui/newaccountsettingsview.ui:2136
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2198
+#: ui/newaccountsettingsview.ui:2171
 msgid "Use TURN"
 msgstr "TURN gebruiken"
 
-#: ui/newaccountsettingsview.ui:2233
+#: ui/newaccountsettingsview.ui:2206
 msgid "(TURN) address"
 msgstr "(TURN)-adres"
 
-#: ui/newaccountsettingsview.ui:2268
+#: ui/newaccountsettingsview.ui:2241
 msgid "(TURN) username"
 msgstr "(TURN)-gebruikersnaam"
 
-#: ui/newaccountsettingsview.ui:2302
+#: ui/newaccountsettingsview.ui:2275
 msgid "(TURN) password"
 msgstr "(TURN)-wachtwoord"
 
-#: ui/newaccountsettingsview.ui:2339
+#: ui/newaccountsettingsview.ui:2312
 msgid "(TURN) realm"
 msgstr "(TURN)-realm"
 
-#: ui/newaccountsettingsview.ui:2373
+#: ui/newaccountsettingsview.ui:2346
 msgid "Use STUN"
 msgstr "STUN gebruiken"
 
-#: ui/newaccountsettingsview.ui:2408
+#: ui/newaccountsettingsview.ui:2381
 msgid "(STUN) address"
 msgstr "(STUN)-adres"
 
-#: ui/newaccountsettingsview.ui:2441
+#: ui/newaccountsettingsview.ui:2414
 msgid "Published address"
 msgstr "Gepubliceerd adres"
 
-#: ui/newaccountsettingsview.ui:2478
+#: ui/newaccountsettingsview.ui:2451
 msgid "Use custom address and port"
 msgstr "Voeg aangepast adres en poort toe"
 
-#: ui/newaccountsettingsview.ui:2549
+#: ui/newaccountsettingsview.ui:2522
 msgid "Port"
 msgstr "Poort"
 
-#: ui/newaccountsettingsview.ui:2585
+#: ui/newaccountsettingsview.ui:2558
 msgid "Video codecs"
 msgstr "Videocodecs"
 
-#: ui/newaccountsettingsview.ui:2648
+#: ui/newaccountsettingsview.ui:2621
 msgid "Enable video"
 msgstr "Video inschakelen"
 
-#: ui/newaccountsettingsview.ui:2675
+#: ui/newaccountsettingsview.ui:2648
 msgid "Audio codecs"
 msgstr "Audiocodecs"
 
-#: ui/newaccountsettingsview.ui:2745
+#: ui/newaccountsettingsview.ui:2718
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP-sessieonderhandeling (ICE-terugvaloptie)"
 
-#: ui/newaccountsettingsview.ui:2757
+#: ui/newaccountsettingsview.ui:2730
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Enkel gebruikt tijdens SDP-onderhandelingen ingeval ICE niet ondersteund wordt."
 
-#: ui/newaccountsettingsview.ui:2791
+#: ui/newaccountsettingsview.ui:2764
 msgid "Audio RTP Min port"
 msgstr "Audio RTP-Min-poort"
 
-#: ui/newaccountsettingsview.ui:2826
+#: ui/newaccountsettingsview.ui:2799
 msgid "Audio RTP Max port"
 msgstr "Audio RTP-Max-poort"
 
-#: ui/newaccountsettingsview.ui:2861
+#: ui/newaccountsettingsview.ui:2834
 msgid "Video RTP Min port"
 msgstr "Video RTP-Min-poort"
 
-#: ui/newaccountsettingsview.ui:2896
+#: ui/newaccountsettingsview.ui:2869
 msgid "Video RTP Max port"
 msgstr "Video RTP-Max-poort"
 
@@ -989,12 +984,12 @@ msgstr "Kies downloadmap"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
 #: src/accountcreationwizard.cpp:757 src/chatview.cpp:281
-#: src/newaccountsettingsview.cpp:936
+#: src/newaccountsettingsview.cpp:907
 msgid "_Cancel"
 msgstr "_Annuleren"
 
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
-#: src/chatview.cpp:283 src/newaccountsettingsview.cpp:938
+#: src/chatview.cpp:283 src/newaccountsettingsview.cpp:909
 msgid "_Save"
 msgstr "Op_slaan"
 
@@ -1190,23 +1185,23 @@ msgid "Import from backup"
 msgstr "Importeren uit back-up"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:278
-#: src/newaccountsettingsview.cpp:933
+#: src/newaccountsettingsview.cpp:904
 msgid "Save File"
 msgstr "Bestand opslaan"
 
-#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:960
+#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:931
 msgid "You need to enter your password to export the full archive."
 msgstr "U dient uw wachtwoord in te voeren om het volledige archief te exporteren."
 
-#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:961
+#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:932
 msgid "Enter password to export archive"
 msgstr "Voer wachtwoord in om archief te exporteren"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:984
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Account exported!"
 msgstr "Account geëxporteerd!"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:984
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Export account failure."
 msgstr "Fout bij exporteren van account."
 
@@ -1255,49 +1250,49 @@ msgstr "belt u!"
 msgid "Incoming call"
 msgstr "Inkomende oproep"
 
-#: src/mainwindow.cpp:2446
+#: src/mainwindow.cpp:2445
 msgid "New request from "
 msgstr "Nieuw verzoek van"
 
-#: src/mainwindow.cpp:2447
+#: src/mainwindow.cpp:2446
 msgid "Trust request"
 msgstr "Vertrouwensverzoek"
 
-#: src/mainwindow.cpp:2508
+#: src/mainwindow.cpp:2507
 msgid "New message"
 msgstr "Nieuw bericht"
 
-#: src/mainwindow.cpp:2571
+#: src/mainwindow.cpp:2570
 msgid "Stop current call?"
 msgstr "Huidige oproep beëindigen?"
 
-#: src/mainwindow.cpp:2572
+#: src/mainwindow.cpp:2571
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "U bent momenteel in gesprek. Wilt u het venster sluiten en alle huidige oproepen beëindigen?"
 
-#: src/mainwindow.cpp:2639
+#: src/mainwindow.cpp:2638
 msgid "Clear history"
 msgstr "Geschiedenis wissen"
 
-#: src/mainwindow.cpp:2640
+#: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Wilt u de geschiedenis van dit gesprek wissen?"
 
-#: src/mainwindow.cpp:2655
+#: src/mainwindow.cpp:2654
 msgid "Remove conversation"
 msgstr "Gesprek verwijderen"
 
-#: src/mainwindow.cpp:2656
+#: src/mainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
 msgstr "Wilt u dit gesprek echt verwijderen?"
 
-#: src/mainwindow.cpp:2671
+#: src/mainwindow.cpp:2670
 msgid "Block contact"
 msgstr "Contact blokkeren"
 
-#: src/mainwindow.cpp:2672
+#: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
 msgstr "Wilt u dit contact echt blokkeren?"
 
@@ -1339,132 +1334,136 @@ msgstr "Jami weergeven"
 msgid "Quit"
 msgstr "Afsluiten"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:970
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Let op! Deze handeling zal dit account van dit apparaat verwijderen!\nDeze handeling kan niet ongedaan gemaakt worden. Uw geregistreerde naam zal ook verloren gaan!"
 
-#: src/currentcallview.cpp:935
+#: src/currentcallview.cpp:937
 msgid "Current conference (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:969
+#: src/currentcallview.cpp:971
 msgid "Current calls (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:984
+#: src/currentcallview.cpp:986
 msgid "Online contacts"
 msgstr ""
 
-#: src/currentcallview.cpp:1407
+#: src/currentcallview.cpp:1414
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/newaccountsettingsview.cpp:630
+#: src/newaccountsettingsview.cpp:601
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Let op! Deze handeling zal het apparaat intrekken!\nDeze handeling kan niet ongedaan gemaakt worden."
 
-#: src/newaccountsettingsview.cpp:631
+#: src/newaccountsettingsview.cpp:602
 msgid "Enter password to revoke device"
 msgstr "Voer wachtwoord in om apparaat in te trekken"
 
-#: src/newaccountsettingsview.cpp:689
+#: src/newaccountsettingsview.cpp:660
 msgid "Edit name"
 msgstr "Naam bewerken"
 
-#: src/newaccountsettingsview.cpp:689
+#: src/newaccountsettingsview.cpp:660
 msgid "Revoke device"
 msgstr "Apparaat intrekken"
 
-#: src/newaccountsettingsview.cpp:711
+#: src/newaccountsettingsview.cpp:682
 msgid "Error when revoking device"
 msgstr "Fout bij intrekken van apparaat"
 
-#: src/newaccountsettingsview.cpp:784
+#: src/newaccountsettingsview.cpp:755
 msgid "Unban"
 msgstr "Deblokkeren"
 
-#: src/newaccountsettingsview.cpp:807 src/newaccountsettingsview.cpp:830
-#: src/newaccountsettingsview.cpp:854 src/newaccountsettingsview.cpp:890
+#: src/newaccountsettingsview.cpp:778 src/newaccountsettingsview.cpp:801
+#: src/newaccountsettingsview.cpp:825 src/newaccountsettingsview.cpp:861
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
 
-#: src/newaccountsettingsview.cpp:820
+#: src/newaccountsettingsview.cpp:791
 msgid "New password and its confirmation are different!"
 msgstr "Nieuw wachtwoord en bevestiging komen niet overeen!"
 
-#: src/newaccountsettingsview.cpp:831
+#: src/newaccountsettingsview.cpp:802
 msgid "Incorrect password!"
 msgstr "Verkeerd wachtwoord!"
 
-#: src/newaccountsettingsview.cpp:868
+#: src/newaccountsettingsview.cpp:839
 msgid "Note: this will change the password only on this device."
 msgstr "Let op: dit wijzigt enkel het wachtwoord op dit apparaat."
 
-#: src/newaccountsettingsview.cpp:871
+#: src/newaccountsettingsview.cpp:842
 msgid "Current password"
 msgstr "Huidig wachtwoord"
 
-#: src/newaccountsettingsview.cpp:877
+#: src/newaccountsettingsview.cpp:848
 msgid "New password"
 msgstr "Nieuw wachtwoord"
 
-#: src/newaccountsettingsview.cpp:1759
+#: src/newaccountsettingsview.cpp:1711
+msgid "Exporting account…"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"
 msgstr "Slecht wachtwoord"
 
-#: src/newaccountsettingsview.cpp:1765
+#: src/newaccountsettingsview.cpp:1744
 msgid "Network error, try again"
 msgstr "Netwerkfout, probeer het opnieuw"
 
-#: src/newaccountsettingsview.cpp:1771
+#: src/newaccountsettingsview.cpp:1752
 msgid "Unknown error"
 msgstr "Onbekende fout"
 
-#: src/newaccountsettingsview.cpp:1783
+#: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Kon export naar de Jami niet initialiseren, probeer het opnieuw"
 
-#: src/newaccountsettingsview.cpp:1842
+#: src/newaccountsettingsview.cpp:1824
 msgid "Error: wrong password!"
 msgstr "Fout: verkeerd wachtwoord!"
 
-#: src/newaccountsettingsview.cpp:1845
+#: src/newaccountsettingsview.cpp:1827
 msgid "Error: unknown device!"
 msgstr "Fout: onbekend apparaat!"
 
-#: src/newaccountsettingsview.cpp:2019
+#: src/newaccountsettingsview.cpp:2000
 msgid "Initializing…"
 msgstr "Bezig met initialiseren…"
 
-#: src/newaccountsettingsview.cpp:2022
+#: src/newaccountsettingsview.cpp:2003
 msgid "Offline"
 msgstr "Offline"
 
-#: src/newaccountsettingsview.cpp:2025
+#: src/newaccountsettingsview.cpp:2006
 msgid "Connecting…"
 msgstr "Bezig met verbinden…"
 
-#: src/newaccountsettingsview.cpp:2028
+#: src/newaccountsettingsview.cpp:2009
 msgid "Online"
 msgstr "Online"
 
-#: src/newaccountsettingsview.cpp:2032
+#: src/newaccountsettingsview.cpp:2013
 msgid "Unknown status"
 msgstr "Onbekende status"
 
-#: src/newaccountsettingsview.cpp:2065
+#: src/newaccountsettingsview.cpp:2046
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2065
+#: src/newaccountsettingsview.cpp:2046
 msgid "no password set"
 msgstr "geen wachtwoord ingesteld"
 
-#: src/newaccountsettingsview.cpp:2121
+#: src/newaccountsettingsview.cpp:2102
 msgid "Remove account"
 msgstr "Account verwijderen"

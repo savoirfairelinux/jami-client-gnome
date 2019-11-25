@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-18 03:09-0500\n"
-"PO-Revision-Date: 2019-11-18 08:09+0000\n"
+"POT-Creation-Date: 2019-11-25 03:09-0500\n"
+"PO-Revision-Date: 2019-11-25 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/jami/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -161,7 +161,7 @@ msgid "Media"
 msgstr "Media"
 
 #: ui/mainwindow.ui:113 ui/accountcreationwizard.ui:523
-#: ui/newaccountsettingsview.ui:414
+#: ui/newaccountsettingsview.ui:387
 msgid "Account"
 msgstr "Konto"
 
@@ -191,13 +191,13 @@ msgstr "Alias"
 
 #: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:597
 #: ui/accountcreationwizard.ui:982 ui/profile.ui:73
-#: ui/newaccountsettingsview.ui:503 ui/newaccountsettingsview.ui:733
+#: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
 msgid "Username"
 msgstr "Användarnamn"
 
 #: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:191
 #: ui/accountcreationwizard.ui:624 ui/accountcreationwizard.ui:1018
-#: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
+#: ui/newaccountsettingsview.ui:502 ui/newaccountsettingsview.ui:742
 msgid "Password"
 msgstr "Lösenord"
 
@@ -205,9 +205,9 @@ msgstr "Lösenord"
 msgid "Account manager"
 msgstr "Kontohanterare"
 
-#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:581
-#: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:1000 src/newaccountsettingsview.cpp:2121
+#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
+#: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
+#: src/newaccountsettingsview.cpp:971 src/newaccountsettingsview.cpp:2102
 msgid "Delete account"
 msgstr "Ta bort konto"
 
@@ -380,7 +380,7 @@ msgid "Next"
 msgstr "Nästa"
 
 #: ui/accountcreationwizard.ui:442 ui/profile.ui:7
-#: ui/newaccountsettingsview.ui:334
+#: ui/newaccountsettingsview.ui:307
 msgid "Profile"
 msgstr "Profil"
 
@@ -393,7 +393,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Genom att aktivera detta, registrerar du ett unikt användarnamn på Jami-nätverket. Människor kan använda det för att kontakta dig, istället för att använda ditt ID, som är 40 tecken långt."
 
 #: ui/accountcreationwizard.ui:625
 msgid ""
@@ -401,7 +401,7 @@ msgid ""
 "devices to your account."
 msgstr "Detta lösenord kommer att användas för att kryptera din kontodata och för att länka nya enheter till ditt konto."
 
-#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:883
+#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:854
 msgid "Confirm password"
 msgstr "Bekräfta lösenord"
 
@@ -424,8 +424,8 @@ msgstr "Detta konto finns bara på denna enhet. Om du förlorar din enhet eller 
 msgid "Never show me this again"
 msgstr "Visa inte detta igen"
 
-#: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
-#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2054
+#: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
+#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
 msgid "Export account"
 msgstr "Exportera konto"
 
@@ -445,8 +445,7 @@ msgstr "Detta kan ta några få minuter."
 msgid "Retrieving your Jami account…"
 msgstr "Hämtar ditt Jami-konto..."
 
-#: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:266
-#: ui/newaccountsettingsview.ui:289
+#: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
 msgid "OK"
 msgstr "OK"
 
@@ -550,7 +549,7 @@ msgstr "Bithastighet för inspelningar (kb/s)"
 msgid "Informations"
 msgstr "Information"
 
-#: ui/profile.ui:88 ui/newaccountsettingsview.ui:460
+#: ui/profile.ui:88 ui/newaccountsettingsview.ui:433
 msgid "ID"
 msgstr "ID"
 
@@ -633,251 +632,247 @@ msgstr "Lösenord (obligatoriskt):"
 msgid "Enter archive password"
 msgstr "Ange arkivlösenord"
 
-#: ui/newaccountsettingsview.ui:183 src/newaccountsettingsview.cpp:893
+#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:864
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ui/newaccountsettingsview.ui:189
+#: ui/newaccountsettingsview.ui:211
 msgid "Export on the network"
 msgstr "Exportera på nätverket"
 
-#: ui/newaccountsettingsview.ui:210
-msgid "Exporting account on the Jami…"
-msgstr "Exporterar konto på Jami..."
-
-#: ui/newaccountsettingsview.ui:235
+#: ui/newaccountsettingsview.ui:231
 msgid "Your generated pin:"
 msgstr "Din PIN-kod:"
 
-#: ui/newaccountsettingsview.ui:538
+#: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
 msgstr "Klicka för att byta lösenord"
 
-#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:901
+#: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
 msgstr "Aktivera konto"
 
-#: ui/newaccountsettingsview.ui:697
+#: ui/newaccountsettingsview.ui:670
 msgid "SIP server"
 msgstr "SIP-server"
 
-#: ui/newaccountsettingsview.ui:779
+#: ui/newaccountsettingsview.ui:752
 msgid "password"
 msgstr "Lösenord"
 
-#: ui/newaccountsettingsview.ui:810 ui/newaccountsettingsview.ui:1398
+#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1371
 msgid "Proxy"
 msgstr "Proxy"
 
-#: ui/newaccountsettingsview.ui:846
+#: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
 msgstr "Röstbrevlåda"
 
-#: ui/newaccountsettingsview.ui:952
+#: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
 msgstr "Kända enheter, kopplade till detta Jami-konto"
 
-#: ui/newaccountsettingsview.ui:960
+#: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
 msgstr "Koppla en annan enhet"
 
-#: ui/newaccountsettingsview.ui:1025
+#: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
 msgstr "Bannlysta kontakter"
 
-#: ui/newaccountsettingsview.ui:1081
+#: ui/newaccountsettingsview.ui:1054
 msgid "Advanced settings"
 msgstr "Avancerade inställningar"
 
-#: ui/newaccountsettingsview.ui:1117
+#: ui/newaccountsettingsview.ui:1090
 msgid "General settings"
 msgstr "Allmänna inställningar"
 
-#: ui/newaccountsettingsview.ui:1135
+#: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
 msgstr "Samtalsinställningar"
 
-#: ui/newaccountsettingsview.ui:1173
+#: ui/newaccountsettingsview.ui:1146
 msgid "Allow call from untrusted peers"
 msgstr "Tillåt samtal från ej betrodda användare"
 
-#: ui/newaccountsettingsview.ui:1208
+#: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
 msgstr "Besvara samtal automatiskt"
 
-#: ui/newaccountsettingsview.ui:1244
+#: ui/newaccountsettingsview.ui:1217
 msgid "Custom ringtone"
 msgstr "Anpassad ringsignal"
 
-#: ui/newaccountsettingsview.ui:1288
+#: ui/newaccountsettingsview.ui:1261
 msgid "Name server"
 msgstr "Namnserver"
 
-#: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2514
+#: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
 msgid "Address"
 msgstr "Adress"
 
-#: ui/newaccountsettingsview.ui:1359
+#: ui/newaccountsettingsview.ui:1332
 msgid "OpenDHT configuration"
 msgstr "OpenDHT-konfiguration"
 
-#: ui/newaccountsettingsview.ui:1443
+#: ui/newaccountsettingsview.ui:1416
 msgid "Auto connect on local network"
 msgstr "Anslut automatiskt på lokalt nätverk"
 
-#: ui/newaccountsettingsview.ui:1479
+#: ui/newaccountsettingsview.ui:1452
 msgid "Bootstrap"
 msgstr "Bootstrap"
 
-#: ui/newaccountsettingsview.ui:1539
+#: ui/newaccountsettingsview.ui:1512
 msgid "Encrypt media streams (SRTP)"
 msgstr "Kryptera mediaströmmar (SRTP)"
 
-#: ui/newaccountsettingsview.ui:1574
+#: ui/newaccountsettingsview.ui:1547
 msgid "Enable SDES for key exchange protocol"
 msgstr "Aktivera SDES för nyckelutbytesprotokoll"
 
-#: ui/newaccountsettingsview.ui:1610
+#: ui/newaccountsettingsview.ui:1583
 msgid "Fallback on RTP on encryption failure"
 msgstr "Fall tillbaka på RTP vid krypteringsfel"
 
-#: ui/newaccountsettingsview.ui:1645
+#: ui/newaccountsettingsview.ui:1618
 msgid "Encrypt negotiation (TLS)"
 msgstr "Kryptera förhandling (TLS)"
 
-#: ui/newaccountsettingsview.ui:1680
+#: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
 msgstr "CA-certifikat"
 
-#: ui/newaccountsettingsview.ui:1716
+#: ui/newaccountsettingsview.ui:1689
 msgid "User certificate"
 msgstr "Användarcertifikat"
 
-#: ui/newaccountsettingsview.ui:1752
+#: ui/newaccountsettingsview.ui:1725
 msgid "Private key"
 msgstr "Privat nyckel"
 
-#: ui/newaccountsettingsview.ui:1788
+#: ui/newaccountsettingsview.ui:1761
 msgid "Private key password"
 msgstr "Lösenord för privat nyckel"
 
-#: ui/newaccountsettingsview.ui:1826
+#: ui/newaccountsettingsview.ui:1799
 msgid "TLS protocol method"
 msgstr "TLS-protokollmetod"
 
-#: ui/newaccountsettingsview.ui:1862
+#: ui/newaccountsettingsview.ui:1835
 msgid "Outgoing TLS server name"
 msgstr "Utgående TLS-servernamn"
 
-#: ui/newaccountsettingsview.ui:1897
+#: ui/newaccountsettingsview.ui:1870
 msgid "Negotiation timeout (seconds)"
 msgstr "Tidsgräns för förhandling (sekunder)"
 
-#: ui/newaccountsettingsview.ui:1933
+#: ui/newaccountsettingsview.ui:1906
 msgid "Verify incoming certificates (server side)"
 msgstr "Verifiera inkommande certifikat (serversidan)"
 
-#: ui/newaccountsettingsview.ui:1968
+#: ui/newaccountsettingsview.ui:1941
 msgid "Verify answer certificates (client side)"
 msgstr "Verifiera svarscertifikat (klientsidan)"
 
-#: ui/newaccountsettingsview.ui:2003
+#: ui/newaccountsettingsview.ui:1976
 msgid "Require a certificate for incoming TLS connections"
 msgstr "Kräv certifikat för inkommande TLS-anslutningar"
 
-#: ui/newaccountsettingsview.ui:2027
+#: ui/newaccountsettingsview.ui:2000
 msgid "Security"
 msgstr "Säkerhet"
 
-#: ui/newaccountsettingsview.ui:2052
+#: ui/newaccountsettingsview.ui:2025
 msgid "Connectivity"
 msgstr "Anslutningsbarhet"
 
-#: ui/newaccountsettingsview.ui:2090
+#: ui/newaccountsettingsview.ui:2063
 msgid "Registration expire timeout (seconds)"
 msgstr "Tidsgräns för registrering (sekunder)"
 
-#: ui/newaccountsettingsview.ui:2127
+#: ui/newaccountsettingsview.ui:2100
 msgid "Network interface"
 msgstr "Nätverksgränssnitt"
 
-#: ui/newaccountsettingsview.ui:2163
+#: ui/newaccountsettingsview.ui:2136
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2198
+#: ui/newaccountsettingsview.ui:2171
 msgid "Use TURN"
 msgstr "Använd TURN"
 
-#: ui/newaccountsettingsview.ui:2233
+#: ui/newaccountsettingsview.ui:2206
 msgid "(TURN) address"
 msgstr "(TURN) adress"
 
-#: ui/newaccountsettingsview.ui:2268
+#: ui/newaccountsettingsview.ui:2241
 msgid "(TURN) username"
 msgstr "(TURN) användarnamn"
 
-#: ui/newaccountsettingsview.ui:2302
+#: ui/newaccountsettingsview.ui:2275
 msgid "(TURN) password"
 msgstr "(TURN) lösenord"
 
-#: ui/newaccountsettingsview.ui:2339
+#: ui/newaccountsettingsview.ui:2312
 msgid "(TURN) realm"
 msgstr "TURN domän"
 
-#: ui/newaccountsettingsview.ui:2373
+#: ui/newaccountsettingsview.ui:2346
 msgid "Use STUN"
 msgstr "Använd STUN"
 
-#: ui/newaccountsettingsview.ui:2408
+#: ui/newaccountsettingsview.ui:2381
 msgid "(STUN) address"
 msgstr "(STUN) adress"
 
-#: ui/newaccountsettingsview.ui:2441
+#: ui/newaccountsettingsview.ui:2414
 msgid "Published address"
 msgstr "Publiserad adress"
 
-#: ui/newaccountsettingsview.ui:2478
+#: ui/newaccountsettingsview.ui:2451
 msgid "Use custom address and port"
 msgstr "Använd anpassad adress och port"
 
-#: ui/newaccountsettingsview.ui:2549
+#: ui/newaccountsettingsview.ui:2522
 msgid "Port"
 msgstr "Port"
 
-#: ui/newaccountsettingsview.ui:2585
+#: ui/newaccountsettingsview.ui:2558
 msgid "Video codecs"
 msgstr "Videokodekar"
 
-#: ui/newaccountsettingsview.ui:2648
+#: ui/newaccountsettingsview.ui:2621
 msgid "Enable video"
 msgstr "Aktivera video"
 
-#: ui/newaccountsettingsview.ui:2675
+#: ui/newaccountsettingsview.ui:2648
 msgid "Audio codecs"
 msgstr "Ljudkodekar"
 
-#: ui/newaccountsettingsview.ui:2745
+#: ui/newaccountsettingsview.ui:2718
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP sessionsförhandling (ICE-reserv)"
 
-#: ui/newaccountsettingsview.ui:2757
+#: ui/newaccountsettingsview.ui:2730
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Används endast under SDP-sessionsförhandling, om ICE inte stöds."
 
-#: ui/newaccountsettingsview.ui:2791
+#: ui/newaccountsettingsview.ui:2764
 msgid "Audio RTP Min port"
 msgstr "Audio RTP min. port"
 
-#: ui/newaccountsettingsview.ui:2826
+#: ui/newaccountsettingsview.ui:2799
 msgid "Audio RTP Max port"
 msgstr "Audio RTP max. port"
 
-#: ui/newaccountsettingsview.ui:2861
+#: ui/newaccountsettingsview.ui:2834
 msgid "Video RTP Min port"
 msgstr "Video RTP min. port"
 
-#: ui/newaccountsettingsview.ui:2896
+#: ui/newaccountsettingsview.ui:2869
 msgid "Video RTP Max port"
 msgstr "Video RTP max. port"
 
@@ -987,12 +982,12 @@ msgstr "Välj nerladdningsmapp"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
 #: src/accountcreationwizard.cpp:757 src/chatview.cpp:281
-#: src/newaccountsettingsview.cpp:936
+#: src/newaccountsettingsview.cpp:907
 msgid "_Cancel"
 msgstr "_Avbryt"
 
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
-#: src/chatview.cpp:283 src/newaccountsettingsview.cpp:938
+#: src/chatview.cpp:283 src/newaccountsettingsview.cpp:909
 msgid "_Save"
 msgstr "_Spara"
 
@@ -1068,7 +1063,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Free as in Freedom\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Fritt som i Frihet\"\nkompilerat %.25s"
 
 #: src/dialogs.c:137
 msgid ""
@@ -1188,23 +1183,23 @@ msgid "Import from backup"
 msgstr "Importera från säkerhetskopia"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:278
-#: src/newaccountsettingsview.cpp:933
+#: src/newaccountsettingsview.cpp:904
 msgid "Save File"
 msgstr "Spara fil"
 
-#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:960
+#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:931
 msgid "You need to enter your password to export the full archive."
 msgstr "Du måste ange ditt lösenord för att exportera hela arkivet."
 
-#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:961
+#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:932
 msgid "Enter password to export archive"
 msgstr "Ange lösenord för att exportera arkivet"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:984
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Account exported!"
 msgstr "Konto exporterat!"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:984
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Export account failure."
 msgstr "Kontoexport misslyckades."
 
@@ -1253,49 +1248,49 @@ msgstr " ringer dig!"
 msgid "Incoming call"
 msgstr "Inkommande samtal"
 
-#: src/mainwindow.cpp:2446
+#: src/mainwindow.cpp:2445
 msgid "New request from "
 msgstr "Ny förfrågan från"
 
-#: src/mainwindow.cpp:2447
+#: src/mainwindow.cpp:2446
 msgid "Trust request"
 msgstr "Lita på begäran"
 
-#: src/mainwindow.cpp:2508
+#: src/mainwindow.cpp:2507
 msgid "New message"
 msgstr "Nytt meddelande"
 
-#: src/mainwindow.cpp:2571
+#: src/mainwindow.cpp:2570
 msgid "Stop current call?"
 msgstr "Vill du stoppa aktuellt samtal?"
 
-#: src/mainwindow.cpp:2572
+#: src/mainwindow.cpp:2571
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Det finns ett pågående samtal. Vill du stänga fönstret och stoppa alla aktuella samtal?"
 
-#: src/mainwindow.cpp:2639
+#: src/mainwindow.cpp:2638
 msgid "Clear history"
 msgstr "Rensa historik"
 
-#: src/mainwindow.cpp:2640
+#: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Vill du verkligen ta bort historiken för den här konversationen?"
 
-#: src/mainwindow.cpp:2655
+#: src/mainwindow.cpp:2654
 msgid "Remove conversation"
 msgstr "Ta bort konversationen"
 
-#: src/mainwindow.cpp:2656
+#: src/mainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
 msgstr "Vill du verkligen ta bort den här konversationen?"
 
-#: src/mainwindow.cpp:2671
+#: src/mainwindow.cpp:2670
 msgid "Block contact"
 msgstr "Blockera kontakt"
 
-#: src/mainwindow.cpp:2672
+#: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
 msgstr "Vill du verkligen blockera den här kontakten?"
 
@@ -1337,132 +1332,136 @@ msgstr "Visa Jami"
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:970
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Varning! Denna åtgärd kommer att ta bort detta konto på denna enhet!\nNotera att åtgärden inte kan ångras och att ditt registrerade användarnamn kan förloras!"
 
-#: src/currentcallview.cpp:935
+#: src/currentcallview.cpp:937
 msgid "Current conference (all accounts)"
 msgstr "Aktuell konferens (alla konton)"
 
-#: src/currentcallview.cpp:969
+#: src/currentcallview.cpp:971
 msgid "Current calls (all accounts)"
 msgstr "Aktuella samtal (alla konton)"
 
-#: src/currentcallview.cpp:984
+#: src/currentcallview.cpp:986
 msgid "Online contacts"
 msgstr "Anslutna kontakter"
 
-#: src/currentcallview.cpp:1407
+#: src/currentcallview.cpp:1414
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/newaccountsettingsview.cpp:630
+#: src/newaccountsettingsview.cpp:601
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Varning! Denna åtgärd kommer att återkalla enheten!\nNotera att åtgärden inte kan ångras."
 
-#: src/newaccountsettingsview.cpp:631
+#: src/newaccountsettingsview.cpp:602
 msgid "Enter password to revoke device"
 msgstr "Ange lösenord för att återkalla enheten"
 
-#: src/newaccountsettingsview.cpp:689
+#: src/newaccountsettingsview.cpp:660
 msgid "Edit name"
 msgstr "Redigera namn"
 
-#: src/newaccountsettingsview.cpp:689
+#: src/newaccountsettingsview.cpp:660
 msgid "Revoke device"
 msgstr "Återkalla enhet"
 
-#: src/newaccountsettingsview.cpp:711
+#: src/newaccountsettingsview.cpp:682
 msgid "Error when revoking device"
 msgstr "Kunde inte återkalla enheten"
 
-#: src/newaccountsettingsview.cpp:784
+#: src/newaccountsettingsview.cpp:755
 msgid "Unban"
 msgstr "Ta bort bannlysning"
 
-#: src/newaccountsettingsview.cpp:807 src/newaccountsettingsview.cpp:830
-#: src/newaccountsettingsview.cpp:854 src/newaccountsettingsview.cpp:890
+#: src/newaccountsettingsview.cpp:778 src/newaccountsettingsview.cpp:801
+#: src/newaccountsettingsview.cpp:825 src/newaccountsettingsview.cpp:861
 msgid "Change password"
 msgstr "Byt lösenord"
 
-#: src/newaccountsettingsview.cpp:820
+#: src/newaccountsettingsview.cpp:791
 msgid "New password and its confirmation are different!"
 msgstr "Det nya lösenordet och bekräftelsen är olika"
 
-#: src/newaccountsettingsview.cpp:831
+#: src/newaccountsettingsview.cpp:802
 msgid "Incorrect password!"
 msgstr "Felaktigt lösenord!"
 
-#: src/newaccountsettingsview.cpp:868
+#: src/newaccountsettingsview.cpp:839
 msgid "Note: this will change the password only on this device."
 msgstr "Notera att lösenordet ändras på denna enhet endast."
 
-#: src/newaccountsettingsview.cpp:871
+#: src/newaccountsettingsview.cpp:842
 msgid "Current password"
 msgstr "Aktuellt lösenord"
 
-#: src/newaccountsettingsview.cpp:877
+#: src/newaccountsettingsview.cpp:848
 msgid "New password"
 msgstr "Nytt lösenord"
 
-#: src/newaccountsettingsview.cpp:1759
+#: src/newaccountsettingsview.cpp:1711
+msgid "Exporting account…"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"
 msgstr "Fel lösenord"
 
-#: src/newaccountsettingsview.cpp:1765
+#: src/newaccountsettingsview.cpp:1744
 msgid "Network error, try again"
 msgstr "Nätverksfel, försök igen"
 
-#: src/newaccountsettingsview.cpp:1771
+#: src/newaccountsettingsview.cpp:1752
 msgid "Unknown error"
 msgstr "Okänt fel"
 
-#: src/newaccountsettingsview.cpp:1783
+#: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Kunde inte starta export till Jami, försök igen"
 
-#: src/newaccountsettingsview.cpp:1842
+#: src/newaccountsettingsview.cpp:1824
 msgid "Error: wrong password!"
 msgstr "Fel: Fel lösenord!"
 
-#: src/newaccountsettingsview.cpp:1845
+#: src/newaccountsettingsview.cpp:1827
 msgid "Error: unknown device!"
 msgstr "Fel: Okänd enhet!"
 
-#: src/newaccountsettingsview.cpp:2019
+#: src/newaccountsettingsview.cpp:2000
 msgid "Initializing…"
 msgstr "Startar..."
 
-#: src/newaccountsettingsview.cpp:2022
+#: src/newaccountsettingsview.cpp:2003
 msgid "Offline"
 msgstr "Nerkopplad"
 
-#: src/newaccountsettingsview.cpp:2025
+#: src/newaccountsettingsview.cpp:2006
 msgid "Connecting…"
 msgstr "Ansluter..."
 
-#: src/newaccountsettingsview.cpp:2028
+#: src/newaccountsettingsview.cpp:2009
 msgid "Online"
 msgstr "Ansluten"
 
-#: src/newaccountsettingsview.cpp:2032
+#: src/newaccountsettingsview.cpp:2013
 msgid "Unknown status"
 msgstr "Okänd status"
 
-#: src/newaccountsettingsview.cpp:2065
+#: src/newaccountsettingsview.cpp:2046
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2065
+#: src/newaccountsettingsview.cpp:2046
 msgid "no password set"
 msgstr "Lösenord saknas"
 
-#: src/newaccountsettingsview.cpp:2121
+#: src/newaccountsettingsview.cpp:2102
 msgid "Remove account"
 msgstr "Ta bort konto"

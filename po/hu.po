@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-18 03:09-0500\n"
-"PO-Revision-Date: 2019-11-18 08:09+0000\n"
+"POT-Creation-Date: 2019-11-25 03:09-0500\n"
+"PO-Revision-Date: 2019-11-25 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -163,7 +163,7 @@ msgid "Media"
 msgstr "Média"
 
 #: ui/mainwindow.ui:113 ui/accountcreationwizard.ui:523
-#: ui/newaccountsettingsview.ui:414
+#: ui/newaccountsettingsview.ui:387
 msgid "Account"
 msgstr "Fiók"
 
@@ -193,13 +193,13 @@ msgstr "Álnév"
 
 #: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:597
 #: ui/accountcreationwizard.ui:982 ui/profile.ui:73
-#: ui/newaccountsettingsview.ui:503 ui/newaccountsettingsview.ui:733
+#: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
 msgid "Username"
 msgstr "Felhasználónév"
 
 #: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:191
 #: ui/accountcreationwizard.ui:624 ui/accountcreationwizard.ui:1018
-#: ui/newaccountsettingsview.ui:529 ui/newaccountsettingsview.ui:769
+#: ui/newaccountsettingsview.ui:502 ui/newaccountsettingsview.ui:742
 msgid "Password"
 msgstr "Jelszó"
 
@@ -207,9 +207,9 @@ msgstr "Jelszó"
 msgid "Account manager"
 msgstr "Fiókkezelő"
 
-#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:581
-#: ui/newaccountsettingsview.ui:874 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:1000 src/newaccountsettingsview.cpp:2121
+#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
+#: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
+#: src/newaccountsettingsview.cpp:971 src/newaccountsettingsview.cpp:2102
 msgid "Delete account"
 msgstr "Fiók törlése"
 
@@ -382,7 +382,7 @@ msgid "Next"
 msgstr "Következő"
 
 #: ui/accountcreationwizard.ui:442 ui/profile.ui:7
-#: ui/newaccountsettingsview.ui:334
+#: ui/newaccountsettingsview.ui:307
 msgid "Profile"
 msgstr "Profil"
 
@@ -395,7 +395,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Ezt bejelölve, bejegyez egy egyedi felhasználónevet a Jami hálózaton. Az emberek ezt az azonosítója (amely 40 karakter hosszú) helyett használhatják, hogy elérjék Önt."
 
 #: ui/accountcreationwizard.ui:625
 msgid ""
@@ -403,7 +403,7 @@ msgid ""
 "devices to your account."
 msgstr "Ez a jelszó a fiókadatainak titkosítására lesz használva, és arra, hogy más eszközöket kapcsoljon a fiókjához."
 
-#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:883
+#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:854
 msgid "Confirm password"
 msgstr "Jelszó megerősítése"
 
@@ -426,8 +426,8 @@ msgstr "Ez a fiók csak ezen az eszközön létezik. Ha elvesztette eszközét, 
 msgid "Never show me this again"
 msgstr "Ne jelenjen meg többé"
 
-#: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:566
-#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2054
+#: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
+#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
 msgid "Export account"
 msgstr "Fiók exportálása"
 
@@ -447,8 +447,7 @@ msgstr "Ez néhány percet is igénybe vehet."
 msgid "Retrieving your Jami account…"
 msgstr "A Jami fiókja lekérése…"
 
-#: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:266
-#: ui/newaccountsettingsview.ui:289
+#: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
 msgid "OK"
 msgstr "OK"
 
@@ -552,7 +551,7 @@ msgstr "Bitsebesség hívásfelvételekhez (kb/s)"
 msgid "Informations"
 msgstr "Részletek"
 
-#: ui/profile.ui:88 ui/newaccountsettingsview.ui:460
+#: ui/profile.ui:88 ui/newaccountsettingsview.ui:433
 msgid "ID"
 msgstr "Azonosító"
 
@@ -635,251 +634,247 @@ msgstr "Jelszó (kötelező):"
 msgid "Enter archive password"
 msgstr "Adja meg az archívum jelszót"
 
-#: ui/newaccountsettingsview.ui:183 src/newaccountsettingsview.cpp:893
+#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:864
 msgid "Cancel"
 msgstr "Mégse"
 
-#: ui/newaccountsettingsview.ui:189
+#: ui/newaccountsettingsview.ui:211
 msgid "Export on the network"
 msgstr "Fiók exportálása a hálózaton"
 
-#: ui/newaccountsettingsview.ui:210
-msgid "Exporting account on the Jami…"
-msgstr "Fiók exportálása a hálózaton…"
-
-#: ui/newaccountsettingsview.ui:235
+#: ui/newaccountsettingsview.ui:231
 msgid "Your generated pin:"
 msgstr "Az előállított PIN:"
 
-#: ui/newaccountsettingsview.ui:538
+#: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
 msgstr "Kattintson a jelszó módosításához"
 
-#: ui/newaccountsettingsview.ui:618 ui/newaccountsettingsview.ui:901
+#: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
 msgstr "Fiók engedélyezése"
 
-#: ui/newaccountsettingsview.ui:697
+#: ui/newaccountsettingsview.ui:670
 msgid "SIP server"
 msgstr "SIP-kiszolgáló"
 
-#: ui/newaccountsettingsview.ui:779
+#: ui/newaccountsettingsview.ui:752
 msgid "password"
 msgstr "jelszó"
 
-#: ui/newaccountsettingsview.ui:810 ui/newaccountsettingsview.ui:1398
+#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1371
 msgid "Proxy"
 msgstr "Meghatalmazott"
 
-#: ui/newaccountsettingsview.ui:846
+#: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
 msgstr "Hangposta"
 
-#: ui/newaccountsettingsview.ui:952
+#: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
 msgstr "A Jami fiókhoz kapcsolódó ismert eszközök"
 
-#: ui/newaccountsettingsview.ui:960
+#: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
 msgstr "Csatlakoztasson másik eszközt"
 
-#: ui/newaccountsettingsview.ui:1025
+#: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
 msgstr "Letiltott kapcsolatok"
 
-#: ui/newaccountsettingsview.ui:1081
+#: ui/newaccountsettingsview.ui:1054
 msgid "Advanced settings"
 msgstr "Haladó beállítások"
 
-#: ui/newaccountsettingsview.ui:1117
+#: ui/newaccountsettingsview.ui:1090
 msgid "General settings"
 msgstr "Általános beállítások"
 
-#: ui/newaccountsettingsview.ui:1135
+#: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
 msgstr "Hívás beállítások"
 
-#: ui/newaccountsettingsview.ui:1173
+#: ui/newaccountsettingsview.ui:1146
 msgid "Allow call from untrusted peers"
 msgstr "Hívások engedélyezése ismeretlen kapcsolatoktól"
 
-#: ui/newaccountsettingsview.ui:1208
+#: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
 msgstr "Hívások önműködő fogadása"
 
-#: ui/newaccountsettingsview.ui:1244
+#: ui/newaccountsettingsview.ui:1217
 msgid "Custom ringtone"
 msgstr "Egyéni csengőhang"
 
-#: ui/newaccountsettingsview.ui:1288
+#: ui/newaccountsettingsview.ui:1261
 msgid "Name server"
 msgstr "Kiszolgálói néve"
 
-#: ui/newaccountsettingsview.ui:1325 ui/newaccountsettingsview.ui:2514
+#: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
 msgid "Address"
 msgstr "Cím"
 
-#: ui/newaccountsettingsview.ui:1359
+#: ui/newaccountsettingsview.ui:1332
 msgid "OpenDHT configuration"
 msgstr "OpenDHT beállítások"
 
-#: ui/newaccountsettingsview.ui:1443
+#: ui/newaccountsettingsview.ui:1416
 msgid "Auto connect on local network"
 msgstr "Ónműködő csatlakozás helyi hálózaton"
 
-#: ui/newaccountsettingsview.ui:1479
+#: ui/newaccountsettingsview.ui:1452
 msgid "Bootstrap"
 msgstr "Betöltés"
 
-#: ui/newaccountsettingsview.ui:1539
+#: ui/newaccountsettingsview.ui:1512
 msgid "Encrypt media streams (SRTP)"
 msgstr "Média-adatfolyamok titkosítása (SRTP)"
 
-#: ui/newaccountsettingsview.ui:1574
+#: ui/newaccountsettingsview.ui:1547
 msgid "Enable SDES for key exchange protocol"
 msgstr "Engedélyezze a SDES kulcscsere szabályhalmazat"
 
-#: ui/newaccountsettingsview.ui:1610
+#: ui/newaccountsettingsview.ui:1583
 msgid "Fallback on RTP on encryption failure"
 msgstr "Titkosításhiba esetén RTP használata"
 
-#: ui/newaccountsettingsview.ui:1645
+#: ui/newaccountsettingsview.ui:1618
 msgid "Encrypt negotiation (TLS)"
 msgstr "Titkosítási tárgyalás (TLS)"
 
-#: ui/newaccountsettingsview.ui:1680
+#: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
 msgstr "CA tanúsítvány"
 
-#: ui/newaccountsettingsview.ui:1716
+#: ui/newaccountsettingsview.ui:1689
 msgid "User certificate"
 msgstr "Felhasználói tanúsítvány"
 
-#: ui/newaccountsettingsview.ui:1752
+#: ui/newaccountsettingsview.ui:1725
 msgid "Private key"
 msgstr "Személyes kulcs"
 
-#: ui/newaccountsettingsview.ui:1788
+#: ui/newaccountsettingsview.ui:1761
 msgid "Private key password"
 msgstr "Személyes kulcs jelszó"
 
-#: ui/newaccountsettingsview.ui:1826
+#: ui/newaccountsettingsview.ui:1799
 msgid "TLS protocol method"
 msgstr "TLS szabályhalmaz eljárás"
 
-#: ui/newaccountsettingsview.ui:1862
+#: ui/newaccountsettingsview.ui:1835
 msgid "Outgoing TLS server name"
 msgstr "Kimenő TLS kiszolgálónév"
 
-#: ui/newaccountsettingsview.ui:1897
+#: ui/newaccountsettingsview.ui:1870
 msgid "Negotiation timeout (seconds)"
 msgstr "Tárgyalási időtúllépés (másodperc)"
 
-#: ui/newaccountsettingsview.ui:1933
+#: ui/newaccountsettingsview.ui:1906
 msgid "Verify incoming certificates (server side)"
 msgstr "Bejövő tanúsítványok ellenőrzése (kiszolgáló oldalon)"
 
-#: ui/newaccountsettingsview.ui:1968
+#: ui/newaccountsettingsview.ui:1941
 msgid "Verify answer certificates (client side)"
 msgstr "Válasz tanúsítványok ellenőrzése (ügyfél oldalon)"
 
-#: ui/newaccountsettingsview.ui:2003
+#: ui/newaccountsettingsview.ui:1976
 msgid "Require a certificate for incoming TLS connections"
 msgstr "Tanúsítvány megkövetelése a bejövő TLS kapcsolatokhoz"
 
-#: ui/newaccountsettingsview.ui:2027
+#: ui/newaccountsettingsview.ui:2000
 msgid "Security"
 msgstr "Biztonság"
 
-#: ui/newaccountsettingsview.ui:2052
+#: ui/newaccountsettingsview.ui:2025
 msgid "Connectivity"
 msgstr "Kapcsolódás"
 
-#: ui/newaccountsettingsview.ui:2090
+#: ui/newaccountsettingsview.ui:2063
 msgid "Registration expire timeout (seconds)"
 msgstr "Bejegyeztetés érvényességének lejárta (másodperc)"
 
-#: ui/newaccountsettingsview.ui:2127
+#: ui/newaccountsettingsview.ui:2100
 msgid "Network interface"
 msgstr "Hálózati felület"
 
-#: ui/newaccountsettingsview.ui:2163
+#: ui/newaccountsettingsview.ui:2136
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2198
+#: ui/newaccountsettingsview.ui:2171
 msgid "Use TURN"
 msgstr "TURN használata"
 
-#: ui/newaccountsettingsview.ui:2233
+#: ui/newaccountsettingsview.ui:2206
 msgid "(TURN) address"
 msgstr "(TURN) cím"
 
-#: ui/newaccountsettingsview.ui:2268
+#: ui/newaccountsettingsview.ui:2241
 msgid "(TURN) username"
 msgstr "(TURN) felhasználónév"
 
-#: ui/newaccountsettingsview.ui:2302
+#: ui/newaccountsettingsview.ui:2275
 msgid "(TURN) password"
 msgstr "(TURN) jelszó"
 
-#: ui/newaccountsettingsview.ui:2339
+#: ui/newaccountsettingsview.ui:2312
 msgid "(TURN) realm"
 msgstr "(TURN) tartomány"
 
-#: ui/newaccountsettingsview.ui:2373
+#: ui/newaccountsettingsview.ui:2346
 msgid "Use STUN"
 msgstr "STUN használata"
 
-#: ui/newaccountsettingsview.ui:2408
+#: ui/newaccountsettingsview.ui:2381
 msgid "(STUN) address"
 msgstr "(STUN) cím"
 
-#: ui/newaccountsettingsview.ui:2441
+#: ui/newaccountsettingsview.ui:2414
 msgid "Published address"
 msgstr "Nyilvános cím"
 
-#: ui/newaccountsettingsview.ui:2478
+#: ui/newaccountsettingsview.ui:2451
 msgid "Use custom address and port"
 msgstr "Használjon egyéni címet és kikötőt"
 
-#: ui/newaccountsettingsview.ui:2549
+#: ui/newaccountsettingsview.ui:2522
 msgid "Port"
 msgstr "Kikötő"
 
-#: ui/newaccountsettingsview.ui:2585
+#: ui/newaccountsettingsview.ui:2558
 msgid "Video codecs"
 msgstr "Videócodekek"
 
-#: ui/newaccountsettingsview.ui:2648
+#: ui/newaccountsettingsview.ui:2621
 msgid "Enable video"
 msgstr "Videó engedélyezése"
 
-#: ui/newaccountsettingsview.ui:2675
+#: ui/newaccountsettingsview.ui:2648
 msgid "Audio codecs"
 msgstr "Hangcodekek"
 
-#: ui/newaccountsettingsview.ui:2745
+#: ui/newaccountsettingsview.ui:2718
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP munkamenet targyalás (az ICE tartaléka)"
 
-#: ui/newaccountsettingsview.ui:2757
+#: ui/newaccountsettingsview.ui:2730
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Csak az SDP-tárgyalások során használatos ha az ICE nem támogatott."
 
-#: ui/newaccountsettingsview.ui:2791
+#: ui/newaccountsettingsview.ui:2764
 msgid "Audio RTP Min port"
 msgstr "Hang RTP min kikötő"
 
-#: ui/newaccountsettingsview.ui:2826
+#: ui/newaccountsettingsview.ui:2799
 msgid "Audio RTP Max port"
 msgstr "Hang RTP max kikötő"
 
-#: ui/newaccountsettingsview.ui:2861
+#: ui/newaccountsettingsview.ui:2834
 msgid "Video RTP Min port"
 msgstr "Videó RTP min kikötő"
 
-#: ui/newaccountsettingsview.ui:2896
+#: ui/newaccountsettingsview.ui:2869
 msgid "Video RTP Max port"
 msgstr "Videó RTP max kikötő"
 
@@ -989,12 +984,12 @@ msgstr "Letöltési mappa kiválasztása"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
 #: src/accountcreationwizard.cpp:757 src/chatview.cpp:281
-#: src/newaccountsettingsview.cpp:936
+#: src/newaccountsettingsview.cpp:907
 msgid "_Cancel"
 msgstr "_Mégse"
 
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
-#: src/chatview.cpp:283 src/newaccountsettingsview.cpp:938
+#: src/chatview.cpp:283 src/newaccountsettingsview.cpp:909
 msgid "_Save"
 msgstr "_Mentés"
 
@@ -1070,7 +1065,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Free as in Freedom\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "„Szabad, mint a szabadság”\nkódtár verziója: %.25s"
 
 #: src/dialogs.c:137
 msgid ""
@@ -1190,23 +1185,23 @@ msgid "Import from backup"
 msgstr "Importálás biztonsági másolatból"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:278
-#: src/newaccountsettingsview.cpp:933
+#: src/newaccountsettingsview.cpp:904
 msgid "Save File"
 msgstr "Fájl mentése"
 
-#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:960
+#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:931
 msgid "You need to enter your password to export the full archive."
 msgstr "Meg kell adnia a jelszót, hogy exportálja a teljes archívumot."
 
-#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:961
+#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:932
 msgid "Enter password to export archive"
 msgstr "Adja meg a jelszót az archívum exportálásához"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:984
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Account exported!"
 msgstr "A fiókot exportálták!"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:984
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Export account failure."
 msgstr "Fiók exportálási hiba."
 
@@ -1255,49 +1250,49 @@ msgstr " hív!"
 msgid "Incoming call"
 msgstr "Bejövő hívás"
 
-#: src/mainwindow.cpp:2446
+#: src/mainwindow.cpp:2445
 msgid "New request from "
 msgstr "Új kérés"
 
-#: src/mainwindow.cpp:2447
+#: src/mainwindow.cpp:2446
 msgid "Trust request"
 msgstr "Megbízható kérelem"
 
-#: src/mainwindow.cpp:2508
+#: src/mainwindow.cpp:2507
 msgid "New message"
 msgstr "Új üzenet"
 
-#: src/mainwindow.cpp:2571
+#: src/mainwindow.cpp:2570
 msgid "Stop current call?"
 msgstr "A jelenlegi hívás(ok) leállítása?"
 
-#: src/mainwindow.cpp:2572
+#: src/mainwindow.cpp:2571
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "A hívás jelenleg folyamatban van. Be kívánja zárni az ablakot és az összes jelenlegi hívást?"
 
-#: src/mainwindow.cpp:2639
+#: src/mainwindow.cpp:2638
 msgid "Clear history"
 msgstr "Előzmények törlése"
 
-#: src/mainwindow.cpp:2640
+#: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Valóban szeretné törölni ennek a csevegésnek az előzményeit?"
 
-#: src/mainwindow.cpp:2655
+#: src/mainwindow.cpp:2654
 msgid "Remove conversation"
 msgstr "Társalgás törlése"
 
-#: src/mainwindow.cpp:2656
+#: src/mainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
 msgstr "Valóban szeretné törölni ezt a csevegését?"
 
-#: src/mainwindow.cpp:2671
+#: src/mainwindow.cpp:2670
 msgid "Block contact"
 msgstr "Kapcsolat letiltása"
 
-#: src/mainwindow.cpp:2672
+#: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
 msgstr "Valóban szeretné letiltani ezt a kapcsolatot?"
 
@@ -1339,132 +1334,136 @@ msgstr "Jami megjelenítése"
 msgid "Quit"
 msgstr "Kilépés"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:999
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:970
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Figyelmeztetés! Ez a művelet eltávolítja ezt a fiókot az eszközön!\nMegjegyzés: ez a művelet nem vonható vissza. A bejegyzett neved is elveszhető!"
 
-#: src/currentcallview.cpp:935
+#: src/currentcallview.cpp:937
 msgid "Current conference (all accounts)"
 msgstr "Jelenlegi konferenciát (minden fiók)"
 
-#: src/currentcallview.cpp:969
+#: src/currentcallview.cpp:971
 msgid "Current calls (all accounts)"
 msgstr "Jelenlegi hívást (minden fiók)"
 
-#: src/currentcallview.cpp:984
+#: src/currentcallview.cpp:986
 msgid "Online contacts"
 msgstr "Elérhető kapcsolatok"
 
-#: src/currentcallview.cpp:1407
+#: src/currentcallview.cpp:1414
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Önműködő"
 
-#: src/newaccountsettingsview.cpp:630
+#: src/newaccountsettingsview.cpp:601
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Figyelmeztetés! Ez a művelet visszavonja az eszközt!\nMegjegyzés: ez a művelet nem vonható vissza."
 
-#: src/newaccountsettingsview.cpp:631
+#: src/newaccountsettingsview.cpp:602
 msgid "Enter password to revoke device"
 msgstr "Adja meg a jelszót az eszköz visszavonásához"
 
-#: src/newaccountsettingsview.cpp:689
+#: src/newaccountsettingsview.cpp:660
 msgid "Edit name"
 msgstr "Név szerkesztése"
 
-#: src/newaccountsettingsview.cpp:689
+#: src/newaccountsettingsview.cpp:660
 msgid "Revoke device"
 msgstr "Eszköz visszavonása"
 
-#: src/newaccountsettingsview.cpp:711
+#: src/newaccountsettingsview.cpp:682
 msgid "Error when revoking device"
 msgstr "Hiba történt az eszköz visszavonásakor"
 
-#: src/newaccountsettingsview.cpp:784
+#: src/newaccountsettingsview.cpp:755
 msgid "Unban"
 msgstr "Letiltás visszavonása"
 
-#: src/newaccountsettingsview.cpp:807 src/newaccountsettingsview.cpp:830
-#: src/newaccountsettingsview.cpp:854 src/newaccountsettingsview.cpp:890
+#: src/newaccountsettingsview.cpp:778 src/newaccountsettingsview.cpp:801
+#: src/newaccountsettingsview.cpp:825 src/newaccountsettingsview.cpp:861
 msgid "Change password"
 msgstr "Jelszó megváltoztatása"
 
-#: src/newaccountsettingsview.cpp:820
+#: src/newaccountsettingsview.cpp:791
 msgid "New password and its confirmation are different!"
 msgstr "Az új jelszó és a megerősítése különböző!"
 
-#: src/newaccountsettingsview.cpp:831
+#: src/newaccountsettingsview.cpp:802
 msgid "Incorrect password!"
 msgstr "Hibás jelszó!"
 
-#: src/newaccountsettingsview.cpp:868
+#: src/newaccountsettingsview.cpp:839
 msgid "Note: this will change the password only on this device."
 msgstr "Megjegyzés: a jelszó megváltoztatása csak ezen az eszközön."
 
-#: src/newaccountsettingsview.cpp:871
+#: src/newaccountsettingsview.cpp:842
 msgid "Current password"
 msgstr "Jelenlegi jelszó"
 
-#: src/newaccountsettingsview.cpp:877
+#: src/newaccountsettingsview.cpp:848
 msgid "New password"
 msgstr "Új jelszó"
 
-#: src/newaccountsettingsview.cpp:1759
+#: src/newaccountsettingsview.cpp:1711
+msgid "Exporting account…"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"
 msgstr "Hibás jelszó"
 
-#: src/newaccountsettingsview.cpp:1765
+#: src/newaccountsettingsview.cpp:1744
 msgid "Network error, try again"
 msgstr "Hálózati hiba, próbálja újra"
 
-#: src/newaccountsettingsview.cpp:1771
+#: src/newaccountsettingsview.cpp:1752
 msgid "Unknown error"
 msgstr "Ismeretlen hiba"
 
-#: src/newaccountsettingsview.cpp:1783
+#: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"
 msgstr "A Jami export elindítása nem sikerült, próbálja újra"
 
-#: src/newaccountsettingsview.cpp:1842
+#: src/newaccountsettingsview.cpp:1824
 msgid "Error: wrong password!"
 msgstr "Hiba: hibás jelszó!"
 
-#: src/newaccountsettingsview.cpp:1845
+#: src/newaccountsettingsview.cpp:1827
 msgid "Error: unknown device!"
 msgstr "Hiba: ismeretlen eszköz!"
 
-#: src/newaccountsettingsview.cpp:2019
+#: src/newaccountsettingsview.cpp:2000
 msgid "Initializing…"
 msgstr "Szignál…"
 
-#: src/newaccountsettingsview.cpp:2022
+#: src/newaccountsettingsview.cpp:2003
 msgid "Offline"
 msgstr "Nem elérhető"
 
-#: src/newaccountsettingsview.cpp:2025
+#: src/newaccountsettingsview.cpp:2006
 msgid "Connecting…"
 msgstr "Kapcsolódás…"
 
-#: src/newaccountsettingsview.cpp:2028
+#: src/newaccountsettingsview.cpp:2009
 msgid "Online"
 msgstr "Elérhető"
 
-#: src/newaccountsettingsview.cpp:2032
+#: src/newaccountsettingsview.cpp:2013
 msgid "Unknown status"
 msgstr "Ismeretlen állapot"
 
-#: src/newaccountsettingsview.cpp:2065
+#: src/newaccountsettingsview.cpp:2046
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2065
+#: src/newaccountsettingsview.cpp:2046
 msgid "no password set"
 msgstr "nincs jelszó beállítva"
 
-#: src/newaccountsettingsview.cpp:2121
+#: src/newaccountsettingsview.cpp:2102
 msgid "Remove account"
 msgstr "Fiók eltávolítása"
