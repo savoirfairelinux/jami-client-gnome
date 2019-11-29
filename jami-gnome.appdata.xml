@@ -28,6 +28,29 @@
 
  <launchable type="desktop-id">jami-gnome.desktop</launchable>
 
+ <screenshots>
+	 <screenshot type="default">
+		 <caption>Audio and video conference calls</caption>
+		 <image>https://dl.jami.net/media-resources/screenshots/jami_linux_conference.png</image>
+	 </screenshot>
+	 <screenshot>
+		 <caption>Audio and video messaging</caption>
+		 <image>https://dl.jami.net/media-resources/screenshots/jami_linux_audiovideo.png</image>
+	 </screenshot>
+	 <screenshot>
+		 <caption>Screen share</caption>
+		 <image>https://dl.jami.net/media-resources/screenshots/jami_linux_screenshare.png</image>
+	 </screenshot>
+	 <screenshot>
+		 <caption>Text messaging with emoticons and images</caption>
+		 <image>https://dl.jami.net/media-resources/screenshots/jami_linux_conversation_lightmode.png</image>
+	 </screenshot>
+	 <screenshot>
+		 <caption>Dark mode</caption>
+		 <image>https://dl.jami.net/media-resources/screenshots/jami_linux_conversation_darkmode.png</image>
+	 </screenshot>
+ </screenshots>
+
  <provides>
 ​  <binary>jami-gnome</binary>
   <binary>jami</binary>
