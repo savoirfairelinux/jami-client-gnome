@@ -5,7 +5,7 @@
 # 
 # Translators:
 # Emin Tufan <etcetin@gmail.com>, 2019
-# mahmut özcan <mahmutozcan65@yahoo.com>, 2019
+# mahmut özcan <mahmutozcan@protonmail.com>, 2019
 # 
 #, fuzzy
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-25 14:38+0200\n"
 "PO-Revision-Date: 2019-05-27 14:08+0000\n"
-"Last-Translator: mahmut özcan <mahmutozcan65@yahoo.com>, 2019\n"
+"Last-Translator: mahmut özcan <mahmutozcan@protonmail.com>, 2019\n"
 "Language-Team: Turkish (https://www.transifex.com/savoirfairelinux/teams/49466/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

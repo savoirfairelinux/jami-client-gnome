@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-25 03:09-0500\n"
-"PO-Revision-Date: 2019-11-25 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2019-12-02 03:09-0500\n"
+"PO-Revision-Date: 2019-11-27 18:02+0000\n"
+"Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/jami/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -108,12 +108,12 @@ msgstr "Skambutis"
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
-msgstr ""
+msgstr "Atsiliepti"
 
 #: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
-msgstr ""
+msgstr "Atmesti"
 
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
@@ -143,12 +143,12 @@ msgstr "Atverti paskyros nustatymus"
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
-msgstr ""
+msgstr "Pokalbio rodinys"
 
 #: ui/help-overlay.ui:189
 msgctxt "shortcut window"
 msgid "Write on a new line"
-msgstr ""
+msgstr "Rašyti naujoje eilutėje"
 
 #: ui/mainwindow.ui:57
 msgid "Menu"
@@ -313,7 +313,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Susikurti naują Jami paskyrą šiame įrenginyje (naujiems naudotojams)"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
@@ -453,11 +453,11 @@ msgstr "Gerai"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "Prisijungti"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
-msgstr ""
+msgstr "_Trumpiniai"
 
 #: ui/gearsmenu.ui:11
 msgid "_About"
@@ -537,7 +537,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:669
 msgid "Always record calls"
-msgstr ""
+msgstr "Visada įrašinėti skambučius"
 
 #: ui/generalsettingsview.ui:706
 msgid "Record folder"
@@ -581,7 +581,7 @@ msgstr "Įvesties įrenginys:"
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
-msgstr ""
+msgstr "Įvesties garsio matuoklis:"
 
 #: ui/mediasettingsview.ui:156
 msgid "Camera Settings"
