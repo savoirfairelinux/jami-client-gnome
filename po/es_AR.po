@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 03:09-0500\n"
-"PO-Revision-Date: 2019-11-30 16:40+0000\n"
+"POT-Creation-Date: 2019-12-09 03:09-0500\n"
+"PO-Revision-Date: 2019-12-06 01:40+0000\n"
 "Last-Translator: Juan Manuel <jumase.25@gmail.com>\n"
 "Language-Team: Spanish (Argentina) (http://www.transifex.com/savoirfairelinux/jami/language/es_AR/)\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgstr ""
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
-msgstr ""
+msgstr "Bloquear contacto"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
@@ -926,11 +926,11 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
-msgstr ""
+msgstr "Nombre de usuario ya en uso"
 
 #: src/usernameregistrationbox.cpp:179
 msgid "Invalid username"
-msgstr ""
+msgstr "Nombre de usuario inválido"
 
 #: src/usernameregistrationbox.cpp:193
 msgid "Lookup unavailable, check your network connection"
@@ -1007,7 +1007,7 @@ msgstr ""
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami es un software libre para comunicarse univesalmente, el cual respeta las libertades y la privacidad de sus usuarios."
 
 #: src/notifier.cpp:336
 msgctxt ""
@@ -1288,7 +1288,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2670
 msgid "Block contact"
-msgstr ""
+msgstr "Bloquear contacto"
 
 #: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
@@ -1440,7 +1440,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2003
 msgid "Offline"
-msgstr ""
+msgstr "Desconectado"
 
 #: src/newaccountsettingsview.cpp:2006
 msgid "Connecting…"
@@ -1448,7 +1448,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2009
 msgid "Online"
-msgstr ""
+msgstr "En línea"
 
 #: src/newaccountsettingsview.cpp:2013
 msgid "Unknown status"

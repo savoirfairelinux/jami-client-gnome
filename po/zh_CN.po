@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Zkdc, 2019
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2017
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2016
 # 李文睿 <happy.lwr@gmail.com>, 2017
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 03:09-0500\n"
-"PO-Revision-Date: 2019-11-25 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2019-12-09 03:09-0500\n"
+"PO-Revision-Date: 2019-12-06 16:18+0000\n"
+"Last-Translator: Zkdc\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,22 +30,22 @@ msgstr "通用"
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
 msgid "Open application menu"
-msgstr ""
+msgstr "打开应用程序菜单"
 
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr ""
+msgstr "打开帐户列表"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Select search bar"
-msgstr ""
+msgstr "选择搜索栏"
 
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Focus the list of conversations"
-msgstr ""
+msgstr "聚焦会话列表"
 
 #: ui/help-overlay.ui:46
 msgctxt "shortcut window"
@@ -54,7 +55,7 @@ msgstr ""
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "切换全屏"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -79,12 +80,12 @@ msgstr "清除历史记录"
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr ""
+msgstr "添加会话"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
-msgstr ""
+msgstr "移除会话"
 
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
@@ -94,12 +95,12 @@ msgstr "屏蔽联系人"
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Unblock contact"
-msgstr ""
+msgstr "取消屏蔽联系人"
 
 #: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
-msgstr ""
+msgstr "复制联系人名称"
 
 #: ui/help-overlay.ui:127
 msgctxt "shortcut window"
@@ -109,12 +110,12 @@ msgstr "通话"
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
-msgstr ""
+msgstr "接听通话"
 
 #: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
-msgstr ""
+msgstr "拒接通话"
 
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
@@ -124,32 +125,32 @@ msgstr "设置"
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
-msgstr ""
+msgstr "打开/关闭设置页"
 
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
-msgstr ""
+msgstr "打开常规设置"
 
 #: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
-msgstr ""
+msgstr "打开媒体设置"
 
 #: ui/help-overlay.ui:174
 msgctxt "shortcut window"
 msgid "Open account settings"
-msgstr ""
+msgstr "打开账户设置"
 
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
-msgstr ""
+msgstr "聊天界面"
 
 #: ui/help-overlay.ui:189
 msgctxt "shortcut window"
 msgid "Write on a new line"
-msgstr ""
+msgstr "换行"
 
 #: ui/mainwindow.ui:57
 msgid "Menu"
@@ -186,7 +187,7 @@ msgstr "需要帐户迁移"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "该帐户格式不正确，请输入密码"
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
@@ -206,7 +207,7 @@ msgstr "密码"
 
 #: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr ""
+msgstr "账户管理器"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
@@ -220,11 +221,11 @@ msgstr "迁移帐户"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "正在迁移您的Jami帐户…"
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
-msgstr ""
+msgstr "迁移失败。密码错误？"
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
@@ -265,7 +266,7 @@ msgstr "关闭视频"
 
 #: ui/currentcallview.ui:388
 msgid "Toggle recording"
-msgstr ""
+msgstr "录制开始/结束"
 
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
 #: ui/messagingwidget.ui:29 src/chatview.cpp:345
@@ -302,7 +303,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:616
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -310,15 +311,15 @@ msgstr "欢迎来到"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr ""
+msgstr "创建本地帐户"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "创建新的Jami帐户（新用户）"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "从设备导入"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
@@ -334,11 +335,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
-msgstr ""
+msgstr "高级…"
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
-msgstr ""
+msgstr "连接到账户管理器"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
@@ -346,7 +347,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
-msgstr ""
+msgstr "添加SIP帐户"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
@@ -389,14 +390,14 @@ msgstr "帐户资料"
 
 #: ui/accountcreationwizard.ui:560
 msgid "Register username"
-msgstr ""
+msgstr "注册用户名"
 
 #: ui/accountcreationwizard.ui:561
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "通过选中此选项，您将在Jami网络上注册唯一的用户名。 人们可以使用它来替代40个字符长的ID与您联系。"
 
 #: ui/accountcreationwizard.ui:625
 msgid ""
@@ -410,11 +411,11 @@ msgstr "确认密码"
 
 #: ui/accountcreationwizard.ui:735
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "正在生成您的Jami帐户…"
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr ""
+msgstr "备份您的帐户！"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
@@ -425,12 +426,12 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "不再向我显示这个"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
 msgid "Export account"
-msgstr ""
+msgstr "导出帐户"
 
 #: ui/accountcreationwizard.ui:813
 msgid "Skip"
@@ -438,7 +439,7 @@ msgstr "跳过"
 
 #: ui/accountcreationwizard.ui:839
 msgid "Registering username…"
-msgstr ""
+msgstr "注册用户名…"
 
 #: ui/accountcreationwizard.ui:846
 msgid "This may take a few minutes."
@@ -446,7 +447,7 @@ msgstr "可能需要数分钟。"
 
 #: ui/accountcreationwizard.ui:872
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "正在获取您的Jami帐户…"
 
 #: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
 msgid "OK"
@@ -454,11 +455,11 @@ msgstr "确定"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "登录"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
-msgstr ""
+msgstr "键盘快捷键(_S)"
 
 #: ui/gearsmenu.ui:11
 msgid "_About"
@@ -474,19 +475,19 @@ msgstr "系统"
 
 #: ui/generalsettingsview.ui:89
 msgid "Start application on login"
-msgstr ""
+msgstr "登录时启动应用"
 
 #: ui/generalsettingsview.ui:125
 msgid "Show Jami icon (systray) in the systray area"
-msgstr ""
+msgstr "在系统托盘区域中显示Jami图标（系统托盘）"
 
 #: ui/generalsettingsview.ui:161
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
+msgstr "来电时将Jami切换到前台"
 
 #: ui/generalsettingsview.ui:197
 msgid "Notifications"
-msgstr ""
+msgstr "通知"
 
 #: ui/generalsettingsview.ui:236
 msgid "Enable notifications for incoming calls"
@@ -494,27 +495,27 @@ msgstr "启用来电通知"
 
 #: ui/generalsettingsview.ui:272
 msgid "Enable notifications for pending requests"
-msgstr ""
+msgstr "启用待处理请求通知"
 
 #: ui/generalsettingsview.ui:308
 msgid "Enable notifications for new chat messages"
-msgstr ""
+msgstr "启用新消息通知"
 
 #: ui/generalsettingsview.ui:344
 msgid "Chatview"
-msgstr ""
+msgstr "聊天界面"
 
 #: ui/generalsettingsview.ui:383
 msgid "Display images and videos into the chatview"
-msgstr ""
+msgstr "在聊天界面中显示图片和视频"
 
 #: ui/generalsettingsview.ui:420
 msgid "Show chatview on the right (on the bottom if off)"
-msgstr ""
+msgstr "在右侧显示聊天界面。（若关闭则显示于下方）"
 
 #: ui/generalsettingsview.ui:457
 msgid "Download folder"
-msgstr ""
+msgstr "下载文件夹"
 
 #: ui/generalsettingsview.ui:494
 msgid "History"
@@ -522,7 +523,7 @@ msgstr "历史记录"
 
 #: ui/generalsettingsview.ui:533
 msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
+msgstr "历史记录保存(天数,0=无限制)："
 
 #: ui/generalsettingsview.ui:563
 msgid "Clear all history"
@@ -534,7 +535,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:633
 msgid "Record local video"
-msgstr ""
+msgstr "录制本地视频"
 
 #: ui/generalsettingsview.ui:669
 msgid "Always record calls"
@@ -542,7 +543,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:706
 msgid "Record folder"
-msgstr ""
+msgstr "录制文件夹"
 
 #: ui/generalsettingsview.ui:743
 msgid "Bitrate for call recordings (kb/s)"
@@ -558,7 +559,7 @@ msgstr "ID"
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "二维码"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
@@ -582,7 +583,7 @@ msgstr "输入设备："
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
-msgstr ""
+msgstr "输入音量计："
 
 #: ui/mediasettingsview.ui:156
 msgid "Camera Settings"
@@ -610,7 +611,7 @@ msgstr "硬件加速"
 
 #: ui/mediasettingsview.ui:282
 msgid "Enable hardware acceleration:"
-msgstr ""
+msgstr "启用硬件加速："
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
@@ -649,15 +650,15 @@ msgstr "您的PIN："
 
 #: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
-msgstr ""
+msgstr "点击来更改密码"
 
 #: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
-msgstr ""
+msgstr "启用账户"
 
 #: ui/newaccountsettingsview.ui:670
 msgid "SIP server"
-msgstr ""
+msgstr "SIP服务器"
 
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
@@ -677,11 +678,11 @@ msgstr "连接到此账户的已知设备"
 
 #: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
-msgstr ""
+msgstr "链接另一台设备"
 
 #: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
-msgstr ""
+msgstr "已屏蔽的联系人"
 
 #: ui/newaccountsettingsview.ui:1054
 msgid "Advanced settings"
@@ -689,7 +690,7 @@ msgstr "高级设置"
 
 #: ui/newaccountsettingsview.ui:1090
 msgid "General settings"
-msgstr ""
+msgstr "常规设置"
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
@@ -705,11 +706,11 @@ msgstr "自动接听来电"
 
 #: ui/newaccountsettingsview.ui:1217
 msgid "Custom ringtone"
-msgstr ""
+msgstr "自定义铃声"
 
 #: ui/newaccountsettingsview.ui:1261
 msgid "Name server"
-msgstr ""
+msgstr "名称服务器"
 
 #: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
 msgid "Address"
@@ -717,7 +718,7 @@ msgstr "地址："
 
 #: ui/newaccountsettingsview.ui:1332
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "OpenDHT配置"
 
 #: ui/newaccountsettingsview.ui:1416
 msgid "Auto connect on local network"
@@ -793,11 +794,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2063
 msgid "Registration expire timeout (seconds)"
-msgstr ""
+msgstr "注册超时（秒）："
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Network interface"
-msgstr ""
+msgstr "网络接口"
 
 #: ui/newaccountsettingsview.ui:2136
 msgid "UPnP"
@@ -809,19 +810,19 @@ msgstr "使用TURN"
 
 #: ui/newaccountsettingsview.ui:2206
 msgid "(TURN) address"
-msgstr ""
+msgstr "（TURN）地址"
 
 #: ui/newaccountsettingsview.ui:2241
 msgid "(TURN) username"
-msgstr ""
+msgstr "（TURN）用户名"
 
 #: ui/newaccountsettingsview.ui:2275
 msgid "(TURN) password"
-msgstr ""
+msgstr "（TURN）密码"
 
 #: ui/newaccountsettingsview.ui:2312
 msgid "(TURN) realm"
-msgstr ""
+msgstr "（TURN）域"
 
 #: ui/newaccountsettingsview.ui:2346
 msgid "Use STUN"
@@ -829,15 +830,15 @@ msgstr "使用STUN"
 
 #: ui/newaccountsettingsview.ui:2381
 msgid "(STUN) address"
-msgstr ""
+msgstr "（STUN）地址"
 
 #: ui/newaccountsettingsview.ui:2414
 msgid "Published address"
-msgstr ""
+msgstr "公开地址"
 
 #: ui/newaccountsettingsview.ui:2451
 msgid "Use custom address and port"
-msgstr ""
+msgstr "使用自定义地址地址与端口"
 
 #: ui/newaccountsettingsview.ui:2522
 msgid "Port"
@@ -849,7 +850,7 @@ msgstr "视频编码"
 
 #: ui/newaccountsettingsview.ui:2621
 msgid "Enable video"
-msgstr ""
+msgstr "启用视频"
 
 #: ui/newaccountsettingsview.ui:2648
 msgid "Audio codecs"
@@ -865,23 +866,23 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2764
 msgid "Audio RTP Min port"
-msgstr ""
+msgstr "音频RTP最小端口"
 
 #: ui/newaccountsettingsview.ui:2799
 msgid "Audio RTP Max port"
-msgstr ""
+msgstr "音频RTP最大端口"
 
 #: ui/newaccountsettingsview.ui:2834
 msgid "Video RTP Min port"
-msgstr ""
+msgstr "视频RTP最小端口"
 
 #: ui/newaccountsettingsview.ui:2869
 msgid "Video RTP Max port"
-msgstr ""
+msgstr "视频RTP最大端口"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "注册用户名"
 
 #: ui/chatview.ui:39
 msgid "Send Invitation"
@@ -889,7 +890,7 @@ msgstr "发送邀请"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
-msgstr ""
+msgstr "录制音频消息"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
@@ -897,7 +898,7 @@ msgstr ""
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
-msgstr ""
+msgstr "来电…"
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
@@ -925,7 +926,7 @@ msgstr "设置选区为头像"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
-msgstr ""
+msgstr "在名称服务器上注册该用户名"
 
 #: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
@@ -937,41 +938,41 @@ msgstr "非法用户名"
 
 #: src/usernameregistrationbox.cpp:193
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "查找不可用，请检查您的网络连接"
 
 #: src/usernameregistrationbox.cpp:273
 msgid "Performing lookup…"
-msgstr ""
+msgstr "正在进行查找…"
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
-msgstr ""
+msgstr "输入您的Jami帐户密码"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
-msgstr ""
+msgstr "正在注册..."
 
 #: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
-msgstr ""
+msgstr "名称注册错误"
 
 #: src/usernameregistrationbox.cpp:434
 msgid ""
 "Unable to register name (Invalid name). Your username should contains "
 "between 3 and 32 alphanumerics characters (or underscore)."
-msgstr ""
+msgstr "无法注册名称（无效名称）。 您的用户名应包含3到32个字母或数字（或下划线）。"
 
 #: src/usernameregistrationbox.cpp:438
 msgid "Unable to register name (Wrong password)."
-msgstr ""
+msgstr "无法注册名称（密码错误）。"
 
 #: src/usernameregistrationbox.cpp:442
 msgid "Unable to register name (Username already taken)."
-msgstr ""
+msgstr "无法注册名称（用户名已被占用）。"
 
 #: src/usernameregistrationbox.cpp:446
 msgid "Unable to register name (Network error) - check your connection."
-msgstr ""
+msgstr "无法注册名称（网络错误） - 检查您的连接。"
 
 #: src/generalsettingsview.cpp:151
 msgid ""
@@ -981,7 +982,7 @@ msgstr "该操作不可撤销。确定删除您的所有聊天与通话记录吗
 
 #: src/generalsettingsview.cpp:221
 msgid "Choose download folder"
-msgstr ""
+msgstr "选择下载文件夹"
 
 #: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
 #: src/accountcreationwizard.cpp:757 src/chatview.cpp:281
@@ -992,19 +993,19 @@ msgstr "取消(_C)"
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
 #: src/chatview.cpp:283 src/newaccountsettingsview.cpp:909
 msgid "_Save"
-msgstr ""
+msgstr "保存(_S)"
 
 #: src/welcomeview.cpp:92
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "这是您的Jami用户名。\n复制并发送给您的朋友！"
 
 #: src/welcomeview.cpp:100
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "这是您的ID。\n复制并发送给您的朋友！"
 
 #: src/welcomeview.cpp:195
 msgid ""
@@ -1015,7 +1016,7 @@ msgstr "Jami是一种自由通信软件，它尊重用户的自由和隐私。"
 #: src/notifier.cpp:336
 msgctxt ""
 msgid "Open conversation"
-msgstr ""
+msgstr "打开会话"
 
 #: src/notifier.cpp:344 src/notifier.cpp:360
 msgctxt ""
@@ -1034,11 +1035,11 @@ msgstr "拒接"
 
 #: src/video/video_widget.cpp:558
 msgid "Share _screen area"
-msgstr ""
+msgstr "共享屏幕区域(_s)"
 
 #: src/video/video_widget.cpp:566
 msgid "Share _monitor"
-msgstr ""
+msgstr "共享监视器(_m)"
 
 #: src/video/video_widget.cpp:573
 msgid "Stream _file"
@@ -1058,7 +1059,7 @@ msgstr "打开(_O)"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "正在工作…"
 
 #: src/dialogs.c:84
 #, c-format
@@ -1066,13 +1067,13 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Free as in Freedom\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Free as in Freedom\"\n构建于%.25s"
 
 #: src/dialogs.c:137
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami：GNOME客户端\nJami是自由软件，尊重用户的通讯自由与隐私。"
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -1080,7 +1081,7 @@ msgstr ""
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "停止录制"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
@@ -1089,17 +1090,17 @@ msgstr ""
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami错误"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr ""
+msgstr "正在重试连接Jami守护进程（dring）…"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "无法连接至Jami守护进程（dring）。\nJami将立即退出。"
 
 #: src/client_options.c:66
 msgid "Enable debug"
@@ -1113,19 +1114,19 @@ msgstr "恢复主窗口的隐藏状态（仅应用于主实例）"
 
 #: src/client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr ""
+msgstr "- Jami的GNOME客户端"
 
 #: src/conversationpopupmenu.cpp:199
 msgid "Place _video call"
-msgstr ""
+msgstr "发起视频通话(_v)"
 
 #: src/conversationpopupmenu.cpp:202
 msgid "Place _audio call"
-msgstr ""
+msgstr "发起语音通话(_a)"
 
 #: src/conversationpopupmenu.cpp:210
 msgid "_Add to conversations"
-msgstr ""
+msgstr "添加到会话(_A)"
 
 #: src/conversationpopupmenu.cpp:214
 msgid "_Discard invitation"
@@ -1137,19 +1138,19 @@ msgstr ""
 
 #: src/conversationpopupmenu.cpp:222
 msgid "C_lear history"
-msgstr ""
+msgstr "清除历史记录(_l)"
 
 #: src/conversationpopupmenu.cpp:225
 msgid "_Remove conversation"
-msgstr ""
+msgstr "删除会话(_R)"
 
 #: src/conversationpopupmenu.cpp:231
 msgid "_Block contact"
-msgstr ""
+msgstr "屏蔽联系人(_B)"
 
 #: src/conversationpopupmenu.cpp:235
 msgid "_Unblock contact"
-msgstr ""
+msgstr "取消屏蔽联系人(_U)"
 
 #: src/conversationpopupmenu.cpp:242
 msgid "_Profile"
@@ -1157,15 +1158,15 @@ msgstr ""
 
 #: src/profileview.cpp:111
 msgid "(None)"
-msgstr ""
+msgstr "（无）"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "创建帐户期间发生错误。"
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "无法获取任何帐户，请验证您的PIN码和密码。"
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
@@ -1175,7 +1176,7 @@ msgstr ""
 #: src/accountcreationwizard.cpp:301
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "无法连接到提供的账户管理器。请检查您的凭据。"
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
@@ -1183,7 +1184,7 @@ msgstr "密码不匹配"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "从备份文件导入"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:278
 #: src/newaccountsettingsview.cpp:904
@@ -1200,15 +1201,15 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Account exported!"
-msgstr ""
+msgstr "帐户已导出！"
 
 #: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Export account failure."
-msgstr ""
+msgstr "导出帐户失败。"
 
 #: src/mainwindow.cpp:192
 msgid "Add account…"
-msgstr ""
+msgstr "添加帐户…"
 
 #: src/mainwindow.cpp:846
 msgctxt "button next to search entry will place a new call"
@@ -1226,18 +1227,18 @@ msgstr ""
 
 #: src/mainwindow.cpp:1069
 msgid "Migration in progress... please do not close this window."
-msgstr ""
+msgstr "正在进行迁移...请勿关闭此窗口。"
 
 #: src/mainwindow.cpp:1350
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr ""
+msgstr "查找或开始会话"
 
 #: src/mainwindow.cpp:1821
 msgid "Leave settings page"
-msgstr ""
+msgstr "离开设置页"
 
 #: src/mainwindow.cpp:2248
 msgid "There are active calls"
@@ -1253,7 +1254,7 @@ msgstr "来电"
 
 #: src/mainwindow.cpp:2445
 msgid "New request from "
-msgstr ""
+msgstr "新请求来自"
 
 #: src/mainwindow.cpp:2446
 msgid "Trust request"
@@ -1261,7 +1262,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2507
 msgid "New message"
-msgstr ""
+msgstr "新消息"
 
 #: src/mainwindow.cpp:2570
 msgid "Stop current call?"
@@ -1279,15 +1280,15 @@ msgstr "清除历史记录"
 
 #: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
-msgstr ""
+msgstr "您真的要清除此会话的历史记录吗？"
 
 #: src/mainwindow.cpp:2654
 msgid "Remove conversation"
-msgstr ""
+msgstr "移除会话"
 
 #: src/mainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
-msgstr ""
+msgstr "您真的要删除此会话吗？"
 
 #: src/mainwindow.cpp:2670
 msgid "Block contact"
@@ -1295,15 +1296,15 @@ msgstr "屏蔽联系人"
 
 #: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
-msgstr ""
+msgstr "您真的要屏蔽此联系人吗？"
 
 #: src/chatview.cpp:278
 msgid "Send File"
-msgstr ""
+msgstr "发送文件"
 
 #: src/chatview.cpp:335
 msgid "Retry"
-msgstr ""
+msgstr "重试"
 
 #: src/chatview.cpp:498
 msgid "Stop"
@@ -1319,27 +1320,27 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "无法初始化。\n请确保Jami守护程序（dring）正在运行。\n错误：%s"
 
 #: src/client.cpp:118
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami错误"
 
 #: src/client.cpp:395
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "显示Jami"
 
 #: src/client.cpp:399
 msgid "Quit"
-msgstr ""
+msgstr "退出"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:970
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
+msgstr "警告！此操作将删除此设备上的该帐户！\n注意：此操作无法撤消。另外，您的已注册名称可能会丢失！"
 
 #: src/currentcallview.cpp:937
 msgid "Current conference (all accounts)"
@@ -1351,7 +1352,7 @@ msgstr ""
 
 #: src/currentcallview.cpp:986
 msgid "Online contacts"
-msgstr ""
+msgstr "在线联系人"
 
 #: src/currentcallview.cpp:1414
 msgctxt "Enable automatic video quality"
@@ -1362,15 +1363,15 @@ msgstr "自动"
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "警告！此操作将吊销设备！\n注意：此操作无法撤消。"
 
 #: src/newaccountsettingsview.cpp:602
 msgid "Enter password to revoke device"
-msgstr ""
+msgstr "输入密码以吊销设备"
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Edit name"
-msgstr ""
+msgstr "编辑名称"
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Revoke device"
@@ -1378,7 +1379,7 @@ msgstr "吊销设备"
 
 #: src/newaccountsettingsview.cpp:682
 msgid "Error when revoking device"
-msgstr ""
+msgstr "吊销设备时发生错误"
 
 #: src/newaccountsettingsview.cpp:755
 msgid "Unban"
@@ -1391,19 +1392,19 @@ msgstr "更改密码"
 
 #: src/newaccountsettingsview.cpp:791
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "新密码和确认密码不相同！"
 
 #: src/newaccountsettingsview.cpp:802
 msgid "Incorrect password!"
-msgstr ""
+msgstr "密码错误！"
 
 #: src/newaccountsettingsview.cpp:839
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "注意：这只会更改此设备上的密码。"
 
 #: src/newaccountsettingsview.cpp:842
 msgid "Current password"
-msgstr ""
+msgstr "当前密码"
 
 #: src/newaccountsettingsview.cpp:848
 msgid "New password"
@@ -1411,7 +1412,7 @@ msgstr "新密码"
 
 #: src/newaccountsettingsview.cpp:1711
 msgid "Exporting account…"
-msgstr ""
+msgstr "正在导出帐户…"
 
 #: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"
@@ -1427,19 +1428,19 @@ msgstr "未知错误"
 
 #: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "无法导出至Jami，请重试"
 
 #: src/newaccountsettingsview.cpp:1824
 msgid "Error: wrong password!"
-msgstr ""
+msgstr "错误：密码错误！"
 
 #: src/newaccountsettingsview.cpp:1827
 msgid "Error: unknown device!"
-msgstr ""
+msgstr "错误：未知设备！"
 
 #: src/newaccountsettingsview.cpp:2000
 msgid "Initializing…"
-msgstr ""
+msgstr "正在初始化…"
 
 #: src/newaccountsettingsview.cpp:2003
 msgid "Offline"
@@ -1447,7 +1448,7 @@ msgstr "离线"
 
 #: src/newaccountsettingsview.cpp:2006
 msgid "Connecting…"
-msgstr ""
+msgstr "正在连接…"
 
 #: src/newaccountsettingsview.cpp:2009
 msgid "Online"
@@ -1455,16 +1456,16 @@ msgstr "在线"
 
 #: src/newaccountsettingsview.cpp:2013
 msgid "Unknown status"
-msgstr ""
+msgstr "未知状态"
 
 #: src/newaccountsettingsview.cpp:2046
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2046
 msgid "no password set"
-msgstr ""
+msgstr "未设置密码"
 
 #: src/newaccountsettingsview.cpp:2102
 msgid "Remove account"
-msgstr ""
+msgstr "移除账户"
