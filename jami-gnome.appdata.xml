@@ -25,6 +25,35 @@
  <url type="homepage">https://jami.net/</url>
  <url type="bugtracker">https://git.jami.net/savoirfairelinux/ring-client-gnome/issues/</url>
  <url type="translate">https://www.transifex.com/savoirfairelinux/jami</url>
+ 
+ <!-- Maximum caption length is 60 characters -->
+ <!-- Officially GIF is not an allowed video format, but it appears to work nonetheless -->
+ <screenshots>
+  <screenshot type="default">
+   <caption>Send Audio, Video and Chat messages</caption>
+   <image type="source" width="1310" height="650">https://dl.jami.net/media-resources/screenshots/jami_linux_audiovideo.png</image>
+  </screenshot>
+  <screenshot>
+   <caption>Easily share desktop contents</caption>
+   <image type="source" width="1016" height="659">https://dl.jami.net/media-resources/screenshots/jami_linux_screenshare_newrelease.png</image>
+  </screenshot>
+  <screenshot>
+   <caption>Crystal clear audio calls between Jami users</caption>
+   <video width="600" height="400">https://jami.net/assets/images/audio-call.gif</video>
+  </screenshot>
+  <screenshot>
+   <caption>Conference calls with an unlimited participants</caption>
+   <video width="600" height="400">https://jami.net/assets/images/conference.gif</video>
+  </screenshot>
+  <screenshot>
+   <caption>Encrypted and secure text messaging, no servers</caption>
+   <video width="600" height="400">https://jami.net/assets/images/chat.gif</video>
+  </screenshot>
+  <screenshot>
+   <caption>Send files of all sizes</caption>
+   <video width="600" height="400">https://jami.net/assets/images/files-share.gif</video>
+  </screenshot>
+ </screenshots>
 
  <launchable type="desktop-id">jami-gnome.desktop</launchable>
 
