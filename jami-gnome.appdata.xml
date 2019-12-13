@@ -28,10 +28,7 @@
 
  <launchable type="desktop-id">jami-gnome.desktop</launchable>
 
- <provides>
-​  <binary>jami-gnome</binary>
-  <binary>jami</binary>
-​ </provides>
+ <provides><binary>jami-gnome</binary><binary>jami</binary></provides>
 
  <categories>
   <category>Network</category>
@@ -49,8 +46,6 @@
   <content_attribute id="social-audio">intense</content_attribute>
  </content_rating>
 
- <requires>
-​  <id>net.jami.daemon</id>
-​ </requires>
+ <requires><id>net.jami.daemon</id></requires>
 
 </component>
