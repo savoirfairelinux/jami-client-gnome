@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 03:09-0500\n"
-"PO-Revision-Date: 2019-11-25 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2019-12-16 03:09-0500\n"
+"PO-Revision-Date: 2019-12-12 22:26+0000\n"
+"Last-Translator: nautilusx\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -316,7 +316,7 @@ msgstr "Übertragung an"
 
 #: ui/currentcallview.ui:616
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -410,7 +410,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Wenn Sie dies aktivieren, registrieren Sie einen eindeutigen Benutzernamen im Jami-Netzwerk. Andere Teilnehmer können Sie damit kontaktieren, anstatt deine ID zu verwenden, die 40 Zeichen lang ist."
 
 #: ui/accountcreationwizard.ui:625
 msgid ""
@@ -1080,7 +1080,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Free as in Freedom\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Frei wie in der Freiheit\"\nerstellt in %.25s"
 
 #: src/dialogs.c:137
 msgid ""
@@ -1184,7 +1184,7 @@ msgstr "Konto kann nicht geladen werden, bitte prüfe deine PIN und dein Passwor
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Konto kann nicht geladen werden, bitte prüfen Sie ihr Archiv und ihr Passwort."
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
@@ -1357,15 +1357,15 @@ msgstr "Achtung! Diese Aktion entfernt dieses Konto von diesem Gerät!\nHinweis:
 
 #: src/currentcallview.cpp:937
 msgid "Current conference (all accounts)"
-msgstr ""
+msgstr "Aktuelle Konferenz (alle Konten)"
 
 #: src/currentcallview.cpp:971
 msgid "Current calls (all accounts)"
-msgstr ""
+msgstr "Aktuelle Anrufe (alle Konten)"
 
 #: src/currentcallview.cpp:986
 msgid "Online contacts"
-msgstr ""
+msgstr "Online Kontakte"
 
 #: src/currentcallview.cpp:1414
 msgctxt "Enable automatic video quality"
@@ -1425,7 +1425,7 @@ msgstr "Neues Passwort"
 
 #: src/newaccountsettingsview.cpp:1711
 msgid "Exporting account…"
-msgstr ""
+msgstr "Konto wird exportiert..."
 
 #: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"

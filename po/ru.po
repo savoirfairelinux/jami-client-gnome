@@ -16,6 +16,7 @@
 # Natalia <sonaux@gmail.com>, 2015
 # ruwebstyle, 2015
 # Viktor Filinkov <bruteforce@sigil.tk>, 2015
+# Viktoria Phibo <queegam@gmail.com>, 2019
 # Vladimir Stoiakin, 2018-2019
 # W. Studinsky <studinsky@gmail.com>, 2019
 # W. Studinsky <studinsky@gmail.com>, 2019
@@ -30,9 +31,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 03:09-0500\n"
-"PO-Revision-Date: 2019-11-25 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2019-12-16 03:09-0500\n"
+"PO-Revision-Date: 2019-12-09 10:20+0000\n"
+"Last-Translator: Viktoria Phibo <queegam@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -415,7 +416,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Проверив это, вы зарегистрируете уникальное имя пользователя в Jami. Люди могут использовать его для связи с вами вместо использования вашего идентификатора, длина которого составляет 40 символов."
 
 #: ui/accountcreationwizard.ui:625
 msgid ""
@@ -1085,7 +1086,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Free as in Freedom\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Свободен как в Свободе\"\nпостроен на %.25s"
 
 #: src/dialogs.c:137
 msgid ""
@@ -1189,7 +1190,7 @@ msgstr "Не удалось получить учетную запись. Пож
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Не удается получить какую-либо учетную запись, пожалуйста, проверьте свой архив и пароль."
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
@@ -1430,7 +1431,7 @@ msgstr "Новый пароль"
 
 #: src/newaccountsettingsview.cpp:1711
 msgid "Exporting account…"
-msgstr ""
+msgstr "Экспорт аккаунта…"
 
 #: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"
