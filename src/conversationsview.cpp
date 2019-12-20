@@ -278,6 +278,10 @@ update_conversation(ConversationsView *self, const std::string& uid) {
         if(std::string(ringId) == uid) {
             // Get informations
             auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(idx);
+            if (conversation.participants.empty()) {
+                g_free(ringId);
+                return;
+            }
             auto contactUri = conversation.participants.front();
             auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
             auto lastMessage = conversation.interactions.empty() ? "" :
