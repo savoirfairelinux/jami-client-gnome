@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Niels van Duijkeren <nielsvanduijkeren@gmail.com>, 2019
+# nielsvd <nielsvanduijkeren@gmail.com>, 2019
 # Nathan Follens, 2019
 # 
 #, fuzzy
