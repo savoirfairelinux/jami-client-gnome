@@ -141,6 +141,8 @@ struct MainWindowPrivate
 #if USE_LIBNM
     /* NetworkManager */
     NMClient *nm_client;
+    guint timerCallbackId_ {0};
+    NMConnectivityState connState_ {NMConnectivityState::NM_CONNECTIVITY_FULL};
 #endif
 };
 
@@ -1136,12 +1138,45 @@ log_connection_info(NMActiveConnection *connection)
 }
 
 static void
-primary_connection_changed(NMClient *nm,  GParamSpec*, MainWindow* self)
+check_connectivity_finished(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result, gpointer self)
+{
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
+    GError* error = nullptr;
+    NMConnectivityState state = nm_client_check_connectivity_finish(priv->nm_client, result, &error);
+    if (error) {
+        g_warning("error when getting connectivity status: %s", error->message);
+        g_clear_error(&error);
+        if (priv->connState_ != NMConnectivityState::NM_CONNECTIVITY_UNKNOWN) {
+            priv->connState_ = NMConnectivityState::NM_CONNECTIVITY_UNKNOWN;
+        }
+        return;
+    }
+    if (priv->connState_ != state) {
+        g_debug("Connectivity state changed");
+        priv->connState_ = state;
+        priv->cpp->lrc_->connectivityChanged();
+    }
+}
+
+static void
+primary_connection_changed(NMClient *nm, GParamSpec*, MainWindow* self)
 {
     auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     auto connection = nm_client_get_primary_connection(nm);
     log_connection_info(connection);
-    priv->cpp->lrc_->connectivityChanged();
+    // Only inform if connectivity is in a right state
+    nm_client_check_connectivity_async(priv->nm_client, priv->cancellable, check_connectivity_finished, self);
+}
+
+static gboolean
+on_timer_update(gpointer user_data)
+{
+    // Refresh connectivity status
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(user_data));
+    g_return_val_if_fail(priv, false);
+    nm_client_check_connectivity_async(priv->nm_client, priv->cancellable, check_connectivity_finished, user_data);
+    // Continue timer
+    return true;
 }
 
 static void
@@ -1159,7 +1194,11 @@ nm_client_cb(G_GNUC_UNUSED GObject *source_object, GAsyncResult *result,  MainWi
 
         auto connection = nm_client_get_primary_connection(nm_client);
         log_connection_info(connection);
-        g_signal_connect(nm_client, "notify::active-connections", G_CALLBACK(primary_connection_changed), self);
+        g_signal_connect(nm_client, "notify::state", G_CALLBACK(primary_connection_changed), self);
+
+        // Detect connectivity state changes. Disconnection from a network is not detected by previous signal
+        if (!priv->timerCallbackId_)
+            priv->timerCallbackId_ = g_timeout_add_seconds(10, on_timer_update, self);
 
     } else {
         g_warning("error initializing NetworkManager client: %s", error->message);
@@ -1174,8 +1213,8 @@ CppImpl::init()
 {
     widgets->cancellable = g_cancellable_new();
 #if USE_LIBNM
-     // monitor the network using libnm to notify the daemon about connectivity changes
-     nm_client_new_async(widgets->cancellable, (GAsyncReadyCallback)nm_client_cb, self);
+    // monitor the network using libnm to notify the daemon about connectivity changes
+    nm_client_new_async(widgets->cancellable, (GAsyncReadyCallback)nm_client_cb, self);
 #endif
 
     smartviewPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(widgets->notebook_contacts),
@@ -2808,6 +2847,11 @@ main_window_dispose(GObject *object)
         g_cancellable_cancel(priv->cancellable);
         g_object_unref(priv->cancellable);
         priv->cancellable = nullptr;
+    }
+
+    if (priv->timerCallbackId_) {
+        g_source_remove(priv->timerCallbackId_);
+        priv->timerCallbackId_ = 0;
     }
 
 #if USE_LIBNM
