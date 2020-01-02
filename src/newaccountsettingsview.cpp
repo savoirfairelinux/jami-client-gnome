@@ -986,8 +986,8 @@ update_allow_call(GObject*, GParamSpec*, NewAccountSettingsView *view)
     if (!is_config_ok(view)) return;
     auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
     auto newState = gtk_switch_get_active(GTK_SWITCH(priv->call_allow_button));
-    if (newState != priv->currentProp_->allowIncoming) {
-        priv->currentProp_->allowIncoming = newState;
+    if (newState != priv->currentProp_->DHT.PublicInCalls) {
+        priv->currentProp_->DHT.PublicInCalls = newState;
         new_account_settings_view_save_account(view);
     }
 }
@@ -2184,7 +2184,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
     draw_codecs(view);
 
     // advanced
-    gtk_switch_set_active(GTK_SWITCH(priv->call_allow_button), priv->currentProp_->allowIncoming);
+    gtk_switch_set_active(GTK_SWITCH(priv->call_allow_button), priv->currentProp_->DHT.PublicInCalls);
     gtk_switch_set_active(GTK_SWITCH(priv->auto_answer_button), priv->currentProp_->autoAnswer);
 
     gtk_entry_set_text(GTK_ENTRY(priv->entry_name_server), priv->currentProp_->RingNS.uri.c_str());
