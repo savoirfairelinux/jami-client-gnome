@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Caspar Cedro <casparcedro96@gmail.com>, 2016
+# Michał Majek <michal.majek@wp.pl>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-30 03:09-0500\n"
-"PO-Revision-Date: 2019-11-25 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-01-06 03:09-0500\n"
+"PO-Revision-Date: 2020-01-01 18:10+0000\n"
+"Last-Translator: Michał Majek <michal.majek@wp.pl>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/savoirfairelinux/jami/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -299,7 +300,7 @@ msgstr "Prześlij do"
 
 #: ui/currentcallview.ui:616
 msgid "Add"
-msgstr ""
+msgstr "Dodaj"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -483,7 +484,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:197
 msgid "Notifications"
-msgstr ""
+msgstr "Powiadomienia"
 
 #: ui/generalsettingsview.ui:236
 msgid "Enable notifications for incoming calls"
@@ -1300,11 +1301,11 @@ msgstr "Wyślij plik"
 
 #: src/chatview.cpp:335
 msgid "Retry"
-msgstr ""
+msgstr "Ponów"
 
 #: src/chatview.cpp:498
 msgid "Stop"
-msgstr ""
+msgstr "Stop"
 
 #: src/chatview.cpp:1007
 msgid "Send"
@@ -1408,7 +1409,7 @@ msgstr "Nowe hasło"
 
 #: src/newaccountsettingsview.cpp:1711
 msgid "Exporting account…"
-msgstr ""
+msgstr "Eksportowanie konta"
 
 #: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"
@@ -1464,4 +1465,4 @@ msgstr "nie ustawiono hasła"
 
 #: src/newaccountsettingsview.cpp:2102
 msgid "Remove account"
-msgstr ""
+msgstr "Usuń konto"
