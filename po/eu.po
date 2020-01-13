@@ -4,13 +4,14 @@
 # 
 # Translators:
 # i4sal <i4sala@protonmail.com>, 2018
+# Osoitz <oelkoro@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-06 03:09-0500\n"
-"PO-Revision-Date: 2019-11-25 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-01-13 03:09-0500\n"
+"PO-Revision-Date: 2020-01-12 09:52+0000\n"
+"Last-Translator: Osoitz <oelkoro@gmail.com>\n"
 "Language-Team: Basque (http://www.transifex.com/savoirfairelinux/jami/language/eu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -150,7 +151,7 @@ msgstr ""
 
 #: ui/mainwindow.ui:57
 msgid "Menu"
-msgstr ""
+msgstr "Menua"
 
 #: ui/mainwindow.ui:80
 msgid "General"
@@ -225,11 +226,11 @@ msgstr ""
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
-msgstr ""
+msgstr "Amaitu dei hau"
 
 #: ui/currentcallview.ui:255 ui/currentcallview.ui:511
 msgid "End call"
-msgstr ""
+msgstr "Amaitu deia"
 
 #: ui/currentcallview.ui:275 ui/currentcallview.ui:493
 msgid "Add participant"
@@ -258,7 +259,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:367 ui/currentcallview.ui:475
 msgid "Mute video"
-msgstr ""
+msgstr "Isilarazi bideoa"
 
 #: ui/currentcallview.ui:388
 msgid "Toggle recording"
@@ -267,7 +268,7 @@ msgstr ""
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
 #: ui/messagingwidget.ui:29 src/chatview.cpp:345
 msgid "Record"
-msgstr ""
+msgstr "Grabatu"
 
 #: ui/currentcallview.ui:412
 msgid "Adjust outgoing video quality"
@@ -279,15 +280,15 @@ msgstr ""
 
 #: ui/currentcallview.ui:436
 msgid "Toggle show chat"
-msgstr ""
+msgstr "Txandakatu txata erakustea"
 
 #: ui/currentcallview.ui:440 ui/currentcallview.ui:457
 msgid "Chat"
-msgstr ""
+msgstr "Txata"
 
 #: ui/currentcallview.ui:466
 msgid "Mute audio"
-msgstr ""
+msgstr "Isilarazi bideoa"
 
 #: ui/currentcallview.ui:502
 msgid "Transfer"
@@ -331,7 +332,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
-msgstr ""
+msgstr "Aurreratua..."
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
@@ -372,7 +373,7 @@ msgstr ""
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
 msgid "Previous"
-msgstr ""
+msgstr "Aurrekoa"
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:711
 #: ui/accountcreationwizard.ui:1092
@@ -382,7 +383,7 @@ msgstr "Hurengoa"
 #: ui/accountcreationwizard.ui:442 ui/profile.ui:7
 #: ui/newaccountsettingsview.ui:307
 msgid "Profile"
-msgstr ""
+msgstr "Profila"
 
 #: ui/accountcreationwizard.ui:560
 msgid "Register username"
@@ -515,7 +516,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:494
 msgid "History"
-msgstr ""
+msgstr "Historiala"
 
 #: ui/generalsettingsview.ui:533
 msgid "Keep history for (days, 0 = unlimited)"
@@ -523,7 +524,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:563
 msgid "Clear all history"
-msgstr ""
+msgstr "Garbitu historial osoa"
 
 #: ui/generalsettingsview.ui:595
 msgid "Call Recording"
@@ -551,7 +552,7 @@ msgstr ""
 
 #: ui/profile.ui:88 ui/newaccountsettingsview.ui:433
 msgid "ID"
-msgstr ""
+msgstr "IDa"
 
 #: ui/profile.ui:153
 msgid "QR Code"
@@ -587,11 +588,11 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:172
 msgid "Device:"
-msgstr ""
+msgstr "Gailua:"
 
 #: ui/mediasettingsview.ui:184
 msgid "Channel:"
-msgstr ""
+msgstr "Kanala:"
 
 #: ui/mediasettingsview.ui:196
 msgid "Resolution:"
@@ -611,11 +612,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
-msgstr ""
+msgstr "Gehitu gailua"
 
 #: ui/newaccountsettingsview.ui:131
 msgid "Add New Device"
-msgstr ""
+msgstr "Gehitu gailu berria"
 
 #: ui/newaccountsettingsview.ui:146
 msgid ""
@@ -690,7 +691,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
-msgstr ""
+msgstr "Dei-ezarpenak"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow call from untrusted peers"
@@ -710,7 +711,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
 msgid "Address"
-msgstr ""
+msgstr "Helbidea"
 
 #: ui/newaccountsettingsview.ui:1332
 msgid "OpenDHT configuration"
@@ -742,19 +743,19 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
-msgstr ""
+msgstr "CA ziurtagiria"
 
 #: ui/newaccountsettingsview.ui:1689
 msgid "User certificate"
-msgstr ""
+msgstr "Erabiltzaile-ziurtagiria"
 
 #: ui/newaccountsettingsview.ui:1725
 msgid "Private key"
-msgstr ""
+msgstr "Gako pribatua"
 
 #: ui/newaccountsettingsview.ui:1761
 msgid "Private key password"
-msgstr ""
+msgstr "Gako pribatuaren pasahitza"
 
 #: ui/newaccountsettingsview.ui:1799
 msgid "TLS protocol method"
@@ -798,7 +799,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2136
 msgid "UPnP"
-msgstr ""
+msgstr "UPnP"
 
 #: ui/newaccountsettingsview.ui:2171
 msgid "Use TURN"
@@ -838,7 +839,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2522
 msgid "Port"
-msgstr ""
+msgstr "Ataka"
 
 #: ui/newaccountsettingsview.ui:2558
 msgid "Video codecs"
@@ -984,12 +985,12 @@ msgstr ""
 #: src/accountcreationwizard.cpp:757 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:907
 msgid "_Cancel"
-msgstr ""
+msgstr "_Utzi"
 
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
 #: src/chatview.cpp:283 src/newaccountsettingsview.cpp:909
 msgid "_Save"
-msgstr ""
+msgstr "_Gorde"
 
 #: src/welcomeview.cpp:92
 msgid ""
@@ -1051,11 +1052,11 @@ msgstr ""
 
 #: src/avatarmanipulation.cpp:416 src/chatview.cpp:283
 msgid "_Open"
-msgstr ""
+msgstr "_Irten"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "Lanean..."
 
 #: src/dialogs.c:84
 #, c-format
@@ -1086,7 +1087,7 @@ msgstr ""
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami Errorea"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
@@ -1154,7 +1155,7 @@ msgstr ""
 
 #: src/profileview.cpp:111
 msgid "(None)"
-msgstr ""
+msgstr "(Bat ere ez)"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
@@ -1176,7 +1177,7 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Pasahitzak ez datoz bat"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
@@ -1185,7 +1186,7 @@ msgstr ""
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:278
 #: src/newaccountsettingsview.cpp:904
 msgid "Save File"
-msgstr ""
+msgstr "Gorde fitxategia"
 
 #: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:931
 msgid "You need to enter your password to export the full archive."
@@ -1205,7 +1206,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:192
 msgid "Add account…"
-msgstr ""
+msgstr "Gehitu kontua..."
 
 #: src/mainwindow.cpp:846
 msgctxt "button next to search entry will place a new call"
@@ -1296,7 +1297,7 @@ msgstr ""
 
 #: src/chatview.cpp:278
 msgid "Send File"
-msgstr ""
+msgstr "Bidali fitxategia"
 
 #: src/chatview.cpp:335
 msgid "Retry"
@@ -1320,13 +1321,13 @@ msgstr ""
 
 #: src/client.cpp:118
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami Errorea"
 
 #: src/client.cpp:395
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "Erakutsi Jami"
 
 #: src/client.cpp:399
 msgid "Quit"
@@ -1400,7 +1401,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:842
 msgid "Current password"
-msgstr ""
+msgstr "Uneko pasahitza"
 
 #: src/newaccountsettingsview.cpp:848
 msgid "New password"
@@ -1436,7 +1437,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2000
 msgid "Initializing…"
-msgstr ""
+msgstr "Hasieratzen..."
 
 #: src/newaccountsettingsview.cpp:2003
 msgid "Offline"
@@ -1444,7 +1445,7 @@ msgstr "Deskonektatuta"
 
 #: src/newaccountsettingsview.cpp:2006
 msgid "Connecting…"
-msgstr ""
+msgstr "Konektatzen..."
 
 #: src/newaccountsettingsview.cpp:2009
 msgid "Online"
