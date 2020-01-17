@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015-2019 Savoir-faire Linux Inc.
+ *  Copyright (C) 2015-2020 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -130,7 +130,7 @@ about_dialog(GtkWidget *parent)
     gtk_show_about_dialog(
         GTK_WINDOW(parent),
         "program-name", "",
-        "copyright", "© 2019 Savoir-faire Linux",
+        "copyright", "© 2020 Savoir-faire Linux",
         "license-type", GTK_LICENSE_GPL_3_0,
         "logo", logo,
         "version", version,
