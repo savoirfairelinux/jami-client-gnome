@@ -5,13 +5,13 @@
 # Translators:
 # Guillaume Roguez, 2015
 # Mantas Kriaučiūnas <mantas@akl.lt>, 2015
-# Moo, 2015-2019
+# Moo, 2015-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-13 03:09-0500\n"
-"PO-Revision-Date: 2019-11-27 18:02+0000\n"
+"POT-Creation-Date: 2020-01-20 03:09-0500\n"
+"PO-Revision-Date: 2020-01-19 22:47+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/jami/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -38,17 +38,17 @@ msgstr "Atverti paskyrų sąrašą"
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Select search bar"
-msgstr ""
+msgstr "Pasirinkti paieškos juostą"
 
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Focus the list of conversations"
-msgstr ""
+msgstr "Fokusuoti pokalbių sąrašą"
 
 #: ui/help-overlay.ui:46
 msgctxt "shortcut window"
 msgid "Focus the list pending requests"
-msgstr ""
+msgstr "Fokusuoti laukiančių užklausų sąrašą"
 
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
@@ -219,7 +219,7 @@ msgstr "Perkelti paskyrą"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "Perkeliama jūsų Jami paskyra…"
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
@@ -1278,7 +1278,7 @@ msgstr "Išvalyti istoriją"
 
 #: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
-msgstr ""
+msgstr "Ar tikrai norite išvalyti šio pokalbio istoriją?"
 
 #: src/mainwindow.cpp:2654
 msgid "Remove conversation"
@@ -1286,7 +1286,7 @@ msgstr "Šalinti pokalbį"
 
 #: src/mainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
-msgstr ""
+msgstr "Ar tikrai norite pašalinti šį pokalbį?"
 
 #: src/mainwindow.cpp:2670
 msgid "Block contact"
@@ -1410,7 +1410,7 @@ msgstr "Naujas slaptažodis"
 
 #: src/newaccountsettingsview.cpp:1711
 msgid "Exporting account…"
-msgstr ""
+msgstr "Eksportuojama paskyra…"
 
 #: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"

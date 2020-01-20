@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-13 03:09-0500\n"
-"PO-Revision-Date: 2019-12-30 03:33+0000\n"
-"Last-Translator: Mahoro\n"
+"POT-Creation-Date: 2020-01-20 03:09-0500\n"
+"PO-Revision-Date: 2020-01-19 11:05+0000\n"
+"Last-Translator: Mahoro <mahoro@riseup.net>\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/jami/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -356,7 +356,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
-msgstr ""
+msgstr "PIN"
 
 #: ui/accountcreationwizard.ui:349
 msgid ""
@@ -659,7 +659,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
-msgstr ""
+msgstr "パスワード"
 
 #: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1371
 msgid "Proxy"
@@ -907,7 +907,7 @@ msgstr "拒否"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr ""
+msgstr "撮影"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
@@ -1421,7 +1421,7 @@ msgstr "ネットワークエラーが発生しました。もう一度試して
 
 #: src/newaccountsettingsview.cpp:1752
 msgid "Unknown error"
-msgstr ""
+msgstr "不明なエラー"
 
 #: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"

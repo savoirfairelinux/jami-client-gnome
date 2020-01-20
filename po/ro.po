@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-13 03:09-0500\n"
-"PO-Revision-Date: 2019-11-25 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-01-20 03:09-0500\n"
+"PO-Revision-Date: 2020-01-19 16:37+0000\n"
+"Last-Translator: drazvan\n"
 "Language-Team: Romanian (http://www.transifex.com/savoirfairelinux/jami/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,7 +70,7 @@ msgstr ""
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Clear history"
-msgstr ""
+msgstr "Ștergere istoric"
 
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
@@ -85,7 +85,7 @@ msgstr ""
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
-msgstr ""
+msgstr "Blocați contactul"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
@@ -376,7 +376,7 @@ msgstr ""
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:711
 #: ui/accountcreationwizard.ui:1092
 msgid "Next"
-msgstr ""
+msgstr "Înainte"
 
 #: ui/accountcreationwizard.ui:442 ui/profile.ui:7
 #: ui/newaccountsettingsview.ui:307
@@ -430,7 +430,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:813
 msgid "Skip"
-msgstr ""
+msgstr "Sari"
 
 #: ui/accountcreationwizard.ui:839
 msgid "Registering username…"
@@ -466,7 +466,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
-msgstr ""
+msgstr "Sistem"
 
 #: ui/generalsettingsview.ui:89
 msgid "Start application on login"
@@ -897,7 +897,7 @@ msgstr ""
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
-msgstr ""
+msgstr "Acceptă"
 
 #: ui/incomingcallview.ui:172
 msgid "Reject"
@@ -1016,12 +1016,12 @@ msgstr ""
 #: src/notifier.cpp:344 src/notifier.cpp:360
 msgctxt ""
 msgid "Accept"
-msgstr ""
+msgstr "Acceptă"
 
 #: src/notifier.cpp:351
 msgctxt ""
 msgid "Refuse"
-msgstr ""
+msgstr "Refuzați"
 
 #: src/notifier.cpp:367
 msgctxt ""
@@ -1271,7 +1271,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2638
 msgid "Clear history"
-msgstr ""
+msgstr "Ștergere istoric"
 
 #: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
@@ -1287,7 +1287,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2670
 msgid "Block contact"
-msgstr ""
+msgstr "Blocați contactul"
 
 #: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
@@ -1307,7 +1307,7 @@ msgstr "Stop"
 
 #: src/chatview.cpp:1007
 msgid "Send"
-msgstr ""
+msgstr "Trimite"
 
 #: src/client.cpp:115
 #, c-format
