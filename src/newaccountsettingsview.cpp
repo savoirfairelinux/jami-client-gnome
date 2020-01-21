@@ -199,6 +199,7 @@ struct _NewAccountSettingsViewPrivate
     QMetaObject::Connection device_removed_connection;
     QMetaObject::Connection banned_status_changed_connection;
     QMetaObject::Connection export_on_ring_ended;
+    QMetaObject::Connection active_codec_list_changed;
 
     lrc::api::AVModel* avModel_;
 };
@@ -226,6 +227,7 @@ new_account_settings_view_dispose(GObject *object)
     QObject::disconnect(priv->device_removed_connection);
     QObject::disconnect(priv->banned_status_changed_connection);
     QObject::disconnect(priv->export_on_ring_ended);
+    QObject::disconnect(priv->active_codec_list_changed);
 
     // make sure the VideoWidget is destroyed
     new_account_settings_view_show(NEW_ACCOUNT_SETTINGS_VIEW(object), FALSE);
@@ -1804,6 +1806,31 @@ build_settings_view(NewAccountSettingsView* view)
             // if exists, add to list
             add_device(view, device);
             gtk_widget_show_all(priv->list_devices);
+        });
+
+    priv->active_codec_list_changed = QObject::connect(
+        &*(*priv->accountInfo_)->accountModel,
+        &lrc::api::NewAccountModel::activeCodecListChanged,
+        [view] (const std::string& id, std::vector<unsigned> list) {
+            auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
+            unsigned index = 0;
+            // Parse all rows in the list box
+            while(auto* row = gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_video_codecs), index++)) {
+                auto* children = gtk_container_get_children(GTK_CONTAINER(row));
+                if (children) {
+                    auto* box = gtk_container_get_children(GTK_CONTAINER(g_list_first(children)->data));
+                    auto* switch_btn = g_list_last(box)->data;
+                    auto id = g_object_get_data(G_OBJECT(switch_btn), "id");
+                    // Check if the codecid is in the list
+                    auto it = find (list.begin(), list.end(), GPOINTER_TO_UINT(id));
+                    if (it != list.end()) {
+                        // turn on the switch if it's in the list
+                        gtk_switch_set_active(GTK_SWITCH(switch_btn), true);
+                    } else {
+                        gtk_switch_set_active(GTK_SWITCH(switch_btn), false);
+                    }
+                }
+            }
         });
 
     priv->device_removed_connection = QObject::connect(
