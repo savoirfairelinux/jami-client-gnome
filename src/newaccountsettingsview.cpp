@@ -199,6 +199,7 @@ struct _NewAccountSettingsViewPrivate
     QMetaObject::Connection device_removed_connection;
     QMetaObject::Connection banned_status_changed_connection;
     QMetaObject::Connection export_on_ring_ended;
+    QMetaObject::Connection active_codec_list_changed;
 
     lrc::api::AVModel* avModel_;
 };
@@ -226,6 +227,7 @@ new_account_settings_view_dispose(GObject *object)
     QObject::disconnect(priv->device_removed_connection);
     QObject::disconnect(priv->banned_status_changed_connection);
     QObject::disconnect(priv->export_on_ring_ended);
+    QObject::disconnect(priv->active_codec_list_changed);
 
     // make sure the VideoWidget is destroyed
     new_account_settings_view_show(NEW_ACCOUNT_SETTINGS_VIEW(object), FALSE);
@@ -1804,6 +1806,13 @@ build_settings_view(NewAccountSettingsView* view)
             // if exists, add to list
             add_device(view, device);
             gtk_widget_show_all(priv->list_devices);
+        });
+
+    priv->active_codec_list_changed = QObject::connect(
+        &*(*priv->accountInfo_)->codecModel,
+        &lrc::api::NewCodecModel::activeCodecListChanged,
+        [view] (const std::string& id, std::vector<unsigned> list) {
+            draw_codecs(view);
         });
 
     priv->device_removed_connection = QObject::connect(
