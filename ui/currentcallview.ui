@@ -185,6 +185,19 @@
       </packing>
     </child>
     <!-- end of box which contains peer name and uri -->
+    <child>
+      <object class="GtkBox" id="hbox_remote_info">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">center</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
 
     <!-- call status box -->
     <child>
@@ -230,6 +243,26 @@
     <!-- end of call status box -->
   </object>
   <!-- end of box which contains peer image and name -->
+
+  <!-- box which contains remoteInfo -->
+  <object class="GtkBox" id="border_remote_info">
+    <style>
+      <class name="remote-recording-block-style"/>
+    </style>
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="halign">center</property>
+    <property name="valign">start</property>
+    <property name="orientation">horizontal</property>
+    <child>
+      <object class="GtkLabel" id="label_remoteRecord_information">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+    </child>
+  </object>
+  <!-- end of box which contains remoteInfo -->
+
 
   <!-- call control button box -->
   <object class="GtkBox" id="hbox_call_controls">
