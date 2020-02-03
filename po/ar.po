@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Ahmed IB <mee.tbhole@gmail.com>, 2020
 # Jihed Amine Maaref <jihed-amine.maaref@savoirfairelinux.com>, 2015
 # Moo Dooh <mxr2z@grr.la>, 2016
 # OmarRi <om_80_m@yahoo.com>, 2016
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-27 03:09-0500\n"
-"PO-Revision-Date: 2020-01-15 17:49+0000\n"
-"Last-Translator: Sofian Benissa <sofian_aesa@yahoo.com>\n"
+"POT-Creation-Date: 2020-02-03 03:09-0500\n"
+"PO-Revision-Date: 2020-02-02 18:44+0000\n"
+"Last-Translator: Ahmed IB <mee.tbhole@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/savoirfairelinux/jami/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -181,7 +182,7 @@ msgstr "طلبات الإتصال"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
-msgstr ""
+msgstr "يتوجب ترحيل الحساب"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
@@ -357,7 +358,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
-msgstr ""
+msgstr "رمز الأمان"
 
 #: ui/accountcreationwizard.ui:349
 msgid ""
@@ -489,7 +490,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:236
 msgid "Enable notifications for incoming calls"
-msgstr ""
+msgstr "تفعيل الإشعارات للمكالمات الواردة"
 
 #: ui/generalsettingsview.ui:272
 msgid "Enable notifications for pending requests"
@@ -553,7 +554,7 @@ msgstr ""
 
 #: ui/profile.ui:88 ui/newaccountsettingsview.ui:433
 msgid "ID"
-msgstr ""
+msgstr "المُعرّف"
 
 #: ui/profile.ui:153
 msgid "QR Code"
@@ -561,7 +562,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
-msgstr ""
+msgstr "إعدادات الصوت"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
@@ -585,7 +586,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:156
 msgid "Camera Settings"
-msgstr ""
+msgstr "إعدادات الكاميرا"
 
 #: ui/mediasettingsview.ui:172
 msgid "Device:"
@@ -628,11 +629,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
-msgstr ""
+msgstr "كلمة المرور (مطلوبة):"
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
-msgstr ""
+msgstr "أدخِل كلمة مرور الأرشيف"
 
 #: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:864
 msgid "Cancel"
@@ -668,15 +669,15 @@ msgstr "الوكيل"
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
-msgstr ""
+msgstr "البريد الصوتي"
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "الأجهزة المعروفة المتصلة بحساب جامي هذا "
 
 #: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
-msgstr ""
+msgstr "اربط جهازاً آخر"
 
 #: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
@@ -692,19 +693,19 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
-msgstr ""
+msgstr "إعدادات الاتصال"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow call from untrusted peers"
-msgstr ""
+msgstr "السماح لأطراف غير موثوقة بالاتصال"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
-msgstr ""
+msgstr "الرد الآلي على المكالمات "
 
 #: ui/newaccountsettingsview.ui:1217
 msgid "Custom ringtone"
-msgstr ""
+msgstr "نغمة مخصصة"
 
 #: ui/newaccountsettingsview.ui:1261
 msgid "Name server"
@@ -716,7 +717,7 @@ msgstr "العنوان"
 
 #: ui/newaccountsettingsview.ui:1332
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "تهيئة OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1416
 msgid "Auto connect on local network"
@@ -788,7 +789,7 @@ msgstr "تأمين"
 
 #: ui/newaccountsettingsview.ui:2025
 msgid "Connectivity"
-msgstr ""
+msgstr "الاتصال"
 
 #: ui/newaccountsettingsview.ui:2063
 msgid "Registration expire timeout (seconds)"
@@ -796,11 +797,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Network interface"
-msgstr ""
+msgstr "واجهة الشبكة"
 
 #: ui/newaccountsettingsview.ui:2136
 msgid "UPnP"
-msgstr ""
+msgstr "بروتوكول UPnP"
 
 #: ui/newaccountsettingsview.ui:2171
 msgid "Use TURN"
@@ -832,11 +833,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2414
 msgid "Published address"
-msgstr ""
+msgstr "العنوان المنشور"
 
 #: ui/newaccountsettingsview.ui:2451
 msgid "Use custom address and port"
-msgstr ""
+msgstr "استخدام عنوان ونقطة عبور مخصصين"
 
 #: ui/newaccountsettingsview.ui:2522
 msgid "Port"
@@ -908,15 +909,15 @@ msgstr ""
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr ""
+msgstr "التقاط صورة"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr ""
+msgstr "اختيار صورة من ملف"
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
-msgstr ""
+msgstr "رجوع"
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
@@ -986,7 +987,7 @@ msgstr ""
 #: src/accountcreationwizard.cpp:757 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:907
 msgid "_Cancel"
-msgstr ""
+msgstr "_إلغاء"
 
 #: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
 #: src/chatview.cpp:283 src/newaccountsettingsview.cpp:909
@@ -1053,7 +1054,7 @@ msgstr ""
 
 #: src/avatarmanipulation.cpp:416 src/chatview.cpp:283
 msgid "_Open"
-msgstr ""
+msgstr "_فتح"
 
 #: src/dialogs.c:53
 msgid "Working…"
@@ -1302,7 +1303,7 @@ msgstr ""
 
 #: src/chatview.cpp:335
 msgid "Retry"
-msgstr ""
+msgstr "إعادة المحاولة"
 
 #: src/chatview.cpp:498
 msgid "Stop"
@@ -1369,7 +1370,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Edit name"
-msgstr ""
+msgstr "تعديل الاسم"
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Revoke device"
@@ -1422,7 +1423,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:1752
 msgid "Unknown error"
-msgstr ""
+msgstr "خطأ غير معروف"
 
 #: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"
