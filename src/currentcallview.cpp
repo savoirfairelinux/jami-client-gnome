@@ -78,6 +78,9 @@ struct CurrentCallViewPrivate
     GtkWidget *hbox_call_info;
     GtkWidget *hbox_call_status;
     GtkWidget *hbox_call_controls;
+    GtkWidget *hbox_remote_info;
+    GtkWidget *border_remote_info;
+    GtkWidget *revealer_remote_recording;
     GtkWidget *vbox_call_smartInfo;
     GtkWidget *vbox_peer_identity;
     GtkWidget *image_peer;
@@ -88,6 +91,7 @@ struct CurrentCallViewPrivate
     GtkWidget *label_smartinfo_description;
     GtkWidget *label_smartinfo_value;
     GtkWidget *label_smartinfo_general_information;
+    GtkWidget *label_remoteRecord_information;
     GtkWidget *paned_call;
     GtkWidget *frame_video;
     GtkWidget *video_widget;
@@ -168,6 +172,19 @@ create_fade_out_transition()
     return transition;
 }
 
+
+static GtkWidget*
+create_transition_recording()
+{
+    auto* revealer = gtk_revealer_new();
+    gtk_revealer_set_transition_type(GTK_REVEALER(revealer), GTK_REVEALER_TRANSITION_TYPE_SLIDE_DOWN);
+    gtk_widget_set_halign(revealer, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign(revealer, GTK_ALIGN_START);
+    gtk_revealer_set_transition_duration(GTK_REVEALER(revealer), 1000);
+    gtk_widget_set_visible(revealer, TRUE);
+    return revealer;
+}
+
 static GtkBox *
 gtk_scale_button_get_box(GtkScaleButton *button)
 {
@@ -234,6 +251,9 @@ public:
     void checkControlsFading();
     void update_view();
     void update_participants_hovers(const QString& callId);
+    void checkRemoteFading();
+    void set_remote_record_animation(std::string callId, QSet<QString> peerName, bool state);
+
     CurrentCallView* self = nullptr; // The GTK widget itself
     CurrentCallViewPrivate* widgets = nullptr;
 
@@ -246,12 +266,14 @@ public:
     QMetaObject::Connection update_vcard_connection;
     QMetaObject::Connection renderer_connection;
     QMetaObject::Connection smartinfo_refresh_connection;
+    QMetaObject::Connection remoteinfo_connection;
 
     // for clutter animations and to know when to fade in/out the overlays
     ClutterTransition* fade_info = nullptr;
     ClutterTransition* fade_controls = nullptr;
     gint64 time_last_mouse_motion = 0;
     guint timer_fade = 0;
+    guint timer_record_fade = 0;
 
     /* flag used to keep track of the video quality scale pressed state;
      * we do not want to update the codec bitrate until the user releases the
@@ -347,6 +369,15 @@ on_timer_fade_timeout(CurrentCallView* view)
     g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), G_SOURCE_REMOVE);
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
     priv->cpp->checkControlsFading();
+    return G_SOURCE_CONTINUE;
+}
+
+static gboolean
+on_timer_record_fade_timeout(CurrentCallView* view)
+{
+    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), G_SOURCE_REMOVE);
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+    priv->cpp->checkRemoteFading();
     return G_SOURCE_CONTINUE;
 }
 
@@ -951,9 +982,11 @@ CppImpl::~CppImpl()
     QObject::disconnect(update_vcard_connection);
     QObject::disconnect(renderer_connection);
     QObject::disconnect(smartinfo_refresh_connection);
+    QObject::disconnect(remoteinfo_connection);
     g_clear_object(&widgets->settings);
 
     if (timer_fade) g_source_remove(timer_fade);
+    if (timer_record_fade) g_source_remove(timer_record_fade);
 
     auto* display_smartinfo = g_action_map_lookup_action(G_ACTION_MAP(g_application_get_default()),
                                                         "display-smartinfo");
@@ -968,6 +1001,7 @@ CppImpl::init()
     gtk_css_provider_load_from_data(provider,
         ".search-entry-style { border: 0; border-radius: 0; } \
         .smartinfo-block-style { color: #8ae234; background-color: rgba(1, 1, 1, 0.33); } \
+        .remote-recording-block-style { color:rgba(255,255,255,0.7); background-color:rgba(1, 1, 1, 0.3); padding-left: 30px; padding-right: 30px; padding-top: 3px; padding-bottom: 3px; } \
         @keyframes blink { 0% {opacity: 1;} 49% {opacity: 1;} 50% {opacity: 0;} 100% {opacity: 0;} } \
         .record-button { background: rgba(0, 0, 0, 1); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
         .record-button:checked { animation: blink 1s; animation-iteration-count: infinite; } \
@@ -1415,6 +1449,16 @@ CppImpl::setCallInfo()
         // The renderer doesn't exist for now. Ignore
     }
 
+    widgets->revealer_remote_recording = create_transition_recording();
+    gtk_container_add(GTK_CONTAINER(widgets->revealer_remote_recording), widgets->border_remote_info);
+    gtk_container_add(GTK_CONTAINER(widgets->hbox_remote_info), widgets->revealer_remote_recording);
+    gtk_revealer_set_reveal_child(GTK_REVEALER(widgets->revealer_remote_recording), FALSE);
+
+    // Set remote recording indicator
+    auto call = (*accountInfo)->callModel->getCall(callToRender);
+    if (not call.peerRec.isEmpty())
+        set_remote_record_animation(currentCall_, call.peerRec, true);
+
     update_participants_hovers(callToRender);
 
     // callback for local renderer
@@ -1508,6 +1552,14 @@ CppImpl::setCallInfo()
                                         "notify::state",
                                         G_CALLBACK(on_toggle_smartinfo),
                                         widgets->vbox_call_smartInfo);
+
+    remoteinfo_connection = QObject::connect(
+        &*(*accountInfo)->callModel,
+        &lrc::api::NewCallModel::remoteRecordingChanged,
+        [this] (const QString& callId, const QSet<QString>& peerRec, bool state) {
+            g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), FALSE);
+            set_remote_record_animation(callId.toStdString(), peerRec, state);
+        });
 
     // init chat view
     widgets->chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(widgets->webkit_chat_container),
@@ -1918,6 +1970,59 @@ CppImpl::update_view()
     }
 }
 
+void
+CppImpl::checkRemoteFading()
+{
+    g_debug("Remote recording timeout ended");
+    gtk_revealer_set_reveal_child(GTK_REVEALER(widgets->revealer_remote_recording), FALSE);
+    if (timer_record_fade) g_source_remove(timer_record_fade);
+}
+
+void
+CppImpl::set_remote_record_animation(std::string callId, QSet<QString> peerName, bool state)
+{
+    if (callId == currentCall_) {
+        // Show control
+        if (clutter_timeline_get_direction(CLUTTER_TIMELINE(fade_info)) == CLUTTER_TIMELINE_FORWARD) {
+            clutter_timeline_set_direction(CLUTTER_TIMELINE(fade_info), CLUTTER_TIMELINE_BACKWARD);
+            clutter_timeline_set_direction(CLUTTER_TIMELINE(fade_controls), CLUTTER_TIMELINE_BACKWARD);
+            if (!clutter_timeline_is_playing(CLUTTER_TIMELINE(fade_info))) {
+                clutter_timeline_rewind(CLUTTER_TIMELINE(fade_info));
+                clutter_timeline_rewind(CLUTTER_TIMELINE(fade_controls));
+                clutter_timeline_start(CLUTTER_TIMELINE(fade_info));
+                clutter_timeline_start(CLUTTER_TIMELINE(fade_controls));
+            }
+        }
+        time_last_mouse_motion = g_get_monotonic_time();
+
+        std::string label;
+        auto idx = 0;
+
+        for (const auto& uri: peerName) {
+            auto bestName = (*accountInfo)->contactModel->bestNameForContact(uri);
+            label += bestName.toStdString();
+            if (idx != static_cast<int>(peerName.size()) - 1)
+                    label += ", ";
+            idx ++;
+        }
+
+        if (not peerName.isEmpty()) {
+            g_debug("Remote recording activated");
+            gchar* value = g_strdup_printf("%s %s recording", label.c_str(), peerName.size() == 1 ? "is" : "are");
+            gtk_label_set_text(GTK_LABEL(widgets->label_remoteRecord_information),value);
+            g_free(value);
+            if (timer_record_fade) g_source_remove(timer_record_fade);
+            gtk_revealer_set_reveal_child(GTK_REVEALER(widgets->revealer_remote_recording), TRUE);
+        } else if (!state and peerName.isEmpty()) {
+            g_debug("Remote recording disactivated");
+            gchar* value = g_strdup_printf("Peer stopped recording");
+            gtk_label_set_text(GTK_LABEL(widgets->label_remoteRecord_information),value);
+            g_free(value);
+            timer_record_fade = g_timeout_add(2000, (GSourceFunc)on_timer_record_fade_timeout, self);
+        }
+    }
+}
+
 }} // namespace <anonymous>::details
 
 //==============================================================================
@@ -1995,6 +2100,8 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_call_controls);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_call_smartInfo);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, hbox_remote_info);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, border_remote_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, vbox_peer_identity);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, image_peer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_name);
@@ -2004,6 +2111,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_smartinfo_description);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_smartinfo_value);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_smartinfo_general_information);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, label_remoteRecord_information);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, paned_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
