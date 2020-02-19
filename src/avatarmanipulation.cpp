@@ -236,7 +236,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
             auto photo = default_scaled;
             if ((priv->accountInfo_ && (*priv->accountInfo_)) || priv->temporaryAvatar) {
                 auto photostr = priv->temporaryAvatar? priv->temporaryAvatar : (*priv->accountInfo_)->profileInfo.avatar;
-                QByteArray byteArray(photostr.c_str(), photostr.length());
+                QByteArray byteArray = photostr.toUtf8();
                 QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
                 if (avatar.isValid()) {
                     auto size = QSize(AVATAR_WIDTH, AVATAR_HEIGHT);
@@ -368,7 +368,7 @@ set_avatar(AvatarManipulation *self)
     /* save in profile */
     if (priv->accountInfo_ && (*priv->accountInfo_)) {
         try {
-            (*priv->accountInfo_)->accountModel->setAvatar((*priv->accountInfo_)->id, png_q_byte_array.toStdString());
+            (*priv->accountInfo_)->accountModel->setAvatar((*priv->accountInfo_)->id, png_q_byte_array);
         } catch (std::out_of_range&) {
             g_warning("Can't set avatar for unknown account");
         }

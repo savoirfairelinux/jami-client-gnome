@@ -175,15 +175,15 @@ build_interaction_json(lrc::api::ConversationModel& conversation_model,
                        const uint64_t msgId,
                        const lrc::api::interaction::Info& interaction)
 {
-    auto sender = QString(interaction.authorUri.c_str());
+    auto sender = interaction.authorUri;
     if (sender == "") {
-        sender = QString(conversation_model.owner.profileInfo.uri.c_str());
+        sender = conversation_model.owner.profileInfo.uri;
     }
     auto timestamp = QString::number(interaction.timestamp);
-    auto direction = lrc::api::interaction::isOutgoing(interaction) ? QString("out") : QString("in");
+    QString direction = lrc::api::interaction::isOutgoing(interaction) ? "out" : "in";
 
     QJsonObject interaction_object = QJsonObject();
-    interaction_object.insert("text", QJsonValue(QString(interaction.body.c_str())));
+    interaction_object.insert("text", QJsonValue(interaction.body));
     interaction_object.insert("id", QJsonValue(QString::number(msgId)));
     interaction_object.insert("sender", QJsonValue(sender));
     interaction_object.insert("sender_contact_method", QJsonValue(sender));

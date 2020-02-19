@@ -98,24 +98,24 @@ build_view(ProfileView* view)
         const auto& contact = (*priv->accountInfo_)->contactModel->getContact(conversation.participants.front());
 
         auto alias = contact.profileInfo.alias;
-        alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
-        alias.erase(std::remove(alias.begin(), alias.end(), '\n'), alias.end());
-        if (alias.empty()) alias = contact.registeredName;
-        if (alias.empty()) alias = contact.profileInfo.uri;
-        gtk_label_set_text(GTK_LABEL(priv->best_name_label), alias.c_str());
+        alias.remove('\r');
+        alias.remove('\n');
+        if (alias.isEmpty()) return false;alias = contact.registeredName;
+        if (alias.isEmpty()) alias = contact.profileInfo.uri;
+        gtk_label_set_text(GTK_LABEL(priv->best_name_label), qUtf8Printable(alias));
         GtkStyleContext* context;
         context = gtk_widget_get_style_context(GTK_WIDGET(priv->best_name_label));
         gtk_style_context_add_class(context, "bestname");
 
-        if (contact.registeredName.empty()) {
+        if (contact.registeredName.isEmpty()) {
             gtk_label_set_text(GTK_LABEL(priv->username_label), _("(None)"));
             context = gtk_widget_get_style_context(GTK_WIDGET(priv->username_label));
             gtk_style_context_add_class(context, "empty");
             gtk_label_set_selectable(GTK_LABEL(priv->username_label), false);
         } else {
-            gtk_label_set_text(GTK_LABEL(priv->username_label), contact.registeredName.c_str());
+            gtk_label_set_text(GTK_LABEL(priv->username_label), qUtf8Printable(contact.registeredName));
         }
-        gtk_label_set_text(GTK_LABEL(priv->id_label), contact.profileInfo.uri.c_str());
+        gtk_label_set_text(GTK_LABEL(priv->id_label), qUtf8Printable(contact.profileInfo.uri));
 
         uint32_t img_size = 128;
         std::shared_ptr<GdkPixbuf> image;
@@ -130,7 +130,7 @@ build_view(ProfileView* view)
 
         auto* surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, img_size, img_size);
         auto* cr = cairo_create(surface);
-        if (draw_qrcode(cr, contact.profileInfo.uri, img_size)) {
+        if (draw_qrcode(cr, contact.profileInfo.uri.toStdString(), img_size)) {
             GdkPixbuf *pixbuf = gdk_pixbuf_get_from_surface(cairo_get_target(cr), 0, 0, img_size, img_size);
             gtk_image_set_from_pixbuf(GTK_IMAGE(priv->qr_image), pixbuf);
         }
@@ -138,7 +138,7 @@ build_view(ProfileView* view)
         g_free(surface);
         g_free(cr);
 
-        gtk_window_set_title(GTK_WINDOW(view), std::string("Profile - " + alias).c_str());
+        gtk_window_set_title(GTK_WINDOW(view), std::string("Profile - " + alias.toStdString()).c_str());
         gtk_window_set_modal(GTK_WINDOW(view), false);
     }
     catch (...)

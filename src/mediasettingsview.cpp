@@ -119,7 +119,7 @@ CppImpl::CppImpl(MediaSettingsView& widget, lrc::api::AVModel& avModel)
         if (manager == currentManager) {
             activeIdx = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_manager), nullptr, manager.c_str());
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_manager), nullptr, qUtf8Printable(manager));
         i++;
     }
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_manager), activeIdx);
@@ -149,8 +149,8 @@ CppImpl::drawAudioDevices()
         if (output == currentRingtone) {
             activeRingtone = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_ringtone), nullptr, output.c_str());
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_output), nullptr, output.c_str());
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_ringtone), nullptr, qUtf8Printable(output));
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_output), nullptr, qUtf8Printable(output));
         i++;
     }
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_ringtone), activeRingtone);
@@ -164,7 +164,7 @@ CppImpl::drawAudioDevices()
         if (input == currentInput) {
             activeInput = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_input), nullptr, input.c_str());
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_input), nullptr, qUtf8Printable(input));
         i++;
     }
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_input), activeInput);
@@ -181,17 +181,17 @@ CppImpl::drawFramerates()
     auto active = 0;
     auto currentDevice = avModel_->getDefaultDevice();
     auto deviceCaps = avModel_->getDeviceCapabilities(currentDevice);
-    std::string currentChannel = "", currentRes = "", currentRate = "";
+    QString currentChannel = "", currentRes = "", currentRate = "";
     int currentResIndex;
     try {
         auto deviceSettings = avModel_->getDeviceSettings(currentDevice);
         currentChannel = deviceSettings.channel;
         currentRes = deviceSettings.size;
-        currentRate = std::to_string(static_cast<uint8_t>(deviceSettings.rate));
+        currentRate = QString::number(static_cast<uint8_t>(deviceSettings.rate));
         if (deviceCaps.find(currentChannel) == deviceCaps.end()) return;
-        auto resRates = deviceCaps.at(currentChannel);
+        auto resRates = deviceCaps.value(currentChannel);
         auto it = std::find_if(resRates.begin(), resRates.end(),
-            [&currentRes](const std::pair<video::Resolution, video::FrameratesList>& element) {
+            [&currentRes](const QPair<video::Resolution, video::FrameratesList>& element) {
                 return element.first == currentRes;
             });
         if (it == resRates.end()) {
@@ -203,17 +203,17 @@ CppImpl::drawFramerates()
         return;
     }
     if (deviceCaps.find(currentChannel) == deviceCaps.end()
-        || deviceCaps.at(currentChannel).size() < currentResIndex)
+        || deviceCaps.value(currentChannel).size() < currentResIndex)
         return;
-    auto rates = deviceCaps.at(currentChannel).at(currentResIndex).second;
+    auto rates = deviceCaps.value(currentChannel).value(currentResIndex).second;
     auto i = 0;
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate));
     for (const auto& rate : rates) {
-        auto rateStr = std::to_string(static_cast<uint8_t>(rate));
+        auto rateStr = QString::number(static_cast<uint8_t>(rate));
         if (rateStr == currentRate) {
             active = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate), nullptr, rateStr.c_str());
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate), nullptr, qUtf8Printable(rateStr));
         i++;
     }
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_framerate), active);
@@ -228,7 +228,7 @@ CppImpl::drawResolutions()
     }
     auto active = 0;
     auto currentDevice = avModel_->getDefaultDevice();
-    std::string currentChannel = "", currentRes = "";
+    QString currentChannel = "", currentRes = "";
     try {
         currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
         currentRes = avModel_->getDeviceSettings(currentDevice).size;
@@ -238,14 +238,14 @@ CppImpl::drawResolutions()
     }
     auto capabilities = avModel_->getDeviceCapabilities(currentDevice);
     if (capabilities.find(currentChannel) == capabilities.end()) return;
-    auto resToRates = avModel_->getDeviceCapabilities(currentDevice).at(currentChannel);
+    auto resToRates = avModel_->getDeviceCapabilities(currentDevice).value(currentChannel);
     auto i = 0;
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution));
     for (const auto& item : resToRates) {
         if (item.first == currentRes) {
             active = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution), nullptr, item.first.c_str());
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution), nullptr, qUtf8Printable(item.first));
         i++;
     }
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_resolution), active);
@@ -261,7 +261,7 @@ CppImpl::drawChannels()
     }
     auto active = 0;
     auto currentDevice = avModel_->getDefaultDevice();
-    std::string currentChannel = "";
+    QString currentChannel = "";
     try {
         currentChannel = avModel_->getDeviceSettings(currentDevice).channel;
     } catch (const std::out_of_range&) {
@@ -270,11 +270,11 @@ CppImpl::drawChannels()
     }
     auto i = 0;
     gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_channel));
-    for (const auto& capabilites : avModel_->getDeviceCapabilities(currentDevice)) {
+    for (const auto& capabilites : avModel_->getDeviceCapabilities(currentDevice).toStdMap()) {
         if (capabilites.first == currentChannel) {
             active = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_channel), nullptr, capabilites.first.c_str());
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_channel), nullptr, qUtf8Printable(capabilites.first));
         i++;
     }
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_channel), active);
@@ -302,7 +302,7 @@ CppImpl::drawVideoDevices()
         }
         try {
             auto name = avModel_->getDeviceSettings(device).name;
-            gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_device), nullptr, name.c_str());
+            gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_device), nullptr, qUtf8Printable(name));
         } catch (...) {}
         i++;
     }
@@ -395,7 +395,7 @@ set_video_device(MediaSettingsView* self)
     auto* device_name = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_device));
     if (device_name) {
         auto device_id = priv->cpp->avModel_->getDeviceIdFromName(device_name);
-        if (device_id.empty()) {
+        if (device_id.isEmpty()) {
             g_warning("set_video_device couldn't find device: %s", device_name);
             return;
         }
@@ -531,7 +531,7 @@ media_settings_view_new(lrc::api::AVModel& avModel)
     priv->audio_meter_connection = QObject::connect(
         &*priv->cpp->avModel_,
         &lrc::api::AVModel::audioMeter,
-        [=](const std::string& id, float level) {
+        [=](const QString& id, float level) {
             if (id == "audiolayer_id")
                 gtk_level_bar_set_value(GTK_LEVEL_BAR(priv->levelbar_input), level);
         });
@@ -577,7 +577,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
                 priv->local_renderer_connection = QObject::connect(
                     &*priv->cpp->avModel_,
                     &lrc::api::AVModel::rendererStarted,
-                    [=](const std::string& id) {
+                    [=](const QString& id) {
                         if (id != lrc::api::video::PREVIEW_RENDERER_ID)
                             return;
                         video_widget_add_new_renderer(

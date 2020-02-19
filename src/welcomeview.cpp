@@ -86,21 +86,21 @@ welcome_update_view(WelcomeView* self) {
 
     // Get registeredName, else the ID
     gchar *id = nullptr;
-    if(! (*priv->accountInfo_)->registeredName.empty()){
+    if(! (*priv->accountInfo_)->registeredName.isEmpty()){
         gtk_label_set_text(
             GTK_LABEL(priv->label_explanation),
             _("This is your Jami username.\nCopy and share it with your friends!")
         );
         id = g_markup_printf_escaped("<span fgcolor=\"%s\">%s</span>", color,
-                                          (*priv->accountInfo_)->registeredName.c_str());
+                                          qUtf8Printable((*priv->accountInfo_)->registeredName));
     }
-    else if (!(*priv->accountInfo_)->profileInfo.uri.empty()) {
+    else if (!(*priv->accountInfo_)->profileInfo.uri.isEmpty()) {
         gtk_label_set_text(
             GTK_LABEL(priv->label_explanation),
             _("This is your ID.\nCopy and share it with your friends!")
         );
         id = g_markup_printf_escaped("<span fgcolor=\"%s\">%s</span>", color,
-                                          (*priv->accountInfo_)->profileInfo.uri.c_str());
+                                          qUtf8Printable((*priv->accountInfo_)->profileInfo.uri));
     } else {
         gtk_label_set_text(GTK_LABEL(priv->label_explanation), NULL);
         id = g_strdup("");
@@ -131,13 +131,13 @@ welcome_update_view(WelcomeView* self) {
     priv->nameRegistrationEnded_ = QObject::connect(
         (*priv->accountInfo_)->accountModel,
         &lrc::api::NewAccountModel::nameRegistrationEnded,
-        [=] (const std::string& accountId, lrc::api::account::RegisterNameStatus status, const std::string& name) {
+        [=] (const QString& accountId, lrc::api::account::RegisterNameStatus status, const QString& name) {
             if (not *priv->accountInfo_) return;
             if (accountId == (*priv->accountInfo_)->id
                 && status == lrc::api::account::RegisterNameStatus::SUCCESS)
                 {
                     gchar *markup = g_markup_printf_escaped("<span fgcolor=\"%s\">%s</span>", color,
-                        name.c_str());
+                        qUtf8Printable(name));
                     gtk_label_set_markup(GTK_LABEL(priv->label_ringid), markup);
                     g_free(markup);
                 }
@@ -316,7 +316,7 @@ draw_qr_event(G_GNUC_UNUSED GtkWidget* diese,
 {
     auto priv = WELCOME_VIEW_GET_PRIVATE(self);
     g_return_val_if_fail(priv, false);
-    return draw_qrcode(cr, (*priv->accountInfo_)->profileInfo.uri.c_str(), 200);
+    return draw_qrcode(cr, qUtf8Printable((*priv->accountInfo_)->profileInfo.uri), 200);
 }
 
 static void
