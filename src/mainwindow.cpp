@@ -441,7 +441,7 @@ place_call_event(MainWindow* self)
     auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (!priv->cpp->eventUid_.empty())
-        priv->cpp->accountInfo_->conversationModel->placeCall(priv->cpp->eventUid_);
+        priv->cpp->accountInfo_->conversationModel->placeCall(priv->cpp->eventUid_.c_str());
 
     return G_SOURCE_REMOVE;
 }
@@ -463,7 +463,7 @@ add_conversation_event(MainWindow* self)
     auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (!priv->cpp->eventUid_.empty())
-        priv->cpp->accountInfo_->conversationModel->makePermanent(priv->cpp->eventUid_);
+        priv->cpp->accountInfo_->conversationModel->makePermanent(priv->cpp->eventUid_.c_str());
 
     return G_SOURCE_REMOVE;
 }
@@ -485,7 +485,8 @@ send_text_event(MainWindow* self)
     auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (!priv->cpp->eventUid_.empty())
-        priv->cpp->accountInfo_->conversationModel->sendMessage(priv->cpp->eventUid_, priv->cpp->eventBody_);
+        priv->cpp->accountInfo_->conversationModel->sendMessage(priv->cpp->eventUid_.c_str(),
+                                                                priv->cpp->eventBody_.c_str());
 
     return G_SOURCE_REMOVE;
 }
@@ -550,7 +551,7 @@ place_audio_call_event(MainWindow* self)
     auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     if (!priv->cpp->eventUid_.empty())
-        priv->cpp->accountInfo_->conversationModel->placeAudioOnlyCall(priv->cpp->eventUid_);
+        priv->cpp->accountInfo_->conversationModel->placeAudioOnlyCall(priv->cpp->eventUid_.c_str());
 
     return G_SOURCE_REMOVE;
 }
@@ -769,15 +770,15 @@ on_dtmf_pressed(MainWindow* self, GdkEventKey* event, gpointer user_data)
     else
        return GDK_EVENT_PROPAGATE;
 
-    if (current_item.callId.empty())
+    if (current_item.callId.isEmpty())
        return GDK_EVENT_PROPAGATE;
 
     // pass the character that was entered to be played by the daemon;
     // the daemon will filter out invalid DTMF characters
     guint32 unicode_val = gdk_keyval_to_unicode(event->keyval);
     QString val = QString::fromUcs4(&unicode_val, 1);
-    g_debug("attempting to play DTMF tone during ongoing call: %s", val.toUtf8().constData());
-    priv->cpp->accountInfo_->callModel->playDTMF(current_item.callId, val.toStdString());
+    g_debug("attempting to play DTMF tone during ongoing call: %s", qUtf8Printable(val));
+    priv->cpp->accountInfo_->callModel->playDTMF(current_item.callId, val);
 
     // set keyPressed to True
     priv->key_pressed = true;
@@ -925,31 +926,31 @@ action_notification(gchar* title, MainWindow* self, Action action)
             priv->cpp->leaveSettingsView();
         }
 
-        if (priv->cpp->accountInfo_->id != id) {
+        if (priv->cpp->accountInfo_->id.toStdString() != id) {
             priv->cpp->updateLrc(id);
             priv->cpp->refreshAccountSelectorWidget(-1, id);
         }
 
         if (type == "interaction") {
-            priv->cpp->accountInfo_->conversationModel->selectConversation(information);
+            priv->cpp->accountInfo_->conversationModel->selectConversation(information.c_str());
             conversations_view_select_conversation(CONVERSATIONS_VIEW(priv->treeview_conversations), information);
         } else if (type == "request") {
             for (const auto& conversation : priv->cpp->accountInfo_->conversationModel->getFilteredConversations(lrc::api::profile::Type::PENDING)) {
                 auto contactRequestsPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(priv->notebook_contacts),
                                                                priv->scrolled_window_contact_requests);
                 gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), contactRequestsPageNum);
-                if (!conversation.participants.empty() && conversation.participants.front() == information) {
+                if (!conversation.participants.empty() && conversation.participants.front().toStdString() == information) {
                     priv->cpp->accountInfo_->conversationModel->selectConversation(conversation.uid);
                 }
-                conversations_view_select_conversation(CONVERSATIONS_VIEW(priv->treeview_conversations), conversation.uid);
+                conversations_view_select_conversation(CONVERSATIONS_VIEW(priv->treeview_conversations), conversation.uid.toStdString());
             }
         }
     } else {
         // accept or refuse notifiation
         try {
-            auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id);
+            auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id.c_str());
             for (const auto& conversation : accountInfo.conversationModel->getFilteredConversations(lrc::api::profile::Type::PENDING)) {
-                if (!conversation.participants.empty() && conversation.participants.front() == information) {
+                if (!conversation.participants.empty() && conversation.participants.front().toStdString() == information) {
                     if (action == Action::ACCEPT) {
                         accountInfo.conversationModel->makePermanent(conversation.uid);
                     } else {
@@ -1008,8 +1009,8 @@ on_notification_accept_call(GtkWidget*, gchar *title, MainWindow* self)
     }
 
     try {
-        auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id);
-        accountInfo.callModel->accept(information);
+        auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id.c_str());
+        accountInfo.callModel->accept(information.c_str());
     } catch (const std::out_of_range& e) {
         g_warning("Can't get account %s: %s", id.c_str(), e.what());
     }
@@ -1036,8 +1037,8 @@ on_notification_decline_call(GtkWidget*, gchar *title, MainWindow* self)
     auto information = titleStr.substr(secondMarker + 1);
 
     try {
-        auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id);
-        accountInfo.callModel->hangUp(information);
+        auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id.c_str());
+        accountInfo.callModel->hangUp(information.c_str());
     } catch (const std::out_of_range& e) {
         g_warning("Can't get account %s: %s", id.c_str(), e.what());
     }
@@ -1093,7 +1094,7 @@ on_clear_all_history_clicked(MainWindow* self)
             auto &accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(account_id);
             accountInfo.conversationModel->clearAllHistory();
         } catch (const std::out_of_range &e) {
-            g_warning("Can't get account %s: %s", account_id.c_str(), e.what());
+            g_warning("Can't get account %s: %s", qUtf8Printable(account_id), e.what());
         }
     }
 
@@ -1109,7 +1110,7 @@ update_data_transfer(lrc::api::DataTransferModel& model, GSettings* settings)
     std::string download_dir = download_directory_value;
     if (!download_dir.empty() && download_dir.back() != '/')
         download_dir += "/";
-    model.downloadDirectory = download_dir;
+    model.downloadDirectory = QString::fromStdString(download_dir);
 }
 
 static void
@@ -1201,11 +1202,11 @@ CppImpl::init()
         }
     }
 
-    if (!activeAccountId.empty()) {
-        updateLrc(activeAccountId);
-    } else if(!accountIds.empty()) {
+    if (!activeAccountId.isEmpty()) {
+        updateLrc(activeAccountId.toStdString());
+    } else if(!accountIds.isEmpty()) {
         // If all accounts are disabled, show the first account
-        updateLrc(accountIds.front());
+        updateLrc(accountIds.front().toStdString());
     } else {
         // No account: create empty widgets
         widgets->treeview_conversations = conversations_view_new(accountInfo_);
@@ -1216,21 +1217,19 @@ CppImpl::init()
 
     accountStatusChangedConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                                        &lrc::api::NewAccountModel::accountStatusChanged,
-                                                       [this](const std::string& id){ slotAccountStatusChanged(id); });
+                                                       [this](const QString& id) { slotAccountStatusChanged(id.toStdString()); });
     profileUpdatedConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                                  &lrc::api::NewAccountModel::profileUpdated,
-                                                 [this](const std::string& id){
-                                                     slotProfileUpdated(id);
-                                                 });
+                                                 [this](const QString& id) { slotProfileUpdated(id.toStdString()); });
     newAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                              &lrc::api::NewAccountModel::accountAdded,
-                                             [this](const std::string& id){ slotAccountAddedFromLrc(id); });
+                                             [this](const QString& id) { slotAccountAddedFromLrc(id.toStdString()); });
     rmAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                             &lrc::api::NewAccountModel::accountRemoved,
-                                            [this](const std::string& id){ slotAccountRemovedFromLrc(id); });
+                                            [this](const QString& id){ slotAccountRemovedFromLrc(id.toStdString()); });
     invalidAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                                  &lrc::api::NewAccountModel::invalidAccountDetected,
-                                                 [this](const std::string& id){ slotInvalidAccountFromLrc(id); });
+                                                 [this](const QString& id){ slotInvalidAccountFromLrc(id.toStdString()); });
 
     /* bind to window size settings */
     widgets->window_settings = g_settings_new_full(get_settings_schema(), nullptr, nullptr);
@@ -1380,7 +1379,7 @@ CppImpl::init()
         auto& conversationModel = accountInfo_->conversationModel;
         auto conversations = conversationModel->allFilteredConversations();
         for (const auto& conversation: conversations) {
-            if (!conversation.callId.empty()) {
+            if (!conversation.callId.isEmpty()) {
                 accountInfo_->conversationModel->selectConversation(conversation.uid);
             }
         }
@@ -1470,7 +1469,7 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
     if (conversation.uid != "" && type != WELCOME_VIEW_TYPE)
         conversations_view_select_conversation(
             CONVERSATIONS_VIEW(widgets->treeview_conversations),
-            conversation.uid);
+            conversation.uid.toStdString());
 
     // grab focus for handup button for current call view
     if (g_type_is_a(CURRENT_CALL_VIEW_TYPE, type)){
@@ -1537,7 +1536,7 @@ CppImpl::displayChatView(lrc::api::conversation::Info conversation, bool redraw_
         auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
         if (isPending) {
             auto notifId = accountInfo_->id + ":request:" + contactUri;
-            hide_notification(NOTIFIER(widgets->notifier), notifId);
+            hide_notification(NOTIFIER(widgets->notifier), notifId.toStdString());
         }
     } catch(...) { }
 
@@ -1652,7 +1651,7 @@ CppImpl::refreshAccountSelectorWidget(int selection_row, const std::string& sele
     std::size_t idx = 0;
     foreachLrcAccount(*lrc_, [&] (const auto& acc_info) {
             ++enabled_accounts;
-            if (!selected.empty() && selected == acc_info.id) {
+            if (!selected.empty() && selected == acc_info.id.toStdString()) {
                 selection_row = idx;
             }
             gtk_list_store_append(store, &iter);
@@ -1674,12 +1673,12 @@ CppImpl::refreshAccountSelectorWidget(int selection_row, const std::string& sele
                     break;
             }
             gtk_list_store_set(store, &iter,
-                               0 /* col # */ , acc_info.id.c_str() /* celldata */,
+                               0 /* col # */ , qUtf8Printable(acc_info.id) /* celldata */,
                                1 /* col # */ , status.c_str() /* celldata */,
-                               2 /* col # */ , acc_info.profileInfo.avatar.c_str() /* celldata */,
-                               3 /* col # */ , acc_info.profileInfo.uri.c_str() /* celldata */,
-                               4 /* col # */ , acc_info.profileInfo.alias.c_str() /* celldata */,
-                               5 /* col # */ , acc_info.registeredName.c_str() /* celldata */,
+                               2 /* col # */ , qUtf8Printable(acc_info.profileInfo.avatar) /* celldata */,
+                               3 /* col # */ , qUtf8Printable(acc_info.profileInfo.uri) /* celldata */,
+                               4 /* col # */ , qUtf8Printable(acc_info.profileInfo.alias) /* celldata */,
+                               5 /* col # */ , qUtf8Printable(acc_info.registeredName) /* celldata */,
                                -1 /* end */);
             ++idx;
         });
@@ -1764,7 +1763,7 @@ void
 CppImpl::changeAccountSelection(const std::string& id)
 {
     // already selected?
-    if (id == accountInfo_->id)
+    if (id == accountInfo_->id.toStdString())
         return;
 
     if (auto* model = gtk_combo_box_get_model(GTK_COMBO_BOX(widgets->combobox_account_selector))) {
@@ -1790,7 +1789,7 @@ CppImpl::changeAccountSelection(const std::string& id)
 void
 CppImpl::onAccountSelectionChange(const std::string& id)
 {
-    auto oldId = accountInfo_? accountInfo_->id : "";
+    auto oldId = accountInfo_? accountInfo_->id.toStdString() : "";
 
     if (id != oldId) {
         // Go to welcome view
@@ -1859,7 +1858,7 @@ CppImpl::leaveSettingsView()
      * obsolete messages. It will also ensure to refresh last interaction printed in the conversations list.
      */
     if (has_cleared_all_history) {
-        onAccountSelectionChange(accountInfo_->id);
+        onAccountSelectionChange(accountInfo_->id.toStdString());
         resetToWelcome();
         has_cleared_all_history = false;
     }
@@ -1933,7 +1932,7 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     if (!accountIdToFlagFreeable.empty()) {
         g_debug("Account %s flagged for removal. Mark it freeable.", accountIdToFlagFreeable.c_str());
         try {
-            lrc_->getAccountModel().flagFreeable(accountIdToFlagFreeable);
+            lrc_->getAccountModel().flagFreeable(accountIdToFlagFreeable.c_str());
         } catch (std::exception& e) {
             g_debug("Error while flagging %s for removal: '%s'.", accountIdToFlagFreeable.c_str(), e.what());
             g_debug("This is most likely an internal error, please report this bug.");
@@ -1944,7 +1943,7 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
 
     // Get the account selected
     if (!id.empty())
-        accountInfo_ = &lrc_->getAccountModel().getAccountInfo(id);
+        accountInfo_ = &lrc_->getAccountModel().getAccountInfo(id.c_str());
     else
         accountInfo_ = nullptr;
 
@@ -1970,7 +1969,7 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     // Connect to signals from LRC
     historyClearedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                  &lrc::api::ConversationModel::conversationCleared,
-                                                 [this] (const std::string& id) { slotConversationCleared(id); });
+                                                 [this] (const QString& id) { slotConversationCleared(id.toStdString()); });
 
     modelSortedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                               &lrc::api::ConversationModel::modelSorted,
@@ -1978,19 +1977,19 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
 
     callChangedConnection_ = QObject::connect(&*accountInfo_->callModel,
                                               &lrc::api::NewCallModel::callStatusChanged,
-                                              [this] (const std::string& callId) { slotCallStatusChanged(callId); });
+                                              [this] (const QString& callId) { slotCallStatusChanged(callId.toStdString()); });
 
     callStartedConnection_ = QObject::connect(&*accountInfo_->callModel,
                                               &lrc::api::NewCallModel::callStarted,
-                                              [this] (const std::string& callId) { slotCallStarted(callId); });
+                                              [this] (const QString& callId) { slotCallStarted(callId.toStdString()); });
 
     callEndedConnection_ = QObject::connect(&*accountInfo_->callModel,
                                               &lrc::api::NewCallModel::callEnded,
-                                              [this] (const std::string& callId) { slotCallEnded(callId); });
+                                              [this] (const QString& callId) { slotCallEnded(callId.toStdString()); });
 
     newIncomingCallConnection_ = QObject::connect(&*accountInfo_->callModel,
                                                   &lrc::api::NewCallModel::newIncomingCall,
-                                                  [this] (const std::string&, const std::string& callId) { slotNewIncomingCall(callId); });
+                                                  [this] (const QString&, const QString& callId) { slotNewIncomingCall(callId.toStdString()); });
 
     filterChangedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                 &lrc::api::ConversationModel::filterChanged,
@@ -1998,47 +1997,47 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
 
     newConversationConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                   &lrc::api::ConversationModel::newConversation,
-                                                  [this] (const std::string& id) { slotNewConversation(id); });
+                                                  [this] (const QString& id) { slotNewConversation(id.toStdString()); });
 
     conversationRemovedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                       &lrc::api::ConversationModel::conversationRemoved,
-                                                      [this] (const std::string& id) { slotConversationRemoved(id); });
+                                                      [this] (const QString& id) { slotConversationRemoved(id.toStdString()); });
 
     showChatViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showChatView,
-                                               [this] (const std::string& id, lrc::api::conversation::Info origin) { slotShowChatView(id, origin); });
+                                               [this] (const QString& id, lrc::api::conversation::Info origin) { slotShowChatView(id.toStdString(), origin); });
 
     showLeaveMessageViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showLeaveMessageView,
-                                               [this] (const std::string&, lrc::api::conversation::Info conv) { slotShowLeaveMessageView(conv); });
+                                               [this] (const QString&, lrc::api::conversation::Info conv) { slotShowLeaveMessageView(conv); });
 
     showCallViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showCallView,
-                                               [this] (const std::string& id, lrc::api::conversation::Info origin) { slotShowCallView(id, origin); });
+                                               [this] (const QString& id, lrc::api::conversation::Info origin) { slotShowCallView(id.toStdString(), origin); });
 
     newTrustRequestNotification_ = QObject::connect(&lrc_->getBehaviorController(),
                                                     &lrc::api::BehaviorController::newTrustRequest,
-                                                    [this] (const std::string& id, const std::string& contactUri) { slotNewTrustRequest(id, contactUri); });
+                                                    [this] (const QString& id, const QString& contactUri) { slotNewTrustRequest(id.toStdString(), contactUri.toStdString()); });
 
     closeTrustRequestNotification_ = QObject::connect(&lrc_->getBehaviorController(),
                                                       &lrc::api::BehaviorController::trustRequestTreated,
-                                                      [this] (const std::string& id, const std::string& contactUri) { slotCloseTrustRequest(id, contactUri); });
+                                                      [this] (const QString& id, const QString& contactUri) { slotCloseTrustRequest(id.toStdString(), contactUri.toStdString()); });
 
     showIncomingViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                    &lrc::api::BehaviorController::showIncomingCallView,
-                                                   [this] (const std::string& id, lrc::api::conversation::Info origin)
-                                                          { slotShowIncomingCallView(id, origin); });
+                                                   [this] (const QString& id, lrc::api::conversation::Info origin)
+                                                          { slotShowIncomingCallView(id.toStdString(), origin); });
 
     slotNewInteraction_ = QObject::connect(&lrc_->getBehaviorController(),
                                            &lrc::api::BehaviorController::newUnreadInteraction,
-                                           [this] (const std::string& accountId, const std::string& conversation,
+                                           [this] (const QString& accountId, const QString& conversation,
                                                   uint64_t interactionId, const lrc::api::interaction::Info& interaction)
-                                                  { slotNewInteraction(accountId, conversation, interactionId, interaction); });
+                                                  { slotNewInteraction(accountId.toStdString(), conversation.toStdString(), interactionId, interaction); });
 
     slotReadInteraction_ = QObject::connect(&lrc_->getBehaviorController(),
                                             &lrc::api::BehaviorController::newReadInteraction,
-                                            [this] (const std::string& accountId, const std::string& conversation, uint64_t interactionId)
-                                                   { slotCloseInteraction(accountId, conversation, interactionId); });
+                                            [this] (const QString& accountId, const QString& conversation, uint64_t interactionId)
+                                                   { slotCloseInteraction(accountId.toStdString(), conversation.toStdString(), interactionId); });
 
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(widgets->search_entry));
     currentTypeFilter_ = accountInfo_->profileInfo.type;
@@ -2056,7 +2055,7 @@ CppImpl::slotAccountAddedFromLrc(const std::string& id)
     try {
         auto& account_model = lrc_->getAccountModel();
 
-        const auto& account_info = account_model.getAccountInfo(id);
+        const auto& account_info = account_model.getAccountInfo(id.c_str());
         auto old_view = gtk_stack_get_visible_child(GTK_STACK(widgets->stack_main_view));
         if(IS_ACCOUNT_CREATION_WIZARD(old_view)) {
             // TODO finalize (set avatar + register name)
@@ -2113,7 +2112,7 @@ CppImpl::slotInvalidAccountFromLrc(const std::string& id)
 void
 CppImpl::slotAccountNeedsMigration(const std::string& id)
 {
-    accountInfoForMigration_ = &lrc_->getAccountModel().getAccountInfo(id);
+    accountInfoForMigration_ = &lrc_->getAccountModel().getAccountInfo(id.c_str());
     if (accountInfoForMigration_->status == lrc::api::account::Status::ERROR_NEED_MIGRATION) {
         leaveSettingsView();
         widgets->account_migration_view = account_migration_view_new(accountInfoForMigration_);
@@ -2165,7 +2164,7 @@ CppImpl::slotAccountStatusChanged(const std::string& id)
     if (currentIdx == -1)
         currentIdx = 0; // If no account selected, select the first account
     // NOTE: Because the currentIdx can change (accounts can be re-ordered), force to select the accountInfo_->id
-    refreshAccountSelectorWidget(currentIdx, accountInfo_->id);
+    refreshAccountSelectorWidget(currentIdx, accountInfo_->id.toStdString());
 
     if (accountInfo_->status == lrc::api::account::Status::ERROR_NEED_MIGRATION) {
         slotAccountNeedsMigration(id);
@@ -2173,7 +2172,8 @@ CppImpl::slotAccountStatusChanged(const std::string& id)
     }
 
     auto* frame_call = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
-    conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), getCurrentConversation(frame_call).uid);
+    conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations),
+                                           getCurrentConversation(frame_call).uid.toStdString());
 
     if (IS_CHAT_VIEW(frame_call)) {
         chat_view_update_temporary(CHAT_VIEW(frame_call));
@@ -2189,7 +2189,7 @@ CppImpl::slotConversationCleared(const std::string& uid)
 
     lrc::api::conversation::Info current_item = getCurrentConversation(old_view);
 
-    if (current_item.uid == uid) {
+    if (current_item.uid.toStdString() == uid) {
         // We are on the conversation cleared.
         // Go to welcome view because user doesn't want this conversation
         // TODO go to first conversation?
@@ -2202,7 +2202,8 @@ CppImpl::slotModelSorted()
 {
     // Synchronize selection when sorted and update pending icon
     auto* frame_call = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
-    conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), getCurrentConversation(frame_call).uid);
+    conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations),
+                                           getCurrentConversation(frame_call).uid.toStdString());
     refreshPendingContactRequestTab();
 }
 
@@ -2213,16 +2214,13 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
         return;
     }
     try {
-        auto call = accountInfo_->callModel->getCall(callId);
-        auto peer = call.peerUri;
-        if (accountInfo_->profileInfo.type == lrc::api::profile::Type::RING && peer.find("ring:") == 0) {
-            peer = peer.substr(5);
-        }
+        auto call = accountInfo_->callModel->getCall(callId.c_str());
+        auto peer = call.peerUri.remove("ring:");
         std::string notifId = "";
         try {
-            notifId = accountInfo_->id + ":call:" + callId;
+            notifId = accountInfo_->id.toStdString() + ":call:" + callId;
         } catch (...) {
-            g_warning("Can't get contact for account %s. Don't show notification", accountInfo_->id.c_str());
+            g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo_->id));
             return;
         }
 
@@ -2273,34 +2271,34 @@ CppImpl::slotNewIncomingCall(const std::string& callId)
         g_settings_set_boolean(widgets->window_settings, "show-main-window", TRUE);
     }
     try {
-        auto call = accountInfo_->callModel->getCall(callId);
-        auto peer = call.peerUri;
-        if (accountInfo_->profileInfo.type == lrc::api::profile::Type::RING && peer.find("ring:") == 0) {
-            peer = peer.substr(5);
-        }
+        auto call = accountInfo_->callModel->getCall(callId.c_str());
+        auto peer = call.peerUri.remove("ring:");
         auto& contactModel = accountInfo_->contactModel;
-        std::string avatar = "", name = "", notifId = "", uri = "";
+        QString avatar = "", name = "", uri = "";
+        std::string notifId = "";
         try {
             auto contactInfo = contactModel->getContact(peer);
             uri = contactInfo.profileInfo.uri;
             avatar = contactInfo.profileInfo.avatar;
             name = contactInfo.profileInfo.alias;
-            if (name.empty()) {
+            if (name.isEmpty()) {
                 name = contactInfo.registeredName;
-                if (name.empty()) {
+                if (name.isEmpty()) {
                     name = contactInfo.profileInfo.uri;
                 }
             }
-            notifId = accountInfo_->id + ":call:" + callId;
+            notifId = accountInfo_->id.toStdString() + ":call:" + callId;
         } catch (...) {
-            g_warning("Can't get contact for account %s. Don't show notification", accountInfo_->id.c_str());
+            g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo_->id));
             return;
         }
 
         if (g_settings_get_boolean(widgets->window_settings, "enable-call-notifications")) {
-            name.erase(std::remove(name.begin(), name.end(), '\r'), name.end());
-            auto body = name + _(" is calling you!");
-            show_notification(NOTIFIER(widgets->notifier), avatar, uri, name, notifId, _("Incoming call"), body, NotificationType::CALL);
+            name.remove('\r');
+            auto body = name.toStdString() + _(" is calling you!");
+            show_notification(NOTIFIER(widgets->notifier),
+                              avatar.toStdString(), uri.toStdString(), name.toStdString(),
+                              notifId, _("Incoming call"), body, NotificationType::CALL);
         }
     } catch (const std::exception& e) {
         g_warning("Can't get call %s for this account.", callId.c_str());
@@ -2313,7 +2311,7 @@ CppImpl::slotFilterChanged()
     // Synchronize selection when filter changes
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
     auto current_item = getCurrentConversation(old_view);
-    conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), current_item.uid);
+    conversations_view_select_conversation(CONVERSATIONS_VIEW(widgets->treeview_conversations), current_item.uid.toStdString());
 
     // Get if conversation still exists.
     auto& conversationModel = accountInfo_->conversationModel;
@@ -2338,7 +2336,7 @@ CppImpl::slotNewConversation(const std::string& uid)
     // Select new conversation if contact added
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
     if (IS_WELCOME_VIEW(old_view)) {
-        accountInfo_->conversationModel->selectConversation(uid);
+        accountInfo_->conversationModel->selectConversation(uid.c_str());
         if (chatViewConversation_) {
             try {
                 auto contactUri =  chatViewConversation_->participants.front();
@@ -2361,7 +2359,7 @@ CppImpl::slotConversationRemoved(const std::string& uid)
         current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
     else if (IS_INCOMING_CALL_VIEW(old_view))
         current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(old_view));
-    if (current_item.uid == uid)
+    if (current_item.uid.toStdString() == uid)
         changeView(WELCOME_VIEW_TYPE);
 }
 
@@ -2408,8 +2406,8 @@ CppImpl::slotShowCallView(const std::string& id, lrc::api::conversation::Info or
         current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
 
     if (IS_CURRENT_CALL_VIEW(old_view) && origin.uid == current_item.uid) {
-        auto rendered = current_call_view_get_rendered_call(CURRENT_CALL_VIEW(old_view));
-        auto sameCall = origin.confId.empty() ? origin.callId == rendered : origin.confId == rendered;
+        auto rendered = QString::fromStdString(current_call_view_get_rendered_call(CURRENT_CALL_VIEW(old_view)));
+        auto sameCall = origin.confId.isEmpty() ? origin.callId == rendered : origin.confId == rendered;
         if (sameCall)
             return;
     }
@@ -2421,29 +2419,31 @@ void
 CppImpl::slotNewTrustRequest(const std::string& id, const std::string& contactUri)
 {
     try {
-        auto& accountInfo = lrc_->getAccountModel().getAccountInfo(id);
-        auto notifId = accountInfo.id + ":request:" + contactUri;
-        std::string avatar = "", name = "", uri = "";
+        auto& accountInfo = lrc_->getAccountModel().getAccountInfo(id.c_str());
+        auto notifId = accountInfo.id.toStdString() + ":request:" + contactUri;
+        QString avatar = "", name = "", uri = "";
         auto& contactModel = accountInfo.contactModel;
         try {
-            auto contactInfo = contactModel->getContact(contactUri);
+            auto contactInfo = contactModel->getContact(contactUri.c_str());
             uri = contactInfo.profileInfo.uri;
             avatar = contactInfo.profileInfo.avatar;
             name = contactInfo.profileInfo.alias;
-            if (name.empty()) {
+            if (name.isEmpty()) {
                 name = contactInfo.registeredName;
-                if (name.empty()) {
+                if (name.isEmpty()) {
                     name = contactInfo.profileInfo.uri;
                 }
             }
         } catch (...) {
-            g_warning("Can't get contact for account %s. Don't show notification", accountInfo.id.c_str());
+            g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo.id));
             return;
         }
         if (g_settings_get_boolean(widgets->window_settings, "enable-pending-notifications")) {
-            name.erase(std::remove(name.begin(), name.end(), '\r'), name.end());
-            auto body = _("New request from ") + name;
-            show_notification(NOTIFIER(widgets->notifier), avatar, uri, name, notifId, _("Trust request"), body, NotificationType::REQUEST);
+            name.remove('\r');
+            auto body = _("New request from ") + name.toStdString();
+            show_notification(NOTIFIER(widgets->notifier),
+                              avatar.toStdString(), uri.toStdString(), name.toStdString(),
+                              notifId, _("Trust request"), body, NotificationType::REQUEST);
         }
     } catch (...) {
         g_warning("Can't get account %s", id.c_str());
@@ -2454,8 +2454,8 @@ void
 CppImpl::slotCloseTrustRequest(const std::string& id, const std::string& contactUri)
 {
     try {
-        auto& accountInfo = lrc_->getAccountModel().getAccountInfo(id);
-        auto notifId = accountInfo.id + ":request:" + contactUri;
+        auto& accountInfo = lrc_->getAccountModel().getAccountInfo(id.c_str());
+        auto notifId = id + ":request:" + contactUri;
         hide_notification(NOTIFIER(widgets->notifier), notifId);
     } catch (...) {
         g_warning("Can't get account %s", id.c_str());
@@ -2466,7 +2466,7 @@ void
 CppImpl::slotNewInteraction(const std::string& accountId, const std::string& conversation,
                             uint64_t interactionId, const lrc::api::interaction::Info& interaction)
 {
-    if (chatViewConversation_ && chatViewConversation_->uid == conversation) {
+    if (chatViewConversation_ && chatViewConversation_->uid == QString::fromStdString(conversation)) {
         auto *old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
         if (IS_CURRENT_CALL_VIEW(old_view)) {
             current_call_view_show_chat(CURRENT_CALL_VIEW(old_view));
@@ -2476,35 +2476,37 @@ CppImpl::slotNewInteraction(const std::string& accountId, const std::string& con
         }
     }
     try {
-        auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
-        auto notifId = accountInfo.id + ":interaction:" + conversation + ":" + std::to_string(interactionId);
+        auto& accountInfo = lrc_->getAccountModel().getAccountInfo(QString::fromStdString(accountId));
+        auto notifId = accountInfo.id.toStdString() + ":interaction:" + conversation + ":" + std::to_string(interactionId);
         auto& contactModel = accountInfo.contactModel;
         auto& conversationModel = accountInfo.conversationModel;
         for (const auto& conv : conversationModel->allFilteredConversations())
         {
-            if (conv.uid == conversation) {
+            if (conv.uid.toStdString() == conversation) {
                 if (conv.participants.empty()) return;
-                std::string avatar = "", name = "", uri = "";
+                QString avatar = "", name = "", uri = "";
                 try {
                     auto contactInfo = contactModel->getContact(conv.participants.front());
                     uri = contactInfo.profileInfo.uri;
                     avatar = contactInfo.profileInfo.avatar;
                     name = contactInfo.profileInfo.alias;
-                    if (name.empty()) {
+                    if (name.isEmpty()) {
                         name = contactInfo.registeredName;
-                        if (name.empty()) {
+                        if (name.isEmpty()) {
                             name = contactInfo.profileInfo.uri;
                         }
                     }
                 } catch (...) {
-                    g_warning("Can't get contact for account %s. Don't show notification", accountInfo.id.c_str());
+                    g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo.id));
                     return;
                 }
 
                 if (g_settings_get_boolean(widgets->window_settings, "enable-chat-notifications")) {
-                    name.erase(std::remove(name.begin(), name.end(), '\r'), name.end());
+                    name.remove('\r');
                     auto body = name + ": " + interaction.body;
-                    show_notification(NOTIFIER(widgets->notifier), avatar, uri, name, notifId, _("New message"), body, NotificationType::CHAT);
+                    show_notification(NOTIFIER(widgets->notifier),
+                                      avatar.toStdString(), uri.toStdString(), name.toStdString(),
+                                      notifId, _("New message"), body.toStdString(), NotificationType::CHAT);
                 }
             }
         }
@@ -2517,12 +2519,12 @@ void
 CppImpl::slotCloseInteraction(const std::string& accountId, const std::string& conversation, uint64_t interactionId)
 {
     if (!gtk_window_is_active(GTK_WINDOW(self))
-        || (chatViewConversation_ && chatViewConversation_->uid != conversation)) {
+        || (chatViewConversation_ && chatViewConversation_->uid != QString::fromStdString(conversation))) {
             return;
     }
     try {
-        auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
-        auto notifId = accountInfo.id + ":interaction:" + conversation + ":" + std::to_string(interactionId);
+        auto& accountInfo = lrc_->getAccountModel().getAccountInfo(QString::fromStdString(accountId));
+        auto notifId = accountInfo.id.toStdString() + ":interaction:" + conversation + ":" + std::to_string(interactionId);
         hide_notification(NOTIFIER(widgets->notifier), notifId);
     } catch (...) {
         g_warning("Can't get account %s", accountId.c_str());
@@ -2699,8 +2701,8 @@ main_window_copy_contact(MainWindow *win)
 
     priv->cpp->forCurrentConversation([&](const auto& conversation){
         auto& contact = priv->cpp->accountInfo_->contactModel->getContact(conversation.participants.front());
-        auto bestName = contact.registeredName.empty() ? contact.profileInfo.uri : contact.registeredName;
-        auto text = (gchar *)bestName.c_str();
+        auto bestName = contact.registeredName.isEmpty() ? contact.profileInfo.uri : contact.registeredName;
+        auto text = (gchar *)qUtf8Printable(bestName);
         GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
         gtk_clipboard_set_text(clip, text, -1);
         clip = gtk_clipboard_get(GDK_SELECTION_PRIMARY);

@@ -229,13 +229,13 @@ CppImpl::set_state(MessagingWidgetState state)
         break;
     case MESSAGING_WIDGET_REC_AUDIO:
     {
-        std::string file_name = avModel_->startLocalRecorder(true);
-        if (file_name.empty()) {
+        QString file_name = avModel_->startLocalRecorder(true);
+        if (file_name.isEmpty()) {
             g_warning("set_state: failed to start recording");
             return;
         }
 
-        saveFileName_ = file_name;
+        saveFileName_ = file_name.toStdString();
 
         timerCallbackId_ = g_timeout_add_seconds(1, on_timer_update, self);
         gtk_widget_show(widgets->box_timer);
@@ -247,7 +247,7 @@ CppImpl::set_state(MessagingWidgetState state)
     }
     case MESSAGING_WIDGET_AUDIO_REC_SUCCESS:
         if (!saveFileName_.empty()) {
-            avModel_->stopLocalRecorder(saveFileName_);
+            avModel_->stopLocalRecorder(saveFileName_.c_str());
         }
 
         gtk_widget_hide(widgets->box_red_dot);
@@ -260,7 +260,7 @@ CppImpl::set_state(MessagingWidgetState state)
         break;
     case MESSAGING_WIDGET_REC_SENT:
         if (auto model = (*accountInfo_)->conversationModel.get()) {
-            model->sendFile(conversation_->uid, saveFileName_, g_path_get_basename(saveFileName_.c_str()));
+            model->sendFile(conversation_->uid, saveFileName_.c_str(), g_path_get_basename(saveFileName_.c_str()));
             saveFileName_ = "";
         }
 

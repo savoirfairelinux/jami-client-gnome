@@ -240,7 +240,7 @@ placecall_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->conversation_) return;
-    g_signal_emit(G_OBJECT(self), chat_view_signals[PLACE_CALL_CLICKED], 0, priv->conversation_->uid.c_str());
+    g_signal_emit(G_OBJECT(self), chat_view_signals[PLACE_CALL_CLICKED], 0, qUtf8Printable(priv->conversation_->uid));
 }
 
 static void
@@ -248,7 +248,7 @@ place_audio_call_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->conversation_) return;
-    g_signal_emit(G_OBJECT(self), chat_view_signals[PLACE_AUDIO_CALL_CLICKED], 0, priv->conversation_->uid.c_str());
+    g_signal_emit(G_OBJECT(self), chat_view_signals[PLACE_AUDIO_CALL_CLICKED], 0, qUtf8Printable(priv->conversation_->uid));
 }
 
 static void
@@ -256,7 +256,7 @@ add_to_conversations_clicked(ChatView *self)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->conversation_) return;
-    g_signal_emit(G_OBJECT(self), chat_view_signals[ADD_CONVERSATION_CLICKED], 0, priv->conversation_->uid.c_str());
+    g_signal_emit(G_OBJECT(self), chat_view_signals[ADD_CONVERSATION_CLICKED], 0, qUtf8Printable(priv->conversation_->uid));
 }
 
 static void
@@ -264,7 +264,8 @@ send_text_clicked(ChatView *self, const std::string& body)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->conversation_) return;
-    g_signal_emit(G_OBJECT(self), chat_view_signals[SEND_TEXT_CLICKED], 0, priv->conversation_->uid.c_str(), body.c_str());
+    g_signal_emit(G_OBJECT(self), chat_view_signals[SEND_TEXT_CLICKED],
+        0, qUtf8Printable(priv->conversation_->uid), body.c_str());
 }
 
 static gchar*
@@ -304,7 +305,7 @@ on_record_closed(GtkPopover*, ChatView *self)
     auto* priv = CHAT_VIEW_GET_PRIVATE(self);
 
     if (!priv->cpp->saveFileName_.empty()) {
-        priv->cpp->avModel_->stopLocalRecorder(priv->cpp->saveFileName_);
+        priv->cpp->avModel_->stopLocalRecorder(priv->cpp->saveFileName_.c_str());
         if (!priv->cpp->saveFileName_.empty()) {
             std::remove(priv->cpp->saveFileName_.c_str());
         }
@@ -391,7 +392,7 @@ chat_view_show_recorder(ChatView *self, int pt_x, int pt_y, bool is_video_record
     if (is_video_record) {
         auto deviceId = priv->cpp->avModel_->getDefaultDevice();
         auto settings = priv->cpp->avModel_->getDeviceSettings(deviceId);
-        auto res = settings.size;
+        auto res = settings.size.toStdString();
         if (res.find("x") == std::string::npos) return;
         auto res_width = static_cast<double>(std::stoi(res.substr(0, res.find("x"))));
         auto res_height = static_cast<double>(std::stoi(res.substr(res.find("x") + 1)));
@@ -468,8 +469,8 @@ start_recorder(ChatView* self)
 {
     g_return_val_if_fail(IS_CHAT_VIEW(self), false);
     auto* priv = CHAT_VIEW_GET_PRIVATE(self);
-    std::string file_name = priv->cpp->avModel_->startLocalRecorder(!priv->is_video_record);
-    if (file_name.empty()) {
+    QString file_name = priv->cpp->avModel_->startLocalRecorder(!priv->is_video_record);
+    if (file_name.isEmpty()) {
         priv->startRecorderWhenReady = true;
         g_warning("set_state: failed to start recording, wait preview");
         return false;
@@ -478,7 +479,7 @@ start_recorder(ChatView* self)
     if (!priv->cpp->saveFileName_.empty()) {
         std::remove(priv->cpp->saveFileName_.c_str());
     }
-    priv->cpp->saveFileName_ = file_name;
+    priv->cpp->saveFileName_ = file_name.toStdString();
     return true;
 }
 
@@ -533,7 +534,7 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
     } else if (order.find("SEND:") == 0) {
         auto toSend = order.substr(std::string("SEND:").size());
         if ((*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::RING) {
-            (*priv->accountInfo_)->conversationModel->sendMessage(priv->conversation_->uid, toSend);
+            (*priv->accountInfo_)->conversationModel->sendMessage(priv->conversation_->uid, toSend.c_str());
         } else {
             // For SIP accounts, we need to wait that the conversation is created to send text
             send_text_clicked(self, toSend);
@@ -563,17 +564,18 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
                 // get full path
                 std::string filename = current_value.empty()? default_download_dir.c_str() : download_directory_value;
                 if (!filename.empty() && filename.back() != '/') filename += "/";
-                auto wantedFilename = filename + info.displayName;
+                auto file_displayname = info.displayName.toStdString();
+                auto wantedFilename = filename + file_displayname;
                 auto duplicate = 0;
                 while (std::ifstream(wantedFilename).good()) {
                     ++duplicate;
-                    auto extensionIdx = info.displayName.find_last_of(".");
+                    auto extensionIdx = file_displayname.find_last_of(".");
                     if (extensionIdx == std::string::npos)
-                        wantedFilename = filename + info.displayName + " (" + std::to_string(duplicate) + ")";
+                        wantedFilename = filename + file_displayname + " (" + std::to_string(duplicate) + ")";
                     else
-                        wantedFilename = filename + info.displayName.substr(0, extensionIdx) + " (" + std::to_string(duplicate) + ")" + info.displayName.substr(extensionIdx);
+                        wantedFilename = filename + file_displayname.substr(0, extensionIdx) + " (" + std::to_string(duplicate) + ")" + file_displayname.substr(extensionIdx);
                 }
-                model->acceptTransfer(priv->conversation_->uid, interactionId, wantedFilename);
+                model->acceptTransfer(priv->conversation_->uid, interactionId, wantedFilename.c_str());
             } catch (...) {
                 // ignore
             }
@@ -772,7 +774,7 @@ load_participants_images(ChatView *self)
     auto contactUri = priv->conversation_->participants.front();
     try{
         auto& contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
-        std::string avatar_str = contact.profileInfo.avatar;
+        std::string avatar_str = contact.profileInfo.avatar.toStdString();
         if (avatar_str.empty()) {
             auto var_photo = Interfaces::PixbufManipulator().conversationPhoto(
                 *priv->conversation_,
@@ -786,7 +788,7 @@ load_participants_images(ChatView *self)
         }
         webkit_chat_container_set_sender_image(
             WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-            contactUri,
+            contactUri.toStdString(),
             avatar_str
         );
     } catch (const std::out_of_range&) {
@@ -794,7 +796,7 @@ load_participants_images(ChatView *self)
     }
 
     // For this account
-    std::string avatar_str = (*priv->accountInfo_)->profileInfo.avatar;
+    std::string avatar_str = (*priv->accountInfo_)->profileInfo.avatar.toStdString();
     if (avatar_str.empty()) {
         auto default_photo = QVariant::fromValue(Interfaces::PixbufManipulator().scaleAndFrame(
             Interfaces::PixbufManipulator().generateAvatar("", "").get(),
@@ -804,7 +806,7 @@ load_participants_images(ChatView *self)
     }
     webkit_chat_container_set_sender_image(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-        (*priv->accountInfo_)->profileInfo.uri,
+        (*priv->accountInfo_)->profileInfo.uri.toStdString(),
         avatar_str
     );
 }
@@ -848,14 +850,14 @@ webkit_chat_container_ready(ChatView* self)
 
     priv->ready_ = true;
     for (const auto& interaction: priv->cpp->interactionsBuffer_) {
-        if (interaction.conv == priv->conversation_->uid) {
+        if (interaction.conv == priv->conversation_->uid.toStdString()) {
             print_interaction_to_buffer(self, interaction.id, interaction.info);
         }
     }
 
     priv->update_interaction_connection = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::interactionStatusUpdated,
-    [self, priv](const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
+    [self, priv](const QString& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
         if (!priv->conversation_) return;
         if (uid == priv->conversation_->uid) {
             update_interaction(self, msgId, msg);
@@ -864,7 +866,7 @@ webkit_chat_container_ready(ChatView* self)
 
     priv->interaction_removed = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::interactionRemoved,
-    [self, priv](const std::string& convUid, uint64_t interactionId) {
+    [self, priv](const QString& convUid, uint64_t interactionId) {
         if (!priv->conversation_) return;
         if (convUid == priv->conversation_->uid) {
             remove_interaction(self, interactionId);
@@ -876,11 +878,12 @@ webkit_chat_container_ready(ChatView* self)
     try {
         auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         auto bestName = contactInfo.profileInfo.alias;
-        if (bestName.empty())
+        if (bestName.isEmpty())
             bestName = contactInfo.registeredName;
-        if (bestName.empty())
+        if (bestName.isEmpty())
             bestName = contactInfo.profileInfo.uri;
-        bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
+        bestName.remove('\r');
+        bestName.remove('\n');
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
     }
@@ -908,29 +911,28 @@ update_chatview_frame(ChatView* self)
     // get alias and bestName
     auto alias = contactInfo.profileInfo.alias;
     auto bestName = contactInfo.registeredName;
-    if (bestName.empty())
+    if (bestName.isEmpty())
         bestName = contactInfo.profileInfo.uri;
     if (bestName == alias)
         alias = "";
-    bestName.erase(std::remove(bestName.begin(), bestName.end(), '\r'), bestName.end());
-    alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
-
+    bestName.remove('\r');
+    alias.remove('\r');
     // get temporary status
     bool temp = contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY || contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
 
     webkit_chat_update_chatview_frame(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                      (*priv->accountInfo_)->enabled,
-                                     contactInfo.isBanned, temp, alias.c_str(), bestName.c_str());
+                                     contactInfo.isBanned, temp, qUtf8Printable(alias), qUtf8Printable(bestName));
 
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                              (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
-                                             bestName,
-                                             contactInfo.profileInfo.uri);
+                                             bestName.toStdString(),
+                                             contactInfo.profileInfo.uri.toStdString());
 
     // hide navbar if we are in call
     try {
-        std::string callId;
-        if (priv->conversation_->confId.empty()) {
+        QString callId;
+        if (priv->conversation_->confId.isEmpty()) {
             callId = priv->conversation_->callId;
         } else {
             callId = priv->conversation_->confId;
@@ -941,7 +943,7 @@ update_chatview_frame(ChatView* self)
             if (status != lrc::api::call::Status::ENDED &&
                 status != lrc::api::call::Status::INVALID &&
                 status != lrc::api::call::Status::TERMINATING) {
-                g_debug("call has status %s, hiding", lrc::api::call::to_string(status).c_str());
+                g_debug("call has status %s, hiding", qUtf8Printable(lrc::api::call::to_string(status)));
                 chat_view_set_header_visible(self, FALSE);
             } else {
                 chat_view_set_header_visible(self, TRUE);
@@ -981,7 +983,9 @@ on_webkit_drag_drop(GtkWidget*, gchar* data, ChatView* self)
     }
 
     if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
-        model->sendFile(priv->conversation_->uid, data_str, g_path_get_basename(data_str.c_str()));
+        model->sendFile(priv->conversation_->uid,
+                        data_str.c_str(),
+                        g_path_get_basename(data_str.c_str()));
     }
 }
 
@@ -998,7 +1002,7 @@ on_main_action_clicked(ChatView *self)
         }
         case RecordAction::STOP: {
             if (!priv->cpp->saveFileName_.empty()) {
-                priv->cpp->avModel_->stopLocalRecorder(priv->cpp->saveFileName_);
+                priv->cpp->avModel_->stopLocalRecorder(priv->cpp->saveFileName_.c_str());
             }
             gtk_widget_show(GTK_WIDGET(priv->button_retry));
             std::string rsc = !priv->useDarkTheme && !priv->is_video_record ?
@@ -1012,7 +1016,9 @@ on_main_action_clicked(ChatView *self)
         }
         case RecordAction::SEND: {
             if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
-                model->sendFile(priv->conversation_->uid, priv->cpp->saveFileName_, g_path_get_basename(priv->cpp->saveFileName_.c_str()));
+                model->sendFile(priv->conversation_->uid,
+                                priv->cpp->saveFileName_.c_str(),
+                                g_path_get_basename(priv->cpp->saveFileName_.c_str()));
                 priv->cpp->saveFileName_ = "";
             }
             gtk_widget_destroy(priv->record_popover);
@@ -1045,7 +1051,7 @@ init_video_widget(ChatView* self)
             priv->local_renderer_connection = QObject::connect(
                 &*priv->cpp->avModel_,
                 &lrc::api::AVModel::rendererStarted,
-                [=](const std::string& id) {
+                [=](const QString& id) {
                     if (id != lrc::api::video::PREVIEW_RENDERER_ID
                         || !priv->readyToRecord_)
                         return;
@@ -1119,11 +1125,11 @@ build_chat_view(ChatView* self)
 
     priv->new_interaction_connection = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newInteraction,
-    [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
+    [self, priv](const QString& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
         if (!priv->conversation_) return;
         if (!priv->ready_ && priv->cpp) {
             priv->cpp->interactionsBuffer_.emplace_back(CppImpl::Interaction {
-                uid, interactionId, interaction});
+                uid.toStdString(), interactionId, interaction});
         } else if (uid == priv->conversation_->uid) {
             print_interaction_to_buffer(self, interactionId, interaction);
         }
