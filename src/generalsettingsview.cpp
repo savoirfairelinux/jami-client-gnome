@@ -115,7 +115,7 @@ CppImpl::CppImpl(GeneralSettingsView& widget, lrc::api::AVModel& avModel)
         GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
     gtk_file_chooser_set_filename(
         GTK_FILE_CHOOSER(widgets->filechooserbutton_record_path),
-        avModel_->getRecordPath().c_str());
+        qUtf8Printable(avModel_->getRecordPath()));
     gtk_adjustment_set_value(
         GTK_ADJUSTMENT(widgets->adjustment_record_quality),
         avModel_->getRecordQuality());

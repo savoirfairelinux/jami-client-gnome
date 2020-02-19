@@ -152,7 +152,7 @@ migrate(AccountMigrationView *view)
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(priv->entry_password));
     priv->state_changed = QObject::connect((*priv->accountInfo_)->accountModel,
                                            &lrc::api::NewAccountModel::migrationEnded,
-        [=] (const std::string&, bool ok)
+        [=] (const QString&, bool ok)
         {
             gtk_widget_hide(priv->hbox_migrating_account_spinner);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->button_delete_account), true);
@@ -215,23 +215,23 @@ build_migration_view(AccountMigrationView *view)
     g_signal_connect_swapped(priv->button_delete_account, "clicked", G_CALLBACK(delete_account), view);
     g_signal_connect_swapped(priv->entry_password, "activate", G_CALLBACK(migrate), view);
 
-    gtk_label_set_text(GTK_LABEL(priv->label_account_alias), (*priv->accountInfo_)->profileInfo.alias.c_str());
+    gtk_label_set_text(GTK_LABEL(priv->label_account_alias), qUtf8Printable((*priv->accountInfo_)->profileInfo.alias));
 
     // display the ringID (without "ring:")
-    g_debug("MIGRATE FOR %s", (*priv->accountInfo_)->id.c_str());
-    std::string username = (*priv->accountInfo_)->registeredName;
+    g_debug("MIGRATE FOR %s", qUtf8Printable((*priv->accountInfo_)->id));
+    auto username = (*priv->accountInfo_)->registeredName;
     try {
         auto conf = (*priv->accountInfo_)->accountModel->getAccountConfig((*priv->accountInfo_)->id);
-        if (username.empty() && !conf.managerUsername.empty()) {
+        if (username.isEmpty() && !conf.managerUsername.isEmpty()) {
             username = conf.managerUsername;
         }
-        gtk_label_set_text(GTK_LABEL(priv->label_account_username), username.c_str());
-        if (username.empty()) {
+        gtk_label_set_text(GTK_LABEL(priv->label_account_username), qUtf8Printable(username));
+        if (username.isEmpty()) {
             gtk_widget_hide(priv->username_row);
         }
-        std::string manager = conf.managerUri;
-        gtk_label_set_text(GTK_LABEL(priv->label_account_manager), manager.c_str());
-        if (manager.empty()) {
+        auto manager = conf.managerUri;
+        gtk_label_set_text(GTK_LABEL(priv->label_account_manager), qUtf8Printable(manager));
+        if (manager.isEmpty()) {
             gtk_widget_hide(priv->manager_row);
         }
     } catch (...) {
@@ -244,8 +244,8 @@ build_migration_view(AccountMigrationView *view)
     auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
     auto photo = default_scaled;
     auto photostr = (*priv->accountInfo_)->profileInfo.avatar;
-    if (!photostr.empty()) {
-        QByteArray byteArray(photostr.c_str(), photostr.length());
+    if (!photostr.isEmpty()) {
+        QByteArray byteArray = photostr.toUtf8();
         QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
         auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
         if (avatar.isValid()) {

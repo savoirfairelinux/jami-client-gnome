@@ -413,7 +413,7 @@ switch_video_input(GtkWidget *widget, GtkWidget *parent)
 
     if (priv->avModel_) {
         auto device_id = priv->avModel_->getDeviceIdFromName(label);
-        if (device_id.empty()) {
+        if (device_id.isEmpty()) {
             g_warning("switch_video_input couldn't find device: %s", label);
             return;
         }
@@ -538,11 +538,11 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
     auto active_device = priv->avModel_->getCurrentRenderedDevice(
         priv->remote->v_renderer->getId());
 
-    g_debug("active_device.name: %s", active_device.name.c_str());
+    g_debug("active_device.name: %s", qUtf8Printable(active_device.name));
 
     for (auto device : device_list) {
         auto settings = priv->avModel_->getDeviceSettings(device);
-        GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(settings.name.c_str());
+        GtkWidget *item = gtk_check_menu_item_new_with_mnemonic(qUtf8Printable(settings.name));
         gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item),
             device == active_device.name
@@ -865,7 +865,7 @@ video_widget_add_new_renderer(VideoWidget* self, lrc::api::AVModel* avModel,
     new_video_renderer->render_stop = QObject::connect(
         &*avModel,
         &lrc::api::AVModel::rendererStopped,
-        [=](const std::string& id) {
+        [=](const QString& id) {
             if (renderer->getId() == id)
                 renderer_stop(new_video_renderer);
         });
@@ -873,7 +873,7 @@ video_widget_add_new_renderer(VideoWidget* self, lrc::api::AVModel* avModel,
     new_video_renderer->render_start = QObject::connect(
         &*avModel,
         &lrc::api::AVModel::rendererStarted,
-        [=](const std::string& id) {
+        [=](const QString& id) {
             if (renderer->getId() == id)
                 renderer_start(new_video_renderer);
         });

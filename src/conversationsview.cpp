@@ -225,11 +225,11 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         // Banned contacts should be displayed with grey bg
         g_object_set(G_OBJECT(cell), "cell-background", contactInfo.isBanned ? "#BDBDBD" : NULL, NULL);
 
-        auto callId = conversation.confId.empty() ? conversation.callId : conversation.confId;
-        if (!callId.empty()) {
+        auto callId = conversation.confId.isEmpty() ? conversation.callId : conversation.confId;
+        if (!callId.isEmpty()) {
             auto call = (*priv->accountInfo_)->callModel->getCall(callId);
             if (call.status != lrc::api::call::Status::ENDED) {
-                g_object_set(G_OBJECT(cell), "markup", lrc::api::call::to_string(call.status).c_str(), NULL);
+                g_object_set(G_OBJECT(cell), "markup", qUtf8Printable(lrc::api::call::to_string(call.status)), NULL);
                 return;
             }
         }
@@ -288,15 +288,15 @@ update_conversation(ConversationsView *self, const std::string& uid) {
                 conversation.interactions.at(conversation.lastMessageUid).body;
             std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
             auto alias = contactInfo.profileInfo.alias;
-            alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
+            alias.remove('\r');
             // Update iter
             gtk_list_store_set (GTK_LIST_STORE(model), &iter,
-                                0 /* col # */ , conversation.uid.c_str() /* celldata */,
-                                1 /* col # */ , alias.c_str() /* celldata */,
-                                2 /* col # */ , contactInfo.profileInfo.uri.c_str() /* celldata */,
-                                3 /* col # */ , contactInfo.registeredName.c_str() /* celldata */,
-                                4 /* col # */ , contactInfo.profileInfo.avatar.c_str() /* celldata */,
-                                5 /* col # */ , lastMessage.c_str() /* celldata */,
+                                0 /* col # */ , qUtf8Printable(conversation.uid) /* celldata */,
+                                1 /* col # */ , qUtf8Printable(alias) /* celldata */,
+                                2 /* col # */ , qUtf8Printable(contactInfo.profileInfo.uri) /* celldata */,
+                                3 /* col # */ , qUtf8Printable(contactInfo.registeredName) /* celldata */,
+                                4 /* col # */ , qUtf8Printable(contactInfo.profileInfo.avatar) /* celldata */,
+                                5 /* col # */ , qUtf8Printable(lastMessage) /* celldata */,
                                 -1 /* end */);
             g_free(ringId);
             return;
@@ -335,14 +335,14 @@ create_and_fill_model(ConversationsView *self)
             std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
             gtk_list_store_append (store, &iter);
             auto alias = contactInfo.profileInfo.alias;
-            alias.erase(std::remove(alias.begin(), alias.end(), '\r'), alias.end());
+            alias.remove('\r');
             gtk_list_store_set (store, &iter,
-                                0 /* col # */ , conversation.uid.c_str() /* celldata */,
-                                1 /* col # */ , alias.c_str() /* celldata */,
-                                2 /* col # */ , contactInfo.profileInfo.uri.c_str() /* celldata */,
-                                3 /* col # */ , contactInfo.registeredName.c_str() /* celldata */,
-                                4 /* col # */ , contactInfo.profileInfo.avatar.c_str() /* celldata */,
-                                5 /* col # */ , lastMessage.c_str() /* celldata */,
+                                0 /* col # */ , qUtf8Printable(conversation.uid) /* celldata */,
+                                1 /* col # */ , qUtf8Printable(alias) /* celldata */,
+                                2 /* col # */ , qUtf8Printable(contactInfo.profileInfo.uri) /* celldata */,
+                                3 /* col # */ , qUtf8Printable(contactInfo.registeredName) /* celldata */,
+                                4 /* col # */ , qUtf8Printable(contactInfo.profileInfo.avatar) /* celldata */,
+                                5 /* col # */ , qUtf8Printable(lastMessage) /* celldata */,
                                 -1 /* end */);
         } catch (const std::out_of_range&) {
             // ContactModel::getContact() exception
@@ -399,7 +399,7 @@ select_conversation(GtkTreeSelection *selection, ConversationsView *self)
     gtk_tree_model_get(model, &iter,
                        0, &conversationUid,
                        -1);
-    (*priv->accountInfo_)->conversationModel->selectConversation(std::string(conversationUid));
+    (*priv->accountInfo_)->conversationModel->selectConversation(QString(conversationUid));
 }
 
 static void
@@ -632,8 +632,8 @@ build_conversations_view(ConversationsView *self)
     priv->conversationUpdatedConnection_ = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel,
     &lrc::api::ConversationModel::conversationUpdated,
-    [self] (const std::string& uid) {
-        update_conversation(self, uid);
+    [self] (const QString& uid) {
+        update_conversation(self, uid.toStdString());
     });
 
     priv->filterChangedConnection_ = QObject::connect(
@@ -649,7 +649,7 @@ build_conversations_view(ConversationsView *self)
     priv->callChangedConnection_ = QObject::connect(
     &*(*priv->accountInfo_)->callModel,
     &lrc::api::NewCallModel::callStatusChanged,
-    [self, priv] (const std::string&) {
+    [self, priv] (const QString&) {
         // retrieve currently selected conversation
         GtkTreeIter iter;
         GtkTreeModel *model = nullptr;

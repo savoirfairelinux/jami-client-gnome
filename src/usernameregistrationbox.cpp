@@ -243,7 +243,7 @@ lookup_username(UsernameRegistrationBox *view)
 
     if (priv->accountInfo_) {
         auto prop = (*priv->accountInfo_)->accountModel->getAccountConfig((*priv->accountInfo_)->id);
-        NameDirectory::instance().lookupName(prop.RingNS.uri.c_str(), username);
+        NameDirectory::instance().lookupName(prop.RingNS.uri, username);
     } else {
         NameDirectory::instance().lookupName(QString(), username);
     }
@@ -306,7 +306,7 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
 
     auto show_password = true;
     if (*priv->accountInfo_) {
-        std::string accountId = (*priv->accountInfo_)->id;
+        auto accountId = (*priv->accountInfo_)->id;
         lrc::api::account::ConfProperties_t props;
         props = (*priv->accountInfo_)->accountModel->getAccountConfig(accountId);
         show_password = props.archiveHasPassword;
@@ -346,7 +346,7 @@ button_register_username_clicked(G_GNUC_UNUSED GtkButton* button, UsernameRegist
             gtk_widget_set_sensitive(priv->entry_username, FALSE);
             gtk_widget_set_sensitive(priv->button_register_username, FALSE);
 
-            if (!(*priv->accountInfo_)->accountModel->registerName((*priv->accountInfo_)->id, password, username))
+            if (!(*priv->accountInfo_)->accountModel->registerName((*priv->accountInfo_)->id, password.c_str(), username))
             {
                 gtk_spinner_stop(GTK_SPINNER(priv->spinner));
                 gtk_widget_hide(priv->spinner);
@@ -382,12 +382,12 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
 {
     UsernameRegistrationBoxPrivate *priv = USERNAME_REGISTRATION_BOX_GET_PRIVATE(view);
 
-    std::string registered_name = {};
+    QString registered_name = {};
     if(priv->withAccount) {
         registered_name = (*priv->accountInfo_)->registeredName;
     }
 
-    if (registered_name.empty())
+    if (registered_name.isEmpty())
     {
         //Make the entry editable
         g_object_set(G_OBJECT(priv->entry_username), "editable", TRUE, NULL);
@@ -405,7 +405,7 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
             priv->name_registration_ended = QObject::connect(
                 (*priv->accountInfo_)->accountModel,
                 &lrc::api::NewAccountModel::nameRegistrationEnded,
-                [=] (const std::string& accountId, lrc::api::account::RegisterNameStatus status, const std::string& name) {
+                [=] (const QString& accountId, lrc::api::account::RegisterNameStatus status, const QString& name) {
                     if (accountId != (*priv->accountInfo_)->id) return;
                     if (name == "") return;
                     gtk_spinner_stop(GTK_SPINNER(priv->spinner));
@@ -422,7 +422,7 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
                                 g_signal_handler_disconnect(priv->entry_username, priv->entry_changed);
                                 priv->entry_changed = 0;
                             }
-                            gtk_label_set_text(GTK_LABEL(priv->label_username), name.c_str());
+                            gtk_label_set_text(GTK_LABEL(priv->label_username), qUtf8Printable(name));
                             gtk_widget_hide(priv->frame_username);
                             gtk_widget_show(priv->label_username);
                             gtk_widget_set_can_focus(priv->label_username, true);
@@ -453,7 +453,7 @@ build_view(UsernameRegistrationBox *view, gboolean register_button)
         gtk_widget_hide(priv->label_username);
     } else {
         gtk_widget_hide(priv->frame_username);
-        gtk_label_set_text(GTK_LABEL(priv->label_username), registered_name.c_str());
+        gtk_label_set_text(GTK_LABEL(priv->label_username), qUtf8Printable(registered_name));
         gtk_widget_show(priv->label_username);
     }
 
