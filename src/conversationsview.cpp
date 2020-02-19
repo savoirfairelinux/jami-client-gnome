@@ -632,8 +632,8 @@ build_conversations_view(ConversationsView *self)
     priv->conversationUpdatedConnection_ = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel,
     &lrc::api::ConversationModel::conversationUpdated,
-    [self] (const std::string& uid) {
-        update_conversation(self, uid);
+    [self] (const QString& uid) {
+        update_conversation(self, uid.toStdString());
     });
 
     priv->filterChangedConnection_ = QObject::connect(
@@ -649,7 +649,7 @@ build_conversations_view(ConversationsView *self)
     priv->callChangedConnection_ = QObject::connect(
     &*(*priv->accountInfo_)->callModel,
     &lrc::api::NewCallModel::callStatusChanged,
-    [self, priv] (const std::string&) {
+    [self, priv] (const QString&) {
         // retrieve currently selected conversation
         GtkTreeIter iter;
         GtkTreeModel *model = nullptr;

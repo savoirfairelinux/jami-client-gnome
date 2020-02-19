@@ -1715,8 +1715,8 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, NewAccountSettingsVi
     priv->export_on_ring_ended = QObject::connect(
         (*priv->accountInfo_)->accountModel,
         &lrc::api::NewAccountModel::exportOnRingEnded,
-        [=] (const std::string& accountID, lrc::api::account::ExportOnRingStatus status, const std::string& pin) {
-            if (accountID != (*priv->accountInfo_)->id) return;
+        [=] (const QString& accountID, lrc::api::account::ExportOnRingStatus status, const QString& pin) {
+            if (accountID.toStdString() != (*priv->accountInfo_)->id) return;
             QObject::disconnect(priv->export_on_ring_ended);
             gtk_widget_set_sensitive(priv->button_export_on_the_ring, TRUE);
             switch (status)
@@ -1726,7 +1726,7 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, NewAccountSettingsVi
                     GtkStyleContext* context;
                     context = gtk_widget_get_style_context(GTK_WIDGET(priv->label_generated_pin));
                     gtk_style_context_add_class(context, "larger");
-                    gtk_label_set_text(GTK_LABEL(priv->label_generated_pin), pin.c_str());
+                    gtk_label_set_text(GTK_LABEL(priv->label_generated_pin), pin.toStdString().c_str());
                     show_generated_pin_view(view);
                     break;
                 }
@@ -1793,12 +1793,12 @@ build_settings_view(NewAccountSettingsView* view)
     priv->new_device_added_connection = QObject::connect(
         &*(*priv->accountInfo_)->deviceModel,
         &lrc::api::NewDeviceModel::deviceAdded,
-        [view] (const std::string& id) {
+        [view] (const QString& id) {
             auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
             // Retrieve added device
             auto device = (*priv->accountInfo_)->deviceModel->getDevice(id);
-            if (device.id.empty()) {
-                g_debug("Can't add device with id: %s", device.id.c_str());
+            if (device.id.isEmpty()) {
+                g_debug("Can't add device with id: %s", qPrintable(device.id));
                 return;
             }
             // if exists, add to list
@@ -1809,12 +1809,12 @@ build_settings_view(NewAccountSettingsView* view)
     priv->device_removed_connection = QObject::connect(
         &*(*priv->accountInfo_)->deviceModel,
         &lrc::api::NewDeviceModel::deviceRevoked,
-        [view] (const std::string& id, const lrc::api::NewDeviceModel::Status status) {
+        [view] (const QString& id, const lrc::api::NewDeviceModel::Status status) {
             auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
             auto row = 0;
             while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_devices), row))) {
                 auto deviceId = get_id_from_row(children);
-                if (deviceId == id) {
+                if (deviceId == id.toStdString()) {
                     switch (status) {
                     case lrc::api::NewDeviceModel::Status::SUCCESS:
                         // remove device's line
@@ -1838,12 +1838,12 @@ build_settings_view(NewAccountSettingsView* view)
     priv->device_updated_connection = QObject::connect(
         &*(*priv->accountInfo_)->deviceModel,
         &lrc::api::NewDeviceModel::deviceUpdated,
-        [view] (const std::string& id) {
+        [view] (const QString& id) {
             auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
             // Retrieve added device
             auto device = (*priv->accountInfo_)->deviceModel->getDevice(id);
-            if (device.id.empty()) {
-                g_debug("Can't add device with id: %s", device.id.c_str());
+            if (device.id.isEmpty()) {
+                g_debug("Can't add device with id: %s", qPrintable(device.id));
                 return;
             }
             // if exists, update
@@ -1870,15 +1870,15 @@ build_settings_view(NewAccountSettingsView* view)
     priv->banned_status_changed_connection = QObject::connect(
         &*(*priv->accountInfo_)->contactModel,
         &lrc::api::ContactModel::bannedStatusChanged,
-        [view] (const std::string& contactUri, bool banned) {
+        [view] (const QString& contactUri, bool banned) {
             auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
             if (banned) {
-                add_banned(view, contactUri);
+                add_banned(view, contactUri.toStdString());
             } else {
                 auto row = 0;
                 while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_banned_contacts), row))) {
                     auto uri = get_contact_id_from_row(children);
-                    if (contactUri == uri)
+                    if (contactUri.toStdString() == uri)
                         gtk_container_remove(GTK_CONTAINER(priv->list_banned_contacts), children);
                     ++row;
                 }
@@ -1979,7 +1979,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
     }
 
     try {
-        std::string accountId = (*priv->accountInfo_)->id;
+        QString accountId = QString::fromStdString((*priv->accountInfo_)->id);
         priv->currentProp_ = new lrc::api::account::ConfProperties_t();
         *priv->currentProp_ = (*priv->accountInfo_)->accountModel->getAccountConfig(accountId);
     } catch (std::out_of_range& e) {

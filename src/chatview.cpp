@@ -855,18 +855,18 @@ webkit_chat_container_ready(ChatView* self)
 
     priv->update_interaction_connection = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::interactionStatusUpdated,
-    [self, priv](const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
+    [self, priv](const QString& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
         if (!priv->conversation_) return;
-        if (uid == priv->conversation_->uid) {
+        if (uid.toStdString() == priv->conversation_->uid) {
             update_interaction(self, msgId, msg);
         }
     });
 
     priv->interaction_removed = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::interactionRemoved,
-    [self, priv](const std::string& convUid, uint64_t interactionId) {
+    [self, priv](const QString& convUid, uint64_t interactionId) {
         if (!priv->conversation_) return;
-        if (convUid == priv->conversation_->uid) {
+        if (convUid.toStdString() == priv->conversation_->uid) {
             remove_interaction(self, interactionId);
         }
     });
@@ -1045,7 +1045,7 @@ init_video_widget(ChatView* self)
             priv->local_renderer_connection = QObject::connect(
                 &*priv->cpp->avModel_,
                 &lrc::api::AVModel::rendererStarted,
-                [=](const std::string& id) {
+                [=](const QString& id) {
                     if (id != lrc::api::video::PREVIEW_RENDERER_ID
                         || !priv->readyToRecord_)
                         return;
@@ -1119,12 +1119,12 @@ build_chat_view(ChatView* self)
 
     priv->new_interaction_connection = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newInteraction,
-    [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
+    [self, priv](const QString& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
         if (!priv->conversation_) return;
         if (!priv->ready_ && priv->cpp) {
             priv->cpp->interactionsBuffer_.emplace_back(CppImpl::Interaction {
-                uid, interactionId, interaction});
-        } else if (uid == priv->conversation_->uid) {
+                uid.toStdString(), interactionId, interaction});
+        } else if (uid.toStdString() == priv->conversation_->uid) {
             print_interaction_to_buffer(self, interactionId, interaction);
         }
     });

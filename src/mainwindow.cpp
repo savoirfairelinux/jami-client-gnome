@@ -1216,21 +1216,19 @@ CppImpl::init()
 
     accountStatusChangedConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                                        &lrc::api::NewAccountModel::accountStatusChanged,
-                                                       [this](const std::string& id){ slotAccountStatusChanged(id); });
+                                                       [this](const QString& id) { slotAccountStatusChanged(id.toStdString()); });
     profileUpdatedConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                                  &lrc::api::NewAccountModel::profileUpdated,
-                                                 [this](const std::string& id){
-                                                     slotProfileUpdated(id);
-                                                 });
+                                                 [this](const QString& id) { slotProfileUpdated(id.toStdString()); });
     newAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                              &lrc::api::NewAccountModel::accountAdded,
-                                             [this](const std::string& id){ slotAccountAddedFromLrc(id); });
+                                             [this](const QString& id) { slotAccountAddedFromLrc(id.toStdString()); });
     rmAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                             &lrc::api::NewAccountModel::accountRemoved,
-                                            [this](const std::string& id){ slotAccountRemovedFromLrc(id); });
+                                            [this](const QString& id){ slotAccountRemovedFromLrc(id.toStdString()); });
     invalidAccountConnection_ = QObject::connect(&lrc_->getAccountModel(),
                                                  &lrc::api::NewAccountModel::invalidAccountDetected,
-                                                 [this](const std::string& id){ slotInvalidAccountFromLrc(id); });
+                                                 [this](const QString& id){ slotInvalidAccountFromLrc(id.toStdString()); });
 
     /* bind to window size settings */
     widgets->window_settings = g_settings_new_full(get_settings_schema(), nullptr, nullptr);
@@ -1970,7 +1968,7 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     // Connect to signals from LRC
     historyClearedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                  &lrc::api::ConversationModel::conversationCleared,
-                                                 [this] (const std::string& id) { slotConversationCleared(id); });
+                                                 [this] (const QString& id) { slotConversationCleared(id.toStdString()); });
 
     modelSortedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                               &lrc::api::ConversationModel::modelSorted,
@@ -1978,19 +1976,19 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
 
     callChangedConnection_ = QObject::connect(&*accountInfo_->callModel,
                                               &lrc::api::NewCallModel::callStatusChanged,
-                                              [this] (const std::string& callId) { slotCallStatusChanged(callId); });
+                                              [this] (const QString& callId) { slotCallStatusChanged(callId.toStdString()); });
 
     callStartedConnection_ = QObject::connect(&*accountInfo_->callModel,
                                               &lrc::api::NewCallModel::callStarted,
-                                              [this] (const std::string& callId) { slotCallStarted(callId); });
+                                              [this] (const QString& callId) { slotCallStarted(callId.toStdString()); });
 
     callEndedConnection_ = QObject::connect(&*accountInfo_->callModel,
                                               &lrc::api::NewCallModel::callEnded,
-                                              [this] (const std::string& callId) { slotCallEnded(callId); });
+                                              [this] (const QString& callId) { slotCallEnded(callId.toStdString()); });
 
     newIncomingCallConnection_ = QObject::connect(&*accountInfo_->callModel,
                                                   &lrc::api::NewCallModel::newIncomingCall,
-                                                  [this] (const std::string&, const std::string& callId) { slotNewIncomingCall(callId); });
+                                                  [this] (const QString&, const QString& callId) { slotNewIncomingCall(callId.toStdString()); });
 
     filterChangedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                 &lrc::api::ConversationModel::filterChanged,
@@ -1998,47 +1996,47 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
 
     newConversationConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                   &lrc::api::ConversationModel::newConversation,
-                                                  [this] (const std::string& id) { slotNewConversation(id); });
+                                                  [this] (const QString& id) { slotNewConversation(id.toStdString()); });
 
     conversationRemovedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                       &lrc::api::ConversationModel::conversationRemoved,
-                                                      [this] (const std::string& id) { slotConversationRemoved(id); });
+                                                      [this] (const QString& id) { slotConversationRemoved(id.toStdString()); });
 
     showChatViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showChatView,
-                                               [this] (const std::string& id, lrc::api::conversation::Info origin) { slotShowChatView(id, origin); });
+                                               [this] (const QString& id, lrc::api::conversation::Info origin) { slotShowChatView(id.toStdString(), origin); });
 
     showLeaveMessageViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showLeaveMessageView,
-                                               [this] (const std::string&, lrc::api::conversation::Info conv) { slotShowLeaveMessageView(conv); });
+                                               [this] (const QString&, lrc::api::conversation::Info conv) { slotShowLeaveMessageView(conv); });
 
     showCallViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showCallView,
-                                               [this] (const std::string& id, lrc::api::conversation::Info origin) { slotShowCallView(id, origin); });
+                                               [this] (const QString& id, lrc::api::conversation::Info origin) { slotShowCallView(id, origin); });
 
     newTrustRequestNotification_ = QObject::connect(&lrc_->getBehaviorController(),
                                                     &lrc::api::BehaviorController::newTrustRequest,
-                                                    [this] (const std::string& id, const std::string& contactUri) { slotNewTrustRequest(id, contactUri); });
+                                                    [this] (const QString& id, const QString& contactUri) { slotNewTrustRequest(id.toStdString(), contactUri.toStdString()); });
 
     closeTrustRequestNotification_ = QObject::connect(&lrc_->getBehaviorController(),
                                                       &lrc::api::BehaviorController::trustRequestTreated,
-                                                      [this] (const std::string& id, const std::string& contactUri) { slotCloseTrustRequest(id, contactUri); });
+                                                      [this] (const QString& id, const QString& contactUri) { slotCloseTrustRequest(id.toStdString(), contactUri.toStdString()); });
 
     showIncomingViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                    &lrc::api::BehaviorController::showIncomingCallView,
-                                                   [this] (const std::string& id, lrc::api::conversation::Info origin)
-                                                          { slotShowIncomingCallView(id, origin); });
+                                                   [this] (const QString& id, lrc::api::conversation::Info origin)
+                                                          { slotShowIncomingCallView(id.toStdString(), origin); });
 
     slotNewInteraction_ = QObject::connect(&lrc_->getBehaviorController(),
                                            &lrc::api::BehaviorController::newUnreadInteraction,
-                                           [this] (const std::string& accountId, const std::string& conversation,
+                                           [this] (const QString& accountId, const QString& conversation,
                                                   uint64_t interactionId, const lrc::api::interaction::Info& interaction)
-                                                  { slotNewInteraction(accountId, conversation, interactionId, interaction); });
+                                                  { slotNewInteraction(accountId.toStdString(), conversation.toStdString(), interactionId, interaction); });
 
     slotReadInteraction_ = QObject::connect(&lrc_->getBehaviorController(),
                                             &lrc::api::BehaviorController::newReadInteraction,
-                                            [this] (const std::string& accountId, const std::string& conversation, uint64_t interactionId)
-                                                   { slotCloseInteraction(accountId, conversation, interactionId); });
+                                            [this] (const QString& accountId, const QString& conversation, uint64_t interactionId)
+                                                   { slotCloseInteraction(accountId.toStdString(), conversation.toStdString(), interactionId); });
 
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(widgets->search_entry));
     currentTypeFilter_ = accountInfo_->profileInfo.type;

@@ -288,7 +288,7 @@ set_call_info(IncomingCallView *view) {
     priv->state_change_connection = QObject::connect(
     &*(*priv->accountInfo_)->callModel,
     &lrc::api::NewCallModel::callStatusChanged,
-    [view, priv] (const std::string& callId) {
+    [view, priv] (const QString& callId) {
         if (callId == priv->conversation_->callId) {
             update_state(view);
             update_name_and_photo(view);

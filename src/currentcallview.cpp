@@ -1229,7 +1229,7 @@ CppImpl::setCallInfo()
     renderer_connection = QObject::connect(
         &*avModel_,
         &lrc::api::AVModel::rendererStarted,
-        [=](const std::string& id) {
+        [=](const QString& id) {
             if (id == lrc::api::video::PREVIEW_RENDERER_ID) {
                 try {
                     // local renderer
@@ -1267,7 +1267,7 @@ CppImpl::setCallInfo()
     state_change_connection = QObject::connect(
         &*(*accountInfo)->callModel,
         &lrc::api::NewCallModel::callStatusChanged,
-        [this] (const std::string& callId) {
+        [this] (const QString& callId) {
             if (callId == conversation->callId) {
                 try {
                     auto call = (*accountInfo)->callModel->getCall(callId);
@@ -1284,7 +1284,7 @@ CppImpl::setCallInfo()
     update_vcard_connection = QObject::connect(
         &*(*accountInfo)->contactModel,
         &lrc::api::ContactModel::contactAdded,
-        [this] (const std::string& uri) {
+        [this] (const QString& uri) {
             if (uri == conversation->participants.front()) {
                 updateNameAndPhoto();
             }
