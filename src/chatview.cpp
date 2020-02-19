@@ -855,18 +855,18 @@ webkit_chat_container_ready(ChatView* self)
 
     priv->update_interaction_connection = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::interactionStatusUpdated,
-    [self, priv](const std::string& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
+    [self, priv](const QString& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
         if (!priv->conversation_) return;
-        if (uid == priv->conversation_->uid) {
+        if (uid.toStdString() == priv->conversation_->uid) {
             update_interaction(self, msgId, msg);
         }
     });
 
     priv->interaction_removed = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::interactionRemoved,
-    [self, priv](const std::string& convUid, uint64_t interactionId) {
+    [self, priv](const QString& convUid, uint64_t interactionId) {
         if (!priv->conversation_) return;
-        if (convUid == priv->conversation_->uid) {
+        if (convUid.toStdString() == priv->conversation_->uid) {
             remove_interaction(self, interactionId);
         }
     });
@@ -981,7 +981,9 @@ on_webkit_drag_drop(GtkWidget*, gchar* data, ChatView* self)
     }
 
     if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
-        model->sendFile(priv->conversation_->uid, data_str, g_path_get_basename(data_str.c_str()));
+        model->sendFile(QString(priv->conversation_->uid),
+                        data_str,
+                        QString(g_path_get_basename(data_str.c_str())));
     }
 }
 
@@ -998,7 +1000,7 @@ on_main_action_clicked(ChatView *self)
         }
         case RecordAction::STOP: {
             if (!priv->cpp->saveFileName_.empty()) {
-                priv->cpp->avModel_->stopLocalRecorder(priv->cpp->saveFileName_);
+                priv->cpp->avModel_->stopLocalRecorder(QString(priv->cpp->saveFileName_.c_str()));
             }
             gtk_widget_show(GTK_WIDGET(priv->button_retry));
             std::string rsc = !priv->useDarkTheme && !priv->is_video_record ?
@@ -1012,7 +1014,9 @@ on_main_action_clicked(ChatView *self)
         }
         case RecordAction::SEND: {
             if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
-                model->sendFile(priv->conversation_->uid, priv->cpp->saveFileName_, g_path_get_basename(priv->cpp->saveFileName_.c_str()));
+                model->sendFile(QString(priv->conversation_->uid),
+                                priv->cpp->saveFileName_,
+                                QString(g_path_get_basename(priv->cpp->saveFileName_.c_str())));
                 priv->cpp->saveFileName_ = "";
             }
             gtk_widget_destroy(priv->record_popover);
@@ -1045,7 +1049,7 @@ init_video_widget(ChatView* self)
             priv->local_renderer_connection = QObject::connect(
                 &*priv->cpp->avModel_,
                 &lrc::api::AVModel::rendererStarted,
-                [=](const std::string& id) {
+                [=](const QString& id) {
                     if (id != lrc::api::video::PREVIEW_RENDERER_ID
                         || !priv->readyToRecord_)
                         return;
@@ -1119,11 +1123,11 @@ build_chat_view(ChatView* self)
 
     priv->new_interaction_connection = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newInteraction,
-    [self, priv](const std::string& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
+    [self, priv](const QString& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
         if (!priv->conversation_) return;
         if (!priv->ready_ && priv->cpp) {
             priv->cpp->interactionsBuffer_.emplace_back(CppImpl::Interaction {
-                uid, interactionId, interaction});
+                uid.toStdString(), interactionId, interaction});
         } else if (uid == priv->conversation_->uid) {
             print_interaction_to_buffer(self, interactionId, interaction);
         }

@@ -243,7 +243,7 @@ lookup_username(UsernameRegistrationBox *view)
 
     if (priv->accountInfo_) {
         auto prop = (*priv->accountInfo_)->accountModel->getAccountConfig((*priv->accountInfo_)->id);
-        NameDirectory::instance().lookupName(prop.RingNS.uri.c_str(), username);
+        NameDirectory::instance().lookupName(prop.RingNS.uri, username);
     } else {
         NameDirectory::instance().lookupName(QString(), username);
     }

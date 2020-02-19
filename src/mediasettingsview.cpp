@@ -531,7 +531,7 @@ media_settings_view_new(lrc::api::AVModel& avModel)
     priv->audio_meter_connection = QObject::connect(
         &*priv->cpp->avModel_,
         &lrc::api::AVModel::audioMeter,
-        [=](const std::string& id, float level) {
+        [=](const QString& id, float level) {
             if (id == "audiolayer_id")
                 gtk_level_bar_set_value(GTK_LEVEL_BAR(priv->levelbar_input), level);
         });
@@ -577,7 +577,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
                 priv->local_renderer_connection = QObject::connect(
                     &*priv->cpp->avModel_,
                     &lrc::api::AVModel::rendererStarted,
-                    [=](const std::string& id) {
+                    [=](const QString& id) {
                         if (id != lrc::api::video::PREVIEW_RENDERER_ID)
                             return;
                         video_widget_add_new_renderer(

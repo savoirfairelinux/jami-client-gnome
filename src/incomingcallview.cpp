@@ -228,7 +228,7 @@ update_state(IncomingCallView *view)
     if (!(*priv->accountInfo_)->callModel->hasCall(callId)) return;
     auto call = (*priv->accountInfo_)->callModel->getCall(callId);
 
-    gtk_label_set_text(GTK_LABEL(priv->label_status), lrc::api::call::to_string(call.status).c_str());
+    gtk_label_set_text(GTK_LABEL(priv->label_status), qUtf8Printable(lrc::api::call::to_string(call.status)));
 
     if (call.status == lrc::api::call::Status::INCOMING_RINGING)
         gtk_widget_show(priv->button_accept_incoming);
@@ -264,11 +264,11 @@ update_name_and_photo(IncomingCallView *view)
         auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(priv->conversation_->participants.front());
 
         auto name = contactInfo.profileInfo.alias;
-        gtk_label_set_text(GTK_LABEL(priv->label_name), name.c_str());
+        gtk_label_set_text(GTK_LABEL(priv->label_name), qUtf8Printable(name));
 
         auto bestId = contactInfo.registeredName;
         if (name != bestId) {
-            gtk_label_set_text(GTK_LABEL(priv->label_bestId), bestId.c_str());
+            gtk_label_set_text(GTK_LABEL(priv->label_bestId), qUtf8Printable(bestId));
             gtk_widget_show(priv->label_bestId);
         }
     } catch (const std::out_of_range&) {
@@ -288,7 +288,7 @@ set_call_info(IncomingCallView *view) {
     priv->state_change_connection = QObject::connect(
     &*(*priv->accountInfo_)->callModel,
     &lrc::api::NewCallModel::callStatusChanged,
-    [view, priv] (const std::string& callId) {
+    [view, priv] (const QString& callId) {
         if (callId == priv->conversation_->callId) {
             update_state(view);
             update_name_and_photo(view);
