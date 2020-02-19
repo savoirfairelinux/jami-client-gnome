@@ -188,11 +188,11 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     priv->row_ = idx[0];
     try {
         auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(conversation.participants.front());
-        if (contactInfo.profileInfo.uri.empty()) return;
+        if (contactInfo.profileInfo.uri.isEmpty()) return;
 
         // we always build a menu, however in some cases some or all of the conversations will be deactivated
         // we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case
-        auto callId = conversation.confId.empty() ? conversation.callId : conversation.confId;
+        auto callId = conversation.confId.isEmpty() ? conversation.callId : conversation.confId;
 
         // Not in call
         if (!contactInfo.isBanned && (*priv->accountInfo_)->enabled) {

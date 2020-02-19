@@ -312,11 +312,11 @@ connect_to_manager(AccountCreationWizard *view, gchar* username, gchar* password
     auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
     g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_LOCK], 0);
 
-    std::string accountId = lrc::api::NewAccountModel::connectToAccountManager(
+    auto accountId = lrc::api::NewAccountModel::connectToAccountManager(
                                    username? username : "",
                                    password? password : "",
                                    managerUri? managerUri : "");
-    priv->accountId = g_strdup(accountId.c_str());
+    priv->accountId = g_strdup(qUtf8Printable(accountId));
     // NOTE: NewAccountModel::accountAdded will be triggered here and will call account_creation_wizard_account_added
 
     g_object_ref(view);  // ref so its not destroyed too early
@@ -339,13 +339,13 @@ create_account(AccountCreationWizard *view,
 
     priv->username = g_strdup(username);
     priv->password = g_strdup(password);
-    std::string accountId = lrc::api::NewAccountModel::createNewAccount(
+    auto accountId = lrc::api::NewAccountModel::createNewAccount(
                                    lrc::api::profile::Type::RING,
                                    display_name? display_name : "",
                                    archivePath? archivePath : "",
                                    password? password : "",
                                    pin? pin : "");
-    priv->accountId = g_strdup(accountId.c_str());
+    priv->accountId = g_strdup(qUtf8Printable(accountId));
     priv->avatar = g_strdup(avatar_manipulation_get_temporary(AVATAR_MANIPULATION(priv->avatar_manipulation)));
     // NOTE: NewAccountModel::accountAdded will be triggered here and will call account_creation_wizard_account_added
 
@@ -761,9 +761,9 @@ choose_export_file(AccountCreationWizard *view)
                                          nullptr);
 
     const auto& accountInfo = priv->accountModel_->getAccountInfo(priv->accountId);
-    std::string alias = accountInfo.profileInfo.alias;
-    std::string uri = alias.empty()? "export.gz" : alias + ".gz";
-    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog), uri.c_str());
+    auto alias = accountInfo.profileInfo.alias;
+    auto uri = alias.isEmpty() ? "export.gz" : alias + ".gz";
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog), qUtf8Printable(uri));
     res = gtk_dialog_run(GTK_DIALOG(dialog));
 
     if (res == GTK_RESPONSE_ACCEPT) {
@@ -803,7 +803,7 @@ choose_export_file(AccountCreationWizard *view)
     }
 
     // export account
-    auto success = priv->accountModel_->exportToFile(priv->accountId, filename, password);
+    auto success = priv->accountModel_->exportToFile(priv->accountId, filename, password.c_str());
     std::string label = success? _("Account exported!") : _("Export account failure.");
     gtk_button_set_label(GTK_BUTTON(priv->button_export_account), label.c_str());
     g_free(filename);

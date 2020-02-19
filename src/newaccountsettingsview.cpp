@@ -505,7 +505,7 @@ get_devicename_from_row(GtkWidget* row)
 }
 
 static void
-replace_name_from_row(GtkWidget* row, const std::string& name, const std::string& id)
+replace_name_from_row(GtkWidget* row, const QString& name, const QString& id)
 {
     // Remove previous informations
     auto* list_iterator = get_row_iterator(row);
@@ -520,26 +520,26 @@ replace_name_from_row(GtkWidget* row, const std::string& name, const std::string
 
     // Rebuild item
     if (isEntryName) {
-        auto* new_label_name = gtk_label_new(name.c_str());
+        auto* new_label_name = gtk_label_new(qUtf8Printable(name));
         gtk_box_pack_start(GTK_BOX(box_info->data), new_label_name, true, true, 0);
         gtk_widget_set_halign(new_label_name, GtkAlign::GTK_ALIGN_START);
         auto* image = gtk_image_new_from_icon_name("emblem-system-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
         gtk_button_set_image(GTK_BUTTON(action_button->data), image);
     } else {
         auto* entry_name = gtk_entry_new();
-        gtk_entry_set_text(GTK_ENTRY(entry_name), name.c_str());
+        gtk_entry_set_text(GTK_ENTRY(entry_name), qUtf8Printable(name));
         gtk_container_add(GTK_CONTAINER(box_info->data), entry_name);
         auto* image = gtk_image_new_from_icon_name("document-save-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
         gtk_button_set_image(GTK_BUTTON(action_button->data), image);
     }
     auto* new_label_id = gtk_label_new("");
-    std::string markup = "<span font_desc=\"7.0\">" + id + "</span>";
+    std::string markup = "<span font_desc=\"7.0\">" + id.toStdString() + "</span>";
     gtk_label_set_markup(GTK_LABEL(new_label_id), markup.c_str());
     gtk_container_add(GTK_CONTAINER(box_info->data), new_label_id);
     gtk_widget_show_all(GTK_WIDGET(box_info->data));
 }
 
-static std::string
+static QString
 get_id_from_row(GtkWidget* row)
 {
     auto* list_iterator = get_row_iterator(row);
@@ -550,7 +550,7 @@ get_id_from_row(GtkWidget* row)
     return gtk_label_get_text(GTK_LABEL(current_child->data));
 }
 
-static std::string
+static QString
 get_contact_id_from_row(GtkWidget* row)
 {
     auto* list_iterator = get_row_iterator(row);
@@ -572,11 +572,11 @@ save_name(GtkButton* button, NewAccountSettingsView *view)
             GtkWidget* nameWidget = get_devicename_from_row(children);
             auto deviceId = get_id_from_row(children);
             if (G_TYPE_CHECK_INSTANCE_TYPE(nameWidget, gtk_entry_get_type())) {
-                std::string newName = gtk_entry_get_text(GTK_ENTRY(nameWidget));
+                QString newName(gtk_entry_get_text(GTK_ENTRY(nameWidget)));
                 replace_name_from_row(children, newName, deviceId);
-                (*priv->accountInfo_)->deviceModel->setCurrentDeviceName(newName);
+                (*priv->accountInfo_)->deviceModel->setCurrentDeviceName(qUtf8Printable(newName));
             } else {
-                std::string newName = gtk_label_get_text(GTK_LABEL(nameWidget));
+                QString newName(gtk_label_get_text(GTK_LABEL(nameWidget)));
                 replace_name_from_row(children, newName, deviceId);
             }
         }
@@ -643,11 +643,11 @@ add_device(NewAccountSettingsView *view, const lrc::api::Device& device)
     gtk_style_context_add_class(context_box, "boxitem");
     // Fill with devices informations
     auto* device_info_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    auto* label_name = gtk_label_new(device.name.c_str());
+    auto* label_name = gtk_label_new(qUtf8Printable(device.name));
     gtk_box_pack_start(GTK_BOX(device_info_box), label_name, false, false, 0);
     gtk_widget_set_halign(label_name, GtkAlign::GTK_ALIGN_START);
     auto* label_id = gtk_label_new("");
-    std::string markup = "<span font_desc=\"7.0\">" + device.id + "</span>";
+    std::string markup = "<span font_desc=\"7.0\">" + device.id.toStdString() + "</span>";
     gtk_label_set_markup(GTK_LABEL(label_id), markup.c_str());
     gtk_box_pack_start(GTK_BOX(device_info_box), label_id, false, false, 0);
     gtk_box_pack_start(GTK_BOX(device_box), device_info_box, false, false, 0);
@@ -662,7 +662,7 @@ add_device(NewAccountSettingsView *view, const lrc::api::Device& device)
     GtkStyleContext* context;
     context = gtk_widget_get_style_context(GTK_WIDGET(action_device_button));
     gtk_style_context_add_class(context, "transparent-button");
-    std::string label_btn = "action_btn_" + device.id;
+    std::string label_btn = "action_btn_" + device.id.toStdString();
     gtk_widget_set_name(action_device_button, label_btn.c_str());
     g_signal_connect(action_device_button, "clicked", device.isCurrent ? G_CALLBACK(save_name) : G_CALLBACK(revoke_device), view);
     gtk_box_pack_end(GTK_BOX(device_box), GTK_WIDGET(action_device_button), false, false, 0);
@@ -731,7 +731,7 @@ add_banned(NewAccountSettingsView *view, const std::string& contactUri)
 
     auto* banned_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
-    auto contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
+    auto contact = (*priv->accountInfo_)->contactModel->getContact(contactUri.c_str());
 
     GtkStyleContext* context_box;
     context_box = gtk_widget_get_style_context(GTK_WIDGET(banned_box));
@@ -739,8 +739,8 @@ add_banned(NewAccountSettingsView *view, const std::string& contactUri)
 
     // Fill with devices informations
     auto* contact_info_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    if (!contact.registeredName.empty()) {
-        auto* label_name = gtk_label_new(contact.registeredName.c_str());
+    if (!contact.registeredName.isEmpty()) {
+        auto* label_name = gtk_label_new(qUtf8Printable(contact.registeredName));
         gtk_widget_set_halign(label_name, GtkAlign::GTK_ALIGN_START);
         gtk_box_pack_start(GTK_BOX(contact_info_box), label_name, FALSE, TRUE, 0);
     }
@@ -910,9 +910,9 @@ choose_export_file(NewAccountSettingsView *view)
                                          GTK_RESPONSE_ACCEPT,
                                          nullptr);
 
-    std::string alias = (*priv->accountInfo_)->profileInfo.alias;
-    std::string uri = alias.empty()? "export.gz" : alias + ".gz";
-    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog), uri.c_str());
+    QString alias = (*priv->accountInfo_)->profileInfo.alias;
+    QString uri = alias.isEmpty()? "export.gz" : alias + ".gz";
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog), qUtf8Printable(uri));
     res = gtk_dialog_run(GTK_DIALOG(dialog));
 
     if (res == GTK_RESPONSE_ACCEPT) {
@@ -951,7 +951,7 @@ choose_export_file(NewAccountSettingsView *view)
     }
 
     // export account
-    auto success = (*priv->accountInfo_)->accountModel->exportToFile((*priv->accountInfo_)->id, filename, password);
+    auto success = (*priv->accountInfo_)->accountModel->exportToFile((*priv->accountInfo_)->id, filename, password.c_str());
     std::string label = success? _("Account exported!") : _("Export account failure.");
     gtk_button_set_label(GTK_BUTTON(priv->button_export_account), label.c_str());
     g_free(filename);
@@ -1503,7 +1503,7 @@ draw_codecs(NewAccountSettingsView* view, int codecSelected)
         gtk_widget_set_margin_start(GTK_WIDGET(codec_box), 10);
         gtk_widget_set_margin_top(GTK_WIDGET(codec_box), 10);
         gtk_widget_set_margin_bottom(GTK_WIDGET(codec_box), 10);
-        auto* label_name = gtk_label_new(codec.name.c_str());
+        auto* label_name = gtk_label_new(qUtf8Printable(codec.name));
         gtk_container_add(GTK_CONTAINER(codec_box), label_name);
         auto* switch_enabled = gtk_switch_new();
         g_object_set_data(G_OBJECT(switch_enabled), "id", GUINT_TO_POINTER(codec.id));
@@ -1537,11 +1537,11 @@ draw_codecs(NewAccountSettingsView* view, int codecSelected)
         gtk_widget_set_margin_bottom(GTK_WIDGET(codec_box), 10);
         auto* codec_info_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
         gtk_widget_set_halign(codec_info_box, GtkAlign::GTK_ALIGN_START);
-        auto* label_name = gtk_label_new(codec.name.c_str());
+        auto* label_name = gtk_label_new(qUtf8Printable(codec.name));
         gtk_widget_set_halign(label_name, GtkAlign::GTK_ALIGN_START);
         gtk_container_add(GTK_CONTAINER(codec_info_box), label_name);
         auto* label_samplerate = gtk_label_new("");
-        std::string markup = "<span font_desc=\"7.0\">" + codec.samplerate + " Hz</span>";
+        std::string markup = "<span font_desc=\"7.0\">" + codec.samplerate.toStdString() + " Hz</span>";
         gtk_label_set_markup(GTK_LABEL(label_samplerate), markup.c_str());
         gtk_container_add(GTK_CONTAINER(codec_info_box), label_samplerate);
         gtk_container_add(GTK_CONTAINER(codec_box), codec_info_box);
@@ -1715,7 +1715,7 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, NewAccountSettingsVi
     priv->export_on_ring_ended = QObject::connect(
         (*priv->accountInfo_)->accountModel,
         &lrc::api::NewAccountModel::exportOnRingEnded,
-        [=] (const std::string& accountID, lrc::api::account::ExportOnRingStatus status, const std::string& pin) {
+        [=] (const QString& accountID, lrc::api::account::ExportOnRingStatus status, const QString& pin) {
             if (accountID != (*priv->accountInfo_)->id) return;
             QObject::disconnect(priv->export_on_ring_ended);
             gtk_widget_set_sensitive(priv->button_export_on_the_ring, TRUE);
@@ -1726,7 +1726,7 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, NewAccountSettingsVi
                     GtkStyleContext* context;
                     context = gtk_widget_get_style_context(GTK_WIDGET(priv->label_generated_pin));
                     gtk_style_context_add_class(context, "larger");
-                    gtk_label_set_text(GTK_LABEL(priv->label_generated_pin), pin.c_str());
+                    gtk_label_set_text(GTK_LABEL(priv->label_generated_pin), pin.toStdString().c_str());
                     show_generated_pin_view(view);
                     break;
                 }
@@ -1758,7 +1758,7 @@ export_on_the_ring_clicked(G_GNUC_UNUSED GtkButton *button, NewAccountSettingsVi
         }
     );
 
-    if (!(*priv->accountInfo_)->accountModel->exportOnRing((*priv->accountInfo_)->id, passwordStr))
+    if (!(*priv->accountInfo_)->accountModel->exportOnRing((*priv->accountInfo_)->id, passwordStr.c_str()))
     {
         QObject::disconnect(priv->export_on_ring_ended);
         gtk_widget_hide(priv->exporting_spinner);
@@ -1793,12 +1793,12 @@ build_settings_view(NewAccountSettingsView* view)
     priv->new_device_added_connection = QObject::connect(
         &*(*priv->accountInfo_)->deviceModel,
         &lrc::api::NewDeviceModel::deviceAdded,
-        [view] (const std::string& id) {
+        [view] (const QString& id) {
             auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
             // Retrieve added device
             auto device = (*priv->accountInfo_)->deviceModel->getDevice(id);
-            if (device.id.empty()) {
-                g_debug("Can't add device with id: %s", device.id.c_str());
+            if (device.id.isEmpty()) {
+                g_debug("Can't add device with id: %s", qUtf8Printable(device.id));
                 return;
             }
             // if exists, add to list
@@ -1809,7 +1809,7 @@ build_settings_view(NewAccountSettingsView* view)
     priv->device_removed_connection = QObject::connect(
         &*(*priv->accountInfo_)->deviceModel,
         &lrc::api::NewDeviceModel::deviceRevoked,
-        [view] (const std::string& id, const lrc::api::NewDeviceModel::Status status) {
+        [view] (const QString& id, const lrc::api::NewDeviceModel::Status status) {
             auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
             auto row = 0;
             while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_devices), row))) {
@@ -1838,12 +1838,12 @@ build_settings_view(NewAccountSettingsView* view)
     priv->device_updated_connection = QObject::connect(
         &*(*priv->accountInfo_)->deviceModel,
         &lrc::api::NewDeviceModel::deviceUpdated,
-        [view] (const std::string& id) {
+        [view] (const QString& id) {
             auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
             // Retrieve added device
             auto device = (*priv->accountInfo_)->deviceModel->getDevice(id);
-            if (device.id.empty()) {
-                g_debug("Can't add device with id: %s", device.id.c_str());
+            if (device.id.isEmpty()) {
+                g_debug("Can't add device with id: %s", qUtf8Printable(device.id));
                 return;
             }
             // if exists, update
@@ -1854,12 +1854,12 @@ build_settings_view(NewAccountSettingsView* view)
                 if (deviceId == id) {
                     if (device.isCurrent) {
                         if (G_TYPE_CHECK_INSTANCE_TYPE(device_name, gtk_entry_get_type())) {
-                            gtk_entry_set_text(GTK_ENTRY(device_name), device.name.c_str());
+                            gtk_entry_set_text(GTK_ENTRY(device_name), qUtf8Printable(device.name));
                         } else {
-                            gtk_label_set_text(GTK_LABEL(device_name), device.name.c_str());
+                            gtk_label_set_text(GTK_LABEL(device_name), qUtf8Printable(device.name));
                         }
                     } else {
-                        gtk_label_set_text(GTK_LABEL(device_name), device.name.c_str());
+                        gtk_label_set_text(GTK_LABEL(device_name), qUtf8Printable(device.name));
                     }
                 }
                 ++row;
@@ -1870,10 +1870,10 @@ build_settings_view(NewAccountSettingsView* view)
     priv->banned_status_changed_connection = QObject::connect(
         &*(*priv->accountInfo_)->contactModel,
         &lrc::api::ContactModel::bannedStatusChanged,
-        [view] (const std::string& contactUri, bool banned) {
+        [view] (const QString& contactUri, bool banned) {
             auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
             if (banned) {
-                add_banned(view, contactUri);
+                add_banned(view, contactUri.toStdString());
             } else {
                 auto row = 0;
                 while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_banned_contacts), row))) {
@@ -1895,7 +1895,7 @@ build_settings_view(NewAccountSettingsView* view)
     gtk_style_context_add_class(context, "button_red");
 
     gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_custom_ringtone),
-        priv->currentProp_->Ringtone.ringtonePath.c_str());
+        qUtf8Printable(priv->currentProp_->Ringtone.ringtonePath));
 
     g_signal_connect_swapped(priv->button_advanced_settings, "clicked", G_CALLBACK(show_advanced_settings), view);
     g_signal_connect_swapped(priv->button_general_settings, "clicked", G_CALLBACK(show_general_settings), view);
@@ -1979,7 +1979,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
     }
 
     try {
-        std::string accountId = (*priv->accountInfo_)->id;
+        QString accountId = (*priv->accountInfo_)->id;
         priv->currentProp_ = new lrc::api::account::ConfProperties_t();
         *priv->currentProp_ = (*priv->accountInfo_)->accountModel->getAccountConfig(accountId);
     } catch (std::out_of_range& e) {
@@ -1987,7 +1987,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         return;
     }
 
-    bool has_account_manager = !priv->currentProp_->managerUri.empty();
+    bool has_account_manager = !priv->currentProp_->managerUri.isEmpty();
 
     auto label_status = priv->label_status;
     if ((*priv->accountInfo_)->profileInfo.type != lrc::api::profile::Type::RING) {
@@ -2016,7 +2016,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
 
     gtk_widget_set_sensitive(priv->button_add_device,
         ((*priv->accountInfo_)->status) == lrc::api::account::Status::REGISTERED);
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_display_name), (*priv->accountInfo_)->profileInfo.alias.c_str());
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_display_name), qUtf8Printable((*priv->accountInfo_)->profileInfo.alias));
 
     if ((*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::RING) {
         gtk_switch_set_active(GTK_SWITCH(priv->account_enabled), (*priv->accountInfo_)->enabled);
@@ -2030,7 +2030,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_widget_hide(priv->sip_enable_account);
         gtk_widget_show_all(priv->account_options_box);
         // Show ring id
-        gtk_label_set_text(GTK_LABEL(priv->label_type_info), (*priv->accountInfo_)->profileInfo.uri.c_str());
+        gtk_label_set_text(GTK_LABEL(priv->label_type_info), qUtf8Printable((*priv->accountInfo_)->profileInfo.uri));
         // Update export label
         gtk_button_set_label(GTK_BUTTON(priv->button_export_account), _("Export account"));
         // Build devices list
@@ -2049,7 +2049,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_banned_contacts), 0)))
             gtk_container_remove(GTK_CONTAINER(priv->list_banned_contacts), children);
         for (const auto& contact : (*priv->accountInfo_)->contactModel->getBannedContacts())
-            add_banned(view, contact);
+            add_banned(view, contact.toStdString());
         gtk_widget_hide(priv->scrolled_window_banned_contacts);
 
         // Clear username box
@@ -2150,7 +2150,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_spin_button_set_value(GTK_SPIN_BUTTON(priv->spinbutton_audio_rtp_max), priv->currentProp_->Audio.audioPortMax);
         gtk_spin_button_set_value(GTK_SPIN_BUTTON(priv->spinbutton_video_rtp_min), priv->currentProp_->Video.videoPortMin);
         gtk_spin_button_set_value(GTK_SPIN_BUTTON(priv->spinbutton_video_rtp_max), priv->currentProp_->Video.videoPortMax);
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_tls_server_name), priv->currentProp_->TLS.serverName.c_str());
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_tls_server_name), qUtf8Printable(priv->currentProp_->TLS.serverName));
 
         gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(priv->combobox_tls_protocol_method));
         gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(priv->combobox_tls_protocol_method), nullptr, "Default");
@@ -2174,11 +2174,11 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
             break;
         }
         g_signal_connect_swapped(priv->combobox_tls_protocol_method, "changed", G_CALLBACK(tls_method_changed), view);
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_hostname), priv->currentProp_->hostname.c_str());
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_username), priv->currentProp_->username.c_str());
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_password), priv->currentProp_->password.c_str());
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_proxy), priv->currentProp_->routeset.c_str());
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_voicemail), priv->currentProp_->mailbox.c_str());
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_hostname), qUtf8Printable(priv->currentProp_->hostname));
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_username), qUtf8Printable(priv->currentProp_->username));
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_password), qUtf8Printable(priv->currentProp_->password));
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_proxy), qUtf8Printable(priv->currentProp_->routeset));
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_sip_voicemail), qUtf8Printable(priv->currentProp_->mailbox));
 
     }
     draw_codecs(view);
@@ -2187,35 +2187,35 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
     gtk_switch_set_active(GTK_SWITCH(priv->call_allow_button), priv->currentProp_->DHT.PublicInCalls);
     gtk_switch_set_active(GTK_SWITCH(priv->auto_answer_button), priv->currentProp_->autoAnswer);
 
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_name_server), priv->currentProp_->RingNS.uri.c_str());
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_dht_proxy), priv->currentProp_->proxyServer.c_str());
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_name_server), qUtf8Printable(priv->currentProp_->RingNS.uri));
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_dht_proxy), qUtf8Printable(priv->currentProp_->proxyServer));
     gtk_widget_set_sensitive(GTK_WIDGET(priv->entry_dht_proxy), priv->currentProp_->proxyEnabled);
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_bootstrap), priv->currentProp_->hostname.c_str());
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_bootstrap), qUtf8Printable(priv->currentProp_->hostname));
     gtk_switch_set_active(GTK_SWITCH(priv->dht_proxy_button), priv->currentProp_->proxyEnabled);
     gtk_switch_set_active(GTK_SWITCH(priv->dht_peer_discovery_button), priv->currentProp_->peerDiscovery);
-    if (!priv->currentProp_->TLS.certificateListFile.empty())
-        gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_ca_list), priv->currentProp_->TLS.certificateListFile.c_str());
-    if (!priv->currentProp_->TLS.certificateFile.empty())
-        gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_certificate), priv->currentProp_->TLS.certificateFile.c_str());
-    if (!priv->currentProp_->TLS.privateKeyFile.empty())
-        gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_private_key), priv->currentProp_->TLS.privateKeyFile.c_str());
-    if (!priv->currentProp_->TLS.password.empty())
-        gtk_entry_set_text(GTK_ENTRY(priv->entry_password), priv->currentProp_->TLS.password.c_str());
+    if (!priv->currentProp_->TLS.certificateListFile.isEmpty())
+        gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_ca_list), qUtf8Printable(priv->currentProp_->TLS.certificateListFile));
+    if (!priv->currentProp_->TLS.certificateFile.isEmpty())
+        gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_certificate), qUtf8Printable(priv->currentProp_->TLS.certificateFile));
+    if (!priv->currentProp_->TLS.privateKeyFile.isEmpty())
+        gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->filechooserbutton_private_key), qUtf8Printable(priv->currentProp_->TLS.privateKeyFile));
+    if (!priv->currentProp_->TLS.password.isEmpty())
+        gtk_entry_set_text(GTK_ENTRY(priv->entry_password), qUtf8Printable(priv->currentProp_->TLS.password));
     gtk_switch_set_active(GTK_SWITCH(priv->upnp_button), priv->currentProp_->upnpEnabled);
     gtk_switch_set_active(GTK_SWITCH(priv->switch_use_turn), priv->currentProp_->TURN.enable);
     gtk_widget_set_sensitive(GTK_WIDGET(priv->entry_turnserver), priv->currentProp_->TURN.enable);
     gtk_widget_set_sensitive(GTK_WIDGET(priv->entry_turnusername), priv->currentProp_->TURN.enable);
     gtk_widget_set_sensitive(GTK_WIDGET(priv->entry_turnpassword), priv->currentProp_->TURN.enable);
     gtk_widget_set_sensitive(GTK_WIDGET(priv->entry_turnrealm), priv->currentProp_->TURN.enable);
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_turnserver), priv->currentProp_->TURN.server.c_str());
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_turnusername), priv->currentProp_->TURN.username.c_str());
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_turnpassword), priv->currentProp_->TURN.password.c_str());
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_turnrealm), priv->currentProp_->TURN.realm.c_str());
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_turnserver), qUtf8Printable(priv->currentProp_->TURN.server));
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_turnusername), qUtf8Printable(priv->currentProp_->TURN.username));
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_turnpassword), qUtf8Printable(priv->currentProp_->TURN.password));
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_turnrealm), qUtf8Printable(priv->currentProp_->TURN.realm));
     gtk_switch_set_active(GTK_SWITCH(priv->switch_use_stun), priv->currentProp_->STUN.enable);
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_stunserver), priv->currentProp_->STUN.server.c_str());
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_stunserver), qUtf8Printable(priv->currentProp_->STUN.server));
     gtk_widget_set_sensitive(GTK_WIDGET(priv->entry_stunserver), priv->currentProp_->STUN.enable);
     gtk_switch_set_active(GTK_SWITCH(priv->button_custom_published), !priv->currentProp_->publishedSameAsLocal);
-    gtk_entry_set_text(GTK_ENTRY(priv->entry_published_address), priv->currentProp_->publishedAddress.c_str());
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_published_address), qUtf8Printable(priv->currentProp_->publishedAddress));
     gtk_widget_set_sensitive(GTK_WIDGET(priv->entry_published_address), !priv->currentProp_->publishedSameAsLocal);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(priv->spinbutton_published_port), priv->currentProp_->publishedPort);
     gtk_widget_set_sensitive(GTK_WIDGET(priv->spinbutton_published_port), !priv->currentProp_->publishedSameAsLocal);

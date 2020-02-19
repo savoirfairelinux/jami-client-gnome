@@ -198,32 +198,25 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
             auto contactInfo = accountInfo.contactModel->getContact(contactUri);
             auto contactPhoto = contactInfo.profileInfo.avatar;
             auto alias = contactInfo.profileInfo.alias;
-            auto strToClear = alias.find("\r");
-            while (strToClear != std::string::npos) {
-                alias.erase(strToClear, 2);
-                strToClear = alias.find("\r");
-            }
-            strToClear = alias.find("\n");
-            while (strToClear != std::string::npos) {
-                alias.erase(strToClear, 2);
-                strToClear = alias.find("\n");
-            }
-            auto bestName = alias.empty()? contactInfo.registeredName : alias;
+            alias.remove('\r');
+            alias.remove('\n');
+            auto bestName = alias.isEmpty() ? contactInfo.registeredName : alias;
             auto unreadMessages = conversationInfo.unreadMessages;
             auto status = contactInfo.isPresent? IconStatus::PRESENT : IconStatus::ABSENT;
             if (accountInfo.profileInfo.type == lrc::api::profile::Type::SIP && contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY)
             {
                 return QVariant::fromValue(scaleAndFrame(generateAvatar("", "").get(), size, displayInformation, status));
             } else if (accountInfo.profileInfo.type == lrc::api::profile::Type::SIP) {
-                return QVariant::fromValue(scaleAndFrame(generateAvatar("", "sip:" + contactInfo.profileInfo.uri).get(), size, displayInformation, status));
-            } else if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY && contactInfo.profileInfo.uri.empty()) {
+                return QVariant::fromValue(scaleAndFrame(generateAvatar("", "sip:" + contactInfo.profileInfo.uri.toStdString()).get(), size, displayInformation, status));
+            } else if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY && contactInfo.profileInfo.uri.isEmpty()) {
                 return QVariant::fromValue(scaleAndFrame(temporaryItemAvatar().get(), size, false, status, unreadMessages));
-            } else if (!contactPhoto.empty()) {
-                QByteArray byteArray(contactPhoto.c_str(), contactPhoto.length());
+            } else if (!contactPhoto.isEmpty()) {
+                QByteArray byteArray = contactPhoto.toUtf8();
                 QVariant photo = personPhoto(byteArray);
                 return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayInformation, status, unreadMessages));
             } else {
-                return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName, "ring:" + contactInfo.profileInfo.uri).get(), size, displayInformation, status, unreadMessages));
+                return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName.toStdString(),
+                     "ring:" + contactInfo.profileInfo.uri.toStdString()).get(), size, displayInformation, status, unreadMessages));
             }
         } catch (...) {}
     }
