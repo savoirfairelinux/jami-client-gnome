@@ -984,6 +984,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="entry_account_manager_username">
+                                        <property name="text" translatable="no">atraczyk</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                       </object>
@@ -1020,6 +1021,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="entry_account_manager_password">
+                                        <property name="text" translatable="no">jeeCohmeen5W</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="primary_icon_stock">gtk-dialog-authentication</property>
@@ -1059,6 +1061,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="entry_account_manager_uri">
+                                        <property name="text" translatable="no">https://192.168.49.120:9080</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                       </object>
@@ -1090,7 +1093,7 @@
                     <child>
                       <object class="GtkButton" id="button_account_manager_connect_next">
                         <property name="label" translatable="yes">Next</property>
-                        <property name="sensitive">False</property>
+                        <property name="sensitive">True</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="halign">end</property>

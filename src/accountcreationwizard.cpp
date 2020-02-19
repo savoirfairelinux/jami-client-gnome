@@ -704,7 +704,7 @@ entries_connect_account_manager_changed(AccountCreationWizard *view)
     const std::string managerUri = gtk_entry_get_text(GTK_ENTRY(priv->entry_account_manager_uri));
     const std::string password = gtk_entry_get_text(GTK_ENTRY(priv->entry_account_manager_password));
 
-    gtk_widget_set_sensitive(priv->button_account_manager_connect_next, (!username.empty() && !managerUri.empty() && !password.empty()));
+    //gtk_widget_set_sensitive(priv->button_account_manager_connect_next, (!username.empty() && !managerUri.empty() && !password.empty()));
 }
 
 static void
