@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-24 03:09-0500\n"
-"PO-Revision-Date: 2019-11-25 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-03-02 03:09-0500\n"
+"PO-Revision-Date: 2020-02-26 03:31+0000\n"
+"Last-Translator: cleophas baier <sadtoot@pm.me>\n"
 "Language-Team: Esperanto (http://www.transifex.com/savoirfairelinux/jami/language/eo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -357,7 +357,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
-msgstr ""
+msgstr "PIN"
 
 #: ui/accountcreationwizard.ui:349
 msgid ""
@@ -704,7 +704,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1217
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Propra voksono"
 
 #: ui/newaccountsettingsview.ui:1261
 msgid "Name server"
@@ -1422,7 +1422,7 @@ msgstr "Reteraro, reprovu poste"
 
 #: src/newaccountsettingsview.cpp:1752
 msgid "Unknown error"
-msgstr ""
+msgstr "Nekonata eraro"
 
 #: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"
