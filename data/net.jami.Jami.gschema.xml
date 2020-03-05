@@ -39,6 +39,10 @@
         <default>true</default>
         <summary>Enable notifications for incoming calls.</summary>
     </key>
+    <key name="enable-typing-indication" type="b">
+        <default>true</default>
+        <summary>Enable typing indications into the chatview.</summary>
+    </key>
     <key name="enable-pending-notifications" type="b">
         <default>true</default>
         <summary>Enable notifications for pending requests.</summary>

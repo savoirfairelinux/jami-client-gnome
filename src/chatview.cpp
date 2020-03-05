@@ -97,6 +97,7 @@ struct _ChatViewPrivate
     AccountInfoPointer const * accountInfo_;
 
     QMetaObject::Connection new_interaction_connection;
+    QMetaObject::Connection composing_changed_connection;
     QMetaObject::Connection interaction_removed;
     QMetaObject::Connection update_interaction_connection;
     QMetaObject::Connection update_add_to_conversations;
@@ -155,6 +156,7 @@ chat_view_dispose(GObject *object)
     priv = CHAT_VIEW_GET_PRIVATE(view);
 
     QObject::disconnect(priv->new_interaction_connection);
+    QObject::disconnect(priv->composing_changed_connection);
     QObject::disconnect(priv->update_interaction_connection);
     QObject::disconnect(priv->interaction_removed);
     QObject::disconnect(priv->update_add_to_conversations);
@@ -640,6 +642,12 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
             chat_view_show_recorder(self, pt_x, pt_y, false);
         } catch (...) {
             // ignore
+        }
+    } else if (order.find("ON_COMPOSING:") == 0) {
+        auto composing = order.substr(std::string("ON_COMPOSING:").size()) == "true";
+        if (!priv->conversation_) return;
+        if (g_settings_get_boolean(priv->settings, "enable-typing-indication")) {
+            (*priv->accountInfo_)->conversationModel->setIsComposing(priv->conversation_->uid, composing);
         }
     }
 }
@@ -1132,6 +1140,18 @@ build_chat_view(ChatView* self)
                 uid.toStdString(), interactionId, interaction});
         } else if (uid == priv->conversation_->uid) {
             print_interaction_to_buffer(self, interactionId, interaction);
+        }
+    });
+
+    priv->composing_changed_connection = QObject::connect(
+    &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::composingStatusChanged,
+    [self, priv](const QString& uid, const QString& contactUri, bool isComposing) {
+        if (!g_settings_get_boolean(priv->settings, "enable-typing-indication")) return;
+        if (!priv->conversation_) return;
+        if (uid == priv->conversation_->uid) {
+            webkit_chat_set_is_composing(
+                WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                contactUri.toStdString(), isComposing);
         }
     });
 
