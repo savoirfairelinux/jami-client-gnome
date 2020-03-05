@@ -362,6 +362,42 @@
                     <property name="selection_mode">none</property>
 
                     <child>
+                      <!-- Typing indication -->
+                      <object class="GtkListBoxRow" id="typing_indication_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="typing_indication_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_typing_indication">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Show typing indications</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="typing_indication_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
                       <!-- Chatview medias -->
                       <object class="GtkListBoxRow" id="media_chatview_row">
                         <property name="visible">True</property>

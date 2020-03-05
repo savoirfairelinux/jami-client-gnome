@@ -64,6 +64,7 @@ struct _GeneralSettingsViewPrivate
     GtkWidget *request_notifications_button;
     GtkWidget *chat_notifications_button;
     GtkWidget *media_chatview_button;
+    GtkWidget *typing_indication_button;
     GtkWidget *chatview_pos_button;
     GtkWidget *button_choose_downloads_directory;
 
@@ -313,6 +314,9 @@ general_settings_view_init(GeneralSettingsView *self)
     g_settings_bind(priv->settings, "enable-display-links",
                     priv->media_chatview_button, "active",
                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind(priv->settings, "enable-typing-indication",
+                    priv->typing_indication_button, "active",
+                    G_SETTINGS_BIND_DEFAULT);
     g_settings_bind(priv->settings, "enable-pending-notifications",
                     priv->request_notifications_button, "active",
                     G_SETTINGS_BIND_DEFAULT);
@@ -411,6 +415,7 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, incoming_open_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, call_notifications_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, media_chatview_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, typing_indication_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, request_notifications_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, chat_notifications_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, chatview_pos_button);
