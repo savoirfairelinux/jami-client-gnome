@@ -800,7 +800,7 @@ webkit_chat_set_dark_mode(WebKitChatContainer *view, bool darkMode, const std::s
 void
 webkit_chat_set_is_composing(WebKitChatContainer *view, const std::string& contactUri, bool isComposing)
 {
-    gchar* function_call = g_strdup_printf("showTypingIndicator(\"%s\", %s)", contactUri.c_str(), isComposing ? "true" : "false");
+    gchar* function_call = g_strdup_printf("showTypingIndicator(\"%s\", %s)", contactUri.c_str(), isComposing ? "1" : "0");
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
