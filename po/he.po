@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-09 03:09-0400\n"
-"PO-Revision-Date: 2019-11-25 08:09+0000\n"
+"POT-Creation-Date: 2020-03-16 03:09-0400\n"
+"PO-Revision-Date: 2020-03-16 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Hebrew (http://www.transifex.com/savoirfairelinux/jami/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -166,7 +166,7 @@ msgstr "מדיה"
 msgid "Account"
 msgstr "חשבון"
 
-#: ui/mainwindow.ui:150 src/mainwindow.cpp:1846
+#: ui/mainwindow.ui:150 src/mainwindow.cpp:1845
 msgid "Settings"
 msgstr "הגדרות"
 
@@ -266,7 +266,7 @@ msgid "Toggle recording"
 msgstr ""
 
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
-#: ui/messagingwidget.ui:29 src/chatview.cpp:345
+#: ui/messagingwidget.ui:29 src/chatview.cpp:348
 msgid "Record"
 msgstr "הקלט"
 
@@ -503,46 +503,50 @@ msgid "Chatview"
 msgstr ""
 
 #: ui/generalsettingsview.ui:383
+msgid "Show typing indications"
+msgstr ""
+
+#: ui/generalsettingsview.ui:419
 msgid "Display images and videos into the chatview"
 msgstr ""
 
-#: ui/generalsettingsview.ui:420
+#: ui/generalsettingsview.ui:456
 msgid "Show chatview on the right (on the bottom if off)"
 msgstr ""
 
-#: ui/generalsettingsview.ui:457
+#: ui/generalsettingsview.ui:493
 msgid "Download folder"
 msgstr ""
 
-#: ui/generalsettingsview.ui:494
+#: ui/generalsettingsview.ui:530
 msgid "History"
 msgstr "היסטוריה"
 
-#: ui/generalsettingsview.ui:533
+#: ui/generalsettingsview.ui:569
 msgid "Keep history for (days, 0 = unlimited)"
 msgstr ""
 
-#: ui/generalsettingsview.ui:563
+#: ui/generalsettingsview.ui:599
 msgid "Clear all history"
 msgstr "טהר היסטוריה"
 
-#: ui/generalsettingsview.ui:595
+#: ui/generalsettingsview.ui:631
 msgid "Call Recording"
 msgstr ""
 
-#: ui/generalsettingsview.ui:633
+#: ui/generalsettingsview.ui:669
 msgid "Record local video"
 msgstr ""
 
-#: ui/generalsettingsview.ui:669
+#: ui/generalsettingsview.ui:705
 msgid "Always record calls"
 msgstr ""
 
-#: ui/generalsettingsview.ui:706
+#: ui/generalsettingsview.ui:742
 msgid "Record folder"
 msgstr ""
 
-#: ui/generalsettingsview.ui:743
+#: ui/generalsettingsview.ui:779
 msgid "Bitrate for call recordings (kb/s)"
 msgstr ""
 
@@ -971,24 +975,24 @@ msgstr ""
 msgid "Unable to register name (Network error) - check your connection."
 msgstr ""
 
-#: src/generalsettingsview.cpp:151
+#: src/generalsettingsview.cpp:152
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr ""
 
-#: src/generalsettingsview.cpp:221
+#: src/generalsettingsview.cpp:222
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:224 src/avatarmanipulation.cpp:414
-#: src/accountcreationwizard.cpp:757 src/chatview.cpp:281
+#: src/generalsettingsview.cpp:225 src/avatarmanipulation.cpp:414
+#: src/accountcreationwizard.cpp:757 src/chatview.cpp:284
 #: src/newaccountsettingsview.cpp:907
 msgid "_Cancel"
 msgstr "_ביטול"
 
-#: src/generalsettingsview.cpp:226 src/accountcreationwizard.cpp:759
-#: src/chatview.cpp:283 src/newaccountsettingsview.cpp:909
+#: src/generalsettingsview.cpp:227 src/accountcreationwizard.cpp:759
+#: src/chatview.cpp:286 src/newaccountsettingsview.cpp:909
 msgid "_Save"
 msgstr ""
 
@@ -1050,7 +1054,7 @@ msgstr ""
 msgid "Open Avatar Image"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:416 src/chatview.cpp:283
+#: src/avatarmanipulation.cpp:416 src/chatview.cpp:286
 msgid "_Open"
 msgstr "_פתח"
 
@@ -1183,7 +1187,7 @@ msgstr "סיסמאות לא תואמות"
 msgid "Import from backup"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:754 src/chatview.cpp:278
+#: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:904
 msgid "Save File"
 msgstr ""
@@ -1208,48 +1212,48 @@ msgstr ""
 msgid "Add account…"
 msgstr ""
 
-#: src/mainwindow.cpp:846
+#: src/mainwindow.cpp:847
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/mainwindow.cpp:849
+#: src/mainwindow.cpp:850
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/mainwindow.cpp:1056
+#: src/mainwindow.cpp:1057
 msgid "Jami - Migration needed"
 msgstr ""
 
-#: src/mainwindow.cpp:1069
+#: src/mainwindow.cpp:1070
 msgid "Migration in progress... please do not close this window."
 msgstr ""
 
-#: src/mainwindow.cpp:1350
+#: src/mainwindow.cpp:1349
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:1821
+#: src/mainwindow.cpp:1820
 msgid "Leave settings page"
 msgstr ""
 
-#: src/mainwindow.cpp:2248
+#: src/mainwindow.cpp:2246
 msgid "There are active calls"
 msgstr ""
 
-#: src/mainwindow.cpp:2302
+#: src/mainwindow.cpp:2298
 msgid " is calling you!"
 msgstr ""
 
-#: src/mainwindow.cpp:2303
+#: src/mainwindow.cpp:2301
 msgid "Incoming call"
 msgstr "קריאה נכנסת"
 
-#: src/mainwindow.cpp:2445
+#: src/mainwindow.cpp:2443
 msgid "New request from "
 msgstr ""
 
@@ -1257,57 +1261,57 @@ msgstr ""
 msgid "Trust request"
 msgstr ""
 
-#: src/mainwindow.cpp:2507
+#: src/mainwindow.cpp:2509
 msgid "New message"
 msgstr ""
 
-#: src/mainwindow.cpp:2570
+#: src/mainwindow.cpp:2572
 msgid "Stop current call?"
 msgstr ""
 
-#: src/mainwindow.cpp:2571
+#: src/mainwindow.cpp:2573
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/mainwindow.cpp:2638
+#: src/mainwindow.cpp:2640
 msgid "Clear history"
 msgstr ""
 
-#: src/mainwindow.cpp:2639
+#: src/mainwindow.cpp:2641
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2654
+#: src/mainwindow.cpp:2656
 msgid "Remove conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:2655
+#: src/mainwindow.cpp:2657
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2670
+#: src/mainwindow.cpp:2672
 msgid "Block contact"
 msgstr ""
 
-#: src/mainwindow.cpp:2671
+#: src/mainwindow.cpp:2673
 msgid "Do you really want to block this contact?"
 msgstr ""
 
-#: src/chatview.cpp:278
+#: src/chatview.cpp:281
 msgid "Send File"
 msgstr ""
 
-#: src/chatview.cpp:335
+#: src/chatview.cpp:338
 msgid "Retry"
 msgstr ""
 
-#: src/chatview.cpp:498
+#: src/chatview.cpp:501
 msgid "Stop"
 msgstr "עצור"
 
-#: src/chatview.cpp:1007
+#: src/chatview.cpp:1019
 msgid "Send"
 msgstr "שלח"
 
@@ -1339,7 +1343,7 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:937
+#: src/currentcallview.cpp:936
 msgid "Current conference (all accounts)"
 msgstr ""
 
@@ -1347,11 +1351,11 @@ msgstr ""
 msgid "Current calls (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:986
+#: src/currentcallview.cpp:988
 msgid "Online contacts"
 msgstr ""
 
-#: src/currentcallview.cpp:1414
+#: src/currentcallview.cpp:1416
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr ""
