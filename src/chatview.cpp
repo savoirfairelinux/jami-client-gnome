@@ -564,18 +564,18 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
                     g_settings_set_value(priv->settings, "download-folder", g_variant_new("s", default_download_dir.c_str()));
                 }
                 // get full path
-                std::string filename = current_value.empty()? default_download_dir.c_str() : download_directory_value;
-                if (!filename.empty() && filename.back() != '/') filename += "/";
+                std::string download_dir = current_value.empty()? default_download_dir.c_str() : download_directory_value;
+                if (!download_dir.empty() && download_dir.back() != '/') download_dir += "/";
                 auto file_displayname = info.displayName.toStdString();
-                auto wantedFilename = filename + file_displayname;
+                auto wantedFilename = file_displayname;
                 auto duplicate = 0;
-                while (std::ifstream(wantedFilename).good()) {
+                while (std::ifstream(download_dir + wantedFilename).good()) {
                     ++duplicate;
                     auto extensionIdx = file_displayname.find_last_of(".");
                     if (extensionIdx == std::string::npos)
-                        wantedFilename = filename + file_displayname + " (" + std::to_string(duplicate) + ")";
+                        wantedFilename = file_displayname + " (" + std::to_string(duplicate) + ")";
                     else
-                        wantedFilename = filename + file_displayname.substr(0, extensionIdx) + " (" + std::to_string(duplicate) + ")" + file_displayname.substr(extensionIdx);
+                        wantedFilename = file_displayname.substr(0, extensionIdx) + " (" + std::to_string(duplicate) + ")" + file_displayname.substr(extensionIdx);
                 }
                 model->acceptTransfer(priv->conversation_->uid, interactionId, wantedFilename.c_str());
             } catch (...) {
