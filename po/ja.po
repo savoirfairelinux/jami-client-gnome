@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# 323484, 2020
 # futr <ilce.ma@gmail.com>, 2017
 # Masahiko Imanaka <chimantaea_mirabilis@yahoo.co.jp>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-16 03:09-0400\n"
-"PO-Revision-Date: 2020-03-16 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-03-23 03:09-0400\n"
+"PO-Revision-Date: 2020-03-18 00:59+0000\n"
+"Last-Translator: 323484\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/jami/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -87,7 +88,7 @@ msgstr ""
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
-msgstr ""
+msgstr "ブロックした連絡先"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
@@ -210,7 +211,7 @@ msgstr ""
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
 #: src/newaccountsettingsview.cpp:971 src/newaccountsettingsview.cpp:2102
 msgid "Delete account"
-msgstr ""
+msgstr "アカウントの削除"
 
 #: ui/accountmigrationview.ui:251
 msgid "Migrate account"
@@ -230,7 +231,7 @@ msgstr "通話を終了"
 
 #: ui/currentcallview.ui:255 ui/currentcallview.ui:511
 msgid "End call"
-msgstr ""
+msgstr "通話を終了"
 
 #: ui/currentcallview.ui:275 ui/currentcallview.ui:493
 msgid "Add participant"
@@ -300,7 +301,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:616
 msgid "Add"
-msgstr ""
+msgstr "追加"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -308,7 +309,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr ""
+msgstr "ローカルアカウントを作成"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
@@ -423,7 +424,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "今後表示しない"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
@@ -452,7 +453,7 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "サインイン"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
@@ -484,7 +485,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:197
 msgid "Notifications"
-msgstr ""
+msgstr "通知"
 
 #: ui/generalsettingsview.ui:236
 msgid "Enable notifications for incoming calls"
@@ -516,7 +517,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:493
 msgid "Download folder"
-msgstr "ダウンロードフォルター"
+msgstr "ダウンロードフォルダー"
 
 #: ui/generalsettingsview.ui:530
 msgid "History"
@@ -532,7 +533,7 @@ msgstr "履歴をすべて削除"
 
 #: ui/generalsettingsview.ui:631
 msgid "Call Recording"
-msgstr ""
+msgstr "通話の録音"
 
 #: ui/generalsettingsview.ui:669
 msgid "Record local video"
@@ -540,7 +541,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:705
 msgid "Always record calls"
-msgstr ""
+msgstr "常に通話を録音"
 
 #: ui/generalsettingsview.ui:742
 msgid "Record folder"
@@ -576,11 +577,11 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
-msgstr ""
+msgstr "出力デバイス:"
 
 #: ui/mediasettingsview.ui:76
 msgid "Input device:"
-msgstr ""
+msgstr "入力デバイス:"
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
@@ -592,11 +593,11 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:172
 msgid "Device:"
-msgstr ""
+msgstr "デバイス:"
 
 #: ui/mediasettingsview.ui:184
 msgid "Channel:"
-msgstr ""
+msgstr "チャンネル:"
 
 #: ui/mediasettingsview.ui:196
 msgid "Resolution:"
@@ -616,11 +617,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
-msgstr ""
+msgstr "デバイスを追加"
 
 #: ui/newaccountsettingsview.ui:131
 msgid "Add New Device"
-msgstr ""
+msgstr "新しいデバイスを追加"
 
 #: ui/newaccountsettingsview.ui:146
 msgid ""
@@ -655,7 +656,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
-msgstr ""
+msgstr "アカウントを有効化"
 
 #: ui/newaccountsettingsview.ui:670
 msgid "SIP server"
@@ -675,11 +676,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "このJamiアカウントにリンクされている既知のデバイス"
 
 #: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
-msgstr ""
+msgstr "別のデバイスをリンク"
 
 #: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
@@ -747,19 +748,19 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
-msgstr ""
+msgstr "CA証明書"
 
 #: ui/newaccountsettingsview.ui:1689
 msgid "User certificate"
-msgstr ""
+msgstr "ユーザー証明書"
 
 #: ui/newaccountsettingsview.ui:1725
 msgid "Private key"
-msgstr "プライベートキー"
+msgstr "秘密鍵"
 
 #: ui/newaccountsettingsview.ui:1761
 msgid "Private key password"
-msgstr ""
+msgstr "秘密鍵のパスワード"
 
 #: ui/newaccountsettingsview.ui:1799
 msgid "TLS protocol method"
@@ -851,7 +852,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2621
 msgid "Enable video"
-msgstr ""
+msgstr "ビデオを有効化"
 
 #: ui/newaccountsettingsview.ui:2648
 msgid "Audio codecs"
@@ -994,7 +995,7 @@ msgstr "キャンセル(_C)"
 #: src/generalsettingsview.cpp:227 src/accountcreationwizard.cpp:759
 #: src/chatview.cpp:286 src/newaccountsettingsview.cpp:909
 msgid "_Save"
-msgstr ""
+msgstr "保存(_S)"
 
 #: src/welcomeview.cpp:92
 msgid ""
@@ -1006,7 +1007,7 @@ msgstr ""
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "これがあなたのIDです。\nコピーして友達とシェアしましょう！"
 
 #: src/welcomeview.cpp:195
 msgid ""
@@ -1060,7 +1061,7 @@ msgstr "開く(_O)"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "動作中…"
 
 #: src/dialogs.c:84
 #, c-format
@@ -1143,7 +1144,7 @@ msgstr ""
 
 #: src/conversationpopupmenu.cpp:225
 msgid "_Remove conversation"
-msgstr ""
+msgstr "会話を削除(_R)"
 
 #: src/conversationpopupmenu.cpp:231
 msgid "_Block contact"
@@ -1155,7 +1156,7 @@ msgstr ""
 
 #: src/conversationpopupmenu.cpp:242
 msgid "_Profile"
-msgstr ""
+msgstr "プロフィール(_P)"
 
 #: src/profileview.cpp:111
 msgid "(None)"
@@ -1185,7 +1186,7 @@ msgstr "パスワードが一致しません"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "バックアップからインポート"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:904
@@ -1210,7 +1211,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:192
 msgid "Add account…"
-msgstr ""
+msgstr "アカウントを追加…"
 
 #: src/mainwindow.cpp:847
 msgctxt "button next to search entry will place a new call"
@@ -1293,7 +1294,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2672
 msgid "Block contact"
-msgstr ""
+msgstr "ブロックした連絡先"
 
 #: src/mainwindow.cpp:2673
 msgid "Do you really want to block this contact?"
@@ -1301,7 +1302,7 @@ msgstr ""
 
 #: src/chatview.cpp:281
 msgid "Send File"
-msgstr ""
+msgstr "ファイルの送信"
 
 #: src/chatview.cpp:338
 msgid "Retry"
@@ -1372,7 +1373,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Edit name"
-msgstr ""
+msgstr "名前の編集"
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Revoke device"
@@ -1389,7 +1390,7 @@ msgstr ""
 #: src/newaccountsettingsview.cpp:778 src/newaccountsettingsview.cpp:801
 #: src/newaccountsettingsview.cpp:825 src/newaccountsettingsview.cpp:861
 msgid "Change password"
-msgstr ""
+msgstr "パスワードを変更"
 
 #: src/newaccountsettingsview.cpp:791
 msgid "New password and its confirmation are different!"
@@ -1413,7 +1414,7 @@ msgstr "新しいパスワード"
 
 #: src/newaccountsettingsview.cpp:1711
 msgid "Exporting account…"
-msgstr ""
+msgstr "アカウントをエクスポート中…"
 
 #: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"
@@ -1441,7 +1442,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2000
 msgid "Initializing…"
-msgstr ""
+msgstr "初期化中…"
 
 #: src/newaccountsettingsview.cpp:2003
 msgid "Offline"
@@ -1449,7 +1450,7 @@ msgstr "オフライン"
 
 #: src/newaccountsettingsview.cpp:2006
 msgid "Connecting…"
-msgstr ""
+msgstr "接続中…"
 
 #: src/newaccountsettingsview.cpp:2009
 msgid "Online"

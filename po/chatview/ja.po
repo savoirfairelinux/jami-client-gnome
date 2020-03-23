@@ -7,6 +7,7 @@
 # Masahiko Imanaka <chimantaea_mirabilis@yahoo.co.jp>, 2019
 # futr <ilce.ma@gmail.com>, 2019
 # Naofumi <naofum@gmail.com>, 2019
+# 323484, 2020
 # 
 #, fuzzy
 msgid ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-25 14:38+0200\n"
 "PO-Revision-Date: 2019-05-27 14:08+0000\n"
-"Last-Translator: Naofumi <naofum@gmail.com>, 2019\n"
+"Last-Translator: 323484, 2020\n"
 "Language-Team: Japanese (https://www.transifex.com/savoirfairelinux/teams/49466/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,7 +50,7 @@ msgstr "送信"
 
 #: web/chatview.html:187
 msgid "SendFile"
-msgstr ""
+msgstr "ファイルの送信"
 
 #: web/chatview.html:188 web/chatview.html:933
 msgid "Accept"
@@ -65,7 +66,7 @@ msgstr "ブロック"
 
 #: web/chatview.html:194
 msgid "Type a message"
-msgstr ""
+msgstr "メッセージを入力"
 
 #: web/chatview.html:301
 msgid "Note: an interaction will create a new contact."
@@ -84,33 +85,33 @@ msgstr ""
 #: web/chatview.html:515
 #, javascript-format
 msgid "%d days ago"
-msgstr ""
+msgstr "%d 日前"
 
 #: web/chatview.html:518
 msgid "one day ago"
-msgstr ""
+msgstr "1 日前"
 
 #: web/chatview.html:523
 #, javascript-format
 msgid "%d hours ago"
-msgstr ""
+msgstr "%d 時間前"
 
 #: web/chatview.html:526
 msgid "one hour ago"
-msgstr ""
+msgstr "1 時間前"
 
 #: web/chatview.html:531
 #, javascript-format
 msgid "%d minutes ago"
-msgstr ""
+msgstr "%d 分前"
 
 #: web/chatview.html:534
 msgid "just now"
-msgstr ""
+msgstr "ちょうど今"
 
 #: web/chatview.html:634
 msgid "Sending"
-msgstr ""
+msgstr "送信中"
 
 #: web/chatview.html:637
 msgid "Failure"
