@@ -100,7 +100,7 @@ build_view(ProfileView* view)
         auto alias = contact.profileInfo.alias;
         alias.remove('\r');
         alias.remove('\n');
-        if (alias.isEmpty()) return false;alias = contact.registeredName;
+        if (alias.isEmpty()) alias = contact.registeredName;
         if (alias.isEmpty()) alias = contact.profileInfo.uri;
         gtk_label_set_text(GTK_LABEL(priv->best_name_label), qUtf8Printable(alias));
         GtkStyleContext* context;
