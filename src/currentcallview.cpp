@@ -214,6 +214,7 @@ public:
                AccountInfoPointer const & account_info,
                lrc::api::conversation::Info* conversation,
                lrc::api::AVModel& avModel);
+    void updateConvList();
     void add_transfer_contact(const std::string& uri);
     void add_title(const QString& title);
     void add_present_contact(const QString& uri, const QString& custom_data, RowType custom_type, const QString& accountId);
@@ -797,6 +798,7 @@ on_button_add_participant_clicked(CurrentCallView *self)
     // Show and init list
     g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    priv->cpp->updateConvList();
     gtk_popover_set_relative_to(GTK_POPOVER(priv->add_participant_popover), GTK_WIDGET(priv->togglebutton_add_participant));
 #if GTK_CHECK_VERSION(3,22,0)
     gtk_popover_popdown(GTK_POPOVER(priv->add_participant_popover));
@@ -898,6 +900,37 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
 
     gtk_widget_hide(widgets->togglebutton_transfer);
 
+    updateConvList();
+
+    g_signal_connect(widgets->conversation_filter_entry, "search-changed", G_CALLBACK(on_search_participant), self);
+
+    if ((*accountInfo)->profileInfo.type == lrc::api::profile::Type::SIP) {
+        // Remove previous list
+        while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(widgets->list_conversations), 10)))
+            gtk_container_remove(GTK_CONTAINER(widgets->list_conversations), children);
+        // Fill with SIP contacts
+        add_transfer_contact("");  // Temporary item
+        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP))
+            add_transfer_contact(c.participants.front().toStdString());
+        gtk_widget_show_all(widgets->list_conversations);
+        gtk_widget_show(widgets->togglebutton_transfer);
+        gtk_widget_show(widgets->togglebutton_hold);
+    } else {
+        gtk_widget_hide(widgets->togglebutton_hold);
+    }
+
+    set_record_animation(widgets);
+}
+
+void
+CppImpl::updateConvList()
+{
+
+    auto row = 0;
+    while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(widgets->list_conversations_invite), row))) {
+        gtk_container_remove(GTK_CONTAINER(widgets->list_conversations_invite), children);
+    }
+
     auto callToRender = conversation->callId;
     if (!conversation->confId.isEmpty())
         callToRender = conversation->confId;
@@ -992,26 +1025,6 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
             }
         } catch (...) {}
     }
-
-
-    g_signal_connect(widgets->conversation_filter_entry, "search-changed", G_CALLBACK(on_search_participant), self);
-
-    if ((*accountInfo)->profileInfo.type == lrc::api::profile::Type::SIP) {
-        // Remove previous list
-        while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(widgets->list_conversations), 10)))
-            gtk_container_remove(GTK_CONTAINER(widgets->list_conversations), children);
-        // Fill with SIP contacts
-        add_transfer_contact("");  // Temporary item
-        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP))
-            add_transfer_contact(c.participants.front().toStdString());
-        gtk_widget_show_all(widgets->list_conversations);
-        gtk_widget_show(widgets->togglebutton_transfer);
-        gtk_widget_show(widgets->togglebutton_hold);
-    } else {
-        gtk_widget_hide(widgets->togglebutton_hold);
-    }
-
-    set_record_animation(widgets);
 }
 
 void
