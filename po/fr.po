@@ -13,7 +13,7 @@
 # Baptiste Jonglez, 2016
 # Breizh <breizh@breizh.noho.st>, 2016
 # Bruno Pagani <bruno.n.pagani@gmail.com>, 2015
-# Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>, 2015,2017-2019
+# Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>, 2015,2017-2020
 # Gervais Potvin <gervais.potvin@gmail.com>, 2019
 # Guillaume Roguez, 2015-2016
 # Guillaume Roguez, 2016-2017
@@ -27,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-23 03:09-0400\n"
-"PO-Revision-Date: 2020-03-16 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-03-30 03:09-0400\n"
+"PO-Revision-Date: 2020-03-25 14:13+0000\n"
+"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -522,7 +522,7 @@ msgstr "Vue dicussions"
 
 #: ui/generalsettingsview.ui:383
 msgid "Show typing indications"
-msgstr ""
+msgstr "Montrer l'indicateur d'écriture"
 
 #: ui/generalsettingsview.ui:419
 msgid "Display images and videos into the chatview"
@@ -1361,19 +1361,19 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Attention ! Cette opération supprimera votre compte de l'appareil.\nVous pourriez perdre définitivement le nom d'enregistrement !"
 
-#: src/currentcallview.cpp:936
+#: src/currentcallview.cpp:969
 msgid "Current conference (all accounts)"
 msgstr "Conférence courantes (tous les comptes)"
 
-#: src/currentcallview.cpp:971
+#: src/currentcallview.cpp:1004
 msgid "Current calls (all accounts)"
 msgstr "Appels courant (tous les comptes)"
 
-#: src/currentcallview.cpp:988
+#: src/currentcallview.cpp:1021
 msgid "Online contacts"
 msgstr "Contacts en ligne"
 
-#: src/currentcallview.cpp:1416
+#: src/currentcallview.cpp:1429
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"

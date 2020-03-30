@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-23 03:09-0400\n"
+"POT-Creation-Date: 2020-03-30 03:09-0400\n"
 "PO-Revision-Date: 2020-03-16 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
@@ -1365,19 +1365,19 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Предупреждение: Это действие удалит выбранную учетную запись с данного устройства!\nОбратите внимание: это действие невозможно отменить. Ваше зарегистрированное имя так же может быть утрачено!"
 
-#: src/currentcallview.cpp:936
+#: src/currentcallview.cpp:969
 msgid "Current conference (all accounts)"
 msgstr "Текущая конференция (все аккаунты)"
 
-#: src/currentcallview.cpp:971
+#: src/currentcallview.cpp:1004
 msgid "Current calls (all accounts)"
 msgstr "Текущие звонки (все аккаунты)"
 
-#: src/currentcallview.cpp:988
+#: src/currentcallview.cpp:1021
 msgid "Online contacts"
 msgstr "Интернет контакты"
 
-#: src/currentcallview.cpp:1416
+#: src/currentcallview.cpp:1429
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Автоматически"

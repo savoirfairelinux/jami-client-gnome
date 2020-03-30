@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Любомир Василев, 2016-2017
+# Любомир Василев, 2016-2017,2020
 # Симонъ–Севаръ С. Болокановъ <sbolokanov@abv.bg>, 2016
 # Симонъ–Севаръ С. Болокановъ <sbolokanov@abv.bg>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-23 03:09-0400\n"
-"PO-Revision-Date: 2020-03-16 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-03-30 03:09-0400\n"
+"PO-Revision-Date: 2020-03-25 06:49+0000\n"
+"Last-Translator: Любомир Василев\n"
 "Language-Team: Bulgarian (http://www.transifex.com/savoirfairelinux/jami/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +33,7 @@ msgstr ""
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr ""
+msgstr "Отваряне на списъка с акаунти"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
@@ -43,17 +43,17 @@ msgstr ""
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Focus the list of conversations"
-msgstr ""
+msgstr "Фокусиране върху списъка с разговори"
 
 #: ui/help-overlay.ui:46
 msgctxt "shortcut window"
 msgid "Focus the list pending requests"
-msgstr ""
+msgstr "Фокусиране върху списъка с чакащи заявки"
 
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Превключване на цял екран"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -63,12 +63,12 @@ msgstr "Разговори"
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Start a video call"
-msgstr ""
+msgstr "Започване на видео разговор"
 
 #: ui/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Start an audio call"
-msgstr ""
+msgstr "Започване на гласов разговор"
 
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
@@ -78,12 +78,12 @@ msgstr "Изчистване на историята"
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr ""
+msgstr "Добавяне на разговор"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
-msgstr ""
+msgstr "Премахване на разговора"
 
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
@@ -93,12 +93,12 @@ msgstr "Блокиране на контакт"
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Unblock contact"
-msgstr ""
+msgstr "Деблокиране на контакта"
 
 #: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
-msgstr ""
+msgstr "Копиране на името на контакта"
 
 #: ui/help-overlay.ui:127
 msgctxt "shortcut window"
@@ -108,12 +108,12 @@ msgstr "Обаждане"
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
-msgstr ""
+msgstr "Приемане на обаждането"
 
 #: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
-msgstr ""
+msgstr "Отказване на обаждането"
 
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
@@ -123,32 +123,32 @@ msgstr "Настройки"
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
-msgstr ""
+msgstr "Отваряне/затваряне на страницата с настройките"
 
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
-msgstr ""
+msgstr "Отваряне на общите настройки"
 
 #: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
-msgstr ""
+msgstr "Отваряне на настройките за звук и видео"
 
 #: ui/help-overlay.ui:174
 msgctxt "shortcut window"
 msgid "Open account settings"
-msgstr ""
+msgstr "Отваряне на настройките на акаунта"
 
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
-msgstr ""
+msgstr "Изглед на чата"
 
 #: ui/help-overlay.ui:189
 msgctxt "shortcut window"
 msgid "Write on a new line"
-msgstr ""
+msgstr "Писане на нов ред"
 
 #: ui/mainwindow.ui:57
 msgid "Menu"
@@ -181,7 +181,7 @@ msgstr "Заявки за нови контакти"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
-msgstr ""
+msgstr "Нужно е пренасяне на акаунта"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
@@ -420,16 +420,16 @@ msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "Този акаунт съществува само на това устройство. Ако го загубите, или ако деинсталирате приложението, акаунтът Ви ще бъде изтрит. Можете да направите резервно копие на акаунта си сега или на по-късен етап."
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "Това да не се показва повече"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
 msgid "Export account"
-msgstr ""
+msgstr "Изнасяне на акаунта"
 
 #: ui/accountcreationwizard.ui:813
 msgid "Skip"
@@ -672,7 +672,7 @@ msgstr "Прокс"
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
-msgstr ""
+msgstr "Гласова поща"
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
@@ -1286,7 +1286,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2656
 msgid "Remove conversation"
-msgstr ""
+msgstr "Премахване на разговора"
 
 #: src/mainwindow.cpp:2657
 msgid "Do you really want to remove this conversation?"
@@ -1344,19 +1344,19 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:936
+#: src/currentcallview.cpp:969
 msgid "Current conference (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:971
+#: src/currentcallview.cpp:1004
 msgid "Current calls (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:988
+#: src/currentcallview.cpp:1021
 msgid "Online contacts"
 msgstr ""
 
-#: src/currentcallview.cpp:1416
+#: src/currentcallview.cpp:1429
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Авт."
