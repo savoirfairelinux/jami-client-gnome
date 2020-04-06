@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# a0cae6accafe109fb133bd33ecb37bd3, 2020
 # Rui <xymarior@yandex.com>, 2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-30 03:09-0400\n"
-"PO-Revision-Date: 2020-03-16 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-04-06 03:09-0400\n"
+"PO-Revision-Date: 2020-04-05 16:16+0000\n"
+"Last-Translator: a0cae6accafe109fb133bd33ecb37bd3\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/savoirfairelinux/jami/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -203,7 +204,7 @@ msgstr "Palavra-chave"
 
 #: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr ""
+msgstr "Gestão de conta"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
@@ -217,7 +218,7 @@ msgstr "Migrar conta"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "Migrar a sua conta Jami"
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
@@ -299,7 +300,7 @@ msgstr "Transferir para"
 
 #: ui/currentcallview.ui:616
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -307,27 +308,27 @@ msgstr "Bem-vindo(a) à"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr ""
+msgstr "Criar conta local"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Criar uma nova conta Jami neste dispositivo (para novos utilizadores)"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "Importar de dispositivo"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "Importar uma conta com o seu PIN gerado noutro dispositivo"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr ""
+msgstr "Importar de cópia de segurança arquivada"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "Importar uma conta usando o seu arquivo"
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
@@ -335,11 +336,11 @@ msgstr "Avançado…"
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
-msgstr ""
+msgstr "Ligar ao gestor de conta"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
-msgstr ""
+msgstr "Obter a sua conta usando as suas credenciais."
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
@@ -347,11 +348,11 @@ msgstr "Adicionar uma nova conta SIP"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
-msgstr ""
+msgstr "Arquivo"
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
-msgstr ""
+msgstr "Informações."
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
@@ -361,13 +362,13 @@ msgstr "PIN"
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Pode criar um arquivo ao clicar em \"Exportar conta\" nas definições de conta. Isto irá criar um ficheiro .gz no seu dispositivo."
 
 #: ui/accountcreationwizard.ui:382
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr ""
+msgstr "Para obter um PIN (válido por 10 minutos), precisa de abrir as definições de conta no outro dispositivo e clicar em \"Adicionar outro dispositivo\"."
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
@@ -393,7 +394,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Ao ativar isto, irá registar um nome de utilizador único na rede Jami. As pessoas podem usá-lo para o contactar em vez de usarem o seu ID, que contém 40 caracteres."
 
 #: ui/accountcreationwizard.ui:625
 msgid ""
@@ -411,18 +412,18 @@ msgstr "A gerar a sua conta Jami..."
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr ""
+msgstr "Fazer cópia de segurança da sua conta!"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "Esta conta só existe neste dispositivo. Se perder o seu dispositivo ou se desinstalar a aplicação, a sua conta será apagada. Pode fazer uma cópia de segurança agora ou mais tarde."
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "Não voltar a mostrar"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
@@ -451,7 +452,7 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "Iniciar sessão"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
@@ -503,7 +504,7 @@ msgstr "Janela de conversas"
 
 #: ui/generalsettingsview.ui:383
 msgid "Show typing indications"
-msgstr ""
+msgstr "Mostrar indicação ao escrever"
 
 #: ui/generalsettingsview.ui:419
 msgid "Display images and videos into the chatview"
@@ -531,23 +532,23 @@ msgstr "Limpar histórico"
 
 #: ui/generalsettingsview.ui:631
 msgid "Call Recording"
-msgstr ""
+msgstr "A Gravar Chamada"
 
 #: ui/generalsettingsview.ui:669
 msgid "Record local video"
-msgstr ""
+msgstr "Gravar vídeo local"
 
 #: ui/generalsettingsview.ui:705
 msgid "Always record calls"
-msgstr ""
+msgstr "Gravar sempre as chamadas"
 
 #: ui/generalsettingsview.ui:742
 msgid "Record folder"
-msgstr ""
+msgstr "Pasta de gravações"
 
 #: ui/generalsettingsview.ui:779
 msgid "Bitrate for call recordings (kb/s)"
-msgstr ""
+msgstr "Taxa de bits das gravações de chamada (kb/s)"
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -1067,7 +1068,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Free as in Freedom\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Livre como em Liberdade\"\ndesenvolvido em %.25s"
 
 #: src/dialogs.c:137
 msgid ""
@@ -1162,21 +1163,21 @@ msgstr "(nenhum)"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "Ocorreu um erro durante a criação da conta."
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "Não foi possível encontrar nenhuma conta, por favor verifique o seu PIN e a sua palavra-chave."
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Não foi possível encontrar nenhuma conta, por favor verifique o seu arquivo e a sua palavra-chave."
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "Não foi possível ligar ao gestor de conta especificado.\nPor favor verifique as suas credenciais"
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
@@ -1184,7 +1185,7 @@ msgstr "As palavras-chave não são iguais"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Importar cópia de segurança"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:904
@@ -1223,18 +1224,18 @@ msgstr "abrir conversa"
 
 #: src/mainwindow.cpp:1057
 msgid "Jami - Migration needed"
-msgstr ""
+msgstr "Jami - Migração requerida"
 
 #: src/mainwindow.cpp:1070
 msgid "Migration in progress... please do not close this window."
-msgstr ""
+msgstr "Migração em progresso... por favor não feche esta janela."
 
 #: src/mainwindow.cpp:1349
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr ""
+msgstr "Encontrar ou iniciar uma conversa"
 
 #: src/mainwindow.cpp:1820
 msgid "Leave settings page"
@@ -1308,7 +1309,7 @@ msgstr "Tentar novamente"
 
 #: src/chatview.cpp:501
 msgid "Stop"
-msgstr ""
+msgstr "Parar"
 
 #: src/chatview.cpp:1019
 msgid "Send"
@@ -1344,15 +1345,15 @@ msgstr "Atenção! Esta ação irá remover esta conta neste dispositivo!\nNota:
 
 #: src/currentcallview.cpp:969
 msgid "Current conference (all accounts)"
-msgstr ""
+msgstr "Conferência atual (todas as contas)"
 
 #: src/currentcallview.cpp:1004
 msgid "Current calls (all accounts)"
-msgstr ""
+msgstr "Chamadas atuais (todas as contas)"
 
 #: src/currentcallview.cpp:1021
 msgid "Online contacts"
-msgstr ""
+msgstr "Contactos online"
 
 #: src/currentcallview.cpp:1429
 msgctxt "Enable automatic video quality"
@@ -1412,7 +1413,7 @@ msgstr "Nova palavra-chave"
 
 #: src/newaccountsettingsview.cpp:1711
 msgid "Exporting account…"
-msgstr ""
+msgstr "A exportar conta..."
 
 #: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"

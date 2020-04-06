@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-30 03:09-0400\n"
-"PO-Revision-Date: 2020-03-25 21:12+0000\n"
+"POT-Creation-Date: 2020-04-06 03:09-0400\n"
+"PO-Revision-Date: 2020-04-02 01:42+0000\n"
 "Last-Translator: Kateryna K <katerynakostiukGer@gmail.com>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/savoirfairelinux/jami/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
@@ -90,7 +90,7 @@ msgstr ""
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
-msgstr ""
+msgstr "Bloquer le contact"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
@@ -1085,7 +1085,7 @@ msgstr ""
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "Arrêter l'enregistrement "
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
@@ -1188,7 +1188,7 @@ msgstr "Les mots de passes en sont pas identiques"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Importer à partir d'une sauvegarde."
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:904
@@ -1296,7 +1296,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2672
 msgid "Block contact"
-msgstr ""
+msgstr "Bloquer le contact"
 
 #: src/mainwindow.cpp:2673
 msgid "Do you really want to block this contact?"
@@ -1472,4 +1472,4 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2102
 msgid "Remove account"
-msgstr ""
+msgstr "Supprimer le compte"

@@ -5,7 +5,7 @@
 # 
 # Translators:
 # Danial Behzadi <dani.behzi@ubuntu.com>, 2019
-# magnifico, 2019
+# Reza Ghasemi, 2019
 # Amir Taherizadeh, 2019
 # Hamid reza Zaefarani, 2019
 # 

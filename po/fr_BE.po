@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-30 03:09-0400\n"
-"PO-Revision-Date: 2020-03-25 21:12+0000\n"
+"POT-Creation-Date: 2020-04-06 03:09-0400\n"
+"PO-Revision-Date: 2020-04-02 01:41+0000\n"
 "Last-Translator: Kateryna K <katerynakostiukGer@gmail.com>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/savoirfairelinux/jami/language/fr_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,7 @@ msgstr ""
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
-msgstr ""
+msgstr "Bloquer le contact"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
@@ -901,7 +901,7 @@ msgstr ""
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
-msgstr ""
+msgstr "Accepter"
 
 #: ui/incomingcallview.ui:172
 msgid "Reject"
@@ -933,7 +933,7 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:179
 msgid "Invalid username"
-msgstr ""
+msgstr "Nom d'utilisateur incorrect"
 
 #: src/usernameregistrationbox.cpp:193
 msgid "Lookup unavailable, check your network connection"
@@ -1020,12 +1020,12 @@ msgstr ""
 #: src/notifier.cpp:344 src/notifier.cpp:360
 msgctxt ""
 msgid "Accept"
-msgstr ""
+msgstr "Accepter"
 
 #: src/notifier.cpp:351
 msgctxt ""
 msgid "Refuse"
-msgstr ""
+msgstr "Refuser"
 
 #: src/notifier.cpp:367
 msgctxt ""
@@ -1080,7 +1080,7 @@ msgstr ""
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "Arrêter l'enregistrement "
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
@@ -1179,11 +1179,11 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Les mots de passes ne correspondent pas"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Importer à partir d'une sauvegarde."
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:904
@@ -1291,7 +1291,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2672
 msgid "Block contact"
-msgstr ""
+msgstr "Bloquer le contact"
 
 #: src/mainwindow.cpp:2673
 msgid "Do you really want to block this contact?"
@@ -1311,7 +1311,7 @@ msgstr ""
 
 #: src/chatview.cpp:1019
 msgid "Send"
-msgstr ""
+msgstr "Envoyer"
 
 #: src/client.cpp:115
 #, c-format
@@ -1467,4 +1467,4 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2102
 msgid "Remove account"
-msgstr ""
+msgstr "Supprimer le compte"

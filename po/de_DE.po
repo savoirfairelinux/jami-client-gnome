@@ -6,16 +6,16 @@
 # Blanca Iris Almagro, 2016
 # Guillaume Roguez, 2016
 # Arledrian <hvuzgr@gmail.com>, 2017
-# jhasse <jhasse@gmail.com>, 2017
+# 3c81ac589fef5c37f392e4eabcb32106, 2017
 # Ralf, 2019
 # Wolfgang Traylor <wolfgang.traylor@senckenberg.de>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-30 03:09-0400\n"
-"PO-Revision-Date: 2020-03-16 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-04-06 03:09-0400\n"
+"PO-Revision-Date: 2020-04-05 03:20+0000\n"
+"Last-Translator: Markus Maurer <admin@ryuum3gum1n.de>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/savoirfairelinux/jami/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -328,7 +328,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr ""
+msgstr "Importieren aus Archivsicherung"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
@@ -340,7 +340,7 @@ msgstr "Erweitert…"
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
-msgstr ""
+msgstr "Verbinden zum Konto Verwalter"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
