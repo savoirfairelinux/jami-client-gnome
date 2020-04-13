@@ -5,7 +5,7 @@
 # 
 # Translators:
 # Zsolt <maxigaz@protonmail.com>, 2019
-# Balázs Meskó <meskobalazs@gmail.com>, 2019
+# Balázs Meskó <mesko.balazs@fsf.hu>, 2019
 # . . <ovari123@zoho.com>, 2019
 # P G <pappgabor9@gmail.com>, 2020
 # 

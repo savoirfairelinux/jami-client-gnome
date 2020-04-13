@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 03:09-0400\n"
-"PO-Revision-Date: 2020-04-05 03:20+0000\n"
+"POT-Creation-Date: 2020-04-13 03:09-0400\n"
+"PO-Revision-Date: 2020-04-07 01:47+0000\n"
 "Last-Translator: Markus Maurer <admin@ryuum3gum1n.de>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/savoirfairelinux/jami/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -423,11 +423,11 @@ msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "Dieses Konto ist nur auf diesem Gerät vorhanden. Wenn Sie Ihr Gerät verloren haben oder die Anwendung deinstallieren, wird Ihr Konto gelöscht. Sie können Ihr Konto jetzt oder später sichern."
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "Das nie wieder zeigen"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035

@@ -3,27 +3,25 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Derek 呆 <dailidu@linuxdeepin.com>, 2016
-# redfishleo <redfish.tbc@gmail.com>, 2016
-# Tom Samder <2v894l+efbge9r9x3pt0@sharklasers.com>, 2016
+# Priit Jõerüüt <transifex@joeruut.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-13 03:09-0400\n"
-"PO-Revision-Date: 2020-03-16 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
-"Language-Team: Chinese (http://www.transifex.com/savoirfairelinux/jami/language/zh/)\n"
+"PO-Revision-Date: 2020-04-07 19:17+0000\n"
+"Last-Translator: Priit Jõerüüt <transifex@joeruut.com>\n"
+"Language-Team: Estonian (http://www.transifex.com/savoirfairelinux/jami/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ui/help-overlay.ui:13
 msgctxt "shortcut window"
 msgid "General"
-msgstr "通用"
+msgstr ""
 
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
@@ -58,42 +56,42 @@ msgstr ""
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Conversations"
-msgstr "對話"
+msgstr "Vestlused"
 
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Start a video call"
-msgstr ""
+msgstr "Alusta videokõnet"
 
 #: ui/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Start an audio call"
-msgstr ""
+msgstr "Helista"
 
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Clear history"
-msgstr ""
+msgstr "Kustuta ajalugu"
 
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr ""
+msgstr "Lisa vestlus"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
-msgstr ""
+msgstr "Kustuta vestlus"
 
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
-msgstr ""
+msgstr "Blokeeri kontakt"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Unblock contact"
-msgstr ""
+msgstr "Eemalda kontakti blokeering"
 
 #: ui/help-overlay.ui:117
 msgctxt "shortcut window"
@@ -103,7 +101,7 @@ msgstr ""
 #: ui/help-overlay.ui:127
 msgctxt "shortcut window"
 msgid "Call"
-msgstr "撥打"
+msgstr "Helista"
 
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
@@ -118,7 +116,7 @@ msgstr ""
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
 msgid "Settings"
-msgstr "設定"
+msgstr ""
 
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
@@ -152,28 +150,28 @@ msgstr ""
 
 #: ui/mainwindow.ui:57
 msgid "Menu"
-msgstr "選單"
+msgstr ""
 
 #: ui/mainwindow.ui:80
 msgid "General"
-msgstr "通用"
+msgstr ""
 
 #: ui/mainwindow.ui:96
 msgid "Media"
-msgstr "媒體"
+msgstr ""
 
 #: ui/mainwindow.ui:113 ui/accountcreationwizard.ui:523
 #: ui/newaccountsettingsview.ui:387
 msgid "Account"
-msgstr "帳號"
+msgstr ""
 
 #: ui/mainwindow.ui:150 src/mainwindow.cpp:1845
 msgid "Settings"
-msgstr "設定"
+msgstr ""
 
 #: ui/mainwindow.ui:271 ui/mainwindow.ui:278
 msgid "Conversations"
-msgstr "對話"
+msgstr "Vestlused"
 
 #: ui/mainwindow.ui:304 ui/mainwindow.ui:311
 msgid "Contact requests"
@@ -189,19 +187,19 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
-msgstr "別名"
+msgstr ""
 
 #: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:597
 #: ui/accountcreationwizard.ui:982 ui/profile.ui:73
 #: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
 msgid "Username"
-msgstr "使用者名"
+msgstr ""
 
 #: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:191
 #: ui/accountcreationwizard.ui:624 ui/accountcreationwizard.ui:1018
 #: ui/newaccountsettingsview.ui:502 ui/newaccountsettingsview.ui:742
 msgid "Password"
-msgstr "密码"
+msgstr ""
 
 #: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
 msgid "Account manager"
@@ -227,11 +225,11 @@ msgstr ""
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
-msgstr "結束本次通話"
+msgstr ""
 
 #: ui/currentcallview.ui:255 ui/currentcallview.ui:511
 msgid "End call"
-msgstr "結束通話"
+msgstr ""
 
 #: ui/currentcallview.ui:275 ui/currentcallview.ui:493
 msgid "Add participant"
@@ -243,24 +241,24 @@ msgstr ""
 
 #: ui/currentcallview.ui:313
 msgid "Toggle hold"
-msgstr "切換通話保持狀態"
+msgstr ""
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:342
 #: ui/currentcallview.ui:484
 msgid "Hold"
-msgstr "保持通話"
+msgstr ""
 
 #: ui/currentcallview.ui:338
 msgid "Toggle mute audio"
-msgstr "切換靜音狀態"
+msgstr ""
 
 #: ui/currentcallview.ui:363
 msgid "Toggle mute video"
-msgstr "切換影像輸出狀態"
+msgstr ""
 
 #: ui/currentcallview.ui:367 ui/currentcallview.ui:475
 msgid "Mute video"
-msgstr "視訊靜音"
+msgstr ""
 
 #: ui/currentcallview.ui:388
 msgid "Toggle recording"
@@ -269,7 +267,7 @@ msgstr ""
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
 #: ui/messagingwidget.ui:29 src/chatview.cpp:348
 msgid "Record"
-msgstr "錄製"
+msgstr ""
 
 #: ui/currentcallview.ui:412
 msgid "Adjust outgoing video quality"
@@ -281,19 +279,19 @@ msgstr ""
 
 #: ui/currentcallview.ui:436
 msgid "Toggle show chat"
-msgstr "切換顯示聊天"
+msgstr ""
 
 #: ui/currentcallview.ui:440 ui/currentcallview.ui:457
 msgid "Chat"
-msgstr "聊天"
+msgstr ""
 
 #: ui/currentcallview.ui:466
 msgid "Mute audio"
-msgstr "靜音"
+msgstr ""
 
 #: ui/currentcallview.ui:502
 msgid "Transfer"
-msgstr "傳送"
+msgstr ""
 
 #: ui/currentcallview.ui:552
 msgid "Transfer to"
@@ -379,12 +377,12 @@ msgstr ""
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:711
 #: ui/accountcreationwizard.ui:1092
 msgid "Next"
-msgstr "下一步"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:442 ui/profile.ui:7
 #: ui/newaccountsettingsview.ui:307
 msgid "Profile"
-msgstr "個人檔案"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:560
 msgid "Register username"
@@ -461,11 +459,11 @@ msgstr ""
 
 #: ui/gearsmenu.ui:11
 msgid "_About"
-msgstr "_關於"
+msgstr ""
 
 #: ui/gearsmenu.ui:17
 msgid "_Quit"
-msgstr "_離開"
+msgstr ""
 
 #: ui/generalsettingsview.ui:51
 msgid "System"
@@ -521,7 +519,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:530
 msgid "History"
-msgstr "歷史記錄"
+msgstr ""
 
 #: ui/generalsettingsview.ui:569
 msgid "Keep history for (days, 0 = unlimited)"
@@ -529,7 +527,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:599
 msgid "Clear all history"
-msgstr "清除所有歷史紀錄"
+msgstr ""
 
 #: ui/generalsettingsview.ui:631
 msgid "Call Recording"
@@ -569,19 +567,19 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
-msgstr "音訊管理員:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:52
 msgid "Ringtone device:"
-msgstr "鈴聲裝置:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
-msgstr "輸出裝置:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:76
 msgid "Input device:"
-msgstr "輸入裝置:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
@@ -593,19 +591,19 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:172
 msgid "Device:"
-msgstr "裝置:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:184
 msgid "Channel:"
-msgstr "頻道:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:196
 msgid "Resolution:"
-msgstr "解析度:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:208
 msgid "Frame rate:"
-msgstr "幀率:"
+msgstr ""
 
 #: ui/mediasettingsview.ui:266
 msgid "Hardware Acceleration"
@@ -640,7 +638,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:864
 msgid "Cancel"
-msgstr "取消"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:211
 msgid "Export on the network"
@@ -664,11 +662,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
-msgstr "密碼"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1371
 msgid "Proxy"
-msgstr "代理"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
@@ -716,7 +714,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
 msgid "Address"
-msgstr "地址"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1332
 msgid "OpenDHT configuration"
@@ -728,11 +726,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1452
 msgid "Bootstrap"
-msgstr "引導"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1512
 msgid "Encrypt media streams (SRTP)"
-msgstr "對影音串流加密 (SRTP)"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1547
 msgid "Enable SDES for key exchange protocol"
@@ -740,7 +738,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1583
 msgid "Fallback on RTP on encryption failure"
-msgstr "加密失敗時改用 RTP"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1618
 msgid "Encrypt negotiation (TLS)"
@@ -748,19 +746,19 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
-msgstr "CA 認證"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1689
 msgid "User certificate"
-msgstr "使用者認證"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1725
 msgid "Private key"
-msgstr "私鑰"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1761
 msgid "Private key password"
-msgstr "私鑰保護密碼"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1799
 msgid "TLS protocol method"
@@ -772,7 +770,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1870
 msgid "Negotiation timeout (seconds)"
-msgstr "連接發起超時 (秒)"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1906
 msgid "Verify incoming certificates (server side)"
@@ -788,7 +786,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2000
 msgid "Security"
-msgstr "安全"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:2025
 msgid "Connectivity"
@@ -808,7 +806,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2171
 msgid "Use TURN"
-msgstr "使用TURN"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:2206
 msgid "(TURN) address"
@@ -828,7 +826,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2346
 msgid "Use STUN"
-msgstr "使用STUN"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:2381
 msgid "(STUN) address"
@@ -844,11 +842,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2522
 msgid "Port"
-msgstr "埠"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:2558
 msgid "Video codecs"
-msgstr "視訊編碼器"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:2621
 msgid "Enable video"
@@ -856,7 +854,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2648
 msgid "Audio codecs"
-msgstr "音訊編碼器"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:2718
 msgid "SDP Session Negotiation (ICE Fallback)"
@@ -1028,7 +1026,7 @@ msgstr ""
 #: src/notifier.cpp:351
 msgctxt ""
 msgid "Refuse"
-msgstr "拒絕"
+msgstr ""
 
 #: src/notifier.cpp:367
 msgctxt ""
@@ -1106,7 +1104,7 @@ msgstr ""
 
 #: src/client_options.c:66
 msgid "Enable debug"
-msgstr "啟用除錯模式"
+msgstr ""
 
 #: src/client_options.c:68
 msgid ""
@@ -1182,16 +1180,16 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Salasõnad ei klapi"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Impordi varundatud failist"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:904
 msgid "Save File"
-msgstr "儲存檔案"
+msgstr "Salvesta fail"
 
 #: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:931
 msgid "You need to enter your password to export the full archive."
@@ -1252,7 +1250,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2301
 msgid "Incoming call"
-msgstr "來電"
+msgstr ""
 
 #: src/mainwindow.cpp:2443
 msgid "New request from "
@@ -1278,7 +1276,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2640
 msgid "Clear history"
-msgstr ""
+msgstr "Kustuta ajalugu"
 
 #: src/mainwindow.cpp:2641
 msgid "Do you really want to clear the history of this conversation?"
@@ -1286,7 +1284,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2656
 msgid "Remove conversation"
-msgstr ""
+msgstr "Kustuta vestlus"
 
 #: src/mainwindow.cpp:2657
 msgid "Do you really want to remove this conversation?"
@@ -1294,7 +1292,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2672
 msgid "Block contact"
-msgstr ""
+msgstr "Blokeeri kontakt"
 
 #: src/mainwindow.cpp:2673
 msgid "Do you really want to block this contact?"
@@ -1314,7 +1312,7 @@ msgstr ""
 
 #: src/chatview.cpp:1019
 msgid "Send"
-msgstr "發送"
+msgstr ""
 
 #: src/client.cpp:115
 #, c-format

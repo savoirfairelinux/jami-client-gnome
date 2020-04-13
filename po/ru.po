@@ -18,8 +18,8 @@
 # Viktor Filinkov <bruteforce@sigil.tk>, 2015
 # Viktoria Phibo <queegam@gmail.com>, 2019
 # Vladimir Stoiakin, 2018-2019
-# W. Studinsky <studinsky@gmail.com>, 2019
-# W. Studinsky <studinsky@gmail.com>, 2019
+# W. Studinsky, 2019
+# W. Studinsky, 2019
 # Yaroslav Molochko <onorua@gmail.com>, 2015
 # Alexander Filev, 2017
 # Александр Суслов <suslikkreal@gmail.com>, 2015
@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 03:09-0400\n"
+"POT-Creation-Date: 2020-04-13 03:09-0400\n"
 "PO-Revision-Date: 2020-04-03 17:05+0000\n"
 "Last-Translator: Ilia Draga\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
