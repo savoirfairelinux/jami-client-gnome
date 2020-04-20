@@ -6,13 +6,14 @@
 # 323484, 2020
 # futr <ilce.ma@gmail.com>, 2017
 # Masahiko Imanaka <chimantaea_mirabilis@yahoo.co.jp>, 2016
+# Toshiya Saito, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-13 03:09-0400\n"
-"PO-Revision-Date: 2020-03-18 00:59+0000\n"
-"Last-Translator: 323484\n"
+"POT-Creation-Date: 2020-04-20 03:09-0400\n"
+"PO-Revision-Date: 2020-04-15 22:12+0000\n"
+"Last-Translator: Toshiya Saito\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/jami/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1001,7 +1002,7 @@ msgstr "保存(_S)"
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "これがあなたの Jami ユーザー名です。\nコピーして友達とシェアしましょう！"
 
 #: src/welcomeview.cpp:100
 msgid ""
@@ -1075,7 +1076,7 @@ msgstr ""
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami の GNOME クライアントです。\nJami は、世界中のユーザーと繋がることができる、ユーザーの自由とプライバシーを尊重したフリーソフトウェアです。"
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -1282,7 +1283,7 @@ msgstr "履歴をクリア"
 
 #: src/mainwindow.cpp:2641
 msgid "Do you really want to clear the history of this conversation?"
-msgstr ""
+msgstr "会話の履歴を消去してもよろしいですか？"
 
 #: src/mainwindow.cpp:2656
 msgid "Remove conversation"
@@ -1434,11 +1435,11 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:1824
 msgid "Error: wrong password!"
-msgstr ""
+msgstr "エラー: パスワードが正しくありません"
 
 #: src/newaccountsettingsview.cpp:1827
 msgid "Error: unknown device!"
-msgstr ""
+msgstr "エラー: 不明なデバイスです"
 
 #: src/newaccountsettingsview.cpp:2000
 msgid "Initializing…"

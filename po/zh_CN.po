@@ -6,15 +6,17 @@
 # Zkdc, 2019
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2017
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2016
+# Shuisi Liu <forevoliu@gmail.com>, 2020
+# Tiansworld <tiansworld@fedoraproject.org>, 2020
 # 李文睿 <happy.lwr@gmail.com>, 2017
 # 李文睿 <happy.lwr@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-13 03:09-0400\n"
-"PO-Revision-Date: 2020-03-16 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-04-20 03:09-0400\n"
+"PO-Revision-Date: 2020-04-18 15:15+0000\n"
+"Last-Translator: Shuisi Liu <forevoliu@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +52,7 @@ msgstr "聚焦会话列表"
 #: ui/help-overlay.ui:46
 msgctxt "shortcut window"
 msgid "Focus the list pending requests"
-msgstr ""
+msgstr "关注列表中的待处理请求"
 
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
@@ -241,7 +243,7 @@ msgstr "添加参与者"
 
 #: ui/currentcallview.ui:294
 msgid "Toggle transfer"
-msgstr ""
+msgstr "切换转移"
 
 #: ui/currentcallview.ui:313
 msgid "Toggle hold"
@@ -299,7 +301,7 @@ msgstr "已转接"
 
 #: ui/currentcallview.ui:552
 msgid "Transfer to"
-msgstr ""
+msgstr "传递到"
 
 #: ui/currentcallview.ui:616
 msgid "Add"
@@ -323,15 +325,15 @@ msgstr "从设备导入"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "用另一个设备上生成的 PIN 码导入账户"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr ""
+msgstr "从归档备份中导入"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "从您的归档导入账户"
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
@@ -343,7 +345,7 @@ msgstr "连接到账户管理器"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
-msgstr ""
+msgstr "通过你的凭据获取你的帐户。"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
@@ -365,13 +367,13 @@ msgstr "PIN"
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "您可在账户设置中点击“导出账户”获得归档。这会在您的设备上创建一个以 .gz 结尾的文件。"
 
 #: ui/accountcreationwizard.ui:382
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr ""
+msgstr "要获得 PIN 码（有效期 10 分钟），您需要在另一台设备上打开账户设置然后点击“关联另一台设备”。"
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
@@ -422,7 +424,7 @@ msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "本账户仅存在于此设备上。如果您丢失了该设备或卸载了本应用，那么您的账户也会被删除。您可现在或稍后备份您的账户。"
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
@@ -507,7 +509,7 @@ msgstr "聊天界面"
 
 #: ui/generalsettingsview.ui:383
 msgid "Show typing indications"
-msgstr ""
+msgstr "显示打字状态"
 
 #: ui/generalsettingsview.ui:419
 msgid "Display images and videos into the chatview"
@@ -638,7 +640,7 @@ msgstr "密码（必填）："
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
-msgstr "输入档案密码"
+msgstr "输入归档密码"
 
 #: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:864
 msgid "Cancel"
@@ -646,11 +648,11 @@ msgstr "取消"
 
 #: ui/newaccountsettingsview.ui:211
 msgid "Export on the network"
-msgstr ""
+msgstr "在网络上导出"
 
 #: ui/newaccountsettingsview.ui:231
 msgid "Your generated pin:"
-msgstr "您的PIN："
+msgstr "您的 PIN 码："
 
 #: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
@@ -718,7 +720,7 @@ msgstr "名称服务器"
 
 #: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
 msgid "Address"
-msgstr "地址："
+msgstr "地址"
 
 #: ui/newaccountsettingsview.ui:1332
 msgid "OpenDHT configuration"
@@ -726,7 +728,7 @@ msgstr "OpenDHT配置"
 
 #: ui/newaccountsettingsview.ui:1416
 msgid "Auto connect on local network"
-msgstr ""
+msgstr "在本地网络自动连接"
 
 #: ui/newaccountsettingsview.ui:1452
 msgid "Bootstrap"
@@ -734,23 +736,23 @@ msgstr "初始服务器"
 
 #: ui/newaccountsettingsview.ui:1512
 msgid "Encrypt media streams (SRTP)"
-msgstr "加密流媒体（SRTP）"
+msgstr "加密流媒体 (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1547
 msgid "Enable SDES for key exchange protocol"
-msgstr ""
+msgstr "对密钥交换协议启用SDES"
 
 #: ui/newaccountsettingsview.ui:1583
 msgid "Fallback on RTP on encryption failure"
-msgstr "若加密失败，使用RTP"
+msgstr "若加密失败，使用 RTP"
 
 #: ui/newaccountsettingsview.ui:1618
 msgid "Encrypt negotiation (TLS)"
-msgstr "密钥协商（TLS）"
+msgstr "加密协商 (TLS)"
 
 #: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
-msgstr "颁发机构证书"
+msgstr "CA 证书"
 
 #: ui/newaccountsettingsview.ui:1689
 msgid "User certificate"
@@ -766,27 +768,27 @@ msgstr "私钥密码"
 
 #: ui/newaccountsettingsview.ui:1799
 msgid "TLS protocol method"
-msgstr "TLS协议方法"
+msgstr "TLS 协议方法"
 
 #: ui/newaccountsettingsview.ui:1835
 msgid "Outgoing TLS server name"
-msgstr "TLS发送服务器地址"
+msgstr "TLS 发送服务器地址"
 
 #: ui/newaccountsettingsview.ui:1870
 msgid "Negotiation timeout (seconds)"
-msgstr "协商超时（秒）"
+msgstr "协商超时 (秒)"
 
 #: ui/newaccountsettingsview.ui:1906
 msgid "Verify incoming certificates (server side)"
-msgstr "检查收到的证书（服务器端）"
+msgstr "检查收到的证书 (服务器端)"
 
 #: ui/newaccountsettingsview.ui:1941
 msgid "Verify answer certificates (client side)"
-msgstr "检查应答的证书（客户端）"
+msgstr "检查应答的证书 (客户端)"
 
 #: ui/newaccountsettingsview.ui:1976
 msgid "Require a certificate for incoming TLS connections"
-msgstr "收到的TLS连接需要提供证书"
+msgstr "对收到的 TLS 连接需要提供证书"
 
 #: ui/newaccountsettingsview.ui:2000
 msgid "Security"
@@ -810,7 +812,7 @@ msgstr "UPnP"
 
 #: ui/newaccountsettingsview.ui:2171
 msgid "Use TURN"
-msgstr "使用TURN"
+msgstr "使用 TURN"
 
 #: ui/newaccountsettingsview.ui:2206
 msgid "(TURN) address"
@@ -830,7 +832,7 @@ msgstr "（TURN）域"
 
 #: ui/newaccountsettingsview.ui:2346
 msgid "Use STUN"
-msgstr "使用STUN"
+msgstr "使用 STUN"
 
 #: ui/newaccountsettingsview.ui:2381
 msgid "(STUN) address"
@@ -862,11 +864,11 @@ msgstr "音频编码"
 
 #: ui/newaccountsettingsview.ui:2718
 msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr "SDP协议握手（当ICE协议不受支持）"
+msgstr "SDP 会话协议 (当 ICE 协议不受支持)"
 
 #: ui/newaccountsettingsview.ui:2730
 msgid "Only used during SDP negotiation in case ICE is not supported."
-msgstr ""
+msgstr "仅当 ICE 不受支持时在 SDP 协议进行中使用。"
 
 #: ui/newaccountsettingsview.ui:2764
 msgid "Audio RTP Min port"
@@ -898,7 +900,7 @@ msgstr "录制音频消息"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "结束，无消息"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
@@ -1047,7 +1049,7 @@ msgstr "共享监视器(_m)"
 
 #: src/video/video_widget.cpp:573
 msgid "Stream _file"
-msgstr ""
+msgstr "流 _文件"
 
 #: src/video/video_widget.cpp:583
 msgid "Show advanced information"
@@ -1081,7 +1083,7 @@ msgstr "Jami：GNOME客户端\nJami是自由软件，尊重用户的通讯自由
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
-msgstr ""
+msgstr "联系人可能繁忙。要留言吗？"
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
@@ -1089,7 +1091,7 @@ msgstr "停止录制"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
-msgstr ""
+msgstr "发送录好的消息"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1134,11 +1136,11 @@ msgstr "添加到会话(_A)"
 
 #: src/conversationpopupmenu.cpp:214
 msgid "_Discard invitation"
-msgstr ""
+msgstr "丢弃邀请(_D)"
 
 #: src/conversationpopupmenu.cpp:217
 msgid "_Block invitations"
-msgstr ""
+msgstr "屏蔽邀请(_B)"
 
 #: src/conversationpopupmenu.cpp:222
 msgid "C_lear history"
@@ -1158,7 +1160,7 @@ msgstr "取消屏蔽联系人(_U)"
 
 #: src/conversationpopupmenu.cpp:242
 msgid "_Profile"
-msgstr ""
+msgstr "资料(_P)"
 
 #: src/profileview.cpp:111
 msgid "(None)"
@@ -1175,7 +1177,7 @@ msgstr "无法获取任何帐户，请验证您的PIN码和密码。"
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "无法获得账户，请验证您的归档文件和密码是否正确。"
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
@@ -1197,11 +1199,11 @@ msgstr "保存文件"
 
 #: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:931
 msgid "You need to enter your password to export the full archive."
-msgstr ""
+msgstr "您需要密码来导出完整归档。"
 
 #: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:932
 msgid "Enter password to export archive"
-msgstr ""
+msgstr "输入密码以导出归档"
 
 #: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Account exported!"
@@ -1227,7 +1229,7 @@ msgstr "发起聊天"
 
 #: src/mainwindow.cpp:1057
 msgid "Jami - Migration needed"
-msgstr ""
+msgstr "Jami - 需迁移"
 
 #: src/mainwindow.cpp:1070
 msgid "Migration in progress... please do not close this window."
@@ -1246,7 +1248,7 @@ msgstr "离开设置页"
 
 #: src/mainwindow.cpp:2246
 msgid "There are active calls"
-msgstr ""
+msgstr "有进行中的通话"
 
 #: src/mainwindow.cpp:2298
 msgid " is calling you!"
@@ -1262,7 +1264,7 @@ msgstr "新请求来自"
 
 #: src/mainwindow.cpp:2446
 msgid "Trust request"
-msgstr ""
+msgstr "信任请求"
 
 #: src/mainwindow.cpp:2509
 msgid "New message"
@@ -1270,13 +1272,13 @@ msgstr "新消息"
 
 #: src/mainwindow.cpp:2572
 msgid "Stop current call?"
-msgstr ""
+msgstr "停止当前通话吗？"
 
 #: src/mainwindow.cpp:2573
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
-msgstr ""
+msgstr "当前有通话正在进行。您要关闭窗口并停止当前所有通话吗？"
 
 #: src/mainwindow.cpp:2640
 msgid "Clear history"
@@ -1344,15 +1346,15 @@ msgstr "退出"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr "警告！此操作将删除此设备上的该帐户！\n注意：此操作无法撤消。另外，您的已注册名称可能会丢失！"
+msgstr "警告！此操作将从此设备上删除该帐户！\n注意：此操作无法撤消。同时，您也会失去已注册的用户名！"
 
 #: src/currentcallview.cpp:969
 msgid "Current conference (all accounts)"
-msgstr ""
+msgstr "当前会议 (所有账户)"
 
 #: src/currentcallview.cpp:1004
 msgid "Current calls (all accounts)"
-msgstr ""
+msgstr "当前通话 (所有账户)"
 
 #: src/currentcallview.cpp:1021
 msgid "Online contacts"
@@ -1387,7 +1389,7 @@ msgstr "吊销设备时发生错误"
 
 #: src/newaccountsettingsview.cpp:755
 msgid "Unban"
-msgstr ""
+msgstr "从黑名单中删除"
 
 #: src/newaccountsettingsview.cpp:778 src/newaccountsettingsview.cpp:801
 #: src/newaccountsettingsview.cpp:825 src/newaccountsettingsview.cpp:861

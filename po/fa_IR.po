@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-13 03:09-0400\n"
-"PO-Revision-Date: 2020-03-16 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-04-20 03:09-0400\n"
+"PO-Revision-Date: 2020-04-14 13:21+0000\n"
+"Last-Translator: Hamid reza Zaefarani\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/jami/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,7 +49,7 @@ msgstr "انتخاب نوار جستجو"
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Focus the list of conversations"
-msgstr "تمرکز روی لیست مکالمات "
+msgstr "تمرکز روی لیست گفتگو‌ها"
 
 #: ui/help-overlay.ui:46
 msgctxt "shortcut window"
@@ -64,7 +64,7 @@ msgstr "تغییر وضعیت تمام‌صفحه"
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Conversations"
-msgstr "گفتگو"
+msgstr "گفتگو‌ها"
 
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
@@ -84,12 +84,12 @@ msgstr "پاک‌سازی تاریخچه"
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr "افزودن مکالمه"
+msgstr "افزودن گفتگو"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
-msgstr "حذف مکالمه"
+msgstr "حذف گفتگو"
 
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
@@ -179,7 +179,7 @@ msgstr "تنظیمات"
 
 #: ui/mainwindow.ui:271 ui/mainwindow.ui:278
 msgid "Conversations"
-msgstr " گفتگو"
+msgstr " گفتگو‌ها"
 
 #: ui/mainwindow.ui:304 ui/mainwindow.ui:311
 msgid "Contact requests"
@@ -401,7 +401,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr "‌با علامت‌زدن این، یک نام‌کاربری منحصر‌به‌فرد در شبکه جامی ثبت می‌کنید. افراد می‌توانند از آن به جای شناسه شما که دارای 40 کاراکتر است، استفاده کنند."
+msgstr "با علامت‌زدن این، یک نام‌کاربری منحصر به فرد در شبکه جامی ثبت می‌کنید. افراد می‌توانند از آن به جای شناسه شما که دارای 40 کاراکتر است، برای تماس با شما استفاده کنند."
 
 #: ui/accountcreationwizard.ui:625
 msgid ""
@@ -435,7 +435,7 @@ msgstr "هرگز این را دوباره به من نشان نده"
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
 msgid "Export account"
-msgstr "برون‌ریزی حساب"
+msgstr "برون‌برد حساب"
 
 #: ui/accountcreationwizard.ui:813
 msgid "Skip"
@@ -511,7 +511,7 @@ msgstr "نمای گفتگو"
 
 #: ui/generalsettingsview.ui:383
 msgid "Show typing indications"
-msgstr ""
+msgstr "نمایش نشان‌های نوشتاری"
 
 #: ui/generalsettingsview.ui:419
 msgid "Display images and videos into the chatview"
@@ -1024,7 +1024,7 @@ msgstr "جمی نرم‌افزار آزاد برای ارتباط جهانی ا�
 #: src/notifier.cpp:336
 msgctxt ""
 msgid "Open conversation"
-msgstr "باز کردن مکالمه"
+msgstr "باز‌کردن گفتگو"
 
 #: src/notifier.cpp:344 src/notifier.cpp:360
 msgctxt ""
@@ -1134,7 +1134,7 @@ msgstr "قراردهی _تماس صوتی"
 
 #: src/conversationpopupmenu.cpp:210
 msgid "_Add to conversations"
-msgstr "_افزودن به مکالمه ها"
+msgstr "_افزودن به گفتگو‌ها"
 
 #: src/conversationpopupmenu.cpp:214
 msgid "_Discard invitation"
@@ -1150,7 +1150,7 @@ msgstr "_پاکسازی تاریخچه"
 
 #: src/conversationpopupmenu.cpp:225
 msgid "_Remove conversation"
-msgstr "_حذف مکالمه"
+msgstr "_حذف گفتگو"
 
 #: src/conversationpopupmenu.cpp:231
 msgid "_Block contact"
@@ -1213,7 +1213,7 @@ msgstr "حساب صادر شد!"
 
 #: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Export account failure."
-msgstr "برون برد حساب کاربری ناموفق بود."
+msgstr "برون‌برد حساب کاربری ناموفق بود."
 
 #: src/mainwindow.cpp:192
 msgid "Add account…"
@@ -1242,7 +1242,7 @@ msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr "پیدا کردن یا شروع یک مکالمه"
+msgstr "پیدا کردن یا شروع یک گفتگو"
 
 #: src/mainwindow.cpp:1820
 msgid "Leave settings page"
@@ -1288,15 +1288,15 @@ msgstr "پاک‌سازی تاریخچه"
 
 #: src/mainwindow.cpp:2641
 msgid "Do you really want to clear the history of this conversation?"
-msgstr "آیا واقعا میخواهید تا تاریخچه این مکالمه را پاک کنید؟"
+msgstr "آیا واقعا می‌خواهید تا تاریخچه این گفتگو را پاک کنید؟"
 
 #: src/mainwindow.cpp:2656
 msgid "Remove conversation"
-msgstr "حذف مکالمه"
+msgstr "حذف گفتگو"
 
 #: src/mainwindow.cpp:2657
 msgid "Do you really want to remove this conversation?"
-msgstr "آیا حذف این مکالمه مطمئن هستید؟"
+msgstr "آیا به حذف این گفتگو مطمئن هستید؟"
 
 #: src/mainwindow.cpp:2672
 msgid "Block contact"

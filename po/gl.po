@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# monfero <monfero@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-13 03:09-0400\n"
-"PO-Revision-Date: 2020-04-02 07:43+0000\n"
-"Last-Translator: Xosé M. <correo@xmgz.eu>\n"
+"POT-Creation-Date: 2020-04-20 03:09-0400\n"
+"PO-Revision-Date: 2020-04-19 10:10+0000\n"
+"Last-Translator: monfero <monfero@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/savoirfairelinux/jami/language/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,17 +26,17 @@ msgstr "Xeral"
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
 msgid "Open application menu"
-msgstr ""
+msgstr "Abrir menú da aplicación"
 
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr ""
+msgstr "Abrir lista de contas"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Select search bar"
-msgstr ""
+msgstr "Seleccionar barra de búsqueda"
 
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
@@ -50,7 +51,7 @@ msgstr ""
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Mudar a pantalla completa"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -60,12 +61,12 @@ msgstr "Conversas"
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Start a video call"
-msgstr ""
+msgstr "Iniciar unha chamada de vídeo"
 
 #: ui/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Start an audio call"
-msgstr ""
+msgstr "Iniciar unha chamada de audio"
 
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
@@ -75,12 +76,12 @@ msgstr "Eliminar historial"
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr ""
+msgstr "Engadir conversa"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
-msgstr ""
+msgstr "Eliminar conversa"
 
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
@@ -90,66 +91,66 @@ msgstr "Bloquear contacto"
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Unblock contact"
-msgstr ""
+msgstr "Desbloquear contacto"
 
 #: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
-msgstr ""
+msgstr "Copiar nome do contacto"
 
 #: ui/help-overlay.ui:127
 msgctxt "shortcut window"
 msgid "Call"
-msgstr ""
+msgstr "Chamar"
 
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
-msgstr ""
+msgstr "Aceptar chamada"
 
 #: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
-msgstr ""
+msgstr "Rexeitar chamada"
 
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
 msgid "Settings"
-msgstr "Axuste"
+msgstr "Axustes"
 
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
-msgstr ""
+msgstr "Abrir/Pechar páxina de axustes"
 
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
-msgstr ""
+msgstr "Abrir axustes xerais"
 
 #: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
-msgstr ""
+msgstr "Abrir axustes multimedia"
 
 #: ui/help-overlay.ui:174
 msgctxt "shortcut window"
 msgid "Open account settings"
-msgstr ""
+msgstr "Abrir axustes da conta"
 
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
-msgstr ""
+msgstr "Vista de chat"
 
 #: ui/help-overlay.ui:189
 msgctxt "shortcut window"
 msgid "Write on a new line"
-msgstr ""
+msgstr "Escribir nunha nova liña"
 
 #: ui/mainwindow.ui:57
 msgid "Menu"
-msgstr ""
+msgstr "Menú"
 
 #: ui/mainwindow.ui:80
 msgid "General"
@@ -202,37 +203,37 @@ msgstr "Contrasinal"
 
 #: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr ""
+msgstr "Xestor de contas"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
 #: src/newaccountsettingsview.cpp:971 src/newaccountsettingsview.cpp:2102
 msgid "Delete account"
-msgstr ""
+msgstr "Eliminar conta"
 
 #: ui/accountmigrationview.ui:251
 msgid "Migrate account"
-msgstr ""
+msgstr "Migrar conta"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "Migrar a súa conta de Jami..."
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
-msgstr ""
+msgstr "Fallou a migración, contrasinal incorrecto?"
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
-msgstr ""
+msgstr "Finalizar esta chamada"
 
 #: ui/currentcallview.ui:255 ui/currentcallview.ui:511
 msgid "End call"
-msgstr ""
+msgstr "Finalizar chamada"
 
 #: ui/currentcallview.ui:275 ui/currentcallview.ui:493
 msgid "Add participant"
-msgstr ""
+msgstr "Engadir participante"
 
 #: ui/currentcallview.ui:294
 msgid "Toggle transfer"
@@ -257,7 +258,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:367 ui/currentcallview.ui:475
 msgid "Mute video"
-msgstr ""
+msgstr "Acalar vídeo"
 
 #: ui/currentcallview.ui:388
 msgid "Toggle recording"
@@ -274,7 +275,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:417 ui/currentcallview.ui:520
 msgid "Video quality"
-msgstr ""
+msgstr "Calidade do vídeo"
 
 #: ui/currentcallview.ui:436
 msgid "Toggle show chat"
@@ -282,43 +283,43 @@ msgstr ""
 
 #: ui/currentcallview.ui:440 ui/currentcallview.ui:457
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 #: ui/currentcallview.ui:466
 msgid "Mute audio"
-msgstr ""
+msgstr "Acalar audio"
 
 #: ui/currentcallview.ui:502
 msgid "Transfer"
-msgstr ""
+msgstr "Transferencia"
 
 #: ui/currentcallview.ui:552
 msgid "Transfer to"
-msgstr ""
+msgstr "Transferencia a"
 
 #: ui/currentcallview.ui:616
 msgid "Add"
-msgstr ""
+msgstr "Engadir"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
-msgstr ""
+msgstr "Benvido/a a"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr ""
+msgstr "Crear conta local"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Crear unha conta nova de Jami neste dispositivo (para novos/as usuarios/as)"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "Importar desde dispositivo"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "Importar unha conta co seu PIN xerado noutro dispositivo"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
@@ -326,11 +327,11 @@ msgstr "Importar desde ficheiro de apoio"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "Importar unha conta desde un arquivo"
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
-msgstr ""
+msgstr "Avanzado..."
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
@@ -346,11 +347,11 @@ msgstr "Engadir nova conta SIP"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
-msgstr ""
+msgstr "Arquivo"
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
-msgstr ""
+msgstr "Informacións."
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
@@ -371,7 +372,7 @@ msgstr ""
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:711
 #: ui/accountcreationwizard.ui:1092
@@ -385,7 +386,7 @@ msgstr "Perfil"
 
 #: ui/accountcreationwizard.ui:560
 msgid "Register username"
-msgstr ""
+msgstr "Rexistrar nome de usuario/a"
 
 #: ui/accountcreationwizard.ui:561
 msgid ""
@@ -402,15 +403,15 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:854
 msgid "Confirm password"
-msgstr ""
+msgstr "Confirmar contrasinal"
 
 #: ui/accountcreationwizard.ui:735
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "Estase a xerar a súa conta Jami..."
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr ""
+msgstr "Fai copia de apoio para a conta"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
@@ -434,15 +435,15 @@ msgstr "Saltar"
 
 #: ui/accountcreationwizard.ui:839
 msgid "Registering username…"
-msgstr ""
+msgstr "Estase a rexistrar o seu nome de usuario/a..."
 
 #: ui/accountcreationwizard.ui:846
 msgid "This may take a few minutes."
-msgstr ""
+msgstr "Isto pode levar algúns minutos."
 
 #: ui/accountcreationwizard.ui:872
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "Estase a obter a súa conta Jami..."
 
 #: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
 msgid "OK"
@@ -450,7 +451,7 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "Conectar"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
@@ -498,15 +499,15 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:344
 msgid "Chatview"
-msgstr ""
+msgstr "Vista de chat"
 
 #: ui/generalsettingsview.ui:383
 msgid "Show typing indications"
-msgstr ""
+msgstr "Mostrar suxestións de escritura"
 
 #: ui/generalsettingsview.ui:419
 msgid "Display images and videos into the chatview"
-msgstr ""
+msgstr "Mostrar imaxes e vídeos na vista de chat"
 
 #: ui/generalsettingsview.ui:456
 msgid "Show chatview on the right (on the bottom if off)"
@@ -518,19 +519,19 @@ msgstr "Cartafol para descargas"
 
 #: ui/generalsettingsview.ui:530
 msgid "History"
-msgstr ""
+msgstr "Historial"
 
 #: ui/generalsettingsview.ui:569
 msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
+msgstr "Manter o historial durante (días, 0 = sen límite)"
 
 #: ui/generalsettingsview.ui:599
 msgid "Clear all history"
-msgstr ""
+msgstr "Eliminar historial"
 
 #: ui/generalsettingsview.ui:631
 msgid "Call Recording"
-msgstr ""
+msgstr "Gravación de chamada"
 
 #: ui/generalsettingsview.ui:669
 msgid "Record local video"
@@ -550,19 +551,19 @@ msgstr ""
 
 #: ui/profile.ui:58
 msgid "Informations"
-msgstr ""
+msgstr "Informacións"
 
 #: ui/profile.ui:88 ui/newaccountsettingsview.ui:433
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "Código QR"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
-msgstr ""
+msgstr "Axustes de audio"
 
 #: ui/mediasettingsview.ui:40
 msgid "Audio manager:"
@@ -574,11 +575,11 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:64
 msgid "Output device:"
-msgstr ""
+msgstr "Dispositivo de saída:"
 
 #: ui/mediasettingsview.ui:76
 msgid "Input device:"
-msgstr ""
+msgstr "Dispositivo de entrada:"
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
@@ -586,19 +587,19 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:156
 msgid "Camera Settings"
-msgstr ""
+msgstr "Axustes da cámara"
 
 #: ui/mediasettingsview.ui:172
 msgid "Device:"
-msgstr ""
+msgstr "Dispositivo:"
 
 #: ui/mediasettingsview.ui:184
 msgid "Channel:"
-msgstr ""
+msgstr "Canle:"
 
 #: ui/mediasettingsview.ui:196
 msgid "Resolution:"
-msgstr ""
+msgstr "Resolución:"
 
 #: ui/mediasettingsview.ui:208
 msgid "Frame rate:"
@@ -606,19 +607,19 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:266
 msgid "Hardware Acceleration"
-msgstr ""
+msgstr "Aceleración hardware"
 
 #: ui/mediasettingsview.ui:282
 msgid "Enable hardware acceleration:"
-msgstr ""
+msgstr "Activar aceleración hardware:"
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
-msgstr ""
+msgstr "Engadir dispositivo"
 
 #: ui/newaccountsettingsview.ui:131
 msgid "Add New Device"
-msgstr ""
+msgstr "Engadir novo dispositivo"
 
 #: ui/newaccountsettingsview.ui:146
 msgid ""
@@ -1283,7 +1284,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2656
 msgid "Remove conversation"
-msgstr ""
+msgstr "Eliminar conversa"
 
 #: src/mainwindow.cpp:2657
 msgid "Do you really want to remove this conversation?"
