@@ -290,12 +290,16 @@ CppImpl::drawVideoDevices()
     }
     auto active = 0;
     auto current = avModel_->getDefaultDevice();
+    // Clean comboboxes
+    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_device));
+    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_channel));
+    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution));
+    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate));
     if (current == "") {
         // Avoid to draw devices if no camera is selected
         return;
     }
     auto i = 0;
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_device));
     for (const auto& device : avModel_->getDevices()) {
         if (device == current) {
             active = i;
