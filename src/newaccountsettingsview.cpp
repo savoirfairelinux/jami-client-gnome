@@ -151,6 +151,8 @@ struct _NewAccountSettingsViewPrivate
         GtkWidget* spinbutton_registration_timeout;
     GtkWidget* sip_network_interface_row;
         GtkWidget* spinbutton_network_interface;
+    GtkWidget* sip_contact_rewrite_row;
+        GtkWidget* combobox_sip_contact_rewrite_level;
     GtkWidget* upnp_button;
     GtkWidget* switch_use_turn;
     GtkWidget* entry_turnserver;
@@ -328,6 +330,8 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, spinbutton_registration_timeout);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, sip_network_interface_row);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, spinbutton_network_interface);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, sip_contact_rewrite_row);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, combobox_sip_contact_rewrite_level);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, upnp_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, switch_use_turn);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, entry_turnserver);
@@ -1230,6 +1234,42 @@ update_network_interface(GtkWidget*, NewAccountSettingsView *view)
 }
 
 static void
+contact_rewrite_level_changed(NewAccountSettingsView *view)
+{
+    auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
+    switch (priv->currentProp_->contactRewriteLevel) {
+    case lrc::api::account::ContactRewriteLevel::DISABLE:
+        break;
+    case lrc::api::account::ContactRewriteLevel::ENABLE:
+        break;
+    case lrc::api::account::ContactRewriteLevel::ALWAYS:
+        break;
+    }
+    if (!is_config_ok(view))
+        return;
+
+    GtkComboBoxText* level = GTK_COMBO_BOX_TEXT(priv->combobox_sip_contact_rewrite_level);
+    auto* text = gtk_combo_box_text_get_active_text(level);
+    if (!text) {
+        g_debug("[level_changed] text=NULL!\n");
+        return;
+    }
+    std::string activeText = text;
+    auto newState = lrc::api::account::ContactRewriteLevel::ALWAYS;
+    if (activeText == "DISABLE") {
+        newState = lrc::api::account::ContactRewriteLevel::DISABLE;
+    } else if (activeText == "ENABLE") {
+        newState = lrc::api::account::ContactRewriteLevel::ENABLE;
+    }
+    g_free(text);
+
+    if (newState != priv->currentProp_->contactRewriteLevel) {
+        priv->currentProp_->contactRewriteLevel = newState;
+        new_account_settings_view_save_account(view);
+    }
+}
+
+static void
 enable_turn(GObject*, GParamSpec*, NewAccountSettingsView *view)
 {
     if (!is_config_ok(view)) return;
@@ -2089,6 +2129,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_widget_hide(priv->sip_registration_expire_row);
         gtk_widget_hide(priv->sip_network_interface_row);
         gtk_widget_hide(priv->box_sdp_session);
+        gtk_widget_hide(priv->sip_contact_rewrite_row);
 
         std::string label_id = gtk_label_get_text(GTK_LABEL(priv->label_id));
         std::string label_username = gtk_label_get_text(GTK_LABEL(priv->label_username));
@@ -2133,6 +2174,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_widget_show_all(priv->sip_registration_expire_row);
         gtk_widget_show_all(priv->sip_network_interface_row);
         gtk_widget_show_all(priv->box_sdp_session);
+        gtk_widget_show_all(priv->sip_contact_rewrite_row);
 
         gtk_switch_set_active(GTK_SWITCH(priv->sip_enable_TLS), priv->currentProp_->TLS.enable);
         gtk_switch_set_active(GTK_SWITCH(priv->sip_verify_certs_server), priv->currentProp_->TLS.verifyServer);
@@ -2151,6 +2193,26 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_spin_button_set_value(GTK_SPIN_BUTTON(priv->spinbutton_video_rtp_min), priv->currentProp_->Video.videoPortMin);
         gtk_spin_button_set_value(GTK_SPIN_BUTTON(priv->spinbutton_video_rtp_max), priv->currentProp_->Video.videoPortMax);
         gtk_entry_set_text(GTK_ENTRY(priv->entry_tls_server_name), qUtf8Printable(priv->currentProp_->TLS.serverName));
+
+        gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(priv->combobox_sip_contact_rewrite_level));
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(priv->combobox_sip_contact_rewrite_level), nullptr, "DISABLE");
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(priv->combobox_sip_contact_rewrite_level), nullptr, "ENABLE");
+        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(priv->combobox_sip_contact_rewrite_level), nullptr, "ALWAYS");
+        switch (priv->currentProp_->contactRewriteLevel) {
+        case lrc::api::account::ContactRewriteLevel::DISABLE:
+            gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_sip_contact_rewrite_level), 0);
+            break;
+        case lrc::api::account::ContactRewriteLevel::ENABLE:
+            gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_sip_contact_rewrite_level), 1);
+            break;
+        case lrc::api::account::ContactRewriteLevel::ALWAYS:
+            gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_sip_contact_rewrite_level), 2);
+            break;
+        default:
+            gtk_combo_box_set_active(GTK_COMBO_BOX(priv->combobox_sip_contact_rewrite_level), 2);
+            break;
+        }
+        g_signal_connect_swapped(priv->combobox_sip_contact_rewrite_level, "changed", G_CALLBACK(contact_rewrite_level_changed), view);
 
         gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(priv->combobox_tls_protocol_method));
         gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(priv->combobox_tls_protocol_method), nullptr, "Default");

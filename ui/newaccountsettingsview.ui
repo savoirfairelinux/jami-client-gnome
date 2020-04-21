@@ -2115,6 +2115,43 @@
                                 </object>
                               </child>
                               <child>
+                                <!-- Rewrite Contact: -->
+                                <object class="GtkListBoxRow" id="sip_contact_rewrite_row">
+                                 <property name="visible">True</property>
+                                 <property name="can_focus">True</property>
+                                 <property name="halign">fill</property>
+                                 <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="valign">end</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="spacing">8</property>
+                                    <property name="margin_left">12</property>
+                                    <property name="margin_right">12</property>
+                                    <property name="margin_top">12</property>
+                                    <property name="margin_bottom">12</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Update Contact: with Registrar</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="combobox_sip_contact_rewrite_level">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="halign">start</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
                                 <!-- UPnP -->
                                 <object class="GtkListBoxRow">
                                   <property name="visible">True</property>
