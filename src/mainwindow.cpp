@@ -818,7 +818,6 @@ on_window_state_event(GtkWidget *widget, GdkEventWindowState *event)
     auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(widget));
 
     g_settings_set_boolean(priv->window_settings, "window-maximized", ((event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED) != 0));
-    g_settings_set_boolean(priv->window_settings, "window-fullscreen", ((event->new_window_state & GDK_WINDOW_STATE_FULLSCREEN) != 0));
 
     return GDK_EVENT_PROPAGATE;
 }
@@ -1241,10 +1240,6 @@ CppImpl::init()
 
     if (g_settings_get_boolean(widgets->window_settings, "window-maximized"))
         gtk_window_maximize(GTK_WINDOW(self));
-
-    widgets->is_fullscreen_main_win = g_settings_get_boolean(widgets->window_settings, "window-fullscreen");
-    if (widgets->is_fullscreen_main_win)
-        gtk_window_fullscreen(GTK_WINDOW(self));
 
     update_data_transfer(lrc_->getDataTransferModel(), widgets->window_settings);
 
