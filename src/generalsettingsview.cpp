@@ -386,8 +386,18 @@ general_settings_view_init(GeneralSettingsView *self)
     g_variant_get(download_directory_variant, "&s", &download_directory_value);
     auto current_value = std::string(download_directory_value);
     if (current_value.empty()) {
+        // First time Jami is opened
         std::string default_download_dir = lrc::api::DataTransferModel::createDefaultDirectory().toStdString();
         g_settings_set_value(priv->settings, "download-folder", g_variant_new("s", default_download_dir.c_str()));
+        g_settings_set_boolean(priv->settings, "migrated-from-homedir", true);
+    } else if (!g_settings_get_boolean(priv->settings, "migrated-from-homedir")) {
+        // Migrate from HOME directory to the new download directory
+        const auto* home_dir = g_get_home_dir ();
+        if (home_dir && current_value == home_dir) {
+            std::string default_download_dir = lrc::api::DataTransferModel::createDefaultDirectory().toStdString();
+            g_settings_set_value(priv->settings, "download-folder", g_variant_new("s", default_download_dir.c_str()));
+        }
+        g_settings_set_boolean(priv->settings, "migrated-from-homedir", true);
     }
     update_downloads_button_label(self);
 
