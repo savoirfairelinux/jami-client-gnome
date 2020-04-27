@@ -385,9 +385,10 @@ general_settings_view_init(GeneralSettingsView *self)
     char* download_directory_value;
     g_variant_get(download_directory_variant, "&s", &download_directory_value);
     auto current_value = std::string(download_directory_value);
-    if (current_value.empty()) {
+    if (!g_settings_get_boolean(priv->settings, "migrated-to-datapath") || current_value.empty()) {
         std::string default_download_dir = lrc::api::DataTransferModel::createDefaultDirectory().toStdString();
         g_settings_set_value(priv->settings, "download-folder", g_variant_new("s", default_download_dir.c_str()));
+        g_settings_set_boolean(priv->settings, "migrated-to-datapath", true);
     }
     update_downloads_button_label(self);
 

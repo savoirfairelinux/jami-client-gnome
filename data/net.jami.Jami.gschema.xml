@@ -104,5 +104,10 @@
         <summary>Accept files transfer with an inferior size in Mb</summary>
         <description>Accept files transfer with an inferior size in Mb.</description>
     </key>
+    <key name="migrated-to-datapath" type="b">
+        <default>false</default>
+        <summary>Just check if default directory was changed to datapath once</summary>
+        <description>Just check if default directory was changed to datapath once.</description>
+    </key>
   </schema>
 </schemalist>
