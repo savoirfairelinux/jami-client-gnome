@@ -1299,7 +1299,7 @@ CppImpl::init()
                             NEW_ACCOUNT_SETTINGS_VIEW_NAME);
     }
 
-    widgets->general_settings_view = general_settings_view_new(GTK_WIDGET(self), lrc_->getAVModel());
+    widgets->general_settings_view = general_settings_view_new(GTK_WIDGET(self), lrc_->getAVModel(), lrc_->getDataTransferModel());
     widgets->update_download_folder = g_signal_connect_swapped(
         widgets->general_settings_view,
         "update-download-folder",
