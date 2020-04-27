@@ -26,6 +26,7 @@
 
 // LRC
 #include <api/avmodel.h>
+#include <api/datatransfermodel.h>
 
 // Jami Client
 #include "utils/files.h"
@@ -334,15 +335,9 @@ general_settings_view_init(GeneralSettingsView *self)
     auto* download_directory_variant = g_settings_get_value(priv->settings, "download-folder");
     char* download_directory_value;
     g_variant_get(download_directory_variant, "&s", &download_directory_value);
-    std::string default_download_dir = {};
-    if (auto* directory = g_get_home_dir ())
-        default_download_dir = directory;
-    else if (auto* directory = g_get_user_special_dir (G_USER_DIRECTORY_DOWNLOAD))
-        default_download_dir = directory;
-    else
-        default_download_dir = g_get_user_special_dir (G_USER_DIRECTORY_DESKTOP);
     auto current_value = std::string(download_directory_value);
     if (current_value.empty()) {
+        std::string default_download_dir = lrc::api::DataTransferModel::createDefaultDirectory().toStdString();
         g_settings_set_value(priv->settings, "download-folder", g_variant_new("s", default_download_dir.c_str()));
     }
     update_downloads_button_label(self);
