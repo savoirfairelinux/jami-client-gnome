@@ -70,7 +70,7 @@ struct _GeneralSettingsViewPrivate
     GtkWidget *button_choose_downloads_directory;
 
     /* history settings */
-    GtkWidget *adjustment_history_duration;
+    GtkWidget* adjustment_history_duration;
     GtkWidget *button_clear_history;
 
     /* Call recording settings */
@@ -79,8 +79,14 @@ struct _GeneralSettingsViewPrivate
     GtkWidget *adjustment_record_quality;
     GtkWidget *filechooserbutton_record_path;
 
-    /* ring main window pointer */
+    /* main window pointer */
     GtkWidget* main_window_pnt;
+
+    /* file transfer settings */
+    GtkWidget* accept_untrusted_button;
+    GtkWidget* transfer_limit_button;
+    GtkWidget* spinbutton_limit_transfer;
+    GtkWidget* adjustment_file_transfer;
 
     details::CppImpl* cpp; ///< Non-UI and C++ only code
 };
@@ -94,17 +100,19 @@ namespace { namespace details {
 class CppImpl
 {
 public:
-    explicit CppImpl(GeneralSettingsView& widget, lrc::api::AVModel& avModel);
+    explicit CppImpl(GeneralSettingsView& widget, lrc::api::AVModel& avModel, lrc::api::DataTransferModel& dtModel);
 
     lrc::api::AVModel* avModel_ = nullptr;
+    lrc::api::DataTransferModel* dtModel_ = nullptr;
     GeneralSettingsView* self = nullptr; // The GTK widget itself
     GeneralSettingsViewPrivate* widgets = nullptr;
 };
 
-CppImpl::CppImpl(GeneralSettingsView& widget, lrc::api::AVModel& avModel)
+CppImpl::CppImpl(GeneralSettingsView& widget, lrc::api::AVModel& avModel, lrc::api::DataTransferModel& dtModel)
     : self(&widget)
     , widgets(GENERAL_SETTINGS_VIEW_GET_PRIVATE(&widget))
     , avModel_(&avModel)
+    , dtModel_(&dtModel)
 {
     gtk_switch_set_active(
         GTK_SWITCH(widgets->record_preview_button),
@@ -276,6 +284,38 @@ record_quality_changed(GtkAdjustment *adjustment, GeneralSettingsView *self)
 }
 
 static void
+file_transfer_limit_changed(GtkAdjustment *adjustment, GeneralSettingsView *self)
+{
+    g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+    gdouble limit = gtk_adjustment_get_value(adjustment);
+    if (priv && priv->cpp && priv->cpp->dtModel_)
+        priv->cpp->dtModel_->acceptBehindMb = limit;
+}
+
+static void
+accept_untrusted_toggled(GtkSwitch *button, GParamSpec* /*spec*/, GeneralSettingsView *self)
+{
+    g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+    gboolean accept = gtk_switch_get_active(button);
+    if (priv && priv->cpp && priv->cpp->dtModel_)
+        priv->cpp->dtModel_->acceptFromUnstrusted = accept;
+}
+
+static void
+accept_transfer_toggled(GtkSwitch *button, GParamSpec* /*spec*/, GeneralSettingsView *self)
+{
+    g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
+    GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
+    gboolean accept = gtk_switch_get_active(button);
+    gtk_widget_set_sensitive(priv->spinbutton_limit_transfer, accept);
+    if (priv && priv->cpp && priv->cpp->dtModel_) {
+        priv->cpp->dtModel_->automaticAcceptTransfer = accept;
+    }
+}
+
+static void
 update_record_path(GtkFileChooser *file_chooser, GeneralSettingsView* self)
 {
     g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
@@ -330,6 +370,15 @@ general_settings_view_init(GeneralSettingsView *self)
     g_settings_bind(priv->settings, "history-limit",
                     priv->adjustment_history_duration, "value",
                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind(priv->settings, "accept-untrusted-transfer",
+                    priv->accept_untrusted_button, "active",
+                    G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind(priv->settings, "accept-trusted-transfer",
+                    priv->transfer_limit_button, "active",
+                    G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind(priv->settings, "accept-size-transfer",
+                    priv->adjustment_file_transfer, "value",
+                    G_SETTINGS_BIND_DEFAULT);
 
     /* Set-up download directory settings, default if none specified */
     auto* download_directory_variant = g_settings_get_value(priv->settings, "download-folder");
@@ -350,6 +399,12 @@ general_settings_view_init(GeneralSettingsView *self)
     g_signal_connect(priv->always_record_button, "notify::active", G_CALLBACK(always_record_toggled), self);
     g_signal_connect(priv->adjustment_record_quality, "value-changed", G_CALLBACK(record_quality_changed), self);
     g_signal_connect(priv->filechooserbutton_record_path, "file-set", G_CALLBACK(update_record_path), self);
+
+    g_signal_connect(priv->adjustment_file_transfer, "value-changed", G_CALLBACK(file_transfer_limit_changed), self);
+    g_signal_connect(priv->accept_untrusted_button, "notify::active", G_CALLBACK(accept_untrusted_toggled), self);
+    g_signal_connect(priv->transfer_limit_button, "notify::active", G_CALLBACK(accept_transfer_toggled), self);
+
+    gtk_widget_set_sensitive(priv->spinbutton_limit_transfer, g_settings_get_boolean(priv->settings, "accept-trusted-transfer"));
 }
 
 
@@ -421,6 +476,10 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, always_record_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_record_quality);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, filechooserbutton_record_path);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, accept_untrusted_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, transfer_limit_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, spinbutton_limit_transfer);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), GeneralSettingsView, adjustment_file_transfer);
 
     general_settings_view_signals[CLEAR_ALL_HISTORY] = g_signal_new (
         "clear-all-history",
@@ -455,12 +514,12 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
 }
 
 GtkWidget *
-general_settings_view_new(GtkWidget* main_window_pointer, lrc::api::AVModel& avModel)
+general_settings_view_new(GtkWidget* main_window_pointer, lrc::api::AVModel& avModel, lrc::api::DataTransferModel& dtModel)
 {
     auto self = g_object_new(GENERAL_SETTINGS_VIEW_TYPE, NULL);
     auto* priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(GENERAL_SETTINGS_VIEW (self));
     priv->cpp = new details::CppImpl(
-        *(reinterpret_cast<GeneralSettingsView*>(self)), avModel
+        *(reinterpret_cast<GeneralSettingsView*>(self)), avModel, dtModel
     );
 
     // set_up ring main window pointer (needed by modal dialogs)

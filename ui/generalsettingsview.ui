@@ -18,6 +18,13 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkAdjustment" id="adjustment_file_transfer">
+    <property name="value">0</property>
+    <property name="lower">0</property>
+    <property name="upper">1000000</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkAdjustment" id="adjustment_record_quality">
     <property name="value">0</property>
     <property name="lower">0</property>
@@ -800,6 +807,130 @@
             </child>
           </object>
         </child>
+
+
+        <!-- File transfer settings -->
+        <child>
+          <object class="GtkBox" id="box_transfer_settings">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="halign">fill</property>
+            <property name="spacing">8</property>
+            <!-- Title -->
+            <child>
+              <object class="GtkLabel" id="label_transfer_settings">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">File transfer</property>
+                <property name="halign">start</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">out</property>
+                <child>
+                  <object class="GtkListBox" id="transfer_settings">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">fill</property>
+                    <property name="selection_mode">none</property>
+                    <child>
+                      <!-- Accept from untrusted -->
+                      <object class="GtkListBoxRow" id="accept_untrusted_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="accept_untrusted_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_accept_untrusted">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Accept from untrusted contacts</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="accept_untrusted_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Accept limit -->
+                      <object class="GtkListBoxRow" id="transfer_limit_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="transfer_limit_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="spacing">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_transfer_limit">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Accept transfer behind (Mb, 0 = unlimited)</property>
+                              </object>
+                            </child>
+
+                            <child>
+                              <object class="GtkSwitch" id="transfer_limit_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+
+                            <child>
+                              <object class="GtkSpinButton" id="spinbutton_limit_transfer">
+                                <property name="visible">True</property>
+                                <property name="value">0</property>
+                                <property name="adjustment">adjustment_file_transfer</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
     </object>
     <packing>
       <property name="expand">True</property>

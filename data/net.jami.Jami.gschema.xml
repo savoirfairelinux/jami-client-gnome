@@ -89,5 +89,20 @@
         <default>false</default>
         <summary>If window is fullscren.</summary>
     </key>
+    <key name="accept-untrusted-transfer" type="b">
+        <default>false</default>
+        <summary>Accept files transfer from untrusted peers</summary>
+        <description>Accept files transfer from untrusted peers.</description>
+    </key>
+    <key name="accept-trusted-transfer" type="b">
+        <default>true</default>
+        <summary>Accept files transfer from trusted peers</summary>
+        <description>Accept files transfer from trusted peers.</description>
+    </key>
+    <key name="accept-size-transfer" type="i">
+        <default>20</default>
+        <summary>Accept files transfer with an inferior size in Mb</summary>
+        <description>Accept files transfer with an inferior size in Mb.</description>
+    </key>
   </schema>
 </schemalist>
