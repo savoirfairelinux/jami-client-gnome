@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 03:09-0400\n"
-"PO-Revision-Date: 2020-03-16 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-05-04 03:09-0400\n"
+"PO-Revision-Date: 2020-05-04 07:09+0000\n"
+"Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/savoirfairelinux/jami/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -167,7 +167,7 @@ msgstr "Média"
 msgid "Account"
 msgstr "Conta"
 
-#: ui/mainwindow.ui:150 src/mainwindow.cpp:1845
+#: ui/mainwindow.ui:150 src/mainwindow.cpp:1840
 msgid "Settings"
 msgstr "Configurações"
 
@@ -467,88 +467,100 @@ msgstr "_Sobre"
 msgid "_Quit"
 msgstr "_Sair"
 
-#: ui/generalsettingsview.ui:51
+#: ui/generalsettingsview.ui:58
 msgid "System"
 msgstr "Sistema"
 
-#: ui/generalsettingsview.ui:89
+#: ui/generalsettingsview.ui:96
 msgid "Start application on login"
 msgstr "Iniciar a aplicação ao autenticar-me"
 
-#: ui/generalsettingsview.ui:125
-msgid "Show Jami icon (systray) in the systray area"
-msgstr "Mostrar ícone do Jami na área de notificações"
+#: ui/generalsettingsview.ui:132
+msgid "Keep Jami active when window is closed."
+msgstr ""
 
-#: ui/generalsettingsview.ui:161
+#: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
 msgstr "Trazer o Jami para o primeiro plano ao receber chamadas"
 
-#: ui/generalsettingsview.ui:197
+#: ui/generalsettingsview.ui:204
 msgid "Notifications"
 msgstr "Notificações"
 
-#: ui/generalsettingsview.ui:236
+#: ui/generalsettingsview.ui:243
 msgid "Enable notifications for incoming calls"
 msgstr "Ativar notificações para chamadas recebidas"
 
-#: ui/generalsettingsview.ui:272
+#: ui/generalsettingsview.ui:279
 msgid "Enable notifications for pending requests"
 msgstr "Ativar notificações para pedidos pendentes"
 
-#: ui/generalsettingsview.ui:308
+#: ui/generalsettingsview.ui:315
 msgid "Enable notifications for new chat messages"
 msgstr "Ativar notificações para novas mensagens nas conversas"
 
-#: ui/generalsettingsview.ui:344
+#: ui/generalsettingsview.ui:351
 msgid "Chatview"
 msgstr "Janela de conversas"
 
-#: ui/generalsettingsview.ui:383
+#: ui/generalsettingsview.ui:390
 msgid "Show typing indications"
 msgstr ""
 
-#: ui/generalsettingsview.ui:419
+#: ui/generalsettingsview.ui:426
 msgid "Display images and videos into the chatview"
 msgstr "Mostrar imagens e vídeos na janela das conversas"
 
-#: ui/generalsettingsview.ui:456
+#: ui/generalsettingsview.ui:463
 msgid "Show chatview on the right (on the bottom if off)"
 msgstr "Mostrar a janela de conversas à direita (no fundo se desativado)"
 
-#: ui/generalsettingsview.ui:493
+#: ui/generalsettingsview.ui:500
 msgid "Download folder"
 msgstr "Pasta de descarregamentos"
 
-#: ui/generalsettingsview.ui:530
+#: ui/generalsettingsview.ui:537
 msgid "History"
 msgstr "Histórico"
 
-#: ui/generalsettingsview.ui:569
+#: ui/generalsettingsview.ui:576
 msgid "Keep history for (days, 0 = unlimited)"
 msgstr "Manter histórico por (dias; 0 = ilimitado)"
 
-#: ui/generalsettingsview.ui:599
+#: ui/generalsettingsview.ui:606
 msgid "Clear all history"
 msgstr "Limpar histórico"
 
-#: ui/generalsettingsview.ui:631
+#: ui/generalsettingsview.ui:638
 msgid "Call Recording"
 msgstr ""
 
-#: ui/generalsettingsview.ui:669
+#: ui/generalsettingsview.ui:676
 msgid "Record local video"
 msgstr ""
 
-#: ui/generalsettingsview.ui:705
+#: ui/generalsettingsview.ui:712
 msgid "Always record calls"
 msgstr ""
 
-#: ui/generalsettingsview.ui:742
+#: ui/generalsettingsview.ui:749
 msgid "Record folder"
 msgstr ""
 
-#: ui/generalsettingsview.ui:779
+#: ui/generalsettingsview.ui:786
 msgid "Bitrate for call recordings (kb/s)"
+msgstr ""
+
+#: ui/generalsettingsview.ui:824
+msgid "File transfer"
+msgstr "Transferência de ficheiro"
+
+#: ui/generalsettingsview.ui:862
+msgid "Accept from untrusted contacts"
+msgstr ""
+
+#: ui/generalsettingsview.ui:899
+msgid "Accept transfer behind (Mb, 0 = unlimited)"
 msgstr ""
 
 #: ui/profile.ui:58
@@ -976,23 +988,23 @@ msgstr "Não foi possível registar o nome (nome de utilizador já registado)."
 msgid "Unable to register name (Network error) - check your connection."
 msgstr "Não foi possível registar o nome (erro de rede) - verifique a sua ligação à rede."
 
-#: src/generalsettingsview.cpp:152
+#: src/generalsettingsview.cpp:161
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Isto é uma operação destrutiva. Tem a certeza que quer eliminar todo o seu histórico de conversas e chamadas?"
 
-#: src/generalsettingsview.cpp:222
+#: src/generalsettingsview.cpp:231
 msgid "Choose download folder"
 msgstr "Escolher a pasta de ficheiros descarregados"
 
-#: src/generalsettingsview.cpp:225 src/avatarmanipulation.cpp:414
+#: src/generalsettingsview.cpp:234 src/avatarmanipulation.cpp:414
 #: src/accountcreationwizard.cpp:757 src/chatview.cpp:284
 #: src/newaccountsettingsview.cpp:907
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: src/generalsettingsview.cpp:227 src/accountcreationwizard.cpp:759
+#: src/generalsettingsview.cpp:236 src/accountcreationwizard.cpp:759
 #: src/chatview.cpp:286 src/newaccountsettingsview.cpp:909
 msgid "_Save"
 msgstr "_Gravar"
@@ -1213,90 +1225,90 @@ msgstr "Falha ao exportar a conta."
 msgid "Add account…"
 msgstr "Adicionar conta…"
 
-#: src/mainwindow.cpp:847
+#: src/mainwindow.cpp:846
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "fazer chamada"
 
-#: src/mainwindow.cpp:850
+#: src/mainwindow.cpp:849
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "abrir conversa"
 
-#: src/mainwindow.cpp:1057
+#: src/mainwindow.cpp:1056
 msgid "Jami - Migration needed"
 msgstr ""
 
-#: src/mainwindow.cpp:1070
+#: src/mainwindow.cpp:1069
 msgid "Migration in progress... please do not close this window."
 msgstr ""
 
-#: src/mainwindow.cpp:1349
+#: src/mainwindow.cpp:1344
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:1820
+#: src/mainwindow.cpp:1815
 msgid "Leave settings page"
 msgstr "Deixar página de configurações"
 
-#: src/mainwindow.cpp:2246
+#: src/mainwindow.cpp:2241
 msgid "There are active calls"
 msgstr "Existem chamadas ativas"
 
-#: src/mainwindow.cpp:2298
+#: src/mainwindow.cpp:2293
 msgid " is calling you!"
 msgstr "está a telefonar-lhe!"
 
-#: src/mainwindow.cpp:2301
+#: src/mainwindow.cpp:2296
 msgid "Incoming call"
 msgstr "Chamada recebida"
 
-#: src/mainwindow.cpp:2443
+#: src/mainwindow.cpp:2438
 msgid "New request from "
 msgstr "Novo pedido de"
 
-#: src/mainwindow.cpp:2446
+#: src/mainwindow.cpp:2441
 msgid "Trust request"
 msgstr "Confiar no pedido"
 
-#: src/mainwindow.cpp:2509
+#: src/mainwindow.cpp:2504
 msgid "New message"
 msgstr "Nova mensagem"
 
-#: src/mainwindow.cpp:2572
+#: src/mainwindow.cpp:2567
 msgid "Stop current call?"
 msgstr "Parar a chamada atual?"
 
-#: src/mainwindow.cpp:2573
+#: src/mainwindow.cpp:2568
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Está a decorrer uma chamada. Quer fechar a janela e parar todas as chamadas?"
 
-#: src/mainwindow.cpp:2640
+#: src/mainwindow.cpp:2635
 msgid "Clear history"
 msgstr "Limpar histórico"
 
-#: src/mainwindow.cpp:2641
+#: src/mainwindow.cpp:2636
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Quer mesmo eliminar o histórico desta conversação?"
 
-#: src/mainwindow.cpp:2656
+#: src/mainwindow.cpp:2651
 msgid "Remove conversation"
 msgstr "Remover conversação"
 
-#: src/mainwindow.cpp:2657
+#: src/mainwindow.cpp:2652
 msgid "Do you really want to remove this conversation?"
 msgstr "Quer mesmo remover esta conversação?"
 
-#: src/mainwindow.cpp:2672
+#: src/mainwindow.cpp:2667
 msgid "Block contact"
 msgstr "Bloquear contacto"
 
-#: src/mainwindow.cpp:2673
+#: src/mainwindow.cpp:2668
 msgid "Do you really want to block this contact?"
 msgstr "Quer mesmo bloquear este contacto?"
 
