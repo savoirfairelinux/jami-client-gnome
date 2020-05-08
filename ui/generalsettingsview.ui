@@ -859,11 +859,49 @@
                               <object class="GtkLabel" id="label_accept_untrusted">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Accept from untrusted contacts</property>
+                                <property name="label" translatable="yes">Allow incoming files from unknown contacts</property>
                               </object>
                             </child>
                             <child>
                               <object class="GtkSwitch" id="accept_untrusted_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Accept limit -->
+                      <object class="GtkListBoxRow" id="auto_accept_files_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="auto_accept_files_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="spacing">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_auto_accept_files">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Automatically accept incoming files</property>
+                              </object>
+                            </child>
+
+                            <child>
+                              <object class="GtkSwitch" id="transfer_limit_button">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                               </object>
@@ -896,18 +934,8 @@
                               <object class="GtkLabel" id="label_transfer_limit">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Accept transfer behind (Mb, 0 = unlimited)</property>
+                                <property name="label" translatable="yes">Accept transfer below (in Mb, 0 = unlimited)</property>
                               </object>
-                            </child>
-
-                            <child>
-                              <object class="GtkSwitch" id="transfer_limit_button">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                              </object>
-                              <packing>
-                                <property name="pack_type">end</property>
-                              </packing>
                             </child>
 
                             <child>

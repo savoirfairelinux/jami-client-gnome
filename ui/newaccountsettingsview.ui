@@ -1143,7 +1143,7 @@
                                         <object class="GtkLabel" id="label_allow">
                                           <property name="visible">True</property>
                                           <property name="can_focus">False</property>
-                                          <property name="label" translatable="yes">Allow call from untrusted peers</property>
+                                          <property name="label" translatable="yes">Allow incoming calls from unknown contacts</property>
                                         </object>
                                       </child>
                                       <child>
