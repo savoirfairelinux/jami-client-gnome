@@ -30,15 +30,15 @@ msgstr "チャットを隠す"
 
 #: web/chatview.html:182
 msgid "Place video call"
-msgstr ""
+msgstr "ビデオ通話を開始"
 
 #: web/chatview.html:183
 msgid "Place audio call"
-msgstr ""
+msgstr "音声通話を開始"
 
 #: web/chatview.html:184
 msgid "Add to conversations"
-msgstr ""
+msgstr "会話に追加"
 
 #: web/chatview.html:185
 msgid "Unban contact"
@@ -80,7 +80,7 @@ msgstr ""
 #: web/chatview.html:338
 msgid ""
 "Note: you can automatically accept this invitation by sending a message."
-msgstr ""
+msgstr "通知: メッセージを送信すると、自動的にこの招待を受け入れます。"
 
 #: web/chatview.html:515
 #, javascript-format

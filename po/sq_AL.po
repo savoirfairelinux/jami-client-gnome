@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-04 03:09-0400\n"
-"PO-Revision-Date: 2020-05-04 07:09+0000\n"
+"POT-Creation-Date: 2020-05-11 03:09-0400\n"
+"PO-Revision-Date: 2020-05-05 06:04+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/jami/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -476,7 +476,7 @@ msgstr "Nise aplikacionin kur bëhet hyrja në sistem"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr ""
+msgstr "Mbaje Jami-n aktiv, kur mbyllet dritarja."
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
@@ -556,11 +556,11 @@ msgstr "Shpërngulje kartelash"
 
 #: ui/generalsettingsview.ui:862
 msgid "Accept from untrusted contacts"
-msgstr ""
+msgstr "Prano prej kontaktesh të pabesuar"
 
 #: ui/generalsettingsview.ui:899
 msgid "Accept transfer behind (Mb, 0 = unlimited)"
-msgstr ""
+msgstr "Prano shpërngulje nga pas (Mb, 0 = e pakufizuar)"
 
 #: ui/profile.ui:58
 msgid "Informations"

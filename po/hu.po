@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-04 03:09-0400\n"
-"PO-Revision-Date: 2020-05-04 07:09+0000\n"
+"POT-Creation-Date: 2020-05-11 03:09-0400\n"
+"PO-Revision-Date: 2020-05-08 21:28+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -478,7 +478,7 @@ msgstr "Indítása bejelentkezéskor"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr ""
+msgstr "Tartsa aktívvá a Jami-t, amikor az ablak bezáródik"
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
@@ -558,11 +558,11 @@ msgstr "Fájlátvitel"
 
 #: ui/generalsettingsview.ui:862
 msgid "Accept from untrusted contacts"
-msgstr ""
+msgstr "Megbízhatatlan kapcsolatok elfogadása"
 
 #: ui/generalsettingsview.ui:899
 msgid "Accept transfer behind (Mb, 0 = unlimited)"
-msgstr ""
+msgstr "A legnagyobb fájlméret az önműködő elfogadáshoz (Mb, 0 = korlátlan)"
 
 #: ui/profile.ui:58
 msgid "Informations"

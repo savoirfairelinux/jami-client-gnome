@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-04 03:09-0400\n"
-"PO-Revision-Date: 2020-05-04 07:09+0000\n"
+"POT-Creation-Date: 2020-05-11 03:09-0400\n"
+"PO-Revision-Date: 2020-05-08 21:33+0000\n"
 "Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -494,7 +494,7 @@ msgstr "Lancer Jami à l’ouverture de session"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr ""
+msgstr "Conserver Jami en fonctionnement lorsque la fenêtre est fermée"
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
@@ -574,11 +574,11 @@ msgstr "Transfert de fichier"
 
 #: ui/generalsettingsview.ui:862
 msgid "Accept from untrusted contacts"
-msgstr ""
+msgstr "Accepter de la part de contacts non vérifiés"
 
 #: ui/generalsettingsview.ui:899
 msgid "Accept transfer behind (Mb, 0 = unlimited)"
-msgstr ""
+msgstr "Accepter les transferts de taille inférieure à (en Mb, 0 pour illimité)"
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -777,7 +777,7 @@ msgstr "Chiffrer les négociations (TLS)"
 
 #: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
-msgstr "Certificat de la CA"
+msgstr "Certificat de l'Autorité de Certification"
 
 #: ui/newaccountsettingsview.ui:1689
 msgid "User certificate"
@@ -1277,7 +1277,7 @@ msgstr "Il y a des appels en cours"
 
 #: src/mainwindow.cpp:2293
 msgid " is calling you!"
-msgstr "vous appelle"
+msgstr " vous appelle"
 
 #: src/mainwindow.cpp:2296
 msgid "Incoming call"

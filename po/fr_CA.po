@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-04 03:09-0400\n"
-"PO-Revision-Date: 2020-05-04 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-05-11 03:09-0400\n"
+"PO-Revision-Date: 2020-05-09 00:18+0000\n"
+"Last-Translator: Kateryna K <katerynakostiukGer@gmail.com>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/savoirfairelinux/jami/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -694,7 +694,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
-msgstr ""
+msgstr "Lier autre appareil"
 
 #: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
@@ -710,7 +710,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
-msgstr ""
+msgstr "Paramètres appels"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow call from untrusted peers"
@@ -718,15 +718,15 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
-msgstr ""
+msgstr "Réponse automatique aux appels"
 
 #: ui/newaccountsettingsview.ui:1217
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Sonnerie personnalisée"
 
 #: ui/newaccountsettingsview.ui:1261
 msgid "Name server"
-msgstr ""
+msgstr "Serveur de nom"
 
 #: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
 msgid "Address"
@@ -734,7 +734,7 @@ msgstr "Adresse"
 
 #: ui/newaccountsettingsview.ui:1332
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "Configuration OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1416
 msgid "Auto connect on local network"
@@ -762,7 +762,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
-msgstr ""
+msgstr "Autorité de Certification"
 
 #: ui/newaccountsettingsview.ui:1689
 msgid "User certificate"
@@ -1387,7 +1387,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Edit name"
-msgstr ""
+msgstr "Modifier le nom"
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Revoke device"

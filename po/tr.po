@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# abc Def <hdogan1974@gmail.com>, 2020
 # Abdussamet Koçak <sssmmt@gmail.com>, 2019
 # Altay dal <yestajoknu@enayu.com>, 2020
 # Caner Başaran <basaran.caner@protonmail.com>, 2016
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-04 03:09-0400\n"
-"PO-Revision-Date: 2020-05-04 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-05-11 03:09-0400\n"
+"PO-Revision-Date: 2020-05-07 11:40+0000\n"
+"Last-Translator: abc Def <hdogan1974@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/jami/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -482,7 +483,7 @@ msgstr "Uygulamayı girişte başlat"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr ""
+msgstr "Pencere kapalıyken Jami'yi etkin tutun."
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
@@ -558,15 +559,15 @@ msgstr "Çağrı kayıtları için bit hızı (kb / s)"
 
 #: ui/generalsettingsview.ui:824
 msgid "File transfer"
-msgstr ""
+msgstr "Dosya aktarımı"
 
 #: ui/generalsettingsview.ui:862
 msgid "Accept from untrusted contacts"
-msgstr ""
+msgstr "Güvenilmeyen irtibatları kabul et"
 
 #: ui/generalsettingsview.ui:899
 msgid "Accept transfer behind (Mb, 0 = unlimited)"
-msgstr ""
+msgstr "Arkasındaki aktarımı kabul et (Mb, 0 = sınırsız)"
 
 #: ui/profile.ui:58
 msgid "Informations"

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-04 03:09-0400\n"
-"PO-Revision-Date: 2020-05-04 07:09+0000\n"
+"POT-Creation-Date: 2020-05-11 03:09-0400\n"
+"PO-Revision-Date: 2020-05-05 02:47+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -478,7 +478,7 @@ msgstr "在登入時啟動應用程式"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr ""
+msgstr "在視窗關閉時讓 Jami 保持活躍狀態。"
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
@@ -558,11 +558,11 @@ msgstr "檔案傳輸"
 
 #: ui/generalsettingsview.ui:862
 msgid "Accept from untrusted contacts"
-msgstr ""
+msgstr "接受不受信任的聯絡人"
 
 #: ui/generalsettingsview.ui:899
 msgid "Accept transfer behind (Mb, 0 = unlimited)"
-msgstr ""
+msgstr "接受稍後傳輸（Mb，0 = 不限制）"
 
 #: ui/profile.ui:58
 msgid "Informations"
