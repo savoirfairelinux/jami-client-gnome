@@ -73,6 +73,7 @@ struct _IncomingCallViewPrivate
     GtkWidget *frame_chat;
     GtkWidget *box_messaging_widget;
     GtkWidget *messaging_widget;
+    bool showMessaging {false};
 
     // The webkit_chat_container is created once, then reused for all chat views
     GtkWidget *webkit_chat_container;
@@ -161,6 +162,7 @@ on_leave_action(IncomingCallView *view)
 {
     g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    priv->showMessaging = false;
     (*priv->accountInfo_)->conversationModel->selectConversation(priv->conversation_->uid);
 }
 
@@ -349,5 +351,15 @@ incoming_call_view_let_a_message(IncomingCallView* view, lrc::api::conversation:
     gtk_widget_hide(priv->button_accept_incoming);
     gtk_widget_hide(priv->button_reject_incoming);
 
+    priv->showMessaging = true;
     gtk_widget_show(priv->messaging_widget);
+}
+
+bool
+is_showing_let_a_message_view(IncomingCallView* view, lrc::api::conversation::Info conv)
+{
+    g_return_val_if_fail(IS_INCOMING_CALL_VIEW(view), false);
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+    g_return_val_if_fail(priv->conversation_->uid == conv.uid, false);
+    return priv->showMessaging;
 }

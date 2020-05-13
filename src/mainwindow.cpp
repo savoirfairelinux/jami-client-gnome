@@ -2361,9 +2361,12 @@ CppImpl::slotConversationRemoved(const std::string& uid)
 void
 CppImpl::slotShowChatView(const std::string& id, lrc::api::conversation::Info origin)
 {
+    auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
+    if (IS_INCOMING_CALL_VIEW(old_view) && is_showing_let_a_message_view(INCOMING_CALL_VIEW(old_view), origin)) {
+        return;
+    }
     changeAccountSelection(id);
     // Show chat view if not in call (unless if it's the same conversation)
-    auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
     lrc::api::conversation::Info current_item;
     current_item.uid = "-1";
     if (IS_CHAT_VIEW(old_view))
