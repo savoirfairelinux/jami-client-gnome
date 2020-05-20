@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-11 03:09-0400\n"
-"PO-Revision-Date: 2020-05-05 20:35+0000\n"
+"POT-Creation-Date: 2020-05-20 11:37-0400\n"
+"PO-Revision-Date: 2020-05-20 15:37+0000\n"
 "Last-Translator: Kimmo Kujansuu <mrkujansuu@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/savoirfairelinux/jami/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -557,12 +557,16 @@ msgid "File transfer"
 msgstr "Tiedostonsiirto"
 
 #: ui/generalsettingsview.ui:862
-msgid "Accept from untrusted contacts"
-msgstr "Hyväksy tuntemattomat yhteystiedot"
+msgid "Allow incoming files from unknown contacts"
+msgstr ""
 
 #: ui/generalsettingsview.ui:899
-msgid "Accept transfer behind (Mb, 0 = unlimited)"
-msgstr "Hyväksy siirto taustalla (Mt, 0 = rajaton)"
+msgid "Automatically accept incoming files"
+msgstr ""
+
+#: ui/generalsettingsview.ui:937
+msgid "Accept transfer below (in Mb, 0 = unlimited)"
+msgstr ""
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -712,8 +716,8 @@ msgid "Call settings"
 msgstr "Puheluasetukset"
 
 #: ui/newaccountsettingsview.ui:1146
-msgid "Allow call from untrusted peers"
-msgstr "Salli puhelut tuntemattomilta"
+msgid "Allow incoming calls from unknown contacts"
+msgstr "Salli tuntemattomien yhteyshenkilöiden saapuvat puhelut"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
@@ -1267,49 +1271,49 @@ msgstr "soittaa sinulle!"
 msgid "Incoming call"
 msgstr "Saapuva puhelu"
 
-#: src/mainwindow.cpp:2438
+#: src/mainwindow.cpp:2441
 msgid "New request from "
 msgstr "Uusi pyyntö käyttäjältä"
 
-#: src/mainwindow.cpp:2441
+#: src/mainwindow.cpp:2444
 msgid "Trust request"
 msgstr "Luottamuspyyntö"
 
-#: src/mainwindow.cpp:2504
+#: src/mainwindow.cpp:2507
 msgid "New message"
 msgstr "Uusi viesti"
 
-#: src/mainwindow.cpp:2567
+#: src/mainwindow.cpp:2570
 msgid "Stop current call?"
 msgstr "Lopeta nykyinen puhelu?"
 
-#: src/mainwindow.cpp:2568
+#: src/mainwindow.cpp:2571
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Puhelu on parhaillaan käynnissä. Haluatko sulkea ikkunan ja lopettaa kaikki nykyiset puhelut?"
 
-#: src/mainwindow.cpp:2635
+#: src/mainwindow.cpp:2638
 msgid "Clear history"
 msgstr "Tyhjennä historia"
 
-#: src/mainwindow.cpp:2636
+#: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Haluatko todella tyhjentää tämän keskustelun historian?"
 
-#: src/mainwindow.cpp:2651
+#: src/mainwindow.cpp:2654
 msgid "Remove conversation"
 msgstr "Poista keskustelu"
 
-#: src/mainwindow.cpp:2652
+#: src/mainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
 msgstr "Haluatko todella poistaa tämän keskustelun?"
 
-#: src/mainwindow.cpp:2667
+#: src/mainwindow.cpp:2670
 msgid "Block contact"
 msgstr "Estä yhteystieto"
 
-#: src/mainwindow.cpp:2668
+#: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
 msgstr "Haluatko todella estää tämän kontaktin?"
 

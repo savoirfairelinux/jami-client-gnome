@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-11 03:09-0400\n"
-"PO-Revision-Date: 2020-05-04 07:09+0000\n"
+"POT-Creation-Date: 2020-05-20 11:37-0400\n"
+"PO-Revision-Date: 2020-05-20 15:37+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Hebrew (http://www.transifex.com/savoirfairelinux/jami/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -555,11 +555,15 @@ msgid "File transfer"
 msgstr ""
 
 #: ui/generalsettingsview.ui:862
-msgid "Accept from untrusted contacts"
+msgid "Allow incoming files from unknown contacts"
 msgstr ""
 
 #: ui/generalsettingsview.ui:899
-msgid "Accept transfer behind (Mb, 0 = unlimited)"
+msgid "Automatically accept incoming files"
+msgstr ""
+
+#: ui/generalsettingsview.ui:937
+msgid "Accept transfer below (in Mb, 0 = unlimited)"
 msgstr ""
 
 #: ui/profile.ui:58
@@ -710,7 +714,7 @@ msgid "Call settings"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:1146
-msgid "Allow call from untrusted peers"
+msgid "Allow incoming calls from unknown contacts"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:1181
@@ -1265,49 +1269,49 @@ msgstr ""
 msgid "Incoming call"
 msgstr "קריאה נכנסת"
 
-#: src/mainwindow.cpp:2438
+#: src/mainwindow.cpp:2441
 msgid "New request from "
 msgstr ""
 
-#: src/mainwindow.cpp:2441
+#: src/mainwindow.cpp:2444
 msgid "Trust request"
 msgstr ""
 
-#: src/mainwindow.cpp:2504
+#: src/mainwindow.cpp:2507
 msgid "New message"
 msgstr ""
 
-#: src/mainwindow.cpp:2567
+#: src/mainwindow.cpp:2570
 msgid "Stop current call?"
 msgstr ""
 
-#: src/mainwindow.cpp:2568
+#: src/mainwindow.cpp:2571
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/mainwindow.cpp:2635
+#: src/mainwindow.cpp:2638
 msgid "Clear history"
 msgstr ""
 
-#: src/mainwindow.cpp:2636
+#: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2651
+#: src/mainwindow.cpp:2654
 msgid "Remove conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:2652
+#: src/mainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2667
+#: src/mainwindow.cpp:2670
 msgid "Block contact"
 msgstr ""
 
-#: src/mainwindow.cpp:2668
+#: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
 msgstr ""
 

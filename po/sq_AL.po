@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-11 03:09-0400\n"
-"PO-Revision-Date: 2020-05-05 06:04+0000\n"
+"POT-Creation-Date: 2020-05-20 11:37-0400\n"
+"PO-Revision-Date: 2020-05-20 15:37+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/jami/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -555,12 +555,16 @@ msgid "File transfer"
 msgstr "Shpërngulje kartelash"
 
 #: ui/generalsettingsview.ui:862
-msgid "Accept from untrusted contacts"
-msgstr "Prano prej kontaktesh të pabesuar"
+msgid "Allow incoming files from unknown contacts"
+msgstr ""
 
 #: ui/generalsettingsview.ui:899
-msgid "Accept transfer behind (Mb, 0 = unlimited)"
-msgstr "Prano shpërngulje nga pas (Mb, 0 = e pakufizuar)"
+msgid "Automatically accept incoming files"
+msgstr ""
+
+#: ui/generalsettingsview.ui:937
+msgid "Accept transfer below (in Mb, 0 = unlimited)"
+msgstr ""
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -710,8 +714,8 @@ msgid "Call settings"
 msgstr "Rregullime për thirrjet"
 
 #: ui/newaccountsettingsview.ui:1146
-msgid "Allow call from untrusted peers"
-msgstr "Lejo thirrje prej personash të pabesuar"
+msgid "Allow incoming calls from unknown contacts"
+msgstr "Lejo thirrje ardhëse prej kontaktesh të panjohur"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
@@ -1265,49 +1269,49 @@ msgstr " po ju thërret!"
 msgid "Incoming call"
 msgstr "Thirrje ardhëse"
 
-#: src/mainwindow.cpp:2438
+#: src/mainwindow.cpp:2441
 msgid "New request from "
 msgstr "Kërkesë e re nga "
 
-#: src/mainwindow.cpp:2441
+#: src/mainwindow.cpp:2444
 msgid "Trust request"
 msgstr "Kërkesë besueshmërie"
 
-#: src/mainwindow.cpp:2504
+#: src/mainwindow.cpp:2507
 msgid "New message"
 msgstr "Mesazh i ri"
 
-#: src/mainwindow.cpp:2567
+#: src/mainwindow.cpp:2570
 msgid "Stop current call?"
 msgstr "Të ndalet thirrja e tanishme?"
 
-#: src/mainwindow.cpp:2568
+#: src/mainwindow.cpp:2571
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Ka një thirrje në kryerje e sipër. Doni të mbyllet dritarja dhe të ndalen krejt thirrjet e tanishme?"
 
-#: src/mainwindow.cpp:2635
+#: src/mainwindow.cpp:2638
 msgid "Clear history"
 msgstr "Spastroje historikun"
 
-#: src/mainwindow.cpp:2636
+#: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Doni të spastrohet vërtet historiku i kësaj bisede?"
 
-#: src/mainwindow.cpp:2651
+#: src/mainwindow.cpp:2654
 msgid "Remove conversation"
 msgstr "Hiqe bisedën"
 
-#: src/mainwindow.cpp:2652
+#: src/mainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
 msgstr "Doni të hiqet vërtet kjo bisedë?"
 
-#: src/mainwindow.cpp:2667
+#: src/mainwindow.cpp:2670
 msgid "Block contact"
 msgstr "Bllokojeni kontaktin"
 
-#: src/mainwindow.cpp:2668
+#: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
 msgstr "Doni të bllokohet vërtet ky kontakt?"
 

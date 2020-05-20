@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Blanca Iris Almagro, 2016
+# gh df, 2020
 # Guillaume Roguez, 2016
 # Arledrian <hvuzgr@gmail.com>, 2017
 # 3c81ac589fef5c37f392e4eabcb32106, 2017
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-11 03:09-0400\n"
-"PO-Revision-Date: 2020-05-04 07:09+0000\n"
-"Last-Translator: Chris <ch-dev@mailbox.org>\n"
+"POT-Creation-Date: 2020-05-20 11:37-0400\n"
+"PO-Revision-Date: 2020-05-20 15:37+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/savoirfairelinux/jami/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,17 +32,17 @@ msgstr "Allgemein"
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
 msgid "Open application menu"
-msgstr ""
+msgstr "Anwendungsmenü öffnen"
 
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr ""
+msgstr "Kontenliste öffnen"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Select search bar"
-msgstr ""
+msgstr "Suchleiste auswählen"
 
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
@@ -56,7 +57,7 @@ msgstr ""
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Vollbild umschalten"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -66,12 +67,12 @@ msgstr "Gespräche"
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Start a video call"
-msgstr ""
+msgstr "Einen Videoanruf beginnen"
 
 #: ui/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Start an audio call"
-msgstr ""
+msgstr "Einen Audioanruf beginnen"
 
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
@@ -81,7 +82,7 @@ msgstr "Verlauf löschen"
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr ""
+msgstr "Unterhaltung hinzufügen"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
@@ -101,7 +102,7 @@ msgstr ""
 #: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
-msgstr ""
+msgstr "Kontaktname kopieren"
 
 #: ui/help-overlay.ui:127
 msgctxt "shortcut window"
@@ -111,12 +112,12 @@ msgstr "Anrufen"
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
-msgstr ""
+msgstr "Anruf annehmen"
 
 #: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
-msgstr ""
+msgstr "Anruf ablehnen"
 
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
@@ -559,11 +560,15 @@ msgid "File transfer"
 msgstr "Dateiübertragung"
 
 #: ui/generalsettingsview.ui:862
-msgid "Accept from untrusted contacts"
+msgid "Allow incoming files from unknown contacts"
 msgstr ""
 
 #: ui/generalsettingsview.ui:899
-msgid "Accept transfer behind (Mb, 0 = unlimited)"
+msgid "Automatically accept incoming files"
+msgstr ""
+
+#: ui/generalsettingsview.ui:937
+msgid "Accept transfer below (in Mb, 0 = unlimited)"
 msgstr ""
 
 #: ui/profile.ui:58
@@ -714,7 +719,7 @@ msgid "Call settings"
 msgstr "Anruf-Einstellungen"
 
 #: ui/newaccountsettingsview.ui:1146
-msgid "Allow call from untrusted peers"
+msgid "Allow incoming calls from unknown contacts"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:1181
@@ -1263,55 +1268,55 @@ msgstr ""
 
 #: src/mainwindow.cpp:2293
 msgid " is calling you!"
-msgstr ""
+msgstr " ruft Sie an!"
 
 #: src/mainwindow.cpp:2296
 msgid "Incoming call"
 msgstr "Eingehender Anruf"
 
-#: src/mainwindow.cpp:2438
+#: src/mainwindow.cpp:2441
 msgid "New request from "
 msgstr ""
 
-#: src/mainwindow.cpp:2441
+#: src/mainwindow.cpp:2444
 msgid "Trust request"
 msgstr ""
 
-#: src/mainwindow.cpp:2504
+#: src/mainwindow.cpp:2507
 msgid "New message"
 msgstr "Neue Nachricht"
 
-#: src/mainwindow.cpp:2567
+#: src/mainwindow.cpp:2570
 msgid "Stop current call?"
 msgstr ""
 
-#: src/mainwindow.cpp:2568
+#: src/mainwindow.cpp:2571
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/mainwindow.cpp:2635
+#: src/mainwindow.cpp:2638
 msgid "Clear history"
 msgstr "Verlauf löschen"
 
-#: src/mainwindow.cpp:2636
+#: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2651
+#: src/mainwindow.cpp:2654
 msgid "Remove conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:2652
+#: src/mainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2667
+#: src/mainwindow.cpp:2670
 msgid "Block contact"
 msgstr "Kontakt blockieren"
 
-#: src/mainwindow.cpp:2668
+#: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
 msgstr ""
 
@@ -1321,7 +1326,7 @@ msgstr "Datei senden"
 
 #: src/chatview.cpp:338
 msgid "Retry"
-msgstr ""
+msgstr "Wiederholen"
 
 #: src/chatview.cpp:501
 msgid "Stop"
@@ -1351,7 +1356,7 @@ msgstr ""
 
 #: src/client.cpp:399
 msgid "Quit"
-msgstr ""
+msgstr "Beenden"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:970
 msgid ""
@@ -1369,7 +1374,7 @@ msgstr ""
 
 #: src/currentcallview.cpp:1021
 msgid "Online contacts"
-msgstr ""
+msgstr "Online Kontakte"
 
 #: src/currentcallview.cpp:1429
 msgctxt "Enable automatic video quality"
@@ -1473,11 +1478,11 @@ msgstr "Online"
 
 #: src/newaccountsettingsview.cpp:2013
 msgid "Unknown status"
-msgstr ""
+msgstr "Unbekannter Status"
 
 #: src/newaccountsettingsview.cpp:2046
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2046
 msgid "no password set"
@@ -1485,4 +1490,4 @@ msgstr "kein Passwort gesetzt"
 
 #: src/newaccountsettingsview.cpp:2102
 msgid "Remove account"
-msgstr ""
+msgstr "Account entfernen"
