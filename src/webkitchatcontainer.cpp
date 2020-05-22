@@ -186,6 +186,7 @@ build_interaction_json(lrc::api::ConversationModel& conversation_model,
     interaction_object.insert("text", QJsonValue(interaction.body));
     interaction_object.insert("id", QJsonValue(QString::number(msgId)));
     interaction_object.insert("sender", QJsonValue(sender));
+    interaction_object.insert("duration", QJsonValue(static_cast<int>(interaction.duration)));
     interaction_object.insert("sender_contact_method", QJsonValue(sender));
     interaction_object.insert("timestamp", QJsonValue(timestamp));
     interaction_object.insert("direction", QJsonValue(direction));
