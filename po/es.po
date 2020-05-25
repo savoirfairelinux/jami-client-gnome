@@ -28,6 +28,7 @@
 # Markel @wakutiteo, 2018
 # Miguel Angel NV <manvac@gmail.com>, 2017
 # Pier Jose Gotta Perez <piegope@protonmail.com>, 2018
+# Pier Jose Gotta Perez <piegope@protonmail.com>, 2020
 # 3e80106476e2bcd7092f6466f822ac0a, 2019
 # Rodrigo I. Avila D., 2018
 # Stepan Salenikovich, 2015
@@ -40,9 +41,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-20 11:37-0400\n"
-"PO-Revision-Date: 2020-05-20 15:37+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-05-25 03:09-0400\n"
+"PO-Revision-Date: 2020-05-22 11:44+0000\n"
+"Last-Translator: Pier Jose Gotta Perez <piegope@protonmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/jami/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -507,7 +508,7 @@ msgstr "Iniciar aplicación al iniciar sesión"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr ""
+msgstr "Mantener a Jami activo cuando la ventana esté cerrada."
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
@@ -587,15 +588,15 @@ msgstr "Transferencia de archivos"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
-msgstr ""
+msgstr "Permitir archivos entrantes de contactos desconocidos"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
-msgstr ""
+msgstr "Aceptar automáticamente los archivos entrantes"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr ""
+msgstr "Aceptar transferencia a continuación (en Mb, 0 = ilimitado)"
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -746,7 +747,7 @@ msgstr "Ajustes de llamada"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "Permitir llamadas entrantes de contactos desconocidos"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"

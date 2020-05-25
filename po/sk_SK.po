@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Astar Seran <zic.spse@gmail.com>, 2016
+# Microtus <hrabosmartin@gmail.com>, 2020
 # Tomáš Vavro <tomas.j.vavro@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-20 11:37-0400\n"
-"PO-Revision-Date: 2020-05-20 15:37+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-05-25 03:09-0400\n"
+"PO-Revision-Date: 2020-05-23 12:42+0000\n"
+"Last-Translator: Microtus <hrabosmartin@gmail.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/savoirfairelinux/jami/language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,32 +28,32 @@ msgstr "Všeobecné"
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
 msgid "Open application menu"
-msgstr ""
+msgstr "Otvoriť aplikačné menu"
 
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr ""
+msgstr "Otvoriť zoznam účtov"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Select search bar"
-msgstr ""
+msgstr "Zvoliť vyhľadávací panel"
 
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Focus the list of conversations"
-msgstr ""
+msgstr "Zamerať na zoznam konverzácií"
 
 #: ui/help-overlay.ui:46
 msgctxt "shortcut window"
 msgid "Focus the list pending requests"
-msgstr ""
+msgstr "Zamerať na zoznam čakajúcich žiadostí"
 
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Prepnúť zobrazenie na celú obrazovku"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -77,12 +78,12 @@ msgstr "Vymazať históriu"
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr ""
+msgstr "Pridať konverzáciu"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
-msgstr ""
+msgstr "Odstrániť konverzáciu"
 
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
@@ -92,27 +93,27 @@ msgstr "Zablokovať kontakt"
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Unblock contact"
-msgstr ""
+msgstr "Odblokovať kontakt"
 
 #: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
-msgstr ""
+msgstr "Skopírovať meno kontaktu"
 
 #: ui/help-overlay.ui:127
 msgctxt "shortcut window"
 msgid "Call"
-msgstr "Volaj"
+msgstr "Volať"
 
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
-msgstr ""
+msgstr "Prijať hovor"
 
 #: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
-msgstr ""
+msgstr "Odmietnuť hovor"
 
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
@@ -122,32 +123,32 @@ msgstr "Nastavenie"
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
-msgstr ""
+msgstr "Otvoriť/Zatvoriť nastavenia"
 
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
-msgstr ""
+msgstr "Otvoriť všeobecné nastavenia"
 
 #: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
-msgstr ""
+msgstr "Otvoriť nastavenia médií"
 
 #: ui/help-overlay.ui:174
 msgctxt "shortcut window"
 msgid "Open account settings"
-msgstr ""
+msgstr "Otvoriť nastavenia účtu"
 
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
-msgstr ""
+msgstr "Chat "
 
 #: ui/help-overlay.ui:189
 msgctxt "shortcut window"
 msgid "Write on a new line"
-msgstr ""
+msgstr "Napísať na nový riadok"
 
 #: ui/mainwindow.ui:57
 msgid "Menu"
@@ -204,7 +205,7 @@ msgstr "Heslo"
 
 #: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr ""
+msgstr "Správca účtu"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
@@ -218,7 +219,7 @@ msgstr "Migrovať účet"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "Váš Jami účet sa migruje..."
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
@@ -300,7 +301,7 @@ msgstr "Preniesť"
 
 #: ui/currentcallview.ui:616
 msgid "Add"
-msgstr ""
+msgstr "Pridať"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -308,27 +309,27 @@ msgstr "Vitajte v"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr ""
+msgstr "Vytvoriť lokálny účet"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Vytvoriť nový Jami účet na tomto zariadení (pre nových používateľov) "
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "Importovať zo zariadenia"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "Importovať účet s vašim PINom vygenerovaným na inom zariadení"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr ""
+msgstr "Importovať zo zálohovaného archívu"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "Importovať účet prostredníctvom vášho archívu"
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
@@ -336,11 +337,11 @@ msgstr "Pokročilé..."
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
-msgstr ""
+msgstr "Pripojiť k správcovi účtu"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
-msgstr ""
+msgstr "Získajte váš účet prostredníctvom vašich údajov"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
@@ -348,11 +349,11 @@ msgstr "Pridať nový SIP účet"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
-msgstr ""
+msgstr "Archív"
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
-msgstr ""
+msgstr "Informácie"
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
@@ -362,13 +363,13 @@ msgstr "PIN"
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Archív môžete získať kliknutím na \"Exportovať účet\" v nastaveniach účtu. Vytvorí sa .gz súbor na vašom zariadení. "
 
 #: ui/accountcreationwizard.ui:382
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr ""
+msgstr "Pre získanie PINu (funkčný 10 minút) musíte otvoriť nastavenia účtu na druhom zariadení a kliknite na \"Prepojiť ďalšie zariadenie\"."
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
@@ -394,7 +395,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Zaškrtnutím tejto možnosti si zaregistrujete unikátne používateľské meno v sieti Jami. Ľudom na kontakt s vami postačí použiť toto meno namiesto vášho ID, ktoré má 40 znakov."
 
 #: ui/accountcreationwizard.ui:625
 msgid ""
@@ -412,18 +413,18 @@ msgstr "Generovanie vášho Jami účtu..."
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr ""
+msgstr "Zálohovať váš účet"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "Tento účet existuje iba na tomto zariadení. Ak stratíte toto zariadenie alebo odinštalujete aplikáciu, váš účet bude vymazaný. Váš účet môžete zálohovať teraz alebo neskôr."
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "Už viac nezobrazovať"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
@@ -452,11 +453,11 @@ msgstr "Ok"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "Prihlásiť sa"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
-msgstr ""
+msgstr "Klávesové _skratky"
 
 #: ui/gearsmenu.ui:11
 msgid "_About"
@@ -476,7 +477,7 @@ msgstr "Spustiť aplikáciu pri prihlásení"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr ""
+msgstr "Ponechať Jami aktívne aj po zatvorení okna."
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
@@ -484,7 +485,7 @@ msgstr "Premiestniť Jami do popredia, ak prichádza hovor"
 
 #: ui/generalsettingsview.ui:204
 msgid "Notifications"
-msgstr "Notifikácie"
+msgstr "Upozornenia"
 
 #: ui/generalsettingsview.ui:243
 msgid "Enable notifications for incoming calls"
@@ -492,11 +493,11 @@ msgstr "Zapnúť upozornenia na prichádzajúce hovory"
 
 #: ui/generalsettingsview.ui:279
 msgid "Enable notifications for pending requests"
-msgstr "Zapnúť notifikácie pre čakajúce žiadosti"
+msgstr "Zapnúť upozornenia pre čakajúce žiadosti"
 
 #: ui/generalsettingsview.ui:315
 msgid "Enable notifications for new chat messages"
-msgstr "Zapnúť notifikácie pre nové správy"
+msgstr "Zapnúť upozornenia pre nové správy"
 
 #: ui/generalsettingsview.ui:351
 msgid "Chatview"
@@ -504,7 +505,7 @@ msgstr "Zobrazenie chatu"
 
 #: ui/generalsettingsview.ui:390
 msgid "Show typing indications"
-msgstr ""
+msgstr "Zobraziť indikovanie písania"
 
 #: ui/generalsettingsview.ui:426
 msgid "Display images and videos into the chatview"
@@ -528,27 +529,27 @@ msgstr "Uchovať históriu po dobu (dni, 0 = neobmedzene)"
 
 #: ui/generalsettingsview.ui:606
 msgid "Clear all history"
-msgstr "Vymaž celú historiu"
+msgstr "Vymazať celú históriu"
 
 #: ui/generalsettingsview.ui:638
 msgid "Call Recording"
-msgstr ""
+msgstr "Nahrávanie hovoru"
 
 #: ui/generalsettingsview.ui:676
 msgid "Record local video"
-msgstr ""
+msgstr "Zaznamenať lokálne video"
 
 #: ui/generalsettingsview.ui:712
 msgid "Always record calls"
-msgstr ""
+msgstr "Vždy nahrávať hovory"
 
 #: ui/generalsettingsview.ui:749
 msgid "Record folder"
-msgstr ""
+msgstr "Priečinok pre nahrávky"
 
 #: ui/generalsettingsview.ui:786
 msgid "Bitrate for call recordings (kb/s)"
-msgstr ""
+msgstr "Dátový tok pre nahrávky hovorov (kb/s)"
 
 #: ui/generalsettingsview.ui:824
 msgid "File transfer"
@@ -556,19 +557,19 @@ msgstr "Prenos súborov"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
-msgstr ""
+msgstr "Povoliť prichádzajúce súbory od neznámych kontaktov"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
-msgstr ""
+msgstr "Automaticky prijať prichádzajúce súbory"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr ""
+msgstr "Prijať prenosy pod (v MB, 0 = bez limitu)"
 
 #: ui/profile.ui:58
 msgid "Informations"
-msgstr ""
+msgstr "Informácie"
 
 #: ui/profile.ui:88 ui/newaccountsettingsview.ui:433
 msgid "ID"
@@ -576,7 +577,7 @@ msgstr "ID"
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "QR kód"
 
 #: ui/mediasettingsview.ui:24
 msgid "Audio Settings"
@@ -600,7 +601,7 @@ msgstr "Vstupné zariadenie:"
 
 #: ui/mediasettingsview.ui:88
 msgid "Input volume meter:"
-msgstr ""
+msgstr "Úroveň vstupnej hlasitosti:"
 
 #: ui/mediasettingsview.ui:156
 msgid "Camera Settings"
@@ -628,7 +629,7 @@ msgstr "Hardvérová akcelerácia"
 
 #: ui/mediasettingsview.ui:282
 msgid "Enable hardware acceleration:"
-msgstr ""
+msgstr "Povoliť hardvérovú akceleráciu:"
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
@@ -671,7 +672,7 @@ msgstr "Kliknite pre zmenu hesla"
 
 #: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
-msgstr "Zapnúť účet"
+msgstr "Povoliť účet"
 
 #: ui/newaccountsettingsview.ui:670
 msgid "SIP server"
@@ -715,7 +716,7 @@ msgstr "Nastavenia hovoru"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "Povoliť prichádzajúce hovory od neznámych kontaktov"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
@@ -739,15 +740,15 @@ msgstr "Konfigurácia OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1416
 msgid "Auto connect on local network"
-msgstr ""
+msgstr "Automatické pripojenie v lokálnej sieti"
 
 #: ui/newaccountsettingsview.ui:1452
 msgid "Bootstrap"
-msgstr "Zavádzací"
+msgstr "Bootstrap"
 
 #: ui/newaccountsettingsview.ui:1512
 msgid "Encrypt media streams (SRTP)"
-msgstr "Zašifrovať media streams (SRTP)"
+msgstr "Zašifrovať mediálne streamy (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1547
 msgid "Enable SDES for key exchange protocol"
@@ -759,7 +760,7 @@ msgstr "Pri zlyhaní šifrovania použiť RTP"
 
 #: ui/newaccountsettingsview.ui:1618
 msgid "Encrypt negotiation (TLS)"
-msgstr "Zašifrovať vyjednávanie (TLS)"
+msgstr "Dohodnutie parametrov šifrovania (TLS)"
 
 #: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
@@ -787,7 +788,7 @@ msgstr "Meno odchádzajúceho TLS servera"
 
 #: ui/newaccountsettingsview.ui:1870
 msgid "Negotiation timeout (seconds)"
-msgstr "Časový limit vyjednávania (v sekundách)"
+msgstr "Časový limit dohodovania (v sekundách)"
 
 #: ui/newaccountsettingsview.ui:1906
 msgid "Verify incoming certificates (server side)"
@@ -807,11 +808,11 @@ msgstr "Bezpečnosť"
 
 #: ui/newaccountsettingsview.ui:2025
 msgid "Connectivity"
-msgstr "Pripojenia"
+msgstr "Pripojenie"
 
 #: ui/newaccountsettingsview.ui:2063
 msgid "Registration expire timeout (seconds)"
-msgstr "Časový limit exprirácie registrácie (v sekundách)"
+msgstr "Časový limit expirácie registrácie (v sekundách)"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Network interface"
@@ -867,7 +868,7 @@ msgstr "Video kodeky"
 
 #: ui/newaccountsettingsview.ui:2621
 msgid "Enable video"
-msgstr "Zapnúť video"
+msgstr "Povoliť video"
 
 #: ui/newaccountsettingsview.ui:2648
 msgid "Audio codecs"
@@ -879,23 +880,23 @@ msgstr "SDP Session Negotiation (ICE Fallback)"
 
 #: ui/newaccountsettingsview.ui:2730
 msgid "Only used during SDP negotiation in case ICE is not supported."
-msgstr "Používané výhradne počas SDP vyjednávania, ak ICE nie je podporovaný."
+msgstr "Používané výhradne počas SDP vyjednávania, ak ICE nie je podporované."
 
 #: ui/newaccountsettingsview.ui:2764
 msgid "Audio RTP Min port"
-msgstr "Minimálny port pre audio RTP"
+msgstr "Minimálny port pre Audio RTP"
 
 #: ui/newaccountsettingsview.ui:2799
 msgid "Audio RTP Max port"
-msgstr "Maximálny port pre audio RTP"
+msgstr "Maximálny port pre Audio RTP"
 
 #: ui/newaccountsettingsview.ui:2834
 msgid "Video RTP Min port"
-msgstr "Minimánly port pre video RTP"
+msgstr "Minimálny port pre Video RTP"
 
 #: ui/newaccountsettingsview.ui:2869
 msgid "Video RTP Max port"
-msgstr "Maximálny port pre video RTP"
+msgstr "Maximálny port pre Video RTP"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
@@ -927,7 +928,7 @@ msgstr "Odmietnuť"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr "Urobiť fotografiu"
+msgstr "Zhotoviť fotografiu"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
@@ -943,11 +944,11 @@ msgstr "Použiť výber ako obrázok"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
-msgstr "Registrovať používateľské meno na tomto serveri"
+msgstr "Registrovať používateľské meno na serveri"
 
 #: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
-msgstr "Používateľské meno už je zabrané"
+msgstr "Používateľské meno už je použité"
 
 #: src/usernameregistrationbox.cpp:179
 msgid "Invalid username"
@@ -971,7 +972,7 @@ msgstr "Prebieha registrácia..."
 
 #: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
-msgstr ""
+msgstr "Chyba registrácie mena"
 
 #: src/usernameregistrationbox.cpp:434
 msgid ""
@@ -981,15 +982,15 @@ msgstr "Nie je možné registrovať meno (Neplatné meno). Vaše používateľsk
 
 #: src/usernameregistrationbox.cpp:438
 msgid "Unable to register name (Wrong password)."
-msgstr ""
+msgstr "Nie je možné registrovať meno (Nesprávne heslo)"
 
 #: src/usernameregistrationbox.cpp:442
 msgid "Unable to register name (Username already taken)."
-msgstr "Nie je možné registrovať meno (Používateľské meno už je zabrané)."
+msgstr "Nie je možné registrovať meno (Používateľské meno už je použité)."
 
 #: src/usernameregistrationbox.cpp:446
 msgid "Unable to register name (Network error) - check your connection."
-msgstr ""
+msgstr "Nie je možné registrovať meno (Chyba siete) - skontrolujte vaše pripojenie"
 
 #: src/generalsettingsview.cpp:161
 msgid ""
@@ -1060,7 +1061,7 @@ msgstr "Zdieľať _obrazovku"
 
 #: src/video/video_widget.cpp:573
 msgid "Stream _file"
-msgstr "Stream _file"
+msgstr "Streamovať _súbor"
 
 #: src/video/video_widget.cpp:583
 msgid "Show advanced information"
@@ -1084,13 +1085,13 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Free as in Freedom\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Free as in Freedom\"\nskompilované %.25s"
 
 #: src/dialogs.c:137
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "GNOME klient pre Jami.\nJami je slobodný softvér na univerzálnu komunikáciu, ktorý rešpektuje slobody a súkromie používateľov."
+msgstr "GNOME klient pre Jami.\nJami je slobodný softvér na univerzálnu komunikáciu, ktorý rešpektuje slobodu a súkromie používateľov."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -1147,15 +1148,15 @@ msgstr "_Pridať ku kontaktom"
 
 #: src/conversationpopupmenu.cpp:214
 msgid "_Discard invitation"
-msgstr "_Odstrániť pozvánky"
+msgstr "_Odstrániť pozvánku"
 
 #: src/conversationpopupmenu.cpp:217
 msgid "_Block invitations"
-msgstr "_Zablokovať pozvánky"
+msgstr "_Blokovať pozvánky"
 
 #: src/conversationpopupmenu.cpp:222
 msgid "C_lear history"
-msgstr ""
+msgstr "_Vymazať históriu"
 
 #: src/conversationpopupmenu.cpp:225
 msgid "_Remove conversation"
@@ -1171,7 +1172,7 @@ msgstr "_Odblokovať kontakt"
 
 #: src/conversationpopupmenu.cpp:242
 msgid "_Profile"
-msgstr ""
+msgstr "_Profil"
 
 #: src/profileview.cpp:111
 msgid "(None)"
@@ -1179,21 +1180,21 @@ msgstr "(Žiadny)"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "Počas vytvárania účtu sa vyskytla chyba. "
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "Nebolo možné nájsť účet, skontrolujte prosím váš PIN a vaše heslo"
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Nebolo možné nájsť účet, skontrolujte prosím váš archív a vaše heslo. "
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "Nedá sa pripojiť k danému správcovi účtov. Skontrolujte prosím vaše prístupové údaje."
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
@@ -1201,7 +1202,7 @@ msgstr "Heslá sa nezhodujú"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Importovať zo zálohy"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:904
@@ -1240,18 +1241,18 @@ msgstr "otvoriť chat"
 
 #: src/mainwindow.cpp:1056
 msgid "Jami - Migration needed"
-msgstr ""
+msgstr "Jami - Potrebná migrácia"
 
 #: src/mainwindow.cpp:1069
 msgid "Migration in progress... please do not close this window."
-msgstr ""
+msgstr "Prebieha migrácia... nezatvárajte prosím toto okno."
 
 #: src/mainwindow.cpp:1344
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr ""
+msgstr "Nájsť alebo začať konverzáciu"
 
 #: src/mainwindow.cpp:1815
 msgid "Leave settings page"
@@ -1259,7 +1260,7 @@ msgstr "Opustiť nastavenia"
 
 #: src/mainwindow.cpp:2241
 msgid "There are active calls"
-msgstr ""
+msgstr "Máte aktívne hovory"
 
 #: src/mainwindow.cpp:2293
 msgid " is calling you!"
@@ -1283,13 +1284,13 @@ msgstr "Nová správa"
 
 #: src/mainwindow.cpp:2570
 msgid "Stop current call?"
-msgstr ""
+msgstr "Zrušiť aktuálny hovor?"
 
 #: src/mainwindow.cpp:2571
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
-msgstr ""
+msgstr "Práve prebieha hovor. Chcete zatvoriť okno a zrušiť všetky prebiehajúce hovory?"
 
 #: src/mainwindow.cpp:2638
 msgid "Clear history"
@@ -1297,15 +1298,15 @@ msgstr "Vymazať históriu"
 
 #: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
-msgstr ""
+msgstr "Naozaj chcete vymazať históriu tejto konverzácie?"
 
 #: src/mainwindow.cpp:2654
 msgid "Remove conversation"
-msgstr ""
+msgstr "Odstrániť konverzáciu"
 
 #: src/mainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
-msgstr ""
+msgstr "Naozaj chcete vymazať túto konverzáciu?"
 
 #: src/mainwindow.cpp:2670
 msgid "Block contact"
@@ -1313,7 +1314,7 @@ msgstr "Zablokovať kontakt"
 
 #: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
-msgstr ""
+msgstr "Naozaj chcete zablokovať tento kontakt?"
 
 #: src/chatview.cpp:281
 msgid "Send File"
@@ -1321,11 +1322,11 @@ msgstr "Poslať súbor"
 
 #: src/chatview.cpp:338
 msgid "Retry"
-msgstr ""
+msgstr "Skúsiť znovu"
 
 #: src/chatview.cpp:501
 msgid "Stop"
-msgstr "Stop"
+msgstr "Zastaviť"
 
 #: src/chatview.cpp:1019
 msgid "Send"
@@ -1357,30 +1358,30 @@ msgstr "Ukončiť"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr "Varovanie! Táto akcia odstráni účet z tohto zariadenia!\nPoznámka: Výsledok tejto akcie je permanentný. Môžete tiež stratiť vaše zaregistrované meno!"
+msgstr "Varovanie! Táto akcia odstráni účet z tohto zariadenia!\nPoznámka: Táto operácia nie je vratná. Môžete tiež stratiť vaše zaregistrované meno!"
 
 #: src/currentcallview.cpp:969
 msgid "Current conference (all accounts)"
-msgstr ""
+msgstr "Aktuálna konferencia (všetky účty)"
 
 #: src/currentcallview.cpp:1004
 msgid "Current calls (all accounts)"
-msgstr ""
+msgstr "Aktuálne hovory (všetky účty)"
 
 #: src/currentcallview.cpp:1021
 msgid "Online contacts"
-msgstr ""
+msgstr "Online kontakty"
 
 #: src/currentcallview.cpp:1429
 msgctxt "Enable automatic video quality"
 msgid "Auto"
-msgstr "Auto"
+msgstr "Automaticky"
 
 #: src/newaccountsettingsview.cpp:601
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr "Varovanie! Táto akcia odoberie zariadenie!\nPoznámka: Výsledok tejto akcie je permanentný."
+msgstr "Varovanie! Táto operácia odoberie zariadenie!\nPoznámka: Táto operácia sa nedá vrátiť."
 
 #: src/newaccountsettingsview.cpp:602
 msgid "Enter password to revoke device"
@@ -1429,7 +1430,7 @@ msgstr "Nové heslo"
 
 #: src/newaccountsettingsview.cpp:1711
 msgid "Exporting account…"
-msgstr ""
+msgstr "Exportovanie účtu..."
 
 #: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"
@@ -1485,4 +1486,4 @@ msgstr "heslo nenastavené"
 
 #: src/newaccountsettingsview.cpp:2102
 msgid "Remove account"
-msgstr ""
+msgstr "Odstrániť účet"

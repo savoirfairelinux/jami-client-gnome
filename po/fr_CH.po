@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-20 11:37-0400\n"
-"PO-Revision-Date: 2020-05-20 15:37+0000\n"
+"POT-Creation-Date: 2020-05-25 03:09-0400\n"
+"PO-Revision-Date: 2020-05-22 16:56+0000\n"
 "Last-Translator: Kateryna K <katerynakostiukGer@gmail.com>\n"
 "Language-Team: French (Switzerland) (http://www.transifex.com/savoirfairelinux/jami/language/fr_CH/)\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,7 @@ msgstr ""
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Conversations"
-msgstr ""
+msgstr "Conversations"
 
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
@@ -171,7 +171,7 @@ msgstr ""
 
 #: ui/mainwindow.ui:271 ui/mainwindow.ui:278
 msgid "Conversations"
-msgstr ""
+msgstr "Conversations"
 
 #: ui/mainwindow.ui:304 ui/mainwindow.ui:311
 msgid "Contact requests"
@@ -335,7 +335,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
-msgstr ""
+msgstr "Se connecter à la gestion des comptes"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
@@ -377,7 +377,7 @@ msgstr ""
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:711
 #: ui/accountcreationwizard.ui:1092
 msgid "Next"
-msgstr ""
+msgstr "Suivant"
 
 #: ui/accountcreationwizard.ui:442 ui/profile.ui:7
 #: ui/newaccountsettingsview.ui:307
@@ -483,7 +483,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:204
 msgid "Notifications"
-msgstr ""
+msgstr "Notifications"
 
 #: ui/generalsettingsview.ui:243
 msgid "Enable notifications for incoming calls"
@@ -706,7 +706,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1090
 msgid "General settings"
-msgstr ""
+msgstr "Paramètres généraux"
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
@@ -1464,7 +1464,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2006
 msgid "Connecting…"
-msgstr ""
+msgstr "En cours de connexion ..."
 
 #: src/newaccountsettingsview.cpp:2009
 msgid "Online"

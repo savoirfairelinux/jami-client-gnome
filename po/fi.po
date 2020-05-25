@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-20 11:37-0400\n"
-"PO-Revision-Date: 2020-05-20 15:37+0000\n"
+"POT-Creation-Date: 2020-05-25 03:09-0400\n"
+"PO-Revision-Date: 2020-05-20 19:49+0000\n"
 "Last-Translator: Kimmo Kujansuu <mrkujansuu@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/savoirfairelinux/jami/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -558,15 +558,15 @@ msgstr "Tiedostonsiirto"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
-msgstr ""
+msgstr "Salli saapuvat tiedostot tuntemattomilta"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
-msgstr ""
+msgstr "Hyväksy saapuvat tiedostot automaattisesti"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr ""
+msgstr "Hyväksy siirto alle (Mt, 0 = rajaton)"
 
 #: ui/profile.ui:58
 msgid "Informations"

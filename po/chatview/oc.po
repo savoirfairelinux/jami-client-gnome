@@ -59,7 +59,7 @@ msgstr "Refusar"
 
 #: web/chatview.html:190
 msgid "Block"
-msgstr ""
+msgstr "Blocar"
 
 #: web/chatview.html:194
 msgid "Type a message"
@@ -116,8 +116,8 @@ msgstr ""
 
 #: web/chatview.html:1286
 msgid "Delete"
-msgstr ""
+msgstr "Suprimir"
 
 #: web/chatview.html:1473
 msgid "Retry"
-msgstr ""
+msgstr "Tornar ensajar"

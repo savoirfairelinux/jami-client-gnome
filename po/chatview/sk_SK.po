@@ -4,9 +4,8 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Astar Seran <zic.spse@gmail.com>, 2019
-# Karol Kubicek <karol.kubicek@gmail.com>, 2019
 # Tomáš Vavro <tomas.j.vavro@gmail.com>, 2019
+# Microtus <hrabosmartin@gmail.com>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -15,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-25 14:38+0200\n"
 "PO-Revision-Date: 2019-05-27 14:08+0000\n"
-"Last-Translator: Tomáš Vavro <tomas.j.vavro@gmail.com>, 2019\n"
+"Last-Translator: Microtus <hrabosmartin@gmail.com>, 2020\n"
 "Language-Team: Slovak (Slovakia) (https://www.transifex.com/savoirfairelinux/teams/49466/sk_SK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,11 +28,11 @@ msgstr "Skryť chat"
 
 #: web/chatview.html:182
 msgid "Place video call"
-msgstr ""
+msgstr "Uskutočniť video hovor"
 
 #: web/chatview.html:183
 msgid "Place audio call"
-msgstr ""
+msgstr "Uskutočniť audio hovor"
 
 #: web/chatview.html:184
 msgid "Add to conversations"
@@ -41,7 +40,7 @@ msgstr "Pridať ku kontaktom"
 
 #: web/chatview.html:185
 msgid "Unban contact"
-msgstr ""
+msgstr "Odblokovať kontakt"
 
 #: web/chatview.html:186
 msgid "Send"
@@ -49,7 +48,7 @@ msgstr "Poslať"
 
 #: web/chatview.html:187
 msgid "SendFile"
-msgstr ""
+msgstr "Poslať súbor"
 
 #: web/chatview.html:188 web/chatview.html:933
 msgid "Accept"
@@ -65,61 +64,61 @@ msgstr "Blokovať"
 
 #: web/chatview.html:194
 msgid "Type a message"
-msgstr "Napíš správu"
+msgstr "Napísať správu"
 
 #: web/chatview.html:301
 msgid "Note: an interaction will create a new contact."
-msgstr ""
+msgstr "Poznámka: vytvorí sa nový kontakt"
 
 #: web/chatview.html:336
 #, javascript-format
 msgid "%s is not in your contacts"
-msgstr ""
+msgstr "%s nie je vo vašich kontaktoch"
 
 #: web/chatview.html:338
 msgid ""
 "Note: you can automatically accept this invitation by sending a message."
-msgstr ""
+msgstr "Poznámka: poslaním správy môžete automaticky prijať toto pozvanie"
 
 #: web/chatview.html:515
 #, javascript-format
 msgid "%d days ago"
-msgstr ""
+msgstr "Pred %d dňami"
 
 #: web/chatview.html:518
 msgid "one day ago"
-msgstr ""
+msgstr "Včera"
 
 #: web/chatview.html:523
 #, javascript-format
 msgid "%d hours ago"
-msgstr ""
+msgstr "Pred %d hodinami"
 
 #: web/chatview.html:526
 msgid "one hour ago"
-msgstr ""
+msgstr "Pred hodinou"
 
 #: web/chatview.html:531
 #, javascript-format
 msgid "%d minutes ago"
-msgstr ""
+msgstr "Pred %d minútami"
 
 #: web/chatview.html:534
 msgid "just now"
-msgstr ""
+msgstr "Práve teraz"
 
 #: web/chatview.html:634
 msgid "Sending"
-msgstr ""
+msgstr "Posiela sa"
 
 #: web/chatview.html:637
 msgid "Failure"
-msgstr ""
+msgstr "Chyba"
 
 #: web/chatview.html:1286
 msgid "Delete"
-msgstr "Vymaž"
+msgstr "Vymazať"
 
 #: web/chatview.html:1473
 msgid "Retry"
-msgstr ""
+msgstr "Skúsiť znovu"

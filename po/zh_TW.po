@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-20 11:37-0400\n"
-"PO-Revision-Date: 2020-05-20 15:37+0000\n"
+"POT-Creation-Date: 2020-05-25 03:09-0400\n"
+"PO-Revision-Date: 2020-05-21 04:58+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -558,15 +558,15 @@ msgstr "檔案傳輸"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
-msgstr ""
+msgstr "允許未知聯絡人傳來的檔案"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
-msgstr ""
+msgstr "自動接受傳來的檔案"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr ""
+msgstr "接受傳書低於多少大小的檔案（以 Mb 計，0 = 無限制）"
 
 #: ui/profile.ui:58
 msgid "Informations"
