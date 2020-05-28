@@ -63,6 +63,8 @@ struct _MediaSettingsViewPrivate
     GtkWidget *combobox_resolution;
     GtkWidget *combobox_framerate;
     GtkWidget *video_widget;
+    GtkWidget *preview_box;
+    GtkWidget *box_video_settings;
 
     /* this is used to keep track of the state of the preview when the settings
      * are opened; if a call is in progress, then the preview should already be
@@ -75,7 +77,7 @@ struct _MediaSettingsViewPrivate
     QMetaObject::Connection audio_meter_connection;
 
     /* hardware accel settings */
-    GtkWidget *checkbutton_hardware_acceleration;
+    GtkWidget *hardware_accel_button;
 
     details::CppImpl* cpp; ///< Non-UI and C++ only code
 };
@@ -108,25 +110,39 @@ CppImpl::CppImpl(MediaSettingsView& widget, lrc::api::AVModel& avModel)
 , widgets {MEDIA_SETTINGS_VIEW_GET_PRIVATE(&widget)}
 , avModel_(&avModel)
 {
-    gtk_toggle_button_set_active(
-        GTK_TOGGLE_BUTTON(widgets->checkbutton_hardware_acceleration),
+    gtk_switch_set_active(
+        GTK_SWITCH(widgets->hardware_accel_button),
         avModel_->getHardwareAcceleration());
 
     auto activeIdx = 0;
     auto currentManager = avModel_->getAudioManager();
     auto i = 0;
+    auto store = gtk_list_store_new(2 /* # of cols */ ,
+                                G_TYPE_UINT,
+                                G_TYPE_STRING);
+    GtkTreeIter iter;
     for (const auto& manager : avModel_->getSupportedAudioManagers()) {
         if (manager == currentManager) {
             activeIdx = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_manager), nullptr, qUtf8Printable(manager));
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter,
+                            0 /* col # */ , i /* celldata */,
+                            1 /* col # */ , manager.toStdString().c_str() /* celldata */,
+                            -1 /* end */);
         i++;
     }
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(widgets->combobox_manager),
+        GTK_TREE_MODEL(store)
+    );
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_manager), activeIdx);
-    drawAudioDevices();
-    drawVideoDevices();
 
     gtk_level_bar_set_value(GTK_LEVEL_BAR(widgets->levelbar_input), 0.0);
+    gtk_widget_set_size_request(widgets->levelbar_input, 390, -1);
+
+    drawAudioDevices();
+    drawVideoDevices();
 }
 
 void
@@ -136,12 +152,16 @@ CppImpl::drawAudioDevices()
         g_warning("AVModel not initialized yet");
         return;
     }
-    auto activeOutput = 0, activeRingtone = 0;
+    auto activeOutput = 0, activeInput = 0, activeRingtone = 0;
     auto currentOutput = avModel_->getOutputDevice();
+    auto currentInput = avModel_->getInputDevice();
     auto currentRingtone = avModel_->getRingtoneDevice();
     auto i = 0;
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_ringtone));
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_output));
+
+    auto store = gtk_list_store_new(2 /* # of cols */ ,
+                                G_TYPE_UINT,
+                                G_TYPE_STRING);
+    GtkTreeIter iter;
     for (const auto& output : avModel_->getAudioOutputDevices()) {
         if (output == currentOutput) {
             activeOutput = i;
@@ -149,24 +169,43 @@ CppImpl::drawAudioDevices()
         if (output == currentRingtone) {
             activeRingtone = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_ringtone), nullptr, qUtf8Printable(output));
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_output), nullptr, qUtf8Printable(output));
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter,
+                            0 /* col # */ , i /* celldata */,
+                            1 /* col # */ , output.toStdString().c_str() /* celldata */,
+                            -1 /* end */);
         i++;
     }
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(widgets->combobox_ringtone),
+        GTK_TREE_MODEL(store)
+    );
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(widgets->combobox_output),
+        GTK_TREE_MODEL(store)
+    );
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_ringtone), activeRingtone);
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_output), activeOutput);
 
-    auto activeInput = 0;
-    auto currentInput = avModel_->getInputDevice();
+    store = gtk_list_store_new(2 /* # of cols */ ,
+                                G_TYPE_UINT,
+                                G_TYPE_STRING);
     i = 0;
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_input));
     for (const auto& input : avModel_->getAudioInputDevices()) {
         if (input == currentInput) {
             activeInput = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_input), nullptr, qUtf8Printable(input));
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter,
+                            0 /* col # */ , i /* celldata */,
+                            1 /* col # */ , input.toStdString().c_str() /* celldata */,
+                            -1 /* end */);
         i++;
     }
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(widgets->combobox_input),
+        GTK_TREE_MODEL(store)
+    );
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_input), activeInput);
 }
 
@@ -207,15 +246,26 @@ CppImpl::drawFramerates()
         return;
     auto rates = deviceCaps.value(currentChannel).value(currentResIndex).second;
     auto i = 0;
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate));
+    auto store = gtk_list_store_new(2 /* # of cols */ ,
+                                G_TYPE_UINT,
+                                G_TYPE_STRING);
+    GtkTreeIter iter;
     for (const auto& rate : rates) {
         auto rateStr = QString::number(static_cast<uint8_t>(rate));
         if (rateStr == currentRate) {
             active = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate), nullptr, qUtf8Printable(rateStr));
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter,
+            0 /* col # */ , i /* celldata */,
+            1 /* col # */ , rateStr.toStdString().c_str() /* celldata */,
+            -1 /* end */);
         i++;
     }
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(widgets->combobox_framerate),
+        GTK_TREE_MODEL(store)
+    );
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_framerate), active);
 }
 
@@ -240,14 +290,25 @@ CppImpl::drawResolutions()
     if (capabilities.find(currentChannel) == capabilities.end()) return;
     auto resToRates = avModel_->getDeviceCapabilities(currentDevice).value(currentChannel);
     auto i = 0;
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution));
+    auto store = gtk_list_store_new(2 /* # of cols */ ,
+                                G_TYPE_UINT,
+                                G_TYPE_STRING);
+    GtkTreeIter iter;
     for (const auto& item : resToRates) {
         if (item.first == currentRes) {
             active = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution), nullptr, qUtf8Printable(item.first));
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter,
+            0 /* col # */ , i /* celldata */,
+            1 /* col # */ , item.first.toStdString().c_str() /* celldata */,
+            -1 /* end */);
         i++;
     }
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(widgets->combobox_resolution),
+        GTK_TREE_MODEL(store)
+    );
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_resolution), active);
     drawFramerates();
 }
@@ -259,7 +320,6 @@ CppImpl::drawChannels()
         g_warning("AVModel not initialized yet");
         return;
     }
-    auto active = 0;
     auto currentDevice = avModel_->getDefaultDevice();
     QString currentChannel = "";
     try {
@@ -268,15 +328,27 @@ CppImpl::drawChannels()
         g_warning("drawChannels out_of_range exception");
         return;
     }
+    auto active = 0;
     auto i = 0;
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_channel));
+    auto store = gtk_list_store_new(2 /* # of cols */ ,
+                                G_TYPE_UINT,
+                                G_TYPE_STRING);
+    GtkTreeIter iter;
     for (const auto& capabilites : avModel_->getDeviceCapabilities(currentDevice).toStdMap()) {
         if (capabilites.first == currentChannel) {
             active = i;
         }
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_channel), nullptr, qUtf8Printable(capabilites.first));
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter,
+            0 /* col # */ , i /* celldata */,
+            1 /* col # */ , capabilites.first.toStdString().c_str() /* celldata */,
+            -1 /* end */);
         i++;
     }
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(widgets->combobox_channel),
+        GTK_TREE_MODEL(store)
+    );
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_channel), active);
     drawResolutions();
 }
@@ -291,25 +363,54 @@ CppImpl::drawVideoDevices()
     auto active = 0;
     auto current = avModel_->getDefaultDevice();
     // Clean comboboxes
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_device));
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_channel));
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_resolution));
-    gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(widgets->combobox_framerate));
+    auto storeEmpty = gtk_list_store_new(2 /* # of cols */ ,
+                                G_TYPE_UINT,
+                                G_TYPE_STRING);
+    gtk_combo_box_set_model(GTK_COMBO_BOX(widgets->combobox_device), GTK_TREE_MODEL(storeEmpty));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_device), -1);
+    gtk_combo_box_set_model(GTK_COMBO_BOX(widgets->combobox_channel), GTK_TREE_MODEL(storeEmpty));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_channel), -1);
+    gtk_combo_box_set_model(GTK_COMBO_BOX(widgets->combobox_resolution), GTK_TREE_MODEL(storeEmpty));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_resolution), -1);
+    gtk_combo_box_set_model(GTK_COMBO_BOX(widgets->combobox_framerate), GTK_TREE_MODEL(storeEmpty));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_framerate), -1);
     if (current == "") {
         // Avoid to draw devices if no camera is selected
+        gtk_widget_hide(widgets->box_video_settings);
+        if (widgets->video_widget)
+            avModel_->stopPreview();
         return;
     }
+    if (!gtk_widget_get_visible(widgets->box_video_settings)) {
+        gtk_widget_show(widgets->box_video_settings);
+        if (widgets->video_widget)
+            avModel_->startPreview();
+    }
+
+    active = 0;
     auto i = 0;
+    auto store = gtk_list_store_new(2 /* # of cols */ ,
+                                G_TYPE_UINT,
+                                G_TYPE_STRING);
+    GtkTreeIter iter;
     for (const auto& device : avModel_->getDevices()) {
         if (device == current) {
             active = i;
         }
         try {
             auto name = avModel_->getDeviceSettings(device).name;
-            gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(widgets->combobox_device), nullptr, qUtf8Printable(name));
+            gtk_list_store_append(store, &iter);
+            gtk_list_store_set(store, &iter,
+                                0 /* col # */ , i /* celldata */,
+                                1 /* col # */ , name.toStdString().c_str() /* celldata */,
+                                -1 /* end */);
         } catch (...) {}
         i++;
     }
+    gtk_combo_box_set_model(
+        GTK_COMBO_BOX(widgets->combobox_device),
+        GTK_TREE_MODEL(store)
+    );
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_device), active);
     drawChannels();
 }
@@ -338,12 +439,12 @@ media_settings_view_dispose(GObject *object)
 }
 
 static void
-hardware_acceleration_toggled(GtkToggleButton *toggle_button, MediaSettingsView *self)
+update_hardware_accel(GObject*, GParamSpec*, MediaSettingsView *self)
 {
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
-    gboolean hardware_acceleration = gtk_toggle_button_get_active(toggle_button);
-    priv->cpp->avModel_->setHardwareAcceleration(hardware_acceleration);
+    auto newState = gtk_switch_get_active(GTK_SWITCH(priv->hardware_accel_button));
+    priv->cpp->avModel_->setHardwareAcceleration(newState);
 }
 
 static void
@@ -351,10 +452,18 @@ set_audio_manager(MediaSettingsView* self)
 {
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
-    auto* audio_manager = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_manager));
-    if (audio_manager) {
-        priv->cpp->avModel_->setAudioManager(audio_manager);
-        priv->cpp->drawAudioDevices();
+    auto combobox = GTK_COMBO_BOX(priv->combobox_manager);
+    auto model = gtk_combo_box_get_model(combobox);
+
+    GtkTreeIter iter;
+    if (gtk_combo_box_get_active_iter(combobox, &iter)) {
+        gchar* text;
+        gtk_tree_model_get(model, &iter, 1 /* col# */, &text /* data */, -1);
+        if (text) {
+            priv->cpp->avModel_->setAudioManager(text);
+            priv->cpp->drawAudioDevices();
+        }
+        g_free(text);
     }
 }
 
@@ -363,9 +472,17 @@ set_ringtone_device(MediaSettingsView* self)
 {
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
-    auto* ringtone_device = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_ringtone));
-    if (ringtone_device) {
-        priv->cpp->avModel_->setRingtoneDevice(ringtone_device);
+    auto combobox = GTK_COMBO_BOX(priv->combobox_ringtone);
+    auto model = gtk_combo_box_get_model(combobox);
+
+    GtkTreeIter iter;
+    if (gtk_combo_box_get_active_iter(combobox, &iter)) {
+        gchar* text;
+        gtk_tree_model_get(model, &iter, 1 /* col# */, &text /* data */, -1);
+        if (text) {
+            priv->cpp->avModel_->setRingtoneDevice(text);
+        }
+        g_free(text);
     }
 }
 
@@ -374,9 +491,17 @@ set_output_device(MediaSettingsView* self)
 {
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
-    auto* output_device = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_output));
-    if (output_device) {
-        priv->cpp->avModel_->setOutputDevice(output_device);
+    auto combobox = GTK_COMBO_BOX(priv->combobox_output);
+    auto model = gtk_combo_box_get_model(combobox);
+
+    GtkTreeIter iter;
+    if (gtk_combo_box_get_active_iter(combobox, &iter)) {
+        gchar* text;
+        gtk_tree_model_get(model, &iter, 1 /* col# */, &text /* data */, -1);
+        if (text) {
+            priv->cpp->avModel_->setOutputDevice(text);
+        }
+        g_free(text);
     }
 }
 
@@ -385,9 +510,17 @@ set_input_device(MediaSettingsView* self)
 {
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
-    auto* input_device = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_input));
-    if (input_device) {
-        priv->cpp->avModel_->setInputDevice(input_device);
+    auto combobox = GTK_COMBO_BOX(priv->combobox_input);
+    auto model = gtk_combo_box_get_model(combobox);
+
+    GtkTreeIter iter;
+    if (gtk_combo_box_get_active_iter(combobox, &iter)) {
+        gchar* text;
+        gtk_tree_model_get(model, &iter, 1 /* col# */, &text /* data */, -1);
+        if (text) {
+            priv->cpp->avModel_->setInputDevice(text);
+        }
+        g_free(text);
     }
 }
 
@@ -396,23 +529,32 @@ set_video_device(MediaSettingsView* self)
 {
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
-    auto* device_name = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_device));
-    if (device_name) {
-        auto device_id = priv->cpp->avModel_->getDeviceIdFromName(device_name);
-        if (device_id.isEmpty()) {
-            g_warning("set_video_device couldn't find device: %s", device_name);
-            return;
+    auto combobox = GTK_COMBO_BOX(priv->combobox_device);
+    auto model = gtk_combo_box_get_model(combobox);
+
+    GtkTreeIter iter;
+    if (gtk_combo_box_get_active_iter(combobox, &iter)) {
+        gchar* text;
+        gtk_tree_model_get(model, &iter, 1 /* col# */, &text /* data */, -1);
+        if (text) {
+            auto device_id = priv->cpp->avModel_->getDeviceIdFromName(text);
+            if (device_id.isEmpty()) {
+                g_warning("set_video_device couldn't find device: %s", text);
+                return;
+            }
+            auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
+            if (currentDevice == device_id) return;
+            priv->cpp->avModel_->setDefaultDevice(device_id);
+            try {
+                auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
+                priv->cpp->avModel_->setDeviceSettings(settings);
+            } catch (const std::out_of_range&) {
+                g_warning("set_video_device out_of_range exception");
+            }
+            priv->cpp->drawVideoDevices();
+            priv->cpp->avModel_->startPreview();
         }
-        auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
-        if (currentDevice == device_id) return;
-        priv->cpp->avModel_->setDefaultDevice(device_id);
-        try {
-            auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
-            priv->cpp->avModel_->setDeviceSettings(settings);
-        } catch (const std::out_of_range&) {
-            g_warning("set_video_device out_of_range exception");
-        }
-        priv->cpp->drawVideoDevices();
+        g_free(text);
     }
 }
 
@@ -421,19 +563,27 @@ set_channel(MediaSettingsView* self)
 {
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
-    auto* video_channel = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_channel));
-    if (video_channel) {
-        auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
-        try {
-            auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
-            if (settings.channel == video_channel) return;
-            settings.channel = video_channel;
-            priv->cpp->avModel_->setDeviceSettings(settings);
-        } catch (const std::out_of_range&) {
-            g_warning("set_channel out_of_range exception");
-            return;
+    auto combobox = GTK_COMBO_BOX(priv->combobox_channel);
+    auto model = gtk_combo_box_get_model(combobox);
+
+    GtkTreeIter iter;
+    if (gtk_combo_box_get_active_iter(combobox, &iter)) {
+        gchar* text;
+        gtk_tree_model_get(model, &iter, 1 /* col# */, &text /* data */, -1);
+        if (text) {
+            auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
+            try {
+                auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
+                if (settings.channel == text) return;
+                settings.channel = text;
+                priv->cpp->avModel_->setDeviceSettings(settings);
+            } catch (const std::out_of_range&) {
+                g_warning("set_channel out_of_range exception");
+                return;
+            }
+            priv->cpp->drawChannels();
         }
-        priv->cpp->drawChannels();
+        g_free(text);
     }
 }
 
@@ -442,19 +592,27 @@ set_resolution(MediaSettingsView* self)
 {
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
-    auto* video_resolution = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_resolution));
-    if (video_resolution) {
-        auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
-        try {
-            auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
-            if (settings.size == video_resolution) return;
-            settings.size = video_resolution;
-            priv->cpp->avModel_->setDeviceSettings(settings);
-        } catch (const std::out_of_range&) {
-            g_warning("set_resolution out_of_range exception");
-            return;
+    auto combobox = GTK_COMBO_BOX(priv->combobox_resolution);
+    auto model = gtk_combo_box_get_model(combobox);
+
+    GtkTreeIter iter;
+    if (gtk_combo_box_get_active_iter(combobox, &iter)) {
+        gchar* text;
+        gtk_tree_model_get(model, &iter, 1 /* col# */, &text /* data */, -1);
+        if (text) {
+            auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
+            try {
+                auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
+                if (settings.size == text) return;
+                settings.size = text;
+                priv->cpp->avModel_->setDeviceSettings(settings);
+            } catch (const std::out_of_range&) {
+                g_warning("set_resolution out_of_range exception");
+                return;
+            }
+            priv->cpp->drawFramerates();
         }
-        priv->cpp->drawFramerates();
+        g_free(text);
     }
 }
 
@@ -463,17 +621,25 @@ set_framerate(MediaSettingsView* self)
 {
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
-    auto* video_framerate = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(priv->combobox_framerate));
-    if (video_framerate) {
-        auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
-        try {
-            auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
-            if (settings.rate == std::stoi(video_framerate)) return;
-            settings.rate = std::stoi(video_framerate);
-            priv->cpp->avModel_->setDeviceSettings(settings);
-        } catch (...) {
-            g_debug("Cannot convert framerate.");
+    auto combobox = GTK_COMBO_BOX(priv->combobox_framerate);
+    auto model = gtk_combo_box_get_model(combobox);
+
+    GtkTreeIter iter;
+    if (gtk_combo_box_get_active_iter(combobox, &iter)) {
+        gchar* text;
+        gtk_tree_model_get(model, &iter, 1 /* col# */, &text /* data */, -1);
+        if (text) {
+            auto currentDevice = priv->cpp->avModel_->getDefaultDevice();
+            try {
+                auto settings = priv->cpp->avModel_->getDeviceSettings(currentDevice);
+                if (settings.rate == std::stoi(text)) return;
+                settings.rate = std::stoi(text);
+                priv->cpp->avModel_->setDeviceSettings(settings);
+            } catch (...) {
+                g_debug("Cannot convert framerate.");
+            }
         }
+        g_free(text);
     }
 }
 
@@ -500,8 +666,28 @@ media_settings_view_class_init(MediaSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_channel);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_resolution);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, combobox_framerate);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, checkbutton_hardware_acceleration);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, hardware_accel_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, levelbar_input);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, preview_box);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MediaSettingsView, box_video_settings);
+}
+
+static void
+print_data(GtkCellLayout*,
+           GtkCellRenderer* cell,
+           GtkTreeModel* model,
+           GtkTreeIter* iter,
+           gpointer*)
+{
+    gchar *text;
+
+    gtk_tree_model_get(model, iter, 1 /* col# */, &text /* data */, -1);
+
+    g_object_set(G_OBJECT(cell), "markup", text, NULL);
+    g_object_set(G_OBJECT(cell), "height", 17, NULL);
+    g_object_set(G_OBJECT(cell), "ypad", 0, NULL);
+
+    g_free(text);
 }
 
 GtkWidget *
@@ -513,9 +699,55 @@ media_settings_view_new(lrc::api::AVModel& avModel)
         *(reinterpret_cast<MediaSettingsView*>(self)), avModel
     );
 
+
+    auto renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+    g_object_set(G_OBJECT(renderer), "width-chars", 50, NULL);
+    g_object_set(G_OBJECT(renderer), "max-width-chars", 50, NULL);
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_manager), renderer, true);
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_manager),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc )print_data,
+                                       priv, nullptr);
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_ringtone), renderer, true);
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_ringtone),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc )print_data,
+                                       priv, nullptr);
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_output), renderer, true);
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_output),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc )print_data,
+                                       priv, nullptr);
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_input), renderer, true);
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_input),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc )print_data,
+                                       priv, nullptr);
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_device), renderer, true);
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_device),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc )print_data,
+                                       priv, nullptr);
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_channel), renderer, true);
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_channel),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc )print_data,
+                                       priv, nullptr);
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_resolution), renderer, true);
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_resolution),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc )print_data,
+                                       priv, nullptr);
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(priv->combobox_framerate), renderer, true);
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(priv->combobox_framerate),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc )print_data,
+                                       priv, nullptr);
+
     // CppImpl ctor
-    g_signal_connect(priv->checkbutton_hardware_acceleration, "toggled",
-        G_CALLBACK(hardware_acceleration_toggled), self);
+    g_signal_connect(priv->hardware_accel_button, "notify::active",
+        G_CALLBACK(update_hardware_accel), self);
     g_signal_connect_swapped(priv->combobox_manager, "changed",
         G_CALLBACK(set_audio_manager), self);
     g_signal_connect_swapped(priv->combobox_ringtone, "changed",
@@ -548,6 +780,12 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
 
+    if (priv->cpp) {
+        // Update view (we don't listen for events while not displaying)
+        priv->cpp->drawAudioDevices();
+        priv->cpp->drawVideoDevices();
+    }
+
     /* if TRUE, create a VideoWidget, then check if the preview has already been
      * started (because a call was in progress); if not, then start it.
      * if FALSE, check if the preview was started by this function, if so
@@ -558,7 +796,17 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
         /* put video widget in */
         priv->video_widget = video_widget_new();
         gtk_widget_show_all(priv->video_widget);
-        gtk_box_pack_start(GTK_BOX(priv->vbox_main), priv->video_widget, TRUE, TRUE, 0);
+        #if GTK_CHECK_VERSION(3,22,0)
+            GdkRectangle workarea = {};
+            gdk_monitor_get_workarea(
+                gdk_display_get_primary_monitor(gdk_display_get_default()),
+                &workarea);
+            gtk_widget_set_size_request(priv->preview_box, workarea.height/3, workarea.height/4);
+        #else
+            gtk_widget_set_size_request(priv->preview_box, gdk_screen_height()/3, gdk_screen_height()/4);
+        #endif
+
+        gtk_box_pack_start(GTK_BOX(priv->preview_box), priv->video_widget, TRUE, TRUE, 0);
         // set minimum size for video so it doesn't shrink too much
         gtk_widget_set_size_request(priv->video_widget, 400, -1);
 
@@ -576,6 +824,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
                     &*priv->cpp->avModel_,
                     &lrc::api::AVModel::deviceEvent,
                     [=]() {
+                        priv->cpp->drawAudioDevices();
                         priv->cpp->drawVideoDevices();
                     });
                 priv->local_renderer_connection = QObject::connect(
@@ -605,7 +854,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
         }
 
         if (priv->video_widget && IS_VIDEO_WIDGET(priv->video_widget))
-            gtk_container_remove(GTK_CONTAINER(priv->vbox_main), priv->video_widget);
+            gtk_container_remove(GTK_CONTAINER(priv->preview_box), priv->video_widget);
         priv->video_widget = NULL;
         priv->cpp->avModel_->setAudioMeterState(false);
         priv->cpp->avModel_->stopAudioDevice();
