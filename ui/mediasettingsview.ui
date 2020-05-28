@@ -3,316 +3,515 @@
   <requires lib="gtk+" version="3.10"/>
   <template class="MediaSettingsView" parent="GtkScrolledWindow">
     <property name="visible">True</property>
+
     <child>
       <object class="GtkBox" id="vbox_main">
         <property name="visible">True</property>
-        <property name="orientation">horizontal</property>
-        <!-- start audio selection -->
+        <property name="spacing">24</property>
+        <property name="border_width">10</property>
+        <property name="orientation">vertical</property>
+        <property name="halign">center</property>
+        <property name="valign">center</property>
+
+        <!-- Audio settings -->
         <child>
-          <object class="GtkGrid" id="grid_left">
+          <object class="GtkBox" id="box_audio_settings">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="row_spacing">10</property>
-            <property name="column_spacing">10</property>
-            <property name="border_width">10</property>
-            <!-- start audio selection -->
+            <property name="orientation">vertical</property>
+            <property name="halign">fill</property>
+            <property name="spacing">8</property>
+            <!-- Title -->
             <child>
-              <object class="GtkLabel" id="label_audio_selection">
+              <object class="GtkLabel" id="label_audio_settings">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Audio</property>
                 <property name="halign">start</property>
-                <property name="label" translatable="yes">Audio Settings</property>
-                <property name="ellipsize">end</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label_manager">
+              <object class="GtkFrame">
                 <property name="visible">True</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Audio manager:</property>
-                <property name="margin_left">10</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">out</property>
+                <child>
+                  <object class="GtkListBox" id="audio_settings">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">fill</property>
+                    <property name="selection_mode">none</property>
+
+                    <child>
+                      <!-- Audio manager -->
+                      <object class="GtkListBoxRow" id="audio_manager_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="audio_manager_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_manager">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Audio manager</property>
+                                <property name="margin-right">12</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkComboBox" id="combobox_manager">
+                                <property name="visible">True</property>
+                                <property name="popup-fixed-width">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Ringtone device -->
+                      <object class="GtkListBoxRow" id="ringtone_device_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="ringtone_device_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_ringtone">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Ringtone device</property>
+                                <property name="margin-right">12</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkComboBox" id="combobox_ringtone">
+                                <property name="visible">True</property>
+                                <property name="popup-fixed-width">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Output device -->
+                      <object class="GtkListBoxRow" id="output_device_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="output_device_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_output">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Output device</property>
+                                <property name="margin-right">12</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkComboBox" id="combobox_output">
+                                <property name="visible">True</property>
+                                <property name="popup-fixed-width">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Input device -->
+                      <object class="GtkListBoxRow" id="input_device_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="input_device_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_input">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Input device</property>
+                                <property name="margin-right">12</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkComboBox" id="combobox_input">
+                                <property name="visible">True</property>
+                                <property name="popup-fixed-width">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Input volume meter -->
+                      <object class="GtkListBoxRow" id="input_meter_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="input_meter_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_input_meter">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Input volume meter</property>
+                                <property name="margin-right">12</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLevelBar" id="levelbar_input">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                  </object>
+                </child>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-              </packing>
             </child>
-            <child>
-              <object class="GtkLabel" id="label_ringtone">
-                <property name="visible">True</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Ringtone device:</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_output">
-                <property name="visible">True</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Output device:</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_input">
-                <property name="visible">True</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Input device:</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">4</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_input_meter">
-                <property name="visible">True</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Input volume meter:</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">5</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="combobox_manager">
-                <property name="visible">True</property>
-                <property name="popup-fixed-width">False</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="combobox_ringtone">
-                <property name="visible">True</property>
-                <property name="popup-fixed-width">False</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="combobox_output">
-                <property name="visible">True</property>
-                <property name="popup-fixed-width">False</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="combobox_input">
-                <property name="visible">True</property>
-                <property name="popup-fixed-width">False</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">4</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLevelBar" id="levelbar_input">
-                <property name="visible">True</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">5</property>
-              </packing>
-            </child>
-            <!-- end audio selection -->
-            <!-- start camera selection -->
-            <child>
-              <object class="GtkLabel" id="label_camera_selection">
-                <property name="visible">True</property>
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Camera Settings</property>
-                <property name="ellipsize">end</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">6</property>
-                <property name="width">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_device">
-                <property name="visible">True</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Device:</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">7</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_channel">
-                <property name="visible">True</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Channel:</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">8</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_resolution">
-                <property name="visible">True</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Resolution:</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">9</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_rate">
-                <property name="visible">True</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Frame rate:</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">10</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="combobox_device">
-                <property name="visible">True</property>
-                <property name="popup-fixed-width">False</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">7</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="combobox_channel">
-                <property name="visible">True</property>
-                <property name="popup-fixed-width">False</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">8</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="combobox_resolution">
-                <property name="visible">True</property>
-                <property name="popup-fixed-width">False</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">9</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="combobox_framerate">
-                <property name="visible">True</property>
-                <property name="popup-fixed-width">False</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">10</property>
-              </packing>
-            </child>
-            <!-- end camera selection -->
-            <!-- start hardware accel selection -->
-            <child>
-              <object class="GtkLabel" id="label_hardware_accel">
-                <property name="visible">True</property>
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Hardware Acceleration</property>
-                <property name="ellipsize">end</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">11</property>
-                <property name="width">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_hardware_acceleration">
-                <property name="visible">True</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Enable hardware acceleration:</property>
-                <property name="margin_left">10</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">12</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="checkbutton_hardware_acceleration">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="xalign">0</property>
-                <property name="margin_left">10</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">12</property>
-              </packing>
-            </child>
-            <!-- end hardware accel selection -->
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-          </packing>
         </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">False</property>
-      </packing>
-    </child>
+
+        <!-- Video settings -->
+        <child>
+          <object class="GtkBox" id="box_video_settings">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="halign">fill</property>
+            <property name="spacing">8</property>
+            <!-- Title -->
+            <child>
+              <object class="GtkLabel" id="label_video_settings">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Video</property>
+                <property name="halign">start</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">out</property>
+
+                <child>
+                  <object class="GtkListBox" id="video_settings">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">fill</property>
+                    <property name="selection_mode">none</property>
+
+
+
+                    <child>
+                      <!-- No camera detected -->
+                      <object class="GtkListBoxRow" id="no_camera_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="no_camera_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="halign">center</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_no_camera">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">No camera detected</property>
+                                <property name="margin-right">12</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Video Preview -->
+                      <object class="GtkListBoxRow" id="preview_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="preview_box">
+                            <property name="visible">True</property>
+                            <property name="valign">end</property>
+                            <property name="halign">center</property>
+                            <property name="orientation">vertical</property>
+                            <property name="margin_top">12</property>
+                            <property name="spacing">5</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Device selection -->
+                      <object class="GtkListBoxRow" id="video_device_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="video_device_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_device">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">Device</property>
+                                <property name="margin-right">12</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkComboBox" id="combobox_device">
+                                <property name="visible">True</property>
+                                <property name="popup-fixed-width">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Channel selection -->
+                      <object class="GtkListBoxRow" id="video_channel_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="video_channel_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_channel">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">Channel</property>
+                                <property name="margin-right">12</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkComboBox" id="combobox_channel">
+                                <property name="visible">True</property>
+                                <property name="popup-fixed-width">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Resolution selection -->
+                      <object class="GtkListBoxRow" id="video_resolution_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="video_resolution_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_resolution">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">Resolution</property>
+                                <property name="margin-right">12</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkComboBox" id="combobox_resolution">
+                                <property name="visible">True</property>
+                                <property name="popup-fixed-width">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Framerate selection -->
+                      <object class="GtkListBoxRow" id="video_framerate_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="video_framerate_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_framerate">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">Framerate</property>
+                                <property name="margin-right">12</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkComboBox" id="combobox_framerate">
+                                <property name="visible">True</property>
+                                <property name="popup-fixed-width">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Hardware acceleration -->
+                      <object class="GtkListBoxRow" id="hardware_accel_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="hardware_accel_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_hardware_accel">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Enable hardware acceleration</property>
+                                <property name="margin-right">12</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="hardware_accel_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                  </object>
+                </child>
+              </object>
+
+            </child>
+          </object>
+        </child>
+
+    </object>
+    <packing>
+      <property name="expand">True</property>
+      <property name="fill">True</property>
+    </packing>
+  </child>
   </template>
 </interface>
